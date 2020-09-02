@@ -35,3 +35,5 @@ Note that code issues should be filed against the main kubernetes repository, wh
 ### Submitting Documentation Pull Requests
 
 If you're fixing an issue in the existing documentation, you should submit a PR against the master branch.  Follow [these instructions to create a documentation pull request against the kubernetes.io repository](http://kubernetes.io/docs/home/contribute/create-pull-request/).
+
+For more information, see [contributing to Kubernetes docs](https://kubernetes.io/docs/contribute/).

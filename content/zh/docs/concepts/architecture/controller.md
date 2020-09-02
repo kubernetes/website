@@ -251,13 +251,13 @@ Kubernetes 允许你运行一个稳定的控制平面，这样即使某些内置
 
 ## {{% heading "whatsnext" %}}
 <!--
-* Read about the [Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
-* Discover some of the basic [Kubernetes objects](/docs/concepts/#kubernetes-objects)
+* Read about the [Kubernetes control plane](/docs/concepts/overview/components/#control-plane-components)
+* Discover some of the basic [Kubernetes objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
 -->
-* 阅读 [Kubernetes 控制面](/zh/docs/concepts/#kubernetes-control-plane)
-* 了解 [Kubernetes 对象](/zh/docs/concepts/#kubernetes-objects) 的一些基本知识
+* 阅读 [Kubernetes 控制平面组件](/zh/docs/concepts/overview/components/#control-plane-components)
+* 了解 [Kubernetes 对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/) 的一些基本知识
 * 进一步学习 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/)
 * 如果你想编写自己的控制器，请看 Kubernetes 的[扩展模式](/zh/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)。
 

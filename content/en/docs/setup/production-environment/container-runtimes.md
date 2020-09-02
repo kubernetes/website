@@ -81,7 +81,7 @@ apt-get update && apt-get install -y \
 ```
 
 ```shell
-# Add Docker’s official GPG key:
+# Add Docker's official GPG key:
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 ```
 
@@ -199,7 +199,7 @@ Use the following commands to install CRI-O on your system:
 
 {{< note >}}
 The CRI-O major and minor versions must match the Kubernetes major and minor versions.
-For more information, see the [CRI-O compatiblity matrix](https://github.com/cri-o/cri-o).
+For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o).
 {{< /note >}}
 
 ### Prerequisites
@@ -381,7 +381,7 @@ apt-get update && apt-get install -y apt-transport-https ca-certificates curl so
 ```
 
 ```shell
-## Add Docker’s official GPG key
+## Add Docker's official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 ```
 
@@ -439,6 +439,32 @@ containerd config default > /etc/containerd/config.toml
 ```shell
 # Restart containerd
 systemctl restart containerd
+```
+{{% /tab %}}
+{{% tab name="Windows (PowerShell)" %}}
+```powershell
+# (Install containerd)
+# download containerd
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
+```
+
+```powershell
+# extract and configure
+Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
+cd $Env:ProgramFiles\containerd\
+.\containerd.exe config default | Out-File config.toml -Encoding ascii
+
+# review the configuration. depending on setup you may want to adjust:
+# - the sandbox_image (kubernetes pause image)
+# - cni bin_dir and conf_dir locations
+Get-Content config.toml
+```
+
+```powershell
+# start containerd
+.\containerd.exe --register-service
+Start-Service containerd
 ```
 {{% /tab %}}
 {{< /tabs >}}

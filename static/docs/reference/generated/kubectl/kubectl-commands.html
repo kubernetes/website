@@ -76,6 +76,12 @@ inspect them.</p>
 <td>Edit the API resource before creating </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -91,7 +97,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>raw</td>
@@ -208,6 +214,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>non-resource-url</td>
 <td></td>
 <td>[]</td>
@@ -217,7 +229,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>resource</td>
@@ -297,10 +309,10 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
-<td>generator</td>
+<td>field-manager</td>
 <td></td>
-<td>clusterrolebinding.rbac.authorization.k8s.io/v1alpha1</td>
-<td>The name of the API generator to use. </td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
 </tr>
 <tr>
 <td>group</td>
@@ -312,7 +324,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -403,6 +415,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>from-env-file</td>
 <td></td>
 <td></td>
@@ -430,7 +448,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -457,17 +475,12 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Create a cronjob</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl create cronjob <span class="hljs-keyword">my</span>-job <span class="hljs-comment">--image=busybox</span>
+<pre class="code-block example"><code class="lang-shell">kubectl create cronjob my-job <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--schedule</span>=<span class="hljs-string">"*/1 * * * *"</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Create a cronjob with command</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl create cronjob <span class="hljs-keyword">my</span>-job <span class="hljs-comment">--image=busybox -- date</span>
-</code></pre>
-<blockquote class="code-block example">
-<p> Create a cronjob with schedule</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl create cronjob test-job <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--schedule</span>=<span class="hljs-string">"*/1 * * * *"</span>
+<pre class="code-block example"><code class="lang-shell">kubectl create cronjob my-job <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--schedule</span>=<span class="hljs-string">"*/1 * * * *"</span> -- date
 </code></pre>
 <p>Create a cronjob with the specified name.</p>
 <h3 id="usage">Usage</h3>
@@ -496,6 +509,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>image</td>
 <td></td>
 <td></td>
@@ -505,7 +524,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>restart</td>
@@ -542,13 +561,28 @@ inspect them.</p>
 <hr>
 <h2 id="-em-deployment-em-"><em>deployment</em></h2>
 <blockquote class="code-block example">
-<p> Create a new deployment named my-dep that runs the busybox image.</p>
+<p> Create a deployment named my-dep that runs the busybox image.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create deployment <span class="hljs-keyword">my</span>-dep <span class="hljs-comment">--image=busybox</span>
 </code></pre>
+<blockquote class="code-block example">
+<p> Create a deployment with command</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl create deployment <span class="hljs-keyword">my</span>-dep <span class="hljs-comment">--image=busybox -- date</span>
+</code></pre>
+<blockquote class="code-block example">
+<p> Create a deployment named my-dep that runs the nginx image with 3 replicas.</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl create deployment my-dep <span class="hljs-attribute">--image</span>=nginx <span class="hljs-attribute">--replicas</span>=3
+</code></pre>
+<blockquote class="code-block example">
+<p> Create a deployment named my-dep that runs the busybox image and expose port 5701.</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl create deployment my-dep <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--port</span>=5701
+</code></pre>
 <p>Create a deployment with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kubectl create deployment NAME --image=image [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create deployment NAME --image=image -- [COMMAND] [args...]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -573,6 +607,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td></td>
@@ -582,13 +622,25 @@ inspect them.</p>
 <td>image</td>
 <td></td>
 <td>[]</td>
-<td>Image name to run. </td>
+<td>Image names to run. </td>
 </tr>
 <tr>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
+</tr>
+<tr>
+<td>port</td>
+<td></td>
+<td>-1</td>
+<td>The port that this container exposes. </td>
+</tr>
+<tr>
+<td>replicas</td>
+<td>r</td>
+<td>1</td>
+<td>Number of replicas to create. Default is 1. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -654,6 +706,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>from</td>
 <td></td>
 <td></td>
@@ -669,7 +727,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -725,6 +783,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>namespace/v1</td>
@@ -734,7 +798,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -795,6 +859,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>poddisruptionbudget/v1beta1/v2</td>
@@ -816,7 +886,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -894,6 +964,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>priorityclass/v1</td>
@@ -909,12 +985,12 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>preemption-policy</td>
 <td></td>
-<td></td>
+<td>PreemptLowerPriority</td>
 <td>preemption-policy is the policy for preempting pods with lower priority. </td>
 </tr>
 <tr>
@@ -982,6 +1058,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>resourcequotas/v1</td>
@@ -997,7 +1079,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -1074,10 +1156,16 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>resource</td>
@@ -1157,6 +1245,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>rolebinding.rbac.authorization.k8s.io/v1alpha1</td>
@@ -1172,7 +1266,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>role</td>
@@ -1282,6 +1376,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>from-file</td>
 <td></td>
 <td>[]</td>
@@ -1297,7 +1397,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -1382,6 +1482,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>from-env-file</td>
 <td></td>
 <td></td>
@@ -1409,7 +1515,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -1484,6 +1590,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>secret-for-tls/v1</td>
@@ -1499,7 +1611,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -1571,6 +1683,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>service-clusterip/v1</td>
@@ -1580,7 +1698,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -1649,6 +1767,12 @@ inspect them.</p>
 <td>External name of service </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>service-externalname/v1</td>
@@ -1658,7 +1782,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -1720,6 +1844,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>service-loadbalancer/v1</td>
@@ -1729,7 +1859,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -1791,6 +1921,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>service-nodeport/v1</td>
@@ -1806,7 +1942,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -1868,6 +2004,12 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-create</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>generator</td>
 <td></td>
 <td>serviceaccount/v1</td>
@@ -1877,7 +2019,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>save-config</td>
@@ -1991,12 +2133,6 @@ inspect them.</p>
 <td></td>
 <td>500</td>
 <td>Return large lists in chunks rather than all at once. Pass 0 to disable. This flag is beta and may change in the future. </td>
-</tr>
-<tr>
-<td>export</td>
-<td></td>
-<td>false</td>
-<td>If true, use &#39;export&#39; for the resources.  Exported resources are stripped of cluster-specific information. </td>
 </tr>
 <tr>
 <td>field-selector</td>
@@ -2218,6 +2354,12 @@ inspect them.</p>
 <td>If true, service is created for the container(s) which are run </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-run</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -2287,7 +2429,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>overrides</td>
@@ -2306,6 +2448,12 @@ inspect them.</p>
 <td></td>
 <td></td>
 <td>The port that this container exposes. </td>
+</tr>
+<tr>
+<td>privileged</td>
+<td></td>
+<td>false</td>
+<td>If true, run the container in privileged mode. </td>
 </tr>
 <tr>
 <td>quiet</td>
@@ -2341,7 +2489,7 @@ inspect them.</p>
 <td>restart</td>
 <td></td>
 <td>Always</td>
-<td>The restart policy for this Pod.  Legal values <span>[</span>Always, OnFailure, Never<span>]</span>.  If set to &#39;Always&#39; a deployment is created, if set to &#39;OnFailure&#39; a job is created, if set to &#39;Never&#39;, a regular pod is created. For the latter two --replicas must be 1.  Default &#39;Always&#39;, for CronJobs <code>Never</code>. </td>
+<td>The restart policy for this Pod.  Legal values <span>[</span>Always, OnFailure, Never<span>]</span>. </td>
 </tr>
 <tr>
 <td>rm</td>
@@ -2496,6 +2644,12 @@ inspect them.</p>
 <td>Additional external IP address (not managed by Kubernetes) to accept for the service. If this IP is routed to a node, the service can be accessed by this IP in addition to its generated service IP. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-expose</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -2535,7 +2689,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>overrides</td>
@@ -2842,7 +2996,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>field-manager</td>
 <td></td>
-<td>kubectl</td>
+<td>kubectl-client-side-apply</td>
 <td>Name of the manager used to track field ownership. </td>
 </tr>
 <tr>
@@ -2885,7 +3039,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>overwrite</td>
@@ -2922,12 +3076,6 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>l</td>
 <td></td>
 <td>Selector (label query) to filter on, supports &#39;=&#39;, &#39;==&#39;, and &#39;!=&#39;.(e.g. -l key1=value1,key2=value2) </td>
-</tr>
-<tr>
-<td>server-dry-run</td>
-<td></td>
-<td>false</td>
-<td>If true, request will be sent to server with dry-run flag, which means the modifications won&#39;t be persisted. </td>
 </tr>
 <tr>
 <td>server-side</td>
@@ -2998,6 +3146,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-client-side-apply</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -3013,7 +3167,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>record</td>
@@ -3100,7 +3254,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>template</td>
@@ -3243,6 +3397,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-annotate</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>field-selector</td>
 <td></td>
 <td></td>
@@ -3261,6 +3421,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Process the kustomization directory. This flag can&#39;t be used together with -f or -R. </td>
 </tr>
 <tr>
+<td>list</td>
+<td></td>
+<td>false</td>
+<td>If true, display the annotations for a given resource. </td>
+</tr>
+<tr>
 <td>local</td>
 <td></td>
 <td>false</td>
@@ -3270,7 +3436,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>overwrite</td>
@@ -3356,6 +3522,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-autoscale</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -3395,7 +3567,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>record</td>
@@ -3484,7 +3656,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td>yaml</td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>output-version</td>
@@ -3545,7 +3717,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>field-manager</td>
 <td></td>
-<td>kubectl</td>
+<td>kubectl-client-side-apply</td>
 <td>Name of the manager used to track field ownership. </td>
 </tr>
 <tr>
@@ -3571,6 +3743,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>R</td>
 <td>false</td>
 <td>Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory. </td>
+</tr>
+<tr>
+<td>selector</td>
+<td>l</td>
+<td></td>
+<td>Selector (label query) to filter on, supports &#39;=&#39;, &#39;==&#39;, and &#39;!=&#39;.(e.g. -l key1=value1,key2=value2) </td>
 </tr>
 <tr>
 <td>server-side</td>
@@ -3628,6 +3806,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-edit</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -3643,7 +3827,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>output-patch</td>
@@ -3782,6 +3966,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-label</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>field-selector</td>
 <td></td>
 <td></td>
@@ -3815,7 +4005,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>overwrite</td>
@@ -3910,6 +4100,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-patch</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -3931,7 +4127,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>patch</td>
@@ -4022,6 +4218,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-replace</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -4049,7 +4251,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>raw</td>
@@ -4164,7 +4366,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>recursive</td>
@@ -4215,6 +4417,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-rollout</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -4230,7 +4438,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>recursive</td>
@@ -4280,6 +4488,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-rollout</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -4295,7 +4509,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>recursive</td>
@@ -4340,6 +4554,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-rollout</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -4355,7 +4575,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>recursive</td>
@@ -4490,7 +4710,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>recursive</td>
@@ -4574,6 +4794,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Precondition for current size. Requires that the current size of the resource match this value in order to scale. </td>
 </tr>
 <tr>
+<td>dry-run</td>
+<td></td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -4589,7 +4815,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>record</td>
@@ -4747,6 +4973,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Specify a key-value pair for an environment variable to set into each container. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-set</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -4786,7 +5018,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>overwrite</td>
@@ -4883,6 +5115,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-set</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -4904,7 +5142,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>record</td>
@@ -4995,6 +5233,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-set</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -5022,7 +5266,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>record</td>
@@ -5098,6 +5342,12 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-set</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -5113,7 +5363,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>record</td>
@@ -5188,6 +5438,12 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-set</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -5209,7 +5465,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>record</td>
@@ -5281,6 +5537,12 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-set</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -5308,7 +5570,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>recursive</td>
@@ -5412,7 +5674,7 @@ kubectl wait <span class="hljs-attribute">--for</span>=delete pod/busybox1 <span
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>recursive</td>
@@ -5451,19 +5713,19 @@ applications.</p>
 <hr>
 <h1 id="attach">attach</h1>
 <blockquote class="code-block example">
-<p> Get output from running pod 123456-7890, using the first container by default</p>
+<p> Get output from running pod mypod, using the first container by default</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-section">attach</span> <span class="hljs-number">123456</span><span class="hljs-number">-7890</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">attach</span> mypod
 </code></pre>
 <blockquote class="code-block example">
-<p> Get output from ruby-container from pod 123456-7890</p>
+<p> Get output from ruby-container from pod mypod</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-section">attach</span> <span class="hljs-number">123456</span><span class="hljs-number">-7890</span> -c ruby-container
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">attach</span> mypod -c ruby-container
 </code></pre>
 <blockquote class="code-block example">
-<p> Switch to raw terminal mode, sends stdin to &#39;bash&#39; in ruby-container from pod 123456-7890 # and sends stdout/stderr from &#39;bash&#39; back to the client</p>
+<p> Switch to raw terminal mode, sends stdin to &#39;bash&#39; in ruby-container from pod mypod # and sends stdout/stderr from &#39;bash&#39; back to the client</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-section">attach</span> <span class="hljs-number">123456</span><span class="hljs-number">-7890</span> -c ruby-container -i -t
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">attach</span> mypod -c ruby-container -i -t
 </code></pre>
 <blockquote class="code-block example">
 <p> Get output from the first pod of a ReplicaSet named nginx</p>
@@ -5652,7 +5914,7 @@ applications.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>recursive</td>
@@ -6385,30 +6647,6 @@ applications.</p>
 <td>If present, print usage of containers within a pod. </td>
 </tr>
 <tr>
-<td>heapster-namespace</td>
-<td></td>
-<td>kube-system</td>
-<td>Namespace Heapster service is located in </td>
-</tr>
-<tr>
-<td>heapster-port</td>
-<td></td>
-<td></td>
-<td>Port name in service to use </td>
-</tr>
-<tr>
-<td>heapster-scheme</td>
-<td></td>
-<td>http</td>
-<td>Scheme (http or https) to connect to Heapster as </td>
-</tr>
-<tr>
-<td>heapster-service</td>
-<td></td>
-<td>heapster</td>
-<td>Name of Heapster service </td>
-</tr>
-<tr>
 <td>no-headers</td>
 <td></td>
 <td>false</td>
@@ -6490,7 +6728,7 @@ applications.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>recursive</td>
@@ -6551,7 +6789,7 @@ applications.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>recursive</td>
@@ -6636,7 +6874,7 @@ applications.</p>
 <td>output</td>
 <td>o</td>
 <td>json</td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>output-directory</td>
@@ -6706,7 +6944,7 @@ applications.</p>
 <pre class="code-block example"><code class="lang-shell">$ kubectl drain foo <span class="hljs-attribute">--grace-period</span>=900
 </code></pre>
 <p>Drain node in preparation for maintenance.</p>
-<p> The given node will be marked unschedulable to prevent new pods from arriving. &#39;drain&#39; evicts the pods if the APIServer supports<a href="http://kubernetes.io/docs/admin/disruptions/">http://kubernetes.io/docs/admin/disruptions/</a> . Otherwise, it will use normal DELETE to delete the pods. The &#39;drain&#39; evicts or deletes all pods except mirror pods (which cannot be deleted through the API server).  If there are DaemonSet-managed pods, drain will not proceed without --ignore-daemonsets, and regardless it will not delete any DaemonSet-managed pods, because those pods would be immediately replaced by the DaemonSet controller, which ignores unschedulable markings.  If there are any pods that are neither mirror pods nor managed by ReplicationController, ReplicaSet, DaemonSet, StatefulSet or Job, then drain will not delete any pods unless you use --force.  --force will also allow deletion to proceed if the managing resource of one or more pods is missing.</p>
+<p> The given node will be marked unschedulable to prevent new pods from arriving. &#39;drain&#39; evicts the pods if the APIServer supports <a href="http://kubernetes.io/docs/admin/disruptions/">http://kubernetes.io/docs/admin/disruptions/</a> . Otherwise, it will use normal DELETE to delete the pods. The &#39;drain&#39; evicts or deletes all pods except mirror pods (which cannot be deleted through the API server).  If there are DaemonSet-managed pods, drain will not proceed without --ignore-daemonsets, and regardless it will not delete any DaemonSet-managed pods, because those pods would be immediately replaced by the DaemonSet controller, which ignores unschedulable markings.  If there are any pods that are neither mirror pods nor managed by ReplicationController, ReplicaSet, DaemonSet, StatefulSet or Job, then drain will not delete any pods unless you use --force.  --force will also allow deletion to proceed if the managing resource of one or more pods is missing.</p>
 <p> &#39;drain&#39; waits for graceful termination. You should not operate on the machine until the command completes.</p>
 <p> When you are ready to put the node back into service, use kubectl uncordon, which will make the node schedulable again.</p>
 <p> <a href="http://kubernetes.io/images/docs/kubectl_drain.svg">http://kubernetes.io/images/docs/kubectl_drain.svg</a></p>
@@ -6853,10 +7091,16 @@ applications.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
+<td>field-manager</td>
+<td></td>
+<td>kubectl-taint</td>
+<td>Name of the manager used to track field ownership. </td>
+</tr>
+<tr>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>overwrite</td>
@@ -6930,14 +7174,38 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Create an interactive debugging session in pod mypod and immediately attach to it. # (requires the EphemeralContainers feature to be enabled in the cluster)</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl alpha <span class="hljs-builtin-name">debug</span> mypod -i <span class="hljs-attribute">--image</span>=busybox
+<pre class="code-block example"><code class="lang-shell">kubectl alpha <span class="hljs-builtin-name">debug</span> mypod -it <span class="hljs-attribute">--image</span>=busybox
 </code></pre>
 <blockquote class="code-block example">
 <p> Create a debug container named debugger using a custom automated debugging image. # (requires the EphemeralContainers feature to be enabled in the cluster)</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl alpha <span class="hljs-builtin-name">debug</span> <span class="hljs-attribute">--image</span>=myproj/debug-tools -c debugger mypod
 </code></pre>
-<p>Tools for debugging Kubernetes resources</p>
+<blockquote class="code-block example">
+<p> Create a debug container as a copy of the original Pod and attach to it</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl alpha <span class="hljs-builtin-name">debug</span> mypod -it <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--copy-to</span>=my-debugger
+</code></pre>
+<blockquote class="code-block example">
+<p> Create a copy of mypod named my-debugger with my-container&#39;s image changed to busybox</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl alpha <span class="hljs-builtin-name">debug</span> mypod <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--container</span>=my-container <span class="hljs-attribute">--copy-to</span>=my-debugger -- sleep 1d
+</code></pre>
+<blockquote class="code-block example">
+<p> Create an interactive debugging session on a node and immediately attach to it. # The container will run in the host namespaces and the host&#39;s filesystem will be mounted at /host</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl alpha debug <span class="hljs-keyword">node</span><span class="hljs-title">/mynode</span> -it --<span class="hljs-attr">image=</span>busybox
+</code></pre>
+<p>Debug cluster resources using interactive debugging containers.</p>
+<p> &#39;debug&#39; provides automation for common debugging tasks for cluster objects identified by resource and name. Pods will be used by default if resource is not specified.</p>
+<p> The action taken by &#39;debug&#39; varies depending on what resource is specified. Supported actions include:</p>
+<ul>
+<li>Workload: Create a copy of an existing pod with certain attributes changed, for example changing the image tag to a new version.</li>
+<li>Workload: Add an ephemeral container to an already running pod, for example to add debugging utilities without restarting the pod.</li>
+<li><p>Node: Create a new pod that runs in the node&#39;s host namespaces and can access the node&#39;s filesystem.</p>
+<p>Alpha disclaimer: command line flags may change</p>
+</li>
+</ul>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl alpha debug NAME --image=image [ -- COMMAND [args...] ]</code></p>
 <h3 id="flags">Flags</h3>
@@ -6961,13 +7229,19 @@ applications.</p>
 <td>attach</td>
 <td></td>
 <td>false</td>
-<td>If true, wait for the Pod to start running, and then attach to the Pod as if &#39;kubectl attach ...&#39; were called.  Default false, unless &#39;-i/--stdin&#39; is set, in which case the default is true. </td>
+<td>If true, wait for the container to start running, and then attach as if &#39;kubectl attach ...&#39; were called.  Default false, unless &#39;-i/--stdin&#39; is set, in which case the default is true. </td>
 </tr>
 <tr>
 <td>container</td>
-<td></td>
+<td>c</td>
 <td></td>
 <td>Container name to use for debug container. </td>
+</tr>
+<tr>
+<td>copy-to</td>
+<td></td>
+<td></td>
+<td>Create a copy of the target Pod with this name. </td>
 </tr>
 <tr>
 <td>env</td>
@@ -6991,7 +7265,25 @@ applications.</p>
 <td>quiet</td>
 <td></td>
 <td>false</td>
-<td>If true, suppress prompt messages. </td>
+<td>If true, suppress informational messages. </td>
+</tr>
+<tr>
+<td>replace</td>
+<td></td>
+<td>false</td>
+<td>When used with &#39;--copy-to&#39;, delete the original Pod </td>
+</tr>
+<tr>
+<td>same-node</td>
+<td></td>
+<td>false</td>
+<td>When used with &#39;--copy-to&#39;, schedule the copy of target Pod on the same node. </td>
+</tr>
+<tr>
+<td>share-processes</td>
+<td></td>
+<td>true</td>
+<td>When used with &#39;--copy-to&#39;, enable process namespace sharing in the copy. </td>
 </tr>
 <tr>
 <td>stdin</td>
@@ -7003,13 +7295,13 @@ applications.</p>
 <td>target</td>
 <td></td>
 <td></td>
-<td>Target processes in this container name. </td>
+<td>When debugging a pod, target processes in this container name. </td>
 </tr>
 <tr>
 <td>tty</td>
 <td>t</td>
 <td>false</td>
-<td>Allocated a TTY for each container in the pod. </td>
+<td>Allocate a TTY for the debugging container. </td>
 </tr>
 </tbody>
 </table>
@@ -7093,7 +7385,7 @@ applications.</p>
 <td>sort-by</td>
 <td></td>
 <td></td>
-<td>If non-empty, sort nodes list using specified field. The field can be either &#39;name&#39; or &#39;kind&#39;. </td>
+<td>If non-empty, sort list of resources using specified field. The field can be either &#39;name&#39; or &#39;kind&#39;. </td>
 </tr>
 <tr>
 <td>verbs</td>
@@ -7314,7 +7606,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <blockquote class="code-block example">
 <p> Embed certificate authority data for the e2e cluster entry</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-cluster e2e <span class="hljs-attribute">--certificate-authority</span>=~/.kube/e2e/kubernetes.ca.crt
+<pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-cluster e2e --embed-certs <span class="hljs-attribute">--certificate-authority</span>=~/.kube/e2e/kubernetes.ca.crt
 </code></pre>
 <blockquote class="code-block example">
 <p> Disable cert checking for the dev cluster entry</p>
@@ -7583,7 +7875,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <td>output</td>
 <td>o</td>
 <td>yaml</td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
+<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
 </tr>
 <tr>
 <td>raw</td>
@@ -7657,7 +7949,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <h1 id="plugin">plugin</h1>
 <p>Provides utilities for interacting with plugins.</p>
 <p> Plugins provide extended functionality that is not part of the major command-line distribution. Please refer to the documentation and examples for more information about how write your own plugins.</p>
-<p> The easiest way to discover and install plugins is via the kubernetes sub-project krew. To install krew, visit<a href="https://github.com/kubernetes-sigs/krew/#installation">https://github.com/kubernetes-sigs/krew/#installation</a></p>
+<p> The easiest way to discover and install plugins is via the kubernetes sub-project krew. To install krew, visit <a href="https://github.com/kubernetes-sigs/krew/#installation">https://github.com/kubernetes-sigs/krew/#installation</a></p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl plugin [flags]</code></p>
 <hr>

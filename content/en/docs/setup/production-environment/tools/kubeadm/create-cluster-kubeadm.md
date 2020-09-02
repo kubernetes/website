@@ -259,10 +259,10 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
 
 - Take care that your Pod network must not overlap with any of the host
   networks: you are likely to see problems if there is any overlap.
-  (If you find a collision between your network plugin’s preferred Pod
+  (If you find a collision between your network plugin's preferred Pod
   network and some of your host networks, you should think of a suitable
   CIDR block to use instead, then use that during `kubeadm init` with
-  `--pod-network-cidr` and as a replacement in your network plugin’s YAML).
+  `--pod-network-cidr` and as a replacement in your network plugin's YAML).
 
 - By default, `kubeadm` sets up your cluster to use and enforce use of
   [RBAC](/docs/reference/access-authn-authz/rbac/) (role based access

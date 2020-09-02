@@ -109,12 +109,13 @@ command:
 
 ```shell
 cat <<EOF | kubectl apply -f -
-apiVersion: certificates.k8s.io/v1beta1
+apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 metadata:
   name: my-svc.my-namespace
 spec:
   request: $(cat server.csr | base64 | tr -d '\n')
+  signerName: kubernetes.io/kubelet-serving
   usages:
   - digital signature
   - key encipherment
@@ -125,10 +126,10 @@ EOF
 Notice that the `server.csr` file created in step 1 is base64 encoded
 and stashed in the `.spec.request` field. We are also requesting a
 certificate with the "digital signature", "key encipherment", and "server
-auth" key usages. We support all key usages and extended key usages listed
-[here](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)
-so you can request client certificates and other certificates using this
-same API.
+auth" key usages, signed by the `kubernetes.io/kubelet-serving` signer.
+A specific `signerName` must be requested.
+View documentation for [supported signer names](/docs/reference/access-authn-authz/certificate-signing-requests/#signers)
+for more information.
 
 The CSR should now be visible from the API in a Pending state. You can see
 it by running:

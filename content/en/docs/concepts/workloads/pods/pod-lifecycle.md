@@ -45,7 +45,7 @@ higher-level abstraction, called a
 managing the relatively disposable Pod instances.
 
 A given Pod (as defined by a UID) is never "rescheduled" to a different node; instead,
-that Pod can be replaced by a new, near-identical Pod, with even the same name i
+that Pod can be replaced by a new, near-identical Pod, with even the same name if
 desired, but with a different UID.
 
 When something is said to have the same lifetime as a Pod, such as a
@@ -107,7 +107,7 @@ Each state has a specific meaning:
 
 ### `Waiting` {#container-state-waiting}
 
-If a container is not in either the `Running` or `Terminated` state, it `Waiting`.
+If a container is not in either the `Running` or `Terminated` state, it is `Waiting`.
 A container in the `Waiting` state is still running the operations it requires in
 order to complete start up: for example, pulling the container image from a container
 image registry, or applying {{< glossary_tooltip text="Secret" term_id="secret" >}}
@@ -118,7 +118,7 @@ a Reason field to summarize why the container is in that state.
 ### `Running` {#container-state-running}
 
 The `Running` status indicates that a container is executing without issues. If there
-was a `postStart` hook configured, it has already executed and executed. When you use
+was a `postStart` hook configured, it has already executed and finished. When you use
 `kubectl` to query a Pod with a container that is `Running`, you also see information
 about when the container entered the `Running` state.
 

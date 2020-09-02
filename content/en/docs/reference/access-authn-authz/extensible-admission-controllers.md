@@ -628,6 +628,54 @@ So a webhook response to add that label would be:
 {{% /tab %}}
 {{< /tabs >}}
 
+Starting in v1.19, admission webhooks can optionally return warning messages that are returned to the requesting client
+in HTTP `Warning` headers with a warning code of 299. Warnings can be sent with allowed or rejected admission responses.
+
+If you're implementing a webhook that returns a warning:
+* Don't include a "Warning:" prefix in the message
+* Use warning messages to describe problems the client making the API request should correct or be aware of
+* Limit warnings to 120 characters if possible
+
+{{< caution >}}
+Individual warning messages over 256 characters may be truncated by the API server before being returned to clients.
+If more than 4096 characters of warning messages are added (from all sources), additional warning messages are ignored.
+{{< /caution >}}
+
+{{< tabs name="AdmissionReview_response_warning" >}}
+{{% tab name="admission.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "response": {
+    "uid": "<value from request.uid>",
+    "allowed": true,
+    "warnings": [
+      "duplicate envvar entries specified with name MY_ENV",
+      "memory request less than 4MB specified for container mycontainer, which will not start successfully"
+    ]
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="admission.k8s.io/v1beta1" %}}
+```json
+{
+  "apiVersion": "admission.k8s.io/v1beta1",
+  "kind": "AdmissionReview",
+  "response": {
+    "uid": "<value from request.uid>",
+    "allowed": true,
+    "warnings": [
+      "duplicate envvar entries specified with name MY_ENV",
+      "memory request less than 4MB specified for container mycontainer, which will not start successfully"
+    ]
+  }
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
+
 ## Webhook configuration
 
 To register admission webhooks, create `MutatingWebhookConfiguration` or `ValidatingWebhookConfiguration` API objects.
