@@ -1,6 +1,7 @@
 ---
 title: チュートリアル
 main_menu: true
+no_list: true
 weight: 60
 content_type: concept
 ---
@@ -41,16 +42,6 @@ content_type: concept
 
 * [CP(一貫性＋分断耐性)分散システムZooKeeperの実行](/docs/tutorials/stateful-application/zookeeper/)
 
-## CI/CDパイプライン
-
-* [Set Up a CI/CD Pipeline with Kubernetes Part 1: Overview](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
-
-* [Set Up a CI/CD Pipeline with a Jenkins Pod in Kubernetes (Part 2)](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2)
-
-* [Run and Scale a Distributed Crossword Puzzle App with CI/CD on Kubernetes (Part 3)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/run-and-scale-distributed-crossword-puzzle-app-cicd-kubernetes-part-3)
-
-* [Set Up CI/CD for a Distributed Crossword Puzzle App on Kubernetes (Part 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
-
 ## クラスター
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
@@ -64,6 +55,6 @@ content_type: concept
 ## {{% heading "whatsnext" %}}
 
 
-チュートリアルを書きたい場合は、[ページテンプレートの使用](/docs/contribute/style/page-templates/)を参照し、チュートリアルのページタイプとチュートリアルテンプレートについてご確認ください。
+チュートリアルのページタイプについての情報は、[Content Page Types](/docs/contribute/style/page-content-types/)を参照してください。
 
 
