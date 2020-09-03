@@ -136,6 +136,8 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
     The `--type=LoadBalancer` flag indicates that you want to expose your Service
     outside of the cluster.
+    
+    Please note that the Pod won't show up under ports other than 8080.
 
 2. View the Service you just created:
 
