@@ -1,4 +1,4 @@
 ---
-title: Installing Kubernetes with deployment tools
+title: Installer Kubernetes avec les outils de déploiement
 weight: 30
 ---
