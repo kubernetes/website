@@ -23,7 +23,7 @@ le fichier de configuration kubeadm.
 * Chaque hôte doit avoir [docker, kubelet et kubeadm installés][toolbox].
 * Certains paquets pour copier des fichiers entre les hôtes. Par exemple, `ssh` et` scp`.
 
-[toolbox]: /docs/setup/independent/install-kubeadm/
+[toolbox]: /fr/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
 
 
@@ -257,7 +257,7 @@ kubeadm contient tout ce qui est nécessaire pour générer les certificats déc
 
 Une fois que vous avez un cluster de 3 membres etcd qui fonctionne, vous pouvez continuer à
  configurer un control plane hautement disponible utilisant la
-[méthode etcd externe avec kubeadm](/docs/setup/independent/high-availability/).
+[méthode etcd externe avec kubeadm](/fr/docs/setup/production-environment/tools/kubeadm/high-availability/).
 
 
 

@@ -16,7 +16,7 @@ Les membres etcd et les nœuds du control plane sont co-localisés.
 Les nœuds du control plane et les membres etcd sont séparés.
 
 Avant de poursuivre, vous devez déterminer avec soin quelle approche répond le mieux
-aux besoins de vos applications et de l'environnement. [Cette comparaison](/docs/setup/independent/ha-topology/)
+aux besoins de vos applications et de l'environnement. [Cette comparaison](/fr/docs/setup/production-environment/tools/kubeadm/ha-topology/)
 décrit les avantages et les inconvénients de chacune.
 
 Vos clusters doivent exécuter Kubernetes version 1.12 ou ultérieure. Vous devriez aussi savoir que
@@ -42,8 +42,8 @@ load balancer, ni avec des volumes persistants dynamiques.
 
 Pour les deux méthodes, vous avez besoin de cette infrastructure:
 
-- Trois machines qui répondent aux pré-requis des [exigences de kubeadm](/docs/setup/independent/install-kubeadm/#before-you-begin) pour les maîtres (masters)
-- Trois machines qui répondent aux pré-requis des [exigences de kubeadm](/docs/setup/independent/install-kubeadm/#before-you-begin) pour les workers
+- Trois machines qui répondent aux pré-requis des [exigences de kubeadm](/fr/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) pour les maîtres (masters)
+- Trois machines qui répondent aux pré-requis des [exigences de kubeadm](/fr/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) pour les workers
 - Connectivité réseau complète entre toutes les machines du cluster (public ou réseau privé)
 - Privilèges sudo sur toutes les machines
 - Accès SSH d'une machine à tous les nœuds du cluster
@@ -71,7 +71,7 @@ Toutes les commandes d'un control plane ou d'un noeud etcd doivent être
 
 - Certains plugins réseau CNI tels que Calico nécessitent un CIDR tel que `192.168.0.0 / 16` et 
 certains comme Weave n'en ont pas besoin. Voir la
-[Documentation du CNI réseau](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
+[Documentation du CNI réseau](/fr/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
   Pour ajouter un CIDR de pod, définissez le champ `podSubnet: 192.168.0.0 / 16` sous
   l'objet `networking` de` ClusterConfiguration`.
 
@@ -260,7 +260,7 @@ donnée par` kubeadm init` sur le premier noeud. Ça devrait ressembler a quelqu
 
 ### Configurer le cluster etcd
 
-- Suivez ces [instructions](/docs/setup/independent/setup-ha-etcd-with-kubeadm/)
+- Suivez ces [instructions](/fr/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
   pour configurer le cluster etcd.
 
 ### Configurer le premier nœud du control plane
@@ -335,7 +335,7 @@ Pour résumer:
 
 ### Installer un réseau de pod
 
-[Suivez ces instructions](/docs/setup/independent/create-cluster-kubeadm/#pod-network) afin
+[Suivez ces instructions](/fr/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) afin
  d'installer le réseau de pod. Assurez-vous que cela correspond au pod CIDR que vous avez fourni
  dans le fichier de configuration principal.
 

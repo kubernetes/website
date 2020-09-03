@@ -170,7 +170,7 @@ Vous remarquerez que la commande CLI `kubeadm` ne modifiera jamais ce fichier.
 Ce fichier ad-hoc appartient au paquet deb/rpm de kubeadm.
 
 Pour en savoir plus sur comment kubeadm gère kubelet, vous pouvez consulter
-[cette page](/docs/setup/independent/kubelet-integration).
+[cette page](/fr/docs/setup/production-environment/tools/kubeadm/kubelet-integration).
 
 ### Utilisation de kubeadm avec des runtimes CRI
 
