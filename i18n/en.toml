@@ -54,6 +54,15 @@ other = "I AM..."
 [docs_label_users]
 other = "Users"
 
+[docs_version_current]
+other = "(this documentation)"
+
+[docs_version_latest_heading]
+other = "Latest version"
+
+[docs_version_other_heading]
+other = "Older versions"
+
 [examples_heading]
 other = "Examples"
 
