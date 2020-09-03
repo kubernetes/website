@@ -550,5 +550,5 @@ plugins:
 
 ## {{% heading "whatsnext" %}}
 
-さらなる情報は[クォータの design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)を参照してください。
+- さらなる情報は[クォータの design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)を参照してください。
 
