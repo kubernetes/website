@@ -46,7 +46,7 @@ This group and user name format match the identity created for each kubelet as p
 [kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/).
 
 The value of `<nodeName>` **must** match precisely the name of the node as registered by the kubelet. By default, this is the host name as provided by `hostname`, or overridden via the [kubelet option](/docs/reference/command-line-tools-reference/kubelet/) `--hostname-override`. However, when using the `--cloud-provider` kubelet option, the specific hostname may be determined by the cloud provider, ignoring the local `hostname` and the `--hostname-override` option. 
-For specifics about how the kubelet determines the hostname, as well as cloud provider overrides, see the [kubelet options reference](/docs/reference/command-line-tools-reference/kubelet/) and the [cloud provider details](/docs/concepts/cluster-administration/cloud-providers/).
+For specifics about how the kubelet determines the hostname, see the [kubelet options reference](/docs/reference/command-line-tools-reference/kubelet/).
 
 To enable the Node authorizer, start the apiserver with `--authorization-mode=Node`.
 

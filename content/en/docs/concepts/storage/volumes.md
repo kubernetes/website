@@ -215,8 +215,7 @@ See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "
 ### cinder {#cinder}
 
 {{< note >}}
-Prerequisite: Kubernetes with OpenStack Cloud Provider configured. For cloudprovider
-configuration please refer [cloud provider openstack](/docs/concepts/cluster-administration/cloud-providers/#openstack).
+Prerequisite: Kubernetes with OpenStack Cloud Provider configured.
 {{< /note >}}
 
 `cinder` is used to mount OpenStack Cinder Volume into your Pod.
