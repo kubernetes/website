@@ -33,15 +33,15 @@ weight: 40
    [ Services ]
 ```
 
-IngressはServiceに対して、外部疎通できるURL、負荷分散トラフィック、SSL/TLS終端の機能や、名前ベースの仮想ホスティングを提供するように設定できます。[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)は通常はロードバランサーを使用してIngressの機能を実現しますが、エッジルーターや、追加のフロントエンドを構成してトラフィックの処理を支援することもできます。
+IngressはServiceに対して、外部疎通できるURL、負荷分散トラフィック、SSL/TLS終端の機能や、名前ベースの仮想ホスティングを提供するように設定できます。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)は通常はロードバランサーを使用してIngressの機能を実現しますが、エッジルーターや、追加のフロントエンドを構成してトラフィックの処理を支援することもできます。
 
 Ingressは任意のポートやプロトコルを公開しません。HTTPやHTTPS以外のServiceをインターネットに公開する場合、[Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#nodeport)や[Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)のServiceタイプを一般的には使用します。
 
 ## Ingressを使用する上での前提条件
 
-Ingressを提供するためには[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)が必要です。Ingressリソースを作成するのみでは何の効果もありません。
+Ingressを提供するためには[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)が必要です。Ingressリソースを作成するのみでは何の効果もありません。
 
-[ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)のようなIngressコントローラーのデプロイが必要な場合があります。いくつかの[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)の中から選択してください。
+[ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)のようなIngressコントローラーのデプロイが必要な場合があります。いくつかの[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)の中から選択してください。
 
 理想的には、全てのIngressコントローラーはリファレンスの仕様を満たすはずです。しかし実際には、各Ingressコントローラーは微妙に異なる動作をします。
 
@@ -70,7 +70,7 @@ spec:
           servicePort: 80
 ```
 
-他の全てのKubernetesリソースと同様に、Ingressには`apiVersion`、`kind`や`metadata`フィールドが必要です。Ingressオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。設定ファイルに関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/)を参照してください。Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを一般的に使用します。例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)などがあります。[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)の種類が異なれば、サポートするアノテーションも異なります。サポートされているアノテーションについて学ぶためには、使用するIngressコントローラーのドキュメントを確認してください。
+他の全てのKubernetesリソースと同様に、Ingressには`apiVersion`、`kind`や`metadata`フィールドが必要です。Ingressオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。設定ファイルに関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/)を参照してください。Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを一般的に使用します。例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)などがあります。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)の種類が異なれば、サポートするアノテーションも異なります。サポートされているアノテーションについて学ぶためには、使用するIngressコントローラーのドキュメントを確認してください。
 
 Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)は、ロードバランサーやプロキシーサーバーを設定するために必要な全ての情報を持っています。最も重要なものとして、外部からくる全てのリクエストに対して一致したルールのリストを含みます。IngressリソースはHTTPトラフィックに対してのルールのみサポートしています。
 
@@ -86,7 +86,7 @@ Ingressコントローラーでは、デフォルトのバックエンドが設�
 
 ### デフォルトのバックエンド
 
-ルールが設定されていないIngressは、全てのトラフィックをデフォルトのバックエンドに転送します。このデフォルトのバックエンドは、[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)のオプション設定であり、Ingressリソースでは指定されていません。
+ルールが設定されていないIngressは、全てのトラフィックをデフォルトのバックエンドに転送します。このデフォルトのバックエンドは、[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)のオプション設定であり、Ingressリソースでは指定されていません。
 
 IngressオブジェクトでHTTPリクエストが1つもホスト名とパスの条件に一致しない時、そのトラフィックはデフォルトのバックエンドに転送されます。
 
@@ -176,7 +176,7 @@ IngressコントローラーはService(`service1`、`service2`)が存在する�
 構築が完了すると、ADDRESSフィールドでロードバランサーのアドレスを確認できます。
 
 {{< note >}}
-使用する[Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)に依存しますが、default-http-backend[Service](/ja/docs/concepts/services-networking/service/)の作成が必要な場合があります。
+使用する[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)に依存しますが、default-http-backend[Service](/ja/docs/concepts/services-networking/service/)の作成が必要な場合があります。
 {{< /note >}}
 
 ### 名前ベースのバーチャルホスティング
@@ -374,7 +374,7 @@ Events:
 
 ## アベイラビリティーゾーンをまたいだ障害について
 
-障害のあるドメインをまたいでトラフィックを分散する手法は、クラウドプロバイダーによって異なります。詳細に関して、[Ingress コントローラー](/docs/concepts/services-networking/ingress-controllers)のドキュメントを参照してください。複数のクラスターにおいてIngressをデプロイする方法の詳細に関しては[Kubernetes Cluster Federationのドキュメント](https://github.com/kubernetes-sigs/federation-v2)を参照してください。
+障害のあるドメインをまたいでトラフィックを分散する手法は、クラウドプロバイダーによって異なります。詳細に関して、[Ingress コントローラー](/ja/docs/concepts/services-networking/ingress-controllers)のドキュメントを参照してください。複数のクラスターにおいてIngressをデプロイする方法の詳細に関しては[Kubernetes Cluster Federationのドキュメント](https://github.com/kubernetes-sigs/federation-v2)を参照してください。
 
 ## 将来追加予定の内容
 
@@ -390,6 +390,5 @@ Ingressリソースを直接含まない複数の方法でサービスを公開�
 
 ## {{% heading "whatsnext" %}}
 * [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)について学ぶ
-* [Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers/)について学ぶ
+* [Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)について学ぶ
 * [MinikubeとNGINXコントローラーでIngressのセットアップを行う](/docs/tasks/access-application-cluster/ingress-minikube)
-
