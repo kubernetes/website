@@ -28,7 +28,7 @@ weight: 10
 			<div class="col-md-8">
 			<h3>Kubernetes Serviceの概要</h3>
 
-			<p>Kubernetes Podの寿命は永続的ではありません。実際、<a href="/ja/docs/concepts/workloads/pods/pod-overview/">Pod</a>には<a href="/ja/docs/concepts/workloads/pods/pod-lifecycle/">ライフサイクル</a>があります。ワーカーのノードが停止すると、そのノードで実行されているPodも失われます。そうなると、<a href="/ja/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a>は、新しいPodを作成してアプリケーションを実行し続けるために、クラスターを動的に目的の状態に戻すことができます。別の例として、3つのレプリカを持つ画像処理バックエンドを考えます。それらのレプリカは交換可能です。フロントエンドシステムはバックエンドのレプリカを気にしたり、Podが失われて再作成されたとしても配慮すべきではありません。ただし、Kubernetesクラスター内の各Podは、同じノード上のPodであっても一意のIPアドレスを持っているため、アプリケーションが機能し続けるように、Pod間の変更を自動的に調整する方法が必要です。</p>
+			<p>Kubernetes Podの寿命は永続的ではありません。実際、<a href="/ja/docs/concepts/workloads/pods/pod/">Pod</a>には<a href="/ja/docs/concepts/workloads/pods/pod-lifecycle/">ライフサイクル</a>があります。ワーカーのノードが停止すると、そのノードで実行されているPodも失われます。そうなると、<a href="/ja/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a>は、新しいPodを作成してアプリケーションを実行し続けるために、クラスターを動的に目的の状態に戻すことができます。別の例として、3つのレプリカを持つ画像処理バックエンドを考えます。それらのレプリカは交換可能です。フロントエンドシステムはバックエンドのレプリカを気にしたり、Podが失われて再作成されたとしても配慮すべきではありません。ただし、Kubernetesクラスター内の各Podは、同じノード上のPodであっても一意のIPアドレスを持っているため、アプリケーションが機能し続けるように、Pod間の変更を自動的に調整する方法が必要です。</p>
 
 			<p>KubernetesのServiceは、Podの論理セットと、それらにアクセスするためのポリシーを定義する抽象概念です。Serviceによって、依存Pod間の疎結合が可能になります。Serviceは、すべてのKubernetesオブジェクトのように、YAML<a href="/docs/concepts/configuration/overview/#general-configuration-tips">(推奨)</a>またはJSONを使って定義されます。Serviceが対象とするPodのセットは通常、<i>LabelSelector</i>によって決定されます(なぜ仕様に<code>セレクタ</code>を含めずにServiceが必要になるのかについては下記を参照してください)。</p>
 
