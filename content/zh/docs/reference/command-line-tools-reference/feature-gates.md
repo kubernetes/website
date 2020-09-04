@@ -727,7 +727,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 
 - `StorageVersionHash`：允许 apiserver 在发现中公开存储版本的哈希值。
 - `StreamingProxyRedirects`：指示 API 服务器拦截（并遵循）从后端（kubelet）进行重定向以处理流请求。流请求的例子包括 `exec`、`attach` 和 `port-forward` 请求。
-- `SupportIPVSProxyMode`：启用使用 IPVS 提供内服务负载平衡。有关更多详细信息，请参见[服务代理](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)。
 - `SupportPodPidsLimit`：启用支持限制 Pod 中的进程 PID。
 - `Sysctls`：启用对可以为每个 Pod 设置的命名空间内核参数（sysctls）的支持。有关更多详细信息，请参见 [sysctls](/docs/tasks/administer-cluster/sysctl-cluster/)。
 

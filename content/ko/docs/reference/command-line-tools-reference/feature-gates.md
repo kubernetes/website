@@ -487,8 +487,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `StreamingProxyRedirects`: 스트리밍 요청을 위해 백엔드(kubelet)에서 리디렉션을
   가로채서 따르도록 API 서버에 지시한다.
   스트리밍 요청의 예로는 `exec`, `attach` 및 `port-forward` 요청이 있다.
-- `SupportIPVSProxyMode`: IPVS를 사용하여 클러스터 내 서비스 로드 밸런싱을 제공한다.
-  자세한 내용은 [서비스 프록시](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)를 참고한다.
 - `SupportPodPidsLimit`: 파드의 PID 제한을 지원한다.
 - `Sysctls`: 각 파드에 설정할 수 있는 네임스페이스 커널 파라미터(sysctl)를 지원한다.
   자세한 내용은 [sysctl](/docs/tasks/administer-cluster/sysctl-cluster/)을 참고한다.

@@ -528,8 +528,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `StreamingProxyRedirects`: Instructs the API server to intercept (and follow)
    redirects from the backend (kubelet) for streaming requests.
   Examples of streaming requests include the `exec`, `attach` and `port-forward` requests.
-- `SupportIPVSProxyMode`: Enable providing in-cluster service load balancing using IPVS.
-  See [service proxies](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies) for more details.
 - `SupportPodPidsLimit`: Enable the support to limiting PIDs in Pods.
 - `Sysctls`: Enable support for namespaced kernel parameters (sysctls) that can be set for each pod.
   See [sysctls](/docs/tasks/administer-cluster/sysctl-cluster/) for more details.

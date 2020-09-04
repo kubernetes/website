@@ -381,7 +381,6 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `StorageObjectInUseProtection`: PersistentVolumeまたはPersistentVolumeClaimオブジェクトがまだ使用されている場合、それらの削除を延期します。
 - `StorageVersionHash`: apiserversがディスカバリーでストレージのバージョンハッシュを公開できるようにします。
 - `StreamingProxyRedirects`: ストリーミングリクエストのバックエンド(kubelet)からのリダイレクトをインターセプト（およびフォロー）するようAPIサーバーに指示します。ストリーミングリクエストの例には`exec`、`attach`、`port-forward`リクエストが含まれます。
-- `SupportIPVSProxyMode`: IPVSを使用したクラスター内サービスの負荷分散の提供を有効にします。詳細は[サービスプロキシー](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)で確認できます。
 - `SupportPodPidsLimit`: PodのPID制限のサポートを有効にします。
 - `Sysctls`: 各podに設定できる名前空間付きのカーネルパラメーター(sysctl)のサポートを有効にします。詳細は[sysctls](/docs/tasks/administer-cluster/sysctl-cluster/)で確認できます。
 - `TaintBasedEvictions`: ノードの汚染とpodの許容に基づいてノードからpodを排除できるようにします。。詳細は[汚染と許容](/docs/concepts/configuration/taint-and-toleration/)で確認できます。
