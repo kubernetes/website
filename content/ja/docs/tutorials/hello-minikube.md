@@ -7,7 +7,7 @@ menu:
     title: "Get Started"
     weight: 10
     post: >
-      <p>手を動かす準備はできていますか？本チュートリアルでは、Node.jsを使った簡単な"Hello World"を実行するKubernetesクラスタをビルドします。</p>
+      <p>手を動かす準備はできていますか？本チュートリアルでは、サンプルアプリケーションを実行するKubernetesクラスタをビルドします。</p>
 card: 
   name: tutorials
   weight: 10
@@ -15,7 +15,7 @@ card:
 
 <!-- overview -->
 
-このチュートリアルでは、[Minikube](/ja/docs/setup/learning-environment/minikube)とKatacodaを使用して、Kubernetes上でシンプルなHello WorldのNode.jsアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
+このチュートリアルでは、[Minikube](/ja/docs/setup/learning-environment/minikube)とKatacodaを使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
 
 {{< note >}}
 [Minikubeをローカルにインストール](/ja/docs/tasks/tools/install-minikube/)している場合もこのチュートリアルを進めることが可能です。
@@ -26,7 +26,7 @@ card:
 ## {{% heading "objectives" %}}
 
 
-* Minikubeへのhello worldアプリケーションのデプロイ
+* Minikubeへのサンプルアプリケーションのデプロイ
 * アプリケーションの実行
 * アプリケーションログの確認
 
@@ -35,7 +35,7 @@ card:
 ## {{% heading "prerequisites" %}}
 
 
-このチュートリアルは下記のファイルからビルドされるコンテナーイメージを提供します:
+このチュートリアルはNGINXを利用してすべての要求をエコーバックするコンテナーイメージを提供します。
 
 {{< codenew language="js" file="minikube/server.js" >}}
 
@@ -53,7 +53,9 @@ card:
 
     {{< kat-button >}}
 
-    {{< note >}}Minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。{{< /note >}}
+{{< note >}}
+    Minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。
+{{< /note >}}
 
 2. ブラウザーでKubernetesダッシュボードを開いてください:
 
@@ -67,7 +69,7 @@ card:
 
 ## Deploymentの作成
 
-Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
+Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
 
 1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
@@ -113,7 +115,9 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
     kubectl config view
     ```
 
-    {{< note >}} `kubectl`コマンドの詳細な情報は[kubectl overview](/docs/user-guide/kubectl-overview/)を参照してください。{{< /note >}}
+{{< note >}}
+    `kubectl`コマンドの詳細な情報は[kubectl overview](/docs/user-guide/kubectl-overview/)を参照してください。
+{{< /note >}}
 
 ## Serviceの作成
 
@@ -154,7 +158,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
 
 5. Katacoda環境のみ：`8080`の反対側のService出力に、5桁のポート番号が表示されます。このポート番号はランダムに生成されるため、ここで使用するポート番号と異なる場合があります。ポート番号テキストボックスに番号を入力し、ポートの表示をクリックしてください。前の例の場合は、`30369`と入力します。
 
-    "Hello World"メッセージが表示されるアプリケーションのブラウザウィンドウが開きます。
+    アプリケーションとその応答が表示されるブラウザウィンドウが開きます。
 
 ## アドオンの有効化
 
