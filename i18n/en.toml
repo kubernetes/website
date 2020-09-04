@@ -150,12 +150,6 @@ other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation
 [main_documentation_license]
 other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
 
-[main_edit_this_page]
-other = "Edit This Page"
-
-[main_github_create_an_issue]
-other = "Create an Issue"
-
 [main_github_invite]
 other = "Interested in hacking on the core Kubernetes code base?"
 
@@ -195,6 +189,9 @@ other = "Objectives"
 [options_heading]
 other = "Options"
 
+[post_create_issue]
+other = "Create an issue"
+
 [prerequisites_heading]
 other = "Before you begin"
 
@@ -206,7 +203,6 @@ other = "Subscribe"
 
 [synopsis_heading]
 other = "Synopsis"
-
 
 [thirdparty_message]
 other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects. This page follows <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> by listing projects alphabetically. To add a project to this list, read the <a href="/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change."""
