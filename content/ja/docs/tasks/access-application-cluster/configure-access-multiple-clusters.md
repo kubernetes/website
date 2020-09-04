@@ -23,7 +23,7 @@ card:
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}がインストールされているか確認するため、`kubectl version --client`を実行してください。kubectlのバージョンは、クラスターのAPIサーバの[1つのマイナーバージョン内](/ja/docs/setup/release/version-skew-policy/#kubectl)である必要があります。
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}がインストールされているか確認するため、`kubectl version --client`を実行してください。kubectlのバージョンは、クラスターのAPIサーバーの[1つのマイナーバージョン内](/ja/docs/setup/release/version-skew-policy/#kubectl)である必要があります。
 
 
 
