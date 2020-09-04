@@ -18,26 +18,26 @@ To maintain backwards compatibility, structured logs will still be outputted as 
 We've added two new methods to the klog library: InfoS and ErrorS. For example, this invocation of InfoS:
 
 ```golang
-klog.InfoS(“Pod status updated”, “pod”, klog.KObj(pod), “status”, status)
+klog.InfoS("Pod status updated", "pod", klog.KObj(pod), "status", status)
 ```
 
 will result in this log:
 
 ```
-I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod="kube-system/kubedns" status=”ready”
+I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod="kube-system/kubedns" status="ready"
 ```
 
-Or, if the --logging-format=json flag is set, it will result in this output:
+Or, if the `--logging-format=json` flag is set, it will result in this output:
 
 ```json
 {
   "ts": 1580306777.04728,
   "msg": "Pod status updated",
-  "Pod”: {
-    “Name”: “kubedns”,
-    “Namespace”: “kubedns”
+  "Pod": {
+    "Name": "kubedns",
+    "Namespace": "kubedns"
   },
-  “status”: “ready”
+  "status": "ready"
 }
 ```
 
