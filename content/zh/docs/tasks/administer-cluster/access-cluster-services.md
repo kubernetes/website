@@ -151,7 +151,7 @@ As mentioned above, you use the `kubectl cluster-info` command to retrieve the s
 
 If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
 -->
-#### 手动构建 API 服务器代理 URLs
+#### 手动构建 API 服务器代理 URLs   {#manually-constructing-apiserver-proxy-urls}
 
 如前所述，你可以使用 `kubectl cluster-info` 命令取得服务的代理 URL。
 为了创建包含服务末端、后缀和参数的代理 URLs，你可以简单地在服务的代理 URL 中添加：
