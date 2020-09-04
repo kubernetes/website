@@ -21,7 +21,9 @@ card:
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}がインストールされているか確認するため、`kubectl version --client`を実行してください。kubectlのバージョンは、クラスターのAPIサーバーの[1つのマイナーバージョン内](/ja/docs/setup/release/version-skew-policy/#kubectl)である必要があります。
 
 
 
@@ -306,7 +308,7 @@ export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
 ### Windows Powershell
 ```shell
-$Env:KUBECONFIG=($Env:KUBECONFIG;$HOME/.kube/config)
+$Env:KUBECONFIG="$Env:KUBECONFIG;$HOME/.kube/config"
 ```
 
 `KUBECONFIG`環境変数内のファイルからまとめられた設定情報を確認してください。`config-exercise`ディレクトリ内から、以下のコマンドを実行してください:
@@ -319,11 +321,11 @@ kubectl config view
 
 `KUBECONFIG`環境変数を元に戻してください。例えば:
 
-Linux:
+### Linux:
 ```shell
 export KUBECONFIG=$KUBECONFIG_SAVED
 ```
-Windows PowerShell
+### Windows PowerShell
 ```shell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
@@ -335,4 +337,3 @@ $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 
 * [kubeconfigファイルを使ってクラスターへのアクセスを管理する](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
-
