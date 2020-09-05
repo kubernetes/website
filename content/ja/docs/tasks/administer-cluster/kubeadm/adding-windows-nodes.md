@@ -60,7 +60,7 @@ LinuxベースのKubernetesコントロールプレーンノードを取得し�
     wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
     ```
 
-    VNIを4096、ポートを4789に設定するために、flannelマニフェストの`net-conf.json`セクションを変更します。次のようになります。:
+    VNIを4096、ポートを4789に設定するために、flannelマニフェストの`net-conf.json`セクションを変更します。次のようになります:
 
     ```json
     net-conf.json: |
