@@ -116,7 +116,7 @@ LinuxベースのKubernetesコントロールプレーンノードを取得し�
     {{< /note >}}
 
     {{< note >}}
-Windowsノードでイーサネット(「Ethernet0 2」など)ではなく別のインターフェースを使用している場合は、次の行を変更する必要があります。:
+Windowsノードでイーサネット(「Ethernet0 2」など)ではなく別のインターフェースを使用している場合は、次の行を変更する必要があります:
 
 ```powershell
 wins cli process run --path /k/flannel/setup.exe --args "--mode=overlay --interface=Ethernet"
