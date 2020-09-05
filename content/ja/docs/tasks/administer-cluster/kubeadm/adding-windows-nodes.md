@@ -105,7 +105,7 @@ LinuxベースのKubernetesコントロールプレーンノードを取得し�
     これで、Windows互換バージョンのFlannelおよびkube-proxyを追加できます。
     互換性のあるバージョンのkube-proxyを確実に入手するには、イメージのタグを置換する必要があります。
     次の例は、Kubernetes{{< param "fullversion" >}}の使用方法を示していますが、
-    独自のdeploymentに合わせてバージョンを調整する必要があります。
+    独自のデプロイに合わせてバージョンを調整する必要があります。
 
     ```bash
     curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
