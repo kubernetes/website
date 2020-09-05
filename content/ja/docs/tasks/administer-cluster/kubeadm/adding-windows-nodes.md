@@ -112,7 +112,7 @@ LinuxベースのKubernetesコントロールプレーンノードを取得し�
     kubectl apply -f https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-overlay.yml
     ```
     {{< note >}}
-    ホストゲートウェイを使用している場合は、代わりにhttps://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-host-gw.ymlを使用してください。
+    ホストゲートウェイを使用している場合は、代わりに https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-host-gw.yml を使用してください。
     {{< /note >}}
 
     {{< note >}}
