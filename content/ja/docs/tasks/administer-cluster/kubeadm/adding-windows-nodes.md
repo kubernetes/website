@@ -103,7 +103,7 @@ LinuxベースのKubernetesコントロールプレーンノードを取得し�
 1. Windows Flannelとkube-proxy DaemonSetを追加する
 
     これで、Windows互換バージョンのFlannelおよびkube-proxyを追加できます。
-    順番に互換性のあるバージョンのkube-proxyを確実に入手するには、イメージのタグを代用する必要があります。
+    互換性のあるバージョンのkube-proxyを確実に入手するには、イメージのタグを置換する必要があります。
     次の例は、Kubernetes{{< param "fullversion" >}}の使用方法を示していますが、
     独自のdeploymentに合わせてバージョンを調整する必要があります。
 
