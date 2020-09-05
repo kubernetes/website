@@ -94,7 +94,7 @@ weight: 10
 이 방법은 노드 구성을 제어할 수 있는 경우에 적합하다.
 
 {{< note >}}
-쿠버네티스는 도커 구성에서 `auths` 와 `HttpHeaders` 섹션만 지원한다.
+기본 쿠버네티스는 도커 구성에서 `auths` 와 `HttpHeaders` 섹션만 지원한다.
 도커 자격 증명 도우미(`credHelpers` 또는 `credsStore`)는 지원되지 않는다.
 {{< /note >}}
 
@@ -262,7 +262,7 @@ EOF
 
 이것은 프라이빗 레지스트리를 사용하는 각 파드에 대해서 수행될 필요가 있다.
 
-그러나, 이 필드의 셋팅은 [서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-accounts/)) 리소스에
+그러나, 이 필드의 셋팅은 [서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/) 리소스에
 imagePullSecrets을 셋팅하여 자동화할 수 있다.
 
 자세한 지침을 위해서는 [서비스 어카운트에 ImagePullSecrets 추가](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)를 확인한다.
