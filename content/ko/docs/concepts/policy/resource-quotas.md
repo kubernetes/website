@@ -495,8 +495,7 @@ kubectl create quota test --hard=count/deployments.extensions=2,count/replicaset
 ```
 
 ```shell
-kubectl create deployment nginx --image=nginx --namespace=myspace
-kubectl scale deployment nginx --replicas=2 --namespace=myspace
+kubectl create deployment nginx --image=nginx --namespace=myspace --replicas=2
 ```
 
 ```shell
