@@ -255,7 +255,7 @@ kubelet은 자동으로 각 정적 파드에 대한 쿠버네티스 API 서버�
 * [런타임클래스(RuntimeClass)](/ko/docs/concepts/containers/runtime-class/)와 이를 사용하여
   다양한 컨테이너 런타임 구성으로 다양한 파드를 설정하는 방법에 대해 알아본다.
 * [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)에 대해 읽어본다.
-* [PodDisruptionBudget](https://kubernetes.io/ko/docs/concepts/workloads/pods/disruptions/)과 이를 사용하여 서비스 중단 중에 애플리케이션 가용성을 관리하는 방법에 대해 읽어본다.
+* [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과 이를 사용하여 서비스 중단 중에 애플리케이션 가용성을 관리하는 방법에 대해 읽어본다.
 * 파드는 쿠버네티스 REST API의 최상위 리소스이다.
   [파드](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
   오브젝트 정의는 오브젝트를 상세히 설명한다.
