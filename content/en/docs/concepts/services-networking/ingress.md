@@ -493,7 +493,6 @@ You can achieve the same outcome by invoking `kubectl replace -f` on a modified 
 
 Techniques for spreading traffic across failure domains differs between cloud providers.
 Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details.
-for details on deploying Ingress in a federated cluster.
 
 ## Alternatives
 
