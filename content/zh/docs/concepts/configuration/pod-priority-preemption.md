@@ -23,7 +23,7 @@ scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 -->
 [Pods](/zh/docs/concepts/workloads/pods/pod/) 可以有*优先级（Priority）*。
-优先级体现的是当前 Pod 与其他 Pod 相比的重要成都。如果 Pod 无法被调度，则
+优先级体现的是当前 Pod 与其他 Pod 相比的重要程度。如果 Pod 无法被调度，则
 调度器会尝试抢占（逐出）低优先级的 Pod，从而使得悬决的 Pod 可被调度。
 
 <!-- body -->
