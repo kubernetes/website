@@ -11,7 +11,7 @@ tags:
 - core-object
 - fundamental
 ---
- データを格納するディレクトリで、{{< glossary_tooltip term_id="pod" >}}内の{{< glossary_tooltip text="コンテナ" term_id="container" >}}からアクセス可能です。
+ データを格納するディレクトリで、{{< glossary_tooltip text="Pod" term_id="pod" >}}内の{{< glossary_tooltip text="コンテナ" term_id="container" >}}からアクセス可能です。
 
 <!--more-->
 
