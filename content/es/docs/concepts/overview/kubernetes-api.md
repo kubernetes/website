@@ -106,7 +106,7 @@ Actualmente hay varios grupos de API en uso:
 Hay dos rutas soportadas para extender la API con [recursos personalizados](/docs/concepts/api-extension/custom-resources/):
 
 1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
-   es para los usuarios que tengan necesidades CRUD muy básicas
+   es para los usuarios que tengan necesidades CRUD muy básicas.
 2. Los usuarios que necesiten la semántica completa de la API pueden implementar su propio `apiserver`
    usando el [agregador](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) para hacerlo
    transparente para los clientes.
