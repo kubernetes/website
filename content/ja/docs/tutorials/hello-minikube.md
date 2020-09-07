@@ -35,7 +35,7 @@ card:
 ## {{% heading "prerequisites" %}}
 
 
-このチュートリアルはNGINXを利用してすべての要求をエコーバックするコンテナーイメージを提供します。
+このチュートリアルはNGINXを利用してすべての要求をエコーバックするコンテナイメージを提供します。
 
 
 
@@ -270,5 +270,4 @@ minikube delete
 * [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ.
 * [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ.
 * [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ.
-
 
