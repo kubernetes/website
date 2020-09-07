@@ -471,7 +471,7 @@ The automatic detection of cgroup driver for other container runtimes
 like CRI-O and containerd is work in progress.
 
 -->
-## 在控制平面节点上配置 kubelet 使用的 cgroup 驱动程序
+## 在控制平面节点上配置 kubelet 使用的 cgroup 驱动程序  {#configure-cgroup-driver-used-by-kubelet-on-master-node}
 
 使用 docker 时，kubeadm 会自动为其检测 cgroup 驱动并在运行时对 `/var/lib/kubelet/kubeadm-flags.env` 文件进行配置。
 
