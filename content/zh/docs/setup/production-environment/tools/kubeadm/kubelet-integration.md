@@ -36,7 +36,7 @@ characteristics of a given machine, such as OS, storage, and networking. You can
 of your kubelets manually, but [kubeadm now provides a `KubeletConfiguration` API type for managing your
 kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 -->
-kubeadm CLI 工具的生命周期与 [kubelet](/docs/reference/command-line-tools-reference/kubelet)解耦，它是一个守护程序，在 Kubernetes 集群中的每个节点上运行。
+kubeadm CLI 工具的生命周期与 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet)解耦，它是一个守护程序，在 Kubernetes 集群中的每个节点上运行。
 当 Kubernetes 初始化或升级时，kubeadm CLI 工具由用户执行，而 kubelet 始终在后台运行。
 
 由于kubelet是守护程序，因此需要通过某种初始化系统或服务管理器进行维护。
