@@ -92,7 +92,7 @@ Las distintas versiones de la API implican distintos niveles de estabilidad y so
 
 ## Grupos de API
 
-Para que sea más fácil extender la API de Kubernetes, creamos los [*grupos de API*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md).
+Para que sea más fácil extender la API de Kubernetes, se han creado los [*grupos de API*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md).
 Estos grupos se especifican en una ruta REST y en la propiedad `apiVersion` de un objeto serializado.
 
 Actualmente hay varios grupos de API en uso:
