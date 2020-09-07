@@ -761,7 +761,7 @@ first [drain the node](/docs/reference/generated/kubectl/kubectl-commands#drain)
 and make sure that the node is empty, then deconfigure the node.
 -->
 但是，如果要更干净地取消配置群集，
-则应首先[清空节点](/zh/docs/reference/generated/kubectl/kubectl-commands#drain)并确保该节点为空，
+则应首先[清空节点](/docs/reference/generated/kubectl/kubectl-commands#drain)并确保该节点为空，
 然后取消配置该节点。
 
 
