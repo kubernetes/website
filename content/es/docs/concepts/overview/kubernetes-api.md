@@ -2,14 +2,14 @@
 reviewers:
 - raelga
 title: API de Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 30
-card: 
+card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Las convenciones globales de la API se describen en el [documento de convenciones de la API](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
@@ -24,10 +24,7 @@ Kubernetes también almacena el estado de los recursos de la API en forma serial
 
 Kubernetes está compuesto, en si mismo, por varios componentes que interactúan a través de su API.
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 ## Cambios a la API
 
@@ -125,5 +122,3 @@ Los `DaemonSets`, `Deployments`, `HorizontalPodAutoscalers`, `Ingresses`, `Jobs`
 
 Se pueden activar otros recursos con la opción `--runtime-config` del `apiserver`. Por ejemplo, como `--runtime-config` acepta valores separados por coma, puede desactivar los Deployments y los Ingress con la opción
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`
-
-{{% /capture %}}
