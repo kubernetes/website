@@ -85,7 +85,7 @@ Las distintas versiones de la API implican distintos niveles de estabilidad y so
   - Los detalles de esta característica podrían cambiar, pero se mantendrá el soporte.
   - El esquema y/o la semántica de un objeto podría volverse incompatible en el futuro. Si esto pasa, ofreceremos instrucciones para migrar a una nueva versión. Esto podría requerir eliminar, editar o volver a crear objetos. El proceso de edición podría requerir planificación, incluyendo tiempo de inactividad para aplicaciones que usaban esta característica.
   - No se recomienda para aplicaciones críticas de negocio ya que podría volverse incompatible en futuras versiones. Si tiene múltiples clústeres que pueden actualizarse de forma independiente se podría decidir correr este riesgo.
-  - **Por favor, ¡pruebe las características en beta y comparta sus comentarios! Una vez que salgan del beta, sería más difícil que hagamos cambios.**
+  - **Por favor, ¡pruebe las características en fase beta y comparta sus comentarios! Una vez que salgan de la fase beta, sería más difícil hacer cambios.**
 - Nivel estable:
   - El nombre de la versión es `vX` donde `X` es un entero.
   - Las versiones estables de las características aparecerán en las siguientes releases.
