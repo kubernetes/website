@@ -7,7 +7,7 @@ menu:
     title: "Get Started"
     weight: 10
     post: >
-      <p>手を動かす準備はできていますか？本チュートリアルでは、サンプルアプリケーションを実行するKubernetesクラスタをビルドします。</p>
+      <p>手を動かす準備はできていますか？本チュートリアルでは、サンプルアプリケーションを実行するKubernetesクラスターをビルドします。</p>
 card: 
   name: tutorials
   weight: 10
@@ -37,17 +37,13 @@ card:
 
 このチュートリアルはNGINXを利用してすべての要求をエコーバックするコンテナーイメージを提供します。
 
-{{< codenew language="js" file="minikube/server.js" >}}
 
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
-
-`docker build`コマンドについての詳細な情報は、[Dockerのドキュメント](https://docs.docker.com/engine/reference/commandline/build/)を参照してください。
 
 
 
 <!-- lessoncontent -->
 
-## Minikubeクラスタの作成
+## Minikubeクラスターの作成
 
 1. **Launch Terminal** をクリックしてください
 
@@ -103,7 +99,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-4. クラスタイベントを確認します:
+4. クラスターイベントを確認します:
 
     ```shell
     kubectl get events
@@ -116,12 +112,12 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     ```
 
 {{< note >}}
-`kubectl`コマンドの詳細な情報は[kubectl overview](/docs/user-guide/kubectl-overview/)を参照してください。
+`kubectl`コマンドの詳細な情報は[kubectl overview](/ja/docs/reference/kubectl/overview/)を参照してください。
 {{< /note >}}
 
 ## Serviceの作成
 
-通常、PodはKubernetesクラスタ内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/ja/docs/concepts/services-networking/service/)としてPodを公開する必要があります。
+通常、PodはKubernetesクラスター内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/ja/docs/concepts/services-networking/service/)としてPodを公開する必要があります。
 
 1. `kubectl expose` コマンドを使用してPodをインターネットに公開します:
 
@@ -129,7 +125,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
 
-    `--type=LoadBalancer`フラグはServiceをクラスタ外部に公開したいことを示しています。
+    `--type=LoadBalancer`フラグはServiceをクラスター外部に公開したいことを示しています。
 
 2. 作成したServiceを確認します:
 
@@ -247,7 +243,7 @@ Minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
 
 ## クリーンアップ
 
-クラスタに作成したリソースをクリーンアップします:
+クラスターに作成したリソースをクリーンアップします:
 
 ```shell
 kubectl delete service hello-node
