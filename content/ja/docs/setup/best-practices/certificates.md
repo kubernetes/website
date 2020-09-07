@@ -26,10 +26,10 @@ Kubernetesは下記の用途でPKIを必要とします：
 * APIサーバーがetcdと通信するためのクライアント証明書
 * controller managerがAPIサーバーと通信するためのクライアント証明書およびkubeconfig
 * スケジューラーがAPIサーバーと通信するためのクライアント証明書およびkubeconfig
-* [front-proxy][proxy]用のクライアント証明書およびサーバー証明書
+* [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)用のクライアント証明書およびサーバー証明書
 
 {{< note >}}
-`front-proxy`証明書は、[Kubernetes APIの拡張](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)をサポートするためにkube-proxyを実行する場合のみ必要です。
+`front-proxy`証明書は、[Kubernetes APIの拡張](/docs/tasks/extend-kubernetes/setup-extension-api-server/)をサポートするためにkube-proxyを実行する場合のみ必要です。
 {{< /note >}}
 
 さらに、etcdはクライアントおよびピア間の認証に相互TLS通信を実装しています。
@@ -52,7 +52,7 @@ kubeadmで証明書を生成したくない場合は、下記の方法のいず�
 |------------------------|---------------------------|----------------------------------|
 | ca.crt,key             | kubernetes-ca             | Kubernetes全体の認証局　　　        |
 | etcd/ca.crt,key        | etcd-ca                   | etcd用　　　　　　　　　　　　　　   |
-| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy][proxy]用　　　 |
+| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)用　　　 |
 
 上記の認証局に加えて、サービスアカウント管理用に公開鍵/秘密鍵のペア(`sa.key`と`sa.pub`)を取得する事が必要です。
 
@@ -72,9 +72,9 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
-[1]: クラスターに接続するIPおよびDNS名( [kubeadm][kubeadm]を使用する場合と同様、ロードバランサーのIPおよびDNS名、`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`)
+[1]: クラスターに接続するIPおよびDNS名( [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使用する場合と同様、ロードバランサーのIPおよびDNS名、`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`)
 
-`kind`は下記の[x509の鍵用途][usage]のタイプにマッピングされます:
+`kind`は下記の[x509の鍵用途](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)のタイプにマッピングされます:
 
 | 種類   | 鍵の用途  　　　                                                                     |
 |--------|---------------------------------------------------------------------------------|
@@ -96,7 +96,8 @@ kubeadm利用者のみ：
 
 ### 証明書のパス
 
-証明書は推奨パスに配置するべきです([kubeadm][kubeadm]を使用する場合と同様)。パスは場所に関係なく与えられた引数で特定されます。
+証明書は推奨パスに配置するべきです([kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)を使用する場合と同様)。
+パスは場所に関係なく与えられた引数で特定されます。
 
 | デフォルトCN                   | 鍵の推奨パス        　　　　　　 | 証明書の推奨パス    　　　　　   | コマンド        | 鍵を指定する引数               | 証明書を指定する引数                          |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
@@ -157,8 +158,5 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 | controller-manager.conf | kube-controller-manager | `manifests/kube-controller-manager.yaml`のマニフェストファイルに追記する必要があります。 |
 | scheduler.conf          | kube-scheduler          | `manifests/kube-scheduler.yaml`のマニフェストファイルに追記する必要があります。          |
 
-[usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
-[kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
-[proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
 
 
