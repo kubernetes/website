@@ -123,7 +123,7 @@ Esta opción acepta pares de `clave=valor` separados por coma que describen la c
 
 Los `DaemonSets`, `Deployments`, `HorizontalPodAutoscalers`, `Ingresses`, `Jobs` y `ReplicaSets` están activados por defecto.
 
-Se pueden activar otros recursos con la opción `--runtime-config` del `apiserver`. Por ejemplo, como `--runtime-config` acepta valores separados por coma, puede desactivar los deployments y los ingress con la opción
+Se pueden activar otros recursos con la opción `--runtime-config` del `apiserver`. Por ejemplo, como `--runtime-config` acepta valores separados por coma, puede desactivar los Deployments y los Ingress con la opción
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`
 
 {{% /capture %}}
