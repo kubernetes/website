@@ -99,7 +99,7 @@ Actualmente hay varios grupos de API en uso:
 
 1. El grupo *core* (o *group*) en la ruta REST `/api/v1` y usa `apiVersion: v1`.
 
-2. Los grupos con nombre están en la ruta REST `/apis/$NOMBRE_GRUPO/$VERSION` y usan `apiVersion: $NOMBRE_GRUPO/$VERSION`
+2. Los grupos con entidad propia están en la ruta REST `/apis/$NOMBRE_GRUPO/$VERSION` y usan `apiVersion: $NOMBRE_GRUPO/$VERSION`.
    (p. ej., `apiVersion: batch/v1`).  La lista completa de los grupos soportados está disponible en la [Referencia de la API](/es/docs/reference/).
 
 
