@@ -88,7 +88,7 @@ Las distintas versiones de la API implican distintos niveles de estabilidad y so
   - **Por favor, ¡pruebe las características en fase beta y comparta sus comentarios! Una vez que salgan de la fase beta, sería más difícil hacer cambios.**
 - Nivel estable:
   - El nombre de la versión es `vX` donde `X` es un entero.
-  - Las versiones estables de las características aparecerán en las siguientes releases.
+  - Las versiones estables de las características aparecerán en los siguientes releases.
 
 ## Grupos de API
 
