@@ -33,7 +33,7 @@ where **x** is the major version, **y** is the minor version, and **z** is the p
 For more information, see [Kubernetes Release Versioning](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning).
 -->
 Kubernetes 版本号格式为 **x.y.z**，其中 **x** 为大版本号，**y** 为小版本号，**z** 为补丁版本号。
-版本号格式遵循 [Semantic Versioning](http://semver.org/) 规则。
+版本号格式遵循 [Semantic Versioning](https://semver.org/) 规则。
 更多信息，请参阅 [Kubernetes Release Versioning](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning)。
 
 <!--
