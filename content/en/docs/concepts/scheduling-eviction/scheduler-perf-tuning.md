@@ -3,7 +3,7 @@ reviewers:
 - bsalamat
 title: Scheduler Performance Tuning
 content_type: concept
-weight: 70
+weight: 80
 ---
 
 <!-- overview -->
@@ -48,10 +48,13 @@ To change the value, edit the kube-scheduler configuration file (this is likely
 to be `/etc/kubernetes/config/kube-scheduler.yaml`), then restart the scheduler.
 
 After you have made this change, you can run
+
 ```bash
 kubectl get componentstatuses
 ```
+
 to verify that the kube-scheduler component is healthy. The output is similar to:
+
 ```
 NAME                 STATUS    MESSAGE             ERROR
 controller-manager   Healthy   ok
