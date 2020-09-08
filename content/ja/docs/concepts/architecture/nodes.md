@@ -6,7 +6,7 @@ weight: 10
 
 <!-- overview -->
 
-Kubernetesはコンテナをノード上で実行されるPodに配置することで、ワークロードを実行します。
+Kubernetesはコンテナを_Node_上で実行されるPodに配置することで、ワークロードを実行します。
 ノードはクラスターによりますが、1つのVMまたは物理的なマシンです。
 各ノードは{{< glossary_tooltip text="Pod" term_id="pod" >}}やそれを制御する{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}を実行するのに必要なサービスを含んでいます。
 
