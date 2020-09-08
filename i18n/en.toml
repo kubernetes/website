@@ -63,6 +63,9 @@ other = "Latest version"
 [docs_version_other_heading]
 other = "Older versions"
 
+[error_404_were_you_looking_for]
+other = "Were you looking for:"
+
 [examples_heading]
 other = "Examples"
 
