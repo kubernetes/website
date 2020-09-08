@@ -13,7 +13,7 @@ weight: 30
 
 _Deployment_ は[Pod](/ja/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。
 
-Deploymentにおいて_理想的な状態_ を記述すると、Deployment{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は指定された頻度で現在の状態を理想的な状態に変更します。Deploymentを定義することによって、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
+Deploymentにおいて _理想的な状態_ を記述すると、Deployment{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は指定された頻度で現在の状態を理想的な状態に変更します。Deploymentを定義することによって、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
 {{< note >}}
 Deploymentによって作成されたReplicaSetを管理しないでください。ご自身のユースケースが以下の項目に含まれない場合、メインのKubernetesリポジトリーにIssueを作成することを検討してください。
@@ -110,7 +110,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   ReplicaSetの出力には次のフィールドが表示されます:
 
   * `NAME`は、名前空間内にあるReplicaSetの名前の一覧です。
-  * `DESIRED`は、アプリケーションの理想的な_レプリカ_ の値です。これはDeploymentを作成したときに定義したもので、これが_理想的な状態_ と呼ばれるものです。
+  * `DESIRED`は、アプリケーションの理想的な _レプリカ_ の値です。これはDeploymentを作成したときに定義したもので、これが _理想的な状態_ と呼ばれるものです。
   * `CURRENT`は現在実行されているレプリカの数です。
   * `READY`は、ユーザーが使用できるアプリケーションのレプリカの数です。
   * `AGE`は、アプリケーションが稼働してからの時間です。
@@ -756,7 +756,7 @@ Deploymentは、そのライフサイクルの間に様々な状態に遷移し�
 
 ### Deploymentの更新処理 {#progressing-deployment}
 
-以下のタスクが実行中のとき、KubernetesはDeploymentの状態を_progressing_ にします。
+以下のタスクが実行中のとき、KubernetesはDeploymentの状態を _進行中_ にします。
 
 * Deploymentが新しいReplicaSetを作成します。
 * Deploymentが新しいReplicaSetをスケールアップさせています。
@@ -767,7 +767,7 @@ Deploymentは、そのライフサイクルの間に様々な状態に遷移し�
 
 ### Deploymentの更新処理の完了 {#complete-deployment}
 
-Deploymentが以下の状態になったとき、KubernetesはDeploymentのステータスを_complete_ にします。
+Deploymentが以下の状態になったとき、KubernetesはDeploymentのステータスを _完了_ にします。
 
 * Deploymentの全てのレプリカが、指定された最新のバージョンに更新されます。これは指定した更新処理が完了したことを意味します。
 * Deploymentの全てのレプリカが利用可能になります。
