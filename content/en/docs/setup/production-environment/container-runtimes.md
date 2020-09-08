@@ -471,7 +471,12 @@ Start-Service containerd
 
 ### systemd
 
-To use the `systemd` cgroup driver, set `plugins.cri.systemd_cgroup = true` in `/etc/containerd/config.toml`.
+To use the `systemd` cgroup driver in `/etc/containerd/config.toml` set
+
+```
+[plugins.cri]
+systemd_cgroup = true
+```
 When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
 
