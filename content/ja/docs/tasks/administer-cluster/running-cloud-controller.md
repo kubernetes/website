@@ -1,5 +1,5 @@
 ---
-title: クラウドコントローラーマネージャー運用
+title: クラウドコントローラーマネージャーの運用管理
 content_type: concept
 ---
 
@@ -80,4 +80,3 @@ cloud-controller-managerは、クラウドプロバイダーのAPIにクエリ�
 ## {{% heading "whatsnext" %}}
 
 独自のクラウドコントローラーマネージャーを構築および開発するには[クラウドコントローラーマネージャーの開発](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md)を参照してください。
-
