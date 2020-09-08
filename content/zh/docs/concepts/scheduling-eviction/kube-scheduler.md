@@ -5,11 +5,9 @@ weight: 50
 ---
 
 <!--
----
 title: Kubernetes Scheduler
 content_type: concept
 weight: 50
----
 -->
 <!-- overview -->
 
