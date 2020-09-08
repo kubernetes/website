@@ -68,7 +68,7 @@ kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
 시스템에 도커를 설치하기 위해서 아래의 커맨드들을 사용한다.
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04+" >}}
+{{% tab name="Ubuntu 16.04+" %}}
 
 ```shell
 # (도커 CE 설치)
@@ -122,8 +122,8 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (도커 CE 설치)
@@ -177,7 +177,7 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 부팅 시 도커 서비스를 시작하려면, 다음 명령을 실행한다.
@@ -217,7 +217,7 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Debian" >}}
+{{% tab name="Debian" %}}
 
 ```shell
 # Debian 개발 배포본(Unstable/Sid)
@@ -247,9 +247,9 @@ wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:st
 ```shell
 sudo apt-get install cri-o-1.17
 ```
-{{< /tab >}}
+{{% /tab %}}
 
-{{< tab name="Ubuntu 18.04, 19.04 and 19.10" >}}
+{{% tab name="Ubuntu 18.04, 19.04 and 19.10" %}}
 
 ```shell
 #  패키지 리포지터리 설정
@@ -263,9 +263,9 @@ sudo apt-get update
 # CRI-O 설치
 sudo apt-get install cri-o-1.17
 ```
-{{< /tab >}}
+{{% /tab %}}
 
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # 선행 조건 설치
@@ -278,12 +278,12 @@ curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew late
 yum install -y cri-o
 ```
 
-{{< tab name="openSUSE Tumbleweed" >}}
+{{% tab name="openSUSE Tumbleweed" %}}
 
 ```shell
 sudo zypper install cri-o
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 ### CRI-O 시작
@@ -326,7 +326,7 @@ sysctl --system
 ### containerd 설치
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04" >}}
+{{% tab name="Ubuntu 16.04" %}}
 
 ```shell
 # (containerd 설치)
@@ -363,8 +363,8 @@ containerd config default > /etc/containerd/config.toml
 # containerd 재시작
 systemctl restart containerd
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (containerd 설치)
@@ -395,7 +395,7 @@ containerd config default > /etc/containerd/config.toml
 # containerd 재시작
 systemctl restart containerd
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 ### systemd
