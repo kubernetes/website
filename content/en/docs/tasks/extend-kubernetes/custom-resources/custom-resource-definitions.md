@@ -190,7 +190,7 @@ If you later recreate the same CustomResourceDefinition, it will start out empty
 
 ## Specifying a structural schema
 
-CustomResources store structured data in custom fiels (alongside the built-in fields `apiVersion`, `kind` and `metadata`, which the API server validates implicitly). With [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) a schema can be specified, which is validated during creation and updates, compare below for details and limits of such a schema.
+CustomResources store structured data in custom fields (alongside the built-in fields `apiVersion`, `kind` and `metadata`, which the API server validates implicitly). With [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) a schema can be specified, which is validated during creation and updates, compare below for details and limits of such a schema.
 
 With `apiextensions.k8s.io/v1` the definition of a structural schema is mandatory for CustomResourceDefinitions (in the beta version of CustomResourceDefinition, structural schemas were optional).
 
