@@ -30,13 +30,13 @@ Petunjuk yang disarankan untuk menjalankan Dokumentasi Kubernetes pada mesin lok
 Jika kamu sudah memiliki **Docker** [yang sudah dapat digunakan](https://www.docker.com/get-started), kamu dapat melakukan **build** `kubernetes-hugo` **Docker image** secara lokal:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Setelah **image** berhasil di-**build**, kamu dapat menjalankan website tersebut pada mesin lokal-mu:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Buka **browser** kamu ke http://localhost:1313 untuk melihat laman dokumentasi. Selama kamu melakukan penambahan konten, **Hugo** akan secara otomatis melakukan perubahan terhadap laman dokumentasi apabila **browser** melakukan proses **refresh**.

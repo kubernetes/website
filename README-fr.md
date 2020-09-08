@@ -38,13 +38,13 @@ La façon recommandée d'exécuter le site web Kubernetes localement est d'utili
 Si vous avez Docker [up and running](https://www.docker.com/get-started), construisez l'image Docker `kubernetes-hugo' localement:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Une fois l'image construite, vous pouvez exécuter le site localement :
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Ouvrez votre navigateur à l'adresse: http://localhost:1313 pour voir le site.
