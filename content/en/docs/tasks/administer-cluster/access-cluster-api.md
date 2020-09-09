@@ -171,6 +171,8 @@ The Go client can use the same [kubeconfig file](/docs/concepts/configuration/or
 as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go):
 
 ```golang
+package main
+
 import (
   "fmt"
   "k8s.io/apimachinery/pkg/apis/meta/v1"
