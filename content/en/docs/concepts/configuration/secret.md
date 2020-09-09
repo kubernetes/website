@@ -717,38 +717,6 @@ A container using a Secret as a
 Secret updates.
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
-individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
-(at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
-data has the following advantages:
-
-- protects you from accidental (or unwanted) updates that could cause applications outages
-- improves performance of your cluster by significantly reducing load on kube-apiserver, by
-closing watches for secrets marked as immutable.
-
-This feature is controlled by the `ImmutableEphemeralVolumes` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/),
-which is enabled by default since v1.19. You can create an immutable
-Secret by setting the `immutable` field to `true`. For example,
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  ...
-data:
-  ...
-immutable: true
-```
-
-{{< note >}}
-Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
-nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
-Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
-these pods.
-{{< /note >}}
-
 ### Using Secrets as environment variables
 
 To use a secret in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
@@ -808,6 +776,40 @@ The output is similar to:
 ```
 1f2d1e2e67df
 ```
+
+## Immutable Secrets {#secret-immutable}
+
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
+(at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
+data has the following advantages:
+
+- protects you from accidental (or unwanted) updates that could cause applications outages
+- improves performance of your cluster by significantly reducing load on kube-apiserver, by
+closing watches for secrets marked as immutable.
+
+This feature is controlled by the `ImmutableEphemeralVolumes` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/),
+which is enabled by default since v1.19. You can create an immutable
+Secret by setting the `immutable` field to `true`. For example,
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  ...
+data:
+  ...
+immutable: true
+```
+
+{{< note >}}
+Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
+nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
+Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
+these pods.
+{{< /note >}}
 
 ### Using imagePullSecrets
 
