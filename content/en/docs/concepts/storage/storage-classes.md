@@ -422,7 +422,7 @@ There are two types of provisioners for vSphere storage classes:
 
 In-tree provisioners are [deprecated](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](https://kubernetes.io/docs/concepts/storage/volumes/#csi-migration-5).
 
-#### CSI Provisioner
+#### CSI Provisioner {#vsphere-provisioner-csi}
 
 The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters.
 
@@ -845,5 +845,4 @@ specified by the `WaitForFirstConsumer` volume binding mode.
 Delaying volume binding allows the scheduler to consider all of a Pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
-
 
