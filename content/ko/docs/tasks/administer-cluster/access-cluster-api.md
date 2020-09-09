@@ -177,6 +177,7 @@ Go 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 �
 package main
 
 import (
+  "context"
   "fmt"
   "k8s.io/apimachinery/pkg/apis/meta/v1"
   "k8s.io/client-go/kubernetes"
@@ -190,7 +191,7 @@ func main() {
   // clientset을 생성한다
   clientset, _ := kubernetes.NewForConfig(config)
   // 파드를 나열하기 위해 API에 접근한다
-  pods, _ := clientset.CoreV1().Pods("").List(v1.ListOptions{})
+  pods, _ := clientset.CoreV1().Pods("").List(context.TODO(), v1.ListOptions{})
   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
 }
 ```
