@@ -9,10 +9,10 @@ weight: 10
 
 <!-- overview -->
 
-Kubernetes runs your workload by placing containers into Pods to run on _Nodes_.
+Kubernetes runs your workload by placing containers into pods to run on _nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
 contains the services necessary to run
-{{< glossary_tooltip text="Pods" term_id="pod" >}}, managed by the
+{{< glossary_tooltip text="pods" term_id="pod" >}}, managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
@@ -27,14 +27,14 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 
 ## Management
 
-There are two main ways to have Nodes added to the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
+There are two main ways to have nodes added to the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
 
 1. The kubelet on a node self-registers to the control plane
-2. You, or another human user, manually add a Node object
+2. You, or another human user, manually add a `Node` object
 
-After you create a Node object, or the kubelet on a node self-registers, the
-control plane checks whether the new Node object is valid. For example, if you
-try to create a Node from the following JSON manifest:
+After you create a `Node` object, or the kubelet on a node self-registers, the
+control plane checks whether the new `Node` object is valid. For example, if you
+try to create a `Node` from the following JSON manifest:
 
 ```json
 {
@@ -49,24 +49,24 @@ try to create a Node from the following JSON manifest:
 }
 ```
 
-Kubernetes creates a Node object internally (the representation). Kubernetes checks
+Kubernetes creates a `Node` object internally (the representation). Kubernetes checks
 that a kubelet has registered to the API server that matches the `metadata.name`
-field of the Node. If the node is healthy (if all necessary services are running),
-it is eligible to run a Pod. Otherwise, that node is ignored for any cluster activity
+field of the `Node`. If the node is healthy (if all necessary services are running),
+it is eligible to run a pod. Otherwise, that node is ignored for any cluster activity
 until it becomes healthy.
 
 {{< note >}}
-Kubernetes keeps the object for the invalid Node and continues checking to see whether
+Kubernetes keeps the object for the invalid node and continues checking to see whether
 it becomes healthy.
 
 You, or a {{< glossary_tooltip term_id="controller" text="controller">}}, must explicitly
-delete the Node object to stop that health checking.
+delete the `Node` object to stop that health checking.
 {{< /note >}}
 
-The name of a Node object must be a valid
+The name of a `Node` object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-### Self-registration of Nodes
+### Self-registration of nodes
 
 When the kubelet flag `--register-node` is true (the default), the kubelet will attempt to
 register itself with the API server.  This is the preferred pattern, used by most distros.
@@ -80,32 +80,32 @@ For self-registration, the kubelet is started with the following options:
 
     No-op if `register-node` is false.
   - `--node-ip` - IP address of the node.
-  - `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
+  - `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node in the cluster (see label restrictions enforced by the [`NodeRestriction` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
 
-When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
-[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
-kubelets are only authorized to create/modify their own Node resource.
+When the [node authorization mode](/docs/reference/access-authn-authz/node/) and
+[`NodeRestriction` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
+kubelets are only authorized to create/modify their own `Node` resource.
 
-### Manual Node administration
+### Manual node administration
 
-You can create and modify Node objects using
+You can create and modify `Node` objects using
 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}.
 
-When you want to create Node objects manually, set the kubelet flag `--register-node=false`.
+When you want to create `Node` objects manually, set the kubelet flag `--register-node=false`.
 
-You can modify Node objects regardless of the setting of `--register-node`.
-For example, you can set labels on an existing Node, or mark it unschedulable.
+You can modify `Node` objects regardless of the setting of `--register-node`.
+For example, you can set labels on an existing `Node`, or mark it unschedulable.
 
-You can use labels on Nodes in conjunction with node selectors on Pods to control
-scheduling. For example, you can constrain a Pod to only be eligible to run on
+You can use labels on nodes in conjunction with node selectors on pods to control
+scheduling. For example, you can constrain a pod to only be eligible to run on
 a subset of the available nodes.
 
 Marking a node as unschedulable prevents the scheduler from placing new pods onto
-that Node, but does not affect existing Pods on the Node. This is useful as a
+that node, but does not affect existing pods on the node. This is useful as a
 preparatory step before a node reboot or other maintenance.
 
-To mark a Node unschedulable, run:
+To mark a node unschedulable, run:
 
 ```shell
 kubectl cordon $NODENAME
@@ -113,20 +113,20 @@ kubectl cordon $NODENAME
 
 {{< note >}}
 Pods that are part of a {{< glossary_tooltip term_id="daemonset" >}} tolerate
-being run on an unschedulable Node. DaemonSets typically provide node-local services
-that should run on the Node even if it is being drained of workload applications.
+being run on an unschedulable node. Daemon sets typically provide node-local services
+that should run on the node even if it is being drained of workload applications.
 {{< /note >}}
 
 ## Node status
 
-A Node's status contains the following information:
+A node's status contains the following information:
 
 * [Addresses](#addresses)
 * [Conditions](#condition)
 * [Capacity and Allocatable](#capacity)
 * [Info](#info)
 
-You can use `kubectl` to view a Node's status and other details:
+You can use `kubectl` to view a node's status and other details:
 
 ```shell
 kubectl describe node <insert-node-name-here>
@@ -138,9 +138,9 @@ Each section of the output is described below.
 
 The usage of these fields varies depending on your cloud provider or bare metal configuration.
 
-* HostName: The hostname as reported by the node's kernel. Can be overridden via the kubelet `--hostname-override` parameter.
-* ExternalIP: Typically the IP address of the node that is externally routable (available from outside the cluster).
-* InternalIP: Typically the IP address of the node that is routable only within the cluster.
+* `HostName`: The host name as reported by the node's kernel. Can be overridden via the kubelet `--hostname-override` parameter.
+* `ExternalIP`: Typically the IP address of the node that is externally routable (available from outside the cluster).
+* `InternalIP`: Typically the IP address of the node that is routable only within the cluster.
 
 
 ### Conditions {#condition}
@@ -158,9 +158,9 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 {{< /table >}}
 
 {{< note >}}
-If you use command-line tools to print details of a cordoned Node, the Condition includes
-`SchedulingDisabled`. `SchedulingDisabled` is not a Condition in the Kubernetes API; instead,
-cordoned nodes are marked Unschedulable in their spec.
+If you use command-line tools to print details of a cordoned node, the condition includes
+`SchedulingDisabled`. `SchedulingDisabled` is not a condition in the Kubernetes API; instead,
+cordoned nodes are marked unschedulable in their spec.
 {{< /note >}}
 
 The node condition is represented as a JSON object. For example, the following structure describes a healthy node:
@@ -178,20 +178,20 @@ The node condition is represented as a JSON object. For example, the following s
 ]
 ```
 
-If the Status of the Ready condition remains `Unknown` or `False` for longer than the `pod-eviction-timeout` (an argument passed to the {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}), all the Pods on the node are scheduled for deletion by the node controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the API server is unable to communicate with the kubelet on the node. The decision to delete the pods cannot be communicated to the kubelet until communication with the API server is re-established. In the meantime, the pods that are scheduled for deletion may continue to run on the partitioned node.
+If the status of the `Ready` condition remains `Unknown` or `False` for longer than the `pod-eviction-timeout` (an argument passed to the {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}), all the pods on the node are scheduled for deletion by the node controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the API server is unable to communicate with the kubelet on the node. The decision to delete the pods cannot be communicated to the kubelet until communication with the API server is re-established. In the meantime, the pods that are scheduled for deletion may continue to run on the partitioned node.
 
 The node controller does not force delete pods until it is confirmed that they have stopped
 running in the cluster. You can see the pods that might be running on an unreachable node as
 being in the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce from the
 underlying infrastructure if a node has permanently left a cluster, the cluster administrator
-may need to delete the node object by hand.  Deleting the node object from Kubernetes causes
-all the Pod objects running on the node to be deleted from the API server, and frees up their
+may need to delete the `Node` object by hand.  Deleting the `Node` object from Kubernetes causes
+all the `Pod` objects running on the node to be deleted from the API server, and frees up their
 names.
 
 The node lifecycle controller automatically creates
 [taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that represent conditions.
-The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
-Pods can also have tolerations which let them tolerate a Node's taints.
+The scheduler takes the node's taints into consideration when assigning a pod to a node.
+Pods can also have tolerations which let them tolerate a node's taints.
 
 See [Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
 for more details.
@@ -202,12 +202,12 @@ Describes the resources available on the node: CPU, memory and the maximum
 number of pods that can be scheduled onto the node.
 
 The fields in the capacity block indicate the total amount of resources that a
-Node has. The allocatable block indicates the amount of resources on a
-Node that is available to be consumed by normal Pods.
+node has. The allocatable block indicates the amount of resources on a
+node that is available to be consumed by normal pods.
 
 You may read more about capacity and allocatable resources while learning how
 to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-on a Node.
+on a node.
 
 ### Info
 
@@ -229,12 +229,12 @@ provider if the VM for that node is still available. If not, the node
 controller deletes the node from its list of nodes.
 
 The third is monitoring the nodes' health. The node controller is
-responsible for updating the NodeReady condition of NodeStatus to
-ConditionUnknown when a node becomes unreachable (i.e. the node controller stops
+responsible for updating the `NodeReady` condition of `NodeStatus` to
+`ConditionUnknown` when a node becomes unreachable (i.e. the node controller stops
 receiving heartbeats for some reason, for example due to the node being down), and then later evicting
 all the pods from the node (using graceful termination) if the node continues
 to be unreachable. (The default timeouts are 40s to start reporting
-ConditionUnknown and 5m after that to start evicting pods.) The node controller
+`ConditionUnknown` and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
 #### Heartbeats
@@ -242,22 +242,22 @@ checks the state of each node every `--node-monitor-period` seconds.
 Heartbeats, sent by Kubernetes nodes, help determine the availability of a node.
 
 There are two forms of heartbeats: updates of `NodeStatus` and the
-[Lease object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io).
-Each Node has an associated Lease object in the `kube-node-lease`
+[`Lease` object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io).
+Each node has an associated `Lease` object in the `kube-node-lease`
 {{< glossary_tooltip term_id="namespace" text="namespace">}}.
-Lease is a lightweight resource, which improves the performance
+`Lease` is a lightweight resource, which improves the performance
 of the node heartbeats as the cluster scales.
 
 The kubelet is responsible for creating and updating the `NodeStatus` and
-a Lease object.
+a `Lease` object.
 
 - The kubelet updates the `NodeStatus` either when there is change in status,
   or if there has been no update for a configured interval. The default interval
   for `NodeStatus` updates is 5 minutes (much longer than the 40 second default
   timeout for unreachable nodes).
-- The kubelet creates and then updates its Lease object every 10 seconds
-  (the default update interval). Lease updates occur independently from the
-  `NodeStatus` updates. If the Lease update fails, the kubelet retries with exponential backoff starting at 200 milliseconds and capped at 7 seconds.
+- The kubelet creates and then updates its `Lease` object every 10 seconds
+  (the default update interval). `Lease` updates occur independently from the
+  `NodeStatus` updates. If the `Lease` update fails, the kubelet retries with exponential backoff starting at 200 milliseconds and capped at 7 seconds.
 
 #### Reliability
 
@@ -267,7 +267,7 @@ from more than 1 node per 10 seconds.
 
 The node eviction behavior changes when a node in a given availability zone
 becomes unhealthy. The node controller checks what percentage of nodes in the zone
-are unhealthy (NodeReady condition is ConditionUnknown or ConditionFalse) at
+are unhealthy (`NodeReady` condition is `ConditionUnknown` or `ConditionFalse`) at
 the same time. If the fraction of unhealthy nodes is at least
 `--unhealthy-zone-threshold` (default 0.55) then the eviction rate is reduced:
 if the cluster is small (i.e. has less than or equal to
@@ -291,32 +291,32 @@ The node controller is also responsible for evicting pods running on nodes with
 `NoExecute` taints, unless those pods tolerate that taint.
 The node controller also adds {{< glossary_tooltip text="taints" term_id="taint" >}}
 corresponding to node problems like node unreachable or not ready. This means
-that the scheduler won't place Pods onto unhealthy nodes.
+that the scheduler won't place pods onto unhealthy nodes.
 
 
 {{< caution >}}
 `kubectl cordon` marks a node as 'unschedulable', which has the side effect of the service
-controller removing the node from any LoadBalancer node target lists it was previously 
+controller removing the node from any LoadBalancer node target lists it was previously
 eligible for, effectively removing incoming load balancer traffic from the cordoned node(s).
 {{< /caution >}}
 
 ### Node capacity
 
-Node objects track information about the Node's resource capacity (for example: the amount
+`Node` objects track information about the node's resource capacity (for example: the amount
 of memory available, and the number of CPUs).
 Nodes that [self register](#self-registration-of-nodes) report their capacity during
-registration. If you [manually](#manual-node-administration) add a Node, then
+registration. If you [manually](#manual-node-administration) add a node, then
 you need to set the node's capacity information when you add it.
 
 The Kubernetes {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} ensures that
-there are enough resources for all the Pods on a Node. The scheduler checks that the sum
+there are enough resources for all the pods on a node. The scheduler checks that the sum
 of the requests of containers on the node is no greater than the node's capacity.
 That sum of requests includes all containers managed by the kubelet, but excludes any
 containers started directly by the container runtime, and also excludes any
 processes running outside of the kubelet's control.
 
 {{< note >}}
-If you want to explicitly reserve resources for non-Pod processes, see
+If you want to explicitly reserve resources for non-pod processes, see
 [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
 {{< /note >}}
 
@@ -327,15 +327,14 @@ If you want to explicitly reserve resources for non-Pod processes, see
 If you have enabled the `TopologyManager`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then
 the kubelet can use topology hints when making resource assignment decisions.
-See [Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/)
+See [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/)
 for more information.
 
 
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [components](/docs/concepts/overview/components/#node-components) that make up a node.
-* Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-* Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
+* Read the [API definition for `Node`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+* Read the [node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-
