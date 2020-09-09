@@ -30,9 +30,12 @@ Kubernetes generally leverages standard RESTful terminology to describe the API 
 All resource types are either scoped by the cluster (`/apis/GROUP/VERSION/*`) or to a namespace (`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`). A namespace-scoped resource type will be deleted when its namespace is deleted and access to that resource type is controlled by authorization checks on the namespace scope. The following paths are used to retrieve collections and resources:
 
 * Cluster-scoped resources:
+
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of resources of the resource type
   * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - return the resource with NAME under the resource type
+
 * Namespace-scoped resources:
+
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all instances of the resource type across all namespaces
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
@@ -57,33 +60,39 @@ For example:
 
 1. List all of the pods in a given namespace.
 
-        GET /api/v1/namespaces/test/pods
-        ---
-        200 OK
-        Content-Type: application/json
-        {
-          "kind": "PodList",
-          "apiVersion": "v1",
-          "metadata": {"resourceVersion":"10245"},
-          "items": [...]
-        }
+   ```console
+   GET /api/v1/namespaces/test/pods
+   ---
+   200 OK
+   Content-Type: application/json
+
+   {
+     "kind": "PodList",
+     "apiVersion": "v1",
+     "metadata": {"resourceVersion":"10245"},
+     "items": [...]
+   }
+   ```
 
 2. Starting from resource version 10245, receive notifications of any creates, deletes, or updates as individual JSON objects.
 
-        GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245
-        ---
-        200 OK
-        Transfer-Encoding: chunked
-        Content-Type: application/json
-        {
-          "type": "ADDED",
-          "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "10596", ...}, ...}
-        }
-        {
-          "type": "MODIFIED",
-          "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "11020", ...}, ...}
-        }
-        ...
+   ```
+   GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245
+   ---
+   200 OK
+   Transfer-Encoding: chunked
+   Content-Type: application/json
+
+   {
+     "type": "ADDED",
+     "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "10596", ...}, ...}
+   }
+   {
+     "type": "MODIFIED",
+     "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "11020", ...}, ...}
+   }
+   ...
+   ```
 
 A given Kubernetes server will only preserve a historical list of changes for a limited time. Clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
 
@@ -91,24 +100,28 @@ A given Kubernetes server will only preserve a historical list of changes for a 
 
 To mitigate the impact of short history window, we introduced a concept of `bookmark` watch event. It is a special kind of event to mark that all changes up to a given `resourceVersion` the client is requesting have already been sent. Object returned in that event is of the type requested by the request, but only `resourceVersion` field is set, e.g.:
 
-        GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
-        ---
-        200 OK
-        Transfer-Encoding: chunked
-        Content-Type: application/json
-        {
-          "type": "ADDED",
-          "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "10596", ...}, ...}
-        }
-        ...
-        {
-          "type": "BOOKMARK",
-          "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "12746"} }
-        }
+```console
+GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
+---
+200 OK
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+{
+  "type": "ADDED",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "10596", ...}, ...}
+}
+...
+{
+  "type": "BOOKMARK",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "12746"} }
+}
+```
 
 `Bookmark` events can be requested by `allowWatchBookmarks=true` option in watch requests, but clients shouldn't assume bookmarks are returned at any specific interval, nor may they assume the server will send any `bookmark` event.
 
 ## Retrieving large results sets in chunks
+
 {{< feature-state for_k8s_version="v1.9" state="beta" >}}
 
 On large clusters, retrieving the collection of some resource types may result in very large responses that can impact the server and client. For instance, a cluster may have tens of thousands of pods, each of which is 1-2kb of encoded JSON. Retrieving all pods across all namespaces may result in a very large response (10-20MB) and consume a large amount of server resources. Starting in Kubernetes 1.9 the server supports the ability to break a single large collection request into many smaller chunks while preserving the consistency of the total request. Each chunk can be returned sequentially which reduces both the total size of the request and allows user-oriented clients to display results incrementally to improve responsiveness.
@@ -121,54 +134,63 @@ For example, if there are 1,253 pods on the cluster and the client wants to rece
 
 1. List all of the pods on a cluster, retrieving up to 500 pods each time.
 
-        GET /api/v1/pods?limit=500
-        ---
-        200 OK
-        Content-Type: application/json
-        {
-          "kind": "PodList",
-          "apiVersion": "v1",
-          "metadata": {
-            "resourceVersion":"10245",
-            "continue": "ENCODED_CONTINUE_TOKEN",
-            ...
-          },
-          "items": [...] // returns pods 1-500
-        }
+   ```console
+   GET /api/v1/pods?limit=500
+   ---
+   200 OK
+   Content-Type: application/json
+
+   {
+     "kind": "PodList",
+     "apiVersion": "v1",
+     "metadata": {
+       "resourceVersion":"10245",
+       "continue": "ENCODED_CONTINUE_TOKEN",
+       ...
+     },
+     "items": [...] // returns pods 1-500
+   }
+   ```
 
 2. Continue the previous call, retrieving the next set of 500 pods.
 
-        GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN
-        ---
-        200 OK
-        Content-Type: application/json
-        {
-          "kind": "PodList",
-          "apiVersion": "v1",
-          "metadata": {
-            "resourceVersion":"10245",
-            "continue": "ENCODED_CONTINUE_TOKEN_2",
-            ...
-          },
-          "items": [...] // returns pods 501-1000
-        }
+   ```console
+   GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN
+   ---
+   200 OK
+   Content-Type: application/json
+
+   {
+     "kind": "PodList",
+     "apiVersion": "v1",
+     "metadata": {
+       "resourceVersion":"10245",
+       "continue": "ENCODED_CONTINUE_TOKEN_2",
+       ...
+     },
+     "items": [...] // returns pods 501-1000
+   }
+   ```
 
 3. Continue the previous call, retrieving the last 253 pods.
 
-        GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN_2
-        ---
-        200 OK
-        Content-Type: application/json
-        {
-          "kind": "PodList",
-          "apiVersion": "v1",
-          "metadata": {
-            "resourceVersion":"10245",
-            "continue": "", // continue token is empty because we have reached the end of the list
-            ...
-          },
-          "items": [...] // returns pods 1001-1253
-        }
+   ```console
+   GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN_2
+   ---
+   200 OK
+   Content-Type: application/json
+
+   {
+     "kind": "PodList",
+     "apiVersion": "v1",
+     "metadata": {
+       "resourceVersion":"10245",
+       "continue": "", // continue token is empty because we have reached the end of the list
+       ...
+     },
+     "items": [...] // returns pods 1001-1253
+   }
+   ```
 
 Note that the `resourceVersion` of the list remains constant across each request, indicating the server is showing us a consistent snapshot of the pods. Pods that are created, updated, or deleted after version `10245` would not be shown unless the user makes a list request without the `continue` token.  This allows clients to break large requests into smaller chunks and then perform a watch operation on the full set without missing any updates.
 
@@ -180,52 +202,56 @@ A few limitations of that approach include non-trivial logic when dealing with c
 
 In order to avoid potential limitations as described above, clients may request the Table representation of objects, delegating specific details of printing to the server. The Kubernetes API implements standard HTTP content type negotiation: passing an `Accept` header containing a value of `application/json;as=Table;g=meta.k8s.io;v=v1beta1` with a `GET` call will request that the server return objects in the Table content type.
 
-For example:
+For example, list all of the pods on a cluster in the Table format.
 
-1. List all of the pods on a cluster in the Table format.
+```console
+GET /api/v1/pods
+Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1
+---
+200 OK
+Content-Type: application/json
 
-        GET /api/v1/pods
-        Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1
-        ---
-        200 OK
-        Content-Type: application/json
-        {
-            "kind": "Table",
-            "apiVersion": "meta.k8s.io/v1beta1",
-            ...
-            "columnDefinitions": [
-                ...
-            ]
-        }
+{
+    "kind": "Table",
+    "apiVersion": "meta.k8s.io/v1beta1",
+    ...
+    "columnDefinitions": [
+        ...
+    ]
+}
+```
 
 For API resource types that do not have a custom Table definition on the server, a default Table response is returned by the server, consisting of the resource's `name` and `creationTimestamp` fields.
 
-        GET /apis/crd.example.com/v1alpha1/namespaces/default/resources
-        ---
-        200 OK
-        Content-Type: application/json
-        ...
+```console
+GET /apis/crd.example.com/v1alpha1/namespaces/default/resources
+---
+200 OK
+Content-Type: application/json
+...
+
+{
+    "kind": "Table",
+    "apiVersion": "meta.k8s.io/v1beta1",
+    ...
+    "columnDefinitions": [
         {
-            "kind": "Table",
-            "apiVersion": "meta.k8s.io/v1beta1",
+            "name": "Name",
+            "type": "string",
             ...
-            "columnDefinitions": [
-                {
-                    "name": "Name",
-                    "type": "string",
-                    ...
-                },
-                {
-                    "name": "Created At",
-                    "type": "date",
-                    ...
-                }
-            ]
+        },
+        {
+            "name": "Created At",
+            "type": "date",
+            ...
         }
+    ]
+}
+```
 
 Table responses are available beginning in version 1.10 of the kube-apiserver. As such, not all API resource types will support a Table response, specifically when using a client against older clusters. Clients that must work against all resource types, or can potentially deal with older clusters, should specify multiple content types in their `Accept` header to support fallback to non-Tabular JSON:
 
-```
+```console
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1, application/json
 ```
 
@@ -240,34 +266,39 @@ For example:
 
 1. List all of the pods on a cluster in Protobuf format.
 
-        GET /api/v1/pods
-        Accept: application/vnd.kubernetes.protobuf
-        ---
-        200 OK
-        Content-Type: application/vnd.kubernetes.protobuf
-        ... binary encoded PodList object
+   ```console
+   GET /api/v1/pods
+   Accept: application/vnd.kubernetes.protobuf
+   ---
+   200 OK
+   Content-Type: application/vnd.kubernetes.protobuf
+
+   ... binary encoded PodList object
+   ```
 
 2. Create a pod by sending Protobuf encoded data to the server, but request a response in JSON.
 
-        POST /api/v1/namespaces/test/pods
-        Content-Type: application/vnd.kubernetes.protobuf
-        Accept: application/json
-        ... binary encoded Pod object
-        ---
-        200 OK
-        Content-Type: application/json
-        {
-          "kind": "Pod",
-          "apiVersion": "v1",
-          ...
-        }
+   ```console
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/vnd.kubernetes.protobuf
+   Accept: application/json
+   ... binary encoded Pod object
+   ---
+   200 OK
+   Content-Type: application/json
+
+   {
+     "kind": "Pod",
+     "apiVersion": "v1",
+     ...
+   }
+   ```
 
 Not all API resource types will support Protobuf, specifically those defined via Custom Resource Definitions or those that are API extensions. Clients that must work against all resource types should specify multiple content types in their `Accept` header to support fallback to JSON:
 
-```
+```console
 Accept: application/vnd.kubernetes.protobuf, application/json
 ```
-
 
 ### Protobuf encoding
 
@@ -275,7 +306,7 @@ Kubernetes uses an envelope wrapper to encode Protobuf responses. That wrapper s
 
 The wrapper format is:
 
-```
+```console
 A four byte magic number prefix:
   Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
 
@@ -362,9 +393,11 @@ Dry-run is triggered by setting the `dryRun` query parameter. This parameter is 
 
 For example:
 
-        POST /api/v1/namespaces/test/pods?dryRun=All
-        Content-Type: application/json
-        Accept: application/json
+```console
+POST /api/v1/namespaces/test/pods?dryRun=All
+Content-Type: application/json
+Accept: application/json
+```
 
 The response would look the same as for non-dry-run request, but the values of some generated fields may differ.
 
@@ -400,7 +433,7 @@ Some values of an object are typically generated before the object is persisted.
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-{{< note >}}Starting from Kubernetes v1.18, if you have Server Side Apply enabled then the control plane tracks managed fields for all newly created objects.{{< /note >}}
+Starting from Kubernetes v1.18, if you have Server Side Apply enabled then the control plane tracks managed fields for all newly created objects.
 
 ### Introduction
 
@@ -484,10 +517,12 @@ data:
 
 The above object contains a single manager in `metadata.managedFields`. The
 manager consists of basic information about the managing entity itself, like
-operation type, api version, and the fields managed by it.
+operation type, API version, and the fields managed by it.
 
-{{< note >}} This field is managed by the apiserver and should not be changed by
-the user. {{< /note >}}
+{{< note >}}
+This field is managed by the  API server and should not be changed by
+the user.
+{{< /note >}}
 
 Nevertheless it is possible to change `metadata.managedFields` through an
 `Update` operation. Doing so is highly discouraged, but might be a reasonable
@@ -537,7 +572,7 @@ a little differently.
 
 {{< note >}}
 Whether you are submitting JSON data or YAML data, use `application/apply-patch+yaml` as the
-Content-Type header value.
+`Content-Type` header value.
 
 All JSON documents are valid YAML.
 {{< /note >}}
@@ -580,8 +615,8 @@ In this example, a second operation was run as an `Update` by the manager called
 `kube-controller-manager`. The update changed a value in the data field which
 caused the field's management to change to the `kube-controller-manager`.
 
-{{< note >}}If this update would have been an `Apply` operation, the operation
-would have failed due to conflicting ownership.{{< /note >}}
+If this update would have been an `Apply` operation, the operation
+would have failed due to conflicting ownership.
 
 ### Merge strategy
 
@@ -603,8 +638,8 @@ merging, see
 A number of markers were added in Kubernetes 1.16 and 1.17, to allow API
 developers to describe the merge strategy supported by lists, maps, and
 structs. These markers can be applied to objects of the respective type,
-in Go files or in the [OpenAPI schema definition of the
-CRD](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io):
+in Go files or in the
+[OpenAPI schema definition of the CRD](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io):
 
 | Golang marker | OpenAPI extension | Accepted values | Description | Introduced in |
 |---|---|---|---|---|
@@ -641,8 +676,8 @@ might not be able to resolve or act on these conflicts.
 
 ### Transferring Ownership
 
-In addition to the concurrency controls provided by [conflict
-resolution](#conflicts), Server Side Apply provides ways to perform coordinated
+In addition to the concurrency controls provided by [conflict resolution](#conflicts),
+Server Side Apply provides ways to perform coordinated
 field ownership transfers from users to controllers.
 
 This is best explained by example. Let's look at how to safely transfer
@@ -657,12 +692,12 @@ Say a user has defined deployment with `replicas` set to the desired value:
 And the user has created the deployment using server side apply like so:
 
 ```shell
-kubectl apply -f application/ssa/nginx-deployment.yaml --server-side
+kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment.yaml --server-side
 ```
 
 Then later, HPA is enabled for the deployment, e.g.:
 
-```
+```shell
 kubectl autoscale deployment nginx-deployment --cpu-percent=50 --min=1 --max=10
 ```
 
@@ -691,7 +726,7 @@ First, the user defines a new configuration containing only the `replicas` field
 The user applies that configuration using the field manager name `handover-to-hpa`:
 
 ```shell
-kubectl apply -f application/ssa/nginx-deployment-replicas-only.yaml --server-side --field-manager=handover-to-hpa --validate=false
+kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment-replicas-only.yaml --server-side --field-manager=handover-to-hpa --validate=false
 ```
 
 If the apply results in a conflict with the HPA controller, then do nothing. The
@@ -737,7 +772,7 @@ case.
 Client-side apply users who manage a resource with `kubectl apply` can start
 using server-side apply with the following flag.
 
-```
+```shell
 kubectl apply --server-side [--dry-run=server]
 ```
 
@@ -745,7 +780,9 @@ By default, field management of the object transfers from client-side apply
 to kubectl server-side apply without encountering conflicts.
 
 {{< caution >}}
-Keep the `last-applied-configuration` annotation up to date. The annotation infers client-side apply's managed fields. Any fields not managed by client-side apply raise conflicts.
+Keep the `last-applied-configuration` annotation up to date.
+The annotation infers client-side apply's managed fields.
+Any fields not managed by client-side apply raise conflicts.
 
 For example, if you used `kubectl scale` to update the replicas field after client-side apply,
 then this field is not owned by client-side apply and creates conflicts on `kubectl apply --server-side`.
@@ -756,7 +793,7 @@ an exception, you can opt-out of this behavior by specifying a different,
 non-default field manager, as seen in the following example. The default field manager for kubectl
 server-side apply is `kubectl`.
 
-```
+```shell
 kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 ```
 
@@ -774,7 +811,7 @@ an exception, you can opt-out of this behavior by specifying a different,
 non-default field manager, as seen in the following example. The default field manager for kubectl
 server-side apply is `kubectl`.
 
-```
+```shell
 kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 ```
 
@@ -793,14 +830,14 @@ using `MergePatch`, `StrategicMergePatch`, `JSONPatch` or `Update`, so every
 non-apply operation. This can be done by overwriting the managedFields field
 with an empty entry. Two examples are:
 
-```json
+```console
 PATCH /api/v1/namespaces/default/configmaps/example-cm
 Content-Type: application/merge-patch+json
 Accept: application/json
 Data: {"metadata":{"managedFields": [{}]}}
 ```
 
-```json
+```console
 PATCH /api/v1/namespaces/default/configmaps/example-cm
 Content-Type: application/json-patch+json
 Accept: application/json
@@ -818,10 +855,12 @@ the managedFields, this will result in the managedFields being reset first and
 the other changes being processed afterwards. As a result the applier takes
 ownership of any fields updated in the same request.
 
-{{< caution >}} Server Side Apply does not correctly track ownership on
+{{< caution >}}
+Server Side Apply does not correctly track ownership on
 sub-resources that don't receive the resource object type. If you are
 using Server Side Apply with such a sub-resource, the changed fields
-won't be tracked.  {{< /caution >}}
+won't be tracked.
+{{< /caution >}}
 
 ### Disabling the feature
 
@@ -859,12 +898,13 @@ For get and list, the semantics of resource version are:
 
 **List:**
 
-v1.19+ API servers and newer support the `resourceVersionMatch` parameter, which
+v1.19+ API servers support the `resourceVersionMatch` parameter, which
 determines how resourceVersion is applied to list calls.  It is highly
 recommended that `resourceVersionMatch` be set for list calls where
 `resourceVersion` is set. If `resourceVersion` is unset, `resourceVersionMatch`
 is not allowed.  For backward compatibility, clients must tolerate the server
 ignoring `resourceVersionMatch`:
+
 - When using `resourceVersionMatch=NotOlderThan` and limit is set, clients must
   handle HTTP 410 "Gone" responses. For example, the client might retry with a
   newer `resourceVersion` or fall back to `resourceVersion=""`.
@@ -878,27 +918,29 @@ a known `resourceVersion` is preferable since it can achieve better performance 
 of your cluster than leaving `resourceVersion` and `resourceVersionMatch` unset, which requires
 quorum read to be served.
 
+{{< table caption="resourceVersionMatch and paging parameters for list" >}}
+
 | resourceVersionMatch param            | paging params                 | resourceVersion unset | resourceVersion="0"                       | resourceVersion="{value other than 0}" |
 |---------------------------------------|-------------------------------|-----------------------|-------------------------------------------|----------------------------------------|
 | resourceVersionMatch unset            | limit unset                   | Most Recent           | Any                                       | Not older than                         |
-| resourceVersionMatch unset            | limit="n", continue unset     | Most Recent           | Any                                       | Exact                                  |
-| resourceVersionMatch unset            | limit="n", continue="<token>" | Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request`        |
-| resourceVersionMatch=Exact[^1]        | limit unset                   | Invalid               | Invalid                                   | Exact                                  |
-| resourceVersionMatch=Exact[^1]        | limit="n", continue unset     | Invalid               | Invalid                                   | Exact                                  |
-| resourceVersionMatch=NotOlderThan[^1] | limit unset                   | Invalid               | Any                                       | Not older than                         |
-| resourceVersionMatch=NotOlderThan[^1] | limit="n", continue unset     | Invalid               | Any                                       | Not older than                         |
+| resourceVersionMatch unset            | limit=\<n\>, continue unset     | Most Recent           | Any                                       | Exact                                  |
+| resourceVersionMatch unset            | limit=\<n\>, continue=\<token\> | Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request`        |
+| resourceVersionMatch=Exact [1]        | limit unset                   | Invalid               | Invalid                                   | Exact                                  |
+| resourceVersionMatch=Exact [1]        | limit=\<n\>, continue unset     | Invalid               | Invalid                                   | Exact                                  |
+| resourceVersionMatch=NotOlderThan [1] | limit unset                   | Invalid               | Any                                       | Not older than                         |
+| resourceVersionMatch=NotOlderThan [1] | limit=\<n\>, continue unset     | Invalid               | Any                                       | Not older than                         |
 
-[^1]: If the server does not honor the `resourceVersionMatch` parameter, it is treated as if it is unset.
-| paging                          | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
-|---------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
-| limit unset                     | Most Recent           | Any                                            | Not older than                         |
-| limit="n", continue unset       | Most Recent           | Any                                            | Exact                                  |
-| limit="n", continue="\<token\>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
+{{< /table >}}
+
+**Footnotes:**
+
+[1] If the server does not honor the `resourceVersionMatch` parameter, it is treated as if it is unset.
 
 The meaning of the get and list semantics are:
 
 - **Most Recent:** Return data at the most recent resource version. The returned data must be
   consistent (i.e. served from etcd via a quorum read).
+
 - **Any:** Return data at any resource version. The newest available resource version is preferred,
   but strong consistency is not required; data at any resource version may be served. It is possible
   for the request to return data at a much older resource version that the client has previously
@@ -911,6 +953,7 @@ The meaning of the get and list semantics are:
   but does not make any guarantee about the resourceVersion in the ObjectMeta of the list items
   since ObjectMeta.resourceVersion tracks when an object was last updated, not how up-to-date the
   object is when served.
+
 - **Exact:** Return data at the exact resource version provided. If the provided resourceVersion is
   unavailable, the server responds with HTTP 410 "Gone".  For list requests to servers that honor the
   resourceVersionMatch parameter, this guarantees that resourceVersion in the ListMeta is the same as
@@ -925,9 +968,13 @@ For watch, the semantics of resource version are:
 
 **Watch:**
 
+{{< table caption="resourceVersion for watch" >}}
+
 | resourceVersion unset               | resourceVersion="0"        | resourceVersion="{value other than 0}" |
 |-------------------------------------|----------------------------|----------------------------------------|
 | Get State and Start at Most Recent  | Get State and Start at Any | Start at Exact                         |
+
+{{< /table >}}
 
 The meaning of the watch semantics are:
 
