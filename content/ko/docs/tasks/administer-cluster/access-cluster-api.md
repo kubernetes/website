@@ -174,6 +174,8 @@ Go 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 �
 사용할 수 있다. 이 [예제](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)를 참고한다.
 
 ```golang
+package main
+
 import (
   "fmt"
   "k8s.io/apimachinery/pkg/apis/meta/v1"
