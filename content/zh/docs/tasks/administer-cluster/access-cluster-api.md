@@ -277,6 +277,8 @@ Go 客户端可以使用与 kubectl 命令行工具相同的
 [例子](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)：
 
 ```golang
+package main
+
 import (
    "fmt"
    "k8s.io/client-go/1.4/kubernetes"
