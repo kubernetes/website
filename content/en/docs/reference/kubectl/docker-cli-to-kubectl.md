@@ -37,22 +37,20 @@ kubectl:
 # start the pod running nginx
 kubectl create deployment --image=nginx nginx-app
 ```
-
-```shell
-# add env to nginx-app
-kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```
 deployment.apps/nginx-app created
 ```
 
-```
+# add env to nginx-app
+kubectl set env deployment/nginx-app  DOMAIN=cluster
+```shell
 # add env to nginx-app
 kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```
+
 ```
 deployment.apps/nginx-app env updated
 ```
-deployment.apps/nginx-app env updated
 
 {{< note >}}
 `kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
