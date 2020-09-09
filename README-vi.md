@@ -31,13 +31,13 @@ Cách được đề xuất để chạy trang web Kubernetes cục bộ là dù
 Nếu bạn có Docker đang [up và running](https://www.docker.com/get-started), build `kubernetes-hugo` Docker image cục bộ:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Khi image đã được built, bạn có thể chạy website cục bộ:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Mở trình duyệt và đến địa chỉ http://localhost:1313 để xem website. Khi bạn thay đổi các file nguồn, Hugo cập nhật website và buộc làm mới trình duyệt.

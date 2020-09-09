@@ -41,13 +41,13 @@
 यदि आप [डॉकर](https://www.docker.com/get-started) चला रहे हैं, तो स्थानीय रूप से `कुबेरनेट्स-ह्यूगो` Docker image बनाएँ:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 एक बार image बन जाने के बाद, आप साइट को स्थानीय रूप से चला सकते हैं:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 साइट देखने के लिए अपने browser को `http://localhost:1313` पर खोलें। जैसा कि आप source फ़ाइलों में परिवर्तन करते हैं, Hugo साइट को अपडेट करता है और browser को refresh करने पर मजबूर करता है।
