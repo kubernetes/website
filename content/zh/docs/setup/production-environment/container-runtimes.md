@@ -7,17 +7,17 @@ content_type: concept
 weight: 10
 ---
 <!--
----
 reviewers:
 - vincepri
 - bart0sh
 title: Container runtimes
 content_type: concept
 weight: 10
----
 -->
+
 <!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
+
 <!--
 To run containers in Pods, Kubernetes uses a container runtime. Here are
 the installation instructions for various runtimes.
@@ -25,11 +25,8 @@ the installation instructions for various runtimes.
 Kubernetes 使用容器运行时来实现在 pod 中运行容器。
 这是各种运行时的安装说明。
 
-
-
 <!-- body -->
 
-{{< caution >}}
 <!--
 A flaw was found in the way runc handled system file descriptors when running containers.
 A malicious container could use this flaw to overwrite contents of the runc binary and
@@ -38,6 +35,7 @@ consequently run arbitrary commands on the container host system.
 Please refer to [CVE-2019-5736](https://access.redhat.com/security/cve/cve-2019-5736) for more
 information about the issue.
 -->
+{{< caution >}}
 我们发现 runc 在运行容器，处理系统文件描述符时存在一个漏洞。
 恶意容器可以利用此漏洞覆盖 runc 二进制文件的内容，并以此在主机系统的容器上运行任意的命令。
 
@@ -49,20 +47,20 @@ information about the issue.
 -->
 ### 适用性
 
-{{< note >}}
 <!--
 This document is written for users installing CRI onto Linux. For other operating
 systems, look for documentation specific to your platform
 -->
+{{< note >}}
 本文档是为在 Linux 上安装 CRI 的用户编写的。
-对于其他操作系统，请查找特定于您平台的文档。
+对于其他操作系统，请查找特定于你平台的文档。
 {{< /note >}}
 
 <!--
 You should execute all the commands in this guide as `root`. For example, prefix commands
 with `sudo `, or become `root` and run the commands as that user.
 -->
-您应该以 `root` 身份执行本指南中的所有命令。
+你应该以 `root` 身份执行本指南中的所有命令。
 例如，使用 `sudo` 前缀命令，或者成为 `root` 并以该用户身份运行命令。
 
 <!--
@@ -79,7 +77,7 @@ that there will then be two different cgroup managers.
 -->
 当某个 Linux 系统发行版使用 systemd 作为其初始化系统时，初始化进程会生成并使用一个 root 控制组 （`cgroup`），并充当 cgroup 管理器。
 systemd 与 cgroup 集成紧密，并将为每个进程分配 cgroup。
-您也可以配置容器运行时和 kubelet 使用 `cgroupfs`。
+你也可以配置容器运行时和 kubelet 使用 `cgroupfs`。
 连同 systemd 一起使用 `cgroupfs` 意味着将有两个不同的 cgroup 管理器。
 
 <!--
@@ -127,11 +125,11 @@ Use the following commands to install Docker on your system:
 -->
 ## Docker
 
-在您的每台机器上安装 Docker。
+在你的每台机器上安装 Docker。
 推荐安装 19.03.11 版本，但是 1.13.1、17.03、17.06、17.09、18.06 和 18.09 版本也是可以的。
 请跟踪 Kubernetes 发行说明中经过验证的 Docker 最新版本变化。
 
-使用以下命令在您的系统上安装 Docker：
+使用以下命令在你的系统上安装 Docker：
 
 {{< tabs name="tab-cri-docker-installation" >}}
 {{% tab name="Ubuntu 16.04+" %}}
@@ -866,8 +864,9 @@ Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quic
 systemd_cgroup = true
 ```
 当使用 kubeadm 时，请手动配置
-[kubelet 的 cgroup 驱动](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+[kubelet 的 cgroup 驱动](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
 
 ## 其他的 CRI 运行时：frakti
 
 请参阅 [Frakti 快速开始指南](https://github.com/kubernetes/frakti#quickstart) 来获取更多的信息。
+
