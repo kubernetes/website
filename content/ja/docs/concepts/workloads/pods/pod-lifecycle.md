@@ -24,13 +24,13 @@ Podはその生存期間に1回だけ[スケジューリング](/docs/concepts/s
 
 Pod自体は、自己修復しません。Podが{{< glossary_tooltip text="node" term_id="node" >}}にスケジュールされ、その後に失敗、またはスケジュール操作自体が失敗した場合、Podは削除されます。同様に、リソースの不足またはNodeのメンテナンスによりポッドはNodeから立ち退きます。Kubernetesは、比較的使い捨てのPodインスタンスの管理作業を処理する、{{< glossary_tooltip term_id="controller" text="controller" >}}と呼ばれる上位レベルの抽象化を使用します。
 
-特定のPod(UIDで定義)は新しいNodeに`再スケジュール`されません。代わりに、必要に応じて同じ名前で、新しいUIDを持つ同一のPodに置き換えることができます。
+特定のPod(UIDで定義)は新しいNodeに"再スケジュール"されません。代わりに、必要に応じて同じ名前で、新しいUIDを持つ同一のPodに置き換えることができます。
 
 {{< glossary_tooltip term_id="volume" text="volume" >}}など、Podと同じ存続期間を持つものがあると言われる場合、それは(そのUIDを持つ)Podが存在する限り存在することを意味します。そのPodが何らかの理由で削除された場合、たとえ同じ代替物が作成されたとしても、関連するもの(例えばボリューム)も同様に破壊されて再作成されます。
 
 {{< figure src="/images/docs/pod.svg" title="Podの図" width="50%" >}}
 
-file puller(ファイル取得コンテナ)とWebサーバーを含むマルチコンテナのPod。コンテナ間の共有ストレージとして永続ボリュームを使用しています。
+*file puller(ファイル取得コンテナ)とWebサーバーを含むマルチコンテナのPod。コンテナ間の共有ストレージとして永続ボリュームを使用しています。*
 
 
 ## Podのフェーズ {#pod-phase}
