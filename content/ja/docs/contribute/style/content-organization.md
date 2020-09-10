@@ -1,5 +1,5 @@
 ---
-title: コンテンツの構成
+title: コンテンツの構造化
 content_type: concept
 weight: 40
 ---
