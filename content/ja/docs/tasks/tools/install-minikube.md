@@ -76,7 +76,7 @@ kubectlがインストールされていることを確認してください。
 
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-Minikubeは、VMではなくホストでKubernetesコンポーネントを実行する`--vm-driver=none`オプションもサポートしています。
+Minikubeは、VMではなくホストでKubernetesコンポーネントを実行する`--driver=none`オプションもサポートしています。
 このドライバーを使用するには、[Docker](https://www.docker.com/products/docker-desktop)とLinux環境が必要ですが、ハイパーバイザーは不要です。
 
 Debian系のLinuxで`none`ドライバーを使用する場合は、snapパッケージではなく`.deb`パッケージを使用してDockerをインストールしてください。snapパッケージはMinikubeでは機能しません。
@@ -84,7 +84,7 @@ Debian系のLinuxで`none`ドライバーを使用する場合は、snapパッ�
 
 {{< caution >}}
 `none` VMドライバーは、セキュリティとデータ損失の問題を引き起こす可能性があります。
-`--vm-driver=none`を使用する前に、詳細について[このドキュメント](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) を参照してください。
+`--driver=none`を使用する前に、詳細について[このドキュメント](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) を参照してください。
 {{< /caution >}}
 
 MinikubeはDockerドライバーと似たような`vm-driver=podman`もサポートしています。Podmanを特権ユーザー権限(root user)で実行することは、コンテナがシステム上の利用可能な機能へ完全にアクセスするための最もよい方法です。
@@ -209,12 +209,16 @@ WindowsにMinikubeを手動でインストールするには、[`minikube-window
 
 {{< note >}}
 
-`minikube start`で`--vm-driver`の設定をするため、次の`<driver_name>`の部分では、インストールしたハイパーバイザーの名前を小文字で入力してください。`--vm-driver`値のすべてのリストは、[specifying the VM driver documentation](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver)で確認できます。
+`minikube start`で`--driver`の設定をするため、次の`<driver_name>`の部分では、インストールしたハイパーバイザーの名前を小文字で入力してください。`--driver`値のすべてのリストは、[specifying the VM driver documentation](/docs/setup/learning-environment/minikube/#specifying-the-vm-driver)で確認できます。
 
 {{< /note >}}
 
+{{< caution >}}
+KVMを使用する場合、Debianおよび他の一部のシステムでのlibvirtのデフォルトのQEMU URIは`qemu：///session`であるのに対し、MinikubeのデフォルトのQEMU URIは`qemu：///system`であることに注意してください。これがあなたのシステムに当てはまる場合、`--kvm-qemu-uri qemu:///session`を`minikube start`に渡す必要があります。
+{{< /caution >}}
+
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --driver=<driver_name>
 ```
 
 `minikube start`が完了した場合、次のコマンドを実行してクラスターの状態を確認します。
