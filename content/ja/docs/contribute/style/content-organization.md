@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-このサイトではHugoを使用しています。Hugoでは、[コンテンツの構成](https://gohugo.io/content-management/organization/)がコアコンセプトとなっています。
+このサイトではHugoを使用しています。Hugoでは、[コンテンツの構造化](https://gohugo.io/content-management/organization/)がコアコンセプトとなっています。
 
 <!-- body -->
 
