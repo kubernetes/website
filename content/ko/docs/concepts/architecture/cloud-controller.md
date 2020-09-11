@@ -23,7 +23,7 @@ weight: 40
 
 ## 디자인
 
-![쿠버네티스 컴포넌트](/images/docs/components-of-kubernetes.png)
+![쿠버네티스 컴포넌트](/images/docs/components-of-kubernetes.svg)
 
 클라우드 컨트롤러 매니저는 컨트롤 플레인에서 복제된 프로세스의 집합으로 실행된다(일반적으로,
 파드의 컨테이너). 각 클라우드 컨트롤러 매니저는 단일
@@ -213,4 +213,3 @@ rules:
 이 문서(노드, 라우트와 서비스)에서 강조된 공유 컨트롤러의 구현과 공유 cloudprovider 인터페이스와 함께 일부 스캐폴딩(scaffolding)은 쿠버네티스 핵심의 일부이다. 클라우드 공급자 전용 구현은 쿠버네티스의 핵심 바깥에 있으며 `CloudProvider` 인터페이스를 구현한다.
 
 플러그인 개발에 대한 자세한 내용은 [클라우드 컨트롤러 매니저 개발하기](/docs/tasks/administer-cluster/developing-cloud-controller-manager/)를 참조한다.
-

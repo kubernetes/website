@@ -10,9 +10,6 @@ content_type: concept
 노드 유지보수(예. 커널 업그레이드) 수행, 운영 중인 클러스터의
 쿠버네티스 API 버전 업그레이드.
 
-
-
-
 <!-- body -->
 
 ## 클러스터 생성과 설정
@@ -77,24 +74,33 @@ Oracle은 당신이 고가용성의 관리형 쿠버네티스 컨트롤 플레�
 * [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...
 
-위 리스트에서 언급되지 않은 플랫폼의 클러스터 업그레이드는 [버전 차이 지원(skew)](/docs/setup/release/version-skew-policy/#supported-component-upgrade-order) 페이지 상의 구성요소 업그레이드 순서 부분을 확인해보는 것이 좋다.
+위 리스트에서 언급되지 않은 플랫폼의 클러스터 업그레이드는 [버전 차이 지원(skew)](/docs/setup/release/version-skew-policy/#supported-component-upgrade-order)
+페이지 상의 구성요소 업그레이드 순서 부분을 확인해보는 것이 좋다.
 
 ## 클러스터 크기 재조정
 
-[노드 자가 등록 모드](/ko/docs/concepts/architecture/nodes/#노드에-대한-자체-등록)로 운영 중인 클러스터가 리소스가 부족하다면 쉽게 머신들을 더 추가할 수 있다. GCE나 Google Kubernetes Engine을 사용하고 있다면 노드들을 관리하는 인스턴스 그룹의 크기를 재조정하여 이를 수행할 수 있다.
-[Google Cloud 콘솔 페이지](https://console.developers.google.com)를 사용한다면 `Compute > Compute Engine > Instance groups > your group > Edit group`에서 인스턴스들의 숫자를 고쳐서 이를 수행할 수 있으며 gcloud CLI를 사용한다면 다음 커맨드를 사용하여 이를 수행할 수 있다.
+[노드 자가 등록 모드](/ko/docs/concepts/architecture/nodes/#노드에-대한-자체-등록)로 운영 중인
+클러스터가 리소스가 부족하다면 쉽게 머신들을 더 추가할 수 있다.
+GCE나 Google Kubernetes Engine을 사용하고 있다면 노드들을 관리하는 인스턴스 그룹의 크기를 재조정하여 이를 수행할 수 있다.
+[Google Cloud 콘솔 페이지](https://console.developers.google.com)를 사용한다면
+`Compute > Compute Engine > Instance groups > your group > Edit group`에서
+인스턴스들의 숫자를 고쳐서 이를 수행할 수 있으며 gcloud CLI를 사용한다면 다음 커맨드를 사용하여 이를 수행할 수 있다.
 
 ```shell
 gcloud compute instance-groups managed resize kubernetes-node-pool --size=42 --zone=$ZONE
 ```
 
-인스턴스 그룹은 신규 머신들에 적절한 이미지를 넣고 시작하는 것을 관리하는 반면에 Kubelet은 자신의 노드를 API 서버에 등록하여 스케줄링할 수 있도록 해준다. 사용자가 인스턴스 그룹을 스케일 다운하면 시스템은 임의로 노드들을 선택하여 죽일 것이다.
+인스턴스 그룹은 신규 머신들에 적절한 이미지를 넣고 시작하는 것을 관리하는 반면에
+Kubelet은 자신의 노드를 API 서버에 등록하여 스케줄링할 수 있도록 해준다.
+사용자가 인스턴스 그룹을 스케일 다운하면 시스템은 임의로 노드들을 선택하여 죽일 것이다.
 
 다른 환경에서는 사용자가 직접 머신을 구성하고 어떤 머신에서 API 서버가 동작하는지를 Kubelet에 알려줘야 할 수도 있다.
 
 ### Azure Kubernetes Service (AKS) 클러스터 크기 재조정
 
-Azure Kubernetes Service는 사용자가 CLI나 Azure 포털에서 클러스터의 크기를 재조정할 수 있게 해주며 [Azure AKS 문서](https://docs.microsoft.com/en-us/azure/aks/scale-cluster)에서 이를 설명하고 있다.
+Azure Kubernetes Service는 사용자가 CLI나 Azure 포털에서 클러스터의 크기를 재조정할 수 있게 해주며
+[Azure AKS 문서](https://docs.microsoft.com/en-us/azure/aks/scale-cluster)에서
+이를 설명하고 있다.
 
 
 ### 클러스터 오토스케일링
@@ -102,7 +108,8 @@ Azure Kubernetes Service는 사용자가 CLI나 Azure 포털에서 클러스터�
 GCE나 Google Kubernetes Engine을 사용한다면, 파드가 필요로하는 리소스를 기반으로 클러스터의 크기를 자동으로
 재조정하도록 클러스터를 구성할 수 있다.
 
-[컴퓨트 리소스](/ko/docs/concepts/configuration/manage-resources-containers/)에 기술된 것처럼 사용자들은 파드에 얼마만큼의 CPU와 메모리를 할당할 것인지 예약할 수 있다. 
+[컴퓨트 리소스](/ko/docs/concepts/configuration/manage-resources-containers/)에 기술된 것처럼
+사용자들은 파드에 얼마만큼의 CPU와 메모리를 할당할 것인지 예약할 수 있다.
 이 정보는 쿠버네티스 스케줄러가 해당 파드를 어디에서 실행시킬 것인지를 결정할 때 사용된다.
 여유 용량이 넉넉한 노드가 없다면 (또는 다른 파드 요구조건을 충족하지 못한다면) 해당 파드는
 다른 파드들이 종료될 때까지 기다리거나 신규 노드가 추가될 때까지 기다린다.
@@ -181,21 +188,10 @@ kubectl uncordon $NODENAME
 
 해당 노드의 VM 인스턴스를 삭제하고 신규로 생성했다면, 신규로 스케줄 가능한 노드 리소스가
 자동으로 생성될 것이다.(당신이 노드 디스커버리를 지원하는 클라우드 제공자를 사용한다면;
-이는 현재 Google Compute Engine만 지원되며 Google Compute Engine 상에서 kube-register를 사용하는 CoreOS를 포함하지는 않는다.) 상세 내용은 [노드](/ko/docs/concepts/architecture/nodes)를 참조하라.
+이는 현재 Google Compute Engine만 지원되며 Google Compute Engine 상에서 kube-register를 사용하는 CoreOS를 포함하지는 않는다.)
+상세 내용은 [노드](/ko/docs/concepts/architecture/nodes)를 참조하라.
 
 ## 고급 주제들
-
-### 다른 API 버전으로 업그레이드
-
-신규 API 버전이 릴리스 되었을 때, 해당 신규 API 버전을 지원하려면 클러스터를 업그레이드해야 할 수 있다.(예. 'v2'가 출시되었을 때 'v1'에서 'v2'로 변경)
-
-이는 드문 경우지만 세심한 관리가 요구된다. 신규 API 버전으로 업그레이드하는데는 일련의 과정이 존재한다.
-
-   1. 신규 API 버전을 ON한다.
-   1. 신규 버전을 사용하도록 클러스터의 스토리지를 업그레이드한다.
-   1. 모든 구성 파일들을 업그레이드한다. 구식 API 버전 엔드포인트의 사용자들을 식별한다.
-   1. `cluster/update-storage-objects.sh`을 실행하여 스토리지 내에 기존 객체들을 신규 버전으로 업데이트한다.
-   1. 구식 API 버전을 OFF한다.
 
 ### 클러스터에서 API 버전을 ON/OFF 하기
 
