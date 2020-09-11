@@ -44,7 +44,7 @@ The English-language documentation uses U.S. English spelling and grammar.
 
 ### Use upper camel case for API objects
 
-When you refer specifically to interacting with an API object, use [CamelCase](https://en.wikipedia.org/wiki/Camel_case). When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as Pascal Case. When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
 Don't split the API object name into separate words. For example, use
 PodTemplateList, not Pod Template List.
