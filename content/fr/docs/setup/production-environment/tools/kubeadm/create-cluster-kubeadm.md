@@ -95,14 +95,14 @@ problème de sécurité est trouvé. Voici les dernières versions de Kubernetes
 ## Objectifs
 
 * Installer un cluster Kubernetes à master unique ou un
-[cluster à haute disponibilité](/docs/setup/independent/high-availability/)
+[cluster à haute disponibilité](/fr/docs/setup/production-environment/tools/kubeadm/high-availability/)
 * Installez un réseau de pods sur le cluster afin que vos pods puissent se parler
 
 ## Instructions
 
 ### Installer kubeadm sur vos hôtes
 
-Voir ["Installation de kubeadm"](/docs/setup/independent/install-kubeadm/).
+Voir ["Installation de kubeadm"](/fr/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 {{< note >}}
 Si vous avez déjà installé kubeadm, lancez `apt-get update &&
@@ -436,7 +436,7 @@ vérifiant que le pod CoreDNS est en cours d’exécution dans l'output de `kube
 Et une fois que le pod CoreDNS est opérationnel, vous pouvez continuer en joignant vos nœuds.
 
 Si votre réseau ne fonctionne pas ou si CoreDNS n'est pas en cours d'exécution, vérifiez
-notre [documentation de dépannage](/docs/setup/independent/troubleshooting-kubeadm/).
+notre [documentation de dépannage](/fr/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
 ### Isolation des nœuds du control plane
 
@@ -653,7 +653,7 @@ Ces ressources fournissent plus d'informations sur le saut de version pris en
 charge entre les kubelets et le control plane, ainsi que sur d'autres composants Kubernetes:
 
 * [politique de compatibilité de versions](/docs/setup/version-skew-policy/) de Kubernetes
-* [Guide d'installation](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+* [Guide d'installation](/fr/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 spécifique à Kubeadm
 
 ## kubeadm fonctionne sur plusieurs plates-formes {#multi-platform}
@@ -682,4 +682,4 @@ le répertoire des données etcd configuré par kubeadm se trouve dans `/var/lib
 ## Diagnostic {#troubleshooting}
 
 Si vous rencontrez des difficultés avec kubeadm, veuillez consulter nos
- [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
+ [troubleshooting docs](/fr/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).

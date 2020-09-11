@@ -78,5 +78,5 @@ Schéma de la [Topologie externe etcd](/images/kubeadm/kubeadm-ha-topology-exter
 ## {{% heading "whatsnext" %}}
 
 
-- [Configurer un cluster hautement disponible avec kubeadm](/docs/setup/independent/high-availability/)
+- [Configurer un cluster hautement disponible avec kubeadm](/fr/docs/setup/production-environment/tools/kubeadm/high-availability/)
 
