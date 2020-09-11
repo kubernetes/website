@@ -350,6 +350,8 @@ NAME                             TYPE                                  DATA     
 db-user-pass-96mffmfh4k          Opaque                                2         51s
 ```
 
+시크릿에 대한 설명을 볼 수 있다.
+
 ```shell
 kubectl describe secrets/db-user-pass-96mffmfh4k
 ```
@@ -713,9 +715,9 @@ kubelet은 마운트된 시크릿이 모든 주기적인 동기화에서 최신 
 받지 않는다.
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-쿠버네티스 알파 기능인 _변경할 수 없는(immutable) 시크릿과 컨피그맵_ 은
+쿠버네티스 베타 기능인 _변경할 수 없는(immutable) 시크릿과 컨피그맵_ 은
 개별 시크릿과 컨피그맵을 변경할 수 없는 것으로 설정하는 옵션을 제공한다. 시크릿을 광범위하게 사용하는
 클러스터(최소 수만 개의 고유한 시크릿이 파드에 마운트)의 경우, 데이터 변경을 방지하면
 다음과 같은 이점이 있다.
@@ -999,6 +1001,8 @@ kubectl create secret generic prod-db-secret --from-literal=username=produser --
 ```
 secret "prod-db-secret" created
 ```
+
+테스트 환경의 자격 증명에 대한 시크릿을 만들 수도 있다.
 
 ```shell
 kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
