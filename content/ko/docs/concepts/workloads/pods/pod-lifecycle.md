@@ -45,7 +45,7 @@ ID([UID](/ko/docs/concepts/overview/working-with-objects/names/#uids))가
 상대적으로 일회용인 파드 인스턴스를 관리하는 작업을 처리한다.
 
 UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되지 않는다. 대신,
-해당 파드는 사용자가 원하는 이름은 같지만, UID가 다른, 거의 동일한 새 파드로
+해당 파드는 사용자가 원한다면 이름은 같지만, UID가 다른, 거의 동일한 새 파드로
 대체될 수 있다.
 
 {{< glossary_tooltip term_id="volume" text="볼륨" >}}과
@@ -118,7 +118,7 @@ UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되�
 ### `Running` {#container-state-running}
 
 `Running` 상태는 컨테이너가 문제없이 실행되고 있음을 나타낸다. `postStart` 훅이
-구성되어 있었다면, 이미 실행이 완료되었다. `kubectl` 을
+구성되어 있었다면, 이미 실행되고 완료되었다. `kubectl` 을
 사용하여 컨테이너가 `Running` 인 파드를 쿼리하면, 컨테이너가 `Running` 상태에 진입한 시기에 대한
 정보도 볼 수 있다.
 
@@ -341,7 +341,7 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
 적용되면, {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}은 정상
 종료를 시도한다.
 
-일반적으로, 컨테이너 런타임은 TERM 시그널을 각 컨테이너의 기본 프로세스로
+일반적으로, 컨테이너 런타임은 각 컨테이너의 기본 프로세스에 TERM 신호를
 전송한다. 일단 유예 기간이 만료되면, KILL 시그널이 나머지 프로세스로
 전송되고, 그런 다음 파드는
 {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}로부터 삭제된다. 프로세스가

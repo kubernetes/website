@@ -163,6 +163,24 @@ A 또는 AAAA 레코드만 생성할 수 있다. (`default-subdomain.my-namespac
 또한 서비스에서 `publishNotReadyAddresses=True` 를 설정하지 않았다면, 파드가 준비 상태가 되어야 레코드를 가질 수 있다.
 {{< /note >}}
 
+### 파드의 setHostnameAsFQDN 필드 {# pod-sethostnameasfqdn-field}
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+**전제 조건**: `SetHostnameAsFQDN` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+{{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}에
+대해 활성화해야 한다.
+
+파드가 전체 주소 도메인 이름(FQDN)을 갖도록 구성된 경우, 해당 호스트네임은 짧은 호스트네임이다. 예를 들어, 전체 주소 도메인 이름이 `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example` 인 파드가 있는 경우, 기본적으로 해당 파드 내부의 `hostname` 명령어는 `busybox-1` 을 반환하고 `hostname --fqdn` 명령은 FQDN을 반환한다.
+
+파드 명세에서 `setHostnameAsFQDN: true` 를 설정하면, kubelet은 파드의 FQDN을 해당 파드 네임스페이스의 호스트네임에 기록한다. 이 경우, `hostname` 과 `hostname --fqdn` 은 모두 파드의 FQDN을 반환한다.
+
+{{< note >}}
+리눅스에서, 커널의 호스트네임 필드(`struct utsname` 의 `nodename` 필드)는 64자로 제한된다.
+
+파드에서 이 기능을 사용하도록 설정하고 FQDN이 64자보다 길면, 시작되지 않는다. 파드는 파드 호스트네임과 클러스터 도메인에서 FQDN을 구성하지 못한다거나, FQDN `long-FDQN` 이 너무 길다(최대 64자, 70자 요청인 경우)와 같은 오류 이벤트를 생성하는 `Pending` 상태(`kubectl` 에서 표시하는 `ContainerCreating`)로 유지된다. 이 시나리오에서 사용자 경험을 개선하는 한 가지 방법은 사용자가 최상위 레벨을 오브젝트(예를 들어, 디플로이먼트)를 생성할 때 FQDN 크기를 제어하기 위해 [어드미션 웹훅 컨트롤러](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)를 생성하는 것이다.
+{{< /note >}}
+
 ### 파드의 DNS 정책
 
 DNS 정책은 파드별로 설정할 수 있다.
@@ -188,7 +206,7 @@ DNS 정책은 파드별로 설정할 수 있다.
 
 {{< note >}}
 "Default"는 기본 DNS 정책이 아니다. `dnsPolicy`가 명시적으로 지정되어있지 않다면
-“ClusterFirst”가 기본값으로 사용된다.
+"ClusterFirst"가 기본값으로 사용된다.
 {{< /note >}}
 
 

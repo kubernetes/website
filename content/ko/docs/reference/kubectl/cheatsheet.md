@@ -8,15 +8,9 @@ card:
 
 <!-- overview -->
 
-참고 항목: [Kubectl 개요](/ko/docs/reference/kubectl/overview/)와 [JsonPath 가이드](/docs/reference/kubectl/jsonpath).
-
-이 페이지는 `kubectl` 커맨드의 개요이다.
-
-
+이 페이지는 일반적으로 사용하는 `kubectl` 커맨드와 플래그에 대한 목록을 포함한다.
 
 <!-- body -->
-
-# kubectl - 치트 시트
 
 ## Kubectl 자동 완성
 
@@ -77,7 +71,8 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
 kubectl config unset users.foo                       # foo 사용자 삭제
 ```
 
-## Apply
+## Kubectl apply
+
 `apply`는 쿠버네티스 리소스를 정의하는 파일을 통해 애플리케이션을 관리한다. `kubectl apply`를 실행하여 클러스터에 리소스를 생성하고 업데이트한다. 이것은 프로덕션 환경에서 쿠버네티스 애플리케이션을 관리할 때 권장된다. [Kubectl Book](https://kubectl.docs.kubernetes.io)을 참고한다.
 
 ## 오브젝트 생성
@@ -200,6 +195,13 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 # 매니페스트가 적용된 경우 클러스터의 현재 상태와 클러스터의 상태를 비교한다.
 kubectl diff -f ./my-manifest.yaml
+
+# 노드에 대해 반환된 모든 키의 마침표로 구분된 트리를 생성한다.
+# 복잡한 중첩 JSON 구조 내에서 키를 찾을 때 유용하다.
+kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+
+# 파드 등에 대해 반환된 모든 키의 마침표로 구분된 트리를 생성한다.
+kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 ```
 
 ## 리소스 업데이트
@@ -249,6 +251,7 @@ kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", 
 ```
 
 ## 리소스 편집
+
 편집기로 모든 API 리소스를 편집.
 
 ```bash
@@ -382,15 +385,12 @@ Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 
 `--v=8` | HTTP 요청 내용을 표시.
 `--v=9` | 내용을 잘라 내지 않고 HTTP 요청 내용을 표시.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* [kubectl 개요](/ko/docs/reference/kubectl/overview/)에 대해 더 배워보자.
+* [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 읽고 [JsonPath](/docs/reference/kubectl/jsonpath)에 대해 배워보자.
 
 * [kubectl](/docs/reference/kubectl/kubectl/) 옵션을 참고한다.
 
 * 재사용 스크립트에서 kubectl 사용 방법을 이해하기 위해 [kubectl 사용법](/docs/reference/kubectl/conventions/)을 참고한다.
 
-* 더 많은 [kubectl 치트 시트](https://github.com/dennyzhang/cheatsheet-kubernetes-A4) 커뮤니티 확인
+* 더 많은 커뮤니티 [kubectl 치트시트](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)를 확인한다.
