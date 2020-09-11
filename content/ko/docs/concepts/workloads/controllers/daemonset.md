@@ -1,7 +1,7 @@
 ---
 title: 데몬셋
 content_type: concept
-weight: 50
+weight: 40
 ---
 
 <!-- overview -->

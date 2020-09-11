@@ -80,7 +80,7 @@ spec:
       requests:
         cpu: 700m
         memory: 200Mi
-  ...
+    ...
 status:
   qosClass: Guaranteed
 ```
@@ -269,4 +269,3 @@ kubectl delete namespace qos-example
 * [API 오브젝트 할당량 구성](/docs/tasks/administer-cluster/quota-api-object/)
 
 * [노드의 토폴로지 관리 정책 제어](/docs/tasks/administer-cluster/topology-manager/)
-

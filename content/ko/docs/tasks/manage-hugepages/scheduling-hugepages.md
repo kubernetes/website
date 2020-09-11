@@ -115,4 +115,4 @@ glossary_tooltip text="kubelet" term_id="kubelet" >}} 및 {{<
 glossary_tooltip text="kube-apiserver"
 term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`)의
 `HugePageStorageMediumSize` [기능
-게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 사용하여 활성화할 수 있다.
+게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 사용하여 비활성화할 수 있다.

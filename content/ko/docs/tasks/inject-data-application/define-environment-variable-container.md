@@ -9,28 +9,21 @@ weight: 20
 본 페이지는 쿠버네티스 파드의 컨테이너를 위한 환경 변수를
 정의하는 방법에 대해 설명한다.
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
-
 
 <!-- steps -->
 
 ## 컨테이너를 위한 환경 변수 정의하기
 
-파드를 생성할 때, 파드 안에서 동작하는 컨테이너를 위한 환경 변수를 설정할 
+파드를 생성할 때, 파드 안에서 동작하는 컨테이너를 위한 환경 변수를 설정할
 수 있다. 환경 변수를 설정하려면, 구성 파일에 `env`나 `envFrom` 필드를
 포함시켜야 한다.
 
 이 예제에서, 한 개의 컨테이너를 실행하는 파드를 생성한다. 파드를 위한 구성
 파일은 `DEMO_GREETING` 이라는 이름과 `"Hello from the environment"`이라는
-값을 가지는 환경 변수를 정의한다. 다음은 파드를 위한 구성 매니페스트 
+값을 가지는 환경 변수를 정의한다. 다음은 파드를 위한 구성 매니페스트
 예시이다.
 
 {{< codenew file="pods/inject/envars.yaml" >}}
@@ -81,24 +74,24 @@ weight: 20
 1. 셸에서 빠져나오기 위해, `exit`을 입력한다.
 
 {{< note >}}
-`env` 나 `envFrom` 필드를 이용해 설정된 환경 변수들은 컨테이너 이미지 
+`env` 나 `envFrom` 필드를 이용해 설정된 환경 변수들은 컨테이너 이미지
 안에서 명시된 모든 환경 변수들을 오버라이딩한다.
 {{< /note >}}
 
 {{< note >}}
-환경 변수는 서로를 참조할 수 있으며 사이클이 가능하다. 
+환경 변수는 서로를 참조할 수 있으며 사이클이 가능하다.
 사용하기 전에 순서에 주의한다.
 {{< /note >}}
 
 ## 설정 안에서 환경 변수 사용하기
 
-파드의 구성 파일 안에서 정의한 환경 변수는 
-파드의 컨테이너를 위해 설정하는 커맨드와 인자들과 같이, 
-구성 파일 안의 다른 곳에서 사용할 수 있다. 
-아래의 구성 파일 예시에서, `GREETING`, `HONORIFIC`, 그리고 
-`NAME` 환경 변수들이 각각 `Warm greetings to`, `The Most honorable`, 
-그리고 `Kubernetes`로 설정되어 있다. 이 환경 변수들은 
-이후 `env-print-demo` 컨테이너에 전달되어 CLI 인자에서 
+파드의 구성 파일 안에서 정의한 환경 변수는
+파드의 컨테이너를 위해 설정하는 커맨드와 인자들과 같이,
+구성 파일 안의 다른 곳에서 사용할 수 있다.
+아래의 구성 파일 예시에서, `GREETING`, `HONORIFIC`, 그리고
+`NAME` 환경 변수들이 각각 `Warm greetings to`, `The Most honorable`,
+그리고 `Kubernetes`로 설정되어 있다. 이 환경 변수들은
+이후 `env-print-demo` 컨테이너에 전달되어 CLI 인자에서
 사용된다.
 
 ```yaml
@@ -123,12 +116,8 @@ spec:
 
 컨테이너가 생성되면, `echo Warm greetings to The Most Honorable Kubernetes` 커맨드가 컨테이너에서 실행된다.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
 * [환경 변수](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)에 대해 알아본다.
-* [시크릿을 환경 변수로 사용하기](/docs/user-guide/secrets/#using-secrets-as-environment-variables)에 대해 알아본다.
+* [시크릿을 환경 변수로 사용하기](/ko/docs/concepts/configuration/secret/#시크릿을-환경-변수로-사용하기)에 대해 알아본다.
 * [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)를 확인한다.
-
