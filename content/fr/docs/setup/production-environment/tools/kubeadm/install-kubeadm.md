@@ -10,7 +10,7 @@ weight: 20
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">Cette page vous
 apprend comment installer la boîte à outils `kubeadm`.
 Pour plus d'informations sur la création d'un cluster avec kubeadm, une fois que vous avez
-effectué ce processus d'installation, voir la page: [Utiliser kubeadm pour créer un cluster](/docs/setup/independent/create-cluster-kubeadm/).
+effectué ce processus d'installation, voir la page: [Utiliser kubeadm pour créer un cluster](/fr/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
 
 
@@ -126,7 +126,7 @@ C’est parce que kubeadm et Kubernetes ont besoin d'une
 Pour plus d'informations sur les compatibilités de version, voir:
 
 * Kubernetes [version et politique de compatibilité de version](/docs/setup/version-skew-policy/)
-* Kubeadm-specific [politique de compatibilité de version](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy)
+* Kubeadm-specific [politique de compatibilité de version](/fr/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -252,11 +252,11 @@ systemctl restart kubelet
 
 ## Dépannage
 
-Si vous rencontrez des difficultés avec kubeadm, veuillez consulter notre [documentation de dépannage](/docs/setup/independent/troubleshooting-kubeadm/).
+Si vous rencontrez des difficultés avec kubeadm, veuillez consulter notre [documentation de dépannage](/fr/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
 ## {{% heading "whatsnext" %}}
 
 
-* [Utiliser kubeadm pour créer un cluster](/docs/setup/independent/create-cluster-kubeadm/)
+* [Utiliser kubeadm pour créer un cluster](/fr/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
 

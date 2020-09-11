@@ -68,9 +68,9 @@ de `journalctl -u kubelet`. Si vous voyez quelque chose comme ce qui suit:
   Il existe deux méthodes courantes pour résoudre le problème du driver cgroup:
 
  1. Installez à nouveau Docker en suivant les instructions
-  [ici](/docs/setup/independent/install-kubeadm/#installing-docker).
+  [ici](/fr/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-docker).
  1. Changez manuellement la configuration de la kubelet pour correspondre au driver Docker cgroup, vous pouvez vous référer à
-    [Configurez le driver de cgroupe utilisé par la kubelet sur le Nœud Master](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+    [Configurez le driver de cgroupe utilisé par la kubelet sur le Nœud Master](/fr/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
     pour des instruction détaillées.
 
 - Les conteneurs Docker du control plane sont en crashloop ou suspendus. Vous pouvez le vérifier en lançant `docker ps` et étudier chaque conteneur en exécutant `docker logs`.
@@ -238,7 +238,7 @@ dernière comme` InternalIP` du noeud au lieu du public.
 Si vous avez des nœuds qui exécutent SELinux avec une version plus ancienne de Docker, vous risquez
 de rencontrer un problème ou les pods de `coredns` ne démarrent pas. Pour résoudre ce problème, vous pouvez essayer l'une des options suivantes:
 
-- Mise à niveau vers une [nouvelle version de Docker](/docs/setup/independent/install-kubeadm/#installing-docker).
+- Mise à niveau vers une [nouvelle version de Docker](/fr/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-docker).
 - [Désactiver SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 - Modifiez le déploiement de `coredns` pour définir` allowPrivilegeEscalation` à `true`:
 
