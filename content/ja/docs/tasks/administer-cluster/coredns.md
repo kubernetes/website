@@ -50,6 +50,10 @@ Kubernetesバージョン1.11以降でCoreDNSを実行している場合、ア�
 Kubernetes 1.11では、CoreDNSは一般利用可能(GA)にアップグレードされ、デフォルトでインストールされます。
 {{< /note >}}
 
+{{< warning >}}
+Kubernetes 1.18では、kubeadmでのkube-dns使用は非推奨となり、将来のバージョンではは削除されます。
+{{< /warning >}}
+
 1.13以前のバージョンにkube-dnsをインストールするには、`CoreDNS`フィーチャーゲートの値を`false`に設定します:
 
 ```
