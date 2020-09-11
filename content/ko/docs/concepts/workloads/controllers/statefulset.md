@@ -1,7 +1,7 @@
 ---
 title: 스테이트풀셋
 content_type: concept
-weight: 40
+weight: 30
 ---
 
 <!-- overview -->
