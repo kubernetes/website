@@ -13,7 +13,7 @@ card:
 
 <!-- overview -->
 
-Kubernetesの中核である' {{< glossary_tooltip text="control plane" term_id="control-plane" >}}は{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} です。
+Kubernetesの中核である {{< glossary_tooltip text="control plane" term_id="control-plane" >}}は{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} です。
 APIサーバーは、エンドユーザー、クラスターのさまざまな部分、および外部コンポーネントが相互に通信できるようにするHTTP APIを公開します。
 
 Kubernetes APIを使用すると、Kubernetes API内のオブジェクトの状態をクエリで操作できます（例：Pod、Namespace、ConfigMap、Events）。
@@ -34,7 +34,7 @@ Kubernetesプロジェクトは、既存のクライアントとの互換性を�
 互換性のある変更の構成要素とAPIの変更方法については、[API変更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)で詳しく説明しています。
 
 
-**OpenAPI 仕様 {#api-specification}
+## OpenAPI 仕様 {#api-specification}
 
 Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOpenAPI仕様を提供します。
 次のように要求ヘッダーを使用して、応答フォーマットを要求できます。
