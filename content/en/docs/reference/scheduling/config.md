@@ -13,7 +13,14 @@ file and passing its path as a command line argument.
 
 <!-- body -->
 
-## Minimal Configuration
+A scheduling Profile allows you to configure the different stages of scheduling
+in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
+Each stage is exposed in a extension point. Plugins provide scheduling behaviors
+by implementing one or more of these extension points.
+
+You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
+using the component config APIs
+([`v1beta1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.19.0/config/v1beta1?tab=doc#KubeSchedulerConfiguration)).
 
 A minimal configuration looks as follows:
 
