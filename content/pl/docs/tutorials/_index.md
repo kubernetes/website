@@ -18,11 +18,11 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 ## Podstawy
 
-* [Podstawy Kubernetesa (PL)](/pl/docs/tutorials/kubernetes-basics/) to interaktywny samouczek, który pomoże zrozumieć system Kubernetes i wypróbować jego podstawowe możliwości.
+* [Podstawy Kubernetesa](/pl/docs/tutorials/kubernetes-basics/) (PL) to interaktywny samouczek, który pomoże zrozumieć system Kubernetes i wypróbować jego podstawowe możliwości.
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
-* [Hello Minikube (PL)](/pl/docs/tutorials/hello-minikube/)
+* [Hello Minikube](/pl/docs/tutorials/hello-minikube/) (PL)
 
 ## Konfiguracja
 
