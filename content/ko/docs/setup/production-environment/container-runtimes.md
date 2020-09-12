@@ -217,7 +217,7 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Debian" >}}
+{{% tab name="Debian" %}}
 
 다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 $OS를 아래의 표에서 적절한 필드로 설정한다.
 
@@ -244,19 +244,8 @@ curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/
 apt-get update
 apt-get install cri-o cri-o-runc
 ```
-<<<<<<< HEAD
-{{< /tab >}}
-
-{{< tab name="Ubuntu 18.04, 19.04 and 19.10" >}}
-=======
-<<<<<<< HEAD
-{{% /tab %}}
-
-{{% tab name="Ubuntu 18.04, 19.04 and 19.10" %}}
-=======
 
 {{% /tab %}}
->>>>>>> upstream/dev-1.19-ko.1
 
 {{% tab name="Ubuntu" %}}
 
@@ -275,7 +264,6 @@ apt-get install cri-o cri-o-runc
 사용자의 설치를 특정 릴리스에 고정할 수 있다.
 버전 1.18.3을 설치하려면, `VERSION=1.18:1.18.3` 을 설정한다.
 <br />
->>>>>>> 357c22dfe... First Korean l10n work for release-1.19
 
 그런 다음, 아래를 실행한다.
 ```shell
@@ -313,22 +301,10 @@ curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://downlo
 curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
 yum install cri-o
 ```
-<<<<<<< HEAD
-{{< /tab >}}
-
-{{< tab name="CentOS/RHEL 7.4+" >}}
-=======
-<<<<<<< HEAD
-{{% /tab %}}
-
-{{% tab name="CentOS/RHEL 7.4+" %}}
-=======
 
 {{% /tab %}}
 
 {{% tab name="openSUSE Tumbleweed" %}}
->>>>>>> upstream/dev-1.19-ko.1
->>>>>>> 357c22dfe... First Korean l10n work for release-1.19
 
 ```shell
 sudo zypper install cri-o
@@ -345,29 +321,13 @@ dnf module list cri-o
 ```
 CRI-O는 Fedora에서 특정 릴리스를 고정하여 설치하는 방법은 지원하지 않는다.
 
-<<<<<<< HEAD
-{{< tab name="openSUSE Tumbleweed" >}}
-=======
-<<<<<<< HEAD
-{{% tab name="openSUSE Tumbleweed" %}}
->>>>>>> 357c22dfe... First Korean l10n work for release-1.19
-
-=======
 그런 다음, 아래를 실행한다.
->>>>>>> upstream/dev-1.19-ko.1
 ```shell
 dnf module enable cri-o:$VERSION
 dnf install cri-o
 ```
-<<<<<<< HEAD
-{{< /tab >}}
-=======
-<<<<<<< HEAD
-=======
 
->>>>>>> upstream/dev-1.19-ko.1
 {{% /tab %}}
->>>>>>> 357c22dfe... First Korean l10n work for release-1.19
 {{< /tabs >}}
 
 ### CRI-O 시작
@@ -377,8 +337,8 @@ systemctl daemon-reload
 systemctl start crio
 ```
 
-자세한 사항은 [CRI-O 설치 가이드](https://github.com/kubernetes-sigs/cri-o#getting-started)
-를 참고한다.
+자세한 사항은 [CRI-O 설치 가이드](https://github.com/kubernetes-sigs/cri-o#getting-started)를
+참고한다.
 
 ## Containerd
 
@@ -410,7 +370,7 @@ sysctl --system
 ### containerd 설치
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04" >}}
+{{% tab name="Ubuntu 16.04" %}}
 
 ```shell
 # (containerd 설치)
@@ -447,8 +407,8 @@ containerd config default > /etc/containerd/config.toml
 # containerd 재시작
 systemctl restart containerd
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (containerd 설치)
@@ -479,12 +439,7 @@ containerd config default > /etc/containerd/config.toml
 # containerd 재시작
 systemctl restart containerd
 ```
-<<<<<<< HEAD
-{{< /tab >}}
-=======
-<<<<<<< HEAD
-=======
-{{< /tab >}}
+{{% /tab %}}
 {{% tab name="윈도우 (PowerShell)" %}}
 ```powershell
 # (containerd 설치)
@@ -510,14 +465,17 @@ Get-Content config.toml
 .\containerd.exe --register-service
 Start-Service containerd
 ```
->>>>>>> upstream/dev-1.19-ko.1
 {{% /tab %}}
->>>>>>> 357c22dfe... First Korean l10n work for release-1.19
 {{< /tabs >}}
 
 ### systemd
 
-`systemd` cgroup driver를 사용하려면, `/etc/containerd/config.toml`의 `plugins.cri.systemd_cgroup = true`을 설정한다.
+`systemd` cgroup driver를 사용하려면, `/etc/containerd/config.toml`에 다음을 설정한다.
+
+```
+[plugins.cri]
+systemd_cgroup = true
+```
 kubeadm을 사용하는 경우에도 마찬가지로, 수동으로
 [kubelet을 위한 cgroup 드라이버](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)를 설정한다.
 
