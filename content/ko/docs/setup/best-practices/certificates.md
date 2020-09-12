@@ -29,7 +29,7 @@ weight: 40
 * [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)를 위한 클라이언트와 서버 인증서
 
 {{< note >}}
-`front-proxy` 인증서는 kube-proxy에서 [API 서버 확장](/docs/tasks/extend-kubernetes/setup-extension-api-server/)을 지원할 때만 kube-proxy에서 필요하다.
+`front-proxy` 인증서는 kube-proxy에서 [API 서버 확장](/ko/docs/tasks/extend-kubernetes/setup-extension-api-server/)을 지원할 때만 kube-proxy에서 필요하다.
 {{< /note >}}
 
 etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.

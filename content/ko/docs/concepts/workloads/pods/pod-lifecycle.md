@@ -91,7 +91,7 @@ UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되�
 
 전체 파드의 [단계](#파드의-단계)뿐 아니라, 쿠버네티스는 파드 내부의
 각 컨테이너 상태를 추적한다.
-[컨테이너 라이프사이클 훅(hook)](/docs/concepts/containers/container-lifecycle-hooks/)을
+[컨테이너 라이프사이클 훅(hook)](/ko/docs/concepts/containers/container-lifecycle-hooks/)을
 사용하여 컨테이너 라이프사이클의 특정 지점에서 실행할 이벤트를 트리거할 수 있다.
 
 일단 {{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}가
@@ -437,7 +437,7 @@ API에서 즉시 파드를 제거하므로 동일한 이름으로 새로운 파�
 * [활성, 준비성 및 스타트업 프로브 설정](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)하는
   핸즈온 연습을 해보자.
 
-* [컨테이너 라이프사이클 훅](/docs/concepts/containers/container-lifecycle-hooks/)에 대해 자세히 알아보자.
+* [컨테이너 라이프사이클 훅](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 자세히 알아보자.
 
 * API의 파드 / 컨테이너 상태에 대한 자세한 내용은 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
 그리고

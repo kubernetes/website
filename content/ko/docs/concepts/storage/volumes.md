@@ -1035,7 +1035,7 @@ tmpfs(RAM 기반 파일시스템)로 지원되기 때문에 비 휘발성 스토
 업데이트를 수신하지 못한다.
 {{< /note >}}
 
-시크릿에 대해서 [여기](/docs/concepts/configuration/secret/)에 더 자세한 설명이 있다.
+시크릿에 대해서 [여기](/ko/docs/concepts/configuration/secret/)에 더 자세한 설명이 있다.
 
 ### storageOS {#storageos}
 
