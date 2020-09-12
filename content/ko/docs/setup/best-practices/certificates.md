@@ -120,8 +120,8 @@ kubeadm 사용자만 해당:
 
 | 개인키 경로             | 공개 키 경로             | 명령어                 | 파라미터                             |
 |------------------------------|-----------------------------|-------------------------|--------------------------------------|
-|  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file              |
-|                              | sa.pub                      | kube-apiserver          | --service-account-key-file                  |
+|  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file   |
+|                              | sa.pub                      | kube-apiserver          | --service-account-key-file           |
 
 ## 각 사용자 계정을 위한 인증서 설정하기
 
@@ -157,4 +157,3 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 | kubelet.conf            | kubelet                 | 클러스터 각 노드를 위해 필요하다.                            |
 | controller-manager.conf | kube-controller-manager | 반드시 매니페스트를 `manifests/kube-controller-manager.yaml`에 추가해야한다. |
 | scheduler.conf          | kube-scheduler          | 반드시 매니페스트를 `manifests/kube-scheduler.yaml`에 추가해야한다.          |
-
