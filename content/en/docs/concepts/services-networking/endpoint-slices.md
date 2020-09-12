@@ -23,7 +23,7 @@ Endpoints.
 
 The Endpoints API has provided a simple and straightforward way of
 tracking network endpoints in Kubernetes. Unfortunately as Kubernetes clusters
-and {{< glossary_tooltip text="Services" term_id="service" >}} have grown to handle
+and {{< glossary_tooltip text="Services" term_id="service" >}} have grown to handle and
 send more traffic to more backend Pods, limitations of that original API became
 more visible.
 Most notably, those included challenges with scaling to larger numbers of
