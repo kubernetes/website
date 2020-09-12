@@ -150,7 +150,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 
 - **이미지 풀(Pull) 시크릿**:
   특정 도커 컨테이너 이미지가 프라이빗한 경우,
-  [풀(Pull) 시크릿](/docs/concepts/configuration/secret/) 자격 증명을 요구한다.
+  [풀(Pull) 시크릿](/ko/docs/concepts/configuration/secret/) 자격 증명을 요구한다.
 
   대시보드는 가능한 모든 시크릿을 드롭다운 리스트로 제공하며, 새로운 시크릿을 생성할 수 있도록 한다.
   시크릿 이름은 예를 들어 `new.image-pull.secret` 과 같이 DNS 도메인 이름 구문으로 따르기로 한다.

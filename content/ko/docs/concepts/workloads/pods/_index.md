@@ -124,7 +124,7 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 
 ### 파드와 컨트롤러
 
-워크로드 리소스를 사용하여 여러 파드를 만들고 관리할 수 ​​있다. 리소스에 대한 컨트롤러는
+워크로드 리소스를 사용하여 여러 파드를 만들고 관리할 수 있다. 리소스에 대한 컨트롤러는
 파드 장애 시 복제 및 롤아웃과 자동 복구를
 처리한다. 예를 들어, 노드가 실패하면, 컨트롤러는 해당 노드의 파드가 작동을 중지했음을
 인식하고 대체 파드를 생성한다. 스케줄러는
@@ -142,9 +142,9 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 _파드 템플릿_ 에서 파드를 생성하고 사용자 대신 해당 파드를 관리한다.
 
 파드템플릿(PodTemplate)은 파드를 생성하기 위한 명세이며,
-[디플로이먼트](/docs/concepts/workloads/controllers/deployment/),
-[잡](/docs/concepts/jobs/run-to-completion-finite-workloads/) 및
-[데몬셋](/docs/concepts/workloads/controllers/daemonset/)과 같은 워크로드 리소스에 포함된다.
+[디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/),
+[잡](/ko/docs/concepts/workloads/controllers/job/) 및
+[데몬셋](/ko/docs/concepts/workloads/controllers/daemonset/)과 같은 워크로드 리소스에 포함된다.
 
 워크로드 리소스의 각 컨트롤러는 워크로드 오브젝트 내부의 `PodTemplate` 을
 사용하여 실제 파드를 생성한다. `PodTemplate` 은 앱을 실행하는 데 사용되는 워크로드 리소스가
