@@ -68,7 +68,7 @@ kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
 시스템에 도커를 설치하기 위해서 아래의 커맨드들을 사용한다.
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04+" >}}
+{{% tab name="Ubuntu 16.04+" %}}
 
 ```shell
 # (도커 CE 설치)
@@ -122,8 +122,8 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (도커 CE 설치)
@@ -177,7 +177,7 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 부팅 시 도커 서비스를 시작하려면, 다음 명령을 실행한다.
