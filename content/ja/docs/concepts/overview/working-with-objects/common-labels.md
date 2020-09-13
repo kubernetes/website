@@ -26,7 +26,7 @@ content_type: concept
 | キー                                 | 説明           | 例  | 型 |
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | アプリケーション名 | `mysql` | 文字列 |
-| `app.kubernetes.io/instance`        | アプリケーションのインスタンスを特定するための固有名 | `wordpress-abcxzy` | 文字列 |
+| `app.kubernetes.io/instance`        | アプリケーションのインスタンスを特定するための固有名 | `mysql-abcxzy` | 文字列 |
 | `app.kubernetes.io/version`         | アプリケーションの現在のバージョン (例: セマンティックバージョン、リビジョンのハッシュなど) | `5.7.21` | 文字列 |
 | `app.kubernetes.io/component`       | アーキテクチャ内のコンポーネント | `database` | 文字列 |
 | `app.kubernetes.io/part-of`         | このアプリケーションによって構成される上位レベルのアプリケーション | `wordpress` | 文字列 |
@@ -40,7 +40,7 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: mysql-abcxzy
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
