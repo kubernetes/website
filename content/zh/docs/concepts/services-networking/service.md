@@ -1129,6 +1129,24 @@ metadata:
 [...]
 ```
 {{% /tab %}}
+{{% tab name="Tencent Cloud" %}}
+```yaml
+[...]
+metadata:
+  annotations:
+    service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
+[...]
+```
+{{% /tab %}}
+{{% tab name="Alibaba Cloud" %}}
+```yaml
+[...]
+metadata:
+  annotations:
+    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "intranet"
+[...]
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 <!--
