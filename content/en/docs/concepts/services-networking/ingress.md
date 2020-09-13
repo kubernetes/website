@@ -37,7 +37,7 @@ Traffic routing is controlled by rules defined on the Ingress resource.
    [ Services ]
 ```
 
-An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
+An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 
 An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
 uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) or
@@ -45,7 +45,7 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 
 ## Prerequisites
 
-You must have an [ingress controller](/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
+You must have an [Ingress controller](/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
 
 You may need to deploy an Ingress controller such as [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/). You can choose from a number of
 [Ingress controllers](/docs/concepts/services-networking/ingress-controllers).
@@ -107,7 +107,7 @@ routed to your default backend.
 ### Resource backends {#resource-backend}
 
 A `Resource` backend is an ObjectRef to another Kubernetes resource within the
-same namespace of the Ingress object. A `Resource` is a mutually exclusive
+same namespace as the Ingress object. A `Resource` is a mutually exclusive
 setting with Service, and will fail validation if both are specified. A common
 usage for a `Resource` backend is to ingress data to an object storage backend
 with static assets.
@@ -235,7 +235,7 @@ IngressClass resource will ensure that new Ingresses without an
 If you have more than one IngressClass marked as the default for your cluster,
 the admission controller prevents creating new Ingress objects that don't have
 an `ingressClassName` specified. You can resolve this by ensuring that at most 1
-IngressClasses are marked as default in your cluster.
+IngressClass is marked as default in your cluster.
 {{< /caution >}}
 
 ## Types of Ingress
@@ -491,7 +491,7 @@ You can achieve the same outcome by invoking `kubectl replace -f` on a modified 
 
 ## Failing across availability zones
 
-Techniques for spreading traffic across failure domains differs between cloud providers.
+Techniques for spreading traffic across failure domains differ between cloud providers.
 Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details.
 
 ## Alternatives
