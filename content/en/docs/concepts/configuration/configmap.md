@@ -213,6 +213,7 @@ when new keys are projected to the Pod can be as long as the kubelet sync period
 propagation delay, where the cache propagation delay depends on the chosen cache type
 (it equals to watch propagation delay, ttl of cache, or zero correspondingly).
 
+ConfigMaps consumed as environment variables are not updated automatically and require a pod restart. 
 ## Immutable ConfigMaps {#configmap-immutable}
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
