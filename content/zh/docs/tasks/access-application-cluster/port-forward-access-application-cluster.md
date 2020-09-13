@@ -227,13 +227,14 @@ local workstation to debug the database that is running in the pod.
 
 与本地 7000 端口建立的连接将转发到运行 Redis 服务器的 pod 的 6379 端口。通过此连接，您可以使用本地工作站来调试在 pod 中运行的数据库。
 
-{{< warning >}}
 <!--
+{{< warning >}}
 Due to known limitations, port forward today only works for TCP protocol.
 The support to UDP protocol is being tracked in
 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
 -->
-**警告：** 由于已知的限制，目前的端口转发仅适用于 TCP 协议。
+{{< warning >}}
+由于已知的限制，目前的端口转发仅适用于 TCP 协议。
 在 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862) 中正在跟踪对 UDP 协议的支持。
 {{< /warning >}}
 
