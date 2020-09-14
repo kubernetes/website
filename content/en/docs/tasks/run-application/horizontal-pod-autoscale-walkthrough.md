@@ -114,7 +114,7 @@ Now, we will see how the autoscaler reacts to increased load.
 We will start a container, and send an infinite loop of queries to the php-apache service (please run it in a different terminal):
 
 ```shell
-kubectl run -it --rm load-generator --image=busybox /bin/sh
+kubectl run -i --tty busybox --image=busybox --restart=Never
 
 Hit enter for command prompt
 
