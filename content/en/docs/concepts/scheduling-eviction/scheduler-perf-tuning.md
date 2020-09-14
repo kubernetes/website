@@ -50,17 +50,10 @@ to be `/etc/kubernetes/config/kube-scheduler.yaml`), then restart the scheduler.
 After you have made this change, you can run
 
 ```bash
-kubectl get componentstatuses
+kubectl get pods -n kube-system | grep kube-scheduler
 ```
 
-to verify that the kube-scheduler component is healthy. The output is similar to:
-
-```
-NAME                 STATUS    MESSAGE             ERROR
-controller-manager   Healthy   ok
-scheduler            Healthy   ok
-...
-```
+to verify that the kube-scheduler component is healthy.
 
 ## Node scoring threshold {#percentage-of-nodes-to-score}
 
