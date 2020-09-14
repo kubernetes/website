@@ -3,13 +3,11 @@ title: oVirt
 content_type: concept
 ---
 <!--
----
 reviewers:
 - caesarxuchao
 - erictune
 title: oVirt
 content_type: concept
----
 -->
 
 <!-- overview -->
@@ -20,27 +18,30 @@ oVirt is a virtual datacenter manager that delivers powerful management of multi
 oVirt 是一个虚拟数据中心管理器，可以对多个主机上的多个虚拟机进行强大的管理。
 使用 KVM 和 libvirt ，可以将 oVirt 安装在 Fedora、CentOS 或者 Red Hat Enterprise Linux 主机上，以部署和管理您的虚拟数据中心。
 
-
-
 <!-- body -->
 
 <!--
 ## oVirt Cloud Provider Deployment
--->
-## oVirt 云驱动的部署
 
-<!--
 The oVirt cloud provider allows to easily discover and automatically add new VM instances as nodes to your Kubernetes cluster.
 At the moment there are no community-supported or pre-loaded VM images including Kubernetes but it is possible to [import] or [install] Project Atomic (or Fedora) in a VM to [generate a template]. Any other distribution that includes Kubernetes may work as well.
 -->
+## oVirt 云驱动的部署
+
 oVirt 云驱动可以轻松发现新 VM 实例并自动将其添加为 Kubernetes 集群的节点。
-目前，包括 Kubernetes 在内，尚无社区支持或预加载的 VM 镜像，但可以在 VM 中 [导入] 或 [安装] Project Atomic（或 Fedora）来 [生成模版]。
+目前，包括 Kubernetes 在内，尚无社区支持或预加载的 VM 镜像，但可以在 VM 中
+[导入](https://ovedou.blogspot.it/2014/03/importing-glance-images-as-ovirt.html) 或
+[安装](https://www.ovirt.org/documentation/quickstart/quickstart-guide/#create-virtual-machines)
+Project Atomic（或 Fedora）来 
+[生成模版](https://www.ovirt.org/documentation/quickstart/quickstart-guide/#using-templates)。
 包括 Kubernetes 的任何其他 Linux 发行版也可能可行。
 
 <!--
 It is mandatory to [install the ovirt-guest-agent] in the guests for the VM ip address and hostname to be reported to ovirt-engine and ultimately to Kubernetes.
 -->
-必须在寄宿系统中 [安装 ovirt-guest-agent]，才能将 VM 的 IP 地址和主机名报给 ovirt-engine 并最终报告给 Kubernetes。
+必须在寄宿系统中
+[安装 ovirt-guest-agent](https://www.ovirt.org/documentation/how-to/guest-agent/install-the-guest-agent-in-fedora/)，
+才能将 VM 的 IP 地址和主机名报给 ovirt-engine 并最终报告给 Kubernetes。
 
 <!--
 Once the Kubernetes template is available it is possible to start instantiating VMs that can be discovered by the cloud provider.
@@ -48,24 +49,13 @@ Once the Kubernetes template is available it is possible to start instantiating 
 一旦 Kubernetes 模版可用，就可以开始创建可由云驱动发现的 VM。
 
 <!--
-[import]: https://ovedou.blogspot.it/2014/03/importing-glance-images-as-ovirt.html
-[install]: https://www.ovirt.org/documentation/quickstart/quickstart-guide/#create-virtual-machines
-[generate a template]: https://www.ovirt.org/documentation/quickstart/quickstart-guide/#using-templates
-[install the ovirt-guest-agent]: https://www.ovirt.org/documentation/how-to/guest-agent/install-the-guest-agent-in-fedora/
--->
-[导入]: https://ovedou.blogspot.it/2014/03/importing-glance-images-as-ovirt.html
-[安装]: https://www.ovirt.org/documentation/quickstart/quickstart-guide/#create-virtual-machines
-[生成模版]: https://www.ovirt.org/documentation/quickstart/quickstart-guide/#using-templates
-[安装 ovirt-guest-agent]: https://www.ovirt.org/documentation/how-to/guest-agent/install-the-guest-agent-in-fedora/
-
-<!--
 ## Using the oVirt Cloud Provider
+
+The oVirt Cloud Provider requires access to the oVirt REST-API to gather the proper information,
+the required credential should be specified in the `ovirt-cloud.conf` file:
 -->
 ## 使用 oVirt 云驱动
 
-<!--
-The oVirt Cloud Provider requires access to the oVirt REST-API to gather the proper information, the required credential should be specified in the `ovirt-cloud.conf` file:
--->
 oVirt 云驱动需要访问 oVirt REST-API 来收集正确的信息，所需的凭据应在 `ovirt-cloud.conf` 文件中设定：
 
 ```none
@@ -128,8 +118,6 @@ oVirt                |              |        |             | [docs](/docs/setup/
 -->
 IaaS 提供商        | 配置管理 | OS     | 联网  | 文件                                              | 遵从性 | 支持级别
 ----------------- | ------- | ------ | ---- | ------------------------------------------------- |------| ---------------
-oVirt | | | | [文件](/docs/setup/production-environment/on-premises-vm/ovirt/) | | 社区 ([@simon3z](https://github.com/simon3z))
-
-
+oVirt | | | | [文件](/zh/docs/setup/production-environment/on-premises-vm/ovirt/) | | 社区 ([@simon3z](https://github.com/simon3z))
 
 
