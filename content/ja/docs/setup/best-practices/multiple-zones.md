@@ -39,7 +39,7 @@ Kubernetesはレプリケーションコントローラーやサービス内のP
 
 * クラスターはクラウドやリージョンを跨げません(この機能はフルフェデレーションサポートが必要です)。
 
-*ノードは複数のゾーンに存在しますが、kube-upは現在デフォルトではシングルマスターノードでビルドします。サービスは高可用性でありゾーンの障害に耐えることができますが、コントロールプレーンは単一のゾーンに位置します。高可用性コントロールプレーンを必要とするユーザーは[高可用性](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)の説明を参照してください。
+*ノードは複数のゾーンに存在しますが、kube-upは現在デフォルトではシングルマスターノードでビルドします。サービスは高可用性でありゾーンの障害に耐えることができますが、コントロールプレーンは単一のゾーンに配置されます。高可用性コントロールプレーンを必要とするユーザーは[高可用性](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)の説明を参照してください。
 
 ### ボリュームの制限
 
@@ -47,7 +47,7 @@ Kubernetesはレプリケーションコントローラーやサービス内のP
 
 * 動的なプロビジョニングを使用する際のStatefulSetボリュームゾーンのデプロイは、現在Podのアフィニティあるいはアンチアフィニティと互換性がありません。
 
-* StatefulSetの名前がダッシュ("-")を含む場合、ボリュームゾーンのデプロイはゾーンを跨いだストレージの均一な分配を提供ない可能性があります。
+* StatefulSetの名前がダッシュ("-")を含む場合、ボリュームゾーンのデプロイはゾーンを跨いだストレージの均一な分配を提供しない可能性があります。
 
 * DeploymentやPodのスペックにおいて複数のPVCを指定すると、StorageClassは特定の１つのゾーンに割り当てる必要があります、あるいはPVは特定のゾーンに静的にプロビジョンされる必要があります。もう一つの解決方法として、StatefulSetを使用すると、レプリカに対する全てのボリュームが同じゾーンにプロビジョンされます。
 
@@ -96,7 +96,7 @@ kubernetes-minion-a12q   Ready                      <none>   6m    v1.13.0      
 
 ### 2つ目のゾーンにさらにノードを追加
 
-それでは、現存のマスターを再利用して現存のクラスターにもう１つのノードのセットを追加しましょう。
+それでは、現存のマスターを再利用し、現存のクラスターの異なるゾーン(us-central1-bかus-west-2b)にもう１つのノードのセットを追加しましょう。
 kube-upを再び実行します．しかし`KUBE_USE_EXISTING_MASTER=true`を指定することでkube-upは新しいマスターを作成せず、代わりに以前作成したものを再利用します。
 
 GCE:
@@ -343,5 +343,4 @@ KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2c k
 KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2b kubernetes/cluster/kube-down.sh
 KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a kubernetes/cluster/kube-down.sh
 ```
-
 
