@@ -1,17 +1,15 @@
 ---
 title: "Externalizing config using MicroProfile, ConfigMaps and Secrets"
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 In this tutorial you will learn how and why to externalize your microservice’s configuration.  Specifically, you will learn how to use Kubernetes ConfigMaps and Secrets to set environment variables and then consume them using MicroProfile Config.
 
-{{% /capture %}}
 
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 ### Creating Kubernetes ConfigMaps & Secrets
 There are several ways to set environment variables for a Docker container in Kubernetes, including: Dockerfile, kubernetes.yml, Kubernetes ConfigMaps, and Kubernetes Secrets.  In the tutorial, you will learn how to use the latter two for setting your environment variables whose values will be injected into your microservices.  One of the benefits for using ConfigMaps and Secrets is that they can be re-used across multiple containers, including being assigned to different environment variables for the different containers.
@@ -29,21 +27,13 @@ CDI provides a standard dependency injection capability enabling an application 
 Many open source frameworks and runtimes implement and support MicroProfile Config.  Throughout the interactive tutorial, you'll be using [Open Liberty](https://openliberty.io), a flexible open-source Java runtime for building and running cloud-native apps and microservices.  You can find more information on how to use MicroProfile Config in this [Open Liberty guide](https://www.openliberty.io/guides/microprofile-config-intro.html).
 
 
-
-{{% /capture %}}
-
-
-{{% capture objectives %}}
+## {{% heading "objectives" %}}
 
 * Create a Kubernetes ConfigMap and Secret
 * Inject microservice configuration using MicroProfile Config
 
   
-{{% /capture %}}
-  
-{{% capture lessoncontent %}}
+<!-- lessoncontent -->
 
 ## Example: Externalizing config using MicroProfile, ConfigMaps and Secrets
 ### [Start Interactive Tutorial](/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
-
-{{% /capture %}}
