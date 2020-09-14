@@ -6,7 +6,6 @@ weight: 30
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 このドキュメントではKubernetesで既存のCSIボリュームの複製についてのコンセプトを説明します。このページを読む前にあらかじめ[ボリューム](/docs/concepts/storage/volumes)についてよく理解していることが望ましいです。
 
 
