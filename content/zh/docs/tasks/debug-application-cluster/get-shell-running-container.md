@@ -1,7 +1,4 @@
 ---
-reviewers:
-- caesarxuchao
-- mikedanese
 title: 获取正在运行容器的 Shell
 content_type: task
 ---
