@@ -1045,7 +1045,7 @@ spec:
 
 ## Shortcomings
 
-Using the userspace proxy for VIPs, work at small to medium scale, but will
+Using the userspace proxy for VIPs works at small to medium scale, but will
 not scale to very large clusters with thousands of Services.  The
 [original design proposal for portals](https://github.com/kubernetes/kubernetes/issues/1107)
 has more details on this.
