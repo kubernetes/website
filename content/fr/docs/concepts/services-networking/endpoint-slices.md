@@ -81,7 +81,7 @@ Le contrôleur gère les EndpointSlices pour tous les Services qui ont un sélec
 
 ### Capacité d'EndpointSlices
 
-Les EndpointSlices sont limités à une capacité de 100 Endpoints chacun, par défaut. Vous pouvez configurer ceci avec l'indicateur `--max-endpoints-per-slice` {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}} jusqu'à un maximum de 1000.
+Les EndpointSlices sont limités à une capacité de 100 endpoints chacun, par défaut. Vous pouvez configurer ceci avec l'indicateur `--max-endpoints-per-slice` {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}} jusqu'à un maximum de 1000.
 
 ### Distribution d'EndpointSlices
 
