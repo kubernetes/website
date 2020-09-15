@@ -15,7 +15,7 @@ weight: 90
 
 <!-- overview -->
 
-The Horizontal Pod Autoscaler automatically scales the number of pods
+The Horizontal Pod Autoscaler automatically scales the number of Pods
 in a replication controller, deployment, replica set or stateful set based on observed CPU utilization (or, with
 [custom metrics](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
 support, on some other application-provided metrics). Note that Horizontal
@@ -45,16 +45,16 @@ obtains the metrics from either the resource metrics API (for per-pod resource m
 or the custom metrics API (for all other metrics).
 
 * For per-pod resource metrics (like CPU), the controller fetches the metrics
-  from the resource metrics API for each pod targeted by the HorizontalPodAutoscaler.
+  from the resource metrics API for each Pod targeted by the HorizontalPodAutoscaler.
   Then, if a target utilization value is set, the controller calculates the utilization
   value as a percentage of the equivalent resource request on the containers in
-  each pod.  If a target raw value is set, the raw metric values are used directly.
+  each Pod.  If a target raw value is set, the raw metric values are used directly.
   The controller then takes the mean of the utilization or the raw value (depending on the type
-  of target specified) across all targeted pods, and produces a ratio used to scale
+  of target specified) across all targeted Pods, and produces a ratio used to scale
   the number of desired replicas.
 
-  Please note that if some of the pod's containers do not have the relevant resource request set,
-  CPU utilization for the pod will not be defined and the autoscaler will
+  Please note that if some of the Pod's containers do not have the relevant resource request set,
+  CPU utilization for the Pod will not be defined and the autoscaler will
   not take any action for that metric. See the [algorithm
   details](#algorithm-details) section below for more information about
   how the autoscaling algorithm works.
@@ -65,7 +65,7 @@ or the custom metrics API (for all other metrics).
 * For object metrics and external metrics, a single metric is fetched, which describes
   the object in question. This metric is compared to the target
   value, to produce a ratio as above. In the `autoscaling/v2beta2` API
-  version, this value can optionally be divided by the number of pods before the
+  version, this value can optionally be divided by the number of Pods before the
   comparison is made.
 
 The HorizontalPodAutoscaler normally fetches metrics from a series of aggregated APIs (`metrics.k8s.io`,
