@@ -107,34 +107,34 @@ kubectl version --client
 
 1. 最新リリースをダウンロードしてください:
 
-    ```bash
-    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
-    ```
+   ```bash
+   curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+   ```
 
-    特定のバージョンをダウンロードする場合、コマンドの`$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
+   特定のバージョンをダウンロードする場合、コマンドの`$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
 
-    たとえば、macOSへ{{< param "fullversion" >}}のバージョンをダウンロードするには、次のコマンドを入力します:
+   たとえば、macOSへ{{< param "fullversion" >}}のバージョンをダウンロードするには、次のコマンドを入力します:
 
-    ```bash
+   ```bash
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
-    ```
+   ```
 
 2. kubectlバイナリを実行可能にしてください。
 
-    ```bash
-    chmod +x ./kubectl
-    ```
+   ```bash
+   chmod +x ./kubectl
+   ```
 
 3. バイナリをPATHの中に移動させてください。
 
-    ```bash
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
+   ```bash
+   sudo mv ./kubectl /usr/local/bin/kubectl
+   ```
 4. インストールしたバージョンが最新であることを確認してください:
 
-    ```bash
-    kubectl version --client
-    ```
+   ```bash
+   kubectl version --client
+   ```
 
 ### Homebrewを使用してmacOSへインストールする
 
@@ -142,20 +142,20 @@ macOSで[Homebrew](https://brew.sh/)パッケージマネージャーを使用�
 
 1. インストールコマンドを実行してください:
 
-    ```bash
-    brew install kubectl
-    ```
-    または
+   ```bash
+   brew install kubectl
+   ```
+   または
 
-    ```bash
-    brew install kubernetes-cli
-    ```
+   ```bash
+   brew install kubernetes-cli
+   ```
 
 2. インストールしたバージョンが最新であることを確認してください:
 
-    ```bash
-    kubectl version --client
-    ```
+   ```bash
+   kubectl version --client
+   ```
 
 ### MacPortsを使用してmacOSへインストールする
 
@@ -163,16 +163,16 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
 
 1. インストールコマンドを実行してください:
 
-    ```bash
-    sudo port selfupdate
-    sudo port install kubectl
-    ```
+   ```bash
+   sudo port selfupdate
+   sudo port install kubectl
+   ```
 
 2. インストールしたバージョンが最新であることを確認してください:
 
-    ```bash
-    kubectl version --client
-    ```
+   ```bash
+   kubectl version --client
+   ```
 
 ## Windowsへkubectlをインストールする {#install-kubectl-on-windows}
 
@@ -180,20 +180,20 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
 
 1. [こちらのリンク](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)から、最新リリースである{{< param "fullversion" >}}をダウンロードしてください。
 
-    または、`curl`をインストールされていれば、次のコマンドも使用できます:
+   または、`curl`をインストールされていれば、次のコマンドも使用できます:
 
     ```bash
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
-    ```
+   curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+   ```
 
-    最新の安定版を入手する際は(たとえばスクリプトで使用する場合)、[https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt)を参照してください。
+   最新の安定版を入手する際は(たとえばスクリプトで使用する場合)、[https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt)を参照してください。
 
 2. バイナリをPATHに追加します
 3. `kubectl`のバージョンがダウンロードしたものと同じであることを確認してください:
 
-    ```bash
-    kubectl version --client
-    ```
+   ```bash
+   kubectl version --client
+   ```
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)は、それ自身のバージョンの`kubectl`をPATHに追加します。Docker Desktopをすでにインストールしている場合、Docker Desktopインストーラーによって追加されたPATHの前に追加するか、Docker Desktopの`kubectl`を削除してください。
 {{< /note >}}
@@ -204,72 +204,73 @@ Windowsで[Powershell Gallery](https://www.powershellgallery.com/)パッケー�
 
 1. インストールコマンドを実行してください(必ず`DownloadLocation`を指定してください):
 
-    ```powershell
-    Install-Script -Name 'install-kubectl' -Scope CurrentUser -Force
-    install-kubectl.ps1 [-DownloadLocation <path>]
-    ```
+   ```powershell
+   Install-Script -Name 'install-kubectl' -Scope CurrentUser -Force
+   install-kubectl.ps1 [-DownloadLocation <path>]
+   ```
 
-    {{< note >}}
-    `DownloadLocation`を指定しない場合、`kubectl`はユーザのTempディレクトリにインストールされます。
-    {{< /note >}}
+   {{< note >}}
+   `DownloadLocation`を指定しない場合、`kubectl`はユーザのTempディレクトリにインストールされます。
+   {{< /note >}}
 
-    インストーラーは`$HOME/.kube`を作成し、設定ファイルを作成します。
+   インストーラーは`$HOME/.kube`を作成し、設定ファイルを作成します。
 
 2. インストールしたバージョンが最新であることを確認してください:
 
-    ```powershell
-    kubectl version --client
-    ```
+   ```powershell
+   kubectl version --client
+   ```
 
-    {{< note >}}
-    アップデートする際は、手順1に示した2つのコマンドを再実行してください。
-    {{< /note >}}
+{{< note >}}
+アップデートする際は、手順1に示した2つのコマンドを再実行してください。
+{{< /note >}}
 
 ### ChocolateyまたはScoopを使用してWindowsへインストールする
 
 1. Windowsへkubectlをインストールするために、[Chocolatey](https://chocolatey.org)パッケージマネージャーや[Scoop](https://scoop.sh)コマンドラインインストーラーを使用することもできます。
 
-    {{< tabs name="kubectl_win_install" >}}
-    {{% tab name="choco" %}}
-    ```powershell
-    choco install kubernetes-cli
-    ```
-    {{% /tab %}}
-    {{% tab name="scoop" %}}
-    ```powershell
-    scoop install kubectl
-    ```
-    {{% /tab %}}
-    {{< /tabs >}}
+   {{< tabs name="kubectl_win_install" >}}
+   {{% tab name="choco" %}}
+   ```powershell
+   choco install kubernetes-cli
+   ```
+   {{% /tab %}}
+   {{% tab name="scoop" %}}
+   ```powershell
+   scoop install kubectl
+   ```
+   {{% /tab %}}
+   {{< /tabs >}}
+
 2. インストールしたバージョンが最新であることを確認してください:
 
-    ```powershell
-    kubectl version --client
-    ```
+   ```powershell
+   kubectl version --client
+   ```
 
 3. ホームディレクトリへ移動してください:
 
-    ```powershell
-    # cmd.exeを使用している場合は cd %USERPROFILE% を実行してください。
-    cd ~
-    ```
+   ```powershell
+   # cmd.exeを使用している場合は cd %USERPROFILE% を実行してください。
+   cd ~
+   ```
 4. `.kube`ディレクトリを作成してください:
 
-    ```powershell
-    mkdir .kube
-    ```
+   ```powershell
+   mkdir .kube
+   ```
 
 5. 作成した`.kube`ディレクトリへ移動してください:
 
-    ```powershell
-    cd .kube
-    ```
+   ```powershell
+   cd .kube
+   ```
 
 6. リモートのKubernetesクラスターを使うために、kubectlを設定してください:
 
-    ```powershell
-    New-Item config -type file
-    ```
+   ```powershell
+   New-Item config -type file
+   ```
 
 {{< note >}}
 Notepadなどの選択したテキストエディターから設定ファイルを編集してください。
@@ -282,15 +283,15 @@ Google Cloud SDKの一部として、kubectlをインストールすることも
 1. [Google Cloud SDK](https://cloud.google.com/sdk/)をインストールしてください。
 2. `kubectl`のインストールコマンドを実行してください:
 
-    ```shell
-    gcloud components install kubectl
-    ```
+   ```shell
+   gcloud components install kubectl
+   ```
 
 3. インストールしたバージョンが最新であることを確認してください:
 
-    ```shell
-    kubectl version --client
-    ```
+   ```shell
+   kubectl version --client
+   ```
 
 ## kubectlの設定を検証する
 
@@ -355,15 +356,15 @@ source /usr/share/bash-completion/bash_completion
 
 - 補完スクリプトを`~/.bashrc`内でsourceしてください:
 
-    ```bash
-    echo 'source <(kubectl completion bash)' >>~/.bashrc
-    ```
+   ```bash
+   echo 'source <(kubectl completion bash)' >>~/.bashrc
+   ```
 
 - 補完スクリプトを`/etc/bash_completion.d`ディレクトリに追加してください:
 
-    ```bash
-    kubectl completion bash >/etc/bash_completion.d/kubectl
-    ```
+   ```bash
+   kubectl completion bash >/etc/bash_completion.d/kubectl
+   ```
 - kubectlにエイリアスを張っている場合は、以下のようにシェルの補完を拡張して使うことができます:
 
 ```bash
@@ -443,28 +444,28 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 
 - 補完スクリプトを`~/.bash_profile`内でsourceする:
 
-    ```bash
-    echo 'source <(kubectl completion bash)' >>~/.bash_profile
-    ```
+   ```bash
+   echo 'source <(kubectl completion bash)' >>~/.bash_profile
+   ```
 
 - 補完スクリプトを`/usr/local/etc/bash_completion.d`ディレクトリに追加する:
 
-    ```bash
-    kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
-    ```
+   ```bash
+   kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
+   ```
 
 - kubectlにエイリアスを張っている場合は、以下のようにシェルの補完を拡張して使うことができます:
 
-    ```bash
-    echo 'alias k=kubectl' >>~/.bash_profile
-    echo 'complete -F __start_kubectl k' >>~/.bash_profile
-    ```
+   ```bash
+   echo 'alias k=kubectl' >>~/.bash_profile
+   echo 'complete -F __start_kubectl k' >>~/.bash_profile
+   ```
 
 - kubectlをHomwbrewでインストールした場合([前述](#homebrewを使用してmacosへインストールする)のとおり)、kubectlの補完スクリプトはすでに`/usr/local/etc/bash_completion.d/kubectl`に格納されているでしょう。この場合、なにも操作する必要はありません。
 
-    {{< note >}}
-    Homebrewでインストールしたbash-completion v2は`BASH_COMPLETION_COMPAT_DIR`ディレクトリ内のすべてのファイルをsourceするため、後者の2つの方法が機能します。
-    {{< /note >}}
+   {{< note >}}
+   Homebrewでインストールしたbash-completion v2は`BASH_COMPLETION_COMPAT_DIR`ディレクトリ内のすべてのファイルをsourceするため、後者の2つの方法が機能します。
+   {{< /note >}}
 
 どの場合でも、シェルをリロードしたあとに、kubectlの自動補完が機能するはずです。
 {{% /tab %}}
@@ -506,4 +507,3 @@ compinit
 * [アプリケーションを起動して公開する方法を学ぶ](/ja/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * あなたが作成していないクラスターにアクセスする必要がある場合は、[クラスターアクセスドキュメントの共有](/ja/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)を参照してください
 * [kubectlリファレンスドキュメント](/docs/reference/kubectl/kubectl/)を参照する
-
