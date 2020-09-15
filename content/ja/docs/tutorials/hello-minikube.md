@@ -154,7 +154,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管
 
 5. Katacoda環境のみ：`8080`の反対側のService出力に、5桁のポート番号が表示されます。このポート番号はランダムに生成されるため、ここで使用するポート番号と異なる場合があります。ポート番号テキストボックスに番号を入力し、ポートの表示をクリックしてください。前の例の場合は、`30369`と入力します。
 
-    アプリケーションとその応答が表示されるブラウザウィンドウが開きます。
+    アプリケーションとその応答が表示されるブラウザーウィンドウが開きます。
 
 ## アドオンの有効化
 
@@ -270,4 +270,3 @@ minikube delete
 * [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ.
 * [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ.
 * [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ.
-
