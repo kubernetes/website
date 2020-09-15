@@ -108,7 +108,6 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
 
 1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some distributions may honor these as client
   certs, but that behavior is not standard Kubernetes behavior.
-  This signerName can only be requested in CertificateSigningRequests created via the `certificates.k8s.io/v1` API version.
   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
     1. Trust distribution: None.  There is no standard trust or distribution for this signer in a Kubernetes cluster.
     1. Permitted subjects - any
