@@ -54,7 +54,7 @@ endpoints:
 ```
 
 Les EndpointSlices gérés par le contrôleur d'EndpointSlice n'auront, par défaut, pas plus de 100 Endpoints chacun. 
-En dessous de cette échelle, EndpointSlices devraientt mapper 1:1 les Endpoints et les Services et devraientt avoir une performance similaire.
+En dessous de cette échelle, EndpointSlices devraient mapper 1:1 les Endpoints et les Services et devraientt avoir une performance similaire.
 
 EndpointSlices peuvent agir en tant que source de vérité pour kube-proxy quand il s'agit du routage d'un trafic interne. 
 Lorsqu'ils sont activés, ils devraient offrir une amélioration de performance pour les services qui ont une grand quantité d'Endpoints.
