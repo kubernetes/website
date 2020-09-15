@@ -23,7 +23,7 @@ _EndpointSlices_ offrent une méthode simple pour suivre les Endpoints d'un rés
 
 ## Resource pour EndpointSlice {#endpointslice-resource}
 
-Dans Kubernetes, un EndpointSlice contient des reférences à un ensemble de Endpoints. 
+Dans Kubernetes, un EndpointSlice contient des reférences à ensemble de terminaisons (_endpoints_) du réseau cluster. 
 Le controleur endpointslice crée automatiquement des EndpointSlices pour un Service quand un {{< glossary_tooltip text="sélecteur" term_id="selector" >}} est spécifié.
 Ces EndpointSlices vont inclure des références à n'importe quels Pods qui correspondent aux sélecteurs de Service.
 EndpointSlices groupent ensemble les _endpoints_ (points finals) d'un réseau par combinaisons uniques de services et de ports.
