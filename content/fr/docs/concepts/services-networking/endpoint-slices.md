@@ -100,7 +100,7 @@ C'est à dire, une seule création EndpointSlice est préférable à plusieurs m
 Avec kube-proxy exécuté sur chaque Node et surveillant EndpointSlices, chaque changement d'un EndpointSlice devient relativement coûteux puisqu'ils seront transmis à chaque Node du cluster. 
 Cette approche vise à limiter le nombre de modifications qui doivent être envoyées à chaque Node, même si ça peut causer plusieurs EndpointSlices non remplis.
 
-En pratique, cette distribution bien peu idéale devrait être rare. La plupart des changements traités par le contrôleur EndpointSlice seront suffisamment petits pour tenir dans un EndpointSlice existant, et sinon, un nouveau EndpointSlice aurait probablement été bientôt nécessaire de toute façon. Les mises à jour continues des déploiements fournissent également une compaction naturelle des EndpointSlices avec tous leurs pods et les Endpoints correspondants qui se feront remplacer.
+En pratique, cette distribution bien peu idéale devrait être rare. La plupart des changements traités par le contrôleur EndpointSlice seront suffisamment petits pour tenir dans un EndpointSlice existant, et sinon, un nouveau EndpointSlice aurait probablement été bientôt nécessaire de toute façon. Les mises à jour continues des déploiements fournissent également une compaction naturelle des EndpointSlices avec tous leurs pods et les endpoints correspondants qui se feront remplacer.
 
 ## Motivation
 
@@ -119,4 +119,3 @@ Les EndpointSlices aident à atténuer ces problèmes ainsi qu'à fournir une pl
 
 * [Activer EndpointSlices](/docs/tasks/administer-cluster/enabling-endpointslices)
 * Lire [Connecter des applications aux Services](/docs/concepts/services-networking/connect-applications-service/)
-
