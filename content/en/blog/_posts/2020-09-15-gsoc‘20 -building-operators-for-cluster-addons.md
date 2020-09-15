@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "GSoC 2020 - Building operators for cluster addons"
-date: 2020-08-25
+date: 2020-09-16
 slug: gsoc20-building-operators-for-cluster-addons
 ---
 
