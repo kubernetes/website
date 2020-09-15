@@ -22,6 +22,7 @@ aliases:
     - mkorbi
     - rlenferink
   sig-docs-en-owners: # Admins for English content
+    - annajung
     - bradtopol
     - celestehorgan
     - jimangel
