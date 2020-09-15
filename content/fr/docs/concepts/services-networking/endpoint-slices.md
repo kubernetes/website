@@ -72,9 +72,9 @@ Les EndpointSlices supportent 3 types d'addresses:
 Chaque endpoint dans un EndpointSlice peut contenir des informations de topologie pertinentes. 
 Ceci est utilisé pour indiquer où se trouve un Endpoint, qui contient les informations sur le Node, zone et région correspondantes. Lorsque les valeurs sont disponibles, les labels de Topologies suivants seront définis par le contrôleur EndpointSlice:
 
-* `kubernetes.io/hostname` - Nom du Node sur lequel l'Endpoint se situe.
-* `topology.kubernetes.io/zone` - Zone dans laquelle l'Endpoint se situe.
-* `topology.kubernetes.io/region` - Région dans laquelle l'Endpoint se situe.
+* `kubernetes.io/hostname` - Nom du Node sur lequel l'endpoint se situe.
+* `topology.kubernetes.io/zone` - Zone dans laquelle l'endpoint se situe.
+* `topology.kubernetes.io/region` - Région dans laquelle l'endpoint se situe.
 
 Le contrôleur EndpointSlice surveille les Services et les Pods pour assurer que leurs correspondances avec les EndpointSlices sont à jour. 
 Le contrôleur gère les EndpointSlices pour tous les Services qui ont un sélecteur - [référence: {{< glossary_tooltip text="sélecteur" term_id="selector" >}}] - specifié. Celles-ci représenteront les IPs des Pods qui correspondent au sélecteur.
