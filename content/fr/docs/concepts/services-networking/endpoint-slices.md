@@ -91,7 +91,7 @@ Lorsque les ports nommés sont utilisés pour un Service, les Pods peuvent se re
 Le contrôleur essaie de remplir les EndpointSlices aussi complètement que possible, mais ne les rééquilibre pas activement. La logique du contrôleur est assez simple:
 
 1. Itérer à travers les EnpointSlices existants, retirer les Endpoints qui ne sont plus voulus et mettre à jour les Endpoints qui ont changé.
-2. Itérer à travers les EndpointSlices qui ont été modifiés dans la première étape et les remplir avec n'importe quel Endpoint nécéssaire.
+2. Itérer à travers les EndpointSlices qui ont été modifiés dans la première étape et les remplir avec n'importe quel endpoint nécéssaire.
 3. S'il reste encore des Endpoints nouveaux à ajouter, essayez de les mettre dans une slice qui n'a pas été changée et/ou en créer une nouvelle.
 
 Par-dessus tout, la troisième étape priorise la limitation de mises à jour d'EnpointSlice sur une distribution complètement pleine d'EndpointSlices. Par exemple, s'il y avait 10 nouveaux Endpoints à ajouter et 2 EndpointSlices qui peuvent contenir 5 Endpoints en plus chacun; cette approche créera un nouveau EndpointSlice au lieu de remplir les EndpointSlice existants. 
