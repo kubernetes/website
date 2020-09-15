@@ -1,140 +1,80 @@
 ---
-reviewers:
-- jsafrane
-- saad-ali
-- msau42
-- xing-yang
-- pohly
-title: Storage Capacity
+title: ストレージ容量
 content_type: concept
 weight: 45
 ---
 
 <!-- overview -->
 
-Storage capacity is limited and may vary depending on the node on
-which a pod runs: network-attached storage might not be accessible by
-all nodes, or storage is local to a node to begin with.
+ストレージ容量は、Podが実行されるノードごとに制限があったり、大きさが異なる可能性があります。たとえば、NASがすべてのノードからはアクセスできなかったり、初めはストレージがノードローカルでしか利用できない可能性があります。
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
-This page describes how Kubernetes keeps track of storage capacity and
-how the scheduler uses that information to schedule Pods onto nodes
-that have access to enough storage capacity for the remaining missing
-volumes. Without storage capacity tracking, the scheduler may choose a
-node that doesn't have enough capacity to provision a volume and
-multiple scheduling retries will be needed.
+このページでは、Kubernetesがストレージ容量を追跡し続ける方法と、スケジューラーがその情報を利用して、残りの未作成のボリュームのために十分なストレージ容量へアクセスできるノード上にどのようにPodをスケジューリングするかについて説明します。もしストレージ容量の追跡がなければ、スケジューラーは、ボリュームをプロビジョニングするために十分な容量のないノードを選択してしまい、スケジューリングの再試行が複数回行われてしまう恐れがあります。
 
-Tracking storage capacity is supported for {{< glossary_tooltip
-text="Container Storage Interface" term_id="csi" >}} (CSI) drivers and
-[needs to be enabled](#enabling-storage-capacity-tracking) when installing a CSI driver.
+ストレージ容量の追跡は、{{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}(CSI)向けにサポートされており、CSIドライバーのインストール時に[有効にする必要があります](#enabling-storage-capacity-tracking)。
 
 <!-- body -->
 
 ## API
 
-There are two API extensions for this feature:
-- [CSIStorageCapacity](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csistoragecapacity-v1alpha1-storage-k8s-io) objects:
-  these get produced by a CSI driver in the namespace
-  where the driver is installed. Each object contains capacity
-  information for one storage class and defines which nodes have
-  access to that storage.
-- [The `CSIDriverSpec.StorageCapacity` field](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csidriverspec-v1-storage-k8s-io):
-  when set to `true`, the Kubernetes scheduler will consider storage
-  capacity for volumes that use the CSI driver.
+この機能には、以下の2つのAPI拡張があります。
 
-## Scheduling
+- [CSIStorageCapacity](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csistoragecapacity-v1alpha1-storage-k8s-io)オブジェクト: このオブジェクトは、CSIドライバーがインストールされた名前空間に生成されます。各オブジェクトには1つのストレージクラスに対する容量の情報が含まれ、そのストレージに対してどのノードがアクセス権を持つかが定められています。
 
-Storage capacity information is used by the Kubernetes scheduler if:
-- the `CSIStorageCapacity` feature gate is true,
-- a Pod uses a volume that has not been created yet,
-- that volume uses a {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} which references a CSI driver and
-  uses `WaitForFirstConsumer` [volume binding
-  mode](/docs/concepts/storage/storage-classes/#volume-binding-mode),
-  and
-- the `CSIDriver` object for the driver has `StorageCapacity` set to
-  true.
+- [`CSIDriverSpec.StorageCapacity`フィールド](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csidriverspec-v1-storage-k8s-io): `true`に設定すると、Kubernetesのスケジューラーが、CSIドライバーを使用するボリュームに対してストレージ容量を考慮するようになります。
 
-In that case, the scheduler only considers nodes for the Pod which
-have enough storage available to them. This check is very
-simplistic and only compares the size of the volume against the
-capacity listed in `CSIStorageCapacity` objects with a topology that
-includes the node.
+## スケジューリング
 
-For volumes with `Immediate` volume binding mode, the storage driver
-decides where to create the volume, independently of Pods that will
-use the volume. The scheduler then schedules Pods onto nodes where the
-volume is available after the volume has been created.
+ストレージ容量の情報がKubernetesのスケジューラーで利用されるのは、以下のすべての条件を満たす場合です。
 
-For [CSI ephemeral volumes](/docs/concepts/storage/volumes/#csi),
-scheduling always happens without considering storage capacity. This
-is based on the assumption that this volume type is only used by
-special CSI drivers which are local to a node and do not need
-significant resources there.
+- `CSIStorageCapacity`フィーチャーゲートがtrueである
+- Podがまだ作成されていないボリュームを使用している
+- そのボリュームが、CSIドライバーを参照し、[volume binding mode](/docs/concepts/storage/storage-classes/#volume-binding-mode)に`WaitForFirstConsumer`を使う{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}を使用している
 
-## Rescheduling
+その場合、スケジューラーはPodに対して、十分なストレージが利用できるノードだけを考慮するようになります。このチェックは非常に単純で、ボリュームのサイズと、`CSIStorageCapacity`オブジェクトに一覧された容量を、ノードを含むトポロジで比較するだけです。
 
-When a node has been selected for a Pod with `WaitForFirstConsumer`
-volumes, that decision is still tentative. The next step is that the
-CSI storage driver gets asked to create the volume with a hint that the
-volume is supposed to be available on the selected node.
+volume binding modeが`Immediate`のボリュームの場合、ボリュームを使用するPodとは独立に、ストレージドライバーがボリュームの作成場所を決定します。次に、スケジューラーはボリュームが作成された後、Podをボリュームが利用できるノードにスケジューリングします。
 
-Because Kubernetes might have chosen a node based on out-dated
-capacity information, it is possible that the volume cannot really be
-created. The node selection is then reset and the Kubernetes scheduler
-tries again to find a node for the Pod.
+[CSI ephemeral volumes](/docs/concepts/storage/volumes/#csi)の場合、スケジューリングは常にストレージ容量を考慮せずに行われます。このような動作になっているのは、このボリュームタイプはノードローカルな特別なCSIドライバーでのみ使用され、そこでは特に大きなリソースが必要になることはない、という想定に基づいています。
 
-## Limitations
+## 再スケジューリング
 
-Storage capacity tracking increases the chance that scheduling works
-on the first try, but cannot guarantee this because the scheduler has
-to decide based on potentially out-dated information. Usually, the
-same retry mechanism as for scheduling without any storage capacity
-information handles scheduling failures.
+`WaitForFirstConsumer`ボリュームがあるPodに対してノードが選択された場合は、その決定はまだ一時的なものです。次のステップで、CSIストレージドライバーに対して、選択されたノード上でボリュームが利用可能になることが予定されているというヒントを付きでボリュームの作成を要求します。
 
-One situation where scheduling can fail permanently is when a Pod uses
-multiple volumes: one volume might have been created already in a
-topology segment which then does not have enough capacity left for
-another volume. Manual intervention is necessary to recover from this,
-for example by increasing capacity or deleting the volume that was
-already created. [Further
-work](https://github.com/kubernetes/enhancements/pull/1703) is needed
-to handle this automatically.
+Kubernetesは古い容量の情報をもとにノードを選択する場合があるため、実際にはボリュームが作成できないという可能性が存在します。その場合、ノードの選択がリセットされ、KubernetesスケジューラーはPodに割り当てるノードを再び探します。
 
-## Enabling storage capacity tracking
+## 制限
 
-Storage capacity tracking is an *alpha feature* and only enabled when
-the `CSIStorageCapacity` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) and
-the `storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}} are enabled. For details on
-that, see the `--feature-gates` and `--runtime-config` [kube-apiserver
-parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
+ストレージ容量を追跡することで、1回目の試行でスケジューリングが成功する可能性が高くなります。しかし、スケジューラーは潜在的に古い情報に基づいて決定を行う可能性があるため、成功を保証することはできません。通常、ストレージ容量の情報が存在しないスケジューリングと同様のリトライの仕組みによって、スケジューリングの失敗に対処します。
 
-A quick check
-whether a Kubernetes cluster supports the feature is to list
-CSIStorageCapacity objects with:
+スケジューリングが永続的に失敗する状況の1つは、Podが複数のボリュームを使用する場合で、あるトポロジーのセグメントで1つのボリュームがすでに作成された後、もう1つのボリュームのために十分な容量が残っていないような場合です。この状況から回復するには、たとえば、容量を増加させたり、すでに作成されたボリュームを削除するなどの手動の仲介が必要です。この問題に自動的に対処するためには、まだ[追加の作業](https://github.com/kubernetes/enhancements/pull/1703)が必要となっています。
+
+## ストレージ容量の追跡を有効にする {#enabling-storage-capacity-tracking}
+
+ストレージ容量の追跡は*アルファ機能*であり、`CSIStorageCapacity`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)と`storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}}を有効にした場合にのみ、有効化されます。詳細については、`--feature-gates`および`--runtime-config` [kube-apiserverパラメータ](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
+
+Kubernetesクラスターがこの機能をサポートしているか簡単に確認するには、以下のコマンドを実行して、CSIStorageCapacityオブジェクトを一覧表示します。
+
 ```shell
 kubectl get csistoragecapacities --all-namespaces
 ```
 
-If your cluster supports CSIStorageCapacity, the response is either a list of CSIStorageCapacity objects or:
+クラスターがCSIStorageCapacityをサポートしていれば、CSIStorageCapacityのリストが表示されるか、次のメッセージが表示されます。
 ```
 No resources found
 ```
 
-If not supported, this error is printed instead:
+もしサポートされていなければ、代わりに次のエラーが表示されます。
+
 ```
 error: the server doesn't have a resource type "csistoragecapacities"
 ```
 
-In addition to enabling the feature in the cluster, a CSI
-driver also has to
-support it. Please refer to the driver's documentation for
-details.
+クラスター内で機能を有効化することに加えて、CSIドライバーもこの機能をサポートしている必要があります。詳細については、各ドライバーのドキュメントを参照してください。
 
 ## {{% heading "whatsnext" %}}
 
- - For more information on the design, see the
-[Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md).
-- For more information on further development of this feature, see the [enhancement tracking issue #1472](https://github.com/kubernetes/enhancements/issues/1472).
-- Learn about [Kubernetes Scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
+ - 設計に関するさらなる情報について知るために、[Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md)を読む。
+- この機能の今後の開発に関する情報について知るために、[enhancement tracking issue #1472](https://github.com/kubernetes/enhancements/issues/1472)を参照する。
+- [Kubernetesのスケジューラー](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)についてもっと学ぶ。
