@@ -121,7 +121,9 @@ document, use the backtick (`` ` ``).
 {{< table caption = "Do and Don't - Use code style for inline code and commands" >}}
 Do | Don't
 :--| :-----
-The `kubectl run`command creates a pod. | The "kubectl run" command creates a pod.
+The `kubectl run` command creates a `Pod`. | The "kubectl run" command creates a pod.
+The kubelet on each node acquires a `Lease`… | The kubelet on each node acquires a lease…
+A `PersistentVolume` represents durable storage… | A Persistent Volume represents durable storage…
 For declarative management, use `kubectl apply`. | For declarative management, use "kubectl apply".
 Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax.
 Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (`**`) or an underscore (`_`) to enclose inline code. For example, **var example = true**.
