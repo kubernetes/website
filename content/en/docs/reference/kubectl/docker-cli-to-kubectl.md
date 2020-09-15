@@ -14,11 +14,15 @@ You can use the Kubernetes command line tool kubectl to interact with the API Se
 ## docker run
 
 To run an nginx Deployment and expose the Deployment, see [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-).
-docker:
 
+In **docker**:
+ 
 ```shell
+# Run a contain
 docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
 ```
+
+<!-- Shell output -->
 ```
 55c103fa129692154a7652490236fee9be47d70a8dd562281ae7d2f9a339a6db
 ```
@@ -26,33 +30,34 @@ docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
 ```shell
 docker ps
 ```
+
+<!-- Shell output -->
 ```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
 55c103fa1296        nginx               "nginx -g 'daemon of…"   9 seconds ago       Up 9 seconds        0.0.0.0:80->80/tcp   nginx-app
 ```
 
-kubectl:
+In **kubectl**:
 
 ```shell
 # start the pod running nginx
 kubectl create deployment --image=nginx nginx-app
 ```
 
-```shell
-# add env to nginx-app
-kubectl set env deployment/nginx-app  DOMAIN=cluster
+<!-- Shell output -->
 ```
 deployment.apps/nginx-app created
 ```
 
-```
+```shell
 # add env to nginx-app
 kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```
+
+<!-- Shell output -->
 ```
 deployment.apps/nginx-app env updated
 ```
-deployment.apps/nginx-app env updated
 
 {{< note >}}
 `kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
@@ -62,6 +67,8 @@ deployment.apps/nginx-app env updated
 # expose a port through with a service
 kubectl expose deployment nginx-app --port=80 --name=nginx-http
 ```
+
+<!-- Shell output -->
 ```
 service "nginx-http" exposed
 ```
