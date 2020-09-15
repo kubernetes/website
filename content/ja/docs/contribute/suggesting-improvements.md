@@ -1,5 +1,5 @@
 ---
-title: Suggesting content improvements
+title: コンテンツの改善を提案する
 slug: suggest-improvements
 content_type: concept
 weight: 10
@@ -10,56 +10,36 @@ card:
 
 <!-- overview -->
 
-If you notice an issue with Kubernetes documentation, or have an idea for new content, then open an issue. All you need is a [GitHub account](https://github.com/join) and a web browser.
+Kubernetesのドキュメントに何か問題を見つけたり、新しいコンテンツに関してアイデアを思い付いたときは、issueを作ってください。必要なものは、[GitHubアカウント](https://github.com/join)とウェブブラウザーだけです。
 
-In most cases, new work on Kubernetes documentation begins with an issue in GitHub. Kubernetes contributors
-then review, categorize and tag issues as needed. Next, you or another member
-of the Kubernetes community open a pull request with changes to resolve the issue.
-
-
+Kubernetesのドキュメント上の新しい作業は、ほとんどの場合、GitHubのissueから始まります。Kubernetesのコントリビューターは、必要に応じてレビュー、分類、タグ付けを行います。次に、あなたやKubernetesコミュニティの他のメンバーが、そのissueを解決するための変更を加えるpull requestを開きます。
 
 <!-- body -->
 
-## Opening an issue
+## issueを作る
 
-If you want to suggest improvements to existing content, or notice an error, then open an issue.
+既存のコンテンツに対して改善を提案したい場合や、間違いを発見した場合は、issueを作ってください。
 
-1. Go to the bottom of the page and click the **Create an Issue** button. This redirects you
- to a GitHub issue page pre-populated with some headers.
-2. Describe the issue or suggestion for improvement. Provide as many details as you can.
-3. Click **Submit new issue**.
+1. ページの右側のサイドバーにある**ドキュメントのissueを作成**ボタンをクリックします。GitHubのissueページにリダイレクトし、一部のヘッダーが自動的に挿入されます。
+2. 問題や改善の提案について書きます。できる限り多くの詳細情報を提供するようにしてください。
+3. **Submit new issue**ボタンをクリックします。
 
-After submitting, check in on your issue occasionally or turn on GitHub notifications.
-Reviewers and other community members might ask questions before
-they can take action on your issue.
+送信後、定期的にissueを確認するか、GitHubの通知を設定してください。レビュアや他のコミュニティメンバーが、issueに対して作業を行うために、あなたに何か質問をするかもしれません。
 
-## Suggesting new content
+## 新しいコンテンツの提案
 
-If you have an idea for new content, but you aren't sure where it should go, you can
-still file an issue. Either:
+新しいコンテンツに関するアイデアがあるものの、どの場所に追加すればわからないときでも、issueを作ることができます。次のいずれかを選択して行ってください。
 
-- Choose an existing page in the section you think the content belongs in and click **Create an issue**.
-- Go to [GitHub](https://github.com/kubernetes/website/issues/new/) and file the issue directly.
+- コンテンツが追加されるべきだと思う既存のページを選択し、**ドキュメントのissueを作成**ボタンをクリックする。
+- [GitHub](https://github.com/kubernetes/website/issues/new/)に移動し、直接issueを作る。
 
-## How to file great issues
+## よいissueを作るには
 
+issueを作るときは、以下のことを心に留めてください。
 
-Keep the following in mind when filing an issue:
-
-- Provide a clear issue description. Describe what specifically is missing, out of date,
-  wrong, or needs improvement.
-- Explain the specific impact the issue has on users.
-- Limit the scope of a given issue to a reasonable unit of work. For problems
-  with a large scope, break them down into smaller issues. For example, "Fix the security docs"
-  is too broad, but "Add details to the 'Restricting network access' topic" is specific enough
-  to be actionable.
-- Search the existing issues to see if there's anything related or similar to the
-  new issue.
-- If the new issue relates to another issue or pull request, refer to it
-  either by its full URL or by the issue or pull request number prefixed
-  with a `#` character. For example, `Introduced by #987654`.
-- Follow the [Code of Conduct](/community/code-of-conduct/). Respect your
-fellow contributors. For example, "The docs are terrible" is not
-  helpful or polite feedback.
-
-
+- 明確なissueの説明を書く。不足している点、古くなっている点、誤っている点、改善が必要な点など、どの点がそうであるか明確に書く。
+- issueがユーザーに与える具体的な影響を説明する。
+- 合理的な作業単位になるように、特定のissueのスコープを制限する。スコープの大きな問題については、小さな複数のissueに分割する。たとえば、"Fix the security docs"(セキュリティのドキュメントを修正する)というのはスコープが大きすぎますが、"Add details to the 'Restricting network access' topic"(トピック「ネットワークアクセスの制限」に詳細情報を追加する)であれば十分に作業可能な大きさです。
+- すでにあるissueを検索し、関連または同様のissueがないかどうか確認する。
+- 新しいissueがほかのissueやpull requestと関係する場合は、完全なURLを参照するか、issueやpull requestの数字の前に`#`の文字を付けて参照する。例えば、`Introduced by #987654`のように書きます。
+- [行動規範](/ja/community/code-of-conduct/)に従って、仲間のコントリビューターに敬意を払いましょう。たとえば、"The docs are terrible"(このドキュメントは最悪だ)のようなコメントは、役に立つ敬意のあるフィードバックではありません。
