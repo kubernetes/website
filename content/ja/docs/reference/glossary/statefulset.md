@@ -4,7 +4,7 @@ id: statefulset
 date: 2018-04-12
 full_link: /ja/docs/concepts/workloads/controllers/statefulset/
 short_description: >
-  StatefulSetはDeploymentとPodのセットのスケーリングを管理します、永続化ストレージと各Podの永続的な識別子を備えています。
+  StatefulSetはDeploymentとPodのセットのスケーリングを管理し、永続化ストレージと各Podの永続的な識別子を備えています。
 
 aka: 
 tags:
