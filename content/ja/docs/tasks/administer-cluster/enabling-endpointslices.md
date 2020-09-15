@@ -29,7 +29,7 @@ EndpointSliceは、最終的には既存のEndpointsを置き換える可能性�
 
 EndpoitSliceはベータ版の機能です。APIとEndpointSlice{{< glossary_tooltip text="コントローラー" term_id="controller" >}}はデフォルトで有効です。{{<  glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}はデフォルトでEndpointSliceではなくEndpointsを使用します。
 
-スケーラビリティと性能向上のため、kube-proxy上で`EndpointSliceProxying`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にできます。この変更はデータソースをEndpointSliceに移します、これはkube-proxyとKubernetesAPI間のトラフィックの量を削減します。
+スケーラビリティと性能向上のため、kube-proxy上で`EndpointSliceProxying`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にできます。この変更はデータソースをEndpointSliceに移します、これはkube-proxyとKubernetes API間のトラフィックの量を削減します。
 
 ## EndpointSliceの使用
 
@@ -40,4 +40,3 @@ EndpoitSliceはベータ版の機能です。APIとEndpointSlice{{< glossary_too
 
 * [EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を参照してください。
-
