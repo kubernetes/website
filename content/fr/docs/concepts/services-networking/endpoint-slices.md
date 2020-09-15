@@ -69,7 +69,7 @@ Les EndpointSlices supportent 3 types d'addresses:
 
 ### Topologie
 
-Chaque Endpoint dans un EnpointSlice peut contenir des informations de topologie pertinentes. 
+Chaque endpoint dans un EndpointSlice peut contenir des informations de topologie pertinentes. 
 Ceci est utilisé pour indiquer où se trouve un Endpoint, qui contient les informations sur le Node, zone et région correspondantes. Lorsque les valeurs sont disponibles, les labels de Topologies suivants seront définis par le contrôleur EndpointSlice:
 
 * `kubernetes.io/hostname` - Nom du Node sur lequel l'Endpoint se situe.
