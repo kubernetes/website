@@ -53,7 +53,7 @@ endpoints:
       topology.kubernetes.io/zone: us-west2-a
 ```
 
-Les EndpointSlices gérés par le contrôleur d'EndpointSlice n'auront, par défaut, pas plus de 100 Endpoints chacun. 
+Les EndpointSlices gérés par le contrôleur d'EndpointSlice n'auront, par défaut, pas plus de 100 endpoints chacun.
 En dessous de cette échelle, EndpointSlices devraient mapper 1:1 les Endpoints et les Services et devraient avoir une performance similaire.
 
 EndpointSlices peuvent agir en tant que source de vérité pour kube-proxy quand il s'agit du routage d'un trafic interne. 
