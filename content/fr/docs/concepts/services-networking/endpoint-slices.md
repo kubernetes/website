@@ -94,7 +94,7 @@ Le contrôleur essaie de remplir les EndpointSlices aussi complètement que poss
 2. Itérer à travers les EndpointSlices qui ont été modifiés dans la première étape et les remplir avec n'importe quel endpoint nécéssaire.
 3. S'il reste encore des Endpoints nouveaux à ajouter, essayez de les mettre dans une slice qui n'a pas été changée et/ou en créer une nouvelle.
 
-Par-dessus tout, la troisième étape priorise la limitation de mises à jour d'EnpointSlice sur une distribution complètement pleine d'EndpointSlices. Par exemple, s'il y avait 10 nouveaux Endpoints à ajouter et 2 EndpointSlices qui peuvent contenir 5 Endpoints en plus chacun; cette approche créera un nouveau EndpointSlice au lieu de remplir les EndpointSlice existants. 
+Par-dessus tout, la troisième étape priorise la limitation de mises à jour d'EndpointSlice sur une distribution complètement pleine d'EndpointSlices. Par exemple, s'il y avait 10 nouveaux endpoints à ajouter et 2 EndpointSlices qui peuvent contenir 5 endpoints en plus chacun; cette approche créera un nouveau EndpointSlice au lieu de remplir les EndpointSlice existants. 
 C'est à dire, une seule création EndpointSlice est préférable à plusieurs mises à jour d'EndpointSlices.
 
 Avec kube-proxy exécuté sur chaque Node et surveillant EndpointSlices, chaque changement d'un EndpointSlice devient relativement coûteux puisqu'ils seront transmis à chaque Node du cluster. 
