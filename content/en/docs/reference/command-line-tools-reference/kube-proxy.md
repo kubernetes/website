@@ -242,7 +242,7 @@ kube-proxy [flags]
 <td colspan="2">--kubeconfig string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeconfig file with authorization information (the master location can be overridden by the master flag). If you refer a kubeconfig file whose [context](/docs/concepts/configuration/organize-cluster-access-kubeconfig/#context) may be changed by others, then you should explicitly set the Kubernetes master location via master flag to avoid unexpected behavior after restart. Refer [here](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#define-clusters-users-and-contexts) for an example of context.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeconfig file with authorization information (the master location can be overridden by the master flag). If you refer a kubeconfig file whose <a href="/docs/concepts/configuration/organize-cluster-access-kubeconfig/#context">context</a> may be changed by others, then you should explicitly set the Kubernetes master location via master flag to avoid unexpected behavior after restart. Refer <a href="/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#define-clusters-users-and-contexts">here</a> for examples of kubeconfig context.</td>
 </tr>
 
 <tr>
