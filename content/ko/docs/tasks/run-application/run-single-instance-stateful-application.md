@@ -47,7 +47,7 @@ MySQL을 실행하고 퍼시스턴트볼륨클레임을 참조하는 디플로�
 동적 프로비저너에 의해서 충족된다.
 
 참고: config yaml 파일에 정의된 비밀번호는 안전하지 않다. 더 안전한 해결방법을 위해 
-[쿠버네티스 시크릿](/docs/concepts/configuration/secret/)
+[쿠버네티스 시크릿](/ko/docs/concepts/configuration/secret/)
 을 보자
 
 {{< codenew file="application/mysql/mysql-deployment.yaml" >}}

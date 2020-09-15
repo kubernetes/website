@@ -206,7 +206,7 @@ kubectl get pod private-reg
 ## {{% heading "whatsnext" %}}
 
 
-* [시크릿](/docs/concepts/configuration/secret/)에 대해 더 배워 보기.
+* [시크릿](/ko/docs/concepts/configuration/secret/)에 대해 더 배워 보기.
 * [프라이빗 레지스트리 사용](/ko/docs/concepts/containers/images/#프라이빗-레지스트리-사용)에 대해 더 배워 보기.
 * [서비스 어카운트에 풀 시크릿(pull secret) 추가하기](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)에 대해 더 배워 보기.
 * [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)에 대해 읽어보기.
