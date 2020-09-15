@@ -27,20 +27,16 @@ EndpointSliceは、KubernetesのEndpointsに対してスケーラブルで拡張
 EndpointSliceは、最終的には既存のEndpointsを置き換える可能性がありますが、多くのKubernetesコンポーネントはまだ既存のEndpointsに依存しています。現時点ではEndpointSliceを有効化することは、Endpointsの置き換えではなく、クラスター内のEndpointsへの追加とみなされる必要があります。
 {{< /note >}}
 
-EndpointSliceはベータ版の機能とみなされますが、デフォルトではAPIのみが有効です。kube-proxyによるEndpointSliceコントローラーとEndpointSliceの使用は、デフォルトでは有効になっていません。
+EndpoitSliceはベータ版の機能です。APIとEndpointSlice{{< glossary_tooltip text="コントローラー" term_id="controller" >}}はデフォルトで有効です。{{<  glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}はデフォルトでEndpointSliceではなくEndpointsを使用します。
 
-EndpointSliceコントローラーはクラスター内にEndpointSliceを作成し、管理します。これは、{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}と{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}の`EndpointSlice`の[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)で有効にできます(`--feature-gates=EndpointSlice=true`)。
-
-スケーラビリティ向上のため、{{<glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}でフィーチャーゲートを有効にして、Endpointsの代わりにEndpointSliceをデータソースとして使用することもできます。
+スケーラビリティと性能向上のため、kube-proxy上で`EndpointSliceProxying`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にできます。この変更はデータソースをEndpointSliceに移します、これはkube-proxyとKubernetes API間のトラフィックの量を削減します。
 
 ## EndpointSliceの使用
 
-クラスター内でEndpointSliceを完全に有効にすると、各Endpointsリソースに対応するEndpointSliceリソースが表示されます。既存のEndpointsの機能をサポートすることに加えて、EndpointSliceはトポロジーなどの新しい情報を含める必要があります。これらにより、クラスター内のネットワークエンドポイントのスケーラビリティと拡張性が大きく向上します。
+クラスター内でEndpointSliceを完全に有効にすると、各Endpointsリソースに対応するEndpointSliceリソースが表示されます。既存のEndpointsの機能をサポートすることに加えて、EndpointSliceはトポロジーなどの新しい情報を含みます。これらにより、クラスター内のネットワークエンドポイントのスケーラビリティと拡張性が大きく向上します。
 
 ## {{% heading "whatsnext" %}}
 
 
 * [EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を参照してください。
-
-
