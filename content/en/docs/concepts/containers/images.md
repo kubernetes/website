@@ -25,7 +25,7 @@ This page provides an outline of the container image concept.
 
 Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
-and possible a port number as well; for example: `fictional.registry.example:10443/imagename`.
+and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
