@@ -88,7 +88,7 @@ Les EndpointSlices sont limités à une capacité de 100 Endpoints chacun, par d
 Chaque EndpointSlice a un ensemble de ports qui s'applique à tous les Endpoints dans la resource. 
 Lorsque les ports nommés sont utilisés pour un Service, les Pods peuvent se retrouver avec différents ports cibles pour le même port nommé, nécessitant différents EndpointSlices. 
 
-Le contrôleur essaie de remplir les EndpointSlices aussi complètement que possible, mais ne les rééquilibre pas activement. La logique du contrôleur est assez simple:
+Le contrôleur essaie de remplir chaque EndpointSlice aussi complètement que possible, mais ne les rééquilibre pas activement. La logique du contrôleur est assez simple:
 
 1. Itérer à travers les EnpointSlices existants, retirer les Endpoints qui ne sont plus voulus et mettre à jour les Endpoints qui ont changé.
 2. Itérer à travers les EndpointSlices qui ont été modifiés dans la première étape et les remplir avec n'importe quel endpoint nécéssaire.
