@@ -251,16 +251,8 @@ digunakan oleh HorizontalPodAutoscaler dan anotasi sebelumnya untuk menentukan m
 
 Kubernetes versi 1.6 menambah dukungan untuk menggunakan metrik khusus pada HorizontalPodAutoscaler.
 Kamu dapat menambahkan metrik khusus untuk HorizontalPodAutoscaler pada API versi `autoscaling/v2beta2`.
-Kubernetes kemudian memanggil API metrik khusu untuk mengambil nilai dari metrik khusus. 
-	
-@girikuncoro
-girikuncoro 4 days ago Contributor
-
-typo
-Suggested change
-Kubernetes kemudian memanggil API metrik khusu untuk mengambil nilai dari metrik khusus. 
 Kubernetes kemudian memanggil API metrik khusus untuk mengambil nilai dari metrik khusus. 
-@ecojuntak
+
 
 Lihat [Dukungan untuk API metrik](#dukungan-untuk-api-metrik) untuk kubutuhannya.
 
