@@ -33,6 +33,10 @@ Kubernetesの将来的なバージョンにおいて、同一のNamespace内の�
 
 Namespaceの作成と削除方法は[Namespaceの管理ガイドドキュメント](/docs/tasks/administer-cluster/namespaces/)に記載されています。
 
+{{< note >}}
+　　プレフィックス`kube-`を持つNamespaceは、KubernetesシステムのNamespaceとして予約されているため利用は避けてください。
+{{< /note >}}
+
 ### Namespaceの表示
 
 ユーザーは、以下の方法で単一クラスター内の現在のNamespaceの一覧を表示できます。
@@ -41,18 +45,20 @@ Namespaceの作成と削除方法は[Namespaceの管理ガイドドキュメン�
 kubectl get namespace
 ```
 ```
-NAME          STATUS    AGE
-default       Active    1d
-kube-system   Active    1d
-kube-public   Active    1d
+NAME              STATUS   AGE
+default           Active   1d
+kube-node-lease   Active   1d
+kube-system       Active   1d
+kube-public       Active   1d
 ```
 
-Kubernetesの起動時には3つの初期Namespaceが作成されています。
+Kubernetesの起動時には4つの初期Namespaceが作成されています。
 
    * `default` 他にNamespaceを持っていないオブジェクトのためのデフォルトNamespace
    * `kube-system` Kubernetesシステムによって作成されたオブジェクトのためのNamespace
    * `kube-public` このNamespaceは自動的に作成され、全てのユーザーから読み取り可能です。(認証されていないユーザーも含みます。)
     このNamespaceは、リソースをクラスター全体を通じてパブリックに表示・読み取り可能にするため、ほとんどクラスターによって使用される用途で予約されます。 このNamespaceのパブリックな側面は単なる慣例であり、要件ではありません。
+   * `kube-node-lease` クラスターのスケールに応じたノードハートビートのパフォーマンスを向上させる各ノードに関連したLeaseオブジェクトのためのNamespace。
 
 ### Namespaceの設定
 
