@@ -20,11 +20,11 @@ Although Secrets are also used to store key-value pairs, they differ from Config
 
 
 ### Externalizing Config from Code
-Externalized application configuration is useful because configuration usually changes depending on your environment.  In order to accomplish this, we'll use Java's Contexts and Dependency Injection (CDI) and [MicroProfile Config](https://github.com/eclipse/microprofile-config). MicroProfile Config is a feature of [MicroProfile](http://microprofile.io/), a set of open Java technologies for developing and deploying cloud-native microservices.
+Externalized application configuration is useful because configuration usually changes depending on your environment.  In order to accomplish this, we'll use Java's Contexts and Dependency Injection (CDI) and MicroProfile Config. MicroProfile Config is a feature of MicroProfile, a set of open Java technologies for developing and deploying cloud-native microservices.
 
 CDI provides a standard dependency injection capability enabling an application to be assembled from collaborating, loosely-coupled beans.  MicroProfile Config provides apps and microservices a standard way to obtain config properties from various sources, including the application, runtime, and environment.  Based on the source's defined priority, the properties are automatically combined into a single set of properties that the application can access via an API.  Together, CDI & MicroProfile will be used in the Interactive Tutorial to retrieve the externally provided properties from the Kubernetes ConfigMaps and Secrets and get injected into your application code.
 
-Many open source frameworks and runtimes implement and support MicroProfile Config.  Throughout the interactive tutorial, you'll be using [Open Liberty](https://openliberty.io), a flexible open-source Java runtime for building and running cloud-native apps and microservices.  You can find more information on how to use MicroProfile Config in this [Open Liberty guide](https://www.openliberty.io/guides/microprofile-config-intro.html).
+Many open source frameworks and runtimes implement and support MicroProfile Config.  Throughout the interactive tutorial, you'll be using Open Liberty, a flexible open-source Java runtime for building and running cloud-native apps and microservices.  However, any MicroProfile compatible runtime could be used instead. 
 
 
 ## {{% heading "objectives" %}}
