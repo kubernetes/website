@@ -18,7 +18,7 @@ Sebelum melangkah lebih lanjut ke tutorial, sebaiknya tandai dulu halaman [Kamus
 
 ## Prinsip Dasar
 
-* [Prinsip Dasar Kubernetes](/docs/tutorials/kubernetes-basics/) merupakan tutorial yang sangat interaktif, membantu kamu mengerti apa itu sistem Kubernetes dan beberapa fitur Kubernetes yang umum digunakan.
+* [Prinsip Dasar Kubernetes](/id/docs/tutorials/kubernetes-basics/) merupakan tutorial yang sangat interaktif, membantu kamu mengerti apa itu sistem Kubernetes dan beberapa fitur Kubernetes yang umum digunakan.
 
 * [Mikroservis yang Scalable dengan Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
