@@ -27,7 +27,7 @@ weight: 10
             <div class="col-md-8">
        <h3>Penyekalaan sebuah Aplikasi</h3>
 
-            <p>Di modul-modul sebelumnya kita telah membuat <a href="/id/docs/concepts/workloads/controllers/deployment/">Deployment</a>, dan mengeksposnya secara publik via <a href="/id/docs/concepts/services-networking/service/">Service</a>. Deployment yang dibuat itu hanya satu Pod yang menjalankan aplikasi kita. Ketika kunjungan meningkat, kita perlu menyekalakan (<i>scale</i>) aplikasi kita untuk mengikuti tingkat permintaan pengguna.</p>
+            <p>Di modul-modul sebelumnya kita telah membuat <a href="/id/docs/concepts/workloads/controllers/deployment/">Deployment</a>, dan mengeksposnya secara publik via <a href="/id/docs/concepts/services-networking/service/">Service</a>. Deployment tersebut hanya membuat satu Pod untuk menjalankan aplikasi kita. Ketika kunjungan meningkat, kita perlu  melakukan penyekalaan (<i>scale</i>) aplikasi kita untuk mengikuti tingkat permintaan pengguna.</p>
 
             <p><b>Penyekalaan</b> dapat dicapai dengan mengubah nilai replicas dalam Deployment</p>
 
@@ -40,7 +40,7 @@ weight: 10
                     </ul>
                 </div>
                 <div class="content__box content__box_fill">
-                    <p><i> Kamu dapat dari awal memulai Deployment dengan multipel instans menggunakan parameter --replicas pada perintah kubectl create deployment</i></p>
+                    <p><i> Kamu dapat membuat Deployment dengan beberapa instans sekaligus dari awal dengan menggunakan parameter --replicas pada perintah kubectl create deployment</i></p>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@ weight: 10
 
                 <p>Perluasan skala Deployment akan memastikan Pod baru dibuat dan dijadwalkan ke Node-Node dengan sumber daya yang tersedia. Penyekalaan akan meningkatkan jumlah Pod ke keadaan yang diinginkan. Kubernetes juga mendukung <a href="/id/docs/tasks/run-application/horizontal-pod-autoscale/"><i>autoscaling</i></a> Pod, tetapi itu di luar cakupan tutorial ini. Penyekalaan ke nol juga dimungkinkan, dan tindakan ini akan mengakhiri semua Pod pada Deployment tersebut.</p>
 
-                <p>Menjalankan beberapa instans dari aplikasi akan membutuhkan cara untuk mendistribusikan kunjungan ke semuanya. Service punya penyeimbang beban terintegrasi yang akan mendistribusikan kujungan jaringan ke semua Pod dari sebuah Deployment yang diekspos. Service akan terus-menerus memonitor Pod-Pod yang berjalan menggunakan Endpoints, untuk memastikan kunjungan hanya dikirim kepada Pod yang tersedia.</p>
+                <p>Menjalankan beberapa instans dari aplikasi akan membutuhkan cara untuk mendistribusikan trafik ke semuanya. Service memiliki penyeimbang beban terintegrasi yang akan mendistribusikan trafik jaringan ke semua Pod dari sebuah Deployment yang diekspos. Service akan terus memonitor Pod-Pod yang berjalan menggunakan Endpoints, untuk memastikan trafik hanya dikirim ke Pod yang tersedia.</p>
 
             </div>
             <div class="col-md-4">
@@ -102,14 +102,14 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p>Sewaktu kamu punya multipel instans dari aplikasi berjalan, kamu akan dapat melakukan pembaruan bertahap tanpa perhentian. Kita akan akan membahas hal tersebut pada modul selanjutnya. Sekarang, mari kita pergi ke terminal daring dan menyekalakan aplikasi kita.</p>
+                <p>Sewaktu kamu memiliki multipel instans dari aplikasi yang berjalan, kamu akan bisa melakukan pembaruan bertahap tanpa henti. Kita akan akan membahas hal tersebut pada modul selanjutnya. Sekarang, mari kita pergi ke terminal daring dan melakukan penyekalaan terhadap aplikasi kita.</p>
             </div>
         </div>
         <br>
 
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button"> Mulai Tutorial Interaktif <span class="btn__next">›</span></a>
+                <a class="btn btn-lg btn-success" href="/id/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button"> Mulai Tutorial Interaktif <span class="btn__next">›</span></a>
             </div>
         </div>
 
