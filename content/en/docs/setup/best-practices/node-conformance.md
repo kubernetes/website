@@ -13,12 +13,6 @@ verification and functionality test for a node. The test validates whether the
 node meets the minimum requirements for Kubernetes; a node that passes the test
 is qualified to join a Kubernetes cluster.
 
-## Limitations
-
-In Kubernetes version 1.5, node conformance test has the following limitations:
-
-* Node conformance test only supports Docker as the container runtime.
-
 ## Node Prerequisite
 
 To run node conformance test, a node must satisfy the same prerequisites as a
