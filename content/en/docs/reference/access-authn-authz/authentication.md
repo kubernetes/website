@@ -443,7 +443,7 @@ current-context: webhook
 contexts:
 - context:
     cluster: name-of-remote-authn-service
-    user: name-of-api-sever
+    user: name-of-api-server
   name: webhook
 ```
 
