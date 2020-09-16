@@ -12,9 +12,9 @@ tags:
 - core-object
 - workload
 ---
- 複製されたアプリケーションを管理するAPIオブジェクトです、通常はステートレスなPodを実行します。
+ 複製されたアプリケーションを管理するAPIオブジェクトで、通常はステートレスなPodを実行します。
 
 <!--more--> 
 
-各レプリカは{{< glossary_tooltip term_id="pod" >}}で表され、ポッドはクラスターの{{< glossary_tooltip text="ノード" term_id="node" >}}間で分散されます。
+各レプリカは{{< glossary_tooltip text="Pod" term_id="pod" >}}で表され、Podはクラスターの{{< glossary_tooltip text="ノード" term_id="node" >}}間で分散されます。
 ローカル状態を要求するワークロードには、{{< glossary_tooltip term_id="StatefulSet" >}}の利用を考えてください。
