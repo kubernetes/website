@@ -16,9 +16,9 @@ L'objectif est de permettre aux utilisateurs de personnaliser leur installation 
 
 ## Communication du Cluster vers le Master
 
-Tous les canaux de communication du cluster au master se terminent au apiserver (aucun des autres composants principaux n'est conçu pour exposer des services distants).
+Tous les canaux de communication du cluster au master se terminent à l'apiserver (aucun des autres composants principaux n'est conçu pour exposer des services distants).
 Dans un déploiement typique, l'apiserver est configuré pour écouter les connexions distantes sur un port HTTPS sécurisé (443) avec un ou plusieurs types d'[authentification](/docs/reference/access-authn-authz/authentication/) client.
-Une ou plusieurs formes d'[autorisation](/docs/reference/access-authn-authz/authorization/) devraient être activée, notamment si les [requêtes anonymes](/docs/reference/access-authn-authz/authentication/#anonymous-requests) ou [jeton de compte de service](/docs/reference/access-authn-authz/authentication/#service-account-tokens) sont autorisés.
+Une ou plusieurs formes d'[autorisation](/docs/reference/access-authn-authz/authorization/) devraient être activées, notamment si les [requêtes anonymes](/docs/reference/access-authn-authz/authentication/#anonymous-requests) ou [jeton de compte de service](/docs/reference/access-authn-authz/authentication/#service-account-tokens) sont autorisés.
 
 Le certificat racine public du cluster doit être configuré pour que les nœuds puissent se connecter en toute sécurité à l'apiserver avec des informations d'identification client valides.
 Par exemple, dans un déploiement GKE par défaut, les informations d'identification client fournies au kubelet sont sous la forme d'un certificat client.
@@ -52,7 +52,7 @@ Pour vérifier cette connexion, utilisez l'argument `--kubelet-certificate-autho
 
 Si ce n'est pas possible, utilisez [SSH tunneling](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) entre l'apiserver et le kubelet si nécessaire pour éviter la connexion sur un réseau non sécurisé ou public.
 
-Finalement, l'[authentification et/ou autorisation du Kubelet](/docs/admin/kubelet-authentication-authorization/) devrait être activé pour sécuriser l'API kubelet.
+Finalement, l'[authentification et/ou autorisation du Kubelet](/docs/admin/kubelet-authentication-authorization/) devrait être activée pour sécuriser l'API kubelet.
 
 ### apiserver vers nodes, pods et services
 
@@ -66,7 +66,7 @@ Ces connexions **ne sont actuellement pas sûres** pour fonctionner sur des rés
 ### SSH Tunnels
 
 Kubernetes prend en charge les tunnels SSH pour protéger les communications master -> cluster.
-Dans cette configuration, l'apiserver initie un tunnel SSH vers chaque nœud du cluster (en se connectant au serveur ssh sur le port 22) et transmet tout le trafic destiné à un kubelet, un nœud, un pod ou un service via un tunnel.
+Dans cette configuration, l'apiserver initie un tunnel SSH vers chaque nœud du cluster (en se connectant au serveur ssh sur le port 22) et transmet tout le trafic destiné à un kubelet, un nœud, un pod ou un service via ce tunnel.
 Ce tunnel garantit que le trafic n'est pas exposé en dehors du réseau dans lequel les nœuds sont en cours d'exécution.
 
 Les tunnels SSH étant actuellement obsolètes, vous ne devriez pas choisir de les utiliser à moins de savoir ce que vous faites.
