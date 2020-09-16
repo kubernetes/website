@@ -152,9 +152,6 @@ kubectl get pod cpu-demo-2 --namespace=cpu-example
 
 この出力では、Podのステータスが待機中であることを示しています。つまり、Podがどのノードに対しても実行するようスケジュールされておらず、いつまでも待機状態のままであることを表しています:
 
-```shell
-kubectl get pod cpu-demo-2 --namespace=cpu-example
-```
 ```
 NAME         READY     STATUS    RESTARTS   AGE
 cpu-demo-2   0/1       Pending   0          7m
