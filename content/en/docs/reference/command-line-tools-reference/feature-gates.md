@@ -152,10 +152,6 @@ different Kubernetes components.
 | `StartupProbe` | `true` | Beta | 1.18 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
-| `SupportNodePidsLimit` | `false` | Alpha | 1.14 | 1.14 |
-| `SupportNodePidsLimit` | `true` | Beta | 1.15 | |
-| `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
-| `SupportPodPidsLimit` | `true` | Beta | 1.14 | |
 | `Sysctls` | `true` | Beta | 1.11 | |
 | `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
 | `TokenRequest` | `true` | Beta | 1.12 | |
@@ -290,6 +286,12 @@ different Kubernetes components.
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
 | `SupportIPVSProxyMode` | `true` | GA | 1.11 | - |
+| `SupportNodePidsLimit` | `false` | Alpha | 1.14 | 1.14 |
+| `SupportNodePidsLimit` | `true` | Beta | 1.15 | 1.19 |
+| `SupportNodePidsLimit` | `true` | GA | 1.20 | - |
+| `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
+| `SupportPodPidsLimit` | `true` | Beta | 1.14 | 1.19 |
+| `SupportPodPidsLimit` | `true` | GA | 1.20 | - |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | 1.12 |
 | `TaintBasedEvictions` | `true` | Beta | 1.13 | 1.17 |
 | `TaintBasedEvictions` | `true` | GA | 1.18 | - |
@@ -531,6 +533,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `SupportIPVSProxyMode`: Enable providing in-cluster service load balancing using IPVS.
   See [service proxies](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies) for more details.
 - `SupportPodPidsLimit`: Enable the support to limiting PIDs in Pods.
+- `SupportNodePidsLimit`: Enable the support to limiting PIDs on the Node. The parameter `pid=<number>` in the `--system-reserved` and `--kube-reserved` options can be specified to ensure that the specified number of process IDs will be reserved for the system as a whole and for Kubernetes system daemons respectively.
 - `Sysctls`: Enable support for namespaced kernel parameters (sysctls) that can be set for each pod.
   See [sysctls](/docs/tasks/administer-cluster/sysctl-cluster/) for more details.
 - `TaintBasedEvictions`: Enable evicting pods from nodes based on taints on nodes and tolerations on Pods.
