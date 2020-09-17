@@ -19,7 +19,7 @@ NetworkPolicyリソースは、{{< glossary_tooltip text="ラベル" term_id="la
 
 デフォルトでは、Podは分離されていない状態(non-isolated)となるため、すべてのソースからのトラフィックを受信します。
 
-Podを選択するNetworkPolicyが存在すると、Podは分離されるようになります。名前空間内に特定のPodを選択するNetworkPolicyが1つでも存在すると、そのPodはいずれかのNetworkPolicyで許可されていないすべての接続を拒否するようになります。(名前空間内でもどのNetworkPolicyにも選択されなかった他のPodは、引き続きすべてのトラフィックを許可します。)
+Podを選択するNetworkPolicyが存在すると、Podは分離されるようになります。名前空間内に特定のPodを選択するNetworkPolicyが1つでも存在すると、そのPodはいずれかのNetworkPolicyで許可されていないすべての接続を拒否するようになります。(同じ名前空間内のPodでも、どのNetworkPolicyにも選択されなかった他のPodは、引き続きすべてのトラフィックを許可します。)
 
 ネットワークポリシーは追加式であるため、競合することはありません。複数のポリシーがPodを選択する場合、そのPodに許可されるトラフィックは、それらのポリシーのingress/egressルールの和集合で制限されます。したがって、評価の順序はポリシーの結果には影響がありません。
 
