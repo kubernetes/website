@@ -7,7 +7,7 @@ title: 엘라스틱서치(Elasticsearch) 및 키바나(Kibana)를 사용한 로�
 
 Google 컴퓨트 엔진(Compute Engine, GCE) 플랫폼에서, 기본 로깅 지원은
 [스택드라이버(Stackdriver) 로깅](https://cloud.google.com/logging/)을 대상으로 한다. 이는
-[스택드라이버 로깅으로 로깅하기](/docs/user-guide/logging/stackdriver)에 자세히 설명되어 있다.
+[스택드라이버 로깅으로 로깅하기](/docs/tasks/debug-application-cluster/logging-stackdriver)에 자세히 설명되어 있다.
 
 이 문서에서는 GCE에서 운영할 때 스택드라이버 로깅의 대안으로,
 [엘라스틱서치](https://www.elastic.co/products/elasticsearch)에 로그를 수집하고
@@ -87,7 +87,8 @@ monitoring-influx-grafana-v1-o79xf             2/2       Running   0          2h
 
 엘라스틱서치 및 키바나 서비스는 모두 `kube-system` 네임스페이스에
 있으며 공개적으로 접근 가능한 IP 주소를 통해 직접 노출되지 않는다. 이를 위해,
-[클러스터에서 실행 중인 서비스 접근](/ko/docs/tasks/access-application-cluster/access-cluster/#클러스터에서-실행되는-서비스로-액세스)에 대한 지침을 참고한다.
+[클러스터에서 실행 중인 서비스 접근](/ko/docs/tasks/access-application-cluster/access-cluster/#클러스터에서-실행되는-서비스로-액세스)에
+대한 지침을 참고한다.
 
 브라우저에서 `elasticsearch-logging` 서비스에 접근하려고 하면,
 다음과 같은 상태 페이지가 표시된다.
@@ -118,5 +119,3 @@ monitoring-influx-grafana-v1-o79xf             2/2       Running   0          2h
 
 키바나는 로그를 탐색하기 위한 모든 종류의 강력한 옵션을 제공한다! 이를 파헤치는 방법에 대한
 아이디어는 [키바나의 문서](https://www.elastic.co/guide/en/kibana/current/discover.html)를 확인한다.
-
-

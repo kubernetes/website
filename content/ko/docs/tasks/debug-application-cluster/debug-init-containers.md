@@ -5,23 +5,19 @@ content_type: task
 
 <!-- overview -->
 
-이 페이지는 초기화 컨테이너의 실행과 관련된 문제를 
-조사하는 방법에 대해 보여준다. 아래 예제의 커맨드 라인은 파드(Pod)를 `<pod-name>` 으로, 
-초기화 컨테이너를 `<init-container-1>` 과 
+이 페이지는 초기화 컨테이너의 실행과 관련된 문제를
+조사하는 방법에 대해 보여준다. 아래 예제의 커맨드 라인은 파드(Pod)를 `<pod-name>` 으로,
+초기화 컨테이너를 `<init-container-1>` 과
 `<init-container-2>` 로 표시한다.
-
-
 
 ## {{% heading "prerequisites" %}}
 
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* 사용자는 [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers/)의 
+* 사용자는 [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers/)의
   기본 사항에 익숙해야 한다.
 * 사용자는 [초기화 컨테이너를 구성](/ko/docs/tasks/configure-pod-container/configure-pod-initialization/#초기화-컨테이너를-갖는-파드-생성)해야 한다.
-
-
 
 <!-- steps -->
 
@@ -33,7 +29,7 @@ content_type: task
 kubectl get pod <pod-name>
 ```
 
-예를 들어, `Init:1/2` 상태는 두 개의 초기화 컨테이너 중 
+예를 들어, `Init:1/2` 상태는 두 개의 초기화 컨테이너 중
 하나가 성공적으로 완료되었음을 나타낸다.
 
 ```
@@ -41,7 +37,7 @@ NAME         READY     STATUS     RESTARTS   AGE
 <pod-name>   0/1       Init:1/2   0          7s
 ```
 
-상태값과 그 의미에 대한 추가 예제는 
+상태값과 그 의미에 대한 추가 예제는
 [파드 상태 이해하기](#파드의-상태-이해하기)를 참조한다.
 
 ## 초기화 컨테이너에 대한 상세 정보 조회하기
@@ -82,7 +78,7 @@ Init Containers:
     ...
 ```
 
-파드 스펙의 `status.initContainerStatuses` 필드를 읽어서 
+파드 스펙의 `status.initContainerStatuses` 필드를 읽어서
 프로그래밍 방식으로 초기화 컨테이너의 상태를 조회할 수도 있다.
 
 
@@ -102,8 +98,8 @@ kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
 kubectl logs <pod-name> -c <init-container-2>
 ```
 
-셸 스크립트를 실행하는 초기화 컨테이너는, 초기화 컨테이너가 
-실행될 때 명령어를 출력한다. 예를 들어, 스크립트의 시작 부분에 
+셸 스크립트를 실행하는 초기화 컨테이너는, 초기화 컨테이너가
+실행될 때 명령어를 출력한다. 예를 들어, 스크립트의 시작 부분에
 `set -x` 를 추가하고 실행하여 Bash에서 명령어를 출력할 수 있도록 수행할 수 있다.
 
 
@@ -112,8 +108,8 @@ kubectl logs <pod-name> -c <init-container-2>
 
 ## 파드의 상태 이해하기
 
-`Init:` 으로 시작하는 파드 상태는 초기화 컨테이너의 
-실행 상태를 요약한다. 아래 표는 초기화 컨테이너를 디버깅하는 
+`Init:` 으로 시작하는 파드 상태는 초기화 컨테이너의
+실행 상태를 요약한다. 아래 표는 초기화 컨테이너를 디버깅하는
 동안 사용자가 확인할 수 있는 몇 가지 상태값의 예이다.
 
 상태 | 의미
