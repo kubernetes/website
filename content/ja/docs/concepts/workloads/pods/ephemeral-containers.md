@@ -1,8 +1,5 @@
 ---
-reviewers:
-- verb
-- yujuhong
-title: Ephemeral Containers
+title: ephemeralコンテナ
 content_type: concept
 weight: 80
 ---
@@ -11,92 +8,51 @@ weight: 80
 
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
-This page provides an overview of ephemeral containers: a special type of container
-that runs temporarily in an existing {{< glossary_tooltip term_id="pod" >}} to
-accomplish user-initiated actions such as troubleshooting. You use ephemeral
-containers to inspect services rather than to build applications.
+このページでは、特別な種類のコンテナであるephemeralコンテナの概要を説明します。ephemeralコンテナは、トラブルシューティングなどのユーザーが開始するアクションを実行するために、すでに存在する{{< glossary_tooltip term_id="pod" >}}内で一時的に実行するコンテナです。ephemeralコンテナは、アプリケーションの構築ではなく、serviceの調査のために利用します。
 
 {{< warning >}}
-Ephemeral containers are in early alpha state and are not suitable for production
-clusters. In accordance with the [Kubernetes Deprecation Policy](
-/docs/reference/using-api/deprecation-policy/), this alpha feature could change
-significantly in the future or be removed entirely.
+ephemeralコンテナは初期のアルファ状態であり、本番クラスタには適しません。[Kubernetesの非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)に従って、このアルファ機能は、将来大きく変更されたり、完全に削除される可能性があります。
 {{< /warning >}}
-
-
 
 <!-- body -->
 
-## Understanding ephemeral containers
+## ephemeralコンテナを理解する
 
-{{< glossary_tooltip text="Pods" term_id="pod" >}} are the fundamental building
-block of Kubernetes applications. Since Pods are intended to be disposable and
-replaceable, you cannot add a container to a Pod once it has been created.
-Instead, you usually delete and replace Pods in a controlled fashion using
-{{< glossary_tooltip text="deployments" term_id="deployment" >}}.
+{{< glossary_tooltip text="Pod" term_id="pod" >}}は、Kubernetesのアプリケーションの基本的なビルディングブロックです。Podは破棄可能かつ置き換え可能であることが想定されているため、一度Podが作成されると新しいコンテナを追加することはできません。その代わりに、通常は{{< glossary_tooltip text="Deployment" term_id="deployment" >}}を使用した制御されたやり方でPodを削除して置き換えます。
 
-Sometimes it's necessary to inspect the state of an existing Pod, however, for
-example to troubleshoot a hard-to-reproduce bug. In these cases you can run
-an ephemeral container in an existing Pod to inspect its state and run
-arbitrary commands.
+たとえば、再現困難なバグのトラブルシューティングなどのために、すでに存在するPodの状態を調査する必要が出てくることがあります。このような場合、既存のPod内でephemeralコンテナを実行することで、Podの状態を調査したり、任意のコマンドを実行したりできます。
 
-### What is an ephemeral container?
+### ephemeralコンテナとは何か？
 
-Ephemeral containers differ from other containers in that they lack guarantees
-for resources or execution, and they will never be automatically restarted, so
-they are not appropriate for building applications.  Ephemeral containers are
-described using the same `ContainerSpec` as regular containers, but many fields
-are incompatible and disallowed for ephemeral containers.
+ephemeralコンテナは、他のコンテナと異なり、リソースや実行が保証されず、自動的に再起動されることも決してないため、アプリケーションを構築する目的には適しません。ephemeralコンテナは、普通のコンテナと同じ`ContainerSpec`で記述されますが、多くのフィールドに互換性がなかったり、使用できなくなっています。
 
-- Ephemeral containers may not have ports, so fields such as `ports`,
-  `livenessProbe`, `readinessProbe` are disallowed.
-- Pod resource allocations are immutable, so setting `resources` is disallowed.
-- For a complete list of allowed fields, see the [EphemeralContainer reference
-  documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralcontainer-v1-core).
+- ephemeralコンテナはポートを持つことができないため、`ports`、`livenessProbe`、`readinessProbe`などの使用が禁止されています。
+- Podリソースの割り当てはイミュータブルであるため、`resources`の設定が禁止されています。
+- 利用が許可されているフィールドの一覧については、[EphemeralContainerのリファレンスドキュメント](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralcontainer-v1-core)を参照してください。
 
-Ephemeral containers are created using a special `ephemeralcontainers` handler
-in the API rather than by adding them directly to `pod.spec`, so it's not
-possible to add an ephemeral container using `kubectl edit`.
+ephemeralコンテナは、直接`pod.spec`に追加するのではなく、API内の特別な`ephemeralcontainers`ハンドラを使用して作成します。そのため、ephemeralコンテナを`kubectl edit`を使用して追加することはできません。
 
-Like regular containers, you may not change or remove an ephemeral container
-after you have added it to a Pod.
+ephemeralコンテナをPodに追加した後は、通常のコンテナのようにephemeralコンテナを変更または削除することはできません。
 
-## Uses for ephemeral containers
+## ephemeralコンテナの用途
 
-Ephemeral containers are useful for interactive troubleshooting when `kubectl
-exec` is insufficient because a container has crashed or a container image
-doesn't include debugging utilities.
+ephemeralコンテナは、コンテナがクラッシュしてしまったり、コンテナイメージにデバッグ用ユーティリティが同梱されていない場合など、`kubectl exec`では不十分なときにインタラクティブなトラブルシューティングを行うために役立ちます。
 
-In particular, [distroless images](https://github.com/GoogleContainerTools/distroless)
-enable you to deploy minimal container images that reduce attack surface
-and exposure to bugs and vulnerabilities. Since distroless images do not include a
-shell or any debugging utilities, it's difficult to troubleshoot distroless
-images using `kubectl exec` alone.
+特に、[distrolessイメージ](https://github.com/GoogleContainerTools/distroless)を利用すると、攻撃対象領域を減らし、バグや脆弱性を露出する可能性を減らせる最小のコンテナイメージをデプロイできるようになります。distrolessイメージにはシェルもデバッグ用のユーティリティも含まれないため、`kubectl exec`のみを使用してdistrolessイメージのトラブルシューティングを行うのは困難です。
 
-When using ephemeral containers, it's helpful to enable [process namespace
-sharing](/docs/tasks/configure-pod-container/share-process-namespace/) so
-you can view processes in other containers.
+ephemeralコンテナを利用する場合には、他のコンテナ内のプロセスにアクセスできるように、[プロセス名前空間の共有](/ja/docs/tasks/configure-pod-container/share-process-namespace/)を有効にすると便利です。
 
-See [Debugging with Ephemeral Debug Container](
-/docs/tasks/debug-application-cluster/debug-running-pod/#debugging-with-ephemeral-debug-container)
-for examples of troubleshooting using ephemeral containers.
+ephemeralコンテナを利用してトラブルシューティングを行う例については、[デバッグ用のephemeralコンテナを使用してデバッグする](/docs/tasks/debug-application-cluster/debug-running-pod/#debugging-with-ephemeral-debug-container)を参照してください。
 
 ## Ephemeral containers API
 
 {{< note >}}
-The examples in this section require the `EphemeralContainers` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled, and Kubernetes client and server version v1.16 or later.
+このセクションの例を実行するには、`EphemeralContainers`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にして、Kubernetesクライアントとサーバーのバージョンをv1.16以上にする必要があります。
 {{< /note >}}
 
-The examples in this section demonstrate how ephemeral containers appear in
-the API. You would normally use `kubectl alpha debug` or another `kubectl`
-[plugin](/docs/tasks/extend-kubectl/kubectl-plugins/) to automate these steps
-rather than invoking the API directly.
+このセクションの例では、API内でephemeralコンテナを表示する方法を示します。通常は、APIを直接呼び出すのではなく、`kubectl alpha debug`やその他の`kubectl`[プラグイン](/docs/tasks/extend-kubectl/kubectl-plugins/)を使用して、これらのステップを自動化します。
 
-Ephemeral containers are created using the `ephemeralcontainers` subresource
-of Pod, which can be demonstrated using `kubectl --raw`. First describe
-the ephemeral container to add as an `EphemeralContainers` list:
+ephemeralコンテナは、Podの`ephemeralcontainers`サブリソースを使用して作成されます。このサブリソースは、`kubectl --raw`を使用して確認できます。まずはじめに、以下に`EphemeralContainers`リストとして追加するためのephemeralコンテナを示します。
 
 ```json
 {
@@ -119,13 +75,13 @@ the ephemeral container to add as an `EphemeralContainers` list:
 }
 ```
 
-To update the ephemeral containers of the already running `example-pod`:
+すでに実行中の`example-pod`のephemeralコンテナを更新するには、次のコマンドを実行します。
 
 ```shell
-kubectl replace --raw /api/v1/namespaces/default/pods/example-pod/ephemeralcontainers  -f ec.json
+kubectl replace --raw /api/v1/namespaces/default/pods/example-pod/ephemeralcontainers -f ec.json
 ```
 
-This will return the new list of ephemeral containers:
+このコマンドを実行すると、新しいephemeralコンテナのリストが返されます。
 
 ```json
 {
@@ -158,7 +114,7 @@ This will return the new list of ephemeral containers:
 }
 ```
 
-You can view the state of the newly created ephemeral container using `kubectl describe`:
+新しく作成されたephemeralコンテナの状態を確認するには、`kubectl describe`を使用します。
 
 ```shell
 kubectl describe pod example-pod
@@ -184,12 +140,8 @@ Ephemeral Containers:
 ...
 ```
 
-You can interact with the new ephemeral container in the same way as other
-containers using `kubectl attach`, `kubectl exec`, and `kubectl logs`, for
-example:
+新しいephemeralコンテナとやりとりをするには、他のコンテナと同じように、`kubectl attach`、`kubectl exec`、`kubectl logs`などのコマンドが利用できます。例えば、次のようなコマンドが実行できます。
 
 ```shell
 kubectl attach -it example-pod -c debugger
 ```
-
-
