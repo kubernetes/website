@@ -715,37 +715,6 @@ kubelet은 마운트된 시크릿이 모든 주기적인 동기화에서 최신 
 받지 않는다.
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-쿠버네티스 베타 기능인 _변경할 수 없는(immutable) 시크릿과 컨피그맵_ 은
-개별 시크릿과 컨피그맵을 변경할 수 없는 것으로 설정하는 옵션을 제공한다. 시크릿을 광범위하게 사용하는
-클러스터(최소 수만 개의 고유한 시크릿이 파드에 마운트)의 경우, 데이터 변경을 방지하면
-다음과 같은 이점이 있다.
-
-- 애플리케이션 중단을 유발할 수 있는 우발적(또는 원하지 않는) 업데이트로부터 보호
-- immutable로 표시된 시크릿에 대한 감시를 중단하여, kube-apiserver의 부하를
-크게 줄임으로써 클러스터의 성능을 향상시킴
-
-이 기능을 사용하려면, `ImmutableEphemeralVolumes`
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화하고
-시크릿 또는 컨피그맵의 `immutable` 필드를 `true` 로 한다. 다음은 예시이다.
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  ...
-data:
-  ...
-immutable: true
-```
-
-{{< note >}}
-시크릿 또는 컨피그맵을 immutable로 표시하면, 이 변경 사항을 되돌리거나
-`data` 필드 내용을 변경할 수 _없다_. 시크릿을 삭제하고 다시 생성할 수만 있다.
-기존 파드는 삭제된 시크릿에 대한 마운트 포인트를 유지하며, 이러한 파드를 다시 생성하는 것을
-권장한다.
-{{< /note >}}
-
 ### 시크릿을 환경 변수로 사용하기
 
 파드에서 {{< glossary_tooltip text="환경 변수" term_id="container-env-variables" >}}에
@@ -805,6 +774,40 @@ echo $SECRET_PASSWORD
 ```
 1f2d1e2e67df
 ```
+
+## 변경할 수 없는(immutable) 시크릿 {#secret-immutable}
+
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+쿠버네티스 베타 기능인 _변경할 수 없는 시크릿과 컨피그맵_ 은
+개별 시크릿과 컨피그맵을 변경할 수 없는 것으로 설정하는 옵션을 제공한다. 시크릿을 광범위하게 사용하는
+클러스터(최소 수만 개의 고유한 시크릿이 파드에 마운트)의 경우, 데이터 변경을 방지하면
+다음과 같은 이점이 있다.
+
+- 애플리케이션 중단을 유발할 수 있는 우발적(또는 원하지 않는) 업데이트로부터 보호
+- immutable로 표시된 시크릿에 대한 감시를 중단하여, kube-apiserver의 부하를
+크게 줄임으로써 클러스터의 성능을 향상시킴
+
+이 기능은 v1.19부터 기본적으로 활성화된 `ImmutableEphemeralVolumes` [기능
+게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)에
+의해 제어된다. `immutable` 필드를 `true` 로 설정하여
+변경할 수 없는 시크릿을 생성할 수 있다. 다음은 예시이다.
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  ...
+data:
+  ...
+immutable: true
+```
+
+{{< note >}}
+시크릿 또는 컨피그맵을 immutable로 표시하면, 이 변경 사항을 되돌리거나
+`data` 필드 내용을 변경할 수 _없다_. 시크릿을 삭제하고 다시 생성할 수만 있다.
+기존 파드는 삭제된 시크릿에 대한 마운트 포인트를 유지하며, 이러한 파드를 다시 생성하는 것을
+권장한다.
+{{< /note >}}
 
 ### imagePullSecrets 사용하기
 

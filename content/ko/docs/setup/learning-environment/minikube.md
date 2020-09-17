@@ -447,11 +447,11 @@ spec:
 
 | Driver | OS | HostFolder | VM |
 | --- | --- | --- | --- |
-| VirtualBox | 리눅스 | /home | /hosthome |
-| VirtualBox | macOS | /Users | /Users |
-| VirtualBox | 윈도우 | C://Users | /c/Users |
-| VMware Fusion | macOS | /Users | /mnt/hgfs/Users |
-| Xhyve | macOS | /Users | /Users |
+| VirtualBox | 리눅스 | `/home` | `/hosthome` |
+| VirtualBox | macOS | `/Users` | `/Users` |
+| VirtualBox | 윈도우 | `C://Users` | `/c/Users` |
+| VMware Fusion | macOS | `/Users` | `/mnt/hgfs/Users` |
+| Xhyve | macOS | `/Users` | `/Users` |
 
 ## 프라이빗 컨테이너 레지스트리
 
