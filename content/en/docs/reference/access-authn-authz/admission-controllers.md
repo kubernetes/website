@@ -166,7 +166,7 @@ This admission controller sets the default forgiveness toleration for pods to to
 the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes,
 if the pods don't already have toleration for taints
 `node.kubernetes.io/not-ready:NoExecute` or
-`node.alpha.kubernetes.io/unreachable:NoExecute`.
+`node.kubernetes.io/unreachable:NoExecute`.
 
 ### DenyExecOnPrivileged {#denyexeconprivileged}
 
