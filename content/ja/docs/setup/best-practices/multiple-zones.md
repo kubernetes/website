@@ -16,9 +16,9 @@ This page describes how to run a cluster in multiple zones.
 
 Kubernetes 1.2は複数のゾーンにおいて単一のクラスターを運用するサポートを追加しました(GCEでは単純に"ゾーン"，AWSは"アベイラビリティゾーン"と呼びますが、ここでは"ゾーン"とします)。
 これは、より範囲の広いCluster Federationの軽量バージョンです(以前は["Ubernetes"](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/multicluster/federation.md)の愛称で言及されていました)。
-完全なCluster Federationでは、異なるリージョンやクラウドプロバイダー(あるいはオンプレミスデータセンター)内の独立したKubernetesクラスターをまとめることが可能になります。しかしながら、多くのユーザーは単に１つのクラウドプロバイダーの複数のゾーンでより可用性の高いKubernetesクラスターを運用したいと考えており、バージョン1.2におけるマルチゾーンサポート(以前は"Ubernetes Lite"の愛称で使用されていました)ではこれが可能になります。
+完全なCluster Federationでは、異なるリージョンやクラウドプロバイダー(あるいはオンプレミスデータセンター)内の独立したKubernetesクラスターをまとめることが可能になります。しかしながら、多くのユーザーは単に1つのクラウドプロバイダーの複数のゾーンでより可用性の高いKubernetesクラスターを運用したいと考えており、バージョン1.2におけるマルチゾーンサポート(以前は"Ubernetes Lite"の愛称で使用されていました)ではこれが可能になります。
 
-マルチゾーンサポートは故意に限定されています: １つのKubernetesクラスターは複数のゾーンで運用することができますが、同じリージョン(あるいはクラウドプロバイダー)のみです。現在はGCEとAWSのみが自動的にサポートされています(他のクラウドプロバイダーやベアメタル環境においても、単にノードやボリュームに追加する適切なラベルを用意して同様のサポートを追加することは容易ではありますが)。
+マルチゾーンサポートは故意に限定されています: 1つのKubernetesクラスターは複数のゾーンで運用することができますが、同じリージョン(あるいはクラウドプロバイダー)のみです。現在はGCEとAWSのみが自動的にサポートされています(他のクラウドプロバイダーやベアメタル環境においても、単にノードやボリュームに追加する適切なラベルを用意して同様のサポートを追加することは容易ではありますが)。
 
 
 ## 機能性
@@ -49,7 +49,7 @@ Kubernetesはレプリケーションコントローラーやサービス内のP
 
 * StatefulSetの名前がダッシュ("-")を含む場合、ボリュームゾーンのデプロイはゾーンを跨いだストレージの均一な分配を提供しない可能性があります。
 
-* DeploymentやPodのスペックにおいて複数のPVCを指定すると、StorageClassは特定の１つのゾーンに割り当てる必要があります、あるいはPVは特定のゾーンに静的にプロビジョンされる必要があります。もう一つの解決方法として、StatefulSetを使用すると、レプリカに対する全てのボリュームが同じゾーンにプロビジョンされます。
+* DeploymentやPodのスペックにおいて複数のPVCを指定すると、StorageClassは特定の1つのゾーンに割り当てる必要があります、あるいはPVは特定のゾーンに静的にプロビジョンされる必要があります。もう一つの解決方法として、StatefulSetを使用すると、レプリカに対する全てのボリュームが同じゾーンにプロビジョンされます。
 
 ## 全体の流れ
 
@@ -71,7 +71,7 @@ AWS:
 curl -sS https://get.k8s.io | MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a NUM_NODES=3 bash
 ```
 
-このステップは通常と同様にクラスターを立ち上げ、１つのゾーンで動作しています(しかし、`MULTIZONE=true`によりマルチゾーン能力は有効になっています)。
+このステップは通常と同様にクラスターを立ち上げ、1つのゾーンで動作しています(しかし、`MULTIZONE=true`によりマルチゾーン能力は有効になっています)。
 
 
 ### ノードはラベルが付与される
@@ -96,7 +96,7 @@ kubernetes-minion-a12q   Ready                      <none>   6m    v1.13.0      
 
 ### 2つ目のゾーンにさらにノードを追加
 
-それでは、現存のマスターを再利用し、現存のクラスターの異なるゾーン(us-central1-bかus-west-2b)にもう１つのノードのセットを追加しましょう。
+それでは、現存のマスターを再利用し、現存のクラスターの異なるゾーン(us-central1-bかus-west-2b)にもう1つのノードのセットを追加しましょう。
 kube-upを再び実行します．しかし`KUBE_USE_EXISTING_MASTER=true`を指定することでkube-upは新しいマスターを作成せず、代わりに以前作成したものを再利用します。
 
 GCE:
@@ -113,7 +113,7 @@ KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZO
 ```
 
 
-ノードをもう１度見てください。更なる3つのノードがus-central1-bに起動し、タグ付けられているはずです:
+ノードをもう1度見てください。更なる3つのノードがus-central1-bに起動し、タグ付けられているはずです:
 
 ```shell
 kubectl get nodes --show-labels
@@ -228,7 +228,7 @@ kubernetes-minion-9vlv   Ready     22m    v1.6.0+fff5156   beta.kubernetes.io/in
 
 ### Podがゾーンをまたがって配置される
 
-レプリケーションコントローラーやサービス内のPodは自動的にゾーンに跨いでデプロイされます。まず、３つ目のゾーンに更なるノードを立ち上げましょう:
+レプリケーションコントローラーやサービス内のPodは自動的にゾーンに跨いでデプロイされます。まず、3つ目のゾーンに更なるノードを立ち上げましょう:
 
 GCE:
 
@@ -242,19 +242,19 @@ AWS:
 KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2c NUM_NODES=3 KUBE_SUBNET_CIDR=172.20.2.0/24 MASTER_INTERNAL_IP=172.20.0.9 kubernetes/cluster/kube-up.sh
 ```
 
-３つのゾーンにノードがあることを確認します:
+3つのゾーンにノードがあることを確認します:
 
 ```shell
 kubectl get nodes --show-labels
 ```
 
-シンプルなWebアプリケーションを動作する、３つのRCを持つguestbook-goの例を作成します:
+シンプルなWebアプリケーションを動作する、3つのRCを持つguestbook-goの例を作成します:
 
 ```shell
 find kubernetes/examples/guestbook-go/ -name '*.json' | xargs -I {} kubectl apply -f {}
 ```
 
-Podは３つの全てのゾーンにデプロイされているはずです:
+Podは3つの全てのゾーンにデプロイされているはずです:
 
 ```shell
 kubectl describe pod -l app=guestbook | grep Node
