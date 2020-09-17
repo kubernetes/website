@@ -17,7 +17,7 @@ d'évènements, et la plupart des environnements d'exécution de conteneurs ont 
 conçus pour supporter la journalisation des évènements. La méthode de
 journalisation la plus facile et la plus répandue pour des applications
 conteneurisées est d'écrire dans les flux de sortie standard et d'erreur
-standards (`stdout` et `stderr`).
+(`stdout` et `stderr`).
 
 Malgré cela, la fonctionnalité de journalisation fournie nativement par
 l'environnement d'exécution de conteneurs n'est pas suffisante comme solution
@@ -353,6 +353,5 @@ Vous pouvez implémenter la journalisation au niveau cluster en mettant à
 disposition ou en envoyant les journaux directement depuis chaque application;
 Toutefois l'implémentation de ce mécanisme de journalisation est hors du cadre
 de Kubernetes.
-
 
 
