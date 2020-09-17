@@ -424,20 +424,8 @@ In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-c
 
 #### CSI Provisioner {#vsphere-provisioner-csi}
 
-The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters.
+The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. For examples, refer to the [vSphere CSI repository](https://github.com/kubernetes-sigs/vsphere-csi-driver).
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: example-vsphere-sc-csi
-  annotations:
-    storageclass.kubernetes.io/is-default-class: true
-provisioner: csi.vsphere.vmware.com
-parameters:
-  datastoreurl: "ds:///vmfs/volumes/vsan:52d8eb4842dbf493-41523be9cd4ff7b7/"
-```
-    
 #### vCP Provisioner 
 
 The following examples use the VMware Cloud Provider (vCP) StorageClass provisioner.  
