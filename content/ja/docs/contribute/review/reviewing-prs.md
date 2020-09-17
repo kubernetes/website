@@ -1,5 +1,5 @@
 ---
-title: Reviewing pull requests
+title: プルリクエストのレビュー
 content_type: concept
 main_menu: true
 weight: 10
@@ -7,91 +7,79 @@ weight: 10
 
 <!-- overview -->
 
-Anyone can review a documentation pull request. Visit the [pull requests](https://github.com/kubernetes/website/pulls) section in the Kubernetes website repository to see open pull requests.
+ドキュメントのプルリクエストは誰でもレビューすることができます。Kubernetesのwebsiteリポジトリで[pull requests](https://github.com/kubernetes/website/pulls)のセクションに移動し、open状態のプルリクエストを確認してください。
 
-Reviewing documentation pull requests is a
-great way to introduce yourself to the Kubernetes community.
-It helps you learn the code base and build trust with other contributors.
+ドキュメントのプルリクエストのレビューは、Kubernetesコミュニティに自分を知ってもらうためのよい方法の1つです。コードベースについて学んだり、他のコントリビューターとの信頼関係を築く助けともなるはずです。
 
-Before reviewing, it's a good idea to:
+レビューを行う前には、以下のことを理解しておくとよいでしょう。
 
-- Read the  [content guide](/docs/contribute/style/content-guide/) and
-  [style guide](/docs/contribute/style/style-guide/) so you can leave informed comments.
-- Understand the different
-  [roles and responsibilities](/docs/contribute/participate/roles-and-responsibilities/)
-  in the Kubernetes documentation community.
+- [コンテンツガイド](/docs/contribute/style/content-guide/)と[スタイルガイド](/docs/contribute/style/style-guide/)を読んで、有益なコメントを残せるようにする。
+- Kubernetesのドキュメントコミュニティにおける[役割と責任](/docs/contribute/participate/roles-and-responsibilities/)の違いを理解する。
 
 <!-- body -->
 
-## Before you begin
+## はじめる前に
 
-Before you start a review:
+レビューを始める前に、以下のことを心に留めてください。
 
-- Read the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) and ensure that you abide by it at all times.
-- Be polite, considerate, and helpful.
-- Comment on positive aspects of PRs as well as changes.
-- Be empathetic and mindful of how your review may be received.
-- Assume good intent and ask clarifying questions.
-- Experienced contributors, consider pairing with new contributors whose work requires extensive changes.
+- [CNCFの行動規範](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)を読み、いかなる時にも行動規範にしたがって行動するようにする。
+- 礼儀正しく、思いやりを持ち、助け合う気持ちを持つ。
+- 変更点だけでなく、PRのポジティブな側面についてもコメントする。
+- 相手の善意を前提として、疑問点を明確にする質問をする。
+- 経験を積んだコントリビューターの場合、コンテンツに大幅な変更が必要な新規のコントリビューターとペアを組んで作業に取り組むことを考える。
 
-## Review process
+## レビューのプロセス
 
-In general, review pull requests for content and style in English.
+一般に、コンテンツや文体に対するプルリクエストは、英語でレビューを行います。
 
-1.  Go to
-    [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls).
-    You see a list of every open pull request against the Kubernetes website and
-    docs.
+1.  [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls)に移動します。Kubernetesのウェブサイトとドキュメントに対するopen状態のプルリクエスト一覧が表示されます。
 
-2.  Filter the open PRs using one or all of the following labels:
-    - `cncf-cla: yes` (Recommended): PRs submitted by contributors who have not signed the CLA cannot be merged. See [Sign the CLA](/docs/contribute/new-content/overview/#sign-the-cla) for more information.
-    - `language/en` (Recommended): Filters for english language PRs only.
-    - `size/<size>`: filters for PRs of a certain size. If you're new, start with smaller PRs.
+2.  open状態のPRに、以下に示すラベルを1つ以上使って絞り込みます。
 
-    Additionally, ensure the PR isn't marked as a work in progress. PRs using the `work in progress` label are not ready for review yet.
+    - `cncf-cla: yes` (推奨): CLAにサインしていないコントリビューターが提出したPRはマージできません。詳しい情報は、[CLAの署名](/docs/contribute/new-content/overview/#sign-the-cla)を読んでください。
+    - `language/en` (推奨): 英語のPRだけに絞り込みます。
+    - `size/<size>`: 特定の大きさのPRだけに絞り込みます。レビューを始めたばかりの人は、小さなPRから始めてください。
 
-3.  Once you've selected a PR to review, understand the change by:
-    - Reading the PR description to understand the changes made, and read any linked issues
-    - Reading any comments by other reviewers
-    - Clicking the **Files changed** tab to see the files and lines changed
-    - Previewing the changes in the Netlify preview build by scrolling to the PR's build check section at the bottom of the **Conversation** tab and clicking the **deploy/netlify** line's **Details** link.
+    さらに、PRがwork in progressとしてマークされていないことも確認してください。`work in progress`ラベルの付いたPRは、まだレビューの準備ができていない状態です。
 
-4.  Go to the **Files changed** tab to start your review.
-    1. Click on the `+` symbol  beside the line you want to comment on.
-    2. Fill in any comments you have about the line and click either **Add single comment** (if you have only one comment to make) or  **Start a review** (if you have multiple comments to make).
-    3. When finished, click **Review changes** at the top of the page. Here, you can add
-       add a summary of your review (and leave some positive comments for the contributor!),
-      approve the PR, comment or request changes as needed. New contributors should always
-      choose **Comment**.
+3.  レビューするPRを選んだら、以下のことを行い、変更点について理解します。
+    - PRの説明を読み、行われた変更について理解し、関連するissueがあればそれも読みます。
+    - 他のレビュアのコメントがあれば読みます。
+    - **Files changed**タブをクリックし、変更されたファイルと行を確認します。
+    - **Conversation**タブの下にあるPRのbuild checkセクションまでスクロールし、**deploy/netlify**の行の**Details**リンクをクリックして、Netlifyのプレビュービルドで変更点をプレビューします。
 
-## Reviewing checklist
+4.  **Files changed**タブに移動してレビューを始めます。
+    1. コメントしたい場合は行の横の`+`マークをクリックします。
+    2. その行に関するコメントを書き、**Add single comment**(1つのコメントだけを残したい場合)または**Start a review**(複数のコメントを行いたい場合)のいずれかをクリックします。
+    3. コメントをすべて書いたら、ページ上部の**Review changes**をクリックします。ここでは、レビューの要約を追加できます(コントリビューターにポジティブなコメントも書きましょう！)。必要に応じて、PRを承認したり、コメントしたり、変更をリクエストします。新しいコントリビューターの場合は**Comment**だけが行えます。
 
-When reviewing, use the following as a starting point.
+## レビューのチェックリスト
 
-### Language and grammar
+レビューするときは、最初に以下の点を確認してみてください。
 
-- Are there any obvious errors in language or grammar? Is there a better way to phrase something?
-- Are there any complicated or archaic words which could be replaced with a simpler word?
-- Are there any words, terms or phrases in use which could be replaced with a non-discriminatory alternative?
-- Does the word choice and its capitalization follow the [style guide](/docs/contribute/style/style-guide/)?
-- Are there long sentences which could be shorter or less complex?
-- Are there any long paragraphs which might work better as a list or table?
+### 言語と文法
 
-### Content
+- 言語や文法に明らかな間違いはないですか？ もっとよい言い方はないですか？
+- もっと簡単な単語に置き換えられる複雑な単語や古い単語はありませんか？
+- 使われている単語や専門用語や言い回しで差別的ではない別の言葉に置き換えられるものはありませんか？
+- 言葉選びや大文字の使い方は[style guide](/docs/contribute/style/style-guide/)に従っていますか？
+- もっと短くしたり単純な文に書き換えられる長い文はありませんか？
+- 箇条書きやテーブルでもっとわかりやすく表現できる長いパラグラフはありませんか？
 
-- Does similar content exist elsewhere on the Kubernetes site?
-- Does the content excessively link to off-site, individual vendor or non-open source documentation?
+### コンテンツ
 
-### Website
+- 同様のコンテンツがKubernetesのサイト上のどこかに存在しませんか？
+- コンテンツが外部サイト、特定のベンダー、オープンソースではないドキュメントなどに過剰にリンクを張っていませんか？
 
-- Did this PR change or remove a page title, slug/alias or anchor link? If so, are there broken links as a result of this PR? Is there another option, like changing the page title without changing the slug?
-- Does the PR introduce a new page? If so:
-  - Is the page using the right [page content type](/docs/contribute/style/page-content-types/) and associated Hugo shortcodes?
-  - Does the page appear correctly in the section's side navigation (or at all)?
-  - Should the page appear on the [Docs Home](/docs/home/) listing?
-- Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code blocks, tables, notes and images.
+### ウェブサイト
 
-### Other
+- PRはページ名、slug/alias、アンカーリンクの変更や削除をしていますか？ その場合、このPRの変更の結果、リンク切れは発生しませんか？ ページ名を変更してslugはそのままにするなど、他の選択肢はありませんか？
+- PRは新しいページを作成するものですか？ その場合、次の点に注意してください。
+  - ページは正しい[page content type](/docs/contribute/style/page-content-types/)と関係するHugoのshortcodeを使用していますか？
+  - セクションの横のナビゲーション(または全体)にページは正しく表示されますか？
+  - ページは[Docs Home](/docs/home/)に一覧されますか？
+- Netlifyのプレビューで変更は確認できますか？ 特にリスト、コードブロック、テーブル、備考、画像などに注意してください。
 
-For small issues with a PR, like typos or whitespace, prefix your comments with `nit:`.  This lets the author know the issue is non-critical.
+### その他
 
+PRに関して誤字や空白などの小さな問題を指摘する場合は、コメントの前に`nit:`と書いてください。こうすることで、PRの作者は問題が深刻なものではないことが分かります。
