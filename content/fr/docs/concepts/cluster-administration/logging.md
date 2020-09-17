@@ -12,18 +12,18 @@ weight: 60
 La journalisation des évènements systèmes et d'applications peut aider à
 comprendre ce qui se passe dans un cluster. Les journaux sont particulièrement
 utiles pour débogguer les problèmes et surveiller l'activité du cluster. La
-plupart des application modernes ont un mécanisme de journalisation
+plupart des applications modernes ont un mécanisme de journalisation
 d'évènements, et la plupart des environnements d'exécution de conteneurs ont été
 conçus pour supporter la journalisation des évènements. La méthode de
 journalisation la plus facile et la plus répandue pour des applications
 conteneurisées est d'écrire dans les flux de sortie standard et d'erreur
-standard (`stdout` et `stderr`).
+(`stdout` et `stderr`).
 
 Malgré cela, la fonctionnalité de journalisation fournie nativement par
 l'environnement d'exécution de conteneurs n'est pas suffisante comme solution
-complète de journalisation. Quand un conteneur crash, quand un Pod est expulsé
+complète de journalisation. Quand un conteneur crashe, quand un Pod est expulsé
 ou quand un nœud disparaît, il est utile de pouvoir accéder au journal
-d'événement de l'application. C'est pourquoi les journaux doivent avoir leur
+d'événements de l'application. C'est pourquoi les journaux doivent avoir leur
 propre espace de stockage et un cycle de vie indépendamment des nœuds, Pods ou
 conteneurs. Ce concept est appelé _journalisation des évènements au niveau du
 cluster_ (cluster-level-logging). Un backend dédié pour stocker, analyser et
@@ -92,15 +92,15 @@ logs`] (/docs/reference/generated/kubectl/kubectl-commands#logs)
 nœud](/images/docs/user-guide/logging/logging-node-level.png)
 
 Tout ce qu'une application conteneurisée écrit sur `stdout` ou `stderr` est pris
-en compte et redirigé par l'environment d'exécution des conteneurs. Par exemple,
-Docker redirige ces deux flux à un [driver de journalisation
+en compte et redirigé par l'environnement d'exécution des conteneurs. Par exemple,
+Docker redirige ces deux flux vers un [driver de journalisation
 (EN)](https://docs.docker.com/config/containers/logging/configure/) qui est
 configuré dans Kubernetes pour écrire dans un fichier au format json.
 
 {{< note >}} Le driver json de Docker traite chaque ligne comme un message
 différent. Avec ce driver il n'y a pas de support direct pour des messages
 multi-lignes. Il faut donc traiter les messages multi-lignes au niveau de
-l'agent de journalisation ou plus haut. {{< /note >}}
+l'agent de journalisation ou plus en amont encore. {{< /note >}}
 
 Par défaut quand un conteneur redémarre, le kubelet ne conserve le journal que
 du dernier conteneur terminé. Quand un Pod est expulsé d'un nœud, tous ses
@@ -119,11 +119,11 @@ l'environnement d'exécution des conteneurs pour que la rotation des journaux
 s'exécute automatiquement, e.g. en utilisant le paramètre `log-opt` de Docker.
 Dans le script `kube-up.sh`, c'est cette méthode qui est utilisée pour des
 images COS sur GCP et sinon c'est la première méthode dans tous les autres cas.
-Quel que soit la méthode choisie par `kube-up.sh` la rotation est configurée par
-defaut quand la taille d'un journal atteint 10 Mo.
+Quelle que soit la méthode choisie par `kube-up.sh` la rotation est configurée par
+défaut quand la taille d'un journal atteint 10 Mo.
 
 Ce [script][cosConfigureHelper] montre de manière détaillée comment `kube-up.sh`
-met en place la journalisation d'évènement pour des images COS sur GCP.
+met en place la journalisation d'évènements pour des images COS sur GCP.
 
 Quand [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)
 s'exécute comme dans le premier exemple de journalisation simple le kubelet du
@@ -147,10 +147,10 @@ conteneur ou pas.
 Par exemple :
 
 * Le scheduler Kubernetes et kube-proxy s'exécutent dans un conteneur.
-* Kubelet et l'environment d'exécution de conteneurs, comme par exemple
+* Kubelet et l'environnement d'exécution de conteneurs, comme par exemple
 Docker, ne s'exécutent pas dans un conteneur.
 
-Sur les systèmes avec systemd, kubelet et l'environment d'exécution de
+Sur les systèmes avec systemd, kubelet et l'environnement d'exécution de
 conteneurs écrivent dans journald. Si systemd n'est pas présent, ils écrivent
 dans un fichier `.log` dans le répertoire `/var/log`.
 
@@ -198,7 +198,7 @@ le nœud. Ces deux dernières options sont obsolètes et fortement découragées
 Utiliser un agent de journalisation au niveau du nœud est l'approche la plus
 commune et recommandée pour un cluster Kubernetes parce qu'un seul agent par
 nœud est créé et qu'aucune modification dans l'application n'est nécessaire.
-Mais cette approche _ne fonctionne correctement que pour les flux standard de
+Mais cette approche _ne fonctionne correctement que pour les flux standards de
 sortie et d'erreurs des applications_.
 
 Kubernetes ne définit pas d'agent de journalisation, mais deux agents de
@@ -288,13 +288,13 @@ Notez que bien que la consommation en CPU et mémoire soit faible ( de l'ordre d
 quelques milicores pour la CPU et quelques mégaoctets pour la mémoire),  ecrire
 les évènements dans un fichier et les envoyer ensuite dans `stdout` peut doubler
 l'espace disque utilisé. Quand une application écrit dans un seul fichier de
-journal il est préférable de configurer `/dev/stdout` comme destination plutôt
+journal, il est préférable de configurer `/dev/stdout` comme destination plutôt
 que d'implémenter un conteneur side-car diffusant.
 
 Les conteneurs side-car peuvent être utilisés pour faire la rotation des
-journaux quand l'application n'en est pas capable elle même. Un exemple serait
+journaux quand l'application n'en est pas capable elle-même. Un exemple serait
 un petit conteneur side-car qui effectuerait cette rotation périodiquement.
-Toutefois il est recommandé d'utiliser `stdout` et `stderr` directement et de
+Toutefois, il est recommandé d'utiliser `stdout` et `stderr` directement et de
 laisser la rotation et les politiques de rétentions au kubelet.
 
 ### Conteneur side-car avec un agent de journalisation
@@ -303,13 +303,13 @@ laisser la rotation et les politiques de rétentions au kubelet.
 journalisation](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
 
 Quand un agent de journalisation au niveau du nœud n'est pas assez flexible pour
-votre utilisation vous pouvez créer un conteneur side-car avec un agent de
+votre utilisation, vous pouvez créer un conteneur side-car avec un agent de
 journalisation séparé que vous avez configuré spécialement pour qu'il s'exécute
 avec votre application.
 
 {{< note >}}
 Utiliser un agent de journalisation dans un conteneur side-car peut entraîner
-une consommation de ressource significative. De plus vous n'avez plus accès aux
+une consommation de ressources significative. De plus vous n'avez plus accès aux
 journaux avec la commande `kubectl` parce qu'ils ne sont plus gérés par
 kubelet.
 {{< /note >}}
@@ -353,6 +353,5 @@ Vous pouvez implémenter la journalisation au niveau cluster en mettant à
 disposition ou en envoyant les journaux directement depuis chaque application;
 Toutefois l'implémentation de ce mécanisme de journalisation est hors du cadre
 de Kubernetes.
-
 
 
