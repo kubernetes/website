@@ -18,8 +18,7 @@ Podのコンテナを実行するために、Kubernetesはコンテナランタ�
 悪意のあるコンテナがこの脆弱性を利用してruncのバイナリを上書きし、
 コンテナホストシステム上で任意のコマンドを実行する可能性があります。
 
-この問題の更なる情報は以下のリンクを参照してください。
-[cve-2019-5736 : runc vulnerability](https://access.redhat.com/security/cve/cve-2019-5736)
+この問題の更なる情報は[CVE-2019-5736](https://access.redhat.com/security/cve/cve-2019-5736)を参照してください。
 {{< /caution >}}
 
 ### 適用性
@@ -60,34 +59,44 @@ kubeletを再起動しても問題は解決しないでしょう。
 ## Docker
 
 それぞれのマシンに対してDockerをインストールします。
-バージョン19.03.4が推奨されていますが、1.13.1、17.03、17.06、17.09、18.06、18.09についても動作が確認されています。
+バージョン19.03.11が推奨されていますが、1.13.1、17.03、17.06、17.09、18.06、18.09についても動作が確認されています。
 Kubernetesのリリースノートにある、Dockerの動作確認済み最新バージョンについてもご確認ください。
 
 システムへDockerをインストールするには、次のコマンドを実行します。
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04+" codelang="bash" >}}
-# Docker CEのインストール
+{{% tab name="Ubuntu 16.04+" %}}
+
+```shell
+# (Install Docker CE)
 ## リポジトリをセットアップ
 ### HTTPS越しのリポジトリの使用をaptに許可するために、パッケージをインストール
 apt-get update && apt-get install -y \
   apt-transport-https ca-certificates curl software-properties-common gnupg2
+```
 
-### Docker公式のGPG鍵を追加
+```shell
+# Docker公式のGPG鍵を追加:
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+```
 
-### Dockerのaptリポジトリを追加
+```shell
+# Dockerのaptレポジトリを追加:
 add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
   stable"
+```
 
-## Docker CEのインストール
+```shell
+# Docker CEのインストール
 apt-get update && apt-get install -y \
-  containerd.io=1.2.10-3 \
-  docker-ce=5:19.03.4~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.4~3-0~ubuntu-$(lsb_release -cs)
+containerd.io=1.2.13-2 \
+docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
+docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
+```
 
+```shell
 # デーモンをセットアップ
 cat > /etc/docker/daemon.json <<EOF
 {
@@ -99,33 +108,47 @@ cat > /etc/docker/daemon.json <<EOF
   "storage-driver": "overlay2"
 }
 EOF
+```
 
+```shell
 mkdir -p /etc/systemd/system/docker.service.d
+```
 
+```shell
 # dockerを再起動
 systemctl daemon-reload
 systemctl restart docker
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
+```
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
-# Docker CEのインストール
+```shell
+# (Docker CEのインストール)
 ## リポジトリをセットアップ
 ### 必要なパッケージのインストール
 yum install -y yum-utils device-mapper-persistent-data lvm2
+```
 
+```shell
 ### Dockerリポジトリの追加
 yum-config-manager --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
+```
 
+```shell
 ## Docker CEのインストール
 yum update -y && yum install -y \
-  containerd.io-1.2.10 \
-  docker-ce-19.03.4 \
-  docker-ce-cli-19.03.4
+  containerd.io-1.2.13 \
+  docker-ce-19.03.11 \
+  docker-ce-cli-19.03.11
+```
 
+```shell
 ## /etc/docker ディレクトリを作成
 mkdir /etc/docker
+```
 
+```shell
 # デーモンをセットアップ
 cat > /etc/docker/daemon.json <<EOF
 {
@@ -140,14 +163,25 @@ cat > /etc/docker/daemon.json <<EOF
   ]
 }
 EOF
+```
 
+```shell
 mkdir -p /etc/systemd/system/docker.service.d
+```
 
+```shell
 # dockerを再起動
 systemctl daemon-reload
 systemctl restart docker
-{{< /tab >}}
+```
+{{% /tab %}}
 {{< /tabs >}}
+
+ブート時にDockerサービスを開始させたい場合は、以下のコマンドを入力してください:
+
+```shell
+sudo systemctl enable docker
+```
 
 詳細については、[Dockerの公式インストールガイド](https://docs.docker.com/engine/installation/)を参照してください。
 
@@ -179,54 +213,78 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Debian" codelang="bash" >}}
+{{% tab name="Debian" %}}
+
+```shell
 # Debian Unstable/Sid
 echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Unstable/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Unstable/Release.key -O- | sudo apt-key add -
+```
 
+```shell
 # Debian Testing
 echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Testing/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Testing/Release.key -O- | sudo apt-key add -
-
+```
+```shell
 # Debian 10
 echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_10/Release.key -O- | sudo apt-key add -
+```
 
+```shell
 # Raspbian 10
 echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Raspbian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Raspbian_10/Release.key -O- | sudo apt-key add -
+```
 
-# CRI-Oのインストール
+それでは、CRI-Oをインストールします:
+```shell
 sudo apt-get install cri-o-1.17
-{{< /tab >}}
+```
+{{% /tab %}}
 
-{{< tab name="Ubuntu 18.04, 19.04 and 19.10" codelang="bash" >}}
-# リポジトリの設定
+{{% tab name="Ubuntu 18.04, 19.04 and 19.10" %}}
+
+```shell
+# パッケージレポジトリを設定する
 . /etc/os-release
 sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
 wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O- | sudo apt-key add -
 sudo apt-get update
+```
 
+```shell
 # CRI-Oのインストール
 sudo apt-get install cri-o-1.17
-{{< /tab >}}
+```
+{{% /tab %}}
 
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
+
+```shell
 # 必要なパッケージのインストール
-yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}/CentOS_7/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo
+```
 
+```shell
 # CRI-Oのインストール
-yum install --nogpgcheck -y cri-o
-{{< /tab >}}
+yum install -y cri-o
+```
+{{% /tab %}}
 
-{{< tab name="openSUSE Tumbleweed" codelang="bash" >}}
+{{% tab name="openSUSE Tumbleweed" %}}
+
+```shell
 sudo zypper install cri-o
-{{< /tab >}}
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 ### CRI-Oの起動
 
-```
+```shell
 systemctl daemon-reload
 systemctl start crio
 ```
@@ -264,51 +322,75 @@ sysctl --system
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
-# containerdのインストール
+
+```shell
+# (containerdのインストール)
 ## リポジトリの設定
 ### HTTPS越しのリポジトリの使用をaptに許可するために、パッケージをインストール
 apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
 
-### Docker公式のGPG鍵を追加
+```shell
+## Docker公式のGPG鍵を追加
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+```
 
-### Dockerのaptリポジトリの追加
+```
+## Dockerのaptリポジトリの追加
 add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
+```
 
+```shell
 ## containerdのインストール
 apt-get update && apt-get install -y containerd.io
+```
 
+```shell
 # containerdの設定
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
+```
 
+```shell
 # containerdの再起動
 systemctl restart containerd
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
-# containerdのインストール
+```
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
+
+```shell
+# (containerdのインストール)
 ## リポジトリの設定
 ### 必要なパッケージのインストール
 yum install -y yum-utils device-mapper-persistent-data lvm2
+```
 
-### Dockerのリポジトリの追加
+```shell
+## Dockerのリポジトリの追加
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
+```
 
+```shell
 ## containerdのインストール
 yum update -y && yum install -y containerd.io
+```
 
-# containerdの設定
+```shell
+## containerdの設定
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
+```
 
+```shell
 # containerdの再起動
 systemctl restart containerd
-{{< /tab >}}
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 ### systemd
