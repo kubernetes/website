@@ -3,6 +3,7 @@ reviewers:
 - derekwaynecarr
 title: 管理巨页（HugePages）
 content_type: task
+description: 将大页配置和管理为集群中的可调度资源。
 ---
 <!--
 ---
