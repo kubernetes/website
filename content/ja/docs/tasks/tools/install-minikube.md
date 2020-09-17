@@ -214,7 +214,7 @@ WindowsにMinikubeを手動でインストールするには、[`minikube-window
 {{< /note >}}
 
 {{< caution >}}
-KVMを使用する場合、Debianおよび他の一部のシステムでのlibvirtのデフォルトのQEMU URIは`qemu：///session`であるのに対し、MinikubeのデフォルトのQEMU URIは`qemu：///system`であることに注意してください。これがあなたのシステムに当てはまる場合、`--kvm-qemu-uri qemu:///session`を`minikube start`に渡す必要があります。
+KVMを使用する場合、Debianおよび他の一部のシステムでのlibvirtのデフォルトのQEMU URIは`qemu:///session`であるのに対し、MinikubeのデフォルトのQEMU URIは`qemu:///system`であることに注意してください。これがあなたのシステムに当てはまる場合、`--kvm-qemu-uri qemu:///session`を`minikube start`に渡す必要があります。
 {{< /caution >}}
 
 ```shell
