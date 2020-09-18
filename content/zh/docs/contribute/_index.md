@@ -6,7 +6,7 @@ main_menu: true
 no_list: true
 weight: 80
 card:
-  name: 贡献
+  name: contribute
   weight: 10
   title: 开始贡献
 ---
