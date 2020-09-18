@@ -29,12 +29,14 @@ APIエンドポイント、リソースタイプ、サンプルについては[A
 Kubernetesプロジェクトは、既存のクライアントとの互換性を破壊しないこと、およびその互換性を一定期間維持して、他のプロジェクトが適応する機会を提供することを目的としています。
 
 基本的に、新しいAPIリソースと新しいリソースフィールドは追加することができます。
-リソースまたはフィールドを削除するには、次のポリシーに従ってください。[API非推奨ポリシー](/docs/reference/using-api/deprecation-policy/).
+リソースまたはフィールドを削除するには、[API非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)に従ってください。
 
-互換性のある変更の構成要素とAPIの変更方法については、[API変更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)で詳しく説明しています。
+互換性のある変更の構成要素とAPIの変更方法については、[APIの変更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)で詳しく説明しています。
 
 
 ## OpenAPI 仕様 {#api-specification}
+
+完全なAPIの詳細は、[OpenAPI](https://www.openapis.org/)を使用して文書化されています。
 
 Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOpenAPI仕様を提供します。
 次のように要求ヘッダーを使用して、応答フォーマットを要求できます。
@@ -84,7 +86,7 @@ JSONとProtocol Buffersのシリアライズスキーマも、スキーマ変更
 
 APIとソフトウエアのバージョニングは、間接的にしか関連していないことに注意してください。[APIとリリースバージョニング提案](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)で、APIとソフトウェアのバージョニングの関連について記載しています。
 
-異なるバージョンのAPIでは、安定性やサポートのレベルも変わります。各レベルの詳細な条件は、[API変更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)に記載されています。下記に簡潔にまとめます:
+異なるバージョンのAPIでは、安定性やサポートのレベルも変わります。各レベルの詳細な条件は、[APIの変更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)に記載されています。下記に簡潔にまとめます:
 
 - アルファレベル(版):
   - バージョン名に`alpha`を含みます(例、`v1alpha1`)。
