@@ -3,7 +3,7 @@ title: 发起拉取请求（PR）
 content_type: concept
 weight: 10
 card:
-  name: 贡献
+  name: contribute
   weight: 40
 ---
 <!--
