@@ -1,5 +1,6 @@
 ---
 title: 使用 Minikube 安装 Kubernetes
+weight: 30
 content_type: concept
 ---
 <!--
