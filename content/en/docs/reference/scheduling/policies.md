@@ -32,7 +32,7 @@ The following *predicates* implement filtering:
 - `PodFitsResources`: Checks if the Node has free resources (eg, CPU and Memory)
   to meet the requirement of the Pod.
 
-- `PodMatchNodeSelector`: Checks if a Pod's Node {{< glossary_tooltip term_id="selector" >}}
+- `MatchNodeSelector`: Checks if a Pod's Node {{< glossary_tooltip term_id="selector" >}}
    matches the Node's {{< glossary_tooltip text="label(s)" term_id="label" >}}.
 
 - `NoVolumeZoneConflict`: Evaluate if the {{< glossary_tooltip text="Volumes" term_id="volume" >}}
