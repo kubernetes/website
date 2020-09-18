@@ -117,7 +117,7 @@ StatefulSetは、Podのドメインをコントロールするために[Headless
 このHeadless Serviceによって管理されたドメインは`$(Service名).$(ネームスペース).svc.cluster.local`形式となり、"cluster.local"というのはそのクラスターのドメインとなります。
 各Podが作成されると、Podは`$(Pod名).$(管理するServiceドメイン名)`に一致するDNSサブドメインを取得し、管理するServiceはStatefulSetの`serviceName`で定義されます。
 
-クラスタでのDNSの設定方法によっては、新たに起動されたPodのDNS名をすぐに検索できない場合があります。
+クラスターでのDNSの設定方法によっては、新たに起動されたPodのDNS名をすぐに検索できない場合があります。
 この動作は、クラスター内の他のクライアントが、Podが作成される前にそのPodのホスト名に対するクエリをすでに送信していた場合に発生する可能性があります。
 (DNSでは通常)ネガティブキャッシュは、Podの起動後でも、少なくとも数秒間、以前に失敗したルックアップの結果が記憶され、再利用されることを意味します。
 
@@ -208,4 +208,3 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 * [ステートフルなアプリケーションのデプロイ](/docs/tutorials/stateful-application/basic-stateful-set/)の例を参考にしてください。
 * [StatefulSetを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)の例を参考にしてください。
 * [レプリカを持つステートフルアプリケーションを実行する](/ja/docs/tasks/run-application/run-replicated-stateful-application/)の例を参考にしてください。
-
