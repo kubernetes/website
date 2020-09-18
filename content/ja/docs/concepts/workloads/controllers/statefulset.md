@@ -124,7 +124,7 @@ StatefulSetは、Podのドメインをコントロールするために[Headless
 Podが作成された後、速やかにPodを検出する必要がある場合は、いくつかのオプションがあります。
 
 - DNSルックアップに依存するのではなく、Kubernetes APIに直接(例えばwatchを使って)問い合わせる。
-- Kubernetes DNS プロバイダのキャッシュ時間を短縮する(これは現在30秒キャッシュされるようになっているCoreDNSのConfigMapを編集することを意味しています。)。
+- Kubernetes DNS プロバイダーのキャッシュ時間を短縮する(これは現在30秒キャッシュされるようになっているCoreDNSのConfigMapを編集することを意味しています。)。
 
 [制限事項](#制限事項)セクションで言及したように、ユーザーはPodのネットワークアイデンティティーのために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を作成する責任があります。
 
