@@ -39,11 +39,11 @@ simplifies application deployment and management.
 
 Kubernetes supports several different kinds of ephemeral volumes for
 different purposes:
-- [emptyDir](/docs/concepts/volumes/#emptydir): empty at Pod startup,
+- [emptyDir](/docs/concepts/storage/volumes/#emptydir): empty at Pod startup,
   with storage coming locally from the kubelet base directory (usually
   the root disk) or RAM
-- [configMap](/docs/concepts/volumes/#configmap),
-  [downwardAPI](/docs/concepts/volumes/#downwardapi),
+- [configMap](/docs/concepts/storage/volumes/#configmap),
+  [downwardAPI](/docs/concepts/storage/volumes/#downwardapi),
   [secret](/docs/concepts/storage/volumes/#secret): inject different
   kinds of Kubernetes data into a Pod
 - [CSI ephemeral
