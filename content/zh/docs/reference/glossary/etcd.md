@@ -32,7 +32,7 @@ tags:
  Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
 -->
 
-etcd 是兼具一致性和高可用性的键值数据库，可以作为保存 Kubernetes 所有集群数据的后台数据库。
+兼具一致性和高可用性的键值数据库，可以作为保存 Kubernetes 所有集群数据的后台数据库。
 
 <!--more--> 
 
