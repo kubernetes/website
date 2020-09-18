@@ -8,7 +8,7 @@ weight: 80
 
 {{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
-_CronJob_ は時刻ベースのスケジュールによって[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)を作成します。
+_CronJob_ は繰り返しのスケジュールによって{{< glossary_tooltip term_id="job" text="Job" >}}を作成します。
 
 _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみられる一行のようなものです。
 [Cron](https://ja.wikipedia.org/wiki/Cron)形式で記述された指定のスケジュールの基づき、定期的にジョブが実行されます。
@@ -22,13 +22,25 @@ _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみら�
 CronJobリソースのためのマニフェストを作成する場合、その名前が有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)か確認してください。
 名前は52文字を超えることはできません。これはCronJobコントローラーが自動的に、与えられたジョブ名に11文字を追加し、ジョブ名の長さは最大で63文字以内という制約があるためです。
 
-cronジョブを作成し、実行するインストラクション、または、cronジョブ仕様ファイルのサンプルについては、[Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs)をご覧ください。
 
 
 
 <!-- body -->
 
-## CronJobの制限
+## CronJob
+
+CronJobは、バックアップの実行やメール送信のような定期的であったり頻発するタスクの作成に役立ちます。
+CronJobは、クラスターがアイドル状態になりそうなときにJobをスケジューリングするなど、特定の時間に個々のタスクをスケジュールすることもできます。
+
+### 例
+
+このCronJobマニフェスト例は、毎分ごとに現在の時刻とhelloメッセージを表示します。
+
+{{< codenew file="application/job/cronjob.yaml" >}}
+
+([Running Automated Tasks with a CronJob](/docs/tasks/job/automated-tasks-with-cron-jobs/)ではこの例をより詳しく説明しています。).
+
+## CronJobの制限 {#cron-job-limitations}
 
 cronジョブは一度のスケジュール実行につき、 _おおよそ_ 1つのジョブオブジェクトを作成します。ここで _おおよそ_ と言っているのは、ある状況下では2つのジョブが作成される、もしくは1つも作成されない場合があるためです。通常、このようなことが起こらないようになっていますが、完全に防ぐことはできません。したがって、ジョブは _冪等_ であるべきです。
 
@@ -50,4 +62,8 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 CronJobはスケジュールに一致するJobの作成にのみ関与するのに対して、JobはJobが示すPod管理を担います。
 
+## {{% heading "whatsnext" %}}
 
+[Cron表現形式](https://en.wikipedia.org/wiki/Cron)では、CronJobの`schedule`フィールドのフォーマットを説明しています。
+
+cronジョブの作成や動作の説明、CronJobマニフェストの例については、[Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs)を見てください。
