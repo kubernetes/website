@@ -194,5 +194,5 @@ kubectl delete secret db-user-pass
 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
 - Learn how to [manage Secret with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Learn how to [manage Secret using kustomizae](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
