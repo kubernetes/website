@@ -150,4 +150,4 @@ TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 미리 �
 * [API 접근 통제](/docs/reference/access-authn-authz/controlling-access/)
 * 컨트롤 플레인을 위한 [전송 데이터 암호화](/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [Rest에서 데이터 암호화](/docs/tasks/administer-cluster/encrypt-data/)
-* [쿠버네티스 시크릿](/docs/concepts/configuration/secret/)
+* [쿠버네티스 시크릿](/ko/docs/concepts/configuration/secret/)

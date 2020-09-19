@@ -90,7 +90,7 @@ args: ["$(MESSAGE)"]
 ```
 
 이것은 [컨피그 맵](/docs/tasks/configure-pod-container/configure
--pod-configmap/)과 [시크릿](/docs/concepts/configuration/secret/)을
+-pod-configmap/)과 [시크릿](/ko/docs/concepts/configuration/secret/)을
 포함해, 환경 변수를 정의하는데 활용할 수 있는 모든 방법들을 활용해서 파드를 위한 인자를
 정의할
 수 있다는 것을 의미한다.

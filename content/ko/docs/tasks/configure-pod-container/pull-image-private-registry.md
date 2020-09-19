@@ -6,7 +6,7 @@ weight: 100
 
 <!-- overview -->
 
-이 페이지는 프라이빗 도커 레지스트리나 리포지터리로부터 이미지를 받아오기 위해 시크릿(Secret)을 
+이 페이지는 프라이빗 도커 레지스트리나 리포지터리로부터 이미지를 받아오기 위해 시크릿(Secret)을
 사용하는 파드를 생성하는 방법을 보여준다.
 
 
@@ -16,7 +16,7 @@ weight: 100
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* 이 실습을 수행하기 위해, 
+* 이 실습을 수행하기 위해,
 [도커 ID](https://docs.docker.com/docker-id/)와 비밀번호가 필요하다.
 
 
@@ -59,7 +59,7 @@ cat ~/.docker/config.json
 
 ## 기존의 도커 자격 증명을 기반으로 시크릿 생성하기 {#registry-secret-existing-credentials}
 
-쿠버네티스 클러스터는 프라이빗 이미지를 받아올 때, 컨테이너 레지스트리에 인증하기 위하여 
+쿠버네티스 클러스터는 프라이빗 이미지를 받아올 때, 컨테이너 레지스트리에 인증하기 위하여
 `docker-registry` 타입의 시크릿을 사용한다.
 
 만약 이미 `docker login` 을 수행하였다면, 이 때 생성된 자격 증명을 쿠버네티스 클러스터로 복사할 수 있다.
@@ -70,16 +70,16 @@ kubectl create secret generic regcred \
     --type=kubernetes.io/dockerconfigjson
 ```
 
-오브젝트에 대한 더 세밀한 제어(새로운 시크릿에 대한 네임스페이스나 레이블을 지정하는 등)가 필요할 경우, 
+오브젝트에 대한 더 세밀한 제어(새로운 시크릿에 대한 네임스페이스나 레이블을 지정하는 등)가 필요할 경우,
 시크릿을 사용자 정의한 후에 저장할 수도 있다.
 다음을 확인하자.
 
 - 데이터 항목의 이름을 `.dockerconfigjson` 으로 설정한다
-- 도커 파일을 base64로 인코딩하고 그 문자열을 `data[".dockerconfigjson"]` 
+- 도커 파일을 base64로 인코딩하고 그 문자열을 `data[".dockerconfigjson"]`
   필드에 자르지 않고 한 줄로 이어서 붙여넣는다
 - `type` 을 `kubernetes.io/dockerconfigjson` 으로 설정한다
 
-예: 
+예:
 
 ```yaml
 apiVersion: v1
@@ -96,7 +96,7 @@ type: kubernetes.io/dockerconfigjson
 또한 `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...` 메세지가 출력될 경우,
 base64로 인코딩된 문자열이 정상적으로 디코딩되었으나, `.docker/config.json` 파일로 파싱되지 못한 것을 의미한다.
 
-## 커맨드 라인에서 자격 증명을 통하여 시크릿 생성하기 
+## 커맨드 라인에서 자격 증명을 통하여 시크릿 생성하기
 
 `regcred` 라는 이름의 시크릿을 생성하자.
 
@@ -114,8 +114,8 @@ kubectl create secret docker-registry regcred --docker-server=<your-registry-ser
 이를 통해 `regcred` 라는 시크릿으로 클러스터 내에서 도커 자격 증명을 생성했다.
 
 {{< note >}}
-커맨드 라인에서 시크릿을 입력하는 경우, 보호되지 않는 셸 히스토리에 내용이 저장될 수 있으며, 
-이러한 시크릿들은 `kubectl` 이 구동 중인 동안 사용자의 PC의 다른 사용자들에게 
+커맨드 라인에서 시크릿을 입력하는 경우, 보호되지 않는 셸 히스토리에 내용이 저장될 수 있으며,
+이러한 시크릿들은 `kubectl` 이 구동 중인 동안 사용자의 PC의 다른 사용자들에게
 보일 수도 있다.
 {{< /note >}}
 
@@ -144,7 +144,7 @@ type: kubernetes.io/dockerconfigjson
 
 `.dockerconfigjson` 필드의 값은 도커 자격 증명의 base64 인코딩 결과이다.
 
-`.dockerconfigjson`  필드의 값을 확인하기 위하여, 시크릿 데이터를 읽을 수 있는 
+`.dockerconfigjson`  필드의 값을 확인하기 위하여, 시크릿 데이터를 읽을 수 있는
 형식으로 변경한다.
 
 ```shell
@@ -206,11 +206,9 @@ kubectl get pod private-reg
 ## {{% heading "whatsnext" %}}
 
 
-* [시크릿](/docs/concepts/configuration/secret/)에 대해 더 배워 보기.
+* [시크릿](/ko/docs/concepts/configuration/secret/)에 대해 더 배워 보기.
 * [프라이빗 레지스트리 사용](/ko/docs/concepts/containers/images/#프라이빗-레지스트리-사용)에 대해 더 배워 보기.
 * [서비스 어카운트에 풀 시크릿(pull secret) 추가하기](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)에 대해 더 배워 보기.
 * [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)에 대해 읽어보기.
 * [시크릿](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)에 대해 읽어보기.
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)의 `imagePullSecrets` 필드에 대해 읽어보기.
-
-

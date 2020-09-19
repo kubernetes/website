@@ -3,7 +3,7 @@ title: 쿠버네티스 API
 content_type: concept
 weight: 30
 description: >
-  쿠버네티스 API를 사용하면 쿠버네티스 오브젝트들의 상태를 쿼리하고 조작할 수 있다. 
+  쿠버네티스 API를 사용하면 쿠버네티스 오브젝트들의 상태를 쿼리하고 조작할 수 있다.
   쿠버네티스 컨트롤 플레인의 핵심은 API 서버와 그것이 노출하는 HTTP API이다. 사용자와 클러스터의 다른 부분 및 모든 외부 컴포넌트는 API 서버를 통해 서로 통신한다.
 card:
   name: concepts
@@ -136,7 +136,7 @@ API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명�
 
 1. [커스텀리소스데피니션(CustomResourceDefinition)](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)은
    API 서버가 선택한 리소스 API를 제공하는 방법을 선언적으로 정의할 수 있다.
-1. 또한, [자신의 확장 API 서버 구현](/docs/tasks/extend-kubernetes/setup-extension-api-server/)과
+1. 또한, [자신의 확장 API 서버 구현](/ko/docs/tasks/extend-kubernetes/setup-extension-api-server/)과
    [aggregator](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)를
    사용해서 클라이언트를 원활하게 만들 수 있다.
 

@@ -247,7 +247,7 @@ immutable: true
 ## {{% heading "whatsnext" %}}
 
 
-* [시크릿](/docs/concepts/configuration/secret/)에 대해 읽어본다.
+* [시크릿](/ko/docs/concepts/configuration/secret/)에 대해 읽어본다.
 * [컨피그맵을 사용하도록 파드 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/)를 읽어본다.
 * 코드를 구성에서 분리하려는 동기를 이해하려면
   [Twelve-Factor 앱](https://12factor.net/ko/)을 읽어본다.
