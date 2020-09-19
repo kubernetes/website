@@ -1,5 +1,5 @@
 ---
-title: Managing Secret using `kubectl`
+title: Managing Secret using kubectl
 content_type: task
 weight: 10
 description: Creating Secret objects using kubectl command line.
