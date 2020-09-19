@@ -908,6 +908,8 @@ subjects:
   name: user-1
 ```
 
+Note that - as with any RBAC verb - you may omit `resourceNames` to allow `user-1` to grant other users _any_ ClusterRole in the namespace `user-1-namespace`.
+
 When bootstrapping the first roles and role bindings, it is necessary for the initial user to grant permissions they do not yet have.
 To bootstrap initial roles and role bindings:
 
