@@ -14,7 +14,7 @@ This page describes how to run a cluster in multiple zones.
 
 ## 始めに
 
-Kubernetes 1.2は複数のゾーンにおいて単一のクラスターを運用するサポートを追加しました(GCEでは単純に"ゾーン"，AWSは"アベイラビリティゾーン"と呼びますが、ここでは"ゾーン"とします)。
+Kubernetes 1.2より、複数のゾーンにおいて単一のクラスターを運用するサポートが追加されました(GCEでは単純に"ゾーン"，AWSは"アベイラビリティゾーン"と呼びますが、ここでは"ゾーン"とします)。
 これは、より範囲の広いCluster Federationの軽量バージョンです(以前は["Ubernetes"](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/multicluster/federation.md)の愛称で言及されていました)。
 完全なCluster Federationでは、異なるリージョンやクラウドプロバイダー(あるいはオンプレミスデータセンター)内の独立したKubernetesクラスターをまとめることが可能になります。しかしながら、多くのユーザーは単に1つのクラウドプロバイダーの複数のゾーンでより可用性の高いKubernetesクラスターを運用したいと考えており、バージョン1.2におけるマルチゾーンサポート(以前は"Ubernetes Lite"の愛称で使用されていました)ではこれが可能になります。
 
