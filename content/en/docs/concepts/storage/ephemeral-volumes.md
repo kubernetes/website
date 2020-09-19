@@ -92,7 +92,7 @@ Conceptually, CSI ephemeral volumes are similar to `configMap`,
 scheduled onto a node. Kubernetes has no concept of rescheduling Pods
 anymore at this stage. Volume creation has to be unlikely to fail,
 otherwise Pod startup gets stuck. In particular, [storage capacity
-aware Pod scheduling](/docs/concepts/storage-capacity/) is *not*
+aware Pod scheduling](/docs/concepts/storage/storage-capacity/) is *not*
 supported for these volumes. They are currently also not covered by
 the storage resource usage limits of a Pod, because that is something
 that kubelet can only enforce for storage that it manages itself.
@@ -147,7 +147,7 @@ flexible:
   ([snapshotting](/docs/concepts/storage/volume-snapshots/),
   [cloning](/docs/concepts/storage/volume-pvc-datasource/),
   [resizing](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
-  and [storage capacity tracking](/docs/concepts/storage-capacity/).
+  and [storage capacity tracking](/docs/concepts/storage/storage-capacity/).
 
 Example:
 
