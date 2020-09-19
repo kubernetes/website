@@ -423,7 +423,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `CustomResourceWebhookConversion`: [커스텀리소스데피니션](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에서
   생성된 리소스에 대해 웹 훅 기반의 변환을 활성화한다.
   실행 중인 파드 문제를 해결한다.
-- `DisableAcceleratorUsageMetrics`: [kubelet이 수집한 액셀러레이터 지표 비활성화](/docs/concepts/cluster-administration/system-metrics/).
+- `DisableAcceleratorUsageMetrics`: [kubelet이 수집한 액셀러레이터 지표 비활성화](/ko/docs/concepts/cluster-administration/system-metrics/).
 - `DevicePlugins`: 노드에서 [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   기반 리소스 프로비저닝을 활성화한다.
 - `DefaultPodTopologySpread`: `PodTopologySpread` 스케줄링 플러그인을 사용하여
