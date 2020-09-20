@@ -161,7 +161,7 @@ sudo mv minikube /usr/local/bin
 {{% tab name="Windows" %}}
 ### Instalasi kubectl
 
-Pastikan kamu mempunyai kubectl yang terinstal. Kamu bisa menginstal kubectl dengan mengikuti instruksi pada halaman [Menginstal dan Menyiapkan kubectl](/id/docs/tasks/tools/install-kubectl/#menginstal-program-kubectl-dengan-curl-pada-windows).
+Pastikan kamu mempunyai kubectl yang terinstal. Kamu bisa menginstal kubectl dengan mengikuti instruksi pada halaman [Menginstal dan Menyiapkan kubectl](/id/docs/tasks/tools/install-kubectl/#menginstal-kubectl-pada-windows).
 
 ### Menginstal sebuah Hypervisor
 
