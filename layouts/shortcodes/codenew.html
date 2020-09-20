@@ -19,11 +19,14 @@
 {{ end }}
 {{ with $.Scratch.Get "content" }}
 <div class="highlight">
-    <div class="includecode" style="text-align: right" id="{{- $file | anchorize -}}">
-        {{- with $ghlink -}}<a href="{{ . }}" download="{{ $file }}">{{- end -}}
-            <code>{{ $file }}</code>
-        {{ if $ghlink }}</a>{{ end }}<img src="{{ "images/copycode.svg" | relURL }}" style="max-height:24px; cursor: pointer" onclick="copyCode('{{ $file | anchorize }}')" title="Copy {{ $file }} to clipboard">
+    <div class="copy-code-icon" style="text-align:right">
+    {{ with $ghlink }}<a href="{{ . }}" download="{{ $file }}">{{ end }}<code>{{ $file }}</code>
+    {{ if $ghlink }}</a>{{ end }}
+    <img src="{{ "images/copycode.svg" | relURL }}" style="max-height:24px; cursor: pointer" onclick="copyCode('{{ $file | anchorize }}')" title="Copy {{ $file }} to clipboard">
+    </img>
     </div>
-{{ highlight . $codelang "" }}
+    <div class="includecode" id="{{ $file | anchorize }}">
+    {{ highlight . $codelang "" }}
+    </div>
 </div>
-{{- end -}}
+{{ end }}
