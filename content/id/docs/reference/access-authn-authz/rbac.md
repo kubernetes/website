@@ -1185,11 +1185,10 @@ memuat [kebijakan ABAC lama](/docs/reference/access-authn-authz/abac/#policy-fil
 --authorization-mode=...,RBAC,ABAC --authorization-policy-file=mypolicy.json
 ```
 
-Untuk menjelaskan opsi baris perintah yang pertama secara detail: jika pemberi otorisasi
-sebelumnya, seperti Node, menolak permintaan, maka pemberi otorisasi RBAC mencoba untuk
-mengotorisasi permintaan API tersebut. Jika RBAC juga menolak permintaan API tersebut,
-maka pemberi otorisasi ABAC akan dijalankan. Hal ini berarti permintaan apa pun yang
-diizinkan oleh *salah satu* kebijakan RBAC atau ABAC akan diizinkan.
+To explain that first command line option in detail: if earlier authorizers, such as Node,
+deny a request, then the RBAC authorizer attempts to authorize the API request. If RBAC
+also denies that API request, the ABAC authorizer is then run. This means that any request
+allowed by *either* the RBAC or ABAC policies is allowed.
 
 Ketika kube-apiserver dijalankan dengan level log 5 atau lebih tinggi untuk komponen
 RBAC (`--vmodule=rbac*=5` atau `--v=5`), kamu dapat melihat penolakan RBAC di log
