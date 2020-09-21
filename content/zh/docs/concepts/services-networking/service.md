@@ -379,7 +379,7 @@ There are a few reasons for using proxying for Services:
 
 ### 为什么不使用 DNS 轮询？
 
-时不时会有人问道，就是为什么 Kubernetes 依赖代理将入站流量转发到后端。 那其他方法呢？
+时不时会有人问到，就是为什么 Kubernetes 依赖代理将入站流量转发到后端。 那其他方法呢？
 例如，是否可以配置具有多个A值（或IPv6为AAAA）的DNS记录，并依靠轮询名称解析？
 
 使用服务代理有以下几个原因：
