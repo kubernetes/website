@@ -1158,7 +1158,7 @@ the [legacy ABAC policy](/docs/reference/access-authn-authz/abac/#policy-file-fo
 ```
 
 To explain that first command line option in detail: if earlier authorizers, such as Node,
-deny a request, then the the RBAC authorizer attempts to authorize the API request. If RBAC
+deny a request, then the RBAC authorizer attempts to authorize the API request. If RBAC
 also denies that API request, the ABAC authorizer is then run. This means that any request
 allowed by *either* the RBAC or ABAC policies is allowed.
 
