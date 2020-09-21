@@ -150,7 +150,7 @@ The commands `kubectl get` and `kubectl describe` avoid showing the contents
 of a `Secret` by default. This is to protect the `Secret` from being exposed
 accidentally to an onlooker, or from being stored in a terminal log.
 -->
-默认情况下，`kubectl get` 和 `kubectl describe` 命令可避免显示 `Secret` 的内容。
+`kubectl get` 和 `kubectl describe` 命令默认不显示 `Secret` 的内容。
 这是为了防止 `Secret` 被意外暴露给旁观者或存储在终端日志中。
 
 <!-- ## Decoding the Secret  {#decoding-secret} -->
@@ -206,6 +206,6 @@ kubectl delete secret db-user-pass
 - Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 -->
-- 阅读更多有关 [Secret 概念](/zh/docs/concepts/configuration/secret/)
-- 了解如何 [使用配置文件管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- 了解如何 [使用 kustomize 管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- 进一步阅读 [Secret 概念](/zh/docs/concepts/configuration/secret/)
+- 了解如何[使用配置文件管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- 了解如何[使用 kustomize 管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kustomize/)

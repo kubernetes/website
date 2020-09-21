@@ -2,7 +2,7 @@
 title: 使用配置文件管理 Secret
 content_type: task
 weight: 20
-description: 使用资源配置文件创建 Secret 对象
+description: 使用资源配置文件创建 Secret 对象。
 ---
 <!--  
 title: Managing Secret using Configuration File
@@ -202,9 +202,9 @@ or from being stored in a terminal log.
 To check the actual content of the encoded data, please refer to
 [decoding secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
 -->
-命令 `kubectl get` 和 `kubectl describe` 默认情况不显示 `Secret` 的内容。
-这是为了防止 `Secret` 意外地暴露给旁观者，或者保存在终端日志中。
-检查编码数据的实际内容，请参考 [解码 secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
+命令 `kubectl get` 和 `kubectl describe` 默认不显示 `Secret` 的内容。
+这是为了防止 `Secret` 意外地暴露给旁观者或者保存在终端日志中。
+检查编码数据的实际内容，请参考[解码 secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
 
 <!-- 
 If a field, such as `username`, is specified in both `data` and `stringData`,
@@ -262,7 +262,7 @@ kubectl delete secret db-user-pass
 - Learn how to [manage Secret with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secret using kustomizae](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 -->
-- 阅读更多有关于 [Secret 概念](/zh/docs/concepts/configuration/secret/)
-- 了解如何 [使用 `kubectl` 命令管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- 了解如何 [使用 kustomize 管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- 进一步阅读 [Secret 概念](/zh/docs/concepts/configuration/secret/)
+- 了解如何[使用 `kubectl` 命令管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- 了解如何[使用 kustomize 管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
