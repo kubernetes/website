@@ -2,7 +2,7 @@
 title: 使用配置文件管理 Secret
 content_type: task
 weight: 20
-description: 使用资源配置文件创建 Secret 对象
+description: 使用资源配置文件创建 Secret 对象。
 ---
 <!--  
 title: Managing Secret using Configuration File
