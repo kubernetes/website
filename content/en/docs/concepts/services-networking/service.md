@@ -359,7 +359,7 @@ As with Kubernetes {{< glossary_tooltip term_id="name" text="names">}} in genera
 must only contain lowercase alphanumeric characters and `-`. Port names must
 also start and end with an alphanumeric character.
 
-For example, the names `123-abc` and `web` are valid, but `123_abc` and `-web` are not.
+For example, the names `abc-123` and `web` are valid, but `123_abc` and `-web` are not.
 {{< /note >}}
 
 ## Choosing your own IP address
