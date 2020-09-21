@@ -279,6 +279,8 @@ foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
                                  / bar    service2:8080
 ```
 
+![testing ingress](/images/docs/ingress_mermaid.svg)
+
 would require an Ingress such as:
 
 {{< codenew file="service/networking/simple-fanout-example.yaml" >}}
