@@ -41,6 +41,7 @@ The Kubernetes API server serves an OpenAPI spec via the `/openapi/v2` endpoint.
 You can request the response format using request headers as follows:
 
 <table>
+  <caption style="display:none">Valid request header values for OpenAPI v2 queries</caption>
   <thead>
      <tr>
         <th>Header</th>
@@ -68,7 +69,6 @@ You can request the response format using request headers as follows:
         <td><em>serves </em><code>application/json</code></td>
      </tr>
   </tbody>
-  <caption>Valid request header values for OpenAPI v2 queries</caption>
 </table>
 
 Kubernetes implements an alternative Protobuf based serialization format that
@@ -102,12 +102,21 @@ to ensure that the API presents a clear, consistent view of system resources
 and behavior, and to enable controlling access to end-of-life and/or
 experimental APIs.
 
-Refer to [API versions reference](/docs/reference/using-api/api-overview/#api-versioning)
-for more details on the API version level definitions.
-
 To make it easier to evolve and to extend its API, Kubernetes implements
 [API groups](/docs/reference/using-api/api-overview/#api-groups) that can be
 [enabled or disabled](/docs/reference/using-api/api-overview/#enabling-or-disabling).
+
+API resources are distinguished by their API group, resource type, namespace
+(for namespaced resources), and name. The API server may serve the same
+underlying data through multiple API version and handle the conversion between
+API versions transparently. All these different versions are actually
+representations of the same resource. For example, suppose there are two
+versions `v1` and `v1beta1` for the same resource. An object created by the
+`v1beta1` version can then be read, updated, and deleted by either the
+`v1beta1` or the `v1` versions.
+
+Refer to [API versions reference](/docs/reference/using-api/api-overview/#api-versioning)
+for more details on the API version level definitions.
 
 ## API Extension
 
