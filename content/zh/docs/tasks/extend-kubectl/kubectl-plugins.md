@@ -1,6 +1,6 @@
 ---
 title: 用插件扩展 kubectl
-description: 通过创建和安装 kubectl 插件扩展 kubectl
+description: 通过创建和安装 kubectl 插件扩展 kubectl。
 content_type: task
 ---
 
