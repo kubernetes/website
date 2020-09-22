@@ -30,13 +30,23 @@ node4   Ready    <none>   2m43s   v1.16.0   node=node4,zone=zoneB
 
 Then the cluster is logically viewed as below:
 
-```
-+---------------+---------------+
-|     zoneA     |     zoneB     |
-+-------+-------+-------+-------+
-| node1 | node2 | node3 | node4 |
-+-------+-------+-------+-------+
-```
+{{<mermaid>}}
+graph TB
+    subgraph "zoneB"
+        n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        n1(Node1)
+        n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4 k8s;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
 Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/kubernetes-api/labels-annotations-taints/) that are created and populated automatically on most clusters.
 
@@ -80,17 +90,25 @@ You can read more about this field by running `kubectl explain Pod.spec.topology
 
 ### Example: One TopologySpreadConstraint
 
-Suppose you have a 4-node cluster where 3 Pods labeled `foo:bar` are located in node1, node2 and node3 respectively (`P` represents Pod):
+Suppose you have a 4-node cluster where 3 Pods labeled `foo:bar` are located in node1, node2 and node3 respectively:
 
-```
-+---------------+---------------+
-|     zoneA     |     zoneB     |
-+-------+-------+-------+-------+
-| node1 | node2 | node3 | node4 |
-+-------+-------+-------+-------+
-|   P   |   P   |   P   |       |
-+-------+-------+-------+-------+
-```
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
 If we want an incoming Pod to be evenly spread with existing Pods across zones, the spec can be given as:
 
@@ -100,15 +118,46 @@ If we want an incoming Pod to be evenly spread with existing Pods across zones, 
 
 If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1], hence the actual skew is 2 (3 - 1) - which violates `maxSkew: 1`. In this example, the incoming Pod can only be placed onto "zoneB":
 
-```
-+---------------+---------------+      +---------------+---------------+
-|     zoneA     |     zoneB     |      |     zoneA     |     zoneB     |
-+-------+-------+-------+-------+      +-------+-------+-------+-------+
-| node1 | node2 | node3 | node4 |  OR  | node1 | node2 | node3 | node4 |
-+-------+-------+-------+-------+      +-------+-------+-------+-------+
-|   P   |   P   |   P   |   P   |      |   P   |   P   |  P P  |       |
-+-------+-------+-------+-------+      +-------+-------+-------+-------+
-```
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        p4(mypod) --> n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class p4 plain;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
+
+OR
+
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        p4(mypod) --> n3
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class p4 plain;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
 You can tweak the Pod spec to meet various kinds of requirements:
 
@@ -118,17 +167,26 @@ You can tweak the Pod spec to meet various kinds of requirements:
 
 ### Example: Multiple TopologySpreadConstraints
 
-This builds upon the previous example. Suppose you have a 4-node cluster where 3 Pods labeled `foo:bar` are located in node1, node2 and node3 respectively (`P` represents Pod):
+This builds upon the previous example. Suppose you have a 4-node cluster where 3 Pods labeled `foo:bar` are located in node1, node2 and node3 respectively:
 
-```
-+---------------+---------------+
-|     zoneA     |     zoneB     |
-+-------+-------+-------+-------+
-| node1 | node2 | node3 | node4 |
-+-------+-------+-------+-------+
-|   P   |   P   |   P   |       |
-+-------+-------+-------+-------+
-```
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class p4 plain;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
 You can use 2 TopologySpreadConstraints to control the Pods spreading on both zone and node:
 
@@ -138,15 +196,24 @@ In this case, to match the first constraint, the incoming Pod can only be placed
 
 Multiple constraints can lead to conflicts. Suppose you have a 3-node cluster across 2 zones:
 
-```
-+---------------+-------+
-|     zoneA     | zoneB |
-+-------+-------+-------+
-| node1 | node2 | node3 |
-+-------+-------+-------+
-|  P P  |   P   |  P P  |
-+-------+-------+-------+
-```
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p4(Pod) --> n3(Node3)
+        p5(Pod) --> n3
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n1
+        p3(Pod) --> n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3,p4,p5 k8s;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
 If you apply "two-constraints.yaml" to this cluster, you will notice "mypod" stays in `Pending` state. This is because: to satisfy the first constraint, "mypod" can only be put to "zoneB"; while in terms of the second constraint, "mypod" can only put to "node2". Then a joint result of "zoneB" and "node2" returns nothing.
 
@@ -169,15 +236,37 @@ There are some implicit conventions worth noting here:
 
     Suppose you have a 5-node cluster ranging from zoneA to zoneC:
 
-    ```
-    +---------------+---------------+-------+
-    |     zoneA     |     zoneB     | zoneC |
-    +-------+-------+-------+-------+-------+
-    | node1 | node2 | node3 | node4 | node5 |
-    +-------+-------+-------+-------+-------+
-    |   P   |   P   |   P   |       |       |
-    +-------+-------+-------+-------+-------+
-    ```
+    {{<mermaid>}}
+    graph BT
+        subgraph "zoneB"
+            p3(Pod) --> n3(Node3)
+            n4(Node4)
+        end
+        subgraph "zoneA"
+            p1(Pod) --> n1(Node1)
+            p2(Pod) --> n2(Node2)
+        end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class p4 plain;
+    class zoneA,zoneB cluster;
+    {{< /mermaid >}}
+
+    {{<mermaid>}}
+    graph BT
+        subgraph "zoneC"
+            n5(Node5)
+        end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n5 k8s;
+    class zoneC cluster;
+    {{< /mermaid >}}
 
     and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 
