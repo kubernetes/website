@@ -6,8 +6,8 @@ weight: 30
 
 <!-- overview -->
 
-オペレーターは[カスタムリソース](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)を使用するKubernetesへのソフトウェア拡張です。
-オペレーターは、特に[制御ループ](/docs/concepts/#kubernetes-control-plane)のようなKubernetesが持つ仕組みに準拠しています。
+オペレーターは[カスタムリソース](/ja//docs/concepts/extend-kubernetes/api-extension/custom-resources/)を使用するKubernetesへのソフトウェア拡張です。
+オペレーターは、特に[制御ループ](/ja/docs/concepts/#kubernetes-control-plane)のようなKubernetesが持つ仕組みに準拠しています。
 
 
 
