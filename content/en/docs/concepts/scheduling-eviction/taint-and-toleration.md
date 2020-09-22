@@ -148,6 +148,14 @@ means that if this pod is running and a matching taint is added to the node, the
 the pod will stay bound to the node for 3600 seconds, and then be evicted. If the
 taint is removed before that time, the pod will not be evicted.
 
+{{< note >}}
+The evicted pod with `tolerationSeconds` field has the possibility to be scheduled to the prior node again. To avoid such behavior:
+- If the node is added system-level taints, Kubernetes will be responsible for applying `NoExecute` taint, as well as `Noschedule` taint.
+So the pod won't be scheduled to the prior node.
+- If the node is tainted by system admin, the best practice is to apply both `NoExecute` and `NoSchedule` taints; otherwise, the pod may be
+scheduled and evicted back and forth.
+{{< /note >}}
+
 ## Example Use Cases
 
 Taints and tolerations are a flexible way to steer pods *away* from nodes or evict
