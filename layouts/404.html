@@ -7,7 +7,7 @@
     <ul id="error-sections">
         {{ $sections := slice "docs" "blog" "training" "partners" "community" "case-studies" }}
         {{ range $sections }}
-        {{ with site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}" data-proofer-ignore>{{ .Title }}</a></li>{{ end }}
+        {{ with site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
         {{ end }}
     </ul>
 </section>
