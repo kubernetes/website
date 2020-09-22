@@ -65,6 +65,7 @@ spec:
   - http:
       paths:
       - path: /testpath
+        pathType: Prefix
         backend:
           serviceName: test
           servicePort: 80
@@ -72,7 +73,7 @@ spec:
 
 他の全てのKubernetesリソースと同様に、Ingressには`apiVersion`、`kind`や`metadata`フィールドが必要です。Ingressオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。設定ファイルに関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/)を参照してください。Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを一般的に使用します。例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)などがあります。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)の種類が異なれば、サポートするアノテーションも異なります。サポートされているアノテーションについて学ぶためには、使用するIngressコントローラーのドキュメントを確認してください。
 
-Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)は、ロードバランサーやプロキシーサーバーを設定するために必要な全ての情報を持っています。最も重要なものとして、外部からくる全てのリクエストに対して一致したルールのリストを含みます。IngressリソースはHTTPトラフィックに対してのルールのみサポートしています。
+Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)は、ロードバランサーやプロキシーサーバーを設定するために必要な全ての情報を持っています。最も重要なものとして、外部からくる全てのリクエストに対して一致したルールのリストを含みます。IngressリソースはHTTP(S)トラフィックに対してのルールのみサポートしています。
 
 ### Ingressのルール
 
@@ -89,6 +90,61 @@ Ingressコントローラーでは、デフォルトのバックエンドが設�
 ルールが設定されていないIngressは、全てのトラフィックをデフォルトのバックエンドに転送します。このデフォルトのバックエンドは、[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers)のオプション設定であり、Ingressリソースでは指定されていません。
 
 IngressオブジェクトでHTTPリクエストが1つもホスト名とパスの条件に一致しない時、そのトラフィックはデフォルトのバックエンドに転送されます。
+
+### パスのタイプ
+
+Ingressのそれぞれのパスは対応するパスのタイプを持ちます。サポートされているパスのタイプは3種類あります。
+
+* _`ImplementationSpecific`_ (デフォルト): このパスタイプでは、パスとの一致はIngressClassに依存します。Ingressの実装はこれを独立した`pathType`と扱うことも、`Prefix`や`Exact`と同一のパスタイプと扱うこともできます。
+
+* _`Exact`_: 大文字小文字を区別して完全に一致するURLパスと一致します。
+
+* _`Prefix`_: `/`で分割されたURLと前方一致で一致します。大文字小文字は区別され、パスの要素対要素で比較されます。パス要素は`/`で分割されたパスの中のラベルのリストを参照します。リクエストがパス _p_ に一致するのは、Ingressのパス _p_ がリクエストパス _p_ と要素単位で前方一致する場合です。
+  
+  {{< note >}}
+  パスの最後の要素がリクエストパスの最後の要素の部分文字列である場合、これは一致しません（例えば、`/foo/bar`は`/foo/bar/baz`と一致しますが、`/foo/barbaz`とは一致しません）。
+  {{< /note >}}
+
+#### 複数のパスとの一致
+
+リクエストがIngressの複数のパスと一致することがあります。そのような場合は、最も長くパスが一致したものが優先されます。2つのパスが同等に一致した場合は、完全一致が前方一致よりも優先されます。
+
+## Ingress Class
+
+Ingressは異なったコントローラーで実装されうるため、しばしば異なった設定を必要とします。
+IngressClassリソースは、この種別のIngressを実装すべきコントローラーの名称を含む追加の設定情報を含みます。各IngressはIngressClassリソースへの参照によって種別を指定すべきです。
+
+```yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: IngressClass
+metadata:
+  name: external-lb
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    apiGroup: k8s.example.com/v1alpha
+    kind: IngressParameters
+    name: external-lb
+```
+
+IngressClassリソースは任意のパラメータフィールドを含むことができます。これは追加の設定情報を参照するために利用することができます。
+
+### 非推奨のアノテーション
+
+Kubernetes 1.18でIngressClassリソースと`ingressClassName`フィールドが追加される前は、Ingressの種別はIngressの`kubernetes.io/ingress.class`アノテーションにより指定されていました。
+このアノテーションは正式に定義されたことはありませんが、Ingressコントローラーに広くサポートされています。
+
+Ingressの新しい`ingressClassName`フィールドはこのアノテーションを置き換えるものですが、完全に等価ではありません。
+アノテーションは一般にIngressを実装すべきIngressのコントローラーの名称を示していましたが、フィールドはIngressClassリソースを示しており、これはIngressのコントローラーの名称を含む追加のIngressの設定情報を持ちます。
+
+### デフォルトのIngress Class
+
+特定のIngressClassをクラスターでのデフォルトとすることができます。
+IngressClassリソースの`ingressclass.kubernetes.io/is-default-class`アノテーションを`true`に設定すると、`ingressClassName`フィールドが指定されないIngressにはこのデフォルトIngressClassが割り当てられるようになります。
+
+{{< caution >}}
+複数のIngressClassをクラスターのデフォルトに設定すると、アドミッションコントローラーは`ingressClassName`が指定されていないIngressオブジェクトの作成を防ぐようになります。クラスターのデフォルトのIngressClassを1つ以下にすることで、これを解消することができます。
+{{< /caution >}}
 
 ## Ingressのタイプ
 
@@ -268,16 +324,16 @@ metadata:
 spec:
   tls:
   - hosts:
-    - sslexample.foo.com
+      - sslexample.foo.com
     secretName: testsecret-tls
   rules:
-    - host: sslexample.foo.com
-      http:
-        paths:
-        - path: /
-          backend:
-            serviceName: service1
-            servicePort: 80
+  - host: sslexample.foo.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: service1
+          servicePort: 80
 ```
 
 {{< note >}}
@@ -288,7 +344,7 @@ spec:
 
 Ingressコントローラーは、負荷分散アルゴリズムやバックエンドの重みスキームなど、すべてのIngressに適用されるいくつかの負荷分散ポリシーの設定とともにブートストラップされます。発展した負荷分散のコンセプト(例: セッションの永続化、動的重み付けなど)はIngressによってサポートされていません。代わりに、それらの機能はService用のロードバランサーを介して利用できます。
 
-Ingressによってヘルスチェックの機能が直接に公開されていない場合でも、Kubernetesにおいて、同等の機能を提供する[Readiness Probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)のようなコンセプトが存在することは注目に値します。コントローラーがどのようにヘルスチェックを行うかについては、コントローラーのドキュメントを参照してください([nginx](https://git.k8s.io/ingress-nginx/README.md)、[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks))。
+Ingressによってヘルスチェックの機能が直接に公開されていない場合でも、Kubernetesにおいて、同等の機能を提供する[Readiness Probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のようなコンセプトが存在することは注目に値します。コントローラーがどのようにヘルスチェックを行うかについては、コントローラーのドキュメントを参照してください([nginx](https://git.k8s.io/ingress-nginx/README.md)、[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks))。
 
 ## Ingressの更新
 
