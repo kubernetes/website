@@ -5,7 +5,7 @@ approvers:
 title: Kubernetes API 访问控制
 ---
 
-用户通过 `kubectl`、客户端库或者通过发送 REST 请求[访问 API](/docs/user-guide/accessing-the-cluster)。 用户和 [Kubernetes 服务账户](/docs/tasks/configure-pod-container/configure-service-account/) 都可以被授权进行 API 访问。
+用户通过 `kubectl`、客户端库或者通过发送 REST 请求[访问 API](/zh/docs/user-guide/accessing-the-cluster)。 用户和 [Kubernetes 服务账户](/zh/docs/tasks/configure-pod-container/configure-service-account/) 都可以被授权进行 API 访问。
 请求到达 API 服务器后会经过几个阶段，具体说明如图：
 
 ![Diagram of request handling steps for Kubernetes API request](/images/docs/admin/access-control-overview.svg)
@@ -73,7 +73,7 @@ Bootstrap Tokens，以及 JWT Tokens（用于服务账户）。
   }
 }
 ```
-如果 Bob 对 `projectCaribou` 命名空间下的对象发起一个写（`create` 或者 `update`）请求，那么它的授权会被拒绝。 如果 Bob 请求读取 （`get`）其他命名空间，例如 `projectFish` 下的对象，其授权也会被拒绝。 
+如果 Bob 对 `projectCaribou` 命名空间下的对象发起一个写（`create` 或者 `update`）请求，那么它的授权会被拒绝。 如果 Bob 请求读取 （`get`）其他命名空间，例如 `projectFish` 下的对象，其授权也会被拒绝。
 
 Kubernetes 的授权要求使用通用的 REST 属性与现有的组织或云服务提供商的访问控制系统进行交互。 采用 REST 格式是必要的，因为除 Kubernetes 外，这些访问控制系统还可能与其他的 API 进行交互。
 
