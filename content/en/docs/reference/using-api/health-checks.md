@@ -94,7 +94,7 @@ The output show that the `etcd` check is excluded:
 {{< feature-state state="alpha" >}}
 
 Each individual health check exposes an http endpoint and could can be checked individually.
-The schema for the individual health checks is `/livez/<healthcheck-name>` where `livez` and `readyz` and be used to indicate if you want to check thee liveness or the readiness of the API server.
+The schema for the individual health checks is `/livez/<healthcheck-name>` where `livez` and `readyz` and be used to indicate if you want to check the liveness or the readiness of the API server.
 The `<healthcheck-name>` path can be discovered using the `verbose` flag from above and take the path between `[+]` and `ok`.
 These individual health checks should not be consumed by machines but can be helpful for a human operator to debug a system:
 
