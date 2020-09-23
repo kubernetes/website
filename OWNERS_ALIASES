@@ -147,27 +147,28 @@ aliases:
     - sftim
     - zacharysarah
   sig-docs-zh-owners: # Admins for Chinese content
-    - chenopis
+    # chenopis
     - chenrui333
-    - dchen1107
-    - haibinxie
-    - hanjiayao
-    - lichuqiang
+    # dchen1107
+    # haibinxie
+    # hanjiayao
+    # lichuqiang
     - SataQiu
     - tengqm
     - xiangpengzhao
     - xichengliudui
-    - zacharysarah
-    - zhangxiaoyu-zidif
+    # zacharysarah
+    # zhangxiaoyu-zidif
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - chenrui333
+    - howieyuen
     - idealhack
     - SataQiu
     - tanjunchen
     - tengqm
     - xiangpengzhao
     - xichengliudui
-    - zhangxiaoyu-zidif
+    # zhangxiaoyu-zidif
     - pigletfly
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
