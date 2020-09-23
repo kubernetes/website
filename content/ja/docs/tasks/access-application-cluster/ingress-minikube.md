@@ -135,7 +135,7 @@ weight: 100
 1. 以下の内容で`example-ingress.yaml`を作成します。
 
     ```yaml
-    apiVersion: networking.k8s.io/v1beta1
+    apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
       name: example-ingress
@@ -147,9 +147,12 @@ weight: 100
         http:
           paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: web
-              servicePort: 8080
+              service:
+                name: web
+                port:
+                  number: 8080
     ```
 
 1. 次のコマンドを実行して、Ingressリソースを作成します。
@@ -175,8 +178,8 @@ weight: 100
     {{< /note >}}
 
     ```shell
-    NAME              HOSTS              ADDRESS       PORTS     AGE
-    example-ingress   hello-world.info   172.17.0.15   80        38s
+    NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
+    example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
     ```
 
 1. 次の行を`/etc/hosts`ファイルの最後に書きます。
@@ -241,9 +244,12 @@ weight: 100
 
     ```yaml
           - path: /v2
+            pathType: Prefix
             backend:
-              serviceName: web2
-              servicePort: 8080
+              service:
+                name: web2
+                port:
+                  number: 8080
     ```
 
 1. 次のコマンドで変更を適用します。
