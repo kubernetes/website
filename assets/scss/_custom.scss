@@ -61,6 +61,15 @@ body.td-404 main .error-details {
   margin-bottom: 0;
 }
 
+/* Global - Mermaid.js diagrams */
+
+.mermaid {
+  overflow-x: auto;
+  max-width: 80%;
+  border: 1px solid rgb(222, 226, 230);
+  border-radius: 5px;
+}
+
 /* HEADER */
 
 .td-navbar {
@@ -542,3 +551,4 @@ body.td-documentation {
     }
   }
 }
+
