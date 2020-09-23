@@ -29,7 +29,7 @@ cloud-provider-wide access control systems which may handle other APIs besides
 the Kubernetes API. -->
 
 在 Kubernetes 中，您必须在授权（授予访问权限）之前进行身份验证（登录），有关身份验证的信息，
-请参阅 [访问控制概述](/docs/reference/access-authn-authz/controlling-access/).
+请参阅 [访问控制概述](/zh/docs/reference/access-authn-authz/controlling-access/).
 
 Kubernetes 期望 REST API 请求中常见的属性。
 这意味着 Kubernetes 授权适用于现有的组织范围或云提供商范围的访问控制系统，
