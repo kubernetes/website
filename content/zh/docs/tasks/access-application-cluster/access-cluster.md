@@ -71,7 +71,7 @@ curl or wget, or a browser, there are several ways to locate and authenticate:
     - Works with some types of client code that are confused by using a proxy.
     - Need to import a root cert into your browser to protect against MITM.
 -->
-有许多 [例子](/docs/user-guide/kubectl-cheatsheet) 介绍了如何使用 kubectl，可以在 [kubectl手册](/docs/user-guide/kubectl-overview) 中找到更完整的文档。
+有许多 [例子](/zh/docs/user-guide/kubectl-cheatsheet) 介绍了如何使用 kubectl，可以在 [kubectl手册](/zh/docs/user-guide/kubectl-overview) 中找到更完整的文档。
 
 ## 直接访问 REST API
 Kubectl 处理 apiserver 的定位和身份验证。
