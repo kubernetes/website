@@ -67,7 +67,7 @@ kubectl apply -f kube-state-metrics/examples/standard
 
 ### Check to see if kube-state-metrics is running
 ```shell
-kubectl get pods --namespace=kube-system | grep kube-state
+kubectl get pods --namespace=kube-system -l app.kubernetes.io/name=kube-state-metrics
 ```
 Output:
 ```shell
