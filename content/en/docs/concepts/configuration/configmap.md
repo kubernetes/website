@@ -102,7 +102,7 @@ metadata:
 spec:
   containers:
     - name: demo
-      image: game.example/demo-game
+      image: nginx
       env:
         # Define the environment variable
         - name: PLAYER_INITIAL_LIVES # Notice that the case is different here
