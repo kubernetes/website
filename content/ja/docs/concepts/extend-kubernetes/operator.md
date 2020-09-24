@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-オペレーターは[カスタムリソース](/ja//docs/concepts/extend-kubernetes/api-extension/custom-resources/)を使用するKubernetesへのソフトウェア拡張です。
+オペレーターは[カスタムリソース](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)を使用するKubernetesへのソフトウェア拡張です。
 オペレーターは、特に[制御ループ](/ja/docs/concepts/#kubernetes-control-plane)のようなKubernetesが持つ仕組みに準拠しています。
 
 
@@ -94,5 +94,4 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
 * 自前のオペレーターを他のユーザーのために[公開](https://operatorhub.io/)します
 * オペレーターパターンを紹介している[CoreOSオリジナル記事](https://coreos.com/blog/introducing-operators.html)を読みます
 * Google Cloudが出したオペレーター作成のベストプラクティス[記事](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)を読みます
-
 
