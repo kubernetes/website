@@ -46,7 +46,7 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 ```
 
 
-上記のコマンドにより、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)オブジェクトを作成し、[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)オブジェクトを関連づけます。ReplicaSetには5つの[Pod](/ja/docs/concepts/workloads/pods/pod/)があり、それぞれHello Worldアプリケーションが起動しています。
+上記のコマンドにより、 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}を作成し、{{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}}を関連づけます。ReplicaSetには5つの{{< glossary_tooltip text="Pod" term_id="pod" >}}があり、それぞれHello Worldアプリケーションが起動しています。
 
 1. Deploymentに関する情報を表示します:
 
