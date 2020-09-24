@@ -397,7 +397,7 @@ spec:
     - port: 80
       targetPort: 80
       # 省略可能なフィールド
-      # デフォルトでは利便性のため、Kubernetesコントロールプレーンはある範囲から1つポートを割り当てます（デフォルトの範囲：30000-32767）
+      # デフォルトでは利便性のため、Kubernetesコントロールプレーンはある範囲から1つポートを割り当てます(デフォルト値の範囲：30000-32767)
       nodePort: 30007
 ```
 
@@ -975,4 +975,3 @@ kube-proxyはuserspaceモードにおいてSCTPアソシエーションの管理
 * [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)を参照してください。
 * [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。
 * [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
-
