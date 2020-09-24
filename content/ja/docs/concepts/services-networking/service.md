@@ -149,7 +149,7 @@ ExternalName Serviceはセレクターの代わりにDNS名を使用する特殊
 
 AppProtocolフィールドは、各Serviceのポートで使用されるアプリケーションプロトコルを指定する方法を提供します。
 
-アルファ機能のため、このフィールドはデフォルトで有効化されていません。このフィールドを使用するには、 `ServiceAppProtocol` という[Feature gate](/docs/reference/command-line-tools-reference/feature-gates/)を有効化してください。
+アルファ機能のため、このフィールドはデフォルトで有効化されていません。このフィールドを使用するには、 `ServiceAppProtocol` という[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効化してください。
 
 ## 仮想IPとサービスプロキシー {#virtual-ips-and-service-proxies}
 
@@ -975,5 +975,4 @@ kube-proxyはuserspaceモードにおいてSCTPアソシエーションの管理
 * [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)を参照してください。
 * [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。
 * [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
-
 
