@@ -668,11 +668,11 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
       diskformat: zeroedthick
     ```
 
-    `diskformat`: `thin`, `zeroedthick` 和 `eagerzeroedthick`。默认值: `"thin"`。
-
-<!--
+    <!--
     `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
--->
+    -->
+
+    `diskformat`: `thin`, `zeroedthick` 和 `eagerzeroedthick`。默认值: `"thin"`。
 
 <!--
 2. Create a StorageClass with a disk format on a user specified datastore.
@@ -690,6 +690,15 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
         datastore: VSANDatastore
     ```
 
+    <!--
+    `datastore`: The user can also specify the datastore in the StorageClass.
+    The volume will be created on the datastore specified in the storage class,
+    which in this case is `VSANDatastore`. This field is optional. If the
+    datastore is not specified, then the volume will be created on the datastore
+    specified in the vSphere config file used to initialize the vSphere Cloud
+    Provider.
+    -->
+
     `datastore`：用户也可以在 StorageClass 中指定数据存储。
     卷将在 storage class 中指定的数据存储上创建，在这种情况下是 `VSANDatastore`。
     该字段是可选的。
@@ -697,39 +706,11 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
     配置文件中指定的数据存储上创建该卷。
 
 <!--
-    `datastore`: The user can also specify the datastore in the StorageClass.
-    The volume will be created on the datastore specified in the storage class,
-    which in this case is `VSANDatastore`. This field is optional. If the
-    datastore is not specified, then the volume will be created on the datastore
-    specified in the vSphere config file used to initialize the vSphere Cloud
-    Provider.
--->
-
-<!--
 3. Storage Policy Management inside kubernetes
 -->
 3. Kubernetes 中的存储策略管理
 
-    * 使用现有的 vCenter SPBM 策略
-
-        vSphere 用于存储管理的最重要特性之一是基于策略的管理。
-        基于存储策略的管理（SPBM）是一个存储策略框架，提供单一的统一控制平面的
-        跨越广泛的数据服务和存储解决方案。
-        SPBM 使能 vSphere 管理员克服先期的存储配置挑战，如容量规划，差异化服务等级和管理容量空间。
-
-        SPBM 策略可以在 StorageClass 中使用 `storagePolicyName` 参数声明。
-
-    * Kubernetes 内的 Virtual SAN 策略支持
-
-        Vsphere Infrastructure（VI）管理员将能够在动态卷配置期间指定自定义 Virtual SAN
-        存储功能。您现在可以定义存储需求，例如性能和可用性，当动态卷供分配时会以存储功能的形式提供。
-        存储功能需求会转换为 Virtual SAN 策略，然后当持久卷（虚拟磁盘）在创建时，
-        会将其推送到 Virtual SAN 层。虚拟磁盘分布在 Virtual SAN 数据存储中以满足要求。
-
-        更多有关 persistent volume 管理的存储策略的详细信息，
-        您可以参考 [基于存储策略的动态分配卷管理](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)。
-
-<!--
+    <!--
     * Using existing vCenter SPBM policy
 
         One of the most important features of vSphere for Storage Management is
@@ -742,9 +723,18 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
 
         The SPBM policies can be specified in the StorageClass using the
         `storagePolicyName` parameter.
--->
+    -->
 
-<!--
+    * 使用现有的 vCenter SPBM 策略
+
+        vSphere 用于存储管理的最重要特性之一是基于策略的管理。
+        基于存储策略的管理（SPBM）是一个存储策略框架，提供单一的统一控制平面的
+        跨越广泛的数据服务和存储解决方案。
+        SPBM 使能 vSphere 管理员克服先期的存储配置挑战，如容量规划，差异化服务等级和管理容量空间。
+
+        SPBM 策略可以在 StorageClass 中使用 `storagePolicyName` 参数声明。
+
+    <!--
     * Virtual SAN policy support inside Kubernetes
 
         Vsphere Infrastructure (VI) Admins will have the ability to specify custom
@@ -759,7 +749,17 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
         You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)
         for more details on how to use storage policies for persistent volumes
         management.
--->
+    -->
+
+    * Kubernetes 内的 Virtual SAN 策略支持
+
+        Vsphere Infrastructure（VI）管理员将能够在动态卷配置期间指定自定义 Virtual SAN
+        存储功能。您现在可以定义存储需求，例如性能和可用性，当动态卷供分配时会以存储功能的形式提供。
+        存储功能需求会转换为 Virtual SAN 策略，然后当持久卷（虚拟磁盘）在创建时，
+        会将其推送到 Virtual SAN 层。虚拟磁盘分布在 Virtual SAN 数据存储中以满足要求。
+
+        更多有关 persistent volume 管理的存储策略的详细信息，
+        您可以参考 [基于存储策略的动态分配卷管理](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)。
 
 <!--
 There are few
