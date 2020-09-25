@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: kubectlの概要
 content_type: concept
 weight: 20
