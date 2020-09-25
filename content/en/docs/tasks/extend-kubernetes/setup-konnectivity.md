@@ -24,9 +24,30 @@ The following steps require an egress configuration, for example:
 You need to configure the API Server to use the Konnectivity service
 and direct the network traffic to the cluster nodes:
 
+1. Make sure that
+[ServiceAccountTokenVolumeProjection](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
+feature is enabled in your cluster. It can be done by providing the following flags for the API Server:
+   ```
+   --service-account-issuer=api
+   --service-account-signing-key-file=/etc/kubernetes/pki/sa.key
+   --api-audiences=system:konnectivity-server
+   ```
 1. Create an egress configuration file such as `admin/konnectivity/egress-selector-configuration.yaml`.
 1. Set the `--egress-selector-config-file` flag of the API Server to the path of
 your API Server egress configuration file.
+
+Generate certificate and kubeconfig for konnectivity-server:
+
+```bash
+openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -nodes -out konnectivity.csr -keyout konnectivity.key -out konnectivity.csr
+openssl x509 -req -in konnectivity.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out konnectivity.crt -days 375 -sha256
+SERVER=$(kubectl config view -o jsonpath='{.clusters..server}')
+kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config set-credentials system:konnectivity-server --client-certificate konnectivity.crt --client-key konnectivity.key --embed-certs=true
+kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config set-cluster kubernetes --server "$SERVER" --certificate-authority /etc/kubernetes/pki/ca.crt --embed-certs=true
+kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config set-context system:konnectivity-server@kubernetes --cluster kubernetes --user system:konnectivity-server
+kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config use-context system:konnectivity-server@kubernetes
+rm -f konnectivity.crt konnectivity.key konnectivity.csr
+```
 
 Next, you need to deploy the Konnectivity server and agents.
 [kubernetes-sigs/apiserver-network-proxy](https://github.com/kubernetes-sigs/apiserver-network-proxy)
