@@ -197,7 +197,7 @@ As many Services need to expose more than one port, Kubernetes supports multiple
 port definitions on a Service object.
 Each port definition can have the same `protocol`, or a different one.
 -->
-Pod 中的端口定义是有名字的，你可以在服务的 `targetTarget` 属性中引用这些名称。
+Pod 中的端口定义是有名字的，你可以在服务的 `targetPort` 属性中引用这些名称。
 即使服务中使用单个配置的名称混合使用 Pod，并且通过不同的端口号提供相同的网络协议，此功能也可以使用。
 这为部署和发展服务提供了很大的灵活性。
 例如，您可以更改Pods在新版本的后端软件中公开的端口号，而不会破坏客户端。
