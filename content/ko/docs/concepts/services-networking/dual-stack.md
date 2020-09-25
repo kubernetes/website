@@ -43,6 +43,7 @@ IPv4/IPv6 이중 스택을 활성화 하려면, 클러스터의 관련 구성요
 
    * kube-apiserver:
       * `--feature-gates="IPv6DualStack=true"`
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
@@ -104,4 +105,4 @@ IPv6가 활성화된 외부 로드 밸런서를 지원하는 클라우드 공급
 ## {{% heading "whatsnext" %}}
 
 
-* [IPv4/IPv6 이중 스택 확인](/docs/tasks/network/validate-dual-stack) 네트워킹
+* [IPv4/IPv6 이중 스택 확인](/ko/docs/tasks/network/validate-dual-stack) 네트워킹

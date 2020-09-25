@@ -1176,7 +1176,7 @@ HTTP / HTTPS 서비스를 노출할 수도 있다.
 
 ### PROXY 프로토콜
 
-클라우드 공급자가 지원하는 경우에 (예: [AWS](/ko/docs/concepts/cluster-administration/cloud-providers/#aws)),
+클라우드 공급자가 지원하는 경우에,
 LoadBalancer 모드의 서비스를 사용하여 쿠버네티스 자체 외부에
 로드 밸런서를 구성할 수 있으며, 이때 접두사가
 [PROXY 프로토콜](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) 인 연결을 전달하게 된다.

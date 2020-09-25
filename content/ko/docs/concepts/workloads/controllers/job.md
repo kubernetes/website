@@ -344,7 +344,7 @@ spec:
 
 |                            패턴                                   | 단일 잡 오브젝트 | 작업 항목보다 파드가 적은가? | 수정하지 않은 앱을 사용하는가? |  Kube 1.1에서 작동하는가? |
 | -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
-| [잡 템플릿 확장](/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
+| [잡 템플릿 확장](/ko/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
 | [작업 항목 당 파드가 있는 큐](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |         ✓         |                             |      때때로      |          ✓          |
 | [가변 파드 수를 가진 큐](/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
 | 정적 작업이 할당된 단일 잡                               |         ✓         |                             |          ✓          |                     |
@@ -360,7 +360,7 @@ spec:
 
 |                             패턴                                  | `.spec.completions` |  `.spec.parallelism` |
 | -------------------------------------------------------------------- |:-------------------:|:--------------------:|
-| [잡 템플릿 확장](/docs/tasks/job/parallel-processing-expansion/)           |          1          |     1이어야 함      |
+| [잡 템플릿 확장](/ko/docs/tasks/job/parallel-processing-expansion/)           |          1          |     1이어야 함      |
 | [작업 항목 당 파드가 있는 큐](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |          W          |        any           |
 | [가변 파드 수를 가진 큐](/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
 | 정적 작업이 할당된 단일 잡                               |          W          |        any           |
