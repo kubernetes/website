@@ -366,13 +366,13 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `AnyVolumeDataSource`: {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}의
   `DataSource` 로 모든 사용자 정의 리소스 사용을 활성화한다.
 - `APIListChunking`: API 클라이언트가 API 서버에서 (`LIST` 또는 `GET`) 리소스를 청크(chunks)로 검색할 수 있도록 한다.
-- `APIPriorityAndFairness`: 각 서버의 우선 순위와 공정성을 통해 동시 요청을 관리할 수 ​​있다. (`RequestManagement` 에서 이름이 변경됨)
+- `APIPriorityAndFairness`: 각 서버의 우선 순위와 공정성을 통해 동시 요청을 관리할 수 있다. (`RequestManagement` 에서 이름이 변경됨)
 - `APIResponseCompression`: `LIST` 또는 `GET` 요청에 대한 API 응답을 압축한다.
 - `AppArmor`: 도커를 사용할 때 리눅스 노드에서 AppArmor 기반의 필수 접근 제어를 활성화한다.
    자세한 내용은 [AppArmor 튜토리얼](/ko/docs/tutorials/clusters/apparmor/)을 참고한다.
 - `AttachVolumeLimit`: 볼륨 플러그인이 노드에 연결될 수 있는 볼륨 수에
   대한 제한을 보고하도록 한다.
-   자세한 내용은 [동적 볼륨 제한](/docs/concepts/storage/storage-limits/#dynamic-volume-limits)을 참고한다.
+   자세한 내용은 [동적 볼륨 제한](/ko/docs/concepts/storage/storage-limits/#동적-볼륨-한도)을 참고한다.
 - `BalanceAttachedNodeVolumes`: 스케줄링 시 균형 잡힌 리소스 할당을 위해 고려할 노드의 볼륨 수를
   포함한다. 스케줄러가 결정을 내리는 동안 CPU, 메모리 사용률 및 볼륨 수가
   더 가까운 노드가 선호된다.
@@ -423,7 +423,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `CustomResourceWebhookConversion`: [커스텀리소스데피니션](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에서
   생성된 리소스에 대해 웹 훅 기반의 변환을 활성화한다.
   실행 중인 파드 문제를 해결한다.
-- `DisableAcceleratorUsageMetrics`: [kubelet이 수집한 액셀러레이터 지표 비활성화](/docs/concepts/cluster-administration/monitoring.md).
+- `DisableAcceleratorUsageMetrics`: [kubelet이 수집한 액셀러레이터 지표 비활성화](/ko/docs/concepts/cluster-administration/system-metrics/).
 - `DevicePlugins`: 노드에서 [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   기반 리소스 프로비저닝을 활성화한다.
 - `DefaultPodTopologySpread`: `PodTopologySpread` 스케줄링 플러그인을 사용하여

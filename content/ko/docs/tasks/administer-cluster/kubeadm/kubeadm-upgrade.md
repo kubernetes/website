@@ -155,7 +155,7 @@ min-kubernetes-server-version: 1.19
 {{< note >}}
 또한 `kubeadm upgrade` 는 이 노드에서 관리하는 인증서를 자동으로 갱신한다.
 인증서 갱신을 하지 않으려면 `--certificate-renewal=false` 플래그를 사용할 수 있다.
-자세한 내용은 [인증서 관리 가이드](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)를 참고한다.
+자세한 내용은 [인증서 관리 가이드](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)를 참고한다.
 {{</ note >}}
 
 {{< note >}}

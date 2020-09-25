@@ -25,10 +25,10 @@ no_list: true
 
 공식 사이트에서의 [시작하기!](https://minikube.sigs.k8s.io/docs/start/)
 가이드를 따라 해볼 수 있고, 또는 도구 설치에 중점을 두고 있다면
-[Minikube 설치](/docs/tasks/tools/install-minikube/)를 읽어볼 수 있다.
+[Minikube 설치](/ko/docs/tasks/tools/install-minikube/)를 읽어볼 수 있다.
 
 Minikube가 작동하면, 이를 사용하여
-[샘플 애플리케이션을 실행](/docs/tutorials/hello-minikube/)해볼 수 있다.
+[샘플 애플리케이션을 실행](/ko/docs/tutorials/hello-minikube/)해볼 수 있다.
 
 ## kind
 

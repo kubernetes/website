@@ -43,7 +43,7 @@ content_type: concept
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - 쿠버네티스에 탑재된 핵심 제어 루프를 포함하는 데몬.
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - 간단한 TCP/UDP 스트림 포워딩이나 백-엔드 집합에 걸쳐서 라운드-로빈 TCP/UDP 포워딩을 할 수 있다.
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - 가용성, 성능 및 용량을 관리하는 스케줄러.
-  * [kube-scheduler 정책](/docs/reference/scheduling/policies)
+  * [kube-scheduler 정책](/ko/docs/reference/scheduling/policies)
   * [kube-scheduler 프로파일](/docs/reference/scheduling/config#profiles)
 
 ## 설계 문서

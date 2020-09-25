@@ -1026,7 +1026,7 @@ web-1
 다시 생성되고 `web-0`과 `web-1`은 계속
 각 호스트네임을 제공한다.
 
-최종적으로 `web` 스테이트풀셋을 삭제한다.
+최종적으로 `nginx` 서비스를 삭제한다.
 
 ```shell
 kubectl delete service nginx
@@ -1034,7 +1034,7 @@ kubectl delete service nginx
 ```
 service "nginx" deleted
 ```
-그리고 `nginx` 서비스를 삭제한다.
+그리고 `web` 스테이트풀셋을 삭제한다.
 ```shell
 kubectl delete statefulset web
 ```
