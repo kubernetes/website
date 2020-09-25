@@ -1,0 +1,1067 @@
+[
+  {
+    "name": "v1.2.3",
+    "date": "2016-04-22T21:44:51Z",
+    "details": "See [CHANGELOG.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v123)\n"
+  },
+  {
+    "name": "v1.2.4",
+    "date": "2016-05-06T18:55:36Z",
+    "details": "See [CHANGELOG.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v124)\n"
+  },
+  {
+    "name": "v1.2.5",
+    "date": "2016-06-27T18:29:43Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v125) for details.\n"
+  },
+  {
+    "name": "v1.2.6",
+    "date": "2016-07-15T16:47:11Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v126) for details.\n"
+  },
+  {
+    "name": "v1.2.7",
+    "date": "2016-10-22T20:41:29Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v127) for details.\n\nSHA256 for `kubernetes.tar.gz`: `53db157923c17fa7a0addb3e4dfe7d1b9194b9266a87d371a251d5bb790a1832`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v127).\n"
+  },
+  {
+    "name": "v1.3.0",
+    "date": "2016-07-01T20:25:49Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v130) for details.\n"
+  },
+  {
+    "name": "v1.3.1",
+    "date": "2016-07-17T18:15:46Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v131) for details.\n"
+  },
+  {
+    "name": "v1.3.2",
+    "date": "2016-07-17T19:20:49Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v132) for details.\n"
+  },
+  {
+    "name": "v1.3.3",
+    "date": "2016-07-22T22:21:33Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v133) for details.\n\nDOWNLOAD SHA256: `a92a74a0d3f7d02d01ac2c8dfb5ee2e97b0485819e77b2110eb7c6b7c782478c`\n"
+  },
+  {
+    "name": "v1.3.4",
+    "date": "2016-08-01T17:36:03Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v134) for details.\n\nDOWNLOAD SHA256: `818acc1a8ba61cff434d4c0c5aa3d342d06e6907b565cfd8651b8cfcf3f0a1e6`\n"
+  },
+  {
+    "name": "v1.3.5",
+    "date": "2016-08-11T21:23:51Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v135) for details.\n\nDOWNLOAD SHA256: `46be88ce927124f7cef7e280720b42c63051086880b7ebdba298b561dbe19f82`\n"
+  },
+  {
+    "name": "v1.3.6",
+    "date": "2016-08-26T19:06:07Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v136) for details.\n\nDOWNLOAD SHA256: `2db7ace2f72a2e162329a6dc969a5a158bb8c5d0f8054c5b1b2b1063aa22020d`\n"
+  },
+  {
+    "name": "v1.3.7",
+    "date": "2016-09-13T00:04:24Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v137) for details.\n\nDOWNLOAD SHA256: `ad18566a09ff87b36107c2ea238fa5e20988d7a62c85df9c8598920679fec4a1`\n"
+  },
+  {
+    "name": "v1.3.8",
+    "date": "2016-09-28T04:18:22Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v138) for details.\n\nDOWNLOAD SHA256: `66cf72d8f07e2f700acfcb11536694e0d904483611ff154f34a8380c63720a8d`\n"
+  },
+  {
+    "name": "v1.3.9",
+    "date": "2016-10-20T22:51:07Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v139) for details.\n\nDOWNLOAD SHA256: `a994c732d2b852bbee55a78601d50d046323021a99b0801aea07dacf64c2c59a`\n"
+  },
+  {
+    "name": "v1.3.10",
+    "date": "2016-10-31T22:43:03Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v1310) for details.\n\nSHA256 for `kubernetes.tar.gz`: `0f61517fbab1feafbe1024da0b88bfe16e61fed7e612285d70e3ecb53ce518cf`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v1310).\n"
+  },
+  {
+    "name": "v1.4.0",
+    "date": "2016-09-26T19:05:05Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v140) for details.\n\nDOWNLOAD SHA256: `6cf3d78230f7659b87fa399a56a7aaed1fde6a73be9d05e25feedacfbd8d5a16`\n"
+  },
+  {
+    "name": "v1.4.1",
+    "date": "2016-10-10T19:20:44Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v141) for details.\n\nDOWNLOAD SHA256: `b51971d872426ba71bb09b9a9191bb95fc0e48390dc287a9080e3876c8e19a95`\n"
+  },
+  {
+    "name": "v1.4.3",
+    "date": "2016-10-16T19:48:55Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md/#v143) for details.\n\nDOWNLOAD SHA256: `c3dccccc005bc22eaf814ccb8e72b4f876167ab38ac594bb7e44c98f162a0f1c`\n"
+  },
+  {
+    "name": "v1.4.4",
+    "date": "2016-10-21T03:35:30Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v144) for details.\n\nSHA256 for `kubernetes.tar.gz`: `2732bfc56ceabc872b6af3f460cbda68c2384c95a1c0c72eb33e5ff0e03dc9da`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v144).\n"
+  },
+  {
+    "name": "v1.4.5",
+    "date": "2016-10-29T02:23:52Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v145) for details.\n\nSHA256 for `kubernetes.tar.gz`: `339f4d1c7a374ddb32334268c4af8dae0b86d1567a9c812087d672a7defe233c`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v145).\n"
+  },
+  {
+    "name": "v1.4.6",
+    "date": "2016-11-12T06:09:52Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v146) for details.\n\nSHA256 for `kubernetes.tar.gz`: `6f8242aa29493e1f824997748419e4a287c28b06ed13f17b1ba94bf07fdfa3be`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v146).\n"
+  },
+  {
+    "name": "v1.4.7",
+    "date": "2016-12-10T05:38:00Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v147) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d193f76e70322010b3e86ac61c7a893175f9e62d37bece87cfd14ea068c8d187`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v147).\n"
+  },
+  {
+    "name": "v1.4.8",
+    "date": "2017-01-12T03:06:35Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v148) for details.\n\nSHA256 for `kubernetes.tar.gz`: `888d2e6c5136e8805805498729a1da55cf89addfd28f098e0d2cf3f28697ab5c`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v148).\n"
+  },
+  {
+    "name": "v1.4.9",
+    "date": "2017-02-15T14:20:13Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v149) for details.\n\nSHA256 for `kubernetes.tar.gz`: `9d385d555073c7cf509a92ce3aa96d0414a93c21c51bcf020744c70b4b290aa2`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v149).\n"
+  },
+  {
+    "name": "v1.4.12",
+    "date": "2017-04-20T21:46:07Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v1412) for details.\n\nSHA256 for `kubernetes.tar.gz`: `f0d7ca7e1c92174c900d49087347d043b817eb589803eacc7727a84df9280ed2`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v1412)."
+  },
+  {
+    "name": "v1.5.0",
+    "date": "2016-12-13T01:46:49Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v150) for details.\n\nSHA256 for `kubernetes.tar.gz`: `52b7df98ea05fb3ebbababf1ccb7f6d4e6f4cad00b8d09350f270aa7e3ad7e85`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v150).\n"
+  },
+  {
+    "name": "v1.5.1",
+    "date": "2016-12-14T03:08:19Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v151) for details.\n\nSHA256 for `kubernetes.tar.gz`: `adc4f6ec1fc8f97ed19f474ffcc0af2d050f92dc20ecec2799741802019205ec`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v151).\n"
+  },
+  {
+    "name": "v1.5.2",
+    "date": "2017-01-12T07:25:50Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v152) for details.\n\nSHA256 for `kubernetes.tar.gz`: `67344958325a70348db5c4e35e59f9c3552232cdc34defb8a0a799ed91c671a3`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v152).\n"
+  },
+  {
+    "name": "v1.5.3",
+    "date": "2017-02-15T09:08:28Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v153) for details.\n\nSHA256 for `kubernetes.tar.gz`: `a4d997be9e3ac0f9838a58fb80d08c2ab02e00afb9d16d3db18d99c85b88b316`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v153).\n"
+  },
+  {
+    "name": "v1.5.4",
+    "date": "2017-03-08T02:26:19Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v154) for details.\n\nSHA256 for `kubernetes.tar.gz`: `2ff668c687c1bdf8351dcae102901b1d46cc50e446bde08a244c2e65739de4c3`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v154)."
+  },
+  {
+    "name": "v1.5.5",
+    "date": "2017-03-22T01:26:47Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v155) for details.\n\nSHA256 for `kubernetes.tar.gz`: `ff171d53b6dba2aace899dbfa06044d3a54d798896f7b6dd483f20d2c05374ed`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v155)."
+  },
+  {
+    "name": "v1.5.6",
+    "date": "2017-03-28T16:13:48Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v156) for details.\n\nSHA256 for `kubernetes.tar.gz`: `14a514bb9ed331eb1854a1d66cfaa53290c382641e154c901bcb14eb2cd683b4`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v156)."
+  },
+  {
+    "name": "v1.5.7",
+    "date": "2017-04-27T12:28:20Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v157) for details.\n\nSHA256 for `kubernetes.tar.gz`: `36bc0bcdce4060546f3fef7186f1207d30d5fd340e72113ff592966bd6684827`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v157)."
+  },
+  {
+    "name": "v1.5.8",
+    "date": "2017-10-01T08:27:06Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v158) for details.\n\nSHA256 for `kubernetes.tar.gz`: `6a3fad3dcc3c59f926e5c0110d16edfc323fdd5482c83102b3f8068b420702db`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v158)."
+  },
+  {
+    "name": "v1.6.0",
+    "date": "2017-03-28T19:28:38Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v160) for details.\n\nSHA256 for `kubernetes.tar.gz`: `e89318b88ea340e68c427d0aad701e544ce2291195dc1d5901222e7bae48f03b`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v160)."
+  },
+  {
+    "name": "v1.6.1",
+    "date": "2017-04-03T22:54:55Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v161) for details.\n\nSHA256 for `kubernetes.tar.gz`: `f1634e22ee3fe8af5c355c3f53d1b93f946490addfab029e19acf5317c51cd38`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v161)."
+  },
+  {
+    "name": "v1.6.2",
+    "date": "2017-04-19T22:58:23Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v162) for details.\n\nSHA256 for `kubernetes.tar.gz`: `240f66a98bf75246b53ef7c1fa3a2be36a92cbc173bc8626e7bc4427bef9ce6a`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v162)."
+  },
+  {
+    "name": "v1.6.3",
+    "date": "2017-05-10T18:26:37Z",
+    "details": "**WARNING:** See [Known Issues](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#known-issues-for-v163) before upgrading.\r\n\r\nSee [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v163) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `0af5914fcea36b3c65c8185f31e94b2839eaed52dfdd666d31dfa14534a7d69c`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v163)."
+  },
+  {
+    "name": "v1.6.4",
+    "date": "2017-05-19T19:59:22Z",
+    "details": "**WARNING:** See [Known Issues](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#known-issues-for-v164) before upgrading.\r\n\r\nSee [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v164) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `fef6a97be8195fee1108b40acbd7bea61ef5244b8be23e799d2d01ee365907dd`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v164)."
+  },
+  {
+    "name": "v1.6.5",
+    "date": "2017-06-14T22:26:16Z",
+    "details": "**WARNING:** See [Known Issues](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#known-issues-for-v165) before upgrading.\r\n\r\nSee [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v165) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `e497ddd9d0fb03a71babd6c7f879951ba8e2d791c9884613d60794f7df9a5a51`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v165)."
+  },
+  {
+    "name": "v1.6.6",
+    "date": "2017-06-16T20:55:59Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v166) for details.\n\nSHA256 for `kubernetes.tar.gz`: `1574d868d43f5d88cfd1af255226e8cd6da72cd65fb9e1285557279c34f8a645`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v166)."
+  },
+  {
+    "name": "v1.6.7",
+    "date": "2017-07-05T19:12:35Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v167) for details.\n\nSHA256 for `kubernetes.tar.gz`: `6522086d9666543ed4e88a791626953acd1ea843eb024f16f4a4a2390dcbb2b2`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v167)."
+  },
+  {
+    "name": "v1.6.8",
+    "date": "2017-08-03T20:20:12Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v168) for details.\n\nSHA256 for `kubernetes.tar.gz`: `c87f7826f0b7cf91baddd97ebafb33e99d91dcf6b9019a50bee0689527541ef7`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v168)."
+  },
+  {
+    "name": "v1.6.9",
+    "date": "2017-08-23T20:02:09Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.6.md#v169) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `08be94c252e7fbdd7c14811ec021818e687c1259e557b70db10aac64c0e8e4b2`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.6.md#downloads-for-v169)."
+  },
+  {
+    "name": "v1.6.10",
+    "date": "2017-09-13T22:06:09Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.6.md#v1610) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `8877359b78950b12a48ea68483f4e4ba2d2521f7e8620efca6f84275cb023428`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.6.md#downloads-for-v1610)."
+  },
+  {
+    "name": "v1.6.11",
+    "date": "2017-09-28T23:46:34Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.6.md#v1611) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `0dacad1c3da0397b6234e474979c4095844733315a853feba5690dbdf8db15dc`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.6.md#downloads-for-v1611)."
+  },
+  {
+    "name": "v1.6.12",
+    "date": "2017-10-25T20:25:44Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.6.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.6.md#v1612) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d57a05942f581959bc31778def4df4b526df80adaa75942214e9439fdecbe74f`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.6.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.6.md#downloads-for-v1612)."
+  },
+  {
+    "name": "v1.6.13",
+    "date": "2017-11-22T22:37:53Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.6.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.6.md#v1613) for details.\n\nSHA256 for `kubernetes.tar.gz`: `effda17f63d149f1082e85cf5e5bc41b1f5f9bf64e082020c4455ce2e4525e26`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.6.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.6.md#downloads-for-v1613)."
+  },
+  {
+    "name": "v1.7.0",
+    "date": "2017-06-30T06:35:31Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v170) for details.\n\nSHA256 for `kubernetes.tar.gz`: `947f1dd9a9b6b427faac84067a30c86e83e6391eb42f09ddcc50a8694765c31a`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v170)."
+  },
+  {
+    "name": "v1.7.1",
+    "date": "2017-07-14T04:23:03Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v171) for details.\n\nSHA256 for `kubernetes.tar.gz`: `76bddfd19a50f92136456af5bbc3a9d4239260c0c40dccfe704156286a93127c`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v171)."
+  },
+  {
+    "name": "v1.7.2",
+    "date": "2017-07-21T12:34:52Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v172) for details.\n\nSHA256 for `kubernetes.tar.gz`: `35281f3552ec4bdf0c219bb7d25b22033648a81e3726594d25500418653eb2f0`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v172)."
+  },
+  {
+    "name": "v1.7.3",
+    "date": "2017-08-03T11:34:21Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v173) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8afa3919b6bff47ada1c298837881ef7eed9516694d54517ac2a59b0bbe7308c`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v173)."
+  },
+  {
+    "name": "v1.7.4",
+    "date": "2017-08-17T17:28:11Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v174) for details.\n\nSHA256 for `kubernetes.tar.gz`: `dfc4521a81cdcb6a644757247f7b5311ed371d767053e0b28ac1c6a58a890bd2`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v174)."
+  },
+  {
+    "name": "v1.7.5",
+    "date": "2017-08-31T13:40:16Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v175) for details.\n\nSHA256 for `kubernetes.tar.gz`: `bc96c1ec02da6a82f90bc04064d2c4d6463a4d9dd37e5882a23f8c74bdf1b20b`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v175)."
+  },
+  {
+    "name": "v1.7.6",
+    "date": "2017-09-14T12:19:36Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v176) for details.\n\nSHA256 for `kubernetes.tar.gz`: `6d2462aed79097845129e05375fdf16b724c32d47579d30a9b563a8d360d3ae3`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v176)."
+  },
+  {
+    "name": "v1.7.7",
+    "date": "2017-09-29T06:05:58Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v177) for details.\n\nSHA256 for `kubernetes.tar.gz`: `1fbf1672931464c7b66b93298a6623c97727d9359e5409e7e139a7fbec486591`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v177)."
+  },
+  {
+    "name": "v1.7.8",
+    "date": "2017-10-05T12:01:46Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#v178) for details.\n\nSHA256 for `kubernetes.tar.gz`: `219bbdd3b36949004432230629f14caf6e36839537bac54d75c02ca0bc91af73`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#downloads-for-v178)."
+  },
+  {
+    "name": "v1.7.9",
+    "date": "2017-10-19T19:55:23Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#v179) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8c7c16c137c421cfe27311aba0fea49411ed725d3d41938706474c328647afcc`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#downloads-for-v179)."
+  },
+  {
+    "name": "v1.7.10",
+    "date": "2017-11-03T21:17:20Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#v1710) for details.\n\nSHA256 for `kubernetes.tar.gz`: `a4a4e63576f25cfc3b1f5be2a74c992f42caca75adace41db1edf4d692c478c5`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#downloads-for-v1710)."
+  },
+  {
+    "name": "v1.7.11",
+    "date": "2017-11-25T22:51:39Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#v1711) for details.\n\nSHA256 for `kubernetes.tar.gz`: `0b4c9247784851a6681adf7ed068be75f346179035cdab840d11d4e6dc274aa1`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#downloads-for-v1711)."
+  },
+  {
+    "name": "v1.7.12",
+    "date": "2017-12-29T14:08:12Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#v1712) for details.\n\nSHA256 for `kubernetes.tar.gz`: `749f811fb77daca197ecce2eacfea13f28e9fa69748d1b9fa7521850a5e77b93`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#downloads-for-v1712)."
+  },
+  {
+    "name": "v1.7.13",
+    "date": "2018-03-01T21:23:35Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#v1713) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `4a488d14a4dd04816dadf159cfc6e628083fa055cf14ef8b99fa925c5a8bc636`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#downloads-for-v1713)."
+  },
+  {
+    "name": "v1.7.14",
+    "date": "2018-03-12T19:49:14Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#v1714) for details.\n\nSHA256 for `kubernetes.tar.gz`: `efd282ca78274dcacd9d3d66a89c375884d3cc3c72a56e86129eda3bef60b796`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#downloads-for-v1714)."
+  },
+  {
+    "name": "v1.7.15",
+    "date": "2018-03-19T20:38:13Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#v1715) for details.\n\nSHA256 for `kubernetes.tar.gz`: `ca5b60037a9cd0551214c6dd5cf4b46c854829189bd9bb9b99155ae850745586`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#downloads-for-v1715)."
+  },
+  {
+    "name": "v1.7.16",
+    "date": "2018-04-04T13:26:31Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#v1716) for details.\n\nSHA256 for `kubernetes.tar.gz`: `428377630d711419e4c629b52899b44dd6f57d450b52b3d47c2304ccd24fa711`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.7.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.7.md#downloads-for-v1716)."
+  },
+  {
+    "name": "v1.8.0",
+    "date": "2017-09-29T04:33:09Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v180) for details.\n\nSHA256 for `kubernetes.tar.gz`: `802a2bc9e9da6d146c71cc446a5faf9304de47996e86134270c725e6440cbb7d`\n\nAdditional binary downloads are linked in the [CHANGELOG](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#downloads-for-v180)."
+  },
+  {
+    "name": "v1.8.1",
+    "date": "2017-10-12T14:32:17Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v181) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `15bf424a40544d2ff02eeba00d92a67409a31d2139c78b152b7c57a8555a1549`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v181)."
+  },
+  {
+    "name": "v1.8.2",
+    "date": "2017-10-24T21:43:05Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v182) for details.\n\nSHA256 for `kubernetes.tar.gz`: `06a800c414e776640a7861baa4f0b6edbd898c13ad3ebcd33860fe5d949bbdee`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v182)."
+  },
+  {
+    "name": "v1.8.3",
+    "date": "2017-11-08T21:09:36Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v183) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `86a565d47afb2b4440a3d706e24b9590225e576f1aee1d0117f6a82c13a7ca1a`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v183)."
+  },
+  {
+    "name": "v1.8.4",
+    "date": "2017-11-20T19:03:33Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v184) for details.\n\nSHA256 for `kubernetes.tar.gz`: `7f87cdafaf5959dfd60e4a89203a7e85cc139262b87c491e3ef46a1313fb9379`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v184)."
+  },
+  {
+    "name": "v1.8.5",
+    "date": "2017-12-07T18:09:34Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v185) for details.\n\nSHA256 for `kubernetes.tar.gz`: `7a7993e5dee72ede890e180112959a1fe179b592178ef24d04c48212c09345b8`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v185)."
+  },
+  {
+    "name": "v1.8.6",
+    "date": "2017-12-21T20:29:45Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v186) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8289c42b5d6da1dbf910585fca3a9d909195e540cc81bace61ec1d06b2366c1b`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v186)."
+  },
+  {
+    "name": "v1.8.7",
+    "date": "2018-01-17T01:19:16Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v187) for details.\n\nSHA256 for `kubernetes.tar.gz`: `39389e6bc459e96af44dbca38697a14fa292a66e5d5b82cced2ed5cd321b3793`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v187)."
+  },
+  {
+    "name": "v1.8.8",
+    "date": "2018-02-09T23:28:46Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v188) for details.\n\nSHA256 for `kubernetes.tar.gz`: `2a89a7498e982847bd07ba15abebae3205c793c5d9e2d3d392423023213f3e85`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v188)."
+  },
+  {
+    "name": "v1.8.9",
+    "date": "2018-03-12T19:49:52Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v189) for details.\n\nSHA256 for `kubernetes.tar.gz`: `5d85066065a411c120d54c7f5e3f426b4b1557c36c98af12273f72c6a2f43428`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v189)."
+  },
+  {
+    "name": "v1.8.10",
+    "date": "2018-03-19T20:05:18Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v1810) for details.\n\nSHA256 for `kubernetes.tar.gz`: `021c0f968c7b3facd48e2cf250eec9acc250dae33627025a0762fe9db700d063`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v1810)."
+  },
+  {
+    "name": "v1.8.11",
+    "date": "2018-04-05T20:39:33Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v1811) for details.\n\nSHA256 for `kubernetes.tar.gz`: `85069e47def15eb1f4ae3ec58e0ac25ca0edc9f238c3e6b21dd2dbfa083f740b`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v1811)."
+  },
+  {
+    "name": "v1.8.12",
+    "date": "2018-04-24T04:36:32Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v1812) for details.\n\nSHA256 for `kubernetes.tar.gz`: `41ff4727612bca701fa3d78d20aebd4414e02627b502286094fb3129d71ee580`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v1812)."
+  },
+  {
+    "name": "v1.8.13",
+    "date": "2018-05-15T19:50:53Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v1813) for details.\n\nSHA256 for `kubernetes.tar.gz`: `1515abd5e5aef927355c26e4a0e9e9f257880a2b8f357d59c9a54043f1806344`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v1813)."
+  },
+  {
+    "name": "v1.8.14",
+    "date": "2018-06-19T17:13:25Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v1814) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d2013bbc635031c1f388b53a32164447f196bf34f91f3f72f52e400eea548fd8`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v1814)."
+  },
+  {
+    "name": "v1.8.15",
+    "date": "2018-07-11T23:06:14Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#v1815) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d3478129e17e98e70d1108d841495cc6f54b218671c18ad0a5eb96ccfee79021`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.8.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#downloads-for-v1815)."
+  },
+  {
+    "name": "v1.9.0",
+    "date": "2017-12-15T23:34:42Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v190) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d8a52a97382a418b69d46a8b3946bd95c404e03a2d50489d16b36517c9dbc7f4`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v190)."
+  },
+  {
+    "name": "v1.9.1",
+    "date": "2018-01-04T19:16:20Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v191) for details.\n\nSHA256 for `kubernetes.tar.gz`: `0eece0e6c1f68535ea71b58b87e239019bb57fdd61118f3d7defa6bbf4fad5ee`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v191)."
+  },
+  {
+    "name": "v1.9.2",
+    "date": "2018-01-18T20:06:37Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v192) for details.\n\nSHA256 for `kubernetes.tar.gz`: `7a922d49b1194cb1b59b22cecb4eb1197f7c37250d4326410dc71aa5dc5ec8a2`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v192)."
+  },
+  {
+    "name": "v1.9.3",
+    "date": "2018-02-09T21:46:27Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v193) for details.\n\nSHA256 for `kubernetes.tar.gz`: `b495325eacd1354514b20ef1f0b99c6a41277842fc93b6cf5c9cb6e8657c266f`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v193)."
+  },
+  {
+    "name": "v1.9.4",
+    "date": "2018-03-12T19:49:45Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v194) for details.\n\nSHA256 for `kubernetes.tar.gz`: `45b6aa8adbf3cf9fe37ddf063400a984766363b31f4da6204c00d02815616ce4`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v194)."
+  },
+  {
+    "name": "v1.9.5",
+    "date": "2018-03-19T19:26:06Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v195) for details.\n\nSHA256 for `kubernetes.tar.gz`: `72947d7ac9a6f5bfe9f98b3362ce176cfc4d7c35caa1cf974ca2fd6dbc8ad608`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v195)."
+  },
+  {
+    "name": "v1.9.6",
+    "date": "2018-03-21T19:01:31Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v196) for details.\n\nSHA256 for `kubernetes.tar.gz`: `254f14a1c0a160c92c974ce471d86f549ca5ba25e22c42b0008a9d07291f931f`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v196)."
+  },
+  {
+    "name": "v1.9.7",
+    "date": "2018-04-19T16:42:46Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v197) for details.\n\nSHA256 for `kubernetes.tar.gz`: `617b534fca9c5b2ced9c8eb3298a41fc55413aa876dcfec09bd15488e488db92`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v197)."
+  },
+  {
+    "name": "v1.9.8",
+    "date": "2018-05-21T22:00:13Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v198) for details.\n\nSHA256 for `kubernetes.tar.gz`: `de31bcccfe99b88f54ff24147be0b6c4fbc4fe46b10f81d0f05294317070e221`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v198)."
+  },
+  {
+    "name": "v1.9.9",
+    "date": "2018-06-29T06:08:08Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v199) for details.\n\nSHA256 for `kubernetes.tar.gz`: `846b3f42bfe3e176ac44c4e79826a68648d982a1b6ebc2af15c1424f7b8f42f2`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v199)."
+  },
+  {
+    "name": "v1.9.10",
+    "date": "2018-08-03T01:32:37Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v1910) for details.\n\nSHA256 for `kubernetes.tar.gz`: `77dbeb124f399e7e7ae0d7e3111316e6325b66383fc0ce7c2505758616fb6cd8`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v1910)."
+  },
+  {
+    "name": "v1.9.11",
+    "date": "2018-10-01T19:14:52Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#v1911) for details.\n\nSHA512 for `kubernetes.tar.gz`: `4f04d07e31ca49c033680cabb011de1d893db94213ee3d68cb4345be435012279682b299f2b44dce596bcfd6806a253e9544e263d5a7003ccbab92da8dcfed24`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.9.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.9.md#downloads-for-v1911)."
+  },
+  {
+    "name": "v1.10.0",
+    "date": "2018-03-26T23:57:17Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v1100) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `a48d4f6eb4bf329a87915d2264250f2045aab1e8c6cc3e574a887ec42b5c6edc`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v1100)."
+  },
+  {
+    "name": "v1.10.1",
+    "date": "2018-04-12T18:08:46Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v1101) for details.\n\nSHA256 for `kubernetes.tar.gz`: `877f83d7475eade8104388799a842d1002f5ef8f284154bed229a25862ed2bde`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v1101)."
+  },
+  {
+    "name": "v1.10.2",
+    "date": "2018-04-27T11:46:22Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v1102) for details.\n\nSHA256 for `kubernetes.tar.gz`: `1ff377ad005a5548f872f7534328dcc332c683e527f432708eddcc549a6ab880`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v1102)."
+  },
+  {
+    "name": "v1.10.3",
+    "date": "2018-05-21T11:15:38Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v1103) for details.\n\nSHA256 for `kubernetes.tar.gz`: `c39d9c5a1cd3507c9464a1df12436ec005975a13980b47c451434c4e6de43a76`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v1103)."
+  },
+  {
+    "name": "v1.10.4",
+    "date": "2018-06-06T11:13:08Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v1104) for details.\n\nSHA256 for `kubernetes.tar.gz`: `b6e04c7c95ec9cfe6463ccc0863cd7c5dc874409ce2c3dd130809ea3e22ec39d`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v1104)."
+  },
+  {
+    "name": "v1.10.5",
+    "date": "2018-06-21T13:52:42Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v1105) for details.\n\nSHA256 for `kubernetes.tar.gz`: `3be564d25f68c6539a29c103825b7824d6a451ac8e4fc1ac0ee164c9513761f0`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v1105)."
+  },
+  {
+    "name": "v1.10.6",
+    "date": "2018-07-26T13:05:11Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v1106) for details.\n\nSHA256 for `kubernetes.tar.gz`: `dbb1e757ea8fe5e82796db8604d3fc61f8b79ba189af8e3b618d86fcae93dfd0`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v1106)."
+  },
+  {
+    "name": "v1.10.7",
+    "date": "2018-08-20T12:15:17Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v1107) for details.\n\nSHA256 for `kubernetes.tar.gz`: `49037bfff1a398afb3d22c4caa71b9c3915b443653a730d5faee83d8845ea93c`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v1107)."
+  },
+  {
+    "name": "v1.10.8",
+    "date": "2018-09-15T08:59:49Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v1108) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8af88c2aa340fd4801e39374572e4e4b876b0c723327fe32286bb4a0b3f5c1fd`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v1108)."
+  },
+  {
+    "name": "v1.10.9",
+    "date": "2018-10-16T14:34:54Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v1109) for details.\n\nSHA512 for `kubernetes.tar.gz`: `5ffc5ddac07c65d306057996aec741120340124a6a94a1fa254fb41899efa8d35148e9a9e630dc114f9dc6296b9bb3cb6933cb7fa41b1e68acd161340a274c8b`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v1109)."
+  },
+  {
+    "name": "v1.10.10",
+    "date": "2018-11-14T14:11:45Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v11010) for details.\n\nSHA512 for `kubernetes.tar.gz`: `605609b9b20b1c17f2accc251bb4e5dfb878fce351c7efadd8b6684323bdb8f87f31fbb27cf8a92c5d52c719f92f754ffe0fd065bbec43cb03ec91a6680ee327`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v11010)."
+  },
+  {
+    "name": "v1.10.11",
+    "date": "2018-11-26T17:08:36Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v11011) for details.\n\nSHA512 for `kubernetes.tar.gz`: `92ba95aea1e28ad0edd4504e6bd3ccd22201e55c4496076d4d864ab15340850041d8c5ee1ff14525b3239fd05a295c6ac3752fa73a7f091e01eea241b5eec8b4`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v11011)."
+  },
+  {
+    "name": "v1.10.12",
+    "date": "2018-12-19T13:29:13Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v11012) for details.\n\nSHA512 for `kubernetes.tar.gz`: `be4d23a65d8aacd28355941f82a3b3668b4763ea37dc5caca9b556c5e8922133e91c13b48e14b4c337af61ae7d7d20c662b7a8439efff2626328beb569d1ad94`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v11012)."
+  },
+  {
+    "name": "v1.10.13",
+    "date": "2019-02-13T13:22:49Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#v11013) for details.\n\nSHA512 for `kubernetes.tar.gz`: `8add1e0bb21e5d3be1a91301d522782c3b867d55a48ce865331db23d35cca0ad4289279332dbf74a4c45ccc4ea9dc160cef98e44b7b6bcd072196f099059b913`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.10.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#downloads-for-v11013)."
+  },
+  {
+    "name": "v1.11.0",
+    "date": "2018-06-27T21:58:34Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1110) for details.\n\nSHA256 for `kubernetes.tar.gz`: `3c779492574a5d8ce702d89915184f5dd52280da909abf134232e5ab00b4a885`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v1110)."
+  },
+  {
+    "name": "v1.11.1",
+    "date": "2018-07-17T22:00:44Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1111) for details.\n\nSHA256 for `kubernetes.tar.gz`: `77d93c4ab10b1c4421835ebf3c81dc9c6d2a798949ee9132418e24d500c22d6e`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v1111)."
+  },
+  {
+    "name": "v1.11.2",
+    "date": "2018-08-08T02:40:47Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1112) for details.\n\nSHA256 for `kubernetes.tar.gz`: `deaabdab00003ef97309cde188a61db8c2737721efeb75f7b19c6240863d9cbe`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v1112)."
+  },
+  {
+    "name": "v1.11.3",
+    "date": "2018-09-09T19:50:38Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1113) for details.\n\nSHA256 for `kubernetes.tar.gz`: `032fd2483176aea999cc92a455676cf1dbf70538e916fedaa6b851b50c6009c3`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v1113)."
+  },
+  {
+    "name": "v1.11.4",
+    "date": "2018-10-26T01:39:38Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1114) for details.\n\nSHA512 for `kubernetes.tar.gz`: `035d123271ca72372be955631cf106b94b53ba7b6d2242e0111c0557fbe2153d549493e5057f7f16b4e8390ecbd44d86c69d96418496b3898c35265706833faf`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v1114)."
+  },
+  {
+    "name": "v1.11.5",
+    "date": "2018-11-26T16:41:27Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1115) for details.\n\nSHA512 for `kubernetes.tar.gz`: `42d12fec828546af526b1dd9e5a54fd72cebc458b4e0e3ad9ac50d592ca6be3971553cd9415f9e883f49556c2214f62b03d15646781ecba2a136ac036c48ebe2`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v1115)."
+  },
+  {
+    "name": "v1.11.6",
+    "date": "2018-12-16T20:12:34Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1116) for details.\n\nSHA512 for `kubernetes.tar.gz`: `78e865de9aa6065a48027fc2c9c5e9e957c36dd69d1859e29db283875562cf11d54cb50910151e320f08554a5a530f9af83e8c437bd78e8feef038514be303a9`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v1116)."
+  },
+  {
+    "name": "v1.11.7",
+    "date": "2019-01-24T21:35:32Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1117) for details.\n\nSHA512 for `kubernetes.tar.gz`: `3cc7476722a60c67caa7525e2c2843f0d3369bd16328e8d16ea2a271e097e95b5844215f3cdf3732b4af0a08c7835362a409d34fab480898c91a99b2acf7fa62`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v1117)."
+  },
+  {
+    "name": "v1.11.8",
+    "date": "2019-02-28T20:45:14Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1118) for details.\n\nSHA512 for `kubernetes.tar.gz`: `65ef9150911023033efd486148d6827a9531ef29e2bd5ec0d6269b1e1d5bd1e0497a31a1675c39f54695ba4b526b4619ebf6525b4aab07e10d368ca21c6aeeff`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v1118)."
+  },
+  {
+    "name": "v1.11.9",
+    "date": "2019-03-25T17:03:02Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1119) for details.\n\nSHA512 for `kubernetes.tar.gz`: `41566482c4decf1ed6c1d40a103cfad394a7b67a3139399f9d09d95ba8c2b7977fa812a068c5811c0445b904c5899139fb954b8fba90bfaba8f908f8b2e16a57`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v1119)."
+  },
+  {
+    "name": "v1.11.10",
+    "date": "2019-05-01T19:20:37Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v11110) for details.\n\nSHA512 for `kubernetes.tar.gz`: `30e201e86df369cafb6269436acd87aca7d7894474df671ef806725121399e222db3174304991256c6d78ed19794db1a1e84fbc22894e540e9cfc3e4168c0d58`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#downloads-for-v11110)."
+  },
+  {
+    "name": "v1.12.0",
+    "date": "2018-09-27T23:23:22Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1120) for details.\n\nSHA512 for `kubernetes.tar.gz`: `a3db4289ed722db75e51b50f6070d9ec4237c6da0c15e306846d88f4ac5d23c632e1e91c356f54be8abbaa8826c2e416adcc688612dfcb3dd9b92724e45dbefe`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v1120)."
+  },
+  {
+    "name": "v1.12.1",
+    "date": "2018-10-05T18:51:54Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1121) for details.\n\nSHA512 for `kubernetes.tar.gz`: `5a0cb3c8f99621fb061310585e6cbeb3451788c0d55d444d0af9899302f0ae2bcd9757a052c7c3b3a13c07316ab3ebd4674ff4fe6e28b21708b862987bc8bdae`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v1121)."
+  },
+  {
+    "name": "v1.12.2",
+    "date": "2018-10-26T15:37:03Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1122) for details.\n\nSHA512 for `kubernetes.tar.gz`: `289ecf691164c70e392cea6f9f5b642b081ae9bd19c83113fe1abce8e7dc96baeae807f21e1b86d894345c9db01c8b6c35792b23cff7409d459a62eef45e0d92`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v1122)."
+  },
+  {
+    "name": "v1.12.3",
+    "date": "2018-11-26T15:11:32Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1123) for details.\n\nSHA512 for `kubernetes.tar.gz`: `f4bad1ae3632c715dd4be50e960faba890307e2c8e906edd59389d69a2352b58f093b554b5830de0583214a4efaeee8e6d3e3860fe8f39d4c1ba30927bee9009`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v1123)."
+  },
+  {
+    "name": "v1.12.4",
+    "date": "2018-12-17T17:03:07Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1124) for details.\n\nSHA512 for `kubernetes.tar.gz`: `35fd7a207cf3b6a5d569b1aad2fbccaf82ae394e6c91d3b1861b9e73b5069ca83aee8d5cdaa2e65f727579124d94ca9e886d0f4439f37b3204a1ac51db930cb0`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v1124)."
+  },
+  {
+    "name": "v1.12.5",
+    "date": "2019-01-17T17:54:22Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1125) for details.\n\nSHA512 for `kubernetes.tar.gz`: `8b1cbd30f4793d5e0c15d59280159f5db4b63f182dae574ed427365ad559f1c24bd97e5c534f5774a033a41b2a47844c6aad4d0105790808f9b6b01c8ada9bde`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v1125)."
+  },
+  {
+    "name": "v1.12.6",
+    "date": "2019-02-26T16:09:08Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1126) for details.\n\nSHA512 for `kubernetes.tar.gz`: `22868d7e1e381944e005ff28de4de2a5bf85047dc724a2e59ee5bf9adf11519c0f619f18523bb317474791514d3d5530ce65268cd3bafb8bd3427f10f31f6875`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v1126)."
+  },
+  {
+    "name": "v1.12.7",
+    "date": "2019-03-25T14:52:43Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1127) for details.\n\nSHA512 for `kubernetes.tar.gz`: `6fbbaf14e8a24f6ff415068ecc2ad7e0a4103da5d65330e4d01b91d0cb1df0473092eb8982dc584d8b3fb7f1504c761fdde7daa0d312c98b1833eff2b65994bf`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v1127)."
+  },
+  {
+    "name": "v1.12.8",
+    "date": "2019-04-24T00:48:10Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1128) for details.\n\nSHA512 for `kubernetes.tar.gz`: `0f14f54bcd3ef8260e424ccb9be4d1d7ad8d03e15d00d081fdf564adc319ca4040d404f37466a2342650d08d5c41b1d411f172ff78e611b05fca8fd5404590d9`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v1128)."
+  },
+  {
+    "name": "v1.12.9",
+    "date": "2019-05-28T04:57:58Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v1129) for details.\n\nSHA512 for `kubernetes.tar.gz`: `27482e1704256927b2c494e933e5e481280350eddbf4858ab8bbf980784630c295e9b8a882e363e2e619439c3636a849b95a010eb55dc98f73b19e37d3d4ea2e`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v1129)."
+  },
+  {
+    "name": "v1.12.10",
+    "date": "2019-07-08T05:51:02Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#v11210) for details.\n\nSHA512 for `kubernetes.tar.gz`: `fd6b78f7d56bbf5a286dd69a60b9e6987f0a948a527eb180ef4d6f421cf2deb3303a001d4516e461948f4ea38f662046fada9bdb74b33580c9938271f965cf71`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.12.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md#downloads-for-v11210)."
+  },
+  {
+    "name": "v1.13.0",
+    "date": "2018-12-03T22:58:04Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v1130) for details.\n\nSHA512 for `kubernetes.tar.gz`: `7b6a81c9f1b852b1e889c1b62281569a4b8853c79e5675b0910d941dfa7863c97f244f6d607aae3faf60bccd596dedb9d136b7fffeae199876e780904fd9f31e`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v1130)."
+  },
+  {
+    "name": "v1.13.1",
+    "date": "2018-12-13T12:36:22Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v1131) for details.\n\nSHA512 for `kubernetes.tar.gz`: `de3858357b2b4444bccc0599c7d0edd3e6ec1a80267ef96883ebcfb06c518ce467dd8720b48084644677a42b8e3ffad9a7d4745b40170ce9dfe5b43310979be1`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v1131)."
+  },
+  {
+    "name": "v1.13.2",
+    "date": "2019-01-11T02:18:07Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v1132) for details.\n\nSHA512 for `kubernetes.tar.gz`: `fe1c30efaffb70b4102879580470031baf78f11c94fc37773bd69568a3aca9a93a0350d067faa2fa0f25f3e85005fe5944cecd7a33d48326f55c60d0c0408004`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v1132)."
+  },
+  {
+    "name": "v1.13.3",
+    "date": "2019-02-01T21:49:18Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v1133) for details.\n\nSHA512 for `kubernetes.tar.gz`: `151af896b72c7fd09c05da1a7685e8b2f167c717adbe5776f80a264171e5f3359a948af93642856e0bfbabb49d3bf9c274085eacf6109c4b972ba5bc9d24b8a7`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v1133)."
+  },
+  {
+    "name": "v1.13.4",
+    "date": "2019-02-28T15:23:07Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v1134) for details.\n\nSHA512 for `kubernetes.tar.gz`: `591cd3f4f479744a1d47544902817350321c63f8c37ad771d559e293bcdbc421e89d62663300a6739c667d34e1e24bb080dd73562dc29713381db079ba6e9223`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v1134)."
+  },
+  {
+    "name": "v1.13.5",
+    "date": "2019-03-25T17:07:12Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v1135) for details.\n\nSHA512 for `kubernetes.tar.gz`: `08ea2a11208a5b237f7d03acb44f5b670f0d1fe35aac48e937492a14767abdcd80e94d94be39fcbb74459c4821e95821290a5b3d1f4fe81e69c334e7e4616ea0`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v1135)."
+  },
+  {
+    "name": "v1.13.6",
+    "date": "2019-05-08T15:43:08Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v1136) for details.\n\nSHA512 for `kubernetes.tar.gz`: `34c179b8bd55aecf3e93ae83062533e11bdd6149a2ee0e0c2c3504b266789c348d161734186304ce04e54c66660f49292ba616d94f414a45a2f88b218b622c20`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v1136)."
+  },
+  {
+    "name": "v1.13.7",
+    "date": "2019-06-06T18:16:22Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v1137) for details.\n\nSHA512 for `kubernetes.tar.gz`: `361621b451b225b49f4e1782246851f50cc9638327dd5a98c574343532fae07a617505a6c649e82d5d0356b033bfb6bed38475937e89c3eec004af4d9f3ae4bb`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v1137)."
+  },
+  {
+    "name": "v1.13.8",
+    "date": "2019-07-08T10:23:41Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v1138) for details.\n\nSHA512 for `kubernetes.tar.gz`: `0ed1d28d371e4ce23c71cbc1bdc5b30d9d06d2b6f4314f144612195dcf3766c13b44e90fefea27908d4ad782fff1ed03e414758073bcd40775422f7d01674556`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v1138)."
+  },
+  {
+    "name": "v1.13.9",
+    "date": "2019-08-05T12:01:14Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v1139) for details.\n\nSHA512 for `kubernetes.tar.gz`: `47404fa7de9c036b7036c9583418b5d5d693e750a68508ce1308df48d21898b465b9ff6c9476aedd026037a1452f777111e7d84281e5870a9918667716603d30`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v1139)."
+  },
+  {
+    "name": "v1.13.10",
+    "date": "2019-08-19T12:31:02Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v11310) for details.\n\nSHA512 for `kubernetes.tar.gz`: `d1fced0c505667b7a74ca2df6738e43f18cc05b11fa407ef49eae730e83294064617ea590dc44f1cc0832fe3107c8916a07162ed71354862fd4e4982e13e045c`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v11310)."
+  },
+  {
+    "name": "v1.13.11",
+    "date": "2019-09-18T16:24:07Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v11311) for details.\n\nSHA256 for `kubernetes.tar.gz`: `e903a04671e1cb18115b3339a03ed4b1f842eb3f2c463c4a33d08c0831c2aeb0`\n\nSHA512 for `kubernetes.tar.gz`: `cb32ac05cd396ab0a75b054750d93fa9892940c6d9795ce3a40448f177bf780197f10bec64ecb2cbc27fdafe0a5679419f47c97b0bf1c9de192b506b25f743d2`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v11311)."
+  },
+  {
+    "name": "v1.13.12",
+    "date": "2019-10-15T18:06:16Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#v11312) for details.\n\nSHA256 for `kubernetes.tar.gz`: `1e5cc212fa97ea8ad86f0fe2b7fcdd4857fcbddf1acaad60c5a78e78b4edd41a`\n\nSHA512 for `kubernetes.tar.gz`: `bacb75dca1dff0b48fafbaa3380d250a58e2220426af05c35623d976b1490bcac38677de4f4033ea1d87ec8e05c07b9b8edebbfbc79a460f43b1144ccc5c6715`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.13.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md#downloads-for-v11312)."
+  },
+  {
+    "name": "v1.14.0",
+    "date": "2019-03-25T17:48:40Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v1140) for details.\n\nSHA512 for `kubernetes.tar.gz`: `0ad264a46f185a9ff4db0393508a9598dab146f438b2cfdc7527592eb422870b8f26ade7ed089359c06741d998fcd730f897eae261f922c1a26d9fdc034d270d`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v1140)."
+  },
+  {
+    "name": "v1.14.1",
+    "date": "2019-04-08T19:04:34Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v1141) for details.\n\nSHA512 for `kubernetes.tar.gz`: `87f4cb0c6c137cbd07cc0e0b7049722ed2a3f21866ac02aecf1a0e03d350d1e90d7907487bac5ef224da75d05056abfa39f5b1b3741987dde1c5165f379cb253`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v1141)."
+  },
+  {
+    "name": "v1.14.2",
+    "date": "2019-05-16T18:11:37Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v1142) for details.\n\nSHA512 for `kubernetes.tar.gz`: `ef1228ef7cdc3a53e9a5003acb1616aff48eba53db147af82c5e318c174f14db410bb55c030acd67d7f7694b085185ca5f9ac1d3fb9bb6ec853196571e86ad2e`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v1142)."
+  },
+  {
+    "name": "v1.14.3",
+    "date": "2019-06-06T16:01:14Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v1143) for details.\n\nSHA512 for `kubernetes.tar.gz`: `7e82dc2070b55ca8f4746579a66d9dcd61e750f8c20632f901cbeb8c9c5bc28b7c428531d96375a5491e22397e4da3abaad2b1399250736380c586a3163fc960`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v1143)."
+  },
+  {
+    "name": "v1.14.4",
+    "date": "2019-07-08T10:46:55Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v1144) for details.\n\nSHA512 for `kubernetes.tar.gz`: `6a25452a4b248c1a0ffbc0ea19316791e10255e5d8f2a54a211a8463b2219048bded45bad0c7f41f91817a03a92e88fba0e5983554ededd0949eb77675493586`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v1144)."
+  },
+  {
+    "name": "v1.14.5",
+    "date": "2019-08-05T12:03:59Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v1145) for details.\n\nSHA512 for `kubernetes.tar.gz`: `8e529c27d8ce17bb35061870d19135fa7fde84790afc2c3780ecce524da8f3e61b4edcc0c60e83a1ea776c485a7acd48a037ff7e4e684423e7b19c682e9ba315`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v1145)."
+  },
+  {
+    "name": "v1.14.6",
+    "date": "2019-08-19T12:40:18Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v1146) for details.\n\nSHA512 for `kubernetes.tar.gz`: `efa84e3a0704ba093bd1d55f82510a5cb48aaf7b31068e3d14782739692efe60716d5a64528d5a35f0e089a9e6ff490676cd39630a3b68ca04b35aa210eedd5a`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v1146)."
+  },
+  {
+    "name": "v1.14.7",
+    "date": "2019-09-18T16:26:14Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v1147) for details.\n\nSHA256 for `kubernetes.tar.gz`: `416696cd5ccacf8642ded956508f8617a5c230ec2ffeeed2aadcaa6d62736b8f`\n\nSHA512 for `kubernetes.tar.gz`: `c7ef389927f050fd365a5c4d31a6e4a0b0c8c910cec0a36547ed42338da9c11de528c98910ed9c971e1c7edb278812444f62f5e014d2253e163d7d3fd6b28ad9`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v1147)."
+  },
+  {
+    "name": "v1.14.8",
+    "date": "2019-10-15T17:51:41Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v1148) for details.\n\nSHA256 for `kubernetes.tar.gz`: `85ed8325fa8ced8b584ff44720539c37195c9a15f1bed0ae4713d415e3283973`\n\nSHA512 for `kubernetes.tar.gz`: `1aeaa04a0dfb3656204589fb503a0da98d085514ef82d1da930cf093fb17a0e11887c52aaeb1351ec87eb80227510de3a667984e6eb4acfcc1d3b5c8fb3681eb`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v1148)."
+  },
+  {
+    "name": "v1.14.9",
+    "date": "2019-11-13T18:18:35Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v1149) for details.\n\nSHA256 for `kubernetes.tar.gz`: `563f6f28cd188b23d557c40f1ec2a1fe07fe01669f5d595a94ee24c1a0c11f6d`\nSHA512 for `kubernetes.tar.gz`: `bc2de7897543f2c78b5a6ff0cddf60de7dafdb5586e3353b8105cb0ce5324c583289b5476cdaed4449224eae721068e6cbe7d9a69895517c753935eb367adde0`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v1149)."
+  },
+  {
+    "name": "v1.14.10",
+    "date": "2019-12-11T18:40:51Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#v11410) for details.\n\nSHA256 for `kubernetes.tar.gz`: `4d3bba77de6509325123b8f50c23eaf99a75f736471f75dba0fc237128334382`\nSHA512 for `kubernetes.tar.gz`: `b2b73d186769461236f94b7d1faa5d5806534bae5d9404f223f3e6aeaf1bc7a0c3bc505e2b8f3d34cec12d6657385927d82e67488f93ffde83c68239d563646d`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md#downloads-for-v11410)."
+  },
+  {
+    "name": "v1.15.0",
+    "date": "2019-06-19T18:42:11Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#v1150) for details.\n\nSHA512 for `kubernetes.tar.gz`: `cb03adc8bee094b93652a19cb77ca4b7b0b2ec201cf9c09958128eb93b4c717514fb423ef60c8fdd2af98ea532ef8d9f3155a684a3a7dc2a20cba0f8d7821a79`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#downloads-for-v1150)."
+  },
+  {
+    "name": "v1.15.1",
+    "date": "2019-07-18T12:02:02Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#v1151) for details.\n\nSHA512 for `kubernetes.tar.gz`: `75cdef9f2e7e246a7833b454282858574bea37aea207d967599f49777e2998c49bf04e6c314b83b0debbbbaf50abd724cbb621ca7b909ede720305ae701c4e89`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#downloads-for-v1151)."
+  },
+  {
+    "name": "v1.15.2",
+    "date": "2019-08-05T12:04:28Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#v1152) for details.\n\nSHA512 for `kubernetes.tar.gz`: `0c8b0614236666c1025551bc0fc239b412348998352458ab94a63e67bcb0357a1b04355ddd23a1587ede931d109fb4132b3e73204f523d238b0e20e2e488d6aa`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#downloads-for-v1152)."
+  },
+  {
+    "name": "v1.15.3",
+    "date": "2019-08-19T12:41:04Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#v1153) for details.\n\nSHA512 for `kubernetes.tar.gz`: `dd9f121bd8c6eadf004b9720d72c338e4d0711bd48ee5763e5f26c576c0743e993c76a13aac3bce69336cb071c9d8461213b0a4f3ccd62dec32f2051e12ff81e`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#downloads-for-v1153)."
+  },
+  {
+    "name": "v1.15.4",
+    "date": "2019-09-18T16:29:30Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#v1154) for details.\n\nSHA256 for `kubernetes.tar.gz`: `78984c5387108c9cf2b20b427cf3eac2cc202a87703b6db80e9d21e2ab326099`\n\nSHA512 for `kubernetes.tar.gz`: `c882035a4936764d0b2416c30027f0a3be826a26a399739dc52646b1cdb3303db645380b1ad02d610aca744f28fb899b55dfdbdebcd364029f87620b50dd721d`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#downloads-for-v1154)."
+  },
+  {
+    "name": "v1.15.5",
+    "date": "2019-10-15T21:18:16Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#v1155) for details.\n\nSHA256 for `kubernetes.tar.gz`: `6371de7b00a4987e80341b83b1dff69b34b163fa70c5d5f89af0c33237714ef0`\n\nSHA512 for `kubernetes.tar.gz`: `7b887b5c134fd865b5c0f805c4632cce2dcdf31708c226c1c70754703c86bcfd14936d9d94b9fd9578cbf41775539fdbba956ea85b40d7ad85ac2e455a0a064b`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#downloads-for-v1155)."
+  },
+  {
+    "name": "v1.15.6",
+    "date": "2019-11-13T18:13:24Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#v1156) for details.\n\nSHA256 for `kubernetes.tar.gz`: `a2c3be87903cdc19a9e1630dbb73eb8da4803ecce420204f1f6f8ed37ddd6fbe`\nSHA512 for `kubernetes.tar.gz`: `ef796ccc8146a516802fff3c7bd119939c99d3b577a43fba1f11c9bdf348f75664afa768d66923f56da8e00f35d0cc055861a7204383d1416afea1511a7365a8`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#downloads-for-v1156)."
+  },
+  {
+    "name": "v1.15.7",
+    "date": "2019-12-11T18:37:50Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#v1157) for details.\n\nSHA256 for `kubernetes.tar.gz`: `833da24d01cf4f05d8420da5e37ce97cd8f8c135e31385194eb5ac82d816f19d`\nSHA512 for `kubernetes.tar.gz`: `bb28f98cbb5031cb73952d7ecefafc56f91fcb0266270236f4746d5d1ed14cc0f6605f0564138080cdecd1411dbaaa8a9651fc8e02d5a133b6341b473653f952`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#downloads-for-v1157)."
+  },
+  {
+    "name": "v1.15.8",
+    "date": "2020-01-16T17:33:08Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#v1158) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8281e5d684cda96d5ca093eb11ea7aab15034d41edf667629134e10133e60d69`\nSHA512 for `kubernetes.tar.gz`: `b546b43b3920d5d62a1a326ebf26a57e927c88b583a517eb8774a3ab557808ff484dfd1023b98fde2f4b897b039a6038fe7b0fbeee64038386c33853d0138181`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#downloads-for-v1158)."
+  },
+  {
+    "name": "v1.15.9",
+    "date": "2020-01-21T18:30:57Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#v1159) for details.\n\nSHA256 for `kubernetes.tar.gz`: `3f2f0331229e3e226ce60f7ed986ca78c9ac15a94a84a7ca584c3b6eda84c9c0`\nSHA512 for `kubernetes.tar.gz`: `0dddd6fe4c0912340f36bb6f09769e5ce2ede2879324973ab574bf92563e948b9a18efaa6ddf50a16e4001a16500463a2c6fa604fd2c4275c7d1aa141a350bbf`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md#downloads-for-v1159)."
+  },
+  {
+    "name": "v1.15.10",
+    "date": "2020-02-11T22:22:38Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.15.md#v11510) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `d1a83cff0957be007fc83cd1c0c12539b3500b52e5be564e01f711d73edf239b`\r\nSHA512 for `kubernetes.tar.gz`: `92b18c5b54b10772ba22e10205242fbb565aeb3b4e9ff9c732caa6ebc4bca65665b09187e8e96341905f233372944a178ffb14c1f6313d3975e4c94f8a2ef29d`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.15.md#downloads-for-v11510)."
+  },
+  {
+    "name": "v1.15.11",
+    "date": "2020-03-12T23:37:47Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.15.md#v11511) for details.\n\nSHA256 for `kubernetes.tar.gz`: `911aab8413b5a700593a4f050b5ff24f1e2cb6cf412f106011e0f5b738433b02`\nSHA512 for `kubernetes.tar.gz`: `7834a01bf5e4cc5d93791f0dce512ff8f40c92e588c980567fb6d715bb707a650511495d323cd27e5e8f524577efb04adb07478ecbe55876f32c7f1cc055e907`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.15.md#downloads-for-v11511)."
+  },
+  {
+    "name": "v1.15.12",
+    "date": "2020-05-06T21:03:48Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.15.md#v11512) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8b02f912de7c4788e8a1ead850006fe04911dacc2edbdb9daee47f5f5121f024`\nSHA512 for `kubernetes.tar.gz`: `32543275f6a2e01b23566eb3b72e2be220812208b2bee3ff0daa2fae751a374d59073b08621524415f252c6c264c45054da97594278e6fb011487e884fbc3654`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.15.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.15.md#downloads-for-v11512)."
+  },
+  {
+    "name": "v1.16.0",
+    "date": "2019-09-18T16:07:16Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#v1160) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d798f620ece30e6a9f7b2770548d82355cbfe35cfe85bae2ad4d69d4e6a4248c`\n\nSHA512 for `kubernetes.tar.gz`: `99aa74225dd999d112ebc3e7b7d586a2312ec9c99de7a7fef8bbbfb198a5b4cf740baa57ea262995303e2a5060d26397775d928a086acd926042a41ef00f200b`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#downloads-for-v1160)."
+  },
+  {
+    "name": "v1.16.1",
+    "date": "2019-10-02T21:15:05Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#v1161) for details.\n\nSHA256 for `kubernetes.tar.gz`: `e8d7a7fc16ade7cf322a49fba80e255685c95cded7ce02e872363c53952ff7bd`\n\nSHA512 for `kubernetes.tar.gz`: `3dc4f0f2a208d3f235b4dc579418c503ba64fec261294c3683268259117e5c82f56db3f0c4ad63199f0f35f0de21df0b13ca00a74efe7b3142b275f0733e9219`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#downloads-for-v1161)."
+  },
+  {
+    "name": "v1.16.2",
+    "date": "2019-10-15T21:13:30Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#v1162) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8414aa26b7a45cc8af788a31532826b7fa78cb7c400398aac9633302c1867bae`\n\nSHA512 for `kubernetes.tar.gz`: `9e21ab6317fe209dabac72444273b493f5f7639f73c489cc233da3a0205a93f8779964fe2cf2237bb6ca7535560c7c8ac48e25e75a1fbe97dc5b51f248ed7eeb`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#downloads-for-v1162)."
+  },
+  {
+    "name": "v1.16.3",
+    "date": "2019-11-13T18:42:39Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#v1163) for details.\n\nSHA256 for `kubernetes.tar.gz`: `6c5b19a75c2b8694ba1610af60a1e396c5c7e9abc88002f14ae9f2919ffc4bce`\nSHA512 for `kubernetes.tar.gz`: `17618d2ece64346d03db6a6c31eb3c38bbc3aa206005e99032791bdbe7dad1f401bdb9d707995ff83b658dd1ad59d9b53489e5ee45b9f209edf09b35326aac4a`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#downloads-for-v1163)."
+  },
+  {
+    "name": "v1.16.4",
+    "date": "2019-12-11T18:38:02Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#v1164) for details.\n\nSHA256 for `kubernetes.tar.gz`: `9ffdde88a5e98ddb582d137c68dd5b597cbe171e4966b9cc8d135586fc896fdd`\nSHA512 for `kubernetes.tar.gz`: `c81e0e69b81b2dcd3d2397bc54756d77a8d41b88adba12eb5a1ffe71672554ecb1ff97c3979d0a81a218477440308860f9076124d6c0a3f0670ea21759a6621b`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#downloads-for-v1164)."
+  },
+  {
+    "name": "v1.16.5",
+    "date": "2020-01-16T17:29:41Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#v1165) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d9f297c80bdd4384e69f5c69d57ca4f4beaf03e47add59672ae5b9231ede0f53`\nSHA512 for `kubernetes.tar.gz`: `574c4abd42d3640eb98bf4144afc64bbe25b752235d3398e3717a64fa505b5848e3e0b7a31cbea13d936201844c4f6385006556cf8c191f7bdac638a388345b9`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#downloads-for-v1165)."
+  },
+  {
+    "name": "v1.16.6",
+    "date": "2020-01-21T18:27:32Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#v1166) for details.\n\nSHA256 for `kubernetes.tar.gz`: `c5e48c4d99039c8f4e933d7dfa4fa24c32fe6136b41295b3671539a47701a1c1`\nSHA512 for `kubernetes.tar.gz`: `cde4a4285400f92a47ced2c0bced384408b2e38c429726ea8a60ea63bd0bb6efb67282c424409ba92c8e97334708820a21b3b639364c6b2184ae4d5a3a254f82`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#downloads-for-v1166)."
+  },
+  {
+    "name": "v1.16.7",
+    "date": "2020-02-11T21:38:00Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#v1167) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `e8374d5e6a30e03317a8e4705c5698a27ac5fc9469b95d97cc1eaf54a2f1a302`\r\nSHA512 for `kubernetes.tar.gz`: `dc95ba079242d2cd0b4b48f960c2b7c097e25228a2e36f08e3a611c91eedeed2d58971bf33604d28e50aae5068f04d669a8889b619d9cee5b1e71f7b5d7f2206`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#downloads-for-v1167)."
+  },
+  {
+    "name": "v1.16.8",
+    "date": "2020-03-12T23:11:12Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#v1168) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d79cb0e08ca3ba00fca1657c9951e76d8a870c3bdbaf6018237a62fae81e5634`\nSHA512 for `kubernetes.tar.gz`: `405aab246b6b49fa6654f982a11af0118ca86d33e84975f26c26e2f09a0781f7578d4ac90f2c889f12c600a93cdc7c57e91e29df6f67b3822573faba889f8fde`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#downloads-for-v1168)."
+  },
+  {
+    "name": "v1.16.9",
+    "date": "2020-04-16T22:52:55Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#v1169) for details.\n\nSHA256 for `kubernetes.tar.gz`: `519902b0f6dc923a2b53210f9382fb16d26b95aed31cca58e450e104f9faa5c9`\nSHA512 for `kubernetes.tar.gz`: `524cb2d5a748e4e0b78aec357b479b8b810fa3bf875b85682d30fe5e4e3d5c6b0a90d0a0ab4dd9866e73a9d78fdbc67de9903bf069e4ee5e303997355e891a54`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#downloads-for-v1169)."
+  },
+  {
+    "name": "v1.16.10",
+    "date": "2020-05-20T17:40:04Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#v11610) for details.\n\nSHA256 for `kubernetes.tar.gz`: `68ffd646d253d62bfa8203c70ec4ff4d37e7482f0e44f1f26030aca0a94bd68c`\nSHA512 for `kubernetes.tar.gz`: `5925579630fa2c3f78c1e17b4c2aca3e23cad5db7721b34b9e8d8eb8a443d4ea4cb87369d9d254dfd35603a1f12825a1167ccd2b71e1e1f3eb7676ad4a143276`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#downloads-for-v11610)."
+  },
+  {
+    "name": "v1.16.11",
+    "date": "2020-06-17T15:59:20Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#v11611) for details.\n\nSHA256 for `kubernetes.tar.gz`: `69274fd3b9e65b39e33070376400b7e31664388cdee012591fabc849bee4258e`\nSHA512 for `kubernetes.tar.gz`: `3830d26b53cc18be80a40249f9db01bde72d3f0f222252cfccd46416ec1725527dcc04aa85f8af4b2847c041807b08b9e4b78a6748b589592399a15160e2467e`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#downloads-for-v11611)."
+  },
+  {
+    "name": "v1.16.12",
+    "date": "2020-06-26T19:51:46Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#v11612) for details.\n\nSHA256 for `kubernetes.tar.gz`: `b0e74465ac8f3c7ec4f5b5ba542257ac469f417ce3edd75a8b59809c51aa0196`\nSHA512 for `kubernetes.tar.gz`: `16aead0c708f1a64ee8b4723551c0e27f3661b06997fe5f32543b9c8f46d89e277d8845248725c64cdfbed9030cdee73e5e6a73acd7775bd5f54f7abab1817a7`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#downloads-for-v11612)."
+  },
+  {
+    "name": "v1.16.13",
+    "date": "2020-07-15T19:12:51Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#v11613) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8be6bc9e464150e0c4e02b3a5e9ea3b7afa3f15182c4c9b5171eeeeacf65c97a`\nSHA512 for `kubernetes.tar.gz`: `8491ac95464beb9333e3bc731bfe024af63af568e8fe13ad3ea727338167ec58ee361896e26d4bd0688317f243876b531b07409ef229bbdd659a69093d7c4e7d`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#downloads-for-v11613)."
+  },
+  {
+    "name": "v1.16.14",
+    "date": "2020-08-13T14:37:59Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#v11614) for details.\n\nSHA256 for `kubernetes.tar.gz`: `18194f9ed3e5ad077d7e17a73a06a8645c8006827d5285b897f091b8662b9c03`\nSHA512 for `kubernetes.tar.gz`: `6c55864d3666aadcbec712e7cc68d6c3e2f7efd7ce3880250c56bc237506fc88f94fa778da466fb4efe724bf5b216dc9a3e7f5e576574b6d9a8745ce40cf3c37`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#downloads-for-v11614)."
+  },
+  {
+    "name": "v1.16.15",
+    "date": "2020-09-02T17:58:34Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#v11615) for details.\n\nSHA256 for `kubernetes.tar.gz`: `0644c8003681841e031f3e441f1f6723986f0980af5f72652eaf60ee74281bfb`\nSHA512 for `kubernetes.tar.gz`: `795a26268a5e553eb39157c2d46e8cd1855b4962a0004524286883427124807323c3db5d6258536fcf4c3a0e1b91636662c6010a04020a37105db3f0ba0cca4e`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.16.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.16.md#downloads-for-v11615)."
+  },
+  {
+    "name": "v1.17.0",
+    "date": "2019-12-09T21:10:53Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.17.md#v1170) for details.\n\nSHA256 for `kubernetes.tar.gz`: `f008f8f7ea4fbd0d3444300a1e84ad5766cdeb96da8d105b25714849a958e711`\nSHA512 for `kubernetes.tar.gz`: `68d5af15901281954de01164426cfb5ca31c14341387fad34d0cb9aa5f40c932ad44f0de4f987caf2be6bdcea2051e589d25878cf4f9ac0ee73048029a11825f`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.17.md#downloads-for-v1170)."
+  },
+  {
+    "name": "v1.17.1",
+    "date": "2020-01-14T22:21:15Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.17.md#v1171) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8440f6c1f6c87c23f039b347f058eef2bb4ee0097bd8b1f3c3927e208a9a7a6b`\nSHA512 for `kubernetes.tar.gz`: `b75a513ac1edc366a0ab829866687c4937485a00a0621a729860ae95fa278ecdadf37d63e608b2259e1c683dd01faf26eb828636710d9864e6f092b1a3cfd1cf`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.17.md#downloads-for-v1171)."
+  },
+  {
+    "name": "v1.17.2",
+    "date": "2020-01-21T18:30:14Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.17.md#v1172) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8ee46b398d4900d9f1578fc1a00068b9426122924ead29f9b22a968e27ce7d37`\nSHA512 for `kubernetes.tar.gz`: `82771f9ea6e1da774473500e03bbb8ad8328c27c05ee79514528df5283556f8803763b47a4d815db8f1c0a007d9cdfbb845c985562fb7a5a5386d80b765c4355`\n\nAdditional binary downloads are linked in the [CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.17.md#downloads-for-v1172)."
+  },
+  {
+    "name": "v1.17.3",
+    "date": "2020-02-11T20:00:06Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v1173) for details.\r\n\r\nSHA256 for `kubernetes.tar.gz`: `9a7c074340cde46c9fd0fa9a500951fa5568081473ba3b0195952d3631fa32da`\r\nSHA512 for `kubernetes.tar.gz`: `63e54488630e41488f7153583b3c536df766a623c9eb41634e09a113e2ffdaf973c85ddb5d13adc2727fcf262895ce2552507bdeaf2646c00097f4e24f2b9937`\r\n\r\nAdditional binary downloads are linked in the [CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v1173)."
+  },
+  {
+    "name": "v1.17.4",
+    "date": "2020-03-12T23:12:47Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v1174) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d8791dd1d5a98c399ce3fb7c69836da0e445cb7bdd5efa0735c945788bd81a10`\nSHA512 for `kubernetes.tar.gz`: `cf69ebcaddc3902008399b96a18548d9a2a551d9fa6a1e34533f0f83ef10ab501030c3310cbaa593d550905d23c23ad7c8901720fe61f89d466f49bdac5554e8`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v1174)."
+  },
+  {
+    "name": "v1.17.5",
+    "date": "2020-04-16T22:57:16Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v1175) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d285fb97510b9026bf28a3f083663ce129615fa03055933291593017ce3334d3`\nSHA512 for `kubernetes.tar.gz`: `d0d1b451d5cafd3e909ba15d09c7277a85eba682696cd60684dca8c5ce8db06c1dbab046ec933931e3122c06f9f5b86eddce40856671d3b8b255b338a1bdcd3e`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v1175)."
+  },
+  {
+    "name": "v1.17.6",
+    "date": "2020-05-20T17:31:40Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v1176) for details.\n\nSHA256 for `kubernetes.tar.gz`: `59bad883858cbff12730f1cf71dbcece876f091dc5488583268bc59a9866173d`\nSHA512 for `kubernetes.tar.gz`: `90b10c16aea412c39ea57f6ebb0f5cb74f939089ebad91cdc1a3c2d83890a88305b2e10e9cee4563258c718383be66ee9e90f06c6b07b8d6eb2d11a473ffd670`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v1176)."
+  },
+  {
+    "name": "v1.17.7",
+    "date": "2020-06-17T16:03:40Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v1177) for details.\n\nSHA256 for `kubernetes.tar.gz`: `a987505bab38f13a4bc8c88de73089d3520055d2f6694b28ac56e8c2272a5f4d`\nSHA512 for `kubernetes.tar.gz`: `b98b4e1fae60a50fe23ead412c700f8d0250d9dd327d0012efa3e4b74ff21a33bb6cf3df67f9fd04f92aec4ee369bb7d68ca1380dda32caff9e19b2bdb810abd`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v1177)."
+  },
+  {
+    "name": "v1.17.8",
+    "date": "2020-06-26T19:51:13Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v1178) for details.\n\nSHA256 for `kubernetes.tar.gz`: `15a54a5cbd61a0ba96793fc38684cefba97f3cea8f8701b2e2e5f6981a8277b1`\nSHA512 for `kubernetes.tar.gz`: `8212fb4e823fbae81cd7817a3a7abe5a49503b01163fb6805e40791d0639a1b22ababa14fd1e2c545a1c37f89e1110b58fe2f18e6367ecb17cf84f5657f7e106`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v1178)."
+  },
+  {
+    "name": "v1.17.9",
+    "date": "2020-07-15T19:19:51Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v1179) for details.\n\nSHA256 for `kubernetes.tar.gz`: `ba870b9f79a632aaa1c152b8f37fefc7e37042554ee446bc72ef46276fd4c26f`\nSHA512 for `kubernetes.tar.gz`: `c6d71667ec516c150e27f0d81868b90b04f620656c081c85e570f5fa8bb6e1fd70bc305f7e7826a56a7ed4ccbdf061147c69cb39c44e756ca090acc5ee189d67`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v1179)."
+  },
+  {
+    "name": "v1.17.11",
+    "date": "2020-08-13T17:30:08Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v11711) for details.\n\nSHA256 for `kubernetes.tar.gz`: `501040643c82ddd342a1dc8418a870404fc2a0c7ef284922aac69804de4cf59d`\nSHA512 for `kubernetes.tar.gz`: `c257902ffc2c1f9f72a7693f84ab77c3f044f154e94bf3d48ebfa807fa8089c8caa9e874f842c8050d260f68b06125446dbb870b87776f5d758a203af23d6dc7`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v11711)."
+  },
+  {
+    "name": "v1.17.12",
+    "date": "2020-09-16T19:36:50Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v11712) for details.\n\nSHA256 for `kubernetes.tar.gz`: `e1bd9c1ccd3157a4bfa232e056d692a6a4e896b1da3cb0e6b728fe41c54f6202`\nSHA512 for `kubernetes.tar.gz`: `7f7115d5012393103c318af07375deb1883d63b160d60a590230b989e8dd5a6e9474319aa6a685e3196f2eb20934739f95635d0a2f4cc9cafee6f933f440d78d`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v11712)."
+  },
+  {
+    "name": "v1.17.13",
+    "date": "2020-10-15T17:12:02Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v11713) for details.\n\nSHA256 for `kubernetes.tar.gz`: `4078838a09a7821061f78ee359c26afc4461952b4aad8ffc61b08612d6595aa4`\nSHA512 for `kubernetes.tar.gz`: `15d61808196abe3836c101fd758933619bbd81e876e477977bbf8916f0f34930085aed2c9ed8708c2d56d7bd0e54f6a29d8d63ca042acbbd9a5fef26283922ed`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v11713)."
+  },
+  {
+    "name": "v1.17.14",
+    "date": "2020-11-11T20:41:48Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#v11714) for details.\n\nSHA256 for `kubernetes.tar.gz`: `0db26639a0b4954a41376683721c22476137b2fbba810a7edc5a91a7e1fda42d`\nSHA512 for `kubernetes.tar.gz`: `7cc1ab5518f3a7b62b8a2d05aa05b19ecd5855611e5c6b20a16747ac35c36e445a8f221514ebd5c7001f88c1d5bd6599b741be96ccd44fafe2be3a4eefcacdab`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.17.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.17.md#downloads-for-v11714)."
+  },
+  {
+    "name": "v1.18.0",
+    "date": "2020-03-25T19:38:08Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v1180) for details.\n\nSHA256 for `kubernetes.tar.gz`: `4e1aab16fbcc460355e9f9725ea3a15f4dd3d9a0727750fe3c7b5a9eb74b8fd4`\nSHA512 for `kubernetes.tar.gz`: `cd5b86a3947a4f2cea6d857743ab2009be127d782b6f2eb4d37d88918a5e433ad2c7ba34221c34089ba5ba13701f58b657f0711401e51c86f4007cb78744dee7`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v1180)."
+  },
+  {
+    "name": "v1.18.1",
+    "date": "2020-04-08T19:39:57Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v1181) for details.\n\nSHA256 for `kubernetes.tar.gz`: `193f5fcaa2a9c4e5a4a46687583f5f5fa5be6f7a8f24f41d7ca10a2499b5106d`\nSHA512 for `kubernetes.tar.gz`: `460dcc0b27fdfd9b4a574287708c0fef22224bd4c1bc777654a69a76c7dafb37e6a37b028aeaa8d79e202c2265fe4b322af6a95515cd438e44de7d55dac176b3`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v1181)."
+  },
+  {
+    "name": "v1.18.2",
+    "date": "2020-04-16T22:54:13Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v1182) for details.\n\nSHA256 for `kubernetes.tar.gz`: `f515c097acbdd69d02c5d365f73338f9403bd9c3eb4b050b58cb1084a121cde2`\nSHA512 for `kubernetes.tar.gz`: `2f8e853bd59731410259d5357d9969425fbbbea378bbe6cdd0f7a9ddf5c25924838300924b03ec15d6b9030be86bea9d26bb9b63078bf2c150b0bbc0859419d7`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v1182)."
+  },
+  {
+    "name": "v1.18.3",
+    "date": "2020-05-20T14:26:42Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v1183) for details.\n\nSHA256 for `kubernetes.tar.gz`: `13993daeeb5377166a262f163511b8eedff49b37c52d9e8fdeb385ba32aa1a81`\nSHA512 for `kubernetes.tar.gz`: `7d511c960f766f76bc087c00d706dc78ed403f661ea62ea6a2e84b9a0498826c0186f8705d18e1101ce148eecf7046f3e96e0a64aff7698a0976414a56056d4d`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v1183)."
+  },
+  {
+    "name": "v1.18.4",
+    "date": "2020-06-17T19:45:17Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v1184) for details.\n\nSHA256 for `kubernetes.tar.gz`: `6a7a812ad020002e87c26decdc56535a24ea3b247f76496f2a9e5d88e6937611`\nSHA512 for `kubernetes.tar.gz`: `8d2cec9d026bbed016f004c23e205e234bcd40072cda81e805ecebe6e8cc8e4b5f1685c9dc57640edc3c5c67e09ac362bfa9bae1b654fcf425d3e4e184b5b46f`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v1184)."
+  },
+  {
+    "name": "v1.18.5",
+    "date": "2020-06-26T19:51:42Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v1185) for details.\n\nSHA256 for `kubernetes.tar.gz`: `7cafa1f053c4aa963a76fbc1ad87c028ce644b4aad9a70914c2c370fc80cd28a`\nSHA512 for `kubernetes.tar.gz`: `1e414d955cdde67e1883be27cb47963a905b73e8454bd1b2e665395348c1a88c444136380584bac97b6e50a1f1eafa7d4e3d3a26c9c0bc6aee63fbbdd261489c`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v1185)."
+  },
+  {
+    "name": "v1.18.6",
+    "date": "2020-07-15T19:07:06Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v1186) for details.\n\nSHA256 for `kubernetes.tar.gz`: `a29ded505199fb04f585b4119a30d962b4d0a4d6b75ed944ce6d5f5131f9e1a1`\nSHA512 for `kubernetes.tar.gz`: `f036e891ff8dd95df33722b4d13ea2dc36fd8cb0a18fe88654919eb180cadba7724da55b96ea9707a11aaa91021bd6478a0c6eae684034e030717beb4c94f018`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v1186)."
+  },
+  {
+    "name": "v1.18.8",
+    "date": "2020-08-13T18:12:31Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v1188) for details.\n\nSHA256 for `kubernetes.tar.gz`: `f82fad159f58c9acbb89367fd5dbb24cd7f16aca808cc49ed011fd546aa26733`\nSHA512 for `kubernetes.tar.gz`: `48dd9909e06b12e015c0b785ab528e700e4e319c942800ec82af42837ecaf6e692b6502e7ff786f4ecc1e47f6402f47a3b399ec17fe044042bf52a840da6cb88`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v1188)."
+  },
+  {
+    "name": "v1.18.9",
+    "date": "2020-09-16T19:40:39Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v1189) for details.\n\nSHA256 for `kubernetes.tar.gz`: `8d4d3b0e609feeb151566e7edb2f21800fcbcd02f6f2d17e676c9776c5a0f40f`\nSHA512 for `kubernetes.tar.gz`: `b0c98d0876673c72a71f8f55c66bf8a9168e6f5f8e4890bf326d2dd74041cc068b1da03167010fcf2dc9f5cd6fb6eb57631378c4dc416b4cba1f55682d98e6cb`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v1189)."
+  },
+  {
+    "name": "v1.18.10",
+    "date": "2020-10-15T18:22:47Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v11810) for details.\n\nSHA256 for `kubernetes.tar.gz`: `fddb1786dd8cf810813ba3ad5e67997998edc45495e639287c093ff1edea831e`\nSHA512 for `kubernetes.tar.gz`: `3072f903a1e37f3d56fd3de2b81c9fcd0e53d438ff7497065c3a9cca2d9aeed6a36bcaed11761c162087020edde8b0b7fab3b86736e0b5a7599ef50b0064ac33`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v11810)."
+  },
+  {
+    "name": "v1.18.12",
+    "date": "2020-11-12T18:09:25Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#v11812) for details.\n\nSHA256 for `kubernetes.tar.gz`: `e020b9682bc80e289b0e3bf79bdef2fba1da5fc8402b17b4adef702602108089`\nSHA512 for `kubernetes.tar.gz`: `29a844663c1afec7f555b781a152e7892878b13f6f9438d8064b6cbe771451da7b314b4aaee2817780c626099d265239f3fea6ff0cffbd7653d7fd43e5c03269`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.18.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md#downloads-for-v11812)."
+  },
+  {
+    "name": "v1.19.0",
+    "date": "2020-08-26T18:30:19Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.19.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#v1190) for details.\n\nSHA256 for `kubernetes.tar.gz`: `d8c0bd684a5131222ca9abc450de3af45d443500b959fd05dbf4eaddeb9a2f18`\nSHA512 for `kubernetes.tar.gz`: `448b941e973a519a500eb24786f6deb7eebd0e1ecb034941e382790ff69dfc2838715a222cfc53bea7b75f2c6aedc7425eded4aad69bf88773393155c737f9c0`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.19.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#downloads-for-v1190)."
+  },
+  {
+    "name": "v1.19.1",
+    "date": "2020-09-09T16:10:42Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.19.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#v1191) for details.\n\nSHA256 for `kubernetes.tar.gz`: `efa2c495e37b5e014f8df9f9e76c9edae03cc4240a806fbbece561cad496b6ec`\nSHA512 for `kubernetes.tar.gz`: `cbcac78b122cfe7301247c935efdfe0ad42ca8b1229f35d4ba2feb3286eca86f7996bfcbbd810e611f6efa37a74ece7d46eac585f2b7a9fda5e9461f8bf5dbac`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.19.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#downloads-for-v1191)."
+  },
+  {
+    "name": "v1.19.2",
+    "date": "2020-09-16T19:41:55Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.19.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#v1192) for details.\n\nSHA256 for `kubernetes.tar.gz`: `f8e374e924419e4052ab1fe171da538d21caae241bd91324fd36d85a8baed0f0`\nSHA512 for `kubernetes.tar.gz`: `b0f01f8b98e37cfb706d7b0b53a527232f3507be52252614d6c55e41e36cff592c70d704083058bbc557536d9a4340174922f03e05d4f2170186a37be4b65d05`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.19.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#downloads-for-v1192)."
+  },
+  {
+    "name": "v1.19.3",
+    "date": "2020-10-14T16:51:35Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.19.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#v1193) for details.\n\nSHA256 for `kubernetes.tar.gz`: `5a93c9433850001c03579922b29fca5b0a3e0dd247cc0252c8aecefc5c98b10f`\nSHA512 for `kubernetes.tar.gz`: `a9f627b2d35b0aa543863986668de6df316e0649df7fc9b5514c52d5c2bfdbc5a7c416784067c40aeba96a25508a1916439cb76436a7c0dc107c95077eca6cd3`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.19.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#downloads-for-v1193)."
+  },
+  {
+    "name": "v1.19.4",
+    "date": "2020-11-11T23:57:07Z",
+    "details": "See [kubernetes-announce@](https://groups.google.com/forum/#!forum/kubernetes-announce) and [CHANGELOG/CHANGELOG-1.19.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#v1194) for details.\n\nSHA256 for `kubernetes.tar.gz`: `53de5d713b5c9a822d5e87d005682880357759f877f1aad5979bc12c71b46877`\nSHA512 for `kubernetes.tar.gz`: `ddd4ef04975492c39a8ecb469c1d0ccf3c4321be2cd6d03e2d64e292e3e5b4ef5430ccd78c4495a93794f5268a1e09f8636778eba74939414831be60697218b4`\n\nAdditional binary downloads are linked in the [CHANGELOG/CHANGELOG-1.19.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md#downloads-for-v1194)."
+  }
+]
