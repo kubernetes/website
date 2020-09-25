@@ -1,7 +1,4 @@
 ---
-reviewers:
-- dims
-- 44past4
 title: 系统日志
 content_type: concept
 weight: 60
@@ -183,7 +180,7 @@ Increasing verbosity settings logs increasingly less severe events. A verbosity 
 ### Log location
 -->
 
-### 记录位置
+### 日志位置
 
 <!--
 There are two types of system components: those that run in a container and those
