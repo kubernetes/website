@@ -341,4 +341,10 @@ to prevent system OOMs, and promote eviction of workloads so cluster state can r
 The Pod eviction may evict more Pods than needed due to stats collection timing gap. This can be mitigated by adding
 the ability to get root container stats on an on-demand basis [(https://github.com/google/cadvisor/issues/1247)](https://github.com/google/cadvisor/issues/1247) in the future.
 
+### active_file memory is not considered as available memory
+
+Currently, kubelet considers active_file (# of bytes of file-backed memory on active LRU list) as not reclaimable. For I/O intense workload, this might trigger pod eviction due to memory pressure. There is an open discussion: [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)
+
+The recommended workaround is to set a memory limit equal to memory request, which requires to estimate the optimal memory limit value for the workload. 
+
 
