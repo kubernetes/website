@@ -2,6 +2,8 @@
 title: "Production-Grade Container Orchestration"
 abstract: "Automated container deployment, scaling, and management"
 cid: home
+sitemap:
+  priority: 1.0
 ---
 
 {{< blocks/section id="oceanNodes" >}}
