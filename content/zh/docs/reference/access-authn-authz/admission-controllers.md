@@ -48,7 +48,7 @@ webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#a
 which are configured in the API.
 -->
 
-准入控制器是一段代码，它会在请求通过认证和授权之后、对象被持久化之前拦截到达 API 服务器的请求。控制器由下面的[列表](#what-does-each-admission-controller-do)组成，并编译进 `kube-apiserver` 二进制文件，并且只能由集群管理员配置。在该列表中，有两个特殊的控制器：MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook。它们根据 API 中的配置，分别执行变更和验证[准入控制 webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
+准入控制器是一段代码，它会在请求通过认证和授权之后、对象被持久化之前拦截到达 API 服务器的请求。控制器由下面的[列表](#what-does-each-admission-controller-do)组成，并编译进 `kube-apiserver` 二进制文件，并且只能由集群管理员配置。在该列表中，有两个特殊的控制器：MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook。它们根据 API 中的配置，分别执行变更和验证[准入控制 webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
 
 
 <!--
@@ -231,7 +231,7 @@ See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentatio
 storage classes and how to mark a storage class as default.
 -->
 
-关于持久化卷和存储类，以及如何将存储类标记为默认，请参见[持久化卷](/docs/concepts/storage/persistent-volumes/)。
+关于持久化卷和存储类，以及如何将存储类标记为默认，请参见[持久化卷](/zh/docs/concepts/storage/persistent-volumes/)。
 
 ### DefaultTolerationSeconds {#defaulttolerationseconds}
 
@@ -395,7 +395,7 @@ add these tolerations.
 
 该插件有助于创建可扩展资源的专用节点。
 如果运营商想创建可扩展资源的专用节点（如 GPU、FPGA 等），
-那他们应该以扩展资源名称作为键名，[为节点设置污点](/docs/concepts/configuration/taint-and-toleration/#example-use-cases)。
+那他们应该以扩展资源名称作为键名，[为节点设置污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 如果启用了该准入控制器，会将此类污点的容忍自动添加到请求扩展资源的 Pod 中，用户不必再手动添加这些容忍。
 
 ### ImagePolicyWebhook {#imagepolicywebhook}
@@ -505,7 +505,7 @@ plugins:
 The ImagePolicyWebhook config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
 -->
 
-ImagePolicyWebhook 的配置文件必须引用 [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) 格式的文件，该文件设置了到后端的连接，要求后端使用 TLS 进行通信。
+ImagePolicyWebhook 的配置文件必须引用 [kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 格式的文件，该文件设置了到后端的连接，要求后端使用 TLS 进行通信。
 
 <!--
 The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
@@ -550,7 +550,7 @@ users:
 For additional HTTP configuration, refer to the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation.
 -->
 
-HTTP 更多的配置，请参阅 [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) 文档。
+HTTP 更多的配置，请参阅 [kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 文档。
 
 <!--
 #### Request Payloads
@@ -683,7 +683,7 @@ applies a 0.1 CPU requirement to all Pods in the `default` namespace.
 See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
 -->
 
-请查看 [limitRange 设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) 和 [Limit Range 例子](/docs/tasks/configure-pod-container/limit-range/)了解更多细节。
+请查看 [limitRange 设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) 和 [Limit Range 例子](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)了解更多细节。
 
 ### MutatingAdmissionWebhook {#mutatingadmissionwebhook} {{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
@@ -852,7 +852,7 @@ Starting from 1.11, this admission controller is disabled by default.
 该准入控制器会自动将区（region）或区域（zone）标签附加到由云提供商（如 GCE、AWS）定义的 PersistentVolumes 中。
 这有助于确保 Pod 和 PersistentVolume 位于相同的区或区域。
 如果准入控制器不支持为 PersistentVolumes 自动添加标签，那你可能需要手动添加标签，以防止 Pod 挂载其他区域的卷。
-PersistentVolumeLabel 已被废弃，标记持久卷已由[云管理控制器](/docs/tasks/administer-cluster/running-cloud-controller/)接管。
+PersistentVolumeLabel 已被废弃，标记持久卷已由[云管理控制器](/zh/docs/tasks/administer-cluster/running-cloud-controller/)接管。
 从 1.11 开始，默认情况下禁用此准入控制器。
 
 ### PodNodeSelector {#podnodeselector}
@@ -1005,7 +1005,7 @@ allowVolumeExpansion: true
 For more information about persistent volume claims, see [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 -->
 
-关于持久化卷申领的更多信息，请参见 [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
+关于持久化卷申领的更多信息，请参见 [PersistentVolumeClaims](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
 ### PodPreset {#podpreset}
 
@@ -1037,7 +1037,7 @@ extensions group (`--runtime-config=extensions/v1beta1/podsecuritypolicy=true`).
 See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-policy/)
 for more information.
 -->
-查看 [Pod 安全策略文档](/docs/concepts/policy/pod-security-policy/)了解更多细节。
+查看 [Pod 安全策略文档](/zh/docs/concepts/policy/pod-security-policy/)了解更多细节。
 
 ### PodTolerationRestriction {#podtolerationrestriction}
 
@@ -1094,7 +1094,7 @@ objects in your Kubernetes deployment, you MUST use this admission controller to
 <!--
 See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 -->
-请查看 [resourceQuota 设计文档](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md)和 [Resource Quota 例子](/docs/concepts/policy/resource-quotas/)了解更多细节。
+请查看 [resourceQuota 设计文档](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md)和 [Resource Quota 例子](/zh/docs/concepts/policy/resource-quotas/)了解更多细节。
 
 
 <!--
@@ -1109,17 +1109,17 @@ for more information.
 
 ### 容器运行时类 {#runtimeclass} {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
-[容器运行时类](/docs/concepts/containers/runtime-class/)定义描述了与运行 Pod 相关的开销。此准入控制器将相应地设置 pod.Spec.Overhead 字段。
+[容器运行时类](/zh/docs/concepts/containers/runtime-class/)定义描述了与运行 Pod 相关的开销。此准入控制器将相应地设置 pod.Spec.Overhead 字段。
 
-详情请参见 [Pod 开销](/docs/concepts/configuration/pod-overhead/)。
+详情请参见 [Pod 开销](/zh/docs/concepts/configuration/pod-overhead/)。
 
 ### SecurityContextDeny {#securitycontextdeny}
 
 <!--
 This admission controller will deny any pod that attempts to set certain escalating [SecurityContext](/docs/user-guide/security-context) fields. This should be enabled if a cluster doesn't utilize [pod security policies](/docs/user-guide/pod-security-policy) to restrict the set of values a security context can take.
 -->
-该准入控制器将拒绝任何试图设置特定提升 [SecurityContext](/docs/user-guide/security-context) 字段的 pod。
-如果集群没有使用 [pod 安全策略](/docs/user-guide/pod-security-policy)来限制安全上下文所能获取的值集，那么应该启用这个功能。
+该准入控制器将拒绝任何试图设置特定提升 [SecurityContext](/zh/docs/tasks/configure-pod-container/security-context/) 字段的 pod。
+如果集群没有使用 [pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)来限制安全上下文所能获取的值集，那么应该启用这个功能。
 
 ### ServiceAccount {#serviceaccount}
 
@@ -1127,7 +1127,7 @@ This admission controller will deny any pod that attempts to set certain escalat
 This admission controller implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
 We strongly recommend using this admission controller if you intend to make use of Kubernetes `ServiceAccount` objects.
 -->
-该准入控制器实现了 [serviceAccounts](/docs/user-guide/service-accounts) 的自动化。
+该准入控制器实现了 [serviceAccounts](/zh/docs/tasks/configure-pod-container/configure-service-account/) 的自动化。
 如果您打算使用 Kubernetes 的 ServiceAccount 对象，我们强烈建议您使用这个准入控制器。
 
 ### StorageObjectInUseProtection
@@ -1135,7 +1135,7 @@ We strongly recommend using this admission controller if you intend to make use 
 <!--
 The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection) for more detailed information.
 -->
-`StorageObjectInUseProtection` 插件将 `kubernetes.io/pvc-protection` 或 `kubernetes.io/pv-protection` finalizers 添加到新创建的持久化卷声明（PVC）或持久化卷（PV）中。 如果用户尝试删除 PVC/PV，除非 PVC/PV 的保护控制器移除 finalizers，否则 PVC/PV 不会被删除。有关更多详细信息，请参考[保护使用中的存储对象](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)。
+`StorageObjectInUseProtection` 插件将 `kubernetes.io/pvc-protection` 或 `kubernetes.io/pv-protection` finalizers 添加到新创建的持久化卷声明（PVC）或持久化卷（PV）中。 如果用户尝试删除 PVC/PV，除非 PVC/PV 的保护控制器移除 finalizers，否则 PVC/PV 不会被删除。有关更多详细信息，请参考[保护使用中的存储对象](/zh/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)。
 
 ### TaintNodesByCondition {#taintnodesbycondition} {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
@@ -1179,7 +1179,7 @@ Yes. For Kubernetes version 1.10 and later, the recommended admission controller
 -->
 ## 有推荐的准入控制器吗？
 
-有，对于 Kubernetes 1.10 以上的版本，推荐使用的准入控制器默认情况下都处于启用状态（查看[这里](/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
+有，对于 Kubernetes 1.10 以上的版本，推荐使用的准入控制器默认情况下都处于启用状态（查看[这里](/zh/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
 因此您无需显式指定它们。您可以使用 `--enable-admission-plugins` 标志（ **顺序不重要** ）来启用默认设置以外的其他准入控制器。
 
 {{< note >}}
@@ -1217,5 +1217,3 @@ in the mutating phase.
 admission controllers ran in the exact order specified.
 -->
     对于更早期版本，没有验证和变更的概念，并且准入控制器按照指定的确切顺序运行。
-
-

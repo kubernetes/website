@@ -7,7 +7,7 @@ approvers:
 title: 管理 Service Accounts
 ---
 
-*这是一篇针对service accounts（服务账户）的集群管理员指南。  它呈现了 [User Guide to Service Accounts](/docs/user-guide/service-accounts)中的信息。*
+*这是一篇针对service accounts（服务账户）的集群管理员指南。  它呈现了 [User Guide to Service Accounts](/zh/docs/tasks/configure-pod-container/configure-service-account/)中的信息。*
 
 *对授权和用户账户的支持已在规划中，当前并不完备，为了更好地描述 service accounts，有时这些不完善的特性也会被提及。*
 
@@ -32,7 +32,7 @@ Kubernetes 区分用户账户和服务账户的概念主要基于以下原因：
 
 ### 服务账户准入控制器
 
-对 pod 的改动通过一个被称为 [Admission Controller](/docs/admin/admission-controllers) 的插件来实现。它是 apiserver 的一部分。
+对 pod 的改动通过一个被称为 [Admission Controller](/zh/docs/reference/access-authn-authz/admission-controllers/) 的插件来实现。它是 apiserver 的一部分。
 当 pod 被创建或更新时，它会同步地修改 pod。 当该插件处于激活状态 ( 在大多数发行版中都是默认的 )，当 pod 被创建或更新时它会进行以下动作：
 
   1. 如果该 pod 没有 `ServiceAccount` 设置，将其 `ServiceAccount` 设为 `default`。
