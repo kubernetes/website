@@ -950,7 +950,7 @@ Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/
 
 `.spec.template`と`.spec.selector`は`.spec`における必須のフィールドです。
 
-`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/pod-overview/#podテンプレート)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては[Pod](/ja/docs/concepts/workloads/pods/pod/)と同じスキーマとなります。
+`.spec.template`は[Podテンプレート](/docs/concepts/workloads/pods/#pod-templates)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては{{< glossary_tooltip text="Pod" term_id="pod" >}}と同じスキーマとなります。
 
 Podの必須フィールドに加えて、Deployment内のPodテンプレートでは適切なラベルと再起動ポリシーを設定しなくてはなりません。ラベルは他のコントローラーと重複しないようにしてください。ラベルについては、[セレクター](#selector)を参照してください。
 
