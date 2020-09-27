@@ -56,7 +56,7 @@ should range from highly restricted to highly flexible:
 ## 策略类型   {#policy-types}
 
 在进一步讨论整个策略谱系之前，有必要对基本的策略下个定义。
-策略可以是很严格的也可以是很宽松的：
+策略的范围应该从高度严格到高度宽松：
 
 - **_Privileged_** - 不受限制的策略，提供最大可能范围的权限许可。这些策略
   允许已知的特权提升。
