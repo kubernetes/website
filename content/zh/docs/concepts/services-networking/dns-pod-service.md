@@ -46,7 +46,7 @@ For more up-to-date specification, see
 ## 怎样获取 DNS 名字?
 
 在集群中定义的每个 Service（包括 DNS 服务器自身）都会被指派一个 DNS 名称。
-默认，一个客户端 Pod 的 DNS 搜索列表将包含该 Pod 自己的名字空间和集群默认域。
+默认，一个客户端 Pod 的 DNS 搜索列表将包含该 Pod 自己的命名空间和集群默认域。
 如下示例是一个很好的说明：
 
 假设在 Kubernetes 集群的名字空间 `bar` 中，定义了一个服务 `foo`。
