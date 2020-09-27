@@ -5,7 +5,7 @@ approvers:
 title: Kubernetes API 访问控制
 ---
 
-用户通过 `kubectl`、客户端库或者通过发送 REST 请求[访问 API](/zh/docs/user-guide/accessing-the-cluster)。 用户和 [Kubernetes 服务账户](/zh/docs/tasks/configure-pod-container/configure-service-account/) 都可以被授权进行 API 访问。
+用户通过 `kubectl`、客户端库或者通过发送 REST 请求[访问 API](/zh/docs/tasks/access-application-cluster/access-cluster/)。 用户和 [Kubernetes 服务账户](/zh/docs/tasks/configure-pod-container/configure-service-account/) 都可以被授权进行 API 访问。
 请求到达 API 服务器后会经过几个阶段，具体说明如图：
 
 ![Diagram of request handling steps for Kubernetes API request](/images/docs/admin/access-control-overview.svg)
@@ -20,7 +20,7 @@ API 服务器会提供一份证书。 该证书一般是自签名的， 所以�
 
 一旦 TLS 连接建立，HTTP 请求就进入到了认证的步骤。即图中的步骤 **1** 。
 集群创建脚本或集群管理员会为 API 服务器配置一个或多个认证模块。
-更具体的认证相关的描述详见[这里](/docs/admin/authentication/)。
+更具体的认证相关的描述详见[这里](/zh/docs/reference/access-authn-authz/authentication/)。
 
 认证步骤的输入是整个 HTTP 请求，但这里通常只是检查请求头和 / 或客户端证书。
 
@@ -79,7 +79,7 @@ Kubernetes 的授权要求使用通用的 REST 属性与现有的组织或云服
 
 Kubernetes 支持多种授权模块，例如 ABAC 模式，RBAC 模式和 Webhook 模式。 管理员创建集群时，会配置 API 服务器应用的授权模块。 如果多种授权模式同时被启用，Kubernetes 将检查所有模块，如果其中一种通过授权，则请求授权通过。 如果所有的模块全部拒绝，则请求被拒绝（HTTP 状态码 403）。
 
-要了解更多的 Kubernetes 授权相关信息，包括使用授权模块创建策略的具体说明等，可参考[授权概述](/docs/admin/authorization)。
+要了解更多的 Kubernetes 授权相关信息，包括使用授权模块创建策略的具体说明等，可参考[授权概述](/zh/docs/reference/access-authn-authz/authorization/)。
 
 
 ## 准入控制
@@ -96,7 +96,7 @@ Kubernetes 支持多种授权模块，例如 ABAC 模式，RBAC 模式和 Webhoo
 
 除了拒绝请求外，准入控制器还可以为对象设置复杂的默认值。
 
-可用的准入控制模块描述 [如下](/docs/admin/admission-controllers/)。
+可用的准入控制模块描述 [如下](/zh/docs/reference/access-authn-authz/admission-controllers/)。
 
 一旦请求通过所有准入控制器，将使用对应 API 对象的验证流程对其进行验证，然后写入对象存储 （如步骤 **4**）。
 
