@@ -346,7 +346,7 @@ spec:
 | -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
 | [잡 템플릿 확장](/ko/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
 | [작업 항목 당 파드가 있는 큐](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |         ✓         |                             |      때때로      |          ✓          |
-| [가변 파드 수를 가진 큐](/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
+| [가변 파드 수를 가진 큐](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
 | 정적 작업이 할당된 단일 잡                               |         ✓         |                             |          ✓          |                     |
 
 `.spec.completions` 로 완료를 지정할 때, 잡 컨트롤러에 의해 생성된 각 파드는
@@ -362,7 +362,7 @@ spec:
 | -------------------------------------------------------------------- |:-------------------:|:--------------------:|
 | [잡 템플릿 확장](/ko/docs/tasks/job/parallel-processing-expansion/)           |          1          |     1이어야 함      |
 | [작업 항목 당 파드가 있는 큐](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |          W          |        any           |
-| [가변 파드 수를 가진 큐](/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
+| [가변 파드 수를 가진 큐](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
 | 정적 작업이 할당된 단일 잡                               |          W          |        any           |
 
 

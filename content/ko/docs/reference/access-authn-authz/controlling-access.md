@@ -11,7 +11,7 @@ weight: 5
 <!-- body -->
 사용자는 `kubectl`, 클라이언트 라이브러리
 또는 REST 요청을 통해
-[API에 접근한다](/docs/tasks/access-application-cluster/access-cluster/).
+[API에 접근한다](/ko/docs/tasks/access-application-cluster/access-cluster/).
 사용자와 쿠버네티스 서비스 어카운트 모두 API에 접근할 수 있다.
 요청이 API에 도달하면,
 다음 다이어그램에 설명된 몇 가지 단계를 거친다.
@@ -159,4 +159,3 @@ GCE(구글 컴퓨트 엔진) 및 다른 클라우드 제공자에서 `kube-up.sh
 API 서버는 포트 443에서 서비스한다.
 GCE에서는 외부 HTTPS가 API에 접근할 수 있도록 프로젝트에서 방화벽 규칙이 구성된다.
 이외에 클러스터 설정 방법은 다양하다.
-

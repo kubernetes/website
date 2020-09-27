@@ -126,7 +126,7 @@ API를 추가해도 기존 API(예: 파드)의 동작에 직접 영향을 미치
 
 ### API 접근 익스텐션
 
-요청이 쿠버네티스 API 서버에 도달하면 먼저 인증이 되고, 그런 다음 승인된 후 다양한 유형의 어드미션 컨트롤이 적용된다. 이 흐름에 대한 자세한 내용은 [쿠버네티스 API에 대한 접근 제어](/docs/reference/access-authn-authz/controlling-access/)를 참고하길 바란다.
+요청이 쿠버네티스 API 서버에 도달하면 먼저 인증이 되고, 그런 다음 승인된 후 다양한 유형의 어드미션 컨트롤이 적용된다. 이 흐름에 대한 자세한 내용은 [쿠버네티스 API에 대한 접근 제어](/ko/docs/reference/access-authn-authz/controlling-access/)를 참고하길 바란다.
 
 이러한 각 단계는 익스텐션 포인트를 제공한다.
 

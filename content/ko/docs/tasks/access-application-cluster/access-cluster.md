@@ -149,8 +149,8 @@ root 인증서를 사용하려면 특수한 설정을 필요로 할 것이다.
 
 localhost에서 제공되거나 방화벽으로 보호되는 몇몇 클러스터들에서는 apiserver가 인증을
 요구하지 않지만 이는 표준이 아니다.
-[Configuring Access to the API](/docs/reference/access-authn-authz/controlling-access/)
-는 클러스터 관리자가 이를 어떻게 구성할 수 있는지를 설명한다.
+[API에 대한 접근 구성](/ko/docs/reference/access-authn-authz/controlling-access/)은
+클러스터 관리자가 이를 어떻게 구성할 수 있는지를 설명한다.
 이 방식들은 미래의 고가용성 지원과 충돌될 수 있다.
 
 ## API에 프로그래밍 방식으로 접근
@@ -375,4 +375,3 @@ redirect 기능은 deprecated되고 제거 되었다. 대신 (아래의) proxy�
 
 일반적으로 쿠버네티스 사용자들은 처음 두 타입이 아닌 다른 방식은 고려할 필요가 없지만 클러스터 관리자는
 나머지 타입을 적절하게 구성해줘야 한다.
-
