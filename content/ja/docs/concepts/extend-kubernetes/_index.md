@@ -2,11 +2,6 @@
 title: Kubernetesを拡張する
 weight: 110
 description: Kubernetesクラスターの挙動を変えるいろいろな方法
-reviewers:
-- erictune
-- lavalamp
-- cheftako
-- chenopis
 content_type: concept
 no_list: true
 ---
