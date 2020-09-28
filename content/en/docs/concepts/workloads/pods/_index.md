@@ -217,7 +217,7 @@ or POSIX shared memory.  Containers in different Pods have distinct IP addresses
 and can not communicate by IPC without
 [special configuration](/docs/concepts/policy/pod-security-policy/).
 Containers that want to interact with a container running in a different Pod can
-use IP networking to comunicate.
+use IP networking to communicate.
 
 Containers within the Pod see the system hostname as being the same as the configured
 `name` for the Pod. There's more about this in the [networking](/docs/concepts/cluster-administration/networking/)
