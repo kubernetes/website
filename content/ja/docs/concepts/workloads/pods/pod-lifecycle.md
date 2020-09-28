@@ -55,7 +55,7 @@ Nodeが停止するか、クラスタの残りの部分から切断された場�
 
 ## コンテナのステータス {#container-states}
 
-Pod全体の[Phase](#pod-phase)と同様に、KubernetesはPod内の各コンテナの状態を追跡します。[container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)を使用して、コンテナのライフサイクルの特定のポイントで実行するイベントをトリガーできます。
+Pod全体の[フェーズ](#pod-phase)と同様に、KubernetesはPod内の各コンテナの状態を追跡します。[container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)を使用して、コンテナのライフサイクルの特定のポイントで実行するイベントをトリガーできます。
 
 Podが{{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}によってNodeに割り当てられると、kubeletは{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}を使用してコンテナの作成を開始します。コンテナの状態は`Waiting`、`Running`または`Terminated`の3ついずれかです。
 
