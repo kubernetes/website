@@ -77,7 +77,7 @@ On AWS, master node sizes are currently set at cluster startup time and do not c
 
 ### アドオンのリソース
 
-To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](httpis://pr.k8s.io/10653/files) and [#10778](http://pr.k8s.io/10778/files)).
+To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](https://pr.k8s.io/10653/files) and [#10778](https://pr.k8s.io/10778/files)).
 
 For example:
 
