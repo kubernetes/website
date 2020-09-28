@@ -212,7 +212,6 @@ Podが削除されたときにリクエストを来ないようにするため�
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
 startupProbeは、サービスの開始に時間がかかるコンテナを持つポッドに役立ちます。livenessProbeの間隔を長く設定するのではなく、コンテナの起動時に別のProbeを構成して、livenessProbeの間隔よりも長い時間を許可できます。
-i
 コンテナの起動時間が、`initialDelaySeconds + failureThreshold x periodSeconds`よりも長い場合は、livenessProbeと同じエンドポイントをチェックするためにstartupProbeを指定します。`periodSeconds`のデフォルトは30秒です。次に、`failureThreshold`をlivenessProbeのデフォルト値を変更せずにコンテナが起動できるように、十分に高い値を設定します。これによりデッドロックを防ぐことができます。
 
 ## Podの終了 {#pod-termination}
