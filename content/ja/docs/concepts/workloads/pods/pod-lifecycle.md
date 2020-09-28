@@ -81,7 +81,7 @@ Podのコンテナの状態を確認するには`kubectl describe pod [POD_NAME]
 
 Podの`spec`には、Always、OnFailure、またはNeverのいずれかの値を持つ`restartPolicy`フィールドがあります。デフォルト値はAlwaysです。
 
-`restartPolicy`は、Pod内のすべてのコンテナに適用されます。`restartPolicy`は、同じNode上のkubeletによるコンテナの再起動のみを参照します。Pod内のコンテナが終了した後、kubeletは5分を上限とする指数バックオフ遅延（10秒、20秒、40秒...）でコンテナを再起動します。コンテナが10分間問題なく実行されると、kubeletはコンテナ―の再起動バックオフタイマーをリセットします。
+`restartPolicy`は、Pod内のすべてのコンテナに適用されます。`restartPolicy`は、同じNode上のkubeletによるコンテナの再起動のみを参照します。Pod内のコンテナが終了した後、kubeletは5分を上限とする指数バックオフ遅延（10秒、20秒、40秒...）でコンテナを再起動します。コンテナが10分間問題なく実行されると、kubeletはコンテナの再起動バックオフタイマーをリセットします。
 
 ## PodのCondition {#pod-conditions}
 
