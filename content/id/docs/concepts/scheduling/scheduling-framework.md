@@ -76,6 +76,14 @@ mereka dikonfigurasi. Jika ada _plugin_ Filter menandai Node menjadi _infeasible
 maka _plugin_ yang lainnya tidak akan dipanggil untuk Node itu. Node-Node dapat dievaluasi 
 secara bersamaan.
 
+### PostFilter {#post-filter}
+
+Plugin ini disebut setelah fase Filter, tetapi hanya ketika tidak ada node yang layak
+ditemukan untuk pod. Plugin dipanggil dalam urutan yang dikonfigurasi. Jika
+plugin postFilter menandai node sebagai 'Schedulable', plugin yang tersisa
+tidak akan dipanggil. Implementasi PostFilter yang khas adalah preemption, yang
+mencoba membuat pod dapat di menjadwalkan dengan mendahului Pod lain.
+
 ### PreScore {#pre-score}
 
 _Plugin_ ini digunakan untuk melakukan pekerjaan "pra-penilaian", yang 
