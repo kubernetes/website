@@ -57,10 +57,6 @@ kubectl proxy
 
 Kubectl will make Dashboard available at http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/.
 
-<!-- The above statement is implicit about accessing it local , so commenting and removing the below line.
-The UI can _only_ be accessed from the machine where the command is executed. 
--->
-
 
 To make kubernetes dashboard accessible remote using SSH tunnel and configure proxy:
 
@@ -73,7 +69,7 @@ kubectl proxy --address='0.0.0.0' --accept-hosts='^*$'
 
 ```
 
-This will make the remote kubernetes dashboard accesible as http://localhost:8001
+This will make the remote Kubernetes dashboard accesible as http://localhost:8001.
 
 kindly check `kubectl proxy --help` for more options.
 
