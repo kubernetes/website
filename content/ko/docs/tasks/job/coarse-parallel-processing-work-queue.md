@@ -10,14 +10,15 @@ weight: 40
 
 이 예에서는, 여러 병렬 워커 프로세스를 활용해 쿠버네티스 잡(Job)을 실행한다. 
 
-이 예에서는, 각 파드가 생성될 때, 작업 대기열에서 하나의 작업 단위를 선택하여, 완료하고, 종료한다. 
+이 예에서는, 각 파드가 생성될 때 작업 대기열에서 하나의 작업 단위를 선택하여, 완료하고, 종료한다. 
 
 이 예에서의 단계에 대한 개요는 다음과 같다.
 
 1. **메시지 큐 서비스를 시작한다.** 이 예에서는, RabbitMQ를 사용하지만, 다른 메시지 큐를 이용해도 된다.
   실제로 사용할 때는, 한 번 메시지 큐 서비스를 구축하고서 이를 여러 잡을 위해 재사용하기도 한다.
 
-1. **대기열을 만들고, 메시지로 채운다.** 각 메시지는 수행할 하나의 작업을 나타낸다. 이 에에서, 메시지는 긴 계산을 수행할 정수일 뿐이다.
+1. **대기열을 만들고, 메시지로 채운다.** 각 메시지는 수행할 하나의 작업을 나타낸다. 
+  이 에에서, 메시지는 긴 계산을 수행할 정수일 뿐이다.
 
 1. **대기열에서 작업을 수행하는 잡을 시작한다.**  잡은 여러 파드를 시작한다. 각 파드는
    메시지 대기열에서 하나의 작업을 가져와서, 처리한 다음, 대기열이 비워질 때까지 반복한다.
@@ -55,7 +56,8 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/releas
 replicationcontroller "rabbitmq-controller" created
 ```
 
-이 문서에서는 RabbitMQ를 [celery-rabbitmq 예제](https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/celery-rabbitmq)에 나오는 정도만 사용한다.
+이 문서에서는 RabbitMQ를 [celery-rabbitmq 예제](https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/celery-rabbitmq)에 
+나오는 정도만 사용한다.
 
 ## 메시지 큐 서비스 테스트하기
 
@@ -77,7 +79,7 @@ Waiting for pod default/temp-loe07 to be running, status is Pending, pod ready: 
 
 파드 이름과 명령 프롬프트는 위와 다를 수 있다.
 
-다음으로 `ampq-tools`를 설치하여 메시지 큐를 활용할 수 있게 한다.
+다음으로 `amqp-tools`를 설치하여 메시지 큐를 활용할 수 있게 한다.
 
 ```shell
 # 도구들을 설치한다.
@@ -140,7 +142,7 @@ Hello
 root@temp-loe07:/#
 ```
 
-마지막 커맨드에서, `ampq-consume` 도구는 큐로부터 하나의 메시지를 받고 (`-c 1`),
+마지막 커맨드에서, `amqp-consume` 도구는 큐로부터 하나의 메시지를 받고 (`-c 1`),
 그 메시지를 임의의 명령행 도구의 표준입력으로 전한다. 
 이 경우에는, `cat` 프로그램이 표준입력으로 부터 받은 값을 바로 출력하고 있고, 
 echo가 캐리지 리턴을 더해주어 출력결과가 보여지고 있다.
@@ -148,8 +150,7 @@ echo가 캐리지 리턴을 더해주어 출력결과가 보여지고 있다.
 
 ## 작업으로 대기열 채우기
 
-이제 몇 가지 "작업"으로 대기열을 채운다. 이 예제의 작업은 문자열을 출력하는
-것이다.
+이제 몇 가지 "작업"으로 대기열을 채운다. 이 예제의 작업은 문자열을 출력하는 것이다.
 
 실제로 사용할 때는, 메시지의 내용이 다음과 같을 수 있다. 
 
@@ -160,11 +161,11 @@ echo가 캐리지 리턴을 더해주어 출력결과가 보여지고 있다.
 - 렌더되어야 하는 씬(scene)의 프레임 번호
 
 실제로는, 잡의 모든 파드에서 읽기-전용 모드로 필요한 큰 데이터가 있다면,
-일반적으로 그 데이터를 NFS와 같은 공유 파일 시스템에 넣고 모든 파드에 읽기 전용으로 마운트 하거나, 파드 안에 있는 프로그램이 기본적으로 HDFS와 같은 
-클러스터 파일 시스템으로부터 데이터를 불러들인다.
+일반적으로 그 데이터를 NFS와 같은 공유 파일 시스템에 넣고 모든 파드에 읽기 전용으로 마운트 하거나, 
+파드 안에 있는 프로그램이 기본적으로 HDFS와 같은 클러스터 파일 시스템으로부터 데이터를 불러들인다.
 
-본 예제에서는, 큐를 만들고 ampq 명령행 도구를 이용해 큐를 채울 것이다.
-실제로는, ampq 라이브러리를 이용해 큐를 채우는 프로그램을 작성하게 된다.
+본 예제에서는, 큐를 만들고 amqp 명령행 도구를 이용해 큐를 채울 것이다.
+실제로는, amqp 라이브러리를 이용해 큐를 채우는 프로그램을 작성하게 된다.
 
 ```shell
 /usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d
@@ -198,23 +199,24 @@ chmod +x worker.py
 이제 이미지를 빌드한다. 만약 소스트리 안에서 작업하고 있다면, 
 `examples/job/work-queue-1`로 디렉토리를 옮긴다.
 아니면, 임시 디렉토리를 만들고, 그 디렉토리로 옮긴다.
-[Dockerfile](/examples/application/job/rabbitmq/Dockerfile)와 [worker.py](/examples/application/job/rabbitmq/worker.py)를 다운받는다.
+[Dockerfile](/examples/application/job/rabbitmq/Dockerfile)와 
+[worker.py](/examples/application/job/rabbitmq/worker.py)를 다운받는다.
 어떤 디렉토리에 들어갔든, 다음의 커맨드를 이용해 이미지를 빌드한다.
 
 ```shell
 docker build -t job-wq-1 .
 ```
 
-For the [Docker Hub](https://hub.docker.com/), tag your app image with
-your username and push to the Hub with the below commands. Replace
-`<username>` with your Hub username.
+[도커 허브](https://hub.docker.com/)를 이용하기 위해, 앱 이미지를 유저네임으로 태깅하고
+아래의 명령어를 이용해 허브에 푸시한다. `<username>`을 허브 유저네임으로 대체한다.
 
 ```shell
 docker tag job-wq-1 <username>/job-wq-1
 docker push <username>/job-wq-1
 ```
 
-만약 [구글 컨테이너 레지스트리](https://cloud.google.com/tools/container-registry/)를 이용하고 있다면, 앱 이미지를 프로젝트 ID를 이용해 태깅하고, GCR에 푸시한다. `<proejct>` 부분을 프로젝트 ID로 대체한다.
+만약 [구글 컨테이너 레지스트리](https://cloud.google.com/tools/container-registry/)를 이용하고 있다면, 
+앱 이미지를 프로젝트 ID를 이용해 태깅하고, GCR에 푸시한다. `<proejct>` 부분을 프로젝트 ID로 대체한다.
 
 ```shell
 docker tag job-wq-1 gcr.io/<project>/job-wq-1
@@ -295,7 +297,8 @@ Events:
 된다는 장점이 있다.
 
 이 접근을 이용하려면, 메시지 큐 서비스를 실행해야만 한다.
-만약 메시지 큐 서비스를 실행하는 게 불편하다면, 다른 [잡 패턴](/docs/concepts/workloads/controllers/job/#job-patterns)을 고려해볼 수 있다.
+만약 메시지 큐 서비스를 실행하는 게 불편하다면, 
+다른 [잡 패턴](/docs/concepts/workloads/controllers/job/#job-patterns)을 고려해볼 수 있다.
 
 이 접근은 모든 작업 아이템에 대해 파드를 생성한다. 만약 작업 아이템이 오직 몇 초밖에 걸리지 않는 작업이라면, 
 매 작업마다 파드를 생성하는 것은 아주 큰 오버헤드를 더할 수 있다.
@@ -318,7 +321,6 @@ Events:
 
 이 패턴에서는 경쟁 상태(race)가 잘 나타나지 않는다.
 만약 amqp-consume 커맨드로부터 메시지가 인정되는 시간과 컨테이너가 성공과 
-함께 종료되는 사이에 컨테이너가 종료되거나, kubelet이 api-server에게 파드가 성공했음을 알리기 전에 노드가 비정상 종료되면 큐의 모든 아이템이 처리되었다 해도,
+함께 종료되는 사이에 컨테이너가 종료되거나, kubelet이 api-server에게 파드가 성공했음을 알리기 전에 
+노드가 비정상 종료되면 큐의 모든 아이템이 처리되었다 해도,
 잡이 완료되었다고 표시되지 않는다.
-
-
