@@ -254,7 +254,7 @@ but cannot be controlled from there.
 
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
 * Learn about [PodPresets](/docs/concepts/workloads/pods/podpreset/).
-* Lean about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
+* Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
   configure different Pods with different container runtime configurations.
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.

@@ -33,13 +33,13 @@ El método recomendado para levantar una copia local del sitio web kubernetes.io
 Una vez tenga Docker [configurado en su máquina](https://www.docker.com/get-started), puede construir la imagen de Docker `kubernetes-hugo` localmente ejecutando el siguiente comando en la raíz del repositorio:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Una vez tenga la imagen construida, puede levantar el sitio web ejecutando:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Abra su navegador y visite http://localhost:1313 para acceder a su copia local del sitio. A medida que vaya haciendo cambios en el código fuente, Hugo irá actualizando la página y forzará la actualización en el navegador.

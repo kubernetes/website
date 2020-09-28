@@ -74,7 +74,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 `apply`            | `kubectl apply -f FILENAME [flags]`| Внести изменения в конфигурацию ресурса из файла или потока stdin.
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | Подключиться к запущенному контейнеру либо для просмотра потока вывода, либо для работы с контейнером (stdin).
 `autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | Автоматически промасштабировать набор подов, управляемых контроллером репликации.
-`cluster-info`    | `kubectl cluster-info [flags]` | Показать информацию о главном узле и сервисов в кластере.
+`cluster-info`    | `kubectl cluster-info [flags]` | Показать информацию о главном узле и сервисах в кластере.
 `config`        | `kubectl config SUBCOMMAND [flags]` | Изменить файлы kubeconfig. Подробные сведения смотрите в отдельных подкомандах.
 `create`        | `kubectl create -f FILENAME [flags]` | Создать один или несколько ресурсов из файла или stdin.
 `delete`        | <code>kubectl delete (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label &#124; --all]) [flags]</code> | Удалить ресурсы из файла, потока stdin, либо с помощью селекторов меток, имен, селекторов ресурсов или ресурсов.

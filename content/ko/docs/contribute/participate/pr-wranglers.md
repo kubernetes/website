@@ -16,7 +16,7 @@ SIG Docs [승인자](/ko/docs/contribute/participating/roles-and-responsibilites
 
 PR 랭글러는 일주일 간 매일 다음의 일을 해야 한다.
 
-- 매일 새로 올라오는 이슈를 심사하고 태그를 지정한다. SIG Docs가 메타데이터를 사용하는 방법에 대한 지침은 [이슈 심사 및 분류](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)를 참고한다.
+- 매일 새로 올라오는 이슈를 심사하고 태그를 지정한다. SIG Docs가 메타데이터를 사용하는 방법에 대한 지침은 [이슈 심사 및 분류](/ko/docs/contribute/review/for-approvers/#이슈-심사와-분류)를 참고한다.
 - [스타일](/docs/contribute/style/style-guide/)과 [콘텐츠](/docs/contribute/style/content-guide/) 가이드를 준수하는지에 대해 [열린(open) 풀 리퀘스트](https://github.com/kubernetes/website/pulls)를 매일 리뷰한다.
   - 가장 작은 PR(`size/XS`)부터 시작하고, 가장 큰(`size/XXL`) PR까지 리뷰한다. 가능한 한 많은 PR을 리뷰한다.
 - PR 기여자들이 [CLA]()에 서명했는지 확인한다.

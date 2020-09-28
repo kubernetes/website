@@ -40,6 +40,8 @@ The following client libraries are officially maintained by
 
 ## Community-maintained client libraries
 
+{{% thirdparty-content %}}
+
 The following Kubernetes API client libraries are provided and maintained by
 their authors, not the Kubernetes team.
 

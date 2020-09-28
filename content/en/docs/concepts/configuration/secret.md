@@ -37,6 +37,12 @@ its containers.
 - As [container environment variable](#using-secrets-as-environment-variables).
 - By the [kubelet when pulling images](#using-imagepullsecrets) for the Pod.
 
+The name of a Secret object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
+The keys of `data` and `stringData` must consist of alphanumeric characters,
+`-`, `_` or `.`.
+
 ### Built-in Secrets
 
 #### Service accounts automatically create and attach Secrets with API credentials
@@ -52,401 +58,15 @@ this is the recommended workflow.
 See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)
 documentation for more information on how service accounts work.
 
-### Creating your own Secrets
+### Creating a Secret
 
-#### Creating a Secret Using `kubectl`
+There are several options to create a Secret:
 
-Secrets can contain user credentials required by Pods to access a database.
-For example, a database connection string
-consists of a username and password. You can store the username in a file `./username.txt`
-and the password in a file `./password.txt` on your local machine.
+- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
-```shell
-# Create files needed for the rest of the example.
-echo -n 'admin' > ./username.txt
-echo -n '1f2d1e2e67df' > ./password.txt
-```
-
-The `kubectl create secret` command packages these files into a Secret and creates
-the object on the API server.
-The name of a Secret object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-
-```shell
-kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
-```
-
-The output is similar to:
-
-```
-secret "db-user-pass" created
-```
-
-Default key name is the filename. You may optionally set the key name using `[--from-file=[key=]source]`.
-
-```shell
-kubectl create secret generic db-user-pass --from-file=username=./username.txt --from-file=password=./password.txt
-```
-
-{{< note >}}
-Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
-In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
-For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command this way:
-
-```shell
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
-```
-
-You do not need to escape special characters in passwords from files (`--from-file`).
-{{< /note >}}
-
-You can check that the secret was created:
-
-```shell
-kubectl get secrets
-```
-
-The output is similar to:
-
-```
-NAME                  TYPE                                  DATA      AGE
-db-user-pass          Opaque                                2         51s
-```
-
-You can view a description of the secret:
-
-```shell
-kubectl describe secrets/db-user-pass
-```
-
-The output is similar to:
-
-```
-Name:            db-user-pass
-Namespace:       default
-Labels:          <none>
-Annotations:     <none>
-
-Type:            Opaque
-
-Data
-====
-password.txt:    12 bytes
-username.txt:    5 bytes
-```
-
-{{< note >}}
-The commands `kubectl get` and `kubectl describe` avoid showing the contents of a secret by
-default. This is to protect the secret from being exposed accidentally to an onlooker,
-or from being stored in a terminal log.
-{{< /note >}}
-
-See [decoding a secret](#decoding-a-secret) to learn how to view the contents of a secret.
-
-#### Creating a Secret manually
-
-You can also create a Secret in a file first, in JSON or YAML format,
-and then create that object.
-The name of a Secret object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-The [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-contains two maps:
-`data` and `stringData`. The `data` field is used to store arbitrary data, encoded using
-base64. The `stringData` field is provided for convenience, and allows you to provide
-secret data as unencoded strings.
-
-For example, to store two strings in a Secret using the `data` field, convert
-the strings to base64 as follows:
-
-```shell
-echo -n 'admin' | base64
-```
-
-The output is similar to:
-
-```
-YWRtaW4=
-```
-
-```shell
-echo -n '1f2d1e2e67df' | base64
-```
-
-The output is similar to:
-
-```
-MWYyZDFlMmU2N2Rm
-```
-
-Write a Secret that looks like this:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysecret
-type: Opaque
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
-```
-
-Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
-
-```shell
-kubectl apply -f ./secret.yaml
-```
-
-The output is similar to:
-
-```
-secret "mysecret" created
-```
-
-For certain scenarios, you may wish to use the `stringData` field instead. This
-field allows you to put a non-base64 encoded string directly into the Secret,
-and the string will be encoded for you when the Secret is created or updated.
-
-A practical example of this might be where you are deploying an application
-that uses a Secret to store a configuration file, and you want to populate
-parts of that configuration file during your deployment process.
-
-For example, if your application uses the following configuration file:
-
-```yaml
-apiUrl: "https://my.api.com/api/v1"
-username: "user"
-password: "password"
-```
-
-You could store this in a Secret using the following definition:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysecret
-type: Opaque
-stringData:
-  config.yaml: |-
-    apiUrl: "https://my.api.com/api/v1"
-    username: {{username}}
-    password: {{password}}
-```
-
-Your deployment tool could then replace the `{{username}}` and `{{password}}`
-template variables before running `kubectl apply`.
-
-The `stringData` field is a write-only convenience field. It is never output when
-retrieving Secrets. For example, if you run the following command:
-
-```shell
-kubectl get secret mysecret -o yaml
-```
-
-The output is similar to:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  creationTimestamp: 2018-11-15T20:40:59Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "7225"
-  uid: c280ad2e-e916-11e8-98f2-025000000001
-type: Opaque
-data:
-  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
-```
-
-If a field, such as `username`, is specified in both `data` and `stringData`,
-the value from `stringData` is used. For example, the following Secret definition:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysecret
-type: Opaque
-data:
-  username: YWRtaW4=
-stringData:
-  username: administrator
-```
-
-Results in the following Secret:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  creationTimestamp: 2018-11-15T20:46:46Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "7579"
-  uid: 91460ecb-e917-11e8-98f2-025000000001
-type: Opaque
-data:
-  username: YWRtaW5pc3RyYXRvcg==
-```
-
-Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
-
-The keys of `data` and `stringData` must consist of alphanumeric characters,
-'-', '_' or '.'.
-
-{{< note >}}
-The serialized JSON and YAML values of secret data are
-encoded as base64 strings. Newlines are not valid within these strings and must
-be omitted. When using the `base64` utility on Darwin/macOS, users should avoid
-using the `-b` option to split long lines. Conversely, Linux users *should* add
-the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
-the `-w` option is not available.
-{{< /note >}}
-
-#### Creating a Secret from a generator
-
-Since Kubernetes v1.14, `kubectl` supports [managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/). Kustomize provides resource Generators to
-create Secrets and ConfigMaps. The Kustomize generators should be specified in a
-`kustomization.yaml` file inside a directory. After generating the Secret,
-you can create the Secret on the API server with `kubectl apply`.
-
-#### Generating a Secret from files
-
-You can generate a Secret by defining a `secretGenerator` from the
-files ./username.txt and ./password.txt:
-
-```shell
-cat <<EOF >./kustomization.yaml
-secretGenerator:
-- name: db-user-pass
-  files:
-  - username.txt
-  - password.txt
-EOF
-```
-
-Apply the directory, containing the `kustomization.yaml`, to create the Secret.
-
-```shell
-kubectl apply -k .
-```
-
-The output is similar to:
-
-```
-secret/db-user-pass-96mffmfh4k created
-```
-
-You can check that the secret was created:
-
-```shell
-kubectl get secrets
-```
-
-The output is similar to:
-
-```
-NAME                             TYPE                                  DATA      AGE
-db-user-pass-96mffmfh4k          Opaque                                2         51s
-```
-
-You can view a description of the secret:
-
-```shell
-kubectl describe secrets/db-user-pass-96mffmfh4k
-```
-
-The output is similar to:
-
-```
-Name:            db-user-pass
-Namespace:       default
-Labels:          <none>
-Annotations:     <none>
-
-Type:            Opaque
-
-Data
-====
-password.txt:    12 bytes
-username.txt:    5 bytes
-```
-
-#### Generating a Secret from string literals
-
-You can create a Secret by defining a `secretGenerator`
-from literals `username=admin` and `password=secret`:
-
-```shell
-cat <<EOF >./kustomization.yaml
-secretGenerator:
-- name: db-user-pass
-  literals:
-  - username=admin
-  - password=secret
-EOF
-```
-
-Apply the directory, containing the `kustomization.yaml`, to create the Secret.
-
-```shell
-kubectl apply -k .
-```
-
-The output is similar to:
-
-```
-secret/db-user-pass-dddghtt9b5 created
-```
-
-{{< note >}}
-When a Secret is generated, the Secret name is created by hashing
-the Secret data and appending this value to the name. This ensures that
-a new Secret is generated each time the data is modified.
-{{< /note >}}
-
-#### Decoding a Secret
-
-Secrets can be retrieved by running `kubectl get secret`.
-For example, you can view the Secret created in the previous section by
-running the following command:
-
-```shell
-kubectl get secret mysecret -o yaml
-```
-
-The output is similar to:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  creationTimestamp: 2016-01-22T18:41:56Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "164619"
-  uid: cfee02d6-c137-11e5-8d73-42010af00002
-type: Opaque
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
-```
-
-Decode the `password` field:
-
-```shell
-echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
-```
-
-The output is similar to:
-
-```
-1f2d1e2e67df
-```
-
-#### Editing a Secret
+### Editing a Secret
 
 An existing Secret may be edited with the following command:
 
@@ -717,37 +337,6 @@ A container using a Secret as a
 Secret updates.
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
-individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
-(at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
-data has the following advantages:
-
-- protects you from accidental (or unwanted) updates that could cause applications outages
-- improves performance of your cluster by significantly reducing load on kube-apiserver, by
-closing watches for secrets marked as immutable.
-
-To use this feature, enable the `ImmutableEphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
-your Secret or ConfigMap `immutable` field to `true`. For example:
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  ...
-data:
-  ...
-immutable: true
-```
-
-{{< note >}}
-Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
-nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
-Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
-these pods.
-{{< /note >}}
-
 ### Using Secrets as environment variables
 
 To use a secret in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
@@ -807,6 +396,40 @@ The output is similar to:
 ```
 1f2d1e2e67df
 ```
+
+## Immutable Secrets {#secret-immutable}
+
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
+(at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
+data has the following advantages:
+
+- protects you from accidental (or unwanted) updates that could cause applications outages
+- improves performance of your cluster by significantly reducing load on kube-apiserver, by
+closing watches for secrets marked as immutable.
+
+This feature is controlled by the `ImmutableEphemeralVolumes` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/),
+which is enabled by default since v1.19. You can create an immutable
+Secret by setting the `immutable` field to `true`. For example,
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  ...
+data:
+  ...
+immutable: true
+```
+
+{{< note >}}
+Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
+nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
+Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
+these pods.
+{{< /note >}}
 
 ### Using imagePullSecrets
 
@@ -1272,3 +895,11 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
    by impersonating the kubelet. It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a
    single node.
+
+
+## {{% heading "whatsnext" %}}
+
+- Learn how to [manage Secret using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+
