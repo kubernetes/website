@@ -176,7 +176,7 @@ Kubernetes1.7とそれ以降のバージョンでは、StatefulSetは`.spec.podM
 
 ## アップデートストラテジー
 
-Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spec.updateStarategy`フィールドで、コンテナの自動のローリングアップデートの設定やラベル、リソースのリクエストとリミットや、StatefulSet内のPodのアノテーションを指定できます。
+Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spec.updateStrategy`フィールドで、コンテナの自動のローリングアップデートの設定やラベル、リソースのリクエストとリミットや、StatefulSet内のPodのアノテーションを指定できます。
 
 ### OnDelete
 
