@@ -23,8 +23,8 @@ scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 -->
 [Pods](/zh/docs/concepts/workloads/pods/pod/) 可以有*优先级（Priority）*。
-优先级体现的是当前 Pod 与其他 Pod 相比的重要成都。如果 Pod 无法被调度，则
-调度器会尝试抢占（逐出）低优先级的 Pod，从而是的悬决的 Pod 可被调度。
+优先级体现的是当前 Pod 与其他 Pod 相比的重要程度。如果 Pod 无法被调度，则
+调度器会尝试抢占（逐出）低优先级的 Pod，从而使得悬决的 Pod 可被调度。
 
 <!-- body -->
 
@@ -377,7 +377,7 @@ the Pods are gone, P can be scheduled on the Node.
 Pod 被创建时会被放入一个队列中等待调度。调度器从队列中选择 Pod，尝试将其调度到某 Node 上。
 如果找不到能够满足 Pod 所设置需求的 Node，就会触发悬决 Pod 的抢占逻辑。
 假定 P 是悬决的 Pod，抢占逻辑会尝试找到一个这样的节点，在该节点上移除一个或者多个
-优先级比 P 低的 Pod 后，P 就可以被调度到丐姐点。如果调度器能够找到这样的节点，
+优先级比 P 低的 Pod 后，P 就可以被调度到该节点。如果调度器能够找到这样的节点，
 该节点上的一个或者多个优先级较低的 Pod 就会被逐出。当被逐出的 Pod 从该节点上
 消失时，P 就可以调度到此节点。
 

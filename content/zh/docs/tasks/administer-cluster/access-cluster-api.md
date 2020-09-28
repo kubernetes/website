@@ -277,11 +277,14 @@ Go 客户端可以使用与 kubectl 命令行工具相同的
 [例子](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)：
 
 ```golang
+package main
+
 import (
+   "context"
    "fmt"
-   "k8s.io/client-go/1.4/kubernetes"
-   "k8s.io/client-go/1.4/pkg/api/v1"
-   "k8s.io/client-go/1.4/tools/clientcmd"
+   "k8s.io/apimachinery/pkg/apis/meta/v1"
+   "k8s.io/client-go/kubernetes"
+   "k8s.io/client-go/tools/clientcmd"
 )
 
 func main() {
@@ -291,7 +294,7 @@ func main() {
   // creates the clientset
   clientset, _ := kubernetes.NewForConfig(config)
   // access the API to list pods
-  pods, _ := clientset.CoreV1().Pods("").List(v1.ListOptions{})
+  pods, _ := clientset.CoreV1().Pods("").List(context.TODO(), v1.ListOptions{})
   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
 }
 ```

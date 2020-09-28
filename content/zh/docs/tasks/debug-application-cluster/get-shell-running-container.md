@@ -1,7 +1,4 @@
 ---
-reviewers:
-- caesarxuchao
-- mikedanese
 title: 获取正在运行容器的 Shell
 content_type: task
 ---
@@ -88,7 +85,7 @@ kubectl exec -it shell-demo -- /bin/bash
 The double dash symbol "--" is used to separate the arguments you want to pass to the command from the kubectl arguments.
 -->
 双破折号 "--" 用于将要传递给命令的参数与 kubectl 的参数分开。
-note >}}
+{{< /note >}}
 
 <!--
 In your shell, list the root directory:

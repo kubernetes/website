@@ -8,10 +8,16 @@ card:
 ---
 
 <!-- overview -->
-Kubectl은 쿠버네티스 클러스터를 제어하기 위한 커맨드 라인 도구이다. 구성을 위해, `kubectl` 은 config 파일을 $HOME/.kube 에서 찾는다. KUBECONFIG 환경 변수를 설정하거나 [`--kubeconfig`](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 플래그를 설정하여 다른 [kubeconfig](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 파일을 지정할 수 있다.
+Kubectl은 쿠버네티스 클러스터를 제어하기 위한 커맨드 라인 도구이다.
+구성을 위해, `kubectl` 은 config 파일을 $HOME/.kube 에서 찾는다.
+KUBECONFIG 환경 변수를 설정하거나 [`--kubeconfig`](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+플래그를 설정하여 다른 [kubeconfig](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+파일을 지정할 수 있다.
 
-이 개요는 `kubectl` 구문을 다루고, 커맨드 동작을 설명하며, 일반적인 예제를 제공한다. 지원되는 모든 플래그 및 하위 명령을 포함한 각 명령에 대한 자세한 내용은 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 참조 문서를 참고한다. 설치 방법에 대해서는 [kubectl 설치](/ko/docs/tasks/tools/install-kubectl/)를 참고한다.
-
+이 개요는 `kubectl` 구문을 다루고, 커맨드 동작을 설명하며, 일반적인 예제를 제공한다.
+지원되는 모든 플래그 및 하위 명령을 포함한 각 명령에 대한 자세한 내용은
+[kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 참조 문서를 참고한다.
+설치 방법에 대해서는 [kubectl 설치](/ko/docs/tasks/tools/install-kubectl/)를 참고한다.
 
 <!-- body -->
 
@@ -25,9 +31,12 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 다음은 `command`, `TYPE`, `NAME` 과 `flags` 에 대한 설명이다.
 
-* `command`: 하나 이상의 리소스에서 수행하려는 동작을 지정한다. 예: `create`, `get`, `describe`, `delete`
+* `command`: 하나 이상의 리소스에서 수행하려는 동작을 지정한다.
+예: `create`, `get`, `describe`, `delete`
 
-* `TYPE`: [리소스 타입](#리소스-타입)을 지정한다. 리소스 타입은 대소문자를 구분하지 않으며 단수형, 복수형 또는 약어 형식을 지정할 수 있다. 예를 들어, 다음의 명령은 동일한 출력 결과를 생성한다.
+* `TYPE`: [리소스 타입](#리소스-타입)을 지정한다. 리소스 타입은 대소문자를 구분하지 않으며
+  단수형, 복수형 또는 약어 형식을 지정할 수 있다.
+  예를 들어, 다음의 명령은 동일한 출력 결과를 생성한다.
 
    ```shell
    kubectl get pod pod1
@@ -205,11 +214,13 @@ kubectl [command] [TYPE] [NAME] -o <output_format>
 kubectl get pod web-pod-13je7 -o yaml
 ```
 
-기억하기: 각 명령이 지원하는 출력 형식에 대한 자세한 내용은 [kubectl](/docs/user-guide/kubectl/) 참조 문서를 참고한다.
+기억하기: 각 명령이 지원하는 출력 형식에 대한 자세한 내용은
+[kubectl](/docs/reference/kubectl/kubectl/) 참조 문서를 참고한다.
 
 #### 사용자 정의 열 {#custom-columns}
 
-사용자 정의 열을 정의하고 원하는 세부 정보만 테이블에 출력하려면, `custom-columns` 옵션을 사용할 수 있다. 사용자 정의 열을 인라인으로 정의하거나 템플릿 파일을 사용하도록 선택할 수 있다. `-o custom-columns=<spec>` 또는 `-o custom-columns-file=<filename>`
+사용자 정의 열을 정의하고 원하는 세부 정보만 테이블에 출력하려면, `custom-columns` 옵션을 사용할 수 있다.
+사용자 정의 열을 인라인으로 정의하거나 템플릿 파일을 사용하도록 선택할 수 있다. `-o custom-columns=<spec>` 또는 `-o custom-columns-file=<filename>`
 
 ##### 예제
 
@@ -492,8 +503,6 @@ sudo mv ./kubectl-whoami /usr/local/bin
 kubectl whoami
 Current user: plugins-user
 ```
-
-
 
 ## {{% heading "whatsnext" %}}
 

@@ -24,7 +24,7 @@ of the Kubernetes community open a pull request with changes to resolve the issu
 
 If you want to suggest improvements to existing content, or notice an error, then open an issue.
 
-1. Go to the bottom of the page and click the **Create an Issue** button. This redirects you
+1. Click the **Create an issue** link on the right sidebar. This redirects you
  to a GitHub issue page pre-populated with some headers.
 2. Describe the issue or suggestion for improvement. Provide as many details as you can.
 3. Click **Submit new issue**.

@@ -178,7 +178,8 @@ This admission controller allows all pods into the cluster. It is deprecated bec
 
 ## 每个准入控制器的作用是什么？
 
-### AlwaysAdmit {#alwaysadmit} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+### AlwaysAdmit {#alwaysadmit} 
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 该准入控制器会允许所有的 pod 接入集群。已废弃，因为它的行为根本就和没有准入控制器一样。
 
@@ -198,7 +199,8 @@ required.
 如果没有这个准入控制器，一旦镜像被拉取到节点上，任何用户的 pod 都可以通过已了解到的镜像的名称（假设 pod 被调度到正确的节点上）来使用它，而不需要对镜像进行任何授权检查。
 当启用这个准入控制器时，总是在启动容器之前拉取镜像，这意味着需要有效的凭证。
 
-### AlwaysDeny {#alwaysdeny} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+### AlwaysDeny {#alwaysdeny} 
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 <!--
 Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
@@ -245,7 +247,8 @@ if the pods don't already have toleration for taints
 
 该准入控制器为 Pod 设置默认的容忍度，在 5 分钟内容忍 `notready:NoExecute` 和 `unreachable:NoExecute` 污点。（如果 Pod 尚未容忍 `node.kubernetes.io/not-ready：NoExecute` 和 `node.alpha.kubernetes.io/unreachable：NoExecute` 污点的话）
 
-### DenyExecOnPrivileged {#denyexeconprivileged} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+### DenyExecOnPrivileged {#denyexeconprivileged} 
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 <!--
 This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
@@ -269,7 +272,8 @@ is recommended instead.
 建议使用基于策略的准入插件（例如 [PodSecurityPolicy](#podsecuritypolicy) 和自定义准入插件），
 该插件可以针对特定用户或命名空间，还可以防止创建权限过高的 Pod。
 
-### DenyEscalatingExec {#denyescalatingexec} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+### DenyEscalatingExec {#denyescalatingexec} 
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 <!--
 This admission controller will deny exec and attach commands to pods that run with escalated privileges that
@@ -292,7 +296,8 @@ DenyExecOnPrivileged 准入插件已被废弃，并将在 v1.18 被移除。
 建议使用基于策略的准入插件（例如 [PodSecurityPolicy](#podsecuritypolicy) 和自定义准入插件），
 该插件可以针对特定用户或命名空间，还可以防止创建权限过高的 Pod。
 
-### EventRateLimit {#eventratelimit} {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
+### EventRateLimit {#eventratelimit} 
+{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
 <!--
 This admission controller mitigates the problem where the API server gets flooded by
@@ -685,7 +690,8 @@ See the [limitRange design doc](https://git.k8s.io/community/contributors/design
 
 请查看 [limitRange 设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) 和 [Limit Range 例子](/docs/tasks/configure-pod-container/limit-range/)了解更多细节。
 
-### MutatingAdmissionWebhook {#mutatingadmissionwebhook} {{< feature-state for_k8s_version="v1.13" state="beta" >}}
+### MutatingAdmissionWebhook {#mutatingadmissionwebhook} 
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 <!--
 This admission controller calls any mutating webhooks which match the request. Matching
@@ -836,7 +842,8 @@ subresource of the referenced *owner* can change it.
 
 该准入控制器保护对 `metadata.ownerReferences` 对象的访问，以便只有对该对象具有 “删除” 权限的用户才能对其进行更改。该准入控制器还保护对 `metadata.ownerReferences[x].blockOwnerDeletion` 对象的访问，以便只有对所引用的 **属主（owner）** 的 `finalizers` 子资源具有 “更新” 权限的用户才能对其进行更改。
 
-### PersistentVolumeLabel {#persistentvolumelabel} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+### PersistentVolumeLabel {#persistentvolumelabel} 
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 <!--
 This admission controller automatically attaches region or zone labels to PersistentVolumes
@@ -1107,7 +1114,8 @@ See also [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
 for more information.
 -->
 
-### 容器运行时类 {#runtimeclass} {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+### 容器运行时类 {#runtimeclass} 
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
 [容器运行时类](/docs/concepts/containers/runtime-class/)定义描述了与运行 Pod 相关的开销。此准入控制器将相应地设置 pod.Spec.Overhead 字段。
 
@@ -1137,7 +1145,8 @@ The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection
 -->
 `StorageObjectInUseProtection` 插件将 `kubernetes.io/pvc-protection` 或 `kubernetes.io/pv-protection` finalizers 添加到新创建的持久化卷声明（PVC）或持久化卷（PV）中。 如果用户尝试删除 PVC/PV，除非 PVC/PV 的保护控制器移除 finalizers，否则 PVC/PV 不会被删除。有关更多详细信息，请参考[保护使用中的存储对象](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)。
 
-### TaintNodesByCondition {#taintnodesbycondition} {{< feature-state for_k8s_version="v1.12" state="beta" >}}
+### TaintNodesByCondition {#taintnodesbycondition} 
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 <!--
 This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}} newly created Nodes as `NotReady` and `NoSchedule`. That tainting avoids a race condition that could cause Pods to be scheduled on new Nodes before their taints were updated to accurately reflect their reported conditions.
@@ -1145,7 +1154,8 @@ This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}}
 该准入控制器 {{< glossary_tooltip text="污点" term_id="taint" >}} 新创建的 `NotReady` 和 `NoSchedule` 节点。
 避免了可能导致 Pod 在更新其污点以准确反映其所报告状况之前，就安排了在新节点上的竞争条件的情况。
 
-### ValidatingAdmissionWebhook {#validatingadmissionwebhook} {{< feature-state for_k8s_version="v1.13" state="beta" >}}
+### ValidatingAdmissionWebhook {#validatingadmissionwebhook} 
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 <!--
 This admission controller calls any validating webhooks which match the request. Matching

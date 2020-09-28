@@ -2,7 +2,7 @@
 title: "예시: WordPress와 MySQL을 퍼시스턴트 볼륨에 배포하기"
 content_type: tutorial
 weight: 20
-card: 
+card:
   name: tutorials
   weight: 40
   title: "스테이트풀셋 예시: Wordpress와 퍼시스턴트 볼륨"
@@ -13,7 +13,7 @@ card:
 <!-- overview -->
 이 튜토리얼은 WordPress 사이트와 MySQL 데이터베이스를 Minikube를 이용하여 어떻게 배포하는지 보여준다. 애플리케이션 둘 다 퍼시스턴트 볼륨과 퍼시스턴트볼륨클레임을 데이터를 저장하기 위해 사용한다.
 
-[퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)(PV)는 관리자가 수동으로 프로비저닝한 클러스터나 쿠버네티스 [스토리지클래스](/docs/concepts/storage/storage-classes)를 이용해 동적으로 프로비저닝된 저장소의 일부이다. [퍼시스턴트볼륨클레임](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임)(PVC)은 PV로 충족할 수 있는 사용자에 의한 스토리지 요청이다. 퍼시스턴트볼륨은 파드 라이프사이클과 독립적이며 재시작, 재스케줄링이나 파드를 삭제할 때에도 데이터를 보존한다.
+[퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)(PV)는 관리자가 수동으로 프로비저닝한 클러스터나 쿠버네티스 [스토리지클래스](/ko/docs/concepts/storage/storage-classes)를 이용해 동적으로 프로비저닝된 저장소의 일부이다. [퍼시스턴트볼륨클레임](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임)(PVC)은 PV로 충족할 수 있는 사용자에 의한 스토리지 요청이다. 퍼시스턴트볼륨은 파드 라이프사이클과 독립적이며 재시작, 재스케줄링이나 파드를 삭제할 때에도 데이터를 보존한다.
 
 {{< warning >}}
 이 배포는 프로덕션 사용 예로는 적절하지 않은데 이는 단일 인스턴스의 WordPress와 MySQL을 이용했기 때문이다. 프로덕션이라면 [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress)로 배포하기를 고려해보자.
@@ -76,7 +76,7 @@ MySQL과 Wordpress는 각각 데이터를 저장할 퍼시스턴트볼륨이 필
 ## kustomization.yaml 생성하기
 
 ### 시크릿 생성자 추가
-[시크릿](/docs/concepts/configuration/secret/)은 암호나 키 같은 민감한 데이터들을 저장하는 개체이다. 1.14 버전부터 `kubectl`은 kustomization 파일을 이용해서 쿠버네티스 개체를 관리한다. `kustomization.yaml`의 제네레니터로 시크릿을 생성할 수 있다.
+[시크릿](/ko/docs/concepts/configuration/secret/)은 암호나 키 같은 민감한 데이터들을 저장하는 개체이다. 1.14 버전부터 `kubectl`은 kustomization 파일을 이용해서 쿠버네티스 개체를 관리한다. `kustomization.yaml`의 제네레니터로 시크릿을 생성할 수 있다.
 
 다음 명령어로 `kustomization.yaml` 내에 시크릿 제네레이터를 추가한다. `YOUR_PASSWORD`는 사용하기 원하는 암호로 변경해야 한다.
 
@@ -98,7 +98,7 @@ EOF
 다음의 매니페스트는 단일-인스턴스 WordPress 디플로이먼트를 기술한다. WordPress 컨테이너는
 웹사이트 데이터 파일을 위해 `/var/www/html`에 퍼시스턴트볼륨을 마운트한다. `WORDPRESS_DB_HOST` 환경 변수에는
 위에서 정의한 MySQL 서비스의 이름이 설정되며, WordPress는 서비스를 통해 데이터베이스에 접근한다.
-`WORDPRESS_DB_PASSWORD` 환경 변수에는 kustomize가 생성한 데이터베이스 패스워드가 설정된다. 
+`WORDPRESS_DB_PASSWORD` 환경 변수에는 kustomize가 생성한 데이터베이스 패스워드가 설정된다.
 
 {{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
 
@@ -107,13 +107,13 @@ EOF
       ```shell
       curl -LO https://k8s.io/examples/application/wordpress/mysql-deployment.yaml
       ```
-            
+
 2. WordPress 구성 파일을 다운로드한다.
 
       ```shell
       curl -LO https://k8s.io/examples/application/wordpress/wordpress-deployment.yaml
       ```
-      
+
 3. 두 파일을 `kustomization.yaml`에 추가하자.
 
 ```shell
@@ -151,7 +151,7 @@ kubectl apply -k ./
       ```shell
       kubectl get pvc
       ```
-      
+
       {{< note >}}
       PV를 프로비저닝하고 정착(bound)시키는데 수 분이 걸릴 수 있다.
       {{< /note >}}
@@ -240,6 +240,3 @@ kubectl apply -k ./
 * [잡](/ko/docs/concepts/workloads/controllers/job/)를 알아보자.
 * [포트 포워딩](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 알아보자.
 * 어떻게 [컨테이너에서 셸을 사용하는지](/docs/tasks/debug-application-cluster/get-shell-running-container/)를 알아보자.
-
-
-

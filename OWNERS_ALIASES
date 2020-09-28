@@ -24,10 +24,10 @@ aliases:
   sig-docs-en-owners: # Admins for English content
     - bradtopol
     - celestehorgan
+    - irvifa
     - jimangel
     - kbarnard10
     - kbhawkey
-    - makoscafee
     - onlydole
     - savitharaghunathan
     - sftim
@@ -43,14 +43,12 @@ aliases:
     - jimangel
     - kbarnard10
     - kbhawkey
-    - makoscafee
     - onlydole
     - rajeshdeshpande02
     - sftim
     - steveperry-53
     - tengqm
     - xiangpengzhao
-    - zacharysarah
     - zparnold
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
@@ -133,7 +131,6 @@ aliases:
     - ianychoi
     - seokho-son
     - ysyukr
-    - zacharysarah
   sig-docs-ko-reviews: # PR reviews for Korean content
     - ClaudiaJKang
     - gochist
@@ -142,35 +139,36 @@ aliases:
     - ysyukr
     - pjhwa
   sig-docs-leads: # Website chairs and tech leads
+    - irvifa
     - jimangel
     - kbarnard10
     - kbhawkey
     - onlydole
     - sftim
-    - zacharysarah
   sig-docs-zh-owners: # Admins for Chinese content
-    - chenopis
+    # chenopis
     - chenrui333
-    - dchen1107
-    - haibinxie
-    - hanjiayao
-    - lichuqiang
-    - SataQiu
-    - tengqm
-    - xiangpengzhao
-    - xichengliudui
-    - zacharysarah
-    - zhangxiaoyu-zidif
-  sig-docs-zh-reviews: # PR reviews for Chinese content
-    - chenrui333
-    - idealhack
+    # dchen1107
+    # haibinxie
+    # hanjiayao
+    # lichuqiang
     - SataQiu
     - tanjunchen
     - tengqm
     - xiangpengzhao
     - xichengliudui
-    - zhangxiaoyu-zidif
+    # zhangxiaoyu-zidif
+  sig-docs-zh-reviews: # PR reviews for Chinese content
+    - chenrui333
+    - howieyuen
+    - idealhack
     - pigletfly
+    - SataQiu
+    - tanjunchen
+    - tengqm
+    - xiangpengzhao
+    - xichengliudui
+    # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
     - jcjesus

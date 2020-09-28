@@ -213,6 +213,9 @@ when new keys are projected to the Pod can be as long as the kubelet sync period
 propagation delay, where the cache propagation delay depends on the chosen cache type
 (it equals to watch propagation delay, ttl of cache, or zero correspondingly).
 
+ConfigMaps consumed as environment variables are not updated automatically and require a pod restart. 
+## Immutable ConfigMaps {#configmap-immutable}
+
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
@@ -224,9 +227,10 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for config maps marked as immutable.
 
-To use this feature, enable the `ImmutableEphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
-your Secret or ConfigMap `immutable` field to `true`. For example:
+This feature is controlled by the `ImmutableEphemeralVolumes` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/),
+which is enabled by default since v1.19. You can create an immutable
+ConfigMap by setting the `immutable` field to `true`. For example,
 ```yaml
 apiVersion: v1
 kind: ConfigMap

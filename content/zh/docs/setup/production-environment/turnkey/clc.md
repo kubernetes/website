@@ -2,11 +2,8 @@
 title: 在 CenturyLink Cloud 上运行 Kubernetes
 ---
 <!--
----
 title: Running Kubernetes on CenturyLink Cloud
----
 --->
-
 
 <!--
 These scripts handle the creation, deletion and expansion of Kubernetes clusters on CenturyLink Cloud.
@@ -15,7 +12,8 @@ You can accomplish all these tasks with a single command. We have made the Ansib
 --->
 这些脚本适用于在 CenturyLink Cloud 上创建、删除和扩展 Kubernetes 集群。
 
-您可以使用单个命令完成所有任务。我们提供了用于执行这些任务的 Ansible 手册 [点击这里](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md)
+你可以使用单个命令完成所有任务。我们提供了用于执行这些任务的
+[Ansible 手册](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md)
 
 <!--
 ## Find Help
@@ -32,7 +30,7 @@ If you run into any problems or want help with anything, we are here to help. Re
 
 - 提交 github issue
 - 给 Kubernetes AT ctl DOT io 发送邮件
-- 访问 [http://info.ctl.io/kubernetes](http://info.ctl.io/kubernetes)
+- 访问 [https://info.ctl.io/kubernetes](https://info.ctl.io/kubernetes)
 
 <!--
 ## Clusters of VMs or Physical Servers, your choice.
@@ -105,7 +103,7 @@ sudo pip install -r ansible/requirements.txt
 <!--
 3) Create the credentials file from the template and use it to set your ENV variables
 --->
-3）从模板创建凭证文件，并使用它来设置您的 ENV 变量
+3）从模板创建凭证文件，并使用它来设置你的 ENV 变量
 
 ```shell
 cp ansible/credentials.sh.template ansible/credentials.sh
@@ -117,7 +115,7 @@ source ansible/credentials.sh
 <!--
 4) Grant your machine access to the CenturyLink Cloud network by using a VM inside the network or [ configuring a VPN connection to the CenturyLink Cloud network.](https://www.ctl.io/knowledge-base/network/how-to-configure-client-vpn/)
 --->
-4）使用内网的虚拟机或 [ 配置与 CenturyLink Cloud 网络的 VPN 连接.](https://www.ctl.io/knowledge-base/network/how-to-configure-client-vpn/)   授予您的计算机对 CenturyLink Cloud 网络的访问权限。
+4）使用内网的虚拟机或 [ 配置与 CenturyLink Cloud 网络的 VPN 连接.](https://www.ctl.io/knowledge-base/network/how-to-configure-client-vpn/)   授予你的计算机对 CenturyLink Cloud 网络的访问权限。
 
 <!--
 #### Script Installation Example: Ubuntu 14 Walkthrough
@@ -126,7 +124,7 @@ If you use an ubuntu 14, for your convenience we have provided a step by step gu
 --->
 #### 脚本安装示例：Ubuntu 14 演练
 
-如果您使用 Ubuntu 14，为方便起见，我们会提供分步指导帮助安装必备条件和脚本。
+如果你使用 Ubuntu 14，为方便起见，我们会提供分步指导帮助安装必备条件和脚本。
 
 ```shell
 # system
@@ -174,7 +172,7 @@ point to the new cluster.
 When the cluster creation is complete, the configuration files for it are stored
 locally on your administrative host, in the following directory
 --->
-创建集群大约需要15分钟。脚本完成后，它将输出一些命令，这些命令将帮助您在计算机上设置 kubectl 以指向新集群。
+创建集群大约需要15分钟。脚本完成后，它将输出一些命令，这些命令将帮助你在计算机上设置 kubectl 以指向新集群。
 
 完成集群创建后，其配置文件会存储在本地管理主机的以下目录中
 
@@ -323,7 +321,7 @@ We configure the Kubernetes cluster with the following features:
 * Heapster / InfluxDB：用于指标收集，是 Grafana 和 auto-scaling 需要的。
 * Grafana：Kubernetes/Docker 指标仪表板
 * KubeUI：用于查看 Kubernetes 状态的简单 Web 界面
-* Kube 仪表板：新的 Web 界面可与您的集群进行交互
+* Kube 仪表板：新的 Web 界面可与你的集群进行交互
 
 <!--
 We use the following to create the Kubernetes cluster:
@@ -358,7 +356,7 @@ download it and install it in ```/usr/bin/local```.
 --->
 ## 管理集群
 
-管理 Kubernetes 集群最常用工具是 command-line 实用程序 ```kubectl```。如果您的管理器上还没有此二进制文件的副本，可以运行脚本 ```install_kubectl.sh```，它将下载该脚本并将其安装在 ```/usr/bin/local``` 中。 
+管理 Kubernetes 集群最常用工具是 command-line 实用程序 ```kubectl```。如果你的管理器上还没有此二进制文件的副本，可以运行脚本 ```install_kubectl.sh```，它将下载该脚本并将其安装在 ```/usr/bin/local``` 中。 
 
 <!--
 The script requires that the environment variable ```CLC_CLUSTER_NAME``` be defined. ```install_kubectl.sh``` also writes a configuration file which will embed the necessary
@@ -383,7 +381,8 @@ To demonstrate how to use these locally stored certificates, we provide the foll
 --->
 ### 以编程方式访问集群
 
-可以使用本地存储的客户端证书来访问 apiserver。例如，您可以使用 [Kubernetes API 客户端库](/docs/reference/using-api/client-libraries/) 选择编程语言对 Kubernetes 集群进行编程。
+可以使用本地存储的客户端证书来访问 apiserver。例如，你可以使用
+[Kubernetes API 客户端库](/zh/docs/reference/using-api/client-libraries/) 选择编程语言对 Kubernetes 集群进行编程。
 
 为了演示如何使用这些本地存储的证书，我们提供以下示例，使用 ```curl``` 通过 https 与主 apiserver 进行通信：
 
@@ -410,9 +409,14 @@ kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespace
 --->
 ### 使用浏览器访问集群
 
-安装 [Kubernetes 仪表板](/docs/tasks/web-ui-dashboard/)。创建集群时，脚本会为这些接口输出 URL，如下所示：
+安装 [Kubernetes 仪表板](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/)。
+创建集群时，脚本会为这些接口输出 URL，如下所示：
 
-kubernetes-dashboard 在以下位置运行 ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```
+kubernetes-dashboard 在以下位置运行
+
+```
+https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy
+```
 
 <!--
 Note on Authentication to the UIs: 
@@ -425,7 +429,7 @@ password written to file at: ```> _${CLC_CLUSTER_HOME}/kube/admin_password.txt_`
 --->
 对 UI 进行身份验证的注意事项：
 
-群集设置为对用户 _admin_ 使用基本的身份验证。进入 URL ```https://${MASTER_IP}:6443```  获取从 apiserver 上接收的自签名证书，然后出示管理员密码并写入文件 ```> _${CLC_CLUSTER_HOME}/kube/admin_password.txt_```
+集群设置为对用户 _admin_ 使用基本的身份验证。进入 URL ```https://${MASTER_IP}:6443```  获取从 apiserver 上接收的自签名证书，然后出示管理员密码并写入文件 ```> _${CLC_CLUSTER_HOME}/kube/admin_password.txt_```
 
 
 <!--
@@ -436,7 +440,7 @@ to access the cluster from machines other than where you created the cluster fro
 --->
 ### 配置文件
 
-多个配置文件被写入几个子目录，子目录在 ```.clc_kube/${CLC_CLUSTER_NAME}``` 下的主目录 *CLC_CLUSTER_HOME* 中。使用这些文件可以从创建群集的计算机之外的其他计算机访问群集。
+多个配置文件被写入几个子目录，子目录在 ```.clc_kube/${CLC_CLUSTER_NAME}``` 下的主目录 *CLC_CLUSTER_HOME* 中。使用这些文件可以从创建集群的计算机之外的其他计算机访问集群。
 
 <!--
 * ```config/```: Ansible variable files containing parameters describing the master and minion hosts
@@ -477,7 +481,7 @@ The Kubernetes API server exposes services on web URLs, which are protected by r
 client certificates.  If you run a kubectl proxy locally, ```kubectl``` will provide
 the necessary certificates and serve locally over http.
 --->
-Kubernetes API 服务器在 Web URL 上公开服务，这些 URL 受客户端证书的保护。如果您在本地运行 kubectl 代理，```kubectl``` 将提供必要的证书，并通过 http 在本地提供服务。
+Kubernetes API 服务器在 Web URL 上公开服务，这些 URL 受客户端证书的保护。如果你在本地运行 kubectl 代理，```kubectl``` 将提供必要的证书，并通过 http 在本地提供服务。
 
 ```shell
 kubectl proxy -p 8001
@@ -486,7 +490,7 @@ kubectl proxy -p 8001
 <!--
 Then, you can access urls like ```http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/``` without the need for client certificates in your browser.
 --->
-然后，您可以访问 ```http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/``` 之类的 URL，不再需要浏览器中的客户端证书 。
+然后，你可以访问 ```http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/``` 之类的 URL，不再需要浏览器中的客户端证书 。
 
 
 <!--
@@ -504,10 +508,10 @@ These are the known items that don't work on CenturyLink cloud but do work on ot
 
 这些是已知的在 CenturyLink Cloud 上不能使用，但在其他云提供商中可以使用：
 
-- 目前，没有 [LoadBalancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)类型的支持服务。我们正在为此积极努力，并希望在2016年4月左右发布更改。
+- 目前，没有 [LoadBalancer](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)
+  类型的支持服务。我们正在为此积极努力，并希望在2016年4月左右发布更改。
 
 - 目前，不支持 CenturyLink Cloud 提供的永久存储卷。但是，客户可以自带永久性存储产品。我们自己使用 Gluster。
-
 
 <!--
 ## Ansible Files
@@ -516,7 +520,7 @@ If you want more information about our Ansible files, please [read this file](ht
 --->
 ## Ansible 文件
 
-如果您想了解有关 Ansible 文件的更多信息，请 [浏览此文件](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md)
+如果你想了解有关 Ansible 文件的更多信息，请 [浏览此文件](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md)
 
 <!--
 ## Further reading
@@ -526,7 +530,7 @@ and using a Kubernetes cluster.
 --->
 ## 更多
 
-有关管理和使用 Kubernetes 集群的更多详细信息，请参见 [Kubernetes 文档](/docs/) 
+有关管理和使用 Kubernetes 集群的更多详细信息，请参见 [Kubernetes 文档](/zh/docs/) 
 
 
 
