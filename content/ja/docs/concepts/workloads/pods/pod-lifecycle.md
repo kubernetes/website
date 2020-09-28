@@ -148,7 +148,7 @@ Podのコンテナは準備完了ですが、少なくとも1つのカスタム�
 
 ## コンテナのProbe {#container-probes}
 
-[Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) は [kubelet](/docs/admin/kubelet/) により定期的に実行されるコンテナの診断です。診断を行うために、kubeletはコンテナに実装された [ハンドラー](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core)を呼びます。Handlerには次の3つの種類があります:
+[Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) は [kubelet](/docs/admin/kubelet/) により定期的に実行されるコンテナの診断です。診断を行うために、kubeletはコンテナに実装された [Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core)を呼びます。Handlerには次の3つの種類があります:
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core):
   コンテナ内で特定のコマンドを実行します。コマンドがステータス0で終了した場合に診断を成功と見まします。
