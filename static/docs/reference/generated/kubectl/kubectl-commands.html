@@ -570,16 +570,6 @@ inspect them.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl create deployment <span class="hljs-keyword">my</span>-dep <span class="hljs-comment">--image=busybox -- date</span>
 </code></pre>
-<blockquote class="code-block example">
-<p> Create a deployment named my-dep that runs the nginx image with 3 replicas.</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl create deployment my-dep <span class="hljs-attribute">--image</span>=nginx <span class="hljs-attribute">--replicas</span>=3
-</code></pre>
-<blockquote class="code-block example">
-<p> Create a deployment named my-dep that runs the busybox image and expose port 5701.</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl create deployment my-dep <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--port</span>=5701
-</code></pre>
 <p>Create a deployment with the specified name.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl create deployment NAME --image=image -- [COMMAND] [args...]</code></p>
@@ -607,12 +597,6 @@ inspect them.</p>
 <td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
-<td>field-manager</td>
-<td></td>
-<td>kubectl-create</td>
-<td>Name of the manager used to track field ownership. </td>
-</tr>
-<tr>
 <td>generator</td>
 <td></td>
 <td></td>
@@ -629,18 +613,6 @@ inspect them.</p>
 <td>o</td>
 <td></td>
 <td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-as-json&#124;jsonpath-file. </td>
-</tr>
-<tr>
-<td>port</td>
-<td></td>
-<td>-1</td>
-<td>The port that this container exposes. </td>
-</tr>
-<tr>
-<td>replicas</td>
-<td>r</td>
-<td>1</td>
-<td>Number of replicas to create. Default is 1. </td>
 </tr>
 <tr>
 <td>save-config</td>
