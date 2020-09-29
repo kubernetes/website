@@ -208,38 +208,51 @@ Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
 ### CertificateApproval
 
 <!--
-This admission controller observes requests to 'approve' CertificateSigningRequest resources and performs additional authorization checks to ensure the approving user has permission to approve certificate requests with the spec.signerName requested on the CertificateSigningRequest resource.
+This admission controller observes requests to 'approve' CertificateSigningRequest resources
+and performs additional authorization checks to ensure the approving user has permission 
+to approve certificate requests with the spec.signerName requested on the CertificateSigningRequest resource.
 -->
 
-此准入控制器获取“审批” CertificateSigningRequest 资源的请求并执行额外的授权检查，以确保审批请求的用户有权限审批 `spec.signerName` 请求 CertificateSigningRequest 资源的证书请求。
+此准入控制器获取“审批” CertificateSigningRequest 资源的请求并执行额外的授权检查，
+以确保审批请求的用户有权限审批 `spec.signerName` 请求 CertificateSigningRequest 资源的证书请求。
 
 <!--
-See Certificate Signing Requests for more information on the permissions required to perform different actions on CertificateSigningRequest resources.
+See Certificate Signing Requests for more information on the permissions required 
+to perform different actions on CertificateSigningRequest resources.
 -->
 
-有关对证书签名请求资源执行不同操作所需权限的详细信息，请参阅[证书签名请求](/docs/reference/access-authn-authz/certificate-signing-requests/)
+有关对证书签名请求资源执行不同操作所需权限的详细信息，
+请参阅[证书签名请求](/docs/reference/access-authn-authz/certificate-signing-requests/)
 
 ### CertificateSigning
 
 <!--
-This admission controller observes updates to the status.certificate field of CertificateSigningRequest resources and performs an additional authorization checks to ensure the signing user has permission to sign certificate requests with the spec.signerName requested on the CertificateSigningRequest resource.
+This admission controller observes updates to the status.certificate field of CertificateSigningRequest resources 
+and performs an additional authorization checks to ensure the signing user has permission 
+to sign certificate requests with the spec.signerName requested on the CertificateSigningRequest resource.
 -->
 
-此准入控制器获取 CertificateSigningRequest 资源的 `status.certificate` 字段更新请求并执行额外的授权检查，以确保签发证书的用户有权限为 `spec.signerName` 请求 CertificateSigningRequest 资源的证书请求`签发`证书。
+此准入控制器获取 CertificateSigningRequest 资源的 `status.certificate` 字段更新请求并执行额外的授权检查，
+以确保签发证书的用户有权限为 `spec.signerName` 请求 CertificateSigningRequest 资源的证书请求`签发`证书。
 
 <!--
-See Certificate Signing Requests for more information on the permissions required to perform different actions on CertificateSigningRequest resources.
+See Certificate Signing Requests for more information on the permissions required 
+to perform different actions on CertificateSigningRequest resources.
 -->
 
-有关对证书签名请求资源执行不同操作所需权限的详细信息，请参阅[证书签名请求](/docs/reference/access-authn-authz/certificate-signing-requests/)
+有关对证书签名请求资源执行不同操作所需权限的详细信息，
+请参阅[证书签名请求](/docs/reference/access-authn-authz/certificate-signing-requests/)
 
 ### CertificateSubjectRestrictions 
 
 <!--
-This admission controller observes creation of CertificateSigningRequest resources that have a spec.signerName of kubernetes.io/kube-apiserver-client. It rejects any request that specifies a 'group' (or 'organization attribute') of system:masters.
+This admission controller observes creation of CertificateSigningRequest resources 
+that have a spec.signerName of kubernetes.io/kube-apiserver-client. It rejects any request 
+that specifies a 'group' (or 'organization attribute') of system:masters.
 -->
 
-此准入控制器获取具有 `kubernetes.io/kube-apiserver-client` 的 `spec.signerName` 的 CertificateSigningRequest 资源创建请求，它拒绝任何包含了 `system:masters` 一个“组”（或者“组织”）的请求。
+此准入控制器获取具有 `kubernetes.io/kube-apiserver-client` 的 `spec.signerName` 的 CertificateSigningRequest 资源创建请求，
+它拒绝任何包含了 `system:masters` 一个“组”（或者“组织”）的请求。
 
 ### DefaultStorageClass {#defaultstorageclass}
 
