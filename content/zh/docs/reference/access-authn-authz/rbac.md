@@ -1465,6 +1465,7 @@ rules:
 - apiGroups: ["rbac.authorization.k8s.io"]
   resources: ["clusterroles"]
   verbs: ["bind"]
+  # omit resourceNames to allow binding any ClusterRole
   resourceNames: ["admin","edit","view"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -1502,6 +1503,7 @@ rules:
 - apiGroups: ["rbac.authorization.k8s.io"]
   resources: ["clusterroles"]
   verbs: ["bind"]
+  # 省略 resourceNames 则允许绑定任何 ClusterRole
   resourceNames: ["admin","edit","view"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
