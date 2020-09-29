@@ -29,14 +29,14 @@ For `kubectl run` to satisfy infrastructure as code:
 * Check in the script for an image that is heavily parameterized.
 * Switch to configuration files checked into source control for features that are needed, but not expressible via `kubectl run` flags.
 
-You can use the `--dry-run` flag to preview the object that would be sent to your cluster, without really submitting it.
+You can use the `--dry-run=client` flag to preview the object that would be sent to your cluster, without really submitting it.
 
 {{< note >}}
 All `kubectl` generators are deprecated. See the Kubernetes v1.17 documentation for a [list](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators) of generators and how they were used.
 {{< /note >}}
 
 #### Generators
-You can generate the following resources with a kubectl command, `kubectl create --dry-run -o yaml`:
+You can generate the following resources with a kubectl command, `kubectl create --dry-run=client -o yaml`:
 ```
   clusterrole         Create a ClusterRole.
   clusterrolebinding  Create a ClusterRoleBinding for a particular ClusterRole.
