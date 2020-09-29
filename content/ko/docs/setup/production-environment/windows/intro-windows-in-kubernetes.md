@@ -14,7 +14,7 @@ weight: 65
 
 ## 쿠버네티스의 윈도우 컨테이너
 
-쿠버네티스에서 윈도우 컨테이너 오케스트레이션을 활성화하려면, 기존 리눅스 클러스터에 윈도우 노드를 포함하기만 하면 된다. 쿠버네티스의 [파드](/ko/docs/concepts/workloads/pods/pod-overview/)에서 윈도우 컨테이너를 스케줄링하는 것은 리눅스 기반 컨테이너를 스케줄링하는 것만큼 간단하고 쉽다.
+쿠버네티스에서 윈도우 컨테이너 오케스트레이션을 활성화하려면, 기존 리눅스 클러스터에 윈도우 노드를 포함하기만 하면 된다. 쿠버네티스의 {{< glossary_tooltip text="파드" term_id="pod" >}}에서 윈도우 컨테이너를 스케줄링하는 것은 리눅스 기반 컨테이너를 스케줄링하는 것만큼 간단하고 쉽다.
 
 윈도우 컨테이너를 실행하려면, 쿠버네티스 클러스터에 리눅스를 실행하는 컨트롤 플레인 노드와 사용자의 워크로드 요구에 따라 윈도우 또는 리눅스를 실행하는 워커가 있는 여러 운영 체제가 포함되어 있어야 한다. 윈도우 서버 2019는 윈도우에서 [쿠버네티스 노드](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)를 활성화하는 유일한 윈도우 운영 체제이다(kubelet, [컨테이너 런타임](https://docs.microsoft.com/ko-kr/virtualization/windowscontainers/deploy-containers/containerd) 및 kube-proxy 포함). 윈도우 배포 채널에 대한 자세한 설명은 [Microsoft 문서](https://docs.microsoft.com/ko-kr/windows-server/get-started-19/servicing-channels-19)를 참고한다.
 
@@ -62,7 +62,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
 
 윈도우에서 주요 쿠버네티스 요소는 리눅스와 동일한 방식으로 작동한다. 이 섹션에서는, 주요 워크로드 인에이블러(enabler) 일부와 이들이 윈도우에 매핑되는 방법에 대해 설명한다.
 
-* [파드](/ko/docs/concepts/workloads/pods/pod-overview/)
+* [파드](/ko/docs/concepts/workloads/pods/)
 
     파드는 쿠버네티스의 기본 빌딩 블록이다 - 쿠버네티스 오브젝트 모델에서 생성하고 배포하는 가장 작고 간단한 단위. 동일한 파드에 윈도우 및 리눅스 컨테이너를 배포할 수 없다. 파드의 모든 컨테이너는 단일 노드로 스케줄되며 각 노드는 특정 플랫폼 및 아키텍처를 나타낸다. 다음과 같은 파드 기능, 속성 및 이벤트가 윈도우 컨테이너에서 지원된다.
 

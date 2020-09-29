@@ -218,7 +218,7 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
 이전 장은 쿠버네티스 API server 접속에 대한 내용을 다루었다. 이번 장은
 쿠버네티스 클러스터 상에서 실행되는 다른 서비스로의 연결을 다룰 것이다. 쿠버네티스에서
 [노드들](/ko/docs/concepts/architecture/nodes/),
-[파드들](/ko/docs/concepts/workloads/pods/pod/),
+[파드들](/ko/docs/concepts/workloads/pods/),
 [서비스들](/ko/docs/concepts/services-networking/service/)은
 모두 자신의 IP들을 가진다. 당신의 데스크탑 PC와 같은 클러스터 외부 장비에서는
 클러스터 상의 노드 IP들, 파드 IP들, 서비스 IP들로 라우팅되지 않아서 접근을
