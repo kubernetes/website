@@ -13,7 +13,7 @@ content_type: concept
 
 クラウドプロバイダーはKubernetesプロジェクトとは異なる速度で開発しリリースすることから、プロバイダー特有なコードを`cloud-controller-manager`バイナリから抽象化することで、クラウドベンダーはコアKubernetesコードから独立して発展することができます。
 
-Kubernetesプロジェクトは、(クラウドプロバイダーの)独自実装を組み込めるGoインターフェースを備えたcloud-controller-managerのスケルトンコードを提供しています。これは、クラウドプロバイダーがKubernetesコアからパッケージをインポートすることでcloud-controller-managerを実装できることを意味します。各クラウドプロバイダーは、利用可能なクラウドプロバイダーのグローバル変数を更新するために`cloudprovider.RegisterCloudProvider`を呼び出し、独自のコードを登録します。
+Kubernetesプロジェクトは、(クラウドプロバイダーの)独自実装を組み込めるGoインターフェースを備えたcloud-controller-managerのスケルトンコードを提供しています。これは、クラウドプロバイダーがKubernetesコアからパッケージをインポートすることでcloud-controller-managerを実装できることを意味します。各クラウドプロバイダーは利用可能なクラウドプロバイダーのグローバル変数を更新するために`cloudprovider.RegisterCloudProvider`を呼び出し、独自のコードを登録します。
 
 ## 開発
 
@@ -30,5 +30,4 @@ Kubernetesには登録されていない独自のクラウドプロバイダー�
 ### Kubernetesに登録されているクラウドプロバイダー
 
 Kubernetesに登録されているクラウドプロバイダーであれば、{{< glossary_tooltip term_id="daemonset" >}}を使ってあなたのクラスターで動かすことができます。詳細については[Kubernetesクラウドコントローラーマネージャー](/ja/docs/tasks/administer-cluster/running-cloud-controller/)を参照してください。
-
 
