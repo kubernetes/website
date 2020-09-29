@@ -68,7 +68,7 @@ the Kubernetes object types.
 `kubectl` 工具支持动词驱动的命令，用来创建一些最常见的对象类别。
 命令的名称设计使得不熟悉 Kubernetes 对象类型的用户也能做出判断。
 
-- `run`：创建一个新的 Pod 来运行一个 Container。
+- `run`：创建一个新的 Pod 来运行 Container。
 - `expose`：创建一个新的 Service 对象为若干 Pod 提供流量负载均衡。
 - `autoscale`：创建一个新的 Autoscaler 对象来自动对某控制器（如 Deployment）
   执行水平扩缩。
