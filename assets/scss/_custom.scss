@@ -43,6 +43,14 @@ section {
   padding: 0 !important;
 }
 
+
+/* Emphasize first paragraph of running text on site front page */
+body.td-home main[role="main"] > section:first-of-type .content p:first-child {
+  line-height: 1.3em;
+  font-size: 1.4em;
+  margin-bottom: 1.5em;
+}
+
 #desktopShowVideoButton {
   border: none
 }
