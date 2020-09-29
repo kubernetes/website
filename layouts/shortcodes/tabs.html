@@ -2,16 +2,25 @@
 {{- $tab_set_id := .Get "name" | default (printf "tabset-%s-%d" (.Page.RelPermalink) (.Page.Scratch.Get "tabset-counter") ) | anchorize -}}
 {{- $tabs := .Scratch.Get "tabs" -}}
 {{- if .Inner -}}{{- /* We don't use the inner content, but Hugo will complain if we don't reference it. */ -}}{{- end -}}
-<div id="{{ $tab_set_id }}">
-<ul>
+<ul class="nav nav-tabs" id="{{ $tab_set_id }}" role="tablist">
 	{{- range $i, $e := $tabs -}}
 	  {{- $id := printf "%s-%d" $tab_set_id $i -}}
-<li><a href="#{{ $id }}">{{- trim .name " " -}}</a></li>
+	  {{- if (eq $i 0) -}}
+		<li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#{{ $id }}" role="tab" aria-controls="{{ $id }}" aria-selected="true">{{- trim .name " " -}}</a></li>
+	  {{ else }}
+		<li class="nav-item"><a data-toggle="tab" class="nav-link" href="#{{ $id }}" role="tab" aria-controls="{{ $id }}">{{- trim .name " " -}}</a></li>
+	  {{- end -}}
 {{- end -}}
 </ul>
+<div class="tab-content" id="{{ $tab_set_id }}">
 {{- range $i, $e := $tabs -}}
 {{- $id := printf "%s-%d" $tab_set_id $i -}}
-<div id="{{ $id }}">
+{{- if (eq $i 0) -}}
+  <div id="{{ $id }}" class="tab-pane show active" role="tabpanel" aria-labelledby="{{ $id }}">
+{{ else }}
+  <div id="{{ $id }}" class="tab-pane" role="tabpanel" aria-labelledby="{{ $id }}">
+{{ end }}
+<p>
 	{{- with .content -}}
 		{{- . -}}
 	{{- else -}}
@@ -39,5 +48,3 @@
 </div>
 {{- end -}}
 </div>
-{{- $elem :=  $tab_set_id | safeJS -}}
-<script>$(function(){$("#{{ $elem }}").tabs();});</script>
