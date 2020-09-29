@@ -18,7 +18,7 @@ In addition to [compiled-in admission plugins](/docs/reference/access-authn-auth
 admission plugins can be developed as extensions and run as webhooks configured at runtime.
 This page describes how to build, configure, use, and monitor admission webhooks.
 -->
-除了[内置的 admission 插件](/docs/reference/access-authn-authz/admission-controllers/)，admission 插件可以作为扩展独立开发，并以运行时所配置的 webhook 的形式运行。
+除了[内置的 admission 插件](/zh/docs/reference/access-authn-authz/admission-controllers/)，admission 插件可以作为扩展独立开发，并以运行时所配置的 webhook 的形式运行。
 此页面描述了如何构建、配置、使用和监视 admission webhook。
 
 
@@ -37,7 +37,7 @@ and
 Mutating admission Webhooks are invoked first, and can modify objects sent to the API server to enforce custom defaults.
 -->
 Admission webhook 是一种用于接收准入请求并对其进行处理的 HTTP 回调机制。
-可以定义两种类型的 admission webhook，即 [validating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook) 和 [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)。
+可以定义两种类型的 admission webhook，即 [validating admission webhook](/zh/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook) 和 [mutating admission webhook](/zh/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)。
 Mutating admission webhook 会先被调用。它们可以更改发送到 API 服务器的对象以执行自定义的设置默认值操作。
 
 <!--
@@ -67,7 +67,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ### 尝试 admission webhook
 
 admission webhook 本质上是集群控制平面的一部分。您应该非常谨慎地编写和部署它们。
-如果您打算编写或者部署生产级 admission webhook，请阅读[用户指南](/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)以获取相关说明。
+如果您打算编写或者部署生产级 admission webhook，请阅读[用户指南](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)以获取相关说明。
 在下文中，我们将介绍如何快速试验 admission webhook。
 
 <!--
@@ -88,7 +88,7 @@ admission webhook 本质上是集群控制平面的一部分。您应该非常�
 * 确保 Kubernetes 集群版本至少为 v1.16（以便使用 `admissionregistration.k8s.io/v1` API） 或者 v1.9 （以便使用 `admissionregistration.k8s.io/v1beta1` API）。
 
 * 确保启用 MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook 控制器。
-  [这里](/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
+  [这里](/zh/docs/reference/access-authn-authz/admission-controllers/#is-there-a-recommended-set-of-admission-controllers-to-use)
   是一组推荐的 admission 控制器，通常可以启用。
 
 * 确保启用了 `admissionregistration.k8s.io/v1beta1` API。
@@ -281,7 +281,7 @@ the webhooks. There are three steps to complete the configuration.
 * 启动 apiserver 时，通过 `--admission-control-config-file` 参数指定准入控制配置文件的位置。
 
 * 在准入控制配置文件中，指定 MutatingAdmissionWebhook 控制器和 ValidatingAdmissionWebhook 控制器应该读取凭据的位置。
-凭证存储在 kubeConfig 文件中（是​​的，与 kubectl 使用的模式相同），因此字段名称为 `kubeConfigFile`。 
+凭证存储在 kubeConfig 文件中（是​​的，与 kubectl 使用的模式相同），因此字段名称为 `kubeConfigFile`。
 以下是一个准入控制配置文件示例：
 
 <!--
@@ -748,7 +748,7 @@ For `patchType: JSONPatch`, the `patch` field contains a base64-encoded array of
 当允许请求时，mutating admission webhook 也可以选择修改传入的对象。
 这是通过在响应中使用 `patch` 和 `patchType` 字段来完成的。
 当前唯一支持的 `patchType` 是 `JSONPatch`。
-有关更多详细信息，请参见 [JSON patch](http://jsonpatch.com/)。
+有关更多详细信息，请参见 [JSON patch](https://jsonpatch.com/)。
 对于 `patchType: JSONPatch`，`patch` 字段包含一个以 base64 编码的 JSON patch 操作数组。
 
 <!--
@@ -1060,7 +1060,7 @@ webhooks:
 <!--
 See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 -->
-有关标签选择器的更多示例，请参见[标签](/docs/concepts/overview/working-with-objects/labels)。
+有关标签选择器的更多示例，请参见[标签](/zh/docs/concepts/overview/working-with-objects/labels)。
 
 <!--
 ### Matching requests: namespaceSelector
@@ -1187,7 +1187,7 @@ webhooks:
 <!--
 See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 -->
-有关标签选择器的更多示例，请参见[标签](/docs/concepts/overview/working-with-objects/labels)。
+有关标签选择器的更多示例，请参见[标签](/zh/docs/concepts/overview/working-with-objects/labels)。
 
 <!--
 ### Matching requests: matchPolicy
@@ -1367,7 +1367,7 @@ Fragments ("#...") and query parameters ("?...") are also not allowed.
 <!--
 Here is an example of a mutating webhook configured to call a URL
 (and expects the TLS certificate to be verified using system trust roots, so does not specify a caBundle):
---> 
+-->
 这是配置为调用 URL 的 mutating Webhook 的示例（并且期望使用系统信任根证书来验证 TLS 证书，因此不指定 caBundle）：
 
 {{< tabs name="MutatingWebhookConfiguration_url" >}}
@@ -1793,7 +1793,7 @@ capturing if a request object is mutated by the invocation, and optionally gener
 patch from the webhook admission response. The annotations are set in the audit event for given request on given stage of
 its execution, which is then pre-processed according to a certain policy and written to a backend.
 -->
-在 v1.16+ 中，kube-apiserver 针对每个 mutating webhook 调用执行[审计](/docs/tasks/debug-application-cluster/audit/)操作。
+在 v1.16+ 中，kube-apiserver 针对每个 mutating webhook 调用执行[审计](/zh/docs/tasks/debug-application-cluster/audit/)操作。
 每个调用都会生成一个审计注解，记述请求对象是否发生改变，可选地还可以根据 webhook 的准入响应生成一个注解，记述所应用的修补。
 针对给定请求的给定执行阶段，注解被添加到审计事件中，然后根据特定策略进行预处理并写入后端。
 
@@ -2150,7 +2150,7 @@ If side effects are required during the admission evaluation, they must be suppr
 set to `NoneOnDryRun`. See [Side effects](#side-effects) for more detail.
 -->
 ### Side Effects
- 
+
 建议 admission webhook 应尽可能避免副作用，这意味着该 admission webhook 仅对发送给他们的 `AdmissionReview` 的内容起作用，并且不要进行额外更改。
 如果 Webhook 没有任何副作用，则 `.webhooks[].sideEffects` 字段应设置为 `None`。
 
@@ -2173,5 +2173,3 @@ plane, exclude the `kube-system` namespace from being intercepted using a
 `kube-system` 命名空间包含由 Kubernetes 系统创建的对象，例如用于控制平面组件的服务账号，诸如 `kube-dns` 之类的 Pod 等。
 意外更改或拒绝 `kube-system` 命名空间中的请求可能会导致控制平面组件停止运行或者导致未知行为发生。
 如果您的 admission webhook 不想修改 Kubernetes 控制平面的行为，请使用 [`namespaceSelector`](#matching-requests-namespaceselector) 避免拦截 `kube-system` 命名空间。
-
-
