@@ -9,7 +9,7 @@ Role Based Access Control(RBAC)は、組織内の個々のユーザーのRoleを
 
 
 <!-- body -->
-RBAC認可は{{< glossary_tooltip text="API group" term_id="api-group" >}} `rbac.authorization.k8s.io`を使用して認可の決定を行い、Kubernetes APIを介して動的にポリシーを構成できるようにします。
+RBAC認可は{{< glossary_tooltip term_id="api-group" >}} `rbac.authorization.k8s.io`を使用して認可の決定を行い、Kubernetes APIを介して動的にポリシーを構成できるようにします。
 
 RBACを有効にするには、以下の例のように{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}の`--authorization-mode` フラグをコンマ区切りの`RBAC`を含むリストでスタートします。
 
