@@ -1,11 +1,13 @@
 ---
 title: kubeadm init phase
 weight: 90
+content_type: concept
 ---
 <!--
 ---
 title: kubeadm init phase
 weight: 90
+content_type: concept
 ---
 -->
 
@@ -260,14 +262,14 @@ For more details on each field in the `v1beta2` configuration you can navigate t
 -->
 有关 `v1beta2` 配置中每个字段的更多详细信息，可以访问 [API](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)。
 
+## {{% heading "whatsnext" %}}
+
 <!--
-## What's next
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
-## 接下来
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导 Kubernetes 控制平面节点
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点连接到集群
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 恢复通过 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改
