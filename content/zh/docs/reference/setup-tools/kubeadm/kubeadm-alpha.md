@@ -1,5 +1,6 @@
 ---
 title: kubeadm alpha
+content_type: concept
 weight: 90
 ---
 <!--
@@ -9,6 +10,7 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm alpha
+content_type: concept
 weight: 90
 ---
 -->
@@ -111,11 +113,8 @@ The subcommand `pivot` can be used to convert a static Pod-hosted control plane 
 {{< tab name="pivot" include="generated/kubeadm_alpha_selfhosting_pivot.md" />}}
 {{< /tabs >}}
 
+## {{% heading "whatsnext" %}}
 
-<!--
-## What's next
--->
-## 接下来
 <!--
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster

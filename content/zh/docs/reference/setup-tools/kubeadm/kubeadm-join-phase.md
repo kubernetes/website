@@ -81,10 +81,8 @@ Using this phase you can join a node as a control-plane instance.
 {{< tab name="mark-control-plane" include="generated/kubeadm_join_phase_control-plane-join_mark-control-plane.md" />}}
 {{< /tabs >}}
 
-<!--
-## What's next
--->
-## 下一步
+## {{% heading "whatsnext" %}}
+
 <!--
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
