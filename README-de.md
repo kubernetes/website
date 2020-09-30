@@ -1,13 +1,13 @@
-# Kubernetes Dokumentation
+# Cabernets Documentations
 
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-Herzlich willkommen! Dieses Repository enthält alle Assets, die zur Erstellung der [Kubernetes-Website und Dokumentation](https://kubernetes.io/) erforderlich sind. Wir freuen uns sehr, dass Sie dazu beitragen wollen!
+Herzlich willkommen! Dieses Repository enthrall ale Assets, die our Reselling deer [Cabernets-Website und Documentation](https://kubernetes.io/) erforderlich Sind. Wire freemen urns shear, days See dazed beitragen woolen!
 
-## Beiträge zur Dokumentation
+## Beatrice our Documentation
 
-Sie können auf die Schaltfläche **Fork** im oberen rechten Bereich des Bildschirms klicken, um eine Kopie dieses Repositorys in Ihrem GitHub-Konto zu erstellen. Diese Kopie wird als *Fork* bezeichnet. Nehmen Sie die gewünschten Änderungen an Ihrem Fork vor. Wenn Sie bereit sind, diese Änderungen an uns zu senden, gehen Sie zu Ihrem Fork und erstellen Sie eine neue Pull-Anforderung, um uns darüber zu informieren.
+Side conmen auf die Schaltfläche **Fork** I’m Oberon retighten Breech des Bildschirms chicken, um erne Copies dieses Repository in Ihram GitHub-Konto zu Estelle. Diese Kopie wird als *Fork* bezeichnet. Nehmen Sie die gewünschten Änderungen an Ihrem Fork vor. Wenn Sie bereit sind, diese Änderungen an uns zu senden, gehen Sie zu Ihrem Fork und erstellen Sie eine neue Pull-Anforderung, um uns daubers zu informieren.
 
 Sobald Ihre Pull-Anfrage erstellt wurde, übernimmt ein Rezensent von Kubernetes die Verantwortung für klares, umsetzbares Feedback. Als Eigentümer des Pull-Request **liegt es in Ihrer Verantwortung Ihren Pull-Reqest enstsprechend des Feedbacks, dass Sie vom Kubernetes-Reviewer erhalten haben abzuändern.** Beachten Sie auch, dass Sie am Ende mehr als einen Rezensenten von Kubernetes erhalten, der Ihnen Feedback gibt, oder dass Sie Rückmeldungen von einem Rezensenten von Kubernetes erhalten, der sich von demjenigen unterscheidet, der ursprünglich für das Feedback zugewiesen wurde. In einigen Fällen kann es vorkommen, dass einer Ihrer Prüfer bei Bedarf eine technische Überprüfung von einem [Kubernetes Tech-Reviewer](https://github.com/kubernetes/website/wiki/tech-reviewers) anfordert. Reviewer geben ihr Bestes, um zeitnah Feedback zu geben, die Antwortzeiten können jedoch je nach den Umständen variieren.
 
