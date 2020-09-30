@@ -3,7 +3,11 @@
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
+
+
 स्वागत हे! इस रिपॉजिटरी में [कुबरनेट्स वेबसाइट और दस्तावेज](https://kubernetes.io/) बनाने के लिए आवश्यक सभी संपत्तियां हैं। हम बहुत खुश हैं कि आप योगदान करना चाहते हैं!
+
+
 
 ## डॉक्स में योगदान देना
 
@@ -27,6 +31,8 @@
 
 * Yashu Mittal ([Twitter](https://twitter.com/mittalyashu77), [GitHub](https://github.com/mittalyashu))
 * [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-hi)
+
+
 
 ## स्थानीय रूप से डॉकर का उपयोग करके साइट चलाना
 
@@ -52,6 +58,8 @@ make container-serve
 
 साइट देखने के लिए अपने browser को `http://localhost:1313` पर खोलें। जैसा कि आप source फ़ाइलों में परिवर्तन करते हैं, Hugo साइट को अपडेट करता है और browser को refresh करने पर मजबूर करता है।
 
+
+
 ## Hugo का उपयोग करते हुए स्थानीय रूप से साइट चलाना
 
 Hugo निर्देशों के लिए [आधिकारिक Hugo प्रलेखन](https://gohugo.io/getting-started/installing/) देखें। [`Netlify.toml`](netlify.toml#L9) फ़ाइल में `HUGO_VERSION` environment variable द्वारा निर्दिष्ट Hugo version को install करना सुनिश्चित करें।
@@ -64,6 +72,8 @@ make serve
 
 यह पोर्ट `1313` पर Hugo सर्वर को शुरू करेगा। साइट देखने के लिए अपने browser को `http://localhost:1313` पर खोलें। जैसा कि आप source फ़ाइलों में परिवर्तन करते हैं, Hugo साइट को अपडेट करता है और एक browser को refresh करने पर मजबूर करता है।
 
+
+
 ## समुदाय, चर्चा, योगदान और समर्थन
 
 [Community page](http://kubernetes.io/community/) पर कुबरनेट्स समुदाय के साथ जुड़ना सीखें।
@@ -73,9 +83,13 @@ make serve
 - [Slack](https://kubernetes.slack.com/messages/sig-docs)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
+
+
 ## कोड ओफ़ कंडक्ट
 
 कुबरनेट्स समुदाय में भागीदारी [कुबरनेट्स कोड ओफ़ कंडक्ट](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/hi.md) द्वारा शासित है.
+
+
 
 ## धन्यवाद!
 
