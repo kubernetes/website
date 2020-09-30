@@ -48,7 +48,7 @@ NamespaceでRoleを定義する場合は、Roleを使用します。クラスタ
 #### Roleの例
 
 以下はNamespace「default」にあるRoleの例で、
-{{< glossary_tooltip text="pods" term_id="pod" >}}への読み取りアクセス権の付与に使用できます。
+{{< glossary_tooltip text="Pod" term_id="pod" >}}への読み取りアクセス権の付与に使用できます。
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
