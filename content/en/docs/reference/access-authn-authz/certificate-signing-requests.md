@@ -227,7 +227,7 @@ rules:
 
 ## Normal User
 
-There are a few steps are required in order to get normal user to be able to authenticate and invoke API. First, this user must have certificate issued by the Kubernetes Cluster, and then present that Certificate into the API call as the Certificate Header, or through the kubectl.
+A few steps are required in order to get normal user to be able to authenticate and invoke an API. First, this user must have certificate issued by the Kubernetes Cluster, and then present that Certificate to the API call as the Certificate Header or through the kubectl.
 
 ### Create Private Key
 
