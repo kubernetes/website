@@ -37,7 +37,9 @@ by providing the following flags to the kube-apiserver:
 1. Set the `--egress-selector-config-file` flag of the API Server to the path of
 your API Server egress configuration file.
 
-Generate certificate and kubeconfig for konnectivity-server:
+Generate or obtain a certificate and kubeconfig for konnectivity-server.  
+For example, you can use the OpenSSL command line tool to issue a X.509 certificate,
+using the cluster CA certificate `/etc/kubernetes/pki/ca.crt` from a control-plane host.
 
 ```bash
 openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -nodes -out konnectivity.csr -keyout konnectivity.key -out konnectivity.csr
