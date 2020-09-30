@@ -4,6 +4,7 @@
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
 Herzlich willkommen! Dieses Repository enthält alle Assets, die zur Erstellung der [Kubernetes-Website und Dokumentation](https://kubernetes.io/) erforderlich sind. Wir freuen uns sehr, dass Sie dazu beitragen wollen!
+the repository is for kubernet documentation 
 
 ## Beiträge zur Dokumentation
 
