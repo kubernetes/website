@@ -133,7 +133,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Create `example-ingress.yaml` from the following file:
 
     ```yaml
-    apiVersion: networking.k8s.io/v1beta1
+    apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
       name: example-ingress
@@ -145,9 +145,12 @@ The following file is an Ingress resource that sends traffic to your Service via
         http:
           paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: web
-              servicePort: 8080
+              service:
+                name: web
+                port:
+                  number: 8080
     ```
 
 1. Create the Ingress resource by running the following command:
@@ -171,8 +174,8 @@ The following file is an Ingress resource that sends traffic to your Service via
     {{< note >}}This can take a couple of minutes.{{< /note >}}
 
     ```shell
-    NAME              HOSTS              ADDRESS       PORTS     AGE
-    example-ingress   hello-world.info   172.17.0.15   80        38s
+    NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
+    example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
     ```
 
 1. Add the following line to the bottom of the `/etc/hosts` file.
@@ -232,9 +235,12 @@ The following file is an Ingress resource that sends traffic to your Service via
 
     ```yaml
           - path: /v2
+            pathType: Prefix
             backend:
-              serviceName: web2
-              servicePort: 8080
+              service:
+                name: web2
+                port:
+                  number: 8080
     ```
 
 1. Apply the changes:
