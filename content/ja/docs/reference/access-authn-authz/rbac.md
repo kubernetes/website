@@ -6,7 +6,7 @@ weight: 70
 ---
 
 <!-- overview -->
-Role Based Access Control(RBAC)は、組織内の個々のユーザーのRoleをベースに、コンピューターまたはネットワークリソースへのアクセスをコントロールする方法です。
+Role Based Access Control(RBAC)は、組織内の個々のユーザーのRoleをベースに、コンピューターまたはネットワークリソースへのアクセスを制御する方法です。
 
 
 <!-- body -->
@@ -587,8 +587,8 @@ metadata:
 <td><b>cluster-admin</b></td>
 <td><b>system:masters</b> group</td>
 <td>スーパーユーザーが任意のリソースで任意のアクションを実行できるようにします。
-<b>ClusterRoleBinding</b>で使用すると、クラスター内およびすべてのNamespace内のすべてのリソースを完全にコントロールできます。
-<b>RoleBinding</b>で使用すると、Namespace自体を含む、RoleBindingのNamespace内のすべてのリソースを完全にコントロールできます。</td>
+<b>ClusterRoleBinding</b>で使用すると、クラスター内およびすべてのNamespace内のすべてのリソースを完全に制御できます。
+<b>RoleBinding</b>で使用すると、Namespace自体を含む、RoleBindingのNamespace内のすべてのリソースを完全に制御できます。</td>
 </tr>
 <tr>
 <td><b>admin</b></td>
