@@ -455,7 +455,7 @@ Some language teams have their own language-specific style guide and glossary. F
 ### 特定语言的样式指南和词汇表
 
 一些语言团队有自己的特定语言样式指南和词汇表。
-例如，请参见[韩语本地化指南](/ko/docs/contribute/localization_ko/)。
+例如，请参见[中文本地化指南](/zh/docs/contribute/localization_zh/)。
 
 <!-- 
 ## Branching strategy 
