@@ -112,7 +112,7 @@ Once your pull request is created, a Kubernetes reviewer will take responsibilit
 
 Also, note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one initially assigned to provide you feedback.
 
-Furthermore, in some cases, one of your reviewers might ask for a technical review from a Kubernetes tech reviewer when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
+Furthermore, in some cases one of your reviewers might ask for a technical review from a Kubernetes tech reviewer when needed.  Reviewers will try their best to provide feedback in a timely fashion but response time can vary based on circumstances.
 
 For more information about contributing to the Kubernetes documentation, see:
 
