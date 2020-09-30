@@ -522,7 +522,7 @@ RBAC authorizerがアクティブな場合、自動調整はデフォルトで�
 
 ### APIディスカバリーRole {#discovery-roles}
 
-デフォルトのRoleBindingでは、認証されていないユーザーと認証されたユーザーが、パブリックアクセスが安全であると見なされるAPI情報(CustomResourceDefinitionsを含む)の読み取りを認可しています。匿名の非認証アクセスを無効にするには、APIサーバー構成に`--anonymous-auth=false` 追加します。
+デフォルトのRoleBindingでは、認証されていないユーザーと認証されたユーザーが、パブリックアクセスが安全であると見なされるAPI情報(CustomResourceDefinitionを含む)の読み取りを認可しています。匿名の非認証アクセスを無効にするには、APIサーバー構成に`--anonymous-auth=false` 追加します。
 
 `kubectl`の実行によってこれらのRoleの構成を表示するには。
 
