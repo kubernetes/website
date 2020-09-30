@@ -29,7 +29,7 @@
 
 .canonical-tag {
   color: white;
-  background-color: #b7c8e8;
+  background-color: #EAEDED;
 }
 
 .canonical-tag a {
@@ -38,7 +38,7 @@
 }
 
 .active-tag {
-  background-color: #3371e3;
+  background-color: #EAEDED;
 }
 
 .invisible {
