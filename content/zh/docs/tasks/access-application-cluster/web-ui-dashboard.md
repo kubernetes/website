@@ -187,13 +187,11 @@ The deploy wizard expects that you provide the following information:
   以保证集群中运行期望的 Pod 数量。
 
 <!--
-- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
+- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service).
  -->
 - **服务**（可选）：对于部分应用（比如前端），你可能想对外暴露一个
   [Service](/zh/docs/concepts/services-networking/service/) ，这个 Service
   可能用的是集群之外的公网 IP 地址（外部 Service）。
-  对于外部 Service 的情况，需要开放一个或者多个端口来满足。
-  更多信息请参考 [这里](/zh/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/)。
 
   <!-- 
   For external Services, you may need to open up one or more ports to do so.
