@@ -25,8 +25,9 @@ You need to configure the API Server to use the Konnectivity service
 and direct the network traffic to the cluster nodes:
 
 1. Make sure that
-[ServiceAccountTokenVolumeProjection](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
-feature is enabled in your cluster. It can be done by providing the following flags for the API Server:
+the `ServiceAccountTokenVolumeProjection` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). You can enable
+[service account token volume protection](/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
+by providing the following flags to the kube-apiserver:
    ```
    --service-account-issuer=api
    --service-account-signing-key-file=/etc/kubernetes/pki/sa.key
