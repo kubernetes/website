@@ -411,7 +411,7 @@ Kubernetesはユーザー名を文字列として表します。
 Kubernetesでは、Authenticatorモジュールがグループ情報を提供します。
 ユーザーと同様に、グループは文字列として表され、その文字列には、プレフィックス`system:`が予約されていることを除いて、フォーマット要件はありません。
 
-[ServiceAccounts](/docs/tasks/configure-pod-container/configure-service-account/)の名前はプレフィックス`system:serviceaccount:`が付いており、名前のプレフィックス`system:serviceaccounts:`が付いているグループに属しています。
+[ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)の名前はプレフィックス`system:serviceaccount:`が付いており、名前のプレフィックス`system:serviceaccounts:`が付いているグループに属しています。
 
 {{< note >}}
 - `system:serviceaccount:` (単数)は、サービスアカウントのユーザー名のプレフィックスです。
