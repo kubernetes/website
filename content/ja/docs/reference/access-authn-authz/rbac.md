@@ -20,7 +20,7 @@ kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
 
 ## APIオブジェクト{#api-overview}
 
-RBAC APIは4種類のKubernetesオブジェクト(_Role_, _ClusterRole_,  _RoleBinding_ そして _ClusterRoleBinding_)を宣言します。他のKubernetesオブジェクトのように`kubectl`のようなツールを使って、[オブジェクトを記述](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects)、または変更できます。
+RBAC APIは4種類のKubernetesオブジェクト(_Role_、 _ClusterRole_、  _RoleBinding_ そして _ClusterRoleBinding_)を宣言します。他のKubernetesオブジェクトのように`kubectl`のようなツールを使って、[オブジェクトを記述](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects)、または変更できます。
 
 {{< caution >}}
 これらのオブジェクトは設計上、アクセス制限を課します。学んできたように変更を行っている場合、
