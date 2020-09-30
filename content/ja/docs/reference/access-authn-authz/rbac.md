@@ -1,7 +1,6 @@
 ---
 title: RBAC認可を使用する
 content_type: concept
-aliases: [/rbac/]
 weight: 70
 ---
 
@@ -68,7 +67,7 @@ rules:
 ClusterRoleを使用してRoleと同じ権限を付与できます。
 ClusterRolesはクラスター単位でスコープされているため、以下へのアクセスの許可もできます。
 
-* クラスター単位でスコープされているリソースに({{< glossary_tooltip text="nodes" term_id="node" >}}など)
+* クラスター単位でスコープされているリソースに({{< glossary_tooltip text="node" term_id="node" >}}など)
 * 非リソースエンドポイントに(`/healthz`など)
 * すべてのNamespaceに渡ってNamespaceに属するリソースに(Podなど)。
   例えば、ClusterRoleを使用して特定のユーザーに`kubectl get pods --all-namespaces`の実行を許可できます。
@@ -345,8 +344,6 @@ rules:
 
 コアAPIグループのPodの読み取り、および`"batch"`または`"extensions"`APIグループのJobリソースの読み取りまたは書き込みを許可します。
 
-Allow reading Pods in the core API group, as well as reading or writing Job
-resources in the `"batch"` or `"extensions"` API groups:
 
 ```yaml
 rules:
@@ -534,7 +531,7 @@ kubectl get clusterroles system:discovery -o yaml
 ```
 
 {{< note >}}
-ClusterRoleを編集すると、変更が[自動調整](#自動調整)によるAPIサーバーの再起動時に上書きされます。この上書きを回避するにはRoleを手動で編集しないか、自動調整無効にします。
+ClusterRoleを編集すると、変更が[自動調整](#自動調整)によるAPIサーバーの再起動時に上書きされます。この上書きを回避するにはRoleを手動で編集しないか、自動調整を無効にします。
 {{< /note >}}
 
 <table>
