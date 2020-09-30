@@ -332,7 +332,7 @@ To switch back to this context, run this command: `kubectl config use-context mi
 如果你启用了 web 代理，则需要将此信息传递给 `minikube start` 命令：
 
 ```shell
-https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
+minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
 ```
 
 不幸的是，单独设置环境变量不起作用。
