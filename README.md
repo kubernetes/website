@@ -137,6 +137,6 @@ For more information about contributing to the Kubernetes documentation, see:
 
 Participation in the Kubernetes community is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md).
 
-# Thank you!
+# Thank you!😊
 
 Kubernetes thrives on community participation, and we appreciate your contributions to our website and our documentation!
