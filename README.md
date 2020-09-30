@@ -1,4 +1,4 @@
-# The Kubernetes documentation
+# The Kubernetes Documentation
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-master-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
@@ -6,7 +6,7 @@ This repository contains the assets required to build the [Kubernetes website an
 
 # Using this repository
 
-You can run the website locally using Hugo, or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
+You can run the website locally using Hugo, or you can run it in a container runtime. We strongly recommend for using the container runtime, as it gives deployment consistency with the live website.
 
 ## Prerequisites
 
@@ -92,7 +92,7 @@ sudo chown root:wheel /Library/LaunchDaemons/limit.maxproc.plist
 sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 ```
 
-This works for Catalina as well as Mojave macOS.
+This also works for Catalina and Mojave macOS.
 
 
 # Get involved with SIG Docs
@@ -112,7 +112,7 @@ Once your pull request is created, a Kubernetes reviewer will take responsibilit
 
 Also, note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one initially assigned to provide you feedback.
 
-Furthermore, in some cases, one of your reviewers might ask for a technical review from a Kubernetes tech reviewer when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
+Furthermore, in some cases, one of your reviewers might ask for a technical review from a Kubernetes tech reviewer when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on the circumstances.
 
 For more information about contributing to the Kubernetes documentation, see:
 
