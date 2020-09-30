@@ -1,6 +1,6 @@
 ---
 title: Eviction Policy
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
@@ -12,12 +12,13 @@ This page is an overview of Kubernetes' policy for eviction.
 
 ## Eviction Policy
 
-The {{< glossary_tooltip text="Kubelet" term_id="kubelet" >}} can proactively monitor for and prevent total starvation of a
-compute resource. In those cases, the `kubelet` can reclaim the starved
-resource by proactively failing one or more Pods. When the `kubelet` fails
+The {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} proactively monitors for
+and prevents total starvation of a compute resource. In those cases, the `kubelet` can reclaim
+the starved resource by failing one or more Pods. When the `kubelet` fails
 a Pod, it terminates all of its containers and transitions its `PodPhase` to `Failed`.
-If the evicted Pod is managed by a Deployment, the Deployment will create another Pod
+If the evicted Pod is managed by a Deployment, the Deployment creates another Pod
 to be scheduled by Kubernetes.
 
 ## {{% heading "whatsnext" %}}
-- Read [Configure out of resource handling](/docs/tasks/administer-cluster/out-of-resource/) to learn more about eviction signals, thresholds, and handling.
+
+- Learn how to [configure out of resource handling](/docs/tasks/administer-cluster/out-of-resource/) with eviction signals and thresholds.
