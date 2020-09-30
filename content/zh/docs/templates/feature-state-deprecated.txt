@@ -1,2 +1,0 @@
-
-该功能已被*弃用*。有关此状态的更多信息，请参见[Kubernetes 弃用策略](/docs/reference/deprecation-policy/)。
