@@ -19,7 +19,7 @@ kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
 
 ## APIオブジェクト{#api-overview}
 
-RBAC APIは4種類のKubernetesオブジェクト(_Role_、 _ClusterRole_、  _RoleBinding_ そして _ClusterRoleBinding_)を宣言します。他のKubernetesオブジェクトのように`kubectl`のようなツールを使って、[オブジェクトを記述](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects)、または変更できます。
+RBAC APIは4種類のKubernetesオブジェクト(_Role_、 _ClusterRole_、  _RoleBinding_ そして _ClusterRoleBinding_)を宣言します。他のKubernetesオブジェクトのように`kubectl`のようなツールを使って、[オブジェクトを記述](https://kubernetes.io/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)、または変更できます。
 
 {{< caution >}}
 これらのオブジェクトは設計上、アクセス制限を課します。学んできたように変更を行っている場合、
@@ -91,7 +91,7 @@ rules:
 ```
 
 RoleまたはClusterRoleオブジェクトの名前は有効な
-[パスセグメント名](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects)である必要があります。
+[パスセグメント名](https://kubernetes.io/ja/docs/concepts/overview/working-with-objects/names/)である必要があります。
 
 ### RoleBindingとClusterRoleBinding
 
@@ -104,7 +104,7 @@ RoleBindingは、同じNamespace内の任意のRoleを参照できます。
 ClusterRoleをクラスター内のすべてのNamespaceにバインドする場合は、ClusterRoleBindingを使用します。
 
 RoleBindingまたはClusterRoleBindingオブジェクトは有効な
-[パスセグメント名](ja/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects)である必要があります。
+[パスセグメント名](https://kubernetes.io/ja/docs/concepts/overview/working-with-objects/names/)である必要があります。
 
 #### RoleBindingの例 {#rolebinding-example}
 
@@ -397,7 +397,7 @@ rules:
 RoleBindingまたはClusterRoleBindingは、Roleをsubjectsにバインドします。subjectsはグループ、ユーザー、または{{< glossary_tooltip text="ServiceAccounts" term_id="service-account" >}}にすることができます。
 
 Kubernetesはユーザー名を文字列として表します。
-これらは次のようにできます。「alice」などの単純な名前。「bob@example.com」のような電子メール形式の名前。または文字列として表される数値のユーザーID。 認証が必要な形式のユーザー名を生成するように[認証モジュール](/docs/reference/access-authn-authz/authentication/)を構成するかどうかは、クラスター管理者が決定します。
+これらは次のようにできます。「alice」などの単純な名前。「bob@example.com」のような電子メール形式の名前。または文字列として表される数値のユーザーID。 認証が必要な形式のユーザー名を生成するように[認証モジュール](https://kubernetes.io/ja/docs/reference/access-authn-authz/authentication/)を構成するかどうかは、クラスター管理者が決定します。
 
 {{< caution >}}
 プレフィックス`system:`はKubernetesシステムで使用するために予約されているため、誤って`system:`で始まる名前のユーザーまたはグループが存在しないようにする必要があります。
@@ -995,7 +995,7 @@ subjects:
       --namespace=my-namespace
     ```
 
-    多くの[アドオン](/docs/concepts/cluster-administration/addons/)は、
+    多くの[アドオン](https://kubernetes.io/docs/concepts/cluster-administration/addons/)は、
     Namespace`kube-system`のサービスアカウント「default」として実行されます。
     これらのアドオンをスーパーユーザーアクセスでの実行を許可するには、Namespace`kube-system`のサービスアカウント「default」のcluster-admin権限を付与します。
 
