@@ -13,7 +13,7 @@ have blog posts -->
 {{ if eq $pag.PageNumber 1 }}
 {{ end }}
 <div class="row">
-	<div class="col-12">
+	<div class="col-12 col-lg-6">
 		{{ range $pageGroups }}
 		<h2>{{ T "post_posts_in" }} {{ .Key }}</h2>
 		<ul class="list-unstyled mt-4">
