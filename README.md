@@ -4,7 +4,7 @@
 
 This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
 
-# Using this repository
+# Using this Repository
 
 You can run the website locally using Hugo, or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
 
@@ -35,7 +35,7 @@ yarn
 git submodule update --init --recursive --depth 1
 ```
 
-## Running the website using a container
+## Running the Website using a Container
 
 To build the site in a container, run the following to build the container image and run it:
 
@@ -46,7 +46,7 @@ make container-serve
 
 Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
-## Running the website locally using Hugo
+## Running the Website Locally using Hugo
 
 Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
 
@@ -133,7 +133,7 @@ For more information about contributing to the Kubernetes documentation, see:
 |[Italian](README-it.md)|[Ukrainian](README-uk.md)|
 |[Japanese](README-ja.md)|[Vietnamese](README-vi.md)|
 
-# Code of conduct
+# Code of Conduct
 
 Participation in the Kubernetes community is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md).
 
