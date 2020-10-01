@@ -25,7 +25,7 @@ git clone https://github.com/kubernetes/website.git
 cd website
 ```
 
-The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
+The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodules and other development dependencies by running the following:
 
 ```
 # install dependencies
