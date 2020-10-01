@@ -10,7 +10,7 @@ You can run the website locally using Hugo, or you can run it in a container run
 
 ## Prerequisites
 
-To use this repository, you need the following installed locally:
+To use this repository, you need the following dependency installed locally:
 
 - [yarn](https://yarnpkg.com/)
 - [npm](https://www.npmjs.com/)
