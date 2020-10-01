@@ -74,6 +74,7 @@ Try checking the current limit for open files:
 Then run the following commands:
 
 ```
+**comments** 
 #!/bin/sh
 
 # These are the original gist links, linking to my gists now.
