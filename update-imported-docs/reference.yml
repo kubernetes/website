@@ -1,4 +1,4 @@
-repos:
+repository:
 - name: reference-docs
   remote: https://github.com/kubernetes-sigs/reference-docs.git
   # This and the generate-command below needs a change when reference-docs has
