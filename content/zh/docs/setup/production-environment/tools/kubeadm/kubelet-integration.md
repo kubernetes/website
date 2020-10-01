@@ -36,7 +36,7 @@ characteristics of a given machine, such as OS, storage, and networking. You can
 of your kubelets manually, but [kubeadm now provides a `KubeletConfiguration` API type for managing your
 kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 -->
-kubeadm CLI 工具的生命周期与 [kubelet](/docs/reference/command-line-tools-reference/kubelet)解耦，它是一个守护程序，在 Kubernetes 集群中的每个节点上运行。
+kubeadm CLI 工具的生命周期与 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet)解耦，它是一个守护程序，在 Kubernetes 集群中的每个节点上运行。
 当 Kubernetes 初始化或升级时，kubeadm CLI 工具由用户执行，而 kubelet 始终在后台运行。
 
 由于kubelet是守护程序，因此需要通过某种初始化系统或服务管理器进行维护。
@@ -319,10 +319,10 @@ This file specifies the default locations for all of the files managed by kubead
   `/etc/default/kubelet` (for DEBs), or `/etc/sysconfig/kubelet` (for RPMs). `KUBELET_EXTRA_ARGS`
   is last in the flag chain and has the highest priority in the event of conflicting settings.
 -->
-##  系统中的 kubelet 插件
+##  kubelet 的 systemd 文件 {#the-kubelet-drop-in-file-for-systemd}
 
-kubeadm 中附带了有关系统如何运行 kubelet 的配置。
-请注意 kubeadm CLI 命令不会触及此插件。
+kubeadm 中附带了有关系统如何运行 kubelet 的 systemd 配置文件。
+请注意 kubeadm CLI 命令不会修改此文件。
 
 通过 `kubeadm` [DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/10-kubeadm.conf) 或者 [RPM 包](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/10-kubeadm.conf) 安装的配置文件已被写入 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` 并由系统使用。
 它加强了基础设施 [`kubelet.service` for RPM](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/kubelet.service) (resp. [`kubelet.service` for DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/kubelet.service)))：
@@ -372,7 +372,7 @@ Kubernetes 版本对应的 DEB 和 RPM 软件包是：
 
 | Package name | Description |
 |--------------|-------------|
-| `kubeadm`    | 给 kubelet 安装 `/usr/bin/kubeadm` CLI 工具和 [kubelet 插件](#the-kubelet-drop-in-file-for-systemd)。 |
+| `kubeadm`    | 给 kubelet 安装 `/usr/bin/kubeadm` CLI 工具和 [kubelet 的 systemd 文件](#the-kubelet-drop-in-file-for-systemd)。 |
 | `kubelet`    | 安装 `/usr/bin/kubelet` 二进制文件和 `/opt/cni/bin` CNI 二进制文件。 |
 | `kubectl`    | 安装 `/usr/bin/kubectl` 二进制文件。 |
 | `cri-tools` | 从 [cri-tools git 仓库](https://github.com/kubernetes-incubator/cri-tools)中安装 `/usr/bin/crictl` 二进制文件。 |

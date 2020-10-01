@@ -212,13 +212,13 @@ CPU 总是按绝对数量来请求的，不可以使用相对数量；
 ## Meaning of memory
 
 Limits and requests for `memory` are measured in bytes. You can express memory as
-a plain integer or as a fixed-point integer using one of these suffixes:
+a plain integer or as a fixed-point number using one of these suffixes:
 E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following represent roughly the same value:
 -->
 ## 内存的含义  {#meaning-of-memory}
 
-内存的约束和请求以字节为单位。你可以使用以下后缀之一以一般整数或定点整数形式来表示内存：
+内存的约束和请求以字节为单位。你可以使用以下后缀之一以一般整数或定点数字形式来表示内存：
 E、P、T、G、M、K。你也可以使用对应的 2 的幂数：Ei、Pi、Ti、Gi、Mi、Ki。
 例如，以下表达式所代表的是大致相同的值：
 
@@ -573,7 +573,7 @@ You can use _ephemeral-storage_ for managing local ephemeral storage. Each Conta
 * `spec.containers[].resources.requests.ephemeral-storage`
 
 Limits and requests for `ephemeral-storage` are measured in bytes. You can express storage as
-a plain integer or as a fixed-point integer using one of these suffixes:
+a plain integer or as a fixed-point number using one of these suffixes:
 E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following represent roughly the same value:
 
@@ -590,7 +590,7 @@ Pod 中的每个 Container 可以设置以下属性：
 * `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.requests.ephemeral-storage`
 
-`ephemeral-storage` 的请求和约束值是按字节计量的。你可以使用一般整数或者定点整数
+`ephemeral-storage` 的请求和约束值是按字节计量的。你可以使用一般整数或者定点数字
 加上下面的后缀来表达存储量：E、P、T、G、M、K。
 你也可以使用对应的 2 的幂级数来表达：Ei、Pi、Ti、Gi、Mi、Ki。
 例如，下面的表达式所表达的大致是同一个值：

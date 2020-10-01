@@ -42,12 +42,12 @@ in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new)
 
 See also [The upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15).
 -->
-在下一步之前，您应该仔细考虑哪种方法更好的满足您的应用程序和环境的需求。 [这是对比文档](/docs/setup/production-environment/tools/kubeadm/ha-topology/) 讲述了每种方法的优缺点。
+在下一步之前，您应该仔细考虑哪种方法更好的满足您的应用程序和环境的需求。 
+[这是对比文档](/zh/docs/setup/production-environment/tools/kubeadm/ha-topology/) 讲述了每种方法的优缺点。
 
 如果您在安装 HA 集群时遇到问题，请在 kubeadm [问题跟踪](https://github.com/kubernetes/kubeadm/issues/new)里向我们提供反馈。
 
-您也可以阅读 [升级文件](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15)。
-
+您也可以阅读 [升级文件](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 <!--
 This page does not address running your cluster on a cloud provider. In a cloud
 environment, neither approach documented here works with Service objects of type
@@ -77,8 +77,8 @@ For both methods you need this infrastructure:
 -->
 对于这两种方法，您都需要以下基础设施：
 
-- 配置三台机器[kubeadm 的最低要求](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin)给主节点
-- 配置三台机器 [kubeadm 的最低要求](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) 给工作节点
+- 配置三台机器 [kubeadm 的最低要求](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) 给主节点
+- 配置三台机器 [kubeadm 的最低要求](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) 给工作节点
 - 在集群中，所有计算机之间的完全网络连接（公网或私网）
 - 所有机器上的 sudo 权限
 - 每台设备对系统中所有节点的 SSH 访问
@@ -129,11 +129,10 @@ option. Your cluster requirements may need a different configuration.
 
     - Make sure the address of the load balancer always matches
       the address of kubeadm's `ControlPlaneEndpoint`.
-      
+
     - Read the [Options for Software Load Balancing](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)
       guide for more details.
 -->
-
 1.  创建一个名为 kube-apiserver 的负载均衡器解析 DNS。
 
     - 在云环境中，应该将控制平面节点放置在 TCP 后面转发负载平衡。 该负载均衡器将流量分配给目标列表中所有运行状况良好的控制平面节点。健康检查 apiserver 是在 kube-apiserver 监听端口(默认值 `:6443`)上的一个 TCP 检查。
@@ -143,7 +142,7 @@ option. Your cluster requirements may need a different configuration.
     - 负载均衡器必须能够在 apiserver 端口上与所有控制平面节点通信。它还必须允许其监听端口的传入流量。
 
     - 确保负载均衡器的地址始终匹配 kubeadm 的 `ControlPlaneEndpoint` 地址。
-    
+
     - 阅读[软件负载平衡选项指南](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)以获取更多详细信息。
 
 <!--
@@ -161,17 +160,16 @@ option. Your cluster requirements may need a different configuration.
 
 1.  Add the remaining control plane nodes to the load balancer target group.
 -->
+2.  添加第一个控制平面节点到负载均衡器并测试连接：
 
-1.  添加第一个控制平面节点到负载均衡器并测试连接：
-
-    ```sh
+    ```shell
     nc -v LOAD_BALANCER_IP PORT
     ```
 
     - 由于 apiserver 尚未运行，预期会出现一个连接拒绝错误。然而超时意味着负载均衡器不能和控制平面节点通信。
    如果发生超时，请重新配置负载均衡器与控制平面节点进行通信。
 
-1.  将其余控制平面节点添加到负载均衡器目标组。
+3.  将其余控制平面节点添加到负载均衡器目标组。
 
 <!-- ## Stacked control plane and etcd nodes -->
 ## 使用堆控制平面和 etcd 节点
@@ -180,7 +178,6 @@ option. Your cluster requirements may need a different configuration.
 ### 控制平面节点的第一步
 
 <!--
-
 1.  Initialize the control plane:
 
     ```sh
@@ -203,7 +200,6 @@ option. Your cluster requirements may need a different configuration.
     sudo kubeadm init --control-plane-endpoint "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" --upload-certs
     ```
 
-
     - 您可以使用 `--kubernetes-version` 标志来设置要使用的 Kubernetes 版本。建议将 kubeadm、kebelet、kubectl 和 Kubernetes 的版本匹配。
     - 这个 `--control-plane-endpoint` 标志应该被设置成负载均衡器的地址或 DNS 和端口。
     - 这个 `--upload-certs` 标志用来将在所有控制平面实例之间的共享证书上传到集群。如果正好相反，你更喜欢手动地通过控制平面节点或者使用自动化
@@ -224,7 +220,8 @@ To add a pod CIDR pass the flag `--pod-network-cidr`, or if you are using a kube
 set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
 -->
 {{< note >}}
-一些 CNI 网络插件如 Calico 需要 CIDR 例如 `192.168.0.0/16` 和一些像 Weave 没有。参考 [CNI 网络文档](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
+一些 CNI 网络插件如 Calico 需要 CIDR 例如 `192.168.0.0/16` 和一些像 Weave 没有。参考
+[CNI 网络文档](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
 通过传递 `--pod-network-cidr` 标志添加 pod CIDR，或者您可以使用 kubeadm 配置文件，在 `ClusterConfiguration` 的 `networking` 对象下设置 `podSubnet` 字段。
 {{< /note >}}
 
@@ -323,7 +320,8 @@ As stated in the command output, the certificate key gives access to cluster sen
 
 -->
 1.  应用您选择的 CNI 插件：
-    [请遵循以下指示](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) 安装 CNI 提供程序。如果适用，请确保配置与 kubeadm 配置文件中指定的 Pod CIDR 相对应。
+    [请遵循以下指示](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
+    安装 CNI 提供程序。如果适用，请确保配置与 kubeadm 配置文件中指定的 Pod CIDR 相对应。
 
     在此示例中，我们使用 Weave Net：
 
@@ -414,7 +412,7 @@ in the kubeadm config file.
 
 ### 设置 ectd 集群
 
-1.  按照 [这些指示](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) 去设置 etcd 集群。
+1.  按照 [这些指示](/zh/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) 去设置 etcd 集群。
 
 1.  设置 SSH 在 [这](#manual-certs)描述。
 
@@ -731,5 +729,3 @@ the creation of additional nodes could fail due to a lack of required SANs.
     mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
     mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
     ```
-
-

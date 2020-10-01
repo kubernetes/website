@@ -49,13 +49,13 @@ choco install make
 Jeśli [zainstalowałeś i uruchomiłeś](https://www.docker.com/get-started) już Dockera, zbuduj obraz `kubernetes-hugo` lokalnie:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Po zbudowaniu obrazu, możesz uruchomić serwis lokalnie:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Aby obejrzeć zawartość serwisu otwórz w przeglądarce adres http://localhost:1313. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.

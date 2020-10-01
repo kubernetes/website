@@ -217,7 +217,7 @@ or POSIX shared memory.  Containers in different Pods have distinct IP addresses
 and can not communicate by IPC without
 [special configuration](/docs/concepts/policy/pod-security-policy/).
 Containers that want to interact with a container running in a different Pod can
-use IP networking to comunicate.
+use IP networking to communicate.
 
 Containers within the Pod see the system hostname as being the same as the configured
 `name` for the Pod. There's more about this in the [networking](/docs/concepts/cluster-administration/networking/)
@@ -254,7 +254,7 @@ but cannot be controlled from there.
 
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
 * Learn about [PodPresets](/docs/concepts/workloads/pods/podpreset/).
-* Lean about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
+* Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
   configure different Pods with different container runtime configurations.
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.

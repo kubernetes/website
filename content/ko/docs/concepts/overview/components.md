@@ -5,7 +5,7 @@ description: >
   쿠버네티스 클러스터는 컴퓨터 집합인 노드 컴포넌트와 컨트롤 플레인
   컴포넌트로 구성된다.
 weight: 20
-card: 
+card:
   name: concepts
   weight: 20
 ---
@@ -19,7 +19,7 @@ card:
 
 여기에 모든 컴포넌트가 함께 있는 쿠버네티스 클러스터 다이어그램이 있다.
 
-![쿠버네티스의 컴포넌트](/images/docs/components-of-kubernetes.png)
+![쿠버네티스의 컴포넌트](/images/docs/components-of-kubernetes.svg)
 
 
 

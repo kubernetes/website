@@ -6,8 +6,6 @@ weight: 40
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
-
 사용자는 _토폴로지 분배 제약 조건_ 을 사용해서 지역, 영역, 노드 그리고 기타 사용자-정의 토폴로지 도메인과 같이 장애-도메인으로 설정된 클러스터에 걸쳐 파드가 분산되는 방식을 제어할 수 있다. 이를 통해 고가용성뿐만 아니라, 효율적인 리소스 활용의 목적을 이루는 데 도움이 된다.
 
 
@@ -15,13 +13,6 @@ weight: 40
 <!-- body -->
 
 ## 필수 구성 요소
-
-### 기능 게이트 활성화
-
-를 참조한다. {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}} **와**
-{{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}에 대해
-`EvenPodsSpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
-활성화되어야 한다.
 
 ### 노드 레이블
 
@@ -53,7 +44,7 @@ node4   Ready    <none>   2m43s   v1.16.0   node=node4,zone=zoneB
 
 ### API
 
-`pod.spec.topologySpreadConstraints` 필드는 1.16에서 다음과 같이 도입되었다.
+API 필드 `pod.spec.topologySpreadConstraints` 는 다음과 같이 정의된다.
 
 ```
 apiVersion: v1
@@ -70,7 +61,15 @@ spec:
 
 사용자는 하나 또는 다중 `topologySpreadConstraint` 를 정의해서 kube-scheduler 에게 클러스터에 걸쳐 있는 기존 파드와 시작하는 각각의 파드와 연관하여 배치하는 방법을 명령할 수 있다. 필드는 다음과 같다.
 
-- **maxSkew** 는 파드가 균등하지 않게 분산될 수 있는 정도를 나타낸다. 이것은 주어진 토폴로지 유형의 임의의 두 토폴로지 도메인에 일치하는 파드의 수 사이에서 허용되는 차이의 최댓값이다. 이것은 0보다는 커야 한다.
+- **maxSkew** 는 파드가 균등하지 않게 분산될 수 있는 정도를 나타낸다.
+  이것은 주어진 토폴로지 유형의 임의의 두 토폴로지 도메인에 일치하는
+  파드의 수 사이에서 허용되는 차이의 최댓값이다. 이것은 0보다는 커야
+  한다. 그 의미는 `whenUnsatisfiable` 의 값에 따라 다르다.
+  - `whenUnsatisfiable` 이 "DoNotSchedule"과 같을 때, `maxSkew` 는
+    대상 토폴로지에서 일치하는 파드 수와 전역 최솟값 사이에
+    허용되는 최대 차이이다.
+  - `whenUnsatisfiable` 이 "ScheduleAnyway"와 같으면, 스케줄러는
+    왜곡을 줄이는데 도움이 되는 토폴로지에 더 높은 우선 순위를 부여한다.
 - **topologyKey** 는 노드 레이블의 키다. 만약 두 노드가 이 키로 레이블이 지정되고, 레이블이 동일한 값을 가진다면 스케줄러는 두 노드를 같은 토폴로지에 있는것으로 여기게 된다. 스케줄러는 각 토폴로지 도메인에 균형잡힌 수의 파드를 배치하려고 시도한다.
 - **whenUnsatisfiable** 는 분산 제약 조건을 만족하지 않을 경우에 처리하는 방법을 나타낸다.
   - `DoNotSchedule` (기본값)은 스케줄러에 스케줄링을 하지 말라고 알려준다.
@@ -186,7 +185,7 @@ spec:
 
 ### 클러스터 수준의 기본 제약 조건
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 클러스터에 대한 기본 토폴로지 분배 제약 조건을 설정할 수 있다. 기본
 토폴로지 분배 제약 조건은 다음과 같은 경우에만 파드에 적용된다.
@@ -194,7 +193,7 @@ spec:
 - `.spec.topologySpreadConstraints` 에는 어떠한 제약도 정의되어 있지 않는 경우.
 - 서비스, 레플리케이션컨트롤러(ReplicationController), 레플리카셋(ReplicaSet) 또는 스테이트풀셋(StatefulSet)에 속해있는 경우.
 
-기본 제약 조건은 [스케줄링 프로파일](/docs/reference/scheduling/profiles)에서
+기본 제약 조건은 [스케줄링 프로파일](/docs/reference/scheduling/config/#profiles)에서
 `PodTopologySpread` 플러그인의 일부로 설정할 수 있다.
 제약 조건은 `labelSelector` 가 비어 있어야 한다는 점을 제외하고, [위와 동일한 API](#api)로
 제약 조건을 지정한다. 셀렉터는 파드가 속한 서비스, 레플리케이션 컨트롤러,
@@ -203,7 +202,7 @@ spec:
 예시 구성은 다음과 같다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha2
+apiVersion: kubescheduler.config.k8s.io/v1beta1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -212,16 +211,47 @@ profiles:
       args:
         defaultConstraints:
           - maxSkew: 1
-            topologyKey: failure-domain.beta.kubernetes.io/zone
+            topologyKey: topology.kubernetes.io/zone
             whenUnsatisfiable: ScheduleAnyway
 ```
 
 {{< note >}}
 기본 스케줄링 제약 조건에 의해 생성된 점수는
-[`DefaultPodTopologySpread` 플러그인](/docs/reference/scheduling/profiles/#scheduling-plugins)에
+[`SelectorSpread` 플러그인](/docs/reference/scheduling/config/#scheduling-plugins)에
 의해 생성된 점수와 충돌 할 수 있다.
 `PodTopologySpread` 에 대한 기본 제약 조건을 사용할 때 스케줄링 프로파일에서
 이 플러그인을 비활성화 하는 것을 권장한다.
+{{< /note >}}
+
+#### 내부 기본 제약
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+`DefaultPodTopologySpread` 기능 게이트를 활성화하면, 기존
+`SelectorSpread` 플러그인이 비활성화된다.
+kube-scheduler는 `PodTopologySpread` 플러그인 구성에 다음과 같은
+기본 토폴로지 제약 조건을 사용한다.
+
+```yaml
+defaultConstraints:
+  - maxSkew: 3
+    topologyKey: "kubernetes.io/hostname"
+    whenUnsatisfiable: ScheduleAnyway
+  - maxSkew: 5
+    topologyKey: "topology.kubernetes.io/zone"
+    whenUnsatisfiable: ScheduleAnyway
+```
+
+또한, 같은 동작을 제공하는 레거시 `SelectorSpread` 플러그인이
+비활성화된다.
+
+{{< note >}}
+노드에 `kubernetes.io/hostname` 및 `topology.kubernetes.io/zone`
+레이블 세트 **둘 다**가 설정되지 않을 것으로 예상되는 경우, 쿠버네티스 기본값을 사용하는
+대신 자체 제약 조건을 정의한다.
+
+`PodTopologySpread` 플러그인은 분배 제약 조건에 지정된 토폴로지 키가
+없는 노드에 점수를 매기지 않는다.
 {{< /note >}}
 
 ## 파드어피니티(PodAffinity)/파드안티어피니티(PodAntiAffinity)와의 비교
@@ -234,13 +264,19 @@ profiles:
 - `PodAntiAffinity` 로는, 단일 토폴로지 도메인에
   단 하나의 파드만 스케줄 될 수 있다.
 
-"EvenPodsSpread" 기능은 다양한 토폴로지 도메인에 파드를 균등하게 분배해서
-고 가용성 또는 비용 절감을 달성할 수 있는 유연한 옵션을 제공한다. 또한 워크로드의 롤링 업데이트와 레플리카의 원활한 스케일링 아웃에 도움이 될 수 있다.
-더 자세한 내용은 [모티베이션(Motivation)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)를 참조한다.
+더 세밀한 제어를 위해, 토폴로지 분배 제약 조건을 지정하여 다양한 토폴로지 도메인에 파드를
+분배해서 고 가용성 또는 비용 절감을 달성할 수 있는 유연한 옵션을
+제공한다. 또한 워크로드의 롤링 업데이트와 레플리카의 원활한 스케일링 아웃에 도움이 될 수 있다.
+더 자세한 내용은
+[모티베이션(Motivation)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)를
+참고한다.
 
 ## 알려진 제한사항
 
-1.18을 기준으로 이 기능은 베타(Beta)이며, 몇 가지 알려진 제한사항이 있다.
-
 - 디플로이먼트를 스케일링 다운하면 그 결과로 파드의 분포가 불균형이 될 수 있다.
 - 파드와 일치하는 테인트(taint)가 된 노드가 존중된다. [이슈 80921](https://github.com/kubernetes/kubernetes/issues/80921)을 본다.
+
+## {{% heading "whatsnext" %}}
+
+- [블로그: PodTopologySpread 소개](https://kubernetes.io/blog/2020/05/introducing-podtopologyspread/)에서는
+  `maxSkew` 에 대해 자세히 설명하고, 몇 가지 고급 사용 예제를 제공한다.

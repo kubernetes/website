@@ -60,23 +60,15 @@ kubectl create clusterrolebinding cluster-admin-binding \
 ## Install kube-state-metrics
 
 Kubernetes [*kube-state-metrics*](https://github.com/kubernetes/kube-state-metrics) is a simple service that listens to the Kubernetes API server and generates metrics about the state of the objects.  Metricbeat reports these metrics.  Add kube-state-metrics to the Kubernetes cluster that the guestbook is running in.
-
-### Check to see if kube-state-metrics is running
-```shell
-kubectl get pods --namespace=kube-system | grep kube-state
-```
-### Install kube-state-metrics if needed
-
 ```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
 kubectl apply -f kube-state-metrics/examples/standard
-kubectl get pods --namespace=kube-system | grep kube-state-metrics
-```
-Verify that kube-state-metrics is running and ready
-```shell
-kubectl get pods -n kube-system -l app.kubernetes.io/name=kube-state-metrics
 ```
 
+### Check to see if kube-state-metrics is running
+```shell
+kubectl get pods --namespace=kube-system -l app.kubernetes.io/name=kube-state-metrics
+```
 Output:
 ```shell
 NAME                                 READY   STATUS    RESTARTS   AGE

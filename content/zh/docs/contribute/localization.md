@@ -3,7 +3,7 @@ title: 本地化 Kubernetes 文档
 content_type: concept
 weight: 50
 card:
-  name: 贡献
+  name: contribute
   weight: 50
   title: 翻译文档
 ---

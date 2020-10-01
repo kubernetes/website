@@ -20,6 +20,7 @@
 /vi/docs/     /vi/docs/home/ 301!
 /zh/docs/     /zh/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
+/blog/2020/08/25/kubernetes-release-1.19-accentuate-the-paw-sitive/     /blog/2020/08/26/kubernetes-release-1.19-accentuate-the-paw-sitive/     301!
 /docs/admin/     /docs/concepts/cluster-administration/ 301
 /docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/addons/     /docs/concepts/cluster-administration/addons/ 301
@@ -98,6 +99,7 @@
 /docs/concepts/configuration/container-command-arg/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/concepts/configuration/container-command-args/     /docs/tasks/inject-data-application/define-command-argument-container/     301
 /docs/concepts/configuration/manage-compute-resources-container/ /docs/concepts/configuration/manage-resources-containers/ 301
+/docs/concepts/configuration/resource-bin-packing/      /docs/concepts/scheduling-eviction/resource-bin-packing/ 301
 /docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
 /docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/configuration/taint-and-toleration/     /docs/concepts/scheduling-eviction/taint-and-toleration/ 301

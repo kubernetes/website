@@ -1,16 +1,15 @@
 ---
 title: 使用 Minikube 安装 Kubernetes
+weight: 30
 content_type: concept
 ---
 <!--
----
 reviewers:
 - dlorenc
 - balopat
 - aaron-prindle
 title: Installing Kubernetes with Minikube
 content_type: concept
----
 -->
 
 <!-- overview -->
@@ -18,20 +17,19 @@ content_type: concept
 <!--
 Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a Virtual Machine (VM) on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
 -->
-Minikube 是一种可以让您在本地轻松运行 Kubernetes 的工具。Minikube 在笔记本电脑上的虚拟机（VM）中运行单节点 Kubernetes 集群，供那些希望尝试 Kubernetes 或进行日常开发的用户使用。
-
-
+Minikube 是一种可以让你在本地轻松运行 Kubernetes 的工具。
+Minikube 在笔记本电脑上的虚拟机（VM）中运行单节点 Kubernetes 集群，
+供那些希望尝试 Kubernetes 或进行日常开发的用户使用。
 
 <!-- body -->
 
 <!--
 ## Minikube Features
+
+Minikube supports the following Kubernetes features:
 -->
 ## Minikube 功能
 
-<!--
-Minikube supports the following Kubernetes features:
--->
 Minikube 支持以下 Kubernetes 功能：
 
 <!--
@@ -48,249 +46,240 @@ Minikube 支持以下 Kubernetes 功能：
 * NodePorts
 * ConfigMaps 和 Secrets
 * Dashboards
-* 容器运行时: Docker、[CRI-O](https://github.com/kubernetes-incubator/cri-o) 以及 [containerd](https://github.com/containerd/containerd)
+* 容器运行时: Docker、[CRI-O](https://github.com/kubernetes-incubator/cri-o) 以及
+  [containerd](https://github.com/containerd/containerd)
 * 启用 CNI （容器网络接口）
 * Ingress
 
 <!--
 ## Installation
+
+See [Installing Minikube](/docs/tasks/tools/install-minikube/).
 -->
 ## 安装
 
-<!--
-See [Installing Minikube](/docs/tasks/tools/install-minikube/).
--->
 请参阅[安装 Minikube](/zh/docs/tasks/tools/install-minikube/)。
 
 <!--
 ## Quickstart
+
+This brief demo guides you on how to start, use, and delete Minikube locally. Follow the steps given below to start and explore Minikube.
 -->
 ## 快速开始
 
-<!--
-This brief demo guides you on how to start, use, and delete Minikube locally. Follow the steps given below to start and explore Minikube.
--->
-这个简短的演示将指导您如何在本地启动、使用和删除 Minikube。请按照以下步骤开始探索 Minikube。
+这个简短的演示将指导你如何在本地启动、使用和删除 Minikube。请按照以下步骤开始探索 Minikube。
 
 <!--
 1. Start Minikube and create a cluster:
 -->
 1. 启动 Minikube 并创建一个集群：
 
-    ```shell
-    minikube start
+   ```shell
+   minikube start
+   ```
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
+
+   ```
+   Starting local Kubernetes cluster...
+   Running pre-create checks...
+   Creating machine...
+   Starting local Kubernetes cluster...
+   ```
+
+   <!--
+   For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
+   -->
+
+   有关使用特定 Kubernetes 版本、VM 或容器运行时启动集群的详细信息，请参阅[启动集群](#starting-a-cluster)。
+
+<!--
+2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](#interacting-with-your-cluster).
+-->
+2. 现在，你可以使用 kubectl 与集群进行交互。有关详细信息，请参阅[与集群交互](#interacting-with-your-cluster)。
+
+   <!--
+   Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `-port`.
+   -->
+   让我们使用名为 `echoserver` 的镜像创建一个 Kubernetes Deployment，并使用 `--port` 在端口 8080 上暴露服务。`echoserver` 是一个简单的 HTTP 服务器。
+
+   ```shell
+   kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+   ```
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
+
+   ```
+   deployment.apps/hello-minikube created
     ```
-    <!--
-    The output is similar to this:
-    -->
-    输出类似于：
-
-    ```
-    Starting local Kubernetes cluster...
-    Running pre-create checks...
-    Creating machine...
-    Starting local Kubernetes cluster...
-    ```
-
-    <!--
-    For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
-    -->
-
-    有关使用特定 Kubernetes 版本、VM 或容器运行时启动集群的详细信息，请参阅[启动集群](#starting-a-cluster)。
-
-2. 现在，您可以使用 kubectl 与集群进行交互。有关详细信息，请参阅[与集群交互](#interacting-with-your-cluster)。
-
-    <!--
-    Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](#interacting-with-your-cluster).
-    -->
-
-    <!--
-    Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
-    -->
-    让我们使用名为 `echoserver` 的镜像创建一个 Kubernetes Deployment，并使用 `--port` 在端口 8080 上暴露服务。`echoserver` 是一个简单的 HTTP 服务器。
-
-    ```shell
-    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
-    ```
-    <!--
-    The output is similar to this:
-    -->
-    输出类似于：
-
-    ```
-    deployment.apps/hello-minikube created
-    ```
-
+<!--
+3. To access the `hello-minikube` Deployment, expose it as a Service:
+-->
 3. 要访问 `hello-minikube` Deployment，需要将其作为 Service 公开：
 
-    <!--
-    To access the `hello-minikube` Deployment, expose it as a Service:
-    -->
+   ```shell
+   kubectl expose deployment hello-minikube --type=NodePort --port=8080
+   ```
+   <!--
+   The option `-type=NodePort` specifies the type of the Service.
+   -->
+   选项 `--type = NodePort` 指定 Service 的类型。
 
-    ```shell
-    kubectl expose deployment hello-minikube --type=NodePort --port=8080
-    ```
-    <!--
-    The option `--type=NodePort` specifies the type of the Service.
-    -->
-    选项 `--type = NodePort` 指定 Service 的类型。
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
 
-    <!--
-    The output is similar to this:
-    -->
-    输出类似于：
+   ```
+   service/hello-minikube exposed
+   ```
+<!--
+4.  The `hello-minikube` Pod is now launched but you have to wait until the Pod is up before accessing it via the exposed Service.
+-->
+4. 现在 `hello-minikube` Pod 已经启动，但是你必须等到 Pod 启动完全才能通过暴露的 Service 访问它。
 
-    ```
-    service/hello-minikube exposed
-    ```
+   <!--
+   Check if the Pod is up and running:
+   -->
+   检查 Pod 是否启动并运行：
 
-4. 现在 `hello-minikube` Pod 已经启动，但是您必须等到 Pod 启动完全才能通过暴露的 Service 访问它。
+   ```shell
+   kubectl get pod
+   ```
+   <!--
+   If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
+   -->
+   如果输出显示 `STATUS` 为 `ContainerCreating`，则表明 Pod 仍在创建中：
 
-    <!--
-    The `hello-minikube` Pod is now launched but you have to wait until the Pod is up before accessing it via the exposed Service.
-    -->
+   ```
+   NAME                              READY     STATUS              RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+   ```
+   <!--
+   If the output shows the `STATUS` as `Running`, the Pod is now up and running:
+   -->
+   如果输出显示 `STATUS` 为 `Running`，则 Pod 现在正在运行：
 
-    <!--
-	Check if the Pod is up and running:
-    -->
-    检查 Pod 是否启动并运行：
+   ```
+   NAME                              READY     STATUS    RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+   ```
 
-	```shell
-	kubectl get pod
-	```
-    <!--
-	If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
-    -->
-    如果输出显示 `STATUS` 为 `ContainerCreating`，则表明 Pod 仍在创建中：
-	```
-	NAME                              READY     STATUS              RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-	```
-    <!--
-	If the output shows the `STATUS` as `Running`, the Pod is now up and running:
-    -->
-    如果输出显示 `STATUS` 为 `Running`，则 Pod 现在正在运行：
-	```
-	NAME                              READY     STATUS    RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-	```
-
+<!--
+5.  Get the URL of the exposed Service to view the Service details:
+-->
 5. 获取暴露 Service 的 URL 以查看 Service 的详细信息：
 
-    <!--
-    Get the URL of the exposed Service to view the Service details:
-    -->
-
-	```shell
-	minikube service hello-minikube --url
-	```
-
+   ```shell
+   minikube service hello-minikube --url
+   ```
+<!--
+6.  To view the details of your local cluster, copy and paste the URL you got as the output, on your browser.
+-->
 6. 要查看本地集群的详细信息，请在浏览器中复制粘贴并访问上一步骤输出的 URL。
 
-    <!--
-    To view the details of your local cluster, copy and paste the URL you got as the output, on your browser.
-    -->
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
 
-    <!--
-    The output is similar to this:
-    -->
-    输出类似于：
+   ```
+   Hostname: hello-minikube-7c77b68cff-8wdzq
 
-    ```
-    Hostname: hello-minikube-7c77b68cff-8wdzq
+   Pod Information:
+       -no pod information available-
 
-    Pod Information:
-        -no pod information available-
+   Server values:
+       server_version=nginx: 1.13.3 - lua: 10008
 
-    Server values:
-        server_version=nginx: 1.13.3 - lua: 10008
+   Request Information:
+       client_address=172.17.0.1
+       method=GET
+       real path=/
+       query=
+       request_version=1.1
+       request_scheme=http
+       request_uri=http://192.168.99.100:8080/
 
-    Request Information:
-        client_address=172.17.0.1
-        method=GET
-        real path=/
-        query=
-        request_version=1.1
-        request_scheme=http
-        request_uri=http://192.168.99.100:8080/
+   Request Headers:
+       accept=*/*
+       host=192.168.99.100:30674
+       user-agent=curl/7.47.0
 
-    Request Headers:
-        accept=*/*
-        host=192.168.99.100:30674
-        user-agent=curl/7.47.0
+   Request Body:
+       -no body in request-
+   ```
 
-    Request Body:
-        -no body in request-
-    ```
-    <!--
-	If you no longer want the Service and cluster to run, you can delete them.
-    -->
-    如果您不再希望运行 Service 和集群，则可以删除它们。
+   <!--
+   If you no longer want the Service and cluster to run, you can delete them.
+   -->
+   如果你不再希望运行 Service 和集群，则可以删除它们。
 
+<!--
+7. Delete the `hello-minikube` Service:
+-->
 7. 删除 `hello-minikube` Service：
 
-    <!--
-    Delete the `hello-minikube` Service:
-    -->
+   ```shell
+   kubectl delete services hello-minikube
+   ```
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
 
-    ```shell
-    kubectl delete services hello-minikube
-    ```
-    <!--
-    The output is similar to this:
-    -->
-    输出类似于：
+   ```
+   service "hello-minikube" deleted
+   ```
 
-    ```
-    service "hello-minikube" deleted
-    ```
-
+<!--
+8.  Delete the `hello-minikube` Deployment:
+-->
 8. 删除 `hello-minikube` Deployment：
 
-    <!--
-    Delete the `hello-minikube` Deployment:
-    -->
+   ```shell
+   kubectl delete deployment hello-minikube
+   ```
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
 
-    ```shell
-    kubectl delete deployment hello-minikube
-    ```
-    <!--
-    The output is similar to this:
-    -->
-    输出类似于：
+   ```
+   deployment.extensions "hello-minikube" deleted
+   ```
 
-    ```
-    deployment.extensions "hello-minikube" deleted
-    ```
+<!--
+9. Stop the local Minikube cluster:
+-->
+9. 停止本地 Minikube 集群：
 
-9.  停止本地 Minikube 集群：
+   ```shell
+   minikube stop
+   ```
+   <!--
+   The output is similar to this:
+   -->
+   输出类似于：
 
-    <!--
-    Stop the local Minikube cluster:
-    -->
+   ```
+   Stopping "minikube"...
+   "minikube" stopped.
+   ```
 
-    ```shell
-    minikube stop
-    ```
-    <!--
-    The output is similar to this:
-    -->
-    输出类似于：
+   <!--
+   For more information, see [Stopping a Cluster](#stopping-a-cluster).
+   -->
+   有关更多信息，请参阅[停止集群](#stopping-a-cluster)。
 
-    ```
-    Stopping "minikube"...
-    "minikube" stopped.
-    ```
-    <!--
-	For more information, see [Stopping a Cluster](#stopping-a-cluster).
-    -->
-    有关更多信息，请参阅[停止集群](#stopsing-a-cluster)。
-
+<!--
+10.  Delete the local Minikube cluster:
+-->
 10. 删除本地 Minikube 集群：
-
-    <!--
-    Delete the local Minikube cluster:
-    -->
 
     ```shell
     minikube delete
@@ -305,51 +294,45 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     The "minikube" cluster has been deleted.
     ```
     <!--
-	For more information, see [Deleting a cluster](#deleting-a-cluster).
+    For more information, see [Deleting a cluster](#deleting-a-cluster).
     -->
     有关更多信息，请参阅[删除集群](#deletion-a-cluster)。
 
 <!--
 ## Managing your Cluster
--->
-## 管理您的集群
 
-<!--
 ### Starting a Cluster
--->
-### 启动集群 {#starting-a-cluster}
 
-<!--
 The `minikube start` command can be used to start your cluster.
 -->
+## 管理你的集群
+
+### 启动集群 {#starting-a-cluster}
+
 `minikube start` 命令可用于启动集群。
+
 <!--
 This command creates and configures a Virtual Machine that runs a single-node Kubernetes cluster.
--->
-此命令将创建并配置一台虚拟机，使其运行单节点 Kubernetes 集群。
-<!--
+
 This command also configures your [kubectl](/docs/user-guide/kubectl-overview/) installation to communicate with this cluster.
 -->
-此命令还会配置您的 [kubectl](/docs/user-guide/kubectl-overview/) 安装，以便使其能与您的 Kubernetes 集群正确通信。
+此命令将创建并配置一台虚拟机，使其运行单节点 Kubernetes 集群。
+
+此命令还会配置你的 [kubectl](/zh/docs/reference/kubectl/overview/) 安装，以便使其能与你的 Kubernetes 集群正确通信。
 
 <!--
 If you are behind a web proxy, you need to pass this information to the `minikube start` command:
--->
-<!--
+
 Unfortunately, setting the environment variables alone does not work.
--->
-<!--
 Minikube also creates a "minikube" context, and sets it to default in kubectl.
--->
-<!--
 To switch back to this context, run this command: `kubectl config use-context minikube`.
 -->
 
 {{< note >}}
-如果您启用了 web 代理，则需要将此信息传递给 `minikube start` 命令：
+如果你启用了 web 代理，则需要将此信息传递给 `minikube start` 命令：
 
 ```shell
-https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
+minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
 ```
 
 不幸的是，单独设置环境变量不起作用。
@@ -361,25 +344,27 @@ Minikube 还创建了一个 `minikube` 上下文，并将其设置为 kubectl �
 
 <!--
 #### Specifying the Kubernetes version
+
+You can specify the version of Kubernetes for Minikube to use byadding the `--kubernetes-version` string to the `minikube start` command. Forexample, to run version {{< param "fullversion" >}}, you would run the following:
 -->
 #### 指定 Kubernetes 版本
 
-<!--
-You can specify the version of Kubernetes for Minikube to use byadding the `--kubernetes-version` string to the `minikube start` command. Forexample, to run version {{< param "fullversion" >}}, you would run the following:
--->
-您可以通过将 `--kubernetes-version` 字符串添加到 `minikube start` 命令来指定要用于 Minikube 的 Kubernetes 版本。例如，要运行版本 {{< param "fullversion" >}}，您可以运行以下命令：
+你可以通过将 `--kubernetes-version` 字符串添加到 `minikube start` 命令来指定要用于 
+Minikube 的 Kubernetes 版本。例如，要运行版本 {{< param "fullversion" >}}，你可以运行以下命令：
 
-```
+```shell
 minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
+
 <!--
 #### Specifying the VM driver
 
-You can change the VM driver by adding the `--vm-driver=<enter_driver_name>` flag to `minikube start`.
+You can change the VM driver by adding the `-vm-driver=<enter_driver_name>` flag to `minikube start`.
 -->
 #### 指定 VM 驱动程序 {#specifying-the-vm-driver}
 
-您可以通过将 `--vm-driver=<enter_driver_name>` 参数添加到 `minikube start` 来更改 VM 驱动程序。
+你可以通过将 `--vm-driver=<enter_driver_name>` 参数添加到 `minikube start` 来更改 VM 驱动程序。
+
 <!--
 For example the command would be.
 -->
@@ -396,6 +381,9 @@ Minikube 支持以下驱动程序：
 <!--
  See [DRIVERS](https://minikube.sigs.k8s.io/docs/drivers/) for details on supported drivers and how to install plugins.
 -->
+{{< note >}}
+有关支持的驱动程序以及如何安装插件的详细信息，请参阅[驱动程序](https://minikube.sigs.k8s.io/docs/drivers/)。
+{{< /note >}}
 
 <!--
 * virtualbox
@@ -408,22 +396,20 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 * none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
 -->
 
-
- {{< note >}}
-有关支持的驱动程序以及如何安装插件的详细信息，请参阅[驱动程序](https://minikube.sigs.k8s.io/docs/drivers/)。
-{{< /note >}}
-
 * virtualbox
 * vmwarefusion
 * kvm2 ([驱动安装](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
 * hyperkit ([驱动安装](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
 * hyperv ([驱动安装](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+
 <!--
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 -->
 请注意，下面的 IP 是动态的，可以更改。可以使用 `minikube ip` 检索。
+
 * vmware ([驱动安装](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) （VMware 统一驱动）
-* none (在主机上运行Kubernetes组件，而不是在 VM 中。使用该驱动依赖 Docker ([安装 Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) 和 Linux 环境)
+* none (在主机上运行Kubernetes组件，而不是在 VM 中。使用该驱动依赖 Docker 
+  ([安装 Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) 和 Linux 环境)
 
 <!--
 #### Starting a cluster on alternative container runtimes
@@ -432,7 +418,7 @@ You can start Minikube on the following container runtimes.
 -->
 #### 通过别的容器运行时启动集群
 
-您可以通过以下容器运行时启动 Minikube。
+你可以通过以下容器运行时启动 Minikube。
 
 {{< tabs name="container_runtimes" >}}
 {{% tab name="containerd" %}}
@@ -452,7 +438,7 @@ minikube start \
 <!--
 Or you can use the extended version:
 -->
-或者您可以使用扩展版本：
+或者你可以使用扩展版本：
 
 ```bash
 minikube start \
@@ -480,7 +466,7 @@ minikube start \
 <!--
 Or you can use the extended version:
 -->
-或者您可以使用扩展版本：
+或者你可以使用扩展版本：
 
 ```bash
 minikube start \
@@ -502,12 +488,12 @@ minikube start \
 <!--
 When using a single VM for Kubernetes, it's useful to reuse Minikube's built-in Docker daemon. Reusing the built-in daemon means you don't have to build a Docker registry on your host machine and push the image into it. Instead, you can build inside the same Docker daemon as Minikube, which speeds up local experiments.
 -->
-当为 Kubernetes 使用单个 VM 时，重用 Minikube 的内置 Docker 守护程序非常有用。重用内置守护程序意味着您不必在主机上构建 Docker 镜像仓库并将镜像推入其中。相反，您可以在与 Minikube 相同的 Docker 守护进程内部构建，这可以加速本地实验。
+当为 Kubernetes 使用单个 VM 时，重用 Minikube 的内置 Docker 守护程序非常有用。重用内置守护程序意味着你不必在主机上构建 Docker 镜像仓库并将镜像推入其中。相反，你可以在与 Minikube 相同的 Docker 守护进程内部构建，这可以加速本地实验。
 
-{{< note >}}
 <!--
 Be sure to tag your Docker image with something other than latest and use that tag to pull the image. Because `:latest` is the default value, with a corresponding default image pull policy of `Always`, an image pull error (`ErrImagePull`) eventually results if you do not have the Docker image in the default Docker registry (usually DockerHub).
 -->
+{{< note >}}
 一定要用非 `latest` 的标签来标记你的 Docker 镜像，并使用该标签来拉取镜像。因为 `:latest` 标记的镜像，其默认镜像拉取策略是 `Always`，如果在默认的 Docker 镜像仓库（通常是 DockerHub）中没有找到你的 Docker 镜像，最终会导致一个镜像拉取错误（`ErrImagePull`）。
 {{< /note >}}
 
@@ -523,13 +509,12 @@ eval $(minikube docker-env)
 <!--
 You can now use Docker at the command line of your host Mac/Linux machine to communicate with the Docker daemon inside the Minikube VM:
 -->
-您现在可以在 Mac/Linux 机器的命令行中使用 Docker 与 Minikube VM 内的 Docker 守护程序进行通信：
+你现在可以在 Mac/Linux 机器的命令行中使用 Docker 与 Minikube VM 内的 Docker 守护程序进行通信：
 
 ```shell
 docker ps
 ```
 
-{{< note >}}
 <!--
 On Centos 7, Docker may report the following error:
 -->
@@ -542,7 +527,7 @@ Could not read CA certificate "/etc/docker/ca.pem": open /etc/docker/ca.pem: no 
 <!--
 You can fix this by updating /etc/sysconfig/docker to ensure that Minikube's environment changes are respected:
 -->
-您可以通过更新 /etc/sysconfig/docker 来解决此问题，以确保 Minikube 的环境更改得到遵守：
+你可以通过更新 /etc/sysconfig/docker 来解决此问题，以确保 Minikube 的环境更改得到遵守：
 
 ```shell
 < DOCKER_CERT_PATH=/etc/docker
@@ -551,7 +536,6 @@ You can fix this by updating /etc/sysconfig/docker to ensure that Minikube's env
 >   DOCKER_CERT_PATH=/etc/docker
 > fi
 ```
-{{< /note >}}
 
 <!--
 ### Configuring Kubernetes
@@ -570,7 +554,7 @@ To use this feature, you can use the `--extra-config` flag on the `minikube star
 <!--
 This flag is repeated, so you can pass it several times with several different values to set multiple options.
 -->
-此参数允许重复，因此您可以使用多个不同的值多次传递它以设置多个选项。
+此参数允许重复，因此你可以使用多个不同的值多次传递它以设置多个选项。
 
 <!--
 This flag takes a string of the form `component.key=value`, where `component` is one of the strings from the below list, `key` is a value on the configuration struct and `value` is the value to set.
@@ -611,7 +595,7 @@ This feature also supports nested structs. To change the `LeaderElection.LeaderE
 <!--
 To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.authorization-mode=RBAC`.
 -->
-要将 `apiserver` 的 `AuthorizationMode` 设置为 `RBAC`，您可以使用：`--extra-config=apiserver.authorization-mode=RBAC`。
+要将 `apiserver` 的 `AuthorizationMode` 设置为 `RBAC`，你可以使用：`--extra-config=apiserver.authorization-mode=RBAC`。
 
 <!--
 ### Stopping a ClusterThe
@@ -665,7 +649,7 @@ This context contains the configuration to communicate with your Minikube cluste
 <!--
 Minikube sets this context to default automatically, but if you need to switch back to it in the future, run:
 -->
-Minikube 会自动将此上下文设置为默认值，但如果您以后需要切换回它，请运行：
+Minikube 会自动将此上下文设置为默认值，但如果你以后需要切换回它，请运行：
 
 <!--
 `kubectl config use-context minikube`,
@@ -685,7 +669,8 @@ Or pass the context on each command like this: `kubectl get pods --context=minik
 <!--
 To access the [Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/), run this command in a shell after starting Minikube to get the address:
 -->
-要访问 [Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/)，请在启动 Minikube 后在 shell 中运行此命令以获取地址：
+要访问 [Kubernetes Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/)，
+请在启动 Minikube 后在 shell 中运行此命令以获取地址：
 
 ```shell
 minikube dashboard
@@ -781,7 +766,7 @@ Some drivers will mount a host folder within the VM so that you can easily share
 -->
 ## 挂载宿主机文件夹
 
-一些驱动程序将在 VM 中挂载一个主机文件夹，以便您可以轻松地在 VM 和主机之间共享文件。目前这些都是不可配置的，并且根据您正在使用的驱动程序和操作系统的不同而不同。
+一些驱动程序将在 VM 中挂载一个主机文件夹，以便你可以轻松地在 VM 和主机之间共享文件。目前这些都是不可配置的，并且根据你正在使用的驱动程序和操作系统的不同而不同。
 
 <!--
 Host folder sharing is not implemented in the KVM driver yet.
@@ -807,12 +792,12 @@ KVM 驱动程序中尚未实现主机文件夹共享。
 <!--
 To access a private container registry, follow the steps on [this page](/docs/concepts/containers/images/).
 -->
-要访问私有容器镜像仓库，请按照[本页](/docs/concepts/containers/images/)上的步骤操作。
+要访问私有容器镜像仓库，请按照[此页](/zh/docs/concepts/containers/images/)上的步骤操作。
 
 <!--
 We recommend you use `ImagePullSecrets`, but if you would like to configure access on the Minikube VM you can place the `.dockercfg` in the `/home/docker` directory or the `config.json` in the `/home/docker/.docker` directory.
 -->
-我们建议您使用 `ImagePullSecrets`，但是如果您想在 Minikube VM 上配置访问权限，可以将 `.dockercfg` 放在 `/home/docker` 目录中，或将`config.json` 放在 `/home/docker/.docker` 目录。
+我们建议你使用 `ImagePullSecrets`，但是如果你想在 Minikube VM 上配置访问权限，可以将 `.dockercfg` 放在 `/home/docker` 目录中，或将`config.json` 放在 `/home/docker/.docker` 目录。
 
 <!--
 ## Add-ons
@@ -822,7 +807,7 @@ We recommend you use `ImagePullSecrets`, but if you would like to configure acce
 <!--
 In order to have Minikube properly start or restart custom addons,place the addons you wish to be launched with Minikube in the `~/.minikube/addons`directory. Addons in this folder will be moved to the Minikube VM and launched each time Minikube is started or restarted.
 -->
-为了让 Minikube 正确启动或重新启动自定义插件，请将您希望用 Minikube 启动的插件放在 `~/.minikube/addons` 目录中。此文件夹中的插件将被移动到 Minikube VM 并在每次 Minikube 启动或重新启动时被启动。
+为了让 Minikube 正确启动或重新启动自定义插件，请将你希望用 Minikube 启动的插件放在 `~/.minikube/addons` 目录中。此文件夹中的插件将被移动到 Minikube VM 并在每次 Minikube 启动或重新启动时被启动。
 
 <!--
 ## Using Minikube with an HTTP Proxy
@@ -841,7 +826,7 @@ When Kubernetes attempts to schedule containers using Docker, the Docker daemon 
 <!--
 If you are behind an HTTP proxy, you may need to supply Docker with the proxy settings.
 -->
-如果您配置了 HTTP 代理，则可能也需要为 Docker 进行代理设置。
+如果你配置了 HTTP 代理，则可能也需要为 Docker 进行代理设置。
 <!--
 To do this, pass the required environment variables as flags during `minikube start`.
 -->
@@ -860,11 +845,11 @@ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
 <!--
 If your Virtual Machine address is 192.168.99.100, then chances are your proxy settings will prevent `kubectl` from directly reaching it.
 -->
-如果您的虚拟机地址是 192.168.99.100，那么您的代理设置可能会阻止 `kubectl` 直接访问它。
+如果你的虚拟机地址是 192.168.99.100，那么你的代理设置可能会阻止 `kubectl` 直接访问它。
 <!--
 To by-pass proxy configuration for this IP address, you should modify your no_proxy settings. You can do so with:
 -->
-要绕过此 IP 地址的代理配置，您应该修改 no_proxy 设置。您可以这样做：
+要绕过此 IP 地址的代理配置，你应该修改 no_proxy 设置。你可以这样做：
 
 ```shell
 export no_proxy=$no_proxy,$(minikube ip)
@@ -918,12 +903,14 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 
 <!--
 ## Community
+
+Contributions, questions, and comments are all welcomed and encouraged! Minikube developers hang out on [Slack](https://kubernetes.slack.com) in the #minikube channel (get an invitation [here](http://slack.kubernetes.io/)). We also have the [kubernetes-dev Google Groups mailing list](https://groups.google.com/forum/#!forum/kubernetes-dev). If you are posting to the list please prefix your subject with "minikube: ".
 -->
 ## 社区
 
-<!--
-Contributions, questions, and comments are all welcomed and encouraged! Minikube developers hang out on [Slack](https://kubernetes.slack.com) in the #minikube channel (get an invitation [here](http://slack.kubernetes.io/)). We also have the [kubernetes-dev Google Groups mailing list](https://groups.google.com/forum/#!forum/kubernetes-dev). If you are posting to the list please prefix your subject with "minikube: ".
--->
-我们欢迎您向社区提交贡献、提出问题以及参与评论！Minikube 开发人员可以在 [Slack](https://kubernetes.slack.com) 的 #minikube 频道上互动交流（点击[这里](http://slack.kubernetes.io/)获得邀请）。我们还有 [kubernetes-dev Google Groups 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-dev)。如果您要发信到列表中，请在主题前加上 "minikube: "。
-
+我们欢迎你向社区提交贡献、提出问题以及参与评论！Minikube 开发人员可以在
+[Slack](https://kubernetes.slack.com) 的 #minikube 频道上互动交流
+（点击[这里](https://slack.kubernetes.io/)获得邀请）。
+我们还有 [kubernetes-dev Google Groups 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-dev)。
+如果你要发信到列表中，请在主题前加上 "minikube: "。
 

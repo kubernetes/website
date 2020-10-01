@@ -8,7 +8,6 @@ card:
   title: 安装 kubeadm 设置工具
 ---
 <!--
----
 title: Installing kubeadm
 content_type: task
 weight: 10
@@ -16,7 +15,6 @@ card:
   name: setup
   weight: 20
   title: Install the kubeadm setup tool
----
 -->
 
 <!-- overview -->
@@ -26,12 +24,10 @@ card:
 For information how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 -->
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">本页面显示如何安装 `kubeadm` 工具箱。
-有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，请参见[使用 kubeadm 创建集群](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 页面。
-
-
+有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，请参见
+[使用 kubeadm 创建集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 页面。
 
 ## {{% heading "prerequisites" %}}
-
 
 <!--
 * One or more machines running one of:
@@ -63,7 +59,6 @@ For information how to create a cluster with kubeadm once you have performed thi
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-the-mac-address-and-product-uuid-are-unique-for-every-node) 了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports) 了解更多详细信息。
 * 禁用交换分区。为了保证 kubelet 正常工作，您 **必须** 禁用交换分区。
-
 
 
 <!-- steps -->
@@ -187,7 +182,7 @@ documentation for the plugins about what port(s) those need.
 | TCP      | 入站   | 10250       | Kubelet API           | kubelet 自身、控制平面组件     |
 | TCP      | 入站   | 30000-32767 | NodePort 服务**   | 所有组件                     |
 
-** [NodePort 服务](/docs/concepts/services-networking/service/) 的默认端口范围。
+** [NodePort 服务](/zh/docs/concepts/services-networking/service/) 的默认端口范围。
 
 使用 * 标记的任意端口号都可以被覆盖，所以您需要保证所定制的端口是开放的。
 
@@ -255,7 +250,7 @@ Refer to the [CRI installation instructions](/docs/setup/cri) for more informati
 - [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 
-请参考 [CRI 安装指南](/docs/setup/cri) 获取更多信息。
+请参考 [CRI 安装指南](/zh/docs/setup/production-environment/container-runtimes/)获取更多信息。
 
 <!--
 ## Installing kubeadm, kubelet and kubectl
@@ -294,7 +289,7 @@ kubeadm **不能** 帮您安装或者管理 `kubelet` 或 `kubectl`，所以您�
 然而，控制平面与 kubelet 间的相差一个次要版本不一致是支持的，但 kubelet 的版本不可以超过 API 服务器的版本。
 例如，1.7.0 版本的 kubelet 可以完全兼容 1.8.0 版本的 API 服务器，反之则不可以。
 
-有关安装 `kubectl` 的信息，请参阅[安装和设置 kubectl](/docs/tasks/tools/install-kubectl/)文档。
+有关安装 `kubectl` 的信息，请参阅[安装和设置 kubectl](/zh/docs/tasks/tools/install-kubectl/)文档。
 
 {{< warning >}}
 <!--
@@ -302,7 +297,8 @@ These instructions exclude all Kubernetes packages from any system upgrades.
 This is because kubeadm and Kubernetes require
 [special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/).
 -->
-这些指南不包括系统升级时使用的所有 Kubernetes 程序包。这是因为 kubeadm 和 Kubernetes 有[特殊的升级注意事项](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/)。
+这些指南不包括系统升级时使用的所有 Kubernetes 程序包。这是因为 kubeadm 和 Kubernetes
+有[特殊的升级注意事项](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 {{</ warning >}}
 
 <!--
@@ -313,8 +309,8 @@ For more information on version skews, see:
 -->
 关于版本偏差的更多信息，请参阅以下文档：
 
-* Kubernetes [版本与版本间的偏差策略](/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [版本偏差策略](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
+* Kubernetes [版本与版本间的偏差策略](/zh/docs/setup/release/version-skew-policy/)
+* Kubeadm-specific [版本偏差策略](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
@@ -475,7 +471,7 @@ The automatic detection of cgroup driver for other container runtimes
 like CRI-O and containerd is work in progress.
 
 -->
-## 在控制平面节点上配置 kubelet 使用的 cgroup 驱动程序
+## 在控制平面节点上配置 kubelet 使用的 cgroup 驱动程序  {#configure-cgroup-driver-used-by-kubelet-on-master-node}
 
 使用 docker 时，kubeadm 会自动为其检测 cgroup 驱动并在运行时对 `/var/lib/kubelet/kubeadm-flags.env` 文件进行配置。
 
@@ -506,7 +502,8 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 -->
 ## 故障排查
 
-如果您在使用 kubeadm 时遇到困难，请参阅我们的[故障排查文档](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
+如果您在使用 kubeadm 时遇到困难，请参阅我们的
+[故障排查文档](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -514,6 +511,5 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 <!--
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 -->
-* [使用 kubeadm 创建集群](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-
+* [使用 kubeadm 创建集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
