@@ -972,7 +972,7 @@ subjects:
 アプローチを最も安全なものから最も安全でないものの順に並べると、次のとおりです。
 
 1. アプリケーション固有のサービスアカウントにRoleを付与する(ベストプラクティス)
-    これには、アプリケーションがポッドの仕様、そして作成するサービスアカウント(API、アプリケーションマニフェスト、 `kubectl create serviceaccount`などを介して）で`serviceAccountName`を指定する必要があります。
+    これには、アプリケーションがpodのspec、そして作成するサービスアカウント(API、アプリケーションマニフェスト、 `kubectl create serviceaccount`などを介して）で`serviceAccountName`を指定する必要があります。
     たとえば、「my-namespace」内の読み取り専用権限を「my-sa」サービスアカウントに付与します。
 
     ```shell
