@@ -35,7 +35,7 @@ RBACの _Role_ または _ClusterRole_ には、一連の権限を表すルー�
 Roleは常に特定の{{< glossary_tooltip text="namespace" term_id="namespace" >}}で権限を設定します。
 つまり、Roleを作成する時は、Roleが属するNamespaceを指定する必要があります。
 
-対照的にClusterRoleは、Namespaceに属さないリソースです。Kubernetesオブジェクトは常にNamespaceに属するか、属さないのいずれかである必要があり、リソースは異なる名前(RoleとClusterRole)を持っています。つまり、両方であることは不可能です。
+対照的にClusterRoleは、Namespaceに属さないリソースです。Kubernetesオブジェクトは常にNamespaceに属するか、属さないかのいずれかである必要があり、リソースは異なる名前(RoleとClusterRole)を持っています。つまり、両方であることは不可能です。
 
 ClusterRolesにはいくつかの用途があります。ClusterRoleを利用して、以下のことができます。
 
