@@ -1,23 +1,17 @@
 ---
-name: Bug Report
-about: Report a bug encountered with Kubernetes Website
+name: DOC fixation
+about: preposition and spelling mistake and some more errors.
 labels:
-- kind/bug
+  - kind/bug
 ---
+
 **This is a Bug Report**
 
-<!-- Thanks for filing an issue! Before submitting, please fill in the following information. -->
-<!-- See https://kubernetes.io/docs/contribute/start/ for guidance on writing an actionable issue description. -->
-
-<!--Required Information-->
 **Problem:**
+doc erroe
 
 **Proposed Solution:**
+done
 
 **Page to Update:**
 https://kubernetes.io/...
-
-<!--Optional Information (remove the comment tags around information you would like to include)-->
-<!--Kubernetes Version:-->
-
-<!--Additional Information:-->
