@@ -30,7 +30,7 @@ RBAC APIは4種類のKubernetesオブジェクト(_Role_、 _ClusterRole_、  _R
 ### RoleとClusterRole
 
 RBACの _Role_ または _ClusterRole_ には、一連の権限を表すルールが含まれて言います。
-権限は完全な追加方式です。(「deny」のルールはありません)。
+権限は完全な追加方式です(「deny」のルールはありません)。
 
 Roleは常に特定の{{< glossary_tooltip text="namespace" term_id="namespace" >}}で権限を設定します。
 つまり、Roleを作成する時は、Roleが属するNamespaceを指定する必要があります。
