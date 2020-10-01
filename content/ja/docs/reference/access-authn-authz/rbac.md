@@ -755,7 +755,7 @@ RBAC APIは、RoleまたはRoleBindingを編集することにより、ユーザ
 2. `rbac.authorization.k8s.io`APIグループの` roles`または`clusterroles`リソースで` escalate` verbを実行する明示的な権限が付与されている。
 
 たとえば、 `user-1`にクラスター全体でSecretsを一覧表示する権限がない場合、それらにその権限を含むClusterRoleを作成できません。
-ユーザーがRoleを作成/更新できるようにするには、以下のいづれかを実施します。
+ユーザーがRoleを作成/更新できるようにするには、以下のいずれかを実施します。
 
 1. 必要に応じて、RoleオブジェクトまたはClusterRoleオブジェクトを作成/更新できるRoleを付与する。
 2. 作成/更新するRoleに特定の権限を含む権限を付与する。
