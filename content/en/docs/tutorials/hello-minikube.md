@@ -137,7 +137,8 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     The `--type=LoadBalancer` flag indicates that you want to expose your Service
     outside of the cluster.
     
-    Please note that the Pod won't show up under ports other than 8080.
+    The application code inside the image `k8s.gcr.io/echoserver` only listens on TCP port 8080. If you used
+    `kubectl expose` to expose a different port, clients could not connect to that other port.
 
 2. View the Service you just created:
 
@@ -284,5 +285,4 @@ minikube delete
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
-
 
