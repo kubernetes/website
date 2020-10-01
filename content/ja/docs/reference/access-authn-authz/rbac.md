@@ -237,7 +237,7 @@ rules:
 ```
 
 {{< note >}}
- resourceNameで`create`または`deletecollection`のリクエストを制限することはできません。この制限は`create`の場合、認証時にオブジェクト名がわからないためです。
+`resourceNames`で`create`または`deletecollection`のリクエストを制限することはできません。この制限は`create`の場合、認証時にオブジェクト名がわからないためです。
 {{< /note >}}
 
 
