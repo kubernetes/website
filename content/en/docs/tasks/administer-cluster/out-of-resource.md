@@ -343,8 +343,9 @@ the ability to get root container stats on an on-demand basis [(https://github.c
 
 ### active_file memory is not considered as available memory
 
-Currently, kubelet considers active_file (# of bytes of file-backed memory on active LRU list) as not reclaimable. For I/O intense workload, this might trigger pod eviction due to memory pressure. There is an open discussion: [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)
+On Linux, the kernel tracks the number of bytes of file-backed memory on active LRU list as the `active_file` statistic. The kubelet treats `active_file` memory areas as not reclaimable. For workloads that make intensive use of block-backed local storage, including ephemeral local storage, kernel-level caches of file and block data means that many recently accessed cache pages are likely to be counted as `active_file`. If enough of these kernel block buffers are on the active LRU list, the kubelet is liable to observe this as high resource use and taint the node as experiencing memory pressure - triggering Pod eviction.
 
-The recommended workaround is to set a memory limit equal to memory request, which requires to estimate the optimal memory limit value for the workload. 
+For more more details, see [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)
 
+You can work around that behavior by setting the memory limit and memory request the same for containers likely to perform intensive I/O activity. You will need to estimate or measure an optimal memory limit value for that container.
 
