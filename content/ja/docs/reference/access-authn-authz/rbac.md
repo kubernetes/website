@@ -262,10 +262,6 @@ rules: [] # コントロールプレーンは自動的にルールを入力し�
 既存の集約されたClusterRoleのラベルセレクターと一致する新しいClusterRoleを作成すると、その変更をトリガーに、集約されたClusterRoleに新しいルールが追加されます。
 `rbac.example.com/aggregate-to-monitoring: true`ラベルが付けられた別のClusterRoleを作成して、ClusterRole「monitoring」にルールを追加する例を以下に示します。
 
-
-Here is an example that adds rules to the "monitoring" ClusterRole, by creating another
-ClusterRole labeled `rbac.example.com/aggregate-to-monitoring: true`.
-
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
