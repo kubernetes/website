@@ -1,5 +1,7 @@
 <!-- 🛈
 
+ KUBERNETES IS NOT PARTICIPATING IN HACKTOBERFEST.
+
  Hello!
 
  Remember to ADD A DESCRIPTION and delete this note before submitting
