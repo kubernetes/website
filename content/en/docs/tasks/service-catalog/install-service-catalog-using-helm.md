@@ -39,7 +39,7 @@ helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com
 Check to make sure that it installed successfully by executing the following command:
 
 ```shell
-helm search service-catalog
+helm search repo service-catalog
 ```
 
 If the installation was successful, the command should output the following:
