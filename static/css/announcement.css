@@ -1,5 +1,5 @@
 @media print {
-  /* Do not print announcements */
+  /* Don't print announcements */
   #announcement, section#announcement, #fp-announcement, section#fp-announcement {
     display: none;
   }
@@ -28,12 +28,12 @@
 }
 
 #announcement {
-  padding-top: 105px;
-  padding-bottom: 25px;
+  padding-top: 107px;
+  padding-bottom: 24px;
 }
 
 .header-hero {
-  padding-top: 40px;
+  padding-top: 43px;
 }
 
 /* Extra announcement height only for landscape viewports */
@@ -44,6 +44,6 @@
 }
 
 #fp-announcement aside {
-  padding-top: 115px;
-  padding-bottom: 25px;
+  padding-top: 116px;
+  padding-bottom: 24px;
 }
