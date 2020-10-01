@@ -535,7 +535,7 @@ ClusterRoleを編集すると、変更が[自動調整](#自動調整)によるA
 {{< /note >}}
 
 <table>
-<caption>Kubernetes RBAC API discovery roles</caption>
+<caption>Kubernetes RBAC APIディスカバリーRole</caption>
 <colgroup><col width="25%" /><col width="25%" /><col /></colgroup>
 <tr>
 <th>デフォルトのClusterRole</th>
@@ -667,7 +667,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 <td><b>system:auth-delegator</b></td>
 <td>None</td>
 <td>委任された認証と認可のチェックを許可します。
-これは一般に、認証と認可を統合するためにアドオンAPIサーバーで使用されます。This is commonly used by add-on API servers for unified authentication and authorization.</td>
+これは一般に、認証と認可を統合するためにアドオンAPIサーバーで使用されます。</td>
 </tr>
 <tr>
 <td><b>system:heapster</b></td>
@@ -681,7 +681,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 </tr>
 <tr>
 <td><b>system:kube-dns</b></td>
-<td><b>kube-dns</b> service account in the <b>kube-system</b> namespace</td>
+<td><b><b>kube-system</b>Namespaceのサービスアカウントkube-dns</b></td>
 <td><a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a>コンポーネントのRole</td>
 </tr>
 <tr>
