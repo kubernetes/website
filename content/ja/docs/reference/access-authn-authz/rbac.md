@@ -186,7 +186,7 @@ Bindingの`roleRef`を変更しようとすると、バリデーションエラ�
 
 1. `roleRef`をイミュータブルにすることで、誰かに既存のオブジェクトに対する`update`権限を付与します。それにより、subjectsに付与されたRoleの変更ができなくても、subjectsのリストを管理できるようになります。
 2. 異なるRoleへのBindingは根本的に異なるBindingです。
-`roleRef`を変更するためにBindingに削除/再作成を要求することによって、(すべての既存のsubjectsを確認せずに、roleRefだけを誤って変更できるようにするのとは対照的に)Binding内のsubjectsのリストのすべてが意図された新しいRoleが付与されることを担保します。
+`roleRef`を変更するためにBindingの削除/再作成を要求することによって、(すべての既存のsubjectsを確認せずに、roleRefだけを誤って変更できるようにするのとは対照的に)Binding内のsubjectsのリストのすべてが意図された新しいRoleが付与されることを担保します。
 
 `kubectl auth reconcile` コマンドラインユーティリティーはRBACオブジェクトを含んだマニフェストファイルを作成または更新します。また、それらが参照しているRoleへの変更を要求されると、Bindingオブジェクトの削除と再作成を取り扱います。
 詳細は[command usage and examples](#kubectl-auth-reconcile)を確認してください。
