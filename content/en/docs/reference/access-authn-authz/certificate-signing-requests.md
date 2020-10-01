@@ -31,6 +31,7 @@ be issued, based on a signing request.
 The CertificateSigningRequest object includes a PEM-encoded PKCS#10 signing request in
 the `spec.request` field. The CertificateSigningRequest denotes the _signer_ (the
 recipient that the request is being made to) using the `spec.signerName` field.
+Note that `spec.signerName` is a required key after api version `certificates.k8s.io/v1`.
 
 Once created, a CertificateSigningRequest must be approved before it can be signed.
 Depending on the signer selected, a CertificateSigningRequest may be automatically approved
@@ -106,8 +107,9 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
     1. Expiration/certificate lifetime - minimum of CSR signer or request.
     1. CA bit allowed/disallowed - not allowed.
 
-1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some distributions may honor these as client
-  certs, but that behavior is not standard Kubernetes behavior.
+1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some third-party distributions of Kubernetes
+  may honor client certificates signed by it. The stable CertificateSigningRequest API (version `certificates.k8s.io/v1` and later)
+  does not allow to set the `signerName` as `kubernetes.io/legacy-unknown`.
   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
     1. Trust distribution: None.  There is no standard trust or distribution for this signer in a Kubernetes cluster.
     1. Permitted subjects - any
