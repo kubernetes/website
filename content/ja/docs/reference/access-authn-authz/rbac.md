@@ -767,7 +767,7 @@ RBAC APIは、RoleまたはRoleBindingを編集することにより、ユーザ
 参照されるRoleに含まれるすべての権限を(RoleBindingと同じスコープで)すでに持っている場合、
 *または*参照されたRoleで`bind` verbを実行する認可されている場合のみ、RoleBindingを作成/更新できます。
 たとえば、 `user-1`にクラスター全体でSecretsを一覧表示する権限がない場合、ClusterRoleBindingを作成してもRoleにその権限を付与できません。
-ユーザーがRoleBindingを作成/更新できるようにするには、以下のいづれかを実施します。
+ユーザーがRoleBindingを作成/更新できるようにするには、以下のいずれかを実施します。
 
 1. 必要に応じて、RoleBindingまたはClusterRoleBindingオブジェクトを作成/更新できるようにする役割を付与する。
 2. 特定の役割をバインドするために必要なアクセス許可を付与する。
