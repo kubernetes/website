@@ -13,11 +13,11 @@ Setelah kamu membuat sebuah **pull request**, seorang **reviewer** akan memberik
 
 Untuk informasi lebih lanjut mengenai tata cara melakukan kontribusi, kamu dapat melihat tautan di bawah ini:
 
-* [Petunjuk Melakukan Kontribusi](https://kubernetes.io/docs/contribute/start/)
-* [Melakukan Tahap Staging pada Konten Dokumentasi yang telah Kamu Sediakan](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Petunjuk Menggunakan Page Templates](https://kubernetes.io/docs/contribute/style/page-content-types/)
-* [Petunjuk untuk Documentation Style](http://kubernetes.io/docs/contribute/style/style-guide/)
-* [Petunjuk untuk Melakukan Lokalisasi Dokumentasi Kubernetes](https://kubernetes.io/docs/contribute/localization/)
+1. [Petunjuk Melakukan Kontribusi](https://kubernetes.io/docs/contribute/start/)
+2. [Melakukan Tahap Staging pada Konten Dokumentasi yang telah Kamu Sediakan](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+3. [Petunjuk Menggunakan Page Templates](https://kubernetes.io/docs/contribute/style/page-content-types/)
+4. [Petunjuk untuk Documentation Style](http://kubernetes.io/docs/contribute/style/style-guide/)
+5. [Petunjuk untuk Melakukan Lokalisasi Dokumentasi Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
 ## Menjalankan Dokumentasi Kubernetes pada Mesin Lokal Kamu
 
