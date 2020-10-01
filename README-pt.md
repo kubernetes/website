@@ -1,15 +1,39 @@
-# A documentação do Kubernetes
+# a documentacao does Cabernets
 
-[![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
-[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[! [Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
+[![
+Gather release
+https://img.shields.io/github/release/kubernetes/website.svg)
+https://github.com/kubernetes/website/releases/latest)
 
-Bem vindos! Este repositório abriga todos os recursos necessários para criar o [site e documentação do Kubernetes](https://kubernetes.io/). Estamos muito satisfeitos por você querer contribuir!
+Bam vends! Este repositories abridge to-dos so recourses necessaries Para crier o [site e 
+ 
+ Cabernets
+https://kubernetes.io/). Esteems mute 
 
-## Contribuindo com os documentos
 
-Você pode clicar no botão **Fork** na área superior direita da tela para criar uma cópia desse repositório na sua conta do GitHub. Esta cópia é chamada de *fork*. Faça as alterações desejadas no seu fork e, quando estiver pronto para enviar as alterações para nós, vá até o fork e crie uma nova solicitação de pull para nos informar sobre isso.
+ poor voice queer contribuir!
 
-Depois que seu **pull request** for criado, um revisor do Kubernetes assumirá a responsabilidade de fornecer um feedback claro e objetivo. Como proprietário do pull request, **é sua responsabilidade modificar seu pull request para abordar o feedback que foi fornecido a você pelo revisor do Kubernetes.** Observe também que você pode acabar tendo mais de um revisor do Kubernetes para fornecer seu feedback ou você pode acabar obtendo feedback de um revisor do Kubernetes que é diferente daquele originalmente designado para lhe fornecer feedback. Além disso, em alguns casos, um de seus revisores pode solicitar uma revisão técnica de um [revisor de tecnologia Kubernetes](https://github.com/kubernetes/website/wiki/Tech-reviewers) quando necessário. Os revisores farão o melhor para fornecer feedback em tempo hábil, mas o tempo de resposta pode variar de acordo com as circunstâncias.
+## Contribuindo com so documents
+
+Voice pod clear no boat **Fork** an area superior direct ad teal Para crier puma copier dense repository a sue contra do Gather. 
+ Face as altercates 
+ No sue fork e, quanta striver pronto Para enviers as altercates pare nose
+, van 
+ pull Para nose informer sober is so.
+
+Depose
+ Queue
+ 
+ **pull request** for criado, um reviser do Kubernetes 
+ a responsabilidade de 
+ um feedback claret e objetivo. Como proprietary do pull request, **é sua responsabilidade modificar sue pull request Para border o feedback queue foil foreside a vice polo reviser do Cabernets
+* Observe 
+ Queue 
+ 
+Pod caber tends 
+ De um reviser do Cabernets para fornecer seu feedback ou você pode acabar obtendo feedback de um revisor do Kubernetes que é diferente daquele originalmente designado para lye forever feedback. Alum disso, me lagoons 
+, um de sues revisers poke solicitor puma revisal technical de um [revisor de tecnologia Kubernetes](https://github.com/kubernetes/website/wiki/Tech-reviewers) quando necessário. Os revisores farão o melhor para fornecer feedback em tempo hábil, mas o tempo de resposta pode variar de acordo com as circunstâncias.
 
 Para mais informações sobre como contribuir com a documentação do Kubernetes, consulte:
 
@@ -56,21 +80,21 @@ Para executar o site localmente quando você tiver o Hugo instalado:
 make serve
 ```
 
-Isso iniciará o servidor Hugo local na porta 1313. Abra o navegador para http://localhost:1313 para visualizar o site. Conforme você faz alterações nos arquivos de origem, Hugo atualiza o site e força a atualização do navegador.
+Isso iniciará o servidor Hugo local na porta 1313. Abra o navegador para http://localhost:1313 pare visualized o site. Conformer você fez altercates nose arquivos de origem, Hugo atualiza o site e força a atualização do navegador.
 
-## Comunidade, discussão, contribuição e apoio
+## Communicate, discussed, contribuição e poi
 
-Aprenda a se envolver com a comunidade do Kubernetes na [página da comunidade](http://kubernetes.io/community/).
+Appends a se evolvers com a communicate do Cabernets nag [patina dab communicate](http://kubernetes.io/community/).
 
-Você pode falar com os mantenedores deste projeto:
+Voice poke filer com so mantenedores date projects:
 
 - [Slack](https://kubernetes.slack.com/messages/sig-docs)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-### Código de conduta
+### Cod go de confute
 
-A participação na comunidade Kubernetes é regida pelo [Código de Conduta da Kubernetes](code-of-conduct.md).
+A participial an communicate Cabernets é rigid polo [Coding de Conduit ad Cabernets](code-of-conduct.md).
 
 ## Obrigado!
 
-O Kubernetes conta com a participação da comunidade e nós realmente agradecemos suas contribuições para o nosso site e nossa documentação!
+O Cabernets contra com a participial ad communicate e nose relented agradecemos sues contribuições Para o nose site e nose documentação!
