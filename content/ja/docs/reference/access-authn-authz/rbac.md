@@ -376,7 +376,7 @@ rules:
 ```
 
 
-コアグループ内のリソース `"nodes"`の読み取りを許可します(Nodeはクラスタースコープであり、ClusterRoleBindingが効果的であるため、ClusterRoleにバインドされている必要があります。)
+コアグループ内のリソース `"nodes"`の読み取りを許可します(Nodeはクラスタースコープであり、ClusterRoleBindingが効果的であるため、ClusterRoleにバインドされている必要があります)。
 
 ```yaml
 rules:
