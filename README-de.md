@@ -1,4 +1,4 @@
-# Kubernetes Dokumentation
+# Kubernetes Documentation
 
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
@@ -49,7 +49,7 @@ Nachdem das Image erstellt wurde, können Sie die Site lokal ausführen:
 make container-serve
 ```
 
-Öffnen Sie Ihren Browser unter http://localhost:1313, um die Site anzuzeigen. Wenn Sie Änderungen an den Quelldateien vornehmen, aktualisiert Hugo die Site und erzwingt eine Browseraktualisierung.
+Öffnen Site Ihren Browser unter http://localhost:1313, um die Site anzuzeigen. Wenn Sie Änderungen an den Quelldateien vornehmen, aktualisiert Hugo die Site und erzwingt eine Browser actual is ierung.
 
 ## Die Site lokal mit Hugo ausführen
 
