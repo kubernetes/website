@@ -1,7 +1,7 @@
 ---
 content_type: concept
 title: 调度 GPUs
-description: 配置和调度 GPU 成一类资源以供集群中节点使用
+description: 配置和调度 GPU 成一类资源以供集群中节点使用。
 ---
 <!--
 reviewers:

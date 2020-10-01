@@ -150,7 +150,7 @@ ip addr
 
 그런 다음 `wget` 을 사용해서 로컬 웹 서버에 쿼리한다.
 ```shell
-# 10.0.170.92를 파드의 IPv4 주소로 변경한다.
+# "10.0.170.92"를 "clusterip"라는 이름의 서비스의 IPv4 주소로 변경한다.
 wget -qO - 10.0.170.92
 ```
 ```
@@ -409,10 +409,10 @@ client_address=198.51.100.79
 끝나는 패킷 전달자를 이용한다.
 
 첫 번째 범주의 로드밸런서는 진짜 클라이언트 IP를 통신하기 위해
-HTTP [Forwarded]](https://tools.ietf.org/html/rfc7239#section-5.2)
+HTTP [Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)
 또는 [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
 헤더 또는
-[proxy protocol](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)과
+[프록시 프로토콜](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)과
 같은 로드밸런서와 백엔드 간에 합의된 프로토콜을 사용해야 한다.
 두 번째 범주의 로드밸런서는 서비스의 `service.spec.healthCheckNodePort` 필드의 저장된 포트를 가르키는
 HTTP 헬스 체크를 생성하여

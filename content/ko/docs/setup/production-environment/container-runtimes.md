@@ -68,7 +68,7 @@ kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
 시스템에 도커를 설치하기 위해서 아래의 커맨드들을 사용한다.
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04+" >}}
+{{% tab name="Ubuntu 16.04+" %}}
 
 ```shell
 # (도커 CE 설치)
@@ -122,8 +122,8 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (도커 CE 설치)
@@ -177,7 +177,7 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 부팅 시 도커 서비스를 시작하려면, 다음 명령을 실행한다.
@@ -217,73 +217,117 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Debian" >}}
+{{% tab name="Debian" %}}
 
+다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 $OS를 아래의 표에서 적절한 필드로 설정한다.
+
+| 운영 체제          | $OS               |
+| ---------------- | ----------------- |
+| Debian Unstable  | `Debian_Unstable` |
+| Debian Testing   | `Debian_Testing`  |
+
+<br />
+그런 다음, `$VERSION` 을 사용자의 쿠버네티스 버전과 일치하는 CRI-O 버전으로 설정한다.
+예를 들어, CRI-O 1.18을 설치하려면, `VERSION=1.18` 로 설정한다.
+사용자의 설치를 특정 릴리스에 고정할 수 있다.
+버전 1.18.3을 설치하려면, `VERSION=1.18:1.18.3` 을 설정한다.
+<br />
+
+그런 다음, 아래를 실행한다.
 ```shell
-# Debian 개발 배포본(Unstable/Sid)
-echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Unstable/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Unstable/Release.key -O- | sudo apt-key add -
+echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
+
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | apt-key add -
+
+apt-get update
+apt-get install cri-o cri-o-runc
 ```
 
+{{% /tab %}}
+
+{{% tab name="Ubuntu" %}}
+
+다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 $OS를 아래의 표에서 적절한 필드로 설정한다.
+
+| 운영 체제          | $OS               |
+| ---------------- | ----------------- |
+| Ubuntu 20.04     | `xUbuntu_20.04`   |
+| Ubuntu 19.10     | `xUbuntu_19.10`   |
+| Ubuntu 19.04     | `xUbuntu_19.04`   |
+| Ubuntu 18.04     | `xUbuntu_18.04`   |
+
+<br />
+그런 다음, `$VERSION` 을 사용자의 쿠버네티스 버전과 일치하는 CRI-O 버전으로 설정한다.
+예를 들어, CRI-O 1.18을 설치하려면, `VERSION=1.18` 로 설정한다.
+사용자의 설치를 특정 릴리스에 고정할 수 있다.
+버전 1.18.3을 설치하려면, `VERSION=1.18:1.18.3` 을 설정한다.
+<br />
+
+그런 다음, 아래를 실행한다.
 ```shell
-# Debian Testing
-echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Testing/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Testing/Release.key -O- | sudo apt-key add -
+echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
+
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | apt-key add -
+
+apt-get update
+apt-get install cri-o cri-o-runc
+```
+{{% /tab %}}
+
+{{% tab name="CentOS" %}}
+
+다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 $OS를 아래의 표에서 적절한 필드로 설정한다.
+
+| 운영 체제          | $OS               |
+| ---------------- | ----------------- |
+| Centos 8         | `CentOS_8`        |
+| Centos 8 Stream  | `CentOS_8_Stream` |
+| Centos 7         | `CentOS_7`        |
+
+<br />
+그런 다음, `$VERSION` 을 사용자의 쿠버네티스 버전과 일치하는 CRI-O 버전으로 설정한다.
+예를 들어, CRI-O 1.18을 설치하려면, `VERSION=1.18` 로 설정한다.
+사용자의 설치를 특정 릴리스에 고정할 수 있다.
+버전 1.18.3을 설치하려면, `VERSION=1.18:1.18.3` 을 설정한다.
+<br />
+
+그런 다음, 아래를 실행한다.
+```shell
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
+yum install cri-o
 ```
 
-```shell
-# Debian 10
-echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_10/Release.key -O- | sudo apt-key add -
-```
+{{% /tab %}}
 
-```shell
-# Raspbian 10
-echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Raspbian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Raspbian_10/Release.key -O- | sudo apt-key add -
-```
-
-그리고 다음과 같이 CRI-O 설치한다.
-```shell
-sudo apt-get install cri-o-1.17
-```
-{{< /tab >}}
-
-{{< tab name="Ubuntu 18.04, 19.04 and 19.10" >}}
-
-```shell
-#  패키지 리포지터리 설정
-. /etc/os-release
-sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
-wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O- | sudo apt-key add -
-sudo apt-get update
-```
-
-```shell
-# CRI-O 설치
-sudo apt-get install cri-o-1.17
-```
-{{< /tab >}}
-
-{{< tab name="CentOS/RHEL 7.4+" >}}
-
-```shell
-# 선행 조건 설치
-curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
-curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}/CentOS_7/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo
-```
-
-```shell
-# CRI-O 설치
-yum install -y cri-o
-```
-
-{{< tab name="openSUSE Tumbleweed" >}}
+{{% tab name="openSUSE Tumbleweed" %}}
 
 ```shell
 sudo zypper install cri-o
 ```
-{{< /tab >}}
+{{% /tab %}}
+{{% tab name="Fedora" %}}
+
+`$VERSION` 을 사용자의 쿠버네티스 버전과 일치하는 CRI-O 버전으로 설정한다.
+예를 들어, CRI-O 1.18을 설치하려면, `VERSION=1.18` 로 설정한다.
+
+사용할 수 있는 버전을 찾으려면 다음을 실행한다.
+```shell
+dnf module list cri-o
+```
+CRI-O는 Fedora에서 특정 릴리스를 고정하여 설치하는 방법은 지원하지 않는다.
+
+그런 다음, 아래를 실행한다.
+```shell
+dnf module enable cri-o:$VERSION
+dnf install cri-o
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### CRI-O 시작
@@ -293,8 +337,8 @@ systemctl daemon-reload
 systemctl start crio
 ```
 
-자세한 사항은 [CRI-O 설치 가이드](https://github.com/kubernetes-sigs/cri-o#getting-started)
-를 참고한다.
+자세한 사항은 [CRI-O 설치 가이드](https://github.com/kubernetes-sigs/cri-o#getting-started)를
+참고한다.
 
 ## Containerd
 
@@ -326,7 +370,7 @@ sysctl --system
 ### containerd 설치
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04" >}}
+{{% tab name="Ubuntu 16.04" %}}
 
 ```shell
 # (containerd 설치)
@@ -363,8 +407,8 @@ containerd config default > /etc/containerd/config.toml
 # containerd 재시작
 systemctl restart containerd
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (containerd 설치)
@@ -395,17 +439,46 @@ containerd config default > /etc/containerd/config.toml
 # containerd 재시작
 systemctl restart containerd
 ```
-{{< /tab >}}
+{{% /tab %}}
+{{% tab name="윈도우 (PowerShell)" %}}
+```powershell
+# (containerd 설치)
+# containerd 다운로드
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
+```
+
+```powershell
+# 압축을 풀고 구성
+Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
+cd $Env:ProgramFiles\containerd\
+.\containerd.exe config default | Out-File config.toml -Encoding ascii
+
+# 구성을 검토한다. 설정에 따라 아래를 조정할 수 있다.
+# - sandbox_image (쿠버네티스 pause 이미지)
+# - cni bin_dir 및 conf_dir 위치
+Get-Content config.toml
+```
+
+```powershell
+# containerd 시작
+.\containerd.exe --register-service
+Start-Service containerd
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 ### systemd
 
-`systemd` cgroup driver를 사용하려면, `/etc/containerd/config.toml`의 `plugins.cri.systemd_cgroup = true`을 설정한다.
+`systemd` cgroup driver를 사용하려면, `/etc/containerd/config.toml`에 다음을 설정한다.
+
+```
+[plugins.cri]
+systemd_cgroup = true
+```
 kubeadm을 사용하는 경우에도 마찬가지로, 수동으로
 [kubelet을 위한 cgroup 드라이버](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)를 설정한다.
 
 ## 다른 CRI 런타임: frakti
 
 자세한 정보는 [Frakti 빠른 시작 가이드](https://github.com/kubernetes/frakti#quickstart)를 참고한다.
-
-

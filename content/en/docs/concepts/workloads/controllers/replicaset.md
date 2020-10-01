@@ -296,7 +296,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 Once the original is deleted, you can create a new ReplicaSet to replace it.  As long
 as the old and new `.spec.selector` are the same, then the new one will adopt the old Pods.
 However, it will not make any effort to make existing Pods match a new, different pod template.
-To update Pods to a new spec in a controlled way, use a 
+To update Pods to a new spec in a controlled way, use a
 [Deployment](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment), as ReplicaSets do not support a rolling update directly.
 
 ### Isolating Pods from a ReplicaSet
@@ -341,7 +341,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) is an object which can own ReplicaSets and update
 them and their Pods via declarative, server-side rolling updates.
 While ReplicaSets can be used independently, today they're  mainly used by Deployments as a mechanism to orchestrate Pod
-creation, deletion and updates. When you use Deployments you don’t have to worry about managing the ReplicaSets that
+creation, deletion and updates. When you use Deployments you don't have to worry about managing the ReplicaSets that
 they create. Deployments own and manage their ReplicaSets.
 As such, it is recommended to use Deployments when you want ReplicaSets.
 

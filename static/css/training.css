@@ -127,7 +127,6 @@ section.call-to-action .main-section .cta-image > img {
 .button{
   max-width: 100%;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
   margin: 1em 0;
   display: inline-block;
   border-radius: 6px;

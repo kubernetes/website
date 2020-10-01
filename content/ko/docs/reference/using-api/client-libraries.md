@@ -22,8 +22,8 @@ API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 
 ## 공식적으로 지원되는 쿠버네티스 클라이언트 라이브러리
 
-다음의 클라이언트 라이브러리들은 [쿠버네티스 SIG API
-Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)에서 공식적으로 관리된다.
+다음의 클라이언트 라이브러리들은
+[쿠버네티스 SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)에서 공식적으로 관리된다.
 
 
 | 언어      | 클라이언트 라이브러리 | 예제 프로그램 |
@@ -37,6 +37,8 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 
 
 ## 커뮤니티에 의해 관리되는 클라이언트 라이브러리
+
+{{% thirdparty-content %}}
 
 다음의 쿠버네티스 API 클라이언트 라이브러리들은 쿠버네티스 팀이 아닌
 각각의 저자들이 제공하고 관리한다.
@@ -73,6 +75,3 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
 | Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |
 | Elixir               | [github.com/coryodaniel/k8s](https://github.com/coryodaniel/k8s) |
-
-
-

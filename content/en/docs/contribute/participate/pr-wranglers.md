@@ -20,7 +20,7 @@ Each day in a week-long shift as PR Wrangler:
 - Review [open pull requests](https://github.com/kubernetes/website/pulls) for quality and adherence to the [Style](/docs/contribute/style/style-guide/) and [Content](/docs/contribute/style/content-guide/) guides.
     - Start with the smallest PRs (`size/XS`) first, and end with the largest (`size/XXL`). Review as many PRs as you can.
 - Make sure PR contributors sign the [CLA](https://github.com/kubernetes/community/blob/master/CLA.md).
-    - Use [this](https://github.com/zparnold/k8s-docs-pr-botherer) script to remind contributors that haven’t signed the CLA to do so.
+    - Use [this](https://github.com/zparnold/k8s-docs-pr-botherer) script to remind contributors that haven't signed the CLA to do so.
 - Provide feedback on changes and ask for technical reviews from members of other SIGs.
     - Provide inline suggestions on the PR for the proposed content changes.
     - If you need to verify content, comment on the PR and request more details.

@@ -29,7 +29,7 @@ weight: 10
 
             <div class="col-md-8">
                 <h2>Pody Kubernetes</h2>
-                <p>Po stworzeniu Deploymentu w Module <a href="/pl/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, Kubernetes stworzył <b>Pod</b>, który "przechowuje" instancję Twojej aplikacji. Pod jest obiektem abstrakcyjnym Kubernetes, który reprezentuje grupę jednego bądź wielu kontenerów (takich jak Docker lub rkt) wraz ze wspólnymi zasobami dla tych kontenerów. Zasobami mogą być:</p>
+                <p>Po stworzeniu Deploymentu w Module <a href="/pl/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, Kubernetes stworzył <b>Pod</b>, który "przechowuje" instancję Twojej aplikacji. Pod jest obiektem abstrakcyjnym Kubernetes, który reprezentuje grupę jednego bądź wielu kontenerów (jak np. Docker) wraz ze wspólnymi zasobami dla tych kontenerów. Zasobami mogą być:</p>
                 <ul>
                     <li>Współdzielona przestrzeń dyskowa, np. Volumes</li>
                     <li>Zasoby sieciowe, takie jak unikatowy adres IP klastra</li>
@@ -51,7 +51,7 @@ weight: 10
                 </div>
                 <div class="content__box content__box_fill">
                         <p><i>
-                            Pod to grupa jednego lub wielu kontenerów aplikacji (takich, jak Docker czy rkt) zawierających współdzieloną przestrzeń dyskową (volumes), adres IP i informacje, jak mają być uruchamiane.
+                            Pod to grupa jednego lub wielu kontenerów aplikacji (jak np. Docker) zawierających współdzieloną przestrzeń dyskową (volumes), adres IP i informacje, jak mają być uruchamiane.
                         </i></p>
                 </div>
             </div>
@@ -79,7 +79,7 @@ weight: 10
                 <p>Na każdym węźle Kubernetes działają co najmniej:</p>
                 <ul>
                     <li>Kubelet, proces odpowiedzialny za komunikację pomiędzy Kubernetes Master i węzłami; zarządza podami i kontenerami działającymi na maszynie.</li>
-                    <li>Proces wykonawczy kontenera (przykładowo Docker czy rkt), który zajmuje się pobraniem obrazu dla kontenera z repozytorium, rozpakowaniem kontenera i uruchomieniem aplikacji.</li>
+                    <li>Proces wykonawczy kontenera (np. Docker), który zajmuje się pobraniem obrazu dla kontenera z repozytorium, rozpakowaniem kontenera i uruchomieniem aplikacji.</li>
                 </ul>
 
             </div>

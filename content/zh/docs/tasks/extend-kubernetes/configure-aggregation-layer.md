@@ -16,7 +16,7 @@ weight: 10
 <!-- overview -->
 
 <!--
-Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
+Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 -->
 配置 [聚合层](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 允许
 Kubernetes apiserver 使用其它 API 扩展，这些 API 不是核心 Kubernetes API 的一部分。
@@ -26,7 +26,7 @@ Kubernetes apiserver 使用其它 API 扩展，这些 API 不是核心 Kubernete
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA. 
+There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA.
 -->
 {{< note >}}
 要使聚合层在您的环境中正常工作以支持代理服务器和扩展 apiserver 之间的相互 TLS 身份验证，
@@ -165,7 +165,7 @@ note:
 3.Kube Apiserver 使用任何配置的鉴权方法（例如 RBAC）对请求的 URL 鉴权
 
 kube-apiserver / aggregator -> 聚合的 apiserver:
-   
+
 note:
 4.aggregator 使用`--proxy-client-cert-file`，`--proxy-client-key-file`客户端证书/密钥打开与聚合 Apiserver 的连接以保护通道
 
@@ -217,7 +217,7 @@ The Kubernetes apiserver now is prepared to send the request to the extension ap
 
 用户与 Kubernetes apiserver 通信，请求访问 path 。Kubernetes apiserver 使用它的标准认证和授权配置来对用户认证，以及对特定 path 的鉴权。
 
-有关对 Kubernetes 集群认证的概述，请参见 [对集群认证](/docs/reference/access-authn-authz/authentication/)。有关对Kubernetes群集资源的访问鉴权的概述，请参见 [鉴权概述](/zh/docs/reference/access-authn-authz/authorization/)。
+有关对 Kubernetes 集群认证的概述，请参见 [对集群认证](/zh/docs/reference/access-authn-authz/authentication/)。有关对Kubernetes群集资源的访问鉴权的概述，请参见 [鉴权概述](/zh/docs/reference/access-authn-authz/authorization/)。
 
 到目前为止，所有内容都是标准的 Kubernetes API 请求，认证与鉴权。
 
@@ -283,7 +283,7 @@ When started with these options, the Kubernetes apiserver will:
 1. Use them to authenticate to the extension apiserver.
 2. Create a configmap in the `kube-system` namespace called `extension-apiserver-authentication`, in which it will place the CA certificate and the allowed CNs. These in turn can be retrieved by extension apiservers to validate requests.
 
-Note that the same client certificate is used by the Kubernetes apiserver to authenticate against _all_ extension apiservers. It does not create a client certificate per extension apiserver, but rather a single one to authenticate as the Kubernetes apiserver. This same one is reused for all extension apiserver requests. 
+Note that the same client certificate is used by the Kubernetes apiserver to authenticate against _all_ extension apiservers. It does not create a client certificate per extension apiserver, but rather a single one to authenticate as the Kubernetes apiserver. This same one is reused for all extension apiserver requests.
 -->
 使用这些选项启动时，Kubernetes apiserver 将：
 
@@ -309,7 +309,7 @@ These header names are also placed in the `extension-apiserver-authentication` c
 当 Kubernetes apiserver 将请求代理到扩展 apiserver 时，它将向扩展 apiserver 通知原始请求已成功通过其验证的用户名和组。它在其代理请求的 http 标头中提供这些。您必须将要使用的标头名称告知 Kubernetes apiserver。
 
 * 通过`--requestheader-username-headers` 标明用来保存用户名的头部
-* 通过`--requestheader-group-headers` 标明用来保存 group 的头部 
+* 通过`--requestheader-group-headers` 标明用来保存 group 的头部
 * 通过`--requestheader-extra-headers-prefix` 标明用来保存拓展信息前缀的头部
 
 这些标头名称也放置在`extension-apiserver-authentication` 的 configmap 中，因此扩展 apiserver 可以检索和使用它们。
@@ -323,7 +323,7 @@ The extension apiserver, upon receiving a proxied request from the Kubernetes ap
     * Client CA certificate
     * List of allowed names (CNs)
     * Header names for username, group and extra info
-    
+
 2. Check that the TLS connection was authenticated using a client certificate which:
     * Was signed by the CA whose certificate matches the retrieved CA certificate.
     * Has a CN in the list of allowed CNs, unless the list is blank, in which case all CNs are allowed.
@@ -337,7 +337,7 @@ The extension apiserver, upon receiving a proxied request from the Kubernetes ap
     * 客户端 CA 证书
     * 允许名称（CN）列表
     * 用户名，组和其他信息的头部
-    
+
 2.使用以下证书检查 TLS 连接是否已通过认证：
     * 由其证书与检索到的 CA 证书匹配的 CA 签名。
     * 在允许的 CN 列表中有一个 CN，除非列表为空，在这种情况下允许所有 CN。
@@ -359,7 +359,7 @@ In order to have permission to retrieve the configmap, an extension apiserver re
 <!--
 ### Extension Apiserver Authorizes the Request
 
-The extension apiserver now can validate that the user/group retrieved from the headers are authorized to execute the given request. It does so by sending a standard [SubjectAccessReview](/docs/reference/access-authn-authz/authorization/) request to the Kubernetes apiserver. 
+The extension apiserver now can validate that the user/group retrieved from the headers are authorized to execute the given request. It does so by sending a standard [SubjectAccessReview](/docs/reference/access-authn-authz/authorization/) request to the Kubernetes apiserver.
 
 In order for the extension apiserver to be authorized itself to submit the `SubjectAccessReview` request to the Kubernetes apiserver, it needs the correct permissions. Kubernetes includes a default `ClusterRole` named `system:auth-delegator` that has the appropriate permissions. It can be granted to the extension apiserver's service account.
 -->
@@ -504,7 +504,7 @@ at the subpath "/my-path", and to verify the TLS connection against the ServerNa
 path 配置是可选的，默认为`/`。
 
 下面是为可在端口 `1234` 上调用的扩展 apiserver 的配置示例
-服务位于子路径 `/my-path` 下，并针对 ServerName `my-service-name.my-service-namespace.svc` 
+服务位于子路径 `/my-path` 下，并针对 ServerName `my-service-name.my-service-namespace.svc`
 使用自定义的 CA 包来验证 TLS 连接
 使用自定义 CA 捆绑包的`my-service-name.my-service-namespace.svc`。
 
@@ -533,5 +533,3 @@ spec:
 * 使用聚合层[安装扩展 API 服务器](/zh/docs/tasks/extend-kubernetes/setup-extension-api-server/)。
 * 有关高级概述，请参阅[使用聚合层扩展 Kubernetes API](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)。
 * 了解如何 [使用自定义资源扩展 Kubernetes API](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。
-
-

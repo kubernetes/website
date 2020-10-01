@@ -39,11 +39,11 @@ simplifies application deployment and management.
 
 Kubernetes supports several different kinds of ephemeral volumes for
 different purposes:
-- [emptyDir](/docs/concepts/volumes/#emptydir): empty at Pod startup,
+- [emptyDir](/docs/concepts/storage/volumes/#emptydir): empty at Pod startup,
   with storage coming locally from the kubelet base directory (usually
   the root disk) or RAM
-- [configMap](/docs/concepts/volumes/#configmap),
-  [downwardAPI](/docs/concepts/volumes/#downwardapi),
+- [configMap](/docs/concepts/storage/volumes/#configmap),
+  [downwardAPI](/docs/concepts/storage/volumes/#downwardapi),
   [secret](/docs/concepts/storage/volumes/#secret): inject different
   kinds of Kubernetes data into a Pod
 - [CSI ephemeral
@@ -92,7 +92,7 @@ Conceptually, CSI ephemeral volumes are similar to `configMap`,
 scheduled onto a node. Kubernetes has no concept of rescheduling Pods
 anymore at this stage. Volume creation has to be unlikely to fail,
 otherwise Pod startup gets stuck. In particular, [storage capacity
-aware Pod scheduling](/docs/concepts/storage-capacity/) is *not*
+aware Pod scheduling](/docs/concepts/storage/storage-capacity/) is *not*
 supported for these volumes. They are currently also not covered by
 the storage resource usage limits of a Pod, because that is something
 that kubelet can only enforce for storage that it manages itself.
@@ -147,7 +147,7 @@ flexible:
   ([snapshotting](/docs/concepts/storage/volume-snapshots/),
   [cloning](/docs/concepts/storage/volume-pvc-datasource/),
   [resizing](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
-  and [storage capacity tracking](/docs/concepts/storage-capacity/).
+  and [storage capacity tracking](/docs/concepts/storage/storage-capacity/).
 
 Example:
 

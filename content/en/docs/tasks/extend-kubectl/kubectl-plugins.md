@@ -365,7 +365,7 @@ on Linux, Chocolatey on Windows, and Homebrew on macOS. Any package
 manager will be suitable if it can place new executables placed somewhere
 in the user's `PATH`.
 As a plugin author, if you pick this option then you also have the burden
-of updating your kubectl plugin’s distribution package across multiple
+of updating your kubectl plugin's distribution package across multiple
 platforms for each release.
 
 ### Source code {#distributing-source-code}

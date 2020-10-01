@@ -254,8 +254,6 @@ the StatefulSet.
 
 <!--
 ## Deployment and Scaling Guarantees
--->
-## 部署和扩缩保证  {#deployment-and-scaling-guarantees}
 
 * For a StatefulSet with N replicas, when Pods are being deployed, they are created sequentially, in order from {0..N-1}.
 * When Pods are being deleted, they are terminated in reverse order, from {N-1..0}.

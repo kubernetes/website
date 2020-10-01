@@ -303,12 +303,12 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
 2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug-application-cluster/audit/) recorded for the request.
 3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver` 
    process. The metric has labels for `group`, `version`, `resource`, `subresource` that can be joined
-   to the `apiserver_request_total` metric, and a `removed_version` label that indicates the 
+   to the `apiserver_request_total` metric, and a `removed_release` label that indicates the
    Kubernetes release in which the API will no longer be served. The following Prometheus query
    returns information about requests made to deprecated APIs which will be removed in v1.22:
-   
+
    ```promql
-   apiserver_requested_deprecated_apis{removed_version="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
+   apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
    ```
 
 ### Fields of REST resources

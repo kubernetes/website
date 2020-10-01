@@ -5,16 +5,16 @@ min-kubernetes-server-version: v1.12
 ---
 
 <!-- overview -->
-이 페이지는 클러스터 안에서 사용자의 
-DNS {{< glossary_tooltip text="파드(Pod)" term_id="pod" >}} 를 설정하고 
+이 페이지는 클러스터 안에서 사용자의
+DNS {{< glossary_tooltip text="파드(Pod)" term_id="pod" >}} 를 설정하고
 DNS 변환(DNS resolution) 절차를 사용자 정의하는 방법을 설명한다.
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-클러스터는 CoreDNS 애드온을 구동하고 있어야 한다. 
-[CoreDNS로 이관하기](/ko/docs/tasks/administer-cluster/coredns/#coredns로-이관하기) 
+클러스터는 CoreDNS 애드온을 구동하고 있어야 한다.
+[CoreDNS로 이관하기](/ko/docs/tasks/administer-cluster/coredns/#coredns로-이관하기)
 는 `kubeadm` 을 이용하여 `kube-dns` 로부터 이관하는 방법을 설명한다.  
 
 {{% version-check %}}
@@ -23,11 +23,11 @@ DNS 변환(DNS resolution) 절차를 사용자 정의하는 방법을 설명한�
 
 ## 소개
 
-DNS는 _애드온 관리자_ 인 [클러스터 애드온](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md)을 
-사용하여 자동으로 시작되는 쿠버네티스 
+DNS는 _애드온 관리자_ 인 [클러스터 애드온](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md)을
+사용하여 자동으로 시작되는 쿠버네티스
 내장 서비스이다.
 
-쿠버네티스 v1.12 부터, CoreDNS는 kube-dns를 대체하여 권장되는 DNS 서버이다. 만약 사용자의 클러스터가 원래 kube-dns를 사용하였을 경우, 
+쿠버네티스 v1.12 부터, CoreDNS는 kube-dns를 대체하여 권장되는 DNS 서버이다. 만약 사용자의 클러스터가 원래 kube-dns를 사용하였을 경우,
 CoreDNS 대신 `kube-dns` 를 계속 사용할 수도 있다.
 
 {{< note >}}
@@ -35,19 +35,19 @@ CoreDNS와 kube-dns 서비스 모두 `metadata.name` 필드에 `kube-dns` 로 �
 이를 통해, 기존의 `kube-dns` 서비스 이름을 사용하여 클러스터 내부의 주소를 확인하는 워크로드에 대한 상호 운용성이 증가된다. `kube-dns` 로 서비스 이름을 사용하면, 해당 DNS 공급자가 어떤 공통 이름으로 실행되고 있는지에 대한 구현 세부 정보를 추상화한다.
 {{< /note >}}
 
-CoreDNS를 디플로이먼트(Deployment)로 실행하고 있을 경우, 일반적으로 고정 IP 주소를 갖는 쿠버네티스 서비스로 노출된다. 
+CoreDNS를 디플로이먼트(Deployment)로 실행하고 있을 경우, 일반적으로 고정 IP 주소를 갖는 쿠버네티스 서비스로 노출된다.
 Kubelet 은 `--cluster-dns=<dns-service-ip>` 플래그를 사용하여 DNS 확인자 정보를 각 컨테이너에 전달한다.
 
-DNS 이름에도 도메인이 필요하다. 사용자는 kubelet 에 있는 `--cluster-domain=<default-local-domain>` 플래그를 
+DNS 이름에도 도메인이 필요하다. 사용자는 kubelet 에 있는 `--cluster-domain=<default-local-domain>` 플래그를
 통하여 로컬 도메인을 설정할 수 있다.
 
 DNS 서버는 정방향 조회(A 및 AAAA 레코드), 포트 조회(SRV 레코드), 역방향 IP 주소 조회(PTR 레코드) 등을 지원한다.
 더 자세한 내용은 [서비스 및 파드용 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)를 참고한다.
 
-만약 파드의 `dnsPolicy` 가 `default` 로 지정되어 있는 경우, 
+만약 파드의 `dnsPolicy` 가 `default` 로 지정되어 있는 경우,
 파드는 자신이 실행되는 노드의 이름 변환(name resolution) 구성을 상속한다.
 파드의 DNS 변환도 노드와 동일하게 작동해야 한다.
-그 외에는 [알려진 이슈](/docs/tasks/debug-application-cluster/dns-debugging-resolution/#known-issues)를 참고한다.
+그 외에는 [알려진 이슈](/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues)를 참고한다.
 
 만약 위와 같은 방식을 원하지 않거나, 파드를 위해 다른 DNS 설정이 필요한 경우,
 사용자는 kubelet 의 `--resolv-conf` 플래그를 사용할 수 있다.
@@ -63,7 +63,7 @@ CoreDNS는 [dns 명세](https://github.com/kubernetes/dns/blob/master/docs/speci
 CoreDNS는 모듈형이자 플러그인이 가능한 DNS 서버이며, 각 플러그인들은 CoreDNS에 새로운 기능을 부가한다.
 이는 CoreDNS 구성 파일인 [Corefile](https://coredns.io/2017/07/23/corefile-explained/)을 관리하여 구성할 수 있다.
 클러스터 관리자는 CoreDNS Corefile에 대한 {{< glossary_tooltip text="컨피그맵" term_id="configmap" >}}을 수정하여
-해당 클러스터에 대한 DNS 서비스 검색 동작을 
+해당 클러스터에 대한 DNS 서비스 검색 동작을
 변경할 수 있다.
 
 쿠버네티스에서 CoreDNS는 아래의 기본 Corefile 구성으로 설치된다.
@@ -164,7 +164,7 @@ data:
     }
 ```
 
-`Kubeadm` 툴은 kube-dns 컨피그맵에서 동일한 설정의 CoreDNS 컨피그맵으로의 
+`Kubeadm` 툴은 kube-dns 컨피그맵에서 동일한 설정의 CoreDNS 컨피그맵으로의
 자동 변환을 지원한다.
 
 {{< note >}}
@@ -248,11 +248,11 @@ my.cluster.local:53 {
 
 ## CoreDNS로의 이관
 
-kube-dns에서 CoreDNS로 이관하기 위하여, 
+kube-dns에서 CoreDNS로 이관하기 위하여,
 kube-dns를 CoreDNS로 교체하여 적용하는 방법에 대한 상세 정보는
 [블로그 기사](https://coredns.io/2018/05/21/migration-from-kube-dns-to-coredns/)를 참고한다.
 
-또한 공식적인 CoreDNS [배포 스크립트](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh)를 
+또한 공식적인 CoreDNS [배포 스크립트](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh)를
 사용하여 이관할 수도 있다.
 
 

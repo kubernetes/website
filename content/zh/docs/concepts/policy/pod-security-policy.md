@@ -380,7 +380,7 @@ The name of a PodSecurityPolicy object must be a valid
 -->
 ### 创建一个策略和一个 Pod
 
-在一个文件中定一个示例的 PodSecurityPolicy 对象。
+在一个文件中定义一个示例的 PodSecurityPolicy 对象。
 这里的策略只是用来禁止创建有特权要求的 Pods。
 PodSecurityPolicy 对象的名称必须是合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。

@@ -50,7 +50,7 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 
 The Control Plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
  -->
-## 控制平面组件（Control Plane Components）
+## 控制平面组件（Control Plane Components）    {#control-plane-components}
 
 控制平面的组件对集群做出全局决策(比如调度)，以及检测和响应集群事件（例如，当不满足部署的 `replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
 
