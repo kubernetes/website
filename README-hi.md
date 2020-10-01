@@ -52,7 +52,7 @@ make container-serve
 
 साइट देखने के लिए अपने browser को `http://localhost:1313` पर खोलें। जैसा कि आप source फ़ाइलों में परिवर्तन करते हैं, Hugo साइट को अपडेट करता है और browser को refresh करने पर मजबूर करता है।
 
-## Hugo का उपयोग करते हुए स्थानीय रूप से साइट चलाना
+## ह्यूगो (Hugo) का उपयोग करते हुए स्थानीय रूप से साइट चलाना
 
 Hugo निर्देशों के लिए [आधिकारिक Hugo प्रलेखन](https://gohugo.io/getting-started/installing/) देखें। [`Netlify.toml`](netlify.toml#L9) फ़ाइल में `HUGO_VERSION` environment variable द्वारा निर्दिष्ट Hugo version को install करना सुनिश्चित करें।
 
