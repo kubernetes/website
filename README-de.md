@@ -1,3 +1,9 @@
+<p align="center">
+  <img width="80" alt="The kubernetes Logo" src="https://avatars2.githubusercontent.com/u/13629408?s=88&v=4">
+</p>
+</br>
+
+
 # Kubernetes Dokumentation
 
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
