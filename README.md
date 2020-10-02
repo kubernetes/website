@@ -79,7 +79,7 @@ Try checking the current limit for open files:
 
 `launchctl limit maxfiles`
 
-Then run the following commands:
+Then run the following commands (adapted from https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c):
 
 ```
 #!/bin/sh
