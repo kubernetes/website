@@ -11,7 +11,7 @@ tags:
 - core-object
 - storage
 ---
-Mengklaim sumber daya penyimpanan yang didefinisikan di dalam suatu {{< glossary_tooltip text="PersistentVolume" term_id="persistent-volume" >}}, sehingga PersistentVolume tersebut dapat dipasang (_mounted_) sebagai sebuah _volume_ pada suatu {{< glossary_tooltip text="Container" term_id="container" >}}.
+Mengklaim sumber daya penyimpanan yang didefinisikan di dalam suatu {{< glossary_tooltip text="PersistentVolume" term_id="persistent-volume" >}}, sehingga PersistentVolume tersebut dapat dipasang (_mounted_) sebagai sebuah _volume_ pada suatu {{< glossary_tooltip term_id="container" >}}.
 
 <!--more-->
 

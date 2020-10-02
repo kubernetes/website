@@ -1,17 +1,17 @@
 ---
-title: Name
+title: Nama
 id: name
 date: 2019-15-05
-full_link: /docs/concepts/overview/working-with-objects/names
+full_link: /id/docs/concepts/overview/working-with-objects/names
 short_description: >
-  String yang dihasilkan oleh klien yang mengacu pada sebuah objek dalam suatu URL resource, seperti `/api/v1/pods/some-name`.
+  _String_ yang disediakan oleh klien yang merujuk ke suatu objek dalam sebuah URL sumber daya, seperti `/api/v1/namespaces/{nama-namespace}/pods/{nama-pod}`.
 
 aka:
 tags:
 - fundamental
 ---
- String yang dihasilkan oleh klien yang mengacu pada sebuah objek dalam suatu URL *resource*, seperti `/api/v1/pods/some-name`.
+_String_ yang disediakan oleh klien yang merujuk ke suatu objek dalam sebuah URL sumber daya, seperti `/api/v1/namespaces/{nama-namespace}/pods/{nama-pod}`.
 
 <!--more-->
 
-Sebuah objek dengan kind yang sama tidak boleh memiliki nama yang sama pada suatu waktu tertentu. Meskipun begitu, apabila kamu menghapus sebuah objek, kamu membuat sebuah objek baru (yang memiliki kind yang sama) dengan nama yang sama dengan objek yang kamu hapus sebelumnya.
+Sebuah objek dengan jenis yang sama tidak boleh memiliki nama yang sama pada satu waktu. Meskipun begitu, apabila kamu menghapus suatu objek, kamu dapat membuat objek baru dengan nama dan jenis yang sama dengan objek yang kamu hapus tersebut.

@@ -11,7 +11,7 @@ tags:
 - core-object
 - storage
 ---
-Sebuat objek API yang merepresentasikan bagian penyimpanan pada klaster. Tersedia sebagai sumber daya umum yang dapat dipasang (_pluggable_) yang tetap bertahan bahkan di luar siklus hidup suatu {{< glossary_tooltip text="Pod" term_id="pod" >}}.
+Sebuat objek API yang merepresentasikan bagian penyimpanan pada klaster. Tersedia sebagai sumber daya umum yang dapat dipasang (_pluggable_) yang tetap bertahan bahkan di luar siklus hidup suatu {{< glossary_tooltip  term_id="pod" >}}.
 
 <!--more-->
 

@@ -2,22 +2,21 @@
 title: StatefulSet
 id: statefulset
 date: 2019-10-05
-full_link: /docs/concepts/workloads/controllers/statefulset/
+full_link: /id/docs/concepts/workloads/controllers/statefulset/
 short_description: >
-  Melakukan proses manajemen deployment dan _scaling_ dari sebuah set Pod, *serta menjamin mekanisme _ordering_ dan keunikan* dari Pod ini.
+  Mengelola penggelaran dan penyekalaan dari sekumpulan Pod, dengan penyimpanan dan identitas tetap untuk masing-masing Pod.
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object
 - workload
 - storage
 ---
- Melakukan proses manajemen deployment dan _scaling_ dari sebuah set {{< glossary_tooltip text="Pods" term_id="pod" >}}, *serta menjamin mekanisme _ordering_ dan keunikan* dari Pod ini.
+Mengelola penggelaran dan penyekalaan dari sekumpulan {{< glossary_tooltip term_id="pod" >}}, *serta menjamin urutan dan keunikan* dari masing-masing Pod dalam kumpulan tersebut.
 
-<!--more--> 
+<!--more-->
 
-Seperti halnya {{< glossary_tooltip term_id="deployment" >}}, sebuah StatefulSet akan melakukan proses manajemen Pod yang didasarkan pada spec container identik. Meskipun begitu tidak seperti sebuah Deployment, sebuah StatefulSet akan menjamin identitas setiap Pod yang ada. Pod ini akan dibuat berdasarkan spec yang sama, tetapi tidak dapat digantikan satu sama lainnya&#58; setiap Pod memiliki identifier persisten yang akan di-maintain meskipun pod tersebut di (re)schedule.
+Seperti halnya {{< glossary_tooltip term_id="deployment" >}}, StatefulSet akan mengelola Pod dengan spesifikasi Container yang identik. Tidak seperti Deployment, StatefulSet menjamin pengenal yang tetap (_sticky_) untuk setiap Pod. Semua Pod tersebut dibuat berdasarkan spesifikasi yang sama, akan tetapi tidak dapat digantikan satu sama lain: masing-masing Pod memiliki pengenal tetap yang akan dipertahankan setiap penjadwalan ulang terjadi.
 
-Sebuah StatefulSet beroperasi dengan pola yang sama dengan Kontroler lainnya. Kamu dapat mendefinisikan state yang diinginkan pada objek StatefulSet, dan kontroler StatefulSet akan membuat update yang dibutuhkan dari _state_ saat ini.
-
+Jika kamu ingin menggunakan _volume_ penyimpanan yang persisten untuk beban kerja yang ada, kamu dapat menggunakan StatefulSet sebagai bagian dari solusi. Meskipun masing-masing Pod dalam StatefulSet rentan terhadap kegagalan, pengenal Pod yang persisten memudahkan untuk mencocokkan _volume_ yang ada dengan Pod baru yang menggantikan Pod yang gagal.

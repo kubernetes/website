@@ -12,7 +12,7 @@ tags:
 - security
 - fundamental
 ---
-Mengelola keputusan otorisasi, memungkinkan admin untuk mengonfigurasi kebijakan akses secara dinamis melalui {{< glossary_tooltip text="API Kubernetes" term_id="kubernetes-api" >}}.
+Mengelola keputusan otorisasi, memungkinkan admin untuk mengonfigurasi kebijakan akses secara dinamis melalui {{< glossary_tooltip term_id="kubernetes-api" >}}.
 
 <!--more-->
 
