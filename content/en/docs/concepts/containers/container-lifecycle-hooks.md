@@ -68,7 +68,8 @@ the Container cannot reach a `running` state.
 to stop the Container; the hook must complete its execution before
 the signal can be sent.
 If a `PreStop` hook hangs during execution,
-the Pod phase stays in a `Terminating` state and is killed after its `terminationGracePeriodSeconds` expires.
+the Pod's phase will be `Terminating` and remain there until the Pod is
+killed after its `terminationGracePeriodSeconds` expires.
 This grace period applies to the total time it takes for both
 the `PreStop` hook to execute and for the Container to stop normally.
 If, for example, `terminationGracePeriodSeconds` is 60, and the hook
