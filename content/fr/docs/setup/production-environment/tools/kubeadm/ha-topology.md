@@ -55,7 +55,7 @@ Schéma de la [Topologie etcd empilée](/images/kubeadm/kubeadm-ha-topology-stac
 
 Un cluster haute disponibilité avec un etcd externe est une
 [topologie réseau](https://fr.wikipedia.org/wiki/Topologie_de_r%C3%A9seau) où le cluster de stockage de données
-distribué fourni par etcd est externe au cluster formé par les nœuds qui exécutent les composants
+distribuées fourni par etcd est externe au cluster formé par les nœuds qui exécutent les composants
 du control plane.
 
 Comme la topologie etcd empilée, chaque nœud du control plane d'une topologie etcd externe exécute
@@ -63,7 +63,7 @@ une instance de `kube-apiserver`,` kube-scheduler` et `kube-controller-manager`.
 est exposé aux nœuds workers à l’aide d’un load-balancer. Cependant, les membres etcd s'exécutent sur
 des hôtes distincts et chaque hôte etcd communique avec le `kube-apiserver` de chaque nœud du control plane.
 
-Cette topologie dissocie le control plane et le membre etcd. Il fournit donc une configuration HA où
+Cette topologie dissocie le control plane et le membre etcd. Elle fournit donc une configuration HA où
 perdre une instance de control plane ou un membre etcd a moins d'impact et n'affecte pas la redondance du
 cluster autant que la topologie HA empilée.
 
