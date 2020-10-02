@@ -342,7 +342,9 @@ place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts gr
 shutdown.
 
 Typically, the container runtime sends a TERM signal to the main process in each
-container. Once the grace period has expired, the KILL signal is sent to any remaining
+container. Many container runtimes respect the `STOPSIGNAL` value defined in the container
+image and send this instead of TERM.
+Once the grace period has expired, the KILL signal is sent to any remaining
 processes, and the Pod is then deleted from the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
 container runtime's management service is restarted while waiting for processes to terminate, the
@@ -353,9 +355,9 @@ An example flow:
 1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period
    (30 seconds).
 1. The Pod in the API server is updated with the time beyond which the Pod is considered "dead"
-   along with the grace period.  
+   along with the grace period.
    If you use `kubectl describe` to check on the Pod you're deleting, that Pod shows up as
-   "Terminating".  
+   "Terminating".
    On the node where the Pod is running: as soon as the kubelet sees that a Pod has been marked
    as terminating (a graceful shutdown duration has been set), the kubelet begins the local Pod
    shutdown process.
@@ -386,7 +388,7 @@ An example flow:
    `SIGKILL` to any processes still running in any container in the Pod.
    The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
 1. The kubelet triggers forcible removal of Pod object from the API server, by setting grace period
-   to 0 (immediate deletion).  
+   to 0 (immediate deletion).
 1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 
 ### Forced Pod termination {#pod-termination-forced}
