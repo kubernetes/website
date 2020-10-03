@@ -1,11 +1,11 @@
-# Kubernetes Dokumentation
+# Kubernetes Documentation
 
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-Herzlich willkommen! Dieses Repository enthält alle Assets, die zur Erstellung der [Kubernetes-Website und Dokumentation](https://kubernetes.io/) erforderlich sind. Wir freuen uns sehr, dass Sie dazu beitragen wollen!
+Herzlich willkommen! Dieses Repository enthält alle Assets, die zur Erstellung der [Kubernetes-Website und Documentation](https://kubernetes.io/) erforderlich sind. Wir freuen uns sehr, dass Sie dazu beitragen wollen!
 
-## Beiträge zur Dokumentation
+## Beiträge zur Documentation
 
 Sie können auf die Schaltfläche **Fork** im oberen rechten Bereich des Bildschirms klicken, um eine Kopie dieses Repositorys in Ihrem GitHub-Konto zu erstellen. Diese Kopie wird als *Fork* bezeichnet. Nehmen Sie die gewünschten Änderungen an Ihrem Fork vor. Wenn Sie bereit sind, diese Änderungen an uns zu senden, gehen Sie zu Ihrem Fork und erstellen Sie eine neue Pull-Anforderung, um uns darüber zu informieren.
 
@@ -28,7 +28,7 @@ Die Betreuer der deutschen Lokalisierung erreichen Sie unter:
 * Max Körbächer ([@mkorbi](https://github.com/mkorbi))
 * [Slack Kanal](https://kubernetes.slack.com/messages/kubernetes-docs-de)
 
-## Site lokal mit Docker ausführen
+## Site local mit Docker ausführen
 
 Um die Kubernetes-Website lokal laufen zu lassen, empfiehlt es sich, ein spezielles [Docker](https://docker.com) Image auszuführen, das den statischen Site-Generator [Hugo](https://gohugo.io) enthält.
 
@@ -53,7 +53,7 @@ make container-serve
 
 ## Die Site lokal mit Hugo ausführen
 
-Hugo-Installationsanweisungen finden Sie in der [offiziellen Hugo-Dokumentation](https://gohugo.io/getting-started/installing/). Stellen Sie sicher, dass Sie die Hugo-Version installieren, die in der Umgebungsvariablen `HUGO_VERSION` in der Datei [`netlify.toml`](netlify.toml#L9) angegeben ist.
+Hugo-Installationsanweisungen finden Sie in der [offiziellen Hugo-Documentation](https://gohugo.io/getting-started/installing/). Stellen Sie sicher, dass Sie die Hugo-Version installieren, die in der Umgebungsvariablen `HUGO_VERSION` in der Datei [`netlify.toml`](netlify.toml#L9) angegeben ist.
 
 So führen Sie die Site lokal aus, wenn Sie Hugo installiert haben:
 
@@ -63,7 +63,7 @@ make serve
 
 Dadurch wird der lokale Hugo-Server an Port 1313 gestartet. Öffnen Sie Ihren Browser unter http://localhost:1313, um die Site anzuzeigen. Wenn Sie Änderungen an den Quelldateien vornehmen, aktualisiert Hugo die Site und erzwingt eine Browseraktualisierung.
 
-## Community, Diskussion, Beteiligung und Unterstützung
+## Community, Discussion, Beteiligung und Unterstützung
 
 Erfahren Sie auf der [Community-Seite](http://kubernetes.io/community/) wie Sie mit der Kubernetes-Community interagieren können.
 
@@ -78,4 +78,4 @@ Die Teilnahme an der Kubernetes-Community unterliegt dem [Kubernetes-Verhaltensk
 
 ## Vielen Dank!
 
-Kubernetes lebt vom Community Engagement und wir freuen uns sehr über Ihre Beiträge zu unserer Website und unserer Dokumentation!
+Kubernetes lebt vom Community Engagement und wir freuen uns sehr über Ihre Beiträge zu unserer Website und unserer Documentation!
