@@ -21,7 +21,7 @@
 * [प्रलेखन शैली गाइड](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [स्थानीयकरण कुबरनेट्स प्रलेखन](https://kubernetes.io/docs/contribute/localization/)
 
-## `README.md`'s स्थानीयकरण कुबरनेट्स प्रलेखन
+## `README.md`का स्थानीयकरण कुबरनेट्स प्रलेखन
 
 आप पर हिंदी स्थानीयकरण के maintainers तक पहुँच सकते हैं:
 
