@@ -1,11 +1,3 @@
-# Attention Hacktoberfest (MUST READ)
-
-Due to noticeable uptick in spammy pull requests, [originating from Hacktoberfest participants](https://hacktoberfest.digitalocean.com/hacktoberfest-update), the `kubernetes/website` repo has been restricted to contributors who have previously interacted with the Kubernetes org.
-
-The restriction will be evaluated daily as the situation unfolds and ultimately removed once there is a resolution.
-
-**If you are a new contributor**, or have any questions, please chat with us on the `#SIG-Docs` [Slack channel](https://kubernetes.slack.com/messages/sig-docs) ([get an invite for Slack](https://slack.k8s.io/)).
-
 # The Kubernetes documentation
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-master-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
