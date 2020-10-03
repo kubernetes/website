@@ -7,7 +7,7 @@ weight: 40
 ---
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.19" state="stable" >}}
+{{< feature-state for_k8s_version="v1.1" state="bate" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
 
 
