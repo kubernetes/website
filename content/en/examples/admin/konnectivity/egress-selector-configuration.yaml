@@ -19,10 +19,3 @@ egressSelections:
       # config to secure the TCP transport.
       uds:
         udsName: /etc/kubernetes/konnectivity-server/konnectivity-server.socket
-
-      #tcp:
-      #  url: "https://localhost:8131"
-      #  TLSConfig:
-      #    caBundle: /etc/kubernetes/pki/konnectivity-ca.crt
-      #    clientKey: /etc/kubernetes/pki/konnectivity-client.key
-      #    clientCert: /etc/kubernetes/pki/konnectivity-client.crt
