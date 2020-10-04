@@ -75,7 +75,17 @@ Sie können die Betreuer dieses Projekts unter folgender Adresse erreichen:
 ### Verhaltensregeln
 
 Die Teilnahme an der Kubernetes-Community unterliegt dem [Kubernetes-Verhaltenskodex](code-of-conduct.md).
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<body>
 
+<!-- Content will go here -->
+
+</body>
+</html>
 ## Vielen Dank!
 
 Kubernetes lebt vom Community Engagement und wir freuen uns sehr über Ihre Beiträge zu unserer Website und unserer Dokumentation!
