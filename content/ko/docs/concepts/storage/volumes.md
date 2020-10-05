@@ -751,7 +751,7 @@ spec:
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
 `persistentVolumeClaim` 볼륨은
-[퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes)을 파드에 마운트하는데 사용한다.  퍼시스턴트볼륨은
+[퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes)을 파드에 마운트하는데 사용한다. 퍼시스턴트볼륨클레임은
 사용자가 특정 클라우드 환경의 세부 내용을 몰라도 내구성이있는 스토리지 (GCE 퍼시스턴트디스크 또는
 iSCSI 볼륨와 같은)를 "클레임" 할 수 있는 방법이다.
 

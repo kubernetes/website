@@ -52,7 +52,7 @@ kubectl 커맨드라인 도구를 이용해 다음 커맨드를 실행함으로�
 kubectl proxy
 ```
 
-kubectl은 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/ 에 대시보드를 사용하는 것을 가능하게 해줄 것이다.
+kubectl은 [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)에 대시보드를 사용하는 것을 가능하게 해줄 것이다.
 
 UI는 커맨드가 실행된 머신에서 _오직_ 접근 가능하다. 상세 내용은 `kubectl proxy --help` 옵션을 확인한다.
 
