@@ -155,8 +155,7 @@ offlineSearch = false
 [params.pushAssets]
 css = [
   "callouts",
-  "styles",
-  "custom-jekyll/tags"
+  "styles"
 ]
 js = [
   "script"
