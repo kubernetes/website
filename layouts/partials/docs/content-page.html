@@ -1,12 +1,3 @@
-{{ if not (.Site.Param "deprecated") }}
-{{- $filepath := .page.File.Path }}
-{{- $editLink := printf "https://github.com/kubernetes/website/edit/master/content/%s/%s" .page.Language.Lang $filepath }}
-<p>
-  <a href="{{ $editLink }}" id="editPageButton" target="_blank" data-proofer-ignore>
-    Edit This Page
-  </a>
-</p>
-{{- end -}}
 {{ if not .page.Params.notitle }}
   <h1>{{ .page.Title }}</h1>
   {{ $desc := .page.Description }}

@@ -24,7 +24,7 @@ that a pod ends up on a machine with an SSD attached to it, or to co-locate pods
 services that communicate a lot into the same availability zone.
 -->
 
-你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}} 只能在特定的 {{< glossary_tooltip text="Node(s)" term_id="node" >}} 上运行，或者优先运行在特定的节点上。有几种方法可以实现这点，推荐的方法都是用[标签选择器](/zh/docs/concepts/overview/working-with-objects/labels/)来进行选择。通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 pod 分散到节点上，而不是将 pod 放置在可用资源不足的节点上等等），但在某些情况下，你可以需要更多控制 pod 停靠的节点，例如，确保 pod 最终落在连接了 SSD 的机器上，或者将来自两个不同的服务且有大量通信的 pod 放置在同一个可用区。
+你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}} 只能在特定的 {{< glossary_tooltip text="Node(s)" term_id="node" >}} 上运行，或者优先运行在特定的节点上。有几种方法可以实现这点，推荐的方法都是用[标签选择器](/zh/docs/concepts/overview/working-with-objects/labels/)来进行选择。通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 pod 分散到节点上，而不是将 pod 放置在可用资源不足的节点上等等），但在某些情况下，你可能需要更多控制 pod 停靠的节点，例如，确保 pod 最终落在连接了 SSD 的机器上，或者将来自两个不同的服务且有大量通信的 pod 放置在同一个可用区。
 
 <!-- body -->
 

@@ -6,6 +6,7 @@ content_type: task
 <!-- overview -->
 이 문서는 사용자가 쿠버네티스 [네트워크폴리시 API](/ko/docs/concepts/services-networking/network-policies/)를 사용하여 파드(Pod)가 서로 통신하는 방법을 제어하는 네트워크 폴리시를 선언하는데 도움을 준다.
 
+{{% thirdparty-content %}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -19,11 +20,6 @@ content_type: task
 * [Kube-router](/ko/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
 * [로마나(Romana)](/ko/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
 * [위브넷(Weave Net)](/ko/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
-
-{{< note >}}
-위 목록은 추천순이나 선호도순이 아닌, 제품 이름의 알파벳 순으로 정렬되어 있다. 이 예제는 이러한 제공자 중 하나를 사용하는 쿠버네티스 클러스터에 유효하다.
-{{< /note >}}
-
 
 <!-- steps -->
 
@@ -63,7 +59,7 @@ NAME                        READY         STATUS        RESTARTS   AGE
 pod/nginx-701339712-e0qfq   1/1           Running       0          35s
 ```
 
-## 다른 파드에서 접근하여 서비스 테스트하기 
+## 다른 파드에서 접근하여 서비스 테스트하기
 
 사용자는 다른 파드에서 새 `nginx` 서비스에 접근할 수 있어야 한다. `default` 네임스페이스에 있는 다른 파드에서 `nginx` 서비스에 접근하기 위하여, busybox 컨테이너를 생성한다.
 
@@ -84,11 +80,11 @@ remote file exists
 
 ## `nginx` 서비스에 대해 접근 제한하기
 
-`access: true` 레이블을 가지고 있는 파드만 `nginx` 서비스에 접근할 수 있도록 하기 위하여, 다음과 같은 네트워크폴리시 오브젝트를 생성한다. 
+`access: true` 레이블을 가지고 있는 파드만 `nginx` 서비스에 접근할 수 있도록 하기 위하여, 다음과 같은 네트워크폴리시 오브젝트를 생성한다.
 
 {{< codenew file="service/networking/nginx-policy.yaml" >}}
 
-네트워크폴리시 오브젝트의 이름은 유효한 
+네트워크폴리시 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)이어야 한다.
 
 {{< note >}}

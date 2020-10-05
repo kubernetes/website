@@ -31,8 +31,8 @@ weight: 10
 한 시점에 실행되는 파드 집합이
 잠시 후 실행되는 해당 파드 집합과 다를 수 있다.
 
-이는 다음과 같은 문제를 야기한다. (“백엔드”라 불리는) 일부 파드 집합이
-클러스터의 (“프론트엔드”라 불리는) 다른 파드에 기능을 제공하는 경우,
+이는 다음과 같은 문제를 야기한다. ("백엔드"라 불리는) 일부 파드 집합이
+클러스터의 ("프론트엔드"라 불리는) 다른 파드에 기능을 제공하는 경우,
 프론트엔드가 워크로드의 백엔드를 사용하기 위해,
 프론트엔드가 어떻게 연결할 IP 주소를 찾아서 추적할 수 있는가?
 
@@ -89,7 +89,7 @@ spec:
       targetPort: 9376
 ```
 
-이 명세는 “my-service”라는 새로운 서비스 오브젝트를 생성하고,
+이 명세는 "my-service"라는 새로운 서비스 오브젝트를 생성하고,
 `app=MyApp` 레이블을 가진 파드의 TCP 9376 포트를 대상으로 한다.
 
 쿠버네티스는 이 서비스에 서비스 프록시가 사용하는 IP 주소 ("cluster IP"라고도 함)
@@ -97,7 +97,7 @@ spec:
 (이하 [가상 IP와 서비스 프록시](#가상-ip와-서비스-프록시) 참고)
 
 서비스 셀렉터의 컨트롤러는 셀렉터와 일치하는 파드를 지속적으로 검색하고,
-“my-service”라는 엔드포인트 오브젝트에 대한
+"my-service"라는 엔드포인트 오브젝트에 대한
 모든 업데이트를 POST한다.
 
 {{< note >}}
@@ -200,14 +200,11 @@ API 리소스이다. 개념적으로 엔드포인트와 매우 유사하지만, 
 
 ### 애플리케이션 프로토콜
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 AppProtocol 필드는 각 서비스 포트에 사용될 애플리케이션 프로토콜을
-지정하는 방법을 제공한다.
-
-알파 기능으로 이 필드는 기본적으로 활성화되어 있지 않다. 이 필드를 사용하려면,
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)에서
-`ServiceAppProtocol` 을 활성화해야 한다.
+지정하는 방법을 제공한다. 이 필드의 값은 해당 엔드포인트와 엔드포인트슬라이스에
+의해 미러링된다.
 
 ## 가상 IP와 서비스 프록시
 
@@ -862,6 +859,7 @@ Classic ELB의 연결 드레이닝은
         service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
         # 개별 인스턴스의 상태 점검 사이의
         # 대략적인 간격 (초 단위). 기본값은 10이며, 5와 300 사이여야 한다.
+
         service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
         # 헬스 체크 실패를 의미하는 무 응답의 총 시간 (초 단위)
         # 이 값은 service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
@@ -869,6 +867,10 @@ Classic ELB의 연결 드레이닝은
 
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
         # ELB에 추가될 추가 보안 그룹(security group) 목록
+
+        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
+        # 로드 밸런서의 대상 노드를 선택하는 데
+        # 사용되는 키-값 쌍의 쉼표로 구분된 목록
 ```
 
 #### AWS의 네트워크 로드 밸런서 지원 {#aws-nlb-support}
@@ -1174,7 +1176,7 @@ HTTP / HTTPS 서비스를 노출할 수도 있다.
 
 ### PROXY 프로토콜
 
-클라우드 공급자가 지원하는 경우에 (예: [AWS](/ko/docs/concepts/cluster-administration/cloud-providers/#aws)),
+클라우드 공급자가 지원하는 경우에,
 LoadBalancer 모드의 서비스를 사용하여 쿠버네티스 자체 외부에
 로드 밸런서를 구성할 수 있으며, 이때 접두사가
 [PROXY 프로토콜](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) 인 연결을 전달하게 된다.
@@ -1189,11 +1191,11 @@ PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 
 ### SCTP
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-쿠버네티스는 서비스, 엔드포인트, 네트워크 정책 및 파드 정의에서 알파 기능으로 SCTP를 `프로토콜` 값으로 지원한다. 이 기능을 활성화하기 위해서는, 클러스터 관리자가 API 서버에서 `--feature-gates=SCTPSupport=true,…`처럼 `SCTPSupport` 기능 게이트를 활성화해야 한다.
+쿠버네티스는 서비스, 엔드포인트, 엔드포인트슬라이스, 네트워크폴리시 및 파드 정의에서 SCTP를 `protocol` 값으로 지원한다. 이 기능은 베타 기능으로, 기본 활성화되어 있다. 클러스터 수준에서 SCTP를 비활성화하려면, 사용자(또는 클러스터 관리자)가 API 서버에서 `--feature-gates=SCTPSupport=false,…` 를 사용해서 `SCTPSupport` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화해야 한다.
 
-기능 게이트가 활성화되면, 서비스, 엔드포인트, 네트워크 정책 또는 파드의 `프로토콜` 필드를 `SCTP`로 설정할 수 있다. 쿠버네티스는 TCP 연결과 마찬가지로, SCTP 연결에 맞게 네트워크를 설정한다.
+기능 게이트가 활성화되면, 서비스, 엔드포인트, 엔드포인트슬라이스, 네트워크폴리시 또는 파드의 `protocol` 필드를 `SCTP` 로 설정할 수 있다. 쿠버네티스는 TCP 연결과 마찬가지로, SCTP 연결에 맞게 네트워크를 설정한다.
 
 #### 경고 {#caveat-sctp-overview}
 

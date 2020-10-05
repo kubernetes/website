@@ -46,7 +46,7 @@ list of devices it manages, and the kubelet is then in charge of advertising tho
 resources to the API server as part of the kubelet node status update.
 For example, after a device plugin registers `hardware-vendor.example/foo` with the kubelet
 and reports two healthy devices on a node, the node status is updated
-to advertise that the node has 2 “Foo” devices installed and available.
+to advertise that the node has 2 "Foo" devices installed and available.
 
 Then, users can request devices in a
 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)

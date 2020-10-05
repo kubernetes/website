@@ -124,8 +124,8 @@ Same considerations apply for the service account key pair:
 
 | private key path             | public key path             | command                 | argument                             |
 |------------------------------|-----------------------------|-------------------------|--------------------------------------|
-|  sa.key                      |                             | kube-controller-manager | service-account-private              |
-|                              | sa.pub                      | kube-apiserver          | service-account-key                  |
+|  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file   |
+|                              | sa.pub                      | kube-apiserver          | --service-account-key-file           |
 
 ## Configure certificates for user accounts
 

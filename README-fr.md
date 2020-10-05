@@ -16,13 +16,13 @@ Faites tous les changements que vous voulez dans votre fork, et quand vous êtes
 Une fois votre pull request créée, un examinateur de Kubernetes se chargera de vous fournir une revue claire et exploitable.
 En tant que propriétaire de la pull request, **il est de votre responsabilité de modifier votre pull request pour tenir compte des commentaires qui vous ont été fournis par l'examinateur de Kubernetes.**
 Notez également que vous pourriez vous retrouver avec plus d'un examinateur de Kubernetes pour vous fournir des commentaires ou vous pourriez finir par recevoir des commentaires d'un autre examinateur que celui qui vous a été initialement affecté pour vous fournir ces commentaires.
-De plus, dans certains cas, l'un de vos examinateur peut demander un examen technique à un [examinateur technique de Kubernetes](https://github.com/kubernetes/website/wiki/Tech-reviewers) au besoin.
+De plus, dans certains cas, l'un de vos examinateurs peut demander un examen technique à un [examinateur technique de Kubernetes](https://github.com/kubernetes/website/wiki/Tech-reviewers) au besoin.
 Les examinateurs feront de leur mieux pour fournir une revue rapidement, mais le temps de réponse peut varier selon les circonstances.
 
 Pour plus d'informations sur la contribution à la documentation Kubernetes, voir :
 
 * [Commencez à contribuer](https://kubernetes.io/docs/contribute/start/)
-* [Apperçu des modifications apportées à votre documentation](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [Aperçu des modifications apportées à votre documentation](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
 * [Utilisation des modèles de page](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Traduction de la documentation Kubernetes](https://kubernetes.io/docs/contribute/localization/)
@@ -38,13 +38,13 @@ La façon recommandée d'exécuter le site web Kubernetes localement est d'utili
 Si vous avez Docker [up and running](https://www.docker.com/get-started), construisez l'image Docker `kubernetes-hugo' localement:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Une fois l'image construite, vous pouvez exécuter le site localement :
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Ouvrez votre navigateur à l'adresse: http://localhost:1313 pour voir le site.

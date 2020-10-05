@@ -32,9 +32,6 @@ This document is written for users installing CRI onto Linux. For other operatin
 systems, look for documentation specific to your platform.
 {{< /note >}}
 
-You should execute all the commands in this guide as `root`. For example, prefix commands
-with `sudo `, or become `root` and run the commands as that user.
-
 ### Cgroup drivers
 
 When systemd is chosen as the init system for a Linux distribution, the init process generates
@@ -76,18 +73,18 @@ Use the following commands to install Docker on your system:
 # (Install Docker CE)
 ## Set up the repository:
 ### Install packages to allow apt to use a repository over HTTPS
-apt-get update && apt-get install -y \
+sudo apt-get update && sudo apt-get install -y \
   apt-transport-https ca-certificates curl software-properties-common gnupg2
 ```
 
 ```shell
-# Add Docker’s official GPG key:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+# Add Docker's official GPG key:
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
 ```shell
 # Add the Docker apt repository:
-add-apt-repository \
+sudo add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
   stable"
@@ -95,7 +92,7 @@ add-apt-repository \
 
 ```shell
 # Install Docker CE
-apt-get update && apt-get install -y \
+sudo apt-get update && sudo apt-get install -y \
   containerd.io=1.2.13-2 \
   docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
   docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
@@ -103,7 +100,7 @@ apt-get update && apt-get install -y \
 
 ```shell
 # Set up the Docker daemon
-cat > /etc/docker/daemon.json <<EOF
+cat <<EOF | sudo tee /etc/docker/daemon.json
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
   "log-driver": "json-file",
@@ -116,13 +113,13 @@ EOF
 ```
 
 ```shell
-mkdir -p /etc/systemd/system/docker.service.d
+sudo mkdir -p /etc/systemd/system/docker.service.d
 ```
 
 ```shell
 # Restart Docker
-systemctl daemon-reload
-systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 {{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
@@ -131,18 +128,18 @@ systemctl restart docker
 # (Install Docker CE)
 ## Set up the repository
 ### Install required packages
-yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 ```shell
 ## Add the Docker repository
-yum-config-manager --add-repo \
+sudo yum-config-manager --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
 ```shell
 # Install Docker CE
-yum update -y && yum install -y \
+sudo yum update -y && sudo yum install -y \
   containerd.io-1.2.13 \
   docker-ce-19.03.11 \
   docker-ce-cli-19.03.11
@@ -150,12 +147,12 @@ yum update -y && yum install -y \
 
 ```shell
 ## Create /etc/docker
-mkdir /etc/docker
+sudo mkdir /etc/docker
 ```
 
 ```shell
 # Set up the Docker daemon
-cat > /etc/docker/daemon.json <<EOF
+cat <<EOF | sudo tee /etc/docker/daemon.json
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
   "log-driver": "json-file",
@@ -171,13 +168,13 @@ EOF
 ```
 
 ```shell
-mkdir -p /etc/systemd/system/docker.service.d
+sudo mkdir -p /etc/systemd/system/docker.service.d
 ```
 
 ```shell
 # Restart Docker
-systemctl daemon-reload
-systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -199,23 +196,23 @@ Use the following commands to install CRI-O on your system:
 
 {{< note >}}
 The CRI-O major and minor versions must match the Kubernetes major and minor versions.
-For more information, see the [CRI-O compatiblity matrix](https://github.com/cri-o/cri-o).
+For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o).
 {{< /note >}}
 
 ### Prerequisites
 
 ```shell
-modprobe overlay
-modprobe br_netfilter
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
 # Set up required sysctl params, these persist across reboots.
-cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 
-sysctl --system
+sudo sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
@@ -237,14 +234,18 @@ To install version 1.18.3, set `VERSION=1.18:1.18.3`.
 
 Then run
 ```shell
-echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
+cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+"deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /"
+EOF
+cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
+"deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /"
+EOF
 
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | apt-key add -
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key add -
 
-apt-get update
-apt-get install cri-o cri-o-runc
+sudo apt-get update
+sudo apt-get install cri-o cri-o-runc
 ```
 
 {{% /tab %}}
@@ -269,14 +270,14 @@ To install version 1.18.3, set `VERSION=1.18:1.18.3`.
 
 Then run
 ```shell
-echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
+sudo echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+sudo echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
 
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | apt-key add -
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key add -
 
-apt-get update
-apt-get install cri-o cri-o-runc
+sudo apt-get update
+sudo apt-get install cri-o cri-o-runc
 ```
 {{% /tab %}}
 
@@ -299,9 +300,9 @@ To install version 1.18.3, set `VERSION=1.18:1.18.3`.
 
 Then run
 ```shell
-curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
-curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
-yum install cri-o
+sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
+sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
+sudo yum install cri-o
 ```
 
 {{% /tab %}}
@@ -318,14 +319,14 @@ Set `$VERSION` to the CRI-O version that matches your Kubernetes version.
 For instance, if you want to install CRI-O 1.18, `VERSION=1.18`                                                                                                                                                                               
 You can find available versions with:
 ```shell
-dnf module list cri-o
+sudo dnf module list cri-o
 ```
 CRI-O does not support pinning to specific releases on Fedora.
 
 Then run
 ```shell
-dnf module enable cri-o:$VERSION
-dnf install cri-o
+sudo dnf module enable cri-o:$VERSION
+sudo dnf install cri-o
 ```
 
 {{% /tab %}}
@@ -334,8 +335,8 @@ dnf install cri-o
 ### Start CRI-O
 
 ```shell
-systemctl daemon-reload
-systemctl start crio
+sudo systemctl daemon-reload
+sudo systemctl start crio
 ```
 
 Refer to the [CRI-O installation guide](https://github.com/kubernetes-sigs/cri-o#getting-started)
@@ -350,22 +351,22 @@ Use the following commands to install Containerd on your system:
 ### Prerequisites
 
 ```shell
-cat > /etc/modules-load.d/containerd.conf <<EOF
+cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
 br_netfilter
 EOF
 
-modprobe overlay
-modprobe br_netfilter
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
 # Setup required sysctl params, these persist across reboots.
-cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 
-sysctl --system
+sudo sysctl --system
 ```
 
 ### Install containerd
@@ -377,17 +378,17 @@ sysctl --system
 # (Install containerd)
 ## Set up the repository
 ### Install packages to allow apt to use a repository over HTTPS
-apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 ```
 
 ```shell
-## Add Docker’s official GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+## Add Docker's official GPG key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
 ```shell
 ## Add Docker apt repository.
-add-apt-repository \
+sudo add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
@@ -395,18 +396,18 @@ add-apt-repository \
 
 ```shell
 ## Install containerd
-apt-get update && apt-get install -y containerd.io
+sudo apt-get update && sudo apt-get install -y containerd.io
 ```
 
 ```shell
 # Configure containerd
-mkdir -p /etc/containerd
-containerd config default > /etc/containerd/config.toml
+sudo mkdir -p /etc/containerd
+sudo containerd config default > /etc/containerd/config.toml
 ```
 
 ```shell
 # Restart containerd
-systemctl restart containerd
+sudo systemctl restart containerd
 ```
 {{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
@@ -415,30 +416,30 @@ systemctl restart containerd
 # (Install containerd)
 ## Set up the repository
 ### Install required packages
-yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 ```shell
 ## Add docker repository
-yum-config-manager \
+sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
 ```shell
 ## Install containerd
-yum update -y && yum install -y containerd.io
+sudo yum update -y && sudo yum install -y containerd.io
 ```
 
 ```shell
 ## Configure containerd
-mkdir -p /etc/containerd
-containerd config default > /etc/containerd/config.toml
+sudo mkdir -p /etc/containerd
+sudo containerd config default > /etc/containerd/config.toml
 ```
 
 ```shell
 # Restart containerd
-systemctl restart containerd
+sudo systemctl restart containerd
 ```
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
@@ -471,7 +472,12 @@ Start-Service containerd
 
 ### systemd
 
-To use the `systemd` cgroup driver, set `plugins.cri.systemd_cgroup = true` in `/etc/containerd/config.toml`.
+To use the `systemd` cgroup driver in `/etc/containerd/config.toml` set
+
+```
+[plugins.cri]
+systemd_cgroup = true
+```
 When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
 

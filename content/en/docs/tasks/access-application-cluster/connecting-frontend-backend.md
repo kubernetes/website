@@ -150,7 +150,7 @@ so that you can change the configuration more easily.
 
 ## Interact with the frontend Service
 
-Once you’ve created a Service of type LoadBalancer, you can use this
+Once you've created a Service of type LoadBalancer, you can use this
 command to find the external IP:
 
 ```shell
