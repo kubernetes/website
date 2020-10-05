@@ -24,7 +24,7 @@ you're using.
 ## Getting help
 
 If your problem isn't answered by any of the guides above, there are variety of
-ways for you to get help from the Kubernetes team.
+ways for you to get help from the Kubernetes community.
 
 ### Questions
 
@@ -38,11 +38,6 @@ development scenarios. The [Reference](/docs/reference/) section provides
 detailed documentation on the [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/overview/).
 
-You may also find the Stack Overflow topics relevant:
-
-* [Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes)
-* [Google Kubernetes Engine](https://stackoverflow.com/questions/tagged/google-container-engine)
-
 ## Help! My question isn't covered!  I need help now!
 
 ### Stack Overflow
@@ -55,41 +50,45 @@ If there aren't any existing questions that help, please
 
 ### Slack
 
-The Kubernetes team hangs out on Slack in the `#kubernetes-users` channel. You
-can participate in discussion with the Kubernetes team [here](https://kubernetes.slack.com).
-Slack requires registration, but the Kubernetes team is open invitation to
-anyone to register [here](https://slack.kubernetes.io). Feel free to come and ask
-any and all questions.
+Many people from the Kubernetes community hang out on Kubernetes Slack in the `#kubernetes-users` channel.
+Slack requires registration; you can [request an invitation](https://slack.kubernetes.io),
+and registration is open to everyone). Feel free to come and ask any and all questions.
+Once registered, access the [Kubernetes organisation in Slack](https://kubernetes.slack.com)
+via your web browser or via Slack's own dedicated app.
 
-Once registered, browse the growing list of channels for various subjects of
+Once you are registered, browse the growing list of channels for various subjects of
 interest. For example, people new to Kubernetes may also want to join the
-`#kubernetes-novice` channel. As another example, developers should join the
-`#kubernetes-dev` channel.
+[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) channel. As another example, developers should join the
+[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) channel.
 
-There are also many country specific/local language channels. Feel free to join
+There are also many country specific / local language channels. Feel free to join
 these channels for localized support and info:
 
-- China: `#cn-users`, `#cn-events`
-- Finland: `#fi-users`
-- France: `#fr-users`, `#fr-events`
-- Germany: `#de-users`, `#de-events`
-- India: `#in-users`, `#in-events`
-- Italy: `#it-users`, `#it-events`
-- Japan: `#jp-users`, `#jp-events`
-- Korea: `#kr-users`
-- Netherlands: `#nl-users`
-- Norway: `#norw-users`
-- Poland: `#pl-users`
-- Russia: `#ru-users`
-- Spain: `#es-users`
-- Sweden: `#se-users`
-- Turkey: `#tr-users`, `#tr-events`
+{{< table caption="Country / language specific Slack channels" >}}
+Country | Channels
+:---------|:------------
+China | [`#cn-users`](https://kubernetes.slack.com/messages/cn-users), [`#cn-events`](https://kubernetes.slack.com/messages/cn-events)
+Finland | [`#fi-users`](https://kubernetes.slack.com/messages/fi-users)
+France | [`#fr-users`](https://kubernetes.slack.com/messages/fr-users), [`#fr-events`](https://kubernetes.slack.com/messages/fr-events)
+Germany | [`#de-users`](https://kubernetes.slack.com/messages/de-users), [`#de-events`](https://kubernetes.slack.com/messages/de-events)
+India | [`#in-users`](https://kubernetes.slack.com/messages/in-users), [`#in-events`](https://kubernetes.slack.com/messages/in-events)
+Italy | [`#it-users`](https://kubernetes.slack.com/messages/it-users), [`#it-events`](https://kubernetes.slack.com/messages/it-events)
+Japan | [`#jp-users`](https://kubernetes.slack.com/messages/jp-users), [`#jp-events`](https://kubernetes.slack.com/messages/jp-events)
+Korea | [`#kr-users`](https://kubernetes.slack.com/messages/kr-users)
+Netherlands | [`#nl-users`](https://kubernetes.slack.com/messages/nl-users)
+Norway | [`#norw-users`](https://kubernetes.slack.com/messages/norw-users)
+Poland | [`#pl-users`](https://kubernetes.slack.com/messages/pl-users)
+Russia | [`#ru-users`](https://kubernetes.slack.com/messages/ru-users)
+Spain | [`#es-users`](https://kubernetes.slack.com/messages/es-users)
+Sweden | [`#se-users`](https://kubernetes.slack.com/messages/se-users)
+Turkey | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-events`](https://kubernetes.slack.com/messages/tr-events)
+{{< /table >}}
 
 ### Forum
 
-The Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io)
+You're welcome to join the official Kubernetes Forum: [discuss.kubernetes.io](https://discuss.kubernetes.io).
 
-### Bugs and Feature requests
+### Bugs and feature requests
 
 If you have what looks like a bug, or you would like to make a feature request,
 please use the [GitHub issue tracking system](https://github.com/kubernetes/kubernetes/issues).

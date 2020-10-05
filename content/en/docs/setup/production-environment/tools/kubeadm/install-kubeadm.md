@@ -25,7 +25,7 @@ For information how to create a cluster with kubeadm once you have performed thi
   - Red Hat Enterprise Linux (RHEL) 7
   - Fedora 25+
   - HypriotOS v1.0.1+
-  - Container Linux (tested with 1800.6.0)
+  - Flatcar Container Linux (tested with 2512.3.0)
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
 * 2 CPUs or more
 * Full network connectivity between all machines in the cluster (public or private network is fine)
@@ -220,7 +220,7 @@ sudo systemctl enable --now kubelet
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
 
 {{% /tab %}}
-{{% tab name="Fedora CoreOS" %}}
+{{% tab name="Fedora CoreOS or Flatcar Container Linux" %}}
 Install CNI plugins (required for most pod network):
 
 ```bash
@@ -230,6 +230,11 @@ curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_
 ```
 
 Define the directory to download command files  
+
+{{< note >}}
+The DOWNLOAD_DIR variable must be set to a writable directory.
+If you are running Flatcar Container Linux, set DOWNLOAD_DIR=/opt/bin.
+{{< /note >}}
 
 ```bash
 DOWNLOAD_DIR=/usr/local/bin
@@ -251,7 +256,7 @@ cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
 sudo chmod +x {kubeadm,kubelet,kubectl}
 
-RELEASE_VERSION="v0.2.7"
+RELEASE_VERSION="v0.4.0"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
@@ -262,6 +267,12 @@ Enable and start `kubelet`:
 ```bash
 systemctl enable --now kubelet
 ```
+
+{{< note >}}
+The Flatcar Container Linux distribution mounts the `/usr` directory as a read-only filesystem.
+Before bootstrapping your cluster, you need to take additional steps to configure a writable directory.
+See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#usr-mounted-read-only/) to learn how to set up a writable directory.
+{{< /note >}}
 {{% /tab %}}
 {{< /tabs >}}
 

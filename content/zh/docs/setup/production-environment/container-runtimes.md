@@ -7,17 +7,17 @@ content_type: concept
 weight: 10
 ---
 <!--
----
 reviewers:
 - vincepri
 - bart0sh
 title: Container runtimes
 content_type: concept
 weight: 10
----
 -->
+
 <!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
+
 <!--
 To run containers in Pods, Kubernetes uses a container runtime. Here are
 the installation instructions for various runtimes.
@@ -25,23 +25,21 @@ the installation instructions for various runtimes.
 Kubernetes 使用容器运行时来实现在 pod 中运行容器。
 这是各种运行时的安装说明。
 
-
-
 <!-- body -->
 
-{{< caution >}}
 <!--
 A flaw was found in the way runc handled system file descriptors when running containers.
 A malicious container could use this flaw to overwrite contents of the runc binary and
 consequently run arbitrary commands on the container host system.
 
-Please refer to this link for more information about this issue
-[cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
+Please refer to [CVE-2019-5736](https://access.redhat.com/security/cve/cve-2019-5736) for more
+information about the issue.
 -->
+{{< caution >}}
 我们发现 runc 在运行容器，处理系统文件描述符时存在一个漏洞。
 恶意容器可以利用此漏洞覆盖 runc 二进制文件的内容，并以此在主机系统的容器上运行任意的命令。
 
-请参考此链接以获取有关此问题的更多信息 [cve-2019-5736 : runc vulnerability ](https://access.redhat.com/security/cve/cve-2019-5736)
+请参考此链接以获取有关此问题的更多信息 [cve-2019-5736: runc vulnerability](https://access.redhat.com/security/cve/cve-2019-5736)
 {{< /caution >}}
 
 <!--
@@ -49,20 +47,20 @@ Please refer to this link for more information about this issue
 -->
 ### 适用性
 
-{{< note >}}
 <!--
 This document is written for users installing CRI onto Linux. For other operating
 systems, look for documentation specific to your platform
 -->
+{{< note >}}
 本文档是为在 Linux 上安装 CRI 的用户编写的。
-对于其他操作系统，请查找特定于您平台的文档。
+对于其他操作系统，请查找特定于你平台的文档。
 {{< /note >}}
 
 <!--
 You should execute all the commands in this guide as `root`. For example, prefix commands
 with `sudo `, or become `root` and run the commands as that user.
 -->
-您应该以 `root` 身份执行本指南中的所有命令。
+你应该以 `root` 身份执行本指南中的所有命令。
 例如，使用 `sudo` 前缀命令，或者成为 `root` 并以该用户身份运行命令。
 
 <!--
@@ -79,7 +77,7 @@ that there will then be two different cgroup managers.
 -->
 当某个 Linux 系统发行版使用 systemd 作为其初始化系统时，初始化进程会生成并使用一个 root 控制组 （`cgroup`），并充当 cgroup 管理器。
 systemd 与 cgroup 集成紧密，并将为每个进程分配 cgroup。
-您也可以配置容器运行时和 kubelet 使用 `cgroupfs`。
+你也可以配置容器运行时和 kubelet 使用 `cgroupfs`。
 连同 systemd 一起使用 `cgroupfs` 意味着将有两个不同的 cgroup 管理器。
 
 <!--
@@ -120,18 +118,18 @@ is to drain the Node from its workloads, remove it from the cluster and re-join 
 ## Docker
 
 On each of your machines, install Docker.
-Version 19.03.4 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
+Version 19.03.11 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
 -->
 ## Docker
 
-在您的每台机器上安装 Docker。
-推荐安装 19.03.4 版本，但是 1.13.1、17.03、17.06、17.09、18.06 和 18.09 版本也是可以的。
+在你的每台机器上安装 Docker。
+推荐安装 19.03.11 版本，但是 1.13.1、17.03、17.06、17.09、18.06 和 18.09 版本也是可以的。
 请跟踪 Kubernetes 发行说明中经过验证的 Docker 最新版本变化。
 
-使用以下命令在您的系统上安装 Docker：
+使用以下命令在你的系统上安装 Docker：
 
 {{< tabs name="tab-cri-docker-installation" >}}
 {{% tab name="Ubuntu 16.04+" %}}
@@ -244,10 +242,10 @@ yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 
 ## Install Docker CE.
-yum update && yum install \
-  containerd.io-1.2.10 \
-  docker-ce-19.03.4 \
-  docker-ce-cli-19.03.4
+yum update -y && yum install -y \
+  containerd.io-1.2.13 \
+  docker-ce-19.03.11 \
+  docker-ce-cli-19.03.11
 
 ## Create /etc/docker directory.
 mkdir /etc/docker
@@ -285,7 +283,10 @@ yum-config-manager \
 
 ```shell
 ## 安装 Docker CE.
-yum update && yum install docker-ce-18.06.2.ce
+yum update -y && yum install -y \
+  containerd.io-1.2.13 \
+  docker-ce-19.03.11 \
+  docker-ce-cli-19.03.11
 ```
 
 ```shell
@@ -462,6 +463,7 @@ sudo apt-get install cri-o-1.17
 随后安装 CRI-O:
 
 ```shell
+sudo apt-get update
 sudo apt-get install cri-o-1.17
 ```
 
@@ -496,6 +498,7 @@ sudo apt-get install cri-o-1.17
 
 ```shell
 # 安装 CRI-O
+sudo apt-get update
 sudo apt-get install cri-o-1.17
 ```
 {{% /tab %}}
@@ -525,24 +528,52 @@ apt-get update
 apt-get install cri-o-1.15
 ```
 {{% /tab %}}
-{{% tab name="CentOS/RHEL 7.4+" codelang="bash" %}}
+{{% tab name="CentOS" %}}
 
 <!--
-# Install prerequisites
-yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
+To install on the following operating systems, set the environment variable $OS to the appropriate field in the following table:
 
-# Install CRI-O
-yum install --nogpgcheck cri-o
+| Operating system | $OS               |
+| ---------------- | ----------------- |
+| Centos 8         | `CentOS_8`        |
+| Centos 8 Stream  | `CentOS_8_Stream` |
+| Centos 7         | `CentOS_7`        |
+
+<br />
+Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
+For instance, if you want to install CRI-O 1.18, set `VERSION=1.18`.
+You can pin your installation to a specific release.
+To install version 1.18.3, set `VERSION=1.18:1.18.3`.
+<br />
+
+Then run
+```shell
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
+yum install cri-o
+```
 -->
 
-```shell
-# 安装必备软件
-yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
-```
+要在以下操作系统上安装，请将环境变量 `$OS` 设置为下表中的相应字段：
+
+| 操作系统          | $OS               |
+| ---------------- | ----------------- |
+| Centos 8         | `CentOS_8`        |
+| Centos 8 Stream  | `CentOS_8_Stream` |
+| Centos 7         | `CentOS_7`        |
+
+<br />
+然后将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
+例如，如果要安装 CRI-O 1.18，请设置 `VERSION=1.18`。
+你也可以安装特定版本，例如 1.18.3，请设置 `VERSION=1.18:1.18.3`。
+<br />
+
+确保声明变量后，使用下面命令安装
 
 ```shell
-# 安装 CRI-O
-yum install --nogpgcheck cri-o
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
+yum install cri-o
 ```
 
 {{% /tab %}}
@@ -552,8 +583,43 @@ yum install --nogpgcheck cri-o
 ```shell
 sudo zypper install cri-o
 ```
+
 {{% /tab %}}
 
+{{% tab name="Fedora" %}}
+<!--
+Set `$VERSION` to the CRI-O version that matches your Kubernetes version.
+For instance, if you want to install CRI-O 1.18, `VERSION=1.18`                                                                                                                                                                               
+You can find available versions with:
+```shell
+dnf module list cri-o
+```
+CRI-O does not support pinning to specific releases on Fedora.
+
+Then run
+```shell
+dnf module enable cri-o:$VERSION
+dnf install cri-o
+```
+-->
+
+将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
+例如，如果要安装 CRI-O 1.18，请设置 `VERSION=1.18`。
+你可以用下列命令查找可用的版本：
+
+```shell
+dnf module list cri-o
+```
+
+CRI-O 不支持在 Fedora 上固定到特定的版本。
+运行下列命令安装
+
+```shell
+dnf module enable cri-o:$VERSION
+dnf install cri-o
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 <!--
@@ -777,6 +843,36 @@ systemctl restart containerd
 systemctl restart containerd
 ```
 {{% /tab %}}
+
+{{% tab name="Windows/(PowerShell)" %}}
+
+```powershell
+# （安装 containerd ）
+# 下载 contianerd
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
+```
+
+```powershell
+# 添加开机启动
+Copy-Item -Path ".\bin\" -Destination "C:\Program Files\containerd" -Recurse -Force
+cd C:\Program Files\containerd\
+.\containerd.exe config default | Out-File config.toml -Encoding ascii
+
+# 检查配置文件主要看以下三个参数
+# sandbox_image 的镜像地址
+# CNI 的 bin_dir 和 conf_dir 路径
+Get-Content config.toml
+```
+
+```powershell
+# containerd 注册服务
+.\containerd.exe --register-service
+# 启动 containerd
+Start-Service containerd
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 <!--
@@ -794,10 +890,15 @@ Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quic
 -->
 ### systemd
 
-使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置 `plugins.cri.systemd_cgroup = true`。
+使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置 
+```
+[plugins.cri]
+systemd_cgroup = true
+```
 当使用 kubeadm 时，请手动配置
-[kubelet 的 cgroup 驱动](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+[kubelet 的 cgroup 驱动](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
 
 ## 其他的 CRI 运行时：frakti
 
 请参阅 [Frakti 快速开始指南](https://github.com/kubernetes/frakti#quickstart) 来获取更多的信息。
+

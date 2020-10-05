@@ -208,6 +208,19 @@ field in the quota spec.
 
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
 
+When quota is scoped for priority class using `scopeSelector` field, quota object is restricted to track only following resources:
+
+* `pods`
+* `cpu`
+* `memory`
+* `ephemeral-storage`
+* `limits.cpu`
+* `limits.memory`
+* `limits.ephemeral-storage`
+* `requests.cpu`
+* `requests.memory`
+* `requests.ephemeral-storage`
+
 This example creates a quota object and matches it with pods at specific priorities. The example
 works as follows:
 

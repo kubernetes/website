@@ -13,7 +13,7 @@ menu:
     title: "文档"
     weight: 20
     post: >
-      <p>通过概念、教程和参考文档了解如何使用 Kubernetes。你甚至可以<a href="/editdocs/" data-auto-burger-exclude>帮助贡献文档</a>！</p>
+      <p>通过概念、教程和参考文档了解如何使用 Kubernetes。你甚至可以<a href="/editdocs/" data-auto-burger-exclude data-proofer-ignore>帮助贡献文档</a>！</p>
 # description: >
 #   Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation.
 description: >

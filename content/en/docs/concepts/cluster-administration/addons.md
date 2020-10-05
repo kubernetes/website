@@ -5,11 +5,11 @@ content_type: concept
 
 <!-- overview -->
 
+{{% thirdparty-content %}}
+
 Add-ons extend the functionality of Kubernetes.
 
 This page lists some of the available add-ons and links to their respective installation instructions.
-
-Add-ons in each section are sorted alphabetically - the ordering does not imply any preferential status.
 
 <!-- body -->
 

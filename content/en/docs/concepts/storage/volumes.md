@@ -215,8 +215,7 @@ See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "
 ### cinder {#cinder}
 
 {{< note >}}
-Prerequisite: Kubernetes with OpenStack Cloud Provider configured. For cloudprovider
-configuration please refer [cloud provider openstack](/docs/concepts/cluster-administration/cloud-providers/#openstack).
+Prerequisite: Kubernetes with OpenStack Cloud Provider configured.
 {{< /note >}}
 
 `cinder` is used to mount OpenStack Cinder Volume into your Pod.
@@ -757,8 +756,8 @@ See the [NFS example](https://github.com/kubernetes/examples/tree/{{< param "git
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
 A `persistentVolumeClaim` volume is used to mount a
-[PersistentVolume](/docs/concepts/storage/persistent-volumes/) into a Pod.  PersistentVolumes are a
-way for users to "claim" durable storage (such as a GCE PersistentDisk or an
+[PersistentVolume](/docs/concepts/storage/persistent-volumes/) into a Pod. PersistentVolumeClaims
+are a way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 
 See the [PersistentVolumes example](/docs/concepts/storage/persistent-volumes/) for more

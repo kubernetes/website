@@ -1039,7 +1039,7 @@ Even though you completely deleted the StatefulSet, and all of its Pods, the
 Pods are recreated with their PersistentVolumes mounted, and `web-0` and
 `web-1` continue to serve their hostnames.
 
-Finally, delete the `web` StatefulSet...
+Finally, delete the `nginx` Service...
 
 ```shell
 kubectl delete service nginx
@@ -1047,7 +1047,7 @@ kubectl delete service nginx
 ```
 service "nginx" deleted
 ```
-...and the `nginx` Service:
+...and the `web` StatefulSet:
 ```shell
 kubectl delete statefulset web
 ```

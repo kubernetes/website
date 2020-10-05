@@ -32,7 +32,7 @@ and can load-balance across them.
 -->
 使用 Kubernetes，您无需修改应用程序即可使用不熟悉的服务发现机制。
 Kubernetes 为 Pods 提供自己的 IP 地址，并为一组 Pod 提供相同的 DNS 名，
-并且可以在它们之间进行负载平衡。
+并且可以在它们之间进行负载均衡。
 
 <!-- body -->
 
@@ -197,7 +197,7 @@ As many Services need to expose more than one port, Kubernetes supports multiple
 port definitions on a Service object.
 Each port definition can have the same `protocol`, or a different one.
 -->
-Pod 中的端口定义是有名字的，你可以在服务的 `targetTarget` 属性中引用这些名称。
+Pod 中的端口定义是有名字的，你可以在服务的 `targetPort` 属性中引用这些名称。
 即使服务中使用单个配置的名称混合使用 Pod，并且通过不同的端口号提供相同的网络协议，此功能也可以使用。
 这为部署和发展服务提供了很大的灵活性。
 例如，您可以更改Pods在新版本的后端软件中公开的端口号，而不会破坏客户端。
@@ -379,7 +379,7 @@ There are a few reasons for using proxying for Services:
 
 ### 为什么不使用 DNS 轮询？
 
-时不时会有人问道，就是为什么 Kubernetes 依赖代理将入站流量转发到后端。 那其他方法呢？
+时不时会有人问到，就是为什么 Kubernetes 依赖代理将入站流量转发到后端。 那其他方法呢？
 例如，是否可以配置具有多个A值（或IPv6为AAAA）的DNS记录，并依靠轮询名称解析？
 
 使用服务代理有以下几个原因：
@@ -1129,6 +1129,24 @@ metadata:
 [...]
 ```
 {{% /tab %}}
+{{% tab name="Tencent Cloud" %}}
+```yaml
+[...]
+metadata:
+  annotations:
+    service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
+[...]
+```
+{{% /tab %}}
+{{% tab name="Alibaba Cloud" %}}
+```yaml
+[...]
+metadata:
+  annotations:
+    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "intranet"
+[...]
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 <!--
@@ -1854,7 +1872,7 @@ to expose HTTP / HTTPS Services.
 {{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
 <!--
-If your cloud provider supports it (eg, [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
+If your cloud provider supports it,
 you can use a Service in LoadBalancer mode to configure a load balancer outside
 of Kubernetes itself, that will forward connections prefixed with
 [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
@@ -1863,7 +1881,7 @@ The load balancer will send an initial series of octets describing the
 incoming connection, similar to this example
 -->
 
-如果您的云提供商支持它（例如, [AWS](/zh/docs/concepts/cluster-administration/cloud-providers/#aws)），
+如果您的云提供商支持它，
 则可以在 LoadBalancer 模式下使用 Service 在 Kubernetes 本身之外配置负载均衡器，
 该负载均衡器将转发前缀为 [PROXY协议](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
 的连接。
