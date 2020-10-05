@@ -235,9 +235,8 @@ SIG Docs approvers. Here's how it works.
 
 ## {{% heading "whatsnext" %}}
 
-
-For more information about contributing to the Kubernetes documentation, see:
+Kubernetesのドキュメントへの貢献について、更に知りたい場合は以下のページを参照して下さい:
 
 - [Contributing new content](/docs/contribute/overview/)
 - [Reviewing content](/docs/contribute/review/reviewing-prs)
-- [Documentation style guide](/docs/contribute/style/)
+- [ドキュメントスタイルの概要](/ja/docs/contribute/style/)
