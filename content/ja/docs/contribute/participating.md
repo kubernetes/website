@@ -132,7 +132,6 @@ PRに対してすでに`/lgtm`コメントがついているか、承認者が`/
 
 ### 承認者になる
 
-When you meet the
 [要件](https://github.com/kubernetes/community/blob/master/community-membership.md#approver)を満たしている場合、SIG Docsの承認者になることができます。他のSIGの承認者であっても、SIG Docsで承認者になるには別途申請が必要です。
 
 申請するには、`Kubernetes/website`リポジトリーの[トップレベルにあるOWNERSファイル](https://github.com/kubernetes/website/blob/master/OWNERS)の`approvers`セクションにあなたのユーザー名を追加するPull Requestを作成してください。現在のSIG Docsの承認者を一人以上アサインしてください。
@@ -143,25 +142,23 @@ Pull Requestが承認されたら、SIG Docsのレビュアーになることが
 
 ### 承認者の責任
 
-Approvers improve the documentation by reviewing and merging pull requests into the website repository. Because this role carries additional privileges, approvers have additional responsibilities:
+承認者はウェブサイトリポジトリーへのPull Requestをレビューし、マージすることでドキュメントを改善します。この役割は追加の権限を持つため、承認者は追加の責任があります:
 
-- Approvers can use the `/approve` command, which merges PRs into the repo.
+- 承認者はPull Requestをリポジトリーにマージするための`/approve`コマンドを使用することができます。
 
-    A careless merge can break the site, so be sure that when you merge something, you mean it.
+    不注意なマージはウェブサイトを破壊するため、何かをマージするときには、それが意味するところを確認して下さい。
 
-- Make sure that proposed changes meet the [contribution guidelines](/docs/contribute/style/content-guide/#contributing-content).
+- 提案された変更が[コントリビューションガイドライン](/docs/contribute/style/content-guide/#contributing-content)に適合しているかどうかを確認して下さい。
 
-    If you ever have a question, or you're not sure about something, feel free to call for additional review.
+    もし質問があったり、よくわからないことがあったりした場合、気軽に追加のレビューを依頼して下さい。
 
-- Verify that Netlify tests pass before you `/approve` a PR.
+- Pull Requestを`/approve`する前に、Netlifyのテストを確認して下さい。
 
-    <img src="/images/docs/contribute/netlify-pass.png" width="75%" alt="Netlify tests must pass before approving" />
+    <img src="/images/docs/contribute/netlify-pass.png" width="75%" alt="承認する前にNetlifyテストをパスしている必要があります。" />
 
-- Visit the Netlify page preview for a PR to make sure things look good before approving.
+- 承認前に、Pull Requestの内容がうまく動いていることを確認するため、Netlifyのページプレビューにアクセスして下さい。
 
-- Participate in the [PR Wrangler rotation schedule](https://github.com/kubernetes/website/wiki/PR-Wranglers) for weekly rotations. SIG Docs expects all approvers to participate in this
-rotation. See [Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
-for more details.
+- 週次のローテーションのために、[PR Wranglerローテーションスケジュール](https://github.com/kubernetes/website/wiki/PR-Wranglers)に参加して下さい。SIG Docsはこのローテーションに参加している人全員の承認を期待しています。詳細は[週次のPR Wranglerになる](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)を参照して下さい。
 
 ## SIG Docs chairperson
 
