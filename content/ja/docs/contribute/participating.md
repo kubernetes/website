@@ -160,23 +160,19 @@ Pull Requestが承認されたら、SIG Docsのレビュアーになることが
 
 - 週次のローテーションのために、[PR Wranglerローテーションスケジュール](https://github.com/kubernetes/website/wiki/PR-Wranglers)に参加して下さい。SIG Docsはこのローテーションに参加している人全員の承認を期待しています。詳細は[週次のPR Wranglerになる](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)を参照して下さい。
 
-## SIG Docs chairperson
+## SIG Docsの委員長
 
-Each SIG, including SIG Docs, selects one or more SIG members to act as
-chairpersons. These are points of contact between SIG Docs and other parts of
-the Kubernetes organization. They require extensive knowledge of the structure
-of the Kubernetes project as a whole and how SIG Docs works within it. See
-[Leadership](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)
-for the current list of chairpersons.
+SIG Docsを含むそれぞれのSIGは一人以上のSIGメンバーを委員長として選出します。委員長はSIG Docsと他のKubernetesオーガニゼーションのコンタクトポイントとなります。
+Kubernetesプロジェクト全体の構造や、その中でSIG Docsがどのように活動しているかといった幅広い知識が要求されます。
+現在の委員長の一覧は[Leadership](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)ページを参照して下さい。
 
-## SIG Docs teams and automation
+## SIG Docsチームと自動化
 
-Automation in SIG Docs relies on two different mechanisms for automation:
-GitHub groups and OWNERS files.
+SIG Docsの自動化はGitHubグループとOWNERSファイルという二つの異なる自動化メカニズムに依存しています。
 
-### GitHub groups
+### GitHubグループ
 
-The SIG Docs group defines two teams on GitHub:
+SIG DocsグループはGitHub上で二つのチームを定義しています:
 
  - [@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers)
  - [@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews)
