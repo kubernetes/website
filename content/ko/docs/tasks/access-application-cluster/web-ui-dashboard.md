@@ -5,7 +5,7 @@ weight: 10
 card:
   name: tasks
   weight: 30
-  title: Use the Web UI Dashboard
+  title: 웹 UI 대시보드 사용
 ---
 
 <!-- overview -->
