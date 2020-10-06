@@ -32,7 +32,7 @@ and can load-balance across them.
 -->
 使用 Kubernetes，您无需修改应用程序即可使用不熟悉的服务发现机制。
 Kubernetes 为 Pods 提供自己的 IP 地址，并为一组 Pod 提供相同的 DNS 名，
-并且可以在它们之间进行负载平衡。
+并且可以在它们之间进行负载均衡。
 
 <!-- body -->
 
@@ -1872,7 +1872,7 @@ to expose HTTP / HTTPS Services.
 {{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
 <!--
-If your cloud provider supports it (eg, [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
+If your cloud provider supports it,
 you can use a Service in LoadBalancer mode to configure a load balancer outside
 of Kubernetes itself, that will forward connections prefixed with
 [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
@@ -1881,7 +1881,7 @@ The load balancer will send an initial series of octets describing the
 incoming connection, similar to this example
 -->
 
-如果您的云提供商支持它（例如, [AWS](/zh/docs/concepts/cluster-administration/cloud-providers/#aws)），
+如果您的云提供商支持它，
 则可以在 LoadBalancer 模式下使用 Service 在 Kubernetes 本身之外配置负载均衡器，
 该负载均衡器将转发前缀为 [PROXY协议](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
 的连接。

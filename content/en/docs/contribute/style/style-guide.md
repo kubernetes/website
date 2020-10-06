@@ -42,12 +42,9 @@ The English-language documentation uses U.S. English spelling and grammar.
 
 ## Documentation formatting standards
 
-### Use camel case for API objects
+### Use upper camel case for API objects
 
-When you refer to an API object, use the same uppercase and lowercase letters
-that are used in the actual object name. Typically, the names of API
-objects use
-[camel case](https://en.wikipedia.org/wiki/Camel_case).
+When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as Pascal Case. When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
 Don't split the API object name into separate words. For example, use
 PodTemplateList, not Pod Template List.
@@ -58,9 +55,9 @@ leads to an awkward construction.
 {{< table caption = "Do and Don't - API objects" >}}
 Do | Don't
 :--| :-----
-The Pod has two containers. | The pod has two containers.
-The Deployment is responsible for ... | The Deployment object is responsible for ...
-A PodList is a list of Pods. | A Pod List is a list of pods.
+The pod has two containers. | The Pod has two containers.
+The HorizontalPodAutoscaler is responsible for ... | The HorizontalPodAutoscaler object is responsible for ...
+A PodList is a list of pods. | A Pod List is a list of pods.
 The two ContainerPorts ... | The two ContainerPort objects ...
 The two ContainerStateTerminated objects ... | The two ContainerStateTerminateds ...
 {{< /table >}}
@@ -71,7 +68,7 @@ The two ContainerStateTerminated objects ... | The two ContainerStateTerminateds
 Use angle brackets for placeholders. Tell the reader what a placeholder
 represents.
 
-1. Display information about a Pod:
+1. Display information about a pod:
 
         kubectl describe pod <pod-name> -n <namespace>
 
@@ -116,7 +113,7 @@ The copy is called a "fork". | The copy is called a "fork."
 
 ## Inline code formatting
 
-### Use code style for inline code and commands
+### Use code style for inline code, commands, and API objects
 
 For inline code in an HTML document, use the `<code>` tag. In a Markdown
 document, use the backtick (`` ` ``).
@@ -124,7 +121,9 @@ document, use the backtick (`` ` ``).
 {{< table caption = "Do and Don't - Use code style for inline code and commands" >}}
 Do | Don't
 :--| :-----
-The `kubectl run`command creates a Pod. | The "kubectl run" command creates a Pod.
+The `kubectl run` command creates a `Pod`. | The "kubectl run" command creates a pod.
+The kubelet on each node acquires a `Lease`… | The kubelet on each node acquires a lease…
+A `PersistentVolume` represents durable storage… | A Persistent Volume represents durable storage…
 For declarative management, use `kubectl apply`. | For declarative management, use "kubectl apply".
 Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax.
 Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (`**`) or an underscore (`_`) to enclose inline code. For example, **var example = true**.
@@ -201,7 +200,7 @@ kubectl get pods | $ kubectl get pods
 
 ### Separate commands from output
 
-Verify that the Pod is running on your chosen node:
+Verify that the pod is running on your chosen node:
 
     kubectl get pods --output=wide
 
@@ -513,7 +512,7 @@ Do | Don't
 :--| :-----
 To create a ReplicaSet, ... | In order to create a ReplicaSet, ...
 See the configuration file. | Please see the configuration file.
-View the Pods. | With this next command, we'll view the Pods.
+View the pods. | With this next command, we'll view the pods.
 {{< /table >}}
 
 ### Address the reader as "you"
@@ -552,7 +551,7 @@ Do | Don't
 :--| :-----
 Version 1.4 includes ... | In version 1.4, we have added ...
 Kubernetes provides a new feature for ... | We provide a new feature ...
-This page teaches you how to use Pods. | In this page, we are going to learn about Pods.
+This page teaches you how to use pods. | In this page, we are going to learn about pods.
 {{< /table >}}
 
 
