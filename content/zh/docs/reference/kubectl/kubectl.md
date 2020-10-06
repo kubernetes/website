@@ -30,447 +30,445 @@ Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
 kubectl [flags]
 ```
 
-
-
 ## {{% heading "options" %}}
 
 
-<table style="width: 100%; table-layout: fixed;">
+  <table style="width: 100%; table-layout: fixed;">
   <colgroup>
     <col span="1" style="width: 10px;" />
     <col span="1" />
   </colgroup>
   <tbody>
-    <tr>
-      <td colspan="2">--add-dir-header</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      If true, adds the file directory to the header
-      -->
-      设置为 true 表示添加文件目录到 header 中
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--alsologtostderr</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      log to standard error as well as files
-      -->
-      表示将日志输出到文件的同时输出到 stderr
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--as string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Username to impersonate for the operation
-      -->
-      以指定用户的身份执行操作
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--as-group stringArray</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
-      -->
-      模拟指定的组来执行操作，可以使用这个标志来指定多个组。
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--azure-container-registry-config string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Path to the file containing Azure container registry configuration information.
-      -->
-      包含 Azure 容器仓库配置信息的文件的路径。
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "~/.kube/http-cache"</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Default HTTP cache directory
-      -->
-      默认 HTTP 缓存目录
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--certificate-authority string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Path to a cert file for the certificate authority
-      -->
-      指向证书机构的 cert 文件路径
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--client-certificate string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Path to a client certificate file for TLS
-      -->
-      TLS 使用的客户端证书路径
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--client-key string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Path to a client key file for TLS
-      -->
-      TLS 使用的客户端密钥文件路径
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      CIDRs opened in GCE firewall for LB traffic proxy & health checks
-      -->
-      在 GCE 防火墙中打开 CIDR，以进行 LB 流量代理和运行状况检查。
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--cluster string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      The name of the kubeconfig cluster to use
-      -->
-      要使用的 kubeconfig 集群的名称
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--context string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      The name of the kubeconfig context to use
-      -->
-      要使用的 kubeconfig 上下文的名称
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 300</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
-      -->
-      表示 `notReady` 状态的容忍度秒数：默认情况下，`NoExecute` 被添加到尚未具有此容忍度的每个 Pod 中。
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 300</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
-      -->
-      表示 `unreachable` 状态的容忍度秒数：默认情况下，`NoExecute` 被添加到尚未具有此容忍度的每个 Pod 中。
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      help for kubectl
-      -->
-      kubectl 操作的帮助命令
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--insecure-skip-tls-verify</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
-      -->
-      设置为 true，则表示不会检查服务器证书的有效性。这样会导致您的 HTTPS 连接不安全。
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--kubeconfig string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Path to the kubeconfig file to use for CLI requests.
-      -->
-      CLI 请求使用的 kubeconfig 配置文件的路径。
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 0</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      when logging hits line file:N, emit a stack trace
-      -->
-      当日志机制运行到指定文件的指定行（file:N）时，打印调用堆栈信息
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--log-dir string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      If non-empty, write log files in this directory
-      -->
-      如果不为空，则将日志文件写入此目录
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--log-file string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      If non-empty, use this log file
-      -->
-      如果不为空，则将使用此日志文件
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 1800</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Defines the maximum size a log file can grow to. Unit is megabytes. If the value is 0, the maximum file size is unlimited.
-      -->
-      定义日志文件的最大尺寸。单位为兆字节。如果值设置为 0，则表示日志文件大小不受限制。
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 5s</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Maximum number of seconds between log flushes
-      -->
-      两次日志刷新操作之间的最长时间（秒）
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: true</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      log to standard error instead of files
-      -->
-      日志输出到 stderr 而不是文件中
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--match-server-version</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Require server version to match client version
-      -->
-      要求客户端版本和服务端版本相匹配
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">-n, --namespace string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      If present, the namespace scope for this CLI request
-      -->
-      如果存在，CLI 请求将使用此命名空间
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--password string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Password for basic authentication to the API server
-      -->
-      API 服务器进行基本身份验证的密码
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "none"</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
-      -->
-      要记录的性能指标的名称。可取 (none|cpu|heap|goroutine|threadcreate|block|mutex) 其中之一。
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "profile.pprof"</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Name of the file to write the profile to
-      -->
-      用于转储所记录的性能信息的文件名
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "0"</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
-      -->
-      放弃单个服务器请求之前的等待时间，非零值需要包含相应时间单位（例如：1s、2m、3h）。零值则表示不做超时要求。
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">-s, --server string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      The address and port of the Kubernetes API server
-      -->
-      Kubernetes API 服务器的地址和端口
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--skip-headers</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      If true, avoid header prefixes in the log messages
-      -->
-      设置为 true 则表示跳过在日志消息中出现 header 前缀信息
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--skip-log-headers</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      If true, avoid headers when opening log files
-      -->
-      设置为 true 则表示在打开日志文件时跳过 header 信息
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 2</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      logs at or above this threshold go to stderr
-      -->
-      等于或高于此阈值的日志将输出到标准错误输出（stderr）
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--token string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Bearer token for authentication to the API server
-      -->
-      用于对 API 服务器进行身份认证的持有者令牌
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--user string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      The name of the kubeconfig user to use
-      -->
-      指定使用 kubeconfig 配置文件中的用户名
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--username string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Username for basic authentication to the API server
-      -->
-      用于 API 服务器的基本身份验证的用户名
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">-v, --v Level</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      number for the log level verbosity
-      -->
-      指定输出日志的日志详细级别
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--version version[=true]</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Print version information and quit
-      -->
-      打印 kubectl 版本信息并退出
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">--vmodule moduleSpec</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      comma-separated list of pattern=N settings for file-filtered logging
-      -->
-      以逗号分隔的 pattern=N 设置列表，用于过滤文件的日志记录
-      </td>
-    </tr>
 
+  <tr>
+    <td colspan="2">--add-dir-header</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    If true, adds the file directory to the header
+    -->
+    设置为 true 表示添加文件目录到 header 中
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--alsologtostderr</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    log to standard error as well as files
+    -->
+    表示将日志输出到文件的同时输出到 stderr
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--as string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Username to impersonate for the operation
+    -->
+    以指定用户的身份执行操作
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--as-group stringArray</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+    -->
+    模拟指定的组来执行操作，可以使用这个标志来指定多个组。
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--azure-container-registry-config string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Path to the file containing Azure container registry configuration information.
+    -->
+    包含 Azure 容器仓库配置信息的文件的路径。
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "~/.kube/http-cache"</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Default HTTP cache directory
+    -->
+    默认 HTTP 缓存目录
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--certificate-authority string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Path to a cert file for the certificate authority
+    -->
+    指向证书机构的 cert 文件路径
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--client-certificate string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Path to a client certificate file for TLS
+    -->
+    TLS 使用的客户端证书路径
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--client-key string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Path to a client key file for TLS
+    -->
+    TLS 使用的客户端密钥文件路径
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    CIDRs opened in GCE firewall for LB traffic proxy & health checks
+    -->
+    在 GCE 防火墙中打开 CIDR，以进行 LB 流量代理和运行状况检查。
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--cluster string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    The name of the kubeconfig cluster to use
+    -->
+    要使用的 kubeconfig 集群的名称
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--context string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    The name of the kubeconfig context to use
+    -->
+    要使用的 kubeconfig 上下文的名称
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 300</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
+    -->
+    表示 `notReady` 状态的容忍度秒数：默认情况下，`NoExecute` 被添加到尚未具有此容忍度的每个 Pod 中。
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 300</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
+    -->
+    表示 `unreachable` 状态的容忍度秒数：默认情况下，`NoExecute` 被添加到尚未具有此容忍度的每个 Pod 中。
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">-h, --help</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    help for kubectl
+    -->
+    kubectl 操作的帮助命令
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--insecure-skip-tls-verify</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+    -->
+    设置为 true，则表示不会检查服务器证书的有效性。这样会导致您的 HTTPS 连接不安全。
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--kubeconfig string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Path to the kubeconfig file to use for CLI requests.
+    -->
+    CLI 请求使用的 kubeconfig 配置文件的路径。
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 0</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    when logging hits line file:N, emit a stack trace
+    -->
+    当日志机制运行到指定文件的指定行（file:N）时，打印调用堆栈信息
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--log-dir string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    If non-empty, write log files in this directory
+    -->
+    如果不为空，则将日志文件写入此目录
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--log-file string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    If non-empty, use this log file
+    -->
+    如果不为空，则将使用此日志文件
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 1800</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Defines the maximum size a log file can grow to. Unit is megabytes. If the value is 0, the maximum file size is unlimited.
+    -->
+    定义日志文件的最大尺寸。单位为兆字节。如果值设置为 0，则表示日志文件大小不受限制。
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 5s</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Maximum number of seconds between log flushes
+    -->
+    两次日志刷新操作之间的最长时间（秒）
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: true</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    log to standard error instead of files
+    -->
+    日志输出到 stderr 而不是文件中
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--match-server-version</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Require server version to match client version
+    -->
+    要求客户端版本和服务端版本相匹配
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">-n, --namespace string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    If present, the namespace scope for this CLI request
+    -->
+    如果存在，CLI 请求将使用此命名空间
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--password string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Password for basic authentication to the API server
+    -->
+    API 服务器进行基本身份验证的密码
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "none"</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+    -->
+    要记录的性能指标的名称。可取 (none|cpu|heap|goroutine|threadcreate|block|mutex) 其中之一。
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "profile.pprof"</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Name of the file to write the profile to
+    -->
+    用于转储所记录的性能信息的文件名
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "0"</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
+    -->
+    放弃单个服务器请求之前的等待时间，非零值需要包含相应时间单位（例如：1s、2m、3h）。零值则表示不做超时要求。
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">-s, --server string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    The address and port of the Kubernetes API server
+    -->
+    Kubernetes API 服务器的地址和端口
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--skip-headers</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    If true, avoid header prefixes in the log messages
+    -->
+    设置为 true 则表示跳过在日志消息中出现 header 前缀信息
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--skip-log-headers</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    If true, avoid headers when opening log files
+    -->
+    设置为 true 则表示在打开日志文件时跳过 header 信息
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 2</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    logs at or above this threshold go to stderr
+    -->
+    等于或高于此阈值的日志将输出到标准错误输出（stderr）
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--token string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Bearer token for authentication to the API server
+    -->
+    用于对 API 服务器进行身份认证的持有者令牌
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--user string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    The name of the kubeconfig user to use
+    -->
+    指定使用 kubeconfig 配置文件中的用户名
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--username string</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Username for basic authentication to the API server
+    -->
+    用于 API 服务器的基本身份验证的用户名
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">-v, --v Level</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    number for the log level verbosity
+    -->
+    指定输出日志的日志详细级别
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--version version[=true]</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    Print version information and quit
+    -->
+    打印 kubectl 版本信息并退出
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">--vmodule moduleSpec</td>
+  </tr>
+  <tr>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">
+    <!--
+    comma-separated list of pattern=N settings for file-filtered logging
+    -->
+    以逗号分隔的 pattern=N 设置列表，用于过滤文件的日志记录
+    </td>
+  </tr>
   </tbody>
 </table>
 
