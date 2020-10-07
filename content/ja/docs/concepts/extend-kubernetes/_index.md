@@ -104,7 +104,7 @@ Webhookのモデルでは、Kubernetesは外部のサービスを呼び出しま
 
 カスタムリソースを追加し、KubernetesAPIを拡張する場合、新たに追加されたリソースは常に新しいAPIグループに分類されます。既存のAPIグループを置き換えたり、変更することはできません。APIを追加することは直接、既存のAPI(例、Pod)の振る舞いに影響を与えることは無いですが、APIアクセス拡張の場合、その可能性があります。
 
-### APIアクセス拡張
+### APIアクセス拡張 {#api-access-extensions}
 
 リクエストがKubernetes APIサーバーに到達すると、まず最初に認証が行われ、次に認可、その後、様々なAdmission Controlの対象になります。このフローの詳細は[Kubernetes APIへのアクセスをコントロールする](/docs/reference/access-authn-authz/controlling-access/)を参照して下さい。
 
