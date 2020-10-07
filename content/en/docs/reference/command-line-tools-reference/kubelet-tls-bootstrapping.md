@@ -415,6 +415,17 @@ approve node _serving_ certificates for [security
 reasons](https://github.com/kubernetes/community/pull/1982). To use
 `RotateKubeletServerCertificate` operators need to run a custom approving
 controller, or manually approve the serving certificate requests.
+
+A deployment-specific approval process for kubelet serving certificates should typically only approve CSRs which:
+
+1. are requested by nodes (ensure the `spec.username` field is of the form 
+   `system:node:<nodeName>` and `spec.groups` contains `system:nodes`) 
+2. request usages for a serving certificate (ensure `spec.usages` contains `server auth`, 
+   optionally contains `digital signature` and `key encipherment`, and contains no other usages)
+3. only have IP and DNS subjectAltNames that belong to the requesting node, 
+   and have no URI and Email subjectAltNames (parse the x509 Certificate Signing Request 
+   in `spec.request` to verify `subjectAltNames`)
+
 {{< /note >}}
 
 ## Other authenticating components
