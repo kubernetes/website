@@ -66,7 +66,7 @@ kubectl config use-context my-cluster-name           # デフォルトのコン�
 # basic認証をサポートする新たなユーザーをkubeconfigに追加します
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
-# 現在のコンテキストでkubectlのサブコマンドのネームスペースを永続的に変更します
+# 現在のコンテキストでkubectlのサブコマンドの名前空間を永続的に変更します
 kubectl config set-context --current --namespace=ggckad-s2
 
 # 特定のユーザー名と名前空間を使用してコンテキストを設定します
@@ -141,11 +141,11 @@ EOF
 
 ```bash
 # Getコマンドで基本的な情報を確認します
-kubectl get services                          # 現在のネームスペース上にあるすべてのサービスのリストを表示します
-kubectl get pods --all-namespaces             # すべてのネームスペース上にあるすべてのPodのリストを表示します
-kubectl get pods -o wide                      # 現在のネームスペース上にあるすべてのPodについてより詳細なリストを表示します
+kubectl get services                          # 現在の名前空間上にあるすべてのサービスのリストを表示します
+kubectl get pods --all-namespaces             # すべての名前空間上にあるすべてのPodのリストを表示します
+kubectl get pods -o wide                      # 現在の名前空間上にあるすべてのPodについてより詳細なリストを表示します
 kubectl get deployment my-dep                 # 特定のDeploymentを表示します
-kubectl get pods                              # 現在のネームスペース上にあるすべてのPodのリストを表示します
+kubectl get pods                              # 現在の名前空間上にあるすべてのPodのリストを表示します
 kubectl get pod my-pod -o yaml                # PodのYAMLを表示します
 
 # Describeコマンドで詳細な情報を確認します
@@ -304,8 +304,8 @@ kubectl logs -f my-pod -c my-container              # 複数のコンテナが�
 kubectl logs -f -l name=myLabel --all-containers    # name-myLabelラベルを持つすべてのコンテナのログをストリームで確認します(標準出力)
 kubectl run -i --tty busybox --image=busybox -- sh  # Podをインタラクティブシェルとして実行します
 kubectl run nginx --image=nginx -n 
-mynamespace                                         # 特定のネームスペースでnginx Podを実行します
-kubectl run nginx --image=nginx                    # nginx Podを実行し、マニフェストファイルをpod.yamlという名前で書き込みます
+mynamespace                                         # 特定の名前空間でnginx Podを実行します
+kubectl run nginx --image=nginx                     # nginx Podを実行し、マニフェストファイルをpod.yamlという名前で書き込みます
 --dry-run=client -o yaml > pod.yaml
 kubectl attach my-pod -i                            # 実行中のコンテナに接続します
 kubectl port-forward my-pod 5000:6000               # ローカルマシンのポート5000を、my-podのポート6000に転送します
