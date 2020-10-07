@@ -37,9 +37,10 @@ Um die Kubernetes-Website lokal laufen zu lassen, empfiehlt es sich, ein speziel
 
 > Wenn Sie die Website lieber lokal ohne Docker ausführen möchten, finden Sie weitere Informationen unter [Website lokal mit Hugo ausführen](#Die-Site-lokal-mit-Hugo-ausführen).
 
-Das benötigte Docsy Hugo Theme muss als git submodule installiert werden:
+Das benötigte [Docsy Hugo theme](https://github.com/google/docsy#readme) muss als git submodule installiert werden:
 
 ```
+#Füge das Docsy submodule hinzu
 git submodule update --init --recursive --depth 1
 ```
 
@@ -61,9 +62,13 @@ make container-serve
 
 Hugo-Installationsanweisungen finden Sie in der [offiziellen Hugo-Dokumentation](https://gohugo.io/getting-started/installing/). Stellen Sie sicher, dass Sie die Hugo-Version installieren, die in der Umgebungsvariablen `HUGO_VERSION` in der Datei [`netlify.toml`](netlify.toml#L9) angegeben ist.
 
-Das benötigte Docsy Hugo Theme muss als git submodule installiert werden:
+Das benötigte [Docsy Hugo theme](https://github.com/google/docsy#readme) muss als git submodule installiert werden:
 
 ```
+#Installiere die Abhängigkeiten
+yarn
+
+#Füge das Docsy submodule hinzu
 git submodule update --init --recursive --depth 1
 ```
 
