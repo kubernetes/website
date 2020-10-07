@@ -207,7 +207,7 @@ Pod runs a Container based on the provided Docker image.
 <!--
     {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 -->
-   {{< note >}}有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/user-guide/kubectl-overview/)。{{< /note >}}
+   {{< note >}}有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/reference/kubectl/overview/)。{{< /note >}}
 
 <!--
 ## Create a Service
