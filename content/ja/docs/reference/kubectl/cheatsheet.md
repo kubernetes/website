@@ -305,7 +305,7 @@ kubectl logs -f -l name=myLabel --all-containers    # name-myLabelラベルを�
 kubectl run -i --tty busybox --image=busybox -- sh  # Podをインタラクティブシェルとして実行します
 kubectl run nginx --image=nginx -n 
 mynamespace                                         # 特定のネームスペースでnginx Podを実行します
-kkubectl run nginx --image=nginx                    # nginx Podを実行し、マニフェストファイルをpod.yamlという名前で書き込みます
+kubectl run nginx --image=nginx                    # nginx Podを実行し、マニフェストファイルをpod.yamlという名前で書き込みます
 --dry-run=client -o yaml > pod.yaml
 kubectl attach my-pod -i                            # 実行中のコンテナに接続します
 kubectl port-forward my-pod 5000:6000               # ローカルマシンのポート5000を、my-podのポート6000に転送します
@@ -404,5 +404,4 @@ kubectlのログレベルは、レベルを表す整数が後に続く`-v`また
 * また[kubectlの利用パターン](/docs/reference/kubectl/conventions/)では再利用可能なスクリプトでkubectlを利用する方法を学べます。
 
 * コミュニティ版[kubectlチートシート](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)もご覧ください。
-
 
