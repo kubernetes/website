@@ -12,7 +12,7 @@ Kubernetes is well-known for running scalable workloads. It scales your workload
 
 ## Guaranteed scheduling with controlled cost
 
-[Kubernetes Cluster Autoscaler](https://kubernetes.io/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling) is an excellent tool in the ecosystem which adds more nodes to your cluster when your applications need them. However, cluster autoscaler has some limitations and may not work for all users:
+[Kubernetes Cluster Autoscaler](https://github.com/kubernetes/autoscaler/) is an excellent tool in the ecosystem which adds more nodes to your cluster when your applications need them. However, cluster autoscaler has some limitations and may not work for all users:
 
 - It does not work in physical clusters.
 - Adding more nodes to the cluster costs more.

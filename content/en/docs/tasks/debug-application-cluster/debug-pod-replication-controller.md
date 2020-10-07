@@ -47,7 +47,7 @@ can not schedule your pod. Reasons include:
 You may have exhausted the supply of CPU or Memory in your cluster. In this
 case you can try several things:
 
-* [Add more nodes](/docs/tasks/administer-cluster/cluster-management/#resizing-a-cluster) to the cluster.
+* Add more nodes to the cluster.
 
 * [Terminate unneeded pods](/docs/concepts/workloads/pods/#pod-termination)
   to make room for pending pods.
