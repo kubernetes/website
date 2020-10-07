@@ -173,7 +173,7 @@ kubectl get configmap myconfig \
 # 「node-role.kubernetes.io/master」という名前のラベルを持つ結果を除外します）
 kubectl get node --selector='!node-role.kubernetes.io/master'
 
-# 現在のネームスペースでrunning状態のPodのリストを表示します
+# 現在の名前空間でrunning状態のPodのリストを表示します
 kubectl get pods --field-selector=status.phase=Running
 
 # すべてのノードのExternal IPのリストを表示します
@@ -404,4 +404,3 @@ kubectlのログレベルは、レベルを表す整数が後に続く`-v`また
 * また[kubectlの利用パターン](/docs/reference/kubectl/conventions/)では再利用可能なスクリプトでkubectlを利用する方法を学べます。
 
 * コミュニティ版[kubectlチートシート](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)もご覧ください。
-
