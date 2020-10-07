@@ -29,4 +29,6 @@ RUN mkdir -p /usr/local/src && \
 
 WORKDIR /src
 
+USER hugo:hugo
+
 EXPOSE 1313

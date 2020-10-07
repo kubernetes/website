@@ -31,7 +31,7 @@ Voir aussi [La documentation de mise à niveau HA](/docs/tasks/administer-cluste
 
 {{< caution >}}
 Cette page ne traite pas de l'exécution de votre cluster sur un fournisseur de cloud. Dans un
-environnement Cloud, les approches documentées ici ne fonctionne ni avec des objets de type
+environnement Cloud, les approches documentées ici ne fonctionnent ni avec des objets de type
 load balancer, ni avec des volumes persistants dynamiques.
 {{< /caution >}}
 
@@ -78,7 +78,7 @@ certains comme Weave n'en ont pas besoin. Voir la
 ### Créez un load balancer pour kube-apiserver
 
 {{< note >}}
-Il existe de nombreuses configurations pour les équilibreurs de charge (load balancer).
+Il existe de nombreuses configurations pour les équilibreurs de charge (load balancers).
 L'exemple suivant n'est qu'un exemple. Vos exigences pour votre cluster peuvent nécessiter une configuration différente.
 {{< /note >}}
 
