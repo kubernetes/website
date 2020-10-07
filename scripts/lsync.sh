@@ -3,7 +3,7 @@
 # This script checks if the English version of a page has changed since a localized
 # page has been committed.
 
-if [ "$#" -ne 1 ] ; then
+if [ "$#" -lt 1 ]; then
   echo -e "\nThis script checks if the English version of a page has changed since a " >&2
   echo -e "localized page has been committed.\n" >&2
   echo -e "Usage:\n\t$0 <PATH>\n" >&2
@@ -11,50 +11,70 @@ if [ "$#" -ne 1 ] ; then
   exit 1
 fi
 
-# Check if path exists, and whether it is a directory or a file
-if [ ! -e "$1" ] ; then
-  echo "Path not found: '$1'" >&2
+# Validate paths
+VALID=1
+for ARG in "$@"
+do
+  if printf "%s" "$ARG" | grep -E "^/|^\.\./|^\.\.\$|/\.\./|/\.\.\$"; then
+    printf "%s: Invalid path \"%s\"\n" "$0" "$ARG" >&2
+    VALID=0
+  fi
+done
+if [ $VALID = 0 ]; then
   exit 2
 fi
 
-if [ -d "$1" ] ; then
-  SYNCED=1
-  for f in `find $1 -name "*.md"` ; do
-    EN_VERSION=`echo $f | sed "s/content\/..\//content\/en\//g"`
-    if [ ! -e $EN_VERSION ]; then
-      echo -e "**removed**\t$EN_VERSION"
-      SYNCED=0
+EXITSTATUS=0 # assume success
+for LOCALIZED in "$@"
+do
+  if [ -d "$LOCALIZED" ] ; then
+    IS_DIR=1
+    EXTRA_FLAGS="--stat"
+  else
+    IS_DIR=0
+  fi
+
+  # Try get the English version
+  EN_VERSION="$( printf "%s" "$LOCALIZED" | sed "s/content\/..\//content\/en\//g" )"
+  IS_DIR=0
+  if [ -d "$LOCALIZED" ]; then
+    IS_DIR=1
+  fi
+  if [ $IS_DIR -eq 1 -a ! -e "$EN_VERSION" ]; then
+    printf "Directory \"%s\" has been removed." "${EN_VERSION}" >&2
+    EXITSTATUS=2
+  else
+    if [ -f "$EN_VERSION" ] && ! [ -f "$LOCALIZED" ]; then
+      printf "File \"%s\" is missing from the localization\n" "$LOCALIZED" >&2
+      if [ $EXITSTATUS -lt 2 ]; then
+        EXITSTATUS=1
+      fi
       continue
     fi
 
-    LASTCOMMIT=`git log -n 1 --pretty=format:%h -- $f`
-    git diff --exit-code --numstat $LASTCOMMIT...HEAD $EN_VERSION
-    if [ $? -ne 0 ] ; then
-      SYNCED=0
+    if ! [ -f $EN_VERSION ] && ! [ -f "$LOCALIZED" ]; then
+      printf "File \"%s\" is missing from upstream (English)\n" "$LOCALIZED" >&2
+      continue
     fi
-  done
-  if [ $SYNCED -eq 1 ]; then
-    echo "$1 is still in sync"
-    exit 0
+
+    # Last commit for the localized file
+    LASTCOMMIT="$( git log -n 1 --pretty=format:%h -- "$LOCALIZED" )"
+
+    git diff --exit-code $EXTRA_FLAGS "$LASTCOMMIT...HEAD" -- "${EN_VERSION}"
+
+    if [ "$?" -eq 0 ]; then
+      printf "File \"%s\" is still in sync\n" "$LOCALIZED" >&2
+    else
+      if [ $EXITSTATUS -lt 2 ]; then
+        EXITSTATUS=1
+      fi
+    fi
   fi
-  exit 1
+done
+
+if [ $EXITSTATUS -ne 0 ] && [ "$#" -gt 1 ]; then
+  # multiple arguments listed and at least one is out of sync
+  printf "Synchronization update required\n" >&2
 fi
 
-LOCALIZED="$1"
-
-# Try get the English version
-EN_VERSION=`echo $LOCALIZED | sed "s/content\/..\//content\/en\//g"`
-if [ ! -e $EN_VERSION ]; then
-  echo "$EN_VERSION has been removed."
-  exit 3
-fi
-
-# Last commit for the localized path
-LASTCOMMIT=`git log -n 1 --pretty=format:%h -- $LOCALIZED`
-
-git diff --exit-code $LASTCOMMIT...HEAD $EN_VERSION
-
-if [ "$?" -eq 0 ]; then
-  echo "$LOCALIZED is still in sync"
-  exit 0
-fi
+exit $EXITSTATUS
