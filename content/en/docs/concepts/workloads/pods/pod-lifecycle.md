@@ -314,7 +314,7 @@ to stop.
 
 ### When should you use a startup probe?
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 Startup probes are useful for Pods that have containers that take a long time to
 come into service. Rather than set a long liveness interval, you can configure
