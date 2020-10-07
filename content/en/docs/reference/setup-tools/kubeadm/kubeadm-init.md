@@ -178,7 +178,7 @@ If the flag `--certificate-key` is not passed to `kubeadm init` and
 The following command can be used to generate a new key on demand:
 
 ```shell
-kubeadm alpha certs certificate-key
+kubeadm certs certificate-key
 ```
 
 ### Certificate management with kubeadm
@@ -246,7 +246,7 @@ or use a DNS name or an address of a load balancer.
    nodes. The key can be generated using:
 
    ```shell
-   kubeadm alpha certs certificate-key
+   kubeadm certs certificate-key
    ```
 
 Once the cluster is up, you can grab the admin credentials from the control-plane node

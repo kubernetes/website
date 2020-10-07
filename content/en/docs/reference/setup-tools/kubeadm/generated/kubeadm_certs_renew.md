@@ -5,7 +5,7 @@
 This command is not meant to be run on its own. See list of available subcommands.
 
 ```
-kubeadm alpha certs renew [flags]
+kubeadm certs renew [flags]
 ```
 
 ### Options

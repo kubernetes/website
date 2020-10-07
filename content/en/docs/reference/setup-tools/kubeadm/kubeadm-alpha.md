@@ -1,7 +1,4 @@
 ---
-reviewers:
-- luxas
-- jbeda
 title: kubeadm alpha
 content_type: concept
 weight: 90
@@ -11,62 +8,6 @@ weight: 90
 `kubeadm alpha` provides a preview of a set of features made available for gathering feedback
  from the community. Please try it out and give us feedback!
 {{< /caution >}}
-
-## kubeadm alpha certs {#cmd-certs}
-
-A collection of operations for operating Kubernetes certificates.
-
-{{< tabs name="tab-certs" >}}
-{{< tab name="overview" include="generated/kubeadm_alpha_certs.md" />}}
-{{< /tabs >}}
-
-## kubeadm alpha certs renew {#cmd-certs-renew}
-
-You can renew all Kubernetes certificates using the `all` subcommand or renew them selectively.
-For more details about certificate expiration and renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
-
-{{< tabs name="tab-certs-renew" >}}
-{{< tab name="renew" include="generated/kubeadm_alpha_certs_renew.md" />}}
-{{< tab name="all" include="generated/kubeadm_alpha_certs_renew_all.md" />}}
-{{< tab name="admin.conf" include="generated/kubeadm_alpha_certs_renew_admin.conf.md" />}}
-{{< tab name="apiserver-etcd-client" include="generated/kubeadm_alpha_certs_renew_apiserver-etcd-client.md" />}}
-{{< tab name="apiserver-kubelet-client" include="generated/kubeadm_alpha_certs_renew_apiserver-kubelet-client.md" />}}
-{{< tab name="apiserver" include="generated/kubeadm_alpha_certs_renew_apiserver.md" />}}
-{{< tab name="controller-manager.conf" include="generated/kubeadm_alpha_certs_renew_controller-manager.conf.md" />}}
-{{< tab name="etcd-healthcheck-client" include="generated/kubeadm_alpha_certs_renew_etcd-healthcheck-client.md" />}}
-{{< tab name="etcd-peer" include="generated/kubeadm_alpha_certs_renew_etcd-peer.md" />}}
-{{< tab name="etcd-server" include="generated/kubeadm_alpha_certs_renew_etcd-server.md" />}}
-{{< tab name="front-proxy-client" include="generated/kubeadm_alpha_certs_renew_front-proxy-client.md" />}}
-{{< tab name="scheduler.conf" include="generated/kubeadm_alpha_certs_renew_scheduler.conf.md" />}}
-{{< /tabs >}}
-
-## kubeadm alpha certs certificate-key {#cmd-certs-certificate-key}
-
-This command can be used to generate a new control-plane certificate key.
-The key can be passed as `--certificate-key` to `kubeadm init` and `kubeadm join`
-to enable the automatic copy of certificates when joining additional control-plane nodes.
-
-{{< tabs name="tab-certs-certificate-key" >}}
-{{< tab name="certificate-key" include="generated/kubeadm_alpha_certs_certificate-key.md" />}}
-{{< /tabs >}}
-
-## kubeadm alpha certs generate-csr {#cmd-certs-generate-csr}
-
-This command can be used to generate certificate signing requests (CSRs) which
-can be submitted to a certificate authority (CA) for signing.
-
-{{< tabs name="tab-certs-generate-csr" >}}
-{{< tab name="certificate-generate-csr" include="generated/kubeadm_alpha_certs_generate-csr.md" />}}
-{{< /tabs >}}
-
-## kubeadm alpha certs check-expiration {#cmd-certs-check-expiration}
-
-This command checks expiration for the certificates in the local PKI managed by kubeadm.
-For more details about certificate expiration and renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
-
-{{< tabs name="tab-certs-check-expiration" >}}
-{{< tab name="check-expiration" include="generated/kubeadm_alpha_certs_check-expiration.md" />}}
-{{< /tabs >}}
 
 ## kubeadm alpha kubeconfig user {#cmd-phase-kubeconfig}
 

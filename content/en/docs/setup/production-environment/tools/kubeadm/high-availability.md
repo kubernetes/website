@@ -133,10 +133,10 @@ option. Your cluster requirements may need a different configuration.
       ...
       You can now join any number of control-plane node by running the following command on each as a root:
           kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
-      
+
       Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
       As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
-      
+
       Then you can join any number of worker nodes by running the following on each as root:
           kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
       ```
@@ -155,7 +155,7 @@ option. Your cluster requirements may need a different configuration.
       To generate such a key you can use the following command:
 
       ```sh
-      kubeadm alpha certs certificate-key
+      kubeadm certs certificate-key
       ```
 
     {{< note >}}

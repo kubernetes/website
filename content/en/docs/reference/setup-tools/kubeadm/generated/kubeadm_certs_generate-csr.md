@@ -9,14 +9,14 @@ This command is designed for use in [Kubeadm External CA Mode](https://kubernete
 The PEM encoded signed certificates should then be saved alongside the key files, using ".crt" as the file extension, or in the case of kubeconfig files, the PEM encoded signed certificate should be base64 encoded and added to the kubeconfig file in the "users &gt; user &gt; client-certificate-data" field.
 
 ```
-kubeadm alpha certs generate-csr [flags]
+kubeadm certs generate-csr [flags]
 ```
 
 ### Examples
 
 ```
   # The following command will generate keys and CSRs for all control-plane certificates and kubeconfig files:
-  kubeadm alpha certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s/pki
+  kubeadm certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s/pki
 ```
 
 ### Options
