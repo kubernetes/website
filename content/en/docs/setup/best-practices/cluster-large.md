@@ -45,6 +45,17 @@ Typically you would run one or two control plane instances per failure zone,
 scaling those instances vertically first and then scaling horizontally after reaching
 the point of falling returns to (vertical) scale.
 
+You should run at least one instance per failure zone to provide fault-tolerance. Kubernetes
+nodes do not automatically steer traffic towards control-plane endpoints that are in the
+same failure zone; however, your cloud provider might have its own mechanisms to do this.
+
+For example, using a managed load balancer, you configure the load balancer to send traffic
+that originates from the kubelet and Pods in failure zone _A_, and direct that traffic only
+to the control plane hosts that are also in zone _A_. If a single control-plane host or
+endpoint failure zone _A_ goes offline, that means that all the control-plane traffic for
+nodes in zone _A_ is now being sent between zones. Running multiple control plane hosts in
+each zone makes that outcome less likely.
+
 ### etcd storage
 
 To improve performance of large clusters, you can store Event objects in a separate
@@ -57,15 +68,16 @@ When creating a cluster, you can (using custom tooling):
 
 ## Addon resources
 
-To prevent memory leaks or other resource issues in cluster
-{{< glossary_tooltip text="addon" term_id="addons" >}} from consuming all the resources
-available on a node, Kubernetes sets
-[resource limits](/docs/concepts/configuration/manage-resources-containers/) on addon
-Pods to limit the amount of CPU and memory that they can consume.
+Kubernetes [resource limits](/docs/concepts/configuration/manage-resources-containers/)
+help to minimise the impact of memory leaks and other ways that pods and containers can
+impact on other components. These resource limits can and should apply to
+{{< glossary_tooltip text="addon" term_id="addons" >}} just as they apply to application
+workloads.
 
-For example:
+For example, you can set CPU and memory limits for a logging component:
 
 ```yaml
+  ...
   containers:
   - name: fluentd-cloud-logging
     image: fluent/fluentd-kubernetes-daemonset:v1
@@ -75,10 +87,13 @@ For example:
         memory: 200Mi
 ```
 
-These limits are static and are based on data collected from addons running on
-small clusters. Most addons consume a lot more resources when running on large
-clusters. So, if a large cluster is deployed without adjusting these values, the
-addon(s) may continuously get killed because they keep hitting the limits.
+Addons' default limits are typically based on data collected from experience running
+each addon on small or medium Kubernetes clusters. When running on large
+clusters, addons often consume more of some resources than their default limits.
+If a large cluster is deployed without adjusting these values, the addon(s)
+may continuously get killed because they keep hitting the memory limit.
+Alternatively, the addon may run but with poor performance due to CPU time
+slice restrictions.
 
 To avoid running into cluster addon resource issues, when creating a cluster with
 many nodes, consider the following:
