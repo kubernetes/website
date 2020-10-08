@@ -7,8 +7,8 @@
 # [Embargo Policy](https://git.k8s.io/security/private-distributors-list.md#embargo-policy)
 # and will be removed and replaced if they violate that agreement.
 #
-# DO NOT REPORT SECURITY VULNERABILITIES DIRECTLY TO THESE NAMES, FOLLOW THE
-# INSTRUCTIONS AT https://kubernetes.io/security/
+# DO NOT REPORT ANY SECURITY VULNERABILITIES DIRECTLY TO THESE NAMES, FOLLOW THE
+# INSTRUCTIONS given in this link:- https://kubernetes.io/security/   for reporting any security vulnerabilities.
 
 irvifa
 jimangel
