@@ -985,7 +985,7 @@ Deploymentのセレクターに一致するラベルを持つPodを直接作成�
 `.spec.strategy.type==Recreate`と指定されているとき、既存の全てのPodは新しいPodが作成される前に削除されます。
 
 {{< note >}}
-これは更新のための作成の前にPodを停止する事を保証するだけです。Deploymentを更新する場合、古いリビジョンのPodは全てすぐに停止されます。削除に成功するまでは、新しいリビジョンのPodは作成されません。手動でPodを削除すると、ライフサイクルがReplicasetに制御されているのですぐに置き換えが実施されます（たとえ古いPodがまだ停止中のステータスでも）。Podに"高々この程度の"保証が求めるくらいならば[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)の使用を検討してください。
+これは更新のための作成の前にPodを停止する事を保証するだけです。Deploymentを更新する場合、古いリビジョンのPodは全てすぐに停止されます。削除に成功するまでは、新しいリビジョンのPodは作成されません。手動でPodを削除すると、ライフサイクルがReplicaSetに制御されているのですぐに置き換えが実施されます（たとえ古いPodがまだ停止中のステータスでも）。Podに"高々この程度の"保証を求めるならば[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)の使用を検討してください。
 {{< /note >}}
 
 #### Deploymentのローリングアップデート
