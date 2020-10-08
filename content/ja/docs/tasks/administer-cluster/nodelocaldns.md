@@ -33,11 +33,9 @@ NodeLocal DNSキャッシュは、クラスターノード上でDNSキャッシ�
 
 * DNSクエリーをUDPからTCPにアップグレードすることで、UDPパケットの欠損や、通常30秒(10秒のタイムアウトで3回再試行する)であるDNSのタイムアウトによるテイルレイテンシーを減少させます。NodeLocalキャッシュはUDPのDNSクエリーを待ち受けるため、アプリケーションを変更する必要はありません。
 
-* DNSクエリーに対するノードレベルのメトリクスと可視性があります。
-* Metrics & visibility into dns requests at a node level.
+* DNSクエリーに対するノードレベルのメトリクスと可視性を得られます。
 
-* DNSの不在応答のキャッシュも再度有効にされ、それによりkube-dnsサービスに対するクエリ数を減らします。
-* Negative caching can be re-enabled, thereby reducing number of queries to kube-dns service.
+* DNSの不在応答のキャッシュも再度有効にされ、それによりkube-dnsサービスに対するクエリー数を減らします。
 
 ## アーキテクチャー図
 
