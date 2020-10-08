@@ -6,16 +6,16 @@ weight: 30
 
 <!-- overview -->
 このチュートリアルでは、[Apache Cassandra](http://cassandra.apache.org/)をKubernetes上で実行する方法を紹介します。
-データベースの一種であるCassandraには、データの耐久性(アプリケーションの_状態_)を提供するために永続ストレージが必要です。
+データベースの一種であるCassandraには、データの耐久性(アプリケーションの _状態_)を提供するために永続ストレージが必要です。
 この例では、カスタムのCassandraのseed providerにより、Cassandraクラスターに参加した新しいCassandraインスタンスを検出できるようにします。
 
 *StatefulSet*を利用すると、ステートフルなアプリケーションをKubernetesクラスターにデプロイするのが簡単になります。
 このチュートリアルで使われている機能のより詳しい情報は、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)を参照してください。
 
 {{< note >}}
-CassandraとKubernetesは、ともにクラスターのメンバーを表すために_ノード_という用語を使用しています。このチュートリアルでは、StatefulSetに属するPodはCassandraのノードであり、Cassandraクラスター(_ring_と呼ばれます)のメンバーでもあります。これらのPodがKubernetesクラスター内で実行されるとき、Kubernetesのコントロールプレーンは、PodをKubernetesの{{< glossary_tooltip text="Node" term_id="node" >}}上にスケジュールします。
+CassandraとKubernetesは、ともにクラスターのメンバーを表すために _ノード_ という用語を使用しています。このチュートリアルでは、StatefulSetに属するPodはCassandraのノードであり、Cassandraクラスター( _ring_ と呼ばれます)のメンバーでもあります。これらのPodがKubernetesクラスター内で実行されるとき、Kubernetesのコントロールプレーンは、PodをKubernetesの{{< glossary_tooltip text="Node" term_id="node" >}}上にスケジュールします。
 
-Cassandraノードが開始すると、_シードリスト_を使ってring上の他のノードの検出が始まります。
+Cassandraノードが開始すると、 _シードリスト_ を使ってring上の他のノードの検出が始まります。
 このチュートリアルでは、Kubernetesクラスター内に現れた新しいCassandra Podを検出するカスタムのCassandraのseed providerをデプロイします。
 {{< /note >}}
 
