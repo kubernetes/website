@@ -1,6 +1,7 @@
 ---
 title: kubeadm upgrade phase
 weight: 90
+content_type: concept
 ---
 <!--
 In v1.15.0, kubeadm introduced preliminary support for `kubeadm upgrade node` phases.
@@ -30,16 +31,15 @@ be called on a primary control-plane node.
 {{< tab name="kubelet-config" include="generated/kubeadm_upgrade_node_phase_kubelet-config.md" />}}
 {{< /tabs >}}
 
+## {{% heading "whatsnext" %}}
+
 <!--
-## What's next
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a kubeadm node
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
-
-## 接下来
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导一个 Kubernetes 控制平面节点
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点加入到群集
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 还原 `kubeadm init` 或 `kubeadm join` 命令对主机所做的任何更改
