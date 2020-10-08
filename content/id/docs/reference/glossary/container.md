@@ -2,16 +2,17 @@
 title: Container
 id: container
 date: 2019-06-24
-full_link: /docs/concepts/overview/what-is-kubernetes/#why-containers
+full_link: /id/docs/concepts/overview/what-is-kubernetes/#mengapa-kontainer
 short_description: >
-  Sebuah image yang ringan dan *executable* yang mengandung perangkat lunak and segala *dependency* yang dibutuhkan.
+  Sebuah _image_ yang ringan dan dapat dijalankan yang mengandung perangkat lunak and segala dependensi yang dibutuhkan.
 
-aka: 
+aka:
 tags:
 - fundamental
 - workload
 ---
-Sebuah image yang ringan dan *executable* yang mengandung perangkat lunak and segala *dependency* yang dibutuhkan.
+Sebuah _image_ yang ringan dan dapat dijalankan yang mengandung perangkat lunak and segala dependensi yang dibutuhkan.
 
-<!--more--> 
-Kontainer memisahkan aplikasi dan segala infrastruktur yang digunakan untuk membuat sebuah deployment menjadi lebih mudah pada berbagai environment *cloud provider* yang ada. 
+<!--more-->
+
+Container memisahkan aplikasi dari infrastruktur hos yang digunakan untuk mempermudah penggelaran pada berbagai lingkungan _cloud_ atau OS, dan juga untuk mempermudah penyekalaan.

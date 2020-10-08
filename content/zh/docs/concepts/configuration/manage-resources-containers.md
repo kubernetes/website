@@ -815,7 +815,7 @@ If you want to use project quotas, you should:
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   in the kubelet configuration.
 
-* Ensure that the the root filesystem (or optional runtime filesystem)
+* Ensure that the root filesystem (or optional runtime filesystem)
   has project quotas enabled. All XFS filesystems support project quotas.
   For ext4 filesystems, you need to enable the project quota tracking feature
   while the filesystem is not mounted.
