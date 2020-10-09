@@ -969,7 +969,7 @@ Deploymentのセレクターに一致するラベルを持つPodを直接作成�
 
 #### Deploymentのローリングアップデート
 
-`.spec.strategy.type==RollingUpdate`と指定されているとき、Deploymentは[ローリングアップデート](/docs/tasks/run-application/rolling-update-replication-controller/)によりPodを更新します。ローリングアップデートの処理をコントロールするために`maxUnavailable`と`maxSurge`を指定できます。
+`.spec.strategy.type==RollingUpdate`と指定されているとき、DeploymentはローリングアップデートによりPodを更新します。ローリングアップデートの処理をコントロールするために`maxUnavailable`と`maxSurge`を指定できます。
 
 ##### maxUnavailable
 
@@ -1008,8 +1008,3 @@ Deploymentのリビジョン履歴は、Deploymentが管理するReplicaSetに�
 ### paused
 
 `.spec.paused`はオプションのboolean値で、Deploymentの一時停止と再開のための値です。一時停止されているものと、そうでないものとの違いは、一時停止されているDeploymentはPodTemplateSpecのいかなる変更があってもロールアウトがトリガーされないことです。デフォルトではDeploymentは一時停止していない状態で作成されます。
-
-## Deploymentの代替案
-### kubectl rolling-update
-
-[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)によって、同様の形式でPodとReplicationControllerを更新できます。しかしDeploymentの使用が推奨されます。なぜならDeploymentの作成は宣言的であり、ローリングアップデートが更新された後に過去のリビジョンにロールバックできるなど、いくつかの追加機能があるためです。
