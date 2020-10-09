@@ -135,7 +135,7 @@ See section [specifying your own pod selector](#specifying-your-own-pod-selector
 
 ### Parallel execution for Jobs {#parallel-jobs}
 
-There are three main types of task suitable to run as a Job:
+There are three main types of tasks suitable to run as a Job:
 
 1. Non-parallel Jobs
    - normally, only one Pod is started, unless the Pod fails.
