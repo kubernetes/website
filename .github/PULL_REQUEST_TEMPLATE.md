@@ -19,4 +19,7 @@
  https://kubernetes.io/docs/contribute/new-content/overview/#choose-which-git-branch-to-use
  for advice.
 
+ Use the next release branch, "dev-x.xx", if you're documenting a feature for
+ a release. If applicable, please also include links to k/k and k/enhancement.
+
 -->
