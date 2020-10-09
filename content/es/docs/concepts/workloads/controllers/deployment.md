@@ -109,7 +109,7 @@ Para ver el estado del Deployment, ejecuta el comando `kubectl rollout status de
 
 ```shell
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-deployment.apps/nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 ```
 
 Ejecuta de nuevo el comando `kubectl get deployments` unos segundos más tarde:
@@ -195,7 +195,7 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
 ```
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-deployment.apps/nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 ```
 
 Cuando el despliegue funciona, puede que quieras `obtener` el Deployment:
@@ -803,7 +803,7 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
-deployment.apps/nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 $ echo $?
 0
 ```
