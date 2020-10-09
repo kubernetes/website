@@ -1,5 +1,5 @@
 ---
-title: 知名标签（Label）、注解（Annotation）和 Taints
+title: 知名标签（Label）、注解（Annotation）和 污点（Taint）
 content_type: concept
 weight: 60
 ---
