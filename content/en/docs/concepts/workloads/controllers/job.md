@@ -374,7 +374,7 @@ Here, `W` is the number of work items.
 ### Specifying your own Pod selector
 
 Normally, when you create a Job object, you do not specify `.spec.selector`.
-The system defaulting logic adds this field when the Job is created.
+The system's default logic adds this field when the Job is created.
 It picks a selector value that will not overlap with any other jobs.
 
 However, in some cases, you might need to override this automatically set selector.
