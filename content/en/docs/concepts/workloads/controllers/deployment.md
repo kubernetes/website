@@ -316,7 +316,7 @@ match `.spec.selector` but whose template does not match `.spec.template` are sc
 ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 
 If you update a Deployment while an existing rollout is in progress, the Deployment creates a new ReplicaSet
-as per the update and start scaling that up, and rolls over the ReplicaSet that it was scaling up previously
+as per the update and starts scaling that up, and rolls over the ReplicaSet that it was scaling up previously
  -- it will add it to its list of old ReplicaSets and start scaling it down.
 
 For example, suppose you create a Deployment to create 5 replicas of `nginx:1.14.2`,
