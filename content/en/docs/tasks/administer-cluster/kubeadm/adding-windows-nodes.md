@@ -154,6 +154,10 @@ with elevated permissions (Administrator) on the Windows worker node.
    curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
    .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
    ```
+   {{< note >}}
+   PrepareNode.ps1 will _not_ run succesfully when run from PowerShell ISE. Make
+   sure you start the script from within a standard PowerShell window.
+   {{< /note >}}
 
 1. Run `kubeadm` to join the node
 
