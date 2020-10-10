@@ -28,7 +28,7 @@ Konnectivity 服务为控制平面提供与集群通信的 TCP 级别代理。
 
 The following steps require an egress configuration, for example:
 -->
-##配置 Konnectivity 服务
+## 配置 Konnectivity 服务
 
 例如，以下步骤需要出站流量（Egress）配置：
 
