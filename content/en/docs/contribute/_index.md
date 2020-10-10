@@ -13,6 +13,13 @@ card:
 
 <!-- overview -->
 
+*Kubernetes welcomes improvements from all contributors, new and experienced!*
+
+{{< note >}}
+To learn more about contributing to Kubernetes in general, see the
+[contributor documentation](https://www.kubernetes.dev/docs/).
+{{< /note >}}
+
 This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 
 Kubernetes documentation contributors:
@@ -21,8 +28,6 @@ Kubernetes documentation contributors:
 - Create new content
 - Translate the documentation
 - Manage and publish the documentation parts of the Kubernetes release cycle
-
-Kubernetes documentation welcomes improvements from all contributors, new and experienced!
 
 <!-- body -->
 
