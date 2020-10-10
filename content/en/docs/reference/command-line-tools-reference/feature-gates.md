@@ -148,8 +148,6 @@ different Kubernetes components.
 | `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
 | `SetHostnameAsFQDN` | `false` | Alpha | 1.19 | |
-| `StartupProbe` | `false` | Alpha | 1.16 | 1.17 |
-| `StartupProbe` | `true` | Beta | 1.18 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
 | `Sysctls` | `true` | Beta | 1.11 | |
@@ -277,6 +275,9 @@ different Kubernetes components.
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | 1.15 |
 | `ServiceLoadBalancerFinalizer` | `true` | Beta | 1.16 | 1.16 |
 | `ServiceLoadBalancerFinalizer` | `true` | GA | 1.17 | - |
+| `StartupProbe` | `false` | Alpha | 1.16 | 1.17 |
+| `StartupProbe` | `true` | Beta | 1.18 | 1.19 |
+| `StartupProbe` | `true` | GA | 1.20 | - |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
 | `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
