@@ -12,7 +12,6 @@ tags:
  JSON 或 YAML 格式的 Kubernetes API 对象规范。
 
 <!--
----
 title: Manifest
 id: manifest
 date: 2019-06-28
@@ -22,7 +21,6 @@ short_description: >
 aka:
 tags:
 - fundamental
----
  Specification of a Kubernetes API object in JSON or YAML format.
 -->
 
