@@ -244,7 +244,7 @@ roleRef:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
-# 这个角色绑定允许 "dave" 用户在 "development" 命名空间中有读取 secrets 的权限。 
+# 这个角色绑定允许 "dave" 用户在 "development" 命名空间中有读取 secrets 的权限。
 kind: RoleBinding
 metadata:
   name: read-secrets
@@ -261,7 +261,7 @@ roleRef:
 
 <!--
 Finally, a `ClusterRoleBinding` may be used to grant permission at the cluster level and in all
-namespaces. The following `ClusterRoleBinding` allows any user in the group "manager" to read 
+namespaces. The following `ClusterRoleBinding` allows any user in the group "manager" to read
 secrets in any namespace.
 
 ```yaml
@@ -288,10 +288,10 @@ There are two primary reasons for this restriction:
 1. A binding to a different role is a fundamentally different binding.
 Requiring a binding to be deleted/recreated in order to change the `roleRef`
 ensures the full list of subjects in the binding is intended to be granted
-the new role (as opposed to enabling accidentally modifying just the roleRef 
+the new role (as opposed to enabling accidentally modifying just the roleRef
 without verifying all of the existing subjects should be given the new role's permissions).
 2. Making `roleRef` immutable allows giving `update` permission on an existing binding object
-to a user, which lets them manage the list of subjects, without being able to change the 
+to a user, which lets them manage the list of subjects, without being able to change the
 role that is granted to those subjects.
 
 The `kubectl auth reconcile` command-line utility creates or updates a manifest file containing RBAC objects,
@@ -709,7 +709,7 @@ reserved for Kubernetes system use, and so the admin should ensure
 usernames do not contain this prefix by accident.
 
 Group information in Kubernetes is currently provided by the Authenticator
-modules. Groups, like users, are represented as strings, and that string 
+modules. Groups, like users, are represented as strings, and that string
 has no format requirements, other than that the prefix `system:` is reserved.
 
 [Service Accounts](/docs/tasks/configure-pod-container/configure-service-account/) have usernames with the `system:serviceaccount:` prefix and belong
@@ -721,14 +721,14 @@ to groups with the `system:serviceaccounts:` prefix.
 主体可以是组，用户或者服务账户。
 
 用户是由字符串表示，它们可以是普通的用户名，像 "alice"，或者是
-邮件格式 "bob@example.com"，或者是数字ID。由 Kubernetes 管理员配置[身份认证模块](/docs/reference/access-authn-authz/authentication/)
+邮件格式 "bob@example.com"，或者是数字ID。由 Kubernetes 管理员配置[身份认证模块](/zh/docs/reference/access-authn-authz/authentication/)
 需要的格式。RBAC 鉴权系统不对格式作任何要求，但是前缀 `system:` 是 Kubernetes 系统保留的，
 所以管理员要确保配置的用户名不能出现上述前缀格式。
 
 用户组信息是 Kubernetes 现在提供的一种身份验证模块，与用户一样，对组的字符串没有格式要求，
 只是不能使用保留的前缀 `system:` 。
 
-[服务账号](/docs/tasks/configure-pod-container/configure-service-account/) 的用户名前缀为`system:serviceaccount:`，
+[服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/) 的用户名前缀为`system:serviceaccount:`，
 属于前缀为 `system:serviceaccounts:` 的用户组。
 
 <!--
@@ -918,7 +918,7 @@ and updates default cluster role bindings with any missing subjects.
 This allows the cluster to repair accidental modifications,
 and to keep roles and rolebindings up-to-date as permissions and subjects change in new releases.
 
-To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate` 
+To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate`
 annotation on a default cluster role or rolebinding to `false`.
 Be aware that missing default permissions and subjects can result in non-functional clusters.
 
@@ -1321,7 +1321,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 The [Kubernetes controller manager](/docs/admin/kube-controller-manager/) runs core control loops.
 When invoked with `--use-service-account-credentials`, each control loop is started using a separate service account.
 Corresponding roles exist for each control loop, prefixed with `system:controller:`.
-If the controller manager is not started with `--use-service-account-credentials`, 
+If the controller manager is not started with `--use-service-account-credentials`,
 it runs all control loops using its own credential, which must be granted all the relevant roles.
 These roles include:
 
@@ -1355,7 +1355,7 @@ These roles include:
 -->
 ### 控制器角色   {#controller-roles}
 
-[Kubernetes 控制器管理器](/docs/admin/kube-controller-manager/) 运行核心控制环。
+[Kubernetes 控制器管理器](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/) 运行核心控制环。
 当使用 `--use-service-account-credentials` 参数时, 每个控制环使用一个单独的服务账号启动。
 每个控制环都有相应的、前缀为 `system:controller:` 的角色。
 如果控制管理器启动时未设置 `--use-service-account-credentials`，
@@ -1410,7 +1410,7 @@ containing that permission. To allow a user to create/update roles:
     * implicitly, by giving them those permissions (if they attempt to create or modify a `Role` or `ClusterRole` with permissions they themselves have not been granted, the API request will be forbidden)
     * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them permission to perform the `escalate` verb on `roles` or `clusterroles` resources in the `rbac.authorization.k8s.io` API group (Kubernetes 1.12 and newer)
 
-A user can only create/update a role binding if they already have all the permissions contained in the referenced role 
+A user can only create/update a role binding if they already have all the permissions contained in the referenced role
 (at the same scope as the role binding) *or* if they've been given explicit permission to perform the `bind` verb on the referenced role.
 For example, if "user-1" does not have the ability to list secrets cluster-wide, they cannot create a `ClusterRoleBinding`
 to a role that grants that permission. To allow a user to create/update role bindings:
@@ -1422,7 +1422,7 @@ to a role that grants that permission. To allow a user to create/update role bin
 -->
 ## 初始化与预防权限升级
 
-RBAC API 会阻止用户通过编辑角色或者角色绑定来升级权限。 
+RBAC API 会阻止用户通过编辑角色或者角色绑定来升级权限。
 由于这一点是在 API 级别实现的，所以在 RBAC 鉴权器（RBAC authorizer）未启用的状态下依然可以正常工作。
 
 用户只有在符合下列条件之一的情况下，才能创建/更新角色:
@@ -1465,6 +1465,7 @@ rules:
 - apiGroups: ["rbac.authorization.k8s.io"]
   resources: ["clusterroles"]
   verbs: ["bind"]
+  # omit resourceNames to allow binding any ClusterRole
   resourceNames: ["admin","edit","view"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -1502,6 +1503,7 @@ rules:
 - apiGroups: ["rbac.authorization.k8s.io"]
   resources: ["clusterroles"]
   verbs: ["bind"]
+  # 省略 resourceNames 则允许绑定任何 ClusterRole
   resourceNames: ["admin","edit","view"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -2078,7 +2080,7 @@ in the server logs, you can remove the ABAC authorizer.
 ### 平行鉴权
 
 同时运行 RBAC 和 ABAC 鉴权模式, 并指定包含
-[现有的 ABAC 策略](/docs/reference/access-authn-authz/abac/#policy-file-format) 的策略文件：
+[现有的 ABAC 策略](/zh/docs/reference/access-authn-authz/abac/#policy-file-format) 的策略文件：
 
 ```
 --authorization-mode=RBAC,ABAC --authorization-policy-file=mypolicy.json
@@ -2134,5 +2136,3 @@ kubectl create clusterrolebinding permissive-binding \
   --group=system:serviceaccounts
 ```
 {{< /warning >}}
-
-

@@ -405,8 +405,8 @@ behavior:
       periodSeconds: 60
 ```
 
-To allow a final drop of 5 pods, another policy can be added and a selection
-strategy of minimum:
+To allow a final drop of 5 pods, another policy can be added with a selection
+strategy of maximum:
 
 ```yaml
 behavior:

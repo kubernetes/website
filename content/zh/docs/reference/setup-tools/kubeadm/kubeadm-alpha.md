@@ -1,5 +1,6 @@
 ---
 title: kubeadm alpha
+content_type: concept
 weight: 90
 ---
 <!--
@@ -9,6 +10,7 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm alpha
+content_type: concept
 weight: 90
 ---
 -->
@@ -84,15 +86,13 @@ The `user` subcommand can be used for the creation of kubeconfig files for addit
 ## kubeadm alpha kubelet config {#cmd-phase-kubelet}
 
 <!--
-Use the following commands to either download the kubelet configuration from the cluster or
-to enable the DynamicKubeletConfiguration feature.
+Use the following command to enable the DynamicKubeletConfiguration feature.
 -->
-使用以下命令从集群中下载 kubelet 配置或启用 DynamicKubeletConfiguration 功能。
+使用以下命令启用 DynamicKubeletConfiguration 功能。
 
 {{< tabs name="tab-kubelet" >}}
 {{< tab name="kubelet" include="generated/kubeadm_alpha_kubelet.md" />}}
-{{< tab name="download" include="generated/kubeadm_alpha_kubelet_config_download.md" />}}
-{{< tab name="enable-dynamic" include="generated/kubeadm_alpha_kubelet_config_download.md" />}}
+{{< tab name="enable-dynamic" include="generated/kubeadm_alpha_kubelet_config_enable-dynamic.md" />}}
 {{< /tabs >}}
 
 
@@ -113,11 +113,8 @@ The subcommand `pivot` can be used to convert a static Pod-hosted control plane 
 {{< tab name="pivot" include="generated/kubeadm_alpha_selfhosting_pivot.md" />}}
 {{< /tabs >}}
 
+## {{% heading "whatsnext" %}}
 
-<!--
-## What's next
--->
-## 接下来
 <!--
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster

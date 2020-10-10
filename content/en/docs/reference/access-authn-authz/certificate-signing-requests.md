@@ -31,6 +31,7 @@ be issued, based on a signing request.
 The CertificateSigningRequest object includes a PEM-encoded PKCS#10 signing request in
 the `spec.request` field. The CertificateSigningRequest denotes the _signer_ (the
 recipient that the request is being made to) using the `spec.signerName` field.
+Note that `spec.signerName` is a required key after api version `certificates.k8s.io/v1`.
 
 Once created, a CertificateSigningRequest must be approved before it can be signed.
 Depending on the signer selected, a CertificateSigningRequest may be automatically approved
@@ -106,8 +107,9 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
     1. Expiration/certificate lifetime - minimum of CSR signer or request.
     1. CA bit allowed/disallowed - not allowed.
 
-1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some distributions may honor these as client
-  certs, but that behavior is not standard Kubernetes behavior.
+1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some third-party distributions of Kubernetes
+  may honor client certificates signed by it. The stable CertificateSigningRequest API (version `certificates.k8s.io/v1` and later)
+  does not allow to set the `signerName` as `kubernetes.io/legacy-unknown`.
   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
     1. Trust distribution: None.  There is no standard trust or distribution for this signer in a Kubernetes cluster.
     1. Permitted subjects - any
@@ -227,7 +229,7 @@ rules:
 
 ## Normal User
 
-There are a few steps are required in order to get normal user to be able to authenticate and invoke API. First, this user must have certificate issued by the Kubernetes Cluster, and then present that Certificate into the API call as the Certificate Header, or through the kubectl.
+A few steps are required in order to get normal user to be able to authenticate and invoke an API. First, this user must have certificate issued by the Kubernetes Cluster, and then present that Certificate to the API call as the Certificate Header or through the kubectl.
 
 ### Create Private Key
 
@@ -252,6 +254,7 @@ spec:
   groups:
   - system:authenticated
   request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZVzVuWld4aE1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQTByczhJTHRHdTYxakx2dHhWTTJSVlRWMDNHWlJTWWw0dWluVWo4RElaWjBOCnR2MUZtRVFSd3VoaUZsOFEzcWl0Qm0wMUFSMkNJVXBGd2ZzSjZ4MXF3ckJzVkhZbGlBNVhwRVpZM3ExcGswSDQKM3Z3aGJlK1o2MVNrVHF5SVBYUUwrTWM5T1Nsbm0xb0R2N0NtSkZNMUlMRVI3QTVGZnZKOEdFRjJ6dHBoaUlFMwpub1dtdHNZb3JuT2wzc2lHQ2ZGZzR4Zmd4eW8ybmlneFNVekl1bXNnVm9PM2ttT0x1RVF6cXpkakJ3TFJXbWlECklmMXBMWnoyalVnald4UkhCM1gyWnVVV1d1T09PZnpXM01LaE8ybHEvZi9DdS8wYk83c0x0MCt3U2ZMSU91TFcKcW90blZtRmxMMytqTy82WDNDKzBERHk5aUtwbXJjVDBnWGZLemE1dHJRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBR05WdmVIOGR4ZzNvK21VeVRkbmFjVmQ1N24zSkExdnZEU1JWREkyQTZ1eXN3ZFp1L1BVCkkwZXpZWFV0RVNnSk1IRmQycVVNMjNuNVJsSXJ3R0xuUXFISUh5VStWWHhsdnZsRnpNOVpEWllSTmU3QlJvYXgKQVlEdUI5STZXT3FYbkFvczFqRmxNUG5NbFpqdU5kSGxpT1BjTU1oNndLaTZzZFhpVStHYTJ2RUVLY01jSVUyRgpvU2djUWdMYTk0aEpacGk3ZnNMdm1OQUxoT045UHdNMGM1dVJVejV4T0dGMUtCbWRSeEgvbUNOS2JKYjFRQm1HCkkwYitEUEdaTktXTU0xMzhIQXdoV0tkNjVoVHdYOWl4V3ZHMkh4TG1WQzg0L1BHT0tWQW9FNkpsYWFHdTlQVmkKdjlOSjVaZlZrcXdCd0hKbzZXdk9xVlA3SVFjZmg3d0drWm89Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+  signerName: kubernetes.io/kube-apiserver-client
   usages:
   - client auth
 EOF
