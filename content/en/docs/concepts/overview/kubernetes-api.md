@@ -40,36 +40,14 @@ Complete API details are documented using [OpenAPI](https://www.openapis.org/).
 The Kubernetes API server serves an OpenAPI spec via the `/openapi/v2` endpoint.
 You can request the response format using request headers as follows:
 
-<table>
-  <caption style="display:none">Valid request header values for OpenAPI v2 queries</caption>
-  <thead>
-     <tr>
-        <th>Header</th>
-        <th style="min-width: 50%;">Possible values</th>
-        <th>Notes</th>
-     </tr>
-  </thead>
-  <tbody>
-     <tr>
-        <td><code>Accept-Encoding</code></td>
-        <td><code>gzip</code></td>
-        <td><em>not supplying this header is also acceptable</em></td>
-     </tr>
-     <tr>
-        <td rowspan="3"><code>Accept</code></td>
-        <td><code>application/com.github.proto-openapi.spec.v2@v1.0+protobuf</code></td>
-        <td><em>mainly for intra-cluster use</em></td>
-     </tr>
-     <tr>
-        <td><code>application/json</code></td>
-        <td><em>default</em></td>
-     </tr>
-     <tr>
-        <td><code>*</code></td>
-        <td><em>serves </em><code>application/json</code></td>
-     </tr>
-  </tbody>
-</table>
+{{< table caption="Valid request header values for OpenAPI v2 queries" >}}
+Header | Possible values  | Notes
+:---------|:------------|:-------
+`Accept-Encoding` | `gzip`  | *not supplying this header is also acceptable*
+`Accept` | `application/com\.github\.proto\-openapi\.spec\.v2@v1\.0\+protobuf` | *mainly for intra\-cluster use*
+ | | `application/json` | *default*
+ | | `*` | *serves* `application/json`
+{{< /table >}}
 
 Kubernetes implements an alternative Protobuf based serialization format that
 is primarily intended for intra-cluster communication. For more information
