@@ -39,7 +39,7 @@ make container-image
 Una vez tenga la imagen construida, puede levantar el sitio web ejecutando:
 
 ```bash
-make container-serve
+make a best container-serve
 ```
 
 Abra su navegador y visite http://localhost:1313 para acceder a su copia local del sitio. A medida que vaya haciendo cambios en el código fuente, Hugo irá actualizando la página y forzará la actualización en el navegador.
