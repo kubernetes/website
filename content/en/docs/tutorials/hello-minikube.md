@@ -16,11 +16,12 @@ card:
 <!-- overview -->
 
 This tutorial shows you how to run a sample app
-on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
+on Kubernetes using [minikube](/docs/setup/learning-environment/minikube) and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment.
 
 {{< note >}}
-You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
+You can also follow this tutorial if you've installed minikube locally.
+See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
 {{< /note >}}
 
 
@@ -28,7 +29,7 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 ## {{% heading "objectives" %}}
 
 
-* Deploy a sample application to Minikube.
+* Deploy a sample application to minikube.
 * Run the app.
 * View application logs.
 
@@ -43,14 +44,14 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
 <!-- lessoncontent -->
 
-## Create a Minikube cluster
+## Create a minikube cluster
 
 1. Click **Launch Terminal**
 
     {{< kat-button >}}
 
 {{< note >}}
-    If you installed Minikube locally, run `minikube start`.
+If you installed minikube locally, run `minikube start`.
 {{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
@@ -152,7 +153,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     ```
 
     On cloud providers that support load balancers,
-    an external IP address would be provisioned to access the Service. On Minikube,
+    an external IP address would be provisioned to access the Service. On minikube,
     the `LoadBalancer` type makes the Service accessible through the `minikube service`
     command.
 
@@ -170,7 +171,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 ## Enable addons
 
-Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
+The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
 
 1. List the currently supported addons:
 
