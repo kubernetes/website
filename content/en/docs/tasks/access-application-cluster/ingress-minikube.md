@@ -132,12 +132,12 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Create `example-ingress.yaml` from the following file:
 
-  {{< codenew file="ingress/example-ingress.yaml" >}}
+  {{< codenew file="service/networking/example-ingress.yaml" >}}
 
 1. Create the Ingress resource by running the following command:
 
     ```shell
-    kubectl apply -f https://k8s.io/examples/ingress/example-ingress.yaml
+    kubectl apply -f https://k8s.io/examples/service/networking/example-ingress.yaml
     ```
 
     Output:
