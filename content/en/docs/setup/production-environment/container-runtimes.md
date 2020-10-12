@@ -18,9 +18,9 @@ what is involved and describes related tasks for setting up nodes.
 This page lists details for using several common container runtimes with
 Kubernetes, on Linux:
 
-- [Docker](#docker)
-- [CRI-O](#cri-o)
 - [containerd](#containerd)
+- [CRI-O](#cri-o)
+- [Docker](#docker)
 
 {{< note >}}
 For other operating systems, look for documentation specific to your platform.
@@ -59,136 +59,147 @@ configuration, or reinstall it using automation.
 
 ## Container runtimes
 
-### Docker
+{{% thirdparty-content %}}
 
-On each of your nodes, install Docker CE.
+### containerd
 
-The Kubernetes release notes list which versions of Docker are compatible
-with that version of Kubernetes.
+This section contains the necessary steps to use `containerd` as CRI runtime.
 
-Use the following commands to install Docker on your system:
+Use the following commands to install Containerd on your system:
 
-{{< tabs name="tab-cri-docker-installation" >}}
-{{% tab name="Ubuntu 16.04+" %}}
+Install and configure prerequisites:
 
 ```shell
-# (Install Docker CE)
-## Set up the repository:
+cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# Setup required sysctl params, these persist across reboots.
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
+
+sudo sysctl --system
+```
+
+Install containerd:
+
+{{< tabs name="tab-cri-containerd-installation" >}}
+{{% tab name="Ubuntu 16.04" %}}
+
+```shell
+# (Install containerd)
+## Set up the repository
 ### Install packages to allow apt to use a repository over HTTPS
-sudo apt-get update && sudo apt-get install -y \
-  apt-transport-https ca-certificates curl software-properties-common gnupg2
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 ```
 
 ```shell
-# Add Docker's official GPG key:
+## Add Docker's official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/docker.gpg -
 ```
 
 ```shell
-# Add the Docker apt repository:
+## Add Docker apt repository.
 sudo add-apt-repository \
-  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) \
-  stable"
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
 ```
 
 ```shell
-# Install Docker CE
-sudo apt-get update && sudo apt-get install -y \
-  containerd.io=1.2.13-2 \
-  docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
+## Install containerd
+sudo apt-get update && sudo apt-get install -y containerd.io
 ```
 
 ```shell
-# Set up the Docker daemon
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
+# Configure containerd
+sudo mkdir -p /etc/containerd
+sudo containerd config default > /etc/containerd/config.toml
 ```
 
 ```shell
-sudo mkdir -p /etc/systemd/system/docker.service.d
-```
-
-```shell
-# Restart Docker
-sudo systemctl daemon-reload
-sudo systemctl restart docker
+# Restart containerd
+sudo systemctl restart containerd
 ```
 {{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
-# (Install Docker CE)
+# (Install containerd)
 ## Set up the repository
 ### Install required packages
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 ```shell
-## Add the Docker repository
-sudo yum-config-manager --add-repo \
-  https://download.docker.com/linux/centos/docker-ce.repo
+## Add docker repository
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
 ```shell
-# Install Docker CE
-sudo yum update -y && sudo yum install -y \
-  containerd.io-1.2.13 \
-  docker-ce-19.03.11 \
-  docker-ce-cli-19.03.11
+## Install containerd
+sudo yum update -y && sudo yum install -y containerd.io
 ```
 
 ```shell
-## Create /etc/docker
-sudo mkdir /etc/docker
+## Configure containerd
+sudo mkdir -p /etc/containerd
+sudo containerd config default > /etc/containerd/config.toml
 ```
 
 ```shell
-# Set up the Docker daemon
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2",
-  "storage-opts": [
-    "overlay2.override_kernel_check=true"
-  ]
-}
-EOF
+# Restart containerd
+sudo systemctl restart containerd
+```
+{{% /tab %}}
+{{% tab name="Windows (PowerShell)" %}}
+```powershell
+# (Install containerd)
+# download containerd
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
 ```
 
-```shell
-sudo mkdir -p /etc/systemd/system/docker.service.d
+```powershell
+# extract and configure
+Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
+cd $Env:ProgramFiles\containerd\
+.\containerd.exe config default | Out-File config.toml -Encoding ascii
+
+# review the configuration. depending on setup you may want to adjust:
+# - the sandbox_image (kubernetes pause image)
+# - cni bin_dir and conf_dir locations
+Get-Content config.toml
 ```
 
-```shell
-# Restart Docker
-sudo systemctl daemon-reload
-sudo systemctl restart docker
+```powershell
+# start containerd
+.\containerd.exe --register-service
+Start-Service containerd
 ```
 {{% /tab %}}
 {{< /tabs >}}
 
-If you want the `docker` service to start on boot, run the following command:
+#### systemd
 
-```shell
-sudo systemctl enable docker
+To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
+
+```
+[plugins.cri]
+systemd_cgroup = true
 ```
 
-Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
-for more information.
+When using kubeadm, manually configure the
+[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 
 ### CRI-O
 
@@ -346,145 +357,136 @@ sudo systemctl start crio
 Refer to the [CRI-O installation guide](https://github.com/kubernetes-sigs/cri-o#getting-started)
 for more information.
 
-### containerd
 
-This section contains the necessary steps to use `containerd` as CRI runtime.
 
-Use the following commands to install Containerd on your system:
+### Docker
 
-Install and configure prerequisites:
+On each of your nodes, install Docker CE.
 
-```shell
-cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
-overlay
-br_netfilter
-EOF
+The Kubernetes release notes list which versions of Docker are compatible
+with that version of Kubernetes.
 
-sudo modprobe overlay
-sudo modprobe br_netfilter
+Use the following commands to install Docker on your system:
 
-# Setup required sysctl params, these persist across reboots.
-cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-sudo sysctl --system
-```
-
-Install containerd:
-
-{{< tabs name="tab-cri-containerd-installation" >}}
-{{% tab name="Ubuntu 16.04" %}}
+{{< tabs name="tab-cri-docker-installation" >}}
+{{% tab name="Ubuntu 16.04+" %}}
 
 ```shell
-# (Install containerd)
-## Set up the repository
+# (Install Docker CE)
+## Set up the repository:
 ### Install packages to allow apt to use a repository over HTTPS
-sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+sudo apt-get update && sudo apt-get install -y \
+  apt-transport-https ca-certificates curl software-properties-common gnupg2
 ```
 
 ```shell
-## Add Docker's official GPG key
+# Add Docker's official GPG key:
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/docker.gpg -
 ```
 
 ```shell
-## Add Docker apt repository.
+# Add the Docker apt repository:
 sudo add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
+  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) \
+  stable"
 ```
 
 ```shell
-## Install containerd
-sudo apt-get update && sudo apt-get install -y containerd.io
+# Install Docker CE
+sudo apt-get update && sudo apt-get install -y \
+  containerd.io=1.2.13-2 \
+  docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
 ```
 
 ```shell
-# Configure containerd
-sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+# Set up the Docker daemon
+cat <<EOF | sudo tee /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
 ```
 
 ```shell
-# Restart containerd
-sudo systemctl restart containerd
+sudo mkdir -p /etc/systemd/system/docker.service.d
+```
+
+```shell
+# Restart Docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 {{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
-# (Install containerd)
+# (Install Docker CE)
 ## Set up the repository
 ### Install required packages
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 ```shell
-## Add docker repository
-sudo yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
+## Add the Docker repository
+sudo yum-config-manager --add-repo \
+  https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
 ```shell
-## Install containerd
-sudo yum update -y && sudo yum install -y containerd.io
+# Install Docker CE
+sudo yum update -y && sudo yum install -y \
+  containerd.io-1.2.13 \
+  docker-ce-19.03.11 \
+  docker-ce-cli-19.03.11
 ```
 
 ```shell
-## Configure containerd
-sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+## Create /etc/docker
+sudo mkdir /etc/docker
 ```
 
 ```shell
-# Restart containerd
-sudo systemctl restart containerd
-```
-{{% /tab %}}
-{{% tab name="Windows (PowerShell)" %}}
-```powershell
-# (Install containerd)
-# download containerd
-cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
-cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
-```
-
-```powershell
-# extract and configure
-Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
-cd $Env:ProgramFiles\containerd\
-.\containerd.exe config default | Out-File config.toml -Encoding ascii
-
-# review the configuration. depending on setup you may want to adjust:
-# - the sandbox_image (kubernetes pause image)
-# - cni bin_dir and conf_dir locations
-Get-Content config.toml
+# Set up the Docker daemon
+cat <<EOF | sudo tee /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2",
+  "storage-opts": [
+    "overlay2.override_kernel_check=true"
+  ]
+}
+EOF
 ```
 
-```powershell
-# start containerd
-.\containerd.exe --register-service
-Start-Service containerd
+```shell
+sudo mkdir -p /etc/systemd/system/docker.service.d
+```
+
+```shell
+# Restart Docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 {{% /tab %}}
 {{< /tabs >}}
 
-#### systemd
+If you want the `docker` service to start on boot, run the following command:
 
-To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc` set
-
-```
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-  ...
-  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-    SystemdCgroup = true
+```shell
+sudo systemctl enable docker
 ```
 
-When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
+Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
+for more information.
 
