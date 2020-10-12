@@ -130,7 +130,7 @@ Adding an API does not directly let you affect the behavior of existing APIs (e.
 
 ### API Access Extensions
 
-When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) for more on this flow.
+When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/) for more on this flow.
 
 Each of these steps offers extension points.
 

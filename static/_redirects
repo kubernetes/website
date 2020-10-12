@@ -69,6 +69,7 @@
 
 /docs/api-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
 /docs/reference/using-api/api-overview/     /docs/reference/using-api/ 301
+/docs/reference/access-authn-authz/controlling-access/   /docs/concepts/security/controlling-access/ 301
 
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
@@ -449,7 +450,8 @@
 /editdocs/     /docs/contribute/     301
 /docs/home/editdocs/  /docs/contribute/ 301
 
-/docs/admin/accessing-the-api/     /docs/reference/access-authn-authz/controlling-access/ 301
+
+/docs/admin/accessing-the-api/     /docs/concepts/overview/kubernetes-api/ 301
 /docs/admin/admission-controllers/     /docs/reference/access-authn-authz/admission-controllers/ 301
 /docs/admin/authentication/     /docs/reference/access-authn-authz/authentication/ 301
 /docs/admin/bootstrap-tokens/     /docs/reference/access-authn-authz/bootstrap-tokens/ 301

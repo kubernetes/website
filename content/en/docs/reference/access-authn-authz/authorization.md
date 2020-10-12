@@ -17,7 +17,7 @@ policies using the supported authorization modules.
 <!-- body -->
 In Kubernetes, you must be authenticated (logged in) before your request can be
 authorized (granted permission to access). For information about authentication,
-see [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/).
+see [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/).
 
 Kubernetes expects attributes that are common to REST API requests. This means
 that Kubernetes authorization works with existing organization-wide or
