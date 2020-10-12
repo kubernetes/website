@@ -182,12 +182,9 @@ Verify the [local preview](http://localhost:1313/docs/reference/generated/kubern
 
 ```shell
 cd <web-base>
-make docker-serve
+git submodule update --init --recursive --depth 1 # if not already done
+make container-serve
 ```
-
-{{< note >}}
-The use of `make docker-serve` is deprecated. Please use `make container-serve` instead.
-{{< /note >}}
 
 ## Commit the changes
 
