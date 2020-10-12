@@ -7,62 +7,64 @@ content_type: concept
 weight: 10
 ---
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.6" state="stable" >}}
-To run containers in Pods, Kubernetes uses a container runtime. Here are
-the installation instructions for various runtimes.
 
-
+You need to install a
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+into each node in the cluster so that Pods can run there. This page outlines
+what is involved and describes related tasks for setting up nodes.
 
 <!-- body -->
 
+This page lists details for using several common container runtimes with
+Kubernetes, on Linux:
 
-{{< caution >}}
-A flaw was found in the way runc handled system file descriptors when running containers.
-A malicious container could use this flaw to overwrite contents of the runc binary and
-consequently run arbitrary commands on the container host system.
-
-Please refer to [CVE-2019-5736](https://access.redhat.com/security/cve/cve-2019-5736) for more
-information about the issue.
-{{< /caution >}}
-
-### Applicability
+- [Docker](#docker)
+- [CRI-O](#cri-o)
+- [containerd](#containerd)
 
 {{< note >}}
-This document is written for users installing CRI onto Linux. For other operating
-systems, look for documentation specific to your platform.
+For other operating systems, look for documentation specific to your platform.
 {{< /note >}}
 
-### Cgroup drivers
-
-When systemd is chosen as the init system for a Linux distribution, the init process generates
-and consumes a root control group (`cgroup`) and acts as a cgroup manager. Systemd has a tight
-integration with cgroups and will allocate cgroups per process. It's possible to configure your
-container runtime and the kubelet to use `cgroupfs`. Using `cgroupfs` alongside systemd means
-that there will be two different cgroup managers.
+## Cgroup drivers
 
 Control groups are used to constrain resources that are allocated to processes.
-A single cgroup manager will simplify the view of what resources are being allocated
-and will by default have a more consistent view of the available and in-use resources. When we have
-two managers we end up with two views of those resources. We have seen cases in the field
-where nodes that are configured to use `cgroupfs` for the kubelet and Docker, and `systemd`
-for the rest of the processes running on the node becomes unstable under resource pressure.
+
+When [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is chosen as the init
+system for a Linux distribution, the init process generates and consumes a root control group
+(`cgroup`) and acts as a cgroup manager.
+Systemd has a tight integration with cgroups and allocates a cgroup per systemd unit. It's possible
+to configure your container runtime and the kubelet to use `cgroupfs`. Using `cgroupfs` alongside
+systemd means that there will be two different cgroup managers.
+
+A single cgroup manager simplifies the view of what resources are being allocated
+and will by default have a more consistent view of the available and in-use resources.
+When there are two cgroup managers on a system, you end up with two views of those resources.
+In the field, people have reported cases where nodes that are configured to use `cgroupfs`
+for the kubelet and Docker, but `systemd` for the rest of the processes, become unstable under
+resource pressure.
 
 Changing the settings such that your container runtime and kubelet use `systemd` as the cgroup driver
-stabilized the system. Please note the `native.cgroupdriver=systemd` option in the Docker setup below.
+stabilized the system. To configure this for Docker, set `native.cgroupdriver=systemd`.
 
 {{< caution >}}
-Changing the cgroup driver of a Node that has joined a cluster is highly unrecommended.
+Changing the cgroup driver of a Node that has joined a cluster is strongly *not* recommended.  
 If the kubelet has created Pods using the semantics of one cgroup driver, changing the container
-runtime to another cgroup driver can cause errors when trying to re-create the PodSandbox
-for such existing Pods. Restarting the kubelet may not solve such errors. The recommendation
-is to drain the Node from its workloads, remove it from the cluster and re-join it.
+runtime to another cgroup driver can cause errors when trying to re-create the Pod sandbox
+for such existing Pods. Restarting the kubelet may not solve such errors.
+
+If you have automation that makes it feasible, replace the node with another using the updated
+configuration, or reinstall it using automation.
 {{< /caution >}}
 
-## Docker
+## Container runtimes
 
-On each of your machines, install Docker.
-Version 19.03.11 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
-Keep track of the latest verified Docker version in the Kubernetes release notes.
+### Docker
+
+On each of your nodes, install Docker CE.
+
+The Kubernetes release notes list which versions of Docker are compatible
+with that version of Kubernetes.
 
 Use the following commands to install Docker on your system:
 
@@ -179,7 +181,7 @@ sudo systemctl restart docker
 {{% /tab %}}
 {{< /tabs >}}
 
-If you want the docker service to start on boot, run the following command:
+If you want the `docker` service to start on boot, run the following command:
 
 ```shell
 sudo systemctl enable docker
@@ -188,9 +190,9 @@ sudo systemctl enable docker
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
 for more information.
 
-## CRI-O
+### CRI-O
 
-This section contains the necessary steps to install `CRI-O` as CRI runtime.
+This section contains the necessary steps to install CRI-O as a container runtime.
 
 Use the following commands to install CRI-O on your system:
 
@@ -199,7 +201,7 @@ The CRI-O major and minor versions must match the Kubernetes major and minor ver
 For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o).
 {{< /note >}}
 
-### Prerequisites
+Install and configure prerequisites:
 
 ```shell
 sudo modprobe overlay
@@ -218,9 +220,10 @@ sudo sysctl --system
 {{< tabs name="tab-cri-cri-o-installation" >}}
 {{% tab name="Debian" %}}
 
-To install CRI-O on the following operating systems, set the environment variable $OS to the appropriate field in the following table:
+To install CRI-O on the following operating systems, set the environment variable `OS`
+to the appropriate value from the following table:
 
-| Operating system | $OS               |
+| Operating system | `$OS`             |
 | ---------------- | ----------------- |
 | Debian Unstable  | `Debian_Unstable` |
 | Debian Testing   | `Debian_Testing`  |
@@ -252,9 +255,9 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="Ubuntu" %}}
 
-To install on the following operating systems, set the environment variable $OS to the appropriate field in the following table:
+To install on the following operating systems, set the environment variable `OS` to the appropriate field in the following table:
 
-| Operating system | $OS               |
+| Operating system | `$OS`             |
 | ---------------- | ----------------- |
 | Ubuntu 20.04     | `xUbuntu_20.04`   |
 | Ubuntu 19.10     | `xUbuntu_19.10`   |
@@ -283,9 +286,9 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="CentOS" %}}
 
-To install on the following operating systems, set the environment variable $OS to the appropriate field in the following table:
+To install on the following operating systems, set the environment variable `OS` to the appropriate field in the following table:
 
-| Operating system | $OS               |
+| Operating system | `$OS`             |
 | ---------------- | ----------------- |
 | Centos 8         | `CentOS_8`        |
 | Centos 8 Stream  | `CentOS_8_Stream` |
@@ -316,7 +319,8 @@ sudo zypper install cri-o
 {{% tab name="Fedora" %}}
 
 Set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, `VERSION=1.18`                                                                                                                                                                               
+For instance, if you want to install CRI-O 1.18, `VERSION=1.18`.
+
 You can find available versions with:
 ```shell
 sudo dnf module list cri-o
@@ -332,7 +336,7 @@ sudo dnf install cri-o
 {{% /tab %}}
 {{< /tabs >}}
 
-### Start CRI-O
+Start CRI-O:
 
 ```shell
 sudo systemctl daemon-reload
@@ -342,13 +346,13 @@ sudo systemctl start crio
 Refer to the [CRI-O installation guide](https://github.com/kubernetes-sigs/cri-o#getting-started)
 for more information.
 
-## Containerd
+### containerd
 
 This section contains the necessary steps to use `containerd` as CRI runtime.
 
 Use the following commands to install Containerd on your system:
 
-### Prerequisites
+Install and configure prerequisites:
 
 ```shell
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
@@ -369,7 +373,7 @@ EOF
 sudo sysctl --system
 ```
 
-### Install containerd
+Install containerd:
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Ubuntu 16.04" %}}
@@ -470,7 +474,7 @@ Start-Service containerd
 {{% /tab %}}
 {{< /tabs >}}
 
-### systemd
+#### systemd
 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc` set
 
@@ -480,11 +484,7 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc` 
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
+
 When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
-
-## Other CRI runtimes: frakti
-
-Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) for more information.
-
+[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 
