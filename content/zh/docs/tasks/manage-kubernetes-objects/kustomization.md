@@ -250,7 +250,7 @@ The generated ConfigMaps and Secrets have a content hash suffix appended. This e
 所生成的 ConfigMap 和 Secret 都会包含内容哈希值后缀。
 这是为了确保内容发生变化时，所生成的是新的 ConfigMap 或 Secret。
 要禁止自动添加后缀的行为，用户可以使用 `generatorOptions`。
-除此以外，为生成的 ConfigMap 和 Secret 指定贯穿性选项也是可能的。
+除此以外，为生成的 ConfigMap 和 Secret 指定贯穿性选项也是可以的。
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -300,7 +300,7 @@ Here is an example:
 -->
 ### 设置贯穿性字段  {#setting-cross-cutting-fields}
 
-在项目中未所有 Kubernetes 对象设置贯穿性字段是一种常见操作。
+在项目中为所有 Kubernetes 对象设置贯穿性字段是一种常见操作。
 贯穿性字段的一些使用场景如下：
 
 * 为所有资源设置相同的名字空间
@@ -888,7 +888,7 @@ EOF
 This base can be used in multiple overlays. You can add different `namePrefix` or other cross-cutting fields
 in different overlays. Here are two overlays using the same base.
 -->
-此基准可在多个覆盖中使用。你可以在不同的覆盖中添加不同送的 `namePrefix` 或
+此基准可在多个覆盖中使用。你可以在不同的覆盖中添加不同的 `namePrefix` 或
 其他贯穿性字段。下面是两个使用同一基准的覆盖：
 
 ```shell
@@ -1036,7 +1036,7 @@ deployment.apps "dev-my-nginx" deleted
 
 | 字段                  | 类型                                                                                                         | 解释                                                                               |
 |-----------------------|--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| namespace             | string                                                                                                       | 为所有资源添加名字看                                                     |
+| namespace             | string                                                                                                       | 为所有资源添加名字空间                                                     |
 | namePrefix            | string                                                                                                       | 此字段的值将被添加到所有资源名称前面                     |
 | nameSuffix            | string                                                                                                       | 此字段的值将被添加到所有资源名称后面                      |
 | commonLabels          | map[string]string                                                                                            | 要添加到所有资源和选择算符的标签                                       |
@@ -1046,8 +1046,8 @@ deployment.apps "dev-my-nginx" deleted
 | secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L106)     | 列表中的每个条目都会生成一个 Secret                                         |
 | generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L109) | 更改所有 ConfigMap 和 Secret 生成器的行为 |
 | bases                 | []string                                                                                                     | 列表中每个条目都应能解析为一个包含 kustomization.yaml 文件的目录 |
-| patchesStrategicMerge | []string                                                                                                     | 列表中每个条目都赢能解析为某 Kubernetes 对象的策略性合并补丁 |
-| patchesJson6902       | [][Json6902](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/patchjson6902.go#L8)             | 列表中每个条目都赢能解析为一个 Kubernetes 对象和一个 JSON 补丁 |
+| patchesStrategicMerge | []string                                                                                                     | 列表中每个条目都能解析为某 Kubernetes 对象的策略性合并补丁 |
+| patchesJson6902       | [][Json6902](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/patchjson6902.go#L8)             | 列表中每个条目都能解析为一个 Kubernetes 对象和一个 JSON 补丁 |
 | vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L31)                       | 每个条目用来从某资源的字段来析取文字                            |
 | images                | [][Image](https://github.com/kubernetes-sigs/kustomize/tree/master/api/types/image.go#L23)                   | 每个条目都用来更改镜像的名称、标记与/或摘要，不必生成补丁 |
 | configurations        | []string                                                                                                     | 列表中每个条目都应能解析为一个包含 [Kustomize 转换器配置](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) 的文件 |
