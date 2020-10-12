@@ -131,7 +131,7 @@ The Kubernetes API can be extended in one of two ways:
 
 - Learn how to extend the Kubernetes API by adding your own
   [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
-- [Controlling API Access](/docs/reference/access-authn-authz/controlling-access/) describes
+- [Controlling Access To The Kubernetes API](/docs/concepts/security/controlling-access/) describes
   how the cluster manages authentication and authorization for API access.
 - Learn about API endpoints, resource types and samples by reading
   [API Reference](/docs/reference/kubernetes-api/).

@@ -27,6 +27,9 @@ lists the API for Kubernetes version {{< param "version" >}}.
 
 For general background information, read
 [The Kubernetes API](/docs/concepts/overview/kubernetes-api/).
+[Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/)
+describes how clients can authenticate to the Kubernetes API server, and how their
+requests are authorized.
 
 <!-- body -->
 

@@ -4,7 +4,6 @@ reviewers:
 - lavalamp
 title: Controlling Access to the Kubernetes API
 content_type: concept
-weight: 5
 ---
 
 <!-- overview -->
@@ -12,7 +11,7 @@ This page provides an overview of controlling access to the Kubernetes API.
 
 
 <!-- body -->
-Users [access the API](/docs/tasks/access-application-cluster/access-cluster/) using `kubectl`,
+Users access the [Kubernetes API](/docs/concepts/overview/kubernetes-api/) using `kubectl`,
 client libraries, or by making REST requests.  Both human users and
 [Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) can be
 authorized for API access.
@@ -21,35 +20,36 @@ following diagram:
 
 ![Diagram of request handling steps for Kubernetes API request](/images/docs/admin/access-control-overview.svg)
 
-## Transport Security
+## Transport security
 
-In a typical Kubernetes cluster, the API serves on port 443.
-The API server presents a certificate. This certificate is
-often self-signed, so `$USER/.kube/config` on the user's machine typically
-contains the root certificate for the API server's certificate, which when specified
-is used in place of the system default root certificate.  This certificate is typically
-automatically written into your `$USER/.kube/config` when you create a cluster yourself
-using `kube-up.sh`.  If the cluster has multiple users, then the creator needs to share
-the certificate with other users.
+In a typical Kubernetes cluster, the API serves on port 443, protected by TLS.
+The API server presents a certificate. This certificate may be signed using
+a private certificate authority (CA), or based on a public key infrastructure linked
+to a generally recognized CA.
+
+If your cluster uses a private certificate authority, you need a copy of that CA
+certifcate configured into your `~/.kube/config` on the client, so that you can
+trust the connection and be confident it was not intercepted.
+
+Your client can present a TLS client certificate at this stage.
 
 ## Authentication
 
 Once TLS is established, the HTTP request moves to the Authentication step.
 This is shown as step **1** in the diagram.
 The cluster creation script or cluster admin configures the API server to run
-one or more Authenticator Modules.
-Authenticators are described in more detail [here](/docs/reference/access-authn-authz/authentication/).
+one or more Authenticator modules.
+Authenticators are described in more detail in
+[Authentication](/docs/reference/access-authn-authz/authentication/).
 
-The input to the authentication step is the entire HTTP request, however, it typically
+The input to the authentication step is the entire HTTP request; however, it typically
 just examines the headers and/or client certificate.
 
-Authentication modules include Client Certificates, Password, and Plain Tokens,
-Bootstrap Tokens, and JWT Tokens (used for service accounts).
+Authentication modules include client certificates, password, and plain tokens,
+bootstrap tokens, and JSON Web Tokens (used for service accounts).
 
 Multiple authentication modules can be specified, in which case each one is tried in sequence,
 until one of them succeeds.
-
-On GCE, Client Certificates, Password, Plain Tokens, and JWT Tokens are all enabled.
 
 If the request cannot be authenticated, it is rejected with HTTP status code 401.
 Otherwise, the user is authenticated as a specific `username`, and the user name
@@ -57,9 +57,9 @@ is available to subsequent steps to use in their decisions.  Some authenticators
 also provide the group memberships of the user, while other authenticators
 do not.
 
-While Kubernetes uses `usernames` for access control decisions and in request logging,
-it does not have a `user` object nor does it store usernames or other information about
-users in its object store.
+While Kubernetes uses usernames for access control decisions and in request logging,
+it does not have a `User` object nor does it store usernames or other information about
+users in its API.
 
 ## Authorization
 
@@ -101,16 +101,16 @@ If Bob makes a request to write (`create` or `update`) to the objects in the `pr
 
 Kubernetes authorization requires that you use common REST attributes to interact with existing organization-wide or cloud-provider-wide access control systems. It is important to use REST formatting because these control systems might interact with other APIs besides the Kubernetes API.
 
-Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode. When an administrator creates a cluster, they configured the authorization modules that should be used in the API server. If more than one authorization modules are configured, Kubernetes checks each module, and if any module authorizes the request, then the request can proceed. If all of the modules deny the request, then the request is denied (HTTP status code 403).
+Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode. When an administrator creates a cluster, they configure the authorization modules that should be used in the API server. If more than one authorization modules are configured, Kubernetes checks each module, and if any module authorizes the request, then the request can proceed. If all of the modules deny the request, then the request is denied (HTTP status code 403).
 
-To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization Overview](/docs/reference/access-authn-authz/authorization/).
+To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization](/docs/reference/access-authn-authz/authorization/).
 
 
-## Admission Control
+## Admission control
 
-Admission Control Modules are software modules that can modify or reject requests.
-In addition to the attributes available to Authorization Modules, Admission
-Control Modules can access the contents of the object that is being created or modified.
+Admission Control modules are software modules that can modify or reject requests.
+In addition to the attributes available to Authorization modules, Admission
+Control modules can access the contents of the object that is being created or modified.
 
 Admission controllers act on requests that create, modify, delete, or connect to (proxy) an object.
 Admission controllers do not act on requests that merely read objects.
@@ -118,26 +118,26 @@ When multiple admission controllers are configured, they are called in order.
 
 This is shown as step **3** in the diagram.
 
-Unlike Authentication and Authorization Modules, if any admission controller module
+Unlike Authentication and Authorization modules, if any admission controller module
 rejects, then the request is immediately rejected.
 
 In addition to rejecting objects, admission controllers can also set complex defaults for
 fields.
 
-The available Admission Control Modules are described [here](/docs/reference/access-authn-authz/admission-controllers/).
+The available Admission Control modules are described in [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
 
 Once a request passes all admission controllers, it is validated using the validation routines
 for the corresponding API object, and then written to the object store (shown as step **4**).
 
 
-## API Server Ports and IPs
+## API server ports and IPs
 
 The previous discussion applies to requests sent to the secure port of the API server
 (the typical case).  The API server can actually serve on 2 ports:
 
 By default the Kubernetes API server serves HTTP on 2 ports:
 
-  1. `Localhost Port`:
+  1. `localhost` port:
 
       - is intended for testing and bootstrap, and for other components of the master node
         (scheduler, controller-manager) to talk to the API
@@ -148,7 +148,7 @@ By default the Kubernetes API server serves HTTP on 2 ports:
       - request handled by admission control module(s).
       - protected by need to have host access
 
-  2. `Secure Port`:
+  2. “Secure port”:
 
       - use whenever possible
       - uses TLS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
@@ -158,8 +158,27 @@ By default the Kubernetes API server serves HTTP on 2 ports:
       - request handled by admission control module(s).
       - authentication and authorization modules run.
 
-When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
-and on several other cloud providers, the API server serves on port 443.  On
-GCE, a firewall rule is configured on the project to allow external HTTPS
-access to the API. Other cluster setup methods vary.
+## {{% heading "whatsnext" %}}
 
+Read more documentation on authentication, authorization and API access control:
+
+- [Authenticating](/docs/reference/access-authn-authz/authentication/)
+   - [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
+- [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
+   - [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [Authorization](/docs/reference/access-authn-authz/authorization/)
+   - [Role Based Access Control](/docs/reference/access-authn-authz/rbac/)
+   - [Attribute Based Access Control](/docs/reference/access-authn-authz/abac/)
+   - [Node Authorization](/docs/reference/access-authn-authz/node/)
+   - [Webhook Authorization](/docs/reference/access-authn-authz/webhook/)
+- [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/)
+   - including [CSR approval](/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
+     and [certificate signing](/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
+- Service accounts
+  - [Developer guide](/docs/tasks/configure-pod-container/configure-service-account/)
+  - [Administration](/docs/reference/access-authn-authz/service-accounts-admin/)
+
+You can learn about:
+- how Pods can use
+  [Secrets](/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
+  to obtain API credentials.
