@@ -114,11 +114,7 @@ Now, we will see how the autoscaler reacts to increased load.
 We will start a container, and send an infinite loop of queries to the php-apache service (please run it in a different terminal):
 
 ```shell
-kubectl run -it --rm load-generator --image=busybox /bin/sh
-
-Hit enter for command prompt
-
-while true; do wget -q -O- http://php-apache; done
+kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 ```
 
 Within a minute or so, we should see the higher CPU load by executing:
