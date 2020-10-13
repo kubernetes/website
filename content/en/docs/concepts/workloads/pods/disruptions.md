@@ -116,7 +116,7 @@ is reached.
 
 A PDB specifies the number of replicas that an application can tolerate having, relative to how
 many it is intended to have.  For example, a Deployment which has a `.spec.replicas: 5` is
-supposed to have 5 pods at any given time.  If its PDB allows for there to be 4 at a time,
+supposed to have 5 pods at any given time.  If its PDB allows for there to be 6 at a time,
 then the Eviction API will allow voluntary disruption of one (but not two) pods at a time.
 
 The group of pods that comprise the application is specified using a label selector, the same
