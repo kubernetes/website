@@ -514,7 +514,7 @@ RoleとRoleBindingを最新の状態に保つことができます。
 この調整を無効化するには`rbac.authorization.kubernetes.io/autoupdate`をデフォルトのClusterRoleまたはRoleBindingのアノテーションを`false`に設定します。
 デフォルトの権限と subjectsがないと、クラスターが機能しなくなる可能性があることに注意してください。
 
-RBAC authorizerがアクティブな場合、自動調整はデフォルトで有効になっています。
+RBAC authorizerが有効な場合、自動調整はデフォルトで有効になっています。
 
 ### APIディスカバリーRole {#discovery-roles}
 
