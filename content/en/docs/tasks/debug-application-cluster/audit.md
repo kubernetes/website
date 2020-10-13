@@ -154,16 +154,14 @@ volumeMounts:
 finally the hostPath:
 
 ```
-- name: audit
-  hostPath:
+- hostPath:
     path: /etc/kubernetes/audit-policy.yaml
     type: File
-
-- name: audit-log
-  hostPath:
+  name: audit
+- hostPath:
     path: /var/log/audit.log
     type: FileOrCreate
-    
+  name: audit-log   
 ```
 
 
