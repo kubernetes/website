@@ -16,7 +16,7 @@ There are several ways to set environment variables for a Docker container in Ku
 
 ConfigMaps are API Objects that store non-confidential key-value pairs.  In the Interactive Tutorial you will learn how to use a ConfigMap to store the application's name.  For more information regarding ConfigMaps, you can find the documentation [here](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
-Although Secrets are also used to store key-value pairs, they differ from ConfigMaps in that they're intended for confidential/sensitive information and are stored using Base64 encoding.  This makes secrets tha approrpriate choice for storing such things as credentials, keys, and tokens, the former of which you'll do in the Interactive Tutorial.  For more information on Secrets, you can find the documentation [here](https://kubernetes.io/docs/concepts/configuration/secret/).
+Although Secrets are also used to store key-value pairs, they differ from ConfigMaps in that they're intended for confidential/sensitive information and are stored using Base64 encoding.  This makes secrets the appropriate choice for storing such things as credentials, keys, and tokens, the former of which you'll do in the Interactive Tutorial.  For more information on Secrets, you can find the documentation [here](https://kubernetes.io/docs/concepts/configuration/secret/).
 
 
 ### Externalizing Config from Code
