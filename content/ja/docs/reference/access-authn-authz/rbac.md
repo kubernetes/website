@@ -511,7 +511,7 @@ APIサーバーは、デフォルトのClusterRoleオブジェクトとClusterRo
 これにより、誤った変更をクラスタが修復できるようになり、新しいKubernetesリリースで権限とsubjectsが変更されても、
 RoleとRoleBindingを最新の状態に保つことができます。
 
-この調整をオプトアウトするには`rbac.authorization.kubernetes.io/autoupdate`をデフォルトのClusterRoleまたはRoleBindingのアノテーションを`false`に設定します。
+この調整を無効化するには`rbac.authorization.kubernetes.io/autoupdate`をデフォルトのClusterRoleまたはRoleBindingのアノテーションを`false`に設定します。
 デフォルトの権限と subjectsがないと、クラスターが機能しなくなる可能性があることに注意してください。
 
 RBAC authorizerがアクティブな場合、自動調整はデフォルトで有効になっています。
