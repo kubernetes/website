@@ -707,7 +707,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 Kubernetes {{< glossary_tooltip term_id="kube-controller-manager" text="controller manager" >}}は、Kubernetesコントロールプレーンに組み込まれている{{< glossary_tooltip term_id="controller" text="controllers" >}}を実行します。
 `--use-service-account-credentials`を指定して呼び出すと、kube-controller-manager個別のサービスアカウントを使用して各コントローラーを起動します。
 組み込みコントローラーごとに、プレフィックス`system:controller:`付きの対応するRoleが存在します。
-コントローラマネージャーが`--use-service-account-credentials`で開始されていない場合、コントローラマネージャーは、関連するすべてのRoleを付与する必要がある自身のクレデンシャルを使用して、すべてのコントロールループを実行します。
+コントローラーマネージャーが`--use-service-account-credentials`で開始されていない場合、コントローラマネージャーは、関連するすべてのRoleを付与する必要がある自身のクレデンシャルを使用して、すべてのコントロールループを実行します。
 これらのRoleは次のとおりです。
 
 * `system:controller:attachdetach-controller`
