@@ -47,6 +47,13 @@ Limits can be implemented either reactively (the system intervenes once it sees 
 or by enforcement (the system prevents the container from ever exceeding the limit). Different
 runtimes can have different ways to implement the same restrictions.
 
+{{< note >}}
+If a Container specifies its own memory limit, but does not specify a memory request, Kubernetes
+automatically assigns a memory request that matches the limit. Similarly, if a Container specifies its own
+CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
+the limit.
+{{< /note >}}
+
 ## Resource types
 
 *CPU* and *memory* are each a *resource type*. A resource type has a base unit.
