@@ -1,0 +1,11 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# When modifying this file, consider the security implications of
+# allowing listed reviewers / approvals to modify or remove any
+# configured GitHub Actions.
+
+reviewers:
+- sig-docs-leads
+
+approvers:
+- sig-docs-leads
