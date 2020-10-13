@@ -678,7 +678,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 <tr>
 <td><b>system:kube-dns</b></td>
 <td><b><b>kube-system</b>Namespaceのサービスアカウントkube-dns</b></td>
-<td><a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a>コンポーネントのRole</td>
+<td><a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a>コンポーネントのRole。</td>
 </tr>
 <tr>
 <td><b>system:kubelet-api-admin</b></td>
