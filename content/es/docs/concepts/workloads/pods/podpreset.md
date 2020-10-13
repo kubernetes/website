@@ -7,6 +7,8 @@ weight: 50
 ---
 
 <!-- overview -->
+{{< feature-state for_k8s_version="v1.6" state="alpha" >}}
+
 Esta página provee una descripción general de los Pod Presets, los cuales son
 los objetos que se utilizan para inyectar cierta información en los Pods en
 el momento de la creación. Esta información puede incluir secretos, volúmenes,
