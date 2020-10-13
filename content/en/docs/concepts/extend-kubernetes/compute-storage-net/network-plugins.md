@@ -13,14 +13,15 @@ weight: 10
 
 Network plugins in Kubernetes come in a few flavors:
 
-* CNI plugins: adhere to the appc/CNI specification, designed for interoperability.
+* CNI plugins: adhere to the [Container Network Interface](https://github.com/containernetworking/cni) (CNI) specification, designed for interoperability.
+  * Kubernetes follows the [v0.4.0](https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md) release of the CNI specification.
 * Kubenet plugin: implements basic `cbr0` using the `bridge` and `host-local` CNI plugins
 
 <!-- body -->
 
 ## Installation
 
-The kubelet has a single default network plugin, and a default network common to the entire cluster. It probes for plugins when it starts up, remembers what it finds, and executes the selected plugin at appropriate times in the pod lifecycle (this is only true for Docker, as rkt manages its own CNI plugins). There are two Kubelet command line parameters to keep in mind when using plugins:
+The kubelet has a single default network plugin, and a default network common to the entire cluster. It probes for plugins when it starts up, remembers what it finds, and executes the selected plugin at appropriate times in the pod lifecycle (this is only true for Docker, as CRI manages its own CNI plugins). There are two Kubelet command line parameters to keep in mind when using plugins:
 
 * `cni-bin-dir`: Kubelet probes this directory for plugins on startup
 * `network-plugin`: The network plugin to use from `cni-bin-dir`.  It must match the name reported by a plugin probed from the plugin directory.  For CNI plugins, this is simply "cni".
