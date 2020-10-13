@@ -631,7 +631,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 <td><b>system:kube-controller-manager</b></td>
 <td><b>system:kube-controller-manager</b> user</td>
 <td>{{< glossary_tooltip term_id="kube-controller-manager" text="controller manager" >}}コンポーネントが必要とするリソースへのアクセスを許可します。
-個々のコントローラーに必要な権限については、<a href="#controller-roles">組み込みコントローラーのRoleで詳しく説明しています</a>.</td>
+個々のコントローラーに必要な権限については、<a href="#controller-roles">組み込みコントローラーのRoleで詳しく説明しています</a>。</td>
 </tr>
 <tr>
 <td><b>system:node</b></td>
