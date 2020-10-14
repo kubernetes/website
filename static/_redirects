@@ -504,3 +504,5 @@
 /docs/setup/certificates/     /docs/setup/best-practices/certificates/   301
 
 /docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/     302
+
+/docs/concepts/configuration/pod-overhead/     /docs/concepts/scheduling-eviction/pod-overhead/   301
