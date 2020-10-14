@@ -98,7 +98,8 @@ deadlines.
 1. Open a pull request against the
 `dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
 commit that you will amend later.
-2. Edit the pull request description to include links to `kubernetes/kubernetes` PR(s) and `kubernetes/enhancement` issue(s).
+2. Edit the pull request description to include links to [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
+PR(s) and [kubernetes/enhancements](https://github.com/kubernetes/enhancements) issue(s).
 3. Use the Prow command `/milestone {{< skew nextMinorVersion >}}` to
 assign the PR to the relevant milestone. This alerts the docs person managing
 this release that the feature docs are coming.
