@@ -193,7 +193,62 @@ for these devices:
 // node resources consumed by pods and containers on the node
 service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
+    rpc GetAllocatableResources(AllocatableResourcesRequest) returns (AllocatableResourcesResponse) {}
 }
+```
+
+The `List` endpoint provides information on resources of running pods, with details such as the
+id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
+the NUMA node where these devices are allocated.
+
+```gRPC
+// ListPodResourcesResponse is the response returned by List function
+message ListPodResourcesResponse {
+    repeated PodResources pod_resources = 1;
+}
+
+// PodResources contains information about the node resources assigned to a pod
+message PodResources {
+    string name = 1;
+    string namespace = 2;
+    repeated ContainerResources containers = 3;
+}
+
+// ContainerResources contains information about the resources assigned to a container
+message ContainerResources {
+    string name = 1;
+    repeated ContainerDevices devices = 2;
+    repeated int64 cpu_ids = 3;
+}
+
+// Topology describes hardware topology of the resource
+message TopologyInfo {
+        repeated NUMANode nodes = 1;
+}
+
+// NUMA representation of NUMA node
+message NUMANode {
+        int64 ID = 1;
+}
+
+// ContainerDevices contains information about the devices assigned to a container
+message ContainerDevices {
+    string resource_name = 1;
+    repeated string device_ids = 2;
+    TopologyInfo topology = 3;
+}
+```
+
+GetAllocatableResources provides information on resources initially available on the worker node.
+It provides more information than kubelet exports to APIServer.
+
+```gRPC
+// AvailableResourcesResponses contains information about all the devices known by the kubelet
+message AllocatableResourcesResponse {
+    repeated ContainerDevices devices = 1;
+    repeated int64 cpu_ids = 2;
+}
+
 ```
 
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
@@ -204,7 +259,7 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Support for the "PodResources service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+Support for the `PodResourcesLister service` requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 
 ## Device Plugin integration with the Topology Manager
@@ -256,5 +311,3 @@ Here are some examples of device plugin implementations:
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
 * Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
 * Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
-
-
