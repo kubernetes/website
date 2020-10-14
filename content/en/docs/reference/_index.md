@@ -17,6 +17,12 @@ This section of the Kubernetes documentation contains references.
 
 <!-- body -->
 
+## Design Docs
+
+An archive of the design docs for Kubernetes functionality. Good starting points are
+[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
+[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+
 ## API Reference
 
 * [Kubernetes API Overview](/docs/reference/using-api/api-overview/) - Overview of the API for Kubernetes.
@@ -55,4 +61,6 @@ An archive of the design docs for Kubernetes functionality. Good starting points
 [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
 [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
 
-
+## Glossary
+Standardized Glossary for Kubernetes Terminology
+* [Standardized Glossary](/docs/reference/glossary/)

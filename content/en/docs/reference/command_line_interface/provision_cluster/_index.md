@@ -1,6 +1,5 @@
 ---
 title: "Kubeadm"
-weight: 10
 no_list: true
 content_type: concept
 card:

@@ -1,7 +1,6 @@
 ---
 title: Scheduler Configuration
 content_type: concept
-weight: 20
 ---
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
@@ -95,7 +94,7 @@ profiles:
 You can use `*` as name in the disabled array to disable all default plugins
 for that extension point. This can also be used to rearrange plugins order, if
 desired.
-   
+
 ### Scheduling plugins
 1. `UnReserve`: This is an informational extension point that is called if
    a Pod is rejected after being reserved and put on hold by a `Permit` plugin.
@@ -171,7 +170,7 @@ extension points:
   Extension points: `Bind`.
 - `DefaultPreemption`: Provides the default preemption mechanism.
   Extension points: `PostFilter`.
-  
+
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:
 
@@ -194,7 +193,7 @@ that are not enabled by default:
   configured labels. This plugin also favors spreading the Pods belonging to a
   Service across nodes.
   Extension points: `PreFilter`, `Filter`, `Score`.
-  
+
 ### Multiple profiles
 
 You can configure `kube-scheduler` to run more than one profile.

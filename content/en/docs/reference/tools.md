@@ -6,23 +6,8 @@ content_type: concept
 ---
 
 <!-- overview -->
-Kubernetes contains several built-in tools to help you work with the Kubernetes system.
+Kubernetes contains certain other tools that helps to steer the Kubernetes system efficiently.
 
-
-<!-- body -->
-## Kubectl
-
-[`kubectl`](/docs/tasks/tools/install-kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
-
-## Kubeadm
-
-[`kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
-
-## Minikube
-
-[`minikube`](/docs/tasks/tools/install-minikube/) is a tool that makes it
-easy to run a single-node Kubernetes cluster locally on your workstation for
-development and testing purposes.
 
 ## Dashboard
 
