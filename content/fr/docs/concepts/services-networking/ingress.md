@@ -72,7 +72,7 @@ Assurez-vous de consulter la documentation de votre contrôleur d’Ingress pour
 Exemple de ressource Ingress minimale :
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: test-ingress
@@ -83,9 +83,12 @@ spec:
   - http:
       paths:
       - path: /testpath
+        pathType: Prefix
         backend:
-          serviceName: test
-          servicePort: 80
+          service:
+            name: test
+            port:
+              number: 80
 ```
 
 Comme pour toutes les autres ressources Kubernetes, un Ingress (une entrée) a besoin des champs `apiVersion`,` kind` et `metadata`.
@@ -126,14 +129,16 @@ Il existe des concepts Kubernetes qui vous permettent d’exposer un seul servic
 
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: test-ingress
 spec:
-  backend:
-    serviceName: testsvc
-    servicePort: 80
+  defaultBackend:
+    service:
+      name: testsvc
+      port:
+        number: 80
 ```
 
 Si vous le créez en utilisant `kubectl create -f`, vous devriez voir :
@@ -166,7 +171,7 @@ foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
 ceci nécessitera un Ingress défini comme suit :
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: simple-fanout-example
@@ -178,13 +183,19 @@ spec:
     http:
       paths:
       - path: /foo
+        pathType: Prefix
         backend:
-          serviceName: service1
-          servicePort: 4200
+          service:
+            name: service1
+            port:
+              number: 4200
       - path: /bar
+        pathType: Prefix
         backend:
-          serviceName: service2
-          servicePort: 8080
+          service:
+            name: service2
+            port:
+              number: 8080
 ```
 
 Lorsque vous créez l'ingress avec `kubectl create -f`:
@@ -233,7 +244,7 @@ bar.foo.com --|                 |-> bar.foo.com s2:80
 L’Ingress suivant indique au load-balancer de router les requêtes en fonction de [En-tête du hôte](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: name-virtual-host-ingress
@@ -242,21 +253,29 @@ spec:
   - host: foo.bar.com
     http:
       paths:
-      - backend:
-          serviceName: service1
-          servicePort: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service1
+            port:
+              number: 80
   - host: bar.foo.com
     http:
       paths:
-      - backend:
-          serviceName: service2
-          servicePort: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service2
+            port:
+              number: 80
 ```
 
 Si vous créez une ressource Ingress sans aucun hôte défini dans les règles, tout trafic Web à destination de l'adresse IP de votre contrôleur d'Ingress peut être mis en correspondance sans qu'un hôte virtuel basé sur le nom ne soit requis. Par exemple, la ressource Ingress suivante acheminera le trafic demandé pour `first.bar.com` au `service1` `second.foo.com` au `service2`, et à tout trafic à l'adresse IP sans nom d'hôte défini dans la demande (c'est-à-dire sans en-tête de requête présenté) au `service3`.
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: name-virtual-host-ingress
@@ -265,20 +284,32 @@ spec:
   - host: first.bar.com
     http:
       paths:
-      - backend:
-          serviceName: service1
-          servicePort: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service1
+            port:
+              number: 80
   - host: second.foo.com
     http:
       paths:
-      - backend:
-          serviceName: service2
-          servicePort: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service2
+            port:
+              number: 80
   - http:
       paths:
-      - backend:
-          serviceName: service3
-          servicePort: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service3
+            port:
+              number: 80
 ```
 
 ### TLS
@@ -300,7 +331,7 @@ type: kubernetes.io/tls
 Référencer ce secret dans un Ingress indiquera au contrôleur d'ingress de sécuriser le canal du client au load-balancer à l'aide de TLS. Vous devez vous assurer que le secret TLS que vous avez créé provenait d'un certificat contenant un CN pour `sslexample.foo.com`.
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: tls-example-ingress
@@ -314,9 +345,12 @@ spec:
       http:
         paths:
         - path: /
+          pathType: Prefix
           backend:
-            serviceName: service1
-            servicePort: 80
+            service:
+              name: service1
+              port:
+                number: 80
 ```
 
 {{< note >}}
@@ -373,16 +407,22 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: s1
-          servicePort: 80
+          service:
+            name: s1
+            port:
+              number: 80
         path: /foo
+        pathType: Prefix
   - host: bar.baz.com
     http:
       paths:
       - backend:
-          serviceName: s2
-          servicePort: 80
+          service:
+            name: s2
+            port:
+              number: 80
         path: /foo
+        pathType: Prefix
 ..
 ```
 
