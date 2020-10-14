@@ -172,7 +172,7 @@ the `--horizontal-pod-autoscaler-tolerance` flag, which defaults to 0.1).
 副本数量将会翻倍。
 如果当前指标为 `50m`，副本数量将会减半，因为`50.0/100.0 == 0.5`。
 如果计算出的扩缩比例接近 1.0
-（跟据`--horizontal-pod-autoscaler-tolerance` 参数全局配置的容忍值，默认为 0.1），
+（根据`--horizontal-pod-autoscaler-tolerance` 参数全局配置的容忍值，默认为 0.1），
 将会放弃本次扩缩。
 
 <!--
