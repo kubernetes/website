@@ -13,7 +13,7 @@ weight: 10
 
 <!-- overview -->
 
-A _Deployment_ provides declarative updates for {{< glossary_tooltip text="Pods" term_id="pod" >}}
+A _Deployment_ provides declarative updates for {{< glossary_tooltip text="Pods" term_id="pod" >}} and
 {{< glossary_tooltip term_id="replica-set" text="ReplicaSets" >}}.
 
 You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_tooltip term_id="controller" >}} changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
@@ -102,7 +102,7 @@ Follow the steps given below to create the above Deployment:
    The output is similar to:
    ```
    Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-   deployment.apps/nginx-deployment successfully rolled out
+   deployment "nginx-deployment" successfully rolled out
    ```
 
 4. Run the `kubectl get deployments` again a few seconds later.
@@ -205,7 +205,7 @@ Follow the steps given below to update your Deployment:
     ```
     or
     ```
-    deployment.apps/nginx-deployment successfully rolled out
+    deployment "nginx-deployment" successfully rolled out
     ```
 
 Get more details on your updated Deployment:
@@ -857,7 +857,7 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 The output is similar to this:
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
-deployment.apps/nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 ```
 and the exit status from `kubectl rollout` is 0 (success):
 ```shell

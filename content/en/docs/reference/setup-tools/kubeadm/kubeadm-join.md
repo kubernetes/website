@@ -273,15 +273,17 @@ The config file is still considered beta and may change in future versions.
 It's possible to configure `kubeadm join` with a configuration file instead of command
 line flags, and some more advanced features may only be available as
 configuration file options. This file is passed using the `--config` flag and it must
-contain a `JoinConfiguration` structure.
+contain a `JoinConfiguration` structure. Mixing `--config` with others flags may not be
+allowed in some cases.
 
-To print the default values of `JoinConfiguration` run the following command:
+The default configuration can be printed out using the
+[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-```shell
-kubeadm config print join-defaults
-```
+If your configuration is not using the latest version it is **recommended** that you migrate using
+the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-For details on individual fields in `JoinConfiguration` see [the godoc](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#JoinConfiguration).
+For more information on the fields and usage of the configuration you can navigate to our API reference
+page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
 
 ## {{% heading "whatsnext" %}}
 

@@ -73,7 +73,7 @@ container, and if users use the [node
 allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) feature, out of resource decisions
 are made local to the end user Pod part of the cgroup hierarchy as well as the
 root node. This
-[script](/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)
+[script](/examples/admin/resource/memory-available.sh)
 reproduces the same set of steps that the `kubelet` performs to calculate
 `memory.available`. The `kubelet` excludes inactive_file (i.e. # of bytes of
 file-backed memory on inactive LRU list) from its calculation as it assumes that
@@ -83,7 +83,7 @@ memory is reclaimable under pressure.
 这很重要，因为 `free -m` 不能在容器中工作，并且如果用户使用了
 [节点可分配资源](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 特性，资源不足的判定将同时在本地 cgroup 层次结构的终端用户 Pod 部分和根节点做出。
-这个[脚本](/zh/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)
+这个[脚本](/zh/examples/admin/resource/memory-available.sh)
 复现了与 `kubelet` 计算 `memory.available` 相同的步骤。
 `kubelet` 将 `inactive_file`（意即活动 LRU 列表上基于文件后端的内存字节数）从计算中排除，
 因为它假设内存在出现压力时将被回收。

@@ -13,7 +13,8 @@ of its primary containers starts OK, and then through either the `Succeeded` or
 
 Whilst a Pod is running, the kubelet is able to restart containers to handle some
 kind of faults. Within a Pod, Kubernetes tracks different container
-[states](#container-states) and handles
+[states](#container-states) and determines what action to take to make the Pod
+healthy again.
 
 In the Kubernetes API, Pods have both a specification and an actual status. The
 status for a Pod object consists of a set of [Pod conditions](#pod-conditions).
@@ -32,7 +33,7 @@ Like individual application containers, Pods are considered to be relatively
 ephemeral (rather than durable) entities. Pods are created, assigned a unique
 ID ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), and scheduled
 to nodes where they remain until termination (according to restart policy) or
-deletion.  
+deletion.
 If a {{< glossary_tooltip term_id="node" >}} dies, the Pods scheduled to that node
 are [scheduled for deletion](#pod-garbage-collection) after a timeout period.
 
@@ -140,9 +141,8 @@ and Never. The default value is Always.
 The `restartPolicy` applies to all containers in the Pod. `restartPolicy` only
 refers to restarts of the containers by the kubelet on the same node. After containers
 in a Pod exit, the kubelet restarts them with an exponential back-off delay (10s, 20s,
-40s, …), that is capped at five minutes. Once a container has executed with no problems
-for 10 minutes without any problems, the kubelet resets the restart backoff timer for
-that container.
+40s, …), that is capped at five minutes. Once a container has executed for 10 minutes
+without any problems, the kubelet resets the restart backoff timer forthat container.
 
 ## Pod conditions
 

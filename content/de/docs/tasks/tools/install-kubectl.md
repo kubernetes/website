@@ -334,7 +334,7 @@ Sie müssen nun sicherstellen, dass das kubectl-Abschlussskript in allen Ihren S
     ```
 
 {{< note >}}
-bash-completion bezieht alle Verfollständigungsskripte aus `/etc/bash_completion.d`.
+bash-completion bezieht alle Vervollständigungsskripte aus `/etc/bash_completion.d`.
 {{< /note >}}
 
 Beide Ansätze sind gleichwertig. Nach dem erneuten Laden der Shell sollte kubectl autocompletion funktionieren.
