@@ -98,7 +98,7 @@ deadlines.
 1. Open a pull request against the
 `dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
 commit that you will amend later.
-2. Edit the pull request description to include links to `k/k` PR(s) and `k/enhancement` issue(s).
+2. Edit the pull request description to include links to `kubernetes/kubernetes` PR(s) and `kubernetes/enhancement` issue(s).
 3. Use the Prow command `/milestone {{< skew nextMinorVersion >}}` to
 assign the PR to the relevant milestone. This alerts the docs person managing
 this release that the feature docs are coming.
@@ -115,7 +115,9 @@ When ready, populate your placeholder PR with feature documentation.
 
 Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` slack channel.
 
-When you complete your content, the documentation person assigned to your feature reviews it. Use their suggestions to get the content to a release ready state.
+When you complete your content, the documentation person assigned to your feature reviews it.
+To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
+Use their suggestions to get the content to a release ready state.
 
 If your feature needs documentation and the first draft
 content is not received, the feature may be removed from the milestone.
