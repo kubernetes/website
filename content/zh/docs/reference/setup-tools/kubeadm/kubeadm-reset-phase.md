@@ -1,10 +1,12 @@
 ---
 title: kubeadm reset phase
+content_type: concept
 weight: 90
 ---
 <!--
 ---
 title: kubeadm reset phase
+content_type: concept
 weight: 90
 ---
 -->
@@ -81,14 +83,14 @@ Using this phase you can perform cleanup on this node.
 {{< tab name="cleanup-node" include="generated/kubeadm_reset_phase_cleanup-node.md" />}}
 {{< /tabs >}}
 
+## {{% heading "whatsnext" %}}
+
 <!--
-## What's next
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
-## 下一步
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导 Kubernetes 控制平面节点
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点连接到集群
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 恢复通过 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改
