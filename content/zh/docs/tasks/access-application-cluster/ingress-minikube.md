@@ -197,26 +197,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. 根据下面的 YAML 创建文件 `example-ingress.yaml`：
 
-   ```yaml
-   apiVersion: networking.k8s.io/v1
-   kind: Ingress
-   metadata:
-     name: example-ingress
-     annotations:
-       nginx.ingress.kubernetes.io/rewrite-target: /$1
-   spec:
-     rules:
-     - host: hello-world.info
-       http:
-         paths:
-         - path: /
-           pathType: Prefix
-           backend:
-             service:
-               name: web
-               port:
-                 number: 8080
-   ```
+  {{< codenew file="service/networking/example-ingress.yaml" >}}
 
 <!--
 1. Create the Ingress resource by running the following command:
@@ -224,7 +205,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 2. 通过运行下面的命令创建 Ingress 资源：
 
    ```shell
-   kubectl apply -f example-ingress.yaml
+   kubectl apply -f https://k8s.io/examples/service/networking/example-ingress.yaml
    ```
 
    <!-- Output: -->
