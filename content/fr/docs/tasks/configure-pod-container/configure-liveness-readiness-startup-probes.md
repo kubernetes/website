@@ -1,10 +1,10 @@
 ---
 title: Configurer les Liveness, Readiness et Startup Probes
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page montre comment configurer les liveness, readiness et startup probes pour les conteneurs.
 
@@ -17,15 +17,11 @@ Le Kubelet utilise startup probes pour savoir quand une application d'un contene
 Si une telle probe est configurée, elle désactive les contrôles de liveness et readiness jusqu'à cela réussit, en s'assurant que ces probes n'interfèrent pas avec le démarrage de l'application.
 Cela peut être utilisé dans le cas des liveness checks sur les conteneurs à démarrage lent, en les évitant de se faire tuer par le Kubelet avant qu'ils ne soient opérationnels.
 
-{{% /capture %}}
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## Définir une commande de liveness
 
@@ -281,9 +277,7 @@ Voici un scénario où vous le mettriez en place. Supposons que le conteneur éc
 
 Le Kubelet fait la connexion de la probe au noeud, pas dans le Pod, ce qui signifie que vous ne pouvez pas utiliser un nom de service dans le paramètre `host` puisque le Kubelet est incapable pour le résoudre.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+## {{% heading whatsnext %}}
 
 * Pour en savoir plus sur
 [Probes des Conteneurs](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
@@ -293,7 +287,5 @@ Le Kubelet fait la connexion de la probe au noeud, pas dans le Pod, ce qui signi
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
-
-{{% /capture %}}
 
 
