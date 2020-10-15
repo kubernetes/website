@@ -1,11 +1,11 @@
 ---
 title: Partager l'espace de nommage des processus entre les conteneurs d'un Pod
 min-kubernetes-server-version: v1.10
-content_template: templates/task
+content_type: task
 weight: 160
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
@@ -13,15 +13,11 @@ Cette page montre comment configurer le partage de l'espace de noms d'un process
 
 Vous pouvez utiliser cette fonctionnalité pour configurer les conteneurs coopérants, comme un conteneur de sidecar de gestionnaire de journaux, ou pour dépanner les images de conteneurs qui n'incluent pas d'utilitaires de débogage comme un shell.
 
-{{% /capture %}}
-
-{{% capture prerequisites %}}
+## {{% heading prerequisites %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## Configurer un Pod
 
@@ -83,10 +79,6 @@ events {
     worker_connections  1024;
 ```
 
-{{% /capture %}}
-
-{{% capture discussion %}}
-
 ## Comprendre le processus de partage de l'espace de nommage
 
 Les pods partagent de nombreuses ressources, il est donc logique qu'elles partagent également un espace de noms des processus. Pour certaines images de conteneur, on peut envisager de les isoler les uns des autres. Il est donc important de comprendre ces différences :
@@ -96,7 +88,4 @@ Les pods partagent de nombreuses ressources, il est donc logique qu'elles partag
 1. **Les processus sont visibles par les autres conteneurs du pod.**  Cela inclut tout les informations visibles dans `/proc`, comme les mots de passe passés en argument ou les variables d'environnement. Celles-ci ne sont protégées que par des permissions Unix régulières.
 
 1. **Les systèmes de fichiers des conteneurs sont visibles par les autres conteneurs du pod à travers le lien `/proc/$pid/root`.** Cela rend le débogage plus facile, mais cela signifie aussi que les secrets du système de fichiers ne sont protégés que par les permissions du système de fichiers.
-
-{{% /capture %}}
-
 
