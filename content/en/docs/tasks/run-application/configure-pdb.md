@@ -236,9 +236,6 @@ You can use a PDB with pods controlled by another type of controller, by an
 - only an integer value can be used with `.spec.minAvailable`, not a percentage.
 
 You can use a selector which selects a subset or superset of the pods belonging to a built-in
-controller.  However, when there are multiple PDBs in a namespace, you must be careful not
-to create PDBs whose selectors overlap.
-
-
-
-
+controller.  The eviction API will disallow eviction of any pod covered by multiple PDBs,
+so most users will want to avoid overlapping selectors.  One reasonable use of overlapping
+PDBs is when pods are being transitioned from one PDB to another.
