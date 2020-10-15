@@ -1,7 +1,6 @@
 ---
 title: Scheduling Policies
 content_type: concept
-weight: 10
 ---
 
 <!-- overview -->
