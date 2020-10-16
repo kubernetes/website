@@ -77,7 +77,7 @@ handler: myconfiguration  # 상응하는 CRI 설정의 이름임
 {{< note >}}
 런타임클래스 쓰기 작업(create/update/patch/delete)은
 클러스터 관리자로 제한할 것을 권장한다. 이것은 일반적으로 기본 설정이다.
-더 자세한 정보는 [권한 개요](/docs/reference/access-authn-authz/authorization/)를 참고한다.
+더 자세한 정보는 [권한 개요](/ko/docs/reference/access-authn-authz/authorization/)를 참고한다.
 {{< /note >}}
 
 ## 사용

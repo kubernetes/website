@@ -14,7 +14,7 @@ weight: 65
 
 ## 쿠버네티스의 윈도우 컨테이너
 
-쿠버네티스에서 윈도우 컨테이너 오케스트레이션을 활성화하려면, 기존 리눅스 클러스터에 윈도우 노드를 포함하기만 하면 된다. 쿠버네티스의 [파드](/ko/docs/concepts/workloads/pods/pod-overview/)에서 윈도우 컨테이너를 스케줄링하는 것은 리눅스 기반 컨테이너를 스케줄링하는 것만큼 간단하고 쉽다.
+쿠버네티스에서 윈도우 컨테이너 오케스트레이션을 활성화하려면, 기존 리눅스 클러스터에 윈도우 노드를 포함하기만 하면 된다. 쿠버네티스의 {{< glossary_tooltip text="파드" term_id="pod" >}}에서 윈도우 컨테이너를 스케줄링하는 것은 리눅스 기반 컨테이너를 스케줄링하는 것만큼 간단하고 쉽다.
 
 윈도우 컨테이너를 실행하려면, 쿠버네티스 클러스터에 리눅스를 실행하는 컨트롤 플레인 노드와 사용자의 워크로드 요구에 따라 윈도우 또는 리눅스를 실행하는 워커가 있는 여러 운영 체제가 포함되어 있어야 한다. 윈도우 서버 2019는 윈도우에서 [쿠버네티스 노드](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)를 활성화하는 유일한 윈도우 운영 체제이다(kubelet, [컨테이너 런타임](https://docs.microsoft.com/ko-kr/virtualization/windowscontainers/deploy-containers/containerd) 및 kube-proxy 포함). 윈도우 배포 채널에 대한 자세한 설명은 [Microsoft 문서](https://docs.microsoft.com/ko-kr/windows-server/get-started-19/servicing-channels-19)를 참고한다.
 
@@ -62,7 +62,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
 
 윈도우에서 주요 쿠버네티스 요소는 리눅스와 동일한 방식으로 작동한다. 이 섹션에서는, 주요 워크로드 인에이블러(enabler) 일부와 이들이 윈도우에 매핑되는 방법에 대해 설명한다.
 
-* [파드](/ko/docs/concepts/workloads/pods/pod-overview/)
+* [파드](/ko/docs/concepts/workloads/pods/)
 
     파드는 쿠버네티스의 기본 빌딩 블록이다 - 쿠버네티스 오브젝트 모델에서 생성하고 배포하는 가장 작고 간단한 단위. 동일한 파드에 윈도우 및 리눅스 컨테이너를 배포할 수 없다. 파드의 모든 컨테이너는 단일 노드로 스케줄되며 각 노드는 특정 플랫폼 및 아키텍처를 나타낸다. 다음과 같은 파드 기능, 속성 및 이벤트가 윈도우 컨테이너에서 지원된다.
 
@@ -81,7 +81,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
   * 레플리카셋(ReplicaSet)
   * 레플리케이션컨트롤러(ReplicationController)
   * 디플로이먼트(Deployment)
-  * 스테이트풀셋(StatefulSet)	
+  * 스테이트풀셋(StatefulSet)
   * 데몬셋(DaemonSet)
   * 잡(Job)
   * 크론잡(CronJob)
@@ -198,7 +198,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 윈도우에서는 다음 IPAM 옵션이 지원된다.
 
 * [호스트-로컬](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/host-local)
-* HNS IPAM(Inbox 플랫폼 IPAM, 이것은 IPAM이 설정되지 않은 경우 폴백(fallback)이다) 
+* HNS IPAM(Inbox 플랫폼 IPAM, 이것은 IPAM이 설정되지 않은 경우 폴백(fallback)이다)
 * [Azure-vnet-ipam](https://github.com/Azure/azure-container-networking/blob/master/docs/ipam.md)(azure-cni 전용)
 
 ##### 로드 밸런싱과 서비스
@@ -255,9 +255,9 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 
 윈도우에는 리눅스처럼 out-of-memory 프로세스 킬러가 없다. 윈도우는 항상 모든 사용자 모드 메모리 할당을 가상으로 처리하며 페이지 파일은 필수이다. 결과적으로 윈도우는 리눅스와 같은 방식으로 메모리 부족 상태에 도달하지 않고, 메모리 부족(OOM)으로 인한 종료 대신 페이지를 디스크로 처리한다. 메모리가 과도하게 프로비저닝되고 모든 실제 메모리가 고갈되면, 페이징으로 인해 성능이 저하될 수 있다.
 
-2단계 프로세스를 통해 적절한 범위 내에서 메모리 사용량을 유지할 수 있다. 먼저, kubelet 파라미터 `--kubelet-reserve` 그리고/또는 `--system-reserve`를 사용하여 노드(컨테이너 외부)의 메모리 사용량을 고려한다. 이렇게 하면 [노드 할당(NodeAllocatable)](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)이 줄어든다. 워크로드를 배포할 때 컨테이너에 리소스 제한을 사용(limits만 설정하거나 limits이 requests과 같아야 함)한다. 또한 NodeAllocatable에서 빼고 노드가 가득차면 스케줄러가 더 많은 파드를 추가하지 못하도록 한다. 
+2단계 프로세스를 통해 적절한 범위 내에서 메모리 사용량을 유지할 수 있다. 먼저, kubelet 파라미터 `--kubelet-reserve` 그리고/또는 `--system-reserve`를 사용하여 노드(컨테이너 외부)의 메모리 사용량을 고려한다. 이렇게 하면 [노드 할당(NodeAllocatable)](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)이 줄어든다. 워크로드를 배포할 때 컨테이너에 리소스 제한을 사용(limits만 설정하거나 limits이 requests과 같아야 함)한다. 또한 NodeAllocatable에서 빼고 노드가 가득차면 스케줄러가 더 많은 파드를 추가하지 못하도록 한다.
 
-오버 프로비저닝을 방지하는 모범 사례는 윈도우, 도커 및 쿠버네티스 프로세스를 고려하여 최소 2GB의 시스템 예약 메모리로 kubelet을 구성하는 것이다. 
+오버 프로비저닝을 방지하는 모범 사례는 윈도우, 도커 및 쿠버네티스 프로세스를 고려하여 최소 2GB의 시스템 예약 메모리로 kubelet을 구성하는 것이다.
 
 플래그의 동작은 아래에 설명된대로 다르게 동작한다.
 
@@ -581,7 +581,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 1. DNS 확인(resolution)이 제대로 작동하지 않는다.
 
     이 [섹션](#dns-limitations)에서 윈도우에 대한 DNS 제한을 확인한다.
-    
+
 1. `kubectl port-forward`가 "unable to do port forwarding: wincat not found"로 실패한다.
 
     이는 쿠버네티스 1.15 및 pause 인프라 컨테이너 `mcr.microsoft.com/k8s/core/pause:1.2.0`에서 구현되었다. 해당 버전 또는 최신 버전을 사용해야 한다.
@@ -666,15 +666,13 @@ spec:
 
 ### kubeadm 및 클러스터 API를 사용한 배포
 
-Kubeadm은 사용자가 쿠버네티스 클러스터를 배포하기 위한 사실상의 표준이 
-되고 있다. kubeadm의 윈도우 노드 지원은 현재 작업 중이지만 
-[여기](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)에서 가이드를 사용할 수 있다.
-또한 윈도우 노드가 적절하게 프로비저닝되도록 클러스터 API에 
+Kubeadm은 사용자가 쿠버네티스 클러스터를 배포하기 위한 사실상의 표준이
+되고 있다. kubeadm의 윈도우 노드 지원은 현재 작업 중이지만
+[여기](/ko/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)에서 가이드를 사용할 수 있다.
+또한 윈도우 노드가 적절하게 프로비저닝되도록 클러스터 API에
 투자하고 있다.
 
 ### 몇 가지 기타 주요 기능
 * 그룹 관리 서비스 어카운트(Service Accounts)에 대한 베타 지원
 * 더 많은 CNI
 * 더 많은 스토리지 플러그인
-
-

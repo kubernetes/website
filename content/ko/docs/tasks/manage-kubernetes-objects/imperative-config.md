@@ -64,6 +64,18 @@ weight: 40
 
 * `kubectl delete -f <파일명|url>`
 
+{{< note >}}
+구성 파일이 `metadata` 섹션에서 `name` 필드 대신 `generateName`
+필드를 지정한 경우, `kubectl delete -f <filename|url>` 을 사용하여
+오브젝트를 삭제할 수 없다.
+오브젝트를 삭제하려면 다른 플래그를 사용해야 한다. 예를 들면, 다음과 같다.
+
+```shell
+kubectl delete <type> <name>
+kubectl delete <type> -l <label>
+```
+{{< /note >}}
+
 ## 오브젝트 확인 방법
 
 구성파일에 정의한 오브젝트에 관한 정보 확인을 위해 `kubectl get -f`

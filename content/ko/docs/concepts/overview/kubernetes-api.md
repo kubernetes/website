@@ -3,7 +3,7 @@ title: 쿠버네티스 API
 content_type: concept
 weight: 30
 description: >
-  쿠버네티스 API를 사용하면 쿠버네티스 오브젝트들의 상태를 쿼리하고 조작할 수 있다. 
+  쿠버네티스 API를 사용하면 쿠버네티스 오브젝트들의 상태를 쿼리하고 조작할 수 있다.
   쿠버네티스 컨트롤 플레인의 핵심은 API 서버와 그것이 노출하는 HTTP API이다. 사용자와 클러스터의 다른 부분 및 모든 외부 컴포넌트는 API 서버를 통해 서로 통신한다.
 card:
   name: concepts
@@ -20,23 +20,16 @@ card:
 쿠버네티스 API를 사용하면 쿠버네티스 API 오브젝트(예:
 파드(Pod), 네임스페이스(Namespace), 컨피그맵(ConfigMap) 그리고 이벤트(Event))를 질의하고 조작할 수 있다.
 
-API 엔드포인트, 리소스 타입과 샘플은 [API Reference](/ko/docs/reference)에 기술되어 있다.
+대부분의 작업은 [kubectl](/docs/reference/kubectl/overview/)
+커맨드 라인 인터페이스 또는 API를 사용하는
+[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)과
+같은 다른 커맨드 라인 도구를 통해 수행할 수 있다.
+그러나, REST 호출을 사용하여 API에 직접 접근할 수도 있다.
+
+쿠버네티스 API를 사용하여 애플리케이션을 작성하는 경우
+[클라이언트 라이브러리](/docs/reference/using-api/client-libraries/) 중 하나를 사용하는 것이 좋다.
 
 <!-- body -->
-
-## API 변경
-
-새로운 유스케이스가 등장하거나 기존 시스템이 변경됨에 따라 성공적인 시스템은 성장하고 변경될 필요가 있다.
-따라서, 쿠버네티스는 쿠버네티스 API를 지속적으로 변경하고 성장시킬 수 있는 디자인 기능을 가지고 있다.
-쿠버네티스 프로젝트는 기존 클라이언트와의 호환성을 중단하지 _않고_,
-다른 프로젝트가 적응할 수 있도록 오랫동안 호환성을 유지하는 것을 목표로 한다.
-
-일반적으로, 새로운 API 리소스와 새로운 리소스 필드가 주기적으로 추가될 것이다.
-리소스나 필드를 없애는 일은 다음의
-[API 사용 중단 정책](/docs/reference/using-api/deprecation-policy/)을 따른다.
-
-호환되는 변경에 어떤 내용이 포함되는지, 어떻게 API를 변경하는지에 대한 자세한 내용은
-[API 변경](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)을 참고한다.
 
 ## OpenAPI 명세 {#api-specification}
 
@@ -76,96 +69,58 @@ OpenAPI 규격은 `/openapi/v2` 엔드포인트에서만 제공된다.
   <caption>Valid request header values for OpenAPI v2 queries</caption>
 </table>
 
-쿠버네티스는 주로 클러스터 내부 통신용 API를 위해 대안적인 Protobuf에 기반한 직렬화 형식을 구현한다. 해당 API는 [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) 문서와 IDL 파일에 문서화되어 있고 각각의 스키마를 담고 있는 IDL 파일은 API 오브젝트를 정의하는 Go 패키지에 들어있다.
+쿠버네티스는 주로 클러스터 내부 통신을 위해 대안적인
+Protobuf에 기반한 직렬화 형식을 구현한다. 이 형식에 대한
+자세한 내용은 [쿠버네티스 Protobuf 직렬화](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) 디자인 제안과
+API 오브젝트를 정의하는 Go 패키지에 들어있는 각각의 스키마에 대한
+IDL(인터페이스 정의 언어) 파일을 참고한다.
 
-## API 버전 규칙
+## API 변경 사항
 
-필드를 없애거나 리소스 표현을 재구성하기 쉽도록,
-쿠버네티스는 `/api/v1`이나 `/apis/rbac.authorization.k8s.io/v1alpha1`과 같이
-각각 다른 API 경로에서 복수의 API 버전을 지원한다.
+성공적인 시스템은 새로운 유스케이스가 등장하거나 기존 사례가 변경됨에 따라 성장하고 변화해야 한다.
+따라서, 쿠버네티스는 쿠버네티스 API가 지속적으로 변경되고 성장할 수 있도록 기능을 설계했다.
+쿠버네티스 프로젝트는 기존 클라이언트와의 호환성을 깨지 _않고_ 다른 프로젝트가
+적응할 기회를 가질 수 있도록 장기간 해당 호환성을 유지하는 것을 목표로 한다.
 
-버전 관리는 API가 시스템 리소스와 동작에 대해 명확하고 일관된 보기를
-제공하고 수명 종료(end-of-life)와 실험적인 API에 대한 접근을 제어할 수 있도록
-리소스 또는 필드 수준이 아닌 API 수준에서 수행된다.
+일반적으로, 새 API 리소스와 새 리소스 필드는 자주 추가될 수 있다.
+리소스 또는 필드를 제거하려면
+[API 지원 중단 정책](/docs/reference/using-api/deprecation-policy/)을 따라야 한다.
 
-JSON과 Protobuf 직렬화 스키마는 스키마 변경에 대한 동일한 지침을 따르며 아래의 모든 설명은 두 형식을 모두 포함한다.
+호환 가능한 변경 사항과 API 변경 방법은
+[API 변경 사항](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)에 자세히 설명되어 있다.
 
-참고로 API 버전 관리와 소프트웨어 버전 관리는 간접적으로만 연관이 있다.
-[쿠버네티스 릴리스 버전 관리](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)
-제안은 API 버전 관리와 소프트웨어 버전 관리 사이의 관계를 설명한다.
+## API 그룹과 버전 규칙
 
-API 버전이 다른 경우는 안정성이나 기술 지원의 수준이 다르다는 것을 암시한다. 각각의 수준에 대한 조건은
-[API 변경](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)에서
-상세히 다룬다. 요약하자면 다음과 같다.
+필드를 쉽게 제거하거나 리소스 표현을 재구성하기 위해,
+쿠버네티스는 각각 `/api/v1` 또는 `/apis/rbac.authorization.k8s.io/v1alpha1` 과
+같은 서로 다른 API 경로에서 여러 API 버전을 지원한다.
 
-- 알파(Alpha) 수준:
-  - 버전 이름에 `alpha`가 포함된다. (예: `v1alpha1`)
-  - 버그가 있을 수도 있다. 이 기능을 활성화하면 버그가 노출될 수 있다. 기본적으로 비활성화되어 있다.
-  - 기능에 대한 기술 지원이 언제든 공지 없이 중단될 수 있다.
-  - 다음 소프트웨어를 릴리스할 때 공지 없이 API의 호환성이 깨지는 방식으로 변경될 수 있다.
-  - 버그의 위험이 높고 장기간 지원되지 않으므로 단기간 테스트 용도의 클러스터에서만 사용하기를 권장한다.
-- 베타(Beta) 수준:
-  - 버전 이름에 `beta`가 포함된다. (예: `v2beta3`).
-  - 코드가 잘 테스트되었다. 이 기능을 활성화 시켜도 안전하다. 기본적으로 활성화되어 있다.
-  - 구체적인 내용이 바뀔 수는 있지만, 전반적인 기능에 대한 기술 지원이 중단되지 않는다.
-  - 오브젝트에 대한 스키마나 문법이 다음 베타 또는 안정화 릴리스에서 호환되지 않는 방식으로 바뀔 수도 있다. 이런 경우,
-    다음 버전으로 이관할 수 있는 가이드를 제공할 것이다.
-    이 때 API 오브젝트의 삭제, 편집 또는 재생성이 필요할 수도 있다. 편집 절차는 좀 생각해볼 필요가 있다. 이 기능에 의존하고 있는 애플리케이션은 다운타임이 필요할 수도 있다.
-  - 다음 릴리스에서 호환되지 않을 수도 있으므로 사업적으로 중요하지 않은 용도로만 사용하기를 권장한다.
-    복수의 클러스터를 가지고 있어서 독립적으로 업그레이드할 수 있다면 이런 제약에서 안심이 될 수도 있겠다.
-  - **베타 기능을 사용하고 피드백을 주기를 바란다! 일단 베타가 끝나면, 실질적으로 더 많은 변경이 어렵다.**
-- 안정화(stable) 수준:
-  - 버전 이름이 `vX`이고 `X` 는 정수다.
-  - 안정화 버전의 기능은 이후 여러 버전에 걸쳐서 소프트웨어 릴리스에 포함된다.
+버전 규칙은 리소스나 필드 수준이 아닌 API 수준에서 수행되어
+API가 시스템 리소스 및 동작에 대한 명확하고 일관된 보기를 제공하고
+수명 종료 및/또는 실험적 API에 대한 접근을
+제어할 수 있도록 한다.
 
-## API 그룹
+API 버전 수준 정의에 대한 자세한 내용은
+[API 버전 레퍼런스](/ko/docs/reference/using-api/api-overview/#api-버전-규칙)를 참조한다.
 
-쿠버네티스 API를 보다 쉽게 확장하기 위해서, [*API 그룹*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)을 구현했다.
-API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명시된다.
+보다 쉽게 발전하고 API를 확장하기 위해, 쿠버네티스는
+[활성화 또는 비활성화](/ko/docs/reference/using-api/api-overview/#api-그룹-활성화-또는-비활성화-하기)가
+가능한 [API 그룹](/ko/docs/reference/using-api/api-overview/#api-그룹)을 구현한다.
 
-클러스터에 다양한 API 그룹이 있다.
+## API 확장
 
-1. *레거시* 그룹이라고도 하는 *핵심* 그룹은 REST 경로인 `/api/v1/` 에 있고, `apiVersion: v1`을 사용한다.
+쿠버네티스 API는 다음 두 가지 방법 중 하나로 확장할 수 있다.
 
-1. 이름이 있는 그룹은 REST 경로 `/apis/$GROUP_NAME/$VERSION`에 있으며 `apiVersion: $GROUP_NAME/$VERSION`을 사용한다
-  (예: `apiVersion: batch/v1`). 사용 가능한 API 그룹의 전체의 목록은
-  [쿠버네티스 API 참조](/ko/docs/reference/)에 있다.
-
-
-[사용자 지정 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)로 API를 확장하는 두 가지 방법이 있다.
-
-1. [커스텀리소스데피니션(CustomResourceDefinition)](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)은
-   API 서버가 선택한 리소스 API를 제공하는 방법을 선언적으로 정의할 수 있다.
-1. 또한, [자신의 확장 API 서버 구현](/ko/docs/tasks/extend-kubernetes/setup-extension-api-server/)과
-   [aggregator](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)를
-   사용해서 클라이언트를 원활하게 만들 수 있다.
-
-
-## API 그룹 활성화 또는 비활성화하기
-
-특정 리소스와 API 그룹은 기본적으로 활성화되어 있다. kube-apiserver에서 커맨드 라인 옵션으로 `--runtime-config` 를
-설정해서 활성화하거나 비활성화할 수 있다.
-
-`--runtime-config`는 쉼표로 분리된 값을 허용한다. 예를 들어서 batch/v1을 비활성화시키려면,
-`--runtime-config=batch/v1=false`와 같이 설정하고, batch/v2alpha1을 활성화시키려면, `--runtime-config=batch/v2alpha1`을
-설정한다. 이 플래그는 API 서버의 런타임 설정에 쉼표로 분리된 키=값 쌍의 집합을 허용한다.
-
-{{< note >}}그룹이나 리소스를 활성화 또는 비활성화하려면 kube-apiserver와
-controller-manager를 재시작해서 `--runtime-config` 변경 사항을 반영해야 한다. {{< /note >}}
-
-## 지속성
-
-쿠버네티스는 API 리소스에 대한 직렬화된 상태를 {{< glossary_tooltip term_id="etcd" >}}에
-기록하고 저장한다.
-
+1. [커스텀 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)를
+   사용하면 API 서버가 선택한 리소스 API를 제공하는 방법을 선언적으로 정의할 수 있다.
+1. [애그리게이션 레이어(aggregation layer)](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를
+   구현하여 쿠버네티스 API를 확장할 수도 있다.
 
 ## {{% heading "whatsnext" %}}
 
-[API 접근 제어하기](/docs/reference/access-authn-authz/controlling-access/)는 클러스터가
-API 접근에 대한 인증과 권한을 관리하는 방법을 설명한다.
-
-전체 API 규약은
-[API 규약](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
-문서에 설명되어 있다.
-
-API 엔드포인트, 리소스 타입과 샘플은 [API 참조](/docs/reference/kubernetes-api/)에 설명되어 있다.
+- 자체 [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)을
+  추가하여 쿠버네티스 API를 확장하는 방법에 대해 배우기.
+- [API 접근 제어하기](/ko/docs/reference/access-authn-authz/controlling-access/)는
+  클러스터가 API 접근을 위한 인증 및 권한을 관리하는 방법을 설명한다.
+- [API 레퍼런스](/docs/reference/kubernetes-api/)를
+  읽고 API 엔드포인트, 리소스 유형 및 샘플에 대해 배우기.

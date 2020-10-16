@@ -16,7 +16,7 @@ aliases:
 
 ## 노드에서 컨트롤 플레인으로의 통신
 쿠버네티스에는 "허브 앤 스포크(hub-and-spoke)" API 패턴을 가지고 있다. 노드(또는 노드에서 실행되는 파드들)의 모든 API 사용은 API 서버에서 종료된다(다른 컨트롤 플레인 컴포넌트 중 어느 것도 원격 서비스를 노출하도록 설계되지 않았다). API 서버는 하나 이상의 클라이언트 [인증](/docs/reference/access-authn-authz/authentication/) 형식이 활성화된 보안 HTTPS 포트(일반적으로 443)에서 원격 연결을 수신하도록 구성된다.
-특히 [익명의 요청](/docs/reference/access-authn-authz/authentication/#anonymous-requests) 또는 [서비스 어카운트 토큰](/docs/reference/access-authn-authz/authentication/#service-account-tokens)이 허용되는 경우, 하나 이상의 [권한 부여](/docs/reference/access-authn-authz/authorization/) 형식을 사용해야 한다.
+특히 [익명의 요청](/docs/reference/access-authn-authz/authentication/#anonymous-requests) 또는 [서비스 어카운트 토큰](/docs/reference/access-authn-authz/authentication/#service-account-tokens)이 허용되는 경우, 하나 이상의 [권한 부여](/ko/docs/reference/access-authn-authz/authorization/) 형식을 사용해야 한다.
 
 노드는 유효한 클라이언트 자격 증명과 함께 API 서버에 안전하게 연결할 수 있도록 클러스터에 대한 공개 루트 인증서로 프로비전해야 한다. 예를 들어, 기본 GKE 배포에서, kubelet에 제공되는 클라이언트 자격 증명은 클라이언트 인증서 형식이다. kubelet 클라이언트 인증서의 자동 프로비저닝은 [kubelet TLS 부트스트랩](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)을 참고한다.
 

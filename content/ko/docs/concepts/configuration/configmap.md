@@ -214,6 +214,7 @@ kubelet은 모든 주기적인 동기화에서 마운트된 컨피그맵이 최�
 전파 지연은 선택한 캐시 유형에 따라 달라질 수 있다(전파
 지연을 지켜보거나, 캐시의 ttl 또는 0에 상응함).
 
+환경 변수로 사용되는 컨피그맵은 자동으로 업데이트되지 않으며 파드를 다시 시작해야 한다.
 ## 변경할 수 없는(immutable) 컨피그맵 {#configmap-immutable}
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
