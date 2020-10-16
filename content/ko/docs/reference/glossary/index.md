@@ -7,6 +7,6 @@ weight: 5
 card:
   name: reference
   weight: 10
-  title: Glossary
+  title: 용어집
 ---
 
