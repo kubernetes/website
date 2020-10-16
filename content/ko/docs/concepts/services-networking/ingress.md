@@ -27,15 +27,26 @@ weight: 40
 {{< link text="서비스" url="/docs/concepts/services-networking/service/" >}}로 HTTP와 HTTPS 경로를 노출한다.
 트래픽 라우팅은 인그레스 리소스에 정의된 규칙에 의해 컨트롤된다.
 
-```none
-    internet
-        |
-   [ Ingress ]
-   --|-----|--
-   [ Services ]
-```
+다음은 인그레스가 모든 트래픽을 하나의 서비스로 보내는 간단한 예시이다.
+{{< mermaid >}}
+graph LR;
+  client([클라이언트])-. 인그레스-매니지드 <br> 로드 밸런서 .->ingress[인그레스];
+  ingress-->|라우팅 규칙|service[서비스];
+  subgraph 클러스터
+  ingress;
+  service-->pod1[파드];
+  service-->pod2[파드];
+  end
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  class ingress,service,pod1,pod2 k8s;
+  class client plain;
+  class cluster cluster;
+{{</ mermaid >}}
 
-인그레스는 외부에서 서비스로 접속이 가능한 URL, 로드 밸런스 트래픽, SSL / TLS 종료 그리고 이름 기반의 가상 호스팅을 제공하도록 구성할 수 있다. [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 일반적으로 로드 밸런서를 사용해서 인그레스를 수행할 책임이 있으며, 트래픽을 처리하는데 도움이 되도록 에지 라우터 또는 추가 프런트 엔드를 구성할 수도 있다.
+
+인그레스는 외부에서 서비스로 접속이 가능한 URL, 로드 밸런스 트래픽, SSL / TLS 종료 그리고 이름-기반의 가상 호스팅을 제공하도록 구성할 수 있다. [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 일반적으로 로드 밸런서를 사용해서 인그레스를 수행할 책임이 있으며, 트래픽을 처리하는데 도움이 되도록 에지 라우터 또는 추가 프런트 엔드를 구성할 수도 있다.
 
 인그레스는 임의의 포트 또는 프로토콜을 노출시키지 않는다. HTTP와 HTTPS 이외의 서비스를 인터넷에 노출하려면 보통
 [Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 또는
@@ -104,7 +115,7 @@ weight: 40
 
 ### 리소스 백엔드 {#resource-backend}
 
-`Resource` 백엔드는 인그레스 오브젝트의 동일한 네임스페이스 내에 있는
+`Resource` 백엔드는 인그레스 오브젝트와 동일한 네임스페이스 내에 있는
 다른 쿠버네티스 리소스에 대한 ObjectRef이다. `Resource` 는 서비스와
 상호 배타적인 설정이며, 둘 다 지정하면 유효성 검사에 실패한다. `Resource`
 백엔드의 일반적인 용도는 정적 자산이 있는 오브젝트 스토리지 백엔드로 데이터를
@@ -272,10 +283,25 @@ test-ingress   external-lb   *       203.0.113.123   80      59s
 트래픽을 라우팅 한다. 인그레스를 사용하면 로드 밸런서의 수를
 최소로 유지할 수 있다. 예를 들어 다음과 같은 설정을 한다.
 
-```
-foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
-                                 / bar    service2:8080
-```
+{{< mermaid >}}
+graph LR;
+  client([클라이언트])-. 인그레스-매니지드 <br> 로드 밸런서 .->ingress[인그레스, 178.91.123.132];
+  ingress-->|/foo|service1[서비스 service1:4200];
+  ingress-->|/bar|service2[서비스 service2:8080];
+  subgraph 클러스터
+  ingress;
+  service1-->pod1[파드];
+  service1-->pod2[파드];
+  service2-->pod3[파드];
+  service2-->pod4[파드];
+  end
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
+  class client plain;
+  class cluster cluster;
+{{</ mermaid >}}
 
 다음과 같은 인그레스가 필요하다.
 
@@ -319,11 +345,26 @@ Events:
 
 이름 기반의 가상 호스트는 동일한 IP 주소에서 여러 호스트 이름으로 HTTP 트래픽을 라우팅하는 것을 지원한다.
 
-```none
-foo.bar.com --|                 |-> foo.bar.com service1:80
-              | 178.91.123.132  |
-bar.foo.com --|                 |-> bar.foo.com service2:80
-```
+{{< mermaid >}}
+graph LR;
+  client([클라이언트])-. 인그레스-매니지드 <br> 로드 밸런서 .->ingress[인그레스, 178.91.123.132];
+  ingress-->|호스트: foo.bar.com|service1[서비스 service1:80];
+  ingress-->|호스트: bar.foo.com|service2[서비스 service2:80];
+  subgraph 클러스터
+  ingress;
+  service1-->pod1[파드];
+  service1-->pod2[파드];
+  service2-->pod3[파드];
+  service2-->pod4[파드];
+  end
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
+  class client plain;
+  class cluster cluster;
+{{</ mermaid >}}
+
 
 다음 인그레스는 [호스트 헤더](https://tools.ietf.org/html/rfc7230#section-5.4)에 기반한 요청을
 라우팅 하기 위해 뒷단의 로드 밸런서를 알려준다.
