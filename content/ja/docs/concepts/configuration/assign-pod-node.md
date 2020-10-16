@@ -201,7 +201,7 @@ PodアフィニティとPodアンチアフィニティで使用できるオペ�
 2. `requiredDuringSchedulingIgnoredDuringExecution`を指定したPodアンチアフィニティでは、`kubernetes.io/hostname`の`topologyKey`を制限するため、アドミッションコントローラー`LimitPodHardAntiAffinityTopology`が導入されました。
 トポロジーをカスタマイズする場合には、アドミッションコントローラーを修正または無効化する必要があります。
 3. `preferredDuringSchedulingIgnoredDuringExecution`を指定したPodアンチアフィニティでは、`topologyKey`を省略することはできません。
-4. 上記の場合を除き、`topologyKey` は任意のラベルとキーを指定することができあます。
+4. 上記の場合を除き、`topologyKey` は任意のラベルとキーを指定することができます。
 
 `labelSelector`と`topologyKey`に加え、`labelSelector`が合致すべき`namespaces`のリストを特定することも可能です(これは`labelSelector`と`topologyKey`を定義することと同等です)。
 省略した場合や空の場合は、アフィニティとアンチアフィニティが定義されたPodのnamespaceがデフォルトで設定されます。
