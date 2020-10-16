@@ -23,7 +23,7 @@ fi
 # Last commit for the localized file
 LASTCOMMIT=`git log -n 1 --pretty=format:%h -- $LOCALIZED`
 
-git diff $LASTCOMMIT...HEAD $EN_VERSION
+git diff --exit-code $LASTCOMMIT...HEAD $EN_VERSION
 
 if [ "$?" -eq 0 ]; then
   echo "$LOCALIZED is still in sync"
