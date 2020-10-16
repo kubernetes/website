@@ -18,10 +18,10 @@ you to figure out what's going wrong.
 ## Running commands in a Pod
 
 For many steps here you will want to see what a Pod running in the cluster
-sees.  The simplest way to do this is to run an interactive alpine Pod:
+sees.  The simplest way to do this is to run an interactive busybox Pod:
 
 ```none
-kubectl run -it --rm --restart=Never alpine --image=alpine sh
+kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh
 ```
 
 {{< note >}}
