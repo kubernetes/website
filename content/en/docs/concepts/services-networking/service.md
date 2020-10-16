@@ -579,19 +579,14 @@ status:
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
 
 For LoadBalancer type of Services, when there is more than one port defined, all
-ports must have the same protocol and the protocol must be one of `TCP`, `UDP`,
-and `SCTP`.
+ports must have the same protocol, and the protocol must be one which is supported
+by the cloud provider.
 
 Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
 the loadBalancer is set up with an ephemeral IP address. If you specify a `loadBalancerIP`
 but your cloud provider does not support the feature, the `loadbalancerIP` field that you
 set is ignored.
-
-{{< note >}}
-If you're using SCTP, see the [caveat](#caveat-sctp-loadbalancer-service-type) below about the
-`LoadBalancer` Service type.
-{{< /note >}}
 
 {{< note >}}
 
@@ -1184,6 +1179,36 @@ You can use TCP for any kind of Service, and it's the default network protocol.
 You can use UDP for most Services. For type=LoadBalancer Services, UDP support
 depends on the cloud provider offering this facility.
 
+### SCTP
+
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
+
+When using a network plugin that supports SCTP traffic, you can use SCTP for
+most Services. For type=LoadBalancer Services, SCTP support depends on the cloud
+provider offering this facility. (Most do not).
+
+#### Warnings {#caveat-sctp-overview}
+
+##### Support for multihomed SCTP associations {#caveat-sctp-multihomed}
+
+{{< warning >}}
+The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a Pod.
+
+NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
+{{< /warning >}}
+
+##### Windows {#caveat-sctp-windows-os}
+
+{{< note >}}
+SCTP is not supported on Windows based nodes.
+{{< /note >}}
+
+##### Userspace kube-proxy {#caveat-sctp-kube-proxy-userspace}
+
+{{< warning >}}
+The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
+{{< /warning >}}
+
 ### HTTP
 
 If your cloud provider supports it, you can use a Service in LoadBalancer mode
@@ -1210,42 +1235,6 @@ PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 ```
 
 followed by the data from the client.
-
-### SCTP
-
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-Kubernetes supports SCTP as a `protocol` value in Service, Endpoints, EndpointSlice, NetworkPolicy and Pod definitions. As a beta feature, this is enabled by default. To disable SCTP at a cluster level, you (or your cluster administrator) will need to disable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=false,…`.
-
-When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoints, EndpointSlice, NetworkPolicy or Pod to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
-
-#### Warnings {#caveat-sctp-overview}
-
-##### Support for multihomed SCTP associations {#caveat-sctp-multihomed}
-
-{{< warning >}}
-The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a Pod.
-
-NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
-{{< /warning >}}
-
-##### Service with type=LoadBalancer {#caveat-sctp-loadbalancer-service-type}
-
-{{< warning >}}
-You can only create a Service with `type` LoadBalancer plus `protocol` SCTP if the cloud provider's load balancer implementation supports SCTP as a protocol. Otherwise, the Service creation request is rejected. The current set of cloud load balancer providers (Azure, AWS, CloudStack, GCE, OpenStack) all lack support for SCTP.
-{{< /warning >}}
-
-##### Windows {#caveat-sctp-windows-os}
-
-{{< warning >}}
-SCTP is not supported on Windows based nodes.
-{{< /warning >}}
-
-##### Userspace kube-proxy {#caveat-sctp-kube-proxy-userspace}
-
-{{< warning >}}
-The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
-{{< /warning >}}
 
 ## {{% heading "whatsnext" %}}
 
