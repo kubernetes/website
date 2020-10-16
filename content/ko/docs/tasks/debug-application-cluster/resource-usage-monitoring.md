@@ -7,7 +7,7 @@ title: 리소스 모니터링 도구
 
 애플리케이션을 스케일하여 신뢰할 수 있는 서비스를 제공하려면,
 애플리케이션이 배포되었을 때 애플리케이션이 어떻게 동작하는지를 이해해야 한다.
-컨테이너, [파드](/ko/docs/concepts/workloads/pods/pod),
+컨테이너, [파드](/ko/docs/concepts/workloads/pods/),
 [서비스](/ko/docs/concepts/services-networking/service),
 그리고 전체 클러스터의 특성을 검사하여
 쿠버네티스 클러스터 내의 애플리케이션 성능을 검사할 수 있다. 쿠버네티스는 각 레벨에서

@@ -25,7 +25,7 @@ _퍼시스턴트볼륨클레임_ (PVC)은 사용자의 스토리지에 대한 �
 
 퍼시스턴트볼륨클레임을 사용하면 사용자가 추상화된 스토리지 리소스를 사용할 수 있지만, 다른 문제들 때문에 성능과 같은 다양한 속성을 가진 퍼시스턴트볼륨이 필요한 경우가 일반적이다. 클러스터 관리자는 사용자에게 해당 볼륨의 구현 방법에 대한 세부 정보를 제공하지 않고 단순히 크기와 접근 모드와는 다른 방식으로 다양한 퍼시스턴트볼륨을 제공할 수 있어야 한다. 이러한 요구에는 _스토리지클래스_ 리소스가 있다.
 
-[실습 예제와 함께 상세한 내용](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)을 참고하길 바란다.
+[실습 예제와 함께 상세한 내용](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)을 참고하길 바란다.
 
 ## 볼륨과 클레임 라이프사이클
 
@@ -755,8 +755,8 @@ spec:
   ## {{% heading "whatsnext" %}}
 
 
-* [퍼시스턴트볼륨 생성](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)에 대해 자세히 알아보기
-* [퍼시스턴트볼륨클레임 생성](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)에 대해 자세히 알아보기
+* [퍼시스턴트볼륨 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)에 대해 자세히 알아보기
+* [퍼시스턴트볼륨클레임 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨클레임-생성하기)에 대해 자세히 알아보기
 * [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md) 읽어보기
 
 ### 참고
