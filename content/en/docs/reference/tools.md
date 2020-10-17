@@ -44,7 +44,7 @@ Use Helm to:
 
 ## Kompose
 
-[`Kompose`](https://github.com/kubernetes-incubator/kompose) is a tool to help Docker Compose users move to Kubernetes.
+[`Kompose`](https://github.com/kubernetes/kompose) is a tool to help Docker Compose users move to Kubernetes.
 
 Use Kompose to:
 

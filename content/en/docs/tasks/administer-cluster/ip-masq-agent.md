@@ -62,7 +62,7 @@ By default, in GCE/Google Kubernetes Engine starting with Kubernetes version 1.7
 To create an ip-masq-agent, run the following kubectl command:
 
 `
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-incubator/ip-masq-agent/master/ip-masq-agent.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/ip-masq-agent/master/ip-masq-agent.yaml
 `
 
 You must also apply the appropriate node label to any nodes in your cluster that you want the agent to run on.
@@ -71,7 +71,7 @@ You must also apply the appropriate node label to any nodes in your cluster that
 kubectl label nodes my-node beta.kubernetes.io/masq-agent-ds-ready=true
 `
 
-More information can be found in the ip-masq-agent documentation [here](https://github.com/kubernetes-incubator/ip-masq-agent)
+More information can be found in the ip-masq-agent documentation [here](https://github.com/kubernetes-sigs/ip-masq-agent)
 
 In most cases, the default set of rules should be sufficient; however, if this is not the case for your cluster, you can create and apply a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to customize the IP ranges that are affected.  For example, to allow only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the following [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) in a file called "config".
 
