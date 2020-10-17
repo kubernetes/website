@@ -134,7 +134,7 @@ RuntimeClassのnodeSelectorはアドミッション機能によりPodのnodeSele
 もしサポートされているノードが他のRuntimeClassのPodが稼働しないようにtaint付与されていた場合、RuntimeClassに対して`tolerations`を付与することができます。
 `nodeSelector`と同様に、tolerationsはPodのtolerationsにアドミッション機能によって統合され、効率よく許容されたノードを選択します。
 
-ノードの選択とtolerationsについての詳細は[ノード上へのPodのスケジューリング](/docs/concepts/scheduling-eviction/assign-pod-node/)を参照してください。
+ノードの選択とtolerationsについての詳細は[ノード上へのPodのスケジューリング](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)を参照してください。
 
 ### Podオーバーヘッド
 
