@@ -472,11 +472,13 @@ Start-Service containerd
 
 ### systemd
 
-To use the `systemd` cgroup driver in `/etc/containerd/config.toml` set
+To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc` set
 
 ```
-[plugins.cri]
-systemd_cgroup = true
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  ...
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
 ```
 When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
