@@ -71,7 +71,7 @@ If you run `make serve` on macOS and receive the following error:
 ERROR 2020/08/01 19:09:18 Error: listen tcp 127.0.0.1:1313: socket: too many open files
 make: *** [serve] Error 1
 ```
-
+So:
 Try checking the current limit for open files:
 
 `launchctl limit maxfiles`
