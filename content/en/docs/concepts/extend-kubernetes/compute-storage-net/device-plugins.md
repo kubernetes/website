@@ -210,7 +210,7 @@ Support for the "PodResources service" requires `KubeletPodResources` [feature g
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-The Topology Manager is a Kubelet component that allows resources to be co-ordintated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
+The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
 
 
 ```gRPC
