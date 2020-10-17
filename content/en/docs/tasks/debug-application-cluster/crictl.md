@@ -15,7 +15,7 @@ content_type: task
 `crictl` is a command-line interface for CRI-compatible container runtimes.
 You can use it to inspect and debug container runtimes and applications on a
 Kubernetes node. `crictl` and its source are hosted in the
-[cri-tools](https://github.com/kubernetes-incubator/cri-tools) repository.
+[cri-tools](https://github.com/kubernetes-sigs/cri-tools) repository.
 
 
 
@@ -31,7 +31,7 @@ Kubernetes node. `crictl` and its source are hosted in the
 ## Installing crictl
 
 You can download a compressed archive `crictl` from the cri-tools [release
-page](https://github.com/kubernetes-incubator/cri-tools/releases), for several
+page](https://github.com/kubernetes-sigs/cri-tools/releases), for several
 different architectures. Download the version that corresponds to your version
 of Kubernetes. Extract it and move it to a location on your system path, such as
 `/usr/local/bin/`.
@@ -353,7 +353,7 @@ CONTAINER ID        IMAGE               CREATED              STATE              
 
 <!-- discussion -->
 
-See [kubernetes-incubator/cri-tools](https://github.com/kubernetes-incubator/cri-tools)
+See [kubernetes-sigs/cri-tools](https://github.com/kubernetes-sigs/cri-tools)
 for more information.
 
 
