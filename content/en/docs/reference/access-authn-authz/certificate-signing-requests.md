@@ -136,22 +136,7 @@ To allow creating a CertificateSigningRequest and retrieving any CertificateSign
 
 For example:
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: csr-creator
-rules:
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests
-  verbs:
-  - create
-  - get
-  - list
-  - watch
-```
+{{< codenew file="access/certificate-signing-request/clusterrole-create.yaml" >}}
 
 To allow approving a CertificateSigningRequest:
 
@@ -161,35 +146,7 @@ To allow approving a CertificateSigningRequest:
 
 For example:
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: csr-approver
-rules:
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests/approval
-  verbs:
-  - update
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - signers
-  resourceNames:
-  - example.com/my-signer-name # example.com/* can be used to authorize for all signers in the 'example.com' domain
-  verbs:
-  - approve
-```
+{{< codenew file="access/certificate-signing-request/clusterrole-approve.yaml" >}}
 
 To allow signing a CertificateSigningRequest:
 
@@ -197,35 +154,7 @@ To allow signing a CertificateSigningRequest:
 * Verbs: `update`, group: `certificates.k8s.io`, resource: `certificatesigningrequests/status`
 * Verbs: `sign`, group: `certificates.k8s.io`, resource: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: csr-signer
-rules:
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests/status
-  verbs:
-  - update
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - signers
-  resourceName:
-  - example.com/my-signer-name # example.com/* can be used to authorize for all signers in the 'example.com' domain
-  verbs:
-  - sign
-```
+{{< codenew file="access/certificate-signing-request/clusterrole-sign.yaml" >}}
 
 ## Normal User
 
@@ -267,7 +196,7 @@ Some points to note:
 
 ### Approve Certificate Request
 
-Use kubeadmin to create a CSR and approve it.
+Use kubectl to create a CSR and approve it.
 
 Get the list of CSRs
 ```
