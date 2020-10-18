@@ -75,12 +75,12 @@ Webhookのモデルでは、Kubernetesは外部のサービスを呼び出しま
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
 1.   ユーザーは頻繁に`kubectl`を使って、Kubernetes APIとやり取りをします。[Kubectlプラグイン](/docs/tasks/extend-kubectl/kubectl-plugins/)は、kubectlのバイナリを拡張します。これは個別ユーザーのローカル環境のみに影響を及ぼすため、サイト全体にポリシーを強制することはできません。
-2.   APIサーバーは全てのリクエストを処理します。APIサーバーのいくつかの拡張ポイントは、リクエストを認可する、コンテキストに基づいてブロックする、リクエストを編集する、そして削除を処理することを可能にします。これらは[APIアクセスエクステンション](/docs/concepts/extend-kubernetes/#api-access-extensions)セクションに記載されています。
-3.   APIサーバーは様々な種類の *リソース* を扱います。`Pod`のような *ビルトインリソース* はKubernetesプロジェクトにより定義され、変更できません。ユーザーも、自身もしくは、他のプロジェクトで定義されたリソースを追加することができます。それは *カスタムリソース* と呼ばれ、[カスタムリソース](/docs/concepts/extend-kubernetes/#user-defined-types)セクションに記載されています。カスタムリソースは度々、APIアクセスエクステンションと一緒に使われます。
-4.   KubernetesのスケジューラーはPodをどのノードに配置するかを決定します。スケジューリングを拡張するには、いくつかの方法があります。それらは[スケジューラーエクステンション](/docs/concepts/extend-kubernetes/#scheduler-extensions)セクションに記載されています。
+2.   APIサーバーは全てのリクエストを処理します。APIサーバーのいくつかの拡張ポイントは、リクエストを認可する、コンテキストに基づいてブロックする、リクエストを編集する、そして削除を処理することを可能にします。これらは[APIアクセスエクステンション](/ja/docs/concepts/extend-kubernetes/#api-access-extensions)セクションに記載されています。
+3.   APIサーバーは様々な種類の *リソース* を扱います。`Pod`のような *ビルトインリソース* はKubernetesプロジェクトにより定義され、変更できません。ユーザーも、自身もしくは、他のプロジェクトで定義されたリソースを追加することができます。それは *カスタムリソース* と呼ばれ、[カスタムリソース](/ja/docs/concepts/extend-kubernetes/#user-defined-types)セクションに記載されています。カスタムリソースは度々、APIアクセスエクステンションと一緒に使われます。
+4.   KubernetesのスケジューラーはPodをどのノードに配置するかを決定します。スケジューリングを拡張するには、いくつかの方法があります。それらは[スケジューラーエクステンション](/ja/docs/concepts/extend-kubernetes/#scheduler-extensions)セクションに記載されています。
 5.   Kubernetesにおける多くの振る舞いは、APIサーバーのクライアントであるコントローラーと呼ばれるプログラムに実装されています。コントローラーは度々、カスタムリソースと共に使われます。
-6.   kubeletはサーバー上で実行され、Podが仮想サーバーのようにクラスターネットワーク上にIPを持った状態で起動することをサポートします。[ネットワークプラグイン](/docs/concepts/extend-kubernetes/#network-plugins)がPodのネットワーキングにおける異なる実装を適用することを可能にします。
-7.   kubeletはまた、コンテナのためにボリュームをマウント、アンマウントします。新しい種類のストレージは[ストレージプラグイン](/docs/concepts/extend-kubernetes/#storage-plugins)を通じてサポートされます。
+6.   kubeletはサーバー上で実行され、Podが仮想サーバーのようにクラスターネットワーク上にIPを持った状態で起動することをサポートします。[ネットワークプラグイン](/ja/docs/concepts/extend-kubernetes/#network-plugins)がPodのネットワーキングにおける異なる実装を適用することを可能にします。
+7.   kubeletはまた、コンテナのためにボリュームをマウント、アンマウントします。新しい種類のストレージは[ストレージプラグイン](/ja/docs/concepts/extend-kubernetes/#storage-plugins)を通じてサポートされます。
 
 もしあなたがどこから始めるべきかわからない場合、このフローチャートが役立つでしょう。一部のソリューションは、いくつかの種類のエクステンションを含んでいることを留意してください。
 
@@ -164,4 +164,3 @@ Kubernetesはいくつかのビルトイン認証方式と、それらが要件�
   * [デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * [kubectlプラグイン](/docs/tasks/extend-kubectl/kubectl-plugins/)について学ぶ
 * [オペレーターパターン](/docs/concepts/extend-kubernetes/operator/)について学ぶ
-
