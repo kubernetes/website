@@ -2,6 +2,9 @@
 title: API Kubernetes
 content_type: concept
 weight: 30
+description: >
+  API Kubernetes membuatmu dapat melakukan _query_ dan memanipulasi keadaan objek dalam Kubernetes.
+  Inti dari bidang kontrol Kubernetes adalah  _server_ API dan HTTP API yang diekspos. Pengguna, berbagai bagian klastermu, dan komponen eksternal semuanya berkomunikasi satu sama lain melalui server API.
 card:
   name: concepts
   weight: 30
