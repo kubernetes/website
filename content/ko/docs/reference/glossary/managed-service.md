@@ -1,5 +1,5 @@
 ---
-title: 매니지드 서비스
+title: 매니지드 서비스(Managed Service)
 id: managed-service
 date: 2018-04-12
 full_link:
