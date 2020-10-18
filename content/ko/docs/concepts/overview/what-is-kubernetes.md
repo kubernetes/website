@@ -7,6 +7,8 @@ weight: 10
 card:
   name: concepts
   weight: 10
+sitemap:
+  priority: 0.9
 ---
 
 <!-- overview -->
