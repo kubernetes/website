@@ -37,7 +37,7 @@ weight: 130
 `/usr/share/nginx/html` 에 마운트한다. 초기화 컨테이너는 다음 명령을 실행 후
 종료한다.
 
-    wget -O /work-dir/index.html http://kubernetes.io
+    wget -O /work-dir/index.html http://info.cern.ch
 
 초기화 컨테이너는 nginx 서버의 루트 디렉터리 내 `index.html` 파일을
 저장한다.
@@ -67,16 +67,13 @@ init-demo 파드 내 실행 중인 nginx 컨테이너의 셸을 실행한다.
 
 출력 결과는 nginx가 초기화 컨테이너에 의해 저장된 웹 페이지를 제공하고 있음을 보여준다.
 
-    <!Doctype html>
-    <html id="home">
+    <html><head></head><body><header>
+    <title>http://info.cern.ch</title>
+    </header>
 
-    <head>
-    ...
-    "url": "http://kubernetes.io/"}</script>
-    </head>
-    <body>
+    <h1>http://info.cern.ch - home of the first website</h1>
       ...
-      <p>Kubernetes is open source giving you the freedom to take advantage ...</p>
+      <li><a href="http://info.cern.ch/hypertext/WWW/TheProject.html">Browse the first website</a></li>
       ...
 
 

@@ -7,16 +7,16 @@ content_type: concept
 
 컨테이너 CPU 및 메모리 사용량과 같은 리소스 사용량 메트릭은
 쿠버네티스의 메트릭 API를 통해 사용할 수 있다. 이 메트릭은
-`kubectl top` 커맨드 사용과 같이 사용자가 직접적으로 액세스하거나,
+`kubectl top` 커맨드 사용하여 사용자가 직접적으로 액세스하거나,
 Horizontal Pod Autoscaler 같은 클러스터의 컨트롤러에서 결정을 내릴 때 사용될 수 있다.
 
 <!-- body -->
 
 ## 메트릭 API
 
-메트릭 API를 통해 주어진 노드나 파드에서 현재 사용중인
+메트릭 API를 통해, 주어진 노드나 파드에서 현재 사용중인
 리소스의 양을 알 수 있다. 이 API는 메트릭 값을 저장하지
-않으므로 지정된 노드에서 10분 전에 사용된 리소스의 양을
+않으므로, 예를 들어, 지정된 노드에서 10분 전에 사용된 리소스의 양을
 가져오는 것과 같은 일을 할 수는 없다.
 
 이 API와 다른 API는 차이가 없다.
@@ -52,14 +52,12 @@ kubelet은 비율 계산에 사용할 윈도우를 선택한다.
 ## 메트릭 서버
 
 [메트릭 서버](https://github.com/kubernetes-incubator/metrics-server)는 클러스터 전역에서 리소스 사용량 데이터를 집계한다.
-`kube-up.sh` 스크립트에 의해 생성된 클러스터에는 기본적으로 메트릭 서버가
+기본적으로, `kube-up.sh` 스크립트에 의해 생성된 클러스터에는 메트릭 서버가
 디플로이먼트 오브젝트로 배포된다. 만약 다른 쿠버네티스 설치 메커니즘을 사용한다면, 제공된
 [디플로이먼트 components.yaml](https://github.com/kubernetes-sigs/metrics-server/releases) 파일을 사용하여 메트릭 서버를 배포할 수 있다.
 
 메트릭 서버는 각 노드에서 [Kubelet](/docs/reference/command-line-tools-reference/kubelet/)에 의해
-노출된 Summary API에서 메트릭을 수집한다.
-
-메트릭 서버는 [쿠버네티스 aggregator](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를
+노출된 Summary API에서 메트릭을 수집하고, [쿠버네티스 aggregator](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를
 통해 메인 API 서버에 등록된다.
 
 [설계 문서](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)에서
