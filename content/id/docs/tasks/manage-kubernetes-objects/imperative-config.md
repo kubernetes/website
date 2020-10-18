@@ -1,7 +1,7 @@
 ---
-title: Penglolaan Objek Kubernetes Secara Imperatif dengan Menggunakan File Konfigurasi
+title: Pengelolaan Objek Kubernetes Secara Imperatif dengan Menggunakan File Konfigurasi
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
@@ -18,7 +18,7 @@ Perintah `kubectl` mendukung tiga cara pengelolaan objek:
 * Konfigurasi objek imperatif
 * Konfigurasi objek deklaratif
 
-Lihat [Pengelolaan Objek Kubernetes](/id/docs/concepts/overview/object-management-kubectl/overview/) untuk mengenali lebih lanjut kelebihan dan kekurangan dari tiap cara pengelolaan objek.
+Lihat [Pengelolaan Objek Kubernetes](/id/docs/tasks/manage-kubernetes-objects/) untuk mengenali lebih lanjut kelebihan dan kekurangan dari tiap cara pengelolaan objek.
 
 ## Cara membuat objek
 
@@ -108,9 +108,9 @@ template:
 
 ## {{% heading "whatsnext" %}}
 
-- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/id/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi](/id/docs/concepts/overview/object-management-kubectl/declarative-config/)
-- [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl/)
+- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/id/docs/tasks/manage-kubernetes-objects/imperative-command/)
+- [Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi](/id/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Rujukan API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 
