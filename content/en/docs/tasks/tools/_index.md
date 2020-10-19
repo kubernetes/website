@@ -47,3 +47,12 @@ on getting the tool installed.
 Once you have `minikube` working, you can use it to
 [run a sample application](/docs/tutorials/hello-minikube/).
 
+## kubeadm
+
+You can use the {{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}} tool to create and manage Kubernetes clusters.
+It performs the actions necessary to get a minimum viable, secure cluster up and running in a user friendly way.
+
+[Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) shows you how to install kubeadm.
+Once installed, you can use it to [create a cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+
+<a class="btn btn-primary" href="/docs/setup/production-environment/tools/kubeadm/install-kubeadm/" role="button" aria-label="View kubeadm Install Guide">View kubeadm Install Guide</a>
