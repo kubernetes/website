@@ -87,14 +87,15 @@ Currently, there are several API groups in use:
 *  The named groups are at REST path `/apis/$GROUP_NAME/$VERSION` and use
    `apiVersion: $GROUP_NAME/$VERSION` (for example, `apiVersion: batch/v1`).
    You can find the full list of supported API groups in
-   [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
+   [Kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#-strong-api-groups-strong-).
 
 ## Enabling or disabling API groups   {#enabling-or-disabling}
 
 Certain resources and API groups are enabled by default. You can enable or
 disable them by setting `--runtime-config` on the API server.  The
-`--runtime-config` flag accepts comma separated `<key>=<value>` pairs
-describing the runtime configuration of the API server. For example:
+`--runtime-config` flag accepts comma separated `<key>[=<value>]` pairs
+describing the runtime configuration of the API server. If the `=<value>`
+part is omitted, it is treated as if `=true` is specified. For example:
 
  - to disable `batch/v1`, set `--runtime-config=batch/v1=false`
  - to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
