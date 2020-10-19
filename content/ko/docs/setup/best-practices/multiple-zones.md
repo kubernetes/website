@@ -1,398 +1,140 @@
 ---
-title: 여러 영역에서 구동
-weight: 10
+title: 여러 영역에서 실행
+weight: 20
 content_type: concept
 ---
 
 <!-- overview -->
 
-이 페이지는 여러 영역에서 어떻게 클러스터를 구동하는지 설명한다.
-
-
+이 페이지에서는 여러 영역에서 쿠버네티스를 실행하는 방법을 설명한다.
 
 <!-- body -->
 
-## 소개
+## 배경
 
-Kubernetes 1.2 adds support for running a single cluster in multiple failure zones
-(GCE calls them simply "zones", AWS calls them "availability zones", here we'll refer to them as "zones").
-This is a lightweight version of a broader Cluster Federation feature (previously referred to by the affectionate
-nickname ["Ubernetes"](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/multicluster/federation.md)).
-Full Cluster Federation allows combining separate
-Kubernetes clusters running in different regions or cloud providers
-(or on-premises data centers).  However, many
-users simply want to run a more available Kubernetes cluster in multiple zones
-of their single cloud provider, and this is what the multizone support in 1.2 allows
-(this previously went by the nickname "Ubernetes Lite").
+쿠버네티스는 단일 쿠버네티스 클러스터가 여러 장애 영역에서
+실행될 수 있도록 설계되었다. 일반적으로 이러한 영역은 _지역(region)_ 이라는
+논리적 그룹 내에 적합하다. 주요 클라우드 제공자는 지역을 일관된 기능 집합을
+제공하는 장애 영역 집합(_가용성 영역_ 이라고도 함)으로
+정의한다. 지역 내에서 각 영역은 동일한 API 및
+서비스를 제공한다.
 
-Multizone support is deliberately limited: a single Kubernetes cluster can run
-in multiple zones, but only within the same region (and cloud provider).  Only
-GCE and AWS are currently supported automatically (though it is easy to
-add similar support for other clouds or even bare metal, by simply arranging
-for the appropriate labels to be added to nodes and volumes).
+일반적인 클라우드 아키텍처는 한 영역의 장애가 다른 영역의 서비스도
+손상시킬 가능성을 최소화하는 것을 목표로 한다.
 
+## 컨트롤 플레인 동작
 
-## 기능
+모든 [컨트롤 플레인 컴포넌트](/ko/docs/concepts/overview/components/#컨트롤-플레인-컴포넌트)는
+컴포넌트별로 복제되는 교환 가능한 리소스 풀로 실행을
+지원한다.
 
-When nodes are started, the kubelet automatically adds labels to them with
-zone information.
-
-Kubernetes will automatically spread the pods in a replication controller
-or service across nodes in a single-zone cluster (to reduce the impact of
-failures.)  With multiple-zone clusters, this spreading behavior is
-extended across zones (to reduce the impact of zone failures.)  (This is
-achieved via `SelectorSpreadPriority`).  This is a best-effort
-placement, and so if the zones in your cluster are heterogeneous
-(e.g. different numbers of nodes, different types of nodes, or
-different pod resource requirements), this might prevent perfectly
-even spreading of your pods across zones. If desired, you can use
-homogeneous zones (same number and types of nodes) to reduce the
-probability of unequal spreading.
-
-When persistent volumes are created, the `PersistentVolumeLabel`
-admission controller automatically adds zone labels to them.  The scheduler (via the
-`VolumeZonePredicate` predicate) will then ensure that pods that claim a
-given volume are only placed into the same zone as that volume, as volumes
-cannot be attached across zones.
-
-## 제한 사항
-
-There are some important limitations of the multizone support:
-
-* We assume that the different zones are located close to each other in the
-network, so we don't perform any zone-aware routing.  In particular, traffic
-that goes via services might cross zones (even if some pods backing that service
-exist in the same zone as the client), and this may incur additional latency and cost.
-
-* Volume zone-affinity will only work with a `PersistentVolume`, and will not
-work if you directly specify an EBS volume in the pod spec (for example).
-
-* Clusters cannot span clouds or regions (this functionality will require full
-federation support).
-
-* Although your nodes are in multiple zones, kube-up currently builds
-a single master node by default.  While services are highly
-available and can tolerate the loss of a zone, the control plane is
-located in a single zone.  Users that want a highly available control
-plane should follow the [high availability](/docs/setup/production-environment/tools/kubeadm/high-availability/) instructions.
-
-### Volume limitations
-The following limitations are addressed with [topology-aware volume binding](/ko/docs/concepts/storage/storage-classes/#볼륨-바인딩-모드).
-
-* StatefulSet volume zone spreading when using dynamic provisioning is currently not compatible with
-  pod affinity or anti-affinity policies.
-
-* If the name of the StatefulSet contains dashes ("-"), volume zone spreading
-  may not provide a uniform distribution of storage across zones.
-
-* When specifying multiple PVCs in a Deployment or Pod spec, the StorageClass
-  needs to be configured for a specific single zone, or the PVs need to be
-  statically provisioned in a specific zone. Another workaround is to use a
-  StatefulSet, which will ensure that all the volumes for a replica are
-  provisioned in the same zone.
-
-## 연습
-
-We're now going to walk through setting up and using a multi-zone
-cluster on both GCE & AWS.  To do so, you bring up a full cluster
-(specifying `MULTIZONE=true`), and then you add nodes in additional zones
-by running `kube-up` again (specifying `KUBE_USE_EXISTING_MASTER=true`).
-
-### 클러스터 가져오기
-
-Create the cluster as normal, but pass MULTIZONE to tell the cluster to manage multiple zones; creating nodes in us-central1-a.
-
-GCE:
-
-```shell
-curl -sS https://get.k8s.io | MULTIZONE=true KUBERNETES_PROVIDER=gce KUBE_GCE_ZONE=us-central1-a NUM_NODES=3 bash
-```
-
-AWS:
-
-```shell
-curl -sS https://get.k8s.io | MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a NUM_NODES=3 bash
-```
-
-This step brings up a cluster as normal, still running in a single zone
-(but `MULTIZONE=true` has enabled multi-zone capabilities).
-
-### 라벨이 지정된 노드 확인
-
-View the nodes; you can see that they are labeled with zone information.
-They are all in `us-central1-a` (GCE) or `us-west-2a` (AWS) so far.  The
-labels are `failure-domain.beta.kubernetes.io/region` for the region,
-and `failure-domain.beta.kubernetes.io/zone` for the zone:
-
-```shell
-kubectl get nodes --show-labels
-```
-
-The output is similar to this:
-
-```shell
-NAME                     STATUS                     ROLES    AGE   VERSION          LABELS
-kubernetes-master        Ready,SchedulingDisabled   <none>   6m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-1,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-master
-kubernetes-minion-87j9   Ready                      <none>   6m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-87j9
-kubernetes-minion-9vlv   Ready                      <none>   6m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
-kubernetes-minion-a12q   Ready                      <none>   6m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
-```
-
-### 두번째 영역에 더 많은 노드 추가하기
-
-Let's add another set of nodes to the existing cluster, reusing the
-existing master, running in a different zone (us-central1-b or us-west-2b).
-We run kube-up again, but by specifying `KUBE_USE_EXISTING_MASTER=true`
-kube-up will not create a new master, but will reuse one that was previously
-created instead.
-
-GCE:
-
-```shell
-KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=gce KUBE_GCE_ZONE=us-central1-b NUM_NODES=3 kubernetes/cluster/kube-up.sh
-```
-
-On AWS we also need to specify the network CIDR for the additional
-subnet, along with the master internal IP address:
-
-```shell
-KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2b NUM_NODES=3 KUBE_SUBNET_CIDR=172.20.1.0/24 MASTER_INTERNAL_IP=172.20.0.9 kubernetes/cluster/kube-up.sh
-```
-
-
-View the nodes again; 3 more nodes should have launched and be tagged
-in us-central1-b:
-
-```shell
-kubectl get nodes --show-labels
-```
-
-The output is similar to this:
-
-```shell
-NAME                     STATUS                     ROLES    AGE   VERSION           LABELS
-kubernetes-master        Ready,SchedulingDisabled   <none>   16m   v1.13.0           beta.kubernetes.io/instance-type=n1-standard-1,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-master
-kubernetes-minion-281d   Ready                      <none>   2m    v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-281d
-kubernetes-minion-87j9   Ready                      <none>   16m   v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-87j9
-kubernetes-minion-9vlv   Ready                      <none>   16m   v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
-kubernetes-minion-a12q   Ready                      <none>   17m   v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
-kubernetes-minion-pp2f   Ready                      <none>   2m    v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-pp2f
-kubernetes-minion-wf8i   Ready                      <none>   2m    v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-wf8i
-```
-
-### 볼륨 어피니티
-
-Create a volume using the dynamic volume creation (only PersistentVolumes are supported for zone affinity):
-
-```bash
-kubectl apply -f - <<EOF
-{
-  "apiVersion": "v1",
-  "kind": "PersistentVolumeClaim",
-  "metadata": {
-    "name": "claim1",
-    "annotations": {
-        "volume.alpha.kubernetes.io/storage-class": "foo"
-    }
-  },
-  "spec": {
-    "accessModes": [
-      "ReadWriteOnce"
-    ],
-    "resources": {
-      "requests": {
-        "storage": "5Gi"
-      }
-    }
-  }
-}
-EOF
-```
+클러스터 컨트롤 플레인을 배포할 때, 여러 장애 영역에
+컨트롤 플레인 컴포넌트의 복제본을 배치한다. 가용성이
+중요한 문제인 경우, 3개 이상의 장애 영역을 선택하고
+각 개별 컨트롤 플레인 컴포넌트(API 서버, 스케줄러, etcd,
+클러스터 컨트롤러 관리자)를 3개 이상의 장애 영역에 복제한다.
+클라우드 컨트롤러 관리자를 실행 중인 경우 선택한
+모든 장애 영역에 걸쳐 이를 복제해야 한다.
 
 {{< note >}}
-For version 1.3+ Kubernetes will distribute dynamic PV claims across
-the configured zones. For version 1.2, dynamic persistent volumes were
-always created in the zone of the cluster master
-(here us-central1-a / us-west-2a); that issue
-([#23330](https://github.com/kubernetes/kubernetes/issues/23330))
-was addressed in 1.3+.
+쿠버네티스는 API 서버 엔드포인트에 대한 교차 영역 복원성을 제공하지
+않는다. DNS 라운드-로빈, SRV 레코드 또는 상태 확인 기능이 있는
+써드파티 로드 밸런싱 솔루션을 포함하여 다양한 기술을 사용하여
+클러스터 API 서버의 가용성을 향상시킬 수 있다.
 {{< /note >}}
 
-Now let's validate that Kubernetes automatically labeled the zone & region the PV was created in.
+## 노드 동작
 
-```shell
-kubectl get pv --show-labels
-```
+쿠버네티스는 클러스터의 여러 노드에 걸쳐
+워크로드 리소스(예: {{< glossary_tooltip text="디플로이먼트(Deployment)" term_id="deployment" >}}
+또는 {{< glossary_tooltip text="스테이트풀셋(StatefulSet)" term_id="statefulset" >}})에
+대한 파드를 자동으로 분배한다. 이러한 분배는
+실패에 대한 영향을 줄이는 데 도움이 된다.
 
-The output is similar to this:
+노드가 시작되면, 각 노드의 kubelet이 쿠버네티스 API에서
+특정 kubelet을 나타내는 노드 오브젝트에
+{{< glossary_tooltip text="레이블" term_id="label" >}}을 자동으로 추가한다.
+이러한 레이블에는
+[영역 정보](/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)가 포함될 수 있다.
 
-```shell
-NAME           CAPACITY   ACCESSMODES   RECLAIM POLICY   STATUS    CLAIM            STORAGECLASS    REASON    AGE       LABELS
-pv-gce-mj4gm   5Gi        RWO           Retain           Bound     default/claim1   manual                    46s       failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a
-```
+클러스터가 여러 영역 또는 지역에 걸쳐있는 경우,
+[파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)과
+함께 노드 레이블을 사용하여
+파드가 장애 도메인(지역, 영역, 특정 노드) 간 클러스터에
+분산되는 방식을 제어할 수 있다.
+이러한 힌트를 통해
+{{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}는
+더 나은 예상 가용성을 위해 파드를 배치할 수 있으므로, 상관 관계가 있는
+오류가 전체 워크로드에 영향을 미칠 위험을 줄일 수 있다.
 
-So now we will create a pod that uses the persistent volume claim.
-Because GCE PDs / AWS EBS volumes cannot be attached across zones,
-this means that this pod can only be created in the same zone as the volume:
+예를 들어, 가능할 때마다 스테이트풀셋의
+3개 복제본이 모두 서로 다른 영역에서 실행되도록 제약 조건을
+설정할 수 있다. 각 워크로드에 사용 중인
+가용 영역을 명시적으로 정의하지 않고 이를 선언적으로
+정의할 수 있다.
 
-```yaml
-kubectl apply -f - <<EOF
-kind: Pod
-apiVersion: v1
-metadata:
-  name: mypod
-spec:
-  containers:
-    - name: myfrontend
-      image: nginx
-      volumeMounts:
-      - mountPath: "/var/www/html"
-        name: mypd
-  volumes:
-    - name: mypd
-      persistentVolumeClaim:
-        claimName: claim1
-EOF
-```
+### 여러 영역에 노드 분배
 
-Note that the pod was automatically created in the same zone as the volume, as
-cross-zone attachments are not generally permitted by cloud providers:
+쿠버네티스의 코어는 사용자를 위해 노드를 생성하지 않는다. 사용자가 직접 수행하거나,
+[클러스터 API](https://cluster-api.sigs.k8s.io/)와 같은 도구를 사용하여
+사용자 대신 노드를 관리해야 한다.
 
-```shell
-kubectl describe pod mypod | grep Node
-```
+클러스터 API와 같은 도구를 사용하면 여러 장애 도메인에서
+클러스터의 워커 노드로 실행할 머신 집합과 전체 영역 서비스 중단 시
+클러스터를 자동으로 복구하는 규칙을 정의할 수 있다.
 
-```shell
-Node:        kubernetes-minion-9vlv/10.240.0.5
-```
+## 파드에 대한 수동 영역 할당
 
-And check node labels:
+생성한 파드와 디플로이먼트, 스테이트풀셋, 잡(Job)과
+같은 워크로드 리소스의 파드 템플릿에 [노드 셀렉터 제약 조건](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-셀렉터-nodeselector)을
+적용할 수 있다.
 
-```shell
-kubectl get node kubernetes-minion-9vlv --show-labels
-```
+## 영역에 대한 스토리지 접근
 
-```shell
-NAME                     STATUS    AGE    VERSION          LABELS
-kubernetes-minion-9vlv   Ready     22m    v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
-```
+퍼시스턴트 볼륨이 생성되면, `PersistentVolumeLabel`
+[어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/)는
+특정 영역에 연결된 모든 퍼시스턴트볼륨(PersistentVolume)에 영역 레이블을 자동으로
+추가한다. 그런 다음 {{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}는
+`NoVolumeZoneConflict` 프레디케이트(predicate)를 통해 주어진 퍼시스턴트볼륨을 요구하는 파드가
+해당 볼륨과 동일한 영역에만 배치되도록 한다.
 
-### 여러 영역에 파드 분배하기
+해당 클래스의 스토리지가 사용할 수 있는 장애 도메인(영역)을 지정하는
+퍼시스턴트볼륨클레임(PersistentVolumeClaims)에 대한
+{{< glossary_tooltip text="스토리지클래스(StorageClass)" term_id="storage-class" >}}를 지정할 수 있다.
+장애 도메인 또는 영역을 인식하는 스토리지클래스 구성에 대한 자세한 내용은
+[허용된 토폴로지](/ko/docs/concepts/storage/storage-classes/#허용된-토폴로지)를 참고한다.
 
-Pods in a replication controller or service are automatically spread
-across zones.  First, let's launch more nodes in a third zone:
+## 네트워킹
 
-GCE:
+쿠버네티스가 스스로 영역-인지(zone-aware) 네트워킹을 포함하지는 않는다.
+[네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)을
+사용하여 클러스터 네트워킹을 구성할 수 있으며, 해당 네트워크 솔루션에는 영역별 요소가
+있을 수 있다. 예를 들어, 클라우드 제공자가
+`type=LoadBalancer` 를 사용하여 서비스를 지원하는 경우, 로드 밸런서는 지정된 연결을 처리하는
+로드 밸런서 요소와 동일한 영역에서 실행 중인 파드로만 트래픽을 보낼 수 있다.
+자세한 내용은 클라우드 제공자의 문서를 확인한다.
 
-```shell
-KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=gce KUBE_GCE_ZONE=us-central1-f NUM_NODES=3 kubernetes/cluster/kube-up.sh
-```
+사용자 정의 또는 온-프레미스 배포의 경우, 비슷한 고려 사항이 적용된다.
+다른 장애 영역 처리를 포함한 {{< glossary_tooltip text="서비스" term_id="service" >}}와
+{{< glossary_tooltip text="인그레스(Ingress)" term_id="ingress" >}} 동작은
+클러스터가 설정된 방식에 명확히 의존한다.
 
-AWS:
+## 장애 복구
 
-```shell
-KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2c NUM_NODES=3 KUBE_SUBNET_CIDR=172.20.2.0/24 MASTER_INTERNAL_IP=172.20.0.9 kubernetes/cluster/kube-up.sh
-```
+클러스터를 설정할 때, 한 지역의 모든 장애 영역이 동시에
+오프라인 상태가 되는 경우 설정에서 서비스를 복원할 수 있는지
+여부와 방법을 고려해야 할 수도 있다. 예를 들어, 영역에서 파드를 실행할 수 있는
+노드가 적어도 하나 이상 있어야 하는가?
+클러스터에 중요한 복구 작업이 클러스터에
+적어도 하나 이상의 정상 노드에 의존하지 않는지 확인한다. 예를 들어, 모든 노드가
+비정상인 경우, 하나 이상의 노드를 서비스할 수 있을 만큼 복구를 완료할 수 있도록 특별한
+{{< glossary_tooltip text="톨러레이션(toleration)" term_id="toleration" >}}으로
+복구 작업을 실행해야 할 수 있다.
 
-Verify that you now have nodes in 3 zones:
+쿠버네티스는 이 문제에 대한 답을 제공하지 않는다. 그러나,
+고려해야 할 사항이다.
 
-```shell
-kubectl get nodes --show-labels
-```
+## {{% heading "whatsnext" %}}
 
-Create the guestbook-go example, which includes an RC of size 3, running a simple web app:
-
-```shell
-find kubernetes/examples/guestbook-go/ -name '*.json' | xargs -I {} kubectl apply -f {}
-```
-
-The pods should be spread across all 3 zones:
-
-```shell
-kubectl describe pod -l app=guestbook | grep Node
-```
-
-```shell
-Node:        kubernetes-minion-9vlv/10.240.0.5
-Node:        kubernetes-minion-281d/10.240.0.8
-Node:        kubernetes-minion-olsh/10.240.0.11
-```
-
-```shell
-kubectl get node kubernetes-minion-9vlv kubernetes-minion-281d kubernetes-minion-olsh --show-labels
-```
-
-```shell
-NAME                     STATUS    ROLES    AGE    VERSION          LABELS
-kubernetes-minion-9vlv   Ready     <none>   34m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
-kubernetes-minion-281d   Ready     <none>   20m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-281d
-kubernetes-minion-olsh   Ready     <none>   3m     v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-f,kubernetes.io/hostname=kubernetes-minion-olsh
-```
-
-
-Load-balancers span all zones in a cluster; the guestbook-go example
-includes an example load-balanced service:
-
-```shell
-kubectl describe service guestbook | grep LoadBalancer.Ingress
-```
-
-The output is similar to this:
-
-```shell
-LoadBalancer Ingress:   130.211.126.21
-```
-
-Set the above IP:
-
-```shell
-export IP=130.211.126.21
-```
-
-Explore with curl via IP:
-
-```shell
-curl -s http://${IP}:3000/env | grep HOSTNAME
-```
-
-The output is similar to this:
-
-```shell
-  "HOSTNAME": "guestbook-44sep",
-```
-
-Again, explore multiple times:
-
-```shell
-(for i in `seq 20`; do curl -s http://${IP}:3000/env | grep HOSTNAME; done)  | sort | uniq
-```
-
-The output is similar to this:
-
-```shell
-  "HOSTNAME": "guestbook-44sep",
-  "HOSTNAME": "guestbook-hum5n",
-  "HOSTNAME": "guestbook-ppm40",
-```
-
-The load balancer correctly targets all the pods, even though they are in multiple zones.
-
-### 클러스터 강제 종료
-
-When you're done, clean up:
-
-GCE:
-
-```shell
-KUBERNETES_PROVIDER=gce KUBE_USE_EXISTING_MASTER=true KUBE_GCE_ZONE=us-central1-f kubernetes/cluster/kube-down.sh
-KUBERNETES_PROVIDER=gce KUBE_USE_EXISTING_MASTER=true KUBE_GCE_ZONE=us-central1-b kubernetes/cluster/kube-down.sh
-KUBERNETES_PROVIDER=gce KUBE_GCE_ZONE=us-central1-a kubernetes/cluster/kube-down.sh
-```
-
-AWS:
-
-```shell
-KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2c kubernetes/cluster/kube-down.sh
-KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2b kubernetes/cluster/kube-down.sh
-KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a kubernetes/cluster/kube-down.sh
-```
+스케줄러가 구성된 제약 조건을 준수하면서, 클러스터에 파드를 배치하는 방법을 알아보려면,
+[스케줄링과 축출(eviction)](/ko/docs/concepts/scheduling-eviction/)을 참고한다.

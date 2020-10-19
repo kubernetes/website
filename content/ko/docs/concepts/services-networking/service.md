@@ -879,6 +879,10 @@ Classic ELB의 연결 드레이닝은
         # 이 값은 service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
         # 값 보다 작아야한다. 기본값은 5이며, 2와 60 사이여야 한다.
 
+        service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
+        # 생성된 ELB에 추가할 기존 보안 그룹 목록.
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 어노테이션과 달리, 이는 이전에 ELB에 할당된 다른 모든 보안 그룹을 대체한다.
+
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
         # ELB에 추가될 추가 보안 그룹(security group) 목록
 

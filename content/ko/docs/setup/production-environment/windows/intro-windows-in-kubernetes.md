@@ -570,7 +570,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
     Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
     ```
 
-    호스트 네트워크 어댑터가 "Ethernet"이 아닌 경우, 종종 start.ps1 스크립트의 [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L6) 파라미터를 수정하는 것이 좋다. 그렇지 않으면 `start-kubelet.ps1` 스크립트의 출력을 참조하여 가상 네트워크 생성 중에 오류가 있는지 확인한다.
+    호스트 네트워크 어댑터가 "Ethernet"이 아닌 경우, 종종 start.ps1 스크립트의 [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7) 파라미터를 수정하는 것이 좋다. 그렇지 않으면 `start-kubelet.ps1` 스크립트의 출력을 참조하여 가상 네트워크 생성 중에 오류가 있는지 확인한다.
 
 1. 내 파드가 "Container Creating"에서 멈췄거나 계속해서 다시 시작된다.
 

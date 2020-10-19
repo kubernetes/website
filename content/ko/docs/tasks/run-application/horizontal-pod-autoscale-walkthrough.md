@@ -108,11 +108,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-kubectl run -it --rm load-generator --image=busybox /bin/sh
-
-Hit enter for command prompt
-
-while true; do wget -q -O- http://php-apache; done
+kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 ```
 
 실행 후, 약 1분 정도 후에 CPU 부하가 올라가는 것을 볼 수 있다.

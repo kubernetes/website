@@ -47,7 +47,7 @@ weight: 60
  * **Resource** - 접근 중인 리소스의 ID 또는 이름(리소스 요청만 해당) -- `get`, `update`, `patch`, `delete` 동사를 사용하는 리소스 요청의 경우 리소스 이름을 지정해야 한다.
  * **Subresource** - 접근 중인 하위 리소스(리소스 요청만 해당).
  * **Namespace** - 접근 중인 오브젝트의 네임스페이스(네임스페이스에 할당된 리소스 요청만 해당)
- * **API group** - 접근 중인 {{< glossary_tooltip text="API 그룹" term_id="api-group" >}}(리소스 요청에만 해당). 빈 문자열은 [핵심(core) API 그룹](/ko/docs/concepts/overview/kubernetes-api/)을 지정한다.
+ * **API group** - 접근 중인 {{< glossary_tooltip text="API 그룹" term_id="api-group" >}}(리소스 요청에만 해당). 빈 문자열은 [핵심(core) API 그룹](/ko/docs/reference/using-api/api-overview/#api-그룹)을 지정한다.
 
 ## 요청 동사 결정
 

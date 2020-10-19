@@ -406,6 +406,9 @@ behavior:
 
 마지막으로 5개의 파드를 드롭하기 위해 다른 폴리시를 추가하고, 최소 선택
 전략을 추가할 수 있다.
+분당 5개 이하의 파드가 제거되지 않도록, 고정 크기가 5인 두 번째 축소
+정책을 추가하고, `selectPolicy` 를 최소로 설정하면 된다. `selectPolicy` 를 `Min` 으로 설정하면
+자동 스케일러가 가장 적은 수의 파드에 영향을 주는 정책을 선택함을 의미한다.
 
 ```yaml
 behavior:
@@ -417,7 +420,7 @@ behavior:
     - type: Pods
       value: 5
       periodSeconds: 60
-    selectPolicy: Max
+    selectPolicy: Min
 ```
 
 ### 예시: 스케일 다운 비활성화
