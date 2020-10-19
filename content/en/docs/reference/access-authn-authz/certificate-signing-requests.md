@@ -286,6 +286,12 @@ kubectl get csr/john -o yaml
 
 The Certificate value is in Base64-encoded format under status.certificate.
 
+Export the issued certificate from the CertificateSigningRequest:
+
+```
+kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > /home/vagrant/work/john.crt
+```
+
 ### Create Role and Role Binding
 
 You get the Certificate already. Now it is time to define the Role and Role Binding for this user to access Kubernetes Cluster resources.
@@ -304,13 +310,8 @@ kubectl create rolebinding developer-binding-john --role=developer --user=john
 
 The last step is to add this user into the KubeConfig. We assume the key and crt files are located here "/home/vagrant/work/".
 
-First, export the issued certificate from the CertificateSigningRequest:
+First, we need to add new credentials:
 
-```
-kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > /home/vagrant/work/john.crt
-```
-
-Next, we need to add new credentials:
 ```
 kubectl config set-credentials john --client-key=/home/vagrant/work/john.key --client-certificate=/home/vagrant/work/john.crt --embed-certs=true
 
