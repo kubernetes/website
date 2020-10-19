@@ -311,7 +311,6 @@ kubectl create rolebinding developer-binding-john --role=developer --user=john
 The last step is to add this user into the KubeConfig. We assume the key and crt files are located here "/home/vagrant/work/".
 
 First, we need to add new credentials
-
 ```
 kubectl config set-credentials john --client-key=/home/vagrant/work/john.key --client-certificate=/home/vagrant/work/john.crt --embed-certs=true
 
