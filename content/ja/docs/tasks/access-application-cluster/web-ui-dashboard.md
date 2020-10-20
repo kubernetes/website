@@ -156,7 +156,7 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
 - **Run as privileged**: この設定は、[特権コンテナ](/ja/docs/concepts/workloads/pods/pod/#privileged-mode-for-pod-containers)内のプロセスが、ホスト上でrootとして実行されているプロセスと同等であるかどうかを決定します。特権コンテナは、
   ネットワークスタックの操作やデバイスへのアクセスなどの機能を利用できます。
 
-- **Environment variables**: Kubernetesは[環境変数](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)を介してServiceを公開しています。
+- **Environment variables**: Kubernetesは[環境変数](/ja/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)を介してServiceを公開しています。
   環境変数を作成したり、環境変数の値を使ってコマンドに引数を渡したりすることができます。
   環境変数の値はServiceを見つけるためにアプリケーションで利用できます。
   値は`$(VAR_NAME)`構文を使用して他の変数を参照できます。
