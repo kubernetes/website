@@ -277,6 +277,10 @@ sudo kubeadm upgrade apply
 
 Also `sudo kubeadm upgrade plan` is not needed.
 
+{{< note >}}
+If you're using the kubeadm support for certificate management, please add `--certificate-renewal=true` to the `kubeadm upgrade node` command line. [bug issue](https://github.com/kubernetes/kubeadm/issues/1818)
+{{</ note >}}
+
 ### Upgrade kubelet and kubectl
 
 1.  Upgrade the kubelet and kubectl on all control plane nodes:
