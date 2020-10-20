@@ -148,7 +148,8 @@ different Kubernetes components.
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
 | `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
-| `SetHostnameAsFQDN` | `false` | Alpha | 1.19 | |
+| `SetHostnameAsFQDN` | `false` | Alpha | 1.19 | 1.19 |
+| `SetHostnameAsFQDN` | `true` | Beta | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
 | `Sysctls` | `true` | Beta | 1.11 | |
