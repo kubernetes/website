@@ -78,6 +78,16 @@ that case, the documentation for the signer should specify the meaning of
 additional certificates; for example, this might be the certificate plus
 intermediates to be presented during TLS handshakes.
 
+The PKCS#10 signing request format doesn't allow to specify a certificate
+expiration or lifetime. The expiration or lifetime therefore has to be set
+through e.g. an annotation on the CSR object. While it's theoretically
+possible for a signer to use that expiration date, there is currently no
+known implementation that does. (The built-in signers all use the same
+`ClusterSigningDuration` configuration option, which defaults to 1 year,
+and can be changed with the `--cluster-signing-duration` command-line
+flag of the kube-controller-manager.)
+
+
 ### Kubernetes signers
 
 Kubernetes provides built-in signers that each have a well-known `signerName`:
@@ -92,8 +102,8 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
        but it is often not the only cluster-admin subject in a cluster.
     1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
     1. Permitted key usages - must include `["client auth"]`. Must not include key usages beyond `["digital signature", "key encipherment", "client auth"]`.
-    1. Expiration/certificate lifetime - minimum of CSR signer or request.
-       The signer is responsible for checking that the certificate lifetime is valid and permissible.
+    1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
+       kube-controller-manager implementation of this signer.
     1. CA bit allowed/disallowed - not allowed.
 
 1. `kubernetes.io/kube-apiserver-client-kubelet`: signs client certificates that will be honored as client certificates by the
@@ -104,8 +114,8 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
     1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
     1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
     1. Permitted key usages - exactly `["key encipherment", "digital signature", "client auth"]`.
-    1. Expiration/certificate lifetime - minimum of CSR signer or request.
-       The signer is responsible for checking that the certificate lifetime is valid and permissible.
+    1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
+       kube-controller-manager implementation of this signer.
     1. CA bit allowed/disallowed - not allowed.
 
 1. `kubernetes.io/kubelet-serving`: signs serving certificates that are honored as a valid kubelet serving certificate
@@ -117,7 +127,8 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
     1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
        URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
     1. Permitted key usages - exactly `["key encipherment", "digital signature", "server auth"]`.
-    1. Expiration/certificate lifetime - minimum of CSR signer or request.
+    1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
+       kube-controller-manager implementation of this signer.
     1. CA bit allowed/disallowed - not allowed.
 
 1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some third-party distributions of Kubernetes
@@ -128,8 +139,8 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
     1. Permitted subjects - any
     1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
     1. Permitted key usages - any
-    1. Expiration/certificate lifetime - minimum of CSR signer or request.
-       The signer is responsible for checking that the certificate lifetime is valid and permissible.
+    1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
+       kube-controller-manager implementation of this signer.
     1. CA bit allowed/disallowed - not allowed.
 
 {{< note >}}
