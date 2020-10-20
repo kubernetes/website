@@ -17,7 +17,7 @@ policies using the supported authorization modules.
 <!-- body -->
 In Kubernetes, you must be authenticated (logged in) before your request can be
 authorized (granted permission to access). For information about authentication,
-see [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/).
+see [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/).
 
 Kubernetes expects attributes that are common to REST API requests. This means
 that Kubernetes authorization works with existing organization-wide or
@@ -52,7 +52,7 @@ Kubernetes reviews only the following API request attributes:
  * **Resource** - The ID or name of the resource that is being accessed (for resource requests only) -- For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
  * **Subresource** - The subresource that is being accessed (for resource requests only).
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
- * **API group** - The {{< glossary_tooltip text="API Group" term_id="api-group" >}} being accessed (for resource requests only). An empty string designates the [core API group](/docs/reference/using-api/api-overview/#api-groups).
+ * **API group** - The {{< glossary_tooltip text="API Group" term_id="api-group" >}} being accessed (for resource requests only). An empty string designates the _core_ [API group](/docs/reference/using-api/#api-groups).
 
 ## Determine the Request Verb
 
