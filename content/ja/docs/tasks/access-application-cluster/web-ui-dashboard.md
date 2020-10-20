@@ -109,7 +109,7 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
 必要に応じて、**高度なオプション**セクションを展開して、より多くの設定を指定することができます:
 
 - **Description**: ここで入力したテキストは、
-  [アノテーション](/ja/docs/concepts/overview/working-with-with-objects/annotations/)としてDeploymentに追加され、アプリケーションの詳細に表示されます。
+  [アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)としてDeploymentに追加され、アプリケーションの詳細に表示されます。
 
 - **Labels**: アプリケーションに使用するデフォルトの[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)は、アプリケーション名とバージョンです。
   リリース、環境、ティア、パーティション、リリーストラックなど、Deployment、Service(存在する場合)、Podに適用する追加のラベルを指定できます。
