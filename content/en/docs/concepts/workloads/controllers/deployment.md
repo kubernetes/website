@@ -752,7 +752,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
     REVISION  CHANGE-CAUSE
     1   <none>
     ```
-* Get the rollout status to ensure that the Deployment is updates successfully:
+* Get the rollout status to ensure that the Deployment is updated successfully:
     ```shell
     kubectl get rs
     ```
