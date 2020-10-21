@@ -199,7 +199,7 @@ service PodResourcesLister {
 
 List endpoint provides information on resources of running pods with details such as
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
-NUMA node where these devices are allocated.
+the NUMA node where these devices are allocated.
 
 ```gRPC
 // ListPodResourcesResponse is the response returned by List function
@@ -311,5 +311,4 @@ Here are some examples of device plugin implementations:
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
 * Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
 * Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
-
 
