@@ -210,7 +210,7 @@ Support for the "PodResources service" requires `KubeletPodResources` [feature g
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
+The Topology Manager is a kubelet component that allows resources to be coordinated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
 
 
 ```gRPC
@@ -255,5 +255,4 @@ Here are some examples of device plugin implementations:
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
 * Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
 * Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
-
 
