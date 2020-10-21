@@ -954,15 +954,15 @@ the `/scale` subresource will return an error on GET.
 
   - It is a required value.
   - Only JSONPaths under `.status` and with the dot notation are allowed.
-  - If there is no value under the `StatusReplicasPath` in the custom resource,
+  - If there is no value under the `statusReplicasPath` in the custom resource,
 the status replica value in the `/scale` subresource will default to 0.
 
-- `LabelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
+- `labelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
 
   - It is an optional value.
   - It must be set to work with HPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
-  - If there is no value under the `LabelSelectorPath` in the custom resource,
+  - If there is no value under the `labelSelectorPath` in the custom resource,
 the status selector value in the `/scale` subresource will default to the empty string.
   - The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form.
 
