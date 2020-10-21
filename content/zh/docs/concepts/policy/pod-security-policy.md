@@ -69,7 +69,7 @@ Pod 安全策略允许管理员控制如下方面：
 | 分配拥有 Pod 卷的 FSGroup 账号      | [`fsGroup`](#volumes-and-file-systems)      |
 | 以只读方式访问根文件系统            | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | 设置容器的用户和组 ID               | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups) |
-| 限制 roo 账号特权级提升             | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
+| 限制 root 账号特权级提升             | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
 | Linux 权能字（Capabilities）        | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | 设置容器的 SELinux 上下文           | [`seLinux`](#selinux)                       |
 | 指定容器可以挂载的 proc 类型        | [`allowedProcMountTypes`](#allowedprocmounttypes) |
