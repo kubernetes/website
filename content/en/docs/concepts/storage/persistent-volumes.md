@@ -183,7 +183,7 @@ By specifying a PersistentVolume in a PersistentVolumeClaim, you declare a bindi
 If the PersistentVolume exists and has not reserved PersistentVolumeClaims through its `claimRef` field, then the PersistentVolume and PersistentVolumeClaim will be bound.
 
 The binding happens regardless of some volume matching criteria, including node affinity.
-The control plane still checks that [storage class](https://kubernetes.io/docs/concepts/storage/storage-classes/), access modes, and requested storage size are valid.
+The control plane still checks that [storage class](/docs/concepts/storage/storage-classes/), access modes, and requested storage size are valid.
 
 ```yaml
 apiVersion: v1

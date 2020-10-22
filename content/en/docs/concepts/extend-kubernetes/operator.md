@@ -35,7 +35,7 @@ Kubernetes' {{< glossary_tooltip text="controllers" term_id="controller" >}}
 concept lets you extend the cluster's behaviour without modifying the code
 of Kubernetes itself.
 Operators are clients of the Kubernetes API that act as controllers for
-a [Custom Resource](/docs/concepts/api-extension/custom-resources/).
+a [Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 ## An example Operator {#example}
 
