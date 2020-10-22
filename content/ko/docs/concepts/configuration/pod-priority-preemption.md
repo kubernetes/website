@@ -8,7 +8,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-[파드](/ko/docs/concepts/workloads/pods/pod/)는 _우선순위_ 를 가질 수 있다. 우선순위는
+[파드](/ko/docs/concepts/workloads/pods/)는 _우선순위_ 를 가질 수 있다. 우선순위는
 다른 파드에 대한 상대적인 파드의 중요성을 나타낸다. 파드를 스케줄링할 수 없는 경우,
 스케줄러는 우선순위가 낮은 파드를 선점(축출)하여 보류 중인 파드를
 스케줄링할 수 있게 한다.

@@ -28,6 +28,9 @@ other = "Twitter"
 [deprecation_file_warning]
 other = "Descontinuado"
 
+[deprecation_title]
+other = "Você está vendo a documentação do Kubernetes versão:"
+
 [deprecation_warning]
 other = " a documentação não é mais mantida ativamente. A versão que você está visualizando no momento é uma captura instantânea estática. Para obter documentação atualizada, consulte "
 
@@ -42,6 +45,21 @@ other = "Eu sou..."
 
 [docs_label_users]
 other = "Usuários"
+
+[docs_version_current]
+other = "(esta documentação)"
+
+[docs_version_latest_heading]
+other = "Versão mais recente"
+
+[docs_version_other_heading]
+other = "Versões mais antigas"
+
+[error_404_were_you_looking_for]
+other = "Talvez você estivesse procurando por:"
+
+[examples_heading]
+other = "Exemplos"
 
 [feedback_heading]
 other = "Comentários"
@@ -173,11 +191,20 @@ other = "Nota:"
 [objectives_heading]
 other = "Objetivos"
 
+[options_heading]
+other = "Opções"
+
+[post_create_issue]
+other = "Abra um bug"
+
 [prerequisites_heading]
 other = "Antes de você começar"
 
 [subscribe_button]
 other = "Se inscrever"
+
+[thirdparty_message]
+other = """Esta seção tem links para projetos de terceiros que fornecem a funcionalidade exigida pelo Kubernetes. Os autores do projeto Kubernetes não são responsáveis por esses projetos. Esta página obedece as <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">diretrizes de conteúdo do site CNCF</a>, listando os itens em ordem alfabética. Para adicionar um projeto a esta lista, leia o <a href="/docs/contribute/style/content-guide/#third-party-content">guia de conteúdo</a> antes de enviar sua alteração."""
 
 [ui_search_placeholder]
 other = "Procurar"

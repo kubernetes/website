@@ -29,7 +29,7 @@ It is assumed that a cluster-independent service manages normal users in the fol
 In this regard, _Kubernetes does not have objects which represent normal user
 accounts._ Normal users cannot be added to a cluster through an API call.
 
-Even though normal user cannot be added via an API call, but any user that
+Even though a normal user cannot be added via an API call, any user that
 presents a valid certificate signed by the cluster's certificate authority
 (CA) is considered authenticated. In this configuration, Kubernetes determines
 the username from the common name field in the 'subject' of the cert (e.g.,
