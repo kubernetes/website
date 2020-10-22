@@ -12,7 +12,7 @@ This page shows how to use Romana for NetworkPolicy.
 
 ## {{% heading "prerequisites" %}}
 
-Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/reference/setup-tools/kubeadm/kubeadm/).
+Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/reference/setup-tools/kubeadm/).
 
 <!-- steps -->
 
