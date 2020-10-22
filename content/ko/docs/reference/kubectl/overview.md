@@ -125,14 +125,15 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 다음 표에는 지원되는 모든 리소스 타입과 해당 약어가 나열되어 있다.
 
-(이 출력은 `kubectl api-resources` 에서 확인할 수 있으며, 쿠버네티스 1.13.3 부터 일치했다.)
+(이 출력은 `kubectl api-resources` 에서 확인할 수 있으며, 쿠버네티스 1.19.1 에서의 출력을 기준으로 한다.)
 
-| 리소스 이름 | 짧은 이름 | API 그룹 | 네임스페이스 | 리소스 종류 |
+| NAME | SHORTNAMES | APIGROUP | NAMESPACED | KIND |
 |---|---|---|---|---|
-| `bindings` | | | true | Binding|
+| `bindings` | | | true | Binding |
 | `componentstatuses` | `cs` | | false | ComponentStatus |
 | `configmaps` | `cm` | | true | ConfigMap |
 | `endpoints` | `ep` | | true | Endpoints |
+| `events` | `ev` | | true | Event |
 | `limitranges` | `limits` | | true | LimitRange |
 | `namespaces` | `ns` | | false | Namespace |
 | `nodes` | `no` | | false | Node |
@@ -140,14 +141,14 @@ kubectl [command] [TYPE] [NAME] [flags]
 | `persistentvolumes` | `pv` | | false | PersistentVolume |
 | `pods` | `po` | | true | Pod |
 | `podtemplates` | | | true | PodTemplate |
-| `replicationcontrollers` | `rc` | | true| ReplicationController |
+| `replicationcontrollers` | `rc` | | true | ReplicationController |
 | `resourcequotas` | `quota` | | true | ResourceQuota |
 | `secrets` | | | true | Secret |
 | `serviceaccounts` | `sa` | | true | ServiceAccount |
 | `services` | `svc` | | true | Service |
 | `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
 | `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
-| `customresourcedefinitions` | `crd`, `crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
+| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
 | `apiservices` | | apiregistration.k8s.io | false | APIService |
 | `controllerrevisions` | | apps | true | ControllerRevision |
 | `daemonsets` | `ds` | apps | true | DaemonSet |
@@ -164,9 +165,15 @@ kubectl [command] [TYPE] [NAME] [flags]
 | `jobs` | | batch | true | Job |
 | `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
 | `leases` | | coordination.k8s.io | true | Lease |
+| `endpointslices` |  | discovery.k8s.io | true | EndpointSlice |
 | `events` | `ev` | events.k8s.io | true | Event |
 | `ingresses` | `ing` | extensions | true | Ingress |
+| `flowschemas` |  | flowcontrol.apiserver.k8s.io | false | FlowSchema |
+| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io | false | PriorityLevelConfiguration |
+| `ingressclasses` |  | networking.k8s.io | false | IngressClass |
+| `ingresses` | `ing` | networking.k8s.io | true | Ingress |
 | `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
+| `runtimeclasses` |  | node.k8s.io | false | RuntimeClass |
 | `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
 | `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
 | `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
@@ -176,7 +183,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 | `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
 | `csidrivers` | | storage.k8s.io | false | CSIDriver |
 | `csinodes` | | storage.k8s.io | false | CSINode |
-| `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
+| `storageclasses` | `sc` | storage.k8s.io | false | StorageClass |
 | `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
 ## 출력 옵션

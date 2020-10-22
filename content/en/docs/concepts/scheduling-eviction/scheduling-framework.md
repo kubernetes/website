@@ -18,7 +18,7 @@ scheduling "core" simple and maintainable. Refer to the [design proposal of the
 scheduling framework][kep] for more technical information on the design of the
 framework.
 
-[kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md
+[kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md
 
 
 

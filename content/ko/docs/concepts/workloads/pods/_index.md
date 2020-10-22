@@ -120,7 +120,7 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 {{< /note >}}
 
 파드 오브젝트에 대한 매니페스트를 만들 때, 지정된 이름이 유효한
-[DNS 하위 도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인한다.
 
 ### 파드와 컨트롤러
 
