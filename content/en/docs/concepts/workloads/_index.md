@@ -31,7 +31,7 @@ Those workload resources include:
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) for running Pods that provide
   node-local facilities, such as a storage driver or network plugin;
 * [Job](/docs/concepts/workloads/controllers/job/) and
-  [CronJob](/docs/concepts/workloads/controllers/cronjob/)
+  [CronJob](/docs/concepts/workloads/controllers/cron-jobs/)
   for tasks that run to completion.
 
 There are also two supporting concepts that you might find relevant:

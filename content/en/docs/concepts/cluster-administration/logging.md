@@ -24,8 +24,8 @@ the description of how logs are stored and handled on the node to be useful.
 
 In this section, you can see an example of basic logging in Kubernetes that
 outputs data to the standard output stream. This demonstration uses
-a [pod specification](/examples/debug/counter-pod.yaml) with
-a container that writes some text to standard output once per second.
+a pod specification with a container that writes some text to standard output
+once per second.
 
 {{< codenew file="debug/counter-pod.yaml" >}}
 
