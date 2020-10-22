@@ -25,7 +25,7 @@ The Kubernetes API lets you query and manipulate the state of objects in the Kub
 Most operations can be performed through the
 [kubectl](/docs/reference/kubectl/overview/) command-line interface or other
 command-line tools, such as
-[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), which in turn use the
+[kubeadm](/docs/reference/setup-tools/kubeadm/), which in turn use the
 API. However, you can also access the API directly using REST calls.
 
 Consider using one of the [client libraries](/docs/reference/using-api/client-libraries/)
