@@ -12,10 +12,10 @@ weight: 20
 
 Bootstrap tokens are a simple bearer token that is meant to be used when
 creating new clusters or joining new nodes to an existing cluster.  It was built
-to support [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), but can be used in other contexts
+to support [kubeadm](/docs/reference/setup-tools/kubeadm/), but can be used in other contexts
 for users that wish to start clusters without `kubeadm`. It is also built to
-work, via RBAC policy, with the [Kubelet TLS
-Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) system.
+work, via RBAC policy, with the
+[Kubelet TLS Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) system.
 
 
 <!-- body -->

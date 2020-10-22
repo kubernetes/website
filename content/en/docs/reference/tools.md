@@ -20,7 +20,7 @@ Kubernetes contains several built-in tools to help you work with the Kubernetes 
 
 ## Minikube
 
-[`minikube`](/docs/tasks/tools/install-minikube/) is a tool that makes it
+[`minikube`](https://minikube.sigs.k8s.io/docs/) is a tool that makes it
 easy to run a single-node Kubernetes cluster locally on your workstation for
 development and testing purposes.
 
