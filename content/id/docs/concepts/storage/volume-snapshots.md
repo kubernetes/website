@@ -43,7 +43,7 @@ VolumeSnapshotContent merupakan bagian dari sumber daya klaster. VolumeSnapshot 
 Ada dua cara untuk menyediakan _snapshot_: secara statis maupun dinamis.
 
 #### Statis
-Seorang adminstrator klaster membuat beberapa VolumeSnapshotContent, yang masing-masing memiliki detail tentang penyimpanan sebenarnya yang dapat dipergunakan oleh para pengguna. VolumeSnapshotContent tersebut dapat dikonsumsi melalui API Kubernetes.
+Seorang administrator klaster membuat beberapa VolumeSnapshotContent, yang masing-masing memiliki detail tentang penyimpanan sebenarnya yang dapat dipergunakan oleh para pengguna. VolumeSnapshotContent tersebut dapat dikonsumsi melalui API Kubernetes.
 
 #### Dinamis
 Ketika VolumeSnapshotContent yang dibuat oleh administrator tidak ada yang sesuai dengan VolumeSnapshot yang dibuat pengguna, klaster bisa saja

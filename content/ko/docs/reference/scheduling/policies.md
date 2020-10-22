@@ -26,7 +26,7 @@ weight: 10
 - `PodFitsResources`: 파드의 요구 사항을 충족할 만큼 노드에 사용할 수 있는
   리소스(예: CPU 및 메모리)가 있는지 확인한다.
 
-- `PodMatchNodeSelector`: 파드의 노드 {{< glossary_tooltip text="셀렉터" term_id="selector" >}}가
+- `MatchNodeSelector`: 파드의 노드 {{< glossary_tooltip text="셀렉터" term_id="selector" >}}가
   노드의 {{< glossary_tooltip text="레이블" term_id="label" >}}과 일치하는지 확인한다.
 
 - `NoVolumeZoneConflict`: 해당 스토리지에 대한 장애 영역 제한이 주어지면

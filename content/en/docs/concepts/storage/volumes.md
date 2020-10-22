@@ -18,7 +18,7 @@ Container starts with a clean state.  Second, when running Containers together
 in a `Pod` it is often necessary to share files between those Containers.  The
 Kubernetes `Volume` abstraction solves both of these problems.
 
-Familiarity with [Pods](/docs/concepts/workloads/pods/pod/) is suggested.
+Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 
 <!-- body -->
 
@@ -52,8 +52,7 @@ field) and where to mount those into Containers (the
 field).
 
 A process in a container sees a filesystem view composed from their Docker
-image and volumes.  The [Docker
-image](https://docs.docker.com/userguide/dockerimages/) is at the root of the
+image and volumes. The [Docker image](https://docs.docker.com/userguide/dockerimages/) is at the root of the
 filesystem hierarchy, and any volumes are mounted at the specified paths within
 the image.  Volumes can not mount onto other volumes or have hard links to
 other volumes.  Each Container in the Pod must independently specify where to

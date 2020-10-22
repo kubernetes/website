@@ -9,6 +9,7 @@ approvers:
 emeritus_approvers:
 # - chenopis, commented out to disable PR assignments
 # - jaredbhatti, commented out to disable PR assignments
+# - steveperry-53, commented out to disable PR assignments
 - stewart-yu 
 - zacharysarah
 
