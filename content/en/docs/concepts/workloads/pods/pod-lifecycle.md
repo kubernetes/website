@@ -228,7 +228,8 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 ## Container probes
 
 A [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) is a diagnostic
-performed periodically by the [kubelet](/docs/admin/kubelet/)
+performed periodically by the
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 on a Container. To perform a diagnostic,
 the kubelet calls a
 [Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core) implemented by
