@@ -47,17 +47,10 @@ Pod:
     envar-demo      1/1       Running   0          9s
     ```
 
-1. Get a shell to the container running in your Pod:
+1. List the pod's container environment variables:
 
     ```shell
-    kubectl exec -it envar-demo -- /bin/bash
-    ```
-
-1. In your shell, run the `printenv` command to list the environment variables.
-
-    ```shell
-    # Run this in the shell inside the container
-    printenv
+    kubectl exec envar-demo -- printenv
     ```
 
     The output is similar to this:
@@ -70,8 +63,6 @@ Pod:
     DEMO_GREETING=Hello from the environment
     DEMO_FAREWELL=Such a sweet sorrow
     ```
-
-1. To exit the shell, enter `exit`.
 
 {{< note >}}
 The environment variables set using the `env` or `envFrom` field
