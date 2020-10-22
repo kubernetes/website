@@ -30,13 +30,23 @@ node4   Ready    <none>   2m43s   v1.16.0   node=node4,zone=zoneB
 
 그러면 클러스터는 논리적으로 다음과 같이 보이게 된다.
 
-```
-+---------------+---------------+
-|     zoneA     |     zoneB     |
-+-------+-------+-------+-------+
-| node1 | node2 | node3 | node4 |
-+-------+-------+-------+-------+
-```
+{{<mermaid>}}
+graph TB
+    subgraph "zoneB"
+        n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        n1(Node1)
+        n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4 k8s;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
 레이블을 수동으로 적용하는 대신에, 사용자는 대부분의 클러스터에서 자동으로 생성되고 채워지는 [잘-알려진 레이블](/docs/reference/kubernetes-api/labels-annotations-taints/)을 재사용할 수 있다.
 
@@ -80,17 +90,25 @@ spec:
 
 ### 예시: 단수 토폴로지 분배 제약 조건
 
-4개 노드를 가지는 클러스터에 `foo:bar` 가 레이블된 3개의 파드가 node1, node2 그리고 node3에 각각 위치한다고 가정한다(`P`는 파드를 나타낸다).
+4개 노드를 가지는 클러스터에 `foo:bar` 가 레이블된 3개의 파드가 node1, node2 그리고 node3에 각각 위치한다고 가정한다.
 
-```
-+---------------+---------------+
-|     zoneA     |     zoneB     |
-+-------+-------+-------+-------+
-| node1 | node2 | node3 | node4 |
-+-------+-------+-------+-------+
-|   P   |   P   |   P   |       |
-+-------+-------+-------+-------+
-```
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
 신규 파드가 기존 파드와 함께 영역에 걸쳐서 균등하게 분배되도록 하려면, 스펙(spec)은 다음과 같이 주어질 수 있다.
 
@@ -100,15 +118,46 @@ spec:
 
 만약 스케줄러가 이 신규 파드를 "zoneA"에 배치하면 파드 분포는 [3, 1]이 되며, 따라서 실제 차이(skew)는 2 (3 - 1)가 되어 `maxSkew: 1` 를 위반하게 된다. 이 예시에서는 들어오는 파드는 오직 "zoneB"에만 배치할 수 있다.
 
-```
-+---------------+---------------+      +---------------+---------------+
-|     zoneA     |     zoneB     |      |     zoneA     |     zoneB     |
-+-------+-------+-------+-------+      +-------+-------+-------+-------+
-| node1 | node2 | node3 | node4 |  OR  | node1 | node2 | node3 | node4 |
-+-------+-------+-------+-------+      +-------+-------+-------+-------+
-|   P   |   P   |   P   |   P   |      |   P   |   P   |  P P  |       |
-+-------+-------+-------+-------+      +-------+-------+-------+-------+
-```
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        p4(mypod) --> n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class p4 plain;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
+
+OR
+
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        p4(mypod) --> n3
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class p4 plain;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
 사용자는 파드 스펙을 조정해서 다음과 같은 다양한 요구사항을 충족할 수 있다.
 
@@ -118,17 +167,26 @@ spec:
 
 ### 예시: 다중 토폴로지 분배 제약 조건
 
-4개 노드를 가지는 클러스터에 `foo:bar` 가 레이블된 3개의 파드가 node1, node2 그리고 node3에 각각 위치한다고 가정한다(`P`는 파드를 나타낸다).
+4개 노드를 가지는 클러스터에 `foo:bar` 가 레이블된 3개의 파드가 node1, node2 그리고 node3에 각각 위치한다고 가정한다.
 
-```
-+---------------+---------------+
-|     zoneA     |     zoneB     |
-+-------+-------+-------+-------+
-| node1 | node2 | node3 | node4 |
-+-------+-------+-------+-------+
-|   P   |   P   |   P   |       |
-+-------+-------+-------+-------+
-```
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p3(Pod) --> n3(Node3)
+        n4(Node4)
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class p4 plain;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
 사용자는 2개의 TopologySpreadConstraints를 사용해서 영역과 노드에 파드를 분배하는 것을 제어할 수 있다.
 
@@ -138,15 +196,24 @@ spec:
 
 다중 제약 조건은 충돌로 이어질 수 있다. 3개의 노드를 가지는 클러스터 하나가 2개의 영역에 걸쳐 있다고 가정한다.
 
-```
-+---------------+-------+
-|     zoneA     | zoneB |
-+-------+-------+-------+
-| node1 | node2 | node3 |
-+-------+-------+-------+
-|  P P  |   P   |  P P  |
-+-------+-------+-------+
-```
+{{<mermaid>}}
+graph BT
+    subgraph "zoneB"
+        p4(Pod) --> n3(Node3)
+        p5(Pod) --> n3
+    end
+    subgraph "zoneA"
+        p1(Pod) --> n1(Node1)
+        p2(Pod) --> n1
+        p3(Pod) --> n2(Node2)
+    end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3,p4,p5 k8s;
+    class zoneA,zoneB cluster;
+{{< /mermaid >}}
 
 만약 사용자가 "two-constraints.yaml" 을 이 클러스터에 적용하면, "mypod"가 `Pending` 상태로 유지되는 것을 알게 된다. 이러한 이유는, 첫 번째 제약 조건을 충족하기 위해 "mypod"는 오직 "zoneB"에만 놓을 수 있다. 두 번째 제약 조건에서는 "mypod"는 오직 "node2"에만 놓을 수 있다. 그러면 "zoneB"와 "node2"의 공동 결과는 아무것도 반환되지 않는다.
 
@@ -169,15 +236,37 @@ spec:
 
     zoneA 에서 zoneC에 걸쳐있고, 5개의 노드를 가지는 클러스터가 있다고 가정한다.
 
-    ```
-    +---------------+---------------+-------+
-    |     zoneA     |     zoneB     | zoneC |
-    +-------+-------+-------+-------+-------+
-    | node1 | node2 | node3 | node4 | node5 |
-    +-------+-------+-------+-------+-------+
-    |   P   |   P   |   P   |       |       |
-    +-------+-------+-------+-------+-------+
-    ```
+    {{<mermaid>}}
+    graph BT
+        subgraph "zoneB"
+            p3(Pod) --> n3(Node3)
+            n4(Node4)
+        end
+        subgraph "zoneA"
+            p1(Pod) --> n1(Node1)
+            p2(Pod) --> n2(Node2)
+        end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n1,n2,n3,n4,p1,p2,p3 k8s;
+    class p4 plain;
+    class zoneA,zoneB cluster;
+    {{< /mermaid >}}
+
+    {{<mermaid>}}
+    graph BT
+        subgraph "zoneC"
+            n5(Node5)
+        end
+
+    classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+    classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+    classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+    class n5 k8s;
+    class zoneC cluster;
+    {{< /mermaid >}}
 
     그리고 알다시피 "zoneC"는 제외해야 한다. 이 경우에, "mypod"가 "zoneC"가 아닌 "zoneB"에 배치되도록 yaml을 다음과 같이 구성할 수 있다. 마찬가지로 `spec.nodeSelector` 도 존중된다.
 

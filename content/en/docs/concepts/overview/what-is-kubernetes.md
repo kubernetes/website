@@ -38,7 +38,7 @@ Virtualization allows better utilization of resources in a physical server and a
 
 Each VM is a full machine running all the components, including its own operating system, on top of the virtualized hardware.
 
-**Container deployment era:** Containers are similar to VMs, but they have relaxed isolation properties to share the Operating System (OS) among the applications. Therefore, containers are considered lightweight. Similar to a VM, a container has its own filesystem, CPU, memory, process space, and more. As they are decoupled from the underlying infrastructure, they are portable across clouds and OS distributions.
+**Container deployment era:** Containers are similar to VMs, but they have relaxed isolation properties to share the Operating System (OS) among the applications. Therefore, containers are considered lightweight. Similar to a VM, a container has its own filesystem, share of CPU, memory, process space, and more. As they are decoupled from the underlying infrastructure, they are portable across clouds and OS distributions.
 
 Containers have become popular because they provide extra benefits, such as:
 
@@ -94,4 +94,3 @@ Kubernetes:
 
 *   Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
 *   Ready to [Get Started](/docs/setup/)?
-

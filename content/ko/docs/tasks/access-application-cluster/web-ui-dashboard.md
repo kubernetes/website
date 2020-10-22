@@ -5,7 +5,7 @@ weight: 10
 card:
   name: tasks
   weight: 30
-  title: Use the Web UI Dashboard
+  title: 웹 UI 대시보드 사용
 ---
 
 <!-- overview -->
@@ -52,7 +52,7 @@ kubectl 커맨드라인 도구를 이용해 다음 커맨드를 실행함으로�
 kubectl proxy
 ```
 
-kubectl은 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/ 에 대시보드를 사용하는 것을 가능하게 해줄 것이다.
+kubectl은 [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)에 대시보드를 사용하는 것을 가능하게 해줄 것이다.
 
 UI는 커맨드가 실행된 머신에서 _오직_ 접근 가능하다. 상세 내용은 `kubectl proxy --help` 옵션을 확인한다.
 
@@ -170,7 +170,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
   커맨드 옵션과 인자를 기본 옵션에 우선 적용하여 사용할 수 있다.
 
 - **특권을 가진(privileged) 상태로 실행**: 다음 세팅은 호스트에서 루트 권한을 가진 프로세스들이
-  [특권을 가진 컨테이너](/ko/docs/concepts/workloads/pods/pod/#파드-컨테이너의-특권-privileged-모드)의
+  [특권을 가진 컨테이너](/ko/docs/concepts/workloads/pods/#컨테이너에-대한-특권-모드)의
   프로세스들과 동등한지 아닌지 정의한다.
   특권을 가진(privileged) 컨테이너는 네트워크 스택과 디바이스에 접근하는 것을 조작하도록 활용할 수 있다.
 

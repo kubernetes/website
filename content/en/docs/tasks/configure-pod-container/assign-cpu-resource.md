@@ -22,7 +22,7 @@ allocated as much CPU as it requests.
 Your cluster must have at least 1 CPU available for use to run the task examples.
 
 A few of the steps on this page require you to run the
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 service in your cluster. If you have the metrics-server
 running, you can skip those steps.
 

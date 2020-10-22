@@ -96,6 +96,16 @@ the current state closer in line.
 nodes in your cluster. See
 [Cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)).
 
+The important point here is that the controller makes some change to bring about
+your desired state, and then reports current state back to your cluster's API server.
+Other control loops can observe that reported data and take their own actions.
+
+In the thermostat example, if the room is very cold then a different controller
+might also turn on a frost protection heater. With Kubernetes clusters, the control
+plane indirectly works with IP address management tools, storage services,
+cloud provider APIS, and other services by
+[extending Kubernetes](/docs/concepts/extend-kubernetes/) to implement that.
+
 ## Desired versus current state {#desired-vs-current}
 
 Kubernetes takes a cloud-native view of systems, and is able to handle

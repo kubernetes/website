@@ -183,27 +183,29 @@ By specifying a PersistentVolume in a PersistentVolumeClaim, you declare a bindi
 If the PersistentVolume exists and has not reserved PersistentVolumeClaims through its `claimRef` field, then the PersistentVolume and PersistentVolumeClaim will be bound.
 
 The binding happens regardless of some volume matching criteria, including node affinity.
-The control plane still checks that [storage class](https://kubernetes.io/docs/concepts/storage/storage-classes/), access modes, and requested storage size are valid.
+The control plane still checks that [storage class](/docs/concepts/storage/storage-classes/), access modes, and requested storage size are valid.
 
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: foo-pvc
   namespace: foo
 spec:
+  storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
   volumeName: foo-pv
   ...
 ```
 
 This method does not guarantee any binding privileges to the PersistentVolume. If other PersistentVolumeClaims could use the PV that you specify, you first need to reserve that storage volume. Specify the relevant PersistentVolumeClaim in the `claimRef` field of the PV so that other PVCs can not bind to it.
 
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: foo-pv
 spec:
+  storageClassName: ""
   claimRef:
     name: foo-pvc
     namespace: foo
