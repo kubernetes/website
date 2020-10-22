@@ -102,7 +102,7 @@ sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificat
 
 ```shell
 ## Add Docker's official GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/docker.gpg -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
 ```
 
 ```shell
