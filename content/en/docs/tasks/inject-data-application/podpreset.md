@@ -18,7 +18,7 @@ This page shows how to use PodPreset objects to inject information like {{< glos
 ## {{% heading "prerequisites" %}}
 
 
-You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. If you do not already have a cluster, you can create one using [Minikube](/docs/setup/learning-environment/minikube/).
+You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. If you do not already have a cluster, you can create one using [Minikube](https://minikube.sigs.k8s.io/docs/).
 Make sure that you have [enabled PodPreset](/docs/concepts/workloads/pods/podpreset/#enable-pod-preset) in your cluster.
 
 
