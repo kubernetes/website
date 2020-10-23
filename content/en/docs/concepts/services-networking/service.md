@@ -714,6 +714,20 @@ metadata:
 {{% /tab %}}
 {{< /tabs >}}
 
+{{% /tab %}}
+{{% tab name="Yandex Cloud" %}}
+
+```yaml
+[...]
+metadata:
+  annotations:
+    yandex.cloud/load-balancer-type: internal
+[...]
+```
+
+{{% /tab %}}
+{{< /tabs >}}
+
 #### TLS support on AWS {#ssl-support-on-aws}
 
 For partial TLS / SSL support on clusters running on AWS, you can add three
