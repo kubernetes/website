@@ -250,7 +250,7 @@ To explicitly force all non-cluster DNS lookups to go through a specific nameser
 指向该域名服务器，而不是 `/etc/resolv.conf`。
 
 ```
-proxy .  172.16.0.1
+forward .  172.16.0.1
 ``` 
 
 <!-- 
