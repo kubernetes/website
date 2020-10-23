@@ -48,7 +48,7 @@ that uses around 120MiB per Pod for the virtual machine and the guest OS:
 ```yaml
 ---
 kind: RuntimeClass
-apiVersion: node.k8s.io/v1beta1
+apiVersion: node.k8s.io/v1
 metadata:
     name: kata-fc
 handler: kata-fc
