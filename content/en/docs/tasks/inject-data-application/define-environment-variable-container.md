@@ -47,7 +47,7 @@ Pod:
     envar-demo      1/1       Running   0          9s
     ```
 
-1. List the pod's container environment variables:
+1. List the Pod's container environment variables:
 
     ```shell
     kubectl exec envar-demo -- printenv
@@ -112,5 +112,4 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 * Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
 * Learn about [using secrets as environment variables](/docs/concepts/configuration/secret/#using-secrets-as-environment-variables).
 * See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
-
 
