@@ -54,8 +54,8 @@ Kubernetes 需要 PKI 才能执行以下操作：
 * 集群管理员的客户端证书，用于 API 服务器身份认证
 * API 服务器的客户端证书，用于和 Kubelet 的会话
 * API 服务器的客户端证书，用于和 etcd 的会话
-* 控制器管理器的客户端证书/kubeconfig，用于和 API server 的会话
-* 调度器的客户端证书/kubeconfig，用于和 API server 的会话
+* 控制器管理器的客户端证书/kubeconfig，用于和 API 服务器的会话
+* 调度器的客户端证书/kubeconfig，用于和 API 服务器的会话
 * [前端代理](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 的客户端及服务端证书
 
 <!--
