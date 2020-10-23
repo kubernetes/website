@@ -9,7 +9,7 @@ weight: 20
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.14" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="GA" >}}
 
 This page describes the RuntimeClass resource and runtime selection mechanism.
 
@@ -66,7 +66,7 @@ The RuntimeClass resource currently only has 2 significant fields: the RuntimeCl
 (`metadata.name`) and the handler (`handler`). The object definition looks like this:
 
 ```yaml
-apiVersion: node.k8s.io/v1beta1  # RuntimeClass is defined in the node.k8s.io API group
+apiVersion: node.k8s.io/v1  # RuntimeClass is defined in the node.k8s.io API group
 kind: RuntimeClass
 metadata:
   name: myclass  # The name the RuntimeClass will be referenced by
