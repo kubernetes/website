@@ -84,7 +84,7 @@ Vous pouvez télécharger les packages `.deb` depuis [Docker](https://www.docker
 
 {{< caution >}}
 Le pilote VM `none` peut entraîner des problèmes de sécurité et de perte de données.
-Avant d'utiliser `--driver=none`, consultez [cette documentation] (https://minikube.sigs.k8s.io/docs/reference/drivers/none/) pour plus d'informations.
+Avant d'utiliser `--driver=none`, consultez [cette documentation](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) pour plus d'informations.
 {{</ caution >}}
 
 Minikube prend également en charge un `vm-driver=podman` similaire au pilote Docker. Podman est exécuté en tant que superutilisateur (utilisateur root), c'est le meilleur moyen de garantir que vos conteneurs ont un accès complet à toutes les fonctionnalités disponibles sur votre système.
