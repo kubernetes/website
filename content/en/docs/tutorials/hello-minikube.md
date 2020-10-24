@@ -251,6 +251,39 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     ```
     metrics-server was successfully disabled
     ```
+## View logs
+
+In this section, you can see an example of basic logging in Kubernetes that
+outputs data to the standard output stream. This demonstration uses
+a pod specification with a container that writes some text to standard output
+once per second.
+
+{{< codenew file="debug/counter-pod.yaml" >}}
+
+To run this pod, use the following command:
+
+```shell
+kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
+```
+The output is:
+```
+pod/counter created
+```
+
+To fetch the logs, use the `kubectl logs` command, as follows:
+
+```shell
+kubectl logs counter
+```
+The output is:
+```
+0: Mon Jan  1 00:00:00 UTC 2001
+1: Mon Jan  1 00:00:01 UTC 2001
+2: Mon Jan  1 00:00:02 UTC 2001
+...
+```
+
+You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
 
 ## Clean up
 
