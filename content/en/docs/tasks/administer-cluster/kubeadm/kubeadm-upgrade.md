@@ -92,13 +92,6 @@ Find the latest stable 1.19 version:
     kubeadm version
     ```
 
--  Drain the control plane node:
-
-    ```shell
-    # replace <cp-node-name> with the name of your control plane node
-    kubectl drain <cp-node-name> --ignore-daemonsets
-    ```
-
 -   On the control plane node, run:
 
     ```shell
@@ -266,12 +259,6 @@ Failing to do so will cause `kubeadm upgrade apply` to exit with an error and no
 
     This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
 
--  Uncordon the control plane node:
-
-    ```shell
-    # replace <cp-node-name> with the name of your control plane node
-    kubectl uncordon <cp-node-name>
-    ```
 
 ### Upgrade additional control plane nodes
 
@@ -289,24 +276,31 @@ sudo kubeadm upgrade apply
 
 Also `sudo kubeadm upgrade plan` is not needed.
 
-### Upgrade kubelet and kubectl
+-  Drain the control plane node:
 
-Upgrade the kubelet and kubectl on all control plane nodes:
+    ```shell
+    # replace <cp-node-name> with the name of your control plane node
+    kubectl drain <cp-node-name> --ignore-daemonsets
+    ```
+
+### Upgrade kubelet
+
+Upgrade the kubelet on all control plane nodes:
 
 {{< tabs name="k8s_install_kubelet" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.19.x-00 with the latest patch version
-    apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet=1.19.x-00 kubectl=1.19.x-00 && \
-    apt-mark hold kubelet kubectl
+    apt-mark unhold kubelet && \
+    apt-get update && apt-get install -y kubelet=1.19.x-00 \
+    apt-mark hold kubelet
     -
     # since apt-get version 1.1 you can also use the following method
     apt-get update && \
-    apt-get install -y --allow-change-held-packages kubelet=1.19.x-00 kubectl=1.19.x-00
+    apt-get install -y --allow-change-held-packages kubelet=1.19.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.19.x-0 with the latest patch version
-    yum install -y kubelet-1.19.x-0 kubectl-1.19.x-0 --disableexcludes=kubernetes
+    yum install -y kubelet-1.19.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -316,6 +310,33 @@ Restart the kubelet
 sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 ```
+
+-  Uncordon the control plane node:
+
+    ```shell
+    # replace <cp-node-name> with the name of your control plane node
+    kubectl uncordon <cp-node-name>
+    ```
+### Upgrade kubectl
+
+Upgrade the kubectl on all control plane nodes:
+
+{{< tabs name="k8s_install_kubectl" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+    # replace x in 1.19.x-00 with the latest patch version
+    apt-mark unhold kubectl && \
+    apt-get update && apt-get install -y kubectl=1.19.x-00 && \
+    apt-mark hold kubectl
+    -
+    # since apt-get version 1.1 you can also use the following method
+    apt-get update && \
+    apt-get install -y --allow-change-held-packages kubectl=1.19.x-00
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
+    # replace x in 1.19.x-0 with the latest patch version
+    yum install -y kubectl-1.19.x-0
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Upgrade worker nodes
 
