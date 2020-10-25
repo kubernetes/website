@@ -249,13 +249,13 @@ apiVersion: kubescheduler.config.k8s.io/v1alpha2
 kind: KubeSchedulerConfiguration
 
 profiles:
-  pluginConfig:
-  - name: PodTopologySpread
-    args:
-      defaultConstraints:
-      - maxSkew: 1
-        topologyKey: failure-domain.beta.kubernetes.io/zone
-        whenUnsatisfiable: ScheduleAnyway
+  - pluginConfig:
+      - name: PodTopologySpread
+        args:
+          defaultConstraints:
+            - maxSkew: 1
+              topologyKey: topology.kubernetes.io/zone
+              whenUnsatisfiable: ScheduleAnyway
 ```
 
 {{< note >}}
