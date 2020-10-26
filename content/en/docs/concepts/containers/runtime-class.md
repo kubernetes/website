@@ -9,7 +9,7 @@ weight: 20
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.20" state="GA" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 This page describes the RuntimeClass resource and runtime selection mechanism.
 
@@ -185,5 +185,4 @@ are accounted for in Kubernetes.
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - Read about the [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/) concept
 - [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
-
 
