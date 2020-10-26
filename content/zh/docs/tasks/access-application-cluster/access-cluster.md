@@ -371,7 +371,7 @@ You have several options for connecting to nodes, pods and services from outside
       如果服务不能够安全地暴露到互联网，或者服务不能获得节点 IP 端口的访问权限，或者是为了 debug，那么请使用此选项。
     - 代理可能会给一些 web 应用带来问题。
     - 只适用于 HTTP/HTTPS。
-    - 更多详细信息在 [这里]。
+    - 更多详细信息在 [这里](#发现内建服务)。
   - 从集群中的 node 或者 pod 中访问。
     - 运行一个 pod，然后使用 [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec) 来连接 pod 里的 shell。
       然后从 shell 中连接其它的节点、pod 和服务。
