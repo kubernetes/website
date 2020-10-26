@@ -92,7 +92,7 @@ kubectl에서
 
 1. 사용자는 종종 `kubectl`을 사용하여 쿠버네티스 API와 상호 작용한다. [Kubectl 플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)은 kubectl 바이너리를 확장한다. 개별 사용자의 로컬 환경에만 영향을 미치므로 사이트 전체 정책을 적용할 수는 없다.
 2. apiserver는 모든 요청을 처리한다. apiserver의 여러 유형의 익스텐션 포인트는 요청을 인증하거나, 콘텐츠를 기반으로 요청을 차단하거나, 콘텐츠를 편집하고, 삭제 처리를 허용한다. 이 내용은 [API 접근 익스텐션](/ko/docs/concepts/extend-kubernetes/extend-cluster/#api-접근-익스텐션) 섹션에 설명되어 있다.
-3. apiserver는 다양한 종류의 *리소스* 를 제공한다. `pods`와 같은 *빌트인 리소스 종류* 는 쿠버네티스 프로젝트에 의해 정의되며 변경할 수 없다. 직접 정의한 리소스를 추가할 수도 있고, [커스텀 리소스](/ko/docs/concepts/extend-kubernetes/extend-cluster/#사용자-정의-유형) 섹션에 설명된대로 *커스텀 리소스* 라고 부르는 다른 프로젝트에서 정의한 리소스를 추가할 수도 있다. 커스텀 리소스는 종종 API 접근 익스텐션과 함께 사용된다.
+3. apiserver는 다양한 종류의 *리소스* 를 제공한다. `pods`와 같은 *빌트인 리소스 종류* 는 쿠버네티스 프로젝트에 의해 정의되며 변경할 수 없다. 직접 정의한 리소스를 추가할 수도 있고, [커스텀 리소스](/ko/docs/concepts/extend-kubernetes/extend-cluster/#사용자-정의-유형) 섹션에 설명된 대로 *커스텀 리소스* 라고 부르는 다른 프로젝트에서 정의한 리소스를 추가할 수도 있다. 커스텀 리소스는 종종 API 접근 익스텐션과 함께 사용된다.
 4. 쿠버네티스 스케줄러는 파드를 배치할 노드를 결정한다. 스케줄링을 확장하는 몇 가지 방법이 있다. 이들은 [스케줄러 익스텐션](/ko/docs/concepts/extend-kubernetes/#스케줄러-익스텐션) 섹션에 설명되어 있다.
 5. 쿠버네티스의 많은 동작은 API-Server의 클라이언트인 컨트롤러(Controller)라는 프로그램으로 구현된다. 컨트롤러는 종종 커스텀 리소스와 함께 사용된다.
 6. kubelet은 서버에서 실행되며 파드가 클러스터 네트워크에서 자체 IP를 가진 가상 서버처럼 보이도록 한다. [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/extend-cluster/#네트워크-플러그인)을 사용하면 다양한 파드 네트워킹 구현이 가능하다.
