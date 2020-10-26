@@ -44,10 +44,10 @@ Init 容器与普通的容器非常像，除了如下两点：
 * 每个都必须在下一个启动之前成功完成。
 
 <!--
-If a Pod's init container fails, Kubernetes repeatedly restarts the Pod until the init container succeeds. However, if the Pod has a `restartPolicy` of Never, Kubernetes does not restart the Pod.
+If a Pod's init container fails, the kubelet repeatedly restarts that init container until it succeeds. However, if the Pod has a restartPolicy of Never, and an init container fails during startup of that Pod, Kubernetes treats the overall Pod as failed.
 -->
-如果 Pod 的 Init 容器失败，Kubernetes 会不断地重启该 Pod，直到 Init 容器成功为止。
-然而，如果 Pod 对应的 `restartPolicy` 值为 Never，Kubernetes 不会重新启动 Pod。
+如果 Pod 的 Init 容器运行失败，则 Kubelet 会不断的重启 Init 容器，直到 Init 容器运行成功。
+然而，如果 Pod 的 `restartPolicy` 是 Never，并且 Init 容器在 Pod 启动期间运行失败，则 Kubernetes 会将整个 Pod 视为失败。
 
 <!--
 To specify an init container for a Pod, add the `initContainers` field into the Pod specification, as an array of objects of type [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core), alongside the app `containers` array.
