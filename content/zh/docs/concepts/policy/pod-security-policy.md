@@ -862,7 +862,7 @@ to effectively limit access to the specified `pathPrefix`.
 
 {{< warning >}}
 容器如果对宿主文件系统拥有不受限制的访问权限，就可以有很多种方式提升自己的特权，
-包括读取其他容器中的数据、滥用系统服务（如 `kubelet`）`的凭据信息等。
+包括读取其他容器中的数据、滥用系统服务（如 `kubelet`）的凭据信息等。
 
 由可写入的目录所构造的 `hostPath` 卷能够允许容器写入数据到宿主文件系统，
 并且在写入时避开 `pathPrefix` 所设置的目录限制。
