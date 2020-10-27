@@ -539,7 +539,7 @@ Kubernetesクラスターのトラブルシューティングの主なヘルプ�
 
     Kubernetes Podでは、インフラストラクチャまたは「pause」コンテナが最初に作成され、コンテナエンドポイントをホストします。インフラストラクチャやワーカーコンテナなど、同じPodに属するコンテナは、共通のネットワークネームスペースとエンドポイント（同じIPとポートスペース）を共有します。Pauseコンテナは、ネットワーク構成を失うことなくクラッシュまたは再起動するワーカーコンテナに対応するために必要です。
 
-    「pause」（インフラストラクチャ）イメージは、Microsoft Container Registry（MCR）でホストされています。`docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`を使用してアクセスできます。詳細については、[DOCKERFILE](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat)をご覧ください。
+    「pause」（インフラストラクチャ）イメージは、Microsoft Container Registry（MCR）でホストされています。`docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`を使用してアクセスできます。詳細については、[DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile)をご覧ください。
 
 ### さらなる調査
 
