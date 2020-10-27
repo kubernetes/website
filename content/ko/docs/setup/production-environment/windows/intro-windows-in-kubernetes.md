@@ -259,7 +259,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 
 오버 프로비저닝을 방지하는 모범 사례는 윈도우, 도커 및 쿠버네티스 프로세스를 고려하여 최소 2GB의 시스템 예약 메모리로 kubelet을 구성하는 것이다.
 
-플래그의 동작은 아래에 설명된대로 다르게 동작한다.
+플래그의 동작은 아래에 설명된 대로 다르게 동작한다.
 
 * `--kubelet-reserve`, `--system-reserve`, `--eviction-hard` 플래그는 Node Allocatable 업데이트
 * `--enforce-node-allocable`을 사용한 축출(Eviction)은 구현되지 않았다.

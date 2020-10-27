@@ -140,7 +140,7 @@ Events:            <none>
 기본 볼륨 플러그인에서 지원하는 경우 `Recycle` 반환 정책은 볼륨에서 기본 스크럽(`rm -rf /thevolume/*`)을 수행하고 새 클레임에 다시 사용할 수 있도록 한다.
 
 그러나 관리자는 [레퍼런스](/docs/reference/command-line-tools-reference/kube-controller-manager/)에
-설명된대로 쿠버네티스 컨트롤러 관리자 커맨드라인 인자(command line arguments)를
+설명된 대로 쿠버네티스 컨트롤러 관리자 커맨드라인 인자(command line arguments)를
 사용하여 사용자 정의 재활용 파드 템플릿을 구성할 수 있다.
 사용자 정의 재활용 파드 템플릿에는 아래 예와 같이 `volumes` 명세가
 포함되어야 한다.
