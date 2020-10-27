@@ -24,7 +24,7 @@ See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Gu
 
 This page is an overview of the `kubectl` command.
 -->
-另见: [Kubectl 概述](/docs/reference/kubectl/overview/) 和 [JsonPath 指南](/docs/reference/kubectl/jsonpath)。
+另见: [Kubectl 概述](/zh/docs/reference/kubectl/overview/) 和 [JsonPath 指南](/zh/docs/reference/kubectl/jsonpath)。
 
 本页面是 `kubectl` 命令的概述。
 
@@ -85,15 +85,15 @@ detailed config file information.
 ##  Kubectl 上下文和配置
 
 设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。查看
-[使用 kubeconfig 跨集群授权访问](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+[使用 kubeconfig 跨集群授权访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 文档获取配置文件详细信息。
 
-<!-- 
+<!--
 ``bash
 kubectl config view # Show Merged kubeconfig settings.
 
 # use multiple kubeconfig files at the same time and view merged config
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
@@ -102,7 +102,7 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
-kubectl config get-contexts                          # display list of contexts 
+kubectl config get-contexts                          # display list of contexts
 kubectl config current-context			     # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
@@ -115,7 +115,7 @@ kubectl config set-context --current --namespace=ggckad-s2
 # set a context utilizing a specific username and namespace.
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
- 
+
 kubectl config unset users.foo                       # delete user foo
 ```
 -->
@@ -402,7 +402,7 @@ kubectl diff -f ./my-manifest.yaml
 <!--
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
-kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision 
+kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision
 kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
 kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
@@ -426,7 +426,7 @@ kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a 
 -->
 ```bash
 kubectl set image deployment/frontend www=image:v2               # 滚动更新 "frontend" Deployment 的 "www" 容器镜像
-kubectl rollout history deployment/frontend                      # 检查 Deployment 的历史记录，包括版本 
+kubectl rollout history deployment/frontend                      # 检查 Deployment 的历史记录，包括版本
 kubectl rollout undo deployment/frontend                         # 回滚到上次部署版本
 kubectl rollout undo deployment/frontend --to-revision=2         # 回滚到特定部署版本
 kubectl rollout status -w deployment/frontend                    # 监视 "frontend" Deployment 的滚动升级状态直到完成
@@ -465,13 +465,13 @@ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/
 # Disable a deployment livenessProbe using a json patch with positional arrays
 kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 
-# Add a new element to a positional array 
+# Add a new element to a positional array
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 ```
 -->
 ```bash
 # 部分更新某节点
-kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' 
+kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}'
 
 # 更新容器的镜像；spec.containers[*].name 是必须的。因为它是一个合并性质的主键。
 kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-serve-hostname","image":"new image"}]}}'
@@ -482,7 +482,7 @@ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/
 # 使用带位置数组的 JSON patch 禁用某 Deployment 的 livenessProbe
 kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 
-# 在带位置数组中添加元素 
+# 在带位置数组中添加元素
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 ```
 
@@ -567,7 +567,7 @@ kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
-kubectl run nginx --image=nginx -n 
+kubectl run nginx --image=nginx -n
 mynamespace                                         # Run pod nginx in a specific namespace
 kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
 --dry-run=client -o yaml > pod.yaml
@@ -641,7 +641,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 <!--
 List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 -->
-列出所支持的全部资源类型和它们的简称、[API 组](/docs/concepts/overview/kubernetes-api/#api-groups), 是否是[名字空间作用域](/docs/concepts/overview/working-with-objects/namespaces) 和 [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects)。
+列出所支持的全部资源类型和它们的简称、[API 组](/zh/docs/concepts/overview/kubernetes-api/#api-groups), 是否是[名字空间作用域](/zh/docs/concepts/overview/working-with-objects/namespaces) 和 [Kind](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects)。
 
 ```bash
 kubectl api-resources
@@ -697,8 +697,8 @@ utput format | Description
 `-o=custom-columns=<spec>` | 使用逗号分隔的自定义列来打印表格
 `-o=custom-columns-file=<filename>` | 使用 `<filename>` 文件中的自定义列模板打印表格
 `-o=json`     | 输出 JSON 格式的 API 对象
-`-o=jsonpath=<template>` | 打印 [jsonpath](/docs/reference/kubectl/jsonpath) 表达式中定义的字段
-`-o=jsonpath-file=<filename>` | 打印在 `<filename>` 文件中定义的 [jsonpath](/docs/reference/kubectl/jsonpath) 表达式所指定的字段。
+`-o=jsonpath=<template>` | 打印 [jsonpath](/zh/docs/reference/kubectl/jsonpath) 表达式中定义的字段
+`-o=jsonpath-file=<filename>` | 打印在 `<filename>` 文件中定义的 [jsonpath](/zh/docs/reference/kubectl/jsonpath) 表达式所指定的字段。
 `-o=name`     | 仅打印资源名称而不打印其他内容
 `-o=wide`     | 以纯文本格式输出额外信息，对于 Pod 来说，输出中包含了节点名称
 `-o=yaml`     | 输出 YAML 格式的 API 对象
@@ -732,7 +732,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-有关更多示例，请参看 kubectl [参考文档](/docs/reference/kubectl/overview/#custom-columns)。
+有关更多示例，请参看 kubectl [参考文档](/zh/docs/reference/kubectl/overview/#custom-columns)。
 
 <!--
 ### Kubectl output verbosity and debugging
@@ -778,8 +778,7 @@ Verbosity | Description
 * Also [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use it in reusable scripts.
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 -->
-* 进一步了解 [kubectl 概述](/docs/reference/kubectl/overview/)。
-* 参阅 [kubectl](/docs/reference/kubectl/kubectl/) 选项.
-* 参阅 [kubectl 使用约定](/docs/reference/kubectl/conventions/)来理解如何在可复用的脚本中使用它。
+* 进一步了解 [kubectl 概述](/zh/docs/reference/kubectl/overview/)。
+* 参阅 [kubectl](/zh/docs/reference/kubectl/kubectl/) 选项.
+* 参阅 [kubectl 使用约定](/zh/docs/reference/kubectl/conventions/)来理解如何在可复用的脚本中使用它。
 * 查看社区中其他的 [kubectl 备忘单](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)。
-
