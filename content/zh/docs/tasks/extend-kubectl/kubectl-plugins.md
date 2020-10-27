@@ -245,7 +245,7 @@ See [using the command line runtime package](#using-the-command-line-runtime-pac
 
 Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the `kubectl-foo-bar-baz` plugin from the scenario above.
 -->
-kubeclt 插件必须解析并检查传递给它们的所有参数。
+kubectl 插件必须解析并检查传递给它们的所有参数。
 参阅[使用命令行运行时包](#using-the-command-line-runtime-package)了解针对
 插件开发人员的 Go 库的细节。
 
@@ -261,7 +261,7 @@ would be `kubectl-foo-bar-baz-arg1`. Upon not finding that plugin, kubectl then 
 Upon having found a plugin with this name, kubectl then invokes that plugin, passing all args and flags after the plugin's name as arguments to the plugin process.
 -->
 
-如果你运行 `kubectl foo bar baz arg1 --flag=value arg2`，kubeclt 的插件机制将首先尝试找到
+如果你运行 `kubectl foo bar baz arg1 --flag=value arg2`，kubectl 的插件机制将首先尝试找到
 最长可能名称的插件，在本例中是 `kubectl-foo-bar-baz-arg1`。
 当没有找到这个插件时，kubectl 就会将最后一个以破折号分隔的值视为参数（在本例中为 `arg1`），
 并尝试找到下一个最长的名称 `kubectl-foo-bar-baz`。
