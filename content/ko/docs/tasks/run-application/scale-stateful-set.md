@@ -86,3 +86,4 @@ kubectl patch statefulsets <stateful-set-name> -p '{"spec":{"replicas":<new-repl
 
 [스테이트풀셋 삭제하기](/docs/tasks/run-application/delete-stateful-set)에 대해 더 알아보기.
 
+
