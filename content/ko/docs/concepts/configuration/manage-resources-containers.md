@@ -134,7 +134,6 @@ spec:
   containers:
   - name: app
     image: images.my-company.example/app:v4
-    env:
     resources:
       requests:
         memory: "64Mi"

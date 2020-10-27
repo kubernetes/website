@@ -13,7 +13,8 @@ of its primary containers starts OK, and then through either the `Succeeded` or
 
 Whilst a Pod is running, the kubelet is able to restart containers to handle some
 kind of faults. Within a Pod, Kubernetes tracks different container
-[states](#container-states) and handles
+[states](#container-states) and determines what action to take to make the Pod
+healthy again.
 
 In the Kubernetes API, Pods have both a specification and an actual status. The
 status for a Pod object consists of a set of [Pod conditions](#pod-conditions).
@@ -32,7 +33,7 @@ Like individual application containers, Pods are considered to be relatively
 ephemeral (rather than durable) entities. Pods are created, assigned a unique
 ID ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), and scheduled
 to nodes where they remain until termination (according to restart policy) or
-deletion.  
+deletion.
 If a {{< glossary_tooltip term_id="node" >}} dies, the Pods scheduled to that node
 are [scheduled for deletion](#pod-garbage-collection) after a timeout period.
 
@@ -76,13 +77,13 @@ have a given `phase` value.
 
 Here are the possible values for `phase`:
 
-Value | Description
-:-----|:-----------
-`Pending` | The Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. This includes time a Pod spends waiting to be scheduled as well as the time spent downloading container images over the network.
-`Running` | The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
+Value       | Description
+:-----------|:-----------
+`Pending`   | The Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. This includes time a Pod spends waiting to be scheduled as well as the time spent downloading container images over the network.
+`Running`   | The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
 `Succeeded` | All containers in the Pod have terminated in success, and will not be restarted.
-`Failed` | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
-`Unknown` | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
+`Failed`    | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
+`Unknown`   | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
 
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
@@ -140,9 +141,8 @@ and Never. The default value is Always.
 The `restartPolicy` applies to all containers in the Pod. `restartPolicy` only
 refers to restarts of the containers by the kubelet on the same node. After containers
 in a Pod exit, the kubelet restarts them with an exponential back-off delay (10s, 20s,
-40s, …), that is capped at five minutes. Once a container has executed with no problems
-for 10 minutes without any problems, the kubelet resets the restart backoff timer for
-that container.
+40s, …), that is capped at five minutes. Once a container has executed for 10 minutes
+without any problems, the kubelet resets the restart backoff timer forthat container.
 
 ## Pod conditions
 
@@ -228,7 +228,8 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 ## Container probes
 
 A [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) is a diagnostic
-performed periodically by the [kubelet](/docs/admin/kubelet/)
+performed periodically by the
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 on a Container. To perform a diagnostic,
 the kubelet calls a
 [Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core) implemented by
@@ -314,7 +315,7 @@ to stop.
 
 ### When should you use a startup probe?
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 Startup probes are useful for Pods that have containers that take a long time to
 come into service. Rather than set a long liveness interval, you can configure
@@ -342,7 +343,9 @@ place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts gr
 shutdown.
 
 Typically, the container runtime sends a TERM signal to the main process in each
-container. Once the grace period has expired, the KILL signal is sent to any remaining
+container. Many container runtimes respect the `STOPSIGNAL` value defined in the container
+image and send this instead of TERM.
+Once the grace period has expired, the KILL signal is sent to any remaining
 processes, and the Pod is then deleted from the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
 container runtime's management service is restarted while waiting for processes to terminate, the
@@ -353,9 +356,9 @@ An example flow:
 1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period
    (30 seconds).
 1. The Pod in the API server is updated with the time beyond which the Pod is considered "dead"
-   along with the grace period.  
+   along with the grace period.
    If you use `kubectl describe` to check on the Pod you're deleting, that Pod shows up as
-   "Terminating".  
+   "Terminating".
    On the node where the Pod is running: as soon as the kubelet sees that a Pod has been marked
    as terminating (a graceful shutdown duration has been set), the kubelet begins the local Pod
    shutdown process.
@@ -386,7 +389,7 @@ An example flow:
    `SIGKILL` to any processes still running in any container in the Pod.
    The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
 1. The kubelet triggers forcible removal of Pod object from the API server, by setting grace period
-   to 0 (immediate deletion).  
+   to 0 (immediate deletion).
 1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 
 ### Forced Pod termination {#pod-termination-forced}

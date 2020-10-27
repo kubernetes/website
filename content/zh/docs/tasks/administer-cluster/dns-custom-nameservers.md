@@ -151,12 +151,11 @@ data:
         ready
         kubernetes cluster.local in-addr.arpa ip6.arpa {
            pods insecure
-           upstream
            fallthrough in-addr.arpa ip6.arpa
            ttl 30
         }
         prometheus :9153
-        proxy ./etc/resolv.conf
+        forward ./etc/resolv.conf
         cache 30
         loop
         reload
@@ -221,7 +220,7 @@ You can modify the default CoreDNS behavior by modifying the ConfigMap.
 
 CoreDNS has the ability to configure stubdomains and upstream nameservers using the [forward plugin](https://coredns.io/plugins/forward/).
 -->
-### 使用 CoreDN 配置存根域和上游域名服务器
+### 使用 CoreDNS 配置存根域和上游域名服务器
 
 CoreDNS 能够使用 [forward 插件](https://coredns.io/plugins/forward/)配置存根域和上游域名服务器。
 
@@ -251,7 +250,7 @@ To explicitly force all non-cluster DNS lookups to go through a specific nameser
 指向该域名服务器，而不是 `/etc/resolv.conf`。
 
 ```
-proxy .  172.16.0.1
+forward .  172.16.0.1
 ``` 
 
 <!-- 

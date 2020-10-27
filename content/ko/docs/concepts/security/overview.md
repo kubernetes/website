@@ -147,7 +147,7 @@ TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 미리 �
 * [파드 보안 표준](/docs/concepts/security/pod-security-standards/)
 * [파드에 대한 네트워크 정책](/ko/docs/concepts/services-networking/network-policies/)
 * [클러스터 보안](/docs/tasks/administer-cluster/securing-a-cluster/)
-* [API 접근 통제](/docs/reference/access-authn-authz/controlling-access/)
+* [API 접근 통제](/ko/docs/reference/access-authn-authz/controlling-access/)
 * 컨트롤 플레인을 위한 [전송 데이터 암호화](/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [Rest에서 데이터 암호화](/docs/tasks/administer-cluster/encrypt-data/)
 * [쿠버네티스 시크릿](/ko/docs/concepts/configuration/secret/)

@@ -1,17 +1,18 @@
 ---
-title: Container Environment Variables
+title: Variabel Lingkungan Container
 id: container-env-variables
 date: 2019-06-24
 full_link: /docs/concepts/containers/container-environment-variables/
 short_description: >
-  Variabel environment kontainer merupakan pasangan name=value yang dapat digunakan untuk menyediakan informasi penting bagi kontainer yang dijalankan pada pod.
+  Variabel lingkungan Container merupakan pasangan nama=nilai yang dapat digunakan untuk menyediakan informasi penting bagi Container yang dijalankan pada Pod.
 
-aka: 
+aka:
+- Container Environment Variables
 tags:
 - fundamental
 ---
- Container environment variables are name=value pairs that provide useful information into containers running in a Pod.
+Variabel lingkungan Container merupakan pasangan nama=nilai yang dapat digunakan untuk menyediakan informasi penting bagi Container yang dijalankan pada Pod.
 
 <!--more-->
 
-Variabel environment kontainer merupakan pasangan name=value yang dapat digunakan untuk menyediakan informasi penting bagi {{< glossary_tooltip text="kontainer" term_id="container" >}} yang dijalankan pada pod. Contohnya, detail mengenai file systems, informasi mengenai kontainer itu sendiri, dan komponen kluster lainnya seperti endpoint kluster.
+Variabel lingkungan Container menyediakan informasi yang dibutuhkan oleh aplikasi yang berjalan di dalam Container bersama dengan informasi mengenai sumber daya penting yang dibutuhkan oleh {{< glossary_tooltip term_id="container" >}}. Sebagai contoh, detail sistem berkas (_file system_), informasi mengenai Container itu sendiri, dan sumber daya klaster lainnya seperti _endpoint_ Service.

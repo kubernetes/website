@@ -20,10 +20,7 @@ by implementing one or more of these extension points.
 
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
 using the component config APIs
-([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha1?tab=doc#KubeSchedulerConfiguration)
-or [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha2?tab=doc#KubeSchedulerConfiguration)).
-The `v1alpha2` API allows you to configure kube-scheduler to run
-[multiple profiles](#multiple-profiles).
+([`v1beta1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.19.0/config/v1beta1?tab=doc#KubeSchedulerConfiguration)).
 
 A minimal configuration looks as follows:
 

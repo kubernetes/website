@@ -265,12 +265,12 @@ APIs, cluster administrators must ensure that:
 
 * The corresponding APIs are registered:
 
-   * For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-incubator/metrics-server).
+   * For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
      It can be launched as a cluster addon.
 
    * For custom metrics, this is the `custom.metrics.k8s.io` API.  It's provided by "adapter" API servers provided by metrics solution vendors.
      Check with your metrics pipeline, or the [list of known solutions](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api).
-     If you would like to write your own, check out the [boilerplate](https://github.com/kubernetes-incubator/custom-metrics-apiserver) to get started.
+     If you would like to write your own, check out the [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) to get started.
 
    * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
 
@@ -319,7 +319,7 @@ For instance if there are 80 replicas and the target has to be scaled down to 10
 then during the first step 8 replicas will be reduced. In the next iteration when the number
 of replicas is 72, 10% of the pods is 7.2 but the number is rounded up to 8. On each loop of
 the autoscaler controller the number of pods to be change is re-calculated based on the number
-of current replicas. When the number of replicas falls below 40 the first policy_(Pods)_ is applied
+of current replicas. When the number of replicas falls below 40 the first policy _(Pods)_ is applied
 and 4 replicas will be reduced at a time.
 
 `periodSeconds` indicates the length of time in the past for which the policy must hold true.
@@ -328,7 +328,7 @@ allows at most 10% of the current replicas to be scaled down in one minute.
 
 The policy selection can be changed by specifying the `selectPolicy` field for a scaling
 direction. By setting the value to `Min` which would select the policy which allows the
-smallest change in the replica count. Setting the value to `Disabled` completely disabled
+smallest change in the replica count. Setting the value to `Disabled` completely disables
 scaling in that direction.
 
 ### Stabilization Window
@@ -405,8 +405,9 @@ behavior:
       periodSeconds: 60
 ```
 
-To allow a final drop of 5 pods, another policy can be added and a selection
-strategy of minimum:
+To ensure that no more than 5 Pods are removed per minute, you can add a second scale-down
+policy with a fixed size of 5, and set `selectPolicy` to minimum. Setting `selectPolicy` to `Min` means
+that the autoscaler chooses the policy that affects the smallest number of Pods:
 
 ```yaml
 behavior:
@@ -418,7 +419,7 @@ behavior:
     - type: Pods
       value: 5
       periodSeconds: 60
-    selectPolicy: Max
+    selectPolicy: Min
 ```
 
 ### Example: disable scale down
@@ -440,5 +441,4 @@ behavior:
 * Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl autoscale command: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
-
 

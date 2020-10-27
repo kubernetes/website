@@ -30,7 +30,7 @@ cluster components such as the
 [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)
 controller, as well as the `kubectl top` utility.
 These  metrics are collected by the lightweight, short-term, in-memory 
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server) and
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server) and
  are exposed via the `metrics.k8s.io` API. 
 
 metrics-server discovers all nodes on the cluster and 

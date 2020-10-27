@@ -44,7 +44,7 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 
 {{< codenew file="application/job/cronjob.yaml" >}}
 
-([크론잡으로 자동화된 작업 실행하기](/docs/tasks/job/automated-tasks-with-cron-jobs/)는
+([크론잡으로 자동화된 작업 실행하기](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)는
 이 예시를 더 자세히 설명한다.)
 
 ## 크론잡의 한계 {#cron-job-limitations}
@@ -85,4 +85,4 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 크론잡 `schedule` 필드의 포맷을 문서화 한다.
 
 크론잡 생성과 작업에 대한 지침과 크론잡 매니페스트의
-예는 [크론잡으로 자동화된 작업 실행하기](/docs/tasks/job/automated-tasks-with-cron-jobs/)를 참조한다.
+예는 [크론잡으로 자동화된 작업 실행하기](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)를 참조한다.

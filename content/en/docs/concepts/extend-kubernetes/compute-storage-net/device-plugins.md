@@ -37,7 +37,7 @@ During the registration, the device plugin needs to send:
   * The name of its Unix socket.
   * The Device Plugin API version against which it was built.
   * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
-    [extended resource naming scheme](/docs/concepts/configuration/manage-resources-container/#extended-resources)
+    [extended resource naming scheme](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
     as `vendor-domain/resourcetype`.
     (For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.)
 
@@ -210,7 +210,7 @@ Support for the "PodResources service" requires `KubeletPodResources` [feature g
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-The Topology Manager is a Kubelet component that allows resources to be co-ordintated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
+The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
 
 
 ```gRPC

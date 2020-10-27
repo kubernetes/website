@@ -174,6 +174,9 @@ other = "Mục tiêu"
 [prerequisites_heading]
 other = "Trước khi bắt đầu"
 
+[subscribe_button]
+other = "Đăng ký"
+
 [ui_search_placeholder]
 other = "Tìm kiếm"
 

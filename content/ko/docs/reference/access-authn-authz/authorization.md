@@ -11,7 +11,7 @@ weight: 60
 
 <!-- body -->
 쿠버네티스에서는 사용자의 요청이 인가(접근 권한을 부여) 받기 전에 사용자가 인증(로그인)되어야 한다.
-인증에 대한 자세한 내용은 [쿠버네티스 API 접근 제어하기](/docs/reference/access-authn-authz/controlling-access/)를
+인증에 대한 자세한 내용은 [쿠버네티스 API 접근 제어하기](/ko/docs/reference/access-authn-authz/controlling-access/)를
 참고한다.
 
 쿠버네티스는 REST API 요청에 공통적인 속성을 요구한다.
@@ -42,7 +42,7 @@ weight: 60
  * **extra** - 인증 계층에서 제공하는 문자열 값에 대한 임의의 문자열 키 맵.
  * **API** - 요청이 API 리소스에 대한 것인지 여부.
  * **Request path** - `/api` 또는 `/healthz`와 같이 다양한 리소스가 아닌 엔드포인트의 경로.
- * **API request verb** - `get`, `list`, `create`, `update`, `patch`, `watch`, `delete`, `deletecollection`과 같은 리소스 요청에 사용하는 API 동사. 리소스 API 엔드포인트의 요청 동사를 결정하려면 [요청 동사 결정](/docs/reference/access-authn-authz/authorization/#determine-the-request-verb)을 참고한다.
+ * **API request verb** - `get`, `list`, `create`, `update`, `patch`, `watch`, `delete`, `deletecollection`과 같은 리소스 요청에 사용하는 API 동사. 리소스 API 엔드포인트의 요청 동사를 결정하려면 [요청 동사 결정](/ko/docs/reference/access-authn-authz/authorization/#요청-동사-결정)을 참고한다.
  * **HTTP request verb** - `get`, `post`, `put`, `delete`처럼 소문자 HTTP 메서드는 리소스가 아닌 요청에 사용한다.
  * **Resource** - 접근 중인 리소스의 ID 또는 이름(리소스 요청만 해당) -- `get`, `update`, `patch`, `delete` 동사를 사용하는 리소스 요청의 경우 리소스 이름을 지정해야 한다.
  * **Subresource** - 접근 중인 하위 리소스(리소스 요청만 해당).
@@ -197,5 +197,5 @@ status:
 
 ## {{% heading "whatsnext" %}}
 
-* 인증에 대한 자세한 내용은 [쿠버네티스 API 접근 제어하기](/docs/reference/access-authn-authz/controlling-access/)에서 **인증**을 참조한다.
+* 인증에 대한 자세한 내용은 [쿠버네티스 API 접근 제어하기](/ko/docs/reference/access-authn-authz/controlling-access/)에서 **인증**을 참조한다.
 * 어드미션 제어에 대한 자세한 내용은 [어드미션 컨트롤러 사용하기](/docs/reference/access-authn-authz/admission-controllers/)를 참조한다.

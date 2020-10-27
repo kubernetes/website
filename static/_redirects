@@ -68,6 +68,8 @@
 /docs/api/     /docs/concepts/overview/kubernetes-api/ 301
 
 /docs/api-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
+/docs/reference/using-api/api-overview/     /docs/reference/using-api/ 301
+/docs/reference/access-authn-authz/controlling-access/   /docs/concepts/security/controlling-access/ 301
 
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
@@ -194,11 +196,10 @@
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/scheduling/profiles/    /docs/reference/scheduling/config/#profiles 301
 
-/docs/reference/generated/kubernetes-api/v1.14/    https://v1-14.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/  301
 /docs/reference/generated/kubernetes-api/v1.15/    https://v1-15.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/  301
 /docs/reference/generated/kubernetes-api/v1.16/    https://v1-16.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.16/  301
 /docs/reference/generated/kubernetes-api/v1.17/    https://v1-17.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/  301
-
+/docs/reference/generated/kubernetes-api/v1.18/    https://v1-18.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/  301
 
 /docs/reporting-security-issues/     /security/ 301
 
@@ -286,7 +287,7 @@
 /docs/templatedemos/*     /docs/home/contribute/page-templates/ 301
 /docs/tools/     /docs/reference/tools/ 301
 /docs/tools/kompose/user-guide/     /docs/tasks/configure-pod-container/translate-compose-kubernetes/ 301
-/docs/tools/kompose/     /docs/tools/kompose/user-guide/ 301
+/docs/tools/kompose/     /docs/tasks/configure-pod-container/translate-compose-kubernetes/ 301
 /docs/troubleshooting/     /docs/tasks/debug-application-cluster/troubleshooting/ 301
 
 /docs/tutorials/clusters/multiple-schedulers/     /docs/tasks/administer-cluster/configure-multiple-schedulers/ 301
@@ -365,13 +366,9 @@
 /docs/user-guide/kubeconfig-file/     /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
 /docs/user-guide/kubectl-overview/     /docs/reference/kubectl/overview/
 /docs/user-guide/kubectl/     /docs/reference/generated/kubectl/kubectl-options/
-#/docs/user-guide/kubectl/v1.8/*     https://v1-8.docs.kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/:splat 301
-#/docs/user-guide/kubectl/v1.9/*     https://v1-9.docs.kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/:splat 301
-#/docs/user-guide/kubectl/v1.10/*     /docs/reference/generated/kubectl/kubectl-commands/:splat 301
 /docs/user-guide/kubectl-conventions/     /docs/reference/kubectl/conventions/
 /docs/user-guide/kubectl-cheatsheet/     /docs/reference/kubectl/cheatsheet/
 /docs/user-guide/kubectl/kubectl_*/     /docs/reference/generated/kubectl/kubectl-commands#:splat 301
-#/docs/user-guide/kubectl/v1.6/node_modules/*     https://v1-6.docs.kubernetes.io/docs/user-guide/kubectl/v1.6/ 301
 /docs/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 /docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ 301
 /docs/user-guide/load-balancer/     /docs/tasks/access-application-cluster/create-external-load-balancer/ 301
@@ -453,7 +450,8 @@
 /editdocs/     /docs/contribute/     301
 /docs/home/editdocs/  /docs/contribute/ 301
 
-/docs/admin/accessing-the-api/     /docs/reference/access-authn-authz/controlling-access/ 301
+
+/docs/admin/accessing-the-api/     /docs/concepts/overview/kubernetes-api/ 301
 /docs/admin/admission-controllers/     /docs/reference/access-authn-authz/admission-controllers/ 301
 /docs/admin/authentication/     /docs/reference/access-authn-authz/authentication/ 301
 /docs/admin/bootstrap-tokens/     /docs/reference/access-authn-authz/bootstrap-tokens/ 301
@@ -470,7 +468,10 @@
 
 /docs/setup/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
 
-/docs/setup/minikube/     /docs/setup/learning-environment/minikube/   301
+/docs/setup/minikube/     /docs/tasks/tools/ 302
+/docs/setup/learning-environment/     /docs/tasks/tools/  302!
+/docs/setup/learning-environment/kind/  /docs/tasks/tools/  302
+/docs/setup/learning-environment/minikube/  /docs/tasks/tools/ 302
 /docs/setup/cri/     /docs/setup/production-environment/container-runtimes/   301
 /docs/setup/independent/install-kubeadm/     /docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
 /ja/docs/setup/independent/install-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
@@ -502,3 +503,7 @@
 /docs/setup/cluster-large/     /docs/setup/best-practices/cluster-large/   301
 /docs/setup/node-conformance/     /docs/setup/best-practices/node-conformance/   301
 /docs/setup/certificates/     /docs/setup/best-practices/certificates/   301
+
+/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/     302
+
+/docs/concepts/configuration/pod-overhead/     /docs/concepts/scheduling-eviction/pod-overhead/   301

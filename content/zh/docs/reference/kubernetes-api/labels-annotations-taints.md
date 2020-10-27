@@ -1,5 +1,5 @@
 ---
-title: 知名标签（Label）、注解（Annotation）和 Taints
+title: 知名标签（Label）、注解（Annotation）和 污点（Taint）
 content_type: concept
 weight: 60
 ---
@@ -227,9 +227,9 @@ on the nodes if it makes sense in your topology.
 -->
 示例：
 
-`failure-domain.beta.kubernetes.io/region=us-east-1`
+`topology.kubernetes.io/region=us-east-1`
 
-`failure-domain.beta.kubernetes.io/zone=us-east-1c`
+`topology.kubernetes.io/zone=us-east-1c`
 
 用于：Node、PersistentVolume
 
@@ -271,5 +271,3 @@ adding the labels manually (or adding support for `PersistentVolumeLabel`). With
 -->
 如果 `PersistentVolumeLabel` 准入控制器不支持自动为 PersistentVolume 打标签，且用户希望防止 pod 跨区域进行卷的挂载，
 应考虑手动打标签 (或对 `PersistentVolumeLabel` 增加支持）。如果用户的基础设施没有这种约束，则不需要为卷添加区域标签。
-
-

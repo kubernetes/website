@@ -13,7 +13,7 @@ This page shows how to use Weave Net for NetworkPolicy.
 ## {{% heading "prerequisites" %}}
 
 You need to have a Kubernetes cluster. Follow the
-[kubeadm getting started guide](/docs/reference/setup-tools/kubeadm/kubeadm/) to bootstrap one.
+[kubeadm getting started guide](/docs/reference/setup-tools/kubeadm/) to bootstrap one.
 
 <!-- steps -->
 

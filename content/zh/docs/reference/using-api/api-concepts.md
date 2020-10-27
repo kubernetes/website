@@ -1172,14 +1172,14 @@ Kubernetes 1.16 和 1.17 中都添加了若干的标志（Markers），便于 AP
 | Golang marker | OpenAPI extension | Accepted values | Description | Introduced in |
 |----|----|----|----|----|
 | `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | Applicable to lists. `atomic` and `set` apply to lists with scalar elements only. `map` applies to lists of nested types only. If configured as `atomic`, the entire list is replaced during merge; a single manager manages the list as a whole at any one time. If `granular`, different managers can manage entries separately. | 1.16          |
-| `//+listMapKeys` | `x-kubernetes-list-map-keys` | Slice of map keys that uniquely identify entries for example `["port", "protocol"]` | Only applicable when `+listType=map`. A slice of strings whose values in combination must uniquely identify list entries. | 1.16 |
+| `//+listMapKey` | `x-kubernetes-list-map-keys` | Slice of map keys that uniquely identify entries for example `["port", "protocol"]` | Only applicable when `+listType=map`. A slice of strings whose values in combination must uniquely identify list entries. While there can be multiple keys, `listMapKey` is singular because keys need to be specified individually in the Go type. | 1.16 |
 | `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to maps. `atomic` means that the map can only be entirely replaced by a single manager. `granular` means that the map supports separate managers updating individual fields. | 1.17 |
 | `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.| 1.17 |
 -->
 | Golang 标志 | OpenAPI 扩展 | 可接受的值 | 描述 | 引入版本 |
 |---|---|---|---|---|
 | `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | 可应用到 list 类型。`atomic` 和 `set` 适用于仅包含标量的 list。`map` 适用于由内嵌类型组成的  list。如果配置为 `atomic`，则整个 list 会在合并时被替换掉；每次只会有一个管理器负责总体管理这个 list。如果配置为 `granular`，则不同的管理器可以分别管理不同的表项。 | 1.16  |
-| `//+listMapKeys` | `x-kubernetes-list-map-keys` | 由 map 主键构成的可唯一标识表项的切片，例如 `["port", "protocol"]` | 仅当标记了 `+listType=map` 时适用。切片中各个字符串对应的取值的组合必须能够唯一性地标识 list 中的表项。 | 1.16 |
+| `//+listMapKey` | `x-kubernetes-list-map-keys` | 由 map 主键构成的可唯一标识表项的切片，例如 `["port", "protocol"]` | 仅当标记了 `+listType=map` 时适用。切片中各个字符串对应的取值的组合必须能够唯一性地标识 list 中的表项。尽管主键可以有多个，由于在 Go 语言类型中每个键需要独立设置，这里的 `listMapKey` 是单数形式。 | 1.16 |
 | `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | 适用于 map 类型。`atomic` 意味着 map 只能被某管理器整体替换。`granular` 则意味着 map 支持使用不同管理器来更新不同字段。 | 1.17 |
 | `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | 适用于 struct 类型。除此以外，其用法和 OpenAPI 注解都与 `//+mapType` 相同。 | 1.17 |
 

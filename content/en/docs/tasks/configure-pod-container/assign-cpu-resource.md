@@ -22,7 +22,7 @@ allocated as much CPU as it requests.
 Your cluster must have at least 1 CPU available for use to run the task examples.
 
 A few of the steps on this page require you to run the
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 service in your cluster. If you have the metrics-server
 running, you can skip those steps.
 
@@ -221,6 +221,13 @@ could use all of the CPU resources available on the Node where it is running.
 Container is automatically assigned the default limit. Cluster administrators can use a
 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core/)
 to specify a default value for the CPU limit.
+
+## If you specify a CPU limit but do not specify a CPU request
+
+If you specify a CPU limit for a Container but do not specify a CPU request, Kubernetes automatically
+assigns a CPU request that matches the limit. Similarly, if a Container specifies its own memory limit,
+but does not specify a memory request, Kubernetes automatically assigns a memory request that matches
+the limit.
 
 ## Motivation for CPU requests and limits
 

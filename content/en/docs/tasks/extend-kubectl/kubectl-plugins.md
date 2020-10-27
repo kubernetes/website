@@ -153,7 +153,7 @@ An older kubectl plugin mechanism provided environment variables such as `KUBECT
 kubectl plugins must parse and validate all of the arguments passed to them.
 See [using the command line runtime package](#using-the-command-line-runtime-package) for details of a Go library aimed at plugin authors.
 
-Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the the `kubectl-foo-bar-baz` plugin from the scenario above.
+Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the `kubectl-foo-bar-baz` plugin from the scenario above.
 
 If you run `kubectl foo bar baz arg1 --flag=value arg2`, kubectl's plugin mechanism will first try to find the plugin with the longest possible name, which in this case
 would be `kubectl-foo-bar-baz-arg1`. Upon not finding that plugin, kubectl then treats the last dash-separated value as an argument (`arg1` in this case), and attempts to find the next longest possible name, `kubectl-foo-bar-baz`.

@@ -243,14 +243,14 @@ An older kubectl plugin mechanism provided environment variables such as `KUBECT
 kubectl plugins must parse and validate all of the arguments passed to them.
 See [using the command line runtime package](#using-the-command-line-runtime-package) for details of a Go library aimed at plugin authors.
 
-Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the the `kubectl-foo-bar-baz` plugin from the scenario above.
+Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the `kubectl-foo-bar-baz` plugin from the scenario above.
 -->
 kubeclt 插件必须解析并检查传递给它们的所有参数。
 参阅[使用命令行运行时包](#using-the-command-line-runtime-package)了解针对
 插件开发人员的 Go 库的细节。
 
 <!--
-Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the the `kubectl-foo-bar-baz` plugin from the scenario above.
+Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the `kubectl-foo-bar-baz` plugin from the scenario above.
 -->
 这里是一些用户调用你的插件的时候提供额外标志和参数的场景。
 这些场景时基于上述案例中的 `kubectl-foo-bar-baz` 插件的。

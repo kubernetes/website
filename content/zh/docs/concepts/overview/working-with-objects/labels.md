@@ -239,7 +239,7 @@ Similarly the comma separator acts as an _AND_ operator. So filtering resources 
 The _set-based_ label selector is a general form of equality since `environment=production` is equivalent to `environment in (production)`; similarly for `!=` and `notin`.
 -->
 _基于集合_ 的标签选择算符是相等标签选择算符的一般形式，因为 `environment=production`
-等同于 `environment in（production`；`!=` 和 `notin` 也是类似的。
+等同于 `environment in（production）`；`!=` 和 `notin` 也是类似的。
 
 <!--
 _Set-based_ requirements can be mixed with _equality-based_ requirements. For example: `partition in (customerA, customerB),environment!=qa`.

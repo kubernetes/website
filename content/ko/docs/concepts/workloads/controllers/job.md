@@ -331,7 +331,7 @@ spec:
 - 각 작업 항목에 대한 하나의 잡 오브젝트 vs 모든 작업 항목에 대한 단일 잡 오브젝트.  후자는
   작업 항목 수가 많은 경우 더 적합하다.  전자는 사용자와 시스템이 많은 수의 잡 오브젝트를
   관리해야 하는 약간의 오버헤드를 만든다.
-- 작업 항목과 동일한 개수의 파드 생성 vs 각 파드에서 다수의 작업 항목을 처리
+- 작업 항목과 동일한 개수의 파드 생성 vs 각 파드에서 다수의 작업 항목을 처리.
   전자는 일반적으로 기존 코드와 컨테이너를 거의 수정할 필요가 없다.  후자는
   이전 글 머리표(-)와 비슷한 이유로 많은 수의 작업 항목에 적합하다.
 - 여러 접근 방식이 작업 큐를 사용한다.  이를 위해서는 큐 서비스를 실행하고,
@@ -346,7 +346,7 @@ spec:
 | -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
 | [잡 템플릿 확장](/ko/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
 | [작업 항목 당 파드가 있는 큐](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |         ✓         |                             |      때때로      |          ✓          |
-| [가변 파드 수를 가진 큐](/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
+| [가변 파드 수를 가진 큐](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
 | 정적 작업이 할당된 단일 잡                               |         ✓         |                             |          ✓          |                     |
 
 `.spec.completions` 로 완료를 지정할 때, 잡 컨트롤러에 의해 생성된 각 파드는
@@ -362,7 +362,7 @@ spec:
 | -------------------------------------------------------------------- |:-------------------:|:--------------------:|
 | [잡 템플릿 확장](/ko/docs/tasks/job/parallel-processing-expansion/)           |          1          |     1이어야 함      |
 | [작업 항목 당 파드가 있는 큐](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |          W          |        any           |
-| [가변 파드 수를 가진 큐](/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
+| [가변 파드 수를 가진 큐](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
 | 정적 작업이 할당된 단일 잡                               |          W          |        any           |
 
 

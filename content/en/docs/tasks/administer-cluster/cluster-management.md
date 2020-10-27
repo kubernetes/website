@@ -73,7 +73,7 @@ Oracle creates and manages a set of master nodes in the Oracle control plane on 
 Different providers, and tools, will manage upgrades differently.  It is recommended that you consult their main documentation regarding upgrades.
 
 * [kops](https://github.com/kubernetes/kops)
-* [kubespray](https://github.com/kubernetes-incubator/kubespray)
+* [kubespray](https://github.com/kubernetes-sigs/kubespray)
 * [CoreOS Tectonic](https://coreos.com/tectonic/docs/latest/admin/upgrade.html)
 * [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...

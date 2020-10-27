@@ -730,7 +730,7 @@ See the [resourceQuota design doc](https://git.k8s.io/community/contributors/des
 For [RuntimeClass](/docs/concepts/containers/runtime-class/) definitions which describe an overhead associated with running a pod,
 this admission controller will set the pod.Spec.Overhead field accordingly.
 
-See also [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
+See also [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}

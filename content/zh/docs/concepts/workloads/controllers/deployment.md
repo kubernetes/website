@@ -203,7 +203,7 @@ Follow the steps given below to create the above Deployment:
 
     ```
     Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-    deployment.apps/nginx-deployment successfully rolled out
+    deployment "nginx-deployment" successfully rolled out
     ```
 
 <!--
@@ -393,7 +393,7 @@ is changed, for example if the labels or container images of the template are up
    或者
 
    ```
-   deployment.apps/nginx-deployment successfully rolled out
+   deployment "nginx-deployment" successfully rolled out
    ```
 
 <!--
@@ -1439,7 +1439,7 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 
 ```shell
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
-deployment.apps/nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 $ echo $?
 0
 ```
