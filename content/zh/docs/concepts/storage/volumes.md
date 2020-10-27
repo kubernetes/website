@@ -314,13 +314,10 @@ See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "
 ### cinder {#cinder}
 
 <!--
-Prerequisite: Kubernetes with OpenStack Cloud Provider configured. For cloudprovider
-configuration please refer [cloud provider openstack](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#openstack).
+Prerequisite: Kubernetes with OpenStack Cloud Provider configured.
 -->
 {{< note >}}
 先决条件：配置了OpenStack Cloud Provider 的 Kubernetes。
-有关 cloudprovider 配置，请参考
-[cloud provider openstack](/zh/docs/concepts/cluster-administration/cloud-providers/#openstack)。
 {{< /note >}}
 
 <!--

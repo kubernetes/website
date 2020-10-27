@@ -1,5 +1,5 @@
 ---
-title: 确保 PodDisruptionBudget 的前提下安全地清空一个节点
+title: 确保 PodDisruptionBudget 的前提下安全地清空一个{{< glossary_tooltip text="节点" term_id="node" >}}
 content_type: task
 ---
 <!-- 
@@ -20,6 +20,7 @@ This page shows how to safely drain a node, respecting the PodDisruptionBudget y
 
 ## {{% heading "prerequisites" %}}
 
+{{% version-check %}}
 <!-- 
 This task assumes that you have met the following prerequisites:
 
@@ -55,7 +56,7 @@ and will respect the `PodDisruptionBudgets` you have specified.
 可以使用 `kubectl drain` 从节点安全地逐出所有 Pods。
 安全的驱逐过程允许 Pod 的容器
 [体面地终止](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，
-并确保满足指定的 `PodDisruptionBudgets` 。
+并确保满足指定的 PodDisruptionBudgets。
 
 <!-- 
 By default `kubectl drain` will ignore certain system pods on the node
@@ -127,23 +128,23 @@ respect the `PodDisruptionBudget` you specify.
 
  `kubectl drain` 命令一次只能发送给一个节点。
  但是，你可以在不同的终端或后台为不同的节点并行地运行多个 `kubectl drain` 命令。
- 同时运行的多个 drain 命令仍然遵循你指定的 `PodDisruptionBudget` 。
+ 同时运行的多个 drain 命令仍然遵循你指定的 PodDisruptionBudget 。
 
 <!-- 
 For example, if you have a StatefulSet with three replicas and have
-set a `PodDisruptionBudget` for that set specifying `minAvailable:
-2`. `kubectl drain` will only evict a pod from the StatefulSet if all
-three pods are ready, and if you issue multiple drain commands in
-parallel, Kubernetes will respect the PodDisruptionBudget and ensure
-that only one pod is unavailable at any given time. Any drains that
-would cause the number of ready replicas to fall below the specified
-budget are blocked.
+set a PodDisruptionBudget for that set specifying `minAvailable: 2`,
+`kubectl drain` only evicts a pod from the StatefulSet if all three
+replicas pods are ready; if then you issue multiple drain commands in
+parallel, Kubernetes respects the PodDisruptionBudget and ensure
+that only 1 (calculated as `replicas - minAvailable`) Pod is unavailable
+at any given time. Any drains that would cause the number of ready
+replicas to fall below the specified budget are blocked.
 -->
 例如，如果你有一个三副本的 StatefulSet，
 并设置了一个 `PodDisruptionBudget`，指定 `minAvailable: 2`。
 如果所有的三个 Pod 均就绪，并且你并行地发出多个 drain 命令，
 那么 `kubectl drain` 只会从 StatefulSet 中逐出一个 Pod，
-因为 Kubernetes 会遵守 PodDisruptionBudget 并确保在任何时候只有一个 Pod 不可用。
+因为 Kubernetes 会遵守 PodDisruptionBudget 并确保在任何时候只有一个 Pod 不可用（最多不可用 Pod 个数的计算方法：`replicas - minAvailable`）。
 任何会导致就绪副本数量低于指定预算的清空操作都将被阻止。
 
 <!-- 
@@ -231,28 +232,36 @@ For a given eviction request, there are two cases:
 - 至少匹配一个预算。在这种情况下，上述三种回答中的任何一种都可能适用。
 
 <!-- 
-In some cases, an application may reach a broken state where it will never return anything
-other than 429 or 500. This can happen, for example, if the replacement pod created by the
-application's controller does not become ready, or if the last pod evicted has a very long
-termination grace period.
+## Stuck evictions
+
+In some cases, an application may reach a broken state, one where unless you intervene the
+eviction API will never return anything other than 429 or 500.
+
+For example: this can happen if ReplicaSet is creating Pods for your application but
+the replacement Pods do not become `Ready`. You can also see similar symptoms if the
+last Pod evicted has a very long termination grace period.
 
 In this case, there are two potential solutions:
 
-- Abort or pause the automated operation. Investigate the reason for the stuck application, and restart the automation.
-- After a suitably long wait, `DELETE` the pod instead of using the eviction API.
+- Abort or pause the automated operation. Investigate the reason for the stuck application,
+  and restart the automation.
+- After a suitably long wait, `DELETE` the Pod from your cluster's control plane, instead
+  of using the eviction API.
 
 Kubernetes does not specify what the behavior should be in this case; it is up to the
 application owners and cluster owners to establish an agreement on behavior in these cases.
 -->
+## 驱逐阻塞
+
 在某些情况下，应用程序可能会到达一个中断状态，除了 429 或 500 之外，它将永远不会返回任何内容。
-例如应用程序控制器创建的替换 Pod 没有准备好，或者被驱逐的最后一个 Pod 有很长的终止宽限期，就会发生这种情况。
+例如 ReplicaSet 创建的替换 Pod 没有变成就绪状态，或者被驱逐的最后一个 Pod 有很长的终止宽限期，就会发生这种情况。
 
 在这种情况下，有两种可能的解决方案：
 
 - 中止或暂停自动操作。调查应用程序卡住的原因，并重新启动自动化。
-- 经过适当的长时间等待后， `DELETE` Pod，而不是使用驱逐 API。
+- 经过适当的长时间等待后， 从集群中删除 Pod 而不是使用驱逐 API。
 
-Kubernetes 并没有具体说明在这种情况下应该采取什么行为；
+Kubernetes 并没有具体说明在这种情况下应该采取什么行为，
 这应该由应用程序所有者和集群所有者紧密沟通，并达成对行动一致意见。
 
 ## {{% heading "whatsnext" %}}

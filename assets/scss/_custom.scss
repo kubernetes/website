@@ -11,11 +11,6 @@ $announcement-size-adjustment: 8px;
       max-width: 100%;
     }
 
-    table {
-      margin-bottom: 1rem;
-      display: initial;
-    }
-
     @media only screen and (min-width: 768px) {
       padding-top: 2rem !important;
     }
@@ -41,6 +36,14 @@ section {
 
 .td-outer {
   padding: 0 !important;
+}
+
+
+/* Emphasize first paragraph of running text on site front page */
+body.td-home main[role="main"] > section:first-of-type .content p:first-child {
+  line-height: 1.3em;
+  font-size: 1.4em;
+  margin-bottom: 1.5em;
 }
 
 #desktopShowVideoButton {
@@ -552,3 +555,10 @@ body.td-documentation {
   }
 }
 
+/* glossary tooltip */
+.glossary-tooltip {
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  color: black;
+  text-decoration: none !important;
+}

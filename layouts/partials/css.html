@@ -13,9 +13,8 @@
   {{ end }}
 {{- end }}
 
-<link rel="stylesheet" href="{{ "css/jquery-ui.min.css" | relURL }}">
 <link rel="stylesheet" href="{{ "css/feature-states.css" | relURL }}">
-<link rel="stylesheet" href="{{ "css/custom-jekyll/tags.css" | relURL }}">
+
 {{- if .Site.Params.announcement }}
 <link rel="stylesheet" href="{{ "css/announcement.css" | relURL }}">
 {{- end }}
@@ -27,6 +26,10 @@
 {{- if eq .Params.class "training" }}
   <link rel="stylesheet" href="{{ "css/training.css" | relURL }}">
 {{- end }}
+
+{{- if .Params.new_case_study_styles }}
+  <link rel="stylesheet" href="{{ "css/new-case-studies.css" | relURL }}">
+{{- end}}
 
 {{- with .Params.css }}
   {{- $extraCss := split . "," }}

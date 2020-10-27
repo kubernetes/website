@@ -66,7 +66,7 @@ for more details about this.
 使用证书中的 'subject' 的通用名称（Common Name）字段（例如，"/CN=bob"）来
 确定用户名。接下来，基于角色访问控制（RBAC）子系统会确定用户是否有权针对
 某资源执行特定的操作。进一步的细节可参阅
-[证书请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
+[证书请求](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
 下普通用户主题。
 
 <!--
@@ -387,7 +387,7 @@ mounted into pods at well-known locations, and allow in-cluster processes to
 talk to the API server. Accounts may be explicitly associated with pods using the
 `serviceAccountName` field of a `PodSpec`.
 -->
-服务账号通常由 API 服务器自动创建并通过 `ServiceAccount` 
+服务账号通常由 API 服务器自动创建并通过 `ServiceAccount`
 [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
 关联到集群中运行的 Pod 上。
 持有者令牌会挂载到 Pod 中可预知的为之，允许集群内进程与 API 服务器通信。
@@ -550,7 +550,7 @@ from the OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_
 as a bearer token.  See [above](#putting-a-bearer-token-in-a-request) for how the token
 is included in a request.
 -->
-要识别用户，身份认证组件使用 OAuth2 
+要识别用户，身份认证组件使用 OAuth2
 [令牌响应](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse)
 中的 `id_token`（而非 `access_token`）作为持有者令牌。
 关于如何在请求中设置令牌，可参见[前文](#putting-a-bearer-token-in-a-request)。
@@ -654,7 +654,7 @@ Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or
 [others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
 Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex),
-[Keycloak](https://github.com/keycloak/keycloak), 
+[Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
 Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
 -->
@@ -814,7 +814,7 @@ The configuration file uses the [kubeconfig](/docs/concepts/configuration/organi
 file format. Within the file, `clusters` refers to the remote service and
 `users` refers to the API server webhook. An example would be:
 -->
-配置文件使用 [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+配置文件使用 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 文件的格式。文件中，`clusters` 指代远程服务，`users` 指代远程 API 服务
 Webhook。下面是一个例子：
 
@@ -1455,7 +1455,7 @@ Relative command paths are interpreted as relative to the directory of the confi
 KUBECONFIG is set to `/home/jane/kubeconfig` and the exec command is `./bin/example-client-go-exec-plugin`,
 the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
 -->
-解析相对命令路径时，kubectl 将其视为与配置文件比较而言的相对路径。 
+解析相对命令路径时，kubectl 将其视为与配置文件比较而言的相对路径。
 如果 KUBECONFIG 被设置为 `/home/jane/kubeconfig`，而 exec 命令为
 `./bin/example-client-go-exec-plugin`，则要执行的可执行文件为
 `/home/jane/bin/example-client-go-exec-plugin`。
@@ -1561,4 +1561,3 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
   }
 }
 ```
-

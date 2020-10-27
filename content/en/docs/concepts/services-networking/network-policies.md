@@ -219,7 +219,7 @@ When the feature gate is enabled, you can set the `protocol` field of a NetworkP
 You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports SCTP protocol NetworkPolicies.
 {{< /note >}}
 
-# What you CAN'T do with network policy's (at least, not yet)
+# What you CAN'T do with network policies (at least, not yet)
 
 As of Kubernetes 1.20, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.  Some (but not all) of these user stories are actively being discussed for future releases of the NetworkPolicy API.
 

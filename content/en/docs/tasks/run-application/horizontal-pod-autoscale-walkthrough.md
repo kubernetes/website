@@ -23,8 +23,8 @@ For more information on how Horizontal Pod Autoscaler behaves, see the
 
 
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server/) monitoring needs to be deployed in the cluster
-to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics. The instructions for deploying this are on the GitHub repository of [metrics-server](https://github.com/kubernetes-incubator/metrics-server/), if you followed [getting started on GCE guide](/docs/setup/production-environment/turnkey/gce/),
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server) monitoring needs to be deployed in the cluster
+to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics. The instructions for deploying this are on the GitHub repository of [metrics-server](https://github.com/kubernetes-sigs/metrics-server), if you followed [getting started on GCE guide](/docs/setup/production-environment/turnkey/gce/),
 metrics-server monitoring will be turned-on by default.
 
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
@@ -114,11 +114,7 @@ Now, we will see how the autoscaler reacts to increased load.
 We will start a container, and send an infinite loop of queries to the php-apache service (please run it in a different terminal):
 
 ```shell
-kubectl run -it --rm load-generator --image=busybox /bin/sh
-
-Hit enter for command prompt
-
-while true; do wget -q -O- http://php-apache; done
+kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 ```
 
 Within a minute or so, we should see the higher CPU load by executing:

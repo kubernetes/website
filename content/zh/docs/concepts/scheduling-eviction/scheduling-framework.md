@@ -156,6 +156,22 @@ called for that node. Nodes may be evaluated concurrently.
 
 过滤插件用于过滤出不能运行该 Pod 的节点。对于每个节点，调度器将按照其配置顺序调用这些过滤插件。如果任何过滤插件将节点标记为不可行，则不会为该节点调用剩下的过滤插件。节点可以被同时进行评估。
 
+<!--
+### PostFilter {#post-filter}
+-->
+
+### 后置过滤 {#post-filter}
+
+<!--
+These plugins are called after Filter phase, but only when no feasible nodes
+were found for the pod. Plugins are called in their configured order. If
+any postFilter plugin marks the node as `Schedulable`, the remaining plugins
+will not be called. A typical PostFilter implementation is preemption, which
+tries to make the pod schedulable by preempting other Pods.
+-->
+
+这些插件在筛选阶段后调用，但仅在该 pod 没有可行的节点时调用。插件按其配置的顺序调用。如果任何后过滤器插件标记节点为“可调度”， 则其余的插件不会调用。典型的后筛选实现是抢占，试图通过抢占其他 pod  的资源使该 pod 可以调度。
+
 <!-- 
 ### PreScore {#pre-score}
  -->

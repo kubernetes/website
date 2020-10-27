@@ -18,7 +18,7 @@ content_type: task
 ## 클러스터에서 실행되는 서비스에 접근
 
 쿠버네티스에서, [노드](/ko/docs/concepts/architecture/nodes/),
-[파드](/ko/docs/concepts/workloads/pods/pod/) 및 [서비스](/ko/docs/concepts/services-networking/service/)는 모두
+[파드](/ko/docs/concepts/workloads/pods/) 및 [서비스](/ko/docs/concepts/services-networking/service/)는 모두
 고유한 IP를 가진다. 대부분의 경우, 클러스터의 노드 IP, 파드 IP 및 일부 서비스 IP는 라우팅할 수
 없으므로, 데스크톱 시스템과 같은 클러스터 외부 시스템에서
 도달할 수 없다.

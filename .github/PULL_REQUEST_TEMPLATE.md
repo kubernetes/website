@@ -14,9 +14,11 @@
  Use the default base branch, “master”, if you're documenting existing
  features in the English localization.
 
- If you're working on a different localization (not English), or you
- are documenting a feature that will be part of a future release, see
+ If you're working on a different localization (not English), see
  https://kubernetes.io/docs/contribute/new-content/overview/#choose-which-git-branch-to-use
  for advice.
+
+ If you're documenting a feature that will be part of a future release, see
+ https://kubernetes.io/docs/contribute/new-content/new-features/ for advice.
 
 -->

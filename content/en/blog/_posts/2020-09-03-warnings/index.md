@@ -19,8 +19,7 @@ so it does not change the status code or response body in any way.
 This allows the server to send warnings easily readable by any API client, while remaining compatible with previous client versions.
 
 Warnings are surfaced by `kubectl` v1.19+ in `stderr` output, and by the `k8s.io/client-go` client library v0.19.0+ in log output.
-The `k8s.io/client-go` behavior can be overridden [per-process](https://godoc.org/k8s.io/client-go/rest#SetDefaultWarningHandler)
-or [per-client](https://godoc.org/k8s.io/client-go/rest#Config).
+The `k8s.io/client-go` behavior can be [overridden per-process or per-client](#customize-client-handling).
 
 ## Deprecation Warnings
 
@@ -173,7 +172,7 @@ apiserver_requested_deprecated_apis{removed_version="1.22"} * on(group,version,r
 group_right() apiserver_request_total
 ```
 
-### Audit annotations
+### Audit Annotations
 
 Metrics are a fast way to check whether deprecated APIs are being used, and at what rate,
 but they don't include enough information to identify particular clients or API objects.
@@ -251,7 +250,63 @@ Here are a couple ideas to get you started:
   to allow trying out a policy to verify it is working as expected before starting to enforce it
 * "lint" or "vet"-style webhooks, inspecting objects and surfacing warnings when best practices are not followed
 
-## Kubectl strict mode
+## Customize Client Handling
+
+Applications that use the `k8s.io/client-go` library to make API requests can customize
+how warnings returned from the server are handled. By default, warnings are logged to
+stderr as they are received, but this behavior can be customized 
+[per-process](https://godoc.org/k8s.io/client-go/rest#SetDefaultWarningHandler)
+or [per-client](https://godoc.org/k8s.io/client-go/rest#Config).
+
+This example shows how to make your application behave like `kubectl`,
+overriding message handling process-wide to deduplicate warnings 
+and highlighting messages using colored output where supported:
+
+```go
+import (
+  "os"
+  "k8s.io/client-go/rest"
+  "k8s.io/kubectl/pkg/util/term"
+  ...
+)
+
+func main() {
+  rest.SetDefaultWarningHandler(
+    rest.NewWarningWriter(os.Stderr, rest.WarningWriterOptions{
+        // only print a given warning the first time we receive it
+        Deduplicate: true,
+        // highlight the output with color when the output supports it
+        Color: term.AllowsColorOutput(os.Stderr),
+      },
+    ),
+  )
+
+  ...
+```
+
+The next example shows how to construct a client that ignores warnings.
+This is useful for clients that operate on metadata for all resource types
+(found dynamically at runtime using the discovery API)
+and do not benefit from warnings about a particular resource being deprecated.
+Suppressing deprecation warnings is not recommended for clients that require use of particular APIs.
+
+```go
+import (
+  "k8s.io/client-go/rest"
+  "k8s.io/client-go/kubernetes"
+)
+
+func getClientWithoutWarnings(config *rest.Config) (kubernetes.Interface, error) {
+  // copy to avoid mutating the passed-in config
+  config = rest.CopyConfig(config)
+  // set the warning handler for this client to ignore warnings
+  config.WarningHandler = rest.NoWarnings{}
+  // construct and return the client
+  return kubernetes.NewForConfig(config)
+}
+```
+
+## Kubectl Strict Mode
 
 If you want to be sure you notice deprecations as soon as possible and get a jump start on addressing them,
 `kubectl` added a `--warnings-as-errors` option in v1.19. When invoked with this option,

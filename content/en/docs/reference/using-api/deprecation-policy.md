@@ -24,7 +24,7 @@ a deprecation policy for aspects of the system that are slated to be removed.
 Since Kubernetes is an API-driven system, the API has evolved over time to
 reflect the evolving understanding of the problem space. The Kubernetes API is
 actually a set of APIs, called "API groups", and each API group is
-independently versioned.  [API versions](/docs/reference/using-api/api-overview/#api-versioning) fall
+independently versioned.  [API versions](/docs/reference/using-api/#api-versioning) fall
 into 3 main tracks, each of which has different policies for deprecation:
 
 | Example  | Track                            |

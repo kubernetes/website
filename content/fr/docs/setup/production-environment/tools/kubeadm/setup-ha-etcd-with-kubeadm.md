@@ -118,7 +118,7 @@ kubeadm contient tout ce qui est nécessaire pour générer les certificats déc
     - `/etc/kubernetes/pki/etcd/ca.crt`
     - `/etc/kubernetes/pki/etcd/ca.key`
 
-1. Créer des certificats pour chaque membres
+1. Créer des certificats pour chaque membre
 
     ```sh
     kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml

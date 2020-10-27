@@ -188,7 +188,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 Some Kubernetes objects, such as [`services`](/docs/concepts/services-networking/service/)
 and [`replicationcontrollers`](/docs/concepts/workloads/controllers/replicationcontroller/),
 also use label selectors to specify sets of other resources, such as
-[pods](/docs/concepts/workloads/pods/pod/).
+[pods](/docs/concepts/workloads/pods/).
 
 #### Service and ReplicationController
 

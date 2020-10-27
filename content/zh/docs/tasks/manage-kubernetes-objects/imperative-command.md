@@ -59,7 +59,7 @@ The `kubectl` tool supports verb-driven commands for creating some of the most c
 object types. The commands are named to be recognizable to users unfamiliar with
 the Kubernetes object types.
 
-- `run`: Create a new Deployment object to run Containers in one or more Pods.
+- `run`: Create a new Pod to run a Container.
 - `expose`: Create a new Service object to load balance traffic across Pods.
 - `autoscale`: Create a new Autoscaler object to automatically horizontally scale a controller, such as a Deployment.
 -->
@@ -68,7 +68,7 @@ the Kubernetes object types.
 `kubectl` 工具支持动词驱动的命令，用来创建一些最常见的对象类别。
 命令的名称设计使得不熟悉 Kubernetes 对象类型的用户也能做出判断。
 
-- `run`：创建一个新的 Deployment 对象来在一个或多个 Pod 中运行 Container。
+- `run`：创建一个新的 Pod 来运行一个容器。
 - `expose`：创建一个新的 Service 对象为若干 Pod 提供流量负载均衡。
 - `autoscale`：创建一个新的 Autoscaler 对象来自动对某控制器（如 Deployment）
   执行水平扩缩。

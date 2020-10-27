@@ -2,6 +2,16 @@
 title: Apa itu Kubernetes?
 content_type: concept
 weight: 10
+description: >
+  Kubernetes merupakan _platform open-source_ yang digunakan untuk melakukan
+  manajemen _workloads_ aplikasi yang dikontainerisasi, serta menyediakan
+  konfigurasi dan otomatisasi secara deklaratif. Kubernetes berada di dalam ekosistem
+  yang besar dan berkembang cepat. _Service_, _support_, dan perkakas
+  Kubernetes tersedia secara meluas. Kubernetes merupakan _platform open-source_ 
+  yang digunakan untuk melakukan manajemen _workloads_ aplikasi yang dikontainerisasi, 
+  serta menyediakan konfigurasi dan otomatisasi secara deklaratif. Kubernetes berada 
+  di dalam ekosistem yang besar dan berkembang cepat. _Service_, _support_, 
+  dan perkakas Kubernetes tersedia secara meluas.
 card:
   name: concepts
   weight: 10

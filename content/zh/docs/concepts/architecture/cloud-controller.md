@@ -135,7 +135,7 @@ when you declare a Service resource that requires them.
 ### 服务控制器   {#service-controller}
 
 {{< glossary_tooltip text="服务（Service）" term_id="service" >}}与受控的负载均衡器、
-IP 地址、网络包锅里煮、目标健康检查等云基础设施组件集成。
+IP 地址、网络包过滤、目标健康检查等云基础设施组件集成。
 服务控制器与云驱动的 API 交互，以配置负载均衡器和其他基础设施组件。
 你所创建的 Service 资源会需要这些组件服务。
 

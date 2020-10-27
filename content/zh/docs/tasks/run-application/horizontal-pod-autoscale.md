@@ -100,7 +100,7 @@ or the custom metrics API (for all other metrics).
   comparison is made.
 -->
 * 如果pod 使用对象指标和外部指标（每个指标描述一个对象信息）。
-  这个指标将直接跟据目标设定值相比较，并生成一个上面提到的扩缩比例。
+  这个指标将直接根据目标设定值相比较，并生成一个上面提到的扩缩比例。
   在 `autoscaling/v2beta2` 版本API中，这个指标也可以根据 Pod 数量平分后再计算。
 
 <!--
@@ -149,7 +149,7 @@ value:
 -->
 ### 算法细节   {#algorithm-details}
 
-从最基本的角度来看，Pod 水平自动扩缩控制器跟据当前指标和期望指标来计算扩缩比例。
+从最基本的角度来看，Pod 水平自动扩缩控制器根据当前指标和期望指标来计算扩缩比例。
 
 <!--
 ```
@@ -172,7 +172,7 @@ the `--horizontal-pod-autoscaler-tolerance` flag, which defaults to 0.1).
 副本数量将会翻倍。
 如果当前指标为 `50m`，副本数量将会减半，因为`50.0/100.0 == 0.5`。
 如果计算出的扩缩比例接近 1.0
-（跟据`--horizontal-pod-autoscaler-tolerance` 参数全局配置的容忍值，默认为 0.1），
+（根据`--horizontal-pod-autoscaler-tolerance` 参数全局配置的容忍值，默认为 0.1），
 将会放弃本次扩缩。
 
 <!--
@@ -229,7 +229,7 @@ default is 5 minutes.
 The `currentMetricValue / desiredMetricValue` base scale ratio is then
 calculated using the remaining pods not set aside or discarded from above.
 -->
-在排除掉被搁置的 Pod 后，扩缩比例就会跟据`currentMetricValue/desiredMetricValue`
+在排除掉被搁置的 Pod 后，扩缩比例就会根据`currentMetricValue/desiredMetricValue`
 计算出来。
 
 <!--
@@ -445,7 +445,7 @@ proposed scales will be used as the new scale.
 
 Kubernetes 1.6 开始支持基于多个度量值进行扩缩。
 你可以使用 `autoscaling/v2beta2` API 来为 Horizontal Pod Autoscaler 指定多个指标。
-Horizontal Pod Autoscaler 会跟据每个指标计算，并生成一个扩缩建议。
+Horizontal Pod Autoscaler 会根据每个指标计算，并生成一个扩缩建议。
 幅度最大的扩缩建议会被采纳。
 
 <!--

@@ -10,7 +10,7 @@ aka:
 tags:
 - core-object
 ---
-Sebuah objek API yang digunakan untuk menyimpan data nonkonfidensial sebagai pasangan kunci-nilai (_key-value_). {{< glossary_tooltip text="Pod" term_id="pod" >}} dapat menggunakan ConfigMap sebagai variabel lingkungan, argumen baris perintah (_command-line_), atau berkas konfigurasi dalam sebuah {{< glossary_tooltip text="volume" term_id="volume" >}}.
+Sebuah objek API yang digunakan untuk menyimpan data nonkonfidensial sebagai pasangan kunci-nilai (_key-value_). {{< glossary_tooltip term_id="pod" >}} dapat menggunakan ConfigMap sebagai variabel lingkungan, argumen baris perintah (_command-line_), atau berkas konfigurasi dalam sebuah {{< glossary_tooltip text="volume" term_id="volume" >}}.
 
 <!--more-->
 

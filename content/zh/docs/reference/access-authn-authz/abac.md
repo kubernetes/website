@@ -63,7 +63,7 @@ properties:
     - Non-resource-matching properties:
       - `nonResourcePath`, type string; non-resource request paths.
         - Ex: `/version` or `/apis`
-        - Wildcard: 
+        - Wildcard:
           - `*` matches all non-resource requests.
           - `/foo/*` matches all subpaths of `/foo/`.
     - `readonly`, type boolean, when true, means that the Resource-matching policy only applies to get, list, and watch operations, Non-resource-matching policy only applies to get operation.
@@ -73,7 +73,7 @@ properties:
 
 基于 `ABAC` 模式，可以这样指定策略文件 `--authorization-policy-file=SOME_FILENAME`。
 
-此文件格式是 [JSON Lines](http://jsonlines.org/)，不应存在封闭的列表或映射，每行一个映射。
+此文件格式是 [JSON Lines](https://jsonlines.org/)，不应存在封闭的列表或映射，每行一个映射。
 
 每一行都是一个策略对象，策略对象是具有以下属性的映射：
 
@@ -213,7 +213,7 @@ Kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类�
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}
     ```
  -->
- 
+
 ## 例子 {#examples}
 
 1. Alice 可以对所有资源做任何事情：
@@ -270,7 +270,7 @@ system:serviceaccount:<namespace>:<serviceaccountname>
 
 -->
 
-[完整文件示例](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
+[完整文件示例](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
 ## 服务帐户的快速说明
 
@@ -287,7 +287,7 @@ Creating a new namespace leads to the creation of a new service account in the f
 system:serviceaccount:<namespace>:default
 ```
 
-For example, if you wanted to grant the default service account (in the `kube-system` namespace) full 
+For example, if you wanted to grant the default service account (in the `kube-system` namespace) full
 privilege to the API using ABAC, you would add this line to your policy file:
 
 ```json
@@ -310,6 +310,3 @@ system:serviceaccount:<namespace>:default
 ```
 
 需要重新启动 apiserver 以获取新的策略行。
-
-
-

@@ -48,17 +48,10 @@ kube-scheduler 의 `percentageOfNodesToScore` 설정을 통해
 이를 변경한 후에 다음을 실행해서
 
 ```bash
-kubectl get componentstatuses
+kubectl get pods -n kube-system | grep kube-scheduler
 ```
 
-kube-scheduler 컴포넌트가 정상인지 확인할 수 있다. 출력은 다음과 유사하다.
-
-```
-NAME                 STATUS    MESSAGE             ERROR
-controller-manager   Healthy   ok
-scheduler            Healthy   ok
-...
-```
+kube-scheduler 컴포넌트가 정상인지 확인할 수 있다.
 
 ## 노드 스코어링(scoring) 임계값 {#percentage-of-nodes-to-score}
 

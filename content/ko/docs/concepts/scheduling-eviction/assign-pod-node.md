@@ -69,17 +69,7 @@ spec:
 ## 넘어가기 전에: 내장 노드 레이블들 {#built-in-node-labels}
 
 [붙인](#1-단계-노드에-레이블-붙이기) 레이블뿐만 아니라, 노드에는
-표준 레이블 셋이 미리 채워져 있다. 이 레이블들은 다음과 같다.
-
-* [`kubernetes.io/hostname`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-hostname)
-* [`failure-domain.beta.kubernetes.io/zone`](/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesiozone)
-* [`failure-domain.beta.kubernetes.io/region`](/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesioregion)
-* [`topology.kubernetes.io/zone`](/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
-* [`topology.kubernetes.io/region`](/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
-* [`beta.kubernetes.io/instance-type`](/docs/reference/kubernetes-api/labels-annotations-taints/#beta-kubernetes-io-instance-type)
-* [`node.kubernetes.io/instance-type`](/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
-* [`kubernetes.io/os`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-os)
-* [`kubernetes.io/arch`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-arch)
+표준 레이블 셋이 미리 채워져 있다. 이들 목록은 [잘 알려진 레이블, 어노테이션 및 테인트](/docs/reference/kubernetes-api/labels-annotations-taints/)를 참고한다.
 
 {{< note >}}
 이 레이블들의 값은 클라우드 공급자에 따라 다르고 신뢰성이 보장되지 않는다.
