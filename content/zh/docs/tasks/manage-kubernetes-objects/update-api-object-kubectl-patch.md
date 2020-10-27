@@ -538,7 +538,7 @@ The patch you did in the preceding exercise is called a *strategic merge patch w
 -->
 ### 关于使用 retainKeys 策略的策略合并 patch 操作的说明
 
-在前文练习中所执行的称作 *带 retainKeys 策略的策略合并 patch（Strategic Merge
+在前文练习中所执行的称作 *带 `retainKeys` 策略的策略合并 patch（Strategic Merge
 Patch with retainKeys Strategy）*。
 这种方法引入了一种新的 `$retainKey` 指令，具有如下策略： 
 
