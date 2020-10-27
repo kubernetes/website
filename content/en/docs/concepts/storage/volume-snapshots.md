@@ -154,4 +154,8 @@ the *dataSource* field in the `PersistentVolumeClaim` object.
 For more details, see
 [Volume Snapshot and Restore Volume from Snapshot](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
 
+## Use Cases for This Feature
 
+Volume snapshots provide Kubernetes users with a standardized way to copy a volume's contents at a particular point in time. This functionality enables, for example, database administrators to backup databases before performing edit or delete modifications.
+
+For more information, see [Kubernetes 1.17 Feature: Kubernetes Volume Snapshot Moves to Beta](https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-feature-cis-volume-snapshot-beta/).
