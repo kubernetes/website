@@ -651,7 +651,7 @@ and
 你没有更改最初用于创建 Deployment 对象的配置文件。
 用于更新 API 对象的其他命令包括
 [`kubectl annotate`](/docs/reference/generated/kubectl/kubectl-commands/#annotate)，
-[`kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit)，
+[`kubectl edit`](/docs/reference/generated/kubectl/kubectl-commands/#edit)，
 [`kubectl replace`](/docs/reference/generated/kubectl/kubectl-commands/#replace)，
 [`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale)，
 和
