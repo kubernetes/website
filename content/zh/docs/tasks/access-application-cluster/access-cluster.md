@@ -385,7 +385,7 @@ You have several options for connecting to nodes, pods and services from outside
 Typically, there are several services which are started on a cluster by kube-system. Get a list of these
 with the `kubectl cluster-info` command:
 -->
-### 发现内建服务    {#discovering-builtin-services}
+### 发现内建服务  {#discovering-builtin-services}
 
 通常来说，集群中会有 kube-system 创建的一些运行的服务。
 
