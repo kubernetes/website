@@ -288,10 +288,15 @@ In the above example the HPA controller scales the target such that the average 
 in the `application` container of all the pods is 60%.
 
 {{< note >}}
-In case the name of a container targetted by an HPA has to be changed, it is recommended that before
-the deployment the HPA is updated to have both the new and old container names. This way HPA will always
-be able to able to calculate a recommendation for the scaling target. Once the rollout is done the old
-container name can be dropped from the HPA.
+If you change the name of a container that a HorizontalPodAutoscaler is tracking, you can
+make that change in a specific order to ensure scaling remains available and effective
+whilst the change is being applied. Before you update the resource that defines the container
+(such as a Deployment), you should update the associated HPA to track both the new and
+old container names. This way, the HPA is able to calculate a scaling recommendation
+throughout the update process.
+
+Once you have rolled out the container name change to the workload resource, tidy up by removing
+the old container name from the HPA specification.
 {{< /note >}}
 
 ## Support for multiple metrics
