@@ -266,10 +266,14 @@ pod usage is still within acceptable limits.
 
 {{< feature-state for_k8s_version="v1.20" state="alpha" >}}
 
-The HPA spec also supports a container metric source where the HPA can use the resource usage of
-individual containers to scale the target. The advantage of this approach is that different containers
-in the pod could use different scaling thresholds. However when a new container is added to the pod
-specification the HPA needs to be updated if the newly added container should also be used for
+`HorizontalPodAutoscaler` also supports a container metric source where the HPA can track the
+resource usage of individual containers across a set of Pods, in order to scale the target resource.
+This lets you configure scaling thresholds for the containers that matter most in a particular Pod.
+For example, if you have a web application and a logging sidecar, you can scale based on the resource
+use of the web application, ignoring the sidecar container and its resource use.
+
+If you revise the target resource to have a new Pod specification with a different set of containers,
+you should revise the HPA spec if that newly added container should also be used for
 scaling. If the specified container in the metric source is not present or only present in a subset
 of the pods then those pods are ignored and the recommendation is recalculated. See [Algorithm](#algorithm-details)
 for more details about the calculation. To use container resources for autoscaling define a metric
@@ -506,4 +510,3 @@ behavior:
 * Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl autoscale command: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
-
