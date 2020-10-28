@@ -126,9 +126,7 @@ BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](http
 
 ### Calico
 
-[Calico](https://docs.projectcalico.org/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a state-of-the-art pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Whether you prefer cutting edge eBPF, or the familiarity of the standard primitives that existing system administrators already know, you’ll get the same, easy to use, base networking, network policy and IP address management capabilities, that have made Calico the most trusted networking and network policy solution for mission-critical cloud-native applications.
-
-Calico supports a broad range of platforms including Kubernetes, OpenShift, Docker EE, OpenStack, and bare metal services. The largest public cloud providers have selected Calico to provide network security for their hosted Kubernetes services (Amazon EKS, Azure AKS, Google GKE, and IBM IKS) running across tens of thousands of clusters.
+[Calico](https://docs.projectcalico.org/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
 
 ### Cilium
 
