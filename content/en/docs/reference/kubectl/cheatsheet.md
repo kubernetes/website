@@ -90,9 +90,9 @@ kubectl apply -f ./my1.yaml -f ./my2.yaml      # create from multiple files
 kubectl apply -f ./dir                         # create resource(s) in all manifest files in dir
 kubectl apply -f https://git.io/vPieo          # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
-kubectl create job hello \                     # create a job which prints "hello world"
+kubectl create job hello                       # create a job which prints "hello world"
 --image=busybox -- echo "Hello World"                                    
-kubectl create cronjob hello --image=busybox \ # create a cron job which prints "hello world" for every minute
+kubectl create cronjob hello --image=busybox   # create a cron job which prints "hello world" for every minute
 --schedule="*/1 * * * *" -- echo "Hello World"       
 kubectl explain pods                           # get the documentation for pod manifests
 
