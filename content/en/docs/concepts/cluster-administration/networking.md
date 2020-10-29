@@ -124,6 +124,10 @@ With the help of the Big Cloud Fabric's virtual pod multi-tenant architecture, c
 
 BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](https://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html). One of the BCF Kubernetes on-premises deployments (which includes Kubernetes, DC/OS & VMware running on multiple DCs across different geographic regions) is also referenced [here](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/).
 
+### Calico
+
+[Calico](https://docs.projectcalico.org/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
+
 ### Cilium
 
 [Cilium](https://github.com/cilium/cilium) is open source software for
@@ -290,14 +294,6 @@ Open vSwitch community.  It lets one create logical switches, logical routers,
 stateful ACLs, load-balancers etc to build different virtual networking
 topologies.  The project has a specific Kubernetes plugin and documentation
 at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
-
-### Project Calico
-
-[Project Calico](https://docs.projectcalico.org/) is an open source container networking provider and network policy engine.
-
-Calico provides a highly scalable networking and network policy solution for connecting Kubernetes pods based on the same IP networking principles as the internet, for both Linux (open source) and Windows (proprietary - available from [Tigera](https://www.tigera.io/essentials/)).  Calico can be deployed without encapsulation or overlays to provide high-performance, high-scale data center networking.  Calico also provides fine-grained, intent based network security policy for Kubernetes pods via its distributed firewall.
-
-Calico can also be run in policy enforcement mode in conjunction with other networking solutions such as Flannel, aka [canal](https://github.com/tigera/canal), or native GCE, AWS or Azure networking.
 
 ### Romana
 
