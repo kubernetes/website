@@ -85,6 +85,7 @@ net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 
+# Apply sysctl params without reboot
 sudo sysctl --system
 ```
 
@@ -421,6 +422,7 @@ EOF
 ```
 
 ```shell
+# Create /etc/systemd/system/docker.service.d
 sudo mkdir -p /etc/systemd/system/docker.service.d
 ```
 
@@ -476,6 +478,7 @@ EOF
 ```
 
 ```shell
+# Create /etc/systemd/system/docker.service.d
 sudo mkdir -p /etc/systemd/system/docker.service.d
 ```
 
