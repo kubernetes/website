@@ -1,0 +1,43 @@
+name: Future Release Branch Pull Request Labeler
+
+on:
+  pull_request_target:
+    branches:
+      - dev-[0-9].[0-9][0-9]
+    types:
+      - opened
+      - reopened
+
+jobs:
+  add-hold-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name:
+        run: |
+          curl --request PATCH \
+          --url ${{ github.event.pull_request.issue_url }} \
+          --header 'Authorization: token ${{ secrets.GITHUB_ACTIONS_TOKEN }}' \
+          --header 'Accept: application/vnd.github.v3+json' \
+          --data '{"labels": ["hold"]}'
+  add-milestone:
+    runs-on: ubuntu-latest
+    steps:
+      - name:
+        run: |
+          # grab the version using the branch of the base repository
+          milestone=${GITHUB_BASE_REF:4}
+
+          # grab the number associated with milestone not the name of milestone
+          curl --request GET \
+          --url 'https://api.github.com/repos/${{ github.repository }}/milestones' \
+          --header 'Authorization: token ${{ secrets.GITHUB_ACTIONS_TOKEN }}' \
+          --header 'Accept: application/vnd.github.v3+json' | \
+          jq --arg milestone "$milestone" '.[] | select(.title==$milestone).number' > milestone_number.txt
+
+          milestone_number=$(cat milestone_number.txt)
+
+          curl --request PATCH \
+          --url ${{ github.event.pull_request.issue_url }} \
+          --header 'Authorization: token ${{ secrets.GITHUB_ACTIONS_TOKEN }}' \
+          --header 'Accept: application/vnd.github.v3+json' \
+          --data '{"milestone": "'"$milestone_number"'"}'
