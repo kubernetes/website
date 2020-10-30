@@ -579,7 +579,7 @@ ConfigurableFSGroupPolicy=true|false (ALPHA - default=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
 DefaultPodTopologySpread=true|false (ALPHA - default=false)<br/>
 DevicePlugins=true|false (BETA - default=true)<br/>
-DisableAcceleratorUsageMetrics=true|false (ALPHA - default=false)<br/>
+DisableAcceleratorUsageMetrics=true|false (BETA - default=true)<br/>
 DynamicKubeletConfig=true|false (BETA - default=true)<br/>
 EndpointSlice=true|false (BETA - default=true)<br/>
 EndpointSliceProxying=true|false (BETA - default=true)<br/>
