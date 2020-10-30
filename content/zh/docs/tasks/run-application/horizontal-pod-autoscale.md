@@ -250,7 +250,7 @@ conservatively assume the not-yet-ready pods are consuming 0% of the
 desired metric, further dampening the magnitude of a scale up.
 -->
 此外，如果存在任何尚未就绪的 Pod，我们可以在不考虑遗漏指标或尚未就绪的 Pod 的情况下进行扩缩，
-我们保守地假设尚未就绪的 Pod 消耗了试题指标的 0%，从而进一步降低了扩缩的幅度。
+我们保守地假设尚未就绪的 Pod 消耗了期望指标的 0%，从而进一步降低了扩缩的幅度。
 
 <!--
 After factoring in the not-yet-ready pods and missing metrics, we
