@@ -725,7 +725,7 @@ See the [resourceQuota design doc](https://git.k8s.io/community/contributors/des
 
 ### RuntimeClass {#runtimeclass}
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 If you enable the `PodOverhead` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), and define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) configured, this admission controller checks incoming
 Pods. When enabled, this admission controller rejects any Pod create requests that have the overhead already set.
