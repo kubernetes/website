@@ -877,9 +877,16 @@ Start-Service containerd
 
 <!--
 ```shell
-### systemd
-
-To use the `systemd` cgroup driver, set `plugins.cri.systemd_cgroup = true` in `/etc/containerd/config.toml`.
+### systemd {#containerd-systemd}
+    
+    To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
+    
+    ```
+    [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+      ...
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+        SystemdCgroup = true
+    ```
 When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
 
@@ -888,12 +895,14 @@ When using kubeadm, manually configure the
 Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) for more information.
 ```
 -->
-### systemd
+### systemd {#containerd-systemd}
 
 使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置 
 ```
-[plugins.cri]
-systemd_cgroup = true
+ [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+      ...
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+        SystemdCgroup = true
 ```
 当使用 kubeadm 时，请手动配置
 [kubelet 的 cgroup 驱动](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
