@@ -433,7 +433,14 @@ behavior:
     selectPolicy: Disabled
 ```
 
+## Support for implicit maintenance-mode deactivation
 
+Starting from v1.4, you can implicitly deactivate the HPA for a target without the
+need to change the HPA configuration itself. If the target's desired replica count
+is set to 0, and the HPA's minimum replica count is greater than 0, the HPA will
+cease to adjust the target (and will set the `ScalingActive` Condition on itself
+to `false`) until you reactivate it by manually adjusting the target's desired
+replica count or HPA's minimum replica count.
 
 ## {{% heading "whatsnext" %}}
 
