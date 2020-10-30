@@ -25,8 +25,7 @@ card:
 _Pods_ are the smallest deployable units of computing that you can create and manage in Kubernetes.
 
 A _Pod_ (as in a pod of whales or pea pod) is a group of one or more
-{{< glossary_tooltip text="containers" term_id="container" >}}
-with shared storage/network resources, and a specification
+[containers](/docs/concepts/containers/), with shared storage/network resources, and a specification
 for how to run the containers. A Pod's contents are always co-located and
 co-scheduled, and run in a shared context. A Pod models an
 application-specific "logical host": it contains one or more application
@@ -35,8 +34,7 @@ In non-cloud contexts, applications executed on the same physical or virtual mac
 -->
 _Pod_ 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。
 
-_Pod_ （就像在鲸鱼荚或者豌豆荚中）是一组（一个或多个）
-{{< glossary_tooltip text="容器" term_id="container" >}}；
+_Pod_ （就像在鲸鱼荚或者豌豆荚中）是一组（一个或多个）[容器](/docs/concepts/containers/)；
 这些容器共享存储、网络、以及怎样运行这些容器的声明。
 Pod 中的内容总是并置（colocated）的并且一同调度，在共享的上下文中运行。
 Pod 所建模的是特定于应用的“逻辑主机”，其中包含一个或多个应用容器，
