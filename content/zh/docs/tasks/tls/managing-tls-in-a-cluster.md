@@ -125,11 +125,16 @@ cat <<EOF | cfssl genkey - | cfssljson -bare server
     "172.168.0.24",
     "10.0.34.2"
   ],
-  "CN": "my-pod.my-namespace.pod.cluster.local",
+  "CN": "system:node:my-pod.my-namespace.pod.cluster.local",
   "key": {
     "algo": "ecdsa",
     "size": 256
-  }
+  },
+  "names": [
+    {
+      "O": "system:nodes"
+    }
+  ]
 }
 EOF
 ```
