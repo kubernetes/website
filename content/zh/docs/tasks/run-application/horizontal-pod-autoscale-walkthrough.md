@@ -40,9 +40,9 @@ This example requires a running Kubernetes cluster and kubectl, version 1.2 or l
 to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics. The instructions for deploying this are on the GitHub repository of [metrics-server](https://github.com/kubernetes-incubator/metrics-server/), if you followed [getting started on GCE guide](/docs/setup/production-environment/turnkey/gce/),
 metrics-server monitoring will be turned-on by default.
 -->
-本文示例需要一个运行中的 Kubernetes 集群以及 kubectl，集群中还要部署 1.2 或更高
-版本的 [Metrics 服务器](https://github.com/kubernetes-incubator/metrics-server/)。
-Metrics 服务器可以通过资源度量值 API 对外提供度量数据，Horizontal Pod Autoscaler
+本文示例需要一个运行中的 Kubernetes 集群以及 kubectl，集群版本要 1.2 或更高。
+ [metrics-server](https://github.com/kubernetes-incubator/metrics-server/)需要在集群中安装。
+metrics-server可以通过资源度量值 API 对外提供度量数据，Horizontal Pod Autoscaler
 正是根据此 API 来获取度量数据。
 部署方法请参考 [metrics-server](https://github.com/kubernetes-incubator/metrics-server/) 。
 如果你正在使用 GCE，按照 [GCE 指南中的入门说明](/zh/docs/setup/production-environment/turnkey/gce/) 操作，metrics-server 会默认启动。
