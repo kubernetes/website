@@ -47,12 +47,8 @@ resource can only be in one namespace.
 
 <!--
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
-
-In future versions of Kubernetes, objects in the same namespace will have the same
-access control policies by default.
 -->
 名字空间是在多个用户之间划分集群资源的一种方法（通过[资源配额](/zh/docs/concepts/policy/resource-quotas/)）。
-在 Kubernetes 未来版本中，相同名字空间中的对象默认将具有相同的访问控制策略。
 
 <!--
 It is not necessary to use multiple namespaces just to separate slightly different
