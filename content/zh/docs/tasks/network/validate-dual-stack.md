@@ -221,7 +221,7 @@ If the cloud provider supports the provisioning of IPv6 enabled external load ba
 -->
 ### 创建双协议栈负载均衡服务
 
-如果云提供商支持配置启用 IPv6 的外部负载均衡器，则将 `ipFamily` 字段设置为 `IPv6` 并将 `type` 字段设置为 `LoadBalancer`的方式创建以下服务
+如果云提供商支持配置启用 IPv6 的外部负载均衡器，则通过将 `ipFamily` 字段设置为 `IPv6` 并将 `type` 字段设置为 `LoadBalancer`的方式创建以下服务
 
 {{< codenew file="service/networking/dual-stack-ipv6-lb-svc.yaml" >}}
 
