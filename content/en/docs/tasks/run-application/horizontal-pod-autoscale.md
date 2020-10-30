@@ -237,7 +237,7 @@ usual.
 ## Support for resource metrics
 
 Any HPA target can be scaled based on the resource usage of the pods in the scaling target.
-When definining the pod specification the resource requests like `cpu` and `memory` should
+When defining the pod specification the resource requests like `cpu` and `memory` should
 be specified. This is used to determine the resource utilization and used by the HPA controller
 to scale the target up or down. To use resource utilization based scaling specify a metric source
 like this:
