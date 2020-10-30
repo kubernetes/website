@@ -45,7 +45,7 @@ or by a dynamic provisioner.
 -->
 你可以通过创建一个 Kubernetes Deployment 并使用 PersistentVolumeClaim 将其连接到
 某已有的 PV 卷来运行一个有状态的应用。
-例如，这里的 YAML 描述的是一个运行 MySQL 的 Deployment，其中引用了 PVC 申领。
+例如，这里的 YAML 描述的是一个运行 MySQL 的 Deployment，其中引用了 PVC 。 
 文件为 /var/lib/mysql 定义了加载卷，并创建了一个 PVC 申领，寻找一个 20G 大小的卷。
 该申领可以通过现有的满足需求的卷来满足，也可以通过动态供应卷的机制来满足。
 
