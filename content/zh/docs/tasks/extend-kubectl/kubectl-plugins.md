@@ -313,7 +313,7 @@ command containing dashes in its commandline invocation by using underscores (`_
 #### 带有破折号和下划线的名称
 
 虽然 `kubectl` 插件机制在插件文件名中使用破折号（`-`）分隔插件处理的子命令序列，
-但是仍然可以通过在文件名中使用下划线（`-`）来创建命令行中包含破折号的插件命令。
+但是仍然可以通过在文件名中使用下划线（`_`）来创建命令行中包含破折号的插件命令。
 
 <!-- Example: -->
 例子：
@@ -338,7 +338,7 @@ Note that the introduction of underscores to a plugin filename does not prevent 
 The command from the above example, can be invoked using either a dash (`-`) or an underscore (`_`):
 -->
 请注意，在插件文件名中引入下划线并不会阻止我们使用 `kubectl foo_bar` 之类的命令。
-可以使用破折号（`-`）或下划线（`-`）调用上面示例中的命令:
+可以使用破折号（`-`）或下划线（`_`）调用上面示例中的命令:
 
 ```shell
 # 我们的插件也可以用破折号来调用
