@@ -19,7 +19,8 @@ of its primary containers starts OK, and then through either the `Succeeded` or
 
 Whilst a Pod is running, the kubelet is able to restart containers to handle some
 kind of faults. Within a Pod, Kubernetes tracks different container
-[states](#container-states) and handles
+[states](#container-states) and determines what action to take to make the Pod
+healthy again.
 -->
 本页面讲述 Pod 的生命周期。
 Pod 遵循一个预定义的生命周期，起始于 `Pending` [阶段](#pod-phase)，如果至少
@@ -28,7 +29,7 @@ Pod 遵循一个预定义的生命周期，起始于 `Pending` [阶段](#pod-pha
 
 在 Pod 运行期间，`kubelet` 能够重启容器以处理一些失效场景。
 在 Pod 内部，Kubernetes 跟踪不同容器的[状态](#container-states)
-并处理可能出现的状况。
+并确定采取何种方式来使 Pod 恢复正常状态。
 
 <!--
 In the Kubernetes API, Pods have both a specification and an actual status. The
