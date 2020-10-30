@@ -33,12 +33,6 @@ requests are authorized.
 
 <!-- body -->
 
-The REST API is the fundamental fabric of Kubernetes. All operations and
-communications between components, and external user commands are REST API
-calls that the API Server handles. Consequently, everything in the Kubernetes
-platform is treated as an API object and has a corresponding entry in the
-API.
-
 ## API versioning
 
 The JSON and Protobuf serialization schemas follow the same guidelines for
