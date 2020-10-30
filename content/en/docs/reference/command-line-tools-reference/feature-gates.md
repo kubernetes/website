@@ -153,10 +153,6 @@ different Kubernetes components.
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
 | `Sysctls` | `true` | Beta | 1.11 | |
-| `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
-| `TokenRequest` | `true` | Beta | 1.12 | |
-| `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
-| `TokenRequestProjection` | `true` | Beta | 1.12 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | |
 | `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
@@ -304,6 +300,12 @@ different Kubernetes components.
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | 1.11 |
 | `TaintNodesByCondition` | `true` | Beta | 1.12 | 1.16 |
 | `TaintNodesByCondition` | `true` | GA | 1.17 | - |
+| `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
+| `TokenRequest` | `true` | Beta | 1.12 | 1.19 |
+| `TokenRequest` | `true` | GA | 1.20 | - |
+| `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
+| `TokenRequestProjection` | `true` | Beta | 1.12 | 1.19 |
+| `TokenRequestProjection` | `true` | GA | 1.20 | - |
 | `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
 | `VolumePVCDataSource` | `true` | Beta | 1.16 | 1.17 |
 | `VolumePVCDataSource` | `true` | GA | 1.18 | - |
