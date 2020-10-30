@@ -72,7 +72,7 @@ things by adding the following command-line flags to your
 `kube-apiserver` invocation:
 -->
 APF 特性由特性门控控制，默认情况下不启用。有关如何启用和禁用特性门控的描述，
-请参见[特性门控](/docs/reference/command-line-tools-reference/feature-gates/)。
+请参见[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 APF 的特性门控叫做 `APIPriorityAndFairness` 。
 此特性要求必须启用某个 {{< glossary_tooltip term_id="api-group" text="API Group" >}}。
 你可以在启动 `kube-apiserver` 时，添加以下命令行标志来完成这些操作：
