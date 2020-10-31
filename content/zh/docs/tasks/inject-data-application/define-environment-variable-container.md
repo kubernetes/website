@@ -76,21 +76,12 @@ Pod:
     ```
 
 <!--
-1. Get a shell to the container running in your Pod:
+1. List the Pod's container environment variables:
 -->
-1. 进入该 Pod 下的容器并打开一个命令终端：
+1. 列出 Pod 容器的环境变量：
     
     ```shell
-    kubectl exec -it envar-demo -- /bin/bash
-    ```
-
-<!--
-1. In your shell, run the `printenv` command to list the environment variables.
--->
-1. 在命令终端中通过执行 `printenv` 打印出环境变量。
-
-    ```shell
-    root@envar-demo:/# printenv
+    kubectl exec envar-demo -- printenv
     ```
     
     <!--
@@ -106,11 +97,6 @@ Pod:
     DEMO_GREETING=Hello from the environment
     DEMO_FAREWELL=Such a sweet sorrow
     ```
-
-<!--
-1. To exit the shell, enter `exit`.
--->
-1. 通过键入 `exit` 退出命令终端。
 
 <!--
 {{< note >}}
