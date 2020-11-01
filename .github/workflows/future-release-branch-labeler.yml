@@ -9,16 +9,6 @@ on:
       - reopened
 
 jobs:
-  add-hold-label:
-    runs-on: ubuntu-latest
-    steps:
-      - name:
-        run: |
-          curl --request PATCH \
-          --url ${{ github.event.pull_request.issue_url }} \
-          --header 'Authorization: token ${{ secrets.GITHUB_ACTIONS_TOKEN }}' \
-          --header 'Accept: application/vnd.github.v3+json' \
-          --data '{"labels": ["hold"]}'
   add-milestone:
     runs-on: ubuntu-latest
     steps:
