@@ -13,7 +13,9 @@
 ```bash
 git clone https://github.com/kubernetes/website.git
 cd website
-hugo server --buildFuture
+
+git submodule update --init --recursive --depth 1
+make serve
 ```
 
 Эта команда запустит сервер Hugo на порту 1313. Откройте браузер и перейдите по ссылке http://localhost:1313, чтобы открыть сайт. Если вы отредактируете исходные файлы сайта, Hugo автоматически применит изменения и обновит страницу в браузере.
