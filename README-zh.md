@@ -58,7 +58,7 @@ To build and test the site locally, run:
 若要在本地构造和测试网站，请运行：
 
 ```bash
-hugo server --buildFuture
+make serve
 ```
 
 <!--
