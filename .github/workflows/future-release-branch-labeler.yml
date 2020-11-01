@@ -34,7 +34,7 @@ jobs:
           --header 'Accept: application/vnd.github.v3+json' | \
           jq --arg milestone "$milestone" '.[] | select(.title==$milestone).number' > milestone_number.txt
 
-          milestone_number=$(cat milestone_number.txt)
+          milestone_number="$(cat milestone_number.txt)"
 
           curl --request PATCH \
           --url ${{ github.event.pull_request.issue_url }} \
