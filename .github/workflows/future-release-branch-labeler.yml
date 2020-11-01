@@ -24,7 +24,8 @@ jobs:
     steps:
       - name:
         run: |
-          # grab the version using the branch of the base repository
+          # determine the target release from the branch that this PR targets
+          # ignore first 4 characters ("dev-")
           milestone=${GITHUB_BASE_REF:4}
 
           # grab the number associated with milestone not the name of milestone
