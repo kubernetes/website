@@ -21,7 +21,7 @@ jobs:
           # grab the number associated with milestone not the name of milestone
           curl --request GET \
           --url 'https://api.github.com/repos/${{ github.repository }}/milestones' \
-          --header 'Authorization: token ${{ secrets.GITHUB_ACTIONS_TOKEN }}' \
+          --header 'Authorization: token ${{ secrets.FUTURE_RELEASE_BRANCH_LABEL_TOKEN }}' \
           --header 'Accept: application/vnd.github.v3+json' | \
           jq --arg milestone "$milestone" '.[] | select(.title==$milestone).number' > milestone_number.txt
 
@@ -29,6 +29,6 @@ jobs:
 
           curl --request PATCH \
           --url ${{ github.event.pull_request.issue_url }} \
-          --header 'Authorization: token ${{ secrets.GITHUB_ACTIONS_TOKEN }}' \
+          --header 'Authorization: token ${{ secrets.FUTURE_RELEASE_BRANCH_LABEL_TOKEN }}' \
           --header 'Accept: application/vnd.github.v3+json' \
           --data '{"milestone": "'"$milestone_number"'"}'
