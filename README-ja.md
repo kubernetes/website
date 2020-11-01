@@ -27,7 +27,7 @@ git submodule update --init --recursive --depth 1
 サイトをローカルでビルドしてテストするには以下のコマンドを実行します:
 
 ```bash
-hugo server --buildFuture
+make serve
 ```
 
 これで、Hugoのサーバーが1313番ポートを使って開始します。お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
