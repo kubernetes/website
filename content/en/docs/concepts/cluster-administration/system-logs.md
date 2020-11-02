@@ -91,6 +91,12 @@ List of components currently supporting JSON format:
 * {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
 * {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
+### Log sanitization
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+TODO
+
 ### Log verbosity level
 
 The `-v` flag controls log verbosity. Increasing the value increases the number of logged events. Decreasing the value decreases the number of logged events.
