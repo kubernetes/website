@@ -31,6 +31,7 @@ weight: 45
 - `CSIStorageCapacity`フィーチャーゲートがtrueである
 - Podがまだ作成されていないボリュームを使用する時
 - そのボリュームが、CSIドライバーを参照し、[volume binding mode](/docs/concepts/storage/storage-classes/#volume-binding-mode)に`WaitForFirstConsumer`を使う{{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}を使用している
+- ドライバーに対する`CSIDriver`オブジェクトの`StorageCapacity`がtrueに設定されている
 
 その場合、スケジューラーはPodに対して、十分なストレージ容量が利用できるノードだけを考慮するようになります。このチェックは非常に単純で、ボリュームのサイズと、`CSIStorageCapacity`オブジェクトに一覧された容量を、ノードを含むトポロジーで比較するだけです。
 
