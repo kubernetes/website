@@ -360,7 +360,7 @@ spec:
   ports:
   - name: http
     nodePort: 31704
-    port: 8080
+    port: 80
     protocol: TCP
     targetPort: 80
   - name: https
