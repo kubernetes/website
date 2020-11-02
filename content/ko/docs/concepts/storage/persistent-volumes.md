@@ -140,7 +140,7 @@ Events:            <none>
 기본 볼륨 플러그인에서 지원하는 경우 `Recycle` 반환 정책은 볼륨에서 기본 스크럽(`rm -rf /thevolume/*`)을 수행하고 새 클레임에 다시 사용할 수 있도록 한다.
 
 그러나 관리자는 [레퍼런스](/docs/reference/command-line-tools-reference/kube-controller-manager/)에
-설명된대로 쿠버네티스 컨트롤러 관리자 커맨드라인 인자(command line arguments)를
+설명된 대로 쿠버네티스 컨트롤러 관리자 커맨드라인 인자(command line arguments)를
 사용하여 사용자 정의 재활용 파드 템플릿을 구성할 수 있다.
 사용자 정의 재활용 파드 템플릿에는 아래 예와 같이 `volumes` 명세가
 포함되어야 한다.
@@ -167,6 +167,45 @@ spec:
 ```
 
 그러나 `volumes` 부분의 사용자 정의 재활용 파드 템플릿에 지정된 특정 경로는 재활용되는 볼륨의 특정 경로로 바뀐다.
+
+### 퍼시스턴트볼륨 예약
+
+컨트롤 플레인은 클러스터에서 [퍼시스턴트볼륨클레임을 일치하는 퍼시스턴트볼륨에 바인딩](#바인딩)할
+수 있다. 그러나, PVC를 특정 PV에 바인딩하려면, 미리 바인딩해야 한다.
+
+퍼시스턴트볼륨클레임에서 퍼시스턴트볼륨을 지정하여, 특정 PV와 PVC 간의 바인딩을 선언한다.
+퍼시스턴트볼륨이 존재하고 `claimRef` 필드를 통해 퍼시스턴트볼륨클레임을 예약하지 않은 경우, 퍼시스턴트볼륨 및 퍼시스턴트볼륨클레임이 바인딩된다.
+
+바인딩은 노드 선호도(affinity)를 포함하여 일부 볼륨 일치(matching) 기준과 관계없이 발생한다.
+컨트롤 플레인은 여전히 [스토리지 클래스](https://kubernetes.io/ko/docs/concepts/storage/storage-classes/), 접근 모드 및 요청된 스토리지 크기가 유효한지 확인한다.
+
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: foo-pvc
+  namespace: foo
+spec:
+  volumeName: foo-pv
+  ...
+```
+
+이 메서드는 퍼시스턴트볼륨에 대한 바인딩 권한을 보장하지 않는다. 다른 퍼시스턴트볼륨클레임에서 지정한 PV를 사용할 수 있는 경우, 먼저 해당 스토리지 볼륨을 예약해야 한다. PV의 `claimRef` 필드에 관련 퍼시스턴트볼륨클레임을 지정하여 다른 PVC가 바인딩할 수 없도록 한다.
+
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: foo-pv
+spec:
+  claimRef:
+    name: foo-pvc
+    namespace: foo
+  ...
+```
+
+이는 기존 PV를 재사용하는 경우를 포함하여 `claimPolicy` 가
+`Retain` 으로 설정된 퍼시스턴트볼륨을 사용하려는 경우에 유용하다.
 
 ### 퍼시스턴트 볼륨 클레임 확장
 
