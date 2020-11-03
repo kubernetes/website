@@ -312,7 +312,7 @@ spec:
 
 KubernetesはPersistentVolumesの2つの`volumeModes`をサポートしています: `Filesystem`と`Block`です。  
 `volumeMode`は任意のAPIパラメータです。  
-`Filesystem`は`volumeMode`パラメータが省略がされたときに使用されるデフォルトのモードです。  
+`Filesystem`は`volumeMode`パラメータが省略されたときに使用されるデフォルトのモードです。  
 
 `volumeMode: Filesystem`であるボリュームはPodに*マウント*されてディレクトリになります。 ボリュームがブロックデバイスでデバイスが空の時、Kubernetesは初めてそれにマウントされる前にデバイスのファイルシステムを作成します。  
 
