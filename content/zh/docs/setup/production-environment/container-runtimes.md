@@ -159,7 +159,7 @@ net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 
-# Apply sysctl params without reboot
+# 在不重启情况下应用 sysctl 参数
 sudo sysctl --system
 ```
 
