@@ -284,8 +284,6 @@ There are some implicit conventions worth noting here:
 
 ### Cluster-level default constraints
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
 It is possible to set default topology spread constraints for a cluster. Default
 topology spread constraints are applied to a Pod if, and only if:
 
