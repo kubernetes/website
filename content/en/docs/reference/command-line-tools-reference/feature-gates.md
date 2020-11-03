@@ -160,6 +160,7 @@ different Kubernetes components.
 | `TopologyManager` | `false` | Alpha | 1.16 | |
 | `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
 | `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
+| `VolumeCapacityPriority` | `false` | Alpha | 1.20 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | 1.16 |
 | `VolumeSnapshotDataSource` | `true` | Beta | 1.17 | - |
 | `WindowsEndpointSliceProxying` | `false` | Alpha | 1.19 | |
