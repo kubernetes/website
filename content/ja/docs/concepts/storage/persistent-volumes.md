@@ -235,7 +235,7 @@ EBSの拡張は時間がかかる操作です。また変更は、ボリュー�
 
 #### ボリューム拡張時の障害からの復旧
 
-基盤ストレージの拡張に失敗した際には、クラスターの管理者はPersistent Volume Claim (PVC)の状態を手動で復旧し、リサイズ要求をキャンセルします。それをしない限り、リサイズ要求は管理者の介入なしにコントローラによって継続的に再試行されます。  
+基盤ストレージの拡張に失敗した際には、クラスターの管理者はPersistent Volume Claim (PVC)の状態を手動で復旧し、リサイズ要求をキャンセルします。それをしない限り、リサイズ要求は管理者の介入なしにコントローラーによって継続的に再試行されます。  
 
 1. PersistentVolumeClaim(PVC)にバウンドしていないPersistentVolume(PV)を`Retain`再クレームポリシーとしてマークします。
 2. PVCを削除します。PVは`Retain`再クレームポリシーを持っているため、PVCを再び作成したときにいかなるデータも失うことはありません。  
@@ -311,8 +311,8 @@ spec:
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 KubernetesはPersistentVolumesの2つの`volumeModes`をサポートしています: `Filesystem`と`Block`です。  
-`volumeMode`は任意のAPIパラメータです。  
-`Filesystem`は`volumeMode`パラメータが省略されたときに使用されるデフォルトのモードです。  
+`volumeMode`は任意のAPIパラメーターです。  
+`Filesystem`は`volumeMode`パラメーターが省略がされたときに使用されるデフォルトのモードです。  
 
 `volumeMode: Filesystem`であるボリュームはPodに*マウント*されてディレクトリになります。 ボリュームがブロックデバイスでデバイスが空の時、Kubernetesは初めてそれにマウントされる前にデバイスのファイルシステムを作成します。  
 
