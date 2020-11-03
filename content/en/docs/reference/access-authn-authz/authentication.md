@@ -895,7 +895,9 @@ clusters:
     extensions:
     - name: client.authentication.k8s.io/exec # reserved extension name for per cluster exec config
       extension:
-        some-config-per-cluster: config-data  # arbitrary config
+        arbitrary: config
+        this: can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo
+        you: ["can", "put", "anything", "here"]
 contexts:
 - name: my-cluster
   context:
@@ -994,7 +996,9 @@ example of the aforementioned `KUBERNETES_EXEC_INFO` environment variable.
       "server": "https://172.17.4.100:6443",
       "certificate-authority-data": "LS0t...",
       "config": {
-        "some-config-per-cluster": "config-data"
+        "arbitrary": "config",
+        "this": "can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo",
+        "you": ["can", "put", "anything", "here"]
       }
     }
   }
