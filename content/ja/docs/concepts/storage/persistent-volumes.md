@@ -237,7 +237,7 @@ EBSの拡張は時間がかかる操作です。また変更は、ボリュー�
 
 基盤ストレージの拡張に失敗した際には、クラスターの管理者はPersistent Volume Claim (PVC)の状態を手動で復旧し、リサイズ要求をキャンセルします。それをしない限り、リサイズ要求は管理者の介入なしにコントローラーによって継続的に再試行されます。  
 
-1. PersistentVolumeClaim(PVC)にバウンドしていないPersistentVolume(PV)を`Retain`再クレームポリシーとしてマークします。
+1. PersistentVolumeClaim(PVC)にバインドされているPersistentVolume(PV)を`Retain`再クレームポリシーとしてマークします。
 2. PVCを削除します。PVは`Retain`再クレームポリシーを持っているため、PVCを再び作成したときにいかなるデータも失うことはありません。  
 3. `claimRef`エントリーをPVスペックから削除して、新しいPVCがそれにバインドできるようにします。これによりPVは`Available`になります。  
 4. PVより小さいサイズでPVCを再作成し、PVCの`volumeName`フィールドをPVの名前に設定します。これにより新しいPVCを既存のPVにバインドします。  
