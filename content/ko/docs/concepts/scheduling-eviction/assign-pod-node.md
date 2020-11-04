@@ -196,8 +196,8 @@ spec:
 `preferredDuringSchedulingIgnoredDuringExecution` 이다. 파드 어피니티 규칙에 의하면 키 "security" 와 값
 "S1"인 레이블이 있는 하나 이상의 이미 실행 중인 파드와 동일한 영역에 있는 경우에만 파드를 노드에 스케줄할 수 있다.
 (보다 정확하게는, 클러스터에 키 "security"와 값 "S1"인 레이블을 가지고 있는 실행 중인 파드가 있는 키
-`failure-domain.beta.kubernetes.io/zone` 와 값 V인 노드가 최소 하나 이상 있고,
-노드 N이 키 `failure-domain.beta.kubernetes.io/zone` 와
+`topology.kubernetes.io/zone` 와 값 V인 노드가 최소 하나 이상 있고,
+노드 N이 키 `topology.kubernetes.io/zone` 와
 일부 값이 V인 레이블을 가진다면 파드는 노드 N에서 실행할 수 있다.)
 파드 안티-어피니티 규칙에 의하면 파드는 키 "security"와 값 "S2"인 레이블을 가진 파드와
 동일한 영역의 노드에 스케줄되지 않는다.
