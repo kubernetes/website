@@ -850,7 +850,7 @@ As explained in [Create ConfigMaps from files](#create-configmaps-from-files), w
 -->
 ## 将 ConfigMap 数据添加到一个卷中
 
-如基于文件创建 ConfigMap](#create-configmaps-from-files) 中所述，当你使用 
+如基于文件创建 [ConfigMap](#create-configmaps-from-files) 中所述，当你使用 
 `--from-file` 创建 ConfigMap 时，文件名成为存储在 ConfigMap 的 `data` 部分中的键，
 文件内容成为键对应的值。
 

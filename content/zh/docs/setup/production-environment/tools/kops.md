@@ -27,14 +27,14 @@ kops 是一个自用的供应系统：
 * Fully automated installation
 * Uses DNS to identify clusters
 * Self-healing: everything runs in Auto-Scaling Groups
-* Multiple OS support (Debian, Ubuntu 16.04 supported, CentOS & RHEL, Amazon Linux and CoreOS) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/images.md)
+* Multiple OS support (Debian, Ubuntu 16.04 supported, CentOS & RHEL, Amazon Linux and CoreOS) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
 * High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/high_availability.md)
 * Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 -->
 * 全自动安装流程
 * 使用 DNS 识别集群
 * 自我修复：一切都在自动扩展组中运行
-* 支持多种操作系统（如 Debian、Ubuntu 16.04、CentOS、RHEL、Amazon Linux 和 CoreOS） - 参考 [images.md](https://github.com/kubernetes/kops/blob/master/docs/images.md)
+* 支持多种操作系统（如 Debian、Ubuntu 16.04、CentOS、RHEL、Amazon Linux 和 CoreOS） - 参考 [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
 * 支持高可用 - 参考 [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/high_availability.md)
 * 可以直接提供或者生成 terraform 清单 - 参考 [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 

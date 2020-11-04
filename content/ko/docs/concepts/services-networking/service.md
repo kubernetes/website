@@ -234,7 +234,7 @@ DNS 레코드를 구성하고, 라운드-로빈 이름 확인 방식을
 이 모드에서는, kube-proxy는 쿠버네티스 마스터의 서비스, 엔드포인트 오브젝트의
 추가와 제거를 감시한다. 각 서비스는 로컬 노드에서
 포트(임의로 선택됨)를 연다. 이 "프록시 포트"에 대한 모든
-연결은 (엔드포인트를 통해 보고된대로) 서비스의 백엔드 파드 중 하나로 프록시된다.
+연결은 (엔드포인트를 통해 보고된 대로) 서비스의 백엔드 파드 중 하나로 프록시된다.
 kube-proxy는 사용할 백엔드 파드를 결정할 때 서비스의
 `SessionAffinity` 설정을 고려한다.
 
@@ -878,6 +878,10 @@ Classic ELB의 연결 드레이닝은
         # 헬스 체크 실패를 의미하는 무 응답의 총 시간 (초 단위)
         # 이 값은 service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
         # 값 보다 작아야한다. 기본값은 5이며, 2와 60 사이여야 한다.
+
+        service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
+        # 생성된 ELB에 추가할 기존 보안 그룹 목록.
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 어노테이션과 달리, 이는 이전에 ELB에 할당된 다른 모든 보안 그룹을 대체한다.
 
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
         # ELB에 추가될 추가 보안 그룹(security group) 목록

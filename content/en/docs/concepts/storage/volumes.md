@@ -449,7 +449,7 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: failure-domain.beta.kubernetes.io/zone
+        - key: topology.kubernetes.io/zone
           operator: In
           values:
           - us-central1-a
@@ -1367,7 +1367,7 @@ For more information on how to develop a CSI driver, refer to the
 
 #### Migrating to CSI drivers from in-tree plugins
 
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 The `CSIMigration` feature, when enabled, directs operations against existing in-tree
 plugins to corresponding CSI plugins (which are expected to be installed and configured).
