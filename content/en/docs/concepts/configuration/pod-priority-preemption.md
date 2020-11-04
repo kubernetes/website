@@ -271,7 +271,7 @@ preempted. Here's an example:
 *   Pod P is being considered for Node N.
 *   Pod Q is running on another Node in the same Zone as Node N.
 *   Pod P has Zone-wide anti-affinity with Pod Q (`topologyKey:
-    failure-domain.beta.kubernetes.io/zone`).
+    topology.kubernetes.io/zone`).
 *   There are no other cases of anti-affinity between Pod P and other Pods in
     the Zone.
 *   In order to schedule Pod P on Node N, Pod Q can be preempted, but scheduler
