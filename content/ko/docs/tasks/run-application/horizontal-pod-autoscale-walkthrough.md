@@ -108,11 +108,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-kubectl run -it --rm load-generator --image=busybox /bin/sh
-
-Hit enter for command prompt
-
-while true; do wget -q -O- http://php-apache; done
+kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 ```
 
 실행 후, 약 1분 정도 후에 CPU 부하가 올라가는 것을 볼 수 있다.
@@ -386,7 +382,7 @@ object:
 외부 메트릭을 사용하면 모니터링 시스템의 사용 가능한 메트릭에 기반하여 클러스터를 오토스케일링 할 수 있다.
 위의 예제처럼 `name`과 `selector`를 갖는 `metric` 블록을 제공하고,
 `Object` 대신에 `External` 메트릭 타입을 사용한다.
-만일 여러개의 시계열이 `metricSelector`와 일치하면, HorizontalPodAutoscaler가 값의 합을 사용한다.
+만일 여러 개의 시계열이 `metricSelector`와 일치하면, HorizontalPodAutoscaler가 값의 합을 사용한다.
 외부 메트릭들은 `Value`와 `AverageValue` 대상 타입을 모두 지원하고,
 `Object` 타입을 사용할 때와 똑같이 동작한다.
 

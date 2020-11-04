@@ -24,14 +24,14 @@ card:
 
 <!--
 When you deploy Kubernetes, you get a cluster.
-{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
+{{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
 This document outlines the various components you need to have
 a complete and working Kubernetes cluster.
 
 Here's the diagram of a Kubernetes cluster with all the components tied together.
 
-![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
+![Components of Kubernetes](/images/docs/components-of-kubernetes.svg)
 -->
 <!-- overview -->
 当你部署完 Kubernetes, 即拥有了一个完整的集群。
@@ -41,22 +41,22 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 
 这张图表展示了包含所有相互关联组件的 Kubernetes 集群。
 
-![Kubernetes 组件](/images/docs/components-of-kubernetes.png)
+![Kubernetes 组件](/images/docs/components-of-kubernetes.svg)
 
 <!-- body -->
 
 <!--
 ## Control Plane Components
 
-The Control Plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
+The control plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
  -->
 ## 控制平面组件（Control Plane Components）    {#control-plane-components}
 
 控制平面的组件对集群做出全局决策(比如调度)，以及检测和响应集群事件（例如，当不满足部署的 `replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
 
 <!--
-Control Plane components can be run on any machine in the cluster. However,
-for simplicity, set up scripts typically start all Control Plane components on
+Control plane components can be run on any machine in the cluster. However,
+for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
 [Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
  -->
@@ -84,11 +84,11 @@ the same machine, and do not run user containers on this machine. See
 <!--
 These controllers include:
 
-  * Node Controller: Responsible for noticing and responding when nodes go down.
-  * Replication Controller: Responsible for maintaining the correct number of pods for every replication
+  * Node controller: Responsible for noticing and responding when nodes go down.
+  * Replication controller: Responsible for maintaining the correct number of pods for every replication
   controller object in the system.
-  * Endpoints Controller: Populates the Endpoints object (that is, joins Services & Pods).
-  * Service Account & Token Controllers: Create default accounts and API access tokens for new namespaces.
+  * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
+  * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
 -->
 这些控制器包括:
 
@@ -118,9 +118,9 @@ The following controllers can have cloud provider dependencies:
 
 {{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
-`cloud-controller-manager` 进运行特定于云平台的控制回路。
+`cloud-controller-manager` 仅运行特定于云平台的控制回路。
 如果你在自己的环境中运行 Kubernetes，或者在本地计算机中运行学习环境，
-所部属的环境中不需要云控制器管理器。
+所部署的环境中不需要云控制器管理器。
 
 与 `kube-controller-manager` 类似，`cloud-controller-manager` 将若干逻辑上独立的
 控制回路组合到同一个可执行文件中，供你以同一进程的方式运行。
@@ -221,7 +221,7 @@ about containers in a central database, and provides a UI for browsing that data
 <!--
 ### Cluster-level Logging
 
-A [Cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
+A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 -->
 ### 集群层面日志
@@ -234,7 +234,7 @@ saving container logs to a central log store with search/browsing interface.
 <!--
 * Learn about [Nodes](/docs/concepts/architecture/nodes/)
 * Learn about [Controllers](/docs/concepts/architecture/controller/)
-* Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+* Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read etcd's official [documentation](https://etcd.io/docs/)
 -->
 * 进一步了解[节点](/zh/docs/concepts/architecture/nodes/)

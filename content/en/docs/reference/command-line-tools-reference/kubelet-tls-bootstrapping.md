@@ -243,7 +243,7 @@ for example:
 The validity duration of signed certificates can be configured with flag:
 
 ```
---experimental-cluster-signing-duration
+--cluster-signing-duration
 ```
 
 ### Approval

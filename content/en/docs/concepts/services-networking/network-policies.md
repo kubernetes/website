@@ -215,7 +215,7 @@ As of Kubernetes 1.20, the following functionality does not exist in the Network
 - Forcing internal cluster traffic to go through a common gateway (this might be best served with a service mesh or other proxy).
 - Anything TLS related (use a service mesh or ingress controller for this).
 - Node specific policies (you can use CIDR notation for these, but you cannot target nodes by their Kubernetes identities specifically).
-- Targeting of namespaces or services by name (you can, however, target pods or namespaces by their{{< glossary_tooltip text="labels" term_id="label" >}}, which is often a viable workaround).
+- Targeting of namespaces or services by name (you can, however, target pods or namespaces by their {{< glossary_tooltip text="labels" term_id="label" >}}, which is often a viable workaround).
 - Creation or management of "Policy requests" that are fulfilled by a third party.
 - Default policies which are applied to all namespaces or pods (there are some third party Kubernetes distributions and projects which can do this).
 - Advanced policy querying and reachability tooling.
