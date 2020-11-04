@@ -967,7 +967,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--node-labels mapStringString</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Alpha feature&gt; Labels to add when registering the node in the cluster. Labels must be `key=value` pairs separated by `,`. Labels in the `kubernetes.io` namespace must begin with an allowed prefix (`kubelet.kubernetes.io`, `node.kubernetes.io`) or be in the specifically allowed set (`beta.kubernetes.io/arch`, `beta.kubernetes.io/instance-type`, `beta.kubernetes.io/os`, `failure-domain.beta.kubernetes.io/region`, `failure-domain.beta.kubernetes.io/zone`, `failure-domain.kubernetes.io/region`, `failure-domain.kubernetes.io/zone`, `kubernetes.io/arch`, `kubernetes.io/hostname`, `kubernetes.io/instance-type`, `kubernetes.io/os`)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Alpha feature&gt;Labels to add when registering the node in the cluster. Labels must be `key=value pairs` separated by `,`. Labels in the `kubernetes.io` namespace must begin with an allowed prefix (`kubelet.kubernetes.io`, `node.kubernetes.io`) or be in the specifically allowed set (`beta.kubernetes.io/arch`, `beta.kubernetes.io/instance-type`, `beta.kubernetes.io/os`, `failure-domain.beta.kubernetes.io/region`, `failure-domain.beta.kubernetes.io/zone`, `kubernetes.io/arch`, `kubernetes.io/hostname`, `kubernetes.io/os`, `node.kubernetes.io/instance-type`, `topology.kubernetes.io/region`, `topology.kubernetes.io/zone`)</td>
 </tr>
 
 <tr>
