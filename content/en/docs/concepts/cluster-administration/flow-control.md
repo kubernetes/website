@@ -6,7 +6,7 @@ min-kubernetes-server-version: v1.18
 
 <!-- overview -->
 
-{{< feature-state state="alpha"  for_k8s_version="v1.18" >}}
+{{< feature-state state="beta"  for_k8s_version="v1.20" >}}
 
 Controlling the behavior of the Kubernetes API server in an overload situation
 is a key task for cluster administrators. The {{< glossary_tooltip
