@@ -16,34 +16,32 @@ in a replication controller, deployment, replica set or stateful set based on ob
 (or, with beta support, on some other, application-provided metrics).
 
 This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.
-For more information on how Horizontal Pod Autoscaler behaves, see the 
+For more information on how Horizontal Pod Autoscaler behaves, see the
 [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
 ## {{% heading "prerequisites" %}}
 
-
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
-[metrics-server](https://github.com/kubernetes-sigs/metrics-server) monitoring needs to be deployed in the cluster
-to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics. The instructions for deploying this are on the GitHub repository of [metrics-server](https://github.com/kubernetes-sigs/metrics-server), if you followed [getting started on GCE guide](/docs/setup/production-environment/turnkey/gce/),
-metrics-server monitoring will be turned-on by default.
+[Metrics server](https://github.com/kubernetes-sigs/metrics-server) monitoring needs to be deployed
+in the cluster to provide metrics through the [Metrics API](https://github.com/kubernetes/metrics).
+Horizontal Pod Autoscaler uses this API to collect metrics. To learn how to deploy the metrics-server,
+see the [metrics-server documentation](https://github.com/kubernetes-sigs/metrics-server#deployment).
 
-To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
-and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
-must be able to communicate with the API server providing the custom metrics API. Finally, to use metrics
-not related to any Kubernetes object you must have a Kubernetes cluster at version 1.10 or later, and
-you must be able to communicate with the API server that provides the external metrics API.
+To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a
+Kubernetes cluster and kubectl at version 1.6 or later. To make use of custom metrics, your cluster
+must be able to communicate with the API server providing the custom Metrics API.
+Finally, to use metrics not related to any Kubernetes object you must have a
+Kubernetes cluster at version 1.10 or later, and you must be able to communicate
+with the API server that provides the external Metrics API.
 See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
-
-
 
 <!-- steps -->
 
-## Run & expose php-apache server
+## Run and expose php-apache server
 
-To demonstrate Horizontal Pod Autoscaler we will use a custom docker image based on the php-apache image.
-The Dockerfile has the following content:
+To demonstrate Horizontal Pod Autoscaler we will use a custom docker image based on the php-apache image. The Dockerfile has the following content:
 
-```
+```dockerfile
 FROM php:5-apache
 COPY index.php /var/www/html/index.php
 RUN chmod a+rx index.php
@@ -51,7 +49,7 @@ RUN chmod a+rx index.php
 
 It defines an index.php page which performs some CPU intensive computations:
 
-```
+```php
 <?php
   $x = 0.0001;
   for ($i = 0; $i <= 1000000; $i++) {
@@ -66,11 +64,12 @@ using the following configuration:
 
 {{< codenew file="application/php-apache.yaml" >}}
 
-
 Run the following command:
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/php-apache.yaml
 ```
+
 ```
 deployment.apps/php-apache created
 service/php-apache created
@@ -90,6 +89,7 @@ See [here](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-detai
 ```shell
 kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
 ```
+
 ```
 horizontalpodautoscaler.autoscaling/php-apache autoscaled
 ```
@@ -99,10 +99,10 @@ We may check the current status of autoscaler by running:
 ```shell
 kubectl get hpa
 ```
+
 ```
 NAME         REFERENCE                     TARGET    MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1          18s
-
 ```
 
 Please note that the current CPU consumption is 0% as we are not sending any requests to the server
@@ -122,10 +122,10 @@ Within a minute or so, we should see the higher CPU load by executing:
 ```shell
 kubectl get hpa
 ```
+
 ```
 NAME         REFERENCE                     TARGET      MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   305% / 50%  1         10        1          3m
-
 ```
 
 Here, CPU consumption has increased to 305% of the request.
@@ -134,6 +134,7 @@ As a result, the deployment was resized to 7 replicas:
 ```shell
 kubectl get deployment php-apache
 ```
+
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7/7      7           7           19m
@@ -157,6 +158,7 @@ Then we will verify the result state (after a minute or so):
 ```shell
 kubectl get hpa
 ```
+
 ```
 NAME         REFERENCE                     TARGET       MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1          11m
@@ -165,6 +167,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1   
 ```shell
 kubectl get deployment php-apache
 ```
+
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 php-apache   1/1     1            1           27m
@@ -175,8 +178,6 @@ Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas 
 {{< note >}}
 Autoscaling the replicas may take a few minutes.
 {{< /note >}}
-
-
 
 <!-- discussion -->
 
@@ -419,7 +420,8 @@ we can use `kubectl describe hpa`:
 ```shell
 kubectl describe hpa cm-test
 ```
-```shell
+
+```
 Name:                           cm-test
 Namespace:                      prom
 Labels:                         <none>
@@ -474,8 +476,7 @@ We will create the autoscaler by executing the following command:
 ```shell
 kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 ```
+
 ```
 horizontalpodautoscaler.autoscaling/php-apache created
 ```
-
-

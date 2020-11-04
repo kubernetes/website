@@ -208,8 +208,6 @@ kubectl diff -f ./my-manifest.yaml
 
 ## リソースのアップデート
 
-version 1.11で`rolling-update`は廃止されました、代わりに`rollout`コマンドをお使いください(詳しくはこちらをご覧ください [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md))。
-
 ```bash
 kubectl set image deployment/frontend www=image:v2               # frontend Deploymentのwwwコンテナイメージをv2にローリングアップデートします
 kubectl rollout history deployment/frontend                      # frontend Deploymentの改訂履歴を確認します
@@ -219,11 +217,6 @@ kubectl rollout status -w deployment/frontend                    # frontend Depl
 kubectl rollout restart deployment/frontend                      # frontend Deployment を再起動します
 
 
-# これらのコマンドは1.11から廃止されました
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # (廃止) frontend-v1 Podをローリングアップデートします
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (廃止) リソース名とイメージを変更します
-kubectl rolling-update frontend --image=image:v2                 # (廃止) frontendのイメージを変更します
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (廃止) 現在実行中のローリングアップデートを中止します
 cat pod.json | kubectl replace -f -                              # 標準入力から渡されたJSONに基づいてPodを置き換えます
 
 # リソースを強制的に削除してから再生成し、置き換えます。サービスの停止が発生します

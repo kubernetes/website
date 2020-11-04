@@ -19,7 +19,7 @@ spec:
     - wget
     - "-O"
     - "/work-dir/index.html"
-    - http://kubernetes.io
+    - http://info.cern.ch
     volumeMounts:
     - name: workdir
       mountPath: "/work-dir"
