@@ -7,7 +7,7 @@ min-kubernetes-server-version: v1.10
 
 <!-- overview -->
 
-이 페이지는 `kubectl port-forward` 를 사용해서 쿠버네티스 클러스터 내에서 
+이 페이지는 `kubectl port-forward` 를 사용해서 쿠버네티스 클러스터 내에서
 실행중인 Redis 서버에 연결하는 방법을 보여준다. 이 유형의 연결은 데이터베이스
 디버깅에 유용할 수 있다.
 
@@ -29,7 +29,7 @@ min-kubernetes-server-version: v1.10
 ## Redis 디플로이먼트와 서비스 생성하기
 
 1. Redis를 실행하기 위해 디플로이먼트를 생성한다.
-    
+
     ```shell
     kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
     ```
@@ -151,7 +151,7 @@ min-kubernetes-server-version: v1.10
     또는 다음과 같다.
 
     ```shell
-    kubectl port-forward svc/redis-master 7000:6379
+    kubectl port-forward service/redis-master 7000:redis
     ```
 
     위의 명령어들은 모두 동일하게 동작한다. 이와 유사하게 출력된다.
@@ -203,7 +203,3 @@ UDP 프로토콜에 대한 지원은
 ## {{% heading "whatsnext" %}}
 
 [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward)에 대해 더 알아본다.
-
-
-
-

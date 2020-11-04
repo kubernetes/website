@@ -88,7 +88,6 @@ kubectl [command] [TYPE] [NAME] [flags]
 `port-forward`    | `kubectl port-forward POD [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N] [flags]` | 1つ以上のリーカルポートを、Podに転送します。
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Kubernetes APIサーバーへのプロキシーを実行します。
 `replace`        | `kubectl replace -f FILENAME` | ファイルや標準出力から、リソースを置き換えます。
-`rolling-update`    | <code>kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE &#124; -f NEW_CONTROLLER_SPEC) [flags]</code> | 指定されたReplicationControllerとそのPodを徐々に置き換えることで、ローリングアップデートを実行します。
 `run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=server|client|none] [--overrides=inline-json] [flags]` | 指定したイメージを、クラスタ上で実行します。
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | していしたReplicationControllerのサイズを更新します。
 `version`        | `kubectl version [--client] [flags]` | クライアントとサーバーで実行中のKubernetesのバージョンを表示します。
