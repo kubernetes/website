@@ -187,6 +187,8 @@ them according to its `updateStrategy`.
 
 You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
+TODO: INSERT DOCUMENTATION ABOUT SURGE VS MAXUNAVAILABLE
+
 ## Alternatives to DaemonSet
 
 ### Init scripts
