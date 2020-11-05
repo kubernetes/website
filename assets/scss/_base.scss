@@ -88,6 +88,20 @@ footer {
   }
 }
 
+main {
+  .button {
+    display: inline-block;
+    border-radius: 6px;
+    padding: 6px 20px;
+    line-height: 1.3rem;
+    color: white;
+    background-color: $blue;
+    text-decoration: none;
+    font-size: 1rem;
+    border: 0px;
+  }
+}
+
 // HEADER
 
 #hamburger {
