@@ -34,7 +34,7 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 これはブロッキング、つまり同期的であるため、コンテナを削除するための呼び出しを送信する前に完了する必要があります。
 ハンドラーにパラメーターは渡されません。
 
-終了動作の詳細な説明は、[Termination of Pods](/ja/docs/concepts/workloads/pods/pod/#termination-of-pods)にあります。
+終了動作の詳細な説明は、[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)にあります。
 
 ### フックハンドラーの実装
 
@@ -100,6 +100,5 @@ Events:
 
 * [コンテナ環境](/ja/docs/concepts/containers/container-environment/)の詳細
 * [コンテナライフサイクルイベントへのハンドラー紐付け](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
-
 
 
