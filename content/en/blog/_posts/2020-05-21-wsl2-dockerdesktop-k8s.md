@@ -153,7 +153,7 @@ And as sources are always important to mention, we will follow (partially) the h
 
 ```bash
 # Download the latest version of KinD
-curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-$(uname)-amd64
+curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-linux-amd64
 # Make the binary executable
 chmod +x ./kind
 # Move the binary to your executable path
