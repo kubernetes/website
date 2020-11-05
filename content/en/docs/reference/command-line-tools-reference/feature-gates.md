@@ -131,6 +131,8 @@ different Kubernetes components.
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
+| `RootCAConfigMap` | `false` | Alpha | 1.13 | 1.19 |
+| `RootCAConfigMap` | `true` | Beta | 1.20 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
@@ -513,6 +515,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   the input Pod's cpu and memory limits. The intent is to break ties between
   nodes with same scores.
 - `ResourceQuotaScopeSelectors`: Enable resource quota scope selectors.
+- `RootCAConfigMap`: Configure the kube-controller-manager to publish a {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} named `kube-root-ca.crt` to every namespace. This ConfigMap contains a CA bundle used for verifying connections to the kube-apiserver.
+   See [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md) for more details.
 - `RotateKubeletClientCertificate`: Enable the rotation of the client TLS certificate on the kubelet.
   See [kubelet configuration](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
