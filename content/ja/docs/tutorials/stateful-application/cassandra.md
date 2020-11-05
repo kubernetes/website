@@ -5,14 +5,18 @@ weight: 30
 ---
 
 <!-- overview -->
-このチュートリアルでは、[Apache Cassandra](http://cassandra.apache.org/)をKubernetes上で実行する方法を紹介します。データベースの一種であるCassandraには、データの耐久性(アプリケーションの*状態*)を提供するために永続ストレージが必要です。この例では、カスタムのCassandraのseed providerにより、Cassandraクラスターに参加した新しいCassandraインスタンスを検出できるようにします。
+このチュートリアルでは、[Apache Cassandra](http://cassandra.apache.org/)をKubernetes上で実行する方法を紹介します。
+データベースの一種であるCassandraには、データの耐久性(アプリケーションの _状態_)を提供するために永続ストレージが必要です。
+この例では、カスタムのCassandraのseed providerにより、Cassandraクラスターに参加した新しいCassandraインスタンスを検出できるようにします。
 
-*StatefulSet*を利用すると、ステートフルなアプリケーションをKubernetesクラスターにデプロイするのが簡単になります。このチュートリアルで使われている機能のより詳しい情報は、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)を参照してください。
+*StatefulSet*を利用すると、ステートフルなアプリケーションをKubernetesクラスターにデプロイするのが簡単になります。
+このチュートリアルで使われている機能のより詳しい情報は、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)を参照してください。
 
 {{< note >}}
-CassandraとKubernetesは、ともにクラスターのメンバーを表すために*ノード*という用語を使用しています。このチュートリアルでは、StatefulSetに属するPodはCassandraのノードであり、Cassandraクラスター(*ring*と呼ばれます)のメンバーでもあります。これらのPodがKubernetesクラスター内で実行されるとき、Kubernetesのコントロールプレーンは、PodをKubernetesの{{< glossary_tooltip text="Node" term_id="node" >}}上にスケジュールします。
+CassandraとKubernetesは、ともにクラスターのメンバーを表すために _ノード_ という用語を使用しています。このチュートリアルでは、StatefulSetに属するPodはCassandraのノードであり、Cassandraクラスター( _ring_ と呼ばれます)のメンバーでもあります。これらのPodがKubernetesクラスター内で実行されるとき、Kubernetesのコントロールプレーンは、PodをKubernetesの{{< glossary_tooltip text="Node" term_id="node" >}}上にスケジュールします。
 
-Cassandraノードが開始すると、*シードリスト*を使ってring上の他のノードの検出が始まります。このチュートリアルでは、Kubernetesクラスター内に現れた新しいCassandra Podを検出するカスタムのCassandraのseed providerをデプロイします。
+Cassandraノードが開始すると、 _シードリスト_ を使ってring上の他のノードの検出が始まります。
+このチュートリアルでは、Kubernetesクラスター内に現れた新しいCassandra Podを検出するカスタムのCassandraのseed providerをデプロイします。
 {{< /note >}}
 
 
@@ -34,7 +38,8 @@ Cassandraノードが開始すると、*シードリスト*を使ってring上�
 ### Minikubeのセットアップに関する追加の設定手順
 
 {{< caution >}}
-[Minikube](/ja/docs/getting-started-guides/minikube/)は、デフォルトでは1024MiBのメモリと1CPUに設定されます。デフォルトのリソース設定で起動したMinikubeでは、このチュートリアルの実行中にリソース不足のエラーが発生してしまいます。このエラーを回避するためにはMinikubeを次の設定で起動してください。
+[Minikube](/ja/docs/getting-started-guides/minikube/)は、デフォルトでは1024MiBのメモリと1CPUに設定されます。
+デフォルトのリソース設定で起動したMinikubeでは、このチュートリアルの実行中にリソース不足のエラーが発生してしまいます。このエラーを回避するためにはMinikubeを次の設定で起動してください:
 
 ```shell
 minikube start --memory 5120 --cpus=4
@@ -48,7 +53,7 @@ minikube start --memory 5120 --cpus=4
 
 Kubernetesでは、{{< glossary_tooltip text="Service" term_id="service" >}}は同じタスクを実行する{{< glossary_tooltip text="Pod" term_id="pod" >}}の集合を表します。
 
-以下のServiceは、Cassandra Podとクラスター内のクライアント間のDNSルックアップに使われます。
+以下のServiceは、Cassandra Podとクラスター内のクライアント間のDNSルックアップに使われます:
 
 {{< codenew file="application/cassandra/cassandra-service.yaml" >}}
 
@@ -82,12 +87,13 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 以下に示すStatefulSetマニフェストは、3つのPodからなるCassandra ringを作成します。
 
 {{< note >}}
-この例ではMinikubeのデフォルトのプロビジョナーを使用しています。クラウドを使用している場合、StatefulSetを更新してください。
+この例ではMinikubeのデフォルトのプロビジョナーを使用しています。
+クラウドを使用している場合、StatefulSetを更新してください。
 {{< /note >}}
 
 {{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
 
-`cassandra-statefulset.yaml`ファイルから、CassandraのStatefulSetを作成します。
+`cassandra-statefulset.yaml`ファイルから、CassandraのStatefulSetを作成します:
 
 ```shell
 # cassandra-statefulset.yaml を編集せずにapplyできる場合は、このコマンドを使用してください
@@ -110,7 +116,7 @@ kubectl apply -f cassandra-statefulset.yaml
     kubectl get statefulset cassandra
     ```
 
-    結果は次のようになるはずです。
+    結果は次のようになるはずです:
 
     ```
     NAME        DESIRED   CURRENT   AGE
@@ -125,7 +131,7 @@ kubectl apply -f cassandra-statefulset.yaml
     kubectl get pods -l="app=cassandra"
     ```
 
-    結果は次のようになるはずです。
+    結果は次のようになるはずです:
 
     ```shell
     NAME          READY     STATUS              RESTARTS   AGE
@@ -133,7 +139,7 @@ kubectl apply -f cassandra-statefulset.yaml
     cassandra-1   0/1       ContainerCreating   0          8s
     ```
 
-    3つすべてのPodのデプロイには数分かかる場合があります。デプロイが完了すると、同じコマンドは次のような結果を返します。
+    3つすべてのPodのデプロイには数分かかる場合があります。デプロイが完了すると、同じコマンドは次のような結果を返します:
 
     ```
     NAME          READY     STATUS    RESTARTS   AGE
@@ -148,7 +154,7 @@ kubectl apply -f cassandra-statefulset.yaml
     kubectl exec -it cassandra-0 -- nodetool status
     ```
 
-    結果は次のようになるはずです。
+    結果は次のようになるはずです:
 
     ```
     Datacenter: DC1-K8Demo
@@ -171,7 +177,8 @@ kubectl apply -f cassandra-statefulset.yaml
     kubectl edit statefulset cassandra
     ```
 
-    このコマンドを実行すると、ターミナルでエディタが起動します。変更が必要な行は`replicas`フィールドです。以下の例は、StatefulSetファイルの抜粋です。
+    このコマンドを実行すると、ターミナルでエディタが起動します。変更が必要な行は`replicas`フィールドです。
+    以下の例は、StatefulSetファイルの抜粋です:
 
     ```yaml
     # Please edit the object below. Lines beginning with a '#' will be ignored,
@@ -197,13 +204,13 @@ kubectl apply -f cassandra-statefulset.yaml
 
     これで、StatefulSetが4つのPodを実行するようにスケールされました。
 
-1. CassandraのStatefulSetを取得して、変更を確かめます。
+1. CassandraのStatefulSetを取得して、変更を確かめます:
 
     ```shell
     kubectl get statefulset cassandra
     ```
 
-    結果は次のようになるはずです。
+    結果は次のようになるはずです:
 
     ```
     NAME        DESIRED   CURRENT   AGE
@@ -214,13 +221,14 @@ kubectl apply -f cassandra-statefulset.yaml
 
 ## {{% heading "cleanup" %}}
 
-StatefulSetを削除したりスケールダウンしても、StatefulSetに関係するボリュームは削除されません。StatefulSetに関連するすべてのリソースを自動的に破棄するよりも、データの方がより貴重であるため、安全のためにこのような設定になっています。
+StatefulSetを削除したりスケールダウンしても、StatefulSetに関係するボリュームは削除されません。
+StatefulSetに関連するすべてのリソースを自動的に破棄するよりも、データの方がより貴重であるため、安全のためにこのような設定になっています。
 
 {{< warning >}}
 ストレージクラスやreclaimポリシーによっては、*PersistentVolumeClaim*を削除すると、関連するボリュームも削除される可能性があります。PersistentVolumeClaimの削除後にもデータにアクセスできるとは決して想定しないでください。
 {{< /warning >}}
 
-1. 次のコマンドを実行して(単一のコマンドにまとめています)、CassandraのStatefulSetに含まれるすべてのリソースを削除します。
+1. 次のコマンドを実行して(単一のコマンドにまとめています)、CassandraのStatefulSetに含まれるすべてのリソースを削除します:
 
     ```shell
     grace=$(kubectl get pod cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
@@ -230,7 +238,7 @@ StatefulSetを削除したりスケールダウンしても、StatefulSetに関�
       && kubectl delete persistentvolumeclaim -l app=cassandra
     ```
 
-1. 次のコマンドを実行して、CassandraをセットアップしたServiceを削除します。
+1. 次のコマンドを実行して、CassandraをセットアップしたServiceを削除します:
 
     ```shell
     kubectl delete service -l app=cassandra
@@ -240,7 +248,8 @@ StatefulSetを削除したりスケールダウンしても、StatefulSetに関�
 
 このチュートリアルのPodでは、Googleの[コンテナレジストリ](https://cloud.google.com/container-registry/docs/)の[`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)イメージを使用しました。このDockerイメージは[debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base)をベースにしており、OpenJDK 8が含まれています。
 
-このイメージには、Apache Debianリポジトリの標準のCassandraインストールが含まれます。環境変数を利用すると、`cassandra.yaml`に挿入された値を変更できます。
+このイメージには、Apache Debianリポジトリの標準のCassandraインストールが含まれます。
+環境変数を利用すると、`cassandra.yaml`に挿入された値を変更できます。
 
 | 環境変数                  | デフォルト値      |
 | ------------------------ |:---------------: |
@@ -256,6 +265,5 @@ StatefulSetを削除したりスケールダウンしても、StatefulSetに関�
 * [StatefulSetのスケール](/ja/docs/tasks/run-application/scale-stateful-set/)を行う方法を学ぶ。
 * [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)についてもっと学ぶ。
 * カスタムの[Seed Providerの設定](https://git.k8s.io/examples/cassandra/java/README.md)についてもっと学ぶ。
-
 
 
