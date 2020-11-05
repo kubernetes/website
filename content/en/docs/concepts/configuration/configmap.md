@@ -31,7 +31,7 @@ This lets you fetch a container image running in the cloud and
 debug the exact same code locally if needed.
 
 A ConfigMap is not designed to hold large chunks of data. The data stored in a
-ConfigMap cannot exeed 1 MiB. If you need to store settings that are
+ConfigMap cannot exceed 1 MiB. If you need to store settings that are
 larger than this limit, you may want to consider mounting a volume or use a
 separate database or file service.
 
