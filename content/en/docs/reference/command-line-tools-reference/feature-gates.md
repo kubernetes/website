@@ -150,8 +150,6 @@ different Kubernetes components.
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | |
-| `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
-| `ServiceAppProtocol` | `true` | Beta | 1.19 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
 | `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
@@ -285,6 +283,9 @@ different Kubernetes components.
 | `SCTPSupport` | `false` | Alpha | 1.12 | 1.18 |
 | `SCTPSupport` | `true` | Beta | 1.19 | 1.19 |
 | `SCTPSupport` | `true` | GA | 1.20 | - |
+| `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
+| `ServiceAppProtocol` | `true` | Beta | 1.19 | |
+| `ServiceAppProtocol` | `true` | GA | 1.20 | - |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | 1.15 |
 | `ServiceLoadBalancerFinalizer` | `true` | Beta | 1.16 | 1.16 |
 | `ServiceLoadBalancerFinalizer` | `true` | GA | 1.17 | - |
