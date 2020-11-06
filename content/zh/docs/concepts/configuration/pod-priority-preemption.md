@@ -530,7 +530,7 @@ preempted. Here's an example:
 *   Pod P is being considered for Node N.
 *   Pod Q is running on another Node in the same Zone as Node N.
 *   Pod P has Zone-wide anti-affinity with Pod Q (`topologyKey:
-    failure-domain.beta.kubernetes.io/zone`).
+    topology.kubernetes.io/zone`).
 *   There are no other cases of anti-affinity between Pod P and other Pods in
     the Zone.
 *   In order to schedule Pod P on Node N, Pod Q can be preempted, but scheduler
@@ -540,7 +540,7 @@ preempted. Here's an example:
 * Pod P 正在考虑被调度到节点 N。
 * Pod Q 正运行在节点 N 所处区域（Zone）的另一个节点上。
 * Pod P 设置了区域范畴的与 Pod Q 的反亲和性
-  （`topologyKey: failure-domain.beta.kubernetes.io/zone`）。
+  （`topologyKey: topology.kubernetes.io/zone`）。
 * Pod P 与区域中的其他 Pod 之间都不存在反亲和性关系。
 * 为了将 P 调度到节点 N 上，Pod Q 可以被抢占，但是调度器不会执行跨节点的
   抢占操作。因此，Pod P 会被视为无法调度到节点 N 上执行。
