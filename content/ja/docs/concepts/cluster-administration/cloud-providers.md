@@ -42,7 +42,7 @@ controllerManager:
     mountPath: "/etc/kubernetes/cloud.conf"
 ```
 
-インツリークラウドプロバイダーは、通常、[kube-apiserver](/ja/docs/reference/command-line-tools-reference/kube-apiserver/)および[kube-controller-manager](ja//docs/reference/command-line-tools-reference/kube-controller-manager/)、[kubelet](/ja/docs/reference/command-line-tools-reference/kubelet/)のコマンドラインで指定される`--cloud-provider`と`--cloud-config`の両方が必要です。
+典型的なインツリークラウドプロバイダーは、通常、[kube-apiserver](/ja/docs/reference/command-line-tools-reference/kube-apiserver/)および[kube-controller-manager](ja//docs/reference/command-line-tools-reference/kube-controller-manager/)、[kubelet](/ja/docs/reference/command-line-tools-reference/kubelet/)のコマンドラインで指定される`--cloud-provider`と`--cloud-config`の両方が必要です。
 プロバイダーごとに`--cloud-config`で指定されるファイルの内容についても、以下に記載します。
 
 すべての外部クラウドプロバイダーについては、以下の見出しに列挙されている個々のリポジトリーの案内に従ってください。または[すべてのリポジトリーのリスト](https://github.com/kubernetes?q=cloud-provider-&type=&language=)もご覧ください。
