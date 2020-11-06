@@ -48,40 +48,36 @@ maneras de implementar as mismas restricciones.
 
 {{< note >}}
 Si un Contenedor especifica su propio límite de memoria, pero no especifica la petición de memoria, Kubernetes
-automáticamente asigna una petición de memoria igual a la del límite. De igual manera, si un Contenedor especifica su propio
-límite de CPU, pero no especifica una petición de CPU, Kubernetes automáticamente asigna una petición de CPU igual a la
-especificada en el límite.
+automáticamente asigna una petición de memoria igual a la del límite. De igual manera, si un Contenedor especifica su propio límite de CPU, pero no especifica una petición de CPU, Kubernetes automáticamente asigna una petición de CPU igual a la especificada en el límite.
 {{< /note >}}
 
-## Resource types
+## Tipos de recursos
 
-*CPU* and *memory* are each a *resource type*. A resource type has a base unit.
-CPU represents compute processing and is specified in units of [Kubernetes CPUs](#meaning-of-cpu).
-Memory is specified in units of bytes.
-If you're using Kubernetes v1.14 or newer, you can specify _huge page_ resources.
-Huge pages are a Linux-specific feature where the node kernel allocates blocks of memory
-that are much larger than the default page size.
+*CPU* y *memoria* son cada uno un *tipo de recursos*. Un tipo de recurso tiene una unidad base.
+CPU representa procesos de computación y es especificada en unidades de [Kubernetes CPUs](#meaning-of-cpu).
+Memoria es especificada en unidades de bytes.
+Si estás usando Kubernetes v1.14 o posterior, puedes especificar recursos _huge page_.
+Huge pages son una característica de Linux específica donde el kernel del nodo asigna bloques
+de memoria que son más grandes que el tamaño de paginación por defecto.
 
-For example, on a system where the default page size is 4KiB, you could specify a limit,
-`hugepages-2Mi: 80Mi`. If the container tries allocating over 40 2MiB huge pages (a
-total of 80 MiB), that allocation fails.
+Por ejemplo, en un sistema donde el tamaño de apginación por defecto es de 4KiB, podrías
+especificar un límite, `hugepages-2Mi: 80Mi`. Si el contenedor intenta asignar
+ más de 40 2MiB huge pages ( untotal de 80 MiB), la asignación fallará.
 
 {{< note >}}
-You cannot overcommit `hugepages-*` resources.
-This is different from the `memory` and `cpu` resources.
+No se pueden sobreasignar recursos `hugepages-*`.
+Esta es la diferencia con los recursos de `memoria` y `cpu`.
 {{< /note >}}
 
-CPU and memory are collectively referred to as *compute resources*, or just
-*resources*. Compute
-resources are measurable quantities that can be requested, allocated, and
-consumed. They are distinct from
-[API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
-[Services](/docs/concepts/services-networking/service/) are objects that can be read and modified
-through the Kubernetes API server.
+CPU y memoria  son colectivamente conocidos como *recursos de computación*,  o solo como 
+*recursos*.  Recursos de computación son cantidades medibles que pueden ser solicitadas, asignadas
+y consumidas. SOn distintas de [API resources](/docs/concepts/overview/kubernetes-api/). Recursos API , como Pods y 
+[Services](/docs/concepts/services-networking/service/) son objetos que pueden ser leídos y modificados
+a través de la API de kubernetes.
 
-## Resource requests and limits of Pod and Container
+## Solicitud de recursos y límites de Pods y Contenedores
 
-Each Container of a Pod can specify one or more of the following:
+Cada contenedor de un Pod puede especificar uno o más de los siguientes:
 
 * `spec.containers[].resources.limits.cpu`
 * `spec.containers[].resources.limits.memory`
@@ -90,46 +86,40 @@ Each Container of a Pod can specify one or more of the following:
 * `spec.containers[].resources.requests.memory`
 * `spec.containers[].resources.requests.hugepages-<size>`
 
-Although requests and limits can only be specified on individual Containers, it
-is convenient to talk about Pod resource requests and limits. A
-*Pod resource request/limit* for a particular resource type is the sum of the
-resource requests/limits of that type for each Container in the Pod.
+Aunque las solicitudes y límites pueden ser especificadas solo en contenedores individuales, es conveniente hablar
+sobre los recursos de solicitudes y límites del Pod. Un *limite/solicitud de recursos de un Pod* para un tipode recurso particular es la suma de
+solicitudes/límites de cada tipo para cada Contenedor del Pod.
 
-## Resource units in Kubernetes
+## Unidades de recursos en Kubernetes
 
-### Meaning of CPU
+### Significado de CPU
 
-Limits and requests for CPU resources are measured in *cpu* units.
-One cpu, in Kubernetes, is equivalent to **1 vCPU/Core** for cloud providers and **1 hyperthread** on bare-metal Intel processors.
+Límites y solicitudes para recursos de CPU son medidos en unidades de *cpu*.
+Una cpu, en kubernetes, es equivalente a **1 vCPU/Core**  para proveedores de cloud y **1 hyperthread** en procesadores bare-metal Intel.
 
-Fractional requests are allowed. A Container with
-`spec.containers[].resources.requests.cpu` of `0.5` is guaranteed half as much
-CPU as one that asks for 1 CPU. The expression `0.1` is equivalent to the
-expression `100m`, which can be read as "one hundred millicpu". Some people say
-"one hundred millicores", and this is understood to mean the same thing. A
-request with a decimal point, like `0.1`, is converted to `100m` by the API, and
-precision finer than `1m` is not allowed. For this reason, the form `100m` might
-be preferred.
+Las solicitudes fraccionadas están permitidas. Un contenedor con `spec.containers[].resources.requests.cpu` de `0.5` tiene garantizada la mitad, tanta
+CPU  como otro que requiere 1 CPU. La expresión `0.1` es equivalente a la expresión `100m`, que puede ser leída como "cien millicpu". Algunas personas dicen
+"cienmillicores", y se entiende que quiere decir lo mismo. Una solicitud con un punto decimal, como `0.1`,  es convertido a `100m` por la API, y  no se permite
+ una precisión mayor que `1m`. Por esta razón, la forma `100m` es la preferente.
+CPU es siempre solicitada como una cantidad absoluta, nunca como una cantidad relativa;
+0.1 es la misma contidad de cpu que un core-simple, dual-core, o ma´quina de 48-core.
 
-CPU is always requested as an absolute quantity, never as a relative quantity;
-0.1 is the same amount of CPU on a single-core, dual-core, or 48-core machine.
+### Significado de memoria
 
-### Meaning of memory
-
-Limits and requests for `memory` are measured in bytes. You can express memory as
-a plain integer or as a fixed-point number using one of these suffixes:
-E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
-Mi, Ki. For example, the following represent roughly the same value:
+Los límites y solicitudes de `memoria` son medidos en bytes. Puedes expresar la memoria como
+un integral como un número decimal usando alguno de estos sufijos:
+E, P, T, G, M, K. También puedes usar el poder de dos equivalentes: Ei, Pi, Ti, Gi,
+Mi, Ki. Por ejemplo, los siguientes valores representan lo mismo:
 
 ```shell
 128974848, 129e6, 129M, 123Mi
 ```
 
-Here's an example.
-The following Pod has two Containers. Each Container has a request of 0.25 cpu
-and 64MiB (2<sup>26</sup> bytes) of memory. Each Container has a limit of 0.5
-cpu and 128MiB of memory. You can say the Pod has a request of 0.5 cpu and 128
-MiB of memory, and a limit of 1 cpu and 256MiB of memory.
+Aquí un ejemplo.
+El siguiente Pod tiene dos Contenedores. Cada Contenedor tiene una solicitud de 0.25 cpu
+y 64MiB (2<sup>26</sup> bytes) de memoria. Cada Contenedor tiene un límite de 0.5 cpu
+y 128MiB de memoria. Puedes decirle al Pod que solicite 0.5 cpu y 128MiB de memoria 
+y un límite de 1 cpu y 256MiB de memoria.
 
 ```yaml
 apiVersion: v1
@@ -158,59 +148,56 @@ spec:
         cpu: "500m"
 ```
 
-## How Pods with resource requests are scheduled
+## Cómo son colocados los Pods con solicitudes de recursos
 
-When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
-run on. Each node has a maximum capacity for each of the resource types: the
-amount of CPU and memory it can provide for Pods. The scheduler ensures that,
-for each resource type, the sum of the resource requests of the scheduled
-Containers is less than the capacity of the node. Note that although actual memory
-or CPU resource usage on nodes is very low, the scheduler still refuses to place
-a Pod on a node if the capacity check fails. This protects against a resource
-shortage on a node when resource usage later increases, for example, during a
-daily peak in request rate.
+Cuando creas un Pod, el scheduler de Kubernetes selecciona un nodo para correr el Pod.
+Cada nodo tiene una capacidad máxima para cada tipo de recurso:
+la cantidad de CPU y memoria que dispone para los Pods. El scheduler se asegura de que,
+colocados es menor que la capacidad del nodo. Aunque los recursos de memoria y CPU
+en uso de los nodos es muy baja, el scheduler todavía rechaza colocar un Pod en un nodo si
+la comprobación de capacidad falla. Esto protege contra escasez de recursos en un nodo
+cuando el uso de recursos posterior crece, por ejemplo, durante un pico diario de
+solictudes de  recursos.
 
-## How Pods with resource limits are run
+## Cómo corren los Pods con límites de recursos
 
-When the kubelet starts a Container of a Pod, it passes the CPU and memory limits
-to the container runtime.
+Cundo el kubelet inicia un Contenedor de un Pod, este pasa los límites de CPU y 
+memoria al runtime del contenedor.
 
-When using Docker:
+Cuando usas Docker:
 
-- The `spec.containers[].resources.requests.cpu` is converted to its core value,
-  which is potentially fractional, and multiplied by 1024. The greater of this number
-  or 2 is used as the value of the
+- El `spec.containers[].resources.requests.cpu` es convertido a su valor interno,
+  el cuál es fraccional, y multiplicado por 1024. El mayor valor de este número o
+  2 es usado por el valor de 
   [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#cpu-share-constraint)
-  flag in the `docker run` command.
+  en el comando `docker run`.
 
-- The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
-  multiplied by 100. The resulting value is the total amount of CPU time that a container can use
-  every 100ms. A container cannot use more than its share of CPU time during this interval.
+- El `spec.containers[].resources.limits.cpu` se convierte a su valor en milicore y 
+  multiplicado por 100. El resultado es el total de tiempo de CPU que un contenedor puede usar
+  cada 100ms. Un contenedor no puede usar más tiempo de CPU que el suyo durante el intervalo.
 
   {{< note >}}
-  The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
+  El período por defecto es de 100ms. La resolución mínima de cuota mínima es 1ms.
   {{</ note >}}
 
-- The `spec.containers[].resources.limits.memory` is converted to an integer, and
-  used as the value of the
+- El `spec.containers[].resources.limits.memory` se convierte a un integral, y 
+  se usa como valor de 
   [`--memory`](https://docs.docker.com/engine/reference/run/#/user-memory-constraints)
-  flag in the `docker run` command.
+  del comando  `docker run`.
 
-If a Container exceeds its memory limit, it might be terminated. If it is
-restartable, the kubelet will restart it, as with any other type of runtime
-failure.
+Si el Contenedor excede su límite de memoria, este quizá se pare. Si es reiniciable,
+el kubelet lo reiniciará, así como cualquier otro error.
 
-If a Container exceeds its memory request, it is likely that its Pod will
-be evicted whenever the node runs out of memory.
+Si un Contenedor excede su solicitud de memoria, es probable que el Pod sea
+desalojado cuando el nodo se quede sin memoria.
 
-A Container might or might not be allowed to exceed its CPU limit for extended
-periods of time. However, it will not be killed for excessive CPU usage.
+Un Contenedor quizá puedan o no tener permitido execeder el límite de CPU por
+algunos períodos de tiempo. Sin embargo, esto no matará por excesivo uso de CPU.
 
-To determine whether a Container cannot be scheduled or is being killed due to
-resource limits, see the
-[Troubleshooting](#troubleshooting) section.
+Para saber cuando un Contenedor no puede ser colocado o será parado debido a 
+límite de recursos, revisa la sección de [Troubleshooting](#troubleshooting).
 
-### Monitoring compute & memory resource usage
+### Monitorización del uso de recursos de computación y memoria.
 
 The resource usage of a Pod is reported as part of the Pod status.
 
