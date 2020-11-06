@@ -203,10 +203,15 @@ described in detail in [EndpointSlices](/docs/concepts/services-networking/endpo
 
 ### Application protocol
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-The `AppProtocol` field provides a way to specify an application protocol for each Service port.
-The value of this field is mirrored by corresponding Endpoints and EndpointSlice resources.
+The `appProtocol` field provides a way to specify an application protocol for
+each Service port. The value of this field is mirrored by the corresponding
+Endpoints and EndpointSlice objects.
+
+This field follows standard Kubernetes label syntax. Values should either be
+[IANA standard service names](http://www.iana.org/assignments/service-names) or
+domain prefixed names such as `mycompany.com/my-custom-protocol`.
 
 ## Virtual IPs and service proxies
 
