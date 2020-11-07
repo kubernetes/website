@@ -1,5 +1,5 @@
 ---
-title: Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi
+title: Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan Berkas Konfigurasi
 content_type: concept
 weight: 10
 ---
@@ -26,12 +26,12 @@ Konfigurasi objek secara deklaratif membutuhkan pemahaman yang baik
 tentang definisi dan konfigurasi objek-objek Kubernetes. Jika belum pernah, kamu disarankan untuk membaca terlebih dulu dokumen-dokumen berikut:
 
 - [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/id/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [Pengelolaan Objek Kubernetes Menggunakan File Konfigurasi Imperatif](/id/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Pengelolaan Objek Kubernetes Menggunakan Berkas Konfigurasi Imperatif](/id/docs/tasks/manage-kubernetes-objects/imperative-config/)
 
 Berikut adalah beberapa defnisi dari istilah-istilah yang digunakan
 dalam dokumen ini:
 
-- *objek file konfigurasi / file konfigurasi*: Sebuah *file* yang
+- *objek berkas konfigurasi / berkas konfigurasi*: Sebuah *file* yang
 mendefinisikan konfigurasi untuk sebuah objek Kubernetes. Dokumen ini akan memperlihatkan cara menggunakan *file* konfigurasi dengan perintah `kubectl apply`. *File-file* konfigurasi biasanya disimpan di sebuah *source control* seperti Git.
 - *konfigurasi objek live / konfigurasi live*: nilai konfigurasi *live* dari sebuah objek, sebagaimana yang tersimpan di klaster Kubernetes. Nilai-nilai ini disimpan di *storage* klaster Kubernetes, biasanya etcd.
 - *writer konfigurasi deklaratif / writer deklaratif*: Seseorang atau sebuah komponen perangkat lunak yang membuat pembaruan ke objek *live*. *Live writer* yang disebut pada dokumen ini adalah *writer* yang membuat perubahan terhadap *file* konfigurasi objek dan menjalankan perintah `kubectl apply` untuk menulis perubahan-perubahan tersebut.
@@ -340,7 +340,7 @@ Perintah `kubectl apply --prune` masih dalam versi alpha dan perubahan-perubahan
 Kamu harus berhati-hati ketika menggunakan perintah ini agar kamu tidak menghapus objek-objek lain secara tak sengaja.
 {{< /warning >}}
 
-Sebagai alternatif dari `kubectl delete`, kamu bisa menggunakan `kubectl apply` untuk mengidentifikasi objek-objek yang hendak dihapus setelah file konfigurasi objek-objek tersebut dihapus dari direktori. Ketika dijalankan dengan argumen `--prune`, perintah `kubectl apply` akan melakukan *query* ke *API server* untuk mencari semua objek yang sesuai dengan himpunan label-label tertentu, dan berusaha untuk mencocokkan kofigurasi objek *live* yg diperoleh terhadap *file* konfigurasi objek. Jika sebuah objek cocok dengan *query* yang dilakukan, dan objek tersebut tidak memiliki *file* konfigurasi di direktori serta tidak memiliki anotasi `last-applied-configuration`, objek tersebut akan dihapus.
+Sebagai alternatif dari `kubectl delete`, kamu bisa menggunakan `kubectl apply` untuk mengidentifikasi objek-objek yang hendak dihapus setelah berkas konfigurasi objek-objek tersebut dihapus dari direktori. Ketika dijalankan dengan argumen `--prune`, perintah `kubectl apply` akan melakukan *query* ke *API server* untuk mencari semua objek yang sesuai dengan himpunan label-label tertentu, dan berusaha untuk mencocokkan kofigurasi objek *live* yg diperoleh terhadap *file* konfigurasi objek. Jika sebuah objek cocok dengan *query* yang dilakukan, dan objek tersebut tidak memiliki *file* konfigurasi di direktori serta tidak memiliki anotasi `last-applied-configuration`, objek tersebut akan dihapus.
 
 {{< comment >}}
 TODO(pwittrock): Kita perlu mengubah cara kerja perintah ini untuk mencegah pengguna menjalankan apply ke sub direktori secara tidak disengaja.
@@ -372,7 +372,7 @@ Ketika memperbarui konfigurasi *live* dari sebuah objek, `kubectl apply` melakuk
 
 ### Perhitungan penggabungan *patch*
 
-Perintah `kubectl apply` menulis konten dari file konfigurasi ke anotasi `kubectl.kubernetes.io/last-applied-configuration`. Ini digunakan untuk mengidentifikasi *field* apa saja yang telah dihapus dari *file* konfigurasi dan perlu dihapus dari konfigurasi *live*. Berikut adalah langkah-langkah yang digunakan untuk menghitung *field* apa saja yang harus dihapus atau diubah:
+Perintah `kubectl apply` menulis konten dari berkas konfigurasi ke anotasi `kubectl.kubernetes.io/last-applied-configuration`. Ini digunakan untuk mengidentifikasi *field* apa saja yang telah dihapus dari *file* konfigurasi dan perlu dihapus dari konfigurasi *live*. Berikut adalah langkah-langkah yang digunakan untuk menghitung *field* apa saja yang harus dihapus atau diubah:
 
 1. Hitung *field-field* yang perlu dihapus. Ini mencakup *field-field* yang ada di `last-applied-configuration` tapi tidak ada di *file* konfigurasi.
 2. Hitung *field-field* yang perlu ditambah atau diubah. Ini mencakup *field-field* yang ada di *file* konfigurasi yang nilainya tidak sama dengan konfigurasi *live*.
@@ -533,7 +533,7 @@ Perlakukan *list* sama dengan *field* primitif. Ganti atau hapus keseluruhan lis
 # nilai last-applied-configuration*
     args: ["a", "b"]
 
-# nilai file konfigurasi
+# nilai berkas konfigurasi
     args: ["a", "c"]
 
 # nilai konfigurasi live
@@ -563,7 +563,7 @@ Strategi penggabungan ini menggunakan *tag* khusus `patchMergeKey` pada tiap *fi
     - name: nginx-helper-b # key: nginx-helper-b; akan dipertahankan pada hasil akhir
       image: helper:1.3
 
-# nilai file konfigurasi
+# nilai berkas konfigurasi
     containers:
     - name: nginx
       image: nginx:1.10
@@ -625,7 +625,7 @@ TODO(pwittrock): *Uncomment* ini untuk versi 1.6
 
 *API server* mengisi *field* tertentu dengan nilai *default* pada konfigurasi *live* jika nilai *field-field* tersebut tidak dispesifikasikan ketika objek dibuat.
 
-Berikut adalah sebuah *file* konfigurasi untuk sebuah Deployment. File berikut tidak menspesifikasikan `strategy`:
+Berikut adalah sebuah *file* konfigurasi untuk sebuah Deployment. Berkas berikut tidak menspesifikasikan `strategy`:
 
 {{< codenew file="application/simple_deployment.yaml" >}}
 
@@ -700,7 +700,7 @@ spec:
         ports:
         - containerPort: 80
 
-# file konfigurasi
+# berkas konfigurasi
 spec:
   strategy:
     type: Recreate # nilai yang diperbarui
@@ -863,7 +863,7 @@ template:
 ## {{% heading "whatsnext" %}}
 
 - [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/id/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [Pengelolaan Objek Kubernetes secara Imperatif Menggunakan File Konfigurasi](/id/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Pengelolaan Objek Kubernetes secara Imperatif Menggunakan Berkas Konfigurasi](/id/docs/tasks/manage-kubernetes-objects/imperative-config/)
 - [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Rujukan API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
