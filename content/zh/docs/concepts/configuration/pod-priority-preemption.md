@@ -61,7 +61,7 @@ To use priority and preemption:
 
 Keep reading for more information about these steps.
 -->
-## 如果使用优先级和抢占
+## 如何使用优先级和抢占
 
 要使用优先级和抢占特性：
 
