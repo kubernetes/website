@@ -236,7 +236,7 @@ one value. For example:
           - middle
 ```
 
-If the `operator` is `Exists` or `DoesNotExist`, the `values field must *NOT* be
+If the `operator` is `Exists` or `DoesNotExist`, the `values` field must *NOT* be
 specified.
 
 ### Resource Quota Per PriorityClass
