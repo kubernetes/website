@@ -76,8 +76,7 @@ The following resource types are supported:
 | `limits.memory` | Across all pods in a non-terminal state, the sum of memory limits cannot exceed this value. |
 | `requests.cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `requests.memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
-| `hugepages-<size>` | Across all pods in a non-terminal state, the number of
-huge page requests of the specified size cannot exceed this value. |
+| `hugepages-<size>` | Across all pods in a non-terminal state, the number of huge page requests of the specified size cannot exceed this value. |
 | `cpu` | Same as `requests.cpu` |
 | `memory` | Same as `requests.memory` |
 
