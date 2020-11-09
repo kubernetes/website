@@ -1,0 +1,297 @@
+---
+title: Podセキュリティの標準
+content_type: concept
+weight: 10
+---
+
+<!-- overview -->
+
+Podに対するセキュリティの設定は一般に[Security Context](/docs/tasks/configure-pod-container/security-context/)を適用することによります。Security ContextはPod単位での特権の定義やアクセスコントロールを実現します。
+
+クラスターにおけるSecurity Contextの強制やポリシーベースの定義は[Pod Security Policy](/docs/concepts/policy/pod-security-policy/)によって実現されてきました。
+_Pod Security Policy_ はクラスターレベルのリソースで、Pod定義のセキュリティに関する設定を制御します。
+
+しかし、PodSecurityPolicyを拡張したり代替する、ポリシーを強制するための多くの方法が生まれてきました。
+このページの意図は、推奨されるPodのセキュリティプロファイルを特定の実装から切り離して詳しく説明することです。
+
+
+
+<!-- body -->
+
+## ポリシーの種別
+
+まず、幅広いセキュリティの範囲をカバーできる、基礎となるポリシーの定義が必要です。
+それらは強く制限をかけるものから自由度の高いものまでをカバーすべきです。
+
+- **_特権_** - 制限のかかっていないポリシーで、可能な限り幅広い許可を与えます。このポリシーは既知の特権昇格を認めます。
+- **_ベースライン、デフォルト_** - 制限は最小限にされたポリシーですが、既知の特権昇格を防止します。デフォルト（最小の指定）のPod設定を許容します。
+- **_制限_** - 厳しく制限されたポリシーで、Podを強化するための現在のベストプラクティスに沿っています。
+
+## ポリシー
+
+### 特権
+
+特権ポリシーは意図的に開放されていて、完全に制限がかけられていません。この種のポリシーは、特権ユーザーまたは信頼されたユーザーが管理する、システムまたはインフラレベルのワークロードに対して適用されることを意図しています。
+
+特権ポリシーは制限がないことと定義されます。gatekeeperのようにデフォルトで許可される仕組みでは、特権プロファイルはポリシーを設定せず、何も制限を適用しないことにあたります。
+一方で、Pod Security Policyのようにデフォルトで拒否される仕組みでは、特権ポリシーでは全ての制限を無効化してコントロールできるようにする必要があります。
+
+### ベースライン、デフォルト
+
+ベースライン、デフォルトのプロファイルは一般的なコンテナ化されたランタイムに適用しやすく、かつ既知の特権昇格を防ぐことを意図しています。
+このポリシーはクリティカルではないアプリケーションの運用者または開発者を対象にしています。
+次の項目は強制、または無効化すべきです。
+
+<table>
+	<caption style="display:none">ベースラインポリシーの定義</caption>
+	<tbody>
+		<tr>
+			<td><strong>項目</strong></td>
+			<td><strong>ポリシー</strong></td>
+		</tr>
+		<tr>
+			<td>ホストのネームスペース</td>
+			<td>
+				ホストのネームスペースの共有は無効化すべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.hostNetwork<br>
+				spec.hostPID<br>
+				spec.hostIPC<br>
+				<br><b>認められる値:</b> false<br>
+			</td>
+		</tr>
+		<tr>
+			<td>特権コンテナ</td>
+			<td>
+				特権を持つPodはほとんどのセキュリティ機構を無効化できるので、禁止すべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.containers[*].securityContext.privileged<br>
+				spec.initContainers[*].securityContext.privileged<br>
+				<br><b>認められる値:</b> false, undefined/nil<br>
+			</td>
+		</tr>
+		<tr>
+			<td>ケーパビリティー</td>
+			<td>
+				<a href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">デフォルト</a>よりも多くのケーパビリティーを与えることは禁止すべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.containers[*].securityContext.capabilities.add<br>
+				spec.initContainers[*].securityContext.capabilities.add<br>
+				<br><b>認められる値:</b> 空 (または既知のリストに限定)<br>
+			</td>
+		</tr>
+		<tr>
+			<td>HostPathボリューム</td>
+			<td>
+				HostPathボリュームは禁止すべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.volumes[*].hostPath<br>
+				<br><b>認められる値:</b> undefined/nil<br>
+			</td>
+		</tr>
+		<tr>
+			<td>ホストのポート</td>
+			<td>
+				HostPortは禁止するか、最小限の既知のリストに限定すべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.containers[*].ports[*].hostPort<br>
+				spec.initContainers[*].ports[*].hostPort<br>
+				<br><b>認められる値:</b> 0, undefined (または既知のリストに限定)<br>
+			</td>
+		</tr>
+		<tr>
+			<td>AppArmor <em>(任意)</em></td>
+			<td>
+				サポートされるホストでは、AppArmorの'runtime/default'プロファイルがデフォルトで適用されます。デフォルトのポリシーはポリシーの上書きや無効化を防ぎ、許可されたポリシーのセットを上書きできないよう制限すべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']<br>
+				<br><b>認められる値:</b> 'runtime/default', undefined<br>
+			</td>
+		</tr>
+		<tr>
+			<td>SELinux <em>(任意)</em></td>
+			<td>
+				SELinuxのオプションをカスタムで設定することは禁止すべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.securityContext.seLinuxOptions<br>
+				spec.containers[*].securityContext.seLinuxOptions<br>
+				spec.initContainers[*].securityContext.seLinuxOptions<br>
+				<br><b>認められる値:</b> undefined/nil<br>
+			</td>
+		</tr>
+		<tr>
+			<td>/procマウントタイプ</td>
+			<td>
+				攻撃対象を縮小するため/procのマスクを設定し、必須とすべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.containers[*].securityContext.procMount<br>
+				spec.initContainers[*].securityContext.procMount<br>
+				<br><b>認められる値:</b> undefined/nil, 'Default'<br>
+			</td>
+		</tr>
+		<tr>
+			<td>Sysctl</td>
+			<td>
+				Sysctlはセキュリティ機構を無効化したり、ホストの全てのコンテナに影響を与えたりすることが可能なので、「安全」なサブネットを除いては禁止すべきです。
+				コンテナまたはPodの中にsysctlがありネームスペースが分離されていて、同じノードの別のPodやプロセスから分離されている場合はsysctlは安全だと考えられます。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.securityContext.sysctls<br>
+				<br><b>認められる値:</b><br>
+				kernel.shm_rmid_forced<br>
+				net.ipv4.ip_local_port_range<br>
+				net.ipv4.tcp_syncookies<br>
+				net.ipv4.ping_group_range<br>
+				undefined/empty<br>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+### 制限
+
+制限ポリシーはいくらかの互換性を犠牲にして、Podを強化するためのベストプラクティスを強制することを意図しています。
+セキュリティ上クリティカルなアプリケーションの運用者または開発者、また信頼度の低いユーザーを対象にしています。
+下記の項目を強制、無効化すべきです。
+
+
+<table>
+	<caption style="display:none">制限ポリシーの定義</caption>
+	<tbody>
+		<tr>
+			<td><strong>項目</strong></td>
+			<td><strong>ポリシー</strong></td>
+		</tr>
+		<tr>
+			<td colspan="2"><em>デフォルトプロファイルにある項目全て</em></td>
+		</tr>
+		<tr>
+			<td>Volumeタイプ</td>
+			<td>
+				HostPathボリュームの制限に加え、制限プロファイルではコアでない種類のボリュームの利用をPersistentVolumeにより定義されたものに限定します。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.volumes[*].hostPath<br>
+				spec.volumes[*].gcePersistentDisk<br>
+				spec.volumes[*].awsElasticBlockStore<br>
+				spec.volumes[*].gitRepo<br>
+				spec.volumes[*].nfs<br>
+				spec.volumes[*].iscsi<br>
+				spec.volumes[*].glusterfs<br>
+				spec.volumes[*].rbd<br>
+				spec.volumes[*].flexVolume<br>
+				spec.volumes[*].cinder<br>
+				spec.volumes[*].cephFS<br>
+				spec.volumes[*].flocker<br>
+				spec.volumes[*].fc<br>
+				spec.volumes[*].azureFile<br>
+				spec.volumes[*].vsphereVolume<br>
+				spec.volumes[*].quobyte<br>
+				spec.volumes[*].azureDisk<br>
+				spec.volumes[*].portworxVolume<br>
+				spec.volumes[*].scaleIO<br>
+				spec.volumes[*].storageos<br>
+				spec.volumes[*].csi<br>
+				<br><b>認められる値:</b> undefined/nil<br>
+			</td>
+		</tr>
+		<tr>
+			<td>特権昇格</td>
+			<td>
+				特権昇格(ファイルモードのset-user-IDまたはset-group-IDのような方法による)は禁止すべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.containers[*].securityContext.allowPrivilegeEscalation<br>
+				spec.initContainers[*].securityContext.allowPrivilegeEscalation<br>
+				<br><b>認められる値:</b> false<br>
+			</td>
+		</tr>
+		<tr>
+			<td>root以外での実行</td>
+			<td>
+				コンテナはroot以外のユーザーで実行することを必須とすべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.securityContext.runAsNonRoot<br>
+				spec.containers[*].securityContext.runAsNonRoot<br>
+				spec.initContainers[*].securityContext.runAsNonRoot<br>
+				<br><b>認められる値:</b> true<br>
+			</td>
+		</tr>
+		<tr>
+			<td>root以外のグループ <em>(任意)</em></td>
+			<td>
+				コンテナのプライマリまたは補助のGIDをrootにすることを禁止すべきです。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.securityContext.runAsGroup<br>
+				spec.securityContext.supplementalGroups[*]<br>
+				spec.securityContext.fsGroup<br>
+				spec.containers[*].securityContext.runAsGroup<br>
+				spec.initContainers[*].securityContext.runAsGroup<br>
+				<br><b>認められる値:</b><br>
+				0以外<br>
+				undefined / nil (`*.runAsGroup`を除く)<br>
+			</td>
+		</tr>
+		<tr>
+			<td>Seccomp</td>
+			<td>
+				SeccompのRuntimeDefaultを必須とする、または特定の追加プロファイルを許可することが必要です。<br>
+				<br><b>制限されるフィールド:</b><br>
+				spec.securityContext.seccompProfile.type<br>
+				spec.containers[*].securityContext.seccompProfile<br>
+				spec.initContainers[*].securityContext.seccompProfile<br>
+				<br><b>認められる値:</b><br>
+				'runtime/default'<br>
+				undefined / nil<br>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## ポリシーの実例
+
+ポリシーの定義とポリシーの実装を切り離すことによって、ポリシーを強制する機構とは独立して、汎用的な理解や複数のクラスターにわたる共通言語とすることができます。
+
+機構が成熟してきたら、ポリシーごとに下記に定義されます。それぞれのポリシーを強制する方法についてはここでは定義しません。
+
+[**PodSecurityPolicy**](/docs/concepts/policy/pod-security-policy/)
+
+- [特権](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/privileged-psp.yaml)
+- [ベースライン](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/baseline-psp.yaml)
+- [制限](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/restricted-psp.yaml)
+
+## FAQ
+
+### 特権とデフォルトの間のプロファイルがないのはどうしてですか?
+
+ここで定義されている3つのプロファイルは最も安全(制限)から最も安全ではない(特権)まで、直線的に段階が設定されており、幅広いワークロードをカバーしています。
+ベースラインを超える特権が必要な場合、その多くはアプリケーションに特化しているため、その限られた要求に対して標準的なプロファイルを提供することはできません。
+これは、このような場合に必ず特権プロファイルを使用すべきだという意味ではなく、場合に応じてポリシーを定義する必要があります。
+
+将来、他のプロファイルの必要性が明らかになった場合、SIG Authはこの方針について再考する可能性があります。
+
+### セキュリティポリシーとセキュリティコンテキストの違いは何ですか?
+
+[Security Context](/docs/tasks/configure-pod-container/security-context/)は実行時のコンテナやPodを設定するものです。
+Security contextはPodのマニフェストの中でPodやコンテナの仕様の一部として定義され、コンテナランタイムへ渡されるパラメータを示します。
+
+セキュリティポリシーはコントロールプレーンの機構で、Security Contextとそれ以外も含め、特定の設定を強制するものです。
+2020年2月時点では、ネイティブにサポートされているポリシー強制の機構は[Pod Security
+Policy](/docs/concepts/policy/pod-security-policy/)です。これはクラスター全体にわたってセキュリティポリシーを中央集権的に強制するものです。
+セキュリティポリシーを強制する他の手段もKubernetesのエコシステムでは開発が進められています。例えば[OPA
+Gatekeeper](https://github.com/open-policy-agent/gatekeeper)があります。
+
+### WindowsのPodにはどのプロファイルを適用すればよいですか?
+
+Kubernetesでは、Linuxベースのワークロードと比べてWindowsの使用は制限や差異があります。
+特に、PodのSecurityContextフィールドは[Windows環境では効果がありません](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext)。
+したがって、現段階では標準化されたセキュリティポリシーは存在しません。
+
+### サンドボックス化されたPodはどのように扱えばよいでしょうか?
+
+現在のところ、Podがサンドボックス化されているかどうかによって制御できるAPIの標準はありません。
+サンドボックス化されたPodはサンドボックス化されたランタイム（例えばgVisorやKata Containers）を使用していることで特定することは可能ではありますが、サンドボックス化されたランタイムの標準的な定義は存在しません。
+
+サンドボックス化されたランタイムに対して必要な保護は、それ以外に対するものとは異なります。
+例えば、ワークロードがその基になるカーネルと分離されている場合、特権を制限する必要性は小さくなります。
+これは、強い権限を必要とするワークロードが隔離された状態にある状態を実現します。
+
+加えて、サンドボックス化されたワークロードの保護はサンドボックス化の実装に強く依存します。
+したがって、全てのサンドボックス化されたワークロードに推奨される単一のポリシーは存在しません。
