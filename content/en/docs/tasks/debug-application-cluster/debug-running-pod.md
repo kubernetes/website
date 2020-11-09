@@ -91,18 +91,16 @@ The examples in this section require the `EphemeralContainers` [feature gate](
 cluster and `kubectl` version v1.18 or later.
 {{< /note >}}
 
-You can use the `kubectl alpha debug` command to add ephemeral containers to a
+You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
 
 ```shell
 kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 ```
 
-{{< note >}}
-This section use the `pause` container image in examples because it does not
+The examples in this section use the `pause` container image because it does not
 contain userland debugging utilities, but this method works with all container
 images.
-{{< /note >}}
 
 If you attempt to use `kubectl exec` to create a shell you will see an error
 because there is no shell in this container image.
@@ -115,12 +113,12 @@ kubectl exec -it ephemeral-demo -- sh
 OCI runtime exec failed: exec failed: container_linux.go:346: starting container process caused "exec: \"sh\": executable file not found in $PATH": unknown
 ```
 
-You can instead add a debugging container using `kubectl alpha debug`. If you
+You can instead add a debugging container using `kubectl debug`. If you
 specify the `-i`/`--interactive` argument, `kubectl` will automatically attach
 to the console of the Ephemeral Container.
 
 ```shell
-kubectl alpha debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
+kubectl debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
 ```
 
 ```
@@ -172,20 +170,171 @@ Use `kubectl delete` to remove the Pod when you're finished:
 kubectl delete pod ephemeral-demo
 ```
 
-<!--
-Planned future sections include:
+## Debugging using a copy of the Pod
 
-* Debugging with a copy of the pod
+Sometimes Pod configuration options make it difficult to troubleshoot in certain
+situations. For example, you can't run `kubectl exec` to troubleshoot your
+container if your container image does not include a shell or if your application
+crashes on startup. In these situations you can use `kubectl debug` to create a
+copy of the Pod with configuration values changed to aid debugging.
 
-See https://git.k8s.io/enhancements/keps/sig-cli/20190805-kubectl-debug.md
--->
+### Copying a Pod while adding a new container
+
+Adding a new container can be useful when your application is running but not
+behaving as you expect and you'd like to add additional troubleshooting
+utilities to the Pod.
+
+For example, maybe your application's container images are built on `busybox`
+but you need debugging utilities not included in `busybox`. You can simulate
+this scenario using `kubectl run`:
+
+```shell
+kubectl run myapp --image=busybox --restart=Never -- sleep 1d
+```
+
+Run this command to create a copy of `myapp` named `myapp-copy` that adds a
+new Ubuntu container for debugging:
+
+```shell
+kubectl debug myapp -it --image=ubuntu --share-processes --copy-to=myapp-debug
+```
+
+```
+Defaulting debug container name to debugger-w7xmf.
+If you don't see a command prompt, try pressing enter.
+root@myapp-debug:/#
+```
+
+{{< note >}}
+* `kubectl debug` automatically generates a container name if you don't choose
+  one using the `--container` flag.
+* The `-i` flag causes `kubectl debug` to attach to the new container by
+  default.  You can prevent this by specifying `--attach=false`. If your session
+  becomes disconnected you can reattach using `kubectl attach`.
+* The `--share-processes` allows the containers in this Pod to see processes
+  from the other containers in the Pod. For more information about how this
+  works, see [Share Process Namespace between Containers in a Pod](
+  /docs/tasks/configure-pod-container/share-process-namespace/).
+{{< /note >}}
+
+Don't forget to clean up the debugging Pod when you're finished with it:
+
+```shell
+kubectl delete pod myapp myapp-debug
+```
+
+### Copying a Pod while changing its command
+
+Sometimes it's useful to change the command for a container, for example to
+add a debugging flag or because the application is crashing.
+
+To simulate a crashing application, use `kubectl run` to create a container
+that immediately exists:
+
+```
+kubectl run --image=busybox myapp -- false
+```
+
+You can see using `kubectl describe pod myapp` that this container is crashing:
+
+```
+Containers:
+  myapp:
+    Image:         busybox
+    ...
+    Args:
+      false
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+```
+
+You can use `kubectl debug` to create a copy of this Pod with the command
+changed to an interactive shell:
+
+```
+kubectl debug myapp -it --copy-to=myapp-debug --container=myapp -- sh
+```
+
+```
+If you don't see a command prompt, try pressing enter.
+/ #
+```
+
+Now you have an interactive shell that you can use to perform tasks like
+checking filesystem paths or running the container command manually.
+
+{{< note >}}
+* To change the command of a specific container you must
+  specify its name using `--container` or `kubectl debug` will instead
+  create a new container to run the command you specified.
+* The `-i` flag causes `kubectl debug` to attach to the container by default.
+  You can prevent this by specifying `--attach=false`. If your session becomes
+  disconnected you can reattach using `kubectl attach`.
+{{< /note >}}
+
+Don't forget to clean up the debugging Pod when you're finished with it:
+
+```shell
+kubectl delete pod myapp myapp-debug
+```
+
+### Copying a Pod while changing container images
+
+In some situations you may want to change a misbehaving Pod from its normal
+production container images to an image containing a debugging build or
+additional utilities.
+
+As an example, create a Pod using `kubectl run`:
+
+```
+kubectl run myapp --image=busybox --restart=Never -- sleep 1d
+```
+
+Now use `kubectl debug` to make a copy and change its container image
+to `ubuntu`:
+
+```
+kubectl debug myapp --copy-to=myapp-debug --set-image=*=ubuntu
+```
+
+The syntax of `--set-image` uses the same `container_name=image` syntax as
+`kubectl set image`. `*=ubuntu` means change the image of all containers
+to `ubuntu`.
+
+Don't forget to clean up the debugging Pod when you're finished with it:
+
+```shell
+kubectl delete pod myapp myapp-debug
+```
 
 ## Debugging via a shell on the node {#node-shell-session}
 
-If none of these approaches work, you can find the host machine that the pod is
-running on and SSH into that host, but this should generally not be necessary
-given tools in the Kubernetes API. Therefore, if you find yourself needing to
-ssh into a machine, please file a feature request on GitHub describing your use
-case and why these tools are insufficient.
+If none of these approaches work, you can find the Node on which the Pod is
+running and create a privileged Pod running in the host namespaces. To create
+an interactive shell on a node using `kubectl debug`, run:
 
+```shell
+kubectl debug node/mynode -it --image=ubuntu
+```
 
+```
+Creating debugging pod node-debugger-mynode-pdx84 with container debugger on node mynode.
+If you don't see a command prompt, try pressing enter.
+root@ek8s:/#
+```
+
+When creating a debugging session on a node, keep in mind that:
+
+* `kubectl debug` automatically generates the name of the new Pod based on
+  the name of the Node.
+* The container runs in the host IPC, Network, and PID namespaces.
+* The root filesystem of the Node will be mounted at `/host`.
+
+Don't forget to clean up the debugging Pod when you're finished with it:
+
+```shell
+kubectl delete pod node-debugger-mynode-pdx84
+```
