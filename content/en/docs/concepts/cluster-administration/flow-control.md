@@ -6,7 +6,7 @@ min-kubernetes-server-version: v1.18
 
 <!-- overview -->
 
-{{< feature-state state="alpha"  for_k8s_version="v1.18" >}}
+{{< feature-state state="beta"  for_k8s_version="v1.20" >}}
 
 Controlling the behavior of the Kubernetes API server in an overload situation
 is a key task for cluster administrators. The {{< glossary_tooltip
@@ -37,24 +37,29 @@ Fairness feature enabled.
 
 <!-- body -->
 
-## Enabling API Priority and Fairness
+## Enabling/Disabling API Priority and Fairness
 
 The API Priority and Fairness feature is controlled by a feature gate
-and is not enabled by default.  See
+and is enabled by default.  See
 [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/)
-for a general explanation of feature gates and how to enable and disable them.  The
-name of the feature gate for APF is "APIPriorityAndFairness".  This
-feature also involves an {{< glossary_tooltip term_id="api-group"
-text="API Group" >}} that must be enabled.  You can do these
-things by adding the following command-line flags to your
-`kube-apiserver` invocation:
+for a general explanation of feature gates and how to enable and
+disable them.  The name of the feature gate for APF is
+"APIPriorityAndFairness".  This feature also involves an {{<
+glossary_tooltip term_id="api-group" text="API Group" >}} with: (a) a
+`v1alpha1` version, disabled by default, and (b) a `v1beta1`
+version,  enabled by default.  You can disable the feature
+gate and API group v1beta1 version by adding the following
+command-line flags to your `kube-apiserver` invocation:
 
 ```shell
 kube-apiserver \
---feature-gates=APIPriorityAndFairness=true \
---runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true \
+--feature-gates=APIPriorityAndFairness=false \
+--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=false \
  # …and other flags as usual
 ```
+
+Alternatively, you can enable the v1alpha1 version of the API group
+with `--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=true`.
 
 The command-line flag `--enable-priority-and-fairness=false` will disable the
 API Priority and Fairness feature, even if other flags have enabled it.
@@ -189,12 +194,14 @@ that originate from outside your cluster.
 
 ## Resources
 The flow control API involves two kinds of resources.
-[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io)
+[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta1-flowcontrol-apiserver-k8s-io)
 define the available isolation classes, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
-[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1alpha1-flowcontrol-apiserver-k8s-io)
-are used to classify individual inbound requests, matching each to a single
-PriorityLevelConfiguration.
+[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta1-flowcontrol-apiserver-k8s-io)
+are used to classify individual inbound requests, matching each to a
+single PriorityLevelConfiguration.  There is also a `v1alpha1` version
+of the same API group, and it has the same Kinds with the same syntax and
+semantics.
 
 ### PriorityLevelConfiguration
 A PriorityLevelConfiguration represents a single isolation class. Each
@@ -522,4 +529,3 @@ For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
 You can make suggestions and feature requests via [SIG API
 Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
-

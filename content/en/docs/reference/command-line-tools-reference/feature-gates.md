@@ -51,7 +51,8 @@ different Kubernetes components.
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | |
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
-| `APIPriorityAndFairness` | `false` | Alpha | 1.17 | |
+| `APIPriorityAndFairness` | `false` | Alpha | 1.17 | 1.19 |
+| `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `BalanceAttachedNodeVolumes` | `false` | Alpha | 1.11 | |
