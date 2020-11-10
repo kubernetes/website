@@ -336,6 +336,25 @@ liveness. Minimum value is 1.
 try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 
+{{< note >}}
+Before Kubernetes 1.20, the field `timeoutSeconds` was not respected for exec probes:
+probes continued running indefinitely, even past their configured deadline,
+until a result was returned.
+
+This defect was corrected in Kubernetes v1.20. You may have been relying on the previous behavior,
+even without realizing it, as the default timeout is 1 second.
+As a cluster administrator, you can disable the feature gate `ExecProbeTimeout` (set it to `false`)
+on kubelet to restore the  behavior from older versions, then remove that override
+once all the exec probes in the cluster have a `timeoutSeconds` value set.
+
+With the fix of the defect, for exec probes, on Kubernetes `1.20+` with the `dockershim` container runtime,
+the process inside the container may keep running even after probe returned failure because of the timeout.
+{{< /note >}}
+{{< caution >}}
+Incorrect implementation of readiness probes may result in an ever growing number
+of processes in the container, and resource starvation if this is left unchecked.
+{{< /caution >}}
+
 ### HTTP probes
 
 [HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
@@ -406,7 +425,3 @@ You can also read the API references for:
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
-
-
-
-
