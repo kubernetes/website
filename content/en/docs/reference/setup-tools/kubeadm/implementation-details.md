@@ -32,7 +32,7 @@ The cluster that `kubeadm init` and `kubeadm join` set up should be:
    - `kubeadm init`
    - `export KUBECONFIG=/etc/kubernetes/admin.conf`
    - `kubectl apply -f <network-of-choice.yaml>`
-   - `kubeadm join --token <token> <api-server-hostname>:<port>`
+   - `kubeadm join --token <token> <endpoint>:<port>`
  - **Extendable**:
    - It should _not_ favor any particular network provider. Configuring the cluster network is out-of-scope
    - It should provide the possibility to use a config file for customizing various parameters
