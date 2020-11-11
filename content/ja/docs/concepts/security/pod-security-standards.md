@@ -141,7 +141,7 @@ _Pod Security Policy_ はクラスターレベルのリソースで、Pod定義�
 				net.ipv4.ip_local_port_range<br>
 				net.ipv4.tcp_syncookies<br>
 				net.ipv4.ping_group_range<br>
-				undefined/empty<br>
+				undefined/空文字列<br>
 			</td>
 		</tr>
 	</tbody>
