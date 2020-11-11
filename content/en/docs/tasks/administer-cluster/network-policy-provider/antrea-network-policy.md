@@ -20,7 +20,7 @@ When using `kubeadm` to create the Kubernetes cluster, passing
 `--pod-network-cidr=<CIDR Range for Pods>` to `kubeadm init` will enable
 `NodeIpamController`. Clusters created with kubeadm always have
 `CNI` plugins enabled. Refer to
-[Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm)
+[Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm)
 for more information about setting up a Kubernetes cluster with `kubeadm`.
 
 To deploy the latest version of Antrea (built from the master branch), use the
