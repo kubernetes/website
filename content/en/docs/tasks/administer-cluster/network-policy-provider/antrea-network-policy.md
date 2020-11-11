@@ -33,7 +33,7 @@ kubectl apply -f https://raw.githubusercontent.com/vmware-tanzu/antrea/master/bu
 ## Deploying Antrea in Kind
 
 To deploy Antrea in a [Kind](https://github.com/kubernetes-sigs/kind) cluster,
-please refer to this [guide](https://github.com/vmware-tanzu/antrea/blob/master/docs/kind.md).
+refer to [Deploying Antrea on a Kind cluster](https://github.com/vmware-tanzu/antrea/blob/master/docs/kind.md).
 
 ## Deploying Antrea in EKS and GKE
 
