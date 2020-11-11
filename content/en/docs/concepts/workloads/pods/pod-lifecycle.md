@@ -85,6 +85,13 @@ Value       | Description
 `Failed`    | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
 `Unknown`   | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
 
+{{< note >}}
+When a Pod is being deleted, it is shown as `Terminating` by some kubectl commands.
+This `Terminating` status is not one of the Pod phases.
+A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
+You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
+{{< /note >}}
+
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
 
