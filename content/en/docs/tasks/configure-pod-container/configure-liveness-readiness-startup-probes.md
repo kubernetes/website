@@ -345,7 +345,10 @@ This defect was corrected in Kubernetes v1.20. You may have been relying on the 
 even without realizing it, as the default timeout is 1 second.
 As a cluster administrator, you can disable the feature gate `ExecProbeTimeout` (set it to `false`)
 on kubelet to restore the  behavior from older versions, then remove that override
-once all the exec probes in the cluster have a `timeoutSeconds` value set.
+once all the exec probes in the cluster have a `timeoutSeconds` value set.  
+If you have pods that are impacted from the default 1 second timeout,
+you should update their probe timeout so that you're ready for the
+eventual removal of that feature gate.
 
 With the fix of the defect, for exec probes, on Kubernetes `1.20+` with the `dockershim` container runtime,
 the process inside the container may keep running even after probe returned failure because of the timeout.
