@@ -43,7 +43,7 @@ When opening a pull request, you need to know in advance which branch to base yo
 Scenario | Branch
 :---------|:------------
 Existing or new English language content for the current release | `master`
-Content for a feature change release | The branch which corresponds to the major and minor version the feature change is in, using the pattern `dev-release-<version>`. For example, if a feature changes in the `{{< latest-version >}}` release, then add documentation changes to the ``dev-{{< release-branch >}}`` branch.
+Content for a feature change release | The branch which corresponds to the major and minor version the feature change is in, using the pattern `dev-<version>`. For example, if a feature changes in the `{{< latest-version >}}` release, then add documentation changes to the ``dev-{{< latest-version >}}`` branch.
 Content in other languages (localizations) | Use the localization's convention. See the [Localization branching strategy](/docs/contribute/localization/#branching-strategy) for more information.
 
 
