@@ -94,7 +94,7 @@ run, what volume plugin it uses (including Flex), etc. The repository
 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 houses a library for writing external provisioners that implements the bulk of
 the specification. Some external provisioners are listed under the repository
-[kubernetes-sigs/external-storage](https://github.com/kubernetes-sigs/external-storage).
+[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner).
 
 For example, NFS doesn't provide an internal provisioner, but an external
 provisioner can be used. There are also cases when 3rd party storage
