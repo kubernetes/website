@@ -107,9 +107,8 @@ You can create the following resources using `kubectl run` with the `--generator
 {{< /table >}}
 
 {{< note >}}
-<!--
-Generators other than `run-pod/v1` are deprecated.
- -->不推荐使用 `run-pod/v1` 以外的其他生成器。
+<!--Generators other than `run-pod/v1` are deprecated.-->
+不推荐使用 `run-pod/v1` 以外的其他生成器.
 {{< /note >}}
 
 <!--
