@@ -2,126 +2,122 @@
 reviewers:
 - davidopp
 - lavalamp
-title: Building large clusters
+title: Considerations for large clusters
 weight: 20
 ---
 
-## Support
+A cluster is a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (physical
+or virtual machines) running Kubernetes agents, managed by the
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
+Kubernetes {{< param "version" >}} supports clusters with up to 5000 nodes. More specifically,
+Kubernetes is designed to accommodate configurations that meet *all* of the following criteria:
 
-At {{< param "version" >}}, Kubernetes supports clusters with up to 5000 nodes. More specifically, we support configurations that meet *all* of the following criteria:
-
+* No more than 100 pods per node
 * No more than 5000 nodes
 * No more than 150000 total pods
 * No more than 300000 total containers
-* No more than 100 pods per node
 
+You can scale your cluster by adding or removing nodes. The way you do this depends
+on how your cluster is deployed.
 
-## Setup
+## Cloud provider resource quotas {#quota-issues}
 
-A cluster is a set of nodes (physical or virtual machines) running Kubernetes agents, managed by a "master" (the cluster-level control plane).
-
-Normally the number of nodes in a cluster is controlled by the value `NUM_NODES` in the platform-specific `config-default.sh` file (for example, see [GCE's `config-default.sh`](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh)).
-
-Simply changing that value to something very large, however, may cause the setup script to fail for many cloud providers. A GCE deployment, for example, will run in to quota issues and fail to bring the cluster up.
-
-When setting up a large Kubernetes cluster, the following issues must be considered.
-
-### Quota Issues
-
-To avoid running into cloud provider quota issues, when creating a cluster with many nodes, consider:
-
-* Increase the quota for things like CPU, IPs, etc.
-  * In [GCE, for example,](https://cloud.google.com/compute/docs/resource-quotas) you'll want to increase the quota for:
+To avoid running into cloud provider quota issues, when creating a cluster with many nodes,
+consider:
+* Request a quota increase for cloud resources such as:
+    * Computer instances
     * CPUs
-    * VM instances
-    * Total persistent disk reserved
+    * Storage volumes
     * In-use IP addresses
-    * Firewall Rules
-    * Forwarding rules
-    * Routes
-    * Target pools
-* Gating the setup script so that it brings up new node VMs in smaller batches with waits in between, because some cloud providers rate limit the creation of VMs.
+    * Packet filtering rule sets
+    * Number of load balancers
+    * Network subnets
+    * Log streams
+* Gate the cluster scaling actions to brings up new nodes in batches, with a pause
+  between batches, because some cloud providers rate limit the creation of new instances.
 
-### Etcd storage
+## Control plane components
 
-To improve performance of large clusters, we store events in a separate dedicated etcd instance.
+For a large cluster, you need a control plane with sufficient compute and other
+resources.
 
-When creating a cluster, existing salt scripts:
+Typically you would run one or two control plane instances per failure zone,
+scaling those instances vertically first and then scaling horizontally after reaching
+the point of falling returns to (vertical) scale.
+
+You should run at least one instance per failure zone to provide fault-tolerance. Kubernetes
+nodes do not automatically steer traffic towards control-plane endpoints that are in the
+same failure zone; however, your cloud provider might have its own mechanisms to do this.
+
+For example, using a managed load balancer, you configure the load balancer to send traffic
+that originates from the kubelet and Pods in failure zone _A_, and direct that traffic only
+to the control plane hosts that are also in zone _A_. If a single control-plane host or
+endpoint failure zone _A_ goes offline, that means that all the control-plane traffic for
+nodes in zone _A_ is now being sent between zones. Running multiple control plane hosts in
+each zone makes that outcome less likely.
+
+### etcd storage
+
+To improve performance of large clusters, you can store Event objects in a separate
+dedicated etcd instance.
+
+When creating a cluster, you can (using custom tooling):
 
 * start and configure additional etcd instance
-* configure api-server to use it for storing events
+* configure the {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} to use it for storing events
 
-### Size of master and master components
+## Addon resources
 
-On GCE/Google Kubernetes Engine, and AWS, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
-in your cluster. On other providers, you will need to configure it manually. For reference, the sizes we use on GCE are
+Kubernetes [resource limits](/docs/concepts/configuration/manage-resources-containers/)
+help to minimise the impact of memory leaks and other ways that pods and containers can
+impact on other components. These resource limits can and should apply to
+{{< glossary_tooltip text="addon" term_id="addons" >}} just as they apply to application
+workloads.
 
-* 1-5 nodes: n1-standard-1
-* 6-10 nodes: n1-standard-2
-* 11-100 nodes: n1-standard-4
-* 101-250 nodes: n1-standard-8
-* 251-500 nodes: n1-standard-16
-* more than 500 nodes: n1-standard-32
-
-And the sizes we use on AWS are
-
-* 1-5 nodes: m3.medium
-* 6-10 nodes: m3.large
-* 11-100 nodes: m3.xlarge
-* 101-250 nodes: m3.2xlarge
-* 251-500 nodes: c4.4xlarge
-* more than 500 nodes: c4.8xlarge
-
-{{< note >}}
-On Google Kubernetes Engine, the size of the master node adjusts automatically based on the size of your cluster. For more information, see [this blog post](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html).
-
-On AWS, master node sizes are currently set at cluster startup time and do not change, even if you later scale your cluster up or down by manually removing or adding nodes or using a cluster autoscaler.
-{{< /note >}}
-
-### Addon Resources
-
-To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](https://pr.k8s.io/10653/files) and [#10778](https://pr.k8s.io/10778/files)).
-
-For example:
+For example, you can set CPU and memory limits for a logging component:
 
 ```yaml
+  ...
   containers:
   - name: fluentd-cloud-logging
-    image: k8s.gcr.io/fluentd-gcp:1.16
+    image: fluent/fluentd-kubernetes-daemonset:v1
     resources:
       limits:
         cpu: 100m
         memory: 200Mi
 ```
 
-Except for Heapster, these limits are static and are based on data we collected from addons running on 4-node clusters (see [#10335](https://issue.k8s.io/10335#issuecomment-117861225)). The addons consume a lot more resources when running on large deployment clusters (see [#5880](http://issue.k8s.io/5880#issuecomment-113984085)). So, if a large cluster is deployed without adjusting these values, the addons may continuously get killed because they keep hitting the limits.
+Addons' default limits are typically based on data collected from experience running
+each addon on small or medium Kubernetes clusters. When running on large
+clusters, addons often consume more of some resources than their default limits.
+If a large cluster is deployed without adjusting these values, the addon(s)
+may continuously get killed because they keep hitting the memory limit.
+Alternatively, the addon may run but with poor performance due to CPU time
+slice restrictions.
 
-To avoid running into cluster addon resource issues, when creating a cluster with many nodes, consider the following:
+To avoid running into cluster addon resource issues, when creating a cluster with
+many nodes, consider the following:
 
-* Scale memory and CPU limits for each of the following addons, if used, as you scale up the size of cluster (there is one replica of each handling the entire cluster so memory and CPU usage tends to grow proportionally with size/load on cluster):
-  * [InfluxDB and Grafana](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
-  * [kubedns, dnsmasq, and sidecar](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/kube-dns.yaml.in)
-  * [Kibana](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/kibana-deployment.yaml)
-* Scale number of replicas for the following addons, if used, along with the size of cluster (there are multiple replicas of each so increasing replicas should help handle increased load, but, since load per replica also increases slightly, also consider increasing CPU/memory limits):
-  * [elasticsearch](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/es-statefulset.yaml)
-* Increase memory and CPU limits slightly for each of the following addons, if used, along with the size of cluster (there is one replica per node but CPU/memory usage increases slightly along with cluster load/size as well):
-  * [FluentD with ElasticSearch Plugin](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
-  * [FluentD with GCP Plugin](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
+* Some addons scale vertically - there is one replica of the addon for the cluster
+  or serving a whole failure zone. For these addons, increase requests and limits
+  as you scale out your cluster.
+* Many addons scale horizontally - you add capacity by running more pods - but with
+  a very large cluster you may also need to raise CPU or memory limits slightly.
+  The VerticalPodAutoscaler can run in _recommender_ mode to provide suggested
+  figures for requests and limits.
+* Some addons run as one copy per node, controlled by a {{< glossary_tooltip text="DaemonSet"
+  term_id="daemonset" >}}: for example, a node-level log aggregator. Similar to
+  the case with horizontally-scaled addons, you may also need to raise CPU or memory
+  limits slightly.
 
-Heapster's resource limits are set dynamically based on the initial size of your cluster (see [#16185](http://issue.k8s.io/16185)
-and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
-out of resources, you should adjust the formulas that compute heapster memory request (see those PRs for details).
+## {{% heading "whatsnext" %}}
 
-For directions on how to detect if addon containers are hitting resource limits, see the
-[Troubleshooting section of Compute Resources](/docs/concepts/configuration/manage-resources-containers/#troubleshooting).
+`VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
+to help you manage resource requests and limits for pods.  
+Visit [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
+to learn more about `VerticalPodAutoscaler` and how you can use it to scale cluster
+components, including cluster-critical addons.
 
-### Allowing minor node failure at startup
-
-For various reasons (see [#18969](https://github.com/kubernetes/kubernetes/issues/18969) for more details) running
-`kube-up.sh` with a very large `NUM_NODES` may fail due to a very small number of nodes not coming up properly.
-Currently you have two choices: restart the cluster (`kube-down.sh` and then `kube-up.sh` again), or before
-running `kube-up.sh` set the environment variable `ALLOWED_NOTREADY_NODES` to whatever value you feel comfortable
-with. This will allow `kube-up.sh` to succeed with fewer than `NUM_NODES` coming up. Depending on the
-reason for the failure, those additional nodes may join later or the cluster may remain at a size of
-`NUM_NODES - ALLOWED_NOTREADY_NODES`.
-
+The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
+integrates with a number of cloud providers to help you run the right number of
+nodes for the level of resource demand in your cluster.

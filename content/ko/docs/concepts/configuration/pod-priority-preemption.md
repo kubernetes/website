@@ -268,7 +268,7 @@ spec:
 *   파드 P는 노드 N에 대해 고려된다.
 *   파드 Q는 노드 N과 동일한 영역의 다른 노드에서 실행 중이다.
 *   파드 P는 파드 Q(`topologyKey:
-    failure-domain.beta.kubernetes.io/zone`)와 영역(zone) 전체의 안티-어피니티를 갖는다.
+    topology.kubernetes.io/zone`)와 영역(zone) 전체의 안티-어피니티를 갖는다.
 *   영역에서 파드 P와 다른 파드 간의 안티-어피니티에 대한 다른 경우는
     없다.
 *   노드 N에서 파드 P를 스케줄링하기 위해, 파드 Q를 축출할 수 있지만, 스케줄러는

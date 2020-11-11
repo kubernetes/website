@@ -23,7 +23,6 @@ Kubernetesでは、どのホストで稼働するかに関わらず、Podが他�
 このドキュメントの残りの部分では、このようなネットワークモデルで信頼できるサービスを実行する方法について詳しく説明します。
 
 このガイドでは、シンプルなnginxサーバーを使用して概念実証を示します。
-同じ原則が、より完全な[Jenkins CIアプリケーション](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes)で具体化されています。
 
 
 
@@ -140,7 +139,7 @@ Service IPは完全に仮想的なもので、ホスト側のネットワーク�
 ## Serviceにアクセスする
 
 Kubernetesは、環境変数とDNSの2つの主要なService検索モードをサポートしています。
-前者はそのまま使用でき、後者は[CoreDNSクラスタアドオン](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns)を必要とします。
+前者はそのまま使用でき、後者は[CoreDNSクラスタアドオン](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns)を必要とします。
 {{< note >}}
 サービス環境変数が望ましくない場合(予想されるプログラム変数と衝突する可能性がある、処理する変数が多すぎる、DNSのみを使用するなど)、[Pod仕様](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)で`enableServiceLinks`フラグを`false`に設定することでこのモードを無効にできます。
 {{< /note >}}
@@ -400,8 +399,8 @@ kubectl edit svc my-nginx
 kubectl get svc my-nginx
 ```
 ```
-NAME       TYPE        CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
-my-nginx   ClusterIP   10.0.162.149   162.222.184.144    80/TCP,81/TCP,82/TCP  21s
+NAME       TYPE           CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
+my-nginx   LoadBalancer   10.0.162.149     xx.xxx.xxx.xxx     8080:30163/TCP        21s
 ```
 ```
 curl https://<EXTERNAL-IP> -k

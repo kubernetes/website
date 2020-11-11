@@ -391,11 +391,11 @@ The affinity on this pod defines one pod affinity rule and one pod anti-affinity
 while the `podAntiAffinity` is `preferredDuringSchedulingIgnoredDuringExecution`. The
 pod affinity rule says that the pod can be scheduled onto a node only if that node is in the same zone
 as at least one already-running pod that has a label with key "security" and value "S1". (More precisely, the pod is eligible to run
-on node N if node N has a label with key `failure-domain.beta.kubernetes.io/zone` and some value V
-such that there is at least one node in the cluster with key `failure-domain.beta.kubernetes.io/zone` and
+on node N if node N has a label with key `topology.kubernetes.io/zone` and some value V
+such that there is at least one node in the cluster with key `topology.kubernetes.io/zone` and
 value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
 rule says that the pod prefers not to be scheduled onto a node if that node is already running a pod with label
-having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
+having key "security" and value "S2". (If the `topologyKey` were `topology.kubernetes.io/zone` then
 it would mean that the pod cannot be scheduled onto a node if that node is in the same zone as a pod with
 label having key "security" and value "S2".) See the
 [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
@@ -403,7 +403,7 @@ for many more examples of pod affinity and anti-affinity, both the `requiredDuri
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 -->
 
-在这个 pod 的 affinity 配置定义了一条 pod 亲和规则和一条 pod 反亲和规则。在此示例中，`podAffinity` 配置为 `requiredDuringSchedulingIgnoredDuringExecution`，然而 `podAntiAffinity` 配置为 `preferredDuringSchedulingIgnoredDuringExecution`。pod 亲和规则表示，仅当节点和至少一个已运行且有键为“security”且值为“S1”的标签的 pod 处于同一区域时，才可以将该 pod 调度到节点上。（更确切的说，如果节点 N 具有带有键 `failure-domain.beta.kubernetes.io/zone` 和某个值 V 的标签，则 pod 有资格在节点 N 上运行，以便集群中至少有一个节点具有键 `failure-domain.beta.kubernetes.io/zone` 和值为 V 的节点正在运行具有键“security”和值“S1”的标签的 pod。）pod 反亲和规则表示，如果节点已经运行了一个具有键“security”和值“S2”的标签的 pod，则该 pod 不希望将其调度到该节点上。（如果 `topologyKey` 为 `failure-domain.beta.kubernetes.io/zone`，则意味着当节点和具有键“security”和值“S2”的标签的 pod 处于相同的区域，pod 不能被调度到该节点上。）查阅[设计文档](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)来获取更多 pod 亲和与反亲和的样例，包括 `requiredDuringSchedulingIgnoredDuringExecution`
+在这个 pod 的 affinity 配置定义了一条 pod 亲和规则和一条 pod 反亲和规则。在此示例中，`podAffinity` 配置为 `requiredDuringSchedulingIgnoredDuringExecution`，然而 `podAntiAffinity` 配置为 `preferredDuringSchedulingIgnoredDuringExecution`。pod 亲和规则表示，仅当节点和至少一个已运行且有键为“security”且值为“S1”的标签的 pod 处于同一区域时，才可以将该 pod 调度到节点上。（更确切的说，如果节点 N 具有带有键 `topology.kubernetes.io/zone` 和某个值 V 的标签，则 pod 有资格在节点 N 上运行，以便集群中至少有一个节点具有键 `topology.kubernetes.io/zone` 和值为 V 的节点正在运行具有键“security”和值“S1”的标签的 pod。）pod 反亲和规则表示，如果节点已经运行了一个具有键“security”和值“S2”的标签的 pod，则该 pod 不希望将其调度到该节点上。（如果 `topologyKey` 为 `topology.kubernetes.io/zone`，则意味着当节点和具有键“security”和值“S2”的标签的 pod 处于相同的区域，pod 不能被调度到该节点上。）查阅[设计文档](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)来获取更多 pod 亲和与反亲和的样例，包括 `requiredDuringSchedulingIgnoredDuringExecution`
 和 `preferredDuringSchedulingIgnoredDuringExecution` 两种配置。
 
 <!--
@@ -423,13 +423,13 @@ for performance and security reasons, there are some constraints on topologyKey:
 1. For affinity and for `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity,
 empty `topologyKey` is not allowed.
 2. For `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or simply disable it.
-3. For `preferredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` and `failure-domain.beta.kubernetes.io/region`).
+3. For `preferredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `topology.kubernetes.io/zone` and `topology.kubernetes.io/region`).
 4. Except for the above cases, the `topologyKey` can be any legal label-key.
 -->
 
 1. 对于亲和与 `requiredDuringSchedulingIgnoredDuringExecution` 要求的 pod 反亲和，`topologyKey` 不允许为空。
 2. 对于 `requiredDuringSchedulingIgnoredDuringExecution` 要求的 pod 反亲和，准入控制器 `LimitPodHardAntiAffinityTopology` 被引入来限制 `topologyKey` 不为 `kubernetes.io/hostname`。如果你想使它可用于自定义拓扑结构，你必须修改准入控制器或者禁用它。
-3. 对于 `preferredDuringSchedulingIgnoredDuringExecution` 要求的 pod 反亲和，空的 `topologyKey` 被解释为“所有拓扑结构”（这里的“所有拓扑结构”限制为 `kubernetes.io/hostname`，`failure-domain.beta.kubernetes.io/zone` 和 `failure-domain.beta.kubernetes.io/region` 的组合）。
+3. 对于 `preferredDuringSchedulingIgnoredDuringExecution` 要求的 pod 反亲和，空的 `topologyKey` 被解释为“所有拓扑结构”（这里的“所有拓扑结构”限制为 `kubernetes.io/hostname`，`topology.kubernetes.io/zone` 和 `topology.kubernetes.io/region` 的组合）。
 4. 除上述情况外，`topologyKey` 可以是任何合法的标签键。
 
 <!--

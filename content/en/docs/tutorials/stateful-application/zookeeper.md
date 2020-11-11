@@ -26,7 +26,7 @@ Kubernetes concepts.
 -   [Pods](/docs/concepts/workloads/pods/)
 -   [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 -   [Headless Services](/docs/concepts/services-networking/service/#headless-services)
--   [PersistentVolumes](/docs/concepts/storage/volumes/)
+-   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 -   [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 -   [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 -   [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
@@ -522,7 +522,7 @@ log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L] - %m%n
 ```
 
-This is the simplest possible way to safely log inside the container. 
+This is the simplest possible way to safely log inside the container.
 Because the applications write logs to standard out, Kubernetes will handle log rotation for you.
 Kubernetes also implements a sane retention policy that ensures application logs written to
 standard out and standard error do not exhaust local storage media.
