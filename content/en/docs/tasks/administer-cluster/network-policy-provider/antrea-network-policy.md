@@ -46,7 +46,7 @@ cluster, and enforce NetworkPolicies for the cluster.
 ## Deploying Antrea with IPsec Encryption
 
 Antrea supports encrypting GRE tunnel traffic with IPsec. To deploy Antrea with
-IPsec encryption enabled, please refer to this [guide](https://github.com/vmware-tanzu/antrea/blob/master/docs/ipsec-tunnel.md).
+ IPsec encryption enabled, please refer to [IPsec Encryption of Tunnel Traffic with Antrea](https://github.com/vmware-tanzu/antrea/blob/master/docs/ipsec-tunnel.md).
 
 ## {{% heading "whatsnext" %}}
 
