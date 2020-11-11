@@ -344,7 +344,7 @@ until a result was returned.
 This defect was corrected in Kubernetes v1.20. You may have been relying on the previous behavior,
 even without realizing it, as the default timeout is 1 second.
 As a cluster administrator, you can disable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `ExecProbeTimeout` (set it to `false`)
-on kubelet to restore the  behavior from older versions, then remove that override
+on each kubelet to restore the  behavior from older versions, then remove that override
 once all the exec probes in the cluster have a `timeoutSeconds` value set.  
 If you have pods that are impacted from the default 1 second timeout,
 you should update their probe timeout so that you're ready for the
