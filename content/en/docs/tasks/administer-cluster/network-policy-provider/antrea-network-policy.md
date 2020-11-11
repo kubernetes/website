@@ -10,7 +10,7 @@ For background on Project Antrea, read the [Introduction to Antrea](https://antr
 
 ## {{% heading "prerequisites" %}}
 
-You need a Kubernetes cluster created on premisses or in Public Cloud, and the kubectl command-line tool must be configured to communicate with your cluster.
+You need a Kubernetes cluster created on premises or in public cloud, and the kubectl command-line tool must be configured to communicate with your cluster.
 
 <!-- steps -->
 
