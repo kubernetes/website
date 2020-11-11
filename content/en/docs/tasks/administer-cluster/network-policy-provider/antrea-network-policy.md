@@ -24,7 +24,7 @@ When using `kubeadm` to create the Kubernetes cluster, passing
 for more information about setting up a Kubernetes cluster with `kubeadm`.
 
 To deploy the latest version of Antrea (built from the master branch), use the
-checked-in [deployment yaml](https://github.com/vmware-tanzu/antrea/blob/master/build/yamls/antrea.yml):
+checked-in [deployment manifest](https://github.com/vmware-tanzu/antrea/blob/master/build/yamls/antrea.yml):
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/vmware-tanzu/antrea/master/build/yamls/antrea.yml
