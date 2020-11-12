@@ -204,7 +204,7 @@ Disallow privileged users | When constructing containers, consult your documenta
 
 容器安全性不在本指南的探讨范围内。下面是一些探索此主题的建议和连接：
 
-容器关注领域 | 建议 |
+容器关注领域                   | 建议           |
 ------------------------------ | -------------- |
 容器漏洞扫描和操作系统依赖安全性 | 作为镜像构建的一部分，您应该扫描您的容器里的已知漏洞。
 镜像签名和执行 | 对容器镜像进行签名，以维护对容器内容的信任。
@@ -257,8 +257,8 @@ Learn about related Kubernetes security topics:
 
 * [Pod security standards](/docs/concepts/security/pod-security-standards/)
 * [Network policies for Pods](/docs/concepts/services-networking/network-policies/)
+* [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access)
 * [Securing your cluster](/docs/tasks/administer-cluster/securing-a-cluster/)
-* [API access control](/docs/reference/access-authn-authz/controlling-access/)
 * [Data encryption in transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
 * [Data encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
 * [Secrets in Kubernetes](/docs/concepts/configuration/secret/)
@@ -267,8 +267,9 @@ Learn about related Kubernetes security topics:
 
 * [Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
 * [Pod 的网络策略](/zh/docs/concepts/services-networking/network-policies/)
+* [控制对 Kubernetes API 的访问](/zh/docs/concepts/security/controlling-access/)
 * [保护您的集群](/zh/docs/tasks/administer-cluster/securing-a-cluster/)
-* [API 访问控制](/zh/docs/reference/access-authn-authz/controlling-access/)
-* [加密通信中的数据](/zh/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
+* 为控制面[加密通信中的数据](/zh/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [加密静止状态的数据](/zh/docs/tasks/administer-cluster/encrypt-data/)
-* [Kubernetes 的 Secret](/zh/docs/concepts/configuration/secret/)
+* [Kubernetes 中的 Secret](/zh/docs/concepts/configuration/secret/)
+

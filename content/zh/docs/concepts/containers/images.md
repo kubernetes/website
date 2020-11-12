@@ -87,7 +87,7 @@ Instead, specify a meaningful tag such as `v1.42.0`.
 {{< /caution >}}
 
 <!--
-## Updating Images
+## Updating images
 
 The default pull policy is `IfNotPresent` which causes the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip
@@ -116,17 +116,18 @@ When `imagePullPolicy` is defined without a specific value, it is also set to `A
 如果 `imagePullPolicy` 未被定义为特定的值，也会被设置为 `Always`。
 
 <!--
-## Multi-architecture Images with Manifests
+## Multi-architecture images with image indexes
 
-As well as providing binary images, a container registry can also serve a [container image manifest](https://github.com/opencontainers/image-spec/blob/master/manifest.md). A manifest can reference image manifests for architecture-specific versions of an container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
+As well as providing binary images, a container registry can also serve a [container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md). An image index can point to multiple [image manifests](https://github.com/opencontainers/image-spec/blob/master/manifest.md) for architecture-specific versions of a container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
 
 Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
 -->
-## 使用清单（manifest）构建多架构镜像
+## 带镜像索引的多架构镜像  {#multi-architecture-images-with-image-indexes}
 
 除了提供二进制的镜像之外，容器仓库也可以提供
-[容器镜像清单](https://github.com/opencontainers/image-spec/blob/master/manifest.md)。
-清单文件（Manifest）可以为特定于体系结构的镜像版本引用其镜像清单。
+[容器镜像索引](https://github.com/opencontainers/image-spec/blob/master/image-index.md)。
+镜像索引可以根据特定于体系结构版本的容器指向镜像的多个
+[镜像清单](https://github.com/opencontainers/image-spec/blob/master/manifest.md)。
 这背后的理念是让你可以为镜像命名（例如：`pause`、`example/mycontainer`、`kube-apiserver`）
 的同时，允许不同的系统基于它们所使用的机器体系结构取回正确的二进制镜像。
 
@@ -137,7 +138,7 @@ Kubernetes 自身通常在命名容器镜像时添加后缀 `-$(ARCH)`。
 YAML 文件也能兼容。
 
 <!--
-## Using a Private Registry
+## Using a private registry
 
 Private registries may require keys to read images from them.  
 Credentials can be provided in several ways:
@@ -179,7 +180,7 @@ These options are explaind in more detail below.
 下面将详细描述每一项。
 
 <!--
-### Configuring Nodes to authenticate to a Private Registry
+### Configuring nodes to authenticate to a private registry
 
 If you run Docker on your nodes, you can configure the Docker container
 runtime to authenticate to a private container registry.
@@ -333,7 +334,7 @@ registry keys are added to the `.docker/config.json`.
 在 `.docker/config.json` 中配置了私有仓库密钥后，所有 Pod 都将能读取私有仓库中的镜像。
 
 <!--
-### Pre-pulled Images
+### Pre-pulled images
 -->
 ### 提前拉取镜像   {#pre-pulled-images}
 
@@ -371,7 +372,7 @@ All pods will have read access to any pre-pulled images.
 所有的 Pod 都可以使用节点上提前拉取的镜像。
 
 <!--
-### Specifying ImagePullSecrets on a Pod
+### Specifying imagePullSecrets on a Pod
 -->
 ### 在 Pod 上指定 ImagePullSecrets   {#specifying-imagepullsecrets-on-a-pod}
 
@@ -389,7 +390,7 @@ Kubernetes supports specifying container image registry keys on a Pod.
 Kubernetes 支持在 Pod 中设置容器镜像仓库的密钥。
 
 <!--
-#### Creating a Secret with a Docker Config
+#### Creating a Secret with a Docker config
 
 Run the following command, substituting the appropriate uppercase values:
 -->
@@ -491,12 +492,12 @@ will be merged.
 来自不同来源的凭据会被合并。
 
 <!--
-### Use Cases
+## Use cases
 
 There are a number of solutions for configuring private registries.  Here are some
 common use cases and suggested solutions.
 -->
-### 使用案例  {#use-cases}
+## 使用案例  {#use-cases}
 
 配置私有仓库有多种方案，以下是一些常用场景和建议的解决方案。
 
