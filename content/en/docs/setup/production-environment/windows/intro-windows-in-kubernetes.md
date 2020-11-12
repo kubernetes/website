@@ -270,6 +270,7 @@ The behavior of the flags behave differently as described below:
 * MemoryPressure Condition is not implemented
 * There are no OOM eviction actions taken by the kubelet
 * Kubelet running on the windows node does not have memory restrictions. `--kubelet-reserve` and `--system-reserve` do not set limits on kubelet or processes running on the host. This means kubelet or a process on the host could cause memory resource starvation outside the node-allocatable and scheduler
+* An additional flag to set the priority of the kubelet process is availabe on the Windows nodes called `--windows-priorityclass`. This flag allows kubelet process to get more CPU time slices when compared to other processes running on the Windows host. More information on the allowable values and their meaning is available at [Windows Priority Classes](https://docs.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities#priority-class). In order for kubelet to always have enough CPU cycles it is recommended to set this flag to `ABOVE_NORMAL_PRIORITY_CLASS` and above
 
 #### Storage
 
