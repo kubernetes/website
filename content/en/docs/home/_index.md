@@ -32,7 +32,7 @@ cards:
   button: "View Tutorials"
   button_path: "/docs/tutorials"
 - name: setup
-  title: "Set up a cluster"
+  title: "Set up a K8s cluster"
   description: "Get Kubernetes running based on your resources and needs."
   button: "Set up Kubernetes"
   button_path: "/docs/setup"
@@ -57,7 +57,7 @@ cards:
   button: Contribute to the docs
   button_path: /docs/contribute
 - name: release-notes
-  title: Release Notes
+  title: K8s Release Notes
   description: If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.
   button: "Download Kubernetes"
   button_path: "/docs/setup/release/notes"
