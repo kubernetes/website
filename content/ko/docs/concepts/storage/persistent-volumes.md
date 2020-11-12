@@ -177,27 +177,29 @@ spec:
 퍼시스턴트볼륨이 존재하고 `claimRef` 필드를 통해 퍼시스턴트볼륨클레임을 예약하지 않은 경우, 퍼시스턴트볼륨 및 퍼시스턴트볼륨클레임이 바인딩된다.
 
 바인딩은 노드 선호도(affinity)를 포함하여 일부 볼륨 일치(matching) 기준과 관계없이 발생한다.
-컨트롤 플레인은 여전히 [스토리지 클래스](https://kubernetes.io/ko/docs/concepts/storage/storage-classes/), 접근 모드 및 요청된 스토리지 크기가 유효한지 확인한다.
+컨트롤 플레인은 여전히 [스토리지 클래스](/ko/docs/concepts/storage/storage-classes/), 접근 모드 및 요청된 스토리지 크기가 유효한지 확인한다.
 
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: foo-pvc
   namespace: foo
 spec:
+  storageClassName: "" # 빈 문자열은 명시적으로 설정해야 하며 그렇지 않으면 기본 스토리지클래스가 설정됨
   volumeName: foo-pv
   ...
 ```
 
 이 메서드는 퍼시스턴트볼륨에 대한 바인딩 권한을 보장하지 않는다. 다른 퍼시스턴트볼륨클레임에서 지정한 PV를 사용할 수 있는 경우, 먼저 해당 스토리지 볼륨을 예약해야 한다. PV의 `claimRef` 필드에 관련 퍼시스턴트볼륨클레임을 지정하여 다른 PVC가 바인딩할 수 없도록 한다.
 
-```
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: foo-pv
 spec:
+  storageClassName: ""
   claimRef:
     name: foo-pvc
     namespace: foo
