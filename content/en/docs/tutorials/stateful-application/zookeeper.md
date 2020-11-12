@@ -46,7 +46,7 @@ tutorial.
 After this tutorial, you will know the following.
 
 -   How to deploy a ZooKeeper ensemble using StatefulSet.
--   How to consistently configure the ensemble using ConfigMaps.
+-   How to consistently configure the ensemble.
 -   How to spread the deployment of ZooKeeper servers in the ensemble.
 -   How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
 
@@ -770,7 +770,7 @@ In one terminal window, use the following command to watch the Pods in the `zk` 
 kubectl get pod -w -l app=zk
 ```
 
-In another window, using the following command to delete the `zkOk.sh` script from the file system of Pod `zk-0`.
+In another window, using the following command to delete the `zookeeper-ready` script from the file system of Pod `zk-0`.
 
 ```shell
 kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
