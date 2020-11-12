@@ -2,7 +2,7 @@
 ### Synopsis
 
 
-Renew the certificate for the API server to connect to kubelet.
+Renew the certificate the apiserver uses to access etcd.
 
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
 
@@ -11,7 +11,7 @@ Renewal by default tries to use the certificate authority in the local PKI manag
 After renewal, in order to make changes effective, is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 
 ```
-kubeadm alpha certs renew apiserver-kubelet-client [flags]
+kubeadm certs renew apiserver-etcd-client [flags]
 ```
 
 ### Options
@@ -55,7 +55,7 @@ kubeadm alpha certs renew apiserver-kubelet-client [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">help for apiserver-kubelet-client</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">help for apiserver-etcd-client</td>
 </tr>
 
 <tr>
