@@ -24,6 +24,8 @@ API 리소스 `PersistentVolume` 및 `PersistentVolumeClaim` 가 사용자 및 �
 
 `VolumeSnapshotClass` 을 사용하면 `VolumeSnapshot` 에 속한 다른 속성을 지정할 수 있다. 이러한 속성은 스토리지 시스템에의 동일한 볼륨에서 가져온 스냅샷마다 다를 수 있으므로 `PersistentVolumeClaim` 의 `StorageClass` 를 사용하여 표현할 수는 없다.
 
+볼륨 스냅샷은 쿠버네티스 사용자에게 완전히 새로운 볼륨을 생성하지 않고도 특정 시점에 볼륨의 콘텐츠를 복사하는 표준화된 방법을 제공한다. 예를 들어, 데이터베이스 관리자는 이 기능을 사용하여 수정 사항을 편집 또는 삭제하기 전에 데이터베이스를 백업할 수 있다.
+
 사용자는 이 기능을 사용할 때 다음 사항을 알고 있어야 한다.
 
 * API 객체인 `VolumeSnapshot`, `VolumeSnapshotContent`, `VolumeSnapshotClass` 는 핵심 API가 아닌, {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}이다.

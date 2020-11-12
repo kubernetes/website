@@ -20,7 +20,7 @@ content_type: concept
 
 ## Minikube
 
-[`minikube`](/ko/docs/tasks/tools/install-minikube/)는 개발과 테스팅 목적으로 하는
+[`minikube`](https://minikube.sigs.k8s.io/docs/)는 개발과 테스팅 목적으로 하는
 단일 노드 쿠버네티스 클러스터를 로컬 워크스테이션에서
 쉽게 구동시키는 도구이다.
 
@@ -44,7 +44,7 @@ Helm의 용도
 
 ## Kompose
 
-[`Kompose`](https://github.com/kubernetes-incubator/kompose)는 도커 컴포즈 유저들이 쿠버네티스로 이동하는데 도움이 되는 도구이다.
+[`Kompose`](https://github.com/kubernetes/kompose)는 도커 컴포즈 유저들이 쿠버네티스로 이동하는데 도움이 되는 도구이다.
 
 Kompose의 용도
 
