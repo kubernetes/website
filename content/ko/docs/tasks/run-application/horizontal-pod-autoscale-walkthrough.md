@@ -18,9 +18,9 @@ Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는
 
 
 이 예제는 버전 1.2 또는 이상의 쿠버네티스 클러스터와 kubectl을 필요로 한다.
-[메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/) 모니터링을 클러스터에 배포하여 리소스 메트릭 API를 통해 메트릭을 제공해야 한다.
+[메트릭-서버](https://github.com/kubernetes-sigs/metrics-server) 모니터링을 클러스터에 배포하여 리소스 메트릭 API를 통해 메트릭을 제공해야 한다.
 Horizontal Pod Autoscaler가 메트릭을 수집할때 해당 API를 사용한다.
-메트릭-서버를 배포하는 지침은 [메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/)의 GitHub 저장소에 있고, [GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭-서버 모니터링은 디폴트로 활성화된다.
+메트릭-서버를 배포하는 지침은 [메트릭-서버](https://github.com/kubernetes-sigs/metrics-server)의 GitHub 저장소에 있고, [GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭-서버 모니터링은 디폴트로 활성화된다.
 
 Horizontal Pod Autoscaler에 다양한 자원 메트릭을 적용하고자 하는 경우,
 버전 1.6 또는 이상의 쿠버네티스 클러스터와 kubectl를 사용해야 한다.

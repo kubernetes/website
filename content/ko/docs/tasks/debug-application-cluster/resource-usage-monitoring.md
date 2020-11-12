@@ -28,7 +28,7 @@ title: 리소스 모니터링 도구
 컨트롤러와 같은 클러스터 구성요소나
 `kubectl top` 유틸리티에 관련되어 있는
 메트릭들로 제한된 집합을 제공한다. 이 메트릭은 경량의 단기 인메모리 저장소인
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server)에
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server)에
 의해서 수집되며 `metrics.k8s.io` API를 통해 노출된다.
 
 metrics-server는 클러스터 상의 모든 노드를 발견하고 각 노드의

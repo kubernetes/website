@@ -185,7 +185,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 [`services`](/ko/docs/concepts/services-networking/service/) 와
 [`replicationcontrollers`](/ko/docs/concepts/workloads/controllers/replicationcontroller/)와 같은
 일부 쿠버네티스 오브젝트는 레이블 셀렉터를 사용해서
-[파드](/ko/docs/concepts/workloads/pods/pod/)와 같은 다른 리소스 집합을 선택한다.
+[파드](/ko/docs/concepts/workloads/pods/)와 같은 다른 리소스 집합을 선택한다.
 
 #### 서비스와 레플리케이션 컨트롤러
 
