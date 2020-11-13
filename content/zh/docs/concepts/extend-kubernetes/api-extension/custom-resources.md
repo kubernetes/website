@@ -28,16 +28,16 @@ methods for adding custom resources and how to choose between them.
 <!--
 ## Custom resources
 
-A *resource* is an endpoint in the [Kubernetes
-API](/docs/reference/using-api/api-overview/) that stores a collection of [API
-objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/) of
+A *resource* is an endpoint in the
+[Kubernetes API](/docs/concepts/overview/kubernetes-api/) that stores a collection of
+[API objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/) of
 a certain kind; for example, the built-in *pods* resource contains a
 collection of Pod objects.
 -->
 ## 定制资源
 
 *资源（Resource）* 是
-[Kubernetes API](/zh/docs/reference/using-api/api-overview/) 中的一个端点，
+[Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/) 中的一个端点，
 其中存储的是某个类别的
 [API 对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 的一个集合。
@@ -177,16 +177,16 @@ Signs that your API might not be declarative include:
 命令式 API（Imperative API）与声明式有所不同。
 以下迹象表明你的 API 可能不是声明式的：
 
- - 客户端发出“做这个操作”的指令，之后在该操作结束时获得同步响应。
- - 客户端发出“做这个操作”的指令，并获得一个操作 ID，之后需要检查一个 Operation（操作）
-   对象来判断请求是否成功完成。
- - 你会将你的 API 类比为远程过程调用（Remote Procedure Call，RPCs）。
- - 直接存储大量数据；例如每个对象几 kB，或者存储上千个对象。
- - 需要较高的访问带宽（长期保持每秒数十个请求）。
- - 存储有应用来处理的最终用户数据（如图片、个人标识信息（PII）等）或者其他大规模数据。
- - 在对象上执行的常规操作并非 CRUD 风格。
- - API 不太容易用对象来建模。
- - 你决定使用操作 ID 或者操作对象来表现悬决的操作。
+- 客户端发出“做这个操作”的指令，之后在该操作结束时获得同步响应。
+- 客户端发出“做这个操作”的指令，并获得一个操作 ID，之后需要检查一个 Operation（操作）
+  对象来判断请求是否成功完成。
+- 你会将你的 API 类比为远程过程调用（Remote Procedure Call，RPCs）。
+- 直接存储大量数据；例如每个对象几 kB，或者存储上千个对象。
+- 需要较高的访问带宽（长期保持每秒数十个请求）。
+- 存储有应用来处理的最终用户数据（如图片、个人标识信息（PII）等）或者其他大规模数据。
+- 在对象上执行的常规操作并非 CRUD 风格。
+- API 不太容易用对象来建模。
+- 你决定使用操作 ID 或者操作对象来表现悬决的操作。
 
 <!--
 ## Should I use a configMap or a custom resource?
