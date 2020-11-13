@@ -81,7 +81,8 @@ different Kubernetes components.
 | `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | |
 | `CSIServiceAccountToken` | `false` | Alpha | 1.20 | |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | |
-| `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | |
+| `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | 1.19 |
+| `CSIVolumeFSGroupPolicy` | `true` | Beta | 1.20 | |
 | `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | 1.19 |
 | `ConfigurableFSGroupPolicy` | `true` | Beta | 1.20 | |
 | `CronJobControllerV2` | `false` | Alpha | 1.20 | |
