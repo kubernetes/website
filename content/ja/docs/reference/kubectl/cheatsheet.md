@@ -50,7 +50,7 @@ echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc 
 kubectl config view # マージされたkubeconfigの設定を表示します。
 
 # 複数のkubeconfigファイルを同時に読み込む場合はこのように記述します。
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
@@ -72,7 +72,7 @@ kubectl config set-context --current --namespace=ggckad-s2
 # 特定のユーザー名と名前空間を使用してコンテキストを設定します
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
- 
+
 kubectl config unset users.foo    # ユーザーfooを削除します
 ```
 
@@ -214,10 +214,6 @@ kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 
 ## リソースのアップデート
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8d357bf1e (finished translating cheartsheet.md)
 ```bash
 kubectl set image deployment/frontend www=image:v2               # frontend Deploymentのwwwコンテナイメージをv2にローリングアップデートします
 kubectl rollout history deployment/frontend                      # frontend Deploymentの改訂履歴を確認します
@@ -297,13 +293,13 @@ kubectl logs my-pod                                 # Podのログをダンプ�
 kubectl logs -l name=myLabel                        # name=myLabelラベルの持つPodのログをダンプします(標準出力)
 kubectl logs my-pod --previous                      # 以前に存在したコンテナのPodログをダンプします(標準出力)
 kubectl logs my-pod -c my-container                 # 複数コンテナがあるPodで、特定のコンテナのログをダンプします(標準出力)
-kubectl logs -l name=myLabel -c my-container        # name=mylabelラベルを持つPodのログをダンプします(標準出力) 
+kubectl logs -l name=myLabel -c my-container        # name=mylabelラベルを持つPodのログをダンプします(標準出力)
 kubectl logs my-pod -c my-container --previous      # 複数コンテナがあるPodで、以前に作成した特定のコンテナのログをダンプします(標準出力)
 kubectl logs -f my-pod                              # Podのログをストリームで確認します(標準出力)
 kubectl logs -f my-pod -c my-container              # 複数のコンテナがあるPodで、特定のコンテナのログをストリームで確認します(標準出力)
 kubectl logs -f -l name=myLabel --all-containers    # name-myLabelラベルを持つすべてのコンテナのログをストリームで確認します(標準出力)
 kubectl run -i --tty busybox --image=busybox -- sh  # Podをインタラクティブシェルとして実行します
-kubectl run nginx --image=nginx -n 
+kubectl run nginx --image=nginx -n
 mynamespace                                         # 特定の名前空間でnginx Podを実行します
 kubectl run nginx --image=nginx                     # nginx Podを実行し、マニフェストファイルをpod.yamlという名前で書き込みます
 --dry-run=client -o yaml > pod.yaml
@@ -337,7 +333,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 kubectl api-resources
 ```
 
-APIリソースを探索するためのその他の操作: 
+APIリソースを探索するためのその他の操作:
 
 ```bash
 kubectl api-resources --namespaced=true      # 名前空間付きのすべてのリソースを表示します
