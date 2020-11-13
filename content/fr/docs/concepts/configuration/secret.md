@@ -217,7 +217,7 @@ type: Opaque
 data:
   username: YWRtaW4=
 stringData:
-  username: administrator
+  username: administrateur
 ```
 
 Donnera le secret suivant:
