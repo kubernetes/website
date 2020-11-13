@@ -708,6 +708,18 @@ Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `https-example
 你需要确保创建的 TLS Secret 创建自包含 `sslexample.foo.com` 的公用名称（CN）的证书。
 这里的公共名称也被称为全限定域名（FQDN）。
 
+{{< note >}}
+<!--
+Keep in mind that TLS will not work on the default rule because the
+certificates would have to be issued for all the possible sub-domains. Therefore,
+`hosts` in the `tls` section need to explicitly match the `host` in the `rules`
+section.
+-->
+注意，默认规则上无法使用 TLS，因为需要为所有可能的子域名发放证书。
+因此，`tls` 节区的 `hosts` 的取值需要域 `rules` 节区的 `host`
+完全匹配。
+{{< /note >}}
+
 {{< codenew file="service/networking/tls-example-ingress.yaml" >}}
 
 <!-- 
@@ -754,9 +766,10 @@ specific documentation to see how they handle health checks (
 中存在并行的概念，比如
 [就绪检查](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)，
 允许你实现相同的目的。
-请检查特定控制器的说明文档，以了解它们是怎样处理健康检查的 (
+请检查特定控制器的说明文档（
 [nginx](https://git.k8s.io/ingress-nginx/README.md)，
-[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks))。
+[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)）
+以了解它们是怎样处理健康检查的。
 
 <!--
 ## Updating an Ingress
