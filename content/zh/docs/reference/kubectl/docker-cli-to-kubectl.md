@@ -5,19 +5,19 @@ reviewers:
 - brendandburns
 - thockin
 ---
-<!-- 
+<!--
 ---
 title: kubectl for Docker Users
 content_type: concept
 reviewers:
 - brendandburns
 - thockin
---- 
+---
 -->
 
 <!-- overview -->
-<!-- 
-You can use the Kubernetes command line tool kubectl to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a docker sub-command and describe the equivalent kubectl command. 
+<!--
+You can use the Kubernetes command line tool kubectl to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a docker sub-command and describe the equivalent kubectl command.
 -->
 您可以使用 Kubernetes 命令行工具 kubectl 与 API 服务器进行交互。如果您熟悉 Docker 命令行工具，则使用 kubectl 非常简单。但是，docker 命令和 kubectl 命令之间有一些区别。以下显示了 docker 子命令，并描述了等效的 kubectl 命令。
 
@@ -48,11 +48,11 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 kubectl:
 
-<!-- 
+<!--
 ```shell
 # start the pod running nginx
 kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
-``` 
+```
 -->
 ```shell
 # 启动运行 nginx 的 Pod
@@ -77,11 +77,11 @@ deployment.apps/nginx-app env updated
 `kubectl` 命令打印创建或突变资源的类型和名称，然后可以在后续命令中使用。部署后，您可以公开新服务。
 {{< /note >}}
 
-<!-- 
+<!--
 ```shell
 # expose a port through with a service
 kubectl expose deployment nginx-app --port=80 --name=nginx-http
-``` 
+```
 -->
 ```shell
 # 通过服务公开端口
@@ -91,10 +91,10 @@ kubectl expose deployment nginx-app --port=80 --name=nginx-http
 service "nginx-http" exposed
 ```
 
-<!-- 
-By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster). 
+<!--
+By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 -->
-在 kubectl 命令中，我们创建了一个 [Deployment](/docs/concepts/workloads/controllers/deployment/)，这将保证有 N 个运行 nginx 的 pod(N 代表 spec 中声明的 replica 数，默认为 1)。我们还创建了一个 [service](/docs/concepts/services-networking/service/)，其选择器与容器标签匹配。查看[使用服务访问群集中的应用程序](/docs/tasks/access-application-cluster/service-access-application-cluster) 获取更多信息。
+在 kubectl 命令中，我们创建了一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)，这将保证有 N 个运行 nginx 的 pod(N 代表 spec 中声明的 replica 数，默认为 1)。我们还创建了一个 [service](/zh/docs/concepts/services-networking/service/)，其选择器与容器标签匹配。查看[使用服务访问群集中的应用程序](/zh/docs/tasks/access-application-cluster/service-access-application-cluster) 获取更多信息。
 
 <!--
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
@@ -105,27 +105,27 @@ By default images run in the background, similar to `docker run -d ...`. To run 
 kubectl run [-i] [--tty] --attach <name> --image=<image>
 ```
 
-<!-- 
+<!--
 Unlike `docker run ...`, if you specify `--attach`, then you attach `stdin`, `stdout` and `stderr`. You cannot control which streams are attached (`docker -a ...`).
-To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q. 
+To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 -->
 与 `docker run ...` 不同的是，如果指定了 `--attach` ，我们将连接到 `stdin`，`stdout` 和 `stderr`，而不能控制具体连接到哪个输出流（`docker -a ...`）。要从容器中退出，可以输入 Ctrl + P，然后按 Ctrl + Q。
 
-<!-- 
+<!--
 Because the kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C, unlike `docker run -it`.
-To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`. 
+To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`.
 -->
 因为我们使用 Deployment 启动了容器，如果您终止连接到的进程（例如 `ctrl-c`），容器将会重启，这跟 `docker run -it` 不同。
 如果想销毁该 Deployment（和它的 pod），您需要运行 `kubectl delete deployment <name>`。
 
 ## docker ps
 
-<!-- 
-To list what is currently running, see [kubectl get](/docs/reference/generated/kubectl/kubectl-commands/#get). 
+<!--
+To list what is currently running, see [kubectl get](/docs/reference/generated/kubectl/kubectl-commands/#get).
 -->
 如何列出哪些正在运行？查看 [kubectl get](/docs/reference/generated/kubectl/kubectl-commands/#get)。
 
-<!-- 
+<!--
 docker:
  -->
 使用 docker 命令：
@@ -139,8 +139,8 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 55c103fa1296        nginx               "nginx -g 'daemon of…"   About a minute ago   Up About a minute          0.0.0.0:80->80/tcp   nginx-app
 ```
 
-<!-- 
-kubectl: 
+<!--
+kubectl:
 -->
 使用 kubectl 命令：
 
@@ -155,13 +155,13 @@ ubuntu                      0/1       Completed   0          20s
 
 ## docker attach
 
-<!-- 
-To attach a process that is already running in a container, see [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands/#attach). 
+<!--
+To attach a process that is already running in a container, see [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands/#attach).
 -->
 如何连接到已经运行在容器中的进程？查看 [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands/#attach)。
 
-<!-- 
-docker: 
+<!--
+docker:
 -->
 使用 docker 命令：
 
@@ -193,20 +193,20 @@ kubectl attach -it nginx-app-5jyvm
 ...
 ```
 
-<!-- 
-To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q. 
+<!--
+To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 -->
 要从容器中分离，可以输入 Ctrl + P，然后按 Ctrl + Q。
 
 ## docker exec
 
-<!-- 
-To execute a command in a container, see [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec). 
+<!--
+To execute a command in a container, see [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec).
 -->
 如何在容器中执行命令？查看 [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)。
 
-<!-- 
-docker: 
+<!--
+docker:
 -->
 使用 docker 命令：
 
@@ -224,8 +224,8 @@ docker exec 55c103fa1296 cat /etc/hostname
 55c103fa1296
 ```
 
-<!-- 
-kubectl: 
+<!--
+kubectl:
 -->
 使用 kubectl 命令：
 
@@ -244,13 +244,13 @@ kubectl exec nginx-app-5jyvm -- cat /etc/hostname
 nginx-app-5jyvm
 ```
 
-<!-- 
-To use interactive commands. 
+<!--
+To use interactive commands.
 -->
 执行交互式命令怎么办？
 
-<!-- 
-docker: 
+<!--
+docker:
 -->
 使用 docker 命令：
 
@@ -266,21 +266,21 @@ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-<!-- 
-For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/). 
+<!--
+For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 -->
-更多信息请查看[获取运行中容器的 Shell 环境](/docs/tasks/kubectl/get-shell-running-container/)。
+更多信息请查看[获取运行中容器的 Shell 环境](/zh/docs/tasks/debug-application-cluster/get-shell-running-container/)。
 
 ## docker logs
 
-<!-- 
-To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/#logs). 
+<!--
+To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/#logs).
 -->
 如何查看运行中进程的 stdout/stderr？查看 [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/#logs)。
 
 
-<!-- 
-docker: 
+<!--
+docker:
 -->
 使用 docker 命令：
 
@@ -292,8 +292,8 @@ docker logs -f a9e
 192.168.9.1 - - [14/Jul/2015:01:04:03 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.35.0" "-"
 ```
 
-<!-- 
-kubectl: 
+<!--
+kubectl:
 -->
 使用 kubectl 命令：
 
@@ -305,8 +305,8 @@ kubectl logs -f nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-<!-- 
-There is a slight difference between pods and containers; by default pods do not terminate if their processes exit. Instead the pods restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated, but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this: 
+<!--
+There is a slight difference between pods and containers; by default pods do not terminate if their processes exit. Instead the pods restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated, but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this:
 -->
 现在是时候提一下 pod 和容器之间的细微差别了；默认情况下如果 pod 中的进程退出 pod 也不会终止，相反它将会重启该进程。这类似于 docker run 时的 `--restart=always` 选项， 这是主要差别。在 docker 中，进程的每个调用的输出都是被连接起来的，但是对于 kubernetes，每个调用都是分开的。要查看以前在 kubernetes 中执行的输出，请执行以下操作：
 
@@ -318,20 +318,20 @@ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-<!-- 
-For more information, see [Logging Architecture](/docs/concepts/cluster-administration/logging/). 
+<!--
+For more information, see [Logging Architecture](/docs/concepts/cluster-administration/logging/).
 -->
-查看[日志架构](/docs/concepts/cluster-administration/logging/)获取更多信息。
+查看[日志架构](/zh/docs/concepts/cluster-administration/logging/)获取更多信息。
 
 ## docker stop and docker rm
 
-<!-- 
-To stop and delete a running process, see [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/#delete). 
+<!--
+To stop and delete a running process, see [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/#delete).
 -->
 如何停止和删除运行中的进程？查看 [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/#delete)。
 
-<!-- 
-docker: 
+<!--
+docker:
 -->
 使用 docker 命令：
 
@@ -357,8 +357,8 @@ docker rm a9ec34d98787
 a9ec34d98787
 ```
 
-<!-- 
-kubectl: 
+<!--
+kubectl:
 -->
 使用 kubectl 命令：
 
@@ -390,28 +390,28 @@ kubectl get po -l run=nginx-app
 ```
 
 {{< note >}}
-<!-- 
-When you use kubectl, you don't delete the pod directly.You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod. 
+<!--
+When you use kubectl, you don't delete the pod directly.You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
 -->
 请注意，我们不直接删除 pod。使用 kubectl 命令，我们要删除拥有该 pod 的 Deployment。如果我们直接删除 pod，Deployment 将会重新创建该 pod。
 {{< /note >}}
 
 ## docker login
 
-<!-- 
-There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry). 
+<!--
+There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 -->
-在 kubectl 中没有对 `docker login` 的直接模拟。如果您有兴趣在私有镜像仓库中使用 Kubernetes，请参阅[使用私有镜像仓库](/docs/concepts/containers/images/#using-a-private-registry)。
+在 kubectl 中没有对 `docker login` 的直接模拟。如果您有兴趣在私有镜像仓库中使用 Kubernetes，请参阅[使用私有镜像仓库](/zh/docs/concepts/containers/images/#using-a-private-registry)。
 
 ## docker version
 
-<!-- 
-To get the version of client and server, see [kubectl version](/docs/reference/generated/kubectl/kubectl-commands/#version). 
+<!--
+To get the version of client and server, see [kubectl version](/docs/reference/generated/kubectl/kubectl-commands/#version).
 -->
 如何查看客户端和服务端的版本？查看 [kubectl version](/docs/reference/generated/kubectl/kubectl-commands/#version)。
 
-<!-- 
-docker: 
+<!--
+docker:
 -->
 使用 docker 命令：
 
@@ -431,8 +431,8 @@ Git commit (server): 0baf609
 OS/Arch (server): linux/amd64
 ```
 
-<!-- 
-kubectl: 
+<!--
+kubectl:
 -->
 使用 kubectl 命令：
 
@@ -446,13 +446,13 @@ Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4
 
 ## docker info
 
-<!-- 
-To get miscellaneous information about the environment and configuration, see [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info). 
+<!--
+To get miscellaneous information about the environment and configuration, see [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info).
 -->
 如何获取有关环境和配置的各种信息？查看 [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info)。
 
-<!-- 
-docker: 
+<!--
+docker:
 -->
 使用 docker 命令：
 
@@ -478,8 +478,8 @@ ID: ADUV:GCYR:B3VJ:HMPO:LNPQ:KD5S:YKFQ:76VN:IANZ:7TFV:ZBF4:BYJO
 WARNING: No swap limit support
 ```
 
-<!-- 
-kubectl: 
+<!--
+kubectl:
 -->
 使用 kubectl 命令：
 
@@ -494,4 +494,3 @@ Grafana is running at https://108.59.85.141/api/v1/namespaces/kube-system/servic
 Heapster is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 InfluxDB is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
-

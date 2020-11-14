@@ -91,7 +91,7 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.18, they are:
+In the current version, the default ones are:
 
 ```shell
 NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota
@@ -534,8 +534,8 @@ and kubelets will not be allowed to modify labels with that prefix.
   * `kubernetes.io/os`
   * `beta.kubernetes.io/instance-type`
   * `node.kubernetes.io/instance-type`
-  * `failure-domain.beta.kubernetes.io/region`
-  * `failure-domain.beta.kubernetes.io/zone`
+  * `failure-domain.beta.kubernetes.io/region` (deprecated)
+  * `failure-domain.beta.kubernetes.io/zone` (deprecated)
   * `topology.kubernetes.io/region`
   * `topology.kubernetes.io/zone`
   * `kubelet.kubernetes.io/`-prefixed labels
@@ -730,7 +730,7 @@ See the [resourceQuota design doc](https://git.k8s.io/community/contributors/des
 For [RuntimeClass](/docs/concepts/containers/runtime-class/) definitions which describe an overhead associated with running a pod,
 this admission controller will set the pod.Spec.Overhead field accordingly.
 
-See also [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
+See also [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}

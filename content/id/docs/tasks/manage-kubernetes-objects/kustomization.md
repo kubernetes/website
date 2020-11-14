@@ -835,7 +835,7 @@ deployment.apps "dev-my-nginx" deleted
 
 * [Kustomize](https://github.com/kubernetes-sigs/kustomize)
 * [Buku Kubectl](https://kubectl.docs.kubernetes.io)
-* [Rujukan Perintah Kubectl](/id/docs/reference/generated/kubectl/kubectl/)
-* [Rujukan API Kubernetes](/id/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
+* [Rujukan API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 

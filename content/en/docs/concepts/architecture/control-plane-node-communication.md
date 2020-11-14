@@ -49,7 +49,7 @@ To verify this connection, use the `--kubelet-certificate-authority` flag to pro
 If that is not possible, use [SSH tunneling](#ssh-tunnels) between the apiserver and kubelet if required to avoid connecting over an
 untrusted or public network.
 
-Finally, [Kubelet authentication and/or authorization](/docs/admin/kubelet-authentication-authorization/) should be enabled to secure the kubelet API.
+Finally, [Kubelet authentication and/or authorization](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/) should be enabled to secure the kubelet API.
 
 ### apiserver to nodes, pods, and services
 

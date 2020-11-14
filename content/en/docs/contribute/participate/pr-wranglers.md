@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-SIG Docs [approvers](/docs/contribute/participating/roles-and-responsibilites/#approvers) take week-long shifts [managing pull requests](https://github.com/kubernetes/website/wiki/PR-Wranglers) for the repository.
+SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers) take week-long shifts [managing pull requests](https://github.com/kubernetes/website/wiki/PR-Wranglers) for the repository.
 
 This section covers the duties of a PR wrangler. For more information on giving good reviews, see [Reviewing changes](/docs/contribute/review/).
 

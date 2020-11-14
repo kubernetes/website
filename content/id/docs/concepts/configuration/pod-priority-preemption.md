@@ -203,7 +203,7 @@ Misalnya sebuah Node N sedang dipertimbangkan untuk pemindahan Pod sehingga sebu
 *   Pod P dipertimbangkan untuk Node N.
 *   Pod Q sedang berjalan pada Node lain pada Zona yang sama dengan Node N.
 *   Pod P memiliki anti-afinitas yang berlaku pada seluruh Zona terhadap Pod Q (`topologyKey:
-    failure-domain.beta.kubernetes.io/zone`).
+    topology.kubernetes.io/zone`).
 *   Tidak ada kasus anti-afinitas lain antara Pod P dengan Pod-pod lainnya pada Zona tersebut.
 *   Untuk dapat menjadwalkan Pod P pada Node N, Pod Q dapat dipindahkan, tetapi
     Scheduler tidak melakukan pemindahan Pod antar Node. Jadi, Pod P akan

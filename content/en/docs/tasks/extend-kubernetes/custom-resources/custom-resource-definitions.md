@@ -518,27 +518,25 @@ apiVersion: "stable.example.com/v1"
 kind: CronTab
 metadata:
   finalizers:
-  - finalizer.stable.example.com
+  - stable.example.com/finalizer
 ```
 
-Finalizers are arbitrary string values, that when present ensure that a hard delete
-of a resource is not possible while they exist.
+Identifiers of custom finalizers consist of a domain name, a forward slash and the name of
+the finalizer. Any controller can add a finalizer to any object's list of finalizers.
 
 The first delete request on an object with finalizers sets a value for the
 `metadata.deletionTimestamp` field but does not delete it. Once this value is set,
-entries in the `finalizers` list can only be removed.
+entries in the `finalizers` list can only be removed. While any finalizers remain it is also
+impossible to force the deletion of an object.
 
-When the `metadata.deletionTimestamp` field is set, controllers watching the object
-execute any finalizers they handle, by polling update requests for that
-object. When all finalizers have been executed, the resource is deleted.
+When the `metadata.deletionTimestamp` field is set, controllers watching the object execute any
+finalizers they handle and remove the finalizer from the list after they are done. It is the
+responsibility of each controller to remove its finalizer from the list.
 
-The value of `metadata.deletionGracePeriodSeconds` controls the interval between
-polling updates.
+The value of `metadata.deletionGracePeriodSeconds` controls the interval between polling updates.
 
-It is the responsibility of each controller to remove its finalizer from the list.
-
-Kubernetes only finally deletes the object if the list of finalizers is empty,
-meaning all finalizers have been executed.
+Once the list of finalizers is empty, meaning all finalizers have been executed, the resource is
+deleted by Kubernetes.
 
 ### Validation
 
@@ -954,15 +952,15 @@ the `/scale` subresource will return an error on GET.
 
   - It is a required value.
   - Only JSONPaths under `.status` and with the dot notation are allowed.
-  - If there is no value under the `StatusReplicasPath` in the custom resource,
+  - If there is no value under the `statusReplicasPath` in the custom resource,
 the status replica value in the `/scale` subresource will default to 0.
 
-- `LabelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
+- `labelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
 
   - It is an optional value.
   - It must be set to work with HPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
-  - If there is no value under the `LabelSelectorPath` in the custom resource,
+  - If there is no value under the `labelSelectorPath` in the custom resource,
 the status selector value in the `/scale` subresource will default to the empty string.
   - The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form.
 

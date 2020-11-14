@@ -8,7 +8,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-[파드](/ko/docs/concepts/workloads/pods/pod/)는 _우선순위_ 를 가질 수 있다. 우선순위는
+[파드](/ko/docs/concepts/workloads/pods/)는 _우선순위_ 를 가질 수 있다. 우선순위는
 다른 파드에 대한 상대적인 파드의 중요성을 나타낸다. 파드를 스케줄링할 수 없는 경우,
 스케줄러는 우선순위가 낮은 파드를 선점(축출)하여 보류 중인 파드를
 스케줄링할 수 있게 한다.
@@ -268,7 +268,7 @@ spec:
 *   파드 P는 노드 N에 대해 고려된다.
 *   파드 Q는 노드 N과 동일한 영역의 다른 노드에서 실행 중이다.
 *   파드 P는 파드 Q(`topologyKey:
-    failure-domain.beta.kubernetes.io/zone`)와 영역(zone) 전체의 안티-어피니티를 갖는다.
+    topology.kubernetes.io/zone`)와 영역(zone) 전체의 안티-어피니티를 갖는다.
 *   영역에서 파드 P와 다른 파드 간의 안티-어피니티에 대한 다른 경우는
     없다.
 *   노드 N에서 파드 P를 스케줄링하기 위해, 파드 Q를 축출할 수 있지만, 스케줄러는

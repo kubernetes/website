@@ -13,7 +13,7 @@ card:
 _파드(Pod)_ 는 쿠버네티스에서 생성하고 관리할 수 있는 배포 가능한 가장 작은 컴퓨팅 단위이다.
 
 _파드_ (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지로)는 하나 이상의
-{{< glossary_tooltip text="컨테이너" term_id="container" >}}의 그룹이다.
+[컨테이너](/ko/docs/concepts/containers/)의 그룹이다.
 이 그룹은 스토리지/네트워크를 공유하고, 해당 컨테이너를 구동하는 방식에 대한 명세를 갖는다. 파드의 콘텐츠는 항상 함께 배치되고,
 함께 스케줄되며, 공유 콘텍스트에서 실행된다. 파드는
 애플리케이션 별 "논리 호스트"를 모델링한다. 여기에는 상대적으로 밀접하게 결합된 하나 이상의
@@ -120,7 +120,7 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 {{< /note >}}
 
 파드 오브젝트에 대한 매니페스트를 만들 때, 지정된 이름이 유효한
-[DNS 하위 도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인한다.
 
 ### 파드와 컨트롤러
 

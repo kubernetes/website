@@ -11,7 +11,7 @@ weight: 5
 <!-- body -->
 사용자는 `kubectl`, 클라이언트 라이브러리
 또는 REST 요청을 통해
-[API에 접근한다](/docs/tasks/access-application-cluster/access-cluster/).
+[API에 접근한다](/ko/docs/tasks/access-application-cluster/access-cluster/).
 사용자와 쿠버네티스 서비스 어카운트 모두 API에 접근할 수 있다.
 요청이 API에 도달하면,
 다음 다이어그램에 설명된 몇 가지 단계를 거친다.
@@ -100,7 +100,7 @@ Bob이 `projectCaribou` 네임스페이스에 있는 오브젝트에 쓰기(`cre
 
 쿠버네티스는 ABAC 모드, RBAC 모드, 웹훅 모드와 같은 여러 개의 인가 모듈을 지원한다. 관리자가 클러스터를 생성할 때 API 서버에서 사용해야 하는 인가 모듈을 구성했다. 인가 모듈이 2개 이상 구성되면 쿠버네티스가 각 모듈을 확인하고, 어느 모듈이 요청을 승인하면 요청을 진행할 수 있다. 모든 모듈이 요청을 거부하면 요청이 거부된다(HTTP 상태 코드 403).
 
-인가 모듈을 사용한 정책 생성을 포함해 쿠버네티스 인가에 대해 더 배우려면 [인가 개요](/docs/reference/access-authz/authorization/)를 참조한다.
+인가 모듈을 사용한 정책 생성을 포함해 쿠버네티스 인가에 대해 더 배우려면 [인가 개요](/ko/docs/reference/access-authn-authz/authorization/)를 참조한다.
 
 
 ## 어드미션 제어
@@ -159,4 +159,3 @@ GCE(구글 컴퓨트 엔진) 및 다른 클라우드 제공자에서 `kube-up.sh
 API 서버는 포트 443에서 서비스한다.
 GCE에서는 외부 HTTPS가 API에 접근할 수 있도록 프로젝트에서 방화벽 규칙이 구성된다.
 이외에 클러스터 설정 방법은 다양하다.
-

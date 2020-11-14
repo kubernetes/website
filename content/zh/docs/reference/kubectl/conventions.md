@@ -65,7 +65,7 @@ For `kubectl run` to satisfy infrastructure as code:
 * Switch to configuration files checked into source control for features that are needed, but not expressible via `kubectl run` flags.
 -->
 
-* 使用特定版本的标签标记镜像，不要将该标签移动到新版本。例如，使用 `:v1234`、`v1.2.3`、`r03062016-1-4`，而不是 `:latest`（有关详细信息，请参阅[配置的最佳实践](/docs/concepts/configuration/overview/#container-images))。
+* 使用特定版本的标签标记镜像，不要将该标签移动到新版本。例如，使用 `:v1234`、`v1.2.3`、`r03062016-1-4`，而不是 `:latest`（有关详细信息，请参阅[配置的最佳实践](/zh/docs/concepts/configuration/overview/#container-images))。
 * 固定到特定的[生成器](#生成器)版本，例如 `kubectl run --generator=run-pod/v1`。
 * 使用基于版本控制的脚本来记录所使用的参数，或者至少使用 `--record` 参数以便为所创建的对象添加注解，在使用轻度参数化的镜像时，记录下所使用的命令行。
 * 使用基于版本控制的脚本来运行包含大量参数的镜像。
@@ -107,9 +107,8 @@ You can create the following resources using `kubectl run` with the `--generator
 {{< /table >}}
 
 {{< note >}}
-<!--
-Generators other than `run-pod/v1` are deprecated.
- -->不推荐使用 `run-pod/v1` 以外的其他生成器。
+<!--Generators other than `run-pod/v1` are deprecated.-->
+不推荐使用 `run-pod/v1` 以外的其他生成器.
 {{< /note >}}
 
 <!--
@@ -156,5 +155,3 @@ You can use the `--dry-run` flag to preview the object that would be sent to you
 -->
 
 * 您可以使用 `kubectl apply` 命令创建或更新资源。有关使用 kubectl apply 更新资源的详细信息，请参阅 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。
-
-

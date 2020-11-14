@@ -16,7 +16,7 @@ methods for adding custom resources and how to choose between them.
 <!-- body -->
 ## Custom resources
 
-A *resource* is an endpoint in the [Kubernetes API](/docs/reference/using-api/api-overview/) that stores a collection of
+A *resource* is an endpoint in the [Kubernetes API](/docs/concepts/overview/kubernetes-api/) that stores a collection of
 [API objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/) of a certain kind; for example, the built-in *pods* resource contains a collection of Pod objects.
 
 A *custom resource* is an extension of the Kubernetes API that is not necessarily available in a default

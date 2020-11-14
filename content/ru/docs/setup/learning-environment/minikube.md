@@ -28,7 +28,7 @@ Minikube поддерживает следующие возможности Kube
 * Поддержка CNI (Container Network Interface)
 * Ingress
 
-## Установке
+## Установка
 
 Посмотрите страницу [Установка Minikube](/ru/docs/tasks/tools/install-minikube/).
 

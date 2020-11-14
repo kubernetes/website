@@ -21,17 +21,16 @@ A CertificateSigningRequest (CSR) resource is used to request that a certificate
 by a denoted signer, after which the request may be approved or denied before
 finally being signed.
 
-
-
 <!-- body -->
+
 ## Request signing process
 
-The _CertificateSigningRequest_ resource type allows a client to ask for an X.509 certificate
+The CertificateSigningRequest resource type allows a client to ask for an X.509 certificate
 be issued, based on a signing request.
 The CertificateSigningRequest object includes a PEM-encoded PKCS#10 signing request in
-the `spec.request` field. The CertificateSigningRequest denotes the _signer_ (the
+the `spec.request` field. The CertificateSigningRequest denotes the signer (the
 recipient that the request is being made to) using the `spec.signerName` field.
-Note that `spec.signerName` is a required key after api version `certificates.k8s.io/v1`.
+Note that `spec.signerName` is a required key after API version `certificates.k8s.io/v1`.
 
 Once created, a CertificateSigningRequest must be approved before it can be signed.
 Depending on the signer selected, a CertificateSigningRequest may be automatically approved
@@ -68,54 +67,80 @@ This includes:
 1. **Permitted subjects**: any restrictions on and behavior when a disallowed subject is requested.
 1. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames, Email subjectAltNames, URI subjectAltNames etc, and behavior when a disallowed extension is requested.
 1. **Permitted key usages / extended key usages**: any restrictions on and behavior when usages different than the signer-determined usages are specified in the CSR.
-1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR object etc and the behavior when an expiration is different than the signer-determined expiration that is specified in the CSR.
+1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR object etc
+   and the behavior when an expiration is different than the signer-determined expiration that is specified in the CSR.
 1. **CA bit allowed/disallowed**: and behavior if a CSR contains a request a for a CA certificate when the signer does not permit it.
 
-Commonly, the `status.certificate` field contains a single PEM-encoded X.509 certificate once the CSR is approved and the certificate is issued. Some signers store multiple certificates into the `status.certificate` field. In that case, the documentation for the signer should specify the meaning of additional certificates; for example, this might be the certificate plus intermediates to be presented during TLS handshakes.
+Commonly, the `status.certificate` field contains a single PEM-encoded X.509
+certificate once the CSR is approved and the certificate is issued. Some
+signers store multiple certificates into the `status.certificate` field. In
+that case, the documentation for the signer should specify the meaning of
+additional certificates; for example, this might be the certificate plus
+intermediates to be presented during TLS handshakes.
+
+The PKCS#10 signing request format doesn't allow to specify a certificate
+expiration or lifetime. The expiration or lifetime therefore has to be set
+through e.g. an annotation on the CSR object. While it's theoretically
+possible for a signer to use that expiration date, there is currently no
+known implementation that does. (The built-in signers all use the same
+`ClusterSigningDuration` configuration option, which defaults to 1 year,
+and can be changed with the `--cluster-signing-duration` command-line
+flag of the kube-controller-manager.)
+
 
 ### Kubernetes signers
 
 Kubernetes provides built-in signers that each have a well-known `signerName`:
 
-1. `kubernetes.io/kube-apiserver-client`: signs certificates that will be honored as client-certs by the kube-apiserver.
-  Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
-    1. Trust distribution: signed certificates must be honored as client-certificates by the kube-apiserver. The CA bundle is not distributed by any other means.
-    1. Permitted subjects - no subject restrictions, but approvers and signers may choose not to approve or sign. Certain subjects like cluster-admin level users or groups vary between distributions and installations, but deserve additional scrutiny before approval and signing. The `CertificateSubjectRestriction` admission plugin is available and enabled by default to restrict `system:masters`, but it is often not the only cluster-admin subject in a cluster.
+1. `kubernetes.io/kube-apiserver-client`: signs certificates that will be honored as client certificates by the API server.
+   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
+    1. Trust distribution: signed certificates must be honored as client certificates by the API server. The CA bundle is not distributed by any other means.
+    1. Permitted subjects - no subject restrictions, but approvers and signers may choose not to approve or sign.
+       Certain subjects like cluster-admin level users or groups vary between distributions and installations,
+       but deserve additional scrutiny before approval and signing.
+       The `CertificateSubjectRestriction` admission plugin is enabled by default to restrict `system:masters`,
+       but it is often not the only cluster-admin subject in a cluster.
     1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
-    1. Permitted key usages - must include []string{"client auth"}. Must not include key usages beyond []string{"digital signature", "key encipherment", "client auth"}
-    1. Expiration/certificate lifetime - minimum of CSR signer or request. The signer is responsible for checking that the certificate lifetime is valid and permissible.
+    1. Permitted key usages - must include `["client auth"]`. Must not include key usages beyond `["digital signature", "key encipherment", "client auth"]`.
+    1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
+       kube-controller-manager implementation of this signer.
     1. CA bit allowed/disallowed - not allowed.
 
-1. `kubernetes.io/kube-apiserver-client-kubelet`: signs client certificates that will be honored as client-certs by the
-  kube-apiserver.
-  May be auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
-    1. Trust distribution: signed certificates must be honored as client-certificates by the kube-apiserver. The CA bundle
+1. `kubernetes.io/kube-apiserver-client-kubelet`: signs client certificates that will be honored as client certificates by the
+   API server.
+   May be auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
+    1. Trust distribution: signed certificates must be honored as client certificates by the API server. The CA bundle
        is not distributed by any other means.
-    1. Permitted subjects - organizations are exactly `[]string{"system:nodes"}`, common name starts with `"system:node:"`
+    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
     1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
-    1. Permitted key usages - exactly `[]string{"key encipherment", "digital signature", "client auth"}`
-    1. Expiration/certificate lifetime - minimum of CSR signer or request. The signer is responsible for checking that the certificate lifetime is valid and permissible.
+    1. Permitted key usages - exactly `["key encipherment", "digital signature", "client auth"]`.
+    1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
+       kube-controller-manager implementation of this signer.
     1. CA bit allowed/disallowed - not allowed.
 
 1. `kubernetes.io/kubelet-serving`: signs serving certificates that are honored as a valid kubelet serving certificate
-  by the kube-apiserver, but has no other guarantees.
-  Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
-    1. Trust distribution: signed certificates must be honored by the kube-apiserver as valid to terminate connections to a kubelet. The CA bundle is not distributed by any other means.
-    1. Permitted subjects - organizations are exactly `[]string{"system:nodes"}`, common name starts with `"system:node:"`
-    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
-    1. Permitted key usages - exactly `[]string{"key encipherment", "digital signature", "server auth"}`
-    1. Expiration/certificate lifetime - minimum of CSR signer or request.
+   by the API server, but has no other guarantees.
+   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
+    1. Trust distribution: signed certificates must be honored by the API server as valid to terminate connections to a kubelet.
+       The CA bundle is not distributed by any other means.
+    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
+    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
+       URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
+    1. Permitted key usages - exactly `["key encipherment", "digital signature", "server auth"]`.
+    1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
+       kube-controller-manager implementation of this signer.
     1. CA bit allowed/disallowed - not allowed.
 
 1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some third-party distributions of Kubernetes
-  may honor client certificates signed by it. The stable CertificateSigningRequest API (version `certificates.k8s.io/v1` and later)
-  does not allow to set the `signerName` as `kubernetes.io/legacy-unknown`.
-  Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
-    1. Trust distribution: None.  There is no standard trust or distribution for this signer in a Kubernetes cluster.
+   may honor client certificates signed by it. The stable CertificateSigningRequest API (version `certificates.k8s.io/v1` and later)
+   does not allow to set the `signerName` as `kubernetes.io/legacy-unknown`.
+   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
+    1. Trust distribution: None. There is no standard trust or distribution for this signer in a Kubernetes cluster.
     1. Permitted subjects - any
     1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
     1. Permitted key usages - any
-    1. Expiration/certificate lifetime - minimum of CSR signer or request. The signer is responsible for checking that the certificate lifetime is valid and permissible.
+    1. Expiration/certificate lifetime - set by the `--cluster-signing-duration` option for the
+       kube-controller-manager implementation of this signer.
     1. CA bit allowed/disallowed - not allowed.
 
 {{< note >}}
@@ -126,7 +151,7 @@ Distribution of trust happens out of band for these signers.  Any trust outside 
 coincidental. For instance, some distributions may honor `kubernetes.io/legacy-unknown` as client certificates for the
 kube-apiserver, but this is not a standard.
 None of these usages are related to ServiceAccount token secrets `.data[ca.crt]` in any way.  That CA bundle is only
-guaranteed to verify a connection to the kube-apiserver using the default service (`kubernetes.default.svc`).
+guaranteed to verify a connection to the API server using the default service (`kubernetes.default.svc`).
 
 ## Authorization
 
@@ -136,22 +161,7 @@ To allow creating a CertificateSigningRequest and retrieving any CertificateSign
 
 For example:
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: csr-creator
-rules:
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests
-  verbs:
-  - create
-  - get
-  - list
-  - watch
-```
+{{< codenew file="access/certificate-signing-request/clusterrole-create.yaml" >}}
 
 To allow approving a CertificateSigningRequest:
 
@@ -161,35 +171,7 @@ To allow approving a CertificateSigningRequest:
 
 For example:
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: csr-approver
-rules:
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests/approval
-  verbs:
-  - update
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - signers
-  resourceNames:
-  - example.com/my-signer-name # example.com/* can be used to authorize for all signers in the 'example.com' domain
-  verbs:
-  - approve
-```
+{{< codenew file="access/certificate-signing-request/clusterrole-approve.yaml" >}}
 
 To allow signing a CertificateSigningRequest:
 
@@ -197,54 +179,32 @@ To allow signing a CertificateSigningRequest:
 * Verbs: `update`, group: `certificates.k8s.io`, resource: `certificatesigningrequests/status`
 * Verbs: `sign`, group: `certificates.k8s.io`, resource: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: csr-signer
-rules:
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests/status
-  verbs:
-  - update
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - signers
-  resourceName:
-  - example.com/my-signer-name # example.com/* can be used to authorize for all signers in the 'example.com' domain
-  verbs:
-  - sign
-```
+{{< codenew file="access/certificate-signing-request/clusterrole-sign.yaml" >}}
 
-## Normal User
+## Normal user
 
-A few steps are required in order to get normal user to be able to authenticate and invoke an API. First, this user must have certificate issued by the Kubernetes Cluster, and then present that Certificate to the API call as the Certificate Header or through the kubectl.
+A few steps are required in order to get a normal user to be able to
+authenticate and invoke an API. First, this user must have certificate issued
+by the Kubernetes cluster, and then present that Certificate to the API call
+as the Certificate Header or through the kubectl.
 
-### Create Private Key
+### Create private key
 
-The following scripts show how to generate PKI private key and CSR. It is important to set CN and O attribute of the CSR. CN is the name of the user and O is the group that this user will belong to. You can refer to [RBAC](/docs/reference/access-authn-authz/rbac/) for standard groups.
+The following scripts show how to generate PKI private key and CSR. It is
+important to set CN and O attribute of the CSR. CN is the name of the user and
+O is the group that this user will belong to. You can refer to
+[RBAC](/docs/reference/access-authn-authz/rbac/) for standard groups.
 
-```
+```shell
 openssl genrsa -out john.key 2048
 openssl req -new -key john.key -out john.csr
 ```
 
-### Create Certificate Request Kubernetes Object
+### Create CertificateSigningRequest
 
 Create a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the CertificateSigningRequest.
 
-```
+```shell
 cat <<EOF | kubectl apply -f -
 apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
@@ -262,68 +222,78 @@ EOF
 
 Some points to note:
 
-- usage has to be 'client auth'
-- request is the base64 encoded value of the CSR file content. You can use this command to get that ```cat john.csr | base64 | tr -d "\n"```
+- `usages` has to be '`client auth`'
+- `request` is the base64 encoded value of the CSR file content.
+  You can get the content using this command: ```cat john.csr | base64 | tr -d "\n"```
 
-### Approve Certificate Request
+### Approve certificate signing request
 
-Use kubeadmin to create a CSR and approve it.
+Use kubectl to create a CSR and approve it.
 
-Get the list of CSRs
-```
+Get the list of CSRs:
+
+```shell
 kubectl get csr
 ```
 
-Approve the CSR
-```
+Approve the CSR:
+
+```shell
 kubectl certificate approve john
 ```
 
-### Get the Certificate
+### Get the certificate
 
-Retrieve the Certificate from the CSR.
+Retrieve the certificate from the CSR:
 
-```
+```shell
 kubectl get csr/john -o yaml
 ```
 
-The Certificate value is in Base64-encoded format under status.certificate.
+The certificate value is in Base64-encoded format under `status.certificate`.
 
-### Create Role and Role Binding
+### Create Role and RoleBinding
 
-You get the Certificate already. Now it is time to define the Role and Role Binding for this user to access Kubernetes Cluster resources.
+With the certificate created. it is time to define the Role and RoleBinding for
+this user to access Kubernetes cluster resources.
 
-This is a sample script to create role for this new user
-```
+This is a sample script to create a Role for this new user:
+
+```shell
 kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods
 ```
 
-This is a sample script to create role binding for this new user
-```
+This is a sample command to create a RoleBinding for this new user:
+
+```shell
 kubectl create rolebinding developer-binding-john --role=developer --user=john
 ```
 
-### Add to KubeConfig
+### Add to kubeconfig
 
-The last step is to add this user into the KubeConfig. We assume the key and crt files are located here "/home/vagrant/work/".
+The last step is to add this user into the kubeconfig file.
+This example assumes the key and certificate files are located at "/home/vagrant/work/".
 
-First, we need to add new credentials
+First, you need to add new credentials:
+
 ```
 kubectl config set-credentials john --client-key=/home/vagrant/work/john.key --client-certificate=/home/vagrant/work/john.crt --embed-certs=true
 
 ```
 
-Then, we need to add the context
+Then, you need to add the context:
+
 ```
 kubectl config set-context john --cluster=kubernetes --user=john
 ```
 
-To test it, change kubecontext to john
+To test it, change the context to `john`:
+
 ```
 kubectl config use-context john
 ```
 
-## Approval & rejection
+## Approval or rejection  {#approval-rejection}
 
 ### Control plane automated approval {#approval-rejection-control-plane}
 
@@ -333,7 +303,7 @@ permissions on CSRs for node credentials to authorization.
 The kube-controller-manager POSTs SubjectAccessReview resources to the API server
 in order to check authorization for certificate approval.
 
-### Approval & rejection using `kubectl` {#approval-rejection-kubectl}
+### Approval or rejection using `kubectl` {#approval-rejection-kubectl}
 
 A Kubernetes administrator (with appropriate permissions) can manually approve
 (or deny) CertificateSigningRequests by using the `kubectl certificate
@@ -341,17 +311,17 @@ approve` and `kubectl certificate deny` commands.
 
 To approve a CSR with kubectl:
 
-```bash
+```shell
 kubectl certificate approve <certificate-signing-request-name>
 ```
 
 Likewise, to deny a CSR:
 
-```bash
+```shell
 kubectl certificate deny <certificate-signing-request-name>
 ```
 
-### Approval & rejection using the Kubernetes API {#approval-rejection-api-client}
+### Approval or rejection using the Kubernetes API {#approval-rejection-api-client}
 
 Users of the REST API can approve CSRs by submitting an UPDATE request to the `approval`
 subresource of the CSR to be approved. For example, you could write an
@@ -400,7 +370,8 @@ you like. If you want to add a note just for human consumption, use the
 
 ### Control plane signer {#signer-control-plane}
 
-The Kubernetes control plane implements each of the [Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers),
+The Kubernetes control plane implements each of the
+[Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers),
 as part of the kube-controller-manager.
 
 {{< note >}}
@@ -460,13 +431,11 @@ status:
   certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Read [Manage TLS Certificates in a Cluster](/docs/tasks/tls/managing-tls-in-a-cluster/)
 * View the source code for the kube-controller-manager built in [signer](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)
 * View the source code for the kube-controller-manager built in [approver](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)
 * For details of X.509 itself, refer to [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) section 3.1
 * For information on the syntax of PKCS#10 certificate signing requests, refer to [RFC 2986](https://tools.ietf.org/html/rfc2986)
+

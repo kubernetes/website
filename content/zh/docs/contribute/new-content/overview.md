@@ -87,7 +87,7 @@ If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 场景      | 分支
 :---------|:------------
 针对当前发行版本的，对现有英文内容的修改或新的英文内容 | `master`
-针对功能特性变更的内容 | 功能特性所对应的版本所对应的分支，分支名字模式为 `dev-release-<version>`。例如，如果某功能特性在 `{{< latest-version >}}` 版本发生变化，则对应的文档变化要添加到 `dev-{{< release-branch >}}` 分支。
+针对功能特性变更的内容 | 功能特性所对应的版本所对应的分支，分支名字模式为 `dev-<version>`。例如，如果某功能特性在 `v{{< skew nextMinorVersion >}}` 版本发生变化，则对应的文档变化要添加到 ``dev-{{< skew nextMinorVersion >}}`` 分支。
 其他语言的内容（本地化）| 基于本地化团队的约定。参见[本地化分支策略](/zh/docs/contribute/localization/#branching-strategy)了解更多信息。
 
 如果你仍不能确定要选择哪个分支，请在 `#sig-docs` Slack 频道上提问。

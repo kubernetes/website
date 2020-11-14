@@ -100,7 +100,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
    다음과 유사하게 출력된다.
    ```
    Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-   deployment.apps/nginx-deployment successfully rolled out
+   deployment "nginx-deployment" successfully rolled out
    ```
 
 4. 몇 초 후 `kubectl get deployments` 를 다시 실행한다.
@@ -203,7 +203,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
     ```
     또는
     ```
-    deployment.apps/nginx-deployment successfully rolled out
+    deployment "nginx-deployment" successfully rolled out
     ```
 
 업데이트된 디플로이먼트에 대해 자세한 정보 보기
@@ -855,7 +855,7 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 이와 유사하게 출력된다.
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
-deployment.apps/nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 ```
 그리고 `kubectl rollout` 의 종료 상태는 0(success)이다.
 ```shell
@@ -1015,7 +1015,7 @@ echo $?
 ### 실패한 디플로이먼트에서의 운영
 
 완료된 디플로이먼트에 적용되는 모든 행동은 실패한 디플로이먼트에도 적용된다.
-디플로이먼트 파드 템플릿에서 여러개의 수정사항을 적용해야하는 경우 스케일 업/다운 하거나, 이전 수정 버전으로 롤백하거나, 일시 중지할 수 있다.
+디플로이먼트 파드 템플릿에서 여러 개의 수정사항을 적용해야하는 경우 스케일 업/다운 하거나, 이전 수정 버전으로 롤백하거나, 일시 중지할 수 있다.
 
 ## 정책 초기화
 

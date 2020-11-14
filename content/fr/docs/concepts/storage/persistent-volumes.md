@@ -411,7 +411,7 @@ Un PV sans `storageClassName` n'a pas de classe et ne peut être lié qu'à des 
 Dans le passé, l'annotation `volume.beta.kubernetes.io/storage-class` a été utilisé à la place de l'attribut `storageClassName`.
 Cette annotation fonctionne toujours; cependant, il deviendra complètement obsolète dans une future version de Kubernetes.
 
-### Politique de récupration
+### Politique de récupération
 
 Les politiques de récupération actuelles sont:
 

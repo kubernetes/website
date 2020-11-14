@@ -125,7 +125,7 @@ There is a [known limitation](/docs/tasks/configure-pod-container/configure-gmsa
 
 {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0-beta.2+ can also be used as the container runtime for Windows Kubernetes nodes.
 
-Initial support for ContainerD on Windows was added in Kubernetes v1.18. Progress for ContainerD on Windows can be tracked at [enhancements#1001](https://github.com/kubernetes/enhancements/issues/1001). 
+Initial support for ContainerD on Windows was added in Kubernetes v1.18. Progress for ContainerD on Windows can be tracked at [enhancements#1001](https://github.com/kubernetes/enhancements/issues/1001).
 
 Learn how to [install ContainerD on a Windows](/docs/setup/production-environment/container-runtimes/#install-containerd).
 
@@ -603,7 +603,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     In a Kubernetes Pod, an infrastructure or "pause" container is first created to host the container endpoint. Containers that belong to the same pod, including infrastructure and worker containers, share a common network namespace and endpoint (same IP and port space). Pause containers are needed to accommodate worker containers crashing or restarting without losing any of the networking configuration.
 
-    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`. For more details, see the [DOCKERFILE](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
+    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`. For more details, see the [DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile).
 
 ### Further investigation
 
