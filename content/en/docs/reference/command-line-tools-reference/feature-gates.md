@@ -125,6 +125,7 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
+| `MixedProtocolLBService` | `false` | Alpha | 1.20 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | 1.18 |
 | `NodeDisruptionExclusion` | `true` | Beta | 1.19 | |
