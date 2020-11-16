@@ -33,12 +33,13 @@ Configurations with a single API server will experience unavailability while the
    (ex: `ca.crt`, `ca.key`, `front-proxy-ca.crt`, and `front-proxy-ca.key`)
    to all your control plane nodes in the Kubernetes certificates directory.
 
-1. Update *Kubernetes controller manager's* `--root-ca-file` to include both old and new CA and restart controller manager.
+1. Update {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}'s `--root-ca-file` to
+   include both old and new CA. Then restart the component.
 
    Any service account created after this point will get secrets that include both old and new CAs.
 
    {{< note >}}
-   The files specified by the *Kubernetes controller manager* flags `--client-ca-file` and `--cluster-signing-cert-file`
+   The files specified by the kube-controller-manager flags `--client-ca-file` and `--cluster-signing-cert-file`
    cannot be CA bundles. If these flags and `--root-ca-file` point to the same `ca.crt` file which is now a
    bundle (includes both old and new CA) you will face an error. To workaround this problem you can copy the new CA to a separate
    file and make the flags `--client-ca-file` and `--cluster-signing-cert-file` point to the copy. Once `ca.crt` is no longer
