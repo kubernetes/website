@@ -88,7 +88,7 @@ data:
 There are four different ways that you can use a ConfigMap to configure
 a container inside a Pod:
 
-1. Command line arguments to the entrypoint of a container
+1. Inside a container command and args
 1. Environment variables for a container
 1. Add a file in read-only volume, for the application to read
 1. Write code to run inside the Pod that uses the Kubernetes API to read a ConfigMap
