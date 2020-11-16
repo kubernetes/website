@@ -894,7 +894,7 @@ This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 192.0.2.0/
 
 如果将 `type` 字段设置为 `NodePort`，则 Kubernetes 控制平面将在 `--service-node-port-range` 标志指定的范围内分配端口（默认值：30000-32767）。
 每个节点将那个端口（每个节点上的相同端口号）代理到您的服务中。
-您的服务在其 `.spec.ports[*].nodePort` 字段中要求分配的端口。
+您的服务在其 `.spec.ports[*].nodePort` 字段中报告已分配的端口。
 
 如果您想指定特定的 IP 代理端口，则可以将 kube-proxy 中的 `--nodeport-addresses` 
 标志设置为特定的 IP 块。从 Kubernetes v1.10 开始支持此功能。
