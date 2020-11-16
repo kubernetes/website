@@ -49,7 +49,6 @@ weight: 60
  * **Namespace** - 접근 중인 오브젝트의 네임스페이스(네임스페이스에 할당된 리소스 요청만 해당)
  * **API group** - 접근 중인 {{< glossary_tooltip text="API 그룹" term_id="api-group" >}}(리소스 요청에만 해당). 빈 문자열은 _핵심(core)_ API 그룹](/docs/reference/using-api/#api-groups)을 지정한다.
 
-
 ## 요청 동사 결정
 
 **리소스가 아닌 요청**
