@@ -371,6 +371,68 @@ However, the particular path specified in the custom recycler Pod template in th
 正被回收的卷的路径。
 
 <!--
+### Reserving a PersistentVolume
+
+The control plane can [bind PersistentVolumeClaims to matching PersistentVolumes](#binding) in the
+cluster. However, if you want a PVC to bind to a specific PV, you need to pre-bind them.
+-->
+### 预留 PersistentVolume  {#reserving-a-persistentvolume}
+
+通过在 PersistentVolumeClaim 中指定 PersistentVolume，你可以声明该特定
+PV 与 PVC 之间的绑定关系。如果该 PersistentVolume 存在且未被通过其
+`claimRef` 字段预留给 PersistentVolumeClaim，则该 PersistentVolume
+会和该 PersistentVolumeClaim 绑定到一起。
+
+<!--
+The binding happens regardless of some volume matching criteria, including node affinity.
+The control plane still checks that [storage class](/docs/concepts/storage/storage-classes/), access modes, and requested storage size are valid.
+-->
+绑定操作不会考虑某些卷匹配条件是否满足，包括节点亲和性等等。
+控制面仍然会检查
+[存储类](/zh/docs/concepts/storage/storage-classes/)、访问模式和所请求的
+存储尺寸都是合法的。
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: foo-pvc
+  namespace: foo
+spec:
+  storageClassName: "" # 此处须显式设置空字符串，否则会被设置为默认的 StorageClass
+  volumeName: foo-pv
+  ...
+```
+
+<!--
+This method does not guarantee any binding privileges to the PersistentVolume. If other PersistentVolumeClaims could use the PV that you specify, you first need to reserve that storage volume. Specify the relevant PersistentVolumeClaim in the `claimRef` field of the PV so that other PVCs can not bind to it.
+-->
+此方法无法对 PersistentVolume 的绑定特权做出任何形式的保证。
+如果有其他 PersistentVolumeClaim 可以使用你所指定的 PV，则你应该首先预留
+该存储卷。你可以将 PV 的 `claimRef` 字段设置为相关的 PersistentVolumeClaim
+以确保其他 PVC 不会绑定到该 PV 卷。
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: foo-pv
+spec:
+  storageClassName: ""
+  claimRef:
+    name: foo-pvc
+    namespace: foo
+  ...
+```
+
+<!--
+This is useful if you want to consume PersistentVolumes that have their `claimPolicy` set
+to `Retain`, including cases where you are reusing an existing PV.
+-->
+如果你想要使用 `claimPolicy` 属性设置为 `Retain` 的 PersistentVolume 卷
+时，包括你希望复用现有的 PV 卷时，这点是很有用的
+
+<!--
 ### Expanding Persistent Volumes Claims
 -->
 ### 扩充 PVC 申领   {#expanding-persistent-volumes-claims}
