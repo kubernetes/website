@@ -54,7 +54,7 @@ The metric typically also includes some cached (file-backed) memory, because the
 
 ## Metrics Server
 
-[Metrics Server](https://github.com/kubernetes-incubator/metrics-server) is a cluster-wide aggregator of resource usage data.
+[Metrics Server](https://github.com/kubernetes-sigs/metrics-server) is a cluster-wide aggregator of resource usage data.
 By default, it is deployed in clusters created by `kube-up.sh` script
 as a Deployment object. If you use a different Kubernetes setup mechanism, you can deploy it using the provided
 [deployment components.yaml](https://github.com/kubernetes-sigs/metrics-server/releases) file.

@@ -148,9 +148,8 @@ certificate.
 
 On some clusters, the API server does not require authentication; it may serve
 on localhost, or be protected by a firewall. There is not a standard
-for this. [Configuring Access to the API](/docs/reference/access-authn-authz/controlling-access/)
-describes how a cluster admin can configure this. Such approaches may conflict
-with future high-availability support.
+for this. [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access)
+describes how you can configure this as a cluster administrator.
 
 ### Programmatic access to the API
 

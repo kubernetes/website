@@ -51,7 +51,7 @@ Before choosing a guide, here are some considerations:
 
 * [Kubernetes Container Environment](/docs/concepts/containers/container-environment/) describes the environment for Kubelet managed containers on a Kubernetes node.
 
-* [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) describes how to set up permissions for users and service accounts.
+* [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access) describes how Kubernetes implements access control for its own API.
 
 * [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in Kubernetes, including the various authentication options.
 

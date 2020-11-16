@@ -143,7 +143,7 @@ The idea is that when a cluster is using nodes that have many cores,
 cores, `nodesPerReplica` dominates.
 
 There are other supported scaling patterns. For details, see
-[cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
+[cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
 
 ## Disable DNS horizontal autoscaling
 
@@ -233,5 +233,5 @@ patterns: *linear* and *ladder*.
 
 * Read about [Guaranteed Scheduling For Critical Add-On Pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 * Learn more about the
-[implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
+[implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
 

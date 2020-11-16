@@ -34,7 +34,6 @@ aliases:
     - sftim
     - steveperry-53
     - tengqm
-    - xiangpengzhao
     - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
@@ -49,7 +48,6 @@ aliases:
     - sftim
     - steveperry-53
     - tengqm
-    - xiangpengzhao
     - zparnold
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
@@ -156,7 +154,6 @@ aliases:
     - SataQiu
     - tanjunchen
     - tengqm
-    - xiangpengzhao
     - xichengliudui
     # zhangxiaoyu-zidif
   sig-docs-zh-reviews: # PR reviews for Chinese content
@@ -167,7 +164,6 @@ aliases:
     - SataQiu
     - tanjunchen
     - tengqm
-    - xiangpengzhao
     - xichengliudui
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content

@@ -23,7 +23,7 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
 
-* [kube-aws](https://github.com/kubernetes-incubator/kube-aws), creates and manages Kubernetes clusters with [Flatcar Linux](https://www.flatcar-linux.org/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
+* [kube-aws](https://github.com/kubernetes-retired/kube-aws), creates and manages Kubernetes clusters with [Flatcar Linux](https://www.flatcar-linux.org/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
 
 * [KubeOne](https://github.com/kubermatic/kubeone) is an open source cluster lifecycle management tool that creates, upgrades and manages Kubernetes Highly-Available clusters.
 

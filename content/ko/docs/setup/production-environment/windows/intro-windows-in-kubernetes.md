@@ -259,7 +259,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 
 오버 프로비저닝을 방지하는 모범 사례는 윈도우, 도커 및 쿠버네티스 프로세스를 고려하여 최소 2GB의 시스템 예약 메모리로 kubelet을 구성하는 것이다.
 
-플래그의 동작은 아래에 설명된대로 다르게 동작한다.
+플래그의 동작은 아래에 설명된 대로 다르게 동작한다.
 
 * `--kubelet-reserve`, `--system-reserve`, `--eviction-hard` 플래그는 Node Allocatable 업데이트
 * `--enforce-node-allocable`을 사용한 축출(Eviction)은 구현되지 않았다.
@@ -570,7 +570,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
     Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
     ```
 
-    호스트 네트워크 어댑터가 "Ethernet"이 아닌 경우, 종종 start.ps1 스크립트의 [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L6) 파라미터를 수정하는 것이 좋다. 그렇지 않으면 `start-kubelet.ps1` 스크립트의 출력을 참조하여 가상 네트워크 생성 중에 오류가 있는지 확인한다.
+    호스트 네트워크 어댑터가 "Ethernet"이 아닌 경우, 종종 start.ps1 스크립트의 [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7) 파라미터를 수정하는 것이 좋다. 그렇지 않으면 `start-kubelet.ps1` 스크립트의 출력을 참조하여 가상 네트워크 생성 중에 오류가 있는지 확인한다.
 
 1. 내 파드가 "Container Creating"에서 멈췄거나 계속해서 다시 시작된다.
 

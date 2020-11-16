@@ -24,7 +24,7 @@ kubectl 管理控制 Kubernetes 集群。
 <!--
 Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
 -->
-获取更多信息，请访问 [kubectl 概述](/docs/reference/kubectl/overview/)。
+获取更多信息，请访问 [kubectl 概述](/zh/docs/reference/kubectl/overview/)。
 
 ```
 kubectl [flags]
@@ -581,6 +581,3 @@ kubectl [flags]
 * [kubectl uncordon](/docs/reference/generated/kubectl/kubectl-commands#uncordon)	 - 标记节点为可调度的
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - 打印客户端和服务器的版本信息
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - 实验性：等待一个或多个资源达到某种状态
-
-
-

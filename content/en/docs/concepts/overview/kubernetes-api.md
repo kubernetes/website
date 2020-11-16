@@ -25,7 +25,7 @@ The Kubernetes API lets you query and manipulate the state of objects in the Kub
 Most operations can be performed through the
 [kubectl](/docs/reference/kubectl/overview/) command-line interface or other
 command-line tools, such as
-[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), which in turn use the
+[kubeadm](/docs/reference/setup-tools/kubeadm/), which in turn use the
 API. However, you can also access the API directly using REST calls.
 
 Consider using one of the [client libraries](/docs/reference/using-api/client-libraries/)
@@ -103,8 +103,8 @@ and behavior, and to enable controlling access to end-of-life and/or
 experimental APIs.
 
 To make it easier to evolve and to extend its API, Kubernetes implements
-[API groups](/docs/reference/using-api/api-overview/#api-groups) that can be
-[enabled or disabled](/docs/reference/using-api/api-overview/#enabling-or-disabling).
+[API groups](/docs/reference/using-api/#api-groups) that can be
+[enabled or disabled](/docs/reference/using-api/#enabling-or-disabling).
 
 API resources are distinguished by their API group, resource type, namespace
 (for namespaced resources), and name. The API server may serve the same
@@ -115,7 +115,7 @@ versions `v1` and `v1beta1` for the same resource. An object created by the
 `v1beta1` version can then be read, updated, and deleted by either the
 `v1beta1` or the `v1` versions.
 
-Refer to [API versions reference](/docs/reference/using-api/api-overview/#api-versioning)
+Refer to [API versions reference](/docs/reference/using-api/#api-versioning)
 for more details on the API version level definitions.
 
 ## API Extension
@@ -131,7 +131,7 @@ The Kubernetes API can be extended in one of two ways:
 
 - Learn how to extend the Kubernetes API by adding your own
   [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
-- [Controlling API Access](/docs/reference/access-authn-authz/controlling-access/) describes
+- [Controlling Access To The Kubernetes API](/docs/concepts/security/controlling-access/) describes
   how the cluster manages authentication and authorization for API access.
 - Learn about API endpoints, resource types and samples by reading
   [API Reference](/docs/reference/kubernetes-api/).
