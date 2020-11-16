@@ -1,13 +1,13 @@
 ---
 title: 垃圾收集
 content_type: concept
-weight: 70
+weight: 60
 ---
 
 <!--
 title: Garbage Collection
 content_type: concept
-weight: 70
+weight: 60
 -->
 
 <!-- overview -->

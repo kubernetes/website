@@ -276,7 +276,7 @@ from a _pod template_ and manage those Pods on your behalf.
 
 PodTemplates are specifications for creating Pods, and are included in workload resources such as
 [Deployments](/docs/concepts/workloads/controllers/deployment/),
-[Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), and
+[Jobs](/docs/concepts/workloads/controllers/job/), and
 [DaemonSets](/docs/concepts/workloads/controllers/daemonset/).
 -->
 ### Pod 模版    {#pod-templates}
@@ -405,7 +405,7 @@ or POSIX shared memory.  Containers in different Pods have distinct IP addresses
 and can not communicate by IPC without
 [special configuration](/docs/concepts/policy/pod-security-policy/).
 Containers that want to interact with a container running in a different Pod can
-use IP networking to comunicate.
+use IP networking to communicate.
 -->
 在同一个 Pod 内，所有容器共享一个 IP 地址和端口空间，并且可以通过 `localhost` 发现对方。
 他们也能通过如 SystemV 信号量或 POSIX 共享内存这类标准的进程间通信方式互相通信。
@@ -487,7 +487,7 @@ but cannot be controlled from there.
 <!--
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
 * Learn about [PodPresets](/docs/concepts/workloads/pods/podpreset/).
-* Lean about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
+* Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
   configure different Pods with different container runtime configurations.
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 * Read about [PodDisruptionBudget](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.
@@ -506,7 +506,8 @@ but cannot be controlled from there.
 * Pod 在 Kubernetes REST API 中是一个顶层资源；
   [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
   对象的定义中包含了更多的细节信息。
-* 博客 [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns) 中解释了在同一 Pod 中包含多个容器时的几种常见布局。
+* 博客 [分布式系统工具箱：复合容器模式](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
+  中解释了在同一 Pod 中包含多个容器时的几种常见布局。
 
 <!--
 To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}, you can read about the prior art, including:
@@ -516,9 +517,9 @@ To understand the context for why Kubernetes wraps a common Pod API in other res
 或 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 封装通用的 Pod API，相关的背景信息可以在前人的研究中找到。具体包括：
 
-  * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
-  * [Borg](https://research.google.com/pubs/pub43438.html)
-  * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
-  * [Omega](https://research.google/pubs/pub41684/)
-  * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
+* [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
+* [Borg](https://research.google.com/pubs/pub43438.html)
+* [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
+* [Omega](https://research.google/pubs/pub41684/)
+* [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
 
