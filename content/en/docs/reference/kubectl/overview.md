@@ -391,7 +391,7 @@ kubectl exec <pod-name> -- date
 kubectl exec <pod-name> -c <container-name> -- date
 
 # Get an interactive TTY and run /bin/bash from pod <pod-name>. By default, output is from the first container.
-kubectl exec -ti <pod-name> -- /bin/bash
+kubectl exec -it <pod-name> -- /bin/bash
 ```
 
 `kubectl logs` - Print the logs for a container in a pod.
