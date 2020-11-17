@@ -853,7 +853,7 @@ You can fetch like this:
 
   <!--
   In addition to the queued requests,
-  the output includeas one phantom line for each priority level that is exempt from limitation.
+  the output includes one phantom line for each priority level that is exempt from limitation.
   -->
   针对每个优先级别，输出中还包含一条虚拟记录，对应豁免限制。
 
