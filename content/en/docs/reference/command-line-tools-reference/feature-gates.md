@@ -430,6 +430,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
   compatible volume plugin.
+- `CSIServiceAccountToken`: Enable CSI drivers to receive the pods' service account token that they mount volumes for. See [Token Requests](https://kubernetes-csi.github.io/docs/token-requests.html).
 - `CSIStorageCapacity`: Enables CSI drivers to publish storage capacity information and the Kubernetes scheduler to use that information when scheduling pods. See [Storage Capacity](/docs/concepts/storage/storage-capacity/).
   Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
 - `CSIVolumeFSGroupPolicy`: Allows CSIDrivers to use the `fsGroupPolicy` field. This field controls whether volumes created by a CSIDriver support volume ownership and permission modifications when these volumes are mounted.
