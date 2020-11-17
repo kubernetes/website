@@ -19,7 +19,7 @@ Cloud infrastructure technologies let you run Kubernetes on public, private, and
 Kubernetes believes in automated, API-driven infrastructure without tight coupling between
 components.
 -->
-使用云基础设施技术，你可以在共有云、私有云或者混合云环境中运行 Kubernetes。
+使用云基础设施技术，你可以在公有云、私有云或者混合云环境中运行 Kubernetes。
 Kubernetes 的信条是基于自动化的、API 驱动的基础设施，同时避免组件间紧密耦合。
 
 {{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="组件 cloud-controller-manager 是">}}
