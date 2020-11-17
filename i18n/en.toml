@@ -1,7 +1,7 @@
 # i18n strings for the English (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
 [announcement_title]
-other = "<img src=\"images/kccnc-na-virtual-2020-white.svg\" style=\"float: right; height: 80px;\" /><a href=\"https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kuberntes.io&utm_medium=search&utm_campaign=KC_CNC_Virtual\">KubeCon + CloudNativeCon NA 2020</a> <em>virtual</em>."
+other = "<img src=\"/images/kccnc-na-virtual-2020-white.svg\" style=\"float: right; height: 80px;\" /><a href=\"https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kuberntes.io&utm_medium=search&utm_campaign=KC_CNC_Virtual\">KubeCon + CloudNativeCon NA 2020</a> <em>virtual</em>."
 
 [announcement_message]
 other = "4 days of incredible opportunities to collaborate, learn, and share with the entire community!<br />November 17 – 20 2020"
