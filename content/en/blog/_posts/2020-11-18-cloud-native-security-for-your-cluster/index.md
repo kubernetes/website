@@ -11,7 +11,10 @@ Over the last few years a small, security focused community has been working dil
 
 The paper attempts to _not_ focus on any specific [cloud native project](https://www.cncf.io/projects/). Instead, the intent is to model and inject security into four logical phases of cloud native application lifecycle: _Develop, Distribute, Deploy, and Runtime_.
 
-![Cloud native application lifecycle phases](cloud-native-app-lifecycle-phases.png)
+<img alt="Cloud native application lifecycle phases"
+     src="cloud-native-app-lifecycle-phases.svg"
+     style="width:60em;max-width:100%;">
+
 
 ## Kubernetes native security controls
 When using Kubernetes as a workload orchestrator, some of the security controls this version of the whitepaper recommends are:
