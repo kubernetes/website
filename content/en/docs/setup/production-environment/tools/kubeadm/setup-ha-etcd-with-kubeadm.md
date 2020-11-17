@@ -50,7 +50,7 @@ this example.
 
 
 1. Configure the kubelet to be a service manager for etcd.
-  
+
    {{< note >}}You must do this on every host where etcd should be running.{{< /note >}}
     Since etcd was created first, you must override the service priority by creating a new unit file
     that has higher precedence than the kubeadm-provided kubelet unit file.
@@ -66,6 +66,12 @@ this example.
 
     systemctl daemon-reload
     systemctl restart kubelet
+    ```
+
+    Check the kubelet status to ensure it is running.
+
+    ```sh
+    systemctl status kubelet
     ```
 
 1. Create configuration files for kubeadm.
