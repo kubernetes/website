@@ -27,15 +27,15 @@ The following examples will show how you can interact with the health API endpoi
 For all endpoints you can use the `verbose` parameter to print out the checks and their status.
 This can be useful for a human operator to debug the current status of the Api server, it is not intended to be consumed by a machine:
 
-    ```shell
-    curl -k https://localhost:6443/livez?verbose
-    ```
+```shell
+curl -k https://localhost:6443/livez?verbose
+```
 
 or from a remote host with authentication:
 
-    ```shell
-    kubectl get --raw='/readyz?verbose'
-    ```
+```shell
+kubectl get --raw='/readyz?verbose'
+```
 
 The output will look like this:
 
@@ -62,9 +62,9 @@ The output will look like this:
 The Kubernetes API server also supports to exclude specific checks.
 The query parameters can also be combined like in this example:
 
-    ```shell
-    curl -k 'https://localhost:6443/readyz?verbose&exclude=etcd'
-    ```
+```shell
+curl -k 'https://localhost:6443/readyz?verbose&exclude=etcd'
+```
 
 The output show that the `etcd` check is excluded:
 
@@ -98,6 +98,6 @@ The schema for the individual health checks is `/livez/<healthcheck-name>` where
 The `<healthcheck-name>` path can be discovered using the `verbose` flag from above and take the path between `[+]` and `ok`.
 These individual health checks should not be consumed by machines but can be helpful for a human operator to debug a system:
 
-    ```shell
-    curl -k https://localhost:6443/livez/etcd
-    ```
+```shell
+curl -k https://localhost:6443/livez/etcd
+```
