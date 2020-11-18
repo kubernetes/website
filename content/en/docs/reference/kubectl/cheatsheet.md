@@ -91,10 +91,10 @@ kubectl apply -f ./dir                         # create resource(s) in all manif
 kubectl apply -f https://git.io/vPieo          # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 
-# create a job which prints "hello world"
+# create a Job which prints "Hello World"
 kubectl create job hello --image=busybox -- echo "Hello World" 
 
-# create a cronjob which prints "hello world" for every minute
+# create a CronJob that prints "Hello World" every minute
 kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"    
 
 kubectl explain pods                           # get the documentation for pod manifests
