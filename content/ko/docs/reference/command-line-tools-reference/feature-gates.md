@@ -485,7 +485,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `PersistentLocalVolumes`: 파드에서 `local` 볼륨 유형의 사용을 활성화한다.
   `local` 볼륨을 요청하는 경우 파드 어피니티를 지정해야 한다.
 - `PodDisruptionBudget`: [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) 기능을 활성화한다.
-- `PodOverhead`: 파드 오버헤드를 판단하기 위해 [파드오버헤드(PodOverhead)](/ko/docs/concepts/configuration/pod-overhead/) 기능을 활성화한다.
+- `PodOverhead`: 파드 오버헤드를 판단하기 위해 [파드오버헤드(PodOverhead)](/ko/docs/concepts/scheduling-eviction/pod-overhead/) 기능을 활성화한다.
 - `PodPriority`: [우선 순위](/ko/docs/concepts/configuration/pod-priority-preemption/)를 기반으로 파드의 스케줄링 취소와 선점을 활성화한다.
 - `PodReadinessGates`: 파드 준비성 평가를 확장하기 위해
   `PodReadinessGate` 필드 설정을 활성화한다. 자세한 내용은 [파드의 준비성 게이트](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)를
@@ -511,7 +511,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `RuntimeClass`: 컨테이너 런타임 구성을 선택하기 위해 [런타임클래스(RuntimeClass)](/ko/docs/concepts/containers/runtime-class/) 기능을 활성화한다.
 - `ScheduleDaemonSetPods`: 데몬셋(DaemonSet) 컨트롤러 대신 기본 스케줄러로 데몬셋 파드를 스케줄링할 수 있다.
 - `SCTPSupport`: 파드, 서비스, 엔드포인트, 엔드포인트슬라이스 및 네트워크폴리시 정의에서 _SCTP_ `protocol` 값을 활성화한다.
-- `ServerSideApply`: API 서버에서 [SSA(Sever Side Apply)](/docs/reference/using-api/api-concepts/#server-side-apply) 경로를 활성화한다.
+- `ServerSideApply`: API 서버에서 [SSA(Sever Side Apply)](/docs/reference/using-api/server-side-apply/) 경로를 활성화한다.
 - `ServiceAccountIssuerDiscovery`: API 서버에서 서비스 어카운트 발행자에 대해 OIDC 디스커버리 엔드포인트(발급자 및 JWKS URL)를 활성화한다. 자세한 내용은 [파드의 서비스 어카운트 구성](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)을 참고한다.
 - `ServiceAppProtocol`: 서비스와 엔드포인트에서 `AppProtocol` 필드를 활성화한다.
 - `ServiceLoadBalancerFinalizer`: 서비스 로드 밸런서에 대한 Finalizer 보호를 활성화한다.

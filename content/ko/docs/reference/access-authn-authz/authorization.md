@@ -11,7 +11,7 @@ weight: 60
 
 <!-- body -->
 쿠버네티스에서는 사용자의 요청이 인가(접근 권한을 부여) 받기 전에 사용자가 인증(로그인)되어야 한다.
-인증에 대한 자세한 내용은 [쿠버네티스 API 접근 제어하기](/ko/docs/reference/access-authn-authz/controlling-access/)를
+인증에 대한 자세한 내용은 [쿠버네티스 API 접근 제어하기](/ko/docs/concepts/security/controlling-access/)를
 참고한다.
 
 쿠버네티스는 REST API 요청에 공통적인 속성을 요구한다.
@@ -47,7 +47,7 @@ weight: 60
  * **Resource** - 접근 중인 리소스의 ID 또는 이름(리소스 요청만 해당) -- `get`, `update`, `patch`, `delete` 동사를 사용하는 리소스 요청의 경우 리소스 이름을 지정해야 한다.
  * **Subresource** - 접근 중인 하위 리소스(리소스 요청만 해당).
  * **Namespace** - 접근 중인 오브젝트의 네임스페이스(네임스페이스에 할당된 리소스 요청만 해당)
- * **API group** - 접근 중인 {{< glossary_tooltip text="API 그룹" term_id="api-group" >}}(리소스 요청에만 해당). 빈 문자열은 [핵심(core) API 그룹](/ko/docs/reference/using-api/api-overview/#api-그룹)을 지정한다.
+ * **API group** - 접근 중인 {{< glossary_tooltip text="API 그룹" term_id="api-group" >}}(리소스 요청에만 해당). 빈 문자열은 _핵심(core)_ [API 그룹](/ko/docs/reference/using-api/#api-그룹)을 지정한다.
 
 ## 요청 동사 결정
 
@@ -197,5 +197,5 @@ status:
 
 ## {{% heading "whatsnext" %}}
 
-* 인증에 대한 자세한 내용은 [쿠버네티스 API 접근 제어하기](/ko/docs/reference/access-authn-authz/controlling-access/)에서 **인증**을 참조한다.
+* 인증에 대한 자세한 내용은 [쿠버네티스 API 접근 제어하기](/ko/docs/concepts/security/controlling-access/)에서 **인증** 을 참조한다.
 * 어드미션 제어에 대한 자세한 내용은 [어드미션 컨트롤러 사용하기](/docs/reference/access-authn-authz/admission-controllers/)를 참조한다.

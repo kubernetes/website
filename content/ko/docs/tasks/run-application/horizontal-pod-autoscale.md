@@ -264,12 +264,12 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 
 * 해당 API 등록:
 
-   * 리소스 메트릭의 경우, 일반적으로 이것은 [메트릭-서버](https://github.com/kubernetes-incubator/metrics-server)가 제공하는 `metrics.k8s.io` API이다.
+   * 리소스 메트릭의 경우, 일반적으로 이것은 [메트릭-서버](https://github.com/kubernetes-sigs/metrics-server)가 제공하는 `metrics.k8s.io` API이다.
      클러스터 애드온으로 시작할 수 있다.
 
    * 사용자 정의 메트릭의 경우, 이것은 `custom.metrics.k8s.io` API이다. 메트릭 솔루션 공급 업체에서 제공하는 "어댑터" API 서버에서 제공한다.
      메트릭 파이프라인 또는 [알려진 솔루션 목록](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api)으로 확인한다.
-     직접 작성하고 싶다면 [샘플](https://github.com/kubernetes-incubator/custom-metrics-apiserver)을 확인하라.
+     직접 작성하고 싶다면 [샘플](https://github.com/kubernetes-sigs/custom-metrics-apiserver)을 확인한다.
 
    * 외부 메트릭의 경우, 이것은 `external.metrics.k8s.io` API이다. 위에 제공된 사용자 정의 메트릭 어댑터에서 제공될 수 있다.
 
