@@ -532,7 +532,7 @@ This functionality is available in Kubernetes v1.6 and later.
 
 ## Use ConfigMap-defined environment variables in Pod commands
 
-You can use ConfigMap-defined environment variables in the `command` section of the Pod specification using the `$(VAR_NAME)` Kubernetes substitution syntax.
+You can use ConfigMap-defined environment variables in the `command` and `args` of a container using the `$(VAR_NAME)` Kubernetes substitution syntax.
 
 For example, the following Pod specification
 
