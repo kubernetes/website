@@ -13,9 +13,14 @@ weight: 30
 쿠버네티스 시크릿을 사용하면 비밀번호, OAuth 토큰, ssh 키와 같은
 민감한 정보를 저장하고 관리할 수 ​​있다. 기밀 정보를 시크릿에 저장하는 것이
 {{< glossary_tooltip term_id="pod" text="파드" >}} 정의나
-{{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}} 내에 그대로 두는 것보다 안전하고 유연하다. 자세한 내용은 [시크릿 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md)를 참고한다.
+{{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}}
+내에 그대로 두는 것보다 안전하고 유연하다.
+자세한 내용은 [시크릿 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md)를 참고한다.
 
-
+시크릿은 암호, 토큰 또는 키와 같은 소량의 중요한 데이터를
+포함하는 개체다. 그렇지 않으면  이러한 정보가 파드
+사양이나 이미지에 포함될 수 있다. 사용자는 시크릿을 만들 수 있고 시스템은
+일부 시크릿을 만들 수 있다.
 
 <!-- body -->
 
