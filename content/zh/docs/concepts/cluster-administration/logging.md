@@ -14,9 +14,9 @@ weight: 60
 <!-- overview -->
 
 <!--
-Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
+Application logs can help you understand what is happening inside your application. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
 -->
-应用和系统日志可以让你了解集群内部的运行状况。日志对调试问题和监控集群活动非常有用。
+应用日志可以让你了解应用内部的运行状况。日志对调试问题和监控集群活动非常有用。
 大部分现代化应用都有某种日志记录机制；同样地，大多数容器引擎也被设计成支持某种日志记录机制。
 针对容器化应用，最简单且受欢迎的日志记录方式就是写入标准输出和标准错误流。
 
@@ -45,14 +45,13 @@ the description of how logs are stored and handled on the node to be useful.
 
 In this section, you can see an example of basic logging in Kubernetes that
 outputs data to the standard output stream. This demonstration uses
-a [pod specification](/examples/debug/counter-pod.yaml) with
-a container that writes some text to standard output once per second.
+a pod specification with a container that writes some text to standard output
+once per second.
 -->
 ## Kubernetes 中的基本日志记录
 
 本节，你会看到一个kubernetes 中生成基本日志的例子，该例子中数据被写入到标准输出。
-这里通过一个特定的 [Pod 规约](/examples/debug/counter-pod.yaml) 演示创建一个容器，
-并令该容器每秒钟向标准输出写入数据。
+这里的示例为包含一个容器的 Pod 规约，该容器每秒钟向标准输出写入数据。
 
 {{< codenew file="debug/counter-pod.yaml" >}}
 
