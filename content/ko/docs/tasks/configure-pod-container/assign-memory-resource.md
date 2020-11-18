@@ -21,7 +21,7 @@ weight: 10
 클러스터의 각 노드에 최소 300 MiB 메모리가 있어야 한다.
 
 이 페이지의 몇 가지 단계를 수행하기 위해서는 클러스터 내
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 서비스 실행이 필요하다. 이미 실행중인 metrics-server가 있다면
 다음 단계를 건너뛸 수 있다.
 

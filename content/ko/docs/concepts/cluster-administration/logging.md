@@ -22,7 +22,7 @@ weight: 60
 이 섹션에서는, 쿠버네티스에서 표준 출력 스트림으로 데이터를
 출력하는 기본 로깅의 예시를 볼 수 있다. 이 데모에서는
 일부 텍스트를 초당 한 번씩 표준 출력에 쓰는 컨테이너와 함께
-[파드 명세](/examples/debug/counter-pod.yaml)를 사용한다.
+파드 명세를 사용한다.
 
 {{< codenew file="debug/counter-pod.yaml" >}}
 
