@@ -578,10 +578,6 @@ status:
 
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
 
-For LoadBalancer type of Services, when there is more than one port defined, all
-ports must have the same protocol, and the protocol must be one which is supported
-by the cloud provider.
-
 Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
 the loadBalancer is set up with an ephemeral IP address. If you specify a `loadBalancerIP`
@@ -598,6 +594,23 @@ For example, `MC_myResourceGroup_myAKSCluster_eastus`.
 Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the securityGroupName in the cloud provider configuration file. For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see, [Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip) or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
 
 {{< /note >}}
+
+#### Load balancers with mixed protocol types
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+By default, for LoadBalancer type of Services, when there is more than one port defined, all
+ports must have the same protocol, and the protocol must be one which is supported
+by the cloud provider.
+
+If the feature gate `MixedProtocolLBService` is enabled for the kube-apiserver it is allowed to use different protocols when there is more than one port defined. 
+
+{{< note >}}
+
+The set of protocols that can be used for LoadBalancer type of Services is still defined by the cloud provider.
+
+{{< /note >}}
+
 
 #### Internal load balancer
 
