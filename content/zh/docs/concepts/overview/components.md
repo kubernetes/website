@@ -22,17 +22,6 @@ card:
   weight: 20
 -->
 
-<!--
-When you deploy Kubernetes, you get a cluster.
-{{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
-
-This document outlines the various components you need to have
-a complete and working Kubernetes cluster.
-
-Here's the diagram of a Kubernetes cluster with all the components tied together.
-
-![Components of Kubernetes](/images/docs/components-of-kubernetes.svg)
--->
 <!-- overview -->
 当你部署完 Kubernetes, 即拥有了一个完整的集群。
 {{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes 集群包含">}}
