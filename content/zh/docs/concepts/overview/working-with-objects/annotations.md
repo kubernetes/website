@@ -121,18 +121,18 @@ _注解（Annotations）_ 存储的形式是键/值对。有效的注解键分�
 并允许使用破折号（`-`），下划线（`_`），点（`.`）和字母数字。 
 前缀是可选的。如果指定，则前缀必须是DNS子域：一系列由点（`.`）分隔的DNS标签，
 总计不超过253个字符，后跟斜杠（`/`）。
-如果省略前缀，则假定注释键对用户是私有的。 由系统组件添加的注释
+如果省略前缀，则假定注解键对用户是私有的。 由系统组件添加的注解
 （例如，`kube-scheduler`，`kube-controller-manager`，`kube-apiserver`，`kubectl`
-或其他第三方组件），必须为终端用户添加注释前缀。
+或其他第三方组件），必须为终端用户添加注解前缀。
 
 <!--
 The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core components.
 
-For example, here’s the configuration file for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
+For example, here's the configuration file for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
 -->
 `kubernetes.io/` 和 `k8s.io/` 前缀是为Kubernetes核心组件保留的。
 
-例如，这是Pod的配置文件，其注释为 `imageregistry: https://hub.docker.com/`：
+例如，下面是一个 Pod 的配置文件，其注解中包含 `imageregistry: https://hub.docker.com/`：
 
 ```yaml
 apiVersion: v1

@@ -34,7 +34,7 @@ este será inmediatamente adquirido por dicho ReplicaSet.
 
 ## Cuándo usar un ReplicaSet
 
-Un ReplicaSet garantiza que un número específico de réplicas de un pod se está ejeuctando en todo momento. 
+Un ReplicaSet garantiza que un número específico de réplicas de un pod se está ejecutando en todo momento. 
 Sin embargo, un Deployment es un concepto de más alto nivel que gestiona ReplicaSets y
 proporciona actualizaciones de forma declarativa de los Pods junto con muchas otras características útiles.
 Por lo tanto, se recomienda el uso de Deployments en vez del uso directo de ReplicaSets, a no ser

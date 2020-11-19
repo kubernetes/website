@@ -24,7 +24,7 @@ card:
 
 <!--
 When you deploy Kubernetes, you get a cluster.
-{{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
+{{</* glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of" */>}}
 
 This document outlines the various components you need to have
 a complete and working Kubernetes cluster.
@@ -203,8 +203,7 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 -->
 ### Web 界面（仪表盘）   
 
-[Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/) 是K
-ubernetes 集群的通用的、基于 Web 的用户界面。
+[Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/) 是Kubernetes 集群的通用的、基于 Web 的用户界面。
 它使用户可以管理集群中运行的应用程序以及集群本身并进行故障排除。
 
 <!--
