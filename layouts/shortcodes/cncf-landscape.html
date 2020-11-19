@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
 {{- end -}}
 <div id="frameHolder">
   {{ if ( .Get "category" ) }}
-  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/category={{ .Get "category" }}&format=logo-mode&grouping=category&embed=yes" style="width: 1px; min-width: 100%"></iframe>
+  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/category={{ .Get "category" }}&format=card-mode&grouping=category&embed=yes" style="width: 1px; min-width: 100%"></iframe>
   {{ else }}
-  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/format=logo-mode;embed=yes" style="width: 1px; min-width: 100%" title="CNCF Landscape"></iframe>
+  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/format=card-mode;embed=yes" style="width: 1px; min-width: 100%" title="CNCF Landscape"></iframe>
   {{ end }}
   <script src="https://landscape.cncf.io/iframeResizer.js"></script>
 </div>

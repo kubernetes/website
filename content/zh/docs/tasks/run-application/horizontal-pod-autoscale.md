@@ -3,7 +3,7 @@ title: Pod 水平自动扩缩
 feature:
   title: 水平扩缩 
   description: >
-    使用一个简单的命令、一个UI或基于CPU使用情况自动对应用程序进行扩缩。
+    使用一个简单的命令、一个 UI 或基于 CPU 使用情况自动对应用程序进行扩缩。
 
 content_type: concept
 weight: 90
@@ -12,14 +12,14 @@ weight: 90
 <!-- overview -->
 
 <!--
-The Horizontal Pod Autoscaler automatically scales the number of pods
-in a replication controller, deployment or replica set based on observed CPU utilization (or, with
+The Horizontal Pod Autoscaler automatically scales the number of Pods
+in a replication controller, deployment, replica set or stateful set based on observed CPU utilization (or, with
 [custom metrics](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
 support, on some other application-provided metrics). Note that Horizontal
 Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSets.
 -->
 Pod 水平自动扩缩（Horizontal Pod Autoscaler）
-可以基于 CPU 利用率自动扩缩 ReplicationController、Deployment 和 ReplicaSet 中的 Pod 数量。
+可以基于 CPU 利用率自动扩缩 ReplicationController、Deployment、ReplicaSet 和 StatefulSet 中的 Pod 数量。
 除了 CPU 利用率，也可以基于其他应程序提供的[自定义度量指标](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
 来执行自动扩缩。
 Pod 自动扩缩不适用于无法扩缩的对象，比如 DaemonSet。
@@ -61,12 +61,12 @@ or the custom metrics API (for all other metrics).
 
 <!--
 * For per-pod resource metrics (like CPU), the controller fetches the metrics
-  from the resource metrics API for each pod targeted by the HorizontalPodAutoscaler.
+  from the resource metrics API for each Pod targeted by the HorizontalPodAutoscaler.
   Then, if a target utilization value is set, the controller calculates the utilization
   value as a percentage of the equivalent resource request on the containers in
-  each pod.  If a target raw value is set, the raw metric values are used directly.
+  each Pod.  If a target raw value is set, the raw metric values are used directly.
   The controller then takes the mean of the utilization or the raw value (depending on the type
-  of target specified) across all targeted pods, and produces a ratio used to scale
+  of target specified) across all targeted Pods, and produces a ratio used to scale
   the number of desired replicas.
 -->
 * 对于按 Pod 统计的资源指标（如 CPU），控制器从资源指标 API 中获取每一个
@@ -76,8 +76,8 @@ or the custom metrics API (for all other metrics).
   接下来，控制器根据平均的资源使用率或原始值计算出扩缩的比例，进而计算出目标副本数。
 
   <!--
-  Please note that if some of the pod's containers do not have the relevant resource request set,
-  CPU utilization for the pod will not be defined and the autoscaler will
+  Please note that if some of the Pod's containers do not have the relevant resource request set,
+  CPU utilization for the Pod will not be defined and the autoscaler will
   not take any action for that metric. See the [algorithm
   details](#algorithm-details) section below for more information about
   how the autoscaling algorithm works.
@@ -96,12 +96,12 @@ or the custom metrics API (for all other metrics).
 * For object metrics and external metrics, a single metric is fetched, which describes
   the object in question. This metric is compared to the target
   value, to produce a ratio as above. In the `autoscaling/v2beta2` API
-  version, this value can optionally be divided by the number of pods before the
+  version, this value can optionally be divided by the number of Pods before the
   comparison is made.
 -->
-* 如果pod 使用对象指标和外部指标（每个指标描述一个对象信息）。
+* 如果 Pod 使用对象指标和外部指标（每个指标描述一个对象信息）。
   这个指标将直接根据目标设定值相比较，并生成一个上面提到的扩缩比例。
-  在 `autoscaling/v2beta2` 版本API中，这个指标也可以根据 Pod 数量平分后再计算。
+  在 `autoscaling/v2beta2` 版本 API 中，这个指标也可以根据 Pod 数量平分后再计算。
 
 <!--
 The HorizontalPodAutoscaler normally fetches metrics from a series of aggregated APIs (`metrics.k8s.io`,
@@ -136,7 +136,7 @@ each of their current states. More details on scale sub-resource can be found
 [here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
 -->
 自动扩缩控制器使用 scale 子资源访问相应可支持扩缩的控制器（如副本控制器、
-Deployments 和 ReplicaSet）。
+Deployment 和 ReplicaSet）。
 `scale` 是一个可以动态设定副本数量和检查当前状态的接口。
 关于 scale 子资源的更多信息，请参考[这里](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
 
@@ -182,7 +182,7 @@ metric across all Pods in the HorizontalPodAutoscaler's scale target.
 Before checking the tolerance and deciding on the final values, we take
 pod readiness and missing metrics into consideration, however.
 -->
-如果 HorizontalPodAutoscaler 指定的是`targetAverageValue` 或 `targetAverageUtilization`，
+如果 HorizontalPodAutoscaler 指定的是 `targetAverageValue` 或 `targetAverageUtilization`，
 那么将会把指定 Pod 度量值的平均值做为 `currentMetricValue`。
 然而，在检查容忍度和决定最终扩缩值前，我们仍然会把那些无法获取指标的 Pod 统计进去。
 
@@ -193,7 +193,7 @@ shut down) and all failed Pods are discarded.
 If a particular Pod is missing metrics, it is set aside for later; Pods
 with missing metrics will be used to adjust the final scaling amount.
 -->
-所有被标记了删除时间戳（Pod 正在关闭过程中）的 Pod 和 失败的 Pod 都会被忽略。
+所有被标记了删除时间戳（Pod 正在关闭过程中）的 Pod 和失败的 Pod 都会被忽略。
 
 如果某个 Pod 缺失度量值，它将会被搁置，只在最终确定扩缩数量时再考虑。
 
@@ -229,7 +229,7 @@ default is 5 minutes.
 The `currentMetricValue / desiredMetricValue` base scale ratio is then
 calculated using the remaining pods not set aside or discarded from above.
 -->
-在排除掉被搁置的 Pod 后，扩缩比例就会根据`currentMetricValue/desiredMetricValue`
+在排除掉被搁置的 Pod 后，扩缩比例就会根据 `currentMetricValue/desiredMetricValue`
 计算出来。
 
 <!--
@@ -274,20 +274,23 @@ used.
 <!--
 If multiple metrics are specified in a HorizontalPodAutoscaler, this
 calculation is done for each metric, and then the largest of the desired
-replica counts is chosen.  If any of those metrics cannot be converted
+replica counts is chosen. If any of these metrics cannot be converted
 into a desired replica count (e.g. due to an error fetching the metrics
-from the metrics APIs), scaling is skipped.
+from the metrics APIs) and a scale down is suggested by the metrics which
+can be fetched, scaling is skipped. This means that the HPA is still capable
+of scaling up if one or more metrics give a `desiredReplicas` greater than
+the current value.
 -->
 如果创建 HorizontalPodAutoscaler 时指定了多个指标，
-那么会按照每个指标分别计算扩缩副本数，取最大的进行扩缩。
-如果任何一个指标无法顺利的计算出扩缩副本数（比如，通过 API 获取指标时出错），
-那么本次扩缩会被跳过。
+那么会按照每个指标分别计算扩缩副本数，取最大值进行扩缩。
+如果任何一个指标无法顺利地计算出扩缩副本数（比如，通过 API 获取指标时出错），
+并且可获取的指标建议缩容，那么本次扩缩会被跳过。
+这表示，如果一个或多个指标给出的 `desiredReplicas` 值大于当前值，HPA 仍然能实现扩容。
 
 <!--
 Finally, just before HPA scales the target, the scale recommendation is recorded.  The
 controller considers all recommendations within a configurable window choosing the
-highest recommendation from within that window. 
-This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
+highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
 fluctuating metric values.
 -->
@@ -321,13 +324,13 @@ API 的 beta 版本（`autoscaling/v2beta2`）引入了基于内存和自定义�
 <!--
 When you create a HorizontalPodAutoscaler API object, make sure the name specified is a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-
 More details about the API object can be found at
-[HorizontalPodAutoscaler Object](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
+[HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling).
 -->
 创建 HorizontalPodAutoscaler 对象时，需要确保所给的名称是一个合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
-有关 API 对象的更多信息，请查阅[HorizontalPodAutoscaler 对象设计文档](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object)。
+有关 API 对象的更多信息，请查阅
+[HorizontalPodAutoscaler 对象设计文档](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling)。
 
 <!--
 ## Support for Horizontal Pod Autoscaler in kubectl
@@ -360,13 +363,12 @@ The detailed documentation of `kubectl autoscale` can be found [here](/docs/refe
 <!--
 ## Autoscaling during rolling update
 
-Currently in Kubernetes, it is possible to perform a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) 
-by managing replication controllers directly,
-or by using the deployment object, which manages the underlying replica sets for you.
+Currently in Kubernetes, it is possible to perform a rolling update by using the deployment object, 
+which manages the underlying replica sets for you.
 Horizontal Pod Autoscaler only supports the latter approach: the Horizontal Pod Autoscaler is bound to the deployment object,
 it sets the size for the deployment object, and the deployment is responsible for setting sizes of underlying replica sets.
 -->
-## 滚动升级时扩缩   {#autoscaling-during-roling-update}
+## 滚动升级时扩缩   {#autoscaling-during-rolling-update}
 
 目前在 Kubernetes 中，可以针对 ReplicationController 或 Deployment 执行
 滚动更新，它们会为你管理底层副本数。
@@ -375,13 +377,12 @@ HPA 设置副本数量时，Deployment 会设置底层副本数。
 
 <!--
 Horizontal Pod Autoscaler does not work with rolling update using direct manipulation of replication controllers,
-i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update (e.g. using `kubectl rolling-update`).
+i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update.
 The reason this doesn't work is that when rolling update creates a new replication controller,
 the Horizontal Pod Autoscaler will not be bound to the new replication controller.
 -->
 通过直接操控副本控制器执行滚动升级时，HPA 不能工作，
-也就是说你不能将 HPA 绑定到某个 RC 再执行滚动升级
-（例如使用 `kubectl rolling-update` 命令）。
+也就是说你不能将 HPA 绑定到某个 RC 再执行滚动升级。
 HPA 不能工作的原因是它无法绑定到滚动更新时所新创建的副本控制器。
 
 <!--
@@ -492,25 +493,35 @@ APIs, cluster administrators must ensure that:
 集群管理员需要确保下述条件，以保证 HPA 控制器能够访问这些 API：
 
 <!--
-* The [API aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) is enabled.
+* The [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) is enabled.
+
 * The corresponding APIs are registered:
-   * For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-incubator/metrics-server).
+
+   * For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
      It can be launched as a cluster addon.
+
    * For custom metrics, this is the `custom.metrics.k8s.io` API.  It's provided by "adapter" API servers provided by metrics solution vendors.
      Check with your metrics pipeline, or the [list of known solutions](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api).
-     If you would like to write your own, check out the [boilerplate](https://github.com/kubernetes-incubator/custom-metrics-apiserver) to get started.
+     If you would like to write your own, check out the [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) to get started.
+
    * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
+
 * The `--horizontal-pod-autoscaler-use-rest-clients` is `true` or unset.  Setting this to false switches to Heapster-based autoscaling, which is deprecated.
 -->
 * 启用了 [API 聚合层](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
+
 * 相应的 API 已注册：
 
    * 对于资源指标，将使用 `metrics.k8s.io` API，一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
      它可以做为集群插件启动。
-  * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
+    
+   * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
     确认你的指标流水线，或者查看[已知方案列表](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api)。
+    如果你想自己编写，请从 [boilerplate](https://github.com/kubernetes-sigs/custommetrics-apiserver)开始。
+   
    * 对于外部指标，将使用 `external.metrics.k8s.io` API。可能由上面的自定义指标适配器提供。
+
 * `--horizontal-pod-autoscaler-use-rest-clients` 参数设置为 `true` 或者不设置。 
   如果设置为 false，则会切换到基于 Heapster 的自动扩缩，这个特性已经被弃用了。
 
@@ -532,6 +543,236 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 关于如何使用它们的示例，请参考 
 [使用自定义指标的教程](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 和[使用外部指标的教程](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects)。
+
+<!--  
+## Support for configurable scaling behavior
+
+Starting from
+[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+the `v2beta2` API allows scaling behavior to be configured through the HPA
+`behavior` field. Behaviors are specified separately for scaling up and down in
+`scaleUp` or `scaleDown` section under the `behavior` field. A stabilization
+window can be specified for both directions which prevents the flapping of the
+number of the replicas in the scaling target. Similarly specifying scaling
+policies controls the rate of change of replicas while scaling.
+-->
+## 支持可配置的扩缩 {#support-for-configurable-scaling-behaviour}
+
+从 [v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+开始，`v2beta2` API 允许通过 HPA 的 `behavior` 字段配置扩缩行为。
+在 `behavior` 字段中的 `scaleUp` 和 `scaleDown` 分别指定扩容和缩容行为。
+可以两个方向指定一个稳定窗口，以防止扩缩目标中副本数量的波动。
+类似地，指定扩缩策略可以控制扩缩时副本数的变化率。
+
+<!--  
+### Scaling Policies
+
+One or more scaling policies can be specified in the `behavior` section of the spec.
+When multiple policies are specified the policy which allows the highest amount of
+change is the policy which is selected by default. The following example shows this behavior
+while scaling down:
+-->
+### 扩缩策略 {#scaling-policies}
+在 spec 字段的 `behavior` 部分可以指定一个或多个扩缩策略。
+当指定多个策略时，默认选择允许更改最多的策略。
+下面的例子展示了缩容时的行为:
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Pods
+      value: 4
+      periodSeconds: 60
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+```
+
+<!--  
+When the number of pods is more than 40 the second policy will be used for scaling down.
+For instance if there are 80 replicas and the target has to be scaled down to 10 replicas
+then during the first step 8 replicas will be reduced. In the next iteration when the number
+of replicas is 72, 10% of the pods is 7.2 but the number is rounded up to 8. On each loop of
+the autoscaler controller the number of pods to be change is re-calculated based on the number
+of current replicas. When the number of replicas falls below 40 the first policy _(Pods)_ is applied
+and 4 replicas will be reduced at a time.
+-->
+当 Pod 数量超过 40 个时，第二个策略将用于缩容。
+例如，如果有 80 个副本，并且目标必须缩小到 10 个副本，那么在第一步中将减少 8 个副本。
+在下一轮迭代中，当副本的数量为 72 时，10% 的 Pod 数为 7.2，但是这个数字向上取整为 8。
+在 autoscaler 控制器的每个循环中，将根据当前副本的数量重新计算要更改的 Pod 数量。
+当副本数量低于 40 时，应用第一个策略 _（Pods）_ ，一次减少 4 个副本。
+
+<!-- 
+`periodSeconds` indicates the length of time in the past for which the policy must hold true.
+The first policy allows at most 4 replicas to be scaled down in one minute. The second policy
+allows at most 10% of the current replicas to be scaled down in one minute.
+-->
+`periodSeconds` 表示策略的时间长度必须保证有效。
+第一个策略允许在一分钟内最多缩小 4 个副本。
+第二个策略最多允许在一分钟内缩小当前副本的 10%。
+
+<!--  
+The policy selection can be changed by specifying the `selectPolicy` field for a scaling
+direction. By setting the value to `Min` which would select the policy which allows the
+smallest change in the replica count. Setting the value to `Disabled` completely disables
+scaling in that direction.
+-->
+可以指定扩缩方向的 `selectPolicy` 字段来更改策略选择。
+通过设置 `Min` 的值，它将选择副本数变化最小的策略。
+将该值设置为 `Disabled` 将完全禁用该方向的缩放。
+
+<!--  
+### Stabilization Window
+
+The stabilization window is used to restrict the flapping of replicas when the metrics
+used for scaling keep fluctuating. The stabilization window is used by the autoscaling
+algorithm to consider the computed desired state from the past to prevent scaling. In
+the following example the stabilization window is specified for `scaleDown`.
+-->
+### 稳定窗口 {#stabilization-window}
+
+当用于扩缩的指标持续抖动时，使用稳定窗口来限制副本数上下振动。
+自动扩缩算法使用稳定窗口来考虑过去计算的期望状态，以防止扩缩。
+在下面的例子中，稳定化窗口被指定为 `scaleDown`。
+
+```yaml
+scaleDown:
+  stabilizationWindowSeconds: 300
+```
+
+<!--  
+When the metrics indicate that the target should be scaled down the algorithm looks
+into previously computed desired states and uses the highest value from the specified
+interval. In above example all desired states from the past 5 minutes will be considered.
+-->
+当指标显示目标应该缩容时，自动扩缩算法查看之前计算的期望状态，并使用指定时间间隔内的最大值。
+在上面的例子中，过去 5 分钟的所有期望状态都会被考虑。
+
+<!--  
+### Default Behavior
+
+To use the custom scaling not all fields have to be specified. Only values which need to be
+customized can be specified. These custom values are merged with default values. The default values
+match the existing behavior in the HPA algorithm.
+-->
+### 默认行为 {#default-behavior}
+
+要使用自定义扩缩，不必指定所有字段。
+只有需要自定义的字段才需要指定。
+这些自定义值与默认值合并。
+默认值与 HPA 算法中的现有行为匹配。
+
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 300
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+  scaleUp:
+    stabilizationWindowSeconds: 0
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+    - type: Pods
+      value: 4
+      periodSeconds: 15
+    selectPolicy: Max
+```
+
+<!--  
+For scaling down the stabilization window is _300_ seconds(or the value of the
+`--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy
+for scaling down which allows a 100% of the currently running replicas to be removed which
+means the scaling target can be scaled down to the minimum allowed replicas.
+For scaling up there is no stabilization window. When the metrics indicate that the target should be
+scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
+running replicas will be added every 15 seconds till the HPA reaches its steady state.
+-->
+用于缩小稳定窗口的时间为 _300_  秒(或是 `--horizontal-pod-autoscaler-downscale-stabilization` 参数设定值)。
+只有一种缩容的策略，允许 100% 删除当前运行的副本，这意味着扩缩目标可以缩小到允许的最小副本数。
+对于扩容，没有稳定窗口。当指标显示目标应该扩容时，目标会立即扩容。
+这里有两种策略，每 15 秒添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
+
+<!--  
+### Example: change downscale stabilization window
+
+To provide a custom downscale stabilization window of 1 minute, the following
+behavior would be added to the HPA:
+--> 
+### 示例：更改缩容稳定窗口
+
+将下面的 behavior 配置添加到 HPA 中，可提供一个 1 分钟的自定义缩容稳定窗口：
+
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 60
+```
+
+<!--  
+### Example: limit scale down rate
+
+To limit the rate at which pods are removed by the HPA to 10% per minute, the
+following behavior would be added to the HPA:
+-->
+### 示例：限制缩容速率
+
+将下面的 behavior 配置添加到 HPA 中，可限制 Pod 被 HPA 删除速率为每分钟 10%：
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+```
+
+<!--  
+To ensure that no more than 5 Pods are removed per minute, you can add a second scale-down
+policy with a fixed size of 5, and set `selectPolicy` to minimum. Setting `selectPolicy` to `Min` means
+that the autoscaler chooses the policy that affects the smallest number of Pods:
+-->
+为了确保每分钟删除的 Pod 数不超过 5 个，可以添加第二个缩容策略，大小固定为 5，并将 `selectPolicy` 设置为最小值。
+将 `selectPolicy` 设置为 `Min` 意味着 autoscaler 会选择影响 Pod 数量最小的策略:
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+    - type: Pods
+      value: 5
+      periodSeconds: 60
+    selectPolicy: Min
+```
+
+<!--  
+### Example: disable scale down
+
+The `selectPolicy` value of `Disabled` turns off scaling the given direction.
+So to prevent downscaling the following policy would be used:
+-->
+
+### 示例：禁用缩容
+
+`selectPolicy` 的值 `Disabled` 会关闭对给定方向的缩容。
+因此使用以下策略，将会阻止缩容：
+
+```yaml
+behavior:
+  scaleDown:
+    selectPolicy: Disabled
+```
+
+
 
 ## {{% heading "whatsnext" %}}
 

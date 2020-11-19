@@ -864,7 +864,7 @@ Kubernetes `ServiceTypes` 允许指定一个需要的类型的 Service，默认�
   * [`NodePort`](#nodeport)：通过每个 Node 上的 IP 和静态端口（`NodePort`）暴露服务。
     `NodePort` 服务会路由到 `ClusterIP` 服务，这个 `ClusterIP` 服务会自动创建。
     通过请求 `<NodeIP>:<NodePort>`，可以从集群的外部访问一个 `NodePort` 服务。
-  * [`LoadBalancer`](#loadbalancer)：使用云提供商的负载局衡器，可以向外部暴露服务。
+  * [`LoadBalancer`](#loadbalancer)：使用云提供商的负载均衡器，可以向外部暴露服务。
     外部的负载均衡器可以路由到 `NodePort` 服务和 `ClusterIP` 服务。
   * [`ExternalName`](#externalname)：通过返回 `CNAME` 和它的值，可以将服务映射到 `externalName`
     字段的内容（例如， `foo.bar.example.com`）。

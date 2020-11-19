@@ -241,14 +241,13 @@ a {
 }
 
 .fullbutton {
-  display: block;
+  display: inline-block;
   margin: auto;
   margin-top: 2rem;
-  width: 156px;
   background-color: #0662EE;
   color: white;
   font-size: 18px;
-  padding: 2%;
+  padding: 2% 2.5%;
   letter-spacing: 0.07em;
   font-weight: bold;
 
