@@ -21,3 +21,13 @@ También se puede leer [la documentación de referencia](/docs/reference/kubectl
 La página de [inicio rápido](https://kind.sigs.k8s.io/docs/user/quick-start/) de kind se muestra que tiene que hacer para empezar con kind.
 
 <a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="Ver la guía de inicio rápido">Ver la guía de inicio rápido</a>
+
+## minikube
+
+Como `kind`, [`minikube`](https://minikube.sigs.k8s.io/) es una herramienta que le permite usar Kubernetes en su máquina local. `minikube` le permite ejecutar un único nodo en su computadora personal (inclúyendo PC de Windows, macOS y Linux) para que se pueda probar Kubernetes, o para su trabajo de desarrollo.
+
+Se puede seguir la guía oficial de [`minikube`](https://minikube.sigs.k8s.io/docs/start/) si su enfoque esta instalando la herramienta. 
+
+<a class="btn btn-primary" href="https://minikube.sigs.k8s.io/docs/start/" role="button" aria-label="Ver la guía de minikube">Ver la guía de minikube</a>
+
+Una vez `minikube` ha terminado de instalarse, se puede usarla para empezar un aplicación de ejemplo(/docs/tutorials/hello-minikube/).
