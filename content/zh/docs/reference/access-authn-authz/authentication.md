@@ -700,7 +700,7 @@ Setup instructions for specific systems:
 特定系统的安装指令：
 
 - [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
-- [Dex](https://github.com/dexidp/dex/blob/master/Documentation/kubernetes.md)
+- [Dex](https://dexidp.io/docs/kubernetes/)
 - [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
 
 <!--
