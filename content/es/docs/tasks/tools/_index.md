@@ -31,3 +31,11 @@ Se puede seguir la guía oficial de [`minikube`](https://minikube.sigs.k8s.io/do
 <a class="btn btn-primary" href="https://minikube.sigs.k8s.io/docs/start/" role="button" aria-label="Ver la guía de minikube">Ver la guía de minikube</a>
 
 Una vez `minikube` ha terminado de instalarse, se puede usarla para empezar un aplicación de ejemplo(/docs/tutorials/hello-minikube/).
+
+## kubeadm
+
+Se puede usar la {{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}} herramienta para crear y gestionar clústeres de Kubernetes. Se ejecutan las acciones necesarias para ejecutar un clúster mínimo en forma fácil.
+
+[Instalando kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) se muestra como instalar kubeadm. Una vez instalado, se puede usarlo [para crear un clúster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+
+<a class="btn btn-primary" href="/docs/setup/production-environment/tools/kubeadm/install-kubeadm/" role="button" aria-label="Ver la guía de instalación">Ver la guía de instalación</a>
