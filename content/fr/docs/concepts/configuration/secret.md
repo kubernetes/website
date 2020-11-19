@@ -217,7 +217,7 @@ type: Opaque
 data:
   username: YWRtaW4=
 stringData:
-  username: administrator
+  username: administrateur
 ```
 
 Donnera le secret suivant:
@@ -233,10 +233,10 @@ metadata:
   uid: 91460ecb-e917-11e8-98f2-025000000001
 type: Opaque
 data:
-  username: YWRtaW5pc3RyYXRvcg==
+  username: YWRtaW5pc3RyYXRldXI=
 ```
 
-Où `YWRtaW5pc3RyYXRvcg ==` décode en `administrateur`.
+Où `YWRtaW5pc3RyYXRldXI=` décode en `administrateur`.
 
 Les clés de `data` et `stringData` doivent être composées de caractères alphanumériques, '-', '_' ou '.'.
 

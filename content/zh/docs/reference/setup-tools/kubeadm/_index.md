@@ -9,6 +9,7 @@ card:
 ---
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
+
 <!-- 
 Kubeadm is a tool built to provide `kubeadm init` and `kubeadm join` as best-practice "fast paths" for creating Kubernetes clusters.
  -->
@@ -24,7 +25,7 @@ kubeadm 通过执行必要的操作来启动和运行最小可用集群。按照
 <!-- 
 Instead, we expect higher-level and more tailored tooling to be built on top of kubeadm, and ideally, using kubeadm as the basis of all deployments will make it easier to create conformant clusters.
  -->
-相反，我们希望在 Kubeadm 之上构建更高级别以及更加合规的工具，理想情况下，使用 kubeadm 作为所有部署工作的基准将会更加易于创建一致性集群。
+相反，我们希望在 kubeadm 之上构建更高级别以及更加合规的工具，理想情况下，使用 kubeadm 作为所有部署工作的基准将会更加易于创建一致性集群。
 
 <!-- 
 ## How to install
@@ -34,7 +35,7 @@ Instead, we expect higher-level and more tailored tooling to be built on top of 
 <!-- 
 To install kubeadm, see the [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).
  -->
-要安装 kubeadm, 请查阅[安装指南](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+要安装 kubeadm, 请查阅[安装指南](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 ## {{% heading "whatsnext" %}}
 
@@ -48,11 +49,11 @@ To install kubeadm, see the [installation guide](/docs/setup/production-environm
 * [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) to print the kubeadm version
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha) to preview a set of features made available for gathering feedback from the community
  -->
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) 用于搭建控制平面节点
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) 用于搭建工作节点并将其加入到集群中
-* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade) 用于升级 Kubernetes 集群到新版本
-* [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config) 如果你使用了 v1.7.x 或更低版本的 kubeadm 版本初始化你的集群，则使用 `kubeadm upgrade` 来配置你的集群
-* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token) 用于管理 `kubeadm join` 使用的令牌
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) 用于恢复通过 `kubeadm init` 或者 `kubeadm join` 命令对节点进行的任何变更
-* [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) 用于打印 kubeadm 的版本信息
-* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha) 用于预览一组可用于收集社区反馈的特性
+* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init) 用于搭建控制平面节点
+* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join) 用于搭建工作节点并将其加入到集群中
+* [kubeadm upgrade](/zh/docs/reference/setup-tools/kubeadm/kubeadm-upgrade) 用于升级 Kubernetes 集群到新版本
+* [kubeadm config](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config) 如果你使用了 v1.7.x 或更低版本的 kubeadm 版本初始化你的集群，则使用 `kubeadm upgrade` 来配置你的集群
+* [kubeadm token](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token) 用于管理 `kubeadm join` 使用的令牌
+* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset) 用于恢复通过 `kubeadm init` 或者 `kubeadm join` 命令对节点进行的任何变更
+* [kubeadm version](/zh/docs/reference/setup-tools/kubeadm/kubeadm-version) 用于打印 kubeadm 的版本信息
+* [kubeadm alpha](/zh/docs/reference/setup-tools/kubeadm/kubeadm-alpha) 用于预览一组可用于收集社区反馈的特性
