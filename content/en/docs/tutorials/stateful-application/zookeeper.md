@@ -26,7 +26,7 @@ Kubernetes concepts.
 -   [Pods](/docs/concepts/workloads/pods/)
 -   [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 -   [Headless Services](/docs/concepts/services-networking/service/#headless-services)
--   [PersistentVolumes](/docs/concepts/storage/volumes/)
+-   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
 -   [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 -   [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 -   [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
@@ -46,7 +46,7 @@ tutorial.
 After this tutorial, you will know the following.
 
 -   How to deploy a ZooKeeper ensemble using StatefulSet.
--   How to consistently configure the ensemble using ConfigMaps.
+-   How to consistently configure the ensemble.
 -   How to spread the deployment of ZooKeeper servers in the ensemble.
 -   How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
 
@@ -522,7 +522,7 @@ log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L] - %m%n
 ```
 
-This is the simplest possible way to safely log inside the container. 
+This is the simplest possible way to safely log inside the container.
 Because the applications write logs to standard out, Kubernetes will handle log rotation for you.
 Kubernetes also implements a sane retention policy that ensures application logs written to
 standard out and standard error do not exhaust local storage media.
@@ -770,7 +770,7 @@ In one terminal window, use the following command to watch the Pods in the `zk` 
 kubectl get pod -w -l app=zk
 ```
 
-In another window, using the following command to delete the `zkOk.sh` script from the file system of Pod `zk-0`.
+In another window, using the following command to delete the `zookeeper-ready` script from the file system of Pod `zk-0`.
 
 ```shell
 kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready

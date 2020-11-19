@@ -25,10 +25,11 @@ daemons installed:
 ## Running Node Conformance Test
 
 To run the node conformance test, perform the following steps:
-
-1. Point your Kubelet to localhost `--api-servers="http://localhost:8080"`,
-because the test framework starts a local master to test Kubelet. There are some
-other Kubelet flags you may care:
+1. Work out the value of the `--kubeconfig` option for the kubelet; for example:
+   `--kubeconfig=/var/lib/kubelet/config.yaml`.
+    Because the test framework starts a local control plane to test the kubelet,
+    use `http://localhost:8080` as the URL of the API server.
+    There are some other kubelet command line parameters you may want to use:
   * `--pod-cidr`: If you are using `kubenet`, you should specify an arbitrary CIDR
     to Kubelet, for example `--pod-cidr=10.180.0.0/24`.
   * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should

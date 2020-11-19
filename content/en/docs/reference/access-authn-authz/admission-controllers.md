@@ -91,7 +91,7 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.18, they are:
+In the current version, the default ones are:
 
 ```shell
 NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota
