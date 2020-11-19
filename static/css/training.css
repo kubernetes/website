@@ -1,29 +1,28 @@
-#hero {
+body.cid-training body.cid-training #hero {
   text-align: left;
   padding-bottom: 20px;
 }
 
-.section {
+body.cid-training body.cid-training .section {
   clear: both;
   padding: 0px;
   margin-bottom: 2em;
   width: 100%;
 }
 
-section.call-to-action {
+body.cid-training section.call-to-action {
   color: #ffffff;
   background-color: #3371e3;
 }
 
-section.call-to-action .main-section {
+body.cid-training section.call-to-action .main-section {
     max-width: initial;
 }
 
-section.call-to-action .main-section > div.call-to-action {
+body.cid-training section.call-to-action .main-section > div.call-to-action {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  flex-basis: auto;
   justify-content: center;
   align-items: center;
   margin: initial;
@@ -31,54 +30,57 @@ section.call-to-action .main-section > div.call-to-action {
   padding-bottom: 5rem;
 }
 
-section.call-to-action .main-section > div.call-to-action > div {
-  order: 1;
+body.cid-training section.call-to-action .main-section > div.call-to-action > div {
   padding: 20px;
 }
 
-section.call-to-action .main-section .cta-text {
-  text-align: center;
-  flex: 1 1 auto;
-  max-width: 50vw;
+body.cid-training section.call-to-action .main-section .cta-text {
+  width: 100%;
+  flex-basis: 100%;
 }
 
-/* if max() and min() are available, use them */
-section.call-to-action .main-section .cta-text {
+body.cid-training section.call-to-action .main-section .cta-text > * {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  /* if max() and min() are available, use them */
   min-width: min(20em, 50vw);
   max-width: min(1000px, 50vw);
 }
 
-section.call-to-action .main-section .cta-image.cta-image-before {
-  order: 0
+body.cid-training section.call-to-action .main-section .cta-image {
+  max-width: max(20vw,150px);
+  flex-basis: auto;
 }
-
-section.call-to-action .main-section .cta-image.cta-image-after {
-  order: 2
-}
-
-section.call-to-action .main-section .cta-image > img {
+body.cid-training section.call-to-action .main-section .cta-image > img {
   display: block;
   width: 150px;
   margin: auto;
 }
 
-.col {
+body.cid-training #logo-cks {
+  order: 2; /* central */
+}
+
+
+
+body.cid-training .col {
   display: flex;
   flex-direction: row;
   float: left;
   margin: 1% 0 1% 1.6%;
 }
 
-.col:first-child { margin-left: 0; }
+body.cid-training .col:first-child { margin-left: 0; }
 
-.col-container {
+body.cid-training .col-container {
   display: flex; /* Make the container element behave like a table */
   flex-direction: row;
   width: 100%; /* Set full-width to expand the whole page */
   padding-bottom: 30px;
 }
 
-.col-nav {
+body.cid-training .col-nav {
   display: flex;
   flex-grow: 1;
   width: 18%;
@@ -87,44 +89,62 @@ section.call-to-action .main-section .cta-image > img {
   border: 5px solid white;
 }
 
+body.cid-training #get-certified .col-nav {
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+body.cid-training #get-certified .col-nav > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+body.cid-training #get-certified .col-nav > br {
+  flex-grow: 1;
+  display: block;
+  min-height: 2em;
+}
+
+body.cid-training #get-certified .col-nav a.button {
+  flex: initial;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 @media only screen and (max-width: 840px) {
-  section.call-to-action .main-section .cta-image.cta-image-before, section.call-to-action .main-section .cta-image.cta-image-after {
-    order: 0;
-  }
-  section.call-to-action .main-section .cta-image > img {
+  body.cid-training   section.call-to-action .main-section .cta-image > img {
     margin: 0;
   }
-  section.call-to-action .main-section .cta-image > img {
+  body.cid-training   section.call-to-action .main-section .cta-image > img {
     width: 7rem;
   }
-  section.call-to-action .main-section > div.call-to-action > div {
+  body.cid-training section.call-to-action .main-section > div.call-to-action > div {
     padding: 0 2rem 0 2rem;
   }
-  section.call-to-action .main-section .cta-text {
-    flex: 2 0 75vw;
-    max-width: initial;
-    padding: 5vw 0 0 0;
-  }
 }
+
 
 
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 
 @media only screen and (max-width: 480px) {
-  .col { margin: 1% 0 1% 0%;}
-  .col-container { flex-direction: column; }
+  body.cid-training .col { margin: 1% 0 1% 0%;}
+  body.cid-training .col-container { flex-direction: column; }
+  body.cid-training #logo-cks { order: initial; }
 }
 
 @media only screen and (max-width: 650px) {
-  .col-nav {
+  body.cid-training .col-nav {
     display: block;
     width: 100%;
   }
-  .col-container { flex-direction: column; }
+  body.cid-training .col-container { flex-direction: column; }
 }
 
-.button{
+body.cid-training .button {
   max-width: 100%;
   box-sizing: border-box;
   margin: 1em 0;
@@ -136,47 +156,48 @@ section.call-to-action .main-section .cta-image > img {
   font-size: 16px;
   background-color: #3371e3;
   text-decoration: none;
+  text-align: center;
 }
 
-h5 {
+body.cid-training h5 {
   font-size: 16px;
   font-weight: 500;
   line-height: 1.5em;
   margin-bottom: 2em;
 }
 
-.white-text {
+body.cid-training .white-text {
   color: #fff;
 }
 
-.padded {
+body.cid-training .padded {
   padding-top: 100px;
   padding-bottom: 100px;
 }
 
-.blue-bg {
+body.cid-training .blue-bg {
   background-color: #3371e3;
 }
 
-.lighter-gray-bg {
+body.cid-training .lighter-gray-bg {
   background-color: #f4f4f4;
 }
 
-.two-thirds-centered {
+body.cid-training .two-thirds-centered {
   width: 66%;
   max-width: 950px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.landscape-section {
+body.cid-training .landscape-section {
   margin-left: auto;
   margin-right: auto;
   max-width: 1200px;
   width: 100%;
 }
 
-#landscape {
+body.cid-training #landscape {
   opacity: 1;
   visibility: visible;
   overflow: hidden;

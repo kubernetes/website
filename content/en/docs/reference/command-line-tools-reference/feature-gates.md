@@ -143,13 +143,15 @@ different Kubernetes components.
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
-| `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
-| `ServiceAppProtocol` | `true` | Beta | 1.19 | |
+| `RuntimeClass` | `false` | Alpha | 1.12 | 1.13 |
+| `RuntimeClass` | `true` | Beta | 1.14 | |
+| `SCTPSupport` | `false` | Alpha | 1.12 | 1.18 |
+| `SCTPSupport` | `true` | Beta | 1.19 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
-| `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | 1.19 |
-| `ServiceAccountIssuerDiscovery` | `true` | Beta | 1.20 | |
-| `ServiceAppProtocol` | `false` | Alpha | 1.18 | |
+| `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | |
+| `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
+| `ServiceAppProtocol` | `true` | Beta | 1.19 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
 | `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |

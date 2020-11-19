@@ -201,7 +201,7 @@ JSON/YAML 格式的 Pod 定义文件。
 <!--
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 -->
-1. 创建一个 YAML 文件，并保存在保存在 web 服务上，为 kubelet 生成一个 URL。
+1. 创建一个 YAML 文件，并保存在 web 服务上，为 kubelet 生成一个 URL。
 
    ```yaml
    apiVersion: v1
