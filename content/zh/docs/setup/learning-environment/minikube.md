@@ -58,7 +58,7 @@ See [Installing Minikube](/docs/tasks/tools/install-minikube/).
 -->
 ## 安装
 
-请参阅[安装 Minikube](/zh/docs/tasks/tools/install-minikube/)。
+请参阅[安装 Minikube](https://minikube.sigs.k8s.io/docs/start/)。
 
 <!--
 ## Quickstart
