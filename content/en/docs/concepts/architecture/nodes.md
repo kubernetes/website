@@ -330,6 +330,26 @@ the kubelet can use topology hints when making resource assignment decisions.
 See [Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/)
 for more information.
 
+## Graceful Node Shutdown {#graceful-node-shutdown}
+
+{{< feature-state state="alpha" for_k8s_version="v1.20" >}}
+
+If you have enabled the `GracefulNodeShutdown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then the kubelet attempts to detect the node system shutdown and terminates pods running on the node.
+Kubelet ensures that pods follow the normal [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) during the node shutdown.
+
+When the `GracefulNodeShutdown` feature gate is enabled, kubelet uses [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to delay the node shutdown with a given duration. During a shutdown kubelet terminates pods in two phases:
+
+1. Terminate regular pods running on the node.
+2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
+
+Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
+* `ShutdownGracePeriod`:
+  * Specifies the total duration that the node should delay the shutdown by. This is the total grace period for pod termination for both regular and [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+* `ShutdownGracePeriodCriticalPods`:
+  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This should be less than `ShutdownGracePeriod`.
+
+For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved for gracefully terminating normal pods, and the last 10 seconds would be reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+
 
 ## {{% heading "whatsnext" %}}
 
