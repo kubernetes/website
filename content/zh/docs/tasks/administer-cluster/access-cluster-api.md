@@ -225,14 +225,13 @@ certificate.
 <!--
 On some clusters, the API server does not require authentication; it may serve
 on localhost, or be protected by a firewall. There is not a standard
-for this. [Configuring Access to the API](/docs/reference/access-authn-authz/controlling-access/)
-describes how a cluster admin can configure this. Such approaches may conflict
-with future high-availability support.
+for this. [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access)
+describes how you can configure this as a cluster administrator.
 -->
 在一些集群中，API 服务器不需要身份认证；它运行在本地，或由防火墙保护着。
 对此并没有一个标准。
-[配置对 API 的访问](/zh/docs/reference/access-authn-authz/controlling-access/)
-阐述了一个集群管理员如何对此进行配置。这种方法可能与未来的高可用性支持发生冲突。
+[配置对 API 的访问](/zh/docs/concepts/security/controlling-access/)
+讲解了作为集群管理员可如何对此进行配置。
 
 <!--
 ### Programmatic access to the API

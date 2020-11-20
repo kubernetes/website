@@ -228,10 +228,10 @@ so that you can change the configuration more easily.
 <!--
 ## Interact with the frontend Service
 
-Once you’ve created a Service of type LoadBalancer, you can use this
+Once you've created a Service of type LoadBalancer, you can use this
 command to find the external IP:
 -->
-### 与前端 Service 交互
+### 与前端 Service 交互   {#interact-with-the-frontend-service}
 
 一旦你创建了 LoadBalancer 类型的 Service，你可以使用这条命令查看外部 IP：
 
