@@ -11,8 +11,6 @@ weight: 65
 
 Windows applications constitute a large portion of the services and applications that run in many organizations. [Windows containers](https://aka.ms/windowscontainers) provide a modern way to encapsulate processes and package dependencies, making it easier to use DevOps practices and follow cloud native patterns for Windows applications. Kubernetes has become the defacto standard container orchestrator, and the release of Kubernetes 1.14 includes production support for scheduling Windows containers on Windows nodes in a Kubernetes cluster, enabling a vast ecosystem of Windows applications to leverage the power of Kubernetes. Organizations with investments in Windows-based applications and Linux-based applications don't have to look for separate orchestrators to manage their workloads, leading to increased operational efficiencies across their deployments, regardless of operating system.
 
-
-
 <!-- body -->
 
 ## Windows containers in Kubernetes
@@ -39,12 +37,10 @@ Refer to the following table for Windows operating system support in Kubernetes.
 
 | Kubernetes version | Windows Server LTSC releases | Windows Server SAC releases |
 | --- | --- | --- | --- |
-| *Kubernetes v1.14* | Windows Server 2019 | Windows Server ver 1809 |
-| *Kubernetes v1.15* | Windows Server 2019 | Windows Server ver 1809 |
-| *Kubernetes v1.16* | Windows Server 2019 | Windows Server ver 1809 |
 | *Kubernetes v1.17* | Windows Server 2019 | Windows Server ver 1809 |
 | *Kubernetes v1.18* | Windows Server 2019 | Windows Server ver 1809, Windows Server ver 1903, Windows Server ver 1909 |
 | *Kubernetes v1.19* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
+| *Kubernetes v1.20* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
 
 {{< note >}}
 Information on the different Windows Server servicing channels including their support models can be found at [Windows Server servicing channels](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
@@ -58,6 +54,10 @@ The Windows Server Host Operating System is subject to the [Windows Server ](htt
 {{< note >}}
 Windows containers with process isolation have strict compatibility rules, [where the host OS version must match the container base image OS version](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility). Once we support Windows containers with Hyper-V isolation in Kubernetes, the limitation and compatibility rules will change.
 {{< /note >}}
+
+#### Pause Image
+
+Microsoft maintains a Windows pause infrastructure container at `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`.
 
 #### Compute
 
@@ -117,17 +117,15 @@ Docker EE-basic 19.03+ is the recommended container runtime for all Windows Serv
 
 ##### CRI-ContainerD
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-{{< caution >}}
-There is a [known limitation](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations) when using GMSA with ContainerD to access Windows network shares which requires a kernel patch. Check for updates on the [Microsoft Windows Containers issue tracker](https://github.com/microsoft/Windows-Containers/issues/44).
-{{< /caution >}}
-
-{{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0-beta.2+ can also be used as the container runtime for Windows Kubernetes nodes.
-
-Initial support for ContainerD on Windows was added in Kubernetes v1.18. Progress for ContainerD on Windows can be tracked at [enhancements#1001](https://github.com/kubernetes/enhancements/issues/1001).
+{{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+ can also be used as the container runtime for Windows Kubernetes nodes.
 
 Learn how to [install ContainerD on a Windows](/docs/setup/production-environment/container-runtimes/#install-containerd).
+
+{{< caution >}}
+There is a [known limitation](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations) when using GMSA with ContainerD to access Windows network shares which requires a kernel patch. Updates to address this limitation are currently available for Windows Server, Version 2004 and will be available for Windows Server 2019 in early 2021. Check for updates on the [Microsoft Windows Containers issue tracker](https://github.com/microsoft/Windows-Containers/issues/44).
+{{< /caution >}}
 
 #### Persistent Storage
 
@@ -246,7 +244,7 @@ Windows has strict compatibility rules, where the host OS version must match the
 
 ##### Feature Restrictions
 
-* TerminationGracePeriod: not implemented
+* TerminationGracePeriod: requires CRI-containerD
 * Single file mapping: to be implemented with CRI-ContainerD
 * Termination message: to be implemented with CRI-ContainerD
 * Privileged Containers: not currently supported in Windows containers
@@ -459,6 +457,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
         ```
 
         If the above referenced script is not suitable, you can manually configure nssm.exe using the following examples.
+
         ```powershell
         # Register flanneld.exe
         nssm install flanneld C:\flannel\flanneld.exe
@@ -468,9 +467,9 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
         nssm start flanneld
 
         # Register kubelet.exe
-        # Microsoft releases the pause infrastructure container at mcr.microsoft.com/k8s/core/pause:1.2.0
+        # Microsoft releases the pause infrastructure container at mcr.microsoft.com/oss/kubernetes/pause:1.4.1
         nssm install kubelet C:\k\kubelet.exe
-        nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/k8s/core/pause:1.2.0 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
+        nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/oss/kubernetes/pause:1.4.1 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
         nssm set kubelet AppDirectory C:\k
         nssm start kubelet
 
@@ -580,16 +579,14 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     Check that your pause image is compatible with your OS version. The [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources) assume that both the OS and the containers are version 1803. If you have a later version of Windows, such as an Insider build, you need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images. Regardless, both the pause image Dockerfile and the sample service expect the image to be tagged as :latest.
 
-    Starting with Kubernetes v1.14, Microsoft releases the pause infrastructure container at `mcr.microsoft.com/k8s/core/pause:1.2.0`.
-
 1. DNS resolution is not properly working
 
     Check the DNS limitations for Windows in this [section](#dns-limitations).
 
 1. `kubectl port-forward` fails with "unable to do port forwarding: wincat not found"
 
-    This was implemented in Kubernetes 1.15, and the pause infrastructure container `mcr.microsoft.com/k8s/core/pause:1.2.0`. Be sure to use these versions or newer ones.
-    If you would like to build your own pause infrastructure container, be sure to include [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat)
+    This was implemented in Kubernetes 1.15 by including wincat.exe in the pause infrastructure container `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`. Be sure to use these versions or newer ones.
+    If you would like to build your own pause infrastructure container be sure to include [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
 
 1. My Kubernetes installation is failing because my Windows Server node is behind a proxy
 
@@ -604,7 +601,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     In a Kubernetes Pod, an infrastructure or "pause" container is first created to host the container endpoint. Containers that belong to the same pod, including infrastructure and worker containers, share a common network namespace and endpoint (same IP and port space). Pause containers are needed to accommodate worker containers crashing or restarting without losing any of the networking configuration.
 
-    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`. For more details, see the [DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile).
+    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`. For more details, see the [DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile).
 
 ### Further investigation
 
