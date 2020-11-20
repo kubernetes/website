@@ -326,6 +326,45 @@ spec:
 ```
 
 <!--
+### Pod's setHostnameAsFQDN field {#pod-sethostnameasfqdn-field}
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+**Prerequisites**: The `SetHostnameAsFQDN` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled for the
+{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
+
+When a Pod is configured to have fully qualified domain name (FQDN), its hostname is the short hostname. For example, if you have a Pod with the fully qualified domain name `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`, then by default the `hostname` command inside that Pod returns `busybox-1` and  the `hostname --fqdn` command returns the FQDN.
+
+When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the Pod's FQDN into the hostname for that Pod's namespace. In this case, both `hostname` and `hostname --fqdn` return the Pod's FQDN.
+
+{{< note >}}
+In Linux, the hostname field of the kernel (the `nodename` field of `struct utsname`) is limited to 64 characters.
+
+If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start. The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating error events, such as Failed to construct FQDN from pod hostname and cluster domain, FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested). One way of improving user experience for this scenario is to create an [admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) to control FQDN size when users create top level objects, for example, Deployment.
+{{< /note >}}
+-->
+
+### 设置 Pod 的 setHostnameAsFQDN 字段 {#pod-sethostnameasfqdn-field}
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+**前提条件**: {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}} 中必须开启 `SetHostnameAsFQDN` [特性门禁](/docs/reference/command-line-tools-reference/feature-gates/)。
+
+
+当 Pod 配置为具有完全限定的域名（FQDN）时，其主机名是简称主机名。例如，如果 Pod 具有完全限定的域名 `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`, 默认情况下，该 Pod 中的 hostname 命令将返回 `busybox-1`，`hostname --fqdn` 命令将返回 FQDN 。
+
+当在 Pod 的 spec 中设置了 `setHostnameAsFQDN: true` 时, kubelet 会把 Pod 的 FQDN 写入 Pod 命名空间的主机名中. 这种情况下, `hostname` 和 `hostname --fqdn` 都会返回 Pod 的 FQDN.
+
+{{< note >}}
+在 Linux 中，内核的主机名字段（ `utsname` 结构体中的 `nodename` 字段）限制为 64 个字符。
+
+如果 Pod 启用了此功能，并且其 FQDN 超过 64 个字符，它将无法启动。Pod 将处于 `Pending` 状态（`kubectl` 展示为 `ContainerCreating`），同时会生成错误事件，例如 Failed to construct FQDN from pod hostname and cluster domain, FQDN long-FQDN is too long (64 characters is the max, 70 characters requested) 。
+
+在这种情况下，改善用户体验的一种方法是创建一个 [准入 Webhook 控制器](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)，以在用户创建顶级对象（例如 Deployment ）时控制 FQDN 的大小。
+{{< /note >}}
+
+<!--
 ### Pod's DNS Config
 
 Pod's DNS Config allows users more control on the DNS settings for a Pod.
