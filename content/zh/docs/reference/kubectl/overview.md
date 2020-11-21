@@ -112,7 +112,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
    * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
 
       * [使用 YAML 而不是 JSON](/zh/docs/concepts/configuration/overview/#general-config-tips) 因为 YAML 更容易使用，特别是用于配置文件时。<br/>
-     例子：`kubectl get pod -f ./pod.yaml`
+     例子：`kubectl get -f ./pod.yaml`
 
 * `flags`: 指定可选的参数。例如，可以使用 `-s` 或 `-server` 参数指定 Kubernetes API 服务器的地址和端口。<br/>
 
