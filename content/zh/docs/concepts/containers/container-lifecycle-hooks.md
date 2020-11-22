@@ -48,11 +48,11 @@ There are two hooks that are exposed to Containers:
 `PostStart`
 
 <!--
-This hook executes immediately after a container is created.
+This hook is executed immediately after a container is created.
 However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
 No parameters are passed to the handler.
 -->
-这个回调在创建容器之后立即执行。
+这个回调在容器被创建之后立即被执行。
 但是，不能保证回调会在容器入口点（ENTRYPOINT）之前执行。
 没有参数传递给处理程序。
 
@@ -61,13 +61,13 @@ No parameters are passed to the handler.
 <!--
 This hook is called immediately before a container is terminated due to an API request or management event such as liveness probe failure, preemption, resource contention and others. A call to the preStop hook fails if the container is already in terminated or completed state.
 It is blocking, meaning it is synchronous,
-so it must complete before the call to delete the container can be sent.
+so it must complete before the signal to stop the container can be sent.
 No parameters are passed to the handler.
 -->
 在容器因 API 请求或者管理事件（诸如存活态探针失败、资源抢占、资源竞争等）而被终止之前，
 此回调会被调用。
 如果容器已经处于终止或者完成状态，则对 preStop 回调的调用将失败。
-此调用是阻塞的，也是同步调用，因此必须在删除容器的调用之前完成。
+此调用是阻塞的，也是同步调用，因此必须在发出删除容器的信号之前完成。
 没有参数传递给处理程序。
 
 <!--
@@ -102,11 +102,13 @@ Resources consumed by the command are counted against the Container.
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
-the Kubernetes management system executes the handler in the Container registered for that hook. 
+the Kubernetes management system execute the handler according to the hook action,
+`exec` and `tcpSocket` are executed in the container, and `httpGet` is executed by the kubelet process.
 -->
 ### 回调处理程序执行
 
-当调用容器生命周期管理回调时，Kubernetes 管理系统在注册了回调的容器中执行处理程序。
+当调用容器生命周期管理回调时，Kubernetes 管理系统根据回调动作执行其处理程序，
+`exec` 和 `tcpSocket` 在容器内执行，而 `httpGet` 则由 kubelet 进程执行。
 
 <!--
 Hook handler calls are synchronous within the context of the Pod containing the Container.
@@ -120,15 +122,35 @@ the Container cannot reach a `running` state.
 但是，如果回调运行或挂起的时间太长，则容器无法达到 `running` 状态。
 
 <!--
-The behavior is similar for a `PreStop` hook.
-If the hook hangs during execution,
-the Pod phase stays in a `Terminating` state and is killed after `terminationGracePeriodSeconds` of pod ends.
-If a `PostStart` or `PreStop` hook fails,
+`PreStop` hooks are not executed asynchronously from the signal
+to stop the Container; the hook must complete its execution before
+the signal can be sent.
+If a `PreStop` hook hangs during execution,
+the Pod's phase will be `Terminating` and remain there until the Pod is
+killed after its `terminationGracePeriodSeconds` expires.
+This grace period applies to the total time it takes for both
+the `PreStop` hook to execute and for the Container to stop normally.
+If, for example, `terminationGracePeriodSeconds` is 60, and the hook
+takes 55 seconds to complete, and the Container takes 10 seconds to stop
+normally after receiving the signal, then the Container will be killed
+before it can stop normally, since `terminationGracePeriodSeconds` is
+less than the total time (55+10) it takes for these two things to happen.
+-->
+`PreStop` 回调并不会与停止容器的信号处理程序异步执行；回调必须在
+可以发送信号之前完成执行。
+如果 `PreStop` 回调在执行期间停滞不前，Pod 的阶段会变成 `Terminating`
+并且一致处于该状态，直到其 `terminationGracePeriodSeconds` 耗尽为止，
+这时 Pod 会被杀死。
+这一宽限期是针对 `PreStop` 回调的执行时间及容器正常停止时间的总和而言的。
+例如，如果 `terminationGracePeriodSeconds` 是 60，回调函数花了 55 秒钟
+完成执行，而容器在收到信号之后花了 10 秒钟来正常结束，那么容器会在其
+能够正常结束之前即被杀死，因为 `terminationGracePeriodSeconds` 的值
+小于后面两件事情所花费的总时间（55 + 10）。
+
+<!--
+If either a `PostStart` or `PreStop` hook fails,
 it kills the Container.
 -->
-行为与 `PreStop` 回调的行为类似。
-如果回调在执行过程中挂起，Pod 阶段将保持在 `Terminating` 状态，
-并在 Pod 结束的 `terminationGracePeriodSeconds` 之后被杀死。
 如果 `PostStart` 或 `PreStop` 回调失败，它会杀死容器。
 
 <!--
@@ -147,10 +169,11 @@ which means that a hook may be called multiple times for any given event,
 such as for `PostStart` or `PreStop`.
 It is up to the hook implementation to handle this correctly.
 -->
-### 回调寄送保证
+### 回调递送保证
 
-回调的寄送应该是 *至少一次*，这意味着对于任何给定的事件，例如 `PostStart` 或 `PreStop`，回调可以被调用多次。
-如何正确处理，是回调实现所要考虑的问题。
+回调的递送应该是 *至少一次*，这意味着对于任何给定的事件，
+例如 `PostStart` 或 `PreStop`，回调可以被调用多次。
+如何正确处理被多次调用的情况，是回调实现所要考虑的问题。
 
 <!--
 Generally, only single deliveries are made.
@@ -160,9 +183,9 @@ In some rare cases, however, double delivery may occur.
 For instance, if a kubelet restarts in the middle of sending a hook,
 the hook might be resent after the kubelet comes back up.
 -->
-通常情况下，只会进行单次寄送。
+通常情况下，只会进行单次递送。
 例如，如果 HTTP 回调接收器宕机，无法接收流量，则不会尝试重新发送。
-然而，偶尔也会发生重复寄送的可能。
+然而，偶尔也会发生重复递送的可能。
 例如，如果 kubelet 在发送回调的过程中重新启动，回调可能会在 kubelet 恢复后重新发送。
 
 <!--

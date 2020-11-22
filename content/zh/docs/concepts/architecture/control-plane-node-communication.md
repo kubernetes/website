@@ -38,10 +38,10 @@ apiserver 被配置为在一个安全的 HTTPS 端口（443）上监听远程连
 或[服务账号令牌](/docs/reference/access-authn-authz/authentication/#service-account-tokens)的时候。
 
 <!--
-Nodes should be provisioned with the public root certificate for the cluster such that they can connect securely to the apiserver along with valid client credentials. For example, on a default GKE deployment, the client credentials provided to the kubelet are in the form of a client certificate. See [kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for automated provisioning of kubelet client certificates.
+Nodes should be provisioned with the public root certificate for the cluster such that they can connect securely to the apiserver along with valid client credentials. A good approach is that the client credentials provided to the kubelet are in the form of a client certificate. See [kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for automated provisioning of kubelet client certificates.
 -->
 应该使用集群的公共根证书开通节点，这样它们就能够基于有效的客户端凭据安全地连接 apiserver。
-例如：在一个默认的 GCE 部署中，客户端凭据以客户端证书的形式提供给 kubelet。
+一种好的方法是以客户端证书的形式将客户端凭据提供给 kubelet。
 请查看 [kubelet TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
 以了解如何自动提供 kubelet 客户端证书。
 
@@ -103,16 +103,16 @@ To verify this connection, use the `--kubelet-certificate-authority` flag to pro
 If that is not possible, use [SSH tunneling](/docs/concepts/architecture/master-node-communication/#ssh-tunnels) between the apiserver and kubelet if required to avoid connecting over an
 untrusted or public network.
 
-Finally, [Kubelet authentication and/or authorization](/docs/admin/kubelet-authentication-authorization/) should be enabled to secure the kubelet API.
+Finally, [Kubelet authentication and/or authorization](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/) should be enabled to secure the kubelet API.
 -->
-
 为了对这个连接进行认证，使用 `--kubelet-certificate-authority` 标志给 apiserver 
 提供一个根证书包，用于 kubelet 的服务证书。
 
 如果无法实现这点，又要求避免在非受信网络或公共网络上进行连接，可在 apiserver 和
 kubelet 之间使用 [SSH 隧道](#ssh-tunnels)。
 
-最后，应该启用 [Kubelet 用户认证和/或鉴权](/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
+最后，应该启用
+[kubelet 用户认证和/或鉴权](/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
 来保护 kubelet API。
 
 <!--
