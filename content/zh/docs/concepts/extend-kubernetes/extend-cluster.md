@@ -4,7 +4,6 @@ content_type: concept
 weight: 10
 ---
 <!--
----
 title: Extending your Kubernetes Cluster
 reviewers:
 - erictune
@@ -13,7 +12,6 @@ reviewers:
 - chenopis
 content_type: concept
 weight: 10
----
 -->
 
 <!-- overview -->
@@ -89,7 +87,7 @@ Flags and configuration files may not always be changeable in a hosted Kubernete
 它们是声明性的，并使用与其他 Kubernetes 资源（如 Pod ）相同的约定，所以新的集群配置可以重复使用，
 并以与应用程序相同的方式进行管理。
 而且，当它们变稳定后，也遵循和其他 Kubernetes API 一样的
-[支持政策](/docs/reference/using-api/deprecation-policy/)。
+[支持政策](/zh/docs/reference/using-api/deprecation-policy/)。
 出于这些原因，在合适的情况下它们优先于 *配置文件* 和 *标志* 被使用。
 
 <!--
@@ -238,12 +236,13 @@ For more about Custom Resources, see the [Custom Resources concept guide](/docs/
 
 ### 用户自定义类型  {#user-defined-types}
 
-如果你想定义新的控制器、应用程序配置对象或其他声明式 API，并使用 Kubernetes 工具（如 `kubectl`）管理它们，请考虑为 Kubernetes 添加一个自定义资源。
+如果你想定义新的控制器、应用程序配置对象或其他声明式 API，并使用 Kubernetes
+工具（如 `kubectl`）管理它们，请考虑为 Kubernetes 添加一个自定义资源。
 
 不要使用自定义资源作为应用、用户或者监控数据的数据存储。
 
 有关自定义资源的更多信息，请查看
-[自定义资源概念指南](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
+[自定义资源概念指南](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
 
 <!--
 ### Combining New APIs with Automation
@@ -272,7 +271,7 @@ Adding an API does not directly let you affect the behavior of existing APIs (e.
 <!--
 ### API Access Extensions
 
-When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) for more on this flow.
+When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/) for more on this flow.
 
 Each of these steps offers extension points.
 
@@ -282,13 +281,13 @@ Kubernetes has several built-in authentication methods that it supports. It can 
 
 当请求到达 Kubernetes API Server 时，它首先被要求进行用户认证，然后要进行授权检查，
 接着受到各种类型的准入控制的检查。有关此流程的更多信息，请参阅
-[Kubernetes API 访问控制](/zh/docs/reference/access-authn-authz/controlling-access/)。
+[Kubernetes API 访问控制](/zh/docs/concepts/security/controlling-access/)。
 
 上述每个步骤都提供了扩展点。
 
 Kubernetes 有几个它支持的内置认证方法。它还可以位于身份验证代理之后，并将 Authorziation 头部
 中的令牌发送给远程服务（webhook）进行验证。所有这些方法都在
-[身份验证文档](/docs/reference/access-authn-authz/authentication/)中介绍。
+[身份验证文档](/zh/docs/reference/access-authn-authz/authentication/)中介绍。
 
 <!--
 ### Authentication
@@ -299,11 +298,11 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 -->
 ### 身份认证  {#authentication}
 
-[身份认证](/docs/reference/access-authn-authz/authentication/)
+[身份认证](/zh/docs/reference/access-authn-authz/authentication/)
 将所有请求中的头部字段或证书映射为发出请求的客户端的用户名。
 
 Kubernetes 提供了几种内置的身份认证方法，如果这些方法不符合你的需求，可以使用
-[身份认证 Webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) 方法。
+[身份认证 Webhook](/zh/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) 方法。
 
 <!--
 ### Authorization
