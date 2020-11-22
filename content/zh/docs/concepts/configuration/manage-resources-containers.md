@@ -54,7 +54,6 @@ For example, if you set a `memory` request of 256 MiB for a container, and that 
 a Pod scheduled to a Node with 8GiB of memory and no other Pods, then the container can try to use
 more RAM.
 -->
-
 ## 请求和约束  {#requests-and-limits}
 
 如果 Pod 运行所在的节点具有足够的可用资源，容器可能（且可以）使用超出对应资源
@@ -77,7 +76,6 @@ Limits can be implemented either reactively (the system intervenes once it sees 
 or by enforcement (the system prevents the container from ever exceeding the limit). Different
 runtimes can have different ways to implement the same restrictions.
 -->
-
 如果你将某容器的 `memory` 约束设置为 4 GiB，kubelet （和
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}）
 就会确保该约束生效。
@@ -87,6 +85,19 @@ runtimes can have different ways to implement the same restrictions.
 
 约束值可以以被动方式来实现（系统会在发现违例时进行干预），或者通过强制生效的方式实现
 （系统会避免容器用量超出约束值）。不同的容器运行时采用不同方式来实现相同的限制。
+
+{{< note >}}
+<!--
+If a Container specifies its own memory limit, but does not specify a memory request, Kubernetes
+automatically assigns a memory request that matches the limit. Similarly, if a Container specifies its own
+CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
+the limit.
+-->
+如果某 Container 设置了自己的内存限制但未设置内存请求，Kubernetes
+自动为其设置与内存限制相匹配的请求值。类似的，如果某 Container 设置了
+CPU 限制值但未设置 CPU 请求值，则 Kubernetes 自动为其设置 CPU 请求
+并使之与 CPU 限制值匹配。
+{{< /note >}}
 
 <!--
 ## Resource types
@@ -110,15 +121,19 @@ CPU 表达的是计算处理能力，其单位是 [Kubernetes CPUs](#meaning-of-
 如果你使用的是 Kubernetes v1.14 或更高版本，则可以指定巨页（Huge Page）资源。
 巨页是 Linux 特有的功能，节点内核在其中分配的内存块比默认页大小大得多。
 
-例如，在默认页面大小为 4KiB 的系统上，您可以指定约束 `hugepages-2Mi: 80Mi`。
+例如，在默认页面大小为 4KiB 的系统上，你可以指定约束 `hugepages-2Mi: 80Mi`。
 如果容器尝试分配 40 个 2MiB 大小的巨页（总共 80 MiB ），则分配请求会失败。
 
-<!--
 {{< note >}}
+<!--
 You cannot overcommit `hugepages-*` resources.
 This is different from the `memory` and `cpu` resources.
+-->
+你不能过量使用 `hugepages- * `资源。
+这与 `memory` 和 `cpu` 资源不同。
 {{< /note >}}
 
+<!--
 CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
@@ -127,13 +142,6 @@ consumed. They are distinct from
 [Services](/docs/concepts/services-networking/service/) are objects that can be read and modified
 through the Kubernetes API server.
 -->
-
-
-{{< note >}}
-您不能过量使用 `hugepages- * `资源。
-这与 `memory` 和 `cpu` 资源不同。
-{{< /note >}}
-
 CPU 和内存统称为*计算资源*，或简称为*资源*。
 计算资源的数量是可测量的，可以被请求、被分配、被消耗。
 它们与 [API 资源](/zh/docs/concepts/overview/kubernetes-api/) 不同。
@@ -191,8 +199,9 @@ be preferred.
 CPU is always requested as an absolute quantity, never as a relative quantity;
 0.1 is the same amount of CPU on a single-core, dual-core, or 48-core machine.
 -->
+## Kubernetes 中的资源单位  {#resource-units-in-kubernetes}
 
-## CPU 的含义 {#meaning-of-cpu}
+### CPU 的含义 {#meaning-of-cpu}
 
 CPU 资源的约束和请求以 *cpu* 为单位。
 
@@ -222,7 +231,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 E、P、T、G、M、K。你也可以使用对应的 2 的幂数：Ei、Pi、Ti、Gi、Mi、Ki。
 例如，以下表达式所代表的是大致相同的值：
 
-```shell
+```
 128974848、129e6、129M、123Mi
 ```
 
@@ -233,7 +242,6 @@ and 64MiB (2<sup>26</sup> bytes) of memory. Each Container has a limit of 0.5
 cpu and 128MiB of memory. You can say the Pod has a request of 0.5 cpu and 128
 MiB of memory, and a limit of 1 cpu and 256MiB of memory.
 -->
-
 下面是个例子。
 
 以下 Pod 有两个 Container。每个 Container 的请求为 0.25 cpu 和 64MiB（2<sup>26</sup> 字节）内存，
@@ -272,6 +280,7 @@ spec:
 
 <!--
 ## How Pods with resource requests are scheduled
+
 When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
 run on. Each node has a maximum capacity for each of the resource types: the
 amount of CPU and memory it can provide for Pods. The scheduler ensures that,
@@ -282,7 +291,6 @@ a Pod on a node if the capacity check fails. This protects against a resource
 shortage on a node when resource usage later increases, for example, during a
 daily peak in request rate.
 -->
-
 ## 带资源请求的 Pod 如何调度
 
 当你创建一个 Pod 时，Kubernetes 调度程序将为 Pod 选择一个节点。
@@ -300,7 +308,6 @@ to the container runtime.
 
 When using Docker:
 -->
-
 ## 带资源约束的 Pod 如何运行
 
 当 kubelet 启动 Pod 中的 Container 时，它会将 CPU 和内存约束信息传递给容器运行时。
@@ -318,9 +325,7 @@ When using Docker:
   multiplied by 100. The resulting value is the total amount of CPU time that a container can use
   every 100ms. A container cannot use more than its share of CPU time during this interval.
 
-  {{< note >}}
   The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
-  {{</ note >}}
 
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and
   used as the value of the
@@ -337,7 +342,7 @@ When using Docker:
   时间不会超过它被分配的时间。
 
   {{< note >}}
-  默认的配额（quota）周期为 100 毫秒。 CPU配额的最小精度为 1 毫秒。
+  默认的配额（Quota）周期为 100 毫秒。CPU 配额的最小精度为 1 毫秒。
   {{</ note >}}
 
 - `spec.containers[].resources.limits.memory` 被转换为整数值，作为 `docker run` 命令中的
@@ -359,7 +364,6 @@ To determine whether a Container cannot be scheduled or is being killed due to
 resource limits, see the
 [Troubleshooting](#troubleshooting) section.
 -->
-
 如果 Container 超过其内存限制，则可能会被终止。如果容器可重新启动，则与所有其他类型的
 运行时失效一样，kubelet 将重新启动容器。
 
@@ -380,7 +384,6 @@ are available in your cluster, then Pod resource usage can be retrieved either
 from the [Metrics API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
 directly or from your monitoring tools.
 -->
-
 ## 监控计算和内存资源用量
 
 Pod 的资源使用情况是作为 Pod 状态的一部分来报告的。
@@ -422,11 +425,9 @@ The kubelet also uses this kind of storage to hold
 [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level),
 container images, and the writable layers of running containers.
 
-{{< caution >}}
 If a node fails, the data in its ephemeral storage can be lost.  
 Your applications cannot expect any performance SLAs (disk IOPS for example)
 from local ephemeral storage.
-{{< /caution >}}
 
 As a beta feature, Kubernetes lets you track, reserve and limit the amount
 of ephemeral local storage a Pod can consume.
@@ -458,7 +459,6 @@ The kubelet also writes
 [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
 and treats these similarly to ephemeral local storage.
 -->
-
 ### 本地临时性存储的配置
 
 Kubernetes 有两种方式支持节点上配置本地临时性存储：
@@ -555,7 +555,9 @@ than as local ephemeral storage.
 
 kubelet 能够度量其本地存储的用量。实现度量机制的前提是：
 
-- `LocalStorageCapacityIsolation` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)被启用（默认状态），并且
+- `LocalStorageCapacityIsolation`
+  [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+  被启用（默认状态），并且
 - 你已经对节点进行了配置，使之使用所支持的本地临时性储存配置方式之一
 
 如果你的节点配置不同于以上预期，kubelet 就无法对临时性本地存储的资源约束实施限制。
@@ -581,10 +583,9 @@ Mi, Ki. For example, the following represent roughly the same value:
 128974848, 129e6, 129M, 123Mi
 ```
 -->
-
 ### 为本地临时性存储设置请求和约束值
 
-你可以使用_ephemeral-storage_来管理本地临时性存储。
+你可以使用 _ephemeral-storage_ 来管理本地临时性存储。
 Pod 中的每个 Container 可以设置以下属性：
 
 * `spec.containers[].resources.limits.ephemeral-storage`
@@ -595,7 +596,7 @@ Pod 中的每个 Container 可以设置以下属性：
 你也可以使用对应的 2 的幂级数来表达：Ei、Pi、Ti、Gi、Mi、Ki。
 例如，下面的表达式所表达的大致是同一个值：
 
-```shell
+```
 128974848, 129e6, 129M, 123Mi
 ```
 
@@ -639,7 +640,7 @@ run on. Each node has a maximum amount of local ephemeral storage it can provide
 The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
 -->
 
-### 带 ephemeral-storage 的 Pods 的调度行为
+### 带临时性存储的 Pods 的调度行为
 
 当你创建一个 Pod 时，Kubernetes 调度器会为 Pod 选择一个节点来运行之。
 每个节点都有一个本地临时性存储的上限，是其可提供给 Pods 使用的总量。
@@ -670,9 +671,7 @@ summing the limits for the containers in that Pod. In this case, if the sum of
 the local ephemeral storage usage from all containers and also the Pod's `emptyDir`
 volumes exceeds the overall Pod storage limit, then the kubelet also marks the Pod
 for eviction.
-
 -->
-
 ### 临时性存储消耗的管理 {#resource-emphemeralstorage-consumption}
 
 如果 kubelet 将本地临时性存储作为资源来管理，则 kubelet 会度量以下各处的存储用量：
@@ -736,7 +735,6 @@ still open, then the inode for the deleted file stays until you close
 that file but the kubelet does not categorize the space as in use.
 {{< /note >}}
 -->
-
 kubelet 支持使用不同方式来度量 Pod 的存储用量：
 
 {{< tabs name="resource-emphemeralstorage-measurement" >}}
@@ -795,7 +793,6 @@ If a file is created and deleted, but has an open file descriptor,
 it continues to consume space. Quota tracking records that space accurately
 whereas directory scans overlook the storage used by deleted files.
 -->
-
 Kubernetes 所使用的项目 ID 始于 `1048576`。
 所使用的 IDs 会注册在 `/etc/projects` 和 `/etc/projid` 文件中。
 如果该范围中的项目 ID 已经在系统中被用于其他目的，则已占用的项目 IDs
@@ -881,14 +878,13 @@ See [Device
 Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 for how to advertise device plugin managed resources on each node.
 -->
+### 管理扩展资源   {#managing-extended-resources}
 
-### 管理扩展资源
-
-#### 节点级扩展资源
+#### 节点级扩展资源     {#node-level-extended-resources}
 
 节点级扩展资源绑定到节点。
 
-##### 设备插件管理的资源
+##### 设备插件管理的资源   {#device-plugin-managed-resources}
 
 有关如何颁布在各节点上由设备插件所管理的资源，请参阅
 [设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)。
@@ -905,8 +901,7 @@ asynchronously by the kubelet. Note that because the scheduler uses the	node
 delay between patching the node capacity with a new resource and the first Pod
 that requests the resource to be scheduled on that node.
 -->
-
-##### 其他资源
+##### 其他资源   {#other-resources}
 
 为了颁布新的节点级扩展资源，集群操作员可以向 API 服务器提交 `PATCH` HTTP 请求，
 以在集群中节点的 `status.capacity` 中为其配置可用数量。
@@ -943,7 +938,6 @@ in the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
 {{< /note >}}
 -->
-
 {{< note >}}
 在前面的请求中，`~1` 是在 patch 路径中对字符 `/` 的编码。
 JSON-Patch 中的操作路径的值被视为 JSON-Pointer 类型。
@@ -961,13 +955,13 @@ You can specify the extended resources that are handled by scheduler extenders
 in [scheduler policy
 configuration](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31).
 -->
-
-#### 集群层面的扩展资源
+#### 集群层面的扩展资源   {#cluster-level-extended-resources}
 
 集群层面的扩展资源并不绑定到具体节点。
 它们通常由调度器扩展程序（Scheduler Extenders）管理，这些程序处理资源消耗和资源配额。
 
-您可以在[调度器策略配置](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31)中指定由调度器扩展程序处理的扩展资源。
+你可以在[调度器策略配置](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31)
+中指定由调度器扩展程序处理的扩展资源。
 
 <!--
 **Example:**
@@ -981,7 +975,6 @@ extender.
 - The `ignoredByScheduler` field specifies that the scheduler does not check
      the "example.com/foo" resource in its `PodFitsResources` predicate.
 -->
-
 **示例：**
 
 下面的调度器策略配置标明集群层扩展资源 "example.com/foo" 由调度器扩展程序处理。
@@ -1020,8 +1013,7 @@ The API server restricts quantities of extended resources to whole numbers.
 Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
 _invalid_ quantities are `0.5` and `1500m`.
 -->
-
-### 使用扩展资源
+### 使用扩展资源  {#consuming-extended-resources}
 
 就像 CPU 和内存一样，用户可以在 Pod 的规约中使用扩展资源。
 调度器负责资源的核算，确保同时分配给 Pod 的资源总量不会超过可用数量。
@@ -1032,7 +1024,6 @@ Extended resources replace Opaque Integer Resources.
 Users can use any domain name prefix other than `kubernetes.io` which is reserved.
 {{< /note >}}
 -->
-
 {{< note >}}
 扩展资源取代了非透明整数资源（Opaque Integer Resources，OIR）。
 用户可以使用 `kubernetes.io` （保留）以外的任何域名前缀。
@@ -1047,7 +1038,6 @@ Extended resources cannot be overcommitted, so request and limit
 must be equal if both are present in a container spec.
 {{< /note >}}
 -->
-
 要在 Pod 中使用扩展资源，请在容器规范的 `spec.containers[].resources.limits`
 映射中包含资源名称作为键。
 
@@ -1064,7 +1054,6 @@ as long as the resource request cannot be satisfied.
 
 The Pod below requests 2 CPUs and 1 "example.com/foo" (an extended resource).
 -->
-
 仅当所有资源请求（包括 CPU、内存和任何扩展资源）都被满足时，Pod 才能被调度。
 在资源请求无法满足时，Pod 会保持在 `PENDING` 状态。
 
@@ -1098,7 +1087,6 @@ If the scheduler cannot find any node where a Pod can fit, the Pod remains
 unscheduled until a place can be found. An event is produced each time the
 scheduler fails to find a place for the Pod, like this:
 -->
-
 ## 疑难解答
 
 ### 我的 Pod 处于悬决状态且事件信息显示 failedScheduling
@@ -1139,7 +1127,7 @@ You can check node capacities and amounts allocated with the
 - 检查 Pod 所需的资源是否超出所有节点的资源容量。例如，如果所有节点的容量都是`cpu：1`，
   那么一个请求为 `cpu: 1.1` 的 Pod 永远不会被调度。
 
-您可以使用 `kubectl describe nodes` 命令检查节点容量和已分配的资源数量。 例如：
+你可以使用 `kubectl describe nodes` 命令检查节点容量和已分配的资源数量。 例如：
 
 ```shell
 kubectl describe nodes e2e-test-node-pool-4lw4
@@ -1187,17 +1175,17 @@ The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be conf
 to limit the total amount of resources that can be consumed. If used in conjunction
 with namespaces, it can prevent one team from hogging all the resources.
 -->
-
 在上面的输出中，你可以看到如果 Pod 请求超过 1120m CPU 或者 6.23Gi 内存，节点将无法满足。
 
-通过查看 `Pods` 部分，您将看到哪些 Pod 占用了节点上的资源。
+通过查看 `Pods` 部分，你将看到哪些 Pod 占用了节点上的资源。
 
 可供 Pod 使用的资源量小于节点容量，因为系统守护程序也会使用一部分可用资源。
 [NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
 的 `allocatable` 字段给出了可用于 Pod 的资源量。
 有关更多信息，请参阅 [节点可分配资源](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md)。
 
-可以配置 [资源配额](/zh/docs/concepts/policy/resource-quotas/) 功能特性以限制可以使用的资源总量。
+可以配置 [资源配额](/zh/docs/concepts/policy/resource-quotas/) 功能特性
+以限制可以使用的资源总量。
 如果与名字空间配合一起使用，就可以防止一个团队占用所有资源。
 
 <!--
@@ -1260,7 +1248,6 @@ Container in the Pod was terminated and restarted five times.
 You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
 of previously terminated Containers:
 -->
-
 在上面的例子中，`Restart Count: 5` 意味着 Pod 中的 `simmemleak` 容器被终止并重启了五次。
 
 你可以使用 `kubectl get pod` 命令加上 `-o go-template=...` 选项来获取之前终止容器的状态。
@@ -1296,10 +1283,10 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 * Read about [project quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
 -->
 
-* 获取将 [分配内存资源给容器和 Pod ](/zh/docs/tasks/configure-pod-container/assign-memory-resource/) 的实践经验
-* 获取将 [分配 CPU 资源给容器和 Pod ](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/) 的实践经验
+* 获取[分配内存资源给容器和 Pod ](/zh/docs/tasks/configure-pod-container/assign-memory-resource/) 的实践经验
+* 获取[分配 CPU 资源给容器和 Pod ](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/) 的实践经验
 * 关于请求和约束之间的区别，细节信息可参见[资源服务质量](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md)
 * 阅读 API 参考文档中 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) 部分。
 * 阅读 API 参考文档中 [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) 部分。
-* 阅读 XFS 中关于 [项目配额](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) 的文档。
+* 阅读 XFS 中关于[项目配额](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) 的文档。
 
