@@ -642,7 +642,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `EphemeralContainers`：启用添加 {{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}} 到正在运行的 Pod 的特性。
 - `EvenPodsSpread`：使 Pod 能够在拓扑域之间平衡调度。请参阅 [Pod 拓扑扩展约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
 - `ExpandInUsePersistentVolumes`：启用扩展使用中的 PVC。请查阅[调整使用中的 PersistentVolumeClaim 的大小](/zh/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)。
-- `ExpandPersistentVolumes`：启用持久卷的扩展。请查阅[扩展永久卷声明](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)。
+- `ExpandPersistentVolumes`：启用持久卷的扩展。请查阅[扩展永久卷声明](/zh/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)。
 - `ExperimentalCriticalPodAnnotation`：启用将特定 Pod 注解为 *critical* 的方式，用于[确保其调度](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。从 v1.13 开始，Pod 优先级和抢占功能已弃用此特性。
 
 <!--

@@ -217,7 +217,7 @@ and using the [Policy type](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/con
 
 <!-- 
 - `EvenPodsSpreadPriority`: Implements preferred
-  [pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/). 
+  [pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 -->
 - `EvenPodsSpreadPriority`：实现了 [Pod 拓扑扩展约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)的优先级排序。
 

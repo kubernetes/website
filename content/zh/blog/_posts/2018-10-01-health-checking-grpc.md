@@ -33,7 +33,7 @@ checks](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
 while you're sleeping. They detect unresponsive pods, mark them unhealthy, and
 cause these pods to be restarted or rescheduled.
 --->
-如果您不熟悉，Kubernetes的 [健康检查](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)（存活探针和就绪探针）可以使您的应用程序在睡眠时保持可用状态。当检测到没有回应的 Pod 时，会将其标记为不健康，并使这些 Pod 重新启动或重新安排。
+如果您不熟悉，Kubernetes的 [健康检查](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)（存活探针和就绪探针）可以使您的应用程序在睡眠时保持可用状态。当检测到没有回应的 Pod 时，会将其标记为不健康，并使这些 Pod 重新启动或重新安排。
 
 <!--
 Kubernetes [does not
@@ -164,5 +164,5 @@ feedback](https://github.com/grpc-ecosystem/grpc-health-probe/).
 ## 更多内容
 
 - 协议： [GRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/v1.15.0/doc/health-checking.md) ([health.proto](https://github.com/grpc/grpc/blob/v1.15.0/src/proto/grpc/health/v1/health.proto))
-- 文档： [Kubernetes 存活和就绪探针](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
+- 文档： [Kubernetes 存活和就绪探针](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
 - 文章： [升级版 Kubernetes 健康检查模式](https://ahmet.im/blog/advanced-kubernetes-health-checks/)

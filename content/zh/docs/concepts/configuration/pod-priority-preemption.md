@@ -460,7 +460,7 @@ despite their PDBs being violated.
 -->
 #### PodDisruptionBudget 是被支持的，但不提供保证
 
-[PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) (PDB)
+[PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/) (PDB)
 的存在使得应用的属主能够限制多副本应用因主动干扰而同时离线的 Pod 的个数。
 Kubernetes 在抢占 Pod 时是可以支持 PDB 的，但对 PDB 的约束也仅限于尽力而为。
 调度器会尝试寻找不会因为抢占而违反其 PDB 约束的 Pod 作为牺牲品，不过如果

@@ -28,7 +28,7 @@ date: 2019-04-26
 
 ## 为本地化工作添砖加瓦
 
-如果你有兴趣为 Kubernetes 文档加入新语种的本地化内容，[Kubernetes contribution guide](https://kubernetes.io/docs/contribute/localization/) 中包含了这方面的相关内容。
+如果你有兴趣为 Kubernetes 文档加入新语种的本地化内容，[Kubernetes contribution guide](https://kubernetes.io/zh/docs/contribute/localization/) 中包含了这方面的相关内容。
 
 已经启动的的本地化工作同样需要支持。如果有兴趣为现存项目做出贡献，可以加入本地化团队的 Slack 频道，去做个自我介绍。各团队的成员会帮助你开始工作。
 

@@ -434,10 +434,10 @@ the container. There are three types of handlers:
 -->
 ## 容器探针    {#container-probes}
 
-[探针](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
+[探针](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 是由 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 对容器执行的定期诊断。
 要执行诊断，kubelet 调用由容器实现的
-[Handler](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core)
+[Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core)
 （处理程序）。有三种类型的处理程序：
 
 <!--

@@ -46,7 +46,7 @@ cluster's API server.
 要检查 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 是否安装，
 执行 `kubectl version --client` 命令。
 kubectl 的版本应该与集群的 API 服务器
-[使用同一次版本号](/docs/setup/release/version-skew-policy/#kubectl)。
+[使用同一次版本号](/zh/docs/setup/release/version-skew-policy/#kubectl)。
 
 <!-- steps -->
 <!--

@@ -235,4 +235,4 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 -->
 * 阅读有关指标的 [Prometheus 文本格式](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
 * 查看 [Kubernetes 稳定指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)的列表
-* 阅读有关 [Kubernetes 弃用策略](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
+* 阅读有关 [Kubernetes 弃用策略](/zh/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

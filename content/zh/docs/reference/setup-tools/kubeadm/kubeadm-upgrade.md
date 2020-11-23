@@ -31,7 +31,7 @@ behind one command, with support for both planning an upgrade and actually perfo
 The steps for performing a upgrade using kubeadm are outlined in [this document](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 For older versions of kubeadm, please refer to older documentation sets of the Kubernetes website.
 -->
-[本文档](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)概述了使用 kubeadm 执行升级的步骤。
+[本文档](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)概述了使用 kubeadm 执行升级的步骤。
 有关 kubeadm 旧版本，请参阅 Kubernetes 网站的旧版文档。
 
 <!--
@@ -51,7 +51,7 @@ To opt-out, it is possible to pass the flag `--certificate-renewal=false`. For m
 renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
 -->
 在 Kubernetes v1.15.0 和更高版本中，`kubeadm upgrade apply` 和 `kubeadm upgrade node` 也将自动续订该节点上的 kubeadm 托管证书，包括存储在 kubeconfig 文件中的证书。
-要选择退出，可以传递参数 `--certificate-renewal=false`。有关证书续订的更多详细信息请参见[证书管理文档](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
+要选择退出，可以传递参数 `--certificate-renewal=false`。有关证书续订的更多详细信息请参见[证书管理文档](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
 
 
 ## kubeadm upgrade plan {#cmd-upgrade-plan}
@@ -72,5 +72,5 @@ renewal see the [certificate management documentation](/docs/tasks/administer-cl
 
 <!--
 * [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade` -->
-* 如果您使用 kubeadm v1.7.x 或更低版本初始化集群，则可以参考[kubeadm 配置](/docs/reference/setup-tools/kubeadm/kubeadm-config/)配置集群用于 `kubeadm upgrade`。
+* 如果您使用 kubeadm v1.7.x 或更低版本初始化集群，则可以参考[kubeadm 配置](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)配置集群用于 `kubeadm upgrade`。
 

@@ -204,7 +204,7 @@ instead of directly deleting pods or deployments.  Examples are the `kubectl dra
 and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
 -->
 集群管理员和托管提供商应该使用遵循 Pod Disruption Budgets 的接口
-（通过调用[Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
+（通过调用[Eviction API](/zh/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
 而不是直接删除 Pod 或 Deployment。
 
 <!--
@@ -497,7 +497,7 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
   including steps to maintain its availability during the rollout.
 -->
 * 参考[配置 Pod 干扰预算](/zh/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
-* 进一步了解[排空节点](/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+* 进一步了解[排空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)的信息。
 * 了解[更新 Deployment](/zh/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性
 

@@ -1935,7 +1935,7 @@ In order from most secure to least secure, the approaches are:
       --namespace=my-namespace
     ```
 
-    许多附加组件 [add-ons](/docs/concepts/cluster-administration/addons/) 目前在 `kube-system` 命名空间以 "default" 服务账号运行。
+    许多附加组件 [add-ons](/zh/docs/concepts/cluster-administration/addons/) 目前在 `kube-system` 命名空间以 "default" 服务账号运行。
     要允许这些附加组件以超级用户权限运行，需要将集群的 cluster-admin 权限授予 `kube-system` 命名空间中的 "default" 服务账号。
 
     {{< note >}}启用这一配置意味着在 `kube-system` 命名空间中包含以超级用户账号来访问 API 的 Secrets。{{< /note >}}

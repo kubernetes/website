@@ -431,7 +431,7 @@ Processes within a privileged container get almost the same privileges that are 
 ## 容器的特权模式     {#rivileged-mode-for-containers}
 
 Pod 中的任何容器都可以使用容器规约中的
-[安全性上下文](/docs/tasks/configure-pod-container/security-context/)中的
+[安全性上下文](/zh/docs/tasks/configure-pod-container/security-context/)中的
 `privileged` 参数启用特权模式。
 这对于想要使用使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问设备）
 的容器很有用。

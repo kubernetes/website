@@ -419,7 +419,7 @@ the nodes chosen for a pod.
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
 -->
-* 详细了解[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* 详细了解[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 了解[动态准入控制](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * 详细了解基础设施扩展
   * [网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)

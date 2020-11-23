@@ -40,6 +40,6 @@ You can enable or disable each API group by changing the configuration of your A
 通过更改 API server 的配置，可以启用或禁用每个 API Group。你还可以禁用或启用指向特定资源的路径。API group 使扩展 Kubernetes API 更加的容易。API group 在 REST 路径和序列化对象的 `apiVersion` 字段中指定。
 
 <!-- 
-* Read [API Group](/docs/concepts/overview/kubernetes-api/#api-groups) for more information. 
+* Read [API Group](/docs/concepts/overview/kubernetes-api/#api-groups) for more information.
 -->
-* 阅读 [API Group](/docs/concepts/overview/kubernetes-api/#api-groups) 了解更多信息。
+* 阅读 [API Group](/zh/docs/concepts/overview/kubernetes-api/#api-groups) 了解更多信息。

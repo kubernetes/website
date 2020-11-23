@@ -50,9 +50,9 @@ The rest of this document outlines some unique ways these roles function within
 SIG Docs, which is responsible for maintaining one of the most public-facing
 aspects of Kubernetes - the Kubernetes website and documentation.
 -->
-你也可以成为[成员（member）](/docs/contribute/participating/roles-and-responsibilities/#members)、
-[评阅人（reviewer）](/docs/contribute/participating/roles-and-responsibilities/#reviewers) 或者
-[批准人（approver）](/docs/contribute/participating/roles-and-responsibilities/#approvers)。
+你也可以成为[成员（member）](/zh/docs/contribute/participating/roles-and-responsibilities/#members)、
+[评阅人（reviewer）](/zh/docs/contribute/participating/roles-and-responsibilities/#reviewers) 或者
+[批准人（approver）](/zh/docs/contribute/participating/roles-and-responsibilities/#approvers)。
 这些角色拥有更高的权限，且需要承担批准和提交变更的责任。
 有关 Kubernetes 社区中的成员如何工作的更多信息，请参见
 [社区成员身份](https://github.com/kubernetes/community/blob/master/community-membership.md)。

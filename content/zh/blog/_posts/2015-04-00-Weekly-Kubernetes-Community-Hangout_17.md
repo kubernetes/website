@@ -192,7 +192,7 @@ Notes
 
 
 [1]: http://kubernetes.io/images/nav_logo.svg
-[2]: http://kubernetes.io/docs/
+[2]: http://kubernetes.io/zh/docs/
 [3]: https://kubernetes.io/blog/
 [4]: https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/roadmap.md
 [5]: https://kubernetes.io/blog/2015/04/weekly-kubernetes-community-hangout_17 "permanent link"

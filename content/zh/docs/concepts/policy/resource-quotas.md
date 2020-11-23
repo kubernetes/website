@@ -196,7 +196,7 @@ In addition, you can limit consumption of storage resources based on associated 
 -->
 ## 存储资源配额
 
-用户可以对给定命名空间下的[存储资源](/docs/concepts/storage/persistent-volumes/)总量进行限制。
+用户可以对给定命名空间下的[存储资源](/zh/docs/concepts/storage/persistent-volumes/)总量进行限制。
 
 此外，还可以根据相关的存储类（Storage Class）来限制存储资源的消耗。
 
@@ -460,7 +460,7 @@ Pods can be created at a specific [priority](/docs/concepts/configuration/pod-pr
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
 field in the quota spec.
 -->
-Pod 可以创建为特定的[优先级](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)。
+Pod 可以创建为特定的[优先级](/zh/docs/concepts/configuration/pod-priority-preemption/#pod-priority)。
 通过使用配额规约中的 `scopeSelector` 字段，用户可以根据 Pod 的优先级控制其系统资源消耗。
 
 <!--

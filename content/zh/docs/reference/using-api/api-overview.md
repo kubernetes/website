@@ -52,9 +52,9 @@ if you are writing an application using the Kubernetes API.
 REST API 是 Kubernetes 的基础架构。组件之间的所有操作和通信，以及外部用户命令都是 API Server 处理的 REST API 调用。因此，Kubernetes 平台中的所有资源被视为 API 对象，并且在
 [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 中都有对应的定义项。
 
-大多数操作可以通过 [kubectl](/docs/reference/kubectl/overview/) 命令行界面或其他命令行工具执行，例如 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)，它们本身也使用 API。但是，您也可以使用 REST 调用直接访问 API。
+大多数操作可以通过 [kubectl](/zh/docs/reference/kubectl/overview/) 命令行界面或其他命令行工具执行，例如 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/)，它们本身也使用 API。但是，您也可以使用 REST 调用直接访问 API。
 
-如果您正在使用 Kubernetes API 编写应用程序，请考虑使用 [客户端库](/docs/reference/using-api/client-libraries/)。
+如果您正在使用 Kubernetes API 编写应用程序，请考虑使用 [客户端库](/zh/docs/reference/using-api/client-libraries/)。
 
 <!--
 ## API versioning
@@ -173,11 +173,11 @@ The two paths that support extending the API with [custom resources](/docs/conce
 当前，有几个正在使用的 API 组：
 
 * *core*（也称为 *legacy*）组，它位于 REST 路径`/api/v1`上，未指定为 apiVersion 字段的一部分，例如`apiVersion: v1`。
-* 特定名称的组位于 REST 路径`/apis/$GROUP_NAME/$VERSION`下，并使用`apiVersion:$GROUP_NAME/$VERSION`（例如，`apiVersion:batch/v1`）。您可以在 [Kubernetes API 参考](/docs/reference/) 中找到受支持的 API Group 的完整列表。
+* 特定名称的组位于 REST 路径`/apis/$GROUP_NAME/$VERSION`下，并使用`apiVersion:$GROUP_NAME/$VERSION`（例如，`apiVersion:batch/v1`）。您可以在 [Kubernetes API 参考](/zh/docs/reference/) 中找到受支持的 API Group 的完整列表。
 
-有两种途径来使用 [自定义资源](/docs/concepts/api-extension/custom-resources/) 扩展 API，分别是：
+有两种途径来使用 [自定义资源](/zh/docs/concepts/api-extension/custom-resources/) 扩展 API，分别是：
 
- - [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/) 提供基本的 CRUD 需求。
+ - [CustomResourceDefinition](/zh/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/) 提供基本的 CRUD 需求。
  - [聚合器（Aggregator）](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)具有完整的 Kubernetes API 语义，用以实现用户自己的 apiserver。
 
 <!--

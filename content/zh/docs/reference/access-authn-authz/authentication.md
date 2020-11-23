@@ -66,7 +66,7 @@ for more details about this.
 使用证书中的 'subject' 的通用名称（Common Name）字段（例如，"/CN=bob"）来
 确定用户名。接下来，基于角色访问控制（RBAC）子系统会确定用户是否有权针对
 某资源执行特定的操作。进一步的细节可参阅
-[证书请求](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
+[证书请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
 下普通用户主题。
 
 <!--

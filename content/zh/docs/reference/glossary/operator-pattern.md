@@ -10,7 +10,7 @@ aka:
 tags:
 - architecture
 ---
- [operator 模式](/docs/concepts/extend-kubernetes/operator/) 是一个系统设计, 将 {{< glossary_tooltip term_id="controller" >}} 关联到一个或多个自定义资源。
+ [operator 模式](/zh/docs/concepts/extend-kubernetes/operator/) 是一个系统设计, 将 {{< glossary_tooltip term_id="controller" >}} 关联到一个或多个自定义资源。
 
 <!--
 ---

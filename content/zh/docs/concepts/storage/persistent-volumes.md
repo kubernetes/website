@@ -1053,7 +1053,7 @@ be bound to the PVC.
 ### 类      {#class}
 
 申领可以通过为 `storageClassName` 属性设置
-[StorageClass](/docs/concepts/storage/storage-classes/) 的名称来请求特定的存储类。
+[StorageClass](/zh/docs/concepts/storage/storage-classes/) 的名称来请求特定的存储类。
 只有所请求的类的 PV 卷，即 `storageClassName` 值与 PVC 设置相同的 PV 卷，
 才能绑定到 PVC 申领。
 

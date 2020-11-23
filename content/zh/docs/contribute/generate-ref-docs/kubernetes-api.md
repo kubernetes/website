@@ -106,7 +106,7 @@ The remaining steps refer to your base directory as `<rdocs-base>`.
 ## Generating the API reference docs
 
 This section shows how to generate the
-[published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/). 
+[published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 -->
 ## 生成 API 参考文档
 

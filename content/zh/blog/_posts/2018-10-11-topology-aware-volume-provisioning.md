@@ -228,12 +228,12 @@ logs-web-1      us-central1-a
 <!--
 Official documentation on the topology-aware dynamic provisioning feature is available here:https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode
 -->
-有关拓扑感知动态供应功能的官方文档可在此处获取：https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode
+有关拓扑感知动态供应功能的官方文档可在此处获取：https://kubernetes.io/zh/docs/concepts/storage/storage-classes/#volume-binding-mode
 
 <!--
 Documentation for CSI drivers is available at https://kubernetes-csi.github.io/docs/
 -->
-有关 CSI 驱动程序的文档，请访问：https://kubernetes-csi.github.io/docs/
+有关 CSI 驱动程序的文档，请访问：https://kubernetes-csi.github.io/zh/docs/
 
 <!--
 ## What’s next?

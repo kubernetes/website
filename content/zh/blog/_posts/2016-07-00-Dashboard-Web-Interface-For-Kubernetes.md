@@ -41,7 +41,7 @@ The Dashboard UI now handles all workload resources. This means that no matter w
  [![](https://lh3.googleusercontent.com/p9bMGxPx4jE6_Z2KB-MktmyuAxyFst-bEk29M_Bn0Bj5ul7uzinH6u5WjHsMmqhGvBwlABZt06dwQ5qkBZiLq_EM1oddCmpwChvXDNXZypaS5l8uzkKuZj3PBUmzTQT4dgDxSXgz) ](https://lh3.googleusercontent.com/p9bMGxPx4jE6_Z2KB-MktmyuAxyFst-bEk29M_Bn0Bj5ul7uzinH6u5WjHsMmqhGvBwlABZt06dwQ5qkBZiLq_EM1oddCmpwChvXDNXZypaS5l8uzkKuZj3PBUmzTQT4dgDxSXgz)
 -->
 
-Dashboard UI 现在处理所有工作负载资源。这意味着无论您运行什么工作负载类型，它都在 web 界面中可见，并且您可以对其进行操作更改。例如，可以使用[Pet Sets](/docs/user-guide/petset/)修改有状态的 mysql 安装，使用部署对 web 服务器进行滚动更新，或使用守护程序安装群集监视。
+Dashboard UI 现在处理所有工作负载资源。这意味着无论您运行什么工作负载类型，它都在 web 界面中可见，并且您可以对其进行操作更改。例如，可以使用[Pet Sets](/zh/docs/user-guide/petset/)修改有状态的 mysql 安装，使用部署对 web 服务器进行滚动更新，或使用守护程序安装群集监视。
 
 
 

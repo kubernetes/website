@@ -387,7 +387,7 @@ When using kubeadm, manually configure the
 ```
 
 当使用 kubeadm 时，请手动配置
-[kubelet 的 cgroup 驱动](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
+[kubelet 的 cgroup 驱动](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 
 ### CRI-O
 

@@ -369,7 +369,7 @@ You can refer to [RBAC](/docs/reference/access-authn-authz/rbac/) for standard g
 
 下面的脚本展示了如何生成 PKI 私钥和 CSR。
 设置 CSR 的 CN 和 O 字段很重要。CN 是用户名，O 是该用户归属的组。
-你可以参考 [RBAC](/docs/reference/access-authn-authz/rbac/) 获取标准组的信息。
+你可以参考 [RBAC](/zh/docs/reference/access-authn-authz/rbac/) 获取标准组的信息。
 
 ```
 openssl genrsa -out john.key 2048

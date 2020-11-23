@@ -41,4 +41,4 @@ validating controllers may not.
 准入控制器可针对 Kubernetes Api 服务器进行配置，可以执行验证，变更或两者都执行。任何准入控制器都可以拒绝访问请求。
 变更（mutating）控制器可以修改其允许的对象，验证（validating）控制器则不可以。
 
-* [Kubernetes 文档中的准入控制器](/docs/reference/access-authn-authz/admission-controllers/)
+* [Kubernetes 文档中的准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)

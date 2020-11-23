@@ -913,7 +913,7 @@ Watch out when using this type of volume, because:
 * 具有相同配置（例如从 podTemplate 创建）的多个 Pod 会由于节点上文件的不同而在不同节点上有不同的行为。
 * 当 Kubernetes 按照计划添加资源感知的调度时，这类调度机制将无法考虑由 `hostPath` 使用的资源。
 * 基础主机上创建的文件或目录只能由 root 用户写入。您需要在
-[特权容器](/docs/tasks/configure-pod-container/security-context/)
+[特权容器](/zh/docs/tasks/configure-pod-container/security-context/)
 中以 root 身份运行进程，或者修改主机上的文件权限以便容器能够写入 `hostPath` 卷。
 
 <!--
@@ -1187,7 +1187,7 @@ A `persistentVolumeClaim` volume is used to mount a
 way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 -->
-`persistentVolumeClaim` 卷用来将[持久卷](/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
+`persistentVolumeClaim` 卷用来将[持久卷](/zh/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
 持久卷是用户在不知道特定云环境细节的情况下"申领"持久存储（例如 GCE PersistentDisk 或者 iSCSI 卷）的一种方法。
 
 <!--
@@ -1195,7 +1195,7 @@ See the [PersistentVolumes example](/docs/concepts/storage/persistent-volumes/) 
 details.
 -->
 
-更多详情请参考[持久卷示例](/docs/concepts/storage/persistent-volumes/)
+更多详情请参考[持久卷示例](/zh/docs/concepts/storage/persistent-volumes/)
 
 ### projected {#projected}
 
@@ -1336,7 +1336,7 @@ for the current [service account](/docs/reference/access-authn-authz/authenticat
 into a Pod at a specified path. Below is an example:
 -->
 
-当开启 `TokenRequestProjection` 功能时，可以将当前 [服务帐户](/docs/reference/access-authn-authz/authentication/#service-account-tokens)的令牌注入 Pod 中的指定路径。
+当开启 `TokenRequestProjection` 功能时，可以将当前 [服务帐户](/zh/docs/reference/access-authn-authz/authentication/#service-account-tokens)的令牌注入 Pod 中的指定路径。
 下面是一个例子：
 
 ```yaml
@@ -1526,7 +1526,7 @@ volumes (or it can dynamically provision new volumes for persistent volume claim
 -->
 
 ScaleIO 是基于软件的存储平台，可以使用现有硬件来创建可伸缩的、共享的而且是网络化的块存储集群。
-`scaleIO` 卷插件允许部署的 Pod 访问现有的 ScaleIO 卷（或者它可以动态地为持久卷申领提供新的卷，参见[ScaleIO 持久卷](/docs/concepts/storage/persistent-volumes/#scaleio))。
+`scaleIO` 卷插件允许部署的 Pod 访问现有的 ScaleIO 卷（或者它可以动态地为持久卷申领提供新的卷，参见[ScaleIO 持久卷](/zh/docs/concepts/storage/persistent-volumes/#scaleio))。
 
 <!--
 You must have an existing ScaleIO cluster already setup and
@@ -2112,7 +2112,7 @@ CSI块卷支持功能已启用，但默认情况下启用。必须为此功能�
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 -->
-学习怎样[安装您的带有块卷支持的 PV/PVC](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)。
+学习怎样[安装您的带有块卷支持的 PV/PVC](/zh/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)。
 
 <!--
 #### CSI ephemeral volumes

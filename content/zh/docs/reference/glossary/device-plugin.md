@@ -29,4 +29,4 @@ tags:
 <!--more-->
 
 <!-- [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) are containers running in Kubernetes that provide access to a vendor-specific resource. Device Plugins advertise these resources to {{< glossary_tooltip term_id="kubelet" >}}. They can be deployed manually or as a {{< glossary_tooltip term_id="daemonset" >}}, rather than writing custom Kubernetes code. -->
-[驱动插件](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) 是运行在 Kubernetes 中的容器，它提供对供应商特定资源的访问。驱动插件将这些资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。并且可以手动部署或做为 {{< glossary_tooltip term_id="daemonset" >}}，而不用编写定制的 Kubernetes 代码。
+[驱动插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) 是运行在 Kubernetes 中的容器，它提供对供应商特定资源的访问。驱动插件将这些资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。并且可以手动部署或做为 {{< glossary_tooltip term_id="daemonset" >}}，而不用编写定制的 Kubernetes 代码。

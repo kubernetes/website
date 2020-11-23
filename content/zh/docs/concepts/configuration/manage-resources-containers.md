@@ -391,7 +391,7 @@ Pod 的资源使用情况是作为 Pod 状态的一部分来报告的。
 如果为集群配置了可选的
 [监控工具](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/)，
 则可以直接从
-[指标 API](/zh/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api) 
+[指标 API](/zh/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
 或者监控工具获得 Pod 的资源使用情况。
 
 <!--

@@ -186,7 +186,7 @@ traffic as follows.
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
 
-* 阅读关于[启用服务拓扑](/docs/tasks/administer-cluster/enabling-service-topology)
+* 阅读关于[启用服务拓扑](/zh/docs/tasks/administer-cluster/enabling-service-topology)
 * 阅读[用 `Services` 连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
 
 

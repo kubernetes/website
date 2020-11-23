@@ -307,7 +307,7 @@ Kubernetes has several built-in authentication methods that it supports. It can 
 Kubernetes 提供若干内置的身份认证方法。
 它也可以运行在某中身份认证代理的后面，并且可以将来自鉴权头部的令牌发送到
 某个远程服务（Webhook）来执行验证操作。
-所有这些方法都在[身份认证文档](/docs/reference/access-authn-authz/authentication/)
+所有这些方法都在[身份认证文档](/zh/docs/reference/access-authn-authz/authentication/)
 中详细论述。
 
 <!--
@@ -358,7 +358,7 @@ After a request is authorized, if it is a write operation, it also goes through 
 * [Image Policy webhook](/zh/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)
   能够限制容器中可以运行哪些镜像。
 * 为了执行任意的准入控制，可以使用一种通用的
-  [Admission webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) 
+  [Admission webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
   机制。这类 Webhook 可以拒绝对象创建或更新请求。
 
 <!--

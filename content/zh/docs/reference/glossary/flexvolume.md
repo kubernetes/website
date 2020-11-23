@@ -36,6 +36,6 @@ Flexvolume 允许用户编写自己的驱动程序，并在 Kubernetes 中加入
 <!-- * [FlexVolume in the Kubernetes documentation](/docs/concepts/storage/volumes/#flexvolume)
 * [More information on FlexVolumes](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
 * [Volume Plugin FAQ for Storage Vendors](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md) -->
-* [Kubernetes 文档中的 Flexvolume](/docs/concepts/storage/volumes/#flexvolume)
+* [Kubernetes 文档中的 Flexvolume](/zh/docs/concepts/storage/volumes/#flexvolume)
 * [更多关于 Flexvolumes 的信息](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
 * [存储供应商的卷插件 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)

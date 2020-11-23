@@ -21,16 +21,16 @@ _编者注：今天的邀请帖子来自 Datera 公司的软件架构师 Shailes
 <!--
 **Introduction**  
 
-Persistent volumes in Kubernetes are foundational as customers move beyond stateless workloads to run stateful applications. While Kubernetes has supported stateful applications such as MySQL, Kafka, Cassandra, and Couchbase for a while, the introduction of Pet Sets has significantly improved this support. In particular, the procedure to sequence the provisioning and startup, the ability to scale and associate durably by [Pet Sets](/docs/user-guide/petset/) has provided the ability to automate to scale the “Pets” (applications that require consistent handling and durable placement).   
+Persistent volumes in Kubernetes are foundational as customers move beyond stateless workloads to run stateful applications. While Kubernetes has supported stateful applications such as MySQL, Kafka, Cassandra, and Couchbase for a while, the introduction of Pet Sets has significantly improved this support. In particular, the procedure to sequence the provisioning and startup, the ability to scale and associate durably by [Pet Sets](/docs/user-guide/petset/) has provided the ability to automate to scale the “Pets” (applications that require consistent handling and durable placement).
 --->
 **简介** 
 
-用户从无状态工作负载转移到运行有状态应用程序，Kubernetes 中的持久卷是基础。虽然 Kubernetes 早已支持有状态的应用程序，比如 MySQL、Kafka、Cassandra 和 Couchbase，但是 Pet Sets 的引入明显改善了情况。特别是，[Pet Sets](/docs/user-guide/petset/) 具有持续扩展和关联的能力，在配置和启动的顺序过程中，可以自动缩放“Pets”（需要连续处理和持久放置的应用程序）。
+用户从无状态工作负载转移到运行有状态应用程序，Kubernetes 中的持久卷是基础。虽然 Kubernetes 早已支持有状态的应用程序，比如 MySQL、Kafka、Cassandra 和 Couchbase，但是 Pet Sets 的引入明显改善了情况。特别是，[Pet Sets](/zh/docs/user-guide/petset/) 具有持续扩展和关联的能力，在配置和启动的顺序过程中，可以自动缩放“Pets”（需要连续处理和持久放置的应用程序）。
 
 <!--
 Datera, elastic block storage for cloud deployments, has [seamlessly integrated with Kubernetes](http://datera.io/blog-library/8/19/datera-simplifies-stateful-containers-on-kubernetes-13) through the [FlexVolume](/docs/user-guide/volumes/#flexvolume) framework. Based on the first principles of containers, Datera allows application resource provisioning to be decoupled from the underlying physical infrastructure. This brings clean contracts (aka, no dependency or direct knowledge of the underlying physical infrastructure), declarative formats, and eventually portability to stateful applications.  
 --->
-Datera 是用于云部署的弹性块存储，可以通过 [FlexVolume](/docs/user-guide/volumes/#flexvolume) 框架与 [Kubernetes 无缝集成](http://datera.io/blog-library/8/19/datera-simplifies-stateful-containers-on-kubernetes-13)。基于容器的基本原则，Datera 允许应用程序的资源配置与底层物理基础架构分离，为有状态的应用程序提供简洁的协议（也就是说，不依赖底层物理基础结构及其相关内容）、声明式格式和最后移植的能力。
+Datera 是用于云部署的弹性块存储，可以通过 [FlexVolume](/zh/docs/user-guide/volumes/#flexvolume) 框架与 [Kubernetes 无缝集成](http://datera.io/blog-library/8/19/datera-simplifies-stateful-containers-on-kubernetes-13)。基于容器的基本原则，Datera 允许应用程序的资源配置与底层物理基础架构分离，为有状态的应用程序提供简洁的协议（也就是说，不依赖底层物理基础结构及其相关内容）、声明式格式和最后移植的能力。
 
 <!--
 While Kubernetes allows for great flexibility to define the underlying application infrastructure through yaml configurations, Datera allows for that configuration to be passed to the storage infrastructure to provide persistence. Through the notion of Datera AppTemplates, in a Kubernetes environment, stateful applications can be automated to scale. 
@@ -51,7 +51,7 @@ Persistent storage is defined using the Kubernetes [PersistentVolume](/docs/user
 
 
 
-永久性存储是通过 Kubernetes 的子系统 [PersistentVolume](/docs/user-guide/persistent-volumes/#persistent-volumes) 定义的。PersistentVolumes 是卷插件，它定义的卷的生命周期和使用它的 Pod 相互独立。PersistentVolumes 由 NFS、iSCSI 或云提供商的特定存储系统实现。Datera 开发了用于 PersistentVolumes 的卷插件，可以在 Datera Data Fabric 上为 Kubernetes 的 Pod 配置 iSCSI 块存储。
+永久性存储是通过 Kubernetes 的子系统 [PersistentVolume](/zh/docs/user-guide/persistent-volumes/#persistent-volumes) 定义的。PersistentVolumes 是卷插件，它定义的卷的生命周期和使用它的 Pod 相互独立。PersistentVolumes 由 NFS、iSCSI 或云提供商的特定存储系统实现。Datera 开发了用于 PersistentVolumes 的卷插件，可以在 Datera Data Fabric 上为 Kubernetes 的 Pod 配置 iSCSI 块存储。
 
 
 <!--

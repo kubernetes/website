@@ -74,7 +74,7 @@ The `IngressClass` resource is used to describe a type of Ingress within a Kuber
 <!--
 SIG-CLI was debating the need for a debug utility for quite some time already. With the development of [ephemeral containers](https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/), it became more obvious how we can support developers with tooling built on top of `kubectl exec`. The addition of the [`kubectl alpha debug` command](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/20190805-kubectl-debug.md) (it is alpha but your feedback is more than welcome), allows developers to easily debug their Pods inside the cluster. We think this addition is invaluable.  This command allows one to create a temporary container which runs next to the Pod one is trying to examine, but also attaches to the console for interactive troubleshooting.
 -->
-SIG-CLI 一直在争论着调试工具的必要性。随着 [临时容器](https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/) 的发展，我们如何使用基于 `kubectl exec` 的工具来支持开发人员的必要性变得越来越明显。 [`kubectl alpha debug` 命令](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/20190805-kubectl-debug.md) 的增加，（由于是 alpha 阶段，非常欢迎您反馈意见），使开发人员可以轻松地在集群中调试 Pod。我们认为这个功能的价值非常高。 此命令允许创建一个临时容器，该容器在要尝试检查的 Pod 旁边运行，并且还附加到控制台以进行交互式故障排除。
+SIG-CLI 一直在争论着调试工具的必要性。随着 [临时容器](https://kubernetes.io/zh/docs/concepts/workloads/pods/ephemeral-containers/) 的发展，我们如何使用基于 `kubectl exec` 的工具来支持开发人员的必要性变得越来越明显。 [`kubectl alpha debug` 命令](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/20190805-kubectl-debug.md) 的增加，（由于是 alpha 阶段，非常欢迎您反馈意见），使开发人员可以轻松地在集群中调试 Pod。我们认为这个功能的价值非常高。 此命令允许创建一个临时容器，该容器在要尝试检查的 Pod 旁边运行，并且还附加到控制台以进行交互式故障排除。
 
 <!--
 ### Introducing Windows CSI support alpha for Kubernetes
@@ -166,9 +166,9 @@ Check out the full details of the Kubernetes 1.18 release in our [release notes]
 ### 下载安装
 
 <!--
-Kubernetes 1.18 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.18.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/) or run local Kubernetes clusters using Docker container “nodes” with [kind](https://kind.sigs.k8s.io/). You can also easily install 1.18 using [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/). 
+Kubernetes 1.18 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.18.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/) or run local Kubernetes clusters using Docker container “nodes” with [kind](https://kind.sigs.k8s.io/). You can also easily install 1.18 using [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).
 -->
-Kubernetes 1.18 可以在 [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.18.0) 上下载。 要开始使用Kubernetes，请查看这些 [交互教程](https://kubernetes.io/docs/tutorials/) 或通过[kind](https://kind.sigs.k8s.io/) 使用 Docker 容器运行本地 kubernetes 集群。您还可以使用[kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/)轻松安装 1.18。
+Kubernetes 1.18 可以在 [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.18.0) 上下载。 要开始使用Kubernetes，请查看这些 [交互教程](https://kubernetes.io/zh/docs/tutorials/) 或通过[kind](https://kind.sigs.k8s.io/) 使用 Docker 容器运行本地 kubernetes 集群。您还可以使用[kubeadm](https://kubernetes.io/zh/docs/setup/independent/create-cluster-kubeadm/)轻松安装 1.18。
 
 <!--
 ### Release Team

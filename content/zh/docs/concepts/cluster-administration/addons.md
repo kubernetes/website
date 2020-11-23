@@ -84,7 +84,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [Romana](https://romana.io) 是一个 pod 网络的第三层解决方案，并支持[
   NetworkPolicy API](/zh/docs/concepts/services-networking/network-policies/)。
   Kubeadm add-on 安装细节可以在[这里](https://github.com/romana/romana/tree/master/containerize)找到。
-* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) 
+* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
   提供在网络分组两端参与工作的网络和网络策略，并且不需要额外的数据库。
 
 <!--

@@ -67,9 +67,9 @@ Standard labels are used by Kubernetes components to support some features. For 
 The labels are reaching general availability in this release. Kubernetes components have been updated to populate the GA and beta labels and to react to both. However, if you are using the beta labels in your pod specs for features such as node affinity, or in your custom controllers, we recommend that you start migrating them to the new GA labels. You can find the documentation for the new labels here:
 -->
 
-- [实例类型](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
-- [地区](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesioregion)
-- [区域](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
+- [实例类型](https://kubernetes.io/zh/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
+- [地区](https://kubernetes.io/zh/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesioregion)
+- [区域](https://kubernetes.io/zh/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
 
 <!--
 - [node.kubernetes.io/instance-type](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
@@ -225,7 +225,7 @@ You can read more in the blog entry about [CSI migration going to beta](https://
 <!--
  ### Availability
 -->
-Kubernetes 1.17 可以[在GitHub下载](https://github.com/kubernetes/kubernetes/releases/tag/v1.17.0)。开始使用Kubernetes，看看这些[交互教学](https://kubernetes.io/docs/tutorials/)。你可以非常容易使用[kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/)安装1.17。
+Kubernetes 1.17 可以[在GitHub下载](https://github.com/kubernetes/kubernetes/releases/tag/v1.17.0)。开始使用Kubernetes，看看这些[交互教学](https://kubernetes.io/zh/docs/tutorials/)。你可以非常容易使用[kubeadm](https://kubernetes.io/zh/docs/setup/independent/create-cluster-kubeadm/)安装1.17。
 <!--
 Kubernetes 1.17 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.17.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/). You can also easily install 1.17 using
  [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).

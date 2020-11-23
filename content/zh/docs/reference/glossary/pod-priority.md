@@ -36,4 +36,4 @@ tags:
 <!--
 [Pod Priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority) gives the ability to set scheduling priority of a Pod to be higher and lower than other Pods — an important feature for production clusters workload.
 -->
-[Pod 优先级](/docs/concepts/configuration/pod-priority-preemption/#pod-priority) 允许为一个 Pod 设置高于或低于其他 Pod 的优先级 -- 这对于生产集群工作负载而言是一个重要的特性。
+[Pod 优先级](/zh/docs/concepts/configuration/pod-priority-preemption/#pod-priority) 允许为一个 Pod 设置高于或低于其他 Pod 的优先级 -- 这对于生产集群工作负载而言是一个重要的特性。

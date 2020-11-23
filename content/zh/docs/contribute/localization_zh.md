@@ -271,7 +271,7 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 
 ```
 <!--
-For more information, please check [volumes](/docs/concepts/storage/)
+For more information, please check [volumes](/zh/docs/concepts/storage/)
 ...
 -->
 更多的信息可参考[卷](/zh/docs/concepts/storage/)页面。

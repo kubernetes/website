@@ -29,7 +29,7 @@ weight: 90
 You can renew all Kubernetes certificates using the `all` subcommand or renew them selectively.
 For more details about certificate expiration and renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
 -->
-使用 `all` 子命令来更新所有 Kubernetes 证书或有选择性地更新它们。有关证书到期和续订的更多详细信息，请参见[证书管理文档](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
+使用 `all` 子命令来更新所有 Kubernetes 证书或有选择性地更新它们。有关证书到期和续订的更多详细信息，请参见[证书管理文档](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
 
 {{< tabs name="tab-certs-renew" >}}
 {{< tab name="renew" include="generated/kubeadm_alpha_certs_renew.md" />}}
@@ -65,7 +65,7 @@ to enable the automatic copy of certificates when joining additional control-pla
 This command checks expiration for the certificates in the local PKI managed by kubeadm.
 For more details about certificate expiration and renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
 -->
-此命令检查 kubeadm 管理的本地 PKI 中证书的到期时间。有关证书到期和续订的更多详细信息，请参见[证书管理文档](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
+此命令检查 kubeadm 管理的本地 PKI 中证书的到期时间。有关证书到期和续订的更多详细信息，请参见[证书管理文档](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
 
 {{< tabs name="tab-certs-check-expiration" >}}
 {{< tab name="check-expiration" include="generated/kubeadm_alpha_certs_check-expiration.md" />}}
@@ -101,7 +101,7 @@ Use the following command to enable the DynamicKubeletConfiguration feature.
 <!--
 The subcommand `pivot` can be used to convert a static Pod-hosted control plane into a self-hosted one.
 -->
-子命令 `pivot` 可用于将 Pod 托管的静态控制平面转换为自托管的控制平面。有关 `pivot` 更多信息，请参见[文档](/docs/setup/production-environment/tools/kubeadm/self-hosting/)。
+子命令 `pivot` 可用于将 Pod 托管的静态控制平面转换为自托管的控制平面。有关 `pivot` 更多信息，请参见[文档](/zh/docs/setup/production-environment/tools/kubeadm/self-hosting/)。
 
 <!--
 [Documentation](/docs/setup/production-environment/tools/kubeadm/self-hosting/)
@@ -120,6 +120,6 @@ The subcommand `pivot` can be used to convert a static Pod-hosted control plane 
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 -->
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导 Kubernetes 控制平面节点
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点连接到集群
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 会还原 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改。
+* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导 Kubernetes 控制平面节点
+* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点连接到集群
+* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 会还原 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改。

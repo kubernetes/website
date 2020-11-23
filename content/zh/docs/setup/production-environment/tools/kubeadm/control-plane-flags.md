@@ -67,7 +67,7 @@ You can generate a `ClusterConfiguration` object with default values by running 
 <!--
 For details, see the [reference documentation for kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
 -->
-有关详细信息，请参阅 [kube-apiserver 参考文档](/docs/reference/command-line-tools-reference/kube-apiserver/)。
+有关详细信息，请参阅 [kube-apiserver 参考文档](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)。
 
 <!--
 Example usage:
@@ -93,7 +93,7 @@ apiServer:
 <!--
 For details, see the [reference documentation for kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 -->
-有关详细信息，请参阅 [kube-controller-manager 参考文档](/docs/reference/command-line-tools-reference/kube-controller-manager/)。
+有关详细信息，请参阅 [kube-controller-manager 参考文档](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)。
 
 <!--
 Example usage:
@@ -118,7 +118,7 @@ controllerManager:
 <!--
 For details, see the [reference documentation for kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 -->
-有关详细信息，请参阅 [kube-scheduler 参考文档](/docs/reference/command-line-tools-reference/kube-scheduler/)。
+有关详细信息，请参阅 [kube-scheduler 参考文档](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)。
 
 <!--
 Example usage:

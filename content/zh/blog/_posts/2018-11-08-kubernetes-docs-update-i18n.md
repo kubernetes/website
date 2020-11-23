@@ -80,7 +80,7 @@ L10n 团队现在可以审查和批准他们自己的 PR。例如，英语的审
 我们很高兴继续支持正在取得良好进展的日本和韩国 l10n 队伍。
 
 <!-- If you're interested in localizing Kubernetes for your own language or region, check out our [guide to localizing Kubernetes docs](https://kubernetes.io/docs/contribute/localization/) and reach out to a [SIG Docs chair](https://github.com/kubernetes/community/tree/master/sig-docs#leadership) for support. -->
-如果您有兴趣将 Kubernetes 本地化为您自己的语言或地区，请查看我们的[本地化 Kubernetes 文档指南](https://kubernetes.io/docs/contribute/localization/)，并联系 [SIG Docs 主席团](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)获取支持。
+如果您有兴趣将 Kubernetes 本地化为您自己的语言或地区，请查看我们的[本地化 Kubernetes 文档指南](https://kubernetes.io/zh/docs/contribute/localization/)，并联系 [SIG Docs 主席团](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)获取支持。
 
 <!-- ### Get involved with SIG Docs  -->
 ### 加入SIG Docs

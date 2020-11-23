@@ -114,5 +114,5 @@ mechanisms for separating code from configuration.
 一旦你的应用处于运行状态，你就可能想要
 以[服务](/zh/docs/concepts/services-networking/service/)
 使之在互联网上可访问；或者对于 Web 应用而言，使用
-[Ingress](/docs/concepts/services-networking/ingress) 资源将其暴露到互联网上。
+[Ingress](/zh/docs/concepts/services-networking/ingress) 资源将其暴露到互联网上。
 

@@ -50,7 +50,7 @@ There are two API extensions for this feature:
 ## API
 
 这个特性有两个 API 扩展接口：
-- [CSIStorageCapacity](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csistoragecapacity-v1alpha1-storage-k8s-io) 
+- [CSIStorageCapacity](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csistoragecapacity-v1alpha1-storage-k8s-io)
 对象：这些对象由 CSI 驱动程序在安装驱动程序的命名空间中产生。每个对象都包含一个存储类的容量信息，并定义哪些节点可以访问该存储。
 - [`CSIDriverSpec.StorageCapacity` 字段](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csidriverspec-v1-storage-k8s-io)：
 设置为 true 时，Kubernetes 调度程序将考虑使用 CSI 驱动程序的卷的存储容量。
@@ -163,9 +163,9 @@ parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
 -->
 ## 开启存储容量跟踪
 
-存储容量跟踪是一个 *alpha 特性*，只有当 `CSIStorageCapacity` [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)
+存储容量跟踪是一个 *alpha 特性*，只有当 `CSIStorageCapacity` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
 和 `storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API 组" term_id="api-group" >}}启用时才能启用。
-更多详细信息，可以查看`--feature-gates` 和 `--runtime-config` [kube-apiserver 参数](/docs/reference/command-line-tools-reference/kube-apiserver/)。
+更多详细信息，可以查看`--feature-gates` 和 `--runtime-config` [kube-apiserver 参数](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)。
 
 <!--
 A quick check

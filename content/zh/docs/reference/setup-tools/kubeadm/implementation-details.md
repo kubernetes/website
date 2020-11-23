@@ -868,7 +868,7 @@ Kubeadm 通过 API 服务器安装内部 DNS 服务器和 kube-proxy 插件。
 请注意：
 
 <!-- 
-1. This phase can be invoked individually with the [`kubeadm init phase addon all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon) command. 
+1. This phase can be invoked individually with the [`kubeadm init phase addon all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon) command.
 -->
 
 1. 此步骤可以调用 ['kubeadm init phase addon all'](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon) 命令单独调用。
@@ -920,7 +920,7 @@ This is split into discovery (having the Node trust the Kubernetes Master) and T
 这分为发现（让该节点信任 Kubernetes 的主控节点）和 TLS 引导（让 Kubernetes 的主控节点信任该节点）。
 
 <!-- 
-see [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) or the corresponding [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md). 
+see [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) or the corresponding [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
 -->
 请参阅[使用引导令牌进行身份验证](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)
 或相应的[设计提案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md)。

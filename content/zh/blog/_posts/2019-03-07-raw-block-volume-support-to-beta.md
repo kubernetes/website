@@ -180,7 +180,7 @@ By default, Linux won’t allow containers to send SCSI commands to disks from i
 
 Also, while Kubernetes is guaranteed to deliver a block device to the container, there’s no guarantee that it’s actually a SCSI disk or any other kind of disk for that matter. The user must either ensure that the desired disk type is used with his pods, or only deploy applications that can handle a variety of block device types.
 --->
-默认情况下，Linux 不允许容器将 SCSI 命令从容器内部发送到磁盘。为此，必须向容器安全层级认证 `SYS_RAWIO` 功能实现这种行为。请参阅 [这篇](/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container) 文档。
+默认情况下，Linux 不允许容器将 SCSI 命令从容器内部发送到磁盘。为此，必须向容器安全层级认证 `SYS_RAWIO` 功能实现这种行为。请参阅 [这篇](/zh/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container) 文档。
 
 另外，尽管 Kubernetes 保证可以将块设备交付到容器中，但不能保证它实际上是 SCSI 磁盘或任何其他类型的磁盘。用户必须确保所需的磁盘类型与 Pod 一起使用，或只部署可以处理各种块设备类型的应用程序。
 
@@ -195,7 +195,7 @@ Join the Kubernetes storage SIG and the CSI community and help us add more great
 --->
 ## 如何学习更多？
 
-在此处查看有关 snapshot 功能的其他文档：[Raw Block Volume 支持](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
+在此处查看有关 snapshot 功能的其他文档：[Raw Block Volume 支持](/zh/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
 
 如何参与进来？
 

@@ -69,7 +69,7 @@ You can read more about each of their [configuration, setup, and runtime capabil
 1. 上游 L3 路由 - 上游 ToR 中配置的 IP 路由
 2. Host-Gateway - 在每个主机上配置的 IP 路由
 3. 具有 Overlay 的 Open vSwitch（OVS）和 Open Virtual Network（OVN） - 支持 STT 和 Geneve 的 tunneling 类型
-您可以阅读更多有关 [配置、设置和运行时功能](/docs/getting-started-guides/windows/) 的信息，以便在 Kubernetes 中为您的网络堆栈做出明智的选择。
+您可以阅读更多有关 [配置、设置和运行时功能](/zh/docs/getting-started-guides/windows/) 的信息，以便在 Kubernetes 中为您的网络堆栈做出明智的选择。
 
 <!--
 Even though you have to continue running the Kubernetes Control Plane and Master Components in Linux, you are now able to introduce Windows Server as a Node in Kubernetes. As a community, this is a huge milestone and achievement. We will now start seeing .NET, .NET Core, ASP.NET, IIS, Windows Services, Windows executables and many more windows-based applications in Kubernetes.  
@@ -123,7 +123,7 @@ As we continue to make progress towards General Availability of this feature in 
 - Chat with us on Slack at [https://kubernetes.slack.com/messages/sig-windows](https://kubernetes.slack.com/messages/sig-windows)
 - Find us on GitHub at [https://github.com/kubernetes/community/tree/master/sig-windows](https://github.com/kubernetes/community/tree/master/sig-windows)
 --->
-- 如果你想要开始在 Kubernetes 中部署 Windows Server 容器，请阅读我们的开始导览 [/docs/getting-started-guides/windows/](/docs/getting-started-guides/windows/)
+- 如果你想要开始在 Kubernetes 中部署 Windows Server 容器，请阅读我们的开始导览 [/zh/docs/getting-started-guides/windows/](/zh/docs/getting-started-guides/windows/)
 - 我们每隔一个星期二在美国东部标准时间（EST）的12:30在 [https://zoom.us/my/sigwindows](https://zoom.us/my/sigwindows) 开会。所有会议内容都记录在 Youtube 并附上了参考材料 [https://www.youtube.com/playlist?list=PL69nYSiGNLP2OH9InCcNkWNu2bl-gmIU4](https://www.youtube.com/playlist?list=PL69nYSiGNLP2OH9InCcNkWNu2bl-gmIU4)
 - 通过 Slack 联系我们 [https://kubernetes.slack.com/messages/sig-windows](https://kubernetes.slack.com/messages/sig-windows)
 - 在 Github 上找到我们 [https://github.com/kubernetes/community/tree/master/sig-windows](https://github.com/kubernetes/community/tree/master/sig-windows)

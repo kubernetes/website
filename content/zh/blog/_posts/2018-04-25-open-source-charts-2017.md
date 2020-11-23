@@ -18,7 +18,7 @@ Kubernetes, an [open source platform for running application containers](/docs/c
 --->
 对于 Kubernetes 来说，2017 年是丰收的一年，GitHub的最新 [Octoverse 报告](https://octoverse.github.com) 说明了该项目获得了多少关注。
 
-Kubernetes 是 [用于运行应用程序容器的开源平台](/docs/concepts/overview/what-is-kubernetes/)，它提供了一个统一的界面，使开发人员和操作团队能够自动执行部署、管理和扩展几乎任何基础架构上的各种应用程序。
+Kubernetes 是 [用于运行应用程序容器的开源平台](/zh/docs/concepts/overview/what-is-kubernetes/)，它提供了一个统一的界面，使开发人员和操作团队能够自动执行部署、管理和扩展几乎任何基础架构上的各种应用程序。
 
 <!--
 Solving these shared challenges by leveraging a wide community of expertise and industrial experience, as Kubernetes does, helps engineers focus on building their own products at the top of the stack, rather than needlessly duplicating work that now exists as a standard part of the “cloud native” toolkit.

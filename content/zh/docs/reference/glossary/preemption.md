@@ -35,4 +35,4 @@ tags:
 <!--
 If a Pod cannot be scheduled, the scheduler tries to [preempt](/docs/concepts/configuration/pod-priority-preemption/#preemption) lower priority Pods to make scheduling of the pending Pod possible.
 -->
-如果一个 Pod 无法调度，调度器会尝试[抢占](/docs/concepts/configuration/pod-priority-preemption/#preemption)较低优先级的 Pod，以使得挂起的 Pod 可能被调度。
+如果一个 Pod 无法调度，调度器会尝试[抢占](/zh/docs/concepts/configuration/pod-priority-preemption/#preemption)较低优先级的 Pod，以使得挂起的 Pod 可能被调度。

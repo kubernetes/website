@@ -179,7 +179,7 @@ ReplicaSet 也需要 [`.spec`](https://git.k8s.io/community/contributors/devel/a
 ### Pod Template
 
 The `.spec.template` is the only required field of the `.spec`. The `.spec.template` is a 
-[pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a 
+[pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a
 [pod](/docs/concepts/workloads/pods/pod/), except that it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields of a pod, a pod template in a ReplicaSet must specify appropriate
@@ -360,7 +360,7 @@ the ReplicaSet we created in the previous example.
 
 ### ReplicaSet 作为水平的 Pod 自动缩放器目标
 
-ReplicaSet 也可以作为 [水平的 Pod 缩放器 (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/) 的目标。也就是说，ReplicaSet 可以被 HPA 自动缩放。
+ReplicaSet 也可以作为 [水平的 Pod 缩放器 (HPA)](/zh/docs/tasks/run-application/horizontal-pod-autoscale/) 的目标。也就是说，ReplicaSet 可以被 HPA 自动缩放。
 以下是 HPA 以我们在前一个示例中创建的副本集为目标的示例。
 
 
