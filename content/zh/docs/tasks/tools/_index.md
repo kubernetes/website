@@ -45,9 +45,34 @@ You can also read the
 你也可以阅读 [`kubectl` 参考文档](/zh/docs/reference/kubectl/).
 
 <!--
+## kind
+
+[`kind`](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
+your local computer. This tool requires that you have
+[Docker](https://docs.docker.com/get-docker/) installed and configured.
+
+The kind [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) page
+shows you what you need to do to get up and running with `kind`.
+
+<a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="View kind Quick Start Guide">View kind Quick Start Guide</a>
+-->
+## kind
+
+[`kind`](https://kind.sigs.k8s.io/docs/) 让你能够在本地计算机上运行 Kubernetes。
+`kind` 要求你安装并配置好 [Docker](https://docs.docker.com/get-docker/)。
+
+kind [快速入门](https://kind.sigs.k8s.io/docs/user/quick-start/)页面展示了
+开始使用 `kind` 所需要完成的操作。
+
+<a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/"
+  role="button" aria-label="查看 kind 的快速入门指南">
+查看 kind 的快速入门指南
+</a>
+
+<!--
 ## minikube
 
-[`minikube`](https://minikube.sigs.k8s.io/) is a tool that lets you run Kubernetes
+Like `kind`, [`minikube`](https://minikube.sigs.k8s.io/) is a tool that lets you run Kubernetes
 locally. `minikube` runs a single-node Kubernetes cluster on your personal
 computer (including Windows, macOS and Linux PCs) so that you can try out
 Kubernetes, or for daily development work.
@@ -58,7 +83,8 @@ on getting the tool installed.
 -->
 ## minikube
 
-[`minikube`](https://minikube.sigs.k8s.io/) 是一个工具，能让你在本地运行 Kubernetes。
+与 `kind` 类似，[`minikube`](https://minikube.sigs.k8s.io/) 是一个工具，
+能让你在本地运行 Kubernetes。
 `minikube` 在你本地的个人计算机（包括 Windows、macOS 和 Linux PC）运行一个单节点的
 Kubernetes 集群，以便你来尝试 Kubernetes 或者开展每天的开发工作。
 
@@ -79,30 +105,27 @@ Once you have `minikube` working, you can use it to
 当你拥有了可工作的 `minikube` 时，就可以用它来
 [运行示例应用](/zh/docs/tutorials/hello-minikube/)了。
 
+## kubeadm
+
 <!--
-## kind
-
-Like `minikube`, [`kind`](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
-your local computer. Unlike `minikube`, `kind` only works with a single container
-runtime: it requires that you have [Docker](https://docs.docker.com/get-docker/)
-installed and configured.
-
-[Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) shows you what
-you need to do to get up and running with `kind`.
-
-<a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="View kind Quick Start Guide">View kind Quick Start Guide</a>
+You can use the {{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}} tool to create and manage Kubernetes clusters.
+It performs the actions necessary to get a minimum viable, secure cluster up and running in a user friendly way.
 -->
-## kind
+你可以使用 {{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}} 工具来
+创建和管理 Kubernetes 集群。
+该工具能够执行必要的动作并用一种用户友好的方式启动一个可用的、安全的集群。
 
-与 `minikube` 类似，[`kind`](https://kind.sigs.k8s.io/docs/) 让你能够在本地计算机上
-运行 Kubernetes。与`minikube` 不同的是，`kind` 只能使用一种容器运行时：
-它要求你安装并配置好 [Docker](https://docs.docker.com/get-docker/)。
+<!--
+[Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) shows you how to install kubeadm.
+Once installed, you can use it to [create a cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+-->
+[安装 kubeadm](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+展示了如何安装 kubeadm 的过程。
+一旦安装了 kubeadm，你就可以使用它来
+[创建一个集群](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)。
 
-[快速入门](https://kind.sigs.k8s.io/docs/user/quick-start/)页面提供了开始使用
-`kind` 所需要完成的操作。
+<!-- a class="btn btn-primary" href="/docs/setup/production-environment/tools/kubeadm/install-kubeadm/" role="button" aria-label="View kubeadm Install Guide">View kubeadm Install Guide</a-->
 
-<a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/"
-  role="button" aria-label="查看 kind 的快速入门指南">
-查看 kind 的快速入门指南
-</a>
+<a class="btn btn-primary" href="/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/"
+  role="button" aria-label="查看 kubeadm 安装指南">查看 kubeadm 安装指南</a>
 
