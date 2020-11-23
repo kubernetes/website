@@ -397,9 +397,7 @@ Production likes to run cattle, so let's create some cattle pods.
 生产环境需要以放牛的方式运维，让我们创建一些名为 `cattle` 的 Pod。
 
 ```shell
-kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname
-kubectl scale deployment cattle --replicas=5
-
+kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname --replicas=5
 kubectl get deployment
 ```
 
