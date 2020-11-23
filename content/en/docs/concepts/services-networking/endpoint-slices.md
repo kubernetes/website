@@ -95,6 +95,16 @@ EndpointSlices support three address types:
 
 ### Topology information {#topology}
 
+{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
+
+{{< note >}}
+The topology field in EndpointSlices has been deprecated and will be removed in
+a future release. A new `nodeName` field will be used instead of setting
+`kubernetes.io/hostname` in topology. It was determined that other topology
+fields covering zone and region would be better represented as EndpointSlice
+labels that would apply to all endpoints within the EndpointSlice.
+{{< /note >}}
+
 Each endpoint within an EndpointSlice can contain relevant topology information.
 This is used to indicate where an endpoint is, containing information about the
 corresponding Node, zone, and region. When the values are available, the
