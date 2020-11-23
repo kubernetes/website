@@ -2154,7 +2154,7 @@ comma-separated list of pattern=N settings for file-filtered logging
 <!--
 Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes. To disable volume calculations, set to 0. (default 1m0s) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
-指定 kubelet 计算和缓存所有 Pod 和卷的磁盘用量总值的时间间隔。要禁用磁盘用量计算，请设置为 0。（默认值为 1m0s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+指定 kubelet 计算和缓存所有 Pod 和卷的磁盘用量总值的时间间隔。要禁用磁盘用量计算，请设置为负数，如`-1s`。（默认值为 1m0s）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
 </td>
 </tr>
 </tbody>
