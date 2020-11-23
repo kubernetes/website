@@ -102,7 +102,7 @@ Log sanitization might incur significant computation overhead and therefore shou
 The `--experimental-logging-sanitization` controls if a sanitization filter will be installed in klog.
 If enabled all log arguments are inspected for fields tagged as sensitive data (e.g. passwords, keys, tokens) and logging of these fields will be prevented.
 
-List of components currently supporting JSON format:
+List of components currently supporting log sanitization:
 * {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
 * {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 * {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
