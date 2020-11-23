@@ -21,16 +21,24 @@ card:
 
 <!-- overview -->
 <!--
- Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; look at your new cluster; and bring up example apps.
+The Kubernetes command-line tool, [kubectl](/docs/reference/kubectl/kubectl/), allows
+you to run commands against Kubernetes clusters.
+You can use kubectl to deploy applications, inspect and manage cluster resources,
+and view logs. For a complete list of kubectl operations, see
+[Overview of kubectl](/docs/reference/kubectl/overview/).
  -->
-在 Kubernetes 上使用 Kubernetes 命令行工具 [kubectl](/zh/docs/reference/kubectl/kubectl/)
-部署和管理应用程序。
-使用 kubectl，你可以检查集群资源；创建、删除和更新组件；查看你的新集群；并启动实例应用程序。
+使用 Kubernetes 命令行工具 [kubectl](/zh/docs/reference/kubectl/kubectl/)，
+你可以在 Kubernetes 上运行命令。
+使用 kubectl，你可以部署应用、检查和管理集群资源、查看日志。
+要了解 kubectl 操作的完整列表，请参阅
+[kubectl 概览](/zh/docs/reference/kubectl/overview/)。
 
 ## {{% heading "prerequisites" %}}
 
 <!--
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master. Using the latest version of kubectl helps avoid unforeseen issues.
+You must use a kubectl version that is within one minor version difference of your cluster.
+For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master.
+Using the latest version of kubectl helps avoid unforeseen issues.
 -->
 你必须使用与集群小版本号差别为一的 kubectl 版本。
 例如，1.2 版本的客户端应该与 1.1 版本、1.2 版本和 1.3 版本的主节点一起使用。
@@ -104,7 +112,7 @@ You must use a kubectl version that is within one minor version difference of yo
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu、Debian 或 HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https
+sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
@@ -306,7 +314,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 <!--
 2. Add the binary in to your PATH.
 -->
-2. 将二进制文件放到 PATH 目录下。
+2. 将可执行文件放到 PATH 目录下。
 
 <!--
 3. Test to ensure the version of `kubectl` is the same as downloaded:
@@ -483,15 +491,22 @@ kubectl 可以作为 Google Cloud SDK 的一部分进行安装。
 <!--
 ## Verifying kubectl configuration
 
-In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using kube-up.sh or successfully deploy a Minikube cluster. See the [getting started guides](/docs/setup/) for more about creating clusters. If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+In order for kubectl to find and access a Kubernetes cluster, it needs a
+[kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/),
+which is created automatically when you create a cluster using
+[kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
+or successfully deploy a Minikube cluster.
 By default, kubectl configuration is located at `~/.kube/config`.
 -->
 ## 验证 kubectl 配置   {#verifying-kubectl-configuration}
 
 kubectl 需要一个
 [kubeconfig 配置文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-使其找到并访问 Kubernetes 集群。
-当你使用 kube-up.sh 脚本创建 Kubernetes 集群或者部署 Minikube 集群时，会自动生成 kubeconfig 配置文件。
+使其找到并访问 Kubernetes 集群。当你使用
+[kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
+创建 Kubernetes 集群或者使用已经部署好的 Minikube 集群时，
+会自动生成 kubeconfig 配置文件。
+默认情况下，kubectl 的配置文件位于 `~/.kube/config`。
 
 <!--
 Check that kubectl is properly configured by getting the cluster state:
@@ -874,15 +889,17 @@ compinit
 ## {{% heading "whatsnext" %}}
 
 <!--
-* [Install Minikube](/docs/tasks/tools/install-minikube/)
+* [Install Minikube](https://minikube.sigs.k8s.io/docs/start/)
 * See the [getting started guides](/docs/setup/) for more about creating clusters.
 * [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* If you need access to a cluster you didn't create, see the
+  [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Read the [kubectl reference docs](/docs/reference/kubectl/kubectl/)
 -->
-* [安装 Minikube](/zh/docs/tasks/tools/install-minikube/)
+* [安装 Minikube](https://minikube.sigs.k8s.io/docs/start/)
 * 参阅[入门指南](/zh/docs/setup/)，了解创建集群相关的信息
 * 了解如何[启动和暴露你的应用](/zh/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* 如果你需要访问别人创建的集群，参考[共享集群访问文档](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* 如果你需要访问别人创建的集群，参考
+  [共享集群访问文档](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * 阅读 [kubectl 参考文档](/zh/docs/reference/kubectl/kubectl/)
 
