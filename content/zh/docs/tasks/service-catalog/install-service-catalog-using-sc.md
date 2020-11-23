@@ -39,10 +39,12 @@ Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-s
 * 安装 [Go 1.6+](https://golang.org/dl/) 以及设置 `GOPATH`。
 * 安装生成 SSL 工件所需的 [cfssl](https://github.com/cloudflare/cfssl) 工具。
 * 服务目录需要 Kubernetes 1.7+ 版本。
-* [安装和设置 kubectl](/zh/docs/tasks/tools/install-kubectl/)，以便将其配置为连接到 Kubernetes v1.7+ 集群。
-* 要安装服务目录，kubectl 用户必须绑定到 *cluster-admin* 角色。为了确保这是正确的，请运行以下命令：
+* [安装和设置 kubectl](/zh/docs/tasks/tools/install-kubectl/)，
+  以便将其配置为连接到 Kubernetes v1.7+ 集群。
+* 要安装服务目录，kubectl 用户必须绑定到 *cluster-admin* 角色。
+  为了确保这是正确的，请运行以下命令：
 
-  ```
+  ```shell
   kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<user-name>
   ```
 
@@ -113,9 +115,9 @@ sc uninstall
 
 <!--
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
-* Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
+* Explore the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) project.
 -->
-* 查看 [服务代理示例](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers)。
-* 探索 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) 项目。
+* 查看[服务代理示例](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers)。
+* 探索 [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) 项目。
 
 
