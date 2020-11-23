@@ -61,9 +61,9 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. 为了启用 NGINIX Ingress 控制器，可以运行下面的命令：
 
 
-    ```shell
-    minikube addons enable ingress
-    ```
+   ```shell
+   minikube addons enable ingress
+   ```
 
 <!--
 1. Verify that the NGINX Ingress controller is running
@@ -75,11 +75,13 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
    ```
 
    <!-- This can take up to a minute. -->
-   {{< note >}}这一操作可供需要近一分钟时间。{{< /note >}}
+   {{< note >}}
+   这一操作可能需要近一分钟时间。
+   {{< /note >}}
 
    输出：
 
-   ```shell
+   ```
    NAME                                        READY     STATUS    RESTARTS   AGE
    default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
    kube-addon-manager-minikube                 1/1       Running   0          3m
@@ -197,7 +199,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. 根据下面的 YAML 创建文件 `example-ingress.yaml`：
 
-  {{< codenew file="service/networking/example-ingress.yaml" >}}
+   {{< codenew file="service/networking/example-ingress.yaml" >}}
 
 <!--
 1. Create the Ingress resource by running the following command:
@@ -211,9 +213,10 @@ The following file is an Ingress resource that sends traffic to your Service via
    <!-- Output: -->
    输出：
 
-   ```shell
+   ```
    ingress.networking.k8s.io/example-ingress created
    ```
+
 <!--
 1. Verify the IP address is set:
 -->
@@ -224,9 +227,11 @@ The following file is an Ingress resource that sends traffic to your Service via
    ```
 
    <!-- This can take a couple of minutes. -->
-   {{< note >}}此操作可能需要几分钟时间。{{< /note >}}
+   {{< note >}}
+   此操作可能需要几分钟时间。
+   {{< /note >}}
 
-   ```shell
+   ```
    NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
    example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
    ```
@@ -262,7 +267,7 @@ The following file is an Ingress resource that sends traffic to your Service via
    <!-- Output: -->
    输出：
 
-   ```shell
+   ```
    Hello, world!
    Version: 1.0.0
    Hostname: web-55b8c6998d-8k564
@@ -290,7 +295,7 @@ The following file is an Ingress resource that sends traffic to your Service via
    <!-- Output: -->
    输出：
 
-   ```shell
+   ```
    deployment.apps/web2 created
    ```
 
@@ -306,7 +311,7 @@ The following file is an Ingress resource that sends traffic to your Service via
    <!-- Output:  -->
    输出：
 
-   ```shell
+   ```
    service/web2 exposed
    ```
 
@@ -321,13 +326,13 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 
    ```yaml
-     - path: /v2
-       pathType: Prefix
-       backend:
-         service:
-           name: web2
-           port:
-             number: 8080
+   - path: /v2
+     pathType: Prefix
+     backend:
+       service:
+         name: web2
+         port:
+           number: 8080
    ```
 
 <!--
@@ -342,7 +347,7 @@ The following file is an Ingress resource that sends traffic to your Service via
    <!-- Output: -->
    输出：
 
-   ```shell
+   ```
    ingress.networking/example-ingress configured
    ```
 
