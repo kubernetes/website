@@ -47,7 +47,7 @@ on general patterns for running stateful applications in Kubernetes.
 * This tutorial assumes you are familiar with
   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
   and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
-  as well as other core concepts like [Pods](/docs/concepts/workloads/pods/pod/),
+  as well as other core concepts like [Pods](/docs/concepts/workloads/pods/),
   [Services](/docs/concepts/services-networking/service/), and
   [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Some familiarity with MySQL helps, but this tutorial aims to present
@@ -490,13 +490,14 @@ running while you force a Pod out of the Ready state.
 <!--
 ### Break the Readiness Probe 
 
-The [readiness probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-readiness-probes)
+The [readiness probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
 for the `mysql` container runs the command `mysql -h 127.0.0.1 -e 'SELECT 1'`
 to make sure the server is up and able to execute queries. 
 -->
 ### 破坏就绪态探测
 
-`mysql` 容器的[就绪态探测](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
+`mysql` 容器的
+[就绪态探测](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
 运行命令 `mysql -h 127.0.0.1 -e 'SELECT 1'`，以确保服务器已启动并能够执行查询。
 
 <!--
