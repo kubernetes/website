@@ -258,9 +258,9 @@ example, run these on your desktop/laptop:
    使用的凭据信息。
 1. 获得节点列表；例如：
 
-   - 如果想要节点名称：`nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
+   - 如果想要节点名称：`nodes=($(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}'))`
 
-   - 如果想要节点 IP ，`nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
+   - 如果想要节点 IP ，`nodes=($(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}'))`
 
 1. 将本地的 `.docker/config.json` 拷贝到所有节点，放入如上所列的目录之一：
    - 例如，可以试一下：`for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
