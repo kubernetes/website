@@ -31,9 +31,11 @@ resources instead of a single large Endpoints resource.
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 {{< note >}}
-Although EndpointSlices may eventually replace Endpoints, many Kubernetes
-components still rely on Endpoints. For now, enabling EndpointSlices should be
-seen as an addition to Endpoints in a cluster, not a replacement for them.
+The EndpointSlice resource was designed to address shortcomings in a earlier
+resource: Endpoints. Some Kubernetes components and third-party applications
+continue to use and rely on Endpoints. Whilst that remains the case,
+EndpointSlices should be seen as an addition to Endpoints in a cluster, not as
+an outright replacement.
 {{< /note >}}
 
 EndpointSlice functionality in Kubernetes is made up of several different
@@ -60,13 +62,23 @@ components, most are enabled by default:
   gate](/docs/reference/command-line-tools-reference/feature-gates/) on
   kube-proxy.
 
+
+## API fields
+
+Some fields in the EndpointSlice API are feature-gated.
+
+- The `EndpointSliceNodeName` feature gate controls access to the `nodeName`
+  field. This is an alpha feature that is disabled by default.
+- The `EndpointSliceTerminating` feature gate controls access to the `serving`
+  and `terminating` condition fields. This is an alpha feature that is disabled
+  by default.
+
 ## Using EndpointSlices
 
 With EndpointSlices fully enabled in your cluster, you should see corresponding
 EndpointSlice resources for each Endpoints resource. In addition to supporting
-existing Endpoints functionality, EndpointSlices include new bits of information
-such as topology. They will allow for greater scalability and extensibility of
-network endpoints in your cluster.
+existing Endpoints functionality, EndpointSlices will allow for greater
+scalability and extensibility of network endpoints in your cluster.
 
 ## {{% heading "whatsnext" %}}
 

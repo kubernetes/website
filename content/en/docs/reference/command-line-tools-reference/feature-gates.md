@@ -103,8 +103,10 @@ different Kubernetes components.
 | `EndpointSlice` | `false` | Alpha | 1.16 | 1.16 |
 | `EndpointSlice` | `false` | Beta | 1.17 | |
 | `EndpointSlice` | `true` | Beta | 1.18 | |
+| `EndpointSliceNodeName` | `false` | Alpha | 1.20 | |
 | `EndpointSliceProxying` | `false` | Alpha | 1.18 | 1.18 |
 | `EndpointSliceProxying` | `true` | Beta | 1.19 | |
+| `EndpointSliceTerminating` | `false` | Alpha | 1.20 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
 | `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
@@ -481,6 +483,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
    if user namespace remapping is enabled in the Docker daemon.
 - `EndpointSlice`: Enables Endpoint Slices for more scalable and extensible
    network endpoints. See [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).
+- `EndpointSliceNodeName`: Enables EndpointSlice `nodeName` field.
+- `EndpointSliceTerminating`: Enables EndpointSlice `terminating` and `serving`
+   condition fields.
 - `EndpointSliceProxying`: When this feature gate is enabled, kube-proxy running
    on Linux will use EndpointSlices as the primary data source instead of
    Endpoints, enabling scalability and performance improvements. See
