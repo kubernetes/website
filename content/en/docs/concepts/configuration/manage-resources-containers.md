@@ -600,6 +600,10 @@ spec:
         example.com/foo: 1
 ```
 
+## PID limiting
+
+Process ID (PID) limits allow for the configuration of a kubelet to limit the number of PIDs that a given Pod can consume. See [Pid Limiting](/docs/concepts/policy/pid-limiting/) for information.
+
 ## Troubleshooting
 
 ### My Pods are pending with event message failedScheduling

@@ -2,10 +2,16 @@
 ### Synopsis
 
 
-Renew all known certificates necessary to run the control plane. Renewals are run unconditionally, regardless of expiration date. Renewals can also be run individually for more control.
+Renew the certificate for serving the Kubernetes API.
+
+Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
+
+Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
+
+After renewal, in order to make changes effective, is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 
 ```
-kubeadm alpha certs renew all [flags]
+kubeadm certs renew apiserver [flags]
 ```
 
 ### Options
@@ -49,7 +55,7 @@ kubeadm alpha certs renew all [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">help for all</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">help for apiserver</td>
 </tr>
 
 <tr>

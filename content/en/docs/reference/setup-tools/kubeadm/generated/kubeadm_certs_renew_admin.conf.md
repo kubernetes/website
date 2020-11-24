@@ -2,7 +2,7 @@
 ### Synopsis
 
 
-Renew the certificate for serving etcd.
+Renew the certificate embedded in the kubeconfig file for the admin to use and for kubeadm itself.
 
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
 
@@ -11,7 +11,7 @@ Renewal by default tries to use the certificate authority in the local PKI manag
 After renewal, in order to make changes effective, is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 
 ```
-kubeadm alpha certs renew etcd-server [flags]
+kubeadm certs renew admin.conf [flags]
 ```
 
 ### Options
@@ -55,7 +55,7 @@ kubeadm alpha certs renew etcd-server [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">help for etcd-server</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">help for admin.conf</td>
 </tr>
 
 <tr>

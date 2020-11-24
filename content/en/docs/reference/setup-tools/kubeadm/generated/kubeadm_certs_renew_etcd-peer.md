@@ -2,10 +2,16 @@
 ### Synopsis
 
 
-Checks expiration for the certificates in the local PKI managed by kubeadm.
+Renew the certificate for etcd nodes to communicate with each other.
+
+Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
+
+Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
+
+After renewal, in order to make changes effective, is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 
 ```
-kubeadm alpha certs check-expiration [flags]
+kubeadm certs renew etcd-peer [flags]
 ```
 
 ### Options
@@ -32,10 +38,24 @@ kubeadm alpha certs check-expiration [flags]
 </tr>
 
 <tr>
+<td colspan="2">--csr-dir string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">The path to output the CSRs and private keys to</td>
+</tr>
+
+<tr>
+<td colspan="2">--csr-only</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Create CSRs instead of generating certificates</td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">help for check-expiration</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">help for etcd-peer</td>
 </tr>
 
 <tr>

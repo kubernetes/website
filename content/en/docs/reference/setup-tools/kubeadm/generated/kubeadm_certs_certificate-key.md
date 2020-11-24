@@ -11,7 +11,7 @@ generate and print one for you.
 
 
 ```
-kubeadm alpha certs certificate-key [flags]
+kubeadm certs certificate-key [flags]
 ```
 
 ### Options

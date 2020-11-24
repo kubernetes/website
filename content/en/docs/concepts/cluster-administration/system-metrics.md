@@ -104,7 +104,7 @@ The kubelet collects accelerator metrics through cAdvisor. To collect these metr
 
 The responsibility for collecting accelerator metrics now belongs to the vendor rather than the kubelet. Vendors must provide a container that collects metrics and exposes them to the metrics service (for example, Prometheus).
 
-The [`DisableAcceleratorUsageMetrics` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features:~:text= DisableAcceleratorUsageMetrics,-false) disables metrics collected by the kubelet, with a [timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
+The [`DisableAcceleratorUsageMetrics` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features:~:text= DisableAcceleratorUsageMetrics,-false) disables metrics collected by the kubelet.
 
 ## Component metrics
 
@@ -128,6 +128,28 @@ cloudprovider_gce_api_request_duration_seconds { request = "attach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
+
+
+### kube-scheduler metrics
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+The scheduler exposes optional metrics that reports the requested resources and the desired limits of all running pods. These metrics can be used to build capacity planning dashboards, assess current or historical scheduling limits, quickly identify workloads that cannot schedule due to lack of resources, and compare actual usage to the pod's request.
+
+The kube-scheduler identifies the resource [requests and limits](/docs/concepts/configuration/manage-resources-containers/) configured for each Pod; when either a request or limit is non-zero, the kube-scheduler reports a metrics timeseries. The time series is labelled by:
+- namespace
+- pod name
+- the node where the pod is scheduled or an empty string if not yet scheduled
+- priority
+- the assigned scheduler for that pod
+- the name of the resource (for example, `cpu`)
+- the unit of the resource if known (for example, `cores`)
+
+Once a pod reaches completion (has a `restartPolicy` of `Never` or `OnFailure` and is in the `Succeeded` or `Failed` pod phase, or has been deleted and all containers have a terminated state) the series is no longer reported since the scheduler is now free to schedule other pods to run. The two metrics are called `kube_pod_resource_request` and `kube_pod_resource_limit`.
+
+The metrics are exposed at the HTTP endpoint `/metrics/resources` and require the same authorization as the `/metrics`
+endpoint on the scheduler. You must use the `--show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
+
 
 ## {{% heading "whatsnext" %}}
 
