@@ -1,6 +1,6 @@
 ---
 reviewers:
-- mikedanese
+- raelga
 title: Instalar y Configurar kubectl
 content_type: task
 weight: 10
@@ -11,7 +11,7 @@ card:
 ---
 
 <!-- overview -->
-Usa la herramienta de línea de comandos de Kubernetes, [kubectl](/docs/user-guide/kubectl/), para desplegar y gestionar aplicaciones en Kubernetes. Usando kubectl, puedes inspeccionar recursos del clúster; crear, eliminar, y actualizar componentes; explorar tu nuevo clúster; y arrancar aplicaciones de ejemplo.
+Usa la herramienta de línea de comandos de Kubernetes, [kubectl](/docs/reference/kubectl/kubectl/), para desplegar y gestionar aplicaciones en Kubernetes. Usando kubectl, puedes inspeccionar recursos del clúster; crear, eliminar, y actualizar componentes; explorar tu nuevo clúster; y arrancar aplicaciones de ejemplo. Para ver la lista completa de operaciones de kubectl, se puede ver [el resumen de kubectl](/docs/reference/kubectl/overview/).
 
 
 ## {{% heading "prerequisites" %}}
@@ -22,7 +22,41 @@ Debes usar una versión de kubectl que esté a menos de una versión menor de di
 
 <!-- steps -->
 
-## Instalar kubectl
+## Instalar kubectl en Linux
+
+### Instalar el binario de kubectl con curl en Linux
+
+1. Descargar la última entrega:
+
+    ```
+    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+    ```
+
+Para descargar una versión específica, remplaza el comando `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` con la versión específica. 
+
+Por ejemplo, para descarga la versión {{< param "fullversion" >}} en Linux, teclea: 
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    ```
+
+2. Haz el binario de kubectl ejecutable.
+
+    ```
+    chmod +x ./kubectl
+    ```
+
+3. Mueve el binario dentro de tu PATH.
+
+    ```
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+
+4. Comprueba que la versión que se ha instalado es la más reciente.
+
+    ```
+    kubectl version --client
+    ```
 
 Estos son algunos métodos para instalar kubectl.
 
@@ -184,8 +218,9 @@ Puedes instalar kubectl como parte del Google Cloud SDK.
     ```
     kubectl version
     ```
+## Instalar kubectl en macOS
 
-## Instalar el binario de kubectl usando curl
+### Instalar el binario de kubectl usando curl en macOS
 
 {{< tabs name="kubectl_install_curl" >}}
 {{% tab name="macOS" %}}
