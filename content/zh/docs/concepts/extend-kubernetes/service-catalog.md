@@ -435,7 +435,7 @@ The following example describes how to map secret values into application enviro
 <!--
 * If you are familiar with {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}, [install Service Catalog using Helm](/docs/tasks/service-catalog/install-service-catalog-using-helm/) into your Kubernetes cluster. Alternatively, you can [install Service Catalog using the SC tool](/docs/tasks/service-catalog/install-service-catalog-using-sc/).
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
-* Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
+* Explore the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) project.
 * View [svc-cat.io](https://svc-cat.io/docs/).
 -->
 * 如果你熟悉 {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}，
@@ -443,7 +443,7 @@ The following example describes how to map secret values into application enviro
   到 Kubernetes 集群中。或者，你可以
   [使用 SC 工具安装服务目录](/zh/docs/tasks/service-catalog/install-service-catalog-using-sc/)。
 * 查看[服务代理示例](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers)
-* 浏览 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) 项目
+* 浏览 [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) 项目
 * 查看 [svc-cat.io](https://svc-cat.io/docs/)
 
 

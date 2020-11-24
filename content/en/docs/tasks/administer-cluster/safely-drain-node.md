@@ -4,14 +4,14 @@ reviewers:
 - mml
 - foxish
 - kow3ns
-title: Safely Drain a Node while Respecting the PodDisruptionBudget
+title: Safely Drain a Node
 content_type: task
 min-kubernetes-server-version: 1.5
 ---
 
 <!-- overview -->
 This page shows how to safely drain a {{< glossary_tooltip text="node" term_id="node" >}},
-respecting the PodDisruptionBudget you have defined.
+optionally respecting the PodDisruptionBudget you have defined.
 
 ## {{% heading "prerequisites" %}}
 
@@ -26,6 +26,15 @@ This task also assumes that you have met the following prerequisites:
 
 
 <!-- steps -->
+
+## (Optional) Configure a disruption budget {#configure-poddisruptionbudget}
+
+To endure that your workloads remain available during maintenance, you can
+configure a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/).
+
+If availability is important for any applications that run or could run on the node(s)
+that you are draining, [configure a PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
+first and the continue following this guide.
 
 ## Use `kubectl drain` to remove a node from service
 
@@ -158,7 +167,4 @@ application owners and cluster owners to establish an agreement on behavior in t
 
 
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
-* Learn more about [maintenance on a node](/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node).
-
-
 

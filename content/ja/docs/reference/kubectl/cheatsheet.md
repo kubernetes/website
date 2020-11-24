@@ -214,10 +214,6 @@ kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 
 ## リソースのアップデート
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8d357bf1e (finished translating cheartsheet.md)
 ```bash
 kubectl set image deployment/frontend www=image:v2               # frontend Deploymentのwwwコンテナイメージをv2にローリングアップデートします
 kubectl rollout history deployment/frontend                      # frontend Deploymentの改訂履歴を確認します

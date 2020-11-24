@@ -258,7 +258,7 @@ IDプロバイダーがKubernetesと連携するためには、以下のこと�
 特定のシステム用のセットアップ手順は、以下を参照してください。
 
 - [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
-- [Dex](https://github.com/dexidp/dex/blob/master/Documentation/kubernetes.md)
+- [Dex](https://dexidp.io/docs/kubernetes/)
 - [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
 
 #### kubectlの使用

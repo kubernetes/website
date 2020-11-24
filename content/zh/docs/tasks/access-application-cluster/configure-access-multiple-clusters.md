@@ -203,7 +203,7 @@ users:
 
 <!--
 The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above are the placeholders
-for the pathnames of the certificate files. You need change these to the actual pathnames
+for the pathnames of the certificate files. You need to change these to the actual pathnames
 of certificate files in your environment.
 
 Sometimes you may want to use Base64-encoded data embedded here instead of separate

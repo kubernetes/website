@@ -129,7 +129,7 @@ add-on or with associated Services:
 -->
 下列错误表示 CoreDNS （或 kube-dns）插件或者相关服务出现了问题：
 
-```
+```shell
 kubectl exec -i -t dnsutils -- nslookup kubernetes.default
 ```
 
@@ -156,7 +156,7 @@ nslookup: can't resolve 'kubernetes.default'
 
 Use the `kubectl get pods` command to verify that the DNS pod is running.
 -->
-### 检查 DNS Pod 是否运行
+### 检查 DNS Pod 是否运行   {#check-if-the-dns-pod-is-running}
 
 使用 `kubectl get pods` 命令来验证 DNS Pod 是否运行。
 
@@ -192,7 +192,7 @@ will have to deploy it manually.
 
 Use `kubectl logs` command to see logs for the DNS containers.
 -->
-### 检查 DNS Pod 里的错误
+### 检查 DNS Pod 里的错误    {#check-for-errors-in-the-dns-pod}
 
 使用 `kubectl logs` 命令来查看 DNS 容器的日志信息。
 
@@ -224,7 +224,7 @@ See if there are any suspicious or unexpected messages in the logs.
 
 Verify that the DNS service is up by using the `kubectl get service` command.
 -->
-### 检查是否启用了 DNS 服务
+### 检查是否启用了 DNS 服务   {#is-dns-service-up}
 
 使用 `kubectl get service` 命令来检查 DNS 服务是否已经启用。
 
@@ -263,13 +263,14 @@ more information.
 You can verify that DNS endpoints are exposed by using the `kubectl get endpoints`
 command.
 -->
-### DNS 的末端公开了吗？
+### DNS 的端点公开了吗？    {#are-dns-endpoints-exposed}
 
-你可以使用 `kubectl get endpoints` 命令来验证 DNS 的末端是否公开了。
+你可以使用 `kubectl get endpoints` 命令来验证 DNS 的端点是否公开了。
 
 ```shell
 kubectl get ep kube-dns --namespace=kube-system
 ```
+
 ```
 NAME       ENDPOINTS                       AGE
 kube-dns   10.180.3.17:53,10.180.3.17:53    1h
@@ -283,8 +284,8 @@ For additional Kubernetes DNS examples, see the
 [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)
 in the Kubernetes GitHub repository.
 -->
-如果你没看到对应的末端，请阅读
-[调试服务](/zh/docs/tasks/debug-application-cluster/debug-service/)的末端部分。
+如果你没看到对应的端点，请阅读
+[调试服务](/zh/docs/tasks/debug-application-cluster/debug-service/)的端点部分。
 
 若需要了解更多的 Kubernetes DNS 例子，请在 Kubernetes GitHub 仓库里查看
 [cluster-dns 示例](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)。 
@@ -295,12 +296,12 @@ in the Kubernetes GitHub repository.
 You can verify if queries are being received by CoreDNS by adding the `log` plugin to the CoreDNS configuration (aka Corefile).
 The CoreDNS Corefile is held in a ConfigMap named `coredns`. To edit it, use the command ...
 -->
-### DNS 查询有被接收或者执行吗？
+### DNS 查询有被接收或者执行吗？   {#are-dns-queries-bing-received-processed}
 
 你可以通过给 CoreDNS 的配置文件（也叫 Corefile）添加 `log` 插件来检查查询是否被正确接收。
 CoreDNS 的 Corefile 被保存在一个叫 `coredns` 的 ConfigMap 里，使用下列命令来编辑它：
 
-```
+```shell
 kubectl -n kube-system edit configmap coredns
 ```
 
@@ -309,7 +310,7 @@ Then add `log` in the Corefile section per the example below.
 -->
 然后按下面的例子给 Corefile 添加 `log`。
 
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:

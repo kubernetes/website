@@ -487,7 +487,7 @@ a Lease object.
 <!--
 #### Reliability
 
-In most cases, node controller limits the eviction rate to
+In most cases, the node controller limits the eviction rate to
 `-node-eviction-rate` (default 0.1) per second, meaning it won't evict pods
 from more than 1 node per 10 seconds.
 -->
