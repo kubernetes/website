@@ -18,14 +18,14 @@ This page shows how to configure a Pod to use a
 for storage.
 Here is a summary of the process:
 
-1. A cluster administrator creates a PersistentVolume that is backed by physical
-storage. The administrator does not associate the volume with any Pod.
+1. You, as cluster administrator, create a PersistentVolume backed by physical
+storage. You do not associate the volume with any Pod.
 
 1. You, now taking the role of a developer / cluster user, create a
 PersistentVolumeClaim that is automatically bound to a suitable
 PersistentVolume.
 
-1. The user creates a Pod that uses the PersistentVolumeClaim as storage.
+1. You create a Pod that uses the above PersistentVolumeClaim for storage.
 -->
 本文介绍如何配置 Pod 使用 
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
@@ -45,15 +45,16 @@ PersistentVolume.
 * You need to have a Kubernetes cluster that has only one Node, and the kubectl
 command-line tool must be configured to communicate with your cluster. If you
 do not already have a single-node cluster, you can create one by using
-[Minikube](/docs/getting-started-guides/minikube).
+[Minikube](https://minikube.sigs.k8s.io/docs/).
 
 * Familiarize yourself with the material in
 [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 -->
 
 * 你需要一个包含单个节点的 Kubernetes 集群，并且必须配置 kubectl 命令行工具以便与集群交互。
-  如果还没有单节点集群，可以使用 [Minikube](/zh/docs/setup/learning-environment/minikube/) 创建一个。
-
+  如果还没有单节点集群，可以使用
+  [Minikube](https://minikube.sigs.k8s.io/docs/) 创建一个。
+.
 * 熟悉[持久卷](/zh/docs/concepts/storage/persistent-volumes/)中的材料。
 
 <!-- steps -->
@@ -420,8 +421,8 @@ metadata:
 <!--
 When a Pod consumes a PersistentVolume that has a GID annotation, the annotated GID
 is applied to all Containers in the Pod in the same way that GIDs specified in the
-Pod’s security context are. Every GID, whether it originates from a PersistentVolume
-annotation or the Pod’s specification, is applied to the first process run in
+Pod's security context are. Every GID, whether it originates from a PersistentVolume
+annotation or the Pod's specification, is applied to the first process run in
 each Container.
 -->
 当 Pod 使用带有 GID 注解的 PersistentVolume 时，注解的 GID 会被应用于 Pod 中的所有容器，

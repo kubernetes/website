@@ -965,7 +965,7 @@ This might sound unlikely, but it does happen and it is supposed to work.
 This can happen when the network is not properly configured for "hairpin"
 traffic, usually when `kube-proxy` is running in `iptables` mode and Pods
 are connected with bridge network. The `Kubelet` exposes a `hairpin-mode`
-[flag](/docs/admin/kubelet/) that allows endpoints of a Service to loadbalance
+[flag](/docs/reference/command-line-tools-reference/kubelet/) that allows endpoints of a Service to loadbalance
 back to themselves if they try to access their own Service VIP. The
 `hairpin-mode` flag must either be set to `hairpin-veth` or
 `promiscuous-bridge`.
@@ -977,7 +977,8 @@ back to themselves if they try to access their own Service VIP. The
 
 如果网络没有为“发夹模式（Hairpin）”流量生成正确配置，
 通常当 `kube-proxy` 以 `iptables` 模式运行，并且 Pod 与桥接网络连接时，就会发生这种情况。
-`kubelet` 提供了 `hairpin-mode`[标志](/zh/docs/reference/command-line-tools-reference/kubelet/)，
+`kubelet` 提供了 `hairpin-mode`
+[标志](/zh/docs/reference/command-line-tools-reference/kubelet/)。
 如果 Service 的末端尝试访问自己的 Service VIP，则该端点可以把流量负载均衡回来到它们自身。
 `hairpin-mode` 标志必须被设置为 `hairpin-veth` 或者 `promiscuous-bridge`。
 
@@ -1068,7 +1069,7 @@ Service is not working.  Please let us know what is going on, so we can help
 investigate!
 
 Contact us on
-[Slack](/docs/troubleshooting/#slack) or
+[Slack](/docs/tasks/debug-application-cluster/troubleshooting/#slack) or
 [Forum](https://discuss.kubernetes.io) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 -->
@@ -1087,7 +1088,8 @@ Contact us on
 ## {{% heading "whatsnext" %}}
 
 <!--
-Visit [troubleshooting document](/docs/troubleshooting/) for more information.
+Visit [troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/)
+for more information.
 -->
 访问[故障排查文档](/zh/docs/tasks/debug-application-cluster/troubleshooting/) 获取更多信息。
 
