@@ -1,17 +1,5 @@
----
-title: cgroup (控制组)
-id: cgroup
-date: 2019-06-25
-full_link:
-short_description: >
-  一组具有可选资源隔离、审计和限制的 Linux 进程。
-
-aka:
-tags:
-- fundamental
----
-
 <!--
+
 ---
 title: cgroup (control group)
 id: cgroup
@@ -24,8 +12,21 @@ aka:
 tags:
 - fundamental
 ---
+
 -->
 
+---
+title: cgroup (控制组)
+id: cgroup
+date: 2019-06-25
+full_link:
+short_description: >
+  一组具有可选资源隔离、审计和限制的 Linux 进程。
+
+aka:
+tags:
+- fundamental
+---
 <!--
 A group of Linux processes with optional resource isolation, accounting and limits.
 -->

@@ -1,3 +1,21 @@
+<!-- 
+
+---
+title: API Group
+id: api-group
+date: 2019-09-02
+full_link: /docs/concepts/overview/kubernetes-api/#api-groups
+short_description: >
+  A set of related paths in the Kubernetes API.
+
+aka:
+tags:
+- fundamental
+- architecture
+---										  
+
+-->
+
 ---
 title: API Group
 id: api-group
@@ -11,28 +29,14 @@ tags:
 - fundamental
 - architecture
 ---
-<!-- 
----
-title: API Group
-id: api-group
-date: 2019-09-02
-full_link: /zh/docs/concepts/overview/kubernetes-api/#api-groups
-short_description: >
-  A set of related paths in the Kubernetes API.
 
-aka:
-tags:
-- fundamental
-- architecture
----
--->
 
 <!-- 
 A set of related paths in Kubernetes API.  
 -->
 Kubernetes API 中的一组相关路径。
 
-<!--more-->
+<!--more-->																																																																											  
 
 <!-- 
 You can enable or disable each API group by changing the configuration of your API server. You can also disable or enable paths to specific resources. API group makes it easier to extend the Kubernetes API. The API group is specified in a REST path and in the `apiVersion` field of a serialized object. 
@@ -42,4 +46,4 @@ You can enable or disable each API group by changing the configuration of your A
 <!-- 
 * Read [API Group](/docs/concepts/overview/kubernetes-api/#api-groups) for more information. 
 -->
-* 阅读 [API Group](/docs/concepts/overview/kubernetes-api/#api-groups) 了解更多信息。
+* 阅读 [API Group](/zh/docs/concepts/overview/kubernetes-api/#api-groups) 了解更多信息。

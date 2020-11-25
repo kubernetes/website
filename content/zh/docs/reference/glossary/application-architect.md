@@ -1,18 +1,5 @@
----
-title: 应用架构师
-id: application-architect
-date: 2018-04-12
-full_link: 
-short_description: >
-  应用架构师是负责应用高级设计的人。
-
-aka: 
-tags:
-- user-type
----
- 应用架构师是负责应用高级设计的人。
-
 <!--
+
 ---
 title: Application Architect
 id: application-architect
@@ -25,8 +12,28 @@ aka:
 tags:
 - user-type
 ---
+
+-->
+
+---
+title: Application Architect（应用架构师）
+id: application-architect
+date: 2018-04-12
+full_link: 
+short_description: >
+  应用架构师是负责应用高级设计的人。
+
+aka: 
+tags:
+- user-type
+---
+<!--
  A person responsible for the high-level design of an application.
 -->
+ 应用架构师是负责应用高级设计的人。
+
+			
+
 
 <!--more--> 
 <!--

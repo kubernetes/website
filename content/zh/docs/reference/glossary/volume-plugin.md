@@ -1,18 +1,5 @@
----
-title: 卷（Volume）插件
-id: volumeplugin
-date: 2018-04-12
-full_link: 
-short_description: >
-  卷（Volume）插件可以让 Pod 集成存储。
-
-aka: 
-tags:
-- core-object
-- storage
----
-
 <!--
+
 ---
 title: Volume Plugin
 id: volumeplugin
@@ -26,7 +13,22 @@ tags:
 - core-object
 - storage
 ---
+
 -->
+
+---
+title: Volume Plugin（卷插件）
+id: volumeplugin
+date: 2018-04-12
+full_link: 
+short_description: >
+  卷插件可以让 Pod 集成存储。
+
+aka: 
+tags:
+- core-object
+- storage
+---
 
 <!--
  A Volume Plugin enables integration of storage within a {{< glossary_tooltip text="Pod" term_id="pod" >}}.

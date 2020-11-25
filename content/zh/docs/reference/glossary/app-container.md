@@ -1,18 +1,5 @@
----
-title: 应用程序容器
-id: app-container
-date: 2019-02-12
-full_link:
-short_description: >
-  用于运行部分工作负载的容器。与初始化容器比较而言。
-
-aka:
-tags:
-- workload
----
-  应用程序容器（或 app 容器）{{< glossary_tooltip text="容器" term_id="container" >}} 在 {{< glossary_tooltip text="pod" term_id="pod" >}} 中，在 {{< glossary_tooltip text="初始化容器" term_id="init-container" >}} 启动完毕后才开始启动。
-
 <!--
+
 ---
 title: App Container
 id: app-container
@@ -25,8 +12,27 @@ aka:
 tags:
 - workload
 ---
+
+-->
+
+---
+title: App Container（应用程序容器）
+id: app-container
+date: 2019-02-12
+full_link:
+short_description: >
+  用于运行部分工作负载的容器。与初始化容器比较而言。
+
+aka:
+tags:
+- workload
+---
+<!--
  Application containers (or app containers) are the {{< glossary_tooltip text="containers" term_id="container" >}} in a {{< glossary_tooltip text="pod" term_id="pod" >}} that are started after any {{< glossary_tooltip text="init containers" term_id="init-container" >}} have completed.
 -->
+  应用程序 {{< glossary_tooltip text="容器" term_id="container" >}} （或 app 容器）在 {{< glossary_tooltip text="pod" term_id="pod" >}} 中，在 {{< glossary_tooltip text="初始化容器" term_id="init-container" >}} 启动完毕后才开始启动。
+
+
 
 <!--more-->
 
