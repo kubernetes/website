@@ -29,7 +29,7 @@ Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.i
   controller with [community](https://www.getambassador.io/docs) or 
   [commercial](https://www.getambassador.io/pro/) support from [Datawire](https://www.datawire.io/).
 * [AppsCode Inc.](https://appscode.com) offers support and maintenance for the most widely used [HAProxy](https://www.haproxy.org/) based ingress controller [Voyager](https://appscode.com/products/voyager). 
-* [AWS ALB Ingress Controller](https://github.com/kubernetes-sigs/aws-alb-ingress-controller) enables ingress using the [AWS Application Load Balancer](https://aws.amazon.com/elasticloadbalancing/).
+* [AWS Load Balancer Controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) (formerly known as AWS ALB Ingress Controller) enables ingress using [AWS Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/).
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller
   provided and supported by VMware.
 * Citrix provides an [Ingress Controller](https://github.com/citrix/citrix-k8s-ingress-controller) for its hardware (MPX), virtualized (VPX) and [free containerized (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html) for [baremetal](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal) and [cloud](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) deployments.
@@ -73,5 +73,4 @@ Make sure you review your ingress controller's documentation to understand the c
 
 * Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
-
 
