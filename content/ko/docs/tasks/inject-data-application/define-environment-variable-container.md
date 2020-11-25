@@ -47,17 +47,10 @@ weight: 20
     envar-demo      1/1       Running   0          9s
     ```
 
-1. 파드 안에 실행되고 있는 컨테이너의 셸에 접근한다.
+1. 파드의 컨테이너 환경 변수를 나열한다.
 
     ```shell
-    kubectl exec -it envar-demo -- /bin/bash
-    ```
-
-1. 셸 안에서, 환경 변수를 나열하기 위해 `printenv` 커맨드를 실행한다.
-
-    ```shell
-    # 컨테이너 내 셸에서 다음을 실행한다.
-    printenv
+    kubectl exec envar-demo -- printenv
     ```
 
     출력은 아래와 비슷할 것이다.
@@ -70,8 +63,6 @@ weight: 20
     DEMO_GREETING=Hello from the environment
     DEMO_FAREWELL=Such a sweet sorrow
     ```
-
-1. 셸에서 빠져나오기 위해, `exit`을 입력한다.
 
 {{< note >}}
 `env` 나 `envFrom` 필드를 이용해 설정된 환경 변수들은 컨테이너 이미지

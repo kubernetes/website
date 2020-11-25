@@ -61,9 +61,9 @@ weight: 10
 
 `imagePullPolicy` 가 특정값 없이 정의되면, `Always` 로 설정된다.
 
-## 매니페스트가 있는 다중 아키텍처 이미지
+## 이미지 인덱스가 있는 다중 아키텍처 이미지
 
-바이너리 이미지를 제공할 뿐만 아니라, 컨테이너 레지스트리는 컨테이너 [이미지 매니페스트](https://github.com/opencontainers/image-spec/blob/master/manifest.md)를 제공할 수도 있다. 매니페스트는 아키텍처별 버전의 컨테이너에 대한 이미지 매니페스트를 참조할 수 있다. 아이디어는 이미지의 이름(예를 들어, `pause`, `example/mycontainer`, `kube-apiserver`)을 가질 수 있다는 것이다. 그래서 다른 시스템들이 사용하고 있는 컴퓨터 아키텍처에 적합한 바이너리 이미지를 가져올 수 있다.
+바이너리 이미지를 제공할 뿐만 아니라, 컨테이너 레지스트리는 [컨테이너 이미지 인덱스](https://github.com/opencontainers/image-spec/blob/master/image-index.md)를 제공할 수도 있다. 이미지 인덱스는 컨테이너의 아키텍처별 버전에 대한 여러 [이미지 매니페스트](https://github.com/opencontainers/image-spec/blob/master/manifest.md)를 가리킬 수 있다. 아이디어는 이미지의 이름(예를 들어, `pause`, `example/mycontainer`, `kube-apiserver`)을 가질 수 있다는 것이다. 그래서 다른 시스템들이 사용하고 있는 컴퓨터 아키텍처에 적합한 바이너리 이미지를 가져올 수 있다.
 
 쿠버네티스 자체는 일반적으로 `-$(ARCH)` 접미사로 컨테이너 이미지의 이름을 지정한다. 이전 버전과의 호환성을 위해, 접미사가 있는 오래된 이미지를 생성한다. 아이디어는 모든 아키텍처에 대한 매니페스트가 있는 `pause` 이미지와 이전 구성 또는 이전에 접미사로 이미지를 하드 코딩한 YAML 파일과 호환되는 `pause-amd64` 라고 하는 이미지를 생성한다.
 
