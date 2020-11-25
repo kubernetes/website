@@ -30,7 +30,7 @@ allocated as much CPU as it requests.
 Each node in your cluster must have at least 1 CPU.
 
 A few of the steps on this page require you to run the
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 service in your cluster. If you have the metrics-server
 running, you can skip those steps.
 
@@ -39,7 +39,8 @@ following command to enable metrics-server:
 -->
 集群中的每个节点必须至少有 1 个 CPU 可用才能运行本任务中的示例。
 
-本页的一些步骤要求你在集群中运行[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
+本页的一些步骤要求你在集群中运行
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 服务。如果你的集群中已经有正在运行的 metrics-server 服务，可以跳过这些步骤。
 
 如果你正在运行{{< glossary_tooltip term_id="minikube" >}}，请运行以下命令启用 metrics-server：
@@ -353,6 +354,20 @@ to specify a default value for the CPU limit.
   集群管理员可以使用
   [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core/)
   指定 CPU 限制的默认值。
+
+<!--
+## If you specify a CPU limit but do not specify a CPU request
+
+If you specify a CPU limit for a Container but do not specify a CPU request, Kubernetes automatically
+assigns a CPU request that matches the limit. Similarly, if a Container specifies its own memory limit,
+but does not specify a memory request, Kubernetes automatically assigns a memory request that matches
+the limit.
+-->
+## 如果你设置了 CPU 限制但未设置 CPU 请求
+
+如果你为容器指定了 CPU 限制值但未为其设置 CPU 请求，Kubernetes 会自动为其
+设置与 CPU 限制相同的 CPU 请求值。类似的，如果容器设置了内存限制值但未设置
+内存请求值，Kubernetes 也会为其设置与内存限制值相同的内存请求。
 
 <!-- 
 ## Motivation for CPU requests and limits

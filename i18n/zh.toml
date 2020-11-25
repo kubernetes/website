@@ -181,6 +181,9 @@ other = "教程目标"
 [options_heading]
 other = "选项"
 
+[post_create_child_page]
+other = "创建子页面"
+
 [prerequisites_heading]
 other = "准备开始"
 

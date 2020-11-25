@@ -28,7 +28,7 @@
 /docs/admin/audit/     /docs/tasks/debug-application-cluster/audit/ 301
 /docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
 /docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
-/docs/admin/cluster-management/     /docs/tasks/administer-cluster/cluster-management/ 301
+/docs/admin/cluster-management/     /docs/tasks/administer-cluster/ 302
 /docs/admin/cluster-troubleshooting/     /docs/tasks/debug-application-cluster/debug-cluster/ 301
 /docs/admin/daemons/     /docs/concepts/workloads/controllers/daemonset/ 301
 /docs/admin/disruptions/     /docs/concepts/workloads/pods/disruptions/ 301
@@ -83,7 +83,7 @@
 /docs/concepts/cluster-administration/access-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/concepts/cluster-administration/audit/     /docs/tasks/debug-application-cluster/audit/ 301
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
-/docs/concepts/cluster-administration/cluster-management/     /docs/tasks/administer-cluster/cluster-management/ 301
+/docs/concepts/cluster-administration/cluster-management/     /docs/tasks/administer-cluster/ 302
 /docs/concepts/cluster-administration/configure-etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/cluster-administration/device-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/ 301
 /docs/concepts/cluster-administration/etcd-upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
