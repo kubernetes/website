@@ -1,18 +1,5 @@
----
-title: CIDR
-id: cidr
-date: 2019-11-12
-full_link: 
-short_description: >
-  CIDR 是一种描述 IP 地址块的符号，被广泛使用于各种网络配置中。
-
-aka:
-tags:
-- networking
----
-CIDR (无类域间路由) 是一种描述 IP 地址块的符号，被广泛使用于各种网络配置中。
-
 <!-- 
+
 ---
 title: CIDR
 id: cidr
@@ -25,8 +12,26 @@ aka:
 tags:
 - networking
 ---
+
+-->
+
+---
+title: CIDR
+id: cidr
+date: 2019-11-12
+full_link: 
+short_description: >
+  CIDR 是一种描述 IP 地址块的符号，被广泛使用于各种网络配置中。
+
+aka:
+tags:
+- networking
+---
+<!--
 CIDR (Classless Inter-Domain Routing) is a notation for describing blocks of IP addresses and is used heavily in various networking configurations.
 -->
+CIDR (无类域间路由) 是一种描述 IP 地址块的符号，被广泛使用于各种网络配置中。
+
 
 <!--more-->
 

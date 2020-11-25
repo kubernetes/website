@@ -1,17 +1,5 @@
----
-title: 批准者
-id: approver
-date: 2018-04-12
-full_link: 
-short_description: >
-  可以审核并批准 Kubernetes 代码贡献的人。
-
-aka: 
-tags:
-- community
----
-
 <!--
+
 ---
 title: Approver
 id: approver
@@ -24,8 +12,24 @@ aka:
 tags:
 - community
 ---
+
 -->
 
+---
+title: Approver（批准者）
+id: approver
+date: 2018-04-12
+full_link: 
+short_description: >
+  可以审核并批准 Kubernetes 代码贡献的人。
+
+aka: 
+tags:
+- community
+---
+<!--
+ A person who can review and approve Kubernetes code contributions.
+-->
  可以审核并批准 Kubernetes 代码贡献的人。
 
 <!--more--> 

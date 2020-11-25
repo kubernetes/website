@@ -1,18 +1,6 @@
----
-title: 混排切片（Shuffle Sharding）
-id: shuffle-sharding
-date: 2020-03-04
-full_link:
-short_description: >
-  一种将请求指派给队列的技术，其隔离性好过对队列个数哈希取模的方式。
-
-aka:
-tags:
-- fundamental
----
-一种将请求指派给队列的技术，其隔离性好过对队列个数哈希取模的方式。
-
 <!--
+
+---
 title: shuffle sharding
 id: shuffle-sharding
 date: 2020-03-04
@@ -23,8 +11,28 @@ short_description: >
 aka:
 tags:
 - fundamental
+---
+
+-->
+
+---
+title: Shuffle Sharding（混排切片）
+id: shuffle-sharding
+date: 2020-03-04
+full_link:
+short_description: >
+  一种将请求指派给队列的技术，其隔离性好过对队列个数哈希取模的方式。
+
+aka:
+tags:
+- fundamental
+---
+
+<!--
 A technique for assigning requests to queues that provides better isolation than hashing modulo the number of queues.
 -->
+Shuffle Sharding（混排切片）是指一种将请求指派给队列的技术，其隔离性好过对队列个数哈希取模的方式。
+
 
 <!--more--> 
 

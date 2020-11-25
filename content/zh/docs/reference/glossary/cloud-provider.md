@@ -1,5 +1,22 @@
+<!--
+
 ---
-title: 云供应商（Cloud Provider）
+title: Cloud Provider
+id: cloud-provider
+date: 2018-04-12
+short_description: >
+  An organization that offers a cloud computing platform.
+
+aka:
+- Cloud Service Provider
+tags:
+- community
+---
+
+-->
+
+---
+title: Cloud Provider（云供应商）
 id: cloud-provider
 date: 2018-04-12
 short_description: >
@@ -10,22 +27,12 @@ aka:
 tags:
 - community
 ---
- 一个提供云计算平台的商业机构或其他组织。
-
 <!--
-Cloud Provider）
-id: cloud-provider
-date: 2018-04-12
-short_description: >
-  An organization that offers a cloud computing platform.
-
-aka:
-- Cloud Service Provider
-tags:
-- community
-
  A business or other organization that offers a cloud computing platform.
 -->
+ 一个提供云计算平台的商业机构或其他组织。
+
+
 
 <!--more-->
 
@@ -42,7 +49,7 @@ such as running a Kubernetes cluster.
 You can also find Kubernetes as a managed service; sometimes called
 Platform as a Service, or PaaS. With managed Kubernetes, your
 cloud provider is responsible for the Kubernetes control plane as well
-as the glossary_tooltip term_id="node" text="nodes" and the
+as the {{< glossary_tooltip term_id="node" text="nodes" >}} and the
 infrastructure they rely on: networking, storage, and possibly other
 elements such as load balancers.
 -->

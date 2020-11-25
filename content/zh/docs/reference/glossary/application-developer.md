@@ -1,17 +1,5 @@
----
-title: 应用开发者
-id: application-developer
-date: 2018-04-12
-full_link: 
-short_description: >
-  编写可以在 Kubernetes 集群上运行的应用的人。
-
-aka: 
-tags:
-- user-type
----
-
 <!--
+
 ---
 title: Application Developer
 id: application-developer
@@ -24,10 +12,24 @@ aka:
 tags:
 - user-type
 ---
+
 -->
 
+---
+title: Application Developer（应用开发者）
+id: application-developer
+date: 2018-04-12
+full_link: 
+short_description: >
+  编写可以在 Kubernetes 集群上运行的应用的人。
+
+aka: 
+tags:
+- user-type
+---
+
 <!--
-A person who writes an application that runs in a Kubernetes cluster.
+ A person who writes an application that runs in a Kubernetes cluster.
 -->
 
 编写可以在 Kubernetes 集群上运行的应用的人。
