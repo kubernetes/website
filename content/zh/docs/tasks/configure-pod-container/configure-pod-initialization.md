@@ -55,7 +55,7 @@ Init 容器将共享卷挂载到了 `/work-dir` 目录，应用容器将共享�
 Init 容器执行完下面的命令就终止：
 
 ```shell
-wget -O /work-dir/index.html http://kubernetes.io
+wget -O /work-dir/index.html http://info.cern.ch
 ```
 
 <!--
@@ -118,16 +118,13 @@ The output shows that nginx is serving the web page that was written by the init
 结果表明 nginx 正在为 Init 容器编写的 web 页面服务：
 
 ```
-<!Doctype html>
-<html id="home">
+<html><head></head><body><header>
+<title>http://info.cern.ch</title>
+</header>
 
-<head>
-...
-"url": "http://kubernetes.io/"}</script>
-</head>
-<body>
+<h1>http://info.cern.ch - home of the first website</h1>
   ...
-  <p>Kubernetes is open source giving you the freedom to take advantage ...</p>
+<li><a href="http://info.cern.ch/hypertext/WWW/TheProject.html">Browse the first website</a></li>
   ...
 ```
 

@@ -579,6 +579,59 @@ Linux 权能常数定义的形式为 `CAP_XXX`。但是你在 Container 清单�
 {{< /note >}}
 
 <!--
+## Set the Seccomp Profile for a Container
+
+To set the Seccomp profile for a Container, include the `seccompProfile` field
+in the `securityContext` section of your Pod or Container manifest. The
+`seccompProfile` field is a
+[SeccompProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
+>}}/#seccompprofile-v1-core) object consisting of `type` and `localhostProfile`.
+Valid options for `type` include `RuntimeDefault`, `Unconfined`, and
+`Localhost`. `localhostProfile` must only be set set if `type: Localhost`. It
+indicates the path of the pre-configured profile on the node, relative to the
+kubelet's configured Seccomp profile location (configured with the `-root-dir`
+flag).
+
+Here is an example that sets the Seccomp profile to the node's container runtime
+default profile:
+-->
+## 为容器设置 Seccomp 样板
+
+若要为容器设置 Seccomp 样板（Profile），可在你的 Pod 或 Container 清单的
+`securityContext` 节中包含 `seccompProfile` 字段。该字段是一个 
+[SeccompProfile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#seccompprofile-v1-core)
+对象，包含 `type` 和 `localhostProfile` 属性。
+`type` 的合法选项包括 `RuntimeDefault`、`Unconfined` 和 `Localhost`。
+`localhostProfile` 只能在 `type: Localhost` 配置下才需要设置。
+该字段标明节点上预先配置的样板的路径，路径是相对于 kubelet 所配置的
+Seccomp 样板路径（使用 `--root-dir` 配置）而言的。
+
+下面是一个例子，设置容器使用节点上容器运行时的默认样板作为 Seccomp 样板：
+
+```yaml
+...
+securityContext:
+  seccompProfile:
+    type: RuntimeDefault
+```
+
+<!--
+Here is an example that sets the Seccomp profile to a pre-configured file at
+`<kubelet-root-dir>/seccomp/my-profiles/profile-allow.json`:
+-->
+下面是另一个例子，将 Seccomp 的样板设置为位于
+`<kubelet-根目录>/seccomp/my-profiles/profile-allow.json`
+的一个预先配置的文件。
+
+```yaml
+...
+securityContext:
+  seccompProfile:
+    type: Localhost
+    localhostProfile: my-profiles/profile-allow.json
+```
+
+<!--
 ## Assign SELinux labels to a Container
 
 To assign SELinux labels to a Container, include the `seLinuxOptions` field in

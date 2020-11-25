@@ -26,13 +26,13 @@ This page shows how to use PodPreset objects to inject information like {{< glos
 ## {{% heading "prerequisites" %}}
 
 <!--
-You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. If you do not already have a cluster, you can create one using [Minikube](/docs/setup/learning-environment/minikube/).
+You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. If you do not already have a cluster, you can create one using [Minikube](https://minikube.sigs.k8s.io/docs/).
 Make sure that you have [enabled PodPreset](/docs/concepts/workloads/pods/podpreset/#enable-pod-preset) in your cluster.
 -->
 你需要一个运行的 Kubernetes 集群以及配置好与集群通信的 kubectl 命令行工具。
-如果你还没有集群，可以使用 [Minikube](/zh/docs/setup/learning-environment/minikube/)
+如果你还没有集群，可以使用 [Minikube](https://minikube.sigs.k8s.io/docs/)
 安装一个。
-确保你已经在集群中[启用了 PodPreset](/docs/concepts/workloads/pods/podpreset/#enable-pod-preset)。
+确保你已经在集群中[启用了 PodPreset](/zh/docs/concepts/workloads/pods/podpreset/#enable-pod-preset)。
 
 <!--
 ## Use Pod presets to inject environment variables and volumes

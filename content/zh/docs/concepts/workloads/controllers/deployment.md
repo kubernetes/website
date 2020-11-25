@@ -201,20 +201,20 @@ Follow the steps given below to create the above Deployment:
 3. 要查看 Deployment 上线状态，运行 `kubectl rollout status deployment.v1.apps/nginx-deployment`。
    输出类似于：
 
-    ```
-    Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-    deployment "nginx-deployment" successfully rolled out
-    ```
+   ```
+   Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
+   deployment "nginx-deployment" successfully rolled out
+   ```
 
 <!--
 4. Run the `kubectl get deployments` again a few seconds later. The output is similar to this:
 -->
 4. 几秒钟后再次运行 `kubectl get deployments`。输出类似于：
 
-    ```
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         3         3            3           18s
-    ```
+   ```
+   NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+   nginx-deployment   3         3         3            3           18s
+   ```
 
    <!--
    Notice that the Deployment has created all three replicas, and all replicas are up-to-date (they contain the latest Pod template) and available.
@@ -1504,7 +1504,7 @@ deployment.apps/nginx-deployment patched
 Once the deadline has been exceeded, the Deployment controller adds a DeploymentCondition with the following
 attributes to the Deployment's `.status.conditions`:
 -->
-超过截止时间后， Deployment 控制器将添加具有以下属性的 DeploymentCondition 到
+超过截止时间后，Deployment 控制器将添加具有以下属性的 DeploymentCondition 到
 Deployment 的 `.status.conditions` 中：
 
 * Type=Progressing
@@ -1514,7 +1514,9 @@ Deployment 的 `.status.conditions` 中：
 <!--
 See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties) for more information on status conditions.
 -->
-参考 [Kubernetes API 约定](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties) 获取更多状态状况相关的信息。
+参考
+[Kubernetes API 约定](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties)
+获取更多状态状况相关的信息。
 
 <!--
  Kubernetes takes no action on a stalled Deployment other than to report a status condition with

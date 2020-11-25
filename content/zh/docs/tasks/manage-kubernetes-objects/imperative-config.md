@@ -108,6 +108,28 @@ configuration file.
 
 * `kubectl delete -f <filename|url>`
 
+<!-- note
+If configuration file has specified the `generateName` field in the `metadata`
+section instead of the `name` field, you cannot delete the object using
+`kubectl delete -f <filename|url>`.
+You will have to use other flags for deleting the object. For example:
+
+```shell
+kubectl delete <type> <name>
+kubectl delete <type> -l <label>
+```
+-->
+{{< note >}}
+如果配置文件在 `metadata` 节中设置了 `generateName` 字段而非 `name` 字段，
+你无法使用 `kubectl delete -f <filename|url>` 来删除该对象。
+你必须使用其他标志才能删除对象。例如：
+
+```shell
+kubectl delete <type> <name>
+kubectl delete <type> -l <label>
+```
+{{< /note >}}
+
 <!--
 ## How to view an object
 

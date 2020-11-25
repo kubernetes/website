@@ -440,7 +440,7 @@ poorly-behaved workloads that may be harming system health.
     {{< /note >}}
 
 * `apiserver_flowcontrol_request_concurrency_limit` is a gauge vector
-  hoding the computed concurrency limit (based on the API server's
+  holding the computed concurrency limit (based on the API server's
   total concurrency limit and PriorityLevelConfigurations' concurrency
   shares), broken down by the label `priority_level`.
 

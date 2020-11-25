@@ -40,7 +40,7 @@ This means that no pod will be able to schedule onto `node1` unless it has a mat
 
 To remove the taint added by the command above, you can run:
 ```shell
-kubectl taint nodes node1 key:NoSchedule-
+kubectl taint nodes node1 key=value:NoSchedule-
 ```
 
 You specify a toleration for a pod in the PodSpec. Both of the following tolerations "match" the
