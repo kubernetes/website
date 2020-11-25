@@ -23,7 +23,7 @@ You can also read the
 ## kind
 
 [`kind`](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
-your local computer. This tool it requires that you have
+your local computer. This tool requires that you have
 [Docker](https://docs.docker.com/get-docker/) installed and configured.
 
 The kind [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) page

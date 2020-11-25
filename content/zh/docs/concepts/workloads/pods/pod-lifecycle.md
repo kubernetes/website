@@ -19,7 +19,8 @@ of its primary containers starts OK, and then through either the `Succeeded` or
 
 Whilst a Pod is running, the kubelet is able to restart containers to handle some
 kind of faults. Within a Pod, Kubernetes tracks different container
-[states](#container-states) and handles
+[states](#container-states) and determines what action to take to make the Pod
+healthy again.
 -->
 本页面讲述 Pod 的生命周期。
 Pod 遵循一个预定义的生命周期，起始于 `Pending` [阶段](#pod-phase)，如果至少
@@ -28,7 +29,7 @@ Pod 遵循一个预定义的生命周期，起始于 `Pending` [阶段](#pod-pha
 
 在 Pod 运行期间，`kubelet` 能够重启容器以处理一些失效场景。
 在 Pod 内部，Kubernetes 跟踪不同容器的[状态](#container-states)
-并处理可能出现的状况。
+并确定使 Pod 重新变得健康所需要采取的动作。
 
 <!--
 In the Kubernetes API, Pods have both a specification and an actual status. The
@@ -88,7 +89,7 @@ Pod 自身不具有自愈能力。如果 Pod 被调度到某{{< glossary_tooltip
 
 <!--
 A given Pod (as defined by a UID) is never "rescheduled" to a different node; instead,
-that Pod can be replaced by a new, near-identical Pod, with even the same name i
+that Pod can be replaced by a new, near-identical Pod, with even the same name if
 desired, but with a different UID.
 
 When something is said to have the same lifetime as a Pod, such as a
@@ -193,7 +194,7 @@ Kubernetes 会跟踪 Pod 中每个容器的状态，就像它跟踪 Pod 总体�
 `Terminated`（已终止）。
 
 <!--
-To the check state of a Pod's containers, you can use
+To check the state of a Pod's containers, you can use
 `kubectl describe pod <name-of-pod>`. The output shows the state for each container
 within that Pod.
 
@@ -207,7 +208,7 @@ Each state has a specific meaning:
 <!--
 ### `Waiting` {#container-state-waiting}
 
-If a container is not in either the `Running` or `Terminated` state, it `Waiting`.
+If a container is not in either the `Running` or `Terminated` state, it is `Waiting`.
 A container in the `Waiting` state is still running the operations it requires in
 order to complete start up: for example, pulling the container image from a container
 image registry, or applying {{< glossary_tooltip text="Secret" term_id="secret" >}}
@@ -228,23 +229,23 @@ Reason 字段，其中给出了容器处于等待状态的原因。
 ### `Running` {#container-state-running}
 
 The `Running` status indicates that a container is executing without issues. If there
-was a `postStart` hook configured, it has already executed and executed. When you use
+was a `postStart` hook configured, it has already executed and finished. When you use
 `kubectl` to query a Pod with a container that is `Running`, you also see information
 about when the container entered the `Running` state.
 -->
 ### `Running`（运行中）     {#container-state-running}
 
 `Running` 状态表明容器正在执行状态并且没有问题发生。
-如果配置了 `postStart` 回调，那么该回调已经执行完成。
+如果配置了 `postStart` 回调，那么该回调已经执行且已完成。
 如果你使用 `kubectl` 来查询包含 `Running` 状态的容器的 Pod 时，你也会看到
 关于容器进入 `Running` 状态的信息。
 
 <!--
 ### `Terminated` {#container-state-terminated}
 
-A container in the `Terminated` state has begin execution and has then either run to
-completion or has failed for some reason. When you use `kubectl` to query a Pod with
-a container that is `Terminated`, you see a reason, and exit code, and the start and
+A container in the `Terminated` state began execution and then either ran to
+completion or failed for some reason. When you use `kubectl` to query a Pod with
+a container that is `Terminated`, you see a reason, an exit code, and the start and
 finish time for that container's period of execution.
 
 If a container has a `preStop` hook configured, that runs before the container enters
@@ -268,8 +269,8 @@ and Never. The default value is Always.
 The `restartPolicy` applies to all containers in the Pod. `restartPolicy` only
 refers to restarts of the containers by the kubelet on the same node. After containers
 in a Pod exit, the kubelet restarts them with an exponential back-off delay (10s, 20s,
-40s, …), that is capped at five minutes. Once a container has executed with no problems
-for 10 minutes without any problems, the kubelet resets the restart backoff timer for
+40s, …), that is capped at five minutes. Once a container has executed for 10 minutes
+without any problems, the kubelet resets the restart backoff timer for
 that container.
 -->
 ## 容器重启策略 {#restart-policy}
@@ -426,7 +427,8 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 ## Container probes
 
 A [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) is a diagnostic
-performed periodically by the [kubelet](/docs/admin/kubelet/)
+performed periodically by the
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 on a Container. To perform a diagnostic,
 the kubelet calls a
 [Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core) implemented by
@@ -434,10 +436,10 @@ the container. There are three types of handlers:
 -->
 ## 容器探针    {#container-probes}
 
-[探针](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
+[Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 是由 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 对容器执行的定期诊断。
 要执行诊断，kubelet 调用由容器实现的
-[Handler](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core)
+[Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core)
 （处理程序）。有三种类型的处理程序：
 
 <!--
@@ -593,7 +595,7 @@ to stop.
 -->
 ### 何时该使用启动探针？   {#when-should-you-use-a-startup-probe}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 <!--
 Startup probes are useful for Pods that have containers that take a long time to
@@ -647,14 +649,17 @@ shutdown.
 Pod。
 
 <!--
-Typically, the container runtime sends a a TERM signal is sent to the main process in each
-container. Once the grace period has expired, the KILL signal is sent to any remainig
+Typically, the container runtime sends a TERM signal to the main process in each
+container. Many container runtimes respect the `STOPSIGNAL` value defined in the container
+image and send this instead of TERM.
+Once the grace period has expired, the KILL signal is sent to any remainig
 processes, and the Pod is then deleted from the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
 container runtime's management service is restarted while waiting for processes to terminate, the
 cluster retries from the start including the full original grace period.
 -->
 通常情况下，容器运行时会发送一个 TERM 信号到每个容器中的主进程。
+很多容器运行时都能够注意到容器镜像中 `STOPSIGNAL` 的值，并发送该信号而不是 TERM。
 一旦超出了体面终止限期，容器运行时会向所有剩余进程发送 KILL 信号，之后
 Pod 就会被从 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
 上移除。如果 `kubelet` 或者容器运行时的管理服务在等待进程终止期间被重启，
@@ -666,9 +671,9 @@ An example flow:
 1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period
    (30 seconds).
 1. The Pod in the API server is updated with the time beyond which the Pod is considered "dead"
-   along with the grace period.  
+   along with the grace period.
    If you use `kubectl describe` to check on the Pod you're deleting, that Pod shows up as
-   "Terminating".  
+   "Terminating".
    On the node where the Pod is running: as soon as the kubelet sees that a Pod has been marked
    as terminating (a graceful shutdown duration has been set), the kubelet begins the local Pod
    shutdown process.
@@ -737,7 +742,7 @@ An example flow:
    `SIGKILL` to any processes still running in any container in the Pod.
    The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
 1. The kubelet triggers forcible removal of Pod object from the API server, by setting grace period
-   to 0 (immediate deletion).  
+   to 0 (immediate deletion).
 1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 -->
 4. 超出终止宽限期线时，`kubelet` 会触发强制关闭过程。容器运行时会向 Pod 中所有容器内
@@ -745,14 +750,14 @@ An example flow:
    `kubelet` 也会清理隐藏的 `pause` 容器，如果容器运行时使用了这种容器的话。
 
 5. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0
-   （这意味着马上删除）。  
+   （这意味着马上删除）。
 
 6. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。
 
 <!--
 ### Forced Pod termination {#pod-termination-forced}
 
-Forced deletions can be potentially disruptiove for some workloads and their Pods.
+Forced deletions can be potentially disruptive for some workloads and their Pods.
 
 By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports
 the `-grace-period=<seconds>` option which allows you to override the default and specify your
@@ -849,5 +854,4 @@ and
 * 关于 API 中定义的有关 Pod/容器的详细规范信息，
   可参阅 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
   和 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)。
-
 

@@ -44,16 +44,19 @@ Kubernetes 审计功能提供了与安全相关的按时间顺序排列的记录
 <!-- body -->
 
 <!--
-[Kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
-performs auditing. Each request on each stage
-of its execution generates an event, which is then pre-processed according to
+Audit records begin their lifecycle inside the
+[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
+component. Each request on each stage
+of its execution generates an audit event, which is then pre-processed according to
 a certain policy and written to a backend. The policy determines what's recorded
 and the backends persist the records. The current backend implementations
 include logs files and webhooks.
 -->
+审计记录最初产生于
 [kube-apiserver](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
-执行审计。每个执行阶段的每个请求都会生成一个事件，然后根据特定策略对事件进行预处理并写入后端。
-该策略确定要记录的内容和用来存储记录的后端。当前的后端支持日志文件和 webhook。
+内部。每个请求在不同执行阶段都会生成审计事件；这些审计事件会根据特定策略
+被预处理并写入后端。策略确定要记录的内容和用来存储记录的后端。
+当前的后端支持日志文件和 webhook。
 
 <!--
 Each request can be recorded with an associated "stage". The known stages are:
@@ -162,7 +165,7 @@ script, which generates the audit policy file. You can see most of the audit pol
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
-[Kube-apiserver][kube-apiserver] out of the box provides two backends:
+Out of the box, the kube-apiserver provides two backends:
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
@@ -173,7 +176,7 @@ In both cases, audit events structure is defined by the API in the
 -->
 ## 审计后端   {#audit-backends}
 
-审计后端实现将审计事件导出到外部存储。 `Kube-apiserver` 提供两个后端：
+审计后端实现将审计事件导出到外部存储。`Kube-apiserver` 默认提供两个后端：
 
 - Log 后端，将事件写入到磁盘
 - Webhook 后端，将事件发送到外部 API
@@ -407,7 +410,7 @@ audit policies.
 
 ### Use fluentd to collect and distribute audit events from log file
 
-[Fluentd](http://www.fluentd.org/) is an open source data collector for unified logging layer.
+[Fluentd](https://www.fluentd.org/) is an open source data collector for unified logging layer.
 In this example, we will use fluentd to split audit events by different namespaces.
 -->
 ## 日志收集器示例
@@ -570,10 +573,10 @@ different users into different files.
    ```
 
 <!--
-1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
+1. create a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) for kube-apiserver webhook audit backend
 -->
 4. 为 kube-apiserver webhook 审计后端创建一个
-   [kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+   [kubeconfig 文件](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)：
 
   ```bash
   cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
@@ -618,10 +621,8 @@ plugin which supports full-text search and analytics.
 ## {{% heading "whatsnext" %}}
 
 <!--
-Visit [Auditing with Falco](/docs/tasks/debug-application-cluster/falco).
-
 Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
 -->
 
-* 了解 [Mutating webhook 审计注解](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)
+了解 [Mutating webhook 审计注解](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)。
 

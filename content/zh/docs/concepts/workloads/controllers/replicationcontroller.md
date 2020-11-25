@@ -7,7 +7,7 @@ feature:
     重新启动失败的容器，在节点死亡时替换并重新调度容器，杀死不响应用户定义的健康检查的容器，并且在它们准备好服务之前不会将它们公布给客户端。
 
 content_type: concept
-weight: 20
+weight: 90
 ---     
 
 <!--
@@ -22,7 +22,7 @@ feature:
     Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
 
 content_type: concept
-weight: 20
+weight: 90
 -->
 
 <!-- overview -->
@@ -499,7 +499,7 @@ API object can be found at:
 ### ReplicaSet
 
 [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is the next-generation ReplicationController that supports the new [set-based label selector](/docs/concepts/overview/working-with-objects/labels/#set-based-requirement).
-It’s mainly used by [`Deployment`](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate Pod creation, deletion and updates.
+It’s mainly used by [Deployment](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate Pod creation, deletion and updates.
 Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don’t require updates at all.
 -->
 ## ReplicationController 的替代方案
@@ -508,8 +508,10 @@ Note that we recommend using Deployments instead of directly using Replica Sets,
 
 [`ReplicaSet`](/zh/docs/concepts/workloads/controllers/replicaset/) 是下一代 ReplicationController，
 支持新的[基于集合的标签选择算符](/zh/docs/concepts/overview/working-with-objects/labels/#set-based-requirement)。
-它主要被 [`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/) 用来作为一种编排 Pod 创建、删除及更新的机制。
-请注意，我们推荐使用 Deployment 而不是直接使用 ReplicaSet，除非你需要自定义更新编排或根本不需要更新。
+它主要被 [`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/)
+用来作为一种编排 Pod 创建、删除及更新的机制。
+请注意，我们推荐使用 Deployment 而不是直接使用 ReplicaSet，除非
+你需要自定义更新编排或根本不需要更新。
 
 <!--
 ### Deployment (Recommended)

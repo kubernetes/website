@@ -37,13 +37,13 @@ kubectl get pods -l app=myapp
 
 <!--
 If you find that any Pods listed are in `Unknown` or `Terminating` state for an extended period of time,
-refer to the [Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/) task for
+refer to the [Deleting StatefulSet Pods](/docs/tasks/run-application/delete-stateful-set/) task for
 instructions on how to deal with them.
 You can debug individual Pods in a StatefulSet using the
 [Debugging Pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/) guide.
 -->
 如果你发现列出的任何 Pod 长时间处于 `Unknown` 或 `Terminating` 状态，请参阅
-[删除 StatefulSet Pods](/zh/docs/tasks/manage-stateful-set/delete-pods/)
+[删除 StatefulSet Pods](/zh/docs/tasks/run-application/delete-stateful-set/)
 了解如何处理它们的说明。
 你可以参考[调试 Pods](/zh/docs/tasks/debug-application-cluster/debug-application/)
 来调试 StatefulSet 中的各个 Pod。
