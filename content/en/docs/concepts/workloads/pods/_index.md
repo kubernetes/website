@@ -172,14 +172,18 @@ spec:
     # The pod template ends here
 ```
 
-Modifying the pod template or switching to a new pod template has no effect on the
-Pods that already exist. Pods do not receive template updates directly. Instead,
-a new Pod is created to match the revised pod template.
+Modifying the pod template or switching to a new pod template has no direct effect
+on the Pods that already exist. If you change the pod template for a workload
+resource, that resource needs to create replacement Pods that use the updated template.
 
-For example, the deployment controller ensures that the running Pods match the current
-pod template for each Deployment object. If the template is updated, the Deployment has
-to remove the existing Pods and create new Pods based on the updated template. Each workload
-resource implements its own rules for handling changes to the Pod template.
+For example, the StatefulSet controller ensures that the running Pods match the current
+pod template for each StatefulSet object. If you edit the StatefulSet to change its pod
+template, the StatefulSet starts to create new Pods based on the updated template.
+Eventually, all of the old Pods are replaced with new Pods, and the update is complete.
+
+Each workload resource implements its own rules for handling changes to the Pod template.
+If you want to read more about StatefulSet specifically, read
+[Update strategy](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) in the StatefulSet Basics tutorial.
 
 On Nodes, the {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} does not
 directly observe or manage any of the details around pod templates and updates; those
