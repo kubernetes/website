@@ -772,7 +772,22 @@ behavior:
     selectPolicy: Disabled
 ```
 
+<!--
+## Implicit maintenance-mode deactivation
 
+You can implicitly deactivate the HPA for a target without the
+need to change the HPA configuration itself. If the target's desired replica count
+is set to 0, and the HPA's minimum replica count is greater than 0, the HPA 
+stops adjusting the target (and sets the `ScalingActive` Condition on itself
+to `false`) until you reactivate it by manually adjusting the target's desired
+replica count or HPA's minimum replica count.
+-->
+## 隐式维护状态禁用
+
+你可以在不必更改 HPA 配置的情况下隐式地为某个目标禁用 HPA。
+如果此目标的期望副本个数被设置为 0，而 HPA 的最小副本个数大于 0，
+则 HPA 会停止调整目标（并将其自身的 `ScalingActive` 状况设置为 `false`），
+直到你通过手动调整目标的期望副本个数或 HPA 的最小副本个数来重新激活。
 
 ## {{% heading "whatsnext" %}}
 
@@ -782,6 +797,6 @@ behavior:
 * Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 -->
 * 设计文档：[Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md)
-* `kubectl autoscale` 命令： [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
+* `kubectl autoscale` 命令：[kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * 使用示例：[Horizontal Pod Autoscaler](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 

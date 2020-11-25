@@ -18,11 +18,17 @@ weight: 20
 -->
 
 <!-- overview -->
-本页展示如何使用
+<!--
+This page shows how to install a
+[custom resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+into the Kubernetes API by creating a
 [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io).
+-->
+本页展示如何使用
+[CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io)
 将
-[自定义资源（Custom Resource）](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-安装到 Kubernetes API。
+[定制资源（Custom Resource）](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+安装到 Kubernetes API 上。
 
 ## {{% heading "prerequisites" %}}
 
@@ -256,7 +262,7 @@ kubectl get ct -o yaml
 
 <!--
 You should see that it contains the custom `cronSpec` and `image` fields
-from the yaml you used to create it:
+from the YAML you used to create it:
 -->
 你可以看到输出中包含了你创建定制对象时在 YAML 文件中指定的定制字段 `cronSpec`
 和 `image`：
@@ -284,7 +290,7 @@ metadata:
 <!--
 ## Delete a CustomResourceDefinition
 
-When you delete a CustomResourceDefinition, the server will uninstall the RESTful API  endpoint
+When you delete a CustomResourceDefinition, the server will uninstall the RESTful API endpoint
 and delete all custom objects stored in it.
 -->
 ## 删除 CustomResourceDefinition    {#delete-a-customresourcedefinition}
@@ -309,25 +315,30 @@ If you later recreate the same CustomResourceDefinition, it will start out empty
 <!--
 ## Specifying a structural schema
 
-CustomResources store structured data in custom fiels (alongside the built-in fields `apiVersion`, `kind` and `metadata`, which the API server validates implicitly). With [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) a schema can be specified, which is validated during creation and updates, compare below for details and limits of such a schema.
+CustomResources store structured data in custom fiels (alongside the built-in
+fields `apiVersion`, `kind` and `metadata`, which the API server validates
+implicitly). With [OpenAPI v3.0 validation](#validation) a schema can be
+specified, which is validated during creation and updates, compare below for
+details and limits of such a schema.
 
-With `apiextensions.k8s.io/v1` the definition of a structural schema is mandatory for CustomResourceDefinitions (in the beta version of CustomResourceDefinition, structural schemas were optional).
+With `apiextensions.k8s.io/v1` the definition of a structural schema is
+mandatory for CustomResourceDefinitions. In the beta version of
+CustomResourceDefinition, structural schemas were optional.
 -->
 ## 设置结构化的模式   {#specifying-a-structural-schema}
 
 CustomResource 对象在定制字段中保存结构化的数据，这些字段和内置的字段
 `apiVersion`、`kind` 和 `metadata` 等一起存储，不过内置的字段都会被 API
-服务器隐式完成合法性检查。
-有了 [OpenAPI v3.0 检查](#validation)
+服务器隐式完成合法性检查。有了 [OpenAPI v3.0 检查](#validation)
 能力之后，你可以设置一个模式（Schema），在创建和更新定制对象时，这一模式会被用来
 对对象内容进行合法性检查。参阅下文了解这类模式的细节和局限性。
 
 在 `apiextensions.k8s.io/v1` 版本中，CustomResourceDefinition 的这一结构化模式
-定义是必需的（在 CustomResourceDefinition 的 beta
-版本中，结构化模式定义是可选的）。
+定义是必需的。
+在 CustomResourceDefinition 的 beta 版本中，结构化模式定义是可选的。
 
 <!--
-A structural schema is an [OpenAPI v3.0 validation schema](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) which:
+A structural schema is an [OpenAPI v3.0 validation schema](#validation) which:
 
 1. specifies a non-empty type (via `type` in OpenAPI) for the root, for each specified field of an object node (via `properties` or `additionalProperties` in OpenAPI) and for each item in an array node (via `items` in OpenAPI), with the exception of:
    * a node with `x-kubernetes-int-or-string: true`
@@ -445,7 +456,7 @@ is not a structural schema because of the following violations:
 * `bar` inside of `anyOf` is not specified outside (rule 2).
 * `bar`'s `type` is within `anyOf` (rule 3).
 * the description is set within `anyOf` (rule 3).
-* `metadata.finalizer` might not be restricted (rule 4).
+* `metadata.finalizers` might not be restricted (rule 4).
 -->
 不是一个结构化的模式，因为其中存在以下违例：
 
@@ -454,7 +465,7 @@ is not a structural schema because of the following violations:
 * `anyOf` 中的 `bar` 未在外部指定（规则 2）
 * `bar` 的 `type` 位于 `anyOf` 中（规则 3）
 * `anyOf` 中设置了 `description` （规则 3）
-* `metadata.finalizer` 不可以被限制 (规则 4）
+* `metadata.finalizers` 不可以被限制 (规则 4）
 
 <!--
 In contrast, the following, corresponding schema is structural:
@@ -510,7 +521,7 @@ CRDs converted from `apiextensions.k8s.io/v1beta1` to
 
 For migrated CustomResourceDefinitions where `spec.preserveUnknownFields` is
 set, pruning is _not_ enabled and you can store arbitrary data. For best
-compatibility, you should update customer resources to meet an OpenAPI schema,
+compatibility, you should update your custom resources to meet an OpenAPI schema,
 and you should set `spec.preserveUnknownFields` true for the
 CustomResourceDefinition itself.
 -->
@@ -577,7 +588,7 @@ Notice that the field `someRandomField` was pruned.
 
 <!--
 This example turned off client-side validation to demonstrate the API server's behavior, by adding the `--validate=false` command line option.
-Because the [OpenAPI validation schemas are also published](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2)
+Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi-v2)
 to clients, `kubectl` also checks for unknown fields and rejects those objects well before they would be sent to the API server.
 -->
 本例中通过 `--validate=false` 命令行选项 关闭了客户端的合法性检查以展示 API 服务器的行为，
@@ -588,13 +599,13 @@ to clients, `kubectl` also checks for unknown fields and rejects those objects w
 <!--
 #### Controlling pruning
 
-By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees fof fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).  
+By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees fof fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
 For example:
 -->
 #### 控制剪裁   {#controlling-pruning}
 
 默认情况下，定制资源的所有版本中的所有未规定的字段都会被剪裁掉。
-通过在 [结构化 OpenAPI v3 合法性检查模式定](#specifying-a-structural-schema)
+通过在结构化的 OpenAPI v3 [检查模式定义](#specifying-a-structural-schema)
 中为特定字段的子树添加 `x-kubernetes-preserve-unknown-fields: true` 属性，可以
 选择不对其执行剪裁操作。
 例如：
@@ -731,7 +742,7 @@ allOf:
 <!--
 With one of those specification, both an integer and a string validate.
 
-In [Validation Schema Publishing](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2),
+In [Validation Schema Publishing](#publish-validation-schema-in-openapi-v2),
 `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
 -->
 在以上两种规约中，整数值和字符串值都会被认为是合法的。
@@ -832,52 +843,51 @@ apiVersion: "stable.example.com/v1"
 kind: CronTab
 metadata:
   finalizers:
-  - finalizer.stable.example.com
+  - stable.example.com/finalizer
 ```
 
 <!--
-Finalizers are arbitrary string values, that when present ensure that a hard delete
-of a resource is not possible while they exist.
+Identifiers of custom finalizers consist of a domain name, a forward slash and the name of
+the finalizer. Any controller can add a finalizer to any object's list of finalizers.
 
 The first delete request on an object with finalizers sets a value for the
 `metadata.deletionTimestamp` field but does not delete it. Once this value is set,
-entries in the `finalizer` list can only be removed.
+entries in the `finalizers` list can only be removed. While any finalizers remain it is also
+impossible to force the deletion of an object.
 
-When the `metadata.deletionTimestamp` field is set, controllers watching the object
-execute any finalizers they handle, by polling update requests for that
-object. When all finalizers have been executed, the resource is deleted.
+When the `metadata.deletionTimestamp` field is set, controllers watching the object execute any
+finalizers they handle and remove the finalizer from the list after they are done. It is the
+responsibility of each controller to remove its finalizer from the list.
 -->
-Finalizer 可以取任意的字符串值。当资源上存在 Finalizer 时，无法硬性删除该资源。
+自定义 Finalizer 的标识符包含一个域名、一个正向斜线和 finalizer 的名称。
+任何控制器都可以在任何对象的 finalizer 列表中添加新的 finalizer。
 
 对带有 Finalizer 的对象的第一个删除请求会为其 `metadata.deletionTimestamp`
-设置一个值，但不会真的删除对象。一旦此值被设置，`finalizers`
-列表中的表项只能被移除。
+设置一个值，但不会真的删除对象。一旦此值被设置，`finalizers` 列表中的表项
+只能被移除。在列表中仍然包含 finalizer 时，无法强制删除对应的对象。
 
-当 `metadata.deletionTimestamp` 字段被设置时，负责监测该对象的各个控制器会通过
-轮询对该对象的更新请求来执行它们所要处理的所有 Finalizer。
-当所有 Finalizer 都被执行过，资源被删除。
+当 `metadata.deletionTimestamp` 字段被设置时，监视该对象的各个控制器会
+执行它们所能处理的 finalizer，并在完成处理之后将其从列表中移除。
+每个控制器负责将其 finalizer 从列表中删除。
 
 <!--
-The value of `metadata.deletionGracePeriodSeconds` controls the interval between
-polling updates.
+The value of `metadata.deletionGracePeriodSeconds` controls the interval between polling updates.
 
-It is the responsibility of each controller to remove its finalizer from the list.
-
-Kubernetes only finally deletes the object if the list of finalizers is empty,
-meaning all finalizers have been executed.
+Once the list of finalizers is empty, meaning all finalizers have been executed, the resource is
+deleted by Kubernetes.
 -->
 `metadata.deletionGracePeriodSeconds` 的取值控制对更新的轮询周期。
 
-每个控制器要负责将其 Finalizer 从列表中去除。
-
-只有 `finalizers` 列表为空时，意味着所有 Finalizer 都被执行过之后，
-Kubernetes 才会最终删除对象，
+一旦 finalizers 列表为空时，就意味着所有 finalizer 都被执行过，
+Kubernetes 会最终删除该资源，
 
 <!--
 ### Validation
 
 Custom resources are validated via
-[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject) and you can add additional validation using [admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
+[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject)
+and you can add additional validation using
+[admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 -->
 ### 合法性检查    {#validation}
 
@@ -901,8 +911,8 @@ Additionally, the following restrictions are applied to the schema:
   - `writeOnly`,
   - `xml`,
   - `$ref`.
-- The field `uniqueItems` cannot be set to _true_.
-- The field `additionalProperties` cannot be set to _false_.
+- The field `uniqueItems` cannot be set to `true`.
+- The field `additionalProperties` cannot be set to `false`.
 - The field `additionalProperties` is mutually exclusive with `properties`.
 -->
 此外，对模式定义存在以下限制：
@@ -923,22 +933,26 @@ Additionally, the following restrictions are applied to the schema:
 - 字段 `additionalProperties` 与 `properties` 互斥，不可同时使用
 
 <!--
-These fields can only be set with specific features enabled:
-
-- `default`: can be set for `apiextensions.k8s.io/v1` CustomResourceDefinitions. Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting` feature gate to be enabled, which is the case automatically for many clusters for beta features). Compare [Validation Schema Defaulting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting).
+The `default` field can be set when the [Defaulting feature](#defaulting) is enabled,
+which is the case with `apiextensions.k8s.io/v1` CustomResourceDefinitions. 
+Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled, which is the case automatically for many clusters for beta features).
 -->
-以下字段仅可用于某些条件被满足的情况下：
 
-- `default`：可在 `apiextensions.k8s.io/v1` API 组中的 CustomResourceDefinition 的
-  模式定义中使用。设置默认值的功能特性从 1.17 开始正式发布。该特性在 1.16 版本中处于
-  Beta 状态，要求 `CustomResourceDefaulting` 特性门控被启用。对于大多数集群而言， 
-  Beta 状态的特性门控默认都是自动启用的。
-  你可以将此字段的作用与[合法性检查模式的默认值设定](#defaulting)相比较。
+当[设置默认值特性](#defaulting)被启用时，可以设置字段 `default`。
+就 `apiextensions.k8s.io/v1` 组的 CustomResourceDefinitions，这一条件是满足的。
+设置默认值的功能特性从 1.17 开始正式发布。该特性在 1.16 版本中处于
+Beta 状态，要求 `CustomResourceDefaulting`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+被启用。对于大多数集群而言，Beta 状态的特性门控默认都是自动启用的。
 
-{{< note >}}
+<!--
+Refer to the [structural schemas](#specifying-a-structural-schema) section for other
+restrictions and CustomResourceDefinition features.
+-->
 关于对某些 CustomResourceDefinition 特性所必需的限制，可参见
-[结构化的模式定义](#specifying-a-structural-schema)。
-{{< /note >}}
+[结构化的模式定义](#specifying-a-structural-schema)小节。
 
 <!--
 The schema is defined in the CustomResourceDefinition. In the following example, the
@@ -1203,7 +1217,7 @@ Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` 
 <!--
 ### Publish Validation Schema in OpenAPI v2
 
-CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#preserving-unknown-fields) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
+CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
 
 The [kubectl](/docs/reference/kubectl/overview) command-line tool consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
 -->
@@ -1356,7 +1370,7 @@ The `NAME` column is implicit and does not need to be defined in the CustomResou
 <!--
 #### Priority
 
-Each column includes a `priority` field for each column. Currently, the priority
+Each column includes a `priority` field. Currently, the priority
 differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
 
 - Columns with priority `0` are shown in standard view.
@@ -1364,7 +1378,7 @@ differentiates between columns shown in standard view or wide view (using the `-
 -->
 #### 优先级    {#priority}
 
-每个列都包含一个 `priority` 字段。当前，优先级用来区分标准视图（Standard
+每个列都包含一个 `priority`（优先级）字段。当前，优先级用来区分标准视图（Standard
 View）和宽视图（Wide View）（使用 `-o wide` 标志）中显示的列：
 
 - 优先级为 `0` 的列会在标准视图中显示。
@@ -1378,7 +1392,7 @@ A column's `type` field can be any of the following (compare [OpenAPI v3 data ty
 - `integer` – non-floating-point numbers
 - `number` – floating point numbers
 - `string` – strings
-- `boolean` – true or false
+- `boolean` – `true` or `false`
 - `date` – rendered differentially as time since this timestamp.
 -->
 #### 类型    {#type}
@@ -1462,27 +1476,6 @@ When the status subresource is enabled, the `/status` subresource for the custom
   的取值都会增加。
 <!--
 - Only the following constructs are allowed at the root of the CRD OpenAPI validation schema:
-
-  - Description
-  - Example
-  - ExclusiveMaximum
-  - ExclusiveMinimum
-  - ExternalDocs
-  - Format
-  - Items
-  - Maximum
-  - MaxItems
-  - MaxLength
-  - Minimum
-  - MinItems
-  - MinLength
-  - MultipleOf
-  - Pattern
-  - Properties
-  - Required
-  - Title
-  - Type
-  - UniqueItems
 -->
 - 在 CRD OpenAPI 合法性检查模式定义的根节点，只允许存在以下结构：
 
@@ -1503,7 +1496,7 @@ When the status subresource is enabled, the `/status` subresource for the custom
   - `pattern`
   - `properties`
   - `required`
-  -` title`
+  - `title`
   - `type`
   - `uniqueItems`
 
@@ -1513,7 +1506,7 @@ When the status subresource is enabled, the `/status` subresource for the custom
 When the scale subresource is enabled, the `/scale` subresource for the custom resource is exposed.
 The `autoscaling/v1.Scale` object is sent as the payload for `/scale`.
 
-To enable the scale subresource, the following values are defined in the CustomResourceDefinition.
+To enable the scale subresource, the following fields are defined in the CustomResourceDefinition.
 -->
 #### Scale 子资源   {#scale-subresource}
 
@@ -1527,7 +1520,7 @@ To enable the scale subresource, the following values are defined in the CustomR
 
   - It is a required value.
   - Only JSONPaths under `.spec` and with the dot notation are allowed.
-  - If there is no value under the `SpecReplicasPath` in the custom resource,
+  - If there is no value under the `specReplicasPath` in the custom resource,
 the `/scale` subresource will return an error on GET.
 -->
 - `specReplicasPath` 指定定制资源内与 `scale.spec.replicas` 对应的 JSON 路径。
@@ -1813,7 +1806,7 @@ kubectl apply -f my-crontab.yaml
 ```
 
 <!--
-You can specify the category using `kubectl get`:
+You can specify the category when using `kubectl get`:
 -->
 你可以在使用 `kubectl get` 时指定分类：
 
