@@ -608,7 +608,7 @@ By default, for LoadBalancer type of Services, when there is more than one port 
 ports must have the same protocol, and the protocol must be one which is supported
 by the cloud provider.
 
-If the feature gate `MixedProtocolLBService` is enabled for the kube-apiserver it is allowed to use different protocols when there is more than one port defined. 
+If the feature gate `MixedProtocolLBService` is enabled for the kube-apiserver it is allowed to use different protocols when there is more than one port defined.
 
 {{< note >}}
 
