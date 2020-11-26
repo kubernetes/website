@@ -60,17 +60,18 @@ Por ejemplo, para descarga la versión {{< param "fullversion" >}} en Linux, tec
 
 Estos son algunos métodos para instalar kubectl.
 
-## Instalar el binario de kubectl usando gestión nativa de paquetes
+## Instalar usando gestión nativa de paquetes
 
 {{< tabs name="kubectl_install" >}}
-{{< tab name="Ubuntu, Debian o HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https
+{{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
+sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 sudo apt-get install -y kubectl
 {{< /tab >}}
-{{< tab name="CentOS, RHEL o Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+
+{{< tab name="CentOS, RHEL or Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
