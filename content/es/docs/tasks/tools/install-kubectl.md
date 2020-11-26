@@ -260,6 +260,29 @@ Si estás en macOS y usando el gestor de paquetes [Macports](https://macports.or
 Si tienes Docker Desktop instalado, es posible que tengas que modificar tu PATH al PATH añadido por Docker Desktop o remover `kubectl` de Docker Desktop.
 {{< /note >}}
 
+### Instalar con Powershell desde PSGallery
+
+Si estás en Windows y usando el gestor de paquetes [Powershell Gallery](https://www.powershellgallery.com/), puedes instalar y actualizar kubectl con Powershell.
+
+1. Ejecuta los comandos de instalación (asegurándote de especificar una `DownloadLocation`):
+
+   ```powershell
+   Install-Script -Name 'install-kubectl' -Scope CurrentUser -Force
+   install-kubectl.ps1 [-DownloadLocation <path>]
+    ```
+
+    {{< note >}}Si no especificas una `DownloadLocation`, `kubectl` se instalará en el directorio temporal del usuario.{{< /note >}}
+
+    El instalador crea `$HOME/.kube` y crea un archivo de configuración
+
+2. Para asegurar que la versión utilizada sea la más actual puedes probar:
+
+    ```powershell
+    kubectl version --client
+    ```
+
+    {{< note >}}Actualizar la instalación se realiza mediante la re-ejecución de los dos comandos listados en el paso 1.{{< /note >}}
+
 ## Instalar con snap en Ubuntu
 
 Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el gestor de paquetes [snap](https://snapcraft.io/docs/core/install), kubectl está disponible como una aplicación [snap](https://snapcraft.io/).
@@ -276,28 +299,6 @@ Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el ges
     kubectl version
     ```
 
-## Instalar con Powershell desde PSGallery
-
-Si estás en Windows y usando el gestor de paquetes [Powershell Gallery](https://www.powershellgallery.com/), puedes instalar y actualizar kubectl con Powershell.
-
-1. Ejecuta los comandos de instalación (asegurándote de especificar una `DownloadLocation`):
-
-    ```
-    Install-Script -Name install-kubectl -Scope CurrentUser -Force
-    install-kubectl.ps1 [-DownloadLocation <path>]
-    ```
-
-    {{< note >}}Si no especificas una `DownloadLocation`, `kubectl` se instalará en el directorio temporal del usuario.{{< /note >}}
-
-    El instalador crea `$HOME/.kube` y crea un archivo de configuración
-
-2. Para asegurar que la versión utilizada sea la más actual puedes probar:
-
-    ```
-    kubectl version
-    ```
-
-    {{< note >}}Actualizar la instalación se realiza mediante la re-ejecución de los dos comandos listados en el paso 1.{{< /note >}}
 
 ## Instalar en Windows usando Chocolatey o scoop
 
