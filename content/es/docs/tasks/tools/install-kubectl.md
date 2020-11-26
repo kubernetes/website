@@ -283,6 +283,56 @@ Si estás en Windows y usando el gestor de paquetes [Powershell Gallery](https:/
 
     {{< note >}}Actualizar la instalación se realiza mediante la re-ejecución de los dos comandos listados en el paso 1.{{< /note >}}
 
+## Instalar en Windows usando Chocolatey o scoop
+
+1. Para instalar kubectl en Windows puedes usar el gestor de paquetes [Chocolatey](https://chocolatey.org) o el instalador de línea de comandos [scoop](https://scoop.sh).
+
+    {{< tabs name="kubectl_win_install" >}}
+    {{% tab name="choco" %}}
+    ```powershell
+    choco install kubernetes-cli
+    ```
+    {{% /tab %}}
+    {{% tab name="scoop" %}}
+    ```powershell
+    scoop install kubectl
+    ```
+    {{% /tab %}}
+    {{< /tabs >}}
+
+2. Para asegurar que la versión utilizada sea la más actual puedes probar:
+
+    ```powershell
+    kubectl version --client
+    ```
+
+3. Navega a tu directorio de inicio:
+
+    ```powershell
+    # Si estas usando cmd.exe, ejecuta: cd %USERPROFILE%
+    cd ~
+    ```
+
+4. Crea el directorio `.kube`:
+
+    ```powershell
+    mkdir .kube
+    ```
+
+5. Cambia al directorio `.kube` que acabas de crear:
+
+    ```powershell
+    cd .kube
+    ```
+
+6. Configura kubectl para usar un clúster remoto de Kubernetes:
+
+    ```powershell
+    New-Item config -type file
+    ```
+
+    {{< note >}}Edita el fichero de configuración con un editor de texto de tu elección, como Notepad.{{< /note >}}
+
 ## Instalar con snap en Ubuntu
 
 Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el gestor de paquetes [snap](https://snapcraft.io/docs/core/install), kubectl está disponible como una aplicación [snap](https://snapcraft.io/).
@@ -299,52 +349,6 @@ Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el ges
     kubectl version
     ```
 
-
-## Instalar en Windows usando Chocolatey o scoop
-
-Para instalar kubectl en Windows puedes usar bien el gestor de paquetes [Chocolatey](https://chocolatey.org) o el instalador de línea de comandos [scoop](https://scoop.sh).
-{{< tabs name="kubectl_win_install" >}}
-{{% tab name="choco" %}}
-
-    choco install kubernetes-cli
-
-{{% /tab %}}
-{{% tab name="scoop" %}}
-
-    scoop install kubectl
-
-{{% /tab %}}
-{{< /tabs >}}
-2. Para asegurar que la versión utilizada sea la más actual puedes probar:
-
-    ```
-    kubectl version
-    ```
-
-3. Navega a tu directorio de inicio:
-
-    ```
-    cd %USERPROFILE%
-    ```
-4. Crea el directorio `.kube`:
-
-    ```
-    mkdir .kube
-    ```
-
-5. Cambia al directorio `.kube` que acabas de crear:
-
-    ```
-    cd .kube
-    ```
-
-6. Configura kubectl para usar un clúster remoto de Kubernetes:
-
-    ```
-    New-Item config -type file
-    ```
-
-    {{< note >}}Edita el fichero de configuración con un editor de texto de tu elección, como Notepad.{{< /note >}}
 
 ## Descarga como parte del Google Cloud SDK
 
