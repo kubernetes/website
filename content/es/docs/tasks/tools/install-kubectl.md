@@ -232,8 +232,33 @@ Si estás en macOS y usando el gestor de paquetes [Macports](https://macports.or
 {{% /tab %}}
 {{< /tabs >}}
 
+# Instalar kubectl en Windows
 
+### Instalar el binario de kubectl con curl en Windows
 
+1. Descargar la última entrega {{< param "fullversion" >}} de [este link]((https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+
+    o si tiene `curl` instalada, utiliza este comando:
+
+   ```bash
+   curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+   ```
+
+    Para averiguar la última versión estable (por ejemplo, para secuencias de comandos), echa un vistazo a [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+
+2. Añade el binario a tu PATH.
+
+3. Para asegurar que la versión utilizada sea la más actual puedes probar:
+
+    ```bash
+    kubectl version --client
+    ```
+
+{{< note >}}
+[Docker Desktop para Windows](https://docs.docker.com/docker-for-windows/#kubernetes) añade su propia versión de `kubectl` a PATH.
+
+Si tienes Docker Desktop instalado, es posible que tengas que modificar tu PATH al PATH añadido por Docker Desktop o remover `kubectl` de Docker Desktop.
+{{< /note >}}
 
 ## Instalar con snap en Ubuntu
 
