@@ -170,6 +170,24 @@ Si estás usando macOS y el gestor de paquetes es [Homebrew](https://brew.sh/), 
     kubectl version --client
     ```
 
+### Instalar con Macports en macOS
+
+Si estás en macOS y usando el gestor de paquetes [Macports](https://macports.org/), puedes instalar kubectl con Macports.
+
+1. Ejecuta los comandos de instalación:
+
+    ```bash
+    sudo port selfupdate
+    sudo port install kubectl
+    ```
+
+2. Para asegurar que la versión utilizada sea la más actual puedes probar:
+
+    ```bash
+    kubectl version --client
+    ```
+
+
 {{% /tab %}}
 {{% tab name="Linux" %}}
 
@@ -225,23 +243,6 @@ Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el ges
 
     ```
     sudo snap install kubectl --classic
-    ```
-
-2. Para asegurar que la versión utilizada sea la más actual puedes probar:
-
-    ```
-    kubectl version
-    ```
-
-## Instalar con Macports en macOS
-
-Si estás en macOS y usando el gestor de paquetes [Macports](https://macports.org/), puedes instalar kubectl con Macports.
-
-1. Ejecuta los comandos de instalación:
-
-    ```
-    sudo port selfupdate
-    sudo port install kubectl
     ```
 
 2. Para asegurar que la versión utilizada sea la más actual puedes probar:
