@@ -17,7 +17,7 @@ Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz 
 
 * [Jak rozpocząć współpracę](https://kubernetes.io/docs/contribute/start/)
 * [Podgląd wprowadzanych zmian w dokumentacji](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Szablony stron](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Szablony stron](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Styl pisania dokumentacji](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Lokalizacja dokumentacji Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
