@@ -283,7 +283,7 @@ Si estás en Windows y usando el gestor de paquetes [Powershell Gallery](https:/
 
     {{< note >}}Actualizar la instalación se realiza mediante la re-ejecución de los dos comandos listados en el paso 1.{{< /note >}}
 
-## Instalar en Windows usando Chocolatey o scoop
+### Instalar en Windows usando Chocolatey o scoop
 
 1. Para instalar kubectl en Windows puedes usar el gestor de paquetes [Chocolatey](https://chocolatey.org) o el instalador de línea de comandos [scoop](https://scoop.sh).
 
@@ -333,6 +333,23 @@ Si estás en Windows y usando el gestor de paquetes [Powershell Gallery](https:/
 
     {{< note >}}Edita el fichero de configuración con un editor de texto de tu elección, como Notepad.{{< /note >}}
 
+## Descarga como parte del Google Cloud SDK
+
+Puedes instalar kubectl como parte del Google Cloud SDK.
+
+1. Instala el [Google Cloud SDK](https://cloud.google.com/sdk/).
+2. Ejecuta el comando de instalación de `kubectl`:
+
+    ```shell
+    gcloud components install kubectl
+    ```
+
+3. Para asegurar que la versión utilizada sea la más actual puedes probar:
+
+    ```shell
+    kubectl version --client
+    ``
+
 ## Instalar con snap en Ubuntu
 
 Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el gestor de paquetes [snap](https://snapcraft.io/docs/core/install), kubectl está disponible como una aplicación [snap](https://snapcraft.io/).
@@ -348,24 +365,6 @@ Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el ges
     ```
     kubectl version
     ```
-
-
-## Descarga como parte del Google Cloud SDK
-
-Puedes instalar kubectl como parte del Google Cloud SDK.
-
-1. Instala el [Google Cloud SDK](https://cloud.google.com/sdk/).
-2. Ejecuta el comando de instalación de `kubectl`:
-
-    ```
-    gcloud components install kubectl
-    ```
-
-3. Para asegurar que la versión utilizada sea la más actual puedes probar:
-
-    ```
-    kubectl version
-    ``
 
 ## Configurar kubectl
 
