@@ -142,11 +142,33 @@ kubectl version --client
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
 
-4. Compreuba para asegurar que la versión instalada es lo más reciente:
+4. Para asegurar que la versión utilizada sea la más actual puedes probar:
 
    ```bash
    kubectl version --client
    ```
+
+### Instalar con Homebrew en macOS
+
+Si estás usando macOS y el gestor de paquetes es [Homebrew](https://brew.sh/), puedes instalar kubectl con Homebrew.
+
+1. Ejecuta el comando de instalación:
+
+    ```bash
+    brew install kubectl
+    ```
+
+    o
+
+    ```bash
+    brew install kubernetes-cli
+    ```
+
+2. Para asegurar que la versión utilizada sea la más actual puedes probar:
+
+    ```bash
+    kubectl version --client
+    ```
 
 {{% /tab %}}
 {{% tab name="Linux" %}}
@@ -203,22 +225,6 @@ Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el ges
 
     ```
     sudo snap install kubectl --classic
-    ```
-
-2. Para asegurar que la versión utilizada sea la más actual puedes probar:
-
-    ```
-    kubectl version
-    ```
-
-## Instalar con Homebrew en macOS
-
-Si estás usando macOS y el gestor de paquetes es [Homebrew](https://brew.sh/), puedes instalar kubectl con Homebrew.
-
-1. Ejecuta el comando de instalación:
-
-    ```
-    brew install kubernetes-cli
     ```
 
 2. Para asegurar que la versión utilizada sea la más actual puedes probar:
