@@ -1,3 +1,15 @@
+---
+title: Cloud Provider（云供应商）
+id: cloud-provider
+date: 2018-04-12
+short_description: >
+  一个提供云计算平台的组织。
+
+aka:
+- 云服务供应商（Cloud Service Provider）
+tags:
+- community
+---
 <!--
 
 ---
@@ -15,18 +27,6 @@ tags:
 
 -->
 
----
-title: Cloud Provider（云供应商）
-id: cloud-provider
-date: 2018-04-12
-short_description: >
-  一个提供云计算平台的组织。
-
-aka:
-- 云服务供应商（Cloud Service Provider）
-tags:
-- community
----
 <!--
  A business or other organization that offers a cloud computing platform.
 -->
