@@ -301,8 +301,8 @@ sequenceDiagram
     deactivate kube
     activate api
     api ->> api: 5. Is JWT signature valid?
-    api ->> api: 6. Has the JWT expired?(iat+exp)
-    api ->> api: 7. user authorized?
+    api ->> api: 6. Has the JWT expired? (iat+exp)
+    api ->> api: 7. User authorized?
     api -->> kube: 8. Authorized: Perform<br>action and return result
     deactivate api
     activate kube
