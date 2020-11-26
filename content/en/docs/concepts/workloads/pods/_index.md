@@ -253,7 +253,6 @@ but cannot be controlled from there.
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
-* Learn about [PodPresets](/docs/concepts/workloads/pods/podpreset/).
 * Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
   configure different Pods with different container runtime configurations.
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
