@@ -112,6 +112,82 @@ kubectl version --client
 {{< /tabs >}}
 
 
+## Instalar kubectl en macOS
+
+### Instalar el binario de kubectl usando curl en macOS
+
+1. Descarga la última entrega:
+
+   ```bash
+   curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+   ```
+
+    Para descargar una versión específica, remplaza el comando `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` con la versión específica.
+
+    Por ejemplo, para descargar la versión {{< param "fullversion" >}} en macOS, teclea:
+		
+  ```bash
+   curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+   ```
+
+2. Haz el binario de kubectl ejecutable.
+
+   ```bash
+   chmod +x ./kubectl
+   ```
+
+3. Mueve el binario dentro de tu PATH.
+
+    ```bash
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+{{% /tab %}}
+{{% tab name="Linux" %}}
+
+1. Descarga la última entrega con el comando:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    ```
+
+    Para descargar una versión específica, remplaza el trozo del comando `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` con la versión específica.
+
+    Por ejemplo, para descargar la versión {{< param "fullversion" >}} en Linux, teclea:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    ```
+
+2. Haz el binario de kubectl ejecutable.
+
+    ```
+    chmod +x ./kubectl
+    ```
+
+3. Mueve el binario dentro de tu PATH.
+
+    ```
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+{{% /tab %}}
+{{% tab name="Windows" %}}
+1. Descarga la última entrega {{< param "fullversion" >}} desde [este enlace](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+
+    O si tienes `curl` instalado, usa este comando:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    ```
+
+    Para averiguar la última versión estable (por ejemplo, para secuencias de comandos), echa un vistazo a [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+
+2. Añade el binario a tu PATH.
+{{% /tab %}}
+{{< /tabs >}}
+
+
+
+
 ## Instalar con snap en Ubuntu
 
 Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el gestor de paquetes [snap](https://snapcraft.io/docs/core/install), kubectl está disponible como una aplicación [snap](https://snapcraft.io/).
@@ -245,83 +321,7 @@ Puedes instalar kubectl como parte del Google Cloud SDK.
 
     ```
     kubectl version
-    ```
-## Instalar kubectl en macOS
-
-### Instalar el binario de kubectl usando curl en macOS
-
-{{< tabs name="kubectl_install_curl" >}}
-{{% tab name="macOS" %}}
-1. Descarga la última entrega:
-
-    ```		
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
-    ```
-
-    Para descargar una versión específica, remplaza el comando `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` con la versión específica.
-
-    Por ejemplo, para descargar la versión {{< param "fullversion" >}} en macOS, teclea:
-		
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
-    ```
-
-2. Haz el binario de kubectl ejecutable.
-
-    ```
-    chmod +x ./kubectl
-    ```
-
-3. Mueve el binario dentro de tu PATH.
-
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
-{{% /tab %}}
-{{% tab name="Linux" %}}
-
-1. Descarga la última entrega con el comando:
-
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-    ```
-
-    Para descargar una versión específica, remplaza el trozo del comando `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` con la versión específica.
-
-    Por ejemplo, para descargar la versión {{< param "fullversion" >}} en Linux, teclea:
-
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
-    ```
-
-2. Haz el binario de kubectl ejecutable.
-
-    ```
-    chmod +x ./kubectl
-    ```
-
-3. Mueve el binario dentro de tu PATH.
-
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
-{{% /tab %}}
-{{% tab name="Windows" %}}
-1. Descarga la última entrega {{< param "fullversion" >}} desde [este enlace](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
-
-    O si tienes `curl` instalado, usa este comando:
-
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
-    ```
-
-    Para averiguar la última versión estable (por ejemplo, para secuencias de comandos), echa un vistazo a [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
-
-2. Añade el binario a tu PATH.
-{{% /tab %}}
-{{< /tabs >}}
-
-
+    ``
 
 ## Configurar kubectl
 
