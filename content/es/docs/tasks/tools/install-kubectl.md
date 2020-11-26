@@ -84,6 +84,33 @@ yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
+### Instalar usando otro gestión de paquetes
+
+{{< tabs name="other_kubectl_install" >}}
+{{% tab name="Snap" %}}
+If you are on Ubuntu or another Linux distribution that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+
+```shell
+snap install kubectl --classic
+
+kubectl version --client
+```
+
+{{% /tab %}}
+
+{{% tab name="Homebrew" %}}
+If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
+
+```shell
+brew install kubectl
+
+kubectl version --client
+```
+
+{{% /tab %}}
+
+{{< /tabs >}}
+
 
 ## Instalar con snap en Ubuntu
 
