@@ -141,6 +141,13 @@ kubectl version --client
     ```bash
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
+
+4. Compreuba para asegurar que la versión instalada es lo más reciente:
+
+   ```bash
+   kubectl version --client
+   ```
+
 {{% /tab %}}
 {{% tab name="Linux" %}}
 
