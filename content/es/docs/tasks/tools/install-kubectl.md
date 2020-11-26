@@ -350,6 +350,33 @@ Puedes instalar kubectl como parte del Google Cloud SDK.
     kubectl version --client
     ``
 
+## Comprobar la configuración kubectl
+
+Para que kubectl pueda encontrar y acceder a un clúster de Kubernetes, necesita un [fichero kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), que se crea de forma automática cuando creas un clúster usando [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)  o despliegas de forma satisfactoria un clúster de Minikube. 
+Por defecto, la configuración de kubectl se encuentra en `~/.kube/config`.
+
+Comprueba que kubectl está correctamente configurado obteniendo el estado del clúster:
+
+```shell
+kubectl cluster-info
+```
+
+Si ves una respuesta en forma de URL, kubectl está correctamente configurado para acceder a tu clúster.
+
+Si ves un mensaje similar al siguiente, kubectl no está correctamente configurado o no es capaz de conectar con un clúster de Kubernetes.
+
+```
+The connection to the server <server-name:port> was refused - did you specify the right host or port?
+```
+
+Por ejemplo, si intentas ejecutar un clúster de Kubernetes en tu portátil (localmente), necesitarás una herramienta como minikube que esté instalada primero y entonces volver a ejecutar los comandos indicados arriba.
+
+Si kubectl cluster-info devuelve la respuesta en forma de url, pero no puedes acceder a tu clúster, para comprobar si está configurado adecuadamente, usa:
+
+```shell
+kubectl cluster-info dump
+```
+
 ## Instalar con snap en Ubuntu
 
 Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el gestor de paquetes [snap](https://snapcraft.io/docs/core/install), kubectl está disponible como una aplicación [snap](https://snapcraft.io/).
@@ -365,33 +392,6 @@ Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el ges
     ```
     kubectl version
     ```
-
-## Configurar kubectl
-
-Para que kubectl pueda encontrar y acceder a un clúster de Kubernetes, necesita un [fichero kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), que se crea de forma automática cuando creas un clúster usando [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)  o despliegas de forma satisfactoria un clúster de Minikube. Revisa las [guías para comenzar](/docs/setup/) para más información acerca de crear clústers. Si necesitas acceso a un clúster que no has creado, ver el [documento de Compartir Acceso a un Clúster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
-Por defecto, la configuración de kubectl se encuentra en `~/.kube/config`.
-
-## Comprobar la configuración kubectl
-Comprueba que kubectl está correctamente configurado obteniendo el estado del clúster:
-
-```shell
-kubectl cluster-info
-```
-Si ves una respuesta en forma de URL, kubectl está correctamente configurado para acceder a tu clúster.
-
-Si ves un mensaje similar al siguiente, kubectl no está correctamente configurado o no es capaz de conectar con un clúster de Kubernetes.
-
-```shell
-The connection to the server <server-name:port> was refused - did you specify the right host or port?
-```
-
-Por ejemplo, si intentas ejecutar un clúster de Kubernetes en tu portátil (localmente), necesitarás una herramienta como minikube que esté instalada primero y entonces volver a ejecutar los comandos indicados arriba.
-
-Si kubectl cluster-info devuelve la respuesta en forma de url, pero no puedes acceder a tu clúster, para comprobar si está configurado adecuadamente, usa:
-
-```shell
-kubectl cluster-info dump
-```
 
 ## Habilitar el auto-completado en el intérprete de comandos
 
