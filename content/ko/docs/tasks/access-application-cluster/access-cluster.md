@@ -149,9 +149,8 @@ root 인증서를 사용하려면 특수한 설정을 필요로 할 것이다.
 
 localhost에서 제공되거나 방화벽으로 보호되는 몇몇 클러스터들에서는 apiserver가 인증을
 요구하지 않지만 이는 표준이 아니다.
-[API에 대한 접근 구성](/ko/docs/reference/access-authn-authz/controlling-access/)은
+[API에 대한 접근 제어](/ko/docs/concepts/security/controlling-access)은
 클러스터 관리자가 이를 어떻게 구성할 수 있는지를 설명한다.
-이 방식들은 미래의 고가용성 지원과 충돌될 수 있다.
 
 ## API에 프로그래밍 방식으로 접근
 

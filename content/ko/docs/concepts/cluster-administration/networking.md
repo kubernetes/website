@@ -122,6 +122,10 @@ Azure CNI는 [Azure 쿠버네티스 서비스(Azure Kubernetes Service, AKS)](ht
 
 가트너는 최신의 [매직 쿼드런트(Magic Quadrant)](https://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html)에서 BCF를 비저너리(Visionary)로 인정했다. BCF 쿠버네티스 온-프레미스 디플로이먼트 중 하나(지리적으로 다른 리전에 걸쳐 여러 DC에서 실행되는 쿠버네티스, DC/OS 및 VMware 포함)도 [여기](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/)에서 사례로 참조된다.
 
+### 캘리코
+
+[캘리코](https://docs.projectcalico.org/)는 컨테이너, 가상 시스템 및 기본 호스트 기반 워크로드를 위한 오픈소스 네트워킹 및 네트워크 보안 솔루션이다. 캘리코는 순수 리눅스 eBPF 데이터플레인, 표준 리눅스 네트워킹 데이터플레인, 윈도우 HNS 데이터플레인을 포함한 여러 데이터플레인을 지원한다. 캘리코는 완전한 네트워킹 스택을 제공하지만, [클라우드 제공자 CNI](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations)와 함께 사용하여 네트워크 정책 시행을 제공할 수도 있다.
+
 ### 실리움(Cilium)
 
 [실리움](https://github.com/cilium/cilium)은 애플리케이션 컨테이너 간에
@@ -288,14 +292,6 @@ OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
 서로 다른 가상 네트워킹 토폴로지를 구축할 수 있다. 이 프로젝트에는
 [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)에
 특정 쿠버네티스 플러그인 및 문서가 있다.
-
-### 프로젝트 캘리코
-
-[프로젝트 캘리코](https://docs.projectcalico.org/)는 오픈소스 컨테이너 네트워킹 공급자 및 네트워크 정책 엔진이다.
-
-캘리코는 리눅스(오픈소스)와 윈도우(독점 - [Tigera](https://www.tigera.io/essentials/)에서 사용 가능) 모두에서 인터넷과 동일한 IP 네트워킹 원칙을 기반으로 쿠버네티스 파드를 연결하기 위한 확장성이 뛰어난 네트워킹 및 네트워크 정책 솔루션을 제공한다. 캘리코는 캡슐화나 오버레이 없이 구축되어 고성능의 대규모 데이터센터 네트워킹을 제공할 수 있다. 또한 캘리코는 분산 방화벽을 통해 쿠버네티스 파드에 대해 세분화된 의도기반의 네트워크 보안 정책을 제공한다.
-
-캘리코는 플라넬, 일명 [canal](https://github.com/tigera/canal) 또는 네이티브 GCE, AWS나 Azure 네트워킹과 같은 다른 네트워킹 솔루션과 함께 정책 적용 모드로 실행될 수도 있다.
 
 ### 로마나
 
