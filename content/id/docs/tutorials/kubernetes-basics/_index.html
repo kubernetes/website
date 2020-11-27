@@ -23,13 +23,13 @@ card:
     <div class="row">
       <div class="col-md-9">
         <h2>Panduan Dasar Kubernetes</h2>
-        <p>Tutorial ini menyediakan panduan dasar mekanisme orkestrasi klaster Kubernetes. Setiap modul memliki beberapa informasi mengenai latar belakang bagi konsep mendasar dan <i>feature</i> Kubernetes, termasuk mode interaktif yang dapat digunakan sebagai metode pembelajaran <i>online</i>. Mode tutorial interaktif ini memberikan kesempatan pengguna untuk melakukan manajemen klaster sederhana beserta aplikasi dalam kontainer yang kamu miliki.</p>
+        <p>Tutorial ini menyediakan panduan dasar mekanisme orkestrasi klaster Kubernetes. Setiap modul memliki beberapa informasi mengenai latar belakang bagi konsep mendasar dan <i>feature</i> Kubernetes, termasuk mode interaktif yang dapat digunakan sebagai metode pembelajaran <i>online</i>. Mode tutorial interaktif ini memberikan kesempatan pengguna untuk melakukan manajemen klaster sederhana beserta aplikasi terkontainerisasi yang kamu miliki.</p>
         <p>Dengan menggunakan mode tutorial interaktif ini, pengguna diharapkan dapat memahami:</p>
         <ul>
-        <li><i>Deploy</i>i> sebuah aplikasi yang sudah dikontainerisasi pada klaster</li>
+        <li><i>Deploy</i> sebuah aplikasi yang sudah dikontainerisasi pada klaster</li>
         <li>Melakukan <i>scale</i> <i>deployment</i></li>
-        <li>Meng-update aplikasi yang sudah dikontainerisasi dengan menggunakan versi aplikasi terbaru</li>
-        <li>Men-debug aplikasi yang sudah dikontainerisasi</li>
+        <li>Memperbarui aplikasi yang sudah dikontainerisasi dengan menggunakan versi aplikasi terbaru</li>
+        <li>Men-<i>debug</i> aplikasi yang sudah dikontainerisasi</li>
         </ul>
         <p>Tutorial ini menggunakan Katakoda untuk menjalankan terminal virtual diatas Minikube pada <i>web browser</i> kamu. Dengan demikian, kamu tidak perlu melakukan instalasi perangkat lunak apa pun, segala modul yang ada dijalankan secara langsung melalui <i>web browser</i> yang kamu miliki.</p>
       </div>
@@ -44,32 +44,34 @@ card:
       </div>
     </div>
 
+    <br>
+    
     <div id="basics-modules" class="content__modules">
-      <h2>Kubernetes Basics Modules</h2>
+      <h2>Modul Dasar Kubernetes</h2>
       <div class="row">
         <div class="col-md-12">
           <div class="row">
             <div class="col-md-4">
               <div class="thumbnail">
-                <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347" alt=""></a>
+                <a href="/id/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347" alt=""></a>
                 <div class="caption">
-                  <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><h5>1. Create a Kubernetes cluster</h5></a>
+                  <a href="/id/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><h5>1. Membuat klaster Kubernetes</h5></a>
                 </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="thumbnail">
-                <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347" alt=""></a>
+                <a href="/id/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347" alt=""></a>
                 <div class="caption">
-                  <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><h5>2. Deploy an app</h5></a>
+                  <a href="/id/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><h5>2. Menyebarkan (Deploy) Aplikasi</h5></a>
                 </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="thumbnail">
-                <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347" alt=""></a>
+                <a href="/id/docs/tutorials/kubernetes-basics/explore/explore-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347" alt=""></a>
                 <div class="caption">
-                  <a href="/docs/tutorials/kubernetes-basics/explore/explore-intro/"><h5>3. Explore your app</h5></a>
+                  <a href="/id/docs/tutorials/kubernetes-basics/explore/explore-intro/"><h5>3. Menjelajahi aplikasimu</h5></a>
                 </div>
               </div>
             </div>
@@ -79,13 +81,33 @@ card:
           <div class="row">
             <div class="col-md-4">
               <div class="thumbnail">
-                <a href="/docs/tutorials/kubernetes-basics/expose/expose-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347" alt=""></a>
+                <a href="/id/docs/tutorials/kubernetes-basics/expose/expose-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/id/docs/tutorials/kubernetes-basics/expose/expose-intro/"><h5>4. Mengekspos aplikasimu secara publik</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/id/docs/tutorials/kubernetes-basics/scale/scale-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/id/docs/tutorials/kubernetes-basics/scale/scale-intro/"><h5>5. Penyekalaan naik aplikasimu</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/id/docs/tutorials/kubernetes-basics/update/update-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/id/docs/tutorials/kubernetes-basics/update/update-intro/"><h5>6. Memperbarui aplikasimu</h5></a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </main>
 
 </div>

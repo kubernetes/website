@@ -1,11 +1,11 @@
 ---
-title: 잡 - 실행부터 완료까지
+title: 잡
 content_type: concept
 feature:
   title: 배치 실행
   description: >
     쿠버네티스는 서비스 외에도 배치와 CI 워크로드를 관리할 수 있으며, 원하는 경우 실패한 컨테이너를 교체할 수 있다.
-weight: 70
+weight: 50
 ---
 
 <!-- overview -->
@@ -116,6 +116,7 @@ kubectl logs $pods
 
 `.spec.template` 은 `.spec` 의 유일한 필수 필드이다.
 
+
 `.spec.template` 은 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다. 이것은 `apiVersion` 또는 `kind` 가 없다는 것을 제외한다면 {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확하게 같은 스키마를 가지고 있다.
 
 추가로 파드의 필수 필드 외에도 잡의 파드 템플릿은 적절한
@@ -129,7 +130,7 @@ kubectl logs $pods
 [자신의 파드 셀렉터를 지정하기](#자신의-파드-셀렉터를-지정하기) 섹션을 참고한다.
 
 
-### 병렬 잡
+### 잡에 대한 병렬 실행 {#parallel-jobs}
 
 잡으로 실행하기에 적합한 작업 유형은 크게 세 가지가 있다.
 
@@ -199,7 +200,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 두 번 시작하는 경우가 있다는 점을 참고한다.
 
 `.spec.parallelism` 그리고 `.spec.completions` 를 모두 1보다 크게 지정한다면 한번에
-여러개의 파드가 실행될 수 있다.  따라서 파드는 동시성에 대해서도 관대(tolerant)해야 한다.
+여러 개의 파드가 실행될 수 있다.  따라서 파드는 동시성에 대해서도 관대(tolerant)해야 한다.
 
 ### 파드 백오프(backoff) 실패 정책
 
@@ -212,9 +213,6 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 해당 시간 동안 잡에 대한 다른 파드가 실패 없이 성공했을 때 백 오프
 카운트가 재설정된다.
 
-{{< note >}}
-1.12 이전 버전의 쿠버네티스 버전에 대해 여전히 [#54870](https://github.com/kubernetes/kubernetes/issues/54870) 이슈가 있다.
-{{< /note >}}
 {{< note >}}
 만약 잡에 `restartPolicy = "OnFailure"` 가 있는 경우 잡 백오프 한계에
 도달하면 잡을 실행 중인 컨테이너가 종료된다. 이로 인해 잡 실행 파일의 디버깅이
@@ -333,7 +331,7 @@ spec:
 - 각 작업 항목에 대한 하나의 잡 오브젝트 vs 모든 작업 항목에 대한 단일 잡 오브젝트.  후자는
   작업 항목 수가 많은 경우 더 적합하다.  전자는 사용자와 시스템이 많은 수의 잡 오브젝트를
   관리해야 하는 약간의 오버헤드를 만든다.
-- 작업 항목과 동일한 개수의 파드 생성 vs 각 파드에서 다수의 작업 항목을 처리
+- 작업 항목과 동일한 개수의 파드 생성 vs 각 파드에서 다수의 작업 항목을 처리.
   전자는 일반적으로 기존 코드와 컨테이너를 거의 수정할 필요가 없다.  후자는
   이전 글 머리표(-)와 비슷한 이유로 많은 수의 작업 항목에 적합하다.
 - 여러 접근 방식이 작업 큐를 사용한다.  이를 위해서는 큐 서비스를 실행하고,
@@ -346,9 +344,9 @@ spec:
 
 |                            패턴                                   | 단일 잡 오브젝트 | 작업 항목보다 파드가 적은가? | 수정하지 않은 앱을 사용하는가? |  Kube 1.1에서 작동하는가? |
 | -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
-| [잡 템플릿 확장](/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
+| [잡 템플릿 확장](/ko/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
 | [작업 항목 당 파드가 있는 큐](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |         ✓         |                             |      때때로      |          ✓          |
-| [가변 파드 수를 가진 큐](/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
+| [가변 파드 수를 가진 큐](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
 | 정적 작업이 할당된 단일 잡                               |         ✓         |                             |          ✓          |                     |
 
 `.spec.completions` 로 완료를 지정할 때, 잡 컨트롤러에 의해 생성된 각 파드는
@@ -362,9 +360,9 @@ spec:
 
 |                             패턴                                  | `.spec.completions` |  `.spec.parallelism` |
 | -------------------------------------------------------------------- |:-------------------:|:--------------------:|
-| [잡 템플릿 확장](/docs/tasks/job/parallel-processing-expansion/)           |          1          |     1이어야 함      |
+| [잡 템플릿 확장](/ko/docs/tasks/job/parallel-processing-expansion/)           |          1          |     1이어야 함      |
 | [작업 항목 당 파드가 있는 큐](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |          W          |        any           |
-| [가변 파드 수를 가진 큐](/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
+| [가변 파드 수를 가진 큐](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
 | 정적 작업이 할당된 단일 잡                               |          W          |        any           |
 
 

@@ -77,6 +77,8 @@ VM 내의 프로세스와 동일하다. 이것을 "IP-per-pod(파드별 IP)" 모
 이 목록은 알파벳 순으로 정렬되어 있으며, 정렬된 순서가
 우선 상태를 의미하는 것은 아니다.
 
+{{% thirdparty-content %}}
+
 ### ACI
 
 [Cisco 애플리케이션 센트릭 인프라스트럭처(Application Centric Infrastructure)](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html)는 컨테이너, 가상 머신 및 베어메탈 서버를 지원하는 통합 오버레이 및 언더레이 SDN 솔루션을 제공한다. [ACI](https://www.github.com/noironetworks/aci-containers)는 ACI를 위한 컨테이너 네트워킹 통합을 제공한다. 통합의 개요는 [여기](https://www.cisco.com/c/dam/en/us/solutions/collateral/data-center-virtualization/application-centric-infrastructure/solution-overview-c22-739493.pdf)에서 제공된다.
@@ -312,4 +314,3 @@ OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
 네트워크 모델의 초기 설계와 그 근거 및 미래의 계획은
 [네트워킹 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)에
 자세히 설명되어 있다.
-

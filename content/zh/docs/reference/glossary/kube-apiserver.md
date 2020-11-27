@@ -2,9 +2,9 @@
 title: kube-apiserver
 id: kube-apiserver
 date: 2018-04-12
-full_link: /docs/reference/generated/kube-apiserver/
+full_link: /zh/docs/reference/command-line-tools-reference/kube-apiserver/
 short_description: >
-  主节点上负责提供 Kubernetes API 服务的组件；它是 Kubernetes 控制面的前端。
+  提供 Kubernetes API 服务的控制面组件。
 
 aka: 
 tags:
@@ -16,9 +16,9 @@ tags:
 title: kube-apiserver
 id: kube-apiserver
 date: 2018-04-12
-full_link: /docs/reference/generated/kube-apiserver/
+full_link: /zh/docs/reference/command-line-tools-reference/kube-apiserver/
 short_description: >
-  Component on the master that exposes the Kubernetes API. It is the front-end for the Kubernetes control plane. 
+  Control plane component that serves the Kubernetes API. 
 
 aka: 
 tags:
@@ -27,18 +27,21 @@ tags:
 -->
 
 <!--
- Component on the master that exposes the Kubernetes API. It is the front-end for the Kubernetes control plane. 
+ The API server is a component of the Kubernetes
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}} that exposes the Kubernetes API.
+The API server is the front end for the Kubernetes control plane.
 -->
-
-主节点上负责提供 Kubernetes API 服务的组件；它是 Kubernetes 控制面的前端。
+API 服务器是 Kubernetes {{< glossary_tooltip text="控制面" term_id="control-plane" >}}的组件，
+该组件公开了 Kubernetes API。
+API 服务器是 Kubernetes 控制面的前端。
 
 <!--more--> 
 
 <!--
-It is designed to scale horizontally - that is, it scales by deploying more instances. See [Building High-Availability Clusters](/docs/admin/high-availability/).
+The main implementation of a Kubernetes API server is [kube-apiserver](/docs/reference/generated/kube-apiserver/).
+kube-apiserver is designed to scale horizontally&mdash;that is, it scales by deploying more instances.
+You can run several instances of kube-apiserver and balance traffic between those instances.
 -->
-
-kube-apiserver 在设计上考虑了水平扩缩的需要。
-换言之，通过部署多个实例可以实现扩缩。
-参见[构造高可用集群](/docs/admin/high-availability/)。
-
+Kubernetes API 服务器的主要实现是 [kube-apiserver](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)。
+kube-apiserver 设计上考虑了水平伸缩，也就是说，它可通过部署多个实例进行伸缩。
+你可以运行 kube-apiserver 的多个实例，并在这些实例之间平衡流量。

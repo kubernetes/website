@@ -9,13 +9,18 @@ card:
 ---
 
 <!-- overview -->
-쿠버네티스 커맨드 라인 도구인 [kubectl](/docs/user-guide/kubectl/)을 사용하면, 쿠버네티스 클러스터에 대해 명령을 실행할 수 있다. kubectl을 사용하여 애플리케이션을 배포하고, 클러스터 리소스를 검사 및 관리하며 로그를 볼 수 있다. kubectl 작업의 전체 목록에 대해서는, [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 참고한다.
+쿠버네티스 커맨드 라인 도구인 [kubectl](/docs/reference/kubectl/kubectl/)을 사용하면,
+쿠버네티스 클러스터에 대해 명령을 실행할 수 있다.
+kubectl을 사용하여 애플리케이션을 배포하고, 클러스터 리소스를 검사 및 관리하며
+로그를 볼 수 있다. kubectl 작업의 전체 목록에 대해서는,
+[kubectl 개요](/ko/docs/reference/kubectl/overview/)를 참고한다.
 
 
 ## {{% heading "prerequisites" %}}
 
-클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다. 예를 들어, v1.2 클라이언트는 v1.1, v1.2 및 v1.3의 마스터와 함께 작동해야 한다. 최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
-
+클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다.
+예를 들어, v1.2 클라이언트는 v1.1, v1.2 및 v1.3의 마스터와 함께 작동해야 한다.
+최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
 
 <!-- steps -->
 
@@ -57,7 +62,7 @@ card:
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian 또는 HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
+sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
@@ -306,7 +311,12 @@ kubectl을 Google Cloud SDK의 일부로 설치할 수 있다.
 
 ## kubectl 구성 확인
 
-kubectl이 쿠버네티스 클러스터를 찾아 접근하려면, [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)를 사용하여 클러스터를 생성하거나 Minikube 클러스터를 성공적으로 배포할 때 자동으로 생성되는 [kubeconfig 파일](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)이 필요하다. 기본적으로, kubectl 구성은 `~/.kube/config` 에 있다.
+kubectl이 쿠버네티스 클러스터를 찾아 접근하려면,
+[kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)를
+사용하여 클러스터를 생성하거나 Minikube 클러스터를 성공적으로 배포할 때 자동으로 생성되는
+[kubeconfig 파일](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)이
+필요하다.
+기본적으로, kubectl 구성은 `~/.kube/config` 에 있다.
 
 클러스터 상태를 가져와서 kubectl이 올바르게 구성되어 있는지 확인한다.
 
@@ -513,6 +523,7 @@ compinit
 
 * [Minikube 설치](/ko/docs/tasks/tools/install-minikube/)
 * 클러스터 생성에 대한 자세한 내용은 [시작하기](/ko/docs/setup/)를 참고한다.
-* [애플리케이션을 시작하고 노출하는 방법에 대해 배운다.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* 직접 생성하지 않은 클러스터에 접근해야하는 경우, [클러스터 접근 공유 문서](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)를 참고한다.
+* [애플리케이션을 시작하고 노출하는 방법에 대해 배운다.](/ko/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* 직접 생성하지 않은 클러스터에 접근해야하는 경우,
+  [클러스터 접근 공유 문서](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)를 참고한다.
 * [kubectl 레퍼런스 문서](/docs/reference/kubectl/kubectl/) 읽기

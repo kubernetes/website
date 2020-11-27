@@ -15,7 +15,7 @@ Một khi Pull Request của bạn được tạo, reviewer sẽ chịu trách n
 
 * [Bắt đầu đóng góp](https://kubernetes.io/docs/contribute/start/)
 * [Các giai đoạn thay đổi tài liệu](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Sử dụng các trang templates](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Sử dụng các trang templates](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Hướng dẫn biểu mẫu tài liệu](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Địa phương hóa tài liệu Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
@@ -31,13 +31,13 @@ Cách được đề xuất để chạy trang web Kubernetes cục bộ là dù
 Nếu bạn có Docker đang [up và running](https://www.docker.com/get-started), build `kubernetes-hugo` Docker image cục bộ:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Khi image đã được built, bạn có thể chạy website cục bộ:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Mở trình duyệt và đến địa chỉ http://localhost:1313 để xem website. Khi bạn thay đổi các file nguồn, Hugo cập nhật website và buộc làm mới trình duyệt.

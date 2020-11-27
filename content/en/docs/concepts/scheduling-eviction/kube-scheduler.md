@@ -33,7 +33,7 @@ kube-scheduler is designed so that, if you want and need to, you can
 write your own scheduling component and use that instead.
 
 For every newly created pod or other unscheduled pods, kube-scheduler
-selects an optimal node for them to run on.  However, every container in
+selects an optimal node for them to run on. However, every container in
 pods has different requirements for resources and every pod also has
 different requirements. Therefore, existing nodes need to be filtered
 according to the specific scheduling requirements.
@@ -77,12 +77,9 @@ one of these at random.
 There are two supported ways to configure the filtering and scoring behavior
 of the scheduler:
 
-1. [Scheduling Policies](/docs/reference/scheduling/policies) allow you to
-  configure _Predicates_ for filtering and _Priorities_ for scoring.
-1. [Scheduling Profiles](/docs/reference/scheduling/config/#profiles) allow you
-  to configure Plugins that implement different scheduling stages, including:
-  `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You
-  can also configure the kube-scheduler to run different profiles.
+
+1. [Scheduling Policies](/docs/reference/scheduling/policies) allow you to configure _Predicates_ for filtering and _Priorities_ for scoring.
+1. [Scheduling Profiles](/docs/reference/scheduling/config/#profiles) allow you to configure Plugins that implement different scheduling stages, including: `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You can also configure the kube-scheduler to run different profiles.
 
 
 ## {{% heading "whatsnext" %}}
@@ -92,7 +89,7 @@ of the scheduler:
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
 * Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
-* Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
+* Learn about [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 * Learn about scheduling of Pods that use volumes in:
   * [Volume Topology Support](/docs/concepts/storage/storage-classes/#volume-binding-mode)
   * [Storage Capacity Tracking](/docs/concepts/storage/storage-capacity/)

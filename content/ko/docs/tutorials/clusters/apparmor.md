@@ -1,6 +1,7 @@
 ---
-title: AppArmor
+title: AppArmor를 사용하여 리소스에 대한 컨테이너의 접근 제한
 content_type: tutorial
+weight: 10
 ---
 
 
@@ -77,7 +78,7 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
 
 3. 컨테이너 런타임이 AppArmor을 지원한다. -- 현재 모든 일반적인 쿠버네티스를 지원하는
 {{< glossary_tooltip term_id="docker">}}, {{< glossary_tooltip term_id="cri-o" >}} 또는
-{{< glossary_tooltip term_id="containerd" >}} 와 같은 컨테이너 런타임들은 AppArmor를 지원해야 한다. 
+{{< glossary_tooltip term_id="containerd" >}} 와 같은 컨테이너 런타임들은 AppArmor를 지원해야 한다.
 이 런타임 설명서를 참조해서 클러스터가 AppArmor를 사용하기 위한
 요구 사항을 충족하는지 확인해야 한다.
 
@@ -469,5 +470,3 @@ AppArmor 로그는 `dmesg`에서 보이며, 오류는 보통 시스템 로그나
 
 * [퀵 가이드 AppArmor 프로파일 언어](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
 * [AppArmor 코어 정책 참고](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
-
-

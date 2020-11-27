@@ -96,7 +96,7 @@ Dalam contoh ini:
   3. Untuk melihat status rilis Deployment, jalankan `kubectl rollout status deployment.v1.apps/nginx-deployment`. Keluaran akan tampil seperti berikut:
     ```shell
     Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-    deployment.apps/nginx-deployment successfully rolled out
+    deployment "nginx-deployment" successfully rolled out
     ```
 
   4. Jalankan `kubectl get deployments` lagi beberapa saat kemudian. Keluaran akan tampil seperti berikut:
@@ -179,7 +179,7 @@ Ikuti langkah-langkah berikut untuk membarui Deployment:
     ```
     atau
     ```
-    deployment.apps/nginx-deployment successfully rolled out
+    deployment "nginx-deployment" successfully rolled out
     ```
 
 Untuk menampilkan detail lain dari Deployment yang terbaru:
@@ -826,7 +826,7 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 Keluaran akan tampil seperti berikut:
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
-deployment.apps/nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 $ echo $?
 0
 ```

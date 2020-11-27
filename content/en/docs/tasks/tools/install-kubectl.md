@@ -65,7 +65,7 @@ Using the latest version of kubectl helps avoid unforeseen issues.
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
+sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
@@ -525,7 +525,7 @@ compinit
 
 ## {{% heading "whatsnext" %}}
 
-* [Install Minikube](/docs/tasks/tools/install-minikube/)
+* [Install Minikube](https://minikube.sigs.k8s.io/docs/start/)
 * See the [getting started guides](/docs/setup/) for more about creating clusters.
 * [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * If you need access to a cluster you didn't create, see the

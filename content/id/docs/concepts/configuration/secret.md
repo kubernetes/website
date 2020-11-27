@@ -61,7 +61,7 @@ dan _password_ yang harus digunakan oleh Pod-Pod tersebut berada pada mesin loka
 dalam bentuk _file-file_ `./username.txt` dan `./password.txt`.
 
 ```shell
-# Buatlah file yang selanjutnya akan digunakan pada contoh-contoh selanjutnya
+# Buatlah berkas yang selanjutnya akan digunakan pada contoh-contoh selanjutnya
 echo -n 'admin' > ./username.txt
 echo -n '1f2d1e2e67df' > ./password.txt
 ```
@@ -271,7 +271,7 @@ dispesifikasikan di dalam sebuah _file_ `kustomization.yaml` di dalam sebuah dir
 
 Sebagai contoh, untuk menghasilan sebuah Secret dari _file-file_ `./username.txt` dan `./password.txt`
 ```shell
-# Membuat sebuah file kustomization.yaml dengan SecretGenerator
+# Membuat sebuah berkas kustomization.yaml dengan SecretGenerator
 cat <<EOF >./kustomization.yaml
 secretGenerator:
 - name: db-user-pass
@@ -310,7 +310,7 @@ username.txt:    5 bytes
 Sebagai contoh, untuk membuat sebuah Secret dari literal `username=admin` dan `password=secret`,
 kamu dapat menspesifikasikan _generator_ Secret pada _file_ `kustomization.yaml` sebagai
 ```shell
-# Membuat sebuah file kustomization.yaml dengan menggunakan SecretGenerator
+# Membuat sebuah berkas kustomization.yaml dengan menggunakan SecretGenerator
 $ cat <<EOF >./kustomization.yaml
 secretGenerator:
 - name: db-user-pass

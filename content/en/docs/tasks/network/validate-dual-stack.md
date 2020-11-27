@@ -16,7 +16,6 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 
 * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
 * A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that supports dual-stack (such as Kubenet or Calico)
-* Kube-proxy running in mode IPVS
 * [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
 
 {{< version-check >}}

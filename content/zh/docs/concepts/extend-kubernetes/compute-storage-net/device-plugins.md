@@ -19,13 +19,19 @@ The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adap
 and other similar computing resources that may require vendor specific initialization
 and setup.
 -->
-Kubernetes 提供了一个[设备插件框架](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)，你可以用来将系统硬件资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。
+Kubernetes 提供了一个
+[设备插件框架](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)，你可以用它来将系统硬件资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。
 
-供应商可以实现设备插件，由你手动部署或作为 {{< glossary_tooltip term_id="daemonset" >}} 来部署，而不必定制 Kubernetes 本身的代码。目标设备包括 GPU、高性能 NIC、FPGA、InfiniBand 适配器以及其他类似的、可能需要特定于供应商的初始化和设置的计算资源。
+供应商可以实现设备插件，由你手动部署或作为 {{< glossary_tooltip term_id="daemonset" >}}
+来部署，而不必定制 Kubernetes 本身的代码。目标设备包括 GPU、高性能 NIC、FPGA、
+InfiniBand 适配器以及其他类似的、可能需要特定于供应商的初始化和设置的计算资源。
 
 <!-- body -->
 
-## 注册设备插件
+<!--
+## Device plugin registration
+-->
+## 注册设备插件    {#device-plugin-registration}
 
 <!--
 The kubelet exports a `Registration` gRPC service:
@@ -45,7 +51,7 @@ During the registration, the device plugin needs to send:
   * The name of its Unix socket.
   * The Device Plugin API version against which it was built.
   * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
-    [extended resource naming scheme](/docs/concepts/configuration/manage-resources-container/#extended-resources)
+    [extended resource naming scheme](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
     as `vendor-domain/resourcetype`.
     (For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.)
 
@@ -54,7 +60,7 @@ list of devices it manages, and the kubelet is then in charge of advertising tho
 resources to the API server as part of the kubelet node status update.
 For example, after a device plugin registers `hardware-vendor.example/foo` with the kubelet
 and reports two healthy devices on a node, the node status is updated
-to advertise that the node has 2 “Foo” devices installed and available.
+to advertise that the node has 2 "Foo" devices installed and available.
 -->
 设备插件可以通过此 gRPC 服务在 kubelet 进行注册。在注册期间，设备插件需要发送下面几样内容：
   
@@ -64,9 +70,12 @@ to advertise that the node has 2 “Foo” devices installed and available.
   [扩展资源命名方案](/zh/docs/concepts/configuration/manage-resources-containers/#extended-resources)，
   类似于 `vendor-domain/resourcetype`。（比如 NVIDIA GPU 就被公布为 `nvidia.com/gpu`。）
 
-成功注册后，设备插件就向 kubelet 发送他所管理的设备列表，然后 kubelet 负责将这些资源发布到 API 服务器，作为 kubelet 节点状态更新的一部分。
+成功注册后，设备插件就向 kubelet 发送它所管理的设备列表，然后 kubelet
+负责将这些资源发布到 API 服务器，作为 kubelet 节点状态更新的一部分。
 
-比如，设备插件在 kubelet 中注册了 `hardware-vendor.example/foo` 并报告了节点上的两个运行状况良好的设备后，节点状态将更新以通告该节点已安装2个 `Foo` 设备并且是可用的。
+比如，设备插件在 kubelet 中注册了 `hardware-vendor.example/foo` 并报告了
+节点上的两个运行状况良好的设备后，节点状态将更新以通告该节点已安装 2 个
+"Foo" 设备并且是可用的。
 
 <!--
 Then, users can request devices in a
@@ -105,9 +114,9 @@ spec:
           hardware-vendor.example/foo: 2
 #
 # 这个 pod 需要两个 hardware-vendor.example/foo 设备
-# 而且只能够调度到满足需求的 node 上
+# 而且只能够调度到满足需求的节点上
 #
-# 如果该节点中有2个以上的设备可用，其余的可供其他 pod 使用
+# 如果该节点中有 2 个以上的设备可用，其余的可供其他 Pod 使用
 ```
 
 <!--
@@ -121,14 +130,16 @@ The general workflow of a device plugin includes the following steps:
 * The plugin starts a gRPC service, with a Unix socket under host path
   `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
 -->
-
-## 设备插件的实现
+## 设备插件的实现    {#device-plugin-implementation}
 
 设备插件的常规工作流程包括以下几个步骤：
 
-* 初始化。在这个阶段，设备插件将执行供应商特定的初始化和设置，以确保设备处于就绪状态。
-* 插件使用主机路径 `/var/lib/kubelet/device-plugins/` 下的 Unix socket 启动一个 gRPC 服务，该服务实现以下接口：
+* 初始化。在这个阶段，设备插件将执行供应商特定的初始化和设置，
+  以确保设备处于就绪状态。
+* 插件使用主机路径 `/var/lib/kubelet/device-plugins/` 下的 Unix 套接字启动
+  一个 gRPC 服务，该服务实现以下接口：
 
+  <!--
   ```gRPC
   service DevicePlugin {
         // ListAndWatch returns a stream of List of Devices
@@ -140,8 +151,58 @@ The general workflow of a device plugin includes the following steps:
         // Plugin can run device specific operations and instruct Kubelet
         // of the steps to make the Device available in the container
         rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
+
+        // GetPreferredAllocation returns a preferred set of devices to allocate
+        // from a list of available ones. The resulting preferred allocation is not
+        // guaranteed to be the allocation ultimately performed by the
+        // devicemanager. It is only designed to help the devicemanager make a more
+        // informed allocation decision when possible.
+        rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
+
+        // PreStartContainer is called, if indicated by Device Plugin during registeration phase,
+        // before each container start. Device plugin can run device specific operations
+        // such as resetting the device before making devices available to the container.
+        rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
   }
   ```
+  -->
+  ```gRPC
+  service DevicePlugin {
+        // ListAndWatch 返回 Device 列表构成的数据流。
+        // 当 Device 状态发生变化或者 Device 消失时，ListAndWatch
+        // 会返回新的列表。
+        rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
+
+        // Allocate 在容器创建期间调用，这样设备插件可以运行一些特定于设备的操作，
+        // 并告诉 kubelet 如何令 Device 可在容器中访问的所需执行的具体步骤
+        rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
+
+        // GetPreferredAllocation 从一组可用的设备中返回一些优选的设备用来分配，
+        // 所返回的优选分配结果不一定会是设备管理器的最终分配方案。
+        // 此接口的设计仅是为了让设备管理器能够在可能的情况下做出更有意义的决定。
+        rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
+
+        // PreStartContainer 在设备插件注册阶段根据需要被调用，调用发生在容器启动之前。
+        // 在将设备提供给容器使用之前，设备插件可以运行一些诸如重置设备之类的特定于
+        // 具体设备的操作，
+        rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
+  }
+  ```
+
+  {{< note >}}
+  <!--
+  Plugins are not required to provide useful implementations for
+  `GetPreferredAllocation()` or `PreStartContainer()`. Flags indicating which
+  (if any) of these calls are available should be set in the `DevicePluginOptions`
+  message sent back by a call to `GetDevicePluginOptions()`. The `kubelet` will
+  always call `GetDevicePluginOptions()` to see which optional functions are
+  available, before calling any of them directly.
+  -->
+  插件并非必须为 `GetPreferredAllocation()` 或 `PreStartContainer()` 提供有用
+  的实现逻辑，调用 `GetDevicePluginOptions()` 时所返回的 `DevicePluginOptions`
+  消息中应该设置这些调用是否可用。`kubelet` 在真正调用这些函数之前，总会调用
+  `GetDevicePluginOptions()` 来查看是否存在这些可选的函数。
+  {{< /note >}}
 
 <!--
 * The plugin registers itself with the kubelet through the Unix socket at host
@@ -155,7 +216,8 @@ If the operations succeed, the device plugin returns an `AllocateResponse` that 
 runtime configurations for accessing the allocated devices. The kubelet passes this information
 to the container runtime.
 -->
-* 插件通过 Unix socket 在主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock` 处向 kubelet 注册自身。
+* 插件通过 Unix socket 在主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock`
+  处向 kubelet 注册自身。
 * 成功注册自身后，设备插件将以服务模式运行，在此期间，它将持续监控设备运行状况，
   并在设备状态发生任何变化时向 kubelet 报告。它还负责响应 `Allocate` gRPC 请求。
   在 `Allocate` 期间，设备插件可能还会做一些设备特定的准备；例如 GPU 清理或 QRNG 初始化。
@@ -174,8 +236,8 @@ of its Unix socket and re-register itself upon such an event.
 
 设备插件应能监测到 kubelet 重启，并且向新的 kubelet 实例来重新注册自己。
 在当前实现中，当 kubelet 重启的时候，新的 kubelet 实例会删除 `/var/lib/kubelet/device-plugins`
-下所有已经存在的 Unix sockets。
-设备插件需要能够监控到它的 Unix socket 被删除，并且当发生此类事件时重新注册自己。
+下所有已经存在的 Unix 套接字。
+设备插件需要能够监控到它的 Unix 套接字被删除，并且当发生此类事件时重新注册自己。
 
 <!--
 ## Device plugin deployment
@@ -197,10 +259,11 @@ Pod onto Nodes, to restart the daemon Pod after failure, and to help automate up
 
 你可以将你的设备插件作为节点操作系统的软件包来部署、作为 DaemonSet 来部署或者手动部署。
 
-规范目录 `/var/lib/kubelet/device-plugins` 是需要特权访问的，所以设备插件必须要在被授权的安全的上下文中运行。
+规范目录 `/var/lib/kubelet/device-plugins` 是需要特权访问的，所以设备插件
+必须要在被授权的安全的上下文中运行。
 如果你将设备插件部署为 DaemonSet，`/var/lib/kubelet/device-plugins` 目录必须要在插件的
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
-中声明作为 {{< glossary_tooltip term_id="volume" >}} 被 mount 到插件中。
+中声明作为 {{< glossary_tooltip term_id="volume" >}} 被挂载到插件中。
 
 如果你选择 DaemonSet 方法，你可以通过 Kubernetes 进行以下操作：
 将设备插件的 Pod 放置在节点上，在出现故障后重新启动守护进程 Pod，来进行自动升级。
@@ -296,11 +359,12 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
-The Topology Manager is a Kubelet component that allows resources to be co-ordintated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
+
+The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
 -->
 ## 设备插件与拓扑管理器的集成
 
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 拓扑管理器是 Kubelet 的一个组件，它允许以拓扑对齐方式来调度资源。
 为了做到这一点，设备插件 API 进行了扩展来包括一个 `TopologyInfo` 结构体。

@@ -225,14 +225,13 @@ certificate.
 <!--
 On some clusters, the API server does not require authentication; it may serve
 on localhost, or be protected by a firewall. There is not a standard
-for this. [Configuring Access to the API](/docs/reference/access-authn-authz/controlling-access/)
-describes how a cluster admin can configure this. Such approaches may conflict
-with future high-availability support.
+for this. [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access)
+describes how you can configure this as a cluster administrator.
 -->
 在一些集群中，API 服务器不需要身份认证；它运行在本地，或由防火墙保护着。
 对此并没有一个标准。
-[配置对 API 的访问](/zh/docs/reference/access-authn-authz/controlling-access/)
-阐述了一个集群管理员如何对此进行配置。这种方法可能与未来的高可用性支持发生冲突。
+[配置对 API 的访问](/zh/docs/concepts/security/controlling-access/)
+讲解了作为集群管理员可如何对此进行配置。
 
 <!--
 ### Programmatic access to the API
@@ -277,11 +276,14 @@ Go 客户端可以使用与 kubectl 命令行工具相同的
 [例子](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)：
 
 ```golang
+package main
+
 import (
+   "context"
    "fmt"
-   "k8s.io/client-go/1.4/kubernetes"
-   "k8s.io/client-go/1.4/pkg/api/v1"
-   "k8s.io/client-go/1.4/tools/clientcmd"
+   "k8s.io/apimachinery/pkg/apis/meta/v1"
+   "k8s.io/client-go/kubernetes"
+   "k8s.io/client-go/tools/clientcmd"
 )
 
 func main() {
@@ -291,7 +293,7 @@ func main() {
   // creates the clientset
   clientset, _ := kubernetes.NewForConfig(config)
   // access the API to list pods
-  pods, _ := clientset.CoreV1().Pods("").List(v1.ListOptions{})
+  pods, _ := clientset.CoreV1().Pods("").List(context.TODO(), v1.ListOptions{})
   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
 }
 ```

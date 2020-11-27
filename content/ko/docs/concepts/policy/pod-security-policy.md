@@ -138,7 +138,7 @@ RBAC 바인딩에 대한 자세한 예는,
 ### 문제 해결
 
 - [컨트롤러 관리자](/docs/reference/command-line-tools-reference/kube-controller-manager/)는
-[보안 API 포트](/docs/reference/access-authn-authz/controlling-access/)에 대해 실행해야 하며,
+[보안 API 포트](/ko/docs/reference/access-authn-authz/controlling-access/)에 대해 실행해야 하며,
 슈퍼유저 권한이 없어야 한다. 그렇지 않으면 요청이 인증 및 권한 부여 모듈을 우회하고,
 모든 파드시큐리티폴리시 오브젝트가 허용되며
 사용자는 특권있는 컨테이너를 만들 수 있다. 컨트롤러 관리자 권한 구성에 대한 자세한
@@ -593,8 +593,11 @@ spec:
 
 ### Seccomp
 
-파드에서 seccomp 프로파일의 사용은 파드시큐리티폴리시의 어노테이션을 통해
-제어할 수 있다. Seccomp는 쿠버네티스의 알파 기능이다.
+쿠버네티스 v1.19부터 파드나 컨테이너의 `securityContext` 에서
+`seccompProfile` 필드를 사용하여 [seccomp 프로파일 사용을
+제어](/docs/tutorials/clusters/seccomp)할 수 있다. 이전 버전에서는, 파드에
+어노테이션을 추가하여 seccomp를 제어했다. 두 버전에서 동일한 파드시큐리티폴리시를 사용하여
+이러한 필드나 어노테이션이 적용되는 방식을 적용할 수 있다.
 
 **seccomp.security.alpha.kubernetes.io/defaultProfileName** - 컨테이너에
 적용할 기본 seccomp 프로파일을 지정하는 어노테이션이다. 가능한 값은
@@ -607,7 +610,14 @@ spec:
   되었다. 대신 `runtime/default` 사용을 권장한다.
 - `localhost/<path>` - `<seccomp_root>/<path>`에 있는 노드에서 파일을 프로파일로
   지정한다. 여기서 `<seccomp_root>`는 Kubelet의 `--seccomp-profile-root` 플래그를
-  통해 정의된다.
+  통해 정의된다. `--seccomp-profile-root` 플래그가
+  정의되어 있지 않으면, `<root-dir>` 이 `--root-dir` 플래그로
+  지정된 `<root-dir>/seccomp` 기본 경로가 사용된다.
+
+{{< note >}}
+  `--seccomp-profile-root` 플래그는 쿠버네티스 v1.19부터 더 이상 사용되지
+  않는다. 사용자는 기본 경로를 사용하는 것이 좋다.
+{{< /note >}}
 
 **seccomp.security.alpha.kubernetes.io/allowedProfileNames** - 파드 seccomp
 어노테이션에 허용되는 값을 지정하는 어노테이션. 쉼표로 구분된

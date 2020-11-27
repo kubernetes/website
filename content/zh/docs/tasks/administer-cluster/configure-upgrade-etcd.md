@@ -16,11 +16,7 @@ content_type: task
 -->
 
 <!-- overview -->
-
-<!--
-{{< glossary_definition term_id="etcd" length="all" prepend="etcd is a ">}}
--->
-{{< glossary_definition term_id="etcd" length="all" prepend="etcd 是一个">}}
+{{< glossary_definition term_id="etcd" length="all" >}}
 
 
 

@@ -20,14 +20,14 @@ in the [Logging With Stackdriver Logging](/docs/user-guide/logging/stackdriver).
 -->
 在 Google Compute Engine (GCE) 平台上，默认的日志管理支持目标是
 [Stackdriver Logging](https://cloud.google.com/logging/)，
-在[使用 Stackdriver Logging 管理日志](/zh/docs/tasks/debug-application-cluster/logging-stackdriver/)
+在[使用 Stackdriver Logging 管理日志](/docs/tasks/debug-application-cluster/logging-stackdriver/)
 中详细描述了这一点。
 
 <!--
 This article describes how to set up a cluster to ingest logs into
 [Elasticsearch](https://www.elastic.co/products/elasticsearch) and view
 them using [Kibana](https://www.elastic.co/products/kibana), as an alternative to
-Stackdriver Logging when running on GCE. 
+Stackdriver Logging when running on GCE.
 -->
 本文介绍了如何设置一个集群，将日志导入
 [Elasticsearch](https://www.elastic.co/products/elasticsearch)，并使用
@@ -192,4 +192,3 @@ ideas on how to dig into it, check out [Kibana's documentation](https://www.elas
 -->
 Kibana 为浏览你的日志提供了各种强大的选项！有关如何深入研究它的一些想法，
 请查看 [Kibana 的文档](https://www.elastic.co/guide/en/kibana/current/discover.html)。
-

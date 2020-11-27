@@ -9,7 +9,7 @@ weight: 30
 오퍼레이터(Operator)는
 [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)를
 사용하여 애플리케이션 및 해당 컴포넌트를 관리하는 쿠버네티스의 소프트웨어 익스텐션이다. 오퍼레이터는
-쿠버네티스 원칙, 특히 [컨트롤 루프](/ko/docs/concepts/#쿠버네티스-컨트롤-플레인)를 따른다.
+쿠버네티스 원칙, 특히 [컨트롤 루프](/ko/docs/concepts/architecture/controller/)를 따른다.
 
 <!-- body -->
 
@@ -122,10 +122,7 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
   * [kubebuilder](https://book.kubebuilder.io/) 사용하기
   * 웹훅(WebHook)과 함께 [Metacontroller](https://metacontroller.app/)를
     사용하여 직접 구현하기
-  * [오퍼레이터 프레임워크](https://github.com/operator-framework/getting-started) 사용하기
+  * [오퍼레이터 프레임워크](https://operatorframework.io) 사용하기
 * 다른 사람들이 사용할 수 있도록 자신의 오퍼레이터를 [게시](https://operatorhub.io/)하기
 * 오퍼레이터 패턴을 소개한 [CoreOS 원본 기사](https://coreos.com/blog/introducing-operators.html) 읽기
 * 오퍼레이터 구축을 위한 모범 사례에 대한 구글 클라우드(Google Cloud)의 [기사](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) 읽기
-
-
-

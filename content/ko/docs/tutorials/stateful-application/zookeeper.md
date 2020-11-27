@@ -7,25 +7,23 @@ weight: 40
 <!-- overview -->
 이 튜토리얼은 [아파치 ZooKeeper](https://zookeeper.apache.org)
 쿠버네티스에서 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)과
-[파드디스룹선버짓(PodDisruptionBudget)](/ko/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)과
-[파드안티어피니티(PodAntiAffinity)](/ko/docs/user-guide/node-selection/#파드간-어피니티와-안티-어피니티)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
-
+[PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets)과
+[파드안티어피니티(PodAntiAffinity)](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
 
 ## {{% heading "prerequisites" %}}
-
 
 이 튜토리얼을 시작하기 전에
 다음 쿠버네티스 개념에 친숙해야 한다.
 
--   [파드](/docs/user-guide/pods/single-container/)
+-   [파드](/ko/docs/concepts/workloads/pods/)
 -   [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
 -   [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
 -   [퍼시스턴트볼륨](/ko/docs/concepts/storage/volumes/)
 -   [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 -   [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
--   [파드디스룹션버짓](/ko/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
--   [파드안티어피니티](/ko/docs/user-guide/node-selection/#파드간-어피니티와-안티-어피니티)
--   [kubectl CLI](/docs/user-guide/kubectl/)
+-   [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets)
+-   [파드안티어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
+-   [kubectl CLI](/docs/reference/kubectl/kubectl/)
 
 최소한 4개의 노드가 있는 클러스터가 필요하며, 각 노드는 적어도 2 개의 CPU와 4 GiB 메모리가 필요하다. 이 튜토리얼에서 클러스터 노드를 통제(cordon)하고 비우게(drain) 할 것이다. **이것은 클러스터를 종료하여 노드의 모든 파드를 퇴출(evict)하는 것으로, 모든 파드는 임시로 언스케줄된다는 의미이다.** 이 튜토리얼을 위해 전용 클러스터를 이용하거나, 다른 테넌트에 간섭을 하는 혼란이 발생하지 않도록 해야 합니다.
 
@@ -42,7 +40,7 @@ weight: 40
 -   어떻게 스테이트풀셋을 이용하여 ZooKeeper 앙상블을 배포하는가.
 -   어떻게 지속적해서 컨피그맵을 이용해서 앙상블을 설정하는가.
 -   어떻게 ZooKeeper 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
--   어떻게 파드디스룹션버짓을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
+-   어떻게 PodDisruptionBudget을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
 
 
 <!-- lessoncontent -->
@@ -63,17 +61,17 @@ ZooKeeper는 전체 상태 머신을 메모리에 보존하고 모든 돌연변�
 
 ## ZooKeeper 앙상블 생성하기
 
-아래 메니페스트에는
+아래 매니페스트에는
 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스),
 [서비스](/ko/docs/concepts/services-networking/service/),
-[파드디스룹션버짓](/ko/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget),
+[PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets),
 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 포함한다.
 
 {{< codenew file="application/zookeeper/zookeeper.yaml" >}}
 
 터미널을 열고
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) 명령어로
-메니페스트를 생성하자.
+매니페스트를 생성하자.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/zookeeper/zookeeper.yaml
@@ -118,7 +116,7 @@ zk-2      1/1       Running   0         40s
 ```
 
 스테이트풀셋 컨트롤러는 3개의 파드를 생성하고, 각 파드는
-[ZooKeeper](http://www-us.apache.org/dist/zookeeper/stable/) 서버를 포함한 컨테이너를 가진다.
+[ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) 서버를 포함한 컨테이너를 가진다.
 
 
 ### 리더 선출 촉진
@@ -339,7 +337,7 @@ zk-0      0/1       Terminating   0         11m
 zk-0      0/1       Terminating   0         11m
 ```
 
-`zookeeper.yaml` 메니페스트를 다시 적용한다.
+`zookeeper.yaml` 매니페스트를 다시 적용한다.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/zookeeper/zookeeper.yaml
@@ -446,7 +444,7 @@ volumeMounts:
 
 `zk` 스테이트풀셋이 (재)스케줄링될 때 항상 동일한 `퍼시스턴트볼륨`을
 ZooKeeper의 서버 디렉터리에 마운트한다.
-파드를 재스케쥴할 때에도 ZooKeeper의 WAL을 통해 이뤄진 모든 쓰기와
+파드를 재스케줄할 때에도 ZooKeeper의 WAL을 통해 이뤄진 모든 쓰기와
 모든 그 스냅샷도 내구성을 유지한다.
 
 ## 일관된 구성 보장하기
@@ -456,7 +454,7 @@ ZooKeeper의 서버 디렉터리에 마운트한다.
 ZooKeeper 앙상블에 서버는 리더 선출과 쿼럼을 구성하기 위한 일관된 설정이 필요하다.
 또한 Zab 프로토콜의 일관된 설정도
 네트워크에 걸쳐 올바르게 동작하기 위해서
-필요하다. 이 예시에서는 메니페스트에 구성을 직접 포함시켜서 일관된 구성을
+필요하다. 이 예시에서는 매니페스트에 구성을 직접 포함시켜서 일관된 구성을
 달성한다.
 
 `zk` 스테이트풀셋을 살펴보자.
@@ -495,7 +493,7 @@ ZooKeeper 서버를 시작하는데 사용한 명령어는 커맨드라인 파�
 ### 로깅 설정하기
 
 `zkGenConfig.sh` 스크립트로 생성된 파일 중 하나는 ZooKeeper의 로깅을 제어한다.
-ZooKeeper는 [Log4j](http://logging.apache.org/log4j/2.x/)를 이용하며
+ZooKeeper는 [Log4j](https://logging.apache.org/log4j/2.x/)를 이용하며
 기본 로깅 구성으로는 시간과 파일 크기 기준의 롤링 파일 어펜더를 사용한다.
 
  `zk` `스테이트풀셋`의 한 파드에서 로깅 설정을 살펴보는 아래 명령어를 이용하자.
@@ -517,7 +515,10 @@ log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L] - %m%n
 ```
 
-이는 컨테이너 내에서 안전하게 로깅하는 가장 단순한 방법이다. 표준 출력으로 애플리케이션 로그를 작성하면, 쿠버네티스는 로그 로테이션을 처리한다. 또한 쿠버네티스는 애플리케이션이 표준 출력과 표준 오류에 쓰인 로그로 인하여 로컬 저장 미디어가 고갈되지 않도록 보장하는 정상적인 보존 정책을 구현한다.
+이는 컨테이너 내에서 안전하게 로깅하는 가장 단순한 방법이다.
+표준 출력으로 애플리케이션 로그를 작성하면, 쿠버네티스는 로그 로테이션을 처리한다.
+또한 쿠버네티스는 애플리케이션이 표준 출력과 표준 오류에 쓰인 로그로 인하여
+로컬 저장 미디어가 고갈되지 않도록 보장하는 정상적인 보존 정책을 구현한다.
 
 파드의 마지막 20줄의 로그를 가져오는 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands/#logs) 명령을 이용하자.
 
@@ -787,7 +788,7 @@ zk-0      1/1       Running   1         1h
 
 ### 준비도 테스트
 
-준비도는 활성도와 동일하지 않다. 프로세스가 살아 있다면, 스케쥴링되고 건강하다.
+준비도는 활성도와 동일하지 않다. 프로세스가 살아 있다면, 스케줄링되고 건강하다.
 프로세스가 준비되면 입력을 처리할 수 있다. 활성도는 필수적이나 준비도의 조건으로는
 충분하지 않다. 몇몇 경우
 특별히 초기화와 종료 시에 프로세스는 살아있지만
@@ -796,7 +797,7 @@ zk-0      1/1       Running   1         1h
 준비도 검사를 지정하면, 쿠버네티스는 준비도가 통과할 때까지
 애플리케이션 프로세스가 네트워크 트래픽을 수신하지 않게 한다.
 
-ZooKeeper 서버에서는 준비도가 활성도를 내포한다. 그러므로 `zookeeper.yaml` 메니페스트에서
+ZooKeeper 서버에서는 준비도가 활성도를 내포한다. 그러므로 `zookeeper.yaml` 매니페스트에서
 준비도 검사는 활성도 검사와 동일하다.
 
 ```yaml
@@ -823,7 +824,9 @@ ZooKeeper는 변조된 데이터를 성공적으로 커밋하기 위한 서버�
 중단을 방지하기 위해 개별 시스템의 손실로 인해 모범 사례에서는 동일한 시스템에
 여러 인스턴스의 응용 프로그램을 함께 배치하는 것을 배제한다.
 
-기본적으로 쿠버네티스는 동일 노드상에 `스테이트풀셋`의 파드를 위치시킬 수 있다. 생성한 3개의 서버 앙상블에서 2개의 서버가 같은 노드에 있다면, 그 노드는 실패하고 ZooKeeper 서비스 클라이언트는 그 파드들의 최소 하나가 재스케쥴링될 때까지 작동 중단을 경험할 것이다.
+기본적으로 쿠버네티스는 동일 노드상에 `스테이트풀셋`의 파드를 위치시킬 수 있다.
+생성한 3개의 서버 앙상블에서 2개의 서버가 같은 노드에 있다면, 그 노드는 실패하고
+ZooKeeper 서비스 클라이언트는 그 파드들의 최소 하나가 재스케줄링될 때까지 작동 중단을 경험할 것이다.
 
 노드 실패하는 사건 중에도 중요 시스템의 프로세스가 재스케줄될 수 있게
 항상 추가적인 용량을 프로비전해야 한다. 그렇게 하면 쿠버네티스 스케줄러가
@@ -909,7 +912,7 @@ zk-pdb    N/A             1                 1
 kubectl get pods -w -l app=zk
 ```
 
-다른 터미널에서 현재 스케쥴되는 파드의 노드를 살펴보자.
+다른 터미널에서 현재 스케줄되는 파드의 노드를 살펴보자.
 
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
@@ -921,7 +924,7 @@ kubernetes-node-ixsl
 kubernetes-node-i4c4
 ```
 
-`zk-0`파드가 스케쥴되는 노드를 통제하기 위해
+`zk-0`파드가 스케줄되는 노드를 통제하기 위해
 [`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain)를 이용하자.
 
 ```shell
@@ -937,7 +940,7 @@ node "kubernetes-node-group-pb41" drained
 ```
 
 클러스터에 4개 노드가 있기 때문에 `kubectl drain`이 성공하여
-`zk-0`을 다른 노드로 재스케쥴링 된다.
+`zk-0`을 다른 노드로 재스케줄링 된다.
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -957,7 +960,7 @@ zk-0      1/1       Running   0         1m
 ```
 
 계속해서 `스테이트풀셋`의 파드를 첫 터미널에서 지켜보고
-`zk-1` 이 스케쥴된 노드를 비워보자.
+`zk-1` 이 스케줄된 노드를 비워보자.
 
 ```shell
 kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
@@ -969,7 +972,8 @@ pod "zk-1" deleted
 node "kubernetes-node-ixsl" drained
 ```
 
-`zk-1` 파드는 스케쥴되지 않는데 이는 `zk` `스테이트풀셋`이 오직 2개 노드가 스케쥴되도록 파드를 위치시키는 것을 금하는 `파드안티어피니티` 규칙을 포함하였기 때문이고 그 파드는 Pending 상태로 남을 것이다.
+`zk-1` 파드는 스케줄되지 않는데 이는 `zk` `StatefulSet`이 오직 2개 노드가 스케줄되도록 파드를 위치시키는 것을 금하는
+`PodAntiAffinity` 규칙을 포함하였기 때문이고 그 파드는 Pending 상태로 남을 것이다.
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -1051,7 +1055,7 @@ kubectl uncordon kubernetes-node-pb41
 node "kubernetes-node-pb41" uncordoned
 ```
 
-`zk-1`은 이 노드에서 재스케쥴된다. `zk-1`이 Running과 Ready가 될 때까지 기다리자.
+`zk-1`은 이 노드에서 재스케줄된다. `zk-1`이 Running과 Ready가 될 때까지 기다리자.
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -1083,7 +1087,7 @@ zk-1      0/1       Running   0         13m
 zk-1      1/1       Running   0         13m
 ```
 
-`zk-2`가 스케쥴된 노드를 비워보자.
+`zk-2`가 스케줄된 노드를 비워보자.
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
@@ -1111,7 +1115,10 @@ kubectl uncordon kubernetes-node-ixsl
 node "kubernetes-node-ixsl" uncordoned
 ```
 
-`kubectl drain`을 `PodDisruptionBudget`과 결합하면 유지보수 중에도 서비스를 가용하게 할 수 있다. drain으로 노드를 통제하고 유지보수를 위해 노드를 오프라인하기 전에 파드를 추출하기 위해 사용한다면 서비스는 혼란 예산을 표기한 서비스는 그 예산이 존중은 존중될 것이다. 파드가 즉각적으로 재스케줄 할 수 있도록 항상 중요 서비스를 위한 추가 용량을 할당해야 한다.
+`kubectl drain`을 `PodDisruptionBudget`과 결합하면 유지보수 중에도 서비스를 가용하게 할 수 있다.
+drain으로 노드를 통제하고 유지보수를 위해 노드를 오프라인하기 전에 파드를 추출하기 위해 사용한다면
+서비스는 혼란 예산을 표기한 서비스는 그 예산이 존중은 존중될 것이다.
+파드가 즉각적으로 재스케줄 할 수 있도록 항상 중요 서비스를 위한 추가 용량을 할당해야 한다.
 
 
 ## {{% heading "cleanup" %}}

@@ -13,7 +13,8 @@ weight: 30
 
 파드가 실행되는 동안, kubelet은 일종의 오류를 처리하기 위해 컨테이너를 다시
 시작할 수 있다. 파드 내에서, 쿠버네티스는 다양한 컨테이너
-[상태](#컨테이너-상태)와 핸들을 추적한다.
+[상태](#컨테이너-상태)를 추적하고 파드를 다시 정상 상태로 만들기 위해 취할 조치를
+결정한다.
 
 쿠버네티스 API에서 파드는 명세와 실제 상태를 모두 가진다.
 파드 오브젝트의 상태는 일련의 [파드 조건](#파드의-조건)으로 구성된다.
@@ -45,7 +46,7 @@ ID([UID](/ko/docs/concepts/overview/working-with-objects/names/#uids))가
 상대적으로 일회용인 파드 인스턴스를 관리하는 작업을 처리한다.
 
 UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되지 않는다. 대신,
-해당 파드는 사용자가 원하는 이름은 같지만, UID가 다른, 거의 동일한 새 파드로
+해당 파드는 사용자가 원한다면 이름은 같지만, UID가 다른, 거의 동일한 새 파드로
 대체될 수 있다.
 
 {{< glossary_tooltip term_id="volume" text="볼륨" >}}과
@@ -91,7 +92,7 @@ UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되�
 
 전체 파드의 [단계](#파드의-단계)뿐 아니라, 쿠버네티스는 파드 내부의
 각 컨테이너 상태를 추적한다.
-[컨테이너 라이프사이클 훅(hook)](/docs/concepts/containers/container-lifecycle-hooks/)을
+[컨테이너 라이프사이클 훅(hook)](/ko/docs/concepts/containers/container-lifecycle-hooks/)을
 사용하여 컨테이너 라이프사이클의 특정 지점에서 실행할 이벤트를 트리거할 수 있다.
 
 일단 {{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}가
@@ -118,7 +119,7 @@ UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되�
 ### `Running` {#container-state-running}
 
 `Running` 상태는 컨테이너가 문제없이 실행되고 있음을 나타낸다. `postStart` 훅이
-구성되어 있었다면, 이미 실행이 완료되었다. `kubectl` 을
+구성되어 있었다면, 이미 실행되고 완료되었다. `kubectl` 을
 사용하여 컨테이너가 `Running` 인 파드를 쿼리하면, 컨테이너가 `Running` 상태에 진입한 시기에 대한
 정보도 볼 수 있다.
 
@@ -314,7 +315,7 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
 
 ### 언제 스타트업 프로브를 사용해야 하는가?
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 스타트업 프로브는 서비스를 시작하는 데 오랜 시간이 걸리는 컨테이너가 있는
 파드에 유용하다. 긴 활성 간격을 설정하는 대신, 컨테이너가 시작될 때
@@ -341,8 +342,10 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
 적용되면, {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}은 정상
 종료를 시도한다.
 
-일반적으로, 컨테이너 런타임은 TERM 시그널을 각 컨테이너의 기본 프로세스로
-전송한다. 일단 유예 기간이 만료되면, KILL 시그널이 나머지 프로세스로
+일반적으로, 컨테이너 런타임은 각 컨테이너의 기본 프로세스에 TERM 신호를
+전송한다. 많은 컨테이너 런타임은 컨테이너 이미지에 정의된 `STOPSIGNAL` 값을 존중하며
+TERM 대신 이 값을 보낸다.
+일단 유예 기간이 만료되면, KILL 시그널이 나머지 프로세스로
 전송되고, 그런 다음 파드는
 {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}로부터 삭제된다. 프로세스가
 종료될 때까지 기다리는 동안 kubelet 또는 컨테이너 런타임의 관리 서비스가 다시 시작되면, 클러스터는
@@ -437,7 +440,7 @@ API에서 즉시 파드를 제거하므로 동일한 이름으로 새로운 파�
 * [활성, 준비성 및 스타트업 프로브 설정](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)하는
   핸즈온 연습을 해보자.
 
-* [컨테이너 라이프사이클 훅](/docs/concepts/containers/container-lifecycle-hooks/)에 대해 자세히 알아보자.
+* [컨테이너 라이프사이클 훅](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 자세히 알아보자.
 
 * API의 파드 / 컨테이너 상태에 대한 자세한 내용은 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
 그리고

@@ -1005,5 +1005,5 @@ template:
 
 * [명령형 커맨드 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [구성 파일 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [Kubectl 명령어 참조](/docs/reference/generated/kubectl/kubectl/)
+* [Kubectl 명령어 참조](/docs/reference/generated/kubectl/kubectl-commands/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

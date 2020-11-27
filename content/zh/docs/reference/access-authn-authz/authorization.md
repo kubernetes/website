@@ -29,7 +29,7 @@ cloud-provider-wide access control systems which may handle other APIs besides
 the Kubernetes API. -->
 
 在 Kubernetes 中，您必须在授权（授予访问权限）之前进行身份验证（登录），有关身份验证的信息，
-请参阅 [访问控制概述](/docs/reference/access-authn-authz/controlling-access/).
+请参阅 [访问控制概述](/zh/docs/reference/access-authn-authz/controlling-access/).
 
 Kubernetes 期望 REST API 请求中常见的属性。
 这意味着 Kubernetes 授权适用于现有的组织范围或云提供商范围的访问控制系统，
@@ -85,12 +85,12 @@ Kubernetes 仅审查以下 API 请求属性：
  * **extra** - 由身份验证层提供的任意字符串键到字符串值的映射。
  * **API** - 指示请求是否针对 API 资源。
  * **Request path** - 各种非资源端点的路径，如 `/api` 或 `/healthz`。
- * **API request verb** - API 动词 `get`，`list`，`create`，`update`，`patch`，`watch`，`proxy`，`redirect`，`delete` 和 `deletecollection` 用于资源请求。要确定资源 API 端点的请求动词，请参阅[确定请求动词](/docs/reference/access-authn-authz/authorization/#determine-whether-a-request-is-allowed-or-denied)。
+ * **API request verb** - API 动词 `get`，`list`，`create`，`update`，`patch`，`watch`，`proxy`，`redirect`，`delete` 和 `deletecollection` 用于资源请求。要确定资源 API 端点的请求动词，请参阅[确定请求动词](/zh/docs/reference/access-authn-authz/authorization/#determine-whether-a-request-is-allowed-or-denied)。
  * **HTTP request verb** - HTTP 动词 `get`，`post`，`put` 和 `delete` 用于非资源请求。
  * **Resource** - 正在访问的资源的 ID 或名称（仅限资源请求） - 对于使用 `get`，`update`，`patch` 和 `delete` 动词的资源请求，您必须提供资源名称。
  * **Subresource** - 正在访问的子资源（仅限资源请求）。
  * **Namespace** - 正在访问的对象的名称空间（仅适用于命名空间资源请求）。
- * **API group** - 正在访问的 API 组（仅限资源请求）。空字符串表示[核心 API 组](/docs/concepts/overview/kubernetes-api/)。
+ * **API group** - 正在访问的 API 组（仅限资源请求）。空字符串表示[核心 API 组](/zh/docs/concepts/overview/kubernetes-api/)。
 
 <!--
 ## Determine the Request Verb
@@ -128,9 +128,9 @@ DELETE    | delete (单个资源)，deletecollection (资源集合)
 
 Kubernetes 有时使用专门的动词检查授权以获得额外的权限。例如：
 
-* [Pod 安全策略](/docs/concepts/policy/pod-security-policy/) 检查 `policy` API 组中 `podsecuritypolicies` 资源的 `use` 动词的授权。
-* [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping) 检查 `rbac.authorization.k8s.io` API 组中 `roles` 和 `clusterroles` 资源的 `bind` 动词的授权。
-* [认证](/docs/reference/access-authn-authz/authentication/) layer 检查核心 API 组中 `users`，`groups` 和 `serviceaccounts` 的 `impersonate` 动词的授权，以及 `authentication.k8s.io` API 组中的 `userextras`。
+* [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/) 检查 `policy` API 组中 `podsecuritypolicies` 资源的 `use` 动词的授权。
+* [RBAC](/zh/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping) 检查 `rbac.authorization.k8s.io` API 组中 `roles` 和 `clusterroles` 资源的 `bind` 动词的授权。
+* [认证](/zh/docs/reference/access-authn-authz/authentication/) layer 检查核心 API 组中 `users`，`groups` 和 `serviceaccounts` 的 `impersonate` 动词的授权，以及 `authentication.k8s.io` API 组中的 `userextras`。
 
 <!--
 ## Authorization Modules
@@ -143,12 +143,12 @@ Kubernetes 有时使用专门的动词检查授权以获得额外的权限。例
  -->
 
 ## 授权模块
- * **Node** - 一个专用授权程序，根据计划运行的 pod 为 kubelet 授予权限。了解有关使用节点授权模式的更多信息，请参阅[节点授权](/docs/reference/access-authn-authz/node/).
- * **ABAC** - 基于属性的访问控制（ABAC）定义了一种访问控制范例，通过使用将属性组合在一起的策略，将访问权限授予用户。策略可以使用任何类型的属性（用户属性，资源属性，对象，环境属性等）。要了解有关使用 ABAC 模式的更多信息，请参阅 [ABAC 模式](/docs/reference/access-authn-authz/abac/)。
- * **RBAC** - 基于角色的访问控制（RBAC）是一种基于企业内个人用户的角色来管理对计算机或网络资源的访问的方法。在此上下文中，权限是单个用户执行特定任务的能力，例如查看，创建或修改文件。要了解有关使用 RBAC 模式的更多信息，请参阅 [RBAC 模式](/docs/reference/access-authn-authz/rbac/)。
+ * **Node** - 一个专用授权程序，根据计划运行的 pod 为 kubelet 授予权限。了解有关使用节点授权模式的更多信息，请参阅[节点授权](/zh/docs/reference/access-authn-authz/node/).
+ * **ABAC** - 基于属性的访问控制（ABAC）定义了一种访问控制范例，通过使用将属性组合在一起的策略，将访问权限授予用户。策略可以使用任何类型的属性（用户属性，资源属性，对象，环境属性等）。要了解有关使用 ABAC 模式的更多信息，请参阅 [ABAC 模式](/zh/docs/reference/access-authn-authz/abac/)。
+ * **RBAC** - 基于角色的访问控制（RBAC）是一种基于企业内个人用户的角色来管理对计算机或网络资源的访问的方法。在此上下文中，权限是单个用户执行特定任务的能力，例如查看，创建或修改文件。要了解有关使用 RBAC 模式的更多信息，请参阅 [RBAC 模式](/zh/docs/reference/access-authn-authz/rbac/)。
    * 当指定的 RBAC（基于角色的访问控制）使用 `rbac.authorization.k8s.io` API 组来驱动授权决策时，允许管理员通过 Kubernetes API 动态配置权限策略。
    * 要启用 RBAC，请使用 `--authorization-mode = RBAC` 启动 apiserver 。
- * **Webhook** - WebHook 是一个 HTTP 回调：发生某些事情时调用的 HTTP POST；通过 HTTP POST 进行简单的事件通知。实现 WebHook 的 Web 应用程序会在发生某些事情时将消息发布到 URL。要了解有关使用 Webhook 模式的更多信息，请参阅 [Webhook 模式](/docs/reference/access-authn-authz/webhook/)。
+ * **Webhook** - WebHook 是一个 HTTP 回调：发生某些事情时调用的 HTTP POST；通过 HTTP POST 进行简单的事件通知。实现 WebHook 的 Web 应用程序会在发生某些事情时将消息发布到 URL。要了解有关使用 Webhook 模式的更多信息，请参阅 [Webhook 模式](/zh/docs/reference/access-authn-authz/webhook/)。
 
 <!--
 #### Checking API Access
@@ -173,7 +173,7 @@ no
 Administrators can combine this with [user impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation)
 to determine what action other users can perform.
 -->
-管理员可以将此与[用户模拟](/docs/reference/access-authn-authz/authentication/#user-impersonation)结合使用，以确定其他用户可以执行的操作。
+管理员可以将此与[用户模拟](/zh/docs/reference/access-authn-authz/authentication/#user-impersonation)结合使用，以确定其他用户可以执行的操作。
 
 ```bash
 $ kubectl auth can-i list secrets --namespace dev --as dave
@@ -300,5 +300,5 @@ mode.
 * To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/).
 * To learn more about Admission Control, see [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
 -->
-* 要了解有关身份验证的更多信息，请参阅 **身份验证** [控制对 Kubernetes API 的访问](/docs/reference/access-authn-authz/controlling-access/)。
-* 要了解有关准入控制的更多信息，请参阅 [使用准入控制器](/docs/reference/access-authn-authz/admission-controllers/)。
+* 要了解有关身份验证的更多信息，请参阅 **身份验证** [控制对 Kubernetes API 的访问](/zh/docs/reference/access-authn-authz/controlling-access/)。
+* 要了解有关准入控制的更多信息，请参阅 [使用准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)。

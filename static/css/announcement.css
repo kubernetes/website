@@ -1,3 +1,10 @@
+@media print {
+  /* Do not print announcements */
+  #announcement, section#announcement, #fp-announcement, section#fp-announcement {
+    display: none;
+  }
+}
+
 .announcement.content {
   margin-bottom: 0px;
 }

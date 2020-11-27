@@ -104,7 +104,7 @@ The kubelet collects accelerator metrics through cAdvisor. To collect these metr
 
 The responsibility for collecting accelerator metrics now belongs to the vendor rather than the kubelet. Vendors must provide a container that collects metrics and exposes them to the metrics service (for example, Prometheus).
 
-The [`DisableAcceleratorUsageMetrics` feature gate](/docs/references/command-line-tools-reference/feature-gate.md#feature-gates-for-alpha-or-beta-features:~:text= DisableAcceleratorUsageMetrics,-false) disables metrics collected by the kubelet, with a [timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
+The [`DisableAcceleratorUsageMetrics` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features:~:text= DisableAcceleratorUsageMetrics,-false) disables metrics collected by the kubelet, with a [timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
 
 ## Component metrics
 

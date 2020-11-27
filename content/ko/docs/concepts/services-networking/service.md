@@ -22,8 +22,8 @@ weight: 10
 
 ## 동기
 
-쿠버네티스 {{< glossary_tooltip term_id="pod" text="파드" >}}는 수명이 있다.
-파드는 생성되고, 소멸된 후 부활하지 않는다.
+쿠버네티스 {{< glossary_tooltip term_id="pod" text="파드" >}}는 클러스터 상태와
+일치하도록 생성되고 삭제된다. 파드는 비영구적 리소스이다.
 만약 앱을 실행하기 위해 {{< glossary_tooltip term_id="deployment" text="디플로이먼트" >}}를 사용한다면,
 동적으로 파드를 생성하고 제거할 수 있다.
 
@@ -31,8 +31,8 @@ weight: 10
 한 시점에 실행되는 파드 집합이
 잠시 후 실행되는 해당 파드 집합과 다를 수 있다.
 
-이는 다음과 같은 문제를 야기한다. (“백엔드”라 불리는) 일부 파드 집합이
-클러스터의 (“프론트엔드”라 불리는) 다른 파드에 기능을 제공하는 경우,
+이는 다음과 같은 문제를 야기한다. ("백엔드"라 불리는) 일부 파드 집합이
+클러스터의 ("프론트엔드"라 불리는) 다른 파드에 기능을 제공하는 경우,
 프론트엔드가 워크로드의 백엔드를 사용하기 위해,
 프론트엔드가 어떻게 연결할 IP 주소를 찾아서 추적할 수 있는가?
 
@@ -44,8 +44,8 @@ _서비스_ 로 들어가보자.
 정책을 정의하는 추상적 개념이다. (때로는 이 패턴을
 마이크로-서비스라고 한다.) 서비스가 대상으로 하는 파드 집합은 일반적으로
 {{< glossary_tooltip text="셀렉터" term_id="selector" >}}가 결정한다.
-(셀렉터가 _없는_ 서비스가 필요한 이유는 [아래](#셀렉터가-없는-서비스)를
-참조한다).
+서비스 엔드포인트를 정의하는 다른 방법에 대한 자세한 내용은
+[셀렉터가 _없는_ 서비스](#셀렉터가-없는-서비스)를 참고한다.
 
 예를 들어, 3개의 레플리카로 실행되는 스테이트리스 이미지-처리 백엔드를
 생각해보자. 이러한 레플리카는 대체 가능하다. 즉, 프론트엔드는 그것들이 사용하는 백엔드를
@@ -89,7 +89,7 @@ spec:
       targetPort: 9376
 ```
 
-이 명세는 “my-service”라는 새로운 서비스 오브젝트를 생성하고,
+이 명세는 "my-service"라는 새로운 서비스 오브젝트를 생성하고,
 `app=MyApp` 레이블을 가진 파드의 TCP 9376 포트를 대상으로 한다.
 
 쿠버네티스는 이 서비스에 서비스 프록시가 사용하는 IP 주소 ("cluster IP"라고도 함)
@@ -97,7 +97,7 @@ spec:
 (이하 [가상 IP와 서비스 프록시](#가상-ip와-서비스-프록시) 참고)
 
 서비스 셀렉터의 컨트롤러는 셀렉터와 일치하는 파드를 지속적으로 검색하고,
-“my-service”라는 엔드포인트 오브젝트에 대한
+"my-service"라는 엔드포인트 오브젝트에 대한
 모든 업데이트를 POST한다.
 
 {{< note >}}
@@ -127,12 +127,12 @@ spec:
 다른 종류의 백엔드를 추상화할 수도 있다.
 예를 들면
 
-  * 프로덕션 환경에서는 외부 데이터베이스 클러스터를 사용하려고 하지만,
-    테스트 환경에서는 자체 데이터베이스를 사용한다.
-  * 한 서비스에서 다른
-    {{< glossary_tooltip term_id="namespace" text="네임스페이스">}} 또는 다른 클러스터의 서비스를 지정하려고 한다.
-  * 워크로드를 쿠버네티스로 마이그레이션하고 있다. 해당 방식을 평가하는 동안,
-    쿠버네티스에서는 일정 비율의 백엔드만 실행한다.
+* 프로덕션 환경에서는 외부 데이터베이스 클러스터를 사용하려고 하지만,
+  테스트 환경에서는 자체 데이터베이스를 사용한다.
+* 한 서비스에서 다른
+  {{< glossary_tooltip term_id="namespace" text="네임스페이스">}} 또는 다른 클러스터의 서비스를 지정하려고 한다.
+* 워크로드를 쿠버네티스로 마이그레이션하고 있다. 해당 방식을 평가하는 동안,
+  쿠버네티스에서는 일정 비율의 백엔드만 실행한다.
 
 이러한 시나리오 중에서 파드 셀렉터 _없이_ 서비스를 정의 할 수 있다.
 예를 들면
@@ -150,7 +150,7 @@ spec:
 ```
 
 이 서비스에는 셀렉터가 없으므로, 해당 엔드포인트 오브젝트가 자동으로
-생성되지 *않는다*. 엔드포인트 오브젝트를 수동으로 추가하여, 서비스를 실행 중인 네트워크 주소 및 포트에
+생성되지 않는다. 엔드포인트 오브젝트를 수동으로 추가하여, 서비스를 실행 중인 네트워크 주소 및 포트에
 서비스를 수동으로 매핑할 수 있다.
 
 ```yaml
@@ -186,6 +186,7 @@ DNS명을 대신 사용하는 특수한 상황의 서비스이다. 자세한 내
 이 문서 뒷부분의 [ExternalName](#externalname) 섹션을 참조한다.
 
 ### 엔드포인트슬라이스
+
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 엔드포인트슬라이스는 엔드포인트에 보다 확장 가능한 대안을 제공할 수 있는
@@ -200,14 +201,10 @@ API 리소스이다. 개념적으로 엔드포인트와 매우 유사하지만, 
 
 ### 애플리케이션 프로토콜
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-AppProtocol 필드는 각 서비스 포트에 사용될 애플리케이션 프로토콜을
-지정하는 방법을 제공한다.
-
-알파 기능으로 이 필드는 기본적으로 활성화되어 있지 않다. 이 필드를 사용하려면,
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)에서
-`ServiceAppProtocol` 을 활성화해야 한다.
+`AppProtocol` 필드는 각 서비스 포트에 대한 애플리케이션 프로토콜을 지정하는 방법을 제공한다.
+이 필드의 값은 해당 엔드포인트와 엔드포인트슬라이스 리소스에 의해 미러링된다.
 
 ## 가상 IP와 서비스 프록시
 
@@ -225,20 +222,19 @@ DNS 레코드를 구성하고, 라운드-로빈 이름 확인 방식을
 
 서비스에 프록시를 사용하는 데는 몇 가지 이유가 있다.
 
- * 레코드 TTL을 고려하지 않고, 만료된 이름 검색 결과를
-   캐싱하는 DNS 구현에 대한 오래된 역사가 있다.
- * 일부 앱은 DNS 검색을 한 번만 수행하고 결과를 무기한으로 캐시한다.
- * 앱과 라이브러리가 적절히 재-확인을 했다고 하더라도, DNS 레코드의 TTL이
-   낮거나 0이면 DNS에 부하가 높아 관리하기가
-   어려워 질 수 있다.
+* 레코드 TTL을 고려하지 않고, 만료된 이름 검색 결과를
+  캐싱하는 DNS 구현에 대한 오래된 역사가 있다.
+* 일부 앱은 DNS 검색을 한 번만 수행하고 결과를 무기한으로 캐시한다.
+* 앱과 라이브러리가 적절히 재-확인을 했다고 하더라도, DNS 레코드의 TTL이
+  낮거나 0이면 DNS에 부하가 높아 관리하기가
+  어려워 질 수 있다.
 
 ### 유저 스페이스(User space) 프록시 모드 {#proxy-mode-userspace}
 
 이 모드에서는, kube-proxy는 쿠버네티스 마스터의 서비스, 엔드포인트 오브젝트의
 추가와 제거를 감시한다. 각 서비스는 로컬 노드에서
 포트(임의로 선택됨)를 연다. 이 "프록시 포트"에 대한 모든
-연결은 (엔드포인트를 통해 보고된대로) 서비스의 백엔드 파드 중 하나로
-프록시된다.
+연결은 (엔드포인트를 통해 보고된 대로) 서비스의 백엔드 파드 중 하나로 프록시된다.
 kube-proxy는 사용할 백엔드 파드를 결정할 때 서비스의
 `SessionAffinity` 설정을 고려한다.
 
@@ -299,12 +295,12 @@ IPVS 프록시 모드는 iptables 모드와 유사한 넷필터 후크 기능을
 IPVS는 트래픽을 백엔드 파드로 밸런싱하기 위한 추가 옵션을 제공한다.
 다음과 같다.
 
-- `rr`: 라운드-로빈
-- `lc`: 최소 연결 (가장 적은 수의 열려있는 연결)
-- `dh`: 목적지 해싱
-- `sh`: 소스 해싱
-- `sed`: 최단 예상 지연 (shortest expected delay)
-- `nq`: 큐 미사용 (never queue)
+* `rr`: 라운드-로빈
+* `lc`: 최소 연결 (가장 적은 수의 열려있는 연결)
+* `dh`: 목적지 해싱
+* `sh`: 소스 해싱
+* `sed`: 최단 예상 지연 (shortest expected delay)
+* `nq`: 큐 미사용 (never queue)
 
 {{< note >}}
 IPVS 모드에서 kube-proxy를 실행하려면, kube-proxy를 시작하기 전에 노드에서 IPVS를
@@ -391,7 +387,7 @@ CIDR 범위 내의 유효한 IPv4 또는 IPv6 주소여야 한다.
 이때 서비스 이름은 대문자이고 대시는 밑줄로 변환된다.
 
 예를 들어, TCP 포트 6379를 개방하고
-클러스터 IP 주소 10.0.0.11이 할당된 서비스 `"redis-master"`는,
+클러스터 IP 주소 10.0.0.11이 할당된 서비스 `redis-master`는,
 다음 환경 변수를 생성한다.
 
 ```shell
@@ -424,18 +420,18 @@ CoreDNS와 같은, 클러스터-인식 DNS 서버는 새로운 서비스를 위�
 모든 파드는 DNS 이름으로 서비스를 자동으로
 확인할 수 있어야 한다.
 
-예를 들면, 쿠버네티스 네임스페이스 `"my-ns"`에 `"my-service"`라는
+예를 들면, 쿠버네티스 네임스페이스 `my-ns`에 `my-service`라는
 서비스가 있는 경우, 컨트롤 플레인과 DNS 서비스가 함께 작동하여
-`"my-service.my-ns"`에 대한 DNS 레코드를 만든다. `"my-ns"` 네임 스페이스의 파드들은
+`my-service.my-ns`에 대한 DNS 레코드를 만든다. `my-ns` 네임 스페이스의 파드들은
 간단히 `my-service`에 대한 이름 조회를 수행하여 찾을 수 있어야 한다
-(`"my-service.my-ns"` 역시 동작함).
+(`my-service.my-ns` 역시 동작함).
 
 다른 네임스페이스의 파드들은 이름을 `my-service.my-ns`으로 사용해야 한다. 이 이름은
 서비스에 할당된 클러스터 IP로 변환된다.
 
 쿠버네티스는 또한 알려진 포트에 대한 DNS SRV (서비스) 레코드를 지원한다.
-`"my-service.my-ns"` 서비스에 프로토콜이 `TCP`로 설정된 `"http"`라는 포트가 있는 경우,
-IP 주소와 `"http"`에 대한 포트 번호를 검색하기 위해 `_http._tcp.my-service.my-ns` 에 대한
+`my-service.my-ns` 서비스에 프로토콜이 `TCP`로 설정된 `http`라는 포트가 있는 경우,
+IP 주소와 `http`에 대한 포트 번호를 검색하기 위해 `_http._tcp.my-service.my-ns` 에 대한
 DNS SRV 쿼리를 수행할 수 있다.
 
 쿠버네티스 DNS 서버는 `ExternalName` 서비스에 접근할 수 있는 유일한 방법이다.
@@ -468,9 +464,9 @@ API에서 `엔드포인트` 레코드를 생성하고, DNS 구성을 수정하�
 `엔드포인트` 레코드를 생성하지 않는다. 그러나 DNS 시스템은 다음 중 하나를 찾고
 구성한다.
 
-  * [`ExternalName`](#externalname)-유형 서비스에 대한 CNAME 레코드
-  * 다른 모든 유형에 대해, 서비스의 이름을 공유하는 모든 `엔드포인트`에
-    대한 레코드
+* [`ExternalName`](#externalname)-유형 서비스에 대한 CNAME 레코드
+* 다른 모든 유형에 대해, 서비스의 이름을 공유하는 모든 `엔드포인트`에
+  대한 레코드
 
 ## 서비스 퍼블리싱 (ServiceTypes) {#publishing-services-service-types}
 
@@ -482,26 +478,26 @@ API에서 `엔드포인트` 레코드를 생성하고, DNS 구성을 수정하�
 
 `Type` 값과 그 동작은 다음과 같다.
 
-   * `ClusterIP`: 서비스를 클러스터-내부 IP에 노출시킨다. 이 값을 선택하면
-     클러스터 내에서만 서비스에 도달할 수 있다. 이것은
-     `ServiceTypes`의 기본 값이다.
-   * [`NodePort`](#nodeport): 고정 포트 (`NodePort`)로 각 노드의 IP에 서비스를
-     노출시킨다. `NodePort` 서비스가 라우팅되는 `ClusterIP` 서비스가
-     자동으로 생성된다. `<NodeIP>:<NodePort>`를 요청하여,
-     클러스터 외부에서
-     `NodePort` 서비스에 접속할 수 있다.
-   * [`LoadBalancer`](#loadbalancer): 클라우드 공급자의 로드 밸런서를 사용하여
-     서비스를 외부에 노출시킨다. 외부 로드 밸런서가 라우팅되는
-     `NodePort`와 `ClusterIP` 서비스가 자동으로 생성된다.
-   * [`ExternalName`](#externalname): 값과 함께 CNAME 레코드를 리턴하여, 서비스를
-     `externalName` 필드의 콘텐츠 (예:`foo.bar.example.com`)에
-     매핑한다.
-     어떤 종류의 프록시도 설정되어 있지 않다.
-     {{< note >}}
-     `ExternalName` 유형을 사용하려면 kube-dns 버전 1.7 또는 CoreDNS 버전 1.7 이상이 필요하다.
-     {{< /note >}}
+* `ClusterIP`: 서비스를 클러스터-내부 IP에 노출시킨다. 이 값을 선택하면
+  클러스터 내에서만 서비스에 도달할 수 있다. 이것은
+  `ServiceTypes`의 기본 값이다.
+* [`NodePort`](#nodeport): 고정 포트 (`NodePort`)로 각 노드의 IP에 서비스를
+  노출시킨다. `NodePort` 서비스가 라우팅되는 `ClusterIP` 서비스가
+  자동으로 생성된다. `<NodeIP>:<NodePort>`를 요청하여,
+  클러스터 외부에서
+  `NodePort` 서비스에 접속할 수 있다.
+* [`LoadBalancer`](#loadbalancer): 클라우드 공급자의 로드 밸런서를 사용하여
+  서비스를 외부에 노출시킨다. 외부 로드 밸런서가 라우팅되는
+  `NodePort`와 `ClusterIP` 서비스가 자동으로 생성된다.
+* [`ExternalName`](#externalname): 값과 함께 CNAME 레코드를 리턴하여, 서비스를
+  `externalName` 필드의 콘텐츠 (예:`foo.bar.example.com`)에
+  매핑한다. 어떤 종류의 프록시도 설정되어 있지 않다.
+  {{< note >}}`ExternalName` 유형을 사용하려면 kube-dns 버전 1.7 또는
+  CoreDNS 버전 1.7 이상이 필요하다.
+  {{< /note >}}
 
-[인그레스](/ko/docs/concepts/services-networking/ingress/)를 사용하여 서비스를 노출시킬 수도 있다. 인그레스는 서비스 유형이 아니지만, 클러스터의 진입점 역할을 한다. 동일한 IP 주소로 여러 서비스를 노출시킬 수 있기 때문에 라우팅 규칙을 단일 리소스로 통합할 수 있다.
+[인그레스](/ko/docs/concepts/services-networking/ingress/)를 사용하여 서비스를 노출시킬 수도 있다. 인그레스는 서비스 유형이 아니지만, 클러스터의 진입점 역할을 한다. 동일한 IP 주소로 여러 서비스를
+노출시킬 수 있기 때문에 라우팅 규칙을 단일 리소스로 통합할 수 있다.
 
 ### NodePort 유형 {#nodeport}
 
@@ -509,7 +505,6 @@ API에서 `엔드포인트` 레코드를 생성하고, DNS 구성을 수정하�
 `--service-node-port-range` 플래그로 지정된 범위에서 포트를 할당한다 (기본값 : 30000-32767).
 각 노드는 해당 포트 (모든 노드에서 동일한 포트 번호)를 서비스로 프록시한다.
 서비스는 할당된 포트를 `.spec.ports[*].nodePort` 필드에 나타낸다.
-
 
 포트를 프록시하기 위해 특정 IP를 지정하려면 kube-proxy의 `--nodeport-addresses` 플래그를 특정 IP 블록으로 설정할 수 있다. 이것은 쿠버네티스 v1.10부터 지원된다.
 이 플래그는 쉼표로 구분된 IP 블록 목록 (예: 10.0.0.0/8, 192.0.2.0/25)을 사용하여 kube-proxy가 로컬 노드로 고려해야 하는 IP 주소 범위를 지정한다.
@@ -531,6 +526,7 @@ NodePort를 사용하면 자유롭게 자체 로드 밸런싱 솔루션을 설�
 `.spec.clusterIP:spec.ports[*].port`로 표기된다. (kube-proxy에서 `--nodeport-addresses` 플래그가 설정되면, <NodeIP>는 NodeIP를 필터링한다.)
 
 예를 들면
+
 ```yaml
 apiVersion: v1
 kind: Service
@@ -607,19 +603,21 @@ SCTP를 사용하는 경우, `LoadBalancer` 서비스 유형에 대한 아래의
 {{< /note >}}
 
 #### 내부 로드 밸런서 {#internal-load-balancer}
+
 혼재된 환경에서는 서비스의 트래픽을 동일한 (가상) 네트워크 주소 블록 내로
-라우팅해야하는 경우가 있다.
+라우팅해야 하는 경우가 있다.
 
 수평 분할 DNS 환경에서는 외부와 내부 트래픽을 엔드포인트로 라우팅 할 수 있는 두 개의 서비스가 필요하다.
 
-서비스에 다음 어노테이션 중 하나를 추가하여 이를 수행할 수 있다.
-추가할 어노테이션은 사용 중인 클라우드 서비스 공급자에 따라 다르다.
+내부 로드 밸런서를 설정하려면, 사용 중인 클라우드 서비스 공급자에 따라
+다음의 어노테이션 중 하나를 서비스에 추가한다.
 
 {{< tabs name="service_tabs" >}}
 {{% tab name="Default" %}}
 탭 중 하나를 선택
 {{% /tab %}}
 {{% tab name="GCP" %}}
+
 ```yaml
 [...]
 metadata:
@@ -628,8 +626,10 @@ metadata:
         cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="AWS" %}}
+
 ```yaml
 [...]
 metadata:
@@ -638,8 +638,10 @@ metadata:
         service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="Azure" %}}
+
 ```yaml
 [...]
 metadata:
@@ -648,8 +650,10 @@ metadata:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="IBM Cloud" %}}
+
 ```yaml
 [...]
 metadata:
@@ -658,8 +662,10 @@ metadata:
         service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="OpenStack" %}}
+
 ```yaml
 [...]
 metadata:
@@ -668,8 +674,10 @@ metadata:
         service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="Baidu Cloud" %}}
+
 ```yaml
 [...]
 metadata:
@@ -678,8 +686,10 @@ metadata:
         service.beta.kubernetes.io/cce-load-balancer-internal-vpc: "true"
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="Tencent Cloud" %}}
+
 ```yaml
 [...]
 metadata:
@@ -687,8 +697,10 @@ metadata:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="Alibaba Cloud" %}}
+
 ```yaml
 [...]
 metadata:
@@ -696,9 +708,9 @@ metadata:
     service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "intranet"
 [...]
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
-
 
 #### AWS에서 TLS 지원 {#ssl-support-on-aws}
 
@@ -824,7 +836,6 @@ Classic ELB의 연결 드레이닝은
 사용하여 인스턴스를 해제하기 전에,
 기존 연결을 열어 두는 목적으로 최대 시간을 초 단위로 설정할 수도 있다.
 
-
 ```yaml
     metadata:
       name: my-service
@@ -862,13 +873,22 @@ Classic ELB의 연결 드레이닝은
         service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
         # 개별 인스턴스의 상태 점검 사이의
         # 대략적인 간격 (초 단위). 기본값은 10이며, 5와 300 사이여야 한다.
+
         service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
         # 헬스 체크 실패를 의미하는 무 응답의 총 시간 (초 단위)
         # 이 값은 service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
         # 값 보다 작아야한다. 기본값은 5이며, 2와 60 사이여야 한다.
 
+        service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
+        # 생성된 ELB에 추가할 기존 보안 그룹 목록.
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 어노테이션과 달리, 이는 이전에 ELB에 할당된 다른 모든 보안 그룹을 대체한다.
+
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
         # ELB에 추가될 추가 보안 그룹(security group) 목록
+
+        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
+        # 로드 밸런서의 대상 노드를 선택하는 데
+        # 사용되는 키-값 쌍의 쉼표로 구분된 목록
 ```
 
 #### AWS의 네트워크 로드 밸런서 지원 {#aws-nlb-support}
@@ -987,6 +1007,7 @@ spec:
   type: ExternalName
   externalName: my.database.example.com
 ```
+
 {{< note >}}
 ExternalName은 IPv4 주소 문자열을 허용하지만, IP 주소가 아닌 숫자로 구성된 DNS 이름을 허용한다. IPv4 주소와 유사한 ExternalName은 CoreDNS 또는 ingress-nginx에 의해 확인되지 않는데, ExternalName은
 정식(canonical) DNS 이름을 지정하기 때문이다. IP 주소를 하드 코딩하려면,
@@ -1041,7 +1062,7 @@ spec:
 
 ## 단점
 
-VIP용으로 유저스페이스 프록시를 사용하면, 중소 급 스케일에서는 동작하지만, 수천 개의
+VIP용 유저스페이스 프록시를 사용하면 중소 규모의 스케일에서는 동작하지만, 수천 개의
 서비스가 포함된 대규모 클러스터로는 확장되지 않는다.
 [포털에 대한 독창적인 설계 제안](https://github.com/kubernetes/kubernetes/issues/1107)에 이에 대한 자세한 내용이
 있다.
@@ -1169,12 +1190,12 @@ IPVS는 로드 밸런싱을 위해 설계되었고 커널-내부 해시 테이�
 
 {{< note >}}
 서비스 대신 {{< glossary_tooltip term_id="ingress" text="인그레스" >}} 를 사용하여
-HTTP / HTTPS 서비스를 노출할 수도 있다.
+HTTP/HTTPS 서비스를 노출할 수도 있다.
 {{< /note >}}
 
 ### PROXY 프로토콜
 
-클라우드 공급자가 지원하는 경우에 (예: [AWS](/ko/docs/concepts/cluster-administration/cloud-providers/#aws)),
+클라우드 공급자가 지원하는 경우에,
 LoadBalancer 모드의 서비스를 사용하여 쿠버네티스 자체 외부에
 로드 밸런서를 구성할 수 있으며, 이때 접두사가
 [PROXY 프로토콜](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) 인 연결을 전달하게 된다.
@@ -1185,15 +1206,16 @@ LoadBalancer 모드의 서비스를 사용하여 쿠버네티스 자체 외부�
 ```
 PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 ```
+
 클라이언트 데이터가 뒤따라온다.
 
 ### SCTP
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-쿠버네티스는 서비스, 엔드포인트, 네트워크 정책 및 파드 정의에서 알파 기능으로 SCTP를 `프로토콜` 값으로 지원한다. 이 기능을 활성화하기 위해서는, 클러스터 관리자가 API 서버에서 `--feature-gates=SCTPSupport=true,…`처럼 `SCTPSupport` 기능 게이트를 활성화해야 한다.
+쿠버네티스는 서비스, 엔드포인트, 엔드포인트슬라이스, 네트워크폴리시 및 파드 정의에서 SCTP를 `protocol` 값으로 지원한다. 이 기능은 베타 기능으로, 기본 활성화되어 있다. 클러스터 수준에서 SCTP를 비활성화하려면, 사용자(또는 클러스터 관리자)가 API 서버에서 `--feature-gates=SCTPSupport=false,…` 를 사용해서 `SCTPSupport` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화해야 한다.
 
-기능 게이트가 활성화되면, 서비스, 엔드포인트, 네트워크 정책 또는 파드의 `프로토콜` 필드를 `SCTP`로 설정할 수 있다. 쿠버네티스는 TCP 연결과 마찬가지로, SCTP 연결에 맞게 네트워크를 설정한다.
+기능 게이트가 활성화되면, 서비스, 엔드포인트, 엔드포인트슬라이스, 네트워크폴리시 또는 파드의 `protocol` 필드를 `SCTP` 로 설정할 수 있다. 쿠버네티스는 TCP 연결과 마찬가지로, SCTP 연결에 맞게 네트워크를 설정한다.
 
 #### 경고 {#caveat-sctp-overview}
 
@@ -1223,10 +1245,7 @@ SCTP는 윈도우 기반 노드를 지원하지 않는다.
 kube-proxy는 유저스페이스 모드에 있을 때 SCTP 연결 관리를 지원하지 않는다.
 {{< /warning >}}
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * [서비스와 애플리케이션 연결](/ko/docs/concepts/services-networking/connect-applications-service/) 알아보기
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 알아보기

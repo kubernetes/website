@@ -190,7 +190,7 @@ close the issue without fixing.
 
 Some docs issues are actually issues with the underlying code, or requests for
 assistance when something, for example a tutorial, doesn't work.
-For issues unrelated to docs, close the issue with the `triage/support` label and a comment
+For issues unrelated to docs, close the issue with the `kind/support` label and a comment
 directing the requester to support venues (Slack, Stack Overflow) and, if
 relevant, the repository to file an issue for bugs with features (`kubernetes/kubernetes`
 is a great place to start).

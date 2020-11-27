@@ -63,9 +63,9 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
 
-### Menginstal kubectl
+### Instalasi kubectl
 
-Pastikan kamu mempunyai kubectl yang terinstal. Kamu bisa menginstal kubectl dengan mengikuti instruksi pada halaman [Menginstal dan Menyiapkan kubectl](/id/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux).
+Pastikan kamu sudah menginstal kubectl. Kamu bisa menginstal kubectl dengan mengikuti instruksi pada halaman [Menginstal dan Menyiapkan kubectl](/id/docs/tasks/tools/install-kubectl/#menginstal-kubectl-pada-linux).
 
 ### Menginstal sebuah Hypervisor
 
@@ -125,7 +125,7 @@ brew install minikube
 {{% tab name="macOS" %}}
 ### Instalasi kubectl
 
-Pastikan kamu mempunyai kubectl yang terinstal. Kamu bisa menginstal kubectl berdasarkan instruksi pada laman [Menginstal dan Menyiapkan kubectl](/id/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos).
+Pastikan kamu sudah menginstal kubectl. Kamu bisa menginstal kubectl dengan mengikuti instruksi pada halaman [Menginstal dan Menyiapkan kubectl](/id/docs/tasks/tools/install-kubectl/#menginstal-kubectl-pada-macos).
 
 ### Instalasi sebuah Hypervisor
 
@@ -161,7 +161,7 @@ sudo mv minikube /usr/local/bin
 {{% tab name="Windows" %}}
 ### Instalasi kubectl
 
-Pastikan kamu mempunyai kubectl yang terinstal. Kamu bisa menginstal kubectl berdasarkan instruksi pada halaman [Menginstal dan Menyiapkan kubectl](/id/docs/tasks/tools/install-kubectl/#install-kubectl-on-windows).
+Pastikan kamu sudah menginstal kubectl. Kamu bisa menginstal kubectl dengan mengikuti instruksi pada halaman [Menginstal dan Menyiapkan kubectl](/id/docs/tasks/tools/install-kubectl/#menginstal-kubectl-pada-windows).
 
 ### Menginstal sebuah Hypervisor
 

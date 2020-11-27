@@ -13,7 +13,15 @@ weight: 10
 
 すべてのKubernetesクラスターには、2種類のユーザーがあります。Kubernetesによって管理されるサービスアカウントと、通常のユーザーです。
 
-通常のユーザーは外部の独立したサービスが管理することを想定しています。秘密鍵を配布する管理者、KeystoneやGoogle Accountsのようなユーザーストア、さらにはユーザー名とパスワードのリストを持つファイルなどです。この点において、_Kubernetesは通常のユーザーアカウントを表すオブジェクトを持ちません。_ APIコールを介して、通常のユーザーをクラスターに追加することはできません。
+クラスターから独立したサービスは通常のユーザーを以下の方法で管理することを想定されています。
+
+- 秘密鍵を配布する管理者
+- KeystoneやGoogle Accountsのようなユーザーストア
+- ユーザー名とパスワードのリストを持つファイル
+
+これを考慮すると、 _Kubernetesは通常のユーザーアカウントを表すオブジェクトを持ちません。_ APIコールを介して、通常のユーザーをクラスターに追加することはできません。
+
+APIコールを介して通常のユーザーを追加できませんが、クラスターの認証局(CA)に署名された有効な証明書で表すユーザーは認証済みと判断されます。この構成では、Kubernetesは証明書の‘subject’内にある一般的な名前フィールド(例えば、“/CN=bob”)からユーザー名を特定します。そこから、ロールベースアクセス制御(RBAC)サブシステムは、ユーザーがあるリソースにおける特定の操作を実行するために認証済みかどうか特定します。詳細は、 [証明書要求](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)内の通常のユーザーの題目を参照してください。
 
 対照的に、サービスアカウントはKubernetes APIによって管理されるユーザーです。サービスアカウントは特定の名前空間にバインドされており、APIサーバーによって自動的に作成されるか、APIコールによって手動で作成されます。サービスアカウントは、`Secrets`として保存された資格情報の集合に紐付けられています。これをPodにマウントすることで、クラスター内のプロセスがKubernetes APIと通信できるようにします。
 
@@ -236,7 +244,7 @@ Secretは常にbase64でエンコードされるため、これらの値もbase6
 
 重要なのは、APIサーバーはOAuth2クライアントではなく、ある単一の発行者を信頼するようにしか設定できないことです。これにより、サードパーティーに発行されたクレデンシャルを信頼せずに、Googleのようなパブリックプロバイダーを使用することができます。複数のOAuthクライアントを利用したい管理者は、`azp`クレームをサポートしているプロバイダや、あるクライアントが別のクライアントに代わってトークンを発行できるような仕組みを検討する必要があります。
 
-KubernetesはOpenID Connect IDプロバイダーを提供していません。既存のパブリックなOpenID Connect IDプロバイダー(Googleや[その他](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)など)を使用できます。もしくは、CoreOS [dex](https://github.com/coreos/dex)、[Keycloak](https://github.com/keycloak/keycloak)、CloudFoundry[UAA](https://github.com/cloudfoundry/uaa)、Tremolo Securityの[OpenUnison](https://github.com/tremolosecurity/openunison)など、独自のIDプロバイダーを実行することもできます。
+KubernetesはOpenID Connect IDプロバイダーを提供していません。既存のパブリックなOpenID Connect IDプロバイダー(Googleや[その他](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)など)を使用できます。もしくは、CoreOS [dex](https://github.com/coreos/dex)、[Keycloak](https://github.com/keycloak/keycloak)、CloudFoundry[UAA](https://github.com/cloudfoundry/uaa)、Tremolo Securityの[OpenUnison](https://github.com/tremolosecurity/openunison)など、独自のIDプロバイダーを実行することもできます。
 
 IDプロバイダーがKubernetesと連携するためには、以下のことが必要です。
 
@@ -250,7 +258,7 @@ IDプロバイダーがKubernetesと連携するためには、以下のこと�
 特定のシステム用のセットアップ手順は、以下を参照してください。
 
 - [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
-- [Dex](https://github.com/dexidp/dex/blob/master/Documentation/kubernetes.md)
+- [Dex](https://dexidp.io/docs/kubernetes/)
 - [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
 
 #### kubectlの使用
@@ -319,7 +327,7 @@ Webhook認証は、Bearerトークンを検証するためのフックです。
 * `--authentication-token-webhook-config-file`: リモートのWebhookサービスへのアクセス方法を記述した設定ファイルです
 * `--authentication-token-webhook-cache-ttl`: 認証をキャッシュする時間を決定します。デフォルトは2分です
 
-設定ファイルは、[kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)のファイル形式を使用します。
+設定ファイルは、[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)のファイル形式を使用します。
 ファイル内で、`clusters`はリモートサービスを、`users`はAPIサーバーのWebhookを指します。例えば、以下のようになります。
 
 ```yaml

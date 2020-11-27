@@ -15,7 +15,7 @@
 
 * [기여 시작하기](https://kubernetes.io/docs/contribute/start/)
 * [문서화 변경 사항 스테이징하기](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [페이지 템플릿 사용하기](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [페이지 템플릿 사용하기](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [문서화 스타일 가이드](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [쿠버네티스 문서화 로컬라이징](https://kubernetes.io/docs/contribute/localization/)
 
@@ -41,13 +41,13 @@
 도커 [동작 및 실행](https://www.docker.com/get-started) 환경이 있는 경우, 로컬에서 `kubernetes-hugo` 도커 이미지를 빌드 합니다:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 해당 이미지가 빌드 된 이후, 사이트를 로컬에서 실행할 수 있습니다:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 브라우저에서 http://localhost:1313 를 열어 사이트를 살펴봅니다. 소스 파일에 변경 사항이 있을 때, Hugo는 사이트를 업데이트하고 브라우저를 강제로 새로고침합니다.

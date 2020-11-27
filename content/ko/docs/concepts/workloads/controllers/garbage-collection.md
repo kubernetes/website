@@ -1,7 +1,7 @@
 ---
 title: 가비지(Garbage) 수집
 content_type: concept
-weight: 70
+weight: 60
 ---
 
 <!-- overview -->
@@ -152,7 +152,7 @@ kubectl delete replicaset my-repset --cascade=false
 ### 디플로이먼트에 대한 추가 참고
 
 1.7 이전에서는 디플로이먼트와 캐스케이딩 삭제를 사용하면 반드시 `propagationPolicy: Foreground`
-를 사용해서 생성된 레플리카셋 뿐만 아니라 해당 파드도 삭제해야 한다. 만약 이 _propagationPolicy_
+를 사용해서 생성된 레플리카셋뿐만 아니라 해당 파드도 삭제해야 한다. 만약 이 _propagationPolicy_
 유형을 사용하지 않는다면, 레플리카셋만 삭제되고 파드는 분리된 상태로 남을 것이다.
 더 많은 정보는 [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613)를 본다.
 

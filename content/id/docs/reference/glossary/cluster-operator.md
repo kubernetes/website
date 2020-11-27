@@ -1,23 +1,21 @@
 ---
-title: Cluster Operator
+title: Operator Klaster
 id: cluster-operator
 date: 2018-04-12
 full_link: 
 short_description: >
-  Seseorang yang mengkonfigurasi, mengontrol, dan memonitor cluster.
+  Seseorang yang mengonfigurasi, mengontrol, dan memonitor klaster.
 
-aka: 
+aka:
 tags:
 - user-type
 ---
-  Seseorang yang mengkonfigurasi, mengontrol, dan memonitor cluster.
+Seseorang yang mengonfigurasi, mengontrol, dan memonitor klaster.
 
-<!--more--> 
+<!--more-->
 
-
-Tanggung jawab utama mereka adalah menjaga dan menjalankan cluster, yang mungkin melibatkan kegiatan pemeliharaan berkala atau peningkatan. <br>
+Tanggung jawab utama operator klaster adalah menjaga dan menjalankan klaster, yang mungkin melibatkan kegiatan pemeliharaan berkala atau peningkatan.
 
 {{< note >}}
-Operator cluster berbeda dari [Pola operator] (https://coreos.com/operators) yang memperluas API Kubernetes.
+Operator klaster berbeda dari [pola Operator](https://coreos.com/operators) yang memperluas API Kubernetes.
 {{< /note >}}
-

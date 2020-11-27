@@ -15,7 +15,7 @@ weight: 10
 [`Pod`](/id/docs/concepts/workloads/pods/pod/) pada Kubernetes bersifat *mortal*.
 Artinya apabila _pod-pod_ tersebut dibuat dan kemudian mati, _pod-pod_ tersebut
 tidak akan dihidupkan kembali. [`ReplicaSets`](/id/docs/concepts/workloads/controllers/replicaset/) secara
-khusus bertugas membuat dan menghapus `Pod` secara dinamsi (misalnya, pada proses *scaling out* atau *scaling in*).
+khusus bertugas membuat dan menghapus `Pod` secara dinamis (misalnya, pada proses *scaling out* atau *scaling in*).
 Meskipun setiap `Pod` memiliki alamat IP-nya masing-masing, kamu tidak dapat mengandalkan alamat IP
 yang diberikan pada _pod-pod_ tersebut, karena alamat IP yang diberikan tidak stabil.
 Hal ini kemudian menimbulkan pertanyaan baru: apabila sebuah sekumpulan `Pod` (yang selanjutnya kita sebut _backend_)

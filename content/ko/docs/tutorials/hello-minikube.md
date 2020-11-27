@@ -118,7 +118,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```
 
 {{< note >}}
-    `kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개요](/ko/docs/reference/kubectl/overview/)을 살펴보자.
+`kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개요](/ko/docs/reference/kubectl/overview/)을 살펴보자.
 {{< /note >}}
 
 ## 서비스 만들기
@@ -136,6 +136,9 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
     `--type=LoadBalancer`플래그는 클러스터 밖의 서비스로 노출하기
     원한다는 뜻이다.
+
+    `k8s.gcr.io/echoserver` 이미지 내의 애플리케이션 코드는 TCP 포트 8080에서만 수신한다. `kubectl expose`를
+    사용하여 다른 포트를 노출한 경우, 클라이언트는 다른 포트에 연결할 수 없다.
 
 2. 방금 생성한 서비스 살펴보기
 

@@ -2,7 +2,7 @@
 reviewers:
 title: StatefulSet
 content_type: concept
-weight: 40
+weight: 30
 ---
 
 <!-- overview -->
@@ -117,6 +117,15 @@ StatefulSetは、Podのドメインをコントロールするために[Headless
 このHeadless Serviceによって管理されたドメインは`$(Service名).$(ネームスペース).svc.cluster.local`形式となり、"cluster.local"というのはそのクラスターのドメインとなります。
 各Podが作成されると、Podは`$(Pod名).$(管理するServiceドメイン名)`に一致するDNSサブドメインを取得し、管理するServiceはStatefulSetの`serviceName`で定義されます。
 
+クラスターでのDNSの設定方法によっては、新たに起動されたPodのDNS名をすぐに検索できない場合があります。
+この動作は、クラスター内の他のクライアントが、Podが作成される前にそのPodのホスト名に対するクエリーをすでに送信していた場合に発生する可能性があります。
+(DNSでは通常)ネガティブキャッシュは、Podの起動後でも、少なくとも数秒間、以前に失敗したルックアップの結果が記憶され、再利用されることを意味します。
+
+Podが作成された後、速やかにPodを検出する必要がある場合は、いくつかのオプションがあります。
+
+- DNSルックアップに依存するのではなく、Kubernetes APIに直接(例えばwatchを使って)問い合わせる。
+- Kubernetes DNS プロバイダーのキャッシュ時間を短縮する(これは現在30秒キャッシュされるようになっているCoreDNSのConfigMapを編集することを意味しています。)。
+
 [制限事項](#制限事項)セクションで言及したように、ユーザーはPodのネットワークアイデンティティーのために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を作成する責任があります。
 
 ここで、クラスタードメイン、Service名、StatefulSet名の選択と、それらがStatefulSetのPodのDNS名にどう影響するかの例をあげます。
@@ -150,7 +159,7 @@ StatefulSet {{< glossary_tooltip text="コントローラー" term_id="controlle
 
 StatefulSetは`pod.Spec.TerminationGracePeriodSeconds`を0に指定すべきではありません。これは不安全で、やらないことを強く推奨します。さらなる説明としては、[StatefulSetのPodの強制削除](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
-上記の例のnginxが作成されたとき、3つのPodは`web-0`、`web-1`、`web-2`の順番でデプロイされます。`web-1`は`web-0`が[RunningかつReady状態](/docs/user-guide/pod-states/)になるまでは決してデプロイされないのと、同様に`web-2`は`web-1`がRunningかつReady状態にならないとデプロイされません。もし`web-0`が`web-1`がRunningかつReady状態になった後だが、`web-2`が起動する前に失敗した場合、`web-2`は`web-0`の再起動が成功し、RunningかつReady状態にならないと再起動されません。
+上記の例のnginxが作成されたとき、3つのPodは`web-0`、`web-1`、`web-2`の順番でデプロイされます。`web-1`は`web-0`が[RunningかつReady状態](/docs/concepts/workloads/pods/pod-lifecycle/)になるまでは決してデプロイされないのと、同様に`web-2`は`web-1`がRunningかつReady状態にならないとデプロイされません。もし`web-0`が`web-1`がRunningかつReady状態になった後だが、`web-2`が起動する前に失敗した場合、`web-2`は`web-0`の再起動が成功し、RunningかつReady状態にならないと再起動されません。
 
 もしユーザーが`replicas=1`といったようにStatefulSetにパッチをあてることにより、デプロイされたものをスケールすることになった場合、`web-2`は最初に停止されます。`web-1`は`web-2`が完全にシャットダウンされ削除されるまでは、停止されません。もし`web-0`が、`web-2`が完全に停止され削除された後だが、`web-1`の停止の前に失敗した場合、`web-1`は`web-0`がRunningかつReady状態になるまでは停止されません。
 
@@ -167,7 +176,7 @@ Kubernetes1.7とそれ以降のバージョンでは、StatefulSetは`.spec.podM
 
 ## アップデートストラテジー
 
-Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spec.updateStarategy`フィールドで、コンテナの自動のローリングアップデートの設定やラベル、リソースのリクエストとリミットや、StatefulSet内のPodのアノテーションを指定できます。
+Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spec.updateStrategy`フィールドで、コンテナの自動のローリングアップデートの設定やラベル、リソースのリクエストとリミットや、StatefulSet内のPodのアノテーションを指定できます。
 
 ### OnDelete
 
@@ -199,4 +208,3 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 * [ステートフルなアプリケーションのデプロイ](/docs/tutorials/stateful-application/basic-stateful-set/)の例を参考にしてください。
 * [StatefulSetを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)の例を参考にしてください。
 * [レプリカを持つステートフルアプリケーションを実行する](/ja/docs/tasks/run-application/run-replicated-stateful-application/)の例を参考にしてください。
-

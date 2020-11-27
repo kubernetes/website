@@ -33,6 +33,23 @@ enableGitInfo = true
 # Hindi is disabled because it's currently in development.
 disableLanguages = ["hi", "no"]
 
+[caches]
+ [caches.assets]
+  dir = ":cacheDir/_gen"
+  maxAge = -1
+ [caches.getcsv]
+  dir = ":cacheDir/:project"
+  maxAge = "60s"
+ [caches.getjson]
+  dir = ":cacheDir/:project"
+  maxAge = "60s"
+ [caches.images]
+  dir = ":cacheDir/_images"
+  maxAge = -1
+ [caches.modules]
+  dir = ":cacheDir/modules"
+  maxAge = -1
+
 [markup]
  [markup.goldmark]
    [markup.goldmark.extensions]
@@ -65,6 +82,10 @@ date = ["date", ":filename", "publishDate", "lastmod"]
 
 [permalinks]
 blog = "/:section/:year/:month/:day/:slug/"
+
+[sitemap]
+  filename = "sitemap.xml"
+  priority = 0.75
 
 # Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
 [outputs]
@@ -112,6 +133,8 @@ copyright_linux =  "Copyright © 2020 The Linux Foundation ®."
 version_menu = "Versions"
 
 time_format_blog = "Monday, January 02, 2006"
+time_format_default = "January 02, 2006 at 3:04 PM PST"
+
 description = "Production-Grade Container Orchestration"
 showedit = true
 
@@ -124,8 +147,12 @@ docsbranch = "master"
 deprecated = false
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
-githubWebsiteRepo = "github.com/kubernetes/website"
+
+# See codenew shortcode
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
+
+# GitHub repository link for editing a page and opening issues.
+github_repo = "https://github.com/kubernetes/website"
 
 # param for displaying an announcement block on every page.
 # See /i18n/en.toml for message text and title.
@@ -149,8 +176,7 @@ offlineSearch = false
 [params.pushAssets]
 css = [
   "callouts",
-  "styles",
-  "custom-jekyll/tags"
+  "styles"
 ]
 js = [
   "script"

@@ -2,7 +2,6 @@
 title: 클라우드 공급자
 id: cloud-provider
 date: 2018-04-12
-full_link: /docs/concepts/cluster-administration/cloud-providers
 short_description: >
   클라우드 컴퓨팅 플랫폼을 제공하는 조직.
 
@@ -26,6 +25,6 @@ Infrastructure as a Service 또는 IaaS 라 부른다).
 
 사용자는 쿠버네티스를 관리되는 서비스로 찾을 수 있다. 때로는 이것을
 Platform as a Service 또는 PaaS라 부른다. 관리되는 쿠버네티스를 사용하면
-클라우드 공급자가 쿠버네티스 컨트롤 플레인만 아니라, 
+클라우드 공급자가 쿠버네티스 컨트롤 플레인만 아니라,
 노드와 연관되는 인프라(네트워킹, 스토리지 그리고 로드밸런서와 같은 기타 요소)
 를 책임진다.

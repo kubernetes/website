@@ -1,16 +1,23 @@
 ---
 content_type: concept
-title: Współtwórz dokumentację Kubernetesa
+title: Współtwórz dokumentację K8s
 linktitle: Weź udział
 main_menu: true
 weight: 80
 card:
   name: contribute
   weight: 10
-  title: Weź udział
+  title: Współtwórz K8s
 ---
 
 <!-- overview -->
+
+Kubernetes zaprasza do współpracy wszystkich - zarówno nowicjuszy, jak i doświadczonych!
+
+{{< note >}}
+Aby dowiedzieć się więcej ogólnych informacji o współpracy przy tworzeniu Kubernetesa, zajrzyj
+do [contributor documentation](https://www.kubernetes.dev/docs/).
+{{< /note >}}
 
 Tym serwisem www opiekuje się [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 
@@ -20,8 +27,6 @@ Współtwórcy dokumentacji Kubernetesa:
 - Tworzą nowe treści
 - Tłumaczą dokumentację
 - Zarządzają i publikują dokumentację w ramach cyklu wydawniczego Kubernetesa
-
-Zapraszamy do współpracy wszystkich - zarówno nowicjuszy, jak i doświadczonych!
 
 <!-- body -->
 

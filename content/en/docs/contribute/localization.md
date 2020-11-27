@@ -32,7 +32,7 @@ First, consult the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/p
 
 ### Fork and clone the repo
 
-First, [create your own fork](/docs/contribute/new-content/new-content/#fork-the-repo) of the [kubernetes/website](https://github.com/kubernetes/website) repository.
+First, [create your own fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the [kubernetes/website](https://github.com/kubernetes/website) repository.
 
 Then, clone your fork and `cd` into it:
 
@@ -73,7 +73,9 @@ For an example of adding a label, see the PR for adding the [Italian language la
 
 ### Find community
 
-Let Kubernetes SIG Docs know you're interested in creating a localization! Join the [SIG Docs Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/). Other localization teams are happy to help you get started and answer any questions you have.
+Let Kubernetes SIG Docs know you're interested in creating a localization! Join the [SIG Docs Slack channel](https://kubernetes.slack.com/messages/sig-docs) and the [SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations). Other localization teams are happy to help you get started and answer any questions you have.
+
+Please also consider participating in the [SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/master/sig-docs).  The mission of the SIG Docs localization subgroup is to work across the SIG Docs localization teams to collaborate on defining and documenting the processes for creating localized contribution guides. In addition, the SIG Docs localization subgroup will look for opportunities for the creation and sharing of common tools across localization teams and also serve to identify new requirements to the SIG Docs Leadership team.  If you have questions about this meeting, please inquire on the [SIG Docs Localizations Slack channel](https://kubernetes.slack.com/messages/sig-docs-localizations).
 
 You can also create a Slack channel for your localization in the `kubernetes/community` repository. For an example of adding a Slack channel, see the PR for [adding a channel for Persian](https://github.com/kubernetes/community/pull/4980).
 

@@ -114,16 +114,18 @@ The config file is still considered beta and may change in future versions.
 
 It's possible to configure `kubeadm init` with a configuration file instead of command
 line flags, and some more advanced features may only be available as
-configuration file options. This file is passed with the `--config` option.
+configuration file options. This file is passed using the `--config` flag and it must
+contain a `ClusterConfiguration` structure and optionally more structures separated by `---\n`
+Mixing `--config` with others flags may not be allowed in some cases.
 
 The default configuration can be printed out using the
 [kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-It is **recommended** that you migrate your old `v1beta1` configuration to `v1beta2` using
+If your configuration is not using the latest version it is **recommended** that you migrate using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-For more details on each field in the `v1beta2` configuration you can navigate to our
-[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2).
+For more information on the fields and usage of the configuration you can navigate to our API reference
+page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 

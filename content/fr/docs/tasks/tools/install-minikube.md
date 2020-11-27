@@ -75,7 +75,7 @@ Si vous n'avez pas déjà un hyperviseur installé, installez-le maintenant pour
 
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-Minikube supporte également une option `--vm-driver=none` qui exécute les composants Kubernetes sur la machine hôte et dans pas dans une VM.
+Minikube supporte également une option `--vm-driver=none` qui exécute les composants Kubernetes sur la machine hôte et pas dans une VM.
 L'utilisation de ce pilote nécessite [Docker](https://www.docker.com/products/docker-desktop) et un environnement Linux mais pas un hyperviseur.
 
 Si vous utilisez le pilote `none` dans Debian ou un dérivé, utilisez les paquets` .deb` pour

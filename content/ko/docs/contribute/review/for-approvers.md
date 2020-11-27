@@ -221,6 +221,3 @@ https://github.com/kubernetes/kubernetes 에서
 
 문서에 대한 이슈인 경우 이 이슈를 다시 여십시오.
 ```
-
-
-

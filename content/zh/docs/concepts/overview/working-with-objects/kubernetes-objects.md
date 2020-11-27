@@ -191,11 +191,11 @@ and the `spec` format for a `Deployment` can be found
 ## {{% heading "whatsnext" %}}
 
 <!--
-* [Kubernetes API overview](/docs/reference/using-api/api-overview/) explains some more API concepts
-* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
-* Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes
+* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/).
+* Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes.
+* [Using the Kubernetes API](/docs/reference/using-api/) explains some more API concepts.
 -->
-* [Kubernetes API 总览](/zh/docs/reference/using-api/api-overview/) 提供关于 API 概念的进一步阐述
-* 了解最重要的 Kubernetes 基本对象，例如 [Pod](/zh/docs/concepts/workloads/pods/)
-* 了解 Kubernetes 中的[控制器](/zh/docs/concepts/architecture/controller/)
+* 了解最重要的 Kubernetes 基本对象，例如 [Pod](/zh/docs/concepts/workloads/pods/)。
+* 了解 Kubernetes 中的[控制器](/zh/docs/concepts/architecture/controller/)。
+* [使用 Kubernetes API](/zh/docs/reference/using-api/) 一节解释了一些 API 概念。
 

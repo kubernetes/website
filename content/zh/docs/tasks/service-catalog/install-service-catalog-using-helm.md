@@ -32,7 +32,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
     * Follow the [Helm install instructions](https://github.com/kubernetes/helm/blob/master/docs/install.md).
     * If you already have an appropriate version of Helm installed, execute `helm init` to install Tiller, the server-side component of Helm.
 -->
-* 理解[服务目录](/zh/docs/concepts/service-catalog/) 的关键概念。
+* 理解[服务目录](/zh/docs/concepts/extend-kubernetes/service-catalog/) 的关键概念。
 * Service Catalog 需要 Kubernetes 集群版本在 1.7 或更高版本。
 * 你必须启用 Kubernetes 集群的 DNS 功能。
     * 如果使用基于云的 Kubernetes 集群或 {{< glossary_tooltip text="Minikube" term_id="minikube" >}}，则可能已经启用了集群 DNS。
@@ -156,4 +156,3 @@ helm install svc-cat/catalog --name catalog --namespace catalog
 -->
 * 查看[示例服务代理](https://github.com/openservicebrokerapi/servicebroker/blob/mastergettingStarted.md#sample-service-brokers)。
 * 探索 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) 项目。
-

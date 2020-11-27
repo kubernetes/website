@@ -5,7 +5,7 @@ content_type: concept
 main_menu: true
 weight: 20
 card:
-  name: 贡献
+  name: contribute
   weight: 45
   title: 为发行版本撰写功能特性文档 
 ---

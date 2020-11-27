@@ -8,10 +8,16 @@ card:
 ---
 
 <!-- overview -->
-Kubectl은 쿠버네티스 클러스터를 제어하기 위한 커맨드 라인 도구이다. 구성을 위해, `kubectl` 은 config 파일을 $HOME/.kube 에서 찾는다. KUBECONFIG 환경 변수를 설정하거나 [`--kubeconfig`](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 플래그를 설정하여 다른 [kubeconfig](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 파일을 지정할 수 있다.
+Kubectl은 쿠버네티스 클러스터를 제어하기 위한 커맨드 라인 도구이다.
+구성을 위해, `kubectl` 은 config 파일을 $HOME/.kube 에서 찾는다.
+KUBECONFIG 환경 변수를 설정하거나 [`--kubeconfig`](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+플래그를 설정하여 다른 [kubeconfig](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+파일을 지정할 수 있다.
 
-이 개요는 `kubectl` 구문을 다루고, 커맨드 동작을 설명하며, 일반적인 예제를 제공한다. 지원되는 모든 플래그 및 하위 명령을 포함한 각 명령에 대한 자세한 내용은 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 참조 문서를 참고한다. 설치 방법에 대해서는 [kubectl 설치](/ko/docs/tasks/tools/install-kubectl/)를 참고한다.
-
+이 개요는 `kubectl` 구문을 다루고, 커맨드 동작을 설명하며, 일반적인 예제를 제공한다.
+지원되는 모든 플래그 및 하위 명령을 포함한 각 명령에 대한 자세한 내용은
+[kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 참조 문서를 참고한다.
+설치 방법에 대해서는 [kubectl 설치](/ko/docs/tasks/tools/install-kubectl/)를 참고한다.
 
 <!-- body -->
 
@@ -25,9 +31,12 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 다음은 `command`, `TYPE`, `NAME` 과 `flags` 에 대한 설명이다.
 
-* `command`: 하나 이상의 리소스에서 수행하려는 동작을 지정한다. 예: `create`, `get`, `describe`, `delete`
+* `command`: 하나 이상의 리소스에서 수행하려는 동작을 지정한다.
+예: `create`, `get`, `describe`, `delete`
 
-* `TYPE`: [리소스 타입](#리소스-타입)을 지정한다. 리소스 타입은 대소문자를 구분하지 않으며 단수형, 복수형 또는 약어 형식을 지정할 수 있다. 예를 들어, 다음의 명령은 동일한 출력 결과를 생성한다.
+* `TYPE`: [리소스 타입](#리소스-타입)을 지정한다. 리소스 타입은 대소문자를 구분하지 않으며
+  단수형, 복수형 또는 약어 형식을 지정할 수 있다.
+  예를 들어, 다음의 명령은 동일한 출력 결과를 생성한다.
 
    ```shell
    kubectl get pod pod1
@@ -116,14 +125,15 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 다음 표에는 지원되는 모든 리소스 타입과 해당 약어가 나열되어 있다.
 
-(이 출력은 `kubectl api-resources` 에서 확인할 수 있으며, 쿠버네티스 1.13.3 부터 일치했다.)
+(이 출력은 `kubectl api-resources` 에서 확인할 수 있으며, 쿠버네티스 1.19.1 에서의 출력을 기준으로 한다.)
 
-| 리소스 이름 | 짧은 이름 | API 그룹 | 네임스페이스 | 리소스 종류 |
+| NAME | SHORTNAMES | APIGROUP | NAMESPACED | KIND |
 |---|---|---|---|---|
-| `bindings` | | | true | Binding|
+| `bindings` | | | true | Binding |
 | `componentstatuses` | `cs` | | false | ComponentStatus |
 | `configmaps` | `cm` | | true | ConfigMap |
 | `endpoints` | `ep` | | true | Endpoints |
+| `events` | `ev` | | true | Event |
 | `limitranges` | `limits` | | true | LimitRange |
 | `namespaces` | `ns` | | false | Namespace |
 | `nodes` | `no` | | false | Node |
@@ -131,14 +141,14 @@ kubectl [command] [TYPE] [NAME] [flags]
 | `persistentvolumes` | `pv` | | false | PersistentVolume |
 | `pods` | `po` | | true | Pod |
 | `podtemplates` | | | true | PodTemplate |
-| `replicationcontrollers` | `rc` | | true| ReplicationController |
+| `replicationcontrollers` | `rc` | | true | ReplicationController |
 | `resourcequotas` | `quota` | | true | ResourceQuota |
 | `secrets` | | | true | Secret |
 | `serviceaccounts` | `sa` | | true | ServiceAccount |
 | `services` | `svc` | | true | Service |
 | `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
 | `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
-| `customresourcedefinitions` | `crd`, `crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
+| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
 | `apiservices` | | apiregistration.k8s.io | false | APIService |
 | `controllerrevisions` | | apps | true | ControllerRevision |
 | `daemonsets` | `ds` | apps | true | DaemonSet |
@@ -155,9 +165,15 @@ kubectl [command] [TYPE] [NAME] [flags]
 | `jobs` | | batch | true | Job |
 | `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
 | `leases` | | coordination.k8s.io | true | Lease |
+| `endpointslices` |  | discovery.k8s.io | true | EndpointSlice |
 | `events` | `ev` | events.k8s.io | true | Event |
 | `ingresses` | `ing` | extensions | true | Ingress |
+| `flowschemas` |  | flowcontrol.apiserver.k8s.io | false | FlowSchema |
+| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io | false | PriorityLevelConfiguration |
+| `ingressclasses` |  | networking.k8s.io | false | IngressClass |
+| `ingresses` | `ing` | networking.k8s.io | true | Ingress |
 | `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
+| `runtimeclasses` |  | node.k8s.io | false | RuntimeClass |
 | `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
 | `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
 | `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
@@ -167,7 +183,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 | `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
 | `csidrivers` | | storage.k8s.io | false | CSIDriver |
 | `csinodes` | | storage.k8s.io | false | CSINode |
-| `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
+| `storageclasses` | `sc` | storage.k8s.io | false | StorageClass |
 | `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
 ## 출력 옵션
@@ -205,11 +221,13 @@ kubectl [command] [TYPE] [NAME] -o <output_format>
 kubectl get pod web-pod-13je7 -o yaml
 ```
 
-기억하기: 각 명령이 지원하는 출력 형식에 대한 자세한 내용은 [kubectl](/docs/user-guide/kubectl/) 참조 문서를 참고한다.
+기억하기: 각 명령이 지원하는 출력 형식에 대한 자세한 내용은
+[kubectl](/docs/reference/kubectl/kubectl/) 참조 문서를 참고한다.
 
 #### 사용자 정의 열 {#custom-columns}
 
-사용자 정의 열을 정의하고 원하는 세부 정보만 테이블에 출력하려면, `custom-columns` 옵션을 사용할 수 있다. 사용자 정의 열을 인라인으로 정의하거나 템플릿 파일을 사용하도록 선택할 수 있다. `-o custom-columns=<spec>` 또는 `-o custom-columns-file=<filename>`
+사용자 정의 열을 정의하고 원하는 세부 정보만 테이블에 출력하려면, `custom-columns` 옵션을 사용할 수 있다.
+사용자 정의 열을 인라인으로 정의하거나 템플릿 파일을 사용하도록 선택할 수 있다. `-o custom-columns=<spec>` 또는 `-o custom-columns-file=<filename>`
 
 ##### 예제
 
@@ -492,8 +510,6 @@ sudo mv ./kubectl-whoami /usr/local/bin
 kubectl whoami
 Current user: plugins-user
 ```
-
-
 
 ## {{% heading "whatsnext" %}}
 

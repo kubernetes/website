@@ -58,23 +58,15 @@ kubectl create clusterrolebinding cluster-admin-binding \
 ## kube-state-metrics 설치
 
 [*kube-state-metrics*](https://github.com/kubernetes/kube-state-metrics)는 쿠버네티스 API 서버를 모니터링하며 오브젝트 상태에 대한 메트릭을 생성하는 간단한 서비스이다. 이런 메트릭을 Metricbeat이 보고한다. 방명록이 실행된 쿠버네티스 클러스터에서 kube-state-metrics을 추가한다.
-
-### kube-state-metrics 실행 여부 확인
-```shell
-kubectl get pods --namespace=kube-system | grep kube-state
-```
-### 필요하면 kube-state-metrics 설치
-
 ```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
 kubectl apply -f kube-state-metrics/examples/standard
-kubectl get pods --namespace=kube-system | grep kube-state-metrics
-```
-kube-state-metrics이 실행 중이고 준비되었는지 확인한다.
-```shell
-kubectl get pods -n kube-system -l app.kubernetes.io/name=kube-state-metrics
 ```
 
+### kube-state-metrics 실행 여부 확인
+```shell
+kubectl get pods --namespace=kube-system -l app.kubernetes.io/name=kube-state-metrics
+```
 출력
 ```shell
 NAME                                 READY   STATUS    RESTARTS   AGE

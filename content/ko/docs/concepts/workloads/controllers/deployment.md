@@ -6,7 +6,7 @@ feature:
     쿠버네티스는 애플리케이션 또는 애플리케이션의 설정 변경시 점진적으로 롤아웃하는 동시에 애플리케이션을 모니터링해서 모든 인스턴스가 동시에 종료되지 않도록 보장한다. 만약 어떤 문제가 발생하면 쿠버네티스는 변경 사항을 롤백한다. 성장하는 디플로이먼트 솔루션 생태계를 이용한다.
 
 content_type: concept
-weight: 30
+weight: 10
 ---
 
 <!-- overview -->
@@ -82,7 +82,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 2. `kubectl get deployments` 을 실행해서 디플로이먼트가 생성되었는지 확인한다.
 
   만약 디플로이먼트가 여전히 생성 중이면, 다음과 유사하게 출력된다.
-   ```shell
+   ```
    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
    nginx-deployment   0/3     0            0           1s
    ```
@@ -98,21 +98,21 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 3. 디플로이먼트의 롤아웃 상태를 보려면, `kubectl rollout status deployment.v1.apps/nginx-deployment` 를 실행한다.
 
    다음과 유사하게 출력된다.
-   ```shell
+   ```
    Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-   deployment.apps/nginx-deployment successfully rolled out
+   deployment "nginx-deployment" successfully rolled out
    ```
 
 4. 몇 초 후 `kubectl get deployments` 를 다시 실행한다.
    다음과 유사하게 출력된다.
-   ```shell
+   ```
    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
    nginx-deployment   3/3     3            3           18s
    ```
    디플로이먼트에서 3개의 레플리카가 생성되었고, 모든 레플리카는 최신 상태(최신 파드 템플릿을 포함)이며 사용 가능한 것을 알 수 있다.
 
 5. 디플로이먼트로 생성된 레플리카셋(`rs`)을 보려면, `kubectl get rs` 를 실행한다. 다음과 유사하게 출력된다.
-   ```shell
+   ```
    NAME                          DESIRED   CURRENT   READY   AGE
    nginx-deployment-75675f5897   3         3         3       18s
    ```
@@ -129,7 +129,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 
 6. 각 파드에 자동으로 생성된 레이블을 보려면, `kubectl get pods --show-labels` 를 실행한다.
    다음과 유사하게 출력된다.
-   ```shell
+   ```
    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
    nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
    nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
@@ -203,7 +203,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
     ```
     또는
     ```
-    deployment.apps/nginx-deployment successfully rolled out
+    deployment "nginx-deployment" successfully rolled out
     ```
 
 업데이트된 디플로이먼트에 대해 자세한 정보 보기
@@ -855,7 +855,7 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 이와 유사하게 출력된다.
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
-deployment.apps/nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 ```
 그리고 `kubectl rollout` 의 종료 상태는 0(success)이다.
 ```shell
@@ -1015,7 +1015,7 @@ echo $?
 ### 실패한 디플로이먼트에서의 운영
 
 완료된 디플로이먼트에 적용되는 모든 행동은 실패한 디플로이먼트에도 적용된다.
-디플로이먼트 파드 템플릿에서 여러개의 수정사항을 적용해야하는 경우 스케일 업/다운 하거나, 이전 수정 버전으로 롤백하거나, 일시 중지할 수 있다.
+디플로이먼트 파드 템플릿에서 여러 개의 수정사항을 적용해야하는 경우 스케일 업/다운 하거나, 이전 수정 버전으로 롤백하거나, 일시 중지할 수 있다.
 
 ## 정책 초기화
 

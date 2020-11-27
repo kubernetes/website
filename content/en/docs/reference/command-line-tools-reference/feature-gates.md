@@ -83,8 +83,6 @@ different Kubernetes components.
 | `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | |
 | `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
-| `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
@@ -138,12 +136,11 @@ different Kubernetes components.
 | `RuntimeClass` | `true` | Beta | 1.14 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | 1.18 |
 | `SCTPSupport` | `true` | Beta | 1.19 | |
-| `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
-| `ServiceAppProtocol` | `true` | Beta | 1.19 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | |
-| `ServiceAppProtocol` | `false` | Alpha | 1.18 | |
+| `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
+| `ServiceAppProtocol` | `true` | Beta | 1.19 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
 | `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
@@ -210,6 +207,9 @@ different Kubernetes components.
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
+| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
+| `CustomResourceDefaulting` | `true` | Beta | 1.16 | 1.16 |
+| `CustomResourceDefaulting` | `true` | GA | 1.17 | - |
 | `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
 | `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | 1.15 |
 | `CustomResourcePublishOpenAPI` | `true` | GA | 1.16 | - |
@@ -423,11 +423,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CustomResourceWebhookConversion`: Enable webhook-based conversion
   on resources created from [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
   troubleshoot a running Pod.
-- `DisableAcceleratorUsageMetrics`: [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/monitoring.md).
+- `DisableAcceleratorUsageMetrics`: [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/system-metrics/).
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
-  [default spreading](/docs/concepts/workloads/pods/pod/pod-topology-spread-constraints/#internal-default-constraints).
+  [default spreading](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.
 - `DynamicAuditing`(*deprecated*): Used to enable dynamic auditing before v1.19.
@@ -473,11 +473,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `KubeletPodResources`: Enable the kubelet's pod resources grpc endpoint.
    See [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/compute-device-assignment.md) for more details.
 - `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the feature-specific labels provided by `NodeDisruptionExclusion` and `ServiceNodeExclusion`.
-- `LocalStorageCapacityIsolation`: Enable the consumption of [local ephemeral storage](/docs/concepts/configuration/manage-compute-resources-container/) and also the `sizeLimit` property of an [emptyDir volume](/docs/concepts/storage/volumes/#emptydir).
-- `LocalStorageCapacityIsolationFSQuotaMonitoring`: When `LocalStorageCapacityIsolation` is enabled for [local ephemeral storage](/docs/concepts/configuration/manage-compute-resources-container/) and the backing filesystem for [emptyDir volumes](/docs/concepts/storage/volumes/#emptydir) supports project quotas and they are enabled, use project quotas to monitor [emptyDir volume](/docs/concepts/storage/volumes/#emptydir) storage consumption rather than filesystem walk for better performance and accuracy.
-  [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/) and the backing filesystem for
-  [emptyDir volumes](/docs/concepts/storage/volumes/#emptydir) supports project quotas and they are enabled, use project quotas to monitor
-  [emptyDir volume](/docs/concepts/storage/volumes/#emptydir) storage consumption rather than filesystem walk for better performance and accuracy.
+- `LocalStorageCapacityIsolation`: Enable the consumption of [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/) and also the `sizeLimit` property of an [emptyDir volume](/docs/concepts/storage/volumes/#emptydir).
+- `LocalStorageCapacityIsolationFSQuotaMonitoring`: When `LocalStorageCapacityIsolation` is enabled for [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/) and the backing filesystem for [emptyDir volumes](/docs/concepts/storage/volumes/#emptydir) supports project quotas and they are enabled, use project quotas to monitor [emptyDir volume](/docs/concepts/storage/volumes/#emptydir) storage consumption rather than filesystem walk for better performance and accuracy.
 - `MountContainers`: Enable using utility containers on host as the volume mounter.
 - `MountPropagation`: Enable sharing volume mounted by one container to other containers or pods.
   For more details, please see [mount propagation](/docs/concepts/storage/volumes/#mount-propagation).
@@ -487,7 +484,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
 - `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
-- `PodOverhead`: Enable the [PodOverhead](/docs/concepts/configuration/pod-overhead/) feature to account for pod overheads.
+- `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/) feature to account for pod overheads.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their [priorities](/docs/concepts/configuration/pod-priority-preemption/).
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
   Pod readiness evaluation.  See [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
@@ -513,7 +510,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `RuntimeClass`: Enable the [RuntimeClass](/docs/concepts/containers/runtime-class/) feature for selecting container runtime configurations.
 - `ScheduleDaemonSetPods`: Enable DaemonSet Pods to be scheduled by the default scheduler instead of the DaemonSet controller.
 - `SCTPSupport`: Enables the _SCTP_ `protocol` value in Pod, Service, Endpoints, EndpointSlice, and NetworkPolicy definitions.
-- `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/api-concepts/#server-side-apply) path at the API Server.
+- `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/) path at the API Server.
 - `ServiceAccountIssuerDiscovery`: Enable OIDC discovery endpoints (issuer and JWKS URLs) for the service account issuer in the API server. See [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery) for more details.
 - `ServiceAppProtocol`: Enables the `AppProtocol` field on Services and Endpoints.
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.

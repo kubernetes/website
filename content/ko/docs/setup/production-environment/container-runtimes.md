@@ -29,9 +29,6 @@ weight: 10
 다른 운영 체제의 경우, 해당 플랫폼과 관련된 문서를 찾아보자.
 {{< /note >}}
 
-이 가이드의 모든 명령은 `root`로 실행해야 한다.
-예를 들어,`sudo`로 접두사를 붙이거나, `root` 사용자가 되어 명령을 실행한다.
-
 ### Cgroup 드라이버
 
 리눅스 배포판의 init 시스템이 systemd인 경우, init 프로세스는
@@ -68,24 +65,24 @@ kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
 시스템에 도커를 설치하기 위해서 아래의 커맨드들을 사용한다.
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04+" >}}
+{{% tab name="Ubuntu 16.04+" %}}
 
 ```shell
 # (도커 CE 설치)
 ## 리포지터리 설정
 ### apt가 HTTPS 리포지터리를 사용할 수 있도록 해주는 패키지 설치
-apt-get update && apt-get install -y \
+sudo apt-get update && sudo apt-get install -y \
   apt-transport-https ca-certificates curl software-properties-common gnupg2
 ```
 
 ```shell
 # 도커 공식 GPG 키 추가
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
 ```shell
 # 도커 apt 리포지터리 추가.
-add-apt-repository \
+sudo add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
   stable"
@@ -93,7 +90,7 @@ add-apt-repository \
 
 ```shell
 # 도커 CE 설치.
-apt-get update && apt-get install -y \
+sudo apt-get update && sudo apt-get install -y \
   containerd.io=1.2.13-2 \
   docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
   docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
@@ -101,7 +98,7 @@ apt-get update && apt-get install -y \
 
 ```shell
 # 도커 데몬 설정
-cat > /etc/docker/daemon.json <<EOF
+cat <<EOF | sudo tee /etc/docker/daemon.json
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
   "log-driver": "json-file",
@@ -114,33 +111,33 @@ EOF
 ```
 
 ```shell
-mkdir -p /etc/systemd/system/docker.service.d
+sudo mkdir -p /etc/systemd/system/docker.service.d
 ```
 
 ```shell
 # 도커 재시작.
-systemctl daemon-reload
-systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (도커 CE 설치)
 ## 리포지터리 설정
 ### 필요한 패키지 설치
-yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 ```shell
 ## 도커 리포지터리 추가
-yum-config-manager --add-repo \
+sudo yum-config-manager --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
 ```shell
 # 도커 CE 설치.
-yum update -y && yum install -y \
+sudo yum update -y && sudo yum install -y \
   containerd.io-1.2.13 \
   docker-ce-19.03.11 \
   docker-ce-cli-19.03.11
@@ -148,12 +145,12 @@ yum update -y && yum install -y \
 
 ```shell
 ## /etc/docker 생성.
-mkdir /etc/docker
+sudo mkdir /etc/docker
 ```
 
 ```shell
 # 도커 데몬 설정.
-cat > /etc/docker/daemon.json <<EOF
+cat <<EOF | sudo tee /etc/docker/daemon.json
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
   "log-driver": "json-file",
@@ -169,15 +166,15 @@ EOF
 ```
 
 ```shell
-mkdir -p /etc/systemd/system/docker.service.d
+sudo mkdir -p /etc/systemd/system/docker.service.d
 ```
 
 ```shell
 # 도커 재시작.
-systemctl daemon-reload
-systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 부팅 시 도커 서비스를 시작하려면, 다음 명령을 실행한다.
@@ -203,98 +200,145 @@ CRI-O 메이저와 마이너 버전은 쿠버네티스 메이저와 마이너 �
 ### 선행 조건
 
 ```shell
-modprobe overlay
-modprobe br_netfilter
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
 # 요구되는 sysctl 파라미터 설정, 이 설정은 재부팅 간에도 유지된다.
-cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 
-sysctl --system
+sudo sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Debian" >}}
+{{% tab name="Debian" %}}
 
+다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 $OS를 아래의 표에서 적절한 필드로 설정한다.
+
+| 운영 체제          | $OS               |
+| ---------------- | ----------------- |
+| Debian Unstable  | `Debian_Unstable` |
+| Debian Testing   | `Debian_Testing`  |
+
+<br />
+그런 다음, `$VERSION` 을 사용자의 쿠버네티스 버전과 일치하는 CRI-O 버전으로 설정한다.
+예를 들어, CRI-O 1.18을 설치하려면, `VERSION=1.18` 로 설정한다.
+사용자의 설치를 특정 릴리스에 고정할 수 있다.
+버전 1.18.3을 설치하려면, `VERSION=1.18:1.18.3` 을 설정한다.
+<br />
+
+그런 다음, 아래를 실행한다.
 ```shell
-# Debian 개발 배포본(Unstable/Sid)
-echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Unstable/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Unstable/Release.key -O- | sudo apt-key add -
-```
+cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+"deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /"
+EOF
+cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
+"deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /"
+EOF
 
-```shell
-# Debian Testing
-echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Testing/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Testing/Release.key -O- | sudo apt-key add -
-```
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key add -
 
-```shell
-# Debian 10
-echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_10/Release.key -O- | sudo apt-key add -
-```
-
-```shell
-# Raspbian 10
-echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Raspbian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Raspbian_10/Release.key -O- | sudo apt-key add -
-```
-
-그리고 다음과 같이 CRI-O 설치한다.
-```shell
-sudo apt-get install cri-o-1.17
-```
-{{< /tab >}}
-
-{{< tab name="Ubuntu 18.04, 19.04 and 19.10" >}}
-
-```shell
-#  패키지 리포지터리 설정
-. /etc/os-release
-sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
-wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O- | sudo apt-key add -
 sudo apt-get update
+sudo apt-get install cri-o cri-o-runc
 ```
+{{% /tab %}}
 
+{{% tab name="Ubuntu" %}}
+
+다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 $OS를 아래의 표에서 적절한 필드로 설정한다.
+
+| 운영 체제          | $OS               |
+| ---------------- | ----------------- |
+| Ubuntu 20.04     | `xUbuntu_20.04`   |
+| Ubuntu 19.10     | `xUbuntu_19.10`   |
+| Ubuntu 19.04     | `xUbuntu_19.04`   |
+| Ubuntu 18.04     | `xUbuntu_18.04`   |
+
+<br />
+그런 다음, `$VERSION` 을 사용자의 쿠버네티스 버전과 일치하는 CRI-O 버전으로 설정한다.
+예를 들어, CRI-O 1.18을 설치하려면, `VERSION=1.18` 로 설정한다.
+사용자의 설치를 특정 릴리스에 고정할 수 있다.
+버전 1.18.3을 설치하려면, `VERSION=1.18:1.18.3` 을 설정한다.
+<br />
+
+그런 다음, 아래를 실행한다.
 ```shell
-# CRI-O 설치
-sudo apt-get install cri-o-1.17
+echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
+
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | apt-key add -
+
+apt-get update
+apt-get install cri-o cri-o-runc
 ```
-{{< /tab >}}
+{{% /tab %}}
 
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% tab name="CentOS" %}}
 
+다음의 운영 체제에서 CRI-O를 설치하려면, 환경 변수 $OS를 아래의 표에서 적절한 필드로 설정한다.
+
+| 운영 체제          | $OS               |
+| ---------------- | ----------------- |
+| Centos 8         | `CentOS_8`        |
+| Centos 8 Stream  | `CentOS_8_Stream` |
+| Centos 7         | `CentOS_7`        |
+
+<br />
+그런 다음, `$VERSION` 을 사용자의 쿠버네티스 버전과 일치하는 CRI-O 버전으로 설정한다.
+예를 들어, CRI-O 1.18을 설치하려면, `VERSION=1.18` 로 설정한다.
+사용자의 설치를 특정 릴리스에 고정할 수 있다.
+버전 1.18.3을 설치하려면, `VERSION=1.18:1.18.3` 을 설정한다.
+<br />
+
+그런 다음, 아래를 실행한다.
 ```shell
-# 선행 조건 설치
-curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
-curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}/CentOS_7/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo
+sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
+sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
+sudo yum install cri-o
 ```
 
-```shell
-# CRI-O 설치
-yum install -y cri-o
-```
+{{% /tab %}}
 
-{{< tab name="openSUSE Tumbleweed" >}}
+{{% tab name="openSUSE Tumbleweed" %}}
 
 ```shell
 sudo zypper install cri-o
 ```
-{{< /tab >}}
+{{% /tab %}}
+{{% tab name="Fedora" %}}
+
+`$VERSION` 을 사용자의 쿠버네티스 버전과 일치하는 CRI-O 버전으로 설정한다.
+예를 들어, CRI-O 1.18을 설치하려면, `VERSION=1.18` 로 설정한다.
+
+사용할 수 있는 버전을 찾으려면 다음을 실행한다.
+```shell
+sudo dnf module list cri-o
+```
+CRI-O는 Fedora에서 특정 릴리스를 고정하여 설치하는 방법은 지원하지 않는다.
+
+그런 다음, 아래를 실행한다.
+```shell
+sudo dnf module enable cri-o:$VERSION
+sudo dnf install cri-o
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### CRI-O 시작
 
 ```shell
-systemctl daemon-reload
-systemctl start crio
+sudo systemctl daemon-reload
+sudo systemctl start crio
 ```
 
-자세한 사항은 [CRI-O 설치 가이드](https://github.com/kubernetes-sigs/cri-o#getting-started)
-를 참고한다.
+자세한 사항은 [CRI-O 설치 가이드](https://github.com/kubernetes-sigs/cri-o#getting-started)를
+참고한다.
 
 ## Containerd
 
@@ -305,44 +349,44 @@ Containerd를 시스템에 설치하기 위해서 다음의 커맨드들을 사�
 ### 선행 조건
 
 ```shell
-cat > /etc/modules-load.d/containerd.conf <<EOF
+cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
 br_netfilter
 EOF
 
-modprobe overlay
-modprobe br_netfilter
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
 # 요구되는 sysctl 파라미터 설정, 이 설정은 재부팅에서도 유지된다.
-cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 
-sysctl --system
+sudo sysctl --system
 ```
 
 ### containerd 설치
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04" >}}
+{{% tab name="Ubuntu 16.04" %}}
 
 ```shell
 # (containerd 설치)
 ## 리포지터리 설정
 ### apt가 HTTPS로 리포지터리를 사용하는 것을 허용하기 위한 패키지 설치
-apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 ```
 
 ```shell
 ## 도커 공식 GPG 키 추가
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
 ```shell
 ## 도커 apt 리포지터리 추가.
-add-apt-repository \
+sudo add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
@@ -350,62 +394,91 @@ add-apt-repository \
 
 ```shell
 ## containerd 설치
-apt-get update && apt-get install -y containerd.io
+sudo apt-get update && sudo apt-get install -y containerd.io
 ```
 
 ```shell
 # containerd 설정
-mkdir -p /etc/containerd
-containerd config default > /etc/containerd/config.toml
+sudo mkdir -p /etc/containerd
+sudo containerd config default > /etc/containerd/config.toml
 ```
 
 ```shell
 # containerd 재시작
-systemctl restart containerd
+sudo systemctl restart containerd
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (containerd 설치)
 ## 리포지터리 설정
 ### 필요한 패키지 설치
-yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 ```shell
 ## 도커 리포지터리 추가
-yum-config-manager \
+sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
 ```shell
 ## containerd 설치
-yum update -y && yum install -y containerd.io
+sudo yum update -y && yum install -y containerd.io
 ```
 
 ```shell
 ## containerd 설정
-mkdir -p /etc/containerd
-containerd config default > /etc/containerd/config.toml
+sudo mkdir -p /etc/containerd
+sudo containerd config default > /etc/containerd/config.toml
 ```
 
 ```shell
 # containerd 재시작
-systemctl restart containerd
+sudo systemctl restart containerd
 ```
-{{< /tab >}}
+{{% /tab %}}
+{{% tab name="윈도우 (PowerShell)" %}}
+```powershell
+# (containerd 설치)
+# containerd 다운로드
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
+```
+
+```powershell
+# 압축을 풀고 구성
+Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
+cd $Env:ProgramFiles\containerd\
+.\containerd.exe config default | Out-File config.toml -Encoding ascii
+
+# 구성을 검토한다. 설정에 따라 아래를 조정할 수 있다.
+# - sandbox_image (쿠버네티스 pause 이미지)
+# - cni bin_dir 및 conf_dir 위치
+Get-Content config.toml
+```
+
+```powershell
+# containerd 시작
+.\containerd.exe --register-service
+Start-Service containerd
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 ### systemd
 
-`systemd` cgroup driver를 사용하려면, `/etc/containerd/config.toml`의 `plugins.cri.systemd_cgroup = true`을 설정한다.
+`systemd` cgroup driver를 사용하려면, `/etc/containerd/config.toml`에 다음을 설정한다.
+
+```
+[plugins.cri]
+systemd_cgroup = true
+```
 kubeadm을 사용하는 경우에도 마찬가지로, 수동으로
 [kubelet을 위한 cgroup 드라이버](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)를 설정한다.
 
 ## 다른 CRI 런타임: frakti
 
 자세한 정보는 [Frakti 빠른 시작 가이드](https://github.com/kubernetes/frakti#quickstart)를 참고한다.
-
-

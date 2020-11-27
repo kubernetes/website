@@ -25,7 +25,7 @@ _퍼시스턴트볼륨클레임_ (PVC)은 사용자의 스토리지에 대한 �
 
 퍼시스턴트볼륨클레임을 사용하면 사용자가 추상화된 스토리지 리소스를 사용할 수 있지만, 다른 문제들 때문에 성능과 같은 다양한 속성을 가진 퍼시스턴트볼륨이 필요한 경우가 일반적이다. 클러스터 관리자는 사용자에게 해당 볼륨의 구현 방법에 대한 세부 정보를 제공하지 않고 단순히 크기와 접근 모드와는 다른 방식으로 다양한 퍼시스턴트볼륨을 제공할 수 있어야 한다. 이러한 요구에는 _스토리지클래스_ 리소스가 있다.
 
-[실습 예제와 함께 상세한 내용](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)을 참고하길 바란다.
+[실습 예제와 함께 상세한 내용](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)을 참고하길 바란다.
 
 ## 볼륨과 클레임 라이프사이클
 
@@ -140,7 +140,7 @@ Events:            <none>
 기본 볼륨 플러그인에서 지원하는 경우 `Recycle` 반환 정책은 볼륨에서 기본 스크럽(`rm -rf /thevolume/*`)을 수행하고 새 클레임에 다시 사용할 수 있도록 한다.
 
 그러나 관리자는 [레퍼런스](/docs/reference/command-line-tools-reference/kube-controller-manager/)에
-설명된대로 쿠버네티스 컨트롤러 관리자 커맨드라인 인자(command line arguments)를
+설명된 대로 쿠버네티스 컨트롤러 관리자 커맨드라인 인자(command line arguments)를
 사용하여 사용자 정의 재활용 파드 템플릿을 구성할 수 있다.
 사용자 정의 재활용 파드 템플릿에는 아래 예와 같이 `volumes` 명세가
 포함되어야 한다.
@@ -167,6 +167,45 @@ spec:
 ```
 
 그러나 `volumes` 부분의 사용자 정의 재활용 파드 템플릿에 지정된 특정 경로는 재활용되는 볼륨의 특정 경로로 바뀐다.
+
+### 퍼시스턴트볼륨 예약
+
+컨트롤 플레인은 클러스터에서 [퍼시스턴트볼륨클레임을 일치하는 퍼시스턴트볼륨에 바인딩](#바인딩)할
+수 있다. 그러나, PVC를 특정 PV에 바인딩하려면, 미리 바인딩해야 한다.
+
+퍼시스턴트볼륨클레임에서 퍼시스턴트볼륨을 지정하여, 특정 PV와 PVC 간의 바인딩을 선언한다.
+퍼시스턴트볼륨이 존재하고 `claimRef` 필드를 통해 퍼시스턴트볼륨클레임을 예약하지 않은 경우, 퍼시스턴트볼륨 및 퍼시스턴트볼륨클레임이 바인딩된다.
+
+바인딩은 노드 선호도(affinity)를 포함하여 일부 볼륨 일치(matching) 기준과 관계없이 발생한다.
+컨트롤 플레인은 여전히 [스토리지 클래스](https://kubernetes.io/ko/docs/concepts/storage/storage-classes/), 접근 모드 및 요청된 스토리지 크기가 유효한지 확인한다.
+
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: foo-pvc
+  namespace: foo
+spec:
+  volumeName: foo-pv
+  ...
+```
+
+이 메서드는 퍼시스턴트볼륨에 대한 바인딩 권한을 보장하지 않는다. 다른 퍼시스턴트볼륨클레임에서 지정한 PV를 사용할 수 있는 경우, 먼저 해당 스토리지 볼륨을 예약해야 한다. PV의 `claimRef` 필드에 관련 퍼시스턴트볼륨클레임을 지정하여 다른 PVC가 바인딩할 수 없도록 한다.
+
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: foo-pv
+spec:
+  claimRef:
+    name: foo-pvc
+    namespace: foo
+  ...
+```
+
+이는 기존 PV를 재사용하는 경우를 포함하여 `claimPolicy` 가
+`Retain` 으로 설정된 퍼시스턴트볼륨을 사용하려는 경우에 유용하다.
 
 ### 퍼시스턴트 볼륨 클레임 확장
 
@@ -247,6 +286,16 @@ FlexVolume의 크기 조정은 기본 드라이버가 크기 조정을 지원하
 {{< note >}}
 EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마다 한 번의 수정을 할 수 있는 볼륨별 쿼터가 있다.
 {{< /note >}}
+
+#### 볼륨 확장 시 오류 복구
+
+기본 스토리지 확장에 실패하면, 클러스터 관리자가 수동으로 퍼시스턴트 볼륨 클레임(PVC) 상태를 복구하고 크기 조정 요청을 취소할 수 있다. 그렇지 않으면, 컨트롤러가 관리자 개입 없이 크기 조정 요청을 계속해서 재시도한다.
+
+1. 퍼시스턴트볼륨클레임(PVC)에 바인딩된 퍼시스턴트볼륨(PV)을 `Retain` 반환 정책으로 표시한다.
+2. PVC를 삭제한다. PV에는 `Retain` 반환 정책이 있으므로 PVC를 재생성할 때 데이터가 손실되지 않는다.
+3. 새 PVC를 바인딩할 수 있도록 PV 명세에서 `claimRef` 항목을 삭제한다. 그러면 PV가 `Available` 상태가 된다.
+4. PV 보다 작은 크기로 PVC를 다시 만들고 PVC의 `volumeName` 필드를 PV 이름으로 설정한다. 이것은 새 PVC를 기존 PV에 바인딩해야 한다.
+5. PV의 반환 정책을 복원하는 것을 잊지 않는다.
 
 
 ## 퍼시스턴트 볼륨의 유형
@@ -745,8 +794,8 @@ spec:
   ## {{% heading "whatsnext" %}}
 
 
-* [퍼시스턴트볼륨 생성](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)에 대해 자세히 알아보기
-* [퍼시스턴트볼륨클레임 생성](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)에 대해 자세히 알아보기
+* [퍼시스턴트볼륨 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)에 대해 자세히 알아보기
+* [퍼시스턴트볼륨클레임 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨클레임-생성하기)에 대해 자세히 알아보기
 * [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md) 읽어보기
 
 ### 참고

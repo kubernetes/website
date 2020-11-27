@@ -18,7 +18,7 @@ weight: 20
 In Kubernetes, a _VolumeSnapshot_ represents a snapshot of a volume on a storage system. This document assumes that you are already familiar with Kubernetes [persistent volumes](/docs/concepts/storage/persistent-volumes/).
 -->
 在 Kubernetes 中，卷快照是一个存储系统上卷的快照，本文假设你已经熟悉了 Kubernetes
-的 [持久卷](/docs/concepts/storage/persistent-volumes/)。
+的 [持久卷](/zh/docs/concepts/storage/persistent-volumes/)。
 
 <!-- body -->
 
@@ -47,6 +47,13 @@ A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is simila
 `VolumeSnapshotClass` allows you to specify different attributes belonging to a `VolumeSnapshot`. These attibutes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same `StorageClass` of a `PersistentVolumeClaim`.
 -->
 `VolumeSnapshotClass` 允许指定属于 `VolumeSnapshot` 的不同属性。在从存储系统的相同卷上获取的快照之间，这些属性可能有所不同，因此不能通过使用与 `PersistentVolumeClaim` 相同的 `StorageClass` 来表示。
+
+<!--
+Volume snapshots provide Kubernetes users with a standardized way to copy a volume's contents at a particular point in time without creating an entirely new volume. This functionality enables, for example, database administrators to backup databases before performing edit or delete modifications.
+-->
+卷快照能力为 Kubernetes 用户提供了一种标准的方式来在指定时间点
+复制卷的内容，并且不需要创建全新的卷。例如，这一功能使得数据库管理员
+能够在执行编辑或删除之类的修改之前对数据库执行备份。
 
 <!--
 Users need to be aware of the following when using this feature:
@@ -171,7 +178,8 @@ A volume snapshot can request a particular class by specifying the name of a
 [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/)
 using the attribute `volumeSnapshotClassName`. If nothing is set, then the default class is used if available.
 -->
-`persistentVolumeClaimName` 是 `PersistentVolumeClaim` 数据源对快照的名称。这个字段是动态配置快照中的必填字段。
+`persistentVolumeClaimName` 是 `PersistentVolumeClaim` 数据源对快照的名称。
+这个字段是动态配置快照中的必填字段。
 
 卷快照可以通过指定 [VolumeSnapshotClass](/zh/docs/concepts/storage/volume-snapshot-classes/)
 使用 `volumeSnapshotClassName` 属性来请求特定类。如果没有设置，那么使用默认类（如果有）。
@@ -182,14 +190,14 @@ For pre-provisioned snapshots, you need to specify a `volumeSnapshotContentName`
 如下面例子所示，对于预配置的快照，需要给快照指定 `volumeSnapshotContentName` 来作为源。
 对于预配置的快照 `source` 中的`volumeSnapshotContentName` 字段是必填的。
 
-```
+```yaml
 apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
   name: test-snapshot
 spec:
   source:
-        volumeSnapshotContentName: test-content
+    volumeSnapshotContentName: test-content
 ```
 
 <!--
@@ -260,5 +268,6 @@ the *dataSource* field in the `PersistentVolumeClaim` object.
 For more details, see
 [Volume Snapshot and Restore Volume from Snapshot](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
 -->
-更多详细信息，请参阅 [卷快照和从快照还原卷](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)。
+更多详细信息，请参阅
+[卷快照和从快照还原卷](/zh/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)。
 

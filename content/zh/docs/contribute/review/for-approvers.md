@@ -385,7 +385,7 @@ Issue，不必修复。
 
 Some docs issues are actually issues with the underlying code, or requests for
 assistance when something, for example a tutorial, doesn't work.
-For issues unrelated to docs, close the issue with the `triage/support` label and a comment
+For issues unrelated to docs, close the issue with the `kind/support` label and a comment
 directing the requester to support venues (Slack, Stack Overflow) and, if
 relevant, the repository to file an issue for bugs with features (`kubernetes/kubernetes`
 is a great place to start).
@@ -396,7 +396,7 @@ Sample response to a request for support:
 
 某些文档 Issues 实际上是关于底层代码的 Issue 或者在某方面请求协助的问题，
 例如某个教程无法正常工作。
-对于与文档无关的 Issues，关闭它并打上标签 `triage/support`，可以通过评论
+对于与文档无关的 Issues，关闭它并打上标签 `kind/support`，可以通过评论
 告知请求者其他支持渠道（Slack、Stack Overflow）。
 如果有相关的其他仓库，可以告诉请求者应该在哪个仓库登记与功能特性相关的 Issues
 （通常会是 `kubernetes/kubernetes`）。

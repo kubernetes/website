@@ -65,7 +65,7 @@ GitHub 계정을 가진 누구나 쿠버네티스에 기여할 수 있다. SIG D
 최소 5개의 실질적인 풀 리퀘스트를 제출하고 다른
 [요구 사항](https://github.com/kubernetes/community/blob/master/community-membership.md#member)을 충족시킨 후, 다음의 단계를 따른다.
 
-1. 멤버십을 [후원](/docs/contribute/advanced#sponsor-a-new-contributor)해줄 두 명의
+1. 멤버십을 [후원](/ko/docs/contribute/advanced#새로운-기여자-후원)해줄 두 명의
    [리뷰어](#리뷰어) 또는 [승인자](#승인자)를
    찾는다.
 

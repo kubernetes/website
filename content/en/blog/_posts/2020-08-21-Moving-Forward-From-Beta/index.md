@@ -61,7 +61,7 @@ mind.
 ## Avoiding permanent beta
 
 For Kubernetes REST APIs, when a new feature's API reaches beta, that starts a countdown.
-The beta-quality API now has **nine calendar months** to either:
+The beta-quality API now has **three releases** (about nine calendar months) to either:
 - reach GA, and deprecate the beta, or
 - have a new beta version (_and deprecate the previous beta_).
 
@@ -69,9 +69,10 @@ To be clear, at this point **only REST APIs are affected**. For example, _APILis
 a beta feature but isn't itself a REST API. Right now there are no plans to automatically
 deprecate _APIListChunking_ nor any other features that aren't REST APIs.
 
-If a REST API reaches the end of that 9 month countdown, then the next Kubernetes release
-will deprecate that API version. There's no option for the REST API to stay at the same
-beta version beyond the first Kubernetes release to come out after the 9 month window.
+If a beta API has not graduated to GA after three Kubernetes releases, then the
+next Kubernetes release will deprecate that API version. There's no option for
+the REST API to stay at the same beta version beyond the first Kubernetes
+release to come out after the release window.
 
 ### What this means for you
 

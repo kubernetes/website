@@ -23,7 +23,7 @@ Endpoints.
 
 The Endpoints API has provided a simple and straightforward way of
 tracking network endpoints in Kubernetes. Unfortunately as Kubernetes clusters
-and {{< glossary_tooltip text="Services" term_id="service" >}} have grown to handle
+and {{< glossary_tooltip text="Services" term_id="service" >}} have grown to handle and
 send more traffic to more backend Pods, limitations of that original API became
 more visible.
 Most notably, those included challenges with scaling to larger numbers of
@@ -114,8 +114,8 @@ of the labels with the same names on the corresponding Node.
 Most often, the control plane (specifically, the endpoint slice
 {{< glossary_tooltip text="controller" term_id="controller" >}}) creates and
 manages EndpointSlice objects. There are a variety of other use cases for
-EndpointSlices, such as service mesh implementations, that could result in othe
-rentities or controllers managing additional sets of EndpointSlices.
+EndpointSlices, such as service mesh implementations, that could result in other
+entities or controllers managing additional sets of EndpointSlices.
 
 To ensure that multiple entities can manage EndpointSlices without interfering
 with each other, Kubernetes defines the

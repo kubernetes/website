@@ -39,8 +39,6 @@ Before choosing a guide, here are some considerations:
 
 ## Managing a cluster
 
-* [Managing a cluster](/docs/tasks/administer-cluster/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster's master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
-
 * Learn how to [manage nodes](/docs/concepts/architecture/nodes/).
 
 * Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
@@ -51,7 +49,7 @@ Before choosing a guide, here are some considerations:
 
 * [Kubernetes Container Environment](/docs/concepts/containers/container-environment/) describes the environment for Kubelet managed containers on a Kubernetes node.
 
-* [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) describes how to set up permissions for users and service accounts.
+* [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access) describes how Kubernetes implements access control for its own API.
 
 * [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in Kubernetes, including the various authentication options.
 

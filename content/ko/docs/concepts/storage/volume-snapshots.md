@@ -87,14 +87,14 @@ spec:
 
 사전 프로비저닝된 스냅샷의 경우, 다음 예와 같이 `volumeSnapshotContentName`을 스냅샷 소스로 지정해야 한다. 사전 프로비저닝된 스냅샷에는 `volumeSnapshotContentName` 소스 필드가 필요하다.
 
-```
+```yaml
 apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
   name: test-snapshot
 spec:
   source:
-        volumeSnapshotContentName: test-content
+    volumeSnapshotContentName: test-content
 ```
 
 ## 볼륨 스냅샷 컨텐츠

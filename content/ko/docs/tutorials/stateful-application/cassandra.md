@@ -7,9 +7,13 @@ weight: 30
 
 
 <!-- overview -->
-이 튜토리얼은 쿠버네티스에서 [아파치 카산드라](http://cassandra.apache.org/)를 실행하는 방법을 소개한다. 데이터베이스인 카산드라는 데이터 내구성을 제공하기 위해 퍼시스턴트 스토리지가 필요하다(애플리케이션 _상태_). 이 예제에서 사용자 지정 카산드라 시드 공급자는 카산드라가 클러스터에 가입할 때 카산드라가 인스턴스를 검색할 수 있도록 한다.
+이 튜토리얼은 쿠버네티스에서 [아파치 카산드라](http://cassandra.apache.org/)를 실행하는 방법을 소개한다.
+데이터베이스인 카산드라는 데이터 내구성을 제공하기 위해 퍼시스턴트 스토리지가 필요하다(애플리케이션 _상태_).
+이 예제에서 사용자 지정 카산드라 시드 공급자는 카산드라가 클러스터에 가입할 때 카산드라가 인스턴스를 검색할 수 있도록 한다.
 
-*스테이트풀셋* 은 상태있는 애플리케이션을 쿠버네티스 클러스터에 쉽게 배포할 수 있게 한다. 이 튜토리얼에서 이용할 기능의 자세한 정보는 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 참조한다.
+*스테이트풀셋* 은 상태있는 애플리케이션을 쿠버네티스 클러스터에 쉽게 배포할 수 있게 한다.
+이 튜토리얼에서 이용할 기능의 자세한 정보는
+[스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 참조한다.
 
 {{< note >}}
 카산드라와 쿠버네티스는 클러스터 맴버라는 의미로 _노드_ 라는 용어를 사용한다. 이
@@ -38,12 +42,17 @@ weight: 30
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-이 튜토리얼을 완료하려면 {{< glossary_tooltip text="파드" term_id="pod" >}}, {{< glossary_tooltip text="서비스" term_id="service" >}}, {{< glossary_tooltip text="스테이트풀셋" term_id="StatefulSet" >}}에 대한 기본 지식이 있어야 한다.
+이 튜토리얼을 완료하려면,
+{{< glossary_tooltip text="파드" term_id="pod" >}},
+{{< glossary_tooltip text="서비스" term_id="service" >}},
+{{< glossary_tooltip text="스테이트풀셋" term_id="StatefulSet" >}}에 대한 기본 지식이 있어야 한다.
 
 ### 추가적인 Minikube 설정 요령
 
 {{< caution >}}
-[Minikube](/docs/getting-started-guides/minikube/)는 1024MiB 메모리와 1개 CPU가 기본 설정이다. 이 튜토리얼에서 Minikube를 기본 리소스 설정으로 실행하면 리소스 부족 오류가 발생한다. 이런 오류를 피하려면 Minikube를 다음 설정으로 실행하자.
+[Minikube](/docs/getting-started-guides/minikube/)는 1024MiB 메모리와 1개 CPU가 기본 설정이다.
+이 튜토리얼에서 Minikube를 기본 리소스 설정으로 실행하면 리소스 부족 오류가
+발생한다. 이런 오류를 피하려면 Minikube를 다음 설정으로 실행하자.
 
 ```shell
 minikube start --memory 5120 --cpus=4
@@ -51,11 +60,11 @@ minikube start --memory 5120 --cpus=4
 {{< /caution >}}
 
 
-
 <!-- lessoncontent -->
 ## 카산드라를 위한 헤드리스 서비스 생성하기 {#creating-a-cassandra-headless-service}
 
-쿠버네티스 에서 {{< glossary_tooltip text="서비스" term_id="service" >}}는 동일 작업을 수행하는 {{< glossary_tooltip text="파드" term_id="pod" >}}의 집합을 기술한다.
+쿠버네티스 에서 {{< glossary_tooltip text="서비스" term_id="service" >}}는 동일 작업을 수행하는
+{{< glossary_tooltip text="파드" term_id="pod" >}}의 집합을 기술한다.
 
 다음의 서비스는 클러스터에서 카산드라 파드와 클라이언트 간에 DNS 찾아보기 용도로 사용한다.
 
@@ -83,14 +92,17 @@ NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
 cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
-이와 다른 응답이라면 서비스 생성에 실패한 것이다. 일반적인 문제에 대한 [서비스 디버깅하기](/docs/tasks/debug-application-cluster/debug-service/)를 읽어보자.
+`cassandra` 서비스가 보이지 않는다면, 이와 다른 응답이라면 서비스 생성에 실패한 것이다. 일반적인 문제에 대한
+[서비스 디버깅하기](/docs/tasks/debug-application-cluster/debug-service/)를
+읽어보자.
 
 ## 카산드라 링을 생성하는 스테이트풀셋 이용하기
 
 스테이트풀셋 매니페스트에는 다음을 포함하는데 3개 파드로 구성된 카산드라 링을 생성한다.
 
 {{< note >}}
-이 예는 Minikube를 위한 기본 프로비저너이다. 다음 스테이트풀셋을 작업하는 클라우드 환경에서 갱신한다.
+이 예는 Minikube를 위한 기본 프로비저너이다.
+다음 스테이트풀셋을 작업하는 클라우드 환경에서 갱신한다.
 {{< /note >}}
 
 {{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
@@ -182,12 +194,13 @@ kubectl apply -f cassandra-statefulset.yaml
     kubectl edit statefulset cassandra
     ```
 
-    이 명령은 터미널에서 편집기를 연다. 변경해야할 행은 `replicas` 필드이다. 다음 예제는 스테이트풀셋 파일에서 발췌했다.
+    이 명령은 터미널에서 편집기를 연다. 변경해야할 행은 `replicas` 필드이다.
+    다음 예제는 스테이트풀셋 파일에서 발췌했다.
 
     ```yaml
-    # Please edit the object below. Lines beginning with a '#' will be ignored,
-    # and an empty file will abort the edit. If an error occurs while saving this file will be
-    # reopened with the relevant failures.
+    # 다음의 오브젝트를 수정한다. '#'로 시작하는 행은 무시되고,
+    # 빈 파일은 편집을 중단한다. 저장할 때 오류가 발생하면 이 파일이
+    # 관련 실패와 함께 다시 열린다.
     #
     apiVersion: apps/v1
     kind: StatefulSet
@@ -225,10 +238,12 @@ kubectl apply -f cassandra-statefulset.yaml
 
 ## {{% heading "cleanup" %}}
 
-스테이트풀셋을 삭제하거나 스케일링하는 것은 스테이트풀셋에 연관된 볼륨을 삭제하지 않는다. 당신의 데이터가 스테이트풀셋의 관련된 모든 리소스를 자동으로 제거하는 것보다 더 가치있기에 이 설정은 당신의 안전을 위한 것이다.
+스테이트풀셋을 삭제하거나 스케일링하는 것은 스테이트풀셋에 연관된 볼륨을 삭제하지 않는다.
+당신의 데이터가 스테이트풀셋의 관련된 모든 리소스를 자동으로 제거하는 것보다 더 가치있기에 이 설정은 당신의 안전을 위한 것이다.
 
 {{< warning >}}
-스토리지 클래스와 리클레임 정책에 따라 *퍼시스턴스볼륨클레임* 을 삭제하면 그와 연관된 볼륨도 삭제될 수 있다. 볼륨 요청이 삭제되어도 데이터를 접근할 수 있다고 절대로 가정하지 말자.
+스토리지 클래스와 리클레임 정책에 따라 *퍼시스턴스볼륨클레임* 을 삭제하면 그와 연관된 볼륨도
+삭제될 수 있다. 볼륨 요청이 삭제되어도 데이터를 접근할 수 있다고 절대로 가정하지 말자.
 {{< /warning >}}
 
 1. 다음 명령어(한 줄로 연결된)를 실행하여 카산드라 스테이트풀셋을 모두 제거하자.
@@ -271,6 +286,3 @@ kubectl apply -f cassandra-statefulset.yaml
 * 어떻게 [스테이트풀셋 스케일](/docs/tasks/run-application/scale-stateful-set/)하는지 살펴본다.
 * [*쿠버네티스시드제공자*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)에 대해 더 살펴본다.
 * 커스텀 [시드 제공자 설정](https://git.k8s.io/examples/cassandra/java/README.md)를 살펴본다.
-
-
-

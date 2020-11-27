@@ -4,7 +4,7 @@ slug: suggest-improvements
 content_type: concept
 weight: 10
 card:
-  name: 贡献
+  name: contribute
   weight: 20
 ---
 <!--

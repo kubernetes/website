@@ -5,6 +5,8 @@ content_type: concept
 
 <!-- overview -->
 
+{{% thirdparty-content %}}
+
 <!--
 Add-ons extend the functionality of Kubernetes.
 
@@ -34,10 +36,12 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md) is an overlay network provider that can be used with Kubernetes.
 * [Knitter](https://github.com/ZTE/Knitter/) is a network solution supporting multiple networking in Kubernetes.
 * [Multus](https://github.com/Intel-Corp/multus-cni) is a Multi plugin for multiple network support in Kubernetes to support all CNI plugins (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and VPP based workloads in Kubernetes.
+* [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) is a networking provider for Kubernetes based on [OVN (Open Virtual Network)](https://github.com/ovn-org/ovn/), a virtual networking implementation that came out of the Open vSwitch (OVS) project. OVN-Kubernetes provides an overlay based networking implementation for Kubernetes, including an OVS based implementation of load balancing and network policy.
+* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) is OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC), Multiple OVN overlay networking, dynamic subnet creation, dynamic creation of virtual networks, VLAN Provider network, Direct provider network and pluggable with other Multi-network plugins, ideal for edge based cloud native workloads in Multi-cluster networking
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in (NCP) provides integration between VMware NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) is an SDN platform that provides policy-based networking between Kubernetes Pods and non-Kubernetes environments with visibility and security monitoring.
 * [Romana](http://romana.io) is a Layer 3 networking solution for pod networks that also supports the [NetworkPolicy API](/docs/concepts/services-networking/network-policies/). Kubeadm add-on installation details available [here](https://github.com/romana/romana/tree/master/containerize).
-* [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/) provides networking and network policy, will carry on working on both sides of a network partition, and does not require an external database.
+* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) provides networking and network policy, will carry on working on both sides of a network partition, and does not require an external database.
 -->
 ## 网络和网络策略
 
@@ -63,6 +67,15 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [Multus](https://github.com/Intel-Corp/multus-cni) 是一个多插件，可在 Kubernetes 中提供多种网络支持，
   以支持所有 CNI 插件（例如 Calico，Cilium，Contiv，Flannel），
   而且包含了在 Kubernetes 中基于 SRIOV、DPDK、OVS-DPDK 和 VPP 的工作负载。
+* [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) 是一个 Kubernetes 网络驱动，
+  基于 [OVN（Open Virtual Network）](https://github.com/ovn-org/ovn/)实现，是从 Open vSwitch (OVS)
+  项目衍生出来的虚拟网络实现。
+  OVN-Kubernetes 为 Kubernetes 提供基于覆盖网络的网络实现，包括一个基于 OVS 实现的负载均衡器
+  和网络策略。
+* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) 是一个基于 OVN 的 CNI
+  控制器插件，提供基于云原生的服务功能链条（Service Function Chaining，SFC）、多种 OVN 覆盖
+  网络、动态子网创建、动态虚拟网络创建、VLAN 驱动网络、直接驱动网络，并且可以
+  驳接其他的多网络插件，适用于基于边缘的、多集群联网的云原生工作负载。
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) 容器插件（NCP）
   提供了 VMware NSX-T 与容器协调器（例如 Kubernetes）之间的集成，以及 NSX-T 与基于容器的
   CaaS / PaaS 平台（例如关键容器服务（PKS）和 OpenShift）之间的集成。
@@ -71,7 +84,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [Romana](https://romana.io) 是一个 pod 网络的第三层解决方案，并支持[
   NetworkPolicy API](/zh/docs/concepts/services-networking/network-policies/)。
   Kubeadm add-on 安装细节可以在[这里](https://github.com/romana/romana/tree/master/containerize)找到。
-* [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/) 
+* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) 
   提供在网络分组两端参与工作的网络和网络策略，并且不需要额外的数据库。
 
 <!--

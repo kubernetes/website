@@ -206,6 +206,19 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 
 쿼터 스펙의 `scopeSelector`가 파드를 선택한 경우에만 쿼터가 일치하고 사용된다.
 
+`scopeSelector` 필드를 사용하여 우선 순위 클래스의 쿼터 범위를 지정하면, 쿼터 오브젝트는 다음의 리소스만 추적하도록 제한된다.
+
+* `pods`
+* `cpu`
+* `memory`
+* `ephemeral-storage`
+* `limits.cpu`
+* `limits.memory`
+* `limits.ephemeral-storage`
+* `requests.cpu`
+* `requests.memory`
+* `requests.ephemeral-storage`
+
 이 예에서는 쿼터 오브젝트를 생성하여 특정 우선 순위의 파드와 일치시킨다.
 예제는 다음과 같이 작동한다.
 
@@ -495,8 +508,7 @@ kubectl create quota test --hard=count/deployments.extensions=2,count/replicaset
 ```
 
 ```shell
-kubectl create deployment nginx --image=nginx --namespace=myspace
-kubectl scale deployment nginx --replicas=2 --namespace=myspace
+kubectl create deployment nginx --image=nginx --namespace=myspace --replicas=2
 ```
 
 ```shell

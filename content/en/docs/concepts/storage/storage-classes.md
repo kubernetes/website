@@ -94,7 +94,7 @@ run, what volume plugin it uses (including Flex), etc. The repository
 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 houses a library for writing external provisioners that implements the bulk of
 the specification. Some external provisioners are listed under the repository
-[kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
+[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner).
 
 For example, NFS doesn't provide an internal provisioner, but an external
 provisioner can be used. There are also cases when 3rd party storage
@@ -414,6 +414,21 @@ This internal provisioner of OpenStack is deprecated. Please use [the external c
 {{< /note >}}
 
 ### vSphere
+
+There are two types of provisioners for vSphere storage classes: 
+
+- [CSI provisioner](#csi-provisioner): `csi.vsphere.vmware.com`
+- [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
+
+In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#csi-migration-5).
+
+#### CSI Provisioner {#vsphere-provisioner-csi}
+
+The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. For an example, refer to the [vSphere CSI repository](https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/example/vanilla-k8s-file-driver/example-sc.yaml).
+
+#### vCP Provisioner 
+
+The following examples use the VMware Cloud Provider (vCP) StorageClass provisioner.  
 
 1. Create a StorageClass with a user specified disk format.
 
@@ -818,5 +833,4 @@ specified by the `WaitForFirstConsumer` volume binding mode.
 Delaying volume binding allows the scheduler to consider all of a Pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
-
 

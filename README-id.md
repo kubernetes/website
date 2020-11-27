@@ -15,7 +15,7 @@ Untuk informasi lebih lanjut mengenai tata cara melakukan kontribusi, kamu dapat
 
 * [Petunjuk Melakukan Kontribusi](https://kubernetes.io/docs/contribute/start/)
 * [Melakukan Tahap Staging pada Konten Dokumentasi yang telah Kamu Sediakan](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Petunjuk Menggunakan Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Petunjuk Menggunakan Page Templates](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Petunjuk untuk Documentation Style](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Petunjuk untuk Melakukan Lokalisasi Dokumentasi Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
@@ -30,13 +30,13 @@ Petunjuk yang disarankan untuk menjalankan Dokumentasi Kubernetes pada mesin lok
 Jika kamu sudah memiliki **Docker** [yang sudah dapat digunakan](https://www.docker.com/get-started), kamu dapat melakukan **build** `kubernetes-hugo` **Docker image** secara lokal:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Setelah **image** berhasil di-**build**, kamu dapat menjalankan website tersebut pada mesin lokal-mu:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Buka **browser** kamu ke http://localhost:1313 untuk melihat laman dokumentasi. Selama kamu melakukan penambahan konten, **Hugo** akan secara otomatis melakukan perubahan terhadap laman dokumentasi apabila **browser** melakukan proses **refresh**.

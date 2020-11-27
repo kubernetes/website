@@ -91,7 +91,7 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.18, they are:
+In the current version, the default ones are:
 
 ```shell
 NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota
@@ -163,10 +163,11 @@ storage classes and how to mark a storage class as default.
 ### DefaultTolerationSeconds {#defaulttolerationseconds}
 
 This admission controller sets the default forgiveness toleration for pods to tolerate
-the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes,
-if the pods don't already have toleration for taints
-`node.kubernetes.io/not-ready:NoExecute` or
-`node.alpha.kubernetes.io/unreachable:NoExecute`.
+the taints `notready:NoExecute` and `unreachable:NoExecute` based on the k8s-apiserver input parameters
+`default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` if the pods don't already 
+have toleration for taints `node.kubernetes.io/not-ready:NoExecute` or
+`node.kubernetes.io/unreachable:NoExecute`.
+The default value for `default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` is 5 minutes.
 
 ### DenyExecOnPrivileged {#denyexeconprivileged}
 
@@ -202,8 +203,6 @@ is recommended instead.
 This admission controller mitigates the problem where the API server gets flooded by
 event requests. The cluster admin can specify event rate limits by:
 
- * Ensuring that `eventratelimit.admission.k8s.io/v1alpha1=true` is included in the
-   `--runtime-config` flag for the API server;
  * Enabling the `EventRateLimit` admission controller;
  * Referencing an `EventRateLimit` configuration file from the file provided to the API
    server's command line flag `--admission-control-config-file`:
@@ -535,8 +534,8 @@ and kubelets will not be allowed to modify labels with that prefix.
   * `kubernetes.io/os`
   * `beta.kubernetes.io/instance-type`
   * `node.kubernetes.io/instance-type`
-  * `failure-domain.beta.kubernetes.io/region`
-  * `failure-domain.beta.kubernetes.io/zone`
+  * `failure-domain.beta.kubernetes.io/region` (deprecated)
+  * `failure-domain.beta.kubernetes.io/zone` (deprecated)
   * `topology.kubernetes.io/region`
   * `topology.kubernetes.io/zone`
   * `kubelet.kubernetes.io/`-prefixed labels
@@ -731,7 +730,7 @@ See the [resourceQuota design doc](https://git.k8s.io/community/contributors/des
 For [RuntimeClass](/docs/concepts/containers/runtime-class/) definitions which describe an overhead associated with running a pod,
 this admission controller will set the pod.Spec.Overhead field accordingly.
 
-See also [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
+See also [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}

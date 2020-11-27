@@ -15,7 +15,7 @@ Per maggiori informazioni su come contribuire alla documentazione Kubernetes, ve
 
 * [Cominciare a contribuire](https://kubernetes.io/docs/contribute/start/)
 * [Vedere le modifiche localmente](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Utilizzare i template delle pagine](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Utilizzare i template delle pagine](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Guida Stilistica per la documentazione di Kubernetes](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Tradurre la documentazione di Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
@@ -30,13 +30,13 @@ Il modo consigliato per eseguire localmente il sito Web Kubernetes prevede l'uti
 Se hai Docker [attivo e funzionante](https://www.docker.com/get-started), crea l'immagine Docker `kubernetes-hugo` localmente:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Dopo aver creato l'immagine, è possibile eseguire il sito Web localmente:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Apri il tuo browser su http://localhost:1313 per visualizzare il sito Web. Mentre modifichi i file sorgenti, Hugo aggiorna automaticamente il sito Web e forza un aggiornamento della pagina visualizzata nel browser.
