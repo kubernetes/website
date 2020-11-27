@@ -1,5 +1,5 @@
 ---
-title: Horizontal Pod Autoscaler（Pod 水平自动扩缩器）
+title: Pod水平自动扩缩器（Horizontal Pod Autoscaler）
 id: horizontal-pod-autoscaler
 date: 2018-04-12
 full_link: /zh/docs/tasks/run-application/horizontal-pod-autoscale/

@@ -1,5 +1,5 @@
 ---
-title: Add-ons（附加组件）
+title: 附加组件（Add-ons）
 id: addons
 date: 2019-12-15
 full_link: /zh/docs/concepts/cluster-administration/addons/

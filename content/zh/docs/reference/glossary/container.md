@@ -1,5 +1,5 @@
 ---
-title: Container（容器）
+title: 容器（Container）
 id: container
 date: 2018-04-12
 full_link: /zh/docs/concepts/overview/what-is-kubernetes/#why-containers

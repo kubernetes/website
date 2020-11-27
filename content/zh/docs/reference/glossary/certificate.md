@@ -1,5 +1,5 @@
 ---
-title: Certificate（证书）
+title: 证书（Certificate）
 id: certificate
 date: 2018-04-12
 full_link: /zh/docs/tasks/tls/managing-tls-in-a-cluster/

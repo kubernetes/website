@@ -1,5 +1,5 @@
 ---
-title: Disruption（干扰）
+title: 干扰（Disruption）
 id: disruption
 date: 2019-09-10
 full_link: /zh/docs/concepts/workloads/pods/disruptions/

@@ -1,5 +1,5 @@
 ---
-title: Ephemeral Container（临时容器）
+title: 临时容器（Ephemeral Container）
 id: ephemeral-container
 date: 2019-08-26
 full_link: /zh/docs/concepts/workloads/pods/ephemeral-containers/

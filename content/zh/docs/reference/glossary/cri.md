@@ -1,5 +1,5 @@
 ---
-title: CRI（容器运行时接口）
+title: 容器运行时接口（CRI）
 id: cri
 date: 2019-03-07
 full_link: /zh/docs/concepts/overview/components/#container-runtime

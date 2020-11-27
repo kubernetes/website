@@ -1,5 +1,5 @@
 ---
-title: Annotation（注解）
+title: 注解（Annotation）
 id: annotation
 date: 2018-04-12
 full_link: /zh/docs/concepts/overview/working-with-objects/annotations/

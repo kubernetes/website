@@ -1,5 +1,5 @@
 ---
-title: Device Plugin（设备插件）
+title: 设备插件（Device Plugin）
 id: device-plugin
 date: 2019-02-02
 full_link: /zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/

@@ -1,5 +1,5 @@
 ---
-title: Endpoints（端点）
+title: 端点（Endpoints）
 id: endpoints
 date: 2020-04-23
 full_link: 

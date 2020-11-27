@@ -1,5 +1,5 @@
 ---
-title: Data Plane（数据平面）
+title: 数据平面（Data Plane）
 id: data-plane
 date: 2019-05-12
 full_link:

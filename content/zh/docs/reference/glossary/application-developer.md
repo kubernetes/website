@@ -1,5 +1,5 @@
 ---
-title: Application Developer（应用开发者）
+title: 应用开发者（Application Developer）
 id: application-developer
 date: 2018-04-12
 full_link: 

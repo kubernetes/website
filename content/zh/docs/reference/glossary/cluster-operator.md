@@ -1,5 +1,5 @@
 ---
-title: Cluster Operator（集群操作者）
+title: 集群操作者（Cluster Operator）
 id: cluster-operator
 date: 2018-04-12
 full_link: 

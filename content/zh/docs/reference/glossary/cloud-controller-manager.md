@@ -1,5 +1,5 @@
 ---
-title: Cloud Controller Manager（云控制器管理器）
+title: 云控制器管理器（Cloud Controller Manager）
 id: cloud-controller-manager
 date: 2018-04-12
 full_link: /zh/docs/tasks/administer-cluster/running-cloud-controller/

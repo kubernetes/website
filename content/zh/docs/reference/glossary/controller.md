@@ -1,5 +1,5 @@
 ---
-title: Controller（控制器）
+title: 控制器（Controller）
 id: controller
 date: 2018-04-12
 full_link: /zh/docs/concepts/architecture/controller/

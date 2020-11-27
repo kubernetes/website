@@ -1,5 +1,5 @@
 ---
-title: StatefulSet
+title: 状态集（StatefulSet）
 id: statefulset
 date: 2018-04-12
 full_link: /zh/docs/concepts/workloads/controllers/statefulset/

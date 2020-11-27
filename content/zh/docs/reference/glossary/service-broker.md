@@ -1,5 +1,17 @@
-<!--
+---
+title: 服务代理（Service Broker）
+id: service-broker
+date: 2018-04-12
+full_link: 
+short_description: >
+  由第三方提供并维护的一组托管服务的访问端点。
 
+aka: 
+tags:
+- extension
+---
+
+<!--
 ---
 title: Service Broker
 id: service-broker
@@ -12,23 +24,7 @@ aka:
 tags:
 - extension
 ---
-
 -->
-
----
-title: Service Broker（服务代理）
-id: service-broker
-date: 2018-04-12
-full_link: 
-short_description: >
-  由第三方提供并维护的一组托管服务的访问端点。
-
-aka: 
-tags:
-- extension
----
-
-
 
 <!--
  An endpoint for a set of {{< glossary_tooltip text="Managed Services" term_id="managed-service" >}} offered and maintained by a third-party.

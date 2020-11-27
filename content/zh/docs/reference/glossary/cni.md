@@ -1,5 +1,5 @@
 ---
-title: CNI (容器网络接口)
+title: 容器网络接口（CNI）
 id: cni
 date: 2018-05-25
 full_link: /zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni

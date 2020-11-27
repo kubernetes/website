@@ -1,5 +1,5 @@
 ---
-title: Container Storage Interface(CSI)（容器存储接口）
+title: 容器存储接口（Container Storage Interface）(CSI)
 id: csi
 date: 2018-06-25
 full_link: /zh/docs/concepts/storage/volumes/#csi

@@ -1,5 +1,5 @@
 ---
-title: Dynamic Volume Provisioning（动态卷供应）
+title: 动态卷供应（Dynamic Volume Provisioning）
 id: dynamicvolumeprovisioning
 date: 2018-04-12
 full_link: /zh/docs/concepts/storage/dynamic-provisioning/

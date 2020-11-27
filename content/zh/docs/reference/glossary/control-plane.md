@@ -1,5 +1,5 @@
 ---
-title: Control Plane（控制平面）
+title: 控制平面（Control Plane）
 id: control-plane
 date: 2019-05-12
 full_link:
