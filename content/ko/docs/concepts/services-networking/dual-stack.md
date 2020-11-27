@@ -94,7 +94,7 @@ IPv6가 활성화된 외부 로드 밸런서를 지원하는 클라우드 공급
 
 ## 이그레스 트래픽
 
-근본적으로 {{< glossary_tooltip text="CNI" term_id="cni" >}} 공급자가 전송을 구현할 수 있는 경우 공개적으로 라우팅 하거나 비공개 라우팅만 가능한 IPv6 주소 블록의 사용은 허용된다. 만약 비공개 라우팅만 가능한 IPv6를 사용하는 파드가 있고, 해당 파드가 오프 클러스터 목적지(예: 공용 인터넷)에 도달하기를 원하는 경우에는 이그레스 트래픽과 모든 응답을 위한 마스커레이딩 IP를 설정해야 한다. [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) 는 이중 스택을 인식하기에, 이중 스택 클러스터에서 마스커레이딩 IP에 ip-masq-agent 를 사용할 수 있다.
+근본적으로 {{< glossary_tooltip text="CNI" term_id="cni" >}} 공급자가 전송을 구현할 수 있는 경우 공개적으로 라우팅 하거나 비공개 라우팅만 가능한 IPv6 주소 블록의 사용은 허용된다. 만약 비공개 라우팅만 가능한 IPv6를 사용하는 파드가 있고, 해당 파드가 오프 클러스터 목적지(예: 공용 인터넷)에 도달하기를 원하는 경우에는 이그레스 트래픽과 모든 응답을 위한 마스커레이딩 IP를 설정해야 한다. [ip-masq-agent](https://github.com/kubernetes-sigs/ip-masq-agent)는 이중 스택을 인식하기에, 이중 스택 클러스터에서 마스커레이딩 IP에 ip-masq-agent를 사용할 수 있다.
 
 ## 알려진 이슈들
 
