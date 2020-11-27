@@ -1,5 +1,5 @@
 ---
-title: SIG （特别兴趣小组）
+title: 特别兴趣小组（SIG）
 id: sig
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/sig-list.md#master-sig-list

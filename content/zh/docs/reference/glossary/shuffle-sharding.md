@@ -1,5 +1,5 @@
 ---
-title: Shuffle Sharding（混排切片）
+title: 混排切片（Shuffle Sharding）
 id: shuffle-sharding
 date: 2020-03-04
 full_link:

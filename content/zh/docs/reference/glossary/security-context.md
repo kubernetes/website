@@ -1,3 +1,16 @@
+---
+title: 安全上下文（Security Context）
+id: security-context
+date: 2018-04-12
+full_link: /zh/docs/tasks/configure-pod-container/security-context/
+short_description: >
+  securityContext 字段定义 Pod 或容器的特权和访问控制设置，包括运行时 UID 和 GID。
+
+aka: 
+tags:
+- security
+---
+
 <!--
 ---
 title: Security Context
@@ -12,19 +25,6 @@ tags:
 - security
 ---
 -->
-
----
-title: 安全上下文（Security Context）
-id: security-context
-date: 2018-04-12
-full_link: /zh/docs/tasks/configure-pod-container/security-context/
-short_description: >
-  securityContext 字段定义 Pod 或容器的特权和访问控制设置，包括运行时 UID 和 GID。
-
-aka: 
-tags:
-- security
----
 
 <!--
  The `securityContext` field defines privilege and access control settings for

@@ -1,5 +1,5 @@
 ---
-title: Approver（批准者）
+title: 批准者（Approver）
 id: approver
 date: 2018-04-12
 full_link: 

@@ -1,5 +1,5 @@
 ---
-title: StorageClass
+title: 存储类别（StorageClass）
 id: storageclass
 date: 2018-04-12
 full_link: /zh/docs/concepts/storage/storage-classes/

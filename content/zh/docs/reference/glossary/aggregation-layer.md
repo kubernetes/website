@@ -1,5 +1,5 @@
 ---
-title: Aggregation Layer（聚合层）
+title: 聚合层（Aggregation Layer）
 id: aggregation-layer
 date: 2018-10-08
 full_link: /zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/

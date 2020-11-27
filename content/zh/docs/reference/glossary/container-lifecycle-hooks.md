@@ -1,5 +1,5 @@
 ---
-title: Container Lifecycle Hooks（容器生命周期钩子）
+title: 容器生命周期钩子（Container Lifecycle Hooks）
 id: container-lifecycle-hooks
 date: 2018-10-08
 full_link: /zh/docs/concepts/containers/container-lifecycle-hooks/

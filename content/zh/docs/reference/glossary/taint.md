@@ -1,5 +1,5 @@
 ---
-title: Taint（污点）
+title: 污点（Taint）
 id: taint
 date: 2019-01-11
 full_link: /docs/concepts/configuration/taint-and-toleration/

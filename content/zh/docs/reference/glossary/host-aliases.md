@@ -1,5 +1,5 @@
 ---
-title: HostAliases
+title: 主机别名（HostAliases）
 id: HostAliases
 date: 2019-01-31
 full_link: /docs/reference/generated/kubernetes-api/{{< param "version" >}}/#hostalias-v1-core

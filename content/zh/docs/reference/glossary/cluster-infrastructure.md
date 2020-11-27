@@ -1,5 +1,5 @@
 ---
-title: Cluster Infrastructure（集群基础设施）
+title: 集群基础设施（Cluster Infrastructure）
 id: cluster-infrastructure
 date: 2019-05-12
 full_link:

@@ -1,5 +1,5 @@
 ---
-title: Cluster Operations（集群操作）
+title: 集群操作（Cluster Operations）
 id: cluster-operations
 date: 2019-05-12
 full_link:

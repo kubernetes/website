@@ -1,5 +1,5 @@
 ---
-title: Workload（工作负载）
+title: 工作负载（Workload）
 id: workloads
 date: 2019-02-13
 full_link: /zh/docs/concepts/workloads/

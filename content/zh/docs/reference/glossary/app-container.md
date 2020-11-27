@@ -1,5 +1,5 @@
 ---
-title: App Container（应用程序容器）
+title: 应用程序容器（App Container）
 id: app-container
 date: 2019-02-12
 full_link:

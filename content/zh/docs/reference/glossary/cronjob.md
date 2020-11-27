@@ -1,5 +1,5 @@
 ---
-title: CronJob（周期调度任务）
+title: 周期调度任务（CronJob）
 id: cronjob
 date: 2018-04-12
 full_link: /zh/docs/concepts/workloads/controllers/cron-jobs/

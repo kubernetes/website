@@ -1,5 +1,5 @@
 ---
-title: Extensions（扩展组件）
+title: 扩展组件（Extensions）
 id: Extensions
 date: 2019-02-01
 full_link: /zh/docs/concepts/extend-kubernetes/extend-cluster/#extensions

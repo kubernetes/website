@@ -1,5 +1,5 @@
 ---
-title: Cloud Provider（云供应商）
+title: 云供应商（Cloud Provider）
 id: cloud-provider
 date: 2018-04-12
 short_description: >

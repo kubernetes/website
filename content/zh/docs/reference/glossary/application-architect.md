@@ -1,5 +1,5 @@
 ---
-title: Application Architect（应用架构师）
+title: 应用架构师（Application Architect）
 id: application-architect
 date: 2018-04-12
 full_link: 

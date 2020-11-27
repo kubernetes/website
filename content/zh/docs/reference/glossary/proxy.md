@@ -1,5 +1,5 @@
 ---
-title: 代理
+title: 代理（Proxy）
 id: proxy
 date: 2019-09-10
 short_description: >

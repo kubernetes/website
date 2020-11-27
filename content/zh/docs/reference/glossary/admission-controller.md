@@ -1,5 +1,5 @@
 ---
-title: Admission Controller（准入控制器）
+title: 准入控制器（Admission Controller）
 id: admission-controller
 date: 2019-06-28
 full_link: /zh/docs/reference/access-authn-authz/admission-controllers/
