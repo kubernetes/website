@@ -1,20 +1,3 @@
-<!--
-
----
-title: Approver
-id: approver
-date: 2018-04-12
-full_link: 
-short_description: >
-  A person who can review and approve Kubernetes code contributions.
-
-aka: 
-tags:
-- community
----
-
--->
-
 ---
 title: Approver（批准者）
 id: approver
@@ -27,6 +10,22 @@ aka:
 tags:
 - community
 ---
+
+<!--
+---
+title: Approver
+id: approver
+date: 2018-04-12
+full_link: 
+short_description: >
+  A person who can review and approve Kubernetes code contributions.
+
+aka: 
+tags:
+- community
+---
+-->
+
 <!--
  A person who can review and approve Kubernetes code contributions.
 -->

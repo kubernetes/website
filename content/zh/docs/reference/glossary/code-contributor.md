@@ -1,5 +1,5 @@
 ---
-title: 代码贡献者
+title: Code Contributor（代码贡献者）
 id: code-contributor
 date: 2018-04-12
 full_link: /docs/community/devel/

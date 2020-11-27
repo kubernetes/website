@@ -1,20 +1,3 @@
-<!-- 
-
----
-title: CIDR
-id: cidr
-date: 2019-11-12
-full_link: 
-short_description: >
-  CIDR is a notation for describing blocks of IP addresses and is used heavily in various networking configurations.
-
-aka:
-tags:
-- networking
----
-
--->
-
 ---
 title: CIDR
 id: cidr
@@ -27,6 +10,22 @@ aka:
 tags:
 - networking
 ---
+
+<!--
+---
+title: CIDR
+id: cidr
+date: 2019-11-12
+full_link: 
+short_description: >
+  CIDR is a notation for describing blocks of IP addresses and is used heavily in various networking configurations.
+
+aka:
+tags:
+- networking
+---
+-->
+
 <!--
 CIDR (Classless Inter-Domain Routing) is a notation for describing blocks of IP addresses and is used heavily in various networking configurations.
 -->

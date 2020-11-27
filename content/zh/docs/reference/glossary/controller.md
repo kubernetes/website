@@ -1,8 +1,8 @@
 ---
-title: 控制器
+title: Controller（控制器）
 id: controller
 date: 2018-04-12
-full_link: /docs/admin/kube-controller-manager/
+full_link: /zh/docs/concepts/architecture/controller/
 short_description: >
   控制器通过 apiserver 监控集群的公共状态，并致力于将当前状态转变为期望的状态。
 
@@ -17,7 +17,7 @@ tags:
 title: Controller
 id: controller
 date: 2018-04-12
-full_link: /docs/admin/kube-controller-manager/
+full_link: /docs/concepts/architecture/controller/
 short_description: >
   A control loop that watches the shared state of the cluster through the apiserver and makes changes attempting to move the current state towards the desired state.
 
@@ -27,14 +27,36 @@ tags:
 - fundamental
 ---
 -->
+																			  
+<!--
+In Kubernetes, controllers are control loops that watch the state of your
+{{< glossary_tooltip term_id="cluster" text="cluster">}}, then make or request
+changes where needed.
+Each controller tries to move the current cluster state closer to the desired
+state.
+-->					 
+																			 
+	  
 
- 控制器通过 {{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}} 监控集群的公共状态，并致力于将当前状态转变为期望的状态。
+ 在Kubernates中，控制器通过监控 {{< glossary_tooltip text="集群" term_id="kube-cluster" >}} 的公共状态，并致力于将当前状态转变为期望的状态。
 
 <!--more--> 
+																			   
+												  
+<!--
+Controllers watch the shared state of your cluster through the
+{{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}} (part of the
+{{< glossary_tooltip term_id="control-plane" >}}).
+-->
+控制器（{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}的一部分）通过{{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}}监控你的集群中的公共状态。
 
 <!--
-Examples of controllers that ship with Kubernetes today are the replication controller, endpoints controller, namespace controller, and serviceaccounts controller.
+Some controllers also run inside the control plane, providing control loops that
+are core to Kubernetes' operations. For example: the deployment controller, the
+daemonset controller, the namespace controller, and the persistent volume
+controller (and others) all run within the
+{{< glossary_tooltip term_id="kube-controller-manager" >}}. 
 -->
-
-Kubernetes 当前提供的部分控制器例子包括：副本控制器（replication controller）、端点控制器（endpoints controller）、命名空间控制器（namespace controller）、服务账号控制器（serviceaccounts controller）。
+其中一些控制器是运行在控制平面内部的，对Kubernates来说，他们提供核心控制操作。比如：部署控制器（deployment controller）、守护控制器（daemonset controller）、命名空间控制器（namespace controller）、持久化数据卷控制器（persistent volume
+controller）（等）都是运行在{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}中的。
 

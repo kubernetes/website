@@ -1,10 +1,10 @@
 ---
-title: CronJob
+title: CronJob（周期调度任务）
 id: cronjob
 date: 2018-04-12
 full_link: /zh/docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
-  管理定期运行的 [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)。
+  周期调度的任务（作业）。
 
 aka: 
 tags:
@@ -17,9 +17,9 @@ tags:
 title: CronJob
 id: cronjob
 date: 2018-04-12
-full_link: /zh/docs/concepts/workloads/controllers/cron-jobs/
+full_link: /docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
-  Manages a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) that runs on a periodic schedule.
+  A repeating task (a Job) that runs on a regular schedule.
 
 aka: 
 tags:
@@ -29,10 +29,10 @@ tags:
 -->
 
 <!--
- Manages a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) that runs on a periodic schedule.
+ Manages a [Job](/docs/concepts/workloads/controllers/job/) that runs on a periodic schedule.
 -->
 
- 管理定期运行的 [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)。
+ 管理定期运行的 [任务](/zh/docs/concepts/workloads/controllers/job/)。
 
 <!--more--> 
 

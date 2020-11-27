@@ -1,5 +1,17 @@
-<!--
+---
+title: toleration（容忍度）
+id: toleration
+date: 2019-01-11
+full_link: /zh/docs/concepts/scheduling-eviction/taint-and-toleration/
+short_description: >
+  一个核心对象，由三个必需的属性组成：key、value 和 effect。容忍度允许将 Pod 调度到具有对应污点的节点或节点组上。
+aka:
+tags:
+- core-object
+- fundamental
+---
 
+<!--
 ---
 title: Toleration
 id: toleration
@@ -13,21 +25,7 @@ tags:
 - core-object
 - fundamental
 ---
-
 -->
-
----
-title: toleration（容忍度）
-id: toleration
-date: 2019-01-11
-full_link: /zh/docs/concepts/scheduling-eviction/taint-and-toleration/
-short_description: >
-  一个核心对象，由三个必需的属性组成：key、value 和 effect。容忍度允许将 Pod 调度到具有对应污点的节点或节点组上。
-aka:
-tags:
-- core-object
-- fundamental
----
 
 <!--
  A core object consisting of three required properties: key, value, and effect. Tolerations enable the scheduling of pods on nodes or node groups that have matching {{< glossary_tooltip text="taints" term_id="taint" >}}.

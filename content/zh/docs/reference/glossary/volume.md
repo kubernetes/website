@@ -1,21 +1,3 @@
-<!--
-
----
-title: Volume
-id: volume
-date: 2018-04-12
-full_link: /docs/concepts/storage/volumes/
-short_description: >
-  A directory containing data, accessible to the containers in a pod.
-
-aka:
-tags:
-- core-object
-- fundamental
----																																					   
-
--->
-
 ---
 title: Volume（卷）
 id: volume
@@ -29,6 +11,22 @@ tags:
 - core-object
 - fundamental
 ---
+
+<!--
+---
+title: Volume
+id: volume
+date: 2018-04-12
+full_link: /docs/concepts/storage/volumes/
+short_description: >
+  A directory containing data, accessible to the containers in a pod.
+
+aka:
+tags:
+- core-object
+- fundamental
+---																																					   
+-->
 
 
 <!--

@@ -1,5 +1,5 @@
 ---
-title: 下游(消除歧义)
+title: Downstream（下游）（消除歧义）
 id: downstream
 date: 2018-04-12
 full_link: 

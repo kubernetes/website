@@ -1,19 +1,3 @@
-<!--
-
----
-title: Applications
-id: applications
-date: 2019-05-12
-full_link:
-short_description: >
-  The layer where various containerized applications run.
-aka:
-tags:
-- fundamental
----
-
--->
-
 ---
 title: Applications（应用）
 id: applications
@@ -25,6 +9,22 @@ aka:
 tags:
 - fundamental
 ---
+
+<!--
+---
+title: Applications
+id: applications
+date: 2019-05-12
+full_link:
+short_description: >
+  The layer where various containerized applications run.
+aka:
+tags:
+- fundamental
+---
+-->
+
+
 <!--
  The layer where various containerized applications run.
 -->

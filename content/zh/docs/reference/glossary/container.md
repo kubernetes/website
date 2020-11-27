@@ -1,5 +1,5 @@
 ---
-title: 容器
+title: Container（容器）
 id: container
 date: 2018-04-12
 full_link: /zh/docs/concepts/overview/what-is-kubernetes/#why-containers
@@ -17,7 +17,7 @@ tags:
 title: Container
 id: container
 date: 2018-04-12
-full_link: /zh/docs/concepts/overview/what-is-kubernetes/#why-containers
+full_link: /docs/concepts/containers/
 short_description: >
   A lightweight and portable executable image that contains software and all of its dependencies.
 
@@ -32,7 +32,7 @@ tags:
  A lightweight and portable executable image that contains software and all of its dependencies.
 -->
 
- 容器是可移植、可执行的轻量级的镜像，镜像中包含软件及其相关依赖。
+ 容器是可移植、可执行的轻量级的镜像，包含其中的软件及其相关依赖。
 
 <!--more--> 
 

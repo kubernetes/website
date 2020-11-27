@@ -4,7 +4,7 @@ id: kops
 date: 2018-04-12
 full_link: /docs/getting-started-guides/kops/
 short_description: >
-  kops 是一个命令行工具，可以帮助您创建、销毁、升级和维护生产级，高可用性的 Kubernetes 集群。注意：官方仅支持 AWS，GCE 和 VMware vSphere 的支持还处于 alpha* 阶段。
+  kops 是一个命令行工具，可以帮助您创建、销毁、升级和维护生产级，高可用性的 Kubernetes 集群。
   
 aka: 
 tags:
@@ -19,7 +19,7 @@ id: kops
 date: 2018-04-12
 full_link: /docs/getting-started-guides/kops/
 short_description: >
-  A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters. *NOTE&#58; Officially supports AWS only, with GCE and VMware vSphere in alpha*.
+  A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters.
 
 aka: 
 tags:
@@ -29,12 +29,21 @@ tags:
 -->
 
 <!--
- A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters. *NOTE&#58; Officially supports AWS only, with GCE and VMware vSphere in alpha*.
+ A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters.
 -->
 
-kops 是一个命令行工具，可以帮助您创建、销毁、升级和维护生产级，高可用性的 Kubernetes 集群。*注意：官方仅支持 AWS，GCE 和 VMware vSphere 的支持还处于 alpha 阶段*。
+kops 是一个命令行工具，可以帮助您创建、销毁、升级和维护生产级，高可用性的 Kubernetes 集群。
 
 <!--more--> 
+
+<!--
+{{< note >}}
+kops has general availability support only for AWS.
+Support for using kops with GCE and VMware vSphere are in alpha.
+{{< /note >}}
+-->												   
+注意：官方仅支持 AWS，GCE 和 VMware vSphere 的支持还处于 alpha* 阶段。																
+			 
 
 <!--
 `kops` provisions your cluster with&#58;
@@ -44,7 +53,7 @@ kops 是一个命令行工具，可以帮助您创建、销毁、升级和维护
   * Self-healing&#58; everything runs in Auto-Scaling Groups
   * Limited OS support (Debian preferred, Ubuntu 16.04 supported, early support for CentOS & RHEL)
   * High availability (HA) support
-  * The ability to directly provision, or generate terraform manifests
+  * The ability to directly provision, or to generate Terraform manifests
 -->
 
 `kops` 为您的集群提供了：

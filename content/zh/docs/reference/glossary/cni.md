@@ -14,10 +14,10 @@ tags:
 
 <!--
 ---
-title: CNI (Container network interface)
+title: Container network interface (CNI)
 id: cni
 date: 2018-05-25
-full_link: /zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni
+full_link: /docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni
 short_description: >
     Container network interface (CNI) plugins are a type of Network plugin that adheres to the appc/CNI specification.
 

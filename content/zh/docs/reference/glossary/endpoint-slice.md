@@ -1,5 +1,5 @@
 ---
-title: 端点切片
+title: Endpoint Slice（端点切片）
 id: endpoint-slice
 date: 2018-04-12
 full_link: /zh/docs/concepts/services-networking/endpoint-slices/
@@ -14,10 +14,10 @@ tags:
 
 <!--
 ---
-title: Endpoint Slice
+title: EndpointSlice
 id: endpoint-slice
 date: 2018-04-12
-full_link: /zh/docs/concepts/services-networking/endpoint-slices/
+full_link: /docs/concepts/services-networking/endpoint-slices/
 short_description: >
   A way to group network endpoints together with Kubernetes resources.
 

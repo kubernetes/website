@@ -1,5 +1,5 @@
 ---
-title: docker
+title: Docker
 id: docker
 date: 2018-04-12
 full_link: /zh/docs/reference/kubectl/docker-cli-to-kubectl/
@@ -13,10 +13,10 @@ tags:
 
 <!--
 ---
-title: docker
+title: Docker
 id: docker
 date: 2018-04-12
-full_link: /zh/docs/reference/kubectl/docker-cli-to-kubectl/
+full_link: https://docs.docker.com/engine/
 short_description: >
   Docker is a software technology providing operating-system-level virtualization also known as containers.
 
@@ -27,10 +27,10 @@ tags:
 -->
 
 <!--
- Docker is a software technology providing operating-system-level virtualization also known as containers.
+Docker (specifically, Docker Engine) is a software technology providing operating-system-level virtualization also known as {{< glossary_tooltip text="containers" term_id="container" >}}.
 -->
 
- Docker 是一种可以提供操作系统级别虚拟化（也称作容器）的软件技术
+ Docker（这里特指Docker引擎） 是一种可以提供操作系统级别虚拟化（也称作{{< glossary_tooltip text="容器" term_id="container" >}}）的软件技术。
 
 <!--more--> 
 
