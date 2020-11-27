@@ -7,8 +7,8 @@
 <!--
 When joining a kubeadm initialized cluster, we need to establish
 bidirectional trust. This is split into discovery (having the Node
-trust the Kubernetes Control Plane) and TLS bootstrap (having the Kubernetes
-Control Plane trust the Node).
+trust the Kubernetes Control Plane) and TLS bootstrap (having the
+Kubernetes Control Plane trust the Node).
 -->
 
 当节点加入 kubeadm 初始化的集群时，我们需要建立双向信任。
@@ -21,7 +21,7 @@ provide a file - a subset of the standard kubeconfig file. This file
 can be a local file or downloaded via an HTTPS URL. The forms are
 kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443,
 kubeadm join --discovery-file path/to/file.conf, or kubeadm join
---discovery-file `https://url/file.conf`. Only one form can be used. If
+--discovery-file https://url/file.conf. Only one form can be used. If
 the discovery information is loaded from a URL, HTTPS must be used.
 Also, in that case the host installed CA bundle is used to verify
 the connection.
@@ -39,7 +39,9 @@ the connection.
 <!--
 If you use a shared token for discovery, you should also pass the
 --discovery-token-ca-cert-hash flag to validate the public key of the
-root certificate authority (CA) presented by the Kubernetes Control Plane. The value of this flag is specified as "&lt;hash-type&gt;:&lt;hex-encoded-value&gt;",where the supported hash type is "sha256". The hash is calculated over
+root certificate authority (CA) presented by the Kubernetes Control Plane.
+The value of this flag is specified as "&lt;hash-type&gt;:&lt;hex-encoded-value&gt;",
+where the supported hash type is "sha256". The hash is calculated over
 the bytes of the Subject Public Key Info (SPKI) object (as in RFC7469).
 This value is available in the output of "kubeadm init" or can be
 calculated using standard tools. The --discovery-token-ca-cert-hash flag
@@ -241,14 +243,18 @@ For token-based discovery, allow joining without --discovery-token-ca-cert-hash 
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
+<td colspan="2">--experimental-patches string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path where kustomize patches for static pod manifests are stored.
+<!--  
+Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
+包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
+例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
+默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
+"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
 </td>
 </tr>
 
