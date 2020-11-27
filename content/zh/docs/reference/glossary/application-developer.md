@@ -1,20 +1,3 @@
-<!--
-
----
-title: Application Developer
-id: application-developer
-date: 2018-04-12
-full_link: 
-short_description: >
-  A person who writes an application that runs in a Kubernetes cluster.
-
-aka: 
-tags:
-- user-type
----
-
--->
-
 ---
 title: Application Developer（应用开发者）
 id: application-developer
@@ -27,6 +10,22 @@ aka:
 tags:
 - user-type
 ---
+
+<!--
+---
+title: Application Developer
+id: application-developer
+date: 2018-04-12
+full_link: 
+short_description: >
+  A person who writes an application that runs in a Kubernetes cluster.
+
+aka: 
+tags:
+- user-type
+---
+-->
+
 
 <!--
  A person who writes an application that runs in a Kubernetes cluster.

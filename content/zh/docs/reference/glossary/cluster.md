@@ -1,21 +1,3 @@
-<!-- 
-
----
-title: Cluster
-id: cluster
-date: 2019-06-15
-full_link: 
-short_description: >
-   A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.
-
-aka: 
-tags:
-- fundamental
-- operation
---- 
-
--->
-
 ---
 title: Cluster（集群）
 id: cluster
@@ -29,6 +11,23 @@ tags:
 - fundamental
 - operation
 ---
+
+<!-- 
+---
+title: Cluster
+id: cluster
+date: 2019-06-15
+full_link: 
+short_description: >
+   A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.
+
+aka: 
+tags:
+- fundamental
+- operation
+--- 
+-->
+
 <!-- 
 A set of worker machines, called {{< glossary_tooltip text="nodes" term_id="node" >}},
 that run containerized applications. Every cluster has at least one worker node.

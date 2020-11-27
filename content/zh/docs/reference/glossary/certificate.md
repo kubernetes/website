@@ -1,20 +1,3 @@
-<!--
-
----
-title: Certificate
-id: certificate
-date: 2018-04-12
-full_link: /docs/tasks/tls/managing-tls-in-a-cluster/
-short_description: >
-  A cryptographically secure file used to validate access to the Kubernetes cluster.
-
-aka: 
-tags:
-- security
----
-
--->
-
 ---
 title: Certificate（证书）
 id: certificate
@@ -27,6 +10,21 @@ aka:
 tags:
 - security
 ---
+
+<!--
+---
+title: Certificate
+id: certificate
+date: 2018-04-12
+full_link: /docs/tasks/tls/managing-tls-in-a-cluster/
+short_description: >
+  A cryptographically secure file used to validate access to the Kubernetes cluster.
+
+aka: 
+tags:
+- security
+---
+-->
 
 
 <!--

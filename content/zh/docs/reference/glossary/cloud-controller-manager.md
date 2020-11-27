@@ -14,7 +14,6 @@ tags:
 ---
 
 <!--
-
 ---
 title: Cloud Controller Manager
 id: cloud-controller-manager
@@ -29,7 +28,6 @@ tags:
 - architecture
 - operation
 ---
-
 -->
 
 

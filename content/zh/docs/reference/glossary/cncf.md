@@ -1,5 +1,5 @@
 ---
-title: 云原生计算基金会 (CNCF)
+title: CNCF（云原生计算基金会）
 id: cncf
 date: 2019-05-26
 full_link: https://cncf.io/

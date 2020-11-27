@@ -1,5 +1,5 @@
 ---
-title: 容器生命周期钩子
+title: Container Lifecycle Hooks（容器生命周期钩子）
 id: container-lifecycle-hooks
 date: 2018-10-08
 full_link: /zh/docs/concepts/containers/container-lifecycle-hooks/
@@ -15,11 +15,11 @@ tags:
 title: Container Lifecycle Hooks
 id: container-lifecycle-hooks
 date: 2018-10-08
-full_link: /zh/docs/concepts/containers/container-lifecycle-hooks/
+full_link: /docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
   The lifecycle hooks expose events in the container management lifecycle and let the user run code when the events occur.
 
-aka: 
+aka:
 tags:
 - extension
 ---

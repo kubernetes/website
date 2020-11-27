@@ -1,20 +1,3 @@
-<!--
-
----
-title: UID
-id: uid
-date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/names
-short_description: >
-  A Kubernetes systems-generated string to uniquely identify objects.
-
-aka: 
-tags:
-- fundamental
----
-
--->
-
 ---
 title: UID
 id: uid
@@ -28,7 +11,20 @@ tags:
 - fundamental
 ---
 
+<!--
+---
+title: UID
+id: uid
+date: 2018-04-12
+full_link: /docs/concepts/overview/working-with-objects/names
+short_description: >
+  A Kubernetes systems-generated string to uniquely identify objects.
 
+aka: 
+tags:
+- fundamental
+---
+-->
 
 <!--
  A Kubernetes systems-generated string to uniquely identify objects.

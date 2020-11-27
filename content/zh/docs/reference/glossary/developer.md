@@ -1,5 +1,5 @@
 ---
-title: 开发者 (释疑)
+title: Developer（开发者）
 id: developer
 date: 2018-04-12
 full_link: 

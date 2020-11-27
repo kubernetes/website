@@ -1,15 +1,15 @@
 ---
-title: 控制平面
+title: Control Plane（控制平面）
 id: control-plane
 date: 2019-05-12
 full_link:
 short_description: >
-  容器编排层，它暴露 API 和接口来定义、部署容器和管理容器的生命周期。
+  Control Plane（控制平面）是指容器编排层，它暴露 API 和接口来定义、部署容器和管理容器的生命周期。
 
 aka:
 tags:
 - fundamental
----
+---																																 
 
 <!--
 ---
@@ -23,10 +23,33 @@ short_description: >
 aka:
 tags:
 - fundamental
----
+---																																 
 -->
 
 <!--
  The container orchestration layer that exposes the API and interfaces to define, deploy, and manage the lifecycle of containers.
 -->
- 容器编排层，它暴露 API 和接口来定义、部署容器和管理容器的生命周期。
+  Control Plane（控制平面）是指容器编排层，它暴露 API 和接口来定义、部署容器和管理容器的生命周期。
+																							  
+<!--
+ This layer is composed by many different components, such as (but not restricted to):
+									
+   
+
+ * {{< glossary_tooltip text="etcd" term_id="etcd" >}}
+ * {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
+ * {{< glossary_tooltip text="Scheduler" term_id="kube-scheduler" >}}
+ * {{< glossary_tooltip text="Controller Manager" term_id="kube-controller-manager" >}}
+ * {{< glossary_tooltip text="Cloud Controller Manager" term_id="cloud-controller-manager" >}}
+
+ These components can be run as traditional operating system services (daemons) or as containers. The hosts running these components were historically called {{< glossary_tooltip text="masters" term_id="master" >}}.
+-->
+这个编排层是由多个不同的组件组成，例如以下（但不限于）几种：
+
+ * {{< glossary_tooltip text="etcd" term_id="etcd" >}}
+ * {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
+ * {{< glossary_tooltip text="Scheduler" term_id="kube-scheduler" >}}
+ * {{< glossary_tooltip text="Controller Manager" term_id="kube-controller-manager" >}}
+ * {{< glossary_tooltip text="Cloud Controller Manager" term_id="cloud-controller-manager" >}}
+
+这些组件可以以传统的系统服务运行也可以以容器的形式运行.运行这些组件的主机过去称为master节点。																																																		   

@@ -1,20 +1,3 @@
-<!--
-
----
-title: shuffle sharding
-id: shuffle-sharding
-date: 2020-03-04
-full_link:
-short_description: >
-  A technique for assigning requests to queues that provides better isolation than hashing modulo the number of queues.
-
-aka:
-tags:
-- fundamental
----
-
--->
-
 ---
 title: Shuffle Sharding（混排切片）
 id: shuffle-sharding
@@ -27,6 +10,22 @@ aka:
 tags:
 - fundamental
 ---
+
+<!--
+---
+title: shuffle sharding
+id: shuffle-sharding
+date: 2020-03-04
+full_link:
+short_description: >
+  A technique for assigning requests to queues that provides better isolation than hashing modulo the number of queues.
+
+aka:
+tags:
+- fundamental
+---
+-->
+
 
 <!--
 A technique for assigning requests to queues that provides better isolation than hashing modulo the number of queues.
