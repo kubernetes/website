@@ -3,7 +3,7 @@ reviewers:
 - ahg-g
 title: Scheduling Framework
 content_type: concept
-weight: 60
+weight: 70
 ---
 
 <!-- overview -->
@@ -18,7 +18,7 @@ scheduling "core" simple and maintainable. Refer to the [design proposal of the
 scheduling framework][kep] for more technical information on the design of the
 framework.
 
-[kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md
+[kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md
 
 
 
@@ -78,7 +78,7 @@ called for that node. Nodes may be evaluated concurrently.
 ### PostFilter {#post-filter}
 
 These plugins are called after Filter phase, but only when no feasible nodes
-were found for the node. Plugins are called in their configured order. If
+were found for the pod. Plugins are called in their configured order. If
 any postFilter plugin marks the node as `Schedulable`, the remaining plugins
 will not be called. A typical PostFilter implementation is preemption, which
 tries to make the pod schedulable by preempting other Pods.

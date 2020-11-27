@@ -150,7 +150,7 @@ remembered and reused, even after the Pod is running, for at least a few seconds
 If you need to discover Pods promptly after they are created, you have a few options:
 
 - Query the Kubernetes API directly (for example, using a watch) rather than relying on DNS lookups.
-- Decrease the time of caching in your Kubernetes DNS provider (tpyically this means editing the config map for CoreDNS, which currently caches for 30 seconds).
+- Decrease the time of caching in your Kubernetes DNS provider (typically this means editing the config map for CoreDNS, which currently caches for 30 seconds).
 
 
 As mentioned in the [limitations](#limitations) section, you are responsible for

@@ -407,4 +407,12 @@ be advised that this is modifying a design principle of the Linux distribution.
 
 This error message is shown when upgrading a Kubernetes cluster with `kubeadm` in the case of running an external etcd. This is not a critical bug and happens because older versions of kubeadm perform a version check on the external etcd cluster. You can proceed with `kubeadm upgrade apply ...`. 
 
-This issue is fixed as of version 1.19. 
+This issue is fixed as of version 1.19.
+
+## `kubeadm reset` unmounts `/var/lib/kubelet`
+
+If `/var/lib/kubelet` is being mounted, performing a `kubeadm reset` will effectively unmount it.
+
+To workaround the issue, re-mount the `/var/lib/kubelet` directory after performing the `kubeadm reset` operation.
+
+This is a regression introduced in kubeadm 1.15. The issue is fixed in 1.20.

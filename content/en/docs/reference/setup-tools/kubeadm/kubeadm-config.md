@@ -16,6 +16,10 @@ You can use `kubeadm config print` to print the default configuration and `kubea
 convert your old configuration files to a newer version. `kubeadm config images list` and
 `kubeadm config images pull` can be used to list and pull the images that kubeadm requires.
 
+For more information navigate to
+[Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
+or [Using kubeadm join with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file).
+
 In Kubernetes v1.13.0 and later to list/pull kube-dns images instead of the CoreDNS image
 the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
 has to be used.

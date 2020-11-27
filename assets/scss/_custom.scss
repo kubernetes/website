@@ -11,14 +11,18 @@ $announcement-size-adjustment: 8px;
       max-width: 100%;
     }
 
-    table {
-      margin-bottom: 1rem;
-      display: initial;
-    }
-
     @media only screen and (min-width: 768px) {
       padding-top: 2rem !important;
     }
+  }
+
+  .ui-widget {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .ui-widget-content a {
+    color: $blue;
   }
 }
 
@@ -34,6 +38,14 @@ section {
   padding: 0 !important;
 }
 
+
+/* Emphasize first paragraph of running text on site front page */
+body.td-home main[role="main"] > section:first-of-type .content p:first-child {
+  line-height: 1.3em;
+  font-size: 1.4em;
+  margin-bottom: 1.5em;
+}
+
 #desktopShowVideoButton {
   border: none
 }
@@ -41,6 +53,39 @@ section {
 #videoPlayer {
   #closeButton {
     background: transparent;
+  }
+}
+
+body.td-404 main .error-details {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4em;
+  margin-bottom: 0;
+}
+
+/* Global - Mermaid.js diagrams */
+
+.mermaid {
+  overflow-x: auto;
+  max-width: 80%;
+  border: 1px solid rgb(222, 226, 230);
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  // mermaid diagram - sequence diagram
+  .actor {
+    fill: #326ce5 !important;
+  }
+  text.actor {
+    font-size: 18px !important;
+    stroke: white !important;
+    fill: white !important;
+  }
+  .activation0 {
+    fill: #c9e9ec !important;
   }
 }
 
@@ -268,22 +313,34 @@ main {
 
 // blockquotes and callouts
 
-blockquote {
-  padding: 0.4rem 0.4rem 0.4rem 1rem !important;
-}
+.td-content, body {
+  blockquote.callout {
+    padding: 0.4rem 0.4rem 0.4rem 1rem;
+    border: 1px solid #eee;
+    border-left-width: 0.5em;
+    background: #fff;
+    color: #000;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  blockquote.callout {
+    border-radius: calc(1em/3);
+  }
+  .callout.caution {
+    border-left-color: #f0ad4e;
+  }
 
-// callouts are contained in static CSS as well. these require override.
+  .callout.note {
+    border-left-color: #428bca;
+  }
 
-.caution {
-  border-left-color: #f0ad4e !important;
-}
+  .callout.warning {
+    border-left-color: #d9534f;
+  }
 
-.note {
-  border-left-color: #428bca !important;
-}
-
-.warning {
-  border-left-color: #d9534f !important;
+  h1:first-of-type + blockquote.callout {
+    margin-top: 1.5em;
+  }
 }
 
 .deprecation-warning {
@@ -393,6 +450,7 @@ body.cid-community > #deprecation-warning > .deprecation-warning > * {
       }
 
       color: $blue;
+      margin: 1rem;
     }
   }
 }
@@ -511,4 +569,12 @@ body.td-documentation {
       }
     }
   }
+}
+
+/* glossary tooltip */
+.glossary-tooltip {
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  color: black;
+  text-decoration: none !important;
 }

@@ -16,23 +16,19 @@ card:
 <!-- overview -->
 
 This tutorial shows you how to run a sample app
-on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
+on Kubernetes using minikube and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment.
 
 {{< note >}}
-You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
+You can also follow this tutorial if you've installed minikube locally.
+See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
 {{< /note >}}
-
-
 
 ## {{% heading "objectives" %}}
 
-
-* Deploy a sample application to Minikube.
+* Deploy a sample application to minikube.
 * Run the app.
 * View application logs.
-
-
 
 ## {{% heading "prerequisites" %}}
 
@@ -43,14 +39,14 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
 <!-- lessoncontent -->
 
-## Create a Minikube cluster
+## Create a minikube cluster
 
 1. Click **Launch Terminal**
 
     {{< kat-button >}}
 
 {{< note >}}
-    If you installed Minikube locally, run `minikube start`.
+If you installed minikube locally, run `minikube start`.
 {{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
@@ -136,6 +132,9 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
     The `--type=LoadBalancer` flag indicates that you want to expose your Service
     outside of the cluster.
+    
+    The application code inside the image `k8s.gcr.io/echoserver` only listens on TCP port 8080. If you used
+    `kubectl expose` to expose a different port, clients could not connect to that other port.
 
 2. View the Service you just created:
 
@@ -152,7 +151,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     ```
 
     On cloud providers that support load balancers,
-    an external IP address would be provisioned to access the Service. On Minikube,
+    an external IP address would be provisioned to access the Service. On minikube,
     the `LoadBalancer` type makes the Service accessible through the `minikube service`
     command.
 
@@ -170,7 +169,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 ## Enable addons
 
-Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
+The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
 
 1. List the currently supported addons:
 
@@ -282,5 +281,4 @@ minikube delete
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
-
 

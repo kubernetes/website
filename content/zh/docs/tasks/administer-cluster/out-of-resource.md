@@ -29,24 +29,6 @@ nodes become unstable.
 
 <!-- body -->
 
-<!--
-## Eviction Policy
-
-The `kubelet` can proactively monitor for and prevent total starvation of a
-compute resource. In those cases, the `kubelet` can reclaim the starved
-resource by proactively failing one or more Pods. When the `kubelet` fails
-a Pod, it terminates all of its containers and transitions its `PodPhase` to `Failed`.
-
-If the evicted Pod is managed by a Deployment, the Deployment will create another Pod 
-to be scheduled by Kubernetes.
--->
-## 驱逐策略
-
-`kubelet` 能够主动监测和防止计算资源的全面短缺。
-在那种情况下，`kubelet` 可以主动地结束一个或多个 Pod 以回收短缺的资源。
-当 `kubelet` 结束一个 Pod 时，它将终止 Pod 中的所有容器，而 Pod 的 `PodPhase` 将变为 `Failed`。
-
-如果被驱逐的 Pod 由 Deployment 管理，这个 Deployment 会创建另一个 Pod 给 Kubernetes 来调度。
 
 <!--
 ### Eviction Signals
@@ -61,16 +43,16 @@ the `kubelet` summary API.
 每个信号的值在 description 列描述，基于 `kubelet` 摘要 API。
 
 <!--
-| Eviction Signal  | Description                                                                     |
-|----------------------------|-----------------------------------------------------------------------|
+| Eviction Signal            | Description                                                         |
+|----------------------------|---------------------------------------------------------------------|
 | `memory.available` | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |
 | `nodefs.available` | `nodefs.available` := `node.stats.fs.available` |
 | `nodefs.inodesFree` | `nodefs.inodesFree` := `node.stats.fs.inodesFree` |
 | `imagefs.available` | `imagefs.available` := `node.stats.runtime.imagefs.available` |
 | `imagefs.inodesFree` | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree` |
 -->
-| 驱逐信号  | 描述                                                                     |
-|----------------------------|-----------------------------------------------------------------------|
+| 驱逐信号                   | 描述                                                                |
+|----------------------------|---------------------------------------------------------------------|
 | `memory.available` | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |
 | `nodefs.available` | `nodefs.available` := `node.stats.fs.available` |
 | `nodefs.inodesFree` | `nodefs.inodesFree` := `node.stats.fs.inodesFree` |
@@ -91,7 +73,7 @@ container, and if users use the [node
 allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) feature, out of resource decisions
 are made local to the end user Pod part of the cgroup hierarchy as well as the
 root node. This
-[script](/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)
+[script](/examples/admin/resource/memory-available.sh)
 reproduces the same set of steps that the `kubelet` performs to calculate
 `memory.available`. The `kubelet` excludes inactive_file (i.e. # of bytes of
 file-backed memory on inactive LRU list) from its calculation as it assumes that
@@ -101,7 +83,7 @@ memory is reclaimable under pressure.
 这很重要，因为 `free -m` 不能在容器中工作，并且如果用户使用了
 [节点可分配资源](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 特性，资源不足的判定将同时在本地 cgroup 层次结构的终端用户 Pod 部分和根节点做出。
-这个[脚本](/zh/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)
+这个[脚本](/zh/examples/admin/resource/memory-available.sh)
 复现了与 `kubelet` 计算 `memory.available` 相同的步骤。
 `kubelet` 将 `inactive_file`（意即活动 LRU 列表上基于文件后端的内存字节数）从计算中排除，
 因为它假设内存在出现压力时将被回收。
@@ -131,7 +113,7 @@ support in favor of eviction in response to disk pressure.
 -->
 `imagefs` 可选。`kubelet` 使用 cAdvisor 自动发现这些文件系统。
 `kubelet` 不关心其它文件系统。当前不支持配置任何其它类型。
-例如，在专用 `filesytem` 中存储卷和日志是不可以的。
+例如，在专用 `filesytem` 中存储卷和日志是 _不可以_ 的。
 
 在将来的发布中，`kubelet`将废除当前存在的
 [垃圾回收](/zh/docs/concepts/cluster-administration/kubelet-garbage-collection/)

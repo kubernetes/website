@@ -6,14 +6,14 @@ feature:
     Kubernetesはアプリケーションや設定への変更を段階的に行い、アプリケーションの状態を監視しながら、全てのインスタンスが同時停止しないようにします。更新に問題が起きたとき、Kubernetesは変更のロールバックを行います。進化を続けるDeploymentのエコシステムを活用してください。
 
 content_type: concept
-weight: 30
+weight: 10
 ---
 
 <!-- overview -->
 
-_Deployment_ は[Pod](/ja/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。
+_Deployment_ は{{< glossary_tooltip text="Pod" term_id="pod" >}}と{{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}}の宣言的なアップデート機能を提供します。
 
-Deploymentにおいて_理想的な状態_ を記述すると、Deployment{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は指定された頻度で現在の状態を理想的な状態に変更します。Deploymentを定義することによって、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
+Deploymentにおいて _理想的な状態_ を記述すると、Deployment{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は指定された頻度で現在の状態を理想的な状態に変更します。Deploymentを定義することによって、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
 {{< note >}}
 Deploymentによって作成されたReplicaSetを管理しないでください。ご自身のユースケースが以下の項目に含まれない場合、メインのKubernetesリポジトリーにIssueを作成することを検討してください。
@@ -44,21 +44,22 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 この例では、
 
 * `.metadata.name`フィールドで指定された`nginx-deployment`という名前のDeploymentが作成されます。
-* このDeploymentは`replicas`フィールドで指定された通り、3つのレプリカPodを作成します。
-* `selector`フィールドは、Deploymentが管理するPodのラベルを定義します。ここでは、Podテンプレートにて定義されたラベル(`app: nginx`)を選択しています。しかし、PodTemplate自体がそのルールを満たす限り、さらに洗練された方法でセレクターを指定することができます。
+* このDeploymentは`.spec.replicas`フィールドで指定された通り、3つのレプリカPodを作成します。
+* `.spec.selector`フィールドは、Deploymentが管理するPodのラベルを定義します。ここでは、Podテンプレートにて定義されたラベル(`app: nginx`)を選択しています。しかし、PodTemplate自体がそのルールを満たす限り、さらに洗練された方法でセレクターを指定することができます。
 
     {{< note >}}
-    `matchLabels`フィールドはキーバリューペアのマップです。`matchLabels`マップにおいて、{key, value}というペアは、keyというフィールドの値が"key"で、その演算子が"In"で、値の配列が"value"のみ含むような`matchExpressions`の要素と等しくなります。
+    `.spec.selector.matchLabels`フィールドはキーバリューペアのマップです。
+    `matchLabels`マップにおいて、{key, value}というペアは、keyというフィールドの値が"key"で、その演算子が"In"で、値の配列が"value"のみ含むような`matchExpressions`の要素と等しくなります。
     `matchLabels`と`matchExpressions`の両方が設定された場合、条件に一致するには両方とも満たす必要があります。
     {{< /note >}}
 
 * `template`フィールドは、以下のサブフィールドを持ちます。:
-  * Podは`labels`フィールドによって指定された`app: nginx`というラベルがつけられます。
+  * Podは`.metadata.labels`フィールドによって指定された`app: nginx`というラベルがつけられます。
   * PodTemplate、または`.template.spec`フィールドは、Podが`nginx`という名前で[Docker Hub](https://hub.docker.com/)にある`nginx`のバージョン1.14.2が動くコンテナを1つ動かすことを示します。
-  * 1つのコンテナを作成し、`name`フィールドを使って`nginx`という名前をつけます。
+  * 1つのコンテナを作成し、`.spec.template.spec.containers[0].name`フィールドを使って`nginx`という名前をつけます。
 
-上記のDeploymentを作成するためには以下のステップにしたがってください。
 作成を始める前に、Kubernetesクラスターが稼働していることを確認してください。
+上記のDeploymentを作成するためには以下のステップにしたがってください:
 
 1. 以下のコマンドを実行してDeploymentを作成してください。
 
@@ -67,11 +68,12 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   ```
 
   {{< note >}}
-  実行したコマンドを`kubernetes.io/change-cause`というアノテーションに記録するために`--record`フラグを指定できます。これは将来的な問題の調査のために有効です。例えば、各Deploymentのリビジョンにおいて実行されたコマンドを見るときに便利です。
+  実行したコマンドを`kubernetes.io/change-cause`というアノテーションに記録するために`--record`フラグを指定できます。
+  これは将来的な問題の調査のために有効です。例えば、各Deploymentのリビジョンにおいて実行されたコマンドを見るときに便利です。
   {{< /note >}}
 
 
-2. Deploymentが作成されたことを確認するために、`kubectl get deployment`を実行してください。
+2. Deploymentが作成されたことを確認するために、`kubectl get deployments`を実行してください。
 
   Deploymentがまだ作成中の場合、コマンドの実行結果は以下のとおりです。
   ```shell
@@ -95,14 +97,15 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   deployment.apps/nginx-deployment successfully rolled out
   ```
 
-4. 数秒後、再度`kubectl get deployments`を実行してください。コマンドの実行結果は以下のとおりです。
+4. 数秒後、再度`kubectl get deployments`を実行してください。
+  コマンドの実行結果は以下のとおりです。
   ```shell
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   3/3     3            3           18s
   ```
   Deploymentが3つ全てのレプリカを作成して、全てのレプリカが最新(Podが最新のPodテンプレートを含んでいる)になり、利用可能となっていることを確認してください。
 
-5. Deploymentによって作成されたReplicaSet(`rs`)を確認するには`kubectl get rs`を実行してください。コマンドの実行結果は以下のとおりです。
+5. Deploymentによって作成されたReplicaSet(`rs`)を確認するには`kubectl get rs`を実行してください。コマンドの実行結果は以下のとおりです:
   ```shell
   NAME                          DESIRED   CURRENT   READY   AGE
   nginx-deployment-75675f5897   3         3         3       18s
@@ -110,15 +113,15 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   ReplicaSetの出力には次のフィールドが表示されます:
 
   * `NAME`は、名前空間内にあるReplicaSetの名前の一覧です。
-  * `DESIRED`は、アプリケーションの理想的な_レプリカ_ の値です。これはDeploymentを作成したときに定義したもので、これが_理想的な状態_ と呼ばれるものです。
+  * `DESIRED`は、アプリケーションの理想的な _レプリカ_ の値です。これはDeploymentを作成したときに定義したもので、これが _理想的な状態_ と呼ばれるものです。
   * `CURRENT`は現在実行されているレプリカの数です。
   * `READY`は、ユーザーが使用できるアプリケーションのレプリカの数です。
   * `AGE`は、アプリケーションが稼働してからの時間です。
 
   ReplicaSetの名前は`[Deployment名]-[ランダム文字列]`という形式になることに注意してください。ランダム文字列はランダムに生成され、pod-template-hashをシードとして使用します。
 
-
-6. 各Podにラベルが自動的に付けられるのを確認するには`kubectl get pods --show-labels`を実行してください。コマンドの実行結果は以下のとおりです。
+6. 各Podにラベルが自動的に付けられるのを確認するには`kubectl get pods --show-labels`を実行してください。
+  コマンドの実行結果は以下のとおりです:
   ```shell
   NAME                                READY     STATUS    RESTARTS   AGE       LABELS
   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
@@ -128,7 +131,9 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   作成されたReplicaSetは`nginx`Podを3つ作成することを保証します。
 
 {{< note >}}
-Deploymentに対して適切なセレクターとPodテンプレートのラベルを設定する必要があります(このケースでは`app: nginx`)。ラベルやセレクターを他のコントローラーと重複させないでください(他のDeploymentやStatefulSetを含む)。Kubernetesはユーザがラベルを重複させることを止めないため、複数のコントローラーでセレクターの重複が発生すると、コントローラー間で衝突し予期せぬふるまいをすることになります。
+Deploymentに対して適切なセレクターとPodテンプレートのラベルを設定する必要があります(このケースでは`app: nginx`)。
+
+ラベルやセレクターを他のコントローラーと重複させないでください(他のDeploymentやStatefulSetを含む)。Kubernetesはユーザーがラベルを重複させることを止めないため、複数のコントローラーでセレクターの重複が発生すると、コントローラー間で衝突し予期せぬふるまいをすることになります。
 {{< /note >}}
 
 ### pod-template-hashラベル
@@ -468,7 +473,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
 
     実行結果は以下のとおりです。
     ```
-    deployment.apps/nginx-deployment
+    deployment.apps/nginx-deployment rolled back
     ```
     その他に、`--to-revision`を指定することにより特定のリビジョンにロールバックできます。
 
@@ -478,7 +483,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
 
     実行結果は以下のとおりです。
     ```
-    deployment.apps/nginx-deployment
+    deployment.apps/nginx-deployment rolled back
     ```
 
     ロールアウトに関連したコマンドのさらなる情報は[`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)を参照してください。
@@ -756,7 +761,7 @@ Deploymentは、そのライフサイクルの間に様々な状態に遷移し�
 
 ### Deploymentの更新処理 {#progressing-deployment}
 
-以下のタスクが実行中のとき、KubernetesはDeploymentの状態を_progressing_ にします。
+以下のタスクが実行中のとき、KubernetesはDeploymentの状態を _進行中_ にします。
 
 * Deploymentが新しいReplicaSetを作成します。
 * Deploymentが新しいReplicaSetをスケールアップさせています。
@@ -767,7 +772,7 @@ Deploymentは、そのライフサイクルの間に様々な状態に遷移し�
 
 ### Deploymentの更新処理の完了 {#complete-deployment}
 
-Deploymentが以下の状態になったとき、KubernetesはDeploymentのステータスを_complete_ にします。
+Deploymentが以下の状態になったとき、KubernetesはDeploymentのステータスを _完了_ にします。
 
 * Deploymentの全てのレプリカが、指定された最新のバージョンに更新されます。これは指定した更新処理が完了したことを意味します。
 * Deploymentの全てのレプリカが利用可能になります。
@@ -782,7 +787,12 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
 deployment.apps/nginx-deployment successfully rolled out
-$ echo $?
+```
+そして`kubectl rollout`の終了ステータスが0となります（成功です）:
+```shell
+echo $?
+```
+```
 0
 ```
 
@@ -821,7 +831,8 @@ Kubernetesは停止状態のDeploymentに対して、ステータス状態を報
 {{< /note >}}
 
 {{< note >}}
-Deploymentを停止すると、Kubernetesは指定したデッドラインを超えたかどうかチェックしません。ロールアウトの途中でもDeploymentを安全に一時停止でき、デッドラインを超えたイベントをトリガーすることなく再開できます。
+Deploymentを停止すると、Kubernetesは指定したデッドラインを超えたかどうかチェックしません。
+ロールアウトの途中でもDeploymentを安全に一時停止でき、デッドラインを超えたイベントをトリガーすることなく再開できます。
 {{< /note >}}
 
 設定したタイムアウトの秒数が小さかったり、一時的なエラーとして扱える他の種類のエラーが原因となり、Deploymentで一時的なエラーが出る場合があります。例えば、リソースの割り当てが不十分な場合を考えます。Deploymentの詳細情報を確認すると、以下のセクションが表示されます。
@@ -903,7 +914,12 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline
-$ echo $?
+```
+そして`kubectl rollout`の終了ステータスが1となります(エラーを示しています):
+```shell
+echo $?
+```
+```
 1
 ```
 
@@ -925,7 +941,8 @@ Deploymentを使って一部のユーザーやサーバーに対してリリー�
 
 ## Deployment Specの記述
 
-他の全てのKubernetesの設定と同様に、Deploymentは`apiVersion`、`kind`や`metadata`フィールドを必要とします。設定ファイルの利用に関する情報は[アプリケーションのデプロイ](/docs/tutorials/stateless-application/run-stateless-application-deployment/)を参照してください。コンテナーの設定に関しては[リソースを管理するためのkubectlの使用](/docs/concepts/overview/working-with-objects/object-management/)を参照してください。
+他の全てのKubernetesの設定と同様に、Deploymentは`.apiVersion`、`.kind`や`.metadata`フィールドを必要とします。
+設定ファイルの利用に関する情報は[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。コンテナーの設定に関しては[リソースを管理するためのkubectlの使用](/docs/concepts/overview/working-with-objects/object-management/)を参照してください。
 Deploymentオブジェクトの名前は、有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必要とします。
 
@@ -933,7 +950,7 @@ Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/
 
 `.spec.template`と`.spec.selector`は`.spec`における必須のフィールドです。
 
-`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/pod-overview/#podテンプレート)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては[Pod](/ja/docs/concepts/workloads/pods/pod/)と同じスキーマとなります。
+`.spec.template`は[Podテンプレート](/docs/concepts/workloads/pods/#pod-templates)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては{{< glossary_tooltip text="Pod" term_id="pod" >}}と同じスキーマとなります。
 
 Podの必須フィールドに加えて、Deployment内のPodテンプレートでは適切なラベルと再起動ポリシーを設定しなくてはなりません。ラベルは他のコントローラーと重複しないようにしてください。ラベルについては、[セレクター](#selector)を参照してください。
 
@@ -967,9 +984,13 @@ Deploymentのセレクターに一致するラベルを持つPodを直接作成�
 
 `.spec.strategy.type==Recreate`と指定されているとき、既存の全てのPodは新しいPodが作成される前に削除されます。
 
+{{< note >}}
+これは更新のための作成の前にPodを停止する事を保証するだけです。Deploymentを更新する場合、古いリビジョンのPodは全てすぐに停止されます。削除に成功するまでは、新しいリビジョンのPodは作成されません。手動でPodを削除すると、ライフサイクルがReplicaSetに制御されているのですぐに置き換えが実施されます（たとえ古いPodがまだ停止中のステータスでも）。Podに"高々この程度の"保証を求めるならば[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)の使用を検討してください。
+{{< /note >}}
+
 #### Deploymentのローリングアップデート
 
-`.spec.strategy.type==RollingUpdate`と指定されているとき、Deploymentは[ローリングアップデート](/docs/tasks/run-application/rolling-update-replication-controller/)によりPodを更新します。ローリングアップデートの処理をコントロールするために`maxUnavailable`と`maxSurge`を指定できます。
+`.spec.strategy.type==RollingUpdate`と指定されているとき、DeploymentはローリングアップデートによりPodを更新します。ローリングアップデートの処理をコントロールするために`maxUnavailable`と`maxSurge`を指定できます。
 
 ##### maxUnavailable
 
@@ -985,17 +1006,13 @@ Deploymentのセレクターに一致するラベルを持つPodを直接作成�
 
 ### progressDeadlineSeconds
 
-`.spec.progressDeadlineSeconds`はオプションのフィールドで、システムがDeploymentの[更新に失敗](#failed-deployment)したと判断するまでに待つ秒数を指定します。更新に失敗したと判断されたとき、リソースのステータスは`Type=Progressing`、`Status=False`かつ`Reason=ProgressDeadlineExceeded`となるのを確認できます。DeploymentコントローラーはDeploymentの更新のリトライし続けます。今後、自動的なロールバックが実装されたとき、更新失敗状態になるとすぐにDeploymentコントローラーがロールバックを行うようになります。
+`.spec.progressDeadlineSeconds`はオプションのフィールドで、システムがDeploymentの[更新に失敗](#failed-deployment)したと判断するまでに待つ秒数を指定します。更新に失敗したと判断されたとき、リソースのステータスは`Type=Progressing`、`Status=False`かつ`Reason=ProgressDeadlineExceeded`となるのを確認できます。DeploymentコントローラーはDeploymentの更新のリトライし続けます。デフォルト値は600です。今後、自動的なロールバックが実装されたとき、更新失敗状態になるとすぐにDeploymentコントローラーがロールバックを行うようになります。
 
 この値が指定されているとき、`.spec.minReadySeconds`より大きい値を指定する必要があります。
 
 ### minReadySeconds {#min-ready-seconds}
 
 `.spec.minReadySeconds`はオプションのフィールドで、新しく作成されたPodが利用可能となるために、最低どれくらいの秒数コンテナーがクラッシュすることなく稼働し続ければよいかを指定するものです。デフォルトでは0です(Podは作成されるとすぐに利用可能と判断されます)。Podが利用可能と判断された場合についてさらに学ぶために[Container Probes](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照してください。
-
-### rollbackTo
-
-`.spec.rollbackTo`は、`extensions/v1beta1`と`apps/v1beta1`のAPIバージョンにおいて非推奨で、`apps/v1beta2`以降のAPIバージョンではサポートされません。かわりに、[前のリビジョンへのロールバック](#rolling-back-to-a-previous-revision)で説明されているように`kubectl rollout undo`を使用するべきです。
 
 ### リビジョン履歴の保持上限
 
@@ -1008,8 +1025,3 @@ Deploymentのリビジョン履歴は、Deploymentが管理するReplicaSetに�
 ### paused
 
 `.spec.paused`はオプションのboolean値で、Deploymentの一時停止と再開のための値です。一時停止されているものと、そうでないものとの違いは、一時停止されているDeploymentはPodTemplateSpecのいかなる変更があってもロールアウトがトリガーされないことです。デフォルトではDeploymentは一時停止していない状態で作成されます。
-
-## Deploymentの代替案
-### kubectl rolling-update
-
-[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)によって、同様の形式でPodとReplicationControllerを更新できます。しかしDeploymentの使用が推奨されます。なぜならDeploymentの作成は宣言的であり、ローリングアップデートが更新された後に過去のリビジョンにロールバックできるなど、いくつかの追加機能があるためです。

@@ -381,7 +381,7 @@ You may read more about capacity and allocatable resources while learning how
 to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) on a Node.
 -->
 可以在学习如何在节点上[预留计算资源](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-的时了解有关容量和可分配资源的更多信息。
+的时候了解有关容量和可分配资源的更多信息。
 
 <!--
 ### Info
@@ -487,7 +487,7 @@ a Lease object.
 <!--
 #### Reliability
 
-In most cases, node controller limits the eviction rate to
+In most cases, the node controller limits the eviction rate to
 `-node-eviction-rate` (default 0.1) per second, meaning it won't evict pods
 from more than 1 node per 10 seconds.
 -->

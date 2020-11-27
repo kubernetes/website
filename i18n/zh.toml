@@ -181,6 +181,9 @@ other = "教程目标"
 [options_heading]
 other = "选项"
 
+[post_create_child_page]
+other = "创建子页面"
+
 [prerequisites_heading]
 other = "准备开始"
 
@@ -192,6 +195,9 @@ other = "订阅"
 
 [synopsis_heading]
 other = "简介"
+
+[thirdparty_message]
+other = """本部分链接到提供 Kubernetes 所需功能的第三方项目。Kubernetes 项目作者不负责这些项目。此页面遵循<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF 网站指南</a>，按字母顺序列出项目。要将项目添加到此列表中，请在提交更改之前阅读<a href="/docs/contribute/style/content-guide/#third-party-content">内容指南</a>。"""
 
 [ui_search_placeholder]
 other = "搜索"

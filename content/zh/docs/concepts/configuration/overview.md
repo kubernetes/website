@@ -199,7 +199,7 @@ Deployment 描述了对象的期望状态，并且如果对该规范的更改被
 ## 容器镜像
 
 <!--
-The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the tag of the image affect when the [kubelet](/docs/admin/kubelet/) attempts to pull the specified image.
+The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the tag of the image affect when the [kubelet](/docs/reference/command-line-tools-reference/kubelet/) attempts to pull the specified image.
 -->
 [imagePullPolicy](/zh/docs/concepts/containers/images/#updating-images)和镜像标签会影响
 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 何时尝试拉取指定的镜像。

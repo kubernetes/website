@@ -35,13 +35,13 @@ A maneira recomendada de executar o site do Kubernetes localmente é executar um
 Se você tiver o Docker [em funcionamento](https://www.docker.com/get-started), crie a imagem do Docker do `kubernetes-hugo` localmente:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Depois que a imagem foi criada, você pode executar o site localmente:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Abra seu navegador para http://localhost:1313 para visualizar o site. Conforme você faz alterações nos arquivos de origem, Hugo atualiza o site e força a atualização do navegador.

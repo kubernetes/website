@@ -1,7 +1,7 @@
 ---
 title: 스케줄러 성능 튜닝
 content_type: concept
-weight: 70
+weight: 80
 ---
 
 <!-- overview -->
@@ -46,16 +46,12 @@ kube-scheduler 의 `percentageOfNodesToScore` 설정을 통해
 일 수 있다)을 편집한 다음 스케줄러를 재시작 한다.
 
 이를 변경한 후에 다음을 실행해서
+
 ```bash
-kubectl get componentstatuses
+kubectl get pods -n kube-system | grep kube-scheduler
 ```
-kube-scheduler 컴포넌트가 정상인지 확인할 수 있다. 출력은 다음과 유사하다.
-```
-NAME                 STATUS    MESSAGE             ERROR
-controller-manager   Healthy   ok
-scheduler            Healthy   ok
-...
-```
+
+kube-scheduler 컴포넌트가 정상인지 확인할 수 있다.
 
 ## 노드 스코어링(scoring) 임계값 {#percentage-of-nodes-to-score}
 

@@ -426,7 +426,7 @@ poorly-behaved workloads that may be harming system health.
     {{< /note >}}
 
 * `apiserver_flowcontrol_request_concurrency_limit` is a gauge vector
-  hoding the computed concurrency limit (based on the API server's
+  holding the computed concurrency limit (based on the API server's
   total concurrency limit and PriorityLevelConfigurations' concurrency
   shares), broken down by the label `priorityLevel`.
 
@@ -495,7 +495,7 @@ When you enable the API Priority and Fairness feature, the kube-apiserver serves
   system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:26:57.179170694Z,
   ```
   
-  In addition to the queued requests, the output includeas one phantom line for each priority level that is exempt from limitation.
+  In addition to the queued requests, the output includes one phantom line for each priority level that is exempt from limitation.
 
   You can get a more detailed listing with a command like this:
   ```shell

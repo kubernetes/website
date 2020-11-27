@@ -13,7 +13,7 @@ card:
 _파드(Pod)_ 는 쿠버네티스에서 생성하고 관리할 수 있는 배포 가능한 가장 작은 컴퓨팅 단위이다.
 
 _파드_ (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지로)는 하나 이상의
-{{< glossary_tooltip text="컨테이너" term_id="container" >}}의 그룹이다.
+[컨테이너](/ko/docs/concepts/containers/)의 그룹이다.
 이 그룹은 스토리지/네트워크를 공유하고, 해당 컨테이너를 구동하는 방식에 대한 명세를 갖는다. 파드의 콘텐츠는 항상 함께 배치되고,
 함께 스케줄되며, 공유 콘텍스트에서 실행된다. 파드는
 애플리케이션 별 "논리 호스트"를 모델링한다. 여기에는 상대적으로 밀접하게 결합된 하나 이상의
@@ -120,11 +120,11 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 {{< /note >}}
 
 파드 오브젝트에 대한 매니페스트를 만들 때, 지정된 이름이 유효한
-[DNS 하위 도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인한다.
 
 ### 파드와 컨트롤러
 
-워크로드 리소스를 사용하여 여러 파드를 만들고 관리할 수 ​​있다. 리소스에 대한 컨트롤러는
+워크로드 리소스를 사용하여 여러 파드를 만들고 관리할 수 있다. 리소스에 대한 컨트롤러는
 파드 장애 시 복제 및 롤아웃과 자동 복구를
 처리한다. 예를 들어, 노드가 실패하면, 컨트롤러는 해당 노드의 파드가 작동을 중지했음을
 인식하고 대체 파드를 생성한다. 스케줄러는
@@ -142,9 +142,9 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 _파드 템플릿_ 에서 파드를 생성하고 사용자 대신 해당 파드를 관리한다.
 
 파드템플릿(PodTemplate)은 파드를 생성하기 위한 명세이며,
-[디플로이먼트](/docs/concepts/workloads/controllers/deployment/),
-[잡](/docs/concepts/jobs/run-to-completion-finite-workloads/) 및
-[데몬셋](/docs/concepts/workloads/controllers/daemonset/)과 같은 워크로드 리소스에 포함된다.
+[디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/),
+[잡](/ko/docs/concepts/workloads/controllers/job/) 및
+[데몬셋](/ko/docs/concepts/workloads/controllers/daemonset/)과 같은 워크로드 리소스에 포함된다.
 
 워크로드 리소스의 각 컨트롤러는 워크로드 오브젝트 내부의 `PodTemplate` 을
 사용하여 실제 파드를 생성한다. `PodTemplate` 은 앱을 실행하는 데 사용되는 워크로드 리소스가
@@ -255,7 +255,7 @@ kubelet은 자동으로 각 정적 파드에 대한 쿠버네티스 API 서버�
 * [런타임클래스(RuntimeClass)](/ko/docs/concepts/containers/runtime-class/)와 이를 사용하여
   다양한 컨테이너 런타임 구성으로 다양한 파드를 설정하는 방법에 대해 알아본다.
 * [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)에 대해 읽어본다.
-* [PodDisruptionBudget](https://kubernetes.io/ko/docs/concepts/workloads/pods/disruptions/)과 이를 사용하여 서비스 중단 중에 애플리케이션 가용성을 관리하는 방법에 대해 읽어본다.
+* [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과 이를 사용하여 서비스 중단 중에 애플리케이션 가용성을 관리하는 방법에 대해 읽어본다.
 * 파드는 쿠버네티스 REST API의 최상위 리소스이다.
   [파드](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
   오브젝트 정의는 오브젝트를 상세히 설명한다.

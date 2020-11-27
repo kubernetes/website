@@ -29,15 +29,26 @@ For clarity, this guide defines the following terms:
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
 Traffic routing is controlled by rules defined on the Ingress resource.
 
-```none
-    internet
-        |
-   [ Ingress ]
-   --|-----|--
-   [ Services ]
-```
+Here is a simple example where an Ingress sends all its traffic to one Service:
+{{< mermaid >}}
+graph LR;
+  client([client])-. Ingress-managed <br> load balancer .->ingress[Ingress];
+  ingress-->|routing rule|service[Service];
+  subgraph cluster
+  ingress;
+  service-->pod1[Pod];
+  service-->pod2[Pod];
+  end
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  class ingress,service,pod1,pod2 k8s;
+  class client plain;
+  class cluster cluster;
+{{</ mermaid >}}
 
-An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
+
+An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 
 An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
 uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) or
@@ -45,7 +56,7 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 
 ## Prerequisites
 
-You must have an [ingress controller](/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
+You must have an [Ingress controller](/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
 
 You may need to deploy an Ingress controller such as [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/). You can choose from a number of
 [Ingress controllers](/docs/concepts/services-networking/ingress-controllers).
@@ -107,7 +118,7 @@ routed to your default backend.
 ### Resource backends {#resource-backend}
 
 A `Resource` backend is an ObjectRef to another Kubernetes resource within the
-same namespace of the Ingress object. A `Resource` is a mutually exclusive
+same namespace as the Ingress object. A `Resource` is a mutually exclusive
 setting with Service, and will fail validation if both are specified. A common
 usage for a `Resource` backend is to ingress data to an object storage backend
 with static assets.
@@ -235,7 +246,7 @@ IngressClass resource will ensure that new Ingresses without an
 If you have more than one IngressClass marked as the default for your cluster,
 the admission controller prevents creating new Ingress objects that don't have
 an `ingressClassName` specified. You can resolve this by ensuring that at most 1
-IngressClasses are marked as default in your cluster.
+IngressClass is marked as default in your cluster.
 {{< /caution >}}
 
 ## Types of Ingress
@@ -274,10 +285,25 @@ A fanout configuration routes traffic from a single IP address to more than one 
 based on the HTTP URI being requested. An Ingress allows you to keep the number of load balancers
 down to a minimum. For example, a setup like:
 
-```
-foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
-                                 / bar    service2:8080
-```
+{{< mermaid >}}
+graph LR;
+  client([client])-. Ingress-managed <br> load balancer .->ingress[Ingress, 178.91.123.132];
+  ingress-->|/foo|service1[Service service1:4200];
+  ingress-->|/bar|service2[Service service2:8080];
+  subgraph cluster
+  ingress;
+  service1-->pod1[Pod];
+  service1-->pod2[Pod];
+  service2-->pod3[Pod];
+  service2-->pod4[Pod];
+  end
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
+  class client plain;
+  class cluster cluster;
+{{</ mermaid >}}
 
 would require an Ingress such as:
 
@@ -321,11 +347,26 @@ you are using, you may need to create a default-http-backend
 
 Name-based virtual hosts support routing HTTP traffic to multiple host names at the same IP address.
 
-```none
-foo.bar.com --|                 |-> foo.bar.com service1:80
-              | 178.91.123.132  |
-bar.foo.com --|                 |-> bar.foo.com service2:80
-```
+{{< mermaid >}}
+graph LR;
+  client([client])-. Ingress-managed <br> load balancer .->ingress[Ingress, 178.91.123.132];
+  ingress-->|Host: foo.bar.com|service1[Service service1:80];
+  ingress-->|Host: bar.foo.com|service2[Service service2:80];
+  subgraph cluster
+  ingress;
+  service1-->pod1[Pod];
+  service1-->pod2[Pod];
+  service2-->pod3[Pod];
+  service2-->pod4[Pod];
+  end
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
+  class client plain;
+  class cluster cluster;
+{{</ mermaid >}}
+
 
 The following Ingress tells the backing load balancer to route requests based on
 the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
@@ -370,7 +411,14 @@ type: kubernetes.io/tls
 Referencing this secret in an Ingress tells the Ingress controller to
 secure the channel from the client to the load balancer using TLS. You need to make
 sure the TLS secret you created came from a certificate that contains a Common
-Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `sslexample.foo.com`.
+Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `https-example.foo.com`.
+
+{{< note >}}
+Keep in mind that TLS will not work on the default rule because the
+certificates would have to be issued for all the possible sub-domains. Therefore,
+`hosts` in the `tls` section need to explicitly match the `host` in the `rules`
+section.
+{{< /note >}}
 
 {{< codenew file="service/networking/tls-example-ingress.yaml" >}}
 
@@ -491,9 +539,8 @@ You can achieve the same outcome by invoking `kubectl replace -f` on a modified 
 
 ## Failing across availability zones
 
-Techniques for spreading traffic across failure domains differs between cloud providers.
+Techniques for spreading traffic across failure domains differ between cloud providers.
 Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details.
-for details on deploying Ingress in a federated cluster.
 
 ## Alternatives
 
@@ -509,4 +556,3 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * Learn about the [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
 * Learn about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)
-

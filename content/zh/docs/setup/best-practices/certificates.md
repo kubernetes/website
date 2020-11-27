@@ -6,13 +6,11 @@ content_type: concept
 weight: 40
 ---
 <!--
----
 title: PKI certificates and requirements
 reviewers:
 - sig-cluster-lifecycle
 content_type: concept
 weight: 40
----
 -->
 
 <!-- overview -->
@@ -20,10 +18,13 @@ weight: 40
 <!--
 Kubernetes requires PKI certificates for authentication over TLS.
 If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), the certificates that your cluster requires are automatically generated.
-You can also generate your own certificates -- for example, to keep your private keys more secure by not storing them on the API server.
+You can also generate your own certificates - for example, to keep your private keys more secure by not storing them on the API server.
 This page explains the certificates that your cluster requires.
 -->
-Kubernetes 需要 PKI 证书才能进行基于 TLS 的身份验证。如果您是使用 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) 安装的 Kubernetes，则会自动生成集群所需的证书。您还可以生成自己的证书。例如，不将私钥存储在 API 服务器上，可以让私钥更加安全。此页面说明了集群必需的证书。
+Kubernetes 需要 PKI 证书才能进行基于 TLS 的身份验证。如果你是使用
+[kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/) 安装的 Kubernetes，
+则会自动生成集群所需的证书。你还可以生成自己的证书。
+例如，不将私钥存储在 API 服务器上，可以让私钥更加安全。此页面说明了集群必需的证书。
 
 
 
@@ -57,11 +58,13 @@ Kubernetes 需要 PKI 才能执行以下操作：
 * 调度器的客户端证书/kubeconfig，用于和 API server 的会话
 * [前端代理](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 的客户端及服务端证书
 
-{{< note >}}
 <!--
 `front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/).
 -->
-只有当您运行 kube-proxy 并要支持[扩展 API 服务器](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)时，才需要 `front-proxy` 证书
+{{< note >}}
+只有当你运行 kube-proxy 并要支持
+[扩展 API 服务器](/zh/docs/tasks/extend-kubernetes/setup-extension-api-server/)
+时，才需要 `front-proxy` 证书
 {{< /note >}}
 
 <!--
@@ -146,9 +149,12 @@ Required certificates:
 
 where `kind` maps to one or more of the [x509 key usage][usage] types:
 -->
-[1]: 用来连接到集群的不同 IP 或 DNS 名（就像 [kubeadm][kubeadm] 为负载均衡所使用的固定 IP 或 DNS 名，`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）
+[1]: 用来连接到集群的不同 IP 或 DNS 名
+（就像 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/) 为负载均衡所使用的固定
+IP 或 DNS 名，`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
+`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）。
 
-其中，`kind` 对应一种或多种类型的 [x509 密钥用途][usage]：
+其中，`kind` 对应一种或多种类型的 [x509 密钥用途][https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage]：
 
 <!--
 | kind   | Key usage                                                                       |
@@ -217,8 +223,8 @@ Same considerations apply for the service account key pair:
 
 | 私钥路径            | 公钥路径            | 命令                 | 参数                             |
 |------------------------------|-----------------------------|-------------------------|--------------------------------------|
-|  sa.key                      |                             | kube-controller-manager | service-account-private              |
-|                              | sa.pub                      | kube-apiserver          | service-account-key                  |
+|  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file              |
+|                              | sa.pub                      | kube-apiserver          | --service-account-key-file                  |
 
 <!--
 ## Configure certificates for user accounts
@@ -227,20 +233,21 @@ You must manually configure these administrator account and service accounts:
 -->
 ## 为用户帐户配置证书
 
-您必须手动配置以下管理员帐户和服务帐户：
+你必须手动配置以下管理员帐户和服务帐户：
 
-| 文件名                | 凭据名称            | 默认 CN                     | O (位于 Subject 中) |
-|-------------------------|----------------------------|--------------------------------|----------------|
-| admin.conf              | default-admin              | kubernetes-admin               | system:masters |
-| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   |
-| controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |
-| scheduler.conf          | default-scheduler          | system:kube-scheduler          |                |
+| 文件名                  | 凭据名称                   | 默认 CN                        | O (位于 Subject 中) |
+|-------------------------|----------------------------|--------------------------------|---------------------|
+| admin.conf              | default-admin              | kubernetes-admin               | system:masters      |
+| kubelet.conf            | default-auth               | system:node:`<nodeName>` （参阅注释） | system:nodes |
+| controller-manager.conf | default-controller-manager | system:kube-controller-manager |                     |
+| scheduler.conf          | default-scheduler          | system:kube-scheduler          |                     |
 
-{{< note >}}
 <!--
 The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name provided by the kubelet as it registers with the apiserver. For further details, read the [Node Authorization](/docs/reference/access-authn-authz/node/).
 -->
-`kubelet.conf` 中 `<nodeName>` 的值 **必须** 与 kubelet 向 apiserver 注册时提供的节点名称的值完全匹配。有关更多详细信息，请阅读[节点授权](/docs/reference/access-authn-authz/node/)。
+{{< note >}}
+`kubelet.conf` 中 `<nodeName>` 的值 **必须** 与 kubelet 向 apiserver 注册时提供的节点名称的值完全匹配。
+有关更多详细信息，请阅读[节点授权](/zh/docs/reference/access-authn-authz/node/)。
 {{< /note >}}
 
 <!--
@@ -278,5 +285,3 @@ These files are used as follows:
 | controller-manager.conf | kube-controller-manager | 必需添加到 `manifests/kube-controller-manager.yaml` 清单中               |
 | scheduler.conf          | kube-scheduler          | 必需添加到 `manifests/kube-scheduler.yaml` 清单中                        |
 
-[usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
-[kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/

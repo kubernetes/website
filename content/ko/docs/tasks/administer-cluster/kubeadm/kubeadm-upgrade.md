@@ -2,17 +2,18 @@
 title: kubeadm 클러스터 업그레이드
 content_type: task
 weight: 20
-min-kubernetes-server-version: 1.18
+min-kubernetes-server-version: 1.19
 ---
 
 <!-- overview -->
 
 이 페이지는 kubeadm으로 생성된 쿠버네티스 클러스터를
-1.17.x 버전에서 1.18.x 버전으로, 1.18.x 버전에서 1.18.y(여기서 `y > x`) 버전으로 업그레이드하는 방법을 설명한다.
+1.18.x 버전에서 1.19.x 버전으로, 1.19.x 버전에서 1.19.y(여기서 `y > x`) 버전으로 업그레이드하는 방법을 설명한다.
 
 이전 버전의 kubeadm을 사용하여 생성된 클러스터 업그레이드에 대한 정보를 보려면,
 이 페이지 대신 다음의 페이지들을 참고한다.
 
+- [kubeadm 클러스터를 1.17에서 1.18로 업그레이드](https://v1-18.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 - [kubeadm 클러스터를 1.16에서 1.17로 업그레이드](https://v1-17.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 - [kubeadm 클러스터를 1.15에서 1.16으로 업그레이드](https://v1-16.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 - [kubeadm 클러스터를 1.14에서 1.15로 업그레이드](https://v1-15.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15/)
@@ -24,12 +25,9 @@ min-kubernetes-server-version: 1.18
 1. 추가 컨트롤 플레인 노드를 업그레이드한다.
 1. 워커(worker) 노드를 업그레이드한다.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
-- 1.17.0 버전 이상을 실행하는 kubeadm 쿠버네티스 클러스터가 있어야 한다.
+- 1.18.0 버전 이상을 실행하는 kubeadm 쿠버네티스 클러스터가 있어야 한다.
 - [스왑을 비활성화해야 한다](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux).
 - 클러스터는 정적 컨트롤 플레인 및 etcd 파드 또는 외부 etcd를 사용해야 한다.
 - [릴리스 노트]({{< latest-release-notes >}})를 주의 깊게 읽어야 한다.
@@ -43,25 +41,23 @@ min-kubernetes-server-version: 1.18
   또는 동일한 MINOR의 PATCH 버전 사이에서만 업그레이드할 수 있다. 즉, 업그레이드할 때 MINOR 버전을 건너 뛸 수 없다.
   예를 들어, 1.y에서 1.y+1로 업그레이드할 수 있지만, 1.y에서 1.y+2로 업그레이드할 수는 없다.
 
-
-
 <!-- steps -->
 
 ## 업그레이드할 버전 결정
 
-최신의 안정 버전인 1.18을 찾는다.
+최신의 안정 버전인 1.19를 찾는다.
 
 {{< tabs name="k8s_install_versions" >}}
 {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
     apt update
     apt-cache madison kubeadm
-    # 목록에서 최신 버전 1.18을 찾는다
-    # 1.18.x-00과 같아야 한다. 여기서 x는 최신 패치이다.
+    # 목록에서 최신 버전 1.19를 찾는다
+    # 1.19.x-00과 같아야 한다. 여기서 x는 최신 패치이다.
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
     yum list --showduplicates kubeadm --disableexcludes=kubernetes
-    # 목록에서 최신 버전 1.18을 찾는다
-    # 1.18.x-0과 같아야 한다. 여기서 x는 최신 패치이다.
+    # 목록에서 최신 버전 1.19를 찾는다
+    # 1.19.x-0과 같아야 한다. 여기서 x는 최신 패치이다.
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -73,18 +69,18 @@ min-kubernetes-server-version: 1.18
 
 {{< tabs name="k8s_install_kubeadm_first_cp" >}}
 {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-    # 1.18.x-00에서 x를 최신 패치 버전으로 바꾼다.
+    # 1.19.x-00에서 x를 최신 패치 버전으로 바꾼다.
     apt-mark unhold kubeadm && \
-    apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
+    apt-get update && apt-get install -y kubeadm=1.19.x-00 && \
     apt-mark hold kubeadm
     -
     # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
     apt-get update && \
-    apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
+    apt-get install -y --allow-change-held-packages kubeadm=1.19.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-    # 1.18.x-0에서 x를 최신 패치 버전으로 바꾼다.
-    yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
+    # 1.19.x-0에서 x를 최신 패치 버전으로 바꾼다.
+    yum install -y kubeadm-1.19.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -116,45 +112,63 @@ min-kubernetes-server-version: 1.18
     [preflight] Running pre-flight checks.
     [upgrade] Running cluster health checks
     [upgrade] Fetching available versions to upgrade to
-    [upgrade/versions] Cluster version: v1.17.3
-    [upgrade/versions] kubeadm version: v1.18.0
-    [upgrade/versions] Latest stable version: v1.18.0
-    [upgrade/versions] Latest version in the v1.17 series: v1.18.0
+    [upgrade/versions] Cluster version: v1.18.4
+    [upgrade/versions] kubeadm version: v1.19.0
+    [upgrade/versions] Latest stable version: v1.19.0
+    [upgrade/versions] Latest version in the v1.18 series: v1.19.0
 
     Components that must be upgraded manually after you have upgraded the control plane with 'kubeadm upgrade apply':
     COMPONENT   CURRENT             AVAILABLE
-    Kubelet     1 x v1.17.3   v1.18.0
+    Kubelet     1 x v1.18.4         v1.19.0
 
-    Upgrade to the latest version in the v1.17 series:
+    Upgrade to the latest version in the v1.18 series:
 
     COMPONENT            CURRENT   AVAILABLE
-    API Server           v1.17.3   v1.18.0
-    Controller Manager   v1.17.3   v1.18.0
-    Scheduler            v1.17.3   v1.18.0
-    Kube Proxy           v1.17.3   v1.18.0
-    CoreDNS              1.6.5     1.6.7
-    Etcd                 3.4.3     3.4.3-0
+    API Server           v1.18.4   v1.19.0
+    Controller Manager   v1.18.4   v1.19.0
+    Scheduler            v1.18.4   v1.19.0
+    Kube Proxy           v1.18.4   v1.19.0
+    CoreDNS              1.6.7     1.7.0
+    Etcd                 3.4.3-0   3.4.7-0
 
     You can now apply the upgrade by executing the following command:
 
-        kubeadm upgrade apply v1.18.0
+        kubeadm upgrade apply v1.19.0
 
     _____________________________________________________________________
+
+    아래 표는 이 버전의 kubeadm에서 이해하는 컴포넌트 구성의 현재 상태를 보여준다.
+    "MANUAL UPGRADE REQUIRED" 열에 "yes" 표시가 있는 구성은 성공적인 업그레이드를
+    수행하기 전에 수동 구성 업그레이드 또는 kubeadm 기본값으로 재설정이 필요하다. 수동으로
+    업그레이드할 버전은 "PREFERRED VERSION" 열에 표시된다.
+
+    API GROUP                 CURRENT VERSION   PREFERRED VERSION   MANUAL UPGRADE REQUIRED
+    kubeproxy.config.k8s.io   v1alpha1          v1alpha1            no
+    kubelet.config.k8s.io     v1beta1           v1beta1             no
+    _____________________________________________________________________
+
     ```
 
     이 명령은 클러스터를 업그레이드할 수 있는지를 확인하고, 업그레이드할 수 있는 버전을 가져온다.
+    또한 컴포넌트 구성 버전 상태가 있는 표를 보여준다.
 
 {{< note >}}
 또한 `kubeadm upgrade` 는 이 노드에서 관리하는 인증서를 자동으로 갱신한다.
 인증서 갱신을 하지 않으려면 `--certificate-renewal=false` 플래그를 사용할 수 있다.
-자세한 내용은 [인증서 관리 가이드](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)를 참고한다.
+자세한 내용은 [인증서 관리 가이드](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)를 참고한다.
+{{</ note >}}
+
+{{< note >}}
+`kubeadm upgrade plan` 이 수동 업그레이드가 필요한 컴포넌트 구성을 표시하는 경우, 사용자는
+`--config` 커맨드 라인 플래그를 통해 대체 구성이 포함된 구성 파일을 `kubeadm upgrade apply` 에 제공해야 한다.
+그렇게 하지 않으면 `kubeadm upgrade apply` 가 오류와 함께 종료되고 업그레이드를 수행하지 않는다.
 {{</ note >}}
 
 -  업그레이드할 버전을 선택하고, 적절한 명령을 실행한다. 예를 들면 다음과 같다.
 
     ```shell
     # 이 업그레이드를 위해 선택한 패치 버전으로 x를 바꾼다.
-    sudo kubeadm upgrade apply v1.18.x
+    sudo kubeadm upgrade apply v1.19.x
     ```
 
 
@@ -166,75 +180,78 @@ min-kubernetes-server-version: 1.18
     [upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
     [preflight] Running pre-flight checks.
     [upgrade] Running cluster health checks
-    [upgrade/version] You have chosen to change the cluster version to "v1.18.0"
-    [upgrade/versions] Cluster version: v1.17.3
-    [upgrade/versions] kubeadm version: v1.18.0
+    [upgrade/version] You have chosen to change the cluster version to "v1.19.0"
+    [upgrade/versions] Cluster version: v1.18.4
+    [upgrade/versions] kubeadm version: v1.19.0
     [upgrade/confirm] Are you sure you want to proceed with the upgrade? [y/N]: y
-    [upgrade/prepull] Will prepull images for components [kube-apiserver kube-controller-manager kube-scheduler etcd]
-    [upgrade/prepull] Prepulling image for component etcd.
-    [upgrade/prepull] Prepulling image for component kube-apiserver.
-    [upgrade/prepull] Prepulling image for component kube-controller-manager.
-    [upgrade/prepull] Prepulling image for component kube-scheduler.
-    [apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-kube-controller-manager
-    [apiclient] Found 0 Pods for label selector k8s-app=upgrade-prepull-etcd
-    [apiclient] Found 0 Pods for label selector k8s-app=upgrade-prepull-kube-scheduler
-    [apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-kube-apiserver
-    [apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-etcd
-    [apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-kube-scheduler
-    [upgrade/prepull] Prepulled image for component etcd.
-    [upgrade/prepull] Prepulled image for component kube-apiserver.
-    [upgrade/prepull] Prepulled image for component kube-controller-manager.
-    [upgrade/prepull] Prepulled image for component kube-scheduler.
-    [upgrade/prepull] Successfully prepulled the images for all the control plane components
-    [upgrade/apply] Upgrading your Static Pod-hosted control plane to version "v1.18.0"...
-    Static pod: kube-apiserver-myhost hash: 2cc222e1a577b40a8c2832320db54b46
-    Static pod: kube-controller-manager-myhost hash: f7ce4bc35cb6e646161578ac69910f18
-    Static pod: kube-scheduler-myhost hash: e3025acd90e7465e66fa19c71b916366
+    [upgrade/prepull] Pulling images required for setting up a Kubernetes cluster
+    [upgrade/prepull] This might take a minute or two, depending on the speed of your internet connection
+    [upgrade/prepull] You can also perform this action in beforehand using 'kubeadm config images pull'
+    [upgrade/apply] Upgrading your Static Pod-hosted control plane to version "v1.19.0"...
+    Static pod: kube-apiserver-kind-control-plane hash: b4c8effe84b4a70031f9a49a20c8b003
+    Static pod: kube-controller-manager-kind-control-plane hash: 9ac092f0ca813f648c61c4d5fcbf39f2
+    Static pod: kube-scheduler-kind-control-plane hash: 7da02f2c78da17af7c2bf1533ecf8c9a
     [upgrade/etcd] Upgrading to TLS for etcd
-    [upgrade/etcd] Non fatal issue encountered during upgrade: the desired etcd version for this Kubernetes version "v1.18.0" is "3.4.3-0", but the current etcd version is "3.4.3". Won't downgrade etcd, instead just continue
-    [upgrade/staticpods] Writing new Static Pod manifests to "/etc/kubernetes/tmp/kubeadm-upgraded-manifests308527012"
-    W0308 18:48:14.535122    3082 manifests.go:225] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+    Static pod: etcd-kind-control-plane hash: 171c56cd0e81c0db85e65d70361ceddf
+    [upgrade/staticpods] Preparing for "etcd" upgrade
+    [upgrade/staticpods] Renewing etcd-server certificate
+    [upgrade/staticpods] Renewing etcd-peer certificate
+    [upgrade/staticpods] Renewing etcd-healthcheck-client certificate
+    [upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/etcd.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-07-13-16-24-16/etcd.yaml"
+    [upgrade/staticpods] Waiting for the kubelet to restart the component
+    [upgrade/staticpods] This might take a minute or longer depending on the component/version gap (timeout 5m0s)
+    Static pod: etcd-kind-control-plane hash: 171c56cd0e81c0db85e65d70361ceddf
+    Static pod: etcd-kind-control-plane hash: 171c56cd0e81c0db85e65d70361ceddf
+    Static pod: etcd-kind-control-plane hash: 59e40b2aab1cd7055e64450b5ee438f0
+    [apiclient] Found 1 Pods for label selector component=etcd
+    [upgrade/staticpods] Component "etcd" upgraded successfully!
+    [upgrade/etcd] Waiting for etcd to become available
+    [upgrade/staticpods] Writing new Static Pod manifests to "/etc/kubernetes/tmp/kubeadm-upgraded-manifests999800980"
     [upgrade/staticpods] Preparing for "kube-apiserver" upgrade
     [upgrade/staticpods] Renewing apiserver certificate
     [upgrade/staticpods] Renewing apiserver-kubelet-client certificate
     [upgrade/staticpods] Renewing front-proxy-client certificate
     [upgrade/staticpods] Renewing apiserver-etcd-client certificate
-    [upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-apiserver.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-03-08-18-48-14/kube-apiserver.yaml"
+    [upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-apiserver.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-07-13-16-24-16/kube-apiserver.yaml"
     [upgrade/staticpods] Waiting for the kubelet to restart the component
     [upgrade/staticpods] This might take a minute or longer depending on the component/version gap (timeout 5m0s)
-    Static pod: kube-apiserver-myhost hash: 2cc222e1a577b40a8c2832320db54b46
-    Static pod: kube-apiserver-myhost hash: 609429acb0d71dce6725836dd97d8bf4
+    Static pod: kube-apiserver-kind-control-plane hash: b4c8effe84b4a70031f9a49a20c8b003
+    Static pod: kube-apiserver-kind-control-plane hash: b4c8effe84b4a70031f9a49a20c8b003
+    Static pod: kube-apiserver-kind-control-plane hash: b4c8effe84b4a70031f9a49a20c8b003
+    Static pod: kube-apiserver-kind-control-plane hash: b4c8effe84b4a70031f9a49a20c8b003
+    Static pod: kube-apiserver-kind-control-plane hash: f717874150ba572f020dcd89db8480fc
     [apiclient] Found 1 Pods for label selector component=kube-apiserver
     [upgrade/staticpods] Component "kube-apiserver" upgraded successfully!
     [upgrade/staticpods] Preparing for "kube-controller-manager" upgrade
     [upgrade/staticpods] Renewing controller-manager.conf certificate
-    [upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-controller-manager.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-03-08-18-48-14/kube-controller-manager.yaml"
+    [upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-controller-manager.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-07-13-16-24-16/kube-controller-manager.yaml"
     [upgrade/staticpods] Waiting for the kubelet to restart the component
     [upgrade/staticpods] This might take a minute or longer depending on the component/version gap (timeout 5m0s)
-    Static pod: kube-controller-manager-myhost hash: f7ce4bc35cb6e646161578ac69910f18
-    Static pod: kube-controller-manager-myhost hash: c7a1232ba2c5dc15641c392662fe5156
+    Static pod: kube-controller-manager-kind-control-plane hash: 9ac092f0ca813f648c61c4d5fcbf39f2
+    Static pod: kube-controller-manager-kind-control-plane hash: b155b63c70e798b806e64a866e297dd0
     [apiclient] Found 1 Pods for label selector component=kube-controller-manager
     [upgrade/staticpods] Component "kube-controller-manager" upgraded successfully!
     [upgrade/staticpods] Preparing for "kube-scheduler" upgrade
     [upgrade/staticpods] Renewing scheduler.conf certificate
-    [upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-scheduler.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-03-08-18-48-14/kube-scheduler.yaml"
+    [upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-scheduler.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-07-13-16-24-16/kube-scheduler.yaml"
     [upgrade/staticpods] Waiting for the kubelet to restart the component
     [upgrade/staticpods] This might take a minute or longer depending on the component/version gap (timeout 5m0s)
-    Static pod: kube-scheduler-myhost hash: e3025acd90e7465e66fa19c71b916366
-    Static pod: kube-scheduler-myhost hash: b1b721486ae0ac504c160dcdc457ab0d
+    Static pod: kube-scheduler-kind-control-plane hash: 7da02f2c78da17af7c2bf1533ecf8c9a
+    Static pod: kube-scheduler-kind-control-plane hash: 260018ac854dbf1c9fe82493e88aec31
     [apiclient] Found 1 Pods for label selector component=kube-scheduler
     [upgrade/staticpods] Component "kube-scheduler" upgraded successfully!
     [upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
-    [kubelet] Creating a ConfigMap "kubelet-config-1.18" in namespace kube-system with the configuration for the kubelets in the cluster
-    [kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.18" ConfigMap in the kube-system namespace
+    [kubelet] Creating a ConfigMap "kubelet-config-1.19" in namespace kube-system with the configuration for the kubelets in the cluster
     [kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+    [bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to get nodes
     [bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
     [bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
     [bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+    W0713 16:26:14.074656    2986 dns.go:282] the CoreDNS Configuration will not be migrated due to unsupported version of CoreDNS. The existing CoreDNS Corefile configuration and deployment has been retained.
     [addons] Applied essential addon: CoreDNS
     [addons] Applied essential addon: kube-proxy
 
-    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.18.0". Enjoy!
+    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.19.0". Enjoy!
 
     [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
     ```
@@ -276,18 +293,18 @@ sudo kubeadm upgrade apply
 
 {{< tabs name="k8s_install_kubelet" >}}
 {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-    # 1.18.x-00의 x를 최신 패치 버전으로 바꾼다
+    # 1.19.x-00의 x를 최신 패치 버전으로 바꾼다
     apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
+    apt-get update && apt-get install -y kubelet=1.19.x-00 kubectl=1.19.x-00 && \
     apt-mark hold kubelet kubectl
     -
     # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
     apt-get update && \
-    apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
+    apt-get install -y --allow-change-held-packages kubelet=1.19.x-00 kubectl=1.19.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-    # 1.18.x-0에서 x를 최신 패치 버전으로 바꾼다
-    yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
+    # 1.19.x-0에서 x를 최신 패치 버전으로 바꾼다
+    yum install -y kubelet-1.19.x-0 kubectl-1.19.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -309,18 +326,18 @@ sudo systemctl restart kubelet
 
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
 {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-    # 1.18.x-00의 x를 최신 패치 버전으로 바꾼다
+    # 1.19.x-00의 x를 최신 패치 버전으로 바꾼다
     apt-mark unhold kubeadm && \
-    apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
+    apt-get update && apt-get install -y kubeadm=1.19.x-00 && \
     apt-mark hold kubeadm
     -
     # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
     apt-get update && \
-    apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
+    apt-get install -y --allow-change-held-packages kubeadm=1.19.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-    # 1.18.x-0에서 x를 최신 패치 버전으로 바꾼다
-    yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
+    # 1.19.x-0에서 x를 최신 패치 버전으로 바꾼다
+    yum install -y kubeadm-1.19.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -355,18 +372,18 @@ sudo systemctl restart kubelet
 
 {{< tabs name="k8s_kubelet_and_kubectl" >}}
 {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
-    # 1.18.x-00의 x를 최신 패치 버전으로 바꾼다
+    # 1.19.x-00의 x를 최신 패치 버전으로 바꾼다
     apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
+    apt-get update && apt-get install -y kubelet=1.19.x-00 kubectl=1.19.x-00 && \
     apt-mark hold kubelet kubectl
     -
     # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
     apt-get update && \
-    apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
+    apt-get install -y --allow-change-held-packages kubelet=1.19.x-00 kubectl=1.19.x-00
 {{% /tab %}}
 {{% tab name="CentOS, RHEL 또는 Fedora" %}}
-    # 1.18.x-0에서 x를 최신 패치 버전으로 바꾼다
-    yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
+    # 1.19.x-0에서 x를 최신 패치 버전으로 바꾼다
+    yum install -y kubelet-1.19.x-0 kubectl-1.19.x-0 --disableexcludes=kubernetes
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -429,6 +446,7 @@ etcd 업그레이드가 실패하고 자동 롤백이 작동하지 않으면, �
   - 컨트롤 플레인이 정상적으로 동작한다
 - 버전 차이(skew) 정책을 적용한다.
 - 컨트롤 플레인 이미지가 사용 가능한지 또는 머신으로 가져올 수 있는지 확인한다.
+- 컴포넌트 구성에 버전 업그레이드가 필요한 경우 대체 구성을 생성하거나 사용자가 제공한 것으로 덮어 쓰기한다.
 - 컨트롤 플레인 컴포넌트 또는 롤백 중 하나라도 나타나지 않으면 업그레이드한다.
 - 새로운 `kube-dns` 와 `kube-proxy` 매니페스트를 적용하고 필요한 모든 RBAC 규칙이 생성되도록 한다.
 - API 서버의 새 인증서와 키 파일을 작성하고 180일 후에 만료될 경우 이전 파일을 백업한다.

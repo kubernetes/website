@@ -94,11 +94,11 @@ Jika membutuhkan, kamu dapat membuka bagian **Advanced options** di mana kamu da
   Contoh:
 
   ```conf
-release=1.0
-tier=frontend
-environment=pod
-track=stable
-```
+  release=1.0
+  tier=frontend
+  environment=pod
+  track=stable
+  ```
 
 - **_Namespace_**: Kubernetes mendukung beberapa klaster virtual yang berjalan di atas klaster fisik yang sama. Klaster virtual ini disebut [Namespace](/docs/tasks/administer-cluster/namespaces/). Mereka mengizinkan kamu untuk mempartisi sumber daya ke beberapa grup yang diberi nama secara logis.
 

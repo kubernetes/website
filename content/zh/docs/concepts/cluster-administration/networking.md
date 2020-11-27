@@ -140,6 +140,8 @@ imply any preferential status.
 
 接下来的网络技术是按照首字母排序，顺序本身并无其他意义。
 
+{{% thirdparty-content %}}
+
 <!--
 ### ACI
 
@@ -266,6 +268,19 @@ BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](http
 BCF 被 Gartner 认为是非常有远见的。
 而 BCF 的一条关于 Kubernetes 的本地部署（其中包括 Kubernetes、DC/OS 和在不同地理区域的多个
 DC 上运行的 VMware）也在[这里](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/)被引用。
+
+<!--
+### Calico
+
+[Calico](https://docs.projectcalico.org/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
+-->
+### Calico
+
+[Calico](https://docs.projectcalico.org/) 是一个开源的联网及网络安全方案，
+用于基于容器、虚拟机和本地主机的工作负载。
+Calico 支持多个数据面，包括：纯 Linux eBPF 的数据面、标准的 Linux 联网数据面
+以及 Windwos HNS 数据面。Calico 在提供完整的联网堆栈的同时，还可与
+[云驱动 CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) 联合使用，以保证网络策略实施。
 
 <!--
 ### Cilium
@@ -636,27 +651,6 @@ at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 OVN 是一个由 Open vSwitch 社区开发的开源的网络虚拟化解决方案。
 它允许创建逻辑交换器、逻辑路由、状态 ACL、负载均衡等等来建立不同的虚拟网络拓扑。
 该项目有一个特定的Kubernetes插件和文档 [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)。
-
-<!--
-### Project Calico
-
-[Project Calico](https://docs.projectcalico.org/) is an open source container networking provider and network policy engine.
-
-Calico provides a highly scalable networking and network policy solution for connecting Kubernetes pods based on the same IP networking principles as the internet, for both Linux (open source) and Windows (proprietary - available from [Tigera](https://www.tigera.io/essentials/)).  Calico can be deployed without encapsulation or overlays to provide high-performance, high-scale data center networking.  Calico also provides fine-grained, intent based network security policy for Kubernetes pods via its distributed firewall.
-
-Calico can also be run in policy enforcement mode in conjunction with other networking solutions such as Flannel, aka [canal](https://github.com/tigera/canal), or native GCE, AWS or Azure networking.
--->
-### Calico 项目  {#project-calico}
-
-[Calico 项目](https://docs.projectcalico.org/) 是一个开源的容器网络提供者和网络策略引擎。
-
-Calico 提供了高度可扩展的网络和网络解决方案，使用基于与 Internet 相同的 IP 网络原理来连接 Kubernetes Pod，
-适用于 Linux （开放源代码）和 Windows（专有-可从 [Tigera](https://www.tigera.io/essentials/) 获得。
-可以无需封装或覆盖即可部署 Calico，以提供高性能，高可扩的数据中心网络。
-Calico 还通过其分布式防火墙为 Kubernetes Pod 提供了基于意图的细粒度网络安全策略。
-
-Calico 还可以和其他的网络解决方案（比如 Flannel、[canal](https://github.com/tigera/canal) 
-或原生 GCE、AWS、Azure 网络等）一起以策略实施模式运行。
 
 <!--
 ### Romana

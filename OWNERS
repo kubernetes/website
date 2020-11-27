@@ -7,10 +7,11 @@ approvers:
 - sig-docs-en-owners # Defined in OWNERS_ALIASES
 
 emeritus_approvers:
-# chenopis, you're welcome to return when you're ready to resume PR wrangling
-# jaredbhatti, you're welcome to return when you're ready to resume PR wrangling
-# stewart-yu, you're welcome to return when you're ready to resume PR wrangling
+# - chenopis, commented out to disable PR assignments
+# - jaredbhatti, commented out to disable PR assignments
+# - steveperry-53, commented out to disable PR assignments
 - stewart-yu 
+- zacharysarah
 
 labels:
 - sig/docs

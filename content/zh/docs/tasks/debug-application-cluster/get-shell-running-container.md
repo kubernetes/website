@@ -1,7 +1,4 @@
 ---
-reviewers:
-- caesarxuchao
-- mikedanese
 title: 获取正在运行容器的 Shell
 content_type: task
 ---
@@ -88,7 +85,7 @@ kubectl exec -it shell-demo -- /bin/bash
 The double dash symbol "--" is used to separate the arguments you want to pass to the command from the kubectl arguments.
 -->
 双破折号 "--" 用于将要传递给命令的参数与 kubectl 的参数分开。
-note >}}
+{{< /note >}}
 
 <!--
 In your shell, list the root directory:
@@ -140,7 +137,7 @@ In your shell, create an `index.html` file in the `/usr/share/nginx/html`
 directory:
 -->
 
-在 shell 中，在 `/usr/share/nginx/html` 目录创建一个 `index.html 文件：
+在 shell 中，在 `/usr/share/nginx/html` 目录创建一个 `index.html` 文件：
 
 ```shell
 root@shell-demo:/# echo Hello shell demo > /usr/share/nginx/html/index.html

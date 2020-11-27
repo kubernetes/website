@@ -3,20 +3,29 @@ approvers:
 - erictune
 title: Init 容器
 content_type: concept
+weight: 40
 ---
+<!---
+reviewers:
+- erictune
+title: Init Containers
+content_type: concept
+weight: 40
+-->
 
 <!-- overview -->
 
 <!--
-This page provides an overview of init containers: specialized containers that run before app containers in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
+This page provides an overview of init containers: specialized containers that run
+before app containers in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 Init containers can contain utilities or setup scripts not present in an app image.
 -->
-
-本页提供了 Init 容器的概览，它是一种特殊容器，在 {{< glossary_tooltip text="Pod" term_id="pod" >}}
-内的应用容器启动之前运行，可以包括一些应用镜像中不存在的实用工具和安装脚本。
+本页提供了 Init 容器的概览。Init 容器是一种特殊容器，在 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+内的应用容器启动之前运行。Init 容器可以包括一些应用镜像中不存在的实用工具和安装脚本。
 
 <!--
-  You can specify init containers in the Pod specification alongside the `containers` array (which describes app containers).
+You can specify init containers in the Pod specification alongside the `containers`
+array (which describes app containers).
 -->
 你可以在 Pod 的规约中与用来描述应用容器的 `containers` 数组平行的位置指定
 Init 容器。
@@ -26,7 +35,9 @@ Init 容器。
 <!--
 ## Understanding init containers
 
-A {{< glossary_tooltip text="Pod" term_id="pod" >}} can have multiple containers running apps within it, but it can also have one or more init containers, which are run before the app containers are started.
+A {{< glossary_tooltip text="Pod" term_id="pod" >}} can have multiple containers
+running apps within it, but it can also have one or more init containers, which are run
+before the app containers are started.
 -->
 ## 理解 Init 容器
 
@@ -35,6 +46,7 @@ A {{< glossary_tooltip text="Pod" term_id="pod" >}} can have multiple containers
 
 <!--
 Init containers are exactly like regular containers, except:
+
 * Init containers always run to completion.
 * Each init container must complete successfully before the next one starts.
 -->
@@ -44,15 +56,20 @@ Init 容器与普通的容器非常像，除了如下两点：
 * 每个都必须在下一个启动之前成功完成。
 
 <!--
-If a Pod's init container fails, Kubernetes repeatedly restarts the Pod until the init container succeeds. However, if the Pod has a `restartPolicy` of Never, Kubernetes does not restart the Pod.
+If a Pod's init container fails, the kubelet repeatedly restarts that init container until it succeeds. 
+However, if the Pod has a `restartPolicy` of Never, and an init container fails during startup of that Pod, Kubernetes treats the overall Pod as failed.
 -->
-如果 Pod 的 Init 容器失败，Kubernetes 会不断地重启该 Pod，直到 Init 容器成功为止。
-然而，如果 Pod 对应的 `restartPolicy` 值为 Never，Kubernetes 不会重新启动 Pod。
+如果 Pod 的 Init 容器失败，kubelet 会不断地重启该 Init 容器直到该容器成功为止。
+然而，如果 Pod 对应的 `restartPolicy` 值为 "Never"，Kubernetes 不会重新启动 Pod。
 
 <!--
-To specify an init container for a Pod, add the `initContainers` field into the Pod specification, as an array of objects of type [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core), alongside the app `containers` array.
-
-The status of the init containers is returned in `.status.initContainerStatuses` field as an array of the container statuses (similar to the `.status.containerStatuses` field).
+To specify an init container for a Pod, add the `initContainers` field into
+the Pod specification, as an array of objects of type
+[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core),
+alongside the app `containers` array.
+The status of the init containers is returned in `.status.initContainerStatuses`
+field as an array of the container statuses (similar to the `.status.containerStatuses`
+field).
 -->
 为 Pod 设置 Init 容器需要在 Pod 的 `spec` 中添加 `initContainers` 字段，
 该字段以 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
@@ -62,9 +79,19 @@ Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态�
 
 <!--
 ### Differences from regular containers
-Init containers support all the fields and features of app containers, including resource limits, volumes, and security settings. However, the resource requests and limits for an init container are handled differently, as documented in [Resources](#resources).
-Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or `startupProbe` because they must run to completion before the Pod can be ready.
-If you specify multiple init containers for a Pod, Kubelet runs each init container sequentially. Each init container must succeed before the next can run. When all of the init containers have run to completion, Kubelet initializes the application containers for the Pod and runs them as usual.
+
+Init containers support all the fields and features of app containers,
+including resource limits, volumes, and security settings. However, the
+resource requests and limits for an init container are handled differently,
+as documented in [Resources](#resources).
+
+Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
+`startupProbe` because they must run to completion before the Pod can be ready.
+
+If you specify multiple init containers for a Pod, Kubelet runs each init
+container sequentially. Each init container must succeed before the next can run.
+When all of the init containers have run to completion, Kubelet initializes
+the application containers for the Pod and runs them as usual.
 -->
 ### 与普通容器的不同之处
 
@@ -80,12 +107,24 @@ Kubernetes 才会为 Pod 初始化应用容器并像平常一样运行。
 
 <!--
 ## Using init containers
-Because init containers have separate images from app containers, they have some advantages for start-up related code:
-* Init containers can contain utilities or custom code for setup that are not present in an app image. For example, there is no need to make an image `FROM` another image just to use a tool like `sed`, `awk`, `python`, or `dig` during setup.
-* Init containers can securely run utilities that would make an app container image less secure.
-* The application image builder and deployer roles can work independently without the need to jointly build a single app image.
-* Init containers can run with a different view of the filesystem than app containers in the same Pod. Consequently, they can be given access to {{< glossary_tooltip text="Secrets" term_id="secret" >}} that app containers cannot access.
-* Because init containers run to completion before any app containers start, init containers offer a mechanism to block or delay app container startup until a set of preconditions are met. Once preconditions are met, all of the app containers in a Pod can start in parallel.
+
+Because init containers have separate images from app containers, they
+have some advantages for start-up related code:
+
+* Init containers can contain utilities or custom code for setup that are not present in an app
+  image. For example, there is no need to make an image `FROM` another image just to use a tool like
+  `sed`, `awk`, `python`, or `dig` during setup.
+* The application image builder and deployer roles can work independently without
+  the need to jointly build a single app image.
+* Init containers can run with a different view of the filesystem than app containers in the
+  same Pod. Consequently, they can be given access to
+  {{< glossary_tooltip text="Secrets" term_id="secret" >}} that app containers cannot access.
+* Because init containers run to completion before any app containers start, init containers offer
+  a mechanism to block or delay app container startup until a set of preconditions are met. Once
+  preconditions are met, all of the app containers in a Pod can start in parallel.
+* Init containers can securely run utilities or custom code that would otherwise make an app
+  container image less secure. By keeping unnecessary tools separate you can limit the attack
+  surface of your app container image.
 -->
 ## 使用 Init 容器
 
@@ -108,12 +147,15 @@ Because init containers have separate images from app containers, they have some
 
 <!--
 ### Examples
+
 Here are some ideas for how to use init containers:
+
 * Wait for a {{< glossary_tooltip text="Service" term_id="service">}} to
   be created, using a shell one-line command like:
   ```shell
   for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
   ```
+
  * Register this Pod with a remote server from the downward API with a command like:
   ```shell
   curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'
@@ -124,7 +166,11 @@ Here are some ideas for how to use init containers:
   ```
 
 * Clone a Git repository into a {{< glossary_tooltip text="Volume" term_id="volume" >}}
-* Place values into a configuration file and run a template tool to dynamically generate a configuration file for the main app container. For example, place the `POD_IP` value in a configuration and generate the main app configuration file using Jinja.
+
+* Place values into a configuration file and run a template tool to dynamically
+  generate a configuration file for the main app container. For example,
+  place the `POD_IP` value in a configuration and generate the main app
+  configuration file using Jinja.
 -->
 ### 示例  {#examples}
 
@@ -156,24 +202,10 @@ Here are some ideas for how to use init containers:
 
 <!--
 #### Init containers in use
-This example defines a simple Pod that has two init containers. The first waits for `myservice`, and the second waits for `mydb`. Once both init containers complete, the Pod runs the app container from its `spec` section.
-```yaml
 
-```
-
-The following YAML file outlines the `mydb` and `myservice` services:
-```yaml
-
-```
-
-
-You can start this Pod by running:
-```shell
-```
-
-And check on its status with:
- ```shell
-```
+This example defines a simple Pod that has two init containers.
+The first waits for `myservice`, and the second waits for `mydb`. Once both
+init containers complete, the Pod runs the app container from its `spec` section.
 -->
 ### 使用 Init 容器的情况
 
@@ -201,62 +233,39 @@ spec:
     command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
 ```
 
-下面的 yaml 文件展示了 `mydb` 和 `myservice` 两个 Service：
-
-```
-kind: Service
-apiVersion: v1
-metadata:
-  name: myservice
-spec:
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: mydb
-spec:
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9377
-```
-
-要启动这个 Pod，可以执行如下命令：
+<!--
+You can start this Pod by running:
+-->
+你通过运行下面的命令启动 Pod：
 
 ```shell
 kubectl apply -f myapp.yaml
 ```
-
-输出为：
-
 ```
 pod/myapp-pod created
 ```
 
-要检查其状态：
+<!--
+And check on its status with:
+-->
+使用下面的命令检查其状态：
 
 ```shell
 kubectl get -f myapp.yaml
 ```
-
-输出类似于：
-
 ```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
 ```
 
-如需更详细的信息：
+<!--
+or for more details:
+-->
+或者查看更多详细信息：
 
 ```shell
 kubectl describe -f myapp.yaml
 ```
-
-输出类似于：
 
 ```
 Name:          myapp-pod
@@ -293,6 +302,9 @@ Events:
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started       Started container with docker id 5ced34a04634
 ```
 
+<!--
+To see logs for the init containers in this Pod, run:
+-->
 如需查看 Pod 内 Init 容器的日志，请执行：
 
 ```shell
@@ -301,7 +313,8 @@ kubectl logs myapp-pod -c init-mydb      # 查看第二个 Init 容器
 ```
 
 <!--
-At this point, those init containers will be waiting to discover Services named `mydb` and `myservice`.
+At this point, those init containers will be waiting to discover Services named
+`mydb` and `myservice`.
 
 Here's a configuration you can use to make those Services appear:
 -->
@@ -332,23 +345,27 @@ spec:
     targetPort: 9377
 ```
 
+<!--
+To create the `mydb` and `myservice` services:
+-->
 创建 `mydb` 和 `myservice` 服务的命令：
 
 ```shell
 kubectl create -f services.yaml
 ```
-
-输出类似于：
-
 ```
 service "myservice" created
 service "mydb" created
 ```
 
+<!--
+You'll then see that those init containers complete, and that the `myapp-pod`
+Pod moves into the Running state:
+-->
 这样你将能看到这些 Init 容器执行完毕，随后 `my-app` 的 Pod 进入 `Running` 状态：
 
 ```shell
-$ kubectl get -f myapp.yaml
+kubectl get -f myapp.yaml
 ```
 
 ```
@@ -356,32 +373,43 @@ NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
 ```
 
-一旦我们启动了 `mydb` 和 `myservice` 这两个服务，我们能够看到 Init 容器完成，
-并且 `myapp-pod` 被创建。
-
 <!--
-This simple example should provide some inspiration for you to create your own init containers. [What's next](#what-s-next) contains a link to a more detailed example.
+This simple example should provide some inspiration for you to create your own
+init containers. [What's next](#whats-next) contains a link to a more detailed example.
 -->
 这个简单例子应该能为你创建自己的 Init 容器提供一些启发。
-[接下来](#what-s-next)节提供了更详细例子的链接。
+[接下来](#whats-next)节提供了更详细例子的链接。
 
 <!--
 ## Detailed behavior
 
-During the startup of a Pod, each init container starts in order, after the network and volumes are initialized. Each container must exit successfully before the next container starts. If a container fails to start due to the runtime or exits with failure, it is retried according to the Pod `restartPolicy`. However, if the Pod `restartPolicy` is set to Always, the init containers use `restartPolicy` OnFailure.
+During Pod startup, the kubelet delays running init containers until the networking
+and storage are ready. Then the kubelet runs the Pod's init containers in the order
+they appear in the Pod's spec.
 
-A Pod cannot be `Ready` until all init containers have succeeded. The ports on an init container are not aggregated under a Service. A Pod that is initializing
- is in the `Pending` state but should have a condition `Initializing` set to true.
+Each init container must exit successfully before
+the next container starts. If a container fails to start due to the runtime or
+exits with failure, it is retried according to the Pod `restartPolicy`. However,
+if the Pod `restartPolicy` is set to Always, the init containers use
+`restartPolicy` OnFailure.
 
-If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers must execute again.
+A Pod cannot be `Ready` until all init containers have succeeded. The ports on an
+init container are not aggregated under a Service. A Pod that is initializing
+is in the `Pending` state but should have a condition `Initialized` set to true.
+
+If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers
+must execute again.
 -->
 ## 具体行为 {#detailed-behavior}
 
-在 Pod 启动过程中，每个 Init 容器在网络和数据卷初始化之后会按顺序启动。
+在 Pod 启动过程中，每个 Init 容器会在网络和数据卷初始化之后按顺序启动。
+kubelet 运行依据 Init 容器在 Pod 规约中的出现顺序依次运行之。
+
 每个 Init 容器成功退出后才会启动下一个 Init 容器。
-如果它们因为容器运行时的原因无法启动，或以错误状态退出，它会根据 Pod 的 `restartPolicy` 策略进行重试。
-然而，如果 Pod 的 `restartPolicy` 设置为 "Always"，Init 容器失败时会使用 `restartPolicy`
-的 "OnFailure" 策略。
+如果某容器因为容器运行时的原因无法启动，或以错误状态退出，kubelet 会根据
+Pod 的 `restartPolicy` 策略进行重试。
+然而，如果 Pod 的 `restartPolicy` 设置为 "Always"，Init 容器失败时会使用
+`restartPolicy` 的 "OnFailure" 策略。
 
 在所有的 Init 容器没有成功之前，Pod 将不会变成 `Ready` 状态。
 Init 容器的端口将不会在 Service 中进行聚集。正在初始化中的 Pod 处于 `Pending` 状态，
@@ -390,11 +418,17 @@ Init 容器的端口将不会在 Service 中进行聚集。正在初始化中的
 如果 Pod [重启](#pod-restart-reasons)，所有 Init 容器必须重新执行。
 
 <!--
-Changes to the init container spec are limited to the container image field. Altering an init container image field is equivalent to restarting the Pod.
+Changes to the init container spec are limited to the container image field.
+Altering an init container image field is equivalent to restarting the Pod.
 
-Because init containers can be restarted, retried, or re-executed, init container code should be idempotent. In particular, code that writes to files on `EmptyDirs` should be prepared for the possibility that an output file already exists.
+Because init containers can be restarted, retried, or re-executed, init container
+code should be idempotent. In particular, code that writes to files on `EmptyDirs`
+should be prepared for the possibility that an output file already exists.
 
-Init containers have all of the fields of an app container. However, Kubernetes prohibits `readinessProbe` from being used because init containers cannot define readiness distinct from completion. This is enforced during validation.
+Init containers have all of the fields of an app container. However, Kubernetes
+prohibits `readinessProbe` from being used because init containers cannot
+define readiness distinct from completion. This is enforced during validation.
+
 -->
 对 Init 容器规约的修改仅限于容器的 `image` 字段。
 更改 Init 容器的 `image` 字段，等同于重启该 Pod。
@@ -407,9 +441,12 @@ Init 容器具有应用容器的所有字段。然而 Kubernetes 禁止使用 `r
 Kubernetes 会在校验时强制执行此检查。
 
 <!--
-Use `activeDeadlineSeconds` on the Pod and `livenessProbe` on the container to prevent init containers from failing forever. The active deadline includes init containers.
+Use `activeDeadlineSeconds` on the Pod and `livenessProbe` on the container to
+prevent init containers from failing forever. The active deadline includes init
+containers.
 
-The name of each app and init container in a Pod must be unique; avalidation error is thrown for any container sharing a name with another.
+The name of each app and init container in a Pod must be unique; a
+validation error is thrown for any container sharing a name with another.
 -->
 在 Pod 上使用 `activeDeadlineSeconds` 和在容器上使用 `livenessProbe` 可以避免
 Init 容器一直重复失败。`activeDeadlineSeconds` 时间包含了 Init 容器启动的时间。
@@ -418,17 +455,21 @@ Init 容器一直重复失败。`activeDeadlineSeconds` 时间包含了 Init 容
 与任何其它容器共享同一个名称，会在校验时抛出错误。
 
 <!--
- ### Resources
-Given the ordering and execution for init containers, the following rules for resource usage apply:
-* The highest of any particular resource request or limit defined on all init containers is the *effective init request/limit*
+### Resources
+
+Given the ordering and execution for init containers, the following rules
+for resource usage apply:
+
+* The highest of any particular resource request or limit defined on all init
+  containers is the *effective init request/limit*
 * The Pod's *effective request/limit* for a resource is the higher of:
   * the sum of all app containers request/limit for a resource
   * the effective init request/limit for a resource
-* Scheduling is done based on effective requests/limits, which means init containers can reserve resources for initialization that are not used during the life of the Pod.
-* The QoS (quality of service) tier of the Pod's *effective QoS tier* is the QoS tier for init containers and app containers alike.
-
-Quota and limits are applied based on the effective Pod request and limit.
-Pod level control groups (cgroups) are based on the effective Pod request and limit, the same as the scheduler.
+* Scheduling is done based on effective requests/limits, which means
+  init containers can reserve resources for initialization that are not used
+  during the life of the Pod.
+* The QoS (quality of service) tier of the Pod's *effective QoS tier* is the
+  QoS tier for init containers and app containers alike.
 -->
 ### 资源 {#resources}
 
@@ -442,15 +483,27 @@ Pod level control groups (cgroups) are based on the effective Pod request and li
   这些资源在 Pod 生命周期过程中并没有被使用。
 * Pod 的 *有效 QoS 层* ，与 Init 容器和应用容器的一样。
 
-配额和限制适用于有效 Pod的 limit/request。
-Pod 级别的 cgroups 是基于有效 Pod 的 limit/request，和调度器相同。
+<!--
+Quota and limits are applied based on the effective Pod request and limit.
+Pod level control groups (cgroups) are based on the effective Pod request and limit, the same as the scheduler.
+-->
+配额和限制适用于有效 Pod 的请求和限制值。
+Pod 级别的 cgroups 是基于有效 Pod 的请求和限制值，和调度器相同。
 
 <!--
- ### Pod restart reasons
-A Pod can restart, causing re-execution of init containers, for the following reasons:
-* A user updates the Pod specification, causing the init container image to change. Any changes to the init container image restarts the Pod. App container image changes only restart the app container.
-* The Pod infrastructure container is restarted. This is uncommon and would have to be done by someone with root access to nodes.
-* All containers in a Pod are terminated while `restartPolicy` is set to Always, forcing a restart, and the init container completion record has been lost due to garbage collection.
+### Pod restart reasons
+
+A Pod can restart, causing re-execution of init containers, for the following
+reasons:
+
+* A user updates the Pod specification, causing the init container image to change.
+  Any changes to the init container image restarts the Pod. App container image
+  changes only restart the app container.
+* The Pod infrastructure container is restarted. This is uncommon and would
+  have to be done by someone with root access to nodes.
+* All containers in a Pod are terminated while `restartPolicy` is set to Always,
+  forcing a restart, and the init container completion record has been lost due
+  to garbage collection.
 -->
 ### Pod 重启的原因  {#pod-restart-reasons}
 
@@ -471,7 +524,6 @@ Pod 重启会导致 Init 容器重新执行，主要有如下几个原因：
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 -->
-
 * 阅读[创建包含 Init 容器的 Pod](/zh/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * 学习如何[调试 Init 容器](/zh/docs/tasks/debug-application-cluster/debug-init-containers/)
 

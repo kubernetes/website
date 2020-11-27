@@ -198,7 +198,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 1. 创建用于生成证书签名请求（CSR）的配置文件。
    确保在将其保存至文件（如 `csr.conf`）之前将尖括号标记的值（如 `<MASTER_IP>`）
    替换为你想使用的真实值。 注意：`MASTER_CLUSTER_IP` 是前面小节中描述的 API 服务器的服务集群 IP
-   (service cluster IP)。 下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名。
+   （service cluster IP）。 下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名。
 
    ```
    [ req ]
@@ -259,7 +259,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 <!--
 Finally, add the same parameters into the API server start parameters.
 -->
-最后，添加同样的参数到  API 服务器的启动参数中。
+最后，添加同样的参数到 API 服务器的启动参数中。
 
 ### cfssl
 

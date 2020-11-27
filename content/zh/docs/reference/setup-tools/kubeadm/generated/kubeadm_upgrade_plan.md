@@ -102,15 +102,14 @@ kubeadm upgrade plan [version] [flags]
 
 -->
 
-```
-### 概述
 
+### 概述
 
 检查可升级到哪些版本，并验证您当前的集群是否可升级。 要跳过互联网检查，请传递可选的 [version] 参数 
 
-​```
+```
 kubeadm upgrade plan [version] [flags]
-​```
+```
 
 ### 选项
 
@@ -200,4 +199,3 @@ kubeadm upgrade plan [version] [flags]
 
 </tbody>
 </table>
-```

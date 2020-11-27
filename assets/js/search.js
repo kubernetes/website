@@ -17,14 +17,22 @@ limitations under the License.
   var Search = {
     init: function () {
       $(document).ready(function () {
+        // Fill the search input form with the current search keywords
+        const searchKeywords = new URLSearchParams(location.search).get('q');
+        if (searchKeywords !== null && searchKeywords !== '') {
+          const searchInput = document.querySelector('.td-search-input');
+          searchInput.focus();
+          searchInput.value = searchKeywords;
+        }
+
+        // Set a keydown event
         $(document).on("keypress", ".td-search-input", function (e) {
           if (e.keyCode !== 13) {
             return;
           }
 
           var query = $(this).val();
-          var searchPage = "{{ "docs/search/" | absURL }}?q=" + query;
-          document.location = searchPage;
+          document.location = "{{ "search/" | absURL }}?q=" + query;
 
           return false;
         });

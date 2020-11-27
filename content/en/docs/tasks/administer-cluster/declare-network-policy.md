@@ -9,6 +9,7 @@ content_type: task
 <!-- overview -->
 This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) to declare network policies that govern how pods communicate with each other.
 
+{{% thirdparty-content %}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -22,11 +23,6 @@ Make sure you've configured a network provider with network policy support. Ther
 * [Kube-router](/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
 * [Romana](/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
 * [Weave Net](/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
-
-{{< note >}}
-The above list is sorted alphabetically by product name, not by recommendation or preference. This example is valid for a Kubernetes cluster using any of these providers.
-{{< /note >}}
-
 
 <!-- steps -->
 

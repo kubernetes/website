@@ -39,17 +39,16 @@ simplifies application deployment and management.
 
 Kubernetes supports several different kinds of ephemeral volumes for
 different purposes:
-- [emptyDir](/docs/concepts/volumes/#emptydir): empty at Pod startup,
+- [emptyDir](/docs/concepts/storage/volumes/#emptydir): empty at Pod startup,
   with storage coming locally from the kubelet base directory (usually
   the root disk) or RAM
-- [configMap](/docs/concepts/volumes/#configmap),
-  [downwardAPI](/docs/concepts/volumes/#downwardapi),
+- [configMap](/docs/concepts/storage/volumes/#configmap),
+  [downwardAPI](/docs/concepts/storage/volumes/#downwardapi),
   [secret](/docs/concepts/storage/volumes/#secret): inject different
   kinds of Kubernetes data into a Pod
-- [CSI ephemeral
-  volumes](docs/concepts/storage/volumes/#csi-ephemeral-volumes):
-  similar to the previous volume kinds, but provided by special [CSI
-  drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+- [CSI ephemeral volumes](#csi-ephemeral-volume):
+  similar to the previous volume kinds, but provided by special
+  [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
   which specifically [support this feature](https://kubernetes-csi.github.io/docs/drivers.html)
 - [generic ephemeral volumes](#generic-ephemeral-volumes), which
   can be provided by all storage drivers that also support persistent volumes
@@ -92,7 +91,7 @@ Conceptually, CSI ephemeral volumes are similar to `configMap`,
 scheduled onto a node. Kubernetes has no concept of rescheduling Pods
 anymore at this stage. Volume creation has to be unlikely to fail,
 otherwise Pod startup gets stuck. In particular, [storage capacity
-aware Pod scheduling](/docs/concepts/storage-capacity/) is *not*
+aware Pod scheduling](/docs/concepts/storage/storage-capacity/) is *not*
 supported for these volumes. They are currently also not covered by
 the storage resource usage limits of a Pod, because that is something
 that kubelet can only enforce for storage that it manages itself.
@@ -147,7 +146,7 @@ flexible:
   ([snapshotting](/docs/concepts/storage/volume-snapshots/),
   [cloning](/docs/concepts/storage/volume-pvc-datasource/),
   [resizing](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
-  and [storage capacity tracking](/docs/concepts/storage-capacity/).
+  and [storage capacity tracking](/docs/concepts/storage/storage-capacity/).
 
 Example:
 
@@ -181,8 +180,8 @@ spec:
 
 ### Lifecycle and PersistentVolumeClaim
 
-The key design idea is that the [parameters for a
-volume claim](/docs/reference/generated/kubernetes-api/#ephemeralvolumesource-v1alpha1-core)
+The key design idea is that the
+[parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)
 are allowed inside a volume source of the Pod. Labels, annotations and
 the whole set of fields for a PersistentVolumeClaim are supported. When such a Pod gets
 created, the ephemeral volume controller then creates an actual PersistentVolumeClaim

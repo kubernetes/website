@@ -36,7 +36,7 @@ LoadBalancer, or with dynamic PersistentVolumes.
 For both methods you need this infrastructure:
 
 - Three machines that meet [kubeadm's minimum requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for
-  the masters
+  the control-plane nodes
 - Three machines that meet [kubeadm's minimum
   requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for the workers
 - Full network connectivity between all machines in the cluster (public or
@@ -224,7 +224,7 @@ in the kubeadm config file.
     scp /etc/kubernetes/pki/apiserver-etcd-client.key "${CONTROL_PLANE}":
     ```
 
-    - Replace the value of `CONTROL_PLANE` with the `user@host` of the first control plane machine.
+    - Replace the value of `CONTROL_PLANE` with the `user@host` of the first control-plane node.
 
 ### Set up the first control plane node
 
@@ -372,4 +372,3 @@ SSH is required if you want to control all nodes from a single machine.
     # Quote this line if you are using external etcd
     mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
     ```
-

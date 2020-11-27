@@ -10,11 +10,9 @@ Horizontal Pod Autoscaler는
 CPU 사용량(또는 베타 지원의 다른 애플리케이션 지원 메트릭)을 관찰하여
 레플리케이션 컨트롤러, 디플로이먼트, 레플리카셋(ReplicaSet) 또는 스테이트풀셋(StatefulSet)의 파드 개수를 자동으로 스케일한다.
 
-이 문서는 php-apache 서버를 대상으로 Horizontal Pod Autoscaler를 동작해보는 예제이다. Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는 [Horizontal Pod Autoscaler 사용자 가이드](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)를 참고하기 바란다.
-
-
-
-
+이 문서는 php-apache 서버를 대상으로 Horizontal Pod Autoscaler를 동작해보는 예제이다.
+Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는
+[Horizontal Pod Autoscaler 사용자 가이드](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)를 참고하기 바란다.
 
 ## {{% heading "prerequisites" %}}
 
@@ -110,11 +108,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-kubectl run -it --rm load-generator --image=busybox /bin/sh
-
-Hit enter for command prompt
-
-while true; do wget -q -O- http://php-apache; done
+kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 ```
 
 실행 후, 약 1분 정도 후에 CPU 부하가 올라가는 것을 볼 수 있다.
@@ -388,7 +382,7 @@ object:
 외부 메트릭을 사용하면 모니터링 시스템의 사용 가능한 메트릭에 기반하여 클러스터를 오토스케일링 할 수 있다.
 위의 예제처럼 `name`과 `selector`를 갖는 `metric` 블록을 제공하고,
 `Object` 대신에 `External` 메트릭 타입을 사용한다.
-만일 여러개의 시계열이 `metricSelector`와 일치하면, HorizontalPodAutoscaler가 값의 합을 사용한다.
+만일 여러 개의 시계열이 `metricSelector`와 일치하면, HorizontalPodAutoscaler가 값의 합을 사용한다.
 외부 메트릭들은 `Value`와 `AverageValue` 대상 타입을 모두 지원하고,
 `Object` 타입을 사용할 때와 똑같이 동작한다.
 
@@ -457,12 +451,12 @@ Events:
 ## 부록: 수량
 
 HorizontalPodAutoscaler와 메트릭 API에서 모든 메트릭은
-쿠버네티스에서 사용하는 *수량* 숫자 표기법을 사용한다.
+쿠버네티스에서 사용하는
+{{< glossary_tooltip term_id="quantity" text="수량">}} 숫자 표기법을 사용한다.
 예를 들면, `10500m` 수량은 10진법 `10.5`으로 쓰인다.
 메트릭 API들은 가능한 경우 접미사 없이 정수를 반환하며,
 일반적으로 수량을 밀리단위로 반환한다.
 10진수로 표현했을때, `1`과 `1500m` 또는 `1`과 `1.5` 로 메트릭 값을 나타낼 수 있다.
-더 많은 정보를 위해서는 [수량에 관한 용어집](/docs/reference/glossary?core-object=true#term-quantity) 을 참고하기 바란다.
 
 ## 부록: 다른 가능한 시나리오
 

@@ -61,7 +61,7 @@ for example `create`, `get`, `describe`, `delete`.
    * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
 
       * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
-     Example: `kubectl get pod -f ./pod.yaml`
+     Example: `kubectl get -f ./pod.yaml`
 
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
 
@@ -127,14 +127,15 @@ To learn more about command operations, see the [kubectl](/docs/reference/kubect
 
 The following table includes a list of all the supported resource types and their abbreviated aliases.
 
-(This output can be retrieved from `kubectl api-resources`, and was accurate as of Kubernetes 1.13.3.)
+(This output can be retrieved from `kubectl api-resources`, and was accurate as of Kubernetes 1.19.1.)
 
-| Resource Name | Short Names | API Group | Namespaced | Resource Kind |
+| NAME | SHORTNAMES | APIGROUP | NAMESPACED | KIND |
 |---|---|---|---|---|
-| `bindings` | | | true | Binding|
+| `bindings` | | | true | Binding |
 | `componentstatuses` | `cs` | | false | ComponentStatus |
 | `configmaps` | `cm` | | true | ConfigMap |
 | `endpoints` | `ep` | | true | Endpoints |
+| `events` | `ev` | | true | Event |
 | `limitranges` | `limits` | | true | LimitRange |
 | `namespaces` | `ns` | | false | Namespace |
 | `nodes` | `no` | | false | Node |
@@ -142,14 +143,14 @@ The following table includes a list of all the supported resource types and thei
 | `persistentvolumes` | `pv` | | false | PersistentVolume |
 | `pods` | `po` | | true | Pod |
 | `podtemplates` | | | true | PodTemplate |
-| `replicationcontrollers` | `rc` | | true| ReplicationController |
+| `replicationcontrollers` | `rc` | | true | ReplicationController |
 | `resourcequotas` | `quota` | | true | ResourceQuota |
 | `secrets` | | | true | Secret |
 | `serviceaccounts` | `sa` | | true | ServiceAccount |
 | `services` | `svc` | | true | Service |
 | `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
 | `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
-| `customresourcedefinitions` | `crd`, `crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
+| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io | false | CustomResourceDefinition |
 | `apiservices` | | apiregistration.k8s.io | false | APIService |
 | `controllerrevisions` | | apps | true | ControllerRevision |
 | `daemonsets` | `ds` | apps | true | DaemonSet |
@@ -166,9 +167,15 @@ The following table includes a list of all the supported resource types and thei
 | `jobs` | | batch | true | Job |
 | `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
 | `leases` | | coordination.k8s.io | true | Lease |
+| `endpointslices` |  | discovery.k8s.io | true | EndpointSlice |
 | `events` | `ev` | events.k8s.io | true | Event |
 | `ingresses` | `ing` | extensions | true | Ingress |
+| `flowschemas` |  | flowcontrol.apiserver.k8s.io | false | FlowSchema |
+| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io | false | PriorityLevelConfiguration |
+| `ingressclasses` |  | networking.k8s.io | false | IngressClass |
+| `ingresses` | `ing` | networking.k8s.io | true | Ingress |
 | `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
+| `runtimeclasses` |  | node.k8s.io | false | RuntimeClass |
 | `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
 | `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
 | `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
@@ -178,7 +185,7 @@ The following table includes a list of all the supported resource types and thei
 | `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
 | `csidrivers` | | storage.k8s.io | false | CSIDriver |
 | `csinodes` | | storage.k8s.io | false | CSINode |
-| `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
+| `storageclasses` | `sc` | storage.k8s.io | false | StorageClass |
 | `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
 ## Output options

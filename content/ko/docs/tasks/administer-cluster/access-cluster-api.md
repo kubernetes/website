@@ -6,12 +6,9 @@ content_type: task
 <!-- overview -->
 이 페이지는 쿠버네티스 API를 사용하여 클러스터에 접근하는 방법을 보여준다.
 
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
 
 <!-- steps -->
 
@@ -151,7 +148,7 @@ http 클라이언트가 루트 인증서를 사용하도록 하려면 특별한 
 
 일부 클러스터에서, API 서버는 인증이 필요하지 않다.
 로컬 호스트에서 제공되거나, 방화벽으로 보호될 수 있다. 이에 대한 표준은
-없다. [API에 대한 접근 구성](/docs/reference/access-authn-authz/controlling-access/)은
+없다. [API에 대한 접근 구성](/ko/docs/reference/access-authn-authz/controlling-access/)은
 클러스터 관리자가 이를 구성하는 방법에 대해 설명한다. 이러한 접근 방식은 향후
 고 가용성 지원과 충돌할 수 있다.
 
@@ -170,11 +167,14 @@ client-go는 자체 API 오브젝트를 정의하므로, 필요한 경우, 기�
 
 {{< /note >}}
 
-Go 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 사용하는 것과 동일한 [kubeconfig 파일](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)을
+Go 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 사용하는 것과 동일한 [kubeconfig 파일](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을
 사용할 수 있다. 이 [예제](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)를 참고한다.
 
 ```golang
+package main
+
 import (
+  "context"
   "fmt"
   "k8s.io/apimachinery/pkg/apis/meta/v1"
   "k8s.io/client-go/kubernetes"
@@ -188,7 +188,7 @@ func main() {
   // clientset을 생성한다
   clientset, _ := kubernetes.NewForConfig(config)
   // 파드를 나열하기 위해 API에 접근한다
-  pods, _ := clientset.CoreV1().Pods("").List(v1.ListOptions{})
+  pods, _ := clientset.CoreV1().Pods("").List(context.TODO(), v1.ListOptions{})
   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
 }
 ```
@@ -199,7 +199,7 @@ func main() {
 
 [Python 클라이언트](https://github.com/kubernetes-client/python)를 사용하려면, 다음 명령을 실행한다. `pip install kubernetes` 추가 설치 옵션은 [Python Client Library 페이지](https://github.com/kubernetes-client/python)를 참고한다.
 
-Python 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 사용하는 것과 동일한 [kubeconfig 파일](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)을
+Python 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 사용하는 것과 동일한 [kubeconfig 파일](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을
 사용할 수 있다. 이 [예제](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py)를 참고한다.
 
 ```python
@@ -229,7 +229,7 @@ mvn install
 
 어떤 버전이 지원되는지를 확인하려면 [https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases)를 참고한다.
 
-Java 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 사용하는 것과 동일한 [kubeconfig 파일](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)을
+Java 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 사용하는 것과 동일한 [kubeconfig 파일](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을
 사용할 수 있다. 이 [예제](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)를 참고한다.
 
 ```java
@@ -283,7 +283,7 @@ public class KubeConfigFileClientExample {
 
 [dotnet 클라이언트](https://github.com/kubernetes-client/csharp)를 사용하려면, 다음 명령을 실행한다. `dotnet add package KubernetesClient --version 1.6.1` 추가 설치 옵션은 [dotnet Client Library 페이지](https://github.com/kubernetes-client/csharp)를 참고한다. 어떤 버전이 지원되는지를 확인하려면 [https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)를 참고한다.
 
-dotnet 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 사용하는 것과 동일한 [kubeconfig 파일](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)을
+dotnet 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 사용하는 것과 동일한 [kubeconfig 파일](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을
 사용할 수 있다. 이 [예제](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs)를 참고한다.
 
 ```csharp
@@ -318,7 +318,7 @@ namespace simple
 
 [JavaScript 클라이언트](https://github.com/kubernetes-client/javascript)를 설치하려면, 다음 명령을 실행한다. `npm install @kubernetes/client-node` 어떤 버전이 지원되는지를 확인하려면 [https://github.com/kubernetes-client/javascript/releases](https://github.com/kubernetes-client/javascript/releases)를 참고한다.
 
-JavaScript 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 사용하는 것과 동일한 [kubeconfig 파일](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)을
+JavaScript 클라이언트는 kubectl CLI가 API 서버를 찾아 인증하기 위해 사용하는 것과 동일한 [kubeconfig 파일](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을
 사용할 수 있다. 이 [예제](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js)를 참고한다.
 
 ```javascript
@@ -387,7 +387,7 @@ exampleWithKubeConfig = do
 호스트 이름을 사용하여 API 서버를 쿼리할 수 있다. 공식 클라이언트 라이브러리는
 이를 자동으로 수행한다.
 
-API 서버를 인증하는 권장 방법은 [서비스 어카운트](/docs/user-guide/service-accounts)
+API 서버를 인증하는 권장 방법은 [서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/)
 자격 증명을 사용하는 것이다. 기본적으로, 파드는
 서비스 어카운트와 연결되어 있으며, 해당 서비스 어카운트에 대한 자격 증명(토큰)은
 해당 파드에 있는 각 컨테이너의 파일시스템 트리의

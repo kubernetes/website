@@ -32,7 +32,7 @@ using [Krew](https://krew.dev/). Krew is a plugin manager maintained by
 the Kubernetes SIG CLI community.
 
 {{< caution >}}
-Kubectl plugins available via the Krew [plugin index](https://index.krew.dev/)
+Kubectl plugins available via the Krew [plugin index](https://krew.sigs.k8s.io/plugins/)
 are not audited for security. You should install and run third-party plugins at your
 own risk, since they are arbitrary programs running on your machine.
 {{< /caution >}}
@@ -46,7 +46,7 @@ A warning will also be included for any valid plugin files that overlap each oth
 
 You can use [Krew](https://krew.dev/) to discover and install `kubectl`
 plugins from a community-curated
-[plugin index](https://index.krew.dev/).
+[plugin index](https://krew.sigs.k8s.io/plugins/).
 
 #### Limitations
 
@@ -153,7 +153,7 @@ An older kubectl plugin mechanism provided environment variables such as `KUBECT
 kubectl plugins must parse and validate all of the arguments passed to them.
 See [using the command line runtime package](#using-the-command-line-runtime-package) for details of a Go library aimed at plugin authors.
 
-Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the the `kubectl-foo-bar-baz` plugin from the scenario above.
+Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the `kubectl-foo-bar-baz` plugin from the scenario above.
 
 If you run `kubectl foo bar baz arg1 --flag=value arg2`, kubectl's plugin mechanism will first try to find the plugin with the longest possible name, which in this case
 would be `kubectl-foo-bar-baz-arg1`. Upon not finding that plugin, kubectl then treats the last dash-separated value as an argument (`arg1` in this case), and attempts to find the next longest possible name, `kubectl-foo-bar-baz`.
@@ -354,7 +354,7 @@ package it, distribute it and deliver updates to your users.
 distribute your plugins. This way, you use a single packaging format for all
 target platforms (Linux, Windows, macOS etc) and deliver updates to your users.
 Krew also maintains a [plugin
-index](https://index.krew.dev/) so that other people can
+index](https://krew.sigs.k8s.io/plugins/) so that other people can
 discover your plugin and install it.
 
 

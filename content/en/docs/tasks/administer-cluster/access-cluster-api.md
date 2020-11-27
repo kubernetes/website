@@ -148,9 +148,8 @@ certificate.
 
 On some clusters, the API server does not require authentication; it may serve
 on localhost, or be protected by a firewall. There is not a standard
-for this. [Configuring Access to the API](/docs/reference/access-authn-authz/controlling-access/)
-describes how a cluster admin can configure this. Such approaches may conflict
-with future high-availability support.
+for this. [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access)
+describes how you can configure this as a cluster administrator.
 
 ### Programmatic access to the API
 
@@ -171,7 +170,10 @@ The Go client can use the same [kubeconfig file](/docs/concepts/configuration/or
 as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go):
 
 ```golang
+package main
+
 import (
+  "context"
   "fmt"
   "k8s.io/apimachinery/pkg/apis/meta/v1"
   "k8s.io/client-go/kubernetes"
@@ -185,7 +187,7 @@ func main() {
   // creates the clientset
   clientset, _ := kubernetes.NewForConfig(config)
   // access the API to list pods
-  pods, _ := clientset.CoreV1().Pods("").List(v1.ListOptions{})
+  pods, _ := clientset.CoreV1().Pods("").List(context.TODO(), v1.ListOptions{})
   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
 }
 ```

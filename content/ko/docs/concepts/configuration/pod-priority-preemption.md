@@ -8,7 +8,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-[파드](/ko/docs/concepts/workloads/pods/pod/)는 _우선순위_ 를 가질 수 있다. 우선순위는
+[파드](/ko/docs/concepts/workloads/pods/)는 _우선순위_ 를 가질 수 있다. 우선순위는
 다른 파드에 대한 상대적인 파드의 중요성을 나타낸다. 파드를 스케줄링할 수 없는 경우,
 스케줄러는 우선순위가 낮은 파드를 선점(축출)하여 보류 중인 파드를
 스케줄링할 수 있게 한다.
@@ -47,40 +47,6 @@ weight: 70
 두 개의 프라이어리티클래스를 제공한다.
 이들은 일반적인 클래스이며 [중요한(critical) 컴포넌트가 항상 먼저 스케줄링이 되도록 하는 데](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 사용된다.
 {{< /note >}}
-
-## 선점을 비활성화하는 방법
-
-{{< caution >}}
-중요 파드는 클러스터에 리소스 압박(resource pressure)이 가해지면
-스케줄러 선점에 따라 스케줄링된다. 이런 이유로, 선점을 비활성화하지
-않는 것을 권장한다.
-{{< /caution >}}
-
-{{< note >}}
-쿠버네티스 1.15 이상에서, `NonPreemptingPriority` 기능이 활성화된 경우,
-프라이어리티클래스는 옵션을 `preemptionPolicy: Never` 로 설정할 수 있다.
-이렇게 하면 해당 프라이어리티클래스의 파드가 다른 파드를 축출할 수 없다.
-{{< /note >}}
-
-선점은 기본값이 `false`로 설정된 `disablePreemption` kube-scheduler
-플래그에 의해 제어된다.
-위의 주의에도 불구하고 선점을 비활성화하려는 경우,
-`disablePreemption` 을 `true` 로 설정할 수 있다.
-
-이 옵션은 컴포넌트 구성에서만 사용할 수 있으며
-이전 스타일의 커맨드 라인 옵션에서는 사용할 수 없다. 다음은 선점을 비활성화하는 샘플 컴포넌트
-구성이다.
-
-```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha1
-kind: KubeSchedulerConfiguration
-algorithmSource:
-  provider: DefaultProvider
-
-...
-
-disablePreemption: true
-```
 
 ## 프라이어리티클래스
 
@@ -135,7 +101,7 @@ description: "이 프라이어리티 클래스는 XYZ 서비스 파드에만 사
 
 ## 비-선점 프라이어리티클래스 {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 `PreemptionPolicy: Never` 를 가진 파드는 낮은 우선순위 파드의 스케줄링 대기열의
 앞쪽에 배치되지만,
@@ -158,10 +124,6 @@ description: "이 프라이어리티 클래스는 XYZ 서비스 파드에만 사
 있다(기존의 기본 동작과 동일).
 `PreemptionPolicy` 가 `Never` 로 설정된 경우,
 해당 프라이어리티클래스의 파드는 비-선점될 것이다.
-
-`PreemptionPolicy` 필드를 사용하려면 `NonPreemptingPriority`
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
-활성화되어야 한다.
 
 예제 유스케이스는 데이터 과학 관련 워크로드이다.
 사용자는 다른 워크로드보다 우선순위가 높은 잡(job)을 제출할 수 있지만,
@@ -306,7 +268,7 @@ spec:
 *   파드 P는 노드 N에 대해 고려된다.
 *   파드 Q는 노드 N과 동일한 영역의 다른 노드에서 실행 중이다.
 *   파드 P는 파드 Q(`topologyKey:
-    failure-domain.beta.kubernetes.io/zone`)와 영역(zone) 전체의 안티-어피니티를 갖는다.
+    topology.kubernetes.io/zone`)와 영역(zone) 전체의 안티-어피니티를 갖는다.
 *   영역에서 파드 P와 다른 파드 간의 안티-어피니티에 대한 다른 경우는
     없다.
 *   노드 N에서 파드 P를 스케줄링하기 위해, 파드 Q를 축출할 수 있지만, 스케줄러는

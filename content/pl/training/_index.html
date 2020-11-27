@@ -10,15 +10,18 @@ class: training
 <section class="call-to-action">
   <div class="main-section">
     <div class="call-to-action" id="cta-certification">
-      <div class="logo-certification cta-image cta-image-before" id="logo-cka">
-        <img src="/images/training/kubernetes-cka-white.svg"/>
-      </div>
-      <div class="logo-certification cta-image cta-image-after" id="logo-ckad">
-        <img src="/images/training/kubernetes-ckad-white.svg"/>
-      </div>
       <div class="cta-text">
         <h2>Kariera <em>Cloud Native</em></h2>
         <p>Kubernetes stanowi serce całego ruchu <em>cloud native</em>. Korzystając ze szkoleń i certyfikacji oferowanych przez Linux Foundation i naszych partnerów zainwestujesz w swoją karierę, nauczysz się korzystać z Kubernetesa i sprawisz, że Twoje projekty <em>cloud native</em> osiągną sukces.</p>
+      </div>
+      <div class="logo-certification cta-image" id="logo-cka">
+        <img src="/images/training/kubernetes-cka-white.svg"/>
+      </div>
+      <div class="logo-certification cta-image" id="logo-ckad">
+        <img src="/images/training/kubernetes-ckad-white.svg"/>
+      </div>
+      <div class="logo-certification cta-image" id="logo-cks">
+        <img src="/images/training/kubernetes-cks-white.svg"/>
       </div>
     </div>
   </div>
@@ -74,31 +77,36 @@ class: training
   </div>
 </div>
 
-<section>
+<section id="get-certified">
   <div class="main-section padded">
-    <center>
-        <h2>Uzyskaj certyfikat Kubernetes</h2>
-    </center>
+    <h2>Uzyskaj certyfikat Kubernetes</h2>
     <div class="col-container">
       <div class="col-nav">
-        <center>
           <h5>
             <b>Certified Kubernetes Application Developer (CKAD)</b>
           </h5>
           <p>Egzamin na certyfikowanego dewelopera aplikacji (Certified Kubernetes Application Developer) potwierdza umiejętności projektowania, budowania, konfigurowania i udostępniania "rdzennych" aplikacji dla Kubernetesa.</p>
+          <p>CKAD potrafi określić zasoby wymagane przez aplikację oraz wykorzystać bazowe elementy do budowy, monitorowania i rozwiązywania problemów skalowalnych aplikacji oraz narzędzi w Kubernetesie.</p>
           <br>
           <a href="https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/" target="_blank" class="button">Przejdź do certyfikacji</a>
-        </center>
       </div>
       <div class="col-nav">
-        <center>
           <h5>
             <b>Certified Kubernetes Administrator (CKA)</b>
           </h5>
           <p>Program certyfikowanego administratora Kubernetes (Certified Kubernetes Administrator) potwierdza umiejętności, wiedzę i kompetencje do podejmowania się zadań administracji Kubernetesem.</p>
+          <p>Certyfikowany administrator Kubernetesa udowodnił swoje umiejętności prostej instalacji oraz konfiguracji i zarządzania klastrem Kubernetesa jakości produkcyjnej.</p>
           <br>
           <a href="https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/" target="_blank" class="button">Przejdź do certyfikacji</a>
-        </center>
+      </div>
+      <div class="col-nav">
+          <h5>
+            <b>Certified Kubernetes Security Specialist (CKS)</b>
+          </h5>
+          <p>Program certyfikowanego specjalisty bezpieczeństwa Kubernetesa zapewnia, że jego posiadacz jest kompetentny i biegły w stosowaniu w szerokim zakresie najlepszych praktyk. Certyfikacja CKS obejmuje umiejętności niezbędne do zapewnienia bezpieczeństwa aplikacji uruchamianych w kontenerach i platformy Kubernetes na etapie budowy, instalacji i działania.</p>
+          <p><em>Kandydaci na CKS muszą posiadać ważny certyfikat Certified Kubernetes Administrator (CKA), aby udowodnić, że posiadają wystarczające doświadczenie w pracy z Kubernetesem przed przystąpieniem do egzaminu CKS.</em></p>
+          <br>
+          <a href="https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/" target="_blank" class="button">Przejdź do certyfikacji</a>
       </div>
     </div>
   </div>
@@ -112,7 +120,6 @@ class: training
     </center>
   </div>
   <div class="main-section landscape-section">
-    <iframe src="https://landscape.cncf.io/category=kubernetes-training-partner&format=logo-mode&grouping=category&embed=yes" frameborder="0" id="landscape" scrolling="no"></iframe>
-    <script src="https://landscape.cncf.io/iframeResizer.js"></script>
+    {{< cncf-landscape helpers=false category="kubernetes-training-partner" >}}
   </div>
 </div>

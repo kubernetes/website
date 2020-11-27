@@ -21,7 +21,7 @@ a complete and working Kubernetes cluster.
 
 Here's the diagram of a Kubernetes cluster with all the components tied together.
 
-![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
+![Components of Kubernetes](/images/docs/components-of-kubernetes.svg)
 
 
 

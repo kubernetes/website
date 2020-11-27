@@ -103,7 +103,7 @@ etcd 암호화 | 가능한 한 모든 드라이브를 암호화하는 것이 좋
 ------------------------------ | ------------ |
 RBAC 인증(쿠버네티스 API에 대한 접근) | https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 인증 | https://kubernetes.io/docs/reference/access-authn-authz/controlling-access/
-애플리케이션 시크릿 관리(및 유휴 상태에서의 etcd 암호화 등) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
+애플리케이션 시크릿 관리(및 유휴 상태에서의 etcd 암호화 등) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
 파드 보안 정책 | https://kubernetes.io/docs/concepts/policy/pod-security-policy/
 서비스 품질(및 클러스터 리소스 관리) | https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/
 네트워크 정책 | https://kubernetes.io/ko/docs/concepts/services-networking/network-policies/
@@ -147,7 +147,7 @@ TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 미리 �
 * [파드 보안 표준](/docs/concepts/security/pod-security-standards/)
 * [파드에 대한 네트워크 정책](/ko/docs/concepts/services-networking/network-policies/)
 * [클러스터 보안](/docs/tasks/administer-cluster/securing-a-cluster/)
-* [API 접근 통제](/docs/reference/access-authn-authz/controlling-access/)
+* [API 접근 통제](/ko/docs/reference/access-authn-authz/controlling-access/)
 * 컨트롤 플레인을 위한 [전송 데이터 암호화](/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [Rest에서 데이터 암호화](/docs/tasks/administer-cluster/encrypt-data/)
-* [쿠버네티스 시크릿](/docs/concepts/configuration/secret/)
+* [쿠버네티스 시크릿](/ko/docs/concepts/configuration/secret/)

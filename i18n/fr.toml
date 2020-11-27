@@ -118,7 +118,8 @@ other = "Utilisateurs"
 [docs_label_i_am]
 other = "JE SUIS..."
 
-
+[examples_heading]
+other = "Exemples"
 
 # Community links
 [community_twitter_name]

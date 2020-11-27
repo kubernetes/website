@@ -291,11 +291,11 @@ The following information is available to containers through environment
 variables and `downwardAPI` volumes:
 
 * Information available via `fieldRef`:
-  * `metadata.name` - the pod’s name
-  * `metadata.namespace` - the pod’s namespace
-  * `metadata.uid` - the pod’s UID, available since v1.8.0-alpha.2
-  * `metadata.labels['<KEY>']` - the value of the pod’s label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
-  * `metadata.annotations['<KEY>']` - the value of the pod’s annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
+  * `metadata.name` - the pod's name
+  * `metadata.namespace` - the pod's namespace
+  * `metadata.uid` - the pod's UID, available since v1.8.0-alpha.2
+  * `metadata.labels['<KEY>']` - the value of the pod's label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
+  * `metadata.annotations['<KEY>']` - the value of the pod's annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
 -->
 下面这些信息可以通过环境变量和 `downwardAPI` 卷提供给容器：
 
@@ -309,12 +309,12 @@ variables and `downwardAPI` volumes:
 
 <!--
 * Information available via `resourceFieldRef`:
-  * A Container’s CPU limit
-  * A Container’s CPU request
-  * A Container’s memory limit
-  * A Container’s memory request
-  * A Container’s ephemeral-storage limit, available since v1.8.0-beta.0
-  * A Container’s ephemeral-storage request, available since v1.8.0-beta.0
+  * A Container's CPU limit
+  * A Container's CPU request
+  * A Container's memory limit
+  * A Container's memory request
+  * A Container's ephemeral-storage limit, available since v1.8.0-beta.0
+  * A Container's ephemeral-storage request, available since v1.8.0-beta.0
 -->
 * 能通过 `resourceFieldRef` 获得的：
   * 容器的 CPU 约束值

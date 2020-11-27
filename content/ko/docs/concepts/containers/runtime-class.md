@@ -77,7 +77,7 @@ handler: myconfiguration  # 상응하는 CRI 설정의 이름임
 {{< note >}}
 런타임클래스 쓰기 작업(create/update/patch/delete)은
 클러스터 관리자로 제한할 것을 권장한다. 이것은 일반적으로 기본 설정이다.
-더 자세한 정보는 [권한 개요](/docs/reference/access-authn-authz/authorization/)를 참고한다.
+더 자세한 정보는 [권한 개요](/ko/docs/reference/access-authn-authz/authorization/)를 참고한다.
 {{< /note >}}
 
 ## 사용
@@ -178,7 +178,7 @@ PodOverhead를 사용하려면, PodOverhead [기능 게이트](/ko/docs/referenc
 ## {{% heading "whatsnext" %}}
 
 
-- [런타임클래스 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
-- [런타임클래스 스케줄링 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
+- [런타임클래스 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
+- [런타임클래스 스케줄링 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - [파드 오버헤드](/ko/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
 - [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)

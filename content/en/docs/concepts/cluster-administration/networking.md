@@ -79,6 +79,8 @@ as an introduction to various technologies and serves as a jumping-off point.
 The following networking options are sorted alphabetically - the order does not
 imply any preferential status.
 
+{{% thirdparty-content %}}
+
 ### ACI
 
 [Cisco Application Centric Infrastructure](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html) offers an integrated overlay and underlay SDN solution that supports containers, virtual machines, and bare metal servers. [ACI](https://www.github.com/noironetworks/aci-containers) provides container networking integration for ACI. An overview of the integration is provided [here](https://www.cisco.com/c/dam/en/us/solutions/collateral/data-center-virtualization/application-centric-infrastructure/solution-overview-c22-739493.pdf).
@@ -112,7 +114,7 @@ Additionally, the CNI can be run alongside [Calico for network policy enforcemen
 [Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
 
 Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
- 
+
 
 ### Big Cloud Fabric from Big Switch Networks
 
@@ -121,6 +123,10 @@ Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https:/
 With the help of the Big Cloud Fabric's virtual pod multi-tenant architecture, container orchestration systems such as Kubernetes, RedHat OpenShift, Mesosphere DC/OS & Docker Swarm will be natively integrated alongside with VM orchestration systems such as VMware, OpenStack & Nutanix. Customers will be able to securely inter-connect any number of these clusters and enable inter-tenant communication between them if needed.
 
 BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](https://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html). One of the BCF Kubernetes on-premises deployments (which includes Kubernetes, DC/OS & VMware running on multiple DCs across different geographic regions) is also referenced [here](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/).
+
+### Calico
+
+[Calico](https://docs.projectcalico.org/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
 
 ### Cilium
 
@@ -151,6 +157,11 @@ networks, BGP, disabling source/destination checks, or adjusting VPC route
 tables to provide per-instance subnets to each host (which is limited to 50-100
 entries per VPC). In short, cni-ipvlan-vpc-k8s significantly reduces the
 network complexity required to deploy Kubernetes at scale within AWS.
+
+### Coil
+
+[Coil](https://github.com/cybozu-go/coil) is a CNI plugin designed for ease of integration, providing flexible egress networking.
+Coil operates with a low overhead compared to bare metal, and allows you to define arbitrary egress NAT gateways for external networks.
 
 ### Contiv
 
@@ -289,14 +300,6 @@ stateful ACLs, load-balancers etc to build different virtual networking
 topologies.  The project has a specific Kubernetes plugin and documentation
 at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 
-### Project Calico
-
-[Project Calico](https://docs.projectcalico.org/) is an open source container networking provider and network policy engine.
-
-Calico provides a highly scalable networking and network policy solution for connecting Kubernetes pods based on the same IP networking principles as the internet, for both Linux (open source) and Windows (proprietary - available from [Tigera](https://www.tigera.io/essentials/)).  Calico can be deployed without encapsulation or overlays to provide high-performance, high-scale data center networking.  Calico also provides fine-grained, intent based network security policy for Kubernetes pods via its distributed firewall.
-
-Calico can also be run in policy enforcement mode in conjunction with other networking solutions such as Flannel, aka [canal](https://github.com/tigera/canal), or native GCE, AWS or Azure networking.
-
 ### Romana
 
 [Romana](https://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
@@ -314,4 +317,3 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the
 [networking design document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
-

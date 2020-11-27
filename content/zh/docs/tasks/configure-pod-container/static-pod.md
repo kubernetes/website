@@ -39,7 +39,7 @@ instead.
 
 kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建一个
 {{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
-这意味着节点上运行的静态 Pod 对 API 服务来说是不可见的，但是不能通过 API 服务器来控制。
+这意味着节点上运行的静态 Pod 对 API 服务来说是可见的，但是不能通过 API 服务器来控制。
 
 {{< note >}}
 如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，
@@ -201,7 +201,7 @@ JSON/YAML 格式的 Pod 定义文件。
 <!--
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 -->
-1. 创建一个 YAML 文件，并保存在保存在 web 服务上，为 kubelet 生成一个 URL。
+1. 创建一个 YAML 文件，并保存在 web 服务上，为 kubelet 生成一个 URL。
 
    ```yaml
    apiVersion: v1

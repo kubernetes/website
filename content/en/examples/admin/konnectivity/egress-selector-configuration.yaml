@@ -18,4 +18,4 @@ egressSelections:
       # The other supported transport is "tcp". You will need to set up TLS 
       # config to secure the TCP transport.
       uds:
-        udsName: /etc/srv/kubernetes/konnectivity-server/konnectivity-server.socket
+        udsName: /etc/kubernetes/konnectivity-server/konnectivity-server.socket

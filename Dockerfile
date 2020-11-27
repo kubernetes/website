@@ -16,7 +16,7 @@ RUN apk add --no-cache \
     build-base \
     libc6-compat \
     npm && \
-    npm install -G autoprefixer postcss-cli
+    npm install -D autoprefixer postcss-cli
 
 ARG HUGO_VERSION
 
@@ -28,5 +28,7 @@ RUN mkdir -p /usr/local/src && \
     adduser -Sg hugo -u 1000 -h /src hugo
 
 WORKDIR /src
+
+USER hugo:hugo
 
 EXPOSE 1313

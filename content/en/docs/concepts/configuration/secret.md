@@ -15,438 +15,387 @@ weight: 30
 Kubernetes Secrets let you store and manage sensitive information, such
 as passwords, OAuth tokens, and ssh keys. Storing confidential information in a Secret
 is safer and more flexible than putting it verbatim in a
-{{< glossary_tooltip term_id="pod" >}} definition or in a {{< glossary_tooltip text="container image" term_id="image" >}}. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
+{{< glossary_tooltip term_id="pod" >}} definition or in a
+{{< glossary_tooltip text="container image" term_id="image" >}}.
+See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
 
-
+A Secret is an object that contains a small amount of sensitive data such as
+a password, a token, or a key. Such information might otherwise be put in a
+Pod specification or in an image. Users can create Secrets and the system
+also creates some Secrets.
 
 <!-- body -->
 
 ## Overview of Secrets
 
-A Secret is an object that contains a small amount of sensitive data such as
-a password, a token, or a key. Such information might otherwise be put in a
-Pod specification or in an image. Users can create secrets and the system
-also creates some secrets.
-
-To use a secret, a Pod needs to reference the secret.
-A secret can be used with a Pod in three ways:
+To use a Secret, a Pod needs to reference the Secret.
+A Secret can be used with a Pod in three ways:
 
 - As [files](#using-secrets-as-files-from-a-pod) in a
-{{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
-its containers.
+  {{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
+  its containers.
 - As [container environment variable](#using-secrets-as-environment-variables).
 - By the [kubelet when pulling images](#using-imagepullsecrets) for the Pod.
 
-### Built-in Secrets
+The name of a Secret object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+You can specify the `data` and/or the `stringData` field when creating a
+configuration file for a Secret.  The `data` and the `stringData` fields are optional.
+The values for all keys in the `data` field have to be base64-encoded strings.
+If the conversion to base64 string is not desirable, you can choose to specify
+the `stringData` field instead, which accepts arbitrary strings as values.
 
-#### Service accounts automatically create and attach Secrets with API credentials
+The keys of `data` and `stringData` must consist of alphanumeric characters,
+`-`, `_` or `.`. All key-value pairs in the `stringData` field are internally
+merged into the `data` field. If a key appears in both the `data` and the
+`stringData` field, the value specified in the `stringData` field takes
+precedence.
 
-Kubernetes automatically creates secrets which contain credentials for
-accessing the API and automatically modifies your Pods to use this type of
-secret.
+## Types of Secret {#secret-types}
 
-The automatic creation and use of API credentials can be disabled or overridden
-if desired.  However, if all you need to do is securely access the API server,
-this is the recommended workflow.
+When creating a Secret, you can specify its type using the `type` field of
+the [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+resource, or certain equivalent `kubectl` command line flags (if available).
+The Secret type is used to facilitate programmatic handling of the Secret data.
+
+Kubernetes provides several builtin types for some common usage scenarios.
+These types vary in terms of the validations performed and the constraints
+Kubernetes imposes on them.
+
+| Builtin Type | Usage |
+|--------------|-------|
+| `Opaque`     |  arbitrary user-defined data |
+| `kubernetes.io/service-account-token` | service account token |
+| `kubernetes.io/dockercfg` | serialized `~/.dockercfg` file |
+| `kubernetes.io/dockerconfigjson` | serialized `~/.docker/config.json` file |
+| `kubernetes.io/basic-auth` | credentials for basic authentication |
+| `kubernetes.io/ssh-auth` | credentials for SSH authentication |
+| `kubernetes.io/tls` | data for a TLS client or server |
+| `bootstrap.kubernetes.io/token` | bootstrap token data |
+
+You can define and use your own Secret type by assigning a non-empty string as the
+`type` value for a Secret object. An empty string is treated as an `Opaque` type.
+Kubernetes doesn't impose any constraints on the type name. However, if you
+are using one of the builtin types, you must meet all the requirements defined
+for that type.
+
+### Opaque secrets
+
+`Opaque` is the default Secret type if omitted from a Secret configuration file.
+When you create a Secret using `kubectl`, you will use the `generic`
+subcommand to indicate an `Opaque` Secret type. For example, the following
+command creates an empty Secret of type `Opaque`.
+
+```shell
+kubectl create secret generic empty-secret
+kubectl get secret empty-secret
+```
+
+The output looks like:
+
+```
+NAME           TYPE     DATA   AGE
+empty-secret   Opaque   0      2m6s
+```
+
+The `DATA` column shows the number of data items stored in the Secret.
+In this case, `0` means we have just created an empty Secret.
+
+###  Service account token Secrets
+
+A `kubernetes.io/service-account-token` type of Secret is used to store a
+token that identifies a service account. When using this Secret type, you need
+to ensure that the `kubernetes.io/service-account.name` annotation is set to an
+existing service account name. An Kubernetes controller fills in some other
+fields such as the `kubernetes.io/service-account.uid` annotation and the
+`token` key in the `data` field set to actual token content.
+
+The following example configuration declares a service account token Secret:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-sa-sample
+  annotations:
+    kubernetes.io/service-account.name: "sa-name"
+type: kubernetes.io/service-account-token
+data:
+  # You can include additional key value pairs as you do with Opaque Secrets
+  extra: YmFyCg==
+```
+
+When creating a `Pod`, Kubernetes automatically creates a service account Secret
+and automatically modifies your Pod to use this Secret. The service account token
+Secret contains credentials for accessing the API.
+
+The automatic creation and use of API credentials can be disabled or
+overridden if desired. However, if all you need to do is securely access the
+API server, this is the recommended workflow.
 
 See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)
 documentation for more information on how service accounts work.
+You can also check the `automountServiceAccountToken` field and the
+`serviceAccountName` field of the
+[`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+for information on referencing service account from Pods.
 
-### Creating your own Secrets
+### Docker config Secrets
 
-#### Creating a Secret Using `kubectl`
+You can use one of the following `type` values to create a Secret to
+store the credentials for accessing a Docker registry for images.
 
-Secrets can contain user credentials required by Pods to access a database.
-For example, a database connection string
-consists of a username and password. You can store the username in a file `./username.txt`
-and the password in a file `./password.txt` on your local machine.
+- `kubernetes.io/dockercfg`
+- `kubernetes.io/dockerconfigjson`
 
-```shell
-# Create files needed for the rest of the example.
-echo -n 'admin' > ./username.txt
-echo -n '1f2d1e2e67df' > ./password.txt
-```
+The `kubernetes.io/dockercfg` type is reserved to store a serialized
+`~/.dockercfg` which is the legacy format for configuring Docker command line.
+When using this Secret type, you have to ensure the Secret `data` field
+contains a `.dockercfg` key whose value is content of a `~/.dockercfg` file
+encoded in the base64 format.
 
-The `kubectl create secret` command packages these files into a Secret and creates
-the object on the API server.
-The name of a Secret object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The `kubernetes/dockerconfigjson` type is designed for storing a serialized
+JSON that follows the same format rules as the `~/.docker/config.json` file
+which is a new format for `~/.dockercfg`.
+When using this Secret type, the `data` field of the Secret object must
+contain a `.dockerconfigjson` key, in which the content for the
+`~/.docker/config.json` file is provided as a base64 encoded string.
 
-```shell
-kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
-```
-
-The output is similar to:
-
-```
-secret "db-user-pass" created
-```
-
-Default key name is the filename. You may optionally set the key name using `[--from-file=[key=]source]`.
-
-```shell
-kubectl create secret generic db-user-pass --from-file=username=./username.txt --from-file=password=./password.txt
-```
-
-{{< note >}}
-Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
-In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
-For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command this way:
-
-```shell
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
-```
-
-You do not need to escape special characters in passwords from files (`--from-file`).
-{{< /note >}}
-
-You can check that the secret was created:
-
-```shell
-kubectl get secrets
-```
-
-The output is similar to:
-
-```
-NAME                  TYPE                                  DATA      AGE
-db-user-pass          Opaque                                2         51s
-```
-
-You can view a description of the secret:
-
-```shell
-kubectl describe secrets/db-user-pass
-```
-
-The output is similar to:
-
-```
-Name:            db-user-pass
-Namespace:       default
-Labels:          <none>
-Annotations:     <none>
-
-Type:            Opaque
-
-Data
-====
-password.txt:    12 bytes
-username.txt:    5 bytes
-```
-
-{{< note >}}
-The commands `kubectl get` and `kubectl describe` avoid showing the contents of a secret by
-default. This is to protect the secret from being exposed accidentally to an onlooker,
-or from being stored in a terminal log.
-{{< /note >}}
-
-See [decoding a secret](#decoding-a-secret) to learn how to view the contents of a secret.
-
-#### Creating a Secret manually
-
-You can also create a Secret in a file first, in JSON or YAML format,
-and then create that object.
-The name of a Secret object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-The [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-contains two maps:
-`data` and `stringData`. The `data` field is used to store arbitrary data, encoded using
-base64. The `stringData` field is provided for convenience, and allows you to provide
-secret data as unencoded strings.
-
-For example, to store two strings in a Secret using the `data` field, convert
-the strings to base64 as follows:
-
-```shell
-echo -n 'admin' | base64
-```
-
-The output is similar to:
-
-```
-YWRtaW4=
-```
-
-```shell
-echo -n '1f2d1e2e67df' | base64
-```
-
-The output is similar to:
-
-```
-MWYyZDFlMmU2N2Rm
-```
-
-Write a Secret that looks like this:
+Below is an example for a `kubernetes.io/dockercfg` type of Secret:
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysecret
-type: Opaque
+  name: secret-dockercfg
+type: kubernetes.io/dockercfg
 data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
+  .dockercfg: |
+    "<base64 encoded ~/.dockercfg file>"
 ```
 
-Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
+{{< note >}}
+If you do not want to perform the base64 encoding, you can choose to use the
+`stringData` field instead.
+{{< /note >}}
+
+When you create these types of Secrets using a manifest, the API
+server checks whether the expected key does exists in the `data` field, and
+it verifies if the value provided can be parsed as a valid JSON. The API
+server doesn't validate if the JSON actually is a Docker config file.
+
+When you do not have a Docker config file, or you want to use `kubectl`
+to create a Docker registry Secret, you can do:
 
 ```shell
-kubectl apply -f ./secret.yaml
+kubectl create secret docker-registry secret-tiger-docker \
+  --docker-username=tiger \
+  --docker-password=pass113 \
+  --docker-email=tiger@acme.com
 ```
 
-The output is similar to:
+This command creates a Secret of type `kubernetes.io/dockerconfigjson`.
+If you dump the `.dockerconfigjson` content from the `data` field, you will
+get the following JSON content which is a valid Docker configuration created
+on the fly:
 
-```
-secret "mysecret" created
-```
-
-For certain scenarios, you may wish to use the `stringData` field instead. This
-field allows you to put a non-base64 encoded string directly into the Secret,
-and the string will be encoded for you when the Secret is created or updated.
-
-A practical example of this might be where you are deploying an application
-that uses a Secret to store a configuration file, and you want to populate
-parts of that configuration file during your deployment process.
-
-For example, if your application uses the following configuration file:
-
-```yaml
-apiUrl: "https://my.api.com/api/v1"
-username: "user"
-password: "password"
+```json
+{
+  "auths": {
+    "https://index.docker.io/v1/": {
+      "username": "tiger",
+      "password": "pass113",
+      "email": "tiger@acme.com",
+      "auth": "dGlnZXI6cGFzczExMw=="
+    }
+  }
+}
 ```
 
-You could store this in a Secret using the following definition:
+### Basic authentication Secret
+
+The `kubernetes.io/basic-auth` type is provided for storing credentials needed
+for basic authentication. When using this Secret type, the `data` field of the
+Secret must contain the following two keys:
+
+- `username`: the user name for authentication;
+- `password`: the password or token for authentication.
+
+Both values for the above two keys are base64 encoded strings. You can, of
+course, provide the clear text content using the `stringData` for Secret
+creation.
+
+The following YAML is an example config for a basic authentication Secret:
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysecret
-type: Opaque
+  name: secret-basic-auth
+type: kubernetes.io/basic-auth
 stringData:
-  config.yaml: |-
-    apiUrl: "https://my.api.com/api/v1"
-    username: {{username}}
-    password: {{password}}
+  username: admin
+  password: t0p-Secret
 ```
 
-Your deployment tool could then replace the `{{username}}` and `{{password}}`
-template variables before running `kubectl apply`.
+The basic authentication Secret type is provided only for user's convenience.
+You can create an `Opaque` for credentials used for basic authentication.
+However, using the builtin Secret type helps unify the formats of your credentials
+and the API server does verify if the required keys are provided in a Secret
+configuration.
 
-The `stringData` field is a write-only convenience field. It is never output when
-retrieving Secrets. For example, if you run the following command:
+### SSH authentication secrets
+
+The builtin type `kubernetes.io/ssh-auth` is provided for storing data used in
+SSH authentication. When using this Secret type, you will have to specify a
+`ssh-privatekey` key-value pair in the `data` (or `stringData`) field.
+as the SSH credential to use.
+
+The following YAML is an example config for a SSH authentication Secret:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-ssh-auth
+type: kubernetes.io/ssh-auth
+data:
+  # the data is abbreviated in this example
+  ssh-privatekey: |
+     MIIEpQIBAAKCAQEAulqb/Y ...
+```
+
+The SSH authentication Secret type is provided only for user's convenience.
+You can create an `Opaque` for credentials used for SSH authentication.
+However, using the builtin Secret type helps unify the formats of your credentials
+and the API server does verify if the required keys are provided in a Secret
+configuration.
+
+### TLS secrets
+
+Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
+a certificate and its associated key that are typically used for TLS . This
+data is primarily used with TLS termination of the Ingress resource, but may
+be used with other resources or directly by a workload.
+When using this type of Secret, the `tls.key` and the `tls.crt` key must be provided
+in the `data` (or `stringData`) field of the Secret configuration, although the API
+server doesn't actually validate the values for each key.
+
+The following YAML contains an example config for a TLS Secret:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-tls
+type: kubernetes.io/tls
+data:
+  # the data is abbreviated in this example
+  tls.crt: |
+    MIIC2DCCAcCgAwIBAgIBATANBgkqh ...
+  tls.key: |
+    MIIEpgIBAAKCAQEA7yn3bRHQ5FHMQ ...
+```
+
+The TLS Secret type is provided for user's convenience. You can create an `Opaque`
+for credentials used for TLS server and/or client. However, using the builtin Secret
+type helps ensure the consistency of Secret format in your project; the API server
+does verify if the required keys are provided in a Secret configuration.
+
+When creating a TLS Secret using `kubectl`, you can use the `tls` subcommand
+as shown in the following example:
 
 ```shell
-kubectl get secret mysecret -o yaml
+kubectl create secret tls my-tls-secret \
+  --cert=path/to/cert/file \
+  --key=path/to/key/file
 ```
 
-The output is similar to:
+The public/private key pair must exist before hand. The public key certificate
+for `--cert` must be .PEM encoded (Base64-encoded DER format), and match the
+given private key for `--key`.
+The private key must be in what is commonly called PEM private key format,
+unencrypted. In both cases, the initial and the last lines from PEM (for
+example, `--------BEGIN CERTIFICATE-----` and `-------END CERTIFICATE----` for
+a cetificate) are *not* included.
+
+### Bootstrap token Secrets
+
+A bootstrap token Secret can be created by explicitly specifying the Secret
+`type` to `bootstrap.kubernetes.io/token`. This type of Secret is designed for
+tokens used during the node bootstrap process. It stores tokens used to sign
+well known ConfigMaps.
+
+A bootstrap token Secret is usually created in the `kube-system` namespace and
+named in the form `bootstrap-token-<token-id>` where `<token-id>` is a 6 character
+string of the token ID.
+
+As a Kubernetes manifest, a bootstrap token Secret might look like the
+following:
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  creationTimestamp: 2018-11-15T20:40:59Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "7225"
-  uid: c280ad2e-e916-11e8-98f2-025000000001
-type: Opaque
+  name: bootstrap-token-5emitj
+  namespace: kube-system
+type: bootstrap.kubernetes.io/token
 data:
-  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
+  auth-extra-groups: c3lzdGVtOmJvb3RzdHJhcHBlcnM6a3ViZWFkbTpkZWZhdWx0LW5vZGUtdG9rZW4=
+  expiration: MjAyMC0wOS0xM1QwNDozOToxMFo=
+  token-id: NWVtaXRq
+  token-secret: a3E0Z2lodnN6emduMXAwcg==
+  usage-bootstrap-authentication: dHJ1ZQ==
+  usage-bootstrap-signing: dHJ1ZQ==
 ```
 
-If a field, such as `username`, is specified in both `data` and `stringData`,
-the value from `stringData` is used. For example, the following Secret definition:
+A bootstrap type has the following keys specified under `data`:
+
+- `token_id`: A random 6 character string as the token identifier. Required.
+- `token-secret`: A random 16 character string as the actual token secret. Required.
+- `description1`: A human-readable string that describes what the token is
+  used for. Optional.
+- `expiration`: An absolute UTC time using RFC3339 specifying when the token
+  should be expired. Optional.
+- `usage-bootstrap-<usage>`: A boolean flag indicating additional usage for
+  the bootstrap token.
+- `auth-extra-groups`: A comma-separated list of group names that will be
+  authenticated as in addition to system:bootstrappers group.
+
+The above YAML may look confusing because the values are all in base64 encoded
+strings. In fact, you can create an identical Secret using the following YAML
+which results in an identical Secret object:
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysecret
-type: Opaque
-data:
-  username: YWRtaW4=
+  # Note how the Secret is named
+  name: bootstrap-token-5emitj
+  # A bootstrap token Secret usually resides in the kube-system namespace
+  namespace: kube-system
+type: bootstrap.kubernetes.io/token
 stringData:
-  username: administrator
+  auth-extra-groups: "system:bootstrappers:kubeadm:default-node-token"
+  expiration: "2020-09-13T04:39:10Z"
+  # This token ID is used in the name
+  token-id: "5emitj"
+  token-secret: "kq4gihvszzgn1p0r"
+  # This token can be used for authentication
+  usage-bootstrap-authentication: "true"
+  # and it can be used for signing
+  usage-bootstrap-signing: "true"
 ```
 
-Results in the following Secret:
+## Creating a Secret
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  creationTimestamp: 2018-11-15T20:46:46Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "7579"
-  uid: 91460ecb-e917-11e8-98f2-025000000001
-type: Opaque
-data:
-  username: YWRtaW5pc3RyYXRvcg==
-```
+There are several options to create a Secret:
 
-Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
+- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
-The keys of `data` and `stringData` must consist of alphanumeric characters,
-'-', '_' or '.'.
-
-{{< note >}}
-The serialized JSON and YAML values of secret data are
-encoded as base64 strings. Newlines are not valid within these strings and must
-be omitted. When using the `base64` utility on Darwin/macOS, users should avoid
-using the `-b` option to split long lines. Conversely, Linux users *should* add
-the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
-the `-w` option is not available.
-{{< /note >}}
-
-#### Creating a Secret from a generator
-
-Since Kubernetes v1.14, `kubectl` supports [managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/). Kustomize provides resource Generators to
-create Secrets and ConfigMaps. The Kustomize generators should be specified in a
-`kustomization.yaml` file inside a directory. After generating the Secret,
-you can create the Secret on the API server with `kubectl apply`.
-
-#### Generating a Secret from files
-
-You can generate a Secret by defining a `secretGenerator` from the
-files ./username.txt and ./password.txt:
-
-```shell
-cat <<EOF >./kustomization.yaml
-secretGenerator:
-- name: db-user-pass
-  files:
-  - username.txt
-  - password.txt
-EOF
-```
-
-Apply the directory, containing the `kustomization.yaml`, to create the Secret.
-
-```shell
-kubectl apply -k .
-```
-
-The output is similar to:
-
-```
-secret/db-user-pass-96mffmfh4k created
-```
-
-You can check that the secret was created:
-
-```shell
-kubectl get secrets
-```
-
-The output is similar to:
-
-```
-NAME                             TYPE                                  DATA      AGE
-db-user-pass-96mffmfh4k          Opaque                                2         51s
-```
-
-You can view a description of the secret:
-
-```shell
-kubectl describe secrets/db-user-pass-96mffmfh4k
-```
-
-The output is similar to:
-
-```
-Name:            db-user-pass
-Namespace:       default
-Labels:          <none>
-Annotations:     <none>
-
-Type:            Opaque
-
-Data
-====
-password.txt:    12 bytes
-username.txt:    5 bytes
-```
-
-#### Generating a Secret from string literals
-
-You can create a Secret by defining a `secretGenerator`
-from literals `username=admin` and `password=secret`:
-
-```shell
-cat <<EOF >./kustomization.yaml
-secretGenerator:
-- name: db-user-pass
-  literals:
-  - username=admin
-  - password=secret
-EOF
-```
-
-Apply the directory, containing the `kustomization.yaml`, to create the Secret.
-
-```shell
-kubectl apply -k .
-```
-
-The output is similar to:
-
-```
-secret/db-user-pass-dddghtt9b5 created
-```
-
-{{< note >}}
-When a Secret is generated, the Secret name is created by hashing
-the Secret data and appending this value to the name. This ensures that
-a new Secret is generated each time the data is modified.
-{{< /note >}}
-
-#### Decoding a Secret
-
-Secrets can be retrieved by running `kubectl get secret`.
-For example, you can view the Secret created in the previous section by
-running the following command:
-
-```shell
-kubectl get secret mysecret -o yaml
-```
-
-The output is similar to:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  creationTimestamp: 2016-01-22T18:41:56Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "164619"
-  uid: cfee02d6-c137-11e5-8d73-42010af00002
-type: Opaque
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
-```
-
-Decode the `password` field:
-
-```shell
-echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
-```
-
-The output is similar to:
-
-```
-1f2d1e2e67df
-```
-
-#### Editing a Secret
+## Editing a Secret
 
 An existing Secret may be edited with the following command:
 
@@ -717,37 +666,6 @@ A container using a Secret as a
 Secret updates.
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
-individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
-(at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
-data has the following advantages:
-
-- protects you from accidental (or unwanted) updates that could cause applications outages
-- improves performance of your cluster by significantly reducing load on kube-apiserver, by
-closing watches for secrets marked as immutable.
-
-To use this feature, enable the `ImmutableEphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
-your Secret or ConfigMap `immutable` field to `true`. For example:
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  ...
-data:
-  ...
-immutable: true
-```
-
-{{< note >}}
-Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
-nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
-Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
-these pods.
-{{< /note >}}
-
 ### Using Secrets as environment variables
 
 To use a secret in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
@@ -807,6 +725,40 @@ The output is similar to:
 ```
 1f2d1e2e67df
 ```
+
+## Immutable Secrets {#secret-immutable}
+
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
+(at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
+data has the following advantages:
+
+- protects you from accidental (or unwanted) updates that could cause applications outages
+- improves performance of your cluster by significantly reducing load on kube-apiserver, by
+closing watches for secrets marked as immutable.
+
+This feature is controlled by the `ImmutableEphemeralVolumes` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/),
+which is enabled by default since v1.19. You can create an immutable
+Secret by setting the `immutable` field to `true`. For example,
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  ...
+data:
+  ...
+immutable: true
+```
+
+{{< note >}}
+Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
+nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
+Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
+these pods.
+{{< /note >}}
 
 ### Using imagePullSecrets
 
@@ -1272,3 +1224,11 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
    by impersonating the kubelet. It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a
    single node.
+
+
+## {{% heading "whatsnext" %}}
+
+- Learn how to [manage Secret using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+

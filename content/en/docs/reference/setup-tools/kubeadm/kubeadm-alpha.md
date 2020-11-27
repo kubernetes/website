@@ -12,6 +12,14 @@ weight: 90
  from the community. Please try it out and give us feedback!
 {{< /caution >}}
 
+## kubeadm alpha certs {#cmd-certs}
+
+A collection of operations for operating Kubernetes certificates.
+
+{{< tabs name="tab-certs" >}}
+{{< tab name="overview" include="generated/kubeadm_alpha_certs.md" />}}
+{{< /tabs >}}
+
 ## kubeadm alpha certs renew {#cmd-certs-renew}
 
 You can renew all Kubernetes certificates using the `all` subcommand or renew them selectively.
@@ -40,6 +48,15 @@ to enable the automatic copy of certificates when joining additional control-pla
 
 {{< tabs name="tab-certs-certificate-key" >}}
 {{< tab name="certificate-key" include="generated/kubeadm_alpha_certs_certificate-key.md" />}}
+{{< /tabs >}}
+
+## kubeadm alpha certs generate-csr {#cmd-certs-generate-csr}
+
+This command can be used to generate certificate signing requests (CSRs) which
+can be submitted to a certificate authority (CA) for signing.
+
+{{< tabs name="tab-certs-generate-csr" >}}
+{{< tab name="certificate-generate-csr" include="generated/kubeadm_alpha_certs_generate-csr.md" />}}
 {{< /tabs >}}
 
 ## kubeadm alpha certs check-expiration {#cmd-certs-check-expiration}

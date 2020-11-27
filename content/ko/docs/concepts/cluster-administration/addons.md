@@ -5,11 +5,11 @@ content_type: concept
 
 <!-- overview -->
 
+{{% thirdparty-content %}}
+
 애드온은 쿠버네티스의 기능을 확장한다.
 
 이 페이지는 사용 가능한 일부 애드온과 관련 설치 지침 링크를 나열한다.
-
-각 섹션의 애드온은 알파벳 순으로 정렬되어 있다. 순서는 우선 순위와는 상관없다.
 
 <!-- body -->
 
@@ -29,7 +29,7 @@ content_type: concept
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) 컨테이너 플러그인(NCP)은 VMware NSX-T와 쿠버네티스와 같은 컨테이너 오케스트레이터 간의 통합은 물론 NSX-T와 PKS(Pivotal 컨테이너 서비스) 및 OpenShift와 같은 컨테이너 기반 CaaS/PaaS 플랫폼 간의 통합을 제공한다.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)는 가시성과 보안 모니터링 기능을 통해 쿠버네티스 파드와 비-쿠버네티스 환경 간에 폴리시 기반 네트워킹을 제공하는 SDN 플랫폼이다.
 * [Romana](https://romana.io)는 [네트워크폴리시 API](/ko/docs/concepts/services-networking/network-policies/)도 지원하는 파드 네트워크용 Layer 3 네트워킹 솔루션이다. Kubeadm 애드온 설치에 대한 세부 정보는 [여기](https://github.com/romana/romana/tree/master/containerize)에 있다.
-* [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/)은 네트워킹 및 네트워크 폴리시를 제공하고, 네트워크 파티션의 양면에서 작업을 수행하며, 외부 데이터베이스는 필요하지 않다.
+* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)은 네트워킹 및 네트워크 폴리시를 제공하고, 네트워크 파티션의 양면에서 작업을 수행하며, 외부 데이터베이스는 필요하지 않다.
 
 ## 서비스 검색
 

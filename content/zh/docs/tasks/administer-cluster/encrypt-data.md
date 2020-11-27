@@ -206,7 +206,7 @@ To create a new secret perform the following steps:
 {{< caution >}}
 你的配置文件包含可以解密 etcd 内容的密钥，因此你必须正确限制主控节点的访问权限，
 以便只有能运行 kube-apiserver 的用户才能读取它。
-{{< caution >}}
+{{< /caution >}}
 
 <!--
 ## Verifying that data is encrypted
@@ -232,9 +232,8 @@ program to retrieve the contents of your secret.
 2. Using the etcdctl commandline, read that secret out of etcd:
 -->
 2. 使用 etcdctl 命令行，从 etcd 中读取 secret：
-
    ```shell
-   ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
+   ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
    ```
 
    <!--

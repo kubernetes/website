@@ -17,7 +17,7 @@ Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz 
 
 * [Jak rozpocząć współpracę](https://kubernetes.io/docs/contribute/start/)
 * [Podgląd wprowadzanych zmian w dokumentacji](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Szablony stron](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Szablony stron](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Styl pisania dokumentacji](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Lokalizacja dokumentacji Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
@@ -49,13 +49,13 @@ choco install make
 Jeśli [zainstalowałeś i uruchomiłeś](https://www.docker.com/get-started) już Dockera, zbuduj obraz `kubernetes-hugo` lokalnie:
 
 ```bash
-make docker-image
+make container-image
 ```
 
 Po zbudowaniu obrazu, możesz uruchomić serwis lokalnie:
 
 ```bash
-make docker-serve
+make container-serve
 ```
 
 Aby obejrzeć zawartość serwisu otwórz w przeglądarce adres http://localhost:1313. Po każdej zmianie plików źródłowych, Hugo automatycznie aktualizuje stronę i odświeża jej widok w przeglądarce.

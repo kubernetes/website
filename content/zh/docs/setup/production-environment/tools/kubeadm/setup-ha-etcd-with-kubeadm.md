@@ -414,17 +414,15 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     -->
     - 将 `${HOST0}` 设置为要测试的主机的 IP 地址
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 <!--
 Once your have a working 3 member etcd cluster, you can continue setting up a
 highly available control plane using the [external etcd method with
 kubeadm](/docs/setup/independent/high-availability/).
 -->
-一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于[使用 kubeadm 的外部 etcd 方法](/docs/setup/independent/high-availability/)，继续部署一个高可用的控制平面。
-
+一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于
+[使用 kubeadm 的外部 etcd 方法](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)，
+继续部署一个高可用的控制平面。
 
 

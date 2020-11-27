@@ -82,8 +82,8 @@ If you're learning Kubernetes, use the Docker-based solutions: tools supported b
 
 |社区           |生态系统     |
 | ------------       | --------     |
-| [Minikube](/docs/setup/learning-environment/minikube/) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
-| [kind (Kubernetes IN Docker)](/docs/setup/learning-environment/kind/) | [Minishift](https://docs.okd.io/latest/minishift/)|
+| [Minikube](/zh/docs/setup/learning-environment/minikube/) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
+| [kind (Kubernetes IN Docker)](/zh/docs/setup/learning-environment/kind/) | [Minishift](https://docs.okd.io/latest/minishift/)|
 |                     | [MicroK8s](https://microk8s.io/)|
 
 
@@ -100,6 +100,5 @@ When evaluating a solution for a production environment, consider which aspects 
 <!--
 [Kubernetes Partners](https://kubernetes.io/partners/#conformance) includes a list of [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) providers.
 -->
-[Kubernetes 合作伙伴](https://kubernetes.io/partners/#conformance) 包括一个 [已认证的 Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) 提供商列表。
-
-
+[Kubernetes 合作伙伴](https://kubernetes.io/zh/partners/#kcsp) 包括一个
+[已认证的 Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) 提供商列表。

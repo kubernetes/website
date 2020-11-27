@@ -30,7 +30,7 @@ Some typical uses of a DaemonSet are:
 -->
 DaemonSet 的一些典型用法：
 
-- 在每个节点上运行集群存守护进程
+- 在每个节点上运行集群守护进程
 - 在每个节点上运行日志收集守护进程
 - 在每个节点上运行监控守护进程
 
@@ -65,7 +65,7 @@ You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` f
 <!--
 Create a DaemonSet based on the YAML file:
 -->
-基于 YAML 文件创建 DaemonSet:
+基于 YAML 文件创建 DaemonSet：
 
 ```
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
@@ -199,7 +199,11 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 -->
 ### 仅在某些节点上运行 Pod
 
-如果指定了 `.spec.template.spec.nodeSelector`，DaemonSet Controller 将在能够与 [Node Selector](/zh/docs/concepts/scheduling-eviction/assign-pod-node/) 匹配的节点上创建 Pod。类似这种情况，可以指定 `.spec.template.spec.affinity`，然后 DaemonSet Controller 将在能够与 [node Affinity](/zh/docs/concepts/scheduling-eviction/assign-pod-node/) 匹配的节点上创建 Pod。
+如果指定了 `.spec.template.spec.nodeSelector`，DaemonSet 控制器将在能够与
+[Node 选择算符](/zh/docs/concepts/scheduling-eviction/assign-pod-node/) 匹配的节点上创建 Pod。
+类似这种情况，可以指定 `.spec.template.spec.affinity`，之后 DaemonSet 控制器
+将在能够与[节点亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)
+匹配的节点上创建 Pod。
 如果根本就没有指定，则 DaemonSet Controller 将在所有节点上创建 Pod。
 
 <!--
@@ -207,7 +211,7 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ### Scheduled by default scheduler
 -->
-## 如何调度 Daemon Pods
+## Daemon Pods 是如何被调度的
 
 ### 通过默认调度器调度
 
@@ -228,7 +232,7 @@ That introduces the following issues:
 -->
 DaemonSet 确保所有符合条件的节点都运行该 Pod 的一个副本。
 通常，运行 Pod 的节点由 Kubernetes 调度器选择。
-不过，DaemonSet pods 由 DaemonSet 控制器创建和调度。这就带来了以下问题：
+不过，DaemonSet Pods 由 DaemonSet 控制器创建和调度。这就带来了以下问题：
 
 * Pod 行为的不一致性：正常 Pod 在被创建后等待调度时处于 `Pending` 状态，
   DaemonSet Pods 创建后不会处于 `Pending` 状态下。这使用户感到困惑。
@@ -250,7 +254,7 @@ changes are made to the `spec.template` of the DaemonSet.
 默认调度器接下来将 Pod 绑定到目标主机。
 如果 DaemonSet Pod 的节点亲和性配置已存在，则被替换。
 DaemonSet 控制器仅在创建或修改 DaemonSet Pod 时执行这些操作，
-并且不回更改 DaemonSet 的 `spec.template`。
+并且不会更改 DaemonSet 的 `spec.template`。
 
 ```yaml
 nodeAffinity:
@@ -284,10 +288,10 @@ the related features.
 尽管 Daemon Pods 遵循[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration)
 规则，根据相关特性，控制器会自动将以下容忍度添加到 DaemonSet Pod：
 
-| 容忍度键名                               | 效果       | 版本   | 描述                                                          |
+| 容忍度键名                               | 效果       | 版本    | 描述                                                         |
 | ---------------------------------------- | ---------- | ------- | ------------------------------------------------------------ |
 | `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+   | 当出现类似网络断开的情况导致节点问题时，DaemonSet Pod 不会被逐出。 |
-| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+    | 当出现类似于网络断开的情况导致节点问题时，DaemonSet Pod 不会被逐出。 |
+| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+   | 当出现类似于网络断开的情况导致节点问题时，DaemonSet Pod 不会被逐出。 |
 | `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    | |
 | `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    | |
 | `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSet Pod 能够容忍默认调度器所设置的 `unschedulable` 属性.  |
@@ -313,7 +317,7 @@ Some possible patterns for communicating with Pods in a DaemonSet are:
 
 与 DaemonSet 中的 Pod 进行通信的几种可能模式如下：
 
-- **Push**：配置 DaemonSet 中的 Pod，将更新发送到另一个服务，例如统计数据库。
+- **推送（Push）**：配置 DaemonSet 中的 Pod，将更新发送到另一个服务，例如统计数据库。
   这些服务没有客户端。
 
 - **NodeIP 和已知端口**：DaemonSet 中的 Pod 可以使用 `hostPort`，从而可以通过节点 IP

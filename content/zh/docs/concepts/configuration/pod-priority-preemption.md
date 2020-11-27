@@ -23,8 +23,8 @@ scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 -->
 [Pods](/zh/docs/concepts/workloads/pods/pod/) 可以有*优先级（Priority）*。
-优先级体现的是当前 Pod 与其他 Pod 相比的重要成都。如果 Pod 无法被调度，则
-调度器会尝试抢占（逐出）低优先级的 Pod，从而是的悬决的 Pod 可被调度。
+优先级体现的是当前 Pod 与其他 Pod 相比的重要程度。如果 Pod 无法被调度，则
+调度器会尝试抢占（逐出）低优先级的 Pod，从而使得悬决的 Pod 可被调度。
 
 <!-- body -->
 
@@ -61,7 +61,7 @@ To use priority and preemption:
 
 Keep reading for more information about these steps.
 -->
-## 如果使用优先级和抢占
+## 如何使用优先级和抢占
 
 要使用优先级和抢占特性：
 
@@ -377,7 +377,7 @@ the Pods are gone, P can be scheduled on the Node.
 Pod 被创建时会被放入一个队列中等待调度。调度器从队列中选择 Pod，尝试将其调度到某 Node 上。
 如果找不到能够满足 Pod 所设置需求的 Node，就会触发悬决 Pod 的抢占逻辑。
 假定 P 是悬决的 Pod，抢占逻辑会尝试找到一个这样的节点，在该节点上移除一个或者多个
-优先级比 P 低的 Pod 后，P 就可以被调度到丐姐点。如果调度器能够找到这样的节点，
+优先级比 P 低的 Pod 后，P 就可以被调度到该节点。如果调度器能够找到这样的节点，
 该节点上的一个或者多个优先级较低的 Pod 就会被逐出。当被逐出的 Pod 从该节点上
 消失时，P 就可以调度到此节点。
 
@@ -530,7 +530,7 @@ preempted. Here's an example:
 *   Pod P is being considered for Node N.
 *   Pod Q is running on another Node in the same Zone as Node N.
 *   Pod P has Zone-wide anti-affinity with Pod Q (`topologyKey:
-    failure-domain.beta.kubernetes.io/zone`).
+    topology.kubernetes.io/zone`).
 *   There are no other cases of anti-affinity between Pod P and other Pods in
     the Zone.
 *   In order to schedule Pod P on Node N, Pod Q can be preempted, but scheduler
@@ -540,7 +540,7 @@ preempted. Here's an example:
 * Pod P 正在考虑被调度到节点 N。
 * Pod Q 正运行在节点 N 所处区域（Zone）的另一个节点上。
 * Pod P 设置了区域范畴的与 Pod Q 的反亲和性
-  （`topologyKey: failure-domain.beta.kubernetes.io/zone`）。
+  （`topologyKey: topology.kubernetes.io/zone`）。
 * Pod P 与区域中的其他 Pod 之间都不存在反亲和性关系。
 * 为了将 P 调度到节点 N 上，Pod Q 可以被抢占，但是调度器不会执行跨节点的
   抢占操作。因此，Pod P 会被视为无法调度到节点 N 上执行。

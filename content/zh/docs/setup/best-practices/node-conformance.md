@@ -32,21 +32,6 @@ The test validates whether the node meets the minimum requirements for Kubernete
 该测试主要检测节点是否满足 Kubernetes 的最低要求，通过检测的节点有资格加入 Kubernetes 集群。
 
 <!--
-## Limitations
--->
-## 限制
-
-<!--
-In Kubernetes version 1.5, node conformance test has the following limitations:
--->
-在 Kubernetes 1.5 版中，节点一致性测试具有以下限制：
-
-<!--
-* Node conformance test only supports Docker as the container runtime.
-* -->
-* 节点一致性测试只支持 Docker 作为容器运行时环境。
-
-<!--
 ## Node Prerequisite
 -->
 ## 节点的前提条件

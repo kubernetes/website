@@ -24,11 +24,11 @@ API from various programming languages.
 
 <!-- body -->
 <!--
-To write applications using the [Kubernetes REST API](/docs/reference/using-api/api-overview/),
+To write applications using the [Kubernetes REST API](/docs/reference/using-api/),
 you do not need to implement the API calls and request/response types yourself.
 You can use a client library for the programming language you are using.
 -->
-在使用 [Kubernetes REST API](/docs/reference/using-api/api-overview/) 编写应用程序时，
+在使用 [Kubernetes REST API](/zh/docs/reference/using-api/) 编写应用程序时，
 您并不需要自己实现 API 调用和 “请求/响应” 类型。
 您可以根据自己的编程语言需要选择使用合适的客户端库。
 
@@ -36,12 +36,12 @@ You can use a client library for the programming language you are using.
 Client libraries often handle common tasks such as authentication for you.
 Most client libraries can discover and use the Kubernetes Service Account to
 authenticate if the API client is running inside the Kubernetes cluster, or can
-understand the [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/)
+understand the [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 format to read the credentials and the API Server address.
 -->
 客户端库通常为您处理诸如身份验证之类的常见任务。
 如果 API 客户端在 Kubernetes 集群中运行，大多数客户端库可以发现并使用 Kubernetes 服务帐户进行身份验证，
-或者能够理解 [kubeconfig 文件](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/)
+或者能够理解 [kubeconfig 文件](/zh/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/)
 格式来读取凭据和 API 服务器地址。
 
 <!--
@@ -50,8 +50,8 @@ format to read the credentials and the API Server address.
 ## 官方支持的 Kubernetes 客户端库
 
 <!--
-The following client libraries are officially maintained by [Kubernetes SIG API
-Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
+The following client libraries are officially maintained by
+[Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
 -->
 以下客户端库由 [Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) 正式维护。
 
@@ -80,6 +80,8 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 -->
 ## 社区维护的客户端库
 
+{{% thirdparty-content %}}
+
 <!--
 The following Kubernetes API client libraries are provided and maintained by
 their authors, not the Kubernetes team.
@@ -103,6 +105,7 @@ their authors, not the Kubernetes team.
 | PHP                  | [github.com/maclof/kubernetes-client](https://github.com/maclof/kubernetes-client) |
 | PHP                  | [github.com/allansun/kubernetes-php-client](https://github.com/allansun/kubernetes-php-client) |
 | PHP                  | [github.com/travisghansen/kubernetes-client-php](https://github.com/travisghansen/kubernetes-client-php) |
+| PHP                  | [github.com/renoki-co/php-k8s](https://github.com/renoki-co/php-k8s) |
 | Python               | [github.com/eldarion-gondor/pykube](https://github.com/eldarion-gondor/pykube) |
 | Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
@@ -132,6 +135,7 @@ their authors, not the Kubernetes team.
 | PHP                  | [github.com/maclof/kubernetes-client](https://github.com/maclof/kubernetes-client) |
 | PHP                  | [github.com/allansun/kubernetes-php-client](https://github.com/allansun/kubernetes-php-client) |
 | PHP                  | [github.com/travisghansen/kubernetes-client-php](https://github.com/travisghansen/kubernetes-client-php) |
+| PHP                  | [github.com/renoki-co/php-k8s](https://github.com/renoki-co/php-k8s) |
 | Python               | [github.com/eldarion-gondor/pykube](https://github.com/eldarion-gondor/pykube) |
 | Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |

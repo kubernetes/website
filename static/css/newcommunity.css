@@ -81,7 +81,6 @@ p {
 
 body {
   line-height: 1.5em;
-  /* font-family:'roboto'; */
   margin-top: 1%;
   font-weight: 300;
   /* letter-spacing:0.03em; */
@@ -106,7 +105,6 @@ body {
   text-align: left;
   line-height: 1.6em;
   margin-bottom: 2%;
-  font-family: 'roboto';
   margin-top: 3%;
   font-weight: 300;
   letter-spacing: 0.04em;
@@ -117,7 +115,6 @@ body {
   text-align: center;
   padding-top: 2%;
   padding-bottom: 2%;
-  font-family: 'roboto';
   word-spacing: 3%;
   text-decoration: none;
   text-transform: uppercase;
@@ -179,7 +176,6 @@ a {
   padding-top: 1%;
   padding-bottom: 8%;
   text-align: center;
-  font-family: 'roboto';
   float: left;
   margin: 1%;
 }
@@ -220,7 +216,6 @@ a {
   width: 37%;
   margin-left: 5%;
   text-align: left;
-  font-family: 'roboto';
 }
 
 .meetuptext {
@@ -246,14 +241,13 @@ a {
 }
 
 .fullbutton {
-  display: block;
+  display: inline-block;
   margin: auto;
   margin-top: 2rem;
-  width: 156px;
   background-color: #0662EE;
   color: white;
   font-size: 18px;
-  padding: 2%;
+  padding: 2% 2.5%;
   letter-spacing: 0.07em;
   font-weight: bold;
 
@@ -262,7 +256,6 @@ a {
 
 .newcommunitywrapper h1 {
   font-size: 42px;
-  font-family: 'roboto';
   font-weight: 300;
   margin-top: 4%;
   line-height: 1.1em;
@@ -300,7 +293,6 @@ a {
   margin-top: 3%;
   text-align: center;
   padding-top: 4%;
-  font-family: 'roboto';
 
 }
 
@@ -309,7 +301,6 @@ a {
   padding: 3%;
   color: #0662EE;
   text-transform: uppercase;
-  font-family: 'roboto';
   font-weight: bold;
   letter-spacing: 0.05em;
   line-height: 1.3em;
@@ -323,7 +314,6 @@ a {
   margin-top;
   5%;
   margin-bottom: 3%;
-  font-family: 'roboto';
   float: left;
 }
 
@@ -345,7 +335,6 @@ a {
   height: 100%;
   vertical-align: middle;
   text-transform: uppercase;
-  font-family: 'roboto';
   font-weight: bold;
   line-height: 1.3em;
   letter-spacing: 0.05em;
@@ -395,7 +384,6 @@ a {
   padding-top: 3%;
   padding-bottom: 3%;
   text-align: center;
-  font-family: 'roboto';
   font-weight: 300;
 }
 
@@ -405,14 +393,12 @@ a {
   margin-bottom: 3%;
   margin-left: 15%;
   text-align: center;
-  font-family: 'roboto';
   font-weight: 300;
 }
 
 
 h2 {
   overflow: hidden;
-  font-family: 'roboto';
   font-weight: 200;
   margin-top: 5%;
   text-align: center;
@@ -448,14 +434,12 @@ h2:after {
   padding-bottom: 3%;
   margin-left: 10%;
   text-align: center;
-  font-family: 'roboto';
 
 }
 
 .newscol {
   float: left;
   width: 30%;
-  font-family: 'roboto';
   font-weight: 300;
 }
 
@@ -535,11 +519,9 @@ h2:after {
     border: 1px solid grey;
     padding: 1%;
     font-size: 1.4em;
-    ;
     color: #0662EE;
     vertical-align: middle;
     text-transform: uppercase;
-    font-family: 'roboto';
     font-weight: bold;
     min-height: 375px;
     letter-spacing: 0.01em;
@@ -562,7 +544,6 @@ h2:after {
     color: #0662EE;
     vertical-align: middle;
     text-transform: uppercase;
-    font-family: 'roboto';
     font-weight: bold;
     min-height: 280px;
     letter-spacing: 0.01em;
@@ -584,11 +565,9 @@ h2:after {
     border: 1px solid grey;
     padding: 1%;
     font-size: 1.1em;
-    ;
     color: #0662EE;
     vertical-align: middle;
     text-transform: uppercase;
-    font-family: 'roboto';
     font-weight: bold;
     height: 100% !important;
     letter-spacing: 0.01em;
@@ -621,7 +600,6 @@ h2:after {
     text-align: center;
     line-height: 1.6em;
     margin-bottom: 1%;
-    font-family: 'roboto';
     margin-top: 7%;
     margin-bottom: 7%;
     letter-spacing: 0.04em;
@@ -659,7 +637,6 @@ h2:after {
   body {
     overflow-x: hidden;
     line-height: 1.5em;
-    /* font-family: 'roboto'; */
     margin-top: 1%;
     letter-spacing: 0.03em;
     /* font-size: 13px; */
@@ -694,7 +671,6 @@ h2:after {
     padding-top: 1%;
     padding-bottom: 1%;
     color: white;
-    font-family: 'roboto';
     text-align: center;
     float: left;
     margin: 1%;
@@ -717,7 +693,6 @@ h2:after {
     width: 90%;
     margin-left: 5%;
     text-align: center;
-    font-family: 'roboto';
   }
 
   .meetuptext {
@@ -769,7 +744,6 @@ h2:after {
     text-align: center;
     padding-top: 4%;
     padding-bottom: 2%;
-    font-family: 'roboto';
 
   }
 
@@ -780,7 +754,6 @@ h2:after {
     line-height: 1.3em;
     color: #0662EE;
     text-transform: uppercase;
-    font-family: 'roboto';
     font-weight: bold;
     padding-bottom: 8%;
     font-size: 1em;
@@ -792,7 +765,6 @@ h2:after {
     margin-top;
     8%;
     margin-bottom: 8%;
-    font-family: 'roboto';
     float: left;
   }
 
@@ -835,7 +807,6 @@ h2:after {
     padding-top: 3%;
     padding-bottom: 3%;
     text-align: center;
-    font-family: 'roboto';
     margin-bottom: 12%;
   }
 
@@ -845,7 +816,6 @@ h2:after {
     margin-left: 10%;
     margin-bottom: 2%;
     text-align: center;
-    font-family: 'roboto';
   }
 
   .fullbutton {

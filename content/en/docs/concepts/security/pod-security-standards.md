@@ -292,7 +292,7 @@ Containers at runtime. Security contexts are defined as part of the Pod and cont
 in the Pod manifest, and represent parameters to the container runtime.
 
 Security policies are control plane mechanisms to enforce specific settings in the Security Context,
-as well as other parameters outside the Security Contex. As of February 2020, the current native
+as well as other parameters outside the Security Context. As of February 2020, the current native
 solution for enforcing these security policies is [Pod Security
 Policy](/docs/concepts/policy/pod-security-policy/) - a mechanism for centrally enforcing security
 policy on Pods across a cluster. Other alternatives for enforcing security policy are being

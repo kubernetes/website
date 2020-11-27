@@ -89,6 +89,7 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
 
    * kube-apiserver:
       * `--feature-gates="IPv6DualStack=true"`
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` 例如 `--cluster-cidr=10.244.0.0/16,fc00::/48`
@@ -175,13 +176,13 @@ On cloud providers which support IPv6 enabled external load balancers, setting t
 ## 出口流量
 
 <!--
-The use of publicly routable and non-publicly routable IPv6 address blocks is acceptable provided the underlying {{< glossary_tooltip text="CNI" term_id="cni" >}} provider is able to implement the transport. If you have a Pod that uses non-publicly routable IPv6 and want that Pod to reach off-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual-stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
+The use of publicly routable and non-publicly routable IPv6 address blocks is acceptable provided the underlying {{< glossary_tooltip text="CNI" term_id="cni" >}} provider is able to implement the transport. If you have a Pod that uses non-publicly routable IPv6 and want that Pod to reach off-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-sigsr/ip-masq-agent) is dual-stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
 -->
-公共路由和非公共路由的 IPv6 地址块的使用是可以的。提供底层
-{{< glossary_tooltip text="CNI" term_id="cni" >}} 的提供程序可以实现这种传输。
+可以使用可公共路由和非可公共路由的 IPv6 地址块，前提是下层的
+{{< glossary_tooltip text="CNI" term_id="cni" >}} 提供程序可以实现这种传输。
 如果你拥有使用非公共路由 IPv6 地址的 Pod，并且希望该 Pod 到达集群外目的
 （比如，公共网络），你必须为出口流量和任何响应消息设置 IP 伪装。
-[ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) 可以感知双栈，
+[ip-masq-agent](https://github.com/kubernetes-sigs/ip-masq-agent) 可以感知双栈，
 所以你可以在双栈集群中使用 ip-masq-agent 来进行 IP 伪装。
 
 <!--
@@ -190,9 +191,9 @@ The use of publicly routable and non-publicly routable IPv6 address blocks is ac
 ## 已知问题
 
 <!--
-   * Kubenet forces IPv4,IPv6 positional reporting of IPs (-cluster-cidr)
+* Kubenet forces IPv4,IPv6 positional reporting of IPs (-cluster-cidr)
 -->
-   * Kubenet 强制 IPv4，IPv6 的 IPs 位置报告 (`--cluster-cidr`)
+* Kubenet 强制 IPv4，IPv6 的 IPs 位置报告 (`--cluster-cidr`)
 
 ## {{% heading "whatsnext" %}}
 

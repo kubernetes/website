@@ -3,7 +3,7 @@ title: 页面内容类型
 content_type: concept
 weight: 30
 card:
-  name: 贡献
+  name: contribute
   weight: 30
 ---
 <!--

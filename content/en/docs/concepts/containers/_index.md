@@ -31,7 +31,7 @@ and default values for any essential settings.
 
 By design, a container is immutable: you cannot change the code of a
 container that is already running. If you have a containerized application
-and want to make changes, you need to build a new container that includes
+and want to make changes, you need to build a new image that includes
 the change, then recreate the container to start from the updated image.
 
 ## Container runtimes

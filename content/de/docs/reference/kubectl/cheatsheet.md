@@ -54,7 +54,8 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
 # Zeigen Sie das Passwort für den e2e-Benutzer an
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config view -o jsonpath='{.users[].name}'    # eine Liste der Benutzer erhalten
+kubectl config view -o jsonpath='{.users[].name}'    # den ersten Benutzer anzeigen
+kubectl config view -o jsonpath='{.users[*].name}'    # eine Liste der Benutzer erhalten
 kubectl config current-context                       # den aktuellen Kontext anzeigen
 kubectl config use-context my-cluster-name           # Setzen Sie den Standardkontext auf my-cluster-name
 

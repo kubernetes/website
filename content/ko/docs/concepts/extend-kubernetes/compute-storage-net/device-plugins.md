@@ -45,7 +45,7 @@ service Registration {
 해당 자원을 API 서버에 알리는 역할을 한다.
 예를 들어, 장치 플러그인이 kubelet에 `hardware-vendor.example/foo` 를 등록하고
 노드에 두 개의 정상 장치를 보고하고 나면, 노드 상태가 업데이트되어
-노드에 2개의 “Foo” 장치가 설치되어 사용 가능함을 알릴 수 있다.
+노드에 2개의 "Foo" 장치가 설치되어 사용 가능함을 알릴 수 있다.
 
 그러고 나면, 사용자가
 [컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) 명세에 있는 장치를 요청할 수 있다.
@@ -91,6 +91,9 @@ spec:
 
   ```gRPC
   service DevicePlugin {
+		    // GetDevicePluginOptions는 장치 관리자와 통신할 옵션을 반환한다.
+        rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+
     		// ListAndWatch는 장치 목록 스트림을 반환한다.
 		    // 장치 상태가 변경되거나 장치가 사라질 때마다, ListAndWatch는
 		    // 새 목록을 반환한다.
@@ -100,10 +103,31 @@ spec:
 				// 플러그인이 장치별 작업을 실행하고 Kubelet에 장치를
 				// 컨테이너에서 사용할 수 있도록 하는 단계를 지시할 수 있다.
         rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
+
+        // GetPreferredAllocation은 사용 가능한 장치 목록에서 할당할
+				// 기본 장치 집합을 반환한다. 그 결과로 반환된 선호하는 할당은
+				// devicemanager가 궁극적으로 수행하는 할당이 되는 것을 보장하지
+				// 않는다. 가능한 경우 devicemanager가 정보에 입각한 할당 결정을
+				// 내릴 수 있도록 설계되었다.
+        rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
+
+        // PreStartContainer는 등록 단계에서 장치 플러그인에 의해 표시되면 각 컨테이너가
+				// 시작되기 전에 호출된다. 장치 플러그인은 장치를 컨테이너에서 사용할 수 있도록 하기 전에
+				// 장치 재설정과 같은 장치별 작업을 실행할 수 있다.
+        rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
   }
   ```
 
-*	플러그인은 호스트 경로 `/var/lib/kubelet/device-plugins/kubelet.sock` 에서
+  {{< note >}}
+  `GetPreferredAllocation()` 또는 `PreStartContainer()` 에 대한 유용한 구현을
+  제공하기 위해 플러그인이 필요하지 않다. 이러한 호출(있는 경우) 중
+  사용할 수 있는 경우를 나타내는 플래그는 `GetDevicePluginOptions()`
+  호출에 의해 다시 전송된 `DevicePluginOptions` 메시지에 설정되어야 한다. `kubelet` 은
+  항상 `GetDevicePluginOptions()` 를 호출하여 사용할 수 있는
+  선택적 함수를 확인한 후 직접 호출한다.
+  {{< /note >}}
+
+* 플러그인은 호스트 경로 `/var/lib/kubelet/device-plugins/kubelet.sock` 에서
   유닉스 소켓을 통해 kubelet에 직접 등록한다.
 
 * 성공적으로 등록하고 나면, 장치 플러그인은 서빙(serving) 모드에서 실행되며, 그 동안 플러그인은 장치 상태를
@@ -183,7 +207,7 @@ gRPC 서비스는 `/var/lib/kubelet/pod-resources/kubelet.sock` 의 유닉스 �
 
 ## 토폴로지 관리자와 장치 플러그인 통합
 
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 토폴로지 관리자는 Kubelet 컴포넌트로, 리소스를 토폴로지 정렬 방식으로 조정할 수 있다. 이를 위해, 장치 플러그인 API가 `TopologyInfo` 구조체를 포함하도록 확장되었다.
 
@@ -229,4 +253,6 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 * 장치 플러그인을 사용한 [GPU 리소스 스케줄링](/ko/docs/tasks/manage-gpus/scheduling-gpus/)에 대해 알아보기
 * 노드에서의 [확장 리소스 알리기](/ko/docs/tasks/administer-cluster/extended-resource-node/)에 대해 배우기
 * 쿠버네티스에서 [TLS 수신에 하드웨어 가속](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 사용에 대해 읽기
-* [토폴로지 관리자](/docs/tasks/adminster-cluster/topology-manager/)에 대해 알아보기
+* [토폴로지 관리자](/docs/tasks/administer-cluster/topology-manager/)에 대해 알아보기
+
+

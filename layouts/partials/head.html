@@ -58,7 +58,7 @@
 {{- if not .Site.Params.deprecated }}
     "potentialAction": {
       "@type": "SearchAction",
-      "target": {{ printf "%s%s" ("/docs/search/" | absURL) "?q={search_term_string}" }},
+      "target": {{ printf "%s%s" ("search/" | absURL) "?q={search_term_string}" }},
       "query-input": "required name=search_term_string"
     }
 {{ end }}
@@ -85,8 +85,6 @@
 <meta property="og:image" content="{{ "/images/kubernetes-horizontal-color.png" | relURL }}">
 {{ end }}
 <meta property="og:type" content="{{ $ogType }}">
-<script src="{{ "js/jquery-ui-1.12.1.min.js" | relURL }}"></script>
-<script src="{{ "js/sweetalert-2.1.2.min.js" | relURL }}"></script>
 
 {{ if .HasShortcode "mermaid" }}
 <!-- Copied from https://unpkg.com/mermaid@8.5.0/dist/mermaid.min.js -->

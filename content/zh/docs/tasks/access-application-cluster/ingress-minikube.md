@@ -12,7 +12,7 @@ weight: 100
 <!-- overview -->
 
 <!--
-An [Ingress](/docs/concepts/services-networking/ingress/) is an API object that defines rules which allow external access 
+An [Ingress](/docs/concepts/services-networking/ingress/) is an API object that defines rules which allow external access
 to services in a cluster. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers/) fulfills the rules set in the Ingress.
 
 This page shows you how to set up a simple Ingress which routes requests to Service web or web2 depending on the HTTP URI.
@@ -61,11 +61,11 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. 为了启用 NGINIX Ingress 控制器，可以运行下面的命令：
 
 
-    ```shell
-    minikube addons enable ingress
-    ```
+   ```shell
+   minikube addons enable ingress
+   ```
 
-<!--      
+<!--
 1. Verify that the NGINX Ingress controller is running
 -->
 2. 检查验证 NGINX Ingress 控制器处于运行状态：
@@ -75,11 +75,13 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
    ```
 
    <!-- This can take up to a minute. -->
-   {{< note >}}这一操作可供需要近一分钟时间。{{< /note >}}
+   {{< note >}}
+   这一操作可能需要近一分钟时间。
+   {{< /note >}}
 
    输出：
 
-   ```shell
+   ```
    NAME                                        READY     STATUS    RESTARTS   AGE
    default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
    kube-addon-manager-minikube                 1/1       Running   0          3m
@@ -104,39 +106,39 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 
    <!--Output:-->
    输出：
-    
+
    ```
    deployment.apps/web created
    ```
 
 <!--
-1. Expose the Deployment: 
+1. Expose the Deployment:
 -->
 2. 将 Deployment 暴露出来：
 
    ```shell
    kubectl expose deployment web --type=NodePort --port=8080
    ```
-    
+
    <!-- Output: -->
-   输出： 
-    
+   输出：
+
    ```
    service/web exposed
    ```
 
-<!--    
+<!--
 1. Verify the Service is created and is available on a node port:
 -->
 3. 验证 Service 已经创建，并且可能从节点端口访问：
 
    ```shell
    kubectl get service web
-   ``` 
-    
+   ```
+
    <!-- Output: -->
    输出：
-    
+
    ```shell
    NAME      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
    web       NodePort   10.104.133.249   <none>        8080:31637/TCP   12m
@@ -150,14 +152,14 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
    ```shell
    minikube service web --url
    ```
-    
+
    <!-- Output: -->
    输出：
-    
+
    ```shell
    http://172.17.0.15:31637
    ```
-    
+
    <!--
    Katacoda environment only: at the top of the terminal panel, click the plus sign, and then click **Select port to view on Host 1**. Enter the NodePort, in this case `31637`, and then click **Display Port**.
    -->
@@ -166,18 +168,18 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
    然后点击 **Select port to view on Host 1**。
    输入节点和端口号（这里是`31637`），之后点击 **Display Port**。
    {{< /note >}}
-    
+
    <!-- Output: -->
    输出：
-    
+
    ```shell
    Hello, world!
    Version: 1.0.0
    Hostname: web-55b8c6998d-8k564
    ```
-  
-   <!--  
-   You can now access the sample app via the Minikube IP address and NodePort. The next step lets you access 
+
+   <!--
+   You can now access the sample app via the Minikube IP address and NodePort. The next step lets you access
    the app using the Ingress resource.
    -->
    你现在应该可以通过 Minikube 的 IP 地址和节点端口来访问示例应用了。
@@ -197,58 +199,45 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. 根据下面的 YAML 创建文件 `example-ingress.yaml`：
 
-   ```yaml
-   apiVersion: networking.k8s.io/v1beta1
-   kind: Ingress
-   metadata:
-     name: example-ingress
-     annotations:
-       nginx.ingress.kubernetes.io/rewrite-target: /$1
-   spec:
-     rules:
-     - host: hello-world.info
-       http:
-         paths:
-         - path: /
-           backend:
-             serviceName: web
-             servicePort: 8080
-   ```
+   {{< codenew file="service/networking/example-ingress.yaml" >}}
 
 <!--
 1. Create the Ingress resource by running the following command:
 -->
 2. 通过运行下面的命令创建 Ingress 资源：
-    
+
    ```shell
-   kubectl apply -f example-ingress.yaml
+   kubectl apply -f https://k8s.io/examples/service/networking/example-ingress.yaml
    ```
-    
+
    <!-- Output: -->
    输出：
-    
-   ```shell
+
+   ```
    ingress.networking.k8s.io/example-ingress created
    ```
+
 <!--
-1. Verify the IP address is set: 
+1. Verify the IP address is set:
 -->
 3. 验证 IP 地址已被设置：
 
-   ```shell 
+   ```shell
    kubectl get ingress
    ```
 
    <!-- This can take a couple of minutes. -->
-   {{< note >}}此操作可能需要几分钟时间。{{< /note >}}
+   {{< note >}}
+   此操作可能需要几分钟时间。
+   {{< /note >}}
 
-   ```shell
-   NAME              HOSTS              ADDRESS       PORTS     AGE
-   example-ingress   hello-world.info   172.17.0.15   80        38s
+   ```
+   NAME              CLASS    HOSTS              ADDRESS        PORTS   AGE
+   example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
    ```
 
 <!--
-1. Add the following line to the bottom of the `/etc/hosts` file. 
+1. Add the following line to the bottom of the `/etc/hosts` file.
 -->
 4. 在 `/etc/hosts` 文件的末尾添加以下内容：
 
@@ -277,8 +266,8 @@ The following file is an Ingress resource that sends traffic to your Service via
 
    <!-- Output: -->
    输出：
-    
-   ```shell
+
+   ```
    Hello, world!
    Version: 1.0.0
    Hostname: web-55b8c6998d-8k564
@@ -305,12 +294,12 @@ The following file is an Ingress resource that sends traffic to your Service via
    ```
    <!-- Output: -->
    输出：
-    
-   ```shell
+
+   ```
    deployment.apps/web2 created
    ```
 
-<!--    
+<!--
 1. Expose the Deployment:
 -->
 2. 将 Deployment 暴露出来：
@@ -321,15 +310,15 @@ The following file is an Ingress resource that sends traffic to your Service via
 
    <!-- Output:  -->
    输出：
-    
-   ```shell
+
+   ```
    service/web2 exposed
    ```
 
-<!--    
+<!--
 ## Edit Ingress
 
-1. Edit the existing `example-ingress.yaml` and add the following lines:  
+1. Edit the existing `example-ingress.yaml` and add the following lines:
 -->
 ## 编辑 Ingress
 
@@ -337,10 +326,13 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 
    ```yaml
-     - path: /v2
-       backend:
-         serviceName: web2
-         servicePort: 8080
+   - path: /v2
+     pathType: Prefix
+     backend:
+       service:
+         name: web2
+         port:
+           number: 8080
    ```
 
 <!--
@@ -353,9 +345,9 @@ The following file is an Ingress resource that sends traffic to your Service via
    ```
 
    <!-- Output: -->
-   输出： 
+   输出：
 
-   ```shell
+   ```
    ingress.networking/example-ingress configured
    ```
 

@@ -233,7 +233,7 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 
 ### Pod Template
 
-The `.spec.template` is a [pod template](/docs/concepts/workloads/Pods/pod-overview/#pod-templates) which is also
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/#pod-templates) which is also
 required to have labels in place. In our `frontend.yaml` example we had one label: `tier: frontend`.
 Be careful not to overlap with the selectors of other controllers, lest they try to adopt this Pod.
 
@@ -351,7 +351,7 @@ Unlike the case where a user directly created Pods, a ReplicaSet replaces Pods t
 
 ### Job
 
-Use a [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) instead of a ReplicaSet for Pods that are expected to terminate on their own
+Use a [`Job`](/docs/concepts/workloads/controllers/job/) instead of a ReplicaSet for Pods that are expected to terminate on their own
 (that is, batch jobs).
 
 ### DaemonSet

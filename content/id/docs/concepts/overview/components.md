@@ -2,6 +2,9 @@
 title: Komponen-Komponen Kubernetes
 content_type: concept
 weight: 20
+description: >
+  Sebuah klaster Kubernetes terdiri dari komponen yang merepresentasikan 
+  bidang kontrol dan sepasang mesin yaitu _nodes_.
 card:
   name: concepts
   weight: 20

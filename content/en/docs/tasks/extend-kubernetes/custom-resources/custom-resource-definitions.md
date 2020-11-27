@@ -150,7 +150,7 @@ kubectl get ct -o yaml
 ```
 
 You should see that it contains the custom `cronSpec` and `image` fields
-from the yaml you used to create it:
+from the YAML you used to create it:
 
 ```yaml
 apiVersion: v1
@@ -174,7 +174,7 @@ metadata:
 
 ## Delete a CustomResourceDefinition
 
-When you delete a CustomResourceDefinition, the server will uninstall the RESTful API  endpoint
+When you delete a CustomResourceDefinition, the server will uninstall the RESTful API endpoint
 and delete all custom objects stored in it.
 
 ```shell
@@ -190,11 +190,17 @@ If you later recreate the same CustomResourceDefinition, it will start out empty
 
 ## Specifying a structural schema
 
-CustomResources store structured data in custom fiels (alongside the built-in fields `apiVersion`, `kind` and `metadata`, which the API server validates implicitly). With [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) a schema can be specified, which is validated during creation and updates, compare below for details and limits of such a schema.
+CustomResources store structured data in custom fields (alongside the built-in
+fields `apiVersion`, `kind` and `metadata`, which the API server validates
+implicitly). With [OpenAPI v3.0 validation](#validation) a schema can be
+specified, which is validated during creation and updates, compare below for
+details and limits of such a schema.
 
-With `apiextensions.k8s.io/v1` the definition of a structural schema is mandatory for CustomResourceDefinitions (in the beta version of CustomResourceDefinition, structural schemas were optional).
+With `apiextensions.k8s.io/v1` the definition of a structural schema is
+mandatory for CustomResourceDefinitions. In the beta version of
+CustomResourceDefinition, the structural schema was optional.
 
-A structural schema is an [OpenAPI v3.0 validation schema](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) which:
+A structural schema is an [OpenAPI v3.0 validation schema](#validation) which:
 
 1. specifies a non-empty type (via `type` in OpenAPI) for the root, for each specified field of an object node (via `properties` or `additionalProperties` in OpenAPI) and for each item in an array node (via `items` in OpenAPI), with the exception of:
    * a node with `x-kubernetes-int-or-string: true`
@@ -274,7 +280,7 @@ is not a structural schema because of the following violations:
 * `bar` inside of `anyOf` is not specified outside (rule 2).
 * `bar`'s `type` is within `anyOf` (rule 3).
 * the description is set within `anyOf` (rule 3).
-* `metadata.finalizer` might not be restricted (rule 4).
+* `metadata.finalizers` might not be restricted (rule 4).
 
 In contrast, the following, corresponding schema is structural:
 ```yaml
@@ -308,7 +314,7 @@ CustomResourceDefinitions store validated resource data in the cluster's persist
 {{< note >}}
 CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack structural schemas, and `spec.preserveUnknownFields` might be `true`.
 
-For migrated CustomResourceDefinitions where `spec.preserveUnknownFields` is set, pruning is _not_ enabled and you can store arbitrary data. For best compatibility, you should update customer resources to meet an OpenAPI schema, and you should set `spec.preserveUnknownFields` true for the CustomResourceDefinition itself.
+For migrated CustomResourceDefinitions where `spec.preserveUnknownFields` is set, pruning is _not_ enabled and you can store arbitrary data. For best compatibility, you should update your custom resources to meet an OpenAPI schema, and you should set `spec.preserveUnknownFields` to true for the CustomResourceDefinition itself.
 {{< /note >}}
 
 If you save the following YAML to `my-crontab.yaml`:
@@ -350,12 +356,12 @@ spec:
 Notice that the field `someRandomField` was pruned.
 
 This example turned off client-side validation to demonstrate the API server's behavior, by adding the `--validate=false` command line option.
-Because the [OpenAPI validation schemas are also published](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2)
+Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi-v2)
 to clients, `kubectl` also checks for unknown fields and rejects those objects well before they would be sent to the API server.
 
 #### Controlling pruning
 
-By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees fof fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).  
+By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).  
 For example:
 
 ```yaml
@@ -458,7 +464,7 @@ allOf:
 
 With one of those specification, both an integer and a string validate.
 
-In [Validation Schema Publishing](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2),
+In [Validation Schema Publishing](#publish-validation-schema-in-openapi-v2),
 `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
 
 ### RawExtension
@@ -512,32 +518,32 @@ apiVersion: "stable.example.com/v1"
 kind: CronTab
 metadata:
   finalizers:
-  - finalizer.stable.example.com
+  - stable.example.com/finalizer
 ```
 
-Finalizers are arbitrary string values, that when present ensure that a hard delete
-of a resource is not possible while they exist.
+Identifiers of custom finalizers consist of a domain name, a forward slash and the name of
+the finalizer. Any controller can add a finalizer to any object's list of finalizers.
 
 The first delete request on an object with finalizers sets a value for the
 `metadata.deletionTimestamp` field but does not delete it. Once this value is set,
-entries in the `finalizer` list can only be removed.
+entries in the `finalizers` list can only be removed. While any finalizers remain it is also
+impossible to force the deletion of an object.
 
-When the `metadata.deletionTimestamp` field is set, controllers watching the object
-execute any finalizers they handle, by polling update requests for that
-object. When all finalizers have been executed, the resource is deleted.
+When the `metadata.deletionTimestamp` field is set, controllers watching the object execute any
+finalizers they handle and remove the finalizer from the list after they are done. It is the
+responsibility of each controller to remove its finalizer from the list.
 
-The value of `metadata.deletionGracePeriodSeconds` controls the interval between
-polling updates.
+The value of `metadata.deletionGracePeriodSeconds` controls the interval between polling updates.
 
-It is the responsibility of each controller to remove its finalizer from the list.
-
-Kubernetes only finally deletes the object if the list of finalizers is empty,
-meaning all finalizers have been executed.
+Once the list of finalizers is empty, meaning all finalizers have been executed, the resource is
+deleted by Kubernetes.
 
 ### Validation
 
 Custom resources are validated via
-[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject) and you can add additional validation using [admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
+[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject)
+and you can add additional validation using
+[admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 
 Additionally, the following restrictions are applied to the schema:
 
@@ -552,17 +558,18 @@ Additionally, the following restrictions are applied to the schema:
   - `writeOnly`,
   - `xml`,
   - `$ref`.
-- The field `uniqueItems` cannot be set to _true_.
-- The field `additionalProperties` cannot be set to _false_.
+- The field `uniqueItems` cannot be set to `true`.
+- The field `additionalProperties` cannot be set to `false`.
 - The field `additionalProperties` is mutually exclusive with `properties`.
 
-These fields can only be set with specific features enabled:
+The `default` field can be set when the [Defaulting feature](#defaulting) is enabled,
+which is the case with `apiextensions.k8s.io/v1` CustomResourceDefinitions. 
+Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled, which is the case automatically for many clusters for beta features).
 
-You can also use [Validation Schema Defaulting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting) to apply default values.
-
-{{< note >}}
-Compare with [structural schemas](#specifying-a-structural-schema) for further restriction required for certain CustomResourceDefinition features.
-{{< /note >}}
+Refer to the [structural schemas](#specifying-a-structural-schema) section for other
+restrictions and CustomResourceDefinition features.
 
 The schema is defined in the CustomResourceDefinition. In the following example, the
 CustomResourceDefinition applies the following validations on the custom object:
@@ -756,7 +763,7 @@ Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` 
 
 ### Publish Validation Schema in OpenAPI v2
 
-CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#preserving-unknown-fields) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
+CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
 
 The [kubectl](/docs/reference/kubectl/overview) command-line tool consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
 
@@ -853,7 +860,7 @@ The `NAME` column is implicit and does not need to be defined in the CustomResou
 
 #### Priority
 
-Each column includes a `priority` field for each column. Currently, the priority
+Each column includes a `priority` field. Currently, the priority
 differentiates between columns shown in standard view or wide view (using the `-o wide` flag).
 
 - Columns with priority `0` are shown in standard view.
@@ -866,7 +873,7 @@ A column's `type` field can be any of the following (compare [OpenAPI v3 data ty
 - `integer` – non-floating-point numbers
 - `number` – floating point numbers
 - `string` – strings
-- `boolean` – true or false
+- `boolean` – `true` or `false`
 - `date` – rendered differentially as time since this timestamp.
 
 If the value inside a CustomResource does not match the type specified for the column,
@@ -906,54 +913,54 @@ When the status subresource is enabled, the `/status` subresource for the custom
 - The `.metadata.generation` value is incremented for all changes, except for changes to `.metadata` or `.status`.
 - Only the following constructs are allowed at the root of the CRD OpenAPI validation schema:
 
-  - Description
-  - Example
-  - ExclusiveMaximum
-  - ExclusiveMinimum
-  - ExternalDocs
-  - Format
-  - Items
-  - Maximum
-  - MaxItems
-  - MaxLength
-  - Minimum
-  - MinItems
-  - MinLength
-  - MultipleOf
-  - Pattern
-  - Properties
-  - Required
-  - Title
-  - Type
-  - UniqueItems
+  - `description`
+  - `example`
+  - `exclusiveMaximum`
+  - `exclusiveMinimum`
+  - `externalDocs`
+  - `format`
+  - `items`
+  - `maximum`
+  - `maxItems`
+  - `maxLength`
+  - `minimum`
+  - `minItems`
+  - `minLength`
+  - `multipleOf`
+  - `pattern`
+  - `properties`
+  - `required`
+  - `title`
+  - `type`
+  - `uniqueItems`
 
 #### Scale subresource
 
 When the scale subresource is enabled, the `/scale` subresource for the custom resource is exposed.
 The `autoscaling/v1.Scale` object is sent as the payload for `/scale`.
 
-To enable the scale subresource, the following values are defined in the CustomResourceDefinition.
+To enable the scale subresource, the following fields are defined in the CustomResourceDefinition.
 
-- `SpecReplicasPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Spec.Replicas`.
+- `specReplicasPath` defines the JSONPath inside of a custom resource that corresponds to `scale.spec.replicas`.
 
   - It is a required value.
   - Only JSONPaths under `.spec` and with the dot notation are allowed.
-  - If there is no value under the `SpecReplicasPath` in the custom resource,
+  - If there is no value under the `specReplicasPath` in the custom resource,
 the `/scale` subresource will return an error on GET.
 
-- `StatusReplicasPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Replicas`.
+- `statusReplicasPath` defines the JSONPath inside of a custom resource that corresponds to `scale.status.replicas`.
 
   - It is a required value.
   - Only JSONPaths under `.status` and with the dot notation are allowed.
-  - If there is no value under the `StatusReplicasPath` in the custom resource,
+  - If there is no value under the `statusReplicasPath` in the custom resource,
 the status replica value in the `/scale` subresource will default to 0.
 
-- `LabelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
+- `labelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
 
   - It is an optional value.
   - It must be set to work with HPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
-  - If there is no value under the `LabelSelectorPath` in the custom resource,
+  - If there is no value under the `labelSelectorPath` in the custom resource,
 the status selector value in the `/scale` subresource will default to the empty string.
   - The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form.
 
@@ -1141,7 +1148,7 @@ and create it:
 kubectl apply -f my-crontab.yaml
 ```
 
-You can specify the category using `kubectl get`:
+You can specify the category when using `kubectl get`:
 
 ```
 kubectl get all

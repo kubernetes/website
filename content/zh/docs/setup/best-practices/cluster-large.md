@@ -42,7 +42,9 @@ A cluster is a set of nodes (physical or virtual machines) running Kubernetes ag
 <!--
 Normally the number of nodes in a cluster is controlled by the value `NUM_NODES` in the platform-specific `config-default.sh` file (for example, see [GCE's `config-default.sh`](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh)).
 -->
-通常，集群中的节点数由特定于云平台的配置文件 `config-default.sh`（可以参考 [GCE 平台的 `config-default.sh`](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh)）中的 `NUM_NODES` 参数控制。
+通常，集群中的节点数由特定于云平台的配置文件 `config-default.sh`
+（可以参考 [GCE 平台的 `config-default.sh`](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh)）
+中的 `NUM_NODES` 参数控制。
 
 <!--
 Simply changing that value to something very large, however, may cause the setup script to fail for many cloud providers. A GCE deployment, for example, will run in to quota issues and fail to bring the cluster up.
@@ -175,7 +177,9 @@ On AWS, master node sizes are currently set at cluster startup time and do not c
 <!--
 To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](http://pr.k8s.io/10653/files) and [#10778](http://pr.k8s.io/10778/files)).
 -->
-为了防止内存泄漏或 [集群插件](https://releases.k8s.io/{{<param "githubbranch" >}}/cluster/addons) 中的其它资源问题导致节点上所有可用资源被消耗，Kubernetes 限制了插件容器可以消耗的 CPU 和内存资源（请参阅 PR [#10653](http://pr.k8s.io/10653/files) 和 [#10778](http://pr.k8s.io/10778/files)）。
+为了防止内存泄漏或 [集群插件](https://releases.k8s.io/{{<param "githubbranch" >}}/cluster/addons)
+中的其它资源问题导致节点上所有可用资源被消耗，Kubernetes 限制了插件容器可以消耗的 CPU 和内存资源
+（请参阅 PR [#10653](http://pr.k8s.io/10653/files) 和 [#10778](http://pr.k8s.io/10778/files)）。
 
 例如：
 
@@ -211,33 +215,34 @@ To avoid running into cluster addon resource issues, when creating a cluster wit
   * [FluentD with GCP Plugin](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
 -->
 * 根据集群的规模，如果使用了以下插件，提高其内存和 CPU 上限（每个插件都有一个副本处理整个群集，因此内存和 CPU 使用率往往与集群的规模/负载成比例增长） ：
-  * [InfluxDB 和 Grafana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
-  * [kubedns、dnsmasq 和 sidecar](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/kube-dns.yaml.in)
-  * [Kibana](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/kibana-deployment.yaml)
+  * [InfluxDB 和 Grafana](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
+  * [kubedns、dnsmasq 和 sidecar](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/kube-dns.yaml.in)
+  * [Kibana](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/kibana-deployment.yaml)
 * 根据集群的规模，如果使用了以下插件，调整其副本数量（每个插件都有多个副本，增加副本数量有助于处理增加的负载，但是，由于每个副本的负载也略有增加，因此也请考虑增加 CPU/内存限制）：
-  * [elasticsearch](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/es-statefulset.yaml)
+  * [elasticsearch](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/es-statefulset.yaml)
 * 根据集群的规模，如果使用了以下插件，限制其内存和 CPU 上限（这些插件在每个节点上都有一个副本，但是 CPU/内存使用量也会随集群负载/规模而略有增加）：
-  * [FluentD 和 ElasticSearch 插件](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
-  * [FluentD 和 GCP 插件](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
+  * [FluentD 和 ElasticSearch 插件](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
+  * [FluentD 和 GCP 插件](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
 
 <!--
 Heapster's resource limits are set dynamically based on the initial size of your cluster (see [#16185](http://issue.k8s.io/16185)
 and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
 out of resources, you should adjust the formulas that compute heapster memory request (see those PRs for details).
 -->
-Heapster 的资源限制与您集群的初始大小有关（请参阅 [#16185](http://issue.k8s.io/16185)
+Heapster 的资源限制与您集群的初始大小有关（请参阅 [#16185](https://issue.k8s.io/16185)
 和 [#22940](http://issue.k8s.io/22940)）。如果您发现 Heapster 资源不足，您应该调整堆内存请求的计算公式（有关详细信息，请参阅相关 PR）。
 
 <!--
 For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting).
 -->
-关于如何检测插件容器是否达到资源限制，参见 [计算资源的故障排除](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting) 部分。
+关于如何检测插件容器是否达到资源限制，参见
+[计算资源的故障排除](/zh/docs/concepts/configuration/manage-resources-containers/#troubleshooting) 部分。
 
 <!--
 In the [future](http://issue.k8s.io/13048), we anticipate to set all cluster addon resource limits based on cluster size, and to dynamically adjust them if you grow or shrink your cluster.
 We welcome PRs that implement those features.
 -->
-[未来](http://issue.k8s.io/13048)，我们期望根据集群规模大小来设置所有群集附加资源限制，并在集群扩缩容时动态调整它们。
+[未来](https://issue.k8s.io/13048)，我们期望根据集群规模大小来设置所有群集附加资源限制，并在集群扩缩容时动态调整它们。
 我们欢迎您来实现这些功能。
 
 <!--

@@ -6,19 +6,14 @@ weight: 110
 
 <!-- overview -->
 
-이 페이지에서는 동일한 파드에서 실행 중인 두 개의 컨테이너 간에 통신할 때에, 어떻게 볼륨을 이용하는지
-살펴본다. 컨테이너 간에 [프로세스 네임스페이스 공유하기](/docs/tasks/configure-pod-container/share-process-namespace/)를 통해 통신할 수 있는 방법을 참고하자.
-
-
-
+이 페이지에서는 동일한 파드에서 실행 중인 두 개의 컨테이너 간에 통신할 때에,
+어떻게 볼륨을 이용하는지 살펴본다. 컨테이너 간에
+[프로세스 네임스페이스 공유하기](/docs/tasks/configure-pod-container/share-process-namespace/)를
+통해 통신할 수 있는 방법을 참고하자.
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
-
 
 <!-- steps -->
 
@@ -103,14 +98,15 @@ nginx 컨테이너의 쉘(shell)을 실행한다.
 Debian 컨테이너에서 nginx 웹 서버가 호스팅하는 문서의 루트 디렉터리에 `index.html` 파일을 생성했었음을 상기하자.
 `curl`을 이용하여 nginx 웹 서버에 HTTP GET 요청을 보낸다.
 
-    root@two-containers:/# curl localhost
+```
+root@two-containers:/# curl localhost
+```
 
 출력을 보면, nginx 웹 서버에서 debian 컨테이너에서 쓰여진 웹 페이지를 제공하는 것을 알 수 있다.
 
-    debian 컨테이너에서 안녕하세요
-
-
-
+```
+debian 컨테이너에서 안녕하세요
+```
 
 <!-- discussion -->
 
@@ -127,20 +123,14 @@ Debian 컨테이너에서 nginx 웹 서버가 호스팅하는 문서의 루트 �
 이 예제에서 볼륨은 파드의 생명 주기 동안 컨테이너를 위한 통신 방법으로 이용했다.
 파드가 삭제되고 재생성되면, 공유 볼륨에 저장된 데이터는 잃어버린다.
 
-
-
-
 ## {{% heading "whatsnext" %}}
 
 
-* [합성 컨테이너(composite container) 패턴](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)에 관하여
-더 공부한다.
+* [합성 컨테이너(composite container) 패턴](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)에 관하여 더 공부한다.
 
-* [모듈 구조를 위한 합성 컨테이너 구조](http://www.slideshare.net/Docker/slideshare-burns)에 관하여
-더 공부한다.
+* [모듈 구조를 위한 합성 컨테이너 구조](https://www.slideshare.net/Docker/slideshare-burns)에 관하여 더 공부한다.
 
-* [파드에서 저장소로 볼룸을 사용하도록 구성하기](/ko/docs/tasks/configure-pod-container/configure-volume-storage/)에 관하여
-확인한다.
+* [파드에서 저장소로 볼룸을 사용하도록 구성하기](/ko/docs/tasks/configure-pod-container/configure-volume-storage/)에 관하여 확인한다.
 
 * [파드에서 컨테이너 간에 프로세스 네임스페이스를 공유하는 파드 구성하는 방법](/docs/tasks/configure-pod-container/share-process-namespace/)을 참고한다.
 

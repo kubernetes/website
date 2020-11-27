@@ -29,7 +29,7 @@ It is assumed that a cluster-independent service manages normal users in the fol
 In this regard, _Kubernetes does not have objects which represent normal user
 accounts._ Normal users cannot be added to a cluster through an API call.
 
-Even though normal user cannot be added via an API call, but any user that
+Even though a normal user cannot be added via an API call, any user that
 presents a valid certificate signed by the cluster's certificate authority
 (CA) is considered authenticated. In this configuration, Kubernetes determines
 the username from the common name field in the 'subject' of the cert (e.g.,
@@ -282,7 +282,33 @@ from the OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_
 as a bearer token.  See [above](#putting-a-bearer-token-in-a-request) for how the token
 is included in a request.
 
-![Kubernetes OpenID Connect Flow](/images/docs/admin/k8s_oidc_login.svg)
+{{< mermaid >}}
+sequenceDiagram
+    participant user as User
+    participant idp as Identity Provider
+    participant kube as Kubectl
+    participant api as API Server
+
+    user ->> idp: 1. Login to IdP
+    activate idp
+    idp -->> user: 2. Provide access_token,<br>id_token, and refresh_token
+    deactivate idp
+    activate user
+    user ->> kube: 3. Call Kubectl<br>with --token being the id_token<br>OR add tokens to .kube/config
+    deactivate user
+    activate kube
+    kube ->> api: 4. Authorization: Bearer...
+    deactivate kube
+    activate api
+    api ->> api: 5. Is JWT signature valid?
+    api ->> api: 6. Has the JWT expired?(iat+exp)
+    api ->> api: 7. user authorized?
+    api -->> kube: 8. Authorized: Perform<br>action and return result
+    deactivate api
+    activate kube
+    kube --x user: 9. Return result
+    deactivate kube
+{{< /mermaid >}}
 
 1.  Login to your identity provider
 2.  Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
@@ -328,7 +354,7 @@ tokens on behalf of another.
 Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or
 [others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex),
+Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
 [Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
 Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
@@ -339,13 +365,13 @@ For an identity provider to work with Kubernetes it must:
 2.  Run in TLS with non-obsolete ciphers
 3.  Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
 
-A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use [this script](https://github.com/coreos/dex/blob/1ee5920c54f5926d6468d2607c728b71cfe98092/examples/k8s/gencert.sh) from the CoreOS team to create a simple CA and a signed certificate and key pair.
+A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use [this script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh) from the Dex team to create a simple CA and a signed certificate and key pair.
 Or you can use [this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh) that generates SHA256 certs with a longer life and larger key size.
 
 Setup instructions for specific systems:
 
 - [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
-- [Dex](https://github.com/dexidp/dex/blob/master/Documentation/kubernetes.md)
+- [Dex](https://dexidp.io/docs/kubernetes/)
 - [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
 
 #### Using kubectl
@@ -414,6 +440,8 @@ Webhook authentication is a hook for verifying bearer tokens.
 
 * `--authentication-token-webhook-config-file` a configuration file describing how to access the remote webhook service.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
+* `--authentication-token-webhook-version` determines whether to use `authentication.k8s.io/v1beta1` or `authentication.k8s.io/v1` 
+  `TokenReview` objects to send/receive information from the webhook. Defaults to `v1beta1`.
 
 The configuration file uses the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 file format. Within the file, `clusters` refers to the remote service and
@@ -443,76 +471,171 @@ current-context: webhook
 contexts:
 - context:
     cluster: name-of-remote-authn-service
-    user: name-of-api-sever
+    user: name-of-api-server
   name: webhook
 ```
 
-When a client attempts to authenticate with the API server using a bearer token
-as discussed [above](#putting-a-bearer-token-in-a-request),
-the authentication webhook POSTs a JSON-serialized `authentication.k8s.io/v1beta1` `TokenReview` object containing the token
-to the remote service. Kubernetes will not challenge a request that lacks such a header.
+When a client attempts to authenticate with the API server using a bearer token as discussed [above](#putting-a-bearer-token-in-a-request),
+the authentication webhook POSTs a JSON-serialized `TokenReview` object containing the token to the remote service.
 
-Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
-as other Kubernetes API objects. Implementers should be aware of looser
-compatibility promises for beta objects and check the "apiVersion" field of the
-request to ensure correct deserialization. Additionally, the API server must
-enable the `authentication.k8s.io/v1beta1` API extensions group (`--runtime-config=authentication.k8s.io/v1beta1=true`).
+Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/) as other Kubernetes API objects.
+Implementers should check the `apiVersion` field of the request to ensure correct deserialization,
+and **must** respond with a `TokenReview` object of the same version as the request.
 
-The POST body will be of the following format:
+{{< tabs name="TokenReview_request" >}}
+{{% tab name="authentication.k8s.io/v1" %}}
+{{< note >}}
+The Kubernetes API server defaults to sending `authentication.k8s.io/v1beta1` token reviews for backwards compatibility.
+To opt into receiving `authentication.k8s.io/v1` token reviews, the API server must be started with `--authentication-token-webhook-version=v1`.
+{{< /note >}}
 
-```json
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "spec": {
+    # Opaque bearer token sent to the API server
+    "token": "014fbff9a07c...",
+   
+    # Optional list of the audience identifiers for the server the token was presented to.
+    # Audience-aware token authenticators (for example, OIDC token authenticators) 
+    # should verify the token was intended for at least one of the audiences in this list,
+    # and return the intersection of this list and the valid audiences for the token in the response status.
+    # This ensures the token is valid to authenticate to the server it was presented to.
+    # If no audiences are provided, the token should be validated to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="authentication.k8s.io/v1beta1" %}}
+```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
   "kind": "TokenReview",
   "spec": {
-    "token": "(BEARERTOKEN)"
+    # Opaque bearer token sent to the API server
+    "token": "014fbff9a07c...",
+   
+    # Optional list of the audience identifiers for the server the token was presented to.
+    # Audience-aware token authenticators (for example, OIDC token authenticators) 
+    # should verify the token was intended for at least one of the audiences in this list,
+    # and return the intersection of this list and the valid audiences for the token in the response status.
+    # This ensures the token is valid to authenticate to the server it was presented to.
+    # If no audiences are provided, the token should be validated to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
-The remote service is expected to fill the `status` field of
-the request to indicate the success of the login. The response body's `spec`
-field is ignored and may be omitted. A successful validation of the bearer
-token would return:
+The remote service is expected to fill the `status` field of the request to indicate the success of the login.
+The response body's `spec` field is ignored and may be omitted.
+The remote service must return a response using the same `TokenReview` API version that it received.
+A successful validation of the bearer token would return:
 
-```json
+{{< tabs name="TokenReview_response_success" >}}
+{{% tab name="authentication.k8s.io/v1" %}}
+```yaml
 {
-  "apiVersion": "authentication.k8s.io/v1beta1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "TokenReview",
   "status": {
     "authenticated": true,
     "user": {
+      # Required
       "username": "janedoe@example.com",
+      # Optional
       "uid": "42",
-      "groups": [
-        "developers",
-        "qa"
-      ],
+      # Optional group memberships
+      "groups": ["developers", "qa"],
+      # Optional additional information provided by the authenticator.
+      # This should not contain confidential data, as it can be recorded in logs
+      # or API objects, and is made available to admission webhooks.
       "extra": {
         "extrafield1": [
           "extravalue1",
           "extravalue2"
         ]
       }
-    }
+    },
+    # Optional list audience-aware token authenticators can return,
+    # containing the audiences from the `spec.audiences` list for which the provided token was valid.
+    # If this is omitted, the token is considered to be valid to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com"]
   }
 }
 ```
-
-An unsuccessful request would return:
-
-```json
+{{% /tab %}}
+{{% tab name="authentication.k8s.io/v1beta1" %}}
+```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
   "kind": "TokenReview",
   "status": {
-    "authenticated": false
+    "authenticated": true,
+    "user": {
+      # Required
+      "username": "janedoe@example.com",
+      # Optional
+      "uid": "42",
+      # Optional group memberships
+      "groups": ["developers", "qa"],
+      # Optional additional information provided by the authenticator.
+      # This should not contain confidential data, as it can be recorded in logs
+      # or API objects, and is made available to admission webhooks.
+      "extra": {
+        "extrafield1": [
+          "extravalue1",
+          "extravalue2"
+        ]
+      }
+    },
+    # Optional list audience-aware token authenticators can return,
+    # containing the audiences from the `spec.audiences` list for which the provided token was valid.
+    # If this is omitted, the token is considered to be valid to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com"]
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
-HTTP status codes can be used to supply additional error context.
+An unsuccessful request would return:
 
+{{< tabs name="TokenReview_response_error" >}}
+{{% tab name="authentication.k8s.io/v1" %}}
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": false,
+    # Optionally include details about why authentication failed.
+    # If no error is provided, the API will return a generic Unauthorized message.
+    # The error field is ignored when authenticated=true.
+    "error": "Credentials are expired"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="authentication.k8s.io/v1beta1" %}}
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": false,
+    # Optionally include details about why authentication failed.
+    # If no error is provided, the API will return a generic Unauthorized message.
+    # The error field is ignored when authenticated=true.
+    "error": "Credentials are expired"
+  }
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Authenticating Proxy
 

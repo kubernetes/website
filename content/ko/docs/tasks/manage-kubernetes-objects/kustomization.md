@@ -7,7 +7,7 @@ weight: 20
 <!-- overview -->
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize)는
-[kustomization 파일](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#kustomization)을
+[kustomization 파일](https://kubernetes-sigs.github.io/kustomize/api-reference/glossary/#kustomization)을
 통해 쿠버네티스 오브젝트를 사용자가 원하는 대로 변경하는(customize) 독립형 도구이다.
 
 1.14 이후로, kubectl도
@@ -832,6 +832,6 @@ deployment.apps "dev-my-nginx" deleted
 
 
 * [Kustomize](https://github.com/kubernetes-sigs/kustomize)
-* [Kubectl Book](https://kubectl.docs.kubernetes.io)
-* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
-* [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [Kubectl 북](https://kubectl.docs.kubernetes.io)
+* [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl-commands/)
+* [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

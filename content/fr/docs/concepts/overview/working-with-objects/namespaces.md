@@ -6,8 +6,8 @@ weight: 30
 
 <!-- overview -->
 
-Kubernetes prend en charge plusieurs clusters virtuels presents sur le même cluster physique.
-Ces clusters virtuels sont appelés namespaces (espaces de noms en français).
+Kubernetes prend en charge plusieurs clusters virtuels présents sur le même cluster physique.
+Ces clusters virtuels sont appelés namespaces (espaces de nommage en français).
 
 <!-- body -->
 
@@ -38,7 +38,7 @@ La création et la suppression des namespaces sont décrites dans la [Documentat
 
 ### Affichage des namespaces
 
-Dans un cluster vous pouvez lister les namespaces actuels à l'aide de:
+Dans un cluster vous pouvez lister les namespaces actuels à l'aide de :
 
 ```shell
 kubectl get namespace
@@ -54,7 +54,7 @@ kube-system       Active   1d
 
 Kubernetes démarre avec quatre namespaces initiaux:
 
-- `default` Le namespace par défaut pour les objets sans autre namespace
+- `default` Le namespace par défaut pour les objets sans mention d'autre namespace
 - `kube-system` Le namespace pour les objets créés par Kubernetes lui-même
 - `kube-public` Ce namespace est créé automatiquement et est visible par tous les utilisateurs (y compris ceux qui ne sont pas authentifiés). Ce namespace est principalement réservé à l'utilisation du cluster, au cas où certaines ressources devraient être disponibles publiquement dans l'ensemble du cluster. L'aspect public de ce namespace n'est qu'une convention, pas une exigence.
 - `kube-node-lease` Ce namespace contient les objets de bail associés à chaque nœud, ce qui améliore les performances des pulsations du nœud à mesure que le cluster évolue.
@@ -85,15 +85,15 @@ kubectl config view --minify | grep namespace:
 Lorsque vous créez un [Service](/fr/docs/concepts/services-networking/service/), il crée une [entrée DNS](/fr/docs/concepts/services-networking/dns-pod-service/) correspondante.
 Cette entrée est de la forme `<nom-service>.<nom-namespace>.svc.cluster.local`, ce qui signifie
 que si un conteneur utilise simplement `<nom-service>`, il résoudra le service qui
-est local à un namespace. Ceci est utile pour utiliser la même configuration pour
+est local à son namespace. Ceci est utile pour utiliser la même configuration pour
 plusieurs namespaces tels que le Développement, la Qualification et la Production. Si vous voulez naviguer
-entre plusieurs namespaces, vous devez utiliser le nom de domaine complet (FQDN ou nom de domaine complet en français).
+entre plusieurs namespaces, vous devez utiliser le nom de domaine complet (FQDN ou nom de domaine complètement qualifié en français).
 
 ## Tous les objets ne se trouvent pas dans un namespace
 
 La plupart des ressources Kubernetes (par exemple, pods, services, contrôleurs de réplication et autres) sont
 dans des namespaces. Cependant, les ressources de type namespace ne sont pas elles-mêmes dans un namespace.
-Et les ressources de bas niveau, telles que les [noeuds](/docs/admin/node) et les volumes persistants, ne se trouvent dans aucun namespace.
+Et les ressources de bas niveau, telles que les [nœuds](/docs/admin/node) et les volumes persistants, ne se trouvent dans aucun namespace.
 
 Pour voir quelles ressources Kubernetes sont et ne sont pas dans un namespace:
 

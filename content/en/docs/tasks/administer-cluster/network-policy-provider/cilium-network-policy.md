@@ -72,7 +72,7 @@ policies using an example application.
 ## Deploying Cilium for Production Use
 
 For detailed instructions around deploying Cilium for production, see:
-[Cilium Kubernetes Installation Guide](https://docs.cilium.io/en/stable/kubernetes/intro/)
+[Cilium Kubernetes Installation Guide](https://docs.cilium.io/en/stable/concepts/kubernetes/intro/)
 This documentation includes detailed requirements, instructions and example
 production DaemonSet files.
 

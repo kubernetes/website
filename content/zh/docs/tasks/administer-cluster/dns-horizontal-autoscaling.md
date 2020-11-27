@@ -252,7 +252,7 @@ The idea is that when a cluster is using nodes that have many cores,
 cores, `nodesPerReplica` dominates.
 
 There are other supported scaling patterns. For details, see
-[cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
+[cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
 -->
 注意 `coresPerReplica` 和 `nodesPerReplica` 的值都是整数。
 
@@ -260,7 +260,7 @@ There are other supported scaling patterns. For details, see
 当一个集群使用具有较少核心的节点时，由 `nodesPerReplica` 来控制。
 
 其它的扩缩模式也是支持的，详情查看
-[cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler)。
+[cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)。
 
 <!--
 ## Disable DNS horizontal autoscaling
@@ -409,9 +409,9 @@ patterns: *linear* and *ladder*.
 <!--
 * Read about [Guaranteed Scheduling For Critical Add-On Pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 * Learn more about the
-[implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
+[implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
 
 -->
 * 阅读[为关键插件 Pod 提供的调度保障](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)
-* 进一步了解 [cluster-proportional-autoscaler 实现](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler)
+* 进一步了解 [cluster-proportional-autoscaler 实现](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)
 
