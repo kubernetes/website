@@ -1,5 +1,5 @@
 ---
-title: 容忍度（toleration）
+title: 容忍度（Toleration）
 id: toleration
 date: 2019-01-11
 full_link: /zh/docs/concepts/scheduling-eviction/taint-and-toleration/

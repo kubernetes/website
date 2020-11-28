@@ -39,7 +39,7 @@ Kubernetes API 中的一组相关路径。
 <!-- 
 You can enable or disable each API group by changing the configuration of your API server. You can also disable or enable paths to specific resources. API group makes it easier to extend the Kubernetes API. The API group is specified in a REST path and in the `apiVersion` field of a serialized object. 
 -->
-通过更改 API server 的配置，可以启用或禁用每个 API Group。你还可以禁用或启用指向特定资源的路径。API group 使扩展 Kubernetes API 更加的容易。API group 在 REST 路径和序列化对象的 `apiVersion` 字段中指定。
+通过更改 API server 的配置，可以启用或禁用每个 API Group。你还可以禁用或启用指向特定资源的路径。 API group 使扩展 Kubernetes API 更加的容易。 API group 在 REST 路径和序列化对象的 `apiVersion` 字段中指定。
 
 <!-- 
 * Read [API Group](/docs/concepts/overview/kubernetes-api/#api-groups) for more information. 

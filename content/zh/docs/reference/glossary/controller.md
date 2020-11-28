@@ -38,7 +38,7 @@ state.
 																			 
 	  
 
- 在Kubernates中，控制器通过监控 {{< glossary_tooltip text="集群" term_id="kube-cluster" >}} 的公共状态，并致力于将当前状态转变为期望的状态。
+ 在 Kubernetes 中，控制器通过监控 {{< glossary_tooltip text="集群" term_id="cluster" >}} 的公共状态，并致力于将当前状态转变为期望的状态。
 
 <!--more--> 
 																			   

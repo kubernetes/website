@@ -1,5 +1,5 @@
 ---
-title: Upstream (disambiguation)
+title: 上游（Uptream）
 id: upstream
 date: 2018-04-12
 full_link: 
@@ -29,7 +29,7 @@ tags:
 <!--
  May refer to: core Kubernetes or the source repo from which a repo was forked.
 -->
-可以参考：核心 Kubernetes 仓库或作为当前仓库派生来源的来源仓库。
+可能指的是：核心 Kubernetes 仓库或作为当前仓库派生来源的仓库。
 
 <!--more--> 
 

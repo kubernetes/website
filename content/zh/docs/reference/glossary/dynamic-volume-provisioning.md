@@ -41,4 +41,4 @@ Dynamic provisioning eliminates the need for cluster administrators to pre-provi
 -->
 
 动态供应让集群管理员无需再预先供应存储。相反，它通过用户请求自动地供应存储。
-动态卷供应是基于 API 对象 {{< glossary_tooltip text="StorageClass" term_id="储存类别（storage-class）" >}} 的，StorageClass 可以引用 {{< glossary_tooltip text="卷插件（Volume Plugin）" term_id="volume-plugin" >}} 提供的 {{< glossary_tooltip text="卷（Volume）" term_id="volume" >}} ，也可以引用传递给卷插件（Volume Plugin）的参数集。
+动态卷供应是基于 API 对象 {{< glossary_tooltip text="储存类别" term_id="storage-class" >}} 的， StorageClass 可以引用 {{< glossary_tooltip text="卷插件" term_id="volume-plugin" >}} 提供的 {{< glossary_tooltip text="卷" term_id="volume" >}} ，也可以引用传递给卷插件（Volume Plugin）的参数集。

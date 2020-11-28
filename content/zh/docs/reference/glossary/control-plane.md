@@ -52,4 +52,4 @@ tags:
  * {{< glossary_tooltip text="Controller Manager" term_id="kube-controller-manager" >}}
  * {{< glossary_tooltip text="Cloud Controller Manager" term_id="cloud-controller-manager" >}}
 
-这些组件可以以传统的系统服务运行也可以以容器的形式运行.运行这些组件的主机过去称为master节点。																																																		   
+这些组件可以以传统的系统服务运行也可以以容器的形式运行.运行这些组件的主机过去称为 master 节点。																																																		   

@@ -30,7 +30,7 @@ tags:
 Docker (specifically, Docker Engine) is a software technology providing operating-system-level virtualization also known as {{< glossary_tooltip text="containers" term_id="container" >}}.
 -->
 
- Docker（这里特指Docker引擎） 是一种可以提供操作系统级别虚拟化（也称作{{< glossary_tooltip text="容器" term_id="container" >}}）的软件技术。
+ Docker（这里特指 Docker 引擎） 是一种可以提供操作系统级别虚拟化（也称作{{< glossary_tooltip text="容器" term_id="container" >}}）的软件技术。
 
 <!--more--> 
 

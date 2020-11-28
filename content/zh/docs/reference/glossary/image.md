@@ -1,5 +1,5 @@
 ---
-title: Image（镜像）
+title: 镜像（Image）
 id: image
 date: 2018-04-12
 full_link: 

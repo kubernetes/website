@@ -30,7 +30,7 @@ tags:
 <!--
 A technique for assigning requests to queues that provides better isolation than hashing modulo the number of queues.
 -->
-Shuffle Sharding（混排切片）是指一种将请求指派给队列的技术，其隔离性好过对队列个数哈希取模的方式。
+混排切片（Shuffle Sharding）是指一种将请求指派给队列的技术，其隔离性好过对队列个数哈希取模的方式。
 
 
 <!--more--> 
