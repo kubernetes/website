@@ -75,7 +75,7 @@ kubectlでは、JSONPathの式を使うことで、JSONオブジェクトの特�
 `[,]`               | 和集合           | `{.items[*]['metadata.name', 'status.capacity']}`               | `127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]`
 `?()`               | フィルター                   | `{.users[?(@.name=="e2e")].user.password}`                      | `secret`
 `range`, `end`      | リストの反復             | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`
-`''`                | (解釈済みの)文字列をクォートする | `{range .items[*]}{.metadata.name}{'\t'}{end}`                  | `127.0.0.1      127.0.0.2`
+`''`                | 解釈済みの文字列をクォートする | `{range .items[*]}{.metadata.name}{'\t'}{end}`                  | `127.0.0.1      127.0.0.2`
 
 `kubectl`とJSONPathの式を使った例:
 
