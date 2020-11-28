@@ -29,7 +29,7 @@ tags:
 <!--
  An endpoint for a set of {{< glossary_tooltip text="Managed Services" term_id="managed-service" >}} offered and maintained by a third-party.
 -->
-由第三方提供并维护的一组{{< glossary_tooltip text="Managed Services（托管服务）" term_id="managed-service">}} 的访问端点。
+由第三方提供并维护的一组 {{< glossary_tooltip text="托管服务（Managed Services）" term_id="managed-service">}} 的访问端点。
 
 <!--more--> 
 

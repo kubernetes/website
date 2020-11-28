@@ -1,5 +1,5 @@
 ---
-title: 端点切片（Endpoint Slice）
+title: EndpointSlice
 id: endpoint-slice
 date: 2018-04-12
 full_link: /zh/docs/concepts/services-networking/endpoint-slices/

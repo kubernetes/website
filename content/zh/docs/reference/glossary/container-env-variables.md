@@ -4,7 +4,7 @@ id: container-env-variables
 date: 2018-04-12
 full_link: /zh/docs/concepts/containers/container-environment/
 short_description: >
-  容器环境变量提供了name=value形式的、运行容器化应用所必须的一些重要信息。
+  容器环境变量提供了 name=value 形式的、运行容器化应用所必须的一些重要信息。
 
 aka: 
 tags:
@@ -30,7 +30,7 @@ tags:
  Container environment variables are name=value pairs that provide useful information into containers running in a {{< glossary_tooltip text="pod" term_id="pod" >}}
 -->
 
-  容器环境变量提供了name=value形式的、在{{< glossary_tooltip text="pod" term_id="pod" >}}中运行的容器所必须的一些重要信息。
+  容器环境变量提供了 name=value 形式的、在 {{< glossary_tooltip text="pod" term_id="pod" >}} 中运行的容器所必须的一些重要信息。
   
 <!--more-->
 <!--

@@ -4,7 +4,7 @@ id: device-plugin
 date: 2019-02-02
 full_link: /zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
-  一种软件扩展，可以使Pod访问由特定厂商初始化或者安装的设备。
+  一种软件扩展，可以使 Pod 访问由特定厂商初始化或者安装的设备。
 aka:
 tags:
 - fundamental
@@ -32,7 +32,7 @@ tags:
 such as local hardware, that require vendor-specific initialization or setup
 steps.
 -->
-设备插件工作在节点主机上，给{{< glossary_tooltip term_id="pod" text="Pods ">}}提供访问资源的权限，比如特定厂商初始化或者安装的本地硬件。
+设备插件工作在节点主机上，给 {{< glossary_tooltip term_id="pod" text="Pods ">}} 提供访问资源的权限，比如特定厂商初始化或者安装的本地硬件。
 <!--more-->
 
 <!--
@@ -42,11 +42,11 @@ Pods can access hardware features that relate to the Node where that Pod is runn
 You can deploy a device plugin as a {{< glossary_tooltip term_id="daemonset" >}},
 or install the device plugin software directly on each target Node.
 -->
-设备插件将资源告知给{{< glossary_tooltip term_id="kubelet" text="kubelet" >}}，以便相关节点上运行的工作负载Pod可以访问硬件功能。
+设备插件将资源告知 {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} ，以便相关节点上运行的工作负载Pod可以访问硬件功能。
 <!-- 
 See
 	 
 [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 for more information.
 -->
-更多信息请查阅[设备插件](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) 
+更多信息请查阅[设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) 

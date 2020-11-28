@@ -40,4 +40,4 @@ An abstract way to expose an application running on a set of {{< glossary_toolti
 <!--
  The set of Pods targeted by a Service is (usually) determined by a {{< glossary_tooltip text="selector" term_id="selector" >}}. If more Pods are added or removed, the set of Pods matching the selector will change. The Service makes sure that network traffic can be directed to the current set of Pods for the workload.
 -->
-服务所针对的Pod集（通常）由 {{< glossary_tooltip text="Selector" term_id="selector" >}} 确定。 如果添加或删除了更多Pod，则与选择器匹配的Pod集将发生变化。 该服务确保可以将网络流量定向到该工作负载的当前Pod集。
+服务所针对的 Pod 集（通常）由 {{< glossary_tooltip text="选择算符" term_id="selector" >}} 确定。 如果有 Pod 被添加或被删除，则与选择算符匹配的 Pod 集合将发生变化。服务确保可以将网络流量定向到该工作负载的当前 Pod 集合。

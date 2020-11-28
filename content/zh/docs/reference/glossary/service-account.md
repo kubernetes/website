@@ -1,5 +1,5 @@
 ---
-title: 服务账户（ServiceAccount）
+title: ServiceAccount
 id: service-account
 date: 2018-04-12
 full_link: /zh/docs/tasks/configure-pod-container/configure-service-account/
@@ -39,6 +39,5 @@ tags:
 <!--
 When processes inside Pods access the cluster, they are authenticated by the API server as a particular service account, for example, `default`. When you create a Pod, if you do not specify a service account, it is automatically assigned the default service account in the same {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
 -->
-当 Pod 中的进程访问集群时，API 服务器将它们作为特定的服务帐户进行身份验证，例如 `default`。当您创建 Pod 时，如果您没有指定服务帐户，它将在相同的{{< glossary_tooltip text="Namespace" term_id="namespace" >}} 中自动分配 default 服务账户。
-
+当 Pod 中的进程访问集群时，API 服务器将它们作为特定的服务帐户进行身份验证，例如  `default` ，创建 Pod 时，如果你没有指定服务帐户，它将自动被赋予同一个 {{< glossary_tooltip text="名字空间" term_id="namespace" >}} 中的 default 服务账户。
 
