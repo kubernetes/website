@@ -18,7 +18,7 @@ weight: 40
 -   [파드](/ko/docs/concepts/workloads/pods/)
 -   [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
 -   [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
--   [퍼시스턴트볼륨](/ko/docs/concepts/storage/volumes/)
+-   [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)
 -   [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 -   [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 -   [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets)
@@ -38,7 +38,7 @@ weight: 40
 이 튜토리얼을 마치면 다음에 대해 알게 된다.
 
 -   어떻게 스테이트풀셋을 이용하여 ZooKeeper 앙상블을 배포하는가.
--   어떻게 지속적해서 컨피그맵을 이용해서 앙상블을 설정하는가.
+-   어떻게 앙상블을 일관되게 설정하는가.
 -   어떻게 ZooKeeper 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
 -   어떻게 PodDisruptionBudget을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
 
@@ -761,7 +761,7 @@ fi
 kubectl get pod -w -l app=zk
 ```
 
-다른 창에서 `zk-0` 파드의 파일시스템에서 `zkOk.sh` 스크립트를 삭제하기 위해 다음 명령어를 이용하자.
+다른 창에서 `zk-0` 파드의 파일시스템에서 `zookeeper-ready` 스크립트를 삭제하기 위해 다음 명령어를 이용하자.
 
 ```shell
 kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
