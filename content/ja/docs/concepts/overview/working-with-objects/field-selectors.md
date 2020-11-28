@@ -46,7 +46,7 @@ kubectl get services  --all-namespaces --field-selector metadata.namespace!=defa
 下記の`kubectl`コマンドは、`status.phase`が`Runnning`でなく、かつ`spec.restartPolicy`フィールドが`Always`に等しいような全てのPodを選択します。  
 
 ```shell
-kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default
+kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Always
 ```
 
 ## 複数のリソースタイプ
