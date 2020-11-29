@@ -54,6 +54,7 @@ different Kubernetes components.
 | `APIPriorityAndFairness` | `false` | Alpha | 1.17 | 1.19 |
 | `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
+| `APIServerIdentity` | `false` | Alpha | 1.20 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `BalanceAttachedNodeVolumes` | `false` | Alpha | 1.11 | |
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | |
@@ -401,6 +402,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIListChunking`: Enable the API clients to retrieve (`LIST` or `GET`) resources from API server in chunks.
 - `APIPriorityAndFairness`: Enable managing request concurrency with prioritization and fairness at each server. (Renamed from `RequestManagement`)
 - `APIResponseCompression`: Compress the API responses for `LIST` or `GET` requests.
+- `APIServerIdentity`: Assign each kube-apiserver an ID in a cluster.
 - `AppArmor`: Enable AppArmor based mandatory access control on Linux nodes when using Docker.
    See [AppArmor Tutorial](/docs/tutorials/clusters/apparmor/) for more details.
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
