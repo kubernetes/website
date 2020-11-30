@@ -40,28 +40,25 @@ following steps:
 1. Runs a series of pre-flight checks to validate the system state
    before making changes. Some checks only trigger warnings, others are
    considered errors and will exit kubeadm until the problem is corrected or the
-   user specifies `-ignore-preflight-errors=<list-of-errors>`.
+   user specifies `--ignore-preflight-errors=<list-of-errors>`.
 -->
 1. 在做出变更前运行一系列的预检项来验证系统状态。一些检查项目仅仅触发警告，
    其它的则会被视为错误并且退出 kubeadm，除非问题得到解决或者用户指定了
    `--ignore-preflight-errors=<list-of-errors>` 参数。
 
 <!--
-2. Generates a self-signed CA (or using an existing one if provided) to set up
-   identities for each component in the cluster. If the user has provided their
-   own CA cert and/or key by dropping it in the cert directory configured via `-cert-dir`
-   (`/etc/kubernetes/pki` by default) this step is skipped as described in the
-   [Using custom certificates](#custom-certificates) document.
-   The APIServer certs will have additional SAN entries for any `-apiserver-cert-extra-sans` arguments, lowercased if necessary.
+1. Generates a self-signed CA to set up identities for each component in the cluster. The user can provide their
+   own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
+   (`/etc/kubernetes/pki` by default).
+   The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary.
 -->
-2. 生成一个自签名的 CA 证书 (或者使用现有的证书，如果提供的话) 来为集群中的每一个组件建立身份标识。
-   如果用户已经通过 `--cert-dir` 配置的证书目录（默认为 `/etc/kubernetes/pki`）提供了他们自己的
-   CA 证书以及/或者密钥，那么将会跳过这个步骤，正如文档[使用自定义证书](#custom-certificates)所述。
-   如果指定了 `--apiserver-cert-extra-sans` 参数, APIServer 的证书将会有额外的 SAN 条目，
-   如果必要的话，将会被转为小写。
+2. 生成一个自签名的 CA 证书来为集群中的每一个组件建立身份标识。
+   用户可以通过将其放入 `--cert-dir` 配置的证书目录中（默认为 `/etc/kubernetes/pki`）
+   来提供他们自己的 CA 证书以及/或者密钥。
+   APIServer 证书将为任何 `--apiserver-cert-extra-sans` 参数值提供附加的 SAN 条目，必要时将其小写。
 
 <!--
-3. Writes kubeconfig files in `/etc/kubernetes/`  for
+1. Writes kubeconfig files in `/etc/kubernetes/`  for
    the kubelet, the controller-manager and the scheduler to use to connect to the
    API server, each with its own identity, as well as an additional
    kubeconfig file for administration named `admin.conf`.
@@ -71,63 +68,86 @@ following steps:
    文件，用于管理操作。
 
 <!--
-4. Generates static Pod manifests for the API server,controller-manager and scheduler. In case an external etcd is not provided,an additional static Pod manifest is generated for etcd.
+1. Generates static Pod manifests for the API server,
+   controller-manager and scheduler. In case an external etcd is not provided,
+   an additional static Pod manifest is generated for etcd.
+
+   Static Pod manifests are written to `/etc/kubernetes/manifests`; the kubelet
+   watches this directory for Pods to create on startup.
+
+   Once control plane Pods are up and running, the `kubeadm init` sequence can continue.
 -->
 4. 为 API 服务器、控制器管理器和调度器生成静态 Pod 的清单文件。假使没有提供一个外部的 etcd
    服务的话，也会为 etcd 生成一份额外的静态 Pod 清单文件。
 
-<!--
-Static Pod manifests are written to `/etc/kubernetes/manifests`; the kubelet watches this directory for Pods to create on startup.
+   静态 Pod 的清单文件被写入到 `/etc/kubernetes/manifests` 目录; 
+   kubelet 会监视这个目录以便在系统启动的时候创建 Pod。
 
-Once control plane Pods are up and running, the `kubeadm init` sequence can continue.
--->
-静态 Pod 的清单文件被写入到 `/etc/kubernetes/manifests` 目录; kubelet 会监视这个目录以便在系统启动的时候创建 Pod。
-
-一旦控制平面的 Pod 都运行起来， `kubeadm init` 的工作流程就继续往下执行。
+   一旦控制平面的 Pod 都运行起来， `kubeadm init` 的工作流程就继续往下执行。
 
 <!--
 1. Apply labels and taints to the control-plane node so that no additional workloads will
-run there.
+   run there.
 -->
-1. 对控制平面节点应用 labels 和 taints 标记以便不会在它上面运行其它的工作负载。
+5. 对控制平面节点应用标签和污点标记以便不会在它上面运行其它的工作负载。
 
 <!--
-2. Generates the token that additional nodes can use to register themselves with a control-plane in the future. Optionally, the user can provide a token via `-token`, as described in the [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
+1. Generates the token that additional nodes can use to register
+   themselves with a control-plane in the future. Optionally, the user can provide a
+   token via `--token`, as described in the
+   [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
 -->
-2. 生成令牌以便其它节点以后可以使用这个令牌向控制平面节点注册它们自己。
-   (可选)，用户可以通过 `--token` 提供一个令牌，正如文档
-   [kubeadm token](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/) 所述。
+6. 生成令牌，将来其他节点可使用该令牌向控制平面注册自己。
+   如文档 [kubeadm token](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/) 所述，
+   用户可以选择通过 `--token` 提供令牌。
 
 <!--
-3. Makes all the necessary configurations for allowing node joining with the [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and [TLS Bootstrap](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) mechanism:
-- Write a ConfigMap for making available all the information required for joining, and set up related RBAC access rules.
-- Let Bootstrap Tokens access the CSR signing API.
-- Configure auto-approval for new CSR requests.
+1. Makes all the necessary configurations for allowing node joining with the
+   [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and
+   [TLS Bootstrap](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+   mechanism:
+
+   - Write a ConfigMap for making available all the information required
+     for joining, and set up related RBAC access rules.
+
+   - Let Bootstrap Tokens access the CSR signing API.
+
+   - Configure auto-approval for new CSR requests.
+
+   See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional info.
 -->
-3. 为了使得节点能够遵照[启动引导令牌](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)
+7. 为了使得节点能够遵照[启动引导令牌](/zh/docs/reference/access-authn-authz/bootstrap-tokens/)
    和 [TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
    这两份文档中描述的机制加入到集群中，kubeadm 会执行所有的必要配置：
 
    - 创建一份 ConfigMap 提供添加集群节点所需的信息，并为该 ConfigMap 设置相关的 RBAC 访问规则。
+
    - 使得 Bootstrap Tokens 可以访问 CSR 签名 API。
-   - 对新的 CSR 请求配置为自动签发。
 
-<!--
-See [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) for additional info.
--->
-查阅[kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)文档以获取更多信息。
+   - 配置自动签发新的 CSR 请求。
 
+   获取更多信息，请查看[kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)。
+   
 <!-- 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
-   To install kube-dns instead of CoreDNS, the DNS addon has to be configured in the kubeadm `ClusterConfiguration`. For more information about the configuration see the section
-   `Using kubeadm init with a configuration file` below.
-   Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed. -->
-1.  通过 API 服务器安装一个 DNS 服务器 (CoreDNS) 和 kube-proxy 附加组件。
-   在 1.11 版本以及更新版本的 Kubernetes 中 CoreDNS 是默认的 DNS 服务器。
+   To install kube-dns instead of CoreDNS, the DNS addon has to be configured in the kubeadm `ClusterConfiguration`.
+   For more information about the configuration see the section `Using kubeadm init with a configuration file` below.
+   Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
+
+   {{< warning >}}
+   kube-dns usage with kubeadm is deprecated as of v1.18 and will be removed in a future release.
+   {{< /warning >}}
+-->
+8. 通过 API 服务器安装一个 DNS 服务器 (CoreDNS) 和 kube-proxy 附加组件。
+   在 Kubernetes 版本 1.11 和更高版本中，CoreDNS 是默认的 DNS 服务器。
    要安装 kube-dns 而不是 CoreDNS，必须在 kubeadm `ClusterConfiguration` 中配置 DNS 插件。
    有关配置的更多信息，请参见下面的"带配置文件使用 kubeadm init" 一节。
    请注意，尽管已部署 DNS 服务器，但直到安装 CNI 时才调度它。
+
+   {{< warning >}}
+   从 v1.18 开始，在 kubeadm 中使用 kube-dns 已废弃，并将在以后的版本中将其删除。
+   {{< /warning >}}
 
 <!--
 ### Using init phases with kubeadm {#init-phases}
@@ -209,28 +229,35 @@ The config file is still considered beta and may change in future versions.
 <!--
 It's possible to configure `kubeadm init` with a configuration file instead of command
 line flags, and some more advanced features may only be available as
-configuration file options. This file is passed with the `-config` option.
+configuration file options. This file is passed using the `--config` flag and it must
+contain a `ClusterConfiguration` structure and optionally more structures separated by `---\n`
+Mixing `--config` with others flags may not be allowed in some cases.
 -->
 通过一份配置文件而不是使用命令行参数来配置 `kubeadm init` 命令是可能的，
-但是一些更加高级的功能只能够通过配置文件设定。这份配置文件通过 `--config` 选项参数指定。
+但是一些更加高级的功能只能够通过配置文件设定。
+这份配置文件通过 `--config` 选项参数指定的，
+它必须包含 `ClusterConfiguration` 结构，并可能包含更多由 `---\n` 分隔的结构。
+在某些情况下，可能不允许将 `--config` 与其他标志混合使用。
 
 <!--
 The default configuration can be printed out using the
 [kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-It is **recommended** that you migrate your old `v1beta1` configuration to `v1beta2` using
+If your configuration is not using the latest version it is **recommended** that you migrate using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-For more details on each field in the `v1beta2` configuration you can navigate to our
-[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2).
+For more information on the fields and usage of the configuration you can navigate to our API reference
+page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
 -->
 可以使用 [kubeadm config print](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)命令打印出默认配置。
 
+如果你的配置没有使用最新版本，
 **推荐**使用 [kubeadm config migrate](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
-命令将旧的 `v1beta1` 版本的配置迁移到 `v1beta2` 版本。
+命令进行迁移。
 
-获取 `v1beta2` 版本配置中每个字段的细节说明，查看我们的
-[API 参考页面](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)。
+有关配置的字段和用法的更多信息，
+你可以导航到我们的 API 参考页面并从
+[列表](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories)中选择一个版本。
 
 <!--
 ### Adding kube-proxy parameters {#kube-proxy}
@@ -259,7 +286,7 @@ kubeadm 配置中有关 kube-proxy 的说明请查看：
 For information about passing flags to control plane components see:
 - [control-plane-flags](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/) -->
 有关向控制平面组件传递命令行参数的说明请查看：
-[控制平面命令行参数](//zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
+[控制平面命令行参数](/zh/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 
 <!--
 ### Using custom images {#custom-images}
@@ -323,8 +350,8 @@ The following phase command can be used to re-upload the certificates after expi
 -->
 以下阶段命令可用于证书到期后重新上传证书：
 
-```
-kubeadm init phase upload-certs --upload-certs --certificate-key=SOME_VALUE
+```shell
+kubeadm init phase upload-certs --upload-certs --certificate-key=SOME_VALUE --config=SOME_YAML_FILE
 ```
 
 <!--
@@ -339,62 +366,21 @@ The following command can be used to generate a new key on demand:
 -->
 以下命令可用于按需生成新密钥：
 
-```
+```shell
 kubeadm alpha certs certificate-key
 ```
 
-<!--
-### Using custom certificates {#custom-certificates}
--->
-### 使用自定义的证书 {#custom-certificates}
+<!-- ### Certificate management with kubeadm -->
+### 使用 kubeadm 管理证书
 
-<!--
-By default, kubeadm generates all the certificates needed for a cluster to run.
-You can override this behavior by providing your own certificates.
+<!--  
+For detailed information on certificate management with kubeadm see
+[Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
+The document includes information about using external CA, custom certificates
+and certificate renewal.
 -->
-默认情况下, kubeadm 会生成运行一个集群所需的全部证书。
-你可以通过提供你自己的证书来改变这个行为策略。
-
-<!--
-To do so, you must place them in whatever directory is specified by the
-`-cert-dir` flag or `CertificatesDir` configuration file key. By default this
-is `/etc/kubernetes/pki`.
--->
-如果要这样做, 你必须将证书文件放置在通过 `--cert-dir` 命令行参数或者配置文件里的
-`CertificatesDir` 配置项指明的目录中。默认的值是 `/etc/kubernetes/pki`。
-
-<!--
-If a given certificate and private key pair exists before running `kubeadm init`,
-kubeadm will not overwrite them. This means you can, for example, copy an existing
-CA into `/etc/kubernetes/pki/ca.crt` and `/etc/kubernetes/pki/ca.key`,
-and kubeadm will use this CA for signing the rest of the certificates.
--->
-如果在运行 `kubeadm init` 之前存在给定的证书和私钥对，则 kubeadm 将不会重写它们。
-例如，这意味着你可以将现有的 CA 复制到 `/etc/kubernetes/pki/ca.crt` 和
-`/etc/kubernetes/pki/ca.key` 中，而 kubeadm 将使用此 CA 对其余证书进行签名。
-
-<!--
-#### External CA mode {#external-ca-mode}
--->
-#### 外部 CA 模式 {#external-ca-mode}
-
-<!--
-It is also possible to provide just the `ca.crt` file and not the
-`ca.key` file (this is only available for the root CA file, not other cert pairs).
-If all other certificates and kubeconfig files are in place, kubeadm recognizes
-this condition and activates the "External CA" mode. kubeadm will proceed without the
-CA key on disk.
--->
-如果只提供了 `ca.crt` 文件但是没有提供 `ca.key` 文件也是可以的 (这只对 CA 根证书可用，其它证书不可用)。
-如果所有的其它证书和 kubeconfig 文件已就绪， kubeadm 检测到满足以上条件就会激活 "外部 CA" 模式。
-kubeadm 将会在没有 CA 密钥文件的情况下继续执行。
-
-<!--
-Instead, run the controller-manager standalone with `-controllers=csrsigner` and
-point to the CA certificate and key.
--->
-否则, kubeadm 将独立运行 controller-manager，附加一个 `--controllers=csrsigner` 的参数，
-并且指明 CA 证书和密钥。
+有关使用 kubeadm 进行证书管理的详细信息，请参阅[使用 kubeadm 进行证书管理](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
+该文档包括有关使用外部 CA，自定义证书和证书更新的信息。
 
 <!--
 ### Managing the kubeadm drop-in file for the kubelet {#kubelet-drop-in}
@@ -488,6 +474,7 @@ character string>`. More formally, it must match the regex: `[a-z0-9]{6}\.[a-z0-
 kubeadm can generate a token for you: -->
 1. 生成一个令牌。这个令牌必须具有以下格式：`< 6 个字符的字符串>.< 16 个字符的字符串>`。
    更加正式的说法是，它必须符合以下正则表达式：`[a-z0-9]{6}\.[a-z0-9]{16}`。
+   
    kubeadm 可以为你生成一个令牌：
 
    ```shell
@@ -536,7 +523,7 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 -->
-* 进一步阅读了解[kubeadm init 阶段](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/)
+* 进一步阅读了解[kubeadm init phase](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/)
 * [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)启动一个 Kubernetes 工作节点并且将其加入到集群
 * [kubeadm upgrade](/zh/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)将 Kubernetes 集群升级到新版本
 * [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)使用 `kubeadm init` 或 `kubeadm join` 来恢复对节点的变更

@@ -16,7 +16,7 @@ weight: 90
 Hence, you can let kubeadm do some of the work and you can fill in the gaps
 if you wish to apply customization.
 -->
-`kubeadm reset phase` 使您能够调用 `reset` 过程的基本原子步骤。因此，如果希望执行自定义操作，可以让 kubeadm 做一些工作，然后由用户来补足剩余操作。
+`kubeadm reset phase` 使你能够调用 `reset` 过程的基本原子步骤。因此，如果希望执行自定义操作，可以让 kubeadm 做一些工作，然后由用户来补足剩余操作。
 
 <!--
 `kubeadm reset phase` is consistent with the [kubeadm reset workflow](/docs/reference/setup-tools/kubeadm/kubeadm-reset/#reset-workflow),
@@ -35,7 +35,7 @@ and behind the scene both use the same code.
 <!--
 Using this phase you can execute preflight checks on a node that is being reset.
 -->
-使用此阶段，您可以在要重置的节点上执行启动前检查阶段。
+使用此阶段，你可以在要重置的节点上执行启动前检查阶段。
 
 {{< tabs name="tab-preflight" >}}
 {{< tab name="preflight" include="generated/kubeadm_reset_phase_preflight.md" />}}
@@ -49,7 +49,7 @@ Using this phase you can execute preflight checks on a node that is being reset.
 <!--
 Using this phase you can remove this control-plane node from the ClusterStatus object.
 -->
-使用此阶段，您可以从 ClusterStatus 对象中删除此控制平面节点。
+使用此阶段，你可以从 ClusterStatus 对象中删除此控制平面节点。
 
 {{< tabs name="tab-update-cluster-status" >}}
 {{< tab name="update-cluster-status" include="generated/kubeadm_reset_phase_update-cluster-status.md" />}}
@@ -63,7 +63,7 @@ Using this phase you can remove this control-plane node from the ClusterStatus o
 <!--
 Using this phase you can remove this control-plane node's etcd member from the etcd cluster.
 -->
-使用此阶段，您可以从 etcd 集群中删除此控制平面节点的 etcd 成员。
+使用此阶段，你可以从 etcd 集群中删除此控制平面节点的 etcd 成员。
 
 {{< tabs name="tab-remove-etcd-member" >}}
 {{< tab name="remove-etcd-member" include="generated/kubeadm_reset_phase_remove-etcd-member.md" />}}
@@ -77,7 +77,7 @@ Using this phase you can remove this control-plane node's etcd member from the e
 <!--
 Using this phase you can perform cleanup on this node.
 -->
-使用此阶段，您可以在此节点上执行清理工作。
+使用此阶段，你可以在此节点上执行清理工作。
 
 {{< tabs name="tab-cleanup-node" >}}
 {{< tab name="cleanup-node" include="generated/kubeadm_reset_phase_cleanup-node.md" />}}
