@@ -30,7 +30,7 @@ cards:
   button: "Samouczki"
   button_path: "/docs/tutorials"
 - name: setup
-  title: "Uruchom klaster"
+  title: "Uruchom klaster K8s"
   description: "Uruchom klaster Kubernetes dopasowany do Twoich potrzeb i możliwości."
   button: "Uruchom Kubernetesa"
   button_path: "/docs/setup"
@@ -55,7 +55,7 @@ cards:
   button: Weź udział
   button_path: /docs/contribute
 - name: release-notes
-  title: Informacje o wydaniu
+  title: Informacje o wydaniu K8s
   description: Jeśli instalujesz lub aktualizujesz Kubernetesa, zajrzyj do informacji o najnowszym wydaniu.
 - name: about
   title: O dokumentacji

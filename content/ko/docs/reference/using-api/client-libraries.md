@@ -10,7 +10,7 @@ weight: 30
 
 
 <!-- body -->
-[쿠버네티스 REST API](/ko/docs/reference/using-api/api-overview/)를 사용해 애플리케이션을 작성하기 위해
+[쿠버네티스 REST API](/ko/docs/reference/using-api/)를 사용해 애플리케이션을 작성하기 위해
 API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 사용하고 있는 프로그래밍 언어를 위한 클라이언트 라이브러리를 사용하면 된다.
 
@@ -60,6 +60,7 @@ API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 | PHP                  | [github.com/allansun/kubernetes-php-client](https://github.com/allansun/kubernetes-php-client) |
 | PHP                  | [github.com/maclof/kubernetes-client](https://github.com/maclof/kubernetes-client) |
 | PHP                  | [github.com/travisghansen/kubernetes-client-php](https://github.com/travisghansen/kubernetes-client-php) |
+| PHP                  | [github.com/renoki-co/php-k8s](https://github.com/renoki-co/php-k8s) |
 | Python               | [github.com/eldarion-gondor/pykube](https://github.com/eldarion-gondor/pykube) |
 | Python               | [github.com/fiaas/k8s](https://github.com/fiaas/k8s) |
 | Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |

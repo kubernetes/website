@@ -7,6 +7,8 @@ weight: 10
 card:
   name: concepts
   weight: 10
+sitemap:
+  priority: 0.9
 ---
 
 <!-- overview -->
@@ -35,7 +37,7 @@ Wirtualizacja pozwala lepiej wykorzystywać zasoby fizycznego serwera i lepiej s
 Każda maszyna wirtualna jest pełną maszyną zawierającą własny system operacyjny pracujący na zwirtualizowanej warstwie sprzętowej.
 
 **Era wdrożeń w kontenerach:**
-Kontenery działają w sposób zbliżony do maszyn wirtualnych, ale mają mniejszy stopnień wzajemnej izolacji, współdzieląc ten sam system operacyjny. Kontenery określane są mianem "lekkich". Podobnie, jak maszyna wirtualna, kontener posiada własny system plików, procesor, pamięć, przestrzeń procesów itd. Ponieważ kontenery nie są związane z leżącymi poniżej warstwami infrastruktury, mogą być łatwiej przenoszone pomiędzy chmurami i różnymi dystrybucjami systemu operacyjnego.
+Kontenery działają w sposób zbliżony do maszyn wirtualnych, ale mają mniejszy stopnień wzajemnej izolacji, współdzieląc ten sam system operacyjny. Kontenery określane są mianem "lekkich". Podobnie, jak maszyna wirtualna, kontener posiada własny system plików, udział w zasobach procesora, pamięć, przestrzeń procesów itd. Ponieważ kontenery nie są związane z leżącymi poniżej warstwami infrastruktury, mogą być łatwiej przenoszone pomiędzy chmurami i różnymi dystrybucjami systemu operacyjnego.
 
 Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 
@@ -85,10 +87,7 @@ Kubernetes:
 * Nie zapewnia, ani nie wykorzystuje żadnego ogólnego systemu do zarządzania konfiguracją, utrzymaniem i samo-naprawianiem maszyn.
 * Co więcej, nie jest zwykłym systemem planowania *(orchestration)*. W rzeczywistości, eliminuje konieczność orkiestracji. Zgodnie z definicją techniczną, orkiestracja to wykonywanie określonego ciągu zadań: najpierw A, potem B i następnie C. Dla kontrastu, Kubernetes składa się z wielu niezależnych, możliwych do złożenia procesów sterujących, których zadaniem jest doprowadzenie stanu faktycznego do stanu oczekiwanego. Nie ma znaczenia, w jaki sposób przechodzi się od A do C. Nie ma konieczności scentralizowanego zarządzania. Dzięki temu otrzymujemy system, który jest potężniejszy, bardziej odporny i niezawodny i dający więcej możliwości rozbudowy.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-*   Dowiedz się o [komponentach Kubernetesa](/pl/docs/concepts/overview/components/)
-*   Jesteś gotowy [zacząć pracę](/pl/docs/setup/)?
-
+* Dowiedz się o [komponentach Kubernetesa](/pl/docs/concepts/overview/components/)
+* Jesteś gotowy [zacząć pracę](/pl/docs/setup/)?

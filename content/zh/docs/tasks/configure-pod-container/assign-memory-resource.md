@@ -5,11 +5,9 @@ weight: 10
 ---
 
 <!--
----
 title: Assign Memory Resources to Containers and Pods
 content_type: task
 weight: 10
----
 -->
 
 <!-- overview -->
@@ -19,34 +17,33 @@ This page shows how to assign a memory *request* and a memory *limit* to a
 Container. A Container is guaranteed to have as much memory as it requests,
 but is not allowed to use more memory than its limit.
 -->
-此页面显示如何将内存 *请求* （request）和内存 *限制* （limit）分配给一个容器。我们保障容器拥有它请求数量的内存，但不允许使用超过限制数量的内存。
-
-
-
+此页面展示如何将内存 *请求* （request）和内存 *限制* （limit）分配给一个容器。
+我们保障容器拥有它请求数量的内存，但不允许使用超过限制数量的内存。
 
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
 Each node in your cluster must have at least 300 MiB of memory.
 -->
-您集群中的每个节点必须拥有至少 300 MiB 的内存。
+你集群中的每个节点必须拥有至少 300 MiB 的内存。
 
 <!--
 A few of the steps on this page require you to run the
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 service in your cluster. If you have the metrics-server
 running, you can skip those steps.
 -->
-该页面上的一些步骤要求您在集群中运行 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 服务。如果您已经有在运行中的 metrics-server，则可以跳过这些步骤。
+该页面上的一些步骤要求你在集群中运行
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server) 服务。
+如果你已经有在运行中的 metrics-server，则可以跳过这些步骤。
 
 <!--
 If you are running Minikube, run the following command to enable the
 metrics-server:
 -->
-如果您运行的是 Minikube，可以运行下面的命令启用 metrics-server：
+如果你运行的是 Minikube，可以运行下面的命令启用 metrics-server：
 
 ```shell
 minikube addons enable metrics-server
@@ -68,12 +65,10 @@ reference to `metrics.k8s.io`.
 -->
 如果资源指标 API 可用，则输出结果将包含对 `metrics.k8s.io` 的引用信息。
 
-```shell
+```
 NAME
 v1beta1.metrics.k8s.io
 ```
-
-
 
 <!-- steps -->
 
@@ -106,7 +101,7 @@ for the Pod:
 要为容器指定内存请求，请在容器资源清单中包含 `resources：requests` 字段。
 同理，要指定内存限制，请包含 `resources：limits`。
 
-在本练习中，您将创建一个拥有一个容器的 Pod。
+在本练习中，你将创建一个拥有一个容器的 Pod。
 容器将会请求 100 MiB 内存，并且内存会被限制在 200 MiB 以内。
 这是 Pod 的配置文件：
 
@@ -203,8 +198,10 @@ restarted, the kubelet restarts it, as with any other type of runtime failure.
 -->
 ## 超过容器限制的内存
 
-当节点拥有足够的可用内存时，容器可以使用其请求的内存。但是，容器不允许使用超过其限制的内存。
-如果容器分配的内存超过其限制，该容器会成为被终止的候选容器。如果容器继续消耗超出其限制的内存，则终止容器。
+当节点拥有足够的可用内存时，容器可以使用其请求的内存。
+但是，容器不允许使用超过其限制的内存。
+如果容器分配的内存超过其限制，该容器会成为被终止的候选容器。
+如果容器继续消耗超出其限制的内存，则终止容器。
 如果终止的容器可以被重启，则 kubelet 会重新启动它，就像其他任何类型的运行时失败一样。
 
 <!--
@@ -212,7 +209,7 @@ In this exercise, you create a Pod that attempts to allocate more memory than it
 Here is the configuration file for a Pod that has one Container with a
 memory request of 50 MiB and a memory limit of 100 MiB:
 -->
-在本练习中，您将创建一个 Pod，尝试分配超出其限制的内存。
+在本练习中，你将创建一个 Pod，尝试分配超出其限制的内存。
 这是一个 Pod 的配置文件，其拥有一个容器，该容器的内存请求为 50 MiB，内存限制为 100 MiB：
 
 {{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
@@ -223,7 +220,7 @@ will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limi
 
 Create the Pod:
 -->
-在配置文件的 `args` 部分中，您可以看到容器会尝试分配 250 MiB 内存，这远高于 100 MiB 的限制。
+在配置文件的 `args` 部分中，你可以看到容器会尝试分配 250 MiB 内存，这远高于 100 MiB 的限制。
 
 创建 Pod：
 
@@ -277,7 +274,8 @@ lastState:
 The Container in this exercise can be restarted, so the kubelet restarts it. Repeat
 this command several times to see that the Container is repeatedly killed and restarted:
 -->
-本练习中的容器可以被重启，所以 kubelet 会重启它。多次运行下面的命令，可以看到容器在反复的被杀死和重启：
+本练习中的容器可以被重启，所以 kubelet 会重启它。
+多次运行下面的命令，可以看到容器在反复的被杀死和重启：
 
 ```shell
 kubectl get pod memory-demo-2 --namespace=mem-example
@@ -371,8 +369,8 @@ of any Node in your cluster.
 -->
 Pod 的调度基于请求。只有当节点拥有足够满足 Pod 内存请求的内存时，才会将 Pod 调度至节点上运行。
 
-在本练习中，你将创建一个 Pod，其内存请求超过了您集群中的任意一个节点所拥有的内存。
-这是该 Pod 的配置文件，其拥有一个请求 1000 GiB 内存的容器，这应该超过了您集群中任何节点的容量。
+在本练习中，你将创建一个 Pod，其内存请求超过了你集群中的任意一个节点所拥有的内存。
+这是该 Pod 的配置文件，其拥有一个请求 1000 GiB 内存的容器，这应该超过了你集群中任何节点的容量。
 
 {{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
 
@@ -397,7 +395,8 @@ kubectl get pod memory-demo-3 --namespace=mem-example
 <!--
 The output shows that the Pod status is PENDING. That is, the Pod is not scheduled to run on any Node, and it will remain in the PENDING state indefinitely:
 -->
-输出结果显示：Pod 处于 PENDING 状态。这意味着，该 Pod 没有被调度至任何节点上运行，并且它会无限期的保持该状态：
+输出结果显示：Pod 处于 PENDING 状态。
+这意味着，该 Pod 没有被调度至任何节点上运行，并且它会无限期的保持该状态：
 
 ```
 kubectl get pod memory-demo-3 --namespace=mem-example
@@ -436,7 +435,9 @@ For example, the following represent approximately the same value:
 -->
 ## 内存单位
 
-内存资源的基本单位是字节（byte）。您可以使用这些后缀之一，将内存表示为纯整数或定点整数：E、P、T、G、M、K、Ei、Pi、Ti、Gi、Mi、Ki。例如，下面是一些近似相同的值：
+内存资源的基本单位是字节（byte）。你可以使用这些后缀之一，将内存表示为
+纯整数或定点整数：E、P、T、G、M、K、Ei、Pi、Ti、Gi、Mi、Ki。
+例如，下面是一些近似相同的值：
 
 ```shell
 128974848, 129e6, 129M , 123Mi
@@ -469,12 +470,13 @@ Container is automatically assigned the default limit. Cluster administrators ca
 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
 to specify a default value for the memory limit.
 -->
-* 容器可无限制地使用内存。容器可以使用其所在节点所有的可用内存，进而可能导致该节点调用 OOM Killer。
-此外，如果发生 OOM Kill，没有资源限制的容器将被杀掉的可行性更大。
+* 容器可无限制地使用内存。容器可以使用其所在节点所有的可用内存，
+  进而可能导致该节点调用 OOM Killer。
+  此外，如果发生 OOM Kill，没有资源限制的容器将被杀掉的可行性更大。
 
 * 运行的容器所在命名空间有默认的内存限制，那么该容器会被自动分配默认限制。
-集群管理员可用使用 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
-来指定默认的内存限制。
+  集群管理员可用使用 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
+  来指定默认的内存限制。
 
 <!--
 ## Motivation for memory requests and limits
@@ -486,7 +488,9 @@ scheduled. By having a memory limit that is greater than the memory request, you
 -->
 ## 内存请求和限制的目的
 
-通过为集群中运行的容器配置内存请求和限制，您可以有效利用集群节点上可用的内存资源。通过将 Pod 的内存请求保持在较低水平，您可以更好地安排 Pod 调度。通过让内存限制大于内存请求，您可以完成两件事：
+通过为集群中运行的容器配置内存请求和限制，你可以有效利用集群节点上可用的内存资源。
+通过将 Pod 的内存请求保持在较低水平，你可以更好地安排 Pod 调度。
+通过让内存限制大于内存请求，你可以完成两件事：
 
 <!--
 * The Pod can have bursts of activity where it makes use of memory that happens to be available.
@@ -508,34 +512,46 @@ Delete your namespace. This deletes all the Pods that you created for this task:
 kubectl delete namespace mem-example
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
 
+<!--
+### For app developers
 
+* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+
+* [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
+-->
 ### 应用开发者扩展阅读
 
 * [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [配置 Pod 的服务质量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
 
+
+<!--
+### For cluster administrators
+
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+
+* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+
+* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+
+* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+
+* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+
+* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+-->
 ### 集群管理员扩展阅读
 
 * [为命名空间配置默认的内存请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-
 * [为命名空间配置默认的 CPU 请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-
 * [配置命名空间的最小和最大内存约束](/zh/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-
 * [配置命名空间的最小和最大 CPU 约束](/zh/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-
 * [为命名空间配置内存和 CPU 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-
 * [配置命名空间下 Pod 总数](/zh/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
-
 * [配置 API 对象配额](/zh/docs/tasks/administer-cluster/quota-api-object/)
-
-
-
-
 

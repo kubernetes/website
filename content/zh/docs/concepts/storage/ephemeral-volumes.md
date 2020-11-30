@@ -72,10 +72,9 @@ different purposes:
   [downwardAPI](/docs/concepts/storage/volumes/#downwardapi),
   [secret](/docs/concepts/storage/volumes/#secret): inject different
   kinds of Kubernetes data into a Pod
-- [CSI ephemeral
-  volumes](docs/concepts/storage/volumes/#csi-ephemeral-volumes):
-  similar to the previous volume kinds, but provided by special [CSI
-  drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+- [CSI ephemeral volumes](#csi-ephemeral-volumes):
+  similar to the previous volume kinds, but provided by special
+  [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
   which specifically [support this feature](https://kubernetes-csi.github.io/docs/drivers.html)
 - [generic ephemeral volumes](#generic-ephemeral-volumes), which
   can be provided by all storage drivers that also support persistent volumes
@@ -287,8 +286,8 @@ spec:
 ### 生命周期和 PersistentVolumeClaim {#lifecycle-and-persistentvolumeclaim}
 
 <!--
-The key design idea is that the [parameters for a
-volume claim](/docs/reference/generated/kubernetes-api/#ephemeralvolumesource-v1alpha1-core)
+The key design idea is that the
+[parameters for a volume claim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)
 are allowed inside a volume source of the Pod. Labels, annotations and
 the whole set of fields for a PersistentVolumeClaim are supported. When such a Pod gets
 created, the ephemeral volume controller then creates an actual PersistentVolumeClaim
@@ -296,11 +295,11 @@ object in the same namespace as the Pod and ensures that the PersistentVolumeCla
 gets deleted when the Pod gets deleted.
 -->
 关键的设计思想是在 Pod 的卷来源中允许使用
-[卷申领的参数](/docs/reference/generated/kubernetes-api/#ephemeralvolumesource-v1alpha1-core)。
+[卷申领的参数](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralvolumesource-v1alpha1-core)。
 PersistentVolumeClaim 的标签、注解和整套字段集均被支持。
 创建这样一个 Pod 后，
 临时卷控制器在 Pod 所属的命名空间中创建一个实际的 PersistentVolumeClaim 对象，
-并确保删除 Pod 时， 同步删除PersistentVolumeClaim 。
+并确保删除 Pod 时，同步删除 PersistentVolumeClaim。
 
 <!--
 That triggers volume binding and/or provisioning, either immediately if
@@ -417,7 +416,8 @@ two choices:
   `volumes` list does not contain the `ephemeral` volume type.
 -->
 - 通过特性门控显式禁用该特性，可以避免将来的 Kubernetes 版本默认启用时带来混乱。
-- 当`卷`列表不包含 `ephemeral` 卷类型时，使用 [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)。
+- 当`卷`列表不包含 `ephemeral` 卷类型时，使用
+  [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)。
 
 <!--
 The normal namespace quota for PVCs in a namespace still applies, so
@@ -435,6 +435,7 @@ it to circumvent other policies.
 See [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
 -->
 ### kubelet 管理的临时卷 {#ephemeral-volumes-managed-by-kubelet}
+
 参阅[本地临时存储](/zh/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)。
 
 <!--
@@ -446,9 +447,10 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 -->
 ### CSI 临时卷 {#csi-ephemeral-volumes}
 
-- 有关设计的更多信息，参阅 [Ephemeral Inline CSI
-  volumes KEP](https://github.com/kubernetes/enhancements/blob/ad6021b3d61a49040a3f835e12c8bb5424db2bbb/keps/sig-storage/20190122-csi-inline-volumes.md)。
-- 本特性下一步开发的更多信息，参阅 [enhancement tracking issue #596](https://github.com/kubernetes/enhancements/issues/596)。
+- 有关设计的更多信息，参阅
+  [Ephemeral Inline CSI volumes KEP](https://github.com/kubernetes/enhancements/blob/ad6021b3d61a49040a3f835e12c8bb5424db2bbb/keps/sig-storage/20190122-csi-inline-volumes.md)。
+- 本特性下一步开发的更多信息，参阅
+  [enhancement tracking issue #596](https://github.com/kubernetes/enhancements/issues/596)。
 
 <!--
 ### Generic ephemeral volumes
@@ -458,5 +460,8 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 - For more information on further development of this feature, see the [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698).
 -->
 ### 通用临时卷 {#generic-ephemeral-volumes}
-- 有关设计的更多信息，参阅 [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md)。
-- 本特性下一步开发的更多信息，参阅 [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698).
+
+- 有关设计的更多信息，参阅
+  [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md)。
+- 本特性下一步开发的更多信息，参阅
+  [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698).

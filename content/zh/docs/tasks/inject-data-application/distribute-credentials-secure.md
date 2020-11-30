@@ -329,7 +329,7 @@ This functionality is available in Kubernetes v1.6 and later.
    ```
 
 <!--
-*  Use envFrom to define all of the Secret’s data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+*  Use envFrom to define all of the Secret's data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
 -->
 *  使用 `envFrom` 来将 Secret 中的所有数据定义为环境变量。
    Secret 中的键名成为容器中的环境变量名：

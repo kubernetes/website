@@ -18,7 +18,7 @@ Kubernetes zawiera różne wbudowane narzędzia służące do pracy z systemem:
 
 ## Minikube
 
-[`minikube`](/docs/tasks/tools/install-minikube/) to narzędzie do łatwego uruchamiania lokalnego klastra Kubernetes na twojej stacji roboczej na potrzeby rozwoju oprogramowania lub prowadzenia testów.
+[`minikube`](https://minikube.sigs.k8s.io/docs/) to narzędzie do łatwego uruchamiania lokalnego klastra Kubernetes na twojej stacji roboczej na potrzeby rozwoju oprogramowania lub prowadzenia testów.
 
 ## Pulpit *(Dashboard)*
 
@@ -38,7 +38,7 @@ Helm-a można używać do:
 
 ## Kompose
 
-[`Kompose`](https://github.com/kubernetes-incubator/kompose) to narzędzie, które ma pomóc użytkownikom Docker Compose przenieść się na Kubernetes.
+[`Kompose`](https://github.com/kubernetes/kompose) to narzędzie, które ma pomóc użytkownikom Docker Compose przenieść się na Kubernetes.
 
 Kompose można używać do:
 

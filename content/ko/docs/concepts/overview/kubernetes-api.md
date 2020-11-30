@@ -22,7 +22,7 @@ card:
 
 대부분의 작업은 [kubectl](/docs/reference/kubectl/overview/)
 커맨드 라인 인터페이스 또는 API를 사용하는
-[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)과
+[kubeadm](/ko/docs/reference/setup-tools/kubeadm/)과
 같은 다른 커맨드 라인 도구를 통해 수행할 수 있다.
 그러나, REST 호출을 사용하여 API에 직접 접근할 수도 있다.
 
@@ -39,6 +39,7 @@ OpenAPI 규격은 `/openapi/v2` 엔드포인트에서만 제공된다.
 다음과 같은 요청 헤더를 사용해서 응답 형식을 요청할 수 있다.
 
 <table>
+  <caption style="display:none">Valid request header values for OpenAPI v2 queries</caption>
   <thead>
      <tr>
         <th>Header</th>
@@ -66,7 +67,6 @@ OpenAPI 규격은 `/openapi/v2` 엔드포인트에서만 제공된다.
         <td><em>serves </em><code>application/json</code></td>
      </tr>
   </tbody>
-  <caption>Valid request header values for OpenAPI v2 queries</caption>
 </table>
 
 쿠버네티스는 주로 클러스터 내부 통신을 위해 대안적인
@@ -100,12 +100,33 @@ API가 시스템 리소스 및 동작에 대한 명확하고 일관된 보기를
 수명 종료 및/또는 실험적 API에 대한 접근을
 제어할 수 있도록 한다.
 
+보다 쉽게 발전하고 API를 확장하기 위해, 쿠버네티스는
+[활성화 또는 비활성화](/ko/docs/reference/using-api/#api-그룹-활성화-또는-비활성화)가
+가능한 [API 그룹](/ko/docs/reference/using-api/#api-그룹)을 구현한다.
+
+API 리소스는 API 그룹, 리소스 유형, 네임스페이스
+(네임스페이스 리소스용) 및 이름으로 구분된다. API 서버는
+여러 API 버전을 통해 동일한 기본 데이터를 제공하고 API 버전 간의
+변환을 투명하게 처리할 수 있다. 이 모든 다른 버전은 실제로
+같은 리소스의 표현이다. 예를 들어 동일한 리소스에 대해
+두 가지 버전 `v1`과 `v1beta1`이 있다고 가정해 보자.
+`v1beta1` 버전에서 생성된 오브젝트를 `v1beta1` 또는 `v1` 버전에서
+읽기, 업데이트 및 삭제할 수 있다.
+
+API 버전 수준 정의에 대한 자세한 내용은
+[API 버전 레퍼런스](/ko/docs/reference/using-api/#api-버전-규칙)를 참조한다.
+
+API 리소스는 해당 API 그룹, 리소스 유형, 네임스페이스
+(네임스페이스 리소스용) 및 이름으로 구분된다. API 서버는 여러 API 버전을 통해 동일한
+기본 데이터를 제공하고 API 버전 간의 변환을 투명하게
+처리할 수 있다. 이 모든 다른 버전은 실제로
+동일한 리소스의 표현이다. 예를 들어, 동일한 리소스에 대해 두 가지
+버전 `v1` 과 `v1beta1` 이 있다고 가정한다. 그런 다음 `v1beta1` 버전에서
+생성된 오브젝트를 `v1beta1` 또는 `v1` 버전에서 읽고 업데이트하고
+삭제할 수 있다.
+
 API 버전 수준 정의에 대한 자세한 내용은
 [API 버전 레퍼런스](/ko/docs/reference/using-api/api-overview/#api-버전-규칙)를 참조한다.
-
-보다 쉽게 발전하고 API를 확장하기 위해, 쿠버네티스는
-[활성화 또는 비활성화](/ko/docs/reference/using-api/api-overview/#api-그룹-활성화-또는-비활성화-하기)가
-가능한 [API 그룹](/ko/docs/reference/using-api/api-overview/#api-그룹)을 구현한다.
 
 ## API 확장
 
@@ -120,7 +141,7 @@ API 버전 수준 정의에 대한 자세한 내용은
 
 - 자체 [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)을
   추가하여 쿠버네티스 API를 확장하는 방법에 대해 배우기.
-- [API 접근 제어하기](/ko/docs/reference/access-authn-authz/controlling-access/)는
+- [쿠버네티스 API 접근 제어하기](/ko/docs/concepts/security/controlling-access/)는
   클러스터가 API 접근을 위한 인증 및 권한을 관리하는 방법을 설명한다.
 - [API 레퍼런스](/docs/reference/kubernetes-api/)를
   읽고 API 엔드포인트, 리소스 유형 및 샘플에 대해 배우기.

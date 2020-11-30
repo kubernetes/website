@@ -97,7 +97,7 @@ API 通常用于托管的 Kubernetes 服务和受控的 Kubernetes 安装环境�
 这些 API 是声明式的，与 Pod 这类其他 Kubernetes 资源遵从相同的约定，所以
 新的集群配置是可复用的，并且可以当作应用程序来管理。
 此外，对于稳定版本的 API 而言，它们与其他 Kubernetes API 一样，采纳的是
-一种[预定义的支持策略](/docs/reference/using-api/deprecation-policy/)。
+一种[预定义的支持策略](/zh/docs/reference/using-api/deprecation-policy/)。
 出于以上原因，在条件允许的情况下，基于 API 的方案应该优先于*配置文件*和*参数标志*。
 
 <!--
@@ -195,12 +195,12 @@ This diagram shows the extension points in a Kubernetes system.
 
 <!--
 1.   Users often interact with the Kubernetes API using `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) extend the kubectl binary. They only affect the individual user's local environment, and so cannot enforce site-wide policies.
-2.   The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](/docs/concepts/overview/extending#api-access-extensions) section.
-3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](/docs/concepts/overview/extending#user-defined-types) section. Custom Resources are often used with API Access Extensions.
-4.   The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions) section.
+2.   The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](#api-access-extensions) section.
+3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](#user-defined-types) section. Custom Resources are often used with API Access Extensions.
+4.   The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](#scheduler-extensions) section.
 5.   Much of the behavior of Kubernetes is implemented by programs called Controllers which are clients of the API-Server. Controllers are often used in conjunction with Custom Resources.
-6.   The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](/docs/concepts/overview/extending#network-plugins) allow for different implementations of pod networking.
-7.  The kubelet also mounts and unmounts volumes for containers. New types of storage can be supported via [Storage Plugins](/docs/concepts/overview/extending#storage-plugins).
+6.   The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](#network-plugins) allow for different implementations of pod networking.
+7.  The kubelet also mounts and unmounts volumes for containers. New types of storage can be supported via [Storage Plugins](#storage-plugins).
 
 If you are unsure where to start, this flowchart can help. Note that some solutions may involve several types of extensions.
 -->
@@ -259,7 +259,7 @@ For more about Custom Resources, see the [Custom Resources concept guide](/docs/
 
 不要使用自定义资源来充当应用、用户或者监控数据的数据存储。
 
-关于自定义资源的更多信息，可参见[自定义资源概念指南](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
+关于自定义资源的更多信息，可参见[自定义资源概念指南](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
 
 <!--
 ### Combining New APIs with Automation
@@ -289,7 +289,7 @@ API 组中。你不可以替换或更改现有的 API 组。
 <!--
 ### API Access Extensions
 
-When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) for more on this flow.
+When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [Controlling Access to the Kubernetes API](/docs/concepts/security/controlling-access/) for more on this flow.
 
 Each of these steps offers extension points.
 
@@ -299,7 +299,7 @@ Kubernetes has several built-in authentication methods that it supports. It can 
 
 当请求到达 Kubernetes API 服务器时，首先要经过身份认证，之后是鉴权操作，
 再之后要经过若干类型的准入控制器的检查。
-参见[控制 Kubernetes API 访问](/zh/docs/reference/access-authn-authz/controlling-access/)
+参见[控制 Kubernetes API 访问](/zh/docs/concepts/security/controlling-access/)
 以了解此流程的细节。
 
 这些步骤中都存在扩展点。
@@ -319,11 +319,11 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 -->
 ### 身份认证    {#authentication}
 
-[身份认证](/docs/reference/access-authn-authz/authentication/)负责将所有请求中
+[身份认证](/zh/docs/reference/access-authn-authz/authentication/)负责将所有请求中
 的头部或证书映射到发出该请求的客户端的用户名。
 
 Kubernetes 提供若干种内置的认证方法，以及
-[认证 Webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
+[认证 Webhook](/zh/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
 方法以备内置方法无法满足你的要求。
 
 <!--
@@ -443,7 +443,7 @@ the nodes chosen for a pod.
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
 -->
-* 进一步了解[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* 进一步了解[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 了解[动态准入控制](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * 进一步了解基础设施扩展
   * [网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)

@@ -137,7 +137,7 @@ In your shell, create an `index.html` file in the `/usr/share/nginx/html`
 directory:
 -->
 
-在 shell 中，在 `/usr/share/nginx/html` 目录创建一个 `index.html 文件：
+在 shell 中，在 `/usr/share/nginx/html` 目录创建一个 `index.html` 文件：
 
 ```shell
 root@shell-demo:/# echo Hello shell demo > /usr/share/nginx/html/index.html

@@ -136,7 +136,7 @@ Redis 파드의
 
 * [파드](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)을 참고한다.
 
-* 쿠버네티스는 `emptyDir` 이 제공하는 로컬 디스크 스토리지 뿐만 아니라,
+* 쿠버네티스는 `emptyDir` 이 제공하는 로컬 디스크 스토리지뿐만 아니라,
 중요한 데이터에 선호하는 GCE의 PD, EC2의 EBS를 포함해서
 네트워크 연결 스토리지(NAS) 솔루션을 지원하며,
 노드의 디바이스 마운트, 언마운트와 같은 세부사항을 처리한다.

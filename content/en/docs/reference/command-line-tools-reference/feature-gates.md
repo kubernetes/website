@@ -83,8 +83,6 @@ different Kubernetes components.
 | `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | |
 | `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
-| `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
@@ -138,12 +136,11 @@ different Kubernetes components.
 | `RuntimeClass` | `true` | Beta | 1.14 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | 1.18 |
 | `SCTPSupport` | `true` | Beta | 1.19 | |
-| `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
-| `ServiceAppProtocol` | `true` | Beta | 1.19 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | |
-| `ServiceAppProtocol` | `false` | Alpha | 1.18 | |
+| `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
+| `ServiceAppProtocol` | `true` | Beta | 1.19 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
 | `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
@@ -210,6 +207,9 @@ different Kubernetes components.
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
+| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
+| `CustomResourceDefaulting` | `true` | Beta | 1.16 | 1.16 |
+| `CustomResourceDefaulting` | `true` | GA | 1.17 | - |
 | `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
 | `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | 1.15 |
 | `CustomResourcePublishOpenAPI` | `true` | GA | 1.16 | - |

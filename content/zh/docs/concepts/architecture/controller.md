@@ -156,6 +156,27 @@ nodes in your cluster. See
 [集群自动扩缩容](/zh/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)）。
 
 <!--
+The important point here is that the controller makes some change to bring about
+your desired state, and then reports current state back to your cluster's API server.
+Other control loops can observe that reported data and take their own actions.
+-->
+这里，很重要的一点是，控制器做出了一些变更以使得事物更接近你的期望状态，
+之后将当前状态报告给集群的 API 服务器。
+其他控制回路可以观测到所汇报的数据的这种变化并采取其各自的行动。
+
+<!--
+In the thermostat example, if the room is very cold then a different controller
+might also turn on a frost protection heater. With Kubernetes clusters, the control
+plane indirectly works with IP address management tools, storage services,
+cloud provider APIS, and other services by
+[extending Kubernetes](/docs/concepts/extend-kubernetes/) to implement that.
+-->
+在温度计的例子中，如果房间很冷，那么某个控制器可能还会启动一个防冻加热器。
+就 Kubernetes 集群而言，控制面间接地与 IP 地址管理工具、存储服务、云驱动
+APIs 以及其他服务协作，通过[扩展 Kubernetes](/zh/docs/concepts/extend-kubernetes/)
+来实现这点。
+
+<!--
 ## Desired versus current state {#desired-vs-current}
 
 Kubernetes takes a cloud-native view of systems, and is able to handle

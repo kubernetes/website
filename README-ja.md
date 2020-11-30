@@ -4,33 +4,99 @@
 
 このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。貢献に興味を持っていただきありがとうございます！
 
-## Hugoを使ってローカル環境でWebサイトを動かす
+# リポジトリの使い方
 
-Hugoのインストール方法については[Hugoの公式ドキュメント](https://gohugo.io/getting-started/installing/)をご覧ください。このとき、[`netlify.toml`](netlify.toml#L10)ファイルに記述されている`HUGO_VERSION`と同じバージョンをインストールするようにしてください。
+Hugo(Extended version)を使用してWebサイトをローカルで実行することも、コンテナランタイムで実行することもできます。コンテナランタイムを使用することを強くお勧めします。これにより、本番Webサイトとのデプロイメントの一貫性が得られます。
 
-Hugoがインストールできたら、以下のコマンドを使ってWebサイトをローカル上で動かすことができます:
+## 前提条件
 
-```bash
+このリポジトリを使用するには、以下をローカルにインストールする必要があります。
+
+- [npm](https://www.npmjs.com/)
+- [Go](https://golang.org/)
+- [Hugo(Extended version)](https://gohugo.io/)
+- [Docker](https://www.docker.com/)などのコンテナランタイム
+
+開始する前に、依存関係をインストールしてください。リポジトリのクローンを作成し、ディレクトリに移動します。
+
+```
 git clone https://github.com/kubernetes/website.git
 cd website
+```
+
+KubernetesのWebサイトではDocsyというHugoテーマを使用しています。コンテナでWebサイトを実行する場合でも、以下を実行して、サブモジュールおよびその他の開発依存関係をプルすることを強くお勧めします。
+
+```
+# pull in the Docsy submodule
 git submodule update --init --recursive --depth 1
 ```
 
-**注意:** Kubernetesのウェブサイトでは[DocsyというHugoのテーマ](https://github.com/google/docsy#readme)を使用しています。リポジトリを更新していない場合、 `website/themes/docsy`ディレクトリは空です。 このサイトはテーマのローカルコピーなしでは構築できません。
+## コンテナを使ってウェブサイトを動かす
 
-テーマをアップデートするには以下のコマンドを実行します:
+コンテナ内でサイトを構築するには、以下を実行してコンテナイメージを構築し、実行します。
 
-```bash
-git submodule update --init --recursive --depth 1
+```
+make container-image
+make container-serve
 ```
 
-サイトをローカルでビルドしてテストするには以下のコマンドを実行します:
+お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
+
+## Hugoを使ってローカル環境でWebサイトを動かす
+
+[`netlify.toml`](netlify.toml#L10)ファイルに記述されている`HUGO_VERSION`と同じExtended versionのHugoをインストールするようにしてください。
+
+ローカルでサイトを構築してテストするには、次のコマンドを実行します。
 
 ```bash
-hugo server --buildFuture
+# install dependencies
+npm ci
+make serve
 ```
 
 これで、Hugoのサーバーが1313番ポートを使って開始します。お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
+
+## トラブルシューティング
+
+### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
+
+Hugoは、技術的な理由から2種類のバイナリがリリースされています。現在のウェブサイトは**Hugo Extended**バージョンのみに基づいて運営されています。[リリースページ](https://github.com/gohugoio/hugo/releases)で名前に「extended」が含まれるアーカイブを探します。確認するには、`hugo version`を実行し、「extended」という単語を探します。
+
+### macOSにてtoo many open filesというエラーが表示される
+
+macOS上で`make serve`を実行した際に以下のエラーが表示される場合
+
+```
+ERROR 2020/08/01 19:09:18 Error: listen tcp 127.0.0.1:1313: socket: too many open files
+make: *** [serve] Error 1
+```
+
+OS上で同時に開けるファイルの上限を確認してください。
+
+`launchctl limit maxfiles`
+
+続いて、以下のコマンドを実行します(https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c より引用)。
+
+```
+#!/bin/sh
+
+# These are the original gist links, linking to my gists now.
+# curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxfiles.plist
+# curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxproc.plist
+
+curl -O https://gist.githubusercontent.com/tombigel/d503800a282fcadbee14b537735d202c/raw/ed73cacf82906fdde59976a0c8248cce8b44f906/limit.maxfiles.plist
+curl -O https://gist.githubusercontent.com/tombigel/d503800a282fcadbee14b537735d202c/raw/ed73cacf82906fdde59976a0c8248cce8b44f906/limit.maxproc.plist
+
+sudo mv limit.maxfiles.plist /Library/LaunchDaemons
+sudo mv limit.maxproc.plist /Library/LaunchDaemons
+
+sudo chown root:wheel /Library/LaunchDaemons/limit.maxfiles.plist
+sudo chown root:wheel /Library/LaunchDaemons/limit.maxproc.plist
+
+sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
+```
+
+こちらはmacOSのCatalinaとMojaveで動作を確認しています。
 
 ## SIG Docsに参加する
 

@@ -15,17 +15,36 @@ fi
 if [ ! -e "$1" ] ; then
   echo "Path not found: '$1'" >&2
   exit 2
-elif [ -d "$1" ] ; then
-  IS_DIR=1
-  EXTRA_FLAGS="--stat"
-else
-  IS_DIR=0
 fi
+
+if [ -d "$1" ] ; then
+  SYNCED=1
+  for f in `find $1 -name "*.md"` ; do
+    EN_VERSION=`echo $f | sed "s/content\/..\//content\/en\//g"`
+    if [ ! -e $EN_VERSION ]; then
+      echo -e "**removed**\t$EN_VERSION"
+      SYNCED=0
+      continue
+    fi
+
+    LASTCOMMIT=`git log -n 1 --pretty=format:%h -- $f`
+    git diff --exit-code --numstat $LASTCOMMIT...HEAD $EN_VERSION
+    if [ $? -ne 0 ] ; then
+      SYNCED=0
+    fi
+  done
+  if [ $SYNCED -eq 1 ]; then
+    echo "$1 is still in sync"
+    exit 0
+  fi
+  exit 1
+fi
+
 LOCALIZED="$1"
 
 # Try get the English version
 EN_VERSION=`echo $LOCALIZED | sed "s/content\/..\//content\/en\//g"`
-if [ $IS_DIR -eq 1 -a ! -e $EN_VERSION ]; then
+if [ ! -e $EN_VERSION ]; then
   echo "$EN_VERSION has been removed."
   exit 3
 fi
@@ -33,9 +52,9 @@ fi
 # Last commit for the localized path
 LASTCOMMIT=`git log -n 1 --pretty=format:%h -- $LOCALIZED`
 
-git diff --exit-code $EXTRA_FLAGS $LASTCOMMIT...HEAD $EN_VERSION
+git diff --exit-code $LASTCOMMIT...HEAD $EN_VERSION
 
 if [ "$?" -eq 0 ]; then
   echo "$LOCALIZED is still in sync"
-  exit 3
+  exit 0
 fi

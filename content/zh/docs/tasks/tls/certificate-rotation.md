@@ -16,7 +16,7 @@ This page shows how to enable and configure certificate rotation for the kubelet
 -->
 本文展示如何在 kubelet 中启用并配置证书轮换。
 
-{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+{{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -58,23 +58,21 @@ Kubernetes API 间的连接认证。
 
 The `kubelet` process accepts an argument `--rotate-certificates` that controls
 if the kubelet will automatically request a new certificate as the expiration of
-the certificate currently in use approaches.  Since certificate rotation is a
-beta feature, the feature flag must also be enabled with
-`--feature-gates=RotateKubeletClientCertificate=true`.
+the certificate currently in use approaches.
 -->
 ## 启用客户端证书轮换
 
- `kubelet` 进程接收 `--rotate-certificates` 参数，该参数决定 kubelet 在当前使用的证书即将到期时，
-是否会自动申请新的证书。 由于证书轮换是 beta 特性，必须通过参数
-`--feature-gates=RotateKubeletClientCertificate=true` 进行启用。
+ `kubelet` 进程接收 `--rotate-certificates` 参数，该参数决定 kubelet 在当前使用的
+证书即将到期时，是否会自动申请新的证书。
 
 <!--
 The `kube-controller-manager` process accepts an argument
-`--experimental-cluster-signing-duration` that controls how long certificates
-will be issued for.
+`--cluster-signing-duration`  (`--experimental-cluster-signing-duration` prior to 1.19)
+that controls how long certificates will be issued for.
 -->
-`kube-controller-manager` 进程接收
-`--experimental-cluster-signing-duration` 参数，该参数控制证书签发的有效期限。
+`kube-controller-manager` 进程接收 `--cluster-signing-duration` 参数
+（在 1.19 版本之前为 `--experimental-cluster-signing-duration`），用来
+控制签发证书的有效期限。
 
 <!--
 ## Understanding the certificate rotation configuration
@@ -86,10 +84,11 @@ status of certificate signing requests using:
 -->
 ## 理解证书轮换配置
 
-当 kubelet 启动时，如被配置为自举（使用`--bootstrap-kubeconfig` 参数），kubelet 会使用其初始证书连接到
-Kubernetes API ，并发送证书签名的请求。 可以通过以下方式查看证书签名请求的状态：
+当 kubelet 启动时，如被配置为自举（使用`--bootstrap-kubeconfig` 参数），kubelet
+会使用其初始证书连接到 Kubernetes API ，并发送证书签名的请求。
+可以通过以下方式查看证书签名请求的状态：
 
-```sh
+```shell
 kubectl get csr
 ```
 
@@ -99,19 +98,20 @@ status of `Pending`. If the certificate signing requests meets specific
 criteria, it will be auto approved by the controller manager, then it will have
 a status of `Approved`. Next, the controller manager will sign a certificate,
 issued for the duration specified by the
-`--experimental-cluster-signing-duration` parameter, and the signed certificate
+`--cluster-signing-duration` parameter, and the signed certificate
 will be attached to the certificate signing requests.
 -->
 最初，来自节点上 kubelet 的证书签名请求处于 `Pending` 状态。 如果证书签名请求满足特定条件，
 控制器管理器会自动批准，此时请求会处于 `Approved` 状态。 接下来，控制器管理器会签署证书，
-证书的有效期限由 `--experimental-cluster-signing-duration` 参数指定，签署的证书会被附加到证书签名请求中。
+证书的有效期限由 `--cluster-signing-duration` 参数指定，签署的证书会被附加到证书签名请求中。
 
 <!--
 The kubelet will retrieve the signed certificate from the Kubernetes API and
 write that to disk, in the location specified by `--cert-dir`. Then the kubelet
 will use the new certificate to connect to the Kubernetes API.
 -->
-Kubelet 会从 Kubernetes API 取回签署的证书，并将其写入磁盘，存储位置通过 `--cert-dir` 参数指定。
+Kubelet 会从 Kubernetes API 取回签署的证书，并将其写入磁盘，存储位置通过 `--cert-dir`
+参数指定。
 然后 kubelet 会使用新的证书连接到 Kubernetes API。
 
 <!--

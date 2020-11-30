@@ -18,9 +18,9 @@ Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는
 
 
 이 예제는 버전 1.2 또는 이상의 쿠버네티스 클러스터와 kubectl을 필요로 한다.
-[메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/) 모니터링을 클러스터에 배포하여 리소스 메트릭 API를 통해 메트릭을 제공해야 한다.
+[메트릭-서버](https://github.com/kubernetes-sigs/metrics-server) 모니터링을 클러스터에 배포하여 리소스 메트릭 API를 통해 메트릭을 제공해야 한다.
 Horizontal Pod Autoscaler가 메트릭을 수집할때 해당 API를 사용한다.
-메트릭-서버를 배포하는 지침은 [메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/)의 GitHub 저장소에 있고, [GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭-서버 모니터링은 디폴트로 활성화된다.
+메트릭-서버를 배포하는 지침은 [메트릭-서버](https://github.com/kubernetes-sigs/metrics-server)의 GitHub 저장소에 있고, [GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭-서버 모니터링은 디폴트로 활성화된다.
 
 Horizontal Pod Autoscaler에 다양한 자원 메트릭을 적용하고자 하는 경우,
 버전 1.6 또는 이상의 쿠버네티스 클러스터와 kubectl를 사용해야 한다.
@@ -108,11 +108,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-kubectl run -it --rm load-generator --image=busybox /bin/sh
-
-Hit enter for command prompt
-
-while true; do wget -q -O- http://php-apache; done
+kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 ```
 
 실행 후, 약 1분 정도 후에 CPU 부하가 올라가는 것을 볼 수 있다.
@@ -386,7 +382,7 @@ object:
 외부 메트릭을 사용하면 모니터링 시스템의 사용 가능한 메트릭에 기반하여 클러스터를 오토스케일링 할 수 있다.
 위의 예제처럼 `name`과 `selector`를 갖는 `metric` 블록을 제공하고,
 `Object` 대신에 `External` 메트릭 타입을 사용한다.
-만일 여러개의 시계열이 `metricSelector`와 일치하면, HorizontalPodAutoscaler가 값의 합을 사용한다.
+만일 여러 개의 시계열이 `metricSelector`와 일치하면, HorizontalPodAutoscaler가 값의 합을 사용한다.
 외부 메트릭들은 `Value`와 `AverageValue` 대상 타입을 모두 지원하고,
 `Object` 타입을 사용할 때와 똑같이 동작한다.
 

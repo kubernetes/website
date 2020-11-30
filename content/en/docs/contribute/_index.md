@@ -1,6 +1,6 @@
 ---
 content_type: concept
-title: Contribute to Kubernetes docs
+title: Contribute to K8s docs
 linktitle: Contribute
 main_menu: true
 no_list: true
@@ -8,7 +8,7 @@ weight: 80
 card:
   name: contribute
   weight: 10
-  title: Start contributing
+  title: Start contributing to K8s
 ---
 
 <!-- overview -->

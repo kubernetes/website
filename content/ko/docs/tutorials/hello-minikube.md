@@ -15,24 +15,22 @@ card:
 
 <!-- overview -->
 
-이 튜토리얼에서는 [Minikube](/ko/docs/setup/learning-environment/minikube)와 Katacoda를 이용하여
+이 튜토리얼에서는 Minikube와 Katacoda를 이용하여
 쿠버네티스에서 샘플 애플리케이션을 어떻게 실행하는지 살펴본다.
 Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 {{< note >}}
-[로컬에서 Minikube](/ko/docs/tasks/tools/install-minikube/)를 설치했다면 이 튜토리얼도 따라 할 수 있다.
+로컬에서 Minikube를 설치했다면 이 튜토리얼도 따라 할 수 있다.
+설치 안내는 [minikube 시작](https://minikube.sigs.k8s.io/docs/start/)을 참고한다.
 {{< /note >}}
 
 
 
 ## {{% heading "objectives" %}}
 
-
-* 샘플 애플리케이션을 Minikube에 배포한다.
+* 샘플 애플리케이션을 minikube에 배포한다.
 * 배포한 애플리케이션을 실행한다.
 * 애플리케이션의 로그를 확인한다.
-
-
 
 ## {{% heading "prerequisites" %}}
 
@@ -43,14 +41,14 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 <!-- lessoncontent -->
 
-## Minikubue 클러스터 만들기
+## minikubue 클러스터 만들기
 
 1. **Launch Terminal** 을 클릭
 
     {{< kat-button >}}
 
 {{< note >}}
-    Minikube를 로컬에 설치했다면 `minikube start`를 실행한다.
+    minikube를 로컬에 설치했다면 `minikube start`를 실행한다.
 {{< /note >}}
 
 2. 브라우저에서 쿠버네티스 대시보드를 열어보자.
@@ -137,6 +135,9 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     `--type=LoadBalancer`플래그는 클러스터 밖의 서비스로 노출하기
     원한다는 뜻이다.
 
+    `k8s.gcr.io/echoserver` 이미지 내의 애플리케이션 코드는 TCP 포트 8080에서만 수신한다. `kubectl expose`를
+    사용하여 다른 포트를 노출한 경우, 클라이언트는 다른 포트에 연결할 수 없다.
+
 2. 방금 생성한 서비스 살펴보기
 
     ```shell
@@ -153,7 +154,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
     로드 밸런서를 지원하는 클라우드 공급자의 경우에는
     서비스에 접근할 수 있도록 외부 IP 주소가 프로비저닝 한다.
-    Minikube에서 `LoadBalancer`타입은 `minikube service` 명령어를 통해서 해당 서비스를 접근할 수
+    minikube에서 `LoadBalancer`타입은 `minikube service` 명령어를 통해서 해당 서비스를 접근할 수
     있게 한다.
 
 3. 다음 명령어를 실행한다
@@ -170,7 +171,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 ## 애드온 사용하기
 
-Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네티스 환경에서 접속해 볼 수 있는 내장 {{< glossary_tooltip text="애드온" term_id="addons" >}} 셋이 있다.
+minikube 툴은 활성화하거나 비활성화할 수 있고 로컬 쿠버네티스 환경에서 접속해 볼 수 있는 내장 {{< glossary_tooltip text="애드온" term_id="addons" >}} 셋이 포함되어 있다.
 
 1. 현재 지원하는 애드온 목록을 확인한다.
 

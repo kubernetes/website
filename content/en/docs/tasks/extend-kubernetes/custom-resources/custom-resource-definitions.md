@@ -518,27 +518,25 @@ apiVersion: "stable.example.com/v1"
 kind: CronTab
 metadata:
   finalizers:
-  - finalizer.stable.example.com
+  - stable.example.com/finalizer
 ```
 
-Finalizers are arbitrary string values, that when present ensure that a hard delete
-of a resource is not possible while they exist.
+Identifiers of custom finalizers consist of a domain name, a forward slash and the name of
+the finalizer. Any controller can add a finalizer to any object's list of finalizers.
 
 The first delete request on an object with finalizers sets a value for the
 `metadata.deletionTimestamp` field but does not delete it. Once this value is set,
-entries in the `finalizers` list can only be removed.
+entries in the `finalizers` list can only be removed. While any finalizers remain it is also
+impossible to force the deletion of an object.
 
-When the `metadata.deletionTimestamp` field is set, controllers watching the object
-execute any finalizers they handle, by polling update requests for that
-object. When all finalizers have been executed, the resource is deleted.
+When the `metadata.deletionTimestamp` field is set, controllers watching the object execute any
+finalizers they handle and remove the finalizer from the list after they are done. It is the
+responsibility of each controller to remove its finalizer from the list.
 
-The value of `metadata.deletionGracePeriodSeconds` controls the interval between
-polling updates.
+The value of `metadata.deletionGracePeriodSeconds` controls the interval between polling updates.
 
-It is the responsibility of each controller to remove its finalizer from the list.
-
-Kubernetes only finally deletes the object if the list of finalizers is empty,
-meaning all finalizers have been executed.
+Once the list of finalizers is empty, meaning all finalizers have been executed, the resource is
+deleted by Kubernetes.
 
 ### Validation
 
