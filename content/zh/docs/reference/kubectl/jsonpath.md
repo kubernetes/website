@@ -169,11 +169,11 @@ kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-
 不支持JSONPath 正则表达式。如需使用正则表达式, 您可以使用如 `jq` 之类的工具。
 
 ```shell
-# kubectl does not support regular expressions for JSONpath output
-# The following command does not work
+# kubectl 的JSONpath输出不支持正则表达式
+# 下面的命令不会生效
 kubectl get pods -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.name}'
 
-# The following command achieves the desired result
+# 下面的命令可以获得所需的结果
 kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
 ```
 {{< /note >}}
