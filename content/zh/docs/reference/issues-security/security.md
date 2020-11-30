@@ -31,14 +31,14 @@ This page describes Kubernetes security and disclosure information.
 ## 安全公告
 
 <!--
-Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) group for emails about security and major API announcements.
+Join the [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce) group for emails about security and major API announcements.
 -->
-加入 [kubernets-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 组，以获取关于安全性和主要 API 公告的电子邮件。
+加入 [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce) 组，以获取关于安全性和主要 API 公告的电子邮件。
 
 <!--
-You can also subscribe to an RSS feed of the above using [this link](https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss_v2_0.xml?num=50).
+You can also subscribe to an RSS feed of the above using [this link](https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss_v2_0.xml?num=50).
 -->
-您也可以使用[此链接](https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss_v2_0.xml?num=50)订阅上述的 RSS 反馈。
+您也可以使用[此链接](https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss_v2_0.xml?num=50)订阅上述的 RSS 反馈。
 
 <!--
 ## Report a Vulnerability
@@ -61,9 +61,9 @@ You can also email the private [security@kubernetes.io](mailto:security@kubernet
 -->
 您还可以通过电子邮件向私有 [security@kubernetes.io](mailto:security@kubernetes.io) 列表发送电子邮件，邮件中应该包含[所有 Kubernetes 错误报告](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md)所需的详细信息。
 <!--
-You may encrypt your email to this list using the GPG keys of the [Product Security Team members](https://git.k8s.io/sig-release/security-release-process-documentation/security-release-process.md#product-security-team-pst). Encryption using GPG is NOT required to make a disclosure.
+You may encrypt your email to this list using the GPG keys of the [Product Security Committee members](https://git.k8s.io/security/README.md#product-security-committee-psc). Encryption using GPG is NOT required to make a disclosure.
 -->
-您可以使用[产品安全团队成员](https://git.k8s.io/sig-release/security-release-process-documentation/security-release-process.md#product-security-team-pst)的 GPG 密钥加密您的电子邮件到此列表。
+您可以使用[产品安全团队成员](https://git.k8s.io/security/README.md#product-security-committee-psc)的 GPG 密钥加密您的电子邮件到此列表。
 使用 GPG 加密不需要公开。
 
 <!--
