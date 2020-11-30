@@ -120,7 +120,7 @@ kubectl create --edit -f /tmp/srv.yaml
 ```
 
 1. Perintah `kubectl create service` membuat konfigurasi untuk objek Service dan menyimpannya di `/tmp/srv.yaml`.
-1. Perintah `kubectl create --edit` membuka file konfigurasi untuk diedit sebelum objek dibuat.
+1. Perintah `kubectl create --edit` membuka berkas konfigurasi untuk disunting sebelum objek dibuat.
 
 
 

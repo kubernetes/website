@@ -129,7 +129,7 @@ spec:
 
 ### _집합성 기준_ 요건
 
-_집합성 기준_ 레이블 요건에 따라 값 집합을 키로 필터링할 수 있다. `in`,`notin` and `exists`(키 식별자만 해당)의 3개의 연산자를 지원한다. 예를 들면,
+_집합성 기준_ 레이블 요건에 따라 값 집합을 키로 필터링할 수 있다. `in`,`notin`과 `exists`(키 식별자만 해당)의 3개의 연산자를 지원한다. 예를 들면,
 
 ```
 environment in (production, qa)
@@ -185,7 +185,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 [`services`](/ko/docs/concepts/services-networking/service/) 와
 [`replicationcontrollers`](/ko/docs/concepts/workloads/controllers/replicationcontroller/)와 같은
 일부 쿠버네티스 오브젝트는 레이블 셀렉터를 사용해서
-[파드](/ko/docs/concepts/workloads/pods/pod/)와 같은 다른 리소스 집합을 선택한다.
+[파드](/ko/docs/concepts/workloads/pods/)와 같은 다른 리소스 집합을 선택한다.
 
 #### 서비스와 레플리케이션 컨트롤러
 

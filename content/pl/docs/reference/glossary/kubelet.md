@@ -9,7 +9,6 @@ short_description: >
 aka:
 tags:
 - fundamental
-- core-object
 ---
  Agent, który działa na każdym {{< glossary_tooltip text="węźle" term_id="node" >}} klastra. Odpowiada za uruchamianie {{< glossary_tooltip text="kontenerów" term_id="container" >}} w ramach {{< glossary_tooltip text="poda" term_id="pod" >}}.
 

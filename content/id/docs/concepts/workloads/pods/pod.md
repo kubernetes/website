@@ -109,7 +109,7 @@ Pod dapat digunakan untuk menjalankan beberapa aplikasi yang terintegrasi
 secara vertikal (misalnya LAMP), namun motivasi utamanya adalah untuk mendukung
 berlokasi bersama, mengelola program pembantu, diantaranya adalah:
 
-* sistem pengelolaan konten, pemuat file dan data, manajer _cache_ lokal, dll.
+* sistem pengelolaan konten, pemuat berkas dan data, manajer _cache_ lokal, dll.
 * catatan dan _checkpoint_ cadangan, kompresi, rotasi, dll.
 * pengamat perubahan data, pengintip catatan, adapter pencatatan dan pemantauan,
 penerbit peristiwa, dll.

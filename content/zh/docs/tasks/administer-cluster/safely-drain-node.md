@@ -1,5 +1,5 @@
 ---
-title: 确保 PodDisruptionBudget 的前提下安全地清空一个{{< glossary_tooltip text="节点" term_id="node" >}}
+title: 确保 PodDisruptionBudget 的前提下安全地清空一个节点
 content_type: task
 ---
 <!-- 
@@ -16,7 +16,7 @@ content_type: task
 <!-- 
 This page shows how to safely drain a node, respecting the PodDisruptionBudget you have defined.
  -->
-本页展示了如何在确保 PodDisruptionBudget 的前提下，安全地清空一个节点。
+本页展示了如何在确保 PodDisruptionBudget 的前提下，安全地清空一个{{< glossary_tooltip text="节点" term_id="node" >}}。
 
 ## {{% heading "prerequisites" %}}
 

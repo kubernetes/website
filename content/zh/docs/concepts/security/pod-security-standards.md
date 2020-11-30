@@ -278,7 +278,7 @@ Baseline/Default 策略的目标是便于常见的容器化应用采用，同时
 				net.ipv4.ip_local_port_range<br>
 				net.ipv4.tcp_syncookies<br>
 				net.ipv4.ping_group_range<br>
-				undefined/empty<br>
+				未定义/空值<br>
 			</td>
 		</tr>
 	</tbody>
@@ -385,14 +385,15 @@ Restricted 策略旨在实施当前保护 Pod 的最佳实践，尽管这样作�
 		<tr>
 			<td>Seccomp</td>
 			<td>
-				<!-- The 'runtime/default' seccomp profile must be required, or allow specific additional profiles. -->
-				必须要求使用 'runtime/default' seccomp profile 或者允许使用特定的 profiles。<br>
+				<!-- The RuntimeDefault seccomp profile must be required, or allow specific additional profiles. -->
+				必须要求使用 RuntimeDefault seccomp profile 或者允许使用特定的 profiles。<br>
 				<br><b>限制的字段：</b><br>
-				metadata.annotations['seccomp.security.alpha.kubernetes.io/pod']<br>
-				metadata.annotations['container.seccomp.security.alpha.kubernetes.io/*']<br>
+				spec.securityContext.seccompProfile.type<br>
+				spec.containers[*].securityContext.seccompProfile<br>
+				spec.initContainers[*].securityContext.seccompProfile<br>
 				<br><b>允许的值：</b><br>
 				'runtime/default'<br>
-				未定义（容器注解）<br>
+				未定义/nil<br>
 			</td>
 		</tr>
 	</tbody>
@@ -462,7 +463,7 @@ in the Pod manifest, and represent parameters to the container runtime.
 
 <!--
 Security policies are control plane mechanisms to enforce specific settings in the Security Context,
-as well as other parameters outside the Security Contex. As of February 2020, the current native
+as well as other parameters outside the Security Context. As of February 2020, the current native
 solution for enforcing these security policies is [Pod Security
 Policy](/docs/concepts/policy/pod-security-policy/) - a mechanism for centrally enforcing security
 policy on Pods across a cluster. Other alternatives for enforcing security policy are being
@@ -503,7 +504,7 @@ restrict privileged permissions is lessened when the workload is isolated from t
 kernel. This allows for workloads requiring heightened permissions to still be isolated.
 
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
-sandboxing. As such, no single ‘recommended’ policy is recommended for all sandboxed workloads.
+sandboxing. As such, no single recommended policy is recommended for all sandboxed workloads.
 -->
 ### 沙箱（Sandboxed） Pod 怎么处理？
 
@@ -515,5 +516,5 @@ sandboxing. As such, no single ‘recommended’ policy is recommended for all s
 限制特权化操作的许可就不那么重要。这使得那些需要更多许可权限的负载仍能被有效隔离。
 
 此外，沙箱化负载的保护高度依赖于沙箱化的实现方法。
-因此，现在还没有针对所有沙箱化负载的“建议”策略。
+因此，现在还没有针对所有沙箱化负载的建议策略。
 

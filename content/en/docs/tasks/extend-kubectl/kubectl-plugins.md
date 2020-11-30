@@ -32,7 +32,7 @@ using [Krew](https://krew.dev/). Krew is a plugin manager maintained by
 the Kubernetes SIG CLI community.
 
 {{< caution >}}
-Kubectl plugins available via the Krew [plugin index](https://index.krew.dev/)
+Kubectl plugins available via the Krew [plugin index](https://krew.sigs.k8s.io/plugins/)
 are not audited for security. You should install and run third-party plugins at your
 own risk, since they are arbitrary programs running on your machine.
 {{< /caution >}}
@@ -46,7 +46,7 @@ A warning will also be included for any valid plugin files that overlap each oth
 
 You can use [Krew](https://krew.dev/) to discover and install `kubectl`
 plugins from a community-curated
-[plugin index](https://index.krew.dev/).
+[plugin index](https://krew.sigs.k8s.io/plugins/).
 
 #### Limitations
 
@@ -354,7 +354,7 @@ package it, distribute it and deliver updates to your users.
 distribute your plugins. This way, you use a single packaging format for all
 target platforms (Linux, Windows, macOS etc) and deliver updates to your users.
 Krew also maintains a [plugin
-index](https://index.krew.dev/) so that other people can
+index](https://krew.sigs.k8s.io/plugins/) so that other people can
 discover your plugin and install it.
 
 

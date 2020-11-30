@@ -21,8 +21,8 @@ content_type: task
 <!--
 This page shows how to investigate problems related to the execution of
 Init Containers. The example command lines below refer to the Pod as
-  `<pod-name>` and the Init Containers as `<init-container-1>` and
-  `<init-container-2>`.
+`<pod-name>` and the Init Containers as `<init-container-1>` and
+`<init-container-2>`.
 -->
 此页显示如何核查与 Init 容器执行相关的问题。
 下面的示例命令行将 Pod 称为 `<pod-name>`，而 Init 容器称为 `<init-container-1>` 和
@@ -34,7 +34,7 @@ Init Containers. The example command lines below refer to the Pod as
 
 <!--
 * You should be familiar with the basics of
-  [Init Containers](/docs/concepts/abstractions/init-containers/).
+  [Init Containers](/docs/concepts/workloads/pods/init-containers/).
 * You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).
 -->
 

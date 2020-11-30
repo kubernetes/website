@@ -16,10 +16,10 @@ content_type: concept
 {{< feature-state state="beta" for_k8s_version="v1.11" >}}
 
 <!--
-Since cloud providers develop and release at a different pace compared to the Kubernetes project, abstracting the provider-specific code to the {{< glossary_tooltip text="`cloud-controller-manager`" term_id="cloud-controller-manager" >}} binary allows cloud vendors to evolve independently from the core Kubernetes code.
+Since cloud providers develop and release at a different pace compared to the Kubernetes project, abstracting the provider-specific code to the `{{< glossary_tooltip text="cloud-controller-manager" term_id="cloud-controller-manager" >}}` binary allows cloud vendors to evolve independently from the core Kubernetes code.
 -->
 由于云驱动的开发和发布的步调与 Kubernetes 项目不同，将服务提供商专用代码抽象到
-{{< glossary_tooltip text="`cloud-controller-manager`" term_id="cloud-controller-manager" >}} 
+`{{< glossary_tooltip text="cloud-controller-manager" term_id="cloud-controller-manager" >}}`
 二进制中有助于云服务厂商在 Kubernetes 核心代码之外独立进行开发。
 
 <!--

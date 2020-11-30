@@ -10,14 +10,12 @@ content_type: concept
 
 Tutaj znajdziesz dokumentację źródłową Kubernetes.
 
-
-
 <!-- body -->
 
 ## Dokumentacja API
 
-* [Kubernetes API Overview](/docs/reference/using-api/api-overview/) - Ogólne informacje na temat Kubernetes API.
-  * [Dokumentacja źródłowa Kubernetes API {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [Dokumentacja źródłowa API Kubernetesa {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [Using The Kubernetes API](/docs/reference/using-api/) - ogólne informacje na temat API Kubernetesa.
 
 ## Biblioteki klientów API
 

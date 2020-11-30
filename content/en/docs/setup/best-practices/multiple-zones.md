@@ -111,7 +111,7 @@ see [Allowed topologies](/docs/concepts/storage/storage-classes/#allowed-topolog
 ## Networking
 
 By itself, Kubernetes does not include zone-aware networking. You can use a
-[network plugin](docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+[network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 to configure cluster networking, and that network solution might have zone-specific
 elements. For example, if your cloud provider supports Services with
 `type=LoadBalancer`, the load balancer might only send traffic to Pods running in the

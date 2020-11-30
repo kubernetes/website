@@ -138,13 +138,13 @@ of the scheduler:
 <!-- 
 1. [Scheduling Policies](/docs/reference/scheduling/policies) allow you to
   configure _Predicates_ for filtering and _Priorities_ for scoring.
-1. [Scheduling Profiles](/docs/reference/scheduling/profiles) allow you to
+1. [Scheduling Profiles](/docs/reference/scheduling/config/#profiles) allow you to
   configure Plugins that implement different scheduling stages, including:
   `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You
   can also configure the kube-scheduler to run different profiles.
  -->
-1. [调度策略](/docs/reference/scheduling/policies) 允许你配置过滤的 _谓词(Predicates)_ 和打分的 _优先级(Priorities)_ 。
-2. [调度配置](/docs/reference/scheduling/profiles) 允许你配置实现不同调度阶段的插件，包括：`QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` 等等。你也可以配置 kube-scheduler 运行不同的配置文件。
+1. [调度策略](/zh/docs/reference/scheduling/policies) 允许你配置过滤的 _谓词(Predicates)_ 和打分的 _优先级(Priorities)_ 。
+2. [调度配置](/zh/docs/reference/scheduling/config/#profiles) 允许你配置实现不同调度阶段的插件，包括：`QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` 等等。你也可以配置 kube-scheduler 运行不同的配置文件。
 
 
 ## {{% heading "whatsnext" %}}
@@ -156,7 +156,7 @@ of the scheduler:
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
 * Learn about [configuring multiple schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
-* Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
+* Learn about [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 -->
 
 * 阅读关于 [调度器性能调优](/zh/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
@@ -164,5 +164,5 @@ of the scheduler:
 * 阅读关于 kube-scheduler 的 [参考文档](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 了解关于 [配置多个调度器](/zh/docs/tasks/administer-cluster/configure-multiple-schedulers/) 的方式
 * 了解关于 [拓扑结构管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)
-* 了解关于 [Pod 额外开销](/zh/docs/concepts/configuration/pod-overhead/)
+* 了解关于 [Pod 额外开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
 

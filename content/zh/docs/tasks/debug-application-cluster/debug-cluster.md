@@ -15,10 +15,11 @@ content_type: concept
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
 problem you are experiencing. See
 the [application troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application) for tips on application debugging.
-You may also visit [troubleshooting document](/docs/troubleshooting/) for more information.
+You may also visit [troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/) for more information.
 -->
 本篇文档是介绍集群故障排查的；我们假设对于你碰到的问题，你已经排除了是由应用程序造成的。
-对于应用的调试，请参阅[应用故障排查指南](/zh/docs/tasks/debug-application-cluster/debug-application/)。
+对于应用的调试，请参阅
+[应用故障排查指南](/zh/docs/tasks/debug-application-cluster/debug-application/)。
 你也可以访问[故障排查](/zh/docs/tasks/debug-application-cluster/troubleshooting/)
 来获取更多的信息。
 

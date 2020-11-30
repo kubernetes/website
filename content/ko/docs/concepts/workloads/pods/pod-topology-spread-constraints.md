@@ -4,11 +4,21 @@ content_type: concept
 weight: 40
 ---
 
+{{< feature-state for_k8s_version="v1.19" state="stable" >}}
+<!-- leave this shortcode in place until the note about EvenPodsSpread is
+obsolete -->
+
 <!-- overview -->
 
 사용자는 _토폴로지 분배 제약 조건_ 을 사용해서 지역, 영역, 노드 그리고 기타 사용자-정의 토폴로지 도메인과 같이 장애-도메인으로 설정된 클러스터에 걸쳐 파드가 분산되는 방식을 제어할 수 있다. 이를 통해 고가용성뿐만 아니라, 효율적인 리소스 활용의 목적을 이루는 데 도움이 된다.
 
-
+{{< note >}}
+v1.19 이전 버전의 쿠버네티스에서는 파드 토폴로지 분배 제약조건을 사용하려면
+[API 서버](/ko/docs/concepts/overview/components/#kube-apiserver)와
+[스케줄러](/docs/reference/generated/kube-scheduler/)에서
+`EvenPodsSpread`[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+활성화해야 한다
+{{< /note >}}
 
 <!-- body -->
 
@@ -192,7 +202,7 @@ graph BT
 
 {{< codenew file="pods/topology-spread-constraints/two-constraints.yaml" >}}
 
-이 경우에는, 첫번째 제약 조건에 부합시키려면, 신규 파드는 오직 "zoneB"에만 배치할 수 있다. 두 번째 제약 조건에서는 신규 파드는 오직 "node4"에만 배치할 수 있다. 그런 다음 두 가지 제약 조건의 결과는 AND 가 되므로, 실행 가능한 유일한 옵션은 "node4"에 배치하는 것이다.
+이 경우에는, 첫 번째 제약 조건에 부합시키려면, 신규 파드는 오직 "zoneB"에만 배치할 수 있다. 두 번째 제약 조건에서는 신규 파드는 오직 "node4"에만 배치할 수 있다. 그런 다음 두 가지 제약 조건의 결과는 AND 가 되므로, 실행 가능한 유일한 옵션은 "node4"에 배치하는 것이다.
 
 다중 제약 조건은 충돌로 이어질 수 있다. 3개의 노드를 가지는 클러스터 하나가 2개의 영역에 걸쳐 있다고 가정한다.
 

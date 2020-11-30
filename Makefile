@@ -65,7 +65,7 @@ container-image:
 		--build-arg HUGO_VERSION=$(HUGO_VERSION)
 
 container-build: module-check
-	$(CONTAINER_RUN) --read-only $(CONTAINER_IMAGE) hugo --minify
+	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify"
 
 container-serve: module-check
 	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir

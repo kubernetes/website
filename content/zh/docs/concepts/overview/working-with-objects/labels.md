@@ -307,7 +307,7 @@ and [`replicationcontrollers`](/docs/concepts/workloads/controllers/replicationc
 also use label selectors to specify sets of other resources, such as
 [pods](/docs/concepts/workloads/pods/).
 -->
-### 在 API 对象上设置引用
+### 在 API 对象中设置引用
 
 一些 Kubernetes 对象，例如 [`services`](/zh/docs/concepts/services-networking/service/)
 和 [`replicationcontrollers`](/zh/docs/concepts/workloads/controllers/replicationcontroller/) ，
@@ -323,9 +323,11 @@ Labels selectors for both objects are defined in `json` or `yaml` files using ma
 -->
 #### Service 和 ReplicationController
 
-一个 `Service` 指向的一组 pods 是由标签选择算符定义的。同样，一个 `ReplicationController` 应该管理的 pods 的数量也是由标签选择算符定义的。
+一个 `Service` 指向的一组 Pods 是由标签选择算符定义的。同样，一个 `ReplicationController`
+应该管理的 pods 的数量也是由标签选择算符定义的。
 
-两个对象的标签选择算符都是在 `json` 或者 `yaml` 文件中使用映射定义的，并且只支持 _基于等值_ 需求的选择算符：
+两个对象的标签选择算符都是在 `json` 或者 `yaml` 文件中使用映射定义的，并且只支持
+_基于等值_ 需求的选择算符：
 
 ```json
 "selector": {

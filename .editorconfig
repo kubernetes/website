@@ -5,6 +5,9 @@ charset = utf-8
 max_line_length = 80
 trim_trailing_whitespace = true
 
+[*.md]
+trim_trailing_whitespace = false
+
 [*.{css,html,js,json,sass,md,mmark,toml,yaml}]
 indent_style = space
 indent_size = 2

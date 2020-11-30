@@ -102,7 +102,7 @@ Before choosing a guide, here are some considerations:
 
 * [证书](/zh/docs/concepts/cluster-administration/certificates/)节描述了使用不同的工具链生成证书的步骤。
 * [Kubernetes 容器环境](/zh/docs/concepts/containers/container-environment/)描述了 Kubernetes 节点上由 Kubelet 管理的容器的环境。
-* [控制到 Kubernetes API 的访问](/zh/docs/reference/access-authn-authz/controlling-access/)描述了如何为用户和 service accounts 建立权限许可。
+* [控制到 Kubernetes API 的访问](/zh/docs/concepts/security/controlling-access/)描述了如何为用户和 service accounts 建立权限许可。
 * [认证](/docs/reference/access-authn-authz/authentication/)节阐述了 Kubernetes 中的身份认证功能，包括许多认证选项。
 * [鉴权](/zh/docs/reference/access-authn-authz/authorization/)从认证中分离出来，用于控制如何处理 HTTP 请求。
 * [使用准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers) 阐述了在认证和授权之后拦截到 Kubernetes API 服务的请求的插件。

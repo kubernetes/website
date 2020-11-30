@@ -12,7 +12,6 @@ You can run the website locally using Hugo (Extended version), or you can run it
 
 To use this repository, you need the following installed locally:
 
-- [yarn](https://yarnpkg.com/)
 - [npm](https://www.npmjs.com/)
 - [Go](https://golang.org/)
 - [Hugo (Extended version)](https://gohugo.io/)
@@ -28,9 +27,6 @@ cd website
 The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
 
 ```
-# install dependencies
-yarn
-
 # pull in the Docsy submodule
 git submodule update --init --recursive --depth 1
 ```
@@ -53,6 +49,8 @@ Make sure to install the Hugo extended version specified by the `HUGO_VERSION` e
 To build and test the site locally, run:
 
 ```bash
+# install dependencies
+npm ci
 make serve
 ```
 
