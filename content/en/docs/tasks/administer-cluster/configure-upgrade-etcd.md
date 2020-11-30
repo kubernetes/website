@@ -225,7 +225,7 @@ cluster was deployed and configured. We recommend that you consult your cluster
 provider's documentation to see if there is a predefined solution.
 
 If your cluster was created via `kube-up.sh` and is still using etcd2 as its
-storage backend, please consult the [Kubernetes v1.12 etcd cluster upgrade docs](https://v1-12.docs.kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#upgrading-and-rolling-back-etcd-clusters)
+storage backend, please consult the [Kubernetes v1.12 etcd cluster upgrade docs](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#upgrading-and-rolling-back-etcd-clusters)
 
 ## Known issue: etcd client balancer with secure endpoints
 
