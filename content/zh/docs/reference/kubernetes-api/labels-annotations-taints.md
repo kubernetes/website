@@ -14,7 +14,7 @@ This document serves both as a reference to the values and as a coordination poi
 
 Kubernetes 保留了 kubernetes.io 命名空间下的所有标签和注解。
 
-本文既作为这些标签和注解的参考，也作为这些标签和注解的赋值说明。
+本文对这些标签和注解进行了赋值示例，也对它们的变更和使用技巧进行了说明
 
 
 
