@@ -1,10 +1,10 @@
-# The Kubernetes documentation
+# 쿠버네티스 문서화
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-master-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
 이 저장소에는 [쿠버네티스 웹사이트 및 문서](https://kubernetes.io/)를 빌드하는 데 필요한 자산이 포함되어 있습니다. 기여해주셔서 감사합니다!
 
-# 이 저장소 사용하기
+# 저장소 사용하기
 
 Hugo(확장 버전)를 사용하여 웹사이트를 로컬에서 실행하거나, 컨테이너 런타임에서 실행할 수 있습니다. 라이브 웹사이트와의 배포 일관성을 제공하므로, 컨테이너 런타임을 사용하는 것을 적극 권장합니다.
 
@@ -12,13 +12,12 @@ Hugo(확장 버전)를 사용하여 웹사이트를 로컬에서 실행하거나
 
 이 저장소를 사용하기 위해, 로컬에 다음의 소프트웨어들이 설치되어있어야 합니다.
 
-- [yarn](https://yarnpkg.com/)
 - [npm](https://www.npmjs.com/)
 - [Go](https://golang.org/)
 - [Hugo(확장 버전)](https://gohugo.io/)
 - [도커](https://www.docker.com/)와 같은 컨테이너 런타임.
 
-시작하기 전에 의존성이 있는 소프트웨어를 설치합니다. 저장소를 복제하고 디렉터리로 이동합니다.
+시작하기 전에 의존성이 있는 소프트웨어를 설치합니다. 저장소를 복제(clone)하고 디렉터리로 이동합니다.
 
 ```
 git clone https://github.com/kubernetes/website.git
@@ -28,9 +27,6 @@ cd website
 쿠버네티스 웹사이트는 [Docsy Hugo 테마](https://github.com/google/docsy#readme)를 사용합니다. 웹사이트를 컨테이너에서 실행하려는 경우에도, 다음을 실행하여 하위 모듈 및 기타 개발 종속성을 가져오는 것이 좋습니다.
 
 ```
-# 의존성 설치하기
-yarn
-
 # Docsy 하위 모듈 가져오기
 git submodule update --init --recursive --depth 1
 ```
@@ -53,6 +49,8 @@ make container-serve
 사이트를 로컬에서 빌드하고 테스트하려면, 다음을 실행합니다.
 
 ```bash
+# 의존성 있는 소프트웨어 설치
+npm ci
 make serve
 ```
 
@@ -76,7 +74,7 @@ make: *** [serve] Error 1
 
 `launchctl limit maxfiles`
 
-그리고 다음의 명령을 실행합니다(https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c 를 참고하여 반영함).
+그리고 다음의 명령을 실행합니다(https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c 를 참고하여 적용).
 
 ```
 #!/bin/sh
@@ -106,10 +104,10 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 이 프로젝트의 메인테이너에게 연락을 할 수도 있습니다.
 
-- [슬랙](https://kubernetes.slack.com/messages/sig-docs) [슬랙에 대해 초대 받기](https://slack.k8s.io/)
+- [슬랙](https://kubernetes.slack.com/messages/sig-docs) [슬랙에 초대 받기](https://slack.k8s.io/)
 - [메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-## 문서에 기여하기
+# 문서에 기여하기
 
 이 저장소에 대한 복제본을 여러분의 GitHub 계정에 생성하기 위해 화면 오른쪽 위 영역에 있는 **Fork** 버튼을 클릭하면 됩니다. 이 복제본은 *fork* 라고 부릅니다. 여러분의 fork에서 원하는 임의의 변경 사항을 만들고, 해당 변경 사항을 보낼 준비가 되었다면, 여러분의 fork로 이동하여 새로운 풀 리퀘스트를 만들어 우리에게 알려주시기 바랍니다.
 
@@ -124,13 +122,13 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 * [쿠버네티스 문서에 기여하기](https://kubernetes.io/docs/contribute/)
 * [페이지 콘텐트 타입](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [문서화 스타일 가이드](http://kubernetes.io/docs/contribute/style/style-guide/)
-* [쿠버네티스 문서화 로컬라이징](https://kubernetes.io/docs/contribute/localization/)
+* [쿠버네티스 문서 현지화](https://kubernetes.io/docs/contribute/localization/)
 
-## `README.md`에 대한 쿠버네티스 문서화 번역
+# `README.md`에 대한 쿠버네티스 문서 현지화(localization)
 
-### 한국어
+## 한국어
 
-`README.md` 번역 및 한국어 기여자를 위한 보다 자세한 가이드는 [한국어 README](README-ko.md) 페이지 혹은 [쿠버네티스 문서 한글화 가이드](https://kubernetes.io/ko/docs/contribute/localization_ko/)를 참고합니다.
+`README.md` 번역 및 한국어 기여자를 위한 보다 자세한 가이드는 [쿠버네티스 문서 한글화 가이드](https://kubernetes.io/ko/docs/contribute/localization_ko/)를 참고합니다.
 
 한국어 번역 메인테이너에게 다음을 통해 연락할 수 있습니다.
 
@@ -141,6 +139,8 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 쿠버네티스 커뮤니티 참여는 [CNCF 행동 강령](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/ko.md)을 따릅니다.
 
-## 감사합니다!
+# 감사합니다!
+
+쿠버네티스는 커뮤니티 참여를 통해 번창하며, 우리는 웹사이트 및 문서화에 대한 당신의 기여에 감사드립니다!
 
 쿠버네티스는 커뮤니티 참여와 함께 생존하며, 우리는 사이트 및 문서화에 대한 여러분의 컨트리뷰션에 대해 정말 감사하게 생각합니다!
