@@ -90,7 +90,7 @@ Kubelet 用 hostname 值来填充该标签。注意：可以通过向 `kubelet` 
 参数对 “真正的” hostname 进行修改。
 
 <!--
-This label is also used as part of the topology hierarchy. See topology.kubernetes.io/zone for more information.
+This label is also used as part of the topology hierarchy.  See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
 -->
 
 此标签还用作拓扑层次结构的一部分。有关更多信息，请参见[topology.kubernetes.io/zone](#topologykubernetesiozone)。
@@ -129,7 +129,7 @@ Kubelet 用 `cloudprovider` 中定义的实例类型来填充该标签。未使�
 ## failure-domain.beta.kubernetes.io/region (已弃用) {#failure-domainbetakubernetesioregion}
 
 <!--
-See topology.kubernetes.io/region.
+See [topology.kubernetes.io/region](#topologykubernetesioregion).
 -->
 参考 [topology.kubernetes.io/region](#topologykubernetesioregion)。
 
