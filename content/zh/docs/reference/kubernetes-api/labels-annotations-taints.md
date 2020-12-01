@@ -125,7 +125,7 @@ to rely on the Kubernetes scheduler to perform resource-based scheduling. You sh
 
 Kubelet 用 `cloudprovider` 中定义的实例类型来填充该标签。未使用 `cloudprovider` 时不会设置该标签。
 该标签在想要将某些负载定向到特定实例类型的节点上时会很有用，但通常用户更希望依赖 Kubernetes 调度器来执行基于资源的调度，
-所以用户应该致力于基于属性而不是实例类型来进行调度(例如：需要一个 GPU，而不是 `g2.2xlarge`)。
+所以用户应该致力于基于属性而不是实例类型来进行调度（例如：需要一个 GPU，而不是 `g2.2xlarge`）。
 
 ## failure-domain.beta.kubernetes.io/region (已弃用) {#failure-domainbetakubernetesioregion}
 
@@ -185,7 +185,7 @@ On Node: The `kubelet` or the external `cloud-controller-manager` populates this
 
 用于：Node、PersistentVolume
 
-对于 Node： `Kubelet` 或外部 `cloud-controller-manager` 用 `cloudprovider` 中定义的区域(Zone)信息来填充该标签。
+对于 Node： `Kubelet` 或外部 `cloud-controller-manager` 用 `cloudprovider` 中定义的区域信息来填充该标签。
 未使用 `cloudprovider` 时不会设置该标签，但如果该标签在你的拓扑中有意义的话，应该考虑设置。
 
 <!--
@@ -196,16 +196,17 @@ On PersistentVolume: topology-aware volume provisioners will automatically set n
 <!--
 A zone represents a logical failure domain.  It is common for Kubernetes clusters to span multiple zones for increased availability.  While the exact definition of a zone is left to infrastructure implementations, common properties of a zone include very low network latency within a zone, no-cost network traffic within a zone, and failure independence from other zones.  For example, nodes within a zone might share a network switch, but nodes in different zones should not.
 -->
-区域（`Zone`）代表逻辑故障域。Kubernetes 集群通常跨越多个区域以提高可用性。
+区域代表逻辑故障域。Kubernetes 集群通常跨越多个区域以提高可用性。
 虽然区域的确切定义留给基础架构实现，但是区域的常见属性包括区域内的网络延迟非常低，区域内的免费网络流量以及与其他区域的故障独立性。
 例如，一个区域内的节点可能共享一个网络交换机，但不同区域内的节点则不应共享。
 
 <!--
 A region represents a larger domain, made up of one or more zones.  It is uncommon for Kubernetes clusters to span multiple regions,  While the exact definition of a zone or region is left to infrastructure implementations, common properties of a region include higher network latency between them than within them, non-zero cost for network traffic between them, and failure independence from other zones or regions.  For example, nodes within a region might share power infrastructure (e.g. a UPS or generator), but nodes in different regions typically would not.
 -->
-地区（`Region`）代表一个更大的域，由一个或多个区域组成。
-Kubernetes集群跨越多个地域是不常见的，而地域或区域的确切定义则留给基础设施实现，地域的共同属性包括它们之间的网络延迟比它们内部更高，
-它们之间的网络流量成本不为零，故障独立于其他区域或域。例如，一个地域内的节点可能共享电力基础设施（例如 UPS 或发电机），但不同地域的节点通常不会共享
+地区（Region）代表一个更大的域，由一个或多个区域组成。
+Kubernetes 集群跨越多个地域是不常见的，而地域或区域的确切定义则留给基础设施实现，
+地域的共同属性包括它们之间的网络延迟比它们内部更高，它们之间的网络流量成本不为零，故障独立于其他区域或域。
+。例如，一个地域内的节点可能共享电力基础设施（例如 UPS 或发电机），但不同地域的节点通常不会共享
 
 <!--
 Kubernetes makes a few assumptions about the structure of zones and regions:
@@ -231,8 +232,10 @@ see [kubernetes.io/hostname](#kubernetesiohostname)). With multiple-zone cluster
 This is achieved via _SelectorSpreadPriority_.
 -->
 Kubernetes 可以以各种方式使用这些信息。
-例如，调度器自动尝试将 ReplicaSet 中的多个 Pods 分布到单区域集群中的多个节点上（为了减少节点故障的影响，请参阅 [kubernetesiohostname](#kubernetesiohostname)）。
-对于多区域集群，这种分布行为也被应用到区域上（以减少区域故障的影响）。这是通过 _SelectorSpreadPriority_ 实现的。
+例如，调度器自动尝试将 ReplicaSet 中的多个 Pods 分布到单区域集群中的多个节点上（为了减少节点故障的影响，
+请参阅 [kubernetesiohostname](#kubernetesiohostname)）。
+对于多区域集群，这种分布行为也被应用到区域上（以减少区域故障的影响）。
+这是通过 _SelectorSpreadPriority_ 实现的。
 
 <!--
 _SelectorSpreadPriority_ is a best effort placement.

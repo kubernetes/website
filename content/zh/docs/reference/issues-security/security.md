@@ -54,7 +54,7 @@ We’re extremely grateful for security researchers and users that report vulner
 <!--
 To make a report, please email the private [security@kubernetes.io](mailto:security@kubernetes.io) list with the security details and the details expected for [all Kubernetes bug reports](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md).
 -->
-如需报告，请连同安全细节以及预期的[所有 Kubernetes bug 报告](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md) 详细信息电子邮件到 [security@kubernetes.io](mailto:security@kubernetes.io) 列表。
+如需报告，请连同安全细节以及预期的[所有 Kubernetes bug 报告](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md) 详细信息电子邮件到 [security@kubernetes.io](mailto:security@kubernetes.io)列表。
 
 <!--
 You can also email the private [security@kubernetes.io](mailto:security@kubernetes.io) list with the security details and the details expected for [all Kubernetes bug reports](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md).
