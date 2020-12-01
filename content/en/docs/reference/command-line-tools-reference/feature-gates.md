@@ -159,6 +159,7 @@ different Kubernetes components.
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
 | `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
+| `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | |
 | `SetHostnameAsFQDN` | `false` | Alpha | 1.19 | 1.19 |
 | `SetHostnameAsFQDN` | `true` | Beta | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
@@ -565,6 +566,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if labelled with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key or `node.kubernetes.io/exclude-from-external-load-balancers`.
 - `ServiceTopology`: Enable service to route traffic based upon the Node topology of the cluster. See [ServiceTopology](/docs/concepts/services-networking/service-topology/) for more details.
+- `SizeMemoryBackedVolumes`: Enables kubelet support to size memory backed volumes.  See [volumes](docs/concepts/storage/volumes) for more details.
 - `SetHostnameAsFQDN`: Enable the ability of setting Fully Qualified Domain Name(FQDN) as hostname of pod. See [Pod's `setHostnameAsFQDN` field](/docs/concepts/services-networking/dns-pod-service/#pod-sethostnameasfqdn-field).
 - `StartupProbe`: Enable the [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) probe in the kubelet.
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
