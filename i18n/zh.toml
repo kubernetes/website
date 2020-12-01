@@ -211,6 +211,9 @@ other = "您的 Kubernetes 服务器版本必须不低于版本 "
 [version_check_tocheck]
 other = "要获知版本信息，请输入 "
 
+[version_menu]
+other = "版本列表"
+
 [warning]
 other = "警告："
 
