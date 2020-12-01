@@ -1,5 +1,5 @@
 ---
-title: RBAC（基于角色的访问控制）
+title: 基于角色的访问控制（RBAC）
 id: rbac
 date: 2018-04-12
 full_link: /zh/docs/reference/access-authn-authz/rbac/

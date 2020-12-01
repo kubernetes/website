@@ -1,5 +1,5 @@
 ---
-title: Replication Controller
+title: 副本控制器（Replication Controller）
 id: replication-controller
 date: 2018-04-12
 full_link: 
