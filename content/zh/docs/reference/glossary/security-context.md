@@ -32,7 +32,8 @@ a {{< glossary_tooltip text="Pod" term_id="pod" >}} or
 {{< glossary_tooltip text="container" term_id="container" >}}.
 -->
 
-securityContext 字段定义 {{< glossary_tooltip text="Pod" term_id="pod" >}} 或 {{< glossary_tooltip text="container（容器）" term_id="container" >}} 的特权和访问控制设置。
+securityContext 字段定义 {{< glossary_tooltip text="Pod" term_id="pod" >}} 或
+{{< glossary_tooltip text="容器" term_id="container" >}}的特权和访问控制设置。
 
 <!--more-->
 

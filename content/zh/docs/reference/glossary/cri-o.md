@@ -44,4 +44,6 @@ Deploying CRI-O allows Kubernetes to use any OCI-compliant runtime as the contai
 runtime for running {{< glossary_tooltip text="Pods" term_id="pod" >}}, and to fetch
 OCI container images from remote registries.
 -->
-部署 CRI-O 允许 Kubernetes 使用任何符合 OCI 的运行时，作为容器运行环境去运行 {{< glossary_tooltip text="Pods" term_id="pod" >}}，并从远程注册表获取 OCI 容器镜像。
+部署 CRI-O 允许 Kubernetes 使用任何符合 OCI 的运行时，
+作为容器运行环境去运行 {{< glossary_tooltip text="Pods" term_id="pod" >}}，
+并从远程注册表获取 OCI 容器镜像。

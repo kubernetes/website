@@ -58,8 +58,8 @@ elements such as load balancers.
 针对托管的基础设施，云供应商负责服务器、存储和网络，而用户（你）
 负责管理其上运行的各层软件，例如运行一个 Kubernetes 集群。
 
-你也会看到 Kubernetes 被作为托管服务提供；有时也称作平台即服务或 PaaS 。
-针对托管的 Kubernetes ，你的云供应商负责 Kubernetes 的控制面以及
+你也会看到 Kubernetes 被作为托管服务提供；有时也称作平台即服务或 PaaS。
+针对托管的 Kubernetes，你的云供应商负责 Kubernetes 的控制面以及
  {{< glossary_tooltip term_id="node" text="节点" >}} 及他们所依赖的基础设施：
 网络、存储以及其他一些诸如负载均衡器之类的元素。
 
