@@ -1,17 +1,17 @@
 ---
-title: 数量
+title: 量纲（Quantity）
 id: quantity
 date: 2018-08-07
 full_link:
 short_description: >
-  使用 SI 后缀的小数或大数的整数表示。
+  使用全数字来表示较小数值或使用 SI 后缀表示较大数值的表示法。
 
 aka: 
 tags:
 - core-object
 ---
+
 <!--
----
 title: Quantity
 id: quantity
 date: 2018-08-07
@@ -22,24 +22,14 @@ short_description: >
 aka: 
 tags:
 - core-object
----
 -->
 
+<!--
+A whole-number representation of small or large numbers using SI suffixes.
+-->
+使用全数字来表示较小数值或使用 SI 后缀表示较大数值的表示法。
+
 <!--more-->
-
-数量是使用紧凑的整数表示法的小数或大数的表示，并带有国际计量单位制（SI）后缀。
-小数用 milli 单位表示，而大数用 kilo、mega 或 giga 单位表示。
-
-例如，数字 `1.5` 表示为`1500m`，
-而数字`1000`表示为`1k`，`1000000`表示为`1M`。 
-您还可以指定二进制表示法后缀; 数字 2048 可以写成`2Ki`。
-
-公认的十进制（10的幂）单位是 `m`（milli）、`k`（kilo，
-有意小写）、`M`（mega），`G`（giga）、`T`（terra）、`P`（peta）、
-`E`（exa）。
-
-公认的二进制（2的幂）单位是 `Ki` (kibi)、 `Mi` (mebi)、`Gi` (gibi)、
-`Ti` (tebi)、 `Pi` (pebi)、 `Ei` (exbi)。
 
 <!--
 Quantities are representations of small or large numbers using a compact,
@@ -58,3 +48,17 @@ intentionally lowercase), `M` (mega), `G` (giga), `T` (terra), `P` (peta),
 The accepted binary (power-of-2) units are `Ki` (kibi), `Mi` (mebi), `Gi` (gibi),
 `Ti` (tebi), `Pi` (pebi), `Ei` (exbi).
 -->
+量纲是使用紧凑的全数字表示法来表示小数值或带有国际计量单位制（SI）
+的大数值的表示法。
+小数用 milli 单位表示，而大数用 kilo、mega 或 giga 单位表示。
+
+例如，数字 `1.5` 表示为 `1500m`，
+而数字 `1000` 表示为 `1k`，`1000000` 表示为 `1M`。 
+你还可以指定二进制表示法后缀；数字 2048 可以写成 `2Ki`。
+
+公认的十进制（10 的幂数）单位是 `m`（milli）、`k`（kilo，有意小写）、
+`M`（mega）、`G`（giga）、`T`（terra）、`P`（peta）、`E`（exa）。
+
+公认的二进制（2 的幂数）单位是 `Ki` (kibi)、`Mi` (mebi)、`Gi` (gibi)、
+`Ti` (tebi)、 `Pi` (pebi)、 `Ei` (exbi)。
+
