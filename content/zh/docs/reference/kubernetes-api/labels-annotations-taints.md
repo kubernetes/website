@@ -203,10 +203,10 @@ A zone represents a logical failure domain.  It is common for Kubernetes cluster
 <!--
 A region represents a larger domain, made up of one or more zones.  It is uncommon for Kubernetes clusters to span multiple regions,  While the exact definition of a zone or region is left to infrastructure implementations, common properties of a region include higher network latency between them than within them, non-zero cost for network traffic between them, and failure independence from other zones or regions.  For example, nodes within a region might share power infrastructure (e.g. a UPS or generator), but nodes in different regions typically would not.
 -->
-地区（Region）代表一个更大的域，由一个或多个区域组成。
+地区代表一个更大的域，由一个或多个区域组成。
 Kubernetes 集群跨越多个地域是不常见的，而地域或区域的确切定义则留给基础设施实现，
 地域的共同属性包括它们之间的网络延迟比它们内部更高，它们之间的网络流量成本不为零，故障独立于其他区域或域。
-。例如，一个地域内的节点可能共享电力基础设施（例如 UPS 或发电机），但不同地域的节点通常不会共享
+例如，一个地域内的节点可能共享电力基础设施（例如 UPS 或发电机），但不同地域的节点通常不会共享。
 
 <!--
 Kubernetes makes a few assumptions about the structure of zones and regions:
@@ -222,7 +222,8 @@ It should be safe to assume that topology labels do not change.
 Even though labels are strictly mutable,
  consumers of them can assume that a given node is not going to be moved between zones without being destroyed and recreated.
 -->
-标签的使用者可以安全地假设拓扑标签不变。即使标签是严格可变的，标签的使用者也可以认为节点只能通过被销毁并重建才能从一个区域迁移到另一个区域。
+标签的使用者可以安全地假设拓扑标签不变。
+即使标签是严格可变的，标签的使用者也可以认为节点只能通过被销毁并重建才能从一个区域迁移到另一个区域。
 
 <!--
 Kubernetes can use this information in various ways.
@@ -254,7 +255,9 @@ The scheduler (through the _VolumeZonePredicate_ predicate) also will ensure tha
 
 <!--
 If `PersistentVolumeLabel` does not support automatic labeling of your PersistentVolumes, you should consider
-adding the labels manually (or adding support for `PersistentVolumeLabel`). With `PersistentVolumeLabel`, the scheduler prevents Pods from mounting volumes in a different zone. If your infrastructure doesn't have this constraint, you don't need to add the zone labels to the volumes at all.
+adding the labels manually (or adding support for `PersistentVolumeLabel`). With `PersistentVolumeLabel`,
+the scheduler prevents Pods from mounting volumes in a different zone.
+If your infrastructure doesn't have this constraint, you don't need to add the zone labels to the volumes at all.
 -->
 如果 `PersistentVolumeLabel` 准入控制器不支持自动为 PersistentVolume 打标签，且用户希望防止 pod 跨区域进行卷的挂载，
 应考虑手动打标签 (或增加对 `PersistentVolumeLabel` 的支持）。如果用户的基础设施没有这种约束，则不需要为卷添加区域标签。
