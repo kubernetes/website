@@ -79,8 +79,8 @@ detailed config file information.
 -->
 ##  Kubectl 上下文和配置
 
-设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。查看
-[使用 kubeconfig 跨集群授权访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。
+查看[使用 kubeconfig 跨集群授权访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 文档获取配置文件详细信息。
 
 <!--
@@ -147,8 +147,8 @@ kubectl config unset users.foo                       # 删除用户 foo
 `apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
 ## Kubectl apply
-`apply` 通过定义 Kubernetes 资源的文件来管理应用。它通过运行
-`kubectl apply` 在集群中创建和更新资源。
+`apply` 通过定义 Kubernetes 资源的文件来管理应用。
+它通过运行 `kubectl apply` 在集群中创建和更新资源。
 这是在生产中管理 Kubernetes 应用的推荐方法。
 参见 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。
 
@@ -815,6 +815,6 @@ Verbosity | Description
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 -->
 * 参阅 [kubectl 概述](/zh/docs/reference/kubectl/overview/)，进一步了解[JsonPath](/zh/docs/reference/kubectl/jsonpath)。
-* 参阅 [kubectl](/zh/docs/reference/kubectl/kubectl/) 选项.
+* 参阅 [kubectl](/zh/docs/reference/kubectl/kubectl/) 选项。
 * 参阅 [kubectl 使用约定](/zh/docs/reference/kubectl/conventions/)来理解如何在可复用的脚本中使用它。
 * 查看社区中其他的 [kubectl 备忘单](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)。
