@@ -34,7 +34,7 @@ JSONPath 模板由 {} 包起来的 JSONPath 表达式组成。Kubectl 使用 JSO
 -->
 1. 使用双引号将 JSONPath 表达式内的文本引起来。
 2. 使用 `range`，`end` 运算符来迭代列表。
-3. 使用负片索引后退列表。负索引不会"环绕"列表，并且只要 `-index + listLength> = 0` 就有效。
+3. 使用负片索引后退列表。负索引不会“环绕”列表，并且只要 `-index + listLength> = 0` 就有效。
 
 {{< note >}}
 <!-- 
