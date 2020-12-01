@@ -35,7 +35,7 @@ This section of the Kubernetes documentation contains references.
 ## API 参考
 
 * [Kubernetes API 参考 {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)。
-* [使用Kubernetes API ](/zh/docs/reference/using-api/) - Kubernetes的API概述
+* [使用 Kubernetes API ](/zh/docs/reference/using-api/) - Kubernetes 的 API 概述
 
 <!--
 ## API Client Libraries
