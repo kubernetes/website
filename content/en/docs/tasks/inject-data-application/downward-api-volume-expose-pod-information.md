@@ -202,16 +202,18 @@ variables and `downwardAPI` volumes:
 * Information available via `fieldRef`:
   * `metadata.name` - the pod's name
   * `metadata.namespace` - the pod's namespace
-  * `metadata.uid` - the pod's UID, available since v1.8.0-alpha.2
-  * `metadata.labels['<KEY>']` - the value of the pod's label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
-  * `metadata.annotations['<KEY>']` - the value of the pod's annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
+  * `metadata.uid` - the pod's UID
+  * `metadata.labels['<KEY>']` - the value of the pod's label `<KEY>` (for example, `metadata.labels['mylabel']`)
+  * `metadata.annotations['<KEY>']` - the value of the pod's annotation `<KEY>` (for example, `metadata.annotations['myannotation']`)
 * Information available via `resourceFieldRef`:
   * A Container's CPU limit
   * A Container's CPU request
   * A Container's memory limit
   * A Container's memory request
-  * A Container's ephemeral-storage limit, available since v1.8.0-beta.0
-  * A Container's ephemeral-storage request, available since v1.8.0-beta.0
+  * A Container's hugepages limit (providing that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+  * A Container's hugepages request (providing that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+  * A Container's ephemeral-storage limit
+  * A Container's ephemeral-storage request
 
 In addition, the following information is available through
 `downwardAPI` volume `fieldRef`:

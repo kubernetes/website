@@ -97,6 +97,7 @@ different Kubernetes components.
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.22 |
+| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
@@ -465,6 +466,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   based resource provisioning on nodes.
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
   [default spreading](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
+- `DownwardAPIHugePages`: Enables usage of hugepages in downward API.
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.
 - `DynamicAuditing`(*deprecated*): Used to enable dynamic auditing before v1.19.
