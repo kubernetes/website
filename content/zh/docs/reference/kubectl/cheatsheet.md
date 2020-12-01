@@ -79,7 +79,7 @@ detailed config file information.
 -->
 ##  Kubectl 上下文和配置
 
-设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。查看 
+设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。查看
 [使用 kubeconfig 跨集群授权访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 文档获取配置文件详细信息。
 
@@ -710,7 +710,7 @@ To output details to your terminal window in a specific format, add the `-o` (or
 -->
 ### 格式化输出
 
-要以特定格式将详细信息输出到终端窗口，可以将 `-o`(`--output`)参数添加到支持的 `kubectl` 命令。
+要以特定格式将详细信息输出到终端窗口，可以将 `-o`（`--output`）参数添加到支持的 `kubectl` 命令。
 
 <!--O
 Output format | Description

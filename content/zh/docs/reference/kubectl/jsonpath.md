@@ -149,9 +149,8 @@ C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.stat
 C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.startTime}{\"\n\"}{end}"
 ```
 {{< /note >}}
-<!--
-{{< note >}}
 
+<!--
 JSONPath regular expressions are not supported. If you want to match using regular expressions, you can use a tool such as `jq`.
 
 ```shell
@@ -162,10 +161,8 @@ kubectl get pods -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.nam
 # The following command achieves the desired result
 kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
 ```
-{{< /note >}}
 -->
 {{< note >}}
-
 不支持JSONPath 正则表达式。如需使用正则表达式, 您可以使用如 `jq` 之类的工具。
 
 ```shell
