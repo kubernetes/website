@@ -29,7 +29,7 @@ tags:
 <!--
  Terms under which a {{< glossary_tooltip text="contributor" term_id="contributor" >}} grants a license to an open source project for their contributions.
 -->
- {{< glossary_tooltip text="贡献者" term_id="contributor" >}} 对他们在开源项目中所贡献的代码的授权许可条款。
+ {{< glossary_tooltip text="贡献者" term_id="contributor" >}}对他们在开源项目中所贡献的代码的授权许可条款。
 
 <!--more--> 
 

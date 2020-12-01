@@ -35,7 +35,10 @@ tags:
 <!-- 
 FlexVolumes enable users to write their own drivers and add support for their volumes in Kubernetes. FlexVolume driver binaries and dependencies must be installed on host machines. This requires root access. The Storage SIG suggests implementing a {{< glossary_tooltip text="CSI" term_id="csi" >}} driver if possible since it addresses the limitations with FlexVolumes.
 -->
-Flexvolume 允许用户编写自己的驱动程序，并在 Kubernetes 中加入对用户自己的数据卷的支持。FlexVolume 驱动程序的二进制文件和依赖项必须安装在主机上。这需要 root 权限。如果可能的话，SIG Storage 建议实现 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序，因为它解决了 Flexvolumes 的限制。
+Flexvolume 允许用户编写自己的驱动程序，并在 Kubernetes 中加入对用户自己的数据卷的支持。
+FlexVolume 驱动程序的二进制文件和依赖项必须安装在主机上。
+这需要 root 权限。如果可能的话，SIG Storage 建议实现 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序，
+因为它解决了 Flexvolumes 的限制。
 
 <!-- 
 * [FlexVolume in the Kubernetes documentation](/docs/concepts/storage/volumes/#flexvolume)

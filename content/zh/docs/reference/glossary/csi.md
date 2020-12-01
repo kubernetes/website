@@ -42,7 +42,11 @@ CSI allows vendors to create custom storage plugins for Kubernetes without addin
 * [List of available CSI drivers](https://kubernetes-csi.github.io/docs/drivers.html)
 -->
 
-CSI 允许存储驱动提供商为 Kubernetes 创建定制化的存储插件，而无需将这些插件的代码添加到 Kubernetes 代码仓库（外部插件）。要使用某个存储提供商的 CSI 驱动，你首先要[将它部署到你的集群上](https://kubernetes-csi.github.io/docs/deploying.html)。然后你才能创建使用该 CSI 驱动的 {{< glossary_tooltip text="Storage Class" term_id="storage-class" >}} 。
+CSI 允许存储驱动提供商为 Kubernetes 创建定制化的存储插件，
+而无需将这些插件的代码添加到 Kubernetes 代码仓库（外部插件）。
+要使用某个存储提供商的 CSI 驱动，你首先要
+[将它部署到你的集群上](https://kubernetes-csi.github.io/docs/deploying.html)。
+然后你才能创建使用该 CSI 驱动的 {{< glossary_tooltip text="Storage Class" term_id="storage-class" >}} 。
 
 * [Kubernetes 文档中关于 CSI 的描述](/zh/docs/concepts/storage/volumes/#csi)
 * [可用的 CSI 驱动列表](https://kubernetes-csi.github.io/docs/drivers.html)

@@ -43,4 +43,5 @@ nodes and the Pods in the cluster. In production environments, the control plane
 runs across multiple computers and a cluster usually runs multiple nodes, providing
 fault-tolerance and high availability.
 -->
-工作节点托管作为应用负载的组件的 Pod 。控制平面管理集群中的工作节点和 Pod 。为集群提供故障转移和高可用性，这些控制平面一般跨多主机运行，集群跨多个节点运行。
+工作节点托管作为应用负载的组件的 Pod 。控制平面管理集群中的工作节点和 Pod 。
+为集群提供故障转移和高可用性，这些控制平面一般跨多主机运行，集群跨多个节点运行。

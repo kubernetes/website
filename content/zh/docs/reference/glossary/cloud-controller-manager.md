@@ -38,7 +38,10 @@ cluster into your cloud provider's API, and separates out the components that in
 with that cloud platform from components that just interact with your cluster.
 -->
 
-云控制器管理器是指嵌入特定云的控制逻辑的 {{< glossary_tooltip text="控制平面" term_id="control-plane" >}} 组件。云控制器管理器允许您链接聚合到云提供商的应用编程接口中，并分离出相互作用的组件与您的集群交互的组件。
+云控制器管理器是指嵌入特定云的控制逻辑的
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}组件。
+云控制器管理器允许您链接聚合到云提供商的应用编程接口中，
+并分离出相互作用的组件与您的集群交互的组件。
 
 <!--more--> 
 
@@ -47,4 +50,5 @@ By decoupling the interoperability logic between Kubernetes and the underlying c
 infrastructure, the cloud-controller-manager component enables cloud providers to release
 features at a different pace compared to the main Kubernetes project.
 -->
-通过分离 Kubernetes 和底层云基础设置之间的互操作性逻辑，云控制器管理器组件使云提供商能够以不同于 Kubernetes 主项目的速度进行发布新特征。
+通过分离 Kubernetes 和底层云基础设置之间的互操作性逻辑，
+云控制器管理器组件使云提供商能够以不同于 Kubernetes 主项目的速度进行发布新特征。

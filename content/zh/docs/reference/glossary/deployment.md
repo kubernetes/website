@@ -44,4 +44,5 @@ Each replica is represented by a {{< glossary_tooltip term_id="pod" >}}, and the
 For workloads that do require local state, consider using a {{< glossary_tooltip term_id="StatefulSet" >}}.
 -->
 
-应用的每个副本就是一个 {{< glossary_tooltip text="Pod" term_id="pod" >}}，并且这些 Pod 会分散运行在集群的{{< glossary_tooltip text="节点" term_id="node" >}}上。
+应用的每个副本就是一个 {{< glossary_tooltip text="Pod" term_id="pod" >}}，
+并且这些 Pod 会分散运行在集群的{{< glossary_tooltip text="节点" term_id="node" >}}上。

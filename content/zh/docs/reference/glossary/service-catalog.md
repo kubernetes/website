@@ -39,5 +39,7 @@ tags:
 It provides a way to list, provision, and bind with external {{< glossary_tooltip text="Managed Services" term_id="managed-service" >}} from {{< glossary_tooltip text="Service Brokers" term_id="service-broker" >}} without needing detailed knowledge about how those services are created or managed.
 -->
 
-服务目录可以检索、供应、和绑定由 {{< glossary_tooltip text="Service Brokers（服务代理人）" term_id="service-broker" >}} 提供的外部 {{< glossary_tooltip text="托管服务（Managed Services）" term_id="managed-service" >}}，而无需知道那些服务具体是怎样创建和托管的。
+服务目录可以检索、供应、和绑定由 {{< glossary_tooltip text="服务代理人（Service Brokers）" term_id="service-broker" >}}
+提供的外部{{< glossary_tooltip text="托管服务（Managed Services）" term_id="managed-service" >}}，
+而无需知道那些服务具体是怎样创建和托管的。
 

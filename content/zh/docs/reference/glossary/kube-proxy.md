@@ -27,7 +27,8 @@ tags:
  <!-- [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) is a
 network proxy that runs on each node in your cluster, implementing part of
 the Kubernetes {{< glossary_tooltip term_id="service">}} concept. -->
- [kube-proxy](/zh/docs/reference/command-line-tools-reference/kube-proxy/) 是集群中每个节点上运行的网络代理,实现 Kubernetes {{< glossary_tooltip term_id="service">}} 概念的一部分。
+[kube-proxy](/zh/docs/reference/command-line-tools-reference/kube-proxy/) 是集群中每个节点上运行的网络代理，
+实现 Kubernetes {{< glossary_tooltip term_id="service">}} 概念的一部分。
 
 <!--more-->
 

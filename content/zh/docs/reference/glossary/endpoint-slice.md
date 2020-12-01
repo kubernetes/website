@@ -37,4 +37,6 @@ establish network routes on each {{< glossary_tooltip text="node" term_id="node"
 -->
 
 
-一种将网络端点组合在一起的可扩缩、可扩展方式。它们将被 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} 用于在每个 {{< glossary_tooltip text="节点" term_id="node">}} 上建立网络路由。
+一种将网络端点组合在一起的可扩缩、可扩展方式。
+它们将被 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} 用于在
+每个 {{< glossary_tooltip text="节点" term_id="node">}} 上建立网络路由。
