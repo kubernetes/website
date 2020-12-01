@@ -142,7 +142,9 @@ kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.
 {{< /note >}}
 -->
 {{< note >}}
-在 Windows 上，您必须 _double_ 引用任何包含空格的 JSONPath 模板(不是上面 bash 所示的单引号)。反过来，这意味着您必须在模板中的所有文字周围使用单引号或转义的双引号。例如:
+在 Windows 上，您必须用双引号把任何包含空格的 JSONPath 模板（不是上面 bash 所示的单引号）。
+反过来，这意味着您必须在模板中的所有文字周围使用单引号或转义的双引号。
+例如:
 
 ```cmd
 C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.status.startTime}{'\n'}{end}"
@@ -163,10 +165,10 @@ kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-
 ```
 -->
 {{< note >}}
-不支持JSONPath 正则表达式。如需使用正则表达式, 您可以使用如 `jq` 之类的工具。
+不支持 JSONPath 正则表达式。如需使用正则表达式进行匹配操作，您可以使用如 `jq` 之类的工具。
 
 ```shell
-# kubectl 的JSONpath输出不支持正则表达式
+# kubectl 的 JSONpath 输出不支持正则表达式
 # 下面的命令不会生效
 kubectl get pods -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.name}'
 

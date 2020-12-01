@@ -710,7 +710,7 @@ To output details to your terminal window in a specific format, add the `-o` (or
 -->
 ### 格式化输出
 
-要以特定格式将详细信息输出到终端窗口，可以将 `-o`（`--output`）参数添加到支持的 `kubectl` 命令。
+要以特定格式将详细信息输出到终端窗口，将 `-o`（或者 `--output`）参数添加到支持的 `kubectl` 命令中。
 
 <!--O
 Output format | Description
