@@ -37,16 +37,11 @@ kubectl:
 # start the pod running nginx
 kubectl create deployment --image=nginx nginx-app
 ```
-
-```shell
-# add env to nginx-app
-kubectl set env deployment/nginx-app  DOMAIN=cluster
-```
 ```
 deployment.apps/nginx-app created
 ```
 
-```
+```shell
 # add env to nginx-app
 kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```
