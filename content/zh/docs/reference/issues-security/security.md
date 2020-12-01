@@ -64,8 +64,7 @@ You can also email the private [security@kubernetes.io](mailto:security@kubernet
 You may encrypt your email to this list using the GPG keys of the [Product Security Committee members](https://git.k8s.io/security/README.md#product-security-committee-psc). Encryption using GPG is NOT required to make a disclosure.
 -->
 你可以使用[产品安全团队成员](https://git.k8s.io/security/README.md#product-security-committee-psc) 
-的 GPG 密钥加密你的电子邮件到此列表。
-使用 GPG 加密不需要公开。
+的 GPG 密钥加密你的电子邮件到此列表。使用 GPG 加密不需要公开。
 
 <!--
 ### When Should I Report a Vulnerability?

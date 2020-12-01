@@ -197,8 +197,7 @@ On PersistentVolume: topology-aware volume provisioners will automatically set n
 A zone represents a logical failure domain.  It is common for Kubernetes clusters to span multiple zones for increased availability.  While the exact definition of a zone is left to infrastructure implementations, common properties of a zone include very low network latency within a zone, no-cost network traffic within a zone, and failure independence from other zones.  For example, nodes within a zone might share a network switch, but nodes in different zones should not.
 -->
 区域（`Zone`）代表逻辑故障域。Kubernetes 集群通常跨越多个区域以提高可用性。
-虽然区域的确切定义留给基础架构实现，但是区域的常见属性包括区域内的网络延迟非常低，
-区域内的免费网络流量以及与其他区域的故障独立性。
+虽然区域的确切定义留给基础架构实现，但是区域的常见属性包括区域内的网络延迟非常低，区域内的免费网络流量以及与其他区域的故障独立性。
 例如，一个区域内的节点可能共享一个网络交换机，但不同区域内的节点则不应共享。
 
 <!--
