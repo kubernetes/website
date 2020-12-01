@@ -23,7 +23,7 @@ card:
 This page contains a list of commonly used `kubectl` commands and flags.
 -->
 
-此页列举了常用的“kubectl”命令和标志
+本页列举了常用的 “kubectl” 命令和标志
 
 <!-- body -->
 
@@ -79,7 +79,7 @@ detailed config file information.
 -->
 ##  Kubectl 上下文和配置
 
-设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。查看
+设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。查看 
 [使用 kubeconfig 跨集群授权访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 文档获取配置文件详细信息。
 
@@ -98,7 +98,7 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 kubectl config view -o jsonpath='{.users[].name}'    # display the first user
 kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
 kubectl config get-contexts                          # display list of contexts
-kubectl config current-context			     # display the current-context
+kubectl config current-context           # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
 # add a new user to your kubeconf that supports basic auth
@@ -226,10 +226,10 @@ kubectl apply -f ./dir                        # 基于目录下的所有清单�
 kubectl apply -f https://git.io/vPieo         # 从 URL 中创建资源
 kubectl create deployment nginx --image=nginx # 启动单实例 nginx
 
-# 创建一个打印 "Hello World" 的 Job
+# 创建一个打印 “Hello World” 的 Job
 kubectl create job hello --image=busybox -- echo "Hello World" 
 
-# 创建一个打印"Hello World"间隔1分钟的 CronJob
+# 创建一个打印 “Hello World” 间隔1分钟的 CronJob
 kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"    
 
 kubectl explain pods                          # 获取 pod 清单的文档说明
