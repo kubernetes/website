@@ -12,7 +12,6 @@ tags:
 ---
 
 <!--
----
 title: Cluster Infrastructure
 id: cluster-infrastructure
 date: 2019-05-12
@@ -23,7 +22,6 @@ short_description: >
 aka:
 tags:
 - operation
----
 -->
 <!--
 The infrastructure layer provides and maintains VMs, networking, security groups and others.
