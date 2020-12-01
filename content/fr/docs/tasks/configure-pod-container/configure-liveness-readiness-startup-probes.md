@@ -260,7 +260,7 @@ L'utilisation des deux peut garantir que le trafic n'atteigne pas un conteneur q
 * `periodSeconds`: La fréquence (en secondes) à laquelle la probe doit être effectuée. La valeur par défaut est de 10 secondes. La valeur minimale est de 1.
 * `timeoutSeconds`: Nombre de secondes après lequel la probe time out. Valeur par défaut à 1 seconde. La valeur minimale est de 1.
 * `successThreshold`: Le minimum de succès consécutifs pour que la probe soit considérée comme réussie après avoir échoué. La valeur par défaut est 1. Doit être 1 pour la liveness probe. La valeur minimale est de 1.
-* `failureThreshold`: Quand un Pod démarre et que la probe échoue, Kubernetes va tenter pour un temps de `failureThreshold` avant d'abandonner. Abandonner en cas de liveness probe signifie le redémarrage du conteneur. En cas de readiness probe, le Pod sera marqué Unready.
+* `failureThreshold`: Quand un Pod démarre et que la probe échoue, Kubernetes va tenter `failureThreshold` fois avant d'abandonner. Abandonner en cas de liveness probe signifie le redémarrage du conteneur. En cas de readiness probe, le Pod sera marqué Unready.
 La valeur par défaut est 3, la valeur minimum est 1.
 
 [HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
