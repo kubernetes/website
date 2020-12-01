@@ -1,5 +1,5 @@
 ---
-title: QoS 类
+title: QoS 类（QoS Class）
 id: qos-class
 date: 2019-04-15
 full_link: 
