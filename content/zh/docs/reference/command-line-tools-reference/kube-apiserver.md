@@ -1,227 +1,2649 @@
 ---
 title: kube-apiserver
-notitle: true
+content_type: tool-reference
+weight: 30
 ---
-## kube-apiserver
 
+## {{% heading "synopsis" %}}
 
-
-### 概要
-
-
-Kubernetes API server 为 api 对象验证并配置数据，包括 pods、 services、 replicationcontrollers 和其它 api 对象。API Server 提供 REST 操作和到集群共享状态的前端，所有其他组件通过它进行交互。
+<!-- 
+The Kubernetes API server validates and configures data
+for the api objects which include pods, services, replicationcontrollers, and
+others. The API Server services REST operations and provides the frontend to the
+cluster's shared state through which all other components interact.
+-->
+Kubernetes API 服务器验证并配置 API 对象的数据，
+这些对象包括 pods、services、replicationcontrollers 等。 
+API 服务器为 REST 操作提供服务，并为集群的共享状态提供前端，
+所有其他组件都通过该前端进行交互。
 
 ```
-kube-apiserver
+kube-apiserver [flags]
 ```
 
-### 选项
-```
-
-      --admission-control stringSlice                           控制资源进入集群的准入控制插件的顺序列表。逗号分隔的 NamespaceLifecycle 列表。（默认值 [AlwaysAdmit]）
-
-      --admission-control-config-file string                    包含准入控制配置的文件。
-
-      --advertise-address ip                                    向集群成员通知 apiserver 消息的 IP 地址。这个地址必须能够被集群中其他成员访问。如果 IP 地址为空，将会使用 --bind-address，如果未指定 --bind-address，将会使用主机的默认接口地址。
-
-      --allow-privileged                                        如果为 true, 将允许特权容器。
-
-      --anonymous-auth                                          启用到 API server 的安全端口的匿名请求。未被其他认证方法拒绝的请求被当做匿名请求。匿名请求的用户名为 system:anonymous，用户组名为 system:unauthenticated。（默认值 true）
-
-      --apiserver-count int                                     集群中运行的 apiserver 数量，必须为正数。（默认值 1）
-
-      --audit-log-maxage int                                    基于文件名中的时间戳，旧审计日志文件的最长保留天数。
-
-      --audit-log-maxbackup int                                 旧审计日志文件的最大保留个数。
-
-      --audit-log-maxsize int                                   审计日志被轮转前的最大兆字节数。
-
-      --audit-log-path string                                   如果设置该值，所有到 apiserver 的请求都将会被记录到这个文件。'-' 表示记录到标准输出。
-
-      --audit-policy-file string                                定义审计策略配置的文件的路径。需要打开 'AdvancedAuditing' 特性开关。AdvancedAuditing 需要一个配置来启用审计功能。
-
-      --audit-webhook-config-file string                        一个具有 kubeconfig 格式文件的路径，该文件定义了审计的 webhook 配置。需要打开 'AdvancedAuditing' 特性开关。
-
-      --audit-webhook-mode string                               发送审计事件的策略。 Blocking 模式表示正在发送事件时应该阻塞服务器的响应。 Batch 模式使 webhook 异步缓存和发送事件。 Known 模式为 batch,blocking。（默认值 "batch")
-
-      --authentication-token-webhook-cache-ttl duration         从 webhook 令牌认证者获取的响应的缓存时长。( 默认值 2m0s)
-
-      --authentication-token-webhook-config-file string         包含 webhook 配置的文件，用于令牌认证，具有 kubeconfig 格式。API server 将查询远程服务来决定对 bearer 令牌的认证。
-
-      --authorization-mode string                               在安全端口上进行权限验证的插件的顺序列表。以逗号分隔的列表，包括：AlwaysAllow,AlwaysDeny,ABAC,Webhook,RBAC,Node.（默认值 "AlwaysAllow"）
-
-      --authorization-policy-file string                        包含权限验证策略的 csv 文件，和 --authorization-mode=ABAC 一起使用，作用在安全端口上。
-
-      --authorization-webhook-cache-authorized-ttl duration     从 webhook 授权者获得的 'authorized' 响应的缓存时长。（默认值 5m0s）
-
-      --authorization-webhook-cache-unauthorized-ttl duration   从 webhook 授权者获得的 'unauthorized' 响应的缓存时长。（默认值 30s）
-
-      --authorization-webhook-config-file string                包含 webhook 配置的 kubeconfig 格式文件，和 --authorization-mode=Webhook 一起使用。API server 将查询远程服务来决定对 API server 安全端口的访问。
-
-      --azure-container-registry-config string                  包含 Azure 容器注册表配置信息的文件的路径。
-
-      --bind-address ip                                         监听 --seure-port 的 IP 地址。被关联的接口必须能够被集群其它节点和 CLI/web 客户端访问。如果为空，则将使用所有接口（0.0.0.0）。（默认值 0.0.0.0）
-
-      --cert-dir string                                         存放 TLS 证书的目录。如果提供了 --tls-cert-file 和 --tls-private-key-file 选项，该标志将被忽略。（默认值 "/var/run/kubernetes"）
-
-      --client-ca-file string                                   如果设置此标志，对于任何请求，如果存包含 client-ca-file 中的 authorities 签名的客户端证书，将会使用客户端证书中的 CommonName 对应的身份进行认证。
-
-      --cloud-config string                                     云服务提供商配置文件路径。空字符串表示无配置文件 .
-
-      --cloud-provider string                                   云服务提供商，空字符串表示无提供商。
-
-      --contention-profiling                                    如果已经启用 profiling，则启用锁竞争 profiling。
-
-      --cors-allowed-origins stringSlice                        CORS 的域列表，以逗号分隔。合法的域可以是一个匹配子域名的正则表达式。如果这个列表为空则不会启用 CORS.
-
-      --delete-collection-workers int                           用于 DeleteCollection 调用的工作者数量。这被用于加速 namespace 的清理。( 默认值 1)
-
-      --deserialization-cache-size int                          在内存中缓存的反序列化 json 对象的数量。
-
-      --enable-aggregator-routing                               打开到 endpoints IP 的 aggregator 路由请求，替换 cluster IP。
-
-      --enable-garbage-collector                                启用通用垃圾回收器 . 必须与 kube-controller-manager 对应的标志保持同步。 （默认值 true）
-
-      --enable-logs-handler                                     如果为 true，则为 apiserver 日志功能安装一个 /logs 处理器。（默认值 true）
-
-      --enable-swagger-ui                                       在 apiserver 的 /swagger-ui 路径启用 swagger ui。
-
-      --etcd-cafile string                                      用于保护 etcd 通信的 SSL CA 文件。
-
-      --etcd-certfile string                                    用于保护 etcd 通信的的 SSL 证书文件。
-
-      --etcd-keyfile string                                     用于保护 etcd 通信的 SSL 密钥文件 .
-
-      --etcd-prefix string                                      附加到所有 etcd 中资源路径的前缀。 （默认值 "/registry"）
-
-      --etcd-quorum-read                                        如果为 true, 启用 quorum 读。
-
-      --etcd-servers stringSlice                                连接的 etcd 服务器列表 , 形式为（scheme://ip:port)，使用逗号分隔。
-
-      --etcd-servers-overrides stringSlice                      针对单个资源的 etcd 服务器覆盖配置 , 以逗号分隔。 单个配置覆盖格式为 : group/resource#servers, 其中 servers 形式为 http://ip:port, 以分号分隔。
-
-      --event-ttl duration                                      事件驻留时间。（默认值 1h0m0s)
-
-      --enable-bootstrap-token-auth                             启用此选项以允许 'kube-system' 命名空间中的 'bootstrap.kubernetes.io/token' 类型密钥可以被用于 TLS 的启动认证。
-
-      --experimental-encryption-provider-config string          包含加密提供程序的配置的文件，该加密提供程序被用于在 etcd 中保存密钥。
-
-      --external-hostname string                                为此 master 生成外部 URL 时使用的主机名 ( 例如 Swagger API 文档 )。
-
-      --feature-gates mapStringBool                             一个描述 alpha/experimental 特性开关的键值对列表。 选项包括 :
-Accelerators=true|false (ALPHA - default=false)
-AdvancedAuditing=true|false (ALPHA - default=false)
-AffinityInAnnotations=true|false (ALPHA - default=false)
-AllAlpha=true|false (ALPHA - default=false)
-AllowExtTrafficLocalEndpoints=true|false (default=true)
-AppArmor=true|false (BETA - default=true)
-DynamicKubeletConfig=true|false (ALPHA - default=false)
-DynamicVolumeProvisioning=true|false (ALPHA - default=true)
-ExperimentalCriticalPodAnnotation=true|false (ALPHA - default=false)
-ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)
-LocalStorageCapacityIsolation=true|false (ALPHA - default=false)
-PersistentLocalVolumes=true|false (ALPHA - default=false)
-RotateKubeletClientCertificate=true|false (ALPHA - default=false)
-RotateKubeletServerCertificate=true|false (ALPHA - default=false)
-StreamingProxyRedirects=true|false (BETA - default=true)
-TaintBasedEvictions=true|false (ALPHA - default=false)
-
-      --google-json-key string                                  用于认证的 Google Cloud Platform 服务账号的 JSON 密钥。
-
-      --insecure-allow-any-token username/group1,group2         如果设置该值 , 你的服务将处于非安全状态。任何令牌都将会被允许，并将从令牌中把用户信息解析成为 username/group1,group2。
-
-      --insecure-bind-address ip                                用于监听 --insecure-port 的 IP 地址 ( 设置成 0.0.0.0 表示监听所有接口 )。（默认值 127.0.0.1)
-
-      --insecure-port int                                       用于监听不安全和为认证访问的端口。这个配置假设你已经设置了防火墙规则，使得这个端口不能从集群外访问。对集群的公共地址的 443 端口的访问将被代理到这个端口。默认设置中使用 nginx 实现。（默认值 8080）
-
-      --kubelet-certificate-authority string                    证书 authority 的文件路径。
-
-      --kubelet-client-certificate string                       用于 TLS 的客户端证书文件路径。
-
-      --kubelet-client-key string                               用于 TLS 的客户端证书密钥文件路径 .
-
-      --kubelet-https                                           为 kubelet 启用 https。 （默认值 true）
-
-      --kubelet-preferred-address-types stringSlice             用于 kubelet 连接的首选 NodeAddressTypes 列表。 ( 默认值[Hostname,InternalDNS,InternalIP,ExternalDNS,ExternalIP])
-
-      --kubelet-read-only-port uint                             已废弃 : kubelet 端口 . （默认值 10255）
-
-      --kubelet-timeout duration                                kubelet 操作超时时间。（默认值
-      5s）
-
-      --kubernetes-service-node-port int                        如果不为 0，Kubernetes master 服务（用于创建 / 管理 apiserver）将会使用 NodePort 类型，并将这个值作为端口号。如果为 0，Kubernetes master 服务将会使用 ClusterIP 类型。
-
-      --master-service-namespace string                         已废弃 : 注入到 pod 中的 kubernetes master 服务的命名空间。（默认值 "default"）
-
-      --max-connection-bytes-per-sec int                        如果不为 0，每个用户连接将会被限速为该值（bytes/sec）。当前只应用于长时间运行的请求。
-
-      --max-mutating-requests-inflight int                      在给定时间内进行中可变请求的最大数量。当超过该值时，服务将拒绝所有请求。0 值表示没有限制。（默认值 200）
-
-      --max-requests-inflight int                               在给定时间内进行中不可变请求的最大数量。当超过该值时，服务将拒绝所有请求。0 值表示没有限制。（默认值 400）
-
-      --min-request-timeout int                                 一个可选字段，表示一个 handler 在一个请求超时前，必须保持它处于打开状态的最小秒数。当前只对监听请求 handler 有效，它基于这个值选择一个随机数作为连接超时值，以达到分散负载的目的（默认值 1800）。
-
-      --oidc-ca-file string                                    如果设置该值，将会使用 oidc-ca-file 中的任意一个 authority 对 OpenID 服务的证书进行验证，否则将会使用主机的根 CA 对其进行验证。
-
-      --oidc-client-id string                                   使用 OpenID 连接的客户端的 ID，如果设置了 oidc-issuer-url，则必须设置这个值。
-
-      --oidc-groups-claim string                                如果提供该值，这个自定义 OpenID 连接名将指定给特定的用户组。该声明值需要是一个字符串或字符串数组。此标志为实验性的，请查阅验证相关文档进一步了解详细信息。
-
-      --oidc-issuer-url string                                  OpenID 颁发者 URL，只接受 HTTPS 方案。如果设置该值，它将被用于验证 OIDC JSON Web Token(JWT)。
-
-      --oidc-username-claim string                              用作用户名的 OpenID 声明值。注意，不保证除默认 ('sub') 外的其他声明值的唯一性和不变性。此标志为实验性的，请查阅验证相关文档进一步了解详细信息。
-
-      --profiling                                               在 web 接口 host:port/debug/pprof/ 上启用 profiling。（默认值 true）
-
-      --proxy-client-cert-file string                           当必须调用外部程序时，用于证明 aggregator 或者 kube-apiserver 的身份的客户端证书。包括代理到用户 api-server 的请求和调用 webhook 准入控制插件的请求。它期望这个证书包含一个来自于 CA 中的 --requestheader-client-ca-file 标记的签名。该 CA 在 kube-system 命名空间的 'extension-apiserver-authentication' configmap 中发布。从 Kube-aggregator 收到调用的组件应该使用该 CA 进行他们部分的双向 TLS 验证。
-
-      --proxy-client-key-file string                            当必须调用外部程序时，用于证明 aggregator 或者 kube-apiserver 的身份的客户端证书密钥。包括代理到用户 api-server 的请求和调用 webhook 准入控制插件的请求。
-
-      --repair-malformed-updates                                如果为 true，服务将会尽力修复更新请求以通过验证，例如：将更新请求 UID 的当前值设置为空。在我们修复了所有发送错误格式请求的客户端后，可以关闭这个标志。
-
-      --requestheader-allowed-names stringSlice                 使用 --requestheader-username-headers 指定的，允许在头部提供用户名的客户端证书通用名称列表。如果为空，任何通过 --requestheader-client-ca-file 中 authorities 验证的客户端证书都是被允许的。
-
-      --requestheader-client-ca-file string                     在信任请求头中以 --requestheader-username-headers 指示的用户名之前，用于验证接入请求中客户端证书的根证书捆绑。
-
-      --requestheader-extra-headers-prefix stringSlice          用于检查的请求头的前缀列表。建议使用 X-Remote-Extra-。
-
-      --requestheader-group-headers stringSlice                 用于检查群组的请求头列表。建议使用 X-Remote-Group.
-
-      --requestheader-username-headers stringSlice              用于检查用户名的请求头列表。建议使用 X-Remote-User。
-
-      --runtime-config mapStringString                          传递给 apiserver 用于描述运行时配置的键值对集合。 apis/<groupVersion> 键可以被用来打开 / 关闭特定的 api 版本。apis/<groupVersion>/<resource> 键被用来打开 / 关闭特定的资源 . api/all 和 api/legacy 键分别用于控制所有的和遗留的 api 版本 .
-
-      --secure-port int                                         用于监听具有认证授权功能的 HTTPS 协议的端口。如果为 0，则不会监听 HTTPS 协议。 （默认值 6443)
-
-      --service-account-key-file stringArray                    包含 PEM 加密的 x509 RSA 或 ECDSA 私钥或公钥的文件，用于验证 ServiceAccount 令牌。如果设置该值，--tls-private-key-file 将会被使用。指定的文件可以包含多个密钥，并且这个标志可以和不同的文件一起多次使用。
-
-      --service-cluster-ip-range ipNet                          CIDR 表示的 IP 范围，服务的 cluster ip 将从中分配。 一定不要和分配给 nodes 和 pods 的 IP 范围产生重叠。
-
-      --ssh-keyfile string                                      如果不为空，在使用安全的 SSH 代理访问节点时，将这个文件作为用户密钥文件。
-
-      --storage-backend string                                  持久化存储后端。 选项为 : 'etcd3' ( 默认 ), 'etcd2'.
-
-      --storage-media-type string                               在存储中保存对象的媒体类型。某些资源或者存储后端可能仅支持特定的媒体类型，并且忽略该配置项。（默认值 "application/vnd.kubernetes.protobuf")
-
-      --storage-versions string                                 按组划分资源存储的版本。 以 "group1/version1,group2/version2,..." 的格式指定。当对象从一组移动到另一组时 , 你可以指定 "group1=group2/v1beta1,group3/v1beta1,..." 的格式。你只需要传入你希望从结果中改变的组的列表。默认为从 KUBE_API_VERSIONS 环境变量集成而来，所有注册组的首选版本列表。 （默认值 "admission.k8s.io/v1alpha1,admissionregistration.k8s.io/v1alpha1,apps/v1beta1,authentication.k8s.io/v1,authorization.k8s.io/v1,autoscaling/v1,batch/v1,certificates.k8s.io/v1beta1,componentconfig/v1alpha1,extensions/v1beta1,federation/v1beta1,imagepolicy.k8s.io/v1alpha1,networking.k8s.io/v1,policy/v1beta1,rbac.authorization.k8s.io/v1beta1,settings.k8s.io/v1alpha1,storage.k8s.io/v1,v1")
-
-      --target-ram-mb int                                       apiserver 内存限制，单位为 MB( 用于配置缓存大小等 )。
-
-      --tls-ca-file string                                      如果设置该值，这个证书 authority 将会被用于从 Admission Controllers 过来的安全访问。它必须是一个 PEM 加密的合法 CA 捆绑包。此外 , 该证书 authority 可以被添加到以 --tls-cert-file 提供的证书文件中 .
-
-      --tls-cert-file string                                    包含用于 HTTPS 的默认 x509 证书的文件。（如果有 CA 证书，则附加于 server 证书之后）。如果启用了 HTTPS 服务，并且没有提供 --tls-cert-file 和 --tls-private-key-file，则将为公共地址生成一个自签名的证书和密钥并保存于 /var/run/kubernetes 目录。
-
-      --tls-private-key-file string                             包含匹配 --tls-cert-file 的 x509 证书私钥的文件。
-
-      --tls-sni-cert-key namedCertKey                           一对 x509 证书和私钥的文件路径 , 可以使用符合正式域名的域形式作为后缀。 如果没有提供域形式后缀 , 则将提取证书名。 非通配符版本优先于通配符版本 , 显示的域形式优先于证书中提取的名字。 对于多个密钥 / 证书对, 请多次使用 --tls-sni-cert-key。例如 : "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com". （默认值[])
-
-      --token-auth-file string                                  如果设置该值，这个文件将被用于通过令牌认证来保护 API 服务的安全端口。
-
-      --version version[=true]                                  打印版本信息并退出。
-
-      --watch-cache                                             启用 apiserver 的监视缓存。（默认值 true）
-
-      --watch-cache-sizes stringSlice                           每种资源（pods, nodes 等）的监视缓存大小列表，以逗号分隔。每个缓存配置的形式为：resource#size，size 是一个数字。在 watch-cache 启用时生效。
-```
-
-###### Auto generated by spf13/cobra on 11-Jul-2017
+## {{% heading "options" %}}
+
+<table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+
+<tr>
+<td colspan="2">--add-dir-header</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If true, adds the file directory to the header of the log messages
+-->
+如果为 true，则将文件目录添加到日志消息的标题中
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--admission-control-config-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+File with admission control configuration.
+-->
+包含准入控制配置的文件。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--advertise-address ip</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The IP address on which to advertise the apiserver to members of the cluster. 
+This address must be reachable by the rest of the cluster. If blank, 
+the --bind-address will be used. If --bind-address is unspecified, 
+the host's default interface will be used.
+-->
+向集群成员通知 apiserver 消息的 IP 地址。
+这个地址必须能够被集群中其他成员访问。
+如果 IP 地址为空，将会使用 --bind-address，
+如果未指定 --bind-address，将会使用主机的默认接口地址。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--allow-privileged</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If true, allow privileged containers. [default=false]
+-->
+如果为 true, 将允许特权容器。[默认值=false]
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--alsologtostderr</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+log to standard error as well as files
+-->
+在向文件输出日志的同时，也将日志写到标准输出。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--anonymous-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
+-->
+--anonymous-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Enables anonymous requests to the secure port of the API server. 
+Requests that are not rejected by another authentication method 
+are treated as anonymous requests. Anonymous requests have a 
+username of system:anonymous, and a group name of system:unauthenticated.
+-->
+启用到 API server 的安全端口的匿名请求。
+未被其他认证方法拒绝的请求被当做匿名请求。
+匿名请求的用户名为 system:anonymous，
+用户组名为 system:unauthenticated。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--api-audiences stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Identifiers of the API. The service account token authenticator will 
+validate that tokens used against the API are bound to at least one 
+of these audiences. If the --service-account-issuer flag is configured 
+and this flag is not, this field defaults to a single element list 
+containing the issuer URL.
+-->
+API 的标识符。 
+服务帐户令牌验证者将验证针对 API 使用的令牌是否已绑定到这些受众中的至少一个。 
+如果配置了 --service-account-issuer 标志，但未配置此标志，
+则此字段默认为包含发行者 URL 的单个元素列表。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--apiserver-count int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1
+-->
+--apiserver-count int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The number of apiservers running in the cluster, must be a positive number. 
+(In use when --endpoint-reconciler-type=master-count is enabled.)
+-->
+集群中运行的 apiserver 数量，必须为正数。
+（在启用 --endpoint-reconciler-type=master-count 时使用。）
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-log-batch-buffer-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10000
+-->
+--audit-log-batch-buffer-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：10000
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The size of the buffer to store events before batching and writing. Only used in batch mode.
+-->
+批处理和写入之前用于存储事件的缓冲区大小。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-log-batch-max-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1
+-->
+--audit-log-batch-max-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1
+</td>
+</tr><tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The maximum size of a batch. Only used in batch mode.
+-->
+批处理的最大大小。 仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-log-batch-max-wait duration</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The amount of time to wait before force writing the batch that hadn't reached the max size. 
+Only used in batch mode.
+-->
+强制写入尚未达到最大大小的批处理之前要等待的时间。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-log-batch-throttle-burst int</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Maximum number of requests sent at the same moment if ThrottleQPS was not utilized before. 
+Only used in batch mode.
+-->
+如果之前未使用 ThrottleQPS，则同时发送的最大请求数。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-log-batch-throttle-enable</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Whether batching throttling is enabled. Only used in batch mode.
+-->
+是否启用了批量限制。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-log-batch-throttle-qps float32</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Maximum average number of batches per second. Only used in batch mode.
+-->
+每秒的最大平均批处理数。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!-- 
+--audit-log-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "json"
+-->
+--audit-log-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："json"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Format of saved audits. "legacy" indicates 1-line text format for each event. 
+"json" indicates structured json format. Known formats are legacy,json.
+-->
+所保存的审计格式。
+"legacy" 表示每行一个事件的文本格式。"json" 表示结构化的 JSON 格式。
+已知格式为 legacy，json。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-log-maxage int</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The maximum number of days to retain old audit log files based on the timestamp encoded in their filename.
+-->
+根据文件名中编码的时间戳保留旧审计日志文件的最大天数。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-log-maxbackup int</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The maximum number of old audit log files to retain.
+-->
+保留的旧审计日志文件的最大数量。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-log-maxsize int</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The maximum size in megabytes of the audit log file before it gets rotated.
+-->
+轮换之前，审计日志文件的最大大小（以兆字节为单位）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-log-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "blocking"
+-->
+--audit-log-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："blocking"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Strategy for sending audit events. Blocking indicates sending events should block server responses. 
+Batch causes the backend to buffer and write events asynchronously. 
+Known modes are batch,blocking,blocking-strict.
+-->
+发送审计事件的策略。
+阻塞（blocking）表示发送事件应阻止服务器响应。
+批处理导致后端异步缓冲和写入事件。
+已知的模式是批处理（batch），阻塞（blocking），严格阻塞（blocking-strict）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-log-path string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If set, all requests coming to the apiserver will be logged to this file.
+'-' means standard out.
+-->
+如果设置，则所有到达 apiserver 的请求都将记录到该文件中。
+"-" 表示标准输出。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-log-truncate-enabled</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Whether event and batch truncating is enabled.
+-->
+是否启用事件和批次截断。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-log-truncate-max-batch-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10485760
+-->
+--audit-log-truncate-max-batch-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：10485760
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Maximum size of the batch sent to the underlying backend. Actual serialized size can be 
+several hundreds of bytes greater. If a batch exceeds this limit, it is split into 
+several batches of smaller size.
+-->
+发送到下层后端的批次的最大数据量。
+实际的序列化大小可能会增加数百个字节。
+如果一个批次超出此限制，则将其分成几个较小的批次。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-log-truncate-max-event-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 102400
+-->
+--audit-log-truncate-max-event-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：102400
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Maximum size of the audit event sent to the underlying backend. If the size of an event
+is greater than this number, first request and response are removed, and if this doesn't 
+reduce the size enough, event is discarded.
+-->
+发送到下层后端的批次的最大数据量。
+如果事件的大小大于此数字，则将删除第一个请求和响应，
+并且没有减小足够大的程度，则将丢弃事件。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-log-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "audit.k8s.io/v1"
+-->
+--audit-log-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："audit.k8s.io/v1"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+API group and version used for serializing audit events written to log.
+-->
+用于序列化写入日志的审计事件的 API 组和版本。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-policy-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to the file that defines the audit policy configuration.
+-->
+定义审计策略配置的文件的路径。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-batch-buffer-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10000
+-->
+--audit-webhook-batch-buffer-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：10000
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The size of the buffer to store events before batching and writing. Only used in batch mode.
+-->
+划分批次和写入之前用于存储事件的缓冲区大小。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-batch-max-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 400
+-->
+--audit-webhook-batch-max-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：400
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The maximum size of a batch. Only used in batch mode.
+-->
+批次的最大大小。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-batch-max-wait duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 30s
+-->
+--audit-webhook-batch-max-wait duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：30s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The amount of time to wait before force writing the batch that hadn't reached the max size. 
+Only used in batch mode.
+-->
+强制写入尚未达到最大大小的批处理之前要等待的时间。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-batch-throttle-burst int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 15
+-->
+--audit-webhook-batch-throttle-burst int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：15
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Maximum number of requests sent at the same moment if ThrottleQPS was not utilized before. 
+Only used in batch mode.
+-->
+如果之前未使用 ThrottleQPS，则同时发送的最大请求数。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-batch-throttle-enable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
+-->
+--audit-webhook-batch-throttle-enable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Whether batching throttling is enabled. Only used in batch mode.
+-->
+是否启用了批量限制。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-batch-throttle-qps float32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10
+-->
+--audit-webhook-batch-throttle-qps float32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：10
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Maximum average number of batches per second. Only used in batch mode.
+-->
+每秒的最大平均批次数。
+仅在批处理模式下使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-webhook-config-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to a kubeconfig formatted file that defines the audit webhook configuration.
+-->
+定义审计 webhook 配置的 kubeconfig 格式文件的路径。
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-initial-backoff duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10s
+-->
+--audit-webhook-initial-backoff duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：10s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The amount of time to wait before retrying the first failed request.
+-->
+重试第一个失败的请求之前要等待的时间。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "batch"
+-->
+--audit-webhook-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："batch"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Strategy for sending audit events. Blocking indicates sending events should block server responses. 
+Batch causes the backend to buffer and write events asynchronously. Known modes are batch,blocking,blocking-strict.
+-->
+发送审计事件的策略。
+阻止（Blocking）表示发送事件应阻止服务器响应。
+批处理导致后端异步缓冲和写入事件。
+已知的模式是批处理（batch），阻塞（blocking），严格阻塞（blocking-strict）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--audit-webhook-truncate-enabled</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Whether event and batch truncating is enabled.
+-->
+是否启用事件和批处理截断。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-truncate-max-batch-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10485760
+-->
+--audit-webhook-truncate-max-batch-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：10485760
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!-- 
+Maximum size of the batch sent to the underlying backend. Actual serialized size can be 
+several hundreds of bytes greater. If a batch exceeds this limit, it is split into 
+several batches of smaller size.
+-->
+发送到下层后端的批次的最大数据量。
+实际的序列化大小可能会增加数百个字节。
+如果一个批次超出此限制，则将其分成几个较小的批次。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-truncate-max-event-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 102400
+-->
+--audit-webhook-truncate-max-event-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：102400
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Maximum size of the audit event sent to the underlying backend. If the size of an event
+is greater than this number, first request and response are removed, and if this doesn't
+reduce the size enough, event is discarded.
+-->
+发送到下层后端的批次的最大数据量。
+如果事件的大小大于此数字，则将删除第一个请求和响应，
+并且如果事件和事件的大小没有足够减小，则将丢弃事件。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--audit-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "audit.k8s.io/v1"
+-->
+--audit-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："audit.k8s.io/v1"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+API group and version used for serializing audit events written to webhook.
+-->
+用于序列化写入 Webhook 的审计事件的 API 组和版本。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--authentication-token-webhook-cache-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 2m0s
+-->
+--authentication-token-webhook-cache-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：2m0s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The duration to cache responses from the webhook token authenticator.
+-->
+来自 Webhook 令牌身份验证器的缓存响应的持续时间。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--authentication-token-webhook-config-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+File with webhook configuration for token authentication in kubeconfig format. 
+The API server will query the remote service to determine authentication for bearer tokens.
+-->
+包含 Webhook 配置的文件，用于以 kubeconfig 格式进行令牌认证。
+API 服务器将查询远程服务，以对持有者令牌进行身份验证。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--authentication-token-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "v1beta1"
+-->
+--authentication-token-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："v1beta1"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The API version of the authentication.k8s.io TokenReview to send to and expect from the webhook.
+-->
+与 Webhook 之间交换 authentication.k8s.io TokenReview 时使用的 API 版本。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--authorization-mode stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [AlwaysAllow]
+-->
+--authorization-mode stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：[AlwaysAllow]
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Ordered list of plug-ins to do authorization on secure port. Comma-delimited list of: 
+AlwaysAllow,AlwaysDeny,ABAC,Webhook,RBAC,Node.
+-->
+在安全端口上进行鉴权的插件的顺序列表。
+逗号分隔的列表：AlwaysAllow,AlwaysDeny,ABAC,Webhook,RBAC,Node。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--authorization-policy-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+File with authorization policy in json line by line format, 
+used with --authorization-mode=ABAC, on the secure port.
+-->
+包含安全策略的文件，其内容为分行 JSON 格式，
+在安全端口上与 --authorization-mode=ABAC 一起使用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--authorization-webhook-cache-authorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5m0s
+-->
+--authorization-webhook-cache-authorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：5m0s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The duration to cache 'authorized' responses from the webhook authorizer.
+-->
+缓存来自 Webhook 鉴权组件的 “授权（authorized）” 响应的持续时间。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--authorization-webhook-cache-unauthorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 30s
+-->
+--authorization-webhook-cache-unauthorized-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：30s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The duration to cache 'unauthorized' responses from the webhook authorizer.
+-->
+缓存来自 Webhook 鉴权模块的 “未授权（unauthorized）” 响应的持续时间。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--authorization-webhook-config-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+File with webhook configuration in kubeconfig format, used with --authorization-mode=Webhook. 
+The API server will query the remote service to determine access on the API server's secure port.
+-->
+包含 Webhook 配置的文件，其格式为 kubeconfig，
+与 --authorization-mode=Webhook 一起使用。
+API 服务器将查询远程服务，以对 API 服务器的安全端口的访问执行鉴权。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--authorization-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "v1beta1"
+-->
+--authorization-webhook-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："v1beta1"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The API version of the authorization.k8s.io SubjectAccessReview to send to and expect from the webhook.
+-->
+与 Webhook 之间交换 authorization.k8s.io SubjectAccessReview 时使用的 API 版本。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--azure-container-registry-config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to the file containing Azure container registry configuration information.
+-->
+包含 Azure 容器仓库配置信息的文件的路径。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--bind-address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 0.0.0.0
+-->
+--bind-address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：0.0.0.0
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The IP address on which to listen for the --secure-port port. The associated interface(s) 
+must be reachable by the rest of the cluster, and by CLI/web clients. If blank or an 
+unspecified address (0.0.0.0 or ::), all interfaces will be used.
+-->
+监听 --secure-port 端口的 IP 地址。
+集群的其余部分以及 CLI/web 客户端必须可以访问关联的接口。
+如果为空白或未指定地址（0.0.0.0 或 ::），则将使用所有接口。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/var/run/kubernetes"
+-->
+--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/var/run/kubernetes"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The directory where the TLS certs are located. If --tls-cert-file and 
+--tls-private-key-file are provided, this flag will be ignored.
+-->
+TLS 证书所在的目录。
+如果提供了 --tls-cert-file 和 --tls-private-key-file，则将忽略此标志。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--client-ca-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If set, any request presenting a client certificate signed by one of the authorities 
+in the client-ca-file is authenticated with an identity corresponding to the CommonName 
+of the client certificate.
+-->
+如果已设置，则使用与客户端证书的 CommonName 对应的标识对任何出示由
+client-ca 文件中的授权机构之一签名的客户端证书的请求进行身份验证。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--cloud-config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The path to the cloud provider configuration file. Empty string for no configuration file.
+-->
+云厂商配置文件的路径。
+空字符串表示无配置文件。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--cloud-provider string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The provider for cloud services. Empty string for no provider.
+-->
+云服务提供商。
+空字符串表示没有云厂商。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,35.191.0.0/16
+-->
+--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：130.211.0.0/22,35.191.0.0/16
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+CIDRs opened in GCE firewall for L7 LB traffic proxy & health checks
+-->
+在 GCE 防火墙中打开 CIDR，以进行 L7 LB 流量代理和运行状况检查
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--contention-profiling</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Enable lock contention profiling, if profiling is enabled
+-->
+如果启用了性能分析，则启用锁争用性能分析
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--cors-allowed-origins stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+List of allowed origins for CORS, comma separated.  
+An allowed origin can be a regular expression to support subdomain matching. 
+If this list is empty CORS will not be enabled.
+-->
+CORS 允许的来源清单，以逗号分隔。
+允许的来源可以是支持子域匹配的正则表达式。
+如果此列表为空，则不会启用 CORS。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300
+-->
+--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：300
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
+-->
+标明 notReady:NoExecute 的 tolerationSeconds，
+默认情况下将其添加到尚未具有此容忍度的每个 pod 中。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300
+-->
+--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：300
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Indicates the tolerationSeconds of the toleration for unreachable:NoExecute 
+that is added by default to every pod that does not already have such a toleration.
+-->
+标明 unreachable:NoExecute 的 tolerationSeconds，
+默认情况下将其添加到尚未具有此容忍度的每个 pod 中。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--default-watch-cache-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 100
+-->
+--default-watch-cache-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：100
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Default watch cache size. If zero, watch cache will be disabled for resources 
+that do not have a default watch size set.
+-->
+默认监听（watch）缓存大小。
+如果为零，则将为没有设置默认监视大小的资源禁用监视缓存。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--delete-collection-workers int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1
+-->
+--delete-collection-workers int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Number of workers spawned for DeleteCollection call. These are used to speed up namespace cleanup.
+-->
+为 DeleteCollection 调用而产生的工作程序数。
+这些用于加速名字空间清理。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--disable-admission-plugins stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+admission plugins that should be disabled although they are in the default enabled plugins list (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
+-->
+尽管位于默认启用的插件列表中（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、Priority、DefaultTolerationSeconds、DefaultStorageClass、StorageObjectInUseProtection、PersistentVolumeClaimResize、RuntimeClass、CertificateApproval、CertificateSigning、CertificateSubjectRestriction、DefaultIngressClass、MutatingAdmissionWebhook、ValidatingAdmissionWebhook、ResourceQuota）仍须被禁用的插件。
+<br/>取值为逗号分隔的准入插件列表：AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook。
+<br/>该标志中插件的顺序无关紧要。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--egress-selector-config-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+File with apiserver egress selector configuration.
+-->
+带有 apiserver 出站选择器配置的文件。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--enable-admission-plugins stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+admission plugins that should be enabled in addition to default enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
+-->
+除了默认启用的插件（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、Priority、DefaultTolerationSeconds、DefaultStorageClass、StorageObjectInUseProtection、PersistentVolumeClaimResize、RuntimeClass、CertificateApproval、CertificateSigning、CertificateSubjectRestriction、DefaultIngressClass、MutatingAdmissionWebhook、ValidatingAdmissionWebhook、ResourceQuota）之外要启用的插件
+</br>取值为逗号分隔的准入插件列表：AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
+<br/>该标志中插件的顺序无关紧要。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--enable-aggregator-routing</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Turns on aggregator routing requests to endpoints IP rather than cluster IP.
+-->
+允许聚合器将请求路由到端点 IP 而非集群 IP。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--enable-bootstrap-token-auth</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Enable to allow secrets of type 'bootstrap.kubernetes.io/token' in the 'kube-system'
+namespace to be used for TLS bootstrapping authentication.
+-->
+启用以允许将 "kube-system" 名字空间中类型为 "bootstrap.kubernetes.io/token"
+的 Secret 用于 TLS 引导身份验证。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--enable-garbage-collector&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
+-->
+--enable-garbage-collector&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Enables the generic garbage collector. MUST be synced with the corresponding flag of the kube-controller-manager.
+-->
+启用通用垃圾收集器。
+必须与 kube-controller-manager 的相应标志同步。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--enable-priority-and-fairness&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
+-->
+--enable-priority-and-fairness&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If true and the APIPriorityAndFairness feature gate is enabled, 
+replace the max-in-flight handler with an enhanced one that queues 
+and dispatches with priority and fairness
+-->
+如果为 true 且启用了 APIPriorityAndFairness 特性门控，
+请使用增强的处理程序替换 max-in-flight 处理程序，
+以便根据优先级和公平性完成排队和调度。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--encryption-provider-config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The file containing configuration for encryption providers to be used for storing secrets in etcd
+-->
+包含加密提供程序配置信息的文件，用在 etcd 中所存储的 Secret 上。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--endpoint-reconciler-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "lease"
+-->
+--endpoint-reconciler-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："lease"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Use an endpoint reconciler (master-count, lease, none)
+-->
+使用端点协调器（master-count, lease, none）
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--etcd-cafile string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+SSL Certificate Authority file used to secure etcd communication.
+-->
+用于保护 etcd 通信的 SSL 证书颁发机构文件。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--etcd-certfile string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+SSL certification file used to secure etcd communication.
+-->
+用于保护 etcd 通信的 SSL 证书文件。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--etcd-compaction-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5m0s
+-->
+--etcd-compaction-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：5m0s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The interval of compaction requests. If 0, the compaction request from apiserver is disabled.
+-->
+压缩请求的间隔。
+如果为0，则禁用来自 apiserver 的压缩请求。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--etcd-count-metric-poll-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1m0s
+-->
+--etcd-count-metric-poll-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1m0s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Frequency of polling etcd for number of resources per type. 0 disables the metric collection.
+-->
+针对每种类型的资源数量轮询 etcd 的频率。 
+0 禁用度量值收集。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--etcd-db-metric-poll-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 30s
+-->
+--etcd-db-metric-poll-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：30s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The interval of requests to poll etcd and update metric. 0 disables the metric collection
+-->
+轮询 etcd 和更新度量值的请求间隔。
+0 禁用度量值收集
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--etcd-keyfile string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+SSL key file used to secure etcd communication.<
+-->
+用于保护 etcd 通信的 SSL 密钥文件。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--etcd-prefix string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/registry"
+-->
+--etcd-prefix string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/registry"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The prefix to prepend to all resource paths in etcd.
+-->
+要在 etcd 中所有资源路径之前添加的前缀。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--etcd-servers stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+List of etcd servers to connect with (scheme://ip:port), comma separated.
+-->
+要连接的 etcd 服务器列表（scheme://ip:port），以逗号分隔。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--etcd-servers-overrides stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Per-resource etcd servers overrides, comma separated. 
+The individual override format: group/resource#servers, 
+where servers are URLs, semicolon separated.
+-->
+etcd 服务器针对每个资源的重载设置，以逗号分隔。
+单个替代格式：组/资源#服务器（group/resource#servers），其中服务器是 URL，以分号分隔。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--event-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1h0m0s
+-->
+--event-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1h0m0s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Amount of time to retain events.
+-->
+事件的保留时长。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--external-hostname string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The hostname to use when generating externalized URLs for this master 
+(e.g. Swagger API Docs or OpenID Discovery).
+-->
+为此主机生成外部化 UR L时要使用的主机名（例如 Swagger API 文档或 OpenID 发现）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--feature-gates mapStringBool</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
+<br/>APIListChunking=true|false (BETA - default=true)
+<br/>APIPriorityAndFairness=true|false (ALPHA - default=false)
+<br/>APIResponseCompression=true|false (BETA - default=true)
+<br/>AllAlpha=true|false (ALPHA - default=false)
+<br/>AllBeta=true|false (BETA - default=false)
+<br/>AllowInsecureBackendProxy=true|false (BETA - default=true)
+<br/>AnyVolumeDataSource=true|false (ALPHA - default=false)
+<br/>AppArmor=true|false (BETA - default=true)
+<br/>BalanceAttachedNodeVolumes=true|false (ALPHA - default=false)
+<br/>BoundServiceAccountTokenVolume=true|false (ALPHA - default=false)
+<br/>CPUManager=true|false (BETA - default=true)
+<br/>CRIContainerLogRotation=true|false (BETA - default=true)
+<br/>CSIInlineVolume=true|false (BETA - default=true)
+<br/>CSIMigration=true|false (BETA - default=true)
+<br/>CSIMigrationAWS=true|false (BETA - default=false)
+<br/>CSIMigrationAWSComplete=true|false (ALPHA - default=false)
+<br/>CSIMigrationAzureDisk=true|false (BETA - default=false)
+<br/>CSIMigrationAzureDiskComplete=true|false (ALPHA - default=false)
+<br/>CSIMigrationAzureFile=true|false (ALPHA - default=false)
+<br/>CSIMigrationAzureFileComplete=true|false (ALPHA - default=false)
+<br/>CSIMigrationGCE=true|false (BETA - default=false)
+<br/>CSIMigrationGCEComplete=true|false (ALPHA - default=false)
+<br/>CSIMigrationOpenStack=true|false (BETA - default=false)
+<br/>CSIMigrationOpenStackComplete=true|false (ALPHA - default=false)
+<br/>CSIMigrationvSphere=true|false (BETA - default=false)
+<br/>CSIMigrationvSphereComplete=true|false (BETA - default=false)
+<br/>CSIStorageCapacity=true|false (ALPHA - default=false)
+<br/>CSIVolumeFSGroupPolicy=true|false (ALPHA - default=false)
+<br/>ConfigurableFSGroupPolicy=true|false (ALPHA - default=false)
+<br/>CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)
+<br/>DefaultPodTopologySpread=true|false (ALPHA - default=false)
+<br/>DevicePlugins=true|false (BETA - default=true)
+<br/>DisableAcceleratorUsageMetrics=true|false (ALPHA - default=false)
+<br/>DynamicKubeletConfig=true|false (BETA - default=true)
+<br/>EndpointSlice=true|false (BETA - default=true)
+<br/>EndpointSliceProxying=true|false (BETA - default=true)
+<br/>EphemeralContainers=true|false (ALPHA - default=false)
+<br/>ExpandCSIVolumes=true|false (BETA - default=true)
+<br/>ExpandInUsePersistentVolumes=true|false (BETA - default=true)
+<br/>ExpandPersistentVolumes=true|false (BETA - default=true)
+<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)
+<br/>GenericEphemeralVolume=true|false (ALPHA - default=false)
+<br/>HPAScaleToZero=true|false (ALPHA - default=false)
+<br/>HugePageStorageMediumSize=true|false (BETA - default=true)
+<br/>HyperVContainer=true|false (ALPHA - default=false)
+<br/>IPv6DualStack=true|false (ALPHA - default=false)
+<br/>ImmutableEphemeralVolumes=true|false (BETA - default=true)
+<br/>KubeletPodResources=true|false (BETA - default=true)
+<br/>LegacyNodeRoleBehavior=true|false (BETA - default=true)
+<br/>LocalStorageCapacityIsolation=true|false (BETA - default=true)
+<br/>LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)
+<br/>NodeDisruptionExclusion=true|false (BETA - default=true)
+<br/>NonPreemptingPriority=true|false (BETA - default=true)
+<br/>PodDisruptionBudget=true|false (BETA - default=true)
+<br/>PodOverhead=true|false (BETA - default=true)
+<br/>ProcMountType=true|false (ALPHA - default=false)
+<br/>QOSReserved=true|false (ALPHA - default=false)
+<br/>RemainingItemCount=true|false (BETA - default=true)
+<br/>RemoveSelfLink=true|false (ALPHA - default=false)
+<br/>RotateKubeletServerCertificate=true|false (BETA - default=true)
+<br/>RunAsGroup=true|false (BETA - default=true)
+<br/>RuntimeClass=true|false (BETA - default=true)
+<br/>SCTPSupport=true|false (BETA - default=true)
+<br/>SelectorIndex=true|false (BETA - default=true)
+<br/>ServerSideApply=true|false (BETA - default=true)
+<br/>ServiceAccountIssuerDiscovery=true|false (ALPHA - default=false)
+<br/>ServiceAppProtocol=true|false (BETA - default=true)
+<br/>ServiceNodeExclusion=true|false (BETA - default=true)
+<br/>ServiceTopology=true|false (ALPHA - default=false)
+<br/>SetHostnameAsFQDN=true|false (ALPHA - default=false)
+<br/>StartupProbe=true|false (BETA - default=true)
+<br/>StorageVersionHash=true|false (BETA - default=true)
+<br/>SupportNodePidsLimit=true|false (BETA - default=true)
+<br/>SupportPodPidsLimit=true|false (BETA - default=true)
+<br/>Sysctls=true|false (BETA - default=true)
+<br/>TTLAfterFinished=true|false (ALPHA - default=false)
+<br/>TokenRequest=true|false (BETA - default=true)
+<br/>TokenRequestProjection=true|false (BETA - default=true)
+<br/>TopologyManager=true|false (BETA - default=true)
+<br/>ValidateProxyRedirects=true|false (BETA - default=true)
+<br/>VolumeSnapshotDataSource=true|false (BETA - default=true)
+<br/>WarningHeaders=true|false (BETA - default=true)
+<br/>WinDSR=true|false (ALPHA - default=false)
+<br/>WinOverlay=true|false (ALPHA - default=false)
+<br/>WindowsEndpointSliceProxying=true|false (ALPHA - default=false)
+-->
+一组 key=value 对，用来描述测试性/试验性功能的特性门控（Feature Gate）。可选项有：
+<br/>APIListChunking=true|false (BETA - 默认值=true)
+<br/>APIPriorityAndFairness=true|false (ALPHA - 默认值=false)
+<br/>APIResponseCompression=true|false (BETA - 默认值=true)
+<br/>AllAlpha=true|false (ALPHA - 默认值=false)
+<br/>AllBeta=true|false (BETA - 默认值=false)
+<br/>AllowInsecureBackendProxy=true|false (BETA - 默认值=true)
+<br/>AnyVolumeDataSource=true|false (ALPHA - 默认值=false)
+<br/>AppArmor=true|false (BETA - 默认值=true)
+<br/>BalanceAttachedNodeVolumes=true|false (ALPHA - 默认值=false)
+<br/>BoundServiceAccountTokenVolume=true|false (ALPHA - 默认值=false)
+<br/>CPUManager=true|false (BETA - 默认值=true)
+<br/>CRIContainerLogRotation=true|false (BETA - 默认值=true)
+<br/>CSIInlineVolume=true|false (BETA - 默认值=true)
+<br/>CSIMigration=true|false (BETA - 默认值=true)
+<br/>CSIMigrationAWS=true|false (BETA - 默认值=false)
+<br/>CSIMigrationAWSComplete=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationAzureDisk=true|false (BETA - 默认值=false)
+<br/>CSIMigrationAzureDiskComplete=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationAzureFile=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationAzureFileComplete=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationGCE=true|false (BETA - 默认值=false)
+<br/>CSIMigrationGCEComplete=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationOpenStack=true|false (BETA - 默认值=false)
+<br/>CSIMigrationOpenStackComplete=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationvSphere=true|false (BETA - 默认值=false)
+<br/>CSIMigrationvSphereComplete=true|false (BETA - 默认值=false)
+<br/>CSIStorageCapacity=true|false (ALPHA - 默认值=false)
+<br/>CSIVolumeFSGroupPolicy=true|false (ALPHA - 默认值=false)
+<br/>ConfigurableFSGroupPolicy=true|false (ALPHA - 默认值=false)
+<br/>CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默认值=false)
+<br/>DefaultPodTopologySpread=true|false (ALPHA - 默认值=false)
+<br/>DevicePlugins=true|false (BETA - 默认值=true)
+<br/>DisableAcceleratorUsageMetrics=true|false (ALPHA - 默认值=false)
+<br/>DynamicKubeletConfig=true|false (BETA - 默认值=true)
+<br/>EndpointSlice=true|false (BETA - 默认值=true)
+<br/>EndpointSliceProxying=true|false (BETA - 默认值=true)
+<br/>EphemeralContainers=true|false (ALPHA - 默认值=false)
+<br/>ExpandCSIVolumes=true|false (BETA - 默认值=true)
+<br/>ExpandInUsePersistentVolumes=true|false (BETA - 默认值=true)
+<br/>ExpandPersistentVolumes=true|false (BETA - 默认值=true)
+<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - 默认值=false)
+<br/>GenericEphemeralVolume=true|false (ALPHA - 默认值=false)
+<br/>HPAScaleToZero=true|false (ALPHA - 默认值=false)
+<br/>HugePageStorageMediumSize=true|false (BETA - 默认值=true)
+<br/>HyperVContainer=true|false (ALPHA - 默认值=false)
+<br/>IPv6DualStack=true|false (ALPHA - 默认值=false)
+<br/>ImmutableEphemeralVolumes=true|false (BETA - 默认值=true)
+<br/>KubeletPodResources=true|false (BETA - 默认值=true)
+<br/>LegacyNodeRoleBehavior=true|false (BETA - 默认值=true)
+<br/>LocalStorageCapacityIsolation=true|false (BETA - 默认值=true)
+<br/>LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - 默认值=false)
+<br/>NodeDisruptionExclusion=true|false (BETA - 默认值=true)
+<br/>NonPreemptingPriority=true|false (BETA - 默认值=true)
+<br/>PodDisruptionBudget=true|false (BETA - 默认值=true)
+<br/>PodOverhead=true|false (BETA - 默认值=true)
+<br/>ProcMountType=true|false (ALPHA - 默认值=false)
+<br/>QOSReserved=true|false (ALPHA - 默认值=false)
+<br/>RemainingItemCount=true|false (BETA - 默认值=true)
+<br/>RemoveSelfLink=true|false (ALPHA - 默认值=false)
+<br/>RotateKubeletServerCertificate=true|false (BETA - 默认值=true)
+<br/>RunAsGroup=true|false (BETA - 默认值=true)
+<br/>RuntimeClass=true|false (BETA - 默认值=true)
+<br/>SCTPSupport=true|false (BETA - 默认值=true)
+<br/>SelectorIndex=true|false (BETA - 默认值=true)
+<br/>ServerSideApply=true|false (BETA - 默认值=true)
+<br/>ServiceAccountIssuerDiscovery=true|false (ALPHA - 默认值=false)
+<br/>ServiceAppProtocol=true|false (BETA - 默认值=true)
+<br/>ServiceNodeExclusion=true|false (BETA - 默认值=true)
+<br/>ServiceTopology=true|false (ALPHA - 默认值=false)
+<br/>SetHostnameAsFQDN=true|false (ALPHA - 默认值=false)
+<br/>StartupProbe=true|false (BETA - 默认值=true)
+<br/>StorageVersionHash=true|false (BETA - 默认值=true)
+<br/>SupportNodePidsLimit=true|false (BETA - 默认值=true)
+<br/>SupportPodPidsLimit=true|false (BETA - 默认值=true)
+<br/>Sysctls=true|false (BETA - 默认值=true)
+<br/>TTLAfterFinished=true|false (ALPHA - 默认值=false)
+<br/>TokenRequest=true|false (BETA - 默认值=true)
+<br/>TokenRequestProjection=true|false (BETA - 默认值=true)
+<br/>TopologyManager=true|false (BETA - 默认值=true)
+<br/>ValidateProxyRedirects=true|false (BETA - 默认值=true)
+<br/>VolumeSnapshotDataSource=true|false (BETA - 默认值=true)
+<br/>WarningHeaders=true|false (BETA - 默认值=true)
+<br/>WinDSR=true|false (ALPHA - 默认值=false)
+<br/>WinOverlay=true|false (ALPHA - 默认值=false)
+<br/>WindowsEndpointSliceProxying=true|false (ALPHA - 默认值=false)
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--goaway-chance float</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+To prevent HTTP/2 clients from getting stuck on a single apiserver, 
+randomly close a connection (GOAWAY). The client's other in-flight 
+requests won't be affected, and the client will reconnect, likely 
+landing on a different apiserver after going through the load 
+balancer again. This argument sets the fraction of requests that 
+will be sent a GOAWAY. Clusters with single apiservers, or which 
+don't use a load balancer, should NOT enable this. Min is 0 (off), 
+Max is .02 (1/50 requests); .001 (1/1000) is a recommended starting point.
+-->
+为防止 HTTP/2 客户端卡在单个 apiserver 上，可启用随机关闭连接（GOAWAY）。
+客户端的其他运行中请求将不会受到影响，并且客户端将重新连接，
+可能会在再次通过负载平衡器后登陆到其他 apiserver 上。 
+此参数设置将发送 GOAWAY 的请求的比例。 
+具有单个 apiserver 或不使用负载平衡器的群集不应启用此功能。 
+最小值为0（关闭），最大值为 .02（1/50 请求）； 建议使用 .001（1/1000）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">-h, --help</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+help for kube-apiserver
+-->
+kube-apiserver 的帮助命令
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--http2-max-streams-per-connection int</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The limit that the server gives to clients for the maximum number 
+of streams in an HTTP/2 connection. Zero means to use golang's default.
+-->
+服务器为客户端提供的 HTTP/2 连接中最大流数的限制。
+零表示使用 golang 的默认值。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kubelet-certificate-authority string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to a cert file for the certificate authority.
+-->
+证书颁发机构的证书文件的路径。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kubelet-client-certificate string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to a client cert file for TLS.
+-->
+TLS 的客户端证书文件的路径。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kubelet-client-key string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to a client key file for TLS.
+-->
+TLS 客户端密钥文件的路径。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--kubelet-preferred-address-types stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [Hostname,InternalDNS,InternalIP,ExternalDNS,ExternalIP]
+-->
+--kubelet-preferred-address-types stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：[Hostname,InternalDNS,InternalIP,ExternalDNS,ExternalIP]
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+List of the preferred NodeAddressTypes to use for kubelet connections.
+-->
+用于 kubelet 连接的首选 NodeAddressTypes 列表。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--kubelet-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5s
+-->
+--kubelet-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：5s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Timeout for kubelet operations.
+-->
+kubelet 操作超时时间。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kubernetes-service-node-port int</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If non-zero, the Kubernetes master service (which apiserver creates/maintains) 
+will be of type NodePort, using this as the value of the port. If zero, 
+the Kubernetes master service will be of type ClusterIP.
+-->
+如果非零，那么 Kubernetes 主服务（由 apiserver 创建/维护）将是 NodePort 类型，使用它作为端口的值。
+如果为零，则 Kubernetes 主服务将为 ClusterIP 类型。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--livez-grace-period duration</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+This option represents the maximum amount of time it should take for apiserver 
+to complete its startup sequence and become live. From apiserver's start time 
+to when this amount of time has elapsed, /livez will assume that unfinished 
+post-start hooks will complete successfully and therefore return true.
+-->
+此选项代表 apiserver 完成启动序列并生效所需的最长时间。
+从 apiserver 的启动时间到这段时间为止，
+/livez 将假定未完成的启动后钩子将成功完成，因此返回 true。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：:0
+-->
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+when logging hits line file:N, emit a stack trace
+-->
+当日志机制执行到'文件 :N'时，生成堆栈跟踪
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--log-dir string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If non-empty, write log files in this directory
+-->
+如果为非空，则在此目录中写入日志文件
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--log-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If non-empty, use this log file
+-->
+如果为非空，使用此日志文件
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1800
+-->
+--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1800
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Defines the maximum size a log file can grow to. Unit is megabytes. 
+If the value is 0, the maximum file size is unlimited.
+-->
+定义日志文件可以增长到的最大大小。单位为兆字节。
+如果值为 0，则最大文件大小为无限制。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5s
+-->
+--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：5s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Maximum number of seconds between log flushes
+-->
+两次日志刷新之间的最大秒数
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"
+-->
+--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："text"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Sets the log format. Permitted formats: "text", "json".
+<br/>Non-default formats don't honor these flags: --add_dir_header, --alsologtostderr, --log_backtrace_at, --log_dir, --log_file, --log_file_max_size, --logtostderr, --skip_headers, --skip_log_headers, --stderrthreshold, --vmodule, --log-flush-frequency.
+<br/>Non-default choices are currently alpha and subject to change without warning.
+-->
+设置日志格式。允许的格式："text"，"json"。
+<br/>非默认格式不支持以下标志：--add_dir_header、--alsologtostderr、--log_backtrace_at、--log_dir、--log_file、--log_file_max_size、--logtostderr、-skip_headers、-skip_log_headers、-stderrthreshold、-vmodule和--log-flush-frequency。
+<br/>当前非默认选择为 alpha，并且会随时更改而不会发出警告。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">c
+<!--
+--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
+-->
+--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+log to standard error instead of files
+-->
+在标准错误而不是文件中输出日志记录
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--master-service-namespace string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "default"
+-->
+--master-service-namespace string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："default"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+DEPRECATED: the namespace from which the Kubernetes master services should be injected into pods.
+-->
+已废弃：应该从其中将 Kubernetes 主服务注入到 Pod 中的名字空间。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--max-connection-bytes-per-sec int</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If non-zero, throttle each user connection to this number of bytes/sec. Currently only applies to long-running requests.
+-->
+如果不为零，则将每个用户连接限制为该数（字节数/秒）。
+当前仅适用于长时间运行的请求。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--max-mutating-requests-inflight int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 200
+-->
+--max-mutating-requests-inflight int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：200
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The maximum number of mutating requests in flight at a given time. 
+When the server exceeds this, it rejects requests. Zero for no limit.
+-->
+在给定时间内进行中变更类型请求的最大个数。
+当超过该值时，服务将拒绝所有请求。
+零表示无限制。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--max-requests-inflight int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 400
+-->
+--max-requests-inflight int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：400
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The maximum number of non-mutating requests in flight at a given time. 
+When the server exceeds this, it rejects requests. Zero for no limit.
+-->
+在给定时间内进行中非变更类型请求的最大数量。
+当超过该值时，服务将拒绝所有请求。
+零表示无限制。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--min-request-timeout int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1800
+-->
+--min-request-timeout int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1800
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+An optional field indicating the minimum number of seconds a handler must 
+keep a request open before timing it out. Currently only honored by the 
+watch request handler, which picks a randomized value above this number 
+as the connection timeout, to spread out load.
+-->
+可选字段，表示处理程序在请求超时前，必须保持其处于打开状态的最小秒数。
+当前只对监听（Watch）请求的处理程序有效，它基于这个值选择一个随机数作为连接超时值，以达到分散负载的目的。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--oidc-ca-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If set, the OpenID server's certificate will be verified by one of 
+the authorities in the oidc-ca-file, otherwise the host's root CA set will be used.
+-->
+如果设置该值，将会使用 oidc-ca-file 中的机构之一对 OpenID 服务的证书进行验证，
+否则将会使用主机的根 CA 对其进行验证。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--oidc-client-id string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The client ID for the OpenID Connect client, must be set if oidc-issuer-url is set.
+-->
+OpenID 连接客户端的要使用的客户 ID，如果设置了 oidc-issuer-url，则必须设置这个值。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--oidc-groups-claim string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If provided, the name of a custom OpenID Connect claim for specifying user groups. 
+The claim value is expected to be a string or array of strings. 
+This flag is experimental, please see the authentication documentation for further details.
+-->
+如果提供该值，这个自定义 OpenID 连接声明将被用来设定用户组。
+该声明值需要是一个字符串或字符串数组。
+此标志为实验性的，请查阅身份认证相关文档进一步了解详细信息。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--oidc-groups-prefix string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If provided, all groups will be prefixed with this value to 
+prevent conflicts with other authentication strategies.
+-->
+如果提供，则所有组都将以该值作为前缀，以防止与其他身份认证策略冲突。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--oidc-issuer-url string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The URL of the OpenID issuer, only HTTPS scheme will be accepted. 
+If set, it will be used to verify the OIDC JSON Web Token (JWT).
+-->
+OpenID 颁发者 URL，只接受 HTTPS 方案。
+如果设置该值，它将被用于验证 OIDC JSON Web Token(JWT)。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--oidc-required-claim mapStringString</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+A key=value pair that describes a required claim in the ID Token. 
+If set, the claim is verified to be present in the ID Token with a matching value. 
+Repeat this flag to specify multiple claims.
+-->
+描述 ID 令牌中必需声明的键值对。
+如果设置此值，则会验证 ID 令牌中存在与该声明匹配的值。
+重复此标志以指定多个声明。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--oidc-signing-algs stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [RS256]
+-->
+--oidc-signing-algs stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：[RS256]
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Comma-separated list of allowed JOSE asymmetric signing algorithms. 
+JWTs with a 'alg' header value not in this list will be rejected. 
+Values are defined by RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1.
+-->
+允许的 JOSE 非对称签名算法的逗号分隔列表。
+若 JWT 所带的 "alg" 标头值不在列表中，则该 JWT 将被拒绝。
+取值依据 RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1 定义。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--oidc-username-claim string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "sub"
+-->
+--oidc-username-claim string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："sub"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The OpenID claim to use as the user name. Note that claims other than
+ the default ('sub') is not guaranteed to be unique and immutable. 
+ This flag is experimental, please see the authentication documentation for further details.
+-->
+要用作用户名的 OpenID 声明。
+请注意，除默认声明（"sub"）以外的其他声明不能保证是唯一且不可变的。
+此标志是实验性的，请参阅身份认证文档以获取更多详细信息。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--oidc-username-prefix string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If provided, all usernames will be prefixed with this value. 
+If not provided, username claims other than 'email' are prefixed
+ by the issuer URL to avoid clashes. To skip any prefixing, provide the value '-'.
+-->
+如果提供，则所有用户名都将以该值作为前缀。
+如果未提供，则除 "email" 之外的用户名声明都会添加颁发者 URL 作为前缀，以避免冲突。
+要略过添加前缀处理，请设置值为 "-"。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--permit-port-sharing</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If true, SO_REUSEPORT will be used when binding the port, 
+which allows more than one instance to bind on the same address and port. [default=false]
+-->
+如果为 true，则在绑定端口时将使用 SO_REUSEPORT，
+这样多个实例可以绑定到同一地址和端口上。[默认值 = false]
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--profiling&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
+-->
+--profiling&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Enable profiling via web interface host:port/debug/pprof/
+-->
+通过 Web 界面启用性能分析 host:port/debug/pprof/
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-client-cert-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Client certificate used to prove the identity of the aggregator or 
+kube-apiserver when it must call out during a request. This includes 
+proxying requests to a user api-server and calling out to webhook 
+admission plugins. It is expected that this cert includes a signature 
+from the CA in the --requestheader-client-ca-file flag. That CA is 
+published in the 'extension-apiserver-authentication' configmap in 
+the kube-system namespace. Components receiving calls from kube-aggregator 
+should use that CA to perform their half of the mutual TLS verification.
+-->
+当必须调用外部程序以处理请求时，用于证明聚合器或者 kube-apiserver 的身份的客户端证书。
+包括代理转发到用户 api-server 的请求和调用 Webhook 准入控制插件的请求。
+Kubernetes 期望此证书包含来自于 --requestheader-client-ca-file 标志中所给 CA 的签名。
+该 CA 在 kube-system 命名空间的 "extension-apiserver-authentication" ConfigMap 中公开。
+从 kube-aggregator 收到调用的组件应该使用该 CA 进行各自的双向 TLS 验证。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--proxy-client-key-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Private key for the client certificate used to prove the identity of 
+the aggregator or kube-apiserver when it must call out during a request. 
+This includes proxying requests to a user api-server and calling out to 
+webhook admission plugins.
+-->
+当必须调用外部程序来处理请求时，用来证明聚合器或者 kube-apiserver 的身份的客户端私钥。
+这包括代理转发给用户 api-server 的请求和调用 Webhook 准入控制插件的请求。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--request-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1m0s
+-->
+--request-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1m0s
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+An optional field indicating the duration a handler must keep a request 
+open before timing it out. This is the default request timeout for 
+requests but may be overridden by flags such as --min-request-timeout 
+for specific types of requests.
+-->
+可选字段，指示处理程序在超时之前必须保持打开请求的持续时间。 
+这是请求的默认请求超时，但对于特定类型的请求，可能会被 --min-request-timeout 等标志覆盖。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--requestheader-allowed-names stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+List of client certificate common names to allow to provide usernames 
+in headers specified by --requestheader-username-headers. If empty, 
+any client certificate validated by the authorities in 
+--requestheader-client-ca-file is allowed.
+-->
+此值为客户端证书通用名称（Common Name）的列表；表中所列的表项可以用来提供用户名，
+方式是使用 --requestheader-username-headers 所指定的头部。
+如果为空，能够通过 --requestheader-client-ca-file 中机构认证的客户端证书都是被允许的。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--requestheader-client-ca-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Root certificate bundle to use to verify client certificates on 
+incoming requests before trusting usernames in headers specified 
+by --requestheader-username-headers. WARNING: generally do not 
+depend on authorization being already done for incoming requests.
+-->
+在信任请求头中以 --requestheader-username-headers 指示的用户名之前，
+用于验证接入请求中客户端证书的根证书包。
+警告：一般不要假定传入请求已被授权。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--requestheader-extra-headers-prefix stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+List of request header prefixes to inspect. X-Remote-Extra- is suggested.
+-->
+用于查验请求头部的前缀列表。建议使用 X-Remote-Extra-。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--requestheader-group-headers stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+List of request headers to inspect for groups. X-Remote-Group is suggested.
+-->
+用于查验用户组的请求头部列表。建议使用 X-Remote-Group。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--requestheader-username-headers stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+List of request headers to inspect for usernames. X-Remote-User is common.
+-->
+用于查验用户名的请求头头列表。建议使用 X-Remote-User。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--runtime-config mapStringString</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+A set of key=value pairs that enable or disable built-in APIs. Supported options are:
+<br/>v1=true|false for the core API group
+<br/>&lt;group&gt;/&lt;version&gt;=true|false for a specific API group and version (e.g. apps/v1=true)
+<br/>api/all=true|false controls all API versions
+<br/>api/ga=true|false controls all API versions of the form v[0-9]+
+<br/>api/beta=true|false controls all API versions of the form v[0-9]+beta[0-9]+
+<br/>api/alpha=true|false controls all API versions of the form v[0-9]+alpha[0-9]+
+<br/>api/legacy is deprecated, and will be removed in a future version
+-->
+一组启用或禁用内置 API 的键值对。支持的选项包括：
+<br/>v1=true|false（针对核心 API 组）
+<br/>&lt;group&gt;/&lt;version&gt;=true|false（针对特定 API 组和版本，例如：apps/v1=true） 
+<br/>api/all=true|false 控制所有 API 版本
+<br/>api/ga=true|false 控制所有 v[0-9]+ API 版本
+<br/>api/beta=true|false 控制所有 v[0-9]+beta[0-9]+ API 版本
+<br/>api/alpha=true|false 控制所有 v[0-9]+alpha[0-9]+ API 版本
+<br/>api/legacy 已弃用，并将在以后的版本中删除
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--secure-port int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
+-->
+--secure-port int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：6443
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The port on which to serve HTTPS with authentication and authorization. 
+It cannot be switched off with 0.
+-->
+带身份验证和鉴权机制的 HTTPS 服务端口。
+不能用 0 关闭。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--service-account-extend-token-expiration</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Turns on projected service account expiration extension during token generation, 
+which helps safe transition from legacy token to bound service account token feature. 
+If this flag is enabled, admission injected tokens would be extended up to 
+1 year to prevent unexpected failure during transition, ignoring value of service-account-max-token-expiration.
+-->
+在生成令牌时，启用投射服务帐户到期时间扩展，
+这有助于从旧版令牌安全地过渡到绑定的服务帐户令牌功能。
+如果启用此标志，则准入插件注入的令牌的过期时间将延长至 1 年，以防止过渡期间发生意外故障，
+并忽略 service-account-max-token-expiration 的值。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--service-account-issuer {service-account-issuer}/.well-known/openid-configuration</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Identifier of the service account token issuer. The issuer will assert this 
+identifier in "iss" claim of issued tokens. This value is a string or URI. 
+If this option is not a valid URI per the OpenID Discovery 1.0 spec, 
+the ServiceAccountIssuerDiscovery feature will remain disabled, even if 
+the feature gate is set to true. It is highly recommended that this value 
+comply with the OpenID spec: https://openid.net/specs/openid-connect-discovery-1_0.html. 
+In practice, this means that service-account-issuer must be an https URL. 
+It is also highly recommended that this URL be capable of serving OpenID 
+discovery documents at {service-account-issuer}/.well-known/openid-configuration.
+-->
+服务帐号令牌颁发者的标识符。
+颁发者将在已办法令牌的 "iss" 声明中检查此标识符。
+此值为字符串或 URI。
+如果根据 OpenID Discovery 1.0 规范检查此选项不是有效的 URI，则即使特性门控设置为 true，
+ServiceAccountIssuerDiscovery 功能也将保持禁用状态。 
+强烈建议该值符合 OpenID 规范：https://openid.net/specs/openid-connect-discovery-1_0.html。 
+实践中，这意味着 service-account-issuer 取值必须是 HTTPS URL。 
+还强烈建议此 URL 能够在 {service-account-issuer}/.well-known/openid-configuration
+处提供 OpenID 发现文档。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--service-account-jwks-uri string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Overrides the URI for the JSON Web Key Set in the discovery doc served at 
+/.well-known/openid-configuration. This flag is useful if the discovery 
+docand key set are served to relying parties from a URL other than the 
+API server's external (as auto-detected or overridden with external-hostname). 
+Only valid if the ServiceAccountIssuerDiscovery feature gate is enabled.
+-->
+覆盖 /.well-known/openid-configuration 提供的发现文档中 JSON Web 密钥集的 URI。
+如果发现文档和密钥集是通过 API 服务器外部
+（而非自动检测到或被外部主机名覆盖）之外的 URL 提供给依赖方的，则此标志很有用。
+仅在启用 ServiceAccountIssuerDiscovery 特性门控的情况下有效。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--service-account-key-file stringArray</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+File containing PEM-encoded x509 RSA or ECDSA private or public keys,
+used to verify ServiceAccount tokens. The specified file can contain 
+multiple keys, and the flag can be specified multiple times with 
+different files. If unspecified, --tls-private-key-file is used. 
+Must be specified when --service-account-signing-key is provided
+-->
+包含 PEM 编码的 x509 RSA 或 ECDSA 私钥或公钥的文件，用于验证 ServiceAccount 令牌。
+指定的文件可以包含多个键，并且可以使用不同的文件多次指定标志。
+如果未指定，则使用 --tls-private-key-file。
+提供 --service-account-signing-key 时必须指定。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--service-account-lookup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
+-->
+--service-account-lookup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If true, validate ServiceAccount tokens exist in etcd as part of authentication.
+-->
+如果为 true，则在身份认证时验证 etcd 中是否存在 ServiceAccount 令牌。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--service-account-max-token-expiration duration</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The maximum validity duration of a token created by the service account token issuer. 
+If an otherwise valid TokenRequest with a validity duration larger than this value is requested, 
+a token will be issued with a validity duration of this value.
+-->
+服务帐户令牌发布者创建的令牌的最长有效期。
+如果请求有效期大于此值的有效令牌请求，将使用此值的有效期颁发令牌。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--service-account-signing-key-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to the file that contains the current private key of the service account token issuer. 
+The issuer will sign issued ID tokens with this private key. 
+(Requires the 'TokenRequest' feature gate.)
+-->
+包含服务帐户令牌颁发者当前私钥的文件的路径。
+颁发者将使用此私钥签署所颁发的 ID 令牌（需要启用 "TokenRequest" 特性门控）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--service-cluster-ip-range string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+A CIDR notation IP range from which to assign service cluster IPs. 
+This must not overlap with any IP ranges assigned to nodes or pods.
+-->
+CIDR 表示的 IP 范围用来为服务分配集群 IP。
+此地址不得与指定给节点或 Pod 的任何 IP 范围重叠。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--service-node-port-range portRange&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 30000-32767
+-->
+--service-node-port-range portRange&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：30000-32767
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+A port range to reserve for services with NodePort visibility. 
+Example: '30000-32767'. Inclusive at both ends of the range.
+-->
+保留给具有 NodePort 可见性的服务的端口范围。
+例如："30000-32767"。范围的两端都包括在内。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--show-hidden-metrics-for-version string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The previous version for which you want to show hidden metrics. Only the 
+previous minor version is meaningful, other values will not be allowed. 
+The format is &lt;major&gt;.&lt;minor&gt;, e.g.: '1.16'. The purpose of 
+this format is make sure you have the opportunity to notice if the next
+release hides additional metrics, rather than being surprised when they 
+are permanently removed in the release after that.
+-->
+你要显示隐藏指标的先前版本。仅先前的次要版本有意义，不允许其他值。
+格式为 &lt;major&gt;.&lt;minor&gt;，例如："1.16"。
+这种格式的目的是确保您有机会注意到下一个版本是否隐藏了其他指标，
+而不是在此之后将它们从发行版中永久删除时感到惊讶。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--shutdown-delay-duration duration</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Time to delay the termination. During that time the server keeps serving requests normally. 
+The endpoints /healthz and /livez will return success, but /readyz immediately returns failure. 
+Graceful termination starts after this delay has elapsed. 
+This can be used to allow load balancer to stop sending traffic to this server.
+-->
+延迟终止时间。在此期间，服务器将继续正常处理请求。
+端点 /healthz 和 /livez 将返回成功，但是 /readyz 立即返回失败。
+在此延迟过去之后，将开始正常终止。
+这可用于允许负载平衡器停止向该服务器发送流量。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--skip-headers</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If true, avoid header prefixes in the log messages
+-->
+如果为 true，日志消息中避免标题前缀
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--skip-log-headers</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If true, avoid headers when opening log files
+-->
+如果为 true，则在打开日志文件时避免标题
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 2
+-->
+--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：2
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+logs at or above this threshold go to stderr
+-->
+将达到或超过此阈值的日志写到标准错误输出
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--storage-backend string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The storage backend for persistence. Options: 'etcd3' (default).
+-->
+持久化存储后端。选项："etcd3"（默认）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--storage-media-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "application/vnd.kubernetes.protobuf"
+-->
+--storage-media-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："application/vnd.kubernetes.protobuf"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The media type to use to store objects in storage. 
+Some resources or storage backends may only support a specific media type and will ignore this setting.
+-->
+用于在存储中存储对象的媒体类型。
+某些资源或存储后端可能仅支持特定的媒体类型，并且将忽略此设置。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--tls-cert-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+File containing the default x509 Certificate for HTTPS. 
+(CA cert, if any, concatenated after server cert).
+If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are not provided, 
+a self-signed certificate and key are generated for 
+the public address and saved to the directory specified by --cert-dir.
+-->
+包含用于 HTTPS 的默认 x509 证书的文件。（CA 证书（如果有）在服务器证书之后并置）。
+如果启用了 HTTPS 服务，并且未提供 --tls-cert-file 和 --tls-private-key-file，
+为公共地址生成一个自签名证书和密钥，并将其保存到 --cert-dir 指定的目录中。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--tls-cipher-suites stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Comma-separated list of cipher suites for the server. 
+If omitted, the default Go cipher suites will be used. 
+<br/>Preferred values: TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384. <br/>Insecure values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_RC4_128_SHA.
+-->
+服务器的密码套件的列表，以逗号分隔。如果省略，将使用默认的 Go 密码套件。
+<br/>首选值：TLS_AES_128_GCM_SHA256、TLS_AES_256_GCM_SHA384、TLS_CHACHA20_POLY1305_SHA256、TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256、TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256、TLS_RSA_WITH_3DES_EDE_CBC_SHA、TLS_RSA_WITH_AES_128_CBC_SHA、TLS_RSA_WITH_AES_128_GCM_SHA256、TLS_RSA_WTLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256、TLS_ECDHE_ECDSA_WITH_RC4_128_SHA、TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256、TLS_ECDHE_RSA_WITH_RC4_128_SHA、TLS_RSA_WITH_AES_128_CBC_SHA256、TLS_RSA_WITH_RC4_128_SHA。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--tls-min-version string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Minimum TLS version supported. Possible values: VersionTLS10, VersionTLS11, VersionTLS12, VersionTLS13
+-->
+支持的最低 TLS 版本。可能的值：VersionTLS10，VersionTLS11，VersionTLS12，VersionTLS13
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--tls-private-key-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+File containing the default x509 private key matching --tls-cert-file.
+-->
+包含匹配 --tls-cert-file 的 x509 证书私钥的文件。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--tls-sni-cert-key namedCertKey&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: []
+-->
+--tls-sni-cert-key namedCertKey&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：[]
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+A pair of x509 certificate and private key file paths, optionally 
+suffixed with a list of domain patterns which are fully qualified 
+domain names, possibly with prefixed wildcard segments. The domain 
+patterns also allow IP addresses, but IPs should only be used if 
+the apiserver has visibility to the IP address requested by a client. 
+If no domain patterns are provided, the names of the certificate are 
+extracted. Non-wildcard matches trump over wildcard matches, explicit
+domain patterns trump over extracted names. For multiple key/certificate 
+pairs, use the --tls-sni-cert-key multiple times. Examples: 
+"example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com".
+-->
+一对 x509 证书和私钥文件路径，（可选）后缀为全限定域名的域名模式列表，可以使用带有通配符的前缀。
+域模式也允许使用 IP 地址，但仅当 apiserver 对客户端请求的IP地址具有可见性时，才应使用 IP。
+如果未提供域模式，则提取证书的名称。
+非通配符匹配优先于通配符匹配，显式域模式优先于提取出的名称。
+对于多个密钥/证书对，请多次使用 --tls-sni-cert-key。
+示例："example.crt,example.key" 或 "foo.crt,foo.key:*.foo.com,foo.com"。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--token-auth-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If set, the file that will be used to secure the secure port of the API server via token authentication.
+-->
+如果设置该值，这个文件将被用于通过令牌认证来保护 API 服务的安全端口。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">-v, --v Level</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+number for the log level verbosity
+-->
+日志级别详细程度的数字
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--version version[=true]</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Print version information and quit
+-->
+打印版本信息并退出
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--vmodule moduleSpec</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+comma-separated list of pattern=N settings for file-filtered logging
+-->
+以逗号分隔的 pattern=N 设置列表，用于文件过滤的日志记录
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--watch-cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true
+-->
+--watch-cache&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Enable watch caching in the apiserver
+-->
+在 apiserver 中启用监视缓存
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--watch-cache-sizes stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Watch cache size settings for some resources (pods, nodes, etc.), comma separated. 
+The individual setting format: resource[.group]#size, where resource is lowercase 
+plural (no version), group is omitted for resources of apiVersion v1 (the legacy 
+core API) and included for others, and size is a number. It takes effect when 
+watch-cache is enabled. Some resources (replicationcontrollers, endpoints, nodes,
+pods, services, apiservices.apiregistration.k8s.io) have system defaults set by 
+heuristics, others default to default-watch-cache-size
+-->
+某些资源（pods、nodes 等）的监视缓存大小设置，以逗号分隔。
+每个资源对应的设置格式：resource[.group]#size，其中 resource 为小写复数（无版本），
+对于 apiVersion v1（旧版核心 API）的资源要省略 group，
+对其它资源要给出 group，size 为一个数字。
+启用 watch-cache 时，此功能生效。
+某些资源（replicationcontrollers、endpoints、nodes、pods、services、apiservices.apiregistration.k8s.io）
+具有通过启发式设置的系统默认值，其他资源默认为 default-watch-cache-size
+</td>
+</tr>
+
+</tbody>
+</table>
