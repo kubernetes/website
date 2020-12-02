@@ -13,17 +13,23 @@ repos:
     git clone --depth=1 --single-branch --branch v${K8S_RELEASE} https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
     cd src/k8s.io/kubernetes
     make generated_files
-    cp -L -R vendor $GOPATH/src
+    cp -L -R vendor $GOPATH/src/
     rm -r vendor/github.com/spf13/cobra
     rm -r vendor/github.com/spf13/pflag
+
+    # testing
+    cp -R vendor/k8s.io/kubectl/pkg/cmd  pkg/kubectl/
     cd $GOPATH
     go get -v github.com/kubernetes-sigs/reference-docs/gen-compdocs
+
     cd src/github.com/kubernetes-sigs/reference-docs/
+
     # generate component tool pages
     make comp
     cd $GOPATH
     go get -v github.com/kubernetes-sigs/reference-docs/gen-kubectldocs
     cd src/github.com/kubernetes-sigs/reference-docs/
+
     # create versioned dirs if needed and fetch v${K8S_RELEASE}:swagger.json
     make updateapispec
     # generate kubectl cmd reference
@@ -34,12 +40,14 @@ repos:
     go get -u github.com/go-openapi/loads
     go get -u github.com/go-openapi/spec
     go get -v github.com/kubernetes-sigs/reference-docs/gen-apidocs
+    # testing 1.20 config changes
+
     cd src/github.com/kubernetes-sigs/reference-docs/
     make copyapi
 
   files:
-  - src: gen-compdocs/build/cloud-controller-manager.md
-    dst: content/en/docs/reference/command-line-tools-reference/
+  #- src: gen-compdocs/build/cloud-controller-manager.md
+  #  dst: content/en/docs/reference/command-line-tools-reference/
   - src: gen-compdocs/build/kube-apiserver.md
     dst: content/en/docs/reference/command-line-tools-reference/
   - src: gen-compdocs/build/kube-controller-manager.md
