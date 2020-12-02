@@ -44,7 +44,7 @@ for any Kubernetes Service that has a {{< glossary_tooltip text="selector"
 term_id="selector" >}} specified. These EndpointSlices include
 references to all the Pods that match the Service selector. EndpointSlices group
 network endpoints together by unique combinations of protocol, port number, and
-Service name.  
+Service name.
 The name of a EndpointSlice object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
@@ -92,6 +92,46 @@ EndpointSlices support three address types:
 * IPv4
 * IPv6
 * FQDN (Fully Qualified Domain Name)
+
+### Conditions
+
+The EndpointSlice API stores conditions about endpoints that may be useful for consumers.
+The three conditions are `ready`, `serving`, and `terminating`.
+
+#### Ready
+
+`ready` is a condition that maps to a Pod's `Ready` condition. A running Pod with the `Ready`
+condition set to `True` should have this EndpointSlice condition also set to `true`. For
+compatibility reasons, `ready` is NEVER `true` when a Pod is terminating. Consumers should refer
+to the `serving` condition to inspect the readiness of terminating Pods. The only exception to
+this rule is for Services with `spec.publishNotReadyAddresses` set to `true`. Endpoints for these
+Services will always have the `ready` condition set to `true`.
+
+#### Serving
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+`serving` is identical to the `ready` condition, except it does not account for terminating states.
+Consumers of the EndpointSlice API should check this condition if they care about pod readiness while
+the pod is also terminating.
+
+{{< note >}}
+
+Although `serving` is almost identical to `ready`, it was added to prevent break the existing meaning
+of `ready`. It may be unexpected for existing clients if `ready` could be `true` for terminating
+endpoints, since historically terminating endpoints were never included in the Endpoints or
+EndpointSlice API to begin with. For this reason, `ready` is _always_ `false` for terminating
+endpoints, and a new condition `serving` was added in v1.20 so that clients can track readiness
+for terminating pods independent of the existing semantics for `ready`.
+
+{{< /note >}}
+
+#### Terminating
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+`Terminating` is a condition that indicates whether an endpoint is terminating.
+For pods, this is any pod that has a deletion timestamp set.
 
 ### Topology information {#topology}
 
