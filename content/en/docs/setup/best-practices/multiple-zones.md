@@ -33,7 +33,7 @@ support running as a pool of interchangable resources, replicated per
 component.
 
 When you deploy a cluster control plane, place replicas of
-control plane components across multple failure zones. If availability is
+control plane components across multiple failure zones. If availability is
 an important concern, select at least three failure zones and replicate
 each individual control plane component (API server, scheduler, etcd,
 cluster controller manager) across at least three failure zones.
@@ -126,7 +126,7 @@ of different failure zones, does vary depending on exactly how your cluster is s
 ## Fault recovery
 
 When you set up your cluster, you might also need to consider whether and how
-your setup can restore service if all of the failure zones in a region go
+your setup can restore service if all the failure zones in a region go
 off-line at the same time. For example, do you rely on there being at least
 one node able to run Pods in a zone?  
 Make sure that any cluster-critical repair work does not rely
