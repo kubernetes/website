@@ -15,7 +15,7 @@ weight: 10
 
 `ResourceQuota` 오브젝트로 정의된 리소스 쿼터는 네임스페이스별 총 리소스 사용을 제한하는
 제약 조건을 제공한다. 유형별로 네임스페이스에서 만들 수 있는 오브젝트 수와
-해당 프로젝트의 리소스가 사용할 수 있는 총 컴퓨트 리소스의 양을
+해당 네임스페이스의 리소스가 사용할 수 있는 총 컴퓨트 리소스의 양을
 제한할 수 있다.
 
 리소스 쿼터는 다음과 같이 작동한다.
@@ -23,10 +23,10 @@ weight: 10
 - 다른 팀은 다른 네임스페이스에서 작동한다. 현재 이것은 자발적이지만 ACL을 통해 이 필수 사항을
   적용하기 위한 지원이 계획되어 있다.
 
-- 관리자는 각 네임스페이스에 대해 하나의 `ResourceQuota`를 생성한다.
+- 관리자는 각 네임스페이스에 대해 하나의 리소스쿼터를 생성한다.
 
 - 사용자는 네임스페이스에서 리소스(파드, 서비스 등)를 생성하고 쿼터 시스템은
-  사용량을 추적하여 `ResourceQuota`에 정의된 하드(hard) 리소스 제한을 초과하지 않도록 한다.
+  사용량을 추적하여 리소스쿼터에 정의된 하드(hard) 리소스 제한을 초과하지 않도록 한다.
 
 - 리소스를 생성하거나 업데이트할 때 쿼터 제약 조건을 위반하면 위반된 제약 조건을 설명하는
   메시지와 함께 HTTP 상태 코드 `403 FORBIDDEN`으로 요청이 실패한다.
@@ -38,7 +38,7 @@ weight: 10
   이 문제를 회피하는 방법에 대한 예제는
   [연습](/ko/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)을 참고하길 바란다.
 
-`ResourceQuota` 오브젝트의 이름은 유효한
+리소스쿼터 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names#dns-서브도메인-이름)이어야 한다.
 
 네임스페이스와 쿼터를 사용하여 만들 수 있는 정책의 예는 다음과 같다.
@@ -59,7 +59,7 @@ weight: 10
 API 서버 `--enable-admission-plugins=` 플래그의 인수 중 하나로
 `ResourceQuota`가 있는 경우 활성화된다.
 
-해당 네임스페이스에 `ResourceQuota`가 있는 경우 특정 네임스페이스에
+해당 네임스페이스에 리소스쿼터가 있는 경우 특정 네임스페이스에
 리소스 쿼터가 적용된다.
 
 ## 컴퓨트 리소스 쿼터
@@ -70,10 +70,14 @@ API 서버 `--enable-admission-plugins=` 플래그의 인수 중 하나로
 
 | 리소스 이름 | 설명        |
 | --------------------- | ----------------------------------------------------------- |
-| `limits.cpu` | 터미널이 아닌 상태의 모든 파드에서 CPU 제한의 합은 이 값을 초과할 수 없음 |
-| `limits.memory` | 터미널이 아닌 상태의 모든 파드에서 메모리 제한의 합은 이 값을 초과할 수 없음 |
-| `requests.cpu` | 터미널이 아닌 상태의 모든 파드에서 CPU 요청의 합은 이 값을 초과할 수 없음 |
-| `requests.memory` | 터미널이 아닌 상태의 모든 파드에서 메모리 요청의 합은 이 값을 초과할 수 없음 |
+| `limits.cpu` | 터미널이 아닌 상태의 모든 파드에서 CPU 제한의 합은 이 값을 초과할 수 없음. |
+| `limits.memory` | 터미널이 아닌 상태의 모든 파드에서 메모리 제한의 합은 이 값을 초과할 수 없음. |
+| `requests.cpu` | 터미널이 아닌 상태의 모든 파드에서 CPU 요청의 합은 이 값을 초과할 수 없음. |
+| `requests.memory` | 터미널이 아닌 상태의 모든 파드에서 메모리 요청의 합은 이 값을 초과할 수 없음. |
+| `hugepages-<size>` | 터미널 상태가 아닌 모든 파드에 걸쳐서, 지정된 사이즈의
+휴즈 페이지 요청은 이 값을 초과하지 못함. |
+| `cpu` | `requests.cpu` 와 같음. |
+| `memory` | `requests.memory` 와 같음. |
 
 ### 확장된 리소스에 대한 리소스 쿼터
 
@@ -103,7 +107,7 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 | `requests.storage` | 모든 퍼시스턴트 볼륨 클레임에서 스토리지 요청의 합은 이 값을 초과할 수 없음 |
 | `persistentvolumeclaims` | 네임스페이스에 존재할 수 있는 총 [퍼시스턴트 볼륨 클레임](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임) 수 |
 | `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | storage-class-name과 관련된 모든 퍼시스턴트 볼륨 클레임에서 스토리지 요청의 합은 이 값을 초과할 수 없음 |
-| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | storage-class-name과 관련된 모든 퍼시스턴트 볼륨 클레임에서 네임스페이스에 존재할 수 있는 총 [퍼시스턴트 볼륨 클레임](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임) 수 |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | `<storage-class-name>` 과 관련된 모든 퍼시스턴트 볼륨 클레임에서 네임스페이스에 존재할 수 있는 총 [퍼시스턴트 볼륨 클레임](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임) 수 |
 
 예를 들어, 운영자가 `bronze` 스토리지 클래스와 별도로 `gold` 스토리지 클래스를 사용하여 스토리지에 쿼터를 지정하려는 경우 운영자는 다음과 같이
 쿼터를 정의할 수 있다.
@@ -115,14 +119,17 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 
 | 리소스 이름 | 설명 |
 | ------------------------------- |----------------------------------------------------------- |
-| `requests.ephemeral-storage` | 네임스페이스의 모든 파드에서 로컬 임시 스토리지 요청의 합은 이 값을 초과할 수 없음 |
-| `limits.ephemeral-storage` | 네임스페이스의 모든 파드에서 로컬 임시 스토리지 제한의 합은 이 값을 초과할 수 없음 |
+| `requests.ephemeral-storage` | 네임스페이스의 모든 파드에서 로컬 임시 스토리지 요청의 합은 이 값을 초과할 수 없음. |
+| `limits.ephemeral-storage` | 네임스페이스의 모든 파드에서 로컬 임시 스토리지 제한의 합은 이 값을 초과할 수 없음. |
+| `ephemeral-storage` | `requests.ephemeral-storage` 와 같음. |
 
 ## 오브젝트 수 쿼터
 
-1.9 릴리스는 다음 구문을 사용하여 모든 표준 네임스페이스 리소스 유형에 쿼터를 지정하는 지원을 추가했다.
+다음 구문을 사용하여 모든 표준 네임스페이스 처리된(namespaced) 리소스 유형에 대한
+특정 리소스 전체 수에 대하여 쿼터를 지정할 수 있다.
 
-* `count/<resource>.<group>`
+* 코어 그룹이 아닌(non-core) 리소스를 위한 `count/<resource>.<group>`
+* 코어 그룹의 리소스를 위한 `count/<resource>`
 
 다음은 사용자가 오브젝트 수 쿼터 아래에 배치하려는 리소스 셋의 예이다.
 
@@ -136,32 +143,29 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 * `count/statefulsets.apps`
 * `count/jobs.batch`
 * `count/cronjobs.batch`
-* `count/deployments.extensions`
 
-1.15 릴리스는 동일한 구문을 사용하여 사용자 정의 리소스에 대한 지원을 추가했다.
+사용자 정의 리소스를 위해 동일한 구문을 사용할 수 있다.
 예를 들어 `example.com` API 그룹에서 `widgets` 사용자 정의 리소스에 대한 쿼터를 생성하려면 `count/widgets.example.com`을 사용한다.
 
 `count/*` 리소스 쿼터를 사용할 때 서버 스토리지 영역에 있다면 오브젝트는 쿼터에 대해 과금된다.
 이러한 유형의 쿼터는 스토리지 리소스 고갈을 방지하는 데 유용하다. 예를 들어,
 크기가 큰 서버에서 시크릿 수에 쿼터를 지정할 수 있다. 클러스터에 시크릿이 너무 많으면 실제로 서버와
-컨트롤러가 시작되지 않을 수 있다! 네임스페이스에 너무 많은 작업을 생성하는
-잘못 구성된 크론 잡으로 인해 서비스 거부를 유발하는 것으로부터 보호하기 위해 작업의 쿼터를 지정하도록 선택할 수 있다.
+컨트롤러가 시작되지 않을 수 있다. 잘못 구성된 크론 잡으로부터의 보호를 위해
+잡의 쿼터를 설정할 수 있다. 네임스페이스 내에서 너무 많은 잡을 생성하는 크론 잡은 서비스 거부를 유발할 수 있다.
 
-1.9 릴리스 이전에는 제한된 리소스 셋에서 일반 오브젝트 수 쿼터를 적용할 수 있었다.
-또한, 특정 리소스에 대한 쿼터를 유형별로 추가로 제한할 수 있다.
-
+또한 제한된 리소스 셋에 대해서 일반 오브젝트 수(generic object count) 쿼터를 적용하는 것도 가능하다.
 다음 유형이 지원된다.
 
 | 리소스 이름 | 설명 |
 | ------------------------------- | ------------------------------------------------- |
-| `configmaps` | 네임스페이스에 존재할 수 있는 총 구성 맵 수 |
+| `configmaps` | 네임스페이스에 존재할 수 있는 총 컨피그맵 수 |
 | `persistentvolumeclaims` | 네임스페이스에 존재할 수 있는 총 [퍼시스턴트 볼륨 클레임](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임) 수 |
 | `pods` | 네임스페이스에 존재할 수 있는 터미널이 아닌 상태의 파드의 총 수. `.status.phase in (Failed, Succeeded)`가 true인 경우 파드는 터미널 상태임  |
-| `replicationcontrollers` | 네임스페이스에 존재할 수 있는 총 레플리케이션 컨트롤러 수 |
-| `resourcequotas` | 네임스페이스에 존재할 수 있는 총 [리소스 쿼터](/docs/reference/access-authn-authz/admission-controllers/#resourcequota) 수 |
+| `replicationcontrollers` | 네임스페이스에 존재할 수 있는 총 레플리케이션컨트롤러 수 |
+| `resourcequotas` | 네임스페이스에 존재할 수 있는 총 리소스쿼터 수 |
 | `services` | 네임스페이스에 존재할 수 있는 총 서비스 수 |
-| `services.loadbalancers` | 네임스페이스에 존재할 수 있는 로드 밸런서 유형의 총 서비스 수 |
-| `services.nodeports` | 네임스페이스에 존재할 수 있는 노드 포트 유형의 총 서비스 수 |
+| `services.loadbalancers` | 네임스페이스에 존재할 수 있는 `LoadBalancer` 유형의 총 서비스 수 |
+| `services.nodeports` | 네임스페이스에 존재할 수 있는 `NodePort` 유형의 총 서비스 수 |
 | `secrets` | 네임스페이스에 존재할 수 있는 총 시크릿 수 |
 
 예를 들어, `pods` 쿼터는 터미널이 아닌 단일 네임스페이스에서 생성된 `pods` 수를
@@ -171,7 +175,7 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 
 ## 쿼터 범위
 
-각 쿼터에는 연결된 범위 셋이 있을 수 있다. 쿼터는 열거된 범위의 교차 부분과 일치하는 경우에만
+각 쿼터에는 연결된 `scopes` 셋이 있을 수 있다. 쿼터는 열거된 범위의 교차 부분과 일치하는 경우에만
 리소스 사용량을 측정한다.
 
 범위가 쿼터에 추가되면 해당 범위와 관련된 리소스를 지원하는 리소스 수가 제한된다.
@@ -183,22 +187,60 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 | `NotTerminating` | `.spec.activeDeadlineSeconds is nil`에 일치하는 파드 |
 | `BestEffort` | 최상의 서비스 품질을 제공하는 파드 |
 | `NotBestEffort` | 서비스 품질이 나쁜 파드 |
+| `PriorityClass` | 지정된 [프라이올리티 클래스](/docs/concepts/configuration/pod-priority-preemption)를 참조하여 일치하는 파드. |
 
-`BestEffort` 범위는 다음의 리소스(파드)를 추적하도록 쿼터를 제한한다.
+`BestEffort` 범위는 다음의 리소스를 추적하도록 쿼터를 제한한다.
 
-`Terminating`, `NotTerminating` 및 `NotBestEffort` 범위는 쿼터를 제한하여 다음의 리소스를 추적한다.
-
-* `cpu`
-* `limits.cpu`
-* `limits.memory`
-* `memory`
 * `pods`
+
+`Terminating`, `NotTerminating`, `NotBestEffort` 및 `PriorityClass`
+범위는 쿼터를 제한하여 다음의 리소스를 추적한다.
+
+* `pods`
+* `cpu`
+* `memory`
 * `requests.cpu`
 * `requests.memory`
+* `limits.cpu`
+* `limits.memory`
+
+`Terminating` 과 `NotTerminating` 범위를 동일한 쿼터 내에 모두
+명시하지는 못하며, 마찬가지로 `BestEffort` 와
+`NotBestEffort` 범위도 동일한 쿼터 내에서 모두 명시하지는 못한다.
+
+`scopeSelector` 는 `operator` 필드에 다음의 값을 지원한다.
+
+* `In`
+* `NotIn`
+* `Exists`
+* `DoesNotExist`
+
+`scopeSelector` 를 정의할 때, `scopeName` 으로 다음의 값 중 하나를 사용하는
+경우, `operator` 는 `Exists` 이어야 한다.
+
+* `Terminating`
+* `NotTerminating`
+* `BestEffort`
+* `NotBestEffort`
+
+만약 `operator` 가 `In` 또는 `NotIn` 인 경우, `values` 필드는 적어도 하나의 값은
+가져야 한다. 예를 들면 다음과 같다.
+
+```yaml
+  scopeSelector:
+    matchExpressions:
+      - scopeName: PriorityClass
+        operator: In
+        values:
+          - middle
+```
+
+만약 `operator` 가 `Exists` 또는 `DoesNotExist` 이라면, `values` 필드는 명시되면
+*안된다*.
 
 ### PriorityClass별 리소스 쿼터
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
 특정 [우선 순위](/ko/docs/concepts/configuration/pod-priority-preemption/#파드-우선순위)로 파드를 생성할 수 있다.
 쿼터 스펙의 `scopeSelector` 필드를 사용하여 파드의 우선 순위에 따라 파드의 시스템 리소스 사용을
@@ -281,7 +323,7 @@ items:
 kubectl create -f ./quota.yml
 ```
 
-```shell
+```
 resourcequota/pods-high created
 resourcequota/pods-medium created
 resourcequota/pods-low created
@@ -293,7 +335,7 @@ resourcequota/pods-low created
 kubectl describe quota
 ```
 
-```shell
+```
 Name:       pods-high
 Namespace:  default
 Resource    Used  Hard
@@ -358,7 +400,7 @@ kubectl create -f ./high-priority-pod.yml
 kubectl describe quota
 ```
 
-```shell
+```
 Name:       pods-high
 Namespace:  default
 Resource    Used  Hard
@@ -385,13 +427,6 @@ cpu         0     10
 memory      0     20Gi
 pods        0     10
 ```
-
-`scopeSelector`는 `operator` 필드에서 다음 값을 지원한다.
-
-* `In`
-* `NotIn`
-* `Exist`
-* `DoesNotExist`
 
 ## 요청과 제한의 비교 {#requests-vs-limits}
 
@@ -456,7 +491,7 @@ kubectl create -f ./object-counts.yaml --namespace=myspace
 kubectl get quota --namespace=myspace
 ```
 
-```shell
+```
 NAME                    AGE
 compute-resources       30s
 object-counts           32s
@@ -466,7 +501,7 @@ object-counts           32s
 kubectl describe quota compute-resources --namespace=myspace
 ```
 
-```shell
+```
 Name:                    compute-resources
 Namespace:               myspace
 Resource                 Used  Hard
@@ -482,7 +517,7 @@ requests.nvidia.com/gpu  0     4
 kubectl describe quota object-counts --namespace=myspace
 ```
 
-```shell
+```
 Name:                   object-counts
 Namespace:              myspace
 Resource                Used    Hard
@@ -504,7 +539,7 @@ kubectl create namespace myspace
 ```
 
 ```shell
-kubectl create quota test --hard=count/deployments.extensions=2,count/replicasets.extensions=4,count/pods=3,count/secrets=4 --namespace=myspace
+kubectl create quota test --hard=count/deployments.apps=2,count/replicasets.apps=4,count/pods=3,count/secrets=4 --namespace=myspace
 ```
 
 ```shell
@@ -515,29 +550,29 @@ kubectl create deployment nginx --image=nginx --namespace=myspace --replicas=2
 kubectl describe quota --namespace=myspace
 ```
 
-```shell
+```
 Name:                         test
 Namespace:                    myspace
 Resource                      Used  Hard
 --------                      ----  ----
-count/deployments.extensions  1     2
+count/deployments.apps        1     2
 count/pods                    2     3
-count/replicasets.extensions  1     4
+count/replicasets.apps        1     4
 count/secrets                 1     4
 ```
 
 ## 쿼터 및 클러스터 용량
 
-`ResourceQuotas`는 클러스터 용량과 무관하다. 그것들은 절대 단위로 표현된다.
+리소스쿼터는 클러스터 용량과 무관하다. 그것들은 절대 단위로 표현된다.
 따라서 클러스터에 노드를 추가해도 각 네임스페이스에 더 많은 리소스를
 사용할 수 있는 기능이 자동으로 부여되지는 *않는다*.
 
 가끔 다음과 같은 보다 복잡한 정책이 필요할 수 있다.
 
-  - 여러 팀으로 전체 클러스터 리소스를 비례적으로 나눈다.
-  - 각 테넌트가 필요에 따라 리소스 사용량을 늘릴 수 있지만, 실수로 리소스가 고갈되는 것을
-    막기 위한 충분한 제한이 있다.
-  - 하나의 네임스페이스에서 요구를 감지하고 노드를 추가하며 쿼터를 늘린다.
+- 여러 팀으로 전체 클러스터 리소스를 비례적으로 나눈다.
+- 각 테넌트가 필요에 따라 리소스 사용량을 늘릴 수 있지만, 실수로 리소스가 고갈되는 것을
+  막기 위한 충분한 제한이 있다.
+- 하나의 네임스페이스에서 요구를 감지하고 노드를 추가하며 쿼터를 늘린다.
 
 이러한 정책은 쿼터 사용을 감시하고 다른 신호에 따라 각 네임스페이스의 쿼터 하드 제한을
 조정하는 "컨트롤러"를 작성하여 `ResourceQuotas`를 구성 요소로
@@ -548,14 +583,16 @@ count/secrets                 1     4
 
 ## 기본적으로 우선 순위 클래스 소비 제한
 
-파드가 특정 우선 순위, 예를 들어 일치하는 쿼터 오브젝트가 존재하는 경우에만 "cluster-services"가 네임스페이스에 허용되어야 힌다.
+파드가 특정 우선 순위, 예를 들어 일치하는 쿼터 오브젝트가 존재하는
+경우에만 "cluster-services"가 네임스페이스에 허용되어야 한다.
 
-이 메커니즘을 통해 운영자는 특정 우선 순위가 높은 클래스의 사용을 제한된 수의 네임스페이스로 제한할 수 있으며 모든 네임스페이스가 기본적으로 이러한 우선 순위 클래스를 사용할 수 있는 것은 아니다.
+이 메커니즘을 통해 운영자는 특정 우선 순위가 높은 클래스의 사용을
+제한된 수의 네임스페이스로 제한할 수 있으며 모든 네임스페이스가
+기본적으로 이러한 우선 순위 클래스를 사용할 수 있는 것은 아니다.
 
-이를 적용하려면 kube-apiserver 플래그 `--admission-control-config-file`을 사용하여 다음 구성 파일의 경로를 전달해야 한다.
+이를 적용하려면 kube-apiserver 플래그 `--admission-control-config-file` 을
+사용하여 다음 구성 파일의 경로를 전달해야 한다.
 
-{{< tabs name="example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -571,30 +608,10 @@ plugins:
         operator: In
         values: ["cluster-services"]
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: "ResourceQuota"
-  configuration:
-    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, ResourceQuotaConfiguration
-    apiVersion: resourcequota.admission.k8s.io/v1beta1
-    kind: Configuration
-    limitedResources:
-    - resource: pods
-      matchScopes:
-      - scopeName: PriorityClass
-        operator: In
-        values: ["cluster-services"]
-```
-{{% /tab %}}
-{{< /tabs >}}
 
 이제 "cluster-services" 파드는 `scopeSelector`와 일치하는 쿼터 오브젝트가 있는 네임스페이스에서만 허용된다.
 예를 들면 다음과 같다.
+
 ```yaml
     scopeSelector:
       matchExpressions:
@@ -603,12 +620,9 @@ plugins:
         values: ["cluster-services"]
 ```
 
-자세한 내용은 [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)와 [우선 순위 클래스에 대한 쿼터 지원 디자인 문서](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)를 참고하길 바란다.
-
-## 예제
-
-[리소스 쿼터를 사용하는 방법에 대한 자세한 예](/docs/tasks/administer-cluster/quota-api-object/)를 참고하길 바란다.
-
 ## {{% heading "whatsnext" %}}
 
-- 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고하길 바란다.
+- 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고한다.
+- [리소스 쿼터를 사용하는 방법에 대한 자세한 예](/docs/tasks/administer-cluster/quota-api-object/)를 참고한다.
+- [우선 순위 클래스에 대한 쿼터 지원 디자인 문서](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)를 읽는다.
+- [제한된 자원](https://github.com/kubernetes/kubernetes/pull/36765)을 참고한다.

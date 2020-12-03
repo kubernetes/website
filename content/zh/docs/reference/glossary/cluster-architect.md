@@ -1,5 +1,5 @@
 ---
-title: 集群架构师
+title: 集群架构师（Cluster Architect）
 id: cluster-architect
 date: 2018-04-12
 full_link: 

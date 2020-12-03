@@ -16,40 +16,35 @@ card:
 <!-- overview -->
 
 Ten samouczek pokaże, jak uruchomić przykładową aplikację
-na Kubernetes przy użyciu [Minikube](/docs/setup/learning-environment/minikube) oraz Katacoda.
+na Kubernetesie przy użyciu minikube oraz Katacoda.
 Katacoda to darmowe środowisko Kubernetes dostępne bezpośrednio z przeglądarki web.
 
 {{< note >}}
-Możesz też skorzystać z tego samouczka, jeśli już zainstalowałeś [Minikube lokalnie](/docs/tasks/tools/install-minikube/).
+Możesz też skorzystać z tego samouczka, jeśli już zainstalowałeś minikube.
+Odwiedź stronę [minikube start](https://minikube.sigs.k8s.io/docs/start/), aby dowiedzieć się, jak go zainstalować.
 {{< /note >}}
-
-
 
 ## {{% heading "objectives" %}}
 
-
-* Skonfiguruj przykładową aplikację do uruchomienia w Minikube.
+* Skonfiguruj przykładową aplikację do uruchomienia w minikube.
 * Uruchom aplikację.
 * Przejrzyj jej logi.
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 W tym samouczku wykorzystamy obraz kontenera, który korzysta z NGINX, aby wyświetlić z powrotem wszystkie przychodzące zapytania.
 
-
-
 <!-- lessoncontent -->
 
-## Stwórz klaster Minikube
+## Stwórz klaster minikube
 
 1. Kliknij w **Launch Terminal**
 
     {{< kat-button >}}
 
-    {{< note >}}Jeśli masz Minikube zainstalowane lokalnie, uruchom `minikube start`.{{< /note >}}
+    {{< note >}}
+    Jeśli masz minikube zainstalowane lokalnie, uruchom `minikube start`.
+    {{< /note >}}
 
 2. Otwórz panel Kubernetes w przeglądarce:
 
@@ -135,6 +130,9 @@ jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes.
     Opcja `--type=LoadBalancer` wskazuje, że chcesz udostępnić swój Serwis
     na zewnątrz klastra.
 
+    Aplikacja, która jest umieszczona w obrazie kontenera `k8s.gcr.io/echoserver`, nasłuchuje jedynie na porcie TCP 8080. Jeśli użyłeś
+    `kubectl expose` do wystawienia innego portu, aplikacje klienckie mogą nie móc się podłączyć do tamtego innego portu.
+
 2. Sprawdź Serwis, który właśnie utworzyłeś:
 
     ```
@@ -151,7 +149,7 @@ jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes.
 
     U dostawców usług chmurowych, którzy obsługują *load balancers*,
     zostanie przydzielony zewnętrzny adres IP na potrzeby serwisu.
-    W Minikube, typ `LoadBalancer` udostępnia serwis poprzez polecenie
+    W minikube, typ `LoadBalancer` udostępnia serwis poprzez polecenie
     `minikube service`.
 
 3. Uruchom poniższe polecenie:
@@ -168,7 +166,7 @@ jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes.
 
 ## Włącz dodatki
 
-Minikube ma zestaw wbudowanych {{< glossary_tooltip text="dodatków" term_id="addons" >}}, które mogą być włączane, wyłączane i otwierane w lokalnym środowisku Kubernetes.
+Narzędzie minikube dysponuje zestawem wbudowanych {{< glossary_tooltip text="dodatków" term_id="addons" >}}, które mogą być włączane, wyłączane i otwierane w lokalnym środowisku Kubernetes.
 
 1. Lista aktualnie obsługiwanych dodatków:
 
@@ -272,13 +270,8 @@ minikube stop
 minikube delete
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Dowiedz się więcej o [obiektach typu Deployment](/docs/concepts/workloads/controllers/deployment/).
 * Dowiedz się więcej o [instalowaniu aplikacji](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Dowiedz się więcej o [obiektach typu Serwis](/docs/concepts/services-networking/service/).
-
-

@@ -142,26 +142,16 @@ A set of extra flags to pass to the Controller Manager or override default ones 
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path where kustomize patches for static pod manifests are stored.
--->
-用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)
 -->
-一组用来描述各种功能特性的键值（key=value）对。选项是：<br/>IPv6DualStack=true|false (ALPHA - default=false)
+一组用来描述各种功能特性的键值（key=value）对。选项是：
+<br/>IPv6DualStack=true|false (ALPHA - 默认=false)
+<br/>PublicKeysECDSA=true|false (ALPHA - 默认=false)
 </td>
 </tr>
 

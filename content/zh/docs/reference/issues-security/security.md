@@ -31,14 +31,14 @@ This page describes Kubernetes security and disclosure information.
 ## 安全公告
 
 <!--
-Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) group for emails about security and major API announcements.
+Join the [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce) group for emails about security and major API announcements.
 -->
-加入 [kubernets-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 组，以获取关于安全性和主要 API 公告的电子邮件。
+加入 [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce) 组，以获取关于安全性和主要 API 公告的电子邮件。
 
 <!--
-You can also subscribe to an RSS feed of the above using [this link](https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss_v2_0.xml?num=50).
+You can also subscribe to an RSS feed of the above using [this link](https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss_v2_0.xml?num=50).
 -->
-您也可以使用[此链接](https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss_v2_0.xml?num=50)订阅上述的 RSS 反馈。
+你也可以使用[此链接](https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss_v2_0.xml?num=50) 订阅上述的 RSS 反馈。
 
 <!--
 ## Report a Vulnerability
@@ -54,17 +54,18 @@ We’re extremely grateful for security researchers and users that report vulner
 <!--
 To make a report, please email the private [security@kubernetes.io](mailto:security@kubernetes.io) list with the security details and the details expected for [all Kubernetes bug reports](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md).
 -->
-如需报告，请连同安全细节以及预期的[所有 Kubernetes bug 报告](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md)详细信息电邮到[security@kubernetes.io](mailto:security@kubernetes.io) 列表。
+如需报告，请连同安全细节以及预期的[所有 Kubernetes bug 报告](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md)
+详细信息电子邮件到[security@kubernetes.io](mailto:security@kubernetes.io)列表。
 
 <!--
 You can also email the private [security@kubernetes.io](mailto:security@kubernetes.io) list with the security details and the details expected for [all Kubernetes bug reports](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md).
 -->
-您还可以通过电子邮件向私有 [security@kubernetes.io](mailto:security@kubernetes.io) 列表发送电子邮件，邮件中应该包含[所有 Kubernetes 错误报告](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md)所需的详细信息。
+你还可以通过电子邮件向私有 [security@kubernetes.io](mailto:security@kubernetes.io) 列表发送电子邮件，邮件中应该包含[所有 Kubernetes 错误报告](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md)所需的详细信息。
 <!--
-You may encrypt your email to this list using the GPG keys of the [Product Security Team members](https://git.k8s.io/sig-release/security-release-process-documentation/security-release-process.md#product-security-team-pst). Encryption using GPG is NOT required to make a disclosure.
+You may encrypt your email to this list using the GPG keys of the [Product Security Committee members](https://git.k8s.io/security/README.md#product-security-committee-psc). Encryption using GPG is NOT required to make a disclosure.
 -->
-您可以使用[产品安全团队成员](https://git.k8s.io/sig-release/security-release-process-documentation/security-release-process.md#product-security-team-pst)的 GPG 密钥加密您的电子邮件到此列表。
-使用 GPG 加密不需要公开。
+你可以使用[产品安全团队成员](https://git.k8s.io/security/README.md#product-security-committee-psc) 
+的 GPG 密钥加密你的电子邮件到此列表。使用 GPG 加密不需要公开。
 
 <!--
 ### When Should I Report a Vulnerability?
@@ -77,10 +78,10 @@ You may encrypt your email to this list using the GPG keys of the [Product Secur
 - You think you discovered a vulnerability in another project that Kubernetes depends on
    - For projects with their own vulnerability reporting and disclosure process, please report it directly there
 -->
-- 您认为在 Kubernetes 中发现了一个潜在的安全漏洞
-- 您不确定漏洞如何影响 Kubernetes
-- 您认为您在 Kubernetes 依赖的另一个项目中发现了一个漏洞
-  - 对于具有漏洞报告和披露流程的项目，请直接在该项目处报告
+- 你认为在 Kubernetes 中发现了一个潜在的安全漏洞
+- 你不确定漏洞如何影响 Kubernetes
+- 你认为你在 Kubernetes 依赖的另一个项目中发现了一个漏洞
+- 对于具有漏洞报告和披露流程的项目，请直接在该项目处报告
 
 <!--
 ### When Should I NOT Report a Vulnerability?
@@ -92,9 +93,9 @@ You may encrypt your email to this list using the GPG keys of the [Product Secur
 - You need help applying security related updates
 - Your issue is not security related
 -->
-- 您需要帮助调整 Kubernetes 组件的安全性
-- 您需要帮助应用与安全相关的更新
-- 您的问题与安全无关
+- 你需要帮助调整 Kubernetes 组件的安全性
+- 你需要帮助应用与安全相关的更新
+- 你的问题与安全无关
 
 <!--
 ## Security Vulnerability Response

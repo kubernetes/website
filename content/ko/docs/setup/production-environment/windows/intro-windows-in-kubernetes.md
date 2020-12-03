@@ -600,7 +600,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 
     쿠버네티스 파드에서는 컨테이너 엔드포인트를 호스팅하기 위해 먼저 인프라 또는 "pause" 컨테이너가 생성된다. 인프라 및 워커 컨테이너를 포함하여 동일한 파드에 속하는 컨테이너는 공통 네트워크 네임스페이스 및 엔드포인트(동일한 IP 및 포트 공간)를 공유한다. 네트워크 구성을 잃지 않고 워커 컨테이너가 충돌하거나 다시 시작되도록 하려면 pause 컨테이너가 필요하다.
 
-    "pause" (인프라) 이미지는 Microsoft Container Registry(MCR)에서 호스팅된다. `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`을 사용하여 접근할 수 있다. 자세한 내용은 [DOCKERFILE](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat)을 참고한다.
+    "pause" (인프라) 이미지는 Microsoft Container Registry(MCR)에서 호스팅된다. `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`을 사용하여 접근할 수 있다. 자세한 내용은 [DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile)을 참고한다.
 
 ### 추가 조사
 

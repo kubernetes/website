@@ -84,7 +84,7 @@ Credentials can be provided in several ways:
       provider) can implement your mechanism for authenticating the node
       to the container registry.
 
-These options are explaind in more detail below.
+These options are explained in more detail below.
 
 ### Configuring nodes to authenticate to a private registry
 

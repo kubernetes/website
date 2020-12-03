@@ -1,5 +1,5 @@
 ---
-title: API Kubernetes
+title: API Kubernetesa
 content_type: concept
 weight: 30
 description: >
@@ -18,32 +18,25 @@ API poprzez HTTP, umożliwiając wzajemną komunikację pomiędzy użytkownikami
 
 API Kubernetes pozwala na sprawdzanie i zmianę stanu obiektów (przykładowo: pody, _Namespaces_, _ConfigMaps_, _Events_).
 
-Punkt dostępowe _(endpoints)_ API, typy zasobów i przykłady opisane są w [API Reference](/docs/reference/kubernetes-api/).
+Większość operacji może zostać wykonana poprzez
+interfejs linii komend (CLI) [kubectl](/docs/reference/kubectl/overview/) lub inne
+programy, takie jak [kubeadm](/docs/reference/setup-tools/kubeadm/), które używają
+API. Możesz też korzystać z API bezpośrednio przez wywołania typu REST.
+
+Jeśli piszesz aplikację używającą API Kubernetesa,
+warto rozważyć użycie jednej z [bibliotek klienckich](/docs/reference/using-api/client-libraries/).
 
 <!-- body -->
-
-## Zmiany w API
-
-Jednym z wymagań, które odnoszą się do każdego systemu, który odniósł sukces, jest zdolność do rozwoju i ewolucji w miarę pojawiających się i zmieniających potrzeb.
-Dlatego Kubernetes został zaprojektowany tak, aby umożliwić ciągły rozwój i zmiany w API.
-Celem projektu Kubernetes jest _zachowanie_ zgodności z istniejącymi klientami i utrzymanie tej zgodności
-przez odpowiednio długi czas, pozwalający innym projektom na stopniowe dostosowanie.
-
-W skrócie, nowe zasoby API i nowe pola dla konkretnych zasobów mogą być dodawane stosunkowo często.
-Usunięcie zasobów lub pól wymaga stosowania
-[API deprecation policy](/docs/reference/using-api/deprecation-policy/).
-
-Szczegółowe objaśnienia, jak wygląda zmiana, która zachowuje zgodność i jak zmieniać API, znajdują się w dokumencie
-[API changes](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme).
 
 ## Specyfikacja OpenAPI {#api-specification}
 
 Pełną specyfikację API udokumentowano za pomocą [OpenAPI](https://www.openapis.org/).
 
 Serwer API Kubernetes API udostępnia specyfikację OpenAPI poprzez ścieżkę `/openapi/v2`.
-Aby wybrać format odpowiedzi, użyj nagłówków żądania zgodnie z:
+Aby wybrać format odpowiedzi, użyj nagłówków żądania zgodnie z tabelą:
 
 <table>
+<caption style="display:none">Dopuszczalne wartości nagłówka żądania dla zapytań OpenAPI v2</caption>
   <thead>
      <tr>
         <th>Nagłówek</th>
@@ -71,93 +64,63 @@ Aby wybrać format odpowiedzi, użyj nagłówków żądania zgodnie z:
         <td><em>udostępnia </em><code>application/json</code></td>
      </tr>
   </tbody>
-  <caption>Dozwolone nagłówki żądań dla zapytania OpenAPI v2</caption>
 </table>
 
-W Kubernetes zaimplementowany jest alternatywny format serializacji na potrzeby API oparty o Protobuf, który jest przede wszystkim przeznaczony na potrzeby wewnętrznej komunikacji w klastrze i opisany w [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md). Pliki IDL dla każdego ze schematów można znaleźć w pakietach Go, które definiują obiekty API.
+W Kubernetesie zaimplementowany jest alternatywny format serializacji na potrzeby API oparty o Protobuf,
+który jest przede wszystkim przeznaczony na potrzeby wewnętrznej komunikacji w klastrze
+i opisany w [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md).
+Pliki IDL dla każdego ze schematów można znaleźć w pakietach Go, które definiują obiekty API.
 
-## Obsługa wersji API
+## Zmiany API
+
+Z naszego doświadczenia wynika, że każdy system, który odniósł sukces, musi się nieustająco rozwijać w miarę zmieniających się potrzeb.
+Dlatego Kubernetes został tak zaprojektowany, aby API mogło się zmieniać i rozrastać.
+Projekt Kubernetes dąży do tego, aby nie wprowadzać zmian niezgodnych z istniejącymi aplikacjami klienckimi
+i utrzymywać zgodność przez wystarczająco długi czas, aby inne projekty zdążyły się dostosować do zmian.
+
+W ogólności, nowe zasoby i pola definiujące zasoby API są dodawane stosunkowo często. Usuwanie zasobów lub pól
+jest regulowane przez [API deprecation policy](/docs/reference/using-api/deprecation-policy/).
+Definicja zmiany zgodnej (kompatybilnej) oraz metody wprowadzania zmian w API opisano w szczegółach
+w [API change document](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md).
+
+## Grupy i wersje API
 
 Aby ułatwić usuwanie poszczególnych pól lub restrukturyzację reprezentacji zasobów, Kubernetes obsługuje
 równocześnie wiele wersji API, każde poprzez osobną ścieżkę API, na przykład: `/api/v1` lub
 `/apis/rbac.authorization.k8s.io/v1alpha1`.
 
-Zdecydowaliśmy się na rozdział wersji na poziomie całego API, a nie na poziomie poszczególnych zasobów lub pól, aby być pewnym,
+Rozdział wersji wprowadzony jest na poziomie całego API, a nie na poziomach poszczególnych zasobów lub pól, aby być pewnym,
 że API odzwierciedla w sposób przejrzysty i spójny zasoby systemowe i ich zachowania i pozwala
 na kontrolowany dostęp do tych API, które są w fazie wycofywania lub fazie eksperymentalnej.
 
-Schematy serializacji JSON i Protobuf stosują się do tych samych reguł wprowadzania zmian schematów — cały opis poniżej odnosi się do obydwu z nich.
+Aby ułatwić rozbudowę API Kubernetes, wprowadziliśmy [*grupy API*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md),
+które mogą być [włączane i wyłączane](/docs/reference/using-api/#enabling-or-disabling).
 
-Należy mieć na uwadze, że wersje API i wersje oprogramowania są powiązane ze sobą w sposób niebezpośredni. Proponowany
-[Kubernetes Release Versioning](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) opisuje związki pomiędzy zarządzaniem wersjami API i oprogramowania.
+Zasoby API są rozróżniane poprzez przynależność do grupy API, typ zasobu, przestrzeń nazw (_namespace_,  
+o ile ma zastosowanie) oraz nazwę. Serwer API może obsługiwać
+te same dane poprzez różne wersje API i przeprowadzać konwersję między
+różnymi wersjami API w sposób niewidoczny dla użytkownika. Wszystkie te różne wersje
+reprezentują w rzeczywistości ten sam zasób. Załóżmy przykładowo, że istnieją dwie
+wersje `v1` i `v1beta1` tego samego zasobu. Obiekt utworzony przez
+wersję `v1beta1` może być odczytany, zaktualizowany i skasowany zarówno przez wersję
+`v1beta1`, jak i `v1`.
 
-Różne wersje API oznaczają inną stabilność i poziom wsparcia. Kryteria dla każdego z tych poziomów opisano szczegółowo
-w [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions).
-Podsumowanie zamieszczono poniżej:
+Zajrzyj do [API versions reference](/docs/reference/using-api/#api-versioning)
+po szczegółowe informacje, jak definiuje się poziomy wersji API.
 
-- Poziom Alfa:
-  - Nazwa wersji zawiera słowo `alpha` (np. `v1alpha1`).
-  - Może zawierać błędy. Włączenie tej funkcjonalności może wyeksponować różne błędy. Domyślnie jest wyłączona.
-  - Wsparcie dla tej funkcjonalności może być zakończone w dowolnej chwili bez uprzedniego powiadomienia.
-  - W kolejnych wersjach API może zostać zmienione w sposób niezgodny z wersjami wcześniejszymi.
-  - Rekomendowana do użycia tylko na często przebudowywanych klastrach testowych ze względu na duże ryzyko wystąpienia błędów i brak gwarancji  wsparcia w dalszym horyzoncie.
-- Poziom Beta:
-  - Nazwa wersji zawiera słowo `beta` (np. `v2beta3`).
-  - Oprogramowanie jest dobrze przetestowane. Włączenie tej funkcjonalności uznaje się za bezpieczne. Funkcjonalność domyślnie włączona.
-  - Wsparcie dla funkcjonalności będzie utrzymywane, choć może zmieniać się w niektórych szczegółach.
-  - Schemat lub semantyka obiektu może się zmienić w sposób niezgodny z poprzednimi wersjami w następnych wydaniach beta lub stabilnych. Jeśli taka zmiana będzie miała miejsce,
-    dostarczymy instrukcję migracji do kolejnej wersji. Możemy wymagać skasowania, zmiany i odtworzenia obiektów API.
-    Proces zmiany może wymagać dodatkowych wstępnych analiz. W czasie wprowadzania zmian mogą wystąpić przerwy w dostępności aplikacji, które z tej funkcjonalności korzystają.
-  - Rekomendowane tylko dla zastosowań niekrytycznych dla biznesu ze względu na potencjalnie niezgodne zmiany w kolejnych wersjach oprogramowania.
-    Jeśli masz wiele klastrów, które mogą być aktualizowane niezależnie, można to ograniczenie pominąć.
-  - **Testuj nasze funkcjonalności w fazie beta i zgłaszaj swoje uwagi! Po wyjściu z fazy beta, możemy nie mieć już możliwości — ze względów praktycznych — wprowadzać w nich żadnych zmian.**
-- Poziom Stabilny:
-  - Nazwa wersji jest w postaci `vX`, gdzie `X` jest liczbą naturalną.
-  - Stabilne funkcjonalności będą dostępne w wielu kolejnych wersjach oprogramowania.
+## Rozbudowa API
 
-## Grupy API
+API Kubernetesa można rozbudowywać (rozszerzać) na dwa sposoby:
 
-Aby ułatwić rozbudowę API Kubernetes, wprowadziliśmy [*grupy API*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md).
-Grupa API jest określona przez ścieżkę API i pole `apiVersion` serializowanego obiektu.
-
-Obecne w użyciu jest kilka grup API:
-
-1. Grupa *podstawowa* (*core*), nazywana także *legacy group*, jest dostępna przez ścieżkę REST `/api/v1` i używa `apiVersion: v1`.
-
-1. Nazwane grupy udostępnione są przez ścieżkę REST `/apis/$GROUP_NAME/$VERSION` i używają `apiVersion: $GROUP_NAME/$VERSION`
-   (np. `apiVersion: batch/v1`). Pełna lista wpieranych grup API jest dostępna w [Kubernetes API reference](/pl/docs/reference/).
-
-API może być rozbudowane na dwa sposoby przy użyciu [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/):
-
-1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
-   jest przewidziana dla użytkowników z minimalnymi wymaganiami CRUD.
-1. Użytkownicy, którzy potrzebują pełnej semantyki API Kubernetes, mogą zaimplementować własny apiserver
-   i użyć [agregatora](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/),
-   aby zintegrować je w sposób niezauważalny dla klientów.
-
-## Włączanie i wyłączanie grup API
-
-Określone zasoby i grupy API są włączone domyślnie. Włączanie i wyłączanie odbywa się poprzez ustawienie `--runtime-config`
-w kube-apiserver.
-
-`--runtime-config` przyjmuje wartości oddzielane przecinkami. Przykładowo, aby wyłączyć batch/v1, należy ustawić
-`--runtime-config=batch/v1=false`, aby włączyć batch/v2alpha1, należy ustawić `--runtime-config=batch/v2alpha1`.
-Ta opcja przyjmuje rozdzielony przecinkami zbiór par klucz=wartość, który opisuje konfigurację wykonawczą serwera API.
-
-{{< note >}}Włączenie lub wyłączenie grup lub zasobów wymaga restartu kube-apiserver i kube-controller-manager,
-aby zmiany w `--runtime-config` zostały wprowadzone.{{< /note >}}
-
-## Trwałość
-
-Kubernetes przechowuje swój stan w postaci serializowanej jako zasoby API zapisywane w
-{{< glossary_tooltip term_id="etcd" >}}.
+1. [Definicje zasobów własnych](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+   pozwalają deklaratywnie określać, jak serwer API powinien dostarczać wybrane zasoby API.
+1. Można także rozszerzać API Kubernetesa implementując
+   [warstwę agregacji](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
 
 ## {{% heading "whatsnext" %}}
 
-[Controlling API Access](/docs/reference/access-authn-authz/controlling-access/) opisuje
-sposoby, jakimi klaster zarządza dostępem do API.
-
-Ogólne wytyczne dotyczące API opisano w
-[API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions).
-
-Punkty dostępowe API _(endpoints)_, typy zasobów i przykłady zamieszczono w [API Reference](/docs/reference/kubernetes-api/).
+- Naucz się, jak rozbudowywać API Kubernetesa poprzez dodawanie własnych
+  [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
+- [Controlling API Access](/docs/reference/access-authn-authz/controlling-access/) opisuje
+  sposoby, jakimi klaster zarządza dostępem do API.
+- Punkty dostępowe API _(endpoints)_, typy zasobów i przykłady zamieszczono w [API Reference](/docs/reference/kubernetes-api/).

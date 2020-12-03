@@ -47,7 +47,7 @@ no_list: true
 
 * [쿠버네티스 컨테이너 환경](/ko/docs/concepts/containers/container-environment/)은 쿠버네티스 노드에서 Kubelet으로 관리하는 컨테이너에 대한 환경을 설명한다.
 
-* [쿠버네티스 API에 대한 접근 제어](/ko/docs/reference/access-authn-authz/controlling-access/)는 사용자와 서비스 어카운트에 대한 권한을 설정하는 방법을 설명한다.
+* [쿠버네티스 API에 대한 접근 제어](/ko/docs/concepts/security/controlling-access)는 쿠버네티스가 자체 API에 대한 접근 제어를 구현하는 방법을 설명한다.
 
 * [인증](/docs/reference/access-authn-authz/authentication/)은 다양한 인증 옵션을 포함한 쿠버네티스에서의 인증에 대해 설명한다.
 

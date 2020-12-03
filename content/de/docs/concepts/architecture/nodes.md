@@ -6,7 +6,7 @@ weight: 10
 
 <!-- overview -->
 
-Ein Knoten (Node in Englisch) ist eine Arbeitsmaschine in Kubernetes, früher als `minion` bekannt. Ein Node
+Ein Knoten (Node in Englisch) ist eine Arbeitsmaschine in Kubernetes. Ein Node
 kann je nach Cluster eine VM oder eine physische Maschine sein. Jeder Node enthält
 die für den Betrieb von [Pods](/docs/concepts/workloads/pods/pod/) notwendigen Dienste
 und wird von den Master-Komponenten verwaltet.

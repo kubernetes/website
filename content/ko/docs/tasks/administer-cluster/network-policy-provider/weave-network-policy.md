@@ -11,7 +11,7 @@ weight: 50
 ## {{% heading "prerequisites" %}}
 
 쿠버네티스 클러스터가 필요하다. 맨 땅에서부터 시작하기를 위해서
-[kubeadm 시작하기 안내서](/ko/docs/reference/setup-tools/kubeadm/kubeadm/)를 따른다.
+[kubeadm 시작하기 안내서](/ko/docs/reference/setup-tools/kubeadm/)를 따른다.
 
 <!-- steps -->
 

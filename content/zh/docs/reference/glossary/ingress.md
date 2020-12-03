@@ -18,7 +18,7 @@ tags:
 title: Ingress
 id: ingress
 date: 2018-04-12
-full_link: /zh/docs/concepts/services-networking/ingress/
+full_link: /docs/concepts/services-networking/ingress/
 short_description: >
   An API object that manages external access to the services in a cluster, typically HTTP.
 
@@ -39,7 +39,7 @@ tags:
 <!--more--> 
 
 <!--
-Ingress can provide load balancing, SSL termination and name-based virtual hosting.
+Ingress may provide load balancing, SSL termination and name-based virtual hosting.
 -->
 
 Ingress 可以提供负载均衡、SSL 终结和基于名称的虚拟托管。

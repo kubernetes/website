@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-SIG Docs [승인자](/ko/docs/contribute/participating/roles-and-responsibilites/#승인자)는 리포지터리에 대해 일주일 동안 교대로 [풀 리퀘스트 관리](https://github.com/kubernetes/website/wiki/PR-Wranglers)를 수행한다.
+SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)는 리포지터리에 대해 일주일 동안 교대로 [풀 리퀘스트 관리](https://github.com/kubernetes/website/wiki/PR-Wranglers)를 수행한다.
 
 이 섹션은 PR 랭글러의 의무에 대해 다룬다. 좋은 리뷰 제공에 대한 자세한 내용은 [Reviewing changes](/ko/docs/contribute/review/)를 참고한다.
 

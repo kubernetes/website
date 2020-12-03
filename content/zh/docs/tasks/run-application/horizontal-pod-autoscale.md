@@ -330,7 +330,7 @@ More details about the API object can be found at
 创建 HorizontalPodAutoscaler 对象时，需要确保所给的名称是一个合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 有关 API 对象的更多信息，请查阅
-[HorizontalPodAutoscaler 对象设计文档](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling)。
+[HorizontalPodAutoscaler 对象设计文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling)。
 
 <!--
 ## Support for Horizontal Pod Autoscaler in kubectl
@@ -799,4 +799,3 @@ replica count or HPA's minimum replica count.
 * 设计文档：[Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md)
 * `kubectl autoscale` 命令：[kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * 使用示例：[Horizontal Pod Autoscaler](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
-

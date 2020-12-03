@@ -32,7 +32,7 @@ no_list: true
   파드를 실행하기 위한 [데몬셋(DaemonSet)](/ko/docs/concepts/workloads/controllers/daemonset/)
 * 완료될 때까지 실행되는 작업에 대한
   [잡(Job)](/ko/docs/concepts/workloads/controllers/job/) 및
-  [크론잡(CronJob)](/ko/docs/concepts/workloads/controllers/cronjob/)
+  [크론잡(CronJob)](/ko/docs/concepts/workloads/controllers/cron-jobs/)
 
 관련성을 찾을 수 있는 두 가지 지원 개념도 있다.
 * [가비지(Garbage) 수집](/ko/docs/concepts/workloads/controllers/garbage-collection/)은 _소유하는 리소스_ 가

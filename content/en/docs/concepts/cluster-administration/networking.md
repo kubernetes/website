@@ -158,6 +158,11 @@ tables to provide per-instance subnets to each host (which is limited to 50-100
 entries per VPC). In short, cni-ipvlan-vpc-k8s significantly reduces the
 network complexity required to deploy Kubernetes at scale within AWS.
 
+### Coil
+
+[Coil](https://github.com/cybozu-go/coil) is a CNI plugin designed for ease of integration, providing flexible egress networking.
+Coil operates with a low overhead compared to bare metal, and allows you to define arbitrary egress NAT gateways for external networks.
+
 ### Contiv
 
 [Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](https://contiv.io) is all open sourced.
