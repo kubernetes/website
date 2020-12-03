@@ -31,6 +31,20 @@ shows you what you need to do to get up and running with kind.
 
 <a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="View kind Quick Start Guide">View kind Quick Start Guide</a>
 
+## microk8s
+
+[MicroK8s](https://microk8s.io/) is a single-package Kubernetes that works on
+a single node or cluster. It is a full Kubernetes that is optimised for simple,
+standardised operations like cluster and upgrade.
+
+MicroK8s is native on Linux and has Windows and MacOS installers that use
+Multipass to drive a VM in the background on those platforms. It feels native
+on your workstation, but can also be used for high-availability clusters in
+production.
+
+<a class="btn btn-primary" href="https://microk8s.io/docs" role="button" aria-label="MicroK8s Install Guide">View MicroK8s Install Guide</a>
+
+
 ## minikube
 
 Like `kind`, [`minikube`](https://minikube.sigs.k8s.io/) is a tool that lets you run Kubernetes
@@ -46,6 +60,7 @@ on getting the tool installed.
 
 Once you have `minikube` working, you can use it to
 [run a sample application](/docs/tutorials/hello-minikube/).
+
 
 ## kubeadm
 
