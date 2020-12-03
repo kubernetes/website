@@ -61,10 +61,8 @@ Let’s use an example to demonstrate how cri-containerd works for the case when
 3. cri-containerd configures the pod’s network namespace using CNI;
 4. Kubelet subsequently calls cri-containerd, via the CRI image service API, to pull the application container image;
 5. cri-containerd further uses containerd to pull the image if the image is not present on the node;
-6. Kubelet then calls cri-containerd, via the CRI runtime service API, to create and start the application using the pulled container image;
-7. cri-containerd finally calls containerd to put the application container inside the pod’s cgroups and namespace.
-After these steps, a pod and its corresponding application container is created and running.
-
+6. Kubelet then calls cri-containerd, via the CRI runtime service API, to create and start the application container inside the pod using the pulled container image;
+7. cri-containerd finally calls containerd to create the application container, put it inside the pod’s cgroups and namespace, then to start the pod’s new application container.
 
 
 ## Status
