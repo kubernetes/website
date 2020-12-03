@@ -330,7 +330,7 @@ More details about the API object can be found at
 创建 HorizontalPodAutoscaler 对象时，需要确保所给的名称是一个合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 有关 API 对象的更多信息，请查阅
-[HorizontalPodAutoscaler 对象设计文档](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling)。
+[HorizontalPodAutoscaler 对象设计文档](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#horizontalpodautoscaler-v1-autoscaling)。
 
 <!--
 ## Support for Horizontal Pod Autoscaler in kubectl
