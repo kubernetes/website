@@ -5,6 +5,8 @@ date: 2020-12-02
 slug: dont-panic-kubernetes-and-docker
 ---
 
+**Authors:** Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
+
 Kubernetes is [deprecating
 Docker](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation)
 as a container runtime after v1.20.
