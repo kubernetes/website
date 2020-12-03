@@ -84,7 +84,11 @@ This is a living document. If you think of something that is not on this list bu
 <!--
   A Deployment, which both creates a ReplicaSet to ensure that the desired number of Pods is always available, and specifies a strategy to replace Pods (such as [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), is almost always preferable to creating Pods directly, except for some explicit [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) scenarios. A [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) may also be appropriate.
 -->
-除了一些显式的[`restartPolicy: Never`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)场景外，Deployment 通常比直接创建 Pod 要好得多，它既可以创建一个 ReplicaSet 集来确保所需数量的 Pod 始终可用，也可以指定替换 Pod 的策略(例如 [RollingUpdate](/zh/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment))。但是 Job 也可能是更好的选择。
+
+Deployment 既可以创建一个 ReplicaSet 来确保预期个数的 Pod 始终可用，也可以指定替换 Pod 的策略（例如
+[RollingUpdate](/zh/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)）。
+除了一些显式的 [`restartPolicy: Never`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
+场景外，Deployment 通常比直接创建 Pod 要好得多。[Job](/zh/docs/concepts/workloads/controllers/job/) 也可能是合适的选择。
 
 <!--
 ## Services
