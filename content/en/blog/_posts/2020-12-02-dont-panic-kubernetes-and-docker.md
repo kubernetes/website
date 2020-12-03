@@ -12,8 +12,7 @@ as a container runtime after v1.20.
 **You do not need to panic. It’s not as dramatic as it sounds.**
 
 tl;dr Docker as an underlying runtime is being deprecated in favor of runtimes
-that use the [Container Runtime Interface
-(CRI)](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)
+that use the [Container Runtime Interface(CRI)](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)
 created for Kubernetes. Docker-produced images will continue to work in your
 cluster with all runtimes, as they always have.
 
@@ -63,8 +62,7 @@ removes support for Docker as a container runtime as a result. You might be
 thinking to yourself, but if containerd is included in the Docker stack, why
 does Kubernetes need the Dockershim?
 
-Docker isn’t compliant with CRI, the [Container Runtime
-Interface](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/).
+Docker isn’t compliant with CRI, the [Container Runtime Interface](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/).
 If it were, we wouldn’t need the shim, and this wouldn’t be a thing. But it’s
 not the end of the world, and you don’t need to panic -- you just need to change
 your container runtime from Docker to another supported container runtime.
@@ -85,12 +83,11 @@ with Docker. The Docker installation you’re using in development is unrelated 
 the Docker runtime inside your Kubernetes cluster. It’s confusing, I know. As a
 developer, Docker is still useful to you in all the ways it was before this
 change was announced. The image that Docker produces isn’t really a
-Docker-specific image -- it’s an OCI ([Open Container
-Initiative](https://opencontainers.org/)) image. Any OCI-compliant image,
-regardless of the tool you use to build it, will look the same to Kubernetes.
-Both [containerd](https://containerd.io/) and [CRI-O](https://cri-o.io/) know
-how to pull those images and run them. This is why we have a standard for what
-containers should look like.
+Docker-specific image -- it’s an OCI ([Open Container Initiative](https://opencontainers.org/)) image. 
+Any OCI-compliant image, regardless of the tool you use to build it, will look
+the same to Kubernetes. Both [containerd](https://containerd.io/) and
+[CRI-O](https://cri-o.io/) know how to pull those images and run them. This is
+why we have a standard for what containers should look like.
 
 So, this change is coming. It’s going to cause issues for some, but it isn’t
 catastrophic, and generally it’s a good thing. Depending on how you interact
