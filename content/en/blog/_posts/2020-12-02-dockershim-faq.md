@@ -101,7 +101,7 @@ in the form of [runc], which is the underlying default runtime for both
 [containerd] and [CRI-O]. The CRI builds on these low-level specifications to
 provide an end-to-end standard for managing containers.
 
-[Open Container Initative]: https://opencontainers.org/about/overview/
+[Open Container Initiative]: https://opencontainers.org/about/overview/
 [runc]: https://github.com/opencontainers/runc
 [containerd]: https://containerd.io/
 
