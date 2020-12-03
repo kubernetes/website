@@ -34,7 +34,7 @@ testing and planning.
 If you’re rolling your own clusters, you will also need to make changes to avoid
 your clusters breaking. At v1.20, you will get a deprecation warning for Docker.
 When Docker runtime support is removed in a future release (currently planned
-for the 1.23 release in late 2021) of Kubernetes it will no longer be supported
+for the 1.22 release in late 2021) of Kubernetes it will no longer be supported
 and you will need to switch to one of the other compliant container runtimes,
 like containerd or CRI-O. Just make sure that the runtime you choose supports
 the docker daemon configurations you currently use (e.g. logging).
