@@ -69,7 +69,7 @@ sudo mv minikube /usr/local/bin
 ### Linux
 
 {{< note >}}
-Dieses Dokument zeigt Ihnen, wie Sie Minikube mit einer statischen Binärdatei unter Linux installieren. Für alternative Linux-Installationsmethoden siehe [Andere Installationsmethoden](https://github.com/kubernetes/minikube#other-ways-to-install) im offiziellen Minikube-GitHub-Repository.
+Dieses Dokument zeigt Ihnen, wie Sie Minikube mit einer statischen Binärdatei unter Linux installieren. Für alternative Linux-Installationsmethoden siehe [Andere Installationsmethoden](https://minikube.sigs.k8s.io/docs/start/) im offiziellen Minikube-GitHub-Repository.
 {{< /note >}}
 
 Sie können Minikube unter Linux installieren, indem Sie eine statische Binärdatei herunterladen:
