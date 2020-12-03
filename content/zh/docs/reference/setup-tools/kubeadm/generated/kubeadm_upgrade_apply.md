@@ -106,14 +106,18 @@ Perform the upgrade of etcd.
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
+<td colspan="2">--experimental-patches string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path where kustomize patches for static pod manifests are stored.
+<!--  
+Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
+包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
+例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
+默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
+"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
 </td>
 </tr>
 
@@ -125,7 +129,9 @@ The path where kustomize patches for static pod manifests are stored.
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)
 -->
-一组键值对，用于描述各种功能。选项包括：<br/>IPv6DualStack=true|false (ALPHA - 默认值=false)
+一组键值对，用于描述各种功能。选项包括：
+<br/>IPv6DualStack=true|false (ALPHA - 默认=false)
+<br/>PublicKeysECDSA=true|false (ALPHA - 默认=false)
 </td>
 </tr>
 
@@ -162,23 +168,6 @@ apply 操作的帮助命令
 A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
 -->
 错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">
-<!--
---image-pull-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 15m0s
--->
---image-pull-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：15m0s
-</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The maximum amount of time to wait for the control plane pods to be downloaded.
--->
-等待控制面板 pod 下载的最长时间。
 </td>
 </tr>
 

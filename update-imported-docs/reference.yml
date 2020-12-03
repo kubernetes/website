@@ -16,14 +16,19 @@ repos:
     cp -L -R vendor $GOPATH/src
     rm -r vendor/github.com/spf13/cobra
     rm -r vendor/github.com/spf13/pflag
+
+    # kubectl cmd pkg
+    cp -R vendor/k8s.io/kubectl/pkg/cmd  pkg/kubectl/
     cd $GOPATH
     go get -v github.com/kubernetes-sigs/reference-docs/gen-compdocs
     cd src/github.com/kubernetes-sigs/reference-docs/
+
     # generate component tool pages
     make comp
     cd $GOPATH
     go get -v github.com/kubernetes-sigs/reference-docs/gen-kubectldocs
     cd src/github.com/kubernetes-sigs/reference-docs/
+
     # create versioned dirs if needed and fetch v${K8S_RELEASE}:swagger.json
     make updateapispec
     # generate kubectl cmd reference
@@ -38,8 +43,8 @@ repos:
     make copyapi
 
   files:
-  - src: gen-compdocs/build/cloud-controller-manager.md
-    dst: content/en/docs/reference/command-line-tools-reference/
+  #- src: gen-compdocs/build/cloud-controller-manager.md
+  #  dst: content/en/docs/reference/command-line-tools-reference/
   - src: gen-compdocs/build/kube-apiserver.md
     dst: content/en/docs/reference/command-line-tools-reference/
   - src: gen-compdocs/build/kube-controller-manager.md

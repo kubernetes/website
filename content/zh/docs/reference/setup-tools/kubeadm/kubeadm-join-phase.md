@@ -14,7 +14,7 @@ weight: 90
 Hence, you can let kubeadm do some of the work and you can fill in the gaps
 if you wish to apply customization.
 -->
-`kubeadm join phase` 使您能够调用 `join` 过程的基本原子步骤。因此，如果希望执行自定义操作，可以让 kubeadm 做一些工作，然后由用户来补足剩余操作。
+`kubeadm join phase` 使你能够调用 `join` 过程的基本原子步骤。因此，如果希望执行自定义操作，可以让 kubeadm 做一些工作，然后由用户来补足剩余操作。
 
 <!--
 `kubeadm join phase` is consistent with the [kubeadm join workflow](/docs/reference/setup-tools/kubeadm/kubeadm-join/#join-workflow),
@@ -44,7 +44,7 @@ Using this phase you can execute preflight checks on a joining node.
 <!--
 Using this phase you can prepare a node for serving a control-plane.
 -->
-使用此阶段，您可以准备一个作为控制平面的节点。
+使用此阶段，你可以准备一个作为控制平面的节点。
 
 {{< tabs name="tab-control-plane-prepare" >}}
 {{< tab name="control-plane-prepare" include="generated/kubeadm_join_phase_control-plane-prepare.md" />}}
@@ -60,7 +60,7 @@ Using this phase you can prepare a node for serving a control-plane.
 <!--
 Using this phase you can write the kubelet settings, certificates and (re)start the kubelet.
 -->
-使用此阶段，您可以配置 kubelet 设置、证书和（重新）启动 kubelet。
+使用此阶段，你可以配置 kubelet 设置、证书和（重新）启动 kubelet。
 
 {{< tabs name="tab-kubelet-start" >}}
 {{< tab name="kubelet-start" include="generated/kubeadm_join_phase_kubelet-start.md" />}}
@@ -71,7 +71,7 @@ Using this phase you can write the kubelet settings, certificates and (re)start 
 <!--
 Using this phase you can join a node as a control-plane instance.
 -->
-使用此阶段，您可以将节点作为控制平面实例加入。
+使用此阶段，你可以将节点作为控制平面实例加入。
 
 {{< tabs name="tab-control-plane-join" >}}
 {{< tab name="control-plane-join" include="generated/kubeadm_join_phase_control-plane-join.md" />}}

@@ -110,26 +110,16 @@ Specify a stable IP address or DNS name for the control plane.
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path where kustomize patches for static pod manifests are stored.
--->
-用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)
 -->
-一组键值对，用于描述各种特征的特征事项。选项是：<br/>IPv6DualStack=true|false (ALPHA - default=false)
+一组键值对，用于描述各种特征的特征事项。选项是：
+<br/>IPv6DualStack=true|false (ALPHA - 默认=false)
+<br/>PublicKeysECDSA=true|false (ALPHA - 默认=false)
 </td>
 </tr>
 

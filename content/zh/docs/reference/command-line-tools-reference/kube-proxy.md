@@ -210,14 +210,214 @@ Idle timeout for established TCP connections (0 to leave as-is)
 </tr>
 
 <tr>
+<td colspan="2">--detect-local-mode LocalMode</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!-- Mode to use to detect local traffic -->
+用于检测本地流量的模式
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--feature-gates mapStringBool</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>APIListChunking=true|false (BETA - default=true)<br/>APIResponseCompression=true|false (BETA - default=true)<br/>AllAlpha=true|false (ALPHA - default=false)<br/>AppArmor=true|false (BETA - default=true)<br/>AttachVolumeLimit=true|false (BETA - default=true)<br/>BalanceAttachedNodeVolumes=true|false (ALPHA - default=false)<br/>BlockVolume=true|false (BETA - default=true)<br/>BoundServiceAccountTokenVolume=true|false (ALPHA - default=false)<br/>CPUManager=true|false (BETA - default=true)<br/>CRIContainerLogRotation=true|false (BETA - default=true)<br/>CSIBlockVolume=true|false (BETA - default=true)<br/>CSIDriverRegistry=true|false (BETA - default=true)<br/>CSIInlineVolume=true|false (BETA - default=true)<br/>CSIMigration=true|false (ALPHA - default=false)<br/>CSIMigrationAWS=true|false (ALPHA - default=false)<br/>CSIMigrationAzureDisk=true|false (ALPHA - default=false)<br/>CSIMigrationAzureFile=true|false (ALPHA - default=false)<br/>CSIMigrationGCE=true|false (ALPHA - default=false)<br/>CSIMigrationOpenStack=true|false (ALPHA - default=false)<br/>CSINodeInfo=true|false (BETA - default=true)<br/>CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>CustomResourceDefaulting=true|false (BETA - default=true)<br/>DevicePlugins=true|false (BETA - default=true)<br/>DryRun=true|false (BETA - default=true)<br/>DynamicAuditing=true|false (ALPHA - default=false)<br/>DynamicKubeletConfig=true|false (BETA - default=true)<br/>EndpointSlice=true|false (ALPHA - default=false)<br/>EphemeralContainers=true|false (ALPHA - default=false)<br/>EvenPodsSpread=true|false (ALPHA - default=false)<br/>ExpandCSIVolumes=true|false (BETA - default=true)<br/>ExpandInUsePersistentVolumes=true|false (BETA - default=true)<br/>ExpandPersistentVolumes=true|false (BETA - default=true)<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>HPAScaleToZero=true|false (ALPHA - default=false)<br/>HyperVContainer=true|false (ALPHA - default=false)<br/>IPv6DualStack=true|false (ALPHA - default=false)<br/>KubeletPodResources=true|false (BETA - default=true)<br/>LegacyNodeRoleBehavior=true|false (ALPHA - default=true)<br/>LocalStorageCapacityIsolation=true|false (BETA - default=true)<br/>LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)<br/>MountContainers=true|false (ALPHA - default=false)<br/>NodeDisruptionExclusion=true|false (ALPHA - default=false)<br/>NodeLease=true|false (BETA - default=true)<br/>NonPreemptingPriority=true|false (ALPHA - default=false)<br/>PodOverhead=true|false (ALPHA - default=false)<br/>PodShareProcessNamespace=true|false (BETA - default=true)<br/>ProcMountType=true|false (ALPHA - default=false)<br/>QOSReserved=true|false (ALPHA - default=false)<br/>RemainingItemCount=true|false (BETA - default=true)<br/>RemoveSelfLink=true|false (ALPHA - default=false)<br/>RequestManagement=true|false (ALPHA - default=false)<br/>ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)<br/>ResourceQuotaScopeSelectors=true|false (BETA - default=true)<br/>RotateKubeletClientCertificate=true|false (BETA - default=true)<br/>RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>RunAsGroup=true|false (BETA - default=true)<br/>RuntimeClass=true|false (BETA - default=true)<br/>SCTPSupport=true|false (ALPHA - default=false)<br/>ScheduleDaemonSetPods=true|false (BETA - default=true)<br/>ServerSideApply=true|false (BETA - default=true)<br/>ServiceLoadBalancerFinalizer=true|false (BETA - default=true)<br/>ServiceNodeExclusion=true|false (ALPHA - default=false)<br/>StartupProbe=true|false (BETA - default=true)<br/>StorageVersionHash=true|false (BETA - default=true)<br/>StreamingProxyRedirects=true|false (BETA - default=true)<br/>SupportNodePidsLimit=true|false (BETA - default=true)<br/>SupportPodPidsLimit=true|false (BETA - default=true)<br/>Sysctls=true|false (BETA - default=true)<br/>TTLAfterFinished=true|false (ALPHA - default=false)<br/>TaintBasedEvictions=true|false (BETA - default=true)<br/>TaintNodesByCondition=true|false (BETA - default=true)<br/>TokenRequest=true|false (BETA - default=true)<br/>TokenRequestProjection=true|false (BETA - default=true)<br/>TopologyManager=true|false (ALPHA - default=false)<br/>ValidateProxyRedirects=true|false (BETA - default=true)<br/>VolumePVCDataSource=true|false (BETA - default=true)<br/>VolumeSnapshotDataSource=true|false (ALPHA - default=false)<br/>VolumeSubpathEnvExpansion=true|false (BETA - default=true)<br/>WatchBookmark=true|false (BETA - default=true)<br/>WinDSR=true|false (ALPHA - default=false)<br/>WinOverlay=true|false (ALPHA - default=false)<br/>WindowsGMSA=true|false (BETA - default=true)<br/>WindowsRunAsUserName=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
+<br/>APIListChunking=true|false (BETA - default=true)
+<br/>APIPriorityAndFairness=true|false (ALPHA - default=false)
+<br/>APIResponseCompression=true|false (BETA - default=true)
+<br/>AllAlpha=true|false (ALPHA - default=false)
+<br/>AllBeta=true|false (BETA - default=false)
+<br/>AllowInsecureBackendProxy=true|false (BETA - default=true)
+<br/>AnyVolumeDataSource=true|false (ALPHA - default=false)
+<br/>AppArmor=true|false (BETA - default=true)
+<br/>BalanceAttachedNodeVolumes=true|false (ALPHA - default=false)
+<br/>BoundServiceAccountTokenVolume=true|false (ALPHA - default=false)
+<br/>CPUManager=true|false (BETA - default=true)
+<br/>CRIContainerLogRotation=true|false (BETA - default=true)
+<br/>CSIInlineVolume=true|false (BETA - default=true)
+<br/>CSIMigration=true|false (BETA - default=true)
+<br/>CSIMigrationAWS=true|false (BETA - default=false)
+<br/>CSIMigrationAWSComplete=true|false (ALPHA - default=false)
+<br/>CSIMigrationAzureDisk=true|false (BETA - default=false)
+<br/>CSIMigrationAzureDiskComplete=true|false (ALPHA - default=false)
+<br/>CSIMigrationAzureFile=true|false (ALPHA - default=false)
+<br/>CSIMigrationAzureFileComplete=true|false (ALPHA - default=false)
+<br/>CSIMigrationGCE=true|false (BETA - default=false)
+<br/>CSIMigrationGCEComplete=true|false (ALPHA - default=false)
+<br/>CSIMigrationOpenStack=true|false (BETA - default=false)
+<br/>CSIMigrationOpenStackComplete=true|false (ALPHA - default=false)
+<br/>CSIMigrationvSphere=true|false (BETA - default=false)
+<br/>CSIMigrationvSphereComplete=true|false (BETA - default=false)
+<br/>CSIStorageCapacity=true|false (ALPHA - default=false)
+<br/>CSIVolumeFSGroupPolicy=true|false (ALPHA - default=false)
+<br/>ConfigurableFSGroupPolicy=true|false (ALPHA - default=false)
+<br/>CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)
+<br/>DefaultPodTopologySpread=true|false (ALPHA - default=false)
+<br/>DevicePlugins=true|false (BETA - default=true)
+<br/>DisableAcceleratorUsageMetrics=true|false (ALPHA - default=false)
+<br/>DynamicKubeletConfig=true|false (BETA - default=true)
+<br/>EndpointSlice=true|false (BETA - default=true)
+<br/>EndpointSliceProxying=true|false (BETA - default=true)
+<br/>EphemeralContainers=true|false (ALPHA - default=false)
+<br/>ExpandCSIVolumes=true|false (BETA - default=true)
+<br/>ExpandInUsePersistentVolumes=true|false (BETA - default=true)
+<br/>ExpandPersistentVolumes=true|false (BETA - default=true)
+<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)
+<br/>GenericEphemeralVolume=true|false (ALPHA - default=false)
+<br/>HPAScaleToZero=true|false (ALPHA - default=false)
+<br/>HugePageStorageMediumSize=true|false (BETA - default=true)
+<br/>HyperVContainer=true|false (ALPHA - default=false)
+<br/>IPv6DualStack=true|false (ALPHA - default=false)
+<br/>ImmutableEphemeralVolumes=true|false (BETA - default=true)
+<br/>KubeletPodResources=true|false (BETA - default=true)
+<br/>LegacyNodeRoleBehavior=true|false (BETA - default=true)
+<br/>LocalStorageCapacityIsolation=true|false (BETA - default=true)
+<br/>LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)
+<br/>NodeDisruptionExclusion=true|false (BETA - default=true)
+<br/>NonPreemptingPriority=true|false (BETA - default=true)
+<br/>PodDisruptionBudget=true|false (BETA - default=true)
+<br/>PodOverhead=true|false (BETA - default=true)
+<br/>ProcMountType=true|false (ALPHA - default=false)
+<br/>QOSReserved=true|false (ALPHA - default=false)
+<br/>RemainingItemCount=true|false (BETA - default=true)
+<br/>RemoveSelfLink=true|false (ALPHA - default=false)
+<br/>RotateKubeletServerCertificate=true|false (BETA - default=true)
+<br/>RunAsGroup=true|false (BETA - default=true)
+<br/>RuntimeClass=true|false (BETA - default=true)
+<br/>SCTPSupport=true|false (BETA - default=true)
+<br/>SelectorIndex=true|false (BETA - default=true)
+<br/>ServerSideApply=true|false (BETA - default=true)
+<br/>ServiceAccountIssuerDiscovery=true|false (ALPHA - default=false)
+<br/>ServiceAppProtocol=true|false (BETA - default=true)
+<br/>ServiceNodeExclusion=true|false (BETA - default=true)
+<br/>ServiceTopology=true|false (ALPHA - default=false)
+<br/>SetHostnameAsFQDN=true|false (ALPHA - default=false)
+<br/>StartupProbe=true|false (BETA - default=true)
+<br/>StorageVersionHash=true|false (BETA - default=true)
+<br/>SupportNodePidsLimit=true|false (BETA - default=true)
+<br/>SupportPodPidsLimit=true|false (BETA - default=true)
+<br/>Sysctls=true|false (BETA - default=true)
+<br/>TTLAfterFinished=true|false (ALPHA - default=false)
+<br/>TokenRequest=true|false (BETA - default=true)
+<br/>TokenRequestProjection=true|false (BETA - default=true)
+<br/>TopologyManager=true|false (BETA - default=true)
+<br/>ValidateProxyRedirects=true|false (BETA - default=true)
+<br/>VolumeSnapshotDataSource=true|false (BETA - default=true)
+<br/>WarningHeaders=true|false (BETA - default=true)
+<br/>WinDSR=true|false (ALPHA - default=false)
+<br/>WinOverlay=true|false (ALPHA - default=false)
+<br/>WindowsEndpointSliceProxying=true|false (ALPHA - default=false)
 -->
-一组键=值（key=value）对，描述了 alpha/experimental 的特征。可选项有：<br/>APIListChunking=true|false (BETA - 默认值=true)<br/>APIResponseCompression=true|false (BETA - 默认值=true)<br/>AllAlpha=true|false (ALPHA - 默认值=false)<br/>AppArmor=true|false (BETA - 默认值=true)<br/>AttachVolumeLimit=true|false (BETA - 默认值=true)<br/>BalanceAttachedNodeVolumes=true|false (ALPHA - 默认值=false)<br/>BlockVolume=true|false (BETA - 默认值=true)<br/>BoundServiceAccountTokenVolume=true|false (ALPHA - 默认值=false)<br/>CPUManager=true|false (BETA - 默认值=true)<br/>CRIContainerLogRotation=true|false (BETA - 默认值=true)<br/>CSIBlockVolume=true|false (BETA - 默认值=true)<br/>CSIDriverRegistry=true|false (BETA - 默认值=true)<br/>CSIInlineVolume=true|false (BETA - 默认值=true)<br/>CSIMigration=true|false (ALPHA - 默认值=false)<br/>CSIMigrationAWS=true|false (ALPHA - 默认值=false)<br/>CSIMigrationAzureDisk=true|false (ALPHA - 默认值=false)<br/>CSIMigrationAzureFile=true|false (ALPHA - 默认值=false)<br/>CSIMigrationGCE=true|false (ALPHA - 默认值=false)<br/>CSIMigrationOpenStack=true|false (ALPHA - 默认值=false)<br/>CSINodeInfo=true|false (BETA - 默认值=true)<br/>CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默认值=false)<br/>CustomResource默认值ing=true|false (BETA - 默认值=true)<br/>DevicePlugins=true|false (BETA - 默认值=true)<br/>DryRun=true|false (BETA - 默认值=true)<br/>DynamicAuditing=true|false (ALPHA - 默认值=false)<br/>DynamicKubeletConfig=true|false (BETA - 默认值=true)<br/>EndpointSlice=true|false (ALPHA - 默认值=false)<br/>EphemeralContainers=true|false (ALPHA - 默认值=false)<br/>EvenPodsSpread=true|false (ALPHA - 默认值=false)<br/>ExpandCSIVolumes=true|false (BETA - 默认值=true)<br/>ExpandInUsePersistentVolumes=true|false (BETA - 默认值=true)<br/>ExpandPersistentVolumes=true|false (BETA - 默认值=true)<br/>ExperimentalHostUserNamespace默认值ing=true|false (BETA - 默认值=false)<br/>HPAScaleToZero=true|false (ALPHA - 默认值=false)<br/>HyperVContainer=true|false (ALPHA - 默认值=false)<br/>IPv6DualStack=true|false (ALPHA - 默认值=false)<br/>KubeletPodResources=true|false (BETA - 默认值=true)<br/>LegacyNodeRoleBehavior=true|false (ALPHA - 默认值=true)<br/>LocalStorageCapacityIsolation=true|false (BETA - 默认值=true)<br/>LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - 默认值=false)<br/>MountContainers=true|false (ALPHA - 默认值=false)<br/>NodeDisruptionExclusion=true|false (ALPHA - 默认值=false)<br/>NodeLease=true|false (BETA - 默认值=true)<br/>NonPreemptingPriority=true|false (ALPHA - 默认值=false)<br/>PodOverhead=true|false (ALPHA - 默认值=false)<br/>PodShareProcessNamespace=true|false (BETA - 默认值=true)<br/>ProcMountType=true|false (ALPHA - 默认值=false)<br/>QOSReserved=true|false (ALPHA - 默认值=false)<br/>RemainingItemCount=true|false (BETA - 默认值=true)<br/>RemoveSelfLink=true|false (ALPHA - 默认值=false)<br/>RequestManagement=true|false (ALPHA - 默认值=false)<br/>ResourceLimitsPriorityFunction=true|false (ALPHA - 默认值=false)<br/>ResourceQuotaScopeSelectors=true|false (BETA - 默认值=true)<br/>RotateKubeletClientCertificate=true|false (BETA - 默认值=true)<br/>RotateKubeletServerCertificate=true|false (BETA - 默认值=true)<br/>RunAsGroup=true|false (BETA - 默认值=true)<br/>RuntimeClass=true|false (BETA - 默认值=true)<br/>SCTPSupport=true|false (ALPHA - 默认值=false)<br/>ScheduleDaemonSetPods=true|false (BETA - 默认值=true)<br/>ServerSideApply=true|false (BETA - 默认值=true)<br/>ServiceLoadBalancerFinalizer=true|false (BETA - 默认值=true)<br/>ServiceNodeExclusion=true|false (ALPHA - 默认值=false)<br/>StartupProbe=true|false (BETA - 默认值=true)<br/>StorageVersionHash=true|false (BETA - 默认值=true)<br/>StreamingProxyRedirects=true|false (BETA - 默认值=true)<br/>SupportNodePidsLimit=true|false (BETA - 默认值=true)<br/>SupportPodPidsLimit=true|false (BETA - 默认值=true)<br/>Sysctls=true|false (BETA - 默认值=true)<br/>TTLAfterFinished=true|false (ALPHA - 默认值=false)<br/>TaintBasedEvictions=true|false (BETA - 默认值=true)<br/>TaintNodesByCondition=true|false (BETA - 默认值=true)<br/>TokenRequest=true|false (BETA - 默认值=true)<br/>TokenRequestProjection=true|false (BETA - 默认值=true)<br/>TopologyManager=true|false (ALPHA - 默认值=false)<br/>ValidateProxyRedirects=true|false (BETA - 默认值=true)<br/>VolumePVCDataSource=true|false (BETA - 默认值=true)<br/>VolumeSnapshotDataSource=true|false (ALPHA - 默认值=false)<br/>VolumeSubpathEnvExpansion=true|false (BETA - 默认值=true)<br/>WatchBookmark=true|false (BETA - 默认值=true)<br/>WinDSR=true|false (ALPHA - 默认值=false)<br/>WinOverlay=true|false (ALPHA - 默认值=false)<br/>WindowsGMSA=true|false (BETA - 默认值=true)<br/>WindowsRunAsUserName=true|false (ALPHA - 默认值=false)
+一组键=值（key=value）对，描述了 alpha/experimental 的特征。可选项有：
+<br/>APIListChunking=true|false (BETA - 默认值=true)
+<br/>APIPriorityAndFairness=true|false (ALPHA - 默认值=false)
+<br/>APIResponseCompression=true|false (BETA - 默认值=true)
+<br/>AllAlpha=true|false (ALPHA - 默认值=false)
+<br/>AllBeta=true|false (BETA - 默认值=false)
+<br/>AllowInsecureBackendProxy=true|false (BETA - 默认值=true)
+<br/>AnyVolumeDataSource=true|false (ALPHA - 默认值=false)
+<br/>AppArmor=true|false (BETA - 默认值=true)
+<br/>BalanceAttachedNodeVolumes=true|false (ALPHA - 默认值=false)
+<br/>BoundServiceAccountTokenVolume=true|false (ALPHA - 默认值=false)
+<br/>CPUManager=true|false (BETA - 默认值=true)
+<br/>CRIContainerLogRotation=true|false (BETA - 默认值=true)
+<br/>CSIInlineVolume=true|false (BETA - 默认值=true)
+<br/>CSIMigration=true|false (BETA - 默认值=true)
+<br/>CSIMigrationAWS=true|false (BETA - 默认值=false)
+<br/>CSIMigrationAWSComplete=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationAzureDisk=true|false (BETA - 默认值=false)
+<br/>CSIMigrationAzureDiskComplete=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationAzureFile=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationAzureFileComplete=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationGCE=true|false (BETA - 默认值=false)
+<br/>CSIMigrationGCEComplete=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationOpenStack=true|false (BETA - 默认值=false)
+<br/>CSIMigrationOpenStackComplete=true|false (ALPHA - 默认值=false)
+<br/>CSIMigrationvSphere=true|false (BETA - 默认值=false)
+<br/>CSIMigrationvSphereComplete=true|false (BETA - 默认值=false)
+<br/>CSIStorageCapacity=true|false (ALPHA - 默认值=false)
+<br/>CSIVolumeFSGroupPolicy=true|false (ALPHA - 默认值=false)
+<br/>ConfigurableFSGroupPolicy=true|false (ALPHA - 默认值=false)
+<br/>CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默认值=false)
+<br/>DefaultPodTopologySpread=true|false (ALPHA - 默认值=false)
+<br/>DevicePlugins=true|false (BETA - 默认值=true)
+<br/>DisableAcceleratorUsageMetrics=true|false (ALPHA - 默认值=false)
+<br/>DynamicKubeletConfig=true|false (BETA - 默认值=true)
+<br/>EndpointSlice=true|false (BETA - 默认值=true)
+<br/>EndpointSliceProxying=true|false (BETA - 默认值=true)
+<br/>EphemeralContainers=true|false (ALPHA - 默认值=false)
+<br/>ExpandCSIVolumes=true|false (BETA - 默认值=true)
+<br/>ExpandInUsePersistentVolumes=true|false (BETA - 默认值=true)
+<br/>ExpandPersistentVolumes=true|false (BETA - 默认值=true)
+<br/>ExperimentalHostUserNamespace默认值ing=true|false (BETA - 默认值=false)
+<br/>GenericEphemeralVolume=true|false (ALPHA - 默认值=false)
+<br/>HPAScaleToZero=true|false (ALPHA - 默认值=false)
+<br/>HugePageStorageMediumSize=true|false (BETA - 默认值=true)
+<br/>HyperVContainer=true|false (ALPHA - 默认值=false)
+<br/>IPv6DualStack=true|false (ALPHA - 默认值=false)
+<br/>ImmutableEphemeralVolumes=true|false (BETA - 默认值=true)
+<br/>KubeletPodResources=true|false (BETA - 默认值=true)
+<br/>LegacyNodeRoleBehavior=true|false (BETA - 默认值=true)
+<br/>LocalStorageCapacityIsolation=true|false (BETA - 默认值=true)
+<br/>LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - 默认值=false)
+<br/>NodeDisruptionExclusion=true|false (BETA - 默认值=true)
+<br/>NonPreemptingPriority=true|false (BETA - 默认值=true)
+<br/>PodDisruptionBudget=true|false (BETA - 默认值=true)
+<br/>PodOverhead=true|false (BETA - 默认值=true)
+<br/>ProcMountType=true|false (ALPHA - 默认值=false)
+<br/>QOSReserved=true|false (ALPHA - 默认值=false)
+<br/>RemainingItemCount=true|false (BETA - 默认值=true)
+<br/>RemoveSelfLink=true|false (ALPHA - 默认值=false)
+<br/>RotateKubeletServerCertificate=true|false (BETA - 默认值=true)
+<br/>RunAsGroup=true|false (BETA - 默认值=true)
+<br/>RuntimeClass=true|false (BETA - 默认值=true)
+<br/>SCTPSupport=true|false (BETA - 默认值=true)
+<br/>SelectorIndex=true|false (BETA - 默认值=true)
+<br/>ServerSideApply=true|false (BETA - 默认值=true)
+<br/>ServiceAccountIssuerDiscovery=true|false (ALPHA - 默认值=false)
+<br/>ServiceAppProtocol=true|false (BETA - 默认值=true)
+<br/>ServiceNodeExclusion=true|false (BETA - 默认值=true)
+<br/>ServiceTopology=true|false (ALPHA - 默认值=false)
+<br/>SetHostnameAsFQDN=true|false (ALPHA - 默认值=false)
+<br/>StartupProbe=true|false (BETA - 默认值=true)
+<br/>StorageVersionHash=true|false (BETA - 默认值=true)
+<br/>SupportNodePidsLimit=true|false (BETA - 默认值=true)
+<br/>SupportPodPidsLimit=true|false (BETA - 默认值=true)
+<br/>Sysctls=true|false (BETA - 默认值=true)
+<br/>TTLAfterFinished=true|false (ALPHA - 默认值=false)
+<br/>TokenRequest=true|false (BETA - 默认值=true)
+<br/>TokenRequestProjection=true|false (BETA - 默认值=true)
+<br/>TopologyManager=true|false (BETA - 默认值=true)
+<br/>ValidateProxyRedirects=true|false (BETA - 默认值=true)
+<br/>VolumeSnapshotDataSource=true|false (BETA - 默认值=true)
+<br/>WarningHeaders=true|false (BETA - 默认值=true)
+<br/>WinDSR=true|false (ALPHA - 默认值=false)
+<br/>WinOverlay=true|false (ALPHA - 默认值=false)
+<br/>WindowsEndpointSliceProxying=true|false (ALPHA - 默认值=false)
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!--
+--healthz-bind-address 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 0.0.0.0:10256
+-->
+--healthz-bind-address 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 0.0.0.0:10256
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+The IP address with port for the health check server to serve on 
+(set to '0.0.0.0:10256' for all IPv4 interfaces and '[::]:10256' for all IPv6 interfaces). 
+Set empty to disable.
+-->
+服务健康检查的 IP 地址和端口（对于所有 IPv4 接口设置为 '0.0.0.0:10256'，对于所有 IPv6 接口设置为 '[::]:10256'）
+设置为空则禁用。
 </td>
 </tr>
 
@@ -234,24 +434,7 @@ A set of key=value pairs that describe feature gates for alpha/experimental feat
 <!--
 The IP address for the health check server to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces)
 -->
-服务健康检查的 IP 地址和端口（对于所有 IPv4 接口设置为 0.0.0.0，对于所有 IPv6 接口设置为 ::）
-</td>
-</tr>
-
-<tr>
-<td colspan="2">
-<!--
---healthz-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10256
--->
---healthz-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 10256
-</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The port to bind the health check server. Use 0 to disable.
--->
-绑定健康检查服务的端口。使用 0 表示禁用。
+服务健康检查的 IP 地址和端口（设置为 0.0.0.0 表示使用所有 IPv4 接口，设置为 :: 表示使用所有 IPv6 接口）
 </td>
 </tr>
 
@@ -297,7 +480,12 @@ If using the pure iptables proxy, the bit of the fwmark space to mark packets re
 </tr>
 
 <tr>
-<td colspan="2">--iptables-min-sync-period duration</td>
+<td colspan="2">
+<!--
+--iptables-min-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1s 
+-->
+ --iptables-min-sync-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：1s 
+</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -387,6 +575,43 @@ Enable strict ARP by setting arp_ignore to 1 and arp_announce to 2
 The maximum interval of how often ipvs rules are refreshed (e.g. '5s', '1m', '2h22m').  Must be greater than 0.
 -->
 刷新 ipvs 规则的最大间隔（例如 '5s'、'1m'、'2h22m'）。必须大于 0。
+</td>
+</tr>
+
+
+<tr>
+<td colspan="2">--ipvs-tcp-timeout duration</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+The timeout for idle IPVS TCP connections, 0 to leave as-is. (e.g. '5s', '1m', '2h22m').
+-->
+空闲 IPVS TCP 连接的超时时间，0 保持连接（例如 '5s'、'1m'、'2h22m'）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--ipvs-tcpfin-timeout duration</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+The timeout for IPVS TCP connections after receiving a FIN packet, 0 to leave as-is. (e.g. '5s', '1m', '2h22m').
+-->
+收到 FIN 数据包后，IPVS TCP 连接的超时，0 保持连接不变（例如 '5s'、'1m'、'2h22m'）。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--ipvs-udp-timeout duration</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+The timeout for IPVS UDP packets, 0 to leave as-is. (e.g. '5s', '1m', '2h22m').
+-->
+IPVS UDP 数据包的超时，0 保持连接不动（例如 '5s'、'1m'、'2h22m'）。
 </td>
 </tr>
 
@@ -497,17 +722,21 @@ Kubernetes API 服务器的地址（覆盖 kubeconfig 中的任何值）
 <tr>
 <td colspan="2">
 <!--
---metrics-bind-address 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 127.0.0.1:10249
+--metrics-bind-address ipport 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 127.0.0.1:10249
 -->
---metrics-bind-address 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 127.0.0.1:10249
+--metrics-bind-address ipport 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 127.0.0.1:10249
 </td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The IP address for the metrics server to serve on (set to 0.0.0.0 for all IPv4 interfaces and `::` for all IPv6 interfaces)
+The IP address with port for the metrics server to serve on 
+(set to '0.0.0.0:10249' for all IPv4 interfaces and '[::]:10249' for all IPv6 interfaces). 
+Set empty to disable.
 -->
-metrics 服务器要使用的 IP 地址（所有 IPv4 接口设置为 0.0.0.0，所有 IPv6 接口设置为 `::`）
+metrics 服务器要使用的 IP 地址和端口
+（设置为 '0.0.0.0:10249' 则使用 IPv4 接口，设置为 '[::]:10249' 则使用所有 IPv6 接口）
+设置为空则禁用。
 </td>
 </tr>
 
@@ -590,6 +819,22 @@ Which proxy mode to use: 'userspace' (older) or 'iptables' (faster) or 'ipvs'. I
 Range of host ports (beginPort-endPort, single port or beginPort+offset, inclusive) that may be consumed in order to proxy service traffic. If (unspecified, 0, or 0-0) then ports will be randomly chosen.
 -->
 可以使用代理服务流量的主机端口（包括 beginPort-endPort、single port、beginPort+offset）的范围。如果（未指定，0 或 0-0）则随机选择端口。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--show-hidden-metrics-for-version string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+The previous version for which you want to show hidden metrics. Only the previous minor version is meaningful, other values will not be allowed. The format is &lt;major&gt;.&lt;minor&gt;, e.g.: '1.16'. The purpose of this format is make sure you have the opportunity to notice if the next release hides additional metrics, rather than being surprised when they are permanently removed in the release after that.
+-->
+你要显示隐藏指标的先前版本。 
+仅先前的次要版本有意义，不允许其他值。
+格式为 &lt;major&gt;.&lt;minor&gt; ，例如：'1.16'。 
+这种格式的目的是确保你有机会注意到下一个发行版是否隐藏了其他指标，
+而不是在之后将其永久删除时感到惊讶。
 </td>
 </tr>
 

@@ -12,7 +12,7 @@ weight: 40
 
 ## {{% heading "prerequisites" %}}
 
-[kubeadm 시작하기](/ko/docs/reference/setup-tools/kubeadm/kubeadm/)의 1, 2, 3 단계를 완료하자.
+[kubeadm 시작하기](/ko/docs/reference/setup-tools/kubeadm/)의 1, 2, 3 단계를 완료하자.
 
 <!-- steps -->
 

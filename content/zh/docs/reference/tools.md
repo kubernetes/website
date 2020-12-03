@@ -41,11 +41,11 @@ Kubernetes 包含一些内置工具，可以帮助用户更好的使用 Kubernet
 ## Minikube
 
 <!--
-[`minikube`](/docs/tasks/tools/install-minikube/) is a tool that makes it
+[`minikube`](https://minikube.sigs.k8s.io/docs/) is a tool that makes it
 easy to run a single-node Kubernetes cluster locally on your workstation for
 development and testing purposes.
 -->
-[`minikube`](/docs/tasks/tools/install-minikube/) 是一个可以方便用户在其工作站点本地部署一个单节点 Kubernetes 集群的工具，用于开发和测试。
+[`minikube`](https://minikube.sigs.k8s.io/docs/) 是一个可以方便用户在其工作站点本地部署一个单节点 Kubernetes 集群的工具，用于开发和测试。
 
 
 ## Dashboard
@@ -84,9 +84,9 @@ Use Helm to:
 ## Kompose
 
 <!--
-[`Kompose`](https://github.com/kubernetes-incubator/kompose) is a tool to help Docker Compose users move to Kubernetes.
+[`Kompose`](https://github.com/kubernetes/kompose) is a tool to help Docker Compose users move to Kubernetes.
 -->
-[`Kompose`](https://github.com/kubernetes-incubator/kompose) 一个转换工具，用来帮助 Docker Compose 用户迁移至 Kubernetes。
+[`Kompose`](https://github.com/kubernetes/kompose) 一个转换工具，用来帮助 Docker Compose 用户迁移至 Kubernetes。
 
 <!--
 Use Kompose to:
