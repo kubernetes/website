@@ -8,7 +8,7 @@ weight: 10
 
 {{< feature-state for_k8s_version="v1.15" state="stable" >}}
 
-[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)으로 생성된 클라이언트 인증서는 1년 후에 만료된다. 이 페이지는 kubeadm으로 인증서 갱신을 관리하는 방법을 설명한다.
+[kubeadm](/ko/docs/reference/setup-tools/kubeadm/)으로 생성된 클라이언트 인증서는 1년 후에 만료된다. 이 페이지는 kubeadm으로 인증서 갱신을 관리하는 방법을 설명한다.
 
 ## {{% heading "prerequisites" %}}
 

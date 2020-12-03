@@ -1,5 +1,5 @@
 ---
-title: 容器运行时接口 (CRI)
+title: 容器运行时接口（CRI）
 id: cri
 date: 2019-03-07
 full_link: /zh/docs/concepts/overview/components/#container-runtime
@@ -18,7 +18,7 @@ tags:
 title: Container runtime interface (CRI)
 id: cri
 date: 2019-03-07
-full_link: /zh/docs/concepts/overview/components/#container-runtime
+full_link: /docs/concepts/overview/components/#container-runtime
 short_description: >
     An API for container runtimes to integrate with kubelet
 

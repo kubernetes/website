@@ -71,6 +71,22 @@ body.td-404 main .error-details {
   max-width: 80%;
   border: 1px solid rgb(222, 226, 230);
   border-radius: 5px;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  // mermaid diagram - sequence diagram
+  .actor {
+    fill: #326ce5 !important;
+  }
+  text.actor {
+    font-size: 18px !important;
+    stroke: white !important;
+    fill: white !important;
+  }
+  .activation0 {
+    fill: #c9e9ec !important;
+  }
 }
 
 /* HEADER */

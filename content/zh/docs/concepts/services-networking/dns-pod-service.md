@@ -42,8 +42,7 @@ considered implementation details and are subject to change without warning.
 For more up-to-date specification, see
 [Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 -->
-
-## 怎样获取 DNS 名字?
+## 哪些对象会有 DNS 名字?     {#what-things-get-dns-names}
 
 在集群中定义的每个 Service（包括 DNS 服务器自身）都会被指派一个 DNS 名称。
 默认，一个客户端 Pod 的 DNS 搜索列表将包含该 Pod 自己的名字空间和集群默认域。
@@ -74,7 +73,6 @@ Services, this resolves to the set of IPs of the pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
 -->
-
 ### 服务  {#services}
 
 #### A/AAAA 记录
@@ -117,17 +115,35 @@ Kubernetes 会为命名端口创建 SRV 记录，这些端口是普通服务或
 <!--
 ### A/AAAA records
 
-Any pods created by a Deployment or DaemonSet have the following
-DNS resolution available:
+In general a pod has the following DNS resolution:
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example.`
+`pod-ip-address.my-namespace.pod.cluster-domain.example`.
+
+For example, if a pod in the `default` namespace has the IP address 172.17.0.3,
+and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
+
+`172-17-0-3.default.pod.cluster.local`.
+
+Any pods created by a Deployment or DaemonSet exposed by a Service have the
+following DNS resolution available:
+
+`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
 -->
 ### A/AAAA 记录
 
-经由 Deployment 或者 DaemonSet 所创建的所有 Pods 都会有如下 DNS
-解析项与之对应：
+一般而言，Pod 会对应如下 DNS 名字解析：
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example.`
+`pod-ip-address.my-namespace.pod.cluster-domain.example`
+
+例如，对于一个位于 `default` 名字空间，IP 地址为 172.17.0.3 的 Pod，
+如果集群的域名为 `cluster.local`，则 Pod 会对应 DNS 名称：
+
+`172-17-0-3.default.pod.cluster.local`.
+
+Deployment 或通过 Service 暴露出来的 DaemonSet 所创建的 Pod 会有如下 DNS
+解析名称可用：
+
+`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
 
 <!--
 ### Pod's hostname and subdomain fields
@@ -146,7 +162,6 @@ domain name (FQDN) "`foo.bar.my-namespace.svc.cluster-domain.example`".
 
 Example:
 -->
-
 ### Pod 的 hostname 和 subdomain 字段
 
 当前，创建 Pod 时其主机名取自 Pod 的 `metadata.name` 值。
@@ -255,6 +270,51 @@ record unless `publishNotReadyAddresses=True` is set on the Service.
 {{< /note >}}
 
 <!--
+### Pod's setHostnameAsFQDN field {#pod-sethostnameasfqdn-field}
+-->
+### Pod 的 setHostnameAsFQDN 字段  {#pod-sethostnameasfqdn-field}
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+<!--
+**Prerequisites**: The `SetHostnameAsFQDN` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+ The `SetHostnameAsFQDN` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled for the
+{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
+
+When a Pod is configured to have fully qualified domain name (FQDN), its hostname is the short hostname. For example, if you have a Pod with the fully qualified domain name `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`, then by default the `hostname` command inside that Pod returns `busybox-1` and  the `hostname -fqdn` command returns the FQDN.
+-->
+**前置条件**：`SetHostnameAsFQDN`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+必须在 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
+上启用。
+
+当你在 Pod 规约中设置了 `setHostnameAsFQDN: true` 时，kubelet 会将 Pod
+的全限定域名（FQDN）作为该 Pod 的主机名记录到 Pod 所在名字空间。
+在这种情况下，`hostname` 和 `hostname --fqdn` 都会返回 Pod 的全限定域名。
+
+{{< note >}}
+<!--
+In Linux, the hostname field of the kernel (the `nodename` field of `struct utsname`) is limited to 64 characters.
+
+If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start. The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating error events, such as Failed to construct FQDN from pod hostname and cluster domain, FQDN `long-FQDN` is too long (64 characters is the max, 70 characters requested). One way of improving user experience for this scenario is to create an [admission webhook controller](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) to control FQDN size when users create top level objects, for example, Deployment.
+-->
+在 Linux 中，内核的主机名字段（`struct utsname` 的 `nodename` 字段）限定
+最多 64 个字符。
+
+如果 Pod 启用这一特性，而其 FQDN 超出 64 字符，Pod 的启动会失败。
+Pod 会一直出于 `Pending` 状态（通过 `kubectl` 所看到的 `ContainerCreating`），
+并产生错误事件，例如 
+"Failed to construct FQDN from pod hostname and cluster domain, FQDN
+`long-FQDN` is too long (64 characters is the max, 70 characters requested)."
+（无法基于 Pod 主机名和集群域名构造 FQDN，FQDN `long-FQDN` 过长，至多 64
+字符，请求字符数为 70）。
+对于这种场景而言，改善用户体验的一种方式是创建一个
+[准入 Webhook 控制器](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)，
+在用户创建顶层对象（如 Deployment）的时候控制 FQDN 的长度。
+{{< /note >}}
+
+<!--
 ### Pod's DNS Policy
 
 DNS policies can be set on a per-pod basis. Currently Kubernetes supports the
@@ -278,10 +338,15 @@ following pod-specific DNS policies. These policies are specified in the
   `dnsConfig` field in the Pod Spec.
   See [Pod's DNS config](#pod-s-dns-config) subsection below.
 -->
+### Pod 的 DNS 策略    {#pod-s-dns-policy}
 
-- "`Default`": Pod 从运行所在的节点继承名称解析配置。
-  参考[相关讨论](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node) 获取更多信息。
-- "`ClusterFirst`": 与配置的集群域后缀不匹配的任何 DNS 查询（例如 “www.kubernetes.io”）
+DNS 策略可以逐个 Pod 来设定。目前 Kubernetes 支持以下特定 Pod 的 DNS 策略。
+这些策略可以在 Pod 规约中的 `dnsPolicy` 字段设置：
+
+- "`Default`": Pod 从运行所在的节点继承名称解析配置。参考
+  [相关讨论](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)
+  获取更多信息。
+- "`ClusterFirst`": 与配置的集群域后缀不匹配的任何 DNS 查询（例如 "www.kubernetes.io"）
   都将转发到从节点继承的上游名称服务器。集群管理员可能配置了额外的存根域和上游 DNS 服务器。
   参阅[相关讨论](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods)
   了解在这些场景中如何处理 DNS 查询的信息。
@@ -293,10 +358,10 @@ following pod-specific DNS policies. These policies are specified in the
 
 <!--
 "Default" is not the default DNS policy. If `dnsPolicy` is not
-explicitly specified, then “ClusterFirst” is used.
+explicitly specified, then "ClusterFirst" is used.
 -->
 {{< note >}}
-"`Default`" 不是默认的 DNS 策略。如果未明确指定 `dnsPolicy`，则使用 "`ClusterFirst`"。
+"Default" 不是默认的 DNS 策略。如果未明确指定 `dnsPolicy`，则使用 "ClusterFirst"。
 {{< /note >}}
 
 <!--

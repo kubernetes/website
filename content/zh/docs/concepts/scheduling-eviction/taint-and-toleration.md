@@ -45,11 +45,11 @@ For example,
 您可以使用命令 [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint) 给节点增加一个污点。比如，
 
 ```shell
-kubectl taint nodes node1 key=value:NoSchedule
+kubectl taint nodes node1 key1=value1:NoSchedule
 ```
 
 <!--
-places a taint on node `node1`. The taint has key `key`, value `value`, and taint effect `NoSchedule`.
+places a taint on node `node1`. The taint has key `key1`, value `value1`, and taint effect `NoSchedule`.
 This means that no pod will be able to schedule onto `node1` unless it has a matching toleration.
 
 ```shell
@@ -58,10 +58,10 @@ kubectl taint nodes node1 key:NoSchedule
 
 To remove the taint added by the command above, you can run:
 ```shell
-kubectl taint nodes node1 key:NoSchedule-
+kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
 -->
-给节点 `node1` 增加一个污点，它的键名是 `key`，键值是 `value`，效果是 `NoSchedule`。
+给节点 `node1` 增加一个污点，它的键名是 `key1`，键值是 `value1`，效果是 `NoSchedule`。
 这表示只有拥有和这个污点相匹配的容忍度的 Pod 才能够被分配到 `node1` 这个节点。
 
 若要移除上述命令所添加的污点，你可以执行：
@@ -81,15 +81,15 @@ to schedule onto `node1`:
 
 ```yaml
 tolerations:
-- key: "key"
+- key: "key1"
   operator: "Equal"
-  value: "value"
+  value: "value1"
   effect: "NoSchedule"
 ```
 
 ```yaml
 tolerations:
-- key: "key"
+- key: "key1"
   operator: "Exists"
   effect: "NoSchedule"
 ```
@@ -123,7 +123,7 @@ There are two special cases:
 An empty `key` with operator `Exists` matches all keys, values and effects which means this
 will tolerate everything.
 
-An empty `effect` matches all effects with key `key`.
+An empty `effect` matches all effects with key `key1`.
 -->
 {{< note >}}
 存在两种特殊情况：

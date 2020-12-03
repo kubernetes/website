@@ -39,7 +39,7 @@ Kubernetes 是一个组件众多、贡献者人数众多的大系统。
 Since Kubernetes is an API-driven system, the API has evolved over time to
 reflect the evolving understanding of the problem space. The Kubernetes API is
 actually a set of APIs, called "API groups", and each API group is
-independently versioned.  [API versions](/docs/reference/using-api/api-overview/#api-versioning) fall
+independently versioned.  [API versions](/docs/reference/using-api/#api-versioning) fall
 into 3 main tracks, each of which has different policies for deprecation:
 -->
 ## 弃用 API 的一部分  {#deprecating-parts-of-the-api}
@@ -47,7 +47,7 @@ into 3 main tracks, each of which has different policies for deprecation:
 由于 Kubernetes 是一个 API 驱动的系统，API 会随着时间推移而演化，以反映
 人们对问题共建的认识的变化。Kubernetes API 实际上是一个 API 集合，其中每个
 成员称作“API 组（API Group）”，并且每个 API 组都是独立管理版本的。
-[API 版本](/zh/docs/reference/using-api/api-overview/#api-versioning)会有
+[API 版本](/zh/docs/reference/using-api/#api-versioning)会有
 三类，每类有不同的废弃策略：
 
 <!--
@@ -431,7 +431,7 @@ exist and function in releases up to and including X+8.  Only in release X+9,
 when API v1 has aged out, does the Widget resource cease to exist, and the
 behavior get removed.
 -->
-### REST 资源（也即 API 对象）
+### REST 资源（也即 API 对象）  {#rest-resources-aka-api-objects}
 
 考虑一个假想的名为 Widget 的 REST 资源，在上述时间线中位于 API v1，
 而现在打算将其弃用。
@@ -450,12 +450,12 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
 2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug-application-cluster/audit/) recorded for the request.
 3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver` 
    process. The metric has labels for `group`, `version`, `resource`, `subresource` that can be joined
-   to the `apiserver_request_total` metric, and a `removed_version` label that indicates the 
+   to the `apiserver_request_total` metric, and a `removed_release` label that indicates the
    Kubernetes release in which the API will no longer be served. The following Prometheus query
    returns information about requests made to deprecated APIs which will be removed in v1.22:
-   
+
    ```promql
-   apiserver_requested_deprecated_apis{removed_version="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
+   apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
    ```
 -->
 从 Kubernetes v1.19 开始，当 API 请求被发送到一个已弃用的 REST API 末端时：
@@ -468,12 +468,12 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
    设置为 `1`。
    该度量值还附带 `group`、`version`、`resource` 和 `subresource` 标签
    （可供添加到度量值 `apiserver_request_total` 上），
-   和一个 `removed_version` 标签，标明该 API 将消失的 Kubernetes 发布版本。
+   和一个 `removed_release` 标签，标明该 API 将消失的 Kubernetes 发布版本。
    下面的 Prometheus 查询会返回对 v1.22 中将移除的、已弃用的 API
    的请求的信息：
    
    ```promql
-   apiserver_requested_deprecated_apis{removed_version="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
+   apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
    ```
 
 <!--

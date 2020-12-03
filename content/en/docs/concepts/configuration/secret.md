@@ -137,7 +137,7 @@ See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-a
 documentation for more information on how service accounts work.
 You can also check the `automountServiceAccountToken` field and the
 `serviceAccountName` field of the
-[`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+[`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 for information on referencing service account from Pods.
 
 ### Docker config Secrets
@@ -154,7 +154,7 @@ When using this Secret type, you have to ensure the Secret `data` field
 contains a `.dockercfg` key whose value is content of a `~/.dockercfg` file
 encoded in the base64 format.
 
-The `kubernetes/dockerconfigjson` type is designed for storing a serialized
+The `kubernetes.io/dockerconfigjson` type is designed for storing a serialized
 JSON that follows the same format rules as the `~/.docker/config.json` file
 which is a new format for `~/.dockercfg`.
 When using this Secret type, the `data` field of the Secret object must
@@ -248,7 +248,7 @@ configuration.
 
 The builtin type `kubernetes.io/ssh-auth` is provided for storing data used in
 SSH authentication. When using this Secret type, you will have to specify a
-`ssh-privatekey` key-value pair in the `data` (or `stringData`) field.
+`ssh-privatekey` key-value pair in the `data` (or `stringData`) field
 as the SSH credential to use.
 
 The following YAML is an example config for a SSH authentication Secret:
@@ -349,22 +349,21 @@ data:
   usage-bootstrap-signing: dHJ1ZQ==
 ```
 
-A bootstrap type has the following keys specified under `data`:
+A bootstrap type Secret has the following keys specified under `data`:
 
 - `token_id`: A random 6 character string as the token identifier. Required.
 - `token-secret`: A random 16 character string as the actual token secret. Required.
-- `description1`: A human-readable string that describes what the token is
+- `description`: A human-readable string that describes what the token is
   used for. Optional.
 - `expiration`: An absolute UTC time using RFC3339 specifying when the token
   should be expired. Optional.
 - `usage-bootstrap-<usage>`: A boolean flag indicating additional usage for
   the bootstrap token.
 - `auth-extra-groups`: A comma-separated list of group names that will be
-  authenticated as in addition to system:bootstrappers group.
+  authenticated as in addition to the `system:bootstrappers` group.
 
 The above YAML may look confusing because the values are all in base64 encoded
-strings. In fact, you can create an identical Secret using the following YAML
-which results in an identical Secret object:
+strings. In fact, you can create an identical Secret using the following YAML:
 
 ```yaml
 apiVersion: v1
