@@ -32,7 +32,7 @@ The cluster that `kubeadm init` and `kubeadm join` set up should be:
    - `kubeadm init`
    - `export KUBECONFIG=/etc/kubernetes/admin.conf`
    - `kubectl apply -f <network-of-choice.yaml>`
-   - `kubeadm join --token <token> <master-ip>:<master-port>`
+   - `kubeadm join --token <token> <endpoint>:<port>`
  - **Extendable**:
    - It should _not_ favor any particular network provider. Configuring the cluster network is out-of-scope
    - It should provide the possibility to use a config file for customizing various parameters
@@ -206,7 +206,7 @@ Please note that:
 
 1. All images will be pulled from k8s.gcr.io by default. See [using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images) for customizing the image repository
 2. In case of kubeadm is executed in the `--dry-run` mode, static Pods files are written in a temporary folder
-3. Static Pod manifest generation for master components can be invoked individually with the [`kubeadm init phase control-plane all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-control-plane) command
+3. Static Pod manifest generation for control plane components can be invoked individually with the [`kubeadm init phase control-plane all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-control-plane) command
 
 #### API server
 
@@ -344,7 +344,7 @@ state and make new decisions based on that data.
 Please note that:
 
 1. Before saving the ClusterConfiguration, sensitive information like the token is stripped from the configuration
-2. Upload of master configuration can be invoked individually with the [`kubeadm init phase upload-config`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-upload-config) command
+2. Upload of control plane node configuration can be invoked individually with the [`kubeadm init phase upload-config`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-upload-config) command
 
 ### Mark the node as control-plane
 
@@ -355,7 +355,7 @@ As soon as the control plane is available, kubeadm executes following actions:
 
 Please note that:
 
-1. Mark control-plane phase phase can be invoked individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-master) command
+1. Mark control-plane phase phase can be invoked individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane) command
 
 ### Configure TLS-Bootstrapping for node joining
 
@@ -415,7 +415,7 @@ Additionally it creates a Role and a RoleBinding granting access to the ConfigMa
 
 Please note that:
 
-1. The access to the `cluster-info` ConfigMap _is not_ rate-limited. This may or may not be a problem if you expose your master
+1. The access to the `cluster-info` ConfigMap _is not_ rate-limited. This may or may not be a problem if you expose your cluster's API server
 to the internet; worst-case scenario here is a DoS attack where an attacker uses all the in-flight requests the kube-apiserver
 can handle to serving the `cluster-info` ConfigMap.
 
@@ -430,8 +430,8 @@ Please note that:
 
 A ServiceAccount for `kube-proxy` is created in the `kube-system` namespace; then kube-proxy is deployed as a DaemonSet:
 
-- The credentials (`ca.crt` and `token`) to the master come from the ServiceAccount
-- The location of the master comes from a ConfigMap
+- The credentials (`ca.crt` and `token`) to the control plane come from the ServiceAccount
+- The location (URL) of the API server comes from a ConfigMap
 - The `kube-proxy` ServiceAccount is bound to the privileges in the `system:node-proxier` ClusterRole
 
 #### DNS

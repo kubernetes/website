@@ -70,18 +70,6 @@ A set of extra flags to pass to the Controller Manager or override default ones 
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path where kustomize patches for static pod manifests are stored.
--->
-用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
-</td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>

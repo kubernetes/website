@@ -1,5 +1,5 @@
 ---
-title: 资源配额
+title: 资源配额（Resource Quotas）
 id: resource-quota
 date: 2018-04-12
 full_link: /zh/docs/concepts/policy/resource-quotas/

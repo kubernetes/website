@@ -70,30 +70,6 @@ kubeadm 配置文件路径。
 </tr>
 
 <tr>
-<td colspan="2">--csr-dir string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path to output the CSRs and private keys to
--->
-输出 CSR 和私钥的路径
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--csr-only</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Create CSRs instead of generating certificates
--->
-创建 CSR 而不是生成证书
-</td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>

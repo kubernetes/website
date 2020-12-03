@@ -97,6 +97,14 @@ some_counter 0
 
 릴리스 `1.12` 에서 `1.13` 으로 업그레이드 중이지만, `1.12` 에서 사용 중단된 메트릭 `A` 를 사용하고 있다면, 커맨드 라인에서 `--show-hidden-metrics=1.12` 플래그로 히든 메트릭을 설정해야 하고, `1.14` 로 업그레이드하기 전에 이 메트릭을 사용하지 않도록 의존성을 제거하는 것을 기억해야 한다.
 
+## 액셀러레이터 메트릭 비활성화
+
+kubelet은 cAdvisor를 통해 액셀러레이터 메트릭을 수집한다. NVIDIA GPU와 같은 액셀러레이터의 경우, 이러한 메트릭을 수집하기 위해 kubelet은 드라이버에 열린 핸들을 가진다. 이는 인프라 변경(예: 드라이버 업데이트)을 수행하기 위해 클러스터 관리자가 kubelet 에이전트를 중지해야 함을 의미한다.
+
+액셀러레이터 메트릭을 수집하는 책임은 이제 kubelet이 아닌 공급 업체에 있다. 공급 업체는 메트릭을 수집하여 메트릭 서비스(예: 프로메테우스)에 노출할 컨테이너를 제공해야 한다.
+
+[`DisableAcceleratorUsageMetrics` 기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/#알파-또는-베타-기능을-위한-기능-게이트:~:text= DisableAcceleratorUsageMetrics,-false)는 [이 기능을 기본적으로 사용하도록 설정하는 타임라인](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria)를 사용하여 kubelet에서 수집한 메트릭을 비활성화한다.
+
 ## 컴포넌트 메트릭
 
 ### kube-controller-manager 메트릭

@@ -25,7 +25,7 @@ Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.i
 为了让 Ingress 资源工作，集群必须有一个正在运行的 Ingress 控制器。
 
 与作为 `kube-controller-manager` 可执行文件的一部分运行的其他类型的控制器不同，Ingress 控制器不是随集群自动启动的。
-基于此页面，您可选择最适合您的集群的 ingress 控制器实现。
+基于此页面，你可选择最适合你的集群的 ingress 控制器实现。
 
 Kubernetes 作为一个项目，目前支持和维护 [GCE](https://git.k8s.io/ingress-gce/README.md) 
 和 [nginx](https://git.k8s.io/ingress-nginx/README.md) 控制器。
@@ -42,7 +42,7 @@ Kubernetes 作为一个项目，目前支持和维护 [GCE](https://git.k8s.io/i
 * [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io) based ingress 
   controller with [community](https://www.getambassador.io/docs) or 
   [commercial](https://www.getambassador.io/pro/) support from [Datawire](https://www.datawire.io/).
-* [AppsCode Inc.](https://appscode.com) offers support and maintenance for the most widely used [HAProxy](http://www.haproxy.org/) based ingress controller [Voyager](https://appscode.com/products/voyager). 
+* [AppsCode Inc.](https://appscode.com) offers support and maintenance for the most widely used [HAProxy](https://www.haproxy.org/) based ingress controller [Voyager](https://appscode.com/products/voyager).
 * [AWS ALB Ingress Controller](https://github.com/kubernetes-sigs/aws-alb-ingress-controller) enables ingress using the [AWS Application Load Balancer](https://aws.amazon.com/elasticloadbalancing/).
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller
   provided and supported by VMware.
@@ -95,7 +95,8 @@ Kubernetes 作为一个项目，目前支持和维护 [GCE](https://git.k8s.io/i
 * [NGINX, Inc.](https://www.nginx.com/) offers support and maintenance for the
   [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller).
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP router and reverse proxy for service composition, including use cases like Kubernetes Ingress, designed as a library to build your custom proxy
-* [Traefik](https://github.com/containous/traefik) is a fully featured ingress controller
+
+* [Traefik](https://github.com/traefik/traefik) is a fully featured ingress controller
   ([Let's Encrypt](https://letsencrypt.org), secrets, http2, websocket), and it also comes with commercial
   support by [Containous](https://containo.us/services).
 -->
@@ -107,9 +108,9 @@ Kubernetes 作为一个项目，目前支持和维护 [GCE](https://git.k8s.io/i
   [用于 Kubernetes 的 NGINX Ingress 控制器](https://www.nginx.com/products/nginx/kubernetes-ingress-controller)
   提供支持和维护。
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP 路由器和反向代理，用于服务组合，包括诸如 Kubernetes Ingress 之类的用例，被设计为用于构建自定义代理的库。
-* [Traefik](https://github.com/containous/traefik) 是一个全功能的 ingress 控制器
+* [Traefik](https://github.com/traefik/traefik) 是一个全功能的 Ingress 控制器。
   （[Let's Encrypt](https://letsencrypt.org)，secrets，http2，websocket），
-  并且它也有来自 [Containous](https://containo.us/services) 的商业支持。
+  并且它也有来自 [Traefik Labs](https://traefik.io) 的商业支持。
 
 <!--
 ## Using multiple Ingress controllers
@@ -141,7 +142,7 @@ controllers operate slightly differently.
 Make sure you review your ingress controller's documentation to understand the caveats of choosing it.
 -->
 {{< note >}}
-确保您查看了 ingress 控制器的文档，以了解选择它的注意事项。
+确保你查看了 ingress 控制器的文档，以了解选择它的注意事项。
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
