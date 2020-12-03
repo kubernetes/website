@@ -366,7 +366,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-kubectlに関するより多くのサンプルは[カスタムカラムのリファレンス](/docs/reference/kubectl/overview/#custom-columns)を参照してください。
+kubectlに関するより多くのサンプルは[カスタムカラムのリファレンス](/ja/docs/reference/kubectl/overview/#custom-columns)を参照してください。
 
 ### Kubectlのログレベルとデバッグ
 kubectlのログレベルは、レベルを表す整数が後に続く`-v`または`--v`フラグで制御されます。一般的なKubernetesのログ記録規則と関連するログレベルについて、[こちら](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)で説明します。
