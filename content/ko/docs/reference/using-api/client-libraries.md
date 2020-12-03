@@ -10,7 +10,7 @@ weight: 30
 
 
 <!-- body -->
-[쿠버네티스 REST API](/ko/docs/reference/using-api/api-overview/)를 사용해 애플리케이션을 작성하기 위해
+[쿠버네티스 REST API](/ko/docs/reference/using-api/)를 사용해 애플리케이션을 작성하기 위해
 API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 사용하고 있는 프로그래밍 언어를 위한 클라이언트 라이브러리를 사용하면 된다.
 

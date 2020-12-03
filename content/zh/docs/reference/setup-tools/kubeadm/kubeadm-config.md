@@ -6,32 +6,39 @@ weight: 50
 
 <!-- overview -->
 <!--
-Beginning with v1.8.0, kubeadm uploads the configuration of your cluster to a ConfigMap called
-`kubeadm-config` in the `kube-system` namespace, and later reads the ConfigMap when upgrading.
-This enables correct configuration of system components, and provides a seamless user experience.
+During `kubeadm init`, kubeadm uploads the `ClusterConfiguration` object to your cluster
+in a ConfigMap called `kubeadm-config` in the `kube-system` namespace. This configuration is then read during
+`kubeadm join`, `kubeadm reset` and `kubeadm upgrade`. To view this ConfigMap call `kubeadm config view`.
 -->
-
-从 v1.8.0 开始，kubeadm 将集群的配置上传到名为 kube-system 的 ConfigMap 对象中，对象位于 kube-system 命名空间内。并在以后的升级中读取这个 ConfigMap 配置对象。
-这样可以保证系统组件的正确配置，提供无缝的用户体验。
+在 `kubeadm init` 执行期间，kubeadm 将 `ClusterConfiguration` 对象上传到你的集群的 `kube-system` 名字空间下
+名为 `kubeadm-config` 的 ConfigMap 对象中。
+然后在 `kubeadm join`、`kubeadm reset` 和 `kubeadm upgrade` 执行期间读取此配置。 
+要查看此 ConfigMap，请调用 `kubeadm config view`。
 
 <!--
-You can execute `kubeadm config view` to view the ConfigMap. If you initialized your cluster using
-kubeadm v1.7.x or lower, you must use `kubeadm config upload` to create the ConfigMap before you
-may use `kubeadm upgrade`.
+You can use `kubeadm config print` to print the default configuration and `kubeadm config migrate` to
+convert your old configuration files to a newer version. `kubeadm config images list` and
+`kubeadm config images pull` can be used to list and pull the images that kubeadm requires.
 -->
-
-您可以执行 kubeadm config view 来查看 ConfigMap。如果使用 kubeadm v1.7.x 或更低版本来初始化群集，必须先使用 kubeadm config upload 创建 ConfigMap，然后才能使用 kubeadm upgrade。
+你可以使用 `kubeadm config print` 命令打印默认配置，
+并使用 `kubeadm config migrate` 命令将旧版本的配置转化成新版本。
+`kubeadm config images list` 和 `kubeadm config images pull`
+命令可以用来列出并拉取 kubeadm 所需的镜像。
 
 <!--
-In Kubernetes v1.11.0, some new commands were added. You can use `kubeadm config print-default`
-to print the default configuration and `kubeadm config migrate` to convert your old configuration
-files to a newer version. `kubeadm config images list` and `kubeadm config images pull` can be used
-to list and pull the images that kubeadm requires.
--->
+For more information navigate to
+[Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
+or [Using kubeadm join with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file).
 
-在 Kubernetes v1.11.0 中，添加了一些新命令。你可以使用 kubeadm config print-default
-打印默认配置，可以用 kubeadm config migrate 来将旧的配置文件转换到较新的版本，还可以使用 kubeadm config images list 和 kubeadm config images pull
-列出并拉取 kubeadm 所需的镜像。
+In Kubernetes v1.13.0 and later to list/pull kube-dns images instead of the CoreDNS image
+the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
+has to be used.
+-->
+更多信息请浏览[使用带配置文件的 kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
+或[使用带配置文件的 kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file).
+
+在 Kubernetes v1.13.0 及更高版本中，要列出/拉取 kube-dns 镜像而不是 CoreDNS 镜像，
+必须使用[这里](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)所描述的 `--config` 方法。
 
 
 
@@ -65,6 +72,6 @@ to list and pull the images that kubeadm requires.
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 -->
 
-*  [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) 将 Kubernetes 集群升级到更新版本 [kubeadm upgrade]
+*  [kubeadm upgrade](/zh/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) 将 Kubernetes 集群升级到更新版本 [kubeadm upgrade]
 
 

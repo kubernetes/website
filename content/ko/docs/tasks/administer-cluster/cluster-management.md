@@ -69,7 +69,7 @@ Oracle은 당신이 고가용성의 관리형 쿠버네티스 컨트롤 플레�
 다른 제공자들과 도구들은 업그레이드를 다른 방식으로 관리한다. 이들의 업그레이드를 위해서는 이들의 주요 문서를 참조하기를 권장한다.
 
 * [kops](https://github.com/kubernetes/kops)
-* [kubespray](https://github.com/kubernetes-incubator/kubespray)
+* [kubespray](https://github.com/kubernetes-sigs/kubespray)
 * [CoreOS Tectonic](https://coreos.com/tectonic/docs/latest/admin/upgrade.html)
 * [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...

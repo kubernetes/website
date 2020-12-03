@@ -368,7 +368,7 @@ and an example `preferredDuringSchedulingIgnoredDuringExecution` anti-affinity w
 -->
 
 与节点亲和一样，当前有两种类型的 pod 亲和与反亲和，即 `requiredDuringSchedulingIgnoredDuringExecution` 和
-`preferredDuringSchedulingIgnoredDuringExecution`，分表表示“硬性”与“软性”要求。请参阅前面节点亲和部分中的描述。`requiredDuringSchedulingIgnoredDuringExecution` 亲和的一个示例是“将服务 A 和服务 B 的 pod 放置在同一区域，因为它们之间进行大量交流”，而 `preferredDuringSchedulingIgnoredDuringExecution` 反亲和的示例将是“将此服务的 pod 跨区域分布”（硬性要求是说不通的，因为你可能拥有的 pod 数多于区域数）。
+`preferredDuringSchedulingIgnoredDuringExecution`，分别表示“硬性”与“软性”要求。请参阅前面节点亲和部分中的描述。`requiredDuringSchedulingIgnoredDuringExecution` 亲和的一个示例是“将服务 A 和服务 B 的 pod 放置在同一区域，因为它们之间进行大量交流”，而 `preferredDuringSchedulingIgnoredDuringExecution` 反亲和的示例将是“将此服务的 pod 跨区域分布”（硬性要求是说不通的，因为你可能拥有的 pod 数多于区域数）。
 
 <!--
 Inter-pod affinity is specified as field `podAffinity` of field `affinity` in the PodSpec.

@@ -62,10 +62,19 @@ kubeadm upgrade node phase control-plane [flags]
 -->
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
+<td colspan="2">--experimental-patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
+-->
+包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
+例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
+默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
+"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
+</td>
 </tr>
 
 <!--

@@ -1,32 +1,52 @@
 ---
-title: 驱动插件
+title: 设备插件（Device Plugin）
 id: device-plugin
 date: 2019-02-02
 full_link: /zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
-  在 Kubernetes 中运行的容器提供对供应商特定资源的访问权限。
+  一种软件扩展，可以使 Pod 访问由特定厂商初始化或者安装的设备。
 aka:
 tags:
 - fundamental
 - extension
 ---
 
-<!-- ---
+<!-- 
+---
 title: Device Plugin
 id: device-plugin
 date: 2019-02-02
-full_link: /zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
+full_link: /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
-  Containers running in Kubernetes that provide access to a vendor specific resource.
+  Software extensions to let Pods access devices that need vendor-specific initialization or setup
 aka:
 tags:
 - fundamental
 - extension
---- -->
- <!-- Device Plugins are containers running in Kubernetes that provide access to a vendor specific resource. -->
-设备插件是在 Kubernetes 中运行的容器，可用于访问供应商特定资源。
-
+---
+-->
+<!-- 
+ Device plugins run on worker
+{{< glossary_tooltip term_id="node" text="Nodes">}} and provide
+{{< glossary_tooltip term_id="pod" text="Pods ">}} with access to resources,
+such as local hardware, that require vendor-specific initialization or setup
+steps.
+-->
+设备插件工作在节点主机上，给 {{< glossary_tooltip term_id="pod" text="Pods ">}} 提供访问资源的权限，比如特定厂商初始化或者安装的本地硬件。
 <!--more-->
 
-<!-- [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) are containers running in Kubernetes that provide access to a vendor-specific resource. Device Plugins advertise these resources to {{< glossary_tooltip term_id="kubelet" >}}. They can be deployed manually or as a {{< glossary_tooltip term_id="daemonset" >}}, rather than writing custom Kubernetes code. -->
-[驱动插件](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) 是运行在 Kubernetes 中的容器，它提供对供应商特定资源的访问。驱动插件将这些资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。并且可以手动部署或做为 {{< glossary_tooltip term_id="daemonset" >}}，而不用编写定制的 Kubernetes 代码。
+<!--
+Device plugins advertise resources to the
+{{< glossary_tooltip term_id="kubelet" text="kubelet" >}}, so that workload
+Pods can access hardware features that relate to the Node where that Pod is running.
+You can deploy a device plugin as a {{< glossary_tooltip term_id="daemonset" >}},
+or install the device plugin software directly on each target Node.
+-->
+设备插件将资源告知 {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} ，以便相关节点上运行的工作负载Pod可以访问硬件功能。
+<!-- 
+See
+	 
+[Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+for more information.
+-->
+更多信息请查阅[设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) 

@@ -18,40 +18,42 @@ The "init" command executes the following phases:
 "init" 命令执行以下阶段：
 
 ```
-preflight                  Run pre-flight checks
-kubelet-start              Write kubelet settings and (re)start the kubelet
-certs                      Certificate generation
-  /ca                        Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components
-  /apiserver                 Generate the certificate for serving the Kubernetes API
-  /apiserver-kubelet-client  Generate the certificate for the API server to connect to kubelet
-  /front-proxy-ca            Generate the self-signed CA to provision identities for front proxy
-  /front-proxy-client        Generate the certificate for the front proxy client
-  /etcd-ca                   Generate the self-signed CA to provision identities for etcd
-  /etcd-server               Generate the certificate for serving etcd
-  /etcd-peer                 Generate the certificate for etcd nodes to communicate with each other
-  /etcd-healthcheck-client   Generate the certificate for liveness probes to healthcheck etcd
-  /apiserver-etcd-client     Generate the certificate the apiserver uses to access etcd
-  /sa                        Generate a private key for signing service account tokens along with its public key
-kubeconfig                 Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
-  /admin                     Generate a kubeconfig file for the admin to use and for kubeadm itself
-  /kubelet                   Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
-  /controller-manager        Generate a kubeconfig file for the controller manager to use
-  /scheduler                 Generate a kubeconfig file for the scheduler to use
-control-plane              Generate all static Pod manifest files necessary to establish the control plane
-  /apiserver                 Generates the kube-apiserver static Pod manifest
-  /controller-manager        Generates the kube-controller-manager static Pod manifest
-  /scheduler                 Generates the kube-scheduler static Pod manifest
-etcd                       Generate static Pod manifest file for local etcd
-  /local                     Generate the static Pod manifest file for a local, single-node local etcd instance
-upload-config              Upload the kubeadm and kubelet configuration to a ConfigMap
-  /kubeadm                   Upload the kubeadm ClusterConfiguration to a ConfigMap
-  /kubelet                   Upload the kubelet component config to a ConfigMap
-upload-certs               Upload certificates to kubeadm-certs
-mark-control-plane         Mark a node as a control-plane
-bootstrap-token            Generates bootstrap tokens used to join a node to a cluster
-addon                      Install required addons for passing Conformance tests
-  /coredns                   Install the CoreDNS addon to a Kubernetes cluster
-  /kube-proxy                Install the kube-proxy addon to a Kubernetes cluster
+preflight                    Run pre-flight checks
+certs                        Certificate generation
+  /ca                          Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components
+  /apiserver                   Generate the certificate for serving the Kubernetes API
+  /apiserver-kubelet-client    Generate the certificate for the API server to connect to kubelet
+  /front-proxy-ca              Generate the self-signed CA to provision identities for front proxy
+  /front-proxy-client          Generate the certificate for the front proxy client
+  /etcd-ca                     Generate the self-signed CA to provision identities for etcd
+  /etcd-server                 Generate the certificate for serving etcd
+  /etcd-peer                   Generate the certificate for etcd nodes to communicate with each other
+  /etcd-healthcheck-client     Generate the certificate for liveness probes to healthcheck etcd
+  /apiserver-etcd-client       Generate the certificate the apiserver uses to access etcd
+  /sa                          Generate a private key for signing service account tokens along with its public key
+kubeconfig                   Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
+  /admin                       Generate a kubeconfig file for the admin to use and for kubeadm itself
+  /kubelet                     Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
+  /controller-manager          Generate a kubeconfig file for the controller manager to use
+  /scheduler                   Generate a kubeconfig file for the scheduler to use
+kubelet-start                Write kubelet settings and (re)start the kubelet
+control-plane                Generate all static Pod manifest files necessary to establish the control plane
+  /apiserver                   Generates the kube-apiserver static Pod manifest
+  /controller-manager          Generates the kube-controller-manager static Pod manifest
+  /scheduler                   Generates the kube-scheduler static Pod manifest
+etcd                         Generate static Pod manifest file for local etcd
+  /local                       Generate the static Pod manifest file for a local, single-node local etcd instance
+upload-config                Upload the kubeadm and kubelet configuration to a ConfigMap
+  /kubeadm                     Upload the kubeadm ClusterConfiguration to a ConfigMap
+  /kubelet                     Upload the kubelet component config to a ConfigMap
+upload-certs                 Upload certificates to kubeadm-certs
+mark-control-plane           Mark a node as a control-plane
+bootstrap-token              Generates bootstrap tokens used to join a node to a cluster
+kubelet-finalize             Updates settings relevant to the kubelet after TLS bootstrap
+  /experimental-cert-rotation  Enable kubelet client certificate rotation
+addon                        Install required addons for passing Conformance tests
+  /coredns                     Install the CoreDNS addon to a Kubernetes cluster
+  /kube-proxy                  Install the kube-proxy addon to a Kubernetes cluster
 ```
 
 ```
@@ -190,14 +192,18 @@ Don't apply any changes; just output what would be done.
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
+<td colspan="2">--experimental-patches string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path where kustomize patches for static pod manifests are stored.
+<!--  
+Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
+包含名为 "target[suffix][+patchtype].extension" 的文件的目录路径。
+例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
+默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
+"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
 </td>
 </tr>
 

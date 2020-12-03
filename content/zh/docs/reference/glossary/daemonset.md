@@ -18,7 +18,7 @@ tags:
 title: DaemonSet
 id: daemonset
 date: 2018-04-12
-full_link: /zh/docs/concepts/workloads/controllers/daemonset/
+full_link: /docs/concepts/workloads/controllers/daemonset
 short_description: >
   Ensures a copy of a Pod is running across a set of nodes in a cluster.
 

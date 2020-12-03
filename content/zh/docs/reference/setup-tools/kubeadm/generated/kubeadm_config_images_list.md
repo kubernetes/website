@@ -29,6 +29,37 @@ kubeadm config images list [flags]
 <tbody>
 
 <tr>
+<td colspan="2">
+<!-- --allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true -->
+--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!-- 
+If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
+-->
+如果设置为 true，则在模板中缺少字段或哈希表的键时忽略模板中的任何错误。
+仅适用于 golang 和 jsonpath 输出格式。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!-- -o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text" -->
+-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："text"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
+-->
+输出格式：text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file 其中之一
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
@@ -48,7 +79,10 @@ kubeadm 配置文件的路径。
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>IPv6DualStack=true|false (ALPHA - default=false)
 -->
-一组键值对（key=value），用于描述各种特征。选项有：<br/>Auditing=true|false (ALPHA - 默认值=false)<br/>CoreDNS=true|false (默认值=true)<br/>DynamicKubeletConfig=true|false (BETA - 默认值=false)
+一组键值对（key=value），用于描述各种特征。选项是：
+<br/>Auditing=true|false (ALPHA - 默认=false)
+<br/>CoreDNS=true|false (默认=true)
+<br/>DynamicKubeletConfig=true|false (BETA - 默认=false)
 </td>
 </tr>
 
@@ -61,6 +95,19 @@ A set of key=value pairs that describe feature gates for various features. Optio
 help for list
 -->
 list 操作的帮助命令
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!-- --image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io" -->
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!-- Choose a container registry to pull control plane images from -->
+选择要从中拉取控制平面镜像的容器仓库
 </td>
 </tr>
 

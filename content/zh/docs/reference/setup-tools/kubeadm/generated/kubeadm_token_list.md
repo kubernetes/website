@@ -28,6 +28,37 @@ kubeadm token list [flags]
 <tbody>
 
 <tr>
+<td colspan="2">
+<!-- --allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true -->
+--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!-- 
+If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
+-->
+如果设置为 true，则在模板中缺少字段或哈希表的键时忽略模板中的任何错误。
+仅适用于 golang 和 jsonpath 输出格式。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+<!-- -o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text" -->
+-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："text"
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--  
+Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.
+-->
+输出格式：text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file 其中之一
+</td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>

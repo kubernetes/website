@@ -1,5 +1,5 @@
 ---
-title: 应用
+title: 应用（Applications）
 id: applications
 date: 2019-05-12
 full_link:
@@ -24,4 +24,8 @@ tags:
 ---
 -->
 
+
+<!--
+ The layer where various containerized applications run.
+-->
  各种容器化应用运行所在的层。

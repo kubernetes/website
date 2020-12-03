@@ -31,7 +31,7 @@ weight: 60
 아직 단일 노드 클러스터를 가지고 있지 않다면, [Minikube](/ko/docs/setup/learning-environment/minikube/)를 
 사용하여 클러스터 하나를 생성할 수 있다.
 
-* [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)의 
+* [퍼시스턴트 볼륨](https://minikube.sigs.k8s.io/docs/)의 
 관련 자료에 익숙해지도록 한다.
 
 <!-- steps -->
