@@ -34,7 +34,7 @@ feature could change significantly in the future or be removed entirely.
 {{< warning >}}
 临时容器处于早期的 alpha 阶段，不适用于生产环境集群。
 应该预料到临时容器在某些情况下不起作用，例如在定位容器的命名空间时。
-根据 [Kubernetes 弃用政策](/docs/reference/using-api/deprecation-policy/)，
+根据 [Kubernetes 弃用政策](/zh/docs/reference/using-api/deprecation-policy/)，
 此 alpha 功能将来可能发生重大变化或被完全删除。
 {{< /warning >}}
 

@@ -516,6 +516,6 @@ arbitrary tolerations to DaemonSets.
 * Read about [pod priority](/docs/concepts/configuration/pod-priority-preemption/)
 -->
 * 阅读[资源耗尽的处理](/zh/docs/tasks/administer-cluster/out-of-resource/)，以及如何配置其行为
-* 阅读 [Pod 优先级](/docs/concepts/configuration/pod-priority-preemption/)
+* 阅读 [Pod 优先级](/zh/docs/concepts/configuration/pod-priority-preemption/)
 
 
