@@ -1,15 +1,24 @@
 ---
-title: 确保 PodDisruptionBudget 的前提下安全地清空一个节点
-content_type: task
----
-<!-- 
 reviewers:
 - davidopp
 - mml
 - foxish
 - kow3ns
-title: Safely Drain a Node while Respecting the PodDisruptionBudget
+title: 安全地清空一个节点
 content_type: task
+min-kubernetes-server-version: 1.5
+---
+<!--
+---
+reviewers:
+- davidopp
+- mml
+- foxish
+- kow3ns
+title: Safely Drain a Node
+content_type: task
+min-kubernetes-server-version: 1.5
+---
 -->
 
 <!-- overview -->
@@ -28,18 +37,34 @@ This task assumes that you have met the following prerequisites:
 * Either:
   1. You do not require your applications to be highly available during the
      node drain, or
-  1. You have read about the [PodDisruptionBudget concept](/docs/concepts/workloads/pods/disruptions/)
+  2. You have read about the [PodDisruptionBudget concept](/docs/concepts/workloads/pods/disruptions/)
      and [Configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) for
      applications that need them.
--->
-此任务假设您已经满足以下先决条件：
+     -->
+     此任务假设您已经满足以下先决条件：
 
 * 使用的 Kubernetes 版本 >= 1.5。
 * 以下两项，具备其一：
   1. 在节点清空期间，不要求应用程序具有高可用性
-  1. 你已经了解了 [PodDisruptionBudget 的概念](/zh/docs/concepts/workloads/pods/disruptions/)，并为需要它的应用程序[配置了 PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)。
+  2. 你已经了解了 [PodDisruptionBudget 的概念](/zh/docs/concepts/workloads/pods/disruptions/)，并为需要它的应用程序[配置了 PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)。
 
 <!-- steps -->
+
+<!--
+## (Optional) Configure a disruption budget {#configure-poddisruptionbudget}
+
+To endure that your workloads remain available during maintenance, you can
+configure a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/).
+
+If availability is important for any applications that run or could run on the node(s)
+that you are draining, [configure a PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
+first and the continue following this guide.
+-->
+## （可选） 配置中断预算 {#configure-poddisruptionbudget}
+
+为了确保您的工作在维护期间仍然可用，您可以配置一个 [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/)。
+
+如果可用性对于正在清空的该节点上运行或可能在该节点上运行的任何应用程序很重要，首先 [配置一个 PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) 并继续遵循本指南。
 
 <!-- 
 ## Use `kubectl drain` to remove a node from service
@@ -207,8 +232,8 @@ The API can respond in one of three ways:
   future versions.
 - If there is some kind of misconfiguration, like multiple budgets pointing at
   the same pod, you will get `500 Internal Server Error`.
--->
-API可以通过以下三种方式之一进行响应：
+  -->
+  API可以通过以下三种方式之一进行响应：
 
 - 如果驱逐被授权，那么 Pod 将被删掉，并且你会收到 `200 OK`，
   就像你向 Pod 的 URL 发送了 `DELETE` 请求一样。
@@ -224,9 +249,9 @@ For a given eviction request, there are two cases:
 - There is no budget that matches this pod. In this case, the server always
   returns `200 OK`.
 - There is at least one budget. In this case, any of the three above responses may
- apply.
--->
-对于一个给定的驱逐请求，有两种情况：
+   apply.
+   -->
+   对于一个给定的驱逐请求，有两种情况：
 
 - 没有匹配这个 Pod 的预算。这种情况，服务器总是返回 `200 OK`。
 - 至少匹配一个预算。在这种情况下，上述三种回答中的任何一种都可能适用。
@@ -270,8 +295,7 @@ Kubernetes 并没有具体说明在这种情况下应该采取什么行为，
 <!-- 
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
 * Learn more about [maintenance on a node](/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node).
--->
+  -->
 * 跟随以下步骤保护应用程序：[配置 Pod 中断预算](/zh/docs/tasks/run-application/configure-pdb/)。
 * 进一步了解[节点维护](/zh/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node)。
-
 
