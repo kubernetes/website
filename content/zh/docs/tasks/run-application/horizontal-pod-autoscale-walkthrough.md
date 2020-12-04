@@ -33,7 +33,7 @@ For more information on how Horizontal Pod Autoscaler behaves, see the
 -->
 本文将引领你了解如何为 php-apache 服务器配置和使用 Horizontal Pod Autoscaler。
 与 Horizontal Pod Autoscaler 相关的更多信息请参阅
-[Horizontal Pod Autoscaler 用户指南](/zh/docs/tasks/run-application/horizontal-pod-autoscale/)。
+[Horizontal Pod Autoscaler 用户指南](/docs/tasks/run-application/horizontal-pod-autoscale/)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -68,7 +68,7 @@ See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horiz
 最后，如果要使用与 Kubernetes 对象无关的度量指标，则 Kubernetes 集群版本至少需要
 达到 1.10 版本，同样，需要保证集群能够与提供这些外部指标的 API 服务器通信。
 更多详细信息，请参阅
-[Horizontal Pod Autoscaler 用户指南](/zh/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)。
+[Horizontal Pod Autoscaler 用户指南](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)。
 
 <!-- steps -->
 
@@ -95,7 +95,7 @@ It defines an index.php page which performs some CPU intensive computations:
 -->
 该文件定义了一个 index.php 页面来执行一些 CPU 密集型计算：
 
-```
+```php
 <?php
   $x = 0.0001;
   for ($i = 0; $i <= 1000000; $i++) {
@@ -149,7 +149,7 @@ Deployment，使 Pod 的副本数量维持在 1 到 10 之间。
 大致来说，HPA 将（通过 Deployment）增加或者减少 Pod 副本的数量以保持所有 Pod
 的平均 CPU 利用率在 50% 左右（由于每个 Pod 请求 200 毫核的 CPU，这意味着平均
 CPU 用量为 100 毫核）。
-算法的详情请参阅[相关文档](/zh/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
+算法的详情请参阅[相关文档](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
 
 ```shell
 kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
