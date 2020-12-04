@@ -5,6 +5,7 @@ card:
   name: tasks
   weight: 40
 ---
+
 <!--
 title: Configure Access to Multiple Clusters
 content_type: task
@@ -46,7 +47,7 @@ cluster's API server.
 要检查 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 是否安装，
 执行 `kubectl version --client` 命令。
 kubectl 的版本应该与集群的 API 服务器
-[使用同一次版本号](/docs/setup/release/version-skew-policy/#kubectl)。
+[使用同一次版本号](/zh/docs/setup/release/version-skew-policy/#kubectl)。
 
 <!-- steps -->
 <!--
@@ -67,7 +68,9 @@ Create a directory named `config-exercise`. In your
 假设用户有两个集群，一个用于正式开发工作，一个用于其它临时用途（scratch）。
 在 `development` 集群中，前端开发者在名为 `frontend` 的名字空间下工作，
 存储开发者在名为 `storage` 的名字空间下工作。 在 `scratch` 集群中，
-开发人员可能在默认名字空间下工作，也可能视情况创建附加的名字空间。 访问开发集群需要通过证书进行认证。 访问其它临时用途的集群需要通过用户名和密码进行认证。
+开发人员可能在默认名字空间下工作，也可能视情况创建附加的名字空间。 
+访问开发集群需要通过证书进行认证。
+访问其它临时用途的集群需要通过用户名和密码进行认证。
 
 创建名为 `config-exercise` 的目录。 在
 `config-exercise` 目录中，创建名为 `config-demo` 的文件，其内容为：
@@ -103,10 +106,10 @@ has the framework to describe two clusters, two users, and three contexts.
 Go to your `config-exercise` directory. Enter these commands to add cluster details to
 your configuration file:
 -->
+配置文件描述了集群、用户名和上下文。`config-demo` 文件中含有描述两个集群、
+两个用户和三个上下文的框架。
 
-配置文件描述了集群、用户名和上下文。  `config-demo` 文件中含有描述两个集群、两个用户和三个上下文的框架。
-
-进入 `config-exercise` 目录。 输入以下命令，将群集详细信息添加到配置文件中：
+进入 `config-exercise` 目录。输入以下命令，将群集详细信息添加到配置文件中：
 
 ```shell
 kubectl config --kubeconfig=config-demo set-cluster development --server=https://1.2.3.4 --certificate-authority=fake-ca-file
@@ -149,7 +152,8 @@ kubectl config --kubeconfig=config-demo set-context exp-scratch --cluster=scratc
 Open your `config-demo` file to see the added details. As an alternative to opening the
 `config-demo` file, you can use the `config view` command.
 -->
-打开 `config-demo` 文件查看添加的详细信息。 也可以使用 `config view` 命令进行查看：
+打开 `config-demo` 文件查看添加的详细信息。 也可以使用 `config view`
+命令进行查看：
 
 ```shell
 kubectl config --kubeconfig=config-demo view
@@ -369,7 +373,8 @@ For example:
 -->
 ## 设置 KUBECONFIG 环境变量
 
-查看是否有名为 `KUBECONFIG` 的环境变量。 如有，保存 `KUBECONFIG` 环境变量当前的值，以便稍后恢复。
+查看是否有名为 `KUBECONFIG` 的环境变量。
+如有，保存 `KUBECONFIG` 环境变量当前的值，以便稍后恢复。
 例如：
 
 ### Linux
@@ -522,11 +527,13 @@ Return your `KUBECONFIG` environment variable to its original value. For example
 将 `KUBECONFIG` 环境变量还原为原始值。 例如：
 
 ### Linux
+
 ```shell
 export KUBECONFIG=$KUBECONFIG_SAVED
 ```
 
 ### Windows PowerShell
+
 ```shell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
