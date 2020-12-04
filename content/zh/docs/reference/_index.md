@@ -70,7 +70,8 @@ client libraries:
 ## CLI 参考
 
 * [kubectl](/zh/docs/reference/kubectl/overview/) - 主要的 CLI 工具，用于运行命令和管理 Kubernetes 集群。
-    * [JSONPath](/zh/docs/reference/kubectl/jsonpath/) - 通过 kubectl 使用 [JSONPath 表达式](http://goessner.net/articles/JsonPath/) 的语法指南。
+    * [JSONPath](/zh/docs/reference/kubectl/jsonpath/) - 通过 kubectl 使用
+      [JSONPath 表达式](https://goessner.net/articles/JsonPath/) 的语法指南。
 * [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) - 此 CLI 工具可轻松配置安全的 Kubernetes 集群。
 
 <!--
@@ -100,5 +101,8 @@ An archive of the design docs for Kubernetes functionality. Good starting points
 -->
 ## 设计文档
 
-Kubernetes 功能的设计文档归档，不妨考虑从 [Kubernetes 架构](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) 和 [Kubernetes 设计概述](https://git.k8s.io/community/contributors/design-proposals)开始阅读。
+Kubernetes 功能的设计文档归档，不妨考虑从
+[Kubernetes 架构](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) 和
+[Kubernetes 设计概述](https://git.k8s.io/community/contributors/design-proposals)
+开始阅读。
 

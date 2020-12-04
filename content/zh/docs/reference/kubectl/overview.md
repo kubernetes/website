@@ -9,7 +9,6 @@ card:
   weight: 20
 ---
 <!--
----
 reviewers:
 - bgrant0607
 - hw-qiaolei
@@ -19,7 +18,6 @@ weight: 20
 card:
   name: reference
   weight: 20
----
 -->
 
 <!-- overview -->
@@ -33,7 +31,8 @@ files by setting the KUBECONFIG environment variable or by setting the
 -->
 你可以使用 Kubectl 命令行工具管理 Kubernetes 集群。
 `kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
-你可以通过设置 KUBECONFIG 环境变量或设置 [`--kubeconfig`](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+你可以通过设置 KUBECONFIG 环境变量或设置
+[`--kubeconfig`](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 参数来指定其它 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
 
 <!--
@@ -47,14 +46,11 @@ For installation instructions see [installing kubectl](/docs/tasks/tools/install
 请参阅 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 参考文档。
 有关安装说明，请参见[安装 kubectl](/zh/docs/tasks/tools/install-kubectl/) 。
 
-
-
 <!-- body -->
 
 <!--
 ## Syntax
 -->
-
 ## 语法
 
 <!--
@@ -76,16 +72,16 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 -->
-
 * `command`：指定要对一个或多个资源执行的操作，例如 `create`、`get`、`describe`、`delete`。
 
-* `TYPE`：指定[资源类型](#resource-types)。资源类型不区分大小写，可以指定单数、复数或缩写形式。例如，以下命令输出相同的结果:
+* `TYPE`：指定[资源类型](#resource-types)。资源类型不区分大小写，
+  可以指定单数、复数或缩写形式。例如，以下命令输出相同的结果:
 
-      ```shell
-      kubectl get pod pod1
-      kubectl get pods pod1
-      kubectl get po pod1
-      ```
+  ```shell
+  kubectl get pod pod1
+  kubectl get pods pod1
+  kubectl get po pod1
+  ```
 
 <!--
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `kubectl get pods`.
@@ -93,11 +89,12 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
 -->
 
-* `NAME`：指定资源的名称。名称区分大小写。如果省略名称，则显示所有资源的详细信息 `kubectl get pods`。
+* `NAME`：指定资源的名称。名称区分大小写。
+  如果省略名称，则显示所有资源的详细信息 `kubectl get pods`。
 
   在对多个资源执行操作时，你可以按类型和名称指定每个资源，或指定一个或多个文件：
 
-<!--
+  <!--
    * To specify resources by type and name:
 
       * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
@@ -108,29 +105,33 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
    * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
 
-      * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
+      * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips)
+        since YAML tends to be more user-friendly, especially for configuration files.<br/>
      Example: `kubectl get -f ./pod.yaml`
+  -->
+  * 要按类型和名称指定资源：
 
-* `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
+      * 要对所有类型相同的资源进行分组，请执行以下操作：`TYPE1 name1 name2 name<#>`。
+
+        例子：`kubectl get pod example-pod1 example-pod2`
+
+      * 分别指定多个资源类型：`TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`。
+
+        例子：`kubectl get pod/example-pod1 replicationcontroller/example-rc1`
+
+  * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
+
+    * [使用 YAML 而不是 JSON](/zh/docs/concepts/configuration/overview/#general-configuration-tips)
+      因为 YAML 更容易使用，特别是用于配置文件时。
+      例子：`kubectl get -f ./pod.yaml`
+
+<!--
+* `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.
 -->
-
-   * 要按类型和名称指定资源：
-
-      * 要对所有类型相同的资源进行分组，请执行以下操作：`TYPE1 name1 name2 name<#>`。<br/>
-      例子：`kubectl get pod example-pod1 example-pod2`
-
-      * 分别指定多个资源类型：`TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`。<br/>
-      例子：`kubectl get pod/example-pod1 replicationcontroller/example-rc1`
-
-   * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
-
-      * [使用 YAML 而不是 JSON](/docs/concepts/configuration/overview/#general-configuration-tips) 因为 YAML 更容易使用，特别是用于配置文件时。<br/>
-     例子：`kubectl get -f ./pod.yaml`
-
-* `flags`: 指定可选的参数。例如，可以使用 `-s` 或 `-server` 参数指定 Kubernetes API 服务器的地址和端口。<br/>
+* `flags`: 指定可选的参数。例如，可以使用 `-s` 或 `-server` 参数指定
+  Kubernetes API 服务器的地址和端口。
 
 {{< caution >}}
-
 <!--
 Flags that you specify from the command line override default values and any corresponding environment variables.
 -->
@@ -145,7 +146,6 @@ If you need help, just run `kubectl help` from the terminal window.
 <!--
 ## Operations
 -->
-
 ## 操作
 
 <!--

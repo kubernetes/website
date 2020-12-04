@@ -16,7 +16,7 @@ and progress on the feature is being tracked as [feature #43](https://github.com
 
 ## kube-apiserver configuration
 
-The API server should be configured with an [authenticator](/docs/admin/authentication/) that can authenticate tokens as a user in the `system:bootstrappers` group.
+The API server should be configured with an [authenticator](/zh/docs/reference/access-authn-authz/authentication/) that can authenticate tokens as a user in the `system:bootstrappers` group.
 
 This group will later be used in the controller-manager configuration to scope approvals in the default approval
 controller. As this feature matures, you should ensure tokens are bound to a Role-Based Access Control (RBAC) policy which limits requests

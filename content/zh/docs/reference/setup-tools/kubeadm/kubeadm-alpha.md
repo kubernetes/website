@@ -4,7 +4,7 @@ content_type: concept
 weight: 90
 ---
 <!--
----
+
 reviewers:
 - mikedanese
 - luxas
@@ -12,7 +12,6 @@ reviewers:
 title: kubeadm alpha
 content_type: concept
 weight: 90
----
 -->
 
 {{< caution >}}
@@ -20,7 +19,8 @@ weight: 90
 `kubeadm alpha` provides a preview of a set of features made available for gathering feedback
  from the community. Please try it out and give us feedback!
  -->
- `kubeadm alpha` 提供了一组可用于收集社区反馈的功能的预览。请尝试一下这些功能并给我们反馈！
+`kubeadm alpha` 提供了一组可用于收集社区反馈的功能的预览。
+请尝试一下这些功能并给我们反馈！
 {{< /caution >}}
 
 ## kubeadm alpha certs {#cmd-certs}
@@ -31,7 +31,6 @@ Kubernetes 证书的操作集合。
 {{< tabs name="tab-certs" >}}
 {{< tab name="overview" include="generated/kubeadm_alpha_certs.md" />}}
 {{< /tabs >}}
-
 
 ## kubeadm alpha certs renew {#cmd-certs-renew}
 
@@ -92,7 +91,8 @@ This command checks expiration for the certificates in the local PKI managed by 
 For more details about certificate expiration and renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
 -->
 此命令检查 kubeadm 管理的本地 PKI 中证书的到期时间。
-有关证书到期和续订的更多详细信息，请参见[证书管理文档](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
+有关证书到期和续订的更多详细信息，请参见
+[证书管理文档](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
 
 {{< tabs name="tab-certs-check-expiration" >}}
 {{< tab name="check-expiration" include="generated/kubeadm_alpha_certs_check-expiration.md" />}}
@@ -128,7 +128,9 @@ Use the following command to enable the DynamicKubeletConfiguration feature.
 <!--
 The subcommand `pivot` can be used to convert a static Pod-hosted control plane into a self-hosted one.
 -->
-子命令 `pivot` 可用于将 Pod 托管的静态控制平面转换为自托管的控制平面。有关 `pivot` 更多信息，请参见[文档](zh/docs/setup/production-environment/tools/kubeadm/self-hosting/)。
+子命令 `pivot` 可用于将 Pod 托管的静态控制平面转换为自托管的控制平面。
+有关 `pivot` 更多信息，请参见
+[文档](/zh/docs/setup/production-environment/tools/kubeadm/self-hosting/)。
 
 <!--
 [Documentation](/docs/setup/production-environment/tools/kubeadm/self-hosting/)
