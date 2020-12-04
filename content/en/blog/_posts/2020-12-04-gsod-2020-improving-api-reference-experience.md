@@ -80,4 +80,4 @@ When the work is integrated, the API reference will be available at https://kube
 
 # Appreciation
 
-I would like to thank my mentor [Zach Corleissen](https://github.com/zacharysarah) and the lead writers [Karen Bradshaw](https://github.com/kbhawkey), [Tim Bannister](https://github.com/sftim) and [Qiming Teng](https://github.com/tengqm) who supervised me during all the season. They all have been very encouraging and gave me tons of great advice.
+I would like to thank my mentor [Zach Corleissen](https://github.com/zacharysarah) and the lead writers [Karen Bradshaw](https://github.com/kbhawkey), [Celeste Horgan](https://github.com/celestehorgan), [Tim Bannister](https://github.com/sftim) and [Qiming Teng](https://github.com/tengqm) who supervised me during all the season. They all have been very encouraging and gave me tons of great advice.
