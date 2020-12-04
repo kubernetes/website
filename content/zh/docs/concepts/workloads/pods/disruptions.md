@@ -118,7 +118,7 @@ deleting deployments or pods bypasses Pod Disruption Budgets.
 -->
 {{< caution >}}
 并非所有的自愿干扰都会受到 Pod 干扰预算的限制。
-例如，删除 Peployment 或 Pod 的删除操作就会跳过 Pod 干扰预算检查。
+例如，删除 Deployment 或 Pod 的删除操作就会跳过 Pod 干扰预算检查。
 {{< /caution >}}
 
 <!--
