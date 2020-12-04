@@ -6,15 +6,11 @@ content_type: concept
 ---
 
 <!--
----
 reviewers:
 - janetkuo
 title: Tools
 content_type: concept
----
 -->
-
-
 
 <!--
 Kubernetes contains several built-in tools to help you work with the Kubernetes system.
@@ -22,21 +18,23 @@ Kubernetes contains several built-in tools to help you work with the Kubernetes 
 <!-- overview -->
 Kubernetes 包含一些内置工具，可以帮助用户更好的使用 Kubernetes 系统。
 
-
 <!-- body -->
 ## Kubectl
 
 <!--
 [`kubectl`](/docs/tasks/tools/install-kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
 -->
-[`kubectl`](/docs/tasks/tools/install-kubectl/) 是 Kubernetes 命令行工具，可以用来操控 Kubernetes 集群。
+[`kubectl`](/zh/docs/tasks/tools/install-kubectl/) 是 Kubernetes 命令行工具，
+可以用来操控 Kubernetes 集群。
 
 ## Kubeadm
 
 <!--
 [`kubeadm`](/docs/tasks/tools/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
 -->
-[`kubeadm`](/docs/tasks/tools/install-kubeadm/) 是一个命令行工具，可以用来在物理机、云服务器或虚拟机（目前处于 alpha 阶段）上轻松部署一个安全可靠的 Kubernetes 集群。
+[`kubeadm`](/zh/docs/tasks/tools/install-kubeadm/) 是一个命令行工具，
+可以用来在物理机、云服务器或虚拟机（目前处于 alpha 阶段）
+上轻松部署一个安全可靠的 Kubernetes 集群。
 
 ## Minikube
 
@@ -45,8 +43,8 @@ Kubernetes 包含一些内置工具，可以帮助用户更好的使用 Kubernet
 easy to run a single-node Kubernetes cluster locally on your workstation for
 development and testing purposes.
 -->
-[`minikube`](https://minikube.sigs.k8s.io/docs/) 是一个可以方便用户在其工作站点本地部署一个单节点 Kubernetes 集群的工具，用于开发和测试。
-
+[`minikube`](https://minikube.sigs.k8s.io/docs/) 是一个可以方便用户
+在其工作站点本地部署一个单节点 Kubernetes 集群的工具，用于开发和测试。
 
 ## Dashboard
 
@@ -54,7 +52,9 @@ development and testing purposes.
 [`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
 to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself.
 -->
-[`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), 是 Kubernetes 基于 Web 的用户管理界面，允许用户部署容器化应用到 Kubernetes 集群，进行故障排查以及管理集群和集群资源。
+[`Dashboard`](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/) 
+是 Kubernetes 基于 Web 的用户管理界面，允许用户部署容器化应用到 Kubernetes
+集群，进行故障排查以及管理集群和集群资源。
 
 ## Helm
 
@@ -62,7 +62,9 @@ to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resou
 [`Kubernetes Helm`](https://github.com/kubernetes/helm) is a tool for managing packages of pre-configured
 Kubernetes resources, aka Kubernetes charts.
 -->
-[`Kubernetes Helm`](https://github.com/kubernetes/helm) 是一个管理预先配置 Kubernetes 资源包的工具，这里的资源在 Helm 中也被称作 Kubernetes charts。
+[`Kubernetes Helm`](https://github.com/kubernetes/helm) 是一个管理
+预先配置完毕的 Kubernetes 资源包的工具，这里的资源在 Helm 中也被称作
+Kubernetes charts。
 
 <!--
 Use Helm to:
@@ -86,7 +88,8 @@ Use Helm to:
 <!--
 [`Kompose`](https://github.com/kubernetes/kompose) is a tool to help Docker Compose users move to Kubernetes.
 -->
-[`Kompose`](https://github.com/kubernetes/kompose) 一个转换工具，用来帮助 Docker Compose 用户迁移至 Kubernetes。
+[`Kompose`](https://github.com/kubernetes/kompose) 一个转换工具，
+用来帮助 Docker Compose 用户迁移至 Kubernetes。
 
 <!--
 Use Kompose to:
@@ -99,5 +102,6 @@ Use Kompose to:
 
 * 将一个 Docker Compose 文件解释成 Kubernetes 对象
 * 将本地 Docker 开发 转变成通过 Kubernetes 来管理
-* 转换 v1 或 v2 Docker Compose `yaml` 文件 或 [分布式应用程序包](https://docs.docker.com/compose/bundles/)
+* 转换 v1 或 v2 Docker Compose `yaml` 文件 或
+  [已发布的应用程序包](https://docs.docker.com/compose/bundles/)
 
