@@ -7,9 +7,9 @@ slug: gsod-2020-improving-api-reference-experience
 
 **Author**: [Philippe Martin](https://github.com/feloy)
 
-# Introduction
+## Introduction
 
-[Google Season of Docs](https://developers.google.com/season-of-docs) brings open source organizations and technical writers together, to spend three months working closely during the autumn on a specific documentation project.
+[Google Season of Docs](https://developers.google.com/season-of-docs) brings open source organizations and technical writers together, to spend three months working closely on a specific documentation project.
 
 I was selected by the CNCF organization to work on the Kubernetes documentation, specifically on the subject of making the API Reference documentation more accessible.
 
@@ -17,7 +17,7 @@ I'm a software developer, with a great interest in documentation systems. At the
 
 Shortly after, the DocBook language was adopted to write the Linux Documentation. I helped some writers rewrite their documents in this format, for example the Advanced Bash-Scripting Guide. I also worked on the GNU `makeinfo` program to add the DocBook output, making possible to transform *GNU Info* documentation into Docbook. 
 
-# Background
+## Background
 
 The [Kubernetes documentation website](https://kubernetes.io/docs/home/) is built with Hugo from documentation written in Markdown format in the [website repository](https://github.com/kubernetes/website), using the [Docsy Hugo theme](https://www.docsy.dev/about/).
 
@@ -35,9 +35,9 @@ I decided later to add another output to this generator, to generate Markdown fi
 
 When the CNCF proposed a project for the Google Season of Docs to work on the API Reference, I applied, and the match occurred.
 
-# The Project
+## The Project
 
-## swagger-ui
+### swagger-ui
 
 The first idea of the CNCF members that proposed this project was to test the [`swagger-ui` tool](https://swagger.io/tools/swagger-ui/), to try and document the Kubernetes API Reference with this standard tool. 
 
@@ -49,7 +49,7 @@ The Kubernetes API is most of the time used differently: users create manifest f
 
 Because of this specificity, we realized that it would be difficult to adapt the `swagger-ui` interface to satisfy the users of the Kubernetes API and this direction has been abandoned.
 
-## Markdown pages
+### Markdown pages
 
 The second stage of the project has been to adapt the work I had done to create the k8sref.io website, to include it in the official documentation website.
 
@@ -78,6 +78,6 @@ Here are the features of the new API Reference to be included in the official do
 
 When the work is integrated, the API reference will be available at https://kubernetes.io/docs/reference/
 
-# Appreciation
+## Appreciation
 
 I would like to thank my mentor [Zach Corleissen](https://github.com/zacharysarah) and the lead writers [Karen Bradshaw](https://github.com/kbhawkey), [Celeste Horgan](https://github.com/celestehorgan), [Tim Bannister](https://github.com/sftim) and [Qiming Teng](https://github.com/tengqm) who supervised me during all the season. They all have been very encouraging and gave me tons of great advice.
