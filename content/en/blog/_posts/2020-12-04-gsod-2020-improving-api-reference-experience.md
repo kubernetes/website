@@ -5,7 +5,7 @@ date: 2020-12-04
 slug: gsod-2020-improving-api-reference-experience
 ---
 
-**Author**: Philippe Martin
+**Author**: [Philippe Martin](https://github.com/feloy)
 
 # Introduction
 
