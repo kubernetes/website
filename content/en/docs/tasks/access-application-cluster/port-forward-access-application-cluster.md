@@ -190,8 +190,8 @@ the slightly simpler syntax:
 kubectl port-forward deployment/redis-master :6379
 ```
 
-An allocated local port in the upper range will be displayed as a result, the output 
-will be similar to this:
+The `kubectl` tool finds a local port number that is not in use (avoiding low ports numbers,
+because these might be used by other applications). The output is similar to:
 
 ```
 Forwarding from 127.0.0.1:62162 -> 6379
