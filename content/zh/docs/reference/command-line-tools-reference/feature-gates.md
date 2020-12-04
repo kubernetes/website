@@ -93,7 +93,7 @@ different Kubernetes components.
 {{< /table >}}
 -->
 
-### Alpha 和 Beta 的特性门控
+### Alpha 和 Beta 的特性门控  {#feature-gates-for-alpha-or-beta-features}
 
 {{< table caption="处于 Alpha 或 Beta 状态的特性门控" >}}
 
@@ -233,7 +233,7 @@ different Kubernetes components.
 {{< /table >}}
 -->
 
-### 已毕业和不推荐使用的特性门控
+### 已毕业和不推荐使用的特性门控  {#feature-gates-for-graduated-or-deprecated-features}
 
 {{< table caption="已毕业或不推荐使用的特性门控" >}}
 
