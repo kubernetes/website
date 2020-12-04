@@ -627,11 +627,9 @@ for more information.
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-* Read about [cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling).
 -->
 * 了解有关节点[组件](/zh/docs/concepts/overview/components/#node-components)
 * 阅读[节点的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)
 * 阅读架构设计文档中有关[节点](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)的章节
 * 了解[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)
-* 了解[集群自动扩缩](/zh/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)
 

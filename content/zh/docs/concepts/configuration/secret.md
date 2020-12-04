@@ -666,7 +666,7 @@ There are several options to create a Secret:
 
 - [使用 `kubectl` 命令创建 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - [使用配置文件来创建 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [使用 kustomize 来创建 Secret](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [使用 kustomize 来创建 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 <!--
 ## Editing a Secret
