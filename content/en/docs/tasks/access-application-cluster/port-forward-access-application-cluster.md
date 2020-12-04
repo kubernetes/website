@@ -180,7 +180,7 @@ for database debugging.
     PONG
     ```
 
-### Optionaly let _kubectl_ choose the local port
+### Optionally let _kubectl_ choose the local port {#let-kubectl-choose-local-port}
 
 If you don't need a specific local port, you can let `kubectl` choose and allocate 
 the local port and thus relieve you from having to manage local port conflicts, with 
@@ -219,4 +219,3 @@ The support for UDP protocol is tracked in
 ## {{% heading "whatsnext" %}}
 
 Learn more about [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward).
-
