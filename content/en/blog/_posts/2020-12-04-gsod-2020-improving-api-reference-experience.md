@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "GSoD 2020: Improving API Reference experience"
+title: "GSoD 2020: Improving the API Reference Experience"
 date: 2020-12-04
 slug: gsod-2020-improving-api-reference-experience
 ---
@@ -21,7 +21,7 @@ Shortly after, the DocBook language was adopted to write the Linux Documentation
 
 The [Kubernetes documentation website](https://kubernetes.io/docs/home/) is built with Hugo from documentation written in Markdown format in the [website repository](https://github.com/kubernetes/website), using the [Docsy Hugo theme](https://www.docsy.dev/about/).
 
-The API reference documentation is a large HTML file generated from the Swagger specifications of the API, added to the content of the website.
+The existing API reference documentation is a large HTML file generated from the Swagger specifications of the API, added to the content of the website.
 
 This API reference has some drawbacks:
 - it is a single huge HTML page containing all the API reference
@@ -47,35 +47,37 @@ Generally, APIs are used by developers by calling endpoints with a specific HTTP
 
 The Kubernetes API is most of the time used differently: users create manifest files containing resources definitions in YAML format, and use the `kubectl` CLI to *apply* these manifests to the cluster. In this case, the most important information is the description of the structures used as parameters and responses (the Kubernetes Resources).
 
-Because of this specificity, we realized that it would be difficult to adapt the `swagger-ui` interface to satisfy the users of the Kubernetes API.
+Because of this specificity, we realized that it would be difficult to adapt the `swagger-ui` interface to satisfy the users of the Kubernetes API and this direction has been abandoned.
 
 ## Markdown pages
 
-The second stage of the project has been to adapt the work I had done to create the k8sref.io website, to include it in the officiel documentation website.
+The second stage of the project has been to adapt the work I had done to create the k8sref.io website, to include it in the official documentation website.
 
 The main changes have been to:
 - use go-templates to represent the output pages, so non-developers can adapt the generated pages without having to edit the generator code
-- create a shortcode, to easily create links from inside the website to specific pages of the API reference
+- create a new custom [shortcode](https://gohugo.io/content-management/shortcodes/), to easily create links from inside the website to specific pages of the API reference
 - improve the navigation between the sections of the API reference
 - add the code of the generator to the Kubernetes GitHub repository containing the different reference generators
 
-All the discussions and work done can be found on [this Pull Request](https://github.com/kubernetes/website/pull/23294).
+All the discussions and work done can be found in website [pull request #23294](https://github.com/kubernetes/website/pull/23294).
 
-The Pull request to add the code of the generator to the Kubernetes GitHub repository is [this Pull Request](https://github.com/kubernetes-sigs/reference-docs/pull/179).
+Adding the generator code to the Kubernetes project happened in [kubernetes-sigs/reference-docs#179](https://github.com/kubernetes-sigs/reference-docs/pull/179).
 
-Here are the features of the API Reference included in the official documentation website:
+Here are the features of the new API Reference to be included in the official documentation website:
 
 - the resources are categorized, in the categories Workloads, Services, Config & Storage, Authentication, Authorization, Policies, Extend, Cluster. This structure is configurable with a simple [`toc.yaml` file](https://github.com/kubernetes-sigs/reference-docs/blob/master/gen-resourcesdocs/config/v1.20/toc.yaml)
-- each page displays at the first level the associated resources, for example Pod, PodSpec, PodStatus, PodList
-- each resource inlines its definitions (except when definitions are common to several resources, or are too complex to be displayed inline)
+- each page displays associated resources at the first level ; for example: Pod, PodSpec, PodStatus, PodList
+- most resource pages inline relevant definitions ; the exceptions are when those definitions are common to several resources, or are too complex to be displayed inline. With the old approach, you had to follow a hyperlink to read each extra detail.
 - some widely used definitions are documented in a specific page (ex ObjectMeta)
 - required fields are indicated, and placed first
 - fields of a resource can be categorized and ordered, with the help of a [`fields.yaml` file](https://github.com/kubernetes-sigs/reference-docs/blob/master/gen-resourcesdocs/config/v1.20/fields.yaml)
-- maps fields are indicated (ex pod.spec.nodeSelector is map[string]string, instead of object) using the value of `x-kubernetes-list-type`
+- `map` fields are indicated. For example the `.spec.nodeSelector` for a `Pod` is `map[string]string`, instead of `object`, using the value of `x-kubernetes-list-type`
 - patch strategies are indicated
 - `apiVersion` and `kind` display the value, not the `string` type
 - on top of the page, the Go import necessary to use these resources from a Go program is displayed
 
+When the work is integrated, the API reference will be available at https://kubernetes.io/docs/reference/
+
 # Appreciation
 
-I would like to thank my mentor [Zach Corleissen](https://github.com/zacharysarah) and the lead writers [Karen Bradshaw](https://github.com/kbhawkey), [Tim Bannister](https://github.com/sftim) and [Qiming Teng](https://github.com/tengqm) who supervised me during all the season. They all have been very encouraging and gave me tons of great advices.
+I would like to thank my mentor [Zach Corleissen](https://github.com/zacharysarah) and the lead writers [Karen Bradshaw](https://github.com/kbhawkey), [Tim Bannister](https://github.com/sftim) and [Qiming Teng](https://github.com/tengqm) who supervised me during all the season. They all have been very encouraging and gave me tons of great advice.
