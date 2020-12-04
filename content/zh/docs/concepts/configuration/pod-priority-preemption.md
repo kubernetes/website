@@ -17,12 +17,12 @@ weight: 70
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 <!--
-[Pods](/docs/concepts/workloads/pods/pod/) can have _priority_. Priority indicates the
+[Pods](/docs/concepts/workloads/pods/) can have _priority_. Priority indicates the
 importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 -->
-[Pods](/zh/docs/concepts/workloads/pods/pod/) 可以有*优先级（Priority）*。
+[Pods](/zh/docs/concepts/workloads/pods/) 可以有*优先级（Priority）*。
 优先级体现的是当前 Pod 与其他 Pod 相比的重要程度。如果 Pod 无法被调度，则
 调度器会尝试抢占（逐出）低优先级的 Pod，从而使得悬决的 Pod 可被调度。
 
@@ -460,7 +460,7 @@ despite their PDBs being violated.
 -->
 #### PodDisruptionBudget 是被支持的，但不提供保证
 
-[PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) (PDB)
+[PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/) (PDB)
 的存在使得应用的属主能够限制多副本应用因主动干扰而同时离线的 Pod 的个数。
 Kubernetes 在抢占 Pod 时是可以支持 PDB 的，但对 PDB 的约束也仅限于尽力而为。
 调度器会尝试寻找不会因为抢占而违反其 PDB 约束的 Pod 作为牺牲品，不过如果
@@ -628,17 +628,12 @@ Pod may be created that fits on the same Node. In this case, the scheduler will
 schedule the higher priority Pod instead of the preemptor.
 
 This is expected behavior: the Pod with the higher priority should take the place
-of a Pod with a lower priority. Other controller actions, such as
-[cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling),
-may eventually provide capacity to schedule the pending Pods.
+of a Pod with a lower priority.
 -->
 在抢占者 Pod 等待被牺牲的 Pod 消失期间，可能有更高优先级的 Pod 被创建，且适合
 调度到同一节点。如果是这种情况，调度器会调度优先级更高的 Pod 而不是抢占者。
 
 这是期望发生的行为：优先级更高的 Pod 应该取代优先级较低的 Pod。
-其他控制器行为，例如
-[集群自动扩缩](/zh/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)
-可能会最终为集群添加容量，以调度悬决 Pod。 
 
 <!--
 ### Higher priority Pods are preempted before lower priority pods
