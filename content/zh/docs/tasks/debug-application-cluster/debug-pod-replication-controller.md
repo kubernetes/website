@@ -23,9 +23,9 @@ This page shows how to debug Pods and ReplicationControllers.
 
 <!-- 
 * You should be familiar with the basics of
-  [Pods](/docs/concepts/workloads/pods/pod/) and [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/). 
+  [Pods](/docs/concepts/workloads/pods/) and [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/). 
 -->
-* 你应该先熟悉 [Pods](/zh/docs/concepts/workloads/pods/pod/) 和
+* 你应该先熟悉 [Pods](/zh/docs/concepts/workloads/pods/) 和
   [Pod 生命周期](/zh/docs/concepts/workloads/pods/pod-lifecycle/) 的基础概念。 
 
 <!-- steps -->
