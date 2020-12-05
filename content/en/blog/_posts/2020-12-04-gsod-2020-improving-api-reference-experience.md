@@ -84,7 +84,7 @@ The work is currently on hold pending the 1.20 release. When the release finishe
 
 There are points to improve, particularly:
 
-- Some Kubernetes resources are deeply nested. Inlining the definition of these resources makes them difficult to understand
+- Some Kubernetes resources are deeply nested. Inlining the definition of these resources makes them difficult to understand.
 - The created `shortcode` uses the URL of the page to reference a Resource page. It would be easier for documentarians if they could reference a Resource by its group and name.
 
 ## Appreciation
