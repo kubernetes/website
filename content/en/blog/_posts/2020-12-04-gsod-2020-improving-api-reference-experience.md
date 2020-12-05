@@ -7,19 +7,21 @@ slug: gsod-2020-improving-api-reference-experience
 
 **Author**: [Philippe Martin](https://github.com/feloy)
 
+_Editor's note: Better API references have been my goal since I joined Kubernetes docs three and a half years ago. Philippe has succeeded fantastically. More than a better API reference, though, Philippe embodied the best of the Kubernetes community in this project: excellence through collaboration, and a process that made the community itself better. Thanks, Google Season of Docs, for making Philippe's work possible. —Zach Corleissen_
+
 ## Introduction
 
-[Google Season of Docs](https://developers.google.com/season-of-docs) brings open source organizations and technical writers together, to spend three months working closely on a specific documentation project.
+The [Google Season of Docs](https://developers.google.com/season-of-docs) project brings open source organizations and technical writers together to work closely on a specific documentation project.
 
-I was selected by the CNCF organization to work on the Kubernetes documentation, specifically on the subject of making the API Reference documentation more accessible.
+I was selected by the CNCF to work on Kubernetes documentation, specifically to make the API Reference documentation more accessible.
 
-I'm a software developer, with a great interest in documentation systems. At the end of the 90's, I wanted to invest my time in the Linux community and started translating Linux-HOWTO documents. From one thing to another, I learned about documentation systems and finally wrote a Linux-HOWTO, to help document writers learn the language used at this time for writing documents, LinuxDoc/SGML.
+I'm a software developer with a great interest in documentation systems. In the late 90's I started translating Linux-HOWTO documents into French. From one thing to another, I learned about documentation systems. Eventually, I wrote a Linux-HOWTO to help documentarians learn the language used at that time for writing documents, LinuxDoc/SGML.
 
-Shortly after, the DocBook language was adopted to write the Linux Documentation. I helped some writers rewrite their documents in this format, for example the Advanced Bash-Scripting Guide. I also worked on the GNU `makeinfo` program to add the DocBook output, making possible to transform *GNU Info* documentation into Docbook. 
+Shortly afterward, Linux documentation adopted the DocBook language. I helped some writers rewrite their documents in this format; for example, the Advanced Bash-Scripting Guide. I also worked on the GNU `makeinfo` program to add DocBook output, making it possible to transform *GNU Info* documentation into Docbook format.
 
 ## Background
 
-The [Kubernetes documentation website](https://kubernetes.io/docs/home/) is built with Hugo from documentation written in Markdown format in the [website repository](https://github.com/kubernetes/website), using the [Docsy Hugo theme](https://www.docsy.dev/about/).
+The [Kubernetes website](https://kubernetes.io/docs/home/) is built with Hugo from documentation written in Markdown format in the [website repository](https://github.com/kubernetes/website), using the [Docsy Hugo theme](https://www.docsy.dev/about/).
 
 The existing API reference documentation is a large HTML file generated from the Kubernetes OpenAPI specification.
 
@@ -74,16 +76,16 @@ Here are the features of the new API Reference to be included in the official do
 - `map` fields are indicated. For example the `.spec.nodeSelector` for a `Pod` is `map[string]string`, instead of `object`, using the value of `x-kubernetes-list-type`
 - patch strategies are indicated
 - `apiVersion` and `kind` display the value, not the `string` type
-- on top of the page, the Go import necessary to use these resources from a Go program is displayed
+- At the top of a reference page, the page displays the Go import necessary to use these resources from a Go program.
 
-When the work is integrated, the API reference will be available at https://kubernetes.io/docs/reference/
+The work is currently on hold pending the 1.20 release. When the release finishes and the work is integrated, the API reference will be available at https://kubernetes.io/docs/reference/.
 
 ### Future Work
 
 There are points to improve, particularly:
 
-- some Kubernetes resources are deeply nested. Inlining the definition of these resources makes them difficult to understand
-- the created `shortcode` uses the URL of the page to reference a Resource page. It would be easier for the technical writers if they could reference a Resource by its group and name
+- Some Kubernetes resources are deeply nested. Inlining the definition of these resources makes them difficult to understand
+- The created `shortcode` uses the URL of the page to reference a Resource page. It would be easier for documentarians if they could reference a Resource by its group and name.
 
 ## Appreciation
 
