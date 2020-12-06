@@ -60,8 +60,8 @@ metadata:
 
 {{< note >}}
 Cross-namespace owner references are disallowed by design. This means:
-1) Namespace-scoped dependents can only specify owners in the same namespace,
-and owners that are cluster-scoped.
+1) Namespace-scoped dependents can only specify the same namespace owners 
+or cluster-scoped owners.
 2) Cluster-scoped dependents can only specify cluster-scoped owners, but not
 namespace-scoped owners.
 {{< /note >}}
