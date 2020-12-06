@@ -28,7 +28,7 @@ This document describes how to authenticate and authorize access to the kubelet'
 <!-- 
 ## Kubelet authentication 
 -->
-## Kubelet 认证 
+## Kubelet 身份认证 
 
 <!-- 
 By default, requests to the kubelet's HTTPS endpoint that are not rejected by other configured
@@ -56,11 +56,12 @@ To enable X509 client certificate authentication to the kubelet's HTTPS endpoint
 <!--  
 * start the kubelet with the `--client-ca-file` flag, providing a CA bundle to verify client certificates with
 * start the apiserver with `--kubelet-client-certificate` and `--kubelet-client-key` flags
-* see the [apiserver authentication documentation](/docs/admin/authentication/#x509-client-certs) for more details
+* see the [apiserver authentication documentation](/docs/reference/access-authn-authz/authentication/#x509-client-certs) for more details
 -->
 * 带 `--client-ca-file` 标志启动 kubelet，提供一个 CA 证书包以供验证客户端证书
 * 带 `--kubelet-client-certificate` 和 `--kubelet-client-key` 标志启动 apiserver
-* 有关更多详细信息，请参见 [apiserver 身份验证文档](/zh/docs/admin/authentication/#x509-client-certs)
+* 有关更多详细信息，请参见
+  [apiserver 身份验证文档](/zh/docs/reference/access-authn-authz/authentication/#x509-client-certs)
 
 <!--  
 To enable API bearer tokens (including service account tokens) to be used to authenticate to the kubelet's HTTPS endpoint:
@@ -113,12 +114,15 @@ To subdivide access to the kubelet API, delegate authorization to the API server
 -->
 * 确保在 API 服务器中启用了 `authorization.k8s.io/v1beta1` API 组
 * 带 `--authorization-mode=Webhook` 和 `--kubeconfig` 标志启动 kubelet
-* kubelet 调用已配置的 API 服务器上的 `SubjectAccessReview` API，以确定每个请求是否得到鉴权
+* kubelet 调用已配置的 API 服务器上的 `SubjectAccessReview` API，
+  以确定每个请求是否得到鉴权
 
 <!--  
-The kubelet authorizes API requests using the same [request attributes](/docs/admin/authorization/#request-attributes) approach as the apiserver.
+The kubelet authorizes API requests using the same [request attributes](/docs/reference/access-authn-authz/authorization/#review-your-request-attributes) approach as the apiserver.
 -->
-kubelet 使用与 apiserver 相同的[请求属性](/zh/docs/admin/authorization/#request-attributes)方法对 API 请求执行鉴权。
+kubelet 使用与 apiserver 相同的
+[请求属性](/zh/docs/reference/access-authn-authz/authorization/#review-your-request-attributes)
+方法对 API 请求执行鉴权。
 
 <!--  
 The verb is determined from the incoming request's HTTP verb:

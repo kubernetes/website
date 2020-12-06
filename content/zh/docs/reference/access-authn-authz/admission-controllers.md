@@ -5,7 +5,6 @@ weight: 30
 ---
 
 <!--
----
 reviewers:
 - lavalamp
 - davidopp
@@ -16,16 +15,13 @@ reviewers:
 title: Using Admission Controllers
 content_type: concept
 weight: 30
----
 -->
-
 
 <!-- overview -->
 <!--
 This page provides an overview of Admission Controllers.
 -->
 此页面概述了准入控制器。
-
 
 <!-- body -->
 
@@ -228,7 +224,7 @@ to perform different actions on CertificateSigningRequest resources.
 -->
 
 有关对证书签名请求资源执行不同操作所需权限的详细信息，
-请参阅[证书签名请求](/docs/reference/access-authn-authz/certificate-signing-requests/)
+请参阅[证书签名请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/)
 
 ### CertificateSigning
 
