@@ -674,7 +674,8 @@ HorizontalPodAutoscaler.
 首先，`AbleToScale` 表明 HPA 是否可以获取和更新扩缩信息，以及是否存在阻止扩缩的各种回退条件。
 其次，`ScalingActive` 表明 HPA 是否被启用（即目标的副本数量不为零） 以及是否能够完成扩缩计算。
 当这一状态为 `False` 时，通常表明获取度量指标存在问题。
-最后一个条件 `ScalingLimitted` 表明所需扩缩的值被 HorizontalPodAutoscaler 所定义的最大或者最小值所限制（即已经达到最大或者最小扩缩值）。
+最后一个条件 `ScalingLimitted` 表明所需扩缩的值被 HorizontalPodAutoscaler
+所定义的最大或者最小值所限制（即已经达到最大或者最小扩缩值）。
 这通常表明你可能需要调整 HorizontalPodAutoscaler 所定义的最大或者最小副本数量的限制了。
 
 <!--
@@ -696,7 +697,6 @@ HorizontalPodAutoscaler 和 度量指标 API 中的所有的度量指标使用 K
 例如，数量 `10500m` 用十进制表示为 `10.5`。
 如果可能的话，度量指标 API 将返回没有后缀的整数，否则返回以千分单位的数量。
 这意味着你可能会看到你的度量指标在 `1` 和 `1500m` （也就是在十进制记数法中的 `1` 和 `1.5`）之间波动。
-更多信息，请参阅[度量术语](/docs/reference/glossary?core-object=true#term-quantity)。
 
 <!--
 ## Appendix: Other possible scenarios
