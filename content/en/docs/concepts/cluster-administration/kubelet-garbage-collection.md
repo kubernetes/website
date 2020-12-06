@@ -44,7 +44,7 @@ Default is 85%.
 2. `image-gc-low-threshold`, the percent of disk usage to which image garbage collection attempts
 to free. Default is 80%.
 
-Users can customize garbage collection policy through the following kubelet flags:
+Users can customize the garbage collection policy through the following kubelet flags:
 
 1. `minimum-container-ttl-duration`, minimum age for a finished container before it is
 garbage collected. Default is 0 minute, which means every finished container will be garbage collected.
@@ -83,5 +83,4 @@ Including:
 
 
 See [Configuring Out Of Resource Handling](/docs/tasks/administer-cluster/out-of-resource/) for more details.
-
 
