@@ -1,6 +1,6 @@
 ---
 content_type: concept
-title: 贡献 Kubernetes 文档
+title: 为 Kubernetes 文档出一份力
 linktitle: 贡献
 main_menu: true
 no_list: true
@@ -26,7 +26,23 @@ card:
 -->
 
 <!-- overview -->
+概述
 
+<!--
+*Kubernetes welcomes improvements from all contributors, new and experienced!*
+-->
+*Kubernetes 欢迎所有新的和有经验的贡献者的改进！*
+
+<!--
+{{< note >}}
+To learn more about contributing to Kubernetes in general, see the
+[contributor documentation](https://www.kubernetes.dev/docs/).
+{{< /note >}}
+-->
+{{< note >}}
+要了解更多有关为Kubernetes做出贡献的信息，请参阅
+[贡献者文档](https://www.kubernetes.dev/docs/).
+{{< /note >}}
 <!--
 This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 
@@ -40,7 +56,7 @@ Kubernetes documentation contributors:
 Kubernetes documentation welcomes improvements from all contributors, new and experienced!
 -->
 
-本网站由 [Kubernetes SIG（特别兴趣小组） Docs](/zh/docs/contribute/#get-involved-with-SIG-Docs) 维护.
+本网站由 [Kubernetes SIG（特别兴趣小组） Docs](/zh/docs/contribute/#get-involved-with-SIG-Docs) 维护。
 
 Kubernetes 文档项目的贡献者:
 
@@ -64,6 +80,13 @@ You need to be comfortable with
 [GitHub](https://lab.github.com/)
 to work effectively in the Kubernetes community.
 
+-->
+## 入门 {#getting-started}
+
+任何人都可以提出文档方面的问题（issue），或贡献一个变更，用拉取请求（PR）的方式提交到
+[GitHub 上的 `kubernetes/website` 仓库](https://github.com/kubernetes/website)。
+当然你需要熟练使用 [git](https://git-scm.com/) 和 [GitHub](https://lab.github.com/) 才能在 Kubernetes 社区中有效工作。
+<!-- 
 To get involved with documentation:
 
 1. Sign the CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
@@ -77,13 +100,7 @@ Some tasks require more trust and more access in the Kubernetes organization.
 See [Participating in SIG Docs](/docs/contribute/participate/) for more details about
 roles and permissions.
 -->
-## 入门 {#getting-started}
-
-任何人都可以提出文档方面的问题（issue），或贡献一个变更，用拉取请求（PR）的方式提交到
-[GitHub 上的 `kubernetes/website` 仓库](https://github.com/kubernetes/website)。
-当然你需要熟练使用 [git](https://git-scm.com/) 和 [GitHub](https://lab.github.com/) 才能在 Kubernetes 社区中有效工作。
-
-参与文档编制:
+如何参与文档编制:
 
 1. 签署 CNCF 的[贡献者许可协议](https://github.com/kubernetes/community/blob/master/CLA.md)。
 2. 熟悉[文档仓库](https://github.com/kubernetes/website)
@@ -134,7 +151,7 @@ roles and permissions.
 - Document [features in a release](/docs/contribute/new-content/new-features/).
 - Participate in [SIG Docs](/docs/contribute/participate/), and become a
   [member or reviewer](/docs/contribute/participate/roles-and-responsibilities/).
-                       
+  
 - Start or help with a [localization](/docs/contribute/localization/).
 -->
 ## 下一步 {#next-teps}
@@ -142,7 +159,7 @@ roles and permissions.
 - 学习在仓库的[本地克隆中工作](/zh/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
 - 为[发行版的特性](/zh/docs/contribute/new-content/new-features/)编写文档。
 - 加入 [SIG Docs](/zh/docs/contribute/participate/), 并成为[成员或评审者](/zh/docs/contribute/participate/roles-and-responsibilities/)。
-                       
+  
 - 开始或帮助[本地化](/zh/docs/contribute/localization/) 工作。
 
 <!--
@@ -172,7 +189,7 @@ SIG Docs 的几种沟通方式:
   一定记得自我介绍!
 - [加入`kubernetes-sig-docs` 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   这里有更广泛的讨论，和官方决策的记录。
-- 参加 [SIG Docs 的每周视频会议](https://github.com/kubernetes/community/tree/master/sig-docs)。会议总是在 `#sig-docs` 上宣告，同时添加到 
+- 参加 [SIG Docs 的每周视频会议](https://github.com/kubernetes/community/tree/master/sig-docs)。会议总是在 `#sig-docs` 上发出公告，同时添加到 
   [Kubernetes社区会议日历](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)。
   你需要下载 [Zoom 客户端软件](https://zoom.us/download)，或电话拨号接入。
 
