@@ -61,6 +61,11 @@ If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
 at least once.
 
+{{< caution >}}
+If `startingDeadlineSeconds` is set to a value less than 10 seconds, then the CronJob may not be scheduled. This is because Cronjob Controller checks things every 10 seconds by default.
+{{< /caution >}}
+
+
 For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error
 
 ````
