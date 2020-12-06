@@ -62,7 +62,7 @@ and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
 at least once.
 
 {{< caution >}}
-If `startingDeadlineSeconds` is set to a value less than 10 seconds, then the CronJob may not be scheduled. This is because Cronjob Controller checks things every 10 seconds by default.
+If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob may not be scheduled. This is because the CronJob controller checks things every 10 seconds.
 {{< /caution >}}
 
 
@@ -95,5 +95,4 @@ documents the format of CronJob `schedule` fields.
 
 For instructions on creating and working with cron jobs, and for an example of CronJob
 manifest, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
-
 
