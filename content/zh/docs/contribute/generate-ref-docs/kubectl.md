@@ -3,7 +3,6 @@ title: 为 kubectl 命令集生成参考文档
 content_type: task
 weight: 90
 ---
-
 <!--
 title: Generating Reference Documentation for kubectl Commands
 content_type: task
@@ -32,10 +31,10 @@ reference page, see
 -->
 
 {{< note >}}
-本主题描述了如何为 [kubectl 命令](/docs/reference/generated/kubectl/kubectl-commands)
-生成参考文档，如 [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply) 和
-[kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)。
-本主题没有讨论如何生成 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 组件选项的参考页面。
+本主题描述了如何为 [kubectl 命令](/zh/docs/reference/generated/kubectl/kubectl-commands)
+生成参考文档，如 [kubectl apply](/zh/docs/reference/generated/kubectl/kubectl-commands#apply) 和
+[kubectl taint](/zh/docs/reference/generated/kubectl/kubectl-commands#taint)。
+本主题没有讨论如何生成 [kubectl](/zh/docs/reference/generated/kubectl/kubectl-commands/) 组件选项的参考页面。
 相关说明请参见[为 Kubernetes 组件和工具生成参考页面](/zh/docs/contribute/generate-ref-docs/kubernetes-components/)。
 {{< /note >}}
 
