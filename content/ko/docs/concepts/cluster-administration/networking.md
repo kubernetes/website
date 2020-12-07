@@ -156,6 +156,11 @@ VPC 라우팅 테이블을 조정하여 각 호스트에 인스턴스별 서브�
 수 있다. 즉, cni-ipvlan-vpc-k8s는 AWS 내에서 쿠버네티스를
 대규모로 배포하는 데 필요한 네트워크 복잡성을 크게 줄인다.
 
+### Coil
+
+[Coil](https://github.com/cybozu-go/coil)은 통합이 용이하도록 설계된 CNI 플러그인으로 유연한 이그레스(egress) 네트워킹을 제공한다.
+Coil은 베어메탈에 비해 낮은 오버헤드로 작동하며, 외부 네트워크에 대해 임의의 이그레스 NAT 게이트웨이를 정의할 수 있다.
+
 ### 콘티브(Contiv)
 
 [콘티브](https://github.com/contiv/netplugin)는 다양한 적용 사례에서 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3, vxlan을 사용하는 오버레이, 클래식 L2 또는 Cisco-SDN/ACI)을 제공한다. [콘티브](https://contiv.io)는 모두 오픈소스이다.

@@ -30,7 +30,7 @@ cards:
   button: "튜토리얼 보기"
   button_path: "/ko/docs/tutorials"
 - name: setup
-  title: "클러스터 구축하기"
+  title: "K8s 클러스터 구축하기"
   description: "보유한 자원과 요구에 맞게 동작하는 쿠버네티스를 구축한다."
   button: "쿠버네티스 구축하기"
   button_path: "/ko/docs/setup"
@@ -55,7 +55,7 @@ cards:
   button: 문서에 기여하기
   button_path: "/ko/docs/contribute"
 - name: release-notes
-  title: 릴리스 노트
+  title: K8s 릴리스 노트
   description: 쿠버네티스를 설치하거나 최신의 버전으로 업그레이드하는 경우, 현재 릴리스 노트를 참고한다.
   button: "쿠버네티스 다운로드"
   button_path: "/docs/setup/release/notes"
