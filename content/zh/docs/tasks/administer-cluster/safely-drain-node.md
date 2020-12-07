@@ -42,7 +42,7 @@ This task assumes that you have met the following prerequisites:
 * 以下两项，具备其一：
   1. 在节点清空期间，不要求应用程序具有高可用性
   2. 你已经了解了 [PodDisruptionBudget 的概念](/zh/docs/concepts/workloads/pods/disruptions/)，
-并为需要它的应用程序[配置了 PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)。
+     并为需要它的应用程序[配置了 PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)。
 
 <!-- steps -->
 
@@ -60,8 +60,7 @@ first and the continue following this guide.
 
 为了确保你的负载在维护期间仍然可用，你可以配置一个 [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/)。
 如果可用性对于正在清空的该节点上运行或可能在该节点上运行的任何应用程序很重要，
-请先[配置一个 PodDisruptionBudgets](/zh/docs/tasks/run-application/configure-pdb/) 并继续
-阅读本指南。
+首先 [配置一个 PodDisruptionBudgets](/zh/docs/tasks/run-application/configure-pdb/) 并继续遵循本指南。
 
 <!-- 
 ## Use `kubectl drain` to remove a node from service
@@ -277,7 +276,7 @@ application owners and cluster owners to establish an agreement on behavior in t
 ## 驱逐阻塞
 
 在某些情况下，应用程序可能会到达一个中断状态，除了 429 或 500 之外，它将永远不会返回任何内容。
-例如 ReplicaSet 创建的替换 Pod 没有变成就绪状态，或者被驱逐的最后一个 
+例如 ReplicaSet 创建的替换 Pod 没有变成就绪状态，或者被驱逐的最后一个
 Pod 有很长的终止宽限期，就会发生这种情况。
 
 在这种情况下，有两种可能的解决方案：
@@ -298,3 +297,4 @@ Kubernetes 并没有具体说明在这种情况下应该采取什么行为，
 * 执行[配置 PDB](/zh/docs/tasks/run-application/configure-pdb/)中的各个步骤，
   保护你的应用
 * 进一步了解[节点维护](/zh/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node)。
+
