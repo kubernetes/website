@@ -3,7 +3,6 @@ title: 使用 HTTP 代理访问 Kubernetes API
 content_type: task
 weight: 40
 ---
-
 <!--
 ---
 title: Use an HTTP Proxy to Access the Kubernetes API
@@ -67,6 +66,12 @@ Get the API versions:
 获取 API 版本：
 
     curl http://localhost:8080/api/
+
+<!--
+The output should look similar to this:
+-->
+
+输出应该类似这样：
 
     {
       "kind": "APIVersions",
