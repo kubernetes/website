@@ -10,7 +10,6 @@ card:
   title: 为发行版本撰写功能特性文档 
 ---
 <!--
----
 title:  Documenting a feature for a release
 linktitle: Documenting for a release
 content_type: concept
@@ -20,7 +19,6 @@ card:
   name: contribute
   weight: 45
   title:  Documenting a feature for a release
----
 -->
 
 <!-- overview -->
@@ -200,7 +198,8 @@ this release that the feature docs are coming.
 
 1. 在 `kubernetes/website` 仓库上针对 `dev-{{< skew nextMinorVersion >}}`
    分支提交一个 PR，其中包含较少的、待以后慢慢补齐的提交内容。
-1. 编辑拉取请求描述以包括指向 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) PR和 [kubernetes/enhancements](https://github.com/kubernetes/enhancements) 问题的链接。  
+1. 编辑拉取请求描述以包括指向 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) PR
+   和 [kubernetes/enhancements](https://github.com/kubernetes/enhancements) 问题的链接。  
 1. 使用 Prow 命令  `/milestone {{< skew nextMinorVersion >}}` 
    将 PR指派到对应的里程碑。这样做会提醒负责管理对应发行版本的文档团队成员，有
    新的功能特性要合并到将来版本。
@@ -242,7 +241,7 @@ received, the feature may be removed from the milestone.
 在 `#sig-docs` Slack 频道中提问。
 
 当你已经完成内容撰写，指派给你的功能特性的文档贡献者会去评阅文档。
-为了确保技术准确性，内容可能还需要相应SIG的技术审核。
+为了确保技术准确性，内容可能还需要相应 SIG 的技术审核。
 尽量利用他们所给出的建议，改进文档内容以达到发布就绪状态。
 
 如果你的功能特性需要文档，而一直没有关于该特性的文档提交评阅，
