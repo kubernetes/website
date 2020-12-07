@@ -273,6 +273,12 @@ of individual policies are not defined here.
 - [Baseline](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/baseline-psp.yaml)
 - [Restricted](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/restricted-psp.yaml)
 
+### Instantiation through Kyverno
+
+- [Overview](https://github.com/kyverno/policies/tree/main/pod-security)
+- [Baseline](https://github.com/kyverno/policies/tree/main/pod-security/default)
+- [Restricted](https://github.com/kyverno/policies/tree/main/pod-security/restricted)
+
 ## FAQ
 
 ### Why isn't there a profile between privileged and default?
