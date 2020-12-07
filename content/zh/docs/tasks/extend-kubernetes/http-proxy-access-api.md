@@ -66,9 +66,11 @@ Get the API versions:
 获取 API 版本：
 
     curl http://localhost:8080/api/
+
 <!--
 The output should look similar to this:
 -->
+
 输出应该类似这样：
 
     {
