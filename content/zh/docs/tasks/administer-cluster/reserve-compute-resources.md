@@ -47,7 +47,7 @@ Your Kubernetes server must be at or later than version 1.17 to use
 the kubelet command line option `--reserved-cpus` to set an
 [explicitly reserved CPU list](#explicitly-reserved-cpu-list).
 -->
-你的 kubernetes 服务器版本必须至少是 1.17 版本，才能使用 kubelet
+您的 kubernetes 服务器版本必须至少是 1.17 版本，才能使用 kubelet
 命令行选项 `--reserved-cpus` 设置
 [显式预留 CPU 列表](#explicitly-reserved-cpu-list)。
 
@@ -55,6 +55,8 @@ the kubelet command line option `--reserved-cpus` to set an
 
 <!--
 ## Node Allocatable
+
+![node capacity](/images/docs/node-capacity.svg)
 
 `Allocatable` on a Kubernetes node is defined as the amount of compute resources
 that are available for pods. The scheduler does not over-subscribe
