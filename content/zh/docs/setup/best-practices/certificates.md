@@ -154,7 +154,7 @@ where `kind` maps to one or more of the [x509 key usage][usage] types:
 IP 或 DNS 名，`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
 `kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）。
 
-其中，`kind` 对应一种或多种类型的 [x509 密钥用途][https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage]：
+其中，`kind` 对应一种或多种类型的 [x509 密钥用途](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)：
 
 <!--
 | kind   | Key usage                                                                       |
@@ -193,11 +193,11 @@ For kubeadm users only:
 <!--
 ### Certificate paths
 
-Certificates should be placed in a recommended path (as used by [kubeadm][kubeadm]). Paths should be specified using the given argument regardless of location.
+Certificates should be placed in a recommended path (as used by [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/)). Paths should be specified using the given argument regardless of location.
 -->
 ### 证书路径
 
-证书应放置在建议的路径中（以便 [kubeadm][kubeadm]使用）。无论使用什么位置，都应使用给定的参数指定路径。
+证书应放置在建议的路径中（以便 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/)使用）。无论使用什么位置，都应使用给定的参数指定路径。
 
 | 默认 CN                   | 建议的密钥路径         | 建议的证书路径       | 命令        | 密钥参数               | 证书参数                             |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
