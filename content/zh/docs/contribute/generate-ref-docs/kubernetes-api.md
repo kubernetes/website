@@ -99,8 +99,8 @@ The remaining steps refer to your base directory as `<rdocs-base>`.
 * [kubernetes/website](https://github.com/kubernetes/website) 仓库克隆后的根目录为
 `$GOPATH/src/github.com/<your username>/website`。后续步骤将此目录称为 `<web-base>`。
 * [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
-仓库克隆后的基本目录为 `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`。
-后续步骤将此目录称为 `<rdocs-base>`。
+  仓库克隆后的基本目录为 `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`。
+  后续步骤将此目录称为 `<rdocs-base>`。
 
 <!-- 
 ## Generating the API reference docs
@@ -250,8 +250,8 @@ API 参考的版本号。例如：
   There should be five links to the most recent API references.
 -->
 * 打开编辑 `<web-base>/content/en/docs/reference/_index.md`，添加指向最新 API 参考
-的链接，删除最老的 API 版本。
-通常保留最近的五个版本的 API 参考的链接。
+  的链接，删除最老的 API 版本。
+  通常保留最近的五个版本的 API 参考的链接。
 
 <!--
 ## Locally test the API reference
