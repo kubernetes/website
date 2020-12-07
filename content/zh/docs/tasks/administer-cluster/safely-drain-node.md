@@ -35,13 +35,14 @@ This task assumes that you have met the following prerequisites:
   2. You have read about the [PodDisruptionBudget concept](/docs/concepts/workloads/pods/disruptions/)
      and [Configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) for
      applications that need them.
-     -->
-     此任务假定您已经满足了以下先决条件：
+-->
+此任务假定你已经满足了以下先决条件：
 
 * 使用的 Kubernetes 版本 >= 1.5。
 * 以下两项，具备其一：
   1. 在节点清空期间，不要求应用程序具有高可用性
-  2. 您已经了解了 [PodDisruptionBudget 的概念](/zh/docs/concepts/workloads/pods/disruptions/)，并为需要它的应用程序[配置了 PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)。
+  2. 你已经了解了 [PodDisruptionBudget 的概念](/zh/docs/concepts/workloads/pods/disruptions/)，
+并为需要它的应用程序[配置了 PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)。
 
 <!-- steps -->
 
@@ -55,11 +56,11 @@ If availability is important for any applications that run or could run on the n
 that you are draining, [configure a PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
 first and the continue following this guide.
 -->
-## （可选） 配置中断预算 {#configure-poddisruptionbudget}
+## （可选） 配置干扰预算 {#configure-poddisruptionbudget}
 
-为了确保您的工作在维护期间仍然可用，您可以配置一个 [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/)。
-
-如果可用性对于正在清空的该节点上运行或可能在该节点上运行的任何应用程序很重要，首先 [配置一个 PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) 并继续遵循本指南。
+为了确保你的负载在维护期间仍然可用，你可以配置一个 [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/)。
+如果可用性对于正在清空的该节点上运行或可能在该节点上运行的任何应用程序很重要，
+首先 [配置一个 PodDisruptionBudgets](/zh/docs/tasks/run-application/configure-pdb/) 并继续遵循本指南。
 
 <!-- 
 ## Use `kubectl drain` to remove a node from service
@@ -164,7 +165,8 @@ replicas to fall below the specified budget are blocked.
 并设置了一个 `PodDisruptionBudget`，指定 `minAvailable: 2`。
 如果所有的三个 Pod 均就绪，并且你并行地发出多个 drain 命令，
 那么 `kubectl drain` 只会从 StatefulSet 中逐出一个 Pod，
-因为 Kubernetes 会遵守 PodDisruptionBudget 并确保在任何时候只有一个 Pod 不可用（最多不可用 Pod 个数的计算方法：`replicas - minAvailable`）。
+因为 Kubernetes 会遵守 PodDisruptionBudget 并确保在任何时候只有一个 Pod 不可用
+（最多不可用 Pod 个数的计算方法：`replicas - minAvailable`）。
 任何会导致就绪副本数量低于指定预算的清空操作都将被阻止。
 
 <!-- 
@@ -176,7 +178,7 @@ eviction process), you can also programmatically cause evictions using the evict
 -->
 ## 驱逐 API {#the-eviction-api}
 如果你不喜欢使用
-[kubectl drain](/zh/docs/reference/generated/kubectl/kubectl-commands/#drain)
+[kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)
 （比如避免调用外部命令，或者更细化地控制 pod 驱逐过程），
 你也可以用驱逐 API 通过编程的方式达到驱逐的效果。
 
@@ -227,8 +229,8 @@ The API can respond in one of three ways:
   future versions.
 - If there is some kind of misconfiguration, like multiple budgets pointing at
   the same pod, you will get `500 Internal Server Error`.
-  -->
-  API 可以通过以下三种方式之一进行响应：
+-->
+API 可以通过以下三种方式之一进行响应：
 
 - 如果驱逐被授权，那么 Pod 将被删掉，并且你会收到 `200 OK`，
   就像你向 Pod 的 URL 发送了 `DELETE` 请求一样。
@@ -245,8 +247,8 @@ For a given eviction request, there are two cases:
   returns `200 OK`.
 - There is at least one budget. In this case, any of the three above responses may
    apply.
-   -->
-   对于一个给定的驱逐请求，有两种情况：
+-->
+对于一个给定的驱逐请求，有两种情况：
 
 - 没有匹配这个 Pod 的预算。这种情况，服务器总是返回 `200 OK`。
 - 至少匹配一个预算。在这种情况下，上述三种回答中的任何一种都可能适用。
@@ -274,7 +276,8 @@ application owners and cluster owners to establish an agreement on behavior in t
 ## 驱逐阻塞
 
 在某些情况下，应用程序可能会到达一个中断状态，除了 429 或 500 之外，它将永远不会返回任何内容。
-例如 ReplicaSet 创建的替换 Pod 没有变成就绪状态，或者被驱逐的最后一个 Pod 有很长的终止宽限期，就会发生这种情况。
+例如 ReplicaSet 创建的替换 Pod 没有变成就绪状态，或者被驱逐的最后一个 
+Pod 有很长的终止宽限期，就会发生这种情况。
 
 在这种情况下，有两种可能的解决方案：
 
@@ -291,6 +294,7 @@ Kubernetes 并没有具体说明在这种情况下应该采取什么行为，
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
 * Learn more about [maintenance on a node](/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node).
   -->
-* 跟随以下步骤保护应用程序：[配置 Pod 中断预算](/zh/docs/tasks/run-application/configure-pdb/)。
+* 执行[配置 PDB](/zh/docs/tasks/run-application/configure-pdb/)中的各个步骤，
+  保护你的应用
 * 进一步了解[节点维护](/zh/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node)。
 
