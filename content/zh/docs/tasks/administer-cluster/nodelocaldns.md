@@ -122,7 +122,9 @@ This feature can be enabled using the following steps:
 <!--
 * Prepare a manifest similar to the sample [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) and save it as `nodelocaldns.yaml.`
 -->
-* 准备与示例  [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) 相似的清单并保存为 `nodelocaldns.yaml 。
+* 准备与示例  [`nodelocaldns.yaml`]
+(https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) 
+相似的清单并保存为 `nodelocaldns.yaml 。
 <!--
 * Substitute the variables in the manifest with the right values:
 -->
@@ -153,8 +155,8 @@ This feature can be enabled using the following steps:
      `__PILLAR__CLUSTER__DNS__` and `__PILLAR__UPSTREAM__SERVERS__` will be populated by the node-local-dns pods.
      In this mode, node-local-dns pods listen on both the kube-dns service IP as well as `<node-local-address>`, so pods can lookup DNS records using either IP address.
 	-->
-     `__PILLAR__CLUSTER__DNS__` 和 `__PILLAR__UPSTREAM__SERVERS__` 将由 node-local-dns pod 填充。
-     在这种模式下，node-local-dns pods 会同时监听 kube-dns 服务 IP 和 `<node-local-address>`，
+     `__PILLAR__CLUSTER__DNS__` 和 `__PILLAR__UPSTREAM__SERVERS__` 将由 node-local-dns Pods 填充。
+     在这种模式下，node-local-dns Pods 会同时监听 kube-dns 服务 IP 和 `<node-local-address>`，
      因此 pods 可以使用任一 IP 地址查找 DNS 记录。
 
 <!--
@@ -171,7 +173,7 @@ This feature can be enabled using the following steps:
 -->
      在这种模式下，node-local-dns pod 只能在 `<node-local-address>` 上监听。
      node-local-dns 接口无法绑定 kube-dns 集群 IP，因为用于 IPVS 负载均衡的接口已使用此地址。
-     `__PILLAR__UPSTREAM__SERVERS__` 将由 node-local-dns pods 填充。
+     `__PILLAR__UPSTREAM__SERVERS__` 将由 node-local-dns Pods 填充。
 
 <!--
 * Run `kubectl create -f nodelocaldns.yaml`
@@ -182,9 +184,9 @@ This feature can be enabled using the following steps:
   Otherwise, there is no need to modify the value of the `--cluster-dns` flag, since NodeLocal DNSCache listens on both the kube-dns service IP as well as `<node-local-address>`.
 -->
 * 如果在 IPVS 模式使用 kube-proxy，需要修改 kubelet 的 `--cluster-dns` 标志，
-以使用 NodeLocal DNSCache 正在监听的 `<node-local-address>`。
-否则，由于 NodeLocal DNSCache 监听 kube-dns 服务 IP 和 `<node-local-address>`，
-因此不需要修改 `--cluster-dns` 标志的值。
+  以使用 NodeLocal DNSCache 正在监听的 `<node-local-address>`。
+  否则，由于 NodeLocal DNSCache 监听 kube-dns 服务 IP 和 `<node-local-address>`，
+  因此不需要修改 `--cluster-dns` 标志的值。
 
 <!--
 Once enabled, node-local-dns Pods will run in the kube-system namespace on each of the cluster nodes. This Pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
