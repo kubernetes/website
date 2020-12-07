@@ -257,17 +257,16 @@ API 参考的版本号。例如：
 ## Locally test the API reference
 
 Publish a local version of the API reference.
-Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/).
+Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/v1.15/).
 -->
 ## 在本地测试 API 参考
 
 发布 API 参考的本地版本。
-检查[本地预览](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/)。
+检查[本地预览](http://localhost:1313/docs/reference/generated/kubernetes-api/v1.15/)。
 
 ```shell
 cd <web-base>
-git submodule update --init --recursive --depth 1 # if not already done
-make container-serve
+make docker-serve
 ```
 
 <!--
