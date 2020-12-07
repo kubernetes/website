@@ -229,7 +229,7 @@ Sometimes it's useful to change the command for a container, for example to
 add a debugging flag or because the application is crashing.
 
 To simulate a crashing application, use `kubectl run` to create a container
-that immediately exists:
+that immediately exits:
 
 ```
 kubectl run --image=busybox myapp -- false
