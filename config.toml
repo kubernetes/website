@@ -190,30 +190,30 @@ docsbranch = "master"
 url = "https://kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.19.0"
+fullversion = "v1.19.4"
 version = "v1.19"
-githubbranch = "v1.19.0"
-docsbranch = "master"
+githubbranch = "v1.19.4"
+docsbranch = "release-1.19"
 url = "https://v1-19.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.18.8"
+fullversion = "v1.18.12"
 version = "v1.18"
-githubbranch = "v1.18.8"
+githubbranch = "v1.18.12"
 docsbranch = "release-1.18"
 url = "https://v1-18.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.17.11"
+fullversion = "v1.17.14"
 version = "v1.17"
-githubbranch = "v1.17.11"
+githubbranch = "v1.17.14"
 docsbranch = "release-1.17"
 url = "https://v1-17.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.16.14"
+fullversion = "v1.16.15"
 version = "v1.16"
-githubbranch = "v1.16.14"
+githubbranch = "v1.16.15"
 docsbranch = "release-1.16"
 url = "https://v1-16.docs.kubernetes.io"
 
