@@ -47,7 +47,7 @@ Kubernetes 需要 PKI 才能执行以下操作：
 * Client certificate for the API server to talk to etcd
 * Client certificate/kubeconfig for the controller manager to talk to the API server
 * Client certificate/kubeconfig for the scheduler to talk to the API server.
-* Client and server certificates for the [front-proxy][proxy]
+* Client and server certificates for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 -->
 * Kubelet 的客户端证书，用于 API 服务器身份验证
 * API 服务器端点的证书
@@ -106,7 +106,7 @@ Required CAs:
 |------------------------|---------------------------|----------------------------------|
 | ca.crt,key             | kubernetes-ca             | Kubernetes general CA            |
 | etcd/ca.crt,key        | etcd-ca                   | For all etcd-related functions   |
-| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | For the [front-end proxy][proxy] |
+| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | For the [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 On top of the above CAs, it is also necessary to get a public/private key pair for service account management, `sa.key` and `sa.pub`.
 -->
@@ -116,7 +116,7 @@ On top of the above CAs, it is also necessary to get a public/private key pair f
 |------------------------|---------------------------|----------------------------------|
 | ca.crt,key             | kubernetes-ca             | Kubernetes 通用 CA                |
 | etcd/ca.crt,key        | etcd-ca                   | 与 etcd 相关的所有功能              |
-| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | 用于 [前端代理][proxy] |
+| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | 用于 [前端代理](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 上面的 CA 之外，还需要获取用于服务账户管理的密钥对，也就是 `sa.key` 和 `sa.pub`。
 
@@ -144,17 +144,17 @@ Required certificates:
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
 <!--
-[1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm][kubeadm] the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
+[1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
-where `kind` maps to one or more of the [x509 key usage][usage] types:
+where `kind` maps to one or more of the [x509 key usage](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage) types:
 -->
 [1]: 用来连接到集群的不同 IP 或 DNS 名
 （就像 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/) 为负载均衡所使用的固定
 IP 或 DNS 名，`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
 `kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）。
 
-其中，`kind` 对应一种或多种类型的 [x509 密钥用途][https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage]：
+其中，`kind` 对应一种或多种类型的 [x509 密钥用途](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage)：
 
 <!--
 | kind   | Key usage                                                                       |
@@ -193,11 +193,11 @@ For kubeadm users only:
 <!--
 ### Certificate paths
 
-Certificates should be placed in a recommended path (as used by [kubeadm][kubeadm]). Paths should be specified using the given argument regardless of location.
+Certificates should be placed in a recommended path (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)). Paths should be specified using the given argument regardless of location.
 -->
 ### 证书路径
 
-证书应放置在建议的路径中（以便 [kubeadm][kubeadm]使用）。无论使用什么位置，都应使用给定的参数指定路径。
+证书应放置在建议的路径中（以便 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/)使用）。无论使用什么位置，都应使用给定的参数指定路径。
 
 | 默认 CN                   | 建议的密钥路径         | 建议的证书路径       | 命令        | 密钥参数               | 证书参数                             |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
