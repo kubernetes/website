@@ -60,7 +60,8 @@ first and the continue following this guide.
 
 为了确保你的负载在维护期间仍然可用，你可以配置一个 [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions/)。
 如果可用性对于正在清空的该节点上运行或可能在该节点上运行的任何应用程序很重要，
-首先 [配置一个 PodDisruptionBudgets](/zh/docs/tasks/run-application/configure-pdb/) 并继续遵循本指南。
+请先[配置一个 PodDisruptionBudgets](/zh/docs/tasks/run-application/configure-pdb/) 并继续
+阅读本指南。
 
 <!-- 
 ## Use `kubectl drain` to remove a node from service
@@ -297,4 +298,3 @@ Kubernetes 并没有具体说明在这种情况下应该采取什么行为，
 * 执行[配置 PDB](/zh/docs/tasks/run-application/configure-pdb/)中的各个步骤，
   保护你的应用
 * 进一步了解[节点维护](/zh/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node)。
-
