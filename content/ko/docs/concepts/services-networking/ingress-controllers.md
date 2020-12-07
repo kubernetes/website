@@ -22,12 +22,14 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 
 ## 추가 컨트롤러
 
+{{% thirdparty-content %}}
+
 * [AKS Application Gateway Ingress Controller](https://github.com/Azure/application-gateway-kubernetes-ingress) is an ingress controller that enables ingress to [AKS clusters](https://docs.microsoft.com/azure/aks/kubernetes-walkthrough-portal) using the [Azure Application Gateway](https://docs.microsoft.com/azure/application-gateway/overview).
 * [Ambassador](https://www.getambassador.io/) API 게이트웨이는 [Datawire](https://www.datawire.io/)의
   [커뮤니티](https://www.getambassador.io/docs) 혹은 [상업적](https://www.getambassador.io/pro/) 지원을 제공하는
   [Envoy](https://www.envoyproxy.io) 기반 인그레스 컨트롤러다.
 * [AppsCode Inc.](https://appscode.com) 는 가장 널리 사용되는 [HAProxy](https://www.haproxy.org/) 기반 인그레스 컨트롤러인 [Voyager](https://appscode.com/products/voyager)에 대한 지원 및 유지 보수를 제공한다.
-* [AWS ALB 인그레스 컨트롤러](https://github.com/kubernetes-sigs/aws-alb-ingress-controller)는 [AWS Application Load Balancer](https://aws.amazon.com/elasticloadbalancing/)를 사용하여 인그레스를 활성화한다.
+* [AWS 로드 밸런서 컨트롤러](https://github.com/kubernetes-sigs/aws-load-balancer-controller)(이전의 AWS ALB 인그레스 컨트롤러)는 [AWS Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/)을 사용하여 인그레스를 활성화한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러로
   VMware에서 제공하고 지원한다.
 * Citrix는 [베어메탈](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal)과 [클라우드](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) 배포를 위해 하드웨어 (MPX), 가상화 (VPX) 및 [무료 컨테이너화 (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html)를 위한 [인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller)를 제공한다.

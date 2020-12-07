@@ -20,7 +20,7 @@ in the [Logging With Stackdriver Logging](/docs/user-guide/logging/stackdriver).
 -->
 在 Google Compute Engine (GCE) 平台上，默认的日志管理支持目标是
 [Stackdriver Logging](https://cloud.google.com/logging/)，
-在[使用 Stackdriver Logging 管理日志](/docs/tasks/debug-application-cluster/logging-stackdriver/)
+在[使用 Stackdriver Logging 管理日志](/zh/docs/tasks/debug-application-cluster/logging-stackdriver/)
 中详细描述了这一点。
 
 <!--
@@ -49,7 +49,8 @@ To use Elasticsearch and Kibana for cluster logging, you should set the
 following environment variable as shown below when creating your cluster with
 kube-up.sh:
 -->
-要使用 Elasticsearch 和 Kibana 处理集群日志，你应该在使用 kube-up.sh 脚本创建集群时设置下面所示的环境变量：
+要使用 Elasticsearch 和 Kibana 处理集群日志，你应该在使用 kube-up.sh
+脚本创建集群时设置下面所示的环境变量：
 
 ```shell
 KUBE_LOGGING_DESTINATION=elasticsearch
@@ -96,7 +97,7 @@ all be running in the kube-system namespace soon after the cluster comes to
 life.
 -->
 每个节点的 Fluentd Pod、Elasticsearch Pod 和 Kibana Pod 都应该在集群启动后不久运行在
-kube-system 命名空间中。
+kube-system 名字空间中。
 
 ```shell
 kubectl get pods --namespace=kube-system
@@ -137,8 +138,8 @@ and are not directly exposed via a publicly reachable IP address. To reach them,
 follow the instructions for [Accessing services running in a cluster](/docs/concepts/cluster-administration/access-cluster/#accessing-services-running-on-the-cluster).
 -->
 
-Elasticsearch 和 Kibana 服务都位于 `kube-system` 命名空间中，并且没有通过可公开访问的 IP 地址直接暴露。
-要访问它们，请参照
+Elasticsearch 和 Kibana 服务都位于 `kube-system` 名字空间中，并且没有通过
+可公开访问的 IP 地址直接暴露。要访问它们，请参照
 [访问集群中运行的服务](/zh/docs/tasks/access-application-cluster/access-cluster/#accessing-services-running-on-the-cluster)
 的说明进行操作。
 
@@ -156,7 +157,8 @@ like. See [Elasticsearch's documentation](https://www.elastic.co/guide/en/elasti
 for more details on how to do so.
 -->
 现在你可以直接在浏览器中输入 Elasticsearch 查询，如果你愿意的话。
-请参考 [Elasticsearch 的文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-uri-request.html) 以了解这样做的更多细节。
+请参考 [Elasticsearch 的文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-uri-request.html)
+以了解这样做的更多细节。
 
 <!--
 Alternatively, you can view your cluster's logs using Kibana (again using the
@@ -192,3 +194,4 @@ ideas on how to dig into it, check out [Kibana's documentation](https://www.elas
 -->
 Kibana 为浏览你的日志提供了各种强大的选项！有关如何深入研究它的一些想法，
 请查看 [Kibana 的文档](https://www.elastic.co/guide/en/kibana/current/discover.html)。
+

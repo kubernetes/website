@@ -261,13 +261,13 @@ make room for new DaemonSet pods.
 
 <!--
 This will cause service disruption when deleted pods are not controlled by any controllers or pods are not
-replicated. This does not respect [PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)
+replicated. This does not respect [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/)
 either.
 -->
 {{< note >}}
 当所删除的 Pod 不受任何控制器管理，也不是多副本的 Pod时，上述操作将导致服务中断。
 同时，上述操作也不会考虑
-[PodDisruptionBudget](/zh/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)
+[PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)
 所施加的约束。
 {{< /note >}}
 

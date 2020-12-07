@@ -196,7 +196,7 @@ To make it easier to evolve and to extend its API, Kubernetes implements
 -->
 为了便于演化和扩展其 API，Kubernetes 实现了
 可被[启用或禁用](/zh/docs/reference/using-api/#enabling-or-disabling)的
-[API 组](/docs/reference/using-api/#api-groups)。
+[API 组](/zh/docs/reference/using-api/#api-groups)。
 
 <!--
 API resources are distinguished by their API group, resource type, namespace

@@ -174,7 +174,7 @@ The kubelet collects accelerator metrics through cAdvisor. To collect these metr
 
 The responsibility for collecting accelerator metrics now belongs to the vendor rather than the kubelet. Vendors must provide a container that collects metrics and exposes them to the metrics service (for example, Prometheus).
 
-The [`DisableAcceleratorUsageMetrics` feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features:~:text= DisableAcceleratorUsageMetrics,-false) disables metrics collected by the kubelet, with a [timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
+The [`DisableAcceleratorUsageMetrics` feature gate](/docs/reference/command-line-tools-reference/feature-gates/) disables metrics collected by the kubelet, with a [timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
 -->
 ## 禁用加速器指标
 
@@ -185,7 +185,7 @@ kubelet 在驱动程序上保持打开状态。这意味着为了执行基础结
 现在，收集加速器指标的责任属于供应商，而不是 kubelet。供应商必须提供一个收集指标的容器，
 并将其公开给指标服务（例如 Prometheus）。
 
-[`DisableAcceleratorUsageMetrics` 特性门控](/zh/docs/references/command-line-tools-reference/feature-gate.md#feature-gates-for-alpha-or-beta-features:~:text= DisableAcceleratorUsageMetrics,-false)
+[`DisableAcceleratorUsageMetrics` 特性门控](/zh/docs/references/command-line-tools-reference/feature-gates/)
 禁止由 kubelet 收集的指标。
 关于[何时会在默认情况下启用此功能也有一定规划](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria)。
 
@@ -235,4 +235,4 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 -->
 * 阅读有关指标的 [Prometheus 文本格式](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
 * 查看 [Kubernetes 稳定指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)的列表
-* 阅读有关 [Kubernetes 弃用策略](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
+* 阅读有关 [Kubernetes 弃用策略](/zh/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

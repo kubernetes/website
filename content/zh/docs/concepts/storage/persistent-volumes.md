@@ -3,7 +3,10 @@ title: 持久卷
 feature:
   title: 存储编排
   description: >
-    自动挂载所选存储系统，包括本地存储、诸如 <a href="https://cloud.google.com/storage/">GCP</a> 或 <a href="https://aws.amazon.com/products/storage/">AWS</a> 之类公有云提供商所提供的存储或者诸如 NFS、iSCSI、Gluster、Ceph、Cinder 或 Flocker 这类网络存储系统。
+    自动挂载所选存储系统，包括本地存储、诸如 <a href="https://cloud.google.com/storage/">GCP</a>
+    或 <a href="https://aws.amazon.com/products/storage/">AWS</a>
+    之类公有云提供商所提供的存储或者诸如 NFS、iSCSI、Gluster、Ceph、Cinder
+    或 Flocker 这类网络存储系统。
 
 content_type: concept
 weight: 20
@@ -1053,7 +1056,7 @@ be bound to the PVC.
 ### 类      {#class}
 
 申领可以通过为 `storageClassName` 属性设置
-[StorageClass](/docs/concepts/storage/storage-classes/) 的名称来请求特定的存储类。
+[StorageClass](/zh/docs/concepts/storage/storage-classes/) 的名称来请求特定的存储类。
 只有所请求的类的 PV 卷，即 `storageClassName` 值与 PVC 设置相同的 PV 卷，
 才能绑定到 PVC 申领。
 
