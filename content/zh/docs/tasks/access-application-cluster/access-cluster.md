@@ -1,4 +1,4 @@
-﻿---
+---
 title: 访问集群
 weight: 20
 content_type: concept
@@ -16,8 +16,6 @@ content_type: concept
 This topic discusses multiple ways to interact with clusters.
 -->
 本文阐述多种与集群交互的方法。
-
-{{< toc >}}
 
 <!-- body -->
 
