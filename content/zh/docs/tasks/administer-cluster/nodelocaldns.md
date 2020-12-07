@@ -108,7 +108,8 @@ This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
 {{< /note >}}
 
 -->
-{{< note >}} NodeLocal DNSCache 的本地侦听IP地址可以是 169.254.20.0/16 空间中的任何 IP，
+{{< note >}}
+NodeLocal DNSCache 的本地侦听 IP 地址可以是 169.254.20.0/16 空间中的任何 IP，
 也可以是可以保证不会与任何现有 IP 冲突的任何其他 IP 地址。
 本文档以 169.254.20.10 为例。
 {{< /note >}}
@@ -198,4 +199,3 @@ You can disable this feature by removing the DaemonSet, using `kubectl delete -f
 你可以通过使用 `kubectl delete -f <manifest>` 删除 DaemonSet 来禁用此功能。 你还应该还原对 kubelet 配置所做的任何更改。
 
  
-
