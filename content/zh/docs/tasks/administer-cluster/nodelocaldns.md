@@ -190,7 +190,7 @@ This feature can be enabled using the following steps:
 Once enabled, node-local-dns Pods will run in the kube-system namespace on each of the cluster nodes. This Pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
 -->
 启用后，node-local-dns Pods 将在每个集群节点上的 kube-system 命名空间中运行。
-这个 Pod [CoreDNS](https://github.com/coredns/coredns)  以缓存模式运行，因此
+这个 Pod 以缓存模式运行 [CoreDNS](https://github.com/coredns/coredns)，因此
 所有由不同插件公开的 CoreDNS 指标将在每个节点均可用。
 
 <!--
