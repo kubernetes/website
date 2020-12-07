@@ -159,7 +159,7 @@ up logging for COS image on GCP in the corresponding [script][cosConfigureHelper
 -->
 例如，你可以找到关于 `kube-up.sh` 为 GCP 环境的 COS 镜像设置日志的详细信息，
 相应的脚本在
-[这里](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
+[这里](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)。
 
 <!--
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
