@@ -1,4 +1,4 @@
-﻿---
+---
 title: 配置命名空间下 Pod 配额
 content_type: task
 weight: 60
@@ -48,7 +48,7 @@ Here is the configuration file for a ResourceQuota object:
 
 {{< codenew file="admin/resource/quota-pod.yaml" >}}
 
-<!-- 创建 ResourceQuota: -->
+<!-- Create the ResourceQuota: -->
 创建这个 ResourceQuota：
 
 ```shell
