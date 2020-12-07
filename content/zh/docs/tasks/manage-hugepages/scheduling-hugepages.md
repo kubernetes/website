@@ -11,6 +11,7 @@ reviewers:
 - derekwaynecarr
 title: Manage HugePages
 content_type: task
+description: Configure and manage huge pages as a schedulable resource in a cluster.
 ---
 --->
 
@@ -139,7 +140,7 @@ spec:
 to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
 token.
 - Support of multiple sizes huge pages is feature gated. It can be
-  enabled with the `HugePageStorageMediumSize` [feature
+  disabled with the `HugePageStorageMediumSize` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) on the {{<
 glossary_tooltip text="kubelet" term_id="kubelet" >}} and {{<
 glossary_tooltip text="kube-apiserver"
@@ -156,7 +157,7 @@ term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`).
 - 多种尺寸的巨页的支持需要特性门控配置。它可以通过 `HugePageStorageMediumSize` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)在  {{<
 glossary_tooltip text="kubelet" term_id="kubelet" >}} 和 {{<
 glossary_tooltip text="kube-apiserver"
-term_id="kube-apiserver" >}} 中开启（`--feature-gates=HugePageStorageMediumSize=true`）。
+term_id="kube-apiserver" >}} 中禁用（`--feature-gates=HugePageStorageMediumSize=true`）。
 
 
 
