@@ -141,8 +141,8 @@ Type:            Opaque
 
 Data
 ====
-password.txt:    12 bytes
-username.txt:    5 bytes
+password:    12 bytes
+username:    5 bytes
 ```
 
 <!--
