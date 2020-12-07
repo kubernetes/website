@@ -95,12 +95,12 @@ repository is `$GOPATH/src/github.com/kubernetes-incubator/reference-docs.`
 The remaining steps refer to your base directory as `<rdocs-base>`.
 -->
 * [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) 仓库克隆后的根目录为
-  `$GOPATH/src/k8s.io/kubernetes`。 后续步骤将此目录称为 `<k8s-base>`。
+`$GOPATH/src/k8s.io/kubernetes`。 后续步骤将此目录称为 `<k8s-base>`。
 * [kubernetes/website](https://github.com/kubernetes/website) 仓库克隆后的根目录为
-  `$GOPATH/src/github.com/<your username>/website`。后续步骤将此目录称为 `<web-base>`。
+`$GOPATH/src/github.com/<your username>/website`。后续步骤将此目录称为 `<web-base>`。
 * [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
-  仓库克隆后的基本目录为 `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`。
-  后续步骤将此目录称为 `<rdocs-base>`。
+仓库克隆后的基本目录为 `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`。
+后续步骤将此目录称为 `<rdocs-base>`。
 
 <!-- 
 ## Generating the API reference docs
@@ -123,12 +123,12 @@ Go to `<rdocs-base>`, and open the `Makefile` for editing:
 * Set `K8S_ROOT` to `<k8s-base>`.
 * Set `K8S_WEBROOT` to `<web-base>`.
 * Set `K8S_RELEASE` to the minor version of the docs you want to build.
-  For example, if you want to build docs for Kubernetes 1.17, set `K8S_RELEASE` to 1.17.
+For example, if you want to build docs for Kubernetes 1.17, set `K8S_RELEASE` to 1.17.
 -->
 * 设置 `K8S_ROOT` 为 `<k8s-base>`.
 * 设置 `K8S_WEBROOT` 为 `<web-base>`.
 * 设置 `K8S_RELEASE` 为要构建的文档的版本。
-  例如，如果您想为 Kubernetes 1.17 构建文档，请将 `K8S_RELEASE` 设置为 1.17。
+例如，如果您想为 Kubernetes 1.17 构建文档，请将 `K8S_RELEASE` 设置为 1.17。
 
 <!-- For example, update the following variables: -->
 例如：
@@ -238,7 +238,7 @@ version number.
     ```
 -->
 * 打开并编辑 `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md`，
-  API 参考的版本号。例如：
+API 参考的版本号。例如：
 
     ```
     title: v1.17
@@ -250,23 +250,24 @@ version number.
   There should be five links to the most recent API references.
 -->
 * 打开编辑 `<web-base>/content/en/docs/reference/_index.md`，添加指向最新 API 参考
-  的链接，删除最老的 API 版本。
-  通常保留最近的五个版本的 API 参考的链接。
+的链接，删除最老的 API 版本。
+通常保留最近的五个版本的 API 参考的链接。
 
 <!--
 ## Locally test the API reference
 
 Publish a local version of the API reference.
-Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/v1.15/).
+Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/).
 -->
 ## 在本地测试 API 参考
 
 发布 API 参考的本地版本。
-检查[本地预览](http://localhost:1313/docs/reference/generated/kubernetes-api/v1.15/)。
+检查[本地预览](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/)。
 
 ```shell
 cd <web-base>
-make docker-serve
+git submodule update --init --recursive --depth 1 # if not already done
+make container-serve
 ```
 
 <!--
@@ -280,7 +281,7 @@ In `<web-base>` run `git add` and `git commit` to commit the change.
 
 <!-- 
 Submit your changes as a
-[pull request](/docs/contribute/new-content/open-a-pr/) to the
+[pull request](/zh/docs/contribute/new-content/open-a-pr/) to the
 [kubernetes/website](https://github.com/kubernetes/website) repository.
 Monitor your pull request, and respond to reviewer comments as needed. Continue
 to monitor your pull request until it has been merged.
