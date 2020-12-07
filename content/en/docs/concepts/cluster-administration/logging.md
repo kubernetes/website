@@ -80,7 +80,7 @@ default rotation is configured to take place when log file exceeds 10MB.
 
 As an example, you can find detailed information about how `kube-up.sh` sets
 up logging for COS image on GCP in the corresponding
-[script](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
+[script](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh).
 
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
