@@ -45,7 +45,7 @@ kubectl describe pods ${POD_NAME}
 사용자 클러스터의 CPU 나 Memory의 공급이 소진되었을 수 있다. 이 경우
 몇 가지 방법을 시도할 수 있다.
 
-* 클러스터에 [노드를 더 추가하기](/ko/docs/tasks/administer-cluster/cluster-management/#클러스터-크기-재조정).
+* 클러스터에 노드를 더 추가하기.
 
 * pending 상태인 파드를 위한 공간을 확보하기 위해
   [불필요한 파드 종료하기](/ko/docs/concepts/workloads/pods/#pod-termination)

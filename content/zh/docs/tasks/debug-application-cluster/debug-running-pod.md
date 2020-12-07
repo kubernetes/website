@@ -20,7 +20,8 @@ This page explains how to debug Pods running (or crashing) on a Node.
   need that access to run the standard debug steps that use `kubectl`.
 -->
 * 你的 {{< glossary_tooltip text="Pod" term_id="pod" >}} 应该已经被调度并正在运行中，
-如果你的 Pod 还没有运行，请参阅[应用问题排查](/docs/tasks/debug-application-cluster/debug-application/)。
+  如果你的 Pod 还没有运行，请参阅
+  [应用问题排查](/zh/docs/tasks/debug-application-cluster/debug-application/)。
 
 * 对于一些高级调试步骤，你应该知道 Pod 具体运行在哪个节点上，在该节点上有权限去运行一些命令。
   你不需要任何访问权限就可以使用 `kubectl` 去运行一些标准调试步骤。
@@ -147,7 +148,8 @@ images.
 ## 使用临时容器来调试的例子 {#ephemeral-container-example}
 
 {{< note >}}
-本示例需要你的集群已经开启 `EphemeralContainers` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+本示例需要你的集群已经开启 `EphemeralContainers`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
 `kubectl` 版本为 v1.18 或者更高。
 {{< /note >}}
 

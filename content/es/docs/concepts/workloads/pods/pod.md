@@ -22,14 +22,14 @@ Mientras que Kubernetes soporta más {{<glossary_tooltip text="runtimes de conte
 
 El contexto compartido de un Pod es un conjunto de namespaces de Linux, cgroups y, potencialmente, otras facetas de aislamiento, las mismas cosas que aíslan un contenedor Docker. Dentro del contexto de un Pod, las aplicaciones individuales pueden tener más subaislamientos aplicados.
 
-Los contenedores dentro de un Pod comparten dirección IP y puerto, y pueden encontrarse a través de `localhost`. También pueden comunicarse entre sí mediante comunicaciones estándar entre procesos, como semáforos de SystemV o la memoria compartida POSIX. Los contenedores en diferentes Pods tienen direcciones IP distintas y no pueden comunicarse por IPC sin [configuración especial](/es/docs /concepts/policy/pod-security-policy/).
+Los contenedores dentro de un Pod comparten dirección IP y puerto, y pueden encontrarse a través de `localhost`. También pueden comunicarse entre sí mediante comunicaciones estándar entre procesos, como semáforos de SystemV o la memoria compartida POSIX. Los contenedores en diferentes Pods tienen direcciones IP distintas y no pueden comunicarse por IPC sin [configuración especial](/docs/concepts/policy/pod-security-policy/).
 Estos contenedores normalmente se comunican entre sí a través de las direcciones IP del Pod.
 
 Las aplicaciones dentro de un Pod también tienen acceso a {{<glossary_tooltip text="volúmenes" term_id="volume">}} compartidos, que se definen como parte de un Pod y están disponibles para ser montados en el sistema de archivos de cada aplicación.
 
 En términos de [Docker](https://www.docker.com/), un Pod se modela como un grupo de contenedores de Docker con namespaces y volúmenes de sistemas de archivos compartidos.
 
-Al igual que los contenedores de aplicaciones individuales, los Pods se consideran entidades relativamente efímeras (en lugar de duraderas). Como se explica en [ciclo de vida del pod](/es/docs/concepts/workloads/pods/pod-lifecycle/), los Pods se crean, se les asigna un identificador único (UID) y se planifican en nodos donde permanecen hasta su finalización (según la política de reinicio) o supresión. Si un {{<glossary_tooltip text="nodo" term_id="node">}} muere, los Pods programados para ese nodo se programan para su eliminación después de un período de tiempo de espera. Un Pod dado (definido por su UID) no se "replanifica" a un nuevo nodo; en su lugar, puede reemplazarse por un Pod idéntico, con incluso el mismo nombre si lo desea, pero con un nuevo UID (consulte [controlador de replicación](/es/docs/concepts/workloads/controllers/replicationcontroller/) para obtener más detalles).
+Al igual que los contenedores de aplicaciones individuales, los Pods se consideran entidades relativamente efímeras (en lugar de duraderas). Como se explica en [ciclo de vida del pod](/docs/concepts/workloads/pods/pod-lifecycle/), los Pods se crean, se les asigna un identificador único (UID) y se planifican en nodos donde permanecen hasta su finalización (según la política de reinicio) o supresión. Si un {{<glossary_tooltip text="nodo" term_id="node">}} muere, los Pods programados para ese nodo se programan para su eliminación después de un período de tiempo de espera. Un Pod dado (definido por su UID) no se "replanifica" a un nuevo nodo; en su lugar, puede reemplazarse por un Pod idéntico, con incluso el mismo nombre si lo desea, pero con un nuevo UID (consulte [controlador de replicación](/es/docs/concepts/workloads/controllers/replicationcontroller/) para obtener más detalles).
 
 Cuando se dice que algo tiene la misma vida útil que un Pod, como un volumen, significa que existe mientras exista ese Pod (con ese UID). Si ese Pod se elimina por cualquier motivo, incluso si se crea un reemplazo idéntico, el recurso relacionado (por ejemplo, el volumen) también se destruye y se crea de nuevo.
 {{< figure src="/images/docs/pod.svg" title="diagrama de Pod" width="50%" >}}
@@ -49,7 +49,7 @@ Los Pods permiten el intercambio de datos y la comunicación entre los contenedo
 Todas las aplicaciones en un Pod utilizan el mismo namespace de red (la misma IP y puerto) y, por lo tanto, pueden "encontrarse" entre sí y comunicarse utilizando `localhost`.
 Debido a esto, las aplicaciones en un Pod deben coordinar su uso de puertos. Cada Pod tiene una dirección IP en un espacio de red compartido que tiene comunicación completa con otros servidores físicos y Pods a través de la red.
 
-Los contenedores dentro del Pod ven que el hostname del sistema es el mismo que el `nombre` configurado para el Pod. Hay más información sobre esto en la sección [networking](/es/docs/concepts/cluster-administration/networking/).
+Los contenedores dentro del Pod ven que el hostname del sistema es el mismo que el `nombre` configurado para el Pod. Hay más información sobre esto en la sección [networking](/docs/concepts/cluster-administration/networking/).
 
 Además de definir los contenedores de aplicaciones que se ejecutan en el Pod, el Pod especifica un conjunto de volúmenes de almacenamiento compartido. Los volúmenes permiten que los datos sobrevivan a reinicios de contenedores y se compartan entre las aplicaciones dentro del Pod.
 
@@ -98,7 +98,7 @@ usar siempre controladores incluso para Pods individuales, como por ejemplo, los
 [Deployments](/es/docs/concepts/workloads/controllers/deployment/).
 Los controladores proporcionan autorecuperación con un alcance de clúster, así como replicación
 y gestión de despliegue.
-Otros controladores como los [StatefulSet](/es/docs/concepts/workloads/controllers/statefulset.md)
+Otros controladores como los [StatefulSet](/es/docs/concepts/workloads/controllers/statefulset/)
 pueden tambien proporcionar soporte para Pods que necesiten persistir el estado.
 
 El uso de API colectivas como la principal primitiva de cara al usuario es relativamente común entre los sistemas de planificación de clúster, incluyendo [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), y [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
@@ -128,14 +128,14 @@ Un ejemplo del ciclo de terminación de un Pod:
 1. Cuando expira el período de gracia, todos los procesos que todavía se ejecutan en el Pod se eliminan con SIGKILL.
 1. El Kubelet terminará de eliminar el Pod en el servidor API configurando el período de gracia 0 (eliminación inmediata). El Pod desaparece de la API y ya no es visible desde el cliente.
 
-Por defecto, todas las eliminaciones se realizan correctamente en 30 segundos. El comando `kubectl delete` admite la opción` --grace-period = <seconds> `que permite al usuario anular el valor predeterminado y especificar su propio valor. El valor `0` [forzar eliminación](/es/docs/concepts/workloads/pods/pod/#force-deletion-of-pods) del Pod.
+Por defecto, todas las eliminaciones se realizan correctamente en 30 segundos. El comando `kubectl delete` admite la opción` --grace-period = <seconds> `que permite al usuario anular el valor predeterminado y especificar su propio valor. El valor `0` [forzar eliminación](/es/docs/concepts/workloads/pods/pod/#forzar-destrucción-de-pods) del Pod.
 Debe especificar un indicador adicional `--force` junto con` --grace-period = 0` para realizar eliminaciones forzadas.
 
 ### Forzar destrucción de Pods
 
 La eliminación forzada de un Pod se define como la eliminación de un Pod del estado del clúster y etcd inmediatamente. Cuando se realiza una eliminación forzada, el apiserver no espera la confirmación del kubelet de que el Pod ha finalizado en el nodo en el que se estaba ejecutando. Elimina el Pod en la API inmediatamente para que se pueda crear un nuevo Pod con el mismo nombre. En el nodo, los Pods que están configurados para terminar de inmediato recibirán un pequeño período de gracia antes de ser forzadas a matar.
 
-Estas eliminaciones pueden ser potencialmente peligrosas para algunos Pods y deben realizarse con precaución. En el caso de Pods de StatefulSets, consulte la documentación de la tarea para [eliminando Pods de un StatefulSet](/es/docs/tasks/run-application/force-delete-stateful-set-pod/).
+Estas eliminaciones pueden ser potencialmente peligrosas para algunos Pods y deben realizarse con precaución. En el caso de Pods de StatefulSets, consulte la documentación de la tarea para [eliminando Pods de un StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
 ## Modo privilegiado para Pods
 

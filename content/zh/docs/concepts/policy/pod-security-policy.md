@@ -288,7 +288,7 @@ on configuring Controller Manager authorization, see
 
 - [控制器管理器组件](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
   必须运行在
-  [安全的 API 端口](/zh/docs/reference/access-authn-authz/controlling-access/)，
+  [安全的 API 端口](/zh/docs/concepts/security/controlling-access/)，
   并且一定不能具有超级用户权限。
   否则其请求会绕过身份认证和鉴权模块控制，从而导致所有 PodSecurityPolicy 对象
   都被启用，用户亦能创建特权容器。
@@ -696,7 +696,7 @@ several security mechanisms.
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/#policy-instantiation) for more examples.
 -->
 更多的示例可参考
-[Pod 安全标准](/docs/concepts/security/pod-security-standards/#policy-instantiation)。
+[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/#policy-instantiation)。
 
 <!--
 ## Policy Reference
@@ -1219,7 +1219,7 @@ By default, all safe sysctls are allowed.
 
 - Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 -->
-- 参阅[Pod 安全标准](/docs/concepts/security/pod-security-standards/)
+- 参阅[Pod 安全标准](zh/docs/concepts/security/pod-security-standards/)
   了解策略建议。
 - 阅读 [Pod 安全策略参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)了解 API 细节。
 

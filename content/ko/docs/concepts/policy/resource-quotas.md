@@ -74,8 +74,7 @@ API 서버 `--enable-admission-plugins=` 플래그의 인수 중 하나로
 | `limits.memory` | 터미널이 아닌 상태의 모든 파드에서 메모리 제한의 합은 이 값을 초과할 수 없음. |
 | `requests.cpu` | 터미널이 아닌 상태의 모든 파드에서 CPU 요청의 합은 이 값을 초과할 수 없음. |
 | `requests.memory` | 터미널이 아닌 상태의 모든 파드에서 메모리 요청의 합은 이 값을 초과할 수 없음. |
-| `hugepages-<size>` | 터미널 상태가 아닌 모든 파드에 걸쳐서, 지정된 사이즈의
-휴즈 페이지 요청은 이 값을 초과하지 못함. |
+| `hugepages-<size>` | 터미널 상태가 아닌 모든 파드에 걸쳐서, 지정된 사이즈의 휴즈 페이지 요청은 이 값을 초과하지 못함. |
 | `cpu` | `requests.cpu` 와 같음. |
 | `memory` | `requests.memory` 와 같음. |
 

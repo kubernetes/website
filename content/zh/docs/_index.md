@@ -1,4 +1,6 @@
 ---
+linktitle: Kubernetes 文档
 title: 文档
-weight: 5
+sitemap:
+  priority: 1.0
 ---

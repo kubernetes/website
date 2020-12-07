@@ -448,12 +448,12 @@ type PreFilterPlugin interface {
 <!-- 
 You can enable or disable plugins in the scheduler configuration. If you are using
 Kubernetes v1.18 or later, most scheduling
-[plugins](/docs/reference/scheduling/profiles/#scheduling-plugins) are in use and
+[plugins](/docs/reference/scheduling/config/#scheduling-plugins) are in use and
 enabled by default.
  -->
 你可以在调度器配置中启用或禁用插件。
 如果你在使用 Kubernetes v1.18 或更高版本，大部分调度
-[插件](/zh/docs/reference/scheduling/profiles/#scheduling-plugins)
+[插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)
 都在使用中且默认启用。
 
 <!-- 
@@ -468,9 +468,9 @@ plugins and get them configured along with default plugins. You can visit
 <!-- 
 If you are using Kubernetes v1.18 or later, you can configure a set of plugins as
 a scheduler profile and then define multiple profiles to fit various kinds of workload.
-Learn more at [multiple profiles](/docs/reference/scheduling/profiles/#multiple-profiles).
+Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-profiles).
  -->
 如果你正在使用 Kubernetes v1.18 或更高版本，你可以将一组插件设置为
 一个调度器配置文件，然后定义不同的配置文件来满足各类工作负载。
-了解更多关于[多配置文件](/zh/docs/reference/scheduling/profiles/#multiple-profiles)。
+了解更多关于[多配置文件](/zh/docs/reference/scheduling/config/#multiple-profiles)。
 

@@ -7,7 +7,7 @@ aliases: [ '/dockershim' ]
 ---
 
 This document goes over some frequently asked questions regarding the Dockershim
-depreaction announced as a part of the Kubernetes v1.20 release. For more detail
+deprecation announced as a part of the Kubernetes v1.20 release. For more detail
 on the deprecation of Docker as a container runtime for Kubernetes kubelets, and
 what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
@@ -101,7 +101,7 @@ in the form of [runc], which is the underlying default runtime for both
 [containerd] and [CRI-O]. The CRI builds on these low-level specifications to
 provide an end-to-end standard for managing containers.
 
-[Open Container Initative]: https://opencontainers.org/about/overview/
+[Open Container Initiative]: https://opencontainers.org/about/overview/
 [runc]: https://github.com/opencontainers/runc
 [containerd]: https://containerd.io/
 
