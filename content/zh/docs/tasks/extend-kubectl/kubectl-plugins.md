@@ -80,8 +80,9 @@ plugins from a community-curated
 任何以 `kubectl-` 开头的文件如果`不可执行`，都将包含一个警告。
 对于任何相同的有效插件文件，都将包含一个警告。
 
-你可以使用 [Krew](https://krew.dev/) 从社区策划中发现和安装 `kubectl` 插件。
-[插件索引](https://krew.sigs.k8s.io/plugins/)
+你可以使用 [Krew](https://krew.dev/) 从社区策划的[插件索引](https://krew.sigs.k8s.io/plugins/)
+中发现和安装 `kubectl` 插件。
+
 <!--
 #### Limitations
 
@@ -134,7 +135,7 @@ then
     echo "1.0.0"
     exit 0
 fi
-  
+
 # 可选的参数处理
 if [[ "$1" == "config" ]]
 then
@@ -183,7 +184,7 @@ I am a plugin named kubectl-foo
 <!--
 All args and flags are passed as-is to the executable:
 -->
-  所有参数和标记按原样传递给可执行文件：
+所有参数和标记按原样传递给可执行文件：
 
 ```
 kubectl foo version
@@ -279,17 +280,17 @@ Upon having found a plugin with this name, kubectl then invokes that plugin, pas
 # 创建一个插件
 echo -e '#!/bin/bash\n\necho "My first command-line argument was $1"' > kubectl-foo-bar-baz
 sudo chmod +x ./kubectl-foo-bar-baz
-  
+
 # 将插件放到 PATH 下完成"安装"
 sudo mv ./kubectl-foo-bar-baz /usr/local/bin
-  
+
 # 确保 kubectl 能够识别我们的插件
 kubectl plugin list
 ```
 
 ```
 The following kubectl-compatible plugins are available:
-  
+
 /usr/local/bin/kubectl-foo-bar-baz
 ```
 
@@ -480,7 +481,7 @@ test/fixtures/pkg/kubectl/plugins/kubectl-foo
   - warning: /usr/local/bin/kubectl-foo is overshadowed by a similarly named plugin: test/fixtures/pkg/kubectl/plugins/kubectl-foo
 plugins/kubectl-invalid
   - warning: plugins/kubectl-invalid identified as a kubectl plugin, but it is not executable
-  
+
 error: 2 plugin warnings were found
 ```
 
