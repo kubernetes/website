@@ -95,16 +95,16 @@ to containers.  If your job previously ran in a VM, your VM had an IP and could
 talk to other VMs in your project.  This is the same basic model.
 
 Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
-share their network namespaces - including their IP address.  This means that
-containers within a `Pod` can all reach each other's ports on `localhost`. This
-also means that containers within a `Pod` must coordinate port usage, but this
-is no different from processes in a VM.  This is called the "IP-per-pod" model.
+share their network namespaces - including their IP address and MAC address.
+This means that containers within a `Pod` can all reach each other's ports on
+`localhost`. This also means that containers within a `Pod` must coordinate port
+usage, but this is no different from processes in a VM.  This is called the
 -->
 这个模型不仅不复杂，而且还和 Kubernetes 的实现廉价的从虚拟机向容器迁移的初衷相兼容，
 如果你的工作开始是在虚拟机中运行的，你的虚拟机有一个 IP ，
 这样就可以和其他的虚拟机进行通信，这是基本相同的模型。
 
-Kubernetes 的 IP 地址存在于 `Pod` 范围内 - 容器分享它们的网络命名空间 - 包括它们的 IP 地址。
+Kubernetes 的 IP 地址存在于 `Pod` 范围内 - 容器共享它们的网络命名空间 - 包括它们的 IP 地址和 MAC 地址。
 这就意味着 `Pod` 内的容器都可以通过 `localhost` 到达各个端口。
 这也意味着 `Pod` 内的容器都需要相互协调端口的使用，但是这和虚拟机中的进程似乎没有什么不同，
 这也被称为“一个 Pod 一个 IP” 模型。

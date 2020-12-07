@@ -2,7 +2,9 @@
 title: 更改 PersistentVolume 的回收策略
 content_type: task
 ---
+
 <!-- overview -->
+
 <!--
 This page shows how to change the reclaim policy of a Kubernetes
 PersistentVolume.
@@ -131,8 +133,8 @@ PersistentVolumes 可以有多种回收策略，包括 "Retain"、"Recycle" 和 
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Learn more about [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 -->
-* 进一步了解 [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
-* 进一步了解 [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
+* 进一步了解 [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
+* 进一步了解 [PersistentVolumeClaims](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 
 ### 参考
 

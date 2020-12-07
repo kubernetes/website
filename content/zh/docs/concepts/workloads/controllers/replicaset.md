@@ -405,7 +405,7 @@ be rejected by the API.
 ### Pod 选择算符   {#pod-selector}
 
 `.spec.selector` 字段是一个[标签选择算符](/zh/docs/concepts/overview/working-with-objects/labels/)。
-如前文中[所讨论的](how-a-replicaset-works)，这些是用来标识要被获取的 Pods
+如前文中[所讨论的](#how-a-replicaset-works)，这些是用来标识要被获取的 Pods
 的标签。在签名的 `frontend.yaml` 示例中，选择算符为：
 
 ```yaml

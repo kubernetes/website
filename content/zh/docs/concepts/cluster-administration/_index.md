@@ -25,7 +25,7 @@ The cluster administration overview is for anyone creating or administering a Ku
 It assumes some familiarity with core Kubernetes [concepts](/docs/concepts/).
 -->
 集群管理概述面向任何创建和管理 Kubernetes 集群的读者人群。
-我们假设你对一些核心的 Kubernetes [概念](/zh/docs/concepts/)大概了解。
+我们假设你大概了解一些核心的 Kubernetes [概念](/zh/docs/concepts/)。
 
 
 <!-- body -->
@@ -38,9 +38,10 @@ Not all distros are actively maintained. Choose distros which have been tested w
 
 Before choosing a guide, here are some considerations:
 -->
-## 规划集群
+## 规划集群   {#planning-a-cluster}
 
-查阅[安装](/zh/docs/setup/)中的指导，获取如何规划、建立以及配置 Kubernetes 集群的示例。本文所列的文章称为*发行版* 。
+查阅[安装](/zh/docs/setup/)中的指导，获取如何规划、建立以及配置 Kubernetes
+集群的示例。本文所列的文章称为*发行版* 。
 
 {{< note >}}
 并非所有发行版都是被积极维护的。
@@ -60,27 +61,28 @@ Before choosing a guide, here are some considerations:
   offer a greater variety of choices.
 - Familiarize yourself with the [components](/docs/concepts/overview/components/) needed to run a cluster.
 -->
-- 你是打算在你的计算机上尝试 Kubernetes，还是要构建一个高可用的多节点集群？请选择最适合你需求的发行版。
-- 您正在使用类似 [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) 这样的**被托管的 Kubernetes 集群**, 还是**管理您自己的集群**？
-- 你的集群是在**本地**还是**云（IaaS）** 上？Kubernetes 不能直接支持混合集群。作为代替，你可以建立多个集群。
-- **如果你在本地配置 Kubernetes**，需要考虑哪种[网络模型](/zh/docs/concepts/cluster-administration/networking/)最适合。
+- 你是打算在你的计算机上尝试 Kubernetes，还是要构建一个高可用的多节点集群？
+  请选择最适合你需求的发行版。
+- 你正在使用类似 [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/)
+  这样的**被托管的 Kubernetes 集群**, 还是**管理你自己的集群**？
+- 你的集群是在**本地**还是**云（IaaS）** 上？Kubernetes 不能直接支持混合集群。
+  作为代替，你可以建立多个集群。
+- **如果你在本地配置 Kubernetes**，需要考虑哪种
+  [网络模型](/zh/docs/concepts/cluster-administration/networking/)最适合。
 - 你的 Kubernetes 在**裸金属硬件**上还是**虚拟机（VMs）** 上运行？
-- 你**只想运行一个集群**，还是打算**参与开发 Kubernetes 项目代码**？如果是后者，请选择一个处于开发状态的发行版。某些发行版只提供二进制发布版，但提供更多的选择。
+- 你**只想运行一个集群**，还是打算**参与开发 Kubernetes 项目代码**？
+  如果是后者，请选择一个处于开发状态的发行版。
+  某些发行版只提供二进制发布版，但提供更多的选择。
 - 让你自己熟悉运行一个集群所需的[组件](/zh/docs/concepts/overview/components/)。
 
 <!--
 ## Managing a cluster
 
-* [Managing a cluster](/docs/tasks/administer-cluster/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
-
 * Learn how to [manage nodes](/docs/concepts/nodes/node/).
 
 * Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
 -->
-## 管理集群
-
-* [管理集群](/zh/docs/tasks/administer-cluster/cluster-management/)叙述了和集群生命周期相关的几个主题：
-创建新集群、升级集群的控制节点和工作节点、执行节点维护（例如内核升级）以及升级运行中的集群的 Kubernetes API 版本。
+## 管理集群   {#managing-a-cluster}
 
 * 学习如何[管理节点](/zh/docs/concepts/architecture/nodes/)。
 
@@ -98,16 +100,24 @@ Before choosing a guide, here are some considerations:
 * [Using Sysctls in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
 * [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 -->
-## 保护集群
+## 保护集群  {#securing-a-cluster}
 
-* [证书](/zh/docs/concepts/cluster-administration/certificates/)节描述了使用不同的工具链生成证书的步骤。
-* [Kubernetes 容器环境](/zh/docs/concepts/containers/container-environment/)描述了 Kubernetes 节点上由 Kubelet 管理的容器的环境。
-* [控制到 Kubernetes API 的访问](/zh/docs/concepts/security/controlling-access/)描述了如何为用户和 service accounts 建立权限许可。
-* [认证](/docs/reference/access-authn-authz/authentication/)节阐述了 Kubernetes 中的身份认证功能，包括许多认证选项。
-* [鉴权](/zh/docs/reference/access-authn-authz/authorization/)从认证中分离出来，用于控制如何处理 HTTP 请求。
-* [使用准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers) 阐述了在认证和授权之后拦截到 Kubernetes API 服务的请求的插件。
-* [在 Kubernetes 集群中使用 Sysctls](/zh/docs/tasks/administer-cluster/sysctl-cluster/) 描述了管理员如何使用 `sysctl` 命令行工具来设置内核参数。
-* [审计](/zh/docs/tasks/debug-application-cluster/audit/)描述了如何与 Kubernetes 的审计日志交互。
+* [证书](/zh/docs/concepts/cluster-administration/certificates/)
+  节描述了使用不同的工具链生成证书的步骤。
+* [Kubernetes 容器环境](/zh/docs/concepts/containers/container-environment/)
+  描述了 Kubernetes 节点上由 Kubelet 管理的容器的环境。
+* [控制到 Kubernetes API 的访问](/zh/docs/concepts/security/controlling-access/)
+  描述了如何为用户和 service accounts 建立权限许可。
+* [身份认证](/zh/docs/reference/access-authn-authz/authentication/)
+  节阐述了 Kubernetes 中的身份认证功能，包括许多认证选项。
+* [鉴权](/zh/docs/reference/access-authn-authz/authorization/)
+  与身份认证不同，用于控制如何处理 HTTP 请求。
+* [使用准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers)
+  阐述了在认证和授权之后拦截到 Kubernetes API 服务的请求的插件。
+* [在 Kubernetes 集群中使用 Sysctls](/zh/docs/tasks/administer-cluster/sysctl-cluster/)
+  描述了管理员如何使用 `sysctl` 命令行工具来设置内核参数。
+* [审计](/zh/docs/tasks/debug-application-cluster/audit/)
+  描述了如何与 Kubernetes 的审计日志交互。
 
 <!--
 ### Securing the kubelet
@@ -116,7 +126,7 @@ Before choosing a guide, here are some considerations:
 * [TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
 * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)
 -->
-### 保护 kubelet
+### 保护 kubelet   {#securing-the-kubelet}
 
 * [主控节点通信](/zh/docs/concepts/architecture/control-plane-node-communication/)
 * [TLS 引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
@@ -128,9 +138,10 @@ Before choosing a guide, here are some considerations:
 * [DNS Integration](/docs/concepts/services-networking/dns-pod-service/) describes how to resolve a DNS name directly to a Kubernetes service.
 * [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/) explains how logging in Kubernetes works and how to implement it.
 -->
+## 可选集群服务   {#optional-cluster-services}
 
-## 可选集群服务
-
-* [DNS 集成](/zh/docs/concepts/services-networking/dns-pod-service/)描述了如何将一个 DNS 名解析到一个 Kubernetes service。
-* [记录和监控集群活动](/zh/docs/concepts/cluster-administration/logging/)阐述了 Kubernetes 的日志如何工作以及怎样实现。
+* [DNS 集成](/zh/docs/concepts/services-networking/dns-pod-service/)
+  描述了如何将一个 DNS 名解析到一个 Kubernetes service。
+* [记录和监控集群活动](/zh/docs/concepts/cluster-administration/logging/)
+  阐述了 Kubernetes 的日志如何工作以及怎样实现。
 

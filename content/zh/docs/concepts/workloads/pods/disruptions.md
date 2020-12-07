@@ -16,7 +16,7 @@ This guide is for application owners who want to build
 highly available applications, and thus need to understand
 what types of Disruptions can happen to Pods.
 -->
-本指南针对的是希望构建高可用性应用程序的应用所有者，他们有必要了解可能发生在 pod 上的干扰类型。
+本指南针对的是希望构建高可用性应用程序的应用所有者，他们有必要了解可能发生在 Pod 上的干扰类型。
 
 <!--
 It is also for Cluster Administrators who want to perform automated
@@ -95,7 +95,7 @@ Cluster Administrator actions include:
 集群管理员操作包括：
 
 - [排空（drain）节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)进行修复或升级。
-- 从集群中排空节点以缩小集群（了解[集群自动扩缩](/zh/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaler)）。
+- 从集群中排空节点以缩小集群（了解[集群自动扩缩](https://github.com/kubernetes/autoscaler/)）。
 - 从节点中移除一个 Pod，以允许其他 Pod 使用该节点。
 
 <!--
@@ -118,7 +118,7 @@ deleting deployments or pods bypasses Pod Disruption Budgets.
 -->
 {{< caution >}}
 并非所有的自愿干扰都会受到 Pod 干扰预算的限制。
-例如，删除 Peployment 或 Pod 的删除操作就会跳过 Pod 干扰预算检查。
+例如，删除 Deployment 或 Pod 的删除操作就会跳过 Pod 干扰预算检查。
 {{< /caution >}}
 
 <!--
@@ -147,7 +147,7 @@ or across zones (if using a
   和[有状态](/zh/docs/tasks/run-application/run-replicated-stateful-application/)应用程序的信息。）
 - 为了在运行复制应用程序时获得更高的可用性，请跨机架（使用
   [反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)）或跨区域
-  （如果使用[多区域集群](/docs/setup/best-practices/multiple-zones/)）扩展应用程序。
+  （如果使用[多区域集群](/zh/docs/setup/best-practices/multiple-zones/)）扩展应用程序。
 
 <!--
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
@@ -204,7 +204,7 @@ instead of directly deleting pods or deployments.  Examples are the `kubectl dra
 and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
 -->
 集群管理员和托管提供商应该使用遵循 Pod Disruption Budgets 的接口
-（通过调用[Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
+（通过调用[Eviction API](/zh/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
 而不是直接删除 Pod 或 Deployment。
 
 <!--
@@ -497,7 +497,7 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
   including steps to maintain its availability during the rollout.
 -->
 * 参考[配置 Pod 干扰预算](/zh/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
-* 进一步了解[排空节点](/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+* 进一步了解[排空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)的信息。
 * 了解[更新 Deployment](/zh/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性
 

@@ -26,7 +26,7 @@ Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-s
 ## {{% heading "prerequisites" %}}
 
 <!--
-* Understand the key concepts of [Service Catalog](/docs/concepts/service-catalog/).
+* Understand the key concepts of [Service Catalog](/docs/concepts/extend-kubernetes/service-catalog/).
 * Install [Go 1.6+](https://golang.org/dl/) and set the `GOPATH`.
 * Install the [cfssl](https://github.com/cloudflare/cfssl) tool needed for generating SSL artifacts.
 * Service Catalog requires Kubernetes version 1.7+.
@@ -35,7 +35,8 @@ Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-s
 
         kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<user-name>
 -->
-* 了解[服务目录](/zh/docs/concepts/service-catalog/)的主要概念。
+* 了解[服务目录](/zh/docs/concepts/extend-kubernetes/service-catalog/)
+  的主要概念。
 * 安装 [Go 1.6+](https://golang.org/dl/) 以及设置 `GOPATH`。
 * 安装生成 SSL 工件所需的 [cfssl](https://github.com/cloudflare/cfssl) 工具。
 * 服务目录需要 Kubernetes 1.7+ 版本。

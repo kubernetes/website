@@ -1,6 +1,6 @@
 ---
 content_type: concept
-title: 쿠버네티스 문서에 기여하기
+title: K8s 문서에 기여하기
 linktitle: 기여
 main_menu: true
 no_list: true
@@ -8,7 +8,7 @@ weight: 80
 card:
   name: contribute
   weight: 10
-  title: 기여 시작하기
+  title: K8s에 기여 시작하기
 ---
 
 <!-- overview -->

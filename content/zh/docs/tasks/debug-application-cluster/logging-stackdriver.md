@@ -367,7 +367,8 @@ log names:
 <!--
 You can learn more about viewing logs on [the dedicated Stackdriver page](https://cloud.google.com/logging/docs/view/logs_viewer).
 -->
-你可以在[专用 Stackdriver 页面](https://cloud.google.com/logging/docs/view/overview)上了解有关查看日志的更多信息。
+你可以在[Stackdriver 专用页面](https://cloud.google.com/logging/docs/view/overview)
+上了解有关查看日志的更多信息。
 
 <!--
 One of the possible ways to view logs is using the
@@ -376,8 +377,11 @@ command line interface from the [Google Cloud SDK].
 It uses Stackdriver Logging [filtering syntax](https://cloud.google.com/logging/docs/view/advanced_filters)
 to query specific logs. For example, you can run the following command:
 -->
-查看日志的一种可能方法是使用 [Google Cloud SDK]((https://cloud.google.com/sdk/)) 中的 [`gcloud logging`](https://cloud.google.com/logging/docs/reference/tools/gcloud-logging) 命令行接口。
-它使用 Stackdriver 日志机制的[过滤语法](https://cloud.google.com/logging/docs/view/advanced_filters)查询特定日志。
+查看日志的一种可能方法是使用 [Google Cloud SDK](https://cloud.google.com/sdk/)
+中的 [`gcloud logging`](https://cloud.google.com/logging/docs/reference/tools/gcloud-logging)
+命令行接口。
+它使用 Stackdriver 日志机制的
+[过滤语法](https://cloud.google.com/logging/docs/view/advanced_filters)查询特定日志。
 例如，你可以运行以下命令：
 
 ```none
@@ -399,7 +403,8 @@ As you can see, it outputs messages for the count container from both
 the first and second runs, despite the fact that the kubelet already deleted
 the logs for the first container.
 -->
-如你所见，尽管 kubelet 已经删除了第一个容器的日志，日志中仍会包含 counter 容器第一次和第二次运行时输出的消息。
+如你所见，尽管 kubelet 已经删除了第一个容器的日志，日志中仍会包含 counter
+容器第一次和第二次运行时输出的消息。
 
 <!--
 ### Exporting logs
@@ -416,7 +421,8 @@ the Stackdriver [Exporting Logs page](https://cloud.google.com/logging/docs/expo
 你可以将日志导出到 [Google Cloud Storage](https://cloud.google.com/storage/) 或
 [BigQuery](https://cloud.google.com/bigquery/) 进行进一步的分析。
 Stackdriver 日志机制提供了接收器（Sink）的概念，你可以在其中指定日志项的存放地。
-可在 Stackdriver [导出日志页面](https://cloud.google.com/logging/docs/export/configure_export_v2)上获得更多信息。
+可在 Stackdriver [导出日志页面](https://cloud.google.com/logging/docs/export/configure_export_v2)
+上获得更多信息。
 
 <!--
 ## Configuring Stackdriver Logging Agents
@@ -453,14 +459,14 @@ If you're using GKE and Stackdriver Logging is enabled in your cluster, you
 cannot change its configuration, because it's managed and supported by GKE.
 However, you can disable the default integration and deploy your own.
 -->
-如果使用的是 GKE，并且集群中启用了 Stackdriver 日志机制，则无法更改其配置，因为它是由 GKE 管理和支持的。
+如果使用的是 GKE，并且集群中启用了 Stackdriver 日志机制，则无法更改其配置，
+因为它是由 GKE 管理和支持的。
 但是，你可以禁用默认集成的日志机制并部署自己的。
 
 <!--
 You will have to support and maintain a newly deployed configuration
 yourself: update the image and configuration, adjust the resources and so on.
 -->
-
 {{< note >}}
 你将需要自己支持和维护新部署的配置了：更新映像和配置、调整资源等等。
 {{< /note >}}
@@ -478,7 +484,8 @@ gcloud beta container clusters update --logging-service=none CLUSTER
 You can find notes on how to then install Stackdriver Logging agents into
 a running cluster in the [Deploying section](#deploying).
 -->
-你可以在[部署部分](#deploying)中找到有关如何将 Stackdriver 日志代理安装到正在运行的集群中的说明​​。
+你可以在[部署部分](#deploying)中找到有关如何将 Stackdriver 日志代理安装到
+正在运行的集群中的说明。
 
 <!--
 ### Changing `DaemonSet` parameters
@@ -491,7 +498,8 @@ When you have the Stackdriver Logging `DaemonSet` in your cluster, you can just 
 let's assume you've just installed the Stackdriver Logging as described above. Now you want to
 change the memory limit to give fluentd more memory to safely process more logs.
 -->
-当集群中有 Stackdriver 日志机制的 `DaemonSet` 时，你只需修改其 spec 中的 `template` 字段，daemonset 控制器将为你更新 pod。
+当集群中有 Stackdriver 日志机制的 `DaemonSet` 时，你只需修改其 spec 中的
+`template` 字段，daemonset 控制器将为你更新 Pod。
 例如，假设你按照上面的描述已经安装了 Stackdriver 日志机制。
 现在，你想更改内存限制，来给 fluentd 提供的更多内存，从而安全地处理更多日志。
 
@@ -616,4 +624,6 @@ Fluentd 用 Ruby 编写，并允许使用 [plugins](https://www.fluentd.org/plug
 Then run `make build push` from this directory. After updating `DaemonSet` to pick up the
 new image, you can use the plugin you installed in the fluentd configuration.
 -->
-然后在该目录运行 `make build push`。在更新 `DaemonSet` 以使用新镜像后，你就可以使用在 fluentd 配置中安装的插件了。
+然后在该目录运行 `make build push`。
+在更新 `DaemonSet` 以使用新镜像后，你就可以使用在 fluentd 配置中安装的插件了。
+

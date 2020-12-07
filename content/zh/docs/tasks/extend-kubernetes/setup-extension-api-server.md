@@ -19,7 +19,8 @@ weight: 15
 <!--
 Setting up an extension API server to work the aggregation layer allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 -->
-安装扩展的 API 服务器来使用聚合层以让 Kubernetes API 服务器使用其它 API 进行扩展，
+安装扩展的 API 服务器来使用聚合层以让 Kubernetes API 服务器使用
+其它 API 进行扩展，
 这些 API 不是核心 Kubernetes API 的一部分。
 
 ## {{% heading "prerequisites" %}}
@@ -112,5 +113,5 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 * 如果你还未配置，请[配置聚合层](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
   并启用 apiserver 的相关参数。
 * 高级概述，请参阅[使用聚合层扩展 Kubernetes API](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation)。
-* 了解如何[使用 Custom Resource Definition 扩展 Kubernetes API](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。
+* 了解如何[使用 Custom Resource Definition 扩展 Kubernetes API](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。
 

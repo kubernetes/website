@@ -381,8 +381,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
    See [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
    for more details.
 - `BoundServiceAccountTokenVolume`: Migrate ServiceAccount volumes to use a projected volume consisting of a
-   ServiceAccountTokenVolumeProjection.
-   Check [Service Account Token Volumes](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)
+   ServiceAccountTokenVolumeProjection. Cluster admins can use metric `serviceaccount_stale_tokens_total` to
+   monitor workloads that are depending on the extended tokens. If there are no such workloads, turn off
+   extended tokens by starting `kube-apiserver` with flag `--service-account-extend-token-expiration=false`.
+   Check [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
    for more details.
 - `ConfigurableFSGroupPolicy`: Allows user to configure volume permission change policy for fsGroups when mounting a volume in a Pod. See [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods) for more details.
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).

@@ -42,7 +42,7 @@ Others develop closed-source commercial or site-specific extensions.
 -->
 
 平台开发人员可以使用[定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-或[使用汇聚层扩展 Kubernetes API](/zh/docs/concepts/api-extension/apiserver-aggregation/)
+或[使用汇聚层扩展 Kubernetes API](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 来为其 Kubernetes 实例增加功能，特别是为其应用程序添加功能。
 一些平台开发人员也是 Kubrenetes {{< glossary_tooltip text="贡献者" term_id="contributor" >}}，
 他们会开发贡献给 Kubernetes 社区的扩展。

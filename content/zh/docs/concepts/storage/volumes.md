@@ -1190,7 +1190,7 @@ iSCSI volume) without knowing the details of the particular cloud environment.
 See the [PersistentVolumes example](/docs/concepts/storage/persistent-volumes/) for more
 details.
 -->
-更多详情请参考[持久卷示例](/docs/concepts/storage/persistent-volumes/)。
+更多详情请参考[持久卷示例](/zh/docs/concepts/storage/persistent-volumes/)。
 
 ### portworxVolume {#portworxvolume}
 
@@ -1371,7 +1371,9 @@ for the current [service account](/docs/reference/access-authn-authz/authenticat
 into a Pod at a specified path. Below is an example:
 -->
 
-当开启 `TokenRequestProjection` 功能时，可以将当前 [服务帐户](/docs/reference/access-authn-authz/authentication/#service-account-tokens)的令牌注入 Pod 中的指定路径。
+当开启 `TokenRequestProjection` 功能时，可以将当前
+[服务帐号](/zh/docs/reference/access-authn-authz/authentication/#service-account-tokens)
+的令牌注入 Pod 中的指定路径。
 下面是一个例子：
 
 ```yaml
@@ -1455,7 +1457,8 @@ GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte
 -->
 Quobyte 支持{{< glossary_tooltip text="容器存储接口（CSI）" term_id="csi" >}}。
 推荐使用 CSI 插件以在 Kubernetes 中使用 Quobyte 卷。
-Quobyte 的 GitHub 项目包含以 CSI 形式部署 Quobyte 的[说明](https://github.com/quobyte/quobyte-csi#quobyte-csi)
+Quobyte 的 GitHub 项目包含以 CSI 形式部署 Quobyte 的
+[说明](https://github.com/quobyte/quobyte-csi#quobyte-csi)
 及使用示例。
 
 ### rbd
@@ -1748,7 +1751,8 @@ spec:
 <!--
 For more information, see the [vSphere volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere) examples.
 -->
-进一步信息可参考[vSphere 卷](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere)。
+进一步信息可参考
+[vSphere 卷](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere)。
 
 <!--
 #### vSphere CSI migration {#vsphere-csi-migration}
@@ -1766,7 +1770,8 @@ must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere
 -->
 当 `vsphereVolume` 的 `CSIMigration` 特性被启用时，所有插件操作都被从树内插件重定向到
 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动。
-为了使用此功能特性，必须在集群中安装[vSphere CSI 驱动](https://github.com/kubernetes-sigs/vsphere-csi-driver)，
+为了使用此功能特性，必须在集群中安装
+[vSphere CSI 驱动](https://github.com/kubernetes-sigs/vsphere-csi-driver)，
 并启用 `CSIMigration` 和 `CSIMigrationvSphere`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 

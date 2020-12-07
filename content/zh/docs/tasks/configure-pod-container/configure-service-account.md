@@ -3,7 +3,6 @@ title: 为 Pod 配置服务账户
 content_type: task
 weight: 90
 ---
-
 <!--
 reviewers:
 - bprashanth
@@ -259,7 +258,7 @@ The content of `token` is elided here.
 
 - Create an imagePullSecret, as described in [Specifying ImagePullSecret on a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 -->
-## 为服务账户添加 ImagePullSecrets    {#add-imagepullsecrets-to-a-service-account}
+## 为服务账户添加 ImagePullSecrets  {#add-imagepullsecrets-to-a-service-account}
 
 ### 创建 ImagePullSecret
 
@@ -283,7 +282,7 @@ The content of `token` is elided here.
   <!-- The output is similar to this: -->
   输出类似于：
 
-  ```
+   ```
    NAME             TYPE                              DATA    AGE
    myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
    ```
@@ -562,10 +561,14 @@ JWKS URI is required to use the `https` scheme.
 ## {{% heading "whatsnext" %}}
 
 <!--
+See also:
+
 - [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
 - [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
 - [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)
 -->
+另请参见：
+
 - [服务账号的集群管理员指南](/zh/docs/reference/access-authn-authz/service-accounts-admin/)
 - [服务账号签署密钥检索 KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
 - [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)
