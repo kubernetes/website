@@ -28,7 +28,7 @@ API 리소스 `PersistentVolume` 및 `PersistentVolumeClaim` 가 사용자 및 �
 
 사용자는 이 기능을 사용할 때 다음 사항을 알고 있어야 한다.
 
-* API 객체인 `VolumeSnapshot`, `VolumeSnapshotContent`, `VolumeSnapshotClass` 는 핵심 API가 아닌, {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}이다.
+* API 오브젝트인 `VolumeSnapshot`, `VolumeSnapshotContent`, `VolumeSnapshotClass` 는 핵심 API가 아닌, {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}이다.
 * `VolumeSnapshot` 은 CSI 드라이버에서만 사용할 수 있다.
 * 쿠버네티스 팀은 `VolumeSnapshot` 베타 버젼의 배포 프로세스 일부로써, 컨트롤 플레인에 배포할 스냅샷 컨트롤러와 CSI 드라이버와 함께 배포할 csi-snapshotter라는 사이드카 헬퍼(helper) 컨테이너를 제공한다. 스냅샷 컨트롤러는 `VolumeSnapshot` 및 `VolumeSnapshotContent` 오브젝트를 관찰하고 동적 프로비저닝에서 `VolumeSnapshotContent` 오브젝트의 생성 및 삭제를 할 수 있다.사이드카 csi-snapshotter는 `VolumeSnapshotContent` 오브젝트를 관찰하고 CSI 엔드포인트에 대해 `CreateSnapshot` 및 `DeleteSnapshot` 을 트리거(trigger)한다.
 * CSI 드라이버에서의 볼륨 스냅샷 기능 유무는 확실하지 않다. 볼륨 스냅샷 서포트를 제공하는 CSI 드라이버는 csi-snapshotter를 사용할 가능성이 높다. 자세한 사항은 [CSI 드라이버 문서](https://kubernetes-csi.github.io/docs/)를 확인하면 된다.
@@ -60,7 +60,7 @@ API 리소스 `PersistentVolume` 및 `PersistentVolumeClaim` 가 사용자 및 �
 {{< glossary_tooltip text="퍼시스턴트볼륨클레임" term_id="persistent-volume-claim" >}}
 API 오브젝트가 시스템에서 지워지지 않게 하는 것이다(데이터 손실이 발생할 수 있기 때문에).
 
-퍼시스턴트볼륨클레임이 스냅샷을 생성할 동안에는 해당 퍼시스턴트볼륨클레임은 사용중인 상태이다. 스냅샷 소스로 사용 중인 퍼시스턴트볼륨클레임 API 객체를 삭제한다면, 퍼시스턴트볼륨클레임 객체는 즉시 삭제되지 않는다. 대신, 퍼시스턴트볼륨클레임 객체 삭제는 스냅샷이 준비(readyTouse) 혹은 중단(aborted) 상태가 될 때까지 연기된다.
+퍼시스턴트볼륨클레임이 스냅샷을 생성할 동안에는 해당 퍼시스턴트볼륨클레임은 사용 중인 상태이다. 스냅샷 소스로 사용 중인 퍼시스턴트볼륨클레임 API 오브젝트를 삭제한다면, 퍼시스턴트볼륨클레임 오브젝트는 즉시 삭제되지 않는다. 대신, 퍼시스턴트볼륨클레임 오브젝트 삭제는 스냅샷이 준비(readyToUse) 혹은 중단(aborted) 상태가 될 때까지 연기된다.
 
 ### 삭제
 

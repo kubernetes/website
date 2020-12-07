@@ -28,15 +28,15 @@ _톨러레이션_ 은 파드에 적용되며, 파드를 일치하는 테인트�
 예를 들면 다음과 같다.
 
 ```shell
-kubectl taint nodes node1 key=value:NoSchedule
+kubectl taint nodes node1 key1=value1:NoSchedule
 ```
 
-`node1` 노드에 테인트을 배치한다. 테인트에는 키 `key`, 값 `value` 및 테인트 이펙트(effect) `NoSchedule` 이 있다.
+`node1` 노드에 테인트을 배치한다. 테인트에는 키 `key1`, 값 `value1` 및 테인트 이펙트(effect) `NoSchedule` 이 있다.
 이는 일치하는 톨러레이션이 없으면 파드를 `node1` 에 스케줄할 수 없음을 의미한다.
 
 위의 명령으로 추가한 테인트를 제거하려면, 다음을 실행한다.
 ```shell
-kubectl taint nodes node1 key:NoSchedule-
+kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
 
 PodSpec에서 파드에 대한 톨러레이션를 지정한다. 다음의 톨러레이션은
@@ -45,15 +45,15 @@ PodSpec에서 파드에 대한 톨러레이션를 지정한다. 다음의 톨러
 
 ```yaml
 tolerations:
-- key: "key"
+- key: "key1"
   operator: "Equal"
-  value: "value"
+  value: "value1"
   effect: "NoSchedule"
 ```
 
 ```yaml
 tolerations:
-- key: "key"
+- key: "key1"
   operator: "Exists"
   effect: "NoSchedule"
 ```
@@ -76,7 +76,7 @@ tolerations:
 operator `Exists` 가 있는 비어있는 `key` 는 모든 키, 값 및 이펙트와 일치하므로
 모든 것이 톨러레이션 된다.
 
-비어있는 `effect` 는 모든 이펙트를 키 `key` 와 일치시킨다.
+비어있는 `effect` 는 모든 이펙트를 키 `key1` 와 일치시킨다.
 
 {{< /note >}}
 

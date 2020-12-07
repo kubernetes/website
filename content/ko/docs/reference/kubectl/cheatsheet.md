@@ -86,6 +86,13 @@ kubectl apply -f ./my1.yaml -f ./my2.yaml      # 여러 파일로 부터 생성
 kubectl apply -f ./dir                         # dir 내 모든 매니페스트 파일에서 리소스(들) 생성
 kubectl apply -f https://git.io/vPieo          # url로부터 리소스(들) 생성
 kubectl create deployment nginx --image=nginx  # nginx 단일 인스턴스를 시작
+
+# "Hello World"를 출력하는 잡(Job) 생성
+kubectl create job hello --image=busybox -- echo "Hello World"
+
+# 매분마다 "Hello World"를 출력하는 크론잡(CronJob) 생성
+kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"    
+
 kubectl explain pods                           # 파드 매니페스트 문서를 조회
 
 # stdin으로 다수의 YAML 오브젝트 생성

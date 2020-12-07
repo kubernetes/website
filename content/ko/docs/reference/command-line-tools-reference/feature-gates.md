@@ -83,8 +83,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `CSIVolumeFSGroupPolicy` | `false` | 알파 | 1.19 | |
 | `ConfigurableFSGroupPolicy` | `false` | 알파 | 1.18 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | 알파 | 1.12 | |
-| `CustomResourceDefaulting` | `false` | 알파| 1.15 | 1.15 |
-| `CustomResourceDefaulting` | `true` | 베타 | 1.16 | |
 | `DefaultPodTopologySpread` | `false` | 알파 | 1.19 | |
 | `DevicePlugins` | `false` | 알파 | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | 베타 | 1.10 | |
@@ -137,12 +135,11 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `RuntimeClass` | `true` | 베타 | 1.14 | |
 | `SCTPSupport` | `false` | 알파 | 1.12 | 1.18 |
 | `SCTPSupport` | `true` | 베타 | 1.19 | |
-| `ServiceAppProtocol` | `false` | 알파 | 1.18 | 1.18 |
-| `ServiceAppProtocol` | `true` | 베타 | 1.19 | |
 | `ServerSideApply` | `false` | 알파 | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | 베타 | 1.16 | |
 | `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | |
-| `ServiceAppProtocol` | `false` | 알파 | 1.18 | |
+| `ServiceAppProtocol` | `false` | 알파 | 1.18 | 1.18 |
+| `ServiceAppProtocol` | `true` | 베타 | 1.19 | |
 | `ServiceNodeExclusion` | `false` | 알파 | 1.8 | 1.18 |
 | `ServiceNodeExclusion` | `true` | 베타 | 1.19 | |
 | `ServiceTopology` | `false` | 알파 | 1.17 | |
@@ -209,6 +206,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `CustomPodDNS` | `false` | 알파 | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | 베타| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
+| `CustomResourceDefaulting` | `false` | 알파 | 1.15 | 1.15 |
+| `CustomResourceDefaulting` | `true` | 베타 | 1.16 | 1.16 |
+| `CustomResourceDefaulting` | `true` | GA | 1.17 | - |
 | `CustomResourcePublishOpenAPI` | `false` | 알파| 1.14 | 1.14 |
 | `CustomResourcePublishOpenAPI` | `true` | 베타| 1.15 | 1.15 |
 | `CustomResourcePublishOpenAPI` | `true` | GA | 1.16 | - |
