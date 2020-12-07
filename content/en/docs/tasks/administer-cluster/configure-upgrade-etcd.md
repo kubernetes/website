@@ -200,6 +200,19 @@ If the access URLs of the restored cluster is changed from the previous cluster,
 
 If the majority of etcd members have permanently failed, the etcd cluster is considered failed. In this scenario, Kubernetes cannot make any changes to its current state. Although the scheduled pods might continue to run, no new pods can be scheduled. In such cases, recover the etcd cluster and potentially reconfigure Kubernetes API server to fix the issue.
 
+{{< note >}}
+If any API servers are running in your cluster, you should not attempt to restore instances of etcd.
+Instead, follow these steps to restore etcd:
+
+- stop *all* kube-apiserver instances
+- restore state in all etcd instances
+- restart all kube-apiserver instances
+
+We also recommend restarting any components (e.g. kube-scheduler, kube-controller-manager, kubelet) to ensure that they don't
+rely on some stale data. Note that in practice, the restore takes a bit of time.
+During the restoration, critical components will lose leader lock and restart themselves.
+{{< /note >}}
+
 ## Upgrading and rolling back etcd clusters
 
 As of Kubernetes v1.13.0, etcd2 is no longer supported as a storage backend for
