@@ -26,12 +26,11 @@ card:
 -->
 
 <!-- overview -->
-概述
 
 <!--
 *Kubernetes welcomes improvements from all contributors, new and experienced!*
 -->
-*Kubernetes 欢迎所有新的和有经验的贡献者的改进！*
+*Kubernetes 欢迎来自所有贡献者的改进，无论你是新人和有经验的贡献者！*
 
 <!--
 {{< note >}}
@@ -40,7 +39,7 @@ To learn more about contributing to Kubernetes in general, see the
 {{< /note >}}
 -->
 {{< note >}}
-要了解更多有关为Kubernetes做出贡献的信息，请参阅
+要了解有关为 Kubernetes 做出贡献的更多信息，请参阅
 [贡献者文档](https://www.kubernetes.dev/docs/).
 {{< /note >}}
 <!--
