@@ -6,16 +6,16 @@ title: 在 Kubernetes 集群中使用 NodeLocal DNSCache
 content_type: task
 ---
 <!--
----
 reviewers:
 - bowei
 - zihongz
+- sftim
 title: Using NodeLocal DNSCache in Kubernetes clusters
 content_type: task
----
 -->
 
 <!-- overview -->
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 <!--
 This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
 -->
@@ -103,57 +103,107 @@ This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
 ## Configuration
 -->
 ## 配置
+<!--
+{{< note >}} The local listen IP address for NodeLocal DNSCache can be any IP in the 169.254.20.0/16 space or any other IP address that can be guaranteed to not collide with any existing IP. This document uses 169.254.20.10 as an example.
+{{< /note >}}
+-->
+{{< note >}}
+NodeLocal DNSCache 的本地监听 IP 地址可以是 169.254.20.0/16 网段中的任何IP，
+也可以是可以保证不与任何现有 IP 冲突的任何其它 IP 地址。
+本文档以 169.254.20.10 为例。
+{{< /note >}}
 
 <!--
-This feature can be enabled using the command:
+This feature can be enabled using the following steps:
 -->
-可以使用以下命令启用此功能：
-
-`KUBE_ENABLE_NODELOCAL_DNS=true go run hack/e2e.go -v --up`
+可以使用以下步骤启用此功能：
 
 <!--
-This works for e2e clusters created on GCE. On all other environments, the following steps will setup NodeLocal DNSCache:
+* Prepare a manifest similar to the sample [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) and save it as `nodelocaldns.yaml.`
+* Substitute the variables in the manifest with the right values:
 -->
-这适用于在 GCE 上创建 e2e 集群。
-在所有其他环境上，以下步骤将设置 NodeLocal DNSCache ：
+* 准备一个类似于该示例 [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) 
+  的配置文件并且保存为 `nodelocaldns.yaml.`
+* 使用相应的值来替代配置文件中的变量：
 
 <!--
-* A yaml similar to [this](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) can be applied using `kubectl create -f` command.
--->
-* 可以使用 `kubectl create -f` 命令应用类似于[这个](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml)的 Yaml 。
+     * kubedns=`kubectl get svc kube-dns -n kube-system -o jsonpath={.spec.clusterIP}`
 
-<!--
-* --cluster-dns flag to kubelet needs to be modified to use the LOCAL_DNS IP that NodeLocal DNSCache is listening on (169.254.20.10 by default)
+     * domain=`<cluster-domain>`
+    
+     * localdns=`<node-local-address>`
+    
+     `<cluster-domain>` is "cluster.local" by default. `<node-local-address>` is the local listen IP address chosen for NodeLocal DNSCache.
+
+   * If kube-proxy is running in IPTABLES mode:
+
+     ``` bash
+     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__/$kubedns/g" nodelocaldns.yaml
+     ```
+
+     `__PILLAR__CLUSTER__DNS__` and `__PILLAR__UPSTREAM__SERVERS__` will be populated by the node-local-dns pods.
 -->
-* 需要修改 kubelet 的 --cluster-dns 标志以使用 NodeLocal DNSCache 正在侦听的 LOCAL_DNS IP（默认为 169.254.20.10 ）
+
+     * kubedns=`kubectl get svc kube-dns -n kube-system -o jsonpath={.spec.clusterIP}`
+
+     * domain=`<cluster-domain>`
+
+     * localdns=`<node-local-address>`
+
+     `<cluster-domain>` 默认值为 "cluster.local"。`<node-local-address>` 是为 NodeLocal DNSCache
+     选择的本地监听 IP。
+
+   * 如果 kube-proxy 在 IPTABLES 模式下运行：
+
+     ``` bash
+     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__/$kubedns/g" nodelocaldns.yaml
+     ```
+
+     `__PILLAR__CLUSTER__DNS__` 和 `__PILLAR__UPSTREAM__SERVERS__` 将由 node-local-dns pod 填充。
+
+     <!--
+          In this mode, node-local-dns pods listen on both the kube-dns service IP as well as `<node-local-address>`, so pods can lookup DNS records using either IP address.
+
+       * If kube-proxy is running in IPVS mode:
+     -->
+     在本模式下, node-local-dns pod 同时监听 kube-dns 服务 IP 和 `<node-local-address>`, 
+     所以 pod 可以使用任一 IP 查询 DNS 记录。
+
+  * 如果 kube-proxy 在 IPVS 模式下运行:
+
+    ``` bash
+     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
+    ```
+     <!--
+     In this mode, node-local-dns pods listen only on `<node-local-address>`. The node-local-dns interface cannot bind the kube-dns cluster IP since the interface used for IPVS loadbalancing already uses this address.
+     `__PILLAR__UPSTREAM__SERVERS__` will be populated by the node-local-dns pods.
+     -->
+  在这种模式下，node-local-dns pod 仅监听 `<node-local-address>` 地址。 
+  node-local-dns 接口不能绑定 kube-dns 集群 IP，由于该地址已经被 IPVS 
+  负载均衡接口占用。
+     `__PILLAR__UPSTREAM__SERVERS__` 字段会被 node-local-dns pod 自动填充。
+
+       <!--
+* Run `kubectl create -f nodelocaldns.yaml`
+* If using kube-proxy in IPVS mode, `--cluster-dns` flag to kubelet needs to be modified to use `<node-local-address>` that NodeLocal DNSCache is listening on.
+  Otherwise, there is no need to modify the value of the `--cluster-dns` flag, since NodeLocal DNSCache listens on both the kube-dns service IP as well as `<node-local-address>`.
+-->
+* 运行 `kubectl create -f nodelocaldns.yaml`
+* 如果在 IPVS 模式下使用 kube-proxy，则需要修改 kubelet 
+  的 `--cluster-dns` 标志，以使用 NodeLocal DNSCache 
+  正在监听的 `<node-local-address>`。
+  否则，由于 NodeLocal DNSCache 同时监听 kube-dns 
+  服务 IP 和 `<node-local-address>`，因此不需要修改 `--cluster-dns` 标志的值。
 
 <!--
 Once enabled, node-local-dns Pods will run in the kube-system namespace on each of the cluster nodes. This Pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
 -->
-启用后，node-local-dns Pods 将在每个集群节点上的 kube-system 名称空间中运行。
-此 Pod 在缓存模式下运行 [CoreDNS](https://github.com/coredns/coredns) ，因此每个节点都可以使用不同插件公开的所有 CoreDNS 指标。
+启用后，node-local-dns Pod 将在每个集群节点上的 kube-system 命名空间中
+运行。此 Pod 以缓存模式运行[CoreDNS](https://github.com/coredns/coredns) ，因此每个插件
+都可以使用不同插件暴露的所有 CoreDNS 指标。
+
 
 <!--
-### Feature availability
+You can disable this feature by removing the DaemonSet, using `kubectl delete -f <manifest>` . You should also revert any changes you made to the kubelet configuration.
 -->
-### 功能可用性
-
-<!--
-The addon can be applied using the yaml specified above in any k8s version. The feature support is as described:
--->
-可以在任何 K8s 版本中使用上面指定的 yaml 应用该插件。
-功能支持如下所述：
-
-<!--
-| k8s version | Feature support |
-| :---------: |:-----------:|
-| 1.15 | Beta(Not enabled by default) |
-| 1.13 | Alpha(Not enabled by default) |
--->
-| k8s 版本 | 功能支持 |
-| :---------: |:-----------:|
-| 1.15 | Beta(默认情况下未启用) |
-| 1.13 | Alpha(默认情况下未启用) |
-
- 
-
+你可以使用 `kubectl delete -f <manifest>` 删除 DaemonSet 来禁用此功能。你还应该还原对 kubelet 配置所做的任何更改。
