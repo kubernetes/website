@@ -44,22 +44,25 @@ The English-language documentation uses U.S. English spelling and grammar.
 
 ### Use upper camel case for API objects
 
-When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as Pascal Case. When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as Pascal case. You may see different capitalization, such as "configMap", in the [API Reference](/docs/reference/kubernetes-api/). When writing general documentation, it's better to use upper camel case, calling it "ConfigMap" instead.
+
+When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+
+You may use the word "resource", "API", or "object" to clarify a Kubernetes resource type in a sentence. 
 
 Don't split the API object name into separate words. For example, use
 PodTemplateList, not Pod Template List.
 
-Refer to API objects without saying "object," unless omitting "object"
-leads to an awkward construction.
+The following examples focus on capitalization. Review the related guidance on [Code Style](#code-style-inline-code) for more information on formatting API objects. 
 
-{{< table caption = "Do and Don't - API objects" >}}
+{{< table caption = "Do and Don't - Use Pascal case for API objects" >}}
 Do | Don't
 :--| :-----
-The pod has two containers. | The Pod has two containers.
-The HorizontalPodAutoscaler is responsible for ... | The HorizontalPodAutoscaler object is responsible for ...
-A PodList is a list of pods. | A Pod List is a list of pods.
-The two ContainerPorts ... | The two ContainerPort objects ...
-The two ContainerStateTerminated objects ... | The two ContainerStateTerminateds ...
+The HorizontalPodAutoscaler resource is responsible for ... | The Horizontal pod autoscaler is responsible for ...
+A PodList object is a list of pods. | A Pod List object is a list of pods.
+The Volume object contains a `hostPath` field. | The volume object contains a hostPath field.
+Every ConfigMap object is part of a namespace. | Every configMap object is part of a namespace.
+For managing confidential data, consider using the Secret API. | For managing confidential data, consider using the secret API.
 {{< /table >}}
 
 
@@ -113,12 +116,12 @@ The copy is called a "fork". | The copy is called a "fork."
 
 ## Inline code formatting
 
-### Use code style for inline code, commands, and API objects
+### Use code style for inline code, commands, and API objects {#code-style-inline-code}
 
 For inline code in an HTML document, use the `<code>` tag. In a Markdown
 document, use the backtick (`` ` ``).
 
-{{< table caption = "Do and Don't - Use code style for inline code and commands" >}}
+{{< table caption = "Do and Don't - Use code style for inline code, commands, and API objects" >}}
 Do | Don't
 :--| :-----
 The `kubectl run` command creates a `Pod`. | The "kubectl run" command creates a pod.
