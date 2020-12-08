@@ -2,7 +2,7 @@
 title: " Borg: Kubernetes 的前身 "
 date: 2015-04-23
 slug: borg-predecessor-to-kubernetes
-url: /blog/2015/04/Borg-Predecessor-To-Kubernetes
+url: /zh/blog/2015/04/Borg-Predecessor-To-Kubernetes
 ---
 <!--
 ---
@@ -16,14 +16,17 @@ url: /blog/2015/04/Borg-Predecessor-To-Kubernetes
 Google has been running containerized workloads in production for more than a decade. Whether it's service jobs like web front-ends and stateful servers, infrastructure systems like [Bigtable](http://research.google.com/archive/bigtable.html) and [Spanner](http://research.google.com/archive/spanner.html), or batch frameworks like [MapReduce](http://research.google.com/archive/mapreduce.html) and [Millwheel](http://research.google.com/pubs/pub41378.html), virtually everything at Google runs as a container. Today, we took the wraps off of Borg, Google’s long-rumored internal container-oriented cluster-management system, publishing details at the academic computer systems conference [Eurosys](http://eurosys2015.labri.fr/). You can find the paper [here](https://research.google.com/pubs/pub43438.html).
 -->
 十多年来，谷歌一直在生产中运行容器化工作负载。
-无论是像网络前端和有状态服务器之类的工作，基础架构系统，例如 [Bigtable](http://research.google.com/archive/bigtable.html) 和 [Spanner](http://research.google.com/archive/spanner.html)，或批处理框架，例如 [MapReduce](http://research.google.com/archive/mapreduce.html) 和 [Millwheel](http://research.google.com/pubs/pub41378.html)， Google 的几乎所有内容都是作为容器运行的。今天，我们结束了 Google 长期以来一直传闻中的面向内部容器的集群管理系统 Borg 的总结，并在学术计算机系统会议 [Eurosys](http://eurosys2015.labri.fr/) 上发布了详细信息。你可以在 [此处](https://research.google.com/pubs/pub43438.html) 找到论文。
+无论是像网络前端和有状态服务器之类的工作，像 [Bigtable](http://research.google.com/archive/bigtable.html) 和 
+[Spanner](http://research.google.com/archive/spanner.html)一样的基础架构系统，或是像
+[MapReduce](http://research.google.com/archive/mapreduce.html) 和 [Millwheel](http://research.google.com/pubs/pub41378.html)一样的批处理框架，
+Google 的几乎一切都是以容器的方式运行的。今天，我们结束了 Google 长期以来一直传闻中的面向内部容器的集群管理系统 Borg 的总结，
+并在学术计算机系统会议 [Eurosys](http://eurosys2015.labri.fr/) 上发布了详细信息。你可以在 [此处](https://research.google.com/pubs/pub43438.html) 找到论文。
 
 
 <!--
-
 Kubernetes traces its lineage directly from Borg. Many of the developers at Google working on Kubernetes were formerly developers on the Borg project. We've incorporated the best ideas from Borg in Kubernetes, and have tried to address some pain points that users identified with Borg over the years.
 -->
-Kubernetes 直接从 Borg 追溯其血统。
+Kubernetes 直接继承自 Borg。
 在 Google 的很多从事 Kubernetes 的开发人员以前都是 Borg 项目的开发人员。
 我们在 Kubernetes 中结合了 Borg 的最佳创意，并试图解决用户多年来在 Borg 中发现的一些痛点。
 
@@ -42,14 +45,14 @@ To give you a flavor, here are four Kubernetes features that came from our exper
 1) [Pods](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/pods.md). 
 一个 pod 是 Kubernetes 中调度的单位。
 它是一个或多个容器在其中运行的资源封装。
-保证属于同一容器的容器可以一起调度到同一台计算机上，并且可以通过本地卷共享状态。
+保证属于同一 pod 的容器可以一起调度到同一台计算机上，并且可以通过本地卷共享状态。
 
 
 <!--
 Borg has a similar abstraction, called an alloc (short for “resource allocation”). Popular uses of allocs in Borg include running a web server that generates logs alongside a lightweight log collection process that ships the log to a cluster filesystem (not unlike fluentd or logstash); running a web server that serves data from a disk directory that is populated by a process that reads data from a cluster filesystem and prepares/stages it for the web server (not unlike a Content Management System); and running user-defined processing functions alongside a storage shard. 
 -->
 Borg 有一个类似的抽象，称为 alloc （“资源分配”的缩写）。
-Borg 中 alloc 的流行用法包括运行 Web 服务器，该服务器生成日志以及轻量级日志收集过程，该过程将日志发送到集群文件系统（不与 fluentd 或 logstash 不同 ）；
+Borg 中 alloc 的流行用法包括运行 Web 服务器，该服务器生成日志，一起部署一个轻量级日志收集进程，该进程将日志发送到集群文件系统（和 fluentd 或 logstash 没什么不同 ）；
 运行 Web 服务器，该 Web 服务器从磁盘目录提供数据，该磁盘目录由从集群文件系统读取数据并为 Web 服务器准备/暂存的进程填充（与内容管理系统不同）；
 并与存储分片一起运行用户定义的处理功能。
 <!--
