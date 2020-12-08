@@ -23,14 +23,16 @@ short_description: >
 aka:
 tags:
 - networking
+   
  Endpoints track the IP addresses of Pods with matching  {{< glossary_tooltip text="selectors" term_id="selector" >}}.
 -->
 
 <!--more-->
 <!--
-Endpoints can be configured manually for Services without selectors specified.
-The EndpointSlice resource provides a scalable and extensible alternative to Endpoints.
+Endpoints can be configured manually for {{< glossary_tooltip text="Services" term_id="service" >}} without selectors specified.
 -->
-端点可以手动配置到{{< glossary_tooltip text="服务（Service）" term_id="service" >}}上，而不必设置选择算符。
-{{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}} 资源为 Endpoints
-提供了一种可伸缩、可扩展的替代方案。
+端点可以手动配置到{{< glossary_tooltip text="服务（Service）" term_id="service" >}}上，而不必指定选择器标识。
+<!--
+The {{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}} resource provides a scalable and extensible alternative to Endpoints.
+-->
+{{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}}提供了一种可伸缩、可扩展的替代方案。

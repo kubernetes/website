@@ -205,9 +205,8 @@ about the [service proxy](/docs/concepts/services-networking/service/#virtual-ip
 
 Kubernetes supports 2 primary modes of finding a Service - environment variables
 and DNS. The former works out of the box while the latter requires the
-[CoreDNS cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
+[CoreDNS cluster addon](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
 -->
-
 ## 访问 Service
 
 Kubernetes支持两种查找服务的主要模式: 环境变量和DNS。 前者开箱即用，而后者则需要[CoreDNS集群插件]

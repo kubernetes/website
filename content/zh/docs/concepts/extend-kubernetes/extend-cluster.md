@@ -384,8 +384,8 @@ Different networking fabrics can be supported via node-level [Network Plugins](/
 
 The scheduler is a special type of controller that watches pods, and assigns
 pods to nodes. The default scheduler can be replaced entirely, while
-continuing to use other Kubernetes components, or [multiple
-schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+continuing to use other Kubernetes components, or
+[multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 can run at the same time.
 
 This is a significant undertaking, and almost all Kubernetes users find they
@@ -400,7 +400,7 @@ the nodes chosen for a pod.
 
 调度器是一种特殊类型的控制器，用于监视 pod 并将其分配到节点。
 默认的调度器可以完全被替换，而继续使用其他 Kubernetes 组件，或者可以同时运行
-[多个调度器](/zh/docs/tasks/administer-cluster/configure-multiple-schedulers/)。
+[多个调度器](/zh/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)。
 
 这是一个不太轻松的任务，几乎所有的 Kubernetes 用户都会意识到他们并不需要修改调度器。
 
@@ -419,7 +419,7 @@ the nodes chosen for a pod.
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
 -->
-* 详细了解[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* 详细了解[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 了解[动态准入控制](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * 详细了解基础设施扩展
   * [网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)

@@ -284,7 +284,7 @@ affect the HTTP liveness probe.
 A third type of liveness probe uses a TCP Socket. With this configuration, the
 kubelet will attempt to open a socket to your container on the specified port.
 If it can establish a connection, the container is considered healthy, if it
-can’t it is considered a failure.
+can't it is considered a failure.
 -->
 ## 定义 TCP 的存活探测 {#define-a-TCP-liveness-probe}
 
@@ -419,7 +419,7 @@ Sometimes, applications are temporarily unable to serve traffic.
 For example, an application might need to load large data or configuration
 files during startup, or depend on external services after startup.
 In such cases, you don't want to kill the application,
-but you don’t want to send it requests either. Kubernetes provides
+but you don't want to send it requests either. Kubernetes provides
 readiness probes to detect and mitigate these situations. A pod with containers
 reporting that they are not ready does not receive traffic through Kubernetes
 Services.
@@ -497,7 +497,7 @@ seconds. Minimum value is 1.
 to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
 considered successful after having failed. Defaults to 1. Must be 1 for
-liveness. Minimum value is 1.
+liveness and startup Probes. Minimum value is 1.
 * `failureThreshold`: When a probe fails, Kubernetes will
 try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
@@ -506,7 +506,7 @@ Defaults to 3. Minimum value is 1.
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探测器在失败后，被视为成功的最小连续成功数。默认值是 1。
-  存活探测的这个值必须是 1。最小值是 1。
+  存活和启动探测的这个值必须是 1。最小值是 1。
 * `failureThreshold`：当探测失败时，Kubernetes 的重试次数。
   存活探测情况下的放弃就意味着重新启动容器。
   就绪探测情况下的放弃 Pod 会被打上未就绪的标签。默认值是 3。最小值是 1。
@@ -534,7 +534,7 @@ in the range 1 to 65535.
 
 <!--
 For an HTTP probe, the kubelet sends an HTTP request to the specified path and
-port to perform the check. The kubelet sends the probe to the pod’s IP address,
+port to perform the check. The kubelet sends the probe to the pod's IP address,
 unless the address is overridden by the optional `host` field in `httpGet`. If
 `scheme` field is set to `HTTPS`, the kubelet sends an HTTPS request skipping the
 certificate verification. In most scenarios, you do not want to set the `host` field.
@@ -565,7 +565,7 @@ to resolve it.
 * Learn more about
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 -->
-* 进一步了解[容器探测器](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
+* 进一步了解[容器探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
 
 <!--
 ### Reference
@@ -579,5 +579,4 @@ to resolve it.
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
-
 

@@ -26,31 +26,30 @@ weight: 30
 Kubernetes `secret` objects let you store and manage sensitive information, such
 as passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
 is safer and more flexible than putting it verbatim in a
-{{< glossary_tooltip term_id="pod" >}} definition or in a {{< glossary_tooltip text="container image" term_id="image" >}}. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
+{{< glossary_tooltip term_id="pod" >}} definition or in a
+{{< glossary_tooltip text="container image" term_id="image" >}}.
+See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
 -->
 
 `Secret` 对象类型用来保存敏感信息，例如密码、OAuth 令牌和 SSH 密钥。
 将这些信息放在 `secret` 中比放在 {{< glossary_tooltip term_id="pod" >}} 的定义或者 {{< glossary_tooltip text="容器镜像" term_id="image" >}} 中来说更加安全和灵活。
 参阅 [Secret 设计文档](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) 获取更多详细信息。
 
+<!--
+A Secret is an object that contains a small amount of sensitive data such as
+a password, a token, or a key. Such information might otherwise be put in a
+Pod specification or in an image. Users can create Secrets and the system
+also creates some Secrets.
+-->
+Secret 是一种包含少量敏感信息例如密码、令牌或密钥的对象。
+这样的信息可能会被放在 Pod 规约中或者镜像中。
+用户可以创建 Secret，同时系统也创建了一些 Secret。
+
 <!-- body -->
 
 <!--
 ## Overview of Secrets
 
-A Secret is an object that contains a small amount of sensitive data such as
-a password, a token, or a key.  Such information might otherwise be put in a
-Pod specification or in an image.  Users can create secrets and the system
-also creates some secrets.
-
--->
-## Secret 概览
-
-Secret 是一种包含少量敏感信息例如密码、令牌或密钥的对象。
-这样的信息可能会被放在 Pod 规约中或者镜像中。
-用户可以创建 Secret，同时系统也创建了一些 Secret。
-
-<!--
 To use a secret, a Pod needs to reference the secret.
 A secret can be used with a Pod in three ways:
 
@@ -60,6 +59,8 @@ its containers.
 - As [container environment variable](#using-secrets-as-environment-variables).
 - By the [kubelet when pulling images](#using-imagepullsecrets) for the Pod.
 -->
+## Secret 概览 {#overview-of-secrets}
+
 要使用 Secret，Pod 需要引用 Secret。
 Pod 可以用三种方式之一来使用 Secret：
 
@@ -69,603 +70,624 @@ Pod 可以用三种方式之一来使用 Secret：
 - 由 [kubelet 在为 Pod 拉取镜像时使用](#using-imagepullsecrets)
 
 <!--
-### Built-in Secrets
-
-#### Service Accounts Automatically Create and Attach Secrets with API Credentials
-
-Kubernetes automatically creates secrets which contain credentials for
-accessing the API and it automatically modifies your pods to use this type of
-secret.
--->
-### 内置 Secret
-
-#### 服务账号使用 API 凭证自动创建和附加 Secret
-
-Kubernetes 自动创建包含访问 API 凭据的 Secret，并自动修改你的 Pod 以使用此类型的 Secret。
-
-<!--
-The automatic creation and use of API credentials can be disabled or overridden
-if desired.  However, if all you need to do is securely access the API server,
-this is the recommended workflow.
-
-See the [Service Account](/docs/tasks/configure-pod-container/configure-service-account/)
-documentation for more information on how Service Accounts work.
--->
-如果需要，可以禁用或覆盖自动创建和使用 API 凭据。
-但是，如果您需要的只是安全地访问 API 服务器，我们推荐这样的工作流程。
-
-参阅[服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/)
-文档了解关于服务账号如何工作的更多信息。
-
-<!--
-### Creating your own Secrets
-
-#### Creating a Secret Using kubectl create secret
-
-Secrets can contain user credentials required by Pods to access a database.
-For example, a database connection string
-consists of a username and password. You can store the username in a file `./username.txt`
-and the password in a file `./password.txt` on your local machine.
--->
-### 创建您自己的 Secret
-
-#### 使用 `kubectl` 创建 Secret
-
-Secret 中可以包含 Pod 访问数据库时需要的用户凭证信息。
-例如，某个数据库连接字符串可能包含用户名和密码。
-你可以将用户名和密码保存在本地机器的 `./username.txt` 和 `./password.txt` 文件里。
-
-```shell
-# 创建本例中要使用的文件
-echo -n 'admin' > ./username.txt
-echo -n '1f2d1e2e67df' > ./password.txt
-```
-
-<!--
-The `kubectl create secret` command packages these files into a Secret and creates
-the object on the API Server.
 The name of a Secret object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+You can specify the `data` and/or the `stringData` field when creating a
+configuration file for a Secret.  The `data` and the `stringData` fields are optional.
+The values for all keys in the `data` field have to be base64-encoded strings.
+If the conversion to base64 string is not desirable, you can choose to specify
+the `stringData` field instead, which accepts arbitrary strings as values.
 -->
-
-`kubectl create secret` 命令将这些文件打包到一个 Secret 中并在 API server 中创建了一个对象。
 Secret 对象的名称必须是合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+在为创建 Secret 编写配置文件时，你可以设置 `data` 与/或 `stringData` 字段。
+`data` 和 `stringData` 字段都是可选的。`data` 字段中所有键值都必须是 base64
+编码的字符串。如果不希望执行这种 base64 字符串的转换操作，你可以选择设置
+`stringData` 字段，其中可以使用任何字符串作为其取值。
+
+<!--
+## Types of Secret {#secret-types}
+
+When creating a Secret, you can specify its type using the `type` field of
+the [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+resource, or certain equivalent `kubectl` command line flags (if available).
+The Secret type is used to facilitate programmatic handling of the Secret data.
+
+Kubernetes provides several builtin types for some common usage scenarios.
+These types vary in terms of the validations performed and the constraints
+Kubernetes imposes on them.
+-->
+## Secret 的类型  {#secret-types}
+
+在创建 Secret 对象时，你可以使用
+[`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+资源的 `type` 字段，或者与其等价的 `kubectl` 命令行参数（如果有的话）为其设置类型。
+Secret 的类型用来帮助编写程序处理 Secret 数据。
+
+Kubernetes 提供若干种内置的类型，用于一些常见的使用场景。
+针对这些类型，Kubernetes 所执行的合法性检查操作以及对其所实施的限制各不相同。
+
+<!--
+| Builtin Type | Usage |
+|--------------|-------|
+| `Opaque`     |  arbitrary user-defined data |
+| `kubernetes.io/service-account-token` | service account token |
+| `kubernetes.io/dockercfg` | serialized `~/.dockercfg` file |
+| `kubernetes.io/dockerconfigjson` | serialized `~/.docker/config.json` file |
+| `kubernetes.io/basic-auth` | credentials for basic authentication |
+| `kubernetes.io/ssh-auth` | credentials for SSH authentication |
+| `kubernetes.io/tls` | data for a TLS client or server |
+| `bootstrap.kubernetes.io/token` | bootstrap token data |
+-->
+| 内置类型     | 用法  |
+|--------------|-------|
+| `Opaque`     | 用户定义的任意数据 |
+| `kubernetes.io/service-account-token` | 服务账号令牌 |
+| `kubernetes.io/dockercfg` | `~/.dockercfg` 文件的序列化形式 |
+| `kubernetes.io/dockerconfigjson` | `~/.docker/config.json` 文件的序列化形式 |
+| `kubernetes.io/basic-auth` | 用于基本身份认证的凭据 |
+| `kubernetes.io/ssh-auth` | 用于 SSH 身份认证的凭据 |
+| `kubernetes.io/tls` | 用于 TLS 客户端或者服务器端的数据 |
+| `bootstrap.kubernetes.io/token` | 启动引导令牌数据 |
+
+<!--
+You can define and use your own Secret type by assigning a non-empty string as the
+`type` value for a Secret object. An empty string is treated as an `Opaque` type.
+Kubernetes doesn't impose any constraints on the type name. However, if you
+are using one of the builtin types, you must meet all the requirements defined
+for that type.
+-->
+通过为 Secret 对象的 `type` 字段设置一个非空的字符串值，你也可以定义并使用自己
+Secret 类型。如果 `type` 值为空字符串，则被视为 `Opaque` 类型。
+Kubernetes 并不对类型的名称作任何限制。不过，如果你要使用内置类型之一，
+则你必须满足为该类型所定义的所有要求。
+
+<!--
+### Opaque secrets
+
+`Opaque` is the default Secret type if omitted from a Secret configuration file.
+When you create a Secret using `kubectl`, you will use the `generic`
+subcommand to indicate an `Opaque` Secret type. For example, the following
+command creates an empty Secret of type `Opaque`.
+-->
+### Opaque Secret
+
+当 Secret 配置文件中未作显式设定时，默认的 Secret 类型是 `Opaque`。
+当你使用 `kubectl` 来创建一个 Secret 时，你会使用 `generic` 子命令来标明
+要创建的是一个 `Opaque` 类型 Secret。
+例如，下面的命令会创建一个空的 `Opaque` 类型 Secret 对象：
 
 ```shell
-kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
-```
-
-输出类似于：
-
-```
-secret "db-user-pass" created
+kubectl create secret generic empty-secret
+kubectl get secret empty-secret
 ```
 
 <!--
-Default key name is the filename. You may optionally set the key name using `[--from-file=[key=]source]`.
+The output looks like:
 -->
-默认的键名是文件名。你也可以使用 `[--from-file=[key=]source]` 参数来设置键名。
+输出类似于
 
-```shell
-kubectl create secret generic db-user-pass \
-  --from-file=username=./username.txt \
-  --from-file=password=./password.txt
+```
+NAME           TYPE     DATA   AGE
+empty-secret   Opaque   0      2m6s
 ```
 
 <!--
-Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
-In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
-For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command this way:
-
-```
-kubectl create secret generic dev-db-secret \
-  --from-literal=username=devuser \
-  --from-literal=password='S!B\*d$zDsb='
-```
-
-You do not need to escape special characters in passwords from files (`--from-file`).
- -->
-{{< note >}}
-特殊字符（例如 `$`、`\`、`*`、`=` 和 `!`）可能会被你的
-[Shell](https://en.wikipedia.org/wiki/Shell_(computing)) 解析，因此需要转义。
-在大多数 Shell 中，对密码进行转义的最简单方式是使用单引号（`'`）将其扩起来。
-例如，如果您的实际密码是 `S!B\*d$zDsb=` ，则应通过以下方式执行命令：
-
-```
-kubectl create secret generic dev-db-secret \
-  --from-literal=username=devuser \
-  --from-literal=password='S!B\*d$zDsb='
-```
-
-您无需对文件中保存（`--from-file`）的密码中的特殊字符执行转义操作。
-{{< /note >}}
-
-<!--
-You can check that the secret was created like this:
+The `DATA` column shows the number of data items stored in the Secret.
+In this case, `0` means we have just created an empty Secret.
 -->
-您可以这样检查刚创建的 Secret：
-
-```shell
-kubectl get secrets
-```
-
-其输出类似于：
-
-```
-NAME                  TYPE                                  DATA      AGE
-db-user-pass          Opaque                                2         51s
-```
+`DATA` 列显示 Secret 中保存的数据条目个数。
+在这个例子种，`0` 意味着我们刚刚创建了一个空的 Secret。
 
 <!--
-You can view a description of the secret:
+###  Service account token Secrets
+
+A `kubernetes.io/service-account-token` type of Secret is used to store a
+token that identifies a service account. When using this Secret type, you need
+to ensure that the `kubernetes.io/service-account.name` annotation is set to an
+existing service account name. An Kubernetes controller fills in some other
+fields such as the `kubernetes.io/service-account.uid` annotation and the
+`token` key in the `data` field set to actual token content.
+
+The following example configuration declares a service account token Secret:
 -->
-你可以查看 Secret 的描述：
+### 服务账号令牌 Secret  {#service-account-token-secrets}
 
-```shell
-kubectl describe secrets/db-user-pass
-```
+类型为 `kubernetes.io/service-account-token` 的 Secret 用来存放标识某
+服务账号的令牌。使用这种 Secret 类型时，你需要确保对象的注解
+`kubernetes.io/service-account-name` 被设置为某个已有的服务账号名称。
+某个 Kubernetes 控制器会填写 Secret 的其它字段，例如
+`kubernetes.io/service-account.uid` 注解以及 `data` 字段中的 `token`
+键值，使之包含实际的令牌内容。
 
-其输出类似于：
-
-```
-Name:            db-user-pass
-Namespace:       default
-Labels:          <none>
-Annotations:     <none>
-
-Type:            Opaque
-
-Data
-====
-password.txt:    12 bytes
-username.txt:    5 bytes
-```
+下面的配置实例声明了一个服务账号令牌 Secret：
 
 <!--
-`kubectl get` and `kubectl describe` avoid showing the contents of a secret by
-default.
-This is to protect the secret from being exposed accidentally to an onlooker,
-or from being stored in a terminal log.
--->
-{{< note >}}
-默认情况下，`kubectl get` 和 `kubectl describe` 避免显示密码的内容。
-这是为了防止机密被意外地暴露给旁观者或存储在终端日志中。
-{{< /note >}}
-
-<!--
-See [decoding secret](#decoding-secret) for how to see the contents of a secret.
--->
-请参阅[解码 Secret](#decoding-secret) 了解如何查看 Secret 的内容。
-
-<!--
-#### Creating a Secret Manually
-
-You can also create a Secret in a file first, in JSON or YAML format,
-and then create that object.
-The name of a Secret object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-The [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-contains two maps:
-`data` and `stringData`. The `data` field is used to store arbitrary data, encoded using
-base64. The stringData field is provided for convenience, and allows you to provide
-secret data as unencoded strings.
--->
-#### 手动创建 Secret
-
-您也可以先以 JSON 或 YAML 格式文件创建一个 Secret，然后创建该对象。
-Secret 对象的名称必须是合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
-[Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-包含两个映射：`data` 和 `stringData`。
-`data` 字段用于存储使用 base64 编码的任意数据。
-提供 `stringData` 字段是为了方便，允许您用未编码的字符串提供机密数据。
-
-<!--
-For example, to store two strings in a Secret using the data field, convert
-them to base64 as follows:
--->
-例如，要使用 `data` 字段将两个字符串存储在 Secret 中，请按如下所示将它们转换为 base64：
-
-```shell
-echo -n 'admin' | base64
-```
-
-<!-- The output is similar to: -->
-输出类似于：
-
-```
-YWRtaW4=
-```
-
-```shell
-echo -n '1f2d1e2e67df' | base64
-```
-
-<!-- The output is similar to: -->
-输出类似于：
-
-```
-MWYyZDFlMmU2N2Rm
-```
-
-<!--
-Write a Secret that looks like this:
--->
-
-现在可以像这样写一个 Secret 对象：
-
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysecret
-type: Opaque
+  name: secret-sa-sample
+  annotations:
+    kubernetes.io/service-account.name: "sa-name"
+type: kubernetes.io/service-account-token
 data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
+  # You can include additional key value pairs as you do with Opaque Secrets
+  extra: YmFyCg==
 ```
-
-<!--
-Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
 -->
-使用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 创建 Secret 对象：
-
-```shell
-kubectl apply -f ./secret.yaml
-```
-
-<!--The output is similar to: -->
-输出类似于：
-
-```
-secret "mysecret" created
-```
-
-<!--
-For certain scenarios, you may wish to use the stringData field instead. This
-field allows you to put a non-base64 encoded string directly into the Secret,
-and the string will be encoded for you when the Secret is created or updated.
-
-A practical example of this might be where you are deploying an application
-that uses a Secret to store a configuration file, and you want to populate
-parts of that configuration file during your deployment process.
-
-If your application uses the following configuration file:
--->
-在某些情况下，你可能希望改用 stringData 字段。
-此字段允许您将非 base64 编码的字符串直接放入 Secret 中，
-并且在创建或更新 Secret 时将为您编码该字符串。
-
-下面的一个实践示例提供了一个参考。
-你正在部署使用 Secret 存储配置文件的应用程序，并希望在部署过程中填齐配置文件的部分内容。
-
-如果您的应用程序使用以下配置文件：
-
 ```yaml
-apiUrl: "https://my.api.com/api/v1"
-username: "user"
-password: "password"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-sa-sample
+  annotations:
+    kubernetes.io/service-account.name: "sa-name"
+type: kubernetes.io/service-account-token
+data:
+  # 你可以像 Opaque Secret 一样在这里添加额外的键/值偶对
+  extra: YmFyCg==
 ```
 
-<!-- You could store this in a Secret using the following: -->
+<!--
+When creating a `Pod`, Kubernetes automatically creates a service account Secret
+and automatically modifies your Pod to use this Secret. The service account token
+Secret contains credentials for accessing the API.
 
-您可以使用以下方法将其存储在Secret中：
+The automatic creation and use of API credentials can be disabled or
+overridden if desired. However, if all you need to do is securely access the
+API server, this is the recommended workflow.
+-->
+Kubernetes 在创建 Pod 时会自动创建一个服务账号 Secret 并自动修改你的 Pod
+以使用该 Secret。该服务账号令牌 Secret 中包含了访问 Kubernetes API
+所需要的凭据。
+
+如果需要，可以禁止或者重载这种自动创建并使用 API 凭据的操作。
+不过，如果你仅仅是希望能够安全地访问 API 服务器，这是建议的工作方式。
+
+<!--
+See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)
+documentation for more information on how service accounts work.
+You can also check the `automountServiceAccountToken` field and the
+`serviceAccountName` field of the
+[`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+for information on referencing service account from Pods.
+-->
+参考 [ServiceAccount](/zh/docs/tasks/configure-pod-container/configure-service-account/)
+文档了解服务账号的工作原理。你也可以查看
+[`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
+资源中的 `automountServiceAccountToken` 和 `serviceAccountName` 字段文档，了解
+从 Pod 中引用服务账号。
+
+<!--
+### Docker config Secrets
+
+You can use one of the following `type` values to create a Secret to
+store the credentials for accessing a Docker registry for images.
+-->
+### Docker 配置 Secret  {#docker-config-secrets}
+
+你可以使用下面两种 `type` 值之一来创建 Secret，用以存放访问 Docker 仓库
+来下载镜像的凭据。
+
+- `kubernetes.io/dockercfg`
+- `kubernetes.io/dockerconfigjson`
+
+<!--
+The `kubernetes.io/dockercfg` type is reserved to store a serialized
+`~/.dockercfg` which is the legacy format for configuring Docker command line.
+When using this Secret type, you have to ensure the Secret `data` field
+contains a `.dockercfg` key whose value is content of a `~/.dockercfg` file
+encoded in the base64 format.
+-->
+`kubernetes.io/dockercfg` 是一种保留类型，用来存放 `~/.dockercfg` 文件的
+序列化形式。该文件是配置 Docker 命令行的一种老旧形式。
+使用此 Secret 类型时，你需要确保 Secret 的 `data` 字段中包含名为
+`.dockercfg` 的主键，其对应键值是用 base64 编码的某 `~/.dockercfg`
+文件的内容。
+
+<!--
+The `kubernetes/dockerconfigjson` type is designed for storing a serialized
+JSON that follows the same format rules as the `~/.docker/config.json` file
+which is a new format for `~/.dockercfg`.
+When using this Secret type, the `data` field of the Secret object must
+contain a `.dockerconfigjson` key, in which the content for the
+`~/.docker/config.json` file is provided as a base64 encoded string.
+
+Below is an example for a `kubernetes.io/dockercfg` type of Secret:
+-->
+类型 `kubernetes.io/dockerconfigjson` 被设计用来保存 JSON 数据的序列化形式，
+该 JSON 也遵从 `~/.docker/config.json` 文件的格式规则，而后者是
+`~/.dockercfg` 的新版本格式。
+使用此 Secret 类型时，Secret 对象的 `data` 字段必须包含 `.dockerconfigjson`
+键，其键值为 base64 编码的字符串包含 `~/.docker/config.json` 文件的内容。
+
+下面是一个 `kubernetes.io/dockercfg` 类型 Secret 的示例：
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysecret
-type: Opaque
+  name: secret-dockercfg
+type: kubernetes.io/dockercfg
+data:
+  .dockercfg: |
+    "<base64 encoded ~/.dockercfg file>"
+```
+
+{{< note >}}
+<!--
+If you do not want to perform the base64 encoding, you can choose to use the
+`stringData` field instead.
+-->
+如果你不希望执行 base64 编码转换，可以使用 `stringData` 字段代替。
+{{< /note >}}
+
+<!--
+When you create these types of Secrets using a manifest, the API
+server checks whether the expected key does exists in the `data` field, and
+it verifies if the value provided can be parsed as a valid JSON. The API
+server doesn't validate if the JSON actually is a Docker config file.
+
+When you do not have a Docker config file, or you want to use `kubectl`
+to create a Docker registry Secret, you can do:
+-->
+当你使用清单文件来创建这两类 Secret 时，API 服务器会检查 `data` 字段中是否
+存在所期望的主键，并且验证其中所提供的键值是否是合法的 JSON 数据。
+不过，API 服务器不会检查 JSON 数据本身是否是一个合法的 Docker 配置文件内容。
+
+```shell
+kubectl create secret docker-registry secret-tiger-docker \
+  --docker-username=tiger \
+  --docker-password=pass113 \
+  --docker-email=tiger@acme.com
+```
+
+<!--
+This command creates a Secret of type `kubernetes.io/dockerconfigjson`.
+If you dump the `.dockerconfigjson` content from the `data` field, you will
+get the following JSON content which is a valid Docker configuration created
+on the fly:
+-->
+上面的命令创建一个类型为 `kubernetes.io/dockerconfigjson` 的 Secret。
+如果你对 `data` 字段中的 `.dockerconfigjson` 内容进行转储，你会得到下面的
+JSON 内容，而这一内容是一个合法的 Docker 配置文件。
+
+```json
+{
+  "auths": {
+    "https://index.docker.io/v1/": {
+      "username": "tiger",
+      "password": "pass113",
+      "email": "tiger@acme.com",
+      "auth": "dGlnZXI6cGFzczExMw=="
+    }
+  }
+}
+```
+
+<!--
+### Basic authentication Secret
+
+The `kubernetes.io/basic-auth` type is provided for storing credentials needed
+for basic authentication. When using this Secret type, the `data` field of the
+Secret must contain the following two keys:
+
+- `username`: the user name for authentication;
+- `password`: the password or token for authentication.
+-->
+### 基本身份认证 Secret  {#basic-authentication-secret}
+
+`kubernetes.io/basic-auth` 类型用来存放用于基本身份认证所需的凭据信息。
+使用这种 Secret 类型时，Secret 的 `data` 字段必须包含以下两个键：
+
+- `username`: 用于身份认证的用户名；
+- `password`: 用于身份认证的密码或令牌。
+
+<!--
+Both values for the above two keys are base64 encoded strings. You can, of
+course, provide the clear text content using the `stringData` for Secret
+creation.
+
+The following YAML is an example config for a basic authentication Secret:
+-->
+以上两个键的键值都是 base64 编码的字符串。
+当然你也可以在创建 Secret 时使用 `stringData` 字段来提供明文形式的内容。
+下面的 YAML 是基本身份认证 Secret 的一个示例清单：
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-basic-auth
+type: kubernetes.io/basic-auth
 stringData:
-  config.yaml: |-
-    apiUrl: "https://my.api.com/api/v1"
-    username: {{username}}
-    password: {{password}}
+  username: admin
+  password: t0p-Secret
 ```
 
 <!--
-Your deployment tool could then replace the `{{username}}` and `{{password}}`
-template variables before running `kubectl apply`.
-
-stringData is a write-only convenience field. It is never output when
-retrieving Secrets. For example, if you run the following command:
+The basic authentication Secret type is provided only for user's convenience.
+You can create an `Opaque` for credentials used for basic authentication.
+However, using the builtin Secret type helps unify the formats of your credentials
+and the API server does verify if the required keys are provided in a Secret
+configuration.
 -->
+提供基本身份认证类型的 Secret 仅仅是出于用户方便性考虑。
+你也可以使用 `Opaque` 类型来保存用于基本身份认证的凭据。
+不过，使用内置的 Secret 类型的有助于对凭据格式进行归一化处理，并且
+API 服务器确实会检查 Secret 配置中是否提供了所需要的主键。
 
-然后，您的部署工具可以在执行 `kubectl apply` 之前替换模板的 `{{username}}` 和 `{{password}}` 变量。
-stringData 是只写的便利字段。检索 Secrets 时永远不会被输出。例如，如果您运行以下命令：
+<!--
+### SSH authentication secrets
 
+The builtin type `kubernetes.io/ssh-auth` is provided for storing data used in
+SSH authentication. When using this Secret type, you will have to specify a
+`ssh-privatekey` key-value pair in the `data` (or `stringData`) field.
+as the SSH credential to use.
+
+The following YAML is an example config for a SSH authentication Secret:
+-->
+### SSH 身份认证 Secret {#ssh-authentication-secrets}
+
+Kubernetes 所提供的内置类型 `kubernetes.io/ssh-auth` 用来存放 SSH 身份认证中
+所需要的凭据。使用这种 Secret 类型时，你就必须在其 `data` （或 `stringData`）
+字段中提供一个 `ssh-privatekey` 键值对，作为要使用的 SSH 凭据。
+
+下面的 YAML 是一个 SSH 身份认证 Secret 的配置示例：
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-ssh-auth
+type: kubernetes.io/ssh-auth
+data:
+  # 此例中的实际数据被截断
+  ssh-privatekey: |
+     MIIEpQIBAAKCAQEAulqb/Y ...
+```
+
+<!--
+The SSH authentication Secret type is provided only for user's convenience.
+You can create an `Opaque` for credentials used for SSH authentication.
+However, using the builtin Secret type helps unify the formats of your credentials
+and the API server does verify if the required keys are provided in a Secret
+configuration.
+-->
+提供 SSH 身份认证类型的 Secret 仅仅是出于用户方便性考虑。
+你也可以使用 `Opaque` 类型来保存用于 SSH 身份认证的凭据。
+不过，使用内置的 Secret 类型的有助于对凭据格式进行归一化处理，并且
+API 服务器确实会检查 Secret 配置中是否提供了所需要的主键。
+
+<!--
+### TLS secrets
+
+Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
+a certificate and its associated key that are typically used for TLS . This
+data is primarily used with TLS termination of the Ingress resource, but may
+be used with other resources or directly by a workload.
+When using this type of Secret, the `tls.key` and the `tls.crt` key must be provided
+in the `data` (or `stringData`) field of the Secret configuration, although the API
+server doesn't actually validate the values for each key.
+
+The following YAML contains an example config for a TLS Secret:
+-->
+### TLS Secret
+
+Kubernetes 提供一种内置的 `kubernetes.io/tls` Secret 类型，用来存放证书
+及其相关密钥（通常用在 TLS 场合）。
+此类数据主要提供给 Ingress 资源，用以终结 TLS 链接，不过也可以用于其他
+资源或者负载。当使用此类型的 Secret 时，Secret 配置中的 `data` （或
+`stringData`）字段必须包含 `tls.key` 和 `tls.crt` 主键，尽管 API 服务器
+实际上并不会对每个键的取值作进一步的合法性检查。
+
+下面的 YAML 包含一个 TLS Secret 的配置示例：
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-tls
+type: kubernetes.io/tls
+data:
+  # 此例中的数据被截断
+  tls.crt: |
+    MIIC2DCCAcCgAwIBAgIBATANBgkqh ...
+  tls.key: |
+    MIIEpgIBAAKCAQEA7yn3bRHQ5FHMQ ...
+```
+
+<!--
+The TLS Secret type is provided for user's convenience. You can create an `Opaque`
+for credentials used for TLS server and/or client. However, using the builtin Secret
+type helps ensure the consistency of Secret format in your project; the API server
+does verify if the required keys are provided in a Secret configuration.
+
+When creating a TLS Secret using `kubectl`, you can use the `tls` subcommand
+as shown in the following example:
+-->
+提供 TLS 类型的 Secret 仅仅是出于用户方便性考虑。
+你也可以使用 `Opaque` 类型来保存用于 TLS 服务器与/或客户端的凭据。
+不过，使用内置的 Secret 类型的有助于对凭据格式进行归一化处理，并且
+API 服务器确实会检查 Secret 配置中是否提供了所需要的主键。
+
+当使用 `kubectl` 来创建 TLS Secret 时，你可以像下面的例子一样使用 `tls`
+子命令：
 
 ```shell
-kubectl get secret mysecret -o yaml
+kubectl create secret tls my-tls-secret \
+  --cert=path/to/cert/file \
+  --key=path/to/key/file
 ```
 
 <!--
-The output will be similar to:
+The public/private key pair must exist before hand. The public key certificate
+for `--cert` must be .PEM encoded (Base64-encoded DER format), and match the
+given private key for `--key`.
+The private key must be in what is commonly called PEM private key format,
+unencrypted. In both cases, the initial and the last lines from PEM (for
+example, `--------BEGIN CERTIFICATE-----` and `-------END CERTIFICATE----` for
+a cetificate) are *not* included.
 -->
-输出类似于：
+这里的公钥/私钥对都必须事先已存在。用于 `--cert` 的公钥证书必须是 .PEM 编码的
+（Base64 编码的 DER 格式），且与 `--key` 所给定的私钥匹配。
+私钥必须是通常所说的 PEM 私钥格式，且未加密。对这两个文件而言，PEM 格式数据
+的第一行和最后一行（例如，证书所对应的 `--------BEGIN CERTIFICATE-----` 和
+`-------END CERTIFICATE----`）都不会包含在其中。
+<!--
+### Bootstrap token Secrets
+
+A bootstrap token Secret can be created by explicitly specifying the Secret
+`type` to `bootstrap.kubernetes.io/token`. This type of Secret is designed for
+tokens used during the node bootstrap process. It stores tokens used to sign
+well known ConfigMaps.
+-->
+### 启动引导令牌 Secret  {#bootstrap-token-secrets}
+
+通过将 Secret 的 `type` 设置为 `bootstrap.kubernetes.io/token` 可以创建
+启动引导令牌类型的 Secret。这种类型的 Secret 被设计用来支持节点的启动引导过程。
+其中包含用来为周知的 ConfigMap 签名的令牌。
+
+<!--
+A bootstrap token Secret is usually created in the `kube-system` namespace and
+named in the form `bootstrap-token-<token-id>` where `<token-id>` is a 6 character
+string of the token ID.
+
+As a Kubernetes manifest, a bootstrap token Secret might look like the
+following:
+-->
+启动引导令牌 Secret 通常创建于 `kube-system` 名字空间内，并以
+`bootstrap-token-<令牌 ID>` 的形式命名；其中 `<令牌 ID>` 是一个由 6 个字符组成
+的字符串，用作令牌的标识。
+
+以 Kubernetes 清单文件的形式，某启动引导令牌 Secret 可能看起来像下面这样：
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  creationTimestamp: 2018-11-15T20:40:59Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "7225"
-  uid: c280ad2e-e916-11e8-98f2-025000000001
-type: Opaque
+  name: bootstrap-token-5emitj
+  namespace: kube-system
+type: bootstrap.kubernetes.io/token
 data:
-  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
+  auth-extra-groups: c3lzdGVtOmJvb3RzdHJhcHBlcnM6a3ViZWFkbTpkZWZhdWx0LW5vZGUtdG9rZW4=
+  expiration: MjAyMC0wOS0xM1QwNDozOToxMFo=
+  token-id: NWVtaXRq
+  token-secret: a3E0Z2lodnN6emduMXAwcg==
+  usage-bootstrap-authentication: dHJ1ZQ==
+  usage-bootstrap-signing: dHJ1ZQ==
 ```
 
 <!--
-If a field is specified in both data and stringData, the value from stringData
-is used. For example, the following Secret definition:
--->
+A bootstrap type has the following keys specified under `data`:
 
-如果在 data 和 stringData 中都指定了某一字段，则使用 stringData 中的值。
-例如，以下是 Secret 定义：
+- `token_id`: A random 6 character string as the token identifier. Required.
+- `token-secret`: A random 16 character string as the actual token secret. Required.
+- `description1`: A human-readable string that describes what the token is
+  used for. Optional.
+- `expiration`: An absolute UTC time using RFC3339 specifying when the token
+  should be expired. Optional.
+- `usage-bootstrap-<usage>`: A boolean flag indicating additional usage for
+  the bootstrap token.
+- `auth-extra-groups`: A comma-separated list of group names that will be
+  authenticated as in addition to the `system:bootstrappers` group.
+-->
+启动引导令牌类型的 Secret 会在 `data` 字段中包含如下主键：
+
+- `token_id`：由 6 个随机字符组成的字符串，作为令牌的标识符。必需。
+- `token-secret`：由 16 个随机字符组成的字符串，包含实际的令牌机密。必需。
+- `description`：供用户阅读的字符串，描述令牌的用途。可选。
+- `expiration`：一个使用 RFC3339 来编码的 UTC 绝对时间，给出令牌要过期的时间。可选。
+- `usage-bootstrap-<usage>`：布尔类型的标志，用来标明启动引导令牌的其他用途。
+- `auth-extra-groups`：用逗号分隔的组名列表，身份认证时除被认证为
+  `system:bootstrappers` 组之外，还会被添加到所列的用户组中。
+
+<!--
+The above YAML may look confusing because the values are all in base64 encoded
+strings. In fact, you can create an identical Secret using the following YAML:
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysecret
-type: Opaque
-data:
-  username: YWRtaW4=
+  # Note how the Secret is named
+  name: bootstrap-token-5emitj
+  # A bootstrap token Secret usually resides in the kube-system namespace
+  namespace: kube-system
+type: bootstrap.kubernetes.io/token
 stringData:
-  username: administrator
+  auth-extra-groups: "system:bootstrappers:kubeadm:default-node-token"
+  expiration: "2020-09-13T04:39:10Z"
+  # This token ID is used in the name
+  token-id: "5emitj"
+  token-secret: "kq4gihvszzgn1p0r"
+  # This token can be used for authentication
+  usage-bootstrap-authentication: "true"
+  # and it can be used for signing
+  usage-bootstrap-signing: "true"
 ```
-
-<!--
-Results in the following secret:
 -->
-secret 中的生成结果：
+上面的 YAML 文件可能看起来令人费解，因为其中的数值均为 base64 编码的字符串。
+实际上，你完全可以使用下面的 YAML 来创建一个一模一样的 Secret：
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  creationTimestamp: 2018-11-15T20:46:46Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "7579"
-  uid: 91460ecb-e917-11e8-98f2-025000000001
-type: Opaque
-data:
-  username: YWRtaW5pc3RyYXRvcg==
+  # 注意 Secret 的命名方式
+  name: bootstrap-token-5emitj
+  # 启动引导令牌 Secret 通常位于 kube-system 名字空间
+  namespace: kube-system
+type: bootstrap.kubernetes.io/token
+stringData:
+  auth-extra-groups: "system:bootstrappers:kubeadm:default-node-token"
+  expiration: "2020-09-13T04:39:10Z"
+  # 此令牌 ID 被用于生成 Secret 名称
+  token-id: "5emitj"
+  token-secret: "kq4gihvszzgn1p0r"
+  # 此令牌还可用于 authentication （身份认证）
+  usage-bootstrap-authentication: "true"
+  # 且可用于 signing （证书签名）
+  usage-bootstrap-signing: "true"
 ```
 
 <!--
-Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
+## Creating a Secret
+
+There are several options to create a Secret:
+
+- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 -->
-其中的 `YWRtaW5pc3RyYXRvcg==` 解码后即是 `administrator`。
+## 创建 Secret {#creating-a-secret}
+
+有几种不同的方式来创建 Secret：
+
+- [使用 `kubectl` 命令创建 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [使用配置文件来创建 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [使用 kustomize 来创建 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 <!--
-The keys of data and stringData must consist of alphanumeric characters,
-'-', '_' or '.'.
+## Editing a Secret
 
-The serialized JSON and YAML values of secret data are
-encoded as base64 strings.  Newlines are not valid within these strings and must
-be omitted.  When using the `base64` utility on Darwin/macOS users should avoid
-using the `-b` option to split long lines.  Conversely Linux users *should* add
-the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
-`-w` option is not available.
+An existing Secret may be edited with the following command:
 -->
-data 和 stringData 的键必须由字母数字字符 '-', '\_' 或者 '.' 组成。
+## 编辑 Secret  {#editing-a-secret}
 
-{{< note >}}
-Secret 数据在序列化为 JSON 和 YAML 时，其值被编码为 base64 字符串。
-换行符在这些字符串中是非法的，因此必须省略。
-在 Darwin/macOS 上使用 `base64` 实用程序时，用户应避免使用 `-b` 选项来分隔长行。
-相反，Linux用户 *应该* 在 `base64` 命令中添加选项 `-w 0` ，
-或者，如果 `-w` 选项不可用的情况下，执行 `base64 | tr -d '\n'`。
-{{< /note >}}
-
-<!--
-#### Creating a Secret from Generator
-
-Since Kubernetes v1.14, `kubectl` supports [managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/). Kustomize provides resource Generators to
-create Secrets and ConfigMaps. The Kustomize generators should be specified in a
-`kustomization.yaml` file inside a directory. After generating the Secret,
-you can create the Secret on the API server with `kubectl apply`.
--->
-#### 从生成器创建 Secret
-
-Kubectl 从 1.14 版本开始支持[使用 Kustomize 管理对象](/docs/tasks/manage-kubernetes-objects/kustomization/)。
-Kustomize 提供资源生成器创建 Secret 和 ConfigMaps。
-Kustomize 生成器要在当前目录内的 `kustomization.yaml` 中指定。
-生成 Secret 之后，使用 `kubectl apply` 在 API 服务器上创建对象。
-
-<!--
-#### Generating a Secret from files
-
-You can generate a Secret by defining a `secretGenerator` from the
-files ./username.txt and ./password.txt:
--->
-#### 从文件生成 Secret   {#generating-a-secret-from-files}
-
-你可以通过定义基于文件 `./username.txt` 和 `./password.txt` 的
-`secretGenerator` 来生成一个 Secret。
-
-```shell
-cat <<EOF >./kustomization.yaml
-secretGenerator:
-- name: db-user-pass
-  files:
-  - username.txt
-  - password.txt
-EOF
-```
-
-<!--
-Apply the directory, containing the `kustomization.yaml`, to create the Secret.
--->
-应用包含 `kustomization.yaml` 目录以创建 Secret 对象。
-
-```shell
-kubectl apply -k .
-```
-
-<!-- The output is similar to: -->
-输出类似于：
-
-```
-secret/db-user-pass-96mffmfh4k created
-```
-
-<!--
-You can check that the secret was created like this:
--->
-您可以检查 Secret 是否创建成功：
-
-```shell
-kubectl get secrets
-```
-
-<!-- The output is similar to: -->
-输出类似于：
-
-```
-NAME                             TYPE                                  DATA      AGE
-db-user-pass-96mffmfh4k          Opaque                                2         51s
-
-$ kubectl describe secrets/db-user-pass-96mffmfh4k
-Name:            db-user-pass
-Namespace:       default
-Labels:          <none>
-Annotations:     <none>
-
-Type:            Opaque
-
-Data
-====
-password.txt:    12 bytes
-username.txt:    5 bytes
-```
-
-<!--
-#### Generating a Secret from string literals
-
-You can create a Secret by defining a `secretGenerator`
-from literals `username=admin` and `password=secret`:
--->
-#### 基于字符串值来创建 Secret  {#generating-a-secret-from-string-literals}
-
-你可以通过定义使用字符串值 `username=admin` 和 `password=secret`
-的 `secretGenerator` 来创建 Secret。
-
-```shell
-cat <<EOF >./kustomization.yaml
-secretGenerator:
-- name: db-user-pass
-  literals:
-  - username=admin
-  - password=secret
-EOF
-```
-<!--
-Apply the directory, containing the `kustomization.yaml`, to create the Secret.
--->
-应用包含 `kustomization.yaml` 目录以创建 Secret 对象。
-
-```shell
-kubectl apply -k .
-```
-
-<!--
-The output is similar to:
--->
-输出类似于：
-
-```
-secret/db-user-pass-dddghtt9b5 created
-```
-
-<!--
-When a Secret is generated, the Secret name is created by hashing
-the Secret data and appending this value to the name. This ensures that
-a new Secret is generated each time the data is modified.
--->
-
-{{< note >}}
-Secret 被创建时，Secret 的名称是通过为 Secret 数据计算哈希值得到一个字符串，
-并将该字符串添加到名称之后得到的。这会确保数据被修改后，会有新的 Secret
-对象被生成。
-{{< /note >}}
-
-<!--
-#### Decoding a Secret
-
-Secrets can be retrieved via the `kubectl get secret`.
-For example, to retrieve the secret created in the previous section:
--->
-
-#### 解码 Secret {#decoding-secret}
-
-可以使用 `kubectl get secret` 命令获取 Secret。例如，获取在上一节中创建的 secret：
-
-```shell
-kubectl get secret mysecret -o yaml
-```
-
-<!--
-The output is similar to:
--->
-输出类似于：
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  creationTimestamp: 2016-01-22T18:41:56Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "164619"
-  uid: cfee02d6-c137-11e5-8d73-42010af00002
-type: Opaque
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
-```
-
-<!--
-Decode the password field:
--->
-
-解码 `password` 字段：
-
-```shell
-echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
-```
-
-<!-- The output is similar to:-->
-输出类似于：
-
-```
-1f2d1e2e67df
-```
-
-<!--
-#### Editing a Secret
-
-An existing secret may be edited with the following command:
--->
-#### 编辑 Secret
-
-可以通过下面的命令可以编辑一个已经存在的 secret 。
+你可以通过下面的命令编辑现有的 Secret：
 
 ```shell
 kubectl edit secrets mysecret
 ```
 
 <!--
-This will open the default configured editor and allow for updating the base64 encoded secret values in the `data` field:
+This will open the default configured editor and allow for updating the base64 encoded Secret values in the `data` field:
 -->
-这将打开默认配置的编辑器，并允许更新 `data` 字段中的 base64 编码的 Secret 值：
+这一命令会打开默认的编辑器，允许你更新 `data` 字段中包含的
+base64 编码的 Secret 值：
 
-```
+```yaml
 # Please edit the object below. Lines beginning with a '#' will be ignored,
 # and an empty file will abort the edit. If an error occurs while saving this file will be
 # reopened with the relevant failures.
@@ -696,8 +718,7 @@ system, without being directly exposed to the pod.  For example, they can hold
 credentials that other parts of the system should use to interact with external
 systems on your behalf.
 -->
-
-## 使用 Secret
+## 使用 Secret  {#using-secrets}
 
 Secret 可以作为数据卷被挂载，或作为{{< glossary_tooltip text="环境变量" term_id="container-env-variables" >}}
 暴露出来以供 Pod 中的容器使用。它们也可以被系统的其他部分使用，而不直接暴露在 Pod 内。
@@ -1048,71 +1069,18 @@ Secret updates.
 不会收到 Secret 更新。
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
-
-<!-- 
-The Kubernetes alpha feature _Immutable Secrets and ConfigMaps_ provides an option to set
-individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
-(at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
-data has the following advantages:
--->
-Kubernetes 的 alpha 特性 _不可变的 Secret 和 ConfigMap_ 提供了一种可选配置，
-可以设置各个 Secret 和 ConfigMap 为不可变的。
-对于大量使用 Secret 的集群（至少有成千上万各不相同的 Secret 供 Pod 挂载），
-禁止变更它们的数据有下列好处：
-
-<!-- 
-- protects you from accidental (or unwanted) updates that could cause applications outages
-- improves performance of your cluster by significantly reducing load on kube-apiserver, by
-closing watches for secrets marked as immutable.
--->
-- 防止意外（或非预期的）更新导致应用程序中断
-- 通过将 Secret 标记为不可变来关闭 kube-apiserver 对其的监视，从而显著降低
-  kube-apiserver 的负载，提升集群性能。
-
-<!-- 
-To use this feature, enable the `ImmutableEmphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
-your Secret or ConfigMap `immutable` field to `true`. For example:
--->
-使用这个特性需要启用 `ImmutableEmphemeralVolumes`
-[特性开关](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-并将 Secret 或 ConfigMap 的 `immutable` 字段设置为 `true`. 例如：
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  ...
-data:
-  ...
-immutable: true
-```
-
-<!-- 
-Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
-nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
-Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
-these pods.
--->
-{{< note >}}
-一旦一个 Secret 或 ConfigMap 被标记为不可变，撤销此操作或者更改 `data` 字段的内容都是 _不_ 可能的。
-只能删除并重新创建这个 Secret。现有的 Pod 将维持对已删除 Secret 的挂载点 - 建议重新创建这些 Pod。
-{{< /note >}}
-
 <!--
-### Using Secrets as Environment Variables
+### Using Secrets as environment variables
 
 To use a secret in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
-in a pod:
+in a Pod:
 
-1. Create a secret or use an existing one.  Multiple pods can reference the same secret.
-1. Modify your Pod definition in each container that you wish to consume the value of a secret key to add an environment variable for each secret key you wish to consume.  The environment variable that consumes the secret key should populate the secret's name and key in `env[].valueFrom.secretKeyRef`.
-1. Modify your image and/or command line so that the program looks for values in the specified environment variables
+1. Create a secret or use an existing one.  Multiple Pods can reference the same secret.
+1. Modify your Pod definition in each container that you wish to consume the value of a secret key to add an environment variable for each secret key you wish to consume. The environment variable that consumes the secret key should populate the secret's name and key in `env[].valueFrom.secretKeyRef`.
+1. Modify your image and/or command line so that the program looks for values in the specified environment variables.
 
-This is an example of a pod that uses secrets from environment variables:
+This is an example of a Pod that uses secrets from environment variables:
 -->
-
 #### 以环境变量的形式使用 Secrets   {#using-secrets-as-environment-variables}
 
 将 Secret 作为 Pod 中的{{< glossary_tooltip text="环境变量" term_id="container-env-variables" >}}使用：
@@ -1149,10 +1117,10 @@ spec:
 ```
 
 <!--
-**Consuming Secret Values from Environment Variables**
+#### Consuming Secret Values from environment variables
 
 Inside a container that consumes a secret in an environment variables, the secret keys appear as
-normal environment variables containing the base-64 decoded values of the secret data.
+normal environment variables containing the base64 decoded values of the secret data.
 This is the result of commands executed inside the container from the example above:
 -->
 #### 使用来自环境变量的 Secret 值 {#consuming-secret-values-from-environment-variables}
@@ -1164,7 +1132,9 @@ This is the result of commands executed inside the container from the example ab
 echo $SECRET_USERNAME
 ```
 
-<!-- The output is similar to: -->
+<!--
+The output is similar to:
+-->
 输出类似于：
 
 ```
@@ -1175,12 +1145,73 @@ admin
 echo $SECRET_PASSWORD
 ```
 
-<!-- The output is similar to: -->
+<!--
+The output is similar to:
+-->
 输出类似于：
 
 ```
 1f2d1e2e67df
 ```
+
+<!--
+## Immutable Secrets {#secret-immutable}
+-->
+## 不可更改的 Secret {#secret-immutable}
+
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+<!--
+The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
+(at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
+data has the following advantages:
+
+- protects you from accidental (or unwanted) updates that could cause applications outages
+- improves performance of your cluster by significantly reducing load on kube-apiserver, by
+closing watches for secrets marked as immutable.
+-->
+Kubernetes 的 alpha 特性 _不可变的 Secret 和 ConfigMap_ 提供了一种可选配置，
+可以设置各个 Secret 和 ConfigMap 为不可变的。
+对于大量使用 Secret 的集群（至少有成千上万各不相同的 Secret 供 Pod 挂载），
+禁止变更它们的数据有下列好处：
+
+- 防止意外（或非预期的）更新导致应用程序中断
+- 通过将 Secret 标记为不可变来关闭 kube-apiserver 对其的监视，从而显著降低
+  kube-apiserver 的负载，提升集群性能。
+
+<!--
+This feature is controlled by the `ImmutableEphemeralVolumes` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/),
+which is enabled by default since v1.19. You can create an immutable
+Secret by setting the `immutable` field to `true`. For example,
+-->
+这个特性通过 `ImmutableEmphemeralVolumes`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+来控制，从 v1.19 开始默认启用。
+你可以通过将 Secret 的 `immutable` 字段设置为 `true` 创建不可更改的 Secret。
+例如：
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  ...
+data:
+  ...
+immutable: true
+```
+
+{{< note >}}
+<!--
+Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
+nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
+Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
+these pods.
+-->
+一旦一个 Secret 或 ConfigMap 被标记为不可更改，撤销此操作或者更改 `data` 字段的内容都是 _不_ 可能的。
+只能删除并重新创建这个 Secret。现有的 Pod 将维持对已删除 Secret 的挂载点 - 建议重新创建这些 Pod。
+{{< /note >}}
 
 <!--
 ### Using imagePullSecrets
@@ -1911,4 +1942,15 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
 - 目前，任何节点的 root 用户都可以通过模拟 kubelet 来读取 API 服务器中的任何 Secret。
   仅向实际需要 Secret 的节点发送 Secret 数据才能限制节点的 root 账号漏洞的影响，
   该功能还在计划中。
+
+## {{% heading "whatsnext" %}}
+
+<!--
+- Learn how to [manage Secret using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+-->
+- 学习如何[使用 `kubectl` 管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- 学习如何[使用配置文件管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- 学习如何[使用 kustomize 管理 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 

@@ -1,10 +1,10 @@
 ---
-title: 静态 Pod
+title: 静态 Pod（Static Pod）
 id: static-pod
 date: 2019-02-12
 full_link: /zh/docs/tasks/configure-pod-container/static-pod/
 short_description: >
-  由特定节点上的 kubelet 守护进程直接管理的 pod。
+  静态Pod（Static Pod）是指由特定节点上的 kubelet 守护进程直接管理的 Pod。
 
 aka: 
 tags:
@@ -16,7 +16,7 @@ tags:
 title: Static Pod
 id: static-pod
 date: 2019-02-12
-full_link: /zh/docs/tasks/configure-pod-container/static-pod/
+full_link: /docs/tasks/configure-pod-container/static-pod/
 short_description: >
   A pod managed directly by the kubelet daemon on a specific node.
 

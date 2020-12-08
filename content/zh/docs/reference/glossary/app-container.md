@@ -1,5 +1,5 @@
 ---
-title: 应用程序容器
+title: 应用程序容器（App Container）
 id: app-container
 date: 2019-02-12
 full_link:
@@ -10,7 +10,6 @@ aka:
 tags:
 - workload
 ---
-  应用程序容器（或 app 容器）{{< glossary_tooltip text="容器" term_id="container" >}} 在 {{< glossary_tooltip text="pod" term_id="pod" >}} 中，在 {{< glossary_tooltip text="初始化容器" term_id="init-container" >}} 启动完毕后才开始启动。
 
 <!--
 ---
@@ -25,8 +24,14 @@ aka:
 tags:
 - workload
 ---
+-->
+
+<!--
  Application containers (or app containers) are the {{< glossary_tooltip text="containers" term_id="container" >}} in a {{< glossary_tooltip text="pod" term_id="pod" >}} that are started after any {{< glossary_tooltip text="init containers" term_id="init-container" >}} have completed.
 -->
+  应用程序 {{< glossary_tooltip text="容器" term_id="container" >}} （或 app 容器）在 {{< glossary_tooltip text="pod" term_id="pod" >}} 中，在 {{< glossary_tooltip text="初始化容器" term_id="init-container" >}} 启动完毕后才开始启动。
+
+
 
 <!--more-->
 
@@ -37,5 +42,6 @@ once the application container has started.
 If a pod doesn't have any init containers configured, all the containers in that pod are app containers.
 -->
 
-初始化容器使您可以分离对于 {{< glossary_tooltip text="工作负载" term_id="workload" >}} 整体而言很重要的初始化细节，并且一旦应用容器启动，它不需要继续运行。
+初始化容器使您可以分离对于{{< glossary_tooltip text="工作负载" term_id="workload" >}}
+整体而言很重要的初始化细节，并且一旦应用容器启动，它不需要继续运行。
 如果 pod 没有配置任何初始化容器，则该 pod 中的所有容器都是应用程序容器。

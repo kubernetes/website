@@ -65,7 +65,7 @@ resources:
 EOF
 ```
 
-컨피그 맵과 파드 개체를 생성하도록 kustomization 디렉터리를 적용한다.
+컨피그 맵과 파드 오브젝트를 생성하도록 kustomization 디렉터리를 적용한다.
 
 ```shell
 kubectl apply -k .

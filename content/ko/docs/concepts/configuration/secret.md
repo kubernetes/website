@@ -12,51 +12,380 @@ weight: 30
 
 쿠버네티스 시크릿을 사용하면 비밀번호, OAuth 토큰, ssh 키와 같은
 민감한 정보를 저장하고 관리할 수 ​​있다. 기밀 정보를 시크릿에 저장하는 것이
-{{< glossary_tooltip term_id="pod" text="파드" >}} 정의나
-{{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}} 내에 그대로 두는 것보다 안전하고 유연하다. 자세한 내용은 [시크릿 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md)를 참고한다.
+{{< glossary_tooltip term_id="pod" >}} 정의나
+{{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}}
+내에 그대로 두는 것보다 안전하고 유연하다.
+자세한 내용은 [시크릿 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md)를 참고한다.
 
-
+시크릿은 암호, 토큰 또는 키와 같은 소량의 중요한 데이터를
+포함하는 오브젝트이다. 그렇지 않으면  이러한 정보가 파드
+명세나 이미지에 포함될 수 있다. 사용자는 시크릿을 만들 수 있고 시스템도
+일부 시크릿을 만들 수 있다.
 
 <!-- body -->
 
 ## 시크릿 개요
 
-시크릿은 비밀번호, 토큰 또는 키와 같은 소량의
-민감한 데이터를 포함하는 오브젝트이다. 그렇지 않으면 이러한 정보가
-파드 명세 또는 이미지에 포함될 수 있다. 사용자는 시크릿을 생성할 수 있으며 시스템도
-일부 시크릿을 생성한다.
-
 시크릿을 사용하려면, 파드가 시크릿을 참조해야 한다.
 시크릿은 세 가지 방법으로 파드와 함께 사용할 수 있다.
 
 - 하나 이상의 컨테이너에 마운트된
-{{< glossary_tooltip text="볼륨" term_id="volume" >}} 내의
-[파일](#시크릿을-파드의-파일로-사용하기)로써 사용.
+  {{< glossary_tooltip text="볼륨" term_id="volume" >}} 내의
+  [파일](#시크릿을-파드의-파일로-사용하기)로써 사용.
 - [컨테이너 환경 변수](#시크릿을-환경-변수로-사용하기)로써 사용.
 - 파드의 [이미지를 가져올 때 kubelet](#imagepullsecrets-사용하기)에 의해 사용.
 
 시크릿 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)이어야 한다.
+사용자는 시크릿을 위한 파일을 구성할 때 `data` 및 (또는) `stringData` 필드를
+명시할 수 있다. 해당 `data` 와 `stringData` 필드는 선택적으로 명시할 수 있다.
+`data` 필드의 모든 키(key)에 해당하는 값(value)은 base64로 인코딩된 문자열이어야 한다.
+만약 사용자에게 base64로의 문자열 변환이 적합하지 않다면,
+임의의 문자열을 값으로 받는 `stringData` 필드를 대신 사용할 수 있다.
 
-`data` 와 `stringData` 의 키는 영숫자 및 `-`, `_` 또는 `.` 으로
-구성되어야 한다.
+`data` 및 `stringData`의 키는 영숫자 문자,
+`-`, `_`, 또는 `.` 으로 구성되어야 한다. `stringData` 필드의 모든 키-값 쌍은 의도적으로
+`data` 필드로 합쳐진다. 만약 키가 `data` 와 `stringData` 필드 모두에 정의되어
+있으면, `stringData` 필드에 지정된 값이
+우선적으로 사용된다.
 
-### 빌트인 시크릿
+## 시크릿 타입 {#secret-types}
 
-#### 서비스 어카운트는 API 자격 증명으로 시크릿을 자동으로 생성하고 연결함
+시크릿을 생성할 때, [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+리소스의 `type` 필드를 사용하거나, (활용 가능하다면) `kubectl` 의
+유사한 특정 커맨드라인 플래그를 사용하여 시크릿의 타입을 명시할 수 있다.
+시크릿 타입은 시크릿 데이터의 프로그래믹 처리를 촉진시키기 위해 사용된다.
 
-쿠버네티스는 API 접근을 위한 자격 증명이 포함된
-시크릿을 자동으로 생성하고 이러한 유형의 시크릿을 사용하도록 파드를 자동으로
-수정한다.
+쿠버네티스는 일반적인 사용 시나리오를 위해 몇 가지 빌트인 타입을 제공한다.
+이 타입은 쿠버네티스가 부과하여 수행되는 검증 및 제약에
+따라 달라진다.
 
-원하는 경우 API 자격 증명의 자동 생성 및 사용을 비활성화하거나
-오버라이드할 수 있다. 그러나, API 서버에 안전하게 접근하기만 하면 되는 경우,
-자동 생성 및 사용이 권장되는 워크플로이다.
+| 빌트인 타입 | 사용처 |
+|--------------|-------|
+| `Opaque`     |  임의의 사용자 정의 데이터 |
+| `kubernetes.io/service-account-token` | 서비스 어카운트 토큰 |
+| `kubernetes.io/dockercfg` | 직렬화 된(serialized) `~/.dockercfg` 파일 |
+| `kubernetes.io/dockerconfigjson` | 직렬화 된 `~/.docker/config.json` 파일 |
+| `kubernetes.io/basic-auth` | 기본 인증을 위한 자격 증명(credential) |
+| `kubernetes.io/ssh-auth` | SSH를 위한 자격 증명 |
+| `kubernetes.io/tls` | TLS 클라이언트나 서버를 위한 데이터 |
+| `bootstrap.kubernetes.io/token` | 부트스트랩 토큰 데이터 |
 
-서비스 어카운트 작동 방식에 대한 자세한 내용은
-[서비스어카운트(ServiceAccount)](/docs/tasks/configure-pod-container/configure-service-account/) 문서를 참고한다.
+사용자는 시크릿 오브젝트의 `type` 값에 비어 있지 않은 문자열을 할당하여 자신만의 시크릿
+타입을 정의하고 사용할 수 있다. 비어 있는 문자열은 `Opaque` 타입으로 인식된다.
+쿠버네티스는 타입 명칭에 제약을 부과하지는 않는다. 그러나 만약
+빌트인 타입 중 하나를 사용한다면, 해당 타입에 정의된 모든 요구 사항을
+만족시켜야 한다.
 
-### 시크릿 생성하기
+### 불투명(Opaque) 시크릿
+
+`Opaque` 은 시크릿 구성 파일에서 누락된 경우의 기본 시크릿 타입이다.
+`kubectl` 을 사용하여 시크릿을 생성할 때 `Opaque` 시크릿 타입을 나타내기
+위해서는 `generic` 하위 커맨드를 사용할 것이다. 예를 들어, 다음 커맨드는
+타입 `Opaque` 의 비어 있는 시크릿을 생성한다.
+
+```shell
+kubectl create secret generic empty-secret
+kubectl get secret empty-secret
+```
+
+출력은 다음과 같다.
+
+```
+NAME           TYPE     DATA   AGE
+empty-secret   Opaque   0      2m6s
+```
+
+해당 `DATA` 열은 시크릿에 저장된 데이터 아이템의 수를 보여준다.
+이 경우, `0` 은 비어 있는 시크릿을 방금 하나 생성하였다는 것을 의미한다.
+
+###  서비스 어카운트 토큰 시크릿
+
+`kubernetes.io/service-account-token` 시크릿 타입은 서비스 어카운트를 확인하는 토큰을 저장하기 위해서 사용한다. 이 시크릿 타입을 사용할 때는,
+`kubernetes.io/service-account.name` 어노테이션이 존재하는 서비스
+어카운트 이름으로 설정되도록 해야 한다. 쿠버네티스 컨트롤러는
+`kubernetes.io/service-account.uid` 및 실제 토큰
+콘텐츠로 설정된 `data` 필드의 `token` 키와 같은,
+몇 가지 다른 필드들을 채운다.
+
+다음은 서비스 어카운트 토큰 시크릿의 구성 예시이다.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-sa-sample
+  annotations:
+    kubernetes.io/service-account.name: "sa-name"
+type: kubernetes.io/service-account-token
+data:
+  # 사용자는 불투명 시크릿을 사용하므로 추가적인 키 값 쌍을 포함할 수 있다.
+  extra: YmFyCg==
+```
+
+`Pod` 를 생성할 때, 쿠버네티스는 자동으로 서비스 어카운트 시크릿을
+생성하고 자동으로 파드가 해당 시크릿을 사용하도록 수정한다. 해당 서비스
+어카운트 토큰 시크릿은 API 접속을 위한 자격 증명을 포함한다.
+
+이러한 API 자격 증명의 자동 생성과 사용은 원하는 경우 해제하거나
+기각할 수 있다. 그러나 만약 사용자가 API 서버에 안전하게 접근하는 것만
+필요하다면, 이것이 권장되는 워크플로우이다.
+
+[서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/) 문서를 보면
+서비스 어카운트가 동작하는 방법에 대한 더 자세한 정보를 얻을 수 있다.
+또한 파드에서 서비스 어카운트를 참조하는 방법을
+[`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)의
+`automountServiceAccountToken` 필드와 `serviceAccountName`
+필드를 통해 확인할 수 있다.
+
+### 도커 컨피그 시크릿
+
+이미지에 대한 도커 레지스트리 접속 자격 증명을 저장하기 위한
+시크릿을 생성하기 위해서 다음의 `type` 값 중 하나를 사용할 수 있다.
+
+- `kubernetes.io/dockercfg`
+- `kubernetes.io/dockerconfigjson`
+
+`kubernetes.io/dockercfg` 는 직렬화 된 도커 커맨드라인 구성을
+위한 기존(legacy) 포맷 `~/.dockercfg` 를 저장하기 위해 할당된 타입이다.
+시크릿 타입을 사용할 때는, `data` 필드가 base64 포맷으로
+인코딩된 `~/.dockercfg` 파일의 콘텐츠를 값으로 가지는 `.dockercfg` 키를 포함하고 있는지
+확실히 확인해야 한다.
+
+`kubernetes/dockerconfigjson` 타입은 `~/.dockercfg` 의
+새로운 포맷인 `~/.docker/config.json` 파일과 동일한 포맷 법칙을
+따르는 직렬화 된 JSON의 저장을 위해 디자인되었다.
+이 시크릿 타입을 사용할 때는, 시크릿 오브젝트의 `data` 필드가 `.dockerconfigjson` 키를
+꼭 포함해야 한다. `~/.docker/config.json` 파일을 위한 콘텐츠는
+base64로 인코딩된 문자열으로 제공되어야 한다.
+
+아래는 시크릿의 `kubernetes.io/dockercfg` 타입 예시이다.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-dockercfg
+type: kubernetes.io/dockercfg
+data:
+  .dockercfg: |
+    "<base64 encoded ~/.dockercfg file>"
+```
+
+{{< note >}}
+만약 base64 인코딩 수행을 원하지 않는다면, 그 대신 `stringData` 필드의
+사용을 선택할 수 있다.
+{{< /note >}}
+
+이러한 타입들을 매니페스트를 사용하여 생성하는 경우, API
+서버는 해당 `data` 필드에 기대하는 키가 존재하는지 확인하고,
+제공된 값이 유효한 JSON으로 파싱될 수 있는지 검증한다. API
+서버가 해당 JSON이 실제 도커 컨피그 파일인지를 검증하지는 않는다.
+
+도커 컨피그 파일을 가지고 있지 않거나 도커 레지스트리 시크릿을 생성하기
+위해 `kubectl` 을 사용하고 싶은 경우, 다음과 같이 처리할 수 있다.
+
+```shell
+kubectl create secret docker-registry secret-tiger-docker \
+  --docker-username=tiger \
+  --docker-password=pass113 \
+  --docker-email=tiger@acme.com
+```
+
+이 커맨드는 `kubernetes.io/dockerconfigjson` 타입의 시크릿을 생성한다.
+만약 `data` 필드로부터 `.dockerconfigjson` 콘텐츠를 복사(dump)해오면,
+다음과 같이 유효한 도커 JSON 콘텐츠를
+즉석에서 얻게 될 것이다.
+
+```json
+{
+  "auths": {
+    "https://index.docker.io/v1/": {
+      "username": "tiger",
+      "password": "pass113",
+      "email": "tiger@acme.com",
+      "auth": "dGlnZXI6cGFzczExMw=="
+    }
+  }
+}
+```
+
+### 기본 인증 시크릿
+
+`kubernetes.io/basic-auth` 타입은 기본 인증을 위한 자격 증명을 저장하기
+위해 제공된다. 이 시크릿 타입을 사용할 때는 시크릿의 `data` 필드가
+다음의 두 키를 포함해야 한다.
+
+- `username`: 인증을 위한 사용자 이름
+- `password`: 인증을 위한 암호나 토큰
+
+위의 두 키에 대한 두 값은 모두 base64로 인코딩된 문자열이다. 물론,
+시크릿 생성 시 `stringData` 를 사용하여 평문 텍스트 콘텐츠(clear text content)를 제공할
+수도 있다.
+
+다음의 YAML은 기본 인증 시크릿을 위한 구성 예시이다.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-basic-auth
+type: kubernetes.io/basic-auth
+stringData:
+  username: admin
+  password: t0p-Secret
+```
+
+이 기본 인증 시크릿 타입은 사용자 편의만을 위해서 제공된다.
+사용자는 기본 인증에서 사용되는 자격 증명을 위한 `Opaque` 를 생성할 수도 있다.
+그러나, 빌트인 시크릿 타입을 사용하는 것은 사용자의 자격 증명들의 포맷을 통합하는 데 도움이 되고,
+API 서버는 요구되는 키가 시크릿 구성에서 제공되고 있는지
+검증도 한다.
+
+### SSH 인증 시크릿
+
+이 빌트인 타입 `kubernetes.io/ssh-auth` 는 SSH 인증에 사용되는 데이터를
+저장하기 위해서 제공된다. 이 시크릿 타입을 사용할 때는 `ssh-privatekey`
+키-값 쌍을 사용할 SSH 자격 증명으로 `data` (또는 `stringData`)
+필드에 명시해야 할 것이다.
+
+다음 YAML은 SSH 인증 시크릿의 구성 예시이다.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-ssh-auth
+type: kubernetes.io/ssh-auth
+data:
+  # 본 예시를 위해 축약된 데이터임
+  ssh-privatekey: |
+     MIIEpQIBAAKCAQEAulqb/Y ...
+```
+
+SSH 인증 시크릿 타입은 사용자 편의만을 위해서 제공된다.
+사용자는 SSH 인증에서 사용되는 자격 증명을 위한 `Opaque` 를 생성할 수도 있다.
+그러나, 빌트인 시크릿 타입을 사용하는 것은 사용자의 자격 증명들의 포맷을 통합하는 데 도움이 되고,
+API 서버는 요구되는 키가 시크릿 구성에서 제공되고 있는지
+검증도 한다.
+
+### TLS 시크릿
+
+쿠버네티스는 보통 TLS를 위해 사용되는 인증서와 관련된 키를 저장하기 위해서
+빌트인 시크릿 타입 `kubernetes.io/tls` 를 제공한다.
+이 데이터는 인그레스 리소스의 TLS 종료에 주로 사용되지만, 다른
+리소스나 워크로드에 의해 직접적으로 사용될 수도 있다.
+이 타입의 시크릿을 사용할 때는 `tls.key` 와 `tls.crt` 키가 시크릿 구성의
+`data` (또는 `stringData`) 필드에서 제공되어야 한다. 그러나, API
+서버가 각 키에 대한 값이 유효한지 실제로 검증하지는 않는다.
+
+다음 YAML은 TLS 시크릿을 위한 구성 예시를 포함한다.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-tls
+type: kubernetes.io/tls
+data:
+  # 본 예시를 위해 축약된 데이터임
+  tls.crt: |
+    MIIC2DCCAcCgAwIBAgIBATANBgkqh ...
+  tls.key: |
+    MIIEpgIBAAKCAQEA7yn3bRHQ5FHMQ ...
+```
+
+TLS 시크릿 타입은 사용자 편의만을 위해서 제공된다. 사용자는 TLS 서버 및/또는
+클라이언트를 위해 사용되는 자격 증명을 위한 `Opaque` 를 생성할 수도 있다. 그러나, 빌트인
+시크릿 타입을 사용하는 것은 사용자의 자격 증명들의 포맷을 통합하는 데 도움이 되고,
+API 서버는 요구되는 키가 시크릿 구성에서 제공되고 있는지 검증도 한다.
+
+`kubectl` 를 사용하여 TLS 시크릿을 생성할 때, `tls` 하위 커맨드를
+다음 예시와 같이 사용할 수 있다.
+
+```shell
+kubectl create secret tls my-tls-secret \
+  --cert=path/to/cert/file \
+  --key=path/to/key/file
+```
+
+공개/개인 키 쌍은 사전에 존재해야 한다. `--cert` 를 위한 공개 키 인증서는
+.PEM 으로 인코딩(Base64로 인코딩된 DER 포맷)되어야 하며, `--key` 를 위해 주어진
+개인 키에 맞아야 한다.
+개인 키는 일반적으로 PEM 개인 키 포맷이라고 하는,
+암호화되지 않은 형태(unencrypted)이어야 한다. 두 가지 방식 모두에 대해서, PEM의
+시작과 끝 라인(예를 들면, 인증서의 `--------BEGIN CERTIFICATE-----` 및 `-------END CERTIFICATE----`)
+은 포함되면 *안* 된다.
+
+### 부트스트랩 토큰 시크릿
+
+부트스트랩 토큰 시크릿은 시크릿 `type` 을 `bootstrap.kubernetes.io/token` 으로
+명확하게 지정하면 생성할 수 있다. 이 타입의 시크릿은 노드 부트스트랩 과정 중에 사용되는
+토큰을 위해 디자인되었다. 이것은 잘 알려진 컨피그맵에 서명하는 데 사용되는
+토큰을 저장한다.
+
+부트스트랩 토큰 시크릿은 보통 `kube-system` 네임스페이스에 생성되며
+`<token-id>` 가 해당 토큰 ID의 6개 문자의 문자열으로 구성된 `bootstrap-token-<token-id>` 형태로
+이름이 지정된다.
+
+쿠버네티스 매니페스트로서, 부트스트렙 토큰 시크릿은 다음과 유사할
+것이다.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bootstrap-token-5emitj
+  namespace: kube-system
+type: bootstrap.kubernetes.io/token
+data:
+  auth-extra-groups: c3lzdGVtOmJvb3RzdHJhcHBlcnM6a3ViZWFkbTpkZWZhdWx0LW5vZGUtdG9rZW4=
+  expiration: MjAyMC0wOS0xM1QwNDozOToxMFo=
+  token-id: NWVtaXRq
+  token-secret: a3E0Z2lodnN6emduMXAwcg==
+  usage-bootstrap-authentication: dHJ1ZQ==
+  usage-bootstrap-signing: dHJ1ZQ==
+```
+
+부트스트랩 타입은 `data` 아래 명시된 다음의 키들을 가진다.
+
+- `token_id`: 토큰 식별자로 임의의 6개 문자의 문자열. 필수 사항.
+- `token-secret`: 실제 토큰 시크릿으로 임의의 16개 문자의 문자열. 필수 사항.
+- `description1`: 토큰의 사용처를 설명하는 사람이 읽을 수 있는
+  문자열. 선택 사항.
+- `expiration`: 토큰이 만료되어야 하는 시기를 명시한 RFC3339를
+  사용하는 절대 UTC 시간. 선택 사항.
+- `usage-bootstrap-<usage>`: 부트스트랩 토큰의 추가적인 사용처를 나타내는
+  불리언(boolean) 플래그.
+- `auth-extra-groups`: system:bootstrappers 그룹에 추가로 인증될
+  쉼표로 구분된 그룹 이름 목록.
+
+위의 YAML은 모두 base64로 인코딩된 문자열 값이므로 혼란스러워 보일
+수 있다. 사실은 다음 YAML을 사용하여 동일한 시크릿 오브젝트 결과를 만드는
+동일한 시크릿을 생성할 수 있다.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  # 시크릿 이름이 어떻게 지정되었는지 확인
+  name: bootstrap-token-5emitj
+  # 부트스트랩 토큰 시크릿은 일반적으로 kube-system 네임스페이스에 포함
+  namespace: kube-system
+type: bootstrap.kubernetes.io/token
+stringData:
+  auth-extra-groups: "system:bootstrappers:kubeadm:default-node-token"
+  expiration: "2020-09-13T04:39:10Z"
+  # 이 토큰 ID는 이름에 사용됨
+  token-id: "5emitj"
+  token-secret: "kq4gihvszzgn1p0r"
+  # 이 토큰은 인증을 위해서 사용될 수 있음
+  usage-bootstrap-authentication: "true"
+  # 또한 서명(signing)에도 사용될 수 있음
+  usage-bootstrap-signing: "true"
+```
+
+## 시크릿 생성하기
 
 시크릿을 생성하기 위한 몇 가지 옵션이 있다.
 
@@ -64,7 +393,7 @@ weight: 30
 - [구성 파일로 시크릿 생성하기](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - [kustomize를 사용하여 시크릿 생성하기](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
-### 시크릿 편집하기
+## 시크릿 편집하기
 
 기존 시크릿은 다음 명령을 사용하여 편집할 수 있다.
 
@@ -791,11 +1120,11 @@ spec:
 HTTP 요청을 처리하고, 복잡한 비즈니스 로직을 수행한 다음, HMAC이 있는 일부 메시지에
 서명해야 하는 프로그램을 고려한다. 애플리케이션 로직이
 복잡하기 때문에, 서버에서 눈에 띄지 않는 원격 파일 읽기 공격이
-있을 수 있으며, 이로 인해 프라이빗 키가 공격자에게 노출될 수 있다.
+있을 수 있으며, 이로 인해 개인 키가 공격자에게 노출될 수 있다.
 
 이는 두 개의 컨테이너의 두 개 프로세스로 나눌 수 있다. 사용자 상호 작용과
-비즈니스 로직을 처리하지만, 프라이빗 키를 볼 수 없는 프론트엔드 컨테이너와
-프라이빗 키를 볼 수 있고, 프론트엔드의 간단한 서명 요청(예를 들어, localhost 네트워킹을 통해)에
+비즈니스 로직을 처리하지만, 개인 키를 볼 수 없는 프론트엔드 컨테이너와
+개인 키를 볼 수 있고, 프론트엔드의 간단한 서명 요청(예를 들어, localhost 네트워킹을 통해)에
 응답하는 서명자 컨테이너로 나눌 수 있다.
 
 이 분할된 접근 방식을 사용하면, 공격자는 이제 애플리케이션 서버를 속여서

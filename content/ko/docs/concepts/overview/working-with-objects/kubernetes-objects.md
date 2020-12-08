@@ -14,7 +14,7 @@ card:
 <!-- body -->
 ## 쿠버네티스 오브젝트 이해하기 {#kubernetes-objects}
 
-*쿠버네티스 오브젝트* 는 쿠버네티스 시스템에서 영속성을 가지는 개체이다. 쿠버네티스는 클러스터의 상태를 나타내기 위해 이 개체를 이용한다. 구체적으로 말하자면, 다음을 기술할 수 있다.
+*쿠버네티스 오브젝트* 는 쿠버네티스 시스템에서 영속성을 가지는 오브젝트이다. 쿠버네티스는 클러스터의 상태를 나타내기 위해 이 오브젝트를 이용한다. 구체적으로 말하자면, 다음같이 기술할 수 있다.
 
 * 어떤 컨테이너화된 애플리케이션이 동작 중인지 (그리고 어느 노드에서 동작 중인지)
 * 그 애플리케이션이 이용할 수 있는 리소스
@@ -91,6 +91,7 @@ deployment.apps/nginx-deployment created
 
 ## {{% heading "whatsnext" %}}
 
-* API 개념의 더 많은 설명은 [Kubernetes API 개요](/ko/docs/reference/using-api/api-overview/)를 본다.
+
 * [파드](/ko/docs/concepts/workloads/pods/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
 * 쿠버네티스의 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 배운다.
+* API 개념의 더 많은 설명은 [쿠버네티스 API 사용](/ko/docs/reference/using-api/)을 본다.

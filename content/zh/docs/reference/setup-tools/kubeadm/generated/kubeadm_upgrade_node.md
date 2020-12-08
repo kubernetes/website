@@ -19,12 +19,14 @@ The "node" command executes the following phases:
 
 <!--
 ```
+preflight       Run upgrade node pre-flight checks
 control-plane   Upgrade the control plane instance deployed on this node, if any
 kubelet-config  Upgrade the kubelet configuration for this node
 ```
 -->
 
 ```
+preflight       执行节点升级前检查
 control-plane   如果存在的话，升级部署在该节点上的管理面实例
 kubelet-config  更新该节点上的 kubelet 配置
 ```
@@ -87,14 +89,18 @@ Perform the upgrade of etcd.
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
+<td colspan="2">--experimental-patches string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path where kustomize patches for static pod manifests are stored.
+<!--  
+Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
+包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
+例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
+默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
+"suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
 </td>
 </tr>
 

@@ -150,7 +150,7 @@ stringData:
 ## 创建 Secret 对象    {#create-the-secret-object}
 
 <!-- Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply): -->
-现在使用 [`kubectl apply`](/zh/docs/reference/generated/kubectl/kubectl-commands#apply) 创建 Secret：
+现在使用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 创建 Secret：
 
 ```shell
 kubectl apply -f ./secret.yaml

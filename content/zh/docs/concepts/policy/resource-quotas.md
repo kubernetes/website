@@ -178,7 +178,8 @@ with prefix `requests.` is allowed for now.
 Take the GPU resource as an example, if the resource name is `nvidia.com/gpu`, and you want to
 limit the total number of GPUs requested in a namespace to 4, you can define a quota as follows:
 -->
-以 GPU 拓展资源为例，如果资源名称为 `nvidia.com/gpu`，并且要将命名空间中请求的 GPU 资源总数限制为 4，则可以如下定义配额：
+以 GPU 拓展资源为例，如果资源名称为 `nvidia.com/gpu`，并且要将命名空间中请求的 GPU
+资源总数限制为 4，则可以如下定义配额：
 
 * `requests.nvidia.com/gpu: 4`
 
@@ -196,7 +197,8 @@ In addition, you can limit consumption of storage resources based on associated 
 -->
 ## 存储资源配额
 
-用户可以对给定命名空间下的[存储资源](/docs/concepts/storage/persistent-volumes/)总量进行限制。
+用户可以对给定命名空间下的[存储资源](/zh/docs/concepts/storage/persistent-volumes/)
+总量进行限制。
 
 此外，还可以根据相关的存储类（Storage Class）来限制存储资源的消耗。
 
@@ -219,7 +221,8 @@ In addition, you can limit consumption of storage resources based on associated 
 For example, if an operator wants to quota storage with `gold` storage class separate from `bronze` storage class, the operator can
 define a quota as follows:
 -->
-例如，如果一个操作人员针对 `gold` 存储类型与 `bronze` 存储类型设置配额，操作人员可以定义如下配额：
+例如，如果一个操作人员针对 `gold` 存储类型与 `bronze` 存储类型设置配额，
+操作人员可以定义如下配额：
 
 * `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
 * `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
@@ -279,7 +282,8 @@ The same syntax can be used for custom resources.
 For example, to create a quota on a `widgets` custom resource in the `example.com` API group, use `count/widgets.example.com`.
 -->
 相同语法也可用于自定义资源。
-例如，要对 `example.com` API 组中的自定义资源 `widgets` 设置配额，请使用 `count/widgets.example.com`。
+例如，要对 `example.com` API 组中的自定义资源 `widgets` 设置配额，请使用
+`count/widgets.example.com`。
 
 <!--
 When using `count/*` resource quota, an object is charged against the quota if it exists in server storage.
@@ -292,7 +296,8 @@ a poorly configured CronJob. CronJobs that create too many Jobs in a namespace c
 这些类型的配额有助于防止存储资源耗尽。例如，用户可能想根据服务器的存储能力来对服务器中
 Secret 的数量进行配额限制。
 集群中存在过多的 Secret 实际上会导致服务器和控制器无法启动。
-用户可以选择对 Job 进行配额管理，以防止配置不当的 CronJob 在某命名空间中创建太多 Job 而导致集群拒绝服务。
+用户可以选择对 Job 进行配额管理，以防止配置不当的 CronJob 在某命名空间中创建太多
+Job 而导致集群拒绝服务。
 
 <!--
 It is possible to do generic object count quota on a limited set of resources.
@@ -337,7 +342,8 @@ quota on a namespace to avoid the case where a user creates many small pods and
 exhausts the cluster's supply of Pod IPs.
 -->
 例如，`pods` 配额统计某个命名空间中所创建的、非终止状态的 `Pod` 个数并确保其不超过某上限值。
-用户可能希望在某命名空间中设置 `pods` 配额，以避免有用户创建很多小的 Pod，从而耗尽集群所能提供的 Pod IP 地址。
+用户可能希望在某命名空间中设置 `pods` 配额，以避免有用户创建很多小的 Pod，
+从而耗尽集群所能提供的 Pod IP 地址。
 
 <!--
 ## Quota Scopes
@@ -460,7 +466,7 @@ Pods can be created at a specific [priority](/docs/concepts/configuration/pod-pr
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
 field in the quota spec.
 -->
-Pod 可以创建为特定的[优先级](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)。
+Pod 可以创建为特定的[优先级](/zh/docs/concepts/configuration/pod-priority-preemption/#pod-priority)。
 通过使用配额规约中的 `scopeSelector` 字段，用户可以根据 Pod 的优先级控制其系统资源消耗。
 
 <!--
@@ -891,7 +897,8 @@ will be able to consume these priority classes by default.
 To enforce this, kube-apiserver flag `-admission-control-config-file` should be
 used to pass path to the following configuration file:
 -->
-要实现此目的，应使用 kube-apiserver 标志 `--admission-control-config-file` 传递如下配置文件的路径：
+要实现此目的，应设置 kube-apiserver 的标志 `--admission-control-config-file` 
+指向如下配置文件：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -938,5 +945,5 @@ For example:
 - 查看[如何使用资源配额的详细示例](/zh/docs/tasks/administer-cluster/quota-api-object/)。
 - 阅读[优先级类配额支持的设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)。
   了解更多信息。
-- 参阅[LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)
+- 参阅 [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)
 

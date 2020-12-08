@@ -44,7 +44,7 @@ kubectl을 통해 스테이트풀셋을 삭제하면 0으로 스케일이 낮아
 kubectl delete -f <file.yaml> --cascade=false
 ```
 
-`kubectl delete` 에 `--cascade=false` 를 사용함으로써, 스테이트풀셋 객체가 삭제 된 후에도 스테이트풀셋에 의해 관리된 파드는 남게 된다. 만약 파드가 `app=myapp` 레이블을 갖고 있다면, 다음과 같이 파드를 삭제할 수 있다.
+`kubectl delete` 에 `--cascade=false` 를 사용하면 스테이트풀셋 오브젝트가 삭제된 후에도 스테이트풀셋에 의해 관리된 파드는 남게 된다. 만약 파드가 `app=myapp` 레이블을 갖고 있다면, 다음과 같이 파드를 삭제할 수 있다.
 
 ```shell
 kubectl delete pods -l app=myapp

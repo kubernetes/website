@@ -22,7 +22,11 @@ weight: 30
 
 노드 적합성 테스트는 다음 순서로 진행된다.
 
-1. 테스트 프레임워크는 Kublet을 테스트하기 위해 로컬 마스터를 시작하기 때문에, Kublet이 localhost를 가르키도록 `--api-servers="http://localhost:8080"`를 사용한다. 고려해야 할 다른 Kubelet 플래그들은 다음과 같다.
+1. kubelet에 대한 `--kubeconfig` 옵션의 값을 계산한다. 예를 들면, 다음과 같다.
+   `--kubeconfig = / var / lib / kubelet / config.yaml`.
+   테스트 프레임워크는 kubelet을 테스트하기 위해 로컬 컨트롤 플레인을 시작하기 때문에,
+   `http://localhost:8080` 을 API 서버의 URL로 사용한다.
+   사용할 수 있는 kubelet 커맨드 라인 파라미터가 몇 개 있다.
   * `--pod-cidr`: `kubenet`을 사용 중이라면, 임의의 CIDR을 Kubelet에 지정해주어야 한다. 예) `--pod-cidr=10.180.0.0/24`.
   * `--cloud-provider`: `--cloud-provider=gce`를 사용 중이라면, 테스트 실행 시에는 제거해야 한다.
 

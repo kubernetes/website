@@ -18,14 +18,14 @@ This command initializes a Kubernetes worker node and joins it to the cluster.
 {{< include "generated/kubeadm_join.md" >}}
 
 <!--
-### The joining workflow
+### The join workflow {#join-workflow}
+-->
+### join 工作流 {#join-workflow}
 
+<!--  
 `kubeadm join` bootstraps a Kubernetes worker node and joins it to the cluster.
 This action consists of the following steps:
 -->
-
-### 加入流程
-
 `kubeadm join` 初始化 Kubernetes 工作节点并将其加入集群。
 该操作过程包含下面几个步骤：
 
@@ -39,84 +39,159 @@ This action consists of the following steps:
    默认情况下，它使用引导令牌和 CA 密钥哈希来验证数据的真实性。
    也可以通过文件或 URL 直接发现根 CA。
 
-    <!-- 1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
-    it first retrieves the kubelet init configuration from the master and writes it to
-    the disk. When kubelet starts up, kubeadm updates the node `Node.spec.configSource` property of the node.
-    See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
-    and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/)
-    for more information about Dynamic Kubelet Configuration.
-    -->
+<!--  
+1. Once the cluster information is known, kubelet can start the TLS bootstrapping
+   process.
 
-1. 如果调用 kubeadm 时启用了 `--feature-gates=DynamicKubeletConfig`，它首先从主机上检索 kubelet 初始化配置并将其写入磁盘。
-   当 kubelet 启动时，kubeadm 更新节点的 `Node.spec.configSource` 属性。
-   进一步了解动态 kubelet 配置 请参考 [使用配置文件设置 Kubelet 参数](/docs/tasks/administer-cluster/kubelet-config-file/) 和 [重新配置集群中节点的 Kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/)。
-
-    <!-- 1. Once the cluster information is known, kubelet can start the TLS bootstrapping
-    process.
-
-    The TLS bootstrap uses the shared token to temporarily authenticate
-    with the Kubernetes API server to submit a certificate signing request (CSR); by
-    default the control plane signs this CSR request automatically.
-    -->
-
+   The TLS bootstrap uses the shared token to temporarily authenticate
+   with the Kubernetes API server to submit a certificate signing request (CSR); by
+   default the control plane signs this CSR request automatically.
+-->
 1. 一旦知道集群信息，kubelet 就可以开始 TLS 引导过程。
+   
    TLS 引导程序使用共享令牌与 Kubernetes API 服务器进行临时的身份验证，以提交证书签名请求 (CSR)；
    默认情况下，控制平面自动对该 CSR 请求进行签名。
 
-    <!-- 1. Finally, kubeadm configures the local kubelet to connect to the API
-    server with the definitive identity assigned to the node.
-    -->
-
+<!-- 
+1. Finally, kubeadm configures the local kubelet to connect to the API
+   server with the definitive identity assigned to the node.
+-->
 1. 最后，kubeadm 配置本地 kubelet 使用分配给节点的确定标识连接到 API 服务器。
+
+<!-- 
+For control-plane nodes additional steps are performed:
+
+1. Downloading certificates shared among control-plane nodes from the cluster
+  (if explicitly requested by the user).
+
+1. Generating control-plane component manifests, certificates and kubeconfig.
+
+1. Adding new local etcd member.
+
+1. Adding this node to the ClusterStatus of the kubeadm cluster.
+-->
+对于控制平面节点，执行额外的步骤：
+
+1. 从集群下载控制平面节点之间共享的证书（如果用户明确要求）。
+
+1. 生成控制平面组件清单、证书和 kubeconfig。
+
+1. 添加新的本地 etcd 成员。
+
+1. 将此节点添加到 kubeadm 集群的 ClusterStatus。
+
+<!-- 
+### Using join phases with kubeadm {#join-phases}
+-->
+### 使用 kubeadm 的 join phase 命令 {#join-phases}
+
+<!-- 
+Kubeadm allows you join a node to the cluster in phases using `kubeadm join phase`.
+-->
+Kubeadm 允许你使用 `kubeadm join phase` 分阶段将节点加入集群。
+
+<!--  
+To view the ordered list of phases and sub-phases you can call `kubeadm join --help`. The list will be located
+at the top of the help screen and each phase will have a description next to it.
+Note that by calling `kubeadm join` all of the phases and sub-phases will be executed in this exact order.
+-->
+要查看阶段和子阶段的有序列表，可以调用 `kubeadm join --help`。 
+该列表将位于帮助屏幕的顶部，每个阶段旁边都有一个描述。
+注意，通过调用 `kubeadm join`，所有阶段和子阶段都将按照此确切顺序执行。
+
+<!--  
+Some phases have unique flags, so if you want to have a look at the list of available options add `--help`, for example:
+-->
+有些阶段具有唯一的标志，因此，如果要查看可用选项列表，请添加 `--help`，例如：
+
+```shell
+kubeadm join phase kubelet-start --help
+```
+
+<!-- 
+Similar to the [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases)
+command, `kubeadm join phase` allows you to skip a list of phases using the `--skip-phases` flag.
+
+For example:
+-->
+类似于 [kubeadm init phase](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases)命令，
+`kubeadm join phase` 允许你使用 `--skip-phases` 标志跳过阶段列表。
+
+例如：
+
+```shell
+sudo kubeadm join --skip-phases=preflight --config=config.yaml
+```
 
 <!--
 ### Discovering what cluster CA to trust
+-->
+### 发现要信任的集群 CA
 
+<!-- 
 The kubeadm discovery has several options, each with security tradeoffs.
 The right method for your environment depends on how you provision nodes and the
 security expectations you have about your network and node lifecycles.
 -->
-
-### 发现要信任的集群 CA
-
 Kubeadm 的发现有几个选项，每个选项都有安全性上的优缺点。
-适合您的环境的正确方法取决于节点是如何准备的以及您对网络的安全性期望和节点的生命周期特点。
+适合你的环境的正确方法取决于节点是如何准备的以及你对网络的安全性期望和节点的生命周期特点。
 
 <!--
 #### Token-based discovery with CA pinning
+-->
+#### 带 CA 锁定模式的基于令牌的发现
 
+<!-- 
 This is the default mode in Kubernetes 1.8 and above. In this mode, kubeadm downloads
 the cluster configuration (including root CA) and validates it using the token
 as well as validating that the root CA public key matches the provided hash and
 that the API server certificate is valid under the root CA.
 -->
-
-#### 带 CA 锁定模式的基于令牌的发现
-
 这是 Kubernetes 1.8 及以上版本中的默认模式。
-在这种模式下，kubeadm 下载集群配置（包括根CA）并使用令牌验证它，并且会验证根 CA 的公钥与所提供的哈希是否匹配，以及 API 服务器证书在根 CA 下是否有效。
+在这种模式下，kubeadm 下载集群配置（包括根CA）并使用令牌验证它，
+并且会验证根 CA 的公钥与所提供的哈希是否匹配，
+以及 API 服务器证书在根 CA 下是否有效。
 
 <!--
 The CA key hash has the format `sha256:<hex_encoded_hash>`. By default, the hash value is returned in the `kubeadm join` command printed at the end of `kubeadm init` or in the output of `kubeadm token create --print-join-command`. It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be calculated by 3rd party tools or provisioning systems. For example, using the OpenSSL CLI:
 -->
-
 CA 键哈希格式为 `sha256:<hex_encoded_hash>`。
-默认情况下，在 `kubeadm init` 最后打印的 `kubeadm join` 命令或者 `kubeadm token create --print-join-command` 的输出信息中返回哈希值。
-它使用标准格式 (请参考 [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) 并且也能通过第三方工具或者驱动系统进行计算。
+默认情况下，在 `kubeadm init` 最后打印的 `kubeadm join` 命令
+或者 `kubeadm token create --print-join-command` 的输出信息中返回哈希值。
+它使用标准格式 (请参考 [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) 
+并且也能通过第三方工具或者制备系统进行计算。
 例如，使用 OpenSSL CLI：
 
-```bash
+```shell
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
 ```
+
 <!--
 **Example `kubeadm join` command:**
 -->
-
 **`kubeadm join` 命令示例**
 
-```bash
+<!-- For worker nodes: -->
+对于工作节点：
+
+```shell
 kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443
 ```
+
+<!-- For control-plane nodes: -->
+对于控制面节点：
+
+```shell
+kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef --control-plane 1.2.3.4:6443
+```
+
+<!-- 
+You can also call `join` for a control-plane node with `--certificate-key` to copy certificates to this node,
+if the `kubeadm init` command was called with `--upload-certs`.
+-->
+如果使用 `--upload-certs` 调用 `kubeadm init` 命令，
+你也可以对控制平面节点调用带 `--certificate-key` 参数的 `join` 命令，
+将证书复制到该节点。
 
 <!--
 **Advantages:**
@@ -144,11 +219,14 @@ kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert
 
 **劣势：**
  - CA 哈希通常在主节点被提供之前是不知道的，这使得构建使用 kubeadm 的自动化配置工具更加困难。
-   通过预先生成CA，您可以解决这个限制。
+   通过预先生成CA，你可以解除这个限制。
 
 <!--   
 #### Token-based discovery without CA pinning
+-->
+#### 无 CA 锁定模式的基于令牌的发现
 
+<!--  
 _This was the default in Kubernetes 1.7 and earlier_, but comes with some
 important caveats. This mode relies only on the symmetric token to sign
 (HMAC-SHA256) the discovery information that establishes the root of trust for
@@ -158,17 +236,14 @@ using one of the other modes if possible.
 
 **Example `kubeadm join` command:**
 -->
-
-#### 无 CA 锁定模式的基于令牌的发现
-
 _这是 Kubernetes 1.7 和早期版本_中的默认设置；使用时要注意一些重要的补充说明。
 此模式仅依赖于对称令牌来签名(HMAC-SHA256)发现信息，这些发现信息为主节点建立信任根。
-在 Kubernetes 1.8 及以上版本中仍然可以使用 `--discovery-token-unsafe-skip-ca-verification` 参数，但是如果可能的话，您应该考虑使用一种其他模式。
+在 Kubernetes 1.8 及以上版本中仍然可以使用 `--discovery-token-unsafe-skip-ca-verification` 参数，但是如果可能的话，你应该考虑使用一种其他模式。
 
 **`kubeadm join` 命令示例**
 
-```
-kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-verification 1.2.3.4:6443`
+```shell
+kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-verification 1.2.3.4:6443
 ```
 
 <!--
@@ -200,24 +275,30 @@ kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-ve
 **劣势**
 
  - 如果攻击者能够通过某些漏洞窃取引导令牌，那么他们可以使用该令牌（连同网络级访问）为其它处于引导过程中的节点提供假冒的主节点。
-   在您的环境中，这可能是一个适当的折衷方法，也可能不是。
+   在你的环境中，这可能是一个适当的折衷方法，也可能不是。
 
 <!--
 #### File or HTTPS-based discovery
-This provides an out-of-band way to establish a root of trust between the master
-and bootstrapping nodes.   Consider using this mode if you are building automated provisioning
-using kubeadm.
 -->
-
 #### 基于 HTTPS 或文件发现
 
+<!-- 
+This provides an out-of-band way to establish a root of trust between the control-plane node
+and bootstrapping nodes. Consider using this mode if you are building automated provisioning
+using kubeadm. The format of the discovery file is a regular Kubernetes
+[kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) file.
+
+In case the discovery file does not contain credentials, the TLS discovery token will be used.
+-->
 这种方案提供了一种带外方式在主节点和引导节点之间建立信任根。
 如果使用 kubeadm 构建自动配置，请考虑使用此模式。
+发现文件的格式为常规的 Kubernetes [kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 文件。
+
+如果发现文件不包含凭据，则将使用 TLS 发现令牌。
 
 <!--
 **Example `kubeadm join` commands:**
 -->
-
 **`kubeadm join` 命令示例：**
  - `kubeadm join --discovery-file path/to/file.conf` （本地文件）
 
@@ -245,82 +326,116 @@ using kubeadm.
 
 **劣势：**
 
- - 要求您有某种方法将发现信息从主节点传送到引导节点。
+ - 要求你有某种方法将发现信息从主节点传送到引导节点。
    例如，这可以通过云提供商或驱动工具实现。
    该文件中的信息不是加密的，而是需要 HTTPS 或等效文件来保证其完整性。
 
 <!--
 ### Securing your installation even more {#securing-more}
+-->
+### 确保你的安装更加安全 {#securing-more}
 
+<!-- 
 The defaults for kubeadm may not work for everyone. This section documents how to tighten up a kubeadm installation
 at the cost of some usability.
 -->
-
-### 确保您的安装更加安全 {#securing-more}
-
 Kubeadm 的默认值可能不适用于所有人。
 本节说明如何以牺牲可用性为代价来加强 kubeadm 安装。
 
 <!--
 #### Turning off auto-approval of node client certificates
+-->
+#### 关闭节点客户端证书的自动批准
 
+<!-- 
 By default, there is a CSR auto-approver enabled that basically approves any client certificate request
 for a kubelet when a Bootstrap Token was used when authenticating. If you don't want the cluster to
 automatically approve kubelet client certs, you can turn it off by executing this command:
 -->
-
-#### 关闭节点客户端证书的自动批准
-
 默认情况下，Kubernetes 启用了 CSR 自动批准器，如果在身份验证时使用 Bootstrap Token，它会批准对 kubelet 的任何客户端证书的请求。
 如果不希望集群自动批准kubelet客户端证书，可以通过执行以下命令关闭它：
 
-```console
-$ kubectl delete clusterrole kubeadm:node-autoapprove-bootstrap
+```shell
+kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
 ```
+
 <!--
 After that, `kubeadm join` will block until the admin has manually approved the CSR in flight:
 -->
-
 关闭后，`kubeadm join` 操作将会被阻断，直到管理员已经手动批准了在途中的 CSR 才会继续：
 
-```console
-$ kubectl get csr
+```shell
+kubectl get csr
+```
+
+<!-- The output is similar to this: -->
+输出类似于：
+
+```
 NAME                                                   AGE       REQUESTOR                 CONDITION
 node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
+```
 
-$ kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
+```shell
+kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
+```
+
+<!-- The output is similar to this: -->
+输出类似于：
+
+```
 certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
+```
 
-$ kubectl get csr
+```shell
+kubectl get csr
+```
+
+<!-- The output is similar to this: -->
+输出类似于：
+
+```
 NAME                                                   AGE       REQUESTOR                 CONDITION
 node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
 ```
+
+<!--  
+This forces the workflow that `kubeadm join` will only succeed if `kubectl certificate approve` has been run.
+-->
+这迫使工作流只有在运行了 kubectl 证书批准后，kubeadm join 才能成功。
+
 <!--
-Only after `kubectl certificate approve` has been run, `kubeadm join` can proceed.
-
 #### Turning off public access to the cluster-info ConfigMap
+-->
+#### 关闭对集群信息 ConfigMap 的公开访问
 
+<!-- 
 In order to achieve the joining flow using the token as the only piece of validation information, a
  ConfigMap with some data needed for validation of the master's identity is exposed publicly by
 default. While there is no private data in this ConfigMap, some users might wish to turn
 it off regardless. Doing so will disable the ability to use the `--discovery-token` flag of the
 `kubeadm join` flow. Here are the steps to do so:
-
-* Fetch the `cluster-info` file from the API Server:
 -->
-
-只有执行了 `kubectl certificate approve` 后，`kubeadm join` 才会继续。
-
-#### 关闭对集群信息 ConfigMap 的公开访问
-
 为了实现使用令牌作为唯一验证信息的加入工作流，默认情况下会公开带有验证主节点标识所需数据的 ConfigMap。
 虽然此 ConfigMap 中没有私有数据，但一些用户可能希望无论如何都关闭它。
 这样做需要禁用 `kubeadm join` 工作流的 `--discovery-token` 参数。
 以下是实现步骤：
 
-```console
-$ kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+<!-- 
+* Fetch the `cluster-info` file from the API Server:
+-->
+* 从 API 服务器获取 `cluster-info` 文件：
+
+```shell
+kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+```
+
+<!-- The output is similar to this: -->
+输出类似于：
+
+```
 apiVersion: v1
+kind: Config
 clusters:
 - cluster:
     certificate-authority-data: <ca-cert>
@@ -328,7 +443,6 @@ clusters:
   name: ""
 contexts: []
 current-context: ""
-kind: Config
 preferences: {}
 users: []
 ```
@@ -343,18 +457,18 @@ users: []
 
 * 关闭 `cluster-info` ConfigMap 的公开访问：
 
-```console
-$ kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
+```shell
+kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
 ```
 
 <!--
 These commands should be run after `kubeadm init` but before `kubeadm join`.
-
-### Using kubeadm join with a configuration file {#config-file}
 -->
-
 这些命令应该在执行 `kubeadm init` 之后、在`kubeadm join` 之前执行。
 
+<!-- 
+### Using kubeadm join with a configuration file {#config-file}
+-->
 ### 使用带有配置文件的 kubeadm join
 
 {{< caution >}}
@@ -366,25 +480,33 @@ These commands should be run after `kubeadm init` but before `kubeadm join`.
 It's possible to configure `kubeadm join` with a configuration file instead of command
 line flags, and some more advanced features may only be available as
 configuration file options. This file is passed using the `--config` flag and it must
-contain a `JoinConfiguration` structure.
-
-To print the default values of `JoinConfiguration` run the following command:
+contain a `JoinConfiguration` structure. Mixing `--config` with others flags may not be
+allowed in some cases.
 -->
-
 可以用配置文件替代命令行参数的方法配置 `kubeadm join`，一些高级功能也只有在使用配置文件时才可选用。
 该文件通过 `--config` 参数来传递，并且文件中必须包含 `JoinConfiguration` 结构。
+在某些情况下，不允许将 `--config` 与其他标志混合使用。
 
-执行下面的命令可以查看 `JoinConfiguration` 默认值：
+<!--  
+The default configuration can be printed out using the
+[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-```bash
-kubeadm config print-default --api-objects=JoinConfiguration
-```
+If your configuration is not using the latest version it is **recommended** that you migrate using
+the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+-->
+使用 [kubeadm config print](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
+命令可以打印默认配置。
+
+如果你的配置没有使用最新版本，
+**推荐**使用 [kubeadm config migrate](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
+命令转换。
 
 <!--
-For details on individual fields in `JoinConfiguration` see [the godoc](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#JoinConfiguration).
+For more information on the fields and usage of the configuration you can navigate to our API reference
+page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
 -->
-
-要了解 `JoinConfiguration` 中各个字段的详细信息请参考 [godoc](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#JoinConfiguration)。
+有关配置的字段和用法的更多信息，你可以导航到我们的 API 参考页
+并从[列表]中选择一个版本(https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories)。
 
 
 ## {{% heading "whatsnext" %}}
@@ -394,7 +516,7 @@ For details on individual fields in `JoinConfiguration` see [the godoc](https://
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 -->
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 初始化 Kubernetes 主节点
-* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 管理 `kubeadm join` 的令牌
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 将 `kubeadm init` 或 `kubeadm join` 对主机的更改恢复到之前状态
+* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/) 初始化 Kubernetes 主节点
+* [kubeadm token](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/) 管理 `kubeadm join` 的令牌
+* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 将 `kubeadm init` 或 `kubeadm join` 对主机的更改恢复到之前状态
 
