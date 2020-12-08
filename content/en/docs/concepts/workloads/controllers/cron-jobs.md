@@ -62,7 +62,7 @@ and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
 at least once.
 
 {{< caution >}}
-If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob may not be scheduled. This is because the CronJob controller checks things every 10 seconds.
+If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob may not be scheduled. This is because the CronJob controller checks things every 10 seconds. As an alpha feature, there is a V2 controller implementation with different behavior. The version 2 controller provides experimental performance improvements.
 {{< /caution >}}
 
 
