@@ -307,8 +307,8 @@ or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it a
 Restarting the kubelet is required:
 
 ```bash
-systemctl daemon-reload
-systemctl restart kubelet
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
 ```
 
 The automatic detection of cgroup driver for other container runtimes
