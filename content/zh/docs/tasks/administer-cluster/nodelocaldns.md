@@ -136,11 +136,11 @@ This feature can be enabled using the following steps:
 
      * localdns=`<node-local-address>`
 
-     <!--
-     `<cluster-domain>` is "cluster.local" by default. `<node-local-address>` is the local listen IP address chosen for NodeLocal DNSCache.
-     -->
-     `<cluster-domain>` 默认为 "cluster.local"。
-     `<node-local-address>` 是为 NodeLocal DNSCache 选择的本地监听 IP 地址。
+   <!--
+   `<cluster-domain>` is "cluster.local" by default. `<node-local-address>` is the local listen IP address chosen for NodeLocal DNSCache.
+   -->
+   `<cluster-domain>` 默认为 "cluster.local"。
+   `<node-local-address>` 是为 NodeLocal DNSCache 选择的本地监听 IP 地址。
 
    <!--
    * If kube-proxy is running in IPTABLES mode:
@@ -155,9 +155,9 @@ This feature can be enabled using the following steps:
      `__PILLAR__CLUSTER__DNS__` and `__PILLAR__UPSTREAM__SERVERS__` will be populated by the node-local-dns pods.
      In this mode, node-local-dns pods listen on both the kube-dns service IP as well as `<node-local-address>`, so pods can lookup DNS records using either IP address.
 	   -->
-     `__PILLAR__CLUSTER__DNS__` 和 `__PILLAR__UPSTREAM__SERVERS__` 将由 node-local-dns Pods 填充。
-     在这种模式下，node-local-dns Pods 会同时监听 kube-dns 服务 IP 和 `<node-local-address>`，
-     因此 pods 可以使用任一 IP 地址查找 DNS 记录。
+   `__PILLAR__CLUSTER__DNS__` 和 `__PILLAR__UPSTREAM__SERVERS__` 将由 node-local-dns Pods 填充。
+   在这种模式下，node-local-dns Pods 会同时监听 kube-dns 服务 IP 和 `<node-local-address>`，
+   因此 pods 可以使用任一 IP 地址查找 DNS 记录。
 
   <!--
   * If kube-proxy is running in IPVS mode:
@@ -171,9 +171,9 @@ This feature can be enabled using the following steps:
      In this mode, node-local-dns pods listen only on `<node-local-address>`. The node-local-dns interface cannot bind the kube-dns cluster IP since the interface used for IPVS loadbalancing already uses this address.
      `__PILLAR__UPSTREAM__SERVERS__` will be populated by the node-local-dns pods.
      -->
-     在这种模式下，node-local-dns pod 只能在 `<node-local-address>` 上监听。
-     node-local-dns 接口无法绑定 kube-dns 集群 IP，因为用于 IPVS 负载均衡的接口已使用此地址。
-     `__PILLAR__UPSTREAM__SERVERS__` 将由 node-local-dns Pods 填充。
+   在这种模式下，node-local-dns pod 只能在 `<node-local-address>` 上监听。
+   node-local-dns 接口无法绑定 kube-dns 集群 IP，因为用于 IPVS 负载均衡的接口已使用此地址。
+   `__PILLAR__UPSTREAM__SERVERS__` 将由 node-local-dns Pods 填充。
 
 <!--
 * Run `kubectl create -f nodelocaldns.yaml`
