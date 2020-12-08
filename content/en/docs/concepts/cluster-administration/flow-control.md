@@ -527,5 +527,5 @@ When you enable the API Priority and Fairness feature, the kube-apiserver serves
 
 For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
-You can make suggestions and feature requests via [SIG API
-Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
+You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) 
+or the feature's [slack channel](http://kubernetes.slack.com/messages/api-priority-and-fairness).
