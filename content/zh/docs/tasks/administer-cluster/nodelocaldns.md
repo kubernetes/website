@@ -123,8 +123,8 @@ This feature can be enabled using the following steps:
 * Prepare a manifest similar to the sample [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) and save it as `nodelocaldns.yaml.`
 -->
 * 准备与示例  [`nodelocaldns.yaml`]
-(https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) 
-相似的清单并保存为 `nodelocaldns.yaml 。
+  (https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) 
+  相似的清单并保存为 `nodelocaldns.yaml 。
 <!--
 * Substitute the variables in the manifest with the right values:
 -->
