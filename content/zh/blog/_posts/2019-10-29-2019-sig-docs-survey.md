@@ -98,7 +98,7 @@ The majority of respondents stated that they access the documentation for the Co
 
 {{< figure
     src="/images/blog/2019-sig-docs-survey/Q9-k8s-docs-use.png"
-    alt="Why respondents access the Kubernetes documentation"
+    alt="受访者为什么访问 Kubernetes 文档 "
 >}}
 
 <!--
@@ -112,7 +112,7 @@ followed overwhelmingly by pages in the Concepts section.
 <!--
 ## Satisfaction with the documentation
 -->
-## 对文件的满意程度
+## 对文档的满意程度
 
 <!--
 We asked respondents to record their level of satisfaction with the detail in
@@ -126,15 +126,15 @@ the Concepts, Tasks, Reference, and Tutorials sections:
 - Reference: 40.86% Very Satisfied
 - Tutorial: 47.25% Moderately Satisfied
 -->
-- 概念：47.96%中等满意
-- 任务：50.54%中等满意
-- 参考：40.86%非常满意
-- 教程：47.25%中等满意
+- 概念：47.96% 中等满意
+- 任务：50.54% 中等满意
+- 参考：40.86% 非常满意
+- 教程：47.25% 中等满意
 
 <!--
 ## How SIG Docs can improve each documentation section
 -->
-## SIG Docs 如何改进每个文档部分
+## SIG Docs 如何改进文档的各个部分
 
 <!--
 We asked how we could improve each section, providing respondents with
@@ -152,7 +152,7 @@ example code, more detailed content, more diagrams, and advanced tutorials:
 - More diagrams, and more example code
 ```
 -->
-``` 文本
+```text
 - 就个人而言，希望看到更多的类比，以帮助进一步理解。
 - 如果代码的相应部分也能解释一下就好了
 - 通过扩展概念把它们融合在一起——它们现在宛如在一桶水内朝各个方向游动的一个个鳗鱼。
@@ -173,9 +173,9 @@ Respondents used the "Other" text box to record areas causing frustration:
 - Keep the tutorials up to date, or remove them
 ```
 -->
-```文本
+```text
 - 使概念保持最新和准确
-- 保持任务主题的最新性和准确性。人体试验。
+- 保持任务主题的最新性和准确性。亲身试验。
 - 彻底检查示例。很多时候显示的命令输出不是实际情况。
 - 我从来都不知道如何导航或解释参考部分
 - 使教程保持最新，或将其删除
