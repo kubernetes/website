@@ -20,7 +20,7 @@ In September, SIG Docs conducted its first survey about the [Kubernetes
 documentation](https://kubernetes.io/docs/). We'd like to thank the CNCF's Kim
 McMahon for helping us create the survey and access the results.
 -->
-9月，SIG Docs 进行了第一次关于 [ Kubernetes 调查文件 ](https://kubernetes.io/docs/) 。我们要感谢CNCF
+9月，SIG Docs 进行了第一次关于 [Kubernetes 调查文件](https://kubernetes.io/docs/) 。我们要感谢CNCF
 的 Kim McMahon 帮助我们创建调查并获取结果。
 
 <!--
@@ -56,7 +56,9 @@ to time constraints. We announced the survey on Kubernetes mailing lists, in
 Kubernetes Slack channels, on Twitter, and in Kube Weekly. There were 23
 questions, and respondents took an average of 4 minutes to complete the survey.
 -->
-我们用英语进行了调查。由于时间限制，调查的有效期只有4天。我们在 Kubernetes mailing lists，Kubernetes Slack channels，Twitter，Kube Weekly 上宣布了我们的调查结果。这里有23个问题， 受访者平均用4分钟完成这个调查。
+我们用英语进行了调查。由于时间限制，调查的有效期只有4天。
+我们在 Kubernetes 邮件列表、Kubernetes Slack 频道、Twitter、Kube Weekly 上发布了我们的调查问卷。
+这里有 23 个问题， 受访者平均用 4 分钟完成这个调查。
 
 <!--
 ## Quick facts about respondents:
@@ -69,10 +71,10 @@ questions, and respondents took an average of 4 minutes to complete the survey.
 - 64.65% have been using the Kubernetes documentation for more than 12 months
 - 95.96% read the documentation in English
 -->
--48.48%是经验丰富的Kubernetes用户，26.26%是专家，25.25%是初学者
--57.58%的人同时使用Kubernetes作为管理员和开发人员
--64.65%的人使用Kubernetes文档超过12个月
--95.96%的人阅读英文文档
+- 48.48%是经验丰富的 Kubernetes 用户，26.26%是专家，25.25%是初学者
+- 57.58%的人同时使用 Kubernetes 作为管理员和开发人员
+- 64.65%的人使用 Kubernetes 文档超过12个月
+- 95.96%的人阅读英文文档
 
 <!--
 # Question and response highlights
@@ -82,7 +84,7 @@ questions, and respondents took an average of 4 minutes to complete the survey.
 <!--
 ## Why people access the Kubernetes documentation
 -->
-## 为什么人们认同 Kubernetes 文档
+## 人们为什么访问 Kubernetes 文档
 
 <!--
 The majority of respondents stated that they access the documentation for the Concepts.
@@ -92,7 +94,7 @@ The majority of respondents stated that they access the documentation for the Co
     alt="Why respondents access the Kubernetes documentation"
 >}}
 -->
-大多数受访者表示，他们查阅了概念文件。
+大多数受访者表示，他们访问文档是为了了解概念。
 
 {{< figure
     src="/images/blog/2019-sig-docs-survey/Q9-k8s-docs-use.png"
@@ -124,10 +126,10 @@ the Concepts, Tasks, Reference, and Tutorials sections:
 - Reference: 40.86% Very Satisfied
 - Tutorial: 47.25% Moderately Satisfied
 -->
--概念：47.96%中等满意
--任务：50.54%中等满意
--参考：40.86%非常满意
--教程：47.25%中等满意
+- 概念：47.96%中等满意
+- 任务：50.54%中等满意
+- 参考：40.86%非常满意
+- 教程：47.25%中等满意
 
 <!--
 ## How SIG Docs can improve each documentation section
@@ -151,10 +153,10 @@ example code, more detailed content, more diagrams, and advanced tutorials:
 ```
 -->
 ``` 文本
--就个人而言，希望看到更多的类比，以帮助进一步理解。
--如果代码的相应部分也能解释一下就好了
--通过扩展概念把它们融合在一起——它们现在宛如在一桶水内朝各个方向游动的一个个鳗鱼。
--更多的图表，更多的示例代码
+- 就个人而言，希望看到更多的类比，以帮助进一步理解。
+- 如果代码的相应部分也能解释一下就好了
+- 通过扩展概念把它们融合在一起——它们现在宛如在一桶水内朝各个方向游动的一个个鳗鱼。
+- 更多的图表，更多的示例代码
 ```
 
 <!--
@@ -172,11 +174,11 @@ Respondents used the "Other" text box to record areas causing frustration:
 ```
 -->
 ```文本
--使概念保持最新和准确
--保持任务主题的最新性和准确性。人体试验。
--彻底检查示例。很多时候显示的命令输出不是实际情况。
--我从来都不知道如何导航或解释参考部分
--使教程保持最新，或将其删除
+- 使概念保持最新和准确
+- 保持任务主题的最新性和准确性。人体试验。
+- 彻底检查示例。很多时候显示的命令输出不是实际情况。
+- 我从来都不知道如何导航或解释参考部分
+- 使教程保持最新，或将其删除
 ```
 
 <!--
@@ -200,10 +202,10 @@ overall. Some took the opportunity to tell us we are doing a good job:
 ```
 -->
 ```text
--最好的项目是开源的。
--继续前进！
--我觉得文件很好。
--你干得很好。真的。
+- 对我而言，这是我见过的文档最好的开源项目。
+- 继续努力！
+- 我觉得文件很好。
+- 你们做得真好。真的。
 ```
 
 <!--
@@ -217,6 +219,7 @@ Other respondents provided feedback on the content:
 advanced configuration examples would be, to me, the way to go. Like a Use Case page for each configuration topic with beginner to advanced example scenarios. Something like that would be
 awesome....
 -->
+```text
 -  ...但既然我们谈论的是文档，多多益善。更多的高级配置示例对我来说将是最好的选择。比如每个配置主题的用例页面，从初学者到高级示例场景。像这样的东西真的是令人惊叹......
 
 <!--
