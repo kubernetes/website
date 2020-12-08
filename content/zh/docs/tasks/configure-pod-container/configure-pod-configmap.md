@@ -814,9 +814,9 @@ Kubernetes v1.6 和更高版本支持此功能。
 ## 在 Pod 命令中使用 ConfigMap 定义的环境变量
 
 <!--
-You can use ConfigMap-defined environment variables in the `command` section of the Pod specification using the `$(VAR_NAME)` Kubernetes substitution syntax.
+You can use ConfigMap-defined environment variables in the `command` and `args` of a container using the `$(VAR_NAME)` Kubernetes substitution syntax.
 -->
-你可以使用 `$(VAR_NAME)` Kubernetes 替换语法在 Pod 规约的 `command` 部分中使用 ConfigMap 定义的环境变量。
+你可以使用 `$(VAR_NAME)` Kubernetes 替换语法在容器的 `command` 和 `args` 部分中使用 ConfigMap 定义的环境变量。
 
 <!--
 For example, the following Pod specification
