@@ -187,51 +187,6 @@ Si estás en macOS y usando el gestor de paquetes [Macports](https://macports.or
     kubectl version --client
     ```
 
-
-{{% /tab %}}
-{{% tab name="Linux" %}}
-
-1. Descarga la última entrega con el comando:
-
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-    ```
-
-    Para descargar una versión específica, remplaza el trozo del comando `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` con la versión específica.
-
-    Por ejemplo, para descargar la versión {{< param "fullversion" >}} en Linux, teclea:
-
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
-    ```
-
-2. Haz el binario de kubectl ejecutable.
-
-    ```
-    chmod +x ./kubectl
-    ```
-
-3. Mueve el binario dentro de tu PATH.
-
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
-{{% /tab %}}
-{{% tab name="Windows" %}}
-1. Descarga la última entrega {{< param "fullversion" >}} desde [este enlace](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
-
-    O si tienes `curl` instalado, usa este comando:
-
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
-    ```
-
-    Para averiguar la última versión estable (por ejemplo, para secuencias de comandos), echa un vistazo a [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
-
-2. Añade el binario a tu PATH.
-{{% /tab %}}
-{{< /tabs >}}
-
 # Instalar kubectl en Windows
 
 ### Instalar el binario de kubectl con curl en Windows
@@ -281,7 +236,8 @@ Si estás en Windows y usando el gestor de paquetes [Powershell Gallery](https:/
     kubectl version --client
     ```
 
-    {{< note >}}Actualizar la instalación se realiza mediante la re-ejecución de los dos comandos listados en el paso 1.{{< /note >}}
+{{< note >}}
+Actualizar la instalación se realiza mediante la re-ejecución de los dos comandos listados en el paso 1.{{< /note >}}
 
 ### Instalar en Windows usando Chocolatey o scoop
 
@@ -331,7 +287,7 @@ Si estás en Windows y usando el gestor de paquetes [Powershell Gallery](https:/
     New-Item config -type file
     ```
 
-    {{< note >}}Edita el fichero de configuración con un editor de texto de tu elección, como Notepad.{{< /note >}}
+{{< note >}}Edita el fichero de configuración con un editor de texto de tu elección, como Notepad.{{< /note >}}
 
 ## Descarga como parte del Google Cloud SDK
 
@@ -377,23 +333,9 @@ Si kubectl cluster-info devuelve la respuesta en forma de url, pero no puedes ac
 kubectl cluster-info dump
 ```
 
-## Instalar con snap en Ubuntu
+## kubectl configuraciones opcionales
 
-Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el gestor de paquetes [snap](https://snapcraft.io/docs/core/install), kubectl está disponible como una aplicación [snap](https://snapcraft.io/).
-
-1. Cambia al usuario de snap y ejecuta el comando de instalación:
-
-    ```
-    sudo snap install kubectl --classic
-    ```
-
-2. Para asegurar que la versión utilizada sea la más actual puedes probar:
-
-    ```
-    kubectl version
-    ```
-
-## Habilitar el auto-completado en el intérprete de comandos
+### Habilitar el auto-completado en el intérprete de comandos
 
 kubectl provee de soporte para auto-completado para Bash y Zsh, ¡que te puede ahorrar mucho uso del teclado!
 
@@ -429,15 +371,22 @@ Debes asegurarte que la secuencia de comandos de completado de kubectl corre en 
 
 - Corre la secuencia de comandos de completado en tu `~/.bashrc`:
 
-    ```shell
+    ```bash
     echo 'source <(kubectl completion bash)' >>~/.bashrc
     ```
 
 - Añade la secuencia de comandos de completado al directorio `/etc/bash_completion.d`:
 
-    ```shell
+    ```bash
     kubectl completion bash >/etc/bash_completion.d/kubectl
     ```
+
+Si tienes alias para kubectl, puedes extender los comandos de shell para funcionar con ese alias:
+
+```bash
+echo 'alias k=kubectl' >>~/.bashrc
+echo 'complete -F __start_kubectl k' >>~/.bashrc
+```
 
 {{< note >}}
 bash-completion corre todas las secuencias de comandos de completado en `/etc/bash_completion.d`.
@@ -450,21 +399,43 @@ Ambas estrategias son equivalentes. Tras recargar tu intérprete de comandos, el
 
 {{% tab name="Bash en macOS" %}}
 
-{{< warning>}}
-macOS incluye Bash 3.2 por defecto. La secuencia de comandos de completado de kubectl requiere Bash 4.1+ y no funciona con Bash 3.2. Una posible alternativa es instalar una nueva versión de Bash en macOS (ver instrucciones [aquí](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Las instrucciones de abajo sólo funcionan si estás usando Bash 4.1+.
-{{< /warning >}}
-
 ### Introducción
 
 La secuencia de comandos de completado de kubectl para Bash puede generarse con el comando `kubectl completion bash`. Corriendo la secuencia de comandos de completado en tu intérprete de comandos habilita el auto-completado de kubectl.
 
 Sin embargo, la secuencia de comandos de completado depende de [*bash-completion**](https://github.com/scop/bash-completion), lo que significa que tienes que instalar primero este programa (puedes probar si ya tienes bash-completion instalado ejecutando `type _init_completion`).
 
+{{< warning>}}
+macOS incluye Bash 3.2 por defecto. La secuencia de comandos de completado de kubectl requiere Bash 4.1+ y no funciona con Bash 3.2. Una posible alternativa es instalar una nueva versión de Bash en macOS (ver instrucciones [aquí](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Las instrucciones de abajo sólo funcionan si estás usando Bash 4.1+.
+{{< /warning >}}
+
+### Actualizar bash
+
+Las instrucciones asumen que usa Bash 4.1+. Puedes comprobar tu versión de bash con:
+
+```bash
+echo $BASH_VERSION
+```
+
+Si no es 4.1+, puede actualizar bash con Homebrew:
+
+```bash
+brew install bash
+```
+
+Recarga tu intérprete de comandos y verifica que estás usando la versión deseada:
+
+```bash
+echo $BASH_VERSION $SHELL
+```
+
+Usualmente, Homebrew lo instala en `/usr/local/bin/bash`.
+
 ### Instalar bash-completion
 
 Puedes instalar bash-completion con Homebrew:
 
-```shell
+```bash
 brew install bash-completion@2
 ```
 
@@ -474,9 +445,9 @@ El `@2` simboliza bash-completion 2, que es requerido por la secuencia de comand
 
 Como se indicaba en la salida de `brew install` (sección "Caveats"), añade las siguientes líneas a tu `~/.bashrc` o `~/.bash_profile`:
 
-```shell
-export BASH_COMPLETION_COMPAT_DIR=/usr/local/etc/bash_completion.d
-[[ -r /usr/local/etc/profile.d/bash_completion.sh ]] && . /usr/local/etc/profile.d/bash_completion.sh
+```bash
+export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 ```
 
 Recarga tu intérprete de comandos y verifica que bash-completion está correctamente instalado tecleando `type _init_completion`.
@@ -513,25 +484,32 @@ La secuencia de comandos de completado de kubectl para Zsh puede ser generada co
 
 Para hacerlo en todas tus sesiones de tu intérprete de comandos, añade lo siguiente a tu `~/.zshrc`:
 
-```shell
+```zsh
 source <(kubectl completion zsh)
+```
+
+Si tienes alias para kubectl, puedes extender el completado de intérprete de comandos para funcionar con ese alias.
+
+```zsh
+echo 'alias k=kubectl' >>~/.zshrc
+echo 'complete -F __start_kubectl k' >>~/.zshrc
 ```
 
 Tras recargar tu intérprete de comandos, el auto-completado de kubectl debería funcionar.
 
 Si obtienes un error como `complete:13: command not found: compdef`, entonces añade lo siguiente al principio de tu `~/.zshrc`:
 
-```shell
+```zsh
 autoload -Uz compinit
 compinit
 ```
 {{% /tab %}}
 {{< /tabs >}}
 
-
-
 ## {{% heading "whatsnext" %}}
-
-[Aprender cómo lanzar y exponer tu aplicación.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-
+* [Instalar Minikube](https://minikube.sigs.k8s.io/docs/start/)
+* Ver las [guías](/docs/setup/) para ver mas información sobre como crear clusteres.
+* [Aprender cómo lanzar y exponer tu aplicación.](/docs/tasks/access-application-cluster/service-access-application-cluster/).
+* Si necesita acceso a un clúster que no se creó, ver el documento de [compartiendo acceso a clúster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* Leer ´la documentación de kubectl reference](/docs/reference/kubectl/kubectl/)
 
