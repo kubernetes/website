@@ -33,16 +33,16 @@ On certain Linux installations, the operating system sets the PIDs limit to a lo
 such as `32768`. Consider raising the value of `/proc/sys/kernel/pid_max`.
 {{< /note >}}
 
-You can configure a kubelet to limit the number of PIDs a given pod can consume.
+You can configure a kubelet to limit the number of PIDs a given Pod can consume.
 For example, if your node's host OS is set to use a maximum of `262144` PIDs and
-expect to host less than `250` pods, one can give each pod a budget of `1000`
+expect to host less than `250` Pods, one can give each Pod a budget of `1000`
 PIDs to prevent using up that node's overall number of available PIDs. If the
 admin wants to overcommit PIDs similar to CPU or memory, they may do so as well
-with some additional risks. Either way, a single pod will not be able to bring
+with some additional risks. Either way, a single Pod will not be able to bring
 the whole machine down. This kind of resource limiting helps to prevent simple
 fork bombs from affecting operation of an entire cluster.
 
-Per-pod PID limiting allows administrators to protect one pod from another, but
+Per-Pod PID limiting allows administrators to protect one Pod from another, but
 does not ensure that all Pods scheduled onto that host are unable to impact the node overall.
 Per-Pod limiting also does not protect the node agents themselves from PID exhaustion.
 
@@ -92,8 +92,26 @@ the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `SupportPodPidsLimit` to work.
 {{< /note >}}
 
+## PID based eviction
+
+You can configure kubelet to start terminating a Pod when it is misbehaving and consuming abnormal amount of resources.
+This feature is called eviction. You can [Configure Out of Resource Handling](/docs/tasks/administer-cluster/out-of-resource) for various eviction signals.
+Use `pid.available` eviction signal to configure the threshold for number of PIDs used by Pod.
+You can set soft and hard eviction policies. However, even with the hard eviction policy, if the number of PIDs growing very fast,
+node can still get into unstable state by hitting the node PIDs limit.
+Eviction signal value is calculated periodically and does NOT enforce the limit.
+
+PID limiting - per Pod and per Node sets the hard limit.
+Once the limit is hit, workload will start experiencing failures when trying to get a new PID.
+It may or may not lead to rescheduling of a Pod,
+depending on how workload reacts on these failures and how liveleness and readiness
+probes are configured for the Pod. However, if limits were set correctly,
+you can guarantee that other Pods workload and system processes will not run out of PIDs
+when one Pod is misbehaving.
+
 ## {{% heading "whatsnext" %}}
 
 - Refer to the [PID Limiting enhancement document](https://github.com/kubernetes/enhancements/blob/097b4d8276bc9564e56adf72505d43ce9bc5e9e8/keps/sig-node/20190129-pid-limiting.md) for more information.
 - For historical context, read [Process ID Limiting for Stability Improvements in Kubernetes 1.14](/blog/2019/04/15/process-id-limiting-for-stability-improvements-in-kubernetes-1.14/).
 - Read [Managing Resources for Containers](/docs/concepts/configuration/manage-resources-containers/).
+- Learn how to [Configure Out of Resource Handling](/docs/tasks/administer-cluster/out-of-resource).
