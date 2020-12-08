@@ -53,26 +53,26 @@ Borg has a similar abstraction, called an alloc (short for “resource allocatio
 -->
 Borg 有一个类似的抽象，称为 alloc （“资源分配”的缩写）。
 Borg 中 alloc 的流行用法包括运行 Web 服务器，该服务器生成日志，一起部署一个轻量级日志收集进程，该进程将日志发送到集群文件系统（和 fluentd 或 logstash 没什么不同 ）；
-运行 Web 服务器，该 Web 服务器从磁盘目录提供数据，该磁盘目录由从集群文件系统读取数据并为 Web 服务器准备/暂存的进程填充（与内容管理系统不同）；
+运行 Web 服务器，该 Web 服务器从磁盘目录提供数据，该磁盘目录由从集群文件系统读取数据并为 Web 服务器准备/暂存的进程填充（与内容管理系统没什么不同）；
 并与存储分片一起运行用户定义的处理功能。
 <!--
 Pods not only support these use cases, but they also provide an environment similar to running multiple processes in a single VM -- Kubernetes users can deploy multiple co-located, cooperating processes in a pod without having to give up the simplicity of a one-application-per-container deployment model.
 -->
-Pod 不仅支持这些用例，而且还提供类似于在单个 VM 中运行多个进程的环境 -- Kubernetes 用户可以在 Pod 中部署多个位于同一地点的协作过程，而不必放弃一个每个容器一个应用程序的部署模型。
+Pod 不仅支持这些用例，而且还提供类似于在单个 VM 中运行多个进程的环境 -- Kubernetes 用户可以在一个 Pod 中部署多个位于同一地点的协作过程，而不必放弃一个应用程序一个容器的部署模型。
 
 
 
 <!--
 2) [Services](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/services.md). Although Borg’s primary role is to manage the lifecycles of tasks and machines, the applications that run on Borg benefit from many other cluster services, including naming and load balancing. Kubernetes supports naming and load balancing using the service abstraction: a service has a name and maps to a dynamic set of pods defined by a label selector (see next section). Any container in the cluster can connect to the service using the service name. 
 -->
-2) [服务](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/services.md). 
-尽管 Borg 的主要角色是管理任务和计算机的生命周期，但是在 Borg 上运行的应用程序还可以从许多其他集群服务中受益，包括命名和负载均衡。
-Kubernetes 使用服务抽象支持命名和负载均衡：服务具有名称，并映射到由标签选择器定义的动态 Pod 集（请参阅下一节）。
+2) [服务](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/services.md)。
+尽管 Borg 的主要角色是管理任务和计算机的生命周期，但是在 Borg 上运行的应用程序还可以从许多其它集群服务中受益，包括命名和负载均衡。
+Kubernetes 使用服务抽象支持命名和负载均衡：带名字的服务，会映射到由标签选择器定义的一组动态 Pod 集（请参阅下一节）。
 集群中的任何容器都可以使用服务名称链接到服务。
 <!--
 Under the covers, Kubernetes automatically load-balances connections to the service among the pods that match the label selector, and keeps track of where the pods are running as they get rescheduled over time due to failures.
 -->
-在幕后，Kubernetes 会自动在与标签选择器匹配到 Pod 之间对与服务的连接进行负载均衡，并跟踪 Pod 在哪里运行，因为它们由于故障而随着时间重新安排。
+在幕后，Kubernetes 会自动在与标签选择器匹配到 Pod 之间对与服务的连接进行负载均衡，并跟踪 Pod 在哪里运行，由于故障，它们会随着时间的推移而重新安排。
 
 
 
@@ -81,7 +81,7 @@ Under the covers, Kubernetes automatically load-balances connections to the serv
 A container in Borg is usually one replica in a collection of identical or nearly identical containers that correspond to one tier of an Internet service (e.g. the front-ends for Google Maps) or to the workers of a batch job (e.g. a MapReduce). The collection is called a Job, and each replica is called a Task. While the Job is a very useful abstraction, it can be limiting. For example, users often want to manage their entire service (composed of many Jobs) as a single entity, or to uniformly manage several related instances of their service, for example separate canary and stable release tracks. 
 At the other end of the spectrum, users frequently want to reason about and control subsets of tasks within a Job -- the most common example is during rolling updates, when different subsets of the Job need to have different configurations.
 -->
-3) [标签](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/labels.md). 
+3) [标签](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/labels.md)。 
 Borg 中的容器通常是一组相同或几乎相同的容器中的一个副本，该容器对应于 Internet 服务的一层（例如 Google Maps 的前端）或批处理作业的工人（例如 MapReduce ）。
 该集合称为一项 Job ，每个副本称为任务。
 尽管 Job 是一个非常有用的抽象，但它可能是有限的。
