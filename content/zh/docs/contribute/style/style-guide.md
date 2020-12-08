@@ -34,8 +34,8 @@ discussion.
 
 样式指南的变更是 SIG Docs 团队集体决定。
 如要提议更改或新增条目，请先将其添加到下一次 SIG Docs 例会的
-[议程表]
-(https://docs.google.com/document/d/1ddHwLK3kUMX1wVFIwlksjTk0MsqitBnWPe1LRa1Rx5A/edit)上，并按时参加会议讨论。
+[议程表](https://docs.google.com/document/d/1ddHwLK3kUMX1wVFIwlksjTk0MsqitBnWPe1LRa1Rx5A/edit)
+上，并按时参加会议讨论。
 
 <!-- body -->
 <!--
