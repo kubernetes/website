@@ -20,7 +20,7 @@ In September, SIG Docs conducted its first survey about the [Kubernetes
 documentation](https://kubernetes.io/docs/). We'd like to thank the CNCF's Kim
 McMahon for helping us create the survey and access the results.
 -->
-9月，SIG Docs 进行了第一次关于 [Kubernetes 调查文件](https://kubernetes.io/docs/) 。我们要感谢CNCF
+9月，SIG Docs 进行了第一次关于 [Kubernetes 调查文件](https://kubernetes.io/docs/) 。我们要感谢 CNCF
 的 Kim McMahon 帮助我们创建调查并获取结果。
 
 <!--
@@ -37,13 +37,13 @@ diagrams in the Concepts, Tasks, and Reference sections.
 <!--
 74% of respondents would like the Tutorials section to contain advanced content.
 -->
-74%的受访者希望教程部分包含高级内容。
+74% 的受访者希望教程部分包含高级内容。
 
 <!--
 69.70% said the Kubernetes documentation is the first place they look for
 information about Kubernetes.
 -->
-69.70%的受访者认为 Kubernetes 文档是他们首先寻找方关于 Kubernetes 资料的地方。
+69.70% 的受访者认为 Kubernetes 文档是他们首先寻找方关于 Kubernetes 资料的地方。
 
 <!--
 # Survey methodology and respondents
@@ -56,9 +56,9 @@ to time constraints. We announced the survey on Kubernetes mailing lists, in
 Kubernetes Slack channels, on Twitter, and in Kube Weekly. There were 23
 questions, and respondents took an average of 4 minutes to complete the survey.
 -->
-我们用英语进行了调查。由于时间限制，调查的有效期只有4天。
+我们用英语进行了调查。由于时间限制，调查的有效期只有 4 天。
 我们在 Kubernetes 邮件列表、Kubernetes Slack 频道、Twitter、Kube Weekly 上发布了我们的调查问卷。
-这里有 23 个问题， 受访者平均用 4 分钟完成这个调查。
+这份调查有 23 个问题， 受访者平均用 4 分钟完成这个调查。
 
 <!--
 ## Quick facts about respondents:
@@ -71,10 +71,10 @@ questions, and respondents took an average of 4 minutes to complete the survey.
 - 64.65% have been using the Kubernetes documentation for more than 12 months
 - 95.96% read the documentation in English
 -->
-- 48.48%是经验丰富的 Kubernetes 用户，26.26%是专家，25.25%是初学者
-- 57.58%的人同时使用 Kubernetes 作为管理员和开发人员
-- 64.65%的人使用 Kubernetes 文档超过12个月
-- 95.96%的人阅读英文文档
+- 48.48% 是经验丰富的 Kubernetes 用户，26.26% 是专家，25.25% 是初学者
+- 57.58% 的人同时使用 Kubernetes 作为管理员和开发人员
+- 64.65% 的人使用 Kubernetes 文档超过 12 个月
+- 95.96% 的人阅读英文文档
 
 <!--
 # Question and response highlights
@@ -225,18 +225,20 @@ awesome....
 <!--
 - More in-depth examples and use cases would be great. I often feel that the Kubernetes documentation scratches the surface of a topic, which might be great for new users, but it leaves more experienced users without much "official" guidance on how to implement certain things.
 -->
-更深入的例子和用例将是很好的。我经常感觉 Kubernetes 文档只是触及了一个主题的表面，这可能对新用户很好，但是它没有让更有经验的用户获取多少关于如何实现某些东西的“官方”指导。
+- 更深入的例子和用例将是很好的。我经常感觉 Kubernetes 文档只是触及了一个主题的表面，这可能对新用户很好，但是它没有让更有经验的用户获取多少关于如何实现某些东西的“官方”指导。
 
 <!--
 - More production like examples in the resource sections (notably secrets) or links to production like examples
 -->
-- 参考资料部分有更多类似于产品的示例（特别是机密）或指向类似产品的示例的链接
+- 资源节（特别是 secrets）希望有更多类似于产品的示例或指向类似产品的示例的链接
 
 <!--
 - It would be great to see a very clear "Quick Start" A->Z up and running like many other tech projects. There are a handful of almost-quick-starts, but no single guidance. The result is information overkill.
 ```
 -->
-- 很高兴看到一个非常清晰的“快速启动” A->Z 启动和运行就像许多其他的技术项目一样。这里有少数几个几乎快速启动，但没有单一的指导。其结果是信息滥杀。
+- 如果能像很多其它技术项目那样有非常清晰的“快速启动” 逐步教学完成搭建就更好了。
+  现有的快速入门内容屈指可数，也没有统一的指南。结果是信息泛滥。
+```
 
 <!--
 A few respondents provided technical suggestions:
@@ -257,13 +259,16 @@ A few respondents provided technical suggestions:
 Specifically, I would like to see k8s switch to Sphinx for documentation. It has an excellent built-in search, it is easy tolearn if you know markdown, it is widely adopted by other projects (e.g. every software project in readthedocs.io, linux kernel, docs.python.org etc).
 ```
 -->
-具体来说，我希望看到k8s切换到Sphinx来获取文档。它有一个很好的内置搜索，它很容易学习，如果你知道markdown，它被其他项目广泛采用（例如，在 readthedocs.io， linux kernel，docs.python.org 等等）。
+具体来说，我希望看到 k8s 切换到 Sphinx 来获取文档。Sphinx 有一个很好的内置搜索。
+如果你了解 markdown，学习起来也很容易。
+Sphinx 被其他项目广泛采用（例如，在 readthedocs.io、linux kernel、docs.python.org 等等）。
+```
 
 <!--
 Overall, respondents provided constructive criticism focusing on the need for
 advanced use cases as well as more in-depth examples, guides, and walkthroughs.
 -->
-总体而言，受访者提供了建设性的批评，重点是高级用例以及更深入的示例、指南和演练。
+总体而言，受访者提供了建设性的批评，其关注点是高级用例以及更深入的示例、指南和演练。
 
 <!--
 # Where to see more
@@ -273,5 +278,6 @@ advanced use cases as well as more in-depth examples, guides, and walkthroughs.
 <!--
 Survey results summary, charts, and raw data are available in `kubernetes/community` sig-docs [survey](https://github.com/kubernetes/community/tree/master/sig-docs/survey) directory.
 -->
-调查结果摘要、图表和原始数据可在 `kubernetes/community` sig-docs [调查]
-(https://github.com/kubernetes/community/tree/master/sig-docs/survey) 文件。
+调查结果摘要、图表和原始数据可在 `kubernetes/community` sig-docs 
+[survey](https://github.com/kubernetes/community/tree/master/sig-docs/survey) 
+目录下。
