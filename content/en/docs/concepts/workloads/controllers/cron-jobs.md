@@ -32,8 +32,6 @@ The name must be no longer than 52 characters. This is because the CronJob contr
 append 11 characters to the job name provided and there is a constraint that the
 maximum length of a Job name is no more than 63 characters.
 
-
-
 <!-- body -->
 
 ## CronJob
@@ -81,6 +79,14 @@ be down for the same period as the previous example (`08:29:00` to `10:21:00`,) 
 
 The CronJob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
+
+## New controller
+
+There's an alternative implementation of the CronJob controller, available as an alpha feature since Kubernetes 1.20. To select version 2 of the CronJob controller, pass the following [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+
+```
+--feature-gates="CronJobControllerV2=true"
+```
 
 
 ## {{% heading "whatsnext" %}}

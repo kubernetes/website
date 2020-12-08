@@ -52,7 +52,7 @@ setting up a cluster to use an external CA.
 You can use the `check-expiration` subcommand to check when certificates expire:
 
 ```
-kubeadm alpha certs check-expiration
+kubeadm certs check-expiration
 ```
 
 The output is similar to this:
@@ -120,7 +120,7 @@ command. In that case, you should explicitly set `--certificate-renewal=true`.
 
 ## Manual certificate renewal
 
-You can renew your certificates manually at any time with the `kubeadm alpha certs renew` command.
+You can renew your certificates manually at any time with the `kubeadm certs renew` command.
 
 This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`.
 
@@ -129,10 +129,10 @@ If you are running an HA cluster, this command needs to be executed on all the c
 {{< /warning >}}
 
 {{< note >}}
-`alpha certs renew` uses the existing certificates as the authoritative source for attributes (Common Name, Organization, SAN, etc.) instead of the kubeadm-config ConfigMap. It is strongly recommended to keep them both in sync.
+`certs renew` uses the existing certificates as the authoritative source for attributes (Common Name, Organization, SAN, etc.) instead of the kubeadm-config ConfigMap. It is strongly recommended to keep them both in sync.
 {{< /note >}}
 
-`kubeadm alpha certs renew` provides the following options:
+`kubeadm certs renew` provides the following options:
 
 The Kubernetes certificates normally reach their expiration date after one year.
 
@@ -170,14 +170,14 @@ controllerManager:
 
 ### Create certificate signing requests (CSR)
 
-You can create the certificate signing requests for the Kubernetes certificates API with `kubeadm alpha certs renew --use-api`.
+You can create the certificate signing requests for the Kubernetes certificates API with `kubeadm certs renew --use-api`.
 
 If you set up an external signer such as [cert-manager](https://github.com/jetstack/cert-manager), certificate signing requests (CSRs) are automatically approved.
 Otherwise, you must manually approve certificates with the [`kubectl certificate`](/docs/setup/best-practices/certificates/) command.
 The following kubeadm command outputs the name of the certificate to approve, then blocks and waits for approval to occur:
 
 ```shell
-sudo kubeadm alpha certs renew apiserver --use-api &
+sudo kubeadm certs renew apiserver --use-api &
 ```
 The output is similar to this:
 ```
@@ -211,13 +211,13 @@ In kubeadm terms, any certificate that would normally be signed by an on-disk CA
 
 ### Create certificate signing requests (CSR)
 
-You can create certificate signing requests with `kubeadm alpha certs renew --csr-only`.
+You can create certificate signing requests with `kubeadm certs renew --csr-only`.
 
 Both the CSR and the accompanying private key are given in the output.
 You can pass in a directory with `--csr-dir` to output the CSRs to the specified location.
 If `--csr-dir` is not specified, the default certificate directory (`/etc/kubernetes/pki`) is used.
 
-Certificates can be renewed with `kubeadm alpha certs renew --csr-only`.
+Certificates can be renewed with `kubeadm certs renew --csr-only`.
 As with `kubeadm init`, an output directory can be specified with the `--csr-dir` flag.
 
 A CSR contains a certificate's name, domains, and IPs, but it does not specify usages.

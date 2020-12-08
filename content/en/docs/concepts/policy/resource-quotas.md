@@ -3,7 +3,7 @@ reviewers:
 - derekwaynecarr
 title: Resource Quotas
 content_type: concept
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->
