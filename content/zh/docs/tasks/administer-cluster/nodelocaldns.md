@@ -122,9 +122,8 @@ This feature can be enabled using the following steps:
 <!--
 * Prepare a manifest similar to the sample [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) and save it as `nodelocaldns.yaml.`
 -->
-* 准备与示例  [`nodelocaldns.yaml`]
-  (https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) 
-  相似的清单并保存为 `nodelocaldns.yaml 。
+* 准备与示例  [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) 
+  相似的清单并保存为 `nodelocaldns.yaml`。
 <!--
 * Substitute the variables in the manifest with the right values:
 -->
@@ -151,10 +150,10 @@ This feature can be enabled using the following steps:
      sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__/$kubedns/g" nodelocaldns.yaml
      ```
 
-	   <!--
-     `__PILLAR__CLUSTER__DNS__` and `__PILLAR__UPSTREAM__SERVERS__` will be populated by the node-local-dns pods.
-     In this mode, node-local-dns pods listen on both the kube-dns service IP as well as `<node-local-address>`, so pods can lookup DNS records using either IP address.
-	   -->
+	 <!--
+   `__PILLAR__CLUSTER__DNS__` and `__PILLAR__UPSTREAM__SERVERS__` will be populated by the node-local-dns pods.
+   In this mode, node-local-dns pods listen on both the kube-dns service IP as well as `<node-local-address>`, so pods can lookup DNS records using either IP address.
+	 -->
    `__PILLAR__CLUSTER__DNS__` 和 `__PILLAR__UPSTREAM__SERVERS__` 将由 node-local-dns Pods 填充。
    在这种模式下，node-local-dns Pods 会同时监听 kube-dns 服务 IP 和 `<node-local-address>`，
    因此 pods 可以使用任一 IP 地址查找 DNS 记录。
