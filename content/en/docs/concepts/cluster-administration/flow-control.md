@@ -6,7 +6,7 @@ min-kubernetes-server-version: v1.18
 
 <!-- overview -->
 
-{{< feature-state state="alpha"  for_k8s_version="v1.18" >}}
+{{< feature-state state="beta"  for_k8s_version="v1.20" >}}
 
 Controlling the behavior of the Kubernetes API server in an overload situation
 is a key task for cluster administrators. The {{< glossary_tooltip
@@ -37,24 +37,29 @@ Fairness feature enabled.
 
 <!-- body -->
 
-## Enabling API Priority and Fairness
+## Enabling/Disabling API Priority and Fairness
 
 The API Priority and Fairness feature is controlled by a feature gate
-and is not enabled by default.  See
+and is enabled by default.  See
 [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/)
-for a general explanation of feature gates and how to enable and disable them.  The
-name of the feature gate for APF is "APIPriorityAndFairness".  This
-feature also involves an {{< glossary_tooltip term_id="api-group"
-text="API Group" >}} that must be enabled.  You can do these
-things by adding the following command-line flags to your
-`kube-apiserver` invocation:
+for a general explanation of feature gates and how to enable and
+disable them.  The name of the feature gate for APF is
+"APIPriorityAndFairness".  This feature also involves an {{<
+glossary_tooltip term_id="api-group" text="API Group" >}} with: (a) a
+`v1alpha1` version, disabled by default, and (b) a `v1beta1`
+version,  enabled by default.  You can disable the feature
+gate and API group v1beta1 version by adding the following
+command-line flags to your `kube-apiserver` invocation:
 
 ```shell
 kube-apiserver \
---feature-gates=APIPriorityAndFairness=true \
---runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true \
+--feature-gates=APIPriorityAndFairness=false \
+--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=false \
  # …and other flags as usual
 ```
+
+Alternatively, you can enable the v1alpha1 version of the API group
+with `--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=true`.
 
 The command-line flag `--enable-priority-and-fairness=false` will disable the
 API Priority and Fairness feature, even if other flags have enabled it.
@@ -189,12 +194,14 @@ that originate from outside your cluster.
 
 ## Resources
 The flow control API involves two kinds of resources.
-[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io)
+[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta1-flowcontrol-apiserver-k8s-io)
 define the available isolation classes, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
-[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1alpha1-flowcontrol-apiserver-k8s-io)
-are used to classify individual inbound requests, matching each to a single
-PriorityLevelConfiguration.
+[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta1-flowcontrol-apiserver-k8s-io)
+are used to classify individual inbound requests, matching each to a
+single PriorityLevelConfiguration.  There is also a `v1alpha1` version
+of the same API group, and it has the same Kinds with the same syntax and
+semantics.
 
 ### PriorityLevelConfiguration
 A PriorityLevelConfiguration represents a single isolation class. Each
@@ -331,6 +338,13 @@ PriorityLevelConfigurations.
 
 ### Metrics
 
+{{< note >}}
+In versions of Kubernetes before v1.20, the labels `flow_schema` and
+`priority_level` were inconsistently named `flowSchema` and `priorityLevel`,
+respectively. If you're running Kubernetes versions v1.19 and earlier, you
+should refer to the documentation for your version.
+{{< /note >}}
+
 When you enable the API Priority and Fairness feature, the kube-apiserver
 exports additional metrics. Monitoring these can help you determine whether your
 configuration is inappropriately throttling important traffic, or find
@@ -338,8 +352,8 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_rejected_requests_total` is a counter vector
   (cumulative since server start) of requests that were rejected,
-  broken down by the labels `flowSchema` (indicating the one that
-  matched the request), `priorityLevel` (indicating the one to which
+  broken down by the labels `flow_schema` (indicating the one that
+  matched the request), `priority_level` (indicating the one to which
   the request was assigned), and `reason`.  The `reason` label will be
   have one of the following values:
     * `queue-full`, indicating that too many requests were already
@@ -352,8 +366,8 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_dispatched_requests_total` is a counter
   vector (cumulative since server start) of requests that began
-  executing, broken down by the labels `flowSchema` (indicating the
-  one that matched the request) and `priorityLevel` (indicating the
+  executing, broken down by the labels `flow_schema` (indicating the
+  one that matched the request) and `priority_level` (indicating the
   one to which the request was assigned).
 
 * `apiserver_current_inqueue_requests` is a gauge vector of recent
@@ -384,17 +398,17 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
   holding the instantaneous number of queued (not executing) requests,
-  broken down by the labels `priorityLevel` and `flowSchema`.
+  broken down by the labels `priority_level` and `flow_schema`.
 
 * `apiserver_flowcontrol_current_executing_requests` is a gauge vector
   holding the instantaneous number of executing (not waiting in a
-  queue) requests, broken down by the labels `priorityLevel` and
-  `flowSchema`.
+  queue) requests, broken down by the labels `priority_level` and
+  `flow_schema`.
 
 * `apiserver_flowcontrol_priority_level_request_count_samples` is a
   histogram vector of observations of the then-current number of
   requests broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `priorityLevel`.  Each
+  values `waiting` and `executing`) and `priority_level`.  Each
   histogram gets observations taken periodically, up through the last
   activity of the relevant sort.  The observations are made at a high
   rate.
@@ -402,7 +416,7 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_priority_level_request_count_watermarks` is a
   histogram vector of high or low water marks of the number of
   requests broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `priorityLevel`; the label
+  values `waiting` and `executing`) and `priority_level`; the label
   `mark` takes on values `high` and `low`.  The water marks are
   accumulated over windows bounded by the times when an observation
   was added to
@@ -411,7 +425,7 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` is a
   histogram vector of queue lengths for the queues, broken down by
-  the labels `priorityLevel` and `flowSchema`, as sampled by the
+  the labels `priority_level` and `flow_schema`, as sampled by the
   enqueued requests.  Each request that gets queued contributes one
   sample to its histogram, reporting the length of the queue just
   after the request was added.  Note that this produces different
@@ -428,12 +442,12 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_request_concurrency_limit` is a gauge vector
   holding the computed concurrency limit (based on the API server's
   total concurrency limit and PriorityLevelConfigurations' concurrency
-  shares), broken down by the label `priorityLevel`.
+  shares), broken down by the label `priority_level`.
 
 * `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
   vector of how long requests spent queued, broken down by the labels
-  `flowSchema` (indicating which one matched the request),
-  `priorityLevel` (indicating the one to which the request was
+  `flow_schema` (indicating which one matched the request),
+  `priority_level` (indicating the one to which the request was
   assigned), and `execute` (indicating whether the request started
   executing).
     {{< note >}}
@@ -445,8 +459,8 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_request_execution_seconds` is a histogram
   vector of how long requests took to actually execute, broken down by
-  the labels `flowSchema` (indicating which one matched the request)
-  and `priorityLevel` (indicating the one to which the request was
+  the labels `flow_schema` (indicating which one matched the request)
+  and `priority_level` (indicating the one to which the request was
   assigned).
 
 ### Debug endpoints
@@ -515,4 +529,3 @@ For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
 You can make suggestions and feature requests via [SIG API
 Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
-

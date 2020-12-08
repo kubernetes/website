@@ -51,19 +51,65 @@ The hint is then stored in the Topology Manager for use by the *Hint Providers* 
 
 Support for the Topology Manager requires `TopologyManager` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It is enabled by default starting with Kubernetes 1.18.
 
-### Topology Manager Policies
+## Topology Manager Scopes and Policies
 
 The Topology Manager currently:
-
  - Aligns Pods of all QoS classes.
  - Aligns the requested resources that Hint Provider provides topology hints for.
 
-If these conditions are met, Topology Manager will align the requested resources.
+If these conditions are met, the Topology Manager will align the requested resources.
+
+In order to customise how this alignment is carried out, the Topology Manager provides two distinct knobs: `scope` and `policy`.
+
+The `scope` defines the granularity at which you would like resource alignment to be performed (e.g. at the `pod` or `container` level). And the `policy` defines the actual strategy used to carry out the alignment (e.g. `best-effort`, `restricted`, `single-numa-node`, etc.).
+
+Details on the various `scopes` and `policies` available today can be found below.
 
 {{< note >}}
 To align CPU resources with other requested resources in a Pod Spec, the CPU Manager should be enabled and proper CPU Manager policy should be configured on a Node. See [control CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 {{< /note >}}
 
+### Topology Manager Scopes
+
+The Topology Manager can deal with the alignment of resources in a couple of distinct scopes:
+
+* `container` (default)
+* `pod`
+
+Either option can be selected at a time of the kubelet startup, with `--topology-manager-scope` flag.
+
+### container scope
+
+The `container` scope is used by default.
+
+Within this scope, the Topology Manager performs a number of sequential resource alignments, i.e., for each container (in a pod) a separate alignment is computed. In other words, there is no notion of grouping the containers to a specific set of NUMA nodes, for this particular scope. In effect, the Topology Manager performs an arbitrary alignment of individual containers to NUMA nodes.
+
+The notion of grouping the containers was endorsed and implemented on purpose in the following scope, for example the `pod` scope.
+
+### pod scope
+
+To select the `pod` scope, start the kubelet with the command line option `--topology-manager-scope=pod`.
+
+This scope allows for grouping all containers in a pod to a common set of NUMA nodes. That is, the Topology Manager treats a pod as a whole and attempts to allocate the entire pod (all containers) to either a single NUMA node or a common set of NUMA nodes. The following examples illustrate the alignments produced by the Topology Manager on different occasions:
+
+* all containers can be and are allocated to a single NUMA node;
+* all containers can be and are allocated to a shared set of NUMA nodes.
+
+The total amount of particular resource demanded for the entire pod is calculated according to [effective requests/limits](/docs/concepts/workloads/pods/init-containers/#resources) formula, and thus, this total value is equal to the maximum of:
+* the sum of all app container requests,
+* the maximum of init container requests,
+for a resource.
+
+Using the `pod` scope in tandem with `single-numa-node` Topology Manager policy is specifically valuable for workloads that are latency sensitive or for high-throughput applications that perform IPC. By combining both options, you are able to place all containers in a pod onto a single NUMA node; hence, the inter-NUMA communication overhead can be eliminated for that pod.
+
+In the case of `single-numa-node` policy, a pod is accepted only if a suitable set of NUMA nodes is present among possible allocations. Reconsider the example above:
+
+* a set containing only a single NUMA node - it leads to pod being admitted,
+* whereas a set containing more NUMA nodes - it results in pod rejection (because instead of one NUMA node, two or more NUMA nodes are required to satisfy the allocation).
+
+To recap, Topology Manager first computes a set of NUMA nodes and then tests it against Topology Manager policy, which either leads to the rejection or admission of the pod.
+
+### Topology Manager Policies
 
 Topology Manager supports four allocation policies. You can set a policy via a Kubelet flag, `--topology-manager-policy`.
 There are four supported policies:
@@ -72,6 +118,10 @@ There are four supported policies:
 * `best-effort`
 * `restricted`
 * `single-numa-node`
+
+{{< note >}}
+If Topology Manager is configured with the **pod** scope, the container, which is considered by the policy, is reflecting requirements of the entire pod, and thus each container from the pod will result with **the same** topology alignment decision.
+{{< /note >}}
 
 ### none policy {#policy-none}
 

@@ -149,7 +149,7 @@ exit
 
 ## Configure volume permission and ownership change policy for Pods
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
 By default, Kubernetes recursively changes ownership and permissions for the contents of each
 volume to match the `fsGroup` specified in a Pod's `securityContext` when that volume is
