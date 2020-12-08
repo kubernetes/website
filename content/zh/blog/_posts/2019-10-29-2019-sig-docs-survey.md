@@ -43,7 +43,7 @@ diagrams in the Concepts, Tasks, and Reference sections.
 69.70% said the Kubernetes documentation is the first place they look for
 information about Kubernetes.
 -->
-69.70% 的受访者认为 Kubernetes 文档是他们首先寻找方关于 Kubernetes 资料的地方。
+69.70% 的受访者认为 Kubernetes 文档是他们首要寻找关于 Kubernetes 资料的地方。
 
 <!--
 # Survey methodology and respondents
@@ -98,7 +98,7 @@ The majority of respondents stated that they access the documentation for the Co
 
 {{< figure
     src="/images/blog/2019-sig-docs-survey/Q9-k8s-docs-use.png"
-    alt="受访者为什么访问 Kubernetes 文档 "
+    alt="受访者为什么访问 Kubernetes 文档"
 >}}
 
 <!--
@@ -155,7 +155,7 @@ example code, more detailed content, more diagrams, and advanced tutorials:
 ```text
 - 就个人而言，希望看到更多的类比，以帮助进一步理解。
 - 如果代码的相应部分也能解释一下就好了
-- 通过扩展概念把它们融合在一起——它们现在宛如在一桶水内朝各个方向游动的一个个鳗鱼。
+- 通过扩展概念把它们融合在一起 - 它们现在宛如在一桶水内朝各个方向游动的一条条鳗鱼。
 - 更多的图表，更多的示例代码
 ```
 
@@ -190,7 +190,7 @@ Respondents used the "Other" text box to record areas causing frustration:
 We asked respondents how we can improve the Kubernetes documentation
 overall. Some took the opportunity to tell us we are doing a good job:
 -->
-我们询问受访者如何从整体上改进Kubernetes文档。一些人抓住这次机会告诉我们我们正在做一个很棒的
+我们询问受访者如何从整体上改进 Kubernetes 文档。一些人抓住这次机会告诉我们我们正在做一个很棒的
 工作：
 
 <!--
@@ -253,7 +253,7 @@ A few respondents provided technical suggestions:
 <!--
 - For most, I think creating documentation with Hugo - a system for static site generation - is not appropriate. There are better systems for documenting large software project. 
 -->
-- 对于大多数人来说，我认为用Hugo（一个静态站点生成系统）创建文档是不合适的。有更好的系统来记录大型软件项目。
+- 对于大多数人来说，我认为用 Hugo - 一个静态站点生成系统 - 创建文档是不合适的。有更好的系统来记录大型软件项目。
 
 <!--
 Specifically, I would like to see k8s switch to Sphinx for documentation. It has an excellent built-in search, it is easy tolearn if you know markdown, it is widely adopted by other projects (e.g. every software project in readthedocs.io, linux kernel, docs.python.org etc).
