@@ -424,7 +424,7 @@ etcd 支持从 [major.minor](http://semver.org/) 或其他不同 patch 版本的
 - 在所有 etcd 实例中恢复状态
 - 重启所有 kube-apiserver 实例
 
-我们还建议任何组件（例如 kube-scheduler，kube-controller-manager，kubelet），以确保它们不会
+我们还建议重启所有组件（例如 kube-scheduler、kube-controller-manager、kubelet），以确保它们不会
 依赖一些过时的数据。请注意，实际中还原会花费一些时间。
 在还原过程中，关键组件将丢失领导锁并自行重启。
 {{< note >}}
@@ -498,5 +498,4 @@ See ["kube-apiserver 1.13.x refuses to work when first etcd-server is not availa
 要紧急修复 Kubernetes 1.15 或更早版本的此错误，请构建一个自定义的 kube-apiserver 。 您可以使用[`vendor/google.golang.org/grpc/credentials/credentials.go`](https://github.com/kubernetes/kubernetes/blob/7b85be021cd2943167cd3d6b7020f44735d9d90b/vendor/google.golang.org/grpc/credentials/credentials.go#L135) 和 [etcd@db61ee106](https://github.com/etcd-io/etcd/pull/10911/commits/db61ee106ca9363ba3f188ecf27d1a8843da33ab) 来进行本地更改。
 
 请看  ["kube-apiserver 1.13.x refuses to work when first etcd-server is not available"](https://github.com/kubernetes/kubernetes/issues/72102). 
-
 
