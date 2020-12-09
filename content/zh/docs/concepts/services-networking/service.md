@@ -84,7 +84,7 @@ To learn about other ways to define Service endpoints,
 see [Services _without_ selectors](#services-without-selectors).
 -->
 Kubernetes Service 定义了这样一种抽象：逻辑上的一组 Pod，一种可以访问它们的策略 —— 通常称为微服务。
-这一组 Pod 能够被 Service 访问到，通常是通过 {{< glossary_tooltip text="选择算符" term_id="selector" >}}
+Service 所针对的 Pods 集合通常是通过{{< glossary_tooltip text="选择算符" term_id="selector" >}}来确定的。
 要了解如何定义服务端点，请参阅[不带选择算符的服务](#services-without-selectors)。
 
 <!--
