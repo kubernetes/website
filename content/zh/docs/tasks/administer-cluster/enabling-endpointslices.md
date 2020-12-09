@@ -50,13 +50,15 @@ EndpointSlice （端点切片）为 Kubernetes Endpoints 提供了可伸缩和�
 
 {{< note >}}
 <!--
-Although EndpointSlices may eventually replace Endpoints, many Kubernetes
-components still rely on Endpoints. For now, enabling EndpointSlices should be
-seen as an addition to Endpoints in a cluster, not a replacement for them.
+The EndpointSlice resource was designed to address shortcomings in a earlier
+resource: Endpoints. Some Kubernetes components and third-party applications
+continue to use and rely on Endpoints. Whilst that remains the case,
+EndpointSlices should be seen as an addition to Endpoints in a cluster, not as
+an outright replacement.
 -->
-尽管 EndpointSlice 最终可能会取代 Endpoints，但许多 Kubernetes 组件仍然依赖于
-Endpoints。目前，启用 EndpointSlice 应该被视为集群中 Endpoints 的补充，而不是
-替代它们。
+EndpointSlice 资源旨在解决较早资源：Endpoints 中的缺点。一些 Kubernetes 组件和第三方应用程序
+继续使用并依赖 Endpoints。虽然仍然如此，应该将 EndpointSlices 视为集群中 Endpoints 的补充，而不是
+彻底替代。
 {{< /note >}}
 
 <!--
@@ -112,19 +114,48 @@ Kubernetes 中的 EndpointSlice 功能包含若干不同组件。它们中的大
   `WindowsEndpointSliceProxying`
   [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 
+
+<!--
+## API fields
+
+Some fields in the EndpointSlice API are feature-gated.
+
+- The `EndpointSliceNodeName` feature gate controls access to the `nodeName`
+  field. This is an alpha feature that is disabled by default.
+- The `EndpointSliceTerminating` feature gate controls access to the `serving`
+  and `terminating` condition fields. This is an alpha feature that is disabled
+  by default.
+-->
+## API 字段
+
+EndpointSlice API 中的某些字段具有特征门控。
+
+- `EndpointSliceNodeName` 特征门控控制对 `nodeName` 字段的访问。这是默认情况下禁用的 Alpha 功能。
+- `EndpointSliceTerminating` 特征门控控制对 `serving` 和 `terminating` 条件字段的访问。这是默认情况下禁用的 Alpha 功能。
+
 <!--
 ## Using Endpoint Slices
 
 With EndpointSlices fully enabled in your cluster, you should see corresponding
 EndpointSlice resources for each Endpoints resource. In addition to supporting
-existing Endpoints functionality, EndpointSlices include new bits of information
-such as topology. They will allow for greater scalability and extensibility of
-network endpoints in your cluster.
+existing Endpoints functionality, EndpointSlices will allow for greater
+scalability and extensibility of network endpoints in your cluster.
 -->
 ## 使用 EndpointSlice
 
 在集群中完全启用 EndpointSlice 的情况下，你应该看到对应于每个
 Endpoints 资源的 EndpointSlice 资源。除了支持现有的 Endpoints 功能外，
-EndpointSlice 还引入了拓扑结构等新的信息。它们将使集群中网络端点具有更强的
-可伸缩性和可扩展性。
+EndpointSlices 将允许集群中网络端点更大的的可伸缩性和可扩展性。
 
+<!--
+## {{% heading "whatsnext" %}}
+
+
+* Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
+* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+-->
+## {{% heading "whatsnext" %}}
+
+
+* 参阅 [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
+* 参阅 [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
