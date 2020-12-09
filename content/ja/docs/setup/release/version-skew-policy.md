@@ -138,7 +138,7 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 ### kube-proxy
 
 * `kube-proxy`のマイナーバージョンはノード上の`kubelet`と同じマイナーバージョンでなければなりません
-* `kube-proxy`は `kube-apiserver`よりも新しいものであってはなりません
+* `kube-proxy`は`kube-apiserver`よりも新しいものであってはなりません
 * `kube-proxy` のマイナーバージョンは`kube-apiserver`のマイナーバージョンよりも2つ以上古いものでなければなりません
 
 例:
