@@ -1,5 +1,5 @@
 ---
-title: “ SIG 网络：1.3版中引入的 Kubernetes 网络策略 API ”
+title: “SIG-Networking：1.3 版本引入 Kubernetes 网络策略 API”
 date: 2016-04-18
 slug: kubernetes-network-policy-apis
 url: /zh/blog/2016/04/Kubernetes-Network-Policy-APIs
@@ -15,77 +15,68 @@ url: /blog/2016/04/Kubernetes-Network-Policy-APIs
 <!--
 _Editor’s note: This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the Network-SIG team describing network policy APIs coming in 1.3 - policies for security, isolation and multi-tenancy._  
 -->
-_编者注：本周我们将推出[ Kubernetes 特殊兴趣小组](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs))；
-今天的帖子由 Network-SIG 团队描述，其中介绍了1.3版中的网络策略 API-安全，隔离和多租户策略。
+_编者注：本周我们将推出[ Kubernetes 特殊兴趣小组](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs))、
+Network-SIG 小组今天的帖子描述了 1.3 版中的网络策略 API-安全，隔离和多租户策略。_
 
 
 <!--
 The [Kubernetes network SIG](https://kubernetes.slack.com/messages/sig-network/) has been meeting regularly since late last year to work on bringing network policy to Kubernetes and we’re starting to see the results of this effort.  
 -->
-自去年下半年以来，[Kubernetes 网络 SIG](https://kubernetes.slack.com/messages/sig-network/) 一直在定期开会，致力于将网络策略引入 Kubernetes，我们开始看到这个努力的结果。
+自去年下半年以来，[Kubernetes SIG-Networking](https://kubernetes.slack.com/messages/sig-network/) 一直在定期开会，致力于将网络策略引入 Kubernetes，我们开始看到这个努力的结果。
 
 <!--
 One problem many users have is that the open access network policy of Kubernetes is not suitable for applications that need more precise control over the traffic that accesses a pod or service. Today, this could be a multi-tier application where traffic is only allowed from a tier’s neighbor. But as new Cloud Native applications are built by composing microservices, the ability to control traffic as it flows among these services becomes even more critical.  
 -->
 许多用户面临的一个问题是，Kubernetes 的开放访问网络策略不适用于需要对访问容器或服务的流量进行更精确控制的应用程序。
-如今，这可能是一个多层应用程序，其中仅允许来自某个层的邻居的流量。
-但是，随着通过组合微服务构建新的 Cloud Native 应用程序，控制流量在这些服务之间流动时对其进行控制的能力变得更加关键。
+如今，这种应用可能是多层应用，其中仅允许来自某个相邻层的流量。
+但是，随着新的云原生应用不断通过组合微服务构建出来，对服务间流动的数据进行控制的能力变得更加重要。
 
 <!--
 In most IaaS environments (both public and private) this kind of control is provided by allowing VMs to join a ‘security group’ where traffic to members of the group is defined by a network policy or Access Control List (ACL) and enforced by a network packet filter.  
 -->
-在大多数 IaaS 环境（公共和私有）中，通过允许VM加入“安全组”来提供这种控制，其中“安全组”的流量由网络策略或访问控制列表（ ACL ）定义，并由网络数据包过滤器实施。
+在大多数 IaaS 环境（公共和私有）中，通过允许 VM 加入“安全组（Security Group）”来提供这种控制，
+其中“安全组”成员的流量由网络策略或访问控制列表（ ACL ）定义，并由网络数据包过滤器实施。
 
 <!--
 The Network SIG started the effort by identifying [specific use case scenarios](https://docs.google.com/document/d/1blfqiH4L_fpn33ZrnQ11v7LcYP0lmpiJ_RaapAPBbNU/edit?pref=2&pli=1#) that require basic network isolation for enhanced security. Getting the API right for these simple and common use cases is important because they are also the basis for the more sophisticated network policies necessary for multi-tenancy within Kubernetes.
 -->
-Network SIG通过确定需要特定网络隔离以增强安全性的[特定用例场景](https://docs.google.com/document/d/1blfqiH4L_fpn33ZrnQ11v7LcYP0lmpiJ_RaapAPBbNU/edit?pref=2&pli=1#)，开始了这项工作。
-使这些API适用于这些简单和常见的用例非常重要，因为它们也是 Kubernetes 内多租户必需的更复杂的网络策略的基础。
+SIG-Networking 开始这项工作时的第一步是辩识需要特定网络隔离以增强安全性的
+[特定用例场景](https://docs.google.com/document/d/1blfqiH4L_fpn33ZrnQ11v7LcYP0lmpiJ_RaapAPBbNU/edit?pref=2&pli=1#)。
+确保所定义的 API 适用于这些简单和常见的用例非常重要，因为它们为在 Kubernetes 内
+实现更复杂的网络策略以支持多租户奠定了基础。
 
 <!--
 From these scenarios several possible approaches were considered and a minimal [policy specification](https://docs.google.com/document/d/1qAm-_oSap-f1d6a-xRTj6xaH1sYQBfK36VyjB5XOZug/edit) was defined. The basic idea is that if isolation were enabled on a per namespace basis, then specific pods would be selected where specific traffic types would be allowed.  
 -->
-从这些场景中，考虑了几种可能的方法，并定义了一个最小的[策略规范](https://docs.google.com/document/d/1qAm-_oSap-f1d6a-xRTj6xaH1sYQBfK36VyjB5XOZug/edit) 。
-基本思想是，如果在每个命名空间的基础上启用隔离，则将在允许特定流量类型的位置选择特定的容器。
+基于这些场景，团队考虑了几种可能的方法，并定义了一个最小的
+[策略规范](https://docs.google.com/document/d/1qAm-_oSap-f1d6a-xRTj6xaH1sYQBfK36VyjB5XOZug/edit) 。
+基本思想是，如果按命名空间启用了隔离，则特定流量类型被允许时会选择特定的 Pods。
 
 <!--
 The simplest way to quickly support this experimental API is in the form of a ThirdPartyResource extension to the API Server, which is possible today in Kubernetes 1.2. 
 -->
-快速支持此实验性 API 的最简单方法是对 API 服务器的 ThirdPartyResource 扩展，今天在 Kubernetes 1.2中就可以实现。
+快速支持此实验性 API 的最简单方法是对 API 服务器的 ThirdPartyResource 扩展，今天在 Kubernetes 1.2 中就可以实现。
 
 <!--
 If you’re not familiar with how this works, the Kubernetes API can be extended by defining ThirdPartyResources that create a new API endpoint at a specified URL.  
 -->
-如果您不熟悉它的工作方式，则可以通过定义 ThirdPartyResources 来扩展 Kubernetes API ，ThirdPartyResources 在指定的URL上创建一个新的API端点。
+如果您不熟悉它的工作方式，则可以通过定义 ThirdPartyResources 来扩展 Kubernetes API ，ThirdPartyResources 在指定的 URL 上创建一个新的 API 端点。
 
 #### third-party-res-def.yaml 
 
 ```
 kind: ThirdPartyResource
-
 apiVersion: extensions/v1beta1
-
 metadata:
-
- &nbsp;name: network-policy.net.alpha.kubernetes.io
-
+name: network-policy.net.alpha.kubernetes.io
 description: "Network policy specification"
-
 versions:
-
 - name: v1alpha1
  ```
-
-
-
 
 ```
 $kubectl create -f third-party-res-def.yaml
  ```
-
-
-
-
 
 <!--
 This will create an API endpoint (one for each namespace):
@@ -107,7 +98,7 @@ This will create an API endpoint (one for each namespace):
 Third party network controllers can now listen on these endpoints and react as necessary when resources are created, modified or deleted. _Note: With the upcoming release of Kubernetes 1.3 - when the Network Policy API is released in beta form - there will be no need to create a ThirdPartyResource API endpoint as shown above._&nbsp;
 -->
 第三方网络控制器现在可以在这些端点上进行侦听，并在创建，修改或删除资源时根据需要做出反应。
-_注意：在即将发布的 Kubernetes 1.3 版本中-当网络政策 API 以 beta 形式发布时-无需创建如上所示的 ThirdPartyResource API 端点。_&nbsp;
+_注意：在即将发布的 Kubernetes 1.3 版本中-当网络政策 API 以 beta 形式发布时-无需创建如上所示的 ThirdPartyResource API 端点。_
 
 
 <!--
@@ -120,7 +111,7 @@ Network isolation is off by default so that all pods can communicate as they nor
 <!--
 Network isolation is enabled by defining the _network-isolation_ annotation on namespaces as shown below:
 -->
-通过在名称空间上定义 _network-isolation_ 注释来启用网络隔离，如下所示：
+通过在名称空间上定义 _network-isolation_ 注解来启用网络隔离，如下所示：
 
 
 
@@ -134,7 +125,7 @@ net.alpha.kubernetes.io/network-isolation: [on | off]
 <!--
 Once network isolation is enabled, explicit network policies **must be applied** to enable pod communication.
 -->
-启用网络隔离后，**必须应用**显式网络策略才能启用容器通信。
+启用网络隔离后，**必须应用**显式网络策略才能启用 Pod 通信。
 
 <!--
 A policy specification can be applied to a namespace to define the details of the policy as shown below:
@@ -187,8 +178,8 @@ POST /apis/net.alpha.kubernetes.io/v1alpha1/namespaces/tenant-a/networkpolicys/
 <!--
 In this example, the ‘ **tenant-a** ’ namespace would get policy ‘ **pol1** ’ applied as indicated. Specifically, pods with the **segment** label ‘ **backend** ’ would allow TCP traffic on port 80 from pods with the **segment** label ‘ **frontend** ’ to be received.
 -->
-在此示例中，‘ ** tenant-a **’名称空间将按照指示应用策略‘ ** pol1 **’。
-具体而言，带有** segment **标签‘ **后端**’的容器将允许接收来自带有“ segment **标签‘ ** frontend **’的容器的端口80上的TCP流量。
+在此示例中，‘ **tenant-a** ’名称空间将按照指示应用策略‘ **pol1** ’。
+具体而言，带有**segment**标签 ‘ **后端** ’ 的容器将允许接收来自带有“segment**标签‘ **frontend** ’的容器的端口80上的TCP流量。
 
 
 
@@ -250,7 +241,7 @@ If you’re interested in Kubernetes and networking, there are several ways to p
 <!--
 - Our [Networking slack channel](https://kubernetes.slack.com/messages/sig-network/)&nbsp;
 -->
-- 我们的 [网络闲置频道](https://kubernetes.slack.com/messages/sig-network/)&nbsp;
+- 我们的 [Networking Slack 频道](https://kubernetes.slack.com/messages/sig-network/)&nbsp;
 <!--
 - Our [Kubernetes 网络特别兴趣小组](https://groups.google.com/forum/#!forum/kubernetes-sig-network) email list&nbsp;
 -->
@@ -260,7 +251,7 @@ If you’re interested in Kubernetes and networking, there are several ways to p
 <!--
 The Networking “Special Interest Group,” which meets bi-weekly at 3pm (15h00) Pacific Time at [SIG-Networking hangout](https://zoom.us/j/5806599998).&nbsp;
 -->
-网络“特殊兴趣小组”，每两周一次，在太平洋时间太平洋时间下午3点（15：00）在[ SIG -网络环聊](https://zoom.us/j/5806599998)开会。&nbsp;
+网络“特殊兴趣小组”，每两周一次，在太平洋时间下午 3 点（15：00）在[SIG-Networking 环聊](https://zoom.us/j/5806599998)开会。&nbsp;
 
 
 <!--
