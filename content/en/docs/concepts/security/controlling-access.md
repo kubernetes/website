@@ -28,7 +28,7 @@ a private certificate authority (CA), or based on a public key infrastructure li
 to a generally recognized CA.
 
 If your cluster uses a private certificate authority, you need a copy of that CA
-certifcate configured into your `~/.kube/config` on the client, so that you can
+certificate configured into your `~/.kube/config` on the client, so that you can
 trust the connection and be confident it was not intercepted.
 
 Your client can present a TLS client certificate at this stage.
