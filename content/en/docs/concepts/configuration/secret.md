@@ -725,6 +725,11 @@ The output is similar to:
 1f2d1e2e67df
 ```
 
+#### Environment variables are not updated after a secret update
+
+If a container already consumes a Secret in an environment variable, a Secret update will not be seen by the container unless it is restarted.
+There are third party solutions for triggering restarts when secrets change.
+
 ## Immutable Secrets {#secret-immutable}
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
