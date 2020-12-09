@@ -97,7 +97,7 @@ Follow the steps given below to create the above Deployment:
 
    Notice how the number of desired replicas is 3 according to `.spec.replicas` field.
 
-3. To see the Deployment rollout status, run `kubectl rollout status deployment.v1.apps/nginx-deployment`.
+3. To see the Deployment rollout status, run `kubectl rollout status deployment/nginx-deployment`.
 
    The output is similar to:
    ```
@@ -196,7 +196,7 @@ Follow the steps given below to update your Deployment:
 2. To see the rollout status, run:
 
     ```shell
-    kubectl rollout status deployment.v1.apps/nginx-deployment
+    kubectl rollout status deployment/nginx-deployment
     ```
 
     The output is similar to this:
@@ -374,7 +374,7 @@ rolled back.
 * The rollout gets stuck. You can verify it by checking the rollout status:
 
     ```shell
-    kubectl rollout status deployment.v1.apps/nginx-deployment
+    kubectl rollout status deployment/nginx-deployment
     ```
 
     The output is similar to this:
@@ -852,7 +852,7 @@ You can check if a Deployment has completed by using `kubectl rollout status`. I
 successfully, `kubectl rollout status` returns a zero exit code.
 
 ```shell
-kubectl rollout status deployment.v1.apps/nginx-deployment
+kubectl rollout status deployment/nginx-deployment
 ```
 The output is similar to this:
 ```
@@ -999,7 +999,7 @@ You can check if a Deployment has failed to progress by using `kubectl rollout s
 returns a non-zero exit code if the Deployment has exceeded the progression deadline.
 
 ```shell
-kubectl rollout status deployment.v1.apps/nginx-deployment
+kubectl rollout status deployment/nginx-deployment
 ```
 The output is similar to this:
 ```
