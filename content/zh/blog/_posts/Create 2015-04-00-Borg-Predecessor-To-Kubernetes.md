@@ -102,7 +102,7 @@ Kubernetes supports more flexible collections than Borg by organizing pods using
 <!--
 4) IP-per-Pod. In Borg, all tasks on a machine use the IP address of that host, and thus share the host’s port space. While this means Borg can use a vanilla network, it imposes a number of burdens on infrastructure and application developers: Borg must schedule ports as a resource; tasks must pre-declare how many ports they need, and take as start-up arguments which ports to use; the Borglet (node agent) must enforce port isolation; and the naming and RPC systems must handle ports as well as IP addresses.
 -->
-4) 每一个 IP 的 Pod 。在 Borg 中，计算机上的所有任务都使用该主机的IP地址，从而共享主机的端口空间。
+4) 每个 Pod 一个 IP。在 Borg 中，计算机上的所有任务都使用该主机的IP地址，从而共享主机的端口空间。
 虽然这意味着Borg可以使用普通网络，但是它给基础结构和应用程序开发人员带来了许多负担：Borg必须将端口作为资源进行调度；任务必须预先声明它们需要多少个端口，并将要使用的端口作为启动参数；Borglet（节点代理）必须强制端口隔离；命名和 RPC 系统必须处理端口以及 IP 地址。
 
 
