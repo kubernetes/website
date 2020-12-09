@@ -27,7 +27,7 @@ It's possible nowadays to put almost any application in a container and run it. 
 <!--
 I've outlined [seven principles][1]for containerized applications to follow in order to be fully cloud-native.   
 -->
-如今，可以将几乎所有应用程序放入我概述的[七个原理] [1]的容器中，以使容器化应用程序完全遵循云原生。
+我总结了容器化应用要成为彻底的云原生应用所要遵从的[七个原则][1]。
 
 | ----- |
 | ![][2]  |
