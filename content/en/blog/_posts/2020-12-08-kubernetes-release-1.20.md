@@ -28,6 +28,7 @@ The `kubectl alpha debug` features graduates to beta in 1.20, becoming `kubectl 
 * Troubleshoot workloads that crash on startup by creating a copy of the pod that uses a different container image or command.
 * Troubleshoot distroless containers by adding a new container with debugging tools, either in a new copy of the pod or using an ephemeral container. (Ephemeral containers are an alpha feature that are not enabled by default.)
 * Troubleshoot on a node by creating a container running in the host namespaces and with access to the host’s filesystem.
+
 Note that as a new built-in command, `kubectl debug` takes priority over any kubectl plugin named “debug”. You must rename the affected plugin.
 
 Invocations using `kubectl alpha debug` are now deprecated and will be removed in a subsequent release. Update your scripts to use `kubectl debug`. For more information about `kubectl debug`, see [Debugging Running Pods](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/).
