@@ -134,10 +134,11 @@ here because `kubectl run` does not enable [process namespace sharing](
 creates.
 
 {{< note >}}
-The `--target` parameter must be supported by the {{< glossary_tooltip
-text="Container Runtime" term_id="container-runtime" >}}. When not supported,
-the Ephemeral Container may not be started, or it may be started with an
-isolated process namespace.
+The `--target` parameter requires {{< glossary_tooltip text="kubelet"
+term_id="kubelet" >}} version `v1.18` or later and must be supported by the
+{{< glossary_tooltip text="Container Runtime" term_id="container-runtime" >}}.
+If these requirements are not met the Ephemeral Container may not start, or
+it may start with an isolated process namespace.
 {{< /note >}}
 
 You can view the state of the newly created ephemeral container using `kubectl describe`:
