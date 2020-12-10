@@ -18,7 +18,7 @@ This section of the Kubernetes documentation contains references.
 
 ## API Reference
 
-* [Kubernetes API Reference {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [API Reference for Kubernetes v{{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [Using The Kubernetes API](/docs/reference/using-api/) - overview of the API for Kubernetes.
 
 ## API Client Libraries
