@@ -80,6 +80,12 @@ point to the CA certificate and key.
 否则, kubeadm 将独立运行 controller-manager，附加一个 `--controllers=csrsigner`
 的参数，并且指明 CA 证书和密钥。
 
+<!--
+[PKI certificates and requirements](/docs/setup/best-practices/certificates/) includes guidance on
+setting up a cluster to use an external CA.
+-->
+[PKI 证书和要求](/zh/docs/setup/best-practices/certificates/)包括关于用外部 CA 设置集群的指南。
+
 <!-- 
 ## Check certificate expiration 
 
@@ -448,4 +454,3 @@ kubeadm 并不直接支持对 CA 证书的轮换或者替换。
 
 关于手动轮换或者置换 CA 的更多信息，可参阅
 [手动轮换 CA 证书](/zh/docs/tasks/tls/manual-rotation-of-ca-certificates/)。
-
