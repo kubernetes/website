@@ -130,8 +130,8 @@ Some fields in the EndpointSlice API are feature-gated.
 
 EndpointSlice API 中的某些字段有对应的特性门控控制。
 
-- `EndpointSliceNodeName` 特征门控控制对 `nodeName` 字段的访问。这是默认情况下禁用的 Alpha 功能。
-- `EndpointSliceTerminating` 特征门控控制对 `serving` 和 `terminating` 状况字段的访问。这是默认情况下禁用的 Alpha 功能。
+- `EndpointSliceNodeName` 特性门控控制对 `nodeName` 字段的访问。这是默认情况下禁用的 Alpha 功能。
+- `EndpointSliceTerminating` 特性门控控制对 `serving` 和 `terminating` 状况字段的访问。这是默认情况下禁用的 Alpha 功能。
 
 <!--
 ## Using Endpoint Slices
@@ -145,7 +145,7 @@ scalability and extensibility of network endpoints in your cluster.
 
 在集群中完全启用 EndpointSlice 的情况下，你应该看到对应于每个
 Endpoints 资源的 EndpointSlice 资源。除了支持现有的 Endpoints 功能外，
-EndpointSlices 将允许集群中网络端点更大的的可伸缩性和可扩展性。
+EndpointSlices 将允许集群中网络端点更好的可伸缩性和可扩展性。
 
 <!--
 ## {{% heading "whatsnext" %}}
@@ -158,4 +158,4 @@ EndpointSlices 将允许集群中网络端点更大的的可伸缩性和可扩�
 
 
 * 参阅 [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
-* 参阅 [将应用程序与服务连接](/docs/concepts/services-networking/connect-applications-service/)
+* 参阅[将应用程序与服务连接](/docs/concepts/services-networking/connect-applications-service/)
