@@ -57,7 +57,7 @@ EndpointSlices should be seen as an addition to Endpoints in a cluster, not as
 an outright replacement.
 -->
 EndpointSlice 资源旨在解决较早资源：Endpoints 中的缺点。一些 Kubernetes 组件和第三方应用程序
-继续使用并依赖 Endpoints。虽然仍然如此，应该将 EndpointSlices 视为集群中 Endpoints 的补充，而不是
+继续使用并依赖 Endpoints。既然情况如此，应该将 EndpointSlices 视为集群中 Endpoints 的补充，而不是
 彻底替代。
 {{< /note >}}
 
