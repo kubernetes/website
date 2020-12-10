@@ -58,12 +58,12 @@ These seven principles cover both build time and runtime concerns.
 <!--
 * **Image Immutability:** Containerized applications are meant to be immutable, and once built are not expected to change between different environments.
 -->
-* **图像不可变性：** 容器化应用程序是不可变的，并且一旦构建，就不会在不同环境之间发生变化。
+* **镜像不可变性：** 容器化应用程序是不可变的，并且一旦构建，就不会在不同环境之间发生变化。
 
 <!--
 ####  Runtime
 -->
-####  运行
+####  运行时
 
 <!--
 * **High Observability:** Every container must implement all necessary APIs to help the platform observe and manage the application in the best way possible.
@@ -76,12 +76,12 @@ These seven principles cover both build time and runtime concerns.
 <!--
 * **Process Disposability:** Containerized applications must be as ephemeral as possible and ready to be replaced by another container instance at any point in time.
 -->
-* **过程可处置性：** 容器化的应用程序必须尽可能短暂，并随时可以被另一个容器实例替换。
+* **进程可丢弃：** 容器化的应用程序必须尽可能短暂，并随时可以被另一个容器实例替换。
 <!--
 * **Runtime Confinement:** Every container must declare its resource requirements and restrict resource use to the requirements indicated.
 The build time principles ensure that containers have the right granularity, consistency, and structure in place. The runtime principles dictate what functionalities must be implemented in order for containerized applications to possess cloud-native function. Adhering to these principles helps ensure that your applications are suitable for automation in Kubernetes.
 -->
-* **运行时限性** 每个容器必须声明其资源要求，并将资源使用限制为指示的要求。
+* **运行时可约束** 每个容器必须声明其资源需求，并根据所标明的需求限制其资源使用。
 构建时间原则可确保容器具有正确的颗粒度，一致性和适当的结构。
 运行时原则规定了必须执行哪些功能才能使容器化的应用程序具有云原生功能。
 遵循这些原则有助于确保您的应用程序适合Kubernetes中的自动化。
