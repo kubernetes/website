@@ -105,7 +105,7 @@ Kubernetes supports more flexible collections than Borg by organizing pods using
 <!--
 Thanks to the advent of software-defined overlay networks such as [flannel](https://coreos.com/blog/introducing-rudder/) or those built into [public clouds](https://cloud.google.com/compute/docs/networking), Kubernetes is able to give every pod and service its own IP address. This removes the infrastructure complexity of managing ports, and allows developers to choose any ports they want rather than requiring their software to adapt to the ones chosen by the infrastructure. The latter point is crucial for making it easy to run off-the-shelf open-source applications on Kubernetes--pods can be treated much like VMs or physical hosts, with access to the full port space, oblivious to the fact that they may be sharing the same physical machine with other pods.
 -->
-多亏了 [flannel](https://coreos.com/blog/introducing-rudder/) 或内置在[public clouds](https://cloud.google.com/compute/docs/networking)，Kubernetes 能够为每个 Pod 提供服务并为其提供自己的 IP 地址。
+多亏了软件定义的覆盖网络，例如 [flannel](https://coreos.com/blog/introducing-rudder/) 或内置于[公有云](https://cloud.google.com/compute/docs/networking)网络的出现，Kubernetes 能够为每个 Pod 提供服务并为其提供自己的 IP 地址。
 这消除了管理端口的基础架构的复杂性，并允许开发人员选择他们想要的任何端口，而不需要其软件适应基础架构选择的端口。
 后一点对于使现成的易于运行 Kubernetes 上的开源应用程序至关重要 -- 可以将 Pod 视为 VMs 或物理主机，可以访问整个端口空间，他们可能与其他 Pod 共享同一台物理计算机，这一事实已被忽略。
 
