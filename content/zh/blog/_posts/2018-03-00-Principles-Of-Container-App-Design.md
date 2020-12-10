@@ -17,10 +17,10 @@ url: /blog/2018/03/Principles-Of-Container-App-Design
 It's possible nowadays to put almost any application in a container and run it. Creating cloud-native applications, however—containerized applications that are automated and orchestrated effectively by a cloud-native platform such as Kubernetes—requires additional effort. Cloud-native applications anticipate failure; they run and scale reliably even when their infrastructure experiences outages. To offer such capabilities, cloud-native platforms like Kubernetes impose a set of contracts and constraints on applications. These contracts ensure that applications they run conform to certain constraints and allow the platform to automate application management.
 -->
 如今，可以将几乎所有应用程序放入容器中并运行它。
-但是，创建云原生应用程序（由Kubernetes等云原生平台自动有效地编排的容器化应用程序）需要付出额外的努力。
+但是，创建云原生应用程序（由 Kubernetes 等云原生平台自动有效地编排的容器化应用程序）需要付出额外的努力。
 云原生应用程序会预期失败；
 它们可以可靠的运行和扩展，即使基础架构出现故障。
-为了提供这样的功能，像Kubernetes这样的云原生平台对应用程序施加了一系列合同和约束。
+为了提供这样的功能，像 Kubernetes 这样的云原生平台对应用程序施加了一系列合同和约束。
 这些合同确保运行的应用程序符合某些约束条件，并允许平台自动执行应用程序管理。
 
 
@@ -94,7 +94,7 @@ The white paper is freely available for download:
 <!--
 To read more about designing cloud-native applications for Kubernetes, check out my [Kubernetes Patterns][3] book.
 -->
-要了解有关为Kubernetes设计云原生应用程序的更多信息，请翻阅我的[ Kubernetes 模式] [3]这本书。
+要了解有关为Kubernetes设计云原生应用程序的更多信息，请翻阅我的[Kubernetes 模式][3]这本书。
 
 <!--
 — [Bilgin Ibryam][4], Principal Architect, Red Hat
