@@ -380,9 +380,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
    자세한 내용은 [원시 블록 볼륨 지원](/ko/docs/concepts/storage/persistent-volumes/#원시-블록-볼륨-지원)을
    참고한다.
 - `BoundServiceAccountTokenVolume`: ServiceAccountTokenVolumeProjection으로 구성된 프로젝션 볼륨을 사용하도록 서비스어카운트 볼륨을
-   마이그레이션한다.
-   자세한 내용은 [서비스 어카운트 토큰 볼륨](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)을
-   확인한다.
+   마이그레이션한다. 클러스터 관리자는 `serviceaccount_stale_tokens_total` 메트릭을
+   사용하여 확장 토큰에 의존하는 워크로드를 모니터링할 수 있다. 이러한 워크로드가
+   없는 경우 `--service-account-extend-token-expiration=false` 플래그로 `kube-apiserver`를 시작하여 확장 토큰을 끈다.
+   [바인딩된 서비스 어카운트 토큰](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)을 확인한다.
 - `ConfigurableFSGroupPolicy`: 파드에 볼륨을 마운트할 때 fsGroups에 대한 볼륨 권한 변경 정책을 구성할 수 있다. 자세한 내용은 [파드에 대한 볼륨 권한 및 소유권 변경 정책 구성](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)을 참고한다.
 - `CPUManager`: 컨테이너 수준의 CPU 어피니티 지원을 활성화한다. [CPU 관리 정책](/docs/tasks/administer-cluster/cpu-management-policies/)을 참고한다.
 - `CRIContainerLogRotation`: cri 컨테이너 런타임에 컨테이너 로그 로테이션을 활성화한다.

@@ -304,26 +304,35 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 
 퍼시스턴트볼륨 유형은 플러그인으로 구현된다. 쿠버네티스는 현재 다음의 플러그인을 지원한다.
 
-* GCEPersistentDisk
-* AWSElasticBlockStore
-* AzureFile
-* AzureDisk
-* CSI
-* FC (파이버 채널)
-* FlexVolume
-* Flocker
-* NFS
-* iSCSI
-* RBD (Ceph Block Device)
-* CephFS
-* Cinder (OpenStack 블록 스토리지)
-* Glusterfs
-* VsphereVolume
-* Quobyte Volumes
-* HostPath (단일 노드 테스트 전용 – 로컬 스토리지는 어떤 방식으로도 지원되지 않으며 다중-노드 클러스터에서 작동하지 않음)
-* Portworx Volumes
-* ScaleIO Volumes
-* StorageOS
+* [`awsElasticBlockStore`](/ko/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store(EBS)
+* [`azureDisk`](/ko/docs/concepts/sotrage/volumes/#azuredisk) - Azure Disk
+* [`azureFile`](/ko/docs/concepts/storage/volumes/#azurefile) - Azure File
+* [`cephfs`](/ko/docs/concepts/storage/volumes/#cephfs) - CephFS 볼륨
+* [`cinder`](/ko/docs/concepts/storage/volumes/#cinder) - Cinder(OpenStack 블록 스토리지)
+  (**사용 중단됨**)
+* [`csi`](/ko/docs/concepts/storage/volumes/#csi) - 컨테이너 스토리지 인터페이스(CSI)
+* [`fc`](/ko/docs/concepts/storage/volumes/#fc) - 파이버 채널(FC) 스토리지
+* [`flexVolume`](/ko/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+* [`flocker`](/ko/docs/concepts/storage/volumes/#flocker) - Flocker 스토리지
+* [`gcePersistentDisk`](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE 영구 디스크
+* [`glusterfs`](/ko/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 볼륨
+* [`hostPath`](/ko/docs/concepts/storage/volumes/#hostpath) - HostPath 볼륨
+  (단일 노드 테스트 전용임. 다중-노드 클러스터에서는 동작하지 않음!
+  대신 `local` 볼륨을 사용하는 것을 고려할 것)
+* [`iscsi`](/ko/docs/concepts/storage/volumes/#iscsi) - iSCSI(SCSI over IP) 스토리지
+* [`local`](/ko/docs/concepts/storage/volumes/#local) - 노드에 마운트된
+  로컬 스토리지 디바이스.
+* [`nfs`](/ko/docs/concepts/storage/volumes/#nfs) - Network File System(NFS) 스토리지
+* `photonPersistentDisk` - Photon 컨트롤러 영구 디스크.
+  (해당 클라우드 제공자 삭제로 인해 이 볼륨 타입은 더이상
+  동작하지 않음.)
+* [`portworxVolume`](/ko/docs/concepts/storage/volumes/#portworxvolume) - Portworx 볼륨
+* [`quobyte`](/ko/docs/concepts/storage/volumes/#quobyte) - Quobyte 볼륨
+* [`rbd`](/ko/docs/concepts/storage/volumes/#rbd) - Rados Block Device(RBD) 볼륨
+* [`scaleIO`](/ko/docs/concepts/storage/volumes/#scaleio) - ScaleIO 볼륨
+  (**사용 중단됨**)
+* [`storageos`](/ko/docs/concepts/storage/volumes/#storageos) - StorageOS 볼륨
+* [`vsphereVolume`](/ko/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 볼륨
 
 ## 퍼시스턴트 볼륨
 

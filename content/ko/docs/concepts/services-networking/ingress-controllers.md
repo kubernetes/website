@@ -13,8 +13,8 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 클러스터와 함께 자동으로 실행되지 않는다.
 클러스터에 가장 적합한 인그레스 컨트롤러 구현을 선택하는데 이 페이지를 사용한다.
 
-프로젝트로써 쿠버네티스는 현재 [GCE](https://git.k8s.io/ingress-gce/README.md) 와
-  [nginx](https://git.k8s.io/ingress-nginx/README.md) 컨트롤러를 지원하고 유지한다.
+프로젝트로써 쿠버네티스는 [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme)와
+  [nginx](https://git.k8s.io/ingress-nginx/README.md#readme) 인그레스 컨트롤러를 지원하고 유지한다.
 
 
 
@@ -24,31 +24,31 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 
 {{% thirdparty-content %}}
 
-* [AKS Application Gateway Ingress Controller](https://github.com/Azure/application-gateway-kubernetes-ingress) is an ingress controller that enables ingress to [AKS clusters](https://docs.microsoft.com/azure/aks/kubernetes-walkthrough-portal) using the [Azure Application Gateway](https://docs.microsoft.com/azure/application-gateway/overview).
-* [Ambassador](https://www.getambassador.io/) API 게이트웨이는 [Datawire](https://www.datawire.io/)의
-  [커뮤니티](https://www.getambassador.io/docs) 혹은 [상업적](https://www.getambassador.io/pro/) 지원을 제공하는
-  [Envoy](https://www.envoyproxy.io) 기반 인그레스 컨트롤러다.
-* [AppsCode Inc.](https://appscode.com) 는 가장 널리 사용되는 [HAProxy](https://www.haproxy.org/) 기반 인그레스 컨트롤러인 [Voyager](https://appscode.com/products/voyager)에 대한 지원 및 유지 보수를 제공한다.
-* [AWS 로드 밸런서 컨트롤러](https://github.com/kubernetes-sigs/aws-load-balancer-controller)(이전의 AWS ALB 인그레스 컨트롤러)는 [AWS Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/)을 사용하여 인그레스를 활성화한다.
-* [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러로
-  VMware에서 제공하고 지원한다.
-* Citrix는 [베어메탈](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal)과 [클라우드](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) 배포를 위해 하드웨어 (MPX), 가상화 (VPX) 및 [무료 컨테이너화 (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html)를 위한 [인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller)를 제공한다.
-* F5 Networks는 [쿠버네티스를 위한 F5 BIG-IP 컨테이너 인그레스 서비스](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest)에 대한
-  [지원과 유지 보수](https://support.f5.com/csp/article/K86859508)를 제공한다.
-* [Gloo](https://gloo.solo.io)는 [solo.io](https://www.solo.io)의 엔터프라이즈 지원과 함께 API 게이트웨이 기능을 제공하는 [Envoy](https://www.envoyproxy.io) 기반의 오픈 소스 인그레스 컨트롤러다.
-* [HAProxy 인그레스](https://haproxy-ingress.github.io)는 HAProxy를 위한 고도로 커스터마이징 가능한 커뮤니티 주도형 인그레스 컨트롤러다.
-* [HAProxy Technologies](https://www.haproxy.com/)는 [쿠버네티스를 위한 HAProxy 인그레스 컨트롤러](https://github.com/haproxytech/kubernetes-ingress)를 지원하고 유지 보수한다. [공식 문서](https://www.haproxy.com/documentation/hapee/1-9r1/traffic-management/kubernetes-ingress-controller/)를 통해 확인할 수 있다.
-* [Istio](https://istio.io/)는 인그레스 컨트롤러 기반으로
-  [인그레스 트래픽을 제어](https://istio.io/docs/tasks/traffic-management/ingress/).
-* [Kong](https://konghq.com/)은 [쿠버네티스를 위한 Kong 인그레스 컨트롤러](https://github.com/Kong/kubernetes-ingress-controller)에 대한
-  [커뮤니티](https://discuss.konghq.com/c/kubernetes) 또는
-  [상업적](https://konghq.com/kong-enterprise/) 지원과 유지 보수를 제공한다.
-* [NGINX, Inc.](https://www.nginx.com/)는
-  [쿠버네티스를 위한 NGINX 인그레스 컨트롤러](https://www.nginx.com/products/nginx/kubernetes-ingress-controller)에 대한 지원과 유지 보수를 제공한다.
-* [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/)는 쿠버네티스 인그레스와 같은 유스케이스를 포함하는 서비스 구성을 위한 HTTP 라우터와 리버스 프록시는 사용자 정의 프록시를 빌드하기 위한 라이브러리로 설계되었다.
-* [Traefik](https://github.com/traefik/traefik)은
-  모든 기능([Let's Encrypt](https://letsencrypt.org), secrets, http2, 웹 소켓)을 갖춘 인그레스 컨트롤러로,
-  [Traefik Labs](https://traefik.io)에서 상업적인 지원을 제공한다.
+* [AKS 애플리케이션 게이트웨이 인그레스 컨트롤러] (https://azure.github.io/application-gateway-kubernetes-ingress/)는 [Azure 애플리케이션 게이트웨이](https://docs.microsoft.com)를 구성하는 인그레스 컨트롤러다.
+* [Ambassador](https://www.getambassador.io/) API 게이트웨이는 [Envoy](https://www.envoyproxy.io) 기반 인그레스
+  컨트롤러다.
+* [Citrix 인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller#readme)는
+  Citrix 애플리케이션 딜리버리 컨트롤러에서 작동한다.
+* [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러다.
+* F5 BIG-IP [쿠버네티스 용 컨테이너 인그레스 서비스](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)를
+  이용하면 인그레스를 사용하여 F5 BIG-IP 가상 서버를 구성할 수 있다.
+* [Gloo](https://gloo.solo.io)는 API 게이트웨이 기능을 제공하는 [Envoy](https://www.envoyproxy.io) 기반의
+  오픈소스 인그레스 컨트롤러다.
+* [HAProxy 인그레스](https://haproxy-ingress.github.io/)는 [HAProxy](http://www.haproxy.org/#desc)의
+  인그레스 컨트롤러다.
+* [쿠버네티스 용 HAProxy 인그레스 컨트롤러](https://github.com/haproxytech/kubernetes-ingress#readme)는 [HAProxy](http://www.haproxy.org/#desc) 용
+  인그레스 컨트롤러이기도 하다.
+* [Istio 인그레스](https://istio.io/latest/docs/tasks/traffic-management/ingress/kubernetes-ingress/)는 [Istio](https://istio.io/)
+  기반 인그레스 컨트롤러다.
+* [쿠버네티스 용 Kong 인그레스 컨트롤러](https://github.com/Kong/kubernetes-ingress-controller#readme)는 [Kong 게이트웨이](https://konghq.com/kong/)를
+  구동하는 인그레스 컨트롤러다.
+* [쿠버네티스 용 NGINX 인그레스 컨트롤러](https://www.nginx.com/products/nginx/kubernetes-ingress-controller)는 [NGINX](https://www.nginx.com/resources/glossary)
+  웹서버(프록시로 사용)와 함께 작동한다.
+* [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/)는 사용자의 커스텀 프록시를 구축하기 위한 라이브러리로 설계된 쿠버네티스 인그레스와 같은 유스케이스를 포함한 서비스 구성을 위한 HTTP 라우터 및 역방향 프록시다.
+* [Traefik 쿠버네티스 인그레스 제공자](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)는
+  [Traefik](https://traefik.io/traefik/) 프록시 용 인그레스 컨트롤러다.
+* [Voyager](https://appscode.com/products/voyager)는
+  [HAProxy](http://www.haproxy.org/#desc)의 인그레스 컨트롤러다.
 
 ## 여러 인그레스 컨트롤러 사용
 
@@ -73,3 +73,4 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 자세히 알아보기.
 * [NGINX 컨트롤러로 Minikube에서 인그레스를 설정하기](/docs/tasks/access-application-cluster/ingress-minikube).
+

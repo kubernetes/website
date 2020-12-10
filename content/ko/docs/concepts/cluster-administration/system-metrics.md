@@ -103,7 +103,7 @@ kubelet은 cAdvisor를 통해 액셀러레이터 메트릭을 수집한다. NVID
 
 액셀러레이터 메트릭을 수집하는 책임은 이제 kubelet이 아닌 공급 업체에 있다. 공급 업체는 메트릭을 수집하여 메트릭 서비스(예: 프로메테우스)에 노출할 컨테이너를 제공해야 한다.
 
-[`DisableAcceleratorUsageMetrics` 기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/#알파-또는-베타-기능을-위한-기능-게이트:~:text= DisableAcceleratorUsageMetrics,-false)는 [이 기능을 기본적으로 사용하도록 설정하는 타임라인](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria)를 사용하여 kubelet에서 수집한 메트릭을 비활성화한다.
+[`DisableAcceleratorUsageMetrics` 기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)는 [이 기능을 기본적으로 사용하도록 설정하는 타임라인](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria)를 사용하여 kubelet에서 수집한 메트릭을 비활성화한다.
 
 ## 컴포넌트 메트릭
 
