@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 文献调查"
+title: "Kubernetes 文档最终用户调研"
 date: 2019-10-29
 slug: kubernetes-documentation-end-user-survey
 ---
@@ -20,7 +20,7 @@ In September, SIG Docs conducted its first survey about the [Kubernetes
 documentation](https://kubernetes.io/docs/). We'd like to thank the CNCF's Kim
 McMahon for helping us create the survey and access the results.
 -->
-9月，SIG Docs 进行了第一次关于 [Kubernetes 调查文件](https://kubernetes.io/docs/) 。我们要感谢 CNCF
+9月，SIG Docs 进行了第一次关于 [Kubernetes 文档](https://kubernetes.io/docs/) 。我们要感谢 CNCF
 的 Kim McMahon 帮助我们创建调查并获取结果。
 
 <!--
@@ -204,7 +204,7 @@ overall. Some took the opportunity to tell us we are doing a good job:
 ```text
 - 对我而言，这是我见过的文档最好的开源项目。
 - 继续努力！
-- 我觉得文件很好。
+- 我觉得文档很好。
 - 你们做得真好。真的。
 ```
 
@@ -219,25 +219,25 @@ Other respondents provided feedback on the content:
 advanced configuration examples would be, to me, the way to go. Like a Use Case page for each configuration topic with beginner to advanced example scenarios. Something like that would be
 awesome....
 -->
-```text
--  ...但既然我们谈论的是文档，多多益善。更多的高级配置示例对我来说将是最好的选择。比如每个配置主题的用例页面，从初学者到高级示例场景。像这样的东西真的是令人惊叹......
-
 <!--
 - More in-depth examples and use cases would be great. I often feel that the Kubernetes documentation scratches the surface of a topic, which might be great for new users, but it leaves more experienced users without much "official" guidance on how to implement certain things.
 -->
-- 更深入的例子和用例将是很好的。我经常感觉 Kubernetes 文档只是触及了一个主题的表面，这可能对新用户很好，但是它没有让更有经验的用户获取多少关于如何实现某些东西的“官方”指导。
-
 <!--
 - More production like examples in the resource sections (notably secrets) or links to production like examples
 -->
-- 资源节（特别是 secrets）希望有更多类似于产品的示例或指向类似产品的示例的链接
-
 <!--
 - It would be great to see a very clear "Quick Start" A->Z up and running like many other tech projects. There are a handful of almost-quick-starts, but no single guidance. The result is information overkill.
 ```
 -->
-- 如果能像很多其它技术项目那样有非常清晰的“快速启动” 逐步教学完成搭建就更好了。
-  现有的快速入门内容屈指可数，也没有统一的指南。结果是信息泛滥。
+
+```text
+-  ...但既然我们谈论的是文档，多多益善。更多的高级配置示例对我来说将是最好的选择。比如每个配置主题的用例页面，
+从初学者到高级示例场景。像这样的东西真的是令人惊叹......
+- 更深入的例子和用例将是很好的。我经常感觉 Kubernetes 文档只是触及了一个主题的表面，这可能对新用户很好，
+但是它没有让更有经验的用户获取多少关于如何实现某些东西的“官方”指导。
+- 资源节（特别是 secrets）希望有更多类似于产品的示例或指向类似产品的示例的链接
+- 如果能像很多其它技术项目那样有非常清晰的“快速启动” 逐步教学完成搭建就更好了。现有的快速入门内容屈指可数，
+也没有统一的指南。结果是信息泛滥。
 ```
 
 <!--
@@ -246,21 +246,19 @@ A few respondents provided technical suggestions:
 ```text
 - Make table columns sortable and filterable using a ReactJS or Angular component.
 -->
-少数受访者提供的技术建议：
-```text
-- 使用 ReactJS 或者 Angular component 使表的列可排序和可筛选。
-
 <!--
 - For most, I think creating documentation with Hugo - a system for static site generation - is not appropriate. There are better systems for documenting large software project. 
 -->
-- 对于大多数人来说，我认为用 Hugo - 一个静态站点生成系统 - 创建文档是不合适的。有更好的系统来记录大型软件项目。
-
 <!--
 Specifically, I would like to see k8s switch to Sphinx for documentation. It has an excellent built-in search, it is easy tolearn if you know markdown, it is widely adopted by other projects (e.g. every software project in readthedocs.io, linux kernel, docs.python.org etc).
 ```
 -->
-具体来说，我希望看到 k8s 切换到 Sphinx 来获取文档。Sphinx 有一个很好的内置搜索。
-如果你了解 markdown，学习起来也很容易。
+
+少数受访者提供的技术建议：
+```text
+- 使用 ReactJS 或者 Angular component 使表的列可排序和可筛选。
+- 对于大多数人来说，我认为用 Hugo - 一个静态站点生成系统 - 创建文档是不合适的。有更好的系统来记录大型软件项目。
+具体来说，我希望看到 k8s 切换到 Sphinx 来获取文档。Sphinx 有一个很好的内置搜索。如果你了解 markdown，学习起来也很容易。
 Sphinx 被其他项目广泛采用（例如，在 readthedocs.io、linux kernel、docs.python.org 等等）。
 ```
 
