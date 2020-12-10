@@ -15,7 +15,7 @@ url: /blog/2016/04/Kubernetes-Network-Policy-APIs
 <!--
 _Editor’s note: This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the Network-SIG team describing network policy APIs coming in 1.3 - policies for security, isolation and multi-tenancy._  
 -->
-_编者注：本周我们将推出[ Kubernetes 特殊兴趣小组](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs))、
+_编者注：本周我们将推出[Kubernetes 特殊兴趣小组](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs))、
 Network-SIG 小组今天的帖子描述了 1.3 版中的网络策略 API-安全，隔离和多租户策略。_
 
 
@@ -50,7 +50,7 @@ From these scenarios several possible approaches were considered and a minimal [
 -->
 基于这些场景，团队考虑了几种可能的方法，并定义了一个最小的
 [策略规范](https://docs.google.com/document/d/1qAm-_oSap-f1d6a-xRTj6xaH1sYQBfK36VyjB5XOZug/edit) 。
-基本思想是，如果按命名空间启用了隔离，则特定流量类型被允许时会选择特定的 Pods。
+基本思想是，如果按命名空间启用了隔离，则特定流量类型被允许时会选择特定的 Pod。
 
 <!--
 The simplest way to quickly support this experimental API is in the form of a ThirdPartyResource extension to the API Server, which is possible today in Kubernetes 1.2. 
@@ -83,17 +83,10 @@ This will create an API endpoint (one for each namespace):
 -->
 这将创建一个 API 端点（每个名称空间一个）：
 
-
-
-
 ```
 /net.alpha.kubernetes.io/v1alpha1/namespace/default/networkpolicys/
  ```
-
-
-
-
-
+ 
 <!--
 Third party network controllers can now listen on these endpoints and react as necessary when resources are created, modified or deleted. _Note: With the upcoming release of Kubernetes 1.3 - when the Network Policy API is released in beta form - there will be no need to create a ThirdPartyResource API endpoint as shown above._&nbsp;
 -->
@@ -113,15 +106,10 @@ Network isolation is enabled by defining the _network-isolation_ annotation on n
 -->
 通过在名称空间上定义 _network-isolation_ 注解来启用网络隔离，如下所示：
 
-
-
-
 ```
 net.alpha.kubernetes.io/network-isolation: [on | off]
  ```
-
-
-
+ 
 <!--
 Once network isolation is enabled, explicit network policies **must be applied** to enable pod communication.
 -->
@@ -132,56 +120,33 @@ A policy specification can be applied to a namespace to define the details of th
 -->
 可以将策略规范应用于命名空间，以定义策略的详细信息，如下所示：
 
-
-
 ```
 POST /apis/net.alpha.kubernetes.io/v1alpha1/namespaces/tenant-a/networkpolicys/
 
-
 {
-
 "kind": "NetworkPolicy",
-
 "metadata": {
-
 "name": "pol1"
-
 },
-
 "spec": {
-
 "allowIncoming": {
-
 "from": [
-
 { "pods": { "segment": "frontend" } }
-
 ],
-
 "toPorts": [
-
 { "port": 80, "protocol": "TCP" }
-
 ]
-
 },
-
 "podSelector": { "segment": "backend" }
-
 }
-
 }
  ```
-
-
-
+ 
 <!--
 In this example, the ‘ **tenant-a** ’ namespace would get policy ‘ **pol1** ’ applied as indicated. Specifically, pods with the **segment** label ‘ **backend** ’ would allow TCP traffic on port 80 from pods with the **segment** label ‘ **frontend** ’ to be received.
 -->
 在此示例中，‘ **tenant-a** ’名称空间将按照指示应用策略‘ **pol1** ’。
 具体而言，带有**segment**标签 ‘ **后端** ’ 的容器将允许接收来自带有“segment**标签‘ **frontend** ’的容器的端口80上的TCP流量。
-
-
 
 <!--
 Today, [Romana](http://romana.io/), [OpenShift](https://www.openshift.com/), [OpenContrail](http://www.opencontrail.org/) and [Calico](http://projectcalico.org/) support network policies applied to namespaces and pods. Cisco and VMware are working on implementations as well. Both Romana and Calico demonstrated these capabilities with Kubernetes 1.2 recently at KubeCon. You can watch their presentations here: [Romana](https://www.youtube.com/watch?v=f-dLKtK6qCs) ([slides](http://www.slideshare.net/RomanaProject/kubecon-london-2016-ronana-cloud-native-sdn)), [Calico](https://www.youtube.com/watch?v=p1zfh4N4SX0) ([slides](http://www.slideshare.net/kubecon/kubecon-eu-2016-secure-cloudnative-networking-with-project-calico)).&nbsp;
@@ -191,23 +156,16 @@ Today, [Romana](http://romana.io/), [OpenShift](https://www.openshift.com/), [Op
 Romana 和 Calico 最近都在 KubeCon 上使用 Kubernetes 1.2 演示了这些功能。
 你可以在此处观看他们的演讲：[Romana](https://www.youtube.com/watch?v=f-dLKtK6qCs) ([slides](http://www.slideshare.net/RomanaProject/kubecon-london-2016-ronana-cloud-native-sdn))， [Calico](https://www.youtube.com/watch?v=p1zfh4N4SX0) ([slides](http://www.slideshare.net/kubecon/kubecon-eu-2016-secure-cloudnative-networking-with-project-calico))。&nbsp;
 
-
-
-
 <!--
 **How does it work?**
 -->
 **它是如何工作的？**
-
-
 
 <!--
 Each solution has their their own specific implementation details. Today, they rely on some kind of on-host enforcement mechanism, but future implementations could also be built that apply policy on a hypervisor, or even directly by the network itself.&nbsp;
 -->
 每个解决方案都有其自己的特定实现细节。
 今天，他们依靠某种形式的主机执行机制，但是将来的实现也可以构建为在虚拟机管理程序上，甚至直接由网络本身应用策略构建。&nbsp;
-
-
 
 <!--
 External policy control software (specifics vary across implementations) will watch the new API endpoint for pods being created and/or new policies being applied. When an event occurs that requires policy configuration, the listener will recognize the change and a controller will respond by configuring the interface and applying the policy. &nbsp;The diagram below shows an API listener and policy controller responding to updates by applying a network policy locally via a host agent. The network interface on the pods is configured by a CNI plugin on the host (not shown).
@@ -217,21 +175,13 @@ External policy control software (specifics vary across implementations) will wa
 下图显示了 API 侦听器和策略控制器，它通过主机代理在本地应用网络策略来响应更新。
 主机上的网络接口由主机上的 CNI 插件配置（未显示）。
 
-
-
  ![controller.jpg](https://lh5.googleusercontent.com/zMEpLMYmask-B-rYWnbMyGb0M7YusPQFPS6EfpNOSLbkf-cM49V7rTDBpA6k9-Zdh2soMul39rz9rHFJfL-jnEn_mHbpg0E1WlM-wjU-qvQu9KDTQqQ9uBmdaeWynDDNhcT3UjX5)
-
-
-
-
 
 <!--
 If you’ve been holding back on developing applications with Kubernetes because of network isolation and/or security concerns, these new network policies go a long way to providing the control you need. No need to wait until Kubernetes 1.3 since network policy is available now as an experimental API enabled as a ThirdPartyResource.
 -->
 如果您由于网络隔离和/或安全性问题而一直拒绝使用 Kubernetes 开发应用程序，那么这些新的网络策略将为您提供所需的控制功能大有帮助。
-无需等到 Kubernetes 1.3，因为网络策略现在作为实验性 API 可用，已启用ThirdPartyResource。
-
-
+无需等到 Kubernetes 1.3，因为网络策略现在作为实验性 API 可用，已启用 ThirdPartyResource。
 
 <!--
 If you’re interested in Kubernetes and networking, there are several ways to participate - join us at:
