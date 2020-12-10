@@ -128,7 +128,7 @@ Some fields in the EndpointSlice API are feature-gated.
 -->
 ## API 字段
 
-EndpointSlice API 中的某些字段具有特征门控。
+EndpointSlice API 中的某些字段有对应的特征门控控制。
 
 - `EndpointSliceNodeName` 特征门控控制对 `nodeName` 字段的访问。这是默认情况下禁用的 Alpha 功能。
 - `EndpointSliceTerminating` 特征门控控制对 `serving` 和 `terminating` 条件字段的访问。这是默认情况下禁用的 Alpha 功能。
