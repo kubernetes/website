@@ -246,8 +246,8 @@ n'est pas `cgroupfs`, car c'est déjà la valeur par défaut dans la kubelet.
 Il est nécessaire de redémarrer la kubelet:
 
 ```bash
-systemctl daemon-reload
-systemctl restart kubelet
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
 ```
 
 ## Dépannage
