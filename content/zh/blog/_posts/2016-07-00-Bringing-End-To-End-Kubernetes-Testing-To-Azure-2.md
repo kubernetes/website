@@ -80,7 +80,7 @@ The federated tests documentation describes these steps in more detail. The scri
 
 The e2e tests on Azure have been running for several weeks now. During this period, we have found two issues in Kubernetes. Weixu Zhuang immediately published fixes that have been merged into the Kubernetes master branch.  
 -->
-**追溯**
+**回顾**
 
 Azure 上的端到端测试已经运行了几周。在此期间，我们在 Kubernetes 中发现了两个问题。Weixu Zhuang 立即发布了修补程序并已合并到 Kubernetes master 分支中。
 
