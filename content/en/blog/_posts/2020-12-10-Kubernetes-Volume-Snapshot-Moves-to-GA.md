@@ -52,10 +52,11 @@ Currently more than [50 CSI drivers](https://kubernetes-csi.github.io/docs/drive
 As of the publishing of this blog, the following participants from the [Kubernetes Data Protection Working Group](https://github.com/kubernetes/community/tree/master/wg-data-protection) are building products or have already built products using Kubernetes volume snapshots.
 
 - [Dell-EMC: PowerProtect](https://www.delltechnologies.com/en-us/data-protection/powerprotect-data-manager.htm)
-- Druva
+- [Druva](https://www.druva.com/)
 - [Kasten K10](https://www.kasten.io/)
-- Pure Storage (Pure Service Orchestrator)
-- Red Hat OpenShift Container Storage
+- [Portworx (PX-Backup)](https://portworx.com/products/px-backup/)
+- [Pure Storage (Pure Service Orchestrator)](https://github.com/purestorage/pso-csi)
+- [Red Hat OpenShift Container Storage](https://www.redhat.com/en/technologies/cloud-computing/openshift-container-storage)
 - [TrilioVault for Kubernetes](https://docs.trilio.io/kubernetes/)
 - [Velero plugin for CSI](https://github.com/vmware-tanzu/velero-plugin-for-csi)
 
