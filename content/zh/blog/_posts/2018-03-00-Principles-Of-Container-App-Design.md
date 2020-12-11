@@ -20,7 +20,7 @@ It's possible nowadays to put almost any application in a container and run it. 
 但是，创建云原生应用程序（由 Kubernetes 等云原生平台自动有效地编排的容器化应用程序）需要付出额外的努力。
 云原生应用程序会预期失败；
 它们可以可靠的运行和扩展，即使基础架构出现故障。
-为了提供这样的功能，像 Kubernetes 这样的云原生平台对应用程序施加了一系列合同和约束。
+为了提供这样的功能，像 Kubernetes 这样的云原生平台对应用程序施加了一系列约定和约束。
 这些合同确保运行的应用程序符合某些约束条件，并允许平台自动执行应用程序管理。
 
 
