@@ -3,7 +3,6 @@ title: 使用 kubeadm 进行证书管理
 content_type: task
 weight: 10
 ---
-
 <!--
 reviewers:
 - sig-cluster-lifecycle
@@ -88,6 +87,12 @@ point to the CA certificate and key.
 setting up a cluster to use an external CA.
 -->
 [PKI证书和要求](/zh/docs/setup/best-practices/certificates/)包括集群使用外部CA的设置指南。
+
+<!--
+[PKI certificates and requirements](/docs/setup/best-practices/certificates/) includes guidance on
+setting up a cluster to use an external CA.
+-->
+[PKI 证书和要求](/zh/docs/setup/best-practices/certificates/)包括关于用外部 CA 设置集群的指南。
 
 <!-- 
 ## Check certificate expiration 
@@ -465,4 +470,4 @@ For more information about manual rotation or replacement of CA, see [manual rot
 kubeadm 并不直接支持对 CA 证书的轮换或者替换。
 
 关于手动轮换或者置换 CA 的更多信息，可参阅
-[手动轮换 CA 证书](/zh/docs/tasks/tls/manual-rotation-of-ca-certificates/)。 
+[手动轮换 CA 证书](/zh/docs/tasks/tls/manual-rotation-of-ca-certificates/)。
