@@ -11,6 +11,15 @@ if [ "$#" -lt 1 ]; then
   exit 1
 fi
 
+TARGET=HEAD
+
+find_merge() {
+  if [ "$1" == "" ]; then
+    return 1
+  fi
+  git rev-list "$1..${TARGET}" --ancestry-path | grep -f <( git rev-list "$1..${TARGET}" --first-parent ) | tail -1
+}
+
 # Validate paths
 VALID=1
 for ARG in "$@"
@@ -29,22 +38,18 @@ for LOCALIZED in "$@"
 do
   if [ -d "$LOCALIZED" ] ; then
     IS_DIR=1
-    EXTRA_FLAGS="--stat"
+    DIRSTATUS=0
   else
     IS_DIR=0
   fi
 
   # Try get the English version
-  EN_VERSION="$( printf "%s" "$LOCALIZED" | sed "s/content\/..\//content\/en\//g" )"
-  IS_DIR=0
-  if [ -d "$LOCALIZED" ]; then
-    IS_DIR=1
-  fi
-  if [ $IS_DIR -eq 1 -a ! -e "$EN_VERSION" ]; then
-    printf "Directory \"%s\" has been removed." "${EN_VERSION}" >&2
+  EN_VERSION="$( printf "%s" "$LOCALIZED" | sed "s/content\/..\//content\/en\//g" | tr -d \\n )"
+  if [ $IS_DIR -gt 0 ] && ! [ -e "$EN_VERSION" ] ; then
+    printf "Directory \"%s\" does not exist upstream (English).\n" "${EN_VERSION}" >&2
     EXITSTATUS=2
   else
-    if [ -f "$EN_VERSION" ] && ! [ -f "$LOCALIZED" ]; then
+    if [ $IS_DIR -lt 1 ] && [ -f "$EN_VERSION" ] && ! [ -f "$LOCALIZED" ]; then
       printf "File \"%s\" is missing from the localization\n" "$LOCALIZED" >&2
       if [ $EXITSTATUS -lt 2 ]; then
         EXITSTATUS=1
@@ -52,18 +57,27 @@ do
       continue
     fi
 
-    if ! [ -f $EN_VERSION ] && ! [ -f "$LOCALIZED" ]; then
+    if [ $IS_DIR -lt 1 ] && ! [ -f $EN_VERSION ] && ! [ -f "$LOCALIZED" ]; then
       printf "File \"%s\" is missing from upstream (English)\n" "$LOCALIZED" >&2
       continue
     fi
 
-    # Last commit for the localized file
-    LASTCOMMIT="$( git log -n 1 --pretty=format:%h -- "$LOCALIZED" )"
+    # Last merge for the localized file
+    LAST_MERGE="$( find_merge "$( git log -n 1 --pretty=format:%h -- "$LOCALIZED" )" )"
+    # Merge base for that pull request
+    LAST_DIVERGE="$( git merge-base "${LAST_MERGE}^2" "$TARGET" )"
 
-    git diff --exit-code $EXTRA_FLAGS "$LASTCOMMIT...HEAD" -- "${EN_VERSION}"
+    if [ $IS_DIR -gt 0 ]; then
+      git diff --name-only --exit-code "$LAST_DIVERGE...${TARGET}" -- "$EN_VERSION" >/dev/null 2>&1 || \
+        printf "\033[34mChanges since commit \033[32m%s\033[0m\n" "$( git rev-parse --short "$LAST_DIVERGE" )" >&2
+      git diff --stat --exit-code "$LAST_DIVERGE...${TARGET}" -- "$EN_VERSION"
+    else
+      # Changes to English localization since base of last localization merge
+      git diff --exit-code "$LAST_DIVERGE...${TARGET}" -- "${EN_VERSION}"
+    fi
 
-    if [ "$?" -eq 0 ]; then
-      printf "File \"%s\" is still in sync\n" "$LOCALIZED" >&2
+    if [ $? -eq 0 ]; then
+      printf "\033[34mPath \"%s\" is still in sync\033[0m\n" "$LOCALIZED" >&2
     else
       if [ $EXITSTATUS -lt 2 ]; then
         EXITSTATUS=1
@@ -74,7 +88,7 @@ done
 
 if [ $EXITSTATUS -ne 0 ] && [ "$#" -gt 1 ]; then
   # multiple arguments listed and at least one is out of sync
-  printf "Synchronization update required\n" >&2
+  printf "\n\033[31mSynchronization update required\033[0m\n" >&2
 fi
 
 exit $EXITSTATUS
