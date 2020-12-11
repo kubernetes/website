@@ -1,5 +1,5 @@
 ---
-title: " Kubernetes 社区会议记录 - 20160218 "
+title: "Kubernetes 社区会议记录 - 20160218"
 date: 2016-02-23
 slug: kubernetes-community-meeting-notes_23
 url: /blog/2016/02/kubernetes-community-meeting-notes_23
@@ -19,8 +19,8 @@ url: /blog/2016/02/kubernetes-community-meeting-notes_23
 #####  February 18th - kmachine demo, clusterops SIG formed, new k8s.io website preview, 1.2 update and planning 1.3
 The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss the project's status via videoconference. Here are the notes from the latest meeting.
 -->
-##### 2月18号 - kmachine 示例，SIG 形成的 clusterops，新的 k8s.io 网站概述，更新1.2版本并且计划准备1.3版本
-
+##### 2月18号 - kmachine 演示、SIG clusterops 成立、新的 k8s.io 网站预览、1.2 版本更新和 1.3 版本计划
+Kubernetes 贡献社区会议大多在星期四的 10:00 召开，通过视频会议讨论项目现有情况。这里是最近一次会议的笔记。
 
 <!--
 * Note taker: Rob Hirschfeld
@@ -56,7 +56,7 @@ The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss
     * Rob suggested moving the regular meeting up a little
 -->
 * 时区讨论 [:22]
-    * 这个时区不是为亚洲服务的时区。
+    * 当前时区不适合亚洲。
     * 考虑轮转时间 - 每一个月一次
     * 大约 5 或者 6 PT
     * Rob 建议把例会时间上调一些
@@ -93,7 +93,9 @@ The Kubernetes contributing community meets most Thursdays at 10:00PT to discuss
 <!--
 To get involved in the Kubernetes community consider joining our [Slack channel][3], taking a look at the [Kubernetes project][4] on GitHub, or join the [Kubernetes-dev Google group][5]. 
 -->
-想要加入Kubernetes社区的人，考虑加入 [Slack channel] [3]频道，在 GitHub 上看看[Kubernetes project][4]，或者加入[Kubernetes-dev Google group][5] 组。
+想要加入 Kubernetes 社区的人，考虑加入 [Slack channel] [3]频道，
+在 GitHub 上看看[Kubernetes project][4]，
+或者加入[Kubernetes-dev Google group][5]。
 
 
 <!--
