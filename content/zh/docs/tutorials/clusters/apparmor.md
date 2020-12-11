@@ -145,7 +145,7 @@ AppArmor 可以通过对容器的执行进行限制，帮助你运行更安全�
    the requirements to use AppArmor.
 -->
 3. 容器运行时支持 AppArmor -- 当前所有 Kubernetes 所支持的
-   常见容器运行时都支持 AppArmor，比如{{< glossary_tooltip term_id="docker">}},
+   常见容器运行时都支持 AppArmor，比如 {{< glossary_tooltip term_id="docker">}},
    {{< glossary_tooltip term_id="cri-o" >}} 以及 {{< glossary_tooltip term_id="containerd" >}}。
    请参考相应运行时的文档，并验证集群是否满足使用 AppArmor 的要求。
 
@@ -223,7 +223,7 @@ general availability, the annotations will be replaced with first-class fields (
 {{< /note >}}
 -->
 {{< note >}}
-AppArmor 目前处于测试阶段，其选项是通过注解的方式来设置的。。一旦 AppArmor 
+AppArmor 目前处于测试阶段，其选项是通过注解的方式来设置的。一旦 AppArmor 
 升级为正式发布版本，注解将替换为顶级字段（请参见[升级到 GA 的途径](#upgrade-path-to-general-availability)
 了解进一步的细节）。
 {{< /note >}}
@@ -244,7 +244,7 @@ container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
 Where `<container_name>` is the name of the container to apply the profile to, and `<profile_ref>`
 specifies the profile to apply. The `profile_ref` can be one of:
 -->
-其中 `<container_name>` 是要应用配置文件的容器的名称，而 `<profile_ref>` 是配置文件的名称。`<profile_ref>` 可以作为以下其中之一：
+其中 `<container_name>` 是要应用配置文件的容器的名称，`<profile_ref>` 是配置文件的名称。`<profile_ref>` 可以是以下之一：
 
 <!-- 
 * `runtime/default` to apply the runtime's default profile
@@ -379,7 +379,7 @@ kubectl create -f ./hello-apparmor.yaml
 If we look at the pod events, we can see that the Pod container was created with the AppArmor
 profile "k8s-apparmor-example-deny-write":
 -->
-如果我们查看 pod 事件，我们可以看到 pod 容器是用 AppArmor 配置文件
+如果我们查看 Pod 事件，我们可以看到 Pod 容器是用 AppArmor 配置文件
 "k8s-apparmor-example-deny-write" 所创建的：
 
 ```shell
@@ -522,7 +522,7 @@ Kubernetes 目前不提供任何本地机制来将 AppArmor 配置文件加载�
 * By copying the profiles to each node and loading them through SSH, as demonstrated in the
   [Example](#example). 
 -->
-* 通过在每个节点上运行 Pod 的[DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/)
+* 通过在每个节点上运行 Pod 的 [DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/)
   确保加载了正确的配置文件。可以找到一个示例实现[这里](https://git.k8s.io/kubernetes/test/images/apparmor-loader)。
 * 在节点初始化时，使用节点初始化脚本（例如 Salt 、Ansible 等）或镜像。
 * 通过将配置文件复制到每个节点并通过 SSH 加载它们，如[示例](#example)。
@@ -588,11 +588,9 @@ pods (if the AppArmor kernel module is enabled), and will continue to do so even
 is disabled. The option to disable AppArmor will be removed when AppArmor graduates to general
 availability (GA). 
 -->
-禁用时，任何包含 AppArmor 配置文件的 Pod 都将因 "Forbidden" 错误
-而导致验证失败。注意，默认情况下，docker 总是在非特权 pods 上
-启用 "docker-default" 配置文件（如果 AppArmor 内核模块已启用），
-并且即使功能门已禁用，也将继续启用该配置文件。当 AppArmor 项目到达
-正式发布 (GA) 阶段时，禁用 Apparmor 的选项将被删除。
+禁用时，任何包含 AppArmor 配置文件的 Pod 都不会通过验证，同时提示 "Forbidden" 错误。
+请注意，默认情况下，docker 始终在非特权 Pod上 启用 “docker-default” 配置文件（如果启用了 AppArmor 内核模块），即使禁用了特性门控，也将继续启用该配置文件。
+当 AppArmor 项目到达正式发布 (GA) 阶段时，禁用 Apparmor 的选项将被删除。
 
 <!-- ### Upgrading to Kubernetes v1.4 with AppArmor -->
 ### 使用 AppArmor 升级到 Kubernetes v1.4
@@ -606,14 +604,13 @@ is recommended to scrub the cluster of any pods containing an annotation with
 `apparmor.security.beta.kubernetes.io`. 
 -->
 不需要对 AppArmor 执行任何操作即可将集群升级到 v1.4。
-但是，如果任何现有的 pods 有一个 AppArmor 注解，
-它们将不会通过验证（或 PodSecurityPolicy 认证）。如果节点上加载了
-许可配置文件，恶意用户可以预先应用许可配置文件，
-将 pod 权限提升到 docker-default 权限之上。如果存在这个问题，
-建议清除包含 `apparmor.security.beta.kubernetes.io` 注释的
-任何 pods 的集群。
+但是，如果任何现有的 Pods 具有 AppArmor 注解， 它们将无法通过验证（或 PodSecurityPolicy 认证）。
+如果节点上加载了许可配置文件，恶意用户可以通过预先应用许可配置文件，将 Pod 权限提升到 docker-default 权限之上。如果考虑到这些，建议清除集群上包含
+ `apparmor.security.beta.kubernetes.io` 注解的所有 Pods。
 
-<!-- ### Upgrade path to General Availability -->
+<!--
+### Upgrade path to General Availability
+-->
 ### 到正式发布阶段的升级路线 {#upgrade-path-to-general-availability}
 
 <!-- When AppArmor is ready to be graduated to general availability (GA), the options currently specified
@@ -621,9 +618,9 @@ through annotations will be converted to fields. Supporting all the upgrade and 
 through the transition is very nuanced, and will be explained in detail when the transition
 occurs. We will commit to supporting both fields and annotations for at least 2 releases, and will
 explicitly reject the annotations for at least 2 releases after that. -->
-当 Apparmor 准备进入到正式发布（GA）阶段时，当前指定的选项通过注释将转换为字段。
+当 AppArmor 准备进入到正式发布（GA）阶段时，当前指定的选项通过注解将转换为字段。
 通过转换支持所有升级和降级路径是非常微妙的，并将在转换发生时详细解释。
-我们将承诺在至少两个版本中同时支持字段和注释，并在之后的至少两个版本中显式拒绝注释。
+我们将承诺在至少两个版本中同时支持字段和注解，并在之后的至少两个版本中显式拒绝注解。
 
 <!-- ## Authoring Profiles -->
 ## 编写配置文件
@@ -641,8 +638,9 @@ tools to help with that: -->
   simplified profile language. 
 -->
 * `aa-genprof` and `aa-logprof` 通过监视应用程序的活动和日志并接受
-  它所采取的操作来生成配置文件规则。更多说明请参见[AppArmor 文档](https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools)。
-* [bane](https://github.com/jfrazelle/bane)是一个用于 Docker的 
+  它所采取的操作来生成配置文件规则。更多说明请参见
+  [AppArmor 文档](https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools)。
+* [bane](https://github.com/jfrazelle/bane)是一个用于 Docker 的 
   AppArmor 配置生成器，它使用简化的配置语言。
 
 <!-- 
@@ -665,7 +663,7 @@ AppArmor 将详细消息记录到 `dmesg` ，错误通常可以在系统日志�
 ## API 参考 {#api-reference}
 
 <!-- ### Pod Annotation -->
-### Pod 注释
+### Pod 注解
 
 <!--
 Specifying the profile a container will run with:
@@ -676,8 +674,10 @@ Specifying the profile a container will run with:
 - **key**: `container.apparmor.security.beta.kubernetes.io/<container_name>`
   Where `<container_name>` matches the name of a container in the Pod.
   A separate profile can be specified for each container in the Pod.
-- **value**: a profile reference, described below-->
-- **key**: `container.apparmor.security.beta.kubernetes.io/<container_name>` 中的 `<container_name>` 匹配 Pod 中的容器名称。
+- **value**: a profile reference, described below
+-->
+- **key**: `container.apparmor.security.beta.kubernetes.io/<container_name>`
+  中的 `<container_name>` 匹配 Pod 中的容器名称。
   可以为 Pod 中的每个容器指定单独的配置文件。
 - **value**: 配置文件参考，如下所述
 
