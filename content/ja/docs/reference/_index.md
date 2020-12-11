@@ -17,7 +17,7 @@ content_type: concept
 ## APIリファレンス
 
 * [Kubernetes API概要](/docs/reference/using-api/api-overview/) - Kubernetes APIの概要です。
-* [Kubernetes APIリファレンス {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [Kubernetes APIリファレンス {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 ## APIクライアントライブラリー
 

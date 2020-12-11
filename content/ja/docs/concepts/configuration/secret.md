@@ -758,7 +758,7 @@ echo $SECRET_PASSWORD
 `imagePullSecrets`フィールドは同一のネームスペース内のSecretの参照のリストです。
 kubeletにDockerやその他のイメージレジストリのパスワードを渡すために、`imagePullSecrets`にそれを含むSecretを指定することができます。
 kubeletはこの情報をPodのためにプライベートイメージをpullするために使います。
-`imagePullSecrets`の詳細は[PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core)を参照してください。
+`imagePullSecrets`の詳細は[PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)を参照してください。
 
 #### imagePullSecretを手動で指定する
 

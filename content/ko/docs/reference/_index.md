@@ -17,7 +17,7 @@ content_type: concept
 ## API 레퍼런스
 
 * [쿠버네티스 API 개요](/ko/docs/reference/using-api/api-overview/) - 쿠버네티스 API에 대한 개요
-* [Kubernetes API 레퍼런스 {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [Kubernetes API 레퍼런스 {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 ## API 클라이언트 라이브러리
 
