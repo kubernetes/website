@@ -242,7 +242,7 @@ checks the state of each node every `--node-monitor-period` seconds.
 Heartbeats, sent by Kubernetes nodes, help determine the availability of a node.
 
 There are two forms of heartbeats: updates of `NodeStatus` and the
-[Lease object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io).
+[Lease object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io).
 Each Node has an associated Lease object in the `kube-node-lease`
 {{< glossary_tooltip term_id="namespace" text="namespace">}}.
 Lease is a lightweight resource, which improves the performance
