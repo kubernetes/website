@@ -15,7 +15,7 @@ url: /blog/2016/04/Kubernetes-Network-Policy-APIs
 <!--
 _Editor’s note: This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the Network-SIG team describing network policy APIs coming in 1.3 - policies for security, isolation and multi-tenancy._  
 -->
-_编者注：本周我们将推出[Kubernetes 特殊兴趣小组](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs))、
+_编者注：本周我们将推出 [Kubernetes 特殊兴趣小组](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs))、
 Network-SIG 小组今天的帖子描述了 1.3 版中的网络策略 API-安全，隔离和多租户策略。_
 
 
