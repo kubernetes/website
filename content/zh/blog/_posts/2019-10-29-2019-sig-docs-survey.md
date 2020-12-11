@@ -20,7 +20,7 @@ In September, SIG Docs conducted its first survey about the [Kubernetes
 documentation](https://kubernetes.io/docs/). We'd like to thank the CNCF's Kim
 McMahon for helping us create the survey and access the results.
 -->
-9月，SIG Docs 进行了第一次关于 [Kubernetes 文档](https://kubernetes.io/docs/) 。我们要感谢 CNCF
+9月，SIG Docs 进行了第一次关于 [Kubernetes 文档](https://kubernetes.io/docs/)的用户调研。我们要感谢 CNCF
 的 Kim McMahon 帮助我们创建调查并获取结果。
 
 <!--
