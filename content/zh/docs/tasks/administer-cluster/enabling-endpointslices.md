@@ -157,5 +157,5 @@ EndpointSlices 将允许集群中网络端点更好的可伸缩性和可扩展�
 ## {{% heading "whatsnext" %}}
 
 
-* 参阅 [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
-* 参阅[将应用程序与服务连接](/docs/concepts/services-networking/connect-applications-service/)
+* 参阅 [EndpointSlices](/zh/docs/concepts/services-networking/endpoint-slices/)
+* 参阅[将应用程序与服务连接](/zh/docs/concepts/services-networking/connect-applications-service/)
