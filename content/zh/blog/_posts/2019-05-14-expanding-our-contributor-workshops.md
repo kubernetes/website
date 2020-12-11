@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "壮大我们的发展着研讨会"
+title: "壮大我们的贡献者研讨会"
 date: 2019-05-14
 slug: expanding-our-contributor-workshops
 ---
@@ -22,7 +22,7 @@ slug: expanding-our-contributor-workshops
 <!--
 **tl;dr** - learn about the contributor community with us and land your first PR! We have spots available in [Barcelona][eu] (registration **closes** on Wednesday May 15, so grab your spot!) and the upcoming [Shanghai][cn] Summit.
 -->
-**tl;dr** - 与我们一起了解贡献者社区，并获得您的第一份 PR ! 我们在[巴塞罗那][欧洲]有空位（登记 在5月15号周三**结束**，所以抓住这次机会！）并且在[上海][中国]有即将到来的峰会。
+**tl;dr** - 与我们一起了解贡献者社区，并获得你的第一份 PR ! 我们在[巴塞罗那][欧洲]有空位（登记 在5月15号周三**结束**，所以抓住这次机会！）并且在[上海][中国]有即将到来的峰会。
 
 <!--
 The Barcelona event is poised to be our biggest one yet, with more registered attendees than ever before!
@@ -60,7 +60,7 @@ We’ll have developer setup and project workflow support for folks entirely new
 source and Kubernetes as part of the 101 track, and hope to set up each
 participant with their very own first issue to work on. 
 -->
-作为101课程的一部分，我们将为完全不熟悉开源和Kubernetes的人提供开发人员设置和项目工作流支持，并希望为每个参与者开展他们自己的第一期工作。
+作为101课程的一部分，我们将为完全不熟悉开源和 Kubernetes 的人提供开发人员设置和项目工作流支持，并希望为每个参与者开展他们自己的第一期工作。
 
 <!--
 In the 201 track, we will have a codebase walkthrough and local development and test demonstration for folks who have a bit more experience in open source but may be unfamiliar with our community’s development tools.
@@ -81,7 +81,7 @@ find the right people, and where to get help when stuck.
 <!--
 We will also bring back the SIG Meet-and-Greet where new contributors will have a chance to mingle with current contributors, perhaps find their dream SIG, learn what exciting areas they can help with, gain mentors, and make friends.
 -->
-我们还将回归 SIG Meet-and-Greet，在这里新入门的菜鸟贡献者将有机会与当值的贡献者交流，这也许会让他们找到他们梦想的SIG，了解他们可以帮助哪些激动人心的领域，获得导师，结交朋友。
+我们还将回归 SIG Meet-and-Greet，在这里新入门的菜鸟贡献者将有机会与当值的贡献者交流，这也许会让他们找到他们梦想的 SIG，了解他们可以帮助哪些激动人心的领域，获得导师，结交朋友。
 
 <!--
 PS - there are also two mentoring sessions DURING KubeCon + CloudNativeCon on Thursday, May 23. [Sign up here][mentor]. 60% of the attendees during the Seattle event asked contributor questions. 
