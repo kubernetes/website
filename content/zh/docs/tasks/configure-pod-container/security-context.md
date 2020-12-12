@@ -240,7 +240,7 @@ exit
 -->
 ## 为 Pod 配置卷访问权限和属主变更策略
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
 <!--
 By default, Kubernetes recursively changes ownership and permissions for the contents of each
