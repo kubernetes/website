@@ -34,7 +34,7 @@ text="Container Storage Interface" term_id="csi" >}} (CSI) drivers and
 ## API
 
 There are two API extensions for this feature:
-- [CSIStorageCapacity](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csistoragecapacity-v1alpha1-storage-k8s-io) objects:
+- CSIStorageCapacity objects:
   these get produced by a CSI driver in the namespace
   where the driver is installed. Each object contains capacity
   information for one storage class and defines which nodes have
