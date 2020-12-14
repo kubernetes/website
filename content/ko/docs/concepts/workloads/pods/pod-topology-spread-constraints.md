@@ -310,6 +310,7 @@ profiles:
             - maxSkew: 1
               topologyKey: topology.kubernetes.io/zone
               whenUnsatisfiable: ScheduleAnyway
+          defaultingType: List
 ```
 
 {{< note >}}
@@ -322,9 +323,9 @@ profiles:
 
 #### 내부 기본 제약
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
-`DefaultPodTopologySpread` 기능 게이트를 활성화하면, 기존
+기본적으로 활성화된 `DefaultPodTopologySpread` 기능 게이트를 사용하면, 기존
 `SelectorSpread` 플러그인이 비활성화된다.
 kube-scheduler는 `PodTopologySpread` 플러그인 구성에 다음과 같은
 기본 토폴로지 제약 조건을 사용한다.
@@ -350,6 +351,22 @@ defaultConstraints:
 `PodTopologySpread` 플러그인은 분배 제약 조건에 지정된 토폴로지 키가
 없는 노드에 점수를 매기지 않는다.
 {{< /note >}}
+
+클러스터에 기본 파드 분배 제약 조건을 사용하지 않으려면,
+`PodTopologySpread` 플러그인 구성에서 `defaultingType` 을 `List` 로 설정하고
+`defaultConstraints` 를 비워두어 기본값을 비활성화할 수 있다.
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+
+profiles:
+  - pluginConfig:
+      - name: PodTopologySpread
+        args:
+          defaultConstraints: []
+          defaultingType: List
+```
 
 ## 파드어피니티(PodAffinity)/파드안티어피니티(PodAntiAffinity)와의 비교
 

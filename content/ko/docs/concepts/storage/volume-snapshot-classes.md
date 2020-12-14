@@ -33,7 +33,7 @@ weight: 30
 생성된 이후에는 업데이트할 수 없다.
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-hostpath-snapclass
@@ -47,7 +47,7 @@ parameters:
 기본 볼륨스냅샷클래스를 지정할 수 있다.
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-hostpath-snapclass
