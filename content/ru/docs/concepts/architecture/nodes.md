@@ -243,7 +243,7 @@ ConditionUnknown, когда узел становится недоступны�
 Сердцебиения, посылаемые узлами Kubernetes, помогают определить доступность узла.
 
 Существует две формы сердцебиений: обновление  `NodeStatus` и
-[Lease объект](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io).
+[Lease объект](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io).
 Каждый узел имеет связанный с ним Lease объект в `kube-node-lease`
 {{< glossary_tooltip term_id="namespace" text="namespace">}}.
 Lease - это легковестный ресурс, который улучшает производительность

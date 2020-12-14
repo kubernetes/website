@@ -1219,7 +1219,7 @@ these pods.
 The `imagePullSecrets` field is a list of references to secrets in the same namespace.
 You can use an `imagePullSecrets` to pass a secret that contains a Docker (or other) image registry
 password to the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
+See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
 
 #### Manually specifying an imagePullSecret
 
@@ -1230,7 +1230,7 @@ You can learn how to specify `ImagePullSecrets` from the [container images docum
 `imagePullSecrets` 字段中包含一个列表，列举对同一名字空间中的 Secret 的引用。
 你可以使用 `imagePullSecrets` 将包含 Docker（或其他）镜像仓库密码的 Secret 传递给
 kubelet。kubelet 使用此信息来替你的 Pod 拉取私有镜像。
-关于 `imagePullSecrets` 字段的更多信息，请参考 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core) 文档。
+关于 `imagePullSecrets` 字段的更多信息，请参考 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 文档。
 
 #### 手动指定 imagePullSecret
 

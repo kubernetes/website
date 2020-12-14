@@ -133,7 +133,7 @@ the appliers, results in a conflict. Shared field owners may give up ownership
 of a field by removing it from their configuration.
 
 Field management is stored in a`managedFields` field that is part of an object's
-[`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta).
+[`metadata`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta).
 
 A simple example of an object created by Server Side Apply could look like this:
 -->
@@ -142,7 +142,7 @@ A simple example of an object created by Server Side Apply could look like this:
 共享字段的所有者可以放弃字段的所有权，这只需从配置文件中删除该字段即可。
 
 字段管理的信息存储在 `managedFields` 字段中，该字段是对象的 
-[`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta)中的一部分。
+[`metadata`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta)中的一部分。
 
 服务器端应用创建对象的简单示例如下：
 
