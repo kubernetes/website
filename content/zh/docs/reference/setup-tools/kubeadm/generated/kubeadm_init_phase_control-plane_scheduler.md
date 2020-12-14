@@ -2,13 +2,11 @@
 <!-- 
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generates the kube-scheduler static Pod manifest
 -->
-
 生成 kube-scheduler 静态 Pod 清单
 
 ```
@@ -18,7 +16,6 @@ kubeadm init phase control-plane scheduler [flags]
 <!-- 
 ### Options 
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -54,6 +51,22 @@ The path where to save and store the certificates.
 Path to a kubeadm configuration file.
 -->
 kubeadm 配置文件的路径。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--experimental-patches string</td>
+</tr>
+
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.-->
+包含名为 "target[suffix][+patchtype].extension" 的文件的目录。
+例如，"kube-apiserver0+merge.yaml" 或者 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，分别与 kubectl
+所支持的 patch 格式相匹配。默认的 "patchtype" 是 "strategic"。
+"extension" 必须是 "json" 或 "yaml"。
+"suffix" 是一个可选的字符串，用来确定按字母顺序排序时首先应用哪些 patch。
 </td>
 </tr>
 
@@ -111,7 +124,8 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
-一组额外的参数以 &lt;flagname&gt;=&lt;value&gt; 形式传递给 Scheduler 或者覆盖默认参数
+一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给调度器
+或者覆盖其默认参数配置
 </td>
 </tr>
 
@@ -121,7 +135,6 @@ A set of extra flags to pass to the Scheduler or override default ones in form o
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 继承于父命令的选项
 
    <table style="width: 100%; table-layout: fixed;">
