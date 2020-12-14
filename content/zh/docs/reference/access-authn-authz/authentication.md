@@ -351,7 +351,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 服务账号通常由 API 服务器自动创建并通过 `ServiceAccount`
 [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
 关联到集群中运行的 Pod 上。
-持有者令牌会挂载到 Pod 中可预知的为之，允许集群内进程与 API 服务器通信。
+持有者令牌会挂载到 Pod 中可预知的位置，允许集群内进程与 API 服务器通信。
 服务账号也可以使用 Pod 规约的 `serviceAccountName` 字段显式地关联到 Pod 上。
 
 <!--
