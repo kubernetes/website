@@ -129,7 +129,7 @@ Kubernetesは無効なノードのためにオブジェクトを保存し、そ�
 
 #### ハートビート
 ハートビートは、Kubernetesノードから送信され、ノードが利用可能か判断するのに役立ちます。
-２つのハートビートがあります：`NodeStatus`の更新と[Lease object](/docs/reference/generated/kubernetes-api/{{< latest-version >}}#lease-v1-coordination-k8s-io)です。
+２つのハートビートがあります：`NodeStatus`の更新と[Lease object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#lease-v1-coordination-k8s-io)です。
 各ノードは`kube-node-lease`という{{< glossary_tooltip term_id="namespace" text="namespace">}}に関連したLeaseオブジェクトを持ちます。
 Leaseは軽量なリソースで、クラスターのスケールに応じてノードのハートビートにおけるパフォーマンスを改善します。
 
