@@ -65,7 +65,8 @@ Even better, we have been able to add a number of services around the core Kuber
 -->
 更好的是，我们已经能够围绕 Kubernetes 核心功能添加许多服务。
 例如，我们在 Kubernetes 上实现了常用的 [应用程序目录](https://github.com/rancher/community-catalog/tree/master/kubernetes-templates) 。
-过去，我们曾使用Docker Compose定义应用程序模板，但是在此版本中，我们现在支持 Kubernetes 服务，复制控制器和 Pod 来部署应用程序。使用目录，用户可以连接到 git repo 并自动部署和升级作为 Kubernetes 服务部署到应用程序。
+过去，我们曾使用 Docker Compose 定义应用程序模板，但是在此版本中，我们现在支持 Kubernetes 服务、副本控制器和和 Pod 来部署应用程序。
+使用目录，用户可以连接到 git 仓库并自动部署和升级作为 Kubernetes 服务部署的应用。
 然后，用户只需单击一下按钮，即可配置和部署复杂的多节点企业应用程序。
 升级也是完全自动化的，并集中向用户推出。
 
