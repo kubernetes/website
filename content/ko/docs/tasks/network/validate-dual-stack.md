@@ -146,7 +146,7 @@ my-service   ClusterIP   fe80:20d::d06b   <none>        80/TCP    9s
 
 만약 클라우드 제공자가 IPv6 기반 외부 로드 밸런서 구성을 지원한다면 `ipFamily` 필드를 `IPv6`로, `type` 필드를 `LoadBalancer` 로 설정하여 다음의 서비스를 생성한다.
 
-{{< codenew file="service/networking/dual-stack-ipv6-lb-svc.yaml" >}}
+{{< codenew file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" >}}
 
 서비스가 IPv6 주소 블록에서 `CLUSTER-IP` 주소 및 `EXTERNAL-IP` 주소를 할당받는지 검증한다. 그리고 나서 IP 및 포트로 서비스 접근이 가능한지 검증할 수 있다.
 ```
