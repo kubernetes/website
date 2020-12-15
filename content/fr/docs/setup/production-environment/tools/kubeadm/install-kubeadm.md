@@ -299,7 +299,7 @@ Veuillez noter que vous devez **seulement** le faire si le driver de cgroupe de 
 n'est pas `cgroupfs`, car c'est déjà la valeur par défaut dans la kubelet.
 
 {{< note >}}
-Depuis que le paramettre `--cgroup-driver` est obsolète par kubelet, si vous l'avez dans`/var/lib/kubelet/kubeadm-flags.env`
+Depuis que le paramètre `--cgroup-driver` est obsolète par kubelet, si vous l'avez dans`/var/lib/kubelet/kubeadm-flags.env`
 ou `/etc/default/kubelet`(`/etc/sysconfig/kubelet` pour les RPM), veuillez le supprimer et utiliser à la place KubeletConfiguration
 (stocké dans`/var/lib/kubelet/config.yaml` par défaut).
 {{< /note >}}
