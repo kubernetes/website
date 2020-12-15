@@ -38,8 +38,16 @@ sees.  The simplest way to do this is to run an interactive alpine Pod:
 
 ```none
 $ kubectl run -it --rm --restart=Never alpine --image=alpine sh
-If you don't see a command prompt, try pressing enter.
 ```
+
+<!--
+{{< note >}}
+If you don't see a command prompt, try pressing enter.
+{{< /note >}}
+-->
+{{< note >}}
+如果没有看到命令提示符，请按回车。
+{{< /note >}}
 
 <!--
 If you already have a running Pod that you prefer to use, you can run a
