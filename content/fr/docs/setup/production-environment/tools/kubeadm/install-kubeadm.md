@@ -241,7 +241,7 @@ DOWNLOAD_DIR=/usr/local/bin
 sudo mkdir -p $DOWNLOAD_DIR
 ```
 
-Installer crictl (requis pour Kubeadm / Kubelet Container Runtime Interface (CRI))
+Installez crictl (requis pour Kubeadm / Kubelet Container Runtime Interface (CRI))
 
 ```bash
 CRICTL_VERSION="v1.17.0"
