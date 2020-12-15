@@ -158,8 +158,8 @@ for database debugging.
     Any of the above commands works. The output is similar to this:
 
     ```
-    I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:7000 -> 6379
-    I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:7000 -> 6379
+    Forwarding from 127.0.0.1:7000 -> 6379
+    Forwarding from [::1]:7000 -> 6379
     ```
 
 2.  Start the Redis command line interface:
@@ -180,7 +180,23 @@ for database debugging.
     PONG
     ```
 
+### Optionally let _kubectl_ choose the local port {#let-kubectl-choose-local-port}
 
+If you don't need a specific local port, you can let `kubectl` choose and allocate 
+the local port and thus relieve you from having to manage local port conflicts, with 
+the slightly simpler syntax:
+
+```shell
+kubectl port-forward deployment/redis-master :6379
+```
+
+The `kubectl` tool finds a local port number that is not in use (avoiding low ports numbers,
+because these might be used by other applications). The output is similar to:
+
+```
+Forwarding from 127.0.0.1:62162 -> 6379
+Forwarding from [::1]:62162 -> 6379
+```
 
 
 <!-- discussion -->
@@ -203,4 +219,3 @@ The support for UDP protocol is tracked in
 ## {{% heading "whatsnext" %}}
 
 Learn more about [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward).
-
