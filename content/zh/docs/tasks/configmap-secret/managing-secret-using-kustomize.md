@@ -94,6 +94,7 @@ the Secret data and appending the hash value to the name. This ensures that
 a new Secret is generated each time the data is modified. 
 -->
 请注意，生成 Secret 时，Secret 的名称最终是由 `name` 字段和数据的哈希值拼接而成。
+这将保证每次修改数据时生成一个新的 Secret。
 
 <!-- ## Check the Secret created -->
 ## 检查创建的 Secret    {#check-the-secret-created}
