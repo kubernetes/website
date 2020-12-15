@@ -126,7 +126,7 @@ Le tableau suivant répertorie les environnements d'exécution des conteneurs et
 <br />
 Si Docker et containerd sont détectés, Docker est prioritaire. C'est
 nécessaire car Docker 18.09 est livré avec containerd et les deux sont détectables même si vous
-installé Docker.
+installez Docker.
 Si deux autres environnements d'exécution ou plus sont détectés, kubeadm se ferme avec une erreur.
 
 Le kubelet s'intègre à Docker via l'implémentation CRI intégrée de `dockershim`.
