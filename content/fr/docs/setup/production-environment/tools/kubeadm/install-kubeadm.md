@@ -163,7 +163,7 @@ mais la version de la kubelet ne doit jamais dépasser la version de l'API serve
 Par exemple, les kubelets exécutant la version 1.7.0 devraient être entièrement compatibles avec un API server en 1.8.0,
 mais pas l'inverse.
 
-For information about installing `kubectl`, see [Install and set up kubectl](/fr/docs/tasks/tools/install-kubectl/).
+For information about installing `kubectl`, see [Installation et configuration kubectl](/fr/docs/tasks/tools/install-kubectl/).
 
 {{< warning >}}
 Ces instructions excluent tous les packages Kubernetes de toutes les mises à niveau du système d'exploitation.
