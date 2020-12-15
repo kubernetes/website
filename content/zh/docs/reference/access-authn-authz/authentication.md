@@ -1387,11 +1387,35 @@ users:
       args:
       - "arg1"
       - "arg2"
+
+      # Text shown to the user when the executable doesn't seem to be present. Optional.
+      installHint: |
+        example-client-go-exec-plugin is required to authenticate
+        to the current cluster.  It can be installed:
+
+        On macOS: brew install example-client-go-exec-plugin
+
+        On Ubuntu: apt-get install example-client-go-exec-plugin
+
+        On Fedora: dnf install example-client-go-exec-plugin
+
+        ...
+
+      # Whether or not to provide cluster information, which could potentially contain
+      # very large CA data, to this exec plugin as a part of the KUBERNETES_EXEC_INFO
+      # environment variable.
+      provideClusterInfo: true
 clusters:
 - name: my-cluster
   cluster:
     server: "https://172.17.4.100:6443"
     certificate-authority: "/etc/kubernetes/ca.pem"
+    extensions:
+    - name: client.authentication.k8s.io/exec # reserved extension name for per cluster exec config
+      extension:
+        arbitrary: config
+        this: can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo
+        you: ["can", "put", "anything", "here"]
 contexts:
 - name: my-cluster
   context:
@@ -1427,11 +1451,32 @@ users:
       args:
       - "arg1"
       - "arg2"
+
+      # 当可执行文件不存在时显示给用户的文本。可选的。
+      installHint: |
+        需要example-client-go-exec-plugin来验证当前集群。可以通过以下命令安装：
+
+        MacOS: brew install example-client-go-exec-plugin
+
+        Ubuntu: apt-get install example-client-go-exec-plugin
+
+        Fedora: dnf install example-client-go-exec-plugin
+
+        ...
+
+      # 是否向这个 exec 插件提供集群信息(可能包含非常大的CA数据)，作为KUBERNETES_EXEC_INFO环境变量的一部分。
+      provideClusterInfo: true
 clusters:
 - name: my-cluster
   cluster:
     server: "https://172.17.4.100:6443"
     certificate-authority: "/etc/kubernetes/ca.pem"
+    extensions:
+    - name: client.authentication.k8s.io/exec # 为每个集群 exec 配置保留的扩展名
+      extension:
+        arbitrary: config
+        this: can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo
+        you: ["can", "put", "anything", "here"]
 contexts:
 - name: my-cluster
   context:
@@ -1548,6 +1593,37 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
   "status": {
     "token": "my-bearer-token",
     "expirationTimestamp": "2018-03-05T17:30:20-08:00"
+  }
+}
+```
+
+<!--
+The plugin can optionally be called with an environment variable, `KUBERNETES_EXEC_INFO`,
+that contains information about the cluster for which this plugin is obtaining
+credentials. This information can be used to perform cluster-specific credential
+acquisition logic. In order to enable this behavior, the `provideClusterInfo` field must
+be set on the exec user field in the
+[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/). Here is an
+example of the aforementioned `KUBERNETES_EXEC_INFO` environment variable.
+-->
+
+该插件可以选择使用环境变量`KUBERNETES_EXEC_INFO`进行调用，
+该变量包含了此插件获取凭据的集群信息。此信息可用于执行群集特定的凭据获取逻辑。为了启用此行为，必须在 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)中的 exec 用户字段上设置`provideClusterInfo`字段。下面是上述`KUBERNETES_EXEC_INFO`环境变量的示例。
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1beta1",
+  "kind": "ExecCredential",
+  "spec": {
+    "cluster": {
+      "server": "https://172.17.4.100:6443",
+      "certificate-authority-data": "LS0t...",
+      "config": {
+        "arbitrary": "config",
+        "this": "can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo",
+        "you": ["can", "put", "anything", "here"]
+      }
+    }
   }
 }
 ```
