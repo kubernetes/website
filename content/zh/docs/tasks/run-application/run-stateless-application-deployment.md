@@ -37,7 +37,7 @@ a Deployment that runs the nginx:1.14.2 Docker image:
 ## 创建并了解一个 nginx Deployment
 
 你可以通过创建一个 Kubernetes Deployment 对象来运行一个应用, 且你可以在一个
-YAML 文件中描述 Deployment。例如, 下面这个 YAML 文件描述了一个运行 nginx:1.7.9
+YAML 文件中描述 Deployment。例如, 下面这个 YAML 文件描述了一个运行 nginx:1.14.2
 Docker 镜像的 Deployment：
 
 {{< codenew file="application/deployment.yaml" >}}
