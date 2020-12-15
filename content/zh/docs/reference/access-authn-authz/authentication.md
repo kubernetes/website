@@ -1454,7 +1454,7 @@ users:
 
       # 当可执行文件不存在时显示给用户的文本。可选的。
       installHint: |
-        需要example-client-go-exec-plugin来验证当前集群。可以通过以下命令安装：
+        需要 example-client-go-exec-plugin 来在当前集群上执行身份认证。可以通过以下命令安装：
 
         MacOS: brew install example-client-go-exec-plugin
 
@@ -1464,7 +1464,8 @@ users:
 
         ...
 
-      # 是否向这个 exec 插件提供集群信息(可能包含非常大的CA数据)，作为KUBERNETES_EXEC_INFO环境变量的一部分。
+      # 是否使用 KUBERNETES_EXEC_INFO 环境变量的一部分向这个 exec 插件
+      # 提供集群信息（可能包含非常大的 CA 数据）
       provideClusterInfo: true
 clusters:
 - name: my-cluster
@@ -1475,7 +1476,7 @@ clusters:
     - name: client.authentication.k8s.io/exec # 为每个集群 exec 配置保留的扩展名
       extension:
         arbitrary: config
-        this: can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo
+        this: 在设置 provideClusterInfo 时可通过环境变量 KUBERNETES_EXEC_INFO 指定
         you: ["can", "put", "anything", "here"]
 contexts:
 - name: my-cluster
@@ -1607,8 +1608,11 @@ be set on the exec user field in the
 example of the aforementioned `KUBERNETES_EXEC_INFO` environment variable.
 -->
 
-该插件可以选择使用环境变量`KUBERNETES_EXEC_INFO`进行调用，
-该变量包含了此插件获取凭据的集群信息。此信息可用于执行群集特定的凭据获取逻辑。为了启用此行为，必须在 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)中的 exec 用户字段上设置`provideClusterInfo`字段。下面是上述`KUBERNETES_EXEC_INFO`环境变量的示例。
+调用此插件时可以选择性地设置环境变量 `KUBERNETES_EXEC_INFO`。
+该变量包含了此插件获取凭据所针对的集群信息。此信息可用于执行群集特定的凭据获取逻辑。
+为了启用此行为，必须在 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+中的 exec user 字段上设置`provideClusterInfo`字段。
+下面是上述 `KUBERNETES_EXEC_INFO` 环境变量的示例。
 
 ```json
 {
@@ -1620,7 +1624,7 @@ example of the aforementioned `KUBERNETES_EXEC_INFO` environment variable.
       "certificate-authority-data": "LS0t...",
       "config": {
         "arbitrary": "config",
-        "this": "can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo",
+        "this": "在设置 provideClusterInfo 时可通过环境变量 KUBERNETES_EXEC_INFO 指定",
         "you": ["can", "put", "anything", "here"]
       }
     }
