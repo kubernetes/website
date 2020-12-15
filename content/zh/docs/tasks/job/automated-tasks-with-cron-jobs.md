@@ -76,7 +76,7 @@ Run the example cron job by downloading the example file and then running this c
 想要运行示例的 CronJob，可以下载示例文件并执行命令：
 
 ```shell
-kubectl create -f ./cronjob.yaml
+kubectl create -f https://k8s.io/examples/application/job/cronjob.yaml
 ```
 ```
 cronjob.batch/hello created
