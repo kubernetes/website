@@ -17,13 +17,13 @@ url: /blog/2016/05/Coreosfest2016-Kubernetes-Community
 -->
 [CoreOS Fest 2016](https://coreos.com/fest/) 将汇集容器和开源分布式系统社区，其中包括 Kubernetes 领域的许多思想领袖。
 这是第二次年度 CoreOS 社区会议，于5月9日至10日在柏林首次举行。
-CoreOS 相信 Kubernetes 是提供 GIFEE（适用于所有人的 Google 的基础架构）的容器编排组件。
+CoreOS 相信 Kubernetes 是提供 GIFEE（适用于所有人的 Google 的基础架构）服务的合适的容器编排组件。
 
 <!--
 At this year’s CoreOS Fest, there are tracks dedicated to Kubernetes where you’ll hear about various topics ranging from Kubernetes performance and scalability, continuous delivery and Kubernetes, rktnetes, stackanetes and more. In addition, there will be a variety of talks, from introductory workshops to deep-dives into all things containers and related software.  
 -->
 在今年的 CoreOS Fest 上，有专门针对 Kubernetes 的报道，您将听到有关 Kubernetes 性能和可伸缩性，持续交付以及 Kubernetes，rktnetes，stackanetes 等各种主题的信息。
-此外，从入门讲习班到深入探讨万物容器和相关软件，这里将有各种各样的讲座。
+此外，这里将有各种各样的讲座，涵盖从入门讲习班到深入探讨容器和相关软件的方方面面。
 
 <!--
 Don’t miss these great speaker sessions at the conference in **Berlin** :  -->
