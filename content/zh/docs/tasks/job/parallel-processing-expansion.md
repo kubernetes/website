@@ -368,6 +368,23 @@ Kubernetes accepts and runs the Jobs you created.
 -->
 Kubernets 接收清单文件并执行你所创建的 Job。
 
+<!--
+### Clean up {#cleanup-2}
+```shell
+# Remove the Jobs you created
+# Your cluster automatically cleans up their Pods
+kubectl delete job -l jobgroup=jobexample
+```
+-->
+### 清理 {#cleanup-2}
+
+```shell
+# 删除所创建的 Job
+# 集群会自动清理 Job 对应的 Pod
+kubectl delete job -l jobgroup=jobexample
+```
+
+
 <!-- discussion -->
 
 <!--
