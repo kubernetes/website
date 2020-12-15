@@ -215,7 +215,7 @@ sudo systemctl enable --now kubelet
 
   - Mettre SELinux en mode permissif en lançant `setenforce 0` et `sed ... `le désactive efficacement.
   C'est nécessaire pour permettre aux conteneurs d'accéder au système de fichiers hôte, qui est nécessaire par exemple pour les réseaux de pod.
-    Vous devez le faire jusqu'à ce que le support de SELinux soit amélioré dans la kubelet.
+    Vous devez le faire jusqu'à ce que le support de SELinux soit amélioré dans Kubelet.
 
   - Vous pouvez laisser SELinux activé si vous savez comment le configurer, mais il peut nécessiter des paramètres qui ne sont pas pris en charge par kubeadm.
 
