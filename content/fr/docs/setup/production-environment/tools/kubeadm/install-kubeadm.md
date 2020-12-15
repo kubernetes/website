@@ -282,7 +282,7 @@ car il attend les instructions de kubeadm dans une boucle de crash.
 
 ## Configurer le driver de cgroup utilisé par la kubelet sur un nœud master
 
-Lorsque vous utilisez Docker, kubeadm détecte automatiquement le pilote ( driver ) de cgroup pour la kubelet
+Lorsque vous utilisez Docker, kubeadm détecte automatiquement le pilote ( driver ) de cgroup pour kubelet
 et le configure dans le fichier `/var/lib/kubelet/config.yaml` lors de son éxecution.
 
 Si vous utilisez un autre CRI, vous devez passer votre valeur `cgroupDriver` avec `kubeadm init`, comme ceci :
