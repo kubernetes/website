@@ -162,6 +162,12 @@ for database debugging.
     I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:7000 -> 6379
     ```
 
+{{< note >}}
+
+`kubectl port-forward` does not return. To continue with the exercises, you will need to open another terminal.
+
+{{< /note >}}
+
 2.  Start the Redis command line interface:
 
     ```shell
