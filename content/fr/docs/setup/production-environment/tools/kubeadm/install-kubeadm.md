@@ -278,7 +278,7 @@ Consultez le [Guide de dépannage de Kubeadm](/docs/setup/production-environment
 
 
 Kubelet redémarre maintenant toutes les quelques secondes,
-car il attend dans une boucle de crash que kubeadm lui dise quoi faire.
+car il attend les instructions de kubeadm dans une boucle de crash.
 
 ## Configurer le driver de cgroup utilisé par la kubelet sur un nœud master
 
