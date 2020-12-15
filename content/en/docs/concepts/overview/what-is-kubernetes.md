@@ -88,7 +88,9 @@ Kubernetes:
 * Does not provide nor adopt any comprehensive machine configuration, maintenance, management, or self-healing systems.
 * Additionally, Kubernetes is not a mere orchestration system. In fact, it eliminates the need for orchestration. The technical definition of orchestration is execution of a defined workflow: first do A, then B, then C. In contrast, Kubernetes comprises a set of independent, composable control processes that continuously drive the current state towards the provided desired state. It shouldn't matter how you get from A to C. Centralized control is also not required. This results in a system that is easier to use and more powerful, robust, resilient, and extensible.
 
+## The meaning of Kubernetes or K8s
 
+The name **Kubernetes** is derived from the Greek language and translates to *helmsman* or *pilot*. *K8s* as an abbreviation results from counting the eight letters between the "K" and the "s".
 
 ## {{% heading "whatsnext" %}}
 
