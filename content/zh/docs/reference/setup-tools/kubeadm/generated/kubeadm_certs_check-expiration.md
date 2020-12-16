@@ -1,23 +1,20 @@
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!-- 
 Checks expiration for the certificates in the local PKI managed by kubeadm.
 -->
-
 检查 kubeadm 管理的本地 PKI 中证书的到期时间。
 
 ```
-kubeadm alpha certs check-expiration [flags]
+kubeadm certs check-expiration [flags]
 ```
 
 <!--
 ### Options
 -->
-
 ### 选项 
 
    <table style="width: 100%; table-layout: fixed;">
@@ -59,8 +56,9 @@ kubeadm alpha certs check-expiration [flags]
 </tbody>
 </table>
 
-<!-- ### Options inherited from parent commands -->
-
+<!--
+### Options inherited from parent commands
+-->
 ### 继承于父命令的选项 
 
    <table style="width: 100%; table-layout: fixed;">
@@ -80,7 +78,5 @@ kubeadm alpha certs check-expiration [flags]
 
 </tbody>
 </table>
-
-
 
 
