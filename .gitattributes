@@ -1,0 +1,5 @@
+# Declare files that will always have LF line endings on checkout.
+*.js text eol=lf
+
+# mark minified JavaScript as generated
+*.min.js linguist-generated=true
