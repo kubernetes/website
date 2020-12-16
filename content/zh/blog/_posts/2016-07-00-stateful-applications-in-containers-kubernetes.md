@@ -56,7 +56,7 @@ Pet Set 还利用普遍存在的 DNS SRV 记录简化了服务发现，DNS SRV �
 <!--
 Diamanti’s [FlexVolume contribution](https://github.com/kubernetes/kubernetes/pull/13840) to Kubernetes enables stateful workloads by providing persistent volumes with low-latency storage and guaranteed performance, including enforced quality-of-service from container to media.  
 -->
-Diamanti对Kubernetes的 [FlexVolume贡献](https://github.com/kubernetes/kubernetes/pull/13840) 通过为持久卷提供低延迟存储并保证性能来实现有状态工作负载，包括从容器到媒体的强制服务质量。
+Diamanti 对 Kubernete s的 [FlexVolume 贡献](https://github.com/kubernetes/kubernetes/pull/13840) 通过为持久卷提供低延迟存储并保证性能来实现有状态工作负载，包括从容器到媒体的强制服务质量。
 
 <!--
 **A Federalist** 
@@ -67,24 +67,24 @@ Diamanti对Kubernetes的 [FlexVolume贡献](https://github.com/kubernetes/kubern
 Users who are planning for application availability must contend with issues of failover and scale across geography. Cross-cluster federated services allows containerized apps to easily deploy across multiple clusters. Federated services tackles challenges such as managing multiple container clusters and coordinating service deployment and discovery across federated clusters.  
 -->
 为应用可用性作规划的用户必须应对故障迁移问题并在整个地理区域内扩展。
-跨集群联合服务允许容器化的应用程序轻松跨多个集群进行部署。
-联合服务解决了诸如管理多个容器集群以及协调跨联合集群的服务部署和发现之类的挑战。
+跨集群联邦服务允许容器化的应用程序轻松跨多个集群进行部署。
+联邦服务解决了诸如管理多个容器集群以及协调跨联邦集群的服务部署和发现之类的挑战。
 
 <!--
 Like a strictly centralized model, federation provides a common app deployment interface. With each cluster retaining autonomy, however, federation adds flexibility to manage clusters locally during network outages and other events. Cross-cluster federated services also applies consistent service naming and adoption across container clusters, simplifying DNS resolution.  
 -->
-像严格的集中式模型一样，联合身份验证提供了通用的应用程序部署界面。
-但是，由于每个集群都具有自治权，因此联合会增加了在网络中断和其他事件期间在本地管理集群的灵活性。
-跨集群联合服务还可以提供跨容器集群应用一致的服务命名和采用，简化 DNS 解析。
+像严格的集中式模型一样，联邦身份验证提供了通用的应用程序部署界面。
+但是，由于每个集群都具有自治权，因此联邦会增加了在网络中断和其他事件期间在本地管理集群的灵活性。
+跨集群联邦服务还可以提供跨容器集群应用一致的服务命名和采用，简化 DNS 解析。
 
 <!--
 It’s easy to imagine powerful multi-cluster use cases with cross-cluster federated services in future releases. An example is scheduling containers based on governance, security, and performance requirements. Diamanti’s scheduler extension was developed with this concept in mind. Our [first implementation](https://github.com/kubernetes/kubernetes/pull/13580) makes the Kubernetes scheduler aware of network and storage resources local to each cluster node. Similar concepts can be applied in the future to broader placement controls with cross-cluster federated services.&nbsp;  
 -->
-很容易想象在将来的版本中具有跨集群联合服务的强大多集群用例。
+很容易想象在将来的版本中具有跨集群联邦服务的强大多集群用例。
 一个示例是根据治理，安全性和性能要求调度容器。
 Diamanti 的调度程序扩展是在考虑了这一概念的基础上开发的。
 我们的[第一个实现](https://github.com/kubernetes/kubernetes/pull/13580)使 Kubernetes 调度程序意识到每个群集节点本地的网络和存储资源。
-将来，类似的概念可以应用于跨集群联合服务的更广泛的放置控件。
+将来，类似的概念可以应用于跨集群联邦服务的更广泛的放置控件。
 
 <!--
 **Get Involved**  
@@ -97,7 +97,7 @@ With interest growing in stateful apps, work has already started to further enha
 随着对有状态应用的兴趣日益浓厚，人们已经开始进一步增强 Kubernetes 存储的工作。
 存储特别兴趣小组正在讨论支持本地存储资源的提案。
 Diamanti 期待将 FlexVolume 扩展到包括更丰富的 API，这些 API 可以启用本地存储和存储服务，包括数据保护，复制和缩减。
-我们还正在研究有关通过 Kubernetes 跨集群联合服务改善应用程序放置，迁移和跨容器集群故障转移的建议。
+我们还正在研究有关通过 Kubernetes 跨集群联邦服务改善应用程序放置，迁移和跨容器集群故障转移的建议。
 
 <!--
 Join the conversation and contribute! Here are some places to get started:  
