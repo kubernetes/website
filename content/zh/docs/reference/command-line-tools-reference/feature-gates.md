@@ -511,10 +511,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
    See [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
    for more details.
 - `BoundServiceAccountTokenVolume`: Migrate ServiceAccount volumes to use a projected volume consisting of a
-   ServiceAccountTokenVolumeProjection.
-   Check [Service Account Token Volumes](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)
+   ServiceAccountTokenVolumeProjection. Cluster admins can use metric `serviceaccount_stale_tokens_total` to
+   monitor workloads that are depending on the extended tokens. If there are no such workloads, turn off
+   extended tokens by starting `kube-apiserver` with flag `--service-account-extend-token-expiration=false`.
+   Check [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
    for more details.
-- `ConfigurableFSGroupPolicy`: Allows user to configure volume permission change policy for fsGroups when mounting a volume in a Pod. See [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods) for more details.
+- `ConfigurableFSGroupPolicy`: Allows user to configure volume permission change policy for fsGroups when mounting a volume in a Pod. See 
+   [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods) for more details.
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 -->
 
@@ -525,8 +528,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `BlockVolume`：在 Pod 中启用原始块设备的定义和使用。有关更多详细信息，请参见
   [原始块卷支持](/zh/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)。
 - `BoundServiceAccountTokenVolume`：迁移 ServiceAccount 卷以使用由
-  ServiceAccountTokenVolumeProjection 组成的预计卷。有关更多详细信息，请参见
-  [服务账号令牌卷](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)。
+   ServiceAccountTokenVolumeProjection 组成的投射卷。集群管理员可以使用 `serviceaccount_stale_tokens_total` 
+   度量值来监控依赖于扩展令牌的负载。如果没有这种类型的负载，你可以在启动 `kube-apiserver` 时
+   添加 `--service-account-extend-token-expiration=false` 参数关闭扩展令牌。查看 
+   [绑定服务账号令牌](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
+   获取更多详细信息。
 - `ConfigurableFSGroupPolicy`：在 Pod 中挂载卷时，允许用户为 fsGroup
   配置卷访问权限和属主变更策略。请参见
   [为 Pod 配置卷访问权限和属主变更策略](/zh/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)。
