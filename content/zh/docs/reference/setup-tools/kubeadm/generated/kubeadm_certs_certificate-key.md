@@ -2,23 +2,27 @@
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
-This command is not meant to be run on its own. See list of available subcommands.
+This command will print out a secure randomly-generated certificate key that can be used with
+the "init" command.
 -->
+该命令将打印出可以与 "init" 命令一起使用的安全的随机生成的证书密钥。
 
-此命令并非设计用来单独运行。请参阅可用子命令列表。
+<!--
+You can also use "kubeadm init -upload-certs" without specifying a certificate key and it will generate and print one for you.
+-->
+你也可以使用 `kubeadm init --upload-certs` 而无需指定证书密钥；
+命令将为你生成并打印一个证书密钥。
 
 ```
-kubeadm alpha certs renew [flags]
+kubeadm certs certificate-key [flags]
 ```
 
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -34,9 +38,9 @@ kubeadm alpha certs renew [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-help for renew
+help for certificate-key
 -->
-renew 操作的帮助命令
+certificate-key 操作的帮助命令
 </td>
 </tr>
 
@@ -46,7 +50,6 @@ renew 操作的帮助命令
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
