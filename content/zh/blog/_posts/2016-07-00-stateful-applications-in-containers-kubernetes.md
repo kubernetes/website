@@ -1,5 +1,5 @@
 ---
-title: " 容器中的状态应用程序！？ Kubernetes 1.3 说 “是！” "
+title: "容器中运行有状态的应用！？ Kubernetes 1.3 说 “是！” "
 date: 2016-07-13
 slug: stateful-applications-in-containers-kubernetes
 url: /blog/2016/07/stateful-applications-in-containers-kubernetes
@@ -22,11 +22,11 @@ _编者注： 今天的来宾帖子来自 Diamanti 产品副总裁 Mark Balch，
 Congratulations to the Kubernetes community on another [value-packed release](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads). A focus on stateful applications and federated clusters are two reasons why I’m so excited about 1.3. Kubernetes support for stateful apps such as Cassandra, Kafka, and MongoDB is critical. Important services rely on databases, key value stores, message queues, and more. Additionally, relying on one data center or container cluster simply won’t work as apps grow to serve millions of users around the world. Cluster federation allows users to deploy apps across multiple clusters and data centers for scale and resiliency.  
 -->
 祝贺 Kubernetes 社区发布了另一个[有价值的版本](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads)。
-专注于有状态应用程序和联合集群是我对 1.3 如此兴奋的两个原因。
-Kubernetes 对有状态应用程序（例如 Cassandra，Kafka 和 MongoDB）的支持至关重要。
-重要服务依赖于数据库，键值存储，消息队列等。
+专注于有状态应用程序和联邦集群是我对 1.3 如此兴奋的两个原因。
+Kubernetes 对有状态应用程序（例如 Cassandra、Kafka 和 MongoDB）的支持至关重要。
+重要服务依赖于数据库、键值存储、消息队列等。
 此外，随着应用程序的发展为全球数百万用户提供服务，仅依靠一个数据中心或容器集群将无法正常工作。
-集群联合允许用户跨多个集群和数据中心部署应用程序，以实现规模和弹性。
+联邦集群允许用户跨多个集群和数据中心部署应用程序，以实现规模和弹性。
 
 <!--
 You may have [heard me say before](https://www.diamanti.com/blog/the-next-great-application-platform/) that containers are the next great application platform. Diamanti is accelerating container adoption for stateful apps in production - where performance and ease of deployment really matter.&nbsp;  
@@ -66,7 +66,7 @@ Diamanti对Kubernetes的 [FlexVolume贡献](https://github.com/kubernetes/kubern
 <!--
 Users who are planning for application availability must contend with issues of failover and scale across geography. Cross-cluster federated services allows containerized apps to easily deploy across multiple clusters. Federated services tackles challenges such as managing multiple container clusters and coordinating service deployment and discovery across federated clusters.  
 -->
-计划应用程序可用性的用户必须应对故障转移问题并在整个地理区域内扩展。
+为应用可用性作规划的用户必须应对故障迁移问题并在整个地理区域内扩展。
 跨集群联合服务允许容器化的应用程序轻松跨多个集群进行部署。
 联合服务解决了诸如管理多个容器集群以及协调跨联合集群的服务部署和发现之类的挑战。
 
@@ -112,7 +112,7 @@ Join the conversation and contribute! Here are some places to get started:
 -->
 - 产品管理 [组](https://groups.google.com/forum/#!forum/kubernetes-sig-pm)
 - Kubernetes [存储 SIG](https://groups.google.com/forum/#!forum/kubernetes-sig-storage)&nbsp;
-- Kubernetes [集群联盟 SIG](https://groups.google.com/forum/#!forum/kubernetes-sig-federation)
+- Kubernetes [集群联邦 SIG](https://groups.google.com/forum/#!forum/kubernetes-sig-federation)
 
 <!--
 _-- Mark Balch, VP Products, [Diamanti](https://diamanti.com/). Twitter [@markbalch](https://twitter.com/markbalch)_  
