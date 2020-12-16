@@ -11,15 +11,13 @@ external IP address.
 
 ## {{% heading "prerequisites" %}}
 
- * Install [kubectl](/docs/tasks/tools/install-kubectl/).
-
- * Use a cloud provider like Google Kubernetes Engine or Amazon Web Services to
- create a Kubernetes cluster. This tutorial creates an
- [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/),
- which requires a cloud provider.
-
- * Configure `kubectl` to communicate with your Kubernetes API server. For
- instructions, see the documentation for your cloud provider.
+* Install [kubectl](/docs/tasks/tools/install-kubectl/).
+* Use a cloud provider like Google Kubernetes Engine or Amazon Web Services to
+  create a Kubernetes cluster. This tutorial creates an
+  [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/),
+  which requires a cloud provider.
+* Configure `kubectl` to communicate with your Kubernetes API server. For instructions, see the
+  documentation for your cloud provider.
 
 ## {{% heading "objectives" %}}
 
@@ -33,11 +31,11 @@ external IP address.
 
 1. Run a Hello World application in your cluster:
 
-{{< codenew file="service/load-balancer-example.yaml" >}}
+   {{< codenew file="service/load-balancer-example.yaml" >}}
 
-```shell
-kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
-```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
+   ```
 
 The preceding command creates a
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
@@ -73,9 +71,9 @@ each of which runs the Hello World application.
     kubectl get services my-service
     ```
 
-    The output is similar to this:
+    The output is similar to:
 
-    ```
+    ```console
     NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
     my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
     ```
@@ -98,9 +96,9 @@ each of which runs the Hello World application.
     kubectl describe services my-service
     ```
 
-    The output is similar to this:
+    The output is similar to:
 
-    ```
+    ```console
     Name:           my-service
     Namespace:      default
     Labels:         app.kubernetes.io/name=load-balancer-example
@@ -130,9 +128,9 @@ each of which runs the Hello World application.
     kubectl get pods --output=wide
     ```
 
-    The output is similar to this:
+    The output is similar to:
 
-    ```
+    ```console
     NAME                         ...  IP         NODE
     hello-world-2895499144-1jaz9 ...  10.0.1.6   gke-cluster-1-default-pool-e0b8d269-1afc
     hello-world-2895499144-2e5uh ...  10.0.1.8   gke-cluster-1-default-pool-e0b8d269-1afc
@@ -179,4 +177,3 @@ kubectl delete deployment hello-world
 
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
-
