@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Introducing Structured Logs'
+title: '介绍 Structured Logs'
 date: 2020-09-04
 slug: kubernetes-1-19-Introducing-Structured-Logs
 ---
