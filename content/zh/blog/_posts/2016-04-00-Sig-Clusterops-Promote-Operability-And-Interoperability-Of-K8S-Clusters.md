@@ -1,12 +1,12 @@
 ---
-title: " SIG-ClusterOps: Promote operability and interoperability of Kubernetes clusters "
+title: " SIG-ClusterOps: 提升 Kubernetes 集群的可操作性和互操作性 "
 date: 2016-04-19
 slug: sig-clusterops-promote-operability-and-interoperability-of-k8s-clusters
 url: /blog/2016/04/Sig-Clusterops-Promote-Operability-And-Interoperability-Of-K8S-Clusters
 ---
 <!--
 ---
-title: " SIG-ClusterOps: 提升 Kubernetes 集群的可操作性和互操作性 "
+title: " SIG-ClusterOps: Promote operability and interoperability of Kubernetes clusters "
 date: 2016-04-19
 slug: sig-clusterops-promote-operability-and-interoperability-of-k8s-clusters
 url: /blog/2016/04/Sig-Clusterops-Promote-Operability-And-Interoperability-Of-K8S-Clusters
@@ -79,7 +79,10 @@ Cluster Ops can be hard work – don't do it alone. We're here to listen, to hel
 <!--
 The Cluster Ops Special Interest Group meets weekly at 13:00PT on Thursdays, you can join us via the [video hangout](https://plus.google.com/hangouts/_/google.com/sig-cluster-ops) and see latest [meeting notes](https://docs.google.com/document/d/1IhN5v6MjcAUrvLd9dAWtKcGWBWSaRU8DNyPiof3gYMY/edit) for agendas and topics covered.  
 -->
-行动专家特别兴趣小组每周四在太平洋标准时间下午13:00开会，您可以通过 [视频环聊](https://plus.google.com/hangouts/_/google.com/sig-cluster-ops) 加入我们 并查看最新的 [会议记录](https://docs.google.com/document/d/1IhN5v6MjcAUrvLd9dAWtKcGWBWSaRU8DNyPiof3gYMY/edit) 了解所涉及的议程和主题。
+行动专家特别兴趣小组每周四在太平洋标准时间下午13:00开会，您可以通过
+[视频环聊](https://plus.google.com/hangouts/_/google.com/sig-cluster-ops) 加入我们并查看最新的
+[会议记录](https://docs.google.com/document/d/1IhN5v6MjcAUrvLd9dAWtKcGWBWSaRU8DNyPiof3gYMY/edit)
+了解所涉及的议程和主题。
 
 <!--
 _--Rob Hirschfeld, CEO, RackN&nbsp;_
