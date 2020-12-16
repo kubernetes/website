@@ -66,7 +66,7 @@ Cluster Ops 希望成为运营资源的交换所。
 <!--
 Cluster Ops can be hard work – don't do it alone. We're here to listen, to help when we can and escalate when we can't. Join the conversation at: -->
 集群运营可能会很辛苦–别一个人做。
-我们在这里倾听，在我们可以帮助的时候提供帮助，而在我们不能帮助的时候升级。
+我们在这里倾听，在我们可以帮助的时候提供帮助，而在我们不能帮助的时候向上一级反映。
 在以下位置加入对话：
 
 <!--
@@ -79,7 +79,7 @@ Cluster Ops can be hard work – don't do it alone. We're here to listen, to hel
 <!--
 The Cluster Ops Special Interest Group meets weekly at 13:00PT on Thursdays, you can join us via the [video hangout](https://plus.google.com/hangouts/_/google.com/sig-cluster-ops) and see latest [meeting notes](https://docs.google.com/document/d/1IhN5v6MjcAUrvLd9dAWtKcGWBWSaRU8DNyPiof3gYMY/edit) for agendas and topics covered.  
 -->
-行动专家特别兴趣小组每周四在太平洋标准时间下午13:00开会，您可以通过
+SIG Cluster Ops 每周四在太平洋标准时间下午 13:00 开会，您可以通过
 [视频环聊](https://plus.google.com/hangouts/_/google.com/sig-cluster-ops) 加入我们并查看最新的
 [会议记录](https://docs.google.com/document/d/1IhN5v6MjcAUrvLd9dAWtKcGWBWSaRU8DNyPiof3gYMY/edit)
 了解所涉及的议程和主题。
