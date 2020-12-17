@@ -48,8 +48,8 @@ Kubernetesのドキュメントは、GitHubのリポジトリーにあります�
 
 ## {{% heading "whatsnext" %}}
 
-- ドキュメントへの貢献の基本について、さらに知りたい場合は、[貢献の開始](/docs/contribute/start/)を参照してください。
-- 変更を提案をする際は、[Kubernetesドキュメンテーションスタイルガイド](/docs/contribute/style/style-guide/)に従ってください。
-- SIG Docsについて、さらに知りたい場合は、[SIG Docsへの参加](/docs/contribute/participating/)を参照してください。
-- Kubernetesドキュメントのローカライズについて、さらに知りたい場合は、[Kubernetesドキュメントのローカライズ](/docs/contribute/localization/)を参照してください。
+- ドキュメントへの貢献の基本について、さらに知りたい場合は、[貢献の開始](https://github.com/kubernetes/website/tree/master/content/en/docs/contribute)を参照してください。
+- 変更を提案をする際は、[Kubernetesドキュメンテーションスタイルガイド](https://github.com/kubernetes/website/tree/master/content/ja/docs/contribute/style)に従ってください。
+- SIG Docsについて、さらに知りたい場合は、[SIG Docsへの参加](https://github.com/kubernetes/website/tree/master/content/en/docs/contribute/participate)を参照してください。
+- Kubernetesドキュメントのローカライズについて、さらに知りたい場合は、[Kubernetesドキュメントのローカライズ](https://github.com/kubernetes/website/blob/master/content/en/docs/contribute/localization.md)を参照してください。
 
