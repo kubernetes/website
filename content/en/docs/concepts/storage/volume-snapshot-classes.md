@@ -40,7 +40,7 @@ of a class when first creating VolumeSnapshotClass objects, and the objects cann
 be updated once they are created.
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-hostpath-snapclass
@@ -54,7 +54,7 @@ that don't request any particular class to bind to by adding the
 `snapshot.storage.kubernetes.io/is-default-class: "true"` annotation:
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-hostpath-snapclass

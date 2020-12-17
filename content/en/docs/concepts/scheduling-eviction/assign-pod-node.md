@@ -158,6 +158,49 @@ If you remove or change the label of the node where the pod is scheduled, the po
 
 The `weight` field in `preferredDuringSchedulingIgnoredDuringExecution` is in the range 1-100. For each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling affinity expressions, etc.), the scheduler will compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding MatchExpressions. This score is then combined with the scores of other priority functions for the node. The node(s) with the highest total score are the most preferred.
 
+#### Node affinity per scheduling profile
+
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+
+When configuring multiple [scheduling profiles](/docs/reference/scheduling/config/#multiple-profiles), you can associate
+a profile with a Node affinity, which is useful if a profile only applies to a specific set of Nodes.
+To do so, add an `addedAffinity` to the args of the [`NodeAffinity` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
+in the [scheduler configuration](/docs/reference/scheduling/config/). For example:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+
+profiles:
+  - schedulerName: default-scheduler
+  - schedulerName: foo-scheduler
+    pluginConfig:
+      - name: NodeAffinity
+        args:
+          addedAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: scheduler-profile
+                  operator: In
+                  values:
+                  - foo
+```
+
+The `addedAffinity` is applied to all Pods that set `.spec.schedulerName` to `foo-scheduler`, in addition to the
+NodeAffinity specified in the PodSpec.
+That is, in order to match the Pod, Nodes need to satisfy `addedAffinity` and the Pod's `.spec.NodeAffinity`.
+
+Since the `addedAffinity` is not visible to end users, its behavior might be unexpected to them. We
+recommend to use node labels that have clear correlation with the profile's scheduler name.
+
+{{< note >}}
+The DaemonSet controller, which [creates Pods for DaemonSets](/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler)
+is not aware of scheduling profiles. For this reason, it is recommended that you keep a scheduler profile, such as the
+`default-scheduler`, without any `addedAffinity`. Then, the Daemonset's Pod template should use this scheduler name.
+Otherwise, some Pods created by the Daemonset controller might remain unschedulable.
+{{< /note >}}
+
 ### Inter-pod affinity and anti-affinity
 
 Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled *based on

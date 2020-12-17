@@ -18,7 +18,7 @@ This section of the Kubernetes documentation contains references.
 
 ## API Reference
 
-* [Kubernetes API Reference {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [API Reference for Kubernetes {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [Using The Kubernetes API](/docs/reference/using-api/) - overview of the API for Kubernetes.
 
 ## API Client Libraries
@@ -53,5 +53,4 @@ client libraries:
 An archive of the design docs for Kubernetes functionality. Good starting points are
 [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
 [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
-
 

@@ -90,7 +90,7 @@ enabled, and Kubernetes client and server version v1.16 or later.
 {{< /note >}}
 
 The examples in this section demonstrate how ephemeral containers appear in
-the API. You would normally use `kubectl alpha debug` or another `kubectl`
+the API. You would normally use `kubectl debug` or another `kubectl`
 [plugin](/docs/tasks/extend-kubectl/kubectl-plugins/) to automate these steps
 rather than invoking the API directly.
 

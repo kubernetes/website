@@ -123,7 +123,7 @@ Go to `<rdocs-base>`, and open the `Makefile` for editing:
 * Set `K8S_ROOT` to `<k8s-base>`.
 * Set `K8S_WEBROOT` to `<web-base>`.
 * Set `K8S_RELEASE` to the minor version of the docs you want to build.
-  For example, if you want to build docs for Kubernetes 1.17, set `K8S_RELEASE` to 1.17.
+For example, if you want to build docs for Kubernetes 1.17, set `K8S_RELEASE` to 1.17.
 -->
 * 设置 `K8S_ROOT` 为 `<k8s-base>`.
 * 设置 `K8S_WEBROOT` 为 `<web-base>`.
@@ -155,7 +155,13 @@ The versioned directory name follows the pattern of `v<major>_<minor>`.
 这些步骤确保配置文件的版本和 Kubernetes OpenAPI 规范的版本与发行版本匹配。
 版本化目录的名称形式为 `v<major>_<minor>`。
 
+<!--
+In the '<rdocs-base>' directory, run the following build target:
+-->
+在  '<rdocs-base>'  目录中，运行以下命令来构建：
+
 ```shell
+cd <rdocs-base>
 make updateapispec
 ```
 
@@ -257,16 +263,17 @@ version number.
 ## Locally test the API reference
 
 Publish a local version of the API reference.
-Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/v1.15/).
+Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/).
 -->
 ## 在本地测试 API 参考
 
 发布 API 参考的本地版本。
-检查[本地预览](http://localhost:1313/docs/reference/generated/kubernetes-api/v1.15/)。
+检查[本地预览](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/)。
 
 ```shell
 cd <web-base>
-make docker-serve
+git submodule update --init --recursive --depth 1 # if not already done
+make container-serve
 ```
 
 <!--
