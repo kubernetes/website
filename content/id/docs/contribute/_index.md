@@ -51,7 +51,7 @@ terhadap dokumentasi Kubernetes, tetapi daftar ini dapat membantumu memulainya.
   - Membuka _issue_ untuk ditindaklanjuti
 - [Member](/docs/contribute/start/)
   - Memutakhirkan dokumentasi yang sudah ada
-  - Menyampaikan ide-ide untuk pembaruan di [Slack](http://slack.k8s.io/) atau [milis SIG docs][SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+  - Menyampaikan ide-ide untuk pembaruan di [Slack](http://slack.k8s.io/) atau [milis SIG docs][SIG docs mailing list](https://groups.google.com/g/kubernetes-sig-docs)
   - Meningkatkan aksesibilitas dokumentasi
   - Memberikan umpan balik yang tidak memikat terhadap PR-PR
   - Menulis blog atau studi kasus
