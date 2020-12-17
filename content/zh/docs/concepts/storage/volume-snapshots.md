@@ -44,7 +44,7 @@ A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is simila
 `VolumeSnapshot` 是用户对于卷的快照的请求。它类似于持久卷声明。
 
 <!--
-`VolumeSnapshotClass` allows you to specify different attributes belonging to a `VolumeSnapshot`. These attibutes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same `StorageClass` of a `PersistentVolumeClaim`.
+`VolumeSnapshotClass` allows you to specify different attributes belonging to a `VolumeSnapshot`. These attributes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same `StorageClass` of a `PersistentVolumeClaim`.
 -->
 `VolumeSnapshotClass` 允许指定属于 `VolumeSnapshot` 的不同属性。在从存储系统的相同卷上获取的快照之间，这些属性可能有所不同，因此不能通过使用与 `PersistentVolumeClaim` 相同的 `StorageClass` 来表示。
 
@@ -63,14 +63,26 @@ Users need to be aware of the following when using this feature:
 <!--
 * API Objects `VolumeSnapshot`, `VolumeSnapshotContent`, and `VolumeSnapshotClass` are {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}, not part of the core API.
 * `VolumeSnapshot` support is only available for CSI drivers.
-* As part of the deployment process in the beta version of `VolumeSnapshot`, the Kubernetes team provides a snapshot controller to be deployed into the control plane, and a sidecar helper container called csi-snapshotter to be deployed together with the CSI driver.  The snapshot controller watches `VolumeSnapshot` and `VolumeSnapshotContent` objects and is responsible for the creation and deletion of `VolumeSnapshotContent` object in dynamic provisioning.  The sidecar csi-snapshotter watches `VolumeSnapshotContent` objects and triggers `CreateSnapshot` and `DeleteSnapshot` operations against a CSI endpoint.
+* As part of the deployment process of `VolumeSnapshot`, the Kubernetes team provides a snapshot controller to be deployed into the control plane, and a sidecar helper container called csi-snapshotter to be deployed together with the CSI driver.  The snapshot controller watches `VolumeSnapshot` and `VolumeSnapshotContent` objects and is responsible for the creation and deletion of `VolumeSnapshotContent` object.  The sidecar csi-snapshotter watches `VolumeSnapshotContent` objects and triggers `CreateSnapshot` and `DeleteSnapshot` operations against a CSI endpoint.
+* There is also a validating webhook server which provides tightened validation on snapshot objects. This should be installed by the Kubernetes distros along with the snapshot controller and CRDs, not CSI drivers. It should be installed in all Kubernetes clusters that has the snapshot feature enabled.
 * CSI drivers may or may not have implemented the volume snapshot functionality. The CSI drivers that have provided support for volume snapshot will likely use the csi-snapshotter. See [CSI Driver documentation](https://kubernetes-csi.github.io/docs/) for details.
 * The CRDs and snapshot controller installations are the responsibility of the Kubernetes distribution.
 -->
-* API 对象 `VolumeSnapshot`，`VolumeSnapshotContent` 和 `VolumeSnapshotClass` 是 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}，不是核心 API 的部分。
+* API 对象 `VolumeSnapshot`，`VolumeSnapshotContent` 和 `VolumeSnapshotClass` 
+  是 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}，
+  不是核心 API 的部分。
 * `VolumeSnapshot` 支持仅可用于 CSI 驱动。
-* 作为 beta 版本 `VolumeSnapshot` 部署过程的一部分，Kubernetes 团队提供了一个部署于控制平面的快照控制器，并且提供了一个叫做 `csi-snapshotter` 的 sidecar 帮助容器，它和 CSI 驱动程序部署在一起。快照控制器监视 `VolumeSnapshot` 和 `VolumeSnapshotContent` 对象，并且负责动态的创建和删除 `VolumeSnapshotContent` 对象。sidecar csi-snapshotter 监视 `VolumeSnapshotContent` 对象，并且触发针对 CSI 端点的 `CreateSnapshot` 和 `DeleteSnapshot` 的操作。
-* CSI 驱动可能实现，也可能没有实现卷快照功能。CSI 驱动可能会使用 csi-snapshotter 来提供对卷快照的支持。详见 [CSI 驱动程序文档](https://kubernetes-csi.github.io/docs/)
+* 作为 `VolumeSnapshot` 部署过程的一部分，Kubernetes 团队提供了一个部署于控制平面的快照控制器，
+  并且提供了一个叫做 `csi-snapshotter` 的 sidecar 帮助容器，它和 CSI 驱动程序部署在一起。
+  快照控制器监视 `VolumeSnapshot` 和 `VolumeSnapshotContent` 对象，
+  并且负责动态供应中的创建和删除 `VolumeSnapshotContent` 对象。
+  sidecar csi-snapshotter 监视 `VolumeSnapshotContent` 对象，
+  并且触发针对 CSI 端点的 `CreateSnapshot` 和 `DeleteSnapshot` 的操作。
+* 还有一个验证 webhook服务器，它可以对快照对象进行更严格的验证。 
+  Kubernetes 发行版应将其与快照控制器和 CRD（而非 CSI 驱动程序）一起安装。 
+  它应该安装在所有启用了快照功能的 Kubernetes 集群中。
+* CSI 驱动可能实现，也可能没有实现卷快照功能。CSI 驱动可能会使用 csi-snapshotter 
+  来提供对卷快照的支持。详见 [CSI 驱动程序文档](https://kubernetes-csi.github.io/docs/)
 * Kubernetes 负责 CRDs 和快照控制器的安装。
 
 <!--
@@ -126,13 +138,14 @@ In the case of pre-provisioned binding, the VolumeSnapshot will remain unbound u
 <!--
 ### Persistent Volume Claim as Snapshot Source Protection
 
-The purpose of the Persistent Volume Claim Object in Use Protection feature is to ensure that in-use PVC API objects are not removed from the system (as this may result in data loss).
+The purpose of this protection is to ensure that in-use
+{{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
+API objects are not removed from the system while a snapshot is being taken from it (as this may result in data loss).
 
-The purpose of this protection is to ensure that in-use PersistentVolumeClaim API objects are not removed from the system while a snapshot is being taken from it (as this may result in data loss).
 -->
 ### 快照源的持久性卷声明保护
 
-这种保护的目的是确保在从系统中获取快照时，不会将正在使用的 `PersistentVolumeClaim` API 对象从系统中删除（因为这可能会导致数据丢失）。
+这种保护的目的是确保在从系统中获取快照时，不会将正在使用的 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} API 对象从系统中删除（因为这可能会导致数据丢失）。
 
 <!--
 
@@ -161,7 +174,7 @@ Each VolumeSnapshot contains a spec and a status.
 每个 `VolumeSnapshot` 包含一个 spec 和一个状态。
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshot
 metadata:
   name: new-snapshot-test
@@ -191,7 +204,7 @@ For pre-provisioned snapshots, you need to specify a `volumeSnapshotContentName`
 对于预配置的快照 `source` 中的`volumeSnapshotContentName` 字段是必填的。
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshot
 metadata:
   name: test-snapshot
@@ -209,7 +222,7 @@ Each VolumeSnapshotContent contains a spec and status. In dynamic provisioning, 
 每个 VolumeSnapshotContent 对象包含 spec 和 status。在动态配置时，快照通用控制器创建 `VolumeSnapshotContent` 对象。下面是例子：
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotContent
 metadata:
   name: snapcontent-72d9a349-aacd-42d2-a240-d775650d2455
@@ -235,7 +248,7 @@ For pre-provisioned snapshots, you (as cluster administrator) are responsible fo
 对于预配置快照，你（作为集群管理员）要按如下命令来创建 `VolumeSnapshotContent` 对象。
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotContent
 metadata:
   name: new-snapshot-content-test
@@ -270,4 +283,3 @@ For more details, see
 -->
 更多详细信息，请参阅
 [卷快照和从快照还原卷](/zh/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)。
-
