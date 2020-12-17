@@ -40,7 +40,7 @@ Pod 调度到能够访问到足够存储容量的节点上。
 ## API
 
 There are two API extensions for this feature:
-- [CSIStorageCapacity](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csistoragecapacity-v1alpha1-storage-k8s-io) objects:
+- CSIStorageCapacity objects:
   these get produced by a CSI driver in the namespace
   where the driver is installed. Each object contains capacity
   information for one storage class and defines which nodes have
@@ -52,8 +52,7 @@ There are two API extensions for this feature:
 ## API
 
 这个特性有两个 API 扩展接口：
-- [CSIStorageCapacity](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csistoragecapacity-v1alpha1-storage-k8s-io) 
-  对象：这些对象由 CSI 驱动程序在安装驱动程序的命名空间中产生。
+- CSIStorageCapacity 对象：这些对象由 CSI 驱动程序在安装驱动程序的命名空间中产生。
   每个对象都包含一个存储类的容量信息，并定义哪些节点可以访问该存储。
 - [`CSIDriverSpec.StorageCapacity` 字段](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#csidriverspec-v1-storage-k8s-io)：
   设置为 true 时，Kubernetes 调度程序将考虑使用 CSI 驱动程序的卷的存储容量。
