@@ -276,22 +276,22 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 
 <!--
 {{< table caption = "Node conditions, and a description of when each condition applies." >}}
-| Node Condition | Description |
-|----------------|-------------|
-| `Ready`        | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
-| `DiskPressure`    | `True` if there is insufficient free space on the node for adding new pods, otherwise `False` |
-| `MemoryPressure`    | `True` if pressure exists on the node memory - that is, if the node memory is low; otherwise `False` |
-| `PIDPressure`    | `True` if pressure exists on the processes - that is, if there are too many processes on the node; otherwise `False` |
-| `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
+| Node Condition       | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| `Ready`              | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
+| `DiskPressure`       | `True` if there is insufficient free space on the node for adding new pods, otherwise `False` |
+| `MemoryPressure`     | `True` if pressure exists on the node memory - that is, if the node memory is low; otherwise `False` |
+| `PIDPressure`        | `True` if pressure exists on the processes - that is, if there are too many processes on the node; otherwise `False` |
+| `NetworkUnavailable` | `True` if the network for the node is not correctly configured, otherwise `False` |
 -->
 {{< table caption = "节点状况及每种状况适用场景的描述" >}}
-| 节点状况       | 描述        |
-|----------------|-------------|
-| `Ready` | 如节点是健康的并已经准备好接收 Pod 则为 `True`；`False` 表示节点不健康而且不能接收 Pod；`Unknown` 表示节点控制器在最近 `node-monitor-grace-period` 期间（默认 40 秒）没有收到节点的消息 |
-| `DiskPressure` | `True` 表示节点的空闲空间不足以用于添加新 Pod, 否则为 `False` |
-| `MemoryPressure` | `True` 表示节点存在内存压力，即节点内存可用量低，否则为 `False` |
-| `PIDPressure` | `True` 表示节点存在进程压力，即节点上进程过多；否则为 `False` |
-| `NetworkUnavailable` | `True` 表示节点网络配置不正确；否则为 `False` |
+| 节点状况             | 描述                                                         |
+| -------------------- | ------------------------------------------------------------ |
+| `Ready`              | 如节点是健康的并已经准备好接收 Pod 则为 `True`；`False` 表示节点不健康而且不能接收 Pod；`Unknown` 表示节点控制器在最近 `node-monitor-grace-period` 期间（默认 40 秒）没有收到节点的消息 |
+| `DiskPressure`       | `True` 表示节点的空闲空间不足以用于添加新 Pod, 否则为 `False` |
+| `MemoryPressure`     | `True` 表示节点存在内存压力，即节点内存可用量低，否则为 `False` |
+| `PIDPressure`        | `True` 表示节点存在进程压力，即节点上进程过多；否则为 `False` |
+| `NetworkUnavailable` | `True` 表示节点网络配置不正确；否则为 `False`                |
 
 <!--
 If you use command-line tools to print details of a cordoned Node, the Condition includes
@@ -357,6 +357,13 @@ Pods can also have tolerations which let them tolerate a Node's taints.
 [污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 当调度器将 Pod 指派给某节点时，会考虑节点上的污点。
 Pod 则可以通过容忍度（Toleration）表达所能容忍的污点。
+
+<!--
+See [Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
+for more details.
+-->
+查看[按条件为节点添加污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
+获取更多详情。
 
 <!--
 ### Capacity and Allocatable {#capacity}
@@ -619,6 +626,69 @@ for more information.
 参考[控制节点上拓扑管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)
 了解详细信息。
 
+<!--
+## Graceful Node Shutdown {#graceful-node-shutdown}
+-->
+## 正常关闭节点  {#graceful-node-shutdown}
+
+{{< feature-state state="alpha" for_k8s_version="v1.20" >}}
+
+<!--
+If you have enabled the `GracefulNodeShutdown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then the kubelet attempts to detect the node system shutdown and terminates pods running on the node.
+-->
+如果启用了 `GracefulNodeShutdown`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+然后 kubelet 尝试检测节点系统关闭，并终止在节点上运行的 Pod。
+
+<!--
+Kubelet ensures that pods follow the normal [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) during the node shutdown.
+-->
+Kubelet 确保 Pods 在节点关闭期间正常执行
+[Pod 终止过程](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。 
+
+<!--
+When the `GracefulNodeShutdown` feature gate is enabled, kubelet uses [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to delay the node shutdown with a given duration. During a shutdown kubelet terminates pods in two phases:
+-->
+启用 `GracefulNodeShutdown` 功能时，kubelet 使用[系统抑制锁](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)
+在给定的持续时间内延迟节点关闭。在停机期间，kubelet 分两个阶段终止 Pods：
+
+<!--
+1. Terminate regular pods running on the node.
+-->
+1. 终止在节点上运行的常规pods。
+
+<!--
+2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
+-->
+2. 终止在节点上运行的
+[关键 Pods](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+
+<!--
+Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
+* `ShutdownGracePeriod`:
+  * Specifies the total duration that the node should delay the shutdown by. This is the total grace period for pod termination for both regular and [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+* `ShutdownGracePeriodCriticalPods`:
+  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This should be less than `ShutdownGracePeriod`.
+--> 
+正常关闭节点功能配置以下两个选项 [`KubeletConfiguration`](/zh/docs/tasks/administer-cluster/kubelet-config-file/)：
+* `ShutdownGracePeriod`：
+  * 指定节点应延迟关机的总持续时间。这是正常和
+  [关键 Pods](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+  终止的总宽限期。
+  
+* `ShutdownGracePeriodCriticalPods`：
+  * 在节点关闭期间，用于关闭
+  [关键 Pods](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+  的指定持续时间 ，这个时间会比 `ShutdownGracePeriod` 短。
+
+<!--
+For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved for gracefully terminating normal pods, and the last 10 seconds would be reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+-->
+例如，如果设置 `ShutdownGracePeriod=30s` 以及 `ShutdownGracePeriodCriticalPods=10s`，
+kubelet 会延迟 30 秒关闭 node。在关闭过程中，前 20（30-10）秒将保留给优雅地
+终止正常的 Pods，最后的 10 秒用于关闭
+[关键 Pods](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -632,4 +702,3 @@ for more information.
 * 阅读[节点的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)
 * 阅读架构设计文档中有关[节点](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)的章节
 * 了解[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)
-
