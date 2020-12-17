@@ -39,6 +39,13 @@ kubeadm init phase upload-certs [flags]
 </tr>
 
 <tr>
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
+</tr>
+
+<tr>
 <td colspan="2">--skip-certificate-key-print</td>
 </tr>
 <tr>

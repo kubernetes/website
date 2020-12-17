@@ -140,14 +140,15 @@ runtime where possible.
 
 Another thing to look out for is anything expecting to run for system maintenance
 or nested inside a container when building images will no longer work. For the
-former, you can use the [`crictl`][cr] tool as a drop-in replacement and for the
-latter you can use newer container build options like [img], [buildah], or
-[kaniko] that don’t require Docker.
+former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from docker cli to crictl](https://kubernetes.io/docs/tasks/debug-application-cluster/crictl/#mapping-from-docker-cli-to-crictl)) and for the
+latter you can use newer container build options like [img], [buildah],
+[kaniko], or [buildkit-cli-for-kubectl] that don’t require Docker.
 
 [cr]: https://github.com/kubernetes-sigs/cri-tools
 [img]: https://github.com/genuinetools/img
 [buildah]: https://github.com/containers/buildah
 [kaniko]: https://github.com/GoogleContainerTools/kaniko
+[buildkit-cli-for-kubectl]: https://github.com/vmware-tanzu/buildkit-cli-for-kubectl
 
 For containerd, you can start with their [documentation] to see what configuration
 options are available as you migrate things over.

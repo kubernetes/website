@@ -96,6 +96,9 @@ you should execute the command this way:
 你还可以使用 `--from-literal=<key>=<value>` 标签提供 Secret 数据。
 可以多次使用此标签，提供多个键值对。
 请注意，特殊字符（例如：`$`，`\`，`*`，`=` 和 `!`）由你的 [shell](https://en.wikipedia.org/wiki/Shell_(computing)) 解释执行，而且需要转义。
+在大多数 shell 中，转义密码最简便的方法是用单引号括起来。
+比如，如果你的密码是 `S!B\*d$zDsb=`， 
+可以像下面一样执行命令：
 
 ```shell
 kubectl create secret generic dev-db-secret \

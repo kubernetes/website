@@ -57,7 +57,7 @@ Docker 的网络模型做出了许多对 Kubernetes 无效的假设。在 docker
 
 <!-- We investigated [writing a "bridge" CNM driver](https://groups.google.com/forum/#!topic/kubernetes-sig-network/5MWRPxsURUw) for Docker that ran CNI drivers. This turned out to be very complicated. First, the CNM and CNI models are very different, so none of the "methods" lined up. We still have the global vs. local and key-value issues discussed above. Assuming this driver would declare itself local, we have to get info about logical networks from Kubernetes.   -->
 
-我们调查了为 Docker [编写 "bridge" CNM驱动程序](https://groups.google.com/forum/#!topic/kubernetes-sig-network/5MWRPxsURUw) 并运行 CNI 驱动程序。事实证明这非常复杂。首先， CNM 和 CNI 模型非常不同，因此没有一种“方法”协调一致。 我们仍然有上面讨论的全球与本地和键值问题。假设这个驱动程序会声明自己是本地的，我们必须从 Kubernetes 获取有关逻辑网络的信息。
+我们调查了为 Docker [编写 "bridge" CNM驱动程序](https://groups.google.com/g/kubernetes-sig-network/c/5MWRPxsURUw) 并运行 CNI 驱动程序。事实证明这非常复杂。首先， CNM 和 CNI 模型非常不同，因此没有一种“方法”协调一致。 我们仍然有上面讨论的全球与本地和键值问题。假设这个驱动程序会声明自己是本地的，我们必须从 Kubernetes 获取有关逻辑网络的信息。
 
 <!-- Unfortunately, Docker drivers are hard to map to other control planes like Kubernetes. Specifically, drivers are not told the name of the network to which a container is being attached — just an ID that Docker allocates internally. This makes it hard for a driver to map back to any concept of network that exists in another system.   -->
 
@@ -69,10 +69,10 @@ Docker 的网络模型做出了许多对 Kubernetes 无效的假设。在 docker
 
 <!-- For all of these reasons we have chosen to invest in CNI as the Kubernetes plugin model. There will be some unfortunate side-effects of this. Most of them are relatively minor (for example, `docker inspect` will not show an IP address), but some are significant. In particular, containers started by `docker run` might not be able to communicate with containers started by Kubernetes, and network integrators will have to provide CNI drivers if they want to fully integrate with Kubernetes. On the other hand, Kubernetes will get simpler and more flexible, and a lot of the ugliness of early bootstrapping (such as configuring Docker to use our bridge) will go away.   -->
 
-出于所有这些原因，我们选择投资 CNI 作为 Kubernetes 插件模型。这会有一些不幸的副作用。它们中的大多数都相对较小（例如， `docker inspect` 不会显示 IP 地址），但有些是重要的。特别是，由 `docker run` 启动的容器可能无法与 Kubernetes 启动的容器通信，如果网络集成商想要与 Kubernetes 完全集成，则必须提供 CNI 驱动程序。另一方面， Kubernetes 将变得更简单，更灵活，早期引入的许多丑陋的（例如配置 Docker 使用我们的网桥）将会消失。
+出于所有这些原因，我们选择投资 CNI 作为 Kubernetes 插件模型。这会有一些不幸的副作用。它们中的大多数都相对较小（例如， `docker inspect` 不会显示 IP 地址），特别是由 `docker run` 启动的容器可能无法与 Kubernetes 启动的容器通信，如果网络集成商想要与 Kubernetes 完全集成，则必须提供 CNI 驱动程序。但另一方面， Kubernetes 将变得更简单，更灵活，早期引入的许多丑陋的（例如配置 Docker 使用我们的网桥）将会消失。
 
 <!-- As we proceed down this path, we’ll certainly keep our eyes and ears open for better ways to integrate and simplify. If you have thoughts on how we can do that, we really would like to hear them — find us on [slack](http://slack.k8s.io/) or on our [network SIG mailing-list](https://groups.google.com/forum/#!forum/kubernetes-sig-network).   -->
 
-当我们沿着这条道路前进时，我们肯定会保持眼睛和耳朵的开放，以便更好地整合和简化。如果您对我们如何做到这一点有所想法，我们真的希望听到它们 - 在 [slack](http://slack.k8s.io/) 或者 [network SIG mailing-list](https://groups.google.com/forum/#!forum/kubernetes-sig-network) 找到我们。
+当我们沿着这条道路前进时，我们会保持开放，以便更好地整合和简化。如果您对我们如何做到这一点有所想法，我们真的希望听到它们 - 在 [slack](http://slack.k8s.io/) 或者 [network SIG mailing-list](https://groups.google.com/g/kubernetes-sig-network) 找到我们。
 
 Tim Hockin, Software Engineer, Google

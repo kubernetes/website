@@ -13,8 +13,8 @@ kubeadm alpha kubeconfig user [flags]
 ### Examples
 
 ```
-  # Output a kubeconfig file for an additional user named foo
-  kubeadm alpha kubeconfig user --client-name=foo
+  # Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
+  kubeadm alpha kubeconfig user --client-name=foo --config=bar
 ```
 
 ### Options
@@ -27,31 +27,17 @@ kubeadm alpha kubeconfig user [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--apiserver-advertise-address string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address the API server is accessible on</td>
-</tr>
-
-<tr>
-<td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The port the API server is accessible on</td>
-</tr>
-
-<tr>
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The path where certificates are stored</td>
-</tr>
-
-<tr>
 <td colspan="2">--client-name string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">The name of user. It will be used as the CN if client certificates are created</td>
+</tr>
+
+<tr>
+<td colspan="2">--config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
 </tr>
 
 <tr>
