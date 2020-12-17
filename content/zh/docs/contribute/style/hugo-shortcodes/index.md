@@ -125,18 +125,25 @@ parameter.
 
 <!--
 ## Glossary
+There are two glossary tooltips.
 
 You can reference glossary terms with an inclusion that will automatically
 update and replace content with the relevant links from [our
 glossary](/docs/reference/glossary/). When the term is moused-over by someone
 using the online documentation, the glossary entry will display a tooltip.
+
+As well as inclusions with tooltips, you can reuse the definitions from the glossary in
+page content.
 -->
 ## 词汇
+
+有两种词汇表提示。
 
 你可以通过加入术语词汇的短代码，来自动更新和替换相应链接中的内容
 （[我们的词汇库](/zh/docs/reference/glossary/)）
 这样，在浏览在线文档，鼠标移到术语上时，术语解释就会显示在提示框中。
 
+除了包含工具提示外，你还可以重用页面内容中词汇表中的定义。
 <!--
 The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary), with a content file for each glossary term.
 -->
@@ -144,7 +151,7 @@ The raw data for glossary terms is stored at [https://github.com/kubernetes/webs
 词汇术语的原始数据保存在 [https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary)，每个内容文件对应相应的术语解释。
 
 <!--
-### Glossary Demo
+### Glossary demo
 
 For example, the following include within the markdown will render to
 {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
@@ -154,9 +161,40 @@ For example, the following include within the markdown will render to
 例如，下面的代码在 markdown 中将会转换为 `{{< glossary_tooltip text="cluster" term_id="cluster" >}}`，
 然后在提示框中显示。
 
-```liquid
+```
 {{</* glossary_tooltip text="cluster" term_id="cluster" */>}}
 ```
+<!--
+Here's a short glossary definition:
+-->
+这是一个简短的词汇表定义：
+
+```
+{{</* glossary_definition prepend="A cluster is" term_id="cluster" length="short" */>}}
+```
+
+<!--
+which renders as:
+{{< glossary_definition prepend="A cluster is" term_id="cluster" length="short" >}}
+-->
+呈现为： 
+{{< glossary_definition prepend="A cluster is" term_id="cluster" length="short" >}}
+
+<!--
+You can also include a full definition:
+-->
+你也可以包括完整的定义：
+
+```
+{{</* glossary_definition term_id="cluster" length="all" */>}}
+```
+
+<!--
+which renders as:
+{{< glossary_definition term_id="cluster" length="all" >}}
+-->
+呈现为： 
+{{< glossary_definition term_id="cluster" length="all" >}}
 
 <!--
 ## Table captions
@@ -182,7 +220,6 @@ Here's an example:
 下面是一个例子：
 
 <!--
-
 ```go-html-template
 {{</* table caption="Configuration parameters" >}}
 Parameter | Description | Default
@@ -199,7 +236,7 @@ Parameter | Description | Default
 {{< /table >}}
 -->
 
-```go-html-template
+​```go-html-template
 {{</* table caption="配置参数" >}}
 参数      | 描述        | 默认值
 :---------|:------------|:-------
