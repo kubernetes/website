@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "A Custom Kubernetes Scheduler to Orchestrate Highly Available Applications"
-date: 2020-09-30
+date: 2020-12-21
 slug: writing-crl-scheduler
 ---
 
