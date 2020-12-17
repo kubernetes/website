@@ -39,7 +39,7 @@ Il ne s'agit pas d'une liste exhaustive des manières dont vous pouvez contribue
   - Remplir des rapports d'anomalie reproductibles
 - [Membre](/docs/contribute/start/)
   - Améliorer la documentation existante
-  - Proposer des idées d'améliorations sur [Slack](http://slack.k8s.io/) ou sur la [liste de diffusion SIG docs](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+  - Proposer des idées d'améliorations sur [Slack](http://slack.k8s.io/) ou sur la [liste de diffusion SIG docs](https://groups.google.com/g/kubernetes-sig-docs)
   - Améliorer l'accessibilité de la documentation
   - Fournir des commentaires non contraignants sur les PRs
   - Écrire un article de blog ou une étude de cas
