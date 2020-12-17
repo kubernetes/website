@@ -1,17 +1,26 @@
 ---
-reviewers:
-- johnbelamaric
-- imroc
-title: Service 拓扑
+title: 服务拓扑（Service Topology）
 feature:
-  title: Service 拓扑
+  title: 服务拓扑（Service Topology）
   description: >
     基于集群拓扑的服务流量路由。
 
 content_type: concept
 weight: 10
 ---
+<!--
+reviewers:
+- johnbelamaric
+- imroc
+title: Service Topology
+feature:
+  title: Service Topology
+  description: >
+    Routing of service traffic based upon cluster topology.
 
+content_type: concept
+weight: 10
+-->
 
 <!-- overview -->
 
@@ -160,12 +169,130 @@ traffic as follows.
 
 * 通配符：`"*"`，如果要用，则必须是拓扑键值的最后一个值。 
 
-## {{% heading "whatsnext" %}}
+<!--
+## Examples
+-->
+## 示例
 
+<!--
+The following are common examples of using the Service Topology feature.
+-->
+以下是使用服务拓扑功能的常见示例。
+
+<!--
+### Only Node Local Endpoints
+-->
+### 仅节点本地端点
+
+<!--
+A Service that only routes to node local endpoints. If no endpoints exist on the node, traffic is dropped:
+-->
+仅路由到节点本地端点的一种服务。 如果节点上不存在端点，流量则被丢弃：
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "kubernetes.io/hostname"
+```
+
+<!--
+### Prefer Node Local Endpoints
+-->
+### 首选节点本地端点
+
+<!--
+A Service that prefers node local Endpoints but falls back to cluster wide endpoints if node local endpoints do not exist:
+-->
+首选节点本地端点，如果节点本地端点不存在，则回退到集群范围端点的一种服务：
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "kubernetes.io/hostname"
+    - "*"
+```
+
+<!--
+### Only Zonal or Regional Endpoints
+-->
+### 仅地域或区域端点
+<!--
+A Service that prefers zonal then regional endpoints. If no endpoints exist in either, traffic is dropped.
+-->
+首选地域端点而不是区域端点的一种服务。 如果以上两种范围内均不存在端点，流量则被丢弃。
+
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "topology.kubernetes.io/zone"
+    - "topology.kubernetes.io/region"
+```
+
+<!--
+### Prefer Node Local, Zonal, then Regional Endpoints
+-->
+### 优先选择节点本地端点，地域端点，然后是区域端点
+
+<!--
+A Service that prefers node local, zonal, then regional endpoints but falls back to cluster wide endpoints.
+-->
+优先选择节点本地端点，地域端点，然后是区域端点，然后才是集群范围端点的一种服务。
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+  topologyKeys:
+    - "kubernetes.io/hostname"
+    - "topology.kubernetes.io/zone"
+    - "topology.kubernetes.io/region"
+    - "*"
+```
+
+
+## {{% heading "whatsnext" %}}
 <!--
 * Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
 * 阅读关于[启用服务拓扑](/zh/docs/tasks/administer-cluster/enabling-service-topology/)
 * 阅读[用服务连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
-
