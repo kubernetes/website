@@ -54,6 +54,7 @@ As of the publishing of this blog, the following participants from the [Kubernet
 - [Dell-EMC: PowerProtect](https://www.delltechnologies.com/en-us/data-protection/powerprotect-data-manager.htm)
 - [Druva](https://www.druva.com/)
 - [Kasten K10](https://www.kasten.io/)
+- [NetApp: Project Astra](https://cloud.netapp.com/project-astra)
 - [Portworx (PX-Backup)](https://portworx.com/products/px-backup/)
 - [Pure Storage (Pure Service Orchestrator)](https://github.com/purestorage/pso-csi)
 - [Red Hat OpenShift Container Storage](https://www.redhat.com/en/technologies/cloud-computing/openshift-container-storage)
