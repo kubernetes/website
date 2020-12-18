@@ -58,6 +58,7 @@ As of the publishing of this blog, the following participants from the [Kubernet
 - [Portworx (PX-Backup)](https://portworx.com/products/px-backup/)
 - [Pure Storage (Pure Service Orchestrator)](https://github.com/purestorage/pso-csi)
 - [Red Hat OpenShift Container Storage](https://www.redhat.com/en/technologies/cloud-computing/openshift-container-storage)
+- [Robin Cloud Native Storage](https://robin.io/storage/)
 - [TrilioVault for Kubernetes](https://docs.trilio.io/kubernetes/)
 - [Velero plugin for CSI](https://github.com/vmware-tanzu/velero-plugin-for-csi)
 
