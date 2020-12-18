@@ -612,26 +612,64 @@ PersistentVolume types are implemented as plugins.  Kubernetes currently support
 
 PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插件：
 
-* GCEPersistentDisk
-* AWSElasticBlockStore
-* AzureFile
-* AzureDisk
-* CSI
-* FC （光纤通道）
-* FlexVolume
-* Flocker
-* NFS
-* iSCSI
-* RBD （Ceph 块设备）
-* CephFS
-* Cinder （OpenStack 块存储）
-* Glusterfs
-* VsphereVolume
-* Quobyte 卷
-* HostPath （仅供单节点测试用，本地存储都是不支持的，在多节点集群中无法工作）
-* Portworx 卷
-* ScaleIO 卷
-* StorageOS
+<!--
+* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+* [`azureDisk`](/docs/concepts/sotrage/volumes/#azuredisk) - Azure Disk
+* [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
+* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
+* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
+  (**deprecated**)
+* [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
+* [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
+* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+* [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
+* [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
+  (for single node testing only; WILL NOT WORK in a multi-node cluster;
+  consider using `local` volume instead)
+* [`iscsi`](/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) storage
+* [`local`](/docs/concepts/storage/volumes/#local) - local storage devices
+  mounted on nodes.
+* [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
+* `photonPersistentDisk` - Photon controller persistent disk.
+  (This volume type no longer works since the removal of the corresponding
+  cloud provider.)
+* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
+* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
+* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
+* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
+  (**deprecated**)
+* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
+-->
+* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS 弹性块存储（EBS）
+* [`azureDisk`](/docs/concepts/sotrage/volumes/#azuredisk) - Azure Disk
+* [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
+* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
+* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder （OpenStack 块存储）
+  (**弃用**)
+* [`csi`](/docs/concepts/storage/volumes/#csi) - 容器存储接口 (CSI)
+* [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 存储
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
+* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker 存储
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE 持久化盘
+* [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 卷
+* [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath 卷
+  （仅供单节点测试使用；不适用于多节点集群；
+  尝试使用 `本地` 卷替换）
+* [`iscsi`](/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) 存储
+* [`local`](/docs/concepts/storage/volumes/#local) - 节点上挂载的本地存储设备
+* [`nfs`](/docs/concepts/storage/volumes/#nfs) - 网络文件系统 (NFS) 存储
+* `photonPersistentDisk` - Photon 控制器持久化盘。
+  （这个卷类型已经因对应的云提供商被移除而被弃用）。
+* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx 卷
+* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte 卷
+* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados 块设备 (RBD) 卷
+* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO 卷
+  (**弃用**)
+* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS 卷
+* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 卷
 
 <!--
 ## Persistent Volumes
