@@ -4,11 +4,6 @@ content_type: concept
 weight: 90
 ---
 <!--
-
-reviewers:
-- mikedanese
-- luxas
-- jbeda
 title: kubeadm alpha
 content_type: concept
 weight: 90
@@ -19,8 +14,8 @@ weight: 90
 `kubeadm alpha` provides a preview of a set of features made available for gathering feedback
  from the community. Please try it out and give us feedback!
  -->
-`kubeadm alpha` 提供了一组可用于收集社区反馈的功能的预览。
-请尝试一下这些功能并给我们反馈！
+`kubeadm alpha` 提供了一组可用于收集社区反馈的预览性质功能。
+请试用这些功能并给我们提供反馈！
 {{< /caution >}}
 
 ## kubeadm alpha kubeconfig user {#cmd-phase-kubeconfig}
@@ -47,7 +42,6 @@ Use the following command to enable the DynamicKubeletConfiguration feature.
 {{< tab name="enable-dynamic" include="generated/kubeadm_alpha_kubelet_config_enable-dynamic.md" />}}
 {{< /tabs >}}
 
-
 ## kubeadm alpha selfhosting pivot {#cmd-selfhosting}
 
 <!--
@@ -61,7 +55,6 @@ The subcommand `pivot` can be used to convert a static Pod-hosted control plane 
 [Documentation](/docs/setup/production-environment/tools/kubeadm/self-hosting/)
 -->
 
-
 {{< tabs name="selfhosting" >}}
 {{< tab name="selfhosting" include="generated/kubeadm_alpha_selfhosting.md" />}}
 {{< tab name="pivot" include="generated/kubeadm_alpha_selfhosting_pivot.md" />}}
@@ -74,6 +67,13 @@ The subcommand `pivot` can be used to convert a static Pod-hosted control plane 
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 -->
-* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导 Kubernetes 控制平面节点
-* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点连接到集群
-* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 会还原 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改。
+* 用来启动引导 Kubernetes 控制平面节点的
+  [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+  命令
+* 用来将节点连接到集群的
+  [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 
+  命令
+* 用来还原 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改的
+  [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
+  命令
+
