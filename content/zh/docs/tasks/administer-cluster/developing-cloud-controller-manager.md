@@ -63,7 +63,8 @@ To build an out-of-tree cloud-controller-manager for your cloud, follow these st
 2. 使用来自 Kubernetes 核心代码库的
    [cloud-controller-manager 中的 main.go](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/controller-manager.go)
    作为 main.go 的模板。如上所述，唯一的区别应该是将导入的云包。
-3. 在 `main.go` 中导入你的云包，确保你的包有一个 `init` 块来运行 cloudprovider.RegisterCloudProvider。
+3. 在 `main.go` 中导入你的云包，确保你的包有一个 `init` 块来运行
+   [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/plugins.go#L42-L52)。
 
 <!--
 Many cloud providers publish their controller manager code as open source. If you are creating
