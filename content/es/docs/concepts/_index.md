@@ -31,10 +31,10 @@ Kubernetes tiene diferentes abstracciones que representan el estado de tu sistem
 
 Los objetos básicos de Kubernetes incluyen:
 
-* [Pod](/docs/concepts/workloads/pods/pod-overview/)
-* [Service](/docs/concepts/services-networking/service/)
-* [Volume](/docs/concepts/storage/volumes/)
-* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Pod](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/workloads/pods/_index.md)
+* [Service](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/services-networking/service.md)
+* [Volume](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/storage/volumes.md)
+* [Namespace](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/overview/working-with-objects/namespaces.md)
 
 Además, Kubernetes contiene abstracciónes de nivel superior llamadas Controladores. Los Controladores se basan en los objetos básicos y proporcionan funcionalidades adicionales sobre ellos. Incluyen:
 
