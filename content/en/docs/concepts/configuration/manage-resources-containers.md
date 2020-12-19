@@ -396,7 +396,7 @@ The kubelet supports different ways to measure Pod storage use:
 
 {{< tabs name="resource-emphemeralstorage-measurement" >}}
 {{% tab name="Periodic scanning" %}}
-The kubelet performs regular, schedules checks that scan each
+The kubelet performs regular, scheduled checks that scan each
 `emptyDir` volume, container log directory, and writeable container layer.
 
 The scan measures how much space is used.
@@ -599,6 +599,10 @@ spec:
       limits:
         example.com/foo: 1
 ```
+
+## PID limiting
+
+Process ID (PID) limits allow for the configuration of a kubelet to limit the number of PIDs that a given Pod can consume. See [Pid Limiting](/docs/concepts/policy/pid-limiting/) for information.
 
 ## Troubleshooting
 

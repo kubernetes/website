@@ -31,7 +31,6 @@ Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-goog
 <!--
 1.  To launch a GKE cluster with Calico, just include the `--enable-network-policy` flag.
 -->
-1.  To launch a GKE cluster with Calico, just include the `--enable-network-policy` flag.
 1.  启动一个带有 Calico 的 GKE 集群，只需加上参数 `--enable-network-policy`。
 
     **语法**

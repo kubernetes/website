@@ -43,10 +43,22 @@
     {{- $oldestMinorVersion -}}
 {{- end -}}
 
+<!-- output latestVersionAddMinor based on captured args -->
+{{- if eq $version "latestVersionAddMinor" -}}
+    {{- $seperator := .Get 2 -}}
+    {{- if eq $seperator "" -}}
+        {{- $seperator = "." -}}
+    {{- end -}}
+    {{- $latestVersionAddMinor := int (.Get 1) -}}
+    {{- $latestVersionAddMinor = add $minorVersion $latestVersionAddMinor -}}
+    {{- $latestVersionAddMinor = printf "%s%s%d" (index $versionArray 0) $seperator $latestVersionAddMinor -}}
+    {{- $latestVersionAddMinor -}}
+{{- end -}}
 <!--
 example shortcode use:
 - skew nextMinorVersion
 - skew latestVersion
 - skew prevMinorVersion
 - skew oldestMinorVersion
+- skew latestVersionAddMinor -1 "-"
 -->

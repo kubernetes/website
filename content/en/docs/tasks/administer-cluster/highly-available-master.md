@@ -170,6 +170,39 @@ to access a replica via its ephemeral public IP, you must skip TLS verification.
 To allow etcd clustering, ports needed to communicate between etcd instances will be opened (for inside cluster communication).
 To make such deployment secure, communication between etcd instances is authorized using SSL.
 
+### API server identity
+
+{{< feature-state state="alpha"  for_k8s_version="v1.20" >}}
+
+The API Server Identity feature is controlled by a
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+and is not enabled by default. You can activate API Server Identity by enabling
+the feature gate named `APIServerIdentity` when you start the
+{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}:
+
+```shell
+kube-apiserver \
+--feature-gates=APIServerIdentity=true \
+ # …and other flags as usual
+```
+
+During bootstrap, each kube-apiserver assigns a unique ID to itself. The ID is
+in the format of `kube-apiserver-{UUID}`. Each kube-apiserver creates a
+[Lease](/docs/reference/generated/kubernetes-api/{{< param "version" >}}//#lease-v1-coordination-k8s-io)
+in the _kube-system_ {{< glossary_tooltip text="namespaces" term_id="namespace">}}.
+The Lease name is the unique ID for the kube-apiserver. The Lease contains a
+label `k8s.io/component=kube-apiserver`. Each kube-apiserver refreshes its
+Lease every `IdentityLeaseRenewIntervalSeconds` (defaults to 10s). Each
+kube-apiserver also checks all the kube-apiserver identity Leases every
+`IdentityLeaseDurationSeconds` (defaults to 3600s), and deletes Leases that
+hasn't got refreshed for more than `IdentityLeaseDurationSeconds`.
+`IdentityLeaseRenewIntervalSeconds` and `IdentityLeaseDurationSeconds` can be
+configured by kube-apiserver flags `identity-lease-renew-interval-seconds`
+and `identity-lease-duration-seconds`.
+
+Enabling this feature is a prerequisite for using features that involve HA API
+server coordination (for example, the `StorageVersionAPI` feature gate).
+
 ## Additional reading
 
 [Automated HA master deployment - design doc](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/ha_master.md)

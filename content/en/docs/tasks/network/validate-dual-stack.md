@@ -2,7 +2,8 @@
 reviewers:
 - lachie83
 - khenidak
-min-kubernetes-server-version: v1.16
+- bridgetkromhout
+min-kubernetes-server-version: v1.20
 title: Validate IPv4/IPv6 dual-stack
 content_type: task
 ---
@@ -97,31 +98,31 @@ a00:100::4    pod01
 
 ## Validate Services
 
-Create the following Service without the `ipFamily` field set. When this field is not set, the Service gets an IP from the first configured range via `--service-cluster-ip-range` flag on the kube-controller-manager.
+Create the following Service that does not explicitly define `.spec.ipFamilyPolicy`. Kubernetes will assign a cluster IP for the Service from the first configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
-By viewing the YAML for the Service you can observe that the Service has the `ipFamily` field has set to reflect the address family of the first configured range set via `--service-cluster-ip-range` flag on kube-controller-manager.
+Use `kubectl` to view the YAML for the Service.
 
 ```shell
 kubectl get svc my-service -o yaml
 ```
 
+The Service has `.spec.ipFamilyPolicy` set to `SingleStack` and `.spec.clusterIP` set to an IPv4 address from the first configured range set via `--service-cluster-ip-range` flag on kube-controller-manager.
+
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: "2019-09-03T20:45:13Z"
-  labels:
-    app: MyApp
   name: my-service
   namespace: default
-  resourceVersion: "485836"
-  selfLink: /api/v1/namespaces/default/services/my-service
-  uid: b6fa83ef-fe7e-47a3-96a1-ac212fa5b030
 spec:
-  clusterIP: 10.0.29.179
-  ipFamily: IPv4
+  clusterIP: 10.0.217.164
+  clusterIPs:
+  - 10.0.217.164
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
   ports:
   - port: 80
     protocol: TCP
@@ -134,28 +135,100 @@ status:
   loadBalancer: {}
 ```
 
-Create the following Service with the `ipFamily` field set to `IPv6`.
+Create the following Service that explicitly defines `IPv6` as the first array element in `.spec.ipFamilies`. Kubernetes will assign a cluster IP for the Service from the IPv6 range configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 
-{{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
+{{< codenew file="service/networking/dual-stack-ipfamilies-ipv6.yaml" >}}
 
-Validate that the Service gets a cluster IP address from the IPv6 address block. You may then validate access to the service via the IP and port.
+Use `kubectl` to view the YAML for the Service.
+
+```shell
+kubectl get svc my-service -o yaml
 ```
- kubectl get svc -l app=MyApp
-NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
-my-service   ClusterIP   fe80:20d::d06b   <none>        80/TCP    9s
+
+The Service has `.spec.ipFamilyPolicy` set to `SingleStack` and `.spec.clusterIP` set to an IPv6 address from the IPv6 range set via `--service-cluster-ip-range` flag on kube-controller-manager.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: MyApp
+  name: my-service
+spec:
+  clusterIP: fd00::5118
+  clusterIPs:
+  - fd00::5118
+  ipFamilies:
+  - IPv6
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: MyApp
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+```
+
+Create the following Service that explicitly defines `PreferDualStack` in `.spec.ipFamilyPolicy`. Kubernetes will assign both IPv4 and IPv6 addresses (as this cluster has dual-stack enabled) and select the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family of the first element in the `.spec.ipFamilies` array.
+
+{{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
+
+{{< note >}}
+The `kubectl get svc` command will only show the primary IP in the `CLUSTER-IP` field.
+
+```shell
+kubectl get svc -l app=MyApp
+
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
+```
+{{< /note >}}
+
+Validate that the Service gets cluster IPs from the IPv4 and IPv6 address blocks using `kubectl describe`. You may then validate access to the service via the IPs and ports.
+
+```shell
+kubectl describe svc -l app=MyApp
+```
+
+```
+Name:              my-service
+Namespace:         default
+Labels:            app=MyApp
+Annotations:       <none>
+Selector:          app=MyApp
+Type:              ClusterIP
+IP Family Policy:  PreferDualStack
+IP Families:       IPv4,IPv6
+IP:                10.0.216.242
+IPs:               10.0.216.242,fd00::af55
+Port:              <unset>  80/TCP
+TargetPort:        9376/TCP
+Endpoints:         <none>
+Session Affinity:  None
+Events:            <none>
 ```
 
 ### Create a dual-stack load balanced Service
 
-If the cloud provider supports the provisioning of IPv6 enabled external load balancer, create the following Service with both the `ipFamily` field set to `IPv6` and the `type` field set to `LoadBalancer`
+If the cloud provider supports the provisioning of IPv6 enabled external load balancers, create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`, `IPv6` as the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`. 
 
-{{< codenew file="service/networking/dual-stack-ipv6-lb-svc.yaml" >}}
+{{< codenew file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" >}}
+
+Check the Service:
+
+```shell
+kubectl get svc -l app=MyApp
+```
 
 Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port.
-```
- kubectl get svc -l app=MyApp
-NAME         TYPE        CLUSTER-IP       EXTERNAL-IP                     PORT(S)        AGE
-my-service   ClusterIP   fe80:20d::d06b   2001:db8:f100:4002::9d37:c0d7   80:31868/TCP   30s
+
+```shell
+NAME         TYPE           CLUSTER-IP   EXTERNAL-IP        PORT(S)        AGE
+my-service   LoadBalancer   fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
 ```
 
 

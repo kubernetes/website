@@ -10,7 +10,7 @@ weight: 50
 ---
 
 <!-- overview -->
-This is a Cluster Administrator guide to service accounts. You should be familiar with 
+This is a Cluster Administrator guide to service accounts. You should be familiar with
 [configuring Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/).
 
 Support for authorization and user accounts is planned but incomplete.  Sometimes
@@ -53,6 +53,19 @@ It is part of the API server.
 It acts synchronously to modify pods as they are created or updated. When this plugin is active
 (and it is by default on most distributions), then it does the following when a pod is created or modified:
 
+  1. If the pod does not have a `ServiceAccount` set, it sets the `ServiceAccount` to `default`.
+  1. It ensures that the `ServiceAccount` referenced by the pod exists, and otherwise rejects it.
+  1. If the pod does not contain any `ImagePullSecrets`, then `ImagePullSecrets` of the `ServiceAccount` are added to the pod.
+  1. It adds a `volume` to the pod which contains a token for API access.
+  1. It adds a `volumeSource` to each container of the pod mounted at `/var/run/secrets/kubernetes.io/serviceaccount`.
+
+#### Bound Service Account Token Volume
+{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
+
+When the `BoundServiceAccountTokenVolume` feature gate is enabled, the service account admission controller will
+add a projected service account token volume instead of a secret volume. The service account token will expire after 1 hour by default or the pod is deleted. See more details about [projected volume](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
+
+This feature depends on the `RootCAConfigMap` feature gate enabled which publish a "kube-root-ca.crt" ConfigMap to every namespace. This ConfigMap contains a CA bundle used for verifying connections to the kube-apiserver.
 1. If the pod does not have a `serviceAccountName` set, it sets the
    `serviceAccountName` to `default`.
 1. It ensures that the `serviceAccountName` referenced by the pod exists, and

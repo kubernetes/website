@@ -291,9 +291,6 @@ scheduled to run on any Node, and it will remain in the Pending state indefinite
 输出显示 Pod 状态为 Pending。也就是说，Pod 未被调度到任何节点上运行，
 并且 Pod 将无限期地处于 Pending 状态：
 
-```shell
-kubectl get pod cpu-demo-2 --namespace=cpu-example
-```
 ```
 NAME         READY     STATUS    RESTARTS   AGE
 cpu-demo-2   0/1       Pending   0          7m

@@ -579,7 +579,7 @@ ConfigurableFSGroupPolicy=true|false (ALPHA - default=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
 DefaultPodTopologySpread=true|false (ALPHA - default=false)<br/>
 DevicePlugins=true|false (BETA - default=true)<br/>
-DisableAcceleratorUsageMetrics=true|false (ALPHA - default=false)<br/>
+DisableAcceleratorUsageMetrics=true|false (BETA - default=true)<br/>
 DynamicKubeletConfig=true|false (BETA - default=true)<br/>
 EndpointSlice=true|false (BETA - default=true)<br/>
 EndpointSliceProxying=true|false (BETA - default=true)<br/>
@@ -617,7 +617,6 @@ ServiceAppProtocol=true|false (BETA - default=true)<br/>
 ServiceNodeExclusion=true|false (BETA - default=true)<br/>
 ServiceTopology=true|false (ALPHA - default=false)<br/>
 SetHostnameAsFQDN=true|false (ALPHA - default=false)<br/>
-StartupProbe=true|false (BETA - default=true)<br/>
 StorageVersionHash=true|false (BETA - default=true)<br/>
 SupportNodePidsLimit=true|false (BETA - default=true)<br/>
 SupportPodPidsLimit=true|false (BETA - default=true)<br/>

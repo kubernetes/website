@@ -157,8 +157,6 @@ directory. Use `curl` to send a GET request to the nginx server:
 使用 `curl` 向 nginx 服务器发送一个 GET 请求：
 
 ```
-root@two-containers:/# apt-get update
-root@two-containers:/# apt-get install curl
 root@two-containers:/# curl localhost
 ```
 
@@ -208,6 +206,7 @@ the shared Volume is lost.
 * 进一步了解[复合容器的模式](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns.html)
 * 学习[模块化架构中的复合容器](https://www.slideshare.net/Docker/slideshare-burns)
 * 参见[配置 Pod 使用卷来存储数据](/zh/docs/tasks/configure-pod-container/configure-volume-storage/)
+* 参考[在 Pod 中的容器之间共享进程命名空间](/zh/docs/tasks/configure-pod-container/share-process-namespace/)
 * 参考 [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
 * 参考 [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 

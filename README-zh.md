@@ -228,8 +228,8 @@ For more information about contributing to the Kubernetes documentation, see:
 有关为 Kubernetes 文档做出贡献的更多信息，请参阅：
 
 * [贡献 Kubernetes 文档](https://kubernetes.io/docs/contribute/)
-* [页面内容类型](http://kubernetes.io/docs/contribute/style/page-content-types/)
-* [文档风格指南](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [页面内容类型](https://kubernetes.io/docs/contribute/style/page-content-types/)
+* [文档风格指南](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [本地化 Kubernetes 文档](https://kubernetes.io/docs/contribute/localization/)
 
 # 中文本地化
