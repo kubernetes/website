@@ -31,10 +31,10 @@ Kubernetes enthält eine Reihe von Abstraktionen, die den Status Ihres Systems d
 
 Die Basisobjekte von Kubernetes umfassen:
 
-* [Pod](/docs/concepts/workloads/pods/pod-overview/)
-* [Service](/docs/concepts/services-networking/service/)
-* [Volume](/docs/concepts/storage/volumes/)
-* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Pod](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/workloads/pods/_index.md)
+* [Service](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/services-networking/service.md)
+* [Volume](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/storage/volumes.md)
+* [Namespace](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/overview/working-with-objects/namespaces.md)
 
 Darüber hinaus enthält Kubernetes Abstraktionen auf höherer Ebene, die als Controller bezeichnet werden. Controller bauen auf den Basisobjekten auf und bieten zusätzliche Funktionen und Komfortfunktionen. Sie beinhalten:
 
