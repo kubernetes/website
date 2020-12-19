@@ -65,8 +65,8 @@ Examine the contents of the Redis pod manifest and note the follwing:
   `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
 * The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
 
-This has the net effect of exposing the data in `data.redis-config` from the `example-redis-config` ConfigMap
-as `/redis-master/redis.conf` inside the Pod.
+This has the net effect of exposing the data in `data.redis-config` from the `example-redis-config`
+ConfigMap above as `/redis-master/redis.conf` inside the Pod.
 
 {{< codenew file="pods/config/redis-pod.yaml" >}}
 
@@ -79,11 +79,11 @@ kubectl get pod/redis configmap/example-redis-config
 You should see the following output:
 
 ```shell
-NAME        READY   STATUS              RESTARTS   AGE
-pod/redis   0/1     ContainerCreating   0          10s
+NAME        READY   STATUS    RESTARTS   AGE
+pod/redis   1/1     Running   0          8s
 
 NAME                             DATA   AGE
-configmap/example-redis-config   1      20s
+configmap/example-redis-config   1      14s
 ```
 
 Recall that we left `redis-config` key in the `example-redis-config` ConfigMap blank:
@@ -109,10 +109,30 @@ Use `kubectl exec` to enter the pod and run the `redis-cli` tool to check the cu
 
 ```shell
 kubectl exec -it redis -- redis-cli
+```
+
+Check `maxmemory`:
+
+```shell
 127.0.0.1:6379> CONFIG GET maxmemory
+```
+
+It should show the default value of 0:
+
+```shell
 1) "maxmemory"
 2) "0"
+```
+
+Similarly, check `maxmemory-policy`:
+
+```shell
 127.0.0.1:6379> CONFIG GET maxmemory-policy
+```
+
+Which should also yield its default value of `noeviction`:
+
+```shell
 1) "maxmemory-policy"
 2) "noeviction"
 ```
@@ -149,7 +169,7 @@ maxmemory 2mb
 maxmemory-policy allkeys-lru
 ```
 
-Check the Redis Pod again using `kubectl exec` to see if the configuration was applied:
+Check the Redis Pod again using `redis-cli` via `kubectl exec` to see if the configuration was applied:
 
 ```shell
 kubectl exec -it redis -- redis-cli
@@ -189,7 +209,7 @@ kubectl delete pod redis
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/config/redis-pod.yaml
 ```
 
-Now re-check the configuration values using `kubectl exec`:
+Now re-check the configuration values one last time:
 
 ```shell
 kubectl exec -it redis -- redis-cli
