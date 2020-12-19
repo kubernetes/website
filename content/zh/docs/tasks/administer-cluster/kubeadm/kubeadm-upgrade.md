@@ -219,7 +219,7 @@ yum install -y kubeadm-1.19.x-0 --disableexcludes=kubernetes
 
   You can now apply the upgrade by executing the following command:
 
-      kubeadm upgrade apply v1.19.0
+      kubeadm upgrade apply v1.19.0 --etcd-upgrade=false
 
   _____________________________________________________________________
 
