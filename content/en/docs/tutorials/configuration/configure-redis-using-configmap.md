@@ -63,7 +63,7 @@ Examine the contents of the Redis pod manifest and note the follwing:
 * A volume named `config` is created by `spec.volumes[1]`
 * The `key` and `path` under `spec.volumes[1].items[0]` exposes the `redis-config` key from the 
   `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
-* The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[2]`.
+* The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
 
 This has the net effect of exposing the data in `data.redis-config` from the `example-redis-config` ConfigMap
 as `/redis-master/redis.conf` inside the Pod.
