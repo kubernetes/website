@@ -14,9 +14,9 @@ Sobald Ihre Pull-Anfrage erstellt wurde, übernimmt ein Rezensent von Kubernetes
 Weitere Informationen zum Beitrag zur Kubernetes-Dokumentation finden Sie unter:
 
 * [Mitwirkung beginnen](https://kubernetes.io/docs/contribute/start/)
-* [Ihre Dokumentationsänderungen bereitstellen](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Seitenvorlagen verwenden](http://kubernetes.io/docs/contribute/style/page-content-types/)
-* [Dokumentationsstil-Handbuch](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [Ihre Dokumentationsänderungen bereitstellen](https://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [Seitenvorlagen verwenden](https://kubernetes.io/docs/contribute/style/page-content-types/)
+* [Dokumentationsstil-Handbuch](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Übersetzung der Kubernetes-Dokumentation](https://kubernetes.io/docs/contribute/localization/)
 
 ## `README.md`'s Localizing Kubernetes Documentation
@@ -65,7 +65,7 @@ Dadurch wird der lokale Hugo-Server an Port 1313 gestartet. Öffnen Sie Ihren Br
 
 ## Community, Diskussion, Beteiligung und Unterstützung
 
-Erfahren Sie auf der [Community-Seite](http://kubernetes.io/community/) wie Sie mit der Kubernetes-Community interagieren können.
+Erfahren Sie auf der [Community-Seite](https://kubernetes.io/community/) wie Sie mit der Kubernetes-Community interagieren können.
 
 Sie können die Betreuer dieses Projekts unter folgender Adresse erreichen:
 
