@@ -13,7 +13,7 @@ Sobald Ihre Pull-Anfrage erstellt wurde, übernimmt ein Rezensent von Kubernetes
 
 Weitere Informationen zum Beitrag zur Kubernetes-Dokumentation finden Sie unter:
 
-* [Mitwirkung beginnen](https://kubernetes.io/docs/contribute/start/)
+* [Mitwirkung beginnen](https://kubernetes.io/docs/contribute/)
 * [Ihre Dokumentationsänderungen bereitstellen](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
 * [Seitenvorlagen verwenden](http://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Dokumentationsstil-Handbuch](http://kubernetes.io/docs/contribute/style/style-guide/)
@@ -70,7 +70,7 @@ Erfahren Sie auf der [Community-Seite](http://kubernetes.io/community/) wie Sie 
 Sie können die Betreuer dieses Projekts unter folgender Adresse erreichen:
 
 - [Slack](https://kubernetes.slack.com/messages/sig-docs)
-- [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+- [Mailing List](https://groups.google.com/g/kubernetes-sig-docs)
 
 ### Verhaltensregeln
 
