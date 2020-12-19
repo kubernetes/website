@@ -72,7 +72,7 @@ Apprenez comment vous engager avec la communauté Kubernetes sur la [page commun
 Vous pouvez joindre les responsables de ce projet à l'adresse :
 
 - [Slack](https://kubernetes.slack.com/messages/sig-docs)
-- [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+- [Mailing List](https://groups.google.com/g/kubernetes-sig-docs)
 
 ### Code de conduite
 
