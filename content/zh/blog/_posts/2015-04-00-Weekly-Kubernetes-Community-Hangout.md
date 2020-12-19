@@ -1,5 +1,5 @@
 ---
-title: " 每周 Kubernetes 社区聚会笔记 - 2015年4月3日 "
+title: " 每周 Kubernetes 社区例会笔记 - 2015年4月3日 "
 date: 2015-04-04
 slug: weekly-kubernetes-community-hangout
 url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout
@@ -50,7 +50,7 @@ Agenda:
 -->
 1. Quinton - 集群联邦
 * 在旧金山见面会后，想法浮出水面
-* * 请阅读并评论
+* * 请阅读、评论
 * 不是 1.0，而是将文档放在一起以显示路线图
 * 可以在 Kubernetes 之外构建
 * 用于控制多个集群中事物的 API ，包括一些逻辑
@@ -119,7 +119,7 @@ Agenda:
 
     1. 工作负载的耦合
 
-    2. 绝对位置(例如欧盟数据需要在欧盟内)
+    2. 绝对位置(例如，欧盟数据需要在欧盟内)
 
 2. 跨集群服务发现
 
@@ -188,7 +188,7 @@ Agenda:
 
 4. 过载
 
-5. 失败的外部依赖项
+5. 失败的外部依赖
 
  <!--
 * Discussion:
