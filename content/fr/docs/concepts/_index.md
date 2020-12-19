@@ -37,10 +37,10 @@ Ces abstractions sont représentées par des objets de l'API Kubernetes; consult
 
 Les objets de base de Kubernetes incluent:
 
-* [Pod](/docs/concepts/workloads/pods/pod-overview/)
-* [Service](/docs/concepts/services-networking/service/)
-* [Volume](/docs/concepts/storage/volumes/)
-* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Pod](https://github.com/kubernetes/website/blob/master/content/fr/docs/concepts/workloads/pods/pod-overview.md)
+* [Service](https://github.com/kubernetes/website/blob/master/content/fr/docs/concepts/services-networking/service.md)
+* [Volume](https://github.com/kubernetes/website/blob/master/content/fr/docs/concepts/storage/volumes.md)
+* [Namespace](https://github.com/kubernetes/website/blob/master/content/fr/docs/concepts/overview/working-with-objects/namespaces.md)
 
 En outre, Kubernetes contient un certain nombre d'abstractions de niveau supérieur appelées Contrôleurs.
 Les contrôleurs s'appuient sur les objets de base et fournissent des fonctionnalités supplémentaires.
