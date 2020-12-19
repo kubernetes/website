@@ -82,6 +82,9 @@ does not specify a memory request and limit.
 现在，如果在 default-mem-example 命名空间创建容器，并且该容器没有声明自己的内存请求和限制值，
 它将被指定默认的内存请求 256 MiB 和默认的内存限制 512 MiB。
 
+下面是具有一个容器的 Pod 的配置文件。
+容器未指定内存请求和限制。
+
 {{< codenew file="admin/resource/memory-defaults-pod.yaml" >}}
 
 <!--
