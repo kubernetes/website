@@ -106,6 +106,8 @@ First, identify the name of the node you wish to drain. You can list all of the 
 然后就可以安全地关闭节点，
 比如关闭物理机器的电源，如果它运行在云平台上，则删除它的虚拟机。
 
+首先，确定想要清空的节点的名称。可以用以下命令列出集群中的所有节点:
+
 ```shell
 kubectl get nodes
 ```

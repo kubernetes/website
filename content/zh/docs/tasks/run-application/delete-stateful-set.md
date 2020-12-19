@@ -138,7 +138,7 @@ If you find that some pods in your StatefulSet are stuck in the 'Terminating' or
 如果你发现 StatefulSet 的某些 Pod 长时间处于 'Terminating' 或者 'Unknown' 状态，
 则可能需要手动干预以强制从 API 服务器中删除这些 Pod。
 这是一项有点危险的任务。详细信息请阅读
-[删除 StatefulSet 类型的 Pods](/zh/docs/tasks/run-application/delete-stateful-set/）。
+[删除 StatefulSet 类型的 Pods](/zh/docs/tasks/run-application/force-delete-stateful-set-pod/)。
 
 ## {{% heading "whatsnext" %}}
 

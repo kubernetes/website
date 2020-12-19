@@ -1,13 +1,12 @@
 ---
 title: 使用展开的方式进行并行处理
-content_type: concept
+content_type: task
 min-kubernetes-server-version: v1.8
 weight: 20
 ---
-
 <!--
 title: Parallel Processing using Expansions
-content_type: concept
+content_type: task
 min-kubernetes-server-version: v1.8
 weight: 20
 -->
@@ -25,6 +24,7 @@ The sample Jobs process each item simply by printing a string then pausing.
 See [using Jobs in real workloads](#using-jobs-in-real-workloads) to learn about how
 this pattern fits more realistic use cases.
 -->
+
 本任务展示基于一个公共的模板运行多个{{< glossary_tooltip text="Jobs" term_id="job" >}}。
 你可以用这种方法来并行执行批处理任务。
 
@@ -78,7 +78,7 @@ First, download the following template of a job to a file called `job-tmpl.yaml`
 {{< codenew file="application/job/job-tmpl.yaml" >}}
 
 ```shell
-# 使用 curl 下载 job-tmpl.yaml
+ # 使用 curl 下载 job-tmpl.yaml
 curl -L -s -O https://k8s.io/examples/application/job/job-tmpl.yaml
 ```
 
@@ -337,6 +337,12 @@ YAML file containing Kubernetes manifests:
 使用 `render_template` 将参数和模板转换成一个 YAML 文件，其中包含 Kubernetes
 资源清单：
 
+<!--
+```shell
+# This requires the alias you defined earlier
+cat job.yaml.jinja2 | render_template > jobs.yaml
+```
+-->
 ```shell
 # 此命令需要之前定义的别名
 cat job.yaml.jinja2 | render_template > jobs.yaml
@@ -379,7 +385,7 @@ or an external storage service. For example, if you are rendering frames for a m
 use HTTP to `PUT` the rendered frame data to a URL, using a different URL for each
 frame.
 -->
-## 在真实负载中使用 Job
+## 在真实负载中使用 Job {#using-jobs-in-real-workloads}
 
 在真实的负载中，每个 Job 都会执行一些重要的计算，例如渲染电影的一帧，
 或者处理数据库中的若干行。这时，`$ITEM` 参数将指定帧号或行范围。
@@ -471,4 +477,3 @@ to manage Job objects automatically.
 
 你也可以考虑编写自己的[控制器](/zh/docs/concepts/architecture/controller/)
 来自动管理 Job 对象。
-

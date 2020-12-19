@@ -96,7 +96,7 @@ In the `/mnt/data` directory, create an `index.html` file:
 -->
 ```
 # 这里再次假定你的节点使用 "sudo" 来以超级用户角色执行命令
-echo 'Hello from Kubernetes storage' > /mnt/data/index.html
+sudo sh -c "echo 'Hello from Kubernetes storage' > /mnt/data/index.html"
 ```
 
 <!--

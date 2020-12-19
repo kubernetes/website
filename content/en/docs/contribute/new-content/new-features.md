@@ -95,14 +95,16 @@ deadlines.
 
 ### Open a placeholder PR
 
-1. Open a pull request against the
+1. Open a **draft** pull request against the
 `dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
-commit that you will amend later.
+commit that you will amend later. To create a draft pull request, use the
+Create Pull Request drop-down and select **Create Draft Pull Request**,
+then click **Draft Pull Request**.
 2. Edit the pull request description to include links to [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
 PR(s) and [kubernetes/enhancements](https://github.com/kubernetes/enhancements) issue(s).
-3. Use the Prow command `/milestone {{< skew nextMinorVersion >}}` to
-assign the PR to the relevant milestone. This alerts the docs person managing
-this release that the feature docs are coming.
+3. Leave a comment on the related [kubernetes/enhancements](https://github.com/kubernetes/enhancements)
+issue with a link to the PR to notify the docs person managing this release that
+the feature docs are coming and should be tracked for the release.
 
 If your feature does not need
 any documentation changes, make sure the sig-release team knows this, by
@@ -112,13 +114,22 @@ milestone.
 
 ### PR ready for review
 
-When ready, populate your placeholder PR with feature documentation.
+When ready, populate your placeholder PR with feature documentation and change
+the state of the PR from draft to **ready for review**. To mark a pull request
+as ready for review, navigate to the merge box and click **Ready for review**.
 
 Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` slack channel.
 
 When you complete your content, the documentation person assigned to your feature reviews it.
 To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
 Use their suggestions to get the content to a release ready state.
+
+If your feature is an Alpha or Beta feature and is behind a feature gate,
+make sure you add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+table as part of your pull request. With new feature gates, a description of
+the feature gate is also required. If your feature is GA'ed or deprecated,
+make sure to move it from that table to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+table with Alpha and Beta history intact.
 
 If your feature needs documentation and the first draft
 content is not received, the feature may be removed from the milestone.
@@ -129,9 +140,3 @@ If your PR has not yet been merged into the `dev-{{< skew nextMinorVersion >}}` 
 docs person managing the release to get it in by the deadline. If your feature needs
 documentation and the docs are not ready, the feature may be removed from the
 milestone.
-
-If your feature is an Alpha feature and is behind a feature gate, make sure you
-add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
-as part of your pull request. If your feature is moving out of Alpha, make sure to
-remove it from that table.
-

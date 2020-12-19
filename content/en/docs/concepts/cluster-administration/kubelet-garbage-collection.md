@@ -1,13 +1,13 @@
 ---
 reviewers:
-title: Configuring kubelet Garbage Collection
+title: Garbage collection for container images
 content_type: concept
 weight: 70
 ---
 
 <!-- overview -->
 
-Garbage collection is a helpful function of kubelet that will clean up unused images and unused containers. Kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
+Garbage collection is a helpful function of kubelet that will clean up unused [images](/docs/concepts/containers/#container-images) and unused [containers](/docs/concepts/containers/). Kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
 
 External garbage collection tools are not recommended as these tools can potentially break the behavior of kubelet by removing containers expected to exist.
 
@@ -37,14 +37,14 @@ Containers that are not managed by kubelet are not subject to container garbage 
 
 ## User Configuration
 
-Users can adjust the following thresholds to tune image garbage collection with the following kubelet flags :
+You can adjust the following thresholds to tune image garbage collection with the following kubelet flags :
 
 1. `image-gc-high-threshold`, the percent of disk usage which triggers image garbage collection.
 Default is 85%.
 2. `image-gc-low-threshold`, the percent of disk usage to which image garbage collection attempts
 to free. Default is 80%.
 
-We also allow users to customize garbage collection policy through the following kubelet flags:
+You can customize the garbage collection policy through the following kubelet flags:
 
 1. `minimum-container-ttl-duration`, minimum age for a finished container before it is
 garbage collected. Default is 0 minute, which means every finished container will be garbage collected.
@@ -83,5 +83,4 @@ Including:
 
 
 See [Configuring Out Of Resource Handling](/docs/tasks/administer-cluster/out-of-resource/) for more details.
-
 

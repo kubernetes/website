@@ -310,6 +310,7 @@ profiles:
             - maxSkew: 1
               topologyKey: topology.kubernetes.io/zone
               whenUnsatisfiable: ScheduleAnyway
+          defaultingType: List
 ```
 
 {{< note >}}
@@ -322,9 +323,9 @@ using default constraints for `PodTopologySpread`.
 
 #### Internal default constraints
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
-When you enable the `DefaultPodTopologySpread` feature gate, the
+With the `DefaultPodTopologySpread` feature gate, enabled by default, the
 legacy `SelectorSpread` plugin is disabled.
 kube-scheduler uses the following default topology constraints for the
 `PodTopologySpread` plugin configuration:
@@ -350,6 +351,22 @@ instead of using the Kubernetes defaults.
 The `PodTopologySpread` plugin does not score the nodes that don't have
 the topology keys specified in the spreading constraints.
 {{< /note >}}
+
+If you don't want to use the default Pod spreading constraints for your cluster,
+you can disable those defaults by setting `defaultingType` to `List` and leaving
+empty `defaultConstraints` in the `PodTopologySpread` plugin configuration:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+
+profiles:
+  - pluginConfig:
+      - name: PodTopologySpread
+        args:
+          defaultConstraints: []
+          defaultingType: List
+```
 
 ## Comparison with PodAffinity/PodAntiAffinity
 

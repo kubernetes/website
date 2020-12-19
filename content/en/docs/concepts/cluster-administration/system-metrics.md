@@ -50,39 +50,41 @@ rules:
 
 ## Metric lifecycle
 
-Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → Deletion
+Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
 
-Alpha metrics have no stability guarantees; as such they can be modified or deleted at any time.
+Alpha metrics have no stability guarantees. These metrics can be modified or deleted at any time.
 
-Stable metrics can be guaranteed to not change; Specifically, stability means:
+Stable metrics are guaranteed to not change. This means:
+* A stable metric without a deprecated signature will not be deleted or renamed
+* A stable metric's type will not be modified
 
-* the metric itself will not be deleted (or renamed)
-* the type of metric will not be modified
+Deprecated metrics are slated for deletion, but are still available for use.
+These metrics include an annotation about the version in which they became deprecated.
 
-Deprecated metric signal that the metric will eventually be deleted; to find which version, you need to check annotation, which includes from which kubernetes version that metric will be considered deprecated.
+For example:
 
-Before deprecation:
+* Before deprecation
 
-```
-# HELP some_counter this counts things
-# TYPE some_counter counter
-some_counter 0
-```
+  ```
+  # HELP some_counter this counts things
+  # TYPE some_counter counter
+  some_counter 0
+  ```
 
-After deprecation:
+* After deprecation
 
-```
-# HELP some_counter (Deprecated since 1.15.0) this counts things
-# TYPE some_counter counter
-some_counter 0
-```
+  ```
+  # HELP some_counter (Deprecated since 1.15.0) this counts things
+  # TYPE some_counter counter
+  some_counter 0
+  ```
 
-Once a metric is hidden then by default the metrics is not published for scraping. To use a hidden metric, you need to override the configuration for the relevant cluster component.
+Hidden metrics are no longer published for scraping, but are still available for use. To use a hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) section. 
 
-Once a metric is deleted, the metric is not published. You cannot change this using an override.
+Deleted metrics are no longer published and cannot be used.
 
 
-## Show Hidden Metrics
+## Show hidden metrics
 
 As described above, admins can enable hidden metrics through a command-line flag on a specific binary. This intends to be used as an escape hatch for admins if they missed the migration of the metrics deprecated in the last release.
 
@@ -128,6 +130,28 @@ cloudprovider_gce_api_request_duration_seconds { request = "attach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
+
+
+### kube-scheduler metrics
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+The scheduler exposes optional metrics that reports the requested resources and the desired limits of all running pods. These metrics can be used to build capacity planning dashboards, assess current or historical scheduling limits, quickly identify workloads that cannot schedule due to lack of resources, and compare actual usage to the pod's request.
+
+The kube-scheduler identifies the resource [requests and limits](/docs/concepts/configuration/manage-resources-containers/) configured for each Pod; when either a request or limit is non-zero, the kube-scheduler reports a metrics timeseries. The time series is labelled by:
+- namespace
+- pod name
+- the node where the pod is scheduled or an empty string if not yet scheduled
+- priority
+- the assigned scheduler for that pod
+- the name of the resource (for example, `cpu`)
+- the unit of the resource if known (for example, `cores`)
+
+Once a pod reaches completion (has a `restartPolicy` of `Never` or `OnFailure` and is in the `Succeeded` or `Failed` pod phase, or has been deleted and all containers have a terminated state) the series is no longer reported since the scheduler is now free to schedule other pods to run. The two metrics are called `kube_pod_resource_request` and `kube_pod_resource_limit`.
+
+The metrics are exposed at the HTTP endpoint `/metrics/resources` and require the same authorization as the `/metrics`
+endpoint on the scheduler. You must use the `--show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
+
 
 ## {{% heading "whatsnext" %}}
 

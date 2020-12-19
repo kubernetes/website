@@ -271,6 +271,13 @@ However, using the builtin Secret type helps unify the formats of your credentia
 and the API server does verify if the required keys are provided in a Secret
 configuration.
 
+{{< caution >}}
+SSH private keys do not establish trusted communication between an SSH client and
+host server on their own. A secondary means of establishing trust is needed to
+mitigate "man in the middle" attacks, such as a `known_hosts` file added to a
+ConfigMap.
+{{< /caution >}}
+
 ### TLS secrets
 
 Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
@@ -724,6 +731,11 @@ The output is similar to:
 ```
 1f2d1e2e67df
 ```
+
+#### Environment variables are not updated after a secret update
+
+If a container already consumes a Secret in an environment variable, a Secret update will not be seen by the container unless it is restarted.
+There are third party solutions for triggering restarts when secrets change.
 
 ## Immutable Secrets {#secret-immutable}
 

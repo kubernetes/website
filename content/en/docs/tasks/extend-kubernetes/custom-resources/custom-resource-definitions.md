@@ -361,7 +361,7 @@ to clients, `kubectl` also checks for unknown fields and rejects those objects w
 
 #### Controlling pruning
 
-By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).  
+By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
 For example:
 
 ```yaml
@@ -563,7 +563,7 @@ Additionally, the following restrictions are applied to the schema:
 - The field `additionalProperties` is mutually exclusive with `properties`.
 
 The `default` field can be set when the [Defaulting feature](#defaulting) is enabled,
-which is the case with `apiextensions.k8s.io/v1` CustomResourceDefinitions. 
+which is the case with `apiextensions.k8s.io/v1` CustomResourceDefinitions.
 Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled, which is the case automatically for many clusters for beta features).
@@ -760,6 +760,48 @@ Defaults applied when reading data from etcd are not automatically written back 
 Default values must be pruned (with the exception of defaults for `metadata` fields) and must validate against a provided schema.
 
 Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but through the pruning step during handling of requests.
+
+#### Defaulting and Nullable
+
+**New in 1.20:** null values for fields that either don't specify the nullable flag, or give it a `false` value, will be pruned before defaulting happens. If a default is present, it will be applied. When nullable is `true`, null values will be conserved and won't be defaulted.
+
+For example, given the OpenAPI schema below:
+
+```yaml
+type: object
+properties:
+  spec:
+    type: object
+    properties:
+      foo:
+        type: string
+        nullable: false
+        default: "default"
+      bar:
+        type: string
+        nullable: true
+      baz:
+        type: string
+```
+
+creating an object with null values for `foo` and `bar` and `baz`
+
+```yaml
+spec:
+  foo: null
+  bar: null
+  baz: null
+```
+
+leads to
+
+```yaml
+spec:
+  foo: "default"
+  bar: null
+```
+
+with `foo` pruned and defaulted because the field is non-nullable, `bar` maintaining the null value due to `nullable: true`, and `baz` pruned because the field is non-nullable and has no default.
 
 ### Publish Validation Schema in OpenAPI v2
 
