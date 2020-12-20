@@ -57,4 +57,4 @@ Feel free to open a PR that removes non-conforming content once you've identifie
 
 ## Want to know more?
 
-For more information, read the issue description for [tracking third party content](https://github.com/kubernetes/website/issues/20232). 
+For more information, read the issue description for [tracking third party content](https://github.com/kubernetes/website/issues/20232).  
