@@ -252,6 +252,12 @@ kubectl get csr/john -o yaml
 
 The certificate value is in Base64-encoded format under `status.certificate`.
 
+Export the issued certificate from the CertificateSigningRequest.
+
+```
+kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > /home/vagrant/work/john.crt
+```
+
 ### Create Role and RoleBinding
 
 With the certificate created. it is time to define the Role and RoleBinding for
