@@ -55,9 +55,9 @@ pulling an image if it already exists. If you would like to always force a pull,
 you can do one of the following:
 
 - set the `imagePullPolicy` of the container to `Always`.
-- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use.
-- omit the `imagePullPolicy` and the tag for the image to use.
 - enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+- omit the `imagePullPolicy` and either use `:latest` as the tag for the image, or omit the tag entirely.
+  - This method is not recommended when _updating_ configurations, as the `imagePullPolicy` may have already been set to `IfNotPresent`, and changing the image tag alone will not overwrite this existing value.
 
 When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
 
