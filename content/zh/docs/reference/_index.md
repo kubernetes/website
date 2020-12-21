@@ -35,13 +35,13 @@ This section of the Kubernetes documentation contains references.
 ## API 参考
 
 * [Kubernetes API 参考 {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
-* [使用 Kubernetes API ](/zh/docs/reference/using-api/) - Kubernetes 的 API 概述
+* [使用 Kubernetes API ](https://github.com/kubernetes/website/tree/master/content/zh/docs/reference/using-api) - Kubernetes 的 API 概述
 
 <!--
 ## API Client Libraries
 
 To call the Kubernetes API from a programming language, you can use
-[client libraries](/docs/reference/using-api/client-libraries/). Officially supported
+[client libraries](https://github.com/kubernetes/website/blob/master/content/zh/docs/reference/using-api/client-libraries.md). Officially supported
 client libraries:
 
 - [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
@@ -52,7 +52,7 @@ client libraries:
 ## API 客户端库
 
 如果您需要通过编程语言调用 Kubernetes API，您可以使用
-[客户端库](/zh/docs/reference/using-api/client-libraries/)。以下是官方支持的客户端库：
+[客户端库](https://github.com/kubernetes/website/blob/master/content/zh/docs/reference/using-api/client-libraries.md)。以下是官方支持的客户端库：
 
 - [Kubernetes Go 语言客户端库](https://github.com/kubernetes/client-go/)
 - [Kubernetes Python 语言客户端库](https://github.com/kubernetes-client/python)
