@@ -21,12 +21,12 @@ A tutorial shows how to accomplish a goal that is larger than a single
 [task](/docs/tasks/). Typically a tutorial has several sections,
 each of which has a sequence of steps.
 Before walking through each tutorial, you may want to bookmark the
-[Standardized Glossary](/docs/reference/glossary/) page for later references.
+[Standardized Glossary](https://github.com/kubernetes/website/tree/master/content/zh/docs/reference/glossary) page for later references.
 -->
 Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成一个比单个
-[任务](/zh/docs/tasks/)更大的目标。
+[任务](https://github.com/kubernetes/website/tree/master/content/zh/docs/tasks)更大的目标。
 通常一个教程有几个部分，每个部分都有一系列步骤。在浏览每个教程之前，
-您可能希望将[标准化术语表](/zh/docs/reference/glossary/)页面添加到书签，供以后参考。
+您可能希望将[标准化术语表](https://github.com/kubernetes/website/tree/master/content/zh/docs/reference/glossary)页面添加到书签，供以后参考。
 
 
 <!-- body -->
