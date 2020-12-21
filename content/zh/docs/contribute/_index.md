@@ -105,11 +105,11 @@ roles and permissions.
 2. 熟悉[文档仓库](https://github.com/kubernetes/website)
    和网站的[静态站点生成器](https://gohugo.io)。
 3. 确保理解
-   [发起 PR](/zh/docs/contribute/new-content/open-a-pr/) 和
-   [审查变更](/zh/docs/contribute/review/reviewing-prs/)的基本流程。
+   [发起 PR](https://github.com/kubernetes/website/blob/master/content/zh/docs/contribute/new-content/open-a-pr.md) 和
+   [审查变更](https://github.com/kubernetes/website/blob/master/content/zh/docs/contribute/review/_index.md)的基本流程。
 
 有些任务要求 Kubernetes 组织内更高的信任级别和访问权限。
-阅读[参与 SIG Docs 工作](/zh/docs/contribute/participate/) ，获取角色和权限的更多细节。
+阅读[参与 SIG Docs 工作](https://github.com/kubernetes/website/blob/master/content/zh/docs/contribute/participate/_index.md) ，获取角色和权限的更多细节。
 
 <!--
 ## Your first contribution
