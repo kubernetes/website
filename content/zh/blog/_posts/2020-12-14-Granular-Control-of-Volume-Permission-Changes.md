@@ -1,6 +1,6 @@
 --- 
 layout: blog 
-title: 'Kubernetes 1.20: Granular Control of Volume Permission Changes'
+title: 'Kubernetes 1.20: 卷权限修改的粒度控制'
 date: 2020-12-14 
 slug: kubernetes-release-1.20-fsGroupChangePolicy-fsGroupPolicy
 ---
