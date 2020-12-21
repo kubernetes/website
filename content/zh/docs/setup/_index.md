@@ -74,16 +74,16 @@ If you're learning Kubernetes, use the Docker-based solutions: tools supported b
 {{< table caption="Local machine solutions table that lists the tools supported by the community and the ecosystem to deploy Kubernetes." >}}
 |Community           |Ecosystem     |
 | ------------       | --------     |
-| [Minikube](/docs/setup/learning-environment/minikube/) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
-| [kind (Kubernetes IN Docker)](/docs/setup/learning-environment/kind/) | [Minishift](https://docs.okd.io/latest/minishift/)|
+| [Minikube](https://github.com/kubernetes/website/tree/master/content/zh/docs/setup/learning-environment/) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
+| [kind (Kubernetes IN Docker)](https://github.com/kubernetes/website/blob/master/content/zh/docs/setup/learning-environment/kind.md) | [Minishift](https://docs.okd.io/latest/minishift/)|
 |                     | [MicroK8s](https://microk8s.io/)|
 -->
 {{< table caption="本地机器解决方案表，其中列出了社区和生态系统支持的用于部署 Kubernetes 的工具。" >}}
 
 |社区           |生态系统     |
 | ------------       | --------     |
-| [Minikube](/zh/docs/setup/learning-environment/minikube/) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
-| [kind (Kubernetes IN Docker)](/zh/docs/setup/learning-environment/kind/) | [Minishift](https://docs.okd.io/latest/minishift/)|
+| [Minikube](https://github.com/kubernetes/website/tree/master/content/zh/docs/setup/learning-environment) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
+| [kind (Kubernetes IN Docker)](https://github.com/kubernetes/website/blob/master/content/zh/docs/setup/learning-environment/kind.md) | [Minishift](https://docs.okd.io/latest/minishift/)|
 |                     | [MicroK8s](https://microk8s.io/)|
 
 
