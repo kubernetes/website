@@ -62,9 +62,9 @@ Before choosing a guide, here are some considerations:
 * [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 
 ### Securing the kubelet
-  * [Control Plane-Node communication](/docs/concepts/architecture/control-plane-node-communication/)
-  * [TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
-  * [Kubelet authentication/authorization](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
+  * [Control Plane-Node communication](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/architecture/control-plane-node-communication.md)
+  * [TLS bootstrapping](https://github.com/kubernetes/website/blob/master/content/en/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping.md)
+  * [Kubelet authentication/authorization](https://github.com/kubernetes/website/blob/master/content/en/docs/reference/command-line-tools-reference/kubelet-authentication-authorization.md)
 
 ## Optional Cluster Services
 
