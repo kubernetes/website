@@ -71,11 +71,11 @@ roles and permissions.
 
 ## Next steps
 
-- Learn to [work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
+- Learn to [work from a local clone](https://github.com/kubernetes/website/blob/master/content/en/docs/contribute/new-content/open-a-pr.md)
   of the repository.
-- Document [features in a release](/docs/contribute/new-content/new-features/).
-- Participate in [SIG Docs](/docs/contribute/participate/), and become a
-  [member or reviewer](/docs/contribute/participate/roles-and-responsibilities/).
+- Document [features in a release](https://github.com/kubernetes/website/blob/master/content/en/docs/contribute/new-content/new-features.md).
+- Participate in [SIG Docs](https://github.com/kubernetes/website/tree/master/content/en/docs/contribute/participate), and become a
+  [member or reviewer](https://github.com/kubernetes/website/blob/master/content/en/docs/contribute/participate/roles-and-responsibilities.md).
                        
 - Start or help with a [localization](/docs/contribute/localization/).
 
@@ -98,4 +98,4 @@ SIG Docs communicates with different methods:
 
 - Visit the [Kubernetes community site](/community/). Participate on Twitter or Stack Overflow, learn about local Kubernetes meetups and events, and more.
 - Read the [contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) to get involved with Kubernetes feature development.
-- Submit a [blog post or case study](/docs/contribute/new-content/blogs-case-studies/).
+- Submit a [blog post or case study](https://github.com/kubernetes/website/blob/master/content/en/docs/contribute/new-content/blogs-case-studies.md).
