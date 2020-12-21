@@ -41,7 +41,7 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 -->
 ## 基础知识
 
-* [Kubernetes 基础知识](/zh/docs/tutorials/Kubernetes-Basics/)是一个深入的
+* [Kubernetes 基础知识](https://github.com/kubernetes/website/tree/master/content/zh/docs/tutorials/kubernetes-basics)是一个深入的
   交互式教程，帮助您理解 Kubernetes 系统，并尝试一些基本的 Kubernetes 特性。
 
 * [介绍 Kubernetes (edx)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
