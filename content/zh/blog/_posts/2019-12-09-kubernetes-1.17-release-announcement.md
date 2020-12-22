@@ -28,7 +28,7 @@ We’re pleased to announce the delivery of Kubernetes 1.17, our fourth and fina
 <!--
 ### Cloud Provider Labels reach General Availability
 -->
-作为公开测试版特性添加到v1.2，v1.7中可以看到云提供商标签达到基本可用。
+作为公开测试版特性添加到v1.2，v1.17中可以看到云提供商标签达到基本可用。
 <!--
 Added as a beta feature way back in v1.2, v1.17 sees the general availability of cloud provider labels.
 -->
@@ -36,7 +36,7 @@ Added as a beta feature way back in v1.2, v1.17 sees the general availability of
 <!--
 ### Volume Snapshot Moves to Beta
 -->
-在v1.7中，Kubernetes卷快照特性是公开测试版。这个特性是在v1.12中以内部测试版引入的，第二个有重大变化的内部测试版是v1.13。
+在v1.17中，Kubernetes卷快照特性是公开测试版。这个特性是在v1.12中以内部测试版引入的，第二个有重大变化的内部测试版是v1.13。
 <!--
 The Kubernetes Volume Snapshot feature is now beta in Kubernetes v1.17. It was introduced as alpha in Kubernetes v1.12, with a second alpha with breaking changes in Kubernetes v1.13.
 -->
@@ -44,7 +44,7 @@ The Kubernetes Volume Snapshot feature is now beta in Kubernetes v1.17. It was i
 <!--
 ### CSI Migration Beta
  -->
-在v1.7中，Kubernetes树内存储插件到容器存储接口(CSI)的迁移基础架构是公开测试版。容器存储接口迁移最初是在Kubernetes v1.14中以内部测试版引入的。
+在v1.17中，Kubernetes树内存储插件到容器存储接口(CSI)的迁移基础架构是公开测试版。容器存储接口迁移最初是在Kubernetes v1.14中以内部测试版引入的。
 <!--
 The Kubernetes in-tree storage plugin to Container Storage Interface (CSI) migration infrastructure is now beta in Kubernetes v1.17. CSI migration was introduced as alpha in Kubernetes v1.14.
 -->
@@ -80,7 +80,7 @@ The labels are reaching general availability in this release. Kubernetes compone
 <!--
 ## Volume Snapshot Moves to Beta
 -->
-在v1.7中，Kubernetes卷快照是是公开测试版。最初是在v1.12中以内部测试版引入的，第二个有重大变化的内部测试版是v1.13。这篇文章总结它在公开版本中的变化。
+在v1.17中，Kubernetes卷快照是是公开测试版。最初是在v1.12中以内部测试版引入的，第二个有重大变化的内部测试版是v1.13。这篇文章总结它在公开版本中的变化。
 <!--
 The Kubernetes Volume Snapshot feature is now beta in Kubernetes v1.17. It was introduced as alpha in Kubernetes v1.12, with a second alpha with breaking changes in Kubernetes v1.13.  This post summarizes the changes in the beta release.
 -->
