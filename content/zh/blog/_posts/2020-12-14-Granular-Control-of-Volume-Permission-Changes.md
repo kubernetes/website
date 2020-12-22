@@ -94,7 +94,8 @@ Three FSGroupPolicy values are available as of Kubernetes 1.20, with more planne
 
 在 Kubernetes 1.20 中，可用的 FSGroupPolicy 值有三个。计划在将来的版本添加更多的策略。
 
-- **ReadWriteOnceWithFSType** - 这是默认策略，如果未定义 `fsGroupPolicy`，则应用此策略；这保留了 Kubernetes 以前版本中的行为。在挂载时检查每个卷，以确定是否应循环地应用权限。
+- **ReadWriteOnceWithFSType** - 这是默认策略，如果未定义 `fsGroupPolicy`，则应用此策略；
+  次策略保持 Kubernetes 以前版本中的行为。在挂载时检查每个卷，以确定是否应递归地应用权限。
 - **File** - 无论文件系统类型或 PersistentVolumeClaim 的访问模式如何，始终尝试应用权限修改。
 - **None** - 切勿应用权限修改。
 
