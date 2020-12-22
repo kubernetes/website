@@ -15,7 +15,7 @@ card:
 _Pods_ are the smallest deployable units of computing that you can create and manage in Kubernetes.
 
 A _Pod_ (as in a pod of whales or pea pod) is a group of one or more
-{{< glossary_tooltip text="containers" term_id="container" >}}, with shared storage/network resources, and a specification
+{{< glossary_tooltip text="containers" term_id="container" >}}, with shared storage and network resources, and a specification
 for how to run the containers. A Pod's contents are always co-located and
 co-scheduled, and run in a shared context. A Pod models an
 application-specific "logical host": it contains one or more application
@@ -49,7 +49,7 @@ with shared namespaces and shared filesystem volumes.
 
 ## Using Pods
 
-Usually you don't need to create Pods directly, even singleton Pods. Instead, create them using workload resources such as {{< glossary_tooltip text="Deployment"
+Usually you don't need to create Pods directly, even singleton Pods. Instead, create Pods using workload resources such as {{< glossary_tooltip text="Deployment"
 term_id="deployment" >}} or {{< glossary_tooltip text="Job" term_id="job" >}}.
 If your Pods need to track state, consider the
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} resource.
@@ -105,10 +105,41 @@ Some Pods have {{< glossary_tooltip text="init containers" term_id="init-contain
 Pods natively provide two kinds of shared resources for their constituent containers:
 [networking](#pod-networking) and [storage](#pod-storage).
 
+### Storage in Pods {#pod-storage}
+
+A Pod can specify a set of shared storage
+{{< glossary_tooltip text="volumes" term_id="volume" >}}. All containers
+in the Pod can access the shared volumes, allowing those containers to
+share data. Volumes also allow persistent data in a Pod to survive
+in case one of the containers within needs to be restarted. See
+[Storage](/docs/concepts/storage/) for more information on how
+Kubernetes implements shared storage and makes it available to Pods.
+
+### Pod networking
+
+Pods enable data sharing and communication among their containers.
+Each Pod is assigned a unique IP address for each address family. Every
+container in a Pod shares the network namespace, including the IP address and
+network ports. Inside a Pod (and **only** then), the containers that belong to the Pod
+can communicate with one another using `localhost`. When containers in a Pod communicate
+with entities *outside the Pod*,
+they must coordinate how they use the shared network resources (such as ports).
+Within a Pod, containers share an IP address and port space, and
+can find each other via `localhost`. The containers in a Pod can also communicate
+with each other using standard inter-process communications like SystemV semaphores
+or POSIX shared memory. Containers in different Pods have distinct IP addresses
+and can not communicate by IPC without
+[special configuration](/docs/concepts/policy/pod-security-policy/).
+Containers that want to interact with a container running in a different Pod can
+use IP networking to communicate.
+
+Containers within the Pod see the system hostname as being the same as the configured
+`name` for the Pod. There's more about this in the [networking](/docs/concepts/cluster-administration/networking/)
+section.
+
 ## Working with Pods
 
-You'll rarely create individual Pods directly in Kubernetes—even singleton Pods. This
-is because Pods are designed as relatively ephemeral, disposable entities. When
+Pods are designed as relatively ephemeral, disposable entities. When
 a Pod gets created (directly by you, or indirectly by a
 {{< glossary_tooltip text="controller" term_id="controller" >}}), the new Pod is
 scheduled to run on a {{< glossary_tooltip term_id="node" >}} in your cluster.
@@ -128,9 +159,9 @@ When you create the manifest for a Pod object, make sure the name specified is a
 
 You can use workload resources to create and manage multiple Pods for you. A controller
 for the resource handles replication and rollout and automatic healing in case of
-Pod failure. For example, if a Node fails, a controller notices that Pods on that
-Node have stopped working and creates a replacement Pod. The scheduler places the
-replacement Pod onto a healthy Node.
+Pod failure. For example, if a node fails, a controller notices that Pods on that
+node have stopped working and creates a replacement Pod. The scheduler places the
+replacement Pod onto a healthy node.
 
 Here are some examples of workload resources that manage one or more Pods:
 
@@ -143,17 +174,14 @@ Here are some examples of workload resources that manage one or more Pods:
 Controllers for {{< glossary_tooltip text="workload" term_id="workload" >}} resources create Pods
 from a _pod template_ and manage those Pods on your behalf.
 
-PodTemplates are specifications for creating Pods, and are included in workload resources such as
-[Deployments](/docs/concepts/workloads/controllers/deployment/),
-[Jobs](/docs/concepts/workloads/controllers/job/), and
-[DaemonSets](/docs/concepts/workloads/controllers/daemonset/).
+PodTemplates are specifications for creating Pods, and are included in workload resources.
 
 Each controller for a workload resource uses the `PodTemplate` inside the workload
 object to make actual Pods. The `PodTemplate` is part of the desired state of whatever
 workload resource you used to run your app.
 
-The sample below is a manifest for a simple Job with a `template` that starts one
-container. The container in that Pod prints a message then pauses.
+The following sample manifest describes a `Job` with a `template` that starts one
+container. The container in that pod prints a message then pauses. For example:
 
 ```yaml
 apiVersion: batch/v1
@@ -182,10 +210,10 @@ template, the StatefulSet starts to create new Pods based on the updated templat
 Eventually, all of the old Pods are replaced with new Pods, and the update is complete.
 
 Each workload resource implements its own rules for handling changes to the Pod template.
-If you want to read more about StatefulSet specifically, read
-[Update strategy](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) in the StatefulSet Basics tutorial.
+To learn how StatefulSet resources manage Pod updates, read the
+[StatefulSet Basics tutorial](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets).
 
-On Nodes, the {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} does not
+On nodes, the {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} does not
 directly observe or manage any of the details around pod templates and updates; those
 details are abstracted away. That abstraction and separation of concerns simplifies
 system semantics, and makes it feasible to extend the cluster's behavior without
@@ -219,42 +247,6 @@ have some limitations:
   1. setting the unassigned field to a positive number; 
   1. updating the field from a positive number to a smaller, non-negative
      number.
-
-## Resource sharing and communication
-
-Pods enable data sharing and communication among their constituent
-containers.
-
-### Storage in Pods {#pod-storage}
-
-A Pod can specify a set of shared storage
-{{< glossary_tooltip text="volumes" term_id="volume" >}}. All containers
-in the Pod can access the shared volumes, allowing those containers to
-share data. Volumes also allow persistent data in a Pod to survive
-in case one of the containers within needs to be restarted. See
-[Storage](/docs/concepts/storage/) for more information on how
-Kubernetes implements shared storage and makes it available to Pods.
-
-### Pod networking
-
-Each Pod is assigned a unique IP address for each address family. Every
-container in a Pod shares the network namespace, including the IP address and
-network ports. Inside a Pod (and **only** then), the containers that belong to the Pod
-can communicate with one another using `localhost`. When containers in a Pod communicate
-with entities *outside the Pod*,
-they must coordinate how they use the shared network resources (such as ports).
-Within a Pod, containers share an IP address and port space, and
-can find each other via `localhost`. The containers in a Pod can also communicate
-with each other using standard inter-process communications like SystemV semaphores
-or POSIX shared memory.  Containers in different Pods have distinct IP addresses
-and can not communicate by IPC without
-[special configuration](/docs/concepts/policy/pod-security-policy/).
-Containers that want to interact with a container running in a different Pod can
-use IP networking to communicate.
-
-Containers within the Pod see the system hostname as being the same as the configured
-`name` for the Pod. There's more about this in the [networking](/docs/concepts/cluster-administration/networking/)
-section.
 
 ## Privileged mode for containers
 
@@ -294,8 +286,8 @@ but cannot be controlled from there.
   The [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns) explains common layouts for Pods with more than one container.
-
-To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}, you can read about the prior art, including:
+* To understand the context for why Kubernetes wraps a common Pod API in workload resources
+  (such as [Deployment](/docs/concepts/workloads/controllers/deployment/) and [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)), read about these prior distributed systems:
   * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
   * [Borg](https://research.google.com/pubs/pub43438.html)
   * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
