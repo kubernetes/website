@@ -30,7 +30,9 @@ But one side-effect of setting `fsGroup` is that, each time a volume is mounted,
 When configuring a pod’s security context, set `fsGroupChangePolicy` to "OnRootMismatch" so if the root of the volume already has the correct permissions, the recursive permission change can be skipped. Kubernetes ensures that permissions of the top-level directory are changed last the first time it applies permissions.
 -->
 ### 允许用户跳过挂载时的递归权限更改
-传统意义上，如果你的 Pod 以非 root 用户运行 ([你应该](https://twitter.com/thockin/status/1333892204490735617)), 你必须在 Pod 的安全上下文中指定一个 `fsGroup`，以便 Pod 可以读写该卷。[此处](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) 更详细地介绍了此要求。
+传统意义上，如果你的 Pod 以非 root 用户运行 ([你应该这样做](https://twitter.com/thockin/status/1333892204490735617))，
+你必须在 Pod 的安全上下文中指定一个 `fsGroup`，以便 Pod 可以读写该卷。
+[此处](/zh/docs/tasks/configure-pod-container/security-context/)更详细地介绍了此要求。
 
 但是设置 `fsGroup` 的一个副作用是，每次挂载一个卷时，Kubernetes 必须递归 `chown()` 和 `chmod()` 该卷中的所有文件和目录-以下有一些例外。即使该卷的组所有权已经与所请求的 `fsGroup` 相匹配，这种情况也会发生，并且对于具有许多小文件的较大卷来说可能开销非常大，这会导致 Pod 启动花费很长时间。这种情况已经成为 [已知问题](https://github.com/kubernetes/kubernetes/issues/69699) 一段时间了，并且在 Kubernetes 1.20中，如果卷已经具有正确的权限，我们将提供旋钮以选择退出递归权限更改。
 
