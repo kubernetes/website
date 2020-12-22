@@ -54,7 +54,7 @@ securityContext:
 <!--
 You can learn more about this in [Configure volume permission and ownership change policy for Pods](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods).
 -->
-你可以通过 [为 Pods 配置卷权限和所有权更改策略](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods) 了解更多。
+你可以阅读[为 Pods 配置卷权限和所有权更改策略](/zh/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)进一步了解这一设计。
 
 <!--
 ### Allow CSI Drivers to declare support for fsGroup based permissions
