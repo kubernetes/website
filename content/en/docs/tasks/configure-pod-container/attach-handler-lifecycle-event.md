@@ -65,12 +65,22 @@ The output shows the text written by the postStart handler:
 
 ## Discussion
 
+Unlike with Jobs or `initContainers` the handlers for postStart and preStop will
+run on the very same Container and hence allow modification of the Container-local
+filesystem (assuming `readOnlyRootFilesystem` is not set to `true`).
+
 Kubernetes sends the postStart event immediately after the Container is created.
 There is no guarantee, however, that the postStart handler is called before
 the Container's entrypoint is called. The postStart handler runs asynchronously
 relative to the Container's code, but Kubernetes' management of the container
 blocks until the postStart handler completes. The Container's status is not
 set to RUNNING until the postStart handler completes.
+If the postStart handler returns a non zero return code it is considered to have
+failed and the Pod gets re-scheduled. This is useful for example if you're
+deploying an application alongside a database and your application needs a
+postStart handler using the database to initialize itself. If the postStart handler
+runs before the database is ready the Pod will be terminated and re-scheduled for
+the next initalization attempt.
 
 Kubernetes sends the preStop event immediately before the Container is terminated.
 Kubernetes' management of the Container blocks until the preStop handler completes,
