@@ -77,7 +77,9 @@ The CSIDriver custom resource now has a `.spec.fsGroupPolicy` field, allowing st
 
 以前，每当将 CSI 卷挂载入 Pod 时，Kubernetes 都会尝试自动确定是否应修改权限和所有权。这些方法不精确，可能会导致问题，正如我们已经提到的，具体取决于存储类型。
 
-CSIDriver 定制资源现在具有一个 `.spec.fsGroupPolicy` 字段，从而允许存储驱动程序显式选择加入或退出这些递归修改。通过让 CSI 驱动程序为后备卷指定策略，Kubernetes 可以避免不必要的修改尝试。此优化有助于减少卷挂载时间，并减少永远无法成功进行的修改的报告错误。
+CSIDriver 定制资源现在具有一个 `.spec.fsGroupPolicy` 字段，从而允许存储驱动程序显式选择执行或者不执行这些递归修改。
+通过让 CSI 驱动程序为存储卷指定策略，Kubernetes 可以避免不必要的修改尝试。
+此优化有助于减少卷挂载时间，并减少与修改总是无法成功进行相关的错误报告。
 
 <!--
 #### CSIDriver FSGroupPolicy API
