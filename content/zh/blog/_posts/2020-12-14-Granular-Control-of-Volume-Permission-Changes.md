@@ -104,7 +104,8 @@ Three FSGroupPolicy values are available as of Kubernetes 1.20, with more planne
 The only configuration needed is defining `fsGroupPolicy` inside of the `.spec` for a CSIDriver. Once that element is defined, any subsequently mounted volumes will automatically use the defined policy. There’s no additional deployment required!
 -->
 #### 如何使用？
-唯一需要的配置是在 CSIDriver 的 .spec 内定义 fsGroupPolicy。定义该参数后，所有后续挂载的卷将自动使用定义的策略。无需其他部署！
+唯一需要的配置是在 CSIDriver 的 `.spec` 内定义 `fsGroupPolicy`。
+定义该参数后，所有后续挂载的卷将自动使用所定义的策略。无需其他部署！
 
 <!--
 #### What’s next?
