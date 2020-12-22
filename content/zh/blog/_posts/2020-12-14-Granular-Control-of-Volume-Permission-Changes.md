@@ -112,7 +112,7 @@ The only configuration needed is defining `fsGroupPolicy` inside of the `.spec` 
 
 Depending on feedback and adoption, the Kubernetes team plans to push these implementations to GA in either 1.21 or 1.22. 
 -->
-#### 接下来怎么办？
+#### 接下来？
 
 根据反馈和采用情况，Kubernetes 团队计划在 1.21 或 1.22 版本中将这些实现正式发布。
 
