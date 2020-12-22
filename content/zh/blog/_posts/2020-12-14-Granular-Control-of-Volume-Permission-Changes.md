@@ -40,7 +40,9 @@ When configuring a pod’s security context, set `fsGroupChangePolicy` to "OnRoo
 这种情况作为一个[已知问题](https://github.com/kubernetes/kubernetes/issues/69699)已经存在一段时间了。
 在 Kubernetes 1.20 中，如果卷已经具有正确的权限，我们将提供机制以选择不执行这种递归的权限更改操作。
 
-在配置 Pod 的安全上下文时，请将 `fsGroupChangePolicy` 设置为"OnRootMismatch"，这样，如果卷的根目录已经具有正确的权限，则可以跳过递归权限的更改。Kubernetes 确保在初次使用权限时最后修改顶级目录的权限。
+在配置 Pod 的安全上下文时，请将 `fsGroupChangePolicy` 设置为"OnRootMismatch"。
+这样，如果卷的根目录已经具有正确的权限，则可以跳过递归的权限更改。
+Kubernetes 确保在初次应用权限时，一定会修改顶级目录的权限。
 
 ```yaml
 securityContext:
