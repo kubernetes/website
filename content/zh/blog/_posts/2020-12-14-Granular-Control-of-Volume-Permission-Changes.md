@@ -63,7 +63,9 @@ The CSIDriver custom resource now has a `.spec.fsGroupPolicy` field, allowing st
 -->
 ### 允许 CSI 驱动程序声明对基于 fsGroup 的权限的支持
 
-尽管上一节暗示如果 Pod 具有 `fsGroup`，Kubernetes _总是_递归地更改卷的权限，但这并不是严格意义上正确的。对于某些多写入卷类型，例如 NFS 或 Gluster，即使 Pod 具有 `fsGroup`，集群也不会执行递归权限更改。其他卷类型甚至可能不支持 `chown（）`/`chmod（）`，它们依赖于 Unix 风格的权限控制原语。
+尽管上一节暗示如果 Pod 具有 `fsGroup`，Kubernetes _总是_递归地更改卷的权限，但这并不是严格意义上正确的。
+对于某些支持多写者的卷类型，例如 NFS 或 Gluster，即使 Pod 具有 `fsGroup`，集群也不会执行递归权限更改。
+其他卷类型甚至可能不支持 `chown()`/`chmod()`，它们依赖于 Unix 风格的权限控制原语。
 
 那么，我们如何知道何时应用或不应用递归权限更改呢？对于树内存储驱动程序，这相对简单。对于可能跨越多种平台和存储类型的 [CSI](https://kubernetes-csi.github.io/docs/introduction.html#introduction) 驱动程序，此问题可能是一个更大的挑战。
 
