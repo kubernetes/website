@@ -129,4 +129,4 @@ Those interested in getting involved with the design and development of CSI or a
 [Kubernetes Slack 频道 #csi](https://kubernetes.slack.com/messages/csi) 和任何 [SIG Storage 交流所用标准频道](https://github.com/kubernetes/community/blob/master/sig-storage/README.md#contact)
 是联系 SIG Storage 和 CSI 团队的绝佳媒介。
 
-对参与 CSI 或 Kubernetes 存储系统任何部分的设计和开发感兴趣的人，请加入 [Kubernetes Storage Special Interest Group (SIG)](https://github.com/kubernetes/community/tree/master/sig-storage)。我们正在迅速发展，并随时欢迎新的贡献者。
+对参与 CSI 或 Kubernetes 存储系统任何部分的设计和开发感兴趣的人，请加入 [Kubernetes SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage)。我们正在迅速发展，并随时欢迎新的贡献者。
