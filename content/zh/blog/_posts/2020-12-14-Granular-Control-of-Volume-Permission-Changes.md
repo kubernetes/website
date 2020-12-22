@@ -102,7 +102,7 @@ Depending on feedback and adoption, the Kubernetes team plans to push these impl
 -->
 #### 接下来怎么办？
 
-根据反馈和采用情况，Kubernetes 团队计划在1.21或1.22版本中将这些实现推向 GA。
+根据反馈和采用情况，Kubernetes 团队计划在 1.21 或 1.22 版本中将这些实现正式发布。
 
 <!--
 ### How can I learn more?
