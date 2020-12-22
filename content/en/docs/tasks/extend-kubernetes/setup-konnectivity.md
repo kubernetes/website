@@ -37,8 +37,22 @@ by providing the following flags to the kube-apiserver:
 1. Create an egress configuration file such as `admin/konnectivity/egress-selector-configuration.yaml`.
 1. Set the `--egress-selector-config-file` flag of the API Server to the path of
 your API Server egress configuration file.
+1. If you use UDS connection, add volumes config to the kube-apiserver:
+   ```yaml
+   spec:
+     containers:
+       volumeMounts:
+       - name: konnectivity-uds
+         mountPath: /etc/kubernetes/konnectivity-server
+         readOnly: false
+     volumes:
+     - name: konnectivity-uds
+       hostPath:
+         path: /etc/kubernetes/konnectivity-server
+         type: DirectoryOrCreate
+   ```
 
-Generate or obtain a certificate and kubeconfig for konnectivity-server.  
+Generate or obtain a certificate and kubeconfig for konnectivity-server.
 For example, you can use the OpenSSL command line tool to issue a X.509 certificate,
 using the cluster CA certificate `/etc/kubernetes/pki/ca.crt` from a control-plane host.
 
