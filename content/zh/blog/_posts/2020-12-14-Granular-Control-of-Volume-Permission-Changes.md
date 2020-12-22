@@ -117,7 +117,7 @@ Depending on feedback and adoption, the Kubernetes team plans to push these impl
 This feature is explained in more detail in Kubernetes project documentation: [CSI Driver fsGroup Support](https://kubernetes-csi.github.io/docs/support-fsgroup.html) and [Configure volume permission and ownership change policy for Pods ](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods).
 -->
 ### 如何了解更多？
-Kubernetes项目文档中更详细地说明了此功能：[CSI Driver fsGroup Support](https://kubernetes-csi.github.io/docs/support-fsgroup.html) 及 [为 Pods 配置卷权限和所有权更改策略 ](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)。
+Kubernetes 项目文档中更详细地说明了此功能，参见 [CSI Driver fsGroup Support](https://kubernetes-csi.github.io/docs/support-fsgroup.html) 及[为 Pods 配置卷权限和所有权更改策略 ](/zh/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)。
 
 <!--
 ### How do I get involved?
