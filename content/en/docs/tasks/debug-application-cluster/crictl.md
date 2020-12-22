@@ -361,7 +361,7 @@ for more information.
 The exact versions for below mapping table are for docker cli v1.40 and crictl v1.19.0. Please note that the list is not exhaustive. For example, it doesn't include experimental commands of docker cli.
 
 {{< note >}}
-Warn: the output format of CRICTL is similar to Docker CLI, despite some missing columns for some CLI. Make sure to check output for the specific command if your script output parsing.
+The output format of CRICTL is similar to Docker CLI, despite some missing columns for some CLI. Make sure to check output for the specific command if your script output parsing.
 {{< /note >}}
 
 ### Retrieve Debugging Information
