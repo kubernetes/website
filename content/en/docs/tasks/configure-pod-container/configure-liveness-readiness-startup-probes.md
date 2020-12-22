@@ -389,24 +389,32 @@ You can override the default headers by defining `.httpHeaders` for the probe; f
 
 ```yaml
 livenessProbe:
-  httpHeaders:
-    Accept: application/json
+  httpGet:
+    httpHeaders:
+      - name: Accept
+        value: application/json
 
 startupProbe:
-  httpHeaders:
-    User-Agent: MyUserAgent
+  httpGet:
+    httpHeaders:
+      - name: User-Agent
+        value: MyUserAgent
 ```
 
 You can also remove these two headers by defining them with an empty value.
 
 ```yaml
 livenessProbe:
-  httpHeaders:
-    Accept: ""
+  httpGet:
+    httpHeaders:
+      - name: Accept
+        value: ""
 
 startupProbe:
-  httpHeaders:
-    User-Agent: ""
+  httpGet:
+    httpHeaders:
+      - name: User-Agent
+        value: ""
 ```
 
 ### TCP probes
