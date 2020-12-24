@@ -1180,9 +1180,9 @@ QPS to use while talking with kubernetes apiserver (default 5) (DEPRECATED: This
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi) pairs that describe resources reserved for kubernetes system components. Currently cpu, memory and local ephemeral storage for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none] (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100') pairs that describe resources reserved for kubernetes system components. Currently cpu, memory and local ephemeral storage for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none] (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
-kubernetes 系统预留的资源配置，以一组 ResourceName=ResourceQuantity 格式表示。（例如：cpu=200m,memory=500Mi,ephemeral-storage=1Gi）。当前支持用于根文件系统的 CPU、内存（memory）和本地临时存储。请参阅 http://kubernetes.io/docs/user-guide/compute-resources 获取更多信息。（默认值为 none）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+kubernetes 系统预留的资源配置，以一组 ResourceName=ResourceQuantity 格式表示。（例如：cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'）。当前支持用于根文件系统的 CPU、内存（memory）和本地临时存储。请参阅 http://kubernetes.io/docs/user-guide/compute-resources 获取更多信息。（默认值为 none）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
 </td>
 </tr>
 
@@ -2019,9 +2019,9 @@ cgroup 的绝对名称，用于所有尚未放置在根目录下某 cgroup 内�
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi) pairs that describe resources reserved for non-kubernetes components. Currently only cpu and memory are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none] (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100') pairs that describe resources reserved for non-kubernetes components. Currently only cpu and memory are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none] (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
-系统预留的资源配置，以一组 ”ResourceName=ResourceQuantity“ 的格式表示，（例如：cpu=200m,memory=500Mi,ephemeral-storage=1Gi）。目前仅支持 CPU 和内存（memory）的设置。请参考 http://kubernetes.io/docs/user-guide/compute-resources 获取更多信息。（默认值为 ”none“）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
+系统预留的资源配置，以一组 ”ResourceName=ResourceQuantity“ 的格式表示，（例如：cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'）。目前仅支持 CPU 和内存（memory）的设置。请参考 http://kubernetes.io/docs/user-guide/compute-resources 获取更多信息。（默认值为 ”none“）（已弃用：在 --config 指定的配置文件中进行设置。有关更多信息，请参阅 https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/。）
 </td>
 </tr>
 
