@@ -778,7 +778,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--kube-reserved mapStringString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: &lt;None&gt;</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi`) pairs that describe resources reserved for kubernetes system components. Currently `cpu`, `memory` and local `ephemeral-storage` for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'`) pairs that describe resources reserved for kubernetes system components. Currently `cpu`, `memory` and local `ephemeral-storage` for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>
@@ -1282,7 +1282,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--system-reserved mapStringString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: \<none\></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi`) pairs that describe resources reserved for non-kubernetes components. Currently only `cpu` and `memory` are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'`) pairs that describe resources reserved for non-kubernetes components. Currently only `cpu` and `memory` are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>
