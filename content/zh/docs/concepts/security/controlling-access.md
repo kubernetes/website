@@ -28,7 +28,7 @@ authorized for API access.
 When a request reaches the API, it goes through several stages, illustrated in the
 following diagram:
 -->
-用户使用 `kubectl`、客户端库或构造 REST 请求访问来 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/)。
+用户使用 `kubectl`、客户端库或构造 REST 请求来访问 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/)。
 人类用户和 [Kubernetes 服务账户](/zh/docs/tasks/configure-pod-container/configure-service-account/)都可以被鉴权访问 API。
 当请求到达 API 时，它会经历多个阶段，如下图所示：
 
