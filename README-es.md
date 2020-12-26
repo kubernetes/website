@@ -17,9 +17,9 @@ Los revisores harán todo lo posible para proporcionar toda la información nece
 Para obtener más información sobre cómo contribuir a la documentación de Kubernetes, puede consultar:
 
 * [Empezando a contribuir](https://kubernetes.io/docs/contribute/start/)
-* [Visualizando sus cambios en su entorno local](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Utilizando las plantillas de las páginas](http://kubernetes.io/docs/contribute/style/page-content-types/)
-* [Guía de estilo de la documentación](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [Visualizando sus cambios en su entorno local](https://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [Utilizando las plantillas de las páginas](https://kubernetes.io/docs/contribute/style/page-content-types/)
+* [Guía de estilo de la documentación](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Traduciendo la documentación de Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
 ## Levantando el sitio web kubernetes.io en su entorno local con Docker
