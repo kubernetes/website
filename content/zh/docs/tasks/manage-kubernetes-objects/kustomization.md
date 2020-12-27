@@ -518,8 +518,8 @@ spec:
       containers:
       - name: my-nginx
         resources:
-        limits:
-          memory: 512Mi
+          limits:
+            memory: 512Mi
 EOF
 
 cat <<EOF >./kustomization.yaml
