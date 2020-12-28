@@ -1,5 +1,5 @@
 ---
-title: ネームスペースに対する最小および最大メモリ制約の構成
+title: Namespaceに対する最小および最大メモリ制約の構成
 
 content_type: task
 weight: 30
@@ -8,9 +8,9 @@ weight: 30
 
 <!-- overview -->
 
-このページでは、ネームスペースで実行されるコンテナが使用するメモリの最小値と最大値を設定する方法を説明します。
+このページでは、Namespaceで実行されるコンテナが使用するメモリの最小値と最大値を設定する方法を説明します。
 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core) で最小値と最大値のメモリ値を指定します。
-ポッドがLimitRangeによって課される制約を満たさない場合、そのネームスペースではポッドを作成できません。
+PodがLimitRangeによって課される制約を満たさない場合、そのNamespaceではPodを作成できません。
 
 
 ## {{% heading "prerequisites" %}}
@@ -23,16 +23,16 @@ weight: 30
 
 <!-- steps -->
 
-## ネームスペースの作成
+## Namespaceの作成
 
-この演習で作成したリソースがクラスタの他の部分から分離されるように、ネームスペースを作成します。
+この演習で作成したリソースがクラスタの他の部分から分離されるように、Namespaceを作成します。
 
 
 ```shell
 kubectl create namespace constraints-mem-example
 ```
 
-## LimitRangeとポッドを作成
+## LimitRangeとPodを作成
 
 LimitRangeの設定ファイルです。
 
@@ -70,7 +70,7 @@ kubectl get limitrange mem-min-max-demo-lr --namespace=constraints-mem-example -
 ```
 
 
-constraints-mem-exampleネームスペースにコンテナが作成されるたびに、
+constraints-mem-exampleNamespaceにコンテナが作成されるたびに、
 Kubernetesは以下の手順を実行するようになっています。
 
 * コンテナが独自のメモリ要求と制限を指定しない場合は、デフォルトのメモリ要求と制限をコンテナに割り当てます。
@@ -79,24 +79,24 @@ Kubernetesは以下の手順を実行するようになっています。
 
 * コンテナのメモリ制限が1GiB以下であることを確認します。
 
-以下は、1つのコンテナを持つポッドの設定ファイルです。設定ファイルのコンテナ(containers)では、600MiBのメモリ要求と800MiBのメモリ制限が指定されています。これらはLimitRangeによって課される最小と最大のメモリ制約を満たしています。
+以下は、1つのコンテナを持つPodの設定ファイルです。設定ファイルのコンテナ(containers)では、600MiBのメモリ要求と800MiBのメモリ制限が指定されています。これらはLimitRangeによって課される最小と最大のメモリ制約を満たしています。
 
 
 {{< codenew file="admin/resource/memory-constraints-pod.yaml" >}}
 
-ポッドの作成
+Podの作成
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod.yaml --namespace=constraints-mem-example
 ```
 
-ポッドのコンテナが実行されていることを確認します。
+Podのコンテナが実行されていることを確認します。
 
 ```shell
 kubectl get pod constraints-mem-demo --namespace=constraints-mem-example
 ```
 
-ポッドの詳細情報を見ます
+Podの詳細情報を見ます
 
 ```shell
 kubectl get pod constraints-mem-demo --output=yaml --namespace=constraints-mem-example
@@ -113,26 +113,26 @@ resources:
     memory: 600Mi
 ```
 
-ポッドを消します。
+Podを消します。
 
 ```shell
 kubectl delete pod constraints-mem-demo --namespace=constraints-mem-example
 ```
 
-## 最大メモリ制約を超えるポッドの作成の試み
+## 最大メモリ制約を超えるPodの作成の試み
 
-これは、1つのコンテナを持つポッドの設定ファイルです。コンテナは800MiBのメモリ要求と1.5GiBのメモリ制限を指定しています。
+これは、1つのコンテナを持つPodの設定ファイルです。コンテナは800MiBのメモリ要求と1.5GiBのメモリ制限を指定しています。
 
 
 {{< codenew file="admin/resource/memory-constraints-pod-2.yaml" >}}
 
-ポッドを作成してみます。
+Podを作成してみます。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-2.yaml --namespace=constraints-mem-example
 ```
 
-出力は、コンテナが大きすぎるメモリ制限を指定しているため、ポッドが作成されないことを示しています。
+出力は、コンテナが大きすぎるメモリ制限を指定しているため、Podが作成されないことを示しています。
 
 
 ```
@@ -140,47 +140,47 @@ Error from server (Forbidden): error when creating "examples/admin/resource/memo
 pods "constraints-mem-demo-2" is forbidden: maximum memory usage per Container is 1Gi, but limit is 1536Mi.
 ```
 
-## 最低限のメモリ要求を満たさないポッドの作成の試み
+## 最低限のメモリ要求を満たさないPodの作成の試み
 
 
-これは、1つのコンテナを持つポッドの設定ファイルです。コンテナは100MiBのメモリ要求と800MiBのメモリ制限を指定しています。
+これは、1つのコンテナを持つPodの設定ファイルです。コンテナは100MiBのメモリ要求と800MiBのメモリ制限を指定しています。
 
 
 {{< codenew file="admin/resource/memory-constraints-pod-3.yaml" >}}
 
-ポッドを作成してみます。
+Podを作成してみます。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-3.yaml --namespace=constraints-mem-example
 ```
 
-出力は、コンテナが小さすぎるメモリリクエストを指定しているため、ポッドが作成されないことを示しています。
+出力は、コンテナが小さすぎるメモリリクエストを指定しているため、Podが作成されないことを示しています。
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/memory-constraints-pod-3.yaml":
 pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container is 500Mi, but request is 100Mi.
 ```
 
-## メモリ要求や制限を指定しないポッドの作成
+## メモリ要求や制限を指定しないPodの作成
 
 
-これは、1つのコンテナを持つポッドの設定ファイルです。コンテナはメモリ要求を指定しておらず、メモリ制限も指定していません。
+これは、1つのコンテナを持つPodの設定ファイルです。コンテナはメモリ要求を指定しておらず、メモリ制限も指定していません。
 
 {{< codenew file="admin/resource/memory-constraints-pod-4.yaml" >}}
 
-ポッドを作成します。
+Podを作成します。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-4.yaml --namespace=constraints-mem-example
 ```
 
-ポッドの詳細情報を見ます
+Podの詳細情報を見ます
 
 ```
 kubectl get pod constraints-mem-demo-4 --namespace=constraints-mem-example --output=yaml
 ```
 
-出力を見ると、ポッドのコンテナのメモリ要求は1GiB、メモリ制限は1GiBであることがわかります。
+出力を見ると、Podのコンテナのメモリ要求は1GiB、メモリ制限は1GiBであることがわかります。
 コンテナはどのようにしてこれらの値を取得したのでしょうか？
 
 
@@ -198,7 +198,7 @@ resources:
 この時点で、コンテナは起動しているかもしれませんし、起動していないかもしれません。このタスクの前提条件は、ノードが少なくとも1GiBのメモリを持っていることであることを思い出してください。それぞれのノードが1GiBのメモリしか持っていない場合、どのノードにも1GiBのメモリ要求に対応するのに十分な割り当て可能なメモリがありません。たまたま2GiBのメモリを持つノードを使用しているのであれば、おそらく1GiBのメモリリクエストに対応するのに十分なスペースを持っていることになります。
 
 
-ポッドを削除します。
+Podを削除します。
 
 ```
 kubectl delete pod constraints-mem-demo-4 --namespace=constraints-mem-example
@@ -206,25 +206,25 @@ kubectl delete pod constraints-mem-demo-4 --namespace=constraints-mem-example
 
 ## 最小および最大メモリ制約の強制
 
-LimitRangeによってネームスペースに課される最大および最小のメモリ制約は、ポッドが作成または更新されたときにのみ適用されます。LimitRangeを変更しても、以前に作成されたポッドには影響しません。
+LimitRangeによってNamespaceに課される最大および最小のメモリ制約は、Podが作成または更新されたときにのみ適用されます。LimitRangeを変更しても、以前に作成されたPodには影響しません。
 
 
 ## 最小・最大メモリ制約の動機
 
 
-クラスタ管理者としては、ポッドが使用できるメモリ量に制限を課したいと思うかもしれません。
+クラスタ管理者としては、Podが使用できるメモリ量に制限を課したいと思うかもしれません。
 
 
 例:
 
-* クラスタ内の各ノードは2GBのメモリを持っています。クラスタ内のどのノードもその要求をサポートできないため、2GB以上のメモリを要求するポッドは受け入れたくありません。
+* クラスタ内の各ノードは2GBのメモリを持っています。クラスタ内のどのノードもその要求をサポートできないため、2GB以上のメモリを要求するPodは受け入れたくありません。
 
 
-* クラスタは運用部門と開発部門で共有されています。 本番用のワークロードでは最大8GBのメモリを消費しますが、開発用のワークロードでは512MBに制限したいとします。本番用と開発用に別々のネームスペースを作成し、それぞれのネームスペースにメモリ制限を適用します。
+* クラスタは運用部門と開発部門で共有されています。 本番用のワークロードでは最大8GBのメモリを消費しますが、開発用のワークロードでは512MBに制限したいとします。本番用と開発用に別々のNamespaceを作成し、それぞれのNamespaceにメモリ制限を適用します。
 
 ## クリーンアップ
 
-ネームスペースを削除します。
+Namespaceを削除します。
 
 ```shell
 kubectl delete namespace constraints-mem-example
@@ -245,17 +245,17 @@ kubectl delete namespace constraints-mem-example
 
 * [名前空間に対するメモリとCPUのクォータの構成](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [名前空間に対するポッドクォータの設定](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [名前空間に対するPodクォータの設定](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [APIオブジェクトのクォータの設定](/docs/tasks/administer-cluster/quota-api-object/)
 
 ### アプリケーション開発者向け
 
-* [コンテナとポッドへのメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナとPodへのメモリリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [コンテナとポッドへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [コンテナとPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [ポッドのQoS(サービス品質)を設定](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [PodのQoS(サービス品質)を設定](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 
 
