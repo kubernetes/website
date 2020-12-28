@@ -24,10 +24,10 @@ git clone https://github.com/kubernetes/website.git
 cd website
 ```
 
-Сайт Kubernetes использует [тему для Hugo под названием Docsy](https://github.com/google/docsy). Даже если вы планируете запускать сайт в контейнере, мы настоятельно рекомендуем загрузить соответствующий сабмодуль и другие зависимости для разработки, выполнив следующую команду:
+Сайт Kubernetes использует [тему для Hugo под названием Docsy](https://github.com/google/docsy). Даже если вы планируете запускать сайт в контейнере, мы настоятельно рекомендуем загрузить соответствующий подмодуль и другие зависимости для разработки, выполнив следующую команду:
 
 ```
-# pull in the Docsy submodule
+# загружаем Git-подмодуль Docsy
 git submodule update --init --recursive --depth 1
 ```
 
@@ -79,7 +79,7 @@ make: *** [serve] Error 1
 ```shell
 #!/bin/sh
 
-# These are the original gist links, linking to my gists now.
+# Ссылки на оригинальные gist-файлы закомментированы в пользу моих адаптированных.
 # curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxfiles.plist
 # curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxproc.plist
 
@@ -135,7 +135,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 # Кодекс поведения
 
-Участие в сообществе Kubernetes регулируется [кодексом поведения CNCF](https://github.com/cncf/foundation/blob/master/code-of-conduct.md).
+Участие в сообществе Kubernetes регулируется [кодексом поведения CNCF](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/ru.md).
 
 # Спасибо!
 
