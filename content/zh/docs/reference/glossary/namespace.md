@@ -1,5 +1,5 @@
 ---
-title: 命名空间
+title: 命名空间（Namespace）
 id: namespace
 date: 2018-04-12
 full_link: /zh/docs/concepts/overview/working-with-objects/namespaces/
@@ -16,7 +16,7 @@ tags:
 title: Namespace
 id: namespace
 date: 2018-04-12
-full_link: /zh/docs/concepts/overview/working-with-objects/namespaces/
+full_link: /docs/concepts/overview/working-with-objects/namespaces/
 short_description: >
   An abstraction used by Kubernetes to support multiple virtual clusters on the same physical cluster.
 
