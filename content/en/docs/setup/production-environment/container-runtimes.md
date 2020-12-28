@@ -140,7 +140,7 @@ sudo apt-get update && sudo apt-get install -y containerd
 ```shell
 # Configure containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
