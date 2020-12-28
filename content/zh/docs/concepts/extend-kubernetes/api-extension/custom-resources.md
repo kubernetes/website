@@ -286,7 +286,7 @@ The Kubernetes API serves and handles the storage of your custom resource.
 The name of a CRD object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
-## CustomResourceDefinitions
+## 定制资源定义 {#customresourcedefinitions}
 
 [CustomResourceDefinition](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
 API 资源允许你定义定制资源。
@@ -322,9 +322,9 @@ making them available to all of its clients.
 -->
 ## API 服务器聚合  {#api-server-aggregation}
 
-通常，Kubernetes API 中的每个都需要处理 REST 请求和管理对象持久性存储的代码。
+通常，Kubernetes API 中的每个资源都需要处理 REST 请求和管理对象持久性存储的代码。
 Kubernetes API 主服务器能够处理诸如 *pods* 和 *services* 这些内置资源，也可以
-按通用的方式通过 CRD {#customresourcedefinitions} 来处理定制资源。
+按通用的方式通过[CRDs](#customresourcedefinitions) 来处理定制资源。
 
 [聚合层（Aggregation Layer）](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 使得你可以通过编写和部署你自己的独立的 API 服务器来为定制资源提供特殊的实现。
