@@ -249,7 +249,7 @@ Follow the steps given below to create the above Deployment:
      此为期望状态；
    * `CURRENT` 显示当前运行状态中的副本个数；
    * `READY` 显示应用中有多少副本可以为用户提供服务；
-   * `AGE` 显示应用已经运行的时间长度。
+   * `AGE` 显示应用已经运行的时间。
 
    <!--
    Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. The random string is
