@@ -205,6 +205,25 @@ the Job in turn is responsible for the management of the Pods it represents.
 -->
 CronJob 仅负责创建与其调度时间相匹配的 Job，而 Job 又负责管理其代表的 Pod。
 
+<!--
+## New controller
+
+There's an alternative implementation of the CronJob controller, available as an alpha feature since Kubernetes 1.20. To select version 2 of the CronJob controller, pass the following [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+
+```
+--feature-gates="CronJobControllerV2=true"
+```
+-->
+## 新控制器
+
+CronJob 控制器有一个替代的实现，自 Kubernetes 1.20 开始以 alpha 特性引入。
+如果选择 CronJob 控制器的 v2 版本，请在 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
+中设置以下[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/) 标志。
+
+```
+--feature-gates="CronJobControllerV2=true"
+```
+
 ## {{% heading "whatsnext" %}}
 <!--
 [Cron expression format](https://en.wikipedia.org/wiki/Cron)
