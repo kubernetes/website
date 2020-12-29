@@ -310,7 +310,7 @@ Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontab
 <!--
 If you later recreate the same CustomResourceDefinition, it will start out empty.
 -->
-如果你在以后创建相同的 CustomResourceDefinition 时，该 CRD 会一个空的结构。
+如果你在以后创建相同的 CustomResourceDefinition 时，该 CRD 会是一个空的结构。
 
 <!--
 ## Specifying a structural schema
