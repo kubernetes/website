@@ -84,7 +84,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 -->
 ## 创建 Deployment  {#creating-a-deployment}
 
-下面是 Deployment 示例。其中创建了一个 ReplicaSet，负责启动三个 `nginx` Pods：
+下面是 Deployment 示例。其中创建了一个 ReplicaSet，负责启动 3 个 `nginx` Pods：
 
 {{< codenew file="controllers/nginx-deployment.yaml" >}}
 
@@ -98,7 +98,7 @@ In this example:
  * The Deployment creates three replicated Pods, indicated by the `replicas` field.
 -->
 * 创建名为 `nginx-deployment`（由 `.metadata.name` 字段标明）的 Deployment。
-* 该 Deployment 创建三个（由 `replicas` 字段标明）Pod 副本。
+* 该 Deployment 创建 3 个（由 `replicas` 字段标明）Pod 副本。
 
 <!--
 * The `selector` field defines how the Deployment finds which Pods to manage.
@@ -219,7 +219,7 @@ Follow the steps given below to create the above Deployment:
    <!--
    Notice that the Deployment has created all three replicas, and all replicas are up-to-date (they contain the latest Pod template) and available.
    -->
-   注意 Deployment 已创建全部三个副本，并且所有副本都是最新的（它们包含最新的 Pod 模板）
+   注意 Deployment 已创建全部 3 个副本，并且所有副本都是最新的（它们包含最新的 Pod 模板）
    并且可用。
 
 <!--
@@ -273,7 +273,7 @@ Follow the steps given below to create the above Deployment:
    <!--
    The created ReplicaSet ensures that there are three `nginx` Pods.
    -->
-   所创建的 ReplicaSet 确保总是存在三个 `nginx` Pod。
+   所创建的 ReplicaSet 确保总是存在 3 个 `nginx` Pod。
 
 <!--
 You must specify an appropriate selector and Pod template labels in a Deployment (in this case,
