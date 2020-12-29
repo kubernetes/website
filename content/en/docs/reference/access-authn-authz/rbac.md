@@ -86,8 +86,8 @@ Because ClusterRoles are cluster-scoped, you can also use them to grant access t
 * cluster-scoped resources (like {{< glossary_tooltip text="nodes" term_id="node" >}})
 * non-resource endpoints (like `/healthz`)
 * namespaced resources (like Pods), across all namespaces
-  For example: you can use a ClusterRole to allow a particular user to run
-  `kubectl get pods --all-namespaces`.
+  (for example: you can use a ClusterRole to allow a particular user to run
+  `kubectl get pods --all-namespaces`)
 
 Here is an example of a ClusterRole that can be used to grant read access to
 {{< glossary_tooltip text="secrets" term_id="secret" >}} in any particular namespace,
