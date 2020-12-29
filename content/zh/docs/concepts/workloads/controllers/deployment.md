@@ -1453,7 +1453,7 @@ $ echo $?
 Your Deployment may get stuck trying to deploy its newest ReplicaSet without ever completing. This can occur
 due to some of the following factors:
 -->
-你的 Deployment 可能会在尝试部署其最新的 ReplicaSet 受挫，一直处于未完成状态。
+你的 Deployment 有可能会卡在尝试部署最新的 ReplicaSet，一直处于未完成状态。
 造成此情况一些可能因素如下：
 
 <!--
