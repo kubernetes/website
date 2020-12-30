@@ -93,8 +93,7 @@ weight: 30
 현재 상태를 보다 가깝게 만든다.
 
 (실제로 클러스터의 노드를 수평으로 확장하는
-컨트롤러가 있다.
-[클러스터 오토스케일링](/ko/docs/tasks/administer-cluster/cluster-management/#클러스터-오토스케일링)을 본다.)
+[컨트롤러](https://github.com/kubernetes/autoscaler/)가 있다.)
 
 여기서 중요한 점은 컨트롤러가 의도한 상태를 가져오기 위해 약간의 변화를 주고,
 현재 상태를 클러스터의 API 서버에 다시 보고한다는 것이다.

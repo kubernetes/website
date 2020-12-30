@@ -29,17 +29,6 @@ Cron jobs can also schedule individual tasks for a specific time, such as if you
 CronJobs 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。CronJobs 也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
 
 <!--
-CronJob resource in `batch/v2alpha1` API group has been deprecated starting from cluster version 1.8.
-You should switch to using `batch/v1beta1`, instead, which is enabled by default in the API server.
-Examples in this document use `batch/v1beta1` in all examples.
--->
-{{< note >}}
-从集群版本 1.8 开始，`batch/v2alpha1` API 组中的 CronJob 资源已经被废弃。
-你应该切换到 API 服务器默认启用的 `batch/v1beta1` API 组。
-本文中的所有示例使用了 `batch/v1beta1`。
-{{< /note >}}
-
-<!--
 Cron jobs have limitations and idiosyncrasies.
 For example, in certain circumstances, a single cron job can create multiple jobs.
 Therefore, jobs should be idempotent.
@@ -76,7 +65,7 @@ Run the example cron job by downloading the example file and then running this c
 想要运行示例的 CronJob，可以下载示例文件并执行命令：
 
 ```shell
-kubectl create -f ./cronjob.yaml
+kubectl create -f https://k8s.io/examples/application/job/cronjob.yaml
 ```
 ```
 cronjob.batch/hello created
@@ -179,10 +168,12 @@ Hello from the Kubernetes cluster
 <!--
 ## Deleting a Cron Job
 
-When you don't need a cron job any more, delete it with `kubectl delete cronjob`:
+When you don't need a cron job any more, delete it with `kubectl delete cronjob <cronjob name>`：
 -->
 
-当你不再需要 CronJob 时，可以用 `kubectl delete cronjob` 删掉它：
+## 删除 CronJob
+
+当你不再需要 CronJob 时，可以用 `kubectl delete cronjob <cronjob name>` 删掉它：
 
 ```shell
 kubectl delete cronjob hello

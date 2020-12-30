@@ -150,7 +150,7 @@ The first thing to do is to delete your pod and try creating it again with the `
 For example, run `kubectl apply --validate -f mypod.yaml`.
 If you misspelled `command` as `commnd` then will give an error like this:
 -->
-可以做的第一件事是删除你的 Pod，并尝试才有 `--validate` 选项重新创建。
+可以做的第一件事是删除你的 Pod，并尝试带有 `--validate` 选项重新创建。
 例如，运行 `kubectl apply --validate -f mypod.yaml`。
 如果 `command`  被误拼成 `commnd`，你将会看到下面的错误信息：
 

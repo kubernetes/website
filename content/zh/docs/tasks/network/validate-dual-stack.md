@@ -19,12 +19,10 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 ## {{% heading "prerequisites" %}}
 
 <!--
-* Kubernetes 1.16 or later
 * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
 * Kubenet network plugin
 * [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
 -->
-* Kubernetes 1.16 或更高版本
 * 提供程序对双协议栈网络的支持 (云供应商或其他方式必须能够为 Kubernetes 节点
   提供可路由的 IPv4/IPv6 网络接口)
 * 一个能够支持双协议栈的
@@ -87,7 +85,7 @@ Validate that a Pod has an IPv4 and IPv6 address assigned. (replace the Pod name
 ### 验证 Pod 寻址
 
 验证 Pod 已分配了 IPv4 和 IPv6 地址。（用集群中的有效 Pod 替换 Pod 名称。
-在此示例中， Pod 名称为 pod01）
+在此示例中，Pod 名称为 pod01）
 
 ```shell
 kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s \n" .ip}}{{end}}'

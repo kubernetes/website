@@ -2,13 +2,11 @@
 <!-- 
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 This command is not meant to be run on its own. See list of available subcommands.
 -->
-
 此命令并非设计用来单独运行。请参阅可用子命令列表。
 
 ```
@@ -18,7 +16,6 @@ kubeadm init phase upload-certs [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -65,6 +62,18 @@ upload-certs 操作的帮助命令
 </tr>
 
 <tr>
+<!-- td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td -->
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"</td>
+</tr>
+<tr>
+<!-- td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td -->
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+用来与集群通信的 kubeconfig 文件。
+如果此标志未设置，则可以在一组标准的位置搜索现有的 kubeconfig 文件。
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--skip-certificate-key-print</td>
 </tr>
 <tr>
@@ -94,7 +103,6 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">

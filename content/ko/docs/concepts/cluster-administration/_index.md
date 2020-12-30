@@ -35,8 +35,6 @@ no_list: true
 
 ## 클러스터 관리
 
-* [클러스터 관리](/ko/docs/tasks/administer-cluster/cluster-management/)는 클러스터 라이프사이클과 관련된 몇 가지 주제를 설명한다. 새로운 클러스터 생성, 클러스터의 마스터 및 워커 노드 업그레이드, 노드 유지 관리 수행(예: 커널 업그레이드) 및 실행 중인 클러스터의 쿠버네티스 API 버전 업그레이드
-
 * [노드 관리](/ko/docs/concepts/architecture/nodes/) 방법을 배운다.
 
 * 공유 클러스터에 대한 [리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 설정하고 관리하는 방법을 배운다.

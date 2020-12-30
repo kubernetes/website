@@ -23,7 +23,7 @@ if you wish to apply customization.
 `kubeadm init phase` is consistent with the [kubeadm init workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow),
 and behind the scene both use the same code.
 -->
-`kubeadm init phase` 与 [kubeadm init 工作流程](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow)一致，后台都使用相同的代码。
+`kubeadm init phase` 与 [kubeadm init 工作流](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow)一致，后台都使用相同的代码。
 
 <!--
 ## kubeadm init phase preflight {#cmd-phase-preflight}
@@ -143,7 +143,7 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 You can use this command to upload the kubeadm configuration to your cluster.
 Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
 -->
-可以使用此命令将 kubeadm 配置文件上传到集群。或者，使用 [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/) 方式。
+可以使用此命令将 kubeadm 配置文件上传到集群。或者使用 [kubeadm config](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
 
 {{< tabs name="upload-config" >}}
 {{< tab name="upload-config" include="generated/kubeadm_init_phase_upload-config.md" />}}
@@ -198,6 +198,21 @@ Use the following phase to configure bootstrap tokens.
 {{< tab name="bootstrap-token" include="generated/kubeadm_init_phase_bootstrap-token.md" />}}
 {{< /tabs >}}
 
+## kubeadm init phase kubelet-finialize {#cmd-phase-kubelet-finalize-all}
+
+<!-- 
+Use the following phase to update settings relevant to the kubelet after TLS
+bootstrap. You can use the `all` subcommand to run all `kubelet-finalize`
+phases.
+-->
+使用以下阶段在 TLS 引导后更新与 kubelet 相关的设置。
+你可以使用 `all` 子命令来运行所有 `kubelet-finalize` 阶段。
+
+{{< tabs name="tab-kubelet-finalize" >}}
+{{< tab name="kublet-finalize" include="generated/kubeadm_init_phase_kubelet-finalize.md" />}}
+{{< tab name="kublet-finalize-all" include="generated/kubeadm_init_phase_kubelet-finalize_all.md" />}}
+{{< tab name="kublet-finalize-cert-rotation" include="generated/kubeadm_init_phase_kubelet-finalize_experimental-cert-rotation.md" />}}
+{{< /tabs >}}
 
 <!--
 ## kubeadm init phase addon {#cmd-phase-addon}
@@ -270,7 +285,7 @@ For more details on each field in the `v1beta2` configuration you can navigate t
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导 Kubernetes 控制平面节点
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点连接到集群
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 恢复通过 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改
-* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) 尝试实验性功能
+* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导 Kubernetes 控制平面节点
+* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点连接到集群
+* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 恢复通过 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改
+* [kubeadm alpha](/zh/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) 尝试实验性功能

@@ -1,5 +1,5 @@
 ---
-title: cgroup (控制组)
+title: 控制组（cgroup）
 id: cgroup
 date: 2019-06-25
 full_link:

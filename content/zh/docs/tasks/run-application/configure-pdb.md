@@ -34,7 +34,7 @@ nodes.
   Pod Disruption Budgets.
 -->
 * 你是 Kubernetes 集群中某应用的所有者，该应用有高可用要求。
-* 你应了解如何部署[无状态应用](.zh/docs/tasks/run-application/run-stateless-application-deployment/)
+* 你应了解如何部署[无状态应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)
   和/或[有状态应用](/zh/docs/tasks/run-application/run-replicated-stateful-application/)。
 * 你应当已经阅读过关于 [Pod 干扰](/zh/docs/concepts/workloads/pods/disruptions/) 的文档。
 * 用户应当与集群所有者或服务提供者确认其遵从 Pod 干扰预算（Pod Disruption Budgets）的规则。
@@ -79,6 +79,13 @@ selector goes into the PDBs `.spec.selector`.
 -->
 在这种情况下，在控制器的 `.spec.selector` 字段中做记录，并在 PDB 的
 `.spec.selector` 字段中加入同样的选择算符。
+
+<!--
+From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
+-->
+从 1.15 版本开始，PDB 支持启用
+[scale 子资源](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)
+的自定义控制器。
 
 <!--
 You can also use PDBs with pods which are not controlled by one of the above
@@ -420,5 +427,4 @@ to create PDBs whose selectors overlap.
 -->
 你可以令选择算符选择一个内置控制器所控制 Pod 的子集或父集。
 然而，当名字空间下存在多个 PDB 时，用户必须小心，保证 PDB 的选择算符之间不重叠。
-
 

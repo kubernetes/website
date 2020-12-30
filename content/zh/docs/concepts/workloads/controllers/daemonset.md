@@ -175,20 +175,6 @@ If the `.spec.selector` is specified, it must match the `.spec.template.metadata
 如果与后者不匹配，则 DeamonSet 会被 API 拒绝。
 
 <!--
-Also you should not normally create any Pods whose labels match this selector, either directly, via
-another DaemonSet, or via another workload resource such as ReplicaSet.  Otherwise, the DaemonSet
-{{< glossary_tooltip term_id="controller" >}} will think that those Pods were created by it.
-Kubernetes will not stop you from doing this. One case where you might want to do this is manually
-create a Pod with a different value on a node for testing.
--->
-另外，通常不应直接通过另一个 DaemonSet 或另一个工作负载资源（例如 ReplicaSet）
-来创建其标签与该选择器匹配的任何 Pod。否则，DaemonSet
-{{< glossary_tooltip term_text="控制器" term_id="controller" >}}
-会认为这些 Pod 是由它创建的。
-Kubernetes 不会阻止你这样做。
-你可能要执行此操作的一种情况是，手动在节点上创建具有不同值的 Pod 进行测试。
-
-<!--
 ### Running Pods on Only Some Nodes
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
@@ -236,7 +222,7 @@ DaemonSet 确保所有符合条件的节点都运行该 Pod 的一个副本。
 
 * Pod 行为的不一致性：正常 Pod 在被创建后等待调度时处于 `Pending` 状态，
   DaemonSet Pods 创建后不会处于 `Pending` 状态下。这使用户感到困惑。
-* [Pod 抢占](/docs/concepts/configuration/pod-priority-preemption/)
+* [Pod 抢占](/zh/docs/concepts/configuration/pod-priority-preemption/)
   由默认调度器处理。启用抢占后，DaemonSet 控制器将在不考虑 Pod 优先级和抢占
   的情况下制定调度决策。
 

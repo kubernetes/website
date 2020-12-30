@@ -286,15 +286,16 @@ TODO: Test and explain how to use additional non-K8s secrets with an existing se
 
 ## Service Account Token Volume Projection
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 {{< note >}}
-This ServiceAccountTokenVolumeProjection is __beta__ in 1.12 and
-enabled by passing all of the following flags to the API server:
+To enable and use token request projection, you must specify each of the following
+command line arguments to `kube-apiserver`:
 
 * `--service-account-issuer`
+* `--service-account-key-file`
 * `--service-account-signing-key-file`
-* `--service-account-api-audiences`
+* `--api-audiences`
 
 {{< /note >}}
 
@@ -324,7 +325,7 @@ The application is responsible for reloading the token when it rotates. Periodic
 
 ## Service Account Issuer Discovery
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
 The Service Account Issuer Discovery feature is enabled by enabling the
 `ServiceAccountIssuerDiscovery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates)
@@ -385,5 +386,3 @@ See also:
 - [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
 - [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
 - [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)
-
-

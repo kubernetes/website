@@ -9,7 +9,6 @@ card:
   weight: 20
 ---
 <!--
----
 reviewers:
 - bgrant0607
 - hw-qiaolei
@@ -19,29 +18,39 @@ weight: 20
 card:
   name: reference
   weight: 20
----
 -->
 
 <!-- overview -->
 
 <!--
-Kubectl is a command line interface for running commands against Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
+The kubectl command line tool lets you control Kubernetes clusters.
+For configuration, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
+You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+files by setting the KUBECONFIG environment variable or by setting the
+[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 -->
-Kubectl 是一个命令行接口，用于对 Kubernetes 集群运行命令。`kubectl` 在 $HOME/.kube 目录中寻找一个名为 config 的文件。您可以通过设置环境变量 KUBECONFIG 或设置 [`--kubeconfig`](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 参数指定其它 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
+你可以使用 Kubectl 命令行工具管理 Kubernetes 集群。
+`kubectl` 在 `$HOME/.kube` 目录中查找一个名为 `config` 的配置文件。
+你可以通过设置 KUBECONFIG 环境变量或设置
+[`--kubeconfig`](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+参数来指定其它 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 文件。
 
 <!--
-This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
+This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
+For details about each command, including all the supported flags and subcommands, see the
+[kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation.
+For installation instructions see [installing kubectl](/docs/tasks/tools/install-kubectl/).
 -->
-本文概述了 `kubectl` 语法和命令操作描述，并提供了常见的示例。有关每个命令的详细信息，包括所有受支持的参数和子命令，请参阅 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 参考文档。有关安装说明，请参见 [安装 kubectl](/zh/docs/tasks/tools/install-kubectl/) 。
-
-
+本文概述了 `kubectl` 语法和命令操作描述，并提供了常见的示例。
+有关每个命令的详细信息，包括所有受支持的参数和子命令，
+请参阅 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 参考文档。
+有关安装说明，请参见[安装 kubectl](/zh/docs/tasks/tools/install-kubectl/) 。
 
 <!-- body -->
 
 <!--
 ## Syntax
 -->
-
 ## 语法
 
 <!--
@@ -63,16 +72,16 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 -->
-
 * `command`：指定要对一个或多个资源执行的操作，例如 `create`、`get`、`describe`、`delete`。
 
-* `TYPE`：指定[资源类型](#resource-types)。资源类型不区分大小写，可以指定单数、复数或缩写形式。例如，以下命令输出相同的结果:
+* `TYPE`：指定[资源类型](#resource-types)。资源类型不区分大小写，
+  可以指定单数、复数或缩写形式。例如，以下命令输出相同的结果:
 
-      ```shell
-      kubectl get pod pod1
-      kubectl get pods pod1
-      kubectl get po pod1
-      ```
+  ```shell
+  kubectl get pod pod1
+  kubectl get pods pod1
+  kubectl get po pod1
+  ```
 
 <!--
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `kubectl get pods`.
@@ -80,11 +89,12 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
 -->
 
-* `NAME`：指定资源的名称。名称区分大小写。如果省略名称，则显示所有资源的详细信息 `kubectl get pods`。
+* `NAME`：指定资源的名称。名称区分大小写。
+  如果省略名称，则显示所有资源的详细信息 `kubectl get pods`。
 
-  在对多个资源执行操作时，您可以按类型和名称指定每个资源，或指定一个或多个文件：
+  在对多个资源执行操作时，你可以按类型和名称指定每个资源，或指定一个或多个文件：
 
-<!--
+  <!--
    * To specify resources by type and name:
 
       * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
@@ -95,29 +105,33 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
    * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
 
-      * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
-     Example: `kubectl get pod -f ./pod.yaml`
+      * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips)
+        since YAML tends to be more user-friendly, especially for configuration files.<br/>
+     Example: `kubectl get -f ./pod.yaml`
+  -->
+  * 要按类型和名称指定资源：
 
-* `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
+      * 要对所有类型相同的资源进行分组，请执行以下操作：`TYPE1 name1 name2 name<#>`。
+
+        例子：`kubectl get pod example-pod1 example-pod2`
+
+      * 分别指定多个资源类型：`TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`。
+
+        例子：`kubectl get pod/example-pod1 replicationcontroller/example-rc1`
+
+  * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
+
+    * [使用 YAML 而不是 JSON](/zh/docs/concepts/configuration/overview/#general-configuration-tips)
+      因为 YAML 更容易使用，特别是用于配置文件时。
+      例子：`kubectl get -f ./pod.yaml`
+
+<!--
+* `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.
 -->
-
-   * 要按类型和名称指定资源：
-
-      * 要对所有类型相同的资源进行分组，请执行以下操作：`TYPE1 name1 name2 name<#>`。<br/>
-      例子：`kubectl get pod example-pod1 example-pod2`
-
-      * 分别指定多个资源类型：`TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`。<br/>
-      例子：`kubectl get pod/example-pod1 replicationcontroller/example-rc1`
-
-   * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
-
-      * [使用 YAML 而不是 JSON](/zh/docs/concepts/configuration/overview/#general-config-tips) 因为 YAML 更容易使用，特别是用于配置文件时。<br/>
-     例子：`kubectl get -f ./pod.yaml`
-
-* `flags`: 指定可选的参数。例如，可以使用 `-s` 或 `-server` 参数指定 Kubernetes API 服务器的地址和端口。<br/>
+* `flags`: 指定可选的参数。例如，可以使用 `-s` 或 `-server` 参数指定
+  Kubernetes API 服务器的地址和端口。
 
 {{< caution >}}
-
 <!--
 Flags that you specify from the command line override default values and any corresponding environment variables.
 -->
@@ -127,12 +141,11 @@ Flags that you specify from the command line override default values and any cor
 <!--
 If you need help, just run `kubectl help` from the terminal window.
 -->
-如果您需要帮助，只需从终端窗口运行 ` kubectl help ` 即可。
+如果你需要帮助，只需从终端窗口运行 ` kubectl help ` 即可。
 
 <!--
 ## Operations
 -->
-
 ## 操作
 
 <!--
@@ -143,70 +156,102 @@ The following table includes short descriptions and the general syntax for all o
 <!--
 Operation       | Syntax    |       Description
 -------------------- | -------------------- | --------------------
-`annotate`    | `kubectl annotate (-f FILENAME \| TYPE NAME \| TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]` | Add or update the annotations of one or more resources.
+`alpha`    | `kubectl alpha SUBCOMMAND [flags]` | List the available commands that correspond to alpha features, which are not enabled in Kubernetes clusters by default.
+`annotate`    | <code>kubectl annotate (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | Add or update the annotations of one or more resources.
+`api-resources`    | `kubectl api-resources [flags]` | List the API resources that are available.
 `api-versions`    | `kubectl api-versions [flags]` | List the API versions that are available.
 `apply`            | `kubectl apply -f FILENAME [flags]`| Apply a configuration change to a resource from a file or stdin.
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | Attach to a running container either to view the output stream or interact with the container (stdin).
-`autoscale`    | `kubectl autoscale (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]` | Automatically scale the set of pods that are managed by a replication controller.
+`auth`    | `kubectl auth [flags] [options]` | Inspect authorization.
+`autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | Automatically scale the set of pods that are managed by a replication controller.
+`certificate`    | `kubectl certificate SUBCOMMAND [options]` | Modify certificate resources.
 `cluster-info`    | `kubectl cluster-info [flags]` | Display endpoint information about the master and services in the cluster.
+`completion`    | `kubectl completion SHELL [options]` | Output shell completion code for the specified shell (bash or zsh).
 `config`        | `kubectl config SUBCOMMAND [flags]` | Modifies kubeconfig files. See the individual subcommands for details.
+`convert`    | `kubectl convert -f FILENAME [options]` | Convert config files between different API versions. Both YAML and JSON formats are accepted.
+`cordon`    | `kubectl cordon NODE [options]` | Mark node as unschedulable.
+`cp`    | `kubectl cp <file-spec-src> <file-spec-dest> [options]` | Copy files and directories to and from containers.
 `create`        | `kubectl create -f FILENAME [flags]` | Create one or more resources from a file or stdin.
-`delete`        | `kubectl delete (-f FILENAME \| TYPE [NAME \| /NAME \| -l label \| --all]) [flags]` | Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
-`describe`    | `kubectl describe (-f FILENAME \| TYPE [NAME_PREFIX \| /NAME \| -l label]) [flags]` | Display the detailed state of one or more resources.
-`diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration (**BETA**)
-`edit`        | `kubectl edit (-f FILENAME \| TYPE NAME \| TYPE/NAME) [flags]` | Edit and update the definition of one or more resources on the server by using the default editor.
+`delete`        | <code>kubectl delete (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label &#124; --all]) [flags]</code> | Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
+`describe`    | <code>kubectl describe (-f FILENAME &#124; TYPE [NAME_PREFIX &#124; /NAME &#124; -l label]) [flags]</code> | Display the detailed state of one or more resources.
+`diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration.
+`drain`    | `kubectl drain NODE [options]` | Drain node in preparation for maintenance.
+`edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | Edit and update the definition of one or more resources on the server by using the default editor.
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
-`expose`        | `kubectl expose (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--port=port] [--protocol=TCP\|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, or pod as a new Kubernetes service.
-`get`        | `kubectl get (-f FILENAME \| TYPE [NAME \| /NAME \| -l label]) [--watch] [--sort-by=FIELD] [[-o \| --output]=OUTPUT_FORMAT] [flags]` | List one or more resources.
-`label`        | `kubectl label (-f FILENAME \| TYPE NAME \| TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]` | Add or update the labels of one or more resources.
+`expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | Expose a replication controller, service, or pod as a new Kubernetes service.
+`get`        | <code>kubectl get (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label]) [--watch] [--sort-by=FIELD] [[-o &#124; --output]=OUTPUT_FORMAT] [flags]</code> | List one or more resources.
+`kustomize`    | `kubectl kustomize <dir> [flags] [options]` | List a set of API resources generated from instructions in a kustomization.yaml file. The argument must be the path to the directory containing the file, or a git repository URL with a path suffix specifying same with respect to the repository root.
+`label`        | <code>kubectl label (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | Add or update the labels of one or more resources.
 `logs`        | `kubectl logs POD [-c CONTAINER] [--follow] [flags]` | Print the logs for a container in a pod.
-`patch`        | `kubectl patch (-f FILENAME \| TYPE NAME \| TYPE/NAME) --patch PATCH [flags]` | Update one or more fields of a resource by using the strategic merge patch process.
+`options`    | `kubectl options` | List of global command-line options, which apply to all commands.
+`patch`        | <code>kubectl patch (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --patch PATCH [flags]</code> | Update one or more fields of a resource by using the strategic merge patch process.
+`plugin`    | `kubectl plugin [flags] [options]` | Provides utilities for interacting with plugins.
 `port-forward`    | `kubectl port-forward POD [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N] [flags]` | Forward one or more local ports to a pod.
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Run a proxy to the Kubernetes API server.
 `replace`        | `kubectl replace -f FILENAME` | Replace a resource from a file or stdin.
-`rolling-update`    | `kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE \| -f NEW_CONTROLLER_SPEC) [flags]` | Perform a rolling update by gradually replacing the specified replication controller and its pods.
-`run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server &#124; client &#124; none] [--overrides=inline-json] [flags]</code> | Run a specified image on the cluster.
-`scale`        | `kubectl scale (-f FILENAME \| TYPE NAME \| TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]` | Update the size of the specified replication controller.
-`stop`        | `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
+`rollout`    | `kubectl rollout SUBCOMMAND [options]` | Manage the rollout of a resource. Valid resource types include: deployments, daemonsets and statefulsets.
+`run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]</code> | Run a specified image on the cluster.
+`scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | Update the size of the specified replication controller.
+`set`    | `kubectl set SUBCOMMAND [options]` | Configure application resources.
+`taint`    | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | Update the taints on one or more nodes.
+`top`    | `kubectl top [flags] [options]` | Display Resource (CPU/Memory/Storage) usage.
+`uncordon`    | `kubectl uncordon NODE [options]` | Mark node as schedulable.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
+`wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | Experimental: Wait for a specific condition on one or many resources.
 -->
 
 操作             | 语法      |       描述
 -------------------- | -------------------- | --------------------
+`alpha`    | `kubectl alpha SUBCOMMAND [flags]` | 列出与 alpha 特性对应的可用命令，这些特性在 Kubernetes 集群中默认情况下是不启用的。
 `annotate`    | <code>kubectl annotate (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | 添加或更新一个或多个资源的注解。
+`api-resources`    | `kubectl api-resources [flags]` | 列出可用的 API 资源。
 `api-versions`    | `kubectl api-versions [flags]` | 列出可用的 API 版本。
 `apply`            | `kubectl apply -f FILENAME [flags]`| 从文件或 stdin 对资源应用配置更改。
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | 附加到正在运行的容器，查看输出流或与容器（stdin）交互。
+`auth`    | `kubectl auth [flags] [options]` | 检查授权。
 `autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | 自动伸缩由副本控制器管理的一组 pod。
+`certificate`    | `kubectl certificate SUBCOMMAND [options]` | 修改证书资源。
 `cluster-info`    | `kubectl cluster-info [flags]` | 显示有关集群中主服务器和服务的端口信息。
+`completion`    | `kubectl completion SHELL [options]` | 为指定的 shell （bash 或 zsh）输出 shell 补齐代码。
 `config`        | `kubectl config SUBCOMMAND [flags]` | 修改 kubeconfig 文件。有关详细信息，请参阅各个子命令。
+`convert`    | `kubectl convert -f FILENAME [options]` | 在不同的 API 版本之间转换配置文件。配置文件可以是 YAML 或 JSON 格式。
+`cordon`    | `kubectl cordon NODE [options]` | 将节点标记为不可调度。
+`cp`    | `kubectl cp <file-spec-src> <file-spec-dest> [options]` | 在容器之间复制文件和目录。
 `create`        | `kubectl create -f FILENAME [flags]` | 从文件或 stdin 创建一个或多个资源。
 `delete`        | <code>kubectl delete (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label &#124; --all]) [flags]</code> | 从文件、标准输入或指定标签选择器、名称、资源选择器或资源中删除资源。
 `describe`    | <code>kubectl describe (-f FILENAME &#124; TYPE [NAME_PREFIX &#124; /NAME &#124; -l label]) [flags]</code> | 显示一个或多个资源的详细状态。
 `diff`        | `kubectl diff -f FILENAME [flags]`| 将 live 配置和文件或标准输入做对比 (**BETA**)
+`drain`    | `kubectl drain NODE [options]` | 腾空节点以准备维护。
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | 使用默认编辑器编辑和更新服务器上一个或多个资源的定义。
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | 对 pod 中的容器执行命令。
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | 获取多种资源的文档。例如 pod, node, service 等。
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | 将副本控制器、服务或 pod 作为新的 Kubernetes 服务暴露。
 `get`        | <code>kubectl get (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label]) [--watch] [--sort-by=FIELD] [[-o &#124; --output]=OUTPUT_FORMAT] [flags]</code> | 列出一个或多个资源。
+`kustomize`    | `kubectl kustomize <dir> [flags] [options]` | 列出从 kustomization.yaml 文件中的指令生成的一组 API 资源。参数必须是包含文件的目录的路径，或者是 git 存储库 URL，其路径后缀相对于存储库根目录指定了相同的路径。
 `label`        | <code>kubectl label (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | 添加或更新一个或多个资源的标签。
 `logs`        | `kubectl logs POD [-c CONTAINER] [--follow] [flags]` | 在 pod 中打印容器的日志。
+`options`    | `kubectl options` | 全局命令行选项列表，适用于所有命令。
 `patch`        | <code>kubectl patch (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --patch PATCH [flags]</code> | 使用策略合并 patch 程序更新资源的一个或多个字段。
+`plugin`    | `kubectl plugin [flags] [options]` | 提供用于与插件交互的实用程序。
 `port-forward`    | `kubectl port-forward POD [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N] [flags]` | 将一个或多个本地端口转发到一个 pod。
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | 运行 Kubernetes API 服务器的代理。
 `replace`        | `kubectl replace -f FILENAME` | 从文件或标准输入中替换资源。
-`rolling-update`    | <code>kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE &#124; -f NEW_CONTROLLER_SPEC) [flags]</code> | 通过逐步替换指定的副本控制器及其 pod 来执行滚动更新。
+`rollout`    | `kubectl rollout SUBCOMMAND [options]` | 管理资源的部署。有效的资源类型包括：Deployments, DaemonSets 和 StatefulSets。
 `run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server &#124; client &#124; none] [--overrides=inline-json] [flags]</code> | 在集群上运行指定的镜像。
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | 更新指定副本控制器的大小。
-`stop`        | `kubectl stop` | 不推荐：相反，请参阅 kubectl delete。
+`set`    | `kubectl set SUBCOMMAND [options]` | 配置应用程序资源。
+`taint`    | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | 更新一个或多个节点上的污点。
+`top`    | `kubectl top [flags] [options]` | 显示资源（CPU/内存/存储）的使用情况。
+`uncordon`    | `kubectl uncordon NODE [options]` | 将节点标记为可调度。
 `version`        | `kubectl version [--client] [flags]` | 显示运行在客户端和服务器上的 Kubernetes 版本。
+`wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | 实验性：等待一种或多种资源的特定条件。
 
 
 <!--
-Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
+To learn more about command operations, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 -->
-记住：有关命令操作的更多信息，请参阅 [kubectl](/zh/docs/reference/kubectl/kubectl/) 参考文档。
+了解更多有关命令操作的信息，请参阅 [kubectl](/zh/docs/reference/kubectl/kubectl/) 参考文档。
 
 <!--
 ## Resource types
@@ -220,7 +265,7 @@ The following table includes a list of all the supported resource types and thei
 下表列出所有受支持的资源类型及其缩写别名:
 
 <!--
-(This output can be retrieved from `kubectl api-resources`, and is accurate as of Kubernetes 1.19.1.)
+(This output can be retrieved from `kubectl api-resources`, and was accurate as of Kubernetes 1.19.1.)
 -->
 (以下输出可以通过 `kubectl api-resources` 获取，内容以 Kubernetes 1.19.1 版本为准。)
 
@@ -351,7 +396,7 @@ The following table includes a list of all the supported resource types and thei
 ## 输出选项
 
 <!--
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 -->
 有关如何格式化或排序某些命令的输出的信息，请使用以下部分。有关哪些命令支持各种输出选项的详细信息，请参阅[kubectl](/zh/docs/reference/kubectl/kubectl/) 参考文档。
 
@@ -419,7 +464,8 @@ kubectl get pod web-pod-13je7 -o yaml
 ```
 
 <!--
-Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation
+for details about which output format is supported by each command.
 -->
 请记住：有关每个命令支持哪种输出格式的详细信息，请参阅 [kubectl](/zh/docs/reference/kubectl/kubectl/) 参考文档。
 
@@ -431,7 +477,7 @@ Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation f
 <!--
 To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option. You can choose to define the custom columns inline or use a template file: `-o=custom-columns=<spec>` or `-o=custom-columns-file=<filename>`.
 -->
-要定义自定义列并仅将所需的详细信息输出到表中，可以使用该 custom-columns 选项。您可以选择内联定义自定义列或使用模板文件：`-o=custom-columns=<spec>` 或 `-o=custom-columns-file=<filename>`。
+要定义自定义列并仅将所需的详细信息输出到表中，可以使用该 custom-columns 选项。你可以选择内联定义自定义列或使用模板文件：`-o=custom-columns=<spec>` 或 `-o=custom-columns-file=<filename>`。
 
 <!--
 ##### Examples
@@ -444,7 +490,7 @@ Inline:
 内联：
 
 ```shell
-$ kubectl get pods <pod-name> -o custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
+kubectl get pods <pod-name> -o custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
 ```
 
 <!--
@@ -467,9 +513,9 @@ metadata.name metadata.resourceVersion
 ```
 
 <!--
-The result of running either command is:
+The result of running either command is similar to:
 -->
-运行任何一个命令的结果是:
+运行任何一个命令的结果类似于:
 
 ```shell
 NAME           RSRC
@@ -491,10 +537,10 @@ This allows for consistent human-readable output across clients used against the
 通过让服务器封装打印的细节，这允许在针对同一集群使用的客户端之间提供一致的人类可读输出。
 
 <!--
-This feature is enabled by default in `kubectl` 1.11 and higher. To disable it, add the
+This feature is enabled by default. To disable it, add the
 `--server-print=false` flag to the `kubectl get` command.
 -->
-默认情况下，此功能在 `kubectl` 1.11 及更高版本中启用。要禁用它，请将该 `--server-print=false` 参数添加到 `kubectl get` 命令中。
+此功能默认启用。要禁用它，请将该 `--server-print=false` 参数添加到 `kubectl get` 命令中。
 
 <!--
 ##### Examples
@@ -511,13 +557,13 @@ kubectl get pods <pod-name> --server-print=false
 ```
 
 <!--
-Output looks like this:
+The output is similar to:
 -->
-输出如下：
+输出类似于：
 
 ```shell
-NAME       READY     STATUS              RESTARTS   AGE
-pod-name   1/1       Running             0          1m
+NAME       AGE
+pod-name   1m
 ```
 
 <!--
@@ -550,7 +596,7 @@ To print a list of pods sorted by name, you run:
 要打印按名称排序的 pod 列表，请运行：
 
 ```shell
-$ kubectl get pods --sort-by=.metadata.name
+kubectl get pods --sort-by=.metadata.name
 ```
 
 <!--
@@ -561,7 +607,7 @@ $ kubectl get pods --sort-by=.metadata.name
 <!--
 Use the following set of examples to help you familiarize yourself with running the commonly used `kubectl` operations:
 -->
-使用以下示例集来帮助您熟悉运行常用 kubectl 操作：
+使用以下示例集来帮助你熟悉运行常用 kubectl 操作：
 
 <!--
 `kubectl apply` - Apply or Update a resource from a file or stdin.
@@ -612,7 +658,7 @@ kubectl get pods
 # 以纯文本输出格式列出所有 pod，并包含附加信息(如节点名)。
 kubectl get pods -o wide
 
-# 以纯文本输出格式列出具有指定名称的副本控制器。提示：您可以使用别名 'rc' 缩短和替换 'replicationcontroller' 资源类型。
+# 以纯文本输出格式列出具有指定名称的副本控制器。提示：你可以使用别名 'rc' 缩短和替换 'replicationcontroller' 资源类型。
 kubectl get replicationcontroller <rc-name>
 
 # 以纯文本输出格式列出所有副本控制器和服务。
@@ -632,11 +678,17 @@ kubectl get pods --field-selector=spec.nodeName=server01
 
 <!--
 # Display the details of the node with name <node-name>.
+kubectl describe nodes <node-name>
+
 # Display the details of the pod with name <pod-name>.
+kubectl describe pods/<pod-name>
 
 # Display the details of all the pods that are managed by the replication controller named <rc-name>.
 # Remember: Any pods that are created by the replication controller get prefixed with the name of the replication controller.
+kubectl describe pods <rc-name>
+
 # Describe all pods, not including uninitialized ones
+kubectl describe pods
 -->
 
 ```shell
@@ -651,7 +703,7 @@ kubectl describe pods/<pod-name>
 kubectl describe pods <rc-name>
 
 # 描述所有的 pod，不包括未初始化的 pod
-kubectl describe pods --include-uninitialized=false
+kubectl describe pods
 ```
 
 {{< note >}}
@@ -668,7 +720,7 @@ command retrieves not only the information about the node, but also a summary of
 the pods running on it, the events generated for the node etc.
 -->
 `kubectl get` 命令通常用于检索同一资源类型的一个或多个资源。
-它具有丰富的参数，允许您使用 `-o` 或 `--output` 参数自定义输出格式。您可以指定 `-w` 或 `--watch` 参数以开始观察特定对象的更新。
+它具有丰富的参数，允许你使用 `-o` 或 `--output` 参数自定义输出格式。你可以指定 `-w` 或 `--watch` 参数以开始观察特定对象的更新。
 `kubectl describe` 命令更侧重于描述指定资源的许多相关方面。它可以调用对 `API 服务器` 的多个 API 调用来为用户构建视图。
 例如，该 `kubectl describe node` 命令不仅检索有关节点的信息，还检索在其上运行的 pod 的摘要，为节点生成的事件等。
 
@@ -680,21 +732,25 @@ the pods running on it, the events generated for the node etc.
 `kubectl delete` - 从文件、stdin 或指定标签选择器、名称、资源选择器或资源中删除资源。
 
 <!--
+```shell
 # Delete a pod using the type and name specified in the pod.yaml file.
-# Delete all the pods and services that have the label name=<label-name>.
-# Delete all the pods and services that have the label name=<label-name>, including uninitialized ones.
-// Delete all pods, including uninitialized ones.
+kubectl delete -f pod.yaml
+
+# Delete all the pods and services that have the label '<label-key>=<label-value>'.
+kubectl delete pods,services -l <label-key>=<label-value>
+
+# Delete all pods, including uninitialized ones.
+kubectl delete pods --all
+```
+
 -->
 
 ```shell
 # 使用 pod.yaml 文件中指定的类型和名称删除 pod。
 kubectl delete -f pod.yaml
 
-# 删除标签名= <label-name> 的所有 pod 和服务。
-kubectl delete pods,services -l name=<label-name>
-
-# 删除所有具有标签名称= <label-name> 的 pod 和服务，包括未初始化的那些。
-kubectl delete pods,services -l name=<label-name> --include-uninitialized
+# 删除所有带有 '<label-key>=<label-value>' 标签的 Pod 和服务。
+kubectl delete pods,services -l <label-key>=<label-value>
 
 # 删除所有 pod，包括未初始化的 pod。
 kubectl delete pods --all
@@ -707,19 +763,24 @@ kubectl delete pods --all
 
 <!--
 # Get output from running 'date' from pod <pod-name>. By default, output is from the first container.
+kubectl exec <pod-name> -- date
+
 # Get output from running 'date' in container <container-name> of pod <pod-name>.
+kubectl exec <pod-name> -c <container-name> -- date
+
 # Get an interactive TTY and run /bin/bash from pod <pod-name>. By default, output is from the first container.
+kubectl exec -ti <pod-name> -- /bin/bash
 -->
 
 ```shell
 # 从 pod <pod-name> 中获取运行 'date' 的输出。默认情况下，输出来自第一个容器。
-kubectl exec <pod-name> date
+kubectl exec <pod-name> -- date
 
 # 运行输出 'date' 获取在容器的 <container-name> 中 pod <pod-name> 的输出。
-kubectl exec <pod-name> -c <container-name> date
+kubectl exec <pod-name> -c <container-name> -- date
 
 # 获取一个交互 TTY 并运行 /bin/bash <pod-name >。默认情况下，输出来自第一个容器。
-kubectl exec -ti <pod-name> /bin/bash
+kubectl exec -ti <pod-name> -- /bin/bash
 ```
 
 <!--
@@ -729,7 +790,10 @@ kubectl exec -ti <pod-name> /bin/bash
 
 <!--
 # Return a snapshot of the logs from pod <pod-name>.
+kubectl logs <pod-name>
+
 # Start streaming the logs from pod <pod-name>. This is similar to the 'tail -f' Linux command.
+kubectl logs -f <pod-name>
 -->
 
 ```shell
@@ -749,26 +813,28 @@ kubectl logs -f <pod-name>
 <!--
 Use the following set of examples to help you familiarize yourself with writing and using `kubectl` plugins:
 -->
-使用以下示例来帮助您熟悉编写和使用 `kubectl` 插件：
+使用以下示例来帮助你熟悉编写和使用 `kubectl` 插件：
 
 <!--
 ```shell
 # create a simple plugin in any language and name the resulting executable file
 # so that it begins with the prefix "kubectl-"
 cat ./kubectl-hello
-#!/bin/bash
+#!/bin/sh
 
 # this plugin prints the words "hello world"
 echo "hello world"
-
-# with our plugin written, let's make it executable
-sudo chmod +x ./kubectl-hello
+```
+With a plugin written, let's make it executable:
+```bash
+chmod a+x ./kubectl-hello
 
 # and move it to a location in our PATH
 sudo mv ./kubectl-hello /usr/local/bin
+sudo chown root:root /usr/local/bin
 
-# we have now created and "installed" a kubectl plugin.
-# we can begin using our plugin by invoking it from kubectl as if it were a regular command
+# You have now created and "installed" a kubectl plugin.
+# You can begin using this plugin by invoking it from kubectl as if it were a regular command
 kubectl hello
 ```
 -->
@@ -776,44 +842,51 @@ kubectl hello
 # 用任何语言创建一个简单的插件，并为生成的可执行文件命名
 # 以前缀 "kubectl-" 开始
 cat ./kubectl-hello
-#!/bin/bash
+```
+
+```shell
+#!/bin/sh
 
 # 这个插件打印单词 "hello world"
 echo "hello world"
-
-# 我们的插件写好了，让我们把它变成可执行的
-sudo chmod +x ./kubectl-hello
+```
+这个插件写好了，把它变成可执行的：
+```bash
+sudo chmod a+x ./kubectl-hello
 
 # 并将其移动到路径中的某个位置
 sudo mv ./kubectl-hello /usr/local/bin
+sudo chown root:root /usr/local/bin
 
-# 我们现在已经创建并"安装"了一个 kubectl 插件。
-# 我们可以开始使用我们的插件，从 kubectl 调用它，就像它是一个常规命令一样
+# 你现在已经创建并"安装了"一个 kubectl 插件。
+# 你可以开始使用这个插件，从 kubectl 调用它，就像它是一个常规命令一样
 kubectl hello
 ```
 ```
 hello world
 ```
 <!--
-```
-# we can "uninstall" a plugin, by simply removing it from our PATH
+```shell
+# You can "uninstall" a plugin, by removing it from the folder in your
+# $PATH where you placed it
 sudo rm /usr/local/bin/kubectl-hello
 ```
 -->
-```
-# 我们可以"卸载"一个插件，只需从我们的路径中删除它
+```shell
+# 你可以"卸载"一个插件，只需从你的路径中删除它
 sudo rm /usr/local/bin/kubectl-hello
 ```
 
 <!--
-In order to view all of the plugins that are available to `kubectl`, we can use
+In order to view all of the plugins that are available to `kubectl`, use
 the `kubectl plugin list` subcommand:
 -->
-为了查看可用的所有 `kubectl` 插件，我们可以使用 `kubectl plugin list` 子命令：
+为了查看可用的所有 `kubectl` 插件，你可以使用 `kubectl plugin list` 子命令：
 ```shell
 kubectl plugin list
 ```
 <!--
+The output is similar to:
 ```
 The following kubectl-compatible plugins are available:
 
@@ -822,27 +895,25 @@ The following kubectl-compatible plugins are available:
 /usr/local/bin/kubectl-bar
 ```
 -->
+输出类似于：
 ```
-以下 kubectl-适配 的插件是可用的：
+The following kubectl-compatible plugins are available:
 
 /usr/local/bin/kubectl-hello
 /usr/local/bin/kubectl-foo
 /usr/local/bin/kubectl-bar
 ```
 <!--
-```
-# this command can also warn us about plugins that are
-# not executable, or that are overshadowed by other
-# plugins, for example
-sudo chmod -x /usr/local/bin/kubectl-foo
+`kubectl plugin list` also warns you about plugins that are not
+executable, or that are shadowed by other plugins; for example:
+```shell
+sudo chmod -x /usr/local/bin/kubectl-foo # remove execute permission
 kubectl plugin list
 ```
 -->
-```
-# 这个指令也可以警告我们哪些插件
-# 被运行，或是被其它插件覆盖了
-# 例如
-sudo chmod -x /usr/local/bin/kubectl-foo
+`kubectl plugin list`指令也可以向你告警哪些插件被运行，或是被其它插件覆盖了,例如:
+```shell
+sudo chmod -x /usr/local/bin/kubectl-foo # 删除执行权限
 kubectl plugin list
 ```
 <!--
@@ -858,66 +929,76 @@ error: one plugin warning was found
 ```
 -->
 ```
-以下 kubectl-适配 的插件是可用的：
+The following kubectl-compatible plugins are available:
 
 /usr/local/bin/kubectl-hello
 /usr/local/bin/kubectl-foo
-  - 警告: /usr/local/bin/kubectl-foo 被识别为一个插件，但是它并不可以执行
+  - warning: /usr/local/bin/kubectl-foo identified as a plugin, but it is not executable
 /usr/local/bin/kubectl-bar
 
-错误: 发现了一个插件警告
+error: one plugin warning was found
 ```
 
 <!--
-We can think of plugins as a means to build more complex functionality on top
+You can think of plugins as a means to build more complex functionality on top
 of the existing kubectl commands:
 -->
-我们可以将插件视为在现有 kubectl 命令之上构建更复杂功能的一种方法：
+你可以将插件视为在现有 kubectl 命令之上构建更复杂功能的一种方法：
 
 <!--
 ```shell
+cat ./kubectl-whoami```
+-->
+```shell
 cat ./kubectl-whoami
+```
+
+<!--
+The next few examples assume that you already made `kubectl-whoami` have
+the following contents:
+-->
+接下来的几个示例假设你已经将 `kubectl-whoami` 设置为以下内容:
+
+<!--
+```shell
 #!/bin/bash
 
 # this plugin makes use of the `kubectl config` command in order to output
 # information about the current user, based on the currently selected context
-kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ .context.user }}{{ end }}{{ end }}'
+kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ printf "%s\n" .context.user }}{{ end }}{{ end }}'
 ```
 -->
-
 ```shell
-cat ./kubectl-whoami
 #!/bin/bash
 
-# 这个插件借用 `kubectl config` 指令来输出
-# 当前用户的信息，基于当前指定的 context
-kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ .context.user }}{{ end }}{{ end }}'
+#这个插件利用 `kubectl config` 命令基于当前所选上下文输出当前用户的信息
+kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ printf "%s\n" .context.user }}{{ end }}{{ end }}'
 ```
 
 <!--
-Running the above plugin gives us an output containing the user for the currently selected
-context in our KUBECONFIG file:
+Running the above command gives you an output containing the user for the
+current context in your KUBECONFIG file:
 -->
-运行上面的插件为我们提供了一个输出，其中包含我们 KUBECONFIG 文件中当前所选定上下文对应的用户：
+运行以上命令将为你提供一个输出，其中包含 KUBECONFIG 文件中当前上下文的用户:
 
 <!--
 ```shell
 # make the file executable
 sudo chmod +x ./kubectl-whoami
 
-# and move it into our PATH
+# and move it into your PATH
 sudo mv ./kubectl-whoami /usr/local/bin
 
 kubectl whoami
 Current user: plugins-user
 ```
 -->
-
 ```shell
+#!/bin/bash
 # 使文件成为可执行的
 sudo chmod +x ./kubectl-whoami
 
-# 然后移动到我们的路径中
+# 然后移动到你的路径中
 sudo mv ./kubectl-whoami /usr/local/bin
 
 kubectl whoami
@@ -935,6 +1016,10 @@ To find out more about plugins, take a look at the [example cli plugin](https://
 
 
 <!--
-Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
+* Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
+
+* To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
 -->
-开始使用 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 命令。
+* 开始使用 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 命令。
+
+* 查看更多[示例 cli 插件](https://github.com/kubernetes/sample-cli-plugin)。

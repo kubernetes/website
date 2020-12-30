@@ -30,7 +30,8 @@ for details.
 
 取决于安装模式，你的 Kubernetes 集群可能和一个被标记为默认的已有 StorageClass 一起部署。
 这个默认的 StorageClass 以后将被用于动态的为没有特定存储类需求的 PersistentVolumeClaims 
-配置存储。更多细节请查看 [PersistentVolumeClaim 文档](/zh/docs/user-guide/persistent-volumes/#class-1)。
+配置存储。更多细节请查看
+[PersistentVolumeClaim 文档](/zh/docs/concepts/storage/persistent-volumes/#perspersistentvolumeclaims)。
 
 <!--
 The pre-installed default StorageClass may not fit well with your expected workload;
@@ -138,7 +139,7 @@ for details about addon manager and how to disable individual addons.
    -->
    输出类似这样：
 
-   ```bash
+   ```
    NAME             PROVISIONER               AGE
    standard         kubernetes.io/gce-pd      1d
    gold (default)   kubernetes.io/gce-pd      1d
@@ -149,5 +150,5 @@ for details about addon manager and how to disable individual addons.
 <!--
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 -->
-* 进一步了解 [StorageClasses](/docs/concepts/storage/persistent-volumes/)
+* 进一步了解 [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
 

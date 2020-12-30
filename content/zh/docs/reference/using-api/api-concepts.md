@@ -198,7 +198,7 @@ A given Kubernetes server will only preserve a historical list of changes for a 
 
 To mitigate the impact of short history window, we introduced a concept of `bookmark` watch event. It is a special kind of event to mark that all changes up to a given `resourceVersion` the client is requesting have already been sent. Object returned in that event is of the type requested by the request, but only `resourceVersion` field is set, e.g.:
 -->
-### 监视书签（Watch Bookmark）
+### 监视书签  {#Watch-bookmark}
 
 为了处理历史窗口过短的问题，我们引入了 `bookmark（书签）` 监视事件的概念。
 该事件是一种特殊事件，用来标示客户端所请求的、指定的 `resourceVersion` 之前
@@ -233,7 +233,7 @@ Content-Type: application/json
 <!--
 ## Retrieving large results sets in chunks
 -->
-## 分块检视大体量结果
+## 分块检视大体量结果  {#retrieving-large-results-sets-in-chunks}
 
 {{< feature-state for_k8s_version="v1.9" state="beta" >}}
 
@@ -367,7 +367,7 @@ list 请求时不指定 `continue` 令牌。
 The output from the `kubectl get` command is a simple tabular representation of one or more instances of a particular resource type. In the past, clients were required to reproduce the tabular and describe output implemented in `kubectl` to perform simple lists of objects.
 A few limitations of that approach include non-trivial logic when dealing with certain objects. Additionally, types provided by API aggregation or third party resources are not known at compile time. This means that generic implementations had to be in place for types unrecognized by a client.
 -->
-## 以表格形式接收资源
+## 以表格形式接收资源  {#receiving-resources-as-tables}
 
 `kubectl get` 命令的输出是一个包含一个或多个资源的简单表格形式。
 过去，客户端需要重复 `kubectl` 中所实现的表格输出和描述输出逻辑，以执行
@@ -469,7 +469,7 @@ See the API documentation for a list of supported content types for each API.
 
 For example:
 -->
-## 资源的其他表示形式
+## 资源的其他表示形式  {#alternate-representations-of-resources}
 
 默认情况下，Kubernetes 返回 JSON 序列化的的对象并设定内容类型为
 `application/json`。这是 API 的默认序列化格式。
@@ -531,7 +531,7 @@ their `Accept` header to support fallback to JSON:
 API 扩展而加入的资源。如果客户端必须能够处理所有资源类型，则应在其 `Accept`
 头部指定多种内容类型以便可以回退到 JSON 格式：
 
-```
+```console
 Accept: application/vnd.kubernetes.protobuf, application/json
 ```
 
@@ -553,7 +553,7 @@ Kubernetes 使用封套形式来对 Protobuf 响应进行编码。
 封套格式如下：
 
 <!--
-```
+```console
 A four byte magic number prefix:
   Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
 
@@ -581,7 +581,7 @@ An encoded Protobuf message with the following IDL:
   }
 ```
 -->
-```
+```console
 四个字节的特殊数字前缀：
   字节 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
 
@@ -623,7 +623,7 @@ Clients that receive a response in `application/vnd.kubernetes.protobuf` that do
 
 Resources are deleted in two phases: 1) finalization, and 2) removal.
 -->
-## 资源删除
+## 资源删除  {#resource-deletion}
 
 资源删除要经过两个阶段：1) 终止（finalization），和 2）去除。
 
@@ -811,775 +811,18 @@ Some values of an object are typically generated before the object is persisted.
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 <!--
-Starting from Kubernetes v1.18, if you have Server Side Apply enabled then the
-control plane tracks managed fields for all newly created objects.
+Starting from Kubernetes v1.18, you can enable the
+[Server Side Apply](/docs/reference/using-api/server-side-apply/)
+feature so that the control plane tracks managed fields for all newly created objects.
+Server Side Apply provides a clear pattern for managing field conflicts,
+offers server-side `Apply` and `Update` operations, and replaces the
+client-side functionality of `kubectl apply`. For more details about this
+feature, see the section on
+[Server Side Apply](/docs/reference/using-api/server-side-apply/).
 -->
-从 Kubernetes v1.18 开始，如果你启动了服务器端应用（Service Side Apply）功能
-特性，则控制面会跟踪所有新创建的对象的托管字段（Managed Fields）。
-
-<!--
-### Introduction
-
-Server Side Apply helps users and controllers manage their resources via
-declarative configurations. It allows them to create and/or modify their
-objects declaratively, simply by sending their fully specified intent.
-
-A fully specified intent is a partial object that only includes the fields and
-values for which the user has an opinion. That intent either creates a new
-object or is [combined](#merge-strategy), by the server, with the existing object.
-
-The system supports multiple appliers collaborating on a single object.
--->
-### 介绍  {#introduction}
-
-服务器端应用可以通过声明式配置帮助用户和控制器管理其资源。此功能特性允许
-用户和控制器通过将完全设定的意愿发送到服务器以声明式方式创建与/或更改其对象。
-
-完全设定的意愿（Fully Specified Intent）是对象的一个部分，仅包含用户希望表达
-其意愿的字段和取值。此意愿或者是要创建一个新的对象，或者是由服务器来负责
-完成的、与现有对象的[合并](#merge-strategy)。
-
-系统支持多个施加者（Applier）同一个对象上进行协作。
-
-<!--
-Changes to an object's fields are tracked through a "[field management](#field-management)"
-mechanism. When a field's value changes, ownership moves from its current
-manager to the manager making the change. When trying to apply an object, fields
-that have a different value and are owned by another manager will result in a
-[conflict](#conflicts). This is done in order to signal that the operation might undo another
-collaborator's changes. Conflicts can be forced, in which case the value will be
-overridden, and the ownership will be transferred.
--->
-对对象字段的变更是通过“[字段管理](#field-management)”来进行跟踪的。
-当字段的值发生变化时，其属主从其当前的管理器切换为作出变更的管理器。
-尝试应用对象时，取值不同的字段以及由另一个管理器所拥有的字段都会导致
-[冲突](#conflicts)。引发冲突的目的是通告该操作可能会撤销掉另一协作方
-所做的变更。冲突可以被强制解决，从而导致字段取值被覆盖且其属主关系
-被转移。
-
-<!--
-If you remove a field from a configuration and apply the configuration, server side apply checks
-if there are any other field managers that also own the field.  If the field is
-not owned by any other field managers, it is either deleted from the live
-object or reset to its default value, if it has one. The same rule applies to associative list or
-map items.
-
-Server side apply is meant both as a replacement for the original `kubectl
-apply` and as a simpler mechanism for controllers to enact their changes.
--->
-如果你从配置中去除了一个字段并应用该配置，服务器端应用组件会检查是否有其他字段
-管理器也拥有该字段。如果该字段不再被任何其他字段管理器所拥有，则或者它会被
-从现时对象上删除，或者会被重置为其默认值（假设有的话）。
-同样的规则也适用于关联列表或映射条目。
-
-服务器端应用旨在成为原来的 `kubectl apply` 的替代技术，同时也作为控制器来
-施加其变更的一种更简单的机制。
-
-<!--
-### Field Management
-
-Compared to the `last-applied` annotation managed by `kubectl`, Server Side
-Apply uses a more declarative approach, which tracks a user's field management,
-rather than a user's last applied state. This means that as a side effect of
-using Server Side Apply, information about which field manager manages each
-field in an object also becomes available.
-
-For a user to manage a field, in the Server Side Apply sense, means that the
-user relies on and expects the value of the field not to change. The user who
-last made an assertion about the value of a field will be recorded as the
-current field manager. This can be done either by changing the value with
-`POST`, `PUT`, or non-apply `PATCH`, or by including the field in a config sent
-to the Server Side Apply endpoint. When using Server-Side Apply, trying to
-change a field which is managed by someone else will result in a rejected
-request (if not forced, see [Conflicts](#conflicts)).
--->
-### 字段管理    {#field-management}
-
-与 `kubectl` 所管理的 `last-applied` 注解相比，服务器端应用机制使用的是一种
-更为贴近声明式管理的方法。该方法会跟踪用户的字段管理而不是其上一次应用的
-状态。这就意味着，作为服务器端应用的一种副作用，关于哪个字段管理器管理对象中
-哪个字段的信息也变得透明。
-
-从服务器端应用的角度，让用户来管理字段意味着用户可以相信并期望字段不会发生变更。
-上次对某字段取值做出断言的用户会被记录为当前的字段管理器。
-这一记录操作可以通过使用 `POST`、`PUT` 或非应用性（non-apply）的 `PATCH` 去
-更改字段值来实现，或者将字段包含在发送该服务器端应用末端的配置中来实现。
-当使用服务器端应用特性时，尝试更给由其他人所管理的字段会导致请求被拒绝
-（这里指非强制应用场景，参见[冲突](#conflicts)）。
-
-<!--
-When two or more appliers set a field to the same value, they share ownership of
-that field. Any subsequent attempt to change the value of the shared field, by any of
-the appliers, results in a conflict. Shared field owners may give up ownership
-of a field by removing it from their configuration.
-
-Field management is stored in a`managedFields` field that is part of an object's
-[`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta).
-
-A simple example of an object created by Server Side Apply could look like this:
--->
-当两个或者多个施加者将某字段设置为相同的值，它们会共享字段的属主地位。
-由任何施加者所发起的、尝试变更共享字段取值的请求都会导致冲突。
-共享字段的属主可以通过将字段从其配置中去除来放弃其属主角色。
-
-字段管理信息保存在 `managedFields` 字段中，而该字段是对象
-[`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta)
-的一部分。
-
-通过服务器端应用创建的对象的一个简单例子看起来可能像这样：
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: test-cm
-  namespace: default
-  labels:
-    test-label: test
-  managedFields:
-  - manager: kubectl
-    operation: Apply
-    apiVersion: v1
-    time: "2010-10-10T0:00:00Z"
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:labels:
-          f:test-label: {}
-      f:data:
-        f:key: {}
-data:
-  key: some value
-```
-
-<!--
-The above object contains a single manager in `metadata.managedFields`. The
-manager consists of basic information about the managing entity itself, like
-operation type, api version, and the fields managed by it.
-
-This field is managed by the apiserver and should not be changed by
-the user.
-
-Nevertheless it is possible to change `metadata.managedFields` through an
-`Update` operation. Doing so is highly discouraged, but might be a reasonable
-option to try if, for example, the `managedFields` get into an inconsistent
-state (which clearly should not happen).
-
-The format of the `managedFields` is described in the [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#fieldsv1-v1-meta).
--->
-上面的对象在其 `metadata.managedFields` 中包含了唯一的管理器。管理器记录中
-包含了管理实体自身的一些基本信息，例如操作类型、API 版本以及所管理的字段。
-
-此字段由 API 服务器管理，因而不应被用户修改。
-
-尽管如此，通过 `Update` 操作来更改 `metadata.managedFields` 字段值还是可能的。
-这样做是非常不鼓励的，但在某些场合也可能是一种合理的选择。例如，`managedFields`
-陷入了某种不一致的状态（很明显这种事不应该发生）。
-
-`managedFields` 的格式在[API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#fieldsv1-v1-meta)
-中有详细描述。
-
-### 冲突    {#conflicts}
-
-<!--
-A conflict is a special status error that occurs when an `Apply` operation tries
-to change a field, which another user also claims to manage. This prevents an
-applier from unintentionally overwriting the value set by another user. When
-this occurs, the applier has 3 options to resolve the conflicts:
--->
-冲突是一种特殊的状态错误，发生在某 `Apply` 操作尝试变更某字段，而另一个用户
-也声称要管理之的时候。冲突的检测可以避免某一施加者不小心覆盖另一个用户所设置
-的字段值。当发生冲突时，解决它的方法有三种：
-
-<!--
-* **Overwrite value, become sole manager:** If overwriting the value was
-  intentional (or if the applier is an automated process like a controller) the
-  applier should set the `force` query parameter to true and make the request
-  again. This forces the operation to succeed, changes the value of the field,
-  and removes the field from all other managers' entries in managedFields.
-
-* **Don't overwrite value, give up management claim:** If the applier doesn't
-  care about the value of the field anymore, they can remove it from their
-  config and make the request again. This leaves the value unchanged, and causes
-  the field to be removed from the applier's entry in managedFields.
-
-* **Don't overwrite value, become shared manager:** If the applier still cares
-  about the value of the field, but doesn't want to overwrite it, they can
-  change the value of the field in their config to match the value of the object
-  on the server, and make the request again. This leaves the value unchanged,
-  and causes the field's management to be shared by the applier and all other
-  field managers that already claimed to manage it.
--->
-- **覆盖字段值，成为唯一的管理器：** 如果有意要覆盖字段值（或者施加者本身是
-  一个控制器这种自动化进程），施加者应该设置查询参数 `force` 为 `true，并
-  再次发出请求。这样做会强迫操作成功，更改字段值，将字段从 `managedFields`
-  中其他管理器项中去除。
-
-- **不重载字段值，放弃管理主张：** 如果施加者不再关心字段取值，它们可以将字段
-  从其配置中删除并再次发出请求。这样做会保留字段值不变，同时从 `managedFields`
-  中施加者条目中删除该字段。
-
-- **不重载字段值，成为共享管理器：** 如果施加者仍然关心字段取值，但不想重载
-  其当前值，它可以将其配置中该字段的值更改为与服务器端对象上的值匹配，并再次
-  发出请求。这样做会保留字段取值不变，同时使得字段的管理权力被施加者以及所有
-  原来声称要管理该字段的其他字段管理器一起分享。
-
-<!--
-### Managers
-
-Managers identify distinct workflows that are modifying the object (especially
-useful on conflicts!), and can be specified through the `fieldManager` query
-parameter as part of a modifying request. It is required for the apply endpoint,
-though kubectl will default it to `kubectl`. For other updates, its default is
-computed from the user-agent.
--->
-### 管理器   {#managers}
-
-管理器标示更改对象的不同工作流（尤其是在有冲突的场合），可以作为更改对象的请求
-的一部分，在 `fieldManager` 查询参数中设定。该参数对于 Apply 操作的端点是必需
-的，尽管 `kubectl` 会将其默认设置为 `kubectl`。对于其他更新操作，其默认值是
-基于用户代理（User-agent）计算而来的。
-
-<!--
-### Apply and Update
-
-The two operation types considered by this feature are `Apply` (`PATCH` with
-content type `application/apply-patch+yaml`) and `Update` (all other operations
-which modify the object). Both operations update the `managedFields`, but behave
-a little differently.
--->
-### 应用与更新    {#apply-and-update}
-
-服务器端应用所考虑的两种操作分别是 `Apply` （内容类型设置为
-`application/apply-patch+yaml` 的 `PATCH` 操作）和 `Update`（所有其他会更改
-对象的操作）。这两种操作都会更新 `managedFields` 字段值，但其行为略有不同。
-
-<!--
-Whether you are submitting JSON data or YAML data, use `application/apply-patch+yaml` as the
-Content-Type header value.
-
-All JSON documents are valid YAML.
--->
-{{< note >}}
-无论你所提交的是 JSON 数据或者 YAML 数据，都应将 `Content-Type` 头部字段
-的值设置为 `application/apply-patch+yaml`。
-
-所有 JSON 文档也都是合法的 YAML 文档。
-{{< /note >}}
-
-<!--
-For instance, only the apply operation fails on conflicts while update does
-not. Also, apply operations are required to identify themselves by providing a
-`fieldManager` query parameter, while the query parameter is optional for update
-operations. Finally, when using the apply operation you cannot have `managedFields` in the object that is being applied.
-
-An example object with multiple managers could look like this:
--->
-例如，发生冲突时只有 Apply 操作会失败，而 Update 操作不会失败。
-还有，Apply 操作要求通过提供一个 `fieldManager` 查询参数来标识自身，而
-对于 Update 操作而言，这一查询参数是可选的。
-最后，使用 Apply 操作时，被应用的对象中不能包含 `managedFields` 字段。
-
-带有多个管理器的一个对象示例可能看起来是这个样子：
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: test-cm
-  namespace: default
-  labels:
-    test-label: test
-  managedFields:
-  - manager: kubectl
-    operation: Apply
-    apiVersion: v1
-    fields:
-      f:metadata:
-        f:labels:
-          f:test-label: {}
-  - manager: kube-controller-manager
-    operation: Update
-    apiVersion: v1
-    time: '2019-03-30T16:00:00.000Z'
-    fields:
-      f:data:
-        f:key: {}
-data:
-  key: new value
-```
-
-<!--
-In this example, a second operation was run as an `Update` by the manager called
-`kube-controller-manager`. The update changed a value in the data field which
-caused the field's management to change to the `kube-controller-manager`.
--->
-在此例中，第二个操作是由一个称作 `kube-controller-manager` 的管理器所发起的
-`Update` 执行的。该 Update 操作更改了 data 字段的值，导致该字段的管理者被更改
-为 `kube-controller-manager`。
-
-<!--
-If this update would have been an `Apply` operation, the operation
-would have failed due to conflicting ownership.
--->
-{{< note >}}
-如果此操作是一个 Apply 操作，则操作可能已因为属主冲突而失败。
-{{< /note >}}
-
-<!--
-### Merge strategy
-
-The merging strategy, implemented with Server Side Apply, provides a generally
-more stable object lifecycle. Server Side Apply tries to merge fields based on
-the fact who manages them instead of overruling just based on values. This way
-it is intended to make it easier and more stable for multiple actors updating
-the same object by causing less unexpected interference.
-
-When a user sends a "fully-specified intent" object to the Server Side Apply
-endpoint, the server merges it with the live object favoring the value in the
-applied config if it is specified in both places. If the set of items present in
-the applied config is not a superset of the items applied by the same user last
-time, each missing item not managed by any other appliers is removed. For
-more information about how an object's schema is used to make decisions when
-merging, see
-[sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
--->
-### 合并策略   {#merge-strategy}
-
-服务器端应用所实现的合并策略能够支持相对更为稳定的对象生命周期。
-服务器端应用机制尝试基于字段的管理器是谁来合并字段而不是仅仅基于字段取值来判断。
-这种机制旨在通过减少意外的干扰而将多个主体更新同一对象的操作变得更为简单和稳定。
-
-当用户发送一个“完全指定的意愿”对象到服务器端应用端点，如果字段值同时出现在现时
-对象中和所给的意愿对象中，服务器会优先选择应用配置中的字段值。
-如果应用的配置中存在的条目集合不是同一用户上次应用的条目集合的超集，所有未被其他
-施加者管理的、在应用的配置中缺失的条目都会被移除。
-关于如何使用对象的模式定义（Schema）来决定合并行为的更多信息，可参阅
-[sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff)。
-
-<!--
-A number of markers were added in Kubernetes 1.16 and 1.17, to allow API
-developers to describe the merge strategy supported by lists, maps, and
-structs. These markers can be applied to objects of the respective type,
-in Go files or in the [OpenAPI schema definition of the
-CRD](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io):
--->
-Kubernetes 1.16 和 1.17 中都添加了若干的标志（Markers），便于 API 开发人员
-描述 list、map 和 struct 所支持的合并策略。这些标志可以应用到 Go 文件中
-对应类型的对象或者 [CRD 的 OpenAPI 模式定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io)：
-
-<!--
-| Golang marker | OpenAPI extension | Accepted values | Description | Introduced in |
-|----|----|----|----|----|
-| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | Applicable to lists. `atomic` and `set` apply to lists with scalar elements only. `map` applies to lists of nested types only. If configured as `atomic`, the entire list is replaced during merge; a single manager manages the list as a whole at any one time. If `granular`, different managers can manage entries separately. | 1.16          |
-| `//+listMapKey` | `x-kubernetes-list-map-keys` | Slice of map keys that uniquely identify entries for example `["port", "protocol"]` | Only applicable when `+listType=map`. A slice of strings whose values in combination must uniquely identify list entries. While there can be multiple keys, `listMapKey` is singular because keys need to be specified individually in the Go type. | 1.16 |
-| `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to maps. `atomic` means that the map can only be entirely replaced by a single manager. `granular` means that the map supports separate managers updating individual fields. | 1.17 |
-| `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.| 1.17 |
--->
-| Golang 标志 | OpenAPI 扩展 | 可接受的值 | 描述 | 引入版本 |
-|---|---|---|---|---|
-| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | 可应用到 list 类型。`atomic` 和 `set` 适用于仅包含标量的 list。`map` 适用于由内嵌类型组成的  list。如果配置为 `atomic`，则整个 list 会在合并时被替换掉；每次只会有一个管理器负责总体管理这个 list。如果配置为 `granular`，则不同的管理器可以分别管理不同的表项。 | 1.16  |
-| `//+listMapKey` | `x-kubernetes-list-map-keys` | 由 map 主键构成的可唯一标识表项的切片，例如 `["port", "protocol"]` | 仅当标记了 `+listType=map` 时适用。切片中各个字符串对应的取值的组合必须能够唯一性地标识 list 中的表项。尽管主键可以有多个，由于在 Go 语言类型中每个键需要独立设置，这里的 `listMapKey` 是单数形式。 | 1.16 |
-| `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | 适用于 map 类型。`atomic` 意味着 map 只能被某管理器整体替换。`granular` 则意味着 map 支持使用不同管理器来更新不同字段。 | 1.17 |
-| `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | 适用于 struct 类型。除此以外，其用法和 OpenAPI 注解都与 `//+mapType` 相同。 | 1.17 |
-
-<!--
-### Custom Resources
-
-By default, Server Side Apply treats custom resources as unstructured data. All
-keys are treated the same as struct fields, and all lists are considered atomic.
-
-If the Custom Resource Definition defines a
-[schema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io)
-that contains annotations as defined in the previous "Merge Strategy"
-section, these annotations will be used when merging objects of this
-type.
--->
-### 定制资源  {#custom-resources}
-
-默认情况下，服务器端应用机制会将定制资源视为无结构的数据。其中所有键都会
-被视同 struct 的字段，而所有 list 都会被视为 atomic。
-
-如果定制资源定义（CRD）定义了包含如[合并策略](#merge-strategy)节所述的注解的
-[模式定义（Schema）](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io)，
-则在合并该类型对象时会使用到这些注解。
-
-<!--
-### Using Server-Side Apply in a controller
-
-As a developer of a controller, you can use server-side apply as a way to
-simplify the update logic of your controller. The main differences with a
-read-modify-write and/or patch are the following:
-
-* the applied object must contain all the fields that the controller cares about.
-* there are no way to remove fields that haven't been applied by the controller
-  before (controller can still send a PATCH/UPDATE for these use-cases).
-* the object doesn't have to be read beforehand, `resourceVersion` doesn't have
-  to be specified.
-
-It is strongly recommended for controllers to always "force" conflicts, since they
-might not be able to resolve or act on these conflicts.
--->
-### 在控制器中使用服务器端应用机制  {#using-server-side-apply-in-a-controller}
-
-作为控制器的开发人员，你可以将服务器端应用机制作为一种方法来简化你的控制器中的更新逻辑。
-与“读出-更改-写回”或“读出-更改-打补丁”方式相比，区别如下：
-
-* 所应用的对象必需包含控制器所关心的所有字段；
-* 没有办法移除控制器之前未曾应用过的字段（控制器在这些使用场景中仍然可以发送一个
-  PATCH/UPDATE 请求）。
-* 对象不需要事先读出，且不必指定 `resourceVersion` 值。
-
-强烈建议控制器总是“强制解决”冲突，因为它们可能无法更好地解决或者处理这些冲突。
-
-<!--
-### Transferring Ownership
-
-In addition to the concurrency controls provided by [conflict
-resolution](#conflicts), Server Side Apply provides ways to perform coordinated
-field ownership transfers from users to controllers.
-
-This is best explained by example. Let's look at how to safely transfer
-ownership of the `replicas` field from a user to a controller while enabling
-automatic horizontal scaling for a Deployment, using the HorizontalPodAutoscaler
-resource and its accompanying controller.
-
-Say a user has defined deployment with `replicas` set to the desired value:
--->
-### 转移属主关系   {#transferring-ownership}
-
-除了[冲突解决](#conflicts)机制所提供的并发控制外，服务器端应用机制还提供了一些
-方法，通过协作式途径将字段属主从用户转移到控制器。
-
-这一转移操作最好通过示例来阐明。我们来看如何安全地将 `replicas` 字段的属主从
-一个用户转移给一个控制器，同时允许使用 HorizontalPodAutoscaler 资源及其相配套
-的控制器为 Deployment 提供自动的水平扩缩。
-
-假定一个用户定义了一个 Deployment，并将其 `replicas` 设置为其期望值：
-
-{{< codenew file="application/ssa/nginx-deployment.yaml" >}}
-
-<!--
-And the user has created the deployment using server side apply like so:
--->
-用户使用服务器端应用机制创建了 Deployment：
-
-```shell
-kubectl apply -f application/ssa/nginx-deployment.yaml --server-side
-```
-
-<!--
-Then later, HPA is enabled for the deployment, e.g.:
--->
-再接下来，为 Deployment 启用了 HPA，例如：
-
-```shell
-kubectl autoscale deployment nginx-deployment --cpu-percent=50 --min=1 --max=10
-```
-
-<!--
-Now, the user would like to remove `replicas` from their configuration, so they
-don't accidentally fight with the HPA controller. However, there is a race: it
-might take some time before HPA feels the need to adjust `replicas`, and if
-the user removes `replicas` before the HPA writes to the field and becomes
-its owner, then apiserver will set `replicas` to 1, its default value. This
-is not what the user wants to happen, even temporarily.
--->
-现在，用户希望将 `replicas` 从其配置中移除，这样它们就不会与 HPA
-控制器产生冲突。不过，仍然会有竞争条件出现：在 HPA 觉得需要调整 `replicas`
-之前可能还有一段时间。如果用户在向 `replicas` 字段写入新值进而成为其属主之前，
-已经从配置中移除了该字段，则 API 服务器会将 `replicas` 设置为 1，也就是该字段
-的默认值。这一复位操作并非用户希望发生的事情，即使是临时性的复位也不可以。
-
-<!--
-There are two solutions:
-
-- (easy) Leave `replicas` in the configuration; when HPA eventually writes to that
-  field, the system gives the user a conflict over it. At that point, it is safe
-  to remove from the configuration.
-
-- (more advanced) If, however, the user doesn't want to wait, for example
-  because they want to keep the cluster legible to coworkers, then they can take
-  the following steps to make it safe to remove `replicas` from their
-  configuration:
--->
-解决方案有两种：
-
-- （较容易的方案）在配置中保留 `replicas`，当 HPA 终于向该字段中写入取值时，
-  系统会向用户报告一个冲突事件。在这一刻，从配置中移除该字段是相对安全的。
-
-- （更高级的方案）如果用户不想等待 HPA 写入字段值的事件，例如他们希望集群状态对
-  他们的同事而言也是清晰明确的，则他们可以采取以下步骤安全地从他们的配置中移除
-  `replicas` 字段。
-
-<!--
-First, the user defines a new configuration containing only the `replicas` field:
--->
-首先，用户定义一个新的，仅包含 `replicas` 字段的配置：
-
-{{< codenew file="application/ssa/nginx-deployment-replicas-only.yaml" >}}
-
-<!--
-The user applies that configuration using the field manager name `handover-to-hpa`:
--->
-接下来使用名为 `handover-to-hpa` 的字段管理器应用该配置：
-
-```shell
-kubectl apply -f application/ssa/nginx-deployment-replicas-only.yaml --server-side --field-manager=handover-to-hpa --validate=false
-```
-
-<!--
-If the apply results in a conflict with the HPA controller, then do nothing. The
-conflict just indicates the controller has claimed the field earlier in the
-process than it sometimes does.
-
-At this point the user may remove the `replicas` field from their configuration.
--->
-如果应用操作与 HPA 控制器发生冲突，则什么也不做。冲突恰好表明控制器比平时早了
-一点发出对该字段的主张：
-
-这时，用户可以从其配置中删除 `replicas` 字段。
-
-{{< codenew file="application/ssa/nginx-deployment-no-replicas.yaml" >}}
-
-<!--
-Note that whenever the HPA controller sets the `replicas` field to a new value,
-the temporary field manager will no longer own any fields and will be
-automatically deleted. No clean up is required.
--->
-注意，无论 HPA 控制器何时将 `replicas` 字段设置为新的取值，临时性的字段管理器
-都不再拥有任何字段，并且会被自动删除。用户不需要执行清理操作。
-
-<!--
-### Transferring Ownership Between Users
-
-Users can transfer ownership of a field between each other by setting the field
-to the same value in both of their applied configs, causing them to share
-ownership of the field. Once the users share ownership of the field, one of them
-can remove the field from their applied configuration to give up ownership and
-complete the transfer to the other user.
--->
-### 在用户间移交属主角色     {#transferring-ownership-between-users}
-
-用户之间可以通过在他们所应用的配置中将字段设置为相同的值来转移字段属主关系，
-这样做会共享对字段的拥有权。一旦用户间共享了字段的属主关系，其中一个用户就
-可以从其所应用的配置中移除该字段，放弃属主角色，从而完成了属主关系的移交。
-
-<!--
-### Comparison with Client Side Apply
-
-A consequence of the conflict detection and resolution implemented by Server
-Side Apply is that an applier always has up to date field values in their local
-state. If they don't, they get a conflict the next time they apply. Any of the
-three options to resolve conflicts results in the applied configuration being an
-up to date subset of the object on the server's fields.
-
-This is different from Client Side Apply, where outdated values which have been
-overwritten by other users are left in an applier's local config. These values
-only become accurate when the user updates that specific field, if ever, and an
-applier has no way of knowing whether their next apply will overwrite other
-users' changes.
-
-Another difference is that an applier using Client Side Apply is unable to
-change the API version they are using, but Server Side Apply supports this use
-case.
--->
-### 与客户端应用的比较   {#comparison-with-client-side-apply}
-
-服务器端应用机制所实现的冲突检测和解决方案的后果之一是施加者在其本地状态中总是
-能够看到最新的字段值。如果他们看不到，则在下次执行 Apply 操作时会收到冲突事件。
-解决冲突的三种方法中，任何一种都会让所应用的配置成为服务器端对象字段的最新
-子集。
-
-这点与客户端应用不同，施加者本地配置中保留的可能是已经被其他用户更改过了的过时
-的取值。只有用户更新该字段时，相应的字段值才会变得准确。施加者也无法知道他们
-下次执行 Apply 操作时是否会重载其他用户做出的变更。
-
-另外一点区别在于使用客户端应用的施加者无法更改他们所使用的 API
-版本，但是服务器端应用能够支持这种使用场景。
-
-<!--
-### Upgrading from client-side apply to server-side apply
-
-Client-side apply users who manage a resource with `kubectl apply` can start
-using server-side apply with the following flag.
--->
-### 从客户端应用升级到服务器端应用   {#upgrading-from-client-side-apply-to-server-side-apply}
-
-客户端应用机制的用户如果在使用 `kubectl apply` 来管理资源，可以使用下面的标志
-来开始使用服务器端应用：
-
-```shell
-kubectl apply --server-side [--dry-run=server]
-```
-
-<!--
-By default, field management of the object transfers from client-side apply
-to kubectl server-side apply without encountering conflicts.
--->
-默认情况下，对象的字段管理会从客户端应用转移到 kubectl
-服务器端应用，且不会出现冲突状况。
-
-<!--
-Keep the `last-applied-configuration` annotation up to date. The annotation infers client-side apply's managed fields. Any fields not managed by client-side apply raise conflicts.
-
-For example, if you used `kubectl scale` to update the replicas field after client-side apply,
-then this field is not owned by client-side apply and creates conflicts on `kubectl apply -server-side`.
--->
-{{< caution >}}
-请保持 `last-applied-configuration` 注解内容是最新的。该注解用来推测客户端
-应用所管理的字段。所有没有被客户端应用管理的字段都会引发冲突。
-
-例如，如果你在客户端应用操作后使用 `kubectl scale` 命令更新了 `replicas`
-字段，该字段不再由客户端应用所拥有，在 `kubectl apply --server-side` 时会
-引发冲突。
-{{< /caution >}}
-
-<!--
-This behavior applies to server-side apply with the `kubectl` field manager. As
-an exception, you can opt-out of this behavior by specifying a different,
-non-default field manager, as seen in the following example. The default field manager for kubectl
-server-side apply is `kubectl`.
--->
-此行为适用于使用 `kubectl` 字段管理器执行的服务器端应用。
-作为一种例外情况，你也可以选择不采用这种行为，而是像下面的例子中所给的那样，
-指定一个不同的、非默认的字段管理器。用 `kubectl` 来执行服务器端应用时，默认
-的字段管理器总是 `kubectl`。
-
-```shell
-kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
-```
-
-<!--
-### Downgrading from server-side apply to client-side apply
-
-If you manage a resource with `kubectl apply -server-side`,
-you can downgrade to client-side apply directly with `kubectl apply`.
-
-Downgrading works because kubectl server-side apply keeps the
-`last-applied-configuration` annotation up-to-date if you use
-`kubectl apply`.
-
-This behavior applies to server-side apply with the `kubectl` field manager. As
-an exception, you can opt-out of this behavior by specifying a different,
-non-default field manager, as seen in the following example. The default field manager for kubectl
-server-side apply is `kubectl`.
--->
-### 从服务器端应用降格为客户端应用   {#downgrading-from-server-side-apply-to-client-side-apply}
-
-如果你使用 `kubectl apply --server-side` 来管理资源，你可以直接使用
-`kubectl apply` 来降格到客户端应用机制。
-
-降格操作之所以能够有效是因为 kubectl 服务器端应用在你使用 `kubectl apply`
-时会保持 `last-applied-configuration` 注解内容一直是最新的。
-
-这一行为适用于使用 `kubectl` 字段管理器执行的服务器端应用。
-作为一种例外情况，你也可以选择不采用这种默认行为，而像下面例子中所展示的
-那样，设置一个不同的、非默认的字段管理器。`kubectl` 所触发的服务器端应用
-默认会将字段管理器设置为 `kubectl`。
-
-```shell
-kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
-```
-
-<!--
-### API Endpoint
-
-With the Server Side Apply feature enabled, the `PATCH` endpoint accepts the
-additional `application/apply-patch+yaml` content type. Users of Server Side
-Apply can send partially specified objects as YAML to this endpoint.
-When applying a configuration, one should always include all the fields
-that they have an opinion about.
--->
-### API 端点    {#api-endpoint}
-
-启用了服务器端应用功能特性之后，`PATCH` 操作的端点能够接受
-`application/apply-patch+yaml` 内容类型。
-服务器端应用机制的用户可以以 YAML 格式将部分设定的对象发送到该端点。
-在应用配置时，用户应该包含希望设置的所有字段在内。
-
-<!--
-### Clearing ManagedFields
-
-It is possible to strip all managedFields from an object by overwriting them
-using `MergePatch`, `StrategicMergePatch`, `JSONPatch` or `Update`, so every
-non-apply operation. This can be done by overwriting the managedFields field
-with an empty entry. Two examples are:
--->
-### 清除 `managedFields`  {#clearing-managedfields}
-
-通过 `MergePatch`、`StrategicMergePatch`、`JSONPatch` 或 `Update` 等非 Apply
-操作是可以清除对象上的所有 `managedFields` 内容的。通过这些操作，用户可以将
-`managedFields` 字段重新设置为空的列表。
-下面是两个例子：
-
-
-```console
-PATCH /api/v1/namespaces/default/configmaps/example-cm
-Content-Type: application/merge-patch+json
-Accept: application/json
-
-Data: {"metadata":{"managedFields": [{}]}}
-```
-
-```console
-PATCH /api/v1/namespaces/default/configmaps/example-cm
-Content-Type: application/json-patch+json
-Accept: application/json
-
-Data: [{"op": "replace", "path": "/metadata/managedFields", "value": [{}]}]
-```
-
-<!--
-This will overwrite the managedFields with a list containing a single empty
-entry that then results in the managedFields being stripped entirely from the
-object. Note that just setting the managedFields to an empty list will not reset
-the field. This is on purpose, so managedFields never get stripped by clients
-not aware of the field.
-
-In cases where the reset operation is combined with changes to other fields than
-the managedFields, this will result in the managedFields being reset first and
-the other changes being processed afterwards. As a result the applier takes
-ownership of any fields updated in the same request.
--->
-上面的操作会覆盖 `managedFields` 字段取值，使之成为一个只有一个空表项的列表，
-进而使得 `managedFields` 整个会被充对象上剥离。
-注意，仅仅将 `managedFields` 设为空列表还不足以将字段取值复位。
-这样的设计是有意为之的，目的是避免 `managedFields` 字段被不了解该字段的客户端
-意外清除。
-
-如果此复位操作和对 `managedFields` 字段之外的其它字段的变更一起提交，则
-`managedFields` 的内容会首先被重置，之后才会处理其他字段变更。因此，施加者会
-成为同一请求中被更新的字段的属主。
-
-<!--
-Server Side Apply does not correctly track ownership on
-sub-resources that don't receive the resource object type. If you are
-using Server Side Apply with such a sub-resource, the changed fields
-won't be tracked.
--->
-{{< caution >}}
-服务器端应用机制无法正确地跟踪某些子资源的属主，如果这些子资源不能接收资源
-对象类型数据的话。如果你针对这类子资源使用服务器端应用机制，则所变更的字段
-不会被跟踪记录。
-{{< /caution >}}
-
-<!--
-### Disabling the feature
-
-Server Side Apply is a beta feature, so it is enabled by default. To turn this
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates) off,
-you need to include the `-feature-gates ServerSideApply=false` flag when
-starting `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all
-should have the same flag setting.
--->
-### 禁用此功能特性    {#disabling-the-feature}
-
-服务器端应用是一种 Beta 阶段的特性，因此默认是被启用的。如要将此
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates)关闭，
-你需要在启动 `kube-apiserver` 时包含 `--feature-gates ServerSideApply=false`
-标志。如果你运行了多个 `kube-apiserver`
-副本，则每个副本上都要作同样的标志设置。
+从 Kubernetes v1.18 开始，可以启用[服务器端应用](/zh/docs/reference/using-api/server-side-apply/)功能
+特性，启用该特性后，控制面会跟踪所有新创建的对象的托管字段。服务器端应用提供了一种简洁的模式来管理字段冲突，提供服务器端的 `Apply` 和 `Update` 操作，并取代了
+`kubectl apply` 的客户端功能。有关该特性的详细描述，请参见[服务器端应用](/zh/docs/reference/using-api/server-side-apply/)章节
 
 <!--
 ## Resource Versions
@@ -1605,7 +848,7 @@ Clients find resource versions in resources, including the resources in watch ev
 
 [v1.meta/ListMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) - The `metadata.resourceVersion` of a resource collection (i.e. a list response) identifies the resource version at which the list response was constructed.
 -->
-### `metadata` 中的 `resourceVersion`
+### `metadata` 中的 `resourceVersion`  {#resourceVersion-in-metadata}
 
 客户端可以在资源中看到资源版本信息，这里的资源包括从服务器返回的 Watch 事件
 以及 list 操作响应：
@@ -1694,40 +937,42 @@ quorum read to be served.
 集群性能和可扩缩性。后者需要提供带票选能力的读操作。
 
 <!--
-| resourceVersionMatch param              | paging params                  | resourceVersion unset  | resourceVersion="0"                        | resourceVersion="{value other than 0}" |
-|-----------------------------------------|--------------------------------|------------------------|--------------------------------------------|----------------------------------------|
-| resourceVersionMatch unset              | limit unset                    | Most Recent            | Any                                        | Not older than                         |
-| resourceVersionMatch unset              | limit="n", continue unset      | Most Recent            | Any                                        | Exact                                  |
-| resourceVersionMatch unset              | limit="n", continue="<token>"  | Continue Token, Exact  | Invalid, treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
-| resourceVersionMatch=Exact<sup>\*</sup> | limit unset                    | Invalid                | Invalid                                    | Exact                                  |
-| resourceVersionMatch=Exact<sup>\*</sup> | limit="n", continue unset      | Invalid                | Invalid                                    | Exact                                  |
-| resourceVersionMatch=NotOlderThan<sup>\*</sup> | limit unset               | Invalid              | Any                                        | Not older than                         |
-| resourceVersionMatch=NotOlderThan<sup>\*</sup> | limit="n", continue unset | Invalid              | Any                                        | Not older than                         |
+{{</* table caption="resourceVersionMatch and paging parameters for list" */>}}
 
-<br/>
-<small>
+| resourceVersionMatch param            | paging params                 | resourceVersion unset | resourceVersion="0"                       | resourceVersion="{value other than 0}" |
+|---------------------------------------|-------------------------------|-----------------------|-------------------------------------------|----------------------------------------|
+| resourceVersionMatch unset            | limit unset                   | Most Recent           | Any                                       | Not older than                         |
+| resourceVersionMatch unset            | limit=\<n\>, continue unset     | Most Recent           | Any                                       | Exact                                  |
+| resourceVersionMatch unset            | limit=\<n\>, continue=\<token\> | Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request`        |
+| resourceVersionMatch=Exact [1]        | limit unset                   | Invalid               | Invalid                                   | Exact                                  |
+| resourceVersionMatch=Exact [1]        | limit=\<n\>, continue unset     | Invalid               | Invalid                                   | Exact                                  |
+| resourceVersionMatch=NotOlderThan [1] | limit unset                   | Invalid               | Any                                       | Not older than                         |
+| resourceVersionMatch=NotOlderThan [1] | limit=\<n\>, continue unset     | Invalid               | Any                                       | Not older than                         |
+
+{{</* /table */>}}
 
 **Footnotes:**
 
-\* If the server does not honor the `resourceVersionMatch` parameter, it is treated as if it is unset.
-</small>
+[1] If the server does not honor the `resourceVersionMatch` parameter, it is treated as if it is unset.
 -->
+
+{{< table caption="list 操作的 resourceVersionMatch 与分页参数" >}}
+
 | resourceVersionMatch 参数               | 分页参数                        | resourceVersion 未设置  | resourceVersion="0"                     | resourceVersion="\<非零值\>"     |
 |-----------------------------------------|---------------------------------|-------------------------|-----------------------------------------|----------------------------------|
-| resourceVersionMatch 未设置             | limit 未设置                    | 最新版本                | 任意版本                                | 不老于指定版本                   |
-| resourceVersionMatch 未设置             | limit=n, continue 未设置        | 最新版本                | 任意版本                                | 精确匹配                         |
-| resourceVersionMatch 未设置             | limit=n, continue=\<token\>     | Continue 令牌、精确匹配 | 非法请求，视为 Continue 令牌、精确匹配  | 非法请求，HTTP `400 Bad Request` |
-| resourceVersionMatch=Exact<sup>\*</sup> | limit 未设置                    | 非法请求                | 非法请求                                | 精确匹配                         |
-| resourceVersionMatch=Exact<sup>\*</sup> | limit=n, continue 未设置        | 非法请求                | 非法请求                                | 精确匹配                         |
-| resourceVersionMatch=NotOlderThan<sup>\*</sup> | limit 未设置             | 非法请求                | 任意版本                                | 不老于指定版本                   |
-| resourceVersionMatch=NotOlderThan<sup>\*</sup> | limit=n, continue 未设置 | 非法请求                | 任意版本                                | 不老于指定版本                   |
+| resourceVersionMatch 未设置             | limit 未设置                      | 最新版本                | 任意版本                                | 不老于指定版本                   |
+| resourceVersionMatch 未设置             | limit=\<n\>, continue 未设置        | 最新版本                | 任意版本                                | 精确匹配                         |
+| resourceVersionMatch 未设置             | limit=\<n\>, continue=\<token\>     | 从 token 开始、精确匹配 | 非法请求，视为从 token 开始、精确匹配  | 非法请求，返回 HTTP `400 Bad Request` |
+| resourceVersionMatch=Exact [1]         | limit 未设置                      | 非法请求                | 非法请求                                | 精确匹配                         |
+| resourceVersionMatch=Exact [1]         | limit=\<n\>, continue 未设置        | 非法请求                | 非法请求                                | 精确匹配                         |
+| resourceVersionMatch=NotOlderThan [1]  | limit 未设置             | 非法请求                | 任意版本                                | 不老于指定版本                   |
+| resourceVersionMatch=NotOlderThan [1]  | limit=\<n\>, continue 未设置 | 非法请求                | 任意版本                                | 不老于指定版本                   |
 
-<br />
-<small>
+{{< /table >}}
 
 **脚注：**
 
-\* 如果服务器无法正确处理 `resourceVersionMatch` 参数，其行为与未设置该参数相同。
+[1] 如果服务器无法正确处理 `resourceVersionMatch` 参数，其行为与未设置该参数相同。
 </small>
 
 <!--
@@ -1796,13 +1041,22 @@ For watch, the semantics of resource version are:
 **WATCH：**
 
 <!--
+{{< table caption="resourceVersion for watch" >}}
+
 | resourceVersion unset               | resourceVersion="0"        | resourceVersion="{value other than 0}" |
 |-------------------------------------|----------------------------|----------------------------------------|
 | Get State and Start at Most Recent  | Get State and Start at Any | Start at Exact                         |
+
+{{< /table >}}
 -->
+
+{{< table caption="watch 操作的 resourceVersion 设置" >}}
+
 | resourceVersion 未设置    | resourceVersion="0"      | resourceVersion="\<非零值\>" |
 |---------------------------|--------------------------|------------------------------|
 | 读取状态并从最新版本开始  | 读取状态并从任意版本开始 | 从指定版本开始               |
+
+{{< /table >}}
 
 <!--
 The meaning of the watch semantics are:

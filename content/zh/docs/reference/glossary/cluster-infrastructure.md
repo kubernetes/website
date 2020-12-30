@@ -1,5 +1,5 @@
 ---
-title: 集群基础设施
+title: 集群基础设施（Cluster Infrastructure）
 id: cluster-infrastructure
 date: 2019-05-12
 full_link:
@@ -12,7 +12,6 @@ tags:
 ---
 
 <!--
----
 title: Cluster Infrastructure
 id: cluster-infrastructure
 date: 2019-05-12
@@ -22,8 +21,7 @@ short_description: >
 
 aka:
 tags:
-- operations
----
+- operation
 -->
 <!--
 The infrastructure layer provides and maintains VMs, networking, security groups and others.

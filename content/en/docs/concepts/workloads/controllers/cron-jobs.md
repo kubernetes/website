@@ -32,8 +32,6 @@ The name must be no longer than 52 characters. This is because the CronJob contr
 append 11 characters to the job name provided and there is a constraint that the
 maximum length of a Job name is no more than 63 characters.
 
-
-
 <!-- body -->
 
 ## CronJob
@@ -50,6 +48,37 @@ This example CronJob manifest prints the current time and a hello message every 
 
 ([Running Automated Tasks with a CronJob](/docs/tasks/job/automated-tasks-with-cron-jobs/)
 takes you through this example in more detail).
+
+### Cron schedule syntax
+
+```
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
+```
+
+
+| Entry 										| Description																									| Equivalent to |
+| ------------- 						| ------------- 																							|-------------  |
+| @yearly (or @annually)		| Run once a year at midnight of 1 January										| 0 0 1 1 * 		|
+| @monthly 									| Run once a month at midnight of the first day of the month	| 0 0 1 * * 		|
+| @weekly 									| Run once a week at midnight on Sunday morning								| 0 0 * * 0 		|
+| @daily (or @midnight)			| Run once a day at midnight																	| 0 0 * * * 		|
+| @hourly 									| Run once an hour at the beginning of the hour								| 0 * * * * 		|
+
+
+
+For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
+
+`0 0 13 * 5`
+
+To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 
 ## CronJob limitations {#cron-job-limitations}
 
@@ -81,6 +110,14 @@ be down for the same period as the previous example (`08:29:00` to `10:21:00`,) 
 
 The CronJob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
+
+## New controller
+
+There's an alternative implementation of the CronJob controller, available as an alpha feature since Kubernetes 1.20. To select version 2 of the CronJob controller, pass the following [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+
+```
+--feature-gates="CronJobControllerV2=true"
+```
 
 
 ## {{% heading "whatsnext" %}}

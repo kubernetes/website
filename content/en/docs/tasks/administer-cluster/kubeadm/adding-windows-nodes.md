@@ -138,31 +138,91 @@ curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/dow
 
 
 ### Joining a Windows worker node
-{{< note >}}
-You must install the `Containers` feature and install Docker. Instructions
-to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://hub.docker.com/editions/enterprise/docker-ee-server-windows).
-{{< /note >}}
 
 {{< note >}}
 All code snippets in Windows sections are to be run in a PowerShell environment
 with elevated permissions (Administrator) on the Windows worker node.
 {{< /note >}}
 
-1. Install wins, kubelet, and kubeadm.
+{{< tabs name="tab-windows-kubeadm-runtime-installation" >}}
+{{% tab name="Docker EE" %}}
 
-   ```PowerShell
-   curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
-   .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
-   ```
+#### Install Docker EE
 
-1. Run `kubeadm` to join the node
+Install the `Containers` feature
 
-    Use the command that was given to you when you ran `kubeadm init` on a control plane host.
-    If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command`
-    (on a control plane host) to generate a new token and join command.
+```powershell
+Install-WindowsFeature -Name containers
+```
 
+Install Docker
+Instructions to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://hub.docker.com/editions/enterprise/docker-ee-server-windows).
 
-#### Verifying your installation
+#### Install wins, kubelet, and kubeadm  
+
+```PowerShell
+curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+.\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
+```
+
+#### Run `kubeadm` to join the node
+
+Use the command that was given to you when you ran `kubeadm init` on a control plane host.
+If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command`
+(on a control plane host) to generate a new token and join command.
+
+{{% /tab %}}
+{{% tab name="CRI-containerD" %}}
+
+#### Install containerD
+
+```powershell
+curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/Install-Containerd.ps1
+.\Install-Containerd.ps1
+```
+
+{{< note >}}
+To install a specific version of containerD specify the version with -ContainerDVersion.
+
+```powershell
+# Example
+.\Install-Containerd.ps1 -ContainerDVersion v1.4.1
+```
+
+{{< /note >}}
+
+{{< note >}}
+If you're using a different interface rather than Ethernet (i.e. "Ethernet0 2") on the Windows nodes, specify the name with `-netAdapterName`.
+
+```powershell
+# Example
+.\Install-Containerd.ps1 -netAdapterName "Ethernet0 2"
+```
+
+{{< /note >}}
+
+#### Install wins, kubelet, and kubeadm
+
+```PowerShell
+curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+.\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}} -ContainerRuntime containerD
+```
+
+#### Run `kubeadm` to join the node
+
+Use the command that was given to you when you ran `kubeadm init` on a control plane host.
+If you no longer have this command, or the token has expired, you can run `kubeadm token create --print-join-command`
+(on a control plane host) to generate a new token and join command.
+
+{{< note >}}
+If using **CRI-containerD** add `--cri-socket "npipe:////./pipe/containerd-containerd"` to the kubeadm call
+{{< /note >}}
+
+{{% /tab %}}
+{{< /tabs >}}
+
+### Verifying your installation
+
 You should now be able to view the Windows node in your cluster by running:
 
 ```bash
@@ -178,11 +238,6 @@ kubectl -n kube-system get pods -l app=flannel
 
 Once the flannel Pod is running, your node should enter the `Ready` state and then be available to handle workloads.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
 - [Upgrading Windows kubeadm nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
-
-
