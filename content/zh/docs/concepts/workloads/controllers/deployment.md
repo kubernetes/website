@@ -341,7 +341,7 @@ is changed, for example if the labels or container images of the template are up
 
    ```shell
    kubectl --record deployment.apps/nginx-deployment set image \
-      deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+      deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
    ```
    <!-- or simply use the following command: -->
    或者使用下面的命令：
