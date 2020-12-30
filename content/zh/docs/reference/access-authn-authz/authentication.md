@@ -66,7 +66,7 @@ for more details about this.
 使用证书中的 'subject' 的通用名称（Common Name）字段（例如，"/CN=bob"）来
 确定用户名。接下来，基于角色访问控制（RBAC）子系统会确定用户是否有权针对
 某资源执行特定的操作。进一步的细节可参阅
-[证书请求](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
+[证书请求](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
 下普通用户主题。
 
 <!--
@@ -182,7 +182,7 @@ For example, using the `openssl` command line tool to generate a certificate sig
 
 例如，使用 `openssl` 命令行工具生成一个证书签名请求：
 
-``` bash
+```bash
 openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app2"
 ```
 
@@ -322,53 +322,14 @@ how to manage these tokens with `kubeadm`.
 `kubeadm` 来管理这些令牌。
 
 <!--
-### Static Password File
-
-Basic authentication is enabled by passing the `-basic-auth-file=SOMEFILE`
-option to API server. Currently, the basic auth credentials last indefinitely,
-and the password cannot be changed without restarting API server. Note that basic
-authentication is currently supported for convenience while we finish making the
-more secure modes described above easier to use.
--->
-### Static Password File
-
-通过向 API 服务器传递 `--basic-auth-file=SOMEFILE` 选项可以启用基本的
-身份认证。目前，基本身份认证所涉及的凭据信息会长期有效，并且在不重启 API
-服务器的情况下无法改变用户的密码。
-要注意的是，对基本身份认证的支持目前仅是出于方便性考虑。
-与此同时我们正在增强前述的、更为安全的模式的易用性。
-
-<!--
-The basic auth file is a csv file with a minimum of 3 columns: password, user name, user id.
-In Kubernetes version 1.6 and later, you can specify an optional fourth column containing
-comma-separated group names. If you have more than one group, you must enclose the fourth
-column value in double quotes ("). See the following example:
--->
-基本身份认证数据文件是一个 CSV 文件，包含至少 3 列：密码、用户名和用户 ID。
-在 Kuernetes 1.6 及后续版本中，你可以指定一个可选的第 4 列，在其中给出用逗号
-分隔的用户组名。如果用户组名不止一个，你必须将第 4 列的值用双引号括起来。
-参见下面的例子：
-
-```conf
-password,user,uid,"group1,group2,group3"
-```
-
-<!--
-When using basic authentication from an http client, the API server expects an `Authorization` header
-with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
--->
-当在 HTTP 客户端使用基本身份认证机制时，API 服务器会期望看到名为
-`Authorization` 的 HTTP 头部，其值形如 `Basic USER:PASSWORD的Base64编码字符串`
-
-<!--
 ### Service Account Tokens
 
 A service account is an automatically enabled authenticator that uses signed
 bearer tokens to verify requests. The plugin takes two optional flags:
 
-* `-service-account-key-file` A file containing a PEM encoded key for signing bearer tokens.
+* `--service-account-key-file` A file containing a PEM encoded key for signing bearer tokens.
 If unspecified, the API server's TLS private key will be used.
-* `-service-account-lookup` If enabled, tokens which are deleted from the API will be revoked.
+* `--service-account-lookup` If enabled, tokens which are deleted from the API will be revoked.
 -->
 ### 服务账号令牌   {#service-account-tokens}
 
@@ -390,7 +351,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 服务账号通常由 API 服务器自动创建并通过 `ServiceAccount`
 [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
 关联到集群中运行的 Pod 上。
-持有者令牌会挂载到 Pod 中可预知的为之，允许集群内进程与 API 服务器通信。
+持有者令牌会挂载到 Pod 中可预知的位置，允许集群内进程与 API 服务器通信。
 服务账号也可以使用 Pod 规约的 `serviceAccountName` 字段显式地关联到 Pod 上。
 
 <!--
@@ -555,7 +516,33 @@ is included in a request.
 中的 `id_token`（而非 `access_token`）作为持有者令牌。
 关于如何在请求中设置令牌，可参见[前文](#putting-a-bearer-token-in-a-request)。
 
-![Kubernetes OpenID Connect Flow](/images/docs/admin/k8s_oidc_login.svg)
+{{< mermaid >}}
+sequenceDiagram
+    participant user as 用户
+    participant idp as 身份提供者 
+    participant kube as Kubectl
+    participant api as API 服务器
+
+    user ->> idp: 1. 登录到 IdP
+    activate idp
+    idp -->> user: 2. 提供 access_token,<br>id_token, 和 refresh_token
+    deactivate idp
+    activate user
+    user ->> kube: 3. 调用 Kubectl 并<br>设置 --token 为 id_token<br>或者将令牌添加到 .kube/config
+    deactivate user
+    activate kube
+    kube ->> api: 4. Authorization: Bearer...
+    deactivate kube
+    activate api
+    api ->> api: 5. JWT 签名合法么？
+    api ->> api: 6. JWT 是否已过期？(iat+exp)
+    api ->> api: 7. 用户被授权了么？
+    api -->> kube: 8. 已授权：执行<br>操作并返回结果
+    deactivate api
+    activate kube
+    kube --x user: 9. 返回结果
+    deactivate kube
+{{< /mermaid >}}
 
 <!--
 1.  Login to your identity provider
@@ -683,7 +670,7 @@ For an identity provider to work with Kubernetes it must:
 3.  拥有由 CA 签名的证书（即使 CA 不是商业 CA 或者是自签名的 CA 也可以）
 
 <!--
-A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use [this script](https://github.com/coreos/dex/blob/1ee5920c54f5926d6468d2607c728b71cfe98092/examples/k8s/gencert.sh) from the CoreOS team to create a simple CA and a signed certificate and key pair.
+A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use [this script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh) from the Dex team to create a simple CA and a signed certificate and key pair.
 Or you can use [this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh) that generates SHA256 certs with a longer life and larger key size.
 -->
 关于上述第三条需求，即要求具备 CA 签名的证书，有一些额外的注意事项。
@@ -691,8 +678,11 @@ Or you can use [this similar script](https://raw.githubusercontent.com/TremoloSe
 你必须对身份服务的 Web 服务器证书进行签名，签名所用证书的 `CA` 标志要设置为
 `TRUE`，即使用的是自签名证书。这是因为 GoLang 的 TLS 客户端实现对证书验证
 标准方面有非常严格的要求。如果你手头没有现成的 CA 证书，可以使用 CoreOS
-团队所开发的[这个脚本](https://github.com/coreos/dex/blob/1ee5920c54f5926d6468d2607c728b71cfe98092/examples/k8s/gencert.sh)来创建一个简单的 CA 和被签了名的证书与密钥对。
-或者你也可以使用[这个类似的脚本](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)，生成一个合法期更长、密钥尺寸更大的 SHA256 证书。
+团队所开发的[这个脚本](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh)
+来创建一个简单的 CA 和被签了名的证书与密钥对。
+或者你也可以使用
+[这个类似的脚本](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)，
+生成一个合法期更长、密钥尺寸更大的 SHA256 证书。
 
 <!--
 Setup instructions for specific systems:
@@ -1397,11 +1387,35 @@ users:
       args:
       - "arg1"
       - "arg2"
+
+      # Text shown to the user when the executable doesn't seem to be present. Optional.
+      installHint: |
+        example-client-go-exec-plugin is required to authenticate
+        to the current cluster.  It can be installed:
+
+        On macOS: brew install example-client-go-exec-plugin
+
+        On Ubuntu: apt-get install example-client-go-exec-plugin
+
+        On Fedora: dnf install example-client-go-exec-plugin
+
+        ...
+
+      # Whether or not to provide cluster information, which could potentially contain
+      # very large CA data, to this exec plugin as a part of the KUBERNETES_EXEC_INFO
+      # environment variable.
+      provideClusterInfo: true
 clusters:
 - name: my-cluster
   cluster:
     server: "https://172.17.4.100:6443"
     certificate-authority: "/etc/kubernetes/ca.pem"
+    extensions:
+    - name: client.authentication.k8s.io/exec # reserved extension name for per cluster exec config
+      extension:
+        arbitrary: config
+        this: can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo
+        you: ["can", "put", "anything", "here"]
 contexts:
 - name: my-cluster
   context:
@@ -1437,11 +1451,33 @@ users:
       args:
       - "arg1"
       - "arg2"
+
+      # 当可执行文件不存在时显示给用户的文本。可选的。
+      installHint: |
+        需要 example-client-go-exec-plugin 来在当前集群上执行身份认证。可以通过以下命令安装：
+
+        MacOS: brew install example-client-go-exec-plugin
+
+        Ubuntu: apt-get install example-client-go-exec-plugin
+
+        Fedora: dnf install example-client-go-exec-plugin
+
+        ...
+
+      # 是否使用 KUBERNETES_EXEC_INFO 环境变量的一部分向这个 exec 插件
+      # 提供集群信息（可能包含非常大的 CA 数据）
+      provideClusterInfo: true
 clusters:
 - name: my-cluster
   cluster:
     server: "https://172.17.4.100:6443"
     certificate-authority: "/etc/kubernetes/ca.pem"
+    extensions:
+    - name: client.authentication.k8s.io/exec # 为每个集群 exec 配置保留的扩展名
+      extension:
+        arbitrary: config
+        this: 在设置 provideClusterInfo 时可通过环境变量 KUBERNETES_EXEC_INFO 指定
+        you: ["can", "put", "anything", "here"]
 contexts:
 - name: my-cluster
   context:
@@ -1558,6 +1594,40 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
   "status": {
     "token": "my-bearer-token",
     "expirationTimestamp": "2018-03-05T17:30:20-08:00"
+  }
+}
+```
+
+<!--
+The plugin can optionally be called with an environment variable, `KUBERNETES_EXEC_INFO`,
+that contains information about the cluster for which this plugin is obtaining
+credentials. This information can be used to perform cluster-specific credential
+acquisition logic. In order to enable this behavior, the `provideClusterInfo` field must
+be set on the exec user field in the
+[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/). Here is an
+example of the aforementioned `KUBERNETES_EXEC_INFO` environment variable.
+-->
+
+调用此插件时可以选择性地设置环境变量 `KUBERNETES_EXEC_INFO`。
+该变量包含了此插件获取凭据所针对的集群信息。此信息可用于执行群集特定的凭据获取逻辑。
+为了启用此行为，必须在 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+中的 exec user 字段上设置`provideClusterInfo`字段。
+下面是上述 `KUBERNETES_EXEC_INFO` 环境变量的示例。
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1beta1",
+  "kind": "ExecCredential",
+  "spec": {
+    "cluster": {
+      "server": "https://172.17.4.100:6443",
+      "certificate-authority-data": "LS0t...",
+      "config": {
+        "arbitrary": "config",
+        "this": "在设置 provideClusterInfo 时可通过环境变量 KUBERNETES_EXEC_INFO 指定",
+        "you": ["can", "put", "anything", "here"]
+      }
+    }
   }
 }
 ```

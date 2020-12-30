@@ -26,9 +26,9 @@ For information how to create a cluster with kubeadm once you have performed thi
   - Fedora 25+
   - HypriotOS v1.0.1+
   - Flatcar Container Linux (tested with 2512.3.0)
-* 2 GB or more of RAM per machine (any less will leave little room for your apps)
-* 2 CPUs or more
-* Full network connectivity between all machines in the cluster (public or private network is fine)
+* 2 GB or more of RAM per machine (any less will leave little room for your apps).
+* 2 CPUs or more.
+* Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
@@ -76,7 +76,7 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 |----------|-----------|------------|-------------------------|---------------------------|
 | TCP      | Inbound   | 6443*      | Kubernetes API server   | All                       |
 | TCP      | Inbound   | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
-| TCP      | Inbound   | 10250      | Kubelet API             | Self, Control plane       |
+| TCP      | Inbound   | 10250      | kubelet API             | Self, Control plane       |
 | TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
 | TCP      | Inbound   | 10252      | kube-controller-manager | Self                      |
 
@@ -84,7 +84,7 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 
 | Protocol | Direction | Port Range  | Purpose               | Used By                 |
 |----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
+| TCP      | Inbound   | 10250       | kubelet API           | Self, Control plane     |
 | TCP      | Inbound   | 30000-32767 | NodePort Services†    | All                     |
 
 † Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
@@ -160,7 +160,7 @@ need to ensure they match the version of the Kubernetes control plane you want
 kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
 can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
 kubelet and the control plane is supported, but the kubelet version may never exceed the API
-server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
+server version. For example, the kubelet running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa.
 
 For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/install-kubectl/).
@@ -299,7 +299,7 @@ Please mind, that you **only** have to do that if the cgroup driver of your CRI
 is not `cgroupfs`, because that is the default value in the kubelet already.
 
 {{< note >}}
-Since `--cgroup-driver` flag has been deprecated by kubelet, if you have that in `/var/lib/kubelet/kubeadm-flags.env`
+Since `--cgroup-driver` flag has been deprecated by the kubelet, if you have that in `/var/lib/kubelet/kubeadm-flags.env`
 or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it and use the KubeletConfiguration instead
 (stored in `/var/lib/kubelet/config.yaml` by default).
 {{< /note >}}
@@ -307,8 +307,8 @@ or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it a
 Restarting the kubelet is required:
 
 ```bash
-systemctl daemon-reload
-systemctl restart kubelet
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
 ```
 
 The automatic detection of cgroup driver for other container runtimes

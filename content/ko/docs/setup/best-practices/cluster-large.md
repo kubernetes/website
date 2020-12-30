@@ -1,122 +1,120 @@
 ---
-title: 대형 클러스터 구축
+title: 대형 클러스터에 대한 고려 사항
 weight: 20
 ---
 
-## 지원
+클러스터는 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}에서 관리하는
+쿠버네티스 에이전트를 실행하는 {{< glossary_tooltip text="노드" term_id="node" >}}(물리
+또는 가상 머신)의 집합이다.
+쿠버네티스 {{<param "version">}}는 노드 5000개까지의 클러스터를 지원한다. 보다 정확하게는,
+쿠버네티스는 다음 기준을 *모두* 만족하는 설정을 수용하도록 설계되었다.
 
-{{< param "version" >}} 버전에서, 쿠버네티스는 노드 5000개까지의 클러스터를 지원한다. 보다 정확하게는, 다음 기준을 *모두* 만족하는 설정을 지원한다.
-
+* 노드 당 파드 100 개 이하
 * 노드 5000개 이하
 * 전체 파드 150000개 이하
 * 전체 컨테이너 300000개 이하
-* 노드 당 파드 100개 이하
 
+노드를 추가하거나 제거하여 클러스터를 확장할 수 있다. 이를 수행하는 방법은
+클러스터 배포 방법에 따라 다르다.
 
-## 설치
+## 클라우드 프로바이더 리소스 쿼터 {#quota-issues}
 
-클러스터는 쿠버네티스 에이전트가 구동하는 노드(물리 또는 가상 머신)의 집합이며, "마스터"(클러스터-수준 컨트롤 플레인)에 의해 관리된다.
+여러 노드를 가지는 클러스터를 만들 때, 클라우드 프로바이더 쿼터 이슈를 피하기 위해
+고려할 점은 다음과 같다.
 
-보통 클러스터 내 노드 수는 플랫폼별 `config-default.sh` 파일 (예를 들면, [GCE의 `config-default.sh`](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh))에 있는 `NUM_NODES` 값에 따라 조절된다.
-
-하지만 단순히 값만 매우 크게 바꾼다면, 클라우드 프로바이더에 따라 셋업 스크립트가 실패할 수도 있다. 예를 들어, GCE에 배포할 때 쿼터 이슈가 발생하여 클러스터 구축이 실패할 수 있다.
-
-큰 쿠버네티스 클러스터를 설정할 때는 다음 이슈들을 고려해야 한다.
-
-### 쿼터 문제
-
-여러 노드를 가지는 클러스터를 만들 때, 클라우드 프로바이더 쿼터 이슈를 피하기 위해 고려할 점:
-
-* CPU, IP 등의 쿼터를 늘린다.
-  * 예를 들어, [GCE의 경우](https://cloud.google.com/compute/docs/resource-quotas) 다음에 관한 쿼터를 늘릴 수 있다.
+* 다음과 같은 클라우드 리소스에 대한 쿼터 증가를 요청한다.
+    * 컴퓨터 인스턴스
     * CPU
-    * VM 인스턴스
-    * 전체 영구 디스크 예약
+    * 스토리지 볼륨
     * 사용 중인 IP 주소
-    * 방화벽 규칙
-    * 포워딩 규칙
-    * 라우트
-    * 대상 풀
-* 일부 클라우드 프로바이더는 VM 생성 속도에 상한이 있어, 셋업 스크립트 수행 간 새로운 노드 VM을 생성하는 사이사이에 대기시간이 추가되는 작은 배치가 걸릴 수 있다.
+    * 패킷 필터링 규칙 세트
+    * 로드밸런서 개수
+    * 로그 스트림
+* 일부 클라우드 프로바이더는 새로운 인스턴스 생성 속도에 상한이 있어, 클러스터 확장 작업 간 새로운 노드를 일괄적으로 배치하고, 배치 간에 일시 중지한다.
+
+## 컨트롤 플레인 컴포넌트
+
+대규모 클러스터의 경우, 충분한 컴퓨트 및 기타 리소스가 있는 컨트롤 플레인이
+필요하다.
+
+일반적으로 장애 영역 당 하나 또는 두 개의 컨트롤 플레인 인스턴스를
+실행하고, 해당 인스턴스를 수직으로(vertically) 먼저 확장한 다음 (수직) 규모로 하락하는
+지점에 도달한 후 수평으로(horizontally) 확장한다.
+
+내결함성을 제공하려면 장애 영역 당 하나 이상의 인스턴스를 실행해야 한다. 쿠버네티스
+노드는 동일한 장애 영역에 있는 컨트롤 플레인 엔드포인트로 트래픽을
+자동으로 조정하지 않는다. 그러나, 클라우드 프로바이더는 이를 수행하기 위한 자체 메커니즘을 가지고 있을 수 있다.
+
+예를 들어, 관리형 로드 밸런서를 사용하여 장애 영역 _A_ 의
+kubelet 및 파드에서 시작되는 트래픽을 전송하도록 로드 밸런서를 구성하고, 해당 트래픽을
+_A_ 영역에 있는 컨트롤 플레인 호스트로만 전달한다. 단일 컨트롤 플레인 호스트 또는
+엔드포인트 장애 영역 _A_ 이 오프라인이 되면, 영역 _A_ 의 노드에 대한
+모든 컨트롤 플레인 트래픽이 이제 영역간에 전송되고 있음을 의미한다. 각 영역에서 여러 컨트롤 플레인 호스트를
+실행하면 가용성이 낮아진다.
 
 ### etcd 저장소
 
-큰 클러스터의 성능 향상을 위해, 우리는 이벤트를 각각의 전용 etcd 인스턴스에 저장한다.
+큰 클러스터의 성능 향상을 위해, 사용자는 이벤트 오브젝트를 각각의
+전용 etcd 인스턴스에 저장한다.
 
 클러스터 생성시의 부가 스트립트이다.
+클러스터 생성 시에 (사용자 도구를 사용하여) 다음을 수행할 수 있다.
 
 * 추가 ectd 인스턴스 시작 및 설정
-* 이벤트를 저장하기 위한 api-server 설정
+* 이벤트를 저장하기 위한 {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} 설정
 
-### 마스터 크기와 마스터 구성 요소
+## 애드온 리소스
 
-GCE/구글 쿠버네티스 엔진 및 AWS에서, `kube-up`은 클러스터 내 노드의 수에 따라 마스터용으로 적합한 VM 크기를 자동으로 설정한다.
-기타 다른 프로바이더의 경우, 수동으로 설정해야 한다. 참고로 GCE에 적용하는 크기는 다음과 같다.
+쿠버네티스 [리소스 제한](/ko/docs/concepts/configuration/manage-resources-containers/)은
+파드와 컨테이너가 다른 컴포넌트에 영향을 줄 수 있는 메모리 누수 및 기타 방식의 영향을
+최소화하는 데 도움이 된다. 이러한 리소스 제한은 애플리케이션 워크로드에 적용되는 것과 마찬가지로
+{{< glossary_tooltip text="애드온" term_id="addons" >}}에도 적용될 수 있으며
+적용되어야 한다.
 
-* 1-5 노드: n1-standard-1
-* 6-10 노드: n1-standard-2
-* 11-100 노드: n1-standard-4
-* 101-250 노드: n1-standard-8
-* 251-500 노드: n1-standard-16
-* 500 노드 이상: n1-standard-32
-
-AWS에 적용하는 크기는 다음과 같다.
-
-* 1-5 노드: m3.medium
-* 6-10 노드: m3.large
-* 11-100 노드: m3.xlarge
-* 101-250 노드: m3.2xlarge
-* 251-500 노드: c4.4xlarge
-* 500 노드 이상: c4.8xlarge
-
-{{< note >}}
-구글 쿠버네티스 엔진에서, 마스터 노드 크기는 클러스터의 크기에 따라 자동적으로 조절된다. 자세한 사항은 [이 블로그 글](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html)을 참고하라.
-
-AWS에서, 마스터 노드의 크기는 클러스터 시작 시에 설정된 그대로이며 변경되지 않는다. 이후에 클러스터를 스케일 업/다운하거나 수동으로 노드를 추가/제거하거나 클러스터 오토스케일러를 사용하더라도 그렇다.
-{{< /note >}}
-
-### 애드온 자원
-
-[클러스터 애드온](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons)이 메모리 누수 등 노드 상의 가용한 리소스를 모두 소비하는 리소스 이슈를 방지하기 위해, 쿠버네티스는 애드온 컨테이너가 소비할 수 있는 CPU와 메모리 리소스를 제한하는 리소스 상한을 둔다(PR [#10653](https://pr.k8s.io/10653/files)과 [#10778](https://pr.k8s.io/10778/files) 참고).
-
-예시:
+예를 들어, 로깅 컴포넌트에 대한 CPU 및 메모리 제한을 설정할 수 있다.
 
 ```yaml
+  ...
   containers:
   - name: fluentd-cloud-logging
-    image: k8s.gcr.io/fluentd-gcp:1.16
+    image: fluent/fluentd-kubernetes-daemonset:v1
     resources:
       limits:
         cpu: 100m
         memory: 200Mi
 ```
 
-힙스터(Heapster)를 제외하고, 이러한 상한들은 정적이며 4-노드 클러스터에서 구동한 애드온으로부터 수집한 데이터에 기반한 것이다.([#10335](https://issue.k8s.io/10335#issuecomment-117861225) 참고). 애드온이 큰 클러스터에서 구동되면 더 많은 리소스를 소비한다([#5880](https://issue.k8s.io/5880#issuecomment-113984085) 참고). 따라서, 이러한 값의 조정 없이 큰 클러스터를 배포하면, 애드온들이 상한에 걸려 반복적으로 죽을 수 있다.
+애드온의 기본 제한은 일반적으로 중소형 쿠버네티스 클러스터에서
+각 애드온을 실행한 경험에서 수집된 데이터를 기반으로 한다. 대규모 클러스터에서
+실행할 때, 애드온은 종종 기본 제한보다 많은 리소스를 소비한다.
+이러한 값을 조정하지 않고 대규모 클러스터를 배포하면, 애드온이
+메모리 제한에 계속 도달하기 때문에 지속적으로 종료될 수 있다.
+또는, 애드온이 실행될 수 있지만 CPU 시간 슬라이스 제한으로 인해
+성능이 저하된다.
 
-많은 노드를 가진 클러스터를 생성할 때는 애드온 리소스 이슈를 피하기 위해 다음을 고려하라.
+클러스터 애드온 리소스 문제가 발생하지 않도록, 노드가 많은 클러스터를
+만들 때, 다음 사항을 고려한다.
 
-* 다음 애드온을 사용한다면, 클러스터의 크기를 확장할 때 그에 맞게 메모리와 CPU 상한을 규모를 조정하라 (전체 클러스터를 담당하는 각 레플리카는, 메모리와 CPU 사용량이 대체로 클러스터의 크기/부하에 따라 비율적으로 증가할 것이다).
-  * [InfluxDB와 Grafana](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
-  * [kubedns, dnsmasq, 사이드카](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/kube-dns.yaml.in)
-  * [Kibana](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/kibana-deployment.yaml)
-* 다음 애드온들을 쓴다면 클러스터 크기에 따라 레플리카 수를 조절해준다(각각 레플리카가 여러 개 두면 늘어나는 부하를 처리하는 데 도움이 되지만, 레플리카 당 부하도 약간 늘어나게 되므로 CPU/메모리 상한을 높이는 것을 고려해보자):
-  * [elasticsearch](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/es-statefulset.yaml)
-* 다음의 애드온들을 쓴다면, 클러스터 크기에 따라 각각 메모리와 CPU 상한을 조금 더 높이자(노드 당 레플리카 1개만 있어도 클러스터 부하량/크기에 따라 CPU/메모리 사용율은 조금씩 증가한다).
-  * [ElasticSearch 플러그인을 적용한 FluentD](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
-  * [GCP 플러그인을 적용한 FluentD](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
+* 일부 애드온은 수직으로 확장된다. 클러스터 또는 전체 장애 영역을
+  제공하는 애드온 레플리카가 하나 있다. 이러한 애드온의 경우, 클러스터를 확장할 때
+  요청과 제한을 늘린다.
+* 많은 애드온은 수평으로 확장된다. 더 많은 파드를 실행하여 용량을 추가하지만,
+  매우 큰 클러스터에서는 CPU 또는 메모리 제한을 약간 높여야 할 수도 있다.
+  VerticalPodAutoscaler는 _recommender_ 모드에서 실행되어 요청 및 제한에 대한
+  제안 수치를 제공할 수 있다.
+* 일부 애드온은 {{< glossary_tooltip text="데몬셋(DaemonSet)"
+  term_id="daemonset" >}}에 의해 제어되는 노드 당 하나의 복사본으로 실행된다(예: 노드 수준 로그 수집기). 수평
+  확장 애드온의 경우와 유사하게, CPU 또는 메모리 제한을 약간 높여야
+  할 수도 있다.
 
-힙스터의 리소스 상한은 클러스터 최초 크기에 기초하여 동적으로 설정된다([#16185](https://issue.k8s.io/16185)과
-[#22940](https://issue.k8s.io/22940) 참조). 힙스터에 리소스가 부족한 경우라면,
- 힙스터 메모리 요청량(상세내용은 해당 PR 참조)을 계산하는 공식을 적용해보자.
+## {{% heading "whatsnext" %}}
 
-애드온 컨테이너가 리소스 상한에 걸리는 것을 탐지하는 방법에 대해서는
-[컴퓨트 리소스의 트러블슈팅 섹션](/ko/docs/concepts/configuration/manage-resources-containers/#문제-해결)을 참고하라.
+`VerticalPodAutoscaler` 는 리소스 요청 및 파드 제한을 관리하는 데 도움이 되도록
+클러스터에 배포할 수 있는 사용자 정의 리소스이다.
+클러스터에 중요한 애드온을 포함하여 클러스터 컴포넌트를 확장하는 방법에 대한
+자세한 내용은 [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)를
+방문하여 배워본다.
 
-### 시작 시 사소한 노드 오류 허용
-
-다양한 이유로(자세한 내용은 [#18969](https://github.com/kubernetes/kubernetes/issues/18969) 참고) 매우 큰 `NUM_NODES`를 주고
-`kube-up.sh`을 실행하면 제대로 기동되지 않은 극소수의 노드들 때문에 실패할 수 있다.
-현재로서는 두 가지 선택지가 있다. 클러스터를 재시작하거나(`kube-down.sh` 한 후 다시 `kube-up.sh` ),
-`kube-up.sh` 실행 전에 환경변수 `ALLOWED_NOTREADY_NODES`를 적당한 값으로 설정해주는 것이다.
-이렇게 하면 `NUM_NODES`에 못 미치는 경우에도 `kube-up.sh`이 성공할 수 있다.
-실패 원인에 따라 일부 노드들이 늦게 결합되거나, 클러스터가 `NUM_NODES - ALLOWED_NOTREADY_NODES`의 크기로 남을 수 있다.
+[클러스터 오토스케일러](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)는
+여러 클라우드 프로바이더와 통합되어 클러스터의 리소스 요구 수준에 맞는
+노드 수를 실행할 수 있도록 도와준다.

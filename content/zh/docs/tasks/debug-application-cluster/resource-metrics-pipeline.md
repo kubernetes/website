@@ -115,7 +115,7 @@ as a Deployment object. If you use a different Kubernetes setup mechanism you ca
 -->
 ## Metrics 服务器    {#metrics-server}
 
-[Metrics 服务器](https://github.com/kubernetes-sings/metrics-server)
+[Metrics 服务器](https://github.com/kubernetes-sigs/metrics-server)
 是集群范围资源用量数据的聚合器。
 默认情况下，在由 `kube-up.sh` 脚本创建的集群中会以 Deployment 的形式被部署。
 如果你使用其他 Kubernetes 安装方法，则可以使用提供的

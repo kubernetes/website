@@ -27,6 +27,7 @@ be called on a primary control-plane node.
 
 {{< tabs name="tab-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_upgrade_node_phase.md" />}}
+{{< tab name="preflight" include="generated/kubeadm_upgrade_node_phase_preflight.md" />}}
 {{< tab name="control-plane" include="generated/kubeadm_upgrade_node_phase_control-plane.md" />}}
 {{< tab name="kubelet-config" include="generated/kubeadm_upgrade_node_phase_kubelet-config.md" />}}
 {{< /tabs >}}
@@ -40,8 +41,8 @@ be called on a primary control-plane node.
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a kubeadm node
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导一个 Kubernetes 控制平面节点
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点加入到群集
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 还原 `kubeadm init` 或 `kubeadm join` 命令对主机所做的任何更改
-* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) 升级 kubeadm 节点
-* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) 尝试实验性功能
+* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导一个 Kubernetes 控制平面节点
+* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点加入到集群
+* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 还原 `kubeadm init` 或 `kubeadm join` 命令对主机所做的任何更改
+* [kubeadm upgrade](/zh/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) 升级 kubeadm 节点
+* [kubeadm alpha](/zh/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) 尝试实验性功能

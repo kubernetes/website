@@ -615,16 +615,18 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 
 
 <!--
+* Add [ELK logging and monitoring](/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/) to your Guestbook application
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
 * Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 -->
 
+* 为 Guestbook 应用添加
+  [ELK 日志与监控](/zh/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)
 * 完成 [Kubernetes Basics](/zh/docs/tutorials/kubernetes-basics/) 交互式教程
 * 使用 Kubernetes 创建一个博客，使用 [MySQL 和 Wordpress 的持久卷](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * 阅读更多关于[连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
 * 阅读更多关于[管理资源](/zh/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
-
 
 

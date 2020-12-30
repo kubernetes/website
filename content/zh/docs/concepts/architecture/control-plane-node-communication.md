@@ -32,10 +32,10 @@ One or more forms of [authorization](/docs/reference/access-authn-authz/authoriz
 Kubernetes 采用的是中心辐射型（Hub-and-Spoke）API 模式。
 所有从集群（或所运行的 Pods）发出的 API 调用都终止于 apiserver（其它控制面组件都没有被设计为可暴露远程服务）。
 apiserver 被配置为在一个安全的 HTTPS 端口（443）上监听远程连接请求，
-并启用一种或多种形式的客户端[身份认证](/docs/reference/access-authn-authz/authentication/)机制。
+并启用一种或多种形式的客户端[身份认证](/zh/docs/reference/access-authn-authz/authentication/)机制。
 一种或多种客户端[鉴权机制](/zh/docs/reference/access-authn-authz/authorization/)应该被启用，
-特别是在允许使用[匿名请求](/docs/reference/access-authn-authz/authentication/#anonymous-requests)
-或[服务账号令牌](/docs/reference/access-authn-authz/authentication/#service-account-tokens)的时候。
+特别是在允许使用[匿名请求](/zh/docs/reference/access-authn-authz/authentication/#anonymous-requests)
+或[服务账号令牌](/zh/docs/reference/access-authn-authz/authentication/#service-account-tokens)的时候。
 
 <!--
 Nodes should be provisioned with the public root certificate for the cluster such that they can connect securely to the apiserver along with valid client credentials. A good approach is that the client credentials provided to the kubelet are in the form of a client certificate. See [kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for automated provisioning of kubelet client certificates.
@@ -61,7 +61,8 @@ The control plane components also communicate with the cluster apiserver over th
 <!--
 As a result, the default operating mode for connections from the nodes and pods running on the nodes to the control plane is secured by default and can run over untrusted and/or public networks.
 -->
-这样，从集群节点和节点上运行的 Pod 到控制面的连接的缺省操作模式即是安全的，能够在不可信的网络或公网上运行。
+这样，从集群节点和节点上运行的 Pod 到控制面的连接的缺省操作模式即是安全的，
+能够在不可信的网络或公网上运行。
 
 <!--
 ## Control Plane to node
@@ -137,7 +138,6 @@ This tunnel ensures that the traffic is not exposed outside of the network in wh
 
 SSH tunnels are currently deprecated so you shouldn't opt to use them unless you know what you are doing. The Konnectivity service is a replacement for this communication channel.
 -->
-
 ### SSH 隧道 {#ssh-tunnels}
 
 Kubernetes 支持使用 SSH 隧道来保护从控制面到节点的通信路径。在这种配置下，apiserver
@@ -158,7 +158,6 @@ After enabling the Konnectivity service, all control plane to nodes traffic goes
 
 Follow the [Konnectivity service task](/docs/tasks/extend-kubernetes/setup-konnectivity/) to set up the Konnectivity service in your cluster.
 -->
-
 ### Konnectivity 服务
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
@@ -168,5 +167,6 @@ Konnectivity 服务包含两个部分：Konnectivity 服务器和 Konnectivity �
 控制面网络和节点网络中。Konnectivity 代理建立并维持到 Konnectivity 服务器的网络连接。
 启用 Konnectivity 服务之后，所有控制面到节点的通信都通过这些连接传输。
 
-请浏览 [Konnectivity 服务任务](/docs/tasks/extend-kubernetes/setup-konnectivity/)
+请浏览 [Konnectivity 服务任务](/zh/docs/tasks/extend-kubernetes/setup-konnectivity/)
 在你的集群中配置 Konnectivity 服务。
+

@@ -45,7 +45,7 @@ You can debug individual Pods in a StatefulSet using the
 如果你发现列出的任何 Pod 长时间处于 `Unknown` 或 `Terminating` 状态，请参阅
 [删除 StatefulSet Pods](/zh/docs/tasks/run-application/delete-stateful-set/)
 了解如何处理它们的说明。
-你可以参考[调试 Pods](/zh/docs/tasks/debug-application-cluster/debug-application/)
+你可以参考[调试 Pods](/zh/docs/tasks/debug-application-cluster/debug-pod-replication-controller/)
 来调试 StatefulSet 中的各个 Pod。
 
 ## {{% heading "whatsnext" %}}

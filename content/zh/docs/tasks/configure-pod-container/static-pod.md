@@ -155,7 +155,8 @@ For example, this is how to start a simple web server as a static Pod:
     ```
     or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file).
 -->
-3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`：
+3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`。
+在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下行：
 
    ```
    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"

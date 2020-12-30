@@ -95,16 +95,16 @@ to containers.  If your job previously ran in a VM, your VM had an IP and could
 talk to other VMs in your project.  This is the same basic model.
 
 Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
-share their network namespaces - including their IP address.  This means that
-containers within a `Pod` can all reach each other's ports on `localhost`. This
-also means that containers within a `Pod` must coordinate port usage, but this
-is no different from processes in a VM.  This is called the "IP-per-pod" model.
+share their network namespaces - including their IP address and MAC address.
+This means that containers within a `Pod` can all reach each other's ports on
+`localhost`. This also means that containers within a `Pod` must coordinate port
+usage, but this is no different from processes in a VM.  This is called the
 -->
 这个模型不仅不复杂，而且还和 Kubernetes 的实现廉价的从虚拟机向容器迁移的初衷相兼容，
 如果你的工作开始是在虚拟机中运行的，你的虚拟机有一个 IP ，
 这样就可以和其他的虚拟机进行通信，这是基本相同的模型。
 
-Kubernetes 的 IP 地址存在于 `Pod` 范围内 - 容器分享它们的网络命名空间 - 包括它们的 IP 地址。
+Kubernetes 的 IP 地址存在于 `Pod` 范围内 - 容器共享它们的网络命名空间 - 包括它们的 IP 地址和 MAC 地址。
 这就意味着 `Pod` 内的容器都可以通过 `localhost` 到达各个端口。
 这也意味着 `Pod` 内的容器都需要相互协调端口的使用，但是这和虚拟机中的进程似乎没有什么不同，
 这也被称为“一个 Pod 一个 IP” 模型。
@@ -228,7 +228,7 @@ AWS VPC CNI 项目是开源的，请查看 [GitHub 上的文档](https://github.
 ### Azure CNI for Kubernetes 
 [Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
 
-Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
+Azure CNI is available natively in the [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
 -->
 ### Kubernetes 的 Azure CNI 
 
@@ -349,6 +349,18 @@ network complexity required to deploy Kubernetes at scale within AWS.
 覆盖网络、BGP、禁用源/目标检查或调整 VPC 路由表以向每个主机提供每个实例子网的
 复杂性（每个 VPC 限制为50-100个条目）。
 简而言之，cni-ipvlan-vpc-k8s 大大降低了在 AWS 中大规模部署 Kubernetes 所需的网络复杂性。
+
+<!--
+### Coil
+
+[Coil](https://github.com/cybozu-go/coil) is a CNI plugin designed for ease of integration, providing flexible egress networking.
+Coil operates with a low overhead compared to bare metal, and allows you to define arbitrary egress NAT gateways for external networks.
+
+-->
+### Coil
+
+[Coil](https://github.com/cybozu-go/coil) 是一个为易于集成、提供灵活的出站流量网络而设计的 CNI 插件。
+与裸机相比，Coil 的额外操作开销低，并允许针对外部网络的出站流量任意定义 NAT 网关。
 
 <!--
 ### Contiv
@@ -691,4 +703,3 @@ document](https://git.k8s.io/community/contributors/design-proposals/network/net
 网络模型的早期设计、运行原理以及未来的一些计划，都在
 [联网设计文档](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)
 里有更详细的描述。
-

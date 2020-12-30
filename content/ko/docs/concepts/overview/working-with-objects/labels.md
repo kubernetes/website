@@ -189,7 +189,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 
 #### 서비스와 레플리케이션 컨트롤러
 
-`services`에서 지정하는 파드 집합은 레이블 셀렉터로 정의한다. 마찬가지로 `replicationcontrollers`가 관리하는 파드의 개체군도 레이블 셀렉터로 정의한다.
+`services`에서 지정하는 파드 집합은 레이블 셀렉터로 정의한다. 마찬가지로 `replicationcontrollers`가 관리하는 파드의 오브젝트 그룹도 레이블 셀렉터로 정의한다.
 
 서비스와 레플리케이션 컨트롤러의 레이블 셀렉터는 `json` 또는 `yaml` 파일에 매핑된 _균등-기반_ 요구사항의 셀렉터만 지원한다.
 

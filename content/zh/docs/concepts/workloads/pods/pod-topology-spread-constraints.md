@@ -11,8 +11,9 @@ weight: 40
 -->
 
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
-<!-- leave this shortcode in place until the note about EvenPodsSpread is
-obsolete -->
+<!--
+leave this shortcode in place until the note about EvenPodsSpread is obsolete
+-->
 
 <!-- overview -->
 
@@ -36,7 +37,7 @@ topology spread constraints.
 
 {{< note >}}
 在 v1.19 之前的 Kubernetes 版本中，如果要使用 Pod 拓扑扩展约束，你必须在 [API 服务器](/zh/docs/concepts/overview/components/#kube-apiserver) 
-和[调度器](/zh/docs/reference/command-line-tools-referene/kube-scheduler/)
+和[调度器](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
 中启用 `EvenPodsSpread` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 {{< /note >}}
 

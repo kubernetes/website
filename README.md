@@ -76,7 +76,7 @@ Try checking the current limit for open files:
 
 Then run the following commands (adapted from https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c):
 
-```
+```shell
 #!/bin/sh
 
 # These are the original gist links, linking to my gists now.

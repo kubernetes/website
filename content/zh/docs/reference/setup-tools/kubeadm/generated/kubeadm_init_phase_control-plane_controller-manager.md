@@ -2,13 +2,11 @@
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Generates the kube-controller-manager static Pod manifest
 -->
-
 生成 kube-controller-manager 静态 Pod 清单
 
 ```
@@ -18,7 +16,6 @@ kubeadm init phase control-plane controller-manager [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -29,12 +26,8 @@ kubeadm init phase control-plane controller-manager [flags]
 <tbody>
 
 <tr>
-<td colspan="2">
-<!--
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"
--->
---cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"
-</td>
+<!-- td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td -->
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -65,19 +58,20 @@ kubeadm 配置文件的路径。
 <!--
 A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
-一组额外的参数以 &lt;flagname&gt;=&lt; 形式传递给 Controller Manager 或者覆盖默认参数
+一组 &lt;flagname&gt;=&lt; 形式的额外参数，传递给控制器管理器（Controller Manager）
+或者覆盖其默认配置值
 </td>
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
-</tr>
-<tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The path where kustomize patches for static pod manifests are stored.
--->
-用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
+<!--Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.-->
+包含名为 "target[suffix][+patchtype].extension" 的文件的目录。
+例如，"kube-apiserver0+merge.yaml" 或者 "etcd.json"。
+"patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，分别与 kubectl
+所支持的 patch 格式相匹配。默认的 "patchtype" 是 "strategic"。
+"extension" 必须是 "json" 或 "yaml"。
+"suffix" 是一个可选的字符串，用来确定按字母顺序排序时首先应用哪些 patch。
 </td>
 </tr>
 
@@ -135,7 +129,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
 -->
-指定 Pod 网络的 IP 地址范围。如果已设置，控制平面将自动为每个节点分配 CIDR。
+指定 Pod 网络的 IP 地址范围。如果设置，控制平面将自动为每个节点分配 CIDR。
 </td>
 </tr>
 
@@ -145,7 +139,6 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">

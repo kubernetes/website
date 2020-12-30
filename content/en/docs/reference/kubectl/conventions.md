@@ -32,7 +32,7 @@ For `kubectl run` to satisfy infrastructure as code:
 You can use the `--dry-run=client` flag to preview the object that would be sent to your cluster, without really submitting it.
 
 {{< note >}}
-All `kubectl` generators are deprecated. See the Kubernetes v1.17 documentation for a [list](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators) of generators and how they were used.
+All `kubectl run` generators are deprecated. See the Kubernetes v1.17 documentation for a [list](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators) of generators and how they were used.
 {{< /note >}}
 
 #### Generators

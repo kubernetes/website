@@ -10,9 +10,9 @@ aka:
 tags:
 - fundamental
 ---
-一种将请求指派给队列的技术，其隔离性好过对队列个数哈希取模的方式。
 
 <!--
+---
 title: shuffle sharding
 id: shuffle-sharding
 date: 2020-03-04
@@ -23,8 +23,15 @@ short_description: >
 aka:
 tags:
 - fundamental
+---
+-->
+
+
+<!--
 A technique for assigning requests to queues that provides better isolation than hashing modulo the number of queues.
 -->
+混排切片（Shuffle Sharding）是指一种将请求指派给队列的技术，其隔离性好过对队列个数哈希取模的方式。
+
 
 <!--more--> 
 

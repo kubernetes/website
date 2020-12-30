@@ -814,7 +814,7 @@ CustomResourceDefinition and migrating your objects from one version to another.
 
 关于如何为你的 CustomResourceDefinition 提供多个版本的支持，以及如何将你的对象
 从一个版本迁移到另一个版本， 详细信息可参阅
-[定制资源定义的版本](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)。
+[定制资源定义的版本](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)。
 
 <!-- discussion -->
 

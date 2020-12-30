@@ -235,6 +235,17 @@ daemonset "fluentd-elasticsearch" successfully rolled out
 ### DaemonSet 滚动更新卡住
 
 <!--
+Sometimes, a DaemonSet rolling update may be stuck. Here are some possible
+causes:
+
+#### Some nodes run out of resources
+-->
+有时，DaemonSet 滚动更新可能卡住，以下是一些可能的原因：
+
+
+#### 一些节点可用资源耗尽
+
+<!--
 The rollout is stuck because new DaemonSet pods can't be scheduled on at least one
 node. This is possible when the node is
 [running out of resources](/docs/tasks/administer-cluster/out-of-resource/).
@@ -242,7 +253,7 @@ node. This is possible when the node is
 When this happens, find the nodes that don't have the DaemonSet pods scheduled on
 by comparing the output of `kubectl get nodes` and the output of:
 -->
-有时，DaemonSet 滚动更新可能会卡住，其 Pod 至少在某个节点上无法调度运行。
+DaemonSet 滚动更新可能会卡住，其 Pod 至少在某个节点上无法调度运行。
 当节点上[可用资源耗尽](/zh/docs/tasks/administer-cluster/out-of-resource/)时，
 这是可能的。
 
@@ -261,13 +272,13 @@ make room for new DaemonSet pods.
 
 <!--
 This will cause service disruption when deleted pods are not controlled by any controllers or pods are not
-replicated. This does not respect [PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)
+replicated. This does not respect [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/)
 either.
 -->
 {{< note >}}
 当所删除的 Pod 不受任何控制器管理，也不是多副本的 Pod时，上述操作将导致服务中断。
 同时，上述操作也不会考虑
-[PodDisruptionBudget](/zh/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)
+[PodDisruptionBudget](/zh/docs/tasks/run-application/configure-pdb/)
 所施加的约束。
 {{< /note >}}
 

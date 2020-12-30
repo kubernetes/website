@@ -61,7 +61,7 @@ To remove the taint added by the command above, you can run:
 kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
 -->
-给节点 `node1` 增加一个污点，它的键名是 `key`，键值是 `value`，效果是 `NoSchedule`。
+给节点 `node1` 增加一个污点，它的键名是 `key1`，键值是 `value1`，效果是 `NoSchedule`。
 这表示只有拥有和这个污点相匹配的容忍度的 Pod 才能够被分配到 `node1` 这个节点。
 
 若要移除上述命令所添加的污点，你可以执行：
@@ -516,6 +516,6 @@ arbitrary tolerations to DaemonSets.
 * Read about [pod priority](/docs/concepts/configuration/pod-priority-preemption/)
 -->
 * 阅读[资源耗尽的处理](/zh/docs/tasks/administer-cluster/out-of-resource/)，以及如何配置其行为
-* 阅读 [Pod 优先级](/docs/concepts/configuration/pod-priority-preemption/)
+* 阅读 [Pod 优先级](/zh/docs/concepts/configuration/pod-priority-preemption/)
 
 

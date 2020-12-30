@@ -56,13 +56,13 @@ Cri-containerd uses containerd to manage the full container lifecycle and all co
 
 Let’s use an example to demonstrate how cri-containerd works for the case when Kubelet creates a single-container pod:  
 
-1. 1.Kubelet calls cri-containerd, via the CRI runtime service API, to create a pod;
-2. 2.cri-containerd uses containerd to create and start a special [pause container](https://www.ianlewis.org/en/almighty-pause-container) (the _sandbox container_) and put that container inside the pod’s cgroups and namespace (steps omitted for brevity);
-3. 3.cri-containerd configures the pod’s network namespace using CNI;
-4. 4.Kubelet subsequently calls cri-containerd, via the CRI image service API, to pull the application container image;
-5. 5.cri-containerd further uses containerd to pull the image if the image is not present on the node;
-6. 6.Kubelet then calls cri-containerd, via the CRI runtime service API, to create and start the application container inside the pod using the pulled container image;
-7. 7.cri-containerd finally calls containerd to create the application container, put it inside the pod’s cgroups and namespace, then to start the pod’s new application container.
+1. Kubelet calls cri-containerd, via the CRI runtime service API, to create a pod;
+2. cri-containerd uses containerd to create and start a special [pause container](https://www.ianlewis.org/en/almighty-pause-container) (the _sandbox container_) and put that container inside the pod’s cgroups and namespace (steps omitted for brevity);
+3. cri-containerd configures the pod’s network namespace using CNI;
+4. Kubelet subsequently calls cri-containerd, via the CRI image service API, to pull the application container image;
+5. cri-containerd further uses containerd to pull the image if the image is not present on the node;
+6. Kubelet then calls cri-containerd, via the CRI runtime service API, to create and start the application container inside the pod using the pulled container image;
+7. cri-containerd finally calls containerd to create the application container, put it inside the pod’s cgroups and namespace, then to start the pod’s new application container.
 After these steps, a pod and its corresponding application container is created and running.
 
 

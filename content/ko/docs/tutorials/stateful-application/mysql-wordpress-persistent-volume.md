@@ -76,7 +76,7 @@ MySQL과 Wordpress는 각각 데이터를 저장할 퍼시스턴트볼륨이 필
 ## kustomization.yaml 생성하기
 
 ### 시크릿 생성자 추가
-[시크릿](/ko/docs/concepts/configuration/secret/)은 암호나 키 같은 민감한 데이터들을 저장하는 개체이다. 1.14 버전부터 `kubectl`은 kustomization 파일을 이용해서 쿠버네티스 개체를 관리한다. `kustomization.yaml`의 제네레니터로 시크릿을 생성할 수 있다.
+[시크릿](/ko/docs/concepts/configuration/secret/)은 암호나 키 같은 민감한 데이터들을 저장하는 오브젝트이다. 1.14 버전부터 `kubectl`은 kustomization 파일을 이용해서 쿠버네티스 오브젝트를 관리한다. `kustomization.yaml`의 제너레이터로 시크릿을 생성할 수 있다.
 
 다음 명령어로 `kustomization.yaml` 내에 시크릿 제네레이터를 추가한다. `YOUR_PASSWORD`는 사용하기 원하는 암호로 변경해야 한다.
 
@@ -131,7 +131,7 @@ EOF
 kubectl apply -k ./
 ```
 
-이제 모든 개체가 존재하는지 확인할 수 있다.
+이제 모든 오브젝트가 존재하는지 확인할 수 있다.
 
 1. 시크릿이 존재하는지 다음 명령어를 실행하여 확인한다.
 

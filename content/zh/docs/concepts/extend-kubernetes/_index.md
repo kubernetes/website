@@ -307,8 +307,8 @@ Kubernetes has several built-in authentication methods that it supports. It can 
 Kubernetes 提供若干内置的身份认证方法。
 它也可以运行在某中身份认证代理的后面，并且可以将来自鉴权头部的令牌发送到
 某个远程服务（Webhook）来执行验证操作。
-所有这些方法都在[身份认证文档](/docs/reference/access-authn-authz/authentication/)
-中详细论述。
+所有这些方法都在[身份认证文档](/zh/docs/reference/access-authn-authz/authentication/)
+中有详细论述。
 
 <!--
 ### Authentication
@@ -405,8 +405,8 @@ Different networking fabrics can be supported via node-level [Network Plugins](/
 
 The scheduler is a special type of controller that watches pods, and assigns
 pods to nodes. The default scheduler can be replaced entirely, while
-continuing to use other Kubernetes components, or [multiple
-schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+continuing to use other Kubernetes components, or
+[multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 can run at the same time.
 
 This is a significant undertaking, and almost all Kubernetes users find they
@@ -422,14 +422,14 @@ the nodes chosen for a pod.
 调度器是一种特殊的控制器，负责监视 Pod 变化并将 Pod 分派给节点。
 默认的调度器可以被整体替换掉，同时继续使用其他 Kubernetes 组件。
 或者也可以在同一时刻使用
-[多个调度器](/zh/docs/tasks/administer-cluster/configure-multiple-schedulers/)。
+[多个调度器](/zh/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)。
 
 这是一项非同小可的任务，几乎绝大多数 Kubernetes
 用户都会发现其实他们不需要修改调度器。
 
-调度器也支持一种 [webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)，
-允许使用某种 Webhook 后端（调度器扩展）来为 Pod
-可选的节点执行过滤和优先排序操作。
+调度器也支持一种
+[Webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)，
+允许使用某种 Webhook 后端（调度器扩展）来为 Pod 可选的节点执行过滤和优先排序操作。
 
 
 ## {{% heading "whatsnext" %}}

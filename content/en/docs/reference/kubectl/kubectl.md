@@ -207,6 +207,13 @@ kubectl [flags]
 </tr>
 
 <tr>
+<td colspan="2">--one-output</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">If true, only write logs to their native severity level (vs also writing to each lower severity level</td>
+</tr>
+
+<tr>
 <td colspan="2">--password string</td>
 </tr>
 <tr>
@@ -325,7 +332,6 @@ kubectl [flags]
 
 ## {{% heading "seealso" %}}
 
-* [kubectl alpha](/docs/reference/generated/kubectl/kubectl-commands#alpha)	 - Commands for features in alpha
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Update the annotations on a resource
 * [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - Print the supported API resources on the server
 * [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - Print the supported API versions on the server, in the form of "group/version"
@@ -337,10 +343,10 @@ kubectl [flags]
 * [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands#cluster-info)	 - Display cluster info
 * [kubectl completion](/docs/reference/generated/kubectl/kubectl-commands#completion)	 - Output shell completion code for the specified shell (bash or zsh)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)	 - Modify kubeconfig files
-* [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert)	 - Convert config files between different API versions
 * [kubectl cordon](/docs/reference/generated/kubectl/kubectl-commands#cordon)	 - Mark node as unschedulable
 * [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - Copy files and directories to and from containers.
 * [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - Create a resource from a file or from stdin.
+* [kubectl debug](/docs/reference/generated/kubectl/kubectl-commands#debug)	 - Create debugging sessions for troubleshooting workloads and nodes
 * [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - Delete resources by filenames, stdin, resources and names, or by resources and label selector
 * [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	 - Show details of a specific resource or group of resources
 * [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Diff live version against would-be applied version
@@ -354,7 +360,7 @@ kubectl [flags]
 * [kubectl label](/docs/reference/generated/kubectl/kubectl-commands#label)	 - Update the labels on a resource
 * [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	 - Print the logs for a container in a pod
 * [kubectl options](/docs/reference/generated/kubectl/kubectl-commands#options)	 - Print the list of flags inherited by all commands
-* [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - Update field(s) of a resource using strategic merge patch
+* [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - Update field(s) of a resource
 * [kubectl plugin](/docs/reference/generated/kubectl/kubectl-commands#plugin)	 - Provides utilities for interacting with plugins.
 * [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands#port-forward)	 - Forward one or more local ports to a pod
 * [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy)	 - Run a proxy to the Kubernetes API server

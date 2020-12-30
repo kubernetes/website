@@ -113,7 +113,8 @@ You can use the `-h` flag to find the arguments and flags supported by
 a subcommand:
 -->
 在前述示例中，`create service nodeport` 命令也称作 `create service`
-命令的子命令：
+命令的子命令。
+可以使用 `-h` 标志找到一个子命令所支持的参数和标志。
 
 ```shell
 kubectl create service nodeport -h

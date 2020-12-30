@@ -12,7 +12,7 @@ content_type: task
 <!--
 This example demonstrates an easy way to limit the amount of storage consumed in a namespace.
 -->
-此示例演示了一种限制命名空间中存储使用量的简便方法。
+此示例演示了一种限制名字空间中存储使用量的简便方法。
 
 <!--
 The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/),
@@ -21,8 +21,7 @@ and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 -->
 演示中用到了以下资源：[ResourceQuota](/zh/docs/concepts/policy/resource-quotas/)，
 [LimitRange](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/) 和
-[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/)。
-
+[PersistentVolumeClaim](/zh/docs/concepts/storage/persistent-volumes/)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -51,9 +50,9 @@ The admin would like to limit:
 2. The amount of storage each claim can request
 3. The amount of cumulative storage the namespace can have
 -->
-1. 命名空间中持久卷申领（persistent volume claims）的数量
+1. 名字空间中持久卷申领（persistent volume claims）的数量
 2. 每个申领（claim）可以请求的存储量
-3. 命名空间可以具有的累计存储量
+3. 名字空间可以具有的累计存储量
 
 <!--
 ## LimitRange to limit requests for storage
@@ -63,7 +62,9 @@ The admin would like to limit:
 <!--
 Adding a `LimitRange` to a namespace enforces storage request sizes to a minimum and maximum. Storage is requested via `PersistentVolumeClaim`. The admission controller that enforces limit ranges will reject any PVC that is above or below the values set by the admin.
 -->
-将 `LimitRange` 添加到命名空间会为存储请求大小强制设置最小值和最大值。存储是通过 `PersistentVolumeClaim` 来发起请求的。执行限制范围控制的准入控制器会拒绝任何高于或低于管理员所设阈值的 PVC。
+将 `LimitRange` 添加到名字空间会为存储请求大小强制设置最小值和最大值。
+存储是通过 `PersistentVolumeClaim` 来发起请求的。
+执行限制范围控制的准入控制器会拒绝任何高于或低于管理员所设阈值的 PVC。
 
 <!--
 In this example, a PVC requesting 10Gi of storage would be rejected because it exceeds the 2Gi max.
@@ -88,7 +89,8 @@ spec:
 Minimum storage requests are used when the underlying storage provider requires certain minimums. For example,
 AWS EBS volumes have a 1Gi minimum requirement.
 -->
-当底层存储提供程序需要某些最小值时，将会用到所设置最小存储请求值。例如，AWS EBS volumes 的最低要求为 1Gi。
+当底层存储提供程序需要某些最小值时，将会用到所设置最小存储请求值。
+例如，AWS EBS volumes 的最低要求为 1Gi。
 
 <!--
 ## StorageQuota to limit PVC count and cumulative storage capacity
@@ -99,14 +101,18 @@ AWS EBS volumes have a 1Gi minimum requirement.
 Admins can limit the number of PVCs in a namespace as well as the cumulative capacity of those PVCs. New PVCs that exceed
 either maximum value will be rejected.
 -->
-管理员可以限制某个命名空间中的 PVCs 个数以及这些 PVCs 的累计容量。新 PVCs 请求如果超过任一上限值将被拒绝。
+管理员可以限制某个名字空间中的 PVCs 个数以及这些 PVCs 的累计容量。
+新 PVCs 请求如果超过任一上限值将被拒绝。
 
 <!--
 In this example, a 6th PVC in the namespace would be rejected because it exceeds the maximum count of 5. Alternatively,
 a 5Gi maximum quota when combined with the 2Gi max limit above, cannot have 3 PVCs where each has 2Gi. That would be 6Gi requested
  for a namespace capped at 5Gi.
 -->
-在此示例中，命名空间中的第 6 个 PVC 将被拒绝，因为它超过了最大计数 5。或者，当与上面的 2Gi 最大容量限制结合在一起时，意味着 5Gi 的最大配额不能支持 3 个都是 2Gi 的 PVC。后者实际上是向命名空间请求 6Gi 容量，而该命令空间已经设置上限为 5Gi。
+在此示例中，名字空间中的第 6 个 PVC 将被拒绝，因为它超过了最大计数 5。
+或者，当与上面的 2Gi 最大容量限制结合在一起时，意味着 5Gi 的最大配额
+不能支持 3 个都是 2Gi 的 PVC。
+后者实际上是向名字空间请求 6Gi 容量，而该命令空间已经设置上限为 5Gi。
 
 ```
 apiVersion: v1
@@ -119,18 +125,17 @@ spec:
     requests.storage: "5Gi"
 ```
 
-
-
 <!-- discussion -->
 
 <!--
 ## Summary
--->
-## 小结
 
-<!--
 A limit range can put a ceiling on how much storage is requested while a resource quota can effectively cap the storage consumed by a namespace through claim counts and cumulative storage capacity. The allows a cluster-admin to plan their
 cluster's storage budget without risk of any one project going over their allotment.
 -->
-限制范围对象可以用来设置可请求的存储量上限，而资源配额对象则可以通过申领计数和累计存储容量有效地限制命名空间耗用的存储量。这两种机制使得集群管理员能够规划其集群存储预算而不会发生任一项目超量分配的风险。
+## 小结
+
+限制范围对象可以用来设置可请求的存储量上限，而资源配额对象则可以通过申领计数和
+累计存储容量有效地限制名字空间耗用的存储量。
+这两种机制使得集群管理员能够规划其集群存储预算而不会发生任一项目超量分配的风险。
 

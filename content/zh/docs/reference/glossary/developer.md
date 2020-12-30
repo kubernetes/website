@@ -1,5 +1,5 @@
 ---
-title: 开发者 (释疑)
+title: 开发者（Developer）
 id: developer
 date: 2018-04-12
 full_link: 
@@ -28,7 +28,9 @@ tags:
 ---
 -->
 
- 指的是： {{< glossary_tooltip text="应用开发者" term_id="application-developer" >}}、 {{< glossary_tooltip text="代码贡献者" term_id="code-contributor" >}}、或 {{< glossary_tooltip text="平台开发者" term_id="platform-developer" >}}。
+ 指的是：{{< glossary_tooltip text="应用开发者" term_id="application-developer" >}}、
+ {{< glossary_tooltip text="代码贡献者" term_id="code-contributor" >}}、
+ 或{{< glossary_tooltip text="平台开发者" term_id="platform-developer" >}}。
 
 <!--more--> 
 

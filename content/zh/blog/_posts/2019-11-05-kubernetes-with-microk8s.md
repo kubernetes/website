@@ -24,11 +24,11 @@ While Minikube usually spins up a local virtual machine (VM) for the Kubernetes 
 <!--
 This difference has its pros and cons. Here we’ll discuss a few of the interesting differences, and comparing the benefits of a VM based approach with the benefits of a non-VM approach. One of the first factors is cross-platform portability. While a Minikube VM is portable across operating systems - it supports not only Linux, but Windows, macOS, and even FreeBSD - Microk8s requires Linux, and only on those distributions [that support snaps](https://snapcraft.io/docs/installing-snapd). Most popular Linux distributions are supported. 
 -->
-这种差异有其优点和缺点。在这里，我们将讨论一些有趣的区别，并且基于 VM 的方法和非 VM 方法的好处。第一个因素是跨平台的移植性。虽然 Minikube VM 可以跨操作系统移植——它不仅支持 Linux，还支持 Windows、macOS、甚至 FreeBSD，但 Microk9s 需要 Linux，而且只在[那些支持 snaps](https://snapcraft.io/docs/installing-snapd) 的发行版上。支持大多数流行的 Linux 发行版。
+这种差异有其优点和缺点。在这里，我们将讨论一些有趣的区别，并且基于 VM 的方法和非 VM 方法的好处。第一个因素是跨平台的移植性。虽然 Minikube VM 可以跨操作系统移植——它不仅支持 Linux，还支持 Windows、macOS、甚至 FreeBSD，但 Microk8s 需要 Linux，而且只在[那些支持 snaps](https://snapcraft.io/docs/installing-snapd) 的发行版上。支持大多数流行的 Linux 发行版。
 <!--
 Another factor to consider is resource consumption. While a VM appliance gives you greater portability, it does mean you’ll consume more resources to run the VM, primarily because the VM ships a complete operating system, and runs on top of a hypervisor. You’ll consume more disk space when the VM is dormant. You’ll consume more RAM and CPU while it is running. Since Microk8s doesn’t require spinning up a virtual machine you’ll have more resources to run your workloads and other applications. Given its smaller footprint, MicroK8s is ideal for IoT devices - you can even use it on a Raspberry Pi device!
 -->
-另一个考虑到的因素是资源消耗。虽然 VM 设备为您提供了更好的可移植性，但它确实意味着您将消耗更多资源来运行 VM，这主要是因为 VM 提供了一个完整的操作系统，并且运行在管理程序之上。当 VM 处于休眠时你将消耗更多的磁盘空间。当它运行时，你将会消耗更多的 RAM 和 CPU。因为 MIcrok8s 不需要创建虚拟机，你将会有更多的资源去运行你的工作负载和其他设备。考虑到所占用的空间更小，MIcroK8s 是物联网设备的理想选择-你甚至可以在 Paspberry Pi 和设备上使用它！
+另一个考虑到的因素是资源消耗。虽然 VM 设备为您提供了更好的可移植性，但它确实意味着您将消耗更多资源来运行 VM，这主要是因为 VM 提供了一个完整的操作系统，并且运行在管理程序之上。当 VM 处于休眠时你将消耗更多的磁盘空间。当它运行时，你将会消耗更多的 RAM 和 CPU。因为 Microk8s 不需要创建虚拟机，你将会有更多的资源去运行你的工作负载和其他设备。考虑到所占用的空间更小，MicroK8s 是物联网设备的理想选择-你甚至可以在 Paspberry Pi 和设备上使用它！
 <!--
 Finally, the projects appear to follow a different release cadence and strategy. MicroK8s, and snaps in general provide [channels](https://snapcraft.io/docs/channels) that allow you to consume beta and release candidate versions of new releases of Kubernetes, as well as the previous stable release. Microk8s generally releases the stable release of upstream Kubernetes almost immediately.
 -->
@@ -119,7 +119,7 @@ One of the biggest benefits of using Microk8s is the fact that it also supports 
 The full list of extensions can be checked by running the `microk8s.status` command:
 -->
 ## MicroK8s 插件
-使用 MIcroK8s 其中最大的好处之一事实上是也支持各种各样的插件和扩展。更重要的是它们是开箱即用的，用户仅仅需要启动它们。通过运行 `microk8s.status` 命令检查出扩展的完整列表。
+使用 MicroK8s 其中最大的好处之一事实上是也支持各种各样的插件和扩展。更重要的是它们是开箱即用的，用户仅仅需要启动它们。通过运行 `microk8s.status` 命令检查出扩展的完整列表。
 ```
 sudo microk8s.status
 ```

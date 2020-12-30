@@ -89,7 +89,7 @@ volumeBindingMode: Immediate
 등에 대한 완전한 재량권을 가진다. [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 리포지터리에는 대량의 사양을 구현하는 외부 프로비저너를 작성하기
 위한 라이브러리가 있다. 일부 외부 프로비저너의 목록은
-[kubernetes-sigs/external-storage](https://github.com/kubernetes-sigs/external-dns) 리포지터리에 있다.
+[kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner) 리포지터리에 있다.
 
 예를 들어, NFS는 내부 프로비저너를 제공하지 않지만, 외부
 프로비저너를 사용할 수 있다. 타사 스토리지 업체가 자체 외부
