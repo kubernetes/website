@@ -22,7 +22,7 @@ Este Código de Conducta se aplica tanto dentro de los espacios relacionados con
 
 Los casos de comportamiento abusivo, acosador o de cualquier otro modo inaceptable podrán ser denunciados poniéndose en contacto con el [Comité del Código de Conducta de Kubernetes](https://git.k8s.io/community/committee-code-of-conduct) en <conduct@kubernetes.io>. Para otros proyectos, comuníquese con un mantenedor de proyectos de CNCF o con nuestra mediadora, Mishi Choudhary <mishi@linux.com>.
 
-Este Código de Conducta está adaptado del Compromiso de Colaboradores (http://contributor-covenant.org), versión 1.2.0, disponible en http://contributor-covenant.org/version/1/2/0/
+Este Código de Conducta está adaptado del Compromiso de Colaboradores (https://contributor-covenant.org), versión 1.2.0, disponible en https://contributor-covenant.org/version/1/2/0/
 
 ### Código de Conducta para la Comunidad de la CNCF
 
