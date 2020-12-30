@@ -180,23 +180,28 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     The output is similar to:
 
     ```
-    addon-manager: enabled
-    dashboard: enabled
-    default-storageclass: enabled
-    efk: disabled
-    freshpod: disabled
-    gvisor: disabled
-    helm-tiller: disabled
-    ingress: disabled
-    ingress-dns: disabled
-    logviewer: disabled
-    metrics-server: disabled
-    nvidia-driver-installer: disabled
-    nvidia-gpu-device-plugin: disabled
-    registry: disabled
-    registry-creds: disabled
-    storage-provisioner: enabled
-    storage-provisioner-gluster: disabled
+    |-----------------------------|----------|--------------|
+    |         ADDON NAME          | PROFILE  |    STATUS    |
+    |-----------------------------|----------|--------------|
+    | dashboard                   | minikube | enabled ✅   |
+    | default-storageclass        | minikube | enabled ✅   |
+    | efk                         | minikube | disabled     |
+    | freshpod                    | minikube | disabled     |
+    | gvisor                      | minikube | disabled     |
+    | helm-tiller                 | minikube | disabled     |
+    | ingress                     | minikube | disabled     |
+    | ingress-dns                 | minikube | disabled     |
+    | istio                       | minikube | disabled     |
+    | istio-provisioner           | minikube | disabled     |
+    | logviewer                   | minikube | disabled     |
+    | metrics-server              | minikube | disabled     |
+    | nvidia-driver-installer     | minikube | disabled     |
+    | nvidia-gpu-device-plugin    | minikube | disabled     |
+    | registry                    | minikube | disabled     |
+    | registry-creds              | minikube | disabled     |
+    | storage-provisioner         | minikube | enabled ✅   |
+    | storage-provisioner-gluster | minikube | disabled     |
+    |-----------------------------|----------|--------------|
     ```
 
 2. Enable an addon, for example, `metrics-server`:
@@ -208,7 +213,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     The output is similar to:
 
     ```
-    metrics-server was successfully enabled
+    * The 'metrics-server' addon is enabled
     ```
 
 3. View the Pod and Service you just created:
@@ -249,7 +254,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     The output is similar to:
 
     ```
-    metrics-server was successfully disabled
+    * "The 'metrics-server' addon is disabled
     ```
 
 ## Clean up
