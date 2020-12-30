@@ -994,7 +994,7 @@ Deploymentのセレクターに一致するラベルを持つPodを直接作成�
 
 `.spec.strategy.type==RollingUpdate`と指定されているとき、DeploymentはローリングアップデートによりPodを更新します。ローリングアップデートの処理をコントロールするために`maxUnavailable`と`maxSurge`を指定できます。
 
-##### Max Unavailable {##max-unavailable}
+##### Max Unavailable {#max-unavailable}
 
 `.spec.strategy.rollingUpdate.maxUnavailable`はオプションのフィールドで、更新処理において利用不可となる最大のPod数を指定します。値は絶対値(例: 5)を指定するか、理想状態のPodのパーセンテージを指定します(例: 10%)。パーセンテージを指定した場合、絶対値は小数切り捨てされて計算されます。`.spec.strategy.rollingUpdate.maxSurge`が0に指定されている場合、この値を0にできません。デフォルトでは25%です。
 
