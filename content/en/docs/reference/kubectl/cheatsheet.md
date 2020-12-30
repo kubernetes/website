@@ -49,7 +49,7 @@ detailed config file information.
 kubectl config view # Show Merged kubeconfig settings.
 
 # use multiple kubeconfig files at the same time and view merged config
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 kubectl config view
 
@@ -228,7 +228,7 @@ kubectl rollout restart deployment/frontend                      # Rolling resta
 
 cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into std
 
-# Force replace, delete and then re-create the resource. Will cause a service outage.
+# Force replaces, delete and then re-create the resource. Will cause a service outage.
 kubectl replace --force -f ./pod.json
 
 # Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000
@@ -388,7 +388,7 @@ Verbosity | Description
 --------------| -----------
 `--v=0` | Generally useful for this to *always* be visible to a cluster operator.
 `--v=1` | A reasonable default log level if you don't want verbosity.
-`--v=2` | Useful steady state information about the service and important log messages that may correlate to significant changes in the system. This is the recommended default log level for most systems.
+`--v=2` | Useful steady-state information about the service and essential log messages that may correlate to significant system changes. This is the recommended default log level for most systems.
 `--v=3` | Extended information about changes.
 `--v=4` | Debug level verbosity.
 `--v=6` | Display requested resources.
