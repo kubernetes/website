@@ -257,7 +257,7 @@ if the Pod `restartPolicy` is set to Always, the init containers use
 
 A Pod cannot be `Ready` until all init containers have succeeded. The ports on an
 init container are not aggregated under a Service. A Pod that is initializing
-is in the `Pending` state but should have a condition `Initialized` set to true.
+is in the `Pending` state but should have a condition `Initialized` set to false.
 
 If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers
 must execute again.
