@@ -825,8 +825,8 @@ Follow the steps given below to check the rollout history:
    deployments "nginx-deployment"
    REVISION    CHANGE-CAUSE
    1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
-   2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
-   3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+   2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+   3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
    ```
 
    <!--
@@ -840,7 +840,7 @@ Follow the steps given below to check the rollout history:
    * Append the `-record` flag to save the `kubectl` command that is making changes to the resource.
    * Manually editing the manifest of the resource.
    -->
-   * 使用 `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"` 为 Deployment 添加注解。
+   * 使用 `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"` 为 Deployment 添加注解。
    * 追加 `--record` 命令行标志以保存正在更改资源的 `kubectl` 命令。
    * 手动编辑资源的清单。
 
