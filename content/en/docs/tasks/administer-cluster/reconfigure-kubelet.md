@@ -23,7 +23,7 @@ dynamically, you need a strong understanding of how that change will affect your
 cluster's behavior. Always carefully test configuration changes on a small set
 of nodes before rolling them out cluster-wide. Advice on configuring specific
 fields is available in the inline `KubeletConfiguration`
-[type documentation](https://github.com/kubernetes/kubernetes/blob/release-1.11/pkg/kubelet/apis/kubeletconfig/v1beta1/types.go).
+[type documentation (for v1.20)](https://github.com/kubernetes/kubernetes/blob/release-1.20/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
 {{< /warning >}}
 
 
