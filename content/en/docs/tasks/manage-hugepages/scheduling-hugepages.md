@@ -104,17 +104,19 @@ spec:
 
 - Huge page requests must equal the limits. This is the default if limits are
   specified, but requests are not.
-- Huge pages are isolated at a container scope, so each container has own limit on their cgroup sandbox as requested in a container spec.
+- Huge pages are isolated at a container scope, so each container has own
+  limit on their cgroup sandbox as requested in a container spec.
 - EmptyDir volumes backed by huge pages may not consume more huge page memory
   than the pod request.
 - Applications that consume huge pages via `shmget()` with `SHM_HUGETLB` must
   run with a supplemental group that matches `proc/sys/vm/hugetlb_shm_group`.
 - Huge page usage in a namespace is controllable via ResourceQuota similar
-to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
-token.
+  to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
+  token.
 - Support of multiple sizes huge pages is feature gated. It can be
-  disabled with the `HugePageStorageMediumSize` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) on the {{<
-glossary_tooltip text="kubelet" term_id="kubelet" >}} and {{<
-glossary_tooltip text="kube-apiserver"
-term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=false`).
+  disabled with the `HugePageStorageMediumSize`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  on the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and
+  {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}
+  (`--feature-gates=HugePageStorageMediumSize=false`).
+
