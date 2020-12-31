@@ -117,4 +117,4 @@ token.
 gate](/docs/reference/command-line-tools-reference/feature-gates/) on the {{<
 glossary_tooltip text="kubelet" term_id="kubelet" >}} and {{<
 glossary_tooltip text="kube-apiserver"
-term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`).
+term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=false`).
