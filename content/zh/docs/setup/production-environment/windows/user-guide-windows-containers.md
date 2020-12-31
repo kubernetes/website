@@ -303,7 +303,7 @@ This label reflects the Windows major, minor, and build number that need to matc
 1. 将此文件保存到 `runtimeClasses.yml` 文件。它包括适用于 Windows 操作系统、体系结构和版本的 `nodeSelector`。
 
    ```yaml
-   apiVersion: node.k8s.io/v1beta1
+   apiVersion: node.k8s.io/v1
    kind: RuntimeClass
    metadata:
      name: windows-2019
