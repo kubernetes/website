@@ -92,13 +92,6 @@ The upgrade workflow at high level is the following:
     kubeadm version
     ```
 
-1.  Drain the control plane node:
-
-    ```shell
-    # replace <cp-node-name> with the name of your control plane node
-    kubectl drain <cp-node-name> --ignore-daemonsets
-    ```
-
 1.  On the control plane node, run:
 
     ```shell
@@ -242,13 +235,6 @@ The upgrade workflow at high level is the following:
 
     This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
 
-1.  Uncordon the control plane node:
-
-    ```shell
-    # replace <cp-node-name> with the name of your control plane node
-    kubectl uncordon <cp-node-name>
-    ```
-
 ### Upgrade additional control plane nodes
 
 1.  Same as the first control plane node but use:
@@ -264,6 +250,15 @@ sudo kubeadm upgrade apply
 ```
 
 Also `sudo kubeadm upgrade plan` is not needed.
+
+###  Drain the control plane node
+
+- Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+
+    ```shell
+    # replace <cp-node-name> with the name of your control plane node
+    kubectl drain <cp-node-name> --ignore-daemonsets
+    ```
 
 ### Upgrade kubelet and kubectl
 
@@ -292,6 +287,16 @@ Also `sudo kubeadm upgrade plan` is not needed.
     sudo systemctl restart kubelet
     ```
 
+###  Uncordon the control plane node
+
+- Bring the node back online by marking it schedulable
+
+    ```shell
+    # replace <cp-node-name> with the name of your control plane node
+    kubectl uncordon <cp-node-name>
+    ```
+
+
 ## Upgrade worker nodes
 
 The upgrade procedure on worker nodes should be executed one node at a time or few nodes at a time,
@@ -318,6 +323,14 @@ without compromising the minimum required capacity for running your workloads.
     {{% /tab %}}
     {{< /tabs >}}
 
+### Upgrade the kubelet configuration
+
+1.  Call the following command:
+
+    ```shell
+    sudo kubeadm upgrade node
+    ```
+
 ### Drain the node
 
 1.  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
@@ -333,14 +346,6 @@ without compromising the minimum required capacity for running your workloads.
     node/ip-172-31-85-18 cordoned
     WARNING: ignoring DaemonSet-managed Pods: kube-system/kube-proxy-dj7d7, kube-system/weave-net-z65qx
     node/ip-172-31-85-18 drained
-    ```
-
-### Upgrade the kubelet configuration
-
-1.  Call the following command:
-
-    ```shell
-    sudo kubeadm upgrade node
     ```
 
 ### Upgrade kubelet and kubectl
