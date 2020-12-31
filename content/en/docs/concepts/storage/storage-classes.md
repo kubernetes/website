@@ -240,10 +240,23 @@ parameters:
   iopsPerGB: "10"
   fsType: ext4
 ```
+ Basic Example for gp3
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gp3
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp3
+  fsType: ext4 
+```
 
-* `type`: `io1`, `gp2`, `sc1`, `st1`. See
+* `type`: `io1`, `gp2`, `sc1`, `st1, gp3`. See
   [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
-  for details. Default: `gp2`.
+  for details. Default: `gp3`.
 * `zone` (Deprecated): AWS zone. If neither `zone` nor `zones` is specified, volumes are
   generally round-robin-ed across all active zones where Kubernetes cluster
   has a node. `zone` and `zones` parameters must not be used at the same time.
