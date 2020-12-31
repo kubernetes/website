@@ -46,14 +46,11 @@ There are two API extensions for this feature:
 ## Scheduling
 
 Storage capacity information is used by the Kubernetes scheduler if:
-- the `CSIStorageCapacity` feature gate is true,
-- a Pod uses a volume that has not been created yet,
-- that volume uses a {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} which references a CSI driver and
-  uses `WaitForFirstConsumer` [volume binding
-  mode](/docs/concepts/storage/storage-classes/#volume-binding-mode),
-  and
-- the `CSIDriver` object for the driver has `StorageCapacity` set to
-  true.
+- The `CSIStorageCapacity` feature gate is true.
+- A Pod uses a volume that has not been created yet.
+- That volume uses a {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} which references a CSI driver and
+  uses `WaitForFirstConsumer` [volume binding mode](/docs/concepts/storage/storage-classes/#volume-binding-mode)
+- The `CSIDriver` object for the driver has `StorageCapacity` set to true.
 
 In that case, the scheduler only considers nodes for the Pod which
 have enough storage available to them. This check is very
@@ -137,4 +134,4 @@ details.
  - For more information on the design, see the
 [Storage Capacity Constraints for Pod Scheduling KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1472-storage-capacity-tracking/README.md).
 - For more information on further development of this feature, see the [enhancement tracking issue #1472](https://github.com/kubernetes/enhancements/issues/1472).
-- Learn about [Kubernetes Scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
+- Learn about [Kubernetes Scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/).
