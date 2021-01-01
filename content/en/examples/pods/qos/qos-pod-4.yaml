@@ -5,12 +5,12 @@ metadata:
   namespace: qos-example
 spec:
   containers:
-
+  # The first container specifies a memory request of 200 MiB. 
   - name: qos-demo-4-ctr-1
     image: nginx
     resources:
       requests:
         memory: "200Mi"
-
+  # The second container does not specify any requests or limits.
   - name: qos-demo-4-ctr-2
     image: redis
