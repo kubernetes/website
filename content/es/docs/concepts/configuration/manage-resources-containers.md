@@ -18,7 +18,7 @@ Los recusos que se definen normalmente son CPU y memoria (RAM);pero hay otras.
 Cuando especificas el recurso _request_  para  Contenedores en un {{< glossary_tooltip term_id="pod" >}}, 
 el scheduler usa esta información para decidir en qué nodo colocar el {{< glossary_tooltip term_id="pod" >}}.
 Cuando especificas el recurso _limit_ para un Contenedor, el kubelet fuerza estos límites, así que el contenedor no
-puede utilizar más recursos que el límite que le especificamos. EL kubelet también reserva al menos la cantidad
+puede utilizar más recursos que el límite que le especificamos. El kubelet también reserva al menos la cantidad
 especificada en _request_ para el contenedor.
 
 
@@ -199,119 +199,119 @@ límite de recursos, revisa la sección de [Troubleshooting](#troubleshooting).
 
 ### Monitorización del uso de recursos de computación y memoria.
 
-The resource usage of a Pod is reported as part of the Pod status.
+El uso de recursos de un Pod es reportado como parte del estado del Pod.
 
-If optional [tools for monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
-are available in your cluster, then Pod resource usage can be retrieved either
-from the [Metrics API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
-directly or from your monitoring tools.
+Si opcionalmente [herramientas para monitorización](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+están disponibles en tu cluster, entonces el uso de recursos del Pod pueden extraerse también de
+[Métricas API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
+directamente o desde tus herramientas de monitorización.
 
-## Local ephemeral storage
+## Almacenamiento local efímero
 
 <!-- feature gate LocalStorageCapacityIsolation -->
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
-Nodes have local ephemeral storage, backed by
-locally-attached writeable devices or, sometimes, by RAM.
-"Ephemeral" means that there is no long-term guarantee about durability.
+Los nodos tienen almacenamiento local efímero, respaldado por
+dispositivos de escritura agregados o, a veces, por RAM.
+"Efímero" quiere decir que no se garantiza la durabilidad a largo tiempo.
+.
+Los Pods usan el almacenamiento local efímero para añadir espacio, caché, y para logs.
+El kubelet puede proveer espacio añadido a los Pods usando almacenamiento lcoal efímero para
+montar [`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
+ {{< glossary_tooltip term_id="volume" text="volumes" >}} en los contenedores.
 
-Pods use ephemeral local storage for scratch space, caching, and for logs.
-The kubelet can provide scratch space to Pods using local ephemeral storage to
-mount [`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
- {{< glossary_tooltip term_id="volume" text="volumes" >}} into containers.
-
-The kubelet also uses this kind of storage to hold
-[node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level),
-container images, and the writable layers of running containers.
+El kubelet también usa este tipo de almacenamiento para guardar
+[logs de contenedores a nivel de nodo](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level),
+imágenes de contenedores, y la capa de escritura de los contenedores.
 
 {{< caution >}}
-If a node fails, the data in its ephemeral storage can be lost.  
-Your applications cannot expect any performance SLAs (disk IOPS for example)
-from local ephemeral storage.
+Si un nodo falla, los datos en el almacenamiento efímero se pueden perder.
+Tus aplicaciones no pueden esperar ninguna SLA (IOPS de disco, por ejemplo)
+del almacenamiento local efímero.
 {{< /caution >}}
 
-As a beta feature, Kubernetes lets you track, reserve and limit the amount
-of ephemeral local storage a Pod can consume.
+Como característica beta, Kubernetes te deja probar, reservar y limitar la cantidad
+de almacenamiento local efímero que un Pod puede consumir.
 
-### Configurations for local ephemeral storage
+### Configuraciones para almacenamiento local efímero
 
-Kubernetes supports two ways to configure local ephemeral storage on a node:
+Kubernetes soporta 2 maneras de configurar el almacenamiento local efímero en un nodo:
 {{< tabs name="local_storage_configurations" >}}
 {{% tab name="Single filesystem" %}}
-In this configuration, you place all different kinds of ephemeral local data
-(`emptyDir` volumes, writeable layers, container images, logs) into one filesystem.
-The most effective way to configure the kubelet means dedicating this filesystem
-to Kubernetes (kubelet) data.
+En esta configuración, colocas todos los tipos de datos (`emptyDir` volúmenes, capa de escritura,
+imágenes de contenedores, logs) en un solo sistema de ficheros.
+La manera más efectiva de configurar el kubelet es dedicando este sistema de ficheros para datos de kubernetes (kubelet).
 
-The kubelet also writes
-[node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
-and treats these similarly to ephemeral local storage.
+El kubelet también escribe 
+[logs de contenedores a nivel de nodo](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
+y trata estos the manera similar al almacenamiento efímero.
 
-The kubelet writes logs to files inside its configured log directory (`/var/log`
-by default); and has a base directory for other locally stored data
-(`/var/lib/kubelet` by default).
+El kubelet escribe logs en ficheros dentro del directorio de logs (`/var/log`
+por defecto); y tiene un directorio base para otros datos almacenados localmente
+(`/var/lib/kubelet` por defecto).
 
-Typically, both `/var/lib/kubelet` and `/var/log` are on the system root filesystem,
-and the kubelet is designed with that layout in mind.
+Normalmente, ambos `/var/lib/kubelet` y `/var/log`  están en el filesystem root,
+y el kubelet es designado con esa capa en mente.
 
-Your node can have as many other filesystems, not used for Kubernetes,
-as you like.
+Tu nodo puede tener tantos otros filesystems, no usados por kubernetes,
+como quieras.
 {{% /tab %}}
 {{% tab name="Two filesystems" %}}
-You have a filesystem on the node that you're using for ephemeral data that
-comes from running Pods: logs, and `emptyDir` volumes. You can use this filesystem
-for other data (for example: system logs not related to Kubernetes); it can even
-be the root filesystem.
+Tienes un filesystem en el nodo que estás usando para datos efímeros que
+provienen de los Pods corriendo: logs, y volúmenes `emptyDir`.
+Puedes usar este filesystem para otros datos (por ejemplo: logs del sistema no relacionados
+ con Kubernetes); estos pueden ser incluso del filesystem root.
 
-The kubelet also writes
-[node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
-into the first filesystem, and treats these similarly to ephemeral local storage.
+El kubelet también escribe
+[logs de contenedores a nivel de nodo](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
+en el primer filesystem, y trata estos de manera similar al almacenamiento efímero.
 
-You also use a separate filesystem, backed by a different logical storage device.
-In this configuration, the directory where you tell the kubelet to place
-container image layers and writeable layers is on this second filesystem.
+También usas un filesystem distinto, respaldado por un dispositivo de almacenamiento lógico diferente.
+En esta configuración, el directorio donde le dices al kubelet que coloque
+las capas de imágenes de contenedores y capas de escritura es ene ste segundo filesystem.
 
-The first filesystem does not hold any image layers or writeable layers.
+El primer filesystem no guarda ninguna capa de imágenes o de escritura.
 
-Your node can have as many other filesystems, not used for Kubernetes,
-as you like.
+Tu nodo puede tener tantos filesystems, no usados por Kubernetes, como quieras.
 {{% /tab %}}
 {{< /tabs >}}
 
-The kubelet can measure how much local storage it is using. It does this provided
-that:
+El kubelet puede medir la cantidad de almacenamiento local está usando. Esto es posible por:
 
-- the `LocalStorageCapacityIsolation`
+- el `LocalStorageCapacityIsolation`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled (the feature is on by default), and
-- you have set up the node using one of the supported configurations
-  for local ephemeral storage.
+  está habilitado (esta caracterísitca está habilitada por defecto), y
+- has configurado el nodo usando una de las configuraciones soportadas
+  para almacenamiento local efímero..
 
-If you have a different configuration, then the kubelet does not apply resource
-limits for ephemeral local storage.
+Si tienes una configuración diferente, entonces el kubelet no aplica límites de recursos
+para almacenamiento local efímero.
 
 {{< note >}}
-The kubelet tracks `tmpfs` emptyDir volumes as container memory use, rather
-than as local ephemeral storage.
+El kubelet rastrea `tmpfs` volúmenes emptyDir como uso de memoria de contenedor, en lugar de
+como almacenamiento local efímero.
 {{< /note >}}
 
-### Setting requests and limits for local ephemeral storage
+### Configurando solicitudes y límites para almacenamiento local efímero
 
-You can use _ephemeral-storage_ for managing local ephemeral storage. Each Container of a Pod can specify one or more of the following:
+Puedes usar _ephemeral-storage_ para manejar almacenamiento local efímero. Cada Contenedor de un Pod puede especificar
+uno o más de los siguientes:
 
 * `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.requests.ephemeral-storage`
 
-Limits and requests for `ephemeral-storage` are measured in bytes. You can express storage as
-a plain integer or as a fixed-point number using one of these suffixes:
-E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
-Mi, Ki. For example, the following represent roughly the same value:
+Límites y solicitudes para `almacenamiento-efímero` son medidos en bytes. Puedes expresar el almacenamiento 
+como un integral o como un numero flotante usando los siguientes sufijos:
+E, P, T, G, M, K. También puedes usar los siguientes equivalentes: Ei, Pi, Ti, Gi,
+Mi, Ki. Por ejemplo, los siguientes representan el mismo valor:
 
 ```shell
 128974848, 129e6, 129M, 123Mi
 ```
 
-In the following example, the Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of local ephemeral storage.
+En el siguiente ejemplo, el Pod tiene dos contenedores. Cada Contenedor tiene una solicitud de 2GiB de almacenamiento local efímero. Cada
+Contenedor tiene un límite de 4GiB de almacenamiento local efímero. Sin embargo, el Pod tiene una solicitud de 4GiB de almacenamiento efímero
+, y un límite de 8GiB de almacenamiento local efímero.
 
 ```yaml
 apiVersion: v1
@@ -336,154 +336,164 @@ spec:
         ephemeral-storage: "4Gi"
 ```
 
-### How Pods with ephemeral-storage requests are scheduled
+### Como son colocados los Pods con solicitudes de almacenameinto efímero
 
-When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
-run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. For more information, see [Node Allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
+Cuando creas un Pod, el scheduler de kubernetes selecciona un nodo para el Pod donde crearlo.
+Cada nodo tiene una cantidad máxima de almacenamiento local efímero que puede proveer a los Pods. Para
+más información, mira [Node Allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
 
-The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
+El scheduler se asegura de que la suma de las solicitudes de recursos de los COntenedores es menor que la capacidad del nodo.
 
-### Ephemeral storage consumption management {#resource-emphemeralstorage-consumption}
+### Manejo del consumo de almacenamiento efímero {#resource-emphemeralstorage-consumption}
 
-If the kubelet is managing local ephemeral storage as a resource, then the
-kubelet measures storage use in:
+Si el kubelet está manejando el almacenamiento efímero local como un recurso, entonces el
+kubelet mide el uso de almacenamiento en:
 
-- `emptyDir` volumes, except _tmpfs_ `emptyDir` volumes
-- directories holding node-level logs
-- writeable container layers
+- volúmenes `emptyDir`, excepto _tmpfs_  volúmenes`emptyDir` 
+- directorios que guardan logs de nivel de nodo
+- capas de escritura de contenedores
 
-If a Pod is using more ephemeral storage than you allow it to, the kubelet
-sets an eviction signal that triggers Pod eviction.
+Si un Pod está usando más almacenamiento efímero que el permitido, el kubelet
+crea una señal de evasión que lanza una evasión del Pod.
 
-For container-level isolation, if a Container's writable layer and log
-usage exceeds its storage limit, the kubelet marks the Pod for eviction.
+Para aislamiento a nivel de contenedor, si una capa de escritura de Contenedor y 
+logs excede el límite de uso del almacenamiento, el kubelet marca el Pod para evasión.
 
-For pod-level isolation the kubelet works out an overall Pod storage limit by
-summing the limits for the containers in that Pod. In this case, if the sum of
-the local ephemeral storage usage from all containers and also the Pod's `emptyDir`
-volumes exceeds the overall Pod storage limit, then the kubelet also marks the Pod
-for eviction.
+Para aislamiento a nivel de pod el kubelet calcula un límite de almacenamiento 
+general para el Pod sumando los límites para los contenedores de ese Pod.
+En este caso, si la suma del uso de almacenamiento local efímero para todos los contenedores
+y también los volúmenes `emptyDir` de los Pods excede el límite de almacenamiento general del
+Pod, el kubelete marca el Pod para evasión.
 
 {{< caution >}}
-If the kubelet is not measuring local ephemeral storage, then a Pod
-that exceeds its local storage limit will not be evicted for breaching
-local storage resource limits.
+Si el kubelet no está midiendo el almacenamiento local efímero, entonces el Pod
+que excede este límite de almacenamiento, no será evadido para librar 
+el límite del recurso de almacenamiento.
 
-However, if the filesystem space for writeable container layers, node-level logs,
-or `emptyDir` volumes falls low, the node
-{{< glossary_tooltip text="taints" term_id="taint" >}} itself as short on local storage
-and this taint triggers eviction for any Pods that don't specifically tolerate the taint.
+Sin embargo, si el espacio del filesystem para la capa de escritura del contenedor,
+logs de nivel de nodo o volúmenes `emptyDir` decae, el 
+{{< glossary_tooltip text="taints" term_id="taint" >}}  del nodo lanza la evasión para 
+cualquier Pod que no tolere el taint. 
 
-See the supported [configurations](#configurations-for-local-ephemeral-storage)
-for ephemeral local storage.
+Mira las [configuraciones soportadas](#configurations-for-local-ephemeral-storage)
+para almacenamiento local efímero.
 {{< /caution >}}
 
-The kubelet supports different ways to measure Pod storage use:
+El kubelet soporta diferentes maneras de medir el uso de almacenamiento del Pod:
+
 
 {{< tabs name="resource-emphemeralstorage-measurement" >}}
 {{% tab name="Periodic scanning" %}}
-The kubelet performs regular, schedules checks that scan each
-`emptyDir` volume, container log directory, and writeable container layer.
+El kubelet ejecutachecks regulares, programados que escanean cada
+volumen `emptyDir`, directorio de logs del contenedor, y capa de escritura
+del contenedor.
 
-The scan measures how much space is used.
+El escáner mide cuanto espacio está en uso.
 
 {{< note >}}
-In this mode, the kubelet does not track open file descriptors
-for deleted files.
+En este modo, el kubelet no comprueba ficheros abiertos
+para ficheros borrados.
 
-If you (or a container) create a file inside an `emptyDir` volume,
-something then opens that file, and you delete the file while it is
-still open, then the inode for the deleted file stays until you close
-that file but the kubelet does not categorize the space as in use.
+Si tú (o un contenedor) creas un fichero dentro de un volumen `emptyDir`,
+alguien abre ese fichero, y tú lo borras mientras este está abierto,
+entonces el inodo para este fichero borrado se mantiene hasta que cierras
+el fichero, pero el kubelet no este espacio como en uso.
 {{< /note >}}
 {{% /tab %}}
 {{% tab name="Filesystem project quota" %}}
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-Project quotas are an operating-system level feature for managing
-storage use on filesystems. With Kubernetes, you can enable project
-quotas for monitoring storage use. Make sure that the filesystem
-backing the `emptyDir` volumes, on the node, provides project quota support.
-For example, XFS and ext4fs offer project quotas.
+Las cuotas de proyecto están en las características de nivel de sistema operativo
+para el manejo del almacenamiento en uso del filesystem.
+Con kubernetes, puedes habilitar las cuotas de proyecto para el uso
+de la monitorización del almacenamiento. Asegúrate que el respaldo del
+filesystem de los volúmenes `emptyDir` , en el nodo, provee soporte de
+cuotas de proyecto.
+Por ejemplo, XFS y ext4fs ofrecen cuotas de proeycto.
 
 {{< note >}}
-Project quotas let you monitor storage use; they do not enforce limits.
+Las cuotas de proyecto te permiten monitorizar el uso del almacenamiento; no 
+fuerzan los límites.
 {{< /note >}}
 
-Kubernetes uses project IDs starting from `1048576`. The IDs in use are
-registered in `/etc/projects` and `/etc/projid`. If project IDs in
-this range are used for other purposes on the system, those project
-IDs must be registered in `/etc/projects` and `/etc/projid` so that
-Kubernetes does not use them.
+Kubernetes usa IDs de proyecto empezando por `1048576`. Los IDs en uso
+son registrados en `/etc/projects` y `/etc/projid`. Si los IDs de proyecto
+ene ste rango son usados para otros propósitos en el sistema, esos IDs 
+de proyecto deben ser registrados en `/etc/projects` y `/etc/projid` para 
+que kubernetes no los use.
 
-Quotas are faster and more accurate than directory scanning. When a
-directory is assigned to a project, all files created under a
-directory are created in that project, and the kernel merely has to
-keep track of how many blocks are in use by files in that project.  
-If a file is created and deleted, but has an open file descriptor,
-it continues to consume space. Quota tracking records that space accurately
-whereas directory scans overlook the storage used by deleted files.
+Las cuotas son más rápidas y más precisas que el escáner de directorios. 
+Cuando un directorio es asignado a un proyecto, todos los ficheros creados 
+bajo un directorio son creados en ese proyecto, y el kernel simplemente
+tiene que mantener rastreados cuántos bloques están en uso por ficheros
+en ese proyecto. Si un fichero es creado y borrado, pero tiene un fichero abierto,
+continúa consumiendo espacio. El seguimiento de cuotas registra ese espacio 
+con precisión mientras que los escaneos de directorios pasan por alto 
+el almacenamiento utilizado por los archivos eliminados
+ 
+Si quieres usar cuotas de proyecto, debes:
 
-If you want to use project quotas, you should:
-
-* Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
+* Habilitar el `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in the kubelet configuration.
+  en la configuración del kubelet.
 
-* Ensure that the root filesystem (or optional runtime filesystem)
-  has project quotas enabled. All XFS filesystems support project quotas.
-  For ext4 filesystems, you need to enable the project quota tracking feature
-  while the filesystem is not mounted.
+* Asegúrese de que el sistema de archivos raíz (o el sistema de archivos en tiempo de ejecución opcional)
+  tiene las cuotas de proyectos habilitadas. Todos los sistemas de archivos XFS admiten cuotas de proyectos.
+  Para los sistemas de archivos ext4, debe habilitar la función de seguimiento de cuotas del proyecto
+  mientras el sistema de archivos no está montado.
+
   ```bash
   # For ext4, with /dev/block-device not mounted
   sudo tune2fs -O project -Q prjquota /dev/block-device
   ```
 
-* Ensure that the root filesystem (or optional runtime filesystem) is
-  mounted with project quotas enabled. For both XFS and ext4fs, the
-  mount option is named `prjquota`.
+* Asegúrese de que el sistema de archivos raíz (o el sistema de archivos de tiempo de ejecución opcional) esté
+  montado con cuotas de proyecto habilitadas. Tanto para XFS como para ext4fs, la opción de montaje 
+  se llama `prjquota`.
 
 {{% /tab %}}
 {{< /tabs >}}
 
-## Extended resources
+## Recursos extendidos
 
-Extended resources are fully-qualified resource names outside the
-`kubernetes.io` domain. They allow cluster operators to advertise and users to
-consume the non-Kubernetes-built-in resources.
+Los recursos extendidos son nombres de recursos calificados fuera del
+dominio `kubernetes.io`. Permiten que los operadores de clústers publiciten y los usuarios
+consuman los recursos no integrados de Kubernetes.
 
-There are two steps required to use Extended Resources. First, the cluster
-operator must advertise an Extended Resource. Second, users must request the
-Extended Resource in Pods.
+Hay dos pasos necesarios para utilizar los recursos extendidos. Primero, el operador del clúster
+debe anunciar un Recurso Extendido. En segundo lugar, los usuarios deben solicitar
+el Recurso Extendido en los Pods.
 
-### Managing extended resources
+### Manejando recursos extendidos
 
-#### Node-level extended resources
+#### Recursos extendido a nivel de nodo
 
-Node-level extended resources are tied to nodes.
+Los recursos extendidos a nivel de nodo están vinculados a los nodos
 
 ##### Device plugin managed resources
-See [Device
-Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
-for how to advertise device plugin managed resources on each node.
+Mira [Plugins de
+Dispositivos](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+para percibir como los plugins de dispositivos manejan los recursos
+en cada nodo.
 
-##### Other resources
-To advertise a new node-level extended resource, the cluster operator can
-submit a `PATCH` HTTP request to the API server to specify the available
-quantity in the `status.capacity` for a node in the cluster. After this
-operation, the node's `status.capacity` will include a new resource. The
-`status.allocatable` field is updated automatically with the new resource
-asynchronously by the kubelet. Note that because the scheduler uses the	node
-`status.allocatable` value when evaluating Pod fitness, there may be a short
-delay between patching the node capacity with a new resource and the first Pod
-that requests the resource to be scheduled on that node.
+##### Otros recursos
 
-**Example:**
+Para anunciar un nuevo recurso extendido a nivel de nodo, el operador del clúster puede
+enviar una solicitud HTTP `PATCH` al servidor API para especificar la cantidad 
+disponible en el `status.capacity` para un nodo en el clúster. Después de esta
+operación, el `status.capacity` del nodo incluirá un nuevo recurso. El campo 
+`status.allocatable` se actualiza automáticamente con el nuevo recurso
+de forma asíncrona por el kubelet. Tenga en cuenta que debido a que el scheduler
+utiliza el valor de `status.allocatable` del nodo cuando evalúa la aptitud del Pod, puede haber un corto
+retraso entre parchear la capacidad del nodo con un nuevo recurso y el primer Pod
+que solicita el recurso en ese nodo.
 
-Here is an example showing how to use `curl` to form an HTTP request that
-advertises five "example.com/foo" resources on node `k8s-node-1` whose master
-is `k8s-master`.
+**Ejemplo:**
+
+Aquí hay un ejemplo que muestra cómo usar `curl` para formar una solicitud HTTP que
+anuncia cinco recursos "example.com/foo" en el nodo `k8s-node-1` cuyo nodo master
+es `k8s-master`.
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
@@ -493,31 +503,29 @@ http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
 ```
 
 {{< note >}}
-In the preceding request, `~1` is the encoding for the character `/`
-in the patch path. The operation path value in JSON-Patch is interpreted as a
-JSON-Pointer. For more details, see
-[IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
+En la solicitud anterior, `~ 1` es la codificación del carácter` / `
+en la ruta del parche. El valor de la ruta de operación en JSON-Patch se interpreta como un
+puntero JSON. Para obtener más detalles, consulte
+[IETF RFC 6901, sección 3](https://tools.ietf.org/html/rfc6901#section-3).
 {{< /note >}}
 
-#### Cluster-level extended resources
+#### Recursos extendidos a nivel de Clúster
 
-Cluster-level extended resources are not tied to nodes. They are usually managed
-by scheduler extenders, which handle the resource consumption and resource quota.
+Los recursos extendidos a nivel de clúster no están vinculados a los nodos. Suelen estar gestionados
+por extensores del scheduler, que manejan el consumo de recursos y la cuota de recursos.
 
-You can specify the extended resources that are handled by scheduler extenders
-in [scheduler policy
-configuration](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31).
+Puedes especificar los recursos extendidos que son mantenidos por los extensores del scheduler en
+[configuración de políticas del scheduler](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31).
 
-**Example:**
+**Ejemplo:**
 
-The following configuration for a scheduler policy indicates that the
-cluster-level extended resource "example.com/foo" is handled by the scheduler
-extender.
+La siguiente configuración para una política del scheduler indica que el
+recurso extendido a nivel de clúster "example.com/foo" es mantenido 
+por el extensor del scheduler.
 
-- The scheduler sends a Pod to the scheduler extender only if the Pod requests
-     "example.com/foo".
-- The `ignoredByScheduler` field specifies that the scheduler does not check
-     the "example.com/foo" resource in its `PodFitsResources` predicate.
+- El scheduler envía un Pod al extensor del scheduler solo si la solicitud del Pod "example.com/foo".
+- El campo `ignoredByScheduler` especifica que el schduler no compruba el recurso
+  "example.com/foo"  en su predicado `PodFitsResources`.
 
 ```json
 {
@@ -538,36 +546,37 @@ extender.
 }
 ```
 
-### Consuming extended resources
+### Consumiendo recursos extendidos
 
-Users can consume extended resources in Pod specs just like CPU and memory.
-The scheduler takes care of the resource accounting so that no more than the
-available amount is simultaneously allocated to Pods.
+Los usuarios pueden consumir recursos extendidos en las especificaciones del Pod, como la CPU y la memoria.
+El scheduler se encarga de la contabilidad de recursos para que no más de
+la cantidad disponible sea asignada simultáneamente a los Pods.
 
-The API server restricts quantities of extended resources to whole numbers.
-Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
-_invalid_ quantities are `0.5` and `1500m`.
-
-{{< note >}}
-Extended resources replace Opaque Integer Resources.
-Users can use any domain name prefix other than `kubernetes.io` which is reserved.
-{{< /note >}}
-
-To consume an extended resource in a Pod, include the resource name as a key
-in the `spec.containers[].resources.limits` map in the container spec.
+El servidor de API restringe las cantidades de recursos extendidos a números enteros.
+Ejemplos de cantidades _validas_ son `3`,` 3000m` y `3Ki`. Ejemplos de
+_cantidades no válidas_ son `0.5` y` 1500m`.
 
 {{< note >}}
-Extended resources cannot be overcommitted, so request and limit
-must be equal if both are present in a container spec.
+Los recursos extendidos reemplazan los Recursos Integrales Opacos.
+Los usuarios pueden usar cualquier otro prefijo de dominio que `kubernetes.io`
+tenga reservado.
 {{< /note >}}
 
-A Pod is scheduled only if all of the resource requests are satisfied, including
-CPU, memory and any extended resources. The Pod remains in the `PENDING` state
-as long as the resource request cannot be satisfied.
+Para consumir un recurso extendido en un Pod, incluye un nombre de recurso
+como clave en `spec.containers[].resources.limits` en las especificaciones del contenedor.
 
-**Example:**
+{{< note >}}
+Los Recursos Extendidos no pueden ser sobreescritos, así que solicitudes y límites
+deben ser iguales si ambos están presentes en las especificaciones de un contenedor.
+{{< /note >}}
 
-The Pod below requests 2 CPUs and 1 "example.com/foo" (an extended resource).
+Un pod se programa solo si se satisfacen todas las solicitudes de recursos, incluidas
+CPU, memoria y cualquier recurso extendido. El Pod permanece en estado `PENDING`
+siempre que no se pueda satisfacer la solicitud de recursos.
+
+**Ejemplo:**
+
+El siguiente Pod solicita 2CPUs y 1 "example.com/foo" (un recurso extendido).
 
 ```yaml
 apiVersion: v1
@@ -586,13 +595,13 @@ spec:
         example.com/foo: 1
 ```
 
-## Troubleshooting
+## Solución de problemas
 
-### My Pods are pending with event message failedScheduling
+### Mis Pods están en estado pendiente con un mensaje de failedScheduling
 
-If the scheduler cannot find any node where a Pod can fit, the Pod remains
-unscheduled until a place can be found. An event is produced each time the
-scheduler fails to find a place for the Pod, like this:
+Si el scheduler no puede encontrar ningún nodo donde pueda colocar un Pod, el Pod permanece
+no programado hasta que se pueda encontrar un lugar. Se produce un evento cada vez que
+el scheduler no encuentra un lugar para el Pod, como este:
 
 ```shell
 kubectl describe pod frontend | grep -A 3 Events
@@ -602,20 +611,19 @@ Events:
   FirstSeen LastSeen   Count  From          Subobject   PathReason      Message
   36s   5s     6      {scheduler }              FailedScheduling  Failed for reason PodExceedsFreeCPU and possibly others
 ```
+En el ejemplo anterior, el Pod llamado "frontend" no se puede programar debido a
+recursos de CPU insuficientes en el nodo. Mensajes de error similares también pueden sugerir
+fallo debido a memoria insuficiente (PodExceedsFreeMemory). En general, si un Pod
+está pendiente con un mensaje de este tipo, hay varias cosas para probar:
 
-In the preceding example, the Pod named "frontend" fails to be scheduled due to
-insufficient CPU resource on the node. Similar error messages can also suggest
-failure due to insufficient memory (PodExceedsFreeMemory). In general, if a Pod
-is pending with a message of this type, there are several things to try:
+- Añadir más nodos al clúster.
+- Terminar Pods innecesarios para hacer hueco a los Pods en estado pendiente.
+- Compruebe que el Pod no sea más grande que todos los nodos. Por ejemplo, si todos los
+  los nodos tienen una capacidad de `cpu: 1`, entonces un Pod con una solicitud de` cpu: 1.1`
+  nunca se programará.
 
-- Add more nodes to the cluster.
-- Terminate unneeded Pods to make room for pending Pods.
-- Check that the Pod is not larger than all the nodes. For example, if all the
-  nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
-  never be scheduled.
-
-You can check node capacities and amounts allocated with the
-`kubectl describe nodes` command. For example:
+Puedes comprobar las capacidades del nodo y cantidad utilizada con el comando 
+`kubectl describe nodes`. Por ejemplo:
 
 ```shell
 kubectl describe nodes e2e-test-node-pool-4lw4
@@ -647,27 +655,27 @@ Allocated resources:
   680m (34%)      400m (20%)    920Mi (11%)        1070Mi (13%)
 ```
 
-In the preceding output, you can see that if a Pod requests more than 1120m
-CPUs or 6.23Gi of memory, it will not fit on the node.
+EN la salida anterior, puedes ver si una solicitud de Pod mayor que 1120m
+CPUs o 6.23Gi de memoria, no cabrán en el nodo.
 
-By looking at the `Pods` section, you can see which Pods are taking up space on
-the node.
+Echando un vistazo a la sección `Pods`, puedes ver qué Pods están ocupando espacio
+en el nodo.
 
-The amount of resources available to Pods is less than the node capacity, because
-system daemons use a portion of the available resources. The `allocatable` field
+La cantidad de recursos disponibles para los pods es menor que la capacidad del nodo, porque
+los demonios del sistema utilizan una parte de los recursos disponibles. El campo `allocatable`
 [NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
-gives the amount of resources that are available to Pods. For more information, see
+indica la cantidad de recursos que están disponibles para los Pods. Para más información, mira 
 [Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
 
-The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
-to limit the total amount of resources that can be consumed. If used in conjunction
-with namespaces, it can prevent one team from hogging all the resources.
+La característica [resource quota](/docs/concepts/policy/resource-quotas/) se puede configurar
+para limitar la cantidad total de recursos que se pueden consumir. Si se usa en conjunto
+con espacios de nombres, puede evitar que un equipo acapare todos los recursos.
 
-### My Container is terminated
+### Mi contenedor está terminado
 
-Your Container might get terminated because it is resource-starved. To check
-whether a Container is being killed because it is hitting a resource limit, call
-`kubectl describe pod` on the Pod of interest:
+Es posible que su contenedor se cancele porque carece de recursos. Para verificar
+si un contenedor está siendo eliminado porque está alcanzando un límite de recursos, ejecute
+`kubectl describe pod` en el Pod de interés:
 
 ```shell
 kubectl describe pod simmemleak-hra99
@@ -709,11 +717,11 @@ Events:
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    spec.containers{simmemleak}         created     Created with docker id 87348f12526a
 ```
 
-In the preceding example, the `Restart Count:  5` indicates that the `simmemleak`
-Container in the Pod was terminated and restarted five times.
+En el ejemplo anterior, `Restart Count:  5` indica que el contenedor `simmemleak`
+del Pod se reinició cinco veces.
 
-You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
-of previously terminated Containers:
+Puedes ejecutar `kubectl get pod` con la opción `-o go-template=...` para extraer el estado 
+previos de los Contenedores terminados:
 
 ```shell
 kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
@@ -723,7 +731,7 @@ Container Name: simmemleak
 LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
 ```
 
-You can see that the Container was terminated because of `reason:OOM Killed`, where `OOM` stands for Out Of Memory.
+Puedes ver que el Contenedor fué terminado a causa de `reason:OOM Killed`, donde `OOM` indica una falta de memoria.
 
 
 
@@ -733,15 +741,15 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 ## {{% heading "whatsnext" %}}
 
 
-* Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
+* Obtén experiencia práctica [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 
-* Get hands-on experience [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
+* Obtén experiencia práctica [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
-* For more details about the difference between requests and limits, see
+* Para más detalles sobre la diferencia entre solicitudes y límites, mira
   [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
 
-* Read the [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) API reference
+* Lee [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) referencia de API
 
-* Read the [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API reference
+* Lee [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) referencia de API
 
-* Read about [project quotas](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
+* Lee sobre [project quotas](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) en XFS
