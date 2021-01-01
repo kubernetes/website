@@ -35,12 +35,8 @@ but with different settings.
 
 ## Setup
 
-Ensure the RuntimeClass feature gate is enabled (it is by default). See [Feature
-Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling
-feature gates. The `RuntimeClass` feature gate must be enabled on API server _and_ kubelets.
-
-1. Configure the CRI implementation on nodes (runtime dependent).
-2. Create the corresponding RuntimeClass resources.
+1. Configure the CRI implementation on nodes (runtime dependent)
+2. Create the corresponding RuntimeClass resources
 
 ### 1. Configure the CRI implementation on nodes
 
@@ -146,9 +142,7 @@ See CRI-O's [config documentation](https://raw.githubusercontent.com/cri-o/cri-o
 
 As of Kubernetes v1.16, RuntimeClass includes support for heterogeneous clusters through its
 `scheduling` fields. Through the use of these fields, you can ensure that pods running with this
-RuntimeClass are scheduled to nodes that support it. To use the scheduling support, you must have
-the [RuntimeClass admission controller](/docs/reference/access-authn-authz/admission-controllers/#runtimeclass)
-enabled (the default, as of 1.16).
+RuntimeClass are scheduled to nodes that support it.
 
 To ensure pods land on nodes supporting a specific RuntimeClass, that set of nodes should have a
 common label which is then selected by the `runtimeclass.scheduling.nodeSelector` field. The
@@ -170,8 +164,6 @@ Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 
 You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
 the cluster (including the scheduler) to account for it when making decisions about Pods and resources.  
-To use Pod overhead, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled (it is on by default).
 
 Pod overhead is defined in RuntimeClass through the `overhead` fields. Through the use of these fields,
 you can specify the overhead of running pods utilizing this RuntimeClass and ensure these overheads
