@@ -54,7 +54,7 @@ Here is the configuration file for the Pod:
 {{< codenew file="pods/storage/projected.yaml" >}}
 
 1. <!--Create the Secrets:-->
-   创建 Secrets:
+   创建 Secret:
 
    ```shell
    # 创建包含用户名和密码的文件:
@@ -73,7 +73,7 @@ Here is the configuration file for the Pod:
    kubectl create -f https://k8s.io/examples/pods/storage/projected.yaml
    ```
 
-   <!--
+3. <!--
    Verify that the Pod's Container is running, and then watch for changes to
    the Pod:
    -->
@@ -91,20 +91,34 @@ Here is the configuration file for the Pod:
    test-projected-volume   1/1       Running   0          14s
    ```
 
-3. <!--In another terminal, get a shell to the running Container:-->
+4. <!--In another terminal, get a shell to the running Container:-->
    在另外一个终端中，打开容器的 shell：
 
    ```shell
    kubectl exec -it test-projected-volume -- /bin/sh
    ```
 
-4. <!--In your shell, verify that the `projected-volume` directory contains your projected sources:-->
+5. <!--In your shell, verify that the `projected-volume` directory contains your projected sources:-->
    在 shell 中，确认 `projected-volume` 目录包含你的投射源：
 
    ```shell
    ls /projected-volume/
    ```
+<!--
+## Clean up
+-->
+## 清理
 
+<!--
+Delete the Pod and the Secrets:
+-->
+删除 Pod 和 Secret:
+
+```shell
+kubectl delete pod test-projected-volume
+kubectl delete secret user pass
+```
+   
 ## {{% heading "whatsnext" %}}
 
 <!--

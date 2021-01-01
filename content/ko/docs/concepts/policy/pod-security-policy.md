@@ -138,12 +138,16 @@ RBAC 바인딩에 대한 자세한 예는,
 ### 문제 해결
 
 - [컨트롤러 관리자](/docs/reference/command-line-tools-reference/kube-controller-manager/)는
-[보안 API 포트](/ko/docs/reference/access-authn-authz/controlling-access/)에 대해 실행해야 하며,
-슈퍼유저 권한이 없어야 한다. 그렇지 않으면 요청이 인증 및 권한 부여 모듈을 우회하고,
-모든 파드시큐리티폴리시 오브젝트가 허용되며
-사용자는 특권있는 컨테이너를 만들 수 있다. 컨트롤러 관리자 권한 구성에 대한 자세한
-내용은 [컨트롤러 역할](/docs/reference/access-authn-authz/rbac/#controller-roles)을
-참고하길 바란다.
+보안 API 포트에 대해 실행되어야 하며 수퍼유저 권한이 없어야 한다.
+API 서버 접근 제어에 대한 자세한 내용은
+[쿠버네티스 API에 대한 접근 제어](/ko/docs/concepts/security/controlling-access)를 참고하길 바란다.
+컨트롤러 관리자가 신뢰할 수 있는 API 포트(`localhost` 리스너라고도 함)를
+통해 연결된 경우, 요청이 인증 및 권한 부여 모듈을 우회하고,
+모든 파드시큐리티폴리시 오브젝트가 허용되며 사용자는 특권을 가진 컨테이너를
+만들 수 있는 권한을 부여할 수 있다.
+
+컨트롤러 관리자 권한 구성에 대한 자세한 내용은
+[컨트롤러 역할](/docs/reference/access-authn-authz/rbac/#controller-roles)을 참고하기 바란다.
 
 ## 정책 순서
 

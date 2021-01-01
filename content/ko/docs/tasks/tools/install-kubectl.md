@@ -62,7 +62,7 @@ kubectl을 사용하여 애플리케이션을 배포하고, 클러스터 리소�
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian 또는 HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
+sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
@@ -521,7 +521,7 @@ compinit
 
 ## {{% heading "whatsnext" %}}
 
-* [Minikube 설치](/ko/docs/tasks/tools/install-minikube/)
+* [Minikube 설치](https://minikube.sigs.k8s.io/docs/start/)
 * 클러스터 생성에 대한 자세한 내용은 [시작하기](/ko/docs/setup/)를 참고한다.
 * [애플리케이션을 시작하고 노출하는 방법에 대해 배운다.](/ko/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * 직접 생성하지 않은 클러스터에 접근해야하는 경우,

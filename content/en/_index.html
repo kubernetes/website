@@ -8,7 +8,7 @@ sitemap:
 
 {{< blocks/section id="oceanNodes" >}}
 {{% blocks/feature image="flower" %}}
-[Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) is an open-source system for automating deployment, scaling, and management of containerized applications.
+[Kubernetes]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}), also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.
 
 It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds upon [15 years of experience of running production workloads at Google](http://queue.acm.org/detail.cfm?id=2898444), combined with best-of-breed ideas and practices from the community.
 {{% /blocks/feature %}}
@@ -28,7 +28,7 @@ Whether testing locally or running a global enterprise, Kubernetes flexibility g
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="suitcase" %}}
-#### Run Anywhere
+#### Run K8s Anywhere
 
 Kubernetes is open source giving you the freedom to take advantage of on-premises, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.
 
@@ -44,6 +44,11 @@ Kubernetes is open source giving you the freedom to take advantage of on-premise
         <br>
         <br>
         <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccncna20" button id="desktopKCButton">Attend KubeCon NA virtually on November 17-20, 2020</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccnceu21" button id="desktopKCButton">Attend KubeCon EU virtually on May 4 – 7, 2021</a>
 </div>
 <div id="videoPlayer">
     <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>

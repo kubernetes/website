@@ -34,7 +34,7 @@ JSONPath 模板由 {} 包起来的 JSONPath 表达式组成。Kubectl 使用 JSO
 -->
 1. 使用双引号将 JSONPath 表达式内的文本引起来。
 2. 使用 `range`，`end` 运算符来迭代列表。
-3. 使用负片索引后退列表。负索引不会"环绕"列表，并且只要 `-index + listLength> = 0` 就有效。
+3. 使用负片索引后退列表。负索引不会“环绕”列表，并且只要 `-index + listLength> = 0` 就有效。
 
 {{< note >}}
 <!-- 
@@ -95,7 +95,7 @@ Function            | Description               | Example                       
 --------------------|---------------------------|-----------------------------------------------------------------|------------------
 `text`              | the plain text            | `kind is {.kind}`                                               | `kind is List`
 `@`                 | the current object        | `{@}`                                                           | the same as input
-`.` or `[]`         | child operator            | `{.kind}` or `{['kind']}`                                       | `List`
+`.` or `[]`         | child operator            | `{.kind}`, `{['kind']}` or `{['name\.type']}`                   | `List`
 `..`                | recursive descent         | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
 `*`                 | wildcard. Get all objects | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
 `[start:end :step]` | subscript operator        | `{.users[0].name}`                                              | `myself`
@@ -108,7 +108,7 @@ Function            | Description               | Example                       
 --------------------|---------------------------|-----------------------------------------------------------------|------------------
 `text`              | 纯文本            | `kind is {.kind}`                                               | `kind is List`
 `@`                 | 当前对象        | `{@}`                                                           | 与输入相同
-`.` or `[]`         | 子运算符            | `{.kind}` or `{['kind']}`                                       | `List`
+`.` or `[]`         | 子运算符            | `{.kind}`, `{['kind']}` or `{['name\.type']}`                    | `List`
 `..`                | 递归下降         | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
 `*`                 | 通配符。获取所有对象 | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
 `[start:end :step]` | 下标运算符        | `{.users[0].name}`                                              | `myself`
@@ -127,17 +127,53 @@ kubectl get pods -o json
 kubectl get pods -o=jsonpath='{@}'
 kubectl get pods -o=jsonpath='{.items[0]}'
 kubectl get pods -o=jsonpath='{.items[0].metadata.name}'
+kubectl get pods -o=jsonpath="{.items[*]['metadata.name', 'status.capacity']}"
 kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.startTime}{"\n"}{end}'
 ```
 
 <!-- 
-On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash). This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example: 
+{{< note >}}
+On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash). This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example:
+
+```cmd
+kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.status.startTime}{'\n'}{end}"
+kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.startTime}{\"\n\"}{end}"
+```
+{{< /note >}}
 -->
-在 Windows 上，您必须 _double_ 引用任何包含空格的 JSONPath 模板(不是上面 bash 所示的单引号)。反过来，这意味着您必须在模板中的所有文字周围使用单引号或转义的双引号。例如:
+{{< note >}}
+在 Windows 上，您必须用双引号把任何包含空格的 JSONPath 模板（不是上面 bash 所示的单引号）。
+反过来，这意味着您必须在模板中的所有文字周围使用单引号或转义的双引号。
+例如:
 
 ```cmd
 C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.status.startTime}{'\n'}{end}"
 C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.startTime}{\"\n\"}{end}"
 ```
+{{< /note >}}
 
+<!--
+JSONPath regular expressions are not supported. If you want to match using regular expressions, you can use a tool such as `jq`.
+
+```shell
+# kubectl does not support regular expressions for JSONpath output
+# The following command does not work
+kubectl get pods -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.name}'
+
+# The following command achieves the desired result
+kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
+```
+-->
+{{< note >}}
+不支持 JSONPath 正则表达式。如需使用正则表达式进行匹配操作，您可以使用如 `jq` 之类的工具。
+
+```shell
+# kubectl 的 JSONpath 输出不支持正则表达式
+# 下面的命令不会生效
+kubectl get pods -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.name}'
+
+# 下面的命令可以获得所需的结果
+kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
+```
+{{< /note >}}
 

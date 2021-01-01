@@ -14,10 +14,9 @@ content_type: task
 -->
 
 <!-- overview -->
-
 <!--
 This guide demonstrates how to install and write extensions for [kubectl](/docs/reference/kubectl/kubectl/). By thinking of core `kubectl` commands as essential building blocks for interacting with a Kubernetes cluster, a cluster administrator can think
-of plugins as a means of utilizing these building blocks to create more complex behavior. Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
+  of plugins as a means of utilizing these building blocks to create more complex behavior. Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
 -->
 本指南演示了如何为 [kubectl](/zh/docs/reference/kubectl/kubectl/) 安装和编写扩展。
 通过将核心 `kubectl` 命令看作与 Kubernetes 集群交互的基本构建块，
@@ -52,12 +51,12 @@ the Kubernetes SIG CLI community.
 Krew 是一个由 Kubernetes SIG CLI 社区维护的插件管理器。
 
 <!--
-Kubectl plugins available via the Krew [plugin index](https://index.krew.dev/)
+Kubectl plugins available via the Krew [plugin index](https://krew.sigs.k8s.io/plugins/)
 are not audited for security. You should install and run third-party plugins at your
 own risk, since they are arbitrary programs running on your machine.
 -->
 {{< caution >}}
-Krew [插件索引](https://index.krew.dev/)所维护的 kubectl 插件并未经过安全性审查。
+Krew [插件索引](https://krew.sigs.k8s.io/plugins/) 所维护的 kubectl 插件并未经过安全性审查。
 你要了解安装和运行第三方插件的安全风险，因为它们本质上时是一些在你的机器上
 运行的程序。
 {{< /caution >}}
@@ -69,6 +68,10 @@ Krew [插件索引](https://index.krew.dev/)所维护的 kubectl 插件并未经
 Executing this command causes a traversal of all files in your PATH. Any files that are executable, and begin with `kubectl-` will show up *in the order in which they are present in your PATH* in this command's output.
 A warning will be included for any files beginning with `kubectl-` that are *not* executable.
 A warning will also be included for any valid plugin files that overlap each other's name.
+
+You can use [Krew](https://krew.dev/) to discover and install `kubectl`
+plugins from a community-curated
+[plugin index](https://krew.sigs.k8s.io/plugins/).
 -->
 ### 发现插件
 
@@ -76,6 +79,9 @@ A warning will also be included for any valid plugin files that overlap each oth
 执行此命令将遍历路径中的所有文件。任何以 `kubectl-` 开头的可执行文件都将在这个命令的输出中以它们在路径中出现的顺序显示。
 任何以 `kubectl-` 开头的文件如果`不可执行`，都将包含一个警告。
 对于任何相同的有效插件文件，都将包含一个警告。
+
+你可以使用 [Krew](https://krew.dev/) 从社区策划的[插件索引](https://krew.sigs.k8s.io/plugins/)
+中发现和安装 `kubectl` 插件。
 
 <!--
 #### Limitations
@@ -245,7 +251,7 @@ See [using the command line runtime package](#using-the-command-line-runtime-pac
 
 Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the `kubectl-foo-bar-baz` plugin from the scenario above.
 -->
-kubeclt 插件必须解析并检查传递给它们的所有参数。
+kubectl 插件必须解析并检查传递给它们的所有参数。
 参阅[使用命令行运行时包](#using-the-command-line-runtime-package)了解针对
 插件开发人员的 Go 库的细节。
 
@@ -261,7 +267,7 @@ would be `kubectl-foo-bar-baz-arg1`. Upon not finding that plugin, kubectl then 
 Upon having found a plugin with this name, kubectl then invokes that plugin, passing all args and flags after the plugin's name as arguments to the plugin process.
 -->
 
-如果你运行 `kubectl foo bar baz arg1 --flag=value arg2`，kubeclt 的插件机制将首先尝试找到
+如果你运行 `kubectl foo bar baz arg1 --flag=value arg2`，kubectl 的插件机制将首先尝试找到
 最长可能名称的插件，在本例中是 `kubectl-foo-bar-baz-arg1`。
 当没有找到这个插件时，kubectl 就会将最后一个以破折号分隔的值视为参数（在本例中为 `arg1`），
 并尝试找到下一个最长的名称 `kubectl-foo-bar-baz`。
@@ -313,7 +319,7 @@ command containing dashes in its commandline invocation by using underscores (`_
 #### 带有破折号和下划线的名称
 
 虽然 `kubectl` 插件机制在插件文件名中使用破折号（`-`）分隔插件处理的子命令序列，
-但是仍然可以通过在文件名中使用下划线（`-`）来创建命令行中包含破折号的插件命令。
+但是仍然可以通过在文件名中使用下划线（`_`）来创建命令行中包含破折号的插件命令。
 
 <!-- Example: -->
 例子：
@@ -322,7 +328,7 @@ command containing dashes in its commandline invocation by using underscores (`_
 # 创建文件名中包含下划线的插件
 echo -e '#!/bin/bash\n\necho "I am a plugin with a dash in my name"' > ./kubectl-foo_bar
 sudo chmod +x ./kubectl-foo_bar
-
+  
 # 将插件放到 PATH 下
 sudo mv ./kubectl-foo_bar /usr/local/bin
 
@@ -338,7 +344,7 @@ Note that the introduction of underscores to a plugin filename does not prevent 
 The command from the above example, can be invoked using either a dash (`-`) or an underscore (`_`):
 -->
 请注意，在插件文件名中引入下划线并不会阻止我们使用 `kubectl foo_bar` 之类的命令。
-可以使用破折号（`-`）或下划线（`-`）调用上面示例中的命令:
+可以使用破折号（`-`）或下划线（`_`）调用上面示例中的命令:
 
 ```shell
 # 我们的插件也可以用破折号来调用
@@ -378,11 +384,11 @@ PATH=/usr/local/bin/plugins:/usr/local/bin/moreplugins kubectl plugin list
 
 ```
 The following kubectl-compatible plugins are available:
-
+  
 /usr/local/bin/plugins/kubectl-foo
 /usr/local/bin/moreplugins/kubectl-foo
   - warning: /usr/local/bin/moreplugins/kubectl-foo is overshadowed by a similarly named plugin: /usr/local/bin/plugins/kubectl-foo
-
+  
 error: one plugin warning was found
 ```
 
@@ -469,7 +475,7 @@ kubectl plugin list
 ```
 ```
 The following kubectl-compatible plugins are available:
-
+  
 test/fixtures/pkg/kubectl/plugins/kubectl-foo
 /usr/local/bin/kubectl-foo
   - warning: /usr/local/bin/kubectl-foo is overshadowed by a similarly named plugin: test/fixtures/pkg/kubectl/plugins/kubectl-foo
@@ -525,7 +531,7 @@ package it, distribute it and deliver updates to your users.
 distribute your plugins. This way, you use a single packaging format for all
 target platforms (Linux, Windows, macOS etc) and deliver updates to your users.
 Krew also maintains a [plugin
-index](https://index.krew.dev/) so that other people can
+index](https://krew.sigs.k8s.io/plugins/) so that other people can
 discover your plugin and install it.
 -->
 ### Krew {#distributing-krew}
@@ -533,7 +539,7 @@ discover your plugin and install it.
 [Krew](https://krew.dev/) 提供了一种对插件进行打包和分发的跨平台方式。
 基于这种方式，你会在所有的目标平台（Linux、Windows、macOS 等）使用同一
 种打包形式，包括为用户提供更新。
-Krew 也维护一个[插件索引（plugin index）](https://index.krew.dev/)
+Krew 也维护一个[插件索引（plugin index）](https://krew.sigs.k8s.io/plugins/)
 以便其他人能够发现你的插件并安装之。
 
 <!--
@@ -552,7 +558,7 @@ platforms for each release.
 另一种方式是，你可以使用传统的包管理器（例如 Linux 上 的 `apt` 或 `yum`，
 Windows 上的 Chocolatey、macOs 上的 Homebrew）。
 只要能够将新的可执行文件放到用户的 `PATH` 路径上某处，这种包管理器就符合需要。
-作为一个插件作者，如果你选择这种方式来纷飞，你就需要自己来管理和更新
+作为一个插件作者，如果你选择这种方式来分发，你就需要自己来管理和更新
 你的 kubectl 插件的分发包，包括所有平台和所有发行版本。
 
 <!--
@@ -582,4 +588,3 @@ installs easier.
 * 查看 CLI 插件库示例，查看用 Go 编写的插件的[详细示例](https://github.com/kubernetes/sample-cli-plugin)
 * 如有任何问题，请随时联系 [SIG CLI ](https://github.com/kubernetes/community/tree/master/sig-cli)
 * 了解 [Krew](https://krew.dev/)，一个 kubectl 插件管理器。
-

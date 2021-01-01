@@ -155,7 +155,8 @@ For example, this is how to start a simple web server as a static Pod:
     ```
     or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file).
 -->
-3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`：
+3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`。
+在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下行：
 
    ```
    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
@@ -201,7 +202,7 @@ JSON/YAML 格式的 Pod 定义文件。
 <!--
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 -->
-1. 创建一个 YAML 文件，并保存在保存在 web 服务上，为 kubelet 生成一个 URL。
+1. 创建一个 YAML 文件，并保存在 web 服务上，为 kubelet 生成一个 URL。
 
    ```yaml
    apiVersion: v1

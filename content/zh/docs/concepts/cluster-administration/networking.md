@@ -95,16 +95,16 @@ to containers.  If your job previously ran in a VM, your VM had an IP and could
 talk to other VMs in your project.  This is the same basic model.
 
 Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
-share their network namespaces - including their IP address.  This means that
-containers within a `Pod` can all reach each other's ports on `localhost`. This
-also means that containers within a `Pod` must coordinate port usage, but this
-is no different from processes in a VM.  This is called the "IP-per-pod" model.
+share their network namespaces - including their IP address and MAC address.
+This means that containers within a `Pod` can all reach each other's ports on
+`localhost`. This also means that containers within a `Pod` must coordinate port
+usage, but this is no different from processes in a VM.  This is called the
 -->
 这个模型不仅不复杂，而且还和 Kubernetes 的实现廉价的从虚拟机向容器迁移的初衷相兼容，
 如果你的工作开始是在虚拟机中运行的，你的虚拟机有一个 IP ，
 这样就可以和其他的虚拟机进行通信，这是基本相同的模型。
 
-Kubernetes 的 IP 地址存在于 `Pod` 范围内 - 容器分享它们的网络命名空间 - 包括它们的 IP 地址。
+Kubernetes 的 IP 地址存在于 `Pod` 范围内 - 容器共享它们的网络命名空间 - 包括它们的 IP 地址和 MAC 地址。
 这就意味着 `Pod` 内的容器都可以通过 `localhost` 到达各个端口。
 这也意味着 `Pod` 内的容器都需要相互协调端口的使用，但是这和虚拟机中的进程似乎没有什么不同，
 这也被称为“一个 Pod 一个 IP” 模型。
@@ -139,6 +139,8 @@ imply any preferential status.
 但是希望可以作为对各种技术的详细介绍，并且成为你研究的起点。
 
 接下来的网络技术是按照首字母排序，顺序本身并无其他意义。
+
+{{% thirdparty-content %}}
 
 <!--
 ### ACI
@@ -226,7 +228,7 @@ AWS VPC CNI 项目是开源的，请查看 [GitHub 上的文档](https://github.
 ### Azure CNI for Kubernetes 
 [Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
 
-Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
+Azure CNI is available natively in the [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
 -->
 ### Kubernetes 的 Azure CNI 
 
@@ -266,6 +268,19 @@ BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](http
 BCF 被 Gartner 认为是非常有远见的。
 而 BCF 的一条关于 Kubernetes 的本地部署（其中包括 Kubernetes、DC/OS 和在不同地理区域的多个
 DC 上运行的 VMware）也在[这里](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/)被引用。
+
+<!--
+### Calico
+
+[Calico](https://docs.projectcalico.org/) is an open source networking and network security solution for containers, virtual machines, and native host-based workloads. Calico supports multiple data planes including: a pure Linux eBPF dataplane, a standard Linux networking dataplane, and a Windows HNS dataplane. Calico provides a full networking stack but can also be used in conjunction with [cloud provider CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) to provide network policy enforcement.
+-->
+### Calico
+
+[Calico](https://docs.projectcalico.org/) 是一个开源的联网及网络安全方案，
+用于基于容器、虚拟机和本地主机的工作负载。
+Calico 支持多个数据面，包括：纯 Linux eBPF 的数据面、标准的 Linux 联网数据面
+以及 Windwos HNS 数据面。Calico 在提供完整的联网堆栈的同时，还可与
+[云驱动 CNIs](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) 联合使用，以保证网络策略实施。
 
 <!--
 ### Cilium
@@ -334,6 +349,18 @@ network complexity required to deploy Kubernetes at scale within AWS.
 覆盖网络、BGP、禁用源/目标检查或调整 VPC 路由表以向每个主机提供每个实例子网的
 复杂性（每个 VPC 限制为50-100个条目）。
 简而言之，cni-ipvlan-vpc-k8s 大大降低了在 AWS 中大规模部署 Kubernetes 所需的网络复杂性。
+
+<!--
+### Coil
+
+[Coil](https://github.com/cybozu-go/coil) is a CNI plugin designed for ease of integration, providing flexible egress networking.
+Coil operates with a low overhead compared to bare metal, and allows you to define arbitrary egress NAT gateways for external networks.
+
+-->
+### Coil
+
+[Coil](https://github.com/cybozu-go/coil) 是一个为易于集成、提供灵活的出站流量网络而设计的 CNI 插件。
+与裸机相比，Coil 的额外操作开销低，并允许针对外部网络的出站流量任意定义 NAT 网关。
 
 <!--
 ### Contiv
@@ -638,27 +665,6 @@ OVN 是一个由 Open vSwitch 社区开发的开源的网络虚拟化解决方�
 该项目有一个特定的Kubernetes插件和文档 [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)。
 
 <!--
-### Project Calico
-
-[Project Calico](https://docs.projectcalico.org/) is an open source container networking provider and network policy engine.
-
-Calico provides a highly scalable networking and network policy solution for connecting Kubernetes pods based on the same IP networking principles as the internet, for both Linux (open source) and Windows (proprietary - available from [Tigera](https://www.tigera.io/essentials/)).  Calico can be deployed without encapsulation or overlays to provide high-performance, high-scale data center networking.  Calico also provides fine-grained, intent based network security policy for Kubernetes pods via its distributed firewall.
-
-Calico can also be run in policy enforcement mode in conjunction with other networking solutions such as Flannel, aka [canal](https://github.com/tigera/canal), or native GCE, AWS or Azure networking.
--->
-### Calico 项目  {#project-calico}
-
-[Calico 项目](https://docs.projectcalico.org/) 是一个开源的容器网络提供者和网络策略引擎。
-
-Calico 提供了高度可扩展的网络和网络解决方案，使用基于与 Internet 相同的 IP 网络原理来连接 Kubernetes Pod，
-适用于 Linux （开放源代码）和 Windows（专有-可从 [Tigera](https://www.tigera.io/essentials/) 获得。
-可以无需封装或覆盖即可部署 Calico，以提供高性能，高可扩的数据中心网络。
-Calico 还通过其分布式防火墙为 Kubernetes Pod 提供了基于意图的细粒度网络安全策略。
-
-Calico 还可以和其他的网络解决方案（比如 Flannel、[canal](https://github.com/tigera/canal) 
-或原生 GCE、AWS、Azure 网络等）一起以策略实施模式运行。
-
-<!--
 ### Romana
 
 [Romana](https://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
@@ -697,4 +703,3 @@ document](https://git.k8s.io/community/contributors/design-proposals/network/net
 网络模型的早期设计、运行原理以及未来的一些计划，都在
 [联网设计文档](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)
 里有更详细的描述。
-

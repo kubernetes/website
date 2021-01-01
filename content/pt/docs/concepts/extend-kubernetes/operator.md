@@ -107,7 +107,7 @@ kubectl edit SampleDB/example-database # mudar manualmente algumas definições
 &hellip;e é isso! O Operador vai tomar conta de aplicar
 as mudanças assim como manter o serviço existente em boa forma.
 
-## Escrevendo o seu prórpio Operador {#escrevendo-operador}
+## Escrevendo o seu próprio Operador {#escrevendo-operador}
 
 Se não existir no ecosistema um Operador que implementa
 o comportamento que pretende, pode codificar o seu próprio.

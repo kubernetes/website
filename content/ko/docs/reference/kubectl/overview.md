@@ -59,7 +59,7 @@ kubectl [command] [TYPE] [NAME] [flags]
    * 하나 이상의 파일로 리소스를 지정하려면 다음을 사용한다. `-f file1 -f file2 -f file<#>`
 
       * YAML이 특히 구성 파일에 대해 더 사용자 친화적이므로, [JSON 대신 YAML을 사용한다](/ko/docs/concepts/configuration/overview/#일반적인-구성-팁).<br/>
-     예: `kubectl get pod -f ./pod.yaml`
+     예: `kubectl get -f ./pod.yaml`
 
 * `flags`: 선택적 플래그를 지정한다. 예를 들어, `-s` 또는 `--server` 플래그를 사용하여 쿠버네티스 API 서버의 주소와 포트를 지정할 수 있다.<br/>
 

@@ -1,0 +1,12 @@
+{{ if .Get "image" }}
+<div class="quote banner {{ if $.Page.Params.use_gradient_overlay }}overlay{{ end }}" style="background-image: url({{ .Get "image" }})">
+{{ else }}
+<div class="quote banner">
+{{ end }}
+  <div class="quote-text">
+    {{ .Inner | markdownify }}
+    {{ if .Get "author" }}
+      <span class="quote-author">&mdash; {{ .Get "author" }}</span>
+    {{ end }}
+  </div>
+</div>

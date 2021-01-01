@@ -43,13 +43,7 @@ weight: 60
    ```shell
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
-    このコマンドは
-    [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)
-    オブジェクトとそれに紐付く
-    [ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)
-    オブジェクトを作成します。ReplicaSetは、Hello Worldアプリケーションが稼働している2つの
-    [Pod](/ja/docs/concepts/workloads/pods/pod/)
-    から構成されます。
+    このコマンドは{{< glossary_tooltip text="Deployment" term_id="deployment" >}}オブジェクトとそれに紐付く{{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}}オブジェクトを作成します。ReplicaSetは、Hello Worldアプリケーションが稼働している2つの{{< glossary_tooltip text="Pod" term_id="pod" >}}から構成されます。
 
 1. Deploymentの情報を表示します:
    ```shell

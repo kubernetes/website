@@ -168,11 +168,7 @@ record unless `publishNotReadyAddresses=True` is set on the Service.
 
 ### Pod's setHostnameAsFQDN field {#pod-sethostnameasfqdn-field}
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
-
-**Prerequisites**: The `SetHostnameAsFQDN` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-must be enabled for the
-{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
 When a Pod is configured to have fully qualified domain name (FQDN), its hostname is the short hostname. For example, if you have a Pod with the fully qualified domain name `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`, then by default the `hostname` command inside that Pod returns `busybox-1` and  the `hostname --fqdn` command returns the FQDN.
 

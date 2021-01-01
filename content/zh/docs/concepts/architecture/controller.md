@@ -139,21 +139,44 @@ Controllers that interact with external state find their desired state from
 the API server, then communicate directly with an external system to bring
 the current state closer in line.
 
-(There actually is a controller that horizontally scales the
-nodes in your cluster. See
-[Cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)).
+(There actually is a [controller](https://github.com/kubernetes/autoscaler/)
+that horizontally scales the nodes in your cluster.)
 -->
 
 ### 直接控制 {#direct-control}
 
 相比 Job 控制器，有些控制器需要对集群外的一些东西进行修改。
 
-例如，如果你使用一个控制环来保证集群中有足够的{{< glossary_tooltip text="节点" term_id="node" >}}，那么控制就需要当前集群外的一些服务在需要时创建新节点。
+例如，如果你使用一个控制回路来保证集群中有足够的
+{{< glossary_tooltip text="节点" term_id="node" >}}，那么控制器就需要当前集群外的
+一些服务在需要时创建新节点。
 
-和外部状态交互的控制器从 API 服务器获取到它想要的状态，然后直接和外部系统进行通信并使当前状态更接近期望状态。
+和外部状态交互的控制器从 API 服务器获取到它想要的状态，然后直接和外部系统进行通信
+并使当前状态更接近期望状态。
 
-（实际上有一个控制器可以水平地扩展集群中的节点。请参阅
-[集群自动扩缩容](/zh/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)）。
+（实际上有一个[控制器](https://github.com/kubernetes/autoscaler/)
+可以水平地扩展集群中的节点。请参阅
+
+<!--
+The important point here is that the controller makes some change to bring about
+your desired state, and then reports current state back to your cluster's API server.
+Other control loops can observe that reported data and take their own actions.
+-->
+这里，很重要的一点是，控制器做出了一些变更以使得事物更接近你的期望状态，
+之后将当前状态报告给集群的 API 服务器。
+其他控制回路可以观测到所汇报的数据的这种变化并采取其各自的行动。
+
+<!--
+In the thermostat example, if the room is very cold then a different controller
+might also turn on a frost protection heater. With Kubernetes clusters, the control
+plane indirectly works with IP address management tools, storage services,
+cloud provider APIS, and other services by
+[extending Kubernetes](/docs/concepts/extend-kubernetes/) to implement that.
+-->
+在温度计的例子中，如果房间很冷，那么某个控制器可能还会启动一个防冻加热器。
+就 Kubernetes 集群而言，控制面间接地与 IP 地址管理工具、存储服务、云驱动
+APIs 以及其他服务协作，通过[扩展 Kubernetes](/zh/docs/concepts/extend-kubernetes/)
+来实现这点。
 
 <!--
 ## Desired versus current state {#desired-vs-current}
@@ -172,7 +195,8 @@ useful changes, it doesn't matter if the overall state is or is not stable.
 
 Kubernetes 采用了系统的云原生视图，并且可以处理持续的变化。
 
-在任务执行时，集群随时都可能被修改，并且控制回路会自动修复故障。这意味着很可能集群永远不会达到稳定状态。
+在任务执行时，集群随时都可能被修改，并且控制回路会自动修复故障。
+这意味着很可能集群永远不会达到稳定状态。
 
 只要集群中控制器的在运行并且进行有效的修改，整体状态的稳定与否是无关紧要的。
 
@@ -257,7 +281,9 @@ Kubernetes 允许你运行一个稳定的控制平面，这样即使某些内置
 * If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
 -->
 * 阅读 [Kubernetes 控制平面组件](/zh/docs/concepts/overview/components/#control-plane-components)
-* 了解 [Kubernetes 对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/) 的一些基本知识
+* 了解 [Kubernetes 对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+  的一些基本知识
 * 进一步学习 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api/)
-* 如果你想编写自己的控制器，请看 Kubernetes 的[扩展模式](/zh/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)。
+* 如果你想编写自己的控制器，请看 Kubernetes 的
+  [扩展模式](/zh/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)。
 

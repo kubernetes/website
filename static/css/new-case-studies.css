@@ -1,0 +1,182 @@
+h1 {
+  font-weight: bold;
+  letter-spacing: 0.025em;
+  font-size: 42px;
+  padding-bottom: 2%;
+  margin-top: 10%;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 300;
+  color: #3366ff;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+h1[id]:before, 
+h2[id]:before, 
+h4[id]:before {
+  display: none;
+}
+
+.content p, .content li {
+  font-size: 14px;
+  font-weight: 300;
+  color: #606060;
+}
+
+.quote + h2, 
+.quote + .lead {
+  margin-top: 0;
+}
+
+.content {
+  width: 76.2%;
+  margin: 0 auto;
+  margin-top: 2%;
+  margin-bottom: 4%;
+}
+
+.heading {
+  margin-right: 0.5em;
+}
+
+.heading-logo {
+  max-height: 1em;
+}
+
+.subheading {
+  display: block;
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1.4em;
+  margin-top: 0.75em;
+  padding-bottom: 0.5em;
+  letter-spacing: 0.02em;
+}
+
+.banner {
+  width: 100%;
+  position: relative;
+  font-weight: 300;
+  color: #fff;
+  padding-top: 5%;
+  padding-left: 11.9%;
+  padding-right: 11.9%;
+  font-size: 1.2em;
+  background-size: 100% auto;
+  background-color: #666;
+  background-repeat: no-repeat;
+}
+
+.banner * {
+  position: relative;
+}
+
+.overlay:before{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  background: linear-gradient(to right, #2635e4, #c72f6c);
+  opacity: 0.6;
+}
+
+.details {
+  font-weight: 300;
+  color: #3366ff;
+  letter-spacing: 0.03em;
+  padding-bottom: 2% !important;
+  padding-top: 2%;
+  margin-left: 0;
+  padding-left: 11.9%;
+  border-bottom: 1px solid #ddd;
+}
+
+.details .item {
+  margin-right: 2em;
+  white-space: nowrap;
+}
+
+.quote {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.content .quote-text {
+  color: #fff;
+  padding-bottom: 5%;
+  width: 74%;
+  font-size: 1.3em;
+  line-height: 1.4em;
+  letter-spacing: 0.03em;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.content .quote-text p {
+  color: #fff;
+  font-size: 100%;
+  line-height: 1.4em;
+  margin-bottom: 0;
+}
+
+.quote-author {
+  display: block;
+  margin-top: 3em;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.2em;
+}
+
+.lead {
+  font-size: 1.35rem;
+  font-weight: 300;
+  color: #3366ff;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  letter-spacing: 0.03em;
+}
+
+.youtube-quote-sm {
+  display: inline-block;
+  width: 380px;
+  height: 215px;
+}
+
+.youtube-quote-sm iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media screen and (max-width: 910px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  .details {
+    font-size: 1em !important;
+  }
+
+  .quote-text {
+    font-size: 1em;
+  }
+
+  .quote-author {
+    font-size: 12px;
+  }
+}

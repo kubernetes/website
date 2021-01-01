@@ -19,48 +19,56 @@ weight: 100
 
 <!--
 Horizontal Pod Autoscaler automatically scales the number of pods
-in a replication controller, deployment or replica set based on observed CPU utilization
+in a replication controller, deployment or replica set or statefulset based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 -->
-Horizontal Pod Autoscaler 可以根据 CPU 利用率自动扩缩 ReplicationController、Deployment 或者 ReplicaSet 中的 Pod 数量
+Horizontal Pod Autoscaler 可以根据 CPU 利用率自动扩缩 ReplicationController、
+Deployment、ReplicaSet 或 StatefulSet 中的 Pod 数量
 （也可以基于其他应用程序提供的度量指标，目前这一功能处于 beta 版本）。
 
 <!--
-This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
+This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.
+For more information on how Horizontal Pod Autoscaler behaves, see the
+[Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 -->
 本文将引领你了解如何为 php-apache 服务器配置和使用 Horizontal Pod Autoscaler。
-更多 Horizontal Pod Autoscaler 的信息请参阅
+与 Horizontal Pod Autoscaler 相关的更多信息请参阅
 [Horizontal Pod Autoscaler 用户指南](/zh/docs/tasks/run-application/horizontal-pod-autoscale/)。
 
 ## {{% heading "prerequisites" %}}
 
 <!--
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
-[metrics-server](https://github.com/kubernetes-incubator/metrics-server/) monitoring needs to be deployed in the cluster
-to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics. The instructions for deploying this are on the GitHub repository of [metrics-server](https://github.com/kubernetes-incubator/metrics-server/), if you followed [getting started on GCE guide](/docs/setup/production-environment/turnkey/gce/),
-metrics-server monitoring will be turned-on by default.
+[metrics-server](https://github.com/kubernetes-incubator/metrics-server/) monitoring needs to be deployed
+in the cluster to provide metrics through the [Metrics API](https://github.com/kubernetes/metrics).
+Horizontal Pod Autoscaler uses this API to collect metrics. To learn how to deploy the metrics-server,
+see the [metrics-server documentation](https://github.com/kubernetes-sigs/metrics-server#deployment).
 -->
-本文示例需要一个运行中的 Kubernetes 集群以及 kubectl，集群中还要部署 1.2 或更高
-版本的 [Metrics 服务器](https://github.com/kubernetes-incubator/metrics-server/)。
-Metrics 服务器可以通过资源度量值 API 对外提供度量数据，Horizontal Pod Autoscaler
-正是根据此 API 来获取度量数据。
-部署方法请参考 [metrics-server](https://github.com/kubernetes-incubator/metrics-server/) 。
-如果你正在使用 GCE，按照 [GCE 指南中的入门说明](/zh/docs/setup/production-environment/turnkey/gce/) 操作，metrics-server 会默认启动。
+本文示例需要一个运行中的 Kubernetes 集群以及 kubectl，版本为 1.2 或更高。
+[Metrics 服务器](https://github.com/kubernetes-incubator/metrics-server/)
+需要被部署到集群中，以便通过 [Metrics API](https://github.com/kubernetes/metrics)
+提供度量数据。
+Horizontal Pod Autoscaler 根据此 API 来获取度量数据。
+要了解如何部署 metrics-server，请参考
+[metrics-server 文档](https://github.com/kubernetes-incubator/metrics-server/) 。
 
 <!--
-To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
-and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
-must be able to communicate with the API server providing the custom metrics API. Finally, to use metrics
-not related to any Kubernetes object you must have a Kubernetes cluster at version 1.10 or later, and
-you must be able to communicate with the API server that provides the external metrics API.
+To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a
+Kubernetes cluster and kubectl at version 1.6 or later. To make use of custom metrics, your cluster
+must be able to communicate with the API server providing the custom metrics API.
+Finally, to use metrics not related to any Kubernetes object you must have a
+Kubernetes cluster at version 1.10 or later, and you must be able to communicate with
+the API server that provides the external metrics API.
 See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 -->
-如果需要为 Horizontal Pod Autoscaler 指定多种资源度量指标，你的 Kubernetes 集群以及 kubectl 至少需要达到 1.6 版本。 
+如果需要为 Horizontal Pod Autoscaler 指定多种资源度量指标，你的 Kubernetes
+集群以及 kubectl 至少需要达到 1.6 版本。 
 此外，如果要使用自定义度量指标，你的 Kubernetes 集群还必须能够与提供这些自定义指标
 的 API 服务器通信。
 最后，如果要使用与 Kubernetes 对象无关的度量指标，则 Kubernetes 集群版本至少需要
 达到 1.10 版本，同样，需要保证集群能够与提供这些外部指标的 API 服务器通信。
-更多详细信息，请参阅[Horizontal Pod Autoscaler 用户指南](/zh/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)。
+更多详细信息，请参阅
+[Horizontal Pod Autoscaler 用户指南](/zh/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)。
 
 <!-- steps -->
 
@@ -73,7 +81,8 @@ See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horiz
 To demonstrate Horizontal Pod Autoscaler we will use a custom docker image based on the php-apache image.
 The Dockerfile has the following content:
 -->
-为了演示 Horizontal Pod Autoscaler，我们将使用一个基于 php-apache 镜像的定制 Docker 镜像。 Dockerfile 内容如下： 
+为了演示 Horizontal Pod Autoscaler，我们将使用一个基于 php-apache 镜像的
+定制 Docker 镜像。Dockerfile 内容如下： 
 
 ```
 FROM php:5-apache
@@ -97,17 +106,25 @@ It defines an index.php page which performs some CPU intensive computations:
 ```
 
 <!--
-First, we will start a deployment running the image and expose it as a service:
+First, we will start a deployment running the image and expose it as a service
+using the following configuration:
 -->
-首先，我们先启动一个 Deployment 来运行这个镜像并暴露一个服务：
+首先，我们使用下面的配置启动一个 Deployment 来运行这个镜像并暴露一个服务：
+
+{{< codenew file="application/php-apache.yaml" >}}
+
+<!--
+Run the following command:
+-->
+运行下面的命令：
 
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl apply -f https://k8s.io/examples/application/php-apache.yaml
 ```
 
 ```
-service/php-apache created
 deployment.apps/php-apache created
+service/php-apache created
 ```
 
 <!--
@@ -119,19 +136,20 @@ The following command will create a Horizontal Pod Autoscaler that maintains bet
 controlled by the php-apache deployment we created in the first step of these instructions.
 Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
-(since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
+(since each pod requests 200 milli-cores by `kubectl run`), this means average CPU usage of 100 milli-cores).
 See [here](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details on the algorithm.
 -->
-## 创建 Horizontal Pod Autoscaler
+## 创建 Horizontal Pod Autoscaler  {#create-horizontal-pod-autoscaler}
 
 现在，php-apache 服务器已经运行，我们将通过
 [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale)
 命令创建 Horizontal Pod Autoscaler。 
 以下命令将创建一个 Horizontal Pod Autoscaler 用于控制我们上一步骤中创建的
 Deployment，使 Pod 的副本数量维持在 1 到 10 之间。
-大致来说，HPA 将通过增加或者减少 Pod 副本的数量（通过 Deployment）以保持所有 Pod 的平均 CPU 利用率在 50% 以内（由于每个 Pod 通过 `kubectl run` 请求 200 毫核的 CPU）
-，这意味着平均 CPU 利用率为 100 毫核）。
-相关算法的详情请参阅[文档](/zh/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
+大致来说，HPA 将（通过 Deployment）增加或者减少 Pod 副本的数量以保持所有 Pod
+的平均 CPU 利用率在 50% 左右（由于每个 Pod 请求 200 毫核的 CPU，这意味着平均
+CPU 用量为 100 毫核）。
+算法的详情请参阅[相关文档](/zh/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
 
 ```shell
 kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
@@ -169,17 +187,14 @@ Please note that the current CPU consumption is 0% as we are not sending any req
 Now, we will see how the autoscaler reacts to increased load.
 We will start a container, and send an infinite loop of queries to the php-apache service (please run it in a different terminal):
 -->
-## 增加负载
+## 增加负载  {#increase-load}
 
 现在，我们将看到 Autoscaler 如何对增加负载作出反应。 
-我们将启动一个容器，并通过一个循环向 php-apache 服务器发送无限的查询请求（请在另一个终端中运行以下命令）：
+我们将启动一个容器，并通过一个循环向 php-apache 服务器发送无限的查询请求
+（请在另一个终端中运行以下命令）：
 
 ```shell
-kubectl run -i --tty load-generator --image=busybox /bin/sh
-
-Hit enter for command prompt
-
-while true; do wget -q -O- http://php-apache; done
+kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 ```
 
 <!--
@@ -190,25 +205,26 @@ Within a minute or so, we should see the higher CPU load by executing:
 ```shell
 kubectl get hpa
 ```
-```
-NAME         REFERENCE                     TARGET      CURRENT   MINPODS   MAXPODS   REPLICAS   AGE
-php-apache   Deployment/php-apache/scale   305% / 50%  305%      1         10        1          3m
 
+```
+NAME         REFERENCE                     TARGET      MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache/scale   305% / 50%  1         10        1          3m
 ```
 
 <!--
 Here, CPU consumption has increased to 305% of the request.
 As a result, the deployment was resized to 7 replicas:
 -->
-这时，由于请求增多，CPU 利用率已经升至 305%。
+这时，由于请求增多，CPU 利用率已经升至请求值的 305%。
 可以看到，Deployment 的副本数量已经增长到了 7：
 
 ```shell
 kubectl get deployment php-apache
 ```
+
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   7         7         7            7           19m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   7/7      7           7           19m
 ```
 
 <!--
@@ -217,7 +233,8 @@ of load is not controlled in any way it may happen that the final number of repl
 will differ from this example.
 -->
 {{< note >}}
-有时最终副本的数量可能需要几分钟才能稳定下来。由于环境的差异，不同环境中最终的副本数量可能与本示例中的数量不同。
+有时最终副本的数量可能需要几分钟才能稳定下来。由于环境的差异，
+不同环境中最终的副本数量可能与本示例中的数量不同。
 {{< /note >}}
 
 <!--
@@ -236,11 +253,12 @@ Then we will verify the result state (after a minute or so):
 
 在我们创建 busybox 容器的终端中，输入`<Ctrl> + C` 来终止负载的产生。
 
-然后我们可以再次查看负载状态（等待几分钟时间）：
+然后我们可以再次检查负载状态（等待几分钟时间）：
 
 ```shell
 kubectl get hpa
 ```
+
 ```
 NAME         REFERENCE                     TARGET       MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1          11m
@@ -249,9 +267,10 @@ php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1   
 ```shell
 kubectl get deployment php-apache
 ```
+
 ```
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-php-apache   1         1         1            1           27m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   1/1     1            1           27m
 ```
 
 <!--
@@ -274,9 +293,10 @@ Autoscaling the replicas may take a few minutes.
 You can introduce additional metrics to use when autoscaling the `php-apache` Deployment
 by making use of the `autoscaling/v2beta2` API version.
 -->
-## 基于多项度量指标和自定义度量指标自动扩缩
+## 基于多项度量指标和自定义度量指标自动扩缩 {#autoscaling-on-multiple-metrics-and-custom-metrics}
 
-利用 `autoscaling/v2beta2` API 版本，你可以在自动扩缩 php-apache 这个 Deployment 时使用其他度量指标。
+利用 `autoscaling/v2beta2` API 版本，你可以在自动扩缩 php-apache 这个
+Deployment 时使用其他度量指标。
 
 <!--
 First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2beta2` form:
@@ -339,11 +359,12 @@ CPU 利用率这个度量指标是一个 *resource metric*（资源度量指标�
 
 <!--
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
-requested value, by using a `target` type of `AverageValue` instead of `AverageUtilization`, and
+requested value, by using a `target.type` of `AverageValue` instead of `Utilization`, and
 setting the corresponding `target.averageValue` field instead of the `target.averageUtilization`.
 -->
-你还可以指定资源度量指标使用绝对数值，而不是百分比，你需要将 `target` 类型 `AverageUtilization` 替换成 `AverageValue`，同时
-将 `target.averageUtilization` 替换成 `target.averageValue` 并设定相应的值。
+你还可以指定资源度量指标使用绝对数值，而不是百分比，你需要将 `target.type` 从
+`Utilization` 替换成 `AverageValue`，同时设置 `target.averageValue`
+而非 `target.averageUtilization` 的值。
 
 <!--
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
@@ -351,7 +372,7 @@ object metrics.  These metrics may have names which are cluster specific, and re
 advanced cluster monitoring setup.
 -->
 还有两种其他类型的度量指标，他们被认为是 *custom metrics*（自定义度量指标）：
-即 pod 度量指标和 object 度量指标。
+即 Pod 度量指标和 Object 度量指标。
 这些度量指标可能具有特定于集群的名称，并且需要更高级的集群监控设置。
 
 <!--
@@ -359,8 +380,9 @@ The first of these alternative metric types is *pod metrics*.  These metrics des
 are averaged together across pods and compared with a target value to determine the replica count.
 They work much like resource metrics, except that they *only* support a `target` type of `AverageValue`.
 -->
-第一种可选的度量指标类型是 pod 度量指标。这些指标从某一方面描述了Pod，在不同 Pod 之间进行平均，并通过与一个目标值比对来确定副本的数量。
-它们的工作方式与资源度量指标非常相像，差别是它们仅支持 `target` 类型为 `AverageValue`。
+第一种可选的度量指标类型是 Pod 度量指标。这些指标从某一方面描述了 Pod，
+在不同 Pod 之间进行平均，并通过与一个目标值比对来确定副本的数量。
+它们的工作方式与资源度量指标非常相像，只是它们仅支持 `target` 类型为 `AverageValue`。
 
 <!--
 Pod metrics are specified using a metric block like this:
@@ -386,10 +408,13 @@ metric from the API. With `AverageValue`, the value returned from the custom met
 by the number of pods before being compared to the target. The following example is the YAML
 representation of the `requests-per-second` metric.
 -->
-第二种可选的度量指标类型是对象（object）度量指标。相对于描述 Pod，这些度量指标用于描述一个在相同名字空间中的其他对象。
-请注意这些度量指标用于描述这些对象，并非从对象中获取指标。
-对象度量指标支持的 `target` 类型包括 `Value` 和 `AverageValue`。如果是 `Value` 类型，`target` 值将直接与 API 返回的度量指标比较，
-而对于 `AverageValue` 类型，API 返回的度量值将按照 Pod 数量拆分，然后再与 `target` 值比较。
+第二种可选的度量指标类型是对象（Object）度量指标。这些度量指标用于描述
+在相同名字空间中的别的对象，而非 Pods。
+请注意这些度量指标不一定来自某对象，它们仅用于描述这些对象。
+对象度量指标支持的 `target` 类型包括 `Value` 和 `AverageValue`。
+如果是 `Value` 类型，`target` 值将直接与 API 返回的度量指标比较，
+而对于 `AverageValue` 类型，API 返回的度量值将按照 Pod 数量拆分，
+然后再与 `target` 值比较。
 下面的 YAML 文件展示了一个表示 `requests-per-second` 的度量指标。
 
 ```yaml
@@ -398,7 +423,7 @@ object:
   metric:
     name: requests-per-second
   describedObject:
-    apiVersion: networking.k8s.io/v1beta1
+    apiVersion: networking.k8s.io/v1
     kind: Ingress
     name: main-route
   target:
@@ -500,10 +525,10 @@ described below), you can specify an additional label selector which is passed t
 pipeline. For instance, if you collect a metric `http_requests` with the `verb`
 label, you can specify the following metric block to scale only on GET requests:
 -->
-### 基于更确定的度量值来扩缩
+### 基于更特别的度量值来扩缩   {#autoscaing-on-more-specific-metrics}
 
-许多度量流水线允许你通过名称或附加的_标签_来描述度量指标。
-对于所有非资源类型度量指标（pod、object 和后面将介绍的 external），
+许多度量流水线允许你通过名称或附加的 _标签_ 来描述度量指标。
+对于所有非资源类型度量指标（Pod、Object 和后面将介绍的 External），
 可以额外指定一个标签选择算符。例如，如果你希望收集包含 `verb` 标签的
 `http_requests` 度量指标，可以按如下所示设置度量指标块，使得扩缩操作仅针对
 GET 请求执行：
@@ -538,7 +563,8 @@ with *external metrics*.
 -->
 ### 基于与 Kubernetes 对象无关的度量指标执行扩缩
 
-运行在 Kubernetes 上的应用程序可能需要基于与 Kubernetes 集群中的任何对象没有明显关系的度量指标进行自动扩缩，
+运行在 Kubernetes 上的应用程序可能需要基于与 Kubernetes 集群中的任何对象
+没有明显关系的度量指标进行自动扩缩，
 例如那些描述与任何 Kubernetes 名字空间中的服务都无直接关联的度量指标。
 在 Kubernetes 1.10 及之后版本中，你可以使用外部度量指标（external metrics）。
 
@@ -604,7 +630,7 @@ Kubernetes 为 HorizongtalPodAutoscaler 设置的状态条件（Status Condition
 The conditions appear in the `status.conditions` field.  To see the conditions affecting a HorizontalPodAutoscaler,
 we can use `kubectl describe hpa`:
 -->
-`status.conditions`字段展示了这些状态条件。
+`status.conditions` 字段展示了这些状态条件。
 可以通过 `kubectl describe hpa` 命令查看当前影响 HorizontalPodAutoscaler
 的各种状态条件信息：
 
@@ -648,36 +674,38 @@ HorizontalPodAutoscaler.
 首先，`AbleToScale` 表明 HPA 是否可以获取和更新扩缩信息，以及是否存在阻止扩缩的各种回退条件。
 其次，`ScalingActive` 表明 HPA 是否被启用（即目标的副本数量不为零） 以及是否能够完成扩缩计算。
 当这一状态为 `False` 时，通常表明获取度量指标存在问题。
-最后一个条件 `ScalingLimitted` 表明所需扩缩的值被 HorizontalPodAutoscaler 所定义的最大或者最小值所限制（即已经达到最大或者最小扩缩值）。
+最后一个条件 `ScalingLimitted` 表明所需扩缩的值被 HorizontalPodAutoscaler
+所定义的最大或者最小值所限制（即已经达到最大或者最小扩缩值）。
 这通常表明你可能需要调整 HorizontalPodAutoscaler 所定义的最大或者最小副本数量的限制了。
 
 <!--
 ## Appendix: Quantities
 
 All metrics in the HorizontalPodAutoscaler and metrics APIs are specified using
-a special whole-number notation known in Kubernetes as a *quantity*.  For example,
+a special whole-number notation known in Kubernetes as a
+{{< glossary_tooltip term_id="quantity" text="quantity">}}.  For example,
 the quantity `10500m` would be written as `10.5` in decimal notation.  The metrics APIs
 will return whole numbers without a suffix when possible, and will generally return
 quantities in milli-units otherwise.  This means you might see your metric value fluctuate
-between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.  See the
-[glossary entry on quantities](/docs/reference/glossary?core-object=true#term-quantity) for more information.
+between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.
 -->
-## 附录：量纲
+## 附录：量纲    {#appendix-quantities}
 
-HorizontalPodAutoscaler 和 度量指标 API 中的所有的度量指标使用 Kubernetes 中称为 *quantity* （量纲）的特殊整数表示。
+HorizontalPodAutoscaler 和 度量指标 API 中的所有的度量指标使用 Kubernetes 中称为
+{{< glossary_tooltip term_id="quantity" text="量纲（Quantity）">}}
+的特殊整数表示。
 例如，数量 `10500m` 用十进制表示为 `10.5`。
 如果可能的话，度量指标 API 将返回没有后缀的整数，否则返回以千分单位的数量。
 这意味着你可能会看到你的度量指标在 `1` 和 `1500m` （也就是在十进制记数法中的 `1` 和 `1.5`）之间波动。
-更多信息，请参阅[度量术语](/docs/reference/glossary?core-object=true#term-quantity)。
 
 <!--
 ## Appendix: Other possible scenarios
 
 ### Creating the autoscaler declaratively
 -->
-## 附录：其他可能的情况
+## 附录：其他可能的情况   {#appendix-other-possible-scenarios}
 
-### 使用 YAML 文件以声明式方式创建 Autoscaler
+### 以声明式方式创建 Autoscaler     {#creating-the-autoscaler-declaratively}
 
 <!--
 Instead of using `kubectl autoscale` command to create a HorizontalPodAutoscaler imperatively we
@@ -699,5 +727,4 @@ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 ```
 horizontalpodautoscaler.autoscaling/php-apache created
 ```
-
 

@@ -221,17 +221,17 @@ partition
 ```
 
 <!--
-The first example selects all resources with key equal to `environment` and value equal to `production` or `qa`.
-The second example selects all resources with key equal to `tier` and values other than `frontend` and `backend`, and all resources with no labels with the `tier` key.
-The third example selects all resources including a label with key `partition`; no values are checked.
-The fourth example selects all resources without a label with key `partition`; no values are checked.
+* The first example selects all resources with key equal to `environment` and value equal to `production` or `qa`.
+* The second example selects all resources with key equal to `tier` and values other than `frontend` and `backend`, and all resources with no labels with the `tier` key.
+* The third example selects all resources including a label with key `partition`; no values are checked.
+* The fourth example selects all resources without a label with key `partition`; no values are checked.
 Similarly the comma separator acts as an _AND_ operator. So filtering resources with a `partition` key (no matter the value) and with `environment` different than  `qa` can be achieved using `partition,environment notin (qa)`.
 -->
 
-第一个示例选择了所有键等于 `environment` 并且值等于 `production` 或者 `qa` 的资源。
-第二个示例选择了所有键等于 `tier` 并且值不等于 `frontend` 或者 `backend` 的资源，以及所有没有 `tier` 键标签的资源。
-第三个示例选择了所有包含了有 `partition` 标签的资源；没有校验它的值。
-第四个示例选择了所有没有 `partition` 标签的资源；没有校验它的值。
+* 第一个示例选择了所有键等于 `environment` 并且值等于 `production` 或者 `qa` 的资源。
+* 第二个示例选择了所有键等于 `tier` 并且值不等于 `frontend` 或者 `backend` 的资源，以及所有没有 `tier` 键标签的资源。
+* 第三个示例选择了所有包含了有 `partition` 标签的资源；没有校验它的值。
+* 第四个示例选择了所有没有 `partition` 标签的资源；没有校验它的值。
 类似地，逗号分隔符充当 _与_ 运算符。因此，使用 `partition` 键（无论为何值）和
 `environment` 不同于 `qa` 来过滤资源可以使用 `partition, environment notin（qa)` 来实现。
 
@@ -307,7 +307,7 @@ and [`replicationcontrollers`](/docs/concepts/workloads/controllers/replicationc
 also use label selectors to specify sets of other resources, such as
 [pods](/docs/concepts/workloads/pods/).
 -->
-### 在 API 对象上设置引用
+### 在 API 对象中设置引用
 
 一些 Kubernetes 对象，例如 [`services`](/zh/docs/concepts/services-networking/service/)
 和 [`replicationcontrollers`](/zh/docs/concepts/workloads/controllers/replicationcontroller/) ，
@@ -323,9 +323,11 @@ Labels selectors for both objects are defined in `json` or `yaml` files using ma
 -->
 #### Service 和 ReplicationController
 
-一个 `Service` 指向的一组 pods 是由标签选择算符定义的。同样，一个 `ReplicationController` 应该管理的 pods 的数量也是由标签选择算符定义的。
+一个 `Service` 指向的一组 Pods 是由标签选择算符定义的。同样，一个 `ReplicationController`
+应该管理的 pods 的数量也是由标签选择算符定义的。
 
-两个对象的标签选择算符都是在 `json` 或者 `yaml` 文件中使用映射定义的，并且只支持 _基于等值_ 需求的选择算符：
+两个对象的标签选择算符都是在 `json` 或者 `yaml` 文件中使用映射定义的，并且只支持
+_基于等值_ 需求的选择算符：
 
 ```json
 "selector": {

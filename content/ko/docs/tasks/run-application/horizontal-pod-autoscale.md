@@ -264,12 +264,12 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 
 * 해당 API 등록:
 
-   * 리소스 메트릭의 경우, 일반적으로 이것은 [메트릭-서버](https://github.com/kubernetes-incubator/metrics-server)가 제공하는 `metrics.k8s.io` API이다.
+   * 리소스 메트릭의 경우, 일반적으로 이것은 [메트릭-서버](https://github.com/kubernetes-sigs/metrics-server)가 제공하는 `metrics.k8s.io` API이다.
      클러스터 애드온으로 시작할 수 있다.
 
    * 사용자 정의 메트릭의 경우, 이것은 `custom.metrics.k8s.io` API이다. 메트릭 솔루션 공급 업체에서 제공하는 "어댑터" API 서버에서 제공한다.
      메트릭 파이프라인 또는 [알려진 솔루션 목록](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api)으로 확인한다.
-     직접 작성하고 싶다면 [샘플](https://github.com/kubernetes-incubator/custom-metrics-apiserver)을 확인하라.
+     직접 작성하고 싶다면 [샘플](https://github.com/kubernetes-sigs/custom-metrics-apiserver)을 확인한다.
 
    * 외부 메트릭의 경우, 이것은 `external.metrics.k8s.io` API이다. 위에 제공된 사용자 정의 메트릭 어댑터에서 제공될 수 있다.
 
@@ -406,6 +406,9 @@ behavior:
 
 마지막으로 5개의 파드를 드롭하기 위해 다른 폴리시를 추가하고, 최소 선택
 전략을 추가할 수 있다.
+분당 5개 이하의 파드가 제거되지 않도록, 고정 크기가 5인 두 번째 축소
+정책을 추가하고, `selectPolicy` 를 최소로 설정하면 된다. `selectPolicy` 를 `Min` 으로 설정하면
+자동 스케일러가 가장 적은 수의 파드에 영향을 주는 정책을 선택함을 의미한다.
 
 ```yaml
 behavior:
@@ -417,7 +420,7 @@ behavior:
     - type: Pods
       value: 5
       periodSeconds: 60
-    selectPolicy: Max
+    selectPolicy: Min
 ```
 
 ### 예시: 스케일 다운 비활성화
@@ -431,7 +434,14 @@ behavior:
     selectPolicy: Disabled
 ```
 
+## 암시적 유지 관리 모드 비활성화
 
+HPA 구성 자체를 변경할 필요없이 대상에 대한
+HPA를 암시적으로 비활성화할 수 있다. 대상의 의도한
+레플리카 수가 0으로 설정되고, HPA의 최소 레플리카 수가 0 보다 크면, 대상의
+의도한 레플리카 수 또는 HPA의 최소 레플리카 수를 수동으로 조정하여
+다시 활성화할 때까지 HPA는 대상 조정을
+중지한다(그리고 `ScalingActive` 조건 자체를 `false`로 설정).
 
 ## {{% heading "whatsnext" %}}
 

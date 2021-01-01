@@ -181,6 +181,9 @@ other = "教程目标"
 [options_heading]
 other = "选项"
 
+[post_create_child_page]
+other = "创建子页面"
+
 [prerequisites_heading]
 other = "准备开始"
 
@@ -213,3 +216,12 @@ other = "警告："
 
 [whatsnext_heading]
 other = "接下来"
+
+[docs_version_latest_heading]
+other = "当前版本"
+
+[docs_version_other_heading]
+other = "往期版本"
+
+[docs_version_current]
+other = "(此文档)"

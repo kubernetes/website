@@ -361,7 +361,7 @@ to clients, `kubectl` also checks for unknown fields and rejects those objects w
 
 #### Controlling pruning
 
-By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).  
+By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
 For example:
 
 ```yaml
@@ -518,27 +518,25 @@ apiVersion: "stable.example.com/v1"
 kind: CronTab
 metadata:
   finalizers:
-  - finalizer.stable.example.com
+  - stable.example.com/finalizer
 ```
 
-Finalizers are arbitrary string values, that when present ensure that a hard delete
-of a resource is not possible while they exist.
+Identifiers of custom finalizers consist of a domain name, a forward slash and the name of
+the finalizer. Any controller can add a finalizer to any object's list of finalizers.
 
 The first delete request on an object with finalizers sets a value for the
 `metadata.deletionTimestamp` field but does not delete it. Once this value is set,
-entries in the `finalizers` list can only be removed.
+entries in the `finalizers` list can only be removed. While any finalizers remain it is also
+impossible to force the deletion of an object.
 
-When the `metadata.deletionTimestamp` field is set, controllers watching the object
-execute any finalizers they handle, by polling update requests for that
-object. When all finalizers have been executed, the resource is deleted.
+When the `metadata.deletionTimestamp` field is set, controllers watching the object execute any
+finalizers they handle and remove the finalizer from the list after they are done. It is the
+responsibility of each controller to remove its finalizer from the list.
 
-The value of `metadata.deletionGracePeriodSeconds` controls the interval between
-polling updates.
+The value of `metadata.deletionGracePeriodSeconds` controls the interval between polling updates.
 
-It is the responsibility of each controller to remove its finalizer from the list.
-
-Kubernetes only finally deletes the object if the list of finalizers is empty,
-meaning all finalizers have been executed.
+Once the list of finalizers is empty, meaning all finalizers have been executed, the resource is
+deleted by Kubernetes.
 
 ### Validation
 
@@ -565,7 +563,7 @@ Additionally, the following restrictions are applied to the schema:
 - The field `additionalProperties` is mutually exclusive with `properties`.
 
 The `default` field can be set when the [Defaulting feature](#defaulting) is enabled,
-which is the case with `apiextensions.k8s.io/v1` CustomResourceDefinitions. 
+which is the case with `apiextensions.k8s.io/v1` CustomResourceDefinitions.
 Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled, which is the case automatically for many clusters for beta features).
@@ -763,6 +761,48 @@ Default values must be pruned (with the exception of defaults for `metadata` fie
 
 Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but through the pruning step during handling of requests.
 
+#### Defaulting and Nullable
+
+**New in 1.20:** null values for fields that either don't specify the nullable flag, or give it a `false` value, will be pruned before defaulting happens. If a default is present, it will be applied. When nullable is `true`, null values will be conserved and won't be defaulted.
+
+For example, given the OpenAPI schema below:
+
+```yaml
+type: object
+properties:
+  spec:
+    type: object
+    properties:
+      foo:
+        type: string
+        nullable: false
+        default: "default"
+      bar:
+        type: string
+        nullable: true
+      baz:
+        type: string
+```
+
+creating an object with null values for `foo` and `bar` and `baz`
+
+```yaml
+spec:
+  foo: null
+  bar: null
+  baz: null
+```
+
+leads to
+
+```yaml
+spec:
+  foo: "default"
+  bar: null
+```
+
+with `foo` pruned and defaulted because the field is non-nullable, `bar` maintaining the null value due to `nullable: true`, and `baz` pruned because the field is non-nullable and has no default.
+
 ### Publish Validation Schema in OpenAPI v2
 
 CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
@@ -954,15 +994,15 @@ the `/scale` subresource will return an error on GET.
 
   - It is a required value.
   - Only JSONPaths under `.status` and with the dot notation are allowed.
-  - If there is no value under the `StatusReplicasPath` in the custom resource,
+  - If there is no value under the `statusReplicasPath` in the custom resource,
 the status replica value in the `/scale` subresource will default to 0.
 
-- `LabelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
+- `labelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
 
   - It is an optional value.
   - It must be set to work with HPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
-  - If there is no value under the `LabelSelectorPath` in the custom resource,
+  - If there is no value under the `labelSelectorPath` in the custom resource,
 the status selector value in the `/scale` subresource will default to the empty string.
   - The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form.
 

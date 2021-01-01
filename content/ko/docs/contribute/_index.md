@@ -1,6 +1,6 @@
 ---
 content_type: concept
-title: 쿠버네티스 문서에 기여하기
+title: K8s 문서에 기여하기
 linktitle: 기여
 main_menu: true
 no_list: true
@@ -8,10 +8,17 @@ weight: 80
 card:
   name: contribute
   weight: 10
-  title: 기여 시작하기
+  title: K8s에 기여 시작하기
 ---
 
 <!-- overview -->
+
+*쿠버네티스는 신규 및 숙련된 모든 기여자의 개선을 환영합니다!*
+
+{{< note >}}
+일반적인 쿠버네티스에 기여하는 방법에 대한 자세한 내용은
+[기여자 문서](https://www.kubernetes.dev/docs/)를 참고한다.
+{{< /note >}}
 
 이 웹사이트는 [쿠버네티스 SIG Docs](/ko/docs/contribute/#sig-docs에-참여)에 의해서 관리됩니다.
 
@@ -21,8 +28,6 @@ card:
 - 새 콘텐츠를 만듭니다.
 - 문서를 번역합니다.
 - 쿠버네티스 릴리스 주기에 맞추어 문서 부분을 관리하고 발행합니다.
-
-쿠버네티스 문서는 새롭고 경험이 풍부한 모든 기여자의 개선을 환영합니다!
 
 <!-- body -->
 

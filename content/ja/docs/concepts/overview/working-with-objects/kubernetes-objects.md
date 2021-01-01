@@ -28,7 +28,7 @@ Kubernetesオブジェクトを操作するには、作成、変更、または�
 
 ほとんどのKubernetesオブジェクトは、オブジェクトの設定を管理する２つの入れ子になったオブジェクトのフィールドを持っています。それはオブジェクト *`spec`* とオブジェクト *`status`* です。`spec`を持っているオブジェクトに関しては、オブジェクト作成時に`spec`を設定する必要があり、望ましい状態としてオブジェクトに持たせたい特徴を記述する必要があります。
 
-`status` オブジェクトはオブジェクトの *現在の状態* を示し、その情報はKubernetesとそのコンポーネントにより提供、更新されます。Kubernetes{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}は、あなたから指定された望ましい状態と現在の状態が一致するよう常にかつ積極的に管理をします。
+`status` オブジェクトはオブジェクトの *現在の状態* を示し、その情報はKubernetesシステムとそのコンポーネントにより提供、更新されます。Kubernetes{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}は、あなたから指定された望ましい状態と現在の状態が一致するよう常にかつ積極的に管理をします。
 
 例えば、KubernetesのDeploymentはクラスター上で稼働するアプリケーションを表現するオブジェクトです。Deploymentを作成するとき、アプリケーションの複製を３つ稼働させるようDeploymentのspecで指定するかもしれません。KubernetesはDeploymentのspecを読み取り、指定されたアプリケーションを３つ起動し、現在の状態がspecに一致するようにします。もしこれらのインスタンスでどれかが落ちた場合(statusが変わる)、Kubernetesはspecと、statusの違いに反応し、修正しようとします。この場合は、落ちたインスタンスの代わりのインスタンスを立ち上げます。
 
@@ -73,7 +73,7 @@ Kubernetesオブジェクトを`.yaml`ファイルに記載して作成する場
 
 
 * [Kubernetes API overview](/docs/reference/using-api/api-overview/)はこのページでは取り上げていない他のAPIについて説明します。
-* 最も重要、かつ基本的なKubernetesオブジェクト群を学びましょう、例えば、[Pod](/ja/docs/concepts/workloads/pods/pod-overview/)です。
+* 最も重要、かつ基本的なKubernetesオブジェクト群を学びましょう、例えば、[Pod](/ja/docs/concepts/workloads/pods/)です。
 * Kubernetesの[コントローラー](/docs/concepts/architecture/controller/)を学びましょう。
 
 

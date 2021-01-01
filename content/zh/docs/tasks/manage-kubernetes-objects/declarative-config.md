@@ -1069,7 +1069,7 @@ Kubernetes 源代码中为每个字段定义了 `patchMergeKey`：
     - name: nginx-helper-d # 键 nginx-helper-d 会被保留
       image: helper:1.3
 
-# result after merge
+# 合并结果
     containers:
     - name: nginx
       image: nginx:1.16
@@ -1483,6 +1483,7 @@ configuration involves several manual steps:
    ```shell
    kubectl replace --save-config -f <kind>_<name>.yaml
    ```
+1. 更改过程，使用 `kubectl apply` 专门管理对象。  
 
 <!--
 ### Migrating from imperative object configuration to declarative object configuration

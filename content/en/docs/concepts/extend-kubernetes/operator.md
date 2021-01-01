@@ -35,7 +35,7 @@ Kubernetes' {{< glossary_tooltip text="controllers" term_id="controller" >}}
 concept lets you extend the cluster's behaviour without modifying the code
 of Kubernetes itself.
 Operators are clients of the Kubernetes API that act as controllers for
-a [Custom Resource](/docs/concepts/api-extension/custom-resources/).
+a [Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 ## An example Operator {#example}
 
@@ -103,7 +103,7 @@ as well as keeping the existing service in good shape.
 ## Writing your own Operator {#writing-operator}
 
 If there isn't an Operator in the ecosystem that implements the behavior you
-want, you can code your own. In [What's next](#whats-next) you'll find a few
+want, you can code your own. In [What's next](#what-s-next) you'll find a few
 links to libraries and tools you can use to write your own cloud native
 Operator.
 

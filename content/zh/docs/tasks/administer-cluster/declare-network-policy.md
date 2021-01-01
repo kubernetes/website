@@ -21,6 +21,8 @@ This document helps you get started using the Kubernetes [NetworkPolicy API](/do
 [NetworkPolicy API](/zh/docs/concepts/services-networking/network-policies/)
 声明网络策略去管理 Pod 之间的通信
 
+{{% thirdparty-content %}}
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
@@ -41,14 +43,6 @@ Make sure you've configured a network provider with network policy support. Ther
 * [Kube-router](/zh/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
 * [Romana](/zh/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
 * [Weave 网络](/zh/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
-
-<!--
-The above list is sorted alphabetically by product name, not by recommendation or preference. This example is valid for a Kubernetes cluster using any of these providers.
--->
-{{< note >}}
-以上列表是根据产品名称按字母顺序排序，而不是按推荐或偏好排序。
-下面示例对于使用了上面任何提供商的 Kubernetes 集群都是有效的
-{{< /note >}}
 
 <!-- steps -->
 
@@ -74,7 +68,7 @@ Expose the Deployment through a Service called `nginx`.
 -->
 将此 Deployment 以名为 `nginx` 的 Service 暴露出来：
 
-```console
+```shell
 kubectl expose deployment nginx --port=80
 ```
 
@@ -89,7 +83,7 @@ The above commands create a Deployment with an nginx Pod and expose the Deployme
 Service 暴露出来。名为 `nginx` 的 Pod 和 Deployment 都位于 `default`
 名字空间内。
 
-```console
+```shell
 kubectl get svc,pod
 ```
 ```none
@@ -111,7 +105,7 @@ You should be able to access the new `nginx` service from other Pods. To access 
 你应该可以从其它的 Pod 访问这个新的 `nginx` 服务。
 要从 default 命名空间中的其它s Pod 来访问该服务。可以启动一个 busybox 容器：
 
-```console
+```shell
 kubectl run busybox --rm -ti --image=busybox /bin/sh
 ```
 
@@ -167,7 +161,7 @@ Use kubectl to create a NetworkPolicy from the above `nginx-policy.yaml` file:
 
 使用 kubectl 根据上面的 `nginx-policy.yaml` 文件创建一个 NetworkPolicy：
 
-```console
+```shell
 kubectl apply -f https://k8s.io/examples/service/networking/nginx-policy.yaml
 ```
 ```none
@@ -183,7 +177,7 @@ When you attempt to access the `nginx` Service from a Pod without the correct la
 
 如果你尝试从没有设定正确标签的 Pod 中去访问 `nginx` 服务，请求将会超时：
 
-```console
+```shell
 kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
@@ -210,7 +204,7 @@ You can create a Pod with the correct labels to see that the request is allowed:
 
 创建一个拥有正确标签的 Pod，你将看到请求是被允许的：
 
-```console
+```shell
 kubectl run busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
 ```
 <!--

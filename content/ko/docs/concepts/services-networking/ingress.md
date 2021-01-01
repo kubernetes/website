@@ -408,8 +408,15 @@ type: kubernetes.io/tls
 
 인그레스에서 시크릿을 참조하면 인그레스 컨트롤러가 TLS를 사용하여
 클라이언트에서 로드 밸런서로 채널을 보호하도록 지시한다. 생성한
-TLS 시크릿이 `sslexample.foo.com` 의 정규화 된 도메인 이름(FQDN)이라고
+TLS 시크릿이 `https-example.foo.com` 의 정규화 된 도메인 이름(FQDN)이라고
 하는 일반 이름(CN)을 포함하는 인증서에서 온 것인지 확인해야 한다.
+
+{{< note >}}
+가능한 모든 하위 도메인에 대해 인증서가 발급되어야 하기 때문에
+TLS는 기본 규칙에서 작동하지 않는다. 따라서
+`tls` 섹션의 `hosts`는 `rules`섹션의 `host`와 명시적으로 일치해야
+한다.
+{{< /note >}}
 
 {{< codenew file="service/networking/tls-example-ingress.yaml" >}}
 

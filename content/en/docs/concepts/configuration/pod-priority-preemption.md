@@ -11,7 +11,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-[Pods](/docs/concepts/workloads/pods/pod/) can have _priority_. Priority indicates the
+[Pods](/docs/concepts/workloads/pods/) can have _priority_. Priority indicates the
 importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
@@ -271,7 +271,7 @@ preempted. Here's an example:
 *   Pod P is being considered for Node N.
 *   Pod Q is running on another Node in the same Zone as Node N.
 *   Pod P has Zone-wide anti-affinity with Pod Q (`topologyKey:
-    failure-domain.beta.kubernetes.io/zone`).
+    topology.kubernetes.io/zone`).
 *   There are no other cases of anti-affinity between Pod P and other Pods in
     the Zone.
 *   In order to schedule Pod P on Node N, Pod Q can be preempted, but scheduler
@@ -321,9 +321,7 @@ Pod may be created that fits on the same Node. In this case, the scheduler will
 schedule the higher priority Pod instead of the preemptor.
 
 This is expected behavior: the Pod with the higher priority should take the place
-of a Pod with a lower priority. Other controller actions, such as
-[cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling),
-may eventually provide capacity to schedule the pending Pods.
+of a Pod with a lower priority.
 
 ### Higher priority Pods are preempted before lower priority pods
 

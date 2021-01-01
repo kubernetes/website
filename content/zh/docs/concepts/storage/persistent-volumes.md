@@ -3,7 +3,10 @@ title: 持久卷
 feature:
   title: 存储编排
   description: >
-    自动挂载所选存储系统，包括本地存储、诸如 <a href="https://cloud.google.com/storage/">GCP</a> 或 <a href="https://aws.amazon.com/products/storage/">AWS</a> 之类公有云提供商所提供的存储或者诸如 NFS、iSCSI、Gluster、Ceph、Cinder 或 Flocker 这类网络存储系统。
+    自动挂载所选存储系统，包括本地存储、诸如 <a href="https://cloud.google.com/storage/">GCP</a>
+    或 <a href="https://aws.amazon.com/products/storage/">AWS</a>
+    之类公有云提供商所提供的存储或者诸如 NFS、iSCSI、Gluster、Ceph、Cinder
+    或 Flocker 这类网络存储系统。
 
 content_type: concept
 weight: 20
@@ -371,6 +374,68 @@ However, the particular path specified in the custom recycler Pod template in th
 正被回收的卷的路径。
 
 <!--
+### Reserving a PersistentVolume
+
+The control plane can [bind PersistentVolumeClaims to matching PersistentVolumes](#binding) in the
+cluster. However, if you want a PVC to bind to a specific PV, you need to pre-bind them.
+-->
+### 预留 PersistentVolume  {#reserving-a-persistentvolume}
+
+通过在 PersistentVolumeClaim 中指定 PersistentVolume，你可以声明该特定
+PV 与 PVC 之间的绑定关系。如果该 PersistentVolume 存在且未被通过其
+`claimRef` 字段预留给 PersistentVolumeClaim，则该 PersistentVolume
+会和该 PersistentVolumeClaim 绑定到一起。
+
+<!--
+The binding happens regardless of some volume matching criteria, including node affinity.
+The control plane still checks that [storage class](/docs/concepts/storage/storage-classes/), access modes, and requested storage size are valid.
+-->
+绑定操作不会考虑某些卷匹配条件是否满足，包括节点亲和性等等。
+控制面仍然会检查
+[存储类](/zh/docs/concepts/storage/storage-classes/)、访问模式和所请求的
+存储尺寸都是合法的。
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: foo-pvc
+  namespace: foo
+spec:
+  storageClassName: "" # 此处须显式设置空字符串，否则会被设置为默认的 StorageClass
+  volumeName: foo-pv
+  ...
+```
+
+<!--
+This method does not guarantee any binding privileges to the PersistentVolume. If other PersistentVolumeClaims could use the PV that you specify, you first need to reserve that storage volume. Specify the relevant PersistentVolumeClaim in the `claimRef` field of the PV so that other PVCs can not bind to it.
+-->
+此方法无法对 PersistentVolume 的绑定特权做出任何形式的保证。
+如果有其他 PersistentVolumeClaim 可以使用你所指定的 PV，则你应该首先预留
+该存储卷。你可以将 PV 的 `claimRef` 字段设置为相关的 PersistentVolumeClaim
+以确保其他 PVC 不会绑定到该 PV 卷。
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: foo-pv
+spec:
+  storageClassName: ""
+  claimRef:
+    name: foo-pvc
+    namespace: foo
+  ...
+```
+
+<!--
+This is useful if you want to consume PersistentVolumes that have their `claimPolicy` set
+to `Retain`, including cases where you are reusing an existing PV.
+-->
+如果你想要使用 `claimPolicy` 属性设置为 `Retain` 的 PersistentVolume 卷
+时，包括你希望复用现有的 PV 卷时，这点是很有用的
+
+<!--
 ### Expanding Persistent Volumes Claims
 -->
 ### 扩充 PVC 申领   {#expanding-persistent-volumes-claims}
@@ -547,26 +612,64 @@ PersistentVolume types are implemented as plugins.  Kubernetes currently support
 
 PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插件：
 
-* GCEPersistentDisk
-* AWSElasticBlockStore
-* AzureFile
-* AzureDisk
-* CSI
-* FC （光纤通道）
-* FlexVolume
-* Flocker
-* NFS
-* iSCSI
-* RBD （Ceph 块设备）
-* CephFS
-* Cinder （OpenStack 块存储）
-* Glusterfs
-* VsphereVolume
-* Quobyte 卷
-* HostPath （仅供单节点测试用，本地存储都是不支持的，在多节点集群中无法工作）
-* Portworx 卷
-* ScaleIO 卷
-* StorageOS
+<!--
+* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+* [`azureDisk`](/docs/concepts/sotrage/volumes/#azuredisk) - Azure Disk
+* [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
+* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
+* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
+  (**deprecated**)
+* [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
+* [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
+* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+* [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
+* [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
+  (for single node testing only; WILL NOT WORK in a multi-node cluster;
+  consider using `local` volume instead)
+* [`iscsi`](/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) storage
+* [`local`](/docs/concepts/storage/volumes/#local) - local storage devices
+  mounted on nodes.
+* [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
+* `photonPersistentDisk` - Photon controller persistent disk.
+  (This volume type no longer works since the removal of the corresponding
+  cloud provider.)
+* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
+* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
+* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
+* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
+  (**deprecated**)
+* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
+-->
+* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS 弹性块存储（EBS）
+* [`azureDisk`](/docs/concepts/sotrage/volumes/#azuredisk) - Azure Disk
+* [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
+* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
+* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder （OpenStack 块存储）
+  (**弃用**)
+* [`csi`](/docs/concepts/storage/volumes/#csi) - 容器存储接口 (CSI)
+* [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 存储
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
+* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker 存储
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE 持久化盘
+* [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 卷
+* [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath 卷
+  （仅供单节点测试使用；不适用于多节点集群；
+  尝试使用 `本地` 卷替换）
+* [`iscsi`](/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) 存储
+* [`local`](/docs/concepts/storage/volumes/#local) - 节点上挂载的本地存储设备
+* [`nfs`](/docs/concepts/storage/volumes/#nfs) - 网络文件系统 (NFS) 存储
+* `photonPersistentDisk` - Photon 控制器持久化盘。
+  （这个卷类型已经因对应的云提供商被移除而被弃用）。
+* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx 卷
+* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte 卷
+* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados 块设备 (RBD) 卷
+* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO 卷
+  (**弃用**)
+* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS 卷
+* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 卷
 
 <!--
 ## Persistent Volumes
@@ -991,7 +1094,7 @@ be bound to the PVC.
 ### 类      {#class}
 
 申领可以通过为 `storageClassName` 属性设置
-[StorageClass](/docs/concepts/storage/storage-classes/) 的名称来请求特定的存储类。
+[StorageClass](/zh/docs/concepts/storage/storage-classes/) 的名称来请求特定的存储类。
 只有所请求的类的 PV 卷，即 `storageClassName` 值与 PVC 设置相同的 PV 卷，
 才能绑定到 PVC 申领。
 

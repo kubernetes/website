@@ -16,29 +16,27 @@ Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는
 
 ## {{% heading "prerequisites" %}}
 
-
 이 예제는 버전 1.2 또는 이상의 쿠버네티스 클러스터와 kubectl을 필요로 한다.
-[메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/) 모니터링을 클러스터에 배포하여 리소스 메트릭 API를 통해 메트릭을 제공해야 한다.
-Horizontal Pod Autoscaler가 메트릭을 수집할때 해당 API를 사용한다.
-메트릭-서버를 배포하는 지침은 [메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/)의 GitHub 저장소에 있고, [GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭-서버 모니터링은 디폴트로 활성화된다.
+[메트릭 서버](https://github.com/kubernetes-sigs/metrics-server) 모니터링을 클러스터에 배포하여
+[메트릭 API](https://github.com/kubernetes/metrics)를 통해 메트릭을 제공해야 한다.
+Horizontal Pod Autoscaler가 메트릭을 수집할때 해당 API를 사용한다. 메트릭-서버를 배포하는 방법에 대해 배우려면,
+[메트릭-서버 문서](https://github.com/kubernetes-sigs/metrics-server#deployment)를 참고한다.
 
 Horizontal Pod Autoscaler에 다양한 자원 메트릭을 적용하고자 하는 경우,
-버전 1.6 또는 이상의 쿠버네티스 클러스터와 kubectl를 사용해야 한다.
-또한, 사용자 정의 메트릭을 사용하기 위해서는, 클러스터가 사용자 정의 메트릭 API를 제공하는 API 서버와 통신할 수 있어야 한다.
+버전 1.6 또는 이상의 쿠버네티스 클러스터와 kubectl를 사용해야 한다. 사용자 정의 메트릭을 사용하기 위해서는, 클러스터가
+사용자 정의 메트릭 API를 제공하는 API 서버와 통신할 수 있어야 한다.
 마지막으로 쿠버네티스 오브젝트와 관련이 없는 메트릭을 사용하는 경우,
-버전 1.10 또는 이상의 쿠버네티스 클러스터와 kubectl을 사용해야 하며, 외부 메트릭 API와 통신이 가능해야 한다.
+버전 1.10 또는 이상의 쿠버네티스 클러스터와 kubectl을 사용해야 하며, 외부
+메트릭 API와 통신이 가능해야 한다.
 자세한 사항은 [Horizontal Pod Autoscaler 사용자 가이드](/ko/docs/tasks/run-application/horizontal-pod-autoscale/#사용자-정의-메트릭을-위한-지원)를 참고하길 바란다.
-
-
 
 <!-- steps -->
 
 ## php-apache 서버 구동 및 노출
 
-Horizontal Pod Autoscaler 시연을 위해 php-apache 이미지를 맞춤 제작한 Docker 이미지를 사용한다.
-Dockerfile은 다음과 같다.
+Horizontal Pod Autoscaler 시연을 위해 php-apache 이미지를 맞춤 제작한 Docker 이미지를 사용한다. Dockerfile은 다음과 같다.
 
-```
+```dockerfile
 FROM php:5-apache
 COPY index.php /var/www/html/index.php
 RUN chmod a+rx index.php
@@ -46,7 +44,7 @@ RUN chmod a+rx index.php
 
 index.php는 CPU 과부하 연산을 수행한다.
 
-```
+```php
 <?php
   $x = 0.0001;
   for ($i = 0; $i <= 1000000; $i++) {
@@ -61,11 +59,12 @@ index.php는 CPU 과부하 연산을 수행한다.
 
 {{< codenew file="application/php-apache.yaml" >}}
 
-
 다음의 명령어를 실행한다.
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/php-apache.yaml
 ```
+
 ```
 deployment.apps/php-apache created
 service/php-apache created
@@ -85,6 +84,7 @@ service/php-apache created
 ```shell
 kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
 ```
+
 ```
 horizontalpodautoscaler.autoscaling/php-apache autoscaled
 ```
@@ -94,10 +94,10 @@ horizontalpodautoscaler.autoscaling/php-apache autoscaled
 ```shell
 kubectl get hpa
 ```
+
 ```
 NAME         REFERENCE                     TARGET    MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1          18s
-
 ```
 
 아직 서버로 어떠한 요청도 하지 않았기 때문에, 현재 CPU 소비는 0%임을 확인할 수 있다 (``TARGET``은 디플로이먼트에 의해 제어되는 파드들의 평균을 나타낸다).
@@ -108,11 +108,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-kubectl run -it --rm load-generator --image=busybox /bin/sh
-
-Hit enter for command prompt
-
-while true; do wget -q -O- http://php-apache; done
+kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 ```
 
 실행 후, 약 1분 정도 후에 CPU 부하가 올라가는 것을 볼 수 있다.
@@ -120,10 +116,10 @@ while true; do wget -q -O- http://php-apache; done
 ```shell
 kubectl get hpa
 ```
+
 ```
 NAME         REFERENCE                     TARGET      MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   305% / 50%  1         10        1          3m
-
 ```
 
 CPU 소비가 305%까지 증가하였다.
@@ -132,6 +128,7 @@ CPU 소비가 305%까지 증가하였다.
 ```shell
 kubectl get deployment php-apache
 ```
+
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7/7      7           7           19m
@@ -155,6 +152,7 @@ php-apache   7/7      7           7           19m
 ```shell
 kubectl get hpa
 ```
+
 ```
 NAME         REFERENCE                     TARGET       MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1          11m
@@ -163,6 +161,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1   
 ```shell
 kubectl get deployment php-apache
 ```
+
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 php-apache   1/1     1            1           27m
@@ -173,8 +172,6 @@ CPU 사용량은 0으로 떨어졌고, HPA는 레플리카의 개수를 1로 낮
 {{< note >}}
 레플리카 오토스케일링은 몇 분 정도 소요된다.
 {{< /note >}}
-
-
 
 <!-- discussion -->
 
@@ -386,7 +383,7 @@ object:
 외부 메트릭을 사용하면 모니터링 시스템의 사용 가능한 메트릭에 기반하여 클러스터를 오토스케일링 할 수 있다.
 위의 예제처럼 `name`과 `selector`를 갖는 `metric` 블록을 제공하고,
 `Object` 대신에 `External` 메트릭 타입을 사용한다.
-만일 여러개의 시계열이 `metricSelector`와 일치하면, HorizontalPodAutoscaler가 값의 합을 사용한다.
+만일 여러 개의 시계열이 `metricSelector`와 일치하면, HorizontalPodAutoscaler가 값의 합을 사용한다.
 외부 메트릭들은 `Value`와 `AverageValue` 대상 타입을 모두 지원하고,
 `Object` 타입을 사용할 때와 똑같이 동작한다.
 
@@ -421,7 +418,8 @@ HorizontalPodAutoscaler에 영향을 주는 조건을 보기 위해 `kubectl des
 ```shell
 kubectl describe hpa cm-test
 ```
-```shell
+
+```
 Name:                           cm-test
 Namespace:                      prom
 Labels:                         <none>
@@ -476,6 +474,7 @@ HorizontalPodAutoscaler를 생성하기 위해 `kubectl autoscale` 명령어를 
 ```shell
 kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 ```
+
 ```
 horizontalpodautoscaler.autoscaling/php-apache created
 ```

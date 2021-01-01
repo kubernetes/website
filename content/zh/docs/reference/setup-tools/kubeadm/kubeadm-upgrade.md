@@ -31,18 +31,18 @@ behind one command, with support for both planning an upgrade and actually perfo
 The steps for performing a upgrade using kubeadm are outlined in [this document](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 For older versions of kubeadm, please refer to older documentation sets of the Kubernetes website.
 -->
-[本文档](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)概述了使用 kubeadm 执行升级的步骤。
+[本文档](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)概述了使用 kubeadm 执行升级的步骤。
 有关 kubeadm 旧版本，请参阅 Kubernetes 网站的旧版文档。
 
 <!--
 You can use `kubeadm upgrade diff` to see the changes that would be applied to static pod manifests.
 -->
-您可以使用 `kubeadm upgrade diff` 来查看将应用于静态 pod 清单的更改。
+你可以使用 `kubeadm upgrade diff` 来查看将应用于静态 pod 清单的更改。
 
 <!--
 To use kube-dns with upgrades in Kubernetes v1.13.0 and later please follow [this guide](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon).
 -->
-要在 Kubernetes v1.13.0 及更高版本中使用 kube-dns 进行升级，请遵循[本指南](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)。
+要在 Kubernetes v1.13.0 及更高版本中使用 kube-dns 进行升级，请遵循[本指南](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)。
 
 <!--
 In Kubernetes v1.15.0 and later, `kubeadm upgrade apply` and `kubeadm upgrade node` will also
@@ -51,8 +51,20 @@ To opt-out, it is possible to pass the flag `--certificate-renewal=false`. For m
 renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
 -->
 在 Kubernetes v1.15.0 和更高版本中，`kubeadm upgrade apply` 和 `kubeadm upgrade node` 也将自动续订该节点上的 kubeadm 托管证书，包括存储在 kubeconfig 文件中的证书。
-要选择退出，可以传递参数 `--certificate-renewal=false`。有关证书续订的更多详细信息请参见[证书管理文档](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
+要选择退出，可以传递参数 `--certificate-renewal=false`。有关证书续订的更多详细信息请参见[证书管理文档](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
 
+
+{{< note >}}
+<!-- 
+The commands `kubeadm upgrade apply` and `kubeadm upgrade plan` have a legacy `--config`
+flag which makes it possible to reconfigure the cluster, while performing planning or upgrade of that particular
+control-plane node. Please be aware that the upgrade workflow was not designed for this scenario and there are
+reports of unexpected results.
+-->
+`kubeadm upgrade apply` 和 `kubeadm upgrade plan` 命令都具有遗留的 `--config` 标志，
+可以在执行特定控制平面节点的规划或升级时重新配置集群。
+请注意，升级工作流不是为这种情况而设计的，并且有意外结果的报告。
+{{</ note >}}
 
 ## kubeadm upgrade plan {#cmd-upgrade-plan}
 {{< include "generated/kubeadm_upgrade_plan.md" >}}
@@ -72,5 +84,5 @@ renewal see the [certificate management documentation](/docs/tasks/administer-cl
 
 <!--
 * [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade` -->
-* 如果您使用 kubeadm v1.7.x 或更低版本初始化集群，则可以参考[kubeadm 配置](/docs/reference/setup-tools/kubeadm/kubeadm-config/)配置集群用于 `kubeadm upgrade`。
+* 如果你使用 kubeadm v1.7.x 或更低版本初始化集群，则可以参考[kubeadm 配置](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)配置集群用于 `kubeadm upgrade`。
 

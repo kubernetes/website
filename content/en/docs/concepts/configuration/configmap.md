@@ -31,7 +31,7 @@ This lets you fetch a container image running in the cloud and
 debug the exact same code locally if needed.
 
 A ConfigMap is not designed to hold large chunks of data. The data stored in a
-ConfigMap cannot exeed 1 MiB. If you need to store settings that are
+ConfigMap cannot exceed 1 MiB. If you need to store settings that are
 larger than this limit, you may want to consider mounting a volume or use a
 separate database or file service.
 
@@ -40,7 +40,7 @@ separate database or file service.
 A ConfigMap is an API [object](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 that lets you store configuration for other objects to use. Unlike most
 Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
-fields. These fields accepts key-value pairs as their values.  Both the `data`
+fields. These fields accept key-value pairs as their values.  Both the `data`
 field and the `binaryData` are optional. The `data` field is designed to
 contain UTF-8 byte sequences while the `binaryData` field is designed to
 contain binary data.
@@ -88,7 +88,7 @@ data:
 There are four different ways that you can use a ConfigMap to configure
 a container inside a Pod:
 
-1. Command line arguments to the entrypoint of a container
+1. Inside a container command and args
 1. Environment variables for a container
 1. Add a file in read-only volume, for the application to read
 1. Write code to run inside the Pod that uses the Kubernetes API to read a ConfigMap

@@ -590,7 +590,7 @@ spec:
       containers:
       - name: my-nginx
         image: nginx
-        command: ["start", "--host", "\$(MY_SERVICE_NAME)"]
+        command: ["start", "--host", "$(MY_SERVICE_NAME)"]
 EOF
 
 # Create a service.yaml file

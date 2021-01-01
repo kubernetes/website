@@ -178,8 +178,7 @@ pull request until it is merged into the master branch of the kubernetes/kuberne
 [PR 56673](https://github.com/kubernetes/kubernetes/pull/56673/files) 是一个对 kubectl
 源码中的笔误进行修复的 PR 示例。
 
-跟踪你的 PR，并回应评审人的评论。继续跟踪你的 PR，直到它合入到 kubernetes/kubernetes 仓库的
-master 分支中。
+跟踪你的 PR，并回应评审人的评论。继续跟踪你的 PR，直到它合入到 kubernetes/kubernetes 仓库的 master 分支中。
 
 <!--
 ## Cherry picking your change into a release branch
@@ -381,7 +380,8 @@ Build the Kubernetes documentation in your local `<web-base>`.
 
 ```shell
 cd <web-base>
-make docker-serve
+git submodule update --init --recursive --depth 1 # if not already done
+make container-serve
 ```
 
 <!-- View the [local preview](https://localhost:1313/docs/reference/generated/kubectl/kubectl-commands/).  -->

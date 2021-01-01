@@ -19,19 +19,22 @@ file and passing its path as a command line argument.
 <!-- overview -->
 
 <!-- body -->
+<!--
+A scheduling Profile allows you to configure the different stages of scheduling
+in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
+Each stage is exposed in a extension point. Plugins provide scheduling behaviors
+by implementing one or more of these extension points.
+-->
+调度模板（Profile）允许你配置 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
+中的不同调度阶段。每个阶段都暴露于某个扩展点中。插件通过实现一个或多个扩展点来提供调度行为。
 
-<!--  
+<!--
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
 using the component config APIs
-([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha1?tab=doc#KubeSchedulerConfiguration)
-or [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha2?tab=doc#KubeSchedulerConfiguration)).
-The `v1alpha2` API allows you to configure kube-scheduler to run
-[multiple profiles](#multiple-profiles).
+([`v1beta1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.19.0/config/v1beta1?tab=doc#KubeSchedulerConfiguration)).
 -->
-你可以通过运行 `kube-scheduler --config <filename>` 来设置调度配置，
-配置文件使用组件配置的 API ([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha1?tab=doc#KubeSchedulerConfiguration)
-或 [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha2?tab=doc#KubeSchedulerConfiguration))。
-`v1alpha2` 可以配置 kube-scheduler 运行[多个配置文件](#multiple-profiles)。
+你可以通过运行 `kube-scheduler --config <filename>` 来设置调度模板，
+配置文件使用组件配置的 API ([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.19.0/config/v1beta1?tab=doc#KubeSchedulerConfiguration))。
 
 <!-- A minimal configuration looks as follows: -->
 最简单的配置如下：

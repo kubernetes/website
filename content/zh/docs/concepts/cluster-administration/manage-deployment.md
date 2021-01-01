@@ -115,7 +115,8 @@ service "my-nginx-svc" deleted
 <!--
 In the case of just two resources, it's also easy to specify both on the command line using the resource/name syntax:
  -->
-在仅有两种资源的情况下，可以使用"资源类型/资源名"的语法在命令行中同时指定这两个资源：
+在仅有两种资源的情况下，可以使用"资源类型/资源名"的语法在命令行中
+同时指定这两个资源：
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -184,7 +185,8 @@ project/k8s/development
 <!--
 By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we had tried to create the resources in this directory using the following command, we would have encountered an error:
  -->
-默认情况下，对 `project/k8s/development` 执行的批量操作将停止在目录的第一级，而不是处理所有子目录。
+默认情况下，对 `project/k8s/development` 执行的批量操作将停止在目录的第一级，
+而不是处理所有子目录。
 如果我们试图使用以下命令在此目录中创建资源，则会遇到一个错误：
 
 ```shell
@@ -252,7 +254,8 @@ The examples we've used so far apply at most a single label to any resource. The
 For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
 -->
 例如，不同的应用可能会为 `app` 标签设置不同的值。
-但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 这样的多层应用，还需要区分每一层。前端可以带以下标签：
+但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)
+这样的多层应用，还需要区分每一层。前端可以带以下标签：
 
 ```yaml
      labels:
@@ -368,7 +371,8 @@ and then you can create a new release of the guestbook frontend that carries the
 <!--
 The frontend service would span both sets of replicas by selecting the common subset of their labels (i.e. omitting the `track` label), so that the traffic will be redirected to both applications:
  -->
-前端服务通过选择标签的公共子集（即忽略 `track` 标签）来覆盖两组副本，以便流量可以转发到两个应用：
+前端服务通过选择标签的公共子集（即忽略 `track` 标签）来覆盖两组副本，
+以便流量可以转发到两个应用：
 
 ```yaml
   selector:
@@ -380,12 +384,16 @@ The frontend service would span both sets of replicas by selecting the common su
 You can tweak the number of replicas of the stable and canary releases to determine the ratio of each release that will receive live production traffic (in this case, 3:1).
 Once you're confident, you can update the stable track to the new application release and remove the canary one.
  -->
-你可以调整 `stable` 和 `canary` 版本的副本数量，以确定每个版本将接收实时生产流量的比例(在本例中为 3:1)。一旦有信心，你就可以将新版本应用的 `track` 标签的值从 `canary` 替换为 `stable`，并且将老版本应用删除。
+你可以调整 `stable` 和 `canary` 版本的副本数量，以确定每个版本将接收
+实时生产流量的比例（在本例中为 3:1）。
+一旦有信心，你就可以将新版本应用的 `track` 标签的值从
+`canary` 替换为 `stable`，并且将老版本应用删除。
 
 <!--
 For a more concrete example, check the [tutorial of deploying Ghost](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
  -->
-想要了解更具体的示例，请查看 [Ghost 部署教程](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary)。
+想要了解更具体的示例，请查看
+[Ghost 部署教程](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary)。
 
 <!--
 ## Updating labels
@@ -447,7 +455,8 @@ Sometimes you would want to attach annotations to resources. Annotations are arb
  -->
 ## 更新注解   {#updating-annotations}
 
-有时，你可能希望将注解附加到资源中。注解是 API 客户端（如工具、库等）用于检索的任意非标识元数据。这可以通过 `kubectl annotate` 来完成。例如：
+有时，你可能希望将注解附加到资源中。注解是 API 客户端（如工具、库等）
+用于检索的任意非标识元数据。这可以通过 `kubectl annotate` 来完成。例如：
 
 ```shell
 kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
@@ -545,12 +554,14 @@ Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-co
 建议在源代码管理中维护一组配置文件
 （参见[配置即代码](https://martinfowler.com/bliki/InfrastructureAsCode.html)），
 这样，它们就可以和应用代码一样进行维护和版本管理。
-然后，你可以用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) 将配置变更应用到集群中。
+然后，你可以用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)
+将配置变更应用到集群中。
 
 <!--
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
  -->
-这个命令将会把推送的版本与以前的版本进行比较，并应用你所做的更改，但是不会自动覆盖任何你没有指定更改的属性。
+这个命令将会把推送的版本与以前的版本进行比较，并应用你所做的更改，
+但是不会自动覆盖任何你没有指定更改的属性。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
@@ -560,17 +571,24 @@ deployment.apps/my-nginx configured
 <!--
 Note that `kubectl apply` attaches an annotation to the resource in order to determine the changes to the configuration since the previous invocation. When it's invoked, `kubectl apply` does a three-way diff between the previous configuration, the provided input and the current configuration of the resource, in order to determine how to modify the resource.
  -->
-注意，`kubectl apply` 将为资源增加一个额外的注解，以确定自上次调用以来对配置的更改。当调用它时，`kubectl apply` 会在以前的配置、提供的输入和资源的当前配置之间找出三方差异，以确定如何修改资源。
+注意，`kubectl apply` 将为资源增加一个额外的注解，以确定自上次调用以来对配置的更改。
+执行时，`kubectl apply` 会在以前的配置、提供的输入和资源的当前配置之间
+找出三方差异，以确定如何修改资源。
 
 <!--
 Currently, resources are created without this annotation, so the first invocation of `kubectl apply` will fall back to a two-way diff between the provided input and the current configuration of the resource. During this first invocation, it cannot detect the deletion of properties set when the resource was created. For this reason, it will not remove them.
  -->
-目前，新创建的资源是没有这个注解的，所以，第一次调用 `kubectl apply` 将使用提供的输入和资源的当前配置双方之间差异进行比较。在第一次调用期间，它无法检测资源创建时属性集的删除情况。因此，不会删除它们。
+目前，新创建的资源是没有这个注解的，所以，第一次调用 `kubectl apply` 时
+将使用提供的输入和资源的当前配置双方之间差异进行比较。
+在第一次调用期间，它无法检测资源创建时属性集的删除情况。
+因此，kubectl 不会删除它们。
 
 <!--
 All subsequent calls to `kubectl apply`, and other commands that modify the configuration, such as `kubectl replace` and `kubectl edit`, will update the annotation, allowing subsequent calls to `kubectl apply` to detect and perform deletions using a three-way diff.
  -->
-所有后续调用 `kubectl apply` 以及其它修改配置的命令，如 `kubectl replace` 和 `kubectl edit`，都将更新注解，并允许随后调用的 `kubectl apply` 使用三方差异进行检查和执行删除。
+所有后续的 `kubectl apply` 操作以及其他修改配置的命令，如 `kubectl replace`
+和 `kubectl edit`，都将更新注解，并允许随后调用的 `kubectl apply`
+使用三方差异进行检查和执行删除。
 
 <!--
 To use apply, always create resource initially with either `kubectl apply` or `kubectl create --save-config`.
@@ -611,21 +629,24 @@ This allows you to do more significant changes more easily. Note that you can sp
 
 For more information, please see [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) document.
  -->
-这使你可以更加容易地进行更重大的更改。请注意，可以使用 `EDITOR` 或 `KUBE_EDITOR` 环境变量来指定编辑器。
+这使你可以更加容易地进行更重大的更改。
+请注意，可以使用 `EDITOR` 或 `KUBE_EDITOR` 环境变量来指定编辑器。
 
-想要了解更多信息，请参考 [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) 文档。
+想要了解更多信息，请参考
+[kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) 文档。
 
 ### kubectl patch
 
 <!--
 You can use `kubectl patch` to update API objects in place. This command supports JSON patch,
 JSON merge patch, and strategic merge patch. See
-[Update API Objects in Place Using kubectl patch](/docs/tasks/run-application/update-api-object-kubectl-patch/)
+[Update API Objects in Place Using kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 and
 [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
  -->
-你可以使用 `kubectl patch` 来更新 API 对象。此命令支持 JSON patch，JSON merge patch，以及 strategic merge patch。 请参考
-[使用 kubectl patch 更新 API 对象](/zh/docs/tasks/run-application/update-api-object-kubectl-patch/)
+你可以使用 `kubectl patch` 来更新 API 对象。此命令支持 JSON patch、
+JSON merge patch、以及 strategic merge patch。 请参考
+[使用 kubectl patch 更新 API 对象](/zh/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 和
 [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
 
@@ -636,7 +657,9 @@ In some cases, you may need to update resource fields that cannot be updated onc
  -->
 ## 破坏性的更新  {#disruptive-updates}
 
-在某些情况下，你可能需要更新某些初始化后无法更新的资源字段，或者你可能只想立即进行递归更改，例如修复 Deployment 创建的不正常的 Pod。若要更改这些字段，请使用 `replace --force`，它将删除并重新创建资源。在这种情况下，你可以简单地修改原始配置文件：
+在某些情况下，你可能需要更新某些初始化后无法更新的资源字段，或者你可能只想立即进行递归更改，
+例如修复 Deployment 创建的不正常的 Pod。若要更改这些字段，请使用 `replace --force`，
+它将删除并重新创建资源。在这种情况下，你可以简单地修改原始配置文件：
 
 ```shell
 kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
@@ -655,7 +678,9 @@ deployment.apps/my-nginx replaced
 <!--
 At some point, you'll eventually need to update your deployed application, typically by specifying a new image or image tag, as in the canary deployment scenario above. `kubectl` supports several update operations, each of which is applicable to different scenarios.
  -->
-在某些时候，你最终需要更新已部署的应用，通常都是通过指定新的镜像或镜像标签，如上面的金丝雀发布的场景中所示。`kubectl` 支持几种更新操作，每种更新操作都适用于不同的场景。
+在某些时候，你最终需要更新已部署的应用，通常都是通过指定新的镜像或镜像标签，
+如上面的金丝雀发布的场景中所示。`kubectl` 支持几种更新操作，
+每种更新操作都适用于不同的场景。
 
 <!--
 We'll guide you through how to create and update applications with Deployments.

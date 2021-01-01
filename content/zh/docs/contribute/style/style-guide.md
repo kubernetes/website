@@ -12,6 +12,7 @@ weight: 10
 -->
 
 <!-- overview -->
+
 <!--
 This page gives writing style guidelines for the Kubernetes documentation.
 These are guidelines, not rules. Use your best judgment, and feel free to
@@ -76,12 +77,11 @@ Kubernetes 文档已经被翻译为多个语种
 <!--
 ## Documentation formatting standards
 
-### Use camel case for API objects
+### Use upper camel case for API objects
 
-When you refer to an API object, use the same uppercase and lowercase letters
-that are used in the actual object name. Typically, the names of API
-objects use
-[camel case](https://en.wikipedia.org/wiki/Camel_case).
+When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also 
+known as Pascal Case. When you are generally discussing an API object, use [sentence-style capitalization]
+(https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
 Don't split the API object name into separate words. For example, use
 PodTemplateList, not Pod Template List.
@@ -91,10 +91,12 @@ leads to an awkward construction.
 -->
 ## 文档格式标准 {#documentation-formatting-standards}
 
-### 对 API 对象使用驼峰式命名法  {#use-camel-case-for-api-objects}
+### 对 API 对象使用大写驼峰式命名法  {#use-upper-camel-case-for-api-objects}
 
-当指代 API 对象时，请使用与实际对象名称中一样的大写和小写字母。
-通常 API 对象使用[驼峰式命名](https://en.wikipedia.org/wiki/Camel_case).
+当你与指定的 API 对象进行交互时，使用 [大写驼峰式命名法](https://en.wikipedia.org/wiki/Camel_case)，
+也被称为帕斯卡拼写法.
+通常在讨论 API 对象时，使用
+[句子式大写](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
 不要将 API 对象的名称切分成多个单词。例如，使用 PodTemplateList，不要
 使用 Pod Template List。
@@ -107,7 +109,7 @@ leads to an awkward construction.
 Do | Don't
 :--| :-----
 The Pod has two containers. | The pod has two containers.
-The Deployment is responsible for ... | The Deployment object is responsible for ...
+The HorizontalPodAutoscaler  is responsible for ... | The HorizontalPodAutoscaler  object is responsible for ...
 A PodList is a list of Pods. | A Pod List is a list of pods.
 The two ContainerPorts ... | The two ContainerPort objects ...
 The two ContainerStateTerminated objects ... | The two ContainerStateTerminateds ...
@@ -117,7 +119,7 @@ The two ContainerStateTerminated objects ... | The two ContainerStateTerminateds
 可以 | 不可以
 :--| :-----
 Pod 有两个容器 | pod 中有两个容器
-此 Deployment 负责... | 此 Deployment 对象负责 ...
+此 HorizontalPodAutoscaler 负责... | 此 HorizontalPodAutoscaler 对象负责 ...
 PodList 是 Pod 的列表 | Pod List 是 pods 的列表
 这两个 ContainerPorts ... | 这两个 ContainerPort 对象 ...
 这两个 ContainerStateTerminated 对象 ... | 这两个 ContainerStateTerminateds ...
@@ -227,14 +229,14 @@ The copy is called a "fork". | The copy is called a "fork."
 <!--
 ## Inline code formatting
 
-### Use code style for inline code and commands
+### Use code style for inline code and commands, and API objects
 
 For inline code in an HTML document, use the `<code>` tag. In a Markdown
 document, use the backtick (`` ` ``).
 -->
 ## 行间代码格式    {#inline-code-formatting}
 
-### 为行间代码和命令使用代码样式
+### 为行间代码、命令与 API 对象使用代码样式
 
 对于 HTML 文档中的行间代码，使用 `<code>` 标记。
 在 Markdown 文档中，使用反引号（`` ` ``）。
@@ -243,7 +245,9 @@ document, use the backtick (`` ` ``).
 {{< table caption = "Do and Don't - Use code style for inline code and commands" >}}
 Do | Don't
 :--| :-----
-The `kubectl run`command creates a Deployment. | The "kubectl run" command creates a Deployment.
+The `kubectl run` command creates a `Pod`. | The "kubectl run" command creates a pod.
+The kubelet on each node acquires a `Lease`… | The kubelet on each node acquires a lease…
+A `PersistentVolume` represents durable storage… | A Persistent Volume represents durable storage…
 For declarative management, use `kubectl apply`. | For declarative management, use "kubectl apply".
 Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax.
 Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (`**`) or an underscore (`_`) to enclose inline code. For example, **var example = true**.
@@ -255,7 +259,9 @@ Remove trailing spaces in the code. | Add trailing spaces in the code, where the
 {{< table caption = "行间代码和命令约定" >}}
 可以 | 不可以
 :--| :-----
-命令 `kubectl run` 会创建一个 Deployment | 命令 "kubectl run" 会创建一个 Deployment。
+`kubectl run` 命令会创建一个 `Pod` | "kubectl run" 命令会创建一个 pod。
+每个节点上的 kubelet 都会获得一个 `Lease` | 每个节点上的 kubelet 都会获得一个 lease…
+一个 `PersistentVolume` 代表持久存储 | 一个 Persistent Volume 代表持久存储…
 在声明式管理中，使用 `kubectl apply`。 | 在声明式管理中，使用 "kubectl apply"。
 用三个反引号来（\`\`\`）标示代码示例 | 用其他语法来标示代码示例。
 使用单个反引号来标示行间代码。例如：`var example = true`。 | 使用两个星号（`**`）或者一个下划线（`_`）来标示行间代码。例如：**var example = true**。
@@ -280,7 +286,7 @@ Do | Don't
 :--| :-----
 Set the value of the `replicas` field in the configuration file. | Set the value of the "replicas" field in the configuration file.
 The value of the `exec` field is an ExecAction object. | The value of the "exec" field is an ExecAction object.
-Run the process as a Daemonset in the `kube-system` namespace. | Run the process as a Daemonset in the kube-system namespace.
+Run the process as a DaemonSet in the `kube-system` namespace. | Run the process as a DaemonSet in the kube-system namespace.
 {{< /table >}}
 -->
 ### 为对象字段名和名字空间使用代码风格
@@ -290,7 +296,7 @@ Run the process as a Daemonset in the `kube-system` namespace. | Run the process
 :--| :-----
 在配置文件中设置 `replicas` 字段的值。 | 在配置文件中设置 "replicas" 字段的值。
 `exec` 字段的值是一个 ExecAction 对象。 | "exec" 字段的值是一个 ExecAction 对象。
-在 `kube-system` 名字空间中以 Daemonset 形式运行此进程。 | 在 kube-system 名字空间中以 DaemonSet 形式运行此进程。
+在 `kube-system` 名字空间中以 DaemonSet 形式运行此进程。 | 在 kube-system 名字空间中以 DaemonSet 形式运行此进程。
 {{< /table >}}
 
 <!--
@@ -401,7 +407,7 @@ kubectl get pods | $ kubectl get pods
 <!--
 ### Separate commands from output
 
-Verify that the Pod is running on your chosen node:
+Verify that the pod is running on your chosen node:
 
     kubectl get pods --output=wide
 
@@ -789,7 +795,7 @@ Shortcodes will interrupt numbered lists unless you indent four spaces before th
 For example:
 
     1. Preheat oven to 350˚F
-
+    
     1. Prepare the batter, and pour into springform pan.
        `{{</* note */>}}Grease the pan for best results.{{</* /note */>}}`
 
@@ -1053,7 +1059,7 @@ Use simple and direct language. Avoid using unnecessary phrases, such as saying 
 Do | Don't
 To create a ReplicaSet, ... | In order to create a ReplicaSet, ...
 See the configuration file. | Please see the configuration file.
-View the Pods. | With this next command, we'll view the Pods.
+View the pods. | With this next command, we'll view the Pods.
 {{< /table >}}  
 -->
 ### 使用简单直接的语言
@@ -1125,7 +1131,7 @@ whether they're part of the "we" you're describing.
 Do | Don't
 Version 1.4 includes ... | In version 1.4, we have added ...
 Kubernetes provides a new feature for ... | We provide a new feature ...
-This page teaches you how to use Pods. | In this page, we are going to learn about Pods.
+This page teaches you how to use pods. | In this page, we are going to learn about pods.
 {{< /table >}}   
 -->
 ## 应避免的模式

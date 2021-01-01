@@ -463,8 +463,8 @@ is not `cgroupfs`, because that is the default value in the kubelet already.
 Restarting the kubelet is required:
 
 ```bash
-systemctl daemon-reload
-systemctl restart kubelet
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
 ```
 
 The automatic detection of cgroup driver for other container runtimes

@@ -188,7 +188,9 @@ SIG Docs 一起工作，确保这一新功能在发行之前已经为之撰写�
 1. Open a pull request against the
 `dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
 commit that you will amend later.
-2. Use the Prow command `/milestone {{< skew nextMinorVersion >}}` to
+2. Edit the pull request description to include links to [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
+PR(s) and [kubernetes/enhancements](https://github.com/kubernetes/enhancements) issue(s).
+3. Use the Prow command `/milestone {{< skew nextMinorVersion >}}` to
 assign the PR to the relevant milestone. This alerts the docs person managing
 this release that the feature docs are coming.
 -->
@@ -196,8 +198,10 @@ this release that the feature docs are coming.
 
 1. 在 `kubernetes/website` 仓库上针对 `dev-{{< skew nextMinorVersion >}}`
    分支提交一个 PR，其中包含较少的、待以后慢慢补齐的提交内容。
-1. 使用 Prow 命令  `/milestone {{< skew nextMinorVersion >}}` 将 PR
-   指派到对应的里程碑。这样做会提醒负责管理对应发行版本的文档团队成员，有
+1. 编辑拉取请求描述以包括指向 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) PR
+   和 [kubernetes/enhancements](https://github.com/kubernetes/enhancements) 问题的链接。  
+1. 使用 Prow 命令  `/milestone {{< skew nextMinorVersion >}}` 
+   将 PR指派到对应的里程碑。这样做会提醒负责管理对应发行版本的文档团队成员，有
    新的功能特性要合并到将来版本。
 
 <!--
@@ -221,7 +225,9 @@ Do your best to describe your feature and how to use it. If you need help
 structuring your documentation, ask in the `#sig-docs` slack channel.
 
 When you complete your content, the documentation person assigned to your
-feature reviews it. Use their suggestions to get the content to a release
+feature reviews it. 
+To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
+Use their suggestions to get the content to a release
 ready state.
 
 If your feature needs documentation and the first draft content is not
@@ -235,6 +241,7 @@ received, the feature may be removed from the milestone.
 在 `#sig-docs` Slack 频道中提问。
 
 当你已经完成内容撰写，指派给你的功能特性的文档贡献者会去评阅文档。
+为了确保技术准确性，内容可能还需要相应 SIG 的技术审核。
 尽量利用他们所给出的建议，改进文档内容以达到发布就绪状态。
 
 如果你的功能特性需要文档，而一直没有关于该特性的文档提交评阅，
@@ -253,7 +260,7 @@ add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-referenc
 as part of your pull request. If your feature is moving out of Alpha, make sure to
 remove it from that table.
 -->
-### 所有 PRs 均经过评审且合并就绪
+### 所有 PR 均经过评审且合并就绪
 
 如果你的 PR 在发行截止日期之前尚未合并到 `dev-{{< skew nextMinorVersion >}}` 分支，
 请与负责管理该发行版本的文档团队成员一起合作，在截止期限之前将其合并。
@@ -264,4 +271,3 @@ remove it from that table.
 [Alpha/Beta 特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
 表格中。
 如果你的功能特性不再是 Alpha 阶段，请确保特性门控状态得到更新。
-

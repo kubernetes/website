@@ -14,9 +14,9 @@ weight: 60
 <!-- overview -->
 
 <!--
-Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
+Application logs can help you understand what is happening inside your application. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
 -->
-应用和系统日志可以让你了解集群内部的运行状况。日志对调试问题和监控集群活动非常有用。
+应用日志可以让你了解应用内部的运行状况。日志对调试问题和监控集群活动非常有用。
 大部分现代化应用都有某种日志记录机制；同样地，大多数容器引擎也被设计成支持某种日志记录机制。
 针对容器化应用，最简单且受欢迎的日志记录方式就是写入标准输出和标准错误流。
 
@@ -45,14 +45,13 @@ the description of how logs are stored and handled on the node to be useful.
 
 In this section, you can see an example of basic logging in Kubernetes that
 outputs data to the standard output stream. This demonstration uses
-a [pod specification](/examples/debug/counter-pod.yaml) with
-a container that writes some text to standard output once per second.
+a pod specification with a container that writes some text to standard output
+once per second.
 -->
 ## Kubernetes 中的基本日志记录
 
 本节，你会看到一个kubernetes 中生成基本日志的例子，该例子中数据被写入到标准输出。
-这里通过一个特定的 [Pod 规约](/examples/debug/counter-pod.yaml) 演示创建一个容器，
-并令该容器每秒钟向标准输出写入数据。
+这里的示例为包含一个容器的 Pod 规约，该容器每秒钟向标准输出写入数据。
 
 {{< codenew file="debug/counter-pod.yaml" >}}
 
@@ -160,7 +159,7 @@ up logging for COS image on GCP in the corresponding [script][cosConfigureHelper
 -->
 例如，你可以找到关于 `kube-up.sh` 为 GCP 环境的 COS 镜像设置日志的详细信息，
 相应的脚本在
-[这里](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
+[这里](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)。
 
 <!--
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
@@ -274,7 +273,7 @@ Using a node-level logging agent is the most common and encouraged approach for 
 Kubernetes doesn't specify a logging agent, but two optional logging agents are packaged with the Kubernetes release: [Stackdriver Logging](/docs/user-guide/logging/stackdriver) for use with Google Cloud Platform, and [Elasticsearch](/docs/user-guide/logging/elasticsearch). You can find more information and instructions in the dedicated documents. Both use [fluentd](http://www.fluentd.org/) with custom configuration as an agent on the node.
 -->
 Kubernetes 并不指定日志代理，但是有两个可选的日志代理与 Kubernetes 发行版一起发布。
-[Stackdriver 日志](/docs/tasks/debug-application-cluster/logging-stackdriver/)
+[Stackdriver 日志](/zh/docs/tasks/debug-application-cluster/logging-stackdriver/)
 适用于 Google Cloud Platform，和
 [Elasticsearch](/zh/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)。
 你可以在专门的文档中找到更多的信息和说明。
@@ -447,7 +446,7 @@ which uses fluentd as a logging agent. Here are two configuration files that
 you can use to implement this approach. The first file contains
 a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to configure fluentd.
 -->
-例如，你可以使用 [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)，
+例如，你可以使用 [Stackdriver](/zh/docs/tasks/debug-application-cluster/logging-stackdriver/)，
 它使用 fluentd 作为日志记录代理。
 以下是两个可用于实现此方法的配置文件。
 第一个文件包含配置 fluentd 的

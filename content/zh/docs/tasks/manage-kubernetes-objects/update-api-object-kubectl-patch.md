@@ -538,7 +538,7 @@ The patch you did in the preceding exercise is called a *strategic merge patch w
 -->
 ### 关于使用 retainKeys 策略的策略合并 patch 操作的说明
 
-在前文练习中所执行的称作 *带 retainKeys` 策略的策略合并 patch（Strategic Merge
+在前文练习中所执行的称作 *带 `retainKeys` 策略的策略合并 patch（Strategic Merge
 Patch with retainKeys Strategy）*。
 这种方法引入了一种新的 `$retainKey` 指令，具有如下策略： 
 
@@ -651,7 +651,7 @@ and
 你没有更改最初用于创建 Deployment 对象的配置文件。
 用于更新 API 对象的其他命令包括
 [`kubectl annotate`](/docs/reference/generated/kubectl/kubectl-commands/#annotate)，
-[`kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit)，
+[`kubectl edit`](/docs/reference/generated/kubectl/kubectl-commands/#edit)，
 [`kubectl replace`](/docs/reference/generated/kubectl/kubectl-commands/#replace)，
 [`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale)，
 和

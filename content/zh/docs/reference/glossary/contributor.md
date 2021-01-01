@@ -1,5 +1,5 @@
 ---
-title: 贡献者
+title: 贡献者（Contributor）
 id: contributor
 date: 2018-04-12
 full_link: 

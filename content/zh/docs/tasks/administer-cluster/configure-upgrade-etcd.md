@@ -389,6 +389,19 @@ Before starting the restore operation, a snapshot file must be present. It can e
 If the access URLs of the restored cluster is changed from the previous cluster, the Kubernetes API server must be reconfigured accordingly. In this case, restart Kubernetes API server with the flag `--etcd-servers=$NEW_ETCD_CLUSTER` instead of the flag `--etcd-servers=$OLD_ETCD_CLUSTER`. Replace `$NEW_ETCD_CLUSTER` and `$OLD_ETCD_CLUSTER` with the respective IP addresses. If a load balancer is used in front of an etcd cluster, you might need to update the load balancer instead.
 
 If the majority of etcd members have permanently failed, the etcd cluster is considered failed. In this scenario, Kubernetes cannot make any changes to its current state. Although the scheduled pods might continue to run, no new pods can be scheduled. In such cases, recover the etcd cluster and potentially reconfigure Kubernetes API server to fix the issue.
+
+{{< note >}}
+If any API servers are running in your cluster, you should not attempt to restore instances of etcd.
+Instead, follow these steps to restore etcd:
+
+- stop *all* kube-apiserver instances
+- restore state in all etcd instances
+- restart all kube-apiserver instances
+
+We also recommend restarting any components (e.g. kube-scheduler, kube-controller-manager, kubelet) to ensure that they don't
+rely on some stale data. Note that in practice, the restore takes a bit of time.
+During the restoration, critical components will lose leader lock and restart themselves.
+{{< /note >}}
 -->
 ## 恢复 etcd 集群
 
@@ -403,6 +416,18 @@ etcd 支持从 [major.minor](http://semver.org/) 或其他不同 patch 版本的
 
 如果大多数 etcd 成员永久失败，则认为 etcd 集群失败。在这种情况下，Kubernetes 不能对其当前状态进行任何更改。
 虽然已调度的 pod 可能继续运行，但新的 pod 无法调度。在这种情况下，恢复 etcd 集群并可能需要重新配置 Kubernetes API 服务器以修复问题。
+
+{{< note >}}
+如果集群中正在运行任何 API 服务器，则不应尝试还原 etcd 的实例。相反，请按照以下步骤还原 etcd：
+
+- 停止 *所有* kube-apiserver 实例
+- 在所有 etcd 实例中恢复状态
+- 重启所有 kube-apiserver 实例
+
+我们还建议重启所有组件（例如 kube-scheduler、kube-controller-manager、kubelet），以确保它们不会
+依赖一些过时的数据。请注意，实际中还原会花费一些时间。
+在还原过程中，关键组件将丢失领导锁并自行重启。
+{{< note >}}
 
 <!--
 ## Upgrading and rolling back etcd clusters
@@ -473,5 +498,4 @@ See ["kube-apiserver 1.13.x refuses to work when first etcd-server is not availa
 要紧急修复 Kubernetes 1.15 或更早版本的此错误，请构建一个自定义的 kube-apiserver 。 您可以使用[`vendor/google.golang.org/grpc/credentials/credentials.go`](https://github.com/kubernetes/kubernetes/blob/7b85be021cd2943167cd3d6b7020f44735d9d90b/vendor/google.golang.org/grpc/credentials/credentials.go#L135) 和 [etcd@db61ee106](https://github.com/etcd-io/etcd/pull/10911/commits/db61ee106ca9363ba3f188ecf27d1a8843da33ab) 来进行本地更改。
 
 请看  ["kube-apiserver 1.13.x refuses to work when first etcd-server is not available"](https://github.com/kubernetes/kubernetes/issues/72102). 
-
 

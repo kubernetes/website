@@ -12,7 +12,7 @@ API from various programming languages.
 
 
 <!-- body -->
-To write applications using the [Kubernetes REST API](/docs/reference/using-api/api-overview/),
+To write applications using the [Kubernetes REST API](/docs/reference/using-api/),
 you do not need to implement the API calls and request/response types yourself.
 You can use a client library for the programming language you are using.
 
@@ -74,6 +74,7 @@ their authors, not the Kubernetes team.
 | Rust                 | [github.com/ynqa/kubernetes-rust](https://github.com/ynqa/kubernetes-rust) |
 | Scala                | [github.com/doriordan/skuber](https://github.com/doriordan/skuber) |
 | Scala                | [github.com/joan38/kubernetes-client](https://github.com/joan38/kubernetes-client) |
+| Swift                | [github.com/swiftkube/client](https://github.com/swiftkube/client) |
 | DotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
 | Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |

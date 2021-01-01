@@ -142,7 +142,7 @@ The `restartPolicy` applies to all containers in the Pod. `restartPolicy` only
 refers to restarts of the containers by the kubelet on the same node. After containers
 in a Pod exit, the kubelet restarts them with an exponential back-off delay (10s, 20s,
 40s, …), that is capped at five minutes. Once a container has executed for 10 minutes
-without any problems, the kubelet resets the restart backoff timer forthat container.
+without any problems, the kubelet resets the restart backoff timer for that container.
 
 ## Pod conditions
 
@@ -228,7 +228,8 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 ## Container probes
 
 A [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) is a diagnostic
-performed periodically by the [kubelet](/docs/admin/kubelet/)
+performed periodically by the
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 on a Container. To perform a diagnostic,
 the kubelet calls a
 [Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core) implemented by
@@ -314,7 +315,7 @@ to stop.
 
 ### When should you use a startup probe?
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 Startup probes are useful for Pods that have containers that take a long time to
 come into service. Rather than set a long liveness interval, you can configure

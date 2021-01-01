@@ -32,7 +32,7 @@ There are two ways to expose Pod and Container fields to a running Container:
 
 有两种方式可以将 Pod 和 Container 字段呈现给运行中的容器：
 
-* [环境变量](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/)
+* [环境变量](/zh/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
 * 卷文件
 
 这两种呈现 Pod 和 Container 字段的方式都称为 *Downward API*。
@@ -291,11 +291,11 @@ The following information is available to containers through environment
 variables and `downwardAPI` volumes:
 
 * Information available via `fieldRef`:
-  * `metadata.name` - the pod’s name
-  * `metadata.namespace` - the pod’s namespace
-  * `metadata.uid` - the pod’s UID, available since v1.8.0-alpha.2
-  * `metadata.labels['<KEY>']` - the value of the pod’s label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
-  * `metadata.annotations['<KEY>']` - the value of the pod’s annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
+  * `metadata.name` - the pod's name
+  * `metadata.namespace` - the pod's namespace
+  * `metadata.uid` - the pod's UID, available since v1.8.0-alpha.2
+  * `metadata.labels['<KEY>']` - the value of the pod's label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
+  * `metadata.annotations['<KEY>']` - the value of the pod's annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
 -->
 下面这些信息可以通过环境变量和 `downwardAPI` 卷提供给容器：
 
@@ -309,12 +309,12 @@ variables and `downwardAPI` volumes:
 
 <!--
 * Information available via `resourceFieldRef`:
-  * A Container’s CPU limit
-  * A Container’s CPU request
-  * A Container’s memory limit
-  * A Container’s memory request
-  * A Container’s ephemeral-storage limit, available since v1.8.0-beta.0
-  * A Container’s ephemeral-storage request, available since v1.8.0-beta.0
+  * A Container's CPU limit
+  * A Container's CPU request
+  * A Container's memory limit
+  * A Container's memory request
+  * A Container's ephemeral-storage limit, available since v1.8.0-beta.0
+  * A Container's ephemeral-storage request, available since v1.8.0-beta.0
 -->
 * 能通过 `resourceFieldRef` 获得的：
   * 容器的 CPU 约束值
@@ -393,7 +393,6 @@ API 服务器来获得。
 更好的选择是使用 Pod 名称作为标识，把 Pod 名称注入这个环境变量中。
 
 ## {{% heading "whatsnext" %}}
-
 
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 * [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)

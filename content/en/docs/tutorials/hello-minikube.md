@@ -16,7 +16,7 @@ card:
 <!-- overview -->
 
 This tutorial shows you how to run a sample app
-on Kubernetes using [minikube](/docs/setup/learning-environment/minikube) and Katacoda.
+on Kubernetes using minikube and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment.
 
 {{< note >}}
@@ -24,16 +24,11 @@ You can also follow this tutorial if you've installed minikube locally.
 See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
 {{< /note >}}
 
-
-
 ## {{% heading "objectives" %}}
-
 
 * Deploy a sample application to minikube.
 * Run the app.
 * View application logs.
-
-
 
 ## {{% heading "prerequisites" %}}
 

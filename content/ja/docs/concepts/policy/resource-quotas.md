@@ -23,7 +23,7 @@ weight: 10
 - 管理者は各名前空間で1つの`ResourceQuota`を作成します。
 - ユーザーが名前空間内でリソース(Pod、Serviceなど)を作成し、クォータシステムが`ResourceQuota`によって定義されたハードリソースリミットを超えないことを保証するために、リソースの使用量をトラッキングします。
 - リソースの作成や更新がクォータの制約に違反しているとき、そのリクエストはHTTPステータスコード`403 FORBIDDEN`で失敗し、違反した制約を説明するメッセージが表示されます。
-- `cpu`や`memory`といったコンピューターリソースに対するクォータが名前空間内で有効になっているとき、ユーザーはそれらの値に対する`requests`や`limits`を設定する必要があります。設定しないとクォータシステムがPodの作成を拒否します。 ヒント: コンピュートリソースの要求を設定しないPodに対してデフォルト値を強制するために、`LimitRanger`アドミッションコントローラーを使用してください。この問題を解決する例は[walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)で参照できます。
+- `cpu`や`memory`といったコンピューターリソースに対するクォータが名前空間内で有効になっているとき、ユーザーはそれらの値に対する`requests`や`limits`を設定する必要があります。設定しないとクォータシステムがPodの作成を拒否します。 ヒント: コンピュートリソースの要求を設定しないPodに対してデフォルト値を強制するために、`LimitRanger`アドミッションコントローラーを使用してください。この問題を解決する例は[walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)で参照できます。
 
 `ResourceQuota`のオブジェクト名は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります.
 
@@ -58,7 +58,7 @@ weight: 10
 
 ### 拡張リソースのためのリソースクォータ
 
-上記で取り上げたリソースに加えて、Kubernetes v1.10において、[拡張リソース](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)のためのリソースクォータのサポートが追加されました。
+上記で取り上げたリソースに加えて、Kubernetes v1.10において、[拡張リソース](/docs/concepts/configuration/manage-resources-containers/#extended-resources)のためのリソースクォータのサポートが追加されました。
 
 拡張リソースに対するオーバーコミットが禁止されているのと同様に、リソースクォータで拡張リソース用に`requests`と`limits`の両方を指定しても意味がありません。現在、拡張リソースに対しては`requests.`というプレフィックスのついたクォータアイテムのみ設定できます。
 
@@ -163,7 +163,7 @@ Kubernetes v1.9より前のバージョンでは、限定されたリソース�
 
 ### PriorityClass毎のリソースクォータ
 
-{{< feature-state for_k8s_version="1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 Podは特定の[優先度](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)で作成されます。リソースクォータのSpec内にある`scopeSelector`フィールドを使用して、Podの優先度に基づいてPodのシステムリソースの消費をコントロールできます。
 
@@ -451,7 +451,8 @@ kubectl create quota test --hard=count/deployments.extensions=2,count/replicaset
 ```
 
 ```shell
-kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+kubectl create deployment nginx --image=nginx --namespace=myspace
+kubectl scale deployment nginx --replicas=2 --namespace=myspace
 ```
 
 ```shell
@@ -549,5 +550,5 @@ plugins:
 
 ## {{% heading "whatsnext" %}}
 
-さらなる情報は[クォータの design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)を参照してください。
+- さらなる情報は[クォータの design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)を参照してください。
 
