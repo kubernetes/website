@@ -22,7 +22,7 @@ weight: 10
 * [퍼시스턴트볼륨(PersistentVolumes)](/ko/docs/concepts/storage/persistent-volumes/)
 * [퍼시턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 * [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
-* [kubectl](/docs/reference/kubectl/kubectl/) 커맨드 라인 도구
+* [kubectl](/ko/docs/reference/kubectl/kubectl/) 커맨드 라인 도구
 
 {{< note >}}
 이 튜토리얼은 클러스터가 퍼시스턴스볼륨을 동적으로 프로비저닝 하도록
