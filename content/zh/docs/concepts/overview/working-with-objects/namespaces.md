@@ -104,7 +104,7 @@ Kubernetes starts with four initial namespaces:
 * `kube-public` This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
 * `kube-node-lease` This namespace for the lease objects associated with each node which improves the performance of the node heartbeats as the cluster scales.
 -->
-Kubernetes 会创建三个初始名字空间：
+Kubernetes 会创建四个初始名字空间：
 
 * `default` 没有指明使用其它名字空间的对象所使用的默认名字空间
 * `kube-system` Kubernetes 系统创建对象所使用的名字空间
