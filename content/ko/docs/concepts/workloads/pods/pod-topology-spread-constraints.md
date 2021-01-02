@@ -66,7 +66,7 @@ graph TB
 
 API 필드 `pod.spec.topologySpreadConstraints` 는 다음과 같이 정의된다.
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -290,7 +290,7 @@ graph BT
 - `.spec.topologySpreadConstraints` 에는 어떠한 제약도 정의되어 있지 않는 경우.
 - 서비스, 레플리케이션컨트롤러(ReplicationController), 레플리카셋(ReplicaSet) 또는 스테이트풀셋(StatefulSet)에 속해있는 경우.
 
-기본 제약 조건은 [스케줄링 프로파일](/docs/reference/scheduling/config/#profiles)에서
+기본 제약 조건은 [스케줄링 프로파일](/ko/docs/reference/scheduling/config/#프로파일)에서
 `PodTopologySpread` 플러그인의 일부로 설정할 수 있다.
 제약 조건은 `labelSelector` 가 비어 있어야 한다는 점을 제외하고, [위와 동일한 API](#api)로
 제약 조건을 지정한다. 셀렉터는 파드가 속한 서비스, 레플리케이션 컨트롤러,
@@ -315,7 +315,7 @@ profiles:
 
 {{< note >}}
 기본 스케줄링 제약 조건에 의해 생성된 점수는
-[`SelectorSpread` 플러그인](/docs/reference/scheduling/config/#scheduling-plugins)에
+[`SelectorSpread` 플러그인](/ko/docs/reference/scheduling/config/#스케줄링-플러그인)에
 의해 생성된 점수와 충돌 할 수 있다.
 `PodTopologySpread` 에 대한 기본 제약 조건을 사용할 때 스케줄링 프로파일에서
 이 플러그인을 비활성화 하는 것을 권장한다.

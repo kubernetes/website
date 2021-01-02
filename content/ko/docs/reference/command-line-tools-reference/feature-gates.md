@@ -419,10 +419,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
    자세한 내용은 [원시 블록 볼륨 지원](/ko/docs/concepts/storage/persistent-volumes/#원시-블록-볼륨-지원)을
    참고한다.
 - `BoundServiceAccountTokenVolume`: ServiceAccountTokenVolumeProjection으로 구성된 프로젝션 볼륨을 사용하도록 서비스어카운트 볼륨을
-   마이그레이션한다. 클러스터 관리자는 `serviceaccount_stale_tokens_total` 메트릭을 사용하여 
-   확장 토큰에 의존하는 워크로드를 모니터링 할 수 있다. 이러한 워크로드가 없는 경우 `--service-account-extend-token-expiration=false` 플래그로 
+   마이그레이션한다. 클러스터 관리자는 `serviceaccount_stale_tokens_total` 메트릭을 사용하여
+   확장 토큰에 의존하는 워크로드를 모니터링 할 수 있다. 이러한 워크로드가 없는 경우 `--service-account-extend-token-expiration=false` 플래그로
    `kube-apiserver`를 시작하여 확장 토큰 기능을 끈다.
-   자세한 내용은 [바운드 서비스 계정 토큰](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)을 
+   자세한 내용은 [바운드 서비스 계정 토큰](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)을
    확인한다.
 - `ConfigurableFSGroupPolicy`: 파드에 볼륨을 마운트할 때 fsGroups에 대한 볼륨 권한 변경 정책을 구성할 수 있다. 자세한 내용은 [파드에 대한 볼륨 권한 및 소유권 변경 정책 구성](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)을 참고한다.
 -`CronJobControllerV2` : {{< glossary_tooltip text="크론잡" term_id="cronjob" >}} 컨트롤러의 대체 구현을 사용한다. 그렇지 않으면 동일한 컨트롤러의 버전 1이 선택된다. 버전 2 컨트롤러는 실험적인 성능 향상을 제공한다.
@@ -508,7 +508,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   [엔드포인트 슬라이스 활성화](/docs/tasks/administer-cluster/enabling-endpointslices/)를 참고한다.
 - `GCERegionalPersistentDisk`: GCE에서 지역 PD 기능을 활성화한다.
 - `GenericEphemeralVolume`: 일반 볼륨의 모든 기능을 지원하는 임시, 인라인 볼륨을 활성화한다(타사 스토리지 공급 업체, 스토리지 용량 추적, 스냅샷으로부터 복원 등에서 제공할 수 있음). [임시 볼륨](/docs/concepts/storage/ephemeral-volumes/)을 참고한다.
--`GracefulNodeShutdown` : kubelet에서 정상 종료를 지원한다. 시스템 종료 중에 kubelet은 종료 이벤트를 감지하고 노드에서 실행중인 파드를 정상적으로 종료하려고 시도한다. 자세한 내용은 [Graceful Node Shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown)을 참조한다.
+-`GracefulNodeShutdown` : kubelet에서 정상 종료를 지원한다. 시스템 종료 중에 kubelet은 종료 이벤트를 감지하고 노드에서 실행중인 파드를 정상적으로 종료하려고 시도한다. 자세한 내용은 [Graceful Node Shutdown](/ko/docs/concepts/architecture/nodes/#그레이스풀-graceful-노드-셧다운)을 참조한다.
 - `HugePages`: 사전 할당된 [huge page](/ko/docs/tasks/manage-hugepages/scheduling-hugepages/)의 할당 및 사용을 활성화한다.
 - `HugePageStorageMediumSize`: 사전 할당된 [huge page](/ko/docs/tasks/manage-hugepages/scheduling-hugepages/)의 여러 크기를 지원한다.
 - `HyperVContainer`: 윈도우 컨테이너를 위한 [Hyper-V 격리](https://docs.microsoft.com/ko-kr/virtualization/windowscontainers/manage-containers/hyperv-container) 기능을 활성화한다.
@@ -582,7 +582,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `SupportIPVSProxyMode`: IPVS를 사용하여 클러스터 내 서비스 로드 밸런싱을 제공한다.
   자세한 내용은 [서비스 프록시](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)를 참고한다.
 - `SupportPodPidsLimit`: 파드의 PID 제한을 지원한다.
-- `SupportNodePidsLimit`: 노드에서 PID 제한 지원을 활성화한다. `--system-reserved` 및 `--kube-reserved` 옵션의 `pid=<number>` 매개 변수를 지정하여 지정된 수의 프로세스 ID가 시스템 전체와 각각 쿠버네티스 시스템 데몬에 대해 예약되도록 할 수 있다. 
+- `SupportNodePidsLimit`: 노드에서 PID 제한 지원을 활성화한다. `--system-reserved` 및 `--kube-reserved` 옵션의 `pid=<number>` 매개 변수를 지정하여 지정된 수의 프로세스 ID가 시스템 전체와 각각 쿠버네티스 시스템 데몬에 대해 예약되도록 할 수 있다.
 - `Sysctls`: 각 파드에 설정할 수 있는 네임스페이스 커널 파라미터(sysctl)를 지원한다.
   자세한 내용은 [sysctl](/docs/tasks/administer-cluster/sysctl-cluster/)을 참고한다.
 - `TaintBasedEvictions`: 노드의 테인트(taint) 및 파드의 톨러레이션(toleration)을 기반으로 노드에서 파드를 축출할 수 있다.
