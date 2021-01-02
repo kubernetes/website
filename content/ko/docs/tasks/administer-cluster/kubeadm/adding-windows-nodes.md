@@ -135,31 +135,91 @@ curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/dow
 
 
 ### 윈도우 워커 노드 조인(joining)
-{{< note >}}
-`Containers` 기능을 설치하고 도커를 설치해야 한다.
-[윈도우 서버에 Docker Engine - Enterprise 설치](https://hub.docker.com/editions/enterprise/docker-ee-server-windows)에서 설치에 대한 내용을 참고할 수 있다.
-{{< /note >}}
 
 {{< note >}}
 윈도우 섹션의 모든 코드 스니펫(snippet)은 윈도우 워커 노드의
 높은 권한(관리자)이 있는 PowerShell 환경에서 실행해야 한다.
 {{< /note >}}
 
-1. wins, kubelet 및 kubeadm 설치
+{{< tabs name="tab-windows-kubeadm-runtime-installation" >}}
+{{% tab name="Docker EE" %}}
+
+#### Docker EE 설치
+
+`컨테이너` 기능 설치
+
+```powershell
+Install-WindowsFeature -Name containers
+```
+
+도커 설치
+자세한 내용은 [도커 엔진 설치 - 윈도우 서버 엔터프라이즈](https://hub.docker.com/editions/enterprise/docker-ee-server-windows)에서 확인할 수 있다.
+
+#### wins, kubelet 및 kubeadm 설치
 
    ```PowerShell
    curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
    .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
    ```
 
-1. 노드에 조인하기 위해 `kubeadm` 실행
+#### `kubeadm` 실행하여 노드에 조인
+
+컨트롤 플레인 호스트에서 `kubeadm init` 실행할 때 제공된 명령을 사용한다.
+이 명령이 더 이상 없거나, 토큰이 만료된 경우, `kubeadm token create --print-join-command`
+(컨트롤 플레인 호스트에서)를 실행하여 새 토큰 및 조인 명령을 생성할 수 있다.
+
+{{% /tab %}}
+{{% tab name="CRI-containerD" %}}
+
+#### containerD 설치
+
+```powershell
+curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/Install-Containerd.ps1
+.\Install-Containerd.ps1
+```
+
+{{< note >}}
+특정 버전의 containerD를 설치하려면 -ContainerDVersion를 사용하여 버전을 지정한다.
+
+```powershell
+# 예
+.\Install-Containerd.ps1 -ContainerDVersion v1.4.1
+```
+
+{{< /note >}}
+
+{{< note >}}
+윈도우 노드에서 이더넷(예: "Ethernet0 2")이 아닌 다른 인터페이스를 사용하는 경우, `-netAdapterName` 으로 이름을 지정한다.
+
+```powershell
+# 예
+.\Install-Containerd.ps1 -netAdapterName "Ethernet0 2"
+```
+
+{{< /note >}}
+
+#### wins, kubelet 및 kubeadm 설치
+
+```PowerShell
+curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+.\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}} -ContainerRuntime containerD
+```
+
+#### `kubeadm` 실행하여 노드에 조인
 
     컨트롤 플레인 호스트에서 `kubeadm init` 실행할 때 제공된 명령을 사용한다.
     이 명령이 더 이상 없거나, 토큰이 만료된 경우, `kubeadm token create --print-join-command`
     (컨트롤 플레인 호스트에서)를 실행하여 새 토큰 및 조인 명령을 생성할 수 있다.
 
+{{< note >}}
+**CRI-containerD** 를 사용하는 경우 kubeadm 호출에 `--cri-socket "npipe:////./pipe/containerd-containerd"` 를 추가한다
+{{< /note >}}
 
-#### 설치 확인
+{{% /tab %}}
+{{< /tabs >}}
+
+### 설치 확인
+
 이제 다음을 실행하여 클러스터에서 윈도우 노드를 볼 수 있다.
 
 ```bash
@@ -175,9 +235,6 @@ kubectl -n kube-system get pods -l app=flannel
 
 flannel 파드가 실행되면, 노드는 `Ready` 상태가 되고 워크로드를 처리할 수 있어야 한다.
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 - [윈도우 kubeadm 노드 업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)

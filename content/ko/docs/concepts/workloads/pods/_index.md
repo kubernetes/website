@@ -255,7 +255,6 @@ kubelet은 자동으로 각 정적 파드에 대한 쿠버네티스 API 서버�
 ## {{% heading "whatsnext" %}}
 
 * [파드의 라이프사이클](/ko/docs/concepts/workloads/pods/pod-lifecycle/)에 대해 알아본다.
-* [PodPresets](/ko/docs/concepts/workloads/pods/podpreset/)에 대해 알아본다.
 * [런타임클래스(RuntimeClass)](/ko/docs/concepts/containers/runtime-class/)와 이를 사용하여
   다양한 컨테이너 런타임 구성으로 다양한 파드를 설정하는 방법에 대해 알아본다.
 * [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)에 대해 읽어본다.

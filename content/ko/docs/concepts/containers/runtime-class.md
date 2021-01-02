@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 이 페이지는 런타임클래스 리소스와 런타임 선택 메커니즘에 대해서 설명한다.
 
@@ -63,7 +63,7 @@ weight: 20
 (`handler`)로 단 2개의 중요 필드만 가지고 있다. 오브젝트 정의는 다음과 같은 형태이다.
 
 ```yaml
-apiVersion: node.k8s.io/v1beta1  # 런타임클래스는 node.k8s.io API 그룹에 정의되어 있음
+apiVersion: node.k8s.io/v1  # 런타임클래스는 node.k8s.io API 그룹에 정의되어 있음
 kind: RuntimeClass
 metadata:
   name: myclass  # 런타임클래스는 해당 이름을 통해서 참조됨
