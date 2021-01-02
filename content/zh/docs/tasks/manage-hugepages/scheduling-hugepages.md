@@ -11,6 +11,7 @@ reviewers:
 - derekwaynecarr
 title: Manage HugePages
 content_type: task
+description: Configure and manage huge pages as a schedulable resource in a cluster.
 ---
 --->
 
@@ -30,13 +31,13 @@ Kubernetes 支持在 Pod 应用中使用预先分配的巨页。本文描述了�
 
 <!--
 1. Kubernetes nodes must pre-allocate huge pages in order for the node to report
-   its huge page capacity. A node may only pre-allocate huge pages for a single
-   size.
+   its huge page capacity. A node can pre-allocate huge pages for multiple
+   sizes.
 
-The nodes will automatically discover and report all huge page resources as a
-schedulable resource.
+The nodes will automatically discover and report all huge page resources as
+schedulable resources.
 --->
-1. 为了使节点能够上报巨页容量，Kubernetes 节点必须预先分配巨页。每个节点只能预先分配一种特定规格的巨页。
+1. 为了使节点能够上报巨页容量，Kubernetes 节点必须预先分配巨页。每个节点只能预先分配多种特定规格的巨页。
 
 节点会自动发现全部巨页资源，并作为可供调度的资源进行上报。
 
@@ -128,22 +129,24 @@ spec:
 ```
 
 <!--
+
 - Huge page requests must equal the limits. This is the default if limits are
   specified, but requests are not.
-- Huge pages are isolated at a container scope, so each container has own limit on their cgroup sandbox as requested in a container spec.
+- Huge pages are isolated at a container scope, so each container has own
+  limit on their cgroup sandbox as requested in a container spec.
 - EmptyDir volumes backed by huge pages may not consume more huge page memory
   than the pod request.
 - Applications that consume huge pages via `shmget()` with `SHM_HUGETLB` must
   run with a supplemental group that matches `proc/sys/vm/hugetlb_shm_group`.
 - Huge page usage in a namespace is controllable via ResourceQuota similar
-to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
-token.
+  to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
+  token.
 - Support of multiple sizes huge pages is feature gated. It can be
-  enabled with the `HugePageStorageMediumSize` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) on the {{<
-glossary_tooltip text="kubelet" term_id="kubelet" >}} and {{<
-glossary_tooltip text="kube-apiserver"
-term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`).
+  disabled with the `HugePageStorageMediumSize`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  on the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and
+  {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}
+  (`--feature-gates=HugePageStorageMediumSize=false`).
 --->
 
 - 巨页的资源请求值必须等于其限制值。该条件在指定了资源限制，而没有指定请求的情况下默认成立。
@@ -153,10 +156,7 @@ term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`).
    `proc/sys/vm/hugetlb_shm_group` 匹配的补充组下。
 - 通过 ResourceQuota 资源，可以使用 `hugepages-<size>` 标记控制每个命名空间下的巨页使用量，
   类似于使用 `cpu` 或 `memory` 来控制其他计算资源。
-- 多种尺寸的巨页的支持需要特性门控配置。它可以通过 `HugePageStorageMediumSize` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)在  {{<
-glossary_tooltip text="kubelet" term_id="kubelet" >}} 和 {{<
-glossary_tooltip text="kube-apiserver"
-term_id="kube-apiserver" >}} 中开启（`--feature-gates=HugePageStorageMediumSize=true`）。
-
-
-
+- 多种尺寸的巨页的支持需要特性门控配置。它可以通过 `HugePageStorageMediumSize` 
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+在  {{<glossary_tooltip text="kubelet" term_id="kubelet" >} 和 
+{{<glossary_tooltip text="kube-apiserver"term_id="kube-apiserver" >}} 中关闭（`--feature-gates=HugePageStorageMediumSize=false`）。
