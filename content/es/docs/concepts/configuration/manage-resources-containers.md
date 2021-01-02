@@ -753,3 +753,4 @@ Puedes ver que el Contenedor fué terminado a causa de `reason:OOM Killed`, dond
 * Lee [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) referencia de API
 
 * Lee sobre [project quotas](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) en XFS
+
