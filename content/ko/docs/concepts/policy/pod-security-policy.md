@@ -1,7 +1,7 @@
 ---
 title: 파드 시큐리티 폴리시
 content_type: concept
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->

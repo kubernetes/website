@@ -1,5 +1,5 @@
 ---
-min-kubernetes-server-version: v1.16
+min-kubernetes-server-version: v1.20
 title: IPv4/IPv6 이중 스택 검증
 content_type: task
 ---
@@ -94,31 +94,31 @@ a00:100::4    pod01
 
 ## 서비스 검증
 
-`ipFamily` 필드 세트 없이 다음 서비스를 생성한다. 필드가 구성되지 않았으면 서비스는 kube-controller-manager의 `--service-cluster-ip-range` 플래그를 통해 설정된 범위 내 첫 IP를 할당받는다.
+`.spec.ipFamilyPolicy` 를 명시적으로 정의하지 않은 다음의 서비스를 생성한다. 쿠버네티스는 처음 구성된 `service-cluster-ip-range` 에서 서비스에 대한 클러스터 IP를 할당하고 `.spec.ipFamilyPolicy` 를 `SingleStack` 으로 설정한다.
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
-해당 서비스의 YAML을 보면, 서비스의 `ipFamily` 필드가 kube-controller-manager의 `--service-cluster-ip-range` 플래그를 통해 첫 번째 설정된 범위의 주소 패밀리를 반영하도록 설정되어 있음을 확인할 수 있다.
+`kubectl` 을 사용하여 서비스의 YAML을 확인한다.
 
 ```shell
 kubectl get svc my-service -o yaml
 ```
 
+이 서비스에서 `.spec.ipFamilyPolicy` 를 `SingleStack` 으로 설정하고 `.spec.clusterIP` 를 kube-controller-manager의 `--service-cluster-ip-range` 플래그를 통해 설정된 첫 번째 구성 범위에서 IPv4 주소로 설정한다.
+
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: "2019-09-03T20:45:13Z"
-  labels:
-    app: MyApp
   name: my-service
   namespace: default
-  resourceVersion: "485836"
-  selfLink: /api/v1/namespaces/default/services/my-service
-  uid: b6fa83ef-fe7e-47a3-96a1-ac212fa5b030
 spec:
-  clusterIP: 10.0.29.179
-  ipFamily: IPv4
+  clusterIP: 10.0.217.164
+  clusterIPs:
+  - 10.0.217.164
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
   ports:
   - port: 80
     protocol: TCP
@@ -131,26 +131,97 @@ status:
   loadBalancer: {}
 ```
 
-`ipFamily` 필드를 `IPv6`로 설정하여 다음의 서비스를 생성한다.
+`.spec.ipFamilies` 의 첫 번째 배열 요소로 `IPv6` 을 명시적으로 정의하는 다음 서비스를 생성한다. Kubernetes는 `service-cluster-ip-range`로 구성된 IPv6 범위에서 서비스용 클러스터 IP를 할당하고 `.spec.ipFamilyPolicy` 를 `SingleStack` 으로 설정한다.
 
-{{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
+{{< codenew file="service/networking/dual-stack-ipfamilies-ipv6.yaml" >}}
 
-서비스가 IPv6 주소 블록에서 클러스터 IP 주소를 할당받는 것을 검증한다. 그리고 나서 IP 및 포트로 서비스 접근이 가능한지 검증할 수 있다.
+`kubectl` 를 사용하여 서비스의 YAML을 확인한다.
+
+```shell
+kubectl get svc my-service -o yaml
 ```
+
+이 서비스에서 `.spec.ipFamilyPolicy` 를 `SingleStack` 으로 설정하고 `.spec.clusterIP` 를 kube-controller-manager의 `--service-cluster-ip-range` 플래그를 통해 설정된 IPv6 범위에서 IPv6 주소로 설정한다.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: MyApp
+  name: my-service
+spec:
+  clusterIP: fd00::5118
+  clusterIPs:
+  - fd00::5118
+  ipFamilies:
+  - IPv6
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: MyApp
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+```
+
+`PreferDualStack` 에 `.spec.ipFamilyPolicy` 을 명시적으로 정의하는 다음 서비스를 생성한다. 쿠버네티스는 IPv4 및 IPv6 주소를 모두 할당하고 (이 클러스터에는 이중 스택을 사용하도록 설정되었으므로) `.spec.ipFamilies` 배열에 있는 첫 번째 요소의 주소 계열을 기반으로`.spec.ClusterIP` 목록에서 `.spec.ClusterIPs` 를 선택한다.
+
+{{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
+
+{{< note >}}
+`kubectl get svc` 명령어는 오직 `CLUSTER-IP` 필드에 주요 IP만 표시한다.
+
+```shell
  kubectl get svc -l app=MyApp
-NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
-my-service   ClusterIP   fe80:20d::d06b   <none>        80/TCP    9s
+
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
+```
+{{< /note >}}
+
+서비스가 `kubectl describe` 를 사용하여 IPv4 및 IPv6 주소 블록에서 클러스터 IP를 가져오는지 확인한다. 그런 다음 IP 및 포트를 통해 서비스에 대한 접속을 확인할 수 있다.
+
+```shell
+kubectl describe svc -l app=MyApp
+```
+
+```
+Name:              my-service
+Namespace:         default
+Labels:            app=MyApp
+Annotations:       <none>
+Selector:          app=MyApp
+Type:              ClusterIP
+IP Family Policy:  PreferDualStack
+IP Families:       IPv4,IPv6
+IP:                10.0.216.242
+IPs:               10.0.216.242,fd00::af55
+Port:              <unset>  80/TCP
+TargetPort:        9376/TCP
+Endpoints:         <none>
+Session Affinity:  None
+Events:            <none>
 ```
 
 ### 이중 스택 로드 밸런싱 서비스 생성
 
-만약 클라우드 제공자가 IPv6 기반 외부 로드 밸런서 구성을 지원한다면 `ipFamily` 필드를 `IPv6`로, `type` 필드를 `LoadBalancer` 로 설정하여 다음의 서비스를 생성한다.
+만약 클라우드 제공자가 IPv6 기반 외부 로드 밸런서 구성을 지원한다면 `.spec.ipFamilyPolicy` 의 `PreferDualStack` 과 `.spec.ipFamilies` 배열의 첫 번째 요소로 `IPv6` 및 `LoadBalancer` 로 설정된 `type` 필드를 사용하여 다음 서비스를 생성한다.
 
-{{< codenew file="service/networking/dual-stack-ipv6-lb-svc.yaml" >}}
+{{< codenew file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" >}}
+
+Check the Service:
+
+```shell
+kubectl get svc -l app=MyApp
+```
 
 서비스가 IPv6 주소 블록에서 `CLUSTER-IP` 주소 및 `EXTERNAL-IP` 주소를 할당받는지 검증한다. 그리고 나서 IP 및 포트로 서비스 접근이 가능한지 검증할 수 있다.
-```
- kubectl get svc -l app=MyApp
-NAME         TYPE        CLUSTER-IP       EXTERNAL-IP                     PORT(S)        AGE
-my-service   ClusterIP   fe80:20d::d06b   2001:db8:f100:4002::9d37:c0d7   80:31868/TCP   30s
-```
+
+```shell
+NAME         TYPE           CLUSTER-IP   EXTERNAL-IP        PORT(S)        AGE
+my-service   LoadBalancer   fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s

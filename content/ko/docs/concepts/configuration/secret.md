@@ -134,7 +134,7 @@ data:
 [서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/) 문서를 보면
 서비스 어카운트가 동작하는 방법에 대한 더 자세한 정보를 얻을 수 있다.
 또한 파드에서 서비스 어카운트를 참조하는 방법을
-[`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)의
+[`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)의
 `automountServiceAccountToken` 필드와 `serviceAccountName`
 필드를 통해 확인할 수 있다.
 
@@ -152,7 +152,7 @@ data:
 인코딩된 `~/.dockercfg` 파일의 콘텐츠를 값으로 가지는 `.dockercfg` 키를 포함하고 있는지
 확실히 확인해야 한다.
 
-`kubernetes/dockerconfigjson` 타입은 `~/.dockercfg` 의
+`kubernetes.io/dockerconfigjson` 타입은 `~/.dockercfg` 의
 새로운 포맷인 `~/.docker/config.json` 파일과 동일한 포맷 법칙을
 따르는 직렬화 된 JSON의 저장을 위해 디자인되었다.
 이 시크릿 타입을 사용할 때는, 시크릿 오브젝트의 `data` 필드가 `.dockerconfigjson` 키를
@@ -347,22 +347,21 @@ data:
   usage-bootstrap-signing: dHJ1ZQ==
 ```
 
-부트스트랩 타입은 `data` 아래 명시된 다음의 키들을 가진다.
+부트스트랩 타입 시크릿은 `data` 아래 명시된 다음의 키들을 가진다.
 
 - `token_id`: 토큰 식별자로 임의의 6개 문자의 문자열. 필수 사항.
 - `token-secret`: 실제 토큰 시크릿으로 임의의 16개 문자의 문자열. 필수 사항.
-- `description1`: 토큰의 사용처를 설명하는 사람이 읽을 수 있는
+- `description`: 토큰의 사용처를 설명하는 사람이 읽을 수 있는
   문자열. 선택 사항.
 - `expiration`: 토큰이 만료되어야 하는 시기를 명시한 RFC3339를
   사용하는 절대 UTC 시간. 선택 사항.
 - `usage-bootstrap-<usage>`: 부트스트랩 토큰의 추가적인 사용처를 나타내는
   불리언(boolean) 플래그.
-- `auth-extra-groups`: system:bootstrappers 그룹에 추가로 인증될
+- `auth-extra-groups`: `system:bootstrappers` 그룹에 추가로 인증될
   쉼표로 구분된 그룹 이름 목록.
 
 위의 YAML은 모두 base64로 인코딩된 문자열 값이므로 혼란스러워 보일
-수 있다. 사실은 다음 YAML을 사용하여 동일한 시크릿 오브젝트 결과를 만드는
-동일한 시크릿을 생성할 수 있다.
+수 있다. 사실은 다음 YAML을 사용하여 동일한 시크릿을 생성할 수 있다.
 
 ```yaml
 apiVersion: v1
@@ -723,6 +722,11 @@ echo $SECRET_PASSWORD
 ```
 1f2d1e2e67df
 ```
+
+#### 시크릿 업데이트 후 환경 변수가 업데이트되지 않음
+
+컨테이너가 환경 변수에서 이미 시크릿을 사용하는 경우, 다시 시작하지 않는 한 컨테이너에서 시크릿 업데이트를 볼 수 없다.
+시크릿이 변경될 때 재시작을 트리거하는 써드파티 솔루션이 있다.
 
 ## 변경할 수 없는(immutable) 시크릿 {#secret-immutable}
 

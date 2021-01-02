@@ -50,7 +50,7 @@ CA 키없이 진행한다.
 `check-expiration` 하위 명령을 사용하여 인증서가 만료되는 시기를 확인할 수 있다.
 
 ```
-kubeadm alpha certs check-expiration
+kubeadm certs check-expiration
 ```
 
 출력 결과는 다음과 비슷하다.
@@ -118,7 +118,7 @@ kubeadm 1.17 이전 버전에는 `kubeadm upgrade node` 명령에서
 
 ## 수동 인증서 갱신
 
-`kubeadm alpha certs renew` 명령을 사용하여 언제든지 인증서를 수동으로 갱신할 수 있다.
+`kubeadm certs renew` 명령을 사용하여 언제든지 인증서를 수동으로 갱신할 수 있다.
 
 이 명령은 `/etc/kubernetes/pki` 에 저장된 CA(또는 프론트 프록시 CA) 인증서와 키를 사용하여 갱신을 수행한다.
 
@@ -127,10 +127,10 @@ HA 클러스터를 실행 중인 경우, 모든 컨트롤 플레인 노드에서
 {{< /warning >}}
 
 {{< note >}}
-`alpha certs renew` 는 기존 인증서를 kubeadm-config 컨피그맵(ConfigMap) 대신 속성(공통 이름, 조직, SAN 등)의 신뢰할 수 있는 소스로 사용한다. 둘 다 동기화 상태를 유지하는 것을 강력히 권장한다.
+`certs renew` 는 기존 인증서를 kubeadm-config 컨피그맵(ConfigMap) 대신 속성(공통 이름, 조직, SAN 등)의 신뢰할 수 있는 소스로 사용한다. 둘 다 동기화 상태를 유지하는 것을 강력히 권장한다.
 {{< /note >}}
 
-`kubeadm alpha certs renew` 는 다음의 옵션을 제공한다.
+`kubeadm certs renew` 는 다음의 옵션을 제공한다.
 
 쿠버네티스 인증서는 일반적으로 1년 후 만료일에 도달한다.
 
@@ -168,14 +168,14 @@ controllerManager:
 
 ### 인증서 서명 요청(CSR) 생성
 
-`kubeadm alpha certs renew --use-api` 로 쿠버네티스 인증서 API에 대한 인증서 서명 요청을 만들 수 있다.
+`kubeadm certs renew --use-api` 로 쿠버네티스 인증서 API에 대한 인증서 서명 요청을 만들 수 있다.
 
 [cert-manager](https://github.com/jetstack/cert-manager)와 같은 외부 서명자를 설정하면, 인증서 서명 요청(CSR)이 자동으로 승인된다.
 그렇지 않으면, [`kubectl certificate`](/ko/docs/setup/best-practices/certificates/) 명령을 사용하여 인증서를 수동으로 승인해야 한다.
 다음의 kubeadm 명령은 승인할 인증서 이름을 출력한 다음, 승인이 발생하기를 차단하고 기다린다.
 
 ```shell
-sudo kubeadm alpha certs renew apiserver --use-api &
+sudo kubeadm certs renew apiserver --use-api &
 ```
 출력 결과는 다음과 비슷하다.
 ```
@@ -209,13 +209,13 @@ kubeadm 관점에서, 일반적으로 온-디스크(on-disk) CA에 의해 서명
 
 ### 인증서 서명 요청(CSR) 생성
 
-`kubeadm alpha certs renew --csr-only` 로 인증서 서명 요청을 만들 수 있다.
+`kubeadm certs renew --csr-only` 로 인증서 서명 요청을 만들 수 있다.
 
 CSR과 함께 제공되는 개인 키가 모두 출력된다.
 `--csr-dir` 로 사용할 디텍터리를 전달하여 지정된 위치로 CSR을 출력할 수 있다.
 `--csr-dir` 을 지정하지 않으면, 기본 인증서 디렉터리(`/etc/kubernetes/pki`)가 사용된다.
 
-`kubeadm alpha certs renew --csr-only` 로 인증서를 갱신할 수 있다.
+`kubeadm certs renew --csr-only` 로 인증서를 갱신할 수 있다.
 `kubeadm init` 과 마찬가지로 출력 디렉터리를 `--csr-dir` 플래그로 지정할 수 있다.
 
 CSR에는 인증서 이름, 도메인 및 IP가 포함되지만, 용도를 지정하지는 않는다.
