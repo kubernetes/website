@@ -225,7 +225,6 @@ kubelet은 모든 주기적인 동기화에서 마운트된 컨피그맵이 최�
 그러나, kubelet은 로컬 캐시를 사용해서 컨피그맵의 현재 값을 가져온다.
 캐시 유형은 [KubeletConfiguration 구조체](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)의
 `ConfigMapAndSecretChangeDetectionStrategy` 필드를 사용해서 구성할 수 있다.
-
 컨피그맵은 watch(기본값), ttl 기반 또는 API 서버로 직접
 모든 요청을 리디렉션할 수 있다.
 따라서 컨피그맵이 업데이트되는 순간부터 새 키가 파드에 업데이트되는 순간까지의
@@ -262,12 +261,10 @@ data:
 immutable: true
 ```
 
-{{< note >}}
 컨피그맵을 immutable로 표시하면, 이 변경 사항을 되돌리거나
 `data` 또는 `binaryData` 필드 내용을 변경할 수 _없다_. 컨피그맵만
 삭제하고 다시 작성할 수 있다. 기존 파드는 삭제된 컨피그맵에 대한 마운트 지점을
 유지하므로, 이러한 파드를 다시 작성하는 것을 권장한다.
-{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
