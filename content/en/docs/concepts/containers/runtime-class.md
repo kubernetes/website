@@ -140,8 +140,8 @@ See CRI-O's [config documentation](https://raw.githubusercontent.com/cri-o/cri-o
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-As of Kubernetes v1.16, RuntimeClass includes support for heterogeneous clusters through its
-`scheduling` fields. Through the use of these fields, you can ensure that pods running with this
+If the nodes in your cluster support different sets of features, you can set the `scheduling`
+field for a RuntimeClass, then use that hint to ensure that pods running with that particular
 RuntimeClass are scheduled to nodes that support it.
 
 To ensure pods land on nodes supporting a specific RuntimeClass, that set of nodes should have a
@@ -177,4 +177,3 @@ are accounted for in Kubernetes.
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - Read about the [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/) concept
 - [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
-
