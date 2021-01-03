@@ -54,7 +54,8 @@ the same machine, and do not run user containers on this machine. See
 Some types of these controllers are:
 
   * Node controller: Responsible for noticing and responding when nodes go down.
-  * Job controller: Responsible for noticing tasks and creating Pods to run the tasks to completion
+  * Job controller: Watches for Job objects that represent one-off tasks, then creates
+    Pods to run those tasks to completion.
   * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
   * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
 
