@@ -61,7 +61,7 @@ Labels:                         app=hello
                                 track=stable
 Annotations:                    deployment.kubernetes.io/revision=1
 Selector:                       app=hello,tier=backend,track=stable
-Replicas:                       7 desired | 7 updated | 7 total | 7 available | 0 unavailable
+Replicas:                       3 desired | 3 updated | 3 total | 3 available | 0 unavailable
 StrategyType:                   RollingUpdate
 MinReadySeconds:                0
 RollingUpdateStrategy:          1 max unavailable, 1 max surge
@@ -82,7 +82,7 @@ Conditions:
   Available     True    MinimumReplicasAvailable
   Progressing   True    NewReplicaSetAvailable
 OldReplicaSets:                 <none>
-NewReplicaSet:                  hello-3621623197 (7/7 replicas created)
+NewReplicaSet:                  hello-3621623197 (3/3 replicas created)
 Events:
 ...
 ```
@@ -108,13 +108,13 @@ Create the `backend` Service:
 kubectl apply -f https://k8s.io/examples/service/access/backend-service.yaml
 ```
 
-At this point, you have a `backend` Deployment running seven replicas of your `hello`
+At this point, you have a `backend` Deployment running three replicas of your `hello`
 application, and you have a Service that can route traffic to them. However, this 
 service is neither available nor resolvable outside the cluster yet.
 
 ## Creating the frontend
 
-Now that you have your backend running, you can create a frontend that is available 
+Now that you have your backend running, you can create a frontend that is accessible 
 outside the cluster, and connects to the backend by proxying requests to it.
 
 The frontend sends requests to the backend worker Pods by using the DNS name
@@ -130,8 +130,8 @@ to proxy requests to the backend Service. Here is the nginx configuration file:
 Similar to the backend, the frontend has a Deployment and a Service. An important
 difference to notice between the backend and frontend services, is that the
 configuration for the frontend Service has `type: LoadBalancer`, which means that
-the Service uses the default load balancer of your cloud provider and will be
-available outside the cluster.
+the Service uses a load balancer provisioned by your cloud provider and will be
+accessible from outside the cluster.
 
 {{< codenew file="service/access/frontend-service.yaml" >}}
 
