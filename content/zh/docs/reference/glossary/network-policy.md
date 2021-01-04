@@ -18,7 +18,7 @@ tags:
 title: Network Policy
 id: network-policy
 date: 2018-04-12
-full_link: /docs/concepts/services-networking/network-policies/
+full_link: /zh/docs/concepts/services-networking/network-policies/
 short_description: >
   A specification of how groups of Pods are allowed to communicate with each other and with other network endpoints.
 
