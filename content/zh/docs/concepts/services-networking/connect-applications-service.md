@@ -354,16 +354,18 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
 -->
 
-## Service 安全
+## 保护 Service {#securing-the-service}
 
-到现在为止，我们只在集群内部访问了 Nginx server。在将 Service 暴露到 Internet 之前，我们希望确保通信信道是安全的。对于这可能需要：
+到现在为止，我们只在集群内部访问了 Nginx 服务器。在将 Service 暴露到因特网之前，我们希望确保通信信道是安全的。
+为实现这一目的，可能需要：
 
-* https 自签名证书（除非已经有了一个识别身份的证书）
-* 使用证书配置的 Nginx server
+* 用于 HTTPS 的自签名证书（除非已经有了一个识别身份的证书）
+* 使用证书配置的 Nginx 服务器
 * 使证书可以访问 Pod 的 [Secret](/zh/docs/concepts/configuration/secret/)
 
-可以从 [Nginx https 示例](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/examples/https-nginx/)
-获取所有上述内容，简明示例如下：
+你可以从 [Nginx https 示例](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/staging/https-nginx/)
+获取所有上述内容。你需要安装 go 和 make 工具。如果你不想安装这些软件，可以按照
+后文所述的手动执行步骤执行操作。简要过程如下：
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
@@ -415,7 +417,7 @@ nginxconfigmap   1      114s
 <!--
 Following are the manual steps to follow in case you run into problems running make (on windows for example):
 -->
-以下是您在运行make时遇到问题时要遵循的手动步骤（例如，在Windows上）：
+以下是你在运行 make 时遇到问题时要遵循的手动步骤（例如，在 Windows 上）：
 
 ```shell
 # Create a public private key pair
@@ -428,7 +430,7 @@ cat /d/tmp/nginx.key | base64
 <!--
 Use the output from the previous commands to create a yaml file as follows. The base64 encoded value should all be on a single line.
 -->
-使用前面命令的输出来创建yaml文件，如下所示。 base64编码的值应全部放在一行上。
+使用前面命令的输出来创建 yaml 文件，如下所示。 base64 编码的值应全部放在一行上。
 
 ```yaml
 apiVersion: "v1"
@@ -445,7 +447,7 @@ data:
 <!--
 Now create the secrets using the file:
 -->
-现在使用文件创建 secrets：
+现在使用文件创建 Secrets：
 
 ```shell
 kubectl apply -f nginxsecrets.yaml
@@ -460,8 +462,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 <!--
 Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
 -->
-
-现在修改 Nginx 副本，启动一个使用在秘钥中的证书的 https 服务器和 Servcie，都暴露端口（80 和 443）：
+现在修改 nginx 副本，启动一个使用在秘钥中的证书的 HTTPS 服务器和 Servcie，暴露端口（80 和 443）：
 
 {{< codenew file="service/networking/nginx-secure-app.yaml" >}}
 
@@ -475,13 +476,12 @@ Noteworthy points about the nginx-secure-app manifest:
 - Each container has access to the keys through a volume mounted at `/etc/nginx/ssl`.
   This is setup *before* the nginx server is started.
 -->
+关于 nginx-secure-app 清单，值得注意的几点如下：
 
-关于 nginx-secure-app manifest 值得注意的点如下：
-
-- 它在相同的文件中包含了 Deployment 和 Service 的规格
-- [Nginx 服务器](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/examples/https-nginx/default.conf)
-  处理 80 端口上的 http 流量，以及 443  端口上的 https 流量，Nginx Service 暴露了这两个端口。
-- 每个容器访问挂载在 /etc/nginx/ssl 卷上的秘钥。这需要在 Nginx server 启动之前安装好。
+- 它在相同的文件中包含了 Deployment 和 Service 的规约
+- [nginx 服务器](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/staging/https-nginx/default.conf)
+  处理 80 端口上的 HTTP 流量，以及 443  端口上的 HTTPS 流量，Nginx Service 暴露了这两个端口。
+- 每个容器访问挂载在 /etc/nginx/ssl 卷上的秘钥。这需要在 Nginx 服务器启动之前安装好。
 
 ```shell
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml
@@ -490,8 +490,7 @@ kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.ya
 <!--
 At this point you can reach the nginx server from any node.
 -->
-
-这时可以从任何节点访问到 Nginx server。
+这时，你可以从任何节点访问到 Nginx 服务器。
 
 ```shell
 kubectl get pods -o yaml | grep -i podip
@@ -506,10 +505,9 @@ Note how we supplied the `-k` parameter to curl in the last step, this is becaus
 so we have to tell curl to ignore the CName mismatch. By creating a Service we linked the CName used in the certificate with the actual DNS name used by pods during Service lookup.
 Let's test this from a pod (the same secret is being reused for simplicity, the pod only needs nginx.crt to access the Service):
 -->
-
-注意最后一步我们是如何提供 `-k` 参数执行 curl命令的，这是因为在证书生成时，
-我们不知道任何关于运行 Nginx 的 Pod 的信息，所以不得不在执行 curl 命令时忽略 CName 不匹配的情况。
-通过创建 Service，我们连接了在证书中的 CName 与在 Service 查询时被 Pod使用的实际 DNS 名字。
+注意最后一步我们是如何提供 `-k` 参数执行 curl 命令的，这是因为在证书生成时，
+我们不知道任何关于运行 nginx 的 Pod 的信息，所以不得不在执行 curl 命令时忽略 CName 不匹配的情况。
+通过创建 Service，我们连接了在证书中的 CName 与在 Service 查询时被 Pod 使用的实际 DNS 名字。
 让我们从一个 Pod 来测试（为了简化使用同一个秘钥，Pod 仅需要使用 nginx.crt 去访问 Service）：
 
 {{< codenew file="service/networking/curlpod.yaml" >}}
@@ -591,7 +589,8 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 Let's now recreate the Service to use a cloud load balancer, just change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
 -->
 
-让我们重新创建一个 Service，使用一个云负载均衡器，只需要将 `my-nginx` Service 的 `Type` 由 `NodePort` 改成 `LoadBalancer`。
+让我们重新创建一个 Service，使用一个云负载均衡器，只需要将 `my-nginx` Service 的 `Type`
+由 `NodePort` 改成 `LoadBalancer`。
 
 ```shell
 kubectl edit svc my-nginx
