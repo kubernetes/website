@@ -140,9 +140,9 @@ See CRI-O's [config documentation](https://raw.githubusercontent.com/cri-o/cri-o
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-If the nodes in your cluster support different sets of features, you can set the `scheduling`
-field for a RuntimeClass, then use that hint to ensure that pods running with that particular
-RuntimeClass are scheduled to nodes that support it.
+By specifying the `scheduling` field for a RuntimeClass, you can set constraints to
+ensure that Pods running with this RuntimeClass are scheduled to nodes that support it.
+If `scheduling` is not set, this RuntimeClass is assumed to be supported by all nodes.
 
 To ensure pods land on nodes supporting a specific RuntimeClass, that set of nodes should have a
 common label which is then selected by the `runtimeclass.scheduling.nodeSelector` field. The
@@ -164,6 +164,8 @@ Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 
 You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
 the cluster (including the scheduler) to account for it when making decisions about Pods and resources.  
+To use Pod overhead, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled (it is on by default).
 
 Pod overhead is defined in RuntimeClass through the `overhead` fields. Through the use of these fields,
 you can specify the overhead of running pods utilizing this RuntimeClass and ensure these overheads
