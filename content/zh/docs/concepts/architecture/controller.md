@@ -206,7 +206,10 @@ Kubernetes 采用了系统的云原生视图，并且可以处理持续的变化
 As a tenet of its design, Kubernetes uses lots of controllers that each manage
 a particular aspect of cluster state. Most commonly, a particular control loop
 (controller) uses one kind of resource as its desired state, and has a different
-kind of resource that it manages to make that desired state happen.
+kind of resource that it manages to make that desired state happen. For example,
+a controller for Jobs tracks Job objects (to discover new work) and Pod objects
+(to run the Jobs, and then to see when the work is finished). In this case
+something else creates the Jobs, whereas the Job controller creates Pods.
 
 It's useful to have simple controllers rather than one, monolithic set of control
 loops that are interlinked. Controllers can fail, so Kubernetes is designed to
@@ -215,12 +218,11 @@ allow for that.
 -->
 ## 设计 {#design}
 
-作为设计原则之一，Kubernetes 使用了很多控制器，每个控制器管理集群状态的一个特定方面。
-最常见的一个特定的控制器使用一种类型的资源作为它的期望状态，
-控制器管理控制另外一种类型的资源向它的期望状态演化。
-
-使用简单的控制器而不是一组相互连接的单体控制回路是很有用的。
-控制器会失败，所以 Kubernetes 的设计正是考虑到了这一点。
+作为其设计原则，Kubernetes使用了许多控制器，每个控制器管理群集状态的一个特殊方面。
+最常见的是一个特定的控制回路（控制器）使用一种资源作为其期望状态，并且具有不同的它设法使所需状态发生的资源。
+例如，作业控制器跟踪作业对象（以发现新的作业）和Pod对象（运行作业，然后查看工作何时完成）。
+在这种情况下其他的东西会创建作业，而作业控制器会创建pod。
+使用简单的控制器，而不是一套单一的控制器，是很有用的相互连接的回路。控制器可能会失效，因此Kubernetes被设计成考虑到这一点。
 
 <!--
 There can be several controllers that create or update the same kind of object.
