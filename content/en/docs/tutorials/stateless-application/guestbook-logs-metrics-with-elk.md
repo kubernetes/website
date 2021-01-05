@@ -43,6 +43,12 @@ Additionally you need:
 
 <!-- lessoncontent -->
 
+## Logging
+Generally, application logs are sent to the STDOUT and STDERR streams  and are configured by a logging driver. In the case of Kubernetes, logs are assigned via the kubelet service that runs on the node. You can have a look at the logging architecture(/docs/concepts/cluster-administration/logging) for detailed information 
+
+## DaemonSet
+It is required that the defined logging agent runs at every node. One of the ways to make this possible is using a DaemonSet. A DaemonSet(/docs/concepts/workloads/controllers/daemonset.md) creates a workflow that involves a copy of Pod running at each node. Hence in the cluster, as a new node is added, consecutive Pods get added. 
+
 ## Start up the  PHP Guestbook with Redis
 
 This tutorial builds on the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial.  If you have the guestbook application running, then you can monitor that.  If you do not have it running then follow the instructions to deploy the guestbook and do not perform the **Cleanup** steps.  Come back to this page when you have the guestbook running.
