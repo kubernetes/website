@@ -47,7 +47,7 @@ The upgrade workflow at high level is the following:
 
 ## Determine which version to upgrade to
 
-1.  Find the latest stable 1.17 version:
+-  Find the latest stable 1.17 version:
 
     {{< tabs name="k8s_install_versions" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -67,7 +67,7 @@ The upgrade workflow at high level is the following:
 
 ### Upgrade the first control plane node
 
-1.  On your first control plane node, upgrade kubeadm:
+-  On your first control plane node, upgrade kubeadm:
 
     {{< tabs name="k8s_install_kubeadm_first_cp" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -86,13 +86,13 @@ The upgrade workflow at high level is the following:
     {{% /tab %}}
     {{< /tabs >}}
 
-1.  Verify that the download works and has the expected version:
+-  Verify that the download works and has the expected version:
 
     ```shell
     kubeadm version
     ```
 
-1.  On the control plane node, run:
+-  On the control plane node, run:
 
     ```shell
     sudo kubeadm upgrade plan
@@ -139,7 +139,7 @@ The upgrade workflow at high level is the following:
     For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
     {{</ note >}}
 
-1.  Choose a version to upgrade to, and run the appropriate command. For example:
+-  Choose a version to upgrade to, and run the appropriate command. For example:
 
     ```shell
     # replace x with the patch version you picked for this upgrade
@@ -227,7 +227,7 @@ The upgrade workflow at high level is the following:
     [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
     ```
 
-1.  Manually upgrade your CNI provider plugin.
+-  Manually upgrade your CNI provider plugin.
 
     Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
     Check the [addons](/docs/concepts/cluster-administration/addons/) page to
@@ -237,7 +237,7 @@ The upgrade workflow at high level is the following:
 
 ### Upgrade additional control plane nodes
 
-1.  Same as the first control plane node but use:
+-  Same as the first control plane node but use:
 
 ```
 sudo kubeadm upgrade node
@@ -262,7 +262,7 @@ Also `sudo kubeadm upgrade plan` is not needed.
 
 ### Upgrade kubelet and kubectl
 
-1.  Upgrade the kubelet and kubectl on all control plane nodes:
+-  Upgrade the kubelet and kubectl on all control plane nodes:
 
     {{< tabs name="k8s_install_kubelet" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -281,7 +281,7 @@ Also `sudo kubeadm upgrade plan` is not needed.
     {{% /tab %}}
     {{< /tabs >}}
 
-1. Restart the kubelet
+- Restart the kubelet
 
     ```shell
     sudo systemctl restart kubelet
@@ -304,7 +304,7 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Upgrade kubeadm
 
-1.  Upgrade kubeadm on all worker nodes:
+-  Upgrade kubeadm on all worker nodes:
 
     {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -325,7 +325,7 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Upgrade the kubelet configuration
 
-1.  Call the following command:
+-  Call the following command:
 
     ```shell
     sudo kubeadm upgrade node
@@ -333,7 +333,7 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Drain the node
 
-1.  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+-  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 
     ```shell
     # replace <node-to-drain> with the name of your node you are draining
@@ -350,7 +350,7 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Upgrade kubelet and kubectl
 
-1.  Upgrade the kubelet and kubectl on all worker nodes:
+-  Upgrade the kubelet and kubectl on all worker nodes:
 
     {{< tabs name="k8s_kubelet_and_kubectl" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -369,7 +369,7 @@ without compromising the minimum required capacity for running your workloads.
     {{% /tab %}}
     {{< /tabs >}}
 
-1. Restart the kubelet
+- Restart the kubelet
 
     ```shell
     sudo systemctl restart kubelet
@@ -377,7 +377,7 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Uncordon the node
 
-1.  Bring the node back online by marking it schedulable:
+-  Bring the node back online by marking it schedulable:
 
     ```shell
     # replace <node-to-drain> with the name of your node 
