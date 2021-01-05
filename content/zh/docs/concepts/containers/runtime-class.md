@@ -14,7 +14,7 @@ weight: 20
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.14" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 <!-- 
 This page describes the RuntimeClass resource and runtime selection mechanism.
@@ -121,7 +121,7 @@ RuntimeClass 资源当前只有两个重要的字段：RuntimeClass 名 (`metada
 对象定义如下所示：
 
 ```yaml
-apiVersion: node.k8s.io/v1beta1  # RuntimeClass 定义于 node.k8s.io API 组
+apiVersion: node.k8s.io/v1  # RuntimeClass 定义于 node.k8s.io API 组
 kind: RuntimeClass
 metadata:
   name: myclass  # 用来引用 RuntimeClass 的名字

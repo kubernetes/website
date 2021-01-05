@@ -38,10 +38,14 @@ Katacoda provides a free, in-browser Kubernetes environment.
 在 Kubernetes 上运行一个应用示例。Katacoda 提供免费的浏览器内 Kubernetes 环境。
 
 <!--
-You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
+{{< note >}}
+You can also follow this tutorial if you've installed minikube locally.
+See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+{{< /note >}}
 -->
 {{< note >}}
-如果你已在本地安装 [Minikube](https://minikube.sigs.k8s.io/docs/start/)，也可以按照本教程操作。
+如果你已在本地安装 Minikube，也可以按照本教程操作。
+安装指南参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/) 。
 {{< /note >}}
 
 

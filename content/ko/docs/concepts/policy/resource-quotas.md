@@ -1,7 +1,7 @@
 ---
 title: 리소스 쿼터
 content_type: concept
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->

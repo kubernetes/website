@@ -12,22 +12,13 @@ weight: 20
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 <!--
-This page shows how to enable and use the `RunAsUserName` feature for pods and containers that will run on Windows nodes. This feature is meant to be the Windows equivalent of the Linux-specific `runAsUser` feature, allowing users to run the container entrypoints with a different username that their default ones.
+This page shows how to use the `runAsUserName` setting for Pods and containers that will run on Windows nodes. This is roughly equivalent of the Linux-specific `runAsUser` setting, allowing you to run applications in a container as a different username than the default.
 -->
-本页展示如何为运行在 Windows 节点上的 pod 和容器启用并使用 `RunAsUserName` 功能。
-此功能旨在成为 Windows 版的 `runAsUser`（Linux），允许用户使用与默认用户名不同的
-用户名运行容器 entrypoint。
-
-<!--
-This feature is in beta. The overall functionality for `RunAsUserName` will not change, but there may be some changes regarding the username validation.
--->
-{{< note >}}
-此功能目前处于 Beta 状态。`RunAsUserName` 的整体功能不会出现变更，
-但是关于用户名验证的部分可能会有所更改。
-{{< /note >}}
+本页展示如何为运行为在 Windows 节点上运行的 Pod 和容器配置 `RunAsUserName` 。
+大致相当于 Linux 上的 `runAsUser`，允许在容器中以与默认值不同的用户名运行应用。
 
 ## {{% heading "prerequisites" %}}
 
@@ -45,9 +36,9 @@ To specify the username with which to execute the Pod's container processes, inc
 ## 为 Pod 设置 Username
 
 要指定运行 Pod 容器时所使用的用户名，请在 Pod 声明中包含 `securityContext` 
-（[PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)）字段，
+（[PodSecurityContext](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)）字段，
 并在其内部包含 `windowsOptions` 
-（[WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core)）
+（[WindowsSecurityContextOptions](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core)）
 字段的 `runAsUserName` 字段。
 
 <!--
@@ -120,7 +111,12 @@ To specify the username with which to execute a Container's processes, include t
 
 ## 为容器设置 Username
 
-要指定运行容器时所使用的用户名，请在容器清单中包含 `securityContext` （[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)）字段，并在其内部包含 `windowsOptions` （[WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core)）字段的 `runAsUserName` 字段。
+要指定运行容器时所使用的用户名，请在容器清单中包含 `securityContext`
+（[SecurityContext](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)）
+字段，并在其内部包含 `windowsOptions`
+（[WindowsSecurityContextOptions](/zh/docs/reference/generated/kubernetes-api/{{< param 
+"version" >}}/#windowssecuritycontextoptions-v1-core)）
+字段的 `runAsUserName` 字段。
 
 <!--
 The Windows security context options that you specify for a Container apply only to that individual Container, and they override the settings made at the Pod level.
@@ -222,4 +218,3 @@ For more information about these limtations, check [here](https://support.micros
 * [Kubernetes 中调度 Windows 容器的指南](/zh/docs/setup/production-environment/windows/user-guide-windows-containers/)
 * [使用组托管服务帐户（GMSA）管理工作负载身份](/zh/docs/setup/production-environment/windows/user-guide-windows-containers/#managing-workload-identity-with-group-managed-service-accounts)
 * [Windows 下 pod 和容器的 GMSA 配置](/zh/docs/tasks/configure-pod-container/configure-gmsa/)
-

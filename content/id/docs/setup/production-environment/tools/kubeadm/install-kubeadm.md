@@ -289,8 +289,8 @@ atau `/etc/default/kubelet`(`/etc/sysconfig/kubelet` untuk RPM), silakan hapus d
 Kamu harus melakukan _restart_ pada kubelet:
 
 ```bash
-systemctl daemon-reload
-systemctl restart kubelet
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
 ```
 
 Deteksi _driver_ cgroup secara otomatis untuk _runtime_ Container lainnya

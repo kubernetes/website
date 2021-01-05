@@ -143,7 +143,7 @@ Do | Don't
 :--| :-----
 Set the value of the `replicas` field in the configuration file. | Set the value of the "replicas" field in the configuration file.
 The value of the `exec` field is an ExecAction object. | The value of the "exec" field is an ExecAction object.
-Run the process as a Daemonset in the `kube-system` namespace. | Run the process as a Daemonset in the kube-system namespace.
+Run the process as a DaemonSet in the `kube-system` namespace. | Run the process as a DaemonSet in the kube-system namespace.
 {{< /table >}}
 
 ### Use code style for Kubernetes command tool and component names

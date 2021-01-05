@@ -305,9 +305,10 @@ mynamespace                                         # 특정 네임스페이스�
 kubectl run nginx --image=nginx                     # nginx 파드를 실행하고 해당 스펙을 pod.yaml 파일에 기록
 --dry-run=client -o yaml > pod.yaml
 
-kubectl attach my-pod -i                            # 실행중인 컨테이너에 연결
+kubectl attach my-pod -i                            # 실행 중인 컨테이너에 연결
 kubectl port-forward my-pod 5000:6000               # 로컬 머신의 5000번 포트를 리스닝하고, my-pod의 6000번 포트로 전달
 kubectl exec my-pod -- ls /                         # 기존 파드에서 명령 실행(한 개 컨테이너 경우)
+kubectl exec --stdin --tty my-pod -- /bin/sh        # 실행 중인 파드로 대화형 셸 액세스(1 컨테이너 경우)
 kubectl exec my-pod -c my-container -- ls /         # 기존 파드에서 명령 실행(멀티-컨테이너 경우)
 kubectl top pod POD_NAME --containers               # 특정 파드와 해당 컨테이너에 대한 메트릭 표시
 ```

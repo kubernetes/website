@@ -1,11 +1,11 @@
 ---
-title: 配置 kubelet 垃圾回收策略
+title: 容器镜像的垃圾收集
 content_type: concept
 weight: 70
 ---
 
 <!--
-title: Configuring kubelet Garbage Collection
+title: Garbage collection for container images
 content_type: concept
 weight: 70
 -->
@@ -13,13 +13,12 @@ weight: 70
 <!-- overview -->
 
 <!--
-Garbage collection is a helpful function of kubelet that will clean up unused images and unused containers. 
-Kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
+Garbage collection is a helpful function of kubelet that will clean up unused [images](/docs/concepts/containers/#container-images) and unused [containers](/docs/concepts/containers/). Kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
 
 External garbage collection tools are not recommended as these tools can potentially break the behavior of kubelet by removing containers expected to exist.
 -->
 
-垃圾回收是 kubelet 的一个有用功能，它将清理未使用的镜像和容器。
+垃圾回收是 kubelet 的一个有用功能，它将清理未使用的[镜像](/zh/docs/concepts/containers/#container-images)和[容器](/zh/docs/concepts/containers/)。
 Kubelet 将每分钟对容器执行一次垃圾回收，每五分钟对镜像执行一次垃圾回收。
 
 不建议使用外部垃圾收集工具，因为这些工具可能会删除原本期望存在的容器进而破坏 kubelet 的行为。
