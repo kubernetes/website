@@ -49,7 +49,7 @@ Cluster administrator actions include:
 
 - [Draining a node](/docs/tasks/administer-cluster/safely-drain-node/) for repair or upgrade.
 - Draining a node from a cluster to scale the cluster down (learn about
-[Cluster Autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaler)
+[Cluster Autoscaling](https://v1-18.docs.kubernetes.io/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)
 ).
 - Removing a pod from a node to permit something else to fit on that node.
 
