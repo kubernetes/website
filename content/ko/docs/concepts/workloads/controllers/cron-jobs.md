@@ -28,8 +28,6 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 11자를 자동으로 추가하고, 작업 이름의 최대 길이는
 63자라는 제약 조건이 있기 때문이다.
 
-
-
 <!-- body -->
 
 ## 크론잡
@@ -77,6 +75,14 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 크론잡은 오직 그 일정에 맞는 잡 생성에 책임이 있고,
 잡은 그 잡이 대표하는 파드 관리에 책임이 있다.
+
+## 새 컨트롤러
+
+쿠버네티스 1.20부터 알파 기능으로 사용할 수 있는 크론잡 컨트롤러의 대체 구현이 있다. 크론잡 컨트롤러의 버전 2를 선택하려면, 다음의 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 플래그를 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}에 전달한다.
+
+```
+--feature-gates="CronJobControllerV2=true"
+```
 
 
 ## {{% heading "whatsnext" %}}

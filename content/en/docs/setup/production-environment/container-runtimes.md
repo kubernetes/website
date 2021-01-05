@@ -130,6 +130,24 @@ sudo containerd config default | sudo tee /etc/containerd/config.toml
 sudo systemctl restart containerd
 ```
 {{% /tab %}}
+{{% tab name="Ubuntu 18.04/20.04" %}}
+
+```shell
+# (Install containerd)
+sudo apt-get update && sudo apt-get install -y containerd
+```
+
+```shell
+# Configure containerd
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# Restart containerd
+sudo systemctl restart containerd
+```
+{{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
@@ -218,6 +236,13 @@ For more information, see the [CRI-O compatibility matrix](https://github.com/cr
 Install and configure prerequisites:
 
 ```shell
+
+# Create the .conf file to load the modules at bootup
+cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
+overlay
+br_netfilter
+EOF
+
 sudo modprobe overlay
 sudo modprobe br_netfilter
 

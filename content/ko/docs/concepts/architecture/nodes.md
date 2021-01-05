@@ -327,6 +327,26 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
 자세한 내용은
 [노드의 컨트롤 토폴로지 관리 정책](/docs/tasks/administer-cluster/topology-manager/)을 본다.
 
+## 그레이스풀(Graceful) 노드 셧다운
+
+{{< feature-state state="alpha" for_k8s_version="v1.20" >}}
+
+`GracefulNodeShutdown` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화한 경우 kubelet은 노드 시스템 종료를 감지하고 노드에서 실행 중인 파드를 종료한다.
+Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로세스](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)를 따르도록 한다.
+
+`GracefulNodeShutdown` 기능 게이트가 활성화되면 kubelet은 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)를 사용하여 주어진 기간 동안 노드 종료를 지연시킨다. 종료 중에 kubelet은 두 단계로 파드를 종료시킨다.
+
+1. 노드에서 실행 중인 일반 파드를 종료시킨다.
+2. 노드에서 실행 중인 [중요(critical) 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)를 종료시킨다.
+
+그레이스풀 노드 셧다운 기능은 두 개의 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) 옵션으로 구성된다.
+* `ShutdownGracePeriod`:
+  * 노드가 종료를 지연해야 하는 총 기간을 지정한다. 이것은 모든 일반 및 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)의 파드 종료에 필요한 총 유예 기간에 해당한다.
+* `ShutdownGracePeriodCriticalPods`:
+  * 노드 종료 중에 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)를 종료하는 데 사용되는 기간을 지정한다. 이는 `ShutdownGracePeriod`보다 작아야 한다.
+
+예를 들어 `ShutdownGracePeriod=30s`, `ShutdownGracePeriodCriticalPods=10s` 인 경우 kubelet은 노드 종료를 30 초까지 지연시킨다. 종료하는 동안 처음 20(30-10) 초는 일반 파드의 유예 종료에 할당되고, 마지막 10 초는 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)의 종료에 할당된다.
+
 
 ## {{% heading "whatsnext" %}}
 
@@ -335,3 +355,4 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
 * 아키텍처 디자인 문서의 [노드](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   섹션을 읽어본다.
 * [테인트와 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)을 읽어본다.
+

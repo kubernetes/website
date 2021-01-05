@@ -286,7 +286,7 @@ Do | Don't
 :--| :-----
 Set the value of the `replicas` field in the configuration file. | Set the value of the "replicas" field in the configuration file.
 The value of the `exec` field is an ExecAction object. | The value of the "exec" field is an ExecAction object.
-Run the process as a Daemonset in the `kube-system` namespace. | Run the process as a Daemonset in the kube-system namespace.
+Run the process as a DaemonSet in the `kube-system` namespace. | Run the process as a DaemonSet in the kube-system namespace.
 {{< /table >}}
 -->
 ### 为对象字段名和名字空间使用代码风格
@@ -296,7 +296,7 @@ Run the process as a Daemonset in the `kube-system` namespace. | Run the process
 :--| :-----
 在配置文件中设置 `replicas` 字段的值。 | 在配置文件中设置 "replicas" 字段的值。
 `exec` 字段的值是一个 ExecAction 对象。 | "exec" 字段的值是一个 ExecAction 对象。
-在 `kube-system` 名字空间中以 Daemonset 形式运行此进程。 | 在 kube-system 名字空间中以 DaemonSet 形式运行此进程。
+在 `kube-system` 名字空间中以 DaemonSet 形式运行此进程。 | 在 kube-system 名字空间中以 DaemonSet 形式运行此进程。
 {{< /table >}}
 
 <!--

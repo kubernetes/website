@@ -95,7 +95,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 
   `.spec.replicas` 필드에 따라 의도한 레플리카의 수가 3개인지 알 수 있다.
 
-3. 디플로이먼트의 롤아웃 상태를 보려면, `kubectl rollout status deployment.v1.apps/nginx-deployment` 를 실행한다.
+3. 디플로이먼트의 롤아웃 상태를 보려면, `kubectl rollout status deployment/nginx-deployment` 를 실행한다.
 
    다음과 유사하게 출력된다.
    ```
@@ -194,7 +194,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 2. 롤아웃 상태를 보려면 다음을 실행한다.
 
     ```shell
-    kubectl rollout status deployment.v1.apps/nginx-deployment
+    kubectl rollout status deployment/nginx-deployment
     ```
 
     이와 유사하게 출력된다.
@@ -373,7 +373,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 
 
     ```shell
-    kubectl rollout status deployment.v1.apps/nginx-deployment
+    kubectl rollout status deployment/nginx-deployment
     ```
 
     이와 유사하게 출력된다.
@@ -850,7 +850,7 @@ nginx-deployment-618515232    11        11        11        7m
 만약 롤아웃이 성공적으로 완료되면 `kubectl rollout status` 는 종료 코드로 0이 반환된다.
 
 ```shell
-kubectl rollout status deployment.v1.apps/nginx-deployment
+kubectl rollout status deployment/nginx-deployment
 ```
 이와 유사하게 출력된다.
 ```

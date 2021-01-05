@@ -59,8 +59,8 @@ metadata:
 ## Applications And Instances Of Applications
 
 An application can be installed one or more times into a Kubernetes cluster and,
-in some cases, the same namespace. For example, wordpress can be installed more
-than once where different websites are different installations of wordpress.
+in some cases, the same namespace. For example, WordPress can be installed more
+than once where different websites are different installations of WordPress.
 
 The name of an application and the instance name are recorded separately. For
 example, WordPress has a `app.kubernetes.io/name` of `wordpress` while it has
@@ -168,6 +168,6 @@ metadata:
 ...
 ```
 
-With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and Wordpress, the broader application, are included.
+With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and WordPress, the broader application, are included.
 
 

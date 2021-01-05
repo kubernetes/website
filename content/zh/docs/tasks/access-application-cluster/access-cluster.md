@@ -469,7 +469,7 @@ This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
 at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed.  Logging can also be reached through a kubectl proxy, for example at:
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
-(See [above](#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.)
+(See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/) for how to pass credentials or use kubectl proxy.)
 -->
 这展示了访问每个服务的 proxy-verb URL。
 例如，如果集群启动了集群级别的日志（使用 Elasticsearch），并且传递合适的凭证，
@@ -477,8 +477,8 @@ at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-l
 `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`
 进行访问。日志也能通过 kubectl 代理获取，例如：
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`。
-（参阅 [上面的内容](#accessing-the-cluster-api) 来获取如何使用 kubectl 代理来传递凭证）
-
+（参阅[使用 Kubernetes API 访问集群](/zh/docs/tasks/administer-cluster/access-cluster-api/)
+了解如何传递凭据，或者使用 kubectl proxy）
 <!--
 #### Manually constructing apiserver proxy URLs
 
@@ -671,4 +671,3 @@ will typically ensure that the latter types are setup correctly.
 
 除了前两种类型之外，Kubernetes 用户通常不需要担心任何其他问题。
 集群管理员通常会确保后者的正确配置。
-

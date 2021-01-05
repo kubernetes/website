@@ -258,5 +258,5 @@ kubectl delete namespace quota-mem-cpu-example
 
 * [为容器和 Pod 分配内存资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [为容器和 Pod 分配CPU资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
-* [为 Pod 配置 Service 数量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+* [为 Pod 配置服务质量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
 

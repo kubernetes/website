@@ -119,7 +119,7 @@ sudo apt-get update && sudo apt-get install -y containerd.io
 ```shell
 # containerd 구성
 sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -161,10 +161,10 @@ sudo systemctl restart containerd
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 ```powershell
-# (Install containerd)
-# download containerd
-cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
-cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
+# (containerd 설치)
+# containerd 다운로드
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.1/containerd-1.4.1-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.1-windows-amd64.tar.gz
 ```
 
 ```shell

@@ -234,7 +234,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 -->
 ### 在 macOS 上使用 Homebrew 安装    {#install-with-homebrew-on-macos}
 
-如果你在 macOS 上且使用 [Homebrew](https://brew.sh/) 包管理器，
+如果你使用的是 macOS 系统且使用 [Homebrew](https://brew.sh/) 包管理器，
 你可以使用 Homebrew 来安装 kubectl。
 
 <!--
@@ -242,7 +242,16 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 -->
 1. 运行安装命令：
 
+   ```bash
+   brew install kubectl 
    ```
+   
+   <!--
+   or
+   -->
+   或者
+   
+   ```bash
    brew install kubernetes-cli
    ```
 
@@ -269,8 +278,9 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 -->
 1. 运行安装命令：
 
-   ```
-   port install kubectl
+   ```bash
+   sudo port selfupdate
+   sudo port install kubectl
    ```
 
 <!--
@@ -297,7 +307,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
    Or if you have `curl` installed, use this command:
 -->
 1. 从[此链接](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)
-   下载最新发型版本。
+   下载最新发行版本 {{< param "fullversion" >}}。
 
    或者如何你安装了 `curl`，使用下面的命令：
 
@@ -385,10 +395,15 @@ Updating the installation is performed by rerunning the two commands listed in s
 {{< /note >}}
 
 <!--
-### Install with Chocolatey on Windows
-
-1. To install kubectl on Windows you can use either [Chocolatey] package manager or [Scoop](https://scoop.sh) command-line installer.
+### Install on Windows using Chocolatey or Scoop
 -->
+### 在 Windows 系统上用 Chocolatey 或者 Scoop 安装
+
+<!--
+1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [Scoop](https://scoop.sh) command-line installer.
+-->
+
+
 1. 要在 Windows 上用 [Chocolatey](https://chocolatey.org) 或者
    [Scoop](https://scoop.sh) 命令行安装程序安装 kubectl：
 

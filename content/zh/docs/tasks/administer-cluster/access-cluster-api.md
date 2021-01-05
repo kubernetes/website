@@ -423,10 +423,14 @@ as the kubectl CLI does to locate and authenticate to the API server. See this [
 -->
 #### .Net 客户端    {#dotnet-client}
 
-要使用 [.Net 客户端](https://github.com/kubernetes-client/csharp)，运行下面的命令：
+要使用[.Net 客户端](https://github.com/kubernetes-client/csharp)，运行下面的命令：
 `dotnet add package KubernetesClient --version 1.6.1`。
-参见 [.Net 客户端库页面](https://github.com/kubernetes-client/csharp)了解更多安装选项。
+参见[.Net 客户端库页面](https://github.com/kubernetes-client/csharp)了解更多安装选项。
 关于可支持的版本，参见[https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)。
+
+.Net 客户端可以使用与 kubectl CLI 相同的 [kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+来定位并验证 API 服务器。
+参见[样例](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs): 
 
 ```csharp
 using System;

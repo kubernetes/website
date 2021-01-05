@@ -271,6 +271,13 @@ However, using the builtin Secret type helps unify the formats of your credentia
 and the API server does verify if the required keys are provided in a Secret
 configuration.
 
+{{< caution >}}
+SSH private keys do not establish trusted communication between an SSH client and
+host server on their own. A secondary means of establishing trust is needed to
+mitigate "man in the middle" attacks, such as a `known_hosts` file added to a
+ConfigMap.
+{{< /caution >}}
+
 ### TLS secrets
 
 Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
@@ -351,7 +358,7 @@ data:
 
 A bootstrap type Secret has the following keys specified under `data`:
 
-- `token_id`: A random 6 character string as the token identifier. Required.
+- `token-id`: A random 6 character string as the token identifier. Required.
 - `token-secret`: A random 16 character string as the actual token secret. Required.
 - `description`: A human-readable string that describes what the token is
   used for. Optional.

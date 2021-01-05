@@ -48,6 +48,20 @@ weight: 50
 파드가 생성되거나 수정될 때 파드를 수정하기 위해 동기적으로 동작한다.
 이 플러그인이 활성 상태(대부분의 배포에서 기본값)인 경우 파드 생성 또는 수정 시 다음 작업을 수행한다.
 
+ 1. 파드에 `ServiceAccount` 가 없다면, `ServiceAccount` 를 `default` 로 설정한다.
+ 1. 파드에 참조되는 `ServiceAccount` 가 있도록 하고, 그렇지 않으면 이를 거부한다.
+ 1. 파드에 `ImagePullSecrets` 이 없는 경우, `ServiceAccount` 의 `ImagePullSecrets` 이 파드에 추가된다.
+ 1. 파드에 API 접근을 위한 토큰이 포함된 `volume` 을 추가한다.
+ 1. `/var/run/secrets/kubernetes.io/serviceaccount` 에 마운트된 파드의 각 컨테이너에 `volumeSource` 를 추가한다.
+
+#### 바인딩된 서비스 어카운트 토큰 볼륨
+{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
+
+`BoundServiceAccountTokenVolume` 기능 게이트가 활성화되면, 서비스 어카운트 어드미션 컨트롤러가
+시크릿 볼륨 대신 프로젝티드 서비스 어카운트 토큰 볼륨을 추가한다. 서비스 어카운트 토큰은 기본적으로 1시간 후에 만료되거나 파드가 삭제된다. [프로젝티드 볼륨](/docs/tasks/configure-pod-container/configure-projected-volume-storage/)에 대한 자세한 내용을 참고한다.
+
+이 기능은 모든 네임스페이스에 "kube-root-ca.crt" 컨피그맵을 게시하는 활성화된 `RootCAConfigMap` 기능 게이트에 따라 다르다. 이 컨피그맵에는 kube-apiserver에 대한 연결을 확인하는 데 사용되는 CA 번들이 포함되어 있다.
+
 1. 파드에 `serviceAccountName`가 없다면, `serviceAccountName`를
    `default`로 설정한다.
 1. 파드에 참조되는 `serviceAccountName`가 있도록 하고, 그렇지 않으면

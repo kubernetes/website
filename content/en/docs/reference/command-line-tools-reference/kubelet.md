@@ -74,13 +74,6 @@ kubelet [flags]
 </tr>
 
 <tr>
-<td colspan="2">--application-metrics-count-limit int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 100</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Max number of application metrics to store (per container) (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns,it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
 <td colspan="2">--authentication-token-webhook</td>
 </tr>
 <tr>
@@ -120,13 +113,6 @@ kubelet [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to the file containing Azure container registry configuration information.</td>
-</tr>
-
-<tr>
-<td colspan="2">--boot-id-file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `/proc/sys/kernel/random/boot_id`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated list of files to check for `boot-id`. Use the first one that exists. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
 </tr>
 
 <tr>
@@ -235,13 +221,6 @@ kubelet [flags]
 </tr>
 
 <tr>
-<td colspan="2">--container-hints string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `/etc/cadvisor/container_hints.json`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">location of the container hints file. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
 <td colspan="2">--container-log-max-files int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5</td>
 </tr>
 <tr>
@@ -269,13 +248,7 @@ kubelet [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] The endpoint of remote runtime service. Currently unix socket endpoint is supported on Linux, while npipe and tcp endpoints are supported on windows. Examples: `unix:///var/run/dockershim.sock`, `npipe:////./pipe/dockershim`.</td>
 </tr>
 
-<tr>
-<td colspan="2">--containerd string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `/run/containerd/containerd.sock`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The `containerd` endpoint. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-    
+   
 <tr>
 <td colspan="2">--contention-profiling</td>
 </tr>
@@ -312,66 +285,10 @@ kubelet [flags]
 </tr>
 
 <tr>
-<td colspan="2">--docker string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `unix:///var/run/docker.sock`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The `docker` endpoint. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-    
-<tr>
 <td colspan="2">--docker-endpoint string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `unix:///var/run/docker.sock`</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Use this for the `docker` endpoint to communicate with. This docker-specific flag only works when container-runtime is set to `docker`.</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-env-metadata-whitelist string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">a comma-separated list of environment variable keys that needs to be collected for docker containers (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-only</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Only report docker containers in addition to root stats (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-root string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `/var/lib/docker`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">DEPRECATED: docker root is read from docker info (this is a fallback).</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-tls</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">use TLS to connect to docker (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-tls-ca string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `ca.pem`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">path to trusted CA. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-tls-cert string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `cert.pem`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">path to client certificate. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--docker-tls-key string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `key.pem`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to private key. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
 </tr>
 
 <tr>
@@ -403,13 +320,6 @@ kubelet [flags]
 </tr>
 
 <tr>
-<td colspan="2">--enable-load-reader</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Whether to enable CPU load reader (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
 <td colspan="2">--enable-server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `true`</td>
 </tr>
 <tr>
@@ -438,21 +348,7 @@ kubelet [flags]
 </tr>
 
 <tr>
-<td colspan="2">--event-storage-age-limit string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `default=0`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Max length of time for which to store events (per type). Value is a comma separated list of key values, where the keys are event types (e.g.: `creation`, `oom`) or `default` and the value is a duration. Default is applied to all non-specified event types. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--event-storage-event-limit string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `default=0`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Max number of events to store (per type). Value is a comma separated list of key values, where the keys are event types (e.g.: `creation`, `oom`) or `default` and the value is an integer. Default is applied to all non-specified event types. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--eviction-hard mapStringString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `imagefs.available<15%,memory.available<100Mi,nodefs.available<10%,nodefs.inodesFree<5%`</td>
+<td colspan="2">--eviction-hard mapStringString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `imagefs.available<15%,memory.available<100Mi,nodefs.available<10%`</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of eviction thresholds (e.g. `memory.available<1Gi`) that if met would trigger a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
@@ -529,6 +425,13 @@ kubelet [flags]
 </tr>
 
 <tr>
+<td colspan="2">--experimental-log-sanitization bool</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] When enabled prevents logging of fields tagged as sensitive (passwords, keys, tokens). Runtime log sanitization may introduce significant computation overhead and therefore should not be enabled in production. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+</tr>
+
+<tr>
 <td colspan="2">--experimental-mounter-path string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `mount`</td>
 </tr>
 <tr>
@@ -548,8 +451,9 @@ kubelet [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of `key=value` pairs that describe feature gates for alpha/experimental features. Options are:<br/>
 APIListChunking=true|false (BETA - default=true)<br/>
-APIPriorityAndFairness=true|false (ALPHA - default=false)<br/>
+APIPriorityAndFairness=true|false (BETA - default=true)<br/>
 APIResponseCompression=true|false (BETA - default=true)<br/>
+APIServerIdentity=true|false (ALPHA - default=false)<br/>
 AllAlpha=true|false (ALPHA - default=false)<br/>
 AllBeta=true|false (BETA - default=false)<br/>
 AllowInsecureBackendProxy=true|false (BETA - default=true)<br/>
@@ -573,31 +477,40 @@ CSIMigrationOpenStack=true|false (BETA - default=false)<br/>
 CSIMigrationOpenStackComplete=true|false (ALPHA - default=false)<br/>
 CSIMigrationvSphere=true|false (BETA - default=false)<br/>
 CSIMigrationvSphereComplete=true|false (BETA - default=false)<br/>
+CSIServiceAccountToken=true|false (ALPHA - default=false)<br/>
 CSIStorageCapacity=true|false (ALPHA - default=false)<br/>
-CSIVolumeFSGroupPolicy=true|false (ALPHA - default=false)<br/>
-ConfigurableFSGroupPolicy=true|false (ALPHA - default=false)<br/>
+CSIVolumeFSGroupPolicy=true|false (BETA - default=true)<br/>
+ConfigurableFSGroupPolicy=true|false (BETA - default=true)<br/>
+CronJobControllerV2=true|false (ALPHA - default=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
-DefaultPodTopologySpread=true|false (ALPHA - default=false)<br/>
+DefaultPodTopologySpread=true|false (BETA - default=true)<br/>
 DevicePlugins=true|false (BETA - default=true)<br/>
 DisableAcceleratorUsageMetrics=true|false (BETA - default=true)<br/>
+DownwardAPIHugePages=true|false (ALPHA - default=false)<br/>
 DynamicKubeletConfig=true|false (BETA - default=true)<br/>
+EfficientWatchResumption=true|false (ALPHA - default=false)<br/>
 EndpointSlice=true|false (BETA - default=true)<br/>
+EndpointSliceNodeName=true|false (ALPHA - default=false)<br/>
 EndpointSliceProxying=true|false (BETA - default=true)<br/>
+EndpointSliceTerminatingCondition=true|false (ALPHA - default=false)<br/>
 EphemeralContainers=true|false (ALPHA - default=false)<br/>
 ExpandCSIVolumes=true|false (BETA - default=true)<br/>
 ExpandInUsePersistentVolumes=true|false (BETA - default=true)<br/>
 ExpandPersistentVolumes=true|false (BETA - default=true)<br/>
 ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>
 GenericEphemeralVolume=true|false (ALPHA - default=false)<br/>
+GracefulNodeShutdown=true|false (ALPHA - default=false)<br/>
+HPAContainerMetrics=true|false (ALPHA - default=false)<br/>
 HPAScaleToZero=true|false (ALPHA - default=false)<br/>
 HugePageStorageMediumSize=true|false (BETA - default=true)<br/>
-HyperVContainer=true|false (ALPHA - default=false)<br/>
 IPv6DualStack=true|false (ALPHA - default=false)<br/>
 ImmutableEphemeralVolumes=true|false (BETA - default=true)<br/>
+KubeletCredentialProviders=true|false (ALPHA - default=false)<br/>
 KubeletPodResources=true|false (BETA - default=true)<br/>
 LegacyNodeRoleBehavior=true|false (BETA - default=true)<br/>
 LocalStorageCapacityIsolation=true|false (BETA - default=true)<br/>
 LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)<br/>
+MixedProtocolLBService=true|false (ALPHA - default=false)<br/>
 NodeDisruptionExclusion=true|false (BETA - default=true)<br/>
 NonPreemptingPriority=true|false (BETA - default=true)<br/>
 PodDisruptionBudget=true|false (BETA - default=true)<br/>
@@ -605,31 +518,26 @@ PodOverhead=true|false (BETA - default=true)<br/>
 ProcMountType=true|false (ALPHA - default=false)<br/>
 QOSReserved=true|false (ALPHA - default=false)<br/>
 RemainingItemCount=true|false (BETA - default=true)<br/>
-RemoveSelfLink=true|false (ALPHA - default=false)<br/>
+RemoveSelfLink=true|false (BETA - default=true)<br/>
+RootCAConfigMap=true|false (BETA - default=true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
 RunAsGroup=true|false (BETA - default=true)<br/>
-RuntimeClass=true|false (BETA - default=true)<br/>
-SCTPSupport=true|false (BETA - default=true)<br/>
-SelectorIndex=true|false (BETA - default=true)<br/>
 ServerSideApply=true|false (BETA - default=true)<br/>
-ServiceAccountIssuerDiscovery=true|false (ALPHA - default=false)<br/>
-ServiceAppProtocol=true|false (BETA - default=true)<br/>
+ServiceAccountIssuerDiscovery=true|false (BETA - default=true)<br/>
+ServiceLBNodePortControl=true|false (ALPHA - default=false)<br/>
 ServiceNodeExclusion=true|false (BETA - default=true)<br/>
 ServiceTopology=true|false (ALPHA - default=false)<br/>
-SetHostnameAsFQDN=true|false (ALPHA - default=false)<br/>
+SetHostnameAsFQDN=true|false (BETA - default=true)<br/>
+SizeMemoryBackedVolumes=true|false (ALPHA - default=false)<br/>
+StorageVersionAPI=true|false (ALPHA - default=false)<br/>
 StorageVersionHash=true|false (BETA - default=true)<br/>
-SupportNodePidsLimit=true|false (BETA - default=true)<br/>
-SupportPodPidsLimit=true|false (BETA - default=true)<br/>
 Sysctls=true|false (BETA - default=true)<br/>
 TTLAfterFinished=true|false (ALPHA - default=false)<br/>
-TokenRequest=true|false (BETA - default=true)<br/>
-TokenRequestProjection=true|false (BETA - default=true)<br/>
 TopologyManager=true|false (BETA - default=true)<br/>
 ValidateProxyRedirects=true|false (BETA - default=true)<br/>
-VolumeSnapshotDataSource=true|false (BETA - default=true)<br/>
 WarningHeaders=true|false (BETA - default=true)<br/>
 WinDSR=true|false (ALPHA - default=false)<br/>
-WinOverlay=true|false (ALPHA - default=false)<br/>
+WinOverlay=true|false (BETA - default=true)<br/>
 WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
@@ -641,13 +549,6 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Duration between checking config files for new data. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
-<tr>
-<td colspan="2">--global-housekeeping-interval duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `1m0s`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Interval between global housekeepings. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-    
 <tr>
 <td colspan="2">--hairpin-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `promiscuous-bridge`</td>
 </tr>
@@ -695,6 +596,20 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Duration between checking HTTP for new data. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+</tr>
+
+<tr>
+<td colspan="2">--image-credential-provider-bin-dir string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">The path to the directory where credential provider plugin binaries are located.</td>
+</tr>
+
+<tr>
+<td colspan="2">--image-credential-provider-config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">The path to the credential provider plugin config file.</td>
 </tr>
 
 <tr>
@@ -757,7 +672,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--kube-api-burst int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"> Burst to use while talking with kubernetes API server. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Burst to use while talking with kubernetes API server. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>
@@ -778,7 +693,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--kube-reserved mapStringString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: &lt;None&gt;</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi`) pairs that describe resources reserved for kubernetes system components. Currently `cpu`, `memory` and local `ephemeral-storage` for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'`) pairs that describe resources reserved for kubernetes system components. Currently `cpu`, `memory` and local `ephemeral-storage` for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>
@@ -817,13 +732,6 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--log-cadvisor-usage</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Whether to log the usage of the cAdvisor container (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
 <td colspan="2">--log-dir string</td>
 </tr>
 <tr>
@@ -855,7 +763,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `text`</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Sets the log format. Permitted formats: `text`, `json`.\nNon-default formats don't honor these flags: `--add-dir-header`, `--alsologtostderr`, `--log-backtrace-at`, `--log_dir`, `--log-file`, `--log-file-max-size`, `--logtostderr`, `--skip_headers`, `--skip_log_headers`, `--stderrthreshold`, `--log-flush-frequency`.\nNon-default choices are currently alpha and subject to change without warning. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Sets the log format. Permitted formats: `text`, `json`.\nNon-default formats don't honor these flags: `--add-dir-header`, `--alsologtostderr`, `--log-backtrace-at`, `--log-dir`, `--log-file`, `--log-file-max-size`, `--logtostderr`, `--skip_headers`, `--skip_log_headers`, `--stderrthreshold`, `--log-flush-frequency`.\nNon-default choices are currently alpha and subject to change without warning. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>
@@ -863,13 +771,6 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">log to standard error instead of files.</td>
-</tr>
-
-<tr>
-<td colspan="2">--machine-id-file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `/etc/machine-id,/var/lib/dbus/machine-id`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated list of files to check for `machine-id`. Use the first one that exists. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
 </tr>
 
 <tr>
@@ -991,6 +892,14 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 </tr>
 
 <tr>
+<td colspan="2">--one-output</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">If true, only write logs to their native severity level (vs also writing to each lower severity level.
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--oom-score-adj int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: -999</td>
 </tr>
 <tr>
@@ -1082,7 +991,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--register-node</td>
+<td colspan="2">--register-node&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `true`</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Register the node with the API server. If `--kubeconfig` is not provided, this flag is irrelevant, as the Kubelet won't have an API server to register with. Default to `true`.</td>
@@ -1096,7 +1005,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
   </tr>
 
 <tr>
-<td colspan="2">--register-with-taints []api.Taint</td>
+<td colspan="2">--register-with-taints mapStringString</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Register the node with the given list of taints (comma separated `<key>=<value>:<effect>`). No-op if `--register-node` is `false`.</td>
@@ -1202,59 +1111,10 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 2</td>
+<td colspan="2">--stderrthreshold int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 2</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">logs at or above this threshold go to stderr.</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `1m0s`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `cadvisor`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Database name. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `localhost:8086`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Database `host:port`. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `root`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Database password. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-secure</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Use secure connection with database (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `stats`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Table name. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `root`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Database username. (DEPRECATED: This is a cadvisor flag that was mistakenly registered with the Kubelet. Due to legacy concerns, it will follow the standard CLI deprecation timeline before being removed.)</td>
 </tr>
 
 <tr>
@@ -1282,7 +1142,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--system-reserved mapStringString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: \<none\></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi`) pairs that describe resources reserved for non-kubernetes components. Currently only `cpu` and `memory` are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'`) pairs that describe resources reserved for non-kubernetes components. Currently only `cpu` and `memory` are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>
@@ -1329,6 +1189,13 @@ Insecure values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_R
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Topology Manager policy to use. Possible values: `none`, `best-effort`, `restricted`, `single-numa-node`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+</tr>
+
+<tr>
+<td colspan="2">--topology-manager-scope string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `container`</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Scope to which topology hints applied. Topology Manager collects hints from Hint Providers and applies them to defined scope to ensure the pod admission. Possible values: 'container' (default), 'pod'. (default "container") (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>

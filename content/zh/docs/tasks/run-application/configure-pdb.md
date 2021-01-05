@@ -81,6 +81,13 @@ selector goes into the PDBs `.spec.selector`.
 `.spec.selector` 字段中加入同样的选择算符。
 
 <!--
+From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
+-->
+从 1.15 版本开始，PDB 支持启用
+[scale 子资源](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)
+的自定义控制器。
+
+<!--
 You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
 described in [Arbitrary Controllers and Selectors](#arbitrary-controllers-and-selectors).
@@ -420,5 +427,4 @@ to create PDBs whose selectors overlap.
 -->
 你可以令选择算符选择一个内置控制器所控制 Pod 的子集或父集。
 然而，当名字空间下存在多个 PDB 时，用户必须小心，保证 PDB 的选择算符之间不重叠。
-
 

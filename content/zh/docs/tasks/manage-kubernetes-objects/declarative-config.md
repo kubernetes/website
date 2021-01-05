@@ -1483,6 +1483,7 @@ configuration involves several manual steps:
    ```shell
    kubectl replace --save-config -f <kind>_<name>.yaml
    ```
+1. 更改过程，使用 `kubectl apply` 专门管理对象。  
 
 <!--
 ### Migrating from imperative object configuration to declarative object configuration
