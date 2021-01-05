@@ -6,7 +6,6 @@ weight: 20
 
 <!--
 reviewers:
-- mikedanese
 - luxas
 - jbeda
 title: kubeadm init
@@ -19,7 +18,6 @@ weight: 20
 This command initializes a Kubernetes control-plane node.
 -->
 此命令初始化一个 Kubernetes 控制平面节点。
-
 
 <!-- body -->
 
@@ -44,7 +42,7 @@ following steps:
 -->
 1. 在做出变更前运行一系列的预检项来验证系统状态。一些检查项目仅仅触发警告，
    其它的则会被视为错误并且退出 kubeadm，除非问题得到解决或者用户指定了
-   `--ignore-preflight-errors=<list-of-errors>` 参数。
+   `--ignore-preflight-errors=<错误列表>` 参数。
 
 <!--
 1. Generates a self-signed CA to set up identities for each component in the cluster. The user can provide their
@@ -98,7 +96,7 @@ following steps:
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
 -->
 6. 生成令牌，将来其他节点可使用该令牌向控制平面注册自己。
-   如文档 [kubeadm token](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/) 所述，
+   如 [kubeadm token](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/) 文档所述，
    用户可以选择通过 `--token` 提供令牌。
 
 <!--
@@ -120,13 +118,13 @@ following steps:
    和 [TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
    这两份文档中描述的机制加入到集群中，kubeadm 会执行所有的必要配置：
 
-   - 创建一份 ConfigMap 提供添加集群节点所需的信息，并为该 ConfigMap 设置相关的 RBAC 访问规则。
+   - 创建一个 ConfigMap 提供添加集群节点所需的信息，并为该 ConfigMap 设置相关的 RBAC 访问规则。
 
-   - 使得 Bootstrap Tokens 可以访问 CSR 签名 API。
+   - 允许启动引导令牌访问 CSR 签名 API。
 
    - 配置自动签发新的 CSR 请求。
 
-   获取更多信息，请查看[kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)。
+   更多相关信息，请查看 [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)。
    
 <!-- 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
@@ -151,12 +149,11 @@ following steps:
 
 <!--
 ### Using init phases with kubeadm {#init-phases}
+
+Kubeadm allows you to create a control-plane node in phases using the `kubeadm init phase` command.
 -->
 ### 在 kubeadm 中使用 init phases {#init-phases}
 
-<!--
-Kubeadm allows you to create a control-plane node in phases using the `kubeadm init phase` command.
--->
 Kubeadm 允许你使用 `kubeadm init phase` 命令分阶段创建控制平面节点。
 
 <!--
@@ -249,15 +246,17 @@ the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/
 For more information on the fields and usage of the configuration you can navigate to our API reference
 page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
 -->
-可以使用 [kubeadm config print](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)命令打印出默认配置。
+可以使用 [kubeadm config print](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
+命令打印出默认配置。
 
 如果你的配置没有使用最新版本，
 **推荐**使用 [kubeadm config migrate](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令进行迁移。
 
 有关配置的字段和用法的更多信息，
-你可以导航到我们的 API 参考页面并从
-[列表](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories)中选择一个版本。
+你可以访问 API 参考页面并从
+[列表](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories)
+中选择一个版本。
 
 <!--
 ### Adding kube-proxy parameters {#kube-proxy}
@@ -367,7 +366,7 @@ The following command can be used to generate a new key on demand:
 以下命令可用于按需生成新密钥：
 
 ```shell
-kubeadm alpha certs certificate-key
+kubeadm certs certificate-key
 ```
 
 <!-- ### Certificate management with kubeadm -->
@@ -379,7 +378,8 @@ For detailed information on certificate management with kubeadm see
 The document includes information about using external CA, custom certificates
 and certificate renewal.
 -->
-有关使用 kubeadm 进行证书管理的详细信息，请参阅[使用 kubeadm 进行证书管理](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
+有关使用 kubeadm 进行证书管理的详细信息，请参阅
+[使用 kubeadm 进行证书管理](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)。
 该文档包括有关使用外部 CA，自定义证书和证书更新的信息。
 
 <!--
@@ -450,7 +450,8 @@ kubeadm config images pull
 <!--
 All images that kubeadm requires such as `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` support multiple architectures.
 -->
-kubeadm 需要的所有镜像，例如 `k8s.gcr.io/kube-*`、`k8s.gcr.io/etcd` 和 `k8s.gcr.io/pause` 都支持多种架构。
+kubeadm 需要的所有镜像，例如 `k8s.gcr.io/kube-*`、`k8s.gcr.io/etcd` 和 `k8s.gcr.io/pause`
+都支持多种架构。
 
 <!--
 ### Automating kubeadm
@@ -464,14 +465,16 @@ token distribution for easier automation. To implement this automation, you must
 know the IP address that the control-plane node will have after it is started,
 or use a DNS name or an address of a load balancer.
 -->
-不必像文档[kubeadm 基础教程](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)所述，
-将从 `kubeadm init` 取得的令牌复制到每个节点，你可以并行地分发令牌以实现简单自动化。要实现自动化，
-你必须知道控制平面节点启动后将拥有的 IP 地址，或使用 DNS 名称或负载均衡器的地址。
+除了像文档 [kubeadm 基础教程](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+中所描述的那样，将从 `kubeadm init` 取得的令牌复制到每个节点，
+你还可以并行地分发令牌以实现简单自动化。
+要实现自动化，你必须知道控制平面节点启动后将拥有的 IP 地址，或使用 DNS 名称或负载均衡器的地址。
 
 <!--
 1.  Generate a token. This token must have the form  `<6 character string>.<16
 character string>`. More formally, it must match the regex: `[a-z0-9]{6}\.[a-z0-9]{16}`.
-kubeadm can generate a token for you: -->
+kubeadm can generate a token for you:
+-->
 1. 生成一个令牌。这个令牌必须具有以下格式：`< 6 个字符的字符串>.< 16 个字符的字符串>`。
    更加正式的说法是，它必须符合以下正则表达式：`[a-z0-9]{6}\.[a-z0-9]{16}`。
    
@@ -494,7 +497,7 @@ As they come up they should find each other and form the cluster. The same `-tok
 3. 当加入其他控制平面节点时，可以对 `--certificate-key` 执行类似的操作。可以使用以下方式生成密钥：
 
    ```shell
-   kubeadm alpha certs certificate-key
+   kubeadm certs certificate-key
    ```
 
 <!--
@@ -512,7 +515,7 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 -->
 注意这种搭建集群的方式在安全保证上会有一些宽松，因为这种方式不允许使用 `--discovery-token-ca-cert-hash` 
 来验证根 CA 的哈希值（因为当配置节点的时候，它还没有被生成）。
-更多信息请参阅[kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)文档。
+更多信息请参阅 [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)文档。
 
 ## {{% heading "whatsnext" %}}
 
@@ -523,8 +526,11 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 -->
-* 进一步阅读了解[kubeadm init phase](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/)
-* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)启动一个 Kubernetes 工作节点并且将其加入到集群
-* [kubeadm upgrade](/zh/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)将 Kubernetes 集群升级到新版本
-* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)使用 `kubeadm init` 或 `kubeadm join` 来恢复对节点的变更
+* 进一步阅读了解 [kubeadm init phase](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/)
+* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)
+  启动一个 Kubernetes 工作节点并且将其加入到集群
+* [kubeadm upgrade](/zh/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)
+  将 Kubernetes 集群升级到新版本
+* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
+  恢复 `kubeadm init` 或 `kubeadm join` 命令对节点所作的变更
 

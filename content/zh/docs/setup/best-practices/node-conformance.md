@@ -59,18 +59,24 @@ To run the node conformance test, perform the following steps:
 要运行节点一致性测试，请执行以下步骤：
 
 <!--
-1. Point your Kubelet to localhost `--api-servers="http://localhost:8080"`,
-because the test framework starts a local master to test Kubelet. There are some
-other Kubelet flags you may care:
+1. Work out the value of the `--kubeconfig` option for the kubelet; for example:
+   `--kubeconfig=/var/lib/kubelet/config.yaml`.
+    Because the test framework starts a local control plane to test the kubelet,
+    use `http://localhost:8080` as the URL of the API server.
+    There are some other kubelet command line parameters you may want to use:
   * `--pod-cidr`: If you are using `kubenet`, you should specify an arbitrary CIDR
     to Kubelet, for example `--pod-cidr=10.180.0.0/24`.
   * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
     remove the flag to run the test.
 -->
-1. 因为测试框架会启动一个本地的 master 来测试 Kubelet，所以将 Kubelet 指向本机 `--api-servers="http://localhost:8080"。 
-   还有一些其他 Kubelet 参数可能需要注意：
-  * `--pod-cidr`： 如果使用 `kubenet`， 需要为 Kubelet 任意指定一个 CIDR， 例如 `--pod-cidr=10.180.0.0/24`。
-  * `--cloud-provider`： 如果使用 `--cloud-provider=gce`，需要移除这个参数来运行测试。
+1. 得出 kubelet 的 `--kubeconfig` 的值；例如：`--kubeconfig=/var/lib/kubelet/config.yaml`. 
+   由于测试框架启动了本地控制平面来测试 kubelet， 因此使用 `http://localhost:8080` 
+   作为API 服务器的 URL。
+   一些其他的 kubelet 命令行参数可能会被用到：
+   * `--pod-cidr`： 如果使用 `kubenet`， 需要为 Kubelet 任意指定一个 CIDR， 
+     例如 `--pod-cidr=10.180.0.0/24`。
+   * `--cloud-provider`： 如果使用 `--cloud-provider=gce`，需要移除这个参数
+     来运行测试。
 
 
 <!--
@@ -78,13 +84,13 @@ other Kubelet flags you may care:
 -->
 2. 使用以下命令运行节点一致性测试：
 
-```shell
-# $CONFIG_DIR is the pod manifest path of your Kubelet.
-# $LOG_DIR is the test output path.
-sudo docker run -it --rm --privileged --net=host \
-  -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  k8s.gcr.io/node-test:0.2
-```
+   ```shell
+   # $CONFIG_DIR 是您 Kubelet 的 pod manifest 路径。
+   # $LOG_DIR 是测试的输出路径。
+   sudo docker run -it --rm --privileged --net=host \
+     -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+     k8s.gcr.io/node-test:0.2
+   ```
 
 <!--
 ## Running Node Conformance Test for Other Architectures
@@ -96,11 +102,18 @@ Kubernetes also provides node conformance test docker images for other architect
 -->
 Kubernetes 也为其他硬件体系结构的系统提供了节点一致性测试的 Docker 镜像：
 
-  Arch  |       Image       |
---------|:-----------------:|
- amd64  |  node-test-amd64  |
-  arm   |    node-test-arm  |
- arm64  |  node-test-arm64  |
+<!--
+| Arch  |      Image      |      |
+| ----- | :-------------: | ---- |
+| amd64 | node-test-amd64 |      |
+| arm   |  node-test-arm  |      |
+| arm64 | node-test-arm64 |      |
+-->
+| 架构   |      镜像        |      |
+| ----- | :-------------: | ---- |
+| amd64 | node-test-amd64 |      |
+| arm   |  node-test-arm  |      |
+| arm64 | node-test-arm64 |      |
 
 <!--
 ## Running Selected Test
@@ -114,9 +127,9 @@ To run specific tests, overwrite the environment variable `FOCUS` with theregula
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
-  -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  -e FOCUS=MirrorPod \ # Only run MirrorPod test
-  k8s.gcr.io/node-test:0.2
+   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+   -e FOCUS=MirrorPod \ # Only run MirrorPod test
+k8s.gcr.io/node-test:0.2
 ```
 
 <!--
@@ -124,12 +137,21 @@ To skip specific tests, overwrite the environment variable `SKIP` with theregula
 -->
 要跳过特定的测试，请使用您希望跳过的测试的常规表达式覆盖环境变量 `SKIP`。
 
+<!--
 ```shell
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e SKIP=MirrorPod \ # Run all conformance tests but skip MirrorPod test
-  k8s.gcr.io/node-test:0.2
+k8s.gcr.io/node-test:0.2
 ```
+-->
+```shell
+sudo docker run -it --rm --privileged --net=host \
+  -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+  -e SKIP=MirrorPod \ # 运行除 MirrorPod 测试外的所有一致性测试内容
+k8s.gcr.io/node-test:0.2
+```
+
 
 <!--
 Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md).

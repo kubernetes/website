@@ -231,6 +231,23 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 如果容器没有声明自己的 CPU 限制，将会给它一个默认限制，这样它就能被允许运行在一个有配额限制的命名空间中。
 
+<!--
+## Clean up
+
+Delete your namespace:
+
+```shell
+kubectl delete namespace default-cpu-example
+```
+-->
+## 清理
+
+删除你的命名空间：
+
+```shell
+kubectl delete namespace constraints-cpu-example
+```
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -263,6 +280,6 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 * [为容器和 Pod 分配内存资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
-* [为 Pod 配置 Service 数量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+* [为 Pod 配置服务质量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
 
 

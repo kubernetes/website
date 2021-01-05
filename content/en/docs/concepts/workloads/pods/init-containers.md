@@ -49,9 +49,9 @@ as documented in [Resources](#resources).
 Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
 `startupProbe` because they must run to completion before the Pod can be ready.
 
-If you specify multiple init containers for a Pod, Kubelet runs each init
+If you specify multiple init containers for a Pod, kubelet runs each init
 container sequentially. Each init container must succeed before the next can run.
-When all of the init containers have run to completion, Kubelet initializes
+When all of the init containers have run to completion, kubelet initializes
 the application containers for the Pod and runs them as usual.
 
 ## Using init containers
@@ -257,7 +257,7 @@ if the Pod `restartPolicy` is set to Always, the init containers use
 
 A Pod cannot be `Ready` until all init containers have succeeded. The ports on an
 init container are not aggregated under a Service. A Pod that is initializing
-is in the `Pending` state but should have a condition `Initialized` set to true.
+is in the `Pending` state but should have a condition `Initialized` set to false.
 
 If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers
 must execute again.
