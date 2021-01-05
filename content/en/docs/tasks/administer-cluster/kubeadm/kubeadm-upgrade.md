@@ -231,6 +231,14 @@ without compromising the minimum required capacity for running your workloads.
 {{% /tab %}}
 {{< /tabs >}}
 
+### Call "kubeadm upgrade"
+
+-  For worker nodes this upgrades the local kubelet configuration:
+
+    ```shell
+    sudo kubeadm upgrade node
+    ```
+
 ### Drain the node
 
 -  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
@@ -238,14 +246,6 @@ without compromising the minimum required capacity for running your workloads.
     ```shell
     # replace <node-to-drain> with the name of your node you are draining
     kubectl drain <node-to-drain> --ignore-daemonsets
-    ```
-
-### Call "kubeadm upgrade"
-
--  For worker nodes this upgrades the local kubelet configuration:
-
-    ```shell
-    sudo kubeadm upgrade node
     ```
 
 ### Upgrade kubelet and kubectl

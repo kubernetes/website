@@ -35,7 +35,8 @@ This tutorial builds upon the [PHP Guestbook with Redis](/docs/tutorials/statele
 将和 Guestbook 一同部署在 Kubernetes 集群中。
 Beats 收集、分析、索引数据到 Elasticsearch，使你可以用 Kibana 查看并分析得到的运营信息。
 本示例由以下内容组成：
-
+* [带 Redis 的 PHP Guestbook 教程](/zh/docs/tutorials/stateless-application/guestbook)
+  的一个实例部署
 * Elasticsearch 和 Kibana
 * Filebeat
 * Metricbeat

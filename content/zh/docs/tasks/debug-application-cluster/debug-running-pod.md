@@ -126,6 +126,7 @@ command that can create ephemeral containers for debugging beginning with versio
 
 当由于容器崩溃或容器镜像不包含调试程序（例如[无发行版镜像](https://github.com/GoogleContainerTools/distroless)等）
 而导致 `kubectl exec` 无法运行时，{{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}对于排除交互式故障很有用。
+从 'v1.18' 版本开始，'kubectl' 有一个可以创建用于调试的临时容器的 alpha 命令。
 
 <!--
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
@@ -270,12 +271,226 @@ kubectl delete pod ephemeral-demo
 ```
 
 <!--
-Planned future sections include:
-
-* Debugging with a copy of the pod
-
-See https://git.k8s.io/enhancements/keps/sig-cli/20190805-kubectl-debug.md
+## Debugging using a copy of the Pod
 -->
+## 通过 Pod 副本调试
+
+<!--
+Sometimes Pod configuration options make it difficult to troubleshoot in certain
+situations. For example, you can't run `kubectl exec` to troubleshoot your
+container if your container image does not include a shell or if your application
+crashes on startup. In these situations you can use `kubectl debug` to create a
+copy of the Pod with configuration values changed to aid debugging.
+-->
+有些时候 Pod 的配置参数使得在某些情况下很难执行故障排查。
+例如，在容器镜像中不包含 shell 或者你的应用程序在启动时崩溃的情况下，
+就不能通过运行 `kubectl exec` 来排查容器故障。
+在这些情况下，你可以使用 `kubectl debug` 来创建 Pod 的副本，通过更改配置帮助调试。
+
+<!--
+### Copying a Pod while adding a new container
+-->
+### 在添加新的容器时创建 Pod 副本
+
+<!--
+Adding a new container can be useful when your application is running but not
+behaving as you expect and you'd like to add additional troubleshooting
+utilities to the Pod.
+-->
+当应用程序正在运行但其表现不符合预期时，你会希望在 Pod 中添加额外的调试工具，
+这时添加新容器是很有用的。
+
+<!--
+For example, maybe your application's container images are built on `busybox`
+but you need debugging utilities not included in `busybox`. You can simulate
+this scenario using `kubectl run`:
+-->
+例如，应用的容器镜像是建立在 `busybox` 的基础上，
+但是你需要 `busybox` 中并不包含的调试工具。
+你可以使用 `kubectl run` 模拟这个场景:
+
+```shell
+kubectl run myapp --image=busybox --restart=Never -- sleep 1d
+```
+<!--
+Run this command to create a copy of `myapp` named `myapp-copy` that adds a
+new Ubuntu container for debugging:
+-->
+通过运行以下命令，建立 `myapp` 的一个名为 `myapp-copy` 的副本，
+新增了一个用于调试的 Ubuntu 容器，
+
+```shell
+kubectl debug myapp -it --image=ubuntu --share-processes --copy-to=myapp-debug
+```
+
+```
+Defaulting debug container name to debugger-w7xmf.
+If you don't see a command prompt, try pressing enter.
+root@myapp-debug:/#
+```
+<!--
+{{< note >}}
+* `kubectl debug` automatically generates a container name if you don't choose
+  one using the `--container` flag.
+* The `-i` flag causes `kubectl debug` to attach to the new container by
+  default.  You can prevent this by specifying `--attach=false`. If your session
+  becomes disconnected you can reattach using `kubectl attach`.
+* The `--share-processes` allows the containers in this Pod to see processes
+  from the other containers in the Pod. For more information about how this
+  works, see [Share Process Namespace between Containers in a Pod](
+  /docs/tasks/configure-pod-container/share-process-namespace/).
+{{< /note >}}
+-->
+{{< note >}}
+* 如果你没有使用 `--container` 指定新的容器名，`kubectl debug` 会自动生成的。
+* 默认情况下，`-i` 标志使 `kubectl debug` 附加到新容器上。
+  你可以通过指定 `--attach=false` 来防止这种情况。
+  如果你的会话断开连接，你可以使用 `kubectl attach` 重新连接。
+* `--share-processes` 允许在此 Pod 中的其他容器中查看该容器的进程。
+  参阅[在 Pod 中的容器之间共享进程命名空间](/zh/docs/tasks/configure-pod-container/share-process-namespace/)
+  获取更多信息。
+{{< /note >}}
+
+<!--
+Don't forget to clean up the debugging Pod when you're finished with it:
+-->
+不要忘了清理调试 Pod：
+
+```shell
+kubectl delete pod myapp myapp-debug
+```
+
+<!--
+### Copying a Pod while changing its command
+-->
+### 在改变 Pod 命令时创建 Pod 副本
+
+<!--
+Sometimes it's useful to change the command for a container, for example to
+add a debugging flag or because the application is crashing.
+-->
+有时更改容器的命令很有用，例如添加调试标志或因为应用崩溃。
+
+<!--
+To simulate a crashing application, use `kubectl run` to create a container
+that immediately exits:
+-->
+为了模拟应用崩溃的场景，使用 `kubectl run` 命令创建一个立即退出的容器：
+
+```
+kubectl run --image=busybox myapp -- false
+```
+
+<!--
+You can see using `kubectl describe pod myapp` that this container is crashing:
+-->
+使用 `kubectl describe pod myapp` 命令，你可以看到容器崩溃了：
+
+```
+Containers:
+  myapp:
+    Image:         busybox
+    ...
+    Args:
+      false
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+```
+
+<!--
+You can use `kubectl debug` to create a copy of this Pod with the command
+changed to an interactive shell:
+-->
+你可以使用 `kubectl debug` 命令创建该 Pod 的一个副本，
+在该副本中命令改变为交互式 shell：
+
+```
+kubectl debug myapp -it --copy-to=myapp-debug --container=myapp -- sh
+```
+
+```
+If you don't see a command prompt, try pressing enter.
+/ #
+```
+
+<!--
+Now you have an interactive shell that you can use to perform tasks like
+checking filesystem paths or running the container command manually.
+-->
+现在你有了一个可以执行类似检查文件系统路径或者手动运行容器命令的交互式 shell。 
+
+<!--
+{{< note >}}
+* To change the command of a specific container you must
+  specify its name using `--container` or `kubectl debug` will instead
+  create a new container to run the command you specified.
+* The `-i` flag causes `kubectl debug` to attach to the container by default.
+  You can prevent this by specifying `--attach=false`. If your session becomes
+  disconnected you can reattach using `kubectl attach`.
+{{< /note >}}
+-->
+{{< note >}}
+* 要更改指定容器的命令，你必须用 `--container` 命令指定容器的名字，
+  否则 `kubectl debug` 将建立一个新的容器运行你指定的命令。
+* 默认情况下，标志 `-i` 使 `kubectl debug` 附加到容器。
+  你可通过指定 `--attach=false` 来防止这种情况。
+  如果你的断开连接，可以使用 `kubectl attach` 重新连接。
+{{< /note >}} 
+
+<!--
+Don't forget to clean up the debugging Pod when you're finished with it:
+-->
+不要忘了清理调试 Pod：
+
+```shell
+kubectl delete pod myapp myapp-debug
+```
+<!--
+### Copying a Pod while changing container images
+
+In some situations you may want to change a misbehaving Pod from its normal
+production container images to an image containing a debugging build or
+additional utilities.
+
+As an example, create a Pod using `kubectl run`:
+-->
+### 在更改容器镜像时创建 Pod 副本
+
+在某些情况下，你可能想从正常生产容器镜像中
+把行为异常的 Pod 改变为包含调试版本或者附加应用的镜像。
+
+下面的例子，用 `kubectl run`创建一个 Pod：
+
+```
+kubectl run myapp --image=busybox --restart=Never -- sleep 1d
+```
+<!--
+Now use `kubectl debug` to make a copy and change its container image
+to `ubuntu`:
+-->
+现在可以使用 `kubectl debug`  创建一个副本
+并改变容器镜像为 `ubuntu`：
+
+```
+kubectl debug myapp --copy-to=myapp-debug --set-image=*=ubuntu
+```
+
+<!--
+The syntax of `--set-image` uses the same `container_name=image` syntax as
+`kubectl set image`. `*=ubuntu` means change the image of all containers
+to `ubuntu`.
+
+Don't forget to clean up the debugging Pod when you're finished with it:
+-->
+`--set-image` 与 `container_name=image` 使用相同的 `kubectl set image` 语法。
+`*=ubuntu` 表示把所有容器的镜像改为 `ubuntu`。
+
+```shell
+kubectl delete pod myapp myapp-debug
+```
 
 <!--
 ## Debugging via a shell on the node {#node-shell-session}

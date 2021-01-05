@@ -877,6 +877,8 @@ Please note that changing service name might break some `docker-compose` files.
 那么将会被替换为 `-`，服务也相应的会重命名(例如 `web-service`)。
 Kompose 这样做的原因是 "Kubernetes" 不允许对象名称中包含 `_`。 
 
+请注意，更改服务名称可能会破坏一些 `docker-compose` 文件。
+
 <!--
 ## Docker Compose Versions
 

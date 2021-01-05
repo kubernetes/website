@@ -23,7 +23,7 @@ Dieser Verhaltenskodex gilt sowohl innerhalb von Projekträumen als auch in öff
 
 Fälle von missbräuchlichem, belästigendem oder anderweitig unzumutbarem Verhalten in Kubernetes können gemeldet werden, indem Sie sich an das [Kubernetes Komitee für Verhaltenskodex](https://git.k8s.io/community/committee-code-of-conduct) wenden unter <conduct@kubernetes.io>. Für andere Projekte wenden Sie sich bitte an einen CNCF-Projektbetreuer oder an unseren Mediator, Mishi Choudhary <mishi@linux.com>.
 
-Dieser Verhaltenskodex wurde aus dem Contributor Covenant übernommen (http://contributor-covenant.org), Version 1.2.0, verfügbar unter http://contributor-covenant.org/version/1/2/0/
+Dieser Verhaltenskodex wurde aus dem Contributor Covenant übernommen (https://contributor-covenant.org), Version 1.2.0, verfügbar unter https://contributor-covenant.org/version/1/2/0/
 
 ### CNCF Verhaltenskodex für Veranstaltungen
 

@@ -600,6 +600,10 @@ spec:
         example.com/foo: 1
 ```
 
+## PID 제한
+
+프로세스 ID(PID) 제한은 kubelet의 구성에 대해 주어진 파드가 사용할 수 있는 PID 수를 제한할 수 있도록 허용한다. 자세한 내용은 [Pid 제한](/docs/concepts/policy/pid-limiting/)을 참고한다.
+
 ## 문제 해결
 
 ### 내 파드가 failedScheduling 이벤트 메시지로 보류 중이다

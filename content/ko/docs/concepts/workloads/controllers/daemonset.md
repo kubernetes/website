@@ -81,12 +81,6 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 만약 `.spec.selector` 를 명시하면, 이것은 `.spec.template.metadata.labels` 와 일치해야 한다. 일치하지 않는 구성은 API에 의해 거부된다.
 
-또한 일반적으로 다른 데몬셋이나 레플리카셋과 같은 다른 컨트롤러를 통해 직접적으로
-레이블이 셀렉터와 일치하는 다른 파드를 생성하지 않아야 한다. 그렇지 않으면 데몬셋
-{{< glossary_tooltip term_id="controller" text="컨트롤러" >}}는 해당 파드가 생성된 것으로 생각한다. 쿠버네티스는 이런 일을 하는 것을
-막지 못한다. 사용자가 이와 같은 일을 하게 되는 한 가지 경우는 테스트를 목적으로 한 노드에서 다른 값을 가지는 파드들을
-수동으로 생성하는 것이다.
-
 ### 오직 일부 노드에서만 파드 실행
 
 만약 `.spec.template.spec.nodeSelector` 를 명시하면 데몬셋 컨트롤러는

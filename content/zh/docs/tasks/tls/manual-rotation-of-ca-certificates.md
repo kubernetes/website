@@ -61,27 +61,34 @@ Configurations with a single API server will experience unavailability while the
    `front-proxy-client.key`）分发到所有控制面节点，放在其 Kubernetes 证书目录下。
 
 <!--
-1. Update *Kubernetes controller manager's* `-root-ca-file` to include both old and new CA and restart controller manager.
+1. Update {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}'s `--root-ca-file` to
+   include both old and new CA. Then restart the component.
 
    Any service account created after this point will get secrets that include both old and new CAs.
-
-   Remove the flag `-client-ca-file` from the *Kubernetes controller manager* configuration.
-   You can also replace the existing client CA file or change this configuration item to reference a new, updated CA.
-   [Issue 1350](https://github.com/kubernetes/kubeadm/issues/1350) tracks an issue with *Kubernetes controller manager* being unable to accept a CA bundle.
+   
+   {{< note >}}
+   The files specified by the kube-controller-manager flags `--client-ca-file` and `--cluster-signing-cert-file`
+   cannot be CA bundles. If these flags and `--root-ca-file` point to the same `ca.crt` file which is now a
+   bundle (includes both old and new CA) you will face an error. To workaround this problem you can copy the new CA to a separate
+   file and make the flags `--client-ca-file` and `--cluster-signing-cert-file` point to the copy. Once `ca.crt` is no longer
+   a bundle you can restore the problem flags to point to `ca.crt` and delete the copy.
+   {{< /note >}}
 -->
-2. 更新控制器管理器的 `--root-ca-file` 标志，使之同时包含老的和新的 CA，之后重启控制器管理器。
+2. 更新 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}} 的
+   `--root-ca-file` 标志，使之同时包含老的和新的 CA，之后重启组件。
 
    自此刻起，所创建的所有服务账号都会获得同时包含老的 CA 和新的 CA 的 Secret。
 
    {{< note >}}
-   去掉控制器管理器的 `-client-ca-file` 标志。
-   你也可以替换客户端 CA 文件或者将此配置条目指向新的、更新过的 CA。
-   [Issue 1350](https://github.com/kubernetes/kubeadm/issues/1350) 用来跟踪
-   控制器管理器无法接受 CA 包的问题。
+   kube-controller-manager 标志 `--client-ca-file` 和 `--cluster-signing-cert-file` 所引用的文件
+   不能是 CA 证书包。如果这些标志和 `--root-ca-file` 指向同一个 `ca.crt` 包文件（包含老的和新的 CA 证书），
+   你将会收到出错信息。
+   要解决这个问题，可以将新的 CA 证书复制到单独的文件中，并将 `--client-ca-file` 和 `--cluster-signing-cert-file` 
+   标志指向该副本。一旦 `ca.crt` 不再是证书包文件，就可以恢复有问题的标志指向  `ca.crt` 并删除该副本。
    {{< /note >}}
 
 <!--
-1. Update all service account tokens to include both old and new CA certificates.
+   1. Update all service account tokens to include both old and new CA certificates.
 
    If any pods are started before new CA is used by API servers, they will get this update and trust both old and new CAs.
 -->
@@ -89,6 +96,19 @@ Configurations with a single API server will experience unavailability while the
 
    如果在 API 服务器使用新的 CA 之前启动了新的 Pod，这些 Pod
    也会获得此更新并且同时信任老的和新的 CA 证书。
+   <!--
+   ```shell
+   base64_encoded_ca="$(base64 <path to file containing both old and new CAs>)"
+
+   for namespace in $(kubectl get ns --no-headers | awk '{print $1}'); do
+       for token in $(kubectl get secrets --namespace "$namespace" --field-selector type=kubernetes.io/service-account-token -o name); do
+           kubectl get $token --namespace "$namespace" -o yaml | \
+             /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}" | \
+             kubectl apply -f -
+       done
+   done
+   ```
+   -->
 
    ```shell
    base64_encoded_ca="$(base64 <path to file containing both old and new CAs>)"
@@ -111,7 +131,7 @@ Configurations with a single API server will experience unavailability while the
 1. Append the both old and new CA to the file against `-client-ca-file` flag in the `kube-scheduler` configuration.
 -->
 4. 重启所有使用集群内配置的 Pods（例如：`kube-proxy`、`coredns` 等），以便这些 Pod 能够使用
-   来自服务账号 Secret 中的、已更新的证书机构数据。
+   来自 *ServiceAccount* Secret 中的、已更新的证书机构数据。
 
    * 确保 `coredns`、`kube-proxy` 和其他使用集群内配置的 Pod 都正按预期方式工作。
 
@@ -151,7 +171,7 @@ Configurations with a single API server will experience unavailability while the
 -->
 8. 遵循下列步骤执行滚动更新
 
-   1. 重新启动所有其他[被聚合的 API 服务器](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+   1. 重新启动所有其他 *[被聚合的 API 服务器](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)*
       或者 *Webhook 处理程序*，使之信任新的 CA 证书。
 
    2. 在所有节点上更新 kubelet 配置中的 `clientCAFile` 所指文件以及 kubelet.conf 中的
@@ -168,7 +188,7 @@ Configurations with a single API server will experience unavailability while the
       If you changed the private keys then update these in the Kubernetes certificates directory as well.
    -->
    3. 使用用新的 CA 签名的证书
-     （`apiserver.crt`、`apiserver-kubelet-client.crt` 和 `front-proxy-client.crt`）
+       （`apiserver.crt`、`apiserver-kubelet-client.crt` 和 `front-proxy-client.crt`）
       来重启 API 服务器。
       你可以使用现有的私钥，也可以使用新的私钥。
       如果你改变了私钥，则要将更新的私钥也放到 Kubernetes 证书目录下。
@@ -275,4 +295,3 @@ Configurations with a single API server will experience unavailability while the
 
     1. 重启 kubelet，移除 `clientCAFile` 标志所指向的文件以及 kubelet kubeconfig 文件中
        的老的 CA 数据。
-

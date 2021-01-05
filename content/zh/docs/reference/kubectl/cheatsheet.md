@@ -153,7 +153,7 @@ kubectl config unset users.foo                       # 删除用户 foo
 参见 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。
 
 <!--
-## Creating Objects
+## Creating objects
 
 Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
@@ -567,8 +567,7 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 伸缩多个
 kubectl delete -f ./pod.json                                              # Delete a pod using the type and name specified in pod.json
 kubectl delete pod,service baz foo                                        # Delete pods and services with same names "baz" and "foo"
 kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
-kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
-kubectl -n my-ns delete pod,svc --all                                     # Delete all pods and services in namespace my-ns,
+kubectl -n my-ns delete pod,svc --all                                      # Delete all pods and services in namespace my-ns,
 # Delete all pods matching the awk pattern1 or pattern2
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
@@ -599,7 +598,7 @@ kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
-kubectl run nginx --image=nginx -n
+kubectl run nginx --image=nginx -n 
 mynamespace                                         # Run pod nginx in a specific namespace
 kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
 --dry-run=client -o yaml > pod.yaml
@@ -607,6 +606,7 @@ kubectl run nginx --image=nginx                     # Run pod nginx and write it
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
+kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case) 
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 ```
@@ -629,6 +629,7 @@ kubectl run nginx --image=nginx                     # 运行 ngins Pod 并将其
 kubectl attach my-pod -i                            # 挂接到一个运行的容器中
 kubectl port-forward my-pod 5000:6000               # 在本地计算机上侦听端口 5000 并转发到 my-pod 上的端口 6000
 kubectl exec my-pod -- ls /                         # 在已有的 Pod 中运行命令（单容器场景）
+kubectl exec --stdin --tty my-pod -- /bin/sh        # 使用交互 shell 访问正在运行的 Pod (一个容器场景)
 kubectl exec my-pod -c my-container -- ls /         # 在已有的 Pod 中运行命令（多容器场景）
 kubectl top pod POD_NAME --containers               # 显示给定 Pod 和其中容器的监控数据
 ```
@@ -661,7 +662,7 @@ kubectl cluster-info                                                  # 显示�
 kubectl cluster-info dump                                             # 将当前集群状态转储到标准输出
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # 将当前集群状态输出到 /path/to/cluster-state
 
-# 如果已存在具有指定键和效果的污点，则替换其值为指定值
+# 如果已存在具有指定键和效果的污点，则替换其值为指定值。
 kubectl taint nodes foo dedicated=special-user:NoSchedule
 ```
 

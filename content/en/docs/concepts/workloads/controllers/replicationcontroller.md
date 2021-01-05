@@ -54,6 +54,7 @@ Run the example job by downloading the example file and then running this comman
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
 ```
+The output is similar to this:
 ```
 replicationcontroller/nginx created
 ```
@@ -63,6 +64,7 @@ Check on the status of the ReplicationController using this command:
 ```shell
 kubectl describe replicationcontrollers/nginx
 ```
+The output is similar to this:
 ```
 Name:        nginx
 Namespace:   default
@@ -101,6 +103,7 @@ To list all the pods that belong to the ReplicationController in a machine reada
 pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
 echo $pods
 ```
+The output is similar to this:
 ```
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```

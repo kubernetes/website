@@ -87,7 +87,7 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 {{< /note >}}
 
 이 섹션의 예시는 임시 컨테이너가 어떻게 API에 나타나는지
-보여준다. 일반적으로 `kubectl alpha debug` 또는
+보여준다. 일반적으로 `kubectl debug` 또는
 다른 `kubectl` [플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)을
 사용해서 API를 직접 호출하지 않고 이런 단계들을 자동화 한다.
 

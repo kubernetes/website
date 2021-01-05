@@ -735,7 +735,7 @@ Only statically provisioned volumes are supported for alpha release. Administrat
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 Volume snapshots only support the out-of-tree CSI volume plugins. For details, see [Volume Snapshots](/docs/concepts/storage/volume-snapshots/).
-In-tree volume plugins are deprecated. You can read about the deprecated volume plugins in the [Volume Plugin FAQ] (https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+In-tree volume plugins are deprecated. You can read about the deprecated volume plugins in the [Volume Plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
 ### Create a PersistentVolumeClaim from a Volume Snapshot {#create-persistent-volume-claim-from-volume-snapshot}
 

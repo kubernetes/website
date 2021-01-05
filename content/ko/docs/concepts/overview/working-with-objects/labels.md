@@ -138,10 +138,11 @@ partition
 !partition
 ```
 
-첫 번째 예시에서 키가 `environment`이고 값이 `production` 또는 `qa`인 모든 리소스를 선택한다.
-두 번째 예시에서 키가 `tier`이고 값이 `frontend`와 `backend`를 가지는 리소스를 제외한 모든 리소스와 키로 `tier`를 가지고 값을 공백으로 가지는 모든 리소스를 선택한다.
-세 번째 예시에서 레이블의 값에 상관없이 키가 `partition`을 포함하는 모든 리소스를 선택한다.
-네 번째 예시에서 레이블의 값에 상관없이 키가 `partition`을 포함하지 않는 모든 리소스를 선택한다.
+* 첫 번째 예시에서 키가 `environment`이고 값이 `production` 또는 `qa`인 모든 리소스를 선택한다.
+* 두 번째 예시에서 키가 `tier`이고 값이 `frontend`와 `backend`를 가지는 리소스를 제외한 모든 리소스와 키로 `tier`를 가지고 값을 공백으로 가지는 모든 리소스를 선택한다.
+* 세 번째 예시에서 레이블의 값에 상관없이 키가 `partition`을 포함하는 모든 리소스를 선택한다.
+* 네 번째 예시에서 레이블의 값에 상관없이 키가 `partition`을 포함하지 않는 모든 리소스를 선택한다.
+
 마찬가지로 쉼표는 _AND_ 연산자로 작동한다. 따라서 `partition,environment notin (qa)`와 같이 사용하면 값과 상관없이 키가 `partition`인 것과 키가 `environment`이고 값이 `qa`와 다른 리소스를 필터링할 수 있다.
 _집합성 기준_ 레이블 셀렉터는 일반적으로 `environment=production`과 `environment in (production)`을 같은 것으로 본다. 유사하게는 `!=`과 `notin`을 같은 것으로 본다.
 

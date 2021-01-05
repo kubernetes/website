@@ -128,6 +128,25 @@ cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
 
+### kube-scheduler 메트릭
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+스케줄러는 실행 중인 모든 파드의 요청(request)된 리소스와 요구되는 제한(limit)을 보고하는 선택적 메트릭을 노출한다. 이러한 메트릭은 용량 계획(capacity planning) 대시보드를 구축하고, 현재 또는 과거 스케줄링 제한을 평가하고, 리소스 부족으로 스케줄할 수 없는 워크로드를 빠르게 식별하고, 실제 사용량을 파드의 요청과 비교하는 데 사용할 수 있다.
+
+kube-scheduler는 각 파드에 대해 구성된 리소스 [요청과 제한](/ko/docs/concepts/configuration/manage-resources-containers/)을 식별한다. 요청 또는 제한이 0이 아닌 경우 kube-scheduler는 메트릭 시계열을 보고한다. 시계열에는 다음과 같은 레이블이 지정된다.
+- 네임스페이스
+- 파드 이름
+- 파드가 스케줄된 노드 또는 아직 스케줄되지 않은 경우 빈 문자열
+- 우선순위
+- 해당 파드에 할당된 스케줄러
+- 리소스 이름 (예: `cpu`)
+- 알려진 경우 리소스 단위 (예: `cores`)
+
+파드가 완료되면 (`Never` 또는 `OnFailure`의 `restartPolicy`가 있고 `Succeeded` 또는 `Failed` 파드 단계에 있거나, 삭제되고 모든 컨테이너가 종료된 상태에 있음) 스케줄러가 이제 다른 파드를 실행하도록 스케줄할 수 있으므로 시리즈가 더 이상 보고되지 않는다. 두 메트릭을 `kube_pod_resource_request` 및 `kube_pod_resource_limit` 라고 한다.
+
+메트릭은 HTTP 엔드포인트 `/metrics/resources`에 노출되며 스케줄러의 `/metrics` 엔드포인트
+와 동일한 인증이 필요하다. 이러한 알파 수준의 메트릭을 노출시키려면 `--show-hidden-metrics-for-version=1.20` 플래그를 사용해야 한다.
 
 
 ## {{% heading "whatsnext" %}}
