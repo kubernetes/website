@@ -236,6 +236,13 @@ For more information, see the [CRI-O compatibility matrix](https://github.com/cr
 Install and configure prerequisites:
 
 ```shell
+
+# Create the .conf file to load the modules at bootup
+cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
+overlay
+br_netfilter
+EOF
+
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
