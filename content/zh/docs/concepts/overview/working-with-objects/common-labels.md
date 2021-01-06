@@ -100,8 +100,8 @@ metadata:
 ## Applications And Instances Of Applications
 
 An application can be installed one or more times into a Kubernetes cluster and,
-in some cases, the same namespace. For example, wordpress can be installed more
-than once where different websites are different installations of wordpress.
+in some cases, the same namespace. For example, WordPress can be installed more
+than once where different websites are different installations of WordPress.
 
 The name of an application and the instance name are recorded separately. For
 example, WordPress has a `app.kubernetes.io/name` of `wordpress` while it has
@@ -111,7 +111,7 @@ to be identifiable. Every instance of an application must have a unique name.
 -->
 ## 应用和应用实例
 
-应用可以在 Kubernetes 集群中安装一次或多次。在某些情况下，可以安装在同一命名空间中。例如，可以不止一次地为不同的站点安装不同的 wordpress。
+应用可以在 Kubernetes 集群中安装一次或多次。在某些情况下，可以安装在同一命名空间中。例如，可以不止一次地为不同的站点安装不同的 WordPress。
 
 应用的名称和实例的名称是分别记录的。例如，某 WordPress 实例的 `app.kubernetes.io/name` 为 `wordpress`，而其实例名称表现为 `app.kubernetes.io/instance` 的属性值 `wordpress-abcxzy`。这使应用程序和应用程序的实例成为可能是可识别的。应用程序的每个实例都必须具有唯一的名称。
 
