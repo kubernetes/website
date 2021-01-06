@@ -3,11 +3,11 @@
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-Bem vindos! Este repositório abriga todos os recursos necessários para criar o [site e documentação do Kubernetes](https://kubernetes.io/). Estamos muito satisfeitos por você querer contribuir!
+Bem-vindos! Este repositório abriga todos os recursos necessários para criar o [site e documentação do Kubernetes](https://kubernetes.io/). Estamos muito satisfeitos por você querer contribuir!
 
 ## Contribuindo com os documentos
 
-Você pode clicar no botão **Fork** na área superior direita da tela para criar uma cópia desse repositório na sua conta do GitHub. Esta cópia é chamada de *fork*. Faça as alterações desejadas no seu fork e, quando estiver pronto para enviar as alterações para nós, vá até o fork e crie uma nova solicitação de pull para nos informar sobre isso.
+Você pode clicar no botão **Fork** na área superior direita da tela para criar uma cópia desse repositório na sua conta do GitHub. Esta cópia é chamada de *fork*. Faça as alterações desejadas no seu fork e, quando estiver pronto para enviar as alterações para nós, vá até o fork e crie uma nova solicitação de pull request para nos informar sobre isso.
 
 Depois que seu **pull request** for criado, um revisor do Kubernetes assumirá a responsabilidade de fornecer um feedback claro e objetivo. Como proprietário do pull request, **é sua responsabilidade modificar seu pull request para abordar o feedback que foi fornecido a você pelo revisor do Kubernetes.** Observe também que você pode acabar tendo mais de um revisor do Kubernetes para fornecer seu feedback ou você pode acabar obtendo feedback de um revisor do Kubernetes que é diferente daquele originalmente designado para lhe fornecer feedback. Além disso, em alguns casos, um de seus revisores pode solicitar uma revisão técnica de um [revisor de tecnologia Kubernetes](https://github.com/kubernetes/website/wiki/Tech-reviewers) quando necessário. Os revisores farão o melhor para fornecer feedback em tempo hábil, mas o tempo de resposta pode variar de acordo com as circunstâncias.
 
