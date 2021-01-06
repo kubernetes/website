@@ -786,6 +786,7 @@ Verbosity | Description
 `--v=2` | Useful steady state information about the service and important log messages that may correlate to significant changes in the system. This is the recommended default log level for most systems.
 `--v=3` | Extended information about changes.
 `--v=4` | Debug level verbosity.
+`--v=5` | Trace level verbosity.
 `--v=6` | Display requested resources.
 `--v=7` | Display HTTP request headers.
 `--v=8` | Display HTTP request contents.
@@ -798,6 +799,7 @@ Verbosity | Description
 `--v=2` | 输出有关服务的稳定状态的信息以及重要的日志消息，这些信息可能与系统中的重大变化有关。这是建议大多数系统设置的默认日志级别。
 `--v=3` | 包含有关系统状态变化的扩展信息。
 `--v=4` | 包含调试级别的冗余信息。
+`--v=5` | 跟踪级别的详细程度。
 `--v=6` | 显示所请求的资源。
 `--v=7` | 显示 HTTP 请求头。
 `--v=8` | 显示 HTTP 请求内容。
