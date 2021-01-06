@@ -38,7 +38,7 @@ In early Kubernetes versions, Nodes were called "Minions".
 -->
 工作机器可以是虚拟机也可以是物理机，取决于集群的配置。
 其上部署了运行 {{< glossary_tooltip text="Pods" term_id="pod" >}}
-所必需的本地守护进程或{{< glossary_tooltip text="服务" term_id="service" >}}，
+所必需的本地守护进程或服务，
 并由主控组件来管理。
 节点上的的守护进程包括 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}
