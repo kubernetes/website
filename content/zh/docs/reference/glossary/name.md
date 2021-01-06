@@ -16,7 +16,7 @@ tags:
 title: Name
 id: name
 date: 2018-04-12
-full_link: /zh/docs/concepts/overview/working-with-objects/names/
+full_link: /docs/concepts/overview/working-with-objects/names/
 short_description: >
   A client-provided string that refers to an object in a resource URL, such as `/api/v1/pods/some-name`.
 
