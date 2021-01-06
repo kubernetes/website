@@ -201,6 +201,9 @@ allow.textmode=true
 how.nice.to.look=fairlyNice
 ```
 
+Note that if the data source is not ASCII or UTF-8, its contents will be put in the `binaryData` field of the configmap, and that furthermore, this field is *not* displayed (as of kubectl 1.20) by `kubectl describe` (it is displayed, however, by `kubectl get configmap -o json`). 
+
+
 Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
 
 ```shell
