@@ -43,7 +43,9 @@ Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
 fields. These fields accept key-value pairs as their values.  Both the `data`
 field and the `binaryData` are optional. The `data` field is designed to
 contain UTF-8 byte sequences while the `binaryData` field is designed to
-contain binary data.
+contain binary data. The configmap resource determines automatically which field 
+to use (`data` or `binaryData`) based on whether the file is UTF-8 compatible 
+(eg an ascii file that does not have the utf-8 marker would still go to `data`).
 
 The name of a ConfigMap must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
