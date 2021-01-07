@@ -215,3 +215,12 @@ aliases:
     - idvoretskyi
     - MaxymVlasov
     - Potapy4
+  # authoritative source: git.k8s.io/community/OWNERS_ALIASES
+  committee-steering: # provide PR approvals for announcements
+    - cblecker
+    - derekwaynecarr
+    - dims
+    - liggitt
+    - mrbobbytables
+    - nikhita
+    - parispittman

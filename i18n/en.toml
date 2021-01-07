@@ -1,11 +1,5 @@
 # i18n strings for the English (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
-[announcement_title]
-other = "Black lives matter."
-
-[announcement_message]
-other = "We stand in solidarity with the Black community.<br/>Racism is unacceptable.<br/> It conflicts with the [core values of the Kubernetes project](https://git.k8s.io/community/values.md) and our community does not tolerate it."
-
 [caution]
 other = "Caution:"
 
