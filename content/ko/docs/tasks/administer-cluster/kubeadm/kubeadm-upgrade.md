@@ -1,4 +1,6 @@
 ---
+
+
 title: kubeadm 클러스터 업그레이드
 content_type: task
 weight: 20
@@ -229,6 +231,14 @@ sudo systemctl restart kubelet
 {{% /tab %}}
 {{< /tabs >}}
 
+### "kubeadm upgrade" 호출
+
+-  워커 노드의 경우 로컬 kubelet 구성을 업그레이드한다.
+
+    ```shell
+    sudo kubeadm upgrade node
+    ```
+
 ### 노드 드레인
 
 -  스케줄 불가능(unschedulable)으로 표시하고 워크로드를 축출하여 유지 보수할 노드를 준비한다.
@@ -236,14 +246,6 @@ sudo systemctl restart kubelet
     ```shell
     # <node-to-drain>을 드레이닝하려는 노드 이름으로 바꾼다.
     kubectl drain <node-to-drain> --ignore-daemonsets
-    ```
-
-### kubeadm 업그레이드 호출
-
--  워커 노드의 경우 로컬 kubelet 구성을 업그레이드한다.
-
-    ```shell
-    sudo kubeadm upgrade node
     ```
 
 ### kubelet과 kubectl 업그레이드

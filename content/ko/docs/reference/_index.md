@@ -1,5 +1,7 @@
 ---
 title: 레퍼런스
+
+
 linkTitle: "레퍼런스"
 main_menu: true
 weight: 70
@@ -16,7 +18,7 @@ content_type: concept
 
 ## API 레퍼런스
 
-* [쿠버네티스 API 레퍼런스 {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [쿠버네티스 API 레퍼런스 {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [쿠버네티스 API 사용](/ko/docs/reference/using-api/) - 쿠버네티스 API에 대한 개요
 
 ## API 클라이언트 라이브러리

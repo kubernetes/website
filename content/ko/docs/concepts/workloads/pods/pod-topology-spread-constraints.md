@@ -66,7 +66,7 @@ graph TB
 
 API 필드 `pod.spec.topologySpreadConstraints` 는 다음과 같이 정의된다.
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
