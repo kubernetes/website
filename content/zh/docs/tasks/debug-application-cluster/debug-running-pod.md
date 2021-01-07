@@ -313,10 +313,10 @@ this scenario using `kubectl run`:
 kubectl run myapp --image=busybox --restart=Never -- sleep 1d
 ```
 <!--
-Run this command to create a copy of `myapp` named `myapp-copy` that adds a
+Run this command to create a copy of `myapp` named `myapp-debug` that adds a
 new Ubuntu container for debugging:
 -->
-通过运行以下命令，建立 `myapp` 的一个名为 `myapp-copy` 的副本，
+通过运行以下命令，建立 `myapp` 的一个名为 `myapp-debug` 的副本，
 新增了一个用于调试的 Ubuntu 容器，
 
 ```shell
