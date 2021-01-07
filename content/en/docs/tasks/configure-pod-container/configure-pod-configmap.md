@@ -201,6 +201,8 @@ allow.textmode=true
 how.nice.to.look=fairlyNice
 ```
 
+Note that data sources that are not ASCII or UTF-8 will be put in the `binaryData` field of the configmap. Both text and binary data sources can be combined in one configmap, but the `binaryData` field is not displayed (as of kubectl 1.20) by `kubectl describe`. To see the `binaryData` in the configmap, you can use `kubectl get configmap -o json MAP_NAME`.
+
 Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
 
 ```shell
