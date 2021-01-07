@@ -127,7 +127,7 @@ Once it returns (without giving an error), you can power down the node
 If you leave the node in the cluster during the maintenance operation, you need to run
 -->
 一旦它返回（没有报错），
-你就可以下电此节点（或者等价地，如果在云平台上，删除支持该节点的虚拟机）。
+你就可以下掉此节点（或者等价地，如果在云平台上，删除支持该节点的虚拟机）。
 如果要在维护操作期间将节点留在集群中，则需要运行：
 
 ```shell
