@@ -337,7 +337,7 @@ sequenceDiagram
     Alice->John: Yes... John, how are you?
 {{</ mermaid >}}
 
-<br>More [examples](https://mermaid-js.github.io/mermaid/#/examples) from the offical docs.
+<br>More [examples](https://mermaid-js.github.io/mermaid/#/examples) from the official docs.
 
 ## Sidebars and Admonitions
 
