@@ -108,7 +108,7 @@ extension points:
 - `SelectorSpread`: Favors spreading across nodes for Pods that belong to
   {{< glossary_tooltip text="Services" term_id="service" >}},
   {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and
-  {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}
+  {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}.
   Extension points: `PreScore`, `Score`.
 - `ImageLocality`: Favors nodes that already have the container images that the
   Pod runs.
