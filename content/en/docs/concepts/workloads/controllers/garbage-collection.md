@@ -150,14 +150,16 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 ```
 
 kubectl also supports cascading deletion.
-To delete dependents automatically using kubectl, set `--cascade` to true.  To
-orphan dependents, set `--cascade` to false. The default value for `--cascade`
-is true.
+
+To delete dependents in the foreground using kubectl, set `--cascade=foreground`.  To
+orphan dependents, set `--cascade=orphan`. 
+
+The default behavior is to delete dependents in the background i.e. no `--cascade` option or `--cascade=background`.
 
 Here's an example that orphans the dependents of a ReplicaSet:
 
 ```shell
-kubectl delete replicaset my-repset --cascade=false
+kubectl delete replicaset my-repset --cascade=orphan
 ```
 
 ### Additional note on Deployments
