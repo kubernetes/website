@@ -293,19 +293,18 @@ variables and `downwardAPI` volumes:
 * Information available via `fieldRef`:
   * `metadata.name` - the pod's name
   * `metadata.namespace` - the pod's namespace
-  * `metadata.uid` - the pod's UID, available since v1.8.0-alpha.2
-  * `metadata.labels['<KEY>']` - the value of the pod's label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
-  * `metadata.annotations['<KEY>']` - the value of the pod's annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
+  * `metadata.uid` - the pod's UID
+  * `metadata.labels['<KEY>']` - the value of the pod's label `<KEY>` (for example, `metadata.labels['mylabel']`)
+  * `metadata.annotations['<KEY>']` - the value of the pod's annotation `<KEY>` (for example, `metadata.annotations['myannotation']`)
 -->
 下面这些信息可以通过环境变量和 `downwardAPI` 卷提供给容器：
 
 * 能通过 `fieldRef` 获得的：
   * `metadata.name` - Pod 名称
   * `metadata.namespace` - Pod 名字空间
-  * `metadata.uid` - Pod的UID, 版本要求 v1.8.0-alpha.2
-  * `metadata.labels['<KEY>']` - Pod 标签 `<KEY>` 的值 (例如, `metadata.labels['mylabel']`）； 
-    版本要求 Kubernetes 1.9+
-  * `metadata.annotations['<KEY>']` - Pod 的注解 `<KEY>` 的值（例如, `metadata.annotations['myannotation']`）； 版本要求 Kubernetes 1.9+
+  * `metadata.uid` - Pod 的 UID
+  * `metadata.labels['<KEY>']` - Pod 标签 `<KEY>` 的值 (例如, `metadata.labels['mylabel']`）
+  * `metadata.annotations['<KEY>']` - Pod 的注解 `<KEY>` 的值（例如, `metadata.annotations['myannotation']`）
 
 <!--
 * Information available via `resourceFieldRef`:
@@ -313,16 +312,20 @@ variables and `downwardAPI` volumes:
   * A Container's CPU request
   * A Container's memory limit
   * A Container's memory request
-  * A Container's ephemeral-storage limit, available since v1.8.0-beta.0
-  * A Container's ephemeral-storage request, available since v1.8.0-beta.0
+  * A Container's hugepages limit (providing that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+  * A Container's hugepages request (providing that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+  * A Container's ephemeral-storage limit
+  * A Container's ephemeral-storage request
 -->
 * 能通过 `resourceFieldRef` 获得的：
   * 容器的 CPU 约束值
   * 容器的 CPU 请求值
   * 容器的内存约束值
   * 容器的内存请求值
-  * 容器的临时存储约束值, 版本要求 v1.8.0-beta.0
-  * 容器的临时存储请求值, 版本要求 v1.8.0-beta.0
+  * 容器的巨页限制值（前提是启用了 `DownwardAPIHugePages` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)）
+  * 容器的巨页请求值（前提是启用了 `DownwardAPIHugePages` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)）
+  * 容器的临时存储约束值
+  * 容器的临时存储请求值
 
 <!--
 In addition, the following information is available through
