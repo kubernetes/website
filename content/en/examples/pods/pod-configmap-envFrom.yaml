@@ -8,8 +8,7 @@ spec:
   containers:
   - envFrom:
     -configMapRef:
-	       name: my-config-map-name
+	     name: my-config-map-name
     image: nginx
-  name: my-http-server
-	n
-  n  
+    name: my-http-server
+ 
