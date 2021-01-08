@@ -499,6 +499,7 @@ profiles:
             - maxSkew: 1
               topologyKey: topology.kubernetes.io/zone
               whenUnsatisfiable: ScheduleAnyway
+          defaultingType: List
 ```
 
 {{< note >}}
@@ -520,15 +521,15 @@ using default constraints for `PodTopologySpread`.
 -->
 #### 内部默认约束    {#internal-default-constraints}
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
 <!--
-When you enable the `DefaultPodTopologySpread` feature gate, the
+With the `DefaultPodTopologySpread` feature gate, enabled by default, the
 legacy `SelectorSpread` plugin is disabled.
 kube-scheduler uses the following default topology constraints for the
 `PodTopologySpread` plugin configuration:
 -->
-当你启用了 `DefaultPodTopologySpread` 特性门控时，原来的
+当你使用了默认启用的 `DefaultPodTopologySpread` 特性门控时，原来的
 `SelectorSpread` 插件会被禁用。
 kube-scheduler 会使用下面的默认拓扑约束作为 `PodTopologySpread` 插件的
 配置：
@@ -564,6 +565,26 @@ Kubernetes 的默认约束。
 
 插件 `PodTopologySpread` 不会为未设置分布约束中所给拓扑键的节点评分。
 {{< /note >}}
+
+<!--
+If you don't want to use the default Pod spreading constraints for your cluster,
+you can disable those defaults by setting `defaultingType` to `List` and leaving
+empty `defaultConstraints` in the `PodTopologySpread` plugin configuration:
+-->
+如果你不想为集群使用默认的 Pod 分布约束，你可以通过设置 `defaultingType` 参数为 `List` 和
+将 `PodTopologySpread` 插件配置中的 `defaultConstraints` 参数置空来禁用默认 Pod 分布约束。
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+
+profiles:
+  - pluginConfig:
+      - name: PodTopologySpread
+        args:
+          defaultConstraints: []
+          defaultingType: List
+```
 
 <!--
 ## Comparison with PodAffinity/PodAntiAffinity
