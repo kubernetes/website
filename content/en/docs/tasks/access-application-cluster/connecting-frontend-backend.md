@@ -87,7 +87,7 @@ Events:
 ...
 ```
 
-## Creating the backend Service object
+## Creating the `hello` Service object
 
 The key to sending requests from a frontend to a backend is the backend
 Service. A Service creates a persistent IP address and DNS name entry
@@ -99,10 +99,10 @@ First, explore the Service configuration file:
 
 {{< codenew file="service/access/backend-service.yaml" >}}
 
-In the configuration file, you can see that the Service, named `backend` routes 
+In the configuration file, you can see that the Service, named `hello` routes 
 traffic to Pods that have the labels `app: hello` and `tier: backend`.
 
-Create the `backend` Service:
+Create the backend Service:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/access/backend-service.yaml
@@ -110,7 +110,7 @@ kubectl apply -f https://k8s.io/examples/service/access/backend-service.yaml
 
 At this point, you have a `backend` Deployment running three replicas of your `hello`
 application, and you have a Service that can route traffic to them. However, this 
-service is neither available nor resolvable outside the cluster yet.
+service is neither available nor resolvable outside the cluster.
 
 ## Creating the frontend
 
@@ -118,12 +118,12 @@ Now that you have your backend running, you can create a frontend that is access
 outside the cluster, and connects to the backend by proxying requests to it.
 
 The frontend sends requests to the backend worker Pods by using the DNS name
-given to the backend Service. The DNS name is `backend`, which is the value
+given to the backend Service. The DNS name is `hello`, which is the value
 of the `name` field in the `examples/service/access/backend-service.yaml` 
 configuration file.
 
 The Pods in the frontend Deployment run a nginx image that is configured
-to proxy requests to the backend Service. Here is the nginx configuration file:
+to proxy requests to the `hello` backend Service. Here is the nginx configuration file:
 
 {{< codenew file="service/access/frontend-nginx.conf" >}}
 
@@ -189,7 +189,7 @@ cluster.
 
 ## Send traffic through the frontend
 
-The frontend and backends are now connected. You can hit the endpoint
+The frontend and backend are now connected. You can hit the endpoint
 by using the curl command on the external IP of your frontend Service.
 
 ```shell
