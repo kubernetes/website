@@ -148,6 +148,44 @@ sudo containerd config default | sudo tee /etc/containerd/config.toml
 sudo systemctl restart containerd
 ```
 {{% /tab %}}
+{{% tab name="Debian 9+" %}}
+
+```shell
+# (Install containerd)
+## Set up the repository
+### Install packages to allow apt to use a repository over HTTPS
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
+
+```shell
+## Add Docker's official GPG key
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
+```
+
+```shell
+## Add Docker apt repository.
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+```
+
+```shell
+## Install containerd
+sudo apt-get update && sudo apt-get install -y containerd.io
+```
+
+```shell
+# Set default containerd configuration
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# Restart containerd
+sudo systemctl restart containerd
+```
+{{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
@@ -523,4 +561,3 @@ sudo systemctl enable docker
 
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
 for more information.
-
