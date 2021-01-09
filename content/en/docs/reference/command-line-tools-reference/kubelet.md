@@ -351,7 +351,7 @@ kubelet [flags]
 <td colspan="2">--eviction-hard mapStringString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `imagefs.available<15%,memory.available<100Mi,nodefs.available<10%`</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of eviction thresholds (e.g. `memory.available<1Gi`) that if met would trigger a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of eviction thresholds (e.g. `memory.available<1Gi`) that if met would trigger a pod eviction. On a Linux node, the default value also includes `nodefs.inodesFree<5%`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>

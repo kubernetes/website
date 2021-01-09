@@ -51,7 +51,7 @@ CRI implementation for how to configure.
 {{< note >}}
 RuntimeClass assumes a homogeneous node configuration across the cluster by default (which means
 that all nodes are configured the same way with respect to container runtimes). To support
-heterogenous node configurations, see [Scheduling](#scheduling) below.
+heterogeneous node configurations, see [Scheduling](#scheduling) below.
 {{< /note >}}
 
 The configurations have a corresponding `handler` name, referenced by the RuntimeClass. The
@@ -144,7 +144,7 @@ See CRI-O's [config documentation](https://raw.githubusercontent.com/cri-o/cri-o
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-As of Kubernetes v1.16, RuntimeClass includes support for heterogenous clusters through its
+As of Kubernetes v1.16, RuntimeClass includes support for heterogeneous clusters through its
 `scheduling` fields. Through the use of these fields, you can ensure that pods running with this
 RuntimeClass are scheduled to nodes that support it. To use the scheduling support, you must have
 the [RuntimeClass admission controller](/docs/reference/access-authn-authz/admission-controllers/#runtimeclass)

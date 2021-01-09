@@ -13,7 +13,7 @@ disableBrowserError = true
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
 
-ignoreFiles = [ "^OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
+ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
 timeout = 3000
 
@@ -153,11 +153,6 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
 # GitHub repository link for editing a page and opening issues.
 github_repo = "https://github.com/kubernetes/website"
-
-# param for displaying an announcement block on every page.
-# See /i18n/en.toml for message text and title.
-announcement = true
-announcement_bg = "#000000" #choose a dark color – text is white
 
 #Searching
 k8s_search = true
