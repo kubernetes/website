@@ -4,17 +4,16 @@
 
 Output a kubeconfig file for an additional user.
 
-Alpha Disclaimer: this command is currently alpha.
 
 ```
-kubeadm alpha kubeconfig user [flags]
+kubeadm kubeconfig user [flags]
 ```
 
 ### Examples
 
 ```
   # Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
-  kubeadm alpha kubeconfig user --client-name=foo --config=bar
+  kubeadm kubeconfig user --client-name=foo --config=bar
 ```
 
 ### Options
