@@ -614,7 +614,7 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 
 <!--
 * [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-* [`azureDisk`](/docs/concepts/sotrage/volumes/#azuredisk) - Azure Disk
+* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
@@ -644,7 +644,7 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
 -->
 * [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS 弹性块存储（EBS）
-* [`azureDisk`](/docs/concepts/sotrage/volumes/#azuredisk) - Azure Disk
+* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder （OpenStack 块存储）
