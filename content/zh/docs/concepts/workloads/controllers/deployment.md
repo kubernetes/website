@@ -186,7 +186,7 @@ Follow the steps given below to create the above Deployment:
    -->
    * `NAME` 列出了集群中 Deployment 的名称。
    * `READY` 显示应用程序的可用的 _副本_ 数。显示的模式是“就绪个数/期望个数”。
-   * `UP-TO-DATE` 显示为了打到期望状态已经更新的副本数。
+   * `UP-TO-DATE` 显示为了达到期望状态已经更新的副本数。
    * `AVAILABLE` 显示应用可供用户使用的副本数。
    * `AGE` 显示应用程序运行的时间。
 
