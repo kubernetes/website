@@ -795,7 +795,6 @@ See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-contai
 
 Manually created secrets (for example, one containing a token for accessing a GitHub account)
 can be automatically attached to pods based on their service account.
-See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset/) for a detailed explanation of that process.
 
 ## Details
 
