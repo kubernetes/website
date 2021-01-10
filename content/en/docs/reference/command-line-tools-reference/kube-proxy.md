@@ -15,6 +15,23 @@ environment variables specifying ports opened by the service proxy. There is an 
 addon that provides cluster DNS for these cluster IPs. The user must create a service
 with the apiserver API to configure the proxy.
 
+Use-cases
+
+•	You can make your own proxy with custom behavior (antrea, cilliim, calico? and leverage from the ideas of the implementation of kube-proxy. 
+•	The kube-proxy is only configurable by configmap even though it has several argument options, which can be used for GENERATING a config map.
+o	edit the kube-proxy configmap
+o	restart all kube-proxy pods (i.e. delete them, and the daemonset will have them rescheduled)
+•	The users-space proxy creates a new go routine for every service, this is rarely used, as kernel proxies (which use HNS, IPTables, IPVS, and so on) are much faster and scalable
+
+Descriptions of modes
+
+-	User-space proxy – a deprecated mode of operation in which the Kube-proxy watches for changes to a cluster and will open up a TCP-based port on a Worker Node in the cluster. Iptables is responsible for routing traffic from this worker node’s port to the Kube-proxy. If a pod doesn’t respond, Iptables will retry sending to another pod (note, IPTables is responsible for this, not Kubernetes)
+-	Iptables Proxy – Kube-proxy observes the cluster for changes and will proceed to open up a TCP port on the Worker Node but traffic goes from the IPTables to the Kubernetes Service object mapped to a set of pods. Pods are selected at random. Suggested to use a readiness probe to ensure pods are up and responsive before traffic is sent to a pod.
+-	IPVS proxy – a mode in which a virtual load-balancer is used and allows for various load-balancing distribution methods (round robin, least connection, etc) and will forward traffic to pod based on load-balancing algorithm that’s chosen.
+
+Note, the kube-proxy isn’t the only type of proxy that’s available. Different types of proxies can be found here: https://kubernetes.io/docs/concepts/cluster-administration/proxies/
+
+
 ```
 kube-proxy [flags]
 ```
