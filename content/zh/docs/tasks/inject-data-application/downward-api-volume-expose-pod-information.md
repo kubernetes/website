@@ -60,7 +60,8 @@ The first element specifies that the value of the Pod's
 The second element specifies that the value of the Pod's `annotations`
 field should be stored in a file named `annotations`.
 -->
-在配置文件中，你可以看到 Pod 有一个 `downwardAPI` 类型的卷，并且挂载到容器中的 `/etc` 目录。
+在配置文件中，你可以看到 Pod 有一个 `downwardAPI` 类型的卷，并且挂载到容器中的
+`/etc/podinfo` 目录。
 
 查看 `downwardAPI` 下面的 `items` 数组。
 每个数组元素都是一个 
@@ -133,7 +134,7 @@ In your shell, view the `labels` file:
 在该 Shell中，查看 `labels` 文件：
 
 ```shell
-/# cat /etc/labels
+/# cat /etc/podinfo/labels
 ```
 
 <!--
@@ -154,7 +155,7 @@ Similarly, view the `annotations` file:
 同样，查看`annotations`文件：
 
 ```shell
-/# cat /etc/annotations
+/# cat /etc/podinfo/annotations
 ```
 
 <!--
@@ -184,7 +185,7 @@ lrwxrwxrwx  ... Feb 6 21:47 ..data -> ..2982_06_02_21_47_53.299460680
 lrwxrwxrwx  ... Feb 6 21:47 annotations -> ..data/annotations
 lrwxrwxrwx  ... Feb 6 21:47 labels -> ..data/labels
 
-/etc/..2982_06_02_21_47_53.299460680:
+/etc/podinfo/..2982_06_02_21_47_53.299460680:
 total 8
 -rw-r--r--  ... Feb  6 21:47 annotations
 -rw-r--r--  ... Feb  6 21:47 labels
@@ -243,7 +244,8 @@ default value of `1` which means cores for cpu and bytes for memory.
 
 Create the Pod:
 -->
-在这个配置文件中，你可以看到 Pod 有一个 `downwardAPI` 类型的卷，并且挂载到容器的 `/etc/podinfo` 目录。
+在这个配置文件中，你可以看到 Pod 有一个 `downwardAPI` 类型的卷，并且挂载到容器的
+`/etc/podinfo` 目录。
 
 查看 `downwardAPI` 下面的 `items` 数组。每个数组元素都是一个 DownwardAPIVolumeFile。
 
@@ -271,7 +273,7 @@ In your shell, view the `cpu_limit` file:
 在 Shell 中，查看 `cpu_limit` 文件：
 
 ```shell
-/# cat /etc/cpu_limit
+/# cat /etc/podinfo/cpu_limit
 ```
 
 <!--
