@@ -4,7 +4,7 @@ reviewers:
 - bart0sh
 title: 容器运行时
 content_type: concept
-weight: 10
+weight: 20
 ---
 <!--
 reviewers:
@@ -200,7 +200,7 @@ sudo apt-get update && sudo apt-get install -y containerd.io
 ```shell
 # Configure containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -209,9 +209,9 @@ sudo systemctl restart containerd
 ```
 -->
 ```shell
-# (安装 containerd)
-## (设置仓库)
-### (安装软件包以允许 apt 通过 HTTPS 使用存储库)
+# （安装 containerd）
+## 设置仓库
+### 安装软件包以允许 apt 通过 HTTPS 使用存储库
 sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 ```
 
@@ -221,7 +221,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring
 ```
 
 ```shell
-## 新增 Docker apt 仓库。
+## 新增 Docker apt 仓库
 sudo add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
@@ -236,13 +236,124 @@ sudo apt-get update && sudo apt-get install -y containerd.io
 ```shell
 # 配置 containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
 # 重启 containerd
 sudo systemctl restart containerd
 ```
+{{% /tab %}}
+{{% tab name="Ubuntu 18.04/20.04" %}}
+
+<!-- 
+```shell
+# (Install containerd)
+sudo apt-get update && sudo apt-get install -y containerd
+```
+
+```shell
+# Configure containerd
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# Restart containerd
+sudo systemctl restart containerd
+```
+-->
+```shell
+# （安装 containerd）
+sudo apt-get update && sudo apt-get install -y containerd
+```
+
+```shell
+# 配置 containerd
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# 重启 containerd
+sudo systemctl restart containerd
+```
+{{% /tab %}}
+{{% tab name="Debian 9+" %}}
+
+<!-- 
+```shell
+# (Install containerd)
+## Set up the repository
+### Install packages to allow apt to use a repository over HTTPS
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
+
+```shell
+## Add Docker's official GPG key
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
+```
+
+```shell
+## Add Docker apt repository.
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+```
+
+```shell
+## Install containerd
+sudo apt-get update && sudo apt-get install -y containerd.io
+```
+
+```shell
+# Set default containerd configuration
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# Restart containerd
+sudo systemctl restart containerd
+```
+-->
+```shell
+# （安装 containerd）
+## 设置仓库
+### 安装软件包以允许 apt 通过 HTTPS 使用存储库
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
+
+```shell
+## 添加 Docker 的官方 GPG 密钥
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
+```
+
+```shell
+## 添加 Docker apt 仓库
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+```
+
+```shell
+## 安装 containerd
+sudo apt-get update && sudo apt-get install -y containerd.io
+```
+
+```shell
+# 设置 containerd 默认配置
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# 重启 containerd
+sudo systemctl restart containerd
+```
+
 {{< /tab >}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
 
@@ -279,7 +390,7 @@ sudo systemctl restart containerd
 -->
 
 ```shell
-# 安装 containerd
+# （安装 containerd）
 ## 设置仓库
 ### 安装所需包
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
@@ -313,8 +424,8 @@ sudo systemctl restart containerd
 ```powershell
 # (Install containerd)
 # download containerd
-cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
-cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.1/containerd-1.4.1-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.1-windows-amd64.tar.gz
 ```
 
 ```powershell
@@ -336,10 +447,10 @@ Start-Service containerd
 ```
  -->
 ```powershell
-# （安装 containerd ）
+# （安装 containerd）
 # 下载 contianerd
-cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
-cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.1/containerd-1.4.1-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.1-windows-amd64.tar.gz
 ```
 
 ```powershell
@@ -404,6 +515,13 @@ For more information, see the [CRI-O compatibility matrix](https://github.com/cr
 Install and configure prerequisites:
 
 ```shell
+
+# Create the .conf file to load the modules at bootup
+cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
+overlay
+br_netfilter
+EOF
+
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
@@ -421,12 +539,21 @@ sudo sysctl --system
 
 使用以下命令在系统中安装 CRI-O：
 
+{{< note >}}
 提示：CRI-O 的主要以及次要版本必须与 Kubernetes 的主要和次要版本相匹配。
 更多信息请查阅 [CRI-O 兼容性列表](https://github.com/cri-o/cri-o).
+{{< /note >}}
 
 安装以及配置的先决条件：
 
 ```shell
+
+# 创建 .conf 文件以在启动时加载模块
+cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
+overlay
+br_netfilter
+EOF
+
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
@@ -484,8 +611,8 @@ cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cr
 deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /
 EOF
 
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg -
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg -
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
 
 sudo apt-get update
 sudo apt-get install cri-o cri-o-runc
@@ -539,8 +666,8 @@ cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cr
 deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /
 EOF
 
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/libcontainers-cri-o.gpg -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers-cri-o.gpg add -
 
 sudo apt-get update
 sudo apt-get install cri-o cri-o-runc
@@ -686,7 +813,7 @@ sudo apt-get update && sudo apt-get install -y \
 
 ```shell
 # Add Docker's official GPG key:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/docker.gpg -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
 ```
 -->
 
@@ -700,7 +827,7 @@ sudo apt-get update && sudo apt-get install -y \
 
 ```shell
 ### 新增 Docker 的 官方 GPG 秘钥:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/docker.gpg -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
 ```
 
 <!--
