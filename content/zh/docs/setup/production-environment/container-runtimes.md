@@ -1,10 +1,7 @@
 ---
-reviewers:
-- vincepri
-- bart0sh
 title: 容器运行时
 content_type: concept
-weight: 10
+weight: 20
 ---
 <!--
 reviewers:
@@ -23,7 +20,7 @@ You need to install a
 into each node in the cluster so that Pods can run there. This page outlines
 what is involved and describes related tasks for setting up nodes.
  -->
-你需要在集群内每个节点上安装一个 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
+你需要在集群内每个节点上安装一个{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
 以使 Pod 可以运行在上面。本文概述了所涉及的内容并描述了与节点设置相关的任务。
 
 <!-- body -->
@@ -200,7 +197,7 @@ sudo apt-get update && sudo apt-get install -y containerd.io
 ```shell
 # Configure containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -236,7 +233,7 @@ sudo apt-get update && sudo apt-get install -y containerd.io
 ```shell
 # 配置 containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -244,6 +241,117 @@ sudo containerd config default > /etc/containerd/config.toml
 sudo systemctl restart containerd
 ```
 {{< /tab >}}
+{{% tab name="Ubuntu 18.04/20.04" %}}
+
+<!--
+```shell
+# (Install containerd)
+sudo apt-get update && sudo apt-get install -y containerd
+```
+
+```shell
+# Configure containerd
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# Restart containerd
+sudo systemctl restart containerd
+```
+-->
+```shell
+# 安装 containerd
+sudo apt-get update && sudo apt-get install -y containerd
+```
+
+```shell
+# 配置 containerd
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# 重启 containerd
+sudo systemctl restart containerd
+```
+{{% /tab %}}
+{{% tab name="Debian 9+" %}}
+
+<!--
+```shell
+# (Install containerd)
+## Set up the repository
+### Install packages to allow apt to use a repository over HTTPS
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
+
+```shell
+## Add Docker's official GPG key
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
+```
+
+```shell
+## Add Docker apt repository.
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+```
+-->
+```shell
+# 安装 containerd
+## 配置仓库
+### 安装软件包以使 apt 能够使用 HTTPS 访问仓库
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
+
+```shell
+## 添加 Docker 的官方 GPG 密钥
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
+```
+
+```shell
+## 添加 Docker apt 仓库
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+```
+
+<!--
+```shell
+## Install containerd
+sudo apt-get update && sudo apt-get install -y containerd.io
+```
+
+```shell
+# Set default containerd configuration
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# Restart containerd
+sudo systemctl restart containerd
+```
+-->
+```shell
+## 安装 containerd
+sudo apt-get update && sudo apt-get install -y containerd.io
+```
+
+```shell
+# 设置 containerd 的默认配置
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# 重启 containerd
+sudo systemctl restart containerd
+```
+{{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
 
 <!--
@@ -269,7 +377,7 @@ sudo yum update -y && sudo yum install -y containerd.io
 ```shell
 ## Configure containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -277,7 +385,6 @@ sudo containerd config default > /etc/containerd/config.toml
 sudo systemctl restart containerd
 ```
 -->
-
 ```shell
 # 安装 containerd
 ## 设置仓库
@@ -286,7 +393,7 @@ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 ```shell
-### 新增 Docker 仓库
+### 添加 Docker 仓库
 sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
@@ -300,7 +407,7 @@ sudo yum update -y && sudo yum install -y containerd.io
 ```shell
 # 配置 containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -313,8 +420,8 @@ sudo systemctl restart containerd
 ```powershell
 # (Install containerd)
 # download containerd
-cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
-cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.1/containerd-1.4.1-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.1-windows-amd64.tar.gz
 ```
 
 ```powershell
@@ -336,10 +443,10 @@ Start-Service containerd
 ```
  -->
 ```powershell
-# （安装 containerd ）
-# 下载 contianerd
-cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
-cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
+# 安装 containerd 
+# 下载 containerd
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.1/containerd-1.4.1-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.1-windows-amd64.tar.gz
 ```
 
 ```powershell
@@ -404,6 +511,13 @@ For more information, see the [CRI-O compatibility matrix](https://github.com/cr
 Install and configure prerequisites:
 
 ```shell
+
+# Create the .conf file to load the modules at bootup
+cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
+overlay
+br_netfilter
+EOF
+
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
@@ -427,6 +541,13 @@ sudo sysctl --system
 安装以及配置的先决条件：
 
 ```shell
+
+# 创建 .conf 文件，以便在系统启动时加载内核模块
+cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
+overlay
+br_netfilter
+EOF
+
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
@@ -513,7 +634,7 @@ To install version 1.18.3, set `VERSION=1.18:1.18.3`.
 <br />
 
 Then run
- -->
+-->
 在下列操作系统上安装 CRI-O, 使用下表中合适的值设置环境变量 `OS`:
 
 | 操作系统      | `$OS`           |
@@ -531,6 +652,7 @@ Then run
 <br />
 
 然后执行
+
 ```shell
 cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /
@@ -584,6 +706,7 @@ Then run
 <br />
 
 然后执行
+
 ```shell
 sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
 sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
@@ -654,8 +777,6 @@ sudo systemctl start crio
 
 更多信息请参阅 [CRI-O 安装指南](https://github.com/kubernetes-sigs/cri-o#getting-started)。
 
-
-
 ### Docker
 
 <!-- 
@@ -666,9 +787,9 @@ with that version of Kubernetes.
 
 Use the following commands to install Docker on your system:
  -->
-在你每个节点上安装 Docker CE.
+在你的所有节点上安装 Docker CE.
 
-Kubernetes 发行说明中列出了 Docker 的哪些版本与该版本的 Kubernetes 相兼容。
+Kubernetes 发布说明中列出了 Docker 的哪些版本与该版本的 Kubernetes 相兼容。
 
 在你的操作系统上使用如下命令安装 Docker:
 
@@ -896,9 +1017,9 @@ sudo systemctl restart docker
 {{% /tabs %}}
 
 <!--
-If you want the docker service to start on boot, run the following command:
+If you want the `docker` service to start on boot, run the following command:
 -->
-如果你想开机即启动 docker 服务，执行以下命令：
+如果你想开机即启动 `docker` 服务，执行以下命令：
 
 ```shell
 sudo systemctl enable docker
@@ -908,5 +1029,5 @@ sudo systemctl enable docker
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
 for more information.
 -->
-请参阅 [官方 Docker 安装指南](https://docs.docker.com/engine/installation/)
-来获取更多的信息。
+请参阅[官方 Docker 安装指南](https://docs.docker.com/engine/installation/)
+获取更多的信息。
