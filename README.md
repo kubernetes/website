@@ -4,6 +4,9 @@
 
 This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
 
++ [Contributing to the docs](#contributing-to-the-docs)
++ [Localization ReadMes](#localization-readmemds)
+
 # Using this repository
 
 You can run the website locally using Hugo (Extended version), or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
