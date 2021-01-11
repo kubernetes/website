@@ -476,8 +476,6 @@ contexts:
   name: webhook
 ```
 
-Refer to [Cluster Struct](https://github.com/kubernetes/kubernetes/blob/2b8cac754c88900ea3ad91d6c3f0997b602a3051/staging/src/k8s.io/client-go/tools/clientcmd/api/v1/types.go#L63) for more configuration options.
-
 When a client attempts to authenticate with the API server using a bearer token as discussed [above](#putting-a-bearer-token-in-a-request),
 the authentication webhook POSTs a JSON-serialized `TokenReview` object containing the token to the remote service.
 
