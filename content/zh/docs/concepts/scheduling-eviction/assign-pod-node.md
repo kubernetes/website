@@ -348,6 +348,72 @@ MatchExpressions，则添加“权重”到总和。
 总分最高的节点是最优选的。
 
 <!--
+#### Node affinity per scheduling profile
+-->
+#### 逐个调度方案中设置节点亲和性    {#node-affinity-per-scheduling-profile}
+
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+
+<!--
+When configuring multiple [scheduling profiles](/docs/reference/scheduling/config/#multiple-profiles), you can associate
+a profile with a Node affinity, which is useful if a profile only applies to a specific set of Nodes.
+To do so, add an `addedAffinity` to the args of the [`NodeAffinity` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
+in the [scheduler configuration](/docs/reference/scheduling/config/). For example:
+-->
+在配置多个[调度方案](/zh/docs/reference/scheduling/config/#multiple-profiles)时，
+你可以将某个方案与节点亲和性关联起来，如果某个调度方案仅适用于某组
+特殊的节点时，这样做是很有用的。
+要实现这点，可以在[调度器配置](/zh/docs/reference/scheduling/config/)中为
+[`NodeAffinity` 插件](/zh/docs/reference/scheduling/config/#scheduling-plugins)
+添加 `addedAffinity` 参数。
+例如：
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+
+profiles:
+  - schedulerName: default-scheduler
+  - schedulerName: foo-scheduler
+    pluginConfig:
+      - name: NodeAffinity
+        args:
+          addedAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: scheduler-profile
+                  operator: In
+                  values:
+                  - foo
+```
+
+<!--
+The `addedAffinity` is applied to all Pods that set `.spec.schedulerName` to `foo-scheduler`, in addition to the
+NodeAffinity specified in the PodSpec.
+That is, in order to match the Pod, Nodes need to satisfy `addedAffinity` and the Pod's `.spec.NodeAffinity`.
+
+Since the `addedAffinity` is not visible to end users, its behavior might be unexpected to them. We
+recommend to use node labels that have clear correlation with the profile's scheduler name.
+-->
+这里的 `addedAffinity` 除遵从 Pod 规约中设置的节点亲和性之外，还
+适用于将 `.spec.schedulerName` 设置为 `foo-scheduler`。
+
+<!--
+The DaemonSet controller, which [creates Pods for DaemonSets](/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler)
+is not aware of scheduling profiles. For this reason, it is recommended that you keep a scheduler profile, such as the
+`default-scheduler`, without any `addedAffinity`. Then, the Daemonset's Pod template should use this scheduler name.
+Otherwise, some Pods created by the Daemonset controller might remain unschedulable.
+-->
+{{< note >}}
+DaemonSet 控制器[为 DaemonSet 创建 Pods](/zh/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler)，
+但该控制器不理会调度方案。因此，建议你保留一个调度方案，例如
+`default-scheduler`，不要在其中设置 `addedAffinity`。
+这样，DaemonSet 的 Pod 模板将会使用此调度器名称。
+否则，DaemonSet 控制器所创建的某些 Pods 可能持续处于不可调度状态。
+{{< /note >}}
+
+<!--
 ### Inter-pod affinity and anti-affinity
 
 Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled *based on
