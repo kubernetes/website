@@ -3,22 +3,22 @@ title: Administrando Recursos de Contenedores
 content_type: concept
 weight: 40
 feature:
-  title: Automatic bin packing
+  title: Bin packing automático
   description: >
-    Automáticamente coloca los contenedores en base a los recursos solicitados y otras limitaciones, mientras no se afecta a la
-    disponibilidad.Mezcla las cargas críticas con  un mejor refuerzo para mejorar el uso y ahorrar recursos.
+    Coloca los contenedores automáticamente con base en los recursos solicitados y otras limitaciones, mientras no se afecte la
+    disponibilidad. Combina cargas críticas y de mejor esfuerzo para mejorar el uso y ahorrar recursos.
 ---
 
 <!-- overview -->
 
 Cuando especificas un {{< glossary_tooltip term_id="pod" >}}, opcionalmente puedes especificar
 los recursos que necesita un {{< glossary_tooltip text="Contenedor" term_id="container" >}}.
-Los recusos que se definen normalmente son CPU y memoria (RAM);pero hay otras.
+Los recursos que normalmente se definen son CPU y memoria (RAM);  pero hay otros.
 
 Cuando especificas el recurso _request_  para  Contenedores en un {{< glossary_tooltip term_id="pod" >}}, 
-el scheduler usa esta información para decidir en qué nodo colocar el {{< glossary_tooltip term_id="pod" >}}.
-Cuando especificas el recurso _limit_ para un Contenedor, el kubelet fuerza estos límites, así que el contenedor no
-puede utilizar más recursos que el límite que le especificamos. El kubelet también reserva al menos la cantidad
+el Scheduler usa esta información para decidir en qué nodo colocar el {{< glossary_tooltip term_id="pod" >}}.
+Cuando especificas el recurso _limit_ para un Contenedor, Kubelet impone estos límites, así que el contenedor no
+puede utilizar más recursos que el límite que le definimos. Kubelet también reserva al menos la cantidad
 especificada en _request_ para el contenedor.
 
 
@@ -29,53 +29,53 @@ especificada en _request_ para el contenedor.
 ## Peticiones y límites
 
 Si el nodo donde está corriendo un pod tiene suficientes recursos disponibles, es posible 
-( si está permitido) que el contenedor utilice más recursos de los que tiene especificados en `request`.
+(y valido) que el contenedor utilice más recursos de los especificados en `request`.
 Sin embargo, un contenedor no está autorizado a utilizar más de lo especificado en `limit`.
 
 Por ejemplo, si configuras una petición de `memory` de 256 MiB  para un contenedor, y ese contenedor está
-en un Pod colocado en un nodo con 8GiB  de memoria y no hay otros Pods, entonces el contendor puede intentar usar
+en un Pod colocado en un nodo con 8GiB de memoria y no hay otros Pods, entonces el contenedor puede intentar usar
 más RAM.
 
-Si configuras un límite de `memory` de 4GiB  para el Contenedor , el kubelet (y
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}})  fuerza el límite.
-El runtime previene al contenedor de usar más recursos de lso configurados en el limit. Por ejemplo: 
+Si configuras un límite de `memory` de 4GiB  para el contenedor, Kubelet (y
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}})  impone el límite.
+El Runtime evita que el contenedor use más recursos de los configurados en el límite. Por ejemplo: 
 cuando un proceso en el contenedor intenta consumir más cantidad de memoria de la permitida,
-el núcleo del sistema termina el proceso que intentó la utilización de la memoria, con un error de out of memory (OOM).
+el Kernel del sistema termina el proceso que intentó la utilización de la memoria, con un error de out of memory (OOM).
 
-Los límites se pueden implementar de forma reactiva ( el sistema interviene cuando ve la violación)
-o por refuerzo (el sistema previene al contenedor de exceder el límite). Diferentes runtimes pueden tener diferentes
-maneras de implementar as mismas restricciones.
+Los límites se pueden implementar de forma reactiva (el sistema interviene cuando ve la violación)
+o por imposición (el sistema previene al contenedor de exceder el límite). Diferentes Runtimes pueden tener distintas
+implementaciones a las mismas restricciones.
 
 {{< note >}}
-Si un Contenedor especifica su propio límite de memoria, pero no especifica la petición de memoria, Kubernetes
-automáticamente asigna una petición de memoria igual a la del límite. De igual manera, si un Contenedor especifica su propio límite de CPU, pero no especifica una petición de CPU, Kubernetes automáticamente asigna una petición de CPU igual a la especificada en el límite.
+Si un contenedor especifica su propio límite de memoria, pero no especifica la petición de memoria, Kubernetes
+automáticamente asigna una petición de memoria igual a la del límite. De igual manera, si un contenedor especifica su propio límite de CPU, pero no especifica una petición de CPU, Kubernetes automáticamente asigna una petición de CPU igual a la especificada en el límite.
 {{< /note >}}
 
 ## Tipos de recursos
 
-*CPU* y *memoria* son cada uno un *tipo de recursos*. Un tipo de recurso tiene una unidad base.
+*CPU* y *memoria* son cada uno un *tipo de recurso*. Un tipo de recurso tiene una unidad base.
 CPU representa procesos de computación y es especificada en unidades de [Kubernetes CPUs](#meaning-of-cpu).
 Memoria es especificada en unidades de bytes.
 Si estás usando Kubernetes v1.14 o posterior, puedes especificar recursos _huge page_.
 Huge pages son una característica de Linux específica donde el kernel del nodo asigna bloques
 de memoria que son más grandes que el tamaño de paginación por defecto.
 
-Por ejemplo, en un sistema donde el tamaño de apginación por defecto es de 4KiB, podrías
+Por ejemplo, en un sistema donde el tamaño de paginación por defecto es de 4KiB, podrías
 especificar un límite, `hugepages-2Mi: 80Mi`. Si el contenedor intenta asignar
- más de 40 2MiB huge pages ( untotal de 80 MiB), la asignación fallará.
+ más de 40 2MiB huge pages (un total de 80 MiB), la asignación fallará.
 
 {{< note >}}
 No se pueden sobreasignar recursos `hugepages-*`.
-Esta es la diferencia con los recursos de `memoria` y `cpu`.
+A diferencia de los recursos de `memoria` y `cpu`.
 {{< /note >}}
 
-CPU y memoria  son colectivamente conocidos como *recursos de computación*,  o solo como 
-*recursos*.  Recursos de computación son cantidades medibles que pueden ser solicitadas, asignadas
-y consumidas. SOn distintas de [API resources](/docs/concepts/overview/kubernetes-api/). Recursos API , como Pods y 
+CPU y memoria son colectivamente conocidos como *recursos de computación*,  o simplemente como 
+*recursos*.  Los recursos de computación son cantidades medibles que pueden ser solicitadas, asignadas
+y consumidas. Son distintas a los [Recursos API](/docs/concepts/overview/kubernetes-api/). Los recursos API , como Pods y 
 [Services](/docs/concepts/services-networking/service/) son objetos que pueden ser leídos y modificados
-a través de la API de kubernetes.
+a través de la API de Kubernetes.
 
-## Solicitud de recursos y límites de Pods y Contenedores
+## Peticiones y límites de recursos de Pods y Contenedores
 
 Cada contenedor de un Pod puede especificar uno o más de los siguientes:
 
@@ -86,29 +86,29 @@ Cada contenedor de un Pod puede especificar uno o más de los siguientes:
 * `spec.containers[].resources.requests.memory`
 * `spec.containers[].resources.requests.hugepages-<size>`
 
-Aunque las solicitudes y límites pueden ser especificadas solo en contenedores individuales, es conveniente hablar
-sobre los recursos de solicitudes y límites del Pod. Un *limite/solicitud de recursos de un Pod* para un tipode recurso particular es la suma de
-solicitudes/límites de cada tipo para cada Contenedor del Pod.
+Aunque las peticiones y límites pueden ser especificadas solo en contenedores individuales, es conveniente hablar
+sobre los recursos de peticiones y límites del Pod. Un *limite/peticion de recursos de un Pod* para un tipo de recurso particular es la suma de
+peticiones/límites de cada tipo para cada contenedor del Pod.
 
 ## Unidades de recursos en Kubernetes
 
 ### Significado de CPU
 
-Límites y solicitudes para recursos de CPU son medidos en unidades de *cpu*.
-Una cpu, en kubernetes, es equivalente a **1 vCPU/Core**  para proveedores de cloud y **1 hyperthread** en procesadores bare-metal Intel.
+Límites y peticiones para recursos de CPU son medidos en unidades de *cpu*.
+Una cpu, en Kubernetes, es equivalente a **1 vCPU/Core**  para proveedores de cloud y **1 hyperthread** en procesadores bare-metal Intel.
 
-Las solicitudes fraccionadas están permitidas. Un contenedor con `spec.containers[].resources.requests.cpu` de `0.5` tiene garantizada la mitad, tanta
-CPU  como otro que requiere 1 CPU. La expresión `0.1` es equivalente a la expresión `100m`, que puede ser leída como "cien millicpu". Algunas personas dicen
-"cienmillicores", y se entiende que quiere decir lo mismo. Una solicitud con un punto decimal, como `0.1`,  es convertido a `100m` por la API, y  no se permite
+Las peticiones fraccionadas están permitidas. Un contenedor con `spec.containers[].resources.requests.cpu` de `0.5` tiene garantizada la mitad, tanto
+CPU como otro que requiere 1 CPU. La expresión `0.1` es equivalente a la expresión `100m`, que puede ser leída como "cien millicpus". Algunas personas dicen
+"cienmilicores", y se entiende que quiere decir lo mismo. Una solicitud con un punto decimal, como `0.1`,  es convertido a `100m` por la API, y no se permite
  una precisión mayor que `1m`. Por esta razón, la forma `100m` es la preferente.
 CPU es siempre solicitada como una cantidad absoluta, nunca como una cantidad relativa;
-0.1 es la misma contidad de cpu que un core-simple, dual-core, o ma´quina de 48-core.
+0.1 es la misma contidad de cpu que un core-simple, dual-core, o máquina de 48-core.
 
 ### Significado de memoria
 
-Los límites y solicitudes de `memoria` son medidos en bytes. Puedes expresar la memoria como
-un integral como un número decimal usando alguno de estos sufijos:
-E, P, T, G, M, K. También puedes usar el poder de dos equivalentes: Ei, Pi, Ti, Gi,
+Los límites y peticiones de `memoria` son medidos en bytes. Puedes expresar la memoria como
+un número entero o como un número decimal usando alguno de estos sufijos:
+E, P, T, G, M, K. También puedes usar los equivalentes en potencia de dos: Ei, Pi, Ti, Gi,
 Mi, Ki. Por ejemplo, los siguientes valores representan lo mismo:
 
 ```shell
@@ -116,8 +116,8 @@ Mi, Ki. Por ejemplo, los siguientes valores representan lo mismo:
 ```
 
 Aquí un ejemplo.
-El siguiente Pod tiene dos Contenedores. Cada Contenedor tiene una solicitud de 0.25 cpu
-y 64MiB (2<sup>26</sup> bytes) de memoria. Cada Contenedor tiene un límite de 0.5 cpu
+El siguiente Pod tiene dos contenedores. Cada contenedor tiene una petición de 0.25 cpu
+y 64MiB (2<sup>26</sup> bytes) de memoria. Cada contenedor tiene un límite de 0.5 cpu
 y 128MiB de memoria. Puedes decirle al Pod que solicite 0.5 cpu y 128MiB de memoria 
 y un límite de 1 cpu y 256MiB de memoria.
 
@@ -148,16 +148,16 @@ spec:
         cpu: "500m"
 ```
 
-## Cómo son colocados los Pods con solicitudes de recursos
+## Cómo son programados los Pods con solicitudes de recursos
 
-Cuando creas un Pod, el scheduler de Kubernetes selecciona un nodo para correr el Pod.
+Cuando creas un Pod, el Scheduler de Kubernetes determina el nodo para correr dicho Pod.
 Cada nodo tiene una capacidad máxima para cada tipo de recurso:
-la cantidad de CPU y memoria que dispone para los Pods. El scheduler se asegura de que,
-colocados es menor que la capacidad del nodo. Aunque los recursos de memoria y CPU
-en uso de los nodos es muy baja, el scheduler todavía rechaza colocar un Pod en un nodo si
+la cantidad de CPU y memoria que dispone para los Pods. El Scheduler se asegura de que,
+ para cada tipo de recurso, la suma de los recursos solicitados de los contenedores programados sea menor a la capacidad del nodo. Cabe mencionar que aunque la memoria actual o CPU
+en uso de los nodos sea muy baja, el Scheduler todavía rechaza programar un Pod en un nodo si
 la comprobación de capacidad falla. Esto protege contra escasez de recursos en un nodo
 cuando el uso de recursos posterior crece, por ejemplo, durante un pico diario de
-solictudes de  recursos.
+solicitud de  recursos.
 
 ## Cómo corren los Pods con límites de recursos
 
