@@ -325,7 +325,7 @@ a time longer than the liveness interval would allow.
 If your container usually starts in more than
 `initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a
 startup probe that checks the same endpoint as the liveness probe. The default for
-`periodSeconds` is 30s. You should then set its `failureThreshold` high enough to
+`periodSeconds` is 10s. You should then set its `failureThreshold` high enough to
 allow the container to start, without changing the default values of the liveness
 probe. This helps to protect against deadlocks.
 
