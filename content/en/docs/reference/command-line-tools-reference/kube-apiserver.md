@@ -1048,6 +1048,13 @@ kube-apiserver [flags]
 </tr>
 
 <tr>
+<td colspan="2">--strict-transport-security-directives stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">List of directives for HSTS, comma separated. If this list is empty, then HSTS directives will not be added. Example: 'max-age=31536000,includeSubDomains,preload'.</td>
+</tr>
+
+<tr>
 <td colspan="2">--tls-cert-file string</td>
 </tr>
 <tr>
