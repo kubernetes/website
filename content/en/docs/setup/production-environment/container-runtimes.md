@@ -471,6 +471,11 @@ sudo apt-get update && sudo apt-get install -y \
 ```
 
 ```shell
+## Create /etc/docker
+sudo mkdir /etc/docker
+```
+
+```shell
 # Set up the Docker daemon
 cat <<EOF | sudo tee /etc/docker/daemon.json
 {
