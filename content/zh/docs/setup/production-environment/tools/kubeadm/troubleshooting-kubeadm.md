@@ -105,7 +105,7 @@ This may be caused by a number of problems. The most common are:
   [here](/docs/setup/production-environment/container-runtimes/#docker).
 
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
-    [Configure cgroup driver used by kubelet on Master Node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+    [Configure cgroup driver used by kubelet on control-plane node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
 
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 -->
@@ -125,7 +125,7 @@ This may be caused by a number of problems. The most common are:
   1. 按照 [此处](/zh/docs/setup/production-environment/container-runtimes/#docker) 的说明再次安装 Docker。
 
   1. 更改 kubelet 配置以手动匹配 Docker cgroup 驱动程序，你可以参考
-     [在主节点上配置 kubelet 要使用的 cgroup 驱动程序](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+     [在主节点上配置 kubelet 要使用的 cgroup 驱动程序](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
 
 - 控制平面上的 Docker 容器持续进入崩溃状态或（因其他原因）挂起。你可以运行 `docker ps` 命令来检查以及 `docker logs` 命令来检视每个容器的运行日志。
 

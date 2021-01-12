@@ -460,6 +460,18 @@ configuration.
 API 服务器确实会检查 Secret 配置中是否提供了所需要的主键。
 
 <!--
+SSH private keys do not establish trusted communication between an SSH client and
+host server on their own. A secondary means of establishing trust is needed to
+mitigate "man in the middle" attacks, such as a `known_hosts` file added to a
+ConfigMap.
+-->
+{{< caution >}}
+SSH 私钥自身无法建立 SSH 客户端与服务器端之间的可信连接。
+需要其它方式来建立这种信任关系，以缓解“中间人（Man In The Middle）”
+攻击，例如向 ConfigMap 中添加一个 `known_hosts` 文件。
+{{< /caution >}}
+
+<!--
 ### TLS secrets
 
 Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
@@ -581,7 +593,7 @@ data:
 <!--
 A bootstrap type has the following keys specified under `data`:
 
-- `token_id`: A random 6 character string as the token identifier. Required.
+- `token-id`: A random 6 character string as the token identifier. Required.
 - `token-secret`: A random 16 character string as the actual token secret. Required.
 - `description1`: A human-readable string that describes what the token is
   used for. Optional.
@@ -594,7 +606,7 @@ A bootstrap type has the following keys specified under `data`:
 -->
 启动引导令牌类型的 Secret 会在 `data` 字段中包含如下主键：
 
-- `token_id`：由 6 个随机字符组成的字符串，作为令牌的标识符。必需。
+- `token-id`：由 6 个随机字符组成的字符串，作为令牌的标识符。必需。
 - `token-secret`：由 16 个随机字符组成的字符串，包含实际的令牌机密。必需。
 - `description`：供用户阅读的字符串，描述令牌的用途。可选。
 - `expiration`：一个使用 RFC3339 来编码的 UTC 绝对时间，给出令牌要过期的时间。可选。
@@ -1153,6 +1165,18 @@ The output is similar to:
 ```
 1f2d1e2e67df
 ```
+
+<!--
+#### Environment variables are not updated after a secret update
+
+If a container already consumes a Secret in an environment variable, a Secret update will not be seen by the container unless it is restarted.
+There are third party solutions for triggering restarts when secrets change.
+-->
+#### Secret 更新之后对应的环境变量不会被更新
+
+如果某个容器已经在通过环境变量使用某 Secret，对该 Secret 的更新不会被
+容器马上看见，除非容器被重启。有一些第三方的解决方案能够在 Secret 发生
+变化时触发容器重启。
 
 <!--
 ## Immutable Secrets {#secret-immutable}

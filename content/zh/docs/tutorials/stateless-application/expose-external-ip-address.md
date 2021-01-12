@@ -20,23 +20,18 @@ external IP address.
 ## {{% heading "prerequisites" %}}
 
 <!--
- * Install [kubectl](/docs/tasks/tools/install-kubectl/).
-
- * Use a cloud provider like Google Kubernetes Engine or Amazon Web Services to
- create a Kubernetes cluster. This tutorial creates an
- [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/),
- which requires a cloud provider.
-
- * Configure `kubectl` to communicate with your Kubernetes API server. For
- instructions, see the documentation for your cloud provider.
+* Install [kubectl](/docs/tasks/tools/install-kubectl/).
+* Use a cloud provider like Google Kubernetes Engine or Amazon Web Services to
+  create a Kubernetes cluster. This tutorial creates an
+  [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/),
+  which requires a cloud provider.
+* Configure `kubectl` to communicate with your Kubernetes API server. For instructions, see the
+  documentation for your cloud provider.
 -->
-
  * 安装 [kubectl](/zh/docs/tasks/tools/install-kubectl/).
-
  * 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 集群。
    本教程创建了一个[外部负载均衡器](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，
    需要云供应商。
-
  * 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
 
 ## {{% heading "objectives" %}}
@@ -68,7 +63,6 @@ external IP address.
    ```shell
    kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
    ```
-
    <!--
    The preceding command creates a
    {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
@@ -128,9 +122,9 @@ external IP address.
    -->
    输出类似于：
 
-   ```
-   NAME         TYPE        CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
-   my-service   ClusterIP   10.3.245.137   104.198.205.71   8080/TCP   54s
+   ```console
+   NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
+   my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
    ```
 
    <!--
@@ -162,12 +156,12 @@ external IP address.
    -->
    输出类似于：
 
-   ```
+   ```console
    Name:           my-service
    Namespace:      default
-   Labels:         run=load-balancer-example
+   Labels:         app.kubernetes.io/name=load-balancer-example
    Annotations:    <none>
-   Selector:       run=load-balancer-example
+   Selector:       app.kubernetes.io/name=load-balancer-example
    Type:           LoadBalancer
    IP:             10.3.245.137
    LoadBalancer Ingress:   104.198.205.71
@@ -207,7 +201,7 @@ external IP address.
    -->
    输出类似于：
 
-   ```
+   ```console
    NAME                         ...  IP         NODE
    hello-world-2895499144-1jaz9 ...  10.0.1.6   gke-cluster-1-default-pool-e0b8d269-1afc
    hello-world-2895499144-2e5uh ...  10.0.1.8   gke-cluster-1-default-pool-e0b8d269-1afc
@@ -241,7 +235,7 @@ external IP address.
    -->
    成功请求的响应是一条问候消息：
 
-   ```
+   ```shell
    Hello Kubernetes!
    ```
 
