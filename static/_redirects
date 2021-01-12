@@ -469,9 +469,13 @@
 /docs/setup/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
 
 /docs/setup/minikube/     /docs/tasks/tools/ 302
+/zh/docs/setup/minikube/     /zh/docs/tasks/tools/ 302
 /docs/setup/learning-environment/     /docs/tasks/tools/  302!
+/zh/docs/setup/learning-environment/     /zh/docs/tasks/tools/  302!
 /docs/setup/learning-environment/kind/  /docs/tasks/tools/  302
+/zh/docs/setup/learning-environment/kind/  /zh/docs/tasks/tools/  302
 /docs/setup/learning-environment/minikube/  /docs/tasks/tools/ 302
+/zh/docs/setup/learning-environment/minikube/  /zh/docs/tasks/tools/ 302
 /docs/setup/cri/     /docs/setup/production-environment/container-runtimes/   301
 /docs/setup/independent/install-kubeadm/     /docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
 /ja/docs/setup/independent/install-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
