@@ -57,7 +57,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ### Write an admission webhook server
 
 Please refer to the implementation of the [admission webhook
-server](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `AdmissionReview` request sent by the apiservers, and sends back its decision
 as an `AdmissionReview` object in the same version it received.
@@ -67,7 +67,7 @@ See the [webhook request](#request) section for details on the data sent to webh
 See the [webhook response](#response) section for the data expected from webhooks.
 
 The example admission webhook server leaves the `ClientAuth` field
-[empty](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/config.go#L47-L48),
+[empty](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/webhook/config.go#L38-L39),
 which defaults to `NoClientCert`. This means that the webhook server does not
 authenticate the identity of the clients, supposedly apiservers. If you need
 mutual TLS or other ways to authenticate the clients, see
@@ -79,7 +79,7 @@ The webhook server in the e2e test is deployed in the Kubernetes cluster, via
 the [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps).
 The test also creates a [service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 as the front-end of the webhook server. See
-[code](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/e2e/apimachinery/webhook.go#L301).
+[code](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/e2e/apimachinery/webhook.go#L747).
 
 You may also deploy your webhooks outside of the cluster. You will need to update
 your webhook configurations accordingly.
@@ -225,7 +225,7 @@ plugins:
 {{< /tabs >}}
 
 For more information about `AdmissionConfiguration`, see the
-[AdmissionConfiguration schema](https://github.com/kubernetes/kubernetes/blob/v1.17.0/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1/types.go#L27).
+[AdmissionConfiguration schema](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1/types.go#L27).
 See the [webhook configuration](#webhook-configuration) section for details about each config field.
 
 * In the kubeConfig file, provide the credentials:
