@@ -82,7 +82,7 @@ requested the score value must be reversed as follows.
 ```yaml
 shape:
   - utilization: 0
-    score: 100
+    score: 10
   - utilization: 100
     score: 0
 ```

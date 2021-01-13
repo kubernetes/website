@@ -311,7 +311,7 @@ If expanding underlying storage fails, the cluster administrator can manually re
 PersistentVolume types are implemented as plugins. Kubernetes currently supports the following plugins:
 
 * [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-* [`azureDisk`](/docs/concepts/sotrage/volumes/#azuredisk) - Azure Disk
+* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
 * [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)

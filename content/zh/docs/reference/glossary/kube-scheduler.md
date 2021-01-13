@@ -4,7 +4,7 @@ id: kube-scheduler
 date: 2018-04-12
 full_link: /docs/reference/generated/kube-scheduler/
 short_description: >
-  主节点上的组件，该组件监视那些新创建的未指定运行节点的 Pod，并选择节点让 Pod 在上面运行。
+  控制平面组件，负责监视新创建的、未指定运行节点的 Pod，选择节点让 Pod 在上面运行。
 
 aka: 
 tags:
@@ -19,7 +19,7 @@ id: kube-scheduler
 date: 2018-04-12
 full_link: /docs/reference/generated/kube-scheduler/
 short_description: >
-  Component on the master that watches newly created pods that have no node assigned, and selects a node for them to run on.
+  Control plane component that watches for newly created pods with no assigned node, and selects a node for them to run on.
 
 aka: 
 tags:
@@ -28,10 +28,12 @@ tags:
 -->
 
 <!--
- Component on the master that watches newly created pods that have no node assigned, and selects a node for them to run on.
--->
+Control plane component that watches for newly created
+{{< glossary_tooltip term_id="pod" text="Pods" >}} with no assigned
+{{< glossary_tooltip term_id="node" text="node">}}, and selects a node for them
+to run on.-->
 
-主节点上的组件，该组件监视那些新创建的未指定运行节点的 Pod，并选择节点让 Pod 在上面运行。
+  控制平面组件，负责监视新创建的、未指定运行{{< glossary_tooltip term_id="node" text="节点（node）">}}的 {{< glossary_tooltip term_id="pod" text="Pods" >}}，选择节点让 Pod 在上面运行。
 
 <!--more--> 
 
