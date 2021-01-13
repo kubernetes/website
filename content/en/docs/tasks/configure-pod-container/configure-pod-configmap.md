@@ -201,7 +201,8 @@ allow.textmode=true
 how.nice.to.look=fairlyNice
 ```
 
-Note that data sources that are not ASCII or UTF-8 will be put in the `binaryData` field of the configmap. Both text and binary data sources can be combined in one configmap, but the `binaryData` field is not displayed (as of kubectl 1.20) by `kubectl describe`. To see the `binaryData` in the configmap, you can use `kubectl get configmap -o json MAP_NAME`.
+When `kubectl` creates a ConfigMap from inputs that are not ASCII or UTF-8, the tool puts these into the `binaryData` field of the ConfigMap, and not in `data`. Both text and binary data sources can be combined in one ConfigMap.
+If you want to view the `binaryData` keys (and their values) in a ConfigMap, you can run `kubectl get configmap -o jsonpath='{.binaryData}' <name>`.
 
 Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
 
@@ -688,5 +689,4 @@ data:
 ## {{% heading "whatsnext" %}}
 
 * Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
-
 
