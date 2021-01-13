@@ -260,16 +260,16 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 -->
 2. 测试以确保你安装的版本是最新的：
 
-    ```
+    ```bash
     kubectl version --client
     ```
 
 <!--
-## Install with Macports on macOS
+### Install with Macports on macOS
 
 If you are on macOS and using [Macports](https://macports.org/) package manager, you can install kubectl with Macports.
 -->
-## 在 macOS 上用 Macports 安装 kubectl
+### 在 macOS 上用 Macports 安装 kubectl
 
 如果你使用的是 macOS 系统并使用 [Macports](https://macports.org/) 包管理器，你可以通过 Macports 安装 kubectl。
 
@@ -288,7 +288,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 -->
 2. 测试以确保你安装的版本是最新的：
 
-   ```
+   ```bash
    kubectl version --client
    ```
 
@@ -361,8 +361,8 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
 -->
 1. 运行安装命令（确保指定 `DownloadLocation`）：
 
-   ```
-   Install-Script -Name install-kubectl -Scope CurrentUser -Force
+   ```powershell
+   Install-Script -Name 'install-kubectl' -Scope CurrentUser -Force
    install-kubectl.ps1 [-DownloadLocation <path>]
    ```
 
@@ -376,14 +376,14 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
    <!--
    The installer creates `$HOME/.kube` and instructs it to create a config file
    -->
-   安装程序创建 `$ HOME/.kube` 目录，并指示它创建配置文件
+   安装程序创建 `$HOME/.kube` 目录，并指示它创建配置文件
 
 <!--
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 -->
 2. 测试以确保你安装的版本是最新的：
 
-   ```
+   ```powershell
    kubectl version --client
    ```
 
@@ -444,12 +444,12 @@ Updating the installation is performed by rerunning the two commands listed in s
 -->
 4. 创建 `.kube` 目录：
 
-   ```powerhsell
+   ```powershell
    mkdir .kube
    ```
 
 <!--
-5. Change to the .kube directory you just created:
+5. Change to the `.kube` directory you just created:
 -->
 5. 进入到刚刚创建的 `.kube` 目录：
 
@@ -485,21 +485,23 @@ kubectl 可以作为 Google Cloud SDK 的一部分进行安装。
 
 <!--
 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
+
 2. Run the `kubectl` installation command:
 -->
 1. 安装 [Google Cloud SDK](https://cloud.google.com/sdk/)。
+
 2. 运行以下命令安装 `kubectl`：
 
-   ```
+   ```shell
    gcloud components install kubectl
    ```
 
 <!--
-3. Test to ensure the version you installed is sufficiently up-to-date:
+3. Test to ensure the version you installed is up-to-date:
 -->
 3. 测试以确保你安装的版本是最新的：
 
-   ```
+   ```shell
    kubectl version --client
    ```
 
@@ -535,7 +537,7 @@ kubectl cluster-info
 <!--
 If you see a URL response, kubectl is correctly configured to access your cluster.
 
-If you see a message similar to the following, kubectl is not correctly configured or not able to connect to a Kubernetes cluster.
+If you see a message similar to the following, kubectl is not configured correctly or is not able to connect to a Kubernetes cluster.
 -->
 如果你看到一个 URL 被返回，那么 kubectl 已经被正确配置，能够正常访问你的 Kubernetes 集群。
 
@@ -546,7 +548,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 ```
 
 <!--
-For example, if you are intending to run a Kubernetes cluster on your laptop (locally), you will need a tool like minikube to be installed first and then re-run the commands stated above.
+For example, if you are intending to run a Kubernetes cluster on your laptop (locally), you will need a tool like Minikube to be installed first and then re-run the commands stated above.
 
 If kubectl cluster-info returns the url response but you can't access your cluster, to check whether it is configured properly, use:
 -->
@@ -561,7 +563,7 @@ kubectl cluster-info dump
 <!--
 ## Optional kubectl configurations
 
-## Enabling shell autocompletion
+### Enabling shell autocompletion
 
 kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
 
@@ -803,7 +805,7 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
 实现这点有两种方式：
 
 <!--
-- Source the completion script in your `~/.bashrc` file:
+- Source the completion script in your `~/.bash_profile` file:
 -->
 - 在 `~/.bash_profile` 文件中源引自动补齐脚本
 
@@ -812,12 +814,12 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
   ```
 
 <!--
-- Add the completion script to the `/etc/bash_completion.d` directory:
+- Add the completion script to the `/usr/local/etc/bash_completion.d` directory:
 -->
 - 将自动补齐脚本添加到目录 `/usr/local/etc/bash_completion.d`：
 
   ```bash
-  kubectl completion bash >//usr/local/etc/bash_completion.d/kubectl
+  kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
   ```
 
 <!--
@@ -867,7 +869,7 @@ To do so in all your shell sessions, add the following to your `~/.zshrc` file:
 Zsh 的 kubectl 补齐脚本可通过 `kubectl completion zsh` 命令来生成。
 在 Shell 环境中引用自动补齐脚本就可以启用 kubectl 自动补齐。
 
-```shell
+```zsh
 source <(kubectl completion zsh)
 ```
 
@@ -876,7 +878,7 @@ If you have an alias for kubectl, you can extend shell completion to work with t
 -->
 如果你为 kubectl 命令设置了别名（alias），你可以扩展 Shell 补齐，使之能够与别名一起使用：
 
-```shell
+```zsh
 echo 'alias k=kubectl' >>~/.zshrc
 echo 'complete -F __start_kubectl k' >>~/.zshrc
 ```
