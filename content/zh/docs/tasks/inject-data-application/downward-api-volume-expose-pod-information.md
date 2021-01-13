@@ -60,7 +60,8 @@ The first element specifies that the value of the Pod's
 The second element specifies that the value of the Pod's `annotations`
 field should be stored in a file named `annotations`.
 -->
-在配置文件中，你可以看到 Pod 有一个 `downwardAPI` 类型的卷，并且挂载到容器中的 `/etc` 目录。
+在配置文件中，你可以看到 Pod 有一个 `downwardAPI` 类型的卷，并且挂载到容器中的
+`/etc/podinfo` 目录。
 
 查看 `downwardAPI` 下面的 `items` 数组。
 每个数组元素都是一个 
@@ -133,7 +134,7 @@ In your shell, view the `labels` file:
 在该 Shell中，查看 `labels` 文件：
 
 ```shell
-/# cat /etc/labels
+/# cat /etc/podinfo/labels
 ```
 
 <!--
@@ -154,7 +155,7 @@ Similarly, view the `annotations` file:
 同样，查看`annotations`文件：
 
 ```shell
-/# cat /etc/annotations
+/# cat /etc/podinfo/annotations
 ```
 
 <!--
@@ -184,7 +185,7 @@ lrwxrwxrwx  ... Feb 6 21:47 ..data -> ..2982_06_02_21_47_53.299460680
 lrwxrwxrwx  ... Feb 6 21:47 annotations -> ..data/annotations
 lrwxrwxrwx  ... Feb 6 21:47 labels -> ..data/labels
 
-/etc/..2982_06_02_21_47_53.299460680:
+/etc/podinfo/..2982_06_02_21_47_53.299460680:
 total 8
 -rw-r--r--  ... Feb  6 21:47 annotations
 -rw-r--r--  ... Feb  6 21:47 labels
@@ -243,7 +244,8 @@ default value of `1` which means cores for cpu and bytes for memory.
 
 Create the Pod:
 -->
-在这个配置文件中，你可以看到 Pod 有一个 `downwardAPI` 类型的卷，并且挂载到容器的 `/etc/podinfo` 目录。
+在这个配置文件中，你可以看到 Pod 有一个 `downwardAPI` 类型的卷，并且挂载到容器的
+`/etc/podinfo` 目录。
 
 查看 `downwardAPI` 下面的 `items` 数组。每个数组元素都是一个 DownwardAPIVolumeFile。
 
@@ -271,7 +273,7 @@ In your shell, view the `cpu_limit` file:
 在 Shell 中，查看 `cpu_limit` 文件：
 
 ```shell
-/# cat /etc/cpu_limit
+/# cat /etc/podinfo/cpu_limit
 ```
 
 <!--
@@ -293,19 +295,18 @@ variables and `downwardAPI` volumes:
 * Information available via `fieldRef`:
   * `metadata.name` - the pod's name
   * `metadata.namespace` - the pod's namespace
-  * `metadata.uid` - the pod's UID, available since v1.8.0-alpha.2
-  * `metadata.labels['<KEY>']` - the value of the pod's label `<KEY>` (for example, `metadata.labels['mylabel']`); available in Kubernetes 1.9+
-  * `metadata.annotations['<KEY>']` - the value of the pod's annotation `<KEY>` (for example, `metadata.annotations['myannotation']`); available in Kubernetes 1.9+
+  * `metadata.uid` - the pod's UID
+  * `metadata.labels['<KEY>']` - the value of the pod's label `<KEY>` (for example, `metadata.labels['mylabel']`)
+  * `metadata.annotations['<KEY>']` - the value of the pod's annotation `<KEY>` (for example, `metadata.annotations['myannotation']`)
 -->
 下面这些信息可以通过环境变量和 `downwardAPI` 卷提供给容器：
 
 * 能通过 `fieldRef` 获得的：
   * `metadata.name` - Pod 名称
   * `metadata.namespace` - Pod 名字空间
-  * `metadata.uid` - Pod的UID, 版本要求 v1.8.0-alpha.2
-  * `metadata.labels['<KEY>']` - Pod 标签 `<KEY>` 的值 (例如, `metadata.labels['mylabel']`）； 
-    版本要求 Kubernetes 1.9+
-  * `metadata.annotations['<KEY>']` - Pod 的注解 `<KEY>` 的值（例如, `metadata.annotations['myannotation']`）； 版本要求 Kubernetes 1.9+
+  * `metadata.uid` - Pod 的 UID
+  * `metadata.labels['<KEY>']` - Pod 标签 `<KEY>` 的值 (例如, `metadata.labels['mylabel']`）
+  * `metadata.annotations['<KEY>']` - Pod 的注解 `<KEY>` 的值（例如, `metadata.annotations['myannotation']`）
 
 <!--
 * Information available via `resourceFieldRef`:
@@ -313,16 +314,20 @@ variables and `downwardAPI` volumes:
   * A Container's CPU request
   * A Container's memory limit
   * A Container's memory request
-  * A Container's ephemeral-storage limit, available since v1.8.0-beta.0
-  * A Container's ephemeral-storage request, available since v1.8.0-beta.0
+  * A Container's hugepages limit (providing that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+  * A Container's hugepages request (providing that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+  * A Container's ephemeral-storage limit
+  * A Container's ephemeral-storage request
 -->
 * 能通过 `resourceFieldRef` 获得的：
   * 容器的 CPU 约束值
   * 容器的 CPU 请求值
   * 容器的内存约束值
   * 容器的内存请求值
-  * 容器的临时存储约束值, 版本要求 v1.8.0-beta.0
-  * 容器的临时存储请求值, 版本要求 v1.8.0-beta.0
+  * 容器的巨页限制值（前提是启用了 `DownwardAPIHugePages` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)）
+  * 容器的巨页请求值（前提是启用了 `DownwardAPIHugePages` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)）
+  * 容器的临时存储约束值
+  * 容器的临时存储请求值
 
 <!--
 In addition, the following information is available through

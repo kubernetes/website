@@ -114,6 +114,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
       ```shell
       kubectl get pods
       ```
+
 <!--
       The response should be similar to this:
 -->
@@ -149,7 +150,7 @@ Replace POD-NAME with the name of your Pod.
 ### 创建 Redis 主节点的服务
 
 <!--
-The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
+The guestbook application needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
 -->
 留言板应用程序需要往 Redis 主节点中写数据。因此，需要创建 [Service](/zh/docs/concepts/services-networking/service/) 来代理 Redis 主节点 Pod 的流量。Service 定义了访问 Pod 的策略。
 
@@ -402,7 +403,7 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
 
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      frontend       ClusterIP   10.0.0.112   <none>       80:31323/TCP   6s
+      frontend       NodePort    10.0.0.112   <none>       80:31323/TCP   6s
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP        4m
       redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP       2m
       redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP       1m
