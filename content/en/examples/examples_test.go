@@ -56,9 +56,6 @@ import (
 	"k8s.io/kubernetes/pkg/apis/rbac"
 	rbac_validation "k8s.io/kubernetes/pkg/apis/rbac/validation"
 
-	"k8s.io/kubernetes/pkg/apis/settings"
-	settings_validation "k8s.io/kubernetes/pkg/apis/settings/validation"
-
 	"k8s.io/kubernetes/pkg/apis/storage"
 	storage_validation "k8s.io/kubernetes/pkg/apis/storage/validation"
 
@@ -111,7 +108,6 @@ func initGroups() {
 		networking.GroupName,
 		policy.GroupName,
 		rbac.GroupName,
-		settings.GroupName,
 		storage.GroupName,
 	}
 
@@ -296,11 +292,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	case *rbac.ClusterRoleBinding:
 		// clusterolebinding does not accept namespace
 		errors = rbac_validation.ValidateClusterRoleBinding(t)
-	case *settings.PodPreset:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = settings_validation.ValidatePodPreset(t)
 	case *storage.StorageClass:
 		// storageclass does not accept namespace
 		errors = storage_validation.ValidateStorageClass(t)
@@ -517,20 +508,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"node-problem-detector":           {&apps.DaemonSet{}},
 			"node-problem-detector-configmap": {&apps.DaemonSet{}},
 			"termination":                     {&api.Pod{}},
-		},
-		"podpreset": {
-			"allow-db":          {&settings.PodPreset{}},
-			"allow-db-merged":   {&api.Pod{}},
-			"configmap":         {&api.ConfigMap{}},
-			"conflict-pod":      {&api.Pod{}},
-			"conflict-preset":   {&settings.PodPreset{}},
-			"merged":            {&api.Pod{}},
-			"multi-merged":      {&api.Pod{}},
-			"pod":               {&api.Pod{}},
-			"preset":            {&settings.PodPreset{}},
-			"proxy":             {&settings.PodPreset{}},
-			"replicaset-merged": {&api.Pod{}},
-			"replicaset":        {&apps.ReplicaSet{}},
 		},
 		"pods": {
 			"commands":                            {&api.Pod{}},
