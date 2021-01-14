@@ -5,10 +5,11 @@ metadata:
   labels:
     name: use-configmap-env
 spec:
+  name: my-http-server
   containers:
   - envFrom:
-    -configMapRef:
+    - configMapRef:
 	     name: my-config-map-name
     image: nginx
-    name: my-http-server
+    
  
