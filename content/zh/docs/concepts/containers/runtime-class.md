@@ -56,7 +56,7 @@ but with different settings.
 
 Ensure the RuntimeClass feature gate is enabled (it is by default). See [Feature
 Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling
-feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _and_ kubelets.
+feature gates. The `RuntimeClass` feature gate must be enabled on API server _and_ kubelets.
 -->
 ## 设置  {#setup}
 
@@ -66,11 +66,11 @@ feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _an
 `RuntimeClass` 特性开关必须在 API 服务器和 kubelet 端同时开启。
 
 <!--
-1. Configure the CRI implementation on nodes (runtime dependent)
-2. Create the corresponding RuntimeClass resources
+1. Configure the CRI implementation on nodes (runtime dependent).
+2. Create the corresponding RuntimeClass resources.
 -->
-1. 在节点上配置 CRI 的实现（取决于所选用的运行时）
-2. 创建相应的 RuntimeClass 资源
+1. 在节点上配置 CRI 的实现（取决于所选用的运行时）。
+2. 创建相应的 RuntimeClass 资源。
 
 <!--
 ### 1. Configure the CRI implementation on nodes
@@ -161,7 +161,7 @@ spec:
 ```
 
 <!--
-This will instruct the Kubelet to use the named RuntimeClass to run this pod. If the named
+This will instruct the kubelet to use the named RuntimeClass to run this pod. If the named
 RuntimeClass does not exist, or the CRI cannot run the corresponding handler, the pod will enter the
 `Failed` terminal [phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase). Look for a
 corresponding [event](/docs/tasks/debug-application-cluster/debug-application-introspection/) for an

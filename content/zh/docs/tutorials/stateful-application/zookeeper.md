@@ -35,7 +35,7 @@ Kubernetes concepts.
 -   [Pods](/zh/docs/concepts/workloads/pods/)
 -   [Cluster DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
 -   [Headless Services](/zh/docs/concepts/services-networking/service/#headless-services)
--   [PersistentVolumes](/zh/docs/concepts/storage/volumes/)
+-   [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
 -   [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 -   [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/)
 -   [PodDisruptionBudgets](/zh/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
@@ -1298,7 +1298,7 @@ cordon all but four of the nodes in your cluster.
 使用 [`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon) cordon 你的集群中除4个节点以外的所有节点。
 
 ```shell
-kubectl cordon < node name >
+kubectl cordon <node-name>
 ```
 
 <!--

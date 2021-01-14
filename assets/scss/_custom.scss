@@ -578,3 +578,64 @@ body.td-documentation {
   color: black;
   text-decoration: none !important;
 }
+
+@media print {
+  /* Do not print announcements */
+  #announcement, section#announcement, #fp-announcement, section#fp-announcement {
+    display: none;
+  }
+}
+
+#announcement, #fp-announcement {
+  > * {
+    color: inherit;
+    background: inherit;
+  }
+
+  a {
+    color: inherit;
+    border-bottom: 1px solid #fff;
+  }
+
+  a:hover {
+    color: inherit;
+    border-bottom: none;
+  }
+}
+
+#announcement {
+  padding-top: 105px;
+  padding-bottom: 25px;
+}
+
+.header-hero {
+  padding-top: 40px;
+}
+
+/* Extra announcement height only for landscape viewports */
+@media (min-aspect-ratio: 8/9) {
+  #fp-announcement {
+    min-height: 25vh;
+  }
+}
+
+#fp-announcement aside {
+  padding-top: 115px;
+  padding-bottom: 25px;
+}
+
+.announcement {
+  .content {
+    margin-bottom: 0px;
+  }
+
+
+  > p {
+    .gridPage #announcement .content p,
+    .announcement > h4,
+    .announcement > h3 {
+      color: #ffffff;
+    }
+  }
+}
+
