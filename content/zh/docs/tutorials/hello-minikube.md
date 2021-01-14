@@ -31,10 +31,10 @@ card:
 
 <!--
 This tutorial shows you how to run a sample app
-on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
+on Kubernetes using minikube and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment.
 -->
-本教程向你展示如何使用 [Minikube](/zh/docs/setup/learning-environment/minikube) 和 Katacoda
+本教程向你展示如何使用 Minikube 和 Katacoda
 在 Kubernetes 上运行一个应用示例。Katacoda 提供免费的浏览器内 Kubernetes 环境。
 
 <!--
@@ -52,7 +52,7 @@ See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation 
 ## {{% heading "objectives" %}}
 
 <!--
-* Deploy a sample application to Minikube.
+* Deploy a sample application to minikube.
 * Run the app.
 * View application logs.
 -->
@@ -71,7 +71,7 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 <!-- lessoncontent -->
 
 <!--
-## Create a Minikube cluster
+## Create a minikube cluster
 
 1. Click **Launch Terminal**
 -->
@@ -108,7 +108,7 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
 ## Create a Deployment
 
-A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
+A Kubernetes [*Pod*](/docs/concepts/workloads/pods/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
 tutorial has only one Container. A Kubernetes
 [*Deployment*](/docs/concepts/workloads/controllers/deployment/) checks on the health of your
@@ -118,7 +118,7 @@ recommended way to manage the creation and scaling of Pods.
 
 ## 创建 Deployment
 
-Kubernetes [*Pod*](/zh/docs/concepts/workloads/pods/pod/) 是由一个或多个
+Kubernetes [*Pod*](/zh/docs/concepts/workloads/pods/) 是由一个或多个
 为了管理和联网而绑定在一起的容器构成的组。 本教程中的 Pod 只有一个容器。
 Kubernetes [*Deployment*](/zh/docs/concepts/workloads/controllers/deployment/)
 检查 Pod 的健康状况，并在 Pod 中的容器终止的情况下重新启动新的容器。
@@ -199,7 +199,7 @@ For more information about `kubectl`commands, see the
 [kubectl overview](/docs/user-guide/kubectl-overview/).
 -->
 {{< note >}}
-有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/user-guide/kubectl-overview/)。
+有关 `kubectl` 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/reference/kubectl/overview/)。
 {{< /note >}}
 
 <!--
@@ -226,10 +226,16 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    ```
 
    <!--
-   The `-type=LoadBalancer` flag indicates that you want to expose your Service
-   outside of the cluster.
+    The `--type=LoadBalancer` flag indicates that you want to expose your Service
+    outside of the cluster.
+
+    The application code inside the image `k8s.gcr.io/echoserver` only listens on TCP port 8080. If you used
+    `kubectl expose` to expose a different port, clients could not connect to that other port.
    -->
-   这里的 `--type=LoadBalancer` 标志表明你希望将你的 Service 暴露到集群外部。
+   这里的 `--type=LoadBalancer` 参数表明你希望将你的 Service 暴露到集群外部。
+
+   镜像 `k8s.gcr.io/echoserver` 中的应用程序代码仅监听 TCP 8080 端口。
+   如果你用 `kubectl expose` 暴露了其它的端口，客户端将不能访问其它端口。
 
 <!--
 2. View the Service you just created:
@@ -254,7 +260,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
    <!--
    On cloud providers that support load balancers,
-   an external IP address would be provisioned to access the Service. On Minikube,
+   an external IP address would be provisioned to access the Service. On minikube,
    the `LoadBalancer` type makes the Service accessible through the `minikube service`
    command.
    -->
@@ -290,7 +296,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 <!--
 ## Enable addons
 
-Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
+The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
 
 1. List the currently supported addons:
 -->

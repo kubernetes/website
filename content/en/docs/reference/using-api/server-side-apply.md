@@ -71,7 +71,7 @@ the appliers, results in a conflict. Shared field owners may give up ownership
 of a field by removing it from their configuration.
 
 Field management is stored in a`managedFields` field that is part of an object's
-[`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta).
+[`metadata`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta).
 
 A simple example of an object created by Server Side Apply could look like this:
 
