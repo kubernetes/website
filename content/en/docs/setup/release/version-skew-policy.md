@@ -140,6 +140,11 @@ Pre-requisites:
 
 Optionally upgrade `kubelet` instances to **{{< skew latestVersion >}}** (or they can be left at **{{< skew prevMinorVersion >}}** or **{{< skew oldestMinorVersion >}}**)
 
+{{< note >}}
+Before performing a minor version `kubelet` upgrade, [drain](/docs/tasks/administer-cluster/safely-drain-node/) pods from that node.
+In-place minor version `kubelet` upgrades are not supported.
+{{</ note >}}
+
 {{< warning >}}
 Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` is not recommended:
 
