@@ -4,16 +4,15 @@ id: kube-controller-manager
 date: 2019-04-21
 full_link: /docs/reference/generated/kube-controller-manager/
 short_description: >
-  Komponen di master yang menjalankan kontroler.
+  Komponen _control plane_ yang menjalankan pengontrol.
 
 aka:
 tags:
 - architecture
 - fundamental
 ---
- Komponen di master yang menjalankan kontroler.
+Komponen _control plane_ yang menjalankan pengontrol.
 
 <!--more-->
 
-Secara logis, setiap kontroler adalah sebuah proses yang berbeda, tetapi untuk mengurangi kompleksitas, kontroler-kontroler ini dikompilasi menjadi sebuah <i> binary </i> yang dijalankan sebagai satu proses.
-
+Secara logis, setiap pengontrol adalah sebuah proses yang berbeda, tetapi untuk mengurangi kompleksitas, kesemuanya dikompilasi menjadi sebuah biner (_binary_) yang dijalankan sebagai satu proses.

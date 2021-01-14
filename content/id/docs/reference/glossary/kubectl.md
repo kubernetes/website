@@ -11,7 +11,7 @@ tags:
 - tool
 - fundamental
 ---
-Sebuah utilitas baris perintah untuk berkomunikasi dengan suatu server {{< glossary_tooltip text="API Kubernetes" term_id="kubernetes-api" >}}.
+Sebuah utilitas baris perintah untuk berkomunikasi dengan suatu server {{< glossary_tooltip term_id="kubernetes-api" >}}.
 
 <!--more-->
 
