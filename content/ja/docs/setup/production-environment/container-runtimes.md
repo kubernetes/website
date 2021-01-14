@@ -351,7 +351,7 @@ apt-get update && apt-get install -y containerd.io
 ```shell
 # containerdの設定
 mkdir -p /etc/containerd
-containerd config default > /etc/containerd/config.toml
+containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -383,7 +383,7 @@ yum update -y && yum install -y containerd.io
 ```shell
 ## containerdの設定
 mkdir -p /etc/containerd
-containerd config default > /etc/containerd/config.toml
+containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
