@@ -314,7 +314,18 @@ CustomResourceDefinitions store validated resource data in the cluster's persist
 {{< note >}}
 CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack structural schemas, and `spec.preserveUnknownFields` might be `true`.
 
-For legacy CustomResourceDefinitions created as `apiextensions.k8s.io/v1beta1` where spec.preserveUnknownFields is set to true, pruning is not enabled and you can store arbitrary data. For compatibility with `apiextensions.k8s.io/v1`, you should update your custom resources definition to (1) have a structural OpenAPI schema, and (2) you should set spec.preserveUnknownFields to false. In Kubernetes 1.22 the `apiextensions.k8s.io/v1beta1` API will be removed, and every CustomResourceDefinition must be created via `apiextensions/v1`, and this enforces both (1) and (2).
+For legacy CustomResourceDefinition objects created as
+`apiextensions.k8s.io/v1beta1` with `spec.preserveUnknownFields` set to
+`true`, the following is also true:
+
+* Pruning is not enabled.
+* You can store arbitrary data.
+
+For compatibility with `apiextensions.k8s.io/v1`, update your custom
+resource definitions to:
+
+1. Use a structural OpenAPI schema.
+2. Set `spec.preserveUnknownFields` to `false`.
 {{< /note >}}
 
 If you save the following YAML to `my-crontab.yaml`:
