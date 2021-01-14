@@ -38,8 +38,7 @@ If a {{< glossary_tooltip term_id="node" >}} dies, the Pods scheduled to that no
 are [scheduled for deletion](#pod-garbage-collection) after a timeout period.
 
 Pods do not, by themselves, self-heal. If a Pod is scheduled to a
-{{< glossary_tooltip text="node" term_id="node" >}} that then fails,
-or if the scheduling operation itself fails, the Pod is deleted; likewise, a Pod won't
+{{< glossary_tooltip text="node" term_id="node" >}} that then fails, the Pod is deleted; likewise, a Pod won't
 survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a
 higher-level abstraction, called a
 {{< glossary_tooltip term_id="controller" text="controller" >}}, that handles the work of
