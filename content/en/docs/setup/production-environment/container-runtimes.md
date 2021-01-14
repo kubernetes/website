@@ -268,13 +268,12 @@ Use the following commands to install CRI-O on your system:
 
 {{< note >}}
 The CRI-O major and minor versions must match the Kubernetes major and minor versions.
-For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o).
+For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o#compatibility-matrix-cri-o--kubernetes).
 {{< /note >}}
 
 Install and configure prerequisites:
 
 ```shell
-
 # Create the .conf file to load the modules at bootup
 cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
 overlay
@@ -307,9 +306,9 @@ to the appropriate value from the following table:
 
 <br />
 Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, set `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
 You can pin your installation to a specific release.
-To install version 1.18.3, set `VERSION=1.18:1.18.3`.
+To install version 1.20.0, set `VERSION=1.20:1.20.0`.
 <br />
 
 Then run
@@ -343,9 +342,9 @@ To install on the following operating systems, set the environment variable `OS`
 
 <br />
 Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, set `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
 You can pin your installation to a specific release.
-To install version 1.18.3, set `VERSION=1.18:1.18.3`.
+To install version 1.20.0, set `VERSION=1.20:1.20.0`.
 <br />
 
 Then run
@@ -377,9 +376,9 @@ To install on the following operating systems, set the environment variable `OS`
 
 <br />
 Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, set `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
 You can pin your installation to a specific release.
-To install version 1.18.3, set `VERSION=1.18:1.18.3`.
+To install version 1.20.0, set `VERSION=1.20:1.20.0`.
 <br />
 
 Then run
@@ -400,7 +399,7 @@ sudo zypper install cri-o
 {{% tab name="Fedora" %}}
 
 Set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, `VERSION=1.20`.
 
 You can find available versions with:
 ```shell
@@ -424,10 +423,26 @@ sudo systemctl daemon-reload
 sudo systemctl start crio
 ```
 
-Refer to the [CRI-O installation guide](https://github.com/kubernetes-sigs/cri-o#getting-started)
+Refer to the [CRI-O installation guide](https://github.com/cri-o/cri-o/blob/master/install.md)
 for more information.
 
 
+#### cgroup driver
+
+CRI-O uses the systemd cgroup driver per default. To switch to the `cgroupfs`
+cgroup driver, either edit `/etc/crio/crio.conf` or place a drop-in
+configuration in `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example:
+
+```toml
+[crio.runtime]
+conmon_cgroup = "pod"
+cgroup_manager = "cgroupfs"
+```
+
+Please also note the changed `conmon_cgroup`, which has to be set to the value
+`pod` when using CRI-O with `cgroupfs`. It is generally necessary to keep the
+cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
+in sync.
 
 ### Docker
 
