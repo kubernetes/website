@@ -17,8 +17,8 @@ card:
 최종 사용자, 클러스터의 다른 부분 그리고 외부 컴포넌트가 서로 통신할
 수 있도록 HTTP API를 제공한다.
 
-쿠버네티스 API를 사용하면 쿠버네티스 API 오브젝트(예:
-파드(Pod), 네임스페이스(Namespace), 컨피그맵(ConfigMap) 그리고 이벤트(Event))를 질의하고 조작할 수 있다.
+쿠버네티스 API를 사용하면 쿠버네티스의 API 오브젝트(예:
+파드(Pod), 네임스페이스(Namespace), 컨피그맵(ConfigMap) 그리고 이벤트(Event))를 질의(query)하고 조작할 수 있다.
 
 대부분의 작업은 [kubectl](/docs/reference/kubectl/overview/)
 커맨드 라인 인터페이스 또는 API를 사용하는
