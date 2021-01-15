@@ -11,8 +11,8 @@ weight: 100
 
 kubeadm은 실험적으로 _자체 호스팅_ 된 쿠버네티스 컨트롤 플레인을 만들 수 있도록
 해준다. API 서버, 컨트롤러 매니저 및 스케줄러와 같은 주요 구성 요소가 정적(static) 파일을
-통해 kubelet에 구성된 [스태틱(static) 파드](/docs/tasks/configure-pod-container/static-pod/)
-대신 쿠버네티스 API를 통해 구성된 [데몬셋(DaemonSet) 파드](/docs/concepts/workloads/controllers/daemonset/)
+통해 kubelet에 구성된 [스태틱(static) 파드](/ko/docs/tasks/configure-pod-container/static-pod/)
+대신 쿠버네티스 API를 통해 구성된 [데몬셋(DaemonSet) 파드](/ko/docs/concepts/workloads/controllers/daemonset/)
 로 실행된다.
 
 자체 호스팅된 클러스터를 만들려면 [kubeadm alpha selfhosting pivot](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-selfhosting)
@@ -32,7 +32,7 @@ kubeadm은 실험적으로 _자체 호스팅_ 된 쿠버네티스 컨트롤 플�
   _컨트롤 플레인 노드를 재부팅하고 나서 복구할 수 없다._
 
 1. 기본적으로 자체 호스팅된 컨트롤 플레인 파드는
-  [`hostPath`](/docs/concepts/storage/volumes/#hostpath) 볼륨에서 불러 온
+  [`hostPath`](/ko/docs/concepts/storage/volumes/#hostpath) 볼륨에서 불러 온
   자격 증명에 의존한다. 초기 생성을 제외하고, 이러한 자격 증명은 kubeadm에 의해
   관리되지 않는다.
 
@@ -63,5 +63,3 @@ kubeadm은 실험적으로 _자체 호스팅_ 된 쿠버네티스 컨트롤 플�
 
   1. 기존의 컨트롤 플레인이 멈추면 새롭게 자체 호스팅된 컨트롤 플레인은
     리스닝 포트에 바인딩하여 활성화할 수 있다.
-
-

@@ -43,7 +43,7 @@ weight: 65
 지원 모델을 포함한 다양한 윈도우 서버 서비스 채널에 대한 정보는 [윈도우 서버 서비스 채널](https://docs.microsoft.com/ko-kr/windows-server/get-started-19/servicing-channels-19)에서 확인할 수 있다.
 {{< /note >}}
 {{< note >}}
-모든 윈도우 고객이 앱의 운영 체제를 자주 업데이트하는 것은 아니다. 애플리케이션 업그레이드를 위해서는 클러스터에 새 노드를 업그레이드하거나 도입하는 것이 필요하다. 이 문서에서 쿠버네티스에서 실행되는 컨테이너의 운영 체제를 업그레이드하기로 선택한 고객을 위해 새 운영 체제 버전에 대한 지원을 추가할 때의 가이드와 단계별 지침을 제공한다. 이 가이드에는 클러스터 노드와 함께 사용자 애플리케이션을 업그레이드하기 위한 권장 업그레이드 절차가 포함된다. 윈도우 노드는 현재 리눅스 노드와 동일한 방식으로 쿠버네티스 [버전-스큐(skew) 정책](/docs/setup/release/version-skew-policy/)(노드 대 컨트롤 플레인 버전 관리)을 준수한다.
+모든 윈도우 고객이 앱의 운영 체제를 자주 업데이트하는 것은 아니다. 애플리케이션 업그레이드를 위해서는 클러스터에 새 노드를 업그레이드하거나 도입하는 것이 필요하다. 이 문서에서 쿠버네티스에서 실행되는 컨테이너의 운영 체제를 업그레이드하기로 선택한 고객을 위해 새 운영 체제 버전에 대한 지원을 추가할 때의 가이드와 단계별 지침을 제공한다. 이 가이드에는 클러스터 노드와 함께 사용자 애플리케이션을 업그레이드하기 위한 권장 업그레이드 절차가 포함된다. 윈도우 노드는 현재 리눅스 노드와 동일한 방식으로 쿠버네티스 [버전-스큐(skew) 정책](/ko/docs/setup/release/version-skew-policy/)(노드 대 컨트롤 플레인 버전 관리)을 준수한다.
 {{< /note >}}
 {{< note >}}
 윈도우 서버 호스트 운영 체제에는 [윈도우 서버](https://www.microsoft.com/ko-kr/cloud-platform/windows-server-pricing) 라이선스가 적용된다. 윈도우 컨테이너 이미지에는 [윈도우 컨테이너에 대한 추가 사용 조건](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula)이 적용된다.
@@ -527,7 +527,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 
 1. 컨테이너의 vNIC 및 HNS 엔드포인트가 삭제되었다.
 
-    이 문제는 `hostname-override` 파라미터가 [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)에 전달되지 않은 경우 발생할 수 있다. 이를 해결하려면 사용자는 다음과 같이 hostname을 kube-proxy에 전달해야 한다.
+    이 문제는 `hostname-override` 파라미터가 [kube-proxy](/ko/docs/reference/command-line-tools-reference/kube-proxy/)에 전달되지 않은 경우 발생할 수 있다. 이를 해결하려면 사용자는 다음과 같이 hostname을 kube-proxy에 전달해야 한다.
 
     ```powershell
     C:\k\kube-proxy.exe --hostname-override=$(hostname)
