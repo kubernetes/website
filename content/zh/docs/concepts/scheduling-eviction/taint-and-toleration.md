@@ -67,7 +67,7 @@ kubectl taint nodes node1 key1=value1:NoSchedule-
 若要移除上述命令所添加的污点，你可以执行：
 
 ```shell
-kubectl taint nodes node1 key:NoSchedule-
+kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
 
 <!--
