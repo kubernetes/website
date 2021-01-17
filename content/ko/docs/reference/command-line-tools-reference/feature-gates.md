@@ -166,7 +166,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `StorageVersionHash` | `true` | 베타 | 1.15 | |
 | `Sysctls` | `true` | 베타 | 1.11 | |
 | `TTLAfterFinished` | `false` | 알파 | 1.12 | |
-| `TopologyManager` | `false` | 알파 | 1.16 | |
+| `TopologyManager` | `false` | 알파 | 1.16 | 1.17 |
+| `TopologyManager` | `true` | 베타 | 1.18 | |
 | `ValidateProxyRedirects` | `false` | 알파 | 1.12 | 1.13 |
 | `ValidateProxyRedirects` | `true` | 베타 | 1.14 | |
 | `WindowsEndpointSliceProxying` | `false` | 알파 | 1.19 | |
