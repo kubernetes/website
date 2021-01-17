@@ -457,7 +457,7 @@ the following types of volumes:
 * Azure Disk
 * Portworx
 * FlexVolumes
-* CSI
+{{< glossary_tooltip text="CSI" term_id="csi" >}}
 
 <!--
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
