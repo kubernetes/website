@@ -55,6 +55,7 @@ Kubernetes 作为一个项目，目前支持和维护
   的 Ingress 控制器。
 * [Ambassador](https://www.getambassador.io/) API 网关是一个基于 [Envoy](https://www.envoyproxy.io) 的 Ingress
   控制器。
+* [Apache APISIX Ingress 控制器](https://github.com/apache/apisix-ingress-controller) 是一个基于 [Apache APISIX 网关](https://github.com/apache/apisix) 的 Ingress 控制器。
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)
   使用 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)
   提供第 4 到第 7 层的负载均衡。
