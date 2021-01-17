@@ -134,7 +134,7 @@ For example:
 * You want to point your Service to a Service in a different
   {{< glossary_tooltip term_id="namespace" >}} or on another cluster.
 * You are migrating a workload to Kubernetes. While evaluating the approach,
-  you run only a proportion of your backends in Kubernetes.
+  you run only a portion of your backends in Kubernetes.
 
 In any of these scenarios you can define a Service _without_ a Pod selector.
 For example:
