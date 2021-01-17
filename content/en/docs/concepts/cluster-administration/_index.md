@@ -45,7 +45,7 @@ Before choosing a guide, here are some considerations:
 
 ## Securing a cluster
 
-* [Certificates](/docs/concepts/cluster-administration/certificates/) describes the steps to generate certificates using different tool chains.
+* [Generate Certificates](/docs/tasks/administer-cluster/certificates/) describes the steps to generate certificates using different tool chains.
 
 * [Kubernetes Container Environment](/docs/concepts/containers/container-environment/) describes the environment for Kubelet managed containers on a Kubernetes node.
 
