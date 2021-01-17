@@ -85,6 +85,13 @@ UID로 정의된 특정 파드는 다른 노드로 절대 "다시 스케줄"되�
 `Failed`    | 파드에 있는 모든 컨테이너가 종료되었고, 적어도 하나 이상의 컨테이너가 실패로 종료되었다. 즉, 해당 컨테이너는 non-zero 상태로 빠져나왔거나(exited) 시스템에 의해서 종료(terminated)되었다.
 `Unknown`   | 어떤 이유에 의해서 파드의 상태를 얻을 수 없다. 이 단계는 일반적으로 파드가 실행되어야 하는 노드와의 통신 오류로 인해 발생한다.
 
+{{< note >}}
+파드가 삭제되면, 일부 kubectl 명령에서는 `Terminating` 으로 표시된다.
+이 `Terminating` 상태는 파드 단계 중 하나가 아니다.
+파드는 정상적으로 종료되는 기간이 부여되며, 기본값은 30초이다.
+`--force` 플래그를 사용하여 [파드를 강제 종료](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)를 사용할 수 있습니다.
+{{< /note >}}
+
 노드가 죽거나 클러스터의 나머지와의 연결이 끊어지면, 쿠버네티스는
 손실된 노드의 모든 파드의 `phase` 를 Failed로 설정하는 정책을 적용한다.
 
@@ -326,7 +333,7 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
 컨테이너가 보통 `initialDelaySeconds + failureThreshold × periodSeconds`
 이후에 기동된다면, 스타트업 프로브가
 활성화 프로브와 같은 엔드포인트를 확인하도록 지정해야 한다.
-`periodSeconds`의 기본값은 30s 이다. 이 때 컨테이너가 활성화 프로브의
+`periodSeconds`의 기본값은 10초이다. 이 때 컨테이너가 활성화 프로브의
 기본값 변경 없이 기동되도록 하려면, `failureThreshold` 를 충분히 높게 설정해주어야
 한다. 그래야 데드락(deadlocks)을 방지하는데 도움이 된다.
 

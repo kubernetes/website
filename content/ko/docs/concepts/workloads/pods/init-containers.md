@@ -1,6 +1,4 @@
 ---
-
-
 title: 초기화 컨테이너
 content_type: concept
 weight: 40
@@ -133,6 +131,7 @@ spec:
 ```shell
 kubectl apply -f myapp.yaml
 ```
+출력은 다음과 유사하다.
 ```
 pod/myapp-pod created
 ```
@@ -141,6 +140,7 @@ pod/myapp-pod created
 ```shell
 kubectl get -f myapp.yaml
 ```
+출력은 다음과 유사하다.
 ```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
@@ -150,6 +150,7 @@ myapp-pod   0/1       Init:0/2   0          6m
 ```shell
 kubectl describe -f myapp.yaml
 ```
+출력은 다음과 유사하다.
 ```
 Name:          myapp-pod
 Namespace:     default
@@ -224,6 +225,7 @@ spec:
 ```shell
 kubectl apply -f services.yaml
 ```
+출력은 다음과 유사하다.
 ```
 service/myservice created
 service/mydb created
@@ -235,6 +237,7 @@ service/mydb created
 ```shell
 kubectl get -f myapp.yaml
 ```
+출력은 다음과 유사하다.
 ```
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
@@ -257,7 +260,7 @@ myapp-pod   1/1       Running   0          9m
 
 파드는 모든 초기화 컨테이너가 성공되기 전까지 `Ready` 될 수 없다. 초기화 컨테이너의 포트는
 서비스 하에 합쳐지지 않는다. 초기화 중인 파드는 `Pending` 상태이지만
-`Initialized` 가 참이 되는 조건을 가져야 한다.
+`Initialized` 가 거짓이 되는 조건을 가져야 한다.
 
 만약 파드가 [재시작](#파드-재시작-이유)되었다면, 모든 초기화 컨테이너는
 반드시 다시 실행된다.
@@ -316,7 +319,6 @@ myapp-pod   1/1       Running   0          9m
 * 파드 내의 모든 컨테이너들이, 재시작을 강제하는 `restartPolicy` 가 항상(Always)으로 설정되어 있는,
   동안 종료되었다. 그리고 초기화 컨테이너의 완료 기록이 가비지 수집
   때문에 유실되었다.
-
 
 
 
