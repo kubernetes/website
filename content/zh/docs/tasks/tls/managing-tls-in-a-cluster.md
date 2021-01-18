@@ -93,11 +93,11 @@ This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit [click here](https://
 ## Download and install CFSSL
 
 The cfssl tools used in this example can be downloaded at
-[https://pkg.cfssl.org/](https://pkg.cfssl.org/).
+[https://github.com/cloudflare/cfssl/releases](https://github.com/cloudflare/cfssl/releases).
 -->
 ## 下载并安装 CFSSL
 
-本例中使用的 cfssl 工具可以在 [https://pkg.cfssl.org/](https://pkg.cfssl.org/) 下载。
+本例中使用的 cfssl 工具可以在 [github.com/cloudflare/cfssl/releases](https://github.com/cloudflare/cfssl/releases) 下载。
 
 <!--
 ## Create a Certificate Signing Request
