@@ -1117,19 +1117,6 @@ For more information about persistent volume claims, see [PersistentVolumeClaims
 关于持久化卷申领的更多信息，请参见
 [PersistentVolumeClaims](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
-### PodPreset {#podpreset}
-
-<!--
-This admission controller injects a pod with the fields specified in a matching PodPreset.
-See also [PodPreset concept](/docs/concepts/workloads/pods/podpreset/) and
-[Inject Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset)
-for more information.
--->
-该准入控制器根据与 PodPreset 中条件的匹配情况，将指定字段注入一个 Pod。
-另请参见 [PodPreset 概念](/zh/docs/concepts/workloads/pods/podpreset/)和
-[使用 PodPreset 将信息注入 Pod](/zh/docs/tasks/inject-data-application/podpreset)
-了解更多信息。
-
 ### PodSecurityPolicy {#podsecuritypolicy}
 
 <!--
@@ -1350,12 +1337,12 @@ versions 1.9 and later).
 <!--
 ## Is there a recommended set of admission controllers to use?
 
-Yes. For Kubernetes version 1.10 and later, the recommended admission controllers are enabled by default (shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)), so you do not need to explicitly specify them. You can enable additional admission controllers beyond the default set using the `--enable-admission-plugins` flag (**order doesn't matter**).
+Yes. The recommended admission controllers are enabled by default (shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)), so you do not need to explicitly specify them. You can enable additional admission controllers beyond the default set using the `--enable-admission-plugins` flag (**order doesn't matter**).
 -->
 ## 有推荐的准入控制器吗？
 
-有。对于 Kubernetes 1.10 以上的版本，推荐使用的准入控制器默认情况下都处于启用状态
-（查看[这里](/zh/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
+有。推荐使用的准入控制器默认情况下都处于启用状态
+（请查看[这里](/zh/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
 因此，你无需显式指定它们。
 你可以使用 `--enable-admission-plugins` 标志（ **顺序不重要** ）来启用默认设置以外的其他准入控制器。
 
@@ -1366,31 +1353,3 @@ Yes. For Kubernetes version 1.10 and later, the recommended admission controller
 `--admission-control` 在 1.10 中已废弃，由 `--enable-admission-plugins` 取代。
 {{< /note >}}
 
-<!--
-For Kubernetes 1.9 and earlier, we recommend running the following set of admission controllers using the `--admission-control` flag (**order matters**).
--->
-对于 Kubernetes 1.9 及更早版本，我们建议使用 `--admission-control` 标志
-（**顺序很重要**）运行下面的一组准入控制器。
-
-* v1.9
-
-  ```shell
-  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
-  ```
-
-  <!--
-  * It's worth reiterating that in 1.9, these happen in a mutating phase
-  and a validating phase, and that for example `ResourceQuota` runs in the validating
-  phase, and therefore is the last admission controller to run.
-  `MutatingAdmissionWebhook` appears before it in this list, because it runs
-  in the mutating phase.
-  -->
-  * 需要重申的是，在 1.9 中，它们都发生在变更阶段和验证阶段，例如 `ResourceQuota`
-    在验证阶段运行，因此是最后一个运行的准入控制器。
-    `MutatingAdmissionWebhook` 出现在此列表的前面，因为它在变更阶段运行。
-
-    <!--
-    For earlier versions, there was no concept of validating versus mutating and the
-    admission controllers ran in the exact order specified.
-    -->
-    对于更早期版本，没有验证和变更的概念，并且准入控制器按照指定的确切顺序运行。
