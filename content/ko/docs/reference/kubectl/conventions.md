@@ -1,7 +1,7 @@
 ---
+
+
 title: kubectl 사용 규칙
-
-
 content_type: concept
 ---
 
@@ -36,24 +36,23 @@ content_type: concept
 {{< /note >}}
 
 #### 생성기
-`kubectl create --dry-run -o yaml`라는 kubectl 커맨드를 통해 다음과 같은 리소스를 생성 할 수 있다.
-```
-  clusterrole         클러스터롤(ClusterRole)를 생성한다.
-  clusterrolebinding  특정 클러스터롤에 대한 클러스터롤바인딩(ClusterRoleBinding)을 생성한다.
-  configmap           로컬 파일, 디렉토리 또는 문자 그대로의 값으로 컨피그맵(ConfigMap)을 생성한다.
-  cronjob             지정된 이름으로 크론잡(CronJob)을 생성한다.
-  deployment          지정된 이름으로 디플로이먼트(Deployment)를 생성한다.
-  job                 지정된 이름으로 잡(Job)을 생성한다.
-  namespace           지정된 이름으로 네임스페이스(Namespace)를 생성한다.
-  poddisruptionbudget 지정된 이름으로 pod disruption budget을 생성한다.
-  priorityclass       지정된 이름으로 프라이어리티클래스(PriorityClass)을 생성한다.
-  quota               지정된 이름으로 쿼터(Quota)를 생성한다.
-  role                단일 규칙으로 롤(Role)을 생성한다.
-  rolebinding         특정 롤 또는 클러스터롤에 대한 롤바인딩(RoleBinding)을 생성한다.
-  secret              지정된 하위 커맨드를 사용하여 시크릿(Secret)을 생성한다.
-  service             지정된 하위 커맨드를 사용하여 서비스(Service)를 생성한다.
-  serviceaccount      지정된 이름으로 서비스어카운트(ServiceAccount)을 생성한다.
-```
+`kubectl create --dry-run -o yaml`라는 kubectl 커맨드를 통해 다음과 같은 리소스를 생성할 수 있다.
+
+* `clusterrole`: 클러스터롤(ClusterRole)를 생성한다.
+* `clusterrolebinding`: 특정 클러스터롤에 대한 클러스터롤바인딩(ClusterRoleBinding)을 생성한다.
+* `configmap`: 로컬 파일, 디렉토리 또는 문자 그대로의 값으로 컨피그맵(ConfigMap)을 생성한다.
+* `cronjob`: 지정된 이름으로 크론잡(CronJob)을 생성한다.
+* `deployment`: 지정된 이름으로 디플로이먼트(Deployment)를 생성한다.
+* `job`: 지정된 이름으로 잡(Job)을 생성한다.
+* `namespace`: 지정된 이름으로 네임스페이스(Namespace)를 생성한다.
+* `poddisruptionbudget`: 지정된 이름으로 PodDisruptionBudget을 생성한다.
+* `priorityclass`: 지정된 이름으로 프라이어리티클래스(PriorityClass)을 생성한다.
+* `quota`: 지정된 이름으로 쿼터(Quota)를 생성한다.
+* `role`: 단일 규칙으로 롤(Role)을 생성한다.
+* `rolebinding`: 특정 롤 또는 클러스터롤에 대한 롤바인딩(RoleBinding)을 생성한다.
+* `secret`: 지정된 하위 커맨드를 사용하여 시크릿(Secret)을 생성한다.
+* `service`: 지정된 하위 커맨드를 사용하여 서비스(Service)를 생성한다.
+* `serviceaccount`: 지정된 이름으로 서비스어카운트(ServiceAccount)을 생성한다.
 
 ### `kubectl apply`
 
