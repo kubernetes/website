@@ -1,4 +1,6 @@
 ---
+
+
 title: 서비스
 feature:
   title: 서비스 디스커버리와 로드 밸런싱
@@ -204,10 +206,10 @@ API 리소스이다. 개념적으로 엔드포인트와 매우 유사하지만, 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 `appProtocol` 필드는 각 서비스 포트에 대한 애플리케이션 프로토콜을 지정하는 방법을 제공한다.
-이 필드의 값은 해당 엔드포인트와 엔드포인트슬라이스 
+이 필드의 값은 해당 엔드포인트와 엔드포인트슬라이스
 오브젝트에 의해 미러링된다.
 
-이 필드는 표준 쿠버네티스 레이블 구문을 따른다. 값은 
+이 필드는 표준 쿠버네티스 레이블 구문을 따른다. 값은
 [IANA 표준 서비스 이름](http://www.iana.org/assignments/service-names) 또는
 `mycompany.com/my-custom-protocol`과 같은 도메인 접두사 이름 중 하나여야 한다.
 
@@ -236,7 +238,7 @@ DNS 레코드를 구성하고, 라운드-로빈 이름 확인 방식을
 
 ### 유저 스페이스(User space) 프록시 모드 {#proxy-mode-userspace}
 
-이 모드에서는, kube-proxy는 쿠버네티스 마스터의 서비스, 엔드포인트 오브젝트의
+이 모드에서는, kube-proxy는 쿠버네티스 컨트롤 플레인의 서비스 및 엔드포인트 오브젝트의
 추가와 제거를 감시한다. 각 서비스는 로컬 노드에서
 포트(임의로 선택됨)를 연다. 이 "프록시 포트"에 대한 모든
 연결은 (엔드포인트를 통해 보고된 대로) 서비스의 백엔드 파드 중 하나로 프록시된다.
@@ -602,8 +604,8 @@ status:
 
 {{< feature-state for_k8s_version="v1.20" state="alpha" >}}
 
-기본적으로 로드밸런서 서비스 유형의 경우 둘 이상의 포트가 정의되어 있을 때 모든 
-포트는 동일한 프로토콜을 가져야 하며 프로토콜은 클라우드 공급자가 
+기본적으로 로드밸런서 서비스 유형의 경우 둘 이상의 포트가 정의되어 있을 때 모든
+포트는 동일한 프로토콜을 가져야 하며 프로토콜은 클라우드 공급자가
 지원하는 프로토콜이어야 한다.
 
 kube-apiserver에 대해 기능 게이트 `MixedProtocolLBService`가 활성화된 경우 둘 이상의 포트가 정의되어 있을 때 다른 프로토콜을 사용할 수 있다.
@@ -618,7 +620,7 @@ kube-apiserver에 대해 기능 게이트 `MixedProtocolLBService`가 활성화�
 
 {{< feature-state for_k8s_version="v1.20" state="alpha" >}}
 
-v1.20부터는 `spec.allocateLoadBalancerNodePorts`필드를 `false`로 설정하여 서비스 Type=LoadBalancer에 
+v1.20부터는 `spec.allocateLoadBalancerNodePorts` 필드를 `false`로 설정하여 서비스 Type=LoadBalancer에
 대한 노드 포트 할당을 선택적으로 비활성화 할 수 있다.
 노드 포트를 사용하는 대신 트래픽을 파드로 직접 라우팅하는 로드 밸런서 구현에만 사용해야 한다.
 기본적으로 `spec.allocateLoadBalancerNodePorts`는 `true`이며 로드밸런서 서비스 유형은 계속해서 노드 포트를 할당한다.
@@ -1210,8 +1212,8 @@ IPVS는 로드 밸런싱을 위해 설계되었고 커널-내부 해시 테이�
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-SCTP 트래픽을 지원하는 네트워크 플러그인을 사용하는 경우 대부분의 서비스에 SCTP를 사용할 수 있다. 
-type=LoadBalancer 서비스의 경우 SCTP 지원은 이 기능을 제공하는 
+SCTP 트래픽을 지원하는 네트워크 플러그인을 사용하는 경우 대부분의 서비스에 SCTP를 사용할 수 있다.
+type=LoadBalancer 서비스의 경우 SCTP 지원은 이 기능을 제공하는
 클라우드 공급자에 따라 다르다. (대부분 그렇지 않음)
 
 #### 경고 {#caveat-sctp-overview}

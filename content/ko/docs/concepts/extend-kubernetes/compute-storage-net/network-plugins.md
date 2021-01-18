@@ -155,5 +155,5 @@ AWS에서 `eth0` MTU는 일반적으로 9001이므로, `--network-plugin-mtu=900
 ## 용법 요약
 
 * `--network-plugin=cni` 는 `--cni-bin-dir`(기본값 `/opt/cni/bin`)에 있는 실제 CNI 플러그인 바이너리와 `--cni-conf-dir`(기본값 `/etc/cni/net.d`)에 있는 CNI 플러그인 구성과 함께 `cni` 네트워크 플러그인을 사용하도록 지정한다.
-* `--network-plugin=kubenet` 은 `/opt/cni/bin` 또는 `cni-bin-dir` 에 있는 CNI `bridge` 및 `host-local` 플러그인과 함께 kubenet 네트워크 플러그인을 사용하도록 지정한다.
+* `--network-plugin=kubenet` 은 `/opt/cni/bin` 또는 `cni-bin-dir` 에 있는 CNI `bridge`, `lo` 및 `host-local` 플러그인과 함께 `kubenet` 네트워크 플러그인을 사용하도록 지정한다.
 * 현재 kubenet 네트워크 플러그인에서만 사용하는 `--network-plugin-mtu=9001` 은 사용할 MTU를 지정한다.

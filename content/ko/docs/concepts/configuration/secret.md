@@ -767,7 +767,7 @@ immutable: true
 `imagePullSecrets` 필드는 동일한 네임스페이스의 시크릿에 대한 참조 목록이다.
 `imagePullSecretsDocker` 를 사용하여 도커(또는 다른 컨테이너) 이미지 레지스트리
 비밀번호가 포함된 시크릿을 kubelet에 전달할 수 있다. kubelet은 이 정보를 사용해서 파드를 대신하여 프라이빗 이미지를 가져온다.
-`imagePullSecrets` 필드에 대한 자세한 정보는 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core)를 참고한다.
+`imagePullSecrets` 필드에 대한 자세한 정보는 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)를 참고한다.
 
 #### imagePullSecret 수동으로 지정하기
 

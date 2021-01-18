@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: 레플리카셋
 content_type: concept
 weight: 20
@@ -279,7 +283,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 
 ### 레플리카셋만 삭제하기
 
-레플리카셋을 `--cascade=false` 옵션과 함께 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)를 사용하면 연관 파드에 영향을 주지 않고 삭제할 수 있다.
+레플리카셋을 `--cascade=orphan` 옵션과 함께 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)를 사용하면 연관 파드에 영향을 주지 않고 삭제할 수 있다.
 REST API 또는 `client-go` 라이브러리를 이용할 때는 `propagationPolicy`에 `Orphan`을 설정해야 한다.
 예시:
 ```shell

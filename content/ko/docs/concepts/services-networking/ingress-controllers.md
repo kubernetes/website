@@ -17,7 +17,6 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
   [nginx](https://git.k8s.io/ingress-nginx/README.md#readme) 인그레스 컨트롤러를 지원하고 유지한다.
 
 
-
 <!-- body -->
 
 ## 추가 컨트롤러
@@ -27,6 +26,7 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 * [AKS 애플리케이션 게이트웨이 인그레스 컨트롤러] (https://azure.github.io/application-gateway-kubernetes-ingress/)는 [Azure 애플리케이션 게이트웨이](https://docs.microsoft.com)를 구성하는 인그레스 컨트롤러다.
 * [Ambassador](https://www.getambassador.io/) API 게이트웨이는 [Envoy](https://www.envoyproxy.io) 기반 인그레스
   컨트롤러다.
+* [Avi 쿠버네티스 오퍼레이터](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)는 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)을 사용하는 L4-L7 로드 밸런싱을 제공한다.
 * [Citrix 인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller#readme)는
   Citrix 애플리케이션 딜리버리 컨트롤러에서 작동한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러다.
@@ -73,4 +73,3 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 자세히 알아보기.
 * [NGINX 컨트롤러로 Minikube에서 인그레스를 설정하기](/docs/tasks/access-application-cluster/ingress-minikube).
-

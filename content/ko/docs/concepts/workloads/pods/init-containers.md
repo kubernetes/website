@@ -133,6 +133,7 @@ spec:
 ```shell
 kubectl apply -f myapp.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 pod/myapp-pod created
 ```
@@ -141,6 +142,7 @@ pod/myapp-pod created
 ```shell
 kubectl get -f myapp.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
@@ -150,6 +152,7 @@ myapp-pod   0/1       Init:0/2   0          6m
 ```shell
 kubectl describe -f myapp.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 Name:          myapp-pod
 Namespace:     default
@@ -224,6 +227,7 @@ spec:
 ```shell
 kubectl apply -f services.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 service/myservice created
 service/mydb created
@@ -235,6 +239,7 @@ service/mydb created
 ```shell
 kubectl get -f myapp.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
@@ -257,7 +262,7 @@ myapp-pod   1/1       Running   0          9m
 
 파드는 모든 초기화 컨테이너가 성공되기 전까지 `Ready` 될 수 없다. 초기화 컨테이너의 포트는
 서비스 하에 합쳐지지 않는다. 초기화 중인 파드는 `Pending` 상태이지만
-`Initialized` 가 참이 되는 조건을 가져야 한다.
+`Initialized` 가 거짓이 되는 조건을 가져야 한다.
 
 만약 파드가 [재시작](#파드-재시작-이유)되었다면, 모든 초기화 컨테이너는
 반드시 다시 실행된다.

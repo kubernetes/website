@@ -150,9 +150,12 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 ```
 
 kubectl도 캐스케이딩 삭제를 지원한다.
-kubectl을 사용해서 종속 항목을 자동으로 삭제하려면 `--cascade` 를 true로 설정한다. 종속 항목을
-분리하기 위해서는 `--cascade` 를 false로 설정한다. `--cascade` 의 기본값은
-true 이다.
+
+kubectl을 사용해서 포어그라운드의 종속 항목을 삭제하려면 `--cascade=foreground` 를 설정한다. 종속 항목을
+분리하기 위해서는 `--cascade=orphan` 를 설정한다.
+
+기본 동작은 백그라운드의 종속 항목을 삭제하는 것이며,
+이는 `--cascade` 를 생략하거나 명시적으로 `background` 를 설정한 경우의 동작에 해당한다.
 
 여기에 레플리카셋의 종속 항목을 분리로 만드는 예시가 있다.
 

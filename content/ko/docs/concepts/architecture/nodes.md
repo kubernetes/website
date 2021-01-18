@@ -239,7 +239,7 @@ NodeStatus의 NodeReady 컨디션을 ConditionUnknown으로 업데이트 하는 
 쿠버네티스 노드에서 보내는 하트비트는 노드의 가용성을 결정하는데 도움이 된다.
 
 하트비트의 두 가지 형태는 `NodeStatus` 와
-[리스(Lease) 오브젝트](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io) 이다.
+[리스(Lease) 오브젝트](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io)이다.
 각 노드에는 `kube-node-lease` 라는
 {{< glossary_tooltip term_id="namespace" text="네임스페이스">}} 에 관련된 리스 오브젝트가 있다.
 리스는 경량 리소스로, 클러스터가 확장될 때
@@ -355,4 +355,3 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 * 아키텍처 디자인 문서의 [노드](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   섹션을 읽어본다.
 * [테인트와 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)을 읽어본다.
-
