@@ -170,7 +170,7 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node, or mark it unschedulable.
 -->
-#### 手动节点管理
+### 手动节点管理
 
 你可以使用 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 来创建和修改 Node 对象。
@@ -283,6 +283,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 | `MemoryPressure`    | `True` if pressure exists on the node memory - that is, if the node memory is low; otherwise `False` |
 | `PIDPressure`    | `True` if pressure exists on the processes - that is, if there are too many processes on the node; otherwise `False` |
 | `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
+{{< /table >}}
 -->
 {{< table caption = "节点状况及每种状况适用场景的描述" >}}
 | 节点状况       | 描述        |
@@ -292,6 +293,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 | `MemoryPressure` | `True` 表示节点存在内存压力，即节点内存可用量低，否则为 `False` |
 | `PIDPressure` | `True` 表示节点存在进程压力，即节点上进程过多；否则为 `False` |
 | `NetworkUnavailable` | `True` 表示节点网络配置不正确；否则为 `False` |
+{{< /table >}}
 
 <!--
 If you use command-line tools to print details of a cordoned Node, the Condition includes
@@ -455,7 +457,7 @@ of the node heartbeats as the cluster scales.
 
 Kubernetes 节点发送的心跳（Heartbeats）有助于确定节点的可用性。
 心跳有两种形式：`NodeStatus` 和 [`Lease` 对象]
-(/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io)。
+(/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io)。
 每个节点在 `kube-node-lease`{{< glossary_tooltip term_id="namespace" text="名字空间">}}
 中都有一个与之关联的 `Lease` 对象。
 `Lease` 是一种轻量级的资源，可在集群规模扩大时提高节点心跳机制的性能。
@@ -618,6 +620,58 @@ for more information.
 `kubelet` 可以在作出资源分配决策时使用拓扑提示。
 参考[控制节点上拓扑管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)
 了解详细信息。
+
+<!-- 
+## Graceful Node Shutdown {#graceful-node-shutdown}
+-->
+## 节点体面关闭 {#graceful-node-shutdown}
+
+{{< feature-state state="alpha" for_k8s_version="v1.20" >}}
+
+<!-- 
+If you have enabled the `GracefulNodeShutdown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then the kubelet attempts to detect the node system shutdown and terminates pods running on the node.
+Kubelet ensures that pods follow the normal [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) during the node shutdown.
+-->
+如果你启用了 `GracefulNodeShutdown` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+那么 kubelet 尝试检测节点的系统关闭事件并终止在节点上运行的 Pod。
+在节点终止期间，kubelet 保证 Pod 遵从常规的 [Pod 终止流程](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+
+<!-- 
+When the `GracefulNodeShutdown` feature gate is enabled, kubelet uses [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to delay the node shutdown with a given duration. During a shutdown kubelet terminates pods in two phases:
+-->
+当启用了 `GracefulNodeShutdown` 特性门控时，
+kubelet 使用 [systemd 抑制器锁](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)
+在给定的期限内延迟节点关闭。在关闭过程中，kubelet 分两个阶段终止 Pod：
+
+<!-- 
+1. Terminate regular pods running on the node.
+2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
+-->
+1. 终止在节点上运行的常规 Pod。
+2. 终止在节点上运行的[关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
+
+<!-- 
+Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
+* `ShutdownGracePeriod`:
+  * Specifies the total duration that the node should delay the shutdown by. This is the total grace period for pod termination for both regular and [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+* `ShutdownGracePeriodCriticalPods`:
+  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This should be less than `ShutdownGracePeriod`.
+-->
+节点体面关闭的特性对应两个 [`KubeletConfiguration`](/zh/docs/tasks/administer-cluster/kubelet-config-file/) 选项：
+* `ShutdownGracePeriod`：
+  * 指定节点应延迟关闭的总持续时间。此时间是 Pod 体面终止的时间总和，不区分常规 Pod 还是
+    [关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
+* `ShutdownGracePeriodCriticalPods`：
+  * 在节点关闭期间指定用于终止
+    [关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
+    的持续时间。该值应小于 `ShutdownGracePeriod`。
+
+<!--  
+For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved for gracefully terminating normal pods, and the last 10 seconds would be reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+-->
+例如，如果设置了 `ShutdownGracePeriod=30s` 和 `ShutdownGracePeriodCriticalPods=10s`，则 kubelet 将延迟 30 秒关闭节点。
+在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，而保留最后 10 秒用于终止
+[关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
 ## {{% heading "whatsnext" %}}
 
