@@ -50,39 +50,41 @@ rules:
 
 ## Metric lifecycle
 
-Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → Deletion
+Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
 
-Alpha metrics have no stability guarantees; as such they can be modified or deleted at any time.
+Alpha metrics have no stability guarantees. These metrics can be modified or deleted at any time.
 
-Stable metrics can be guaranteed to not change; Specifically, stability means:
+Stable metrics are guaranteed to not change. This means:
+* A stable metric without a deprecated signature will not be deleted or renamed
+* A stable metric's type will not be modified
 
-* the metric itself will not be deleted (or renamed)
-* the type of metric will not be modified
+Deprecated metrics are slated for deletion, but are still available for use.
+These metrics include an annotation about the version in which they became deprecated.
 
-Deprecated metric signal that the metric will eventually be deleted; to find which version, you need to check annotation, which includes from which kubernetes version that metric will be considered deprecated.
+For example:
 
-Before deprecation:
+* Before deprecation
 
-```
-# HELP some_counter this counts things
-# TYPE some_counter counter
-some_counter 0
-```
+  ```
+  # HELP some_counter this counts things
+  # TYPE some_counter counter
+  some_counter 0
+  ```
 
-After deprecation:
+* After deprecation
 
-```
-# HELP some_counter (Deprecated since 1.15.0) this counts things
-# TYPE some_counter counter
-some_counter 0
-```
+  ```
+  # HELP some_counter (Deprecated since 1.15.0) this counts things
+  # TYPE some_counter counter
+  some_counter 0
+  ```
 
-Once a metric is hidden then by default the metrics is not published for scraping. To use a hidden metric, you need to override the configuration for the relevant cluster component.
+Hidden metrics are no longer published for scraping, but are still available for use. To use a hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) section. 
 
-Once a metric is deleted, the metric is not published. You cannot change this using an override.
+Deleted metrics are no longer published and cannot be used.
 
 
-## Show Hidden Metrics
+## Show hidden metrics
 
 As described above, admins can enable hidden metrics through a command-line flag on a specific binary. This intends to be used as an escape hatch for admins if they missed the migration of the metrics deprecated in the last release.
 
@@ -154,5 +156,4 @@ endpoint on the scheduler. You must use the `--show-hidden-metrics-for-version=1
 ## {{% heading "whatsnext" %}}
 
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) for metrics
-* See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

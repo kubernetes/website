@@ -29,12 +29,12 @@ This section of the Kubernetes documentation contains references.
 <!--
 ## API Reference
 
-* [Kubernetes API Reference {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [API Reference for Kubernetes {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [Using The Kubernetes API](/docs/reference/using-api/) - overview of the API for Kubernetes.
 -->
 ## API 参考
 
-* [Kubernetes API 参考 {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)。
+* [Kubernetes API 参考 {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
 * [使用 Kubernetes API ](/zh/docs/reference/using-api/) - Kubernetes 的 API 概述
 
 <!--

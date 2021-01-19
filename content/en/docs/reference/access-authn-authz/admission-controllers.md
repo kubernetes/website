@@ -669,13 +669,6 @@ allowVolumeExpansion: true
 
 For more information about persistent volume claims, see [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
-### PodPreset {#podpreset}
-
-This admission controller injects a pod with the fields specified in a matching PodPreset.
-See also [PodPreset concept](/docs/concepts/workloads/pods/podpreset/) and
-[Inject Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset)
-for more information.
-
 ### PodSecurityPolicy {#podsecuritypolicy}
 
 This admission controller acts on creation and modification of the pod and determines if it should be admitted
@@ -792,25 +785,8 @@ versions 1.9 and later).
 
 ## Is there a recommended set of admission controllers to use?
 
-Yes. For Kubernetes version 1.10 and later, the recommended admission controllers are enabled by default (shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)), so you do not need to explicitly specify them. You can enable additional admission controllers beyond the default set using the `--enable-admission-plugins` flag (**order doesn't matter**).
+Yes. The recommended admission controllers are enabled by default (shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)), so you do not need to explicitly specify them. You can enable additional admission controllers beyond the default set using the `--enable-admission-plugins` flag (**order doesn't matter**).
 
 {{< note >}}
 `--admission-control` was deprecated in 1.10 and replaced with `--enable-admission-plugins`.
 {{< /note >}}
-
-For Kubernetes 1.9 and earlier, we recommend running the following set of admission controllers using the `--admission-control` flag (**order matters**).
-
-* v1.9
-
-  ```shell
-  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
-  ```
-
-  * It's worth reiterating that in 1.9, these happen in a mutating phase
-and a validating phase, and that for example `ResourceQuota` runs in the validating
-phase, and therefore is the last admission controller to run.
-`MutatingAdmissionWebhook` appears before it in this list, because it runs
-in the mutating phase.
-
-    For earlier versions, there was no concept of validating versus mutating and the
-admission controllers ran in the exact order specified.

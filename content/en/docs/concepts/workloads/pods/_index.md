@@ -15,8 +15,7 @@ card:
 _Pods_ are the smallest deployable units of computing that you can create and manage in Kubernetes.
 
 A _Pod_ (as in a pod of whales or pea pod) is a group of one or more
-{{< glossary_tooltip text="containers" term_id="container" >}}, with shared storage/network resources, and a specification
-for how to run the containers. A Pod's contents are always co-located and
+{{< glossary_tooltip text="containers" term_id="container" >}}, with shared storage and network resources, and a specification for how to run the containers. A Pod's contents are always co-located and
 co-scheduled, and run in a shared context. A Pod models an
 application-specific "logical host": it contains one or more application
 containers which are relatively tightly coupled.
@@ -191,6 +190,35 @@ details are abstracted away. That abstraction and separation of concerns simplif
 system semantics, and makes it feasible to extend the cluster's behavior without
 changing existing code.
 
+## Pod update and replacement
+
+As mentioned in the previous section, when the Pod template for a workload
+resource is changed, the controller creates new Pods based on the updated
+template instead of updating or patching the existing Pods.
+
+Kubernetes doesn't prevent you from managing Pods directly. It is possible to
+update some fields of a running Pod, in place. However, Pod update operations
+like 
+[`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core), and
+[`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
+have some limitations:
+
+- Most of the metadata about a Pod is immutable. For example, you cannot
+  change the `namespace`, `name`, `uid`, or `creationTimestamp` fields;
+  the `generation` field is unique. It only accepts updates that increment the
+  field's current value.
+- If the `metadata.deletionTimestamp` is set, no new entry can be added to the
+  `metadata.finalizers` list.
+- Pod updates may not change fields other than `spec.containers[*].image`,
+  `spec.initContainers[*].image`, `spec.activeDeadlineSeconds` or
+  `spec.tolerations`. For `spec.tolerations`, you can only add new entries.
+- When updating the `spec.activeDeadlineSeconds` field, two types of updates
+  are allowed:
+
+  1. setting the unassigned field to a positive number; 
+  1. updating the field from a positive number to a smaller, non-negative
+     number.
+
 ## Resource sharing and communication
 
 Pods enable data sharing and communication among their constituent
@@ -266,9 +294,10 @@ but cannot be controlled from there.
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns) explains common layouts for Pods with more than one container.
 
-To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}, you can read about the prior art, including:
-  * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
-  * [Borg](https://research.google.com/pubs/pub43438.html)
-  * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
-  * [Omega](https://research.google/pubs/pub41684/)
-  * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
+To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}), you can read about the prior art, including:
+
+* [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
+* [Borg](https://research.google.com/pubs/pub43438.html)
+* [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
+* [Omega](https://research.google/pubs/pub41684/)
+* [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).

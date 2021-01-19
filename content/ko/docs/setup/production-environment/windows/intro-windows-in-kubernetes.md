@@ -8,8 +8,6 @@ weight: 65
 
 윈도우 애플리케이션은 많은 조직에서 실행되는 서비스 및 애플리케이션의 상당 부분을 구성한다. [윈도우 컨테이너](https://aka.ms/windowscontainers)는 프로세스와 패키지 종속성을 캡슐화하는 현대적인 방법을 제공하여, 데브옵스(DevOps) 사례를 더욱 쉽게 ​​사용하고 윈도우 애플리케이션의 클라우드 네이티브 패턴을 따르도록 한다. 쿠버네티스는 사실상의 표준 컨테이너 오케스트레이터가 되었으며, 쿠버네티스 1.14 릴리스에는 쿠버네티스 클러스터의 윈도우 노드에서 윈도우 컨테이너 스케줄링을 위한 프로덕션 지원이 포함되어 있어, 광범위한 윈도우 애플리케이션 생태계가 쿠버네티스의 강력한 기능을 활용할 수 있다. 윈도우 기반 애플리케이션과 리눅스 기반 애플리케이션에 투자한 조직은 워크로드를 관리하기 위해 별도의 오케스트레이터를 찾을 필요가 없으므로, 운영 체제와 관계없이 배포 전반에 걸쳐 운영 효율성이 향상된다.
 
-
-
 <!-- body -->
 
 ## 쿠버네티스의 윈도우 컨테이너
@@ -36,18 +34,16 @@ weight: 65
 
 | 쿠버네티스 버전 | 윈도우 서버 LTSC 릴리스 | 윈도우 서버 SAC 릴리스 |
 | --- | --- | --- | --- |
-| *Kubernetes v1.14* | Windows Server 2019 | Windows Server ver 1809 |
-| *Kubernetes v1.15* | Windows Server 2019 | Windows Server ver 1809 |
-| *Kubernetes v1.16* | Windows Server 2019 | Windows Server ver 1809 |
 | *Kubernetes v1.17* | Windows Server 2019 | Windows Server ver 1809 |
 | *Kubernetes v1.18* | Windows Server 2019 | Windows Server ver 1809, Windows Server ver 1903, Windows Server ver 1909 |
 | *Kubernetes v1.19* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
+| *Kubernetes v1.20* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
 
 {{< note >}}
 지원 모델을 포함한 다양한 윈도우 서버 서비스 채널에 대한 정보는 [윈도우 서버 서비스 채널](https://docs.microsoft.com/ko-kr/windows-server/get-started-19/servicing-channels-19)에서 확인할 수 있다.
 {{< /note >}}
 {{< note >}}
-모든 윈도우 고객이 앱의 운영 체제를 자주 업데이트하는 것은 아니다. 애플리케이션 업그레이드를 위해서는 클러스터에 새 노드를 업그레이드하거나 도입하는 것이 필요하다. 이 문서에서 쿠버네티스에서 실행되는 컨테이너의 운영 체제를 업그레이드하기로 선택한 고객을 위해 새 운영 체제 버전에 대한 지원을 추가할 때의 가이드와 단계별 지침을 제공한다. 이 가이드에는 클러스터 노드와 함께 사용자 애플리케이션을 업그레이드하기 위한 권장 업그레이드 절차가 포함된다. 윈도우 노드는 현재 리눅스 노드와 동일한 방식으로 쿠버네티스 [버전-스큐(skew) 정책](/docs/setup/release/version-skew-policy/)(노드 대 컨트롤 플레인 버전 관리)을 준수한다.
+모든 윈도우 고객이 앱의 운영 체제를 자주 업데이트하는 것은 아니다. 애플리케이션 업그레이드를 위해서는 클러스터에 새 노드를 업그레이드하거나 도입하는 것이 필요하다. 이 문서에서 쿠버네티스에서 실행되는 컨테이너의 운영 체제를 업그레이드하기로 선택한 고객을 위해 새 운영 체제 버전에 대한 지원을 추가할 때의 가이드와 단계별 지침을 제공한다. 이 가이드에는 클러스터 노드와 함께 사용자 애플리케이션을 업그레이드하기 위한 권장 업그레이드 절차가 포함된다. 윈도우 노드는 현재 리눅스 노드와 동일한 방식으로 쿠버네티스 [버전-스큐(skew) 정책](/ko/docs/setup/release/version-skew-policy/)(노드 대 컨트롤 플레인 버전 관리)을 준수한다.
 {{< /note >}}
 {{< note >}}
 윈도우 서버 호스트 운영 체제에는 [윈도우 서버](https://www.microsoft.com/ko-kr/cloud-platform/windows-server-pricing) 라이선스가 적용된다. 윈도우 컨테이너 이미지에는 [윈도우 컨테이너에 대한 추가 사용 조건](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula)이 적용된다.
@@ -55,6 +51,10 @@ weight: 65
 {{< note >}}
 프로세스 격리가 포함된 윈도우 컨테이너에는 엄격한 호환성 규칙이 있으며, [여기서 호스트 OS 버전은 컨테이너 베이스 이미지 OS 버전과 일치해야 한다](https://docs.microsoft.com/ko-kr/virtualization/windowscontainers/deploy-containers/version-compatibility). 일단 쿠버네티스에서 Hyper-V 격리가 포함된 윈도우 컨테이너를 지원하면, 제한 및 호환성 규칙이 변경될 것이다.
 {{< /note >}}
+
+#### 퍼즈(Pause) 이미지
+
+Microsoft는 `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`에서 윈도우 퍼즈 인프라 컨테이너를 유지한다.
 
 #### 컴퓨트
 
@@ -114,23 +114,22 @@ Docker EE-basic 19.03 이상은 모든 윈도우 서버 버전에 대해 권장�
 
 ##### CRI-ContainerD
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-{{< caution >}}
-커널 패치가 필요한 윈도우 네트워크 공유에 접근하기 위해 ContainerD와 함께 GMSA를 사용할 때 [알려진 제한](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)이 있다. [Microsoft 윈도우 컨테이너 이슈 트래커](https://github.com/microsoft/Windows-Containers/issues/44)에서 업데이트를 확인한다.
-{{< /caution >}}
-
-{{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0-beta.2+는 윈도우 쿠버네티스 노드의 컨테이너 런타임으로도 사용할 수 있다.
-
-쿠버네티스 v1.18은 윈도우에서 ContainerD에 대한 초기 지원을 추가한다. 윈도우에서 ContainerD의 진행 상황은 [enhancements#1001](https://github.com/kubernetes/enhancements/issues/1001)에서 확인할 수 있다.
+{{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+는 윈도우 쿠버네티스 노드의 컨테이너 런타임으로도 사용할 수 있다.
 
 [윈도우에 ContainerD 설치](/ko/docs/setup/production-environment/container-runtimes/#containerd-설치) 방법을 확인한다.
+
+{{< caution >}}
+ContainerD와 함께 GMSA를 사용하여 커널 패치가 필요한 윈도우 네트워크 공유에 액세스 할 때 [알려진 제한](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)이 있다. 이 제한을 해결하기위한 업데이트는 현재 Windows Server, 버전 2004에서 사용할 수 있으며 2021년 초에 Windows Server 2019에서 사용할 수 있다. [Microsoft 윈도우 컨테이너 이슈 트래커](https://github.com/microsoft/Windows-Containers/issues/44)에서 업데이트를 확인한다.
+{{< /caution >}}
 
 #### 퍼시스턴트 스토리지(Persistent Storage)
 
 쿠버네티스 [볼륨](/ko/docs/concepts/storage/volumes/)을 사용하면 데이터 지속성(persistence) 및 파드 볼륨 공유 요구 사항이 있는 복잡한 애플리케이션을 쿠버네티스에 배포할 수 있다. 특정 스토리지 백엔드 또는 프로토콜과 관련된 퍼시스턴트 볼륨 관리에는 볼륨 프로비저닝/디-프로비저닝/크기 조정, 쿠버네티스 노드에 볼륨 연결/분리, 데이터를 유지해야 하는 파드의 개별 컨테이너에 볼륨 마운트/분리와 같은 작업이 포함된다. 특정 스토리지 백엔드 또는 프로토콜에 대해 이러한 볼륨 관리 작업을 구현하는 코드는 쿠버네티스 볼륨 [플러그인](/ko/docs/concepts/storage/volumes/#볼륨-유형들)의 형태로 제공된다. 다음과 같은 광범위한 쿠버네티스 볼륨 플러그인 클래스가 윈도우에서 지원된다.
 
 ##### 인-트리(In-tree) 볼륨 플러그인
+
 인-트리 볼륨 플러그인과 관련된 코드는 핵심 쿠버네티스 코드 베이스의 일부로 제공된다. 인-트리 볼륨 플러그인 배포는 추가 스크립트를 설치하거나 별도의 컨테이너화된 플러그인 컴포넌트를 배포할 필요가 없다. 이러한 플러그인들은 볼륨 프로비저닝/디-프로비저닝, 스토리지 백엔드 볼륨 크기 조정, 쿠버네티스 노드에 볼륨 연결/분리, 파드의 개별 컨테이너에 볼륨 마운트/분리를 처리할 수 있다. 다음의 인-트리 플러그인은 윈도우 노드를 지원한다.
 
 * [awsElasticBlockStore](/ko/docs/concepts/storage/volumes/#awselasticblockstore)
@@ -140,6 +139,7 @@ Docker EE-basic 19.03 이상은 모든 윈도우 서버 버전에 대해 권장�
 * [vsphereVolume](/ko/docs/concepts/storage/volumes/#vspherevolume)
 
 ##### FlexVolume 플러그인
+
 [FlexVolume](/ko/docs/concepts/storage/volumes/#flexVolume) 플러그인과 관련된 코드는 아웃-오브-트리(out-of-tree) 스크립트 또는 호스트에 직접 배포해야 하는 바이너리로 제공된다. FlexVolume 플러그인은 쿠버네티스 노드에 볼륨 연결/분리 및 파드의 개별 컨테이너에 볼륨 마운트/분리를 처리한다. FlexVolume 플러그인과 관련된 퍼시스턴트 볼륨의 프로비저닝/디-프로비저닝은 일반적으로 FlexVolume 플러그인과는 별도의 외부 프로비저너를 통해 처리될 수 있다. 호스트에서 powershell 스크립트로 배포된 다음의 FlexVolume [플러그인](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)은 윈도우 노드를 지원한다.
 
 * [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
@@ -147,7 +147,7 @@ Docker EE-basic 19.03 이상은 모든 윈도우 서버 버전에 대해 권장�
 
 ##### CSI 플러그인
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 {{< glossary_tooltip text="CSI" term_id="csi" >}} 플러그인과 관련된 코드는 일반적으로 컨테이너 이미지로 배포되고 데몬셋(DaemonSets) 및 스테이트풀셋(StatefulSets)과 같은 표준 쿠버네티스 구성을 사용하여 배포되는 아웃-오브-트리 스크립트 및 바이너리로 제공된다. CSI 플러그인은 쿠버네티스에서 볼륨 프로비저닝/디-프로비저닝, 볼륨 크기 조정, 쿠버네티스 노드에 볼륨 연결/분리, 파드의 개별 컨테이너에 볼륨 마운트/분리, 스냅샷 및 복제를 사용하여 퍼시스턴트 데이터 백업/복원과 같은 다양한 볼륨 관리 작업을 처리한다. CSI 플러그인은 일반적으로 (각 노드에서 데몬셋으로 실행되는) 노드 플러그인과 컨트롤러 플러그인으로 구성된다.
 
@@ -170,6 +170,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 * ExternalName
 
 ##### 네트워크 모드
+
 윈도우는 L2bridge, L2tunnel, Overlay, Transparent 및 NAT의 다섯 가지 네트워킹 드라이버/모드를 지원한다. 윈도우와 리눅스 워커 노드가 있는 이기종 클러스터에서는 윈도우와 리눅스 모두에서 호환되는 네트워킹 솔루션을 선택해야 한다. 윈도우에서 다음과 같은 out-of-tree 플러그인이 지원되며 각 CNI 사용 시 권장 사항이 있다.
 
 | 네트워크 드라이버 | 설명 | 컨테이너 패킷 수정 | 네트워크 플러그인 | 네트워크 플러그인 특성 |
@@ -180,7 +181,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 | Transparent([ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)의 특수한 유스케이스) | 외부 vSwitch가 필요하다. 컨테이너는 논리적 네트워크(논리적 스위치 및 라우터)를 통해 파드 내 통신을 가능하게 하는 외부 vSwitch에 연결된다. | 패킷은 [GENEVE](https://datatracker.ietf.org/doc/draft-gross-geneve/) 또는 [STT](https://datatracker.ietf.org/doc/draft-davie-stt)를 통해 캡슐화되는데, 동일한 호스트에 있지 않은 파드에 도달하기 위한 터널링을 한다. <br/> 패킷은 ovn 네트워크 컨트롤러에서 제공하는 터널 메타데이터 정보를 통해 전달되거나 삭제된다. <br/> NAT는 north-south 통신(데이터 센터와 클라이언트, 네트워크 상의 데이터 센터 외부와의 통신)을 위해 수행된다. | [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes) | [ansible을 통해 배포](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib)한다. 분산 ACL은 쿠버네티스 정책을 통해 적용할 수 있다. IPAM을 지원한다. kube-proxy 없이 로드 밸런싱을 수행할 수 있다. NAT를 수행할 때 iptables/netsh를 사용하지 않고 수행된다. |
 | NAT(*쿠버네티스에서 사용되지 않음*) | 컨테이너에는 내부 vSwitch에 연결된 vNIC이 제공된다. DNS/DHCP는 [WinNAT](https://blogs.technet.microsoft.com/virtualization/2016/05/25/windows-nat-winnat-capabilities-and-limitations/)라는 내부 컴포넌트를 사용하여 제공된다. | MAC 및 IP는 호스트 MAC/IP에 다시 작성된다. | [nat](https://github.com/Microsoft/windows-container-networking/tree/master/plugins/nat) | 완전성을 위해 여기에 포함되었다. |
 
-위에서 설명한대로 [플라넬(Flannel)](https://github.com/coreos/flannel) CNI [메타 플러그인](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel)은 [VXLAN 네트워크 백엔드](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)(**alpha 지원**, win-overlay에 위임) 및 [host-gateway network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#host-gw) (안정적인 지원, win-bridge에 위임)를 통해 [윈도우](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel#windows-support-experimental)에서도 지원된다. 이 플러그인은 자동 노드 서브넷 임대 할당과 HNS 네트워크 생성을 위해 윈도우 (Flanneld)에서 Flannel 데몬과 함께 작동하도록 참조 CNI 플러그인 (win-overlay, win-bridge) 중 하나에 대한 위임을 지원한다. 이 플러그인은 자체 구성 파일 (cni.conf)을 읽고, 이를 FlannelD 생성하는 subnet.env 파일의 환경 변수와 함께 집계한다. 이후 네트워크 연결을 위한 참조 CNI 플러그인 중 하나에 위임하고 노드 할당 서브넷을 포함하는 올바른 구성을 IPAM 플러그인 (예: 호스트-로컬)으로 보낸다.
+위에서 설명한대로 [플란넬(Flannel)](https://github.com/coreos/flannel) CNI [메타 플러그인](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel)은 [VXLAN 네트워크 백엔드](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)(**alpha 지원**, win-overlay에 위임) 및 [host-gateway network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#host-gw) (안정적인 지원, win-bridge에 위임)를 통해 [윈도우](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel#windows-support-experimental)에서도 지원된다. 이 플러그인은 자동 노드 서브넷 임대 할당과 HNS 네트워크 생성을 위해 윈도우 (Flanneld)에서 Flannel 데몬과 함께 작동하도록 참조 CNI 플러그인 (win-overlay, win-bridge) 중 하나에 대한 위임을 지원한다. 이 플러그인은 자체 구성 파일 (cni.conf)을 읽고, 이를 FlannelD 생성하는 subnet.env 파일의 환경 변수와 함께 집계한다. 이후 네트워크 연결을 위한 참조 CNI 플러그인 중 하나에 위임하고 노드 할당 서브넷을 포함하는 올바른 구성을 IPAM 플러그인 (예: 호스트-로컬)으로 보낸다.
 
 노드, 파드, 서비스 오브젝트의 경우 TCP/UDP 트래픽에 대해 다음 네트워크 흐름이 지원된다.
 
@@ -194,7 +195,8 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 * 노드 -> 파드
 * 파드 -> 노드
 
-##### IP 주소 관리(IPAM) {#ipam}
+##### IP 주소 관리(IPAM)
+
 윈도우에서는 다음 IPAM 옵션이 지원된다.
 
 * [호스트-로컬](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/host-local)
@@ -215,10 +217,11 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 {{< /table >}}
 
 #### IPv4/IPv6 이중 스택
+
 `IPv6DualStack` [기능 게이트](https://kubernetes.io/ko/docs/reference/command-line-tools-reference/feature-gates/)를 사용하여 `l2bridge` 네트워크에 IPv4/IPv6 이중 스택 네트워킹을 활성화할 수 있다. 자세한 내용은 [IPv4/IPv6 이중 스택 활성화](/ko/docs/concepts/services-networking/dual-stack/#ipv4-ipv6-이중-스택-활성화)을 참조한다.
 
 {{< note >}}
-윈도우에서 쿠버네티스와 함께 IPv6를 사용하려면 윈도우 서버 vNext Insider Preview Build 19603 이상이 필요하다.
+윈도우에서 쿠버네티스와 함께 IPv6를 사용하려면 윈도우 서버 버전 2004 (커널 버전 10.0.19041.610) 이상이 필요하다.
 {{< /note >}}
 
 {{< note >}}
@@ -243,7 +246,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 
 ##### 기능 제한
 
-* TerminationGracePeriod: 구현되지 않음
+* TerminationGracePeriod: CRI-containerD 필요
 * 단일 파일 매핑: CRI-ContainerD로 구현 예정
 * 종료 메시지: CRI-ContainerD로 구현 예정
 * 특권을 가진(Privileged) 컨테이너: 현재 윈도우 컨테이너에서 지원되지 않음
@@ -267,12 +270,13 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 * MemoryPressure 조건은 구현되지 않았다.
 * kubelet이 취한 OOM 축출 조치가 없다.
 * 윈도우 노드에서 실행되는 Kubelet에는 메모리 제한이 없다. `--kubelet-reserve`와 `--system-reserve`는 호스트에서 실행되는 kubelet 또는 프로세스에 제한을 설정하지 않는다. 이는 호스트의 kubelet 또는 프로세스가 node-allocatable 및 스케줄러 외부에서 메모리 리소스 부족을 유발할 수 있음을 의미한다.
+* kubelet 프로세스의 우선 순위를 설정하는 추가 플래그는 `--windows-priorityclass`라는 윈도우 노드에서 사용할 수 있다. 이 플래그를 사용하면 kubelet 프로세스가 윈도우 호스트에서 실행중인 다른 프로세스와 비교할 때 더 많은 CPU 시간 슬라이스을 얻을 수 있다. 허용되는 값과 그 의미에 대한 자세한 내용은 [윈도우 우선순위 클래스](https://docs.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities#priority-class)에서 확인할 수 있다. kubelet이 항상 충분한 CPU주기를 갖도록 하려면 이 플래그를 `ABOVE_NORMAL_PRIORITY_CLASS` 이상으로 설정하는 것이 좋다.
 
 #### 스토리지
 
 윈도우에는 컨테이너 계층을 마운트하고 NTFS를 기반으로 하는 복제 파일시스템을 만드는 레이어드(layered) 파일시스템 드라이버가 있다. 컨테이너의 모든 파일 경로는 해당 컨테이너의 컨텍스트 내에서만 확인된다.
 
-* 볼륨 마운트는 개별 파일이 아닌 컨테이너의 디렉터리만 대상으로 할 수 있다.
+* 도커 볼륨 마운트는 개별 파일이 아닌 컨테이너의 디렉토리 만 대상으로 할 수 있다. 이 제한은 CRI-containerD에는 존재하지 않는다.
 * 볼륨 마운트는 파일이나 디렉터리를 호스트 파일시스템으로 다시 투영할 수 없다.
 * 읽기 전용 파일시스템은 윈도우 레지스트리 및 SAM 데이터베이스에 항상 쓰기 접근이 필요하기 때문에 지원되지 않는다. 그러나 읽기 전용 볼륨은 지원된다.
 * 볼륨 사용자 마스크(user-masks) 및 권한은 사용할 수 없다. SAM은 호스트와 컨테이너 간에 공유되지 않기 때문에 이들 간에 매핑이 없다. 모든 권한은 컨테이너 컨텍스트 내에서 해결된다.
@@ -329,10 +333,11 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 * 윈도우에서는 사용할 수 있는 여러 가지의 DNS 리졸버(resolver)가 있다. 이들은 약간 다른 동작을 제공하므로, 이름 쿼리 확인을 위해 `Resolve-DNSName` 유틸리티를 사용하는 것이 좋다.
 
 ##### IPv6
+
 윈도우의 쿠버네티스는 단일 스택 "IPv6 전용" 네트워킹을 지원하지 않는다. 그러나 단일 제품군 서비스를 사용하는 파드와 노드에 대한 이중 스택 IPv4/IPv6 네트워킹이 지원된다. 자세한 내용은 [IPv4/IPv6 이중 스택 네트워킹](#ipv4ipv6-이중-스택)을 참고한다.
 
-
 ##### 세션 어피니티(affinity)
+
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds`를 사용하는 윈도우 서비스의 최대 세션 고정(sticky) 시간 설정은 지원되지 않는다.
 
 ##### 보안
@@ -342,7 +347,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 1. 파일 ACL을 사용하여 시크릿 파일 위치를 보호한다.
 2. [BitLocker](https://docs.microsoft.com/ko-kr/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)를 사용한 볼륨-레벨 암호화를 사용한다.
 
-[RunAsUser](/ko/docs/concepts/policy/pod-security-policy/#사용자-및-그룹)는 현재 윈도우에서 지원되지 않는다. 해결 방법(workaround)은 컨테이너를 패키징하기 전에 로컬 계정을 만드는 것이다. RunAsUsername 기능은 향후 릴리스에 추가될 수 있다.
+[RunAsUsername](/ko/docs/tasks/configure-pod-container/configure-runasusername)은 컨테이너 프로세스를 노드 기본 사용자로 실행하기 위해 윈도우 파드 또는 컨테이너에 지정할 수 있다. 이것은 [RunAsUser](/ko/docs/concepts/policy/pod-security-policy/#사용자-및-그룹)와 거의 동일하다.
 
 SELinux, AppArmor, Seccomp, 기능(POSIX 기능)과 같은 리눅스 특유의 파드 시큐리티 컨텍스트 권한은 지원하지 않는다.
 
@@ -464,9 +469,9 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
         nssm start flanneld
 
         # kubelet.exe 등록
-        # Microsoft는 mcr.microsoft.com/k8s/core/pause:1.2.0에서 pause 인프라 컨테이너를 릴리스했다.
+        # Microsoft는 mcr.microsoft.com/oss/kubernetes/pause:1.4.1에서 pause 인프라 컨테이너를 릴리스했다.
         nssm install kubelet C:\k\kubelet.exe
-        nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/k8s/core/pause:1.2.0 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
+        nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/oss/kubernetes/pause:1.4.1 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
         nssm set kubelet AppDirectory C:\k
         nssm start kubelet
 
@@ -522,13 +527,13 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 
 1. 컨테이너의 vNIC 및 HNS 엔드포인트가 삭제되었다.
 
-    이 문제는 `hostname-override` 파라미터가 [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)에 전달되지 않은 경우 발생할 수 있다. 이를 해결하려면 사용자는 다음과 같이 hostname을 kube-proxy에 전달해야 한다.
+    이 문제는 `hostname-override` 파라미터가 [kube-proxy](/ko/docs/reference/command-line-tools-reference/kube-proxy/)에 전달되지 않은 경우 발생할 수 있다. 이를 해결하려면 사용자는 다음과 같이 hostname을 kube-proxy에 전달해야 한다.
 
     ```powershell
     C:\k\kube-proxy.exe --hostname-override=$(hostname)
     ```
 
-1. 플라넬(flannel)을 사용하면 클러스터에 다시 조인(join)한 후 노드에 이슈가 발생한다.
+1. 플란넬(flannel)을 사용하면 클러스터에 다시 조인(join)한 후 노드에 이슈가 발생한다.
 
     이전에 삭제된 노드가 클러스터에 다시 조인될 때마다, flannelD는 새 파드 서브넷을 노드에 할당하려고 한다. 사용자는 다음 경로에서 이전 파드 서브넷 구성 파일을 제거해야 한다.
 
@@ -548,7 +553,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 
 1. `/run/flannel/subnet.env` 누락으로 인해 윈도우 파드를 시작할 수 없다.
 
-    이것은 플라넬이 제대로 실행되지 않았음을 나타낸다. flanneld.exe를 다시 시작하거나 쿠버네티스 마스터의 `/run/flannel/subnet.env`에서 윈도우 워커 노드의 `C:\run\flannel\subnet.env`로 파일을 수동으로 복사할 수 있고, `FLANNEL_SUBNET` 행을 다른 숫자로 수정한다. 예를 들어, 다음은 노드 서브넷 10.244.4.1/24가 필요한 경우이다.
+    이것은 플란넬이 제대로 실행되지 않았음을 나타낸다. flanneld.exe를 다시 시작하거나 쿠버네티스 마스터의 `/run/flannel/subnet.env`에서 윈도우 워커 노드의 `C:\run\flannel\subnet.env`로 파일을 수동으로 복사할 수 있고, `FLANNEL_SUBNET` 행을 다른 숫자로 수정한다. 예를 들어, 다음은 노드 서브넷 10.244.4.1/24가 필요한 경우이다.
 
     ```env
     FLANNEL_NETWORK=10.244.0.0/16
@@ -576,15 +581,13 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 
     pause 이미지가 OS 버전과 호환되는지 확인한다. [지침](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources)에서는 OS와 컨테이너가 모두 버전 1803이라고 가정한다. 이후 버전의 윈도우가 있는 경우, Insider 빌드와 같이 그에 따라 이미지를 조정해야 한다. 이미지는 Microsoft의 [도커 리포지터리](https://hub.docker.com/u/microsoft/)를 참조한다. 그럼에도 불구하고, pause 이미지 Dockerfile과 샘플 서비스는 이미지가 :latest로 태그될 것으로 예상한다.
 
-    쿠버네티스 v1.14부터 Microsoft는 `mcr.microsoft.com/k8s/core/pause:1.2.0`에서 pause 인프라 컨테이너를 릴리스한다.
-
 1. DNS 확인(resolution)이 제대로 작동하지 않는다.
 
     이 [섹션](#dns-limitations)에서 윈도우에 대한 DNS 제한을 확인한다.
 
 1. `kubectl port-forward`가 "unable to do port forwarding: wincat not found"로 실패한다.
 
-    이는 쿠버네티스 1.15 및 pause 인프라 컨테이너 `mcr.microsoft.com/k8s/core/pause:1.2.0`에서 구현되었다. 해당 버전 또는 최신 버전을 사용해야 한다.
+    이는 쿠버네티스 1.15 및 pause 인프라 컨테이너 `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`에서 구현되었다. 해당 버전 또는 최신 버전을 사용해야 한다.
     자체 pause 인프라 컨테이너를 빌드하려면 [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat)을 포함해야 한다.
 
 1. 내 윈도우 서버 노드가 프록시 뒤에 있기 때문에 내 쿠버네티스 설치가 실패한다.
@@ -600,7 +603,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 
     쿠버네티스 파드에서는 컨테이너 엔드포인트를 호스팅하기 위해 먼저 인프라 또는 "pause" 컨테이너가 생성된다. 인프라 및 워커 컨테이너를 포함하여 동일한 파드에 속하는 컨테이너는 공통 네트워크 네임스페이스 및 엔드포인트(동일한 IP 및 포트 공간)를 공유한다. 네트워크 구성을 잃지 않고 워커 컨테이너가 충돌하거나 다시 시작되도록 하려면 pause 컨테이너가 필요하다.
 
-    "pause" (인프라) 이미지는 Microsoft Container Registry(MCR)에서 호스팅된다. `docker pull mcr.microsoft.com/k8s/core/pause:1.2.0`을 사용하여 접근할 수 있다. 자세한 내용은 [DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile)을 참고한다.
+    "pause" (인프라) 이미지는 Microsoft Container Registry(MCR)에서 호스팅된다. `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`을 사용하여 접근할 수 있다. 자세한 내용은 [DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile)을 참고한다.
 
 ### 추가 조사
 
@@ -622,10 +625,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 * [관련 로그](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs)
 * SIG-Windows 회원의 주의를 끌 수 있도록 `/sig windows`로 이슈에 대해 어노테이션을 달아 이슈에 sig/windows 태그를 지정한다.
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 로드맵에는 많은 기능이 있다. 요약된 높은 수준의 목록이 아래에 포함되어 있지만, [로드맵 프로젝트](https://github.com/orgs/kubernetes/projects/8)를 보고 [기여](https://github.com/kubernetes/community/blob/master/sig-windows/)하여 윈도우 지원을 개선하는데 도움이 주는 것이 좋다.
 
@@ -638,31 +638,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 * 파드에 대한 특정 CPU/NUMA 설정
 * 메모리 격리 및 예약
 
-v1.10의 실험적(experimental) 기능인 기존 Hyper-V 격리 지원은 위에서 언급한 CRI-ContainerD와 런타임클래스(RuntimeClass) 기능을 위해 향후 사용 중단(deprecated)된다. 현재 기능을 사용하고 Hyper-V 격리된 컨테이너를 만들려면, kubelet을 기능 게이트(feature gates) `HyperVContainer=true`로 시작해야 하고 파드에 `experimental.windows.kubernetes.io/isolation-type=hyperv` 어노테이션을 포함해야 한다. 실험 릴리스에서 이 기능은 파드 당 컨테이너 1개로 제한된다.
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: iis
-spec:
-  selector:
-    matchLabels:
-      app: iis
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: iis
-      annotations:
-        experimental.windows.kubernetes.io/isolation-type: hyperv
-    spec:
-      containers:
-      - name: iis
-        image: microsoft/iis
-        ports:
-        - containerPort: 80
-```
+Hyper-V 격리 지원은 이후 릴리스에 추가되며 CRI-Containerd가 필요하다.
 
 ### kubeadm 및 클러스터 API를 사용한 배포
 
@@ -671,8 +647,3 @@ Kubeadm은 사용자가 쿠버네티스 클러스터를 배포하기 위한 사�
 [여기](/ko/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)에서 가이드를 사용할 수 있다.
 또한 윈도우 노드가 적절하게 프로비저닝되도록 클러스터 API에
 투자하고 있다.
-
-### 몇 가지 기타 주요 기능
-* 그룹 관리 서비스 어카운트(Service Accounts)에 대한 베타 지원
-* 더 많은 CNI
-* 더 많은 스토리지 플러그인

@@ -19,7 +19,7 @@ is the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}. The 
 exposes an HTTP API that lets end users, different parts of your cluster, and
 external components communicate with one another.
 
-The Kubernetes API lets you query and manipulate the state of objects in the Kubernetes API
+The Kubernetes API lets you query and manipulate the state of API objects in Kubernetes
 (for example: Pods, Namespaces, ConfigMaps, and Events).
 
 Most operations can be performed through the

@@ -1,18 +1,19 @@
 ---
 title: 쿠버네티스 컨트롤 플레인에 대한 메트릭
+
+
+
+
 content_type: concept
 weight: 60
-aliases:
-- controller-metrics.md
 ---
 
 <!-- overview -->
 
 시스템 컴포넌트 메트릭으로 내부에서 발생하는 상황을 더 잘 파악할 수 있다. 메트릭은 대시보드와 경고를 만드는 데 특히 유용하다.
 
-쿠버네티스 컨트롤 플레인의 메트릭은 [프로메테우스 형식](https://prometheus.io/docs/instrumenting/exposition_formats/)으로 출력되며 사람이 읽기 쉽다.
-
-
+쿠버네티스 컨트롤 플레인의 메트릭은 [프로메테우스 형식](https://prometheus.io/docs/instrumenting/exposition_formats/)으로 출력된다.
+이 형식은 구조화된 평문으로 디자인되어 있으므로 사람과 기계 모두가 쉽게 읽을 수 있다.
 
 <!-- body -->
 
@@ -49,18 +50,20 @@ rules:
 
 ## 메트릭 라이프사이클
 
-알파 메트릭 → 안정적인 메트릭 → 사용 중단된 메트릭 → 히든(hidden) 메트릭 → 삭제
+알파(Alpha) 메트릭 → 안정적인(Stable) 메트릭 → 사용 중단된(Deprecated) 메트릭 → 히든(Hidden) 메트릭 → 삭제된(Deleted) 메트릭
 
 알파 메트릭은 안정성을 보장하지 않는다. 따라서 언제든지 수정되거나 삭제될 수 있다.
 
-안정적인 메트릭은 변경되지 않는다는 보장을 할 수 있다. 특히 안정성은 다음을 의미한다.
+안정적인 메트릭은 변경되지 않는다는 것을 보장한다. 이것은 다음을 의미한다.
+* 사용 중단 표기가 없는 안정적인 메트릭은, 이름이 변경되거나 삭제되지 않는다.
+* 안정적인 메트릭의 유형(type)은 수정되지 않는다.
 
-* 메트릭 자체는 삭제되거나 이름이 변경되지 않는다
-* 메트릭 유형은 수정되지 않는다
+사용 중단된 메트릭은 해당 메트릭이 결국 삭제된다는 것을 나타내지만, 아직은 사용 가능하다는 뜻이다.
+이 메트릭은 어느 버전에서부터 사용 중단된 것인지를 표시하는 어노테이션을 포함한다.
 
-사용 중단된 메트릭은 메트릭이 결국 삭제된다는 것을 나타낸다. 어떤 버전을 찾으려면, 해당 메트릭이 어떤 쿠버네티스 버전에서부터 사용 중단될 것인지를 고려하는 내용을 포함하는 어노테이션을 확인해야 한다.
+예를 들면,
 
-사용 중단되기 전에는 아래와 같다.
+* 사용 중단 이전에는 다음과 같다.
 
 ```
 # HELP some_counter this counts things
@@ -68,7 +71,7 @@ rules:
 some_counter 0
 ```
 
-사용 중단된 이후에는 아래와 같다.
+* 사용 중단 이후에는 다음과 같다.
 
 ```
 # HELP some_counter (Deprecated since 1.15.0) this counts things
@@ -76,9 +79,9 @@ some_counter 0
 some_counter 0
 ```
 
-메트릭이 일단 숨겨지면 기본적으로 메트릭은 수집용으로 게시되지 않는다. 히든 메트릭을 사용하려면, 관련 클러스터 컴포넌트의 구성을 오버라이드(override)해야 한다.
+히든 메트릭은 깔끔함(scraping)을 위해 더 이상 게시되지는 않지만, 여전히 사용은 가능하다. 히든 메트릭을 사용하려면, [히든 메트릭 표시](#히든-메트릭-표시) 섹션을 참고한다.
 
-메트릭이 삭제되면, 메트릭이 게시되지 않는다. 오버라이드해서 이를 변경할 수 없다.
+삭제된 메트릭은 더 이상 게시되거나 사용할 수 없다.
 
 
 ## 히든 메트릭 표시
@@ -128,6 +131,26 @@ cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
 
+
+### kube-scheduler 메트릭
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+스케줄러는 실행 중인 모든 파드의 요청(request)된 리소스와 요구되는 제한(limit)을 보고하는 선택적 메트릭을 노출한다. 이러한 메트릭은 용량 계획(capacity planning) 대시보드를 구축하고, 현재 또는 과거 스케줄링 제한을 평가하고, 리소스 부족으로 스케줄할 수 없는 워크로드를 빠르게 식별하고, 실제 사용량을 파드의 요청과 비교하는 데 사용할 수 있다.
+
+kube-scheduler는 각 파드에 대해 구성된 리소스 [요청과 제한](/ko/docs/concepts/configuration/manage-resources-containers/)을 식별한다. 요청 또는 제한이 0이 아닌 경우 kube-scheduler는 메트릭 시계열을 보고한다. 시계열에는 다음과 같은 레이블이 지정된다.
+- 네임스페이스
+- 파드 이름
+- 파드가 스케줄된 노드 또는 아직 스케줄되지 않은 경우 빈 문자열
+- 우선순위
+- 해당 파드에 할당된 스케줄러
+- 리소스 이름 (예: `cpu`)
+- 알려진 경우 리소스 단위 (예: `cores`)
+
+파드가 완료되면 (`Never` 또는 `OnFailure`의 `restartPolicy`가 있고 `Succeeded` 또는 `Failed` 파드 단계에 있거나, 삭제되고 모든 컨테이너가 종료된 상태에 있음) 스케줄러가 이제 다른 파드를 실행하도록 스케줄할 수 있으므로 시리즈가 더 이상 보고되지 않는다. 두 메트릭을 `kube_pod_resource_request` 및 `kube_pod_resource_limit` 라고 한다.
+
+메트릭은 HTTP 엔드포인트 `/metrics/resources`에 노출되며 스케줄러의 `/metrics` 엔드포인트
+와 동일한 인증이 필요하다. 이러한 알파 수준의 메트릭을 노출시키려면 `--show-hidden-metrics-for-version=1.20` 플래그를 사용해야 한다.
 
 
 ## {{% heading "whatsnext" %}}

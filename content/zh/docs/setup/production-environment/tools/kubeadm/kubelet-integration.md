@@ -25,15 +25,15 @@ The lifecycle of the kubeadm CLI tool is decoupled from the
 on each node within the Kubernetes cluster. The kubeadm CLI tool is executed by the user when Kubernetes is
 initialized or upgraded, where as the kubelet is always running in the background.
 
-Since the kubelet is a daemon, it needs to be maintained by some kind of a init
+Since the kubelet is a daemon, it needs to be maintained by some kind of an init
 system or service manager. When the kubelet is installed using DEBs or RPMs,
 systemd is configured to manage the kubelet. You can use a different service
 manager instead, but you need to configure it manually.
 
 Some kubelet configuration details need to be the same across all kubelets involved in the cluster, while
-other configuration aspects need to be set on a per-kubelet basis, to accommodate the different
-characteristics of a given machine, such as OS, storage, and networking. You can manage the configuration
-of your kubelets manually, but [kubeadm now provides a `KubeletConfiguration` API type for managing your
+other configuration aspects need to be set on a per-kubelet basis to accommodate the different
+characteristics of a given machine (such as OS, storage, and networking). You can manage the configuration
+of your kubelets manually, but kubeadm now provides a `KubeletConfiguration` API type for [managing your
 kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 -->
 kubeadm CLI 工具的生命周期与 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet)解耦，它是一个守护程序，在 Kubernetes 集群中的每个节点上运行。
@@ -41,10 +41,12 @@ kubeadm CLI 工具的生命周期与 [kubelet](/zh/docs/reference/command-line-t
 
 由于kubelet是守护程序，因此需要通过某种初始化系统或服务管理器进行维护。
 当使用 DEB 或 RPM 安装 kubelet 时，配置系统去管理 kubelet。
-您可以改用其他服务管理器，但需要手动地配置。
+你可以改用其他服务管理器，但需要手动地配置。
 
-集群中涉及的所有 kubelet 的一些配置细节都必须相同，而其他配置方面则需要基于每个 kubelet 进行设置，以适应给定机器的不同特性，例如操作系统、存储和网络。
-您可以手动地管理 kubelet 的配置，但是 [kubeadm 现在提供一种 `KubeletConfiguration` API 类型，用于集中管理 kubelet 的配置](#configure-kubelets-using-kubeadm)。
+集群中涉及的所有 kubelet 的一些配置细节都必须相同，
+而其他配置方面则需要基于每个 kubelet 进行设置，以适应给定机器的不同特性（例如操作系统、存储和网络）。
+你可以手动地管理 kubelet 的配置，但是 kubeadm 现在提供一种 `KubeletConfiguration` API 类型
+用于[集中管理 kubelet 的配置](#configure-kubelets-using-kubeadm)。
 
 
 
@@ -91,17 +93,17 @@ clusterDNS:
 -->
 ### 将集群级配置传播到每个 kubelet 中
 
-您可以通过使用 `kubeadm init` 和 `kubeadm join` 命令为 kubelet 提供默认值。
+你可以通过使用 `kubeadm init` 和 `kubeadm join` 命令为 kubelet 提供默认值。
 有趣的示例包括使用其他 CRI 运行时或通过服务器设置不同的默认子网。
 
-如果您想使用子网 `10.96.0.0/12` 作为默认的服务，您可以给 kubeadm 传递 `--service-cidr` 参数：
+如果你想使用子网 `10.96.0.0/12` 作为默认的服务，你可以给 kubeadm 传递 `--service-cidr` 参数：
 
 ```bash
 kubeadm init --service-cidr 10.96.0.0/12
 ```
 
 现在，可以从该子网分配服务的虚拟 IP。
-您还需要通过 kubelet 使用 `--cluster-dns` 标志设置 DNS 地址。
+你还需要通过 kubelet 使用 `--cluster-dns` 标志设置 DNS 地址。
 在集群中的每个管理器和节点上的 kubelet 的设置需要相同。
 kubelet 提供了一个版本化的结构化 API 对象，该对象可以配置 kubelet 中的大多数参数，并将此配置推送到集群中正在运行的每个 kubelet 上。
 此对象被称为 **kubelet 的配置组件**。
@@ -119,7 +121,7 @@ clusterDNS:
 <!--
 ### Providing instance-specific configuration details
 
-Some hosts require specific kubelet configurations, due to differences in hardware, operating system,
+Some hosts require specific kubelet configurations due to differences in hardware, operating system,
 networking, or other host-specific parameters. The following list provides a few examples.
 
 - The path to the DNS resolution file, as specified by the `--resolv-conf` kubelet
@@ -131,14 +133,14 @@ networking, or other host-specific parameters. The following list provides a few
   unless you are using a cloud provider. You can use the `--hostname-override` flag to override the
   default behavior if you need to specify a Node name different from the machine's hostname.
 
-- Currently, the kubelet cannot automatically detects the cgroup driver used by the CRI runtime,
+- Currently, the kubelet cannot automatically detect the cgroup driver used by the CRI runtime,
   but the value of `--cgroup-driver` must match the cgroup driver used by the CRI runtime to ensure
   the health of the kubelet.
 
 - Depending on the CRI runtime your cluster uses, you may need to specify different flags to the kubelet.
   For instance, when using Docker, you need to specify flags such as `--network-plugin=cni`, but if you
   are using an external runtime, you need to specify `--container-runtime=remote` and specify the CRI
-  endpoint using the `--container-runtime-path-endpoint=<path>`.
+  endpoint using the `--container-runtime-endpoint=<path>`.
 
 You can specify these flags by configuring an individual kubelet's configuration in your service manager,
 such as systemd.
@@ -149,20 +151,20 @@ such as systemd.
 以下列表提供了一些示例。
 
 - 由 kubelet 配置标志 `--resolv-confkubelet` 指定的 DNS 解析文件的路径在操作系统之间可能有所不同，
-  它取决于您是否使用 `systemd-resolved`。
+  它取决于你是否使用 `systemd-resolved`。
   如果此路径错误，则在其 kubelet 配置错误的节点上 DNS 解析也将失败。
 
-- 除非您使用云提供商，否则默认情况下，Node API 对象 `.metadata.name` 被设置为计算机的主机名。
-  如果您需要指定一个节点的名称与机器的主机名不同，您可以是使用 `--hostname-override` 标志覆盖默认操作。
+- 除非你使用云驱动，否则默认情况下 Node API 对象的 `.metadata.name` 会被设置为计算机的主机名。
+  如果你需要指定一个与机器的主机名不同的节点名称，你可以使用 `--hostname-override` 标志覆盖默认值。
 
 - 当前，kubelet 无法自动检测 CRI 运行时使用的 cgroup 驱动程序，
   但是值 `--cgroup-driver` 必须与 CRI 运行时使用的 cgroup 驱动程序匹配，以确保 kubelet 的健康运行状况。
 
-- 根据您集群使用的 CRI 运行时，您可能需要为 kubelet 指定不同的标志。
-  例如，当使用 Docker 时，你要需要指定标志如 `--network-plugin=cni`，但是如果您使用的是外部运行时，
-  则需要指定 `--container-runtime=remote` 并使用 `--container-runtime-path-endpoint=<path>` 指定 CRI端点。
+- 取决于你的集群所使用的 CRI 运行时，你可能需要为 kubelet 指定不同的标志。
+  例如，当使用 Docker 时，你需要指定如 `--network-plugin=cni` 这类标志；但是如果你使用的是外部运行时，
+  则需要指定 `--container-runtime=remote` 并使用 `--container-runtime-endpoint=<path>` 指定 CRI 端点。
 
-您可以在服务管理器（例如系统）中通过对单个的 kubelet 配置来指定这些标志。
+你可以在服务管理器（例如 systemd）中设定某个 kubelet 的配置来指定这些参数。
 
 <!--
 ## Configure kubelets using kubeadm
@@ -181,7 +183,8 @@ for more information on the individual fields.
 
 如果自定义的 `KubeletConfiguration` API 对象使用像  `kubeadm ... --config some-config-file.yaml` 这样的配置文件进行传递，则可以配置 kubeadm 启动的 kubelet。
 
-通过调用 `kubeadm config print init-defaults --component-configs KubeletConfiguration` 您可以看到此结构中的所有默认值。
+通过调用 `kubeadm config print init-defaults --component-configs KubeletConfiguration`，
+你可以看到此结构中的所有默认值。
 
 也可以阅读 [kubelet 配置组件的 API 参考](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)来获取有关各个字段的更多信息。
 
@@ -190,7 +193,7 @@ for more information on the individual fields.
 
 When you call `kubeadm init`, the kubelet configuration is marshalled to disk
 at `/var/lib/kubelet/config.yaml`, and also uploaded to a ConfigMap in the cluster. The ConfigMap
-is named `kubelet-config-1.X`, where `.X` is the minor version of the Kubernetes version you are
+is named `kubelet-config-1.X`, where `X` is the minor version of the Kubernetes version you are
 initializing. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf` with the
 baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
 points to the client certificates that allow the kubelet to communicate with the API server. This
@@ -223,7 +226,7 @@ If the reload and restart are successful, the normal `kubeadm init` workflow con
 
 当调用 `kubeadm init` 时，kubelet 配置被编组到磁盘上的 `/var/lib/kubelet/config.yaml` 中，
 并且上传到集群中的 ConfigMap。
-ConfigMap 名为 `kubelet-config-1.X`，其中 `.X` 是您正在初始化的 kubernetes 版本的次版本。
+ConfigMap 名为 `kubelet-config-1.X`，其中 `X` 是你正在初始化的 kubernetes 版本的次版本。
 在集群中所有 kubelet 的基准集群范围内配置，将 kubelet 配置文件写入 `/etc/kubernetes/kubelet.conf` 中。
 此配置文件指向允许 kubelet 与 API 服务器通信的客户端证书。
 这解决了 [将集群级配置传播到每个 kubelet](#propagating-cluster-level-configuration-to-each-kubelet)的需求。
@@ -285,12 +288,12 @@ kubelet 使用这些证书执行 TLS 引导程序并获取唯一的凭据，该�
 <!--
 ##  The kubelet drop-in file for systemd
 
-kubeadm ships with configuration for how systemd should run the kubelet.
+`kubeadm` ships with configuration for how systemd should run the kubelet.
 Note that the kubeadm CLI command never touches this drop-in file.
 
-This configuration file installed by the `kubeadm` [DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/10-kubeadm.conf) or [RPM package](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/10-kubeadm.conf) is written to
+This configuration file installed by the `kubeadm` [DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf) or [RPM package](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubeadm/10-kubeadm.conf) is written to
 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by systemd.
-It augments the basic [`kubelet.service` for RPM](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/kubelet.service) (resp. [`kubelet.service` for DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/kubelet.service))):
+It augments the basic [`kubelet.service` for RPM](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service) or [`kubelet.service` for DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service):
 
 ```none
 [Service]
@@ -321,11 +324,15 @@ This file specifies the default locations for all of the files managed by kubead
 -->
 ##  kubelet 的 systemd 文件 {#the-kubelet-drop-in-file-for-systemd}
 
-kubeadm 中附带了有关系统如何运行 kubelet 的 systemd 配置文件。
+`kubeadm` 中附带了有关系统如何运行 kubelet 的 systemd 配置文件。
 请注意 kubeadm CLI 命令不会修改此文件。
 
-通过 `kubeadm` [DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/10-kubeadm.conf) 或者 [RPM 包](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/10-kubeadm.conf) 安装的配置文件已被写入 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` 并由系统使用。
-它加强了基础设施 [`kubelet.service` for RPM](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/kubelet.service) (resp. [`kubelet.service` for DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/kubelet.service)))：
+通过 `kubeadm` [DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf) 
+或者 [RPM 包](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubeadm/10-kubeadm.conf) 
+安装的配置文件被写入 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` 并由系统使用。
+它对原来的 [RPM 版本 `kubelet.service`](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service) 
+或者 [DEB 版本 `kubelet.service`](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service)
+作了增强：
 
 ```none
 [Service]
@@ -361,10 +368,9 @@ The DEB and RPM packages shipped with the Kubernetes releases are:
 | Package name | Description |
 |--------------|-------------|
 | `kubeadm`    | Installs the `/usr/bin/kubeadm` CLI tool and the [kubelet drop-in file](#the-kubelet-drop-in-file-for-systemd) for the kubelet. |
-| `kubelet`    | Installs the `/usr/bin/kubelet` binary. |
+| `kubelet`    | Installs the kubelet binary in `/usr/bin` and CNI binaries in `/opt/cni/bin`. |
 | `kubectl`    | Installs the `/usr/bin/kubectl` binary. |
-| `kubernetes-cni` | Installs the official CNI binaries into the `/opt/cni/bin` directory. |
-| `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-incubator/cri-tools). |
+| `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-sigs/cri-tools). |
 -->
 ## Kubernetes 二进制文件和软件包内容
 
@@ -373,8 +379,8 @@ Kubernetes 版本对应的 DEB 和 RPM 软件包是：
 | Package name | Description |
 |--------------|-------------|
 | `kubeadm`    | 给 kubelet 安装 `/usr/bin/kubeadm` CLI 工具和 [kubelet 的 systemd 文件](#the-kubelet-drop-in-file-for-systemd)。 |
-| `kubelet`    | 安装 `/usr/bin/kubelet` 二进制文件和 `/opt/cni/bin` CNI 二进制文件。 |
-| `kubectl`    | 安装 `/usr/bin/kubectl` 二进制文件。 |
-| `cri-tools` | 从 [cri-tools git 仓库](https://github.com/kubernetes-incubator/cri-tools)中安装 `/usr/bin/crictl` 二进制文件。 |
+| `kubelet`    | 安装 kublet 可执行文件到 `/usr/bin` 路径，安装 CNI 可执行文件到 `/opt/cni/bin` 路径。 |
+| `kubectl`    | 安装 `/usr/bin/kubectl` 可执行文件。 |
+| `cri-tools` | 从 [cri-tools git 仓库](https://github.com/kubernetes-sigs/cri-tools)中安装 `/usr/bin/crictl` 可执行文件。 |
 
 

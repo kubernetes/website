@@ -1,13 +1,13 @@
 ---
 reviewers:
-title: Configuring kubelet Garbage Collection
+title: Garbage collection for container images
 content_type: concept
 weight: 70
 ---
 
 <!-- overview -->
 
-Garbage collection is a helpful function of kubelet that will clean up unused images and unused containers. Kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
+Garbage collection is a helpful function of kubelet that will clean up unused [images](/docs/concepts/containers/#container-images) and unused [containers](/docs/concepts/containers/). Kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
 
 External garbage collection tools are not recommended as these tools can potentially break the behavior of kubelet by removing containers expected to exist.
 

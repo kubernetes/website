@@ -52,7 +52,7 @@ VolumeSnapshotClass 对象的名称很重要，是用户可以请求特定类的
 对象一旦创建就无法更新。
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-hostpath-snapclass
@@ -70,7 +70,7 @@ that don't request any particular class to bind to by adding the
 方法是设置注解 `snapshot.storage.kubernetes.io/is-default-class: "true"`：
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-hostpath-snapclass

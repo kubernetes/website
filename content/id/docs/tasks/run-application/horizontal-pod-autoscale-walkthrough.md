@@ -426,7 +426,7 @@ pengambilan metrik. Terakhir, kondisi terakhir, `ScalingLimited`, menunjukkan ba
 
 ## Lampiran: Kuantitas
 
-Semua metrik di HorizontalPodAutoscaler dan metrik API ditentukan menggunakan notasi bilangan bulat khusus yang dikenal di Kubernetes sebagai {{< glossary_tooltip term_id="kuantitas" text="kuantitas">}}. Misalnya, kuantitas `10500m` akan ditulis sebagai `10.5` dalam notasi desimal. Metrik API akan menampilkan bilangan bulat tanpa sufiks jika memungkinkan, dan secara umum akan mengembalikan kuantitas dalam satuan mili.  Ini berarti Anda mungkin melihat nilai metrik Anda berfluktuasi antara `1` dan` 1500m`, atau `1` dan` 1,5` ketika ditulis dalam notasi desimal.
+Semua metrik di HorizontalPodAutoscaler dan metrik API ditentukan menggunakan notasi bilangan bulat khusus yang dikenal di Kubernetes sebagai {{< glossary_tooltip term_id="quantity" text="kuantitas">}}. Misalnya, kuantitas `10500m` akan ditulis sebagai `10.5` dalam notasi desimal. Metrik API akan menampilkan bilangan bulat tanpa sufiks jika memungkinkan, dan secara umum akan mengembalikan kuantitas dalam satuan mili. Ini berarti kamu mungkin melihat nilai metrik berfluktuasi antara `1` dan `1500m`, atau `1` dan` 1,5` ketika ditulis dalam notasi desimal.
 
 ## Lampiran: Skenario lain yang memungkinkan
 

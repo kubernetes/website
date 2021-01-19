@@ -147,7 +147,7 @@ For {{< glossary_tooltip term_id="minikube" >}}, this can be done via the `extra
 如果你使用 {{< glossary_tooltip term_id="minikube" >}}，可以通过 `extra-config` 参数来配置：
 
 ```shell
-minikube start --extra-config="kubelet.AllowedUnsafeSysctls=kernel.msg*,net.core.somaxconn"...
+minikube start --extra-config="kubelet.allowed-unsafe-sysctls=kernel.msg*,net.core.somaxconn"...
 ```
 <!--
 Only _namespaced_ sysctls can be enabled this way.

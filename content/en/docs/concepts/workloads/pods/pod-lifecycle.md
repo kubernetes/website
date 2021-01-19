@@ -85,6 +85,13 @@ Value       | Description
 `Failed`    | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
 `Unknown`   | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
 
+{{< note >}}
+When a Pod is being deleted, it is shown as `Terminating` by some kubectl commands.
+This `Terminating` status is not one of the Pod phases.
+A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
+You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
+{{< /note >}}
+
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
 
@@ -325,7 +332,7 @@ a time longer than the liveness interval would allow.
 If your container usually starts in more than
 `initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a
 startup probe that checks the same endpoint as the liveness probe. The default for
-`periodSeconds` is 30s. You should then set its `failureThreshold` high enough to
+`periodSeconds` is 10s. You should then set its `failureThreshold` high enough to
 allow the container to start, without changing the default values of the liveness
 probe. This helps to protect against deadlocks.
 

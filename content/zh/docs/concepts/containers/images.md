@@ -175,7 +175,7 @@ Credentials can be provided in several ways:
     向容器仓库认证的机制
 
 <!--
-These options are explaind in more detail below.
+These options are explained in more detail below.
 -->
 下面将详细描述每一项。
 
@@ -195,11 +195,11 @@ This approach is suitable if you can control node configuration.
 此方法适用于能够对节点进行配置的场合。
 
 <!--
-Kubernetes as only supports the `auths` and `HttpHeaders` section in Docker configuration.
+Default Kubernetes only supports the `auths` and `HttpHeaders` section in Docker configuration.
 Docker credential helpers (`credHelpers` or `credsStore`) are not supported.
 -->
 {{< note >}}
-Kubernetes 仅支持 Docker 配置中的 `auths` 和 `HttpHeaders` 部分，
+Kubernetes 默认仅支持 Docker 配置中的 `auths` 和 `HttpHeaders` 部分，
 不支持 Docker 凭据辅助程序（`credHelpers` 或 `credsStore`）。
 {{< /note >}}
 
@@ -298,6 +298,26 @@ EOF
 
 ```
 pod/private-image-test-1 created
+```
+
+<!--
+If everything is working, then, after a few moments, you can run:
+
+```shell
+kubectl logs private-image-test-1
+```
+and see that the command outputs:
+```
+SUCCESS
+```
+-->
+如果一切顺利，那么一段时间后你可以执行：
+```shell
+kubectl logs private-image-test-1
+```
+然后可以看到命令的输出：
+```
+SUCCESS
 ```
 
 <!--
@@ -474,7 +494,7 @@ EOF
 This needs to be done for each pod that is using a private registry.  
 
 However, setting of this field can be automated by setting the imagePullSecrets
-in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-accounts/) resource.
+in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) resource.
 
 Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) for detailed instructions.
 

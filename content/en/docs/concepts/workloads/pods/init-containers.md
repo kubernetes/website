@@ -49,9 +49,9 @@ as documented in [Resources](#resources).
 Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
 `startupProbe` because they must run to completion before the Pod can be ready.
 
-If you specify multiple init containers for a Pod, Kubelet runs each init
+If you specify multiple init containers for a Pod, kubelet runs each init
 container sequentially. Each init container must succeed before the next can run.
-When all of the init containers have run to completion, Kubelet initializes
+When all of the init containers have run to completion, kubelet initializes
 the application containers for the Pod and runs them as usual.
 
 ## Using init containers
@@ -133,6 +133,7 @@ You can start this Pod by running:
 ```shell
 kubectl apply -f myapp.yaml
 ```
+The output is similar to this:
 ```
 pod/myapp-pod created
 ```
@@ -141,6 +142,7 @@ And check on its status with:
 ```shell
 kubectl get -f myapp.yaml
 ```
+The output is similar to this:
 ```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
@@ -150,6 +152,7 @@ or for more details:
 ```shell
 kubectl describe -f myapp.yaml
 ```
+The output is similar to this:
 ```
 Name:          myapp-pod
 Namespace:     default
@@ -224,6 +227,7 @@ To create the `mydb` and `myservice` services:
 ```shell
 kubectl apply -f services.yaml
 ```
+The output is similar to this:
 ```
 service/myservice created
 service/mydb created
@@ -235,6 +239,7 @@ Pod moves into the Running state:
 ```shell
 kubectl get -f myapp.yaml
 ```
+The output is similar to this:
 ```
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
@@ -257,7 +262,7 @@ if the Pod `restartPolicy` is set to Always, the init containers use
 
 A Pod cannot be `Ready` until all init containers have succeeded. The ports on an
 init container are not aggregated under a Service. A Pod that is initializing
-is in the `Pending` state but should have a condition `Initialized` set to true.
+is in the `Pending` state but should have a condition `Initialized` set to false.
 
 If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers
 must execute again.
@@ -319,11 +324,9 @@ reasons:
 
 
 
-
 ## {{% heading "whatsnext" %}}
 
 
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
-
 

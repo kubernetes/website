@@ -109,7 +109,7 @@ The above arguments give the node a score of 0 if utilization is 0% and 10 for u
 要启用最少请求（least requested）模式，必须按如下方式反转得分值。
 
 ```yaml
- {"utilization": 0, "score": 100},
+ {"utilization": 0, "score": 10},
  {"utilization": 100, "score": 0}
 ```
 

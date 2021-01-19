@@ -165,11 +165,7 @@ A 또는 AAAA 레코드만 생성할 수 있다. (`default-subdomain.my-namespac
 
 ### 파드의 setHostnameAsFQDN 필드 {# pod-sethostnameasfqdn-field}
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
-
-**전제 조건**: `SetHostnameAsFQDN` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-{{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}에
-대해 활성화해야 한다.
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
 파드가 전체 주소 도메인 이름(FQDN)을 갖도록 구성된 경우, 해당 호스트네임은 짧은 호스트네임이다. 예를 들어, 전체 주소 도메인 이름이 `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example` 인 파드가 있는 경우, 기본적으로 해당 파드 내부의 `hostname` 명령어는 `busybox-1` 을 반환하고 `hostname --fqdn` 명령은 FQDN을 반환한다.
 

@@ -24,6 +24,16 @@ a password, a token, or a key. Such information might otherwise be put in a
 Pod specification or in an image. Users can create Secrets and the system
 also creates some Secrets.
 
+{{< caution >}}
+Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
+strings. By default they can be retrieved - as plain text - by anyone with API
+access, or anyone with access to Kubernetes' underlying data store, etcd. In
+order to safely use Secrets, we recommend you (at a minimum):
+
+1. [Enable Encryption at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
+2. [Enable RBAC rules that restrict reading and writing the Secret](https://kubernetes.io/docs/reference/access-authn-authz/authorization/). Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+{{< /caution >}}
+
 <!-- body -->
 
 ## Overview of Secrets
@@ -271,6 +281,13 @@ However, using the builtin Secret type helps unify the formats of your credentia
 and the API server does verify if the required keys are provided in a Secret
 configuration.
 
+{{< caution >}}
+SSH private keys do not establish trusted communication between an SSH client and
+host server on their own. A secondary means of establishing trust is needed to
+mitigate "man in the middle" attacks, such as a `known_hosts` file added to a
+ConfigMap.
+{{< /caution >}}
+
 ### TLS secrets
 
 Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
@@ -351,7 +368,7 @@ data:
 
 A bootstrap type Secret has the following keys specified under `data`:
 
-- `token_id`: A random 6 character string as the token identifier. Required.
+- `token-id`: A random 6 character string as the token identifier. Required.
 - `token-secret`: A random 16 character string as the actual token secret. Required.
 - `description`: A human-readable string that describes what the token is
   used for. Optional.
@@ -769,7 +786,7 @@ these pods.
 The `imagePullSecrets` field is a list of references to secrets in the same namespace.
 You can use an `imagePullSecrets` to pass a secret that contains a Docker (or other) image registry
 password to the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
+See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
 
 #### Manually specifying an imagePullSecret
 
@@ -788,7 +805,6 @@ See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-contai
 
 Manually created secrets (for example, one containing a token for accessing a GitHub account)
 can be automatically attached to pods based on their service account.
-See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset/) for a detailed explanation of that process.
 
 ## Details
 
