@@ -21,8 +21,8 @@ For information how to create a cluster with kubeadm once you have performed thi
 * One or more machines running one of:
   - Ubuntu 16.04+
   - Debian 9+
-  - CentOS 7
-  - Red Hat Enterprise Linux (RHEL) 7
+  - CentOS 7+
+  - Red Hat Enterprise Linux (RHEL) 7+
   - Fedora 25+
   - HypriotOS v1.0.1+
   - Flatcar Container Linux (tested with 2512.3.0)

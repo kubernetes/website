@@ -62,7 +62,7 @@ Kubernetes 网站（包括其文档）源代码位于
 
 ## 可以发布的内容  {#what-s-allowed}
 
-只有当以下条件满足时，Kuberentes 文档才允许第三方项目的内容：
+只有当以下条件满足时，Kubernetes 文档才允许第三方项目的内容：
 
 - 内容所描述的软件在 Kubernetes 项目内
 - 内容所描述的软件不在 Kubernetes 项目内，却是让 Kubernetes 正常工作所必需的

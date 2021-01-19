@@ -392,8 +392,8 @@ spec:
       containers:
       - name: my-nginx
         resources:
-        limits:
-          memory: 512Mi
+          limits:
+            memory: 512Mi
 EOF
 
 cat <<EOF >./kustomization.yaml
@@ -424,11 +424,12 @@ spec:
     spec:
       containers:
       - image: nginx
-        limits:
-          memory: 512Mi
         name: my-nginx
         ports:
         - containerPort: 80
+        resources:
+          limits:
+            memory: 512Mi
 ```
 
 Not all Resources or fields support strategic merge patches. To support modifying arbitrary fields in arbitrary Resources,

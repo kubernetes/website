@@ -94,7 +94,7 @@ It is currently not possible to create plugins that overwrite existing `kubectl`
 
 目前无法创建覆盖现有 `kubectl` 命令的插件。
 例如，创建一个插件 `kubectl-version` 将导致该插件永远不会被执行，
-因为现有的 `kubectl-version` 命令总是优先于它执行。
+因为现有的 `kubectl version` 命令总是优先于它执行。
 由于这个限制，也不可能使用插件将新的子命令添加到现有的 `kubectl` 命令中。
 例如，通过将插件命名为 `kubectl-create-foo` 来添加子命令 `kubectl create foo` 将导致该插件被忽略。
 
