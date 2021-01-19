@@ -1,5 +1,5 @@
 ---
-title: Namespaceに対する最小および最大メモリ制約の構成
+title: Namespaceに対する最小および最大メモリー制約の構成
 
 content_type: task
 weight: 30
@@ -256,7 +256,6 @@ kubectl delete namespace constraints-mem-example
 * [コンテナとPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [PodのQoS(サービス品質)を設定](/docs/tasks/configure-pod-container/quality-service-pod/)
-
 
 
 
