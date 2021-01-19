@@ -220,7 +220,7 @@ LimitRangeによってNamespaceに課される最大および最小のメモリ�
 * クラスタ内の各ノードは2GBのメモリを持っています。クラスタ内のどのノードもその要求をサポートできないため、2GB以上のメモリを要求するPodは受け入れたくありません。
 
 
-* クラスタは運用部門と開発部門で共有されています。 本番用のワークロードでは最大8GBのメモリを消費しますが、開発用のワークロードでは512MBに制限したいとします。本番用と開発用に別々のNamespaceを作成し、それぞれのNamespaceにメモリ制限を適用します。
+* クラスターは運用部門と開発部門で共有されています。 本番用のワークロードでは最大8GBのメモリーを消費しますが、開発用のワークロードでは512MBに制限したいとします。本番用と開発用に別々のNamespaceを作成し、それぞれのNamespaceにメモリー制限を適用します。
 
 ## クリーンアップ
 
@@ -256,6 +256,5 @@ kubectl delete namespace constraints-mem-example
 * [コンテナとPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [PodのQoS(サービス品質)を設定](/docs/tasks/configure-pod-container/quality-service-pod/)
-
 
 
