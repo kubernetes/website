@@ -154,7 +154,7 @@ Podを作成してみます。
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-3.yaml --namespace=constraints-mem-example
 ```
 
-出力は、コンテナが小さすぎるメモリリクエストを指定しているため、Podが作成されないことを示しています。
+出力は、コンテナが小さすぎるメモリー要求を指定しているため、Podが作成されないことを示しています。
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/memory-constraints-pod-3.yaml":
