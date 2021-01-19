@@ -132,7 +132,7 @@ Podを作成してみます。
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-2.yaml --namespace=constraints-mem-example
 ```
 
-出力は、コンテナが大きすぎるメモリ制限を指定しているため、Podが作成されないことを示しています。
+出力は、コンテナが大きすぎるメモリー制限を指定しているため、Podが作成されないことを示しています。
 
 
 ```
