@@ -18,7 +18,7 @@ PodがLimitRangeによって課される制約を満たさない場合、そのN
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-クラスタ内の各ノードには、少なくとも1GiBのメモリが必要です。
+クラスター内の各ノードには、少なくとも1GiBのメモリーが必要です。
 
 
 <!-- steps -->
