@@ -71,29 +71,9 @@ and would need to continue to be authorized via whatever mechanism currently aut
 The `NodeRestriction` admission plugin would ignore requests from these kubelets,
 since the default node identifier implementation would not consider that a node identity.
 
-### Upgrades from previous versions using RBAC
-
-Upgraded pre-1.7 clusters using [RBAC](/docs/reference/access-authn-authz/rbac/) will continue functioning as-is because the `system:nodes` group binding will already exist.
-
-If a cluster admin wishes to start using the `Node` authorizer and `NodeRestriction` admission plugin
-to limit node access to the API, that can be done non-disruptively:
-
-1. Enable the `Node` authorization mode (`--authorization-mode=Node,RBAC`) and the `NodeRestriction` admission plugin
-2. Ensure all kubelets' credentials conform to the group/username requirements
-3. Audit apiserver logs to ensure the `Node` authorizer is not rejecting requests from kubelets (no persistent `NODE DENY` messages logged)
-4. Delete the `system:node` cluster role binding
-
 ### RBAC Node Permissions
 
-In 1.6, the `system:node` cluster role was automatically bound to the `system:nodes` group when using the [RBAC Authorization mode](/docs/reference/access-authn-authz/rbac/).
+You should use the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#noderestriction) admission plugin instead of the `system:node` role, and allow granting API access to kubelets based on the Pods scheduled to run on them.
 
-In 1.7, the automatic binding of the `system:nodes` group to the `system:node` role is deprecated
-because the node authorizer accomplishes the same purpose with the benefit of additional restrictions
-on secret and configmap access. If the `Node` and `RBAC` authorization modes are both enabled,
-the automatic binding of the `system:nodes` group to the `system:node` role is not created in 1.7.
-
-In 1.8, the binding will not be created at all.
-
-When using RBAC, the `system:node` cluster role will continue to be created,
-for compatibility with deployment methods that bind other users or groups to that role.
+The `system:node` role only exists for compatibility with Kubernetes clusters upgraded from versions prior to v1.8.
 
