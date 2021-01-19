@@ -51,7 +51,7 @@ LimitRangeの詳細情報を表示します。
 kubectl get limitrange mem-min-max-demo-lr --namespace=constraints-mem-example --output=yaml
 ```
 
-出力されるのは、予想通りメモリ制約の最小値と最大値を示しています。
+出力されるのは、予想通りメモリー制約の最小値と最大値を示しています。
 しかし、LimitRangeの設定ファイルでデフォルト値を指定していないにもかかわらず、
 自動的に作成されていることに気づきます。
 
