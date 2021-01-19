@@ -204,7 +204,7 @@ Podを削除します。
 kubectl delete pod constraints-mem-demo-4 --namespace=constraints-mem-example
 ```
 
-## 最小および最大メモリ制約の強制
+## 最小および最大メモリー制約の強制
 
 LimitRangeによってNamespaceに課される最大および最小のメモリ制約は、Podが作成または更新されたときにのみ適用されます。LimitRangeを変更しても、以前に作成されたPodには影響しません。
 
