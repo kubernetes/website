@@ -9,7 +9,7 @@ weight: 30
 <!-- overview -->
 
 このページでは、Namespaceで実行されるコンテナが使用するメモリーの最小値と最大値を設定する方法を説明します。
-[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core) で最小値と最大値のメモリ値を指定します。
+[LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core) で最小値と最大値のメモリー値を指定します。
 PodがLimitRangeによって課される制約を満たさない場合、そのNamespaceではPodを作成できません。
 
 
@@ -256,7 +256,6 @@ kubectl delete namespace constraints-mem-example
 * [コンテナとPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [PodのQoS(サービス品質)を設定](/docs/tasks/configure-pod-container/quality-service-pod/)
-
 
 
 
