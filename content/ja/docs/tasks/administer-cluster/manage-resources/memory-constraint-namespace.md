@@ -73,7 +73,7 @@ kubectl get limitrange mem-min-max-demo-lr --namespace=constraints-mem-example -
 constraints-mem-exampleNamespaceにコンテナが作成されるたびに、
 Kubernetesは以下の手順を実行するようになっています。
 
-* コンテナが独自のメモリ要求と制限を指定しない場合は、デフォルトのメモリ要求と制限をコンテナに割り当てます。
+* コンテナが独自のメモリー要求と制限を指定しない場合は、デフォルトのメモリー要求と制限をコンテナに割り当てます。
 
 * コンテナに500MiB以上のメモリー要求があることを確認します。
 
