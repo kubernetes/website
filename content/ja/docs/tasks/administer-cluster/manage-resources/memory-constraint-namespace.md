@@ -164,7 +164,7 @@ pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container i
 ## メモリ要求や制限を指定しないPodの作成
 
 
-これは、1つのコンテナを持つPodの設定ファイルです。コンテナはメモリ要求を指定しておらず、メモリ制限も指定していません。
+これは、1つのコンテナを持つPodの設定ファイルです。コンテナはメモリー要求を指定しておらず、メモリー制限も指定していません。
 
 {{< codenew file="admin/resource/memory-constraints-pod-4.yaml" >}}
 
