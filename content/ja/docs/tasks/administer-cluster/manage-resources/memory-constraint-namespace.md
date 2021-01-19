@@ -25,7 +25,7 @@ PodがLimitRangeによって課される制約を満たさない場合、そのN
 
 ## Namespaceの作成
 
-この演習で作成したリソースがクラスタの他の部分から分離されるように、Namespaceを作成します。
+この演習で作成したリソースがクラスターの他の部分から分離されるように、Namespaceを作成します。
 
 
 ```shell
@@ -256,7 +256,6 @@ kubectl delete namespace constraints-mem-example
 * [コンテナとPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [PodのQoS(サービス品質)を設定](/docs/tasks/configure-pod-container/quality-service-pod/)
-
 
 
 
