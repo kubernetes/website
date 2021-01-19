@@ -125,6 +125,7 @@ min-kubernetes-server-version: v1.10
 
 1.  	`kubectl port-forward` 명령어는 파드 이름과 같이 리소스 이름을 사용하여 일치하는 파드를 선택해 포트 포워딩하는 것을 허용한다.
 
+
     ```shell
     # redis-master-765d459796-258hz 를 파드 이름으로 변경한다.
     kubectl port-forward redis-master-765d459796-258hz 7000:6379
@@ -157,9 +158,15 @@ min-kubernetes-server-version: v1.10
     위의 명령어들은 모두 동일하게 동작한다. 이와 유사하게 출력된다.
 
     ```
-    I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:7000 -> 6379
-    I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:7000 -> 6379
+    Forwarding from 127.0.0.1:7000 -> 6379
+    Forwarding from [::1]:7000 -> 6379
     ```
+
+{{< note >}}
+
+`kubectl port-forward` 는 프롬프트를 리턴하지 않으므로, 이 연습을 계속하려면 다른 터미널을 열어야 한다.
+
+{{< /note >}}
 
 2.  Redis 커맨드라인 인터페이스를 실행한다.
 
@@ -179,7 +186,23 @@ min-kubernetes-server-version: v1.10
     PONG
     ```
 
+### 선택적으로 _kubectl_ 이 로컬 포트를 선택하게 하기 {#let-kubectl-choose-local-port}
 
+만약 특정 로컬 포트가 필요하지 않다면, `kubectl` 이 로컬 포트를 선택 및 할당하게 하여,
+조금 더 단순한 문법으로 로컬 포트 충돌 관리를 위한
+부담을 줄일 수 있다.
+
+```shell
+kubectl port-forward deployment/redis-master :6379
+```
+
+`kubectl` 도구는 사용 중이 아닌 로컬 포트 번호를 찾는다. (낮은 포트 번호는
+다른 애플리케이션에서 사용될 것이므로, 낮은 포트 번호를 피해서) 출력은 다음과 같을 것이다.
+
+```
+Forwarding from 127.0.0.1:62162 -> 6379
+Forwarding from [::1]:62162 -> 6379
+```
 
 
 <!-- discussion -->
@@ -193,8 +216,7 @@ min-kubernetes-server-version: v1.10
 {{< note >}}
 `kubectl port-forward` 는 TCP 포트에서만 구현된다.
 UDP 프로토콜에 대한 지원은
-[이슈 47862](https://github.com/kubernetes/kubernetes/issues/47862)
-에서 추적되고 있다.
+[이슈 47862](https://github.com/kubernetes/kubernetes/issues/47862)에서 추적되고 있다.
 {{< /note >}}
 
 

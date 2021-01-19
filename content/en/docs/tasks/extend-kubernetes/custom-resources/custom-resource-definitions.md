@@ -314,7 +314,18 @@ CustomResourceDefinitions store validated resource data in the cluster's persist
 {{< note >}}
 CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack structural schemas, and `spec.preserveUnknownFields` might be `true`.
 
-For migrated CustomResourceDefinitions where `spec.preserveUnknownFields` is set, pruning is _not_ enabled and you can store arbitrary data. For best compatibility, you should update your custom resources to meet an OpenAPI schema, and you should set `spec.preserveUnknownFields` to true for the CustomResourceDefinition itself.
+For legacy CustomResourceDefinition objects created as
+`apiextensions.k8s.io/v1beta1` with `spec.preserveUnknownFields` set to
+`true`, the following is also true:
+
+* Pruning is not enabled.
+* You can store arbitrary data.
+
+For compatibility with `apiextensions.k8s.io/v1`, update your custom
+resource definitions to:
+
+1. Use a structural OpenAPI schema.
+2. Set `spec.preserveUnknownFields` to `false`.
 {{< /note >}}
 
 If you save the following YAML to `my-crontab.yaml`:

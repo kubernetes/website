@@ -1,4 +1,6 @@
 ---
+
+
 title: 파드
 content_type: concept
 weight: 10
@@ -188,6 +190,34 @@ spec:
 상세 내용은 추상화된다. 이러한 추상화와 관심사 분리(separation of concerns)는
 시스템 시맨틱을 단순화하고, 기존 코드를 변경하지 않고도 클러스터의 동작을
 확장할 수 있게 한다.
+
+## 파드 갱신 및 교체
+
+이전 섹션에서 언급한 바와 같이, 워크로드 리소스의 파드
+템플릿이 바뀌면, 컨트롤러는 기존의 파드를 갱신하거나 패치하는 대신
+갱신된 템플릿을 기반으로 신규 파드를 생성한다.
+
+쿠버네티스는 사용자가 파드를 직접 관리하는 것을 막지는 않는다.
+동작 중인 파드의 필드를 갱신하는 것도 가능하다.
+그러나,
+[`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core) 및
+[`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)와 같은
+파드 갱신 작업에는 다음과 같은 제약이 있다.
+
+- 파드에 대한 대부분의 메타데이터는 불변(immutable)이다. 예를 들면, 사용자는
+  `namespace`, `name`, `uid`, 또는 `creationTimestamp` 필드를 변경할 수 없다.
+  그리고 `generation` 필드는 고유하다. 이 필드는 필드의 현재 값을 증가시키는
+  갱신만 허용한다.
+- `metadata.deletionTimestamp` 가 설정된 경우,
+  `metadata.finalizers` 리스트에 새로운 항목이 추가될 수 없다.
+- 파드 갱신은 `spec.containers[*].image`, `spec.initContainers[*].image`,
+  `spec.activeDeadlineSeconds`, 또는 `spec.tolerations` 이외의 필드는
+  변경하지 않을 것이다. `spec.tolerations` 에 대해서만 새로운 항목을 추가할 수 있다.
+- `spec.activeDeadlineSeconds` 필드를 추가할 때는, 다음의 두 가지 형태의 갱신만
+  허용한다.
+
+  1. 지정되지 않은 필드를 양수로 설정;
+  1. 필드의 양수를 음수가 아닌 더 작은 숫자로 갱신.
 
 ## 리소스 공유와 통신
 
