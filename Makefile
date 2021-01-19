@@ -58,7 +58,7 @@ docker-serve:
 	@echo -e "$(CCRED)**** The use of docker-serve is deprecated. Use container-serve instead. ****$(CCEND)"
 	$(MAKE) container-serve
 
-container-image:
+container-image: ## Build a container image for the preview of the website
 	$(CONTAINER_ENGINE) build . \
 		--network=host \
 		--tag $(CONTAINER_IMAGE) \
@@ -67,7 +67,7 @@ container-image:
 container-build: module-check
 	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify"
 
-container-serve: module-check
+container-serve: module-check ## Boot the development server using container. Run `make container-image` before this.
 	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir
 
 test-examples:

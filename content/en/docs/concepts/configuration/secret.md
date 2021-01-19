@@ -24,6 +24,16 @@ a password, a token, or a key. Such information might otherwise be put in a
 Pod specification or in an image. Users can create Secrets and the system
 also creates some Secrets.
 
+{{< caution >}}
+Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
+strings. By default they can be retrieved - as plain text - by anyone with API
+access, or anyone with access to Kubernetes' underlying data store, etcd. In
+order to safely use Secrets, we recommend you (at a minimum):
+
+1. [Enable Encryption at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
+2. [Enable RBAC rules that restrict reading and writing the Secret](https://kubernetes.io/docs/reference/access-authn-authz/authorization/). Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+{{< /caution >}}
+
 <!-- body -->
 
 ## Overview of Secrets
@@ -795,7 +805,6 @@ See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-contai
 
 Manually created secrets (for example, one containing a token for accessing a GitHub account)
 can be automatically attached to pods based on their service account.
-See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset/) for a detailed explanation of that process.
 
 ## Details
 

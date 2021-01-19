@@ -1,4 +1,7 @@
 ---
+
+
+
 title: 컨테이너 런타임
 content_type: concept
 weight: 20
@@ -127,6 +130,24 @@ sudo containerd config default | sudo tee /etc/containerd/config.toml
 sudo systemctl restart containerd
 ```
 {{% /tab %}}
+{{% tab name="Ubuntu 18.04/20.04" %}}
+
+```shell
+# (containerd 설치)
+sudo apt-get update && sudo apt-get install -y containerd
+```
+
+```shell
+# containerd 구성
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# containerd 재시작
+sudo systemctl restart containerd
+```
+{{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
@@ -151,7 +172,7 @@ sudo yum update -y && sudo yum install -y containerd.io
 ```shell
 ## containerd 구성
 sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -167,7 +188,6 @@ cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.
 cmd /c tar xvf .\containerd-1.4.1-windows-amd64.tar.gz
 ```
 
-```shell
 ```powershell
 # 추출 및 구성
 Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
@@ -262,6 +282,7 @@ curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/
 sudo apt-get update
 sudo apt-get install cri-o cri-o-runc
 ```
+
 {{% /tab %}}
 
 {{% tab name="Ubuntu" %}}
@@ -361,11 +382,14 @@ sudo systemctl start crio
 자세한 사항은 [CRI-O 설치 가이드](https://github.com/kubernetes-sigs/cri-o#getting-started)를
 참고한다.
 
+
+
 ### 도커
 
 각 노드에 도커 CE를 설치한다.
 
-쿠버네티스 릴리스 정보에서 해당 버전의 쿠버네티스와 호환되는 도커 버전을 찾을 수 있다.
+쿠버네티스 릴리스 정보에서 해당 버전의 쿠버네티스와 호환되는
+도커 버전을 찾을 수 있다.
 
 사용자의 시스템에서 다음의 명령을 이용해 도커를 설치한다.
 
@@ -388,7 +412,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring
 ```shell
 # 도커 apt 리포지터리 추가:
 sudo add-apt-repository \
-  deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
   stable"
 ```

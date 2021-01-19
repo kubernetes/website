@@ -1,14 +1,15 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello
+  name: backend
 spec:
   selector:
     matchLabels:
       app: hello
       tier: backend
       track: stable
-  replicas: 7
+  replicas: 3
   template:
     metadata:
       labels:
@@ -22,3 +23,4 @@ spec:
           ports:
             - name: http
               containerPort: 80
+...
