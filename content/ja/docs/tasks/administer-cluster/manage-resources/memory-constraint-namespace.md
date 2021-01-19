@@ -243,7 +243,7 @@ kubectl delete namespace constraints-mem-example
 
 * [名前空間に対する最小および最大CPU制約の構成](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [名前空間に対するメモリとCPUのクォータの構成](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [名前空間に対するメモリーとCPUのクォータの構成](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
 * [名前空間に対するPodクォータの設定](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
