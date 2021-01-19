@@ -235,7 +235,7 @@ kubectl delete namespace constraints-mem-example
 ## {{% heading "whatsnext" %}}
 
 
-### クラスタ管理者向け
+### クラスター管理者向け
 
 * [名前空間に対するデフォルトのメモリ要求と制限の構成](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
@@ -256,4 +256,3 @@ kubectl delete namespace constraints-mem-example
 * [コンテナとPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [PodのQoS(サービス品質)を設定](/docs/tasks/configure-pod-container/quality-service-pod/)
-
