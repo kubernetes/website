@@ -102,7 +102,7 @@ Podの詳細情報を見ます
 kubectl get pod constraints-mem-demo --output=yaml --namespace=constraints-mem-example
 ```
 
-出力は、コンテナが600MiBのメモリ要求と800MiBのメモリ制限になっていることを示しています。これらはLimitRangeによって課される制約を満たしています。
+出力は、コンテナが600MiBのメモリ要求と800MiBのメモリー制限になっていることを示しています。これらはLimitRangeによって課される制約を満たしています。
 
 
 ```yaml
