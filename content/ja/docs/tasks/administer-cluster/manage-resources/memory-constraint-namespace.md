@@ -180,7 +180,7 @@ Podの詳細情報を見ます
 kubectl get pod constraints-mem-demo-4 --namespace=constraints-mem-example --output=yaml
 ```
 
-出力を見ると、Podのコンテナのメモリ要求は1GiB、メモリ制限は1GiBであることがわかります。
+出力を見ると、Podのコンテナのメモリ要求は1GiB、メモリー制限は1GiBであることがわかります。
 コンテナはどのようにしてこれらの値を取得したのでしょうか？
 
 
