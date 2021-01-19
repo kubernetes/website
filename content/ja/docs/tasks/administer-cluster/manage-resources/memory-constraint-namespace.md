@@ -209,7 +209,7 @@ kubectl delete pod constraints-mem-demo-4 --namespace=constraints-mem-example
 LimitRangeによってNamespaceに課される最大および最小のメモリー制約は、Podが作成または更新されたときにのみ適用されます。LimitRangeを変更しても、以前に作成されたPodには影響しません。
 
 
-## 最小・最大メモリ制約の動機
+## 最小・最大メモリー制約の動機
 
 
 クラスタ管理者としては、Podが使用できるメモリ量に制限を課したいと思うかもしれません。
