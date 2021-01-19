@@ -82,6 +82,9 @@ does not specify a memory request and limit.
 现在，如果在 default-mem-example 命名空间创建容器，并且该容器没有声明自己的内存请求和限制值，
 它将被指定默认的内存请求 256 MiB 和默认的内存限制 512 MiB。
 
+下面是具有一个容器的 Pod 的配置文件。
+容器未指定内存请求和限制。
+
 {{< codenew file="admin/resource/memory-defaults-pod.yaml" >}}
 
 <!--
@@ -246,6 +249,19 @@ it can be allowed to run in a namespace that is restricted by a quota.
 -->
 如果一个容器没有声明自己的内存限制，会被指定默认限制，然后它才会被允许在限定了配额的命名空间中运行。
 
+<!--
+## Clean up
+
+Delete your namespace:
+-->
+## 清理
+
+删除你的命名空间：
+
+```shell
+kubectl delete namespace default-mem-example
+```
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -285,5 +301,5 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 * [为容器和 Pod 分配内存资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
-* [为 Pod 配置服务数量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+* [为 Pod 配置服务质量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
 

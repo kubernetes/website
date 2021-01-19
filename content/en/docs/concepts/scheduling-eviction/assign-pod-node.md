@@ -246,7 +246,7 @@ as at least one already-running pod that has a label with key "security" and val
 on node N if node N has a label with key `topology.kubernetes.io/zone` and some value V
 such that there is at least one node in the cluster with key `topology.kubernetes.io/zone` and
 value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
-rule says that the pod cannot be scheduled onto a node if that node is in the same zone as a pod with
+rule says that the pod should not be scheduled onto a node if that node is in the same zone as a pod with
 label having key "security" and value "S2". See the
 [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
 for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`

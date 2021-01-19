@@ -38,6 +38,7 @@ You can run the example with this command:
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/job.yaml
 ```
+The output is similar to this:
 ```
 job.batch/pi created
 ```
@@ -47,6 +48,7 @@ Check on the status of the Job with `kubectl`:
 ```shell
 kubectl describe jobs/pi
 ```
+The output is similar to this:
 ```
 Name:           pi
 Namespace:      default
@@ -91,6 +93,7 @@ To list all the Pods that belong to a Job in a machine readable form, you can us
 pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
 echo $pods
 ```
+The output is similar to this:
 ```
 pi-5rwd7
 ```
@@ -398,10 +401,11 @@ Therefore, you delete Job `old` but _leave its pods
 running_, using `kubectl delete jobs/old --cascade=false`.
 Before deleting it, you make a note of what selector it uses:
 
-```
+```shell
 kubectl get job old -o yaml
 ```
-```
+The output is similar to this:
+```yaml
 kind: Job
 metadata:
   name: old
@@ -420,7 +424,7 @@ they are controlled by Job `new` as well.
 You need to specify `manualSelector: true` in the new Job since you are not using
 the selector that the system normally generates for you automatically.
 
-```
+```yaml
 kind: Job
 metadata:
   name: new

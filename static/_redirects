@@ -278,7 +278,6 @@
 /docs/tasks/manage-stateful-set/deleting-a-statefulset/     /docs/tasks/run-application/delete-stateful-set/ 301
 /docs/tasks/manage-stateful-set/scale-stateful-set/     /docs/tasks/run-application/scale-stateful-set/ 301
 /docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/     /docs/tasks/run-application/upgrade-pet-set-to-stateful-set/ 301
-/docs/tasks/run-application/podpreset/     /docs/tasks/inject-data-application/podpreset/ 301
 /docs/tasks/run-application/update-api-object-kubectl-patch/    /docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/ 301
 /docs/tasks/stateful-sets/deleting-pods/     /docs/tasks/run-application/force-delete-stateful-set-pod/ 301
 /docs/tasks/troubleshoot/debug-init-containers/     /docs/tasks/debug-application-cluster/debug-init-containers/ 301
@@ -368,6 +367,7 @@
 /docs/user-guide/kubectl/     /docs/reference/generated/kubectl/kubectl-options/
 /docs/user-guide/kubectl-conventions/     /docs/reference/kubectl/conventions/
 /docs/user-guide/kubectl-cheatsheet/     /docs/reference/kubectl/cheatsheet/
+/cheatsheet /docs/reference/kubectl/cheatsheet/ 302
 /docs/user-guide/kubectl/kubectl_*/     /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 /docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ 301
@@ -387,7 +387,6 @@
 /docs/user-guide/persistent-volumes/index     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/index.md     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/walkthrough/     /docs/tasks/configure-pod-container/configure-persistent-volume-storage/ 301
-/docs/user-guide/pod-preset/     /docs/concepts/workloads/pods/podpreset/ 301
 /docs/user-guide/pod-security-policy/     /docs/concepts/policy/pod-security-policy/ 301
 /docs/user-guide/pod-states/     /docs/concepts/workloads/pods/pod-lifecycle/ 301
 /docs/user-guide/pod-templates/     /docs/concepts/workloads/pods/#pod-templates 301
@@ -470,6 +469,7 @@
 
 /docs/setup/minikube/     /docs/tasks/tools/ 302
 /docs/setup/learning-environment/     /docs/tasks/tools/  302!
+/zh/docs/setup/learning-environment/     /zh/docs/tasks/tools/  302!
 /docs/setup/learning-environment/kind/  /docs/tasks/tools/  302
 /docs/setup/learning-environment/minikube/  /docs/tasks/tools/ 302
 /docs/setup/cri/     /docs/setup/production-environment/container-runtimes/   301

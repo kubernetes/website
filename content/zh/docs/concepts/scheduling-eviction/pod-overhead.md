@@ -73,7 +73,7 @@ RuntimeClass 如下，其中每个 Pod 大约使用 120MiB:
 ```yaml
 ---
 kind: RuntimeClass
-apiVersion: node.k8s.io/v1beta1
+apiVersion: node.k8s.io/v1
 metadata:
     name: kata-fc
 handler: kata-fc

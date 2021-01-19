@@ -40,7 +40,7 @@ separate database or file service.
 A ConfigMap is an API [object](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 that lets you store configuration for other objects to use. Unlike most
 Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
-fields. These fields accepts key-value pairs as their values.  Both the `data`
+fields. These fields accept key-value pairs as their values.  Both the `data`
 field and the `binaryData` are optional. The `data` field is designed to
 contain UTF-8 byte sequences while the `binaryData` field is designed to
 contain binary data.

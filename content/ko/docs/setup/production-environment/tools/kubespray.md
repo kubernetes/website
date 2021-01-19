@@ -22,7 +22,7 @@ Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](h
     * Flatcar Container Linux by Kinvolk
 * 지속적인 통합 (CI) 테스트
 
-클러스터를 설치해 줄 도구로 유스케이스와 가장 잘 맞는 것을 고르고 싶다면, kubespray를 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), [kops](/docs/setup/production-environment/tools/kops/)와 [비교한 글](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)을 읽어보자.
+클러스터를 설치해 줄 도구로 유스케이스와 가장 잘 맞는 것을 고르고 싶다면, kubespray를 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), [kops](/ko/docs/setup/production-environment/tools/kops/)와 [비교한 글](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)을 읽어보자.
 
 <!-- body -->
 
@@ -103,7 +103,7 @@ upgrade-cluster 플레이북을 실행해 클러스터를 업그레이드 할 �
 
 [reset 플레이북](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml)을 이용하여 노드들을 리셋하고 Kubespray로 설치된 모든 구성요소를 삭제할 수 있다.
 
-{{< caution >}} 
+{{< caution >}}
 reset 플레이북을 실행할 때, 실수로 프로덕션 클러스터를 타겟으로 삼지 않도록 해야 한다!
 {{< /caution >}}
 
@@ -116,4 +116,3 @@ reset 플레이북을 실행할 때, 실수로 프로덕션 클러스터를 타�
 
 
 Kubespray의 [로드맵](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)에서 계획중인 작업을 확인해보자.
-

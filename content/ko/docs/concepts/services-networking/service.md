@@ -201,10 +201,15 @@ API 리소스이다. 개념적으로 엔드포인트와 매우 유사하지만, 
 
 ### 애플리케이션 프로토콜
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-`AppProtocol` 필드는 각 서비스 포트에 대한 애플리케이션 프로토콜을 지정하는 방법을 제공한다.
-이 필드의 값은 해당 엔드포인트와 엔드포인트슬라이스 리소스에 의해 미러링된다.
+`appProtocol` 필드는 각 서비스 포트에 대한 애플리케이션 프로토콜을 지정하는 방법을 제공한다.
+이 필드의 값은 해당 엔드포인트와 엔드포인트슬라이스 
+오브젝트에 의해 미러링된다.
+
+이 필드는 표준 쿠버네티스 레이블 구문을 따른다. 값은 
+[IANA 표준 서비스 이름](http://www.iana.org/assignments/service-names) 또는
+`mycompany.com/my-custom-protocol`과 같은 도메인 접두사 이름 중 하나여야 한다.
 
 ## 가상 IP와 서비스 프록시
 
@@ -576,20 +581,11 @@ status:
 
 외부 로드 밸런서의 트래픽은 백엔드 파드로 전달된다. 클라우드 공급자는 로드 밸런싱 방식을 결정한다.
 
-로드 밸런서 서비스 유형의 경우 두 개 이상의 포트가 정의된 경우,
-모든 포트의 프로토콜이 동일해야 하고, 프로토콜은 `TCP`, `UDP` 그리고
-`SCTP` 중 하나여야 한다.
-
 일부 클라우드 공급자는 `loadBalancerIP`를 지정할 수 있도록 허용한다. 이 경우, 로드 밸런서는
 사용자 지정 `loadBalancerIP`로 생성된다. `loadBalancerIP` 필드가 지정되지 않으면,
 임시 IP 주소로 loadBalancer가 설정된다. `loadBalancerIP`를 지정했지만
 클라우드 공급자가 이 기능을 지원하지 않는 경우, 설정한 `loadbalancerIP` 필드는
 무시된다.
-
-{{< note >}}
-SCTP를 사용하는 경우, `LoadBalancer` 서비스 유형에 대한 아래의 [경고](#caveat-sctp-loadbalancer-service-type)를
-참고한다.
-{{< /note >}}
 
 {{< note >}}
 
@@ -602,7 +598,35 @@ SCTP를 사용하는 경우, `LoadBalancer` 서비스 유형에 대한 아래의
 
 {{< /note >}}
 
-#### 내부 로드 밸런서 {#internal-load-balancer}
+#### 프로토콜 유형이 혼합된 로드밸런서
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+기본적으로 로드밸런서 서비스 유형의 경우 둘 이상의 포트가 정의되어 있을 때 모든 
+포트는 동일한 프로토콜을 가져야 하며 프로토콜은 클라우드 공급자가 
+지원하는 프로토콜이어야 한다.
+
+kube-apiserver에 대해 기능 게이트 `MixedProtocolLBService`가 활성화된 경우 둘 이상의 포트가 정의되어 있을 때 다른 프로토콜을 사용할 수 있다.
+
+{{< note >}}
+
+로드밸런서 서비스 유형에 사용할 수 있는 프로토콜 세트는 여전히 클라우드 제공 업체에서 정의한다.
+
+{{< /note >}}
+
+#### 로드밸런서 NodePort 할당 비활성화
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+v1.20부터는 `spec.allocateLoadBalancerNodePorts`필드를 `false`로 설정하여 서비스 Type=LoadBalancer에 
+대한 노드 포트 할당을 선택적으로 비활성화 할 수 있다.
+노드 포트를 사용하는 대신 트래픽을 파드로 직접 라우팅하는 로드 밸런서 구현에만 사용해야 한다.
+기본적으로 `spec.allocateLoadBalancerNodePorts`는 `true`이며 로드밸런서 서비스 유형은 계속해서 노드 포트를 할당한다.
+노드 포트가 할당된 기존 서비스에서 `spec.allocateLoadBalancerNodePorts`가 `false`로 설정된 경우 해당 노드 포트는 자동으로 할당 해제되지 않는다.
+이러한 노드 포트를 할당 해제하려면 모든 서비스 포트에서 `nodePorts` 항목을 명시적으로 제거해야 한다.
+이 필드를 사용하려면 `ServiceLBNodePortControl` 기능 게이트를 활성화해야 한다.
+
+#### 내부 로드 밸런서
 
 혼재된 환경에서는 서비스의 트래픽을 동일한 (가상) 네트워크 주소 블록 내로
 라우팅해야 하는 경우가 있다.
@@ -1182,6 +1206,36 @@ IPVS는 로드 밸런싱을 위해 설계되었고 커널-내부 해시 테이�
 대부분의 서비스에 UDP를 사용할 수 있다. type=LoadBalancer 서비스의 경우, UDP 지원은
 이 기능을 제공하는 클라우드 공급자에 따라 다르다.
 
+### SCTP
+
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
+
+SCTP 트래픽을 지원하는 네트워크 플러그인을 사용하는 경우 대부분의 서비스에 SCTP를 사용할 수 있다. 
+type=LoadBalancer 서비스의 경우 SCTP 지원은 이 기능을 제공하는 
+클라우드 공급자에 따라 다르다. (대부분 그렇지 않음)
+
+#### 경고 {#caveat-sctp-overview}
+
+##### 멀티홈드(multihomed) SCTP 연결을 위한 지원 {#caveat-sctp-multihomed}
+
+{{< warning >}}
+멀티홈 SCTP 연결을 위해서는 먼저 CNI 플러그인이 파드에 대해 멀티 인터페이스 및 IP 주소 할당이 지원되어야 한다.
+
+멀티홈 SCTP 연결을 위한 NAT는 해당 커널 모듈 내에 특수한 로직을 필요로 한다.
+{{< /warning >}}
+
+##### 윈도우 {#caveat-sctp-windows-os}
+
+{{< warning >}}
+SCTP는 윈도우 기반 노드를 지원하지 않는다.
+{{< /warning >}}
+
+##### 유저스페이스 kube-proxy {#caveat-sctp-kube-proxy-userspace}
+
+{{< warning >}}
+kube-proxy는 유저스페이스 모드에 있을 때 SCTP 연결 관리를 지원하지 않는다.
+{{< /warning >}}
+
 ### HTTP
 
 클라우드 공급자가 이를 지원하는 경우, LoadBalancer 모드의
@@ -1208,42 +1262,6 @@ PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 ```
 
 클라이언트 데이터가 뒤따라온다.
-
-### SCTP
-
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
-
-쿠버네티스는 서비스, 엔드포인트, 엔드포인트슬라이스, 네트워크폴리시 및 파드 정의에서 SCTP를 `protocol` 값으로 지원한다. 이 기능은 베타 기능으로, 기본 활성화되어 있다. 클러스터 수준에서 SCTP를 비활성화하려면, 사용자(또는 클러스터 관리자)가 API 서버에서 `--feature-gates=SCTPSupport=false,…` 를 사용해서 `SCTPSupport` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화해야 한다.
-
-기능 게이트가 활성화되면, 서비스, 엔드포인트, 엔드포인트슬라이스, 네트워크폴리시 또는 파드의 `protocol` 필드를 `SCTP` 로 설정할 수 있다. 쿠버네티스는 TCP 연결과 마찬가지로, SCTP 연결에 맞게 네트워크를 설정한다.
-
-#### 경고 {#caveat-sctp-overview}
-
-##### 멀티홈드(multihomed) SCTP 연결을 위한 지원 {#caveat-sctp-multihomed}
-
-{{< warning >}}
-멀티홈 SCTP 연결을 위해서는 먼저 CNI 플러그인이 파드에 대해 멀티 인터페이스 및 IP 주소 할당이 지원되어야 한다.
-
-멀티홈 SCTP 연결을 위한 NAT는 해당 커널 모듈 내에 특수한 로직을 필요로 한다.
-{{< /warning >}}
-
-##### type=LoadBalancer 서비스 {#caveat-sctp-loadbalancer-service-type}
-
-{{< warning >}}
-클라우드 공급자의 로드 밸런서 구현이 프로토콜로서 SCTP를 지원하는 경우에만 LoadBalancer `유형`과 SCTP `프로토콜`을 사용하여 서비스를 생성할 수 있다. 그렇지 않으면, 서비스 생성 요청이 거부된다. 현재 클라우드 로드 밸런서 공급자 세트 (Azure, AWS, CloudStack, GCE, OpenStack)는 모두 SCTP에 대한 지원이 없다.
-{{< /warning >}}
-
-##### 윈도우 {#caveat-sctp-windows-os}
-
-{{< warning >}}
-SCTP는 윈도우 기반 노드를 지원하지 않는다.
-{{< /warning >}}
-
-##### 유저스페이스 kube-proxy {#caveat-sctp-kube-proxy-userspace}
-
-{{< warning >}}
-kube-proxy는 유저스페이스 모드에 있을 때 SCTP 연결 관리를 지원하지 않는다.
-{{< /warning >}}
 
 ## {{% heading "whatsnext" %}}
 

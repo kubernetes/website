@@ -44,9 +44,9 @@ kubectl [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      If true, adds the file directory to the header
+      If true, adds the file directory to the header of the log messages
       -->
-      设置为 true 表示添加文件目录到 header 中
+      设置为 true 表示添加文件目录到日志信息头中
       </td>
     </tr>
     <tr>
@@ -94,14 +94,14 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
-      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "~/.kube/http-cache"</td>
+      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "$HOME/.kube/cache"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      Default HTTP cache directory
+      Default cache directory
       -->
-      默认 HTTP 缓存目录
+      默认缓存目录
       </td>
     </tr>
     <tr>
@@ -138,14 +138,23 @@ kubectl [flags]
       </td>
     </tr>
     <tr>
+      <td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 130.211.0.0/22,35.191.0.0/16</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+        <!--CIDRs opened in GCE firewall for L7 LB traffic proxy & health checks-->
+        在 GCE 防火墙中开放的 CIDR，用来进行 L7 LB 流量代理和健康检查。
+      </td>
+    </tr>
+    <tr>
       <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      CIDRs opened in GCE firewall for LB traffic proxy & health checks
+      CIDRs opened in GCE firewall for L4 LB traffic proxy & health checks
       -->
-      在 GCE 防火墙中打开 CIDR，以进行 LB 流量代理和运行状况检查。
+      在 GCE 防火墙中开放的 CIDR，用来进行 L4 LB 流量代理和健康检查。
       </td>
     </tr>
     <tr>
@@ -312,6 +321,15 @@ kubectl [flags]
       -->
       如果存在，CLI 请求将使用此命名空间
       </td>
+    <tr>
+      <td colspan="2">--one-output</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">
+      <!--If true, only write logs to their native severity level (vs also writing to each lower severity level-->
+      如果为 true，则只将日志写入初始严重级别（而不是同时写入所有较低的严重级别）。
+      </td>
+    </tr>
     </tr>
     <tr>
       <td colspan="2">--password string</td>
@@ -476,7 +494,6 @@ kubectl [flags]
 
 ## {{% heading "seealso" %}}
 
-
 <!--
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Update the annotations on a resource
 * [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - Print the supported API resources on the server
@@ -489,7 +506,6 @@ kubectl [flags]
 * [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - 以“组/版本”的格式输出服务端所支持的 API 版本
 * [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply)	 - 基于文件名或标准输入，将新的配置应用到资源上
 * [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands#attach)	 - 连接到一个正在运行的容器
-
 <!--
 * [kubectl auth](/docs/reference/generated/kubectl/kubectl-commands#auth)	 - Inspect authorization
 * [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale)	 - Auto-scale a Deployment, ReplicaSet, or ReplicationController
@@ -504,20 +520,20 @@ kubectl [flags]
 * [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands#cluster-info)	 - 显示集群信息
 * [kubectl completion](/docs/reference/generated/kubectl/kubectl-commands#completion)	 - 根据已经给出的 Shell（bash 或 zsh），输出 Shell 补全后的代码
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)	 - 修改 kubeconfig 配置文件
-
 <!--
 * [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert)	 - Convert config files between different API versions
 * [kubectl cordon](/docs/reference/generated/kubectl/kubectl-commands#cordon)	 - Mark node as unschedulable
 * [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - Copy files and directories to and from containers.
 * [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - Create a resource from a file or from stdin.
+* [kubectl debug](/docs/reference/generated/kubectl/kubectl-commands#debug)	 - Create debugging sessions for troubleshooting workloads and nodes
 * [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - Delete resources by filenames, stdin, resources and names, or by resources and label selector
 -->
 * [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert)	 - 在不同的 API 版本之间转换配置文件
 * [kubectl cordon](/docs/reference/generated/kubectl/kubectl-commands#cordon)	 - 标记节点为不可调度的
-* [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - 将文件和目录拷入/拷出容器。
+* [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - 将文件和目录拷入/拷出容器
 * [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - 通过文件或标准输入来创建资源
+* [kubectl debug](/docs/reference/generated/kubectl/kubectl-commands#debug)	 - 创建用于排查工作负载和节点故障的调试会话
 * [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - 通过文件名、标准输入、资源和名字删除资源，或者通过资源和标签选择器来删除资源
-
 <!--
 * [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	 - Show details of a specific resource or group of resources
 * [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Diff live version against would-be applied version
@@ -534,14 +550,13 @@ kubectl [flags]
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - 在容器中执行相关命令
 * [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	 - 显示资源文档说明
 * [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	 - 给定副本控制器、服务、Deployment 或 Pod，将其暴露为新的 kubernetes Service
-
 <!--
 * [kubectl get](/docs/reference/generated/kubectl/kubectl-commands#get)	 - Display one or many resources
 * [kubectl kustomize](/docs/reference/generated/kubectl/kubectl-commands#kustomize)	 - Build a kustomization target from a directory or a remote url.
 * [kubectl label](/docs/reference/generated/kubectl/kubectl-commands#label)	 - Update the labels on a resource
 * [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	 - Print the logs for a container in a pod
 * [kubectl options](/docs/reference/generated/kubectl/kubectl-commands#options)	 - Print the list of flags inherited by all commands
-* [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - Update field(s) of a resource using strategic merge patch
+* [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - Update field(s) of a resource
 -->
 * [kubectl get](/docs/reference/generated/kubectl/kubectl-commands#get)	 - 显示一个或者多个资源信息
 * [kubectl kustomize](/docs/reference/generated/kubectl/kubectl-commands#kustomize)	 - 从目录或远程 URL 中构建 kustomization
@@ -549,7 +564,6 @@ kubectl [flags]
 * [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	 - 输出 pod 中某容器的日志
 * [kubectl options](/docs/reference/generated/kubectl/kubectl-commands#options)	 - 打印所有命令都支持的共有参数列表
 * [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - 基于策略性合并修补（Stategic Merge Patch）规则更新某资源中的字段
-
 <!--
 * [kubectl plugin](/docs/reference/generated/kubectl/kubectl-commands#plugin)	 - Provides utilities for interacting with plugins.
 * [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands#port-forward)	 - Forward one or more local ports to a pod
@@ -564,9 +578,8 @@ kubectl [flags]
 * [kubectl replace](/docs/reference/generated/kubectl/kubectl-commands#replace)	 - 基于文件名或标准输入替换资源
 * [kubectl rollout](/docs/reference/generated/kubectl/kubectl-commands#rollout)	 - 管理资源的上线
 * [kubectl run](/docs/reference/generated/kubectl/kubectl-commands#run)	 - 在集群中使用指定镜像启动容器
-
 <!--
-* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job
+* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - Set a new size for a Deployment, ReplicaSet or Replication Controller
 * [kubectl set](/docs/reference/generated/kubectl/kubectl-commands#set)	 - Set specific features on objects
 * [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)	 - Update the taints on one or more nodes
 * [kubectl top](/docs/reference/generated/kubectl/kubectl-commands#top)	 - Display Resource (CPU/Memory/Storage) usage.
@@ -574,7 +587,7 @@ kubectl [flags]
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Print the client and server version information
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Experimental: Wait for a specific condition on one or many resources.
 -->
-* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - 为一个 Deployment、ReplicaSet、ReplicationController 或 Job 设置一个新的规模尺寸值
+* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - 为一个 Deployment、ReplicaSet 或 ReplicationController 设置一个新的规模尺寸值
 * [kubectl set](/docs/reference/generated/kubectl/kubectl-commands#set)	 - 为对象设置功能特性
 * [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)	 - 在一个或者多个节点上更新污点配置
 * [kubectl top](/docs/reference/generated/kubectl/kubectl-commands#top)	 - 显示资源（CPU /内存/存储）使用率

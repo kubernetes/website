@@ -41,7 +41,7 @@ accounts._ Normal users cannot be added to a cluster through an API call.
 
 所有 Kubernetes 集群都有两类用户：由 Kubernetes 管理的服务账号和普通用户。
 
-Kuernetes 假定使用以下方式之一来利用与集群无关的服务来管理普通用户：
+Kubernetes 假定普通用户是由一个与集群无关的服务通过以下方式之一进行管理的：
 
 - 负责分发私钥的管理员
 - 类似 Keystone 或者 Google Accounts 这类用户数据库
@@ -351,7 +351,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 服务账号通常由 API 服务器自动创建并通过 `ServiceAccount`
 [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)
 关联到集群中运行的 Pod 上。
-持有者令牌会挂载到 Pod 中可预知的为之，允许集群内进程与 API 服务器通信。
+持有者令牌会挂载到 Pod 中可预知的位置，允许集群内进程与 API 服务器通信。
 服务账号也可以使用 Pod 规约的 `serviceAccountName` 字段显式地关联到 Pod 上。
 
 <!--
@@ -1387,11 +1387,35 @@ users:
       args:
       - "arg1"
       - "arg2"
+
+      # Text shown to the user when the executable doesn't seem to be present. Optional.
+      installHint: |
+        example-client-go-exec-plugin is required to authenticate
+        to the current cluster.  It can be installed:
+
+        On macOS: brew install example-client-go-exec-plugin
+
+        On Ubuntu: apt-get install example-client-go-exec-plugin
+
+        On Fedora: dnf install example-client-go-exec-plugin
+
+        ...
+
+      # Whether or not to provide cluster information, which could potentially contain
+      # very large CA data, to this exec plugin as a part of the KUBERNETES_EXEC_INFO
+      # environment variable.
+      provideClusterInfo: true
 clusters:
 - name: my-cluster
   cluster:
     server: "https://172.17.4.100:6443"
     certificate-authority: "/etc/kubernetes/ca.pem"
+    extensions:
+    - name: client.authentication.k8s.io/exec # reserved extension name for per cluster exec config
+      extension:
+        arbitrary: config
+        this: can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo
+        you: ["can", "put", "anything", "here"]
 contexts:
 - name: my-cluster
   context:
@@ -1427,11 +1451,33 @@ users:
       args:
       - "arg1"
       - "arg2"
+
+      # 当可执行文件不存在时显示给用户的文本。可选的。
+      installHint: |
+        需要 example-client-go-exec-plugin 来在当前集群上执行身份认证。可以通过以下命令安装：
+
+        MacOS: brew install example-client-go-exec-plugin
+
+        Ubuntu: apt-get install example-client-go-exec-plugin
+
+        Fedora: dnf install example-client-go-exec-plugin
+
+        ...
+
+      # 是否使用 KUBERNETES_EXEC_INFO 环境变量的一部分向这个 exec 插件
+      # 提供集群信息（可能包含非常大的 CA 数据）
+      provideClusterInfo: true
 clusters:
 - name: my-cluster
   cluster:
     server: "https://172.17.4.100:6443"
     certificate-authority: "/etc/kubernetes/ca.pem"
+    extensions:
+    - name: client.authentication.k8s.io/exec # 为每个集群 exec 配置保留的扩展名
+      extension:
+        arbitrary: config
+        this: 在设置 provideClusterInfo 时可通过环境变量 KUBERNETES_EXEC_INFO 指定
+        you: ["can", "put", "anything", "here"]
 contexts:
 - name: my-cluster
   context:
@@ -1548,6 +1594,40 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
   "status": {
     "token": "my-bearer-token",
     "expirationTimestamp": "2018-03-05T17:30:20-08:00"
+  }
+}
+```
+
+<!--
+The plugin can optionally be called with an environment variable, `KUBERNETES_EXEC_INFO`,
+that contains information about the cluster for which this plugin is obtaining
+credentials. This information can be used to perform cluster-specific credential
+acquisition logic. In order to enable this behavior, the `provideClusterInfo` field must
+be set on the exec user field in the
+[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/). Here is an
+example of the aforementioned `KUBERNETES_EXEC_INFO` environment variable.
+-->
+
+调用此插件时可以选择性地设置环境变量 `KUBERNETES_EXEC_INFO`。
+该变量包含了此插件获取凭据所针对的集群信息。此信息可用于执行群集特定的凭据获取逻辑。
+为了启用此行为，必须在 [kubeconfig](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+中的 exec user 字段上设置`provideClusterInfo`字段。
+下面是上述 `KUBERNETES_EXEC_INFO` 环境变量的示例。
+
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1beta1",
+  "kind": "ExecCredential",
+  "spec": {
+    "cluster": {
+      "server": "https://172.17.4.100:6443",
+      "certificate-authority-data": "LS0t...",
+      "config": {
+        "arbitrary": "config",
+        "this": "在设置 provideClusterInfo 时可通过环境变量 KUBERNETES_EXEC_INFO 指定",
+        "you": ["can", "put", "anything", "here"]
+      }
+    }
   }
 }
 ```

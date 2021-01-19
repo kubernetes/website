@@ -13,7 +13,7 @@ This page shows how to view, work in, and delete {{< glossary_tooltip text="name
 ## {{% heading "prerequisites" %}}
 
 * Have an [existing Kubernetes cluster](/docs/setup/).
-2. You have a basic understanding of Kubernetes {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip term_id="service" text="Services" >}}, and {{< glossary_tooltip text="Deployments" term_id="deployment" >}}.
+* You have a basic understanding of Kubernetes {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip term_id="service" text="Services" >}}, and {{< glossary_tooltip text="Deployments" term_id="deployment" >}}.
 
 
 <!-- steps -->

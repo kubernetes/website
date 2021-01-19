@@ -274,8 +274,8 @@ This admission controller ignores any `PersistentVolumeClaim` updates; it acts o
 -->
 当未配置默认存储类时，此准入控制器不执行任何操作。如果将多个存储类标记为默认存储类，
 它将拒绝任何创建 `PersistentVolumeClaim` 的操作，并显示错误。
-此时准入控制器会忽略任何 `PersistentVolumeClaim` 更新操作，仅响应创建操作。
 要修复此错误，管理员必须重新访问其 `StorageClass` 对象，并仅将其中一个标记为默认。
+此准入控制器会忽略所有 `PersistentVolumeClaim` 更新操作，仅响应创建操作。
 
 <!--
 See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentation about persistent volume claims and
@@ -1224,20 +1224,35 @@ See the [resourceQuota design doc](https://git.k8s.io/community/contributors/des
 <!--
 ### RuntimeClass {#runtimeclass}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-For [RuntimeClass](/docs/concepts/containers/runtime-class/) definitions which describe an overhead associated with running a pod,
-this admission controller will set the pod.Spec.Overhead field accordingly.
+If you enable the `PodOverhead` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), and define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) configured, this admission controller checks incoming
+Pods. When enabled, this admission controller rejects any Pod create requests that have the overhead already set.
+For Pods that have a  RuntimeClass is configured and selected in their `.spec`, this admission controller sets `.spec.overhead` in the Pod based on the value defined in the corresponding RuntimeClass.
+
+{{< note >}}
+The `.spec.overhead` field for Pod and the `.overhead` field for RuntimeClass are both in beta. If you do not enable the `PodOverhead` feature gate, all Pods are treated as if `.spec.overhead` is unset.
+{{< /note >}}
 
 See also [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 for more information.
 -->
-### 容器运行时类 {#runtimeclass} 
+### RuntimeClass {#runtimeclass}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
++{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-[RuntimeClass](/zh/docs/concepts/containers/runtime-class/) 定义描述了与运行 Pod
-相关的开销。此准入控制器将相应地设置 `pod.spec.overhead` 字段。
+如果你开启 `PodOverhead`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/),
+并且通过 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
+配置来定义一个 RuntimeClass，这个准入控制器会检查新的 Pod。
+当启用的时候，这个准入控制器会拒绝任何 overhead 字段已经设置的 Pod。
+对于配置了 RuntimeClass 并在其 `.spec` 中选定 RuntimeClass 的 Pod，
+此准入控制器会根据相应 RuntimeClass 中定义的值为 Pod 设置 `.spec.overhead`。
+
+{{< note >}}
+Pod 的 `.spec.overhead` 字段和 RuntimeClass 的 `.overhead` 字段均为处于 beta 版本。
+如果你未启用 `PodOverhead` 特性门控，则所有 Pod 均被视为未设置 `.spec.overhead`。
+{{< /note >}}
 
 详情请参见 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)。
 
@@ -1379,4 +1394,3 @@ For Kubernetes 1.9 and earlier, we recommend running the following set of admiss
     admission controllers ran in the exact order specified.
     -->
     对于更早期版本，没有验证和变更的概念，并且准入控制器按照指定的确切顺序运行。
-

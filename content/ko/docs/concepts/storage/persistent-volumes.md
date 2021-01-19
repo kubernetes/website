@@ -304,26 +304,35 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 
 퍼시스턴트볼륨 유형은 플러그인으로 구현된다. 쿠버네티스는 현재 다음의 플러그인을 지원한다.
 
-* GCEPersistentDisk
-* AWSElasticBlockStore
-* AzureFile
-* AzureDisk
-* CSI
-* FC (파이버 채널)
-* FlexVolume
-* Flocker
-* NFS
-* iSCSI
-* RBD (Ceph Block Device)
-* CephFS
-* Cinder (OpenStack 블록 스토리지)
-* Glusterfs
-* VsphereVolume
-* Quobyte Volumes
-* HostPath (단일 노드 테스트 전용 – 로컬 스토리지는 어떤 방식으로도 지원되지 않으며 다중-노드 클러스터에서 작동하지 않음)
-* Portworx Volumes
-* ScaleIO Volumes
-* StorageOS
+* [`awsElasticBlockStore`](/ko/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+* [`azureDisk`](/ko/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+* [`azureFile`](/ko/docs/concepts/storage/volumes/#azurefile) - Azure File
+* [`cephfs`](/ko/docs/concepts/storage/volumes/#cephfs) - CephFS 볼륨
+* [`cinder`](/ko/docs/concepts/storage/volumes/#cinder) - Cinder (오픈스택 블록 스토리지)
+  (**사용 중단**)
+* [`csi`](/ko/docs/concepts/storage/volumes/#csi) - 컨테이너 스토리지 인터페이스 (CSI)
+* [`fc`](/ko/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 스토리지
+* [`flexVolume`](/ko/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
+* [`flocker`](/ko/docs/concepts/storage/volumes/#flocker) - Flocker 스토리지
+* [`gcePersistentDisk`](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+* [`glusterfs`](/ko/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 볼륨
+* [`hostPath`](/ko/docs/concepts/storage/volumes/#hostpath) - HostPath 볼륨
+  (단일 노드 테스트 전용. 다중-노드 클러스터에서 작동하지 않음. 
+  대신 `로컬` 볼륨 사용 고려)
+* [`iscsi`](/ko/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) 스토리지
+* [`local`](/ko/docs/concepts/storage/volumes/#local) - 노드에 마운트된 
+  로컬 스토리지 디바이스
+* [`nfs`](/ko/docs/concepts/storage/volumes/#nfs) - 네트워크 파일 시스템 (NFS) 스토리지
+* `photonPersistentDisk` - Photon 컨트롤러 퍼시스턴트 디스크.
+  (이 볼륨 유형은 해당 클라우드 공급자가 없어진 이후 더 이상 
+  작동하지 않는다.)
+* [`portworxVolume`](/ko/docs/concepts/storage/volumes/#portworxvolume) - Portworx 볼륨
+* [`quobyte`](/ko/docs/concepts/storage/volumes/#quobyte) - Quobyte 볼륨
+* [`rbd`](/ko/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) 볼륨
+* [`scaleIO`](/ko/docs/concepts/storage/volumes/#scaleio) - ScaleIO 볼륨
+  (**사용 중단**)
+* [`storageos`](/ko/docs/concepts/storage/volumes/#storageos) - StorageOS 볼륨
+* [`vsphereVolume`](/ko/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 볼륨
 
 ## 퍼시스턴트 볼륨
 
@@ -717,12 +726,10 @@ spec:
 
 ## 볼륨 스냅샷 및 스냅샷 지원에서 볼륨 복원
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-CSI 볼륨 플러그인만 지원하도록 볼륨 스냅샷 기능이 추가되었다. 자세한 내용은 [볼륨 스냅샷](/ko/docs/concepts/storage/volume-snapshots/)을 참고한다.
-
-볼륨 스냅샷 데이터 소스에서 볼륨 복원을 지원하려면 apiserver와 controller-manager에서
-`VolumeSnapshotDataSource` 기능 게이트를 활성화한다.
+볼륨 스냅 샷은 아웃-오브-트리 CSI 볼륨 플러그인만 지원한다. 자세한 내용은 [볼륨 스냅샷](/ko/docs/concepts/storage/volume-snapshots/)을 참조한다.
+인-트리 볼륨 플러그인은 사용 중단 되었다. [볼륨 플러그인 FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)에서 사용 중단된 볼륨 플러그인에 대해 확인할 수 있다.
 
 ### 볼륨 스냅샷에서 퍼시스턴트볼륨클레임 생성 {#create-persistent-volume-claim-from-volume-snapshot}
 

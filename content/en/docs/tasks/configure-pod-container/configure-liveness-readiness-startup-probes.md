@@ -366,7 +366,7 @@ have additional fields that can be set on `httpGet`:
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
 set "Host" in httpHeaders instead.
 * `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to HTTP.
-* `path`: Path to access on the HTTP server.
+* `path`: Path to access on the HTTP server. Defaults to /.
 * `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
 * `port`: Name or number of the port to access on the container. Number must be
 in the range 1 to 65535.
@@ -389,24 +389,32 @@ You can override the default headers by defining `.httpHeaders` for the probe; f
 
 ```yaml
 livenessProbe:
-  httpHeaders:
-    Accept: application/json
+  httpGet:
+    httpHeaders:
+      - name: Accept
+        value: application/json
 
 startupProbe:
-  httpHeaders:
-    User-Agent: MyUserAgent
+  httpGet:
+    httpHeaders:
+      - name: User-Agent
+        value: MyUserAgent
 ```
 
 You can also remove these two headers by defining them with an empty value.
 
 ```yaml
 livenessProbe:
-  httpHeaders:
-    Accept: ""
+  httpGet:
+    httpHeaders:
+      - name: Accept
+        value: ""
 
 startupProbe:
-  httpHeaders:
-    User-Agent: ""
+  httpGet:
+    httpHeaders:
+      - name: User-Agent
+        value: ""
 ```
 
 ### TCP probes

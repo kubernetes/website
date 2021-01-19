@@ -720,7 +720,7 @@ for ephemeral local storage.
 <!--
 The kubelet supports different ways to measure Pod storage use:
 
-The kubelet performs regular, schedules checks that scan each
+The kubelet performs regular, scheduled checks that scan each
 `emptyDir` volume, container log directory, and writeable container layer.
 
 The scan measures how much space is used.
@@ -1077,6 +1077,17 @@ spec:
       limits:
         example.com/foo: 1
 ```
+
+<!--
+## PID limiting
+
+Process ID (PID) limits allow for the configuration of a kubelet to limit the number of PIDs that a given Pod can consume. See [Pid Limiting](/docs/concepts/policy/pid-limiting/) for information.
+-->
+
+## PID 限制   {#pid-limiting}
+
+进程 ID（PID）限制允许对 kubelet 进行配置，以限制给定 Pod 可以消耗的 PID 数量。
+有关信息，请参见 [PID 限制](/zh/docs/concepts/policy/pid-limiting/)。
 
 <!--
 ## Troubleshooting

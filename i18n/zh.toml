@@ -211,8 +211,20 @@ other = "您的 Kubernetes 服务器版本必须不低于版本 "
 [version_check_tocheck]
 other = "要获知版本信息，请输入 "
 
+[version_menu]
+other = "版本列表"
+
 [warning]
 other = "警告："
 
 [whatsnext_heading]
 other = "接下来"
+
+[docs_version_latest_heading]
+other = "当前版本"
+
+[docs_version_other_heading]
+other = "往期版本"
+
+[docs_version_current]
+other = "(此文档)"
