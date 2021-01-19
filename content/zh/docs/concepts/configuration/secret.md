@@ -45,6 +45,26 @@ Secret 是一种包含少量敏感信息例如密码、令牌或密钥的对象�
 这样的信息可能会被放在 Pod 规约中或者镜像中。
 用户可以创建 Secret，同时系统也创建了一些 Secret。
 
+{{< caution >}}
+<!--
+Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
+strings. By default they can be retrieved - as plain text - by anyone with API
+access, or anyone with access to Kubernetes' underlying data store, etcd. In
+order to safely use Secrets, we recommend you (at a minimum):
+
+1. [Enable Encryption at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
+2. [Enable RBAC rules that restrict reading and writing the Secret](https://kubernetes.io/docs/reference/access-authn-authz/authorization/). Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+-->
+Kubernetes Secret 默认情况下存储为 base64-编码的、非加密的字符串。
+默认情况下，能够访问 API 的任何人，或者能够访问 Kubernetes 下层数据存储（etcd）
+的任何人都可以以明文形式读取这些数据。
+为了能够安全地使用 Secret，我们建议你（至少）：
+
+1. 为 Secret [启用静态加密](/zh/docs/tasks/administer-cluster/encrypt-data/)；
+2. [启用 RBAC 规则来限制对 Secret 的读写操作](/zh/docs/reference/access-authn-authz/authorization/)。
+   要注意，任何被允许创建 Pod 的人都默认地具有读取 Secret 的权限。
+{{< /caution >}}
+
 <!-- body -->
 
 <!--
@@ -1243,7 +1263,7 @@ these pods.
 The `imagePullSecrets` field is a list of references to secrets in the same namespace.
 You can use an `imagePullSecrets` to pass a secret that contains a Docker (or other) image registry
 password to the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
+See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
 
 #### Manually specifying an imagePullSecret
 
@@ -1254,7 +1274,8 @@ You can learn how to specify `ImagePullSecrets` from the [container images docum
 `imagePullSecrets` 字段中包含一个列表，列举对同一名字空间中的 Secret 的引用。
 你可以使用 `imagePullSecrets` 将包含 Docker（或其他）镜像仓库密码的 Secret 传递给
 kubelet。kubelet 使用此信息来替你的 Pod 拉取私有镜像。
-关于 `imagePullSecrets` 字段的更多信息，请参考 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core) 文档。
+关于 `imagePullSecrets` 字段的更多信息，请参考
+[PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 文档。
 
 #### 手动指定 imagePullSecret
 
@@ -1284,15 +1305,12 @@ Pod 将会将其的 imagePullSecret 字段设置为服务帐户的 imagePullSecr
 
 Manually created secrets (e.g. one containing a token for accessing a github account)
 can be automatically attached to pods based on their service account.
-See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset/) for a detailed explanation of that process.
 -->
 
 #### 自动挂载手动创建的 Secret
 
 手动创建的 Secret（例如包含用于访问 GitHub 帐户令牌的 Secret）可以
 根据其服务帐户自动附加到 Pod。
-请参阅[使用 PodPreset 向 Pod 中注入信息](/zh/docs/tasks/inject-data-application/podpreset/)
-以获取该过程的详细说明。
 
 <!--
 ## Details
