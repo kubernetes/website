@@ -121,7 +121,7 @@ kubectl delete pod constraints-mem-demo --namespace=constraints-mem-example
 
 ## 最大メモリ制約を超えるPodの作成の試み
 
-これは、1つのコンテナを持つPodの設定ファイルです。コンテナは800MiBのメモリ要求と1.5GiBのメモリ制限を指定しています。
+これは、1つのコンテナを持つPodの設定ファイルです。コンテナは800MiBのメモリー要求と1.5GiBのメモリー制限を指定しています。
 
 
 {{< codenew file="admin/resource/memory-constraints-pod-2.yaml" >}}
