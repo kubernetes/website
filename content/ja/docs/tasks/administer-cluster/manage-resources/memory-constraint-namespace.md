@@ -143,7 +143,7 @@ pods "constraints-mem-demo-2" is forbidden: maximum memory usage per Container i
 ## 最低限のメモリ要求を満たさないPodの作成の試み
 
 
-これは、1つのコンテナを持つPodの設定ファイルです。コンテナは100MiBのメモリ要求と800MiBのメモリ制限を指定しています。
+これは、1つのコンテナを持つPodの設定ファイルです。コンテナは100MiBのメモリー要求と800MiBのメモリー制限を指定しています。
 
 
 {{< codenew file="admin/resource/memory-constraints-pod-3.yaml" >}}
