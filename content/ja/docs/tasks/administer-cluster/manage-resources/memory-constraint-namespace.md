@@ -237,7 +237,7 @@ kubectl delete namespace constraints-mem-example
 
 ### クラスター管理者向け
 
-* [名前空間に対するデフォルトのメモリ要求と制限の構成](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [名前空間に対するデフォルトのメモリー要求と制限の構成](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
 * [名前空間に対するデフォルトのCPU要求と制限の構成](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
