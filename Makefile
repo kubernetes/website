@@ -85,3 +85,10 @@ docker-internal-linkcheck:
 container-internal-linkcheck: link-checker-image-pull
 	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture
 	$(CONTAINER_ENGINE) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest htmltest
+
+clean-api-reference: ## Clean all directories in API reference directory, preserve _index.md
+	rm -rf content/en/docs/reference/kubernetes-api/*/
+
+api-reference: clean-api-reference ## Build the API reference pages. go needed
+	cd api-ref-generator/gen-resourcesdocs && \
+		go run cmd/main.go kwebsite --config-dir config/v1.20/ --file api/v1.20/swagger.json --output-dir ../../content/en/docs/reference/kubernetes-api --templates templates
