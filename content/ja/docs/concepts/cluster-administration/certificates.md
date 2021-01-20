@@ -119,11 +119,11 @@ weight: 20
 1.  以下のように、ダウンロードして解凍し、コマンドラインツールを用意します。
     使用しているハードウェアアーキテクチャやcfsslのバージョンに応じて、サンプルコマンドの調整が必要な場合があります。
 
-        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_1.4.1_linux_amd64 -o cfssl
+        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.5.0/cfssl_1.5.0_linux_amd64 -o cfssl
         chmod +x cfssl
-        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64 -o cfssljson
+        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.5.0/cfssljson_1.5.0_linux_amd64 -o cfssljson
         chmod +x cfssljson
-        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl-certinfo_1.4.1_linux_amd64 -o cfssl-certinfo
+        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.5.0/cfssl-certinfo_1.5.0_linux_amd64 -o cfssl-certinfo
         chmod +x cfssl-certinfo
 1.  アーティファクトを保持するディレクトリーを生成し、cfsslを初期化します。
 
