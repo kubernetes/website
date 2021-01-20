@@ -27,7 +27,7 @@ cd website
 O website do Kubernetes utiliza o [tema Docsy Hugo](https://github.com/google/docsy#readme). Mesmo se você planeje executar o website em um container, é altamente recomendado baixar os submódulos e outras dependências executando o seguinte comando:
 
 ```
-# pull in the Docsy submodule
+# Baixar o submódulo Docsy
 git submodule update --init --recursive --depth 1
 ```
 
