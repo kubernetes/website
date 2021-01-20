@@ -82,12 +82,10 @@ further sub-isolations applied.
 In terms of Docker concepts, a Pod is similar to a group of Docker containers
 with shared namespaces and shared filesystem volumes.
 -->
-Pod 的共享上下文包括一组 Linux 名字空间、控制组（cgroup）和可能一些其他的隔离
-方面，即用来隔离 Docker 容器的技术。
-在 Pod 的上下文中，每个独立的应用可能会进一步实施隔离。
+Pod的共享context中包括一组 Linux namespaces、cgroup 和一些可能其他层面的隔离，即用来隔离 Docker 容器的技术。
+在 Pod 的context中，每个独立的applications也有可能会再使用子隔离。
 
-就 Docker 概念的术语而言，Pod 类似于共享名字空间和文件系统卷的一组 Docker
-容器。
+就 Docker 概念的术语而言，Pod 类似于共享namespace和共享文件系统卷中的一组Docker容器。
 
 <!--
 ## Using Pods
