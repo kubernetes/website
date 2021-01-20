@@ -1,3 +1,6 @@
 [submodule "themes/docsy"]
 	path = themes/docsy
 	url = https://github.com/google/docsy.git
+[submodule "api-ref-generator"]
+	path = api-ref-generator
+	url = https://github.com/kubernetes-sigs/reference-docs
