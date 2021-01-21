@@ -13,8 +13,8 @@ weight: 50
 
 {{% capture overview %}}
 
-Los objetos de tipo `Secret` en Kubernetes te permiten almacenar y administrar información confidencial, como
-contraseñas, tokens OAuth y llaves ssh.  Poniendo esta información en un `Secret`
+Los objetos de tipo {{< glossary_tooltip text="Secret" term_id="secret" >}} en Kubernetes te permiten almacenar y administrar información confidencial, como
+contraseñas, tokens OAuth y llaves ssh.  Poniendo esta información en un Secret
 es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) para más información.
 
 {{% /capture %}}
@@ -37,13 +37,13 @@ Kubernetes crea automaticamente Secrets que contienen credenciales para acceder 
 
 La creación y el uso automático de las credenciales de la API, pueden desabilitarse o anularse si se desea. Sin embargo, si todo lo que necesita hacer es acceder de forma segura al apiserver, este es el flujo de trabajo recomendado.
 
-Ver la documentación de  [Service Account](/docs/tasks/configure-pod-container/configure-service-account/) para más información sobre cómo funcionan las Cuentas de Servicio.
+Ver la documentación de [Service Account](/docs/tasks/configure-pod-container/configure-service-account/) para más información sobre cómo funcionan las Cuentas de Servicio.
 
 ### Creando tu propio Secret
 
 #### Creando un Secret Usando kubectl create Secret
 
-Digamos que algunos pods necesitan acceder a una base de datos. El nombre y contraseña que los pods deberían usar estan en los archivos:
+Pongamos como ejemplo el caso de una grupo de pods que necesitan acceder a una base de datos. El nombre y contraseña que los pods deberían usar están en los archivos:
 `./username.txt` y `./password.txt` en tu máquina local.
 
 ```shell
@@ -62,8 +62,13 @@ kubectl create secret generic db-user-pass --from-file=./username.txt --from-fil
 Secret "db-user-pass" created
 ```
 {{< note >}}
-Caracteres especiales como `$`, `\*`, y `!` requieren escapar.
-Si la contraseña que está utilizando tiene caracteres especiales, debe escapar de ellos usando el caracter `\\` . Por ejemplo, si tu password actual es `S!B\*d$zDsb`, deberías ejecutar el comando de esta manera: kubectl create Secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb . No necesita escapar de caracteres especiales en contraseñas de archivos (`--from-file`).
+Si la contraseña que está utilizando tiene caracteres especiales como por ejemplo `$`, `\`, `*`, o `!`, es posible que sean interpretados por tu intérprete de comandos y es necesario escapar cada carácter utilizando `\` o introduciéndolos entre comillas simples `'`.
+Por ejemplo, si tú password actual es `S!B\*d$zDsb`, deberías ejecutar el comando de esta manera: 
+
+`kubectl create Secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=' 
+S\!B*d$zDsb'`
+
+No necesita escapar de caracteres especiales en contraseñas de archivos (`--from-file`).
 {{< /note >}}
 
 Puedes comprobar que el Secret se haya creado, así:
