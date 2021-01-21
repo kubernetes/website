@@ -18,10 +18,10 @@ tags:
 
 <!--more-->
 
-[kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)는
+[kube-proxy](/ko/docs/reference/command-line-tools-reference/kube-proxy/)는
 노드의 네트워크 규칙을 유지 관리한다. 이 네트워크 규칙이 내부 네트워크
 세션이나 클러스터 바깥에서 파드로 네트워크 통신을
 할 수 있도록 해준다.
 
-kube-proxy는 운영 체제에 가용한 패킷 
+kube-proxy는 운영 체제에 가용한 패킷
 필터링 계층이 있는 경우, 이를 사용한다. 그렇지 않으면, kube-proxy는 트래픽 자체를 포워드(forward)한다.

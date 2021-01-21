@@ -77,8 +77,8 @@ _스코어링_ 단계에서 스케줄러는 목록에 남아있는 노드의 순
 스케줄러의 필터링 및 스코어링 동작을 구성하는 데 지원되는 두 가지
 방법이 있다.
 
-1. [스케줄링 정책](/docs/reference/scheduling/config/#profiles)을 사용하면 필터링을 위한 _단정(Predicates)_ 및 스코어링을 위한 _우선순위(Priorities)_ 를 구성할 수 있다.
-1. [스케줄링 프로파일](/docs/reference/scheduling/config/#profiles)을 사용하면 `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` 등의 다른 스케줄링 단계를 구현하는 플러그인을 구성할 수 있다. 다른 프로파일을 실행하도록 kube-scheduler를 구성할 수도 있다.
+1. [스케줄링 정책](/ko/docs/reference/scheduling/config/#프로파일)을 사용하면 필터링을 위한 _단정(Predicates)_ 및 스코어링을 위한 _우선순위(Priorities)_ 를 구성할 수 있다.
+1. [스케줄링 프로파일](/ko/docs/reference/scheduling/config/#프로파일)을 사용하면 `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` 등의 다른 스케줄링 단계를 구현하는 플러그인을 구성할 수 있다. 다른 프로파일을 실행하도록 kube-scheduler를 구성할 수도 있다.
 
 
 ## {{% heading "whatsnext" %}}

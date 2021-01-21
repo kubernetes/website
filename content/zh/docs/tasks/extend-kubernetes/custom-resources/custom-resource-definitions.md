@@ -310,7 +310,7 @@ Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontab
 <!--
 If you later recreate the same CustomResourceDefinition, it will start out empty.
 -->
-如果你在以后创建相同的 CustomResourceDefinition 时，该 CRD 会一个空的结构。
+如果你在以后创建相同的 CustomResourceDefinition 时，该 CRD 会是一个空的结构。
 
 <!--
 ## Specifying a structural schema
@@ -599,7 +599,7 @@ to clients, `kubectl` also checks for unknown fields and rejects those objects w
 <!--
 #### Controlling pruning
 
-By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees fof fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
+By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specific sub-trees of fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).
 For example:
 -->
 #### 控制剪裁   {#controlling-pruning}
@@ -934,12 +934,11 @@ Additionally, the following restrictions are applied to the schema:
 
 <!--
 The `default` field can be set when the [Defaulting feature](#defaulting) is enabled,
-which is the case with `apiextensions.k8s.io/v1` CustomResourceDefinitions. 
+which is the case with `apiextensions.k8s.io/v1` CustomResourceDefinitions.
 Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled, which is the case automatically for many clusters for beta features).
 -->
-
 当[设置默认值特性](#defaulting)被启用时，可以设置字段 `default`。
 就 `apiextensions.k8s.io/v1` 组的 CustomResourceDefinitions，这一条件是满足的。
 设置默认值的功能特性从 1.17 开始正式发布。该特性在 1.16 版本中处于
@@ -1213,6 +1212,69 @@ Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` 
 针对 `x-kubernetes-embedded-resource: true` 节点（或者包含 `metadata` 字段的结构的默认值）
 的 `metadata` 字段的默认值设置不会在 CustomResourceDefinition 创建时被剪裁，
 而是在处理请求的字段剪裁阶段被删除。
+
+<!--
+#### Defaulting and Nullable
+
+**New in 1.20:** null values for fields that either don't specify the nullable flag, or give it a `false` value, will be pruned before defaulting happens. If a default is present, it will be applied. When nullable is `true`, null values will be conserved and won't be defaulted.
+
+For example, given the OpenAPI schema below:
+-->
+#### 设置默认值和字段是否可为空（Nullable）   {#defaulting-and-nullable}
+
+**1.20 版本新增:** 对于未设置其 nullable 标志的字段或者将该标志设置为
+`false` 的字段，其空值（Null）会在设置默认值之前被剪裁掉。如果对应字段
+存在默认值，则默认值会被赋予该字段。当 `nullable` 被设置为 `true` 时，
+字段的空值会被保留，且不会在设置默认值时被覆盖。
+
+例如，给定下面的 OpenAPI 模式定义：
+
+```yaml
+type: object
+properties:
+  spec:
+    type: object
+    properties:
+      foo:
+        type: string
+        nullable: false
+        default: "default"
+      bar:
+        type: string
+        nullable: true
+      baz:
+        type: string
+```
+
+<!--
+creating an object with null values for `foo` and `bar` and `baz`
+-->
+像下面这样创建一个为 `foo`、`bar` 和 `baz` 设置空值的对象时：
+
+```yaml
+spec:
+  foo: null
+  bar: null
+  baz: null
+```
+
+<!--
+leads to
+-->
+其结果会是这样：
+
+```yaml
+spec:
+  foo: "default"
+  bar: null
+```
+
+<!--
+with `foo` pruned and defaulted because the field is non-nullable, `bar` maintaining the null value due to `nullable: true`, and `baz` pruned because the field is non-nullable and has no default.
+-->
+其中的 `foo` 字段被剪裁掉并重新设置默认值，因为该字段是不可为空的。
+`bar` 字段的 `nullable: true` 使得其能够保有其空值。
+`baz` 字段则被完全剪裁掉，因为该字段是不可为空的，并且没有默认值设置。
 
 <!--
 ### Publish Validation Schema in OpenAPI v2

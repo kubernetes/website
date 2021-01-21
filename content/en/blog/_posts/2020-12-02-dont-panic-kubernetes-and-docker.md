@@ -13,8 +13,8 @@ as a container runtime after v1.20.
 
 **You do not need to panic. It’s not as dramatic as it sounds.**
 
-tl;dr Docker as an underlying runtime is being deprecated in favor of runtimes
-that use the [Container Runtime Interface(CRI)](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)
+TL;DR Docker as an underlying runtime is being deprecated in favor of runtimes
+that use the [Container Runtime Interface (CRI)](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)
 created for Kubernetes. Docker-produced images will continue to work in your
 cluster with all runtimes, as they always have.
 
@@ -48,7 +48,7 @@ is a popular choice for that runtime (other common options include containerd
 and CRI-O), but Docker was not designed to be embedded inside Kubernetes, and
 that causes a problem. 
 
-You see, the thing we call “Docker” isn’t actually one thing -- it’s an entire
+You see, the thing we call “Docker” isn’t actually one thing&mdash;it’s an entire
 tech stack, and one part of it is a thing called “containerd,” which is a
 high-level container runtime by itself. Docker is cool and useful because it has
 a lot of UX enhancements that make it really easy for humans to interact with
@@ -66,11 +66,11 @@ does Kubernetes need the Dockershim?
 
 Docker isn’t compliant with CRI, the [Container Runtime Interface](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/).
 If it were, we wouldn’t need the shim, and this wouldn’t be a thing. But it’s
-not the end of the world, and you don’t need to panic -- you just need to change
+not the end of the world, and you don’t need to panic&mdash;you just need to change
 your container runtime from Docker to another supported container runtime.
 
 One thing to note: If you are relying on the underlying docker socket
-(/var/run/docker.sock) as part of a workflow within your cluster today, moving
+(`/var/run/docker.sock`) as part of a workflow within your cluster today, moving
 to a different runtime will break your ability to use it. This pattern is often
 called Docker in Docker. There are lots of options out there for this specific
 use case including things like
@@ -82,10 +82,10 @@ use case including things like
  
 This change addresses a different environment than most folks use to interact
 with Docker. The Docker installation you’re using in development is unrelated to
-the Docker runtime inside your Kubernetes cluster. It’s confusing, I know. As a
-developer, Docker is still useful to you in all the ways it was before this
+the Docker runtime inside your Kubernetes cluster. It’s confusing, we understand.
+As a developer, Docker is still useful to you in all the ways it was before this
 change was announced. The image that Docker produces isn’t really a
-Docker-specific image -- it’s an OCI ([Open Container Initiative](https://opencontainers.org/)) image. 
+Docker-specific image&mdash;it’s an OCI ([Open Container Initiative](https://opencontainers.org/)) image. 
 Any OCI-compliant image, regardless of the tool you use to build it, will look
 the same to Kubernetes. Both [containerd](https://containerd.io/) and
 [CRI-O](https://cri-o.io/) know how to pull those images and run them. This is
@@ -95,10 +95,10 @@ So, this change is coming. It’s going to cause issues for some, but it isn’t
 catastrophic, and generally it’s a good thing. Depending on how you interact
 with Kubernetes, this could mean nothing to you, or it could mean a bit of work.
 In the long run, it’s going to make things easier. If this is still confusing
-for you, that’s okay -- there’s a lot going on here, Kubernetes has a lot of
+for you, that’s okay&mdash;there’s a lot going on here; Kubernetes has a lot of
 moving parts, and nobody is an expert in 100% of it. We encourage any and all
 questions regardless of experience level or complexity! Our goal is to make sure
-everyone is educated as much as possible on the upcoming changes. `<3` We hope
-this has answered most of your questions and soothed some anxieties!
+everyone is educated as much as possible on the upcoming changes. We hope
+this has answered most of your questions and soothed some anxieties! ❤️
 
 Looking for more answers? Check out our accompanying [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/).

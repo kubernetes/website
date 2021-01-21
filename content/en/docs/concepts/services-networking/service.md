@@ -134,7 +134,7 @@ For example:
 * You want to point your Service to a Service in a different
   {{< glossary_tooltip term_id="namespace" >}} or on another cluster.
 * You are migrating a workload to Kubernetes. While evaluating the approach,
-  you run only a proportion of your backends in Kubernetes.
+  you run only a portion of your backends in Kubernetes.
 
 In any of these scenarios you can define a Service _without_ a Pod selector.
 For example:
@@ -238,7 +238,7 @@ There are a few reasons for using proxying for Services:
 
 ### User space proxy mode {#proxy-mode-userspace}
 
-In this mode, kube-proxy watches the Kubernetes master for the addition and
+In this mode, kube-proxy watches the Kubernetes control plane for the addition and
 removal of Service and Endpoint objects. For each Service it opens a
 port (randomly chosen) on the local node.  Any connections to this "proxy port"
 are proxied to one of the Service's backend Pods (as reported via

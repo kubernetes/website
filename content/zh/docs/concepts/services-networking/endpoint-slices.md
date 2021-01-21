@@ -146,7 +146,97 @@ EndpointSlice 支持三种地址类型：
 * FQDN (完全合格的域名)
 
 <!--
+### Conditions
+
+The EndpointSlice API stores conditions about endpoints that may be useful for consumers.
+The three conditions are `ready`, `serving`, and `terminating`.
+-->
+### 状况
+
+EndpointSlice API 存储了可能对使用者有用的、有关端点的状况。
+这三个状况分别是 `ready`、`serving` 和 `terminating`。
+
+
+<!--
+#### Ready
+
+`ready` is a condition that maps to a Pod's `Ready` condition. A running Pod with the `Ready`
+condition set to `True` should have this EndpointSlice condition also set to `true`. For
+compatibility reasons, `ready` is NEVER `true` when a Pod is terminating. Consumers should refer
+to the `serving` condition to inspect the readiness of terminating Pods. The only exception to
+this rule is for Services with `spec.publishNotReadyAddresses` set to `true`. Endpoints for these
+Services will always have the `ready` condition set to `true`.
+-->
+#### Ready（就绪）
+
+`ready` 状况是映射 Pod 的 `Ready` 状况的。
+处于运行中的 Pod，它的 `Ready` 状况被设置为 `True`，应该将此 EndpointSlice 状况也设置为 `true`。
+出于兼容性原因，当 Pod 处于终止过程中，`ready` 永远不会为 `true`。
+消费者应参考 `serving` 状况来检查处于终止中的 Pod 的就绪情况。
+该规则的唯一例外是将 `spec.publishNotReadyAddresses` 设置为 `true` 的服务。
+这些服务（Service）的端点将始终将 `ready` 状况设置为 `true`。
+
+<!--
+#### Serving
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+`serving` is identical to the `ready` condition, except it does not account for terminating states.
+Consumers of the EndpointSlice API should check this condition if they care about pod readiness while
+the pod is also terminating.
+-->
+#### Serving（服务中）
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+`serving` 状况与 `ready` 状况相同，不同之处在于它不考虑终止状态。
+如果 EndpointSlice API 的使用者关心 Pod 终止时的就绪情况，就应检查此状况。
+
+{{< note >}}
+<!--
+Although `serving` is almost identical to `ready`, it was added to prevent break the existing meaning
+of `ready`. It may be unexpected for existing clients if `ready` could be `true` for terminating
+endpoints, since historically terminating endpoints were never included in the Endpoints or
+EndpointSlice API to begin with. For this reason, `ready` is _always_ `false` for terminating
+endpoints, and a new condition `serving` was added in v1.20 so that clients can track readiness
+for terminating pods independent of the existing semantics for `ready`.
+-->
+尽管 `serving` 与 `ready` 几乎相同，但是它是为防止破坏 `ready` 的现有含义而增加的。
+如果对于处于终止中的端点，`ready` 可能是 `true`，那么对于现有的客户端来说可能是有些意外的，
+因为从始至终，Endpoints 或 EndpointSlice API 从未包含处于终止中的端点。
+出于这个原因，`ready` 对于处于终止中的端点 _总是_ `false`，
+并且在 v1.20 中添加了新的状况 `serving`，以便客户端可以独立于 `ready`
+的现有语义来跟踪处于终止中的 Pod 的就绪情况。
+{{< /note >}}
+
+<!-- 
+#### Terminating
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+`Terminating` is a condition that indicates whether an endpoint is terminating.
+For pods, this is any pod that has a deletion timestamp set.
+-->
+#### Terminating（终止中）
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+`Terminating` 是表示端点是否处于终止中的状况。
+对于 Pod 来说，这是设置了删除时间戳的 Pod。
+
+
+<!--
 ### Topology information {#topology}
+
+{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
+
+{{< note >}}
+The topology field in EndpointSlices has been deprecated and will be removed in
+a future release. A new `nodeName` field will be used instead of setting
+`kubernetes.io/hostname` in topology. It was determined that other topology
+fields covering zone and region would be better represented as EndpointSlice
+labels that would apply to all endpoints within the EndpointSlice.
+{{< /note >}}
 
 Each endpoint within an EndpointSlice can contain relevant topology information.
 This is used to indicate where an endpoint is, containing information about the
@@ -154,6 +244,15 @@ corresponding Node, zone, and region. When the values are available, the
 control plane sets the following Topology labels for EndpointSlices:
 -->
 ### 拓扑信息   {#topology}
+
+{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
+
+{{< note >}}
+EndpointSlices 中的 topology 字段已被弃用，并将在以后的版本中删除。
+将使用新的 `nodeName` 字段代替在 topology 中设置 `kubernetes.io/hostname`。
+可以确定的是，其他覆盖区和域的拓扑字段用 EndpointSlice 标签来表达更合适，
+该标签将应用于 EndpointSlice 内的所有端点。
+{{< /note >}}
 
 EndpointSlice 中的每个端点都可以包含一定的拓扑信息。
 这一信息用来标明端点的位置，包含对应节点、可用区、区域的信息。
