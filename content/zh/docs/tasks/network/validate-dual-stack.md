@@ -1,5 +1,6 @@
 ---
 title: 验证 IPv4/IPv6 双协议栈
+min-kubernetes-server-version: v1.20
 content_type: task
 ---
 <!--
@@ -150,42 +151,45 @@ a00:100::4    pod01
 <!--
 ## Validate Services
 
-Create the following Service without the `ipFamily` field set. When this field is not set, the Service gets an IP from the first configured range via `--service-cluster-ip-range` flag on the kube-controller-manager.
+Create the following Service that does not explicitly define `.spec.ipFamilyPolicy`. Kubernetes will assign a cluster IP for the Service from the first configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 -->
 ## 验证服务
 
-在不设置 `ipFamily` 字段的情况下创建以下服务。
-如果未设置此字段，则服务会通过 kube-controller-manager 上的
-`--service-cluster-ip-range` 标志从第一个配置的范围中获取 IP。
+创建以下未显式定义 `.spec.ipFamilyPolicy` 的 Service。
+Kubernetes 将从首个配置的 `service-cluster-ip-range` 给 Service 分配集群 IP，
+并将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`。
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
-<!--
-By viewing the YAML for the Service you can observe that the Service has the `ipFamily` field has set to reflect the address family of the first configured range set via `--service-cluster-ip-range` flag on kube-controller-manager.
+<!-- 
+Use `kubectl` to view the YAML for the Service.
 -->
-通过查看该服务的 YAML ，你可以观察到该服务的 `ipFamily` 字段已被设置。
-其取值反映的是通过 kube-controller-manager 的 `--service-cluster-ip-range`
-标志所设置的第一个地址范围的地址族。
+使用 `kubectl` 查看 Service 的 YAML 定义。
 
 ```shell
 kubectl get svc my-service -o yaml
 ```
 
+<!--
+The Service has `.spec.ipFamilyPolicy` set to `SingleStack` and `.spec.clusterIP` set to an IPv4 address from the first configured range set via `--service-cluster-ip-range` flag on kube-controller-manager.
+-->
+该 Service 通过在 kube-controller-manager 的 `--service-cluster-ip-range` 
+标志设置的第一个配置范围，将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`，
+将 `.spec.clusterIP` 设置为 IPv4 地址。
+
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: "2019-09-03T20:45:13Z"
-  labels:
-    app: MyApp
   name: my-service
   namespace: default
-  resourceVersion: "485836"
-  selfLink: /api/v1/namespaces/default/services/my-service
-  uid: b6fa83ef-fe7e-47a3-96a1-ac212fa5b030
 spec:
-  clusterIP: 10.0.29.179
-  ipFamily: IPv4
+  clusterIP: 10.0.217.164
+  clusterIPs:
+  - 10.0.217.164
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
   ports:
   - port: 80
     protocol: TCP
@@ -199,24 +203,106 @@ status:
 ```
 
 <!--
-Create the following Service with the `ipFamily` field set to `IPv6`.
+Create the following Service that explicitly defines `IPv6` as the first array element in `.spec.ipFamilies`. Kubernetes will assign a cluster IP for the Service from the IPv6 range configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 -->
-在 `ipFamily` 字段设置为 `IPv6` 的情况下创建一下服务。
+创建以下显示定义 `.spec.ipFamilies` 数组中的第一个元素为 IPv6 的 Service。
+Kubernetes 将 `service-cluster-ip-range` 配置的 IPv6 地址范围给 Service 分配集群 IP，
+并将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`。
 
 {{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
 
-<!--
-Validate that the Service gets a cluster IP address from the IPv6 address block. You may then validate access to the service via the IP and port.
+<!-- 
+Use `kubectl` to view the YAML for the Service.
 -->
-验证服务是否是 IPv6 地址块获取集群 IP 地址。
-然后，你可以通过 IP 和端口验证对服务的访问。
+使用 `kubectl` 查看 Service 的 YAML 定义。
+
+```shell
+kubectl get svc my-service -o yaml
+```
+
+<!-- 
+The Service has `.spec.ipFamilyPolicy` set to `SingleStack` and `.spec.clusterIP` set to an IPv6 address from the IPv6 range set via `--service-cluster-ip-range` flag on kube-controller-manager.
+-->
+该 Service 通过在 kube-controller-manager 的 `--service-cluster-ip-range` 
+标志设置的 IPv6 地址范围，将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`，
+将 `.spec.clusterIP` 设置为 IPv6 地址。
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: MyApp
+  name: my-service
+spec:
+  clusterIP: fd00::5118
+  clusterIPs:
+  - fd00::5118
+  ipFamilies:
+  - IPv6
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: MyApp
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+```
+
+<!--
+Create the following Service that explicitly defines `PreferDualStack` in `.spec.ipFamilyPolicy`. Kubernetes will assign both IPv4 and IPv6 addresses (as this cluster has dual-stack enabled) and select the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family of the first element in the `.spec.ipFamilies` array.
+-->
+创建以下显式定义 `.spec.ipFamilyPolicy` 为 `PreferDualStack` 的 Service。
+Kubernetes 将分配 IPv4 和 IPv6 地址（因为该集群启用了双栈），
+并根据 `.spec.ipFamilies` 数组中第一个元素的地址族，
+从 `.spec.ClusterIPs` 列表中选择 `.spec.ClusterIP`。
+
+{{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
+
+{{< note >}}
+<!--
+The `kubectl get svc` command will only show the primary IP in the `CLUSTER-IP` field.
+-->
+`kubectl get svc` 命令将仅在 `CLUSTER-IP` 字段中显示主 IP。
 
 ```shell
 kubectl get svc -l app=MyApp
-```
-```
+
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
 my-service   ClusterIP   fe80:20d::d06b   <none>        80/TCP    9s
+```
+{{< /note >}}
+
+<!-- 
+Validate that the Service gets cluster IPs from the IPv4 and IPv6 address blocks using `kubectl describe`. You may then validate access to the service via the IPs and ports.
+-->
+使用 `kubectl describe` 验证服务是否从 IPv4 和 IPv6 地址块中获取了集群 IP。
+然后你就可以通过 IP 和端口，验证对服务的访问。
+
+```shell
+kubectl describe svc -l app=MyApp
+```
+
+```
+Name:              my-service
+Namespace:         default
+Labels:            app=MyApp
+Annotations:       <none>
+Selector:          app=MyApp
+Type:              ClusterIP
+IP Family Policy:  PreferDualStack
+IP Families:       IPv4,IPv6
+IP:                10.0.216.242
+IPs:               10.0.216.242,fd00::af55
+Port:              <unset>  80/TCP
+TargetPort:        9376/TCP
+Endpoints:         <none>
+Session Affinity:  None
+Events:            <none>
 ```
 
 <!--

@@ -37,10 +37,10 @@ but with different settings.
 
 Ensure the RuntimeClass feature gate is enabled (it is by default). See [Feature
 Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling
-feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _and_ kubelets.
+feature gates. The `RuntimeClass` feature gate must be enabled on API server _and_ kubelets.
 
-1. Configure the CRI implementation on nodes (runtime dependent)
-2. Create the corresponding RuntimeClass resources
+1. Configure the CRI implementation on nodes (runtime dependent).
+2. Create the corresponding RuntimeClass resources.
 
 ### 1. Configure the CRI implementation on nodes
 
@@ -51,7 +51,7 @@ CRI implementation for how to configure.
 {{< note >}}
 RuntimeClass assumes a homogeneous node configuration across the cluster by default (which means
 that all nodes are configured the same way with respect to container runtimes). To support
-heterogenous node configurations, see [Scheduling](#scheduling) below.
+heterogeneous node configurations, see [Scheduling](#scheduling) below.
 {{< /note >}}
 
 The configurations have a corresponding `handler` name, referenced by the RuntimeClass. The
@@ -98,7 +98,7 @@ spec:
   # ...
 ```
 
-This will instruct the Kubelet to use the named RuntimeClass to run this pod. If the named
+This will instruct the kubelet to use the named RuntimeClass to run this pod. If the named
 RuntimeClass does not exist, or the CRI cannot run the corresponding handler, the pod will enter the
 `Failed` terminal [phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase). Look for a
 corresponding [event](/docs/tasks/debug-application-cluster/debug-application-introspection/) for an
@@ -144,7 +144,7 @@ See CRI-O's [config documentation](https://raw.githubusercontent.com/cri-o/cri-o
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-As of Kubernetes v1.16, RuntimeClass includes support for heterogenous clusters through its
+As of Kubernetes v1.16, RuntimeClass includes support for heterogeneous clusters through its
 `scheduling` fields. Through the use of these fields, you can ensure that pods running with this
 RuntimeClass are scheduled to nodes that support it. To use the scheduling support, you must have
 the [RuntimeClass admission controller](/docs/reference/access-authn-authz/admission-controllers/#runtimeclass)

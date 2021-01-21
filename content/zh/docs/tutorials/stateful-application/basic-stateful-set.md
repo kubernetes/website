@@ -33,7 +33,7 @@ following Kubernetes concepts.
 
 在开始本教程之前，你应该熟悉以下 Kubernetes 的概念：
 
-* [Pods](/zh/docs/user-guide/pods/single-container/)
+* [Pods](/zh/docs/concepts/workloads/pods/)
 * [Cluster DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/zh/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
@@ -1319,13 +1319,19 @@ Finally delete the `web` StatefulSet and the `nginx` service.
 即使你已经删除了 StatefulSet 和它的全部 Pod，这些 Pod 将会被重新创建并挂载它们的 PersistentVolumes，并且 `web-0` 和 `web-1` 将仍然使用它们的主机名提供服务。
 
 
-最后删除 `web` StatefulSet 和 `nginx` service。
+最后删除 `nginx` service...
 
 ```shell
 kubectl delete service nginx
+```
+```
 service "nginx" deleted
-
+```
+... 并且删除 `web` StatefulSet:
+```shell
 kubectl delete statefulset web
+```
+```
 statefulset "web" deleted
 ```
 

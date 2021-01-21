@@ -192,7 +192,7 @@ this scenario using `kubectl run`:
 kubectl run myapp --image=busybox --restart=Never -- sleep 1d
 ```
 
-Run this command to create a copy of `myapp` named `myapp-copy` that adds a
+Run this command to create a copy of `myapp` named `myapp-debug` that adds a
 new Ubuntu container for debugging:
 
 ```shell

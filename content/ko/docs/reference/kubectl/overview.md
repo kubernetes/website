@@ -119,7 +119,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 `version`        | `kubectl version [--client] [flags]` | 클라이언트와 서버에서 실행 중인 쿠버네티스 버전을 표시한다.
 `wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | 실험(experimental) 기능: 하나 이상의 리소스에서 특정 조건을 기다린다.
 
-명령 동작에 대한 자세한 내용을 배우려면 [kubectl](/docs/reference/kubectl/kubectl/) 참조 문서를 참고한다.
+명령 동작에 대한 자세한 내용을 배우려면 [kubectl](/ko/docs/reference/kubectl/kubectl/) 참조 문서를 참고한다.
 
 ## 리소스 타입
 
@@ -188,7 +188,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 ## 출력 옵션
 
-특정 명령의 출력을 서식화하거나 정렬하는 방법에 대한 정보는 다음 섹션을 참고한다. 다양한 출력 옵션을 지원하는 명령에 대한 자세한 내용은 [kubectl](/docs/reference/kubectl/kubectl/) 참조 문서를 참고한다.
+특정 명령의 출력을 서식화하거나 정렬하는 방법에 대한 정보는 다음 섹션을 참고한다. 다양한 출력 옵션을 지원하는 명령에 대한 자세한 내용은 [kubectl](/ko/docs/reference/kubectl/kubectl/) 참조 문서를 참고한다.
 
 ### 출력 서식화
 
@@ -207,8 +207,8 @@ kubectl [command] [TYPE] [NAME] -o <output_format>
 `-o custom-columns=<spec>` | 쉼표로 구분된 [사용자 정의 열](#custom-columns) 목록을 사용하여 테이블을 출력한다.
 `-o custom-columns-file=<filename>` | `<filename>` 파일에서 [사용자 정의 열](#custom-columns) 템플릿을 사용하여 테이블을 출력한다.
 `-o json`     | JSON 형식의 API 오브젝트를 출력한다.
-`-o jsonpath=<template>` | [jsonpath](/docs/reference/kubectl/jsonpath/) 표현식에 정의된 필드를 출력한다.
-`-o jsonpath-file=<filename>` | `<filename>` 파일에서 [jsonpath](/docs/reference/kubectl/jsonpath/) 표현식으로 정의된 필드를 출력한다.
+`-o jsonpath=<template>` | [jsonpath](/ko/docs/reference/kubectl/jsonpath/) 표현식에 정의된 필드를 출력한다.
+`-o jsonpath-file=<filename>` | `<filename>` 파일에서 [jsonpath](/ko/docs/reference/kubectl/jsonpath/) 표현식으로 정의된 필드를 출력한다.
 `-o name`     | 리소스 이름만 출력한다.
 `-o wide`     | 추가 정보가 포함된 일반 텍스트 형식으로 출력된다. 파드의 경우, 노드 이름이 포함된다.
 `-o yaml`     | YAML 형식의 API 오브젝트를 출력한다.
@@ -222,7 +222,7 @@ kubectl get pod web-pod-13je7 -o yaml
 ```
 
 기억하기: 각 명령이 지원하는 출력 형식에 대한 자세한 내용은
-[kubectl](/docs/reference/kubectl/kubectl/) 참조 문서를 참고한다.
+[kubectl](/ko/docs/reference/kubectl/kubectl/) 참조 문서를 참고한다.
 
 #### 사용자 정의 열 {#custom-columns}
 
@@ -282,7 +282,7 @@ pod-name   1m
 
 ### 오브젝트 목록 정렬
 
-터미널 창에서 정렬된 목록으로 오브젝트를 출력하기 위해, 지원되는 `kubectl` 명령에 `--sort-by` 플래그를 추가할 수 있다. `--sort-by` 플래그와 함께 숫자나 문자열 필드를 지정하여 오브젝트를 정렬한다. 필드를 지정하려면, [jsonpath](/docs/reference/kubectl/jsonpath/) 표현식을 사용한다.
+터미널 창에서 정렬된 목록으로 오브젝트를 출력하기 위해, 지원되는 `kubectl` 명령에 `--sort-by` 플래그를 추가할 수 있다. `--sort-by` 플래그와 함께 숫자나 문자열 필드를 지정하여 오브젝트를 정렬한다. 필드를 지정하려면, [jsonpath](/ko/docs/reference/kubectl/jsonpath/) 표현식을 사용한다.
 
 #### 구문
 

@@ -1,18 +1,19 @@
 ---
 title: 쿠버네티스 컨트롤 플레인에 대한 메트릭
+
+
+
+
 content_type: concept
 weight: 60
-aliases:
-- controller-metrics.md
 ---
 
 <!-- overview -->
 
 시스템 컴포넌트 메트릭으로 내부에서 발생하는 상황을 더 잘 파악할 수 있다. 메트릭은 대시보드와 경고를 만드는 데 특히 유용하다.
 
-쿠버네티스 컨트롤 플레인의 메트릭은 [프로메테우스 형식](https://prometheus.io/docs/instrumenting/exposition_formats/)으로 출력되며 사람이 읽기 쉽다.
-
-
+쿠버네티스 컨트롤 플레인의 메트릭은 [프로메테우스 형식](https://prometheus.io/docs/instrumenting/exposition_formats/)으로 출력된다.
+이 형식은 구조화된 평문으로 디자인되어 있으므로 사람과 기계 모두가 쉽게 읽을 수 있다.
 
 <!-- body -->
 
@@ -49,18 +50,20 @@ rules:
 
 ## 메트릭 라이프사이클
 
-알파 메트릭 → 안정적인 메트릭 → 사용 중단된 메트릭 → 히든(hidden) 메트릭 → 삭제
+알파(Alpha) 메트릭 → 안정적인(Stable) 메트릭 → 사용 중단된(Deprecated) 메트릭 → 히든(Hidden) 메트릭 → 삭제된(Deleted) 메트릭
 
 알파 메트릭은 안정성을 보장하지 않는다. 따라서 언제든지 수정되거나 삭제될 수 있다.
 
-안정적인 메트릭은 변경되지 않는다는 보장을 할 수 있다. 특히 안정성은 다음을 의미한다.
+안정적인 메트릭은 변경되지 않는다는 것을 보장한다. 이것은 다음을 의미한다.
+* 사용 중단 표기가 없는 안정적인 메트릭은, 이름이 변경되거나 삭제되지 않는다.
+* 안정적인 메트릭의 유형(type)은 수정되지 않는다.
 
-* 메트릭 자체는 삭제되거나 이름이 변경되지 않는다
-* 메트릭 유형은 수정되지 않는다
+사용 중단된 메트릭은 해당 메트릭이 결국 삭제된다는 것을 나타내지만, 아직은 사용 가능하다는 뜻이다.
+이 메트릭은 어느 버전에서부터 사용 중단된 것인지를 표시하는 어노테이션을 포함한다.
 
-사용 중단된 메트릭은 메트릭이 결국 삭제된다는 것을 나타낸다. 어떤 버전을 찾으려면, 해당 메트릭이 어떤 쿠버네티스 버전에서부터 사용 중단될 것인지를 고려하는 내용을 포함하는 어노테이션을 확인해야 한다.
+예를 들면,
 
-사용 중단되기 전에는 아래와 같다.
+* 사용 중단 이전에는 다음과 같다.
 
 ```
 # HELP some_counter this counts things
@@ -68,7 +71,7 @@ rules:
 some_counter 0
 ```
 
-사용 중단된 이후에는 아래와 같다.
+* 사용 중단 이후에는 다음과 같다.
 
 ```
 # HELP some_counter (Deprecated since 1.15.0) this counts things
@@ -76,9 +79,9 @@ some_counter 0
 some_counter 0
 ```
 
-메트릭이 일단 숨겨지면 기본적으로 메트릭은 수집용으로 게시되지 않는다. 히든 메트릭을 사용하려면, 관련 클러스터 컴포넌트의 구성을 오버라이드(override)해야 한다.
+히든 메트릭은 깔끔함(scraping)을 위해 더 이상 게시되지는 않지만, 여전히 사용은 가능하다. 히든 메트릭을 사용하려면, [히든 메트릭 표시](#히든-메트릭-표시) 섹션을 참고한다.
 
-메트릭이 삭제되면, 메트릭이 게시되지 않는다. 오버라이드해서 이를 변경할 수 없다.
+삭제된 메트릭은 더 이상 게시되거나 사용할 수 없다.
 
 
 ## 히든 메트릭 표시
@@ -127,6 +130,7 @@ cloudprovider_gce_api_request_duration_seconds { request = "attach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
+
 
 ### kube-scheduler 메트릭
 

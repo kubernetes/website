@@ -445,6 +445,9 @@ and
 [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands/#apply).
 
 
+{{< note >}}
+Strategic merge patch is not supported for custom resources.
+{{< /note >}}
 
 
 ## {{% heading "whatsnext" %}}

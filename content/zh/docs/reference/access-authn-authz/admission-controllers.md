@@ -274,8 +274,8 @@ This admission controller ignores any `PersistentVolumeClaim` updates; it acts o
 -->
 当未配置默认存储类时，此准入控制器不执行任何操作。如果将多个存储类标记为默认存储类，
 它将拒绝任何创建 `PersistentVolumeClaim` 的操作，并显示错误。
-此时准入控制器会忽略任何 `PersistentVolumeClaim` 更新操作，仅响应创建操作。
 要修复此错误，管理员必须重新访问其 `StorageClass` 对象，并仅将其中一个标记为默认。
+此准入控制器会忽略所有 `PersistentVolumeClaim` 更新操作，仅响应创建操作。
 
 <!--
 See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentation about persistent volume claims and
@@ -1117,19 +1117,6 @@ For more information about persistent volume claims, see [PersistentVolumeClaims
 关于持久化卷申领的更多信息，请参见
 [PersistentVolumeClaims](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
-### PodPreset {#podpreset}
-
-<!--
-This admission controller injects a pod with the fields specified in a matching PodPreset.
-See also [PodPreset concept](/docs/concepts/workloads/pods/podpreset/) and
-[Inject Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset)
-for more information.
--->
-该准入控制器根据与 PodPreset 中条件的匹配情况，将指定字段注入一个 Pod。
-另请参见 [PodPreset 概念](/zh/docs/concepts/workloads/pods/podpreset/)和
-[使用 PodPreset 将信息注入 Pod](/zh/docs/tasks/inject-data-application/podpreset)
-了解更多信息。
-
 ### PodSecurityPolicy {#podsecuritypolicy}
 
 <!--
@@ -1224,20 +1211,35 @@ See the [resourceQuota design doc](https://git.k8s.io/community/contributors/des
 <!--
 ### RuntimeClass {#runtimeclass}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-For [RuntimeClass](/docs/concepts/containers/runtime-class/) definitions which describe an overhead associated with running a pod,
-this admission controller will set the pod.Spec.Overhead field accordingly.
+If you enable the `PodOverhead` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), and define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) configured, this admission controller checks incoming
+Pods. When enabled, this admission controller rejects any Pod create requests that have the overhead already set.
+For Pods that have a  RuntimeClass is configured and selected in their `.spec`, this admission controller sets `.spec.overhead` in the Pod based on the value defined in the corresponding RuntimeClass.
+
+{{< note >}}
+The `.spec.overhead` field for Pod and the `.overhead` field for RuntimeClass are both in beta. If you do not enable the `PodOverhead` feature gate, all Pods are treated as if `.spec.overhead` is unset.
+{{< /note >}}
 
 See also [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
 for more information.
 -->
-### 容器运行时类 {#runtimeclass} 
+### RuntimeClass {#runtimeclass}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
++{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-[RuntimeClass](/zh/docs/concepts/containers/runtime-class/) 定义描述了与运行 Pod
-相关的开销。此准入控制器将相应地设置 `pod.spec.overhead` 字段。
+如果你开启 `PodOverhead`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/),
+并且通过 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
+配置来定义一个 RuntimeClass，这个准入控制器会检查新的 Pod。
+当启用的时候，这个准入控制器会拒绝任何 overhead 字段已经设置的 Pod。
+对于配置了 RuntimeClass 并在其 `.spec` 中选定 RuntimeClass 的 Pod，
+此准入控制器会根据相应 RuntimeClass 中定义的值为 Pod 设置 `.spec.overhead`。
+
+{{< note >}}
+Pod 的 `.spec.overhead` 字段和 RuntimeClass 的 `.overhead` 字段均为处于 beta 版本。
+如果你未启用 `PodOverhead` 特性门控，则所有 Pod 均被视为未设置 `.spec.overhead`。
+{{< /note >}}
 
 详情请参见 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)。
 
@@ -1335,12 +1337,12 @@ versions 1.9 and later).
 <!--
 ## Is there a recommended set of admission controllers to use?
 
-Yes. For Kubernetes version 1.10 and later, the recommended admission controllers are enabled by default (shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)), so you do not need to explicitly specify them. You can enable additional admission controllers beyond the default set using the `--enable-admission-plugins` flag (**order doesn't matter**).
+Yes. The recommended admission controllers are enabled by default (shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)), so you do not need to explicitly specify them. You can enable additional admission controllers beyond the default set using the `--enable-admission-plugins` flag (**order doesn't matter**).
 -->
 ## 有推荐的准入控制器吗？
 
-有。对于 Kubernetes 1.10 以上的版本，推荐使用的准入控制器默认情况下都处于启用状态
-（查看[这里](/zh/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
+有。推荐使用的准入控制器默认情况下都处于启用状态
+（请查看[这里](/zh/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
 因此，你无需显式指定它们。
 你可以使用 `--enable-admission-plugins` 标志（ **顺序不重要** ）来启用默认设置以外的其他准入控制器。
 
@@ -1350,33 +1352,4 @@ Yes. For Kubernetes version 1.10 and later, the recommended admission controller
 -->
 `--admission-control` 在 1.10 中已废弃，由 `--enable-admission-plugins` 取代。
 {{< /note >}}
-
-<!--
-For Kubernetes 1.9 and earlier, we recommend running the following set of admission controllers using the `--admission-control` flag (**order matters**).
--->
-对于 Kubernetes 1.9 及更早版本，我们建议使用 `--admission-control` 标志
-（**顺序很重要**）运行下面的一组准入控制器。
-
-* v1.9
-
-  ```shell
-  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
-  ```
-
-  <!--
-  * It's worth reiterating that in 1.9, these happen in a mutating phase
-  and a validating phase, and that for example `ResourceQuota` runs in the validating
-  phase, and therefore is the last admission controller to run.
-  `MutatingAdmissionWebhook` appears before it in this list, because it runs
-  in the mutating phase.
-  -->
-  * 需要重申的是，在 1.9 中，它们都发生在变更阶段和验证阶段，例如 `ResourceQuota`
-    在验证阶段运行，因此是最后一个运行的准入控制器。
-    `MutatingAdmissionWebhook` 出现在此列表的前面，因为它在变更阶段运行。
-
-    <!--
-    For earlier versions, there was no concept of validating versus mutating and the
-    admission controllers ran in the exact order specified.
-    -->
-    对于更早期版本，没有验证和变更的概念，并且准入控制器按照指定的确切顺序运行。
 
