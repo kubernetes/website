@@ -127,7 +127,7 @@ In release 1.8, quota support for local ephemeral storage is added as an alpha f
 ## Object Count Quota
 
 You can set quota for the total number of certain resources of all standard,
-namespaced resource types using the following syntax:
+namespaced resource using the following syntax:
 
 * `count/<resource>.<group>` for resources from non-core groups
 * `count/<resource>` for resources from the core group
