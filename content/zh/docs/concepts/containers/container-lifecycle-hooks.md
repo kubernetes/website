@@ -103,12 +103,12 @@ Resources consumed by the command are counted against the Container.
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system execute the handler according to the hook action,
-`exec` and `tcpSocket` are executed in the container, and `httpGet` is executed by the kubelet process.
+`httpGet` and `tcpSocket` are executed by the kubelet process, and `exec` is executed in the container.
 -->
 ### 回调处理程序执行
 
 当调用容器生命周期管理回调时，Kubernetes 管理系统根据回调动作执行其处理程序，
-`exec` 和 `tcpSocket` 在容器内执行，而 `httpGet` 则由 kubelet 进程执行。
+`httpGet` 和 `tcpSocket` 在kubelet 进程执行，而 `exec` 则由容器内执行 。
 
 <!--
 Hook handler calls are synchronous within the context of the Pod containing the Container.
