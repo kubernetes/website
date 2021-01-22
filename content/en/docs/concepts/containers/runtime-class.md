@@ -35,12 +35,8 @@ but with different settings.
 
 ## Setup
 
-Ensure the RuntimeClass feature gate is enabled (it is by default). See [Feature
-Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling
-feature gates. The `RuntimeClass` feature gate must be enabled on API server _and_ kubelets.
-
-1. Configure the CRI implementation on nodes (runtime dependent).
-2. Create the corresponding RuntimeClass resources.
+1. Configure the CRI implementation on nodes (runtime dependent)
+2. Create the corresponding RuntimeClass resources
 
 ### 1. Configure the CRI implementation on nodes
 
@@ -144,11 +140,9 @@ See CRI-O's [config documentation](https://raw.githubusercontent.com/cri-o/cri-o
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-As of Kubernetes v1.16, RuntimeClass includes support for heterogeneous clusters through its
-`scheduling` fields. Through the use of these fields, you can ensure that pods running with this
-RuntimeClass are scheduled to nodes that support it. To use the scheduling support, you must have
-the [RuntimeClass admission controller](/docs/reference/access-authn-authz/admission-controllers/#runtimeclass)
-enabled (the default, as of 1.16).
+By specifying the `scheduling` field for a RuntimeClass, you can set constraints to
+ensure that Pods running with this RuntimeClass are scheduled to nodes that support it.
+If `scheduling` is not set, this RuntimeClass is assumed to be supported by all nodes.
 
 To ensure pods land on nodes supporting a specific RuntimeClass, that set of nodes should have a
 common label which is then selected by the `runtimeclass.scheduling.nodeSelector` field. The
@@ -185,4 +179,3 @@ are accounted for in Kubernetes.
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - Read about the [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/) concept
 - [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
-
