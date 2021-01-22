@@ -88,14 +88,14 @@ Cluster Administrator actions include:
 
 - [Draining a node](/docs/tasks/administer-cluster/safely-drain-node/) for repair or upgrade.
 - Draining a node from a cluster to scale the cluster down (learn about
-[Cluster Autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaler)
+[Cluster Autoscaling](https://github.com/kubernetes/autoscaler/#readme)
 ).
 - Removing a pod from a node to permit something else to fit on that node.
 -->
 集群管理员操作包括：
 
 - [排空（drain）节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)进行修复或升级。
-- 从集群中排空节点以缩小集群（了解[集群自动扩缩](https://github.com/kubernetes/autoscaler/)）。
+- 从集群中排空节点以缩小集群（了解[集群自动扩缩](https://github.com/kubernetes/autoscaler/#readme)）。
 - 从节点中移除一个 Pod，以允许其他 Pod 使用该节点。
 
 <!--
