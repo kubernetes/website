@@ -12,7 +12,7 @@ card:
 
 <!-- overview -->
 
-_Pods_ sind die kleinsten installierbaren Softwareeinheiten, die in Kubernetes
+_Pods_ sind die kleinsten einsetzbaren Einheiten, die in Kubernetes
 erstellt und verwaltet werden können.
 
 Ein _Pod_ (übersetzt Gruppe/Schote, wie z. B. eine Gruppe von Walen oder eine 
@@ -42,13 +42,13 @@ zum Debuggen gestartet werden, wenn dies der Cluster anbietet.
 
 {{< note >}}
 Obwohl Kubernetes abgesehen von [Docker](https://www.docker.com/) auch andere
-{{<glossary_tooltip text = "Container-Laufzeitumgebung" 
+{{<glossary_tooltip text = "Container-Laufzeitumgebungen" 
 term_id = "container-runtime">}} unterstützt, ist Docker am bekanntesten und
  es ist hilfreich, Pods mit der Terminologie von Docker zu beschreiben.
 {{</ note>}}
 
 Der gemeinsame Kontext eines Pods besteht aus einer Reihe von Linux-Namespaces, 
-Cgroups und möglicherweise andere Aspekten der Isolation, also die gleichen
+Cgroups und möglicherweise anderen Aspekten der Isolation, also die gleichen
 Dinge, die einen Dockercontainer isolieren. Innerhalb des Kontexts eines Pods 
 können die einzelnen Anwendungen weitere Unterisolierungen haben. 
 
@@ -89,18 +89,19 @@ verwenden, wenn Ihre Container stark voneinander abhängen.
 {{</ note>}}
 
 Jeder Pod sollte eine einzelne Instanz einer gegebenen Anwendung ausführen. Wenn 
-Sie Ihre Anwendung horizontal skalieren wollen (also mehr Instanzen auszuführen
+Sie Ihre Anwendung horizontal skalieren wollen (um mehr Instanzen auszuführen
 und  dadurch mehr Gesamtressourcen bereitstellen), sollten Sie mehrere Pods 
 verwenden, 
 einen für jede Instanz. In Kubernetes wird dies typischerweise als Replikation
 bezeichnet.
-Replizierte Pods werden normalerweise als eine Gruppe von Workload-Ressource 
-und {{<glossary_tooltip text = "Controller" term_id = "controller">}} erstellt 
+Replizierte Pods werden normalerweise als eine Gruppe durch eine 
+Workload-Ressource und deren 
+{{<glossary_tooltip text = "Controller" term_id = "controller">}} erstellt 
 und verwaltet.
 
-Die Seite [Pods und Controller](#pods-and-controllers) beschreibt, wie Kubernetes
-Workload-Ressourcen und deren Controller verwendet, um Anwendungen zu skalieren
-und zu heilen.
+Die Seite [Pods und Controller](#pods-and-controllers) beschreibt, wie 
+Kubernetes Workload-Ressourcen und deren Controller verwendet, um Anwendungen 
+zu skalieren und zu heilen.
 
 ### Wie Pods mehrere Container verwalten
 
@@ -121,12 +122,12 @@ Abbildung:
 Einige Pods haben sowohl {{<glossary_tooltip text = "Initialisierungs-Container" 
 term_id = "init-container">}} als auch {{<glossary_tooltip text = 
 "Anwendungs-Container" term_id = "app-container">}}. 
-Initialisierungs-Container werden gestartet und angehalten bevor die 
+Initialisierungs-Container werden gestartet und beendet bevor die 
 Anwendungs-Container gestartet werden.
 
 Pods stellen standardmäßig zwei Arten von gemeinsam Ressourcen für die 
 enthaltenen Container bereit:
-[Netzwerk](#pod-networking) und [Speicher](#pod-storage)..
+[Netzwerk](#pod-networking) und [Speicher](#pod-storage).
 
 
 ## Mit Pods arbeiten
@@ -179,7 +180,7 @@ Workload-Ressourcen enthalten wie z. B.
 [DaemonSets](/docs/concepts/workloads/controllers/daemonset/).
 
 Jeder Controller für eine Workload-Ressource verwendet die Podvorlage innerhalb 
-des Workload-Objektes, um Pods zu erzeugen. Die Podvorlage ist Bestandteil des 
+des Workload-Objektes, um Pods zu erzeugen. Die Podvorlage ist Teil des 
 gewünschten Zustands der Workload-Ressource, mit der Sie Ihre Anwendung 
 ausgeführt haben.
 
@@ -217,8 +218,8 @@ ersetzt, und das Update ist abgeschlossen.
 
 Jede Workload-Ressource implementiert eigenen Regeln für die Umsetzung von 
 Änderungen der Podvorlage. Wenn Sie mehr über StatefulSet erfahren möchten, 
-lesen Sie
-[Update strategy](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) 
+lesen Sie die Seite
+[Update-Strategien](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) 
 im Tutorial StatefulSet Basics.
 
 
@@ -243,9 +244,9 @@ und
 [`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
 einige Einschränkungen:
 
-- Die meisten Metadaten zu einem Pod sind unveränderlich. Zum Beispiel können 
+- Die meisten Metadaten zu einem Pod können nicht verändert werden. Zum Beispiel können 
   Sie nicht die Felder `namespace`, `name`, `uid`, oder `creationTimestamp` 
-  ändern. Das `generation`-Feld ist eindeutig. Es werden nur Aktualisierungen 
+  ändern. Das `generation`-Feld muss eindeutig sein. Es werden nur Aktualisierungen 
   akzeptiert, die den Wert des Feldes inkrementieren.
 - Wenn das Feld `metadata.deletionTimestamp` gesetzt ist, kann kein neuer 
   Eintrag zur Liste `metadata.finalizers` hinzugefügt werden.
@@ -272,8 +273,8 @@ Container im Pod können auf die gemeinsamen Volumes zugreifen und dadurch Daten
 austauschen. Volumes ermöglichen auch, dass Daten ohne Verlust gespeichert 
 werden, falls einer der Container neu gestartet werden muss. 
 Im Kapitel [Datenspeicherung](/docs/concepts/storage/) finden Sie weitere 
-Informationen, wie Kubernetes gemeinsam genutzten Speicher implementiert und Pods
-zur Verfügung stellt.
+Informationen, wie Kubernetes gemeinsam genutzten Speicher implementiert und 
+Pods zur Verfügung stellt.
 
 ### Pod-Netzwerk
 
@@ -284,10 +285,10 @@ können die Container, die zum Pod gehören, über `localhost` miteinander
 kommunizieren. Wenn Container in einem Pod mit Entitäten *außerhalb des Pods* 
 kommunizieren, müssen sie koordinieren, wie die gemeinsam genutzten 
 Netzwerkressourcen (z. B. Ports) verwenden werden. Innerhalb eines Pods teilen 
-sich Container eine IP-Adresse und einen Reihe von Ports und können sich 
+sich Container eine IP-Adresse und eine Reihe von Ports und können sich 
 gegenseitig über `localhost` finden. Die Container in einem Pod können auch die 
 üblichen Kommunikationsverfahren zwischen Prozessen nutzen, wie z. B. 
-SystemV-Semaphoren oder POSIX Shared Memory. Container in verschiedenen Pods 
+SystemV-Semaphoren oder "POSIX Shared Memory". Container in verschiedenen Pods 
 haben unterschiedliche IP-Adressen und können nicht per IPC ohne 
 [spezielle Konfiguration](/docs/concepts/policy/pod-security-policy/) 
 kommunizieren. Container, die mit einem Container in einem anderen Pod 
@@ -306,7 +307,7 @@ der Container-Spezifikation verwendet wird.
 Dies ist nützlich für Container, die Verwaltungsfunktionen des Betriebssystems 
 verwenden möchten, z. B. das Manipulieren des Netzwerk-Stacks oder den Zugriff 
 auf Hardware. Prozesse innerhalb eines privilegierten Containers erhalten fast 
-die gleichen Rechte wie sie Prozesse außerhalb eines Containers zur Verfügung 
+die gleichen Rechte wie sie Prozessen außerhalb eines Containers zur Verfügung 
 stehen.
 
 {{<note>}}
@@ -324,7 +325,7 @@ verwaltet ohne dass sie vom
 {{<glossary_tooltip text = "API Server" term_id = "kube-apiserver">}} überwacht 
 werden.
 .
-Die meisten Pods werden von der Control Plane verwaltet (z. B.
+Die meisten Pods werden von der Kontrollebene verwaltet (z. B.
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}). Aber für 
 statische Pods überwacht das Kubelet jeden statischen Pod direkt (und startet 
 ihn neu, wenn er ausfällt).
@@ -333,7 +334,7 @@ Statische Pods sind immer an ein {{<glossary_tooltip term_id = "kubelet">}} auf
 einem bestimmten Node gebunden. Der Hauptanwendungsfall für statische Pods 
 besteht darin, eine selbst gehostete Steuerebene auszuführen. Mit anderen 
 Worten: Das Kubelet dient zur Überwachung der einzelnen 
-[control plane components](/docs/concepts/overview/components/#control-plane-components).
+[Komponenten der Kontrollebene](/docs/concepts/overview/components/#control-plane-components).
 
 Das Kubelet versucht automatisch auf dem Kubernetes API-Server für jeden 
 statischen Pod einen spiegelbildlichen Pod 
@@ -348,7 +349,7 @@ sichtbar sind jedoch von dort nicht gesteuert werden können.
   [Lebenszyklus eines Pods](/docs/concepts/workloads/pods/pod-lifecycle/).
 * Erfahren Sie mehr über [RuntimeClass](/docs/concepts/containers/runtime-class/) 
   und wie Sie damit verschiedene Pods mit unterschiedlichen 
-  Container-Laufzeitumgebung konfigurieren können.
+  Container-Laufzeitumgebungen konfigurieren können.
 * Lesen sie mehr über 
   [Restriktionen für die Verteilung von Pods](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 * Lesen sie mehr über sogenannte 
