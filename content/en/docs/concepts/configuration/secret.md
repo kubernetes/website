@@ -290,7 +290,7 @@ ConfigMap.
 
 ### TLS secrets
 
-Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
+Kubernetes provides a builtin Secret type `kubernetes.io/tls` for storing
 a certificate and its associated key that are typically used for TLS . This
 data is primarily used with TLS termination of the Ingress resource, but may
 be used with other resources or directly by a workload.
