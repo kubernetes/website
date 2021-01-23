@@ -938,8 +938,11 @@ You can fetch like this:
 For background information on design details for API priority and fairness, see the
 [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
 You can make suggestions and feature requests via
-[SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
+[SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
+or the feature's [slack channel](http://kubernetes.slack.com/messages/api-priority-and-fairness).
 -->
 有关API优先级和公平性的设计细节的背景信息，
 请参阅[增强建议](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md)。
-你可以通过 [SIG APIMachinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) 提出建议和特性请求。
+你可以通过 [SIG APIMachinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
+或特性的 [Slack 频道](http://kubernetes.slack.com/messages/api-priority-and-fairness)
+提出建议和特性请求。
