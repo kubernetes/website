@@ -338,19 +338,19 @@ metadata:
 spec:
   tls:
   - hosts:
-    - tlsexample.foo.com
+      - https-example.foo.com
     secretName: testsecret-tls
   rules:
-    - host: tlsexample.foo.com
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: service1
-              port:
-                number: 80
+  - host: https-example.foo.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service1
+            port:
+              number: 80
 ```
 
 {{< note >}}
