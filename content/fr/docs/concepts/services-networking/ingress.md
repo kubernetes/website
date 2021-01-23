@@ -328,7 +328,7 @@ metadata:
 type: kubernetes.io/tls
 ```
 
-Référencer ce secret dans un Ingress indiquera au contrôleur d'ingress de sécuriser le canal du client au load-balancer à l'aide de TLS. Vous devez vous assurer que le secret TLS que vous avez créé provenait d'un certificat contenant un CN pour `sslexample.foo.com`.
+Référencer ce secret dans un Ingress indiquera au contrôleur d'ingress de sécuriser le canal du client au load-balancer à l'aide de TLS. Vous devez vous assurer que le secret TLS que vous avez créé provenait d'un certificat contenant un CN pour `tlsexample.foo.com`.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -338,10 +338,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - sslexample.foo.com
+    - tlsexample.foo.com
     secretName: testsecret-tls
   rules:
-    - host: sslexample.foo.com
+    - host: tlsexample.foo.com
       http:
         paths:
         - path: /
