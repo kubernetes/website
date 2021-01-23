@@ -24,7 +24,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 
 
-### Exposed Persistent volumes {#Exposed Persistent volumes}
+### Exposed Persistent volumes {#Exposed-Persistent-volumes}
 
 
 - **persistentVolumeClaim** (PersistentVolumeClaimVolumeSource)
@@ -200,7 +200,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
 
-### Local / Temporary Directory {#Local / Temporary Directory}
+### Local / Temporary Directory {#Local-Temporary-Directory}
 
 
 - **emptyDir** (EmptyDirVolumeSource)
@@ -233,7 +233,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     Type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 
-### Persistent volumes {#Persistent volumes}
+### Persistent volumes {#Persistent-volumes}
 
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
@@ -749,7 +749,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     Storage Policy Based Management (SPBM) profile name.
 
-### Beta level {#Beta level}
+### Beta level {#Beta-level}
 
 
 - **csi** (CSIVolumeSource)
@@ -779,7 +779,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
 
-### Alpha level {#Alpha level}
+### Alpha level {#Alpha-level}
 
 
 - **ephemeral** (EphemeralVolumeSource)
