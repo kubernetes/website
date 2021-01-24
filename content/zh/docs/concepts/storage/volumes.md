@@ -510,6 +510,20 @@ memory limit.
 tmpfs 在节点重启时会被清除，并且你所写入的所有文件都会计入容器的内存消耗，受容器内存限制约束。
 
 <!--
+{{< note >}}
+If the `SizeMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+you can specify a size for memory backed volumes.  If no size is specified, memory
+backed volumes are sized to 50% of the memory on a Linux host.
+{{< /note>}}
+-->
+
+{{< note >}}
+当启用 `SizeMemoryBackedVolumes` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)时，
+你可以为基于内存提供的卷指定大小。
+如果未指定大小，则基于内存的卷的大小为 Linux 主机上内存的 50％。
+{{< /note>}}
+
+<!--
 #### emptyDir configuration example
 -->
 #### emptyDir 配置示例
