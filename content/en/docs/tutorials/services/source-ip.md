@@ -425,7 +425,7 @@ the `service.spec.healthCheckNodePort` field on the Service.
 Delete the Services:
 
 ```shell
-kubectl delete svc -l run=source-ip-app
+kubectl delete svc -l app=source-ip-app
 ```
 
 Delete the Deployment, ReplicaSet and Pod:
