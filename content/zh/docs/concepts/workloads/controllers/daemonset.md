@@ -172,7 +172,7 @@ When the two are specified the result is ANDed.
 If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`. Config with these not matching will be rejected by the API.
 -->
 如果指定了 `.spec.selector`，必须与 `.spec.template.metadata.labels` 相匹配。
-如果与后者不匹配，则 DeamonSet 会被 API 拒绝。
+如果与后者不匹配，则 DaemonSet 会被 API 拒绝。
 
 <!--
 ### Running Pods on Only Some Nodes
