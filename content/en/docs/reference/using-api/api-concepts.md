@@ -514,7 +514,7 @@ The meaning of the get and list semantics are:
 - **Any:** Return data at any resource version. The newest available resource version is preferred,
   but strong consistency is not required; data at any resource version may be served. It is possible
   for the request to return data at a much older resource version that the client has previously
-  observed, particularly in high availabiliy configurations, due to partitions or stale
+  observed, particularly in high availability configurations, due to partitions or stale
   caches. Clients that cannot tolerate this should not use this semantic.
 - **Not older than:** Return data at least as new as the provided resourceVersion. The newest
   available data is preferred, but any data not older than the provided resourceVersion may be
