@@ -150,7 +150,7 @@ Because they are cluster-scoped, you can also use them to grant access to:
 * non-resource endpoints (like `/healthz`)
 * namespaced resources (like Pods), across all namespaces
   For example: you can use a ClusterRole to allow a particular user to run
-  `kubectl get pods -all-namespaces`.
+  `kubectl get pods -all-namespaces`
 -->
 ###  ClusterRole 示例
 
