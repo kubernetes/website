@@ -200,6 +200,7 @@ Operator.
 
 You also implement an Operator (that is, a Controller) using any language / runtime
 that can act as a [client for the Kubernetes API](/docs/reference/using-api/client-libraries/).
+
 -->
 
 如果生态系统中没可以实现你目标的 Operator，你可以自己编写代码。在
