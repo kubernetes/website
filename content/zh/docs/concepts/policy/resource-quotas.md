@@ -1,7 +1,7 @@
 ---
 title: 资源配额
 content_type: concept
-weight: 10
+weight: 20
 ---
 
 <!--
@@ -9,7 +9,7 @@ reviewers:
 - derekwaynecarr
 title: Resource Quotas
 content_type: concept
-weight: 10
+weight: 20
 -->
 
 <!-- overview -->
