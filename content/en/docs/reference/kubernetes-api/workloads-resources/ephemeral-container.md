@@ -54,7 +54,7 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
   Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
 
-### Environment variables {#Environment variables}
+### Environment variables {#Environment-variables}
 
 
 - **env** ([]EnvVar)
@@ -251,7 +251,7 @@ An EphemeralContainer is a container that may be added temporarily to an existin
 
   Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 
-### Not allowed {#Not allowed}
+### Not allowed {#Not-allowed}
 
 
 - **ports** ([]ContainerPort)
