@@ -303,10 +303,7 @@ endpoint on the scheduler. You must use the `--show-hidden-metrics-for-version=1
 
 <!--
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) for metrics
-* See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
 -->
 * 阅读有关指标的 [Prometheus 文本格式](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
-* 查看 [Kubernetes 稳定指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
-  的列表
 * 阅读有关 [Kubernetes 弃用策略](/zh/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
