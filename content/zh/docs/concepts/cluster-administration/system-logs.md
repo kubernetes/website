@@ -154,6 +154,55 @@ List of components currently supporting JSON format:
 * {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
 <!--
+### Log sanitization
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+{{<warning >}}
+Log sanitization might incur significant computation overhead and therefore should not be enabled in production.
+{{< /warning >}}
+-->
+
+### 日志清理
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+{{<warning >}}
+日志清理可能会导致大量的计算开销，因此不应启用在生产环境中。
+{{< /warning >}}
+
+<!--
+The `--experimental-logging-sanitization` flag enables the klog sanitization filter.
+If enabled all log arguments are inspected for fields tagged as sensitive data (e.g. passwords, keys, tokens) and logging of these fields will be prevented.
+-->
+
+`--experimental-logging-sanitization` 参数可用来启用 klog 清理过滤器。
+如果启用后，将检查所有日志参数中是否有标记为敏感数据的字段（比如：密码，密钥，令牌），并且将阻止这些字段的记录。
+
+<!--
+List of components currently supporting log sanitization:
+* kube-controller-manager
+* kube-apiserver
+* kube-scheduler
+* kubelet
+
+{{< note >}}
+The Log sanitization filter does not prevent user workload logs from leaking sensitive data.
+{{< /note >}}
+-->
+
+当前支持日志清理的组件列表：
+
+* kube-controller-manager
+* kube-apiserver
+* kube-scheduler
+* kubelet
+
+{{< note >}}
+日志清理过滤器不会阻止用户工作负载日志泄漏敏感数据。
+{{< /note >}}
+
+<!--
 ### Log verbosity level
 
 The `-v` flag controls log verbosity. Increasing the value increases the number of logged events. Decreasing the value decreases the number of logged events.
