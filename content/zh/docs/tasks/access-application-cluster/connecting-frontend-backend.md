@@ -177,7 +177,7 @@ to find the hello backend Service. Here is the nginx configuration file:
 DNS 名是 "hello"，也就是 Service 配置文件中 `name` 字段的值。
 
 前端 Deployment 中的 Pods 运行一个 nginx 镜像，这个已经配置好镜像去寻找后端的 hello Service。
-只是 nginx 的配置文件：
+这是 nginx 的配置文件：
 
 {{< codenew file="service/access/frontend.conf" >}}
 
