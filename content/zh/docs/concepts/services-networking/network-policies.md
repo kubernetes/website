@@ -69,6 +69,8 @@ By default, pods are non-isolated; they accept traffic from any source.
 Pods become isolated by having a NetworkPolicy that selects them. Once there is any NetworkPolicy in a namespace selecting a particular pod, that pod will reject any connections that are not allowed by any NetworkPolicy. (Other pods in the namespace that are not selected by any NetworkPolicy will continue to accept all traffic.)
 
 Network policies do not conflict; they are additive. If any policy or policies select a pod, the pod is restricted to what is allowed by the union of those policies' ingress/egress rules. Thus, order of evaluation does not affect the policy result.
+
+For a network flow between two pods to be allowed, both the egress policy on the source pod and the ingress policy on the destination pod need to allow the traffic. If either the egress policy on the source, or the ingress policy on the destination denies the traffic, the traffic will be denied.
 -->
 ## 隔离和非隔离的 Pod   {#isolated-and-non-isolated-pods}
 
@@ -82,6 +84,11 @@ Pod 在被某 NetworkPolicy 选中时进入被隔离状态。
 网络策略不会冲突，它们是累积的。
 如果任何一个或多个策略选择了一个 Pod, 则该 Pod 受限于这些策略的
 入站（Ingress）/出站（Egress）规则的并集。因此评估的顺序并不会影响策略的结果。
+
+为了允许两个 Pods 之间的网络数据流，源端 Pod 上的出站（Egress）规则和
+目标端 Pod 上的入站（Ingress）规则都需要允许该流量。
+如果源端的出站（Egress）规则或目标端的入站（Ingress）规则拒绝该流量，
+则流量将被拒绝。
 
 <!--
 ## The NetworkPolicy resource {#networkpolicy-resource}
