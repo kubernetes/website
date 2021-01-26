@@ -810,6 +810,13 @@ section#cncf {
   }
 }
 
+.td-search {
+  header > .header-filler {
+    height: $hero-padding-top;
+    background-color: black;
+  }
+}
+
 // Docs specific
 
 #editPageButton {
