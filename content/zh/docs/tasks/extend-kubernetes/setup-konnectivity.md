@@ -41,6 +41,23 @@ by providing the following flags to the kube-apiserver:
    --service-account-signing-key-file=/etc/kubernetes/pki/sa.key
    --api-audiences=system:konnectivity-server
    ```
+1. Create an egress configuration file such as `admin/konnectivity/egress-selector-configuration.yaml`.
+1. Set the `--egress-selector-config-file` flag of the API Server to the path of
+your API Server egress configuration file.
+1. If you use UDS connection, add volumes config to the kube-apiserver:
+   ```yaml
+   spec:
+     containers:
+       volumeMounts:
+       - name: konnectivity-uds
+         mountPath: /etc/kubernetes/konnectivity-server
+         readOnly: false
+     volumes:
+     - name: konnectivity-uds
+       hostPath:
+         path: /etc/kubernetes/konnectivity-server
+         type: DirectoryOrCreate
+   ```
 -->
 你需要配置 API 服务器来使用 Konnectivity 服务，并将网络流量定向到集群节点：
 
@@ -55,18 +72,26 @@ by providing the following flags to the kube-apiserver:
    --api-audiences=system:konnectivity-server
    ```
 
-<!--
-1. Create an egress configuration file such as `admin/konnectivity/egress-selector-configuration.yaml`.
-1. Set the `--egress-selector-config-file` flag of the API Server to the path of
-your API Server egress configuration file.
--->
-{{< codenew file="admin/konnectivity/egress-selector-configuration.yaml" >}}
-2. 创建一个出口配置文件比如 `admin/konnectivity/egress-selector-configuration.yaml`。
-3. 将 API 服务器的 `--egress-selector-config-file` 参数设置为你的 API 服务器的
+1. 创建一个出站流量配置文件，比如 `admin/konnectivity/egress-selector-configuration.yaml`。
+1. 将 API 服务器的 `--egress-selector-config-file` 参数设置为你的 API 服务器的
    离站流量配置文件路径。
+1. 如果你在使用 UDS 连接，须将卷配置添加到 kube-apiserver：
+   ```yaml
+   spec:
+     containers:
+       volumeMounts:
+       - name: konnectivity-uds
+         mountPath: /etc/kubernetes/konnectivity-server
+         readOnly: false
+     volumes:
+     - name: konnectivity-uds
+       hostPath:
+         path: /etc/kubernetes/konnectivity-server
+         type: DirectoryOrCreate
+   ```
 
 <!--
-Generate or obtain a certificate and kubeconfig for konnectivity-server.  
+Generate or obtain a certificate and kubeconfig for konnectivity-server.
 For example, you can use the OpenSSL command line tool to issue a X.509 certificate,
 using the cluster CA certificate `/etc/kubernetes/pki/ca.crt` from a control-plane host.
 -->

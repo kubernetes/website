@@ -519,21 +519,34 @@ CRDs converted from `apiextensions.k8s.io/v1beta1` to
 `apiextensions.k8s.io/v1` might lack structural schemas, and
 `spec.preserveUnknownFields` might be `true`.
 
-For migrated CustomResourceDefinitions where `spec.preserveUnknownFields` is
-set, pruning is _not_ enabled and you can store arbitrary data. For best
-compatibility, you should update your custom resources to meet an OpenAPI schema,
-and you should set `spec.preserveUnknownFields` true for the
-CustomResourceDefinition itself.
+For legacy CustomResourceDefinition objects created as
+`apiextensions.k8s.io/v1beta1` with `spec.preserveUnknownFields` set to
+`true`, the following is also true:
+
+* Pruning is not enabled.
+* You can store arbitrary data.
+
+For compatibility with `apiextensions.k8s.io/v1`, update your custom
+resource definitions to:
+
+1. Use a structural OpenAPI schema.
+2. Set `spec.preserveUnknownFields` to `false`.
 -->
 {{< note >}}
 从 `apiextensions.k8s.io/v1beta1` 转换到 `apiextensions.k8s.io/v1` 的 CRD
 可能没有结构化的模式定义，因此其 `spec.preserveUnknownFields` 可能为 `true`。
 
-对于迁移而来的 CustomResourceDefinition，如果其 `spec.preserveUnknownFields`
-被设置为 `true`，则 Kubernetes _不会_ 执行剪裁操作，你可以存储任意数据。
-要实现最佳的兼容性，你应该更新定制资源以满足某 OpenAPI 模式定义，并且你
-应该将 CustomResourceDefinition 自身的 `spec.preserveUnknownFields` 设置为
-`true`。
+对于使用 `apiextensions.k8s.io/v1beta1` 且将 `spec.preserveUnknownFields` 设置为 `true`
+创建的旧 CustomResourceDefinition 对象，有以下表现：
+
+* 裁剪未启用。
+* 可以存储任意数据。
+
+为了与 `apiextensions.k8s.io/v1` 兼容，将你的自定义资源定义更新为：
+
+1. 使用结构化的 OpenAPI 模式。
+2. `spec.preserveUnknownFields` 设置为 `false`。
+
 {{< /note >}}
 
 <!--
