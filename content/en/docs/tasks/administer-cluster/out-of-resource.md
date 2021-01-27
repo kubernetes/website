@@ -119,7 +119,10 @@ The `kubelet` has the following default hard eviction threshold:
 * `nodefs.available<10%`
 * `imagefs.available<15%`
 
-On a Linux node, the default value also includes `nodefs.inodesFree<5%`.
+On Linux, the following are also set:
+
+* `pid.available<10%`
+* `nodefs.inodesFree<5%`
 
 ### Eviction Monitoring Interval
 
