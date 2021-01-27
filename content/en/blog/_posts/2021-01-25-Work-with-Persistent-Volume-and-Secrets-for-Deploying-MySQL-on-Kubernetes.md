@@ -291,9 +291,7 @@ In this article, you learn about how to deploy MySQL on
 Kubernetes and in doing so you learned three important Kubernetes concepts:
 Persistent Volume, Persistent Volume Claim and Secrets. We also reviewed
 a sample configuration environment for setting the right properties for
-PV, PVC and Secrets on the manifest file. You can extend this article by
-using Kubernetes tools like Minikube to make Kubernetes secrets to store
-database credentials and deploy the MySQL instance.
+PV, PVC and Secrets on the manifest file. 
 
 
 
