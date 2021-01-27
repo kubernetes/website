@@ -21,7 +21,7 @@ Kubernetes Persistent Volume
 
 Let’s start off by explaining what a **Persistent Volume** (**PV**) is
 and what role does it play in the [Kubernetes
-Pods](https://coding-bootcamps.com/blog/kubernetes-evolution-from-virtual-servers-and-kubernetes-architecture.html).
+Pods](https://kubernetes.io/docs/concepts/workloads/pods/).
 In a nutshell, PV in Kubernetes are used for deploying MySQL database. A
 PV is a piece of storage in the cluster. It is a resource in the cluster
 just like a node. The Persistent volume’s lifecycle is independent from
@@ -45,7 +45,7 @@ Kubernetes Secrets
 ------------------
 
 Put it simply, we use [Kubernetes
-secrets](https://blockchain.dcwebmakers.com/blog/advance-topics-for-deploying-and-managing-kubernetes-containers.html)
+secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 to store the database credentials. A Secret is just an object (that
 contains key-value pairs and some metadata) in Kubernetes that lets you
 store and manage sensitive information, such as passwords, tokens, SSH
@@ -280,39 +280,22 @@ manifest file:
 
 The MySQL container reads database credentials from environment
 variables. The environment variables access these credentials from
-Kubernetes secrets.\
+Kubernetes secrets.
  For the next step, you can start a Minikube cluster to create
 Kubernetes secrets to store database credentials and deploy the MySQL
 instance.
 
 ### Summary
 
-In this article, you learn about how to deploy MySQL on
-[Kubernetes](https://myhsts.org/tutorial-review-of-17-essential-topics-for-mastering-kubernetes.php)
-and in doing so you learned three important Kubernetes concepts:
+In this article, you learn about how to deploy MySQL on 
+Kubernetes and in doing so you learned three important Kubernetes concepts:
 Persistent Volume, Persistent Volume Claim and Secrets. We also reviewed
 a sample configuration environment for setting the right properties for
 PV, PVC and Secrets on the manifest file. You can extend this article by
 using Kubernetes tools like Minikube to make Kubernetes secrets to store
 database credentials and deploy the MySQL instance.
 
-### Resources
 
-For more discussions and helps on Kubernetes, reading the following
-articles is highly recommended:
-
--   [17 Best Practices for Managing Kubernetes
-    Containers](https://myhsts.org/tutorial-review-of-17-essential-topics-for-mastering-kubernetes.php)
--   [Advance System Admin Guide- 9 Best Practices for Managing
-    Kubernetes](https://blockchain.dcwebmakers.com/blog/advance-topics-for-deploying-and-managing-kubernetes-containers.html)
--   [System Admin Guide- What is Kubernetes and how it
-    works](https://coding-bootcamps.com/blog/kubernetes-evolution-from-virtual-servers-and-kubernetes-architecture.html)
--   [Comprehensive Guide for Migration From Monolithic To Microservices
-    Architecture](https://blockchain.dcwebmakers.com/blog/comprehensive-guide-for-migration-from-monolithic-to-microservices-architecture.html)
--   [Review of Pod-to-Pod Communications in
-    Kubernetes](https://coding-bootcamps.com/blog/pod-to-pod-communications-in-kubernetes.html)
--   [Build and Deploy Containerized Applications with Golang on
-    Kubernetes](https://coding-bootcamps.com/blog/build-containerized-applications-with-golang-on-kubernetes.html)
 
 
 About Author
