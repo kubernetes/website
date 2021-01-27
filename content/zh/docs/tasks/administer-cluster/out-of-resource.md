@@ -50,6 +50,7 @@ the `kubelet` summary API.
 | `nodefs.inodesFree` | `nodefs.inodesFree` := `node.stats.fs.inodesFree` |
 | `imagefs.available` | `imagefs.available` := `node.stats.runtime.imagefs.available` |
 | `imagefs.inodesFree` | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree` |
+| `pid.available`      | `pid.available` := `node.stats.rlimit.maxpid` - `node.stats.rlimit.curproc`           |
 -->
 | 驱逐信号                   | 描述                                                                |
 |----------------------------|---------------------------------------------------------------------|
@@ -58,7 +59,7 @@ the `kubelet` summary API.
 | `nodefs.inodesFree` | `nodefs.inodesFree` := `node.stats.fs.inodesFree` |
 | `imagefs.available` | `imagefs.available` := `node.stats.runtime.imagefs.available` |
 | `imagefs.inodesFree` | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree` |
-
+| `pid.available`      | `pid.available` := `node.stats.rlimit.maxpid` - `node.stats.rlimit.curproc`           |
 <!--
 Each of the above signals supports either a literal or percentage based value.
 The percentage based value is calculated relative to the total capacity
