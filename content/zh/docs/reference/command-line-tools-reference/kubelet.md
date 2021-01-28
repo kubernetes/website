@@ -118,7 +118,7 @@ log to standard error as well as files
 Enables anonymous requests to the Kubelet server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of `system:anonymous`, and a group name of `system:unauthenticated`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置为 true 表示 kubelet 服务器可以接受匿名请求。未被任何认证组件拒绝的请求将被视为匿名请求。
-匿名请求的用户名为 <code>system:anonymous</code>，用户组为 </code>system:unauthenticated</code>。
+匿名请求的用户名为 <code>system:anonymous</code>，用户组为 <code>system:unauthenticated</code>。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
@@ -1352,7 +1352,6 @@ Content type of requests sent to apiserver. (default "application/vnd.kubernetes
 发送到 apiserver 的请求的内容类型。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
-</td>
 </td>
 </tr>
 
