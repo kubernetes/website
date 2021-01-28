@@ -712,7 +712,7 @@ NLBの背後にあるインスタンスに対してクライアントのトラ�
 |------|----------|---------|------------|---------------------|
 | ヘルスチェック | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
 | クライアントのトラフィック | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (デフォルト: `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
-| MTCによるサービスディスカバリー | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (デフォルト: `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
+| MTUによるサービスディスカバリー | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (デフォルト: `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 
 どのクライアントIPがNLBにアクセス可能かを制限するためには、`loadBalancerSourceRanges`を指定してください。
 
