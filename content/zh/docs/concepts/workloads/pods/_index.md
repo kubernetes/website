@@ -1,5 +1,5 @@
 ---
-title: "Pods"
+title: Pods
 content_type: concept
 weight: 10
 no_list: true
@@ -26,7 +26,7 @@ _Pods_ are the smallest deployable units of computing that you can create and ma
 
 A _Pod_ (as in a pod of whales or pea pod) is a group of one or more
 {{< glossary_tooltip text="containers" term_id="container" >}}
-with shared storage/network resources, and a specification
+with shared storage and network resources, and a specification
 for how to run the containers. A Pod's contents are always co-located and
 co-scheduled, and run in a shared context. A Pod models an
 application-specific "logical host": it contains one or more application
@@ -351,6 +351,62 @@ changing existing code.
 前提下就能扩展集群的行为。
 
 <!--
+## Pod update and replacement
+
+As mentioned in the previous section, when the Pod template for a workload
+resource is changed, the controller creates new Pods based on the updated
+template instead of updating or patching the existing Pods.
+-->
+## Pod 更新与替换   {#pod-update-and-replacement}
+
+正如前面章节所述，当某工作负载的 Pod 模板被改变时，控制器会基于更新的模板
+创建新的 Pod 对象而不是对现有 Pod 执行更新或者修补操作。
+
+<!--
+Kubernetes doesn't prevent you from managing Pods directly. It is possible to
+update some fields of a running Pod, in place. However, Pod update operations
+like 
+[`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core), and
+[`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
+have some limitations:
+-->
+Kubernetes 并不禁止你直接管理 Pod。对运行中的 Pod 的某些字段执行就地更新操作
+还是可能的。不过，类似
+[`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core) 和
+[`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
+这类更新操作有一些限制：
+
+<!--
+- Most of the metadata about a Pod is immutable. For example, you cannot
+  change the `namespace`, `name`, `uid`, or `creationTimestamp` fields;
+  the `generation` field is unique. It only accepts updates that increment the
+  field's current value.
+- If the `metadata.deletionTimestamp` is set, no new entry can be added to the
+  `metadata.finalizers` list.
+- Pod updates may not change fields other than `spec.containers[*].image`,
+  `spec.initContainers[*].image`, `spec.activeDeadlineSeconds` or
+  `spec.tolerations`. For `spec.tolerations`, you can only add new entries.
+- When updating the `spec.activeDeadlineSeconds` field, two types of updates
+  are allowed:
+
+  1. setting the unassigned field to a positive number; 
+  1. updating the field from a positive number to a smaller, non-negative
+     number.
+-->
+- Pod 的绝大多数元数据都是不可变的。例如，你不可以改变其 `namespace`、`name`、
+  `uid` 或者 `creationTimestamp` 字段；`generation` 字段是比较特别的，如果更新
+  该字段，只能增加字段取值而不能减少。
+- 如果 `metadata.deletionTimestamp` 已经被设置，则不可以向 `metadata.finalizers`
+  列表中添加新的条目。
+- Pod 更新不可以改变除 `spec.containers[*].image`、`spec.initContainers[*].image`、
+  `spec.activeDeadlineSeconds` 或 `spec.tolerations` 之外的字段。
+  对于 `spec.tolerations`，你只被允许添加新的条目到其中。
+- 在更新`spec.activeDeadlineSeconds` 字段时，以下两种更新操作是被允许的：
+
+  1. 如果该字段尚未设置，可以将其设置为一个正数；
+  1. 如果该字段已经设置为一个正数，可以将其设置为一个更小的、非负的整数。
+
+<!--
 ## Resource sharing and communication
 
 Pods enable data sharing and communication among their constituent
@@ -486,7 +542,6 @@ but cannot be controlled from there.
 
 <!--
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
-* Learn about [PodPresets](/docs/concepts/workloads/pods/podpreset/).
 * Learn about [RuntimeClass](/docs/concepts/containers/runtime-class/) and how you can use it to
   configure different Pods with different container runtime configurations.
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
@@ -497,7 +552,6 @@ but cannot be controlled from there.
 * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns) explains common layouts for Pods with more than one container.
 --
 * 了解 [Pod 生命周期](/zh/docs/concepts/workloads/pods/pod-lifecycle/)
-* 了解 [PodPresets](/zh/docs/concepts/workloads/pods/podpreset/)
 * 了解 [RuntimeClass](/zh/docs/concepts/containers/runtime-class/)，以及如何使用它
   来配置不同的 Pod 使用不同的容器运行时配置
 * 了解 [Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
@@ -510,7 +564,7 @@ but cannot be controlled from there.
   中解释了在同一 Pod 中包含多个容器时的几种常见布局。
 
 <!--
-To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}, you can read about the prior art, including:
+To understand the context for why Kubernetes wraps a common Pod API in other resources (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or {{< glossary_tooltip text="Deployments" term_id="deployment" >}}), you can read about the prior art, including:
 -->
 要了解为什么 Kubernetes 会在其他资源
 （如 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}

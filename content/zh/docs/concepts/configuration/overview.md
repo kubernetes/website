@@ -184,6 +184,15 @@ Deployment 描述了对象的期望状态，并且如果对该规范的更改被
 则 Deployment 控制器以受控速率将实际状态改变为期望状态。
 
 <!--
+- Use the [Kubernetes common labels](/docs/concepts/overview/working-with-objects/common-labels/) for common use cases. These standardized labels enrich the metadata in a way that allows tools, including `kubectl` and [dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard), to work in an interoperable way.
+-->
+
+- 对于常见场景，应使用 [Kubernetes 通用标签](/zh/docs/concepts/overview/working-with-objects/common-labels/)。
+  这些标准化的标签丰富了对象的元数据，使得包括 `kubectl` 和
+  [仪表板（Dashboard）](/zh/docs/tasks/access-application-cluster/web-ui-dashboard)
+  这些工具能够以可互操作的方式工作。
+
+<!--
 - You can manipulate labels for debugging. Because Kubernetes controllers (such as ReplicaSet) and Services match to Pods using selector labels, removing the relevant labels from a Pod will stop it from being considered by a controller or from being served traffic by a Service. If you remove the labels of an existing Pod, its controller will create a new Pod to take its place. This is a useful way to debug a previously "live" Pod in a "quarantine" environment. To interactively remove or add labels, use [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
 -->
 - 您可以操纵标签进行调试。

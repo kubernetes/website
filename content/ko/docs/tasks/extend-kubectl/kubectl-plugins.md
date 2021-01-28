@@ -6,7 +6,7 @@ content_type: task
 
 <!-- overview -->
 
-이 가이드는 [kubectl](/docs/reference/kubectl/kubectl/) 확장을 설치하고 작성하는 방법을 보여준다. 핵심 `kubectl` 명령을 쿠버네티스 클러스터와 상호 작용하기 위한 필수 구성 요소로 생각함으로써, 클러스터 관리자는
+이 가이드는 [kubectl](/ko/docs/reference/kubectl/kubectl/) 확장을 설치하고 작성하는 방법을 보여준다. 핵심 `kubectl` 명령을 쿠버네티스 클러스터와 상호 작용하기 위한 필수 구성 요소로 생각함으로써, 클러스터 관리자는
 플러그인을 이러한 구성 요소를 활용하여 보다 복잡한 동작을 만드는 수단으로 생각할 수 있다. 플러그인은 새로운 하위 명령으로 `kubectl` 을 확장하고, 주요 배포판에 포함되지 않은 `kubectl` 의 새로운 사용자 정의 기능을 허용한다.
 
 

@@ -305,9 +305,10 @@ mynamespace                                         # 특정 네임스페이스�
 kubectl run nginx --image=nginx                     # nginx 파드를 실행하고 해당 스펙을 pod.yaml 파일에 기록
 --dry-run=client -o yaml > pod.yaml
 
-kubectl attach my-pod -i                            # 실행중인 컨테이너에 연결
+kubectl attach my-pod -i                            # 실행 중인 컨테이너에 연결
 kubectl port-forward my-pod 5000:6000               # 로컬 머신의 5000번 포트를 리스닝하고, my-pod의 6000번 포트로 전달
 kubectl exec my-pod -- ls /                         # 기존 파드에서 명령 실행(한 개 컨테이너 경우)
+kubectl exec --stdin --tty my-pod -- /bin/sh        # 실행 중인 파드로 대화형 셸 액세스(1 컨테이너 경우)
 kubectl exec my-pod -c my-container -- ls /         # 기존 파드에서 명령 실행(멀티-컨테이너 경우)
 kubectl top pod POD_NAME --containers               # 특정 파드와 해당 컨테이너에 대한 메트릭 표시
 ```
@@ -355,8 +356,8 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 `-o=custom-columns=<명세>` | 쉼표로 구분된 사용자 정의 열 목록을 사용하여 테이블 출력
 `-o=custom-columns-file=<파일명>` | `<파일명>`파일에서 사용자 정의 열 템플릿을 사용하여 테이블 출력
 `-o=json`     | JSON 형식의 API 오브젝트 출력
-`-o=jsonpath=<템플릿>` | [jsonpath](/docs/reference/kubectl/jsonpath) 표현식에 정의된 필드 출력
-`-o=jsonpath-file=<파일명>` | <파일명> 파일에서 [jsonpath](/docs/reference/kubectl/jsonpath) 표현식에 정의된 필드 출력
+`-o=jsonpath=<템플릿>` | [jsonpath](/ko/docs/reference/kubectl/jsonpath) 표현식에 정의된 필드 출력
+`-o=jsonpath-file=<파일명>` | <파일명> 파일에서 [jsonpath](/ko/docs/reference/kubectl/jsonpath) 표현식에 정의된 필드 출력
 `-o=name`     | 리소스 명만 출력하고 그 외에는 출력하지 않음
 `-o=wide`     | 추가 정보가 포함된 일반-텍스트 형식으로 출력하고, 파드의 경우 노드 명이 포함
 `-o=yaml`     | YAML 형식의 API 오브젝트 출력
@@ -394,10 +395,10 @@ Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 
 
 ## {{% heading "whatsnext" %}}
 
-* [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 읽고 [JsonPath](/docs/reference/kubectl/jsonpath)에 대해 배워보자.
+* [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 읽고 [JsonPath](/ko/docs/reference/kubectl/jsonpath)에 대해 배워보자.
 
-* [kubectl](/docs/reference/kubectl/kubectl/) 옵션을 참고한다.
+* [kubectl](/ko/docs/reference/kubectl/kubectl/) 옵션을 참고한다.
 
-* 재사용 스크립트에서 kubectl 사용 방법을 이해하기 위해 [kubectl 사용법](/docs/reference/kubectl/conventions/)을 참고한다.
+* 재사용 스크립트에서 kubectl 사용 방법을 이해하기 위해 [kubectl 사용법](/ko/docs/reference/kubectl/conventions/)을 참고한다.
 
 * 더 많은 커뮤니티 [kubectl 치트시트](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)를 확인한다.

@@ -115,7 +115,7 @@ control loops automatically fix failures. This means that,
 potentially, your cluster never reaches a stable state.
 
 As long as the controllers for your cluster are running and able to make
-useful changes, it doesn't matter if the overall state is or is not stable.
+useful changes, it doesn't matter if the overall state is stable or not.
 
 ## Design
 

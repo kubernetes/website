@@ -316,7 +316,7 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
 
 ### 언제 스타트업 프로브를 사용해야 하는가?
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 스타트업 프로브는 서비스를 시작하는 데 오랜 시간이 걸리는 컨테이너가 있는
 파드에 유용하다. 긴 활성 간격을 설정하는 대신, 컨테이너가 시작될 때

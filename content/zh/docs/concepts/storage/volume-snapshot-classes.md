@@ -52,7 +52,7 @@ VolumeSnapshotClass 对象的名称很重要，是用户可以请求特定类的
 对象一旦创建就无法更新。
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-hostpath-snapclass
@@ -70,7 +70,7 @@ that don't request any particular class to bind to by adding the
 方法是设置注解 `snapshot.storage.kubernetes.io/is-default-class: "true"`：
 
 ```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-hostpath-snapclass
@@ -95,7 +95,7 @@ used for provisioning VolumeSnapshots. This field must be specified.
 <!--
 ### DeletionPolicy
 
-Volume snapshot classes have a deletionPolicy. It enables you to configure what happens to a VolumeSnapshotContent when the VolumeSnapshot object it is bound to is to be deleted. The deletionPolicy of a volume snapshot can either be `Retain` or `Delete`. This field must be specified.
+Volume snapshot classes have a deletionPolicy. It enables you to configure what happens to a VolumeSnapshotContent when the VolumeSnapshot object it is bound to is to be deleted. The deletionPolicy of a volume snapshot class can either be `Retain` or `Delete`. This field must be specified.
 
 If the deletionPolicy is `Delete`, then the underlying storage snapshot will be deleted along with the VolumeSnapshotContent object. If the deletionPolicy is `Retain`, then both the underlying snapshot and VolumeSnapshotContent remain.
 -->
@@ -103,7 +103,7 @@ If the deletionPolicy is `Delete`, then the underlying storage snapshot will be 
 
 卷快照类具有 `deletionPolicy` 属性。用户可以配置当所绑定的 VolumeSnapshot
 对象将被删除时，如何处理 VolumeSnapshotContent 对象。
-卷快照的这个策略可以是 `Retain` 或者 `Delete`。这个策略字段必须指定。
+卷快照类的这个策略可以是 `Retain` 或者 `Delete`。这个策略字段必须指定。
 
 如果删除策略是 `Delete`，那么底层的存储快照会和 VolumeSnapshotContent 对象
 一起删除。如果删除策略是 `Retain`，那么底层快照和 VolumeSnapshotContent

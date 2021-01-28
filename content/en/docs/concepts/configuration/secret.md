@@ -24,6 +24,16 @@ a password, a token, or a key. Such information might otherwise be put in a
 Pod specification or in an image. Users can create Secrets and the system
 also creates some Secrets.
 
+{{< caution >}}
+Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
+strings. By default they can be retrieved - as plain text - by anyone with API
+access, or anyone with access to Kubernetes' underlying data store, etcd. In
+order to safely use Secrets, it is recommended you (at a minimum):
+
+1. [Enable Encryption at Rest](/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
+2. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that restrict reading and writing the Secret. Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+{{< /caution >}}
+
 <!-- body -->
 
 ## Overview of Secrets
@@ -280,7 +290,7 @@ ConfigMap.
 
 ### TLS secrets
 
-Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
+Kubernetes provides a builtin Secret type `kubernetes.io/tls` for storing
 a certificate and its associated key that are typically used for TLS . This
 data is primarily used with TLS termination of the Ingress resource, but may
 be used with other resources or directly by a workload.
@@ -776,7 +786,7 @@ these pods.
 The `imagePullSecrets` field is a list of references to secrets in the same namespace.
 You can use an `imagePullSecrets` to pass a secret that contains a Docker (or other) image registry
 password to the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
+See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
 
 #### Manually specifying an imagePullSecret
 
@@ -795,7 +805,6 @@ See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-contai
 
 Manually created secrets (for example, one containing a token for accessing a GitHub account)
 can be automatically attached to pods based on their service account.
-See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset/) for a detailed explanation of that process.
 
 ## Details
 

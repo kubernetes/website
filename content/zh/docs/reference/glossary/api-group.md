@@ -45,6 +45,6 @@ API group 使扩展 Kubernetes API 更加的容易。
 API group 在 REST 路径和序列化对象的 `apiVersion` 字段中指定。
 
 <!-- 
-* Read [API Group](/docs/concepts/overview/kubernetes-api/#api-groups) for more information. 
+* Read [API Group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) for more information. 
 -->
-* 阅读 [API Group](/zh/docs/concepts/overview/kubernetes-api/#api-groups) 了解更多信息。
+* 阅读 [API Group](/zh/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) 了解更多信息。

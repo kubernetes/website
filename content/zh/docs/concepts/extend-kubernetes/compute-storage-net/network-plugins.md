@@ -284,7 +284,7 @@ This option is provided to the network-plugin; currently **only kubenet supports
 ## Usage Summary
 
 * `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `--cni-bin-dir` (default `/opt/cni/bin`) and CNI plugin configuration located in `--cni-conf-dir` (default `/etc/cni/net.d`).
-* `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge` and `host-local` plugins placed in `/opt/cni/bin` or `cni-bin-dir`.
+* `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge`, `lo` and `host-local` plugins placed in `/opt/cni/bin` or `cni-bin-dir`.
 * `--network-plugin-mtu=9001` specifies the MTU to use, currently only used by the `kubenet` network plugin.
 -->
 ## 用法总结
@@ -292,7 +292,7 @@ This option is provided to the network-plugin; currently **only kubenet supports
 * `--network-plugin=cni` 用来表明我们要使用 `cni` 网络插件，实际的 CNI 插件
   可执行文件位于 `--cni-bin-dir`（默认是 `/opt/cni/bin`）下， CNI 插件配置位于
   `--cni-conf-dir`（默认是 `/etc/cni/net.d`）下。
-* `--network-plugin=kubenet` 用来表明我们要使用 `kubenet` 网络插件，CNI `bridge`
+* `--network-plugin=kubenet` 用来表明我们要使用 `kubenet` 网络插件，CNI `bridge`，`lo`
   和 `host-local` 插件位于 `/opt/cni/bin` 或 `cni-bin-dir` 中。
 * `--network-plugin-mtu=9001` 指定了我们使用的 MTU，当前仅被 `kubenet` 网络插件使用。
 

@@ -7,12 +7,9 @@ aliases:
     - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
     - castrojo
-    - cody-clark
     - kbarnard10
     - mrbobbytables
     - onlydole
-    - parispittman
-    - vonguard
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -30,6 +27,7 @@ aliases:
     - kbarnard10
     - kbhawkey
     - onlydole
+    - reylejano
     - savitharaghunathan
     - sftim
     - steveperry-53
@@ -139,6 +137,7 @@ aliases:
     - seokho-son
     - ysyukr
     - pjhwa
+    - yoonian
   sig-docs-leads: # Website chairs and tech leads
     - irvifa
     - jimangel
@@ -215,3 +214,12 @@ aliases:
     - idvoretskyi
     - MaxymVlasov
     - Potapy4
+  # authoritative source: git.k8s.io/community/OWNERS_ALIASES
+  committee-steering: # provide PR approvals for announcements
+    - cblecker
+    - derekwaynecarr
+    - dims
+    - liggitt
+    - mrbobbytables
+    - nikhita
+    - parispittman

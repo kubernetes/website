@@ -74,7 +74,7 @@ failure.
 In the webhook model, Kubernetes makes a network request to a remote service.
 In the *Binary Plugin* model, Kubernetes executes a binary (program).
 Binary plugins are used by the kubelet (e.g.
-[Flex Volume Plugins](/docs/concepts/storage/volumes/#flexVolume)
+[Flex Volume Plugins](/docs/concepts/storage/volumes/#flexvolume)
 and [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))
 and by kubectl.
 
@@ -161,7 +161,7 @@ After a request is authorized, if it is a write operation, it also goes through 
 
 ### Storage Plugins
 
-[Flex Volumes](/docs/concepts/storage/volumes/#flexVolume)
+[Flex Volumes](/docs/concepts/storage/volumes/#flexvolume)
 allow users to mount volume types without built-in support by having the
 Kubelet call a Binary Plugin to mount the volume.
 

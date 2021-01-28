@@ -47,8 +47,7 @@ Kustomize는 쿠버네티스 구성을 사용자 정의화하는 도구이다. �
 
 ### 리소스 생성
 
-컨피그 맵과 시크릿은 파드같은 다른 쿠버네티스 오브젝트에서 사용되는 설정이나 민감한 데이터를 가지고 있다.
-컨피그 맵이나 시크릿의 실질적인 소스는 일반적으로 `.properties` 파일이나 ssh key 파일과 같은 것들은 클러스터 외부에 있다.
+컨피그 맵과 시크릿은 파드와 같은 다른 쿠버네티스 오브젝트에서 사용되는 설정이나 민감한 데이터를 가지고 있다. 컨피그 맵이나 시크릿의 실질적인 소스는 일반적으로 `.properties` 파일이나 ssh key 파일과 같은 것들은 클러스터 외부에 있다.
 Kustomize는 시크릿과 컨피그 맵을 파일이나 문자열에서 생성하는 `secretGenerator`와 `configMapGenerator`를 가지고 있다.
 
 #### configMapGenerator
@@ -591,7 +590,7 @@ spec:
       containers:
       - name: my-nginx
         image: nginx
-        command: ["start", "--host", "\$(MY_SERVICE_NAME)"]
+        command: ["start", "--host", "$(MY_SERVICE_NAME)"]
 EOF
 
 # service.yaml 파일 생성
@@ -655,10 +654,10 @@ spec:
 
 ## Base와 Overlay
 
-Kustomize는 **base**와 **overlay**의 개념을 가지고 있다. **base**는 `kustomization.yaml`과 함께 사용되는 디렉터리다. 이는
+Kustomize는 **base** 와 **overlay** 의 개념을 가지고 있다. **base** 는 `kustomization.yaml` 과 함께 사용되는 디렉터리다. 이는
 사용자 정의와 관련된 리소스들의 집합을 포함한다. `kustomization.yaml`의 내부에 표시되는 base는 로컬 디렉터리이거나 원격 리포지터리의 디렉터리가
-될 수 있다. **overlay**는 `kustomization.yaml`이 있는 디렉터리로
-다른 kustomization 디렉터리들을 `bases`로 참조한다. **base**는 overlay에 대해서 알지 못하며 여러 overlay들에서 사용될 수 있다.
+될 수 있다. **overlay** 는 `kustomization.yaml`이 있는 디렉터리로
+다른 kustomization 디렉터리들을 `bases`로 참조한다. **base** 는 overlay에 대해서 알지 못하며 여러 overlay들에서 사용될 수 있다.
 한 overlay는 다수의 base들을 가질 수 있고, base들에서 모든 리소스를 구성할 수 있으며,
 이들의 위에 사용자 정의도 가질 수 있다.
 

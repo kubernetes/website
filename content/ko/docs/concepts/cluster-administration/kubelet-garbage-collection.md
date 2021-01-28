@@ -1,4 +1,5 @@
 ---
+
 title: kubelet 가비지(Garbage) 수집 설정하기
 content_type: concept
 weight: 70
@@ -6,7 +7,7 @@ weight: 70
 
 <!-- overview -->
 
-가비지 수집은 사용되지 않는 이미지들과 컨테이너들을 정리하는 kubelet의 유용한 기능이다. Kubelet은 1분마다 컨테이너들에 대하여 가비지 수집을 수행하며, 5분마다 이미지들에 대하여 가비지 수집을 수행한다.
+가비지 수집은 사용되지 않는 [이미지](/ko/docs/concepts/containers/#컨테이너-이미지)들과 [컨테이너](/ko/docs/concepts/containers/)들을 정리하는 kubelet의 유용한 기능이다. Kubelet은 1분마다 컨테이너들에 대하여 가비지 수집을 수행하며, 5분마다 이미지들에 대하여 가비지 수집을 수행한다.
 
 별도의 가비지 수집 도구들을 사용하는 것은, 이러한 도구들이 존재할 수도 있는 컨테이너들을 제거함으로써 kubelet 을 중단시킬 수도 있으므로 권장하지 않는다.
 
@@ -17,10 +18,10 @@ weight: 70
 
 ## 이미지 수집
 
-쿠버네티스는 cadvisor와 imageManager를 통하여 모든 이미지들의 
+쿠버네티스는 cadvisor와 imageManager를 통하여 모든 이미지들의
 라이프사이클을 관리한다.
 
-이미지들에 대한 가비지 수집 정책에는 다음 2가지 요소가 고려된다:
+이미지들에 대한 가비지 수집 정책은 다음의 2가지 요소를 고려한다.
 `HighThresholdPercent` 와 `LowThresholdPercent`. 임계값을 초과하는
 디스크 사용량은 가비지 수집을 트리거 한다. 가비지 수집은 낮은 입계값에 도달 할 때까지 최근에 가장 적게 사용한
 이미지들을 삭제한다.
@@ -36,26 +37,26 @@ kubelet이 관리하지 않는 컨테이너는 컨테이너 가비지 수집 대
 
 ## 사용자 설정
 
-사용자는 후술될 kubelet 플래그들을 통하여 이미지 가비지 수집을 조정하기 위하여 다음의 임계값을 조정할 수 있다.
+여러분은 후술될 kubelet 플래그들을 통하여 이미지 가비지 수집을 조정하기 위하여 다음의 임계값을 조정할 수 있다.
 
 1. `image-gc-high-threshold`, 이미지 가비지 수집을 발생시키는 디스크 사용량의 비율로
 기본값은 85% 이다.
 2. `image-gc-low-threshold`, 이미지 가비지 수집을 더 이상 시도하지 않는 디스크 사용량의 비율로
 기본값은 80% 이다.
 
-또한 사용자는 다음의 kubelet 플래그를 통해 가비지 수집 정책을 사용자 정의 할 수 있다.
+다음의 kubelet 플래그를 통해 가비지 수집 정책을 사용자 정의할 수 있다.
 
-1. `minimum-container-ttl-duration`, 종료된 컨테이너가 가비지 수집 
-되기 전의 최소 시간. 기본 값은 0 분이며, 이 경우 모든 종료된 컨테이너는 바로 가비지 수집의 대상이 된다. 
+1. `minimum-container-ttl-duration`, 종료된 컨테이너가 가비지 수집
+되기 전의 최소 시간. 기본 값은 0 분이며, 이 경우 모든 종료된 컨테이너는 바로 가비지 수집의 대상이 된다.
 2. `maximum-dead-containers-per-container`, 컨테이너가 보유할 수 있는 오래된
 인스턴스의 최대 수. 기본 값은 1 이다.
 3. `maximum-dead-containers`, 글로벌하게 보유 할 컨테이너의 최대 오래된 인스턴스의 최대 수.
 기본 값은 -1이며, 이 경우 인스턴스 수의 제한은 없다.
 
 컨테이너들은 유용성이 만료되기 이전에도 가비지 수집이 될 수 있다. 이러한 컨테이너들은
-문제 해결에 도움이 될 수 있는 로그나 다른 데이터를 포함하고 있을 수 있다. 컨테이너 당 적어도 
-1개의 죽은 컨테이너가 허용될 수 있도록 `maximum-dead-containers-per-container` 
-값을 충분히 큰 값으로 지정하는 것을 권장한다. 동일한 이유로 `maximum-dead-containers` 
+문제 해결에 도움이 될 수 있는 로그나 다른 데이터를 포함하고 있을 수 있다. 컨테이너 당 적어도
+1개의 죽은 컨테이너가 허용될 수 있도록 `maximum-dead-containers-per-container`
+값을 충분히 큰 값으로 지정하는 것을 권장한다. 동일한 이유로 `maximum-dead-containers`
 의 값도 상대적으로 더 큰 값을 권장한다.
 자세한 내용은 [해당 이슈](https://github.com/kubernetes/kubernetes/issues/13287)를 참고한다.
 
@@ -82,5 +83,3 @@ kubelet이 관리하지 않는 컨테이너는 컨테이너 가비지 수집 대
 
 
 자세한 내용은 [리소스 부족 처리 구성](/docs/tasks/administer-cluster/out-of-resource/)를 본다.
-
-
