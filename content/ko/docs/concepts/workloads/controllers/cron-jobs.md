@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: 크론잡
 content_type: concept
 weight: 80
@@ -28,8 +32,6 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 11자를 자동으로 추가하고, 작업 이름의 최대 길이는
 63자라는 제약 조건이 있기 때문이다.
 
-
-
 <!-- body -->
 
 ## 크론잡
@@ -46,6 +48,36 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 
 ([크론잡으로 자동화된 작업 실행하기](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)는
 이 예시를 더 자세히 설명한다.)
+
+### 크론 스케줄 문법
+
+```
+# ┌───────────── 분 (0 - 59)
+# │ ┌───────────── 시 (0 - 23)
+# │ │ ┌───────────── 일 (1 - 31)
+# │ │ │ ┌───────────── 월 (1 - 12)
+# │ │ │ │ ┌───────────── 요일 (0 - 6) (일요일부터 토요일까지;
+# │ │ │ │ │                                   특정 시스템에서는 7도 일요일)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
+```
+
+
+| 항목   										 | 설명	      																								  | 상응 표현       |
+| ------------- 						| ------------- 																							|-------------  |
+| @yearly (or @annually)		| 매년 1월 1일 자정에 실행                 										   | 0 0 1 1 * 		|
+| @monthly 									| 매월 1일 자정에 실행  	                                        | 0 0 1 * * 		|
+| @weekly 									| 매주 일요일 자정에 실행							                             | 0 0 * * 0 		|
+| @daily (or @midnight)			| 매일 자정에 실행 																             	| 0 0 * * * 		|
+| @hourly 									| 매시 0분에 시작                          								       | 0 * * * * 		|
+
+
+예를 들면, 다음은 해당 작업이 매주 금요일 자정에 시작되어야 하고, 매월 13일 자정에도 시작되어야 한다는 뜻이다.
+
+`0 0 13 * 5`
+
+크론잡 스케줄 표현을 생성하기 위해서 [crontab.guru](https://crontab.guru/)와 같은 웹 도구를 사용할 수도 있다.
 
 ## 크론잡의 한계 {#cron-job-limitations}
 
@@ -77,6 +109,14 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 크론잡은 오직 그 일정에 맞는 잡 생성에 책임이 있고,
 잡은 그 잡이 대표하는 파드 관리에 책임이 있다.
+
+## 새 컨트롤러
+
+쿠버네티스 1.20부터 알파 기능으로 사용할 수 있는 크론잡 컨트롤러의 대체 구현이 있다. 크론잡 컨트롤러의 버전 2를 선택하려면, 다음의 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 플래그를 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}에 전달한다.
+
+```
+--feature-gates="CronJobControllerV2=true"
+```
 
 
 ## {{% heading "whatsnext" %}}

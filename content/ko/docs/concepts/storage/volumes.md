@@ -296,6 +296,12 @@ tmpfs는 매우 빠르지만, 디스크와 다르게 노드 재부팅시 tmpfs�
 작성하는 모든 파일이 컨테이너 메모리
 제한에 포함된다.
 
+{{< note >}}
+`SizeMemoryBackedVolumes` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 경우,
+메모리 기반 볼륨의 크기를 지정할 수 있다. 크기를 지정하지 않으면, 메모리
+기반 볼륨의 크기는 리눅스 호스트 메모리의 50%로 조정된다.
+{{< /note >}}
+
 #### emptyDir 구성 예시
 
 ```yaml

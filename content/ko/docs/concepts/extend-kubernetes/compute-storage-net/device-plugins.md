@@ -203,7 +203,7 @@ gRPC 서비스는 `/var/lib/kubelet/pod-resources/kubelet.sock` 의 유닉스 �
 `/var/lib/kubelet/pod-resources` 를
 {{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트해야 한다.
 
-"PodResources 서비스"를 지원하려면 `KubeletPodResources` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 쿠버네티스 1.15부터 기본적으로 활성화되어 있다.
+"PodResources 서비스"를 지원하려면 `KubeletPodResources` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
 
 ## 토폴로지 관리자와 장치 플러그인 통합
 
@@ -254,5 +254,3 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 * 노드에서의 [확장 리소스 알리기](/ko/docs/tasks/administer-cluster/extended-resource-node/)에 대해 배우기
 * 쿠버네티스에서 [TLS 수신에 하드웨어 가속](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 사용에 대해 읽기
 * [토폴로지 관리자](/docs/tasks/administer-cluster/topology-manager/)에 대해 알아보기
-
-

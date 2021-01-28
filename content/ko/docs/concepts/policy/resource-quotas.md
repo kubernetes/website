@@ -1,7 +1,7 @@
 ---
 title: 리소스 쿼터
 content_type: concept
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->
@@ -186,7 +186,7 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 | `NotTerminating` | `.spec.activeDeadlineSeconds is nil`에 일치하는 파드 |
 | `BestEffort` | 최상의 서비스 품질을 제공하는 파드 |
 | `NotBestEffort` | 서비스 품질이 나쁜 파드 |
-| `PriorityClass` | 지정된 [프라이올리티 클래스](/docs/concepts/configuration/pod-priority-preemption)를 참조하여 일치하는 파드. |
+| `PriorityClass` | 지정된 [프라이올리티 클래스](/ko/docs/concepts/configuration/pod-priority-preemption)를 참조하여 일치하는 파드. |
 
 `BestEffort` 범위는 다음의 리소스를 추적하도록 쿼터를 제한한다.
 

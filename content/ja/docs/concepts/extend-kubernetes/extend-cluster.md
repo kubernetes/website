@@ -58,7 +58,7 @@ Kubernetes上でうまく動くクライアントプログラムを書くため�
 
 Webhookのモデルでは、Kubernetesは外部のサービスを呼び出します。
 *バイナリプラグイン* モデルでは、Kubernetesはバイナリ(プログラム)を実行します。
-バイナリプラグインはkubelet(例、[FlexVolumeプラグイン](/docs/concepts/storage/volumes/#flexVolume)、[ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))、またkubectlで利用されています。
+バイナリプラグインはkubelet(例、[FlexVolumeプラグイン](/docs/concepts/storage/volumes/#flexvolume)、[ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))、またkubectlで利用されています。
 
 下図は、それぞれの拡張ポイントが、Kubernetesのコントロールプレーンとどのように関わっているかを示しています。
 
@@ -134,7 +134,7 @@ Kubernetesはいくつかのビルトイン認証方式と、それらが要件�
 
 ### ストレージプラグイン
 
-[Flex Volumes](/docs/concepts/storage/volumes/#flexVolume)は、Kubeletがバイナリプラグインを呼び出してボリュームをマウントすることにより、ユーザーはビルトインのサポートなしでボリュームタイプをマウントすることを可能にします。
+[Flex Volumes](/docs/concepts/storage/volumes/#flexvolume)は、Kubeletがバイナリプラグインを呼び出してボリュームをマウントすることにより、ユーザーはビルトインのサポートなしでボリュームタイプをマウントすることを可能にします。
 
 ### デバイスプラグイン
 

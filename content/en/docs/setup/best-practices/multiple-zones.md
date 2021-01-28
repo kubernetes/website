@@ -29,7 +29,7 @@ one zone also impairs services in another zone.
 ## Control plane behavior
 
 All [control plane components](/docs/concepts/overview/components/#control-plane-components)
-support running as a pool of interchangable resources, replicated per
+support running as a pool of interchangeable resources, replicated per
 component.
 
 When you deploy a cluster control plane, place replicas of

@@ -13,10 +13,10 @@ weight: 20
 <!--
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) is a standalone tool
 to customize Kubernetes objects
-through a [kustomization file](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#kustomization).
+through a [kustomization file](https://kubernetes-sigs.github.io/kustomize/api-reference/glossary/#kustomization).
 -->
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) 是一个独立的工具，用来通过
-[kustomization 文件](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#kustomization)
+[kustomization 文件](https://kubernetes-sigs.github.io/kustomize/api-reference/glossary/#kustomization)
 定制 Kubernetes 对象。
 
 <!--
@@ -518,8 +518,8 @@ spec:
       containers:
       - name: my-nginx
         resources:
-        limits:
-          memory: 512Mi
+          limits:
+            memory: 512Mi
 EOF
 
 cat <<EOF >./kustomization.yaml
@@ -553,11 +553,12 @@ spec:
     spec:
       containers:
       - image: nginx
-        limits:
-          memory: 512Mi
         name: my-nginx
         ports:
         - containerPort: 80
+        resources:
+          limits:
+            memory: 512Mi
 ```
 
 <!--
@@ -749,7 +750,7 @@ spec:
       containers:
       - name: my-nginx
         image: nginx
-        command: ["start", "--host", "\$(MY_SERVICE_NAME)"]
+        command: ["start", "--host", "$(MY_SERVICE_NAME)"]
 EOF
 
 # 创建一个 service.yaml 文件
@@ -910,7 +911,7 @@ EOF
 <!--
 ## How to apply/view/delete objects using Kustomize
 
-Use `-kustomize` or `-k` in `kubectl` commands to recognize Resources managed by `kustomization.yaml`.
+Use `--kustomize` or `-k` in `kubectl` commands to recognize Resources managed by `kustomization.yaml`.
 Note that `-k` should point to a kustomization directory, such as
 -->
 ## 如何使用 Kustomize 来应用、查看和删除对象

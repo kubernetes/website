@@ -21,8 +21,8 @@ For information how to create a cluster with kubeadm once you have performed thi
 * One or more machines running one of:
   - Ubuntu 16.04+
   - Debian 9+
-  - CentOS 7
-  - Red Hat Enterprise Linux (RHEL) 7
+  - CentOS 7+
+  - Red Hat Enterprise Linux (RHEL) 7+
   - Fedora 25+
   - HypriotOS v1.0.1+
   - Flatcar Container Linux (tested with 2512.3.0)
@@ -59,6 +59,10 @@ Make sure that the `br_netfilter` module is loaded. This can be done by running 
 As a requirement for your Linux Node's iptables to correctly see bridged traffic, you should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
 
 ```bash
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+br_netfilter
+EOF
+
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1

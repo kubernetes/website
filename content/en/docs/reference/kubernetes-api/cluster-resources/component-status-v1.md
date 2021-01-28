@@ -1,0 +1,191 @@
+---
+api_metadata:
+  apiVersion: "v1"
+  import: "k8s.io/api/core/v1"
+  kind: "ComponentStatus"
+content_type: "api_reference"
+description: "ComponentStatus (and ComponentStatusList) holds the cluster validation info."
+title: "ComponentStatus"
+weight: 10
+---
+
+`apiVersion: v1`
+
+`import "k8s.io/api/core/v1"`
+
+
+## ComponentStatus {#ComponentStatus}
+
+ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+
+
+<hr>
+
+- **apiVersion**: v1
+
+
+- **kind**: ComponentStatus
+
+
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+- **conditions** ([]ComponentCondition)
+
+  *Patch strategy: merge on key `type`*
+  
+  List of component conditions observed
+
+  <a name="ComponentCondition"></a>
+  *Information about the condition of a component.*
+
+  - **conditions.status** (string), required
+
+    Status of the condition for a component. Valid values for "Healthy": "True", "False", or "Unknown".
+
+  - **conditions.type** (string), required
+
+    Type of condition for a component. Valid value: "Healthy"
+
+  - **conditions.error** (string)
+
+    Condition error code for a component. For example, a health check error code.
+
+  - **conditions.message** (string)
+
+    Message about the condition for a component. For example, information about a health check.
+
+
+
+
+
+## ComponentStatusList {#ComponentStatusList}
+
+Status of all the conditions for the component as a list of ComponentStatus objects. Deprecated: This API is deprecated in v1.19+
+
+<hr>
+
+- **apiVersion**: v1
+
+
+- **kind**: ComponentStatusList
+
+
+- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+
+- **items** ([]<a href="{{< ref "../cluster-resources/component-status-v1#ComponentStatus" >}}">ComponentStatus</a>), required
+
+  List of ComponentStatus objects.
+
+
+
+
+
+## Operations {#Operations}
+
+
+
+<hr>
+
+
+
+
+
+
+### `get` read the specified ComponentStatus
+
+#### HTTP Request
+
+GET /api/v1/componentstatuses/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the ComponentStatus
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../cluster-resources/component-status-v1#ComponentStatus" >}}">ComponentStatus</a>): OK
+
+401: Unauthorized
+
+
+### `list` list objects of kind ComponentStatus
+
+#### HTTP Request
+
+GET /api/v1/componentstatuses
+
+#### Parameters
+
+
+- **allowWatchBookmarks** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
+
+- **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../cluster-resources/component-status-v1#ComponentStatusList" >}}">ComponentStatusList</a>): OK
+
+401: Unauthorized
+

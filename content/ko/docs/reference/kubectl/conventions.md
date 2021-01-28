@@ -32,7 +32,7 @@ content_type: concept
 `--dry-run` 플래그를 사용하여 실제로 제출하지 않고 클러스터로 보낼 오브젝트를 미리 볼 수 있다.
 
 {{< note >}}
-모든 `kubectl`의 생성기(generator)는 더 이상 사용 할 수 없다. 생성기 [목록](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators) 및 사용 방법은 쿠버네티스 v1.17 문서를 참고한다.
+모든 `kubectl run`의 생성기(generator)는 더 이상 사용 할 수 없다. 생성기 [목록](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/#generators) 및 사용 방법은 쿠버네티스 v1.17 문서를 참고한다.
 {{< /note >}}
 
 #### 생성기
@@ -58,5 +58,3 @@ content_type: concept
 ### `kubectl apply`
 
 * `kubectl apply`를 사용해서 리소스를 생성하거나 업데이트 할 수 있다. kubectl apply를 사용하여 리소스를 업데이트하는 방법에 대한 자세한 정보는 [Kubectl 책](https://kubectl.docs.kubernetes.io)을 참고한다.
-
-

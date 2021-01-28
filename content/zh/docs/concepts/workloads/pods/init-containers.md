@@ -241,6 +241,10 @@ You can start this Pod by running:
 ```shell
 kubectl apply -f myapp.yaml
 ```
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 pod/myapp-pod created
 ```
@@ -253,6 +257,10 @@ And check on its status with:
 ```shell
 kubectl get -f myapp.yaml
 ```
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
@@ -266,7 +274,10 @@ or for more details:
 ```shell
 kubectl describe -f myapp.yaml
 ```
-
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 Name:          myapp-pod
 Namespace:     default
@@ -353,6 +364,10 @@ To create the `mydb` and `myservice` services:
 ```shell
 kubectl create -f services.yaml
 ```
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 service "myservice" created
 service "mydb" created
@@ -367,7 +382,10 @@ Pod moves into the Running state:
 ```shell
 kubectl get -f myapp.yaml
 ```
-
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
@@ -395,7 +413,7 @@ if the Pod `restartPolicy` is set to Always, the init containers use
 
 A Pod cannot be `Ready` until all init containers have succeeded. The ports on an
 init container are not aggregated under a Service. A Pod that is initializing
-is in the `Pending` state but should have a condition `Initialized` set to true.
+is in the `Pending` state but should have a condition `Initialized` set to false.
 
 If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers
 must execute again.
@@ -413,7 +431,7 @@ Pod 的 `restartPolicy` 策略进行重试。
 
 在所有的 Init 容器没有成功之前，Pod 将不会变成 `Ready` 状态。
 Init 容器的端口将不会在 Service 中进行聚集。正在初始化中的 Pod 处于 `Pending` 状态，
-但会将状况 `Initializing` 设置为 true。
+但会将状况 `Initializing` 设置为 false。
 
 如果 Pod [重启](#pod-restart-reasons)，所有 Init 容器必须重新执行。
 

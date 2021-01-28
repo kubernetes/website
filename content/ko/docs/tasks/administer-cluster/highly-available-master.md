@@ -169,8 +169,39 @@ Etcd 데이터 디렉터리를 마이그레이션하여 속도를 높일 수 있
 etcd를 클러스터로 구축하려면, etcd 인스턴스간 통신에 필요한 포트를 열어야 한다(클러스터 내부 통신용).
 이러한 배포를 안전하게 하기 위해, etcd 인스턴스간의 통신은 SSL을 이용하여 승인한다.
 
+### API 서버 신원
+
+{{< feature-state state="alpha"  for_k8s_version="v1.20" >}}
+
+API 서버 식별 기능은
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)에
+의해 제어되며 기본적으로 활성화되지 않는다.
+{{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}}
+시작 시 `APIServerIdentity` 라는 기능 게이트를 활성화하여 API 서버 신원을 활성화할 수 있다.
+
+```shell
+kube-apiserver \
+--feature-gates=APIServerIdentity=true \
+ # …다른 플래그는 평소와 같다.
+```
+
+부트스트랩 중에 각 kube-apiserver는 고유한 ID를 자신에게 할당한다. ID는
+`kube-apiserver-{UUID}` 형식이다. 각 kube-apiserver는
+_kube-system_ {{< glossary_tooltip text="네임스페이스" term_id="namespace">}}에
+[임대](/docs/reference/generated/kubernetes-api/{{< param "version" >}}//#lease-v1-coordination-k8s-io)를 생성한다.
+임대 이름은 kube-apiserver의 고유 ID이다. 임대에는
+`k8s.io/component=kube-apiserver` 라는 레이블이 있다. 각 kube-apiserver는
+`IdentityLeaseRenewIntervalSeconds` (기본값은 10초)마다 임대를 새로 갱신한다. 각
+kube-apiserver는 `IdentityLeaseDurationSeconds` (기본값은 3600초)마다
+모든 kube-apiserver 식별 ID 임대를 확인하고,
+`IdentityLeaseDurationSeconds` 이상 갱신되지 않은 임대를 삭제한다.
+`IdentityLeaseRenewIntervalSeconds` 및 `IdentityLeaseDurationSeconds`는
+kube-apiserver 플래그 `identity-lease-renew-interval-seconds`
+및 `identity-lease-duration-seconds`로 구성된다.
+
+이 기능을 활성화하는 것은 HA API 서버 조정과 관련된 기능을
+사용하기 위한 전제조건이다(예: `StorageVersionAPI` 기능 게이트).
+
 ## 추가 자료
 
 [자동화된 HA 마스터 배포 - 제안 문서](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/ha_master.md)
-
-

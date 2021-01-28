@@ -148,6 +148,44 @@ sudo containerd config default | sudo tee /etc/containerd/config.toml
 sudo systemctl restart containerd
 ```
 {{% /tab %}}
+{{% tab name="Debian 9+" %}}
+
+```shell
+# (Install containerd)
+## Set up the repository
+### Install packages to allow apt to use a repository over HTTPS
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
+
+```shell
+## Add Docker's official GPG key
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
+```
+
+```shell
+## Add Docker apt repository.
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+```
+
+```shell
+## Install containerd
+sudo apt-get update && sudo apt-get install -y containerd.io
+```
+
+```shell
+# Set default containerd configuration
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+```shell
+# Restart containerd
+sudo systemctl restart containerd
+```
+{{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
@@ -172,7 +210,7 @@ sudo yum update -y && sudo yum install -y containerd.io
 ```shell
 ## Configure containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default > /etc/containerd/config.toml
+sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -230,12 +268,18 @@ Use the following commands to install CRI-O on your system:
 
 {{< note >}}
 The CRI-O major and minor versions must match the Kubernetes major and minor versions.
-For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o).
+For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o#compatibility-matrix-cri-o--kubernetes).
 {{< /note >}}
 
 Install and configure prerequisites:
 
 ```shell
+# Create the .conf file to load the modules at bootup
+cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
+overlay
+br_netfilter
+EOF
+
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
@@ -262,9 +306,9 @@ to the appropriate value from the following table:
 
 <br />
 Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, set `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
 You can pin your installation to a specific release.
-To install version 1.18.3, set `VERSION=1.18:1.18.3`.
+To install version 1.20.0, set `VERSION=1.20:1.20.0`.
 <br />
 
 Then run
@@ -298,9 +342,9 @@ To install on the following operating systems, set the environment variable `OS`
 
 <br />
 Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, set `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
 You can pin your installation to a specific release.
-To install version 1.18.3, set `VERSION=1.18:1.18.3`.
+To install version 1.20.0, set `VERSION=1.20:1.20.0`.
 <br />
 
 Then run
@@ -332,9 +376,9 @@ To install on the following operating systems, set the environment variable `OS`
 
 <br />
 Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, set `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
 You can pin your installation to a specific release.
-To install version 1.18.3, set `VERSION=1.18:1.18.3`.
+To install version 1.20.0, set `VERSION=1.20:1.20.0`.
 <br />
 
 Then run
@@ -355,7 +399,7 @@ sudo zypper install cri-o
 {{% tab name="Fedora" %}}
 
 Set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, `VERSION=1.20`.
 
 You can find available versions with:
 ```shell
@@ -379,10 +423,26 @@ sudo systemctl daemon-reload
 sudo systemctl start crio
 ```
 
-Refer to the [CRI-O installation guide](https://github.com/kubernetes-sigs/cri-o#getting-started)
+Refer to the [CRI-O installation guide](https://github.com/cri-o/cri-o/blob/master/install.md)
 for more information.
 
 
+#### cgroup driver
+
+CRI-O uses the systemd cgroup driver per default. To switch to the `cgroupfs`
+cgroup driver, either edit `/etc/crio/crio.conf` or place a drop-in
+configuration in `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example:
+
+```toml
+[crio.runtime]
+conmon_cgroup = "pod"
+cgroup_manager = "cgroupfs"
+```
+
+Please also note the changed `conmon_cgroup`, which has to be set to the value
+`pod` when using CRI-O with `cgroupfs`. It is generally necessary to keep the
+cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
+in sync.
 
 ### Docker
 
@@ -423,6 +483,11 @@ sudo apt-get update && sudo apt-get install -y \
   containerd.io=1.2.13-2 \
   docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
   docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
+```
+
+```shell
+## Create /etc/docker
+sudo mkdir /etc/docker
 ```
 
 ```shell
@@ -516,4 +581,3 @@ sudo systemctl enable docker
 
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
 for more information.
-

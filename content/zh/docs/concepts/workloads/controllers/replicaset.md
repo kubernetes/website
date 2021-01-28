@@ -472,15 +472,15 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 <!--
 ### Deleting just a ReplicaSet
 
-You can delete a ReplicaSet without affecting any of its pods using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `-cascade=false` option.
+You can delete a ReplicaSet without affecting any of its Pods using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `--cascade=orphan` option.
 When using the REST API or the `client-go` library, you must set `propagationPolicy` to `Orphan`.
 For example:
 -->
 ### 只删除 ReplicaSet
 
-你可以只删除 ReplicaSet 而不影响它的 Pod，方法是使用
+你可以只删除 ReplicaSet 而不影响它的 Pods，方法是使用
 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)
-命令并设置 `--cascade=false` 选项。
+命令并设置 `--cascade=orphan` 选项。
 
 当使用 REST API 或 `client-go` 库时，你必须将 `propagationPolicy` 设置为 `Orphan`。
 例如：

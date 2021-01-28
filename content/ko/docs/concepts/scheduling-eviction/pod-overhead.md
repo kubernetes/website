@@ -44,7 +44,7 @@ _파드 오버헤드_ 는 컨테이너 리소스 요청과 상한 위에서 파�
 ```yaml
 ---
 kind: RuntimeClass
-apiVersion: node.k8s.io/v1beta1
+apiVersion: node.k8s.io/v1
 metadata:
     name: kata-fc
 handler: kata-fc

@@ -30,7 +30,7 @@ time according to the overhead associated with the Pod's
 [RuntimeClass](/docs/concepts/containers/runtime-class/).
 
 When Pod Overhead is enabled, the overhead is considered in addition to the sum of container
-resource requests when scheduling a Pod. Similarly, Kubelet will include the Pod overhead when sizing
+resource requests when scheduling a Pod. Similarly, the kubelet will include the Pod overhead when sizing
 the Pod cgroup, and when carrying out Pod eviction ranking.
 
 ## Enabling Pod Overhead {#set-up}
@@ -194,4 +194,4 @@ from source in the meantime.
 
 
 * [RuntimeClass](/docs/concepts/containers/runtime-class/)
-* [PodOverhead Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+* [PodOverhead Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
