@@ -5,7 +5,7 @@ date: 2021-01-28
 slug: psp-deprecation
 ---
 
-**Authors:** Matt Broberg (RedHat), Kaslin Fields (Google), Chris Short (RedHat)
+**Authors:** Matt Broberg (Red Hat), Kaslin Fields (Google), Chris Short (Red Hat)
 
 Pod Security Policies (PSP), starting with the Kubernetes 1.21, will begin the [process of deprecation](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) with the intention to fully remove it in a future release. This bears the question: what will replace Pod Security Policies in the future? In short, [Admission Controllers](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/). For more details, keep reading.
 
@@ -21,7 +21,7 @@ Doc: [https://kubernetes.io/docs/concepts/policy/pod-security-policy/](https://k
 
 To watch an explanation of PSP removal, you can check out this session by SIG-Auth at KubeCon NA 2019:
 
-[https://youtu.be/SFtHRmPuhEw?t=953](https://youtu.be/SFtHRmPuhEw?t=953) 
+{{< youtube "SFtHRmPuhEw?start=953" >}} 
 
 In short, PSPs are part of the kubelet and API server. The tight coupling to these parts of Kubernetes makes PSPs cumbersome both for developers and for operators. Using PSPs is often unintuitive, and setting them up too often leads to unintended results. The initial design of PSPs did not foresee many of the use cases they’ve since tried to solve.
 
@@ -43,7 +43,6 @@ Deprecation notices draw our attention to the wide range of work going on in the
 
 The deprecation of PSP will begin with Kubernetes version 1.21, with its removal in a future version. As we approach that milestone, the Kubernetes community will be working to document viable alternatives.
 
-The removal of PSP will pave the way for adoption of more suitable and extensible security policy enforcement options.
+The removal of PSP will pave the way for adoption of more extensible security policy enforcement options.
 
 Deprecation Release Notes: [https://relnotes.k8s.io/?kinds=deprecation](https://relnotes.k8s.io/?kinds=deprecation)
-
