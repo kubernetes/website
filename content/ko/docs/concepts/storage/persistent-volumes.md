@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 title: 퍼시스턴트 볼륨
 feature:
   title: 스토리지 오케스트레이션
@@ -225,7 +231,7 @@ spec:
 * Azure Disk
 * Portworx
 * FlexVolumes
-* CSI
+* {{< glossary_tooltip text="CSI" term_id="csi" >}}
 
 스토리지 클래스의 `allowVolumeExpansion` 필드가 true로 설정된 경우에만 PVC를 확장할 수 있다.
 
@@ -317,14 +323,14 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 * [`gcePersistentDisk`](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
 * [`glusterfs`](/ko/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 볼륨
 * [`hostPath`](/ko/docs/concepts/storage/volumes/#hostpath) - HostPath 볼륨
-  (단일 노드 테스트 전용. 다중-노드 클러스터에서 작동하지 않음. 
+  (단일 노드 테스트 전용. 다중-노드 클러스터에서 작동하지 않음.
   대신 `로컬` 볼륨 사용 고려)
 * [`iscsi`](/ko/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) 스토리지
-* [`local`](/ko/docs/concepts/storage/volumes/#local) - 노드에 마운트된 
+* [`local`](/ko/docs/concepts/storage/volumes/#local) - 노드에 마운트된
   로컬 스토리지 디바이스
 * [`nfs`](/ko/docs/concepts/storage/volumes/#nfs) - 네트워크 파일 시스템 (NFS) 스토리지
 * `photonPersistentDisk` - Photon 컨트롤러 퍼시스턴트 디스크.
-  (이 볼륨 유형은 해당 클라우드 공급자가 없어진 이후 더 이상 
+  (이 볼륨 유형은 해당 클라우드 공급자가 없어진 이후 더 이상
   작동하지 않는다.)
 * [`portworxVolume`](/ko/docs/concepts/storage/volumes/#portworxvolume) - Portworx 볼륨
 * [`quobyte`](/ko/docs/concepts/storage/volumes/#quobyte) - Quobyte 볼륨
