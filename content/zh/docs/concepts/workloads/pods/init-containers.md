@@ -241,6 +241,10 @@ You can start this Pod by running:
 ```shell
 kubectl apply -f myapp.yaml
 ```
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 pod/myapp-pod created
 ```
@@ -253,6 +257,10 @@ And check on its status with:
 ```shell
 kubectl get -f myapp.yaml
 ```
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
@@ -266,7 +274,10 @@ or for more details:
 ```shell
 kubectl describe -f myapp.yaml
 ```
-
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 Name:          myapp-pod
 Namespace:     default
@@ -353,6 +364,10 @@ To create the `mydb` and `myservice` services:
 ```shell
 kubectl create -f services.yaml
 ```
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 service "myservice" created
 service "mydb" created
@@ -367,7 +382,10 @@ Pod moves into the Running state:
 ```shell
 kubectl get -f myapp.yaml
 ```
-
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m

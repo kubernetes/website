@@ -37,16 +37,11 @@ kubectl:
 # nginx 실행하는 파드를 시작한다
 kubectl create deployment --image=nginx nginx-app
 ```
-
-```shell
-# nginx-app 에 env를 추가한다
-kubectl set env deployment/nginx-app  DOMAIN=cluster
-```
 ```
 deployment.apps/nginx-app created
 ```
 
-```
+```shell
 # nginx-app 에 env를 추가한다
 kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```
@@ -369,4 +364,3 @@ Grafana is running at https://203.0.113.141/api/v1/namespaces/kube-system/servic
 Heapster is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 InfluxDB is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
-

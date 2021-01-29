@@ -158,11 +158,13 @@ enabled, and Kubernetes client and server version v1.16 or later.
 
 <!--
 The examples in this section demonstrate how ephemeral containers appear in
-the API. You would normally use a `kubectl` plugin for troubleshooting that
-automates these steps.
+the API. You would normally use `kubectl debug` or another `kubectl`
+[plugin](/docs/tasks/extend-kubectl/kubectl-plugins/) to automate these steps
+rather than invoking the API directly.
 -->
 本节中的示例演示了临时容器如何出现在 API 中。
-通常，你可以使用 `kubectl` 插件进行故障排查，从而自动化执行这些步骤。
+通常，你会使用 `kubectl debug` 或别的 `kubectl`
+[插件](/zh/docs/tasks/extend-kubectl/kubectl-plugins/) 自动执行这些步骤，而不是直接调用API。
 
 <!--
 Ephemeral containers are created using the `ephemeralcontainers` subresource

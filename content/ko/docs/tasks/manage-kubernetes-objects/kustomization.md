@@ -392,8 +392,8 @@ spec:
       containers:
       - name: my-nginx
         resources:
-        limits:
-          memory: 512Mi
+          limits:
+            memory: 512Mi
 EOF
 
 cat <<EOF >./kustomization.yaml
@@ -424,11 +424,12 @@ spec:
     spec:
       containers:
       - image: nginx
-        limits:
-          memory: 512Mi
         name: my-nginx
         ports:
         - containerPort: 80
+        resources:
+          limits:
+            memory: 512Mi
 ```
 
 모든 리소스 또는 필드가 전략적 병합 패치를 지원하는 것은 아니다. 임의의 리소스 내 임의의 필드의 수정을 지원하기 위해,

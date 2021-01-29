@@ -93,18 +93,47 @@ metadata:
 ```
 
 <!--
-Cross-namespace owner references are disallowed by design. This means:
-1) Namespace-scoped dependents can only specify owners in the same namespace,
-and owners that are cluster-scoped.
-2) Cluster-scoped dependents can only specify cluster-scoped owners, but not
-namespace-scoped owners.
+Cross-namespace owner references are disallowed by design.
+
+Namespaced dependents can specify cluster-scoped or namespaced owners.
+A namespaced owner **must** exist in the same namespace as the dependent.
+If it does not, the owner reference is treated as absent, and the dependent
+is subject to deletion once all owners are verified absent.
 -->
 {{< note >}}
-根据设计，kubernetes 不允许跨命名空间指定属主。这意味着：
-1）命名空间范围的附属只能指定同一的命名空间中的或者集群范围的属主。
-2）集群范围的附属只能指定集群范围的属主，不能指定命名空间范围的属主。
-{{< /note >}}
+根据设计，kubernetes 不允许跨名字空间指定属主。
 
+名字空间范围的附属可以指定集群范围的或者名字空间范围的属主。
+
+名字空间范围的属主**必须**和该附属处于相同的名字空间。
+如果名字空间范围的属主和附属不在相同的名字空间，那么该属主引用就会被认为是缺失的，
+并且当附属的所有属主引用都被确认不再存在之后，该附属就会被删除。
+
+<!--
+Cluster-scoped dependents can only specify cluster-scoped owners.
+In v1.20+, if a cluster-scoped dependent specifies a namespaced kind as an owner,
+it is treated as having an unresolveable owner reference, and is not able to be garbage collected.
+-->
+集群范围的附属只能指定集群范围的属主。
+在 v1.20+ 版本，如果一个集群范围的附属指定了一个名字空间范围类型的属主，
+那么该附属就会被认为是拥有一个不可解析的属主引用，并且它不能够被垃圾回收。
+
+<!--
+In v1.20+, if the garbage collector detects an invalid cross-namespace `ownerReference`,
+or a cluster-scoped dependent with an `ownerReference` referencing a namespaced kind, a warning Event 
+with a reason of `OwnerRefInvalidNamespace` and an `involvedObject` of the invalid dependent is reported.
+You can check for that kind of Event by running
+`kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`.
+-->
+在 v1.20+ 版本，如果垃圾收集器检测到无效的跨名字空间的属主引用，
+或者一个集群范围的附属指定了一个名字空间范围类型的属主，
+那么它就会报告一个警告事件。该事件的原因是 `OwnerRefInvalidNamespace`，
+`involvedObject` 属性中包含无效的附属。你可以通过以下命令来获取该类型的事件：
+
+```shell
+kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace
+```
+{{< /note >}}
 <!--
 ## Controlling how the garbage collector deletes dependents
 
@@ -237,21 +266,25 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 
 <!--
 kubectl also supports cascading deletion.
-To delete dependents automatically using kubectl, set `-cascade` to true.  To
-orphan dependents, set `-cascade` to false. The default value for `-cascade`
-is true.
 
-Here's an example that orphans the dependents of a ReplicaSet:
+To delete dependents in the foreground using kubectl, set `--cascade=foreground`.  To
+orphan dependents, set `--cascade=orphan`. 
+
+The default behavior is to delete the dependents in the background which is the
+behavior when `--cascade` is omitted or explicitly set to `background`.
+
+Here's an example that orphans the dependents of a ReplicaSet
 -->
 `kubectl` 命令也支持级联删除。
-通过设置 `--cascade` 为 `true`，可以使用 kubectl 自动删除附属对象。
-设置 `--cascade` 为 `false`，会使附属对象成为孤立附属对象。
-`--cascade` 的默认值是 true。
+通过设置 `--cascade=foreground`，可以使用 kubectl 在前台删除附属对象。
+设置 `--cascade=orphan`，会使附属对象成为孤立附属对象。
+当不指定 `--cascade` 或者明确地指定它的值为 `background` 的时候，
+默认的行为是在后台删除附属对象。
 
 下面是一个例子，使一个 ReplicaSet 的附属对象成为孤立附属：
 
 ```shell
-kubectl delete replicaset my-repset --cascade=false
+kubectl delete replicaset my-repset --cascade=orphan
 ```
 
 <!--

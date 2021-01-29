@@ -53,24 +53,16 @@ but with different settings.
 
 <!-- 
 ## Setup
-
-Ensure the RuntimeClass feature gate is enabled (it is by default). See [Feature
-Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling
-feature gates. The `RuntimeClass` feature gate must be enabled on API server _and_ kubelets.
 -->
+
 ## 设置  {#setup}
 
-确保 RuntimeClass 特性开关处于开启状态（默认为开启状态）。
-关于特性开关的详细介绍，请参阅
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-`RuntimeClass` 特性开关必须在 API 服务器和 kubelet 端同时开启。
-
 <!--
-1. Configure the CRI implementation on nodes (runtime dependent).
-2. Create the corresponding RuntimeClass resources.
+1. Configure the CRI implementation on nodes (runtime dependent)
+2. Create the corresponding RuntimeClass resources
 -->
-1. 在节点上配置 CRI 的实现（取决于所选用的运行时）。
-2. 创建相应的 RuntimeClass 资源。
+1. 在节点上配置 CRI 的实现（取决于所选用的运行时）
+2. 创建相应的 RuntimeClass 资源
 
 <!--
 ### 1. Configure the CRI implementation on nodes
@@ -246,16 +238,14 @@ See CRI-O's [config documentation](https://raw.githubusercontent.com/cri-o/cri-o
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 <!--
-As of Kubernetes v1.16, RuntimeClass includes support for heterogenous clusters through its
-`scheduling` fields. Through the use of these fields, you can ensure that pods running with this
-RuntimeClass are scheduled to nodes that support it. To use the scheduling support, you must have
-the [RuntimeClass admission controller][] enabled (the default, as of 1.16).
+By specifying the `scheduling` field for a RuntimeClass, you can set constraints to
+ensure that Pods running with this RuntimeClass are scheduled to nodes that support it.
+If `scheduling` is not set, this RuntimeClass is assumed to be supported by all nodes.
 -->
-在 Kubernetes v1.16 版本里，RuntimeClass 特性引入了 `scheduling` 字段来支持异构集群。
-通过该字段，可以确保 pod 被调度到支持指定运行时的节点上。
-该调度支持，需要确保
-[RuntimeClass 准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#runtimeclass)
-处于开启状态（1.16 版本默认开启）。
+
+通过为 RuntimeClass 指定 `scheduling` 字段，
+你可以通过设置约束，确保运行该 RuntimeClass 的 Pod 被调度到支持该 RuntimeClass 的节点上。
+如果未设置 `scheduling`，则假定所有节点均支持此 RuntimeClass 。
 
 <!--
 To ensure pods land on nodes supporting a specific RuntimeClass, that set of nodes should have a

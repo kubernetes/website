@@ -34,7 +34,7 @@ weight: 20
     이름을 설정한다. `MASTER_CLUSTER_IP` 는 일반적으로 API 서버와
     컨트롤러 관리자 컴포넌트에 대해 `--service-cluster-ip-range` 인수로
     지정된 서비스 CIDR의 첫 번째 IP이다. `--days` 인수는 인증서가 만료되는
-    일 수를 설정하는데 사용된다. 
+    일 수를 설정하는데 사용된다.
     또한, 아래 샘플은 기본 DNS 이름으로 `cluster.local` 을
     사용한다고 가정한다.
 
@@ -130,11 +130,11 @@ weight: 20
     사용 중인 하드웨어 아키텍처 및 cfssl 버전에 따라 샘플
     명령을 조정해야 할 수도 있다.
 
-        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_1.4.1_linux_amd64 -o cfssl
+        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.5.0/cfssl_1.5.0_linux_amd64 -o cfssl
         chmod +x cfssl
-        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64 -o cfssljson
+        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.5.0/cfssljson_1.5.0_linux_amd64 -o cfssljson
         chmod +x cfssljson
-        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl-certinfo_1.4.1_linux_amd64 -o cfssl-certinfo
+        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.5.0/cfssl-certinfo_1.5.0_linux_amd64 -o cfssl-certinfo
         chmod +x cfssl-certinfo
 1.  아티팩트(artifact)를 보유할 디렉터리를 생성하고 cfssl을 초기화한다.
 
@@ -248,5 +248,3 @@ done.
 `certificates.k8s.io` API를 사용해서
 [여기](/docs/tasks/tls/managing-tls-in-a-cluster)에
 설명된 대로 인증에 사용할 x509 인증서를 프로비전 할 수 있다.
-
-

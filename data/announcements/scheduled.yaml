@@ -1,9 +1,9 @@
 ---
 # For an example of the format, see commented structure below.
 #
-# 🛈  Changes require approval from @kubernetes/steering-committee
+# Changes require approval from @kubernetes/steering-committee
 
-# The order matters: if two schedules overlaps, the announcement
+# The order matters: if two schedules overlap, the announcement
 # that comes FIRST in the following list takes precedence.
 #
 #announcements:
@@ -29,3 +29,35 @@
 
 # leave the "announcements" key in place
 announcements:
+
+- name: Kubecon 2020 NA
+  startTime: 2020-10-26T00:00:00 # Added in https://github.com/kubernetes/website/pull/24714
+  endTime: 2020-11-23T00:00:00 # Removed in https://github.com/kubernetes/website/pull/25173
+  style: "background: #3d4cb7"
+  title: |
+    <img src="images/kccnc-na-virtual-2020-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kuberntes.io&utm_medium=search&utm_campaign=KC_CNC_Virtual">KubeCon + CloudNativeCon NA 2020</a> <em>virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn, and share with the entire community!<br />
+    November 17 – 20, 2020
+
+- name: Kubecon 2020 EU
+  startTime: 2020-08-16T00:00:00 # Added in https://github.com/kubernetes/website/pull/23183
+  endTime: 2020-08-20T00:00:00 # Removed in https://github.com/kubernetes/website/pull/23272
+  style: "background: #3f0374"
+  title: |
+    <img src="images/kubecon_ad_eu_2020.png" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/?utm_source=kuberntes.io&utm_medium=search&utm_campaign=KC_CNC_Virtual">KubeCon + CloudNativeCon EU 2020</a> <em>virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    August 17 – 20, 2020.
+
+- name: Black Lives Matter
+  startTime: 2020-06-04T00:00:00 # Added in https://github.com/kubernetes/website/pull/21505
+  endTime: 2021-01-07T00:00:00 # Expired 2020-12-31, removed in https://github.com/kubernetes/website/pull/25769
+  style: "background: #000"
+  title: "Black lives matter."
+  message: |
+    We stand in solidarity with the Black community.<br/>
+    Racism is unacceptable.<br/>
+    It conflicts with the [core values of the Kubernetes project](https://git.k8s.io/community/values.md) and our community does not tolerate it.

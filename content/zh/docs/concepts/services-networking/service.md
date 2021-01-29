@@ -225,7 +225,7 @@ For example:
   * You want to point your Service to a Service in a different
     {{< glossary_tooltip term_id="namespace" >}} or on another cluster.
 * You are migrating a workload to Kubernetes. While evaluating the approach,
-    you run only a proportion of your backends in Kubernetes.
+    you run only a portion of your backends in Kubernetes.
 
 In any of these scenarios you can define a Service _without_ a Pod selector.
 For example:
@@ -406,7 +406,7 @@ There are a few reasons for using proxying for Services:
 <!--
 ### User space proxy mode {#proxy-mode-userspace}
 
-In this mode, kube-proxy watches the Kubernetes master for the addition and
+In this mode, kube-proxy watches the Kubernetes control plane for the addition and
 removal of Service and Endpoint objects. For each Service it opens a
 port (randomly chosen) on the local node.  Any connections to this "proxy port"
 are proxied to one of the Service's backend Pods (as reported via
@@ -423,7 +423,7 @@ By default, kube-proxy in userspace mode chooses a backend via a round-robin alg
 -->
 ### userspace 代理模式 {#proxy-mode-userspace}
 
-这种模式，kube-proxy 会监视 Kubernetes 主控节点对 Service 对象和 Endpoints 对象的添加和移除操作。
+这种模式，kube-proxy 会监视 Kubernetes 控制平面对 Service 对象和 Endpoints 对象的添加和移除操作。
 对每个 Service，它会在本地 Node 上打开一个端口（随机选择）。
 任何连接到“代理端口”的请求，都会被代理到 Service 的后端 `Pods` 中的某个上面（如 `Endpoints` 所报告的一样）。
 使用哪个后端 Pod，是 kube-proxy 基于 `SessionAffinity` 来确定的。
