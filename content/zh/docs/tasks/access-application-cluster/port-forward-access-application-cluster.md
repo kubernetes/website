@@ -213,9 +213,22 @@ for database debugging.
    以上所有命令都应该有效。输出应该类似于：
 
    ```
-   I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:7000 -> 6379
-   I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:7000 -> 6379
+   Forwarding from 127.0.0.1:7000 -> 6379
+   Forwarding from [::1]:7000 -> 6379  
    ```
+<!--
+{{< note >}}
+
+`kubectl port-forward` does not return. To continue with the exercises, you will need to open another terminal.
+
+{{< /note >}}
+-->
+{{< note >}}
+
+`kubectl port-forward` 不会返回。你需要打开另一个终端来继续这个练习。
+
+{{< /note >}}
+
 
 <!--
 2. Start the Redis command line interface:
@@ -232,13 +245,44 @@ for database debugging.
 3. 在 Redis 命令行提示符下，输入 `ping` 命令：
 
    ```
-   127.0.0.1:7000>ping
+   ping
    ```
 
    <!--
-   A successful ping request returns PONG.
+   A successful ping request returns:
    -->
-   成功的 ping 请求应该返回 PONG。
+   成功的 ping 请求应该返回：
+
+   ```
+   PONG
+   ```
+<!--
+### Optionally let _kubectl_ choose the local port {#let-kubectl-choose-local-port}
+-->
+### （可选操作）让 _kubectl_ 来选择本地端口 {#let-kubectl-choose-local-port}
+
+<!--
+If you don't need a specific local port, you can let `kubectl` choose and allocate 
+the local port and thus relieve you from having to manage local port conflicts, with 
+the slightly simpler syntax:
+-->
+如果你不需要指定特定的本地端口，你可以让 `kubectl` 来选择和分配本地端口，
+以便你不需要管理本地端口冲突。该命令使用稍微不同的语法：
+
+```shell
+kubectl port-forward deployment/redis-master :6379
+```
+<!--
+The `kubectl` tool finds a local port number that is not in use (avoiding low ports numbers,
+because these might be used by other applications). The output is similar to:
+-->
+`kubectl` 工具会找到一个未被使用的本地端口号（避免使用低段位的端口号，因为他们可能会被其他应用程序使用）。输出应该类似于：
+
+```
+Forwarding from 127.0.0.1:62162 -> 6379
+Forwarding from [::1]:62162 -> 6379
+```
+
 
 <!-- discussion -->
 
