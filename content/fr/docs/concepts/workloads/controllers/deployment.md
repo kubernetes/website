@@ -285,7 +285,7 @@ Obtenez plus de détails sur votre déploiement mis à jour:
 
     La sortie est similaire à ceci:
 
-      ```text
+    ```text
     Name:                   nginx-deployment
     Namespace:              default
     CreationTimestamp:      Thu, 30 Nov 2017 10:56:25 +0000

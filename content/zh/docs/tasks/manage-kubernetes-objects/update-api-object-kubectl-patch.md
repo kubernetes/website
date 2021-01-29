@@ -657,6 +657,17 @@ and
 和
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)。
 
+
+<!--
+{{< note >}}
+Strategic merge patch is not supported for custom resources.
+{{< /note >}}
+-->
+{{< note >}}
+定制资源不支持策略性合并 patch。
+{{< /note >}}
+
+
 ## {{% heading "whatsnext" %}}
 
 <!--

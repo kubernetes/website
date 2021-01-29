@@ -255,7 +255,7 @@ To migrate from kube-dns to CoreDNS, a detailed
 [blog article](https://coredns.io/2018/05/21/migration-from-kube-dns-to-coredns/)
 is available to help users adapt CoreDNS in place of kube-dns.
 
-You can also migrate using the offical CoreDNS
+You can also migrate using the official CoreDNS
 [deploy script](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh).
 
 

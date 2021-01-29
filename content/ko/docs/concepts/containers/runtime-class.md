@@ -1,4 +1,7 @@
 ---
+
+
+
 title: 런타임클래스(RuntimeClass)
 content_type: concept
 weight: 20
@@ -34,10 +37,10 @@ weight: 20
 
 런타임클래스 기능 게이트가 활성화(기본값)된 것을 확인한다.
 기능 게이트 활성화에 대한 설명은 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-참고한다. `RuntimeClass` 기능 게이트는 apiservers _및_ kubelets에서 활성화되어야 한다.
+참고한다. `RuntimeClass` 기능 게이트는 API 서버 _및_ kubelets에서 활성화되어야 한다.
 
-1. CRI 구현(implementation)을 노드에 설정(런타임에 따라서)
-2. 상응하는 런타임클래스 리소스 생성
+1. CRI 구현(implementation)을 노드에 설정(런타임에 따라서).
+2. 상응하는 런타임클래스 리소스 생성.
 
 ### 1. CRI 구현을 노드에 설정
 
@@ -48,7 +51,7 @@ weight: 20
 {{< note >}}
 런타임클래스는 기본적으로 클러스터 전체에 걸쳐 동질의 노드 설정
 (모든 노드가 컨테이너 런타임에 준하는 동일한 방식으로 설정되었음을 의미)을 가정한다.
-이종의(heterogenous) 노드 설정을 지원하기 위해서는, 아래 [스케줄](#스케줄)을 참고한다.
+이종의(heterogeneous) 노드 설정을 지원하기 위해서는, 아래 [스케줄](#스케줄)을 참고한다.
 {{< /note >}}
 
 해당 설정은 상응하는 `handler` 이름을 가지며, 이는 런타임클래스에 의해서 참조된다.
@@ -95,7 +98,7 @@ spec:
   # ...
 ```
 
-이것은 Kubelet이 지명된 런타임클래스를 사용하여 해당 파드를 실행하도록 지시할 것이다.
+이것은 kubelet이 지명된 런타임클래스를 사용하여 해당 파드를 실행하도록 지시할 것이다.
 만약 지명된 런타임클래스가 없거나, CRI가 상응하는 핸들러를 실행할 수 없는 경우, 파드는
 `Failed` 터미널 [단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계-phase)로 들어간다.
 에러 메시지에 상응하는 [이벤트](/docs/tasks/debug-application-cluster/debug-application-introspection/)를
