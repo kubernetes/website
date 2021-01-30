@@ -38,10 +38,12 @@ time according to the overhead associated with the Pod's
 
 <!--
 When Pod Overhead is enabled, the overhead is considered in addition to the sum of container
-resource requests when scheduling a Pod. Similarly, Kubelet will include the Pod overhead when sizing
+resource requests when scheduling a Pod. Similarly,the kubelet will include the Pod overhead when sizing
 the Pod cgroup, and when carrying out Pod eviction ranking.
 -->
-当启用 Pod 开销时，在调度 Pod 时，除了考虑容器资源请求的总和外，还要考虑 Pod 开销。类似地，Kubelet 将在确定 Pod cgroup 的大小和执行 Pod 驱逐排序时包含 Pod 开销。
+
+如果启用了 Pod Overhead，在调度 Pod 时，除了考虑容器资源请求的总和外，还要考虑 Pod 开销。
+类似地，kubelet 将在确定 Pod cgroups 的大小和执行 Pod 驱逐排序时也会考虑 Pod 开销。
 
 <!--
 ## Enabling Pod Overhead {#set-up}
@@ -301,6 +303,11 @@ from source in the meantime.
 
 ## {{% heading "whatsnext" %}}
 
+<!--
+* [RuntimeClass](/docs/concepts/containers/runtime-class/)
+* [PodOverhead Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
+-->
+
 * [RuntimeClass](/zh/docs/concepts/containers/runtime-class/)
-* [PodOverhead 设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+* [PodOverhead 设计](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
 
