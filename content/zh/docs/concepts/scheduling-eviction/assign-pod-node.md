@@ -500,8 +500,8 @@ as at least one already-running pod that has a label with key "security" and val
 on node N if node N has a label with key `topology.kubernetes.io/zone` and some value V
 such that there is at least one node in the cluster with key `topology.kubernetes.io/zone` and
 value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
-rule says that the pod prefers not to be scheduled onto a node if that node is already running a pod with label
-having key "security" and value "S2". (If the `topologyKey` were `topology.kubernetes.io/zone` then
+rule says that the pod should not be scheduled onto a node if that node is in the same zone as a pod with
+label having key "security" and value "S2". (If the `topologyKey` were `topology.kubernetes.io/zone` then
 it would mean that the pod cannot be scheduled onto a node if that node is in the same zone as a pod with
 label having key "security" and value "S2".) See the
 [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
@@ -517,8 +517,8 @@ Pod 亲和性规则表示，仅当节点和至少一个已运行且有键为“s
 则 Pod 有资格在节点 N 上运行，以便集群中至少有一个节点具有键
 `topology.kubernetes.io/zone` 和值为 V 的节点正在运行具有键“security”和值
 “S1”的标签的 pod。）
-Pod 反亲和性规则表示，如果节点已经运行了一个具有键“security”和值“S2”的标签的 Pod，
-则该 pod 不希望将其调度到该节点上。
+Pod 反亲和性规则表示，如果节点处于 Pod 所在的同一可用区且具有键“security”和值“S2”的标签，
+则该 pod 不应将其调度到该节点上。
 （如果 `topologyKey` 为 `topology.kubernetes.io/zone`，则意味着当节点和具有键
 “security”和值“S2”的标签的 Pod 处于相同的区域，Pod 不能被调度到该节点上。）
 查阅[设计文档](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)

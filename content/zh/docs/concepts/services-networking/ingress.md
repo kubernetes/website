@@ -651,12 +651,12 @@ Ingress 控制器 IP 地址的任何网络流量，而无需基于名称的虚�
 
 <!-- 
 For example, the following Ingress routes traffic
-requested for `first.bar.com` to `service1`, `second.foo.com` to `service2`, and any traffic
+requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic
 to the IP address without a hostname defined in request (that is, without a request header being
 presented) to `service3`.
 -->
 例如，以下 Ingress 会将针对 `first.bar.com` 的请求流量路由到 `service1`，
-将针对 `second.foo.com` 的请求流量路由到 `service2`，
+将针对 `second.bar.com` 的请求流量路由到 `service2`，
 而针对该 IP 地址的、没有在请求中定义主机名的请求流量会被路由（即，不提供请求标头）
 到 `service3`。
 

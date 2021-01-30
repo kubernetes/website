@@ -336,10 +336,10 @@ Monitoring agents for device plugin resources can be deployed as a daemon, or as
 The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring
 agents must run in a privileged security context.  If a device monitoring agent is running as a
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
-{{< glossary_tooltip term_id="volume" >}} in the plugin's
+{{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
-
-Support for the "PodResources service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It is enabled by default starting with Kubernetes 1.15.
+Support for the "PodResources service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 -->
 gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字来提供服务。
 设备插件资源的监控代理程序可以部署为守护进程或者 DaemonSet。
@@ -348,11 +348,11 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 如果设备监控代理以 DaemonSet 形式运行，必须要在插件的
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 中声明将 `/var/lib/kubelet/pod-resources` 目录以
-{{< glossary_tooltip text="卷" term_id="volume" >}}的形式被挂载到容器中。
+{{< glossary_tooltip text="卷" term_id="volume" >}}的形式被挂载到设备监控代理中。
 
 对“PodResources 服务”的支持要求启用 `KubeletPodResources`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-从 Kubernetes 1.15 开始默认启用。
+从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20开始为 v1。
 
 <!--
 ## Device Plugin integration with the Topology Manager

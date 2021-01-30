@@ -59,6 +59,49 @@ make serve
 
 This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
+## Building the API reference pages
+
+The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, using https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs.
+
+To update the reference pages for a new Kubernetes release (replace v1.20 in the following examples with the release to update to):
+
+1. Pull the `kubernetes-resources-reference` submodule:
+
+```
+git submodule update --init --recursive --depth 1
+```
+
+2. Create a new API revision into the submodule, and add the Swagger specification:
+
+```
+mkdir api-ref-generator/gen-resourcesdocs/api/v1.20
+curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-generator/gen-resourcesdocs/api/v1.20/swagger.json
+```
+
+3. Copy the table of contents and fields configuration for the new release from a previous one:
+
+```
+mkdir api-ref-generator/gen-resourcesdocs/api/v1.20
+cp api-ref-generator/gen-resourcesdocs/api/v1.19/* api-ref-generator/gen-resourcesdocs/api/v1.20/
+```
+
+4. Adapt the files `toc.yaml` and `fields.yaml` to reflect the changes between the two releases
+
+5. Next, build the pages:
+
+```
+make api-reference
+```
+
+You can test the results locally by making and serving the site from a container image:
+
+```
+make container-image
+make container-serve
+```
+
+6. When all changes of the new contract are reflected into the configuration files `toc.yaml` and `fields.yaml`, create a Pull Request with the newly generated API reference pages.
+
 ## Troubleshooting
 ### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
 
