@@ -189,7 +189,7 @@ Penyekalaan yang wajar adalah untuk meningkatkan klaster dengan tiga anggota men
 
 ## Memulihkan klaster etcd
 
-Etcd mendukung pemulihan dari _snapshot_ yang diambil dari proses etcd dari versi [major.minor](http://semver.org/). Memulihkan versi dari versi patch lain dari etcd juga didukung. Operasi pemulihan digunakan untuk memulihkan data klaster yang gagal.
+Etcd mendukung pemulihan dari _snapshot_ yang diambil dari proses etcd dari versi [major.minor](https://semver.org/). Memulihkan versi dari versi patch lain dari etcd juga didukung. Operasi pemulihan digunakan untuk memulihkan data klaster yang gagal.
 
 Sebelum memulai operasi pemulihan, berkas _snapshot_ harus ada. Ini bisa berupa berkas _snapshot_ dari operasi pencadangan sebelumnya, atau dari sisa [direktori data](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/configuration.md#--data-dir). Untuk informasi dan contoh lebih lanjut tentang memulihkan klaster dari berkas _snapshot_, lihat [dokumentasi pemulihan bencana etcd](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/recovery.md#restoring-a-cluster).
 
