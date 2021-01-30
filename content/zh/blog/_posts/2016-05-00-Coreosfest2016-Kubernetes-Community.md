@@ -31,7 +31,7 @@ Don’t miss these great speaker sessions at the conference in **Berlin** :  -->
 
 <!--
 - [Kubernetes Performance & Scalability Deep-Dive](https://coreosfest2016.sched.org/event/6ckp/kubernetes-performance-scalability-deep-dive?iframe=no&w=i:100;&sidebar=yes&bg=no) by Filip Grzadkowski, Senior Software Engineer at Google
-- [Launching a complex application in a Kubernetes cloud](http://coreosfest2016.sched.org/event/6T0b/launching-a-complex-application-in-a-kubernetes-cloud) by Thomas Fricke and Jannis Rake-Revelant, Operations & Infrastructure Lead, immmr Gmbh (a service developed by the Deutsche Telekom’s R&D department)
+- [Launching a complex application in a Kubernetes cloud](https://coreosfest2016.sched.org/event/6T0b/launching-a-complex-application-in-a-kubernetes-cloud) by Thomas Fricke and Jannis Rake-Revelant, Operations & Infrastructure Lead, immmr Gmbh (a service developed by the Deutsche Telekom’s R&D department)
 - [I have Kubernetes, now what?](https://coreosfest2016.sched.org/event/6db3/i-have-kubernetes-now-what?iframe=no&w=i:100;&sidebar=yes&bg=no) by Gabriel Monroy, CTO of Engine Yard and creator of Deis
 - [When rkt meets Kubernetes: a troubleshooting tale](https://coreosfest2016.sched.org/event/6YGg/when-rkt-meets-kubernetes-a-troubleshooting-tale?iframe=no&w=i:100;&sidebar=yes&bg=no) by Luca Marturana, Software Engineer at Sysdig
 - [Use Kubernetes to deploy telecom applications](https://coreosfest2016.sched.org/event/6eSE/use-kubernetes-to-deploy-telecom-applications?iframe=no&w=i:100;&sidebar=yes&bg=no) by Victor Hu, Senior Engineer at Huawei Technologies
