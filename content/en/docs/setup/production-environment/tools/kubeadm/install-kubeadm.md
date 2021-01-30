@@ -236,8 +236,8 @@ curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_
 Define the directory to download command files  
 
 {{< note >}}
-The DOWNLOAD_DIR variable must be set to a writable directory.
-If you are running Flatcar Container Linux, set DOWNLOAD_DIR=/opt/bin.
+The `DOWNLOAD_DIR` variable must be set to a writable directory.
+If you are running Flatcar Container Linux, set `DOWNLOAD_DIR=/opt/bin`.
 {{< /note >}}
 
 ```bash
