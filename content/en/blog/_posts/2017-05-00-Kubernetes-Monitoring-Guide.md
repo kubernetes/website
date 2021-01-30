@@ -80,5 +80,5 @@ _--Jean-Mathieu Saponaro, Research & Analytics Engineer, Datadog_
 
 - Get involved with the Kubernetes project on [GitHub](https://github.com/kubernetes/kubernetes)&nbsp;
 - Post questions (or answer questions) on [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes)&nbsp;
-- Connect with the community on [Slack](http://slack.k8s.io/)
+- Connect with the community on [Slack](https://slack.k8s.io/)
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
