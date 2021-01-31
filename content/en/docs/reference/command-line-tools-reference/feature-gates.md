@@ -546,10 +546,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 - `CustomResourceWebhookConversion`: Enable webhook-based conversion
   on resources created from [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
-  troubleshoot a running Pod.
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
   [default spreading](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
-- `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
+- `DevicePlugins`: Enable the [device-plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   based resource provisioning on nodes.
 - `DisableAcceleratorUsageMetrics`:
   [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
@@ -728,8 +727,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   topology of the cluster. See
   [ServiceTopology](/docs/concepts/services-networking/service-topology/)
   for more details.
-- `SizeMemoryBackedVolumes`: Enables kubelet support to size memory backed volumes.
-  See [volumes](/docs/concepts/storage/volumes) for more details.
 - `SetHostnameAsFQDN`: Enable the ability of setting Fully Qualified Domain
   Name(FQDN) as the hostname of a pod. See
   [Pod's `setHostnameAsFQDN` field](/docs/concepts/services-networking/dns-pod-service/#pod-sethostnameasfqdn-field).
