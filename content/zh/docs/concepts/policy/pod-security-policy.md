@@ -1230,7 +1230,7 @@ By default, all safe sysctls are allowed.
 
 - Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 -->
-- 参阅[Pod 安全标准](zh/docs/concepts/security/pod-security-standards/)
+- 参阅[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
   了解策略建议。
 - 阅读 [Pod 安全策略参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)了解 API 细节。
 
