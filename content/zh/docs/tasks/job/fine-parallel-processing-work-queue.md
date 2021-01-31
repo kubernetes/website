@@ -360,7 +360,7 @@ want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-comp
 
 <!--
 If you have a continuous stream of background processing work to run, then
-consider running your background workers with a `replicationController` instead,
+consider running your background workers with a `ReplicaSet` instead,
 and consider running a background processing library such as
 [https://github.com/resque/resque](https://github.com/resque/resque).
 -->
