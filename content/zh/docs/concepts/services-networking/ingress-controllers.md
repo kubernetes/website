@@ -49,6 +49,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * The [Citrix ingress controller](https://github.com/citrix/citrix-k8s-ingress-controller#readme) works with
   Citrix Application Delivery Controller.
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller.
+* [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
 -->
 * [AKS 应用程序网关 Ingress 控制器](https://azure.github.io/application-gateway-kubernetes-ingress/)
   是一个配置 [Azure 应用程序网关](https://docs.microsoft.com/azure/application-gateway/overview)
@@ -62,6 +63,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Citrix Ingress 控制器](https://github.com/citrix/citrix-k8s-ingress-controller#readme)
   可以用来与 Citrix Application Delivery Controller 一起使用。
 * [Contour](https://projectcontour.io/) 是一个基于 [Envoy](https://www.envoyproxy.io/) 的 Ingress 控制器。
+* [EnRoute](https://getenroute.io/) 是一个基于 [Envoy](https://www.envoyproxy.io) API 网关能够执行 Ingress 控制器。
 <!--
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
   lets you use an Ingress to configure F5 BIG-IP virtual servers.
