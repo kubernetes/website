@@ -383,7 +383,7 @@ other Pods for the Job failing around that time.
 可能意味着遇到了配置错误。
 为了实现这点，可以将 `.spec.backoffLimit` 设置为视 Job 为失败之前的重试次数。
 失效回退的限制值默认为 6。
-与 Job 相关的失效的 Pod 会被 Job 控制器重建，回退重试时间将会以指数型增长
+与 Job 相关的失效的 Pod 会被 Job 控制器重建，回退重试时间将会按指数增长
 （从 10 秒、20 秒到 40 秒）最多至 6 分钟。
 当 Job 的 Pod 被删除时，或者 Pod 成功时没有其它 Pod 处于失败状态，失效回退的次数也会被重置（为 0）。
 
