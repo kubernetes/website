@@ -36,10 +36,12 @@ No parameters are passed to the handler.
 
 `PreStop`
 
-This hook is called immediately before a container is terminated due to an API request or management event such as liveness probe failure, preemption, resource contention and others. A call to the preStop hook fails if the container is already in terminated or completed state.
-It is blocking, meaning it is synchronous,
-so it must complete before the signal to stop the container can be sent.
-No parameters are passed to the handler.
+This hook is called immediately before a container is terminated due to an API request or management
+event such as a liveness/startup probe failure, preemption, resource contention and others. This
+hook is not called if the container crashes or exits. The Pod's termination grace period countdown
+begins before the `PreStop` hook is executed. Regardless of the outcome of the handler, the
+container will eventually terminate within the Pod's termination grace period. No parameters are
+passed to the handler.
 
 A more detailed description of the termination behavior can be found in
 [Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
@@ -65,19 +67,15 @@ the Container ENTRYPOINT and hook fire asynchronously.
 However, if the hook takes too long to run or hangs,
 the Container cannot reach a `running` state.
 
-`PreStop` hooks are not executed asynchronously from the signal
-to stop the Container; the hook must complete its execution before
-the signal can be sent.
-If a `PreStop` hook hangs during execution,
-the Pod's phase will be `Terminating` and remain there until the Pod is
-killed after its `terminationGracePeriodSeconds` expires.
-This grace period applies to the total time it takes for both
-the `PreStop` hook to execute and for the Container to stop normally.
-If, for example, `terminationGracePeriodSeconds` is 60, and the hook
-takes 55 seconds to complete, and the Container takes 10 seconds to stop
-normally after receiving the signal, then the Container will be killed
-before it can stop normally, since `terminationGracePeriodSeconds` is
-less than the total time (55+10) it takes for these two things to happen.
+`PreStop` hooks are not executed asynchronously from the signal to stop the Container; the hook must
+complete its execution before the TERM signal can be sent. If a `PreStop` hook hangs during
+execution, the Pod's phase will be `Terminating` and remain there until the Pod is killed after its
+`terminationGracePeriodSeconds` expires. This grace period applies to the total time it takes for
+both the `PreStop` hook to execute and for the Container to stop normally. If, for example,
+`terminationGracePeriodSeconds` is 60, and the hook takes 55 seconds to complete, and the Container
+takes 10 seconds to stop normally after receiving the signal, then the Container will be killed
+before it can stop normally, since `terminationGracePeriodSeconds` is less than the total time
+(55+10) it takes for these two things to happen.
 
 If either a `PostStart` or `PreStop` hook fails,
 it kills the Container.
