@@ -33,7 +33,7 @@ weight: 10
                 </p>
                 <p>A Kubernetes cluster consists of two types of resources:
                     <ul>
-                        <li>The <b>Master</b> coordinates the cluster</li>
+                        <li>The <b>Conductor</b> coordinates the cluster</li>
                         <li><b>Nodes</b> are the workers that run applications</li>
                     </ul>
                 </p>
@@ -71,20 +71,20 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p><b>The Master is responsible for managing the cluster.</b> The master coordinates all activities in your cluster, such as scheduling applications, maintaining applications' desired state, scaling applications, and rolling out new updates.</p>
-                <p><b>A node is a VM or a physical computer that serves as a worker machine in a Kubernetes cluster.</b> Each node has a Kubelet, which is an agent for managing the node and communicating with the Kubernetes master. The node should also have tools for handling container operations, such as containerd or Docker. A Kubernetes cluster that handles production traffic should have a minimum of three nodes.</p>
+                <p><b>The Conductor is responsible for managing the cluster.</b> The conductor coordinates all activities in your cluster, such as scheduling applications, maintaining applications' desired state, scaling applications, and rolling out new updates.</p>
+                <p><b>A node is a VM or a physical computer that serves as a worker machine in a Kubernetes cluster.</b> Each node has a Kubelet, which is an agent for managing the node and communicating with the Kubernetes conductor. The node should also have tools for handling container operations, such as containerd or Docker. A Kubernetes cluster that handles production traffic should have a minimum of three nodes.</p>
 
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i>Masters manage the cluster and the nodes that are used to host the running applications.</i></p>
+                    <p><i>Conductors manage the cluster and the nodes that are used to host the running applications.</i></p>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-8">
-                <p>When you deploy applications on Kubernetes, you tell the master to start the application containers. The master schedules the containers to run on the cluster's nodes. <b>The nodes communicate with the master using the <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a></b>, which the master exposes. End users can also use the Kubernetes API directly to interact with the cluster.</p>
+                <p>When you deploy applications on Kubernetes, you tell the conductor to start the application containers. The conductor schedules the containers to run on the cluster's nodes. <b>The nodes communicate with the conductor using the <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a></b>, which the conductor exposes. End users can also use the Kubernetes API directly to interact with the cluster.</p>
 
                 <p>A Kubernetes cluster can be deployed on either physical or virtual machines. To get started with Kubernetes development, you can use Minikube.  Minikube is a lightweight Kubernetes implementation that creates a VM on your local machine and deploys a simple cluster containing only one node. Minikube is available for Linux, macOS, and Windows systems. The Minikube CLI provides basic bootstrapping operations for working with your cluster, including start, stop, status, and delete. For this tutorial, however, you'll use a provided online terminal with Minikube pre-installed.</p>
 
