@@ -33,7 +33,7 @@ due to a node hardware failure or a node reboot).
 
 You can also use a Job to run multiple Pods in parallel.
 -->
-Job 会创建一个或者多个 Pods，并会持续尝试执行重试直到指定数量的 Pods 成功终止。
+Job 会创建一个或者多个 Pods，并会持续重试直到指定数量的 Pods 成功终止。
 随着 Pods 成功结束，Job 跟踪记录成功完成的 Pods 个数。
 当数量达到指定的成功个数阈值时，任务（即 Job）结束。
 删除 Job 的操作会清除所创建的全部 Pods。
@@ -311,7 +311,7 @@ parallelism, for a variety of reasons:
 - 如果 Job 控制器因为任何原因（例如，缺少 `ResourceQuota` 或者没有权限）无法创建 Pods。
   Pods 个数可能比请求的数目小。
 - Job 控制器可能会因为之前同一 Job 中 Pod 失效次数过多而压制新 Pod 的创建。
-- 当 Pod 处于优雅终止进程中，需要一定时间才能停止。
+- 当 Pod 处于体面终止进程中，需要一定时间才能停止。
 
 <!--
 ## Handling Pod and container failures
@@ -383,7 +383,7 @@ other Pods for the Job failing around that time.
 可能意味着遇到了配置错误。
 为了实现这点，可以将 `.spec.backoffLimit` 设置为视 Job 为失败之前的重试次数。
 失效回退的限制值默认为 6。
-与 Job 相关的失效的 Pod 会被 Job 控制器重建，以指数型增长回退重试延迟时间
+与 Job 相关的失效的 Pod 会被 Job 控制器重建，回退重试时间将会以指数型增长
 （从 10 秒、20 秒到 40 秒）最多至 6 分钟。
 当 Job 的 Pod 被删除时，或者 Pod 成功时没有其它 Pod 处于失败状态，失效回退的次数也会被重置（为 0）。
 
