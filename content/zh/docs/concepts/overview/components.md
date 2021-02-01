@@ -240,4 +240,3 @@ saving container logs to a central log store with search/browsing interface.
 * 进一步了解[控制器](/zh/docs/concepts/architecture/controller/)
 * 进一步了解 [kube-scheduler](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
 * 阅读 etcd 官方[文档](https://etcd.io/docs/)
-
