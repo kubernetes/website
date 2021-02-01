@@ -76,4 +76,4 @@ TTL 컨트롤러는 쿠버네티스 리소스에
 
 * [자동으로 잡 정리](/ko/docs/concepts/workloads/controllers/job/#완료된-잡을-자동으로-정리)
 
-* [디자인 문서](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
+* [디자인 문서](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/592-ttl-after-finish/README.md)
