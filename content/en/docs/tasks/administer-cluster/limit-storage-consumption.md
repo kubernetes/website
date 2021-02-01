@@ -5,7 +5,7 @@ content_type: task
 
 <!-- overview -->
 
-This example demonstrates an easy way to limit the amount of storage consumed in a namespace.
+This example demonstrates an straightforward way to limit the amount of storage consumed in a namespace.
 
 The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/),
 [LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/),
