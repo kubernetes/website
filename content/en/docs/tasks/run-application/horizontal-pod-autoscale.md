@@ -221,9 +221,9 @@ the global HPA settings exposed as flags for the `kube-controller-manager` compo
 Starting from v1.12, a new algorithmic update removes the need for the
 upscale delay.
 
-- `--horizontal-pod-autoscaler-downscale-stabilization`: The value for this option is a
-  duration that specifies how long the autoscaler has to wait before another
-  downscale operation can be performed after the current one has completed.
+- `--horizontal-pod-autoscaler-downscale-stabilization`: Specifies the duration of the
+  downscale stabilization time window. Horizontal Pod Autoscaler remembers
+  the historical recommended sizes and only acts on the largest size within this time window.
   The default value is 5 minutes (`5m0s`).
 
 {{< note >}}
