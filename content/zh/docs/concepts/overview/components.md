@@ -35,7 +35,7 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 -->
 <!-- overview -->
 当你部署完 Kubernetes, 即拥有了一个完整的集群。
-{{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes 集群包含">}}
+{{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes">}}
 
 本文档概述了交付正常运行的 Kubernetes 集群所需的各种组件。
 
