@@ -272,7 +272,7 @@ If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` y
 
 ## Scale the Web Frontend
 
-Scaling up or down is easy because your servers are defined as a Service that uses a Deployment controller.
+Scaling up or down is effortless because your servers are defined as a Service that uses a Deployment controller.
 
 1. Run the following command to scale up the number of frontend Pods:
 

@@ -39,7 +39,7 @@ kops is an automated provisioning system:
 
 #### Installation
 
-Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also easy to build from source):
+Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also convenient to build from source):
 
 {{< tabs name="kops_installation" >}}
 {{% tab name="macOS" %}}
@@ -147,7 +147,7 @@ You must then set up your NS records in the parent domain, so that records in th
 you would create NS records in `example.com` for `dev`.  If it is a root domain name you would configure the NS
 records at your domain registrar (e.g. `example.com` would need to be configured where you bought `example.com`).
 
-This step is easy to mess up (it is the #1 cause of problems!)  You can double-check that
+Verify your route53 domain setup (it is the #1 cause of problems!). You can double-check that
 your cluster is configured correctly if you have the dig tool by running:
 
 `dig NS dev.example.com`

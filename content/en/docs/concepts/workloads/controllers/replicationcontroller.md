@@ -208,7 +208,8 @@ As mentioned above, whether you have 1 pod you want to keep running, or 1000, a 
 
 ### Scaling
 
-The ReplicationController makes it easy to scale the number of replicas up or down, either manually or by an auto-scaling control agent, by simply updating the `replicas` field.
+The ReplicationController scales the number of replicas up or down by setting the `replicas` field.
+You can configure the ReplicationController to manage the replicas manually or by an auto-scaling control agent.
 
 ### Rolling updates
 
