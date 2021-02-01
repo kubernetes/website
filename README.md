@@ -100,7 +100,7 @@ make container-image
 make container-serve
 ```
 
-Open up your browser to http://localhost:1313/docs/reference/kubernetes-api/ to view the API reference pages.
+In a web browser, go to http://localhost:1313/docs/reference/kubernetes-api/ to view the API reference.
 
 6. When all changes of the new contract are reflected into the configuration files `toc.yaml` and `fields.yaml`, create a Pull Request with the newly generated API reference pages.
 
