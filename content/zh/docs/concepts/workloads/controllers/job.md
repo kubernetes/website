@@ -22,7 +22,7 @@ weight: 50
 
 <!-- overview -->
 <!--
-A Job creates one or more Pods and ensures that a specified number of them successfully terminate.
+A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate.
 As pods successfully complete, the Job tracks the successful completions.  When a specified number
 of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
 the Pods it created.
@@ -33,7 +33,7 @@ due to a node hardware failure or a node reboot).
 
 You can also use a Job to run multiple Pods in parallel.
 -->
-Job 会创建一个或者多个 Pods，并确保指定数量的 Pods 成功终止。
+Job 会创建一个或者多个 Pods，并将继续重试 Pods 的执行，直到指定数量的 Pods 成功终止。
 随着 Pods 成功结束，Job 跟踪记录成功完成的 Pods 个数。
 当数量达到指定的成功个数阈值时，任务（即 Job）结束。
 删除 Job 的操作会清除所创建的全部 Pods。
