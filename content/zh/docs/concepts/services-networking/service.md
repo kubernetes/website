@@ -348,7 +348,7 @@ each Service port. The value of this field is mirrored by the corresponding
 Endpoints and EndpointSlice objects.
 
 This field follows standard Kubernetes label syntax. Values should either be
-[IANA standard service names](http://www.iana.org/assignments/service-names) or
+[IANA standard service names](https://www.iana.org/assignments/service-names) or
 domain prefixed names such as `mycompany.com/my-custom-protocol`.
 -->
 ### 应用程序协议   {#application-protocol}
@@ -358,8 +358,8 @@ domain prefixed names such as `mycompany.com/my-custom-protocol`.
 此字段的取值会被映射到对应的 Endpoints 和 EndpointSlices 对象。
 
 该字段遵循标准的 Kubernetes 标签语法。
-其值可以是 [IANA 标准服务名称](http://www.iana.org/assignments/service-names)或以域名前缀的名称，
-如 `mycompany.com/my-custom-protocol`。 
+其值可以是 [IANA 标准服务名称](https://www.iana.org/assignments/service-names)
+或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。 
 <!--
 ## Virtual IPs and service proxies
 
