@@ -97,7 +97,7 @@ Extensions are software components that extend and deeply integrate with Kuberne
 They adapt it to support new types and new kinds of hardware.
 
 Most cluster administrators will use a hosted or distribution
-instance of Kubernetes. As a result, most Kubernetes users will need to
+instance of Kubernetes. As a result, most Kubernetes users will not need to
 install extensions and fewer will need to author new ones.
 -->
 ## 扩展程序  {#extension}
@@ -105,7 +105,7 @@ install extensions and fewer will need to author new ones.
 扩展程序是指对 Kubernetes 进行扩展和深度集成的软件组件。它们适合用于支持新的类型和新型硬件。
 
 大多数集群管理员会使用托管的或统一分发的 Kubernetes 实例。
-因此，大多数 Kubernetes 用户需要安装扩展程序，而且还有少部分用户甚至需要编写新的扩展程序。
+因此，大多数 Kubernetes 用户不需要安装扩展程序，而且还有少部分用户甚至需要编写新的扩展程序。
 
 <!--
 ## Extension Patterns
@@ -145,21 +145,20 @@ failure.
 <!--
 In the webhook model, Kubernetes makes a network request to a remote service.
 In the *Binary Plugin* model, Kubernetes executes a binary (program).
-Binary plugins are used by the kubelet (e.g. [Flex Volume
-Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
-and [Network
-Plugins](/docs/concepts/cluster-administration/network-plugins/))
+Binary plugins are used by the kubelet (e.g.
+[Flex Volume Plugins](/docs/concepts/storage/volumes/#flexvolume)
+and [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))
 and by kubectl.
 -->
 在 webhook 模型里，Kubernetes 向远程服务发送一个网络请求。
 在 *可执行文件插件* 模型里，Kubernetes 执行一个可执行文件（程序）。
 可执行文件插件被 kubelet（如
-[Flex 卷插件](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)和
-[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)和
-`kubectl` 所使用。
+[Flex 卷插件](/zh/docs/concepts/storage/volumes/#flexvolume)
+和[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+和 `kubectl` 所使用。
 
 <!--
-Below is a diagram showing how the extensions points interact with the
+Below is a diagram showing how the extension points interact with the
 Kubernetes control plane.
 -->
 下图显示了扩展点如何与 Kubernetes 控制平面进行交互。
@@ -184,13 +183,14 @@ This diagram shows the extension points in a Kubernetes system.
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
 <!--
-1.   Users often interact with the Kubernetes API using `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) extend the kubectl binary. They only affect the individual user's local environment, and so cannot enforce site-wide policies.
-2.   The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](/docs/concepts/extend-kubernetes/#api-access-extensions) section.
-3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](/docs/concepts/extend-kubernetes/#user-defined-types) section. Custom Resources are often used with API Access Extensions.
-4.   The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions) section.
-5.   Much of the behavior of Kubernetes is implemented by programs called Controllers which are clients of the API-Server. Controllers are often used in conjunction with Custom Resources.
-6.   The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](/docs/concepts/overview/extending#network-plugins) allow for different implementations of pod networking.
-7.  The kubelet also mounts and unmounts volumes for containers. New types of storage can be supported via [Storage Plugins](/docs/concepts/overview/extending#storage-plugins).
+1. Users often interact with the Kubernetes API using `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) extend the kubectl binary. They only affect the individual user's local environment, and so cannot enforce site-wide policies.
+2. The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](/docs/concepts/extend-kubernetes/#api-access-extensions) section.
+3. The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](/docs/concepts/extend-kubernetes/#user-defined-types) section. Custom Resources are often used with API Access Extensions.
+4. The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](/docs/concepts/extend-kubernetes/#scheduler-extensions) section.
+5. Much of the behavior of Kubernetes is implemented by programs called Controllers which are clients of the API-Server. Controllers are often used in conjunction with Custom Resources.
+6. The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](/docs/concepts/extend-kubernetes/#network-plugins) allow for different implementations of pod networking.
+7. The kubelet also mounts and unmounts volumes for containers. New types of storage can be supported via [Storage Plugins](/docs/concepts/extend-kubernetes/#storage-plugins).
+
 -->
 
 1. 用户通常使用 `kubectl` 与 Kubernetes API 进行交互。
@@ -209,9 +209,9 @@ This diagram shows the extension points in a Kubernetes system.
 5. Kubernetes 的大部分行为都是由称为控制器（Controllers）的程序实现的，这些程序是 API 服务器的客户端。
    控制器通常与自定义资源一起使用。
 6. `kubelet` 在主机上运行，并帮助 Pod 看起来就像在集群网络上拥有自己的 IP 的虚拟服务器。
-   [网络插件](/zh/docs/concepts/extend-kubernetes/#network-plugins/)让你可以实现不同的 pod 网络。
+   [网络插件](/zh/docs/concepts/extend-kubernetes/#network-plugins)让你可以实现不同的 pod 网络。
 7. `kubelet` 也负责为容器挂载和卸载卷。新的存储类型可以通过
-   [存储插件](/zh/docs/concepts/extend-kubernetes/#storage-plugins/)支持。
+   [存储插件](/zh/docs/concepts/extend-kubernetes/#storage-plugins)支持。
 
 <!--
 If you are unsure where to start, this flowchart can help. Note that some solutions may involve several types of extensions.
@@ -230,7 +230,7 @@ Consider adding a Custom Resource to Kubernetes if you want to define new contro
 
 Do not use a Custom Resource as data storage for application, user, or monitoring data.
 
-For more about Custom Resources, see the [Custom Resources concept guide](/docs/concepts/api-extension/custom-resources/).
+For more about Custom Resources, see the [Custom Resources concept guide](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 -->
 ## API 扩展  {#api-extensions}
 
@@ -343,24 +343,23 @@ After a request is authorized, if it is a write operation, it also goes through 
 
 ### Storage Plugins
 
-[Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md
-) allow users to mount volume types without built-in support by having the
+[Flex Volumes](/docs/concepts/storage/volumes/#flexvolume)
+allow users to mount volume types without built-in support by having the
 Kubelet call a Binary Plugin to mount the volume.
 -->
 ## 基础设施扩展
 
 ### 存储插件
 
-[Flex Volumes](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/flexvolume-deployment.md
-)
+[Flex Volumes](/zh/docs/concepts/storage/volumes/#flexvolume)
 允许用户挂载无内置插件支持的卷类型，它通过 Kubelet 调用一个可执行文件插件来挂载卷。
 
 <!--
 ### Device Plugins
 
 Device plugins allow a node to discover new Node resources (in addition to the
-builtin ones like cpu and memory) via a [Device
-Plugin](/docs/concepts/cluster-administration/device-plugins/).
+builtin ones like cpu and memory) via a
+[Device Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/).
 -->
 ### 设备插件   {#device-plugins}
 
@@ -371,7 +370,8 @@ Plugin](/docs/concepts/cluster-administration/device-plugins/).
 <!--
 ### Network Plugins
 
-Different networking fabrics can be supported via node-level [Network Plugins](/docs/admin/network-plugins/).
+Different networking fabrics can be supported via node-level
+[Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
 -->
 ### 网络插件   {#network-plugins}
 
@@ -408,17 +408,21 @@ the nodes chosen for a pod.
 [Webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)，
 它允许使用一个 Webhook 后端（调度器扩展程序）为 Pod 筛选节点和确定节点的优先级。
 
-## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [Custom Resources](/docs/concepts/api-extension/custom-resources/)
+## {{% heading "whatsnext" %}}
+
+* Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Learn about [Dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * Learn more about Infrastructure extensions
-  * [Network Plugins](/docs/concepts/cluster-administration/network-plugins/)
-  * [Device Plugins](/docs/concepts/cluster-administration/device-plugins/)
+  * [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+  * [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
 -->
+## {{% heading "whatsnext" %}}
+
+
 * 详细了解[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 了解[动态准入控制](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * 详细了解基础设施扩展
