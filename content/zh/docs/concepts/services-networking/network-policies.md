@@ -77,9 +77,9 @@ For a network flow between two pods to be allowed, both the egress policy on the
 默认情况下，Pod 是非隔离的，它们接受任何来源的流量。
 
 Pod 在被某 NetworkPolicy 选中时进入被隔离状态。
-一旦名字空间中有 NetworkPolicy 选择了特定的 Pod，该 Pod 会拒绝该 NetworkPolicy
+一旦命名空间中有 NetworkPolicy 选择了特定的 Pod，该 Pod 会拒绝该 NetworkPolicy
 所不允许的连接。 
-（名字空间下其他未被 NetworkPolicy 所选择的 Pod 会继续接受所有的流量）
+（命名空间下其他未被 NetworkPolicy 所选择的 Pod 会继续接受所有的流量）
 
 网络策略不会冲突，它们是累积的。
 如果任何一个或多个策略选择了一个 Pod, 则该 Pod 受限于这些策略的
@@ -165,11 +165,11 @@ __必需字段__：与所有其他的 Kubernetes 配置一样，NetworkPolicy �
 和[对象管理](/zh/docs/concepts/overview/working-with-objects/object-management)。
 
 __spec__：NetworkPolicy [规约](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
-中包含了在一个名字空间中定义特定网络策略所需的所有信息。
+中包含了在一个命名空间中定义特定网络策略所需的所有信息。
 
 __podSelector__：每个 NetworkPolicy 都包括一个 `podSelector`，它对该策略所
 适用的一组 Pod 进行选择。示例中的策略选择带有 "role=db" 标签的 Pod。
-空的 `podSelector` 选择名字空间下的所有 Pod。
+空的 `podSelector` 选择命名空间下的所有 Pod。
 
 <!--
 __policyTypes__: Each NetworkPolicy includes a `policyTypes` list which may include either `Ingress`, `Egress`, or both. The `policyTypes` field indicates whether or not the given policy applies to ingress traffic to selected pod, egress traffic from selected pods, or both. If no `policyTypes` are specified on a NetworkPolicy then by default `Ingress` will always be set and `Egress` will be set if the NetworkPolicy has any egress rules.
@@ -209,16 +209,16 @@ See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-
 -->
 所以，该网络策略示例:
 
-1. 隔离 "default" 名字空间下 "role=db" 的 Pod （如果它们不是已经被隔离的话）。
-2. （Ingress 规则）允许以下 Pod 连接到 "default" 名字空间下的带有 "role=db"
+1. 隔离 "default" 命名空间下 "role=db" 的 Pod （如果它们不是已经被隔离的话）。
+2. （Ingress 规则）允许以下 Pod 连接到 "default" 命名空间下的带有 "role=db"
    标签的所有 Pod 的 6379 TCP 端口：
 
-   * "default" 名字空间下带有 "role=frontend" 标签的所有 Pod
-   * 带有 "project=myproject" 标签的所有名字空间中的 Pod
+   * "default" 命名空间下带有 "role=frontend" 标签的所有 Pod
+   * 带有 "project=myproject" 标签的所有命名空间中的 Pod
    * IP 地址范围为 172.17.0.0–172.17.0.255 和 172.17.2.0–172.17.255.255
      （即，除了 172.17.1.0/24 之外的所有 172.17.0.0/16）
 
-3. （Egress 规则）允许从带有 "role=db" 标签的名字空间下的任何 Pod 到 CIDR
+3. （Egress 规则）允许从带有 "role=db" 标签的命名空间下的任何 Pod 到 CIDR
    10.0.0.0/24 下 5978 TCP 端口的连接。
 
 参阅[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)演练
@@ -239,14 +239,14 @@ __namespaceSelector__ *and* __podSelector__: A single `to`/`from` entry that spe
 
 可以在 `ingress` 的 `from` 部分或 `egress` 的 `to` 部分中指定四种选择器：
 
-__podSelector__: 此选择器将在与 NetworkPolicy 相同的名字空间中选择特定的
+__podSelector__: 此选择器将在与 NetworkPolicy 相同的命名空间中选择特定的
 Pod，应将其允许作为入站流量来源或出站流量目的地。
 
-__namespaceSelector__：此选择器将选择特定的名字空间，应将所有 Pod 用作其
+__namespaceSelector__：此选择器将选择特定的命名空间，应将所有 Pod 用作其
 入站流量来源或出站流量目的地。
 
 __namespaceSelector__ *和* __podSelector__： 一个指定 `namespaceSelector`
-和 `podSelector` 的 `to`/`from` 条目选择特定名字空间中的特定 Pod。
+和 `podSelector` 的 `to`/`from` 条目选择特定命名空间中的特定 Pod。
 注意使用正确的 YAML 语法；下面的策略：
 
 ```yaml
@@ -266,7 +266,7 @@ __namespaceSelector__ *和* __podSelector__： 一个指定 `namespaceSelector`
 contains a single `from` element allowing connections from Pods with the label `role=client` in namespaces with the label `user=alice`. But *this* policy:
  -->
 在 `from` 数组中仅包含一个元素，只允许来自标有 `role=client` 的 Pod 且
-该 Pod 所在的名字空间中标有 `user=alice` 的连接。但是 *这项* 策略：
+该 Pod 所在的命名空间中标有 `user=alice` 的连接。但是 *这项* 策略：
 
 ```yaml
   ...
@@ -284,8 +284,8 @@ contains a single `from` element allowing connections from Pods with the label `
 <!--
 contains two elements in the `from` array, and allows connections from Pods in the local Namespace with the label `role=client`, *or* from any Pod in any namespace with the label `user=alice`.
 -->
-在 `from` 数组中包含两个元素，允许来自本地名字空间中标有 `role=client` 的
-Pod 的连接，*或* 来自任何名字空间中标有 `user=alice` 的任何 Pod 的连接。
+在 `from` 数组中包含两个元素，允许来自本地命名空间中标有 `role=client` 的
+Pod 的连接，*或* 来自任何命名空间中标有 `user=alice` 的任何 Pod 的连接。
 
 <!--
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
@@ -328,8 +328,8 @@ in that namespace.
 -->
 ## 默认策略   {#default-policies}
 
-默认情况下，如果名字空间中不存在任何策略，则所有进出该名字空间中 Pod 的流量都被允许。
-以下示例使你可以更改该名字空间中的默认行为。
+默认情况下，如果命名空间中不存在任何策略，则所有进出该命名空间中 Pod 的流量都被允许。
+以下示例使你可以更改该命名空间中的默认行为。
 
 <!--
 ### Default deny all ingress traffic
@@ -339,7 +339,7 @@ You can create a "default" isolation policy for a namespace by creating a Networ
 ### 默认拒绝所有入站流量
 
 你可以通过创建选择所有容器但不允许任何进入这些容器的入站流量的 NetworkPolicy 
-来为名字空间创建 "default" 隔离策略。
+来为命名空间创建 "default" 隔离策略。
 
 {{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
 
@@ -356,8 +356,8 @@ If you want to allow all traffic to all pods in a namespace (even if policies ar
 -->
 ### 默认允许所有入站流量
 
-如果要允许所有流量进入某个名字空间中的所有 Pod（即使添加了导致某些 Pod 被视为
-“隔离”的策略），则可以创建一个策略来明确允许该名字空间中的所有流量。
+如果要允许所有流量进入某个命名空间中的所有 Pod（即使添加了导致某些 Pod 被视为
+“隔离”的策略），则可以创建一个策略来明确允许该命名空间中的所有流量。
 
 {{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
 
@@ -369,7 +369,7 @@ You can create a "default" egress isolation policy for a namespace by creating a
 ### 默认拒绝所有出站流量
 
 你可以通过创建选择所有容器但不允许来自这些容器的任何出站流量的 NetworkPolicy 
-来为名字空间创建 "default" egress 隔离策略。
+来为命名空间创建 "default" egress 隔离策略。
 
 {{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
 
@@ -387,8 +387,8 @@ If you want to allow all traffic from all pods in a namespace (even if policies 
 -->
 ### 默认允许所有出站流量
 
-如果要允许来自名字空间中所有 Pod 的所有流量（即使添加了导致某些 Pod 被视为“隔离”的策略），
-则可以创建一个策略，该策略明确允许该名字空间中的所有出站流量。
+如果要允许来自命名空间中所有 Pod 的所有流量（即使添加了导致某些 Pod 被视为“隔离”的策略），
+则可以创建一个策略，该策略明确允许该命名空间中的所有出站流量。
 
 {{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
 
@@ -399,7 +399,7 @@ You can create a "default" policy for a namespace which prevents all ingress AND
 -->
 ### 默认拒绝所有入口和所有出站流量
 
-你可以为名字空间创建“默认”策略，以通过在该名字空间中创建以下 NetworkPolicy
+你可以为命名空间创建“默认”策略，以通过在该命名空间中创建以下 NetworkPolicy
 来阻止所有入站和出站流量。
 
 {{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
@@ -461,8 +461,8 @@ API 中会给出一定支持。
 - 与 TLS 相关的场景（考虑使用服务网格或者 Ingress 控制器）；
 - 特定于节点的策略（你可以使用 CIDR 来表达这一需求不过你无法使用节点在
   Kubernetes 中的其他标识信息来辩识目标节点）；
-- 基于名字来选择名字空间或者服务（不过，你可以使用 {{< glossary_tooltip text="标签" term_id="label" >}}
-  来选择目标 Pod 或名字空间，这也通常是一种可靠的替代方案）；
+- 基于名字来选择命名空间或者服务（不过，你可以使用 {{< glossary_tooltip text="标签" term_id="label" >}}
+  来选择目标 Pod 或命名空间，这也通常是一种可靠的替代方案）；
 - 创建或管理由第三方来实际完成的“策略请求”；
 <!--
 - Default policies which are applied to all namespaces or pods (there are some third party Kubernetes distributions and projects which can do this).
@@ -472,7 +472,7 @@ API 中会给出一定支持。
 - The ability to explicitly deny policies (currently the model for NetworkPolicies are deny by default, with only the ability to add allow rules).
 - The ability to prevent loopback or incoming host traffic (Pods cannot currently block localhost access, nor do they have the ability to block access from their resident node).
 -->
-- 实现适用于所有名字空间或 Pods 的默认策略（某些第三方 Kubernetes 发行版本
+- 实现适用于所有命名空间或 Pods 的默认策略（某些第三方 Kubernetes 发行版本
   或项目可以做到这点）；
 - 高级的策略查询或者可达性相关工具；
 - 在同一策略声明中选择目标端口范围的能力；
