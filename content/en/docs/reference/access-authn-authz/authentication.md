@@ -1004,13 +1004,12 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
   }
 }
 ```
-To provide the plugin with information about the cluster for which it is
-obtaining credentials, the `provideClusterInfo` field can be set on the exec user
+To enable the exec plugin to obtain cluster-specific information, set `provideClusterInfo` on the `user.exec`
 field in the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
 The plugin will then be supplied with an environment variable, `KUBERNETES_EXEC_INFO`.
 Information from this environment variable can be used to perform cluster-specific
-credential acquisition logic. Here is an example of the aforementioned
-`KUBERNETES_EXEC_INFO` environment variable.
+credential acquisition logic.
+The following `ExecCredential` manifest describes a cluster information sample.
 
 ```json
 {
