@@ -58,7 +58,7 @@ Network policies are implemented by the [network plugin](/docs/concepts/extend-k
 ## 前置条件   {#prerequisites}
 
 网络策略通过[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-来实现。要使用网络策略，你必须使用支持 NetworkPolicy 的网络解决方案。
+来实现。要使用网络策略，你必须使用支持 NetworkPolicy 的Kuberbetes网络插件。
 创建一个 NetworkPolicy 资源对象而没有控制器来使它生效的话，是没有任何作用的。
 
 <!--
@@ -145,7 +145,7 @@ spec:
 POSTing this to the API server for your cluster will have no effect unless your chosen networking solution supports network policy.
  -->
 {{< note >}}
-除非选择支持网络策略的网络解决方案，否则将上述示例发送到API服务器没有任何效果。
+除非选择支持网络策略的Kuberbetes网络插件，否则将上述示例发送到API服务器没有任何效果。
 {{< /note >}}
 
 <!--
