@@ -21,11 +21,14 @@ weight: 30
 <!--
 This page shows how to run a replicated stateful application using a
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) controller.
-The example is a MySQL single-master topology with multiple slaves running
-asynchronous replication.
+This application is a replicated MySQL database. The example topology has a
+single primary server and multiple replicas, using asynchronous row-based
+replication.
 -->
 本页展示如何使用 [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)
-控制器运行一个有状态的应用程序。此例是一主多从、异步复制的 MySQL 集群。
+控制器运行一个有状态的应用程序。此例是多副本的 MySQL 数据库。
+示例应用的拓扑结构有一个主服务器和多个副本，使用异步的基于行（Row-Based）
+的数据复制。
 
 <!--
 **this is not a production configuration**.
@@ -101,12 +104,12 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 
 <!--
 This ConfigMap provides `my.cnf` overrides that let you independently control
-configuration on the MySQL master and slaves.
-In this case, you want the master to be able to serve replication logs to slaves
-and you want slaves to reject any writes that don't come via replication. 
+configuration on the primary MySQL server and replicas.
+In this case, you want the primary server to be able to serve replication logs to replicas
+and you want repicas to reject any writes that don't come via replication. 
 -->
 这个 ConfigMap 提供 `my.cnf` 覆盖设置，使你可以独立控制 MySQL 主服务器和从服务器的配置。
-在这里，你希望主服务器能够将复制日志提供给从服务器，并且希望从服务器拒绝任何不是通过
+在这里，你希望主服务器能够将复制日志提供给副本服务器，并且希望副本服务器拒绝任何不是通过
 复制进行的写操作。
 
 <!--
@@ -147,17 +150,17 @@ cluster and namespace.
 <!--
 The Client Service, called `mysql-read`, is a normal Service with its own
 cluster IP that distributes connections across all MySQL Pods that report
-being Ready. The set of potential endpoints includes the MySQL master and all
-slaves. 
+being Ready. The set of potential endpoints includes the primary MySQL server and all
+replicas. 
 -->
 客户端服务称为 `mysql-read`，是一种常规服务，具有其自己的集群 IP。
 该集群 IP 在报告就绪的所有MySQL Pod 之间分配连接。
-可能的端点集合包括 MySQL 主节点和所有从节点。
+可能的端点集合包括 MySQL 主节点和所有副本节点。
 
 <!--
 Note that only read queries can use the load-balanced Client Service.
-Because there is only one MySQL master, clients should connect directly to the
-MySQL master Pod (through its DNS entry within the Headless Service) to execute
+Because there is only one primary MySQL server, clients should connect directly to the
+primary MySQL Pod (through its DNS entry within the Headless Service) to execute
 writes. 
 -->
 请注意，只有读查询才能使用负载平衡的客户端服务。
@@ -274,38 +277,37 @@ properties.
 而这些 ID 也是需要唯一性、稳定性保证的。
 
 <!--
-The script in the `init-mysql` container also applies either `master.cnf` or
-`slave.cnf` from the ConfigMap by copying the contents into `conf.d`.
-Because the example topology consists of a single MySQL master and any number of
-slaves, the script simply assigns ordinal `0` to be the master, and everyone
-else to be slaves. 
+The script in the `init-mysql` container also applies either `primary.cnf` or
+`replica.cnf` from the ConfigMap by copying the contents into `conf.d`.
+Because the example topology consists of a single primary MySQL server and any number of
+replicas, the script simply assigns ordinal `0` to be the primary server, and everyone
+else to be replicas. 
 
 Combined with the StatefulSet controller's
 [deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/),
-this ensures the MySQL master is Ready before creating slaves, so they can begin
+this ensures the primary MySQL server is Ready before creating replicas, so they can begin
 replicating.
-
 -->
 通过将内容复制到 conf.d 中，`init-mysql` 容器中的脚本也可以应用 ConfigMap 中的
-`master.cnf` 或 `slave.cnf`。
-由于示例部署结构由单个 MySQL 主节点和任意数量的从节点组成，因此脚本仅将序数
-`0` 指定为主节点，而将其他所有节点指定为从节点。
+`primary.cnf` 或 `replica.cnf`。
+由于示例部署结构由单个 MySQL 主节点和任意数量的副本节点组成，因此脚本仅将序数
+`0` 指定为主节点，而将其他所有节点指定为副本节点。
 
 与 StatefulSet 控制器的
 [部署顺序保证](/zh/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/)
 相结合，
-可以确保 MySQL 主服务器在创建从服务器之前已准备就绪，以便它们可以开始复制。
+可以确保 MySQL 主服务器在创建副本服务器之前已准备就绪，以便它们可以开始复制。
 
 <!--
 ### Cloning existing data 
 
-In general, when a new Pod joins the set as a slave, it must assume the MySQL
-master might already have data on it. It also must assume that the replication
+In general, when a new Pod joins the set as a replica, it must assume the primary MySQL
+server might already have data on it. It also must assume that the replication
 logs might not go all the way back to the beginning of time. 
 -->
 ### 克隆现有数据
 
-通常，当新 Pod 作为从节点加入集合时，必须假定 MySQL 主节点可能已经有数据。
+通常，当新 Pod 作为副本节点加入集合时，必须假定 MySQL 主节点可能已经有数据。
 还必须假设复制日志可能不会一直追溯到时间的开始。
 
 <!--
@@ -316,11 +318,11 @@ to scale up and down over time, rather than being fixed at its initial size.
 
 <!--
 The second Init Container, named `clone-mysql`, performs a clone operation on
-a slave Pod the first time it starts up on an empty PersistentVolume.
+a replica Pod the first time it starts up on an empty PersistentVolume.
 That means it copies all existing data from another running Pod,
-so its local state is consistent enough to begin replicating from the master. 
+so its local state is consistent enough to begin replicating from the primary server.
 -->
-第二个名为 `clone-mysql` 的 Init 容器，第一次在带有空 PersistentVolume 的从属 Pod
+第二个名为 `clone-mysql` 的 Init 容器，第一次在带有空 PersistentVolume 的副本 Pod
 上启动时，会在从属 Pod 上执行克隆操作。
 这意味着它将从另一个运行中的 Pod 复制所有现有数据，使此其本地状态足够一致，
 从而可以开始从主服务器复制。
@@ -329,14 +331,14 @@ so its local state is consistent enough to begin replicating from the master.
 MySQL itself does not provide a mechanism to do this, so the example uses a
 popular open-source tool called Percona XtraBackup.
 During the clone, the source MySQL server might suffer reduced performance.
-To minimize impact on the MySQL master, the script instructs each Pod to clone
+To minimize impact on the primary MySQL server, the script instructs each Pod to clone
 from the Pod whose ordinal index is one lower.
 This works because the StatefulSet controller always ensures Pod `N` is
 Ready before starting Pod `N+1`. 
 -->
 MySQL 本身不提供执行此操作的机制，因此本示例使用了一种流行的开源工具 Percona XtraBackup。
 在克隆期间，源 MySQL 服务器性能可能会受到影响。
-为了最大程度地减少对 MySQL 主节点的影响，该脚本指示每个 Pod 从序号较低的 Pod 中克隆。
+为了最大程度地减少对 MySQL 主服务器的影响，该脚本指示每个 Pod 从序号较低的 Pod 中克隆。
 可以这样做的原因是 StatefulSet 控制器始终确保在启动 Pod N + 1 之前 Pod N 已准备就绪。
 
 <!--
@@ -356,25 +358,26 @@ MySQL Pod 由运行实际 `mysqld` 服务的 `mysql` 容器和充当
 
 <!--
 The `xtrabackup` sidecar looks at the cloned data files and determines if
-it's necessary to initialize MySQL replication on the slave.
+it's necessary to initialize MySQL replication on the replica.
 If so, it waits for `mysqld` to be ready and then executes the
 `CHANGE MASTER TO` and `START SLAVE` commands with replication parameters
 extracted from the XtraBackup clone files. 
 -->
-`xtrabackup` sidecar 容器查看克隆的数据文件，并确定是否有必要在从服务器上初始化 MySQL 复制。
+`xtrabackup` sidecar 容器查看克隆的数据文件，并确定是否有必要在副本服务器上初始化 MySQL 复制。
 如果是这样，它将等待 `mysqld` 准备就绪，然后使用从 XtraBackup 克隆文件中提取的复制参数
 执行  `CHANGE MASTER TO` 和 `START SLAVE` 命令。
 
 <!--
-Once a slave begins replication, it remembers its MySQL master and
+Once a replica begins replication, it remembers its primary MySQL server and
 reconnects automatically if the server restarts or the connection dies.
-Also, because slaves look for the master at its stable DNS name
-(`mysql-0.mysql`), they automatically find the master even if it gets a new
+Also, because replicas look for the primary server at its stable DNS name
+(`mysql-0.mysql`), they automatically find the primary server even if it gets a new
 Pod IP due to being rescheduled. 
 -->
-一旦从服务器开始复制后，它会记住其 MySQL 主服务器，并且如果服务器重新启动或连接中断也会自动重新连接。
-另外，因为从服务器会以其稳定的 DNS 名称查找主服务器（`mysql-0.mysql`），
-即使由于重新调度而获得新的 Pod IP，他们也会自动找到主服务器。
+一旦副本服务器开始复制后，它会记住其 MySQL 主服务器，并且如果服务器重新启动或
+连接中断也会自动重新连接。
+另外，因为副本服务器会以其稳定的 DNS 名称查找主服务器（`mysql-0.mysql`），
+即使由于重新调度而获得新的 Pod IP，它们也会自动找到主服务器。
 
 <!--
 Lastly, after starting replication, the `xtrabackup` container listens for
@@ -389,7 +392,7 @@ case the next Pod loses its PersistentVolumeClaim and needs to redo the clone.
 <!--
 ## Sending client traffic 
 
-You can send test queries to the MySQL master (hostname `mysql-0.mysql`)
+You can send test queries to the primary MySQL server (hostname `mysql-0.mysql`)
 by running a temporary container with the `mysql:5.7` image and running the
 `mysql` client binary. 
 -->
@@ -478,13 +481,13 @@ it running in another window so you can see the effects of the following steps.
 <!--
 ## Simulating Pod and Node downtime 
 
-To demonstrate the increased availability of reading from the pool of slaves
+To demonstrate the increased availability of reading from the pool of replicas
 instead of a single server, keep the `SELECT @@server_id` loop from above
 running while you force a Pod out of the Ready state. 
 -->
 ## 模拟 Pod 和 Node 的宕机时间
 
-为了证明从从节点缓存而不是单个服务器读取数据的可用性提高，请在使 Pod 退出 Ready
+为了证明从副本节点缓存而不是单个服务器读取数据的可用性提高，请在使 Pod 退出 Ready
 状态时，保持上述 `SELECT @@server_id` 循环一直运行。
 
 <!--
@@ -679,14 +682,14 @@ kubectl uncordon <节点名称>
 ```
 
 <!--
-## Scaling the number of slaves 
+## Scaling the number of replicas
 
-With MySQL replication, you can scale your read query capacity by adding slaves.
+With MySQL replication, you can scale your read query capacity by adding replicas.
 With StatefulSet, you can do this with a single command: 
 -->
-## 扩展从节点数量
+## 扩展副本节点数量
 
-使用 MySQL 复制，你可以通过添加从节点来扩展读取查询的能力。
+使用 MySQL 复制，你可以通过添加副本节点来扩展读取查询的能力。
 使用 StatefulSet，你可以使用单个命令执行此操作：
 
 ```shell
