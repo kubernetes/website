@@ -63,7 +63,7 @@ It acts synchronously to modify pods as they are created or updated. When this p
 {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
 When the `BoundServiceAccountTokenVolume` feature gate is enabled, the service account admission controller will
-add a projected service account token volume instead of a secret volume. The service account token will expire after 1 hour by default or the pod is deleted. See more details about [projected volume](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
+add a projected service account token volume instead of a secret volume. The service account token will expire after 1 hour by default or whenever the pod is deleted. See more details about [projected volume](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 
 This feature depends on the `RootCAConfigMap` feature gate enabled which publish a "kube-root-ca.crt" ConfigMap to every namespace. This ConfigMap contains a CA bundle used for verifying connections to the kube-apiserver.
 1. If the pod does not have a `serviceAccountName` set, it sets the
@@ -81,7 +81,7 @@ This feature depends on the `RootCAConfigMap` feature gate enabled which publish
 
 You can migrate a service account volume to a projected volume when
 the `BoundServiceAccountTokenVolume` feature gate is enabled.
-The service account token will expire after 1 hour or the pod is deleted. See
+The service account token will expire after 1 hour or whenever the pod is deleted. See
 more details about
 [projected volume](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 
