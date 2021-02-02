@@ -37,9 +37,9 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [Gloo](https://gloo.solo.io) is an open-source ingress controller based on [Envoy](https://www.envoyproxy.io),
   which offers API gateway functionality.
 * [HAProxy Ingress](https://haproxy-ingress.github.io/) is an ingress controller for
-  [HAProxy](http://www.haproxy.org/#desc).
+  [HAProxy](https://www.haproxy.org/#desc).
 * The [HAProxy Ingress Controller for Kubernetes](https://github.com/haproxytech/kubernetes-ingress#readme)
-  is also an ingress controller for [HAProxy](http://www.haproxy.org/#desc).
+  is also an ingress controller for [HAProxy](https://www.haproxy.org/#desc).
 * [Istio Ingress](https://istio.io/latest/docs/tasks/traffic-management/ingress/kubernetes-ingress/)
   is an [Istio](https://istio.io/) based ingress controller.
 * The [Kong Ingress Controller for Kubernetes](https://github.com/Kong/kubernetes-ingress-controller#readme)
@@ -50,7 +50,7 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * The [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) is an
   ingress controller for the [Traefik](https://traefik.io/traefik/) proxy.
 * [Voyager](https://appscode.com/products/voyager) is an ingress controller for
-  [HAProxy](http://www.haproxy.org/#desc).
+  [HAProxy](https://www.haproxy.org/#desc).
 
 ## Using multiple Ingress controllers
 
