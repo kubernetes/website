@@ -69,7 +69,7 @@ VXLAN/오버레이 네트워킹을 사용하는 경우 [KB4489899](https://suppo
           "Network": "10.244.0.0/16",
           "Backend": {
             "Type": "vxlan",
-            "VNI" : 4096,
+            "VNI": 4096,
             "Port": 4789
           }
         }

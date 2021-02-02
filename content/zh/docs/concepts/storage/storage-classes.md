@@ -691,7 +691,7 @@ vSphere 存储类有两种制备器
 [弃用](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)。
 更多关于 CSI 制备器的详情，请参阅 
 [Kubernetes vSphere CSI 驱动](https://vsphere-csi-driver.sigs.k8s.io/)
-和 [vSphereVolume CSI 迁移](/docs/concepts/storage/volumes/#csi-migration-5)。
+和 [vSphereVolume CSI 迁移](/zh/docs/concepts/storage/volumes/#csi-migration-5)。
 
 <!--
 #### CSI Provisioner {#vsphere-provisioner-csi}
