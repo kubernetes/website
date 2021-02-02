@@ -252,7 +252,7 @@ data:
 删除你刚才创建的 Secret：
 
 ```shell
-kubectl delete secret db-user-pass
+kubectl delete secret mysecret
 ```
 
 ## {{% heading "whatsnext" %}}

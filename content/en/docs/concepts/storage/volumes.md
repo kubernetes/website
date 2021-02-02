@@ -210,8 +210,8 @@ spec:
 
 The `CSIMigration` feature for Cinder, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
-Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
+Storage Interface (CSI) Driver. In order to use this feature, the [OpenStack Cinder CSI
+Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
 beta features must be enabled.
 

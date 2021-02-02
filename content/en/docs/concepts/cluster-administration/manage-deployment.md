@@ -91,6 +91,7 @@ Because `kubectl` outputs resource names in the same syntax it accepts, it's eas
 
 ```shell
 kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
+kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service | xargs -i kubectl get {}
 ```
 
 ```shell
