@@ -157,7 +157,7 @@ where it's running, by adding an Endpoint object manually:
 
 ```yaml
 apiVersion: v1
-kind: Endpoints
+kind: Endpoint
 metadata:
   name: my-service
 subsets:
