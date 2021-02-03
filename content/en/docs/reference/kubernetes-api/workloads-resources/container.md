@@ -414,7 +414,7 @@ A single application container that you want to run within a pod.
 
 - **securityContext** (SecurityContext)
 
-  Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  Security options the pod should run with. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 
   <a name="SecurityContext"></a>
   *SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.*
