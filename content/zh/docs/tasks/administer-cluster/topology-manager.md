@@ -92,24 +92,36 @@ Support for the Topology Manager requires `TopologyManager` [feature gate](/docs
 从 Kubernetes 1.18 版本开始，这一特性默认是启用的。
 
 <!--
-### Topology Manager Policies
+### Topology Manager Scopes and Policies
 
 The Topology Manager currently:
-
  - Aligns Pods of all QoS classes.
  - Aligns the requested resources that Hint Provider provides topology hints for.
 -->
-### 拓扑管理器策略
+### 拓扑管理器作用域和策略
 
 拓扑管理器目前：
-
 - 对所有 QoS 类的 Pod 执行对齐操作
 - 针对建议提供者所提供的拓扑建议，对请求的资源进行对齐
 
 <!--
-If these conditions are met, Topology Manager will align the requested resources.
+If these conditions are met, the Topology Manager will align the requested resources.
+
+In order to customise how this alignment is carried out, the Topology Manager provides two distinct knobs: `scope` and `policy`.
 -->
 如果满足这些条件，则拓扑管理器将对齐请求的资源。
+
+为了定制如何进行对齐，拓扑管理器提供了两种不同的方式：`scope` 和 `policy`。
+
+<!--
+The `scope` defines the granularity at which you would like resource alignment to be performed (e.g. at the `pod` or `container` level). And the `policy` defines the actual strategy used to carry out the alignment (e.g. `best-effort`, `restricted`, `single-numa-node`, etc.).
+
+Details on the various `scopes` and `policies` available today can be found below.
+-->
+`scope` 定义了资源对齐时你所希望使用的粒度（例如，是在 `pod` 还是 `container` 级别）。
+`policy` 定义了对齐时实际使用的策略（例如，`best-effort`、`restricted`、`single-numa-node` 等等）。
+
+可以在下文找到现今可用的各种 `scopes` 和 `policies` 的具体信息。
 
 <!--
 To align CPU resources with other requested resources in a Pod Spec, the CPU Manager should be enabled and proper CPU Manager policy should be configured on a Node. See [control CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
@@ -119,6 +131,117 @@ To align CPU resources with other requested resources in a Pod Spec, the CPU Man
 节点上应配置了适当的 CPU 管理器策略。
 参看[控制 CPU 管理策略](/zh/docs/tasks/administer-cluster/cpu-management-policies/).
 {{< /note >}}
+
+<!--
+### Topology Manager Scopes
+
+The Topology Manager can deal with the alignment of resources in a couple of distinct scopes:
+
+* `container` (default)
+* `pod`
+
+Either option can be selected at a time of the kubelet startup, with `--topology-manager-scope` flag.
+-->
+### 拓扑管理器作用域
+
+拓扑管理器可以在以下不同的作用域内进行资源对齐：
+
+* `container` （默认）
+* `pod`
+
+在 kubelet 启动时，可以使用 `--topology-manager-scope` 标志来选择其中任一选项。
+
+<!--
+### container scope
+
+The `container` scope is used by default.
+-->
+### 容器作用域
+
+默认使用的是 `container` 作用域。
+
+<!--
+Within this scope, the Topology Manager performs a number of sequential resource alignments, i.e., for each container (in a pod) a separate alignment is computed. In other words, there is no notion of grouping the containers to a specific set of NUMA nodes, for this particular scope. In effect, the Topology Manager performs an arbitrary alignment of individual containers to NUMA nodes.
+-->
+在该作用域内，拓扑管理器依次进行一系列的资源对齐，
+也就是，对每一个容器（包含在一个 Pod 里）计算单独的对齐。
+换句话说，在该特定的作用域内，没有根据特定的 NUMA 节点集来把容器分组的概念。
+实际上，拓扑管理器会把单个容器任意地对齐到 NUMA 节点上。
+
+<!--
+The notion of grouping the containers was endorsed and implemented on purpose in the following scope, for example the `pod` scope.
+-->
+容器分组的概念是在以下的作用域内特别实现的，也就是 `pod` 作用域。
+
+<!--
+### pod scope
+
+To select the `pod` scope, start the kubelet with the command line option `--topology-manager-scope=pod`.
+-->
+### Pod 作用域
+
+使用命令行选项 `--topology-manager-scope=pod` 来启动 kubelet，就可以选择 `pod` 作用域。
+
+<!--
+This scope allows for grouping all containers in a pod to a common set of NUMA nodes. That is, the Topology Manager treats a pod as a whole and attempts to allocate the entire pod (all containers) to either a single NUMA node or a common set of NUMA nodes. The following examples illustrate the alignments produced by the Topology Manager on different occasions:
+-->
+该作用域允许把一个 Pod 里的所有容器作为一个分组，分配到一个共同的 NUMA 节点集。
+也就是，拓扑管理器会把一个 Pod 当成一个整体，
+并且试图把整个 Pod（所有容器）分配到一个单个的 NUMA 节点或者一个共同的 NUMA 节点集。
+以下的例子说明了拓扑管理器在不同的场景下使用的对齐方式：
+
+<!--
+* all containers can be and are allocated to a single NUMA node;
+* all containers can be and are allocated to a shared set of NUMA nodes.
+-->
+* 所有容器可以被分配到一个单一的 NUMA 节点；
+* 所有容器可以被分配到一个共享的 NUMA 节点集。
+
+<!--
+The total amount of particular resource demanded for the entire pod is calculated according to [effective requests/limits](/docs/concepts/workloads/pods/init-containers/#resources) formula, and thus, this total value is equal to the maximum of:
+* the sum of all app container requests,
+* the maximum of init container requests,
+for a resource.
+-->
+整个 Pod 所请求的某种资源总量是根据
+[有效 request/limit](/zh/docs/concepts/workloads/pods/init-containers/#resources)
+公式来计算的，
+因此，对某一种资源而言，该总量等于以下数值中的最大值：
+* 所有应用容器请求之和；
+* 初始容器请求的最大值。
+
+<!--
+Using the `pod` scope in tandem with `single-numa-node` Topology Manager policy is specifically valuable for workloads that are latency sensitive or for high-throughput applications that perform IPC. By combining both options, you are able to place all containers in a pod onto a single NUMA node; hence, the inter-NUMA communication overhead can be eliminated for that pod.
+-->
+`pod` 作用域与 `single-numa-node` 拓扑管理器策略一起使用，
+对于延时敏感的工作负载，或者对于进行 IPC 的高吞吐量应用程序，都是特别有价值的。
+把这两个选项组合起来，你可以把一个 Pod 里的所有容器都放到一个单个的 NUMA 节点，
+使得该 Pod 消除了 NUMA 之间的通信开销。
+
+<!--
+In the case of `single-numa-node` policy, a pod is accepted only if a suitable set of NUMA nodes is present among possible allocations. Reconsider the example above:
+-->
+在 `single-numa-node` 策略下，只有当可能的分配方案中存在合适的 NUMA 节点集时，Pod 才会被接受。
+重新考虑上述的例子：
+
+<!--
+* a set containing only a single NUMA node - it leads to pod being admitted,
+* whereas a set containing more NUMA nodes - it results in pod rejection (because instead of one NUMA node, two or more NUMA nodes are required to satisfy the allocation).
+-->
+* 节点集只包含单个 NUMA 节点时，Pod 就会被接受，
+* 然而，节点集包含多个 NUMA 节点时，Pod 就会被拒绝
+  （因为满足该分配方案需要两个或以上的 NUMA 节点，而不是单个 NUMA 节点）。
+
+<!--
+To recap, Topology Manager first computes a set of NUMA nodes and then tests it against Topology Manager policy, which either leads to the rejection or admission of the pod.
+-->
+简要地说，拓扑管理器首先计算出 NUMA 节点集，然后使用拓扑管理器策略来测试该集合，
+从而决定拒绝或者接受 Pod。
+
+<!--
+### Topology Manager Policies
+-->
+### 拓扑管理器策略
 
 <!--
 Topology Manager supports four allocation policies. You can set a policy via a Kubelet flag, `--topology-manager-policy`.
@@ -137,6 +260,17 @@ There are four supported policies:
 * `best-effort`
 * `restricted`
 * `single-numa-node`
+
+<!--
+{{< note >}}
+If Topology Manager is configured with the **pod** scope, the container, which is considered by the policy, is reflecting requirements of the entire pod, and thus each container from the pod will result with **the same** topology alignment decision.
+{{< /note >}}
+-->
+{{< note >}}
+如果拓扑管理器配置使用 **Pod** 作用域，
+那么在策略考量一个容器时，该容器反映的是整个 Pod 的要求，
+于是该 Pod 里的每个容器都会得到 **相同的** 拓扑对齐决定。
+{{< /note >}}
 
 <!--
 ### none policy {#policy-none}
