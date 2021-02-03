@@ -192,14 +192,14 @@ metadata:
  name: hello
 spec:
  template:
- # This is the pod template
+ # Dies is the Podvorlage
  spec:
  containers:
  - name: hello
  image: busybox
  command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
  restartPolicy: OnFailure
- # The pod template ends here
+ # Die Podvorlage endet hier
 ```
 Das Ändern der Podvorlage oder der Wechsel zu einer neuen Podvorlage hat keine 
 direkten Auswirkungen auf bereits existierende Pods. Wenn Sie die Podvorlage für
@@ -248,8 +248,8 @@ einige Einschränkungen:
 - Wenn das Feld `metadata.deletionTimestamp` gesetzt ist, kann kein neuer 
   Eintrag zur Liste `metadata.finalizers` hinzugefügt werden.
 - Pod-Updates dürfen keine Felder ändern, die Ausnahmen sind 
-  `spec.containers [*].image`,
- `spec.initContainers [*].image`,` spec.activeDeadlineSeconds` oder
+  `spec.containers[*].image`,
+ `spec.initContainers[*].image`,` spec.activeDeadlineSeconds` oder
  `spec.tolerations`. Für `spec.tolerations` können Sie nur neue Einträge 
   hinzufügen.
 - Für `spec.activeDeadlineSeconds` sind nur zwei Änderungen erlaubt:
