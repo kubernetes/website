@@ -22,7 +22,7 @@ The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Po
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
-The Pods' name will suffixed with the node hostname with a leading hyphen
+The Pod names will suffixed with the node hostname with a leading hyphen
 
 {{< note >}}
 If you are running clustered Kubernetes and are using static
@@ -237,5 +237,4 @@ docker ps
 CONTAINER ID        IMAGE         COMMAND                CREATED           ...
 e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
 ```
-
 
