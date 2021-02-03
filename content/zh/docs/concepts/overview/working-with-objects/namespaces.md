@@ -182,7 +182,7 @@ persistentVolumes, are not in any namespace.
 -->
 大多数 kubernetes 资源（例如 Pod、Service、副本控制器等）都位于某些名字空间中。
 但是名字空间资源本身并不在名字空间中。而且底层资源，例如
-[节点](/zh/docs/concepts/architecture/nodes/) 和持久化卷不属于任何名字空间。
+[节点](/zh/docs/concepts/architecture/nodes/) 和 持久化卷 不属于任何名字空间。
 
 <!--
 To see which Kubernetes resources are and aren't in a namespace:

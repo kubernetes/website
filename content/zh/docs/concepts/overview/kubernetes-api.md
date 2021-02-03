@@ -32,8 +32,8 @@ Kubernetes {{< glossary_tooltip text="控制面" term_id="control-plane" >}}
 的核心是 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}。
 API 服务器负责提供 HTTP API，以供用户、集群中的不同部分和集群外部组件相互通信。
 
-Kubernetes API 使你可以查询和操纵 Kubernetes API
-中对象（例如：Pod、Namespace、ConfigMap 和 Event）的状态。
+Kubernetes API 使你可以查询和操纵 Kubernetes 中
+API 对象（例如：Pod、Namespace、ConfigMap 和 Event）的状态。
 
 大部分操作都可以通过 [kubectl](/zh/docs/reference/kubectl/overview/) 命令行接口或
 类似 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 这类命令行工具来执行，
@@ -43,8 +43,8 @@ Kubernetes API 使你可以查询和操纵 Kubernetes API
 Consider using one of the [client libraries](/docs/reference/using-api/client-libraries/)
 if you are writing an application using the Kubernetes API.
 -->
-如果你正在编写程序来访问 Kubernetes API，可以考虑使用
-[客户端库](/zh/docs/reference/using-api/client-libraries/)之一。
+如果你正在编写程序来访问 Kubernetes API，可以考虑使用如下的一种或多种 
+[客户端库](/zh/docs/reference/using-api/client-libraries/)。
 
 <!-- body -->
 

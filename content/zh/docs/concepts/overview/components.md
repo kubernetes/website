@@ -203,8 +203,8 @@ Kubernetes 启动的容器自动将此 DNS 服务器包含在其 DNS 搜索列�
 -->
 ### Web 界面（仪表盘）   
 
-[Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/) 是Kubernetes 集群的通用的、基于 Web 的用户界面。
-它使用户可以管理集群中运行的应用程序以及集群本身并进行故障排除。
+[Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/) 是Kubernetes 集群 通用的、基于 Web 的 用户界面。
+用户用以管理集群中运行的应用程序以及集群本身，并进行故障排除。
 
 <!--
 ### Container Resource Monitoring
@@ -215,7 +215,7 @@ about containers in a central database, and provides a UI for browsing that data
 ### 容器资源监控
 
 [容器资源监控](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
-将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面。
+将关于容器的一些常见时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面。
 
 <!--
 ### Cluster-level Logging
