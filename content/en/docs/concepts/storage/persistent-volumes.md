@@ -620,10 +620,10 @@ spec:
 
 PersistentVolumes binds are exclusive, and since PersistentVolumeClaims are namespaced objects, mounting claims with "Many" modes (`ROX`, `RWX`) is only possible within one namespace.
 
-### PersistentVolumes typed HostPath
+### PersistentVolumes typed `hostPath`
 
-A hostPath PersistentVolume uses a file or directory on the Node to emulate network-attached storage.
-See [an example of HostPath typed volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
+A `hostPath` PersistentVolume uses a file or directory on the Node to emulate network-attached storage.
+See [an example of `hostPath` typed volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 
 ## Raw Block Volume Support
 
