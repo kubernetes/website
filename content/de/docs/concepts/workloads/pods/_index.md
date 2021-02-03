@@ -1,6 +1,4 @@
 ---
-reviewers:
-- erictune
 title: Pods
 content_type: concept
 weight: 10
@@ -22,10 +20,9 @@ genutzten Speicher- und Netzwerkressourcen und einer Spezifikation für die
 Ausführung der Container. Die Ressourcen eines Pods befinden sich immer auf dem 
 gleichen (virtuellen) Server, werden gemeinsam geplant und in einem
 gemeinsamen Kontext ausgeführt. Ein Pod modelliert einen anwendungsspezifischen 
-"logischen Server": Er enthält eine oder mehrere containerisierte Anwendungen
-, die
- relativ stark 
-voneinander abhängen. In Nicht-Cloud-Kontexten sind Anwendungen, die auf
+"logischen Server": Er enthält eine oder mehrere containerisierte Anwendungen, 
+die relativ stark voneinander abhängen. 
+In Nicht-Cloud-Kontexten sind Anwendungen, die auf
 demselben physischen oder virtuellen Server ausgeführt werden, vergleichbar zu 
 Cloud-Anwendungen, die auf demselben logischen Server ausgeführt werden.
 
@@ -42,10 +39,10 @@ zum Debuggen gestartet werden, wenn dies der Cluster anbietet.
 
 {{< note >}}
 Obwohl Kubernetes abgesehen von [Docker](https://www.docker.com/) auch andere
-{{<glossary_tooltip text = "Container-Laufzeitumgebungen" 
-term_id = "container-runtime">}} unterstützt, ist Docker am bekanntesten und
+{{<glossary_tooltip text="Container-Laufzeitumgebungen" 
+term_id="container-runtime">}} unterstützt, ist Docker am bekanntesten und
  es ist hilfreich, Pods mit der Terminologie von Docker zu beschreiben.
-{{</ note>}}
+{{< /note >}}
 
 Der gemeinsame Kontext eines Pods besteht aus einer Reihe von Linux-Namespaces, 
 Cgroups und möglicherweise anderen Aspekten der Isolation, also die gleichen
@@ -59,10 +56,10 @@ die gemeinsame Namespaces und Dateisystem-Volumes nutzen.
 
 Normalerweise müssen keine Pods erzeugt werden, auch keine Singleton-Pods. 
 Stattdessen werden sie mit Workload-Ressourcen wie {{<glossary_tooltip 
-text = "Deployment" term_id = "deployment">}} oder {{<glossary_tooltip 
-text = "Job" term_id = "job">}} erzeugt. Für Pods, die von einem Systemzustand 
-abhängen, erwägen Sie die Nutzung von {{<glossary_tooltip text
- = "StatefulSet" term_id = "statefulset">}}-Ressourcen.
+text="Deployment" term_id="deployment">}} oder {{<glossary_tooltip 
+text="Job" term_id="job">}} erzeugt. Für Pods, die von einem Systemzustand 
+abhängen, erwägen Sie die Nutzung von {{<glossary_tooltip 
+text="StatefulSet" term_id="statefulset">}}-Ressourcen.
 
 Pods in einem Kubernetes-Cluster werden hauptsächlich auf zwei Arten verwendet:
 
@@ -81,12 +78,12 @@ Volume öffentlich verfügbar macht, während ein separater _Sidecar_-Container
 die Daten aktualisiert. Der Pod fasst die Container, die Speicherressourcen
 und eine kurzlebiges Netzwerk-Identität als eine Einheit zusammen.
 
-{{<note>}}
+{{< note >}}
 Das Gruppieren mehrerer gemeinsam lokalisierter und gemeinsam verwalteter
 Container in einem einzigen Pod ist ein relativ fortgeschrittener 
 Anwendungsfall. Sie sollten diese Architektur nur in bestimmten  Fällen 
 verwenden, wenn Ihre Container stark voneinander abhängen.
-{{</ note>}}
+{{< /note >}}
 
 Jeder Pod sollte eine einzelne Instanz einer gegebenen Anwendung ausführen. Wenn 
 Sie Ihre Anwendung horizontal skalieren wollen (um mehr Instanzen auszuführen
@@ -96,10 +93,10 @@ einen für jede Instanz. In Kubernetes wird dies typischerweise als Replikation
 bezeichnet.
 Replizierte Pods werden normalerweise als eine Gruppe durch eine 
 Workload-Ressource und deren 
-{{<glossary_tooltip text = "Controller" term_id = "controller">}} erstellt 
+{{<glossary_tooltip text="Controller" term_id="controller">}} erstellt 
 und verwaltet.
 
-Die Seite [Pods und Controller](#pods-and-controllers) beschreibt, wie 
+Der Abschnitt [Pods und Controller](#pods-und-controller) beschreibt, wie 
 Kubernetes Workload-Ressourcen und deren Controller verwendet, um Anwendungen 
 zu skalieren und zu heilen.
 
@@ -117,17 +114,17 @@ einem gemeinsamen Volume arbeitet. Und ein separater "Sidecar" -Container
 aktualisiert die Daten von einer externen Datenquelle, siehe folgenden 
 Abbildung:
 
-{{< figure src="/images/docs/pod.svg" alt="example pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" alt="Pod-Beispieldiagramm" width="50%" >}}
 
-Einige Pods haben sowohl {{<glossary_tooltip text = "Initialisierungs-Container" 
-term_id = "init-container">}} als auch {{<glossary_tooltip text = 
-"Anwendungs-Container" term_id = "app-container">}}. 
+Einige Pods haben sowohl {{<glossary_tooltip text="Initialisierungs-Container" 
+term_id="init-container">}} als auch {{<glossary_tooltip 
+text="Anwendungs-Container" term_id="app-container">}}. 
 Initialisierungs-Container werden gestartet und beendet bevor die 
 Anwendungs-Container gestartet werden.
 
 Pods stellen standardmäßig zwei Arten von gemeinsam Ressourcen für die 
 enthaltenen Container bereit:
-[Netzwerk](#pod-networking) und [Speicher](#pod-storage).
+[Netzwerk](#pod-netzwerk) und [Speicher](#datenspeicherung-in-pods).
 
 
 ## Mit Pods arbeiten
@@ -136,17 +133,17 @@ Sie werden selten einzelne Pods direkt in Kubernetes erstellen, selbst
 Singleton-Pods. Das liegt daran, dass Pods als relativ kurzlebige 
 Einweg-Einheiten konzipiert sind. Wann Ein Pod erstellt wird (entweder direkt 
 von Ihnen oder indirekt von einem
-{{<glossary_tooltip text = "Controller" term_id = "controller">}}), wird die 
-Ausführung auf einem {{<glossary_tooltip term_id = "node">}} in Ihrem Cluster 
+{{<glossary_tooltip text="Controller" term_id="controller">}}), wird die 
+Ausführung auf einem {{<glossary_tooltip term_id="node">}} in Ihrem Cluster 
 geplant. Der Pod bleibt auf diesem (virtuellen) Server, bis entweder der Pod die
 Ausführung beendet hat, das Pod-Objekt gelöscht wird, der Pod aufgrund 
 mangelnder Ressourcen *evakuiert* wird oder oder der Node ausfällt. 
 
-{{<note>}}
+{{< note >}}
 Das Neustarten eines Containers in einem Pod sollte nicht mit dem Neustarten 
 eines Pods verwechselt werden. Ein Pod ist kein Prozess, sondern eine Umgebung 
 zur Ausführung von Containern. Ein Pod bleibt bestehen bis er gelöscht wird.
-{{</ note>}}
+{{< /note >}}
 
 Stellen Sie beim Erstellen des Manifests für ein Pod-Objekt sicher, dass der 
 angegebene Name ein gültiger
@@ -170,7 +167,7 @@ verwalten:
 ### Podvorlagen
 
 Controller für 
-{{<glossary_tooltip text = "Workload" term_id = "workload">}}-Ressourcen 
+{{<glossary_tooltip text="Workload" term_id="workload">}}-Ressourcen 
 erstellen Pods von einer _Podvorlage_ und verwalten diese Pods für sie.
 
 Podvorlagen sind Spezifikationen zum Erstellen von Pods und sind in 
@@ -265,10 +262,10 @@ einige Einschränkungen:
 Pods ermöglichen den Datenaustausch und die Kommunikation zwischen den 
 Containern, die im Pod enthalten sind.
 
-### Datenspeicherung in Pods {#pod-storage}
+### Datenspeicherung in Pods
 
 Ein Pod kann eine Reihe von gemeinsam genutzten Speicher-
-{{<glossary_tooltip text = "Volumes" term_id = "volume">}} spezifizieren. Alle 
+{{<glossary_tooltip text="Volumes" term_id="volume">}} spezifizieren. Alle 
 Container im Pod können auf die gemeinsamen Volumes zugreifen und dadurch Daten 
 austauschen. Volumes ermöglichen auch, dass Daten ohne Verlust gespeichert 
 werden, falls einer der Container neu gestartet werden muss. 
@@ -310,19 +307,19 @@ auf Hardware. Prozesse innerhalb eines privilegierten Containers erhalten fast
 die gleichen Rechte wie sie Prozessen außerhalb eines Containers zur Verfügung 
 stehen.
 
-{{<note>}}
+{{< note >}}
 Ihre 
-{{<glossary_tooltip text = "Container-Umgebung" term_id = "container-runtime">}} 
+{{<glossary_tooltip text="Container-Umgebung" term_id="container-runtime">}} 
 muss das Konzept eines privilegierten Containers unterstützen, damit diese 
 Einstellung relevant ist.
-{{</ note>}}
+{{< /note >}}
 
 
 ## Statische Pods
 
 _Statische Pods_ werden direkt vom Kubelet-Daemon auf einem bestimmten Node 
 verwaltet ohne dass sie vom 
-{{<glossary_tooltip text = "API Server" term_id = "kube-apiserver">}} überwacht 
+{{<glossary_tooltip text="API Server" term_id="kube-apiserver">}} überwacht 
 werden.
 .
 Die meisten Pods werden von der Kontrollebene verwaltet (z. B.
@@ -330,7 +327,7 @@ Die meisten Pods werden von der Kontrollebene verwaltet (z. B.
 statische Pods überwacht das Kubelet jeden statischen Pod direkt (und startet 
 ihn neu, wenn er ausfällt).
 
-Statische Pods sind immer an ein {{<glossary_tooltip term_id = "kubelet">}} auf 
+Statische Pods sind immer an ein {{<glossary_tooltip term_id="kubelet">}} auf 
 einem bestimmten Node gebunden. Der Hauptanwendungsfall für statische Pods 
 besteht darin, eine selbst gehostete Steuerebene auszuführen. Mit anderen 
 Worten: Das Kubelet dient zur Überwachung der einzelnen 
@@ -338,7 +335,7 @@ Worten: Das Kubelet dient zur Überwachung der einzelnen
 
 Das Kubelet versucht automatisch auf dem Kubernetes API-Server für jeden 
 statischen Pod einen spiegelbildlichen Pod 
-(im Englischen {{<glossary_tooltip text = "Mirror-Pod" term_id = "mirror-Pod">}}) 
+(im Englischen: {{<glossary_tooltip text="mirror pod" term_id="mirror-pod">}}) 
 zu erstellen.
 Das bedeutet, dass die auf einem Node ausgeführten Pods auf dem API-Server 
 sichtbar sind jedoch von dort nicht gesteuert werden können.
