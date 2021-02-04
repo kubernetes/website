@@ -765,7 +765,7 @@ subjects:
 <!-- 
 For all service accounts in the "dev" group in the "development" namespace:
 -->
-对于 "dev" 名称空间中 "development" 组中的所有服务帐户：
+对于 "development" 名称空间中 "dev" 组中的所有服务帐户：
 
 ```yaml
 subjects:
