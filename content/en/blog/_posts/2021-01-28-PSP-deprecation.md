@@ -13,7 +13,7 @@ Pod Security Policies (PSP), starting with the Kubernetes 1.21, will begin the [
 
 ## What do Pod Security Policies do now?
 
-> A Pod Security Policy is a cluster-level resource that controls security sensitive aspects of the pod | specification. The [PodSecurityPolicy](/docs/reference/kubernetes-api/policies-resources/pod-security-policy-v1beta1/) object defines a set of conditions that a pod must run with in order to be accepted into the system, as well as defaults for the related fields. They allow an administrator to control a number of security-related functions.
+> A Pod Security Policy is a cluster-level resource that controls security sensitive aspects of the pod specification. The [PodSecurityPolicy](/docs/reference/kubernetes-api/policies-resources/pod-security-policy-v1beta1/) object defines a set of conditions that a pod must run with in order to be accepted into the system, as well as defaults for the related fields. They allow an administrator to control a number of security-related functions.
 
 The [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/)
 documentation explains this in more detail.
@@ -23,7 +23,7 @@ documentation explains this in more detail.
 
 To watch an explanation of PSP removal, you can check out this session by SIG-Auth at KubeCon NA 2019:
 
-{{< youtube "SFtHRmPuhEw?start=953" >}} 
+{{< youtube "SFtHRmPuhEw?start=953" youtube-quote-sm >}}
 
 In short, PSPs are part of the kubelet and API server. The tight coupling to these parts of Kubernetes makes PSPs cumbersome both for developers and for operators. Using PSPs is often unintuitive, and setting them up too often leads to unintended results. The initial design of PSPs did not foresee many of the use cases they’ve since tried to solve.
 
