@@ -153,7 +153,7 @@ The `mongo` Services you applied is only accessible within the Kubernetes cluste
 If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the Kubernetes cluster. However a Kubernetes user you can use `kubectl port-forward` to access the service even though it uses a `ClusterIP`.
 
 {{< note >}}
-Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply uncomment `type: LoadBalancer`.
+Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, uncomment `type: LoadBalancer`.
 {{< /note >}}
 
 {{< codenew file="application/guestbook/frontend-service.yaml" >}}

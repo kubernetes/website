@@ -111,7 +111,7 @@ kubectl get pods -l app=hostnames \
 10.244.0.7
 ```
 
-The example container used for this walk-through simply serves its own hostname
+The example container used for this walk-through serves its own hostname
 via HTTP on port 9376, but if you are debugging your own app, you'll want to
 use whatever port number your Pods are listening on.
 

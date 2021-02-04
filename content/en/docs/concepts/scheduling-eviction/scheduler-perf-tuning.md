@@ -107,7 +107,7 @@ value being calculated based on the cluster size. There is also a hardcoded
 minimum value of 50 nodes.
 
 {{< note >}}In clusters with less than 50 feasible nodes, the scheduler still
-checks all the nodes, simply because there are not enough feasible nodes to stop
+checks all the nodes because there are not enough feasible nodes to stop
 the scheduler's search early.
 
 In a small cluster, if you set a low value for `percentageOfNodesToScore`, your

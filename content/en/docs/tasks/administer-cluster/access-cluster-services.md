@@ -83,7 +83,7 @@ See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/ac
 
 #### Manually constructing apiserver proxy URLs
 
-As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you simply append to the service's proxy URL:
+As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you append to the service's proxy URL:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`[https:]service_name[:port_name]`*`/proxy`
 
 If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
