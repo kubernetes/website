@@ -801,11 +801,6 @@ field set to that of the service account.
 See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
 
-### Automatic mounting of manually created Secrets
-
-Manually created secrets (for example, one containing a token for accessing a GitHub account)
-can be automatically attached to pods based on their service account.
-
 ## Details
 
 ### Restrictions
