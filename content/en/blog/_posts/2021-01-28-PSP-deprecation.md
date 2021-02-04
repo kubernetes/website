@@ -6,8 +6,9 @@ slug: psp-update-2021
 ---
 
 **Authors:** Contributor Comms Team
+
 _The following is a brief overview of upcoming changes to Kubernetes. Bookmark and [keep an eye on our release site](https://www.kubernetes.dev/resources/release/) to see the latest news and other important updates._
-Pod Security Policies (PSP), starting with the Kubernetes 1.21, will begin the [process of deprecation](/docs/reference/using-api/deprecation-policy/) with the intention to fully remove it in a future release. This bears the question: what will replace Pod Security Policies in the future? In short, [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/). For more details, keep reading.
+Pod Security Policies (PSP), starting with the Kubernetes 1.21, will begin the [process of deprecation](/docs/reference/using-api/deprecation-policy/) with the intention to fully remove it in a future release. This prompts the question: what will replace Pod Security Policies in the future? In short, [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/). For more details, keep reading.
 
 
 ## What do Pod Security Policies do now?
