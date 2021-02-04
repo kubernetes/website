@@ -70,7 +70,7 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-In the case of just two resources, it's also easy to specify both on the command line using the resource/name syntax:
+In the case of two resources, you can specify both resources on the command line using the resource/name syntax:
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -87,7 +87,7 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-Because `kubectl` outputs resource names in the same syntax it accepts, it's easy to chain operations using `$()` or `xargs`:
+Because `kubectl` outputs resource names in the same syntax it accepts, you can chain operations using `$()` or `xargs`:
 
 ```shell
 kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
@@ -302,6 +302,7 @@ Sometimes you would want to attach annotations to resources. Annotations are arb
 kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
 kubectl get pods my-nginx-v4-9gw19 -o yaml
 ```
+
 ```shell
 apiVersion: v1
 kind: pod
@@ -315,11 +316,12 @@ For more information, please see [annotations](/docs/concepts/overview/working-w
 
 ## Scaling your application
 
-When load on your application grows or shrinks, it's easy to scale with `kubectl`. For instance, to decrease the number of nginx replicas from 3 to 1, do:
+When load on your application grows or shrinks, use `kubectl` to scale your application. For instance, to decrease the number of nginx replicas from 3 to 1, do:
 
 ```shell
 kubectl scale deployment/my-nginx --replicas=1
 ```
+
 ```shell
 deployment.apps/my-nginx scaled
 ```
@@ -329,6 +331,7 @@ Now you only have one pod managed by the deployment.
 ```shell
 kubectl get pods -l app=nginx
 ```
+
 ```shell
 NAME                        READY     STATUS    RESTARTS   AGE
 my-nginx-2035384211-j5fhi   1/1       Running   0          30m
@@ -339,6 +342,7 @@ To have the system automatically choose the number of nginx replicas as needed, 
 ```shell
 kubectl autoscale deployment/my-nginx --min=1 --max=3
 ```
+
 ```shell
 horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 ```
@@ -412,6 +416,7 @@ In some cases, you may need to update resource fields that cannot be updated onc
 ```shell
 kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
 ```
+
 ```shell
 deployment.apps/my-nginx deleted
 deployment.apps/my-nginx replaced
@@ -428,14 +433,17 @@ Let's say you were running version 1.14.2 of nginx:
 ```shell
 kubectl create deployment my-nginx --image=nginx:1.14.2
 ```
+
 ```shell
 deployment.apps/my-nginx created
 ```
 
 with 3 replicas (so the old and new revisions can coexist):
+
 ```shell
 kubectl scale deployment my-nginx --current-replicas=1 --replicas=3
 ```
+
 ```
 deployment.apps/my-nginx scaled
 ```
