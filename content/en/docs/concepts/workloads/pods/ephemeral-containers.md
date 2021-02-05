@@ -78,7 +78,7 @@ sharing](/docs/tasks/configure-pod-container/share-process-namespace/) so
 you can view processes in other containers.
 
 See [Debugging with Ephemeral Debug Container](
-/docs/tasks/debug-application-cluster/debug-running-pod/#debugging-with-ephemeral-debug-container)
+/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)
 for examples of troubleshooting using ephemeral containers.
 
 ## Ephemeral containers API
