@@ -22,7 +22,7 @@ weight: 50
 
 <!-- overview -->
 <!--
-A Job creates one or more Pods and ensures that a specified number of them successfully terminate.
+A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate.
 As pods successfully complete, the Job tracks the successful completions.  When a specified number
 of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
 the Pods it created.
@@ -33,7 +33,8 @@ due to a node hardware failure or a node reboot).
 
 You can also use a Job to run multiple Pods in parallel.
 -->
-Job 会创建一个或者多个 Pods，并确保指定数量的 Pods 成功终止。
+
+Job 会创建一个或者多个 Pods，并将继续重试 Pods 的执行，直到指定数量的 Pods 成功终止。
 随着 Pods 成功结束，Job 跟踪记录成功完成的 Pods 个数。
 当数量达到指定的成功个数阈值时，任务（即 Job）结束。
 删除 Job 的操作会清除所创建的全部 Pods。
@@ -383,8 +384,8 @@ other Pods for the Job failing around that time.
 可能意味着遇到了配置错误。
 为了实现这点，可以将 `.spec.backoffLimit` 设置为视 Job 为失败之前的重试次数。
 失效回退的限制值默认为 6。
-与 Job 相关的失效的 Pod 会被 Job 控制器重建，并且以指数型回退计算重试延迟
-（从 10 秒、20 秒到 40 秒，最多 6 分钟）。
+与 Job 相关的失效的 Pod 会被 Job 控制器重建，回退重试时间将会按指数增长
+（从 10 秒、20 秒到 40 秒）最多至 6 分钟。
 当 Job 的 Pod 被删除时，或者 Pod 成功时没有其它 Pod 处于失败状态，失效回退的次数也会被重置（为 0）。
 
 <!--

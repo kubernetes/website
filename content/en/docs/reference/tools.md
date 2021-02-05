@@ -20,8 +20,8 @@ Kubernetes contains several built-in tools to help you work with the Kubernetes 
 
 ## Minikube
 
-[`minikube`](https://minikube.sigs.k8s.io/docs/) is a tool that makes it
-easy to run a single-node Kubernetes cluster locally on your workstation for
+[`minikube`](https://minikube.sigs.k8s.io/docs/) is a tool that
+runs a single-node Kubernetes cluster locally on your workstation for
 development and testing purposes.
 
 ## Dashboard
@@ -51,4 +51,3 @@ Use Kompose to:
 * Translate a Docker Compose file into Kubernetes objects
 * Go from local Docker development to managing your application via Kubernetes
 * Convert v1 or v2 Docker Compose `yaml` files or [Distributed Application Bundles](https://docs.docker.com/compose/bundles/)
-
