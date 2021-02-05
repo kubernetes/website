@@ -16,7 +16,8 @@ weight: 50
 A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate.
 As pods successfully complete, the Job tracks the successful completions.  When a specified number
 of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
-the Pods it created.
+the Pods it created. Suspending a Job will delete its active Pods until the Job
+is resumed again.
 
 A simple case is to create one Job object in order to reliably run one Pod to completion.
 The Job object will start a new Pod if the first Pod fails or is deleted (for example
@@ -373,6 +374,107 @@ Here, `W` is the number of work items.
 
 
 ## Advanced usage
+
+### Suspending a Job
+
+When a Job is created, the Job controller will immediately begin creating Pods
+to satisfy the Job's requirements and will continue to do so until the Job is
+complete. However, you may want to temporarily suspend a Job's execution and
+resume it later. To suspend a Job, you can update the `.spec.suspend` field of
+the Job to true; later, when you want to resume it again, update it to false.
+Creating a Job with `.spec.suspend` set to true will create it in the suspended
+state.
+
+Remember that suspending a Job will delete all active Pods. When the Job is
+suspended, your [Pods will be terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+with a SIGTERM signal. The Pod's graceful termination period will be honored and
+your Pod must handle this signal in this period; this may involve saving
+progress for later or undoing changes. Pods terminated this way will not count
+towards the Job's `completions` count.
+
+An example Job definition in the suspended state can be like so:
+
+```shell
+kubectl get job myjob -o yaml
+```
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myjob
+spec:
+  suspend: true
+  parallelism: 3
+  completions: 15
+  template:
+    spec:
+      ...
+```
+
+The Job's status can be used to determine if a Job is suspended or has been
+suspended in the past:
+
+```shell
+kubectl get jobs/myjob -o yaml
+```
+
+```json
+apiVersion: batch/v1
+kind: Job
+# .metadata and .spec omitted
+status:
+  conditions:
+  - lastProbeTime: "2021-02-05T13:14:33Z"
+    lastTransitionTime: "2021-02-05T13:14:33Z"
+    status: "True"
+    type: Suspended
+  startTime: "2021-02-05T13:13:48Z"
+  succeeded: 3
+```
+
+The Job condition of type "Suspended" with status "True" means the Job is
+suspended; the `lastTransitionTime` field can be used to determine how long the
+Job has been suspended for. If the status of that condition is "False", then the
+Job was previously suspended and is now running. If such a Job condition does
+not exist, the Job has never been stopped.
+
+Events are also created when the Job is suspended and resumed:
+
+```shell
+kubectl describe jobs/myjob
+```
+
+```
+Name:           myjob
+...
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  12m   job-controller  Created pod: myjob-rc5fm
+  Normal  SuccessfulCreate  12m   job-controller  Created pod: myjob-cgswm
+  Normal  SuccessfulCreate  12m   job-controller  Created pod: myjob-9vtjs
+  Normal  SuccessfulCreate  11m   job-controller  Created pod: myjob-4v5gk
+  Normal  SuccessfulCreate  11m   job-controller  Created pod: myjob-hlrpl
+  Normal  SuccessfulCreate  11m   job-controller  Created pod: myjob-gmszl
+  Normal  SuccessfulDelete  11m   job-controller  Deleted pod: myjob-gmszl
+  Normal  SuccessfulDelete  11m   job-controller  Deleted pod: myjob-hlrpl
+  Normal  SuccessfulDelete  11m   job-controller  Deleted pod: myjob-4v5gk
+  Normal  Suspended         11m   job-controller  Job suspended
+  Normal  SuccessfulCreate  3s    job-controller  Created pod: myjob-jvb44
+  Normal  SuccessfulCreate  3s    job-controller  Created pod: myjob-vg7x9
+  Normal  SuccessfulCreate  3s    job-controller  Created pod: myjob-tjbgv
+  Normal  Resumed           3s    job-controller  Job resumed
+```
+
+The last 8 events, including the "Suspended" and "Resumed" events, are directly
+a result of toggling the `.spec.suspend` field twice. In the time between these
+two events, we see that no Pods were created, but Pod creation restarted as soon
+as the Job was resumed.
+
+Also note how the Job status does not count the three deleted Pods as failures,
+but the first three events from the Pods that completed are counted towards the
+Job's completions count (`.status.succeeded` field).
 
 ### Specifying your own Pod selector
 
