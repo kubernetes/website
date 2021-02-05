@@ -76,7 +76,7 @@ Here's a summary of each level:
 -->
 下面是每个级别的摘要：
 
-<--
+<!--
 - Alpha:
   - The version names contain `alpha` (for example, `v1alpha1`).
   - The software may contain bugs. Enabling a feature may expose bugs. A
