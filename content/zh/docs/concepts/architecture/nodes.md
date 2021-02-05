@@ -17,9 +17,10 @@ weight: 10
 <!--
 Kubernetes runs your workload by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
-contains the services necessary to run
-{{< glossary_tooltip text="Pods" term_id="pod" >}}, managed by the
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
+is managed by the
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}}
+and contains the services necessary to run
+{{< glossary_tooltip text="Pods" term_id="pod" >}}
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have just one.
@@ -30,9 +31,9 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 -->
 Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。
-节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。每个节点都包含用于运行
-{{< glossary_tooltip text="Pod" term_id="pod" >}} 所需要的服务，这些服务由
-{{< glossary_tooltip text="控制面" term_id="control-plane" >}}负责管理。
+节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。每个节点由
+{{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理，
+并包含运行 {{< glossary_tooltip text="Pods" term_id="pod" >}} 所需的服务。
 
 通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也可能
 只有一个节点。
