@@ -68,8 +68,8 @@ when interpreted by an [authorizer](/docs/reference/access-authn-authz/authoriza
 
 You can enable multiple authentication methods at once. You should usually use at least two methods:
 
- - service account tokens for service accounts
- - at least one other method for user authentication.
+- service account tokens for service accounts
+- at least one other method for user authentication.
 
 When multiple authenticator modules are enabled, the first module
 to successfully authenticate the request short-circuits evaluation.
@@ -321,13 +321,11 @@ sequenceDiagram
 9.  `kubectl` provides feedback to the user
 
 Since all of the data needed to validate who you are is in the `id_token`, Kubernetes doesn't need to
-"phone home" to the identity provider.  In a model where every request is stateless this provides a very scalable
-solution for authentication.  It does offer a few challenges:
+"phone home" to the identity provider.  In a model where every request is stateless this provides a very scalable solution for authentication.  It does offer a few challenges:
 
-1.  Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
-2.  The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes.
-3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl proxy` command or a reverse proxy that injects the `id_token`.
-
+1. Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
+2. The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes.
+3. To authenticate to the Kubernetes dashboard, you must the `kubectl proxy` command or a reverse proxy that injects the `id_token`.
 
 #### Configuring the API Server
 
@@ -1004,14 +1002,12 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
   }
 }
 ```
-
-The plugin can optionally be called with an environment variable, `KUBERNETES_EXEC_INFO`,
-that contains information about the cluster for which this plugin is obtaining
-credentials. This information can be used to perform cluster-specific credential
-acquisition logic. In order to enable this behavior, the `provideClusterInfo` field must
-be set on the exec user field in the
-[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/). Here is an
-example of the aforementioned `KUBERNETES_EXEC_INFO` environment variable.
+To enable the exec plugin to obtain cluster-specific information, set `provideClusterInfo` on the `user.exec`
+field in the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
+The plugin will then be supplied with an environment variable, `KUBERNETES_EXEC_INFO`.
+Information from this environment variable can be used to perform cluster-specific
+credential acquisition logic.
+The following `ExecCredential` manifest describes a cluster information sample.
 
 ```json
 {

@@ -1093,8 +1093,8 @@ be a layering violation). `host` may also be an IP address.
 Please note that using `localhost` or `127.0.0.1` as a `host` is
 risky unless you take great care to run this webhook on all hosts
 which run an apiserver which might need to make calls to this
-webhook. Such installs are likely to be non-portable, i.e., not easy
-to turn up in a new cluster.
+webhook. Such installations are likely to be non-portable or not readily
+run in a new cluster.
 
 The scheme must be "https"; the URL must begin with "https://".
 

@@ -219,24 +219,27 @@ The `kubelet` has the following default hard eviction threshold:
 
 * `memory.available<100Mi`
 * `nodefs.available<10%`
-* `nodefs.inodesFree<5%`
 * `imagefs.available<15%`
+
+On a Linux node, the default value also includes `nodefs.inodesFree<5%`.
+
 -->
 #### 硬驱逐阈值
 
-硬驱逐阈值没有宽限期，一旦察觉，`kubelet`将立即采取行动回收关联的短缺资源。
-如果满足硬驱逐阈值，`kubelet`将立即结束 pod 而不是优雅终止。
+硬驱逐阈值没有宽限期，一旦察觉，`kubelet` 将立即采取行动回收关联的短缺资源。
+如果满足硬驱逐阈值，`kubelet` 将立即结束 Pod 而不是体面地终止它们。
 
 硬驱逐阈值的配置支持下列标记：
 
-* `eviction-hard` 描述了驱逐阈值的集合（例如 `memory.available<1Gi`），如果满足条件将触发 pod 驱逐。
+* `eviction-hard` 描述了驱逐阈值的集合（例如 `memory.available<1Gi`），如果满足条件将触发 Pod 驱逐。
 
 `kubelet` 有如下所示的默认硬驱逐阈值：
 
 * `memory.available<100Mi`
 * `nodefs.available<10%`
-* `nodefs.inodesFree<5%`
 * `imagefs.available<15%`
+
+在Linux节点上，默认值还包括 `nodefs.inodesFree<5％`。
 
 <!--
 ### Eviction Monitoring Interval
@@ -273,6 +276,7 @@ The following node conditions are defined that correspond to the specified evict
 |-------------------------|-------------------------------|--------------------------------------------|
 | `MemoryPressure` | `memory.available` | Available memory on the node has satisfied an eviction threshold |
 | `DiskPressure` | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesystem or image filesystem has satisfied an eviction threshold |
+| `PIDPressure`     | `pid.available`                                                                       | Available processes identifiers on the (Linux) node has fallen below an eviction threshold                                   |   
 
 The `kubelet` continues to report node status updates at the frequency specified by
 `--node-status-update-frequency` which defaults to `10s`.
@@ -283,6 +287,7 @@ The `kubelet` continues to report node status updates at the frequency specified
 |-------------------------|-------------------------------|--------------------------------------------|
 | `MemoryPressure` | `memory.available` | 节点上可用内存量达到逐出阈值 |
 | `DiskPressure` | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, 或 `imagefs.inodesFree` | 节点或者节点的根文件系统或镜像文件系统上可用磁盘空间和 i 节点个数达到逐出阈值 |
+| `PIDPressure`     | `pid.available`                                                                       | 在（Linux）节点上的可用进程标识符已降至驱逐阈值以下                                   |   
 
 `kubelet` 将以 `--node-status-update-frequency` 指定的频率连续报告节点状态更新，其默认值为 `10s`。
 

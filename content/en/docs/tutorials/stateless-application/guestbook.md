@@ -272,7 +272,7 @@ If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` y
 
 ## Scale the Web Frontend
 
-Scaling up or down is easy because your servers are defined as a Service that uses a Deployment controller.
+You can scale up or down as needed because your servers are defined as a Service that uses a Deployment controller.
 
 1. Run the following command to scale up the number of frontend Pods:
 
@@ -370,4 +370,3 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
 * Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
-
