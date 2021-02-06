@@ -52,4 +52,4 @@ Kubernetesにおいてタイムスキューを避けるために、全てのNode
 
 * [Jobの自動クリーンアップ](/ja/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 
-* [設計ドキュメント](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
+* [設計ドキュメント](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/592-ttl-after-finish/README.md)

@@ -65,7 +65,7 @@ Pod 是非永久性资源。
 每个 Pod 都有自己的 IP 地址，但是在 Deployment 中，在同一时刻运行的 Pod 集合可能与稍后运行该应用程序的 Pod 集合不同。
 
 这导致了一个问题： 如果一组 Pod（称为“后端”）为集群内的其他 Pod（称为“前端”）提供功能，
-那么前端如何找出并跟踪要连接的 IP 地址，以便前端可以使用工作量的后端部分？
+那么前端如何找出并跟踪要连接的 IP 地址，以便前端可以使用提供工作负载的后端部分？
 
 进入 _Services_。
 
@@ -348,7 +348,7 @@ each Service port. The value of this field is mirrored by the corresponding
 Endpoints and EndpointSlice objects.
 
 This field follows standard Kubernetes label syntax. Values should either be
-[IANA standard service names](http://www.iana.org/assignments/service-names) or
+[IANA standard service names](https://www.iana.org/assignments/service-names) or
 domain prefixed names such as `mycompany.com/my-custom-protocol`.
 -->
 ### 应用程序协议   {#application-protocol}
@@ -358,8 +358,8 @@ domain prefixed names such as `mycompany.com/my-custom-protocol`.
 此字段的取值会被映射到对应的 Endpoints 和 EndpointSlices 对象。
 
 该字段遵循标准的 Kubernetes 标签语法。
-其值可以是 [IANA 标准服务名称](http://www.iana.org/assignments/service-names)或以域名前缀的名称，
-如 `mycompany.com/my-custom-protocol`。 
+其值可以是 [IANA 标准服务名称](https://www.iana.org/assignments/service-names)
+或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。 
 <!--
 ## Virtual IPs and service proxies
 

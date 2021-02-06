@@ -454,3 +454,124 @@ for more information.
 -->
 更多信息请参考 [kubernetes-sigs/cri-tools](https://github.com/kubernetes-sigs/cri-tools)。
 
+<!--
+## Mapping from docker cli to crictl
+-->
+## Docker CLI 和 crictl 的映射
+
+<!--
+The exact versions for below mapping table are for docker cli v1.40 and crictl v1.19.0. Please note that the list is not exhaustive. For example, it doesn't include experimental commands of docker cli.
+-->
+以下的映射表格只适用于 Docker CLI v1.40 和 crictl v1.19.0 版本。
+请注意该表格并不详尽。例如，其中不包含 Docker CLI 的实验性命令。
+
+<!--
+{{< note >}}
+The output format of CRICTL is similar to Docker CLI, despite some missing columns for some CLI. Make sure to check output for the specific command if your script output parsing.
+{{< /note >}}
+-->
+{{< note >}}
+尽管有些命令的输出缺少了一些数据列，CRICTL 的输出格式与 Docker CLI 是类似的。
+如果你的脚本程序需要解析命令的输出，请确认检查该特定命令的输出。
+{{< /note >}}
+
+<!--
+### Retrieve Debugging Information
+
+{{< table caption="mapping from docker cli to crictl - retrieve debugging information" >}}
+-->
+### 获取调试信息
+
+{{< table caption="Docker CLI 和 crictl 的映射 - 获取调试信息" >}}
+<!--
+docker cli | crictl | Description | Unsupported Features
+-- | -- | -- | --
+`attach` | `attach` | Attach to a running container | `--detach-keys`, `--sig-proxy`
+`exec` | `exec` | Run a command in a running container | `--privileged`, `--user`, `--detach-keys`
+`images` | `images` | List images |  
+`info` | `info` | Display system-wide information |  
+`inspect` | `inspect`, `inspecti` | Return low-level information on a container, image or task |  
+`logs` | `logs` | Fetch the logs of a container | `--details`
+`ps` | `ps` | List containers |  
+`stats` | `stats` | Display a live stream of container(s) resource usage statistics | Column: NET/BLOCK I/O, PIDs
+`version` | `version` | Show the runtime (Docker, ContainerD, or others) version information |  
+{{< /table >}}
+-->
+docker cli | crictl | 描述 | 不支持的功能
+-- | -- | -- | --
+`attach` | `attach` | 连接到一个运行中的容器 | `--detach-keys`, `--sig-proxy`
+`exec` | `exec` | 在运行中的容器里运行一个命令 | `--privileged`, `--user`, `--detach-keys`
+`images` | `images` | 列举镜像 |  
+`info` | `info` | 显示系统级的信息 |  
+`inspect` | `inspect`, `inspecti` | 返回容器、镜像或者任务的详细信息 |  
+`logs` | `logs` | 获取容器的日志 | `--details`
+`ps` | `ps` | 列举容器 |  
+`stats` | `stats` | 实时显示容器的资源使用统计信息 | 列：NET/BLOCK I/O, PIDs
+`version` | `version` | 显示运行时（Docker、ContainerD、或者其他) 的版本信息 |  
+{{< /table >}}
+
+<!--
+### Perform Changes
+
+{{< table caption="mapping from docker cli to crictl - perform changes" >}}
+-->
+### 进行改动
+
+{{< table caption="Docker CLI 和 crictl 的映射 - 进行改动" >}}
+<!--
+docker cli | crictl | Description | Unsupported Features
+-- | -- | -- | --
+`create` | `create` | Create a new container |  
+`kill` | `stop` (timeout = 0) | Kill one or more running container | `--signal`
+`pull` | `pull` | Pull an image or a repository from a registry | `--all-tags`, `--disable-content-trust`
+`rm` | `rm` | Remove one or more containers |  
+`rmi` | `rmi` | Remove one or more images |  
+`run` | `run` | Run a command in a new container |  
+`start` | `start` | Start one or more stopped containers | `--detach-keys`
+`stop` | `stop` | Stop one or more running containers |  
+`update` | `update` | Update configuration of one or more containers | `--restart`, `--blkio-weight` and some other resource limit not supported by CRI.
+{{< /table >}}
+-->
+docker cli | crictl | 描述 | 不支持的功能
+-- | -- | -- | --
+`create` | `create` | 创建一个新的容器 |  
+`kill` | `stop` (timeout=0) | 杀死一个或多个正在运行的容器 | `--signal`
+`pull` | `pull` | 从镜像仓库拉取镜像或者代码仓库 | `--all-tags`, `--disable-content-trust`
+`rm` | `rm` | 移除一个或多个容器 |  
+`rmi` | `rmi` | 移除一个或多个镜像 |  
+`run` | `run` | 在新容器里运行一个命令 |  
+`start` | `start` | 启动一个或多个停止的容器 | `--detach-keys`
+`stop` | `stop` | 停止一个或多个正运行的容器 |  
+`update` | `update` | 更新一个或多个容器的配置 | CRI 不支持 `--restart`、`--blkio-weight` 以及一些其他的资源限制选项。
+{{< /table >}}
+
+<!--
+### Supported only in crictl
+
+{{< table caption="mapping from docker cli to crictl - supported only in crictl" >}}
+-->
+### 仅 crictl 支持
+
+{{< table caption="Docker CLI 和 crictl 的映射 - 仅 crictl 支持" >}}
+<!--
+crictl | Description
+-- | --
+`imagefsinfo` | Return image filesystem info
+`inspectp` | Display the status of one or more pods
+`port-forward` | Forward local port to a pod
+`pods` | List pods
+`runp` | Run a new pod
+`rmp` | Remove one or more pods
+`stopp` | Stop one or more running pods
+{{< /table >}}
+-->
+crictl | 描述
+-- | --
+`imagefsinfo` | 返回镜像的文件系统信息
+`inspectp` | 显示一个或多个 Pod 的状态
+`port-forward` | 转发本地端口到 Pod 
+`pods` | 列举 Pod
+`runp` | 运行一个新的 Pod
+`rmp` | 移除一个或多个 Pod
+`stopp` | 停止一个或多个正运行的 Pod
+{{< /table >}}

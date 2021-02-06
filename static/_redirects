@@ -375,9 +375,7 @@
 /docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ 301
 /docs/user-guide/load-balancer/     /docs/tasks/access-application-cluster/create-external-load-balancer/ 301
 /docs/user-guide/logging/     /docs/concepts/cluster-administration/logging/ 301
-/docs/user-guide/logging/elasticsearch/     /docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/ 301
 /docs/user-guide/logging/overview/     /docs/concepts/cluster-administration/logging/ 301
-/docs/user-guide/logging/stackdriver/     /docs/tasks/debug-application-cluster/logging-stackdriver/ 301
 /docs/user-guide/managing-deployments/     /docs/concepts/cluster-administration/manage-deployment/ 301
 /docs/user-guide/monitoring/     /docs/tasks/debug-application-cluster/resource-usage-monitoring/ 301
 /docs/user-guide/namespaces/     /docs/concepts/overview/working-with-objects/namespaces/ 301
