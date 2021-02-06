@@ -31,22 +31,24 @@ I1025 00:15:15.525108       1 httplog.go:79] GET /api/v1/namespaces/kube-system/
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
-{{<warning>}}
+{{< warning >}}
 Migration to structured log messages is an ongoing process. Not all log messages are structured in this version. When parsing log files, you must also handle unstructured log messages.
 
 Log formatting and value serialization are subject to change.
 {{< /warning>}}
 
-Structured logging is a effort to introduce a uniform structure in log messages allowing for easy extraction of information, making logs easier and cheaper to store and process.
+Structured logging introduces a uniform structure in log messages allowing for programmatic extraction of information. You can store and process structured logs with less effort and cost.
 New message format is backward compatible and enabled by default.
 
 Format of structured logs:
-```
+
+```ini
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
 ```
 
 Example:
-```
+
+```ini
 I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod="kube-system/kubedns" status="ready"
 ```
 

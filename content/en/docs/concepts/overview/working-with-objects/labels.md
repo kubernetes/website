@@ -42,7 +42,7 @@ Example labels:
    * `"partition" : "customerA"`, `"partition" : "customerB"`
    * `"track" : "daily"`, `"track" : "weekly"`
 
-These are just examples of commonly used labels; you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
+These are examples of commonly used labels; you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
 
 ## Syntax and character set
 

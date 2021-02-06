@@ -191,7 +191,7 @@ We can create a new autoscaler using `kubectl create` command.
 We can list autoscalers by `kubectl get hpa` and get detailed description by `kubectl describe hpa`.
 Finally, we can delete an autoscaler using `kubectl delete hpa`.
 
-In addition, there is a special `kubectl autoscale` command for easy creation of a Horizontal Pod Autoscaler.
+In addition, there is a special `kubectl autoscale` command for creating a HorizontalPodAutoscaler object.
 For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
 will create an autoscaler for replication set *foo*, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
@@ -221,9 +221,9 @@ the global HPA settings exposed as flags for the `kube-controller-manager` compo
 Starting from v1.12, a new algorithmic update removes the need for the
 upscale delay.
 
-- `--horizontal-pod-autoscaler-downscale-stabilization`: The value for this option is a
-  duration that specifies how long the autoscaler has to wait before another
-  downscale operation can be performed after the current one has completed.
+- `--horizontal-pod-autoscaler-downscale-stabilization`: Specifies the duration of the
+  downscale stabilization time window. Horizontal Pod Autoscaler remembers
+  the historical recommended sizes and only acts on the largest size within this time window.
   The default value is 5 minutes (`5m0s`).
 
 {{< note >}}

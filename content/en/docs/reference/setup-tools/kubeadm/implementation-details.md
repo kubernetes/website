@@ -28,7 +28,7 @@ The cluster that `kubeadm init` and `kubeadm join` set up should be:
    - lock-down the kubelet API
    - locking down access to the API for system components like the kube-proxy and CoreDNS
    - locking down what a Bootstrap Token can access
- - **Easy to use**: The user should not have to run anything more than a couple of commands:
+ - **User-friendly**: The user should not have to run anything more than a couple of commands:
    - `kubeadm init`
    - `export KUBECONFIG=/etc/kubernetes/admin.conf`
    - `kubectl apply -f <network-of-choice.yaml>`
