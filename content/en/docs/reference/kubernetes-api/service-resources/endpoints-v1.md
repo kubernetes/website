@@ -2,11 +2,11 @@
 api_metadata:
   apiVersion: "v1"
   import: "k8s.io/api/core/v1"
-  kind: "ConfigMap"
+  kind: "Endpoints"
 content_type: "api_reference"
-description: "ConfigMap holds configuration data for pods to consume."
-title: "ConfigMap"
-weight: 1
+description: "Endpoints is a collection of endpoints that implement the actual service."
+title: "Endpoints"
+weight: 2
 ---
 
 `apiVersion: v1`
@@ -14,57 +14,139 @@ weight: 1
 `import "k8s.io/api/core/v1"`
 
 
-## ConfigMap {#ConfigMap}
+## Endpoints {#Endpoints}
 
-ConfigMap holds configuration data for pods to consume.
+Endpoints is a collection of endpoints that implement the actual service. Example:
+  Name: "mysvc",
+  Subsets: [
+    {
+      Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+      Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+    },
+    {
+      Addresses: [{"ip": "10.10.3.3"}],
+      Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+    },
+ ]
 
 <hr>
 
 - **apiVersion**: v1
 
 
-- **kind**: ConfigMap
+- **kind**: Endpoints
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **binaryData** (map[string][]byte)
+- **subsets** ([]EndpointSubset)
 
-  BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+  The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
 
-- **data** (map[string]string)
+  <a name="EndpointSubset"></a>
+  *EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
+    {
+      Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+      Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+    }
+  The resulting set of endpoints can be viewed as:
+      a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+      b: [ 10.10.1.1:309, 10.10.2.2:309 ]*
 
-  Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
+  - **subsets.addresses** ([]EndpointAddress)
 
-- **immutable** (boolean)
+    IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 
-  Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
+    <a name="EndpointAddress"></a>
+    *EndpointAddress is a tuple that describes single IP address.*
+
+    - **subsets.addresses.ip** (string), required
+
+      The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+
+    - **subsets.addresses.hostname** (string)
+
+      The Hostname of this endpoint
+
+    - **subsets.addresses.nodeName** (string)
+
+      Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
+
+    - **subsets.addresses.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
+
+      Reference to object providing the endpoint.
+
+  - **subsets.notReadyAddresses** ([]EndpointAddress)
+
+    IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
+
+    <a name="EndpointAddress"></a>
+    *EndpointAddress is a tuple that describes single IP address.*
+
+    - **subsets.notReadyAddresses.ip** (string), required
+
+      The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+
+    - **subsets.notReadyAddresses.hostname** (string)
+
+      The Hostname of this endpoint
+
+    - **subsets.notReadyAddresses.nodeName** (string)
+
+      Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
+
+    - **subsets.notReadyAddresses.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
+
+      Reference to object providing the endpoint.
+
+  - **subsets.ports** ([]EndpointPort)
+
+    Port numbers available on the related IP addresses.
+
+    <a name="EndpointPort"></a>
+    *EndpointPort is a tuple that describes a single port.*
+
+    - **subsets.ports.port** (int32), required
+
+      The port number of the endpoint.
+
+    - **subsets.ports.protocol** (string)
+
+      The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+
+    - **subsets.ports.name** (string)
+
+      The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
+
+    - **subsets.ports.appProtocol** (string)
+
+      The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
 
 
 
 
 
-## ConfigMapList {#ConfigMapList}
+## EndpointsList {#EndpointsList}
 
-ConfigMapList is a resource containing a list of ConfigMap objects.
+EndpointsList is a list of endpoints.
 
 <hr>
 
 - **apiVersion**: v1
 
 
-- **kind**: ConfigMapList
+- **kind**: EndpointsList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>), required
+- **items** ([]<a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>), required
 
-  Items is the list of ConfigMaps.
+  List of endpoints.
 
 
 
@@ -81,18 +163,18 @@ ConfigMapList is a resource containing a list of ConfigMap objects.
 
 
 
-### `get` read the specified ConfigMap
+### `get` read the specified Endpoints
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/configmaps/{name}
+GET /api/v1/namespaces/{namespace}/endpoints/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the Endpoints
 
 
 - **namespace** (*in path*): string, required
@@ -109,16 +191,16 @@ GET /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ConfigMap
+### `list` list or watch objects of kind Endpoints
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/configmaps
+GET /api/v1/namespaces/{namespace}/endpoints
 
 #### Parameters
 
@@ -182,16 +264,16 @@ GET /api/v1/namespaces/{namespace}/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMapList" >}}">ConfigMapList</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoints-v1#EndpointsList" >}}">EndpointsList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ConfigMap
+### `list` list or watch objects of kind Endpoints
 
 #### HTTP Request
 
-GET /api/v1/configmaps
+GET /api/v1/endpoints
 
 #### Parameters
 
@@ -250,16 +332,16 @@ GET /api/v1/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMapList" >}}">ConfigMapList</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoints-v1#EndpointsList" >}}">EndpointsList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a ConfigMap
+### `create` create Endpoints
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/configmaps
+POST /api/v1/namespaces/{namespace}/endpoints
 
 #### Parameters
 
@@ -269,7 +351,7 @@ POST /api/v1/namespaces/{namespace}/configmaps
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>, required
+- **body**: <a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>, required
 
   
 
@@ -293,27 +375,27 @@ POST /api/v1/namespaces/{namespace}/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Created
+201 (<a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Accepted
+202 (<a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified ConfigMap
+### `update` replace the specified Endpoints
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/configmaps/{name}
+PUT /api/v1/namespaces/{namespace}/endpoints/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the Endpoints
 
 
 - **namespace** (*in path*): string, required
@@ -321,7 +403,7 @@ PUT /api/v1/namespaces/{namespace}/configmaps/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>, required
+- **body**: <a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>, required
 
   
 
@@ -345,25 +427,25 @@ PUT /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Created
+201 (<a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified ConfigMap
+### `patch` partially update the specified Endpoints
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/configmaps/{name}
+PATCH /api/v1/namespaces/{namespace}/endpoints/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the Endpoints
 
 
 - **namespace** (*in path*): string, required
@@ -400,23 +482,23 @@ PATCH /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a ConfigMap
+### `delete` delete Endpoints
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/configmaps/{name}
+DELETE /api/v1/namespaces/{namespace}/endpoints/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the Endpoints
 
 
 - **namespace** (*in path*): string, required
@@ -460,11 +542,11 @@ DELETE /api/v1/namespaces/{namespace}/configmaps/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of ConfigMap
+### `deletecollection` delete collection of Endpoints
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/configmaps
+DELETE /api/v1/namespaces/{namespace}/endpoints
 
 #### Parameters
 

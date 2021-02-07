@@ -1,106 +1,103 @@
 ---
 api_metadata:
-  apiVersion: "storage.k8s.io/v1"
-  import: "k8s.io/api/storage/v1"
-  kind: "StorageClass"
+  apiVersion: "networking.k8s.io/v1"
+  import: "k8s.io/api/networking/v1"
+  kind: "IngressClass"
 content_type: "api_reference"
-description: "StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned."
-title: "StorageClass"
-weight: 6
+description: "IngressClass represents the class of the Ingress, referenced by the Ingress Spec."
+title: "IngressClass"
+weight: 5
 ---
 
-`apiVersion: storage.k8s.io/v1`
+`apiVersion: networking.k8s.io/v1`
 
-`import "k8s.io/api/storage/v1"`
+`import "k8s.io/api/networking/v1"`
 
 
-## StorageClass {#StorageClass}
+## IngressClass {#IngressClass}
 
-StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
-
-StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
 
 <hr>
 
-- **apiVersion**: storage.k8s.io/v1
+- **apiVersion**: networking.k8s.io/v1
 
 
-- **kind**: StorageClass
+- **kind**: IngressClass
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **provisioner** (string), required
+- **spec** (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClassSpec" >}}">IngressClassSpec</a>)
 
-  Provisioner indicates the type of the provisioner.
-
-- **allowVolumeExpansion** (boolean)
-
-  AllowVolumeExpansion shows whether the storage class allow volume expand
-
-- **allowedTopologies** ([]TopologySelectorTerm)
-
-  Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
-
-  <a name="TopologySelectorTerm"></a>
-  *A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.*
-
-  - **allowedTopologies.matchLabelExpressions** ([]TopologySelectorLabelRequirement)
-
-    A list of topology selector requirements by labels.
-
-    <a name="TopologySelectorLabelRequirement"></a>
-    *A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.*
-
-    - **allowedTopologies.matchLabelExpressions.key** (string), required
-
-      The label key that the selector applies to.
-
-    - **allowedTopologies.matchLabelExpressions.values** ([]string), required
-
-      An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
-
-- **mountOptions** ([]string)
-
-  Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
-
-- **parameters** (map[string]string)
-
-  Parameters holds the parameters for the provisioner that should create volumes of this storage class.
-
-- **reclaimPolicy** (string)
-
-  Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
-
-- **volumeBindingMode** (string)
-
-  VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+  Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## StorageClassList {#StorageClassList}
+## IngressClassSpec {#IngressClassSpec}
 
-StorageClassList is a collection of storage classes.
+IngressClassSpec provides information about the class of an Ingress.
 
 <hr>
 
-- **apiVersion**: storage.k8s.io/v1
+- **controller** (string)
+
+  Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+
+- **parameters** (IngressClassParametersReference)
+
+  Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+
+  <a name="IngressClassParametersReference"></a>
+  *IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.*
+
+  - **parameters.kind** (string), required
+
+    Kind is the type of resource being referenced.
+
+  - **parameters.name** (string), required
+
+    Name is the name of resource being referenced.
+
+  - **parameters.apiGroup** (string)
+
+    APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+
+  - **parameters.namespace** (string)
+
+    Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+
+  - **parameters.scope** (string)
+
+    Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
 
 
-- **kind**: StorageClassList
+
+
+
+## IngressClassList {#IngressClassList}
+
+IngressClassList is a collection of IngressClasses.
+
+<hr>
+
+- **apiVersion**: networking.k8s.io/v1
+
+
+- **kind**: IngressClassList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard list metadata.
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>), required
+- **items** ([]<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>), required
 
-  Items is the list of StorageClasses
+  Items is the list of IngressClasses.
 
 
 
@@ -117,18 +114,18 @@ StorageClassList is a collection of storage classes.
 
 
 
-### `get` read the specified StorageClass
+### `get` read the specified IngressClass
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1/storageclasses/{name}
+GET /apis/networking.k8s.io/v1/ingressclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the StorageClass
+  name of the IngressClass
 
 
 - **pretty** (*in query*): string
@@ -140,16 +137,16 @@ GET /apis/storage.k8s.io/v1/storageclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind StorageClass
+### `list` list or watch objects of kind IngressClass
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1/storageclasses
+GET /apis/networking.k8s.io/v1/ingressclasses
 
 #### Parameters
 
@@ -208,21 +205,21 @@ GET /apis/storage.k8s.io/v1/storageclasses
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClassList" >}}">StorageClassList</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClassList" >}}">IngressClassList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a StorageClass
+### `create` create an IngressClass
 
 #### HTTP Request
 
-POST /apis/storage.k8s.io/v1/storageclasses
+POST /apis/networking.k8s.io/v1/ingressclasses
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>, required
+- **body**: <a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>, required
 
   
 
@@ -246,30 +243,30 @@ POST /apis/storage.k8s.io/v1/storageclasses
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): Created
+201 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): Accepted
+202 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified StorageClass
+### `update` replace the specified IngressClass
 
 #### HTTP Request
 
-PUT /apis/storage.k8s.io/v1/storageclasses/{name}
+PUT /apis/networking.k8s.io/v1/ingressclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the StorageClass
+  name of the IngressClass
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>, required
+- **body**: <a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>, required
 
   
 
@@ -293,25 +290,25 @@ PUT /apis/storage.k8s.io/v1/storageclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): Created
+201 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified StorageClass
+### `patch` partially update the specified IngressClass
 
 #### HTTP Request
 
-PATCH /apis/storage.k8s.io/v1/storageclasses/{name}
+PATCH /apis/networking.k8s.io/v1/ingressclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the StorageClass
+  name of the IngressClass
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -343,23 +340,23 @@ PATCH /apis/storage.k8s.io/v1/storageclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a StorageClass
+### `delete` delete an IngressClass
 
 #### HTTP Request
 
-DELETE /apis/storage.k8s.io/v1/storageclasses/{name}
+DELETE /apis/networking.k8s.io/v1/ingressclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the StorageClass
+  name of the IngressClass
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -391,18 +388,18 @@ DELETE /apis/storage.k8s.io/v1/storageclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): Accepted
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of StorageClass
+### `deletecollection` delete collection of IngressClass
 
 #### HTTP Request
 
-DELETE /apis/storage.k8s.io/v1/storageclasses
+DELETE /apis/networking.k8s.io/v1/ingressclasses
 
 #### Parameters
 

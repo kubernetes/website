@@ -1,70 +1,92 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "ConfigMap"
+  apiVersion: "storage.k8s.io/v1beta1"
+  import: "k8s.io/api/storage/v1beta1"
+  kind: "CSIStorageCapacity"
 content_type: "api_reference"
-description: "ConfigMap holds configuration data for pods to consume."
-title: "ConfigMap"
-weight: 1
+description: "CSIStorageCapacity stores the result of one CSI GetCapacity call."
+title: "CSIStorageCapacity v1beta1"
+weight: 10
 ---
 
-`apiVersion: v1`
+`apiVersion: storage.k8s.io/v1beta1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/storage/v1beta1"`
 
 
-## ConfigMap {#ConfigMap}
+## CSIStorageCapacity {#CSIStorageCapacity}
 
-ConfigMap holds configuration data for pods to consume.
+CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
+
+For example this can express things like: - StorageClass "standard" has "1234 GiB" available in "topology.kubernetes.io/zone=us-east1" - StorageClass "localssd" has "10 GiB" available in "kubernetes.io/hostname=knode-abc123"
+
+The following three cases all imply that no capacity is available for a certain combination: - no object exists with suitable topology and storage class name - such an object exists, but the capacity is unset - such an object exists, but the capacity is zero
+
+The producer of these objects can decide which approach is more suitable.
+
+They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: storage.k8s.io/v1beta1
 
 
-- **kind**: ConfigMap
+- **kind**: CSIStorageCapacity
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-\<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+  
+  Objects are namespaced.
+  
+  More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **binaryData** (map[string][]byte)
+- **storageClassName** (string), required
 
-  BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+  The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
 
-- **data** (map[string]string)
+- **capacity** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-  Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
+  Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+  
+  The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable and treated like zero capacity.
 
-- **immutable** (boolean)
+- **maximumVolumeSize** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-  Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
+  MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+  
+  This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
+
+- **nodeTopology** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+  NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
 
 
 
 
 
-## ConfigMapList {#ConfigMapList}
+## CSIStorageCapacityList {#CSIStorageCapacityList}
 
-ConfigMapList is a resource containing a list of ConfigMap objects.
+CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: storage.k8s.io/v1beta1
 
 
-- **kind**: ConfigMapList
+- **kind**: CSIStorageCapacityList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>), required
+- **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>), required
 
-  Items is the list of ConfigMaps.
+  *Map: unique values on key name will be kept during a merge*
+  
+  Items is the list of CSIStorageCapacity objects.
 
 
 
@@ -81,18 +103,18 @@ ConfigMapList is a resource containing a list of ConfigMap objects.
 
 
 
-### `get` read the specified ConfigMap
+### `get` read the specified CSIStorageCapacity
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/configmaps/{name}
+GET /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the CSIStorageCapacity
 
 
 - **namespace** (*in path*): string, required
@@ -109,16 +131,16 @@ GET /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ConfigMap
+### `list` list or watch objects of kind CSIStorageCapacity
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/configmaps
+GET /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
 
 #### Parameters
 
@@ -182,16 +204,16 @@ GET /api/v1/namespaces/{namespace}/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMapList" >}}">ConfigMapList</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacityList" >}}">CSIStorageCapacityList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ConfigMap
+### `list` list or watch objects of kind CSIStorageCapacity
 
 #### HTTP Request
 
-GET /api/v1/configmaps
+GET /apis/storage.k8s.io/v1beta1/csistoragecapacities
 
 #### Parameters
 
@@ -250,16 +272,16 @@ GET /api/v1/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMapList" >}}">ConfigMapList</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacityList" >}}">CSIStorageCapacityList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a ConfigMap
+### `create` create a CSIStorageCapacity
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/configmaps
+POST /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
 
 #### Parameters
 
@@ -269,7 +291,7 @@ POST /api/v1/namespaces/{namespace}/configmaps
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>, required
+- **body**: <a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>, required
 
   
 
@@ -293,27 +315,27 @@ POST /api/v1/namespaces/{namespace}/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Accepted
+202 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified ConfigMap
+### `update` replace the specified CSIStorageCapacity
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/configmaps/{name}
+PUT /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the CSIStorageCapacity
 
 
 - **namespace** (*in path*): string, required
@@ -321,7 +343,7 @@ PUT /api/v1/namespaces/{namespace}/configmaps/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>, required
+- **body**: <a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>, required
 
   
 
@@ -345,25 +367,25 @@ PUT /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified ConfigMap
+### `patch` partially update the specified CSIStorageCapacity
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/configmaps/{name}
+PATCH /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the CSIStorageCapacity
 
 
 - **namespace** (*in path*): string, required
@@ -400,23 +422,23 @@ PATCH /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1beta1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a ConfigMap
+### `delete` delete a CSIStorageCapacity
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/configmaps/{name}
+DELETE /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the CSIStorageCapacity
 
 
 - **namespace** (*in path*): string, required
@@ -460,11 +482,11 @@ DELETE /api/v1/namespaces/{namespace}/configmaps/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of ConfigMap
+### `deletecollection` delete collection of CSIStorageCapacity
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/configmaps
+DELETE /apis/storage.k8s.io/v1beta1/namespaces/{namespace}/csistoragecapacities
 
 #### Parameters
 

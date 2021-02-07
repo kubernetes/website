@@ -1,70 +1,96 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "ConfigMap"
+  apiVersion: "apps/v1"
+  import: "k8s.io/api/apps/v1"
+  kind: "ControllerRevision"
 content_type: "api_reference"
-description: "ConfigMap holds configuration data for pods to consume."
-title: "ConfigMap"
-weight: 1
+description: "ControllerRevision implements an immutable snapshot of state data."
+title: "ControllerRevision"
+weight: 8
 ---
 
-`apiVersion: v1`
+`apiVersion: apps/v1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/apps/v1"`
 
 
-## ConfigMap {#ConfigMap}
+## ControllerRevision {#ControllerRevision}
 
-ConfigMap holds configuration data for pods to consume.
+ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: apps/v1
 
 
-- **kind**: ConfigMap
+- **kind**: ControllerRevision
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **binaryData** (map[string][]byte)
+- **revision** (int64), required
 
-  BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+  Revision indicates the revision of the state represented by Data.
 
-- **data** (map[string]string)
+- **data** (RawExtension)
 
-  Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
+  Data is the serialized representation of the state.
 
-- **immutable** (boolean)
+  <a name="RawExtension"></a>
+  *RawExtension is used to hold extensions in external versions.
+  
+  To use this, make a field which has RawExtension as its type in your external, versioned struct, and Object in your internal struct. You also need to register your various plugin types.
+  
+  // Internal package: type MyAPIObject struct {
+  	runtime.TypeMeta `json:",inline"`
+  	MyPlugin runtime.Object `json:"myPlugin"`
+  } type PluginA struct {
+  	AOption string `json:"aOption"`
+  }
+  
+  // External package: type MyAPIObject struct {
+  	runtime.TypeMeta `json:",inline"`
+  	MyPlugin runtime.RawExtension `json:"myPlugin"`
+  } type PluginA struct {
+  	AOption string `json:"aOption"`
+  }
+  
+  // On the wire, the JSON will look something like this: {
+  	"kind":"MyAPIObject",
+  	"apiVersion":"v1",
+  	"myPlugin": {
+  		"kind":"PluginA",
+  		"aOption":"foo",
+  	},
+  }
+  
+  So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)*
 
-  Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
 
 
 
 
+## ControllerRevisionList {#ControllerRevisionList}
 
-## ConfigMapList {#ConfigMapList}
-
-ConfigMapList is a resource containing a list of ConfigMap objects.
+ControllerRevisionList is a resource containing a list of ControllerRevision objects.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: apps/v1
 
 
-- **kind**: ConfigMapList
+- **kind**: ControllerRevisionList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>), required
 
-  Items is the list of ConfigMaps.
+  Items is the list of ControllerRevisions
 
 
 
@@ -81,18 +107,18 @@ ConfigMapList is a resource containing a list of ConfigMap objects.
 
 
 
-### `get` read the specified ConfigMap
+### `get` read the specified ControllerRevision
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/configmaps/{name}
+GET /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the ControllerRevision
 
 
 - **namespace** (*in path*): string, required
@@ -109,16 +135,16 @@ GET /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ConfigMap
+### `list` list or watch objects of kind ControllerRevision
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/configmaps
+GET /apis/apps/v1/namespaces/{namespace}/controllerrevisions
 
 #### Parameters
 
@@ -182,16 +208,16 @@ GET /api/v1/namespaces/{namespace}/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMapList" >}}">ConfigMapList</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevisionList" >}}">ControllerRevisionList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ConfigMap
+### `list` list or watch objects of kind ControllerRevision
 
 #### HTTP Request
 
-GET /api/v1/configmaps
+GET /apis/apps/v1/controllerrevisions
 
 #### Parameters
 
@@ -250,16 +276,16 @@ GET /api/v1/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMapList" >}}">ConfigMapList</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevisionList" >}}">ControllerRevisionList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a ConfigMap
+### `create` create a ControllerRevision
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/configmaps
+POST /apis/apps/v1/namespaces/{namespace}/controllerrevisions
 
 #### Parameters
 
@@ -269,7 +295,7 @@ POST /api/v1/namespaces/{namespace}/configmaps
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>, required
+- **body**: <a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>, required
 
   
 
@@ -293,27 +319,27 @@ POST /api/v1/namespaces/{namespace}/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Created
+201 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified ConfigMap
+### `update` replace the specified ControllerRevision
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/configmaps/{name}
+PUT /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the ControllerRevision
 
 
 - **namespace** (*in path*): string, required
@@ -321,7 +347,7 @@ PUT /api/v1/namespaces/{namespace}/configmaps/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>, required
+- **body**: <a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>, required
 
   
 
@@ -345,25 +371,25 @@ PUT /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Created
+201 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified ConfigMap
+### `patch` partially update the specified ControllerRevision
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/configmaps/{name}
+PATCH /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the ControllerRevision
 
 
 - **namespace** (*in path*): string, required
@@ -400,23 +426,23 @@ PATCH /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a ConfigMap
+### `delete` delete a ControllerRevision
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/configmaps/{name}
+DELETE /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the ControllerRevision
 
 
 - **namespace** (*in path*): string, required
@@ -460,11 +486,11 @@ DELETE /api/v1/namespaces/{namespace}/configmaps/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of ConfigMap
+### `deletecollection` delete collection of ControllerRevision
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/configmaps
+DELETE /apis/apps/v1/namespaces/{namespace}/controllerrevisions
 
 #### Parameters
 
