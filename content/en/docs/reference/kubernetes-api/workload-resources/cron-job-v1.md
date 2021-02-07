@@ -1,70 +1,145 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "ConfigMap"
+  apiVersion: "batch/v1"
+  import: "k8s.io/api/batch/v1"
+  kind: "CronJob"
 content_type: "api_reference"
-description: "ConfigMap holds configuration data for pods to consume."
-title: "ConfigMap"
-weight: 1
+description: "CronJob represents the configuration of a single cron job."
+title: "CronJob"
+weight: 11
 ---
 
-`apiVersion: v1`
+`apiVersion: batch/v1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/batch/v1"`
 
 
-## ConfigMap {#ConfigMap}
+## CronJob {#CronJob}
 
-ConfigMap holds configuration data for pods to consume.
+CronJob represents the configuration of a single cron job.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: batch/v1
 
 
-- **kind**: ConfigMap
+- **kind**: CronJob
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **binaryData** (map[string][]byte)
+- **spec** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobSpec" >}}">CronJobSpec</a>)
 
-  BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+  Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **data** (map[string]string)
+- **status** (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobStatus" >}}">CronJobStatus</a>)
 
-  Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
-
-- **immutable** (boolean)
-
-  Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
+  Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## ConfigMapList {#ConfigMapList}
+## CronJobSpec {#CronJobSpec}
 
-ConfigMapList is a resource containing a list of ConfigMap objects.
+CronJobSpec describes how the job execution will look like and when it will actually run.
 
 <hr>
 
-- **apiVersion**: v1
+- **jobTemplate** (JobTemplateSpec), required
+
+  Specifies the job that will be created when executing a CronJob.
+
+  <a name="JobTemplateSpec"></a>
+  *JobTemplateSpec describes the data a Job should have when created from a template*
+
+  - **jobTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+    Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+  - **jobTemplate.spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
+
+    Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+
+- **schedule** (string), required
+
+  The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
+
+- **concurrencyPolicy** (string)
+
+  Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+
+- **startingDeadlineSeconds** (int64)
+
+  Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
+
+- **suspend** (boolean)
+
+  This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
+
+- **successfulJobsHistoryLimit** (int32)
+
+  The number of successful finished jobs to retain. Value must be non-negative integer. Defaults to 3.
+
+- **failedJobsHistoryLimit** (int32)
+
+  The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
 
 
-- **kind**: ConfigMapList
+
+
+
+## CronJobStatus {#CronJobStatus}
+
+CronJobStatus represents the current state of a cron job.
+
+<hr>
+
+- **active** ([]<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
+
+  *Atomic: will be replaced during a merge*
+  
+  A list of pointers to currently running jobs.
+
+- **lastScheduleTime** (Time)
+
+  Information when was the last time the job was successfully scheduled.
+
+  <a name="Time"></a>
+  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+- **lastSuccessfulTime** (Time)
+
+  Information when was the last time the job successfully completed.
+
+  <a name="Time"></a>
+  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+
+
+
+
+## CronJobList {#CronJobList}
+
+CronJobList is a collection of cron jobs.
+
+<hr>
+
+- **apiVersion**: batch/v1
+
+
+- **kind**: CronJobList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>), required
 
-  Items is the list of ConfigMaps.
+  items is the list of CronJobs.
 
 
 
@@ -81,18 +156,18 @@ ConfigMapList is a resource containing a list of ConfigMap objects.
 
 
 
-### `get` read the specified ConfigMap
+### `get` read the specified CronJob
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/configmaps/{name}
+GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the CronJob
 
 
 - **namespace** (*in path*): string, required
@@ -109,16 +184,49 @@ GET /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ConfigMap
+### `get` read status of the specified CronJob
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/configmaps
+GET /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the CronJob
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
+
+401: Unauthorized
+
+
+### `list` list or watch objects of kind CronJob
+
+#### HTTP Request
+
+GET /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 #### Parameters
 
@@ -182,16 +290,16 @@ GET /api/v1/namespaces/{namespace}/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMapList" >}}">ConfigMapList</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobList" >}}">CronJobList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ConfigMap
+### `list` list or watch objects of kind CronJob
 
 #### HTTP Request
 
-GET /api/v1/configmaps
+GET /apis/batch/v1/cronjobs
 
 #### Parameters
 
@@ -250,16 +358,16 @@ GET /api/v1/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMapList" >}}">ConfigMapList</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJobList" >}}">CronJobList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a ConfigMap
+### `create` create a CronJob
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/configmaps
+POST /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 #### Parameters
 
@@ -269,7 +377,7 @@ POST /api/v1/namespaces/{namespace}/configmaps
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>, required
+- **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
 
   
 
@@ -293,27 +401,27 @@ POST /api/v1/namespaces/{namespace}/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Created
+201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified ConfigMap
+### `update` replace the specified CronJob
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/configmaps/{name}
+PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the CronJob
 
 
 - **namespace** (*in path*): string, required
@@ -321,7 +429,7 @@ PUT /api/v1/namespaces/{namespace}/configmaps/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>, required
+- **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
 
   
 
@@ -345,25 +453,75 @@ PUT /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Created
+201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified ConfigMap
+### `update` replace status of the specified CronJob
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/configmaps/{name}
+PUT /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the CronJob
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): Created
+
+401: Unauthorized
+
+
+### `patch` partially update the specified CronJob
+
+#### HTTP Request
+
+PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the CronJob
 
 
 - **namespace** (*in path*): string, required
@@ -400,23 +558,76 @@ PATCH /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a ConfigMap
+### `patch` partially update status of the specified CronJob
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/configmaps/{name}
+PATCH /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the CronJob
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/cron-job-v1#CronJob" >}}">CronJob</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a CronJob
+
+#### HTTP Request
+
+DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the CronJob
 
 
 - **namespace** (*in path*): string, required
@@ -460,11 +671,11 @@ DELETE /api/v1/namespaces/{namespace}/configmaps/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of ConfigMap
+### `deletecollection` delete collection of CronJob
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/configmaps
+DELETE /apis/batch/v1/namespaces/{namespace}/cronjobs
 
 #### Parameters
 

@@ -2,10 +2,10 @@
 api_metadata:
   apiVersion: "v1"
   import: "k8s.io/api/core/v1"
-  kind: "PersistentVolumeClaim"
+  kind: "ReplicationController"
 content_type: "api_reference"
-description: "PersistentVolumeClaim is a user's request for and claim to a persistent volume."
-title: "PersistentVolumeClaim"
+description: "ReplicationController represents the configuration of a replication controller."
+title: "ReplicationController"
 weight: 4
 ---
 
@@ -14,164 +14,141 @@ weight: 4
 `import "k8s.io/api/core/v1"`
 
 
-## PersistentVolumeClaim {#PersistentVolumeClaim}
+## ReplicationController {#ReplicationController}
 
-PersistentVolumeClaim is a user's request for and claim to a persistent volume
+ReplicationController represents the configuration of a replication controller.
 
 <hr>
 
 - **apiVersion**: v1
 
 
-- **kind**: PersistentVolumeClaim
+- **kind**: ReplicationController
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationControllerSpec" >}}">ReplicationControllerSpec</a>)
 
-  Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+  Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimStatus" >}}">PersistentVolumeClaimStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationControllerStatus" >}}">ReplicationControllerStatus</a>)
 
-  Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-
-
+  Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
-## PersistentVolumeClaimSpec {#PersistentVolumeClaimSpec}
-
-PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
-
-<hr>
-
-- **accessModes** ([]string)
-
-  AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
-
-- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
-
-  A label query over volumes to consider for binding.
-
-- **resources** (ResourceRequirements)
-
-  Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-
-  <a name="ResourceRequirements"></a>
-  *ResourceRequirements describes the compute resource requirements.*
-
-  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-- **volumeName** (string)
-
-  VolumeName is the binding reference to the PersistentVolume backing this claim.
-
-- **storageClassName** (string)
-
-  Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
-
-- **volumeMode** (string)
-
-  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 
 
+## ReplicationControllerSpec {#ReplicationControllerSpec}
 
-### Alpha level
-
-
-- **dataSource** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
-
-  This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
-
-
-
-## PersistentVolumeClaimStatus {#PersistentVolumeClaimStatus}
-
-PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+ReplicationControllerSpec is the specification of a replication controller.
 
 <hr>
 
-- **accessModes** ([]string)
+- **selector** (map[string]string)
 
-  AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+  Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
-- **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  Represents the actual resources of the underlying volume.
+  Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 
-- **conditions** ([]PersistentVolumeClaimCondition)
+- **replicas** (int32)
+
+  Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+
+- **minReadySeconds** (int32)
+
+  Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+
+
+
+
+
+## ReplicationControllerStatus {#ReplicationControllerStatus}
+
+ReplicationControllerStatus represents the current status of a replication controller.
+
+<hr>
+
+- **replicas** (int32), required
+
+  Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+
+- **availableReplicas** (int32)
+
+  The number of available replicas (ready for at least minReadySeconds) for this replication controller.
+
+- **readyReplicas** (int32)
+
+  The number of ready replicas for this replication controller.
+
+- **fullyLabeledReplicas** (int32)
+
+  The number of pods that have labels matching the labels of the pod template of the replication controller.
+
+- **conditions** ([]ReplicationControllerCondition)
 
   *Patch strategy: merge on key `type`*
   
-  Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+  Represents the latest available observations of a replication controller's current state.
 
-  <a name="PersistentVolumeClaimCondition"></a>
-  *PersistentVolumeClaimCondition contails details about state of pvc*
+  <a name="ReplicationControllerCondition"></a>
+  *ReplicationControllerCondition describes the state of a replication controller at a certain point.*
 
   - **conditions.status** (string), required
 
+    Status of the condition, one of True, False, Unknown.
 
   - **conditions.type** (string), required
 
-
-  - **conditions.lastProbeTime** (Time)
-
-    Last time we probed the condition.
-
-    <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    Type of replication controller condition.
 
   - **conditions.lastTransitionTime** (Time)
 
-    Last time the condition transitioned from one status to another.
+    The last time the condition transitioned from one status to another.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
   - **conditions.message** (string)
 
-    Human-readable message indicating details about last transition.
+    A human readable message indicating details about the transition.
 
   - **conditions.reason** (string)
 
-    Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+    The reason for the condition's last transition.
 
-- **phase** (string)
+- **observedGeneration** (int64)
 
-  Phase represents the current phase of PersistentVolumeClaim.
-
-
+  ObservedGeneration reflects the generation of the most recently observed replication controller.
 
 
 
-## PersistentVolumeClaimList {#PersistentVolumeClaimList}
 
-PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
+
+## ReplicationControllerList {#ReplicationControllerList}
+
+ReplicationControllerList is a collection of replication controllers.
 
 <hr>
 
 - **apiVersion**: v1
 
 
-- **kind**: PersistentVolumeClaimList
+- **kind**: ReplicationControllerList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>), required
 
-  A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+  List of replication controllers. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
 
 
 
@@ -188,18 +165,18 @@ PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
 
 
 
-### `get` read the specified PersistentVolumeClaim
+### `get` read the specified ReplicationController
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -216,23 +193,23 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified PersistentVolumeClaim
+### `get` read status of the specified ReplicationController
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
+GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -249,16 +226,16 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind PersistentVolumeClaim
+### `list` list or watch objects of kind ReplicationController
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
+GET /api/v1/namespaces/{namespace}/replicationcontrollers
 
 #### Parameters
 
@@ -322,16 +299,16 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimList" >}}">PersistentVolumeClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationControllerList" >}}">ReplicationControllerList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind PersistentVolumeClaim
+### `list` list or watch objects of kind ReplicationController
 
 #### HTTP Request
 
-GET /api/v1/persistentvolumeclaims
+GET /api/v1/replicationcontrollers
 
 #### Parameters
 
@@ -390,16 +367,16 @@ GET /api/v1/persistentvolumeclaims
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimList" >}}">PersistentVolumeClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationControllerList" >}}">ReplicationControllerList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a PersistentVolumeClaim
+### `create` create a ReplicationController
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
+POST /api/v1/namespaces/{namespace}/replicationcontrollers
 
 #### Parameters
 
@@ -409,7 +386,7 @@ POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>, required
 
   
 
@@ -433,27 +410,27 @@ POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified PersistentVolumeClaim
+### `update` replace the specified ReplicationController
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -461,7 +438,7 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>, required
 
   
 
@@ -485,25 +462,25 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified PersistentVolumeClaim
+### `update` replace status of the specified ReplicationController
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
+PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -511,7 +488,7 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>, required
 
   
 
@@ -535,78 +512,25 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified PersistentVolumeClaim
+### `patch` partially update the specified ReplicationController
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified PersistentVolumeClaim
-
-#### HTTP Request
-
-PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the PersistentVolumeClaim
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -643,23 +567,76 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a PersistentVolumeClaim
+### `patch` partially update status of the specified ReplicationController
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the ReplicationController
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a ReplicationController
+
+#### HTTP Request
+
+DELETE /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -696,18 +673,18 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Accepted
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of PersistentVolumeClaim
+### `deletecollection` delete collection of ReplicationController
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
+DELETE /api/v1/namespaces/{namespace}/replicationcontrollers
 
 #### Parameters
 
