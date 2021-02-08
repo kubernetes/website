@@ -308,13 +308,6 @@ or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it a
 (stored in `/var/lib/kubelet/config.yaml` by default).
 {{< /note >}}
 
-Restarting the kubelet is required:
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl restart kubelet
-```
-
 The automatic detection of cgroup driver for other container runtimes
 like CRI-O and containerd is work in progress.
 
