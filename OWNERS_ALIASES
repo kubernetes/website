@@ -92,15 +92,21 @@ aliases:
     - daminisatya
     - mittalyashu
   sig-docs-id-owners: # Admins for Indonesian content
-    - girikuncoro
-    - irvifa
-  sig-docs-id-reviews: # PR reviews for Indonesian content
+    - ariscahyadi
+    - danninov
     - girikuncoro
     - habibrosyad
     - irvifa
-    - wahyuoi
     - phanama
+    - wahyuoi
+  sig-docs-id-reviews: # PR reviews for Indonesian content
+    - ariscahyadi
     - danninov
+    - girikuncoro
+    - habibrosyad
+    - irvifa
+    - phanama
+    - wahyuoi
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
     - Fale
