@@ -37,11 +37,12 @@ No parameters are passed to the handler.
 `PreStop`
 
 This hook is called immediately before a container is terminated due to an API request or management
-event such as a liveness/startup probe failure, preemption, resource contention and others. This
-hook is not called if the container crashes or exits. The Pod's termination grace period countdown
-begins before the `PreStop` hook is executed. Regardless of the outcome of the handler, the
-container will eventually terminate within the Pod's termination grace period. No parameters are
-passed to the handler.
+event such as a liveness/startup probe failure, preemption, resource contention and others. A call
+to the `PreStop` hook fails if the container is already in a terminated or completed state and the
+hook must complete before the TERM signal to stop the container can be sent. The Pod's termination
+grace period countdown begins before the `PreStop` hook is executed so regardless of the outcome of
+the handler, the container will eventually terminate within the Pod's termination grace period. No
+parameters are passed to the handler.
 
 A more detailed description of the termination behavior can be found in
 [Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
