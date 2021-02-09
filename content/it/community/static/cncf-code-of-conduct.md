@@ -21,7 +21,7 @@ I responsabili di progetto hanno il diritto e la responsabilità di rimuovere, m
 
 Casi di comportamenti abusivi, molestie o altri comportamenti inaccettabili in Kubernetes potranno essere denunciati contattando [Il comitato del codice di condotta Kubernetes (CNCF)](https://git.k8s.io/community/committee-code-of-conduct) attraverso <conduct@kubernetes.io>. Per altri progetti, contattare il Project manager del CNCF o il nostro mediatore, Mishi Choudhary <mishi@linux.com>. 
 
-Il codice di condotta è stato adattato dal Contributor Covenant (http://contributor-covenant.org), versione 1.2.0, disponibile su http://contributor-covenant.org/version/1/2/0/
+Il codice di condotta è stato adattato dal Contributor Covenant (https://contributor-covenant.org), versione 1.2.0, disponibile su https://contributor-covenant.org/version/1/2/0/
 
 ### CNCF Codice di condotta negli eventi
 

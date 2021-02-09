@@ -35,7 +35,7 @@ non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 
 ## Starting a message queue service
 
-This example uses RabbitMQ, but it should be easy to adapt to another AMQP-type message service.
+This example uses RabbitMQ, however, you can adapt the example to use another AMQP-type message service.
 
 In practice you could set up a message queue service once in a
 cluster and reuse it for many jobs, as well as for long-running services.

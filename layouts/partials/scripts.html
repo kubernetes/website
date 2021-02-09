@@ -1,0 +1,28 @@
+
+<script src="/js/popper-1.14.3.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="/js/bootstrap-4.3.1.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+{{ if .Site.Params.mermaid.enable }}
+<script src="/js//mermaid.min.js" crossorigin="anonymous"></script>
+
+{{ end }}
+
+{{ $jsBase := resources.Get "js/base.js" }}
+{{ $jsAnchor := resources.Get "js/anchor.js" }}
+{{ $jsSearch := resources.Get "js/search.js" | resources.ExecuteAsTemplate "js/search.js" .Site.Home }}
+{{ $jsMermaid := resources.Get "js/mermaid.js" | resources.ExecuteAsTemplate "js/mermaid.js" . }}
+{{ if .Site.Params.offlineSearch }}
+{{ $jsSearch = resources.Get "js/offline-search.js" }}
+{{ end }}
+{{ $js := (slice $jsBase $jsAnchor $jsSearch $jsMermaid) | resources.Concat "js/main.js" }}
+{{ if .Site.IsServer }}
+<script src="{{ $js.RelPermalink }}"></script>
+{{ else }}
+{{ $js := $js | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ end }}
+{{ with .Site.Params.prism_syntax_highlighting }}
+<!-- scripts for prism -->
+<script src='/js/prism.js'></script>
+{{ end }}
+{{ partial "hooks/body-end.html" . }}

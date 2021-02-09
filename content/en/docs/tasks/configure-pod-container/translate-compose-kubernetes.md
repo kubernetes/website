@@ -35,13 +35,13 @@ Kompose is released via GitHub on a three-week cycle, you can see all current re
 
 ```sh
 # Linux
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-linux-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-linux-amd64 -o kompose
 
 # macOS
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-darwin-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-darwin-amd64 -o kompose
 
 # Windows
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-windows-amd64.exe -o kompose.exe
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-windows-amd64.exe -o kompose.exe
 
 chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
@@ -127,23 +127,7 @@ you need is an existing `docker-compose.yml` file.
             kompose.service.type: LoadBalancer
       ```
 
-2.  Run the `kompose up` command to deploy to Kubernetes directly, or skip to
-    the next step instead to generate a file to use with `kubectl`.
-
-      ```bash
-      $ kompose up
-      We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application.
-      If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
-
-      INFO Successfully created Service: redis          
-      INFO Successfully created Service: web            
-      INFO Successfully created Deployment: redis       
-      INFO Successfully created Deployment: web         
-
-      Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
-      ```
-
-3.  To convert the `docker-compose.yml` file to files that you can use with
+2.  To convert the `docker-compose.yml` file to files that you can use with
     `kubectl`, run `kompose convert` and then `kubectl apply -f <output file>`.
 
       ```bash
@@ -168,7 +152,7 @@ you need is an existing `docker-compose.yml` file.
 
       Your deployments are running in Kubernetes.
 
-4.  Access your application.
+3.  Access your application.
 
       If you're already using `minikube` for your development process:
 

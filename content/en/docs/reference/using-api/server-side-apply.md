@@ -297,7 +297,7 @@ is not what the user wants to happen, even temporarily.
 
 There are two solutions:
 
-- (easy) Leave `replicas` in the configuration; when HPA eventually writes to that
+- (basic) Leave `replicas` in the configuration; when HPA eventually writes to that
   field, the system gives the user a conflict over it. At that point, it is safe
   to remove from the configuration.
 
