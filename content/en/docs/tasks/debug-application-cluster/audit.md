@@ -88,7 +88,7 @@ You can use a minimal audit policy file to log all requests at the `Metadata` le
 apiVersion: audit.k8s.io/v1
 kind: Policy
 rules:
-- level: Metadata
+  - level: Metadata
 ```
 
 If you're crafting your own audit profile, you can use the audit profile for Google Container-Optimized OS as a starting point. You can check the
