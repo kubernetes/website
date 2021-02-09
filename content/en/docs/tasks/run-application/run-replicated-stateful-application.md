@@ -171,7 +171,7 @@ properties.
 The script in the `init-mysql` container also applies either `primary.cnf` or
 `replica.cnf` from the ConfigMap by copying the contents into `conf.d`.
 Because the example topology consists of a single primary MySQL server and any number of
-replicas, the script simply assigns ordinal `0` to be the primary server, and everyone
+replicas, the script assigns ordinal `0` to be the primary server, and everyone
 else to be replicas.
 Combined with the StatefulSet controller's
 [deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/),
