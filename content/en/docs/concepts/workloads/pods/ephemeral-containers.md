@@ -103,7 +103,7 @@ the ephemeral container to add as an `EphemeralContainers` list:
     "apiVersion": "v1",
     "kind": "EphemeralContainers",
     "metadata": {
-         "name": "example-pod"
+        "name": "example-pod"
     },
     "ephemeralContainers": [{
         "command": [
