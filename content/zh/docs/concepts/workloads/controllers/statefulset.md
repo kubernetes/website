@@ -1,7 +1,7 @@
 ---
 title: StatefulSets
 content_type: concept
-weight: 40
+weight: 30
 ---
 
 <!--
@@ -146,14 +146,24 @@ spec:
 ```
 
 <!--
+In the above example:
+
 * A Headless Service, named `nginx`, is used to control the network domain.
 * The StatefulSet, named `web`, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
 * The `volumeClaimTemplates` will provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
+
+The name of a StatefulSet object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 -->
+上述例子中：
+
 * 名为 `nginx` 的 Headless Service 用来控制网络域名。
 * 名为 `web` 的 StatefulSet 有一个 Spec，它表明将在独立的 3 个 Pod 副本中启动 nginx 容器。
 * `volumeClaimTemplates` 将通过 PersistentVolumes 驱动提供的
   [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
+
+StatefulSet 的命名需要遵循 [DNS 子域名](zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 ## Pod Selector
@@ -218,8 +228,45 @@ StatefulSet 可以使用 [无头服务](/zh/docs/concepts/services-networking/se
 `$(pod 名称).$(所属服务的 DNS 域名)`，其中所属服务由 StatefulSet 的 `serviceName` 域来设定。
 
 <!--
+Depending on how DNS is configured in your cluster, you may not be able to look up the DNS
+name for a newly-run Pod immediately. This behavior can occur when other clients in the
+cluster have already sent queries for the hostname of the Pod before it was created.
+Negative caching (normal in DNS) means that the results of previous failed lookups are
+remembered and reused, even after the Pod is running, for at least a few seconds.
+
+If you need to discover Pods promptly after they are created, you have a few options:
+
+- Query the Kubernetes API directly (for example, using a watch) rather than relying on DNS lookups.
+- Decrease the time of caching in your Kubernetes DNS provider (typically this means editing the config map for CoreDNS, which currently caches for 30 seconds).
+
+
+As mentioned in the [limitations](#limitations) section, you are responsible for
+creating the [Headless Service](/docs/concepts/services-networking/service/#headless-services)
+responsible for the network identity of the pods.
+
+-->
+取决于集群域内部 DNS 的配置，有可能无法查询一个刚刚启动的 Pod 上的 DNS 命名。这个情况会在其他集群域内部的客户端在主机 Pod 创建完成前
+发出查询请求。负缓存 (通常来说在 DNS 内) 意味着之前失败的查询结果在特定秒数内被记录和被重用，甚至直至 Pod 正常运行。
+
+如果需要及时查询创建之后的 Pod ，有以下选项：
+
+- 直接查询 Kubernetes API（比如，利用 watch 机制）而不是依赖于 DNS 查询
+- 减少 Kubernetes DNS 提供商的 缓存时效（通常这意味着修改 CoreDNS 的 config map，目前 config map 会缓存30秒信息）
+
+正如 [限制](#limitations) 中提到的，创建 [无头服务](zh/docs/concepts/services-networking/service/#headless-services)
+需要对其 Pod 的网络标识负责。
+
+<!--
 Here are some examples of choices for Cluster Domain, Service name,
 StatefulSet name, and how that affects the DNS names for the StatefulSet's Pods.
+
+
+Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain  | Pod DNS | Pod Hostname |
+-------------- | ----------------- | ----------------- | -------------- | ------- | ------------ |
+ cluster.local | default/nginx     | default/web       | nginx.default.svc.cluster.local | web-{0..N-1}.nginx.default.svc.cluster.local | web-{0..N-1} |
+ cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
+ kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
+
 -->
 下面给出一些选择集群域、服务名、StatefulSet 名、及其怎样影响 StatefulSet 的 Pod 上的 DNS 名称的示例：
 
@@ -350,12 +397,14 @@ described [above](#deployment-and-scaling-guarantees).
 `Parallel` pod management tells the StatefulSet controller to launch or
 terminate all Pods in parallel, and to not wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
-Pod.
+Pod. This option only affects the behavior for scaling operations. Updates are not affected.
+
 -->
 #### 并行 Pod 管理   {#parallel-pod-management}
 
 `Parallel` Pod 管理让 StatefulSet 控制器并行的启动或终止所有的 Pod，
 启动或者终止其他 Pod 前，无需等待 Pod 进入 Running 和 ready 或者完全停止状态。
+这个选项只会影响伸缩操作的行为，更新则不会被影响。
 
 <!--
 ## Update Strategies
