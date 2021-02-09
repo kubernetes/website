@@ -156,7 +156,6 @@ volumeMounts:
     readOnly: true
   - mountPath: /var/log/audit.log
     name: audit-log
-    readOnly: false
 ```
 and finally configure the `hostPath`:
 
