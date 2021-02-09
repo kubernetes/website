@@ -1301,18 +1301,6 @@ Pod 将会将其的 imagePullSecret 字段设置为服务帐户的 imagePullSecr
 [将 ImagePullSecrets 添加到服务帐户](/zh/docs/tasks/configure-pod-container/configure-service-account/#adding-imagepullsecrets-to-a-service-account)。
 
 <!--
-### Automatic Mounting of Manually Created Secrets
-
-Manually created secrets (e.g. one containing a token for accessing a github account)
-can be automatically attached to pods based on their service account.
--->
-
-#### 自动挂载手动创建的 Secret
-
-手动创建的 Secret（例如包含用于访问 GitHub 帐户令牌的 Secret）可以
-根据其服务帐户自动附加到 Pod。
-
-<!--
 ## Details
 
 ### Restrictions
