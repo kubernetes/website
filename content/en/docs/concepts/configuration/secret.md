@@ -116,7 +116,7 @@ In this case, `0` means we have just created an empty Secret.
 A `kubernetes.io/service-account-token` type of Secret is used to store a
 token that identifies a service account. When using this Secret type, you need
 to ensure that the `kubernetes.io/service-account.name` annotation is set to an
-existing service account name. An Kubernetes controller fills in some other
+existing service account name. A Kubernetes controller fills in some other
 fields such as the `kubernetes.io/service-account.uid` annotation and the
 `token` key in the `data` field set to actual token content.
 
@@ -800,11 +800,6 @@ or created with that ServiceAccount by default, will get their `imagePullSecrets
 field set to that of the service account.
 See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
-
-### Automatic mounting of manually created Secrets
-
-Manually created secrets (for example, one containing a token for accessing a GitHub account)
-can be automatically attached to pods based on their service account.
 
 ## Details
 

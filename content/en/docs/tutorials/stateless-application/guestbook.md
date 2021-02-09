@@ -1,5 +1,5 @@
 ---
-title: "Example: Deploying PHP Guestbook application with Redis"
+title: "Example: Deploying PHP Guestbook application with MongoDB"
 reviewers:
 - ahmetb
 content_type: tutorial
@@ -7,22 +7,19 @@ weight: 20
 card:
   name: tutorials
   weight: 30
-  title: "Stateless Example: PHP Guestbook with Redis"
+  title: "Stateless Example: PHP Guestbook with MongoDB"
+min-kubernetes-server-version: v1.14
 ---
 
 <!-- overview -->
-This tutorial shows you how to build and deploy a simple, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
+This tutorial shows you how to build and deploy a simple _(not production ready)_, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
 
-* A single-instance [Redis](https://redis.io/) master to store guestbook entries
-* Multiple [replicated Redis](https://redis.io/topics/replication) instances to serve reads
+* A single-instance [MongoDB](https://www.mongodb.com/) to store guestbook entries
 * Multiple web frontend instances
-
-
 
 ## {{% heading "objectives" %}}
 
-* Start up a Redis master.
-* Start up Redis slaves.
+* Start up a Mongo database.
 * Start up the guestbook frontend.
 * Expose and view the Frontend Service.
 * Clean up.
@@ -39,24 +36,28 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 
 <!-- lessoncontent -->
 
-## Start up the Redis Master
+## Start up the Mongo Database
 
-The guestbook application uses Redis to store its data. It writes its data to a Redis master instance and reads data from multiple Redis slave instances.
+The guestbook application uses MongoDB to store its data.
 
-### Creating the Redis Master Deployment
+### Creating the Mongo Deployment
 
-The manifest file, included below, specifies a Deployment controller that runs a single replica Redis master Pod.
+The manifest file, included below, specifies a Deployment controller that runs a single replica MongoDB Pod.
 
-{{< codenew file="application/guestbook/redis-master-deployment.yaml" >}}
+{{< codenew file="application/guestbook/mongo-deployment.yaml" >}}
 
 1. Launch a terminal window in the directory you downloaded the manifest files.
-1. Apply the Redis Master Deployment from the `redis-master-deployment.yaml` file:
+1. Apply the MongoDB Deployment from the `mongo-deployment.yaml` file:
 
       ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
+      kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-deployment.yaml
       ```
+<!---
+for local testing of the content via relative file path
+kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.yaml
+-->
 
-1. Query the list of Pods to verify that the Redis Master Pod is running:
+1. Query the list of Pods to verify that the MongoDB Pod is running:
 
       ```shell
       kubectl get pods
@@ -66,32 +67,33 @@ The manifest file, included below, specifies a Deployment controller that runs a
 
       ```shell
       NAME                            READY     STATUS    RESTARTS   AGE
-      redis-master-1068406935-3lswp   1/1       Running   0          28s
+      mongo-5cfd459dd4-lrcjb          1/1       Running   0          28s
       ```
 
-1. Run the following command to view the logs from the Redis Master Pod:
+1. Run the following command to view the logs from the MongoDB Deployment:
 
      ```shell
-     kubectl logs -f POD-NAME
+     kubectl logs -f deployment/mongo
      ```
 
-{{< note >}}
-Replace POD-NAME with the name of your Pod.
-{{< /note >}}
+### Creating the MongoDB Service
 
-### Creating the Redis Master Service
+The guestbook application needs to communicate to the MongoDB to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the MongoDB Pod. A Service defines a policy to access the Pods.
 
-The guestbook application needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
+{{< codenew file="application/guestbook/mongo-service.yaml" >}}
 
-{{< codenew file="application/guestbook/redis-master-service.yaml" >}}
-
-1. Apply the Redis Master Service from the following `redis-master-service.yaml` file:
+1. Apply the MongoDB Service from the following `mongo-service.yaml` file:
 
       ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
+      kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-service.yaml
       ```
 
-1. Query the list of Services to verify that the Redis Master Service is running:
+<!---
+for local testing of the content via relative file path
+kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
+-->
+
+1. Query the list of Services to verify that the MongoDB Service is running:
 
       ```shell
       kubectl get service
@@ -102,77 +104,17 @@ The guestbook application needs to communicate to the Redis master to write its 
       ```shell
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    1m
-      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP   8s
+      mongo          ClusterIP   10.0.0.151   <none>        6379/TCP   8s
       ```
 
 {{< note >}}
-This manifest file creates a Service named `redis-master` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis master Pod.   
+This manifest file creates a Service named `mongo` with a set of labels that match the labels previously defined, so the Service routes network traffic to the MongoDB Pod.
 {{< /note >}}
 
 
-## Start up the Redis Slaves
-
-Although the Redis master is a single pod, you can make it highly available to meet traffic demands by adding replica Redis slaves.
-
-### Creating the Redis Slave Deployment
-
-Deployments scale based off of the configurations set in the manifest file. In this case, the Deployment object specifies two replicas.
-
-If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas running, it would scale down until two replicas are running.
-
-{{< codenew file="application/guestbook/redis-slave-deployment.yaml" >}}
-
-1. Apply the Redis Slave Deployment from the `redis-slave-deployment.yaml` file:
-
-      ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-deployment.yaml
-      ```
-
-1. Query the list of Pods to verify that the Redis Slave Pods are running:
-
-      ```shell
-      kubectl get pods
-      ```
-
-      The response should be similar to this:
-
-      ```shell
-      NAME                            READY     STATUS              RESTARTS   AGE
-      redis-master-1068406935-3lswp   1/1       Running             0          1m
-      redis-slave-2005841000-fpvqc    0/1       ContainerCreating   0          6s
-      redis-slave-2005841000-phfv9    0/1       ContainerCreating   0          6s
-      ```
-
-### Creating the Redis Slave Service
-
-The guestbook application needs to communicate to Redis slaves to read data. To make the Redis slaves discoverable, you need to set up a Service. A Service provides transparent load balancing to a set of Pods.
-
-{{< codenew file="application/guestbook/redis-slave-service.yaml" >}}
-
-1. Apply the Redis Slave Service from the following `redis-slave-service.yaml` file:
-
-      ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-service.yaml
-      ```
-
-1. Query the list of Services to verify that the Redis slave service is running:
-
-      ```shell
-      kubectl get services
-      ```
-
-      The response should be similar to this:
-
-      ```
-      NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-      kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    2m
-      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP   1m
-      redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP   6s
-      ```
-
 ## Set up and Expose the Guestbook Frontend
 
-The guestbook application has a web frontend serving the HTTP requests written in PHP. It is configured to connect to the `redis-master` Service for write requests and the `redis-slave` service for Read requests.
+The guestbook application has a web frontend serving the HTTP requests written in PHP. It is configured to connect to the `mongo` Service to store Guestbook entries.
 
 ### Creating the Guestbook Frontend Deployment
 
@@ -183,6 +125,11 @@ The guestbook application has a web frontend serving the HTTP requests written i
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml
       ```
+
+<!---
+for local testing of the content via relative file path
+kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment.yaml
+-->
 
 1. Query the list of Pods to verify that the three frontend replicas are running:
 
@@ -201,12 +148,12 @@ The guestbook application has a web frontend serving the HTTP requests written i
 
 ### Creating the Frontend Service
 
-The `redis-slave` and `redis-master` Services you applied are only accessible within the container cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
+The `mongo` Services you applied is only accessible within the Kubernetes cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
 
-If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the container cluster. Minikube can only expose Services through `NodePort`.  
+If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the Kubernetes cluster. However a Kubernetes user you can use `kubectl port-forward` to access the service even though it uses a `ClusterIP`.
 
 {{< note >}}
-Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply delete or comment out `type: NodePort`, and uncomment `type: LoadBalancer`.
+Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply uncomment `type: LoadBalancer`.
 {{< /note >}}
 
 {{< codenew file="application/guestbook/frontend-service.yaml" >}}
@@ -216,6 +163,11 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-service.yaml
       ```
+
+<!---
+for local testing of the content via relative file path
+kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.yaml
+-->
 
 1. Query the list of Services to verify that the frontend Service is running:
 
@@ -227,29 +179,27 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
 
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      frontend       NodePort    10.0.0.112   <none>       80:31323/TCP   6s
+      frontend       ClusterIP   10.0.0.112   <none>       80/TCP   6s
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP        4m
-      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP       2m
-      redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP       1m
+      mongo          ClusterIP   10.0.0.151   <none>        6379/TCP       2m
       ```
 
-### Viewing the Frontend Service via `NodePort`
+### Viewing the Frontend Service via `kubectl port-forward`
 
-If you deployed this application to Minikube or a local cluster, you need to find the IP address to view your Guestbook.
-
-1. Run the following command to get the IP address for the frontend Service.
+1. Run the following command to forward port `8080` on your local machine to port `80` on the service.
 
       ```shell
-      minikube service frontend --url
+      kubectl port-forward svc/frontend 8080:80
       ```
 
       The response should be similar to this:
 
       ```
-      http://192.168.99.100:31323
+      Forwarding from 127.0.0.1:8080 -> 80
+      Forwarding from [::1]:8080 -> 80
       ```
 
-1. Copy the IP address, and load the page in your browser to view your guestbook.
+1. load the page [http://localhost:8080](http://localhost:8080) in your browser to view your guestbook.
 
 ### Viewing the Frontend Service via `LoadBalancer`
 
@@ -272,7 +222,7 @@ If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` y
 
 ## Scale the Web Frontend
 
-Scaling up or down is easy because your servers are defined as a Service that uses a Deployment controller.
+You can scale up or down as needed because your servers are defined as a Service that uses a Deployment controller.
 
 1. Run the following command to scale up the number of frontend Pods:
 
@@ -295,9 +245,7 @@ Scaling up or down is easy because your servers are defined as a Service that us
       frontend-3823415956-k22zn       1/1       Running   0          54m
       frontend-3823415956-w9gbt       1/1       Running   0          54m
       frontend-3823415956-x2pld       1/1       Running   0          5s
-      redis-master-1068406935-3lswp   1/1       Running   0          56m
-      redis-slave-2005841000-fpvqc    1/1       Running   0          55m
-      redis-slave-2005841000-phfv9    1/1       Running   0          55m
+      mongo-1068406935-3lswp   1/1       Running   0          56m
       ```
 
 1. Run the following command to scale down the number of frontend Pods:
@@ -318,9 +266,7 @@ Scaling up or down is easy because your servers are defined as a Service that us
       NAME                            READY     STATUS    RESTARTS   AGE
       frontend-3823415956-k22zn       1/1       Running   0          1h
       frontend-3823415956-w9gbt       1/1       Running   0          1h
-      redis-master-1068406935-3lswp   1/1       Running   0          1h
-      redis-slave-2005841000-fpvqc    1/1       Running   0          1h
-      redis-slave-2005841000-phfv9    1/1       Running   0          1h
+      mongo-1068406935-3lswp   1/1       Running   0          1h
       ```
 
 
@@ -332,20 +278,18 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 1. Run the following commands to delete all Pods, Deployments, and Services.
 
       ```shell
-      kubectl delete deployment -l app=redis
-      kubectl delete service -l app=redis
-      kubectl delete deployment -l app=guestbook
-      kubectl delete service -l app=guestbook
+      kubectl delete deployment -l app.kubernetes.io/name=mongo
+      kubectl delete service -l app.kubernetes.io/name=mongo
+      kubectl delete deployment -l app.kubernetes.io/name=guestbook
+      kubectl delete service -l app.kubernetes.io/name=guestbook
       ```
 
       The responses should be:
 
       ```
-      deployment.apps "redis-master" deleted
-      deployment.apps "redis-slave" deleted
-      service "redis-master" deleted
-      service "redis-slave" deleted
-      deployment.apps "frontend" deleted    
+      deployment.apps "mongo" deleted
+      service "mongo" deleted
+      deployment.apps "frontend" deleted
       service "frontend" deleted
       ```
 
@@ -365,9 +309,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 
 ## {{% heading "whatsnext" %}}
 
-* Add [ELK logging and monitoring](/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/) to your Guestbook application
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
 * Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
-

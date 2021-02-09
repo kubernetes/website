@@ -62,7 +62,7 @@ kubectl create deployment --image=nginx nginx-app
 deployment.apps/nginx-app created
 ```
 
-```
+```shell
 # add env to nginx-app
 kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```

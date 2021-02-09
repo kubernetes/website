@@ -151,9 +151,9 @@ spec:
       targetPort: 9376
 ```
 
-Because this Service has no selector, the corresponding Endpoint object is not
+Because this Service has no selector, the corresponding Endpoints object is not
 created automatically. You can manually map the Service to the network address and port
-where it's running, by adding an Endpoint object manually:
+where it's running, by adding an Endpoints object manually:
 
 ```yaml
 apiVersion: v1

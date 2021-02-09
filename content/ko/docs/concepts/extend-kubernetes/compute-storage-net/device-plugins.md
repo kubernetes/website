@@ -1,4 +1,5 @@
 ---
+
 title: 장치 플러그인
 description: GPU, NIC, FPGA, InfiniBand 및 공급 업체별 설정이 필요한 유사한 리소스를 위한 플러그인을 구현하는데 쿠버네티스 장치 플러그인 프레임워크를 사용한다.
 content_type: concept
@@ -199,7 +200,7 @@ gRPC 서비스는 `/var/lib/kubelet/pod-resources/kubelet.sock` 의 유닉스 �
 장치 플러그인 리소스에 대한 모니터링 에이전트는 데몬 또는 데몬셋으로 배포할 수 있다.
 표준 디렉터리 `/var/lib/kubelet/pod-resources` 에는 특권을 가진 접근이 필요하므로, 모니터링
 에이전트는 특권을 가진 ​​보안 컨텍스트에서 실행해야 한다. 장치 모니터링 에이전트가
-데몬셋으로 실행 중인 경우, 플러그인의 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서
+데몬셋으로 실행 중인 경우, 해당 장치 모니터링 에이전트의 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서
 `/var/lib/kubelet/pod-resources` 를
 {{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트해야 한다.
 

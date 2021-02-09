@@ -163,7 +163,7 @@ Backing up an etcd cluster can be accomplished in two ways: etcd built-in snapsh
 
 ### Built-in snapshot
 
-etcd supports built-in snapshot, so backing up an etcd cluster is easy. A snapshot may either be taken from a live member with the `etcdctl snapshot save` command or by copying the `member/snap/db` file from an etcd [data directory](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/configuration.md#--data-dir) that is not currently used by an etcd process. Taking the snapshot will normally not affect the performance of the member.
+etcd supports built-in snapshot. A snapshot may either be taken from a live member with the `etcdctl snapshot save` command or by copying the `member/snap/db` file from an etcd [data directory](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/configuration.md#--data-dir) that is not currently used by an etcd process. Taking the snapshot will normally not affect the performance of the member.
 
 Below is an example for taking a snapshot of the keyspace served by `$ENDPOINT` to the file `snapshotdb`:
 

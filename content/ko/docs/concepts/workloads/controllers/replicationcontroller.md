@@ -1,4 +1,7 @@
 ---
+
+
+
 title: 레플리케이션 컨트롤러
 feature:
   title: 자가 치유
@@ -51,15 +54,17 @@ kubectl 명령에서 숏컷으로 사용된다.
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 replicationcontroller/nginx created
 ```
 
-다음 명령을 사용하여 레플리케이션 컨트롤러의 상태를 확인하라.
+다음 명령을 사용하여 레플리케이션 컨트롤러의 상태를 확인하자.
 
 ```shell
 kubectl describe replicationcontrollers/nginx
 ```
+출력 결과는 다음과 같다.
 ```
 Name:        nginx
 Namespace:   default
@@ -98,6 +103,7 @@ Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
 echo $pods
 ```
+출력 결과는 다음과 같다.
 ```
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```

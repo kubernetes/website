@@ -512,23 +512,71 @@ Defaults to 3. Minimum value is 1.
   就绪探测情况下的放弃 Pod 会被打上未就绪的标签。默认值是 3。最小值是 1。
 
 <!--
+Before Kubernetes 1.20, the field `timeoutSeconds` was not respected for exec probes:
+probes continued running indefinitely, even past their configured deadline,
+until a result was returned.
+-->
+在 Kubernetes 1.20 版本之前，exec 探针会忽略 `timeoutSeconds`：探针会无限期地
+持续运行，甚至可能超过所配置的限期，直到返回结果为止。
+ 
+<!--
+This defect was corrected in Kubernetes v1.20. You may have been relying on the previous behavior,
+even without realizing it, as the default timeout is 1 second.
+As a cluster administrator, you can disable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `ExecProbeTimeout` (set it to `false`)
+on each kubelet to restore the  behavior from older versions, then remove that override
+once all the exec probes in the cluster have a `timeoutSeconds` value set.  
+If you have pods that are impacted from the default 1 second timeout,
+you should update their probe timeout so that you're ready for the
+eventual removal of that feature gate.
+-->
+这一缺陷在 Kubernetes v1.20 版本中得到修复。你可能一直依赖于之前错误的探测行为，
+甚至你都没有觉察到这一问题的存在，因为默认的超时值是 1 秒钟。
+作为集群管理员，你可以在所有的 kubelet 上禁用 `ExecProbeTimeout`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+（将其设置为 `false`），从而恢复之前版本中的运行行为，之后当集群中所有的
+exec 探针都设置了 `timeoutSeconds` 参数后，移除此标志重载。
+如果你有 Pods 受到此默认 1 秒钟超时值的影响，你应该更新 Pod 对应的探针的
+超时值，这样才能为最终去除该特性门控做好准备。
+
+<!--
+With the fix of the defect, for exec probes, on Kubernetes `1.20+` with the `dockershim` container runtime,
+the process inside the container may keep running even after probe returned failure because of the timeout.
+-->
+当此缺陷被修复之后，在使用 `dockershim` 容器运行时的 Kubernetes `1.20+`
+版本中，对于 exec 探针而言，容器中的进程可能会因为超时值的设置保持持续运行，
+即使探针返回了失败状态。
+
+{{< caution >}}
+<!--
+Incorrect implementation of readiness probes may result in an ever growing number
+of processes in the container, and resource starvation if this is left unchecked.
+-->
+如果就绪态探针的实现不正确，可能会导致容器中进程的数量不断上升。
+如果不对其采取措施，很可能导致资源枯竭的状况。
+{{< /caution >}}
+
+<!--
+### HTTP probes
+
 [HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
 have additional fields that can be set on `httpGet`:
 
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
 set "Host" in httpHeaders instead.
 * `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to HTTP.
-* `path`: Path to access on the HTTP server.
+* `path`: Path to access on the HTTP server. Defaults to /.
 * `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
 * `port`: Name or number of the port to access on the container. Number must be
 in the range 1 to 65535.
 -->
+### HTTP 探测  {#http-probes}
+
 [HTTP Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
 可以在 `httpGet` 上配置额外的字段：
 
 * `host`：连接使用的主机名，默认是 Pod 的 IP。也可以在 HTTP 头中设置 “Host” 来代替。
 * `scheme` ：用于设置连接主机的方式（HTTP 还是 HTTPS）。默认是 HTTP。
-* `path`：访问 HTTP 服务的路径。
+* `path`：访问 HTTP 服务的路径。默认值为 "/"。
 * `httpHeaders`：请求中自定义的 HTTP 头。HTTP 头字段允许重复。
 * `port`：访问容器的端口号或者端口名。如果数字必须在 1 ～ 65535 之间。
 
@@ -542,10 +590,6 @@ Here's one scenario where you would set it. Suppose the Container listens on 127
 and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should be set
 to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
-
-For a TCP probe, the kubelet makes the probe connection at the node, not in the pod, which
-means that you can not use a service name in the `host` parameter since the kubelet is unable
-to resolve it.
 -->
 对于 HTTP 探测，kubelet 发送一个 HTTP 请求到指定的路径和端口来执行检测。
 除非 `httpGet` 中的 `host` 字段设置了，否则 kubelet 默认是给 Pod 的 IP 地址发送探测。
@@ -555,6 +599,61 @@ to resolve it.
 字段设置为了 `true`。那么 `httpGet` 中的 `host` 字段应该设置为 127.0.0.1。
 可能更常见的情况是如果 Pod 依赖虚拟主机，你不应该设置 `host` 字段，而是应该在
 `httpHeaders` 中设置 `Host`。
+
+<!--
+For an HTTP probe, the kubelet sends two request headers in addition to the mandatory `Host` header:
+`User-Agent`, and `Accept`. The default values for these headers are `kube-probe/{{< skew latestVersion >}}`
+(where `{{< skew latestVersion >}}` is the version of the kubelet ), and `*/*` respectively.
+
+You can override the default headers by defining `.httpHeaders` for the probe; for example
+-->
+针对 HTTP 探针，kubelet 除了必需的 `Host` 头部之外还发送两个请求头部字段：
+`User-Agent` 和 `Accept`。这些头部的默认值分别是 `kube-probe/{{ skew latestVersion >}}`
+（其中 `{{< skew latestVersion >}}` 是 kubelet 的版本号）和 `*/*`。
+
+你可以通过为探测设置 `.httpHeaders` 来重载默认的头部字段值；例如：
+
+```yaml
+livenessProbe:
+  httpGet:
+    httpHeaders:
+      - name: Accept
+        value: application/json
+
+startupProbe:
+  httpGet:
+    httpHeaders:
+      - name: User-Agent
+        value: MyUserAgent
+```
+
+<!--
+You can also remove these two headers by defining them with an empty value.
+-->
+你也可以通过将这些头部字段定义为空值，从请求中去掉这些头部字段。
+
+```yaml
+livenessProbe:
+  httpGet:
+    httpHeaders:
+      - name: Accept
+        value: ""
+
+startupProbe:
+  httpGet:
+    httpHeaders:
+      - name: User-Agent
+        value: ""
+```
+
+<!--
+### TCP probes
+
+For a TCP probe, the kubelet makes the probe connection at the node, not in the pod, which
+means that you can not use a service name in the `host` parameter since the kubelet is unable
+to resolve it.
+-->
+### TCP 探测  {#tcp-probes}
 
 对于一次 TCP 探测，kubelet 在节点上（不是在 Pod 里面）建立探测连接，
 这意味着你不能在 `host` 参数上配置服务名称，因为 kubelet 不能解析服务名称。
