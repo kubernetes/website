@@ -458,7 +458,7 @@ selectors defined:
 
 For headless Services that define selectors, the endpoints controller creates
 `Endpoints` records in the API, and modifies the DNS configuration to return
-records (addresses) that point directly to the `Pods` backing the `Service`.
+A records (IP addresses) that point directly to the `Pods` backing the `Service`.
 
 ### Without selectors
 
