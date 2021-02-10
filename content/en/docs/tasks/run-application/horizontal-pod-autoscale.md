@@ -383,17 +383,18 @@ behavior:
       periodSeconds: 60
 ```
 
-When the number of pods is more than 40 the second policy will be used for scaling down.
+`periodSeconds` indicates the length of time in the past for which the policy must hold true.
+The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy
+_(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
+
+Since by default the policy which allows the highest amount of change is selected, the second policy will
+only be used when the number of pod replicas is more than 40. With 40 or less replicas, the first policy will be applied.
 For instance if there are 80 replicas and the target has to be scaled down to 10 replicas
 then during the first step 8 replicas will be reduced. In the next iteration when the number
 of replicas is 72, 10% of the pods is 7.2 but the number is rounded up to 8. On each loop of
 the autoscaler controller the number of pods to be change is re-calculated based on the number
 of current replicas. When the number of replicas falls below 40 the first policy _(Pods)_ is applied
 and 4 replicas will be reduced at a time.
-
-`periodSeconds` indicates the length of time in the past for which the policy must hold true.
-The first policy allows at most 4 replicas to be scaled down in one minute. The second policy
-allows at most 10% of the current replicas to be scaled down in one minute.
 
 The policy selection can be changed by specifying the `selectPolicy` field for a scaling
 direction. By setting the value to `Min` which would select the policy which allows the
@@ -441,7 +442,7 @@ behavior:
       periodSeconds: 15
     selectPolicy: Max
 ```
-For scaling down the stabilization window is _300_ seconds(or the value of the
+For scaling down the stabilization window is _300_ seconds (or the value of the
 `--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy
 for scaling down which allows a 100% of the currently running replicas to be removed which
 means the scaling target can be scaled down to the minimum allowed replicas.
