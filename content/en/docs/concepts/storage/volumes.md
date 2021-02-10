@@ -71,7 +71,7 @@ There are some restrictions when using an `awsElasticBlockStore` volume:
 
 * the nodes on which pods are running must be AWS EC2 instances
 * those instances need to be in the same region and availability zone as the EBS volume
-* EBS only supports a single EC2 instance mounting a volume
+* EBS only supports a single EC2 instance mounting a volume (Now the same EBS volume can be attached upto 16 instances of Nitro type. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volumes-multi.html)
 
 #### Creating an AWS EBS volume
 
