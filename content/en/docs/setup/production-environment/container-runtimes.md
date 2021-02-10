@@ -420,6 +420,7 @@ Start CRI-O:
 
 ```shell
 sudo systemctl daemon-reload
+sudo systemctl enable crio
 sudo systemctl start crio
 ```
 
