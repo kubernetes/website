@@ -705,7 +705,7 @@ sure the TLS secret you created came from a certificate that contains a Common
 Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `https-example.foo.com`.
 -->
 在 Ingress 中引用此 Secret 将会告诉 Ingress 控制器使用 TLS 加密从客户端到负载均衡器的通道。
-你需要确保创建的 TLS Secret 创建自包含 `sslexample.foo.com` 的公用名称（CN）的证书。
+你需要确保创建的 TLS Secret 创建自包含 `https-example.foo.com` 的公用名称（CN）的证书。
 这里的公共名称也被称为全限定域名（FQDN）。
 
 {{< note >}}
