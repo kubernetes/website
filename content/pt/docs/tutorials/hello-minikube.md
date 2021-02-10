@@ -29,7 +29,7 @@ Você também consegue seguir os passos desse tutorial instalando o Minikube loc
 
 ## Antes de você iniciar
 
-Este tutorial disponibiliza uma imagem de contêiner que utiliza o NGIX para retornar todas as requisições.
+Este tutorial disponibiliza uma imagem de contêiner que utiliza o NGINX para retornar todas as requisições.
 
 <!-- lessoncontent -->
 
@@ -132,7 +132,7 @@ Por padrão, um Pod só é acessível utilizando o seu endereço IP interno no c
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
     ```
 
-    Em provedores de Cloud que fornecem serviços de balaceamento de carga para o Kubernetes, um IP externo seria provisionado para acessar o serviço. No Minikube, o tipo `LoadBalancer` torna o serviço acessível por meio do comando `minikube service`.
+    Em provedores de Cloud que fornecem serviços de balanceamento de carga para o Kubernetes, um IP externo seria provisionado para acessar o serviço. No Minikube, o tipo `LoadBalancer` torna o serviço acessível por meio do comando `minikube service`.
 
 3. Executar o comando a seguir:
 
@@ -148,7 +148,7 @@ Isso abre uma janela do navegador, acessa o seu aplicativo e mostra o retorno da
 
 ## Habilitando Complementos (addons)
 
-O Minikube inclue um conjunto integrado de {{< glossary_tooltip text="complementos" term_id="addons" >}} que podem ser habilitados, desabilitados e executados no ambiente Kubernetes local.
+O Minikube inclui um conjunto integrado de {{< glossary_tooltip text="complementos" term_id="addons" >}} que podem ser habilitados, desabilitados e executados no ambiente Kubernetes local.
 
 1. Listando os complementos suportados atualmente:
 
