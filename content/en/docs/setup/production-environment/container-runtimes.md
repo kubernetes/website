@@ -420,8 +420,7 @@ Start CRI-O:
 
 ```shell
 sudo systemctl daemon-reload
-sudo systemctl enable crio
-sudo systemctl start crio
+sudo systemctl enable crio --now
 ```
 
 Refer to the [CRI-O installation guide](https://github.com/cri-o/cri-o/blob/master/install.md)
