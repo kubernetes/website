@@ -4,7 +4,6 @@ content_type: task
 min-kubernetes-server-version: 1.5
 ---
 <!--
----
 reviewers:
 - davidopp
 - mml
@@ -13,7 +12,6 @@ reviewers:
 title: Safely Drain a Node
 content_type: task
 min-kubernetes-server-version: 1.5
----
 -->
 
 <!-- overview -->
@@ -264,7 +262,14 @@ eviction API will never return anything other than 429 or 500.
 For example: this can happen if ReplicaSet is creating Pods for your application but
 the replacement Pods do not become `Ready`. You can also see similar symptoms if the
 last Pod evicted has a very long termination grace period.
+-->
+## 驱逐阻塞
 
+在某些情况下，应用程序可能会到达一个中断状态，除了 429 或 500 之外，它将永远不会返回任何内容。
+例如 ReplicaSet 创建的替换 Pod 没有变成就绪状态，或者被驱逐的最后一个
+Pod 有很长的终止宽限期，就会发生这种情况。
+
+<!--
 In this case, there are two potential solutions:
 
 - Abort or pause the automated operation. Investigate the reason for the stuck application,
@@ -275,28 +280,19 @@ In this case, there are two potential solutions:
 Kubernetes does not specify what the behavior should be in this case; it is up to the
 application owners and cluster owners to establish an agreement on behavior in these cases.
 -->
-## 驱逐阻塞
-
-在某些情况下，应用程序可能会到达一个中断状态，除了 429 或 500 之外，它将永远不会返回任何内容。
-例如 ReplicaSet 创建的替换 Pod 没有变成就绪状态，或者被驱逐的最后一个
-Pod 有很长的终止宽限期，就会发生这种情况。
-
 在这种情况下，有两种可能的解决方案：
 
 - 中止或暂停自动操作。调查应用程序卡住的原因，并重新启动自动化。
-- 经过适当的长时间等待后， 从集群中删除 Pod 而不是使用驱逐 API。
+- 经过适当的长时间等待后，从集群中删除 Pod 而不是使用驱逐 API。
 
 Kubernetes 并没有具体说明在这种情况下应该采取什么行为，
 这应该由应用程序所有者和集群所有者紧密沟通，并达成对行动一致意见。
 
 ## {{% heading "whatsnext" %}}
 
-
 <!-- 
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
-* Learn more about [maintenance on a node](/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node).
-  -->
+-->
 * 执行[配置 PDB](/zh/docs/tasks/run-application/configure-pdb/)中的各个步骤，
   保护你的应用
-* 进一步了解[节点维护](/zh/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node)。
 
