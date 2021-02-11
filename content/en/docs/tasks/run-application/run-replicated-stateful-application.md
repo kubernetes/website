@@ -174,7 +174,7 @@ Because the example topology consists of a single primary MySQL server and any n
 replicas, the script assigns ordinal `0` to be the primary server, and everyone
 else to be replicas.
 Combined with the StatefulSet controller's
-[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/),
+[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees),
 this ensures the primary MySQL server is Ready before creating replicas, so they can begin
 replicating.
 
