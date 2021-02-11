@@ -54,7 +54,7 @@ Ingressコントローラーのドキュメントを確認して、選択する�
 Ingressリソースの最小構成の例は以下のとおりです。
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: test-ingress
@@ -115,7 +115,7 @@ Ingressは異なったコントローラーで実装されうるため、しば�
 IngressClassリソースは、この種別のIngressを実装すべきコントローラーの名称を含む追加の設定情報を含みます。各IngressはIngressClassリソースへの参照によって種別を指定すべきです。
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: IngressClass
 metadata:
   name: external-lb
@@ -182,7 +182,7 @@ foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
 Ingressを以下のように設定します。
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: simple-fanout-example
@@ -248,7 +248,7 @@ bar.foo.com --|                 |-> bar.foo.com service2:80
 以下のIngress設定は、ロードバランサーに対して、[Hostヘッダー](https://tools.ietf.org/html/rfc7230#section-5.4)に基づいてリクエストを転送するように指示するものです。
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: name-virtual-host-ingress
@@ -273,7 +273,7 @@ rules項目でのホストの設定がないIngressを作成すると、Ingress�
 例えば、以下のIngressリソースは`first.bar.com`に対するトラフィックを`service1`へ、`second.foo.com`に対するトラフィックを`service2`へ、リクエストにおいてホスト名が指定されていない(リクエストヘッダーがないことを意味します)トラフィックは`service3`へ転送します。
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: name-virtual-host-ingress
@@ -317,7 +317,7 @@ type: kubernetes.io/tls
 IngressでこのSecretを参照すると、クライアントとロードバランサー間の通信にTLSを使用するようIngressコントローラーに指示することになります。作成したTLS Secretは、`sslexample.foo.com`の完全修飾ドメイン名(FQDN)とも呼ばれる共通名(CN)を含む証明書から作成したものであることを確認する必要があります。
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: tls-example-ingress
