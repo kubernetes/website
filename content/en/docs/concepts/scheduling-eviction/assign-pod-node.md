@@ -120,12 +120,12 @@ pod is eligible to be scheduled on, based on labels on the node.
 
 There are currently two types of node affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
 `preferredDuringSchedulingIgnoredDuringExecution`. You can think of them as "hard" and "soft" respectively,
-in the sense that the former specifies rules that *must* be met for a pod to be scheduled onto a node (just like
+in the sense that the former specifies rules that *must* be met for a pod to be scheduled onto a node (similar to
 `nodeSelector` but using a more expressive syntax), while the latter specifies *preferences* that the scheduler
 will try to enforce but will not guarantee. The "IgnoredDuringExecution" part of the names means that, similar
 to how `nodeSelector` works, if labels on a node change at runtime such that the affinity rules on a pod are no longer
-met, the pod will still continue to run on the node. In the future we plan to offer
-`requiredDuringSchedulingRequiredDuringExecution` which will be just like `requiredDuringSchedulingIgnoredDuringExecution`
+met, the pod continues to run on the node. In the future we plan to offer
+`requiredDuringSchedulingRequiredDuringExecution` which will be identical to `requiredDuringSchedulingIgnoredDuringExecution`
 except that it will evict pods from nodes that cease to satisfy the pods' node affinity requirements.
 
 Thus an example of `requiredDuringSchedulingIgnoredDuringExecution` would be "only run the pod on nodes with Intel CPUs"

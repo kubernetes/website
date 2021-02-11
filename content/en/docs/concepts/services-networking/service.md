@@ -527,7 +527,7 @@ for NodePort use.
 
 Using a NodePort gives you the freedom to set up your own load balancing solution,
 to configure environments that are not fully supported by Kubernetes, or even
-to just expose one or more nodes' IPs directly.
+to expose one or more nodes' IPs directly.
 
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
 and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
@@ -785,8 +785,7 @@ you can use the following annotations:
 ```
 
 In the above example, if the Service contained three ports, `80`, `443`, and
-`8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
-be proxied HTTP.
+`8443`, then `443` and `8443` would use the SSL certificate, but `80` would be proxied HTTP.
 
 From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
 To see which policies are available for use, you can use the `aws` command line tool:
@@ -1108,7 +1107,7 @@ but the current API requires it.
 
 ## Virtual IP implementation {#the-gory-details-of-virtual-ips}
 
-The previous information should be sufficient for many people who just want to
+The previous information should be sufficient for many people who want to
 use Services.  However, there is a lot going on behind the scenes that may be
 worth understanding.
 

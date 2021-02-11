@@ -109,7 +109,7 @@ empty-secret   Opaque   0      2m6s
 ```
 
 The `DATA` column shows the number of data items stored in the Secret.
-In this case, `0` means we have just created an empty Secret.
+In this case, `0` means we have created an empty Secret.
 
 ###  Service account token Secrets
 

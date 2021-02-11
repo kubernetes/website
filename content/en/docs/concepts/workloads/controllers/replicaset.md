@@ -222,7 +222,7 @@ In this manner, a ReplicaSet can own a non-homogenous set of Pods
 ## Writing a ReplicaSet manifest
 
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.
-For ReplicaSets, the kind is always just ReplicaSet.
+For ReplicaSets, the `kind` is always a ReplicaSet.
 In Kubernetes 1.9 the API version `apps/v1` on the ReplicaSet kind is the current version and is enabled by default. The API version `apps/v1beta2` is deprecated.
 Refer to the first lines of the `frontend.yaml` example for guidance.
 

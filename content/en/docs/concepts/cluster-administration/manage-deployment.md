@@ -278,7 +278,7 @@ pod/my-nginx-2035384211-u3t6x labeled
 ```
 
 This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe".
-To see the pods you just labeled, run:
+To see the pods you labeled, run:
 
 ```shell
 kubectl get pods -l app=nginx -L tier
@@ -411,7 +411,7 @@ and
 
 ## Disruptive updates
 
-In some cases, you may need to update resource fields that cannot be updated once initialized, or you may just want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can modify your original configuration file:
+In some cases, you may need to update resource fields that cannot be updated once initialized, or you may want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can modify your original configuration file:
 
 ```shell
 kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force

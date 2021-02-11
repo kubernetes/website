@@ -35,7 +35,7 @@ and kubeadm will use this CA for signing the rest of the certificates.
 
 ## External CA mode {#external-ca-mode}
 
-It is also possible to provide just the `ca.crt` file and not the
+It is also possible to provide only the `ca.crt` file and not the
 `ca.key` file (this is only available for the root CA file, not other cert pairs).
 If all other certificates and kubeconfig files are in place, kubeadm recognizes
 this condition and activates the "External CA" mode. kubeadm will proceed without the
