@@ -260,7 +260,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 {{< codenew file="service/networking/test-ingress.yaml" >}}
 
 If you create it using `kubectl apply -f` you should be able to view the state
-of the Ingress you just added:
+of the Ingress you added:
 
 ```bash
 kubectl get ingress test-ingress

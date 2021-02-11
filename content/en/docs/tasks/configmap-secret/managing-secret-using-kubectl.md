@@ -115,8 +115,7 @@ accidentally to an onlooker, or from being stored in a terminal log.
 
 ## Decoding the Secret  {#decoding-secret}
 
-To view the contents of the Secret we just created, you can run the following
-command:
+To view the contents of the Secret you created, run the following command:
 
 ```shell
 kubectl get secret db-user-pass -o jsonpath='{.data}'
@@ -142,7 +141,7 @@ The output is similar to:
 
 ## Clean Up
 
-To delete the Secret you have just created:
+To delete the Secret you have created:
 
 ```shell
 kubectl delete secret db-user-pass

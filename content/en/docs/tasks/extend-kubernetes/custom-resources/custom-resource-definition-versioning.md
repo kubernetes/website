@@ -404,7 +404,7 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 A conversion webhook must not mutate anything inside of `metadata` of the converted object
 other than `labels` and `annotations`.
 Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request
-which caused the conversion. All other changes are just ignored.  
+which caused the conversion. All other changes are ignored.  
 
 ### Deploy the conversion webhook service
 

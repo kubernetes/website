@@ -363,7 +363,7 @@ status:
 
 It's usual to set `status.conditions.reason` to a machine-friendly reason
 code using TitleCase; this is a convention but you can set it to anything
-you like. If you want to add a note just for human consumption, use the
+you like. If you want to add a note for human consumption, use the
 `status.conditions.message` field.
 
 ## Signing
