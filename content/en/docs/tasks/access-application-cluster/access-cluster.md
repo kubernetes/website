@@ -231,7 +231,7 @@ You have several options for connecting to nodes, pods and services from outside
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
       the cluster.  See the [services](/docs/concepts/services-networking/service/) and
       [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) documentation.
-    - Depending on your cluster environment, this may just expose the service to your corporate network,
+    - Depending on your cluster environment, this may only expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
     - Place pods behind services.  To access one specific pod from a set of replicas, such as for debugging,
@@ -357,7 +357,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxies UDP and TCP
     - does not understand HTTP
     - provides load balancing
-    - is just used to reach services
+    - is only used to reach services
 
 1.  A Proxy/Load-balancer in front of apiserver(s):
 

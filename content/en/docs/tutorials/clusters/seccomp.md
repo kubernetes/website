@@ -67,8 +67,8 @@ into the cluster.
 
 For simplicity, [kind](https://kind.sigs.k8s.io/) can be used to create a single
 node cluster with the seccomp profiles loaded. Kind runs Kubernetes in Docker,
-so each node of the cluster is actually just a container. This allows for files
-to be mounted in the filesystem of each container just as one might load files
+so each node of the cluster is a container. This allows for files
+to be mounted in the filesystem of each container similar to loading files
 onto a node.
 
 {{< codenew file="pods/security/seccomp/kind.yaml" >}}

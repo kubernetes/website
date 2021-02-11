@@ -38,7 +38,7 @@ that run within the pod, and data is preserved across container restarts. When a
 ceases to exist, Kubernetes destroys ephemeral volumes; however, Kubernetes does not
 destroy persistent volumes.
 
-At its core, a volume is just a directory, possibly with some data in it, which
+At its core, a volume is a directory, possibly with some data in it, which
 is accessible to the containers in a pod. How that directory comes to be, the
 medium that backs it, and the contents of it are determined by the particular
 volume type used.

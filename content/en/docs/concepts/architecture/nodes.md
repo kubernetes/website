@@ -17,7 +17,7 @@ and contains the services necessary to run
 {{< glossary_tooltip text="Pods" term_id="pod" >}}
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
-environment, you might have just one.
+environment, you might have only one node.
 
 The [components](/docs/concepts/overview/components/#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a

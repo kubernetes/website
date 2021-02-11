@@ -327,7 +327,7 @@ supported in API v1 must exist and function until API v1 is removed.
 
 ### Component config structures
 
-Component configs are versioned and managed just like REST resources.
+Component configs are versioned and managed similar to REST resources.
 
 ### Future work
 

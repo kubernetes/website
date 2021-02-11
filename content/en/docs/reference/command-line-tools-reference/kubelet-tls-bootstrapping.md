@@ -185,9 +185,9 @@ systemd unit file perhaps) to enable the token file.  See docs
 further details.
 
 ### Authorize kubelet to create CSR
-Now that the bootstrapping node is _authenticated_ as part of the `system:bootstrappers` group, it needs to be _authorized_ to create a certificate signing request (CSR) as well as retrieve it when done. Fortunately, Kubernetes ships with a `ClusterRole` with precisely these (and just these) permissions, `system:node-bootstrapper`.
+Now that the bootstrapping node is _authenticated_ as part of the `system:bootstrappers` group, it needs to be _authorized_ to create a certificate signing request (CSR) as well as retrieve it when done. Fortunately, Kubernetes ships with a `ClusterRole` with precisely these (and only these) permissions, `system:node-bootstrapper`.
 
-To do this, you just need to create a `ClusterRoleBinding` that binds the `system:bootstrappers` group to the cluster role `system:node-bootstrapper`.
+To do this, you only need to create a `ClusterRoleBinding` that binds the `system:bootstrappers` group to the cluster role `system:node-bootstrapper`.
 
 ```
 # enable bootstrapping nodes to create CSR
@@ -345,7 +345,7 @@ The important elements to note are:
 * `token`: the token to use
 
 The format of the token does not matter, as long as it matches what kube-apiserver expects. In the above example, we used a bootstrap token.
-As stated earlier, _any_ valid authentication method can be used, not just tokens.
+As stated earlier, _any_ valid authentication method can be used, not only tokens.
 
 Because the bootstrap `kubeconfig` _is_ a standard `kubeconfig`, you can use `kubectl` to generate it. To create the above example file:
 

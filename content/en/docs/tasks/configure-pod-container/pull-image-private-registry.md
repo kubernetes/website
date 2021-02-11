@@ -118,7 +118,7 @@ those secrets might also be visible to other users on your PC during the time th
 
 ## Inspecting the Secret `regcred`
 
-To understand the contents of the `regcred` Secret you just created, start by viewing the Secret in YAML format:
+To understand the contents of the `regcred` Secret you created, start by viewing the Secret in YAML format:
 
 ```shell
 kubectl get secret regcred --output=yaml
