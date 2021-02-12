@@ -235,7 +235,7 @@ secrets:
 - name: jenkins-token-1yvwg
 ```
 
-The created secret holds the public CA of the API server, and a signed JSON Web
+The created secret holds the public CA of the API server and a signed JSON Web
 Token (JWT).
 
 ```bash
