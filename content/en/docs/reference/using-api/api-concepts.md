@@ -130,9 +130,9 @@ To retrieve a single list in chunks, two new parameters `limit` and `continue` a
 
 Like a watch operation, a `continue` token will expire after a short amount of time (by default 5 minutes) and return a `410 Gone` if more results cannot be returned. In this case, the client will need to start from the beginning or omit the `limit` parameter.
 
-For example, if there are 1,253 pods on the cluster and the client wants to receive chunks of 500 pods at a time, they would request those chunks as follows:
+For example, if there are 1,253 pods on the cluster, and the client wants to receive chunks of 500 pods at a time, they would request those chunks as follows:
 
-1. List all of the pods on a cluster, retrieving up to 500 pods each time.
+1. List all the pods on a cluster, retrieving up to 500 pods each time.
 
    ```console
    GET /api/v1/pods?limit=500
@@ -258,7 +258,7 @@ Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1, application/json
 
 ## Alternate representations of resources
 
-By default Kubernetes returns objects serialized to JSON with content type `application/json`. This is the default serialization format for the API. However, clients may request the more efficient Protobuf representation of these objects for better performance at scale. The Kubernetes API implements standard HTTP content type negotiation: passing an `Accept` header with a `GET` call will request that the server return objects in the provided content type, while sending an object in Protobuf to the server for a `PUT` or `POST` call takes the `Content-Type` header. The server will return a `Content-Type` header if the requested format is supported, or the `406 Not acceptable` error if an invalid content type is provided.
+By default, Kubernetes returns objects serialized to JSON with content type `application/json`. This is the default serialization format for the API. However, clients may request the more efficient Protobuf representation of these objects for better performance at scale. The Kubernetes API implements standard HTTP content type negotiation: passing an `Accept` header with a `GET` call will request that the server return objects in the provided content type, while sending an object in Protobuf to the server for a `PUT` or `POST` call takes the `Content-Type` header. The server will return a `Content-Type` header if the requested format is supported, or the `406 Not acceptable` error if an invalid content type is provided.
 
 See the API documentation for a list of supported content types for each API.
 
@@ -560,4 +560,4 @@ If you request a a resourceVersion outside the applicable limit then, depending 
 
 ### Unavailable resource versions
 
-Servers are not required to serve unrecognized resource versions. List and Get requests for unrecognized resource versions may wait briefly for the resource version to become available, should timeout with a `504 (Gateway Timeout)` if the provided resource versions does not become available in a resonable amount of time, and may respond with a `Retry-After` response header indicating how many seconds a client should wait before retrying the request. Currently the kube-apiserver also identifies these responses with a "Too large resource version" message. Watch requests for a unrecognized resource version may wait indefinitely (until the request timeout) for the resource version to become available.
+Servers are not required to serve unrecognized resource versions. List and Get requests for unrecognized resource versions may wait briefly for the resource version to become available, should timeout with a `504 (Gateway Timeout)` if the provided resource versions does not become available in a reasonable amount of time, and may respond with a `Retry-After` response header indicating how many seconds a client should wait before retrying the request. Currently, the kube-apiserver also identifies these responses with a "Too large resource version" message. Watch requests for an unrecognized resource version may wait indefinitely (until the request timeout) for the resource version to become available.
