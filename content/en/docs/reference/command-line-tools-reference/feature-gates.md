@@ -125,7 +125,8 @@ different Kubernetes components.
 | `HugePageStorageMediumSize` | `true` | Beta | 1.19 | |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | |
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
-| `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | |
+| `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | 1.20 |
+| `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
 | `KubeletPodResources` | `true` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
