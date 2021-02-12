@@ -363,7 +363,7 @@ kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
 
 ## `/usr` is mounted read-only on nodes {#usr-mounted-read-only}
 
-On Linux distributions such as Fedora CoreOS, the directory `/usr` is mounted as a read-only filesystem.
+On Linux distributions such as Fedora CoreOS or Flatcar Container Linux, the directory `/usr` is mounted as a read-only filesystem.
 For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md),
 Kubernetes components like the kubelet and kube-controller-manager use the default path of
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_

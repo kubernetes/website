@@ -15,8 +15,7 @@ card:
 _파드(Pod)_ 는 쿠버네티스에서 생성하고 관리할 수 있는 배포 가능한 가장 작은 컴퓨팅 단위이다.
 
 _파드_ (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지로)는 하나 이상의
-[컨테이너](/ko/docs/concepts/containers/)의 그룹이다.
-이 그룹은 스토리지/네트워크를 공유하고, 해당 컨테이너를 구동하는 방식에 대한 명세를 갖는다. 파드의 콘텐츠는 항상 함께 배치되고,
+[컨테이너](/ko/docs/concepts/containers/)의 그룹이다. 이 그룹은 스토리지 및 네트워크를 공유하고, 해당 컨테이너를 구동하는 방식에 대한 명세를 갖는다. 파드의 콘텐츠는 항상 함께 배치되고,
 함께 스케줄되며, 공유 콘텍스트에서 실행된다. 파드는
 애플리케이션 별 "논리 호스트"를 모델링한다. 여기에는 상대적으로 밀접하게 결합된 하나 이상의
 애플리케이션 컨테이너가 포함된다.
@@ -217,7 +216,8 @@ spec:
   허용한다.
 
   1. 지정되지 않은 필드를 양수로 설정;
-  1. 필드의 양수를 음수가 아닌 더 작은 숫자로 갱신.
+  1. 필드의 양수를 음수가 아닌 더 작은 숫자로
+     갱신.
 
 ## 리소스 공유와 통신
 
@@ -294,9 +294,10 @@ kubelet은 자동으로 각 정적 파드에 대한 쿠버네티스 API 서버�
   오브젝트 정의는 오브젝트를 상세히 설명한다.
 * [분산 시스템 툴킷: 컴포지트 컨테이너에 대한 패턴](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)은 둘 이상의 컨테이너가 있는 파드의 일반적인 레이아웃을 설명한다.
 
-쿠버네티스가 다른 리소스({{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}}이나 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}}와 같은)에서 공통 파드 API를 래핑하는 이유에 대한 콘텍스트를 이해하기 위해서, 다음을 포함한 선행 기술에 대해 읽어볼 수 있다.
-  * [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
-  * [Borg](https://research.google.com/pubs/pub43438.html)
-  * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
-  * [Omega](https://research.google/pubs/pub41684/)
-  * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
+쿠버네티스가 다른 리소스({{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}}이나 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}}와 같은)에서 공통 파드 API를 래핑하는 이유에 대한 콘텍스트를 이해하기 위해서, 다음과 같은 선행 기술에 대해 읽어볼 수 있다.
+
+* [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
+* [Borg](https://research.google.com/pubs/pub43438.html)
+* [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
+* [Omega](https://research.google/pubs/pub41684/)
+* [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).

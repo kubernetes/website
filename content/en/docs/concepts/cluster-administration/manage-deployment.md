@@ -45,7 +45,7 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 
 `kubectl` will read any files with suffixes `.yaml`, `.yml`, or `.json`.
 
-It is a recommended practice to put resources related to the same microservice or application tier into the same file, and to group all of the files associated with your application in the same directory. If the tiers of your application bind to each other using DNS, then you can then simply deploy all of the components of your stack en masse.
+It is a recommended practice to put resources related to the same microservice or application tier into the same file, and to group all of the files associated with your application in the same directory. If the tiers of your application bind to each other using DNS, you can deploy all of the components of your stack together.
 
 A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into github:
 
@@ -70,7 +70,7 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-In the case of just two resources, it's also easy to specify both on the command line using the resource/name syntax:
+In the case of two resources, you can specify both resources on the command line using the resource/name syntax:
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -87,10 +87,11 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-Because `kubectl` outputs resource names in the same syntax it accepts, it's easy to chain operations using `$()` or `xargs`:
+Because `kubectl` outputs resource names in the same syntax it accepts, you can chain operations using `$()` or `xargs`:
 
 ```shell
 kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
+kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service | xargs -i kubectl get {}
 ```
 
 ```shell
@@ -264,7 +265,7 @@ For a more concrete example, check the [tutorial of deploying Ghost](https://git
 ## Updating labels
 
 Sometimes existing pods and other resources need to be relabeled before creating new resources. This can be done with `kubectl label`.
-For example, if you want to label all your nginx pods as frontend tier, simply run:
+For example, if you want to label all your nginx pods as frontend tier, run:
 
 ```shell
 kubectl label pods -l app=nginx tier=fe
@@ -301,6 +302,7 @@ Sometimes you would want to attach annotations to resources. Annotations are arb
 kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
 kubectl get pods my-nginx-v4-9gw19 -o yaml
 ```
+
 ```shell
 apiVersion: v1
 kind: pod
@@ -314,11 +316,12 @@ For more information, please see [annotations](/docs/concepts/overview/working-w
 
 ## Scaling your application
 
-When load on your application grows or shrinks, it's easy to scale with `kubectl`. For instance, to decrease the number of nginx replicas from 3 to 1, do:
+When load on your application grows or shrinks, use `kubectl` to scale your application. For instance, to decrease the number of nginx replicas from 3 to 1, do:
 
 ```shell
 kubectl scale deployment/my-nginx --replicas=1
 ```
+
 ```shell
 deployment.apps/my-nginx scaled
 ```
@@ -328,6 +331,7 @@ Now you only have one pod managed by the deployment.
 ```shell
 kubectl get pods -l app=nginx
 ```
+
 ```shell
 NAME                        READY     STATUS    RESTARTS   AGE
 my-nginx-2035384211-j5fhi   1/1       Running   0          30m
@@ -338,6 +342,7 @@ To have the system automatically choose the number of nginx replicas as needed, 
 ```shell
 kubectl autoscale deployment/my-nginx --min=1 --max=3
 ```
+
 ```shell
 horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 ```
@@ -406,11 +411,12 @@ and
 
 ## Disruptive updates
 
-In some cases, you may need to update resource fields that cannot be updated once initialized, or you may just want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can simply modify your original configuration file:
+In some cases, you may need to update resource fields that cannot be updated once initialized, or you may just want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can modify your original configuration file:
 
 ```shell
 kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
 ```
+
 ```shell
 deployment.apps/my-nginx deleted
 deployment.apps/my-nginx replaced
@@ -427,19 +433,22 @@ Let's say you were running version 1.14.2 of nginx:
 ```shell
 kubectl create deployment my-nginx --image=nginx:1.14.2
 ```
+
 ```shell
 deployment.apps/my-nginx created
 ```
 
 with 3 replicas (so the old and new revisions can coexist):
+
 ```shell
 kubectl scale deployment my-nginx --current-replicas=1 --replicas=3
 ```
+
 ```
 deployment.apps/my-nginx scaled
 ```
 
-To update to version 1.16.1, simply change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1`, with the kubectl commands we learned above.
+To update to version 1.16.1, change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1` using the previous kubectl commands.
 
 ```shell
 kubectl edit deployment/my-nginx

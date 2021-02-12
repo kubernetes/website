@@ -117,8 +117,9 @@ The `kubelet` has the following default hard eviction threshold:
 
 * `memory.available<100Mi`
 * `nodefs.available<10%`
-* `nodefs.inodesFree<5%`
 * `imagefs.available<15%`
+
+On a Linux node, the default value also includes `nodefs.inodesFree<5%`.
 
 ### Eviction Monitoring Interval
 
@@ -140,6 +141,7 @@ The following node conditions are defined that correspond to the specified evict
 |-------------------|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 | `MemoryPressure`  | `memory.available`                                                                    | Available memory on the node has satisfied an eviction threshold                                                             |
 | `DiskPressure`    | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesystem or image filesystem has satisfied an eviction threshold |
+| `PIDPressure`     | `pid.available`                                                                       | Available processes identifiers on the (Linux) node has fallen below an eviction threshold                                   |                                                         |
 
 The `kubelet` continues to report node status updates at the frequency specified by
 `--node-status-update-frequency` which defaults to `10s`.
