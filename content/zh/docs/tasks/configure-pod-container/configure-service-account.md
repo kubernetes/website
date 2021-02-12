@@ -125,6 +125,14 @@ You can list this and any other serviceAccount resources in the namespace with t
 
 ```shell
 kubectl get serviceAccounts
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```
 NAME      SECRETS    AGE
 default   1          1d
 ```
@@ -141,8 +149,14 @@ kind: ServiceAccount
 metadata:
   name: build-robot
 EOF
-serviceaccount/build-robot created
 ```
+
+<!--
+The name of a ServiceAccount object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+-->
+ServiceAccount 对象的名字必须是一个有效的
+[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 <!--
 If you get a complete dump of the service account object, like this:
@@ -151,6 +165,14 @@ If you get a complete dump of the service account object, like this:
 
 ```shell
 kubectl get serviceaccounts/build-robot -o yaml
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -229,6 +251,14 @@ Any tokens for non-existent service accounts will be cleaned up by the token con
 
 ```shell
 kubectl describe secrets/build-robot-secret
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```
 Name:           build-robot-secret
 Namespace:      default
 Labels:         <none>
@@ -384,23 +414,26 @@ myregistrykey
 -->
 ## 服务帐户令牌卷投射   {#service-account-token-volume-projection}
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 <!--
-This ServiceAccountTokenVolumeProjection is __beta__ in 1.12 and
-enabled by passing all of the following flags to the API server:
+To enable and use token request projection, you must specify each of the following
+command line arguments to `kube-apiserver`:
 
 * `--service-account-issuer`
+* `--service-account-key-file`
 * `--service-account-signing-key-file`
-* `--service-account-api-audiences`
+* `--api-audiences`
+
 -->
 {{< note >}}
-ServiceAccountTokenVolumeProjection 在 1.12 版本中是 __beta__ 阶段，
-可以通过向 API 服务器传递以下所有参数来启用它：
+为了启用令牌请求投射，你必须为 `kube-apiserver` 设置以下命令行参数：
 
 * `--service-account-issuer`
+* `--service-account-key-file`
 * `--service-account-signing-key-file`
-* `--service-account-api-audiences`
+* `--api-audiences`
+
 {{< /note >}}
 
 <!--
@@ -438,7 +471,8 @@ kubectl create -f https://k8s.io/examples/pods/pod-projected-svc-token.yaml
 
 <!--
 The kubelet will request and store the token on behalf of the pod, make the
-token available to the pod at a configurable file path, and refresh the token as it approaches expiration. Kubelet proactively rotates the token if it is older than 80% of its total TTL, or if the token is older than 24 hours.
+token available to the pod at a configurable file path, and refresh the token as it approaches expiration. 
+The kubelet proactively rotates the token if it is older than 80% of its total TTL, or if the token is older than 24 hours.
 
 The application is responsible for reloading the token when it rotates. Periodic reloading (e.g. once every 5 minutes) is sufficient for most use cases.
 -->
@@ -455,7 +489,7 @@ The application is responsible for reloading the token when it rotates. Periodic
 -->
 ## 发现服务账号分发者
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
 <!--
 The Service Account Issuer Discovery feature is enabled by enabling the
@@ -572,4 +606,3 @@ See also:
 - [服务账号的集群管理员指南](/zh/docs/reference/access-authn-authz/service-accounts-admin/)
 - [服务账号签署密钥检索 KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
 - [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)
-

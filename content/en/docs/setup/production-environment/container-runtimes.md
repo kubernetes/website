@@ -122,7 +122,7 @@ sudo apt-get update && sudo apt-get install -y containerd.io
 ```shell
 # Configure containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default | sudo tee /etc/containerd/config.toml
+containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -140,7 +140,7 @@ sudo apt-get update && sudo apt-get install -y containerd
 ```shell
 # Configure containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default | sudo tee /etc/containerd/config.toml
+containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -210,7 +210,7 @@ sudo yum update -y && sudo yum install -y containerd.io
 ```shell
 ## Configure containerd
 sudo mkdir -p /etc/containerd
-sudo containerd config default | sudo tee /etc/containerd/config.toml
+containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
@@ -420,7 +420,7 @@ Start CRI-O:
 
 ```shell
 sudo systemctl daemon-reload
-sudo systemctl start crio
+sudo systemctl enable crio --now
 ```
 
 Refer to the [CRI-O installation guide](https://github.com/cri-o/cri-o/blob/master/install.md)

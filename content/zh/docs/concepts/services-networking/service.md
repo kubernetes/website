@@ -65,7 +65,7 @@ Pod 是非永久性资源。
 每个 Pod 都有自己的 IP 地址，但是在 Deployment 中，在同一时刻运行的 Pod 集合可能与稍后运行该应用程序的 Pod 集合不同。
 
 这导致了一个问题： 如果一组 Pod（称为“后端”）为集群内的其他 Pod（称为“前端”）提供功能，
-那么前端如何找出并跟踪要连接的 IP 地址，以便前端可以使用工作量的后端部分？
+那么前端如何找出并跟踪要连接的 IP 地址，以便前端可以使用提供工作负载的后端部分？
 
 进入 _Services_。
 
@@ -225,7 +225,7 @@ For example:
   * You want to point your Service to a Service in a different
     {{< glossary_tooltip term_id="namespace" >}} or on another cluster.
 * You are migrating a workload to Kubernetes. While evaluating the approach,
-    you run only a proportion of your backends in Kubernetes.
+    you run only a portion of your backends in Kubernetes.
 
 In any of these scenarios you can define a Service _without_ a Pod selector.
 For example:
@@ -348,7 +348,7 @@ each Service port. The value of this field is mirrored by the corresponding
 Endpoints and EndpointSlice objects.
 
 This field follows standard Kubernetes label syntax. Values should either be
-[IANA standard service names](http://www.iana.org/assignments/service-names) or
+[IANA standard service names](https://www.iana.org/assignments/service-names) or
 domain prefixed names such as `mycompany.com/my-custom-protocol`.
 -->
 ### 应用程序协议   {#application-protocol}
@@ -358,8 +358,8 @@ domain prefixed names such as `mycompany.com/my-custom-protocol`.
 此字段的取值会被映射到对应的 Endpoints 和 EndpointSlices 对象。
 
 该字段遵循标准的 Kubernetes 标签语法。
-其值可以是 [IANA 标准服务名称](http://www.iana.org/assignments/service-names)或以域名前缀的名称，
-如 `mycompany.com/my-custom-protocol`。 
+其值可以是 [IANA 标准服务名称](https://www.iana.org/assignments/service-names)
+或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。 
 <!--
 ## Virtual IPs and service proxies
 
@@ -406,7 +406,7 @@ There are a few reasons for using proxying for Services:
 <!--
 ### User space proxy mode {#proxy-mode-userspace}
 
-In this mode, kube-proxy watches the Kubernetes master for the addition and
+In this mode, kube-proxy watches the Kubernetes control plane for the addition and
 removal of Service and Endpoint objects. For each Service it opens a
 port (randomly chosen) on the local node.  Any connections to this "proxy port"
 are proxied to one of the Service's backend Pods (as reported via
@@ -423,7 +423,7 @@ By default, kube-proxy in userspace mode chooses a backend via a round-robin alg
 -->
 ### userspace 代理模式 {#proxy-mode-userspace}
 
-这种模式，kube-proxy 会监视 Kubernetes 主控节点对 Service 对象和 Endpoints 对象的添加和移除操作。
+这种模式，kube-proxy 会监视 Kubernetes 控制平面对 Service 对象和 Endpoints 对象的添加和移除操作。
 对每个 Service，它会在本地 Node 上打开一个端口（随机选择）。
 任何连接到“代理端口”的请求，都会被代理到 Service 的后端 `Pods` 中的某个上面（如 `Endpoints` 所报告的一样）。
 使用哪个后端 Pod，是 kube-proxy 基于 `SessionAffinity` 来确定的。

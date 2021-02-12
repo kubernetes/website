@@ -215,7 +215,7 @@ for i in ret.items:
 
 #### Java client
 
-* To install the [Java Client](https://github.com/kubernetes-client/java), simply execute :
+To install the [Java Client](https://github.com/kubernetes-client/java), run:
 
 ```shell
 # Clone java library

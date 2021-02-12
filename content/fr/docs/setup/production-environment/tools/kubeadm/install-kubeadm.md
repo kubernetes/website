@@ -40,7 +40,7 @@ Pour plus d'informations sur la création d'un cluster avec kubeadm, une fois qu
 ## Vérifiez que les adresses MAC et product_uuid sont uniques pour chaque nœud {#verify-mac-address}
 
 * Vous pouvez obtenir l'adresse MAC des interfaces réseau en utilisant la commande `ip link` ou` ifconfig -a`
-* Le product_uuid peut être vérifié en utilisant la commande `sudo cat/sys/class/dmi/id/product_uuid`
+* Le product_uuid peut être vérifié en utilisant la commande `sudo cat /sys/class/dmi/id/product_uuid`
 
 Il est très probable que les périphériques matériels aient des adresses uniques, bien que
 certaines machines virtuelles puissent avoir des valeurs identiques. Kubernetes utilise ces valeurs pour identifier de manière unique les nœuds du cluster.

@@ -49,6 +49,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * The [Citrix ingress controller](https://github.com/citrix/citrix-k8s-ingress-controller#readme) works with
   Citrix Application Delivery Controller.
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller.
+* [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
 -->
 * [AKS 应用程序网关 Ingress 控制器](https://azure.github.io/application-gateway-kubernetes-ingress/)
   是一个配置 [Azure 应用程序网关](https://docs.microsoft.com/azure/application-gateway/overview)
@@ -62,27 +63,29 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Citrix Ingress 控制器](https://github.com/citrix/citrix-k8s-ingress-controller#readme)
   可以用来与 Citrix Application Delivery Controller 一起使用。
 * [Contour](https://projectcontour.io/) 是一个基于 [Envoy](https://www.envoyproxy.io/) 的 Ingress 控制器。
+* [EnRoute](https://getenroute.io/) 是一个基于 [Envoy](https://www.envoyproxy.io) API 网关，
+  可以作为 Ingress 控制器来执行。
 <!--
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
   lets you use an Ingress to configure F5 BIG-IP virtual servers.
 * [Gloo](https://gloo.solo.io) is an open-source ingress controller based on [Envoy](https://www.envoyproxy.io),
   which offers API gateway functionality.
 * [HAProxy Ingress](https://haproxy-ingress.github.io/) is an ingress controller for
-  [HAProxy](http://www.haproxy.org/#desc).
+  [HAProxy](https://www.haproxy.org/#desc).
 * The [HAProxy Ingress Controller for Kubernetes](https://github.com/haproxytech/kubernetes-ingress#readme)
-  is also an ingress controller for [HAProxy](http://www.haproxy.org/#desc).
+  is also an ingress controller for [HAProxy](https://www.haproxy.org/#desc).
 * [Istio Ingress](https://istio.io/latest/docs/tasks/traffic-management/ingress/kubernetes-ingress/)
   is an [Istio](https://istio.io/) based ingress controller.
 -->
 * F5 BIG-IP 的
-  [用于 Kubernetes 的容器 Ingress 服务](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest)
+  [用于 Kubernetes 的容器 Ingress 服务](https://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest)
   让你能够使用 Ingress 来配置 F5 BIG-IP 虚拟服务器。
 * [Gloo](https://gloo.solo.io) 是一个开源的、基于 [Envoy](https://www.envoyproxy.io) 的
   Ingress 控制器，能够提供 API 网关功能，
-* [HAProxy Ingress](https://haproxy-ingress.github.io/) 针对 [HAProxy](http://www.haproxy.org/#desc)
+* [HAProxy Ingress](https://haproxy-ingress.github.io/) 针对 [HAProxy](https://www.haproxy.org/#desc)
   的 Ingress 控制器。
 * [用于 Kubernetes 的 HAProxy Ingress 控制器](https://github.com/haproxytech/kubernetes-ingress#readme)
-  也是一个针对 [HAProxy](http://www.haproxy.org/#desc) 的 Ingress 控制器。
+  也是一个针对 [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
 * [Istio Ingress](https://istio.io/latest/docs/tasks/traffic-management/ingress/kubernetes-ingress/)
   是一个基于 [Istio](https://istio.io/) 的 Ingress 控制器。
 <!--
@@ -94,7 +97,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * The [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) is an
   ingress controller for the [Traefik](https://traefik.io/traefik/) proxy.
 * [Voyager](https://appscode.com/products/voyager) is an ingress controller for
-  [HAProxy](http://www.haproxy.org/#desc).
+  [HAProxy](https://www.haproxy.org/#desc).
 -->
 * [用于 Kubernetes 的 Kong Ingress 控制器](https://github.com/Kong/kubernetes-ingress-controller#readme)
   是一个用来驱动 [Kong Gateway](https://konghq.com/kong/) 的 Ingress 控制器。
@@ -106,7 +109,7 @@ Kubernetes 作为一个项目，目前支持和维护
   设计用来作为构造你自己的定制代理的库。
 * [Traefik Kubernetes Ingress 提供程序](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)
   是一个用于 [Traefik](https://traefik.io/traefik/) 代理的 Ingress 控制器。
-* [Voyager](https://appscode.com/products/voyager) 是一个针对 [HAProxy](http://www.haproxy.org/#desc)
+* [Voyager](https://appscode.com/products/voyager) 是一个针对 [HAProxy](https://www.haproxy.org/#desc)
   的 Ingress 控制器。
 
 <!--

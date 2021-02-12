@@ -7,10 +7,10 @@ weight: 10
 <!-- overview -->
 
 쿠버네티스는 컨테이너를 파드내에 배치하고 _노드_ 에서 실행함으로 워크로드를 구동한다.
-노드는 클러스터에 따라 가상 또는 물리적 머신일 수 있다. 각 노드에는
-{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}이라는
+노드는 클러스터에 따라 가상 또는 물리적 머신일 수 있다. 각 노드는
+{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}에 의해 관리되며
 {{< glossary_tooltip text="파드" term_id="pod" >}}를
-실행하는데 필요한 서비스가 포함되어 있다.
+실행하는데 필요한 서비스를 포함한다.
 
 일반적으로 클러스터에는 여러 개의 노드가 있으며, 학습 또는 리소스가 제한되는
 환경에서는 하나만 있을 수도 있다.
@@ -239,7 +239,7 @@ NodeStatus의 NodeReady 컨디션을 ConditionUnknown으로 업데이트 하는 
 쿠버네티스 노드에서 보내는 하트비트는 노드의 가용성을 결정하는데 도움이 된다.
 
 하트비트의 두 가지 형태는 `NodeStatus` 와
-[리스(Lease) 오브젝트](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#lease-v1-coordination-k8s-io) 이다.
+[리스(Lease) 오브젝트](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io)이다.
 각 노드에는 `kube-node-lease` 라는
 {{< glossary_tooltip term_id="namespace" text="네임스페이스">}} 에 관련된 리스 오브젝트가 있다.
 리스는 경량 리소스로, 클러스터가 확장될 때
@@ -355,4 +355,3 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 * 아키텍처 디자인 문서의 [노드](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   섹션을 읽어본다.
 * [테인트와 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)을 읽어본다.
-

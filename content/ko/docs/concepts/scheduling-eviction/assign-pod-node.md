@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: 노드에 파드 할당하기
 content_type: concept
 weight: 50
@@ -62,7 +66,7 @@ spec:
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
 그런 다음에 `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml` 을
-실행하면, 레이블이 붙여진 노드에 파드가 스케줄 된다.
+실행하면, 레이블이 붙여진 노드에 파드가 스케줄된다.
 `kubectl get pods -o wide` 를 실행해서 파드가 할당된
 "NODE" 를 보면 작동하는지 검증할 수 있다.
 
@@ -100,7 +104,7 @@ spec:
 1. 어피니티/안티-어피니티 언어가 더 표현적이다. 언어는 논리 연산자인 AND 연산으로 작성된
    정확한 매칭 항목 이외에 더 많은 매칭 규칙을 제공한다.
 2. 규칙이 엄격한 요구 사항이 아니라 "유연한(soft)"/"선호(preference)" 규칙을 나타낼 수 있기에 스케줄러가 규칙을 만족할 수 없더라도,
-   파드가 계속 스케줄 되도록 한다.
+   파드가 계속 스케줄되도록 한다.
 3. 노드 자체에 레이블을 붙이기보다는 노드(또는 다른 토폴로지 도메인)에서 실행 중인 다른 파드의 레이블을 제한할 수 있다.
    이를 통해 어떤 파드가 함께 위치할 수 있는지와 없는지에 대한 규칙을 적용할 수 있다.
 
@@ -115,7 +119,7 @@ spec:
 스케줄할 수 있는 노드를 제한할 수 있다.
 
 여기에 현재 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` 로 부르는
-두 가지 종류의 노드 어피니티가 있다. 전자는 파드가 노드에 스케줄 되도록 *반드시*
+두 가지 종류의 노드 어피니티가 있다. 전자는 파드가 노드에 스케줄되도록 *반드시*
 규칙을 만족해야 하는 것(`nodeSelector` 와 같으나 보다 표현적인 구문을 사용해서)을 지정하고,
 후자는 스케줄러가 시도하려고는 하지만, 보증하지 않는 *선호(preferences)* 를 지정한다는 점에서
 이를 각각 "엄격함(hard)" 과 "유연함(soft)" 으로 생각할 수 있다.
@@ -143,14 +147,14 @@ spec:
 `NotIn` 과 `DoesNotExist` 를 사용해서 안티-어피니티를 수행하거나,
 특정 노드에서 파드를 쫓아내는 [노드 테인트(taint)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)를 설정할 수 있다.
 
-`nodeSelector` 와 `nodeAffinity` 를 모두 지정한다면 파드가 후보 노드에 스케줄 되기 위해서는
+`nodeSelector` 와 `nodeAffinity` 를 모두 지정한다면 파드가 후보 노드에 스케줄되기 위해서는
 *둘 다* 반드시 만족해야 한다.
 
-`nodeAffinity` 유형과 연관된 `nodeSelectorTerms` 를 지정하면, 파드는 `nodeSelectorTerms` 를 **모두** 만족하는 노드에만 스케줄할 수 있다.
+`nodeAffinity` 유형과 연관된 `nodeSelectorTerms` 를 지정하면, `nodeSelectorTerms` 중 **하나라도** 만족시키는 노드에 파드가 스케줄된다.
 
-`nodeSelectorTerms` 와 연관된 여러 `matchExpressions` 를 지정하면, 파드는 `matchExpressions` 이 지정된 것 중 **한 가지**라도 만족하는 노드에만 스케줄할 수 있다.
+`nodeSelectorTerms` 와 연관된 여러 `matchExpressions` 를 지정하면, 파드는 `matchExpressions` 를 **모두** 만족하는 노드에만 스케줄된다.
 
-파드가 스케줄 된 노드의 레이블을 지우거나 변경해도 파드는 제거되지 않는다. 다시 말해서 어피니티 선택은 파드를 스케줄링 하는 시점에만 작동한다.
+파드가 스케줄된 노드의 레이블을 지우거나 변경해도 파드는 제거되지 않는다. 다시 말해서 어피니티 선택은 파드를 스케줄링 하는 시점에만 작동한다.
 
 `preferredDuringSchedulingIgnoredDuringExecution` 의 `weight` 필드의 범위는 1-100이다. 모든 스케줄링 요구 사항 (리소스 요청, RequiredDuringScheduling 어피니티 표현식 등)을 만족하는 각 노드들에 대해 스케줄러는 이 필드의 요소들을 반복해서 합계를 계산하고 노드가 MatchExpressions 에 일치하는 경우 합계에 "가중치(weight)"를 추가한다. 이후에 이 점수는 노드에 대한 다른 우선순위 함수의 점수와 합쳐진다. 전체 점수가 가장 높은 노드를 가장 선호한다.
 
@@ -158,9 +162,9 @@ spec:
 
 {{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
-여러 [스케줄링 프로파일](/ko/docs/reference/scheduling/config/#여러-프로파일)을 구성할 때 
+여러 [스케줄링 프로파일](/ko/docs/reference/scheduling/config/#여러-프로파일)을 구성할 때
 노드 어피니티가 있는 프로파일을 연결할 수 있는데, 이는 프로파일이 특정 노드 집합에만 적용되는 경우 유용하다.
-이렇게 하려면 [스케줄러 구성](/ko/docs/reference/scheduling/config/)에 있는 
+이렇게 하려면 [스케줄러 구성](/ko/docs/reference/scheduling/config/)에 있는
 [`NodeAffinity` 플러그인](/ko/docs/reference/scheduling/config/#스케줄링-플러그인-1)의 인수에 `addedAffinity`를 추가한다. 예를 들면
 
 ```yaml
@@ -183,15 +187,15 @@ profiles:
                   - foo
 ```
 
-`addedAffinity`는 `.spec.schedulerName`을 `foo-scheduler`로 설정하는 모든 파드에 적용되며 
+`addedAffinity`는 `.spec.schedulerName`을 `foo-scheduler`로 설정하는 모든 파드에 적용되며
 PodSpec에 지정된 NodeAffinity도 적용된다.
 즉, 파드를 매칭시키려면, 노드가 `addedAffinity`와 파드의 `.spec.NodeAffinity`를 충족해야 한다.
 
-`addedAffinity`는 엔드 유저에게 표시되지 않으므로, 예상치 못한 동작이 일어날 수 있다. 프로파일의 
+`addedAffinity`는 엔드 유저에게 표시되지 않으므로, 예상치 못한 동작이 일어날 수 있다. 프로파일의
 스케줄러 이름과 명확한 상관 관계가 있는 노드 레이블을 사용하는 것이 좋다.
 
 {{< note >}}
-[데몬셋용 파드를 생성](/ko/docs/concepts/workloads/controllers/daemonset/#기본-스케줄러로-스케줄)하는 데몬셋 컨트롤러는 
+[데몬셋용 파드를 생성](/ko/docs/concepts/workloads/controllers/daemonset/#기본-스케줄러로-스케줄)하는 데몬셋 컨트롤러는
 스케줄링 프로파일을 인식하지 못한다.
 따라서 `addedAffinity`없이 `default-scheduler`와 같은 스케줄러 프로파일을 유지하는 것이 좋다. 그런 다음 데몬셋의 파드 템플릿이 스케줄러 이름을 사용해야 한다.
 그렇지 않으면, 데몬셋 컨트롤러에 의해 생성된 일부 파드가 스케줄되지 않은 상태로 유지될 수 있다.
@@ -429,5 +433,3 @@ spec:
 파드가 노드에 할당되면 kubelet은 파드를 실행하고 노드의 로컬 리소스를 할당한다.
 [토폴로지 매니저](/docs/tasks/administer-cluster/topology-manager/)는
 노드 수준의 리소스 할당 결정에 참여할 수 있다.
-
-

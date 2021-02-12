@@ -120,6 +120,7 @@ Area of Concern for Containers | Recommendation |
 Container Vulnerability Scanning and OS Dependency Security | As part of an image build step, you should scan your containers for known vulnerabilities.
 Image Signing and Enforcement | Sign container images to maintain a system of trust for the content of your containers.
 Disallow privileged users | When constructing containers, consult your documentation for how to create users inside of the containers that have the least level of operating system privilege necessary in order to carry out the goal of the container.
+Use container runtime with stronger isolation | Select [container runtime classes](/docs/concepts/containers/runtime-class/) that provider stronger isolation
 
 ## Code
 
@@ -152,3 +153,4 @@ Learn about related Kubernetes security topics:
 * [Data encryption in transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
 * [Data encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
 * [Secrets in Kubernetes](/docs/concepts/configuration/secret/)
+* [Runtime class](/docs/concepts/containers/runtime-class)

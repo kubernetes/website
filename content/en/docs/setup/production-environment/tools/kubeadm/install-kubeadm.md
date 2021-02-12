@@ -236,8 +236,8 @@ curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_
 Define the directory to download command files  
 
 {{< note >}}
-The DOWNLOAD_DIR variable must be set to a writable directory.
-If you are running Flatcar Container Linux, set DOWNLOAD_DIR=/opt/bin.
+The `DOWNLOAD_DIR` variable must be set to a writable directory.
+If you are running Flatcar Container Linux, set `DOWNLOAD_DIR=/opt/bin`.
 {{< /note >}}
 
 ```bash
@@ -307,13 +307,6 @@ Since `--cgroup-driver` flag has been deprecated by the kubelet, if you have tha
 or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it and use the KubeletConfiguration instead
 (stored in `/var/lib/kubelet/config.yaml` by default).
 {{< /note >}}
-
-Restarting the kubelet is required:
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl restart kubelet
-```
 
 The automatic detection of cgroup driver for other container runtimes
 like CRI-O and containerd is work in progress.

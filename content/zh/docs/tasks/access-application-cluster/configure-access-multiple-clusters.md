@@ -211,7 +211,7 @@ for the pathnames of the certificate files. You need to change these to the actu
 of certificate files in your environment.
 
 Sometimes you may want to use Base64-encoded data embedded here instead of separate
-certificate files; in that case you need add the suffix `-data` to the keys, for example,
+certificate files; in that case you need to add the suffix `-data` to the keys, for example,
 `certificate-authority-data`, `client-certificate-data`, `client-key-data`.
 -->
 其中的 `fake-ca-file`、`fake-cert-file` 和 `fake-key-file` 是证书文件路径名的占位符。
