@@ -135,7 +135,7 @@ for the corresponding API object, and then written to the object store (shown as
 The previous discussion applies to requests sent to the secure port of the API server
 (the typical case).  The API server can actually serve on 2 ports:
 
-By default the Kubernetes API server serves HTTP on 2 ports:
+By default, the Kubernetes API server serves HTTP on 2 ports:
 
   1. `localhost` port:
 
