@@ -173,22 +173,22 @@ Cuando usas Docker:
   en el comando `docker run`.
 
 - El `spec.containers[].resources.limits.cpu` se convierte a su valor en milicore y 
-  multiplicado por 100. El resultado es el total de tiempo de CPU que un contenedor puede usar
-  cada 100ms. Un contenedor no puede usar más tiempo de CPU que el suyo durante el intervalo.
+  multiplicado por 100. El resultado es el tiempo total de CPU que un contenedor puede usar
+  cada 100ms. Un contenedor no puede usar más tiempo de CPU que del solicitado durante este intervalo.
 
   {{< note >}}
   El período por defecto es de 100ms. La resolución mínima de cuota mínima es 1ms.
   {{</ note >}}
 
-- El `spec.containers[].resources.limits.memory` se convierte a un integral, y 
+- El `spec.containers[].resources.limits.memory` se convierte a entero, y 
   se usa como valor de 
   [`--memory`](https://docs.docker.com/engine/reference/run/#/user-memory-constraints)
   del comando  `docker run`.
 
-Si el Contenedor excede su límite de memoria, este quizá se pare. Si es reiniciable,
+Si el Contenedor excede su límite de memoria, este quizá se detenga. Si es reiniciable,
 el kubelet lo reiniciará, así como cualquier otro error.
 
-Si un Contenedor excede su solicitud de memoria, es probable que el Pod sea
+Si un Contenedor excede su petición de memoria, es probable que ese Pod sea
 desalojado cuando el nodo se quede sin memoria.
 
 Un Contenedor quizá puedan o no tener permitido execeder el límite de CPU por
@@ -408,20 +408,20 @@ Las cuotas de proyecto están en las características de nivel de sistema operat
 para el manejo del almacenamiento en uso del filesystem.
 Con kubernetes, puedes habilitar las cuotas de proyecto para el uso
 de la monitorización del almacenamiento. Asegúrate que el respaldo del
-filesystem de los volúmenes `emptyDir` , en el nodo, provee soporte de
+Sistema de archivos de los volúmenes `emptyDir` , en el nodo, provee soporte de
 cuotas de proyecto.
-Por ejemplo, XFS y ext4fs ofrecen cuotas de proeycto.
+Por ejemplo, XFS y ext4fs ofrecen cuotas de proyecto.
 
 {{< note >}}
-Las cuotas de proyecto te permiten monitorizar el uso del almacenamiento; no 
+Las cuotas de proyecto te permiten monitorear el uso del almacenamiento; no 
 fuerzan los límites.
 {{< /note >}}
 
 Kubernetes usa IDs de proyecto empezando por `1048576`. Los IDs en uso
 son registrados en `/etc/projects` y `/etc/projid`. Si los IDs de proyecto
-ene ste rango son usados para otros propósitos en el sistema, esos IDs 
+en este rango son usados para otros propósitos en el sistema, esos IDs 
 de proyecto deben ser registrados en `/etc/projects` y `/etc/projid` para 
-que kubernetes no los use.
+que Kubernetes no los use.
 
 Las cuotas son más rápidas y más precisas que el escáner de directorios. 
 Cuando un directorio es asignado a un proyecto, todos los ficheros creados 
