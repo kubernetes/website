@@ -163,7 +163,7 @@ The name of a StatefulSet object must be a valid
 * `volumeClaimTemplates` 将通过 PersistentVolumes 驱动提供的
   [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
-StatefulSet 的命名需要遵循 [DNS 子域名](zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+StatefulSet 的命名需要遵循[DNS 子域名](zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
 
 <!--
 ## Pod Selector
@@ -245,16 +245,18 @@ creating the [Headless Service](/docs/concepts/services-networking/service/#head
 responsible for the network identity of the pods.
 
 -->
-取决于集群域内部 DNS 的配置，有可能无法查询一个刚刚启动的 Pod 上的 DNS 命名。这个情况会在其他集群域内部的客户端在主机 Pod 创建完成前
-发出查询请求。负缓存 (通常来说在 DNS 内) 意味着之前失败的查询结果在特定秒数内被记录和被重用，甚至直至 Pod 正常运行。
+取决于集群域内部 DNS 的配置，有可能无法查询一个刚刚启动的 Pod 的 DNS 命名。
+当集群内其他客户端在 Pod 创建完成前发出 Pod 主机名查询时，就会发生这种情况。
+负缓存 (在 DNS 中较为常见) 意味着之前失败的查询结果会被记录和重用至少若干秒钟，
+即使 Pod 已经正常运行了也是如此。
 
-如果需要及时查询创建之后的 Pod ，有以下选项：
+如果需要在 Pod 被创建之后及时发现它们，有以下选项：
 
 - 直接查询 Kubernetes API（比如，利用 watch 机制）而不是依赖于 DNS 查询
-- 减少 Kubernetes DNS 提供商的 缓存时效（通常这意味着修改 CoreDNS 的 config map，目前 config map 会缓存30秒信息）
+- 缩短 Kubernetes DNS 驱动的缓存时长（通常这意味着修改 CoreDNS 的 ConfigMap，目前缓存时长为 30 秒）
 
-正如 [限制](#limitations) 中提到的，创建 [无头服务](zh/docs/concepts/services-networking/service/#headless-services)
-需要对其 Pod 的网络标识负责。
+正如[限制](#limitations)中所述，你需要负责创建[无头服务](/zh/docs/concepts/services-networking/service/#headless-services)
+以便为 Pod 提供网络标识。
 
 <!--
 Here are some examples of choices for Cluster Domain, Service name,
@@ -525,4 +527,3 @@ StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 * 示例一：[部署有状态应用](/zh/docs/tutorials/stateful-application/basic-stateful-set/)。
 * 示例二：[使用 StatefulSet 部署 Cassandra](/zh/docs/tutorials/stateful-application/cassandra/)。
 * 示例三：[运行多副本的有状态应用程序](/zh/docs/tasks/run-application/run-replicated-stateful-application/)。
-
