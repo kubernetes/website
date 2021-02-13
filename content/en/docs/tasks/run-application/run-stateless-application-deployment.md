@@ -51,7 +51,6 @@ a Deployment that runs the nginx:1.14.2 Docker image:
 
     The output is similar to this:
 
-        user@computer:~/website$ kubectl describe deployment nginx-deployment
         Name:     nginx-deployment
         Namespace:    default
         CreationTimestamp:  Tue, 30 Aug 2016 18:11:37 -0700
