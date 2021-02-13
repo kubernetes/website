@@ -124,8 +124,6 @@ different Kubernetes components.
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
 | `HugePageStorageMediumSize` | `true` | Beta | 1.19 | |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | |
-| `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
-| `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
 | `KubeletPodResources` | `true` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
@@ -257,6 +255,9 @@ different Kubernetes components.
 | `HugePages` | `true` | GA | 1.14 | - |
 | `HyperVContainer` | `false` | Alpha | 1.10 | 1.19 |
 | `HyperVContainer` | `false` | Deprecated | 1.20 | - |
+| `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
+| `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | 1.20 |
+| `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | - |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
