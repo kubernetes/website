@@ -757,7 +757,7 @@ When using `kubectl` set the `--as` flag to configure the `Impersonate-User`
 header, set the `--as-group` flag to configure the `Impersonate-Group` header.
 
 ```bash
-kubectl drain mynode
+kubectl drain mynode --as clark
 ```
 
 ```none
