@@ -547,7 +547,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
 1. After launching `start.ps1`, flanneld is stuck in "Waiting for the Network to be created"
 
-    There are numerous reports of this [issue which are being investigated](https://github.com/coreos/flannel/issues/1066); most likely it is a timing issue for when the management IP of the flannel network is set. A workaround is to simply relaunch start.ps1 or relaunch it manually as follows:
+    There are numerous reports of this [issue](https://github.com/coreos/flannel/issues/1066); most likely it is a timing issue for when the management IP of the flannel network is set. A workaround is to relaunch start.ps1 or relaunch it manually as follows:
 
     ```powershell
     PS C:> [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")

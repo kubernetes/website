@@ -610,16 +610,27 @@ plugins:
         values: ["cluster-services"]
 ```
 
-Now, "cluster-services" pods will be allowed in only those namespaces where a quota object with a matching `scopeSelector` is present.
-For example:
+Then, create a resource quota object in the `kube-system` namespace:
 
-```yaml
-    scopeSelector:
-      matchExpressions:
-      - scopeName: PriorityClass
-        operator: In
-        values: ["cluster-services"]
+{{< codenew file="policy/priority-class-resourcequota.yaml" >}}
+
+```shell
+$ kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system
 ```
+
+```
+resourcequota/pods-cluster-services created
+```
+
+In this case, a pod creation will be allowed if:
+
+1.  the Pod's `priorityClassName` is not specified.
+1.  the Pod's `priorityClassName` is specified to a value other than `cluster-services`.
+1.  the Pod's `priorityClassName` is set to `cluster-services`, it is to be created
+   in the `kube-system` namespace, and it has passed the resource quota check.
+
+A Pod creation request is rejected if its `priorityClassName` is set to `cluster-services`
+and it is to be created in a namespace other than `kube-system`.
 
 ## {{% heading "whatsnext" %}}
 

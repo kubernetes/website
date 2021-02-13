@@ -430,7 +430,7 @@ Services by their DNS name.
 For example, if you have a Service called `my-service` in a Kubernetes
 namespace `my-ns`, the control plane and the DNS Service acting together
 create a DNS record for `my-service.my-ns`. Pods in the `my-ns` namespace
-should be able to find it by simply doing a name lookup for `my-service`
+should be able to find the service by doing a name lookup for `my-service`
 (`my-service.my-ns` would also work).
 
 Pods in other namespaces must qualify the name as `my-service.my-ns`. These names
@@ -463,7 +463,7 @@ selectors defined:
 
 For headless Services that define selectors, the endpoints controller creates
 `Endpoints` records in the API, and modifies the DNS configuration to return
-records (addresses) that point directly to the `Pods` backing the `Service`.
+A records (IP addresses) that point directly to the `Pods` backing the `Service`.
 
 ### Without selectors
 
@@ -1163,7 +1163,7 @@ rule kicks in, and redirects the packets to the proxy's own port.
 The "Service proxy" chooses a backend, and starts proxying traffic from the client to the backend.
 
 This means that Service owners can choose any port they want without risk of
-collision.  Clients can simply connect to an IP and port, without being aware
+collision.  Clients can connect to an IP and port, without being aware
 of which Pods they are actually accessing.
 
 #### iptables

@@ -149,7 +149,7 @@ mount options specified in the `mountOptions` field of the class.
 
 If the volume plugin does not support mount options but mount options are
 specified, provisioning will fail. Mount options are not validated on either
-the class or PV, so mount of the PV will simply fail if one is invalid.
+the class or PV. If a mount option is invalid, the PV mount fails.
 
 ### Volume Binding Mode
 
