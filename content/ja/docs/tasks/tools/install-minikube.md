@@ -209,7 +209,7 @@ WindowsにMinikubeを手動でインストールするには、[`minikube-window
 
 {{< note >}}
 
-`minikube start`で`--driver`の設定をするため、次の`<driver_name>`の部分では、インストールしたハイパーバイザーの名前を小文字で入力してください。`--driver`値のすべてのリストは、[specifying the VM driver documentation](/docs/setup/learning-environment/minikube/#specifying-the-vm-driver)で確認できます。
+`minikube start`で`--driver`の設定をするため、次の`<driver_name>`の部分では、インストールしたハイパーバイザーの名前を小文字で入力してください。サポートされているドライバーとプラグインのインストールの詳細についてはDRIVERSを参照してください。[DRIVERS](https://minikube.sigs.k8s.io/docs/drivers/)
 
 {{< /note >}}
 
