@@ -31,7 +31,7 @@ La herramienta `kubectl` soporta tres modos distintos para la administración de
 * Configuración de objetos declarativa
 
 Acceda [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
-para una discusión de las ventajas y desventajas de cada distinto modo de administración.
+para una discusión de las ventajas y desventajas de cada modo distinto de administración.
 
 ## Visión general
 
@@ -39,8 +39,8 @@ La configuración de objetos declarativa requiere una comprensión firme de la
 definición y configuración de objetos de Kubernetes. Lea y complete los siguientes
 documentos si aún no lo ha hecho:
 
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Administració n de Objetos de Kubernetes usando comandos imperativos](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Administración imperativa de los Objetos de Kubernetes usando ficheros de Configuración](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 
 {{< comment >}}
 TODO(lmurillo): Update the links above to the spanish versions of these documents once the
@@ -50,13 +50,13 @@ localizations become available
 A continuación la definición de términos usados en este documento:
 
 - *fichero de configuración de objeto / fichero de configuración*: Un fichero en el
-  que se define la configuración de un objeto de Kubernetes. Este tema demuestra como
+  que se define la configuración de un objeto de Kubernetes. Este tema muestra como
   utilizar ficheros de configuración con `kubectl apply`. Los ficheros de configuración
-  usualmente se almacenan en un sistema de control de versiones, como Git.
+  por lo general se almacenan en un sistema de control de versiones, como Git.
 - *configuración activa de objeto / configuración activa*: Los valores de configuración
-  activos de un objeto, según estan siendo observados por el Cluster. Esta configuración
+  activos de un objeto, según estén siendo observados por el Clúster. Esta configuración
   se almacena en el sistema de almacenamiento de Kubernetes, usualmente etcd.
-- *escritor de configuración declarativo /  escritor declarativo*: Una persona o
+- *escritor de configuración declarativo / escritor declarativo*: Una persona o
   componente de software que actualiza a un objeto activo. Los escritores activos a
   los que se refiere este tema aplican cambios a los ficheros de configuración de objetos
   y ejecutan `kubectl apply` para aplicarlos.
@@ -72,7 +72,7 @@ kubectl apply -f <directorio>/
 ```
 
 Esto definirá la anotación `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
-en cada objeto. Esta anotación contiene  el contenido del fichero de configuración
+en cada objeto. Esta anotación contiene el contenido del fichero de configuración
 utilizado para la creación del objeto.
 
 {{< note >}}
@@ -95,7 +95,7 @@ que debe estar habilitado en el `kube-apiserver`.
 
 Dado que `diff` ejecuta una solicitud de `apply` en el servidor en modo de simulacro (dry-run),
 requiere obtener permisos de `PATCH`, `CREATE`, y `UPDATE`.
-Vea [Dry-Run Authorization](/docs/reference/using-api/api-concepts#dry-run-authorization)
+Vea [Autorización Dry-Run](/docs/reference/using-api/api-concepts#dry-run-authorization)
 para más detalles.
 
 {{< /note >}}
@@ -250,7 +250,7 @@ Despliegue la configuración activa usando `kubectl get`:
 kubectl get deployment nginx-deployment -o yaml
 ```
 
-La salida le demuestra que el campo `replicas` ha sido definido en 2, y que la
+La salida le muestra que el campo `replicas` ha sido definido en 2, y que la
 anotación `last-applied-configuration` no contiene el campo `replicas`:
 
 ```yaml
@@ -360,10 +360,10 @@ spec:
 ```
 
 {{< warning >}}
-Combinar `kubectl apply`  con los comandos de configuración imperativa de objetos 
-`create` y `replace` no es soportado. Esto debido a que `create`
+No es soportado combinar `kubectl apply` con los comandos de configuración imperativa de objetos 
+`create` y `replace`. Esto se debe a que `create`
 y `replace` no retienen la anotación `kubectl.kubernetes.io/last-applied-configuration`
-que `kubectl apply` utiliza para computar los cambios por realizar.
+que `kubectl apply` utiliza para calcular los cambios por realizar.
 {{< /warning >}}
 
 ## Como eliminar objetos
@@ -382,11 +382,11 @@ kubectl delete -f <fichero>
 
 ### Manera alternativa: `kubectl apply -f <directorio/> --prune -l etiqueta=deseada`
 
-Únicamente utilice esta opción si está seguro de saber lo que está haciendo..
+Únicamente utilice esta opción si está seguro de saber lo que está haciendo.
 
 {{< warning >}}
-`kubectl apply --prune` se encuenta aún en alpha, y cambios incompatibles con versiones previas
-podrían ser introducidos en futuros lanzamientos.
+`kubectl apply --prune` se encuentra aún en alpha, y cambios incompatibles con versiones previas
+podrían ser introducidos en lanzamientos futuros.
 {{< /warning >}}
 
 {{< warning >}}
@@ -394,10 +394,10 @@ Sea cuidadoso o cuidadosa al usar este comando, para evitar eliminar objetos
 no intencionalmente.
 {{< /warning >}}
 
-Como una alternativa a `kubectl delete`, usted puede usar `kubectl apply`para identificar objetos por ser
+Como una alternativa a `kubectl delete`, puede usar `kubectl apply`para identificar objetos por ser
 eliminados, luego de que sus archivos de configuración han sido eliminados del directorio. El commando `apply` con `--prune`
-consulta al servidor de API por todos los objetos que coincidan con un grupo de etiquetas, e intenta parear
-la configuración retornada para los objetos activos contra los objetos según sus ficheros de configuración.
+consulta a la API del servidor por todos los objetos que coincidan con un grupo de etiquetas, e intenta relacionar
+la configuración obtenida de los objetos activos contra los objetos según sus ficheros de configuración.
 Si un objeto coincide con la consulta, y no tiene un fichero de configuración en el directorio, pero si
 tiene una anotación `last-applied-configuration`, entonces será eliminado.
 
@@ -794,7 +794,7 @@ spec:
           protocol: TCP # valor por defecto definido por apiserver
         resources: {} # valor por defecto definido por apiserver
         terminationMessagePath: /dev/termination-log # valor por defecto definido por apiserver
-      dnsPolicy: ClusterFirst # valor por defecto definido por apiserver
+      dnsPolicy: ClústerFirst # valor por defecto definido por apiserver
       restartPolicy: Always # valor por defecto definido por apiserver
       securityContext: {} # valor por defecto definido por apiserver
       terminationGracePeriodSeconds: 30 # valor por defecto definido por apiserver
@@ -1009,9 +1009,9 @@ template:
 ## {{% heading "whatsnext" %}}
 
 
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
-* [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [Administración de Objetos de Kubernetes usando comandos imperativos](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Administración imperativa de los Objetos de Kubernetes usando archivos de configuración](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Referencia del comando Kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
+* [Referencia de la API de Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 
