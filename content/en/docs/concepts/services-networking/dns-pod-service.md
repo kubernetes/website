@@ -25,9 +25,9 @@ assigned a DNS name.  By default, a client Pod's DNS search list will
 include the Pod's own namespace and the cluster's default domain.  This is best
 illustrated by example:
 
-Assume a Service named `foo` in the Kubernetes namespace `bar`.  A Pod running
-in namespace `bar` can look up this service by simply doing a DNS query for
-`foo`.  A Pod running in namespace `quux` can look up this service by doing a
+Assume a Service named `foo` in the Kubernetes namespace `bar`. A Pod running
+in namespace `bar` can look up this service by querying a DNS service for
+`foo`. A Pod running in namespace `quux` can look up this service by doing a
 DNS query for `foo.bar`.
 
 The following sections detail the supported record types and layout that is

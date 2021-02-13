@@ -26,7 +26,7 @@ Fortunately, there is a cloud provider that offers message queuing as a managed 
 
 A cluster operator can setup Service Catalog and use it to communicate with the cloud provider's service broker to provision an instance of the message queuing service and make it available to the application within the Kubernetes cluster.
 The application developer therefore does not need to be concerned with the implementation details or management of the message queue.
-The application can simply use it as a service.
+The application can access the message queue as a service.
 
 ## Architecture
 
