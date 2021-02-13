@@ -130,9 +130,9 @@ To retrieve a single list in chunks, two new parameters `limit` and `continue` a
 
 Like a watch operation, a `continue` token will expire after a short amount of time (by default 5 minutes) and return a `410 Gone` if more results cannot be returned. In this case, the client will need to start from the beginning or omit the `limit` parameter.
 
-For example, if there are 1,253 pods on the cluster then the client wants to receive chunks of 500 pods at a time, they would request those chunks as follows:
+For example, if there are 1,253 pods on the cluster and the client wants to receive chunks of 500 pods at a time, they would request those chunks as follows:
 
-1. List all the pods on a cluster, retrieving up to 500 pods each time.
+1. List all of the pods on a cluster, retrieving up to 500 pods each time.
 
    ```console
    GET /api/v1/pods?limit=500
