@@ -23,8 +23,8 @@ Quy tắc ứng xử này áp dụng cả trong không gian dự án và trong k
 
 Các trường hợp lạm dụng, quấy rối hoặc hành vi không thể chấp nhận được trong Kubernetes có thể được báo cáo bằng cách liên hệ với [Ủy ban Quy tắc ứng xử Kubernetes](https://git.k8s.io/community/committee-code-of-conduct) thông qua <conduct@kubernetes.io>. Đối với các dự án khác, vui lòng liên hệ với người bảo trì dự án CNCF hoặc hòa giải viên của chúng tôi, Mishi Choudhary <mishi@linux.com>.
 
-Quy tắc ứng xử này được điều chỉnh từ Giao ước cộng tác viên (http://contributor-covenant.org), phiên bản 1.2.0, có sẵn tại
-http://contributor-covenant.org/version/1/2/0/
+Quy tắc ứng xử này được điều chỉnh từ Giao ước cộng tác viên (https://contributor-covenant.org), phiên bản 1.2.0, có sẵn tại
+https://contributor-covenant.org/version/1/2/0/
 
 ### Quy tắc ứng xử sự kiện CNCF
 

@@ -18,10 +18,10 @@ you to figure out what's going wrong.
 ## Running commands in a Pod
 
 For many steps here you will want to see what a Pod running in the cluster
-sees.  The simplest way to do this is to run an interactive alpine Pod:
+sees.  The simplest way to do this is to run an interactive busybox Pod:
 
 ```none
-kubectl run -it --rm --restart=Never alpine --image=alpine sh
+kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh
 ```
 
 {{< note >}}
@@ -111,7 +111,7 @@ kubectl get pods -l app=hostnames \
 10.244.0.7
 ```
 
-The example container used for this walk-through simply serves its own hostname
+The example container used for this walk-through serves its own hostname
 via HTTP on port 9376, but if you are debugging your own app, you'll want to
 use whatever port number your Pods are listening on.
 
@@ -421,7 +421,7 @@ Earlier you saw that the Pods were running.  You can re-check that:
 kubectl get pods -l app=hostnames
 ```
 ```none
-NAME              READY     STATUS    RESTARTS   AGE
+NAME                        READY     STATUS    RESTARTS   AGE
 hostnames-632524106-bbpiw   1/1       Running   0          1h
 hostnames-632524106-ly40y   1/1       Running   0          1h
 hostnames-632524106-tlaok   1/1       Running   0          1h

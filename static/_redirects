@@ -203,6 +203,8 @@
 
 /docs/reference/kubernetes-api/api-index/ /docs/reference 301
 
+/docs/reference/kubernetes-api/labels-annotations-taints/ /docs/reference/labels-annotations-taints/ 301
+
 /docs/reporting-security-issues/     /security/ 301
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
@@ -464,6 +466,7 @@
 /docs/admin/authorization/     /docs/reference/access-authn-authz/authorization/ 301
 /docs/admin/high-availability/building/     /docs/setup/production-environment/tools/kubeadm/high-availability/   301
 /code-of-conduct/     /community/code-of-conduct/   301
+/values/     /community/values/   302
 
 /docs/setup/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
 
