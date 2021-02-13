@@ -183,7 +183,7 @@ the three things:
 
 {{< note >}}
 While any plugin can access the list of "waiting" Pods and approve them
-(see [`FrameworkHandle`](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md#frameworkhandle)), we expect only the permit
+(see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)), we expect only the permit
 plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
 is approved, it is sent to the [PreBind](#pre-bind) phase.
 {{< /note >}}

@@ -434,7 +434,7 @@ Now remove the node:
 kubectl delete node <node name>
 ```
 
-If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
+If you wish to start over, run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
 ### Clean up the control plane

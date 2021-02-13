@@ -635,8 +635,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `KubeletCredentialProviders`: Enable kubelet exec credential providers for image pull credentials.
 - `KubeletPluginsWatcher`: Enable probe-based plugin watcher utility to enable kubelet
   to discover plugins such as [CSI volume drivers](/docs/concepts/storage/volumes/#csi).
-- `KubeletPodResources`: Enable the kubelet's pod resources GRPC endpoint. See
-  [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/compute-device-assignment.md)
+- `KubeletPodResources`: Enable the kubelet's pod resources gRPC endpoint. See
+  [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/606-compute-device-assignment/README.md)
   for more details.
 - `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and
   node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the
