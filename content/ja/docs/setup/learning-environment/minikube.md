@@ -26,7 +26,7 @@ MinikubeのサポートするKubernetesの機能:
 
 ## インストール
 
-[Minikubeのインストール](/ja/docs/tasks/tools/install-minikube/)を参照してください。
+ツールのインストールについて知りたい場合は、公式の[Get Started!](https://minikube.sigs.k8s.io/docs/start/)のガイドにしたがってください。
 
 ## クイックスタート
 
