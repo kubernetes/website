@@ -125,14 +125,14 @@ IPv6 CIDR 的一个例子：`fdXY:IJKL:MNOP:15::/64`（这里演示的是格式�
 <!--
 If your cluster has dual-stack enabled, you can create {{< glossary_tooltip text="Services" term_id="service" >}} which can use IPv4, IPv6, or both. 
 
-The address family of a Service defaults to the address family of the first service cluster IP range (configured via the `--service-cluster-ip-range` flag to the kube-controller-manager).
+The address family of a Service defaults to the address family of the first service cluster IP range (configured via the `--service-cluster-ip-range` flag to the kube-apiserver).
 
 When you define a Service you can optionally configure it as dual stack. To specify the behavior you want, you
 set the `.spec.ipFamilyPolicy` field to one of the following values:
 -->
 如果你的集群启用了 IPv4/IPv6 双协议栈网络，则可以使用 IPv4 或 IPv6 地址来创建
 {{< glossary_tooltip text="Service" term_id="service" >}}。
-服务的地址族默认为第一个服务集群 IP 范围的地址族（通过 kube-controller-manager 的 `--service-cluster-ip-range` 参数配置）
+服务的地址族默认为第一个服务集群 IP 范围的地址族（通过 kube-apiserver 的 `--service-cluster-ip-range` 参数配置）
 当你定义服务时，可以选择将其配置为双栈。若要指定所需的行为，你可以设置 `.spec.ipFamilyPolicy` 字段为以下值之一：
 
 <!--
@@ -297,12 +297,12 @@ These examples demonstrate the default behavior when dual-stack is newly enabled
    ```
 
 <!--
-1. When dual-stack is enabled on a cluster, existing [headless Services](/docs/concepts/services-networking/service/#headless-services) with selectors are configured by the control plane to set `.spec.ipFamilyPolicy` to `SingleStack` and set `.spec.ipFamilies` to the address family of the first service cluster IP range (configured via the `--service-cluster-ip-range` flag to the kube-controller-manager) even though `.spec.ClusterIP` is set to `None`.
+1. When dual-stack is enabled on a cluster, existing [headless Services](/docs/concepts/services-networking/service/#headless-services) with selectors are configured by the control plane to set `.spec.ipFamilyPolicy` to `SingleStack` and set `.spec.ipFamilies` to the address family of the first service cluster IP range (configured via the `--service-cluster-ip-range` flag to the kube-apiserver) even though `.spec.ClusterIP` is set to `None`.
 -->
 2. 在集群上启用双栈时，带有选择算符的现有
    [无头服务](/zh/docs/concepts/services-networking/service/#headless-services)
    由控制面设置 `.spec.ipFamilyPolicy` 为 `SingleStack`
-   并设置 `.spec.ipFamilies` 为第一个服务群集 IP 范围的地址族（通过配置 kube-controller-manager 的
+   并设置 `.spec.ipFamilies` 为第一个服务群集 IP 范围的地址族（通过配置 kube-apiserver 的
    `--service-cluster-ip-range` 参数），即使 `.spec.ClusterIP` 的设置值为 `None` 也如此。
 
    {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
