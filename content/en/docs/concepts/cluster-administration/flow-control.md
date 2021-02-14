@@ -59,7 +59,7 @@ kube-apiserver \
 ```
 
 Alternatively, you can enable the v1alpha1 version of the API group
-with `--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=true`.
+with `--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true`.
 
 The command-line flag `--enable-priority-and-fairness=false` will disable the
 API Priority and Fairness feature, even if other flags have enabled it.
