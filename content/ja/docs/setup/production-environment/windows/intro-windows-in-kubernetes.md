@@ -14,7 +14,7 @@ Windowsアプリケーションは、多くの組織で実行されているサ�
 
 ## KubernetesのWindowsコンテナ
 
-KubernetesでWindowsコンテナのオーケストレーションを有効にする方法は、既存のLinuxクラスターにWindowsノードを含めるだけです。Kubernetesの[Pod](/ja/docs/concepts/workloads/pods/pod-overview/)でWindowsコンテナをスケジュールすることは、Linuxベースのコンテナをスケジュールするのと同じくらいシンプルで簡単です。
+KubernetesでWindowsコンテナのオーケストレーションを有効にする方法は、既存のLinuxクラスターにWindowsノードを含めるだけです。Kubernetesの{{< glossary_tooltip text="Pods" term_id="pod" >}}でWindowsコンテナをスケジュールすることは、Linuxベースのコンテナをスケジュールするのと同じくらいシンプルで簡単です。
 
 Windowsコンテナを実行するには、Kubernetesクラスターに複数のオペレーティングシステムを含める必要があります。コントロールプレーンノードはLinux、ワーカーノードはワークロードのニーズに応じてWindowsまたはLinuxで実行します。Windows Server 2019は、サポートされている唯一のWindowsオペレーティングシステムであり、Windows (kubelet、[コンテナランタイム](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/containerd)、kube-proxyを含む)で[Kubernetesノード](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)を有効にします。Windowsディストリビューションチャンネルの詳細については、[Microsoftのドキュメント](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19)を参照してください。
 
@@ -52,7 +52,7 @@ Windows Serverホストオペレーティングシステムには、[Windows Ser
 
 Kubernetesの主要な要素は、WindowsでもLinuxと同じように機能します。このセクションでは、主要なワークロードイネーブラーのいくつかと、それらがWindowsにどのようにマップされるかについて説明します。
 
-* [Pods](/ja/docs/concepts/workloads/pods/pod-overview/)
+* [Pods](/ja/docs/concepts/workloads/pods/)
 
     Podは、Kubernetesにおける最も基本的な構成要素です。人間が作成またはデプロイするKubernetesオブジェクトモデルの中で最小かつ最もシンプルな単位です。WindowsとLinuxのコンテナを同じPodにデプロイすることはできません。Pod内のすべてのコンテナは、各ノードが特定のプラットフォームとアーキテクチャを表す単一のノードにスケジュールされます。次のPod機能、プロパティ、およびイベントがWindowsコンテナでサポートされています。:
 
@@ -96,7 +96,27 @@ Pod、Controller、Serviceは、KubernetesでWindowsワークロードを管理�
 
 #### コンテナランタイム
 
-KubernetesのWindows Server 2019/1809ノードでは、Docker EE-basic 18.09が必要です。これは、kubeletに含まれているdockershimコードで動作します。CRI-ContainerDなどの追加のランタイムは、Kubernetesの以降のバージョンでサポートされる可能性があります。
+##### Docker EE
+
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
+
+Docker EE-basic 18.09+は、Kubernetesを実行しているWindows Server 2019 / 1809ノードに推奨されるコンテナランタイムです。kubeletに含まれるdockershimコードで動作します。
+
+##### CRI-ContainerD
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+ContainerDはLinux上のKubernetesで動作するOCI準拠のランタイムです。Kubernetes v1.18では、Windows上での{{< glossary_tooltip term_id="containerd" text="ContainerD" >}}のサポートが追加されています。Windows上でのContainerDの進捗状況は[enhancements#1001](https://github.com/kubernetes/enhancements/issues/1001)で確認できます。
+
+{{< caution >}}
+
+Kubernetes v1.18におけるWindows上でのContainerDは以下の既知の欠点があります:
+
+* ContainerDは公式リリースではWindowsをサポートしていません； Kubernetesでのすべての開発はアクティブなContainerD開発ブランチに対して行われています。本番環境へのデプロイはつねに、完全にテストされセキュリティ修正をサポートした公式リリースを利用するべきです。
+* ContainerDを利用した場合、Group Managed Service Accountsは実装されていません。詳細は[containerd/cri#1276](https://github.com/containerd/cri/issues/1276)を参照してください。
+
+{{< /caution >}}
+
 
 #### 永続ストレージ
 
@@ -404,7 +424,6 @@ Kubernetesクラスターのトラブルシューティングの主なヘルプ�
 
         # kubelet.exeを登録
         # マイクロソフトは、mcr.microsoft.com/k8s/core/pause:1.2.0としてポーズインフラストラクチャコンテナをリリース
-        # 詳細については、「KubernetesにWindowsノードを追加するためのガイド」で「pause」を検索してください
         nssm install kubelet C:\k\kubelet.exe
         nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/k8s/core/pause:1.2.0 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
         nssm set kubelet AppDirectory C:\k
@@ -516,7 +535,7 @@ Kubernetesクラスターのトラブルシューティングの主なヘルプ�
 
     PauseイメージがOSバージョンと互換性があることを確認してください。[説明](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources)では、OSとコンテナの両方がバージョン1803であると想定しています。それ以降のバージョンのWindowsを使用している場合は、Insiderビルドなどでは、それに応じてイメージを調整する必要があります。イメージについては、Microsoftの[Dockerレジストリ](https://hub.docker.com/u/microsoft/)を参照してください。いずれにしても、PauseイメージのDockerfileとサンプルサービスの両方で、イメージに:latestのタグが付けられていると想定しています。
 
-    Kubernetes v1.14以降、MicrosoftはPauseインフラストラクチャコンテナを`mcr.microsoft.com/k8s/core/pause:1.2.0`でリリースしています。詳細については、[KubernetesにWindowsノードを追加するためのガイド](../user-guide-windows-nodes)で「Pause」を検索してください。
+    Kubernetes v1.14以降、MicrosoftはPauseインフラストラクチャコンテナを`mcr.microsoft.com/k8s/core/pause:1.2.0`でリリースしています。
 
 1. DNS名前解決が正しく機能していない
 
@@ -568,18 +587,16 @@ Kubernetesクラスターのトラブルシューティングの主なヘルプ�
 
 ロードマップには多くの機能があります。高レベルの簡略リストを以下に示しますが、[ロードマッププロジェクト](https://github.com/orgs/kubernetes/projects/8)を見て、[貢献すること](https://github.com/kubernetes/community/blob/master/sig-windows/)によってWindowsサポートを改善することをお勧めします。
 
-### CRI-ContainerD
 
-{{< glossary_tooltip term_id="containerd" >}}は、最近{{< glossary_tooltip text="CNCF" term_id="cncf" >}}プロジェクトとして卒業した、もう1つのOCI準拠ランタイムです。現在Linuxでテストされていますが、1.3はWindowsとHyper-Vをサポートします。[[リファレンス](https://blog.docker.com/2019/02/containerd-graduates-within-the-cncf/)]
+### Hyper-V分離
 
-CRI-ContainerDインターフェイスは、Hyper-Vに基づいてサンドボックスを管理できるようになります。これにより、RuntimeClassを次のような新しいユースケースに実装できる基盤が提供されます:
+Hyper-V分離はKubernetesで以下のWindowsコンテナのユースケースを可能にするために必要です。
 
 * Pod間のハイパーバイザーベースの分離により、セキュリティを強化
 * 下位互換性により、コンテナの再構築を必要とせずにノードで新しいWindows Serverバージョンを実行
 * Podの特定のCPU/NUMA設定
 * メモリの分離と予約
 
-### Hyper-V分離
 
 既存のHyper-V分離サポートは、v1.10の試験的な機能であり、上記のCRI-ContainerD機能とRuntimeClass機能を優先して将来廃止される予定です。現在の機能を使用してHyper-V分離コンテナを作成するには、kubeletのフィーチャーゲートを`HyperVContainer=true`で開始し、Podにアノテーション`experimental.windows.kubernetes.io/isolation-type=hyperv`を含める必要があります。実験的リリースでは、この機能はPodごとに1つのコンテナに制限されています。
 
@@ -609,7 +626,7 @@ spec:
 
 ### kubeadmとクラスターAPIを使用したデプロイ
 
-Kubeadmは、ユーザーがKubernetesクラスターをデプロイするための事実上の標準になりつつあります。kubeadmのWindowsノードのサポートは、将来のリリースで提供予定です。Windowsノードが適切にプロビジョニングされるように、クラスターAPIにも投資しています。
+Kubeadmは、ユーザーがKubernetesクラスターをデプロイするための事実上の標準になりつつあります。kubeadmのWindowsノードのサポートは進行中ですが、ガイドはすでに[ここ](/ja/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)で利用可能です。Windowsノードが適切にプロビジョニングされるように、クラスターAPIにも投資しています。
 
 ### その他の主な機能
 * グループ管理サービスアカウントのベータサポート
