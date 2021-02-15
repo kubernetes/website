@@ -27,7 +27,7 @@ kops is an automated provisioning system:
 
 * You must [install](https://github.com/kubernetes/kops#installing) `kops` on a 64-bit (AMD64 and Intel 64) device architecture.
 
-* You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them.
+* You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them. The IAM user will need [adequate permissions](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
 
 
 
@@ -39,42 +39,42 @@ kops is an automated provisioning system:
 
 #### インストール
 
-Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also easy to build from source):
+[releases page](https://github.com/kubernetes/kops/releases) からkopsをダウンロードしてください(ソースからのbuildも簡単です):
 
 {{< tabs name="kops_installation" >}}
 {{% tab name="macOS" %}}
 
-Download the latest release with the command:
+以下のコマンドでlatest releaseをダウンロード:
 
 ```shell
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
 ```
 
-To download a specific version, replace the following portion of the command with the specific kops version.
+バージョンを指定してダウンロードしたい場合、上記コマンドの以下の箇所をインストールしたいkopsのバージョンに変更してください。
 
 ```shell
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
 
-For example, to download kops version v1.15.0 type:
+例えば、version1.15.0をダウンロードしたい場合は以下のようなコマンドとなります:
 
 ```shell
-curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
 ```
 
-Make the kops binary executable.
+kops binaryに実行権限を付与します。
 
 ```shell
 chmod +x kops-darwin-amd64
 ```
 
-Move the kops binary in to your PATH.
+PATHが通った場所にkops binaryを移動します。
 
 ```shell
 sudo mv kops-darwin-amd64 /usr/local/bin/kops
 ```
 
-You can also install kops using [Homebrew](https://brew.sh/).
+[Homebrew](https://brew.sh/)を利用してインストールすることも可能です。
 
 ```shell
 brew update && brew install kops
@@ -82,37 +82,37 @@ brew update && brew install kops
 {{% /tab %}}
 {{% tab name="Linux" %}}
 
-Download the latest release with the command:
+以下のコマンドでlatest releaseをダウンロード:
 
 ```shell
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
 ```
 
-To download a specific version of kops, replace the following portion of the command with the specific kops version.
+バージョンを指定してダウンロードしたい場合、上記コマンドの以下の箇所をインストールしたいkopsのバージョンに変更してください。
 
 ```shell
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
 
-For example, to download kops version v1.15.0 type:
+例えば、version1.15.0をダウンロードしたい場合は以下のようなコマンドとなります:
 
 ```shell
-curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
 ```
 
-Make the kops binary executable
+kops binaryに実行権限を付与します。
 
 ```shell
 chmod +x kops-linux-amd64
 ```
 
-Move the kops binary in to your PATH.
+PATHが通った場所にkops binaryを移動します。
 
 ```shell
 sudo mv kops-linux-amd64 /usr/local/bin/kops
 ```
 
-You can also install kops using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux).
+[Homebrew](https://docs.brew.sh/Homebrew-on-Linux)を利用してインストールすることも可能です。
 
 ```shell
 brew update && brew install kops
@@ -140,7 +140,7 @@ you choose for organization reasons (e.g. you are allowed to create records unde
 but not under `example.com`).
 
 Let's assume you're using `dev.example.com` as your hosted zone.  You create that hosted zone using
-the [normal process](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html), or
+the [normal process](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html), or
 with a command such as `aws route53 create-hosted-zone --name dev.example.com --caller-reference 1`.
 
 You must then set up your NS records in the parent domain, so that records in the domain will resolve.  Here,
@@ -224,14 +224,14 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 ## クリーンアップ
 
-* To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
+* クラスタを削除する際には、このコマンドを実行してください: `kops delete cluster useast1.dev.example.com --yes`
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/overview/).
 * Learn more about `kops` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
 * Follow `kops` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
 * Contribute to `kops` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues)
