@@ -19,6 +19,8 @@ Kubernetesのコマンドラインツール`kubectl`を使用すると、Kuberne
 
 ツールのインストールについて知りたい場合は、公式の[Get Started!](https://minikube.sigs.k8s.io/docs/start/)のガイドに従ってください。
 
+<a class="btn btn-primary" href="https://minikube.sigs.k8s.io/docs/start/" role="button" aria-label="View minikube Get Started! Guide">minikube Get Started!ガイドを見る</a>
+
 Minikubeが起動したら、[サンプルアプリケーションの実行](/ja/docs/tutorials/hello-minikube/)を試すことができます。
 
 ## kind
