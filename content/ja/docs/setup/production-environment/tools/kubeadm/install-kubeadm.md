@@ -181,7 +181,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 {{% tab name="Ubuntu、Debian、またはHypriotOS" %}}
 ```bash
 sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
