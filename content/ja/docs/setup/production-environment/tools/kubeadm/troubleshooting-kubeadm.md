@@ -6,68 +6,62 @@ weight: 20
 
 <!-- overview -->
 
-As with any program, you might run into an error installing or running kubeadm.
-This page lists some common failure scenarios and have provided steps that can help you understand and fix the problem.
+どのプログラムでもそうですが、kubeadmのインストールや実行でエラーが発生することがあります。このページでは、一般的な失敗例をいくつか挙げ、問題を理解して解決するための手順を示しています。
 
-If your problem is not listed below, please follow the following steps:
+本ページに問題が記載されていない場合は、以下の手順を行ってください。:
 
-- If you think your problem is a bug with kubeadm:
-  - Go to [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) and search for existing issues.
-  - If no issue exists, please [open one](https://github.com/kubernetes/kubeadm/issues/new) and follow the issue template.
+- 問題がkubeadmのバグによるものと思った場合:
+  - [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues)にアクセスして、既存のイシューを探してください。
+  - イシューがない場合は、テンプレートにしたがって[新しくイシューを立ててください](https://github.com/kubernetes/kubeadm/issues/new)。
 
-- If you are unsure about how kubeadm works, you can ask on [Slack](http://slack.k8s.io/) in #kubeadm, or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
-  relevant tags like `#kubernetes` and `#kubeadm` so folks can help you.
-
-
+- kubeadm がどのように動作するかわからない場合は、[Slack](http://slack.k8s.io/)の #kubeadm チャンネルで質問するか、[StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes)で質問をあげてください。その際は、他の方が助けを出しやすいように`#kubernetes`や`#kubeadm`といったタグをつけてください。
 
 <!-- body -->
 
 ## インストール中に`ebtables`もしくは他の似たような実行プログラムが見つからない
 
-If you see the following warnings while running `kubeadm init`
+`kubeadm init`の実行中に以下のような警告が表示された場合は、以降に記載するやり方を行ってください。
 
 ```sh
 [preflight] WARNING: ebtables not found in system path
 [preflight] WARNING: ethtool not found in system path
 ```
 
-Then you may be missing `ebtables`, `ethtool` or a similar executable on your node. You can install them with the following commands:
+このような場合、ノード上に `ebtables`, `ethtool` などの実行ファイルがない可能性があります。これらをインストールするには、以下のコマンドを実行します。
 
-- For Ubuntu/Debian users, run `apt install ebtables ethtool`.
-- For CentOS/Fedora users, run `yum install ebtables ethtool`.
+- Ubuntu/Debianユーザーは、`apt install ebtables ethtool`を実行してください。
+- CentOS/Fedoraユーザーは、`yum install ebtables ethtool`を実行してください。
 
 ## インストール中にkubeadmがコントロールプレーンを待ち続けて止まる
 
-If you notice that `kubeadm init` hangs after printing out the following line:
+以下のを出力した後に `kubeadm init` が止まること場合は、`kubeadm init` を実行してください:
 
 ```sh
 [apiclient] Created API client, waiting for the control plane to become ready
 ```
 
-This may be caused by a number of problems. The most common are:
+これはいくつかの問題が原因となっている可能性があります。最も一般的なのは:
 
-- network connection problems. Check that your machine has full network connectivity before continuing.
-- the default cgroup driver configuration for the kubelet differs from that used by Docker.
-  Check the system log file (e.g. `/var/log/message`) or examine the output from `journalctl -u kubelet`. If you see something like the following:
+- ネットワーク接続の問題が挙げられます。続行する前に、お使いのマシンがネットワークに完全に接続されていることを確認してください。
+- kubeletのデフォルトのcgroupドライバの設定がDockerで使用されているものとは異なっている場合も考えられます。
+  システムログファイル(例: `/var/log/message`)をチェックするか、`journalctl -u kubelet` の出力を調べてください:
 
   ```shell
   error: failed to run Kubelet: failed to create kubelet:
   misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
   ```
 
-  There are two common ways to fix the cgroup driver problem:
+  以上のようなエラーが現れていた場合、cgroupドライバの問題を解決するには、以下の2つの方法があります:
 
- 1. Install Docker again following instructions
-  [here](/ja/docs/setup/independent/install-kubeadm/#installing-docker).
+ 1. [ここ](/ja/docs/setup/independent/install-kubeadm/#installing-docker)の指示に従ってDockerを再度インストールします。
 
- 1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
-    [Configure cgroup driver used by kubelet on Master Node](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+ 1. Dockerのcgroupドライバに合わせてkubeletの設定を手動で変更します。その際は、[マスターノード上でkubeletが使用するcgroupドライバを設定する](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)を参照してください。
 
-- control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
+- control plane Docker コンテナがクラッシュループしたり、ハングしたりしています。これは `docker ps` を実行し、`docker logs` を実行して各コンテナを調査することで確認できます。
 
 ## 管理コンテナを削除する時にkubeadmが止まる
 
-The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
+Dockerが停止して、Kubernetesで管理されているコンテナを削除しないと、以下のようなことが起こる可能性があります。:
 
 ```bash
 sudo kubeadm reset
@@ -78,95 +72,70 @@ sudo kubeadm reset
 (block)
 ```
 
-A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
+考えられる解決策は、Dockerサービスを再起動してから `kubeadm reset` を再実行することです:
 
 ```bash
 sudo systemctl restart docker.service
 sudo kubeadm reset
 ```
 
-Inspecting the logs for docker may also be useful:
+dockerのログを調べるのも有効である場合があります:
 
 ```sh
 journalctl -ul docker
 ```
 
-## Podの状態が`RunContainerError`、`CrashLoopBackOff`、または`Error`
+## Podの状態が`RunContainerError`、`CrashLoopBackOff`、または`Error`となる
 
-Right after `kubeadm init` there should not be any pods in these states.
+`kubeadm init` の直後には、これらの状態ではポッドは存在しないはずです。
 
-- If there are pods in one of these states _right after_ `kubeadm init`, please open an
-  issue in the kubeadm repo. `coredns` (or `kube-dns`) should be in the `Pending` state
-  until you have deployed the network solution.
-- If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
-  after deploying the network solution and nothing happens to `coredns` (or `kube-dns`),
-  it's very likely that the Pod Network solution that you installed is somehow broken.
-  You might have to grant it more RBAC privileges or use a newer version. Please file
-  an issue in the Pod Network providers' issue tracker and get the issue triaged there.
-- If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
-  when booting `dockerd` with `systemd` and restart `docker`. You can see the MountFlags in `/usr/lib/systemd/system/docker.service`.
-  MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
-  The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
+- `kubeadm init`の_直後_にこれらの状態のいずれかにポッドがある場合は、kubeadmのリポジトリにイシューを立ててください。ネットワークソリューションをデプロイするまでは `coredns` (または `kube-dns`)は `Pending`状態でなければなりません。
+- ネットワークソリューションをデプロイしても `coredns` (または `kube-dns`) に何も起こらない場合にRunContainerError`、`CrashLoopBackOff`、`Error` の状態でPodが表示された場合は、インストールしたPod Networkソリューションが壊れている可能性が高いです。より多くのRBACの特権を付与するか、新しいバージョンを使用する必要があるかもしれません。Pod Networkプロバイダのイシュートラッカーにイシューを出して、そこで問題をトリアージしてください。
+- 1.12.1よりも古いバージョンのDockerをインストールした場合は、`systemd` で `dockerd` を起動する際に `MountFlags=slave` オプションを削除して `docker` を再起動してください。マウントフラグは `/usr/lib/systemd/system/docker.service` で確認できます。MountFlagsはKubernetesがマウントしたボリュームに干渉し、Podsを`CrashLoopBackOff`状態にすることがあります。このエラーは、Kubernetesが `var/run/secrets/kubernetes.io/serviceaccount` ファイルを見つけられない場合に発生します。
 
 ## `coredns`(もしくは`kube-dns`)が`Pending`状態でスタックする
 
-This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
-should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
-of choice. You have to install a Pod Network
-before CoreDNS may be deployed fully. Hence the `Pending` state before the network is set up.
+kubeadm はネットワークプロバイダに依存しないので、管理者は選択した [ポッドネットワークソリューションをインストール](/docs/concepts/cluster-administration/addons/) をする必要があります。CoreDNS を完全にデプロイする前に Pod ネットワークをインストールする必要があります。したがって、ネットワークがセットアップされる前の `Pending` 状態になります。
 
 ## `HostPort`サービスが動かない
 
-The `HostPort` and `HostIP` functionality is available depending on your Pod Network
-provider. Please contact the author of the Pod Network solution to find out whether
-`HostPort` and `HostIP` functionality are available.
+`HostPort`と`HostIP`の機能は、ご使用のPod Networkプロバイダによって利用可能です。Pod Networkソリューションの作者に連絡して、`HostPort` と `HostIP` 機能が利用可能かどうかを確認してください。
 
-Calico, Canal, and Flannel CNI providers are verified to support HostPort.
+Calico、Canal、FlannelのCNIプロバイダは、HostPortをサポートしていることが確認されています。
 
-For more information, see the [CNI portmap documentation](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
+詳細については、[CNI portmap documentation] (https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md) を参照してください。
 
-If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
-services](/ja/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
+ネットワークプロバイダが portmap CNI プラグインをサポートしていない場合は、[services](/ja/docs/concepts/services-networking/service/#nodeport)を使用するか、`HostNetwork=true`を使用してください。
 
 ## サービスIP経由でPodにアクセスすることができない
 
-- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
-  which allows pods to access themselves via their Service IP. This is an issue related to
-  [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
-  add-on provider to get the latest status of their support for hairpin mode.
+- 多くのネットワークアドオンは、ポッドがサービス IP を介して自分自身にアクセスできるようにする [ヘアピンモード](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)を有効にしていません。これは[CNI](https://github.com/containernetworking/cni/issues/476)に関連する問題です。ヘアピンモードのサポート状況については、ネットワークアドオンプロバイダにお問い合わせください。
 
-- If you are using VirtualBox (directly or via Vagrant), you will need to
-  ensure that `hostname -i` returns a routable IP address. By default the first
-  interface is connected to a non-routable host-only network. A work around
-  is to modify `/etc/hosts`, see this [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)
-  for an example.
+- VirtualBoxを使用している場合(直接またはVagrant経由)は、`hostname -i`がルーティング可能なIPアドレスを返すことを確認する必要があります。デフォルトでは、最初のインターフェースはルーティング可能でないホスト専用のネットワークに接続されています。これを回避するには `/etc/hosts` を修正する必要があります。例としてはこの [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11) を参照してください。
 
 ## TLS証明書のエラー
 
-The following error indicates a possible certificate mismatch.
+以下のエラーは、証明書の不一致の可能性を示しています。
 
 ```none
 # kubectl get pods
 Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
 ```
 
-- Verify that the `$HOME/.kube/config` file contains a valid certificate, and
-  regenerate a certificate if necessary. The certificates in a kubeconfig file
-  are base64 encoded. The `base64 --decode` command can be used to decode the certificate
-  and `openssl x509 -text -noout` can be used for viewing the certificate information.
-- Unset the `KUBECONFIG` environment variable using:
+- `HOME/.kube/config` ファイルに有効な証明書が含まれていることを確認し、必要に応じて証明書を再生成します。kubeconfigファイル内の証明書はbase64でエンコードされています。証明書をデコードするには `base64 --decode` コマンドを、証明書情報を表示するには `openssl x509 -text -noout` コマンドを用いてください。
+- 環境変数 `KUBECONFIG` の設定を解除するには以下のコマンドを実行するか:
 
   ```sh
   unset KUBECONFIG
   ```
 
-  Or set it to the default `KUBECONFIG` location:
+  設定をデフォルトの `KUBECONFIG` の場所に設定します:
 
   ```sh
   export KUBECONFIG=/etc/kubernetes/admin.conf
   ```
 
-- Another workaround is to overwrite the existing `kubeconfig` for the "admin" user:
+- もう一つの回避策は、既存の `kubeconfig` を "admin" ユーザに上書きすることです:
 
   ```sh
   mv  $HOME/.kube $HOME/.kube.bak
@@ -177,38 +146,38 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 
 ## Vagrant内でPodネットワークとしてflannelを使用する時のデフォルトNIC
 
-The following error might indicate that something was wrong in the pod network:
+以下のエラーは、ポッドネットワークに何か問題があったことを示している可能性を示しています:
 
 ```sh
 Error from server (NotFound): the server could not find the requested resource
 ```
 
-- If you're using flannel as the pod network inside Vagrant, then you will have to specify the default interface name for flannel.
+- Vagrant内のポッドネットワークとしてflannelを使用している場合は、flannelのデフォルトのインターフェース名を指定する必要があります。
 
-  Vagrant typically assigns two interfaces to all VMs. The first, for which all hosts are assigned the IP address `10.0.2.15`, is for external traffic that gets NATed.
+  Vagrantは通常、2つのインターフェースを全てのVMに割り当てます。1つ目は全てのホストに IP アドレス `10.0.2.15` が割り当てられており、NATされる外部トラフィックのためのものです。
 
-  This may lead to problems with flannel, which defaults to the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this, pass the `--iface eth1` flag to flannel so that the second interface is chosen.
+  これは、ホストの最初のインターフェイスをデフォルトにしているフランネルの問題につながるかもしれません。これは、すべてのホストが同じパブリック IP アドレスを持っていると考えることになります。これを防ぐには、2 番目のインターフェイスが選択されるように `--iface eth1` フラグを flannel に渡してください。
 
 ## 公開されていないIPがコンテナに使われている
 
-In some situations `kubectl logs` and `kubectl run` commands may return with the following errors in an otherwise functional cluster:
+状況によっては、`kubectl logs` や `kubectl run` コマンドが以下のようなエラーを返すことがあります:
 
 ```sh
 Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc65b868-glc5m/mysql: dial tcp 10.19.0.41:10250: getsockopt: no route to host
 ```
 
-- This may be due to Kubernetes using an IP that can not communicate with other IPs on the seemingly same subnet, possibly by policy of the machine provider.
-- DigitalOcean assigns a public IP to `eth0` as well as a private one to be used internally as anchor for their floating IP feature, yet `kubelet` will pick the latter as the node's `InternalIP` instead of the public one.
+- これには、おそらくマシンプロバイダのポリシーによって、一見同じサブネット上の他のIPと通信できないIPをKubernetesが使用している可能性があります。
+- DigitalOceanはパブリックIPとプライベートIPを`eth0`に割り当てていますが、`kubelet`はパブリックIPではなく、ノードの`InternalIP`として後者を選択します。
 
-  Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will not display the offending alias IP address. Alternatively an API endpoint specific to DigitalOcean allows to query for the anchor IP from the droplet:
+  `ifconfig`ではエイリアスIPアドレスが表示されないので、`ifconfig`の代わりに`ip addr show`を使用してこのシナリオをチェックしてください。あるいは、DigitalOcean専用のAPIエンドポイントを使用して、ドロップレットからアンカーIPを取得することもできます。:
 
   ```sh
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
   ```
 
-  The workaround is to tell `kubelet` which IP to use using `--node-ip`. When using DigitalOcean, it can be the public one (assigned to `eth0`) or the private one (assigned to `eth1`) should you want to use the optional private network. The [`KubeletExtraArgs` section of the kubeadm `NodeRegistrationOptions` structure](https://github.com/kubernetes/kubernetes/blob/release-1.13/cmd/kubeadm/app/apis/kubeadm/v1beta1/types.go) can be used for this.
+  回避策としては、`--node-ip`を使ってどのIPを使うかを `kubelet` に伝えることです。DigitalOceanを使用する場合、オプションのプライベートネットワークを使用したい場合は、パブリックIP（`eth0`に割り当てられている）かプライベートIP（`eth1`に割り当てられている）のどちらかを指定します。これにはkubeadm `NodeRegistrationOptions` 構造体の [`KubeletExtraArgs` セクション](https://github.com/kubernetes/kubernetes/blob/release-1.13/cmd/kubeadm/app/apis/kubeadm/v1beta1/types.go) が利用できます。
 
-  Then restart `kubelet`:
+  `kubelet`をリスタートしてください:
 
   ```sh
   systemctl daemon-reload
@@ -217,13 +186,12 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
 ## `coredns`のPodが`CrashLoopBackOff`もしくは`Error`状態になる
 
-If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
-where the `coredns` pods are not starting. To solve that you can try one of the following options:
+SELinux を実行しているノードで古いバージョンの Docker を使用している場合、`coredns` ポッドが起動しないということが起きるかもしれません。この問題を解決するには、以下のオプションのいずれかを試してみてください。:
 
-- Upgrade to a [newer version of Docker](/ja/docs/setup/independent/install-kubeadm/#installing-docker).
+- [新しいDockerのバージョン](/ja/docs/setup/independent/install-kubeadm/#installing-docker)にアップグレードする。
 
-- [Disable SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
-- Modify the `coredns` deployment to set `allowPrivilegeEscalation` to `true`:
+- [SELinuxを無効化する](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux)。
+- `coredns`を変更して、`allowPrivilegeEscalation` を `true` に設定:
 
 ```bash
 kubectl -n kube-system get deployment coredns -o yaml | \
@@ -231,108 +199,84 @@ kubectl -n kube-system get deployment coredns -o yaml | \
   kubectl apply -f -
 ```
 
-Another cause for CoreDNS to have `CrashLoopBackOff` is when a CoreDNS Pod deployed in Kubernetes detects a loop. [A number of workarounds](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)
-are available to avoid Kubernetes trying to restart the CoreDNS Pod every time CoreDNS detects the loop and exits.
+CoreDNSに `CrashLoopBackOff` が発生する別の原因は、KubernetesにデプロイされたCoreDNSポッドがループを検出したときに発生します。CoreDNS がループを検出して終了するたびに、Kubernetes が CoreDNS ポッドを再起動しようとするのを避けるために、[いくつかの回避策](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters) が用意されています。
 
 {{< warning >}}
-Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
-the security of your cluster.
+SELinuxを無効にするか `allowPrivilegeEscalation` を `true` に設定すると、クラスタのセキュリティが損なわれる可能性があります。
 {{< /warning >}}
 
 ## etcdのpodが継続的に再起動する
 
-If you encounter the following error:
+以下のエラーが発生した場合は:
 
 ```
 rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:247: starting container process caused "process_linux.go:110: decoding init error from pipe caused \"read parent: connection reset by peer\""
 ```
 
-this issue appears if you run CentOS 7 with Docker 1.13.1.84.
-This version of Docker can prevent the kubelet from executing into the etcd container.
+この問題は、CentOS 7 を Docker 1.13.1.84 で実行した場合に表示されます。このバージョンの Docker では、kubelet が etcd コンテナに実行されないようにすることができます。
 
-To work around the issue, choose one of these options:
+この問題を回避するには、以下のいずれかのオプションを選択します:
 
-- Roll back to an earlier version of Docker, such as 1.13.1-75
+- 1.13.1-75のような以前のバージョンのDockerにロールバックする
 ```
 yum downgrade docker-1.13.1-75.git8633870.el7.centos.x86_64 docker-client-1.13.1-75.git8633870.el7.centos.x86_64 docker-common-1.13.1-75.git8633870.el7.centos.x86_64
 ```
 
-- Install one of the more recent recommended versions, such as 18.06:
+- 18.06 のような最新の推奨バージョンをインストールする:
 ```bash
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum install docker-ce-18.06.1.ce-3.el7.x86_64
 ```
 
-## Not possible to pass a comma separated list of values to arguments inside a `--component-extra-args` flag
+## コンマで区切られた値のリストを `--component-extra-args` フラグ内の引数に渡すことができない
 
-`kubeadm init` flags such as `--component-extra-args` allow you to pass custom arguments to a control-plane
-component like the kube-apiserver. However, this mechanism is limited due to the underlying type used for parsing
-the values (`mapStringString`).
+`-component-extra-args` のような `kubeadm init` フラグを使うと、kube-apiserver のようなコントロールプレーンコンポーネントにカスタム引数を渡すことができます。しかし、このメカニズムは値の解析に使われる基本的な型 (`mapStringString`) のために制限されています。
 
-If you decide to pass an argument that supports multiple, comma-separated values such as
-`--apiserver-extra-args "enable-admission-plugins=LimitRanger,NamespaceExists"` this flag will fail with
-`flag: malformed pair, expect string=string`. This happens because the list of arguments for
-`--apiserver-extra-args` expects `key=value` pairs and in this case `NamespacesExists` is considered
-as a key that is missing a value.
+もし、`--apiserver-extra-args "enable-admission plugins=LimitRanger,NamespaceExists"`のようにカンマで区切られた複数の値をサポートする引数を渡した場合、このフラグは `flag: malformed pair, expect string=string` で失敗します。これは `--apiserver-extra-args` の引数リストが `key=value` のペアを期待しており、この場合 `NamespacesExists` は値を欠いたキーとみなされるからです。
 
-Alternatively, you can try separating the `key=value` pairs like so:
-`--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
-but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
+別の方法として、`key=value` のペアを以下のように分離してみることもできます:
+`--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"` しかし、この場合は、キー `enable-admission-plugins` は `NamespaceExists` の値しか持たないことになります。既知の回避策としては、kubeadm [設定ファイル](/ja/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#apiserver-flags)を使用することが挙げられます。
 
-A known workaround is to use the kubeadm [configuration file](/ja/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#apiserver-flags).
+## cloud-controller-manager によってノードが初期化される前に kube-proxy がスケジューリングされる
 
-## kube-proxy scheduled before node is initialized by cloud-controller-manager
+クラウドプロバイダのシナリオでは、クラウドコントローラマネージャがノードアドレスを初期化する前に、kube-proxyが新しいワーカーノードでスケジューリングされてしまうことがあります。これにより、kube-proxyがノードのIPアドレスを正しく拾えず、ロードバランサを管理するプロキシ機能に悪影響を及ぼします。
 
-In cloud provider scenarios, kube-proxy can end up being scheduled on new worker nodes before
-the cloud-controller-manager has initialized the node addresses. This causes kube-proxy to fail
-to pick up the node's IP address properly and has knock-on effects to the proxy function managing
-load balancers.
-
-The following error can be seen in kube-proxy Pods:
+kube-proxy Podsでは以下のようなエラーが発生します:
 ```
 server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
 proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 ```
 
-A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on control-plane
-nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
-conditions abate:
+既知の解決策は、初期のガード条件が緩和されるまで他のノードから離しておき、条件に関係なくコントロールプレーンノード上でスケジューリングできるように、キューブプロキシDaemonSetにパッチを当てることです。:
+
 ```
 kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
 ```
 
-The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
+Tこの問題のトラッキング問題は[こちら](https://github.com/kubernetes/kubeadm/issues/1027)。
 
-## The NodeRegistration.Taints field is omitted when marshalling kubeadm configuration
+## kubeadmの設定をマーシャリングする際、NodeRegistration.Taintsフィールドが省略される
 
-*Note: This [issue](https://github.com/kubernetes/kubeadm/issues/1358) only applies to tools that marshal kubeadm types (e.g. to a YAML configuration file). It will be fixed in kubeadm API v1beta2.*
+*注意: この [イシュー](https://github.com/kubernetes/kubeadm/issues/1358) は、kubeadm タイプをマーシャルするツール(YAML 設定ファイルなど)にのみ適用されます。これはkubeadm API v1beta2で修正される予定です。*
 
-By default, kubeadm applies the `node-role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
-If you prefer kubeadm to not taint the control-plane node, and set `InitConfiguration.NodeRegistration.Taints` to an empty slice,
-the field will be omitted when marshalling. When the field is omitted, kubeadm applies the default taint.
+デフォルトでは、kubeadmはコントロールプレーンノードに `node-role.kubernetes.io/master:NoSchedule` のテイントを適用します。kubeadmがコントロールプレーンノードに影響を与えないようにし、`InitConfiguration.NodeRegistration.Taints`を空のスライスに設定すると、マーシャリング時にこのフィールドは省略されます。フィールドが省略された場合、kubeadmはデフォルトのテイントを適用します。
 
-There are at least two workarounds:
+少なくとも2つの回避策があります:
 
-1. Use the `node-role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
+1. 空のスライスの代わりに `node-role.kubernetes.io/master:PreferNoSchedule` テイントを使用します。他のノードに容量がない限り、[Podsはマスター上でスケジュールされます](/docs/concepts/configuration/taint-and-toleration/)。
 
-2. Remove the taint after kubeadm init exits:
+2. kubeadm init終了後のテイントの除去:
 ```bash
 kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
  ```
 
-## `/usr` is mounted read-only on nodes {#usr-mounted-read-only}
+## ノード{#usr-mounted-read-only}に `/usr` が読み取り専用でマウントされる
 
-On Linux distributions such as Fedora CoreOS, the directory `/usr` is mounted as a read-only filesystem.
-For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md),
-Kubernetes components like the kubelet and kube-controller-manager use the default path of
-`/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
-for the feature to work.
+Fedora CoreOSなどのLinuxディストリビューションでは、ディレクトリ `/usr` が読み取り専用のファイルシステムとしてマウントされます。 [flex-volume サポート](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md) では、kubelet や kube-controller-manager のような Kubernetes コンポーネントはデフォルトで`/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`のパスを使用していますが、この機能を動作させるためには flex-volume ディレクトリは _書き込み可能_な状態でなければなりません。
 
-To workaround this issue you can configure the flex-volume directory using the kubeadm
-[configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2).
+この問題を回避するには、kubeadm[設定ファイル](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)を使用してflex-volumeディレクトリを設定します。
 
-On the primary control-plane Node (created using `kubeadm init`) pass the following
-file using `--config`:
+プライマリコントロールプレーンノード（`kubeadm init`で作成されたもの）上で、`--config`で以下のファイルを渡します:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
@@ -348,7 +292,7 @@ controllerManager:
     flex-volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ```
 
-On joining Nodes:
+ノードをジョインするには:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
@@ -358,5 +302,4 @@ nodeRegistration:
     volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 ```
 
-Alternatively, you can modify `/etc/fstab` to make the `/usr` mount writeable, but please
-be advised that this is modifying a design principle of the Linux distribution.
+あるいは、`/usr` マウントを書き込み可能にするために `/etc/fstab` を変更することもできますが、これは Linux ディストリビューションの設計原理を変更していることに注意してください。
