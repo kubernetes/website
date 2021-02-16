@@ -15,7 +15,10 @@ HAクラスターは次の方法で設定できます。
 
 HAクラスターをセットアップする前に、各トポロジーの利点と欠点について注意深く考慮する必要があります。
 
-
+{{< note >}}
+kubeadmは、etcdクラスターを静的に起動します。
+詳細については、etcd[クラスタリングガイド](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)をご覧ください。
+{{< /note >}}
 
 <!-- body -->
 
