@@ -77,11 +77,11 @@ read that resource will fail until it is deleted or a valid decryption key is pr
 {{< table caption="Providers for Kubernetes encryption at rest" >}}
 Name | Encryption | Strength | Speed | Key Length | Other Considerations
 -----|------------|----------|-------|------------|---------------------
-`identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
-`aescbc` | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | The recommended choice for encryption at rest but may be slightly slower than `secretbox`.
-`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
+`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with PKCS#7 padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice, but requires a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
+`secretbox` | XSalsa20 and Poly1305 | Strongest | Faster | 32-byte | A newer standard providing the strongest security but may not be validated for use in some regulatory environments (e.g. FIPS).
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
-`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with PKCS#7 padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
+`aescbc` | AES-CBC with PKCS#7 padding | Average | Fast | 32-byte | Can be vulnerable to padding oracle attacks but unlikely to affect Kubernetes. Use when secretbox cannot be used and AES-GCM with key rotation cannot be used.
+`identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
