@@ -26,7 +26,7 @@ Helmを用いて以下のことを行います。
 
 * Kubernetes chartsとしてパッケージ化された人気のあるソフトウェアの検索と利用
 
-* Kubernetes chartsとして所有するアプリケーションの共有すること
+* Kubernetes chartsとして所有するアプリケーションを共有すること
 
 * Kubernetesアプリケーションの再現性のあるビルドの作成
 
