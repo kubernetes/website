@@ -27,14 +27,14 @@ content_type: task
 * Ensure that no resource starvation occurs.
 
   Performance and stability of the cluster is sensitive to network and disk
-  IO. Any resource starvation can lead to heartbeat timeout, causing instability
+  I/O. Any resource starvation can lead to heartbeat timeout, causing instability
   of the cluster. An unstable etcd indicates that no leader is elected. Under
   such circumstances, a cluster cannot make any changes to its current state,
   which implies no new pods can be scheduled.
 
-* Keeping stable etcd clusters is critical to the stability of Kubernetes
+* Keeping etcd clusters stable is critical to the stability of Kubernetes
   clusters. Therefore, run etcd clusters on dedicated machines or isolated
-  environments for [guaranteed resource requirements](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#hardware-recommendations).
+  environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
 
 * The minimum recommended version of etcd to run in production is `3.2.10+`.
 
@@ -43,7 +43,7 @@ content_type: task
 Operating etcd with limited resources is suitable only for testing purposes.
 For deploying in production, advanced hardware configuration is required.
 Before deploying etcd in production, see
-[resource requirement reference documentation](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#example-hardware-configurations).
+[resource requirement reference](https://etcd.io/docs/current/op-guide/hardware/#example-hardware-configurations).
 
 ## Starting etcd clusters
 
@@ -60,7 +60,7 @@ Use a single-node etcd cluster only for testing purpose.
       --advertise-client-urls=http://$PRIVATE_IP:2379
    ```
 
-2. Start Kubernetes API server with the flag
+2. Start the Kubernetes API server with the flag
    `--etcd-servers=$PRIVATE_IP:2379`.
 
    Make sure `PRIVATE_IP` is set to your etcd client IP.
@@ -69,12 +69,12 @@ Use a single-node etcd cluster only for testing purpose.
 
 For durability and high availability, run etcd as a multi-node cluster in
 production and back it up periodically. A five-member cluster is recommended
-in production. For more information, see [FAQ
-Documentation](https://github.com/coreos/etcd/blob/master/Documentation/faq.md#what-is-failure-tolerance).
+in production. For more information, see
+[FAQ documentation](https://etcd.io/docs/current/faq/#what-is-failure-tolerance).
 
 Configure an etcd cluster either by static member information or by dynamic
-discovery. For more information on clustering, see [etcd Clustering
-Documentation](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md).
+discovery. For more information on clustering, see
+[etcd clustering documentation](https://etcd.io/docs/current/op-guide/clustering/).
 
 For an example, consider a five-member etcd cluster running with the following
 client URLs: `http://$IP1:2379`, `http://$IP2:2379`, `http://$IP3:2379`,
@@ -86,10 +86,10 @@ client URLs: `http://$IP1:2379`, `http://$IP2:2379`, `http://$IP3:2379`,
    etcd --listen-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379 --advertise-client-urls=http://$IP1:2379,http://$IP2:2379,http://$IP3:2379,http://$IP4:2379,http://$IP5:2379
    ```
 
-2. Start Kubernetes API servers with the flag
+2. Start the Kubernetes API servers with the flag
    `--etcd-servers=$IP1:2379,$IP2:2379,$IP3:2379,$IP4:2379,$IP5:2379`.
 
-   Replace `IP<n>` with your client IP addresses.
+   Make sure the `IP<n>` variables are set to your client IP addresses.
 
 ### Multi-node etcd cluster with load balancer
 
@@ -121,16 +121,16 @@ authentication.
 
 To configure etcd with secure peer communication, specify flags
 `--peer-key-file=peer.key` and `--peer-cert-file=peer.cert`, and use HTTPS as
-URL schema.
+the URL schema.
 
 Similarly, to configure etcd with secure client communication, specify flags
 `--key-file=k8sclient.key` and `--cert-file=k8sclient.cert`, and use HTTPS as
-URL schema.
+the URL schema.
 
 ### Limiting access of etcd clusters
 
 After configuring secure communication, restrict the access of etcd cluster to
-only the Kubernetes API server. Use TLS authentication to do so.
+only the Kubernetes API servers. Use TLS authentication to do so.
 
 For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are
 trusted by the CA `etcd.ca`. When etcd is configured with `--client-cert-auth`
@@ -140,7 +140,7 @@ or the CA passed in by `--trusted-ca-file` flag. Specifying flags
 access to clients with the certificate `k8sclient.cert`.
 
 Once etcd is configured correctly, only clients with valid certificates can
-access it. To give Kubernetes API server the access, configure it with the
+access it. To give Kubernetes API servers the access, configure them with the
 flags `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` and
 `--etcd-cafile=ca.cert`.
 
@@ -160,11 +160,11 @@ member.
 
 Though etcd keeps unique member IDs internally, it is recommended to use a
 unique name for each member to avoid human errors. For example, consider a
-three-member etcd cluster. Let the URLs be, member1=http://10.0.0.1,
-member2=http://10.0.0.2, and member3=http://10.0.0.3. When member1 fails,
-replace it with member4=http://10.0.0.4.
+three-member etcd cluster. Let the URLs be, `member1=http://10.0.0.1`,
+`member2=http://10.0.0.2`, and `member3=http://10.0.0.3`. When `member1` fails,
+replace it with `member4=http://10.0.0.4`.
 
-1. Get the member ID of the failed member1:
+1. Get the member ID of the failed `member1`:
 
    ```shell
    etcdctl --endpoints=http://10.0.0.2,http://10.0.0.3 member list
@@ -213,21 +213,22 @@ replace it with member4=http://10.0.0.4.
 
 5. Do either of the following:
 
-   1. Update its `--etcd-servers` flag to make Kubernetes aware of the
-      configuration changes, then restart the Kubernetes API server.
+   1. Update the `--etcd-servers` flag for the Kubernetes API servers to make
+      Kubernetes aware of the configuration changes, then restart the
+      Kubernetes API servers.
    2. Update the load balancer configuration if a load balancer is used in the
       deployment.
 
-For more information on cluster reconfiguration, see [etcd Reconfiguration
-Documentation](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/runtime-configuration.md#remove-a-member).
+For more information on cluster reconfiguration, see
+[etcd reconfiguration documentation](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member).
 
 ## Backing up an etcd cluster
 
 All Kubernetes objects are stored on etcd. Periodically backing up the etcd
 cluster data is important to recover Kubernetes clusters under disaster
-scenarios, such as losing all master nodes. The snapshot file contains all the
-Kubernetes states and critical information. In order to keep the sensitive
-Kubernetes data safe, encrypt the snapshot files.
+scenarios, such as losing all control plane nodes. The snapshot file contains
+all the Kubernetes states and critical information. In order to keep the
+sensitive Kubernetes data safe, encrypt the snapshot files.
 
 Backing up an etcd cluster can be accomplished in two ways: etcd built-in
 snapshot and volume snapshot.
@@ -236,10 +237,10 @@ snapshot and volume snapshot.
 
 etcd supports built-in snapshot. A snapshot may either be taken from a live
 member with the `etcdctl snapshot save` command or by copying the
-`member/snap/db` file from an etcd [data
-directory](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/configuration.md#--data-dir)
+`member/snap/db` file from an etcd
+[data directory](https://etcd.io/docs/current/op-guide/configuration/#--data-dir)
 that is not currently used by an etcd process. Taking the snapshot will
-normally not affect the performance of the member.
+not affect the performance of the member.
 
 Below is an example for taking a snapshot of the keyspace served by
 `$ENDPOINT` to the file `snapshotdb`:
@@ -278,8 +279,8 @@ five-member etcd cluster for production Kubernetes clusters at any officially
 supported scale.
 
 A reasonable scaling is to upgrade a three-member cluster to a five-member
-one, when more reliability is desired. See [etcd Reconfiguration
-Documentation](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/runtime-configuration.md#remove-a-member)
+one, when more reliability is desired. See
+[etcd reconfiguration documentation](https://etcd.io/docs/current/op-guide/runtime-configuration/#remove-a-member)
 for information on how to add members into an existing cluster.
 
 ## Restoring an etcd cluster
@@ -290,16 +291,14 @@ different patch version of etcd also is supported. A restore operation is
 employed to recover the data of a failed cluster.
 
 Before starting the restore operation, a snapshot file must be present. It can
-either be a snapshot file from a previous backup operation, or from a
-remaining [data
-directory](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/configuration.md#--data-dir).
-For more information and examples on restoring a cluster from a snapshot file,
-see [etcd disaster recovery
-documentation](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/recovery.md#restoring-a-cluster).
+either be a snapshot file from a previous backup operation, or from a remaining
+[data directory]( https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
+For more information and examples on restoring a cluster from a snapshot file, see
+[etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).
 
 If the access URLs of the restored cluster is changed from the previous
 cluster, the Kubernetes API server must be reconfigured accordingly. In this
-case, restart Kubernetes API server with the flag
+case, restart Kubernetes API servers with the flag
 `--etcd-servers=$NEW_ETCD_CLUSTER` instead of the flag
 `--etcd-servers=$OLD_ETCD_CLUSTER`. Replace `$NEW_ETCD_CLUSTER` and
 `$OLD_ETCD_CLUSTER` with the respective IP addresses. If a load balancer is
@@ -310,20 +309,19 @@ If the majority of etcd members have permanently failed, the etcd cluster is
 considered failed. In this scenario, Kubernetes cannot make any changes to its
 current state. Although the scheduled pods might continue to run, no new pods
 can be scheduled. In such cases, recover the etcd cluster and potentially
-reconfigure Kubernetes API server to fix the issue.
+reconfigure Kubernetes API servers to fix the issue.
 
 {{< note >}}
 If any API servers are running in your cluster, you should not attempt to
-restore instances of etcd.
-Instead, follow these steps to restore etcd:
+restore instances of etcd. Instead, follow these steps to restore etcd:
 
-- stop *all* kube-apiserver instances
+- stop *all* API server instances
 - restore state in all etcd instances
-- restart all kube-apiserver instances
+- restart all API server instances
 
-We also recommend restarting any components (e.g. kube-scheduler,
-kube-controller-manager, kubelet) to ensure that they don't rely on some stale
-data. Note that in practice, the restore takes a bit of time.  During the
+We also recommend restarting any components (e.g. `kube-scheduler`,
+`kube-controller-manager`, `kubelet`) to ensure that they don't rely on some
+stale data. Note that in practice, the restore takes a bit of time.  During the
 restoration, critical components will lose leader lock and restart themselves.
 {{< /note >}}
 
@@ -364,9 +362,9 @@ properly work against secure endpoints. As a result, etcd servers may fail or
 disconnect briefly from the kube-apiserver. This affects kube-apiserver HA
 deployments.
 
-The fix was made in [etcd v3.4](https://github.com/etcd-io/etcd/pull/10911)
-(and backported to v3.3.14 or later): the new client now creates its own
-credential bundle to correctly set authority target in dial function.
+The fix was made in etcd v3.4 (and backported to v3.3.14 or later): the new
+client now creates its own credential bundle to correctly set authority target
+in dial function.
 
 Because the fix requires gRPC dependency upgrade (to v1.23.0), downstream
 Kubernetes [did not backport etcd
