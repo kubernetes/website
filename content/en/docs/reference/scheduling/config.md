@@ -19,8 +19,9 @@ Each stage is exposed in a extension point. Plugins provide scheduling behaviors
 by implementing one or more of these extension points.
 
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
-using the component config APIs
-([`v1beta1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.19.0/config/v1beta1?tab=doc#KubeSchedulerConfiguration)).
+using the 
+[KubeSchedulerConfiguration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
+struct.
 
 A minimal configuration looks as follows:
 
@@ -97,6 +98,7 @@ for that extension point. This can also be used to rearrange plugins order, if
 desired.
    
 ### Scheduling plugins
+
 1. `UnReserve`: This is an informational extension point that is called if
    a Pod is rejected after being reserved and put on hold by a `Permit` plugin.
 
@@ -245,3 +247,5 @@ only has one pending pods queue.
 
 * Read the [kube-scheduler reference](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
+* Read the [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) reference
+

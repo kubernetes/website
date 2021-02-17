@@ -24,8 +24,6 @@ in a process called _Binding_.
 This page explains performance tuning optimizations that are relevant for
 large Kubernetes clusters.
 
-
-
 <!-- body -->
 
 In large clusters, you can tune the scheduler's behaviour balancing
@@ -44,8 +42,10 @@ should use its compiled-in default.
 If you set `percentageOfNodesToScore` above 100, kube-scheduler acts as if you
 had set a value of 100.
 
-To change the value, edit the kube-scheduler configuration file (this is likely
-to be `/etc/kubernetes/config/kube-scheduler.yaml`), then restart the scheduler.
+To change the value, edit the
+[kube-scheduler configuration file](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
+and then restart the scheduler.
+In many cases, the configuration file can be found at `/etc/kubernetes/config/kube-scheduler.yaml`.
 
 After you have made this change, you can run
 
@@ -98,7 +98,6 @@ algorithmSource:
 
 percentageOfNodesToScore: 50
 ```
-
 
 ## Tuning percentageOfNodesToScore
 
@@ -160,4 +159,7 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 
 After going over all the Nodes, it goes back to Node 1.
 
+## {{% heading "whatsnext" %}}
+
+* Check the [kube-scheduler configuration reference (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
 

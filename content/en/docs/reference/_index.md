@@ -22,8 +22,6 @@ This section of the Kubernetes documentation contains references.
 
 * [Glossary](/docs/reference/glossary/) -  a comprehensive, standardized list of Kubernetes terminology
 
-
-
 * [Kubernetes API Reference](/docs/reference/kubernetes-api/)
 * [One-page API Reference for Kubernetes {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [Using The Kubernetes API](/docs/reference/using-api/) - overview of the API for Kubernetes.
@@ -65,6 +63,8 @@ client libraries:
 ## Config APIs
 
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+* [kube-scheduler config (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
+
 
 ## Design Docs
 
