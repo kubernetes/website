@@ -21,9 +21,6 @@ allowed to use more of that resource than the limit you set. The kubelet also re
 at least the _request_ amount of that system resource specifically for that container
 to use.
 
-
-
-
 <!-- body -->
 
 ## Requests and limits
@@ -442,12 +439,15 @@ If you want to use project quotas, you should:
 
 * Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in the kubelet configuration.
+  using the `featureGates` field in the
+  [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
+  or the `--feature-gates` command line flag.
 
 * Ensure that the root filesystem (or optional runtime filesystem)
   has project quotas enabled. All XFS filesystems support project quotas.
   For ext4 filesystems, you need to enable the project quota tracking feature
   while the filesystem is not mounted.
+
   ```bash
   # For ext4, with /dev/block-device not mounted
   sudo tune2fs -O project -Q prjquota /dev/block-device
