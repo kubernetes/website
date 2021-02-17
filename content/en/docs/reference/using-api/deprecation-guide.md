@@ -71,7 +71,7 @@ The **admissionregistration.k8s.io/v1beta1** API version of MutatingWebhookConfi
 
 The **apiextensions.k8s.io/v1beta1** API version of CustomResourceDefinition will no longer be served in v1.22.
 
-* Migrate manifests and API clients to use the **apiextensions.k8s.io/v1beta1** API version, available since v1.16.
+* Migrate manifests and API clients to use the **apiextensions.k8s.io/v1** API version, available since v1.16.
 * All existing persisted objects are accessible via the new API
 * Notable changes:
     * `spec.scope` is no longer defaulted to `Namespaced` and must be explicitly specified
@@ -156,7 +156,7 @@ The **networking.k8s.io/v1beta1** API version of IngressClass will no longer be 
 
 The **rbac.authorization.k8s.io/v1beta1** API version of ClusterRole, ClusterRoleBinding, Role, and RoleBinding will no longer be served in v1.22.
 
-* Migrate manifests and API clients to use the **networking.k8s.io/v1** API version, available since v1.8.
+* Migrate manifests and API clients to use the **rbac.authorization.k8s.io/v1** API version, available since v1.8.
 * All existing persisted objects are accessible via the new APIs
 * No notable changes
 
