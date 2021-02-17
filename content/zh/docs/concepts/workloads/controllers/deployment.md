@@ -34,7 +34,7 @@ You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_
 你负责描述 Deployment 中的 _目标状态_，而 Deployment {{< glossary_tooltip term_id="controller" >}}
 以受控速率更改实际状态，
 使其变为期望状态。你可以定义 Deployment 以创建新的 ReplicaSet，或删除现有 Deployment，
-并通过新的 Deployment 收养其资源。
+并通过新的 Deployment 管理其资源。
 
 <!--
 Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
@@ -108,7 +108,7 @@ In this example:
 -->
 * `selector` 字段定义 Deployment 如何查找要管理的 Pods。
   在这里，你只需选择在 Pod 模板中定义的标签（`app: nginx`）。
-  不过，更复杂的选择规则是也可能的，只要 Pod 模板本身满足所给规则即可。
+  不过，更复杂的选择规则也是可能的，只要 Pod 模板本身满足所给规则即可。
 
   <!--
   The `matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
@@ -564,7 +564,7 @@ ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 
 Deployment 控制器每次注意到新的 Deployment 时，都会创建一个 ReplicaSet 以启动所需的 Pods。
 如果更新了 Deployment，则控制标签匹配 `.spec.selector` 但模板不匹配 `.spec.template` 的
-Pods 的现有 ReplicaSet 被缩容。最终，新的 ReplicaSet 缩放为 `.spec.replicas` 个副本，
+Pods 的现有 ReplicaSet 被缩容。最终，新的 ReplicaSet 扩容为 `.spec.replicas` 个副本，
 所有旧 ReplicaSets 缩放为 0 个副本。
 
 <!--
