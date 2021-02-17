@@ -140,9 +140,9 @@ Nodeアフィニティでは、`In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt`
 
 `nodeSelector`と`nodeAffinity`の両方を指定した場合、Podは**両方の**条件を満たすNodeにスケジュールされます。
 
-`nodeAffinity`内で複数の`nodeSelectorTerms`を指定した場合、Podは**全ての**`nodeSelectorTerms`を満たしたNodeへスケジュールされます。
+`nodeAffinity`内で複数の`nodeSelectorTerms`を指定した場合、Podは**いずれかの**`nodeSelectorTerms`を満たしたNodeへスケジュールされます。
 
-`nodeSelectorTerms`内で複数の`matchExpressions`を指定した場合にはPodは**いずれかの**`matchExpressions`を満たしたNodeへスケジュールされます。
+`nodeSelectorTerms`内で複数の`matchExpressions`を指定した場合にはPodは**全ての**`matchExpressions`を満たしたNodeへスケジュールされます。
 
 PodがスケジュールされたNodeのラベルを削除したり変更しても、Podは削除されません。
 言い換えると、アフィニティはPodをスケジュールする際にのみ考慮されます。
