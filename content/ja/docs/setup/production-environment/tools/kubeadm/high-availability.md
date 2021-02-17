@@ -87,7 +87,7 @@ weight: 60
 
     {{< note >}}`kubeadm init`の`--config`フラグと`--certificate-key`フラグは混在させることはできないため、[kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)を使用する場合は`certificateKey`フィールドを適切な場所に追加する必要があります(`InitConfiguration`と`JoinConfiguration: controlPlane`の配下)。{{< /note >}}
 
-    {{< note >}}いくつかのCNIネットワークプラグインはPodのIPのCIDRの指定など追加の設定を必要としますが、必要としないプラグインもあります。[CNIネットワークドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。{{< /note >}}  
+    {{< note >}}いくつかのCNIネットワークプラグインはPodのIPのCIDRの指定など追加の設定を必要としますが、必要としないプラグインもあります。[CNIネットワークドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。{{< /note >}}
 
     - このような出力がされます:
 
