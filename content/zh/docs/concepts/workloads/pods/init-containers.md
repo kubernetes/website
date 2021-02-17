@@ -396,7 +396,7 @@ This simple example should provide some inspiration for you to create your own
 init containers. [What's next](#whats-next) contains a link to a more detailed example.
 -->
 这个简单例子应该能为你创建自己的 Init 容器提供一些启发。
-[接下来](#whats-next)节提供了更详细例子的链接。
+[接下来](#whats-next)的章节提供了更详细例子的链接。
 
 <!--
 ## Detailed behavior
