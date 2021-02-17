@@ -162,7 +162,7 @@ disruptions, if any, to expect.
 或托管提供商可能运行一些可能导致自愿干扰的额外服务。例如，节点软
 更新可能导致自愿干扰。另外，集群（节点）自动缩放的某些
 实现可能导致碎片整理和紧缩节点的自愿干扰。集群
-理员或托管提供商应该已经记录了各级别的自愿干扰（如果有的话）。
+管理员或托管提供商应该已经记录了各级别的自愿干扰（如果有的话）。
 
 <!--
 Kubernetes offers features to help run highly available applications at the same
