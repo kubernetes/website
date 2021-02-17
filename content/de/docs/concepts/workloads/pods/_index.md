@@ -57,15 +57,15 @@ die gemeinsame Namespaces und Dateisystem-Volumes nutzen.
 Normalerweise müssen keine Pods erzeugt werden, auch keine Singleton-Pods. 
 Stattdessen werden sie mit Workload-Ressourcen wie {{<glossary_tooltip 
 text="Deployment" term_id="deployment">}} oder {{<glossary_tooltip 
-text="Job" term_id="job">}} erzeugt. Für Pods, die von einem Systemzustand 
-abhängen, erwägen Sie die Nutzung von {{<glossary_tooltip 
-text="StatefulSet" term_id="statefulset">}}-Ressourcen.
+text="Job" term_id="job">}} erzeugt. Für Pods, die von einem Systemzustand
+abhängen, ist die Nutzung von {{<glossary_tooltip text="StatefulSet" 
+term_id="statefulset">}}-Ressourcen zu erwägen.
 
 Pods in einem Kubernetes-Cluster werden hauptsächlich auf zwei Arten verwendet:
 
 * **Pods, die einen einzelnen Container ausführen**. Das 
 "Ein-Container-per-Pod"-Modell ist der häufigste Kubernetes-Anwendungsfall. In 
-diesem Fall können Sie sich einen Pod als einen Behälter vorstellen, der  einen 
+diesem Fall kannst du dir einen einen Pod als einen Behälter vorstellen, der einen 
 einzelnen Container enthält; Kubernetes verwaltet die Pods anstatt die 
 Container direkt zu verwalten.
 * **Pods, in denen mehrere Container ausgeführt werden, die zusammenarbeiten
@@ -81,16 +81,15 @@ und eine kurzlebiges Netzwerk-Identität als eine Einheit zusammen.
 {{< note >}}
 Das Gruppieren mehrerer gemeinsam lokalisierter und gemeinsam verwalteter
 Container in einem einzigen Pod ist ein relativ fortgeschrittener 
-Anwendungsfall. Sie sollten diese Architektur nur in bestimmten  Fällen 
-verwenden, wenn Ihre Container stark voneinander abhängen.
+Anwendungsfall. Du solltest diese Architektur nur in bestimmten  Fällen 
+verwenden, wenn deine Container stark voneinander abhängen.
 {{< /note >}}
 
 Jeder Pod sollte eine einzelne Instanz einer gegebenen Anwendung ausführen. Wenn 
-Sie Ihre Anwendung horizontal skalieren wollen (um mehr Instanzen auszuführen
-und  dadurch mehr Gesamtressourcen bereitstellen), sollten Sie mehrere Pods 
-verwenden, 
-einen für jede Instanz. In Kubernetes wird dies typischerweise als Replikation
-bezeichnet.
+du deine Anwendung horizontal skalieren willst (um mehr Instanzen auszuführen
+und  dadurch mehr Gesamtressourcen bereitstellen), solltest du mehrere Pods 
+verwenden, einen für jede Instanz. 
+In Kubernetes wird dies typischerweise als Replikation bezeichnet.
 Replizierte Pods werden normalerweise als eine Gruppe durch eine 
 Workload-Ressource und deren 
 {{<glossary_tooltip text="Controller" term_id="controller">}} erstellt 
@@ -109,7 +108,7 @@ virtuellen Server im Cluster befinden. Die Container können Ressourcen und
 Abhängigkeiten gemeinsam nutzen, miteinander kommunizieren und
 ferner koordinieren wann und wie sie beendet werden.
 
-Zum Beispiel könnten Sie einen Container haben, der als Webserver für Dateien in
+Zum Beispiel könntest du einen Container haben, der als Webserver für Dateien in
 einem gemeinsamen Volume arbeitet. Und ein separater "Sidecar" -Container 
 aktualisiert die Daten von einer externen Datenquelle, siehe folgenden 
 Abbildung:
@@ -129,7 +128,7 @@ enthaltenen Container bereit:
 
 ## Mit Pods arbeiten
 
-Sie werden selten einzelne Pods direkt in Kubernetes erstellen, selbst 
+Du wirst selten einzelne Pods direkt in Kubernetes erstellen, selbst 
 Singleton-Pods. Das liegt daran, dass Pods als relativ kurzlebige 
 Einweg-Einheiten konzipiert sind. Wann Ein Pod erstellt wird (entweder direkt 
 von Ihnen oder indirekt von einem
@@ -145,16 +144,16 @@ eines Pods verwechselt werden. Ein Pod ist kein Prozess, sondern eine Umgebung
 zur Ausführung von Containern. Ein Pod bleibt bestehen bis er gelöscht wird.
 {{< /note >}}
 
-Stellen Sie beim Erstellen des Manifests für ein Pod-Objekt sicher, dass der 
+Stelle beim Erstellen des Manifests für ein Pod-Objekt sicher, dass der 
 angegebene Name ein gültiger
 [DNS-Subdomain-Name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
 ist.
 
 ### Pods und Controller
 
-Mit Workload-Ressourcen können Sie mehrere Pods erstellen und verwalten. Ein 
+Mit Workload-Ressourcen kannst du mehrere Pods erstellen und verwalten. Ein 
 Controller für die Ressource kümmert sich um Replikation, Roll-Out sowie 
-automatische Heilung im Fall von Podfehlern. Wenn beispielsweise ein Node 
+automatische Wiederherstellung im Fall von versagenden Pods. Wenn beispielsweise ein Node 
 ausfällt, bemerkt ein Controller, dass die Pods auf dem Node nicht mehr laufen 
 und plant die Ausführung eines Ersatzpods auf einem funktionierenden Node.
 Hier sind einige Beispiele für Workload-Ressourcen, die einen oder mehrere Pods 
@@ -164,22 +163,22 @@ verwalten:
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
-### Podvorlagen
+### Pod Vorlagen
 
 Controller für 
 {{<glossary_tooltip text="Workload" term_id="workload">}}-Ressourcen 
-erstellen Pods von einer _Podvorlage_ und verwalten diese Pods für sie.
+erstellen Pods von einer _Pod Vorlage_ und verwalten diese Pods für dich.
 
-Podvorlagen sind Spezifikationen zum Erstellen von Pods und sind in 
+Pod Vorlagen sind Spezifikationen zum Erstellen von Pods und sind in 
 Workload-Ressourcen enthalten wie z. B.
 [Deployments](/docs/concepts/workloads/controllers/deployment/),
 [Jobs](/docs/concepts/workloads/controllers/job/), and
 [DaemonSets](/docs/concepts/workloads/controllers/daemonset/).
 
-Jeder Controller für eine Workload-Ressource verwendet die Podvorlage innerhalb 
-des Workload-Objektes, um Pods zu erzeugen. Die Podvorlage ist Teil des 
-gewünschten Zustands der Workload-Ressource, mit der Sie Ihre Anwendung 
-ausgeführt haben.
+Jeder Controller für eine Workload-Ressource verwendet die Pod Vorlage innerhalb 
+des Workload-Objektes, um Pods zu erzeugen. Die Pod Vorlage ist Teil des 
+gewünschten Zustands der Workload-Ressource, mit der du deine Anwendung 
+ausgeführt hast.
 
 Das folgende Beispiel ist ein Manifest für einen einfachen Job mit einer 
 `Vorlage`, die einen Container startet. Der Container in diesem Pod druckt 
@@ -192,37 +191,37 @@ metadata:
  name: hello
 spec:
  template:
- # Dies is the Podvorlage
+ # Dies is the Pod Vorlage
  spec:
  containers:
  - name: hello
  image: busybox
  command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
  restartPolicy: OnFailure
- # Die Podvorlage endet hier
+ # Die Pod Vorlage endet hier
 ```
-Das Ändern der Podvorlage oder der Wechsel zu einer neuen Podvorlage hat keine 
-direkten Auswirkungen auf bereits existierende Pods. Wenn Sie die Podvorlage für
-eine Workload-Ressource ändern, dann muss diese Ressource die Ersatz-Pods
+Das Ändern der Pod Vorlage oder der Wechsel zu einer neuen Pod Vorlage hat keine 
+direkten Auswirkungen auf bereits existierende Pods. Wenn du die Pod Vorlage für
+eine Workload-Ressource änderst, dann muss diese Ressource die Ersatz-Pods
 erstellen, welche die aktualisierte Vorlage verwenden. 
 
 Beispielsweise stellt der StatefulSet-Controller sicher, dass für jedes
-StatefulSet-Objekt die ausgeführten Pods mit der aktueller Podvorlage 
-übereinstimmen. Wenn Sie das StatefulSet bearbeiten und die Vorlage ändern, 
+StatefulSet-Objekt die ausgeführten Pods mit der aktueller Pod Vorlage 
+übereinstimmen. Wenn du das StatefulSet bearbeitest und die Vorlage änderst, 
 beginnt das StatefulSet mit der Erstellung neuer Pods basierend auf der 
 aktualisierten Vorlage. Schließlich werden alle alten Pods durch neue Pods 
 ersetzt, und das Update ist abgeschlossen.
 
 Jede Workload-Ressource implementiert eigenen Regeln für die Umsetzung von 
-Änderungen der Podvorlage. Wenn Sie mehr über StatefulSet erfahren möchten, 
-lesen Sie die Seite
+Änderungen der Pod Vorlage. Wenn du mehr über StatefulSet erfahren möchtest, 
+dann lese die Seite
 [Update-Strategien](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) 
 im Tutorial StatefulSet Basics.
 
 
 Auf Nodes beobachtet oder verwaltet das 
 {{< glossary_tooltip term_id="kubelet" text="Kubelet" >}}
-nicht direkt die Details zu Podvorlagen und Updates. Diese Details sind 
+nicht direkt die Details zu Pod Vorlagen und Updates. Diese Details sind 
 abstrahiert. Die Abstraktion und Trennung von Aufgaben vereinfacht die 
 Systemsemantik und ermöglicht so das Verhalten des Clusters zu ändern ohne 
 vorhandenen Code zu ändern.
@@ -230,10 +229,10 @@ vorhandenen Code zu ändern.
 ## Pod Update und Austausch
 
 Wie im vorherigen Abschnitt erwähnt, erstellt der Controller neue Pods basierend
-auf der aktualisierten Vorlage, wenn die Podvorlage für eine Workload-Ressource
+auf der aktualisierten Vorlage, wenn die Pod Vorlage für eine Workload-Ressource
 geändert wird anstatt die vorhandenen Pods zu aktualisieren oder zu patchen.
 
-Kubernetes hindert Sie nicht daran, Pods direkt zu verwalten. Es ist möglich, 
+Kubernetes hindert dich nicht daran, Pods direkt zu verwalten. Es ist möglich, 
 einige Felder eines laufenden Pods zu aktualisieren. Allerdings haben 
 Pod-Aktualisierungsvorgänge wie zum Beispiel
 [`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core), 
@@ -241,8 +240,8 @@ und
 [`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
 einige Einschränkungen:
 
-- Die meisten Metadaten zu einem Pod können nicht verändert werden. Zum Beispiel können 
-  Sie nicht die Felder `namespace`, `name`, `uid`, oder `creationTimestamp` 
+- Die meisten Metadaten zu einem Pod können nicht verändert werden. Zum Beispiel kannst
+  du nicht die Felder `namespace`, `name`, `uid`, oder `creationTimestamp` 
   ändern. Das `generation`-Feld muss eindeutig sein. Es werden nur Aktualisierungen 
   akzeptiert, die den Wert des Feldes inkrementieren.
 - Wenn das Feld `metadata.deletionTimestamp` gesetzt ist, kann kein neuer 
@@ -250,7 +249,7 @@ einige Einschränkungen:
 - Pod-Updates dürfen keine Felder ändern, die Ausnahmen sind 
   `spec.containers[*].image`,
  `spec.initContainers[*].image`,` spec.activeDeadlineSeconds` oder
- `spec.tolerations`. Für `spec.tolerations` können Sie nur neue Einträge 
+ `spec.tolerations`. Für `spec.tolerations` kannnst du nur neue Einträge 
   hinzufügen.
 - Für `spec.activeDeadlineSeconds` sind nur zwei Änderungen erlaubt:
 
@@ -269,7 +268,7 @@ Ein Pod kann eine Reihe von gemeinsam genutzten Speicher-
 Container im Pod können auf die gemeinsamen Volumes zugreifen und dadurch Daten 
 austauschen. Volumes ermöglichen auch, dass Daten ohne Verlust gespeichert 
 werden, falls einer der Container neu gestartet werden muss. 
-Im Kapitel [Datenspeicherung](/docs/concepts/storage/) finden Sie weitere 
+Im Kapitel [Datenspeicherung](/docs/concepts/storage/) findest du weitere 
 Informationen, wie Kubernetes gemeinsam genutzten Speicher implementiert und 
 Pods zur Verfügung stellt.
 
@@ -321,7 +320,7 @@ _Statische Pods_ werden direkt vom Kubelet-Daemon auf einem bestimmten Node
 verwaltet ohne dass sie vom 
 {{<glossary_tooltip text="API Server" term_id="kube-apiserver">}} überwacht 
 werden.
-.
+
 Die meisten Pods werden von der Kontrollebene verwaltet (z. B.
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}). Aber für 
 statische Pods überwacht das Kubelet jeden statischen Pod direkt (und startet 
@@ -342,16 +341,16 @@ sichtbar sind jedoch von dort nicht gesteuert werden können.
 
 ## {{% heading "whatsnext" %}}
 
-* Erfahren Sie mehr über den 
+* Lerne den 
   [Lebenszyklus eines Pods](/docs/concepts/workloads/pods/pod-lifecycle/).
-* Erfahren Sie mehr über [RuntimeClass](/docs/concepts/containers/runtime-class/) 
-  und wie Sie damit verschiedene Pods mit unterschiedlichen 
-  Container-Laufzeitumgebungen konfigurieren können.
-* Lesen sie mehr über 
+* Lerne die [RuntimeClass](/docs/concepts/containers/runtime-class/) 
+  und wie du damit verschiedene Pods mit unterschiedlichen 
+  Container-Laufzeitumgebungen konfigurieren kannst.
+* Lese 
   [Restriktionen für die Verteilung von Pods](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
-* Lesen sie mehr über sogenannte 
-  [Pod-Disruption-Budgets](/docs/concepts/workloads/pods/disruptions/) 
-  und wie Sie diese verwenden können, um die Verfügbarkeit von Anwendungen bei 
+* Lese
+  [Pod-Disruption-Budget](/docs/concepts/workloads/pods/disruptions/) 
+  und wie du es verwenden kannst, um die Verfügbarkeit von Anwendungen bei 
   Störungen zu verwalten. Die 
   [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
   -Objektdefinition beschreibt das Objekt im Detail.
@@ -362,7 +361,7 @@ Um den Hintergrund zu verstehen, warum Kubernetes eine gemeinsame Pod-API in
 andere Ressourcen, wie z. B. 
 {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} 
 oder {{< glossary_tooltip text="Deployments" term_id="deployment" >}} einbindet, 
-können sie Artikel zu früheren Technologien lesen, unter anderem: 
+kannst du Artikel zu früheren Technologien lesen, unter anderem: 
  * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
  * [Borg](https://research.google.com/pubs/pub43438.html)
  * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
