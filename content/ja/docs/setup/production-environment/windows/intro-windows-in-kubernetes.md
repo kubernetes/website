@@ -14,7 +14,7 @@ Windowsアプリケーションは、多くの組織で実行されているサ�
 
 ## KubernetesのWindowsコンテナ
 
-KubernetesでWindowsコンテナのオーケストレーションを有効にする方法は、既存のLinuxクラスターにWindowsノードを含めるだけです。Kubernetesの{{< glossary_tooltip text="Pods" term_id="pod" >}}でWindowsコンテナをスケジュールすることは、Linuxベースのコンテナをスケジュールするのと同じくらいシンプルで簡単です。
+KubernetesでWindowsコンテナのオーケストレーションを有効にする方法は、既存のLinuxクラスターにWindowsノードを含めるだけです。Kubernetesの{{< glossary_tooltip text="Pod" term_id="pod" >}}でWindowsコンテナをスケジュールすることは、Linuxベースのコンテナをスケジュールするのと同じくらいシンプルで簡単です。
 
 Windowsコンテナを実行するには、Kubernetesクラスターに複数のオペレーティングシステムを含める必要があります。コントロールプレーンノードはLinux、ワーカーノードはワークロードのニーズに応じてWindowsまたはLinuxで実行します。Windows Server 2019は、サポートされている唯一のWindowsオペレーティングシステムであり、Windows (kubelet、[コンテナランタイム](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/containerd)、kube-proxyを含む)で[Kubernetesノード](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)を有効にします。Windowsディストリビューションチャンネルの詳細については、[Microsoftのドキュメント](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19)を参照してください。
 
@@ -112,7 +112,7 @@ ContainerDはLinux上のKubernetesで動作するOCI準拠のランタイムで�
 
 Kubernetes v1.18におけるWindows上でのContainerDは以下の既知の欠点があります:
 
-* ContainerDは公式リリースではWindowsをサポートしていません； Kubernetesでのすべての開発はアクティブなContainerD開発ブランチに対して行われています。本番環境へのデプロイはつねに、完全にテストされセキュリティ修正をサポートした公式リリースを利用するべきです。
+* ContainerDは公式リリースではWindowsをサポートしていません。すなわち、Kubernetesでのすべての開発はアクティブなContainerD開発ブランチに対して行われています。本番環境へのデプロイはつねに、完全にテストされセキュリティ修正をサポートした公式リリースを利用するべきです。
 * ContainerDを利用した場合、Group Managed Service Accountsは実装されていません。詳細は[containerd/cri#1276](https://github.com/containerd/cri/issues/1276)を参照してください。
 
 {{< /caution >}}
@@ -590,7 +590,7 @@ Kubernetesクラスターのトラブルシューティングの主なヘルプ�
 
 ### Hyper-V分離
 
-Hyper-V分離はKubernetesで以下のWindowsコンテナのユースケースを可能にするために必要です。
+Hyper-V分離はKubernetesで以下のWindowsコンテナのユースケースを実現にするために必要です。
 
 * Pod間のハイパーバイザーベースの分離により、セキュリティを強化
 * 下位互換性により、コンテナの再構築を必要とせずにノードで新しいWindows Serverバージョンを実行
