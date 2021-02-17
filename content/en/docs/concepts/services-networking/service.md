@@ -513,8 +513,13 @@ allocates a port from a range specified by `--service-node-port-range` flag (def
 Each node proxies that port (the same port number on every Node) into your Service.
 Your Service reports the allocated port in its `.spec.ports[*].nodePort` field.
 
-If you want to specify particular IP(s) to proxy the port, you can set the `--nodeport-addresses` flag in kube-proxy to particular IP block(s); this is supported since Kubernetes v1.10.
-This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 192.0.2.0/25) to specify IP address ranges that kube-proxy should consider as local to this node.
+If you want to specify particular IP(s) to proxy the port, you can set the
+`--nodeport-addresses` flag for kube-proxy or the equivalent `nodePortAddresses`
+field of the
+[kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+to particular IP block(s).
+
+This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`) to specify IP address ranges that kube-proxy should consider as local to this node.
 
 For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag, kube-proxy only selects the loopback interface for NodePort Services. The default for `--nodeport-addresses` is an empty list. This means that kube-proxy should consider all available network interfaces for NodePort. (That's also compatible with earlier Kubernetes releases).
 
@@ -530,7 +535,9 @@ to configure environments that are not fully supported by Kubernetes, or even
 to just expose one or more nodes' IPs directly.
 
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
-and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
+and `.spec.clusterIP:spec.ports[*].port`.
+If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
+in the kube-proxy configuration file is set, `<NodeIP>` would be filtered node IP(s).
 
 For example:
 
