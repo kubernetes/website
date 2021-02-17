@@ -65,9 +65,6 @@ Hugo-Installationsanweisungen finden Sie in der [offiziellen Hugo-Dokumentation]
 Das benötigte [Docsy Hugo theme](https://github.com/google/docsy#readme) muss als git submodule installiert werden:
 
 ```
-#Installiere die Abhängigkeiten
-yarn
-
 #Füge das Docsy submodule hinzu
 git submodule update --init --recursive --depth 1
 ```
@@ -75,6 +72,8 @@ git submodule update --init --recursive --depth 1
 So führen Sie die Site lokal aus, wenn Sie Hugo installiert haben:
 
 ```bash
+# Installieren der JavaScript Abhängigkeiten
+npm ci
 make serve
 ```
 
