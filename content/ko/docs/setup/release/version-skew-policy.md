@@ -1,11 +1,18 @@
 ---
+
+
+
+
+
+
+
 title: 쿠버네티스 버전 및 버전 차이(skew) 지원 정책
 content_type: concept
 weight: 30
 ---
 
 <!-- overview -->
-이 문서는 다양한 쿠버네티스 구성 요소 간에 지원되는 최대 버전 차이를 설명한다. 
+이 문서는 다양한 쿠버네티스 구성 요소 간에 지원되는 최대 버전 차이를 설명한다.
 특정 클러스터 배포 도구는 버전 차이에 대한 추가적인 제한을 설정할 수 있다.
 
 
@@ -19,14 +26,14 @@ weight: 30
 
 쿠버네티스 프로젝트는 최근 세 개의 마이너 릴리스 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}) 에 대한 릴리스 분기를 유지한다. 쿠버네티스 1.19 이상은 약 1년간의 패치 지원을 받는다. 쿠버네티스 1.18 이상은 약 9개월의 패치 지원을 받는다.
 
-보안 수정사항을 포함한 해당 수정사항은 심각도와 타당성에 따라 세 개의 릴리스 브랜치로 백포트(backport) 될 수 있다. 
+보안 수정사항을 포함한 해당 수정사항은 심각도와 타당성에 따라 세 개의 릴리스 브랜치로 백포트(backport) 될 수 있다.
 패치 릴리스는 각 브랜치별로 [정기적인 주기](https://git.k8s.io/sig-release/releases/patch-releases.md#cadence)로 제공하며, 필요한 경우 추가 긴급 릴리스도 추가한다.
 
 [릴리스 관리자](https://git.k8s.io/sig-release/release-managers.md) 그룹이 이러한 결정 권한을 가진다.
 
 자세한 내용은 쿠버네티스 [패치 릴리스](https://git.k8s.io/sig-release/releases/patch-releases.md) 페이지를 참조한다.
 
-## 지원되는 버전 차이 
+## 지원되는 버전 차이
 
 ### kube-apiserver
 
@@ -132,6 +139,11 @@ HA 클러스터의 `kube-apiserver` 인스턴스 간에 버전 차이가 있으�
 *  `kubelet`과 통신하는 `kube-apiserver` 인스턴스는 **{{< skew latestVersion >}}** 이어야 한다.
 
 필요에 따라서 `kubelet` 인스턴스를 **{{< skew latestVersion >}}** 으로 업그레이드할 수 있다(또는 **{{< skew prevMinorVersion >}}** 아니면 **{{< skew oldestMinorVersion >}}** 으로 유지할 수 있음).
+
+{{< note >}}
+`kubelet` 마이너 버전 업그레이드를 수행하기 전에, 해당 노드의 파드를 [드레인(drain)](/docs/tasks/administer-cluster/safely-drain-node/)해야 한다.
+인플레이스(In-place) 마이너 버전 `kubelet` 업그레이드는 지원되지 않는다.
+{{</ note >}}
 
 {{< warning >}}
 클러스터 안의 `kubelet` 인스턴스를 `kube-apiserver`의 버전보다 2단계 낮은 버전으로 실행하는 것을 권장하지 않는다:

@@ -5,7 +5,9 @@ date: 2020-12-02
 slug: dont-panic-kubernetes-and-docker
 ---
 
-**작성자:** Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
+**저자:** Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
+
+**번역:** 박재화(삼성SDS), 손석호(한국전자통신연구원)
 
 쿠버네티스는 v1.20 이후 컨테이너 런타임으로서
 [도커를
