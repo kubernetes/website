@@ -255,7 +255,7 @@ The certificate value is in Base64-encoded format under `status.certificate`.
 Export the issued certificate from the CertificateSigningRequest.
 
 ```
-kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > /home/vagrant/work/john.crt
+kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > certificate.crt
 ```
 
 ### Create Role and RoleBinding
@@ -444,4 +444,3 @@ status:
 * View the source code for the kube-controller-manager built in [approver](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)
 * For details of X.509 itself, refer to [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) section 3.1
 * For information on the syntax of PKCS#10 certificate signing requests, refer to [RFC 2986](https://tools.ietf.org/html/rfc2986)
-
