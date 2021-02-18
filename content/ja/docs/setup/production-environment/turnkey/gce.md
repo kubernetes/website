@@ -144,7 +144,7 @@ Some of the pods may take a few seconds to start up (during this time they'll sh
 
 ### いくつかの例の実行
 
-Then, see [a simple nginx example](/docs/tasks/run-application/run-stateless-application-deployment/) to try out your new cluster.
+Then, see [a simple nginx example](/ja/docs/tasks/run-application/run-stateless-application-deployment/) to try out your new cluster.
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/).  The [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) is a good "getting started" walkthrough.
 
@@ -214,5 +214,4 @@ field values:
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 GCE                  | Saltstack    | Debian | GCE         | [docs](/ja/docs/setup/production-environment/turnkey/gce/)                                    |   | Project
-
 
