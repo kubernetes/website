@@ -93,7 +93,7 @@ gcloud components install kubectl
 
 {{< note >}}
 The kubectl version bundled with `gcloud` may be older than the one
-downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/tasks/tools/install-kubectl/)
+The [kubectl](/ja/docs/reference/kubectl/kubectl/) tool controls the Kubernetes cluster
 document to see how you can set up the latest `kubectl` on your workstation.
 {{< /note >}}
 
@@ -214,7 +214,6 @@ field values:
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 GCE                  | Saltstack    | Debian | GCE         | [docs](/ja/docs/setup/production-environment/turnkey/gce/)                                    |   | Project
-
 
 
 
