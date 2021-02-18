@@ -210,6 +210,12 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 The upgrade procedure on worker nodes should be executed one node at a time or few nodes at a time,
 without compromising the minimum required capacity for running your workloads.
 
+Go to workernode
+
+    ```shell
+    ssh <Worker-Node name>
+    ```
+
 ### Upgrade kubeadm
 
 -  Upgrade kubeadm:
@@ -274,6 +280,11 @@ without compromising the minimum required capacity for running your workloads.
     ```shell
     sudo systemctl daemon-reload
     sudo systemctl restart kubelet
+    ```
+Go back to master/controlplane
+
+    ```shell
+    Exit
     ```
 
 ### Uncordon the node
