@@ -518,8 +518,7 @@ Cluster-level extended resources are not tied to nodes. They are usually managed
 by scheduler extenders, which handle the resource consumption and resource quota.
 
 You can specify the extended resources that are handled by scheduler extenders
-in [scheduler policy
-configuration](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31).
+in [scheduler policy configuration](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 
 **Example:**
 
@@ -742,23 +741,14 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 You can see that the Container was terminated because of `reason:OOM Killed`, where `OOM` stands for Out Of Memory.
 
-
-
-
-
-
 ## {{% heading "whatsnext" %}}
 
-
 * Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
-
 * Get hands-on experience [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
-
 * For more details about the difference between requests and limits, see
   [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
-
 * Read the [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) API reference
-
 * Read the [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API reference
-
 * Read about [project quotas](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
+* Read more about the [kube-scheduler Policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
+
