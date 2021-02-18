@@ -117,7 +117,7 @@ kube-system   kube-ui       ClusterIP        10.0.0.3         <none>            
 ...
 ```
 
-Similarly, you can take a look at the set of [pods](/docs/concepts/workloads/pods/) that were created during cluster startup.
+Similarly, you can take a look at the set of [pods](/ja/docs/concepts/workloads/pods/) that were created during cluster startup.
 You can do this via the
 
 ```shell
@@ -214,6 +214,5 @@ field values:
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 GCE                  | Saltstack    | Debian | GCE         | [docs](/ja/docs/setup/production-environment/turnkey/gce/)                                    |   | Project
-
 
 
