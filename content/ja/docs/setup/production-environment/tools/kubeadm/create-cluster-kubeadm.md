@@ -76,7 +76,7 @@ kubeadm init <args>
 
 `--apiserver-advertise-address`は、この特定のコントロールプレーンノードのAPIサーバーへのadvertise addressを設定するために使えますが、`--control-plane-endpoint`は、すべてのコントロールプレーンノード共有のエンドポイントを設定するために使えます。
 
-`--control-plane-endpoint`はIPアドレスとIPアドレスへマッピングできるDNS名を使用できます。利用可能なソリューションをそうしたマッピングの観点から評価するには、ネットワーク管理者に相談してください。
+`--control-plane-endpoint`はIPアドレスと、IPアドレスへマッピングできるDNS名を使用できます。利用可能なソリューションをそうしたマッピングの観点から評価するには、ネットワーク管理者に相談してください。
 
 以下にマッピングの例を示します。
 
@@ -445,4 +445,3 @@ kubeadmのdeb/rpmパッケージおよびバイナリは、[multi-platform propo
 ## トラブルシューティング {#troubleshooting}
 
 kubeadmに関する問題が起きたときは、[トラブルシューティングドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)を確認してください。
-
