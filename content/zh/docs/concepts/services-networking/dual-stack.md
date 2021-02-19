@@ -9,11 +9,17 @@ weight: 70
 ---
 
 <!--
+reviewers:
+- lachie83
+- khenidak
+- aramase
+- bridgetkromhout
 title: IPv4/IPv6 dual-stack
 feature:
   title: IPv4/IPv6 dual-stack
   description: >
     Allocation of IPv4 and IPv6 addresses to Pods and Services
+
 content_type: concept
 weight: 70
 -->
@@ -85,6 +91,20 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 
 <!--
 To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
+
+   * kube-apiserver:
+      * `--feature-gates="IPv6DualStack=true"`
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
+   * kube-controller-manager:
+      * `--feature-gates="IPv6DualStack=true"`
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
+      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
+   * kubelet:
+      * `--feature-gates="IPv6DualStack=true"`
+   * kube-proxy:
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+      * `--feature-gates="IPv6DualStack=true"`
 -->
 要启用 IPv4/IPv6 双协议栈，为集群的相关组件启用 `IPv6DualStack`
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
@@ -95,8 +115,8 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
-      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` 例如 `--cluster-cidr=10.244.0.0/16,fc00::/48`
-      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>` 例如 `--service-cluster-ip-range=10.0.0.0/16,fd00::/108`
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` 
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` 对于 IPv4 默认为 /24，对于 IPv6 默认为 /64
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
@@ -132,7 +152,7 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
 -->
 如果你的集群启用了 IPv4/IPv6 双协议栈网络，则可以使用 IPv4 或 IPv6 地址来创建
 {{< glossary_tooltip text="Service" term_id="service" >}}。
-服务的地址族默认为第一个服务集群 IP 范围的地址族（通过 kube-apiserver 的 `--service-cluster-ip-range` 参数配置）
+服务的地址族默认为第一个服务集群 IP 范围的地址族（通过 kube-apiserver 的 `--service-cluster-ip-range` 参数配置）。
 当你定义服务时，可以选择将其配置为双栈。若要指定所需的行为，你可以设置 `.spec.ipFamilyPolicy` 字段为以下值之一：
 
 <!--
@@ -396,9 +416,9 @@ For [Headless Services without selectors](/docs/concepts/services-networking/ser
 若没有显式设置 `.spec.ipFamilyPolicy`，则 `.spec.ipFamilyPolicy` 字段默认设置为 `RequireDualStack`。
 
 <!--
-### Type LoadBalancer
+### Service type LoadBalancer
 -->
-### LoadBalancer 类型
+### LoadBalancer 类型服务
 
 <!--
 To provision a dual-stack load balancer for your Service:
@@ -418,7 +438,7 @@ To use a dual-stack `LoadBalancer` type Service, your cloud provider must suppor
 {{< /note >}}
 
 <!--
-## Egress Traffic
+## Egress traffic
 -->
 ## 出站流量
 
@@ -441,5 +461,3 @@ Ensure your {{< glossary_tooltip text="CNI" term_id="cni" >}} provider supports 
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 -->
 * [验证 IPv4/IPv6 双协议栈](/zh/docs/tasks/network/validate-dual-stack)网络
-
-
