@@ -155,7 +155,7 @@ that horizontally scales the nodes in your cluster.)
 并使当前状态更接近期望状态。
 
 （实际上有一个[控制器](https://github.com/kubernetes/autoscaler/)
-可以水平地扩展集群中的节点。请参阅
+可以水平地扩展集群中的节点。）
 
 <!--
 The important point here is that the controller makes some change to bring about
@@ -170,7 +170,7 @@ Other control loops can observe that reported data and take their own actions.
 In the thermostat example, if the room is very cold then a different controller
 might also turn on a frost protection heater. With Kubernetes clusters, the control
 plane indirectly works with IP address management tools, storage services,
-cloud provider APIS, and other services by
+cloud provider APIs, and other services by
 [extending Kubernetes](/docs/concepts/extend-kubernetes/) to implement that.
 -->
 在温度计的例子中，如果房间很冷，那么某个控制器可能还会启动一个防冻加热器。
@@ -198,7 +198,7 @@ Kubernetes 采用了系统的云原生视图，并且可以处理持续的变化
 在任务执行时，集群随时都可能被修改，并且控制回路会自动修复故障。
 这意味着很可能集群永远不会达到稳定状态。
 
-只要集群中控制器的在运行并且进行有效的修改，整体状态的稳定与否是无关紧要的。
+只要集群中的控制器在运行并且进行有效的修改，整体状态的稳定与否是无关紧要的。
 
 <!--
 ## Design

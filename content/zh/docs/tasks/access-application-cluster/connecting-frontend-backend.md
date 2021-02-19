@@ -345,5 +345,5 @@ kubectl delete deployment frontend backend
 -->
 * 进一步了解 [Service](/zh/docs/concepts/services-networking/service/)
 * 进一步了解 [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
-* 进一步了解 [Service 和 Pods 的 DNS](/docs/concepts/services-networking/dns-pod-service/)
+* 进一步了解 [Service 和 Pods 的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
 
