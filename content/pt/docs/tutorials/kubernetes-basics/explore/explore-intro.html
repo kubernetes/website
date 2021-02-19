@@ -35,7 +35,7 @@ weight: 10
                     <li>Rede, como um endereço IP único no cluster</li>
                     <li>Informações sobre como executar cada contêiner, como a versão da imagem do contêiner ou portas específicas a serem usadas</li>
                 </ul>
-                <p>Um Pod define um "host lógico" específico para o aplicativo e pode conter diferentes contêineres que, nas maiorias dos casos, são fortemente acoplados. Por exemplo, um Pod pode incluir o contêiner com seu aplicativo Node.js, bem como um outro contêiner que alimenta os dados a serem publicados pelo servidor web Node.js. Os contêineres de um Pod compartilham um endereço IP e intervalo de portas; são sempre localizados, programados e executam em um contexto compartilhado no mesmo Nó.</p>
+                <p>Um Pod define um "host lógico" específico para o aplicativo e pode conter diferentes contêineres que, na maiorias dos casos, são fortemente acoplados. Por exemplo, um Pod pode incluir o contêiner com seu aplicativo Node.js, bem como um outro contêiner que alimenta os dados a serem publicados pelo servidor web Node.js. Os contêineres de um Pod compartilham um endereço IP e intervalo de portas; são sempre localizados, programados e executam em um contexto compartilhado no mesmo Nó.</p>
 
             <p>Pods são a unidade atômica na plataforma Kubernetes. Quando criamos um Deployment no Kubernetes, esse Deployment cria Pods com contêineres dentro dele (em vez de você criar contêineres diretamente). Cada Pod está vinculado ao nó onde está programado (scheduled) e lá permanece até o encerramento (de acordo com a política de reinicialização) ou exclusão. Em caso de falha do nó, Pods idênticos são programados em outros nós disponíveis no cluster.</p>
 
@@ -74,7 +74,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
                 <h2>Nós (Nodes)</h2>
-                <p>Um Pod sempre será executando em um <b>Nó</b>. Um Nó é uma máquina operária em um cluster Kubernetes e pode ser uma máquina física ou virtual. Cada Nó é gerenciado pelo Control Plane. Um Nó pode possuir múltiplos Pods e o Control Plane do Kubernetes gerencia automaticamente o agendamento dos Pods nos nós do cluster. Para o agendamento automático dos Pods, o Control Plane leva em consideração os recursos disponíveis em cada Nó.</p>
+                <p>Um Pod sempre será executando em um <b>Nó</b>. Um Nó é uma máquina de processamento em um cluster Kubernetes e pode ser uma máquina física ou virtual. Cada Nó é gerenciado pelo Control Plane. Um Nó pode possuir múltiplos Pods e o Control Plane do Kubernetes gerencia automaticamente o agendamento dos Pods nos nós do cluster. Para o agendamento automático dos Pods, o Control Plane leva em consideração os recursos disponíveis em cada Nó.</p>
 
                 <p>Cada Nó do Kubernetes executa pelo menos:</p>
                 <ul>
