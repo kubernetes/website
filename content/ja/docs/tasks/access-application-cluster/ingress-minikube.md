@@ -134,31 +134,12 @@ weight: 100
 
 1. 以下の内容で`example-ingress.yaml`を作成します。
 
-    ```yaml
-    apiVersion: networking.k8s.io/v1
-    kind: Ingress
-    metadata:
-      name: example-ingress
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /$1
-    spec:
-      rules:
-      - host: hello-world.info
-        http:
-          paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: web
-                port:
-                  number: 8080
-    ```
+    {{< codenew file="service/networking/example-ingress.yaml" >}}
 
 1. 次のコマンドを実行して、Ingressリソースを作成します。
 
     ```shell
-    kubectl apply -f example-ingress.yaml
+    kubectl apply -f https://kubernetes.io/examples/service/networking/example-ingress.yaml
     ```
 
     出力は次のようになります。
@@ -306,6 +287,3 @@ weight: 100
 * [Ingress](/ja/docs/concepts/services-networking/ingress/)についてさらに学ぶ。
 * [Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)についてさらに学ぶ。
 * [Service](/ja/docs/concepts/services-networking/service/)についてさらに学ぶ。
-
-
-
