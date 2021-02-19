@@ -178,11 +178,15 @@ aliases:
     - jcjesus
     - devlware
     - jhonmike
+    - rikatz
+    - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
     - jcjesus
     - devlware
     - jhonmike
+    - rikatz
+    - yagonobre
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - ngtuna
