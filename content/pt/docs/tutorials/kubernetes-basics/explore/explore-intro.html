@@ -1,0 +1,143 @@
+---
+title: Visualizando Pods e Nós (Nodes)
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Objetivos</h3>
+                <ul>
+                    <li>Aprenda sobre Pods do Kubernetes.</li>
+                    <li>Aprenda sobre Nós do Kubernetes.</li>
+                    <li>Solucionar problemas de aplicativos implantados no Kubernetes.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h2>Kubernetes Pods</h2>
+                <p>Quando você criou um Deployment no Módulo <a href="/pt/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, o Kubernetes criou um <b>Pod</b> para hospedar a instância do seu aplicativo. Um Pod é uma abstração do Kubernetes que representa um grupo de um ou mais contêineres de aplicativos (como Docker) e alguns recursos compartilhados para esses contêineres. Esses recursos incluem:</p>
+                <ul>
+                    <li>Armazenamento compartilhado, como Volumes</li>
+                    <li>Rede, como um endereço IP único no cluster</li>
+                    <li>Informações sobre como executar cada contêiner, como a versão da imagem do contêiner ou portas específicas a serem usadas</li>
+                </ul>
+                <p>Um Pod define um "host lógico" específico para o aplicativo e pode conter diferentes contêineres que, na maioria dos casos, são fortemente acoplados. Por exemplo, um Pod pode incluir o contêiner com seu aplicativo Node.js, bem como um outro contêiner que alimenta os dados a serem publicados pelo servidor web Node.js. Os contêineres de um Pod compartilham um endereço IP e intervalo de portas; são sempre localizados, programados e executam em um contexto compartilhado no mesmo Nó.</p>
+
+            <p>Pods são a unidade atômica na plataforma Kubernetes. Quando criamos um Deployment no Kubernetes, esse Deployment cria Pods com contêineres dentro dele (em vez de você criar contêineres diretamente). Cada Pod está vinculado ao nó onde está programado (scheduled) e lá permanece até o encerramento (de acordo com a política de reinicialização) ou exclusão. Em caso de falha do nó, Pods idênticos são programados em outros nós disponíveis no cluster.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Sumário:</h3>
+                    <ul>
+                        <li>Pods</li>
+                        <li>Nós (Nodes)</li>
+                        <li>Principais comandos do Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                        <p><i>
+                            Um Pod é um grupo de um ou mais contêineres de aplicativos (como Docker) que inclui armazenamento compartilhado (volumes), endereço IP e informações sobre como executá-los.
+                        </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Visão geral sobre os Pods</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Nós (Nodes)</h2>
+                <p>Um Pod sempre será executando em um <b>Nó</b>. Um Nó é uma máquina de processamento em um cluster Kubernetes e pode ser uma máquina física ou virtual. Cada Nó é gerenciado pelo Control Plane. Um Nó pode possuir múltiplos Pods e o Control Plane do Kubernetes gerencia automaticamente o agendamento dos Pods nos nós do cluster. Para o agendamento automático dos Pods, o Control Plane leva em consideração os recursos disponíveis em cada Nó.</p>
+
+                <p>Cada Nó do Kubernetes executa pelo menos:</p>
+                <ul>
+                    <li>Kubelet, o processo responsável pela comunicação entre o Control Plane e o Nó; gerencia os Pods e os contêineres rodando em uma máquina.</li>
+                    <li>Um runtime de contêiner (por exemplo o Docker) é responsável por baixar a imagem do contêiner de um registro de imagens (por exemplo o  <a href="https://hub.docker.com/">Docker Hub</a>), extrair o contêiner e executar a aplicação.</li>
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Os contêineres só devem ser agendados juntos em um único Pod se estiverem fortemente acoplados e precisarem compartilhar recursos, como disco e IP.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Visão Geral sobre os Nós</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Solucionar problemas usando o comando kubectl</h2>
+                <p>No Módulo <a href="/pt/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, você usou o comando Kubectl. Você pode continuar utilizando o Kubectl no Módulo 3 para obter informação sobre Deployment realizado e seus recursos. As operações mais comuns podem ser realizadas com os comandos abaixo: </p>
+                <ul>
+                    <li><b>kubectl get</b> - listar recursos</li>
+                    <li><b>kubectl describe</b> - mostrar informações detalhadas sobre um recurso</li>
+                    <li><b>kubectl logs</b> - mostrar os logs de um container em um Pod</li>
+                    <li><b>kubectl exec</b> - executar um comando em um contêiner em um Pod</li>
+                </ul>
+
+                <p> Você pode usar esses comandos para verificar quando o Deployment foi realizado, qual seu status atual, ondes os Pods estão rodando e qual são as suas configurações.</p>
+
+                <p>Agora que sabemos mais sobre os componentes de um cluster Kubernetes e o comando kubectl, vamos explorar a nossa aplicação.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Um nó é uma máquina operária do Kubernetes e pode ser uma VM ou máquina física, dependendo do cluster. Vários Pods podem ser executados em um nó.</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/pt/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">Inciar o Tutorial Interativo<span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
