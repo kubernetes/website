@@ -152,7 +152,7 @@ for database debugging.
     or
 
     ```shell
-    kubectl port-forward service/redis-master 7000:redis
+    kubectl port-forward service/redis-master 7000:6379
     ```
 
     Any of the above commands works. The output is similar to this:
