@@ -253,9 +253,10 @@ kubectl get csr/john -o yaml
 The certificate value is in Base64-encoded format under `status.certificate`.
 
 Export the issued certificate from the CertificateSigningRequest.
+This example assumes the key and certificate files are located at "/home/vagrant/work/".
 
 ```
-kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > certificate.crt
+kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > /home/vagrant/work/john.crt
 ```
 
 ### Create Role and RoleBinding
@@ -278,7 +279,6 @@ kubectl create rolebinding developer-binding-john --role=developer --user=john
 ### Add to kubeconfig
 
 The last step is to add this user into the kubeconfig file.
-This example assumes the key and certificate files are located at "/home/vagrant/work/".
 
 First, you need to add new credentials:
 
