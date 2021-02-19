@@ -1,4 +1,6 @@
 ---
+
+
 title: kubectl 설치 및 설정
 content_type: task
 weight: 10
@@ -30,33 +32,73 @@ kubectl을 사용하여 애플리케이션을 배포하고, 클러스터 리소�
 
 1. 다음 명령으로 최신 릴리스를 다운로드한다.
 
-    ```
-    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-    ```
+   ```bash
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+   ```
 
-    특정 버전을 다운로드하려면, `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.
+   {{< note >}}
+특정 버전을 다운로드하려면, `$(curl -L -s https://dl.k8s.io/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.
 
-    예를 들어, 리눅스에서 버전 {{< param "fullversion" >}}을 다운로드하려면, 다음을 입력한다.
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
-    ```
+예를 들어, 리눅스에서 버전 {{< param "fullversion" >}}을 다운로드하려면, 다음을 입력한다.
 
-2. kubectl 바이너리를 실행 가능하게 만든다.
+   ```bash
+   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   ```
+   {{< /note >}}
 
-    ```
-    chmod +x ./kubectl
-    ```
+1. 바이너리를 검증한다. (선택 사항)
 
-3. 바이너리를 PATH가 설정된 디렉터리로 옮긴다.
+   kubectl 체크섬(checksum) 파일을 다운로드한다.
 
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
-4. 설치한 버전이 최신 버전인지 확인한다.
+   ```bash
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   ```
 
-    ```
-    kubectl version --client
-    ```
+   kubectl 바이너리를 체크섬 파일을 통해 검증한다.
+
+   ```bash
+   echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+   ```
+
+   검증이 성공한다면, 출력은 다음과 같다.
+
+   ```bash
+   kubectl: OK
+   ```
+
+   검증이 실패한다면, `sha256` 가 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
+
+   ```bash
+   kubectl: FAILED
+   sha256sum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   동일한 버전의 바이너리와 체크섬을 다운로드한다.
+   {{< /note >}}
+
+1. kubectl 설치
+
+   ```bash
+   sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+   ```
+
+   {{< note >}}
+   대상 시스템에 root 접근 권한을 가지고 있지 않더라도, `~/.local/bin` 디렉터리에 kubectl을 설치할 수 있다.
+
+   ```bash
+   mkdir -p ~/.local/bin/kubectl
+   mv ./kubectl ~/.local/bin/kubectl
+   # 그리고 ~/.local/bin/kubectl을 $PATH에 추가
+   ```
+
+   {{< /note >}}
+
+1. 설치한 버전이 최신인지 확인한다.
+
+   ```bash
+   kubectl version --client
+   ```
 
 ### 기본 패키지 관리 도구를 사용하여 설치
 
@@ -117,29 +159,65 @@ kubectl version --client
 1. 최신 릴리스를 다운로드한다.
 
    ```bash
-   curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
    ```
 
-   특정 버전을 다운로드하려면, `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.
+   {{< note >}}
+   특정 버전을 다운로드하려면, `$(curl -L -s https://dl.k8s.io/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.
 
    예를 들어, macOS에서 버전 {{< param "fullversion" >}}을 다운로드하려면, 다음을 입력한다.
-   ```bash
-   curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
-    ```
 
-   kubectl 바이너리를 실행 가능하게 만든다.
+   ```bash
+   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+   ```
+
+   {{< /note >}}
+
+1. 바이너리를 검증한다. (선택 사항)
+
+   kubectl 체크섬 파일을 다운로드한다.
+
+   ```bash
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl.sha256"
+   ```
+
+   kubectl 바이너리를 체크섬 파일을 통해 검증한다.
+
+   ```bash
+   echo "$(<kubectl.sha256)  kubectl" | shasum -a 256 --check
+   ```
+
+   검증이 성공한다면, 출력은 다음과 같다.
+
+   ```bash
+   kubectl: OK
+   ```
+
+   검증이 실패한다면, `sha256` 가 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
+
+   ```bash
+   kubectl: FAILED
+   shasum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   동일한 버전의 바이너리와 체크섬을 다운로드한다.
+   {{< /note >}}
+
+1. kubectl 바이너리를 실행 가능하게 한다.
 
    ```bash
    chmod +x ./kubectl
    ```
 
-3. 바이너리를 PATH가 설정된 디렉터리로 옮긴다.
+1. kubectl 바이너리를 시스템 `PATH` 의 파일 위치로 옮긴다.
 
    ```bash
-   sudo mv ./kubectl /usr/local/bin/kubectl
+   sudo mv ./kubectl /usr/local/bin/kubectl && \
+   sudo chown root: /usr/local/bin/kubectl
    ```
 
-4. 설치한 버전이 최신 버전인지 확인한다.
+1. 설치한 버전이 최신 버전인지 확인한다.
 
    ```bash
    kubectl version --client
@@ -161,7 +239,7 @@ macOS에서 [Homebrew](https://brew.sh/) 패키지 관리자를 사용하는 경
    brew install kubernetes-cli
    ```
 
-2. 설치한 버전이 최신 버전인지 확인한다.
+1. 설치한 버전이 최신 버전인지 확인한다.
 
    ```bash
    kubectl version --client
@@ -178,7 +256,7 @@ macOS에서 [Macports](https://macports.org/) 패키지 관리자를 사용하�
    sudo port install kubectl
    ```
 
-2. 설치한 버전이 최신 버전인지 확인한다.
+1. 설치한 버전이 최신 버전인지 확인한다.
 
    ```bash
    kubectl version --client
@@ -188,30 +266,55 @@ macOS에서 [Macports](https://macports.org/) 패키지 관리자를 사용하�
 
 ### 윈도우에서 curl을 사용하여 kubectl 바이너리 설치
 
-1. [이 링크](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)에서 최신 릴리스 {{< param "fullversion" >}}을 다운로드한다.
+1. [최신 릴리스 {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)를 다운로드한다.
 
    또는 `curl` 을 설치한 경우, 다음 명령을 사용한다.
 
-   ```bash
-   curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+   ```powershell
+   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
    ```
 
-   최신의 안정 버전(예: 스크립팅을 위한)을 찾으려면, [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt)를 참고한다.
+   {{< note >}}
+   최신의 안정 버전(예: 스크립팅을 위한)을 찾으려면, [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt)를 참고한다.
+   {{< /note >}}
 
-2. 바이너리를 PATH가 설정된 디렉터리에 추가한다.
+1. 바이너리를 검증한다. (선택 사항)
 
-3. `kubectl` 의 버전이 다운로드한 버전과 같은지 확인한다.
+   kubectl 체크섬 파일을 다운로드한다.
 
-   ```bash
+   ```powershell
+   curl -LO https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256
+   ```
+
+   kubectl 바이너리를 체크섬 파일을 통해 검증한다.
+
+   - 수동으로 `CertUtil` 의 출력과 다운로드한 체크섬 파일을 비교하기 위해서 커맨드 프롬프트를 사용한다.
+
+     ```cmd
+     CertUtil -hashfile kubectl.exe SHA256
+     type kubectl.exe.sha256
+     ```
+
+   - `-eq` 연산자를 통해 `True` 또는 `False` 결과를 얻는 자동 검증을 위해서 PowerShell을 사용한다.
+
+     ```powershell
+     $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
+     ```
+
+1. 바이너리를 `PATH` 가 설정된 디렉터리에 추가한다.
+
+1. `kubectl` 의 버전이 다운로드한 버전과 같은지 확인한다.
+
+   ```cmd
    kubectl version --client
    ```
 
 {{< note >}}
-[윈도우용 도커 데스크톱](https://docs.docker.com/docker-for-windows/#kubernetes)은 자체 버전의 `kubectl` 을 PATH에 추가한다.
-도커 데스크톱을 이전에 설치한 경우, 도커 데스크톱 설치 프로그램에서 추가한 PATH 항목 앞에 PATH 항목을 배치하거나 도커 데스크톱의 `kubectl` 을 제거해야 할 수도 있다.
+[윈도우용 도커 데스크톱](https://docs.docker.com/docker-for-windows/#kubernetes)은 자체 버전의 `kubectl` 을 `PATH` 에 추가한다.
+도커 데스크톱을 이전에 설치한 경우, 도커 데스크톱 설치 프로그램에서 추가한 `PATH` 항목 앞에 `PATH` 항목을 배치하거나 도커 데스크톱의 `kubectl` 을 제거해야 할 수도 있다.
 {{< /note >}}
 
-### PSGallery에서 Powershell로 설치
+### PSGallery에서 PowerShell로 설치
 
 윈도우에서 [Powershell Gallery](https://www.powershellgallery.com/) 패키지 관리자를 사용하는 경우, Powershell로 kubectl을 설치하고 업데이트할 수 있다.
 
@@ -223,12 +326,12 @@ macOS에서 [Macports](https://macports.org/) 패키지 관리자를 사용하�
    ```
 
    {{< note >}}
-   `DownloadLocation` 을 지정하지 않으면, `kubectl` 은 사용자의 임시 디렉터리에 설치된다.
+   `DownloadLocation` 을 지정하지 않으면, `kubectl` 은 사용자의 `temp` 디렉터리에 설치된다.
    {{< /note >}}
 
    설치 프로그램은 `$HOME/.kube` 를 생성하고 구성 파일을 작성하도록 지시한다.
 
-2. 설치한 버전이 최신 버전인지 확인한다.
+1. 설치한 버전이 최신 버전인지 확인한다.
 
    ```powershell
    kubectl version --client
@@ -256,32 +359,32 @@ macOS에서 [Macports](https://macports.org/) 패키지 관리자를 사용하�
    {{< /tabs >}}
 
 
-2. 설치한 버전이 최신 버전인지 확인한다.
+1. 설치한 버전이 최신 버전인지 확인한다.
 
    ```powershell
    kubectl version --client
    ```
 
-3. 홈 디렉터리로 이동한다.
+1. 홈 디렉터리로 이동한다.
 
    ```powershell
    # cmd.exe를 사용한다면, 다음을 실행한다. cd %USERPROFILE%
    cd ~
    ```
 
-4. `.kube` 디렉터리를 생성한다.
+1. `.kube` 디렉터리를 생성한다.
 
    ```powershell
    mkdir .kube
    ```
 
-5. 금방 생성한 `.kube` 디렉터리로 이동한다.
+1. 금방 생성한 `.kube` 디렉터리로 이동한다.
 
    ```powershell
    cd .kube
    ```
 
-6. 원격 쿠버네티스 클러스터를 사용하도록 kubectl을 구성한다.
+1. 원격 쿠버네티스 클러스터를 사용하도록 kubectl을 구성한다.
 
    ```powershell
    New-Item config -type file
@@ -297,13 +400,13 @@ kubectl을 Google Cloud SDK의 일부로 설치할 수 있다.
 
 1. [Google Cloud SDK](https://cloud.google.com/sdk/)를 설치한다.
 
-2. `kubectl` 설치 명령을 실행한다.
+1. `kubectl` 설치 명령을 실행한다.
 
    ```shell
    gcloud components install kubectl
    ```
 
-3. 설치한 버전이 최신 버전인지 확인한다.
+1. 설치한 버전이 최신 버전인지 확인한다.
 
    ```shell
    kubectl version --client
@@ -381,11 +484,13 @@ source /usr/share/bash-completion/bash_completion
    ```bash
    echo 'source <(kubectl completion bash)' >>~/.bashrc
    ```
+
 - 완성 스크립트를 `/etc/bash_completion.d` 디렉터리에 추가한다.
 
    ```bash
    kubectl completion bash >/etc/bash_completion.d/kubectl
    ```
+
 kubectl에 대한 앨리어스(alias)가 있는 경우, 해당 앨리어스로 작업하도록 셸 완성을 확장할 수 있다.
 
 ```bash
@@ -466,7 +571,6 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 
     ```bash
     echo 'source <(kubectl completion bash)' >>~/.bash_profile
-
     ```
 
 - 완성 스크립트를 `/usr/local/etc/bash_completion.d` 디렉터리에 추가한다.

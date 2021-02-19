@@ -14,44 +14,43 @@ weight: 60
 <!-- overview -->
 
 <!--
-Application logs can help you understand what is happening inside your application. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
+Application logs can help you understand what is happening inside your application. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism. Likewise, container engines are designed to support logging. The easiest and most adopted logging method for containerized applications is writing to standard output and standard error streams.
 -->
 应用日志可以让你了解应用内部的运行状况。日志对调试问题和监控集群活动非常有用。
-大部分现代化应用都有某种日志记录机制；同样地，大多数容器引擎也被设计成支持某种日志记录机制。
-针对容器化应用，最简单且受欢迎的日志记录方式就是写入标准输出和标准错误流。
+大部分现代化应用都有某种日志记录机制。同样地，容器引擎也被设计成支持日志记录。
+针对容器化应用，最简单且最广泛采用的日志记录方式就是写入标准输出和标准错误流。
 
 <!--
-However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution. For example, if a container crashes, a pod is evicted, or a node dies, you'll usually still want to access your application's logs. As such, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_. Cluster-level logging requires a separate backend to store, analyze, and query logs. Kubernetes provides no native storage solution for log data, but you can integrate many existing logging solutions into your Kubernetes cluster.
+However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution.
+For example, you may want access your application's logs if a container crashes; a pod gets evicted; or a node dies,
+In a cluster, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_.
 -->
-但是，由容器引擎或运行时提供的原生功能通常不足以满足完整的日志记录方案。
-例如，如果发生容器崩溃、Pod 被逐出或节点宕机等情况，你仍然想访问到应用日志。
-因此，日志应该具有独立的存储和生命周期，与节点、Pod 或容器的生命周期相独立。
-这个概念叫 _集群级的日志_ 。集群级日志方案需要一个独立的后台来存储、分析和查询日志。
-Kubernetes 没有为日志数据提供原生存储方案，但是你可以集成许多现有的日志解决方案到 Kubernetes 集群中。
+但是，由容器引擎或运行时提供的原生功能通常不足以构成完整的日志记录方案。
+例如，如果发生容器崩溃、Pod 被逐出或节点宕机等情况，你可能想访问应用日志。
+在集群中，日志应该具有独立的存储和生命周期，与节点、Pod 或容器的生命周期相独立。
+这个概念叫 _集群级的日志_ 。
 
 <!-- body -->
 
 <!--
-Cluster-level logging architectures are described in assumption that
-a logging backend is present inside or outside of your cluster. If you're
-not interested in having cluster-level logging, you might still find
-the description of how logs are stored and handled on the node to be useful.
+Cluster-level logging architectures require a separate backend to store, analyze, and query logs. Kubernetes
+does not provide a native storage solution for log data. Instead, there are many logging solutions that
+integrate with Kubernetes. The following sections describe how to handle and store logs on nodes.
 -->
-集群级日志架构假定在集群内部或者外部有一个日志后台。
-如果你对集群级日志不感兴趣，你仍会发现关于如何在节点上存储和处理日志的描述对你是有用的。
+集群级日志架构需要一个独立的后端用来存储、分析和查询日志。
+Kubernetes 并不为日志数据提供原生的存储解决方案。
+相反，有很多现成的日志方案可以集成到 Kubernetes 中.
+下面各节描述如何在节点上处理和存储日志。
 
 <!--
 ## Basic logging in Kubernetes
 
-In this section, you can see an example of basic logging in Kubernetes that
-outputs data to the standard output stream. This demonstration uses
-a pod specification with a container that writes some text to standard output
-once per second.
+This example uses a `Pod` specification with a container
+to write text to the standard output stream once per second.
 -->
 ## Kubernetes 中的基本日志记录
 
-本节，你会看到一个kubernetes 中生成基本日志的例子，该例子中数据被写入到标准输出。
-这里的示例为包含一个容器的 Pod 规约，该容器每秒钟向标准输出写入数据。
+这里的示例使用包含一个容器的 Pod 规约，每秒钟向标准输出写入数据。
 
 {{< codenew file="debug/counter-pod.yaml" >}}
 
@@ -76,7 +75,7 @@ pod/counter created
 <!--
 To fetch the logs, use the `kubectl logs` command, as follows:
 -->
-使用 `kubectl logs` 命令获取日志:
+像下面这样，使用 `kubectl logs` 命令获取日志:
 
 ```shell
 kubectl logs counter
@@ -95,10 +94,10 @@ The output is:
 ```
 
 <!--
-You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+You can use `kubectl logs --previous` to retrieve logs from a previous instantiation of a container..If your pod has multiple containers, specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
 -->
-一旦发生容器崩溃，你可以使用命令 `kubectl logs` 和参数 `--previous` 检索之前的容器日志。
-如果 pod 中有多个容器，你应该向该命令附加一个容器名以访问对应容器的日志。
+你可以使用命令 `kubectl logs --previous` 检索之前容器实例的日志。
+如果 Pod 中有多个容器，你应该为该命令附加容器名以访问对应容器的日志。
 详见 [`kubectl logs` 文档](/docs/reference/generated/kubectl/kubectl-commands#logs)。
 
 <!--
@@ -111,11 +110,12 @@ You can use `kubectl logs` to retrieve logs from a previous instantiation of a c
 ![节点级别的日志记录](/images/docs/user-guide/logging/logging-node-level.png)
 
 <!--
-Everything a containerized application writes to `stdout` and `stderr` is handled and redirected somewhere by a container engine. For example, the Docker container engine redirects those two streams to [a logging driver](https://docs.docker.com/engine/admin/logging/overview), which is configured in Kubernetes to write to a file in json format.
+A container engine handles and redirects any output generated to a containerized application's `stdout` and `stderr` streams.
+For example, the Docker container engine redirects those two streams to [a logging driver](https://docs.docker.com/engine/admin/logging/overview), which is configured in Kubernetes to write to a file in JSON format.
 -->
 容器化应用写入 `stdout` 和 `stderr` 的任何数据，都会被容器引擎捕获并被重定向到某个位置。
 例如，Docker 容器引擎将这两个输出流重定向到某个
-[日志驱动](https://docs.docker.com/engine/admin/logging/overview) ，
+[日志驱动（Logging Driver）](https://docs.docker.com/engine/admin/logging/overview) ，
 该日志驱动在 Kubernetes 中配置为以 JSON 格式写入文件。
 
 <!--
@@ -135,51 +135,48 @@ By default, if a container restarts, the kubelet keeps one terminated container 
 <!--
 An important consideration in node-level logging is implementing log rotation,
 so that logs don't consume all available storage on the node. Kubernetes
-currently is not responsible for rotating logs, but rather a deployment tool
+is not responsible for rotating logs, but rather a deployment tool
 should set up a solution to address that.
 For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
 there is a [`logrotate`](https://linux.die.net/man/8/logrotate)
 tool configured to run each hour. You can also set up a container runtime to
-rotate application's logs automatically, e.g. by using Docker's `log-opt`.
-In the `kube-up.sh` script, the latter approach is used for COS image on GCP,
-and the former approach is used in any other environment. In both cases, by
-default rotation is configured to take place when log file exceeds 10MB.
+rotate application's logs automatically.
 -->
-节点级日志记录中，需要重点考虑实现日志的轮转，以此来保证日志不会消耗节点上所有的可用空间。
-Kubernetes 当前并不负责轮转日志，而是通过部署工具建立一个解决问题的方案。
-例如，在 Kubernetes 集群中，用 `kube-up.sh` 部署一个每小时运行的工具
-[`logrotate`](https://linux.die.net/man/8/logrotate)。
-你也可以设置容器 runtime 来自动地轮转应用日志，比如使用 Docker 的 `log-opt` 选项。
-在 `kube-up.sh` 脚本中，使用后一种方式来处理 GCP 上的 COS 镜像，而使用前一种方式来处理其他环境。
-这两种方式，默认日志超过 10MB 大小时都会触发日志轮转。
+节点级日志记录中，需要重点考虑实现日志的轮转，以此来保证日志不会消耗节点上全部可用空间。
+Kubernetes 并不负责轮转日志，而是通过部署工具建立一个解决问题的方案。
+例如，在用 `kube-up.sh` 部署的 Kubernetes 集群中，存在一个
+[`logrotate`](https://linux.die.net/man/8/logrotate)，每小时运行一次。
+你也可以设置容器运行时来自动地轮转应用日志。
 
 <!--
 As an example, you can find detailed information about how `kube-up.sh` sets
-up logging for COS image on GCP in the corresponding [script][cosConfigureHelper].
+up logging for COS image on GCP in the corresponding
+[`configure-helper` script](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh).
 -->
 例如，你可以找到关于 `kube-up.sh` 为 GCP 环境的 COS 镜像设置日志的详细信息，
-相应的脚本在
-[这里](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)。
+脚本为
+[`configure-helper` 脚本](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)。
 
 <!--
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
-reads directly from the log file, returning the contents in the response.
+reads directly from the log file. The kubelet returns the content of the log file.
 -->
 当运行 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) 时，
 节点上的 kubelet 处理该请求并直接读取日志文件，同时在响应中返回日志文件内容。
 
 <!--
-Currently, if some external system has performed the rotation,
+If an external system has performed the rotation,
 only the contents of the latest log file will be available through
-`kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
-the rotation and there are two files, one 10MB in size and one empty,
-`kubectl logs` will return an empty response.
+`kubectl logs`. For example, if there's a 10MB file, `logrotate` performs
+the rotation and there are two files: one file that is 10MB in size and a second file that is empty.
+`kubectl logs` returns the latest log file which in this example is an empty response.
 -->
 {{< note >}}
-当前，如果有其他系统机制执行日志轮转，那么 `kubectl logs` 仅可查询到最新的日志内容。
-比如，一个 10MB 大小的文件，通过`logrotate` 执行轮转后生成两个文件，一个 10MB 大小，
-一个为空，所以 `kubectl logs` 将返回空。
+如果有外部系统执行日志轮转，那么 `kubectl logs` 仅可查询到最新的日志内容。
+比如，对于一个 10MB 大小的文件，通过 `logrotate` 执行轮转后生成两个文件，
+一个 10MB 大小，一个为空，`kubectl logs` 返回最新的日志文件，而该日志文件
+在这个例子中为空。
 {{< /note >}}
 
 <!--
@@ -194,34 +191,36 @@ that do not run in a container. For example:
 
 <!--
 * The Kubernetes scheduler and kube-proxy run in a container.
-* The kubelet and container runtime, for example Docker, do not run in containers.
+* The kubelet and container runtime do not run in containers.
 -->
 * 在容器中运行的 kube-scheduler 和 kube-proxy。
-* 不在容器中运行的 kubelet 和容器运行时（例如 Docker）。
+* 不在容器中运行的 kubelet 和容器运行时。
 
 <!--
 On machines with systemd, the kubelet and container runtime write to journald. If
-systemd is not present, they write to `.log` files in the `/var/log` directory.
-System components inside containers always write to the `/var/log` directory,
-bypassing the default logging mechanism. They use the [klog][klog]
+systemd is not present, the kubelet and container runtime write to `.log` files
+in the `/var/log` directory. System components inside containers always write
+to the `/var/log` directory, bypassing the default logging mechanism.
+They use the [`klog`](https://github.com/kubernetes/klog)
 logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 -->
-在使用 systemd 机制的服务器上，kubelet 和容器 runtime 写入日志到 journald。
-如果没有 systemd，他们写入日志到 `/var/log` 目录的 `.log` 文件。
-容器中的系统组件通常将日志写到 `/var/log` 目录，绕过了默认的日志机制。他们使用
-[klog](https://github.com/kubernetes/klog) 日志库。
-你可以在[日志开发文档](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)找到这些组件的日志告警级别协议。
+在使用 systemd 机制的服务器上，kubelet 和容器容器运行时将日志写入到 journald 中。
+如果没有 systemd，它们将日志写入到 `/var/log` 目录下的 `.log` 文件中。
+容器中的系统组件通常将日志写到 `/var/log` 目录，绕过了默认的日志机制。
+他们使用 [klog](https://github.com/kubernetes/klog) 日志库。
+你可以在[日志开发文档](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
+找到这些组件的日志告警级别约定。
 
 <!--
-Similarly to the container logs, system component logs in the `/var/log`
+Similar to the container logs, system component logs in the `/var/log`
 directory should be rotated. In Kubernetes clusters brought up by
 the `kube-up.sh` script, those logs are configured to be rotated by
 the `logrotate` tool daily or once the size exceeds 100MB.
 -->
 和容器日志类似，`/var/log` 目录中的系统组件日志也应该被轮转。
-通过脚本 `kube-up.sh` 启动的 Kubernetes 集群中，日志被工具 `logrotate` 执行每日轮转，
-或者日志大小超过 100MB 时触发轮转。
+通过脚本 `kube-up.sh` 启动的 Kubernetes 集群中，日志被工具 `logrotate`
+执行每日轮转，或者日志大小超过 100MB 时触发轮转。
 
 <!--
 ## Cluster-level logging architectures
@@ -234,10 +233,11 @@ While Kubernetes does not provide a native solution for cluster-level logging, t
 -->
 ## 集群级日志架构
 
-虽然Kubernetes没有为集群级日志记录提供原生的解决方案，但你可以考虑几种常见的方法。以下是一些选项：
+虽然Kubernetes没有为集群级日志记录提供原生的解决方案，但你可以考虑几种常见的方法。
+以下是一些选项：
 
 * 使用在每个节点上运行的节点级日志记录代理。
-* 在应用程序的 pod 中，包含专门记录日志的 sidecar 容器。
+* 在应用程序的 Pod 中，包含专门记录日志的边车（Sidecar）容器。
 * 将日志直接从应用程序中推送到日志记录后端。
 
 <!--
@@ -257,43 +257,35 @@ You can implement cluster-level logging by including a _node-level logging agent
 通常，日志记录代理程序是一个容器，它可以访问包含该节点上所有应用程序容器的日志文件的目录。
 
 <!--
-Because the logging agent must run on every node, it's common to implement it as either a DaemonSet replica, a manifest pod, or a dedicated native process on the node. However the latter two approaches are deprecated and highly discouraged.
+Because the logging agent must run on every node, it's common to run the agent
+as a `DaemonSet`.
+Node-level logging creates only one agent per node, and doesn't require any changes to the applications running on the node. 
 -->
-由于日志记录代理必须在每个节点上运行，它可以用 DaemonSet 副本，Pod 或 本机进程来实现。
-然而，后两种方法被弃用并且非常不别推荐。
+由于日志记录代理必须在每个节点上运行，通常可以用 `DaemonSet` 的形式运行该代理。
+节点级日志在每个节点上仅创建一个代理，不需要对节点上的应用做修改。
 
 <!--
-Using a node-level logging agent is the most common and encouraged approach for a Kubernetes cluster, because it creates only one agent per node, and it doesn't require any changes to the applications running on the node. However, node-level logging _only works for applications' standard output and standard error_.
+Containers write stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
 -->
-对于 Kubernetes 集群来说，使用节点级的日志代理是最常用和被推荐的方式，
-因为在每个节点上仅创建一个代理，并且不需要对节点上的应用做修改。
-但是，节点级的日志 _仅适用于应用程序的标准输出和标准错误输出_。
+容器向标准输出和标准错误输出写出数据，但在格式上并不统一。
+节点级代理
+收集这些日志并将其进行转发以完成汇总。
 
 <!--
-Kubernetes doesn't specify a logging agent, but two optional logging agents are packaged with the Kubernetes release: [Stackdriver Logging](/docs/user-guide/logging/stackdriver) for use with Google Cloud Platform, and [Elasticsearch](/docs/user-guide/logging/elasticsearch). You can find more information and instructions in the dedicated documents. Both use [fluentd](http://www.fluentd.org/) with custom configuration as an agent on the node.
--->
-Kubernetes 并不指定日志代理，但是有两个可选的日志代理与 Kubernetes 发行版一起发布。
-[Stackdriver 日志](/zh/docs/tasks/debug-application-cluster/logging-stackdriver/)
-适用于 Google Cloud Platform，和
-[Elasticsearch](/zh/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)。
-你可以在专门的文档中找到更多的信息和说明。
-两者都使用 [fluentd](https://www.fluentd.org/) 与自定义配置作为节点上的代理。
-
-<!--
-### Using a sidecar container with the logging agent
+### Using a sidecar container with the logging agent {#sidecar-container-with-logging-agent}
 
 You can use a sidecar container in one of the following ways:
 -->
-### 使用 sidecar 容器和日志代理
+### 使用 sidecar 容器运行日志代理   {#sidecar-container-with-logging-agent}
 
-你可以通过以下方式之一使用 sidecar 容器：
+你可以通过以下方式之一使用边车（Sidecar）容器：
 
 <!--
 * The sidecar container streams application logs to its own `stdout`.
 * The sidecar container runs a logging agent, which is configured to pick up logs from an application container.
 -->
-* sidecar 容器将应用程序日志传送到自己的标准输出。
-* sidecar 容器运行一个日志代理，配置该日志代理以便从应用容器收集日志。
+* 边车容器将应用程序日志传送到自己的标准输出。
+* 边车容器运行一个日志代理，配置该日志代理以便从应用容器收集日志。
 
 <!--
 #### Streaming sidecar container
@@ -303,17 +295,16 @@ You can use a sidecar container in one of the following ways:
 By having your sidecar containers stream to their own `stdout` and `stderr`
 streams, you can take advantage of the kubelet and the logging agent that
 already run on each node. The sidecar containers read logs from a file, a socket,
-or the journald. Each individual sidecar container prints log to its own `stdout`
-or `stderr` stream.
+or the journald. Each sidecar container prints log to its own `stdout` or `stderr` stream.
 -->
 #### 传输数据流的 sidecar 容器
 
-![数据流容器的 Sidecar 容器](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
+![带数据流容器的边车容器](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
 
-利用 sidecar 容器向自己的 `stdout` 和 `stderr` 传输流的方式，
+利用边车容器向自己的 `stdout` 和 `stderr` 传输流的方式，
 你就可以利用每个节点上的 kubelet 和日志代理来处理日志。
-sidecar 容器从文件、套接字或 journald 读取日志。
-每个 sidecar 容器打印其自己的 `stdout` 和 `stderr` 流。
+边车容器从文件、套接字或 journald 读取日志。
+每个边车容器向自己的 `stdout` 和 `stderr` 流中输出日志。
 
 <!--
 This approach allows you to separate several log streams from different
@@ -328,29 +319,30 @@ like `kubectl logs`.
 另外，因为 `stdout`、`stderr` 由 kubelet 处理，你可以使用内置的工具 `kubectl logs`。
 
 <!--
-Consider the following example. A pod runs a single container, and the container
+For example, a pod runs a single container, and the container
 writes to two different log files, using two different formats. Here's a
 configuration file for the Pod:
 -->
-考虑接下来的例子。pod 的容器向两个文件写不同格式的日志，下面是这个 pod 的配置文件:
+例如，某 Pod 中运行一个容器，该容器向两个文件写不同格式的日志。
+下面是这个 pod 的配置文件:
 
 {{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
 
 <!--
-It would be a mess to have log entries of different formats in the same log
+It is not recommended to write log entries with different formats to the same log
 stream, even if you managed to redirect both components to the `stdout` stream of
-the container. Instead, you could introduce two sidecar containers. Each sidecar
+the container. Instead, you can create two sidecar containers. Each sidecar
 container could tail a particular log file from a shared volume and then redirect
 the logs to its own `stdout` stream.
 -->
-在同一个日志流中有两种不同格式的日志条目，这有点混乱，即使你试图重定向它们到容器的 `stdout` 流。
-取而代之的是，你可以引入两个 sidecar 容器。
-每一个 sidecar 容器可以从共享卷跟踪特定的日志文件，并重定向文件内容到各自的 `stdout` 流。
+不建议在同一个日志流中写入不同格式的日志条目，即使你成功地将其重定向到容器的
+`stdout` 流。相反，你可以创建两个边车容器。每个边车容器可以从共享卷
+跟踪特定的日志文件，并将文件内容重定向到各自的 `stdout` 流。
 
 <!--
 Here's a configuration file for a pod that has two sidecar containers:
 -->
-这是运行两个 sidecar 容器的 Pod 文件。
+下面是运行两个边车容器的 Pod 的配置文件：
 
 {{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" >}}
 
@@ -358,12 +350,18 @@ Here's a configuration file for a pod that has two sidecar containers:
 Now when you run this pod, you can access each log stream separately by
 running the following commands:
 -->
-现在当你运行这个 Pod 时，你可以分别地访问每一个日志流，运行如下命令：
+现在当你运行这个 Pod 时，你可以运行如下命令分别访问每个日志流：
 
 ```shell
 kubectl logs counter count-log-1
 ```
-```
+
+<!--
+The output is:
+-->
+输出为：
+
+```console
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -373,7 +371,13 @@ kubectl logs counter count-log-1
 ```shell
 kubectl logs counter count-log-2
 ```
-```
+
+<!--
+The output is:
+-->
+输出为：
+
+```console
 Mon Jan  1 00:00:00 UTC 2001 INFO 0
 Mon Jan  1 00:00:01 UTC 2001 INFO 1
 Mon Jan  1 00:00:02 UTC 2001 INFO 2
@@ -385,7 +389,8 @@ The node-level agent installed in your cluster picks up those log streams
 automatically without any further configuration. If you like, you can configure
 the agent to parse log lines depending on the source container.
 -->
-集群中安装的节点级代理会自动获取这些日志流，而无需进一步配置。如果你愿意，你可以配置代理程序来解析源容器的日志行。
+集群中安装的节点级代理会自动获取这些日志流，而无需进一步配置。
+如果你愿意，你也可以配置代理程序来解析源容器的日志行。
 
 <!--
 Note, that despite low CPU and memory usage (order of couple of millicores
@@ -395,113 +400,94 @@ an application that writes to a single file, it's generally better to set
 `/dev/stdout` as destination rather than implementing the streaming sidecar
 container approach.
 -->
-注意，尽管 CPU 和内存使用率都很低（以多个 cpu millicores 指标排序或者按内存的兆字节排序），
+注意，尽管 CPU 和内存使用率都很低（以多个 CPU 毫核指标排序或者按内存的兆字节排序），
 向文件写日志然后输出到 `stdout` 流仍然会成倍地增加磁盘使用率。
-如果你的应用向单一文件写日志，通常最好设置 `/dev/stdout` 作为目标路径，而不是使用流式的 sidecar 容器方式。
+如果你的应用向单一文件写日志，通常最好设置 `/dev/stdout` 作为目标路径，
+而不是使用流式的边车容器方式。
 
 <!--
 Sidecar containers can also be used to rotate log files that cannot be
-rotated by the application itself. An example
-of this approach is a small container running logrotate periodically.
+rotated by the application itself. An example of this approach is a small container running logrotate periodically.
 However, it's recommended to use `stdout` and `stderr` directly and leave rotation
 and retention policies to the kubelet.
 -->
-应用本身如果不具备轮转日志文件的功能，可以通过 sidecar 容器实现。
-该方式的一个例子是运行一个定期轮转日志的容器。
-然而，还是推荐直接使用 `stdout` 和 `stderr`，将日志的轮转和保留策略交给 kubelet。
+应用本身如果不具备轮转日志文件的功能，可以通过边车容器实现。
+该方式的一个例子是运行一个小的、定期轮转日志的容器。
+然而，还是推荐直接使用 `stdout` 和 `stderr`，将日志的轮转和保留策略
+交给 kubelet。
 
 <!--
 #### Sidecar container with a logging agent
 
 ![Sidecar container with a logging agent](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
 -->
-### 具有日志代理功能的 sidecar 容器
+### 具有日志代理功能的边车容器
 
-![日志记录代理功能的 sidecar 容器](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
+![含日志代理的边车容器](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
 
 <!--
 If the node-level logging agent is not flexible enough for your situation, you
 can create a sidecar container with a separate logging agent that you have
 configured specifically to run with your application.
 -->
-如果节点级日志记录代理程序对于你的场景来说不够灵活，你可以创建一个带有单独日志记录代理程序的
-sidecar 容器，将代理程序专门配置为与你的应用程序一起运行。
+如果节点级日志记录代理程序对于你的场景来说不够灵活，你可以创建一个
+带有单独日志记录代理的边车容器，将代理程序专门配置为与你的应用程序一起运行。
 
-<!--
 {{< note >}}
+<!--
 Using a logging agent in a sidecar container can lead
 to significant resource consumption. Moreover, you won't be able to access
 those logs using `kubectl logs` command, because they are not controlled
 by the kubelet.
-{{< /note >}}
 -->
-{{< note >}}
-在 sidecar 容器中使用日志代理会导致严重的资源损耗。
+在边车容器中使用日志代理会带来严重的资源损耗。
 此外，你不能使用 `kubectl logs` 命令访问日志，因为日志并没有被 kubelet 管理。
 {{< /note >}}
 
 <!--
-As an example, you could use [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
-which uses fluentd as a logging agent. Here are two configuration files that
-you can use to implement this approach. The first file contains
+Here are two configuration files that you can use to implement a sidecar container with a logging agent. The first file contains
 a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to configure fluentd.
 -->
-例如，你可以使用 [Stackdriver](/zh/docs/tasks/debug-application-cluster/logging-stackdriver/)，
-它使用 fluentd 作为日志记录代理。
-以下是两个可用于实现此方法的配置文件。
-第一个文件包含配置 fluentd 的
+下面是两个配置文件，可以用来实现一个带日志代理的边车容器。
+第一个文件包含用来配置 fluentd 的
 [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 
+{{< note >}}
 <!--
-{{< note >}}
-The configuration of fluentd is beyond the scope of this article. For
-information about configuring fluentd, see the
-[official fluentd documentation](http://docs.fluentd.org/).
-{{< /note >}}
+For information about configuring fluentd, see the [fluentd documentation](https://docs.fluentd.org/).
 -->
-{{< note >}}
-配置 fluentd 超出了本文的范围。要进一步了解如何配置 fluentd，
-请参考 [fluentd 官方文档](https://docs.fluentd.org/).
+要进一步了解如何配置 fluentd，请参考 [fluentd 官方文档](https://docs.fluentd.org/).
 {{< /note >}}
 
 <!--
 The second file describes a pod that has a sidecar container running fluentd.
 The pod mounts a volume where fluentd can pick up its configuration data.
 -->
-第二个文件描述了运行 fluentd  sidecar 容器的 Pod 。flutend 通过 Pod 的挂载卷获取它的配置数据。
+第二个文件描述了运行 fluentd 边车容器的 Pod 。
+flutend 通过 Pod 的挂载卷获取它的配置数据。
 
 {{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
 
 <!--
-After some time you can find log messages in the Stackdriver interface.
+In the sample configurations, you can replace fluentd with any logging agent, reading from any source inside an application container.
 -->
-一段时间后，你可以在 Stackdriver 界面看到日志消息。
-
-<!--
-Remember, that this is just an example and you can actually replace fluentd
-with any logging agent, reading from any source inside an application
-container.
--->
-记住，这只是一个例子，事实上你可以用任何一个日志代理替换 fluentd ，并从应用容器中读取任何资源。
+在示例配置中，你可以将 fluentd 替换为任何日志代理，从应用容器内
+的任何来源读取数据。
 
 <!--
 ### Exposing logs directly from the application
 
 ![Exposing logs directly from the application](/images/docs/user-guide/logging/logging-from-application.png)
 -->
-
 ### 从应用中直接暴露日志目录
 
 ![直接从应用程序暴露日志](/images/docs/user-guide/logging/logging-from-application.png)
 
 <!--
-You can implement cluster-level logging by exposing or pushing logs directly from
-every application; however, the implementation for such a logging mechanism
-is outside the scope of Kubernetes.
+Cluster-logging that exposes or pushes logs directly from every application is outside the scope of Kubernetes.
 -->
-通过暴露或推送每个应用的日志，你可以实现集群级日志记录；
-然而，这种日志记录机制的实现已超出 Kubernetes 的范围。
-
+从各个应用中直接暴露和推送日志数据的集群日志机制
+已超出 Kubernetes 的范围。
 
