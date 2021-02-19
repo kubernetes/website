@@ -48,7 +48,7 @@ SIG Docsの自動化は、GitHub teamsとOWNERSファイルの2つの異なる�
 
 GitHubには、SIG Docs 
 [teams](https://github.com/orgs/kubernetes/teams?query=sig-docs)
-の二つのカテゴリがあります。:
+の二つのカテゴリがあります:
 
 - `@sig-docs-{language}-owners`は承認者かつリードです。
 - `@sig-docs-{language}-reviewers` はレビュアーです。
@@ -62,7 +62,7 @@ ProwチームとGitHub teamsが完全に一致せずに重複する場合があ�
 
 Kubernetesプロジェクトは、GitHubのissueとPull Requestに関連する自動化のためにprowと呼ばれる自動化ツールを使用します。 
 [Kubernetes Webサイトリポジトリ](https://github.com/kubernetes/website) 
-は、2つの[prowプラグイン](https://github.com/kubernetes/test-infra/tree/master/prow/plugins)を使用します。：
+は、2つの[prowプラグイン](https://github.com/kubernetes/test-infra/tree/master/prow/plugins)を使用します：
 
 - blunderbuss
 - approve
@@ -95,7 +95,7 @@ Pull Requestがコンテンツの公開に使用されるブランチにマー�
 
 ## {{% heading "whatsnext" %}}
 
-Kubernetesドキュメントへの貢献の詳細については、以下を参照してください。：
+Kubernetesドキュメントへの貢献の詳細については、以下を参照してください：
 
 - [Contributing new content](/docs/contribute/new-content/overview/)
 - [Reviewing content](/docs/contribute/review/reviewing-prs)
