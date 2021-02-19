@@ -1,0 +1,127 @@
+Kubernetes: Portability Reimagined
+
+Kubernetes provides a portable application architecture, and is delivered through a basic execution unit, Pod.  One or more containers are embedded into a Pod that carries key property for portability.  Kubernetes enables decoupling of environment specific configuration from container images along with abstractions for having applications run on on-premise or cloud infrastructures.
+
+Information related to application configuration such as key-value pairs are made available in the mode of configuration files or environment variables.  Such values may be non-confidential e.g., log-level, timeout specification and or sensitive data such as password, token.  Kubernetes objects, ConfigMap and Secret presents abstractions to declare and refer key-value pairs in a Pod thus help achieve application portability.
+
+Environment variables are likely to differ between deployments such as test and production.  These configuration parameters may be independently managed and scaled with the help of ConfigMap and Secrets resources, thus achieving separation of code from configuration data.  While Secrets provides basic security, base64 encoding; the ConfigMap and Secrets data is made available to nodes and Pods on need basis for the lifecycle of the Pod but not otherwise, although declared in the cluster.
+
+In the following example, we present a Pod, ConfigMap and Secrets that decouples the environment variables - counter, sleep-interval, username and password from embedding into a Container.  To refer these environment variables in a container of a Pod, one needs to perform the following steps
+
+Declare key-value pairs into a Kubernetes namespace using ConfigMap and Secrets object
+Refer to these key-value pairs as data volume files or environment variables in a Container of a Pod
+
+$ cat kube-configmap.yaml
+Declaration of 2
+Key-value pairs
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-configmap
+data:
+  counter: "5" 
+  sleep_interval: "2"
+
+$ kubectl apply -f kube-configmap.yaml
+
+$ cat kube-secrets.yaml
+
+apiVersion: v1
+Opaque secret type
+kind: Secret
+metadata:
+  name: kube-secrets
+type: Opaque
+data:
+  password: a3ViZXJuZXRlcwo=
+stringData:
+  username: admin
+
+$ kubectl apply -f kube-secrets.yaml
+
+Configmap and Secrets must be created before creation of the Pod in its namespace.
+
+$ cat kube-pod-env.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-pod-env
+spec: 
+  restartPolicy: Never
+  containers:
+  - name: kube-container-1
+    image: "ubuntu"
+    command: ["/bin/bash", "-c"]
+    args: 
+    - echo "";
+      echo "counter:" $counter;
+      echo "sleep interval:" $sleep_interval;
+      echo "";
+      for ((i=1; i<=$counter; i++)); 
+      do 
+        echo "Looping count ... $i"; 
+        date +'%T'; echo "Going to sleep"; sleep $sleep_interval; date +'%T';
+      done;
+      echo "";
+      echo "Username:" $(</tmp/secrets/username);
+      echo "Password:" $(</tmp/secrets/password);
+    envFrom:
+    - configMapRef:
+        name: kube-configmap
+    volumeMounts:
+    - name: kube-secrets-volume
+      mountPath: "/tmp/secrets"
+  volumes:
+    - name: kube-secrets-volume
+      secret:
+        secretName: "kube-secrets"
+
+$ kubectl apply -f kube-pod-env.yaml
+
+$ kubectl logs kube-pod-env
+
+counter: 5
+sleep interval: 2
+
+Looping count ... 1
+07:47:30
+Going to sleep
+07:47:32
+Looping count ... 2
+07:47:32
+Going to sleep
+07:47:34
+Looping count ... 3
+07:47:34
+Going to sleep
+07:47:36
+Looping count ... 4
+07:47:36
+Going to sleep
+07:47:38
+Looping count ... 5
+07:47:38
+Going to sleep
+07:47:40
+
+Username: admin
+Password: kubernetes 
+
+It is to be noted here that, in this approach 
+Declarations made in ConfigMap were referred through environment references
+Declarations made in secrets are referred through volume mount operation
+Base64 encoded password secret data has been decoded at the time of volume - file creation and was printed as a result of echo command
+
+To summarise, this case study demonstrated flexibility and support provided in achieving portability with Kubernetes for environmental needs.
+
+References
+
+Kubernetes - ConfigMaps
+Kubernetes - Secrets
+The Twelve-Factor App
+Wikipedia - ConfigMaps and Secrets
+Design-Proposals - Secrets
+Kubernetes Icons
