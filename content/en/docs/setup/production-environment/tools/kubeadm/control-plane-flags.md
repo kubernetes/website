@@ -78,7 +78,7 @@ kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 scheduler:
   extraArgs:
-    address: 0.0.0.0
+    bind-address: 0.0.0.0
     config: /home/johndoe/schedconfig.yaml
     kubeconfig: /home/johndoe/kubeconfig.yaml
 ```

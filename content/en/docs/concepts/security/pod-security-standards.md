@@ -32,7 +32,7 @@ should range from highly restricted to highly flexible:
 
 - **_Privileged_** - Unrestricted policy, providing the widest possible level of permissions. This
   policy allows for known privilege escalations.
-- **_Baseline/Default_** - Minimally restrictive policy while preventing known privilege
+- **_Baseline_** - Minimally restrictive policy while preventing known privilege
   escalations. Allows the default (minimally specified) Pod configuration.
 - **_Restricted_** - Heavily restricted policy, following current Pod hardening best practices.
 
@@ -48,9 +48,9 @@ mechanisms (such as gatekeeper), the privileged profile may be an absence of app
 rather than an instantiated policy. In contrast, for a deny-by-default mechanism (such as Pod
 Security Policy) the privileged policy should enable all controls (disable all restrictions).
 
-### Baseline/Default
+### Baseline
 
-The Baseline/Default policy is aimed at ease of adoption for common containerized workloads while
+The Baseline policy is aimed at ease of adoption for common containerized workloads while
 preventing known privilege escalations. This policy is targeted at application operators and
 developers of non-critical applications. The following listed controls should be
 enforced/disallowed:
@@ -115,7 +115,9 @@ enforced/disallowed:
 		<tr>
 			<td>AppArmor <em>(optional)</em></td>
 			<td>
-				On supported hosts, the 'runtime/default' AppArmor profile is applied by default. The default policy should prevent overriding or disabling the policy, or restrict overrides to an allowed set of profiles.<br>
+				On supported hosts, the 'runtime/default' AppArmor profile is applied by default.
+				The baseline policy should prevent overriding or disabling the default AppArmor
+				profile, or restrict overrides to an allowed set of profiles.<br>
 				<br><b>Restricted Fields:</b><br>
 				metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']<br>
 				<br><b>Allowed Values:</b> 'runtime/default', undefined<br>
@@ -175,7 +177,7 @@ well as lower-trust users.The following listed controls should be enforced/disal
 			<td><strong>Policy</strong></td>
 		</tr>
 		<tr>
-			<td colspan="2"><em>Everything from the default profile.</em></td>
+			<td colspan="2"><em>Everything from the baseline profile.</em></td>
 		</tr>
 		<tr>
 			<td>Volume Types</td>
@@ -275,7 +277,7 @@ of individual policies are not defined here.
 
 ## FAQ
 
-### Why isn't there a profile between privileged and default?
+### Why isn't there a profile between privileged and baseline?
 
 The three profiles defined here have a clear linear progression from most secure (restricted) to least
 secure (privileged), and cover a broad set of workloads. Privileges required above the baseline

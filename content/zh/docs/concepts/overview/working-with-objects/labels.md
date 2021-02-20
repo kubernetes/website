@@ -255,7 +255,7 @@ LIST and WATCH operations may specify label selectors to filter the sets of obje
 -->
 ### LIST 和 WATCH 过滤
 
-LIST and WATCH 操作可以使用查询参数指定标签选择算符过滤一组对象。
+LIST 和 WATCH 操作可以使用查询参数指定标签选择算符过滤一组对象。
 两种需求都是允许的。（这里显示的是它们出现在 URL 查询字符串中）
 
 <!--

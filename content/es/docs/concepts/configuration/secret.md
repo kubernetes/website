@@ -10,16 +10,13 @@ feature:
 weight: 50
 ---
 
-
-{{% capture overview %}}
+<!-- overview -->
 
 Los objetos de tipo {{< glossary_tooltip text="Secret" term_id="secret" >}} en Kubernetes te permiten almacenar y administrar información confidencial, como
 contraseñas, tokens OAuth y llaves ssh.  Poniendo esta información en un Secret
 es más seguro y más flexible que ponerlo en la definición de un {{< glossary_tooltip term_id="pod" >}} o en un {{< glossary_tooltip text="container image" term_id="image" >}}. Ver [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) para más información.
 
-{{% /capture %}}
-
-{{% capture body %}}
+<!-- body -->
 
 ## Introducción a Secrets
 
@@ -58,9 +55,11 @@ empaqueta esos archivos en un Secret y crea el objeto en el Apiserver.
 ```shell
 kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
 ```
-```
+
+```none
 Secret "db-user-pass" created
 ```
+
 {{< note >}}
 Si la contraseña que está utilizando tiene caracteres especiales como por ejemplo `$`, `\`, `*`, o `!`, es posible que sean interpretados por tu intérprete de comandos y es necesario escapar cada carácter utilizando `\` o introduciéndolos entre comillas simples `'`.
 Por ejemplo, si tú password actual es `S!B\*d$zDsb`, deberías ejecutar el comando de esta manera: 
@@ -76,14 +75,17 @@ Puedes comprobar que el Secret se haya creado, así:
 ```shell
 kubectl get secrets
 ```
-```
+
+```none
 NAME                  TYPE                                  DATA      AGE
 db-user-pass          Opaque                                2         51s
 ```
+
 ```shell
 kubectl describe secrets/db-user-pass
 ```
-```
+
+```none
 Name:            db-user-pass
 Namespace:       default
 Labels:          <none>
@@ -137,7 +139,8 @@ Ahora escribe un Secret usando [`kubectl apply`](/docs/reference/generated/kubec
 ```shell
 kubectl apply -f ./secret.yaml
 ```
-```
+
+```none
 secret "mysecret" created
 ```
 
@@ -242,6 +245,7 @@ desde 1.14. Con esta nueva característica,
 puedes tambien crear un Secret a partir de un generador y luego aplicarlo para crear el objeto en el Apiserver. Los generadores deben ser especificados en un   `kustomization.yaml` dentro de un directorio.
 
 Por ejemplo, para generar un Secret a partir de los archivos `./username.txt` y `./password.txt`
+
 ```shell
 # Crear un fichero llamado kustomization.yaml con SecretGenerator
 cat <<EOF >./kustomization.yaml
@@ -281,9 +285,10 @@ username.txt:    5 bytes
 
 Por ejemplo, para generar un Secret a partir de literales `username=admin` y `password=secret`,
 puedes especificar el generador del Secret en `kustomization.yaml` como:
+
 ```shell
 # Crea un fichero kustomization.yaml con SecretGenerator
-$ cat <<EOF >./kustomization.yaml
+cat <<EOF >./kustomization.yaml
 secretGenerator:
 - name: db-user-pass
   literals:
@@ -291,11 +296,14 @@ secretGenerator:
   - password=secret
 EOF
 ```
+
 Aplica el directorio kustomization  para crear el objeto Secret.
+
 ```shell
-$ kubectl apply -k .
+kubectl apply -k .
 secret/db-user-pass-dddghtt9b5 created
 ```
+
 {{< note >}}
 El nombre generado del Secret  tiene un sufijo agregado al hashing de los contenidos. Esto asegura que se genera un nuevo Secret cada vez que el contenido es modificado.
 {{< /note >}}
@@ -307,7 +315,8 @@ Los Secrets se pueden recuperar a través del comando `kubectl get secret` . Por
 ```shell
 kubectl get secret mysecret -o yaml
 ```
-```
+
+```none
 apiVersion: v1
 kind: Secret
 metadata:
@@ -328,7 +337,8 @@ Decodifica el campo de contraseña:
 ```shell
 echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ```
-```
+
+```none
 1f2d1e2e67df
 ```
 
@@ -480,7 +490,8 @@ Este es el resultado de comandos ejecutados dentro del contenedor del ejemplo an
 ```shell
 ls /etc/foo/
 ```
-```
+
+```none
 username
 password
 ```
@@ -488,15 +499,16 @@ password
 ```shell
 cat /etc/foo/username
 ```
-```
+
+```none
 admin
 ```
-
 
 ```shell
 cat /etc/foo/password
 ```
-```
+
+```none
 1f2d1e2e67df
 ```
 
@@ -562,13 +574,16 @@ Este es el resultado de comandos ejecutados dentro del contenedor del ejemplo an
 ```shell
 echo $SECRET_USERNAME
 ```
-```
+
+```none
 admin
 ```
+
 ```shell
 echo $SECRET_PASSWORD
 ```
-```
+
+```none
 1f2d1e2e67df
 ```
 
@@ -641,14 +656,13 @@ Cree un fichero kustomization.yaml con SecretGenerator conteniendo algunas llave
 kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
-```
+```none
 secret "ssh-key-secret" created
 ```
 
 {{< caution >}}
 Piense detenidamente antes de enviar tus propias llaves ssh: otros usuarios del cluster pueden tener acceso al Secret. Utilice una cuenta de servicio a la que desee que estén accesibles todos los usuarios con los que comparte el cluster de Kubernetes, y pueda revocarlas si se ven comprometidas.
 {{< /caution >}}
-
 
 Ahora podemos crear un pod que haga referencia al Secret con la llave ssh key y lo consuma en un volumen:
 
@@ -691,16 +705,19 @@ Crear un fichero kustomization.yaml con SecretGenerator
 ```shell
 kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
 ```
-```
+
+```none
 secret "prod-db-secret" created
 ```
 
 ```shell
 kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
 ```
-```
+
+```none
 secret "test-db-secret" created
 ```
+
 {{< note >}}
 Caracteres especiales como `$`, `\*`, y `!` requieren ser escapados.
 Si el password que estas usando tiene caracteres especiales, necesitas escaparlos usando el caracter `\\` . Por ejemplo, si tu password actual es `S!B\*d$zDsb`, deberías ejecutar el comando de esta forma:
@@ -715,7 +732,7 @@ No necesitas escapar caracteres especiales en contraseñas de los archivos (`--f
 Ahora haz los pods:
 
 ```shell
-$ cat <<EOF > pod.yaml
+cat <<EOF > pod.yaml
 apiVersion: v1
 kind: List
 items:
@@ -759,8 +776,9 @@ EOF
 ```
 
 Añade los pods a el mismo fichero kustomization.yaml
+
 ```shell
-$ cat <<EOF >> kustomization.yaml
+cat <<EOF >> kustomization.yaml
 resources:
 - pod.yaml
 EOF
@@ -833,7 +851,6 @@ spec:
       mountPath: "/etc/secret-volume"
 ```
 
-
 El `secret-volume` contendrá un solo archivo, llamado `.secret-file`, y
 el `dotfile-test-container` tendrá este fichero presente en el path
 `/etc/secret-volume/.secret-file`.
@@ -874,7 +891,6 @@ para que los clientes puedan `watch` recursos individuales, y probablemente esta
 
 ## Propiedades de seguridad
 
-
 ### Protecciones
 
 Debido a que los objetos `Secret` se pueden crear independientemente de los `Pods` que los usan, hay menos riesgo de que el Secret expuesto durante el flujo de trabajo de la creación,  visualización, y edición de pods. El sistema también puede tomar precausiones con los objetos`Secret`, tal como eviar escribirlos en el disco siempre que sea posible.
@@ -906,7 +922,4 @@ para datos secretos, para que los Secrets no se almacenen en claro en {{< glossa
  - Un usuario que puede crear un pod que usa un Secret también puede ver el valor del Secret. Incluso si una política del apiserver no permite que ese usuario lea el objeto Secret, el usuario puede ejecutar el pod que expone el Secret.
  - Actualmente, cualquier persona con root en cualquier nodo puede leer _cualquier_ secret del apiserver, haciéndose pasar por el kubelet.  Es una característica planificada enviar Secrets a los nodos que realmente lo requieran, para restringir el impacto de una explosión de root en un single node.
 
-
-{{% capture whatsnext %}}
-
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
