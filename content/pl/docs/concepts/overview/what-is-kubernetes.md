@@ -42,7 +42,7 @@ Kontenery działają w sposób zbliżony do maszyn wirtualnych, ale mają mniejs
 Kontenery zyskały popularność ze względu na swoje zalety, takie jak:
 
 * Szybkość i elastyczność w tworzeniu i instalacji aplikacji: obraz kontenera buduje się łatwiej niż obraz VM.
-* Ułatwienie ciągłego rozwoju, integracji oraz wdrażania aplikacji (*Continuous development, integration, and deployment*): obrazy kontenerów mogą być budowane w sposób wiarygodny i częsty. Wycofanie zmian jest łatwe i szybkie (ponieważ obrazy są niezmienne).
+* Ułatwienie ciągłego rozwoju, integracji oraz wdrażania aplikacji (*Continuous development, integration, and deployment*): obrazy kontenerów mogą być budowane w sposób wiarygodny i częsty. Wycofywanie zmian jest skuteczne i szybkie (ponieważ obrazy są niezmienne).
 * Rozdzielenie zadań *Dev* i *Ops*: obrazy kontenerów powstają w fazie *build/release*, oddzielając w ten sposób aplikacje od infrastruktury.
 * Obserwowalność obejmuje nie tylko informacje i metryki z poziomu systemu operacyjnego, ale także poprawność działania samej aplikacji i inne sygnały.
 * Spójność środowiska na etapach rozwoju oprogramowania, testowania i działania w trybie produkcyjnym: działa w ten sam sposób na laptopie i w chmurze.

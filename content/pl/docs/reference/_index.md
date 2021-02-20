@@ -14,7 +14,8 @@ Tutaj znajdziesz dokumentację źródłową Kubernetesa.
 
 ## Dokumentacja API
 
-* [Dokumentacja źródłowa API Kubernetesa {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [Kubernetes API Reference](/docs/reference/kubernetes-api/)
+* [One-page API Reference for Kubernetes {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [Using The Kubernetes API](/docs/reference/using-api/) - ogólne informacje na temat API Kubernetesa.
 
 ## Biblioteki klientów API
