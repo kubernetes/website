@@ -119,6 +119,7 @@ RBAC 인증(쿠버네티스 API에 대한 접근) | https://kubernetes.io/docs/r
 컨테이너 취약점 스캔 및 OS에 종속적인 보안 | 이미지 빌드 단계의 일부로 컨테이너에 알려진 취약점이 있는지 검사해야 한다.
 이미지 서명 및 시행 | 컨테이너 이미지에 서명하여 컨테이너의 내용에 대한 신뢰 시스템을 유지한다.
 권한있는 사용자의 비허용 | 컨테이너를 구성할 때 컨테이너의 목적을 수행하는데 필요한 최소 권한을 가진 사용자를 컨테이너 내에 만드는 방법에 대해서는 설명서를 참조한다.
+더 강력한 격리로 컨테이너 런타임 사용 | 더 강력한 격리를 제공하는 [컨테이너 런타임 클래스](/ko/docs/concepts/containers/runtime-class/)를 선택한다.
 
 ## 코드
 
@@ -151,3 +152,4 @@ TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 미리 �
 * 컨트롤 플레인을 위한 [전송 데이터 암호화](/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [Rest에서 데이터 암호화](/docs/tasks/administer-cluster/encrypt-data/)
 * [쿠버네티스 시크릿](/ko/docs/concepts/configuration/secret/)
+* [런타임 클래스](/ko/docs/concepts/containers/runtime-class)

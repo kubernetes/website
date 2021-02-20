@@ -420,7 +420,7 @@ CRI-O를 시작한다.
 
 ```shell
 sudo systemctl daemon-reload
-sudo systemctl start crio
+sudo systemctl enable crio --now
 ```
 
 자세한 사항은 [CRI-O 설치 가이드](https://github.com/cri-o/cri-o/blob/master/install.md)를
