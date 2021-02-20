@@ -168,8 +168,7 @@ k8s-apparmor-example-deny-write (enforce)
 
 *이 예시는 AppArmor를 지원하는 클러스터를 이미 구성하였다고 가정한다.*
 
-먼저 노드에서 사용하려는 프로파일을 적재해야 한다. 사용할 프로파일은 단순히
-파일 쓰기를 거부할 것이다.
+먼저 노드에서 사용하려는 프로파일을 적재해야 한다. 사용할 프로파일은 파일 쓰기를 거부한다.
 
 ```shell
 #include <tunables/global>
