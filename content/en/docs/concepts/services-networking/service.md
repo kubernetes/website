@@ -74,8 +74,8 @@ a new instance.
 The name of a Service object must be a valid
 [DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
-For example, suppose you have a set of Pods that each listens on TCP port 9376
-and carry a label `app=MyApp`:
+For example, suppose you have a set of Pods and each of them listens on TCP port 9376
+and contains a label `app=MyApp`:
 
 ```yaml
 apiVersion: v1
