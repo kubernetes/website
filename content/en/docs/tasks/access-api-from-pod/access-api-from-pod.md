@@ -1,7 +1,5 @@
 ---
 title: Accessing the Kubernetes API from a Pod
-reviewers:
-- sftim
 description: Accessing the Kubernetes REST API from within a Pod
 content_type: task
 ---
@@ -12,7 +10,7 @@ This guide demonstrates how to access the Kubernetes API from within a pod.
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 <!-- steps -->
 

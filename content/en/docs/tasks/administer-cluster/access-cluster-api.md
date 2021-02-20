@@ -351,3 +351,7 @@ exampleWithKubeConfig = do
             (CoreV1.listPodForAllNamespaces (Accept MimeJSON))
         >>= print
 ```
+
+## {{% heading "whatsnext" %}}
+
+* [Accessing the Kubernetes API from a Pod](/docs/tasks/access-api-from-pod/access-api-from-pod/)
