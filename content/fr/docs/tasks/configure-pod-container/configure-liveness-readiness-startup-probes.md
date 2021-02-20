@@ -225,7 +225,7 @@ Si la startup probe ne réussit jamais, le conteneur est tué après 300s puis s
 
 Parfois, les applications sont temporairement incapables de servir le trafic.
 Par exemple, une application peut avoir besoin de charger des larges données ou des fichiers de configuration pendant le démarrage, ou elle peut dépendre de services externes après le démarrage.
-Dans ces cas, vous ne voulez pas tuer l'application, mais tu ne veux pas non plus lui envoyer de requêtes. Kubernetes fournit des readiness probes pour détecter et atténuer ces situations. Un pod avec des conteneurs qui signale qu'elle n'est pas prête ne reçoit pas de trafic par les services de Kubernetes.
+Dans ces cas, vous ne voulez pas tuer l'application, mais vous ne voulez pas non plus lui envoyer de requêtes. Kubernetes fournit des readiness probes pour détecter et atténuer ces situations. Un pod avec des conteneurs qui signale qu'elle n'est pas prête ne reçoit pas de trafic par les services de Kubernetes.
 
 {{< note >}}
 Readiness probes fonctionnent sur le conteneur pendant tout son cycle de vie.
@@ -254,7 +254,7 @@ L'utilisation des deux peut garantir que le trafic n'atteigne pas un conteneur q
 Éventuellement, une partie de cette section pourrait être déplacée vers un sujet conceptuel.
 {{< /comment >}}
 
-[Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) ont un certain nombre de champs qui vous pouvez utiliser pour contrôler plus précisément le comportement de la vivacité et de la disponibilité des probes :
+[Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) ont un certain nombre de champs que vous pouvez utiliser pour contrôler plus précisément le comportement de la vivacité et de la disponibilité des probes :
 
 * `initialDelaySeconds`: Nombre de secondes après le démarrage du conteneur avant que les liveness et readiness probes ne soient lancées. La valeur par défaut est de 0 seconde. La valeur minimale est 0.
 * `periodSeconds`: La fréquence (en secondes) à laquelle la probe doit être effectuée. La valeur par défaut est de 10 secondes. La valeur minimale est de 1.
@@ -275,7 +275,7 @@ ont des champs supplémentaires qui peuvent être définis sur `httpGet` :
 Pour une probe HTTP, le Kubelet envoie une requête HTTP au chemin et au port spécifiés pour effectuer la vérification. Le Kubelet envoie la probe à l'adresse IP du Pod, à moins que l'adresse ne soit surchargée par le champ optionnel `host` dans `httpGet`. Si Le champ `scheme` est mis à `HTTPS`, le Kubelet envoie une requête HTTPS en ignorant la vérification du certificat. Dans la plupart des scénarios, vous ne voulez pas définir le champ `host`.
 Voici un scénario où vous le mettriez en place. Supposons que le conteneur écoute sur 127.0.0.1 et que le champ `hostNetwork` du Pod a la valeur true. Alors `host`, sous `httpGet`, devrait être défini à 127.0.0.1. Si votre Pod repose sur des hôtes virtuels, ce qui est probablement plus courant, vous ne devriez pas utiliser `host`, mais plutôt mettre l'en-tête `Host` dans `httpHeaders`.
 
-Le Kubelet fait la connexion de la probe au noeud, pas dans le Pod, ce qui signifie que vous ne pouvez pas utiliser un nom de service dans le paramètre `host` puisque le Kubelet est incapable pour le résoudre.
+Le Kubelet fait la connexion de la probe au noeud, pas dans le Pod, ce qui signifie que vous ne pouvez pas utiliser un nom de service dans le paramètre `host` puisque le Kubelet est incapable de le résoudre.
 
 ## {{% heading whatsnext %}}
 
