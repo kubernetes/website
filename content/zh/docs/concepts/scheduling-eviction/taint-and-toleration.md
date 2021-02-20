@@ -67,7 +67,7 @@ kubectl taint nodes node1 key1=value1:NoSchedule-
 若要移除上述命令所添加的污点，你可以执行：
 
 ```shell
-kubectl taint nodes node1 key:NoSchedule-
+kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
 
 <!--
@@ -131,7 +131,7 @@ An empty `effect` matches all effects with key `key1`.
 如果一个容忍度的 `key` 为空且 operator 为 `Exists`，
 表示这个容忍度与任意的 key 、value 和 effect 都匹配，即这个容忍度能容忍任意 taint。
 
-如果 `effect` 为空，则可以与所有键名 `key` 的效果相匹配。
+如果 `effect` 为空，则可以与所有键名 `key1` 的效果相匹配。
 {{< /note >}}
 
 <!--

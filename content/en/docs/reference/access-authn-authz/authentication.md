@@ -205,8 +205,10 @@ spec:
 ```
 
 Service account bearer tokens are perfectly valid to use outside the cluster and
+
 can be used to create identities for long standing jobs that wish to talk to the
-Kubernetes API. To manually create a service account, use the `kubectl
+Kubernetes API. To manually create a service account, simply use the `kubectl`
+
 create serviceaccount (NAME)` command. This creates a service account in the
 current namespace and an associated secret.
 
@@ -319,6 +321,7 @@ sequenceDiagram
 7.  Make sure the user is authorized
 8.  Once authorized the API server returns a response to `kubectl`
 9.  `kubectl` provides feedback to the user
+
 
 Since all of the data needed to validate who you are is in the `id_token`, Kubernetes doesn't need to
 "phone home" to the identity provider.  In a model where every request is stateless this provides a very scalable solution for authentication.  It does offer a few challenges:
@@ -731,7 +734,7 @@ to the impersonated user info.
 The following HTTP headers can be used to performing an impersonation request:
 
 * `Impersonate-User`: The username to act as.
-* `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User"
+* `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User".
 * `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` should be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
 
 {{< note >}}

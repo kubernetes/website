@@ -9,17 +9,12 @@ weight: 100
 This page shows how to create a Pod that uses a Secret to pull an image from a
 private Docker registry or repository.
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * To do this exercise, you need a
 [Docker ID](https://docs.docker.com/docker-id/) and password.
-
-
 
 <!-- steps -->
 
@@ -106,7 +101,8 @@ kubectl create secret docker-registry regcred --docker-server=<your-registry-ser
 
 where:
 
-* `<your-registry-server>` is your Private Docker Registry FQDN. (https://index.docker.io/v1/ for DockerHub)
+* `<your-registry-server>` is your Private Docker Registry FQDN.
+  Use `https://index.docker.io/v2/` for DockerHub.
 * `<your-name>` is your Docker username.
 * `<your-pword>` is your Docker password.
 * `<your-email>` is your Docker email.
@@ -192,7 +188,8 @@ your.private.registry.example.com/janedoe/jdoe-private:v1
 ```
 
 To pull the image from the private registry, Kubernetes needs credentials.
-The `imagePullSecrets` field in the configuration file specifies that Kubernetes should get the credentials from a Secret named `regcred`.
+The `imagePullSecrets` field in the configuration file specifies that
+Kubernetes should get the credentials from a Secret named `regcred`.
 
 Create a Pod that uses your Secret, and verify that the Pod is running:
 
@@ -201,10 +198,7 @@ kubectl apply -f my-private-reg-pod.yaml
 kubectl get pod private-reg
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Learn more about [Secrets](/docs/concepts/configuration/secret/).
 * Learn more about [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
@@ -212,6 +206,4 @@ kubectl get pod private-reg
 * See [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
 * See [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core).
 * See the `imagePullSecrets` field of [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
-
-
 
