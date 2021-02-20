@@ -99,6 +99,9 @@ DELETE    | delete(개별 리소스), deletecollection(리소스 모음)
 ```bash
 kubectl auth can-i create deployments --namespace dev
 ```
+
+다음과 유사하게 출력된다.
+
 ```
 yes
 ```
@@ -106,6 +109,9 @@ yes
 ```shell
 kubectl auth can-i create deployments --namespace prod
 ```
+
+다음과 유사하게 출력된다.
+
 ```
 no
 ```
@@ -116,6 +122,9 @@ no
 ```bash
 kubectl auth can-i list secrets --namespace dev --as dave
 ```
+
+다음과 유사하게 출력된다.
+
 ```
 no
 ```
@@ -145,7 +154,7 @@ EOF
 ```
 
 생성된 `SelfSubjectAccessReview` 는 다음과 같다.
-```
+```yaml
 apiVersion: authorization.k8s.io/v1
 kind: SelfSubjectAccessReview
 metadata:
