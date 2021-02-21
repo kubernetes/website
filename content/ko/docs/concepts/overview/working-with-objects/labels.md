@@ -108,7 +108,7 @@ tier != frontend
 후자는 `tier`를 키로 가지고, 값을 `frontend`를 가지는 리소스를 제외한 모든 리소스를 선택하고, `tier`를 키로 가지며, 값을 공백으로 가지는 모든 리소스를 선택한다.
 `environment=production,tier!=frontend` 처럼 쉼표를 통해 한 문장으로 `frontend`를 제외한 `production`을 필터링할 수 있다.
 
-균등-기반 레이블의 요건에 대한 하나의 이용 시나리오는 파드가 노드를 선택하는 기준을 지정하는 것이다.
+일치성 기준 레이블 요건에 대한 하나의 이용 시나리오는 파드가 노드를 선택하는 기준을 지정하는 것이다.
 예를 들어, 아래 샘플 파드는 "`accelerator=nvidia-tesla-p100`" 레이블을 가진 노드를 선택한다.
 
 ```yaml
@@ -154,10 +154,10 @@ _집합성 기준_ 요건은 _일치성 기준_ 요건과 조합해서 사용할
 
 LIST와 WATCH 작업은 쿼리 파라미터를 사용해서 반환되는 오브젝트 집합을 필터링하기 위해 레이블 셀렉터를 지정할 수 있다. 다음의 2가지 요건 모두 허용된다(URL 쿼리 문자열을 그대로 표기함).
 
-  * _불일치 기준_ 요건: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
+  * _일치성 기준_ 요건: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
   * _집합성 기준_ 요건: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
 
-두 가지 레이블 셀렉터 스타일은 모두 REST 클라이언트를 통해 선택된 리소스를 확인하거나 목록을 볼 수 있다. 예를 들어, `kubectl`로 `apiserver`를 대상으로 _불일치 기준_ 으로 하는 셀렉터를 다음과 같이 이용할 수 있다.
+두 가지 레이블 셀렉터 스타일은 모두 REST 클라이언트를 통해 선택된 리소스를 확인하거나 목록을 볼 수 있다. 예를 들어, `kubectl`로 `apiserver`를 대상으로 _일치성 기준_ 으로 하는 셀렉터를 다음과 같이 이용할 수 있다.
 
 ```shell
 kubectl get pods -l environment=production,tier=frontend
@@ -192,7 +192,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 
 `services`에서 지정하는 파드 집합은 레이블 셀렉터로 정의한다. 마찬가지로 `replicationcontrollers`가 관리하는 파드의 오브젝트 그룹도 레이블 셀렉터로 정의한다.
 
-서비스와 레플리케이션 컨트롤러의 레이블 셀렉터는 `json` 또는 `yaml` 파일에 매핑된 _균등-기반_ 요구사항의 셀렉터만 지원한다.
+서비스와 레플리케이션 컨트롤러의 레이블 셀렉터는 `json` 또는 `yaml` 파일에 매핑된 _일치성 기준_ 요구사항의 셀렉터만 지원한다.
 
 ```json
 "selector": {
