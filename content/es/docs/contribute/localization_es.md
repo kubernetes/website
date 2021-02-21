@@ -5,8 +5,9 @@ content_type: concept
 
 <!-- overview -->
 
-¡Bienvenido(a)! Esta página es un esbozo.
+¡Bienvenido(a)!
 
+En esta página encontrarás información sobre convenciones utilizadas en la documentación en castellano y un glosario de términos con sus traducciones.
 
 <!-- body -->
 
