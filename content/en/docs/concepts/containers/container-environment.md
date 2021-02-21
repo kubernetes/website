@@ -40,6 +40,7 @@ as are any environment variables specified statically in the Docker image.
 ### Cluster information
 
 A list of all services that were running when a Container was created is available to that Container as environment variables.
+This list is limited to services within the same namespace as the new Container's Pod and Kubernetes master services.
 Those environment variables match the syntax of Docker links.
 
 For a service named *foo* that maps to a Container named *bar*,
