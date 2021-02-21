@@ -124,6 +124,6 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
     you implement yourself
   * using the [Operator Framework](https://operatorframework.io)
 * [Publish](https://operatorhub.io/) your operator for other people to use
-* Read [CoreOS' original article](https://coreos.com/blog/introducing-operators.html) that introduced the Operator pattern
+* Read [CoreOS' original article](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html) that introduced the Operator pattern (this is an archived version of the original article).
 * Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) from Google Cloud about best practices for building Operators
 
