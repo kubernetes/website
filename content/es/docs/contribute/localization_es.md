@@ -24,7 +24,7 @@ En esta página encontrarás información sobre convenciones utilizadas en la do
 | deploy            | desplegar              |              |                          |
 | Deployment        | Deployment             | masculino    | objeto Kubernetes        |
 | Endpoints         | Endpoints              | masculino    | objeto Kubernetes        |
-| file              | fichero/archivo        | masculino    |                          |
+| file              | archivo        | masculino    |                          |
 | frontend          | frontend               | masculino    |                          |
 | healthy           | operativo              |              |                          |
 | high availability | alta disponibilidad    |              |                          |
