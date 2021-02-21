@@ -13,6 +13,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+##########
+# This script verifies mispellings in location. Today it only supports
+# verifying English locale but can be modified in a future to support 
+# also other locales.
+# You need to run this script inside the root directory of "website" git repo.
+# 
+# Syntax: verify-spelling.sh LOCALE
+# Example: verify-spelling.sh en
+# If no locale is passed, it will assume "en"
+# 
+# Requirements:
+# - go v1.14 or superior version
+
+
 
 set -o errexit
 set -o nounset
