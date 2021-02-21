@@ -410,3 +410,56 @@ Verbosity | Description
 * Also read [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use kubectl in reusable scripts.
 
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
+
+
+Core Concepts:
+kubectl get pods -o=jsonpath="{.items[ * ][‘metadata.name’, ‘metadata.namespace’]}" <- list all pod with name and namespace
+kubectl set image pod/nginx nginx=nginx:1.17.1
+kubectl get po nginx -o jsonpath=’{.spec.containers[\ * ].image}{"\n"}’
+kubectl logs busybox -p <- check previous logs
+kubectl exec -it busybox – wget -o- --timeout=3
+kubectl get po nginx --v=7
+kubectl get po -o=custom-columns=“POD_NAME:.metadata.name, POD_STATUS:.status.containerStatuses[ ].state”
+kubectl get pods --sort-by=.metadata.name
+
+Configuration:
+kubectl get secret mysecret2 -o jsonpath=’{.data.username}{"\n"}’ | base64 -d
+
+Multi-Container Pods:
+apt-get update && apt-get install -y curl
+curl localhost:30080 -m 3
+kubectl top pod busybox --containers
+
+Observability:
+kubectl explain Pod.spec.containers.livenessProbe
+kubectl explain Pod.spec.containers.readinessProbe
+kubectl get events --sort-by=.metadata.creationTimestamp > file.log
+kubectl logs --follow hello
+kubectl top pod --all-namespaces | sort --reverse --key 3 --numeric | head -3 > cpu-usage.txt
+
+Pod Design:
+kubectl get pods --show-labels
+kubectl label pod/nginx-dev3 env=uat --overwrite
+k label po --all env-
+kubectl get pod nginx{1…3}
+kubectl annotate pod nginx-dev{1…3} name=webapp
+k rollout status
+history [–revision]
+undo [–to-revision]
+pause
+resume
+kubectl autoscale deploy webapp --min=10 --max=20 --cpu-percent=85
+kubectl get hpa
+
+spec: <- job spec
+completions: 10
+parallelism: 10
+
+kubectl create cronjob date-job --image=busybox --schedule="*/1 * * * *" - every minute
+
+Services and Networking:
+kubectl run nginx --image=nginx --restart=Never --port=80 --expose <- expose creates clusterip automatically :slight_smile:
+kubectl expose deploy foo --port=6262 --target-port=8080 <- match all pods with label app=foo
+
+State persistance:
+cat /etc/passwd | cut -f 1 -d ‘:’ > /etc/foo/passwd <- copies first column from file with : delimiter
