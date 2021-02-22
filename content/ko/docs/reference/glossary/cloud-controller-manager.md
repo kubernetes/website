@@ -5,7 +5,7 @@ date: 2018-04-12
 full_link: /ko/docs/concepts/architecture/cloud-controller/
 short_description: >
   쿠버네티스를 타사 클라우드 공급자와 통합하는 컨트롤 플레인 컴포넌트.
-aka: 
+aka:
 tags:
 - core-object
 - architecture
@@ -13,7 +13,7 @@ tags:
 ---
  클라우드별 컨트롤 로직을 포함하는 쿠버네티스
 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}} 컴포넌트이다.
-클라우트 컨트롤러 매니저를 통해 클러스터를 클라우드 공급자의 API에 연결하고,
+클라우드 컨트롤러 매니저를 통해 클러스터를 클라우드 공급자의 API에 연결하고,
 해당 클라우드 플랫폼과 상호 작용하는 컴포넌트와 클러스터와 상호 작용하는 컴포넌트를 분리할 수 있다.
 
 <!--more-->
