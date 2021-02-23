@@ -1,5 +1,5 @@
 ---
-title: "kubectl CLI"
+title: "CLI"
 weight: 60
 ---
 
