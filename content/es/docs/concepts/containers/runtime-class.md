@@ -48,7 +48,7 @@ información sobre cómo configurar la implementación del CRI.
 
 {{< note >}}
 RuntimeClass por defecto asume una configuración de nodos homogénea para todo el
-cluster (lo que significa que todos los nodos están configurados de la misma
+clúster (lo que significa que todos los nodos están configurados de la misma
 forma para el motor de ejecución de containers). Para soportar configuraciones
 heterogéneas de nodos, véase [Planificación](#scheduling) más abajo.
 {{< /note >}}
