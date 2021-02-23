@@ -27,7 +27,7 @@ Se puede seleccionar un RuntimeClass diferente entre diferentes Pods para
 proporcionar equilibrio entre rendimiento y seguridad. Por ejemplo, si parte de
 la carga de trabajo requiere un alto nivel de garantía de seguridad, se podrían
 planificar esos Pods para ejecutarse en un motor de ejecución que use
-virtualización hardware. Así se beneficiaría de un mayor aislamiento del motor
+virtualización de hardware. Así se beneficiaría con un mayor aislamiento del motor
 de ejecución alternativo, con el coste de alguna sobrecarga adicional.
 
 También se puede utilizar el RuntimeClass para ejecutar distintos Pods con el
