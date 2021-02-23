@@ -14,7 +14,7 @@ motor de ejecución.
 
 RuntimeClass es una característica que permite seleccionar la configuración del
 motor de ejecución para los contenedores. La configuración del motor de ejecución para
-Containers se utiliza para ejecutar los Containers de un Pod.
+los contenedores se utiliza para ejecutar los contenedores de un Pod.
 
 
 
