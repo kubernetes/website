@@ -341,12 +341,12 @@ sichtbar sind jedoch von dort nicht gesteuert werden können.
 
 ## {{% heading "whatsnext" %}}
 
-* Lerne den 
+* Verstehe den 
   [Lebenszyklus eines Pods](/docs/concepts/workloads/pods/pod-lifecycle/).
-* Lerne die [RuntimeClass](/docs/concepts/containers/runtime-class/) 
+* Erfahre mehr über [RuntimeClass](/docs/concepts/containers/runtime-class/) 
   und wie du damit verschiedene Pods mit unterschiedlichen 
   Container-Laufzeitumgebungen konfigurieren kannst.
-* Lese 
+* Mehr zum Thema 
   [Restriktionen für die Verteilung von Pods](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 * Lese
   [Pod-Disruption-Budget](/docs/concepts/workloads/pods/disruptions/) 
