@@ -282,6 +282,9 @@ After reverting the template, you must also delete any Pods that StatefulSet had
 already attempted to run with the bad configuration.
 StatefulSet will then begin to recreate the Pods using the reverted template.
 
+### Automatic Deletion of Generated PersistentVolumeClaims
+
+TBD
 
 ## {{% heading "whatsnext" %}}
 
