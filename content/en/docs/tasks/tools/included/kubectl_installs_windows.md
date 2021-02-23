@@ -1,6 +1,7 @@
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
 - [Install with PowerShell from PSGallery](#install-with-powershell-from-psgallery)
 - [Install on Windows using Chocolatey or Scoop](#install-on-windows-using-chocolatey-or-scoop)
+- [Download as part of the Google Cloud SDK](#download-as-part-of-the-google-cloud-sdk)
 
 ### Install kubectl binary with curl on Windows
 
@@ -96,4 +97,44 @@ Updating the installation is performed by rerunning the two commands listed in s
    {{% /tab %}}
    {{< /tabs >}}
 
-{{< include "kubectl_installs_windows_choc_scoop.md" >}}
+
+1. Test to ensure the version you installed is up-to-date:
+
+   ```powershell
+   kubectl version --client
+   ```
+
+1. Navigate to your home directory:
+
+   ```powershell
+   # If you're using cmd.exe, run: cd %USERPROFILE%
+   cd ~
+   ```
+
+1. Create the `.kube` directory:
+
+   ```powershell
+   mkdir .kube
+   ```
+
+1. Change to the `.kube` directory you just created:
+
+   ```powershell
+   cd .kube
+   ```
+
+1. Configure kubectl to use a remote Kubernetes cluster:
+
+   ```powershell
+   New-Item config -type file
+   ```
+
+{{< note >}}
+Edit the config file with a text editor of your choice, such as Notepad.
+{{< /note >}}
+
+
+
+### Download as part of the Google Cloud SDK
+
+{{< include "kubectl_installs_gcloud.md" >}}
