@@ -1,4 +1,5 @@
 
+The following methods exist for installing kubectl on Windows:
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
 - [Install with PowerShell from PSGallery](#install-with-powershell-from-psgallery)
 - [Install on Windows using Chocolatey or Scoop](#install-on-windows-using-chocolatey-or-scoop)
