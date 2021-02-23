@@ -126,7 +126,7 @@ Para más detalles sobre cómo configurar los motores de ejecución del CRI, vé
 
 #### dockershim
 
-El CRI dockershim incorporado por Kubernetes no soporta manejadores de motor de
+El CRI dockershim incorporado por Kubernetes no soporta manejadores del motor de
 ejecución.
 
 #### {{< glossary_tooltip term_id="containerd" >}}
