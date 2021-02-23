@@ -48,10 +48,10 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
     Starting local Kubernetes cluster...
     ```
 
-    Pour plus d'informations sur le démarrage de votre cluster avec une version spécifique de Kubernetes, une machine virtuelle ou un environnement de conteneur, voir [Démarrage d'un cluster].(#starting-a-cluster).
+    Pour plus d'informations sur le démarrage de votre cluster avec une version spécifique de Kubernetes, une machine virtuelle ou un environnement de conteneur, voir [Démarrage d'un cluster](#starting-a-cluster).
 
 2. Vous pouvez maintenant interagir avec votre cluster à l'aide de kubectl.
-   Pour plus d'informations, voir [Interagir avec votre cluster.](#interacting-with-your-cluster).
+   Pour plus d'informations, voir [Interagir avec votre cluster](#interacting-with-your-cluster).
 
     Créons un déploiement Kubernetes en utilisant une image existante nommée `echoserver`, qui est un serveur HTTP, et exposez-la sur le port 8080 à l’aide de `--port`.
 
@@ -529,5 +529,3 @@ Les contributions, questions et commentaires sont les bienvenus et sont encourag
 Les développeurs de minikube sont dans le canal #minikube du [Slack](https://kubernetes.slack.com) de Kubernetes (recevoir une invitation [ici](http://slack.kubernetes.io/)).
 Nous avons également la liste de diffusion [kubernetes-dev Google Groupes](https://groups.google.com/forum/#!forum/kubernetes-dev).
 Si vous publiez sur la liste, veuillez préfixer votre sujet avec "minikube:".
-
-

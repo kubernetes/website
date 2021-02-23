@@ -316,7 +316,7 @@ The rest of this section will assume you have a Service with a long lived IP
 所以可以通过标准做法，使在集群中的任何 Pod 都能与该 Service 通信（例如：`gethostbyname()`）。
 如果 CoreDNS 没有在运行，你可以参照 
 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 或者 
-[安装 CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns) 来启用它。 
+[安装 CoreDNS](/zh/docs/tasks/administer-cluster/coredns/#installing-coredns) 来启用它。 
 让我们运行另一个 curl 应用来进行测试：
 
 ```shell

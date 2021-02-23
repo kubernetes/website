@@ -22,6 +22,16 @@ weight: 30
 명세나 이미지에 포함될 수 있다. 사용자는 시크릿을 만들 수 있고 시스템도
 일부 시크릿을 만들 수 있다.
 
+{{< caution >}}
+쿠버네티스 시크릿은 기본적으로 암호화되지 않은 base64 인코딩 문자열로 저장된다.
+기본적으로 API 액세스 권한이 있는 모든 사용자 또는 쿠버네티스의 기본 데이터 저장소 etcd에 
+액세스할 수 있는 모든 사용자가 일반 텍스트로 검색 할 수 있다. 
+시크릿을 안전하게 사용하려면 (최소한) 다음과 같이 하는 것이 좋다.
+
+1. 시크릿에 대한 [암호화 활성화](/docs/tasks/administer-cluster/encrypt-data/).
+2. 시크릿 읽기 및 쓰기를 제한하는 [RBAC 규칙 활성화 또는 구성](/docs/reference/access-authn-authz/authorization/). 파드를 만들 권한이 있는 모든 사용자는 시크릿을 암묵적으로 얻을 수 있다.
+{{< /caution >}}
+
 <!-- body -->
 
 ## 시크릿 개요
@@ -268,6 +278,13 @@ SSH 인증 시크릿 타입은 사용자 편의만을 위해서 제공된다.
 그러나, 빌트인 시크릿 타입을 사용하는 것은 사용자의 자격 증명들의 포맷을 통합하는 데 도움이 되고,
 API 서버는 요구되는 키가 시크릿 구성에서 제공되고 있는지
 검증도 한다.
+
+{{< caution >}}
+SSH 개인 키는 자체적으로 SSH 클라이언트와 호스트 서버간에 신뢰할 수있는 통신을 
+설정하지 않는다. ConfigMap에 추가된 `known_hosts` 파일과 같은 
+"중간자(man in the middle)" 공격을 완화하려면 신뢰를 설정하는 
+2차 수단이 필요하다.
+{{< /caution >}}
 
 ### TLS 시크릿
 
@@ -767,7 +784,7 @@ immutable: true
 `imagePullSecrets` 필드는 동일한 네임스페이스의 시크릿에 대한 참조 목록이다.
 `imagePullSecretsDocker` 를 사용하여 도커(또는 다른 컨테이너) 이미지 레지스트리
 비밀번호가 포함된 시크릿을 kubelet에 전달할 수 있다. kubelet은 이 정보를 사용해서 파드를 대신하여 프라이빗 이미지를 가져온다.
-`imagePullSecrets` 필드에 대한 자세한 정보는 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core)를 참고한다.
+`imagePullSecrets` 필드에 대한 자세한 정보는 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)를 참고한다.
 
 #### imagePullSecret 수동으로 지정하기
 
@@ -786,7 +803,6 @@ immutable: true
 
 수동으로 생성된 시크릿(예: GitHub 계정에 접근하기 위한 토큰이 포함된 시크릿)은
 시크릿의 서비스 어카운트를 기반한 파드에 자동으로 연결될 수 있다.
-해당 프로세스에 대한 자세한 설명은 [파드프리셋(PodPreset)을 사용하여 파드에 정보 주입하기](/docs/tasks/inject-data-application/podpreset/)를 참고한다.
 
 ## 상세 내용
 
@@ -1233,3 +1249,4 @@ API 서버에서 kubelet으로의 통신은 SSL/TLS로 보호된다.
 - [`kubectl` 을 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
 - [구성 파일을 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
 - [kustomize를 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기
+

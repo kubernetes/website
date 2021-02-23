@@ -67,7 +67,7 @@ kubectl taint nodes node1 key1=value1:NoSchedule-
 若要移除上述命令所添加的污点，你可以执行：
 
 ```shell
-kubectl taint nodes node1 key:NoSchedule-
+kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
 
 <!--
@@ -131,7 +131,7 @@ An empty `effect` matches all effects with key `key1`.
 如果一个容忍度的 `key` 为空且 operator 为 `Exists`，
 表示这个容忍度与任意的 key 、value 和 effect 都匹配，即这个容忍度能容忍任意 taint。
 
-如果 `effect` 为空，则可以与所有键名 `key` 的效果相匹配。
+如果 `effect` 为空，则可以与所有键名 `key1` 的效果相匹配。
 {{< /note >}}
 
 <!--
@@ -169,7 +169,7 @@ scheduled onto the node (if it is not yet running on the node).
   则 Kubernetes 不会将 Pod 分配到该节点。
 * 如果未被过滤的污点中不存在 effect 值为 `NoSchedule` 的污点，
   但是存在 effect 值为 `PreferNoSchedule` 的污点，
-  则 Kubernetes 会 *尝试* 将 Pod 分配到该节点。
+  则 Kubernetes 会 *尝试* 不将 Pod 分配到该节点。
 * 如果未被过滤的污点中存在至少一个 effect 值为 `NoExecute` 的污点，
   则 Kubernetes 不会将 Pod 分配到该节点（如果 Pod 还未在节点上运行），
   或者将 Pod 从该节点驱逐（如果 Pod 已经在节点上运行）。

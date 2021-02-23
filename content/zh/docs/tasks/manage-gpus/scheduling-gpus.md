@@ -22,7 +22,7 @@ Kubernetes includes **experimental** support for managing AMD and NVIDIA GPUs
 This page describes how users can consume GPUs across different Kubernetes versions
 and the current limitations.
 -->
-Kubernetes 支持对节点上的 AMD 和 NVIDA GPU （图形处理单元）进行管理，目前处于**实验**状态。
+Kubernetes 支持对节点上的 AMD 和 NVIDIA GPU （图形处理单元）进行管理，目前处于**实验**状态。
 
 本页介绍用户如何在不同的 Kubernetes 版本中使用 GPU，以及当前存在的一些限制。
 

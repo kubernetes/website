@@ -28,10 +28,10 @@ also creates some Secrets.
 Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
 strings. By default they can be retrieved - as plain text - by anyone with API
 access, or anyone with access to Kubernetes' underlying data store, etcd. In
-order to safely use Secrets, we recommend you (at a minimum):
+order to safely use Secrets, it is recommended you (at a minimum):
 
-1. [Enable Encryption at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
-2. [Enable RBAC rules that restrict reading and writing the Secret](https://kubernetes.io/docs/reference/access-authn-authz/authorization/). Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+1. [Enable Encryption at Rest](/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
+2. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that restrict reading and writing the Secret. Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
 {{< /caution >}}
 
 <!-- body -->
@@ -116,7 +116,7 @@ In this case, `0` means we have just created an empty Secret.
 A `kubernetes.io/service-account-token` type of Secret is used to store a
 token that identifies a service account. When using this Secret type, you need
 to ensure that the `kubernetes.io/service-account.name` annotation is set to an
-existing service account name. An Kubernetes controller fills in some other
+existing service account name. A Kubernetes controller fills in some other
 fields such as the `kubernetes.io/service-account.uid` annotation and the
 `token` key in the `data` field set to actual token content.
 
@@ -290,7 +290,7 @@ ConfigMap.
 
 ### TLS secrets
 
-Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
+Kubernetes provides a builtin Secret type `kubernetes.io/tls` for storing
 a certificate and its associated key that are typically used for TLS . This
 data is primarily used with TLS termination of the Ingress resource, but may
 be used with other resources or directly by a workload.
@@ -669,7 +669,7 @@ The kubelet checks whether the mounted secret is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the Secret.
 The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
 the [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
-A Secret can be either propagated by watch (default), ttl-based, or simply redirecting
+A Secret can be either propagated by watch (default), ttl-based, or by redirecting
 all requests directly to the API server.
 As a result, the total delay from the moment when the Secret is updated to the moment
 when new keys are projected to the Pod can be as long as the kubelet sync period + cache
@@ -800,11 +800,6 @@ or created with that ServiceAccount by default, will get their `imagePullSecrets
 field set to that of the service account.
 See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
-
-### Automatic mounting of manually created Secrets
-
-Manually created secrets (for example, one containing a token for accessing a GitHub account)
-can be automatically attached to pods based on their service account.
 
 ## Details
 

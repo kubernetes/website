@@ -204,7 +204,7 @@ kubelet 在驱动程序上保持打开状态。这意味着为了执行基础结
 现在，收集加速器指标的责任属于供应商，而不是 kubelet。供应商必须提供一个收集指标的容器，
 并将其公开给指标服务（例如 Prometheus）。
 
-[`DisableAcceleratorUsageMetrics` 特性门控](/zh/docs/references/command-line-tools-reference/feature-gates/)
+[`DisableAcceleratorUsageMetrics` 特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
 禁止由 kubelet 收集的指标。
 关于[何时会在默认情况下启用此功能也有一定规划](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria)。
 
@@ -303,10 +303,7 @@ endpoint on the scheduler. You must use the `--show-hidden-metrics-for-version=1
 
 <!--
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) for metrics
-* See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
 -->
 * 阅读有关指标的 [Prometheus 文本格式](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
-* 查看 [Kubernetes 稳定指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
-  的列表
 * 阅读有关 [Kubernetes 弃用策略](/zh/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

@@ -55,6 +55,7 @@ The kind [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) page
 shows you what you need to do to get up and running with `kind`.
 
 <a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="View kind Quick Start Guide">View kind Quick Start Guide</a>
+
 -->
 ## kind
 

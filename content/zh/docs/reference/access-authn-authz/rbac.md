@@ -150,7 +150,7 @@ Because they are cluster-scoped, you can also use them to grant access to:
 * non-resource endpoints (like `/healthz`)
 * namespaced resources (like Pods), across all namespaces
   For example: you can use a ClusterRole to allow a particular user to run
-  `kubectl get pods -all-namespaces`.
+  `kubectl get pods -all-namespaces`
 -->
 ###  ClusterRole 示例
 
@@ -346,7 +346,7 @@ role that is granted to those subjects.
 -->
 1. 针对不同角色的绑定是完全不一样的绑定。要求通过删除/重建绑定来更改 `roleRef`,
    这样可以确保要赋予绑定的所有主体会被授予新的角色（而不是在允许修改
-   `roleRef` 的情况下导致所有现有主体胃镜验证即被授予新角色对应的权限）。
+   `roleRef` 的情况下导致所有现有主体未经验证即被授予新角色对应的权限）。
 1. 将 `roleRef` 设置为不可以改变，这使得可以为用户授予对现有绑定对象的 `update` 权限，
    这样可以让他们管理主体列表，同时不能更改被授予这些主体的角色。
 
@@ -765,7 +765,7 @@ subjects:
 <!-- 
 For all service accounts in the "dev" group in the "development" namespace:
 -->
-对于 "dev" 名称空间中 "development" 组中的所有服务帐户：
+对于 "development" 名称空间中 "dev" 组中的所有服务帐户：
 
 ```yaml
 subjects:

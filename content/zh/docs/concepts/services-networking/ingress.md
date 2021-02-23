@@ -651,12 +651,12 @@ Ingress 控制器 IP 地址的任何网络流量，而无需基于名称的虚�
 
 <!-- 
 For example, the following Ingress routes traffic
-requested for `first.bar.com` to `service1`, `second.foo.com` to `service2`, and any traffic
+requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic
 to the IP address without a hostname defined in request (that is, without a request header being
 presented) to `service3`.
 -->
 例如，以下 Ingress 会将针对 `first.bar.com` 的请求流量路由到 `service1`，
-将针对 `second.foo.com` 的请求流量路由到 `service2`，
+将针对 `second.bar.com` 的请求流量路由到 `service2`，
 而针对该 IP 地址的、没有在请求中定义主机名的请求流量会被路由（即，不提供请求标头）
 到 `service3`。
 
@@ -705,7 +705,7 @@ sure the TLS secret you created came from a certificate that contains a Common
 Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `https-example.foo.com`.
 -->
 在 Ingress 中引用此 Secret 将会告诉 Ingress 控制器使用 TLS 加密从客户端到负载均衡器的通道。
-你需要确保创建的 TLS Secret 创建自包含 `sslexample.foo.com` 的公用名称（CN）的证书。
+你需要确保创建的 TLS Secret 创建自包含 `https-example.foo.com` 的公用名称（CN）的证书。
 这里的公共名称也被称为全限定域名（FQDN）。
 
 {{< note >}}

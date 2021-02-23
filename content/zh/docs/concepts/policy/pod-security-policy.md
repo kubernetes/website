@@ -1,7 +1,7 @@
 ---
 title: Pod 安全策略
 content_type: concept
-weight: 20
+weight: 30
 ---
 <!--
 reviewers:
@@ -9,7 +9,7 @@ reviewers:
 - tallclair
 title: Pod Security Policies
 content_type: concept
-weight: 20
+weight: 30
 -->
 
 {{< feature-state state="beta" >}}
@@ -404,12 +404,19 @@ kubectl-user create -f- <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
-  name:      pause
+  name: pause
 spec:
   containers:
-    - name:  pause
+    - name: pause
       image: k8s.gcr.io/pause
 EOF
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+```
 Error from server (Forbidden): error when creating "STDIN": pods "pause" is forbidden: unable to validate against any pod security policy: []
 ```
 
@@ -487,16 +494,17 @@ kubectl-user create -f- <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
-  name:      pause
+  name: pause
 spec:
   containers:
-    - name:  pause
+    - name: pause
       image: k8s.gcr.io/pause
 EOF
 ```
-
-输出：
-
+<!--
+The output is similar to this:
+-->
+输出类似于：
 ```
 pod "pause" created
 ```
@@ -513,18 +521,21 @@ kubectl-user create -f- <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
-  name:      privileged
+  name: privileged
 spec:
   containers:
-    - name:  pause
+    - name: pause
       image: k8s.gcr.io/pause
       securityContext:
         privileged: true
 EOF
 ```
 
-输出为：
+<!--
+The output is similar to this:
+-->
 
+输出类似于：
 ```
 Error from server (Forbidden): error when creating "STDIN": pods "privileged" is forbidden: unable to validate against any pod security policy: [spec.containers[0].securityContext.privileged: Invalid value: true: Privileged containers are not allowed]
 ```
@@ -1219,7 +1230,7 @@ By default, all safe sysctls are allowed.
 
 - Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 -->
-- 参阅[Pod 安全标准](zh/docs/concepts/security/pod-security-standards/)
+- 参阅[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
   了解策略建议。
 - 阅读 [Pod 安全策略参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)了解 API 细节。
 

@@ -23,15 +23,9 @@ authenticated by the apiserver as a particular User Account (currently this is
 usually `admin`, unless your cluster administrator has customized your cluster). Processes in containers inside pods can also contact the apiserver.
 When they do, they are authenticated as a particular Service Account (for example, `default`).
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -129,7 +123,7 @@ then you will see that a token has automatically been created and is referenced 
 
 You may use authorization plugins to [set permissions on service accounts](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
-To use a non-default service account, simply set the `spec.serviceAccountName`
+To use a non-default service account, set the `spec.serviceAccountName`
 field of a pod to the name of the service account you wish to use.
 
 The service account has to exist at the time the pod is created, or it will be rejected.

@@ -21,12 +21,12 @@ This page shows how to view, work in, and delete {{< glossary_tooltip text="name
 
 <!--
 * Have an [existing Kubernetes cluster](/docs/setup/).
-* Have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
+* You have a basic understanding of Kubernetes {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip term_id="service" text="Services" >}}, and {{< glossary_tooltip text="Deployments" term_id="deployment" >}}.
 -->
-* 你已拥有一个[配置好的 Kubernetes 集群](/zh/docs/setup/).
-* 你已对 Kubernetes 的 _[Pods](/zh/docs/concepts/workloads/pods/)_, 
-  _[Services](/zh/docs/concepts/services-networking/service/)_, 和
-  _[Deployments](/zh/docs/concepts/workloads/controllers/deployment/)_ 有基本理解。
+* 你已拥有一个[配置好的 Kubernetes 集群](/zh/docs/setup/)。
+* 你已对 Kubernetes 的 {{< glossary_tooltip text="Pods" term_id="pod" >}} , 
+  {{< glossary_tooltip term_id="service" text="Services" >}} , 和
+  {{< glossary_tooltip text="Deployments" term_id="deployment" >}} 有基本理解。
 
 <!-- steps -->
 

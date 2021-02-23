@@ -14,7 +14,7 @@ weight: 30
 <!--
 This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Packet (bare metal), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 -->
-此快速入门有助于使用 [Kubespray](https://github.com/kubernetes-sigs) 安装在 GCE、Azure、OpenStack、AWS、vSphere、Packet（裸机）、Oracle Cloud Infrastructure（实验性）或 Baremetal 上托管的 Kubernetes 集群。
+此快速入门有助于使用 [Kubespray](https://github.com/kubernetes-sigs/kubespray) 安装在 GCE、Azure、OpenStack、AWS、vSphere、Packet（裸机）、Oracle Cloud Infrastructure（实验性）或 Baremetal 上托管的 Kubernetes 集群。
 
 <!--
 Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:

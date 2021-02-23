@@ -201,6 +201,10 @@
 /docs/reference/generated/kubernetes-api/v1.17/    https://v1-17.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/  301
 /docs/reference/generated/kubernetes-api/v1.18/    https://v1-18.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/  301
 
+/docs/reference/kubernetes-api/api-index/ /docs/reference 301
+
+/docs/reference/kubernetes-api/labels-annotations-taints/ /docs/reference/labels-annotations-taints/ 301
+
 /docs/reporting-security-issues/     /security/ 301
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
@@ -373,9 +377,7 @@
 /docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ 301
 /docs/user-guide/load-balancer/     /docs/tasks/access-application-cluster/create-external-load-balancer/ 301
 /docs/user-guide/logging/     /docs/concepts/cluster-administration/logging/ 301
-/docs/user-guide/logging/elasticsearch/     /docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/ 301
 /docs/user-guide/logging/overview/     /docs/concepts/cluster-administration/logging/ 301
-/docs/user-guide/logging/stackdriver/     /docs/tasks/debug-application-cluster/logging-stackdriver/ 301
 /docs/user-guide/managing-deployments/     /docs/concepts/cluster-administration/manage-deployment/ 301
 /docs/user-guide/monitoring/     /docs/tasks/debug-application-cluster/resource-usage-monitoring/ 301
 /docs/user-guide/namespaces/     /docs/concepts/overview/working-with-objects/namespaces/ 301
@@ -464,6 +466,7 @@
 /docs/admin/authorization/     /docs/reference/access-authn-authz/authorization/ 301
 /docs/admin/high-availability/building/     /docs/setup/production-environment/tools/kubeadm/high-availability/   301
 /code-of-conduct/     /community/code-of-conduct/   301
+/values/     /community/values/   302
 
 /docs/setup/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
 

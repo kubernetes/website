@@ -32,34 +32,73 @@ Using the latest version of kubectl helps avoid unforeseen issues.
 
 1. Download the latest release with the command:
 
-    ```
-    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-    ```
+   ```bash
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+   ```
 
-    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+   {{< note >}}
+To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
 
-    For example, to download version {{< param "fullversion" >}} on Linux, type:
-    
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
-    ```
+For example, to download version {{< param "fullversion" >}} on Linux, type:
 
-2. Make the kubectl binary executable.
+   ```bash
+   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   ```
+   {{< /note >}}
 
-    ```
-    chmod +x ./kubectl
-    ```
+1. Validate the binary (optional)
 
-3. Move the binary in to your PATH.
+   Download the kubectl checksum file:
 
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
-4. Test to ensure the version you installed is up-to-date:
+   ```bash
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   ```
 
-    ```
-    kubectl version --client
-    ```
+   Validate the kubectl binary against the checksum file:
+
+   ```bash
+   echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+   ```
+
+   If valid, the output is:
+
+   ```bash
+   kubectl: OK
+   ```
+
+   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+
+   ```bash
+   kubectl: FAILED
+   sha256sum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   Download the same version of the binary and checksum.
+   {{< /note >}}
+
+1. Install kubectl
+
+   ```bash
+   sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+   ```
+
+   {{< note >}}
+   If you do not have root access on the target system, you can still install kubectl to the `~/.local/bin` directory:
+
+   ```bash
+   mkdir -p ~/.local/bin/kubectl
+   mv ./kubectl ~/.local/bin/kubectl
+   # and then add ~/.local/bin/kubectl to $PATH
+   ```
+
+   {{< /note >}}
+
+1. Test to ensure the version you installed is up-to-date:
+
+   ```bash
+   kubectl version --client
+   ```
 
 ### Install using native package management
 
@@ -120,30 +159,65 @@ kubectl version --client
 1. Download the latest release:
 
    ```bash
-   curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
    ```
 
-   To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+   {{< note >}}
+   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
 
    For example, to download version {{< param "fullversion" >}} on macOS, type:
 
    ```bash
-   curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
    ```
 
-   Make the kubectl binary executable.
+   {{< /note >}}
+
+1. Validate the binary (optional)
+
+   Download the kubectl checksum file:
+
+   ```bash
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl.sha256"
+   ```
+
+   Validate the kubectl binary against the checksum file:
+
+   ```bash
+   echo "$(<kubectl.sha256)  kubectl" | shasum -a 256 --check
+   ```
+
+   If valid, the output is:
+
+   ```bash
+   kubectl: OK
+   ```
+
+   If the check fails, `shasum` exits with nonzero status and prints output similar to:
+
+   ```bash
+   kubectl: FAILED
+   shasum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   Download the same version of the binary and checksum.
+   {{< /note >}}
+
+1. Make the kubectl binary executable.
 
    ```bash
    chmod +x ./kubectl
    ```
 
-3. Move the binary in to your PATH.
+1. Move the kubectl binary to a file location on your system `PATH`.
 
    ```bash
-   sudo mv ./kubectl /usr/local/bin/kubectl
+   sudo mv ./kubectl /usr/local/bin/kubectl && \
+   sudo chown root: /usr/local/bin/kubectl
    ```
 
-4. Test to ensure the version you installed is up-to-date:
+1. Test to ensure the version you installed is up-to-date:
 
    ```bash
    kubectl version --client
@@ -165,7 +239,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
    brew install kubernetes-cli
    ```
 
-2. Test to ensure the version you installed is up-to-date:
+1. Test to ensure the version you installed is up-to-date:
 
    ```bash
    kubectl version --client
@@ -182,7 +256,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
    sudo port install kubectl
    ```
 
-2. Test to ensure the version you installed is up-to-date:
+1. Test to ensure the version you installed is up-to-date:
 
    ```bash
    kubectl version --client
@@ -192,47 +266,72 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 
 ### Install kubectl binary with curl on Windows
 
-1. Download the latest release {{< param "fullversion" >}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Download the [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 
    Or if you have `curl` installed, use this command:
 
-   ```bash
-   curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+   ```powershell
+   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
    ```
 
-   To find out the latest stable version (for example, for scripting), take a look at [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+   {{< note >}}
+   To find out the latest stable version (for example, for scripting), take a look at [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
+   {{< /note >}}
 
-2. Add the binary in to your PATH.
+1. Validate the binary (optional)
 
-3. Test to ensure the version of `kubectl` is the same as downloaded:
+   Download the kubectl checksum file:
 
-   ```bash
+   ```powershell
+   curl -LO https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256
+   ```
+
+   Validate the kubectl binary against the checksum file:
+
+   - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
+
+     ```cmd
+     CertUtil -hashfile kubectl.exe SHA256
+     type kubectl.exe.sha256
+     ```
+
+   - Using PowerShell to automate the verification using the `-eq` operator to get a `True` or `False` result:
+
+     ```powershell
+     $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
+     ```
+
+1. Add the binary in to your `PATH`.
+
+1. Test to ensure the version of `kubectl` is the same as downloaded:
+
+   ```cmd
    kubectl version --client
    ```
 
 {{< note >}}
-[Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to PATH.
-If you have installed Docker Desktop before, you may need to place your PATH entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
+[Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to `PATH`.
+If you have installed Docker Desktop before, you may need to place your `PATH` entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
 {{< /note >}}
 
-### Install with Powershell from PSGallery
+### Install with PowerShell from PSGallery
 
-If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update kubectl with Powershell.
+If you are on Windows and using the [PowerShell Gallery](https://www.powershellgallery.com/) package manager, you can install and update kubectl with PowerShell.
 
 1. Run the installation commands (making sure to specify a `DownloadLocation`):
 
    ```powershell
    Install-Script -Name 'install-kubectl' -Scope CurrentUser -Force
    install-kubectl.ps1 [-DownloadLocation <path>]
-    ```
+   ```
 
    {{< note >}}
-   If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's temp Directory.
+   If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's `temp` Directory.
    {{< /note >}}
 
    The installer creates `$HOME/.kube` and instructs it to create a config file.
 
-2. Test to ensure the version you installed is up-to-date:
+1. Test to ensure the version you installed is up-to-date:
 
    ```powershell
    kubectl version --client
@@ -260,32 +359,32 @@ Updating the installation is performed by rerunning the two commands listed in s
    {{< /tabs >}}
 
 
-2. Test to ensure the version you installed is up-to-date:
+1. Test to ensure the version you installed is up-to-date:
 
    ```powershell
    kubectl version --client
    ```
 
-3. Navigate to your home directory:
+1. Navigate to your home directory:
 
    ```powershell
    # If you're using cmd.exe, run: cd %USERPROFILE%
    cd ~
    ```
 
-4. Create the `.kube` directory:
+1. Create the `.kube` directory:
 
    ```powershell
    mkdir .kube
    ```
 
-5. Change to the `.kube` directory you just created:
+1. Change to the `.kube` directory you just created:
 
    ```powershell
    cd .kube
    ```
 
-6. Configure kubectl to use a remote Kubernetes cluster:
+1. Configure kubectl to use a remote Kubernetes cluster:
 
    ```powershell
    New-Item config -type file
@@ -301,13 +400,13 @@ You can install kubectl as part of the Google Cloud SDK.
 
 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
 
-2. Run the `kubectl` installation command:
+1. Run the `kubectl` installation command:
 
    ```shell
    gcloud components install kubectl
    ```
 
-3. Test to ensure the version you installed is up-to-date:
+1. Test to ensure the version you installed is up-to-date:
 
    ```shell
    kubectl version --client
@@ -385,11 +484,13 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
    ```bash
    echo 'source <(kubectl completion bash)' >>~/.bashrc
    ```
+
 - Add the completion script to the `/etc/bash_completion.d` directory:
 
    ```bash
    kubectl completion bash >/etc/bash_completion.d/kubectl
    ```
+
 If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
 ```bash
@@ -470,7 +571,6 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
 
     ```bash
     echo 'source <(kubectl completion bash)' >>~/.bash_profile
-
     ```
 
 - Add the completion script to the `/usr/local/etc/bash_completion.d` directory:

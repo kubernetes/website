@@ -487,7 +487,7 @@ The following volume types support mount options:
 * VsphereVolume
 * iSCSI
 
-Mount options are not validated, so mount will simply fail if one is invalid.
+Mount options are not validated. If a mount option is invalid, the mount fails.
 
 In the past, the annotation `volume.beta.kubernetes.io/mount-options` was used instead
 of the `mountOptions` attribute. This annotation is still working; however,
@@ -628,6 +628,11 @@ spec:
 ### A Note on Namespaces
 
 PersistentVolumes binds are exclusive, and since PersistentVolumeClaims are namespaced objects, mounting claims with "Many" modes (`ROX`, `RWX`) is only possible within one namespace.
+
+### PersistentVolumes typed `hostPath`
+
+A `hostPath` PersistentVolume uses a file or directory on the Node to emulate network-attached storage.
+See [an example of `hostPath` typed volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 
 ## Raw Block Volume Support
 

@@ -118,7 +118,7 @@ log to standard error as well as files
 Enables anonymous requests to the Kubelet server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of `system:anonymous`, and a group name of `system:unauthenticated`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 设置为 true 表示 kubelet 服务器可以接受匿名请求。未被任何认证组件拒绝的请求将被视为匿名请求。
-匿名请求的用户名为 <code>system:anonymous</code>，用户组为 </code>system:unauthenticated</code>。
+匿名请求的用户名为 <code>system:anonymous</code>，用户组为 <code>system:unauthenticated</code>。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
@@ -691,10 +691,11 @@ If &gt; `0`, limit event creations per second to this value. If `0`, unlimited. 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of eviction thresholds (e.g. `memory.available<1Gi`) that if met would trigger a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of eviction thresholds (e.g. `memory.available<1Gi`) that if met would trigger a pod eviction. On a Linux node, the default value also includes `nodefs.inodesFree<5%`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 触发 Pod 驱逐操作的一组硬性门限（例如：<code>memory.available&lt;1Gi</code>
-（内存可用值小于 1 G））设置。
+（内存可用值小于 1 G））设置。在 Linux 节点上，默认值还包括
+<code>nodefs.inodesFree<5%</code>。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
@@ -1352,7 +1353,6 @@ Content type of requests sent to apiserver. (default "application/vnd.kubernetes
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
-</td>
 </tr>
 
 <tr>
@@ -1375,12 +1375,12 @@ QPS to use while talking with kubernetes apiserver. (DEPRECATED: This parameter 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi`) pairs that describe resources reserved for kubernetes system components. Currently `cpu`, `memory` and local `ephemeral-storage` for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'`) pairs that describe resources reserved for kubernetes system components. Currently `cpu`, `memory` and local `ephemeral-storage` for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 kubernetes 系统预留的资源配置，以一组 <code>资源名称=资源数量</code> 格式表示。
-（例如：<code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi</code>）。
+（例如：<code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>）。
 当前支持 <code>cpu</code>、<code>memory</code> 和用于根文件系统的 <code>ephemeral-storage</code>。
-请参阅<a href="http://kubernetes.io/zh/docs/user-guide/compute-resources/">相关文档</a>获取更多信息。
+请参阅<a href="http://kubernetes.io/zh/docs/concepts/configuration/manage-resources-containers/">相关文档</a>获取更多信息。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>
@@ -2282,13 +2282,13 @@ Optional absolute name of cgroups in which to place all non-kernel processes tha
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi`) pairs that describe resources reserved for non-kubernetes components. Currently only `cpu` and `memory` are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+A set of `<resource name>=<resource quantity>` (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'`) pairs that describe resources reserved for non-kubernetes components. Currently only `cpu` and `memory` are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
 -->
 系统预留的资源配置，以一组 <code>资源名称=资源数量</code> 的格式表示，
-（例如：<code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi</code>）。
+（例如：<code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>）。
 目前仅支持 <code>cpu</code> 和 <code>memory</code> 的设置。
 更多细节可参考
-<a href="http://kubernetes.io/docs/user-guide/compute-resources/">相关文档</a>。
+<a href="http://kubernetes.io/zh/docs/concepts/configuration/manage-resources-containers/">相关文档</a>。
 已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 （<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/kubelet-config-file/">进一步了解</a>）
 </td>

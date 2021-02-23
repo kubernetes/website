@@ -106,6 +106,8 @@ spec:
       fsType: ext4
 ```
 
+If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which parition to mount on.
+
 #### AWS EBS CSI migration
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
@@ -210,8 +212,8 @@ spec:
 
 The `CSIMigration` feature for Cinder, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
-Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
+Storage Interface (CSI) Driver. In order to use this feature, the [OpenStack Cinder CSI
+Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
 beta features must be enabled.
 

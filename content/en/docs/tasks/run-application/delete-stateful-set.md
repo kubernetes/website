@@ -66,7 +66,7 @@ Use caution when deleting a PVC, as it may lead to data loss.
 
 ### Complete deletion of a StatefulSet
 
-To simply delete everything in a StatefulSet, including the associated pods, you can run a series of commands similar to the following:
+To delete everything in a StatefulSet, including the associated pods, you can run a series of commands similar to the following:
 
 ```shell
 grace=$(kubectl get pods <stateful-set-pod> --template '{{.spec.terminationGracePeriodSeconds}}')
