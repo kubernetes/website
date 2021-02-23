@@ -85,7 +85,7 @@ válido.
 {{< note >}}
 Se recomienda que las operaciones de escritura de la RuntimeClass
 (creación/modificación/parcheo/elimiación) se restrinjan al administrador del
-cluster. Habitualmente es el valor por defecto. Véase [Visión general de la
+clúster. Habitualmente es el valor por defecto. Véase [Visión general de la
 Autorización](/docs/reference/access-authn-authz/authorization/) para más
 detalles.
 {{< /note >}}
