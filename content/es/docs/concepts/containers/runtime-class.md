@@ -62,7 +62,7 @@ handler must be a valid DNS 1123 label (alpha-numeric + `-` characters).
 ### 2. Crear los recursos RuntimeClass correspondientes.
 
 Cada configuración establecida en el paso 1 tiene un nombre de `manejador`, que
-identifica a dicha configuración. Para cada manejador, hay que crearun objeto
+identifica a dicha configuración. Para cada manejador, hay que crear un objeto
 RuntimeClass correspondiente.
 
 Actualmente el recurso RuntimeClass sólo tiene dos campos significativos: el
