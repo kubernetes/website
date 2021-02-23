@@ -1,3 +1,4 @@
+
 - [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
 - [Install using native package management](#install-using-native-package-management)
 - [Install using other package management](#install-using-other-package-management)

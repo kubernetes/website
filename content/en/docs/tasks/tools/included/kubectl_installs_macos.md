@@ -1,3 +1,4 @@
+
 - [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
 - [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
 - [Install with Macports on macOS](#install-with-macports-on-macos)
