@@ -122,7 +122,7 @@ The following table lists container runtimes and their associated socket paths:
 {{< table caption = "Container runtimes and their socket paths" >}}
 | Runtime    | Path to Unix domain socket        |
 |------------|-----------------------------------|
-| Docker     | `/var/run/docker.sock`            |
+| Docker     | `/var/run/dockershim.sock`        |
 | containerd | `/run/containerd/containerd.sock` |
 | CRI-O      | `/var/run/crio/crio.sock`         |
 {{< /table >}}
