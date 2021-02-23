@@ -457,8 +457,7 @@ of the node heartbeats as the cluster scales.
 #### 心跳机制  {#heartbeats}
 
 Kubernetes 节点发送的心跳（Heartbeats）有助于确定节点的可用性。
-心跳有两种形式：`NodeStatus` 和 [`Lease` 对象]
-(/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io)。
+心跳有两种形式：`NodeStatus` 和 [`Lease` 对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io)。
 每个节点在 `kube-node-lease`{{< glossary_tooltip term_id="namespace" text="名字空间">}}
 中都有一个与之关联的 `Lease` 对象。
 `Lease` 是一种轻量级的资源，可在集群规模扩大时提高节点心跳机制的性能。
