@@ -242,3 +242,5 @@ Ensure your {{< glossary_tooltip text="CNI" term_id="cni" >}} provider supports 
 
 
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
+* [Enable dual-stack networking using kubeadm
+](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
