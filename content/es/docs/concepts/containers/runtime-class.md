@@ -92,7 +92,7 @@ detalles.
 
 ## Uso
 
-Una vez se han configurado las RuntimeClasses para el cluster, utilizarlas es
+Una vez se han configurado las RuntimeClasses para el clúster, el utilizarlas es
 muy sencillo. Se especifica un `runtimeClassName` en la especificación del Pod.
 Por ejemplo:
 
