@@ -35,7 +35,7 @@ mismo motor de ejecución pero con distintos parámetros.
 
 ## Configuración
 
-1. Configurar la implementación del CRI en los nodos (dependiente del motor de
+1. Configurar la implementación del CRI en los nodos (depende del motor de
    ejecución)
 2. Crear los recursos RuntimeClass correspondientes.
 
