@@ -107,7 +107,7 @@ spec:
   # ...
 ```
 
-Así se informa al kubelet del nombre de la RuntimeClass a utilizar para ejecutar
+Así se informa a Kubelet del nombre de la RuntimeClass a utilizar para
 este pod. Si dicho RuntimeClass no existe, o el CRI no puede ejecutar el
 manejador correspondiente, el pod entrará en la
 [fase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) final `Failed`.
