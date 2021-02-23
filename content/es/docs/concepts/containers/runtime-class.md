@@ -191,7 +191,7 @@ Pods que estén ejeuctándose. Declarar la sobrecarga permite al cluster (inclui
 el planificador) contabilizarlo al tomar decisiones sobre los Pods y los
 recursos. Parautilizar la sobrecarga de pods, se debe haber habilitado la
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-PodOverhead (olo está por defecto).
+PodOverhead (lo está por defecto).
 
 La sobrecarga de pods se define en la RuntimeClass a través del los campos de
 `overhead`. Con estos campos se puede especificar la sobrecarga de los pods en
