@@ -9,7 +9,7 @@ weight: 20
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-Esta página describe el recurso RuntimeClass y el mecanismo de selección de
+Esta página describe el recurso RuntimeClass y el mecanismo de selección del
 motor de ejecución.
 
 RuntimeClass es una característica que permite seleccionar la configuración del
