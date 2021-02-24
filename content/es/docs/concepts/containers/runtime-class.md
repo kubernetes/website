@@ -164,7 +164,7 @@ Especificando el campo `scheduling` en una RuntimeClass se pueden establecer
 restricciones para asegurar que los Pods ejecutándose con dicha RuntimeClass se
 planifican en los nodos que la soportan.
 
-Para asegurar que los pods aterrizan en nodos que soportan una RuntimeClass
+Para asegurar que los pods sean asignados en nodos que soportan una RuntimeClass
 determinada, ese conjunto de nodos debe tener una etiqueta común que se
 selecciona en el campo `runtimeclass.scheduling.nodeSelector`. El nodeSelector
 de la RuntimeClass se combina con el nodeSelector del pod durante la admisión,
@@ -185,9 +185,9 @@ Para saber más sobre configurar el selector de nodos y las tolerancias, véase
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 Se pueden especificar recursos de _sobrecarga_ adicional que se asocian a los
-Pods que estén ejeuctándose. Declarar la sobrecarga permite al cluster (incluido
+Pods que estén ejecutándose. Declarar la sobrecarga permite al clúster (incluido
 el planificador) contabilizarlo al tomar decisiones sobre los Pods y los
-recursos. Parautilizar la sobrecarga de pods, se debe haber habilitado la
+recursos. Para utilizar la sobrecarga de pods, se debe haber habilitado la
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 PodOverhead (lo está por defecto).
 
