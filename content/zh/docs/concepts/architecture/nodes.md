@@ -17,10 +17,9 @@ weight: 10
 <!--
 Kubernetes runs your workload by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
-is managed by the
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}}
-and contains the services necessary to run
-{{< glossary_tooltip text="Pods" term_id="pod" >}}
+contains the services necessary to run
+{{< glossary_tooltip text="Pods" term_id="pod" >}}, managed by the
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have just one.
@@ -31,9 +30,9 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 -->
 Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。
-节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。每个节点由
-{{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理，
-并包含运行 {{< glossary_tooltip text="Pods" term_id="pod" >}} 所需的服务。
+节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。
+每个节点包含运行 {{< glossary_tooltip text="Pods" term_id="pod" >}} 所需的服务，
+这些 Pods 由 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理。
 
 通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也可能
 只有一个节点。
@@ -121,7 +120,7 @@ register itself with the API server.  This is the preferred pattern, used by mos
 
 For self-registration, the kubelet is started with the following options:
 -->
-### 节点自注册
+### 节点自注册 {#self-registration-of-nodes}
 
 当 kubelet 标志 `--register-node` 为 true（默认）时，它会尝试向 API 服务注册自己。
 这是首选模式，被绝大多数发行版选用。
@@ -171,7 +170,7 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node, or mark it unschedulable.
 -->
-### 手动节点管理
+### 手动节点管理 {#manual-node-administration}
 
 你可以使用 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 来创建和修改 Node 对象。
