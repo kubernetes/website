@@ -30,9 +30,9 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 -->
 Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。
-节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。每个节点由
-{{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理，
-并包含运行 {{< glossary_tooltip text="Pods" term_id="pod" >}} 所需的服务。
+节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。
+每个节点包含运行 {{< glossary_tooltip text="Pods" term_id="pod" >}} 所需的服务，
+这些 Pods 由 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理。
 
 通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也可能
 只有一个节点。
