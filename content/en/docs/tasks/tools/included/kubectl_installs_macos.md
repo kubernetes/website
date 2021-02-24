@@ -6,7 +6,10 @@ toc_hide: true
 
 The following methods exist for installing kubectl on macOS:
 
-{{% toc %}}
+- [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
+- [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
+- [Install with Macports on macOS](#install-with-macports-on-macos)
+- [Download as part of the Google Cloud SDK](#download-as-part-of-the-google-cloud-sdk)
 
 ### Install kubectl binary with curl on macOS
 
