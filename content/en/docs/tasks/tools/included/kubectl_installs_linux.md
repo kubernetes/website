@@ -1,9 +1,12 @@
+---
+title: "linux kubectl install"
+description: "Content for the Linux tab in the main page."
+toc_hide: true
+---
 
 The following methods exist for installing kubectl on Linux:
-- [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
-- [Install using native package management](#install-using-native-package-management)
-- [Install using other package management](#install-using-other-package-management)
-- [Download as part of the Google Cloud SDK](#download-as-part-of-the-google-cloud-sdk)
+
+{{% toc %}}
 
 ### Install kubectl binary with curl on Linux
 
