@@ -395,5 +395,5 @@ $ kubectl delete deployment source-ip-app
 
 
 * 学习更多关于 [通过 services 连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)
-* 学习更多关于 [负载均衡](/zh/docs/user-guide/load-balancer)
+* 学习更多关于 [负载均衡](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)
 
