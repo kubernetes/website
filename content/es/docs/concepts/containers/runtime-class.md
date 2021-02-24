@@ -56,8 +56,6 @@ heterogéneas de nodos, véase [Planificación](#scheduling) más abajo.
 Las configuraciones tienen un nombre de `manejador` correspondiente, referenciado
 por la RuntimeClass. El manejador debe ser una etiqueta DNS 1123 válida
 (alfanumérico + caracter `-`).
-The configurations have a corresponding `handler` name, referenced by the RuntimeClass. The
-handler must be a valid DNS 1123 label (alpha-numeric + `-` characters).
 
 ### 2. Crear los recursos RuntimeClass correspondientes.
 
