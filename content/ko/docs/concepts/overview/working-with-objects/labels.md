@@ -1,4 +1,6 @@
 ---
+
+
 title: 레이블과 셀렉터
 content_type: concept
 weight: 40
@@ -40,7 +42,7 @@ _레이블_ 은 파드와 같은 오브젝트에 첨부된 키와 값의 쌍이�
    * `"partition" : "customerA"`, `"partition" : "customerB"`
    * `"track" : "daily"`, `"track" : "weekly"`
 
-레이블 예시는 일반적으로 사용하는 상황에 해당한다. 당신의 규약에 따라 자유롭게 개발할 수 있다. 오브젝트에 붙여진 레이블 키는 고유해야 한다는 것을 기억해야 한다.
+이 예시는 일반적으로 사용하는 레이블이며, 사용자는 자신만의 규칙(convention)에 따라 자유롭게 개발할 수 있다. 오브젝트에 붙여진 레이블 키는 고유해야 한다는 것을 기억해야 한다.
 
 ## 구문과 캐릭터 셋
 
@@ -90,14 +92,13 @@ API는 현재 _일치성 기준_ 과 _집합성 기준_ 이라는 두 종류의 
 {{< /note >}}
 
 {{< caution >}}
-일치성 기준과 집합성 기준 조건 모두에 대해 논리적인 _OR_ (`||`) 연산자가 없다.
-필터 구문이 적절히 구성되어있는지 확인해야 한다.
+일치성 기준과 집합성 기준 조건 모두에 대해 논리적인 _OR_ (`||`) 연산자가 없다. 필터 구문이 적절히 구성되어있는지 확인해야 한다.
 {{< /caution >}}
 
 ### _일치성 기준_ 요건
 
 _일치성 기준_ 또는 _불일치 기준_ 의 요구사항으로 레이블의 키와 값의 필터링을 허용한다. 일치하는 오브젝트는 추가 레이블을 가질 수 있지만, 레이블의 명시된 제약 조건을 모두 만족해야 한다.
-`=`,`==`,`!=` 이 3가지 연산자만 허용한다. 처음 두 개의 연산자의 _일치성_(그리고 단순히 동의어일 뿐임), 나머지는 _불일치_ 를 의미한다. 예를 들면,
+`=`,`==`,`!=` 이 세 가지 연산자만 허용한다. 처음 두 개의 연산자의 _일치성_(그리고 동의어), 나머지는 _불일치_ 를 의미한다. 예를 들면,
 
 ```
 environment = production
@@ -109,7 +110,8 @@ tier != frontend
 `environment=production,tier!=frontend` 처럼 쉼표를 통해 한 문장으로 `frontend`를 제외한 `production`을 필터링할 수 있다.
 
 일치성 기준 레이블 요건에 대한 하나의 이용 시나리오는 파드가 노드를 선택하는 기준을 지정하는 것이다.
-예를 들어, 아래 샘플 파드는 "`accelerator=nvidia-tesla-p100`" 레이블을 가진 노드를 선택한다.
+예를 들어, 아래 샘플 파드는 "`accelerator=nvidia-tesla-p100`"
+레이블을 가진 노드를 선택한다.
 
 ```yaml
 apiVersion: v1
@@ -148,11 +150,12 @@ _집합성 기준_ 레이블 셀렉터는 일반적으로 `environment=productio
 
 _집합성 기준_ 요건은 _일치성 기준_ 요건과 조합해서 사용할 수 있다. 예를 들어 `partition in (customerA, customerB),environment!=qa`
 
+
 ## API
 
 ### LIST와 WATCH 필터링
 
-LIST와 WATCH 작업은 쿼리 파라미터를 사용해서 반환되는 오브젝트 집합을 필터링하기 위해 레이블 셀렉터를 지정할 수 있다. 다음의 2가지 요건 모두 허용된다(URL 쿼리 문자열을 그대로 표기함).
+LIST와 WATCH 작업은 쿼리 파라미터를 사용해서 반환되는 오브젝트 집합을 필터링하기 위해 레이블 셀렉터를 지정할 수 있다. 다음의 두 가지 요건 모두 허용된다(URL 쿼리 문자열을 그대로 표기함).
 
   * _일치성 기준_ 요건: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
   * _집합성 기준_ 요건: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
@@ -208,7 +211,6 @@ selector:
 
 `json` 또는 `yaml` 서식에서 셀렉터는 `component=redis` 또는 `component in (redis)` 모두 같은 것이다.
 
-
 #### 세트-기반 요건을 지원하는 리소스
 
 [`Job`](/ko/docs/concepts/workloads/controllers/job/),
@@ -232,4 +234,3 @@ selector:
 
 레이블을 통해 선택하는 사용 사례 중 하나는 파드를 스케줄 할 수 있는 노드 셋을 제한하는 것이다.
 자세한 내용은 [노드 선택](/ko/docs/concepts/scheduling-eviction/assign-pod-node/) 문서를 참조한다.
-

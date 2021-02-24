@@ -1,4 +1,6 @@
 ---
+
+
 title: 리소스 쿼터
 content_type: concept
 weight: 20
@@ -608,16 +610,27 @@ plugins:
         values: ["cluster-services"]
 ```
 
-이제 "cluster-services" 파드는 `scopeSelector`와 일치하는 쿼터 오브젝트가 있는 네임스페이스에서만 허용된다.
-예를 들면 다음과 같다.
+그리고, `kube-system` 네임스페이스에 리소스 쿼터 오브젝트를 생성한다.
 
-```yaml
-    scopeSelector:
-      matchExpressions:
-      - scopeName: PriorityClass
-        operator: In
-        values: ["cluster-services"]
+{{< codenew file="policy/priority-class-resourcequota.yaml" >}}
+
+```shell
+$ kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system
 ```
+
+```
+resourcequota/pods-cluster-services created
+```
+
+이 경우, 파드 생성은 다음의 조건을 만족해야 허용될 것이다.
+
+1.  파드의 `priorityClassName` 가 명시되지 않음.
+1.  파드의 `priorityClassName` 가 `cluster-services` 이외의 다른 값으로 명시됨.
+1.  파드의 `priorityClassName` 가 `cluster-services` 로 설정되고, 파드가 `kube-system`
+   네임스페이스에 생성되었으며 리소스 쿼터 검증을 통과함.
+
+파드 생성 요청은 `priorityClassName` 가 `cluster-services` 로 명시되고
+`kube-system` 이외의 다른 네임스페이스에 생성되는 경우, 거절된다.
 
 ## {{% heading "whatsnext" %}}
 
