@@ -975,10 +975,10 @@ kind: ValidatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   rules:
-  - operations: ["CREATE"]
+  - operations: ["UPDATE"]
     apiGroups: ["*"]
     apiVersions: ["*"]
-    resources: ["*"]
+    resources: ["*/status"]
     scope: "*"
   ...
 ```
@@ -992,10 +992,10 @@ kind: ValidatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   rules:
-  - operations: ["CREATE"]
+  - operations: ["UPDATE"]
     apiGroups: ["*"]
     apiVersions: ["*"]
-    resources: ["*"]
+    resources: ["*/status"]
     scope: "*"
   ...
 ```
