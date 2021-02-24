@@ -302,6 +302,12 @@ employed to recover the data of a failed cluster.
 Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
 [data directory]( https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
+Here is an example:
+
+```shell
+ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
+```
+
 For more information and examples on restoring a cluster from a snapshot file, see
 [etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).
 
