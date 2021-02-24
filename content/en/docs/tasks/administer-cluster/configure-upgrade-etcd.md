@@ -125,7 +125,16 @@ the URL schema.
 
 Similarly, to configure etcd with secure client communication, specify flags
 `--key-file=k8sclient.key` and `--cert-file=k8sclient.cert`, and use HTTPS as
-the URL schema.
+the URL schema. Here is an example on a client command that uses secure
+communication:
+
+```
+ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
+--cert=/etc/kubernetes/pki/etcd/server.crt \
+--key=/etc/kubernetes/pki/etcd/server.key \
+--cacert=/etc/kubernetes/pki/etcd/ca.crt \
+member list
+```
 
 ### Limiting access of etcd clusters
 
