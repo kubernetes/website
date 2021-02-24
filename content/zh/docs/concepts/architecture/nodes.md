@@ -121,7 +121,7 @@ register itself with the API server.  This is the preferred pattern, used by mos
 
 For self-registration, the kubelet is started with the following options:
 -->
-### 节点自注册
+### 节点自注册 {#self-registration-of-nodes}
 
 当 kubelet 标志 `--register-node` 为 true（默认）时，它会尝试向 API 服务注册自己。
 这是首选模式，被绝大多数发行版选用。
@@ -171,7 +171,7 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node, or mark it unschedulable.
 -->
-### 手动节点管理
+### 手动节点管理 {#manual-node-administration}
 
 你可以使用 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 来创建和修改 Node 对象。
