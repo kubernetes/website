@@ -6,9 +6,13 @@ toc_hide: true
 
 The following methods exist for installing kubectl on Linux:
 
-{{% toc %}}
+- [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
+- [Install using native package management](#install-using-native-package-management)
+- [Install using other package management](#install-using-other-package-management)
+- [Download as part of the Google Cloud SDK](#download-as-part-of-the-google-cloud-sdk)
 
-## Install kubectl binary with curl on Linux
+
+### Install kubectl binary with curl on Linux
 
 1. Download the latest release with the command:
 
@@ -80,7 +84,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    kubectl version --client
    ```
 
-## Install using native package management
+### Install using native package management
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
@@ -104,7 +108,7 @@ yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
-## Install using other package management
+### Install using other package management
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
@@ -131,6 +135,6 @@ kubectl version --client
 
 {{< /tabs >}}
 
-## Download as part of the Google Cloud SDK
+### Download as part of the Google Cloud SDK
 
 {{< include "kubectl_installs_gcloud.md" >}}
