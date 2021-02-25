@@ -236,7 +236,7 @@ For example, with the following configuration:
 If an eviction threshold is triggered for `memory.available`, the `kubelet` works to ensure
 that `memory.available` is at least `500Mi`. For `nodefs.available`, the `kubelet` works
 to ensure that `nodefs.available` is at least `1.5Gi`, and for `imagefs.available` it
-works to ensure that `imagefs.available` is at least `102Gi` before no longer reporting pressure
+works to ensure that `imagefs.available` is at least `2Gi` before no longer reporting pressure
 on their associated resources.
 
 The default `eviction-minimum-reclaim` is `0` for all resources.

@@ -475,14 +475,14 @@ For example, with the following configuration:
 If an eviction threshold is triggered for `memory.available`, the `kubelet` works to ensure
 that `memory.available` is at least `500Mi`. For `nodefs.available`, the `kubelet` works
 to ensure that `nodefs.available` is at least `1.5Gi`, and for `imagefs.available` it
-works to ensure that `imagefs.available` is at least `102Gi` before no longer reporting pressure
+works to ensure that `imagefs.available` is at least `2Gi` before no longer reporting pressure
 on their associated resources.
 
 The default `eviction-minimum-reclaim` is `0` for all resources.
 -->
 如果 `memory.available` 驱逐阈值被触发，`kubelet` 将保证 `memory.available` 至少为 `500Mi`。
 对于 `nodefs.available`，`kubelet` 将保证 `nodefs.available` 至少为 `1.5Gi`。
-对于 `imagefs.available`，`kubelet` 将保证 `imagefs.available` 至少为 `102Gi`，
+对于 `imagefs.available`，`kubelet` 将保证 `imagefs.available` 至少为 `2Gi`，
 直到不再有相关资源报告压力为止。
 
 所有资源的默认 `eviction-minimum-reclaim` 值为 `0`。
