@@ -1,7 +1,4 @@
 ---
-
-
-
 title: 런타임클래스(RuntimeClass)
 content_type: concept
 weight: 20
@@ -34,10 +31,6 @@ weight: 20
 여러 파드를 실행할 수 있다.
 
 ## 셋업
-
-런타임클래스 기능 게이트가 활성화(기본값)된 것을 확인한다.
-기능 게이트 활성화에 대한 설명은 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-참고한다. `RuntimeClass` 기능 게이트는 API 서버 _및_ kubelets에서 활성화되어야 한다.
 
 1. CRI 구현(implementation)을 노드에 설정(런타임에 따라서).
 2. 상응하는 런타임클래스 리소스 생성.
@@ -144,11 +137,9 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-쿠버네티스 v1.16 부터, 런타임 클래스는 `scheduling` 필드를 통해 이종의 클러스터
-지원을 포함한다. 이 필드를 사용하면, 이 런타임 클래스를 갖는 파드가 이를 지원하는
-노드로 스케줄된다는 것을 보장할 수 있다. 이 스케줄링 기능을 사용하려면,
-[런타임 클래스 어드미션(admission) 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#runtimeclass)를
-활성화(1.16 부터 기본값)해야 한다.
+RuntimeClass에 `scheduling` 필드를 지정하면, 이 RuntimeClass로 실행되는 파드가 
+이를 지원하는 노드로 예약되도록 제약 조건을 설정할 수 있다.
+`scheduling`이 설정되지 않은 경우 이 RuntimeClass는 모든 노드에서 지원되는 것으로 간주된다.
 
 파드가 지정된 런타임클래스를 지원하는 노드에 안착한다는 것을 보장하려면,
 해당 노드들은 `runtimeClass.scheduling.nodeSelector` 필드에서 선택되는 공통 레이블을 가져야한다.

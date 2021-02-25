@@ -9,11 +9,11 @@ weight: 40
 
 인그레스 리소스가 작동하려면, 클러스터는 실행 중인 인그레스 컨트롤러가 반드시 필요하다.
 
-kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 다른 타입과 달리 인그레스 컨트롤러는
+`kube-controller-manager` 바이너리의 일부로 실행되는 컨트롤러의 다른 타입과 달리 인그레스 컨트롤러는
 클러스터와 함께 자동으로 실행되지 않는다.
 클러스터에 가장 적합한 인그레스 컨트롤러 구현을 선택하는데 이 페이지를 사용한다.
 
-프로젝트로써 쿠버네티스는 [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme)와
+프로젝트로서 쿠버네티스는 [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme)와
   [nginx](https://git.k8s.io/ingress-nginx/README.md#readme) 인그레스 컨트롤러를 지원하고 유지한다.
 
 
@@ -26,6 +26,7 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 * [AKS 애플리케이션 게이트웨이 인그레스 컨트롤러] (https://azure.github.io/application-gateway-kubernetes-ingress/)는 [Azure 애플리케이션 게이트웨이](https://docs.microsoft.com)를 구성하는 인그레스 컨트롤러다.
 * [Ambassador](https://www.getambassador.io/) API 게이트웨이는 [Envoy](https://www.envoyproxy.io) 기반 인그레스
   컨트롤러다.
+* [Apache APISIX 인그레스 컨트롤러](https://github.com/apache/apisix-ingress-controller)는 [Apache APISIX](https://github.com/apache/apisix) 기반의 인그레스 컨트롤러이다.
 * [Avi 쿠버네티스 오퍼레이터](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes)는 [VMware NSX Advanced Load Balancer](https://avinetworks.com/)을 사용하는 L4-L7 로드 밸런싱을 제공한다.
 * [Citrix 인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller#readme)는
   Citrix 애플리케이션 딜리버리 컨트롤러에서 작동한다.
@@ -42,7 +43,7 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
   기반 인그레스 컨트롤러다.
 * [쿠버네티스 용 Kong 인그레스 컨트롤러](https://github.com/Kong/kubernetes-ingress-controller#readme)는 [Kong 게이트웨이](https://konghq.com/kong/)를
   구동하는 인그레스 컨트롤러다.
-* [쿠버네티스 용 NGINX 인그레스 컨트롤러](https://www.nginx.com/products/nginx/kubernetes-ingress-controller)는 [NGINX](https://www.nginx.com/resources/glossary)
+* [쿠버네티스 용 NGINX 인그레스 컨트롤러](https://www.nginx.com/products/nginx-ingress-controller/)는 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
   웹서버(프록시로 사용)와 함께 작동한다.
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/)는 사용자의 커스텀 프록시를 구축하기 위한 라이브러리로 설계된 쿠버네티스 인그레스와 같은 유스케이스를 포함한 서비스 구성을 위한 HTTP 라우터 및 역방향 프록시다.
 * [Traefik 쿠버네티스 인그레스 제공자](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)는

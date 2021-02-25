@@ -1,9 +1,5 @@
 ---
-title: 쿠버네티스 컨트롤 플레인에 대한 메트릭
-
-
-
-
+title: 쿠버네티스 시스템 컴포넌트에 대한 메트릭
 content_type: concept
 weight: 60
 ---
@@ -12,7 +8,7 @@ weight: 60
 
 시스템 컴포넌트 메트릭으로 내부에서 발생하는 상황을 더 잘 파악할 수 있다. 메트릭은 대시보드와 경고를 만드는 데 특히 유용하다.
 
-쿠버네티스 컨트롤 플레인의 메트릭은 [프로메테우스 형식](https://prometheus.io/docs/instrumenting/exposition_formats/)으로 출력된다.
+쿠버네티스 컴포넌트의 메트릭은 [프로메테우스 형식](https://prometheus.io/docs/instrumenting/exposition_formats/)으로 출력된다.
 이 형식은 구조화된 평문으로 디자인되어 있으므로 사람과 기계 모두가 쉽게 읽을 수 있다.
 
 <!-- body -->
@@ -36,7 +32,7 @@ weight: 60
 
 클러스터가 {{< glossary_tooltip term_id="rbac" text="RBAC" >}}을 사용하는 경우, 메트릭을 읽으려면 `/metrics` 에 접근을 허용하는 클러스터롤(ClusterRole)을 가지는 사용자, 그룹 또는 서비스어카운트(ServiceAccount)를 통한 권한이 필요하다.
 예를 들면, 다음과 같다.
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -156,5 +152,4 @@ kube-scheduler는 각 파드에 대해 구성된 리소스 [요청과 제한](/k
 ## {{% heading "whatsnext" %}}
 
 * 메트릭에 대한 [프로메테우스 텍스트 형식](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)에 대해 읽어본다
-* [안정적인 쿠버네티스 메트릭](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml) 목록을 참고한다
 * [쿠버네티스 사용 중단 정책](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)에 대해 읽어본다
