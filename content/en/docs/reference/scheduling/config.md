@@ -145,7 +145,12 @@ extension points:
   Extension points: `Score`.
 - `VolumeBinding`: Checks if the node has or if it can bind the requested
   {{< glossary_tooltip text="volumes" term_id="volume" >}}.
-  Extension points: `PreFilter`, `Filter`, `Reserve`, `PreBind`.
+  Extension points: `PreFilter`, `Filter`, `Reserve`, `PreBind`, `Score`.
+  {{< note >}}
+  `Score` extension point is enabled when `VolumeCapacityPriority` feature is
+  enabled. It prioritizes the smallest PVs that can fit the requested volume
+  size.
+  {{< /note >}}
 - `VolumeRestrictions`: Checks that volumes mounted in the node satisfy
   restrictions that are specific to the volume provider.
   Extension points: `Filter`.

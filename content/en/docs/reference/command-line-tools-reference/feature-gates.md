@@ -346,6 +346,7 @@ different Kubernetes components.
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | Beta | 1.12 | 1.19 |
 | `TokenRequestProjection` | `true` | GA | 1.20 | - |
+| `VolumeCapacityPriority` | `false` | Alpha | 1.21 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | 1.16 |
 | `VolumeSnapshotDataSource` | `true` | Beta | 1.17 | 1.19 |
 | `VolumeSnapshotDataSource` | `true` | GA | 1.20 | - |
@@ -777,6 +778,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource
   assignments for different components in Kubernetes. See
   [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
+- 'VolumeCapacityPriority`: Enable support for prioritizing nodes in different
+  topologies based on available PV capacity.
 - `VolumePVCDataSource`: Enable support for specifying an existing PVC as a DataSource.
 - `VolumeScheduling`: Enable volume topology aware scheduling and make the
   PersistentVolumeClaim (PVC) binding aware of scheduling decisions. It also
