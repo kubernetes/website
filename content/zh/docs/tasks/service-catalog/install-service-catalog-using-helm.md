@@ -39,7 +39,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
     * 如果你正在使用 `hack/local-up-cluster.sh`，请确保设置了 `KUBE_ENABLE_CLUSTER_DNS` 环境变量，然后运行安装脚本。
 * [安装和设置 v1.7 或更高版本的 kubectl](/zh/docs/tasks/tools/install-kubectl/)，确保将其配置为连接到 Kubernetes 集群。
 * 安装 v2.7.0 或更高版本的 [Helm](https://helm.sh/)。
-    * 遵照 [Helm 安装说明](https://github.com/kubernetes/helm/blob/master/docs/install.md)。
+    * 遵照 [Helm 安装说明](https://helm.sh/docs/intro/install/)。
     * 如果已经安装了适当版本的 Helm，请执行 `helm init` 来安装 Helm 的服务器端组件 Tiller。
 
 <!-- steps -->

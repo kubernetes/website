@@ -576,6 +576,10 @@ Avoid making promises or giving hints about the future. If you need to talk abou
 an alpha feature, put the text under a heading that identifies it as alpha
 information.
 
+An exception to this rule is documentation about announced deprecations
+targeting removal in future versions. One example of documentation like this
+is the [Deprecated API migration guide](/docs/reference/using-api/deprecation-guide/).
+
 ### Avoid statements that will soon be out of date
 
 Avoid words like "currently" and "new." A feature that is new today might not be

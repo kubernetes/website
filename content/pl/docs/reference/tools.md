@@ -18,7 +18,7 @@ Kubernetes zawiera różne wbudowane narzędzia służące do pracy z systemem:
 
 ## Minikube
 
-[`minikube`](https://minikube.sigs.k8s.io/docs/) to narzędzie do łatwego uruchamiania lokalnego klastra Kubernetes na twojej stacji roboczej na potrzeby rozwoju oprogramowania lub prowadzenia testów.
+[`minikube`](https://minikube.sigs.k8s.io/docs/) to narzędzie do uruchamiania jednowęzłowego klastra Kubernetes na twojej stacji roboczej na potrzeby rozwoju oprogramowania lub prowadzenia testów.
 
 ## Pulpit *(Dashboard)*
 

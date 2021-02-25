@@ -22,7 +22,7 @@ components.
 使用云基础设施技术，你可以在公有云、私有云或者混合云环境中运行 Kubernetes。
 Kubernetes 的信条是基于自动化的、API 驱动的基础设施，同时避免组件间紧密耦合。
 
-{{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="组件 cloud-controller-manager 是">}}
+{{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="组件 cloud-controller-manager 是指云控制器管理器，">}}
 
 <!--
 The cloud-controller-manager is structured using a plugin
@@ -96,7 +96,7 @@ hosts running inside your tenancy with the cloud provider. The node controller p
 2. 利用特定云平台的信息为 Node 对象添加注解和标签，例如节点所在的
    区域（Region）和所具有的资源（CPU、内存等等）；
 3. 获取节点的网络地址和主机名；
-4. 检查节点的健康状况。如果节点无响应，控制器通过云平台 API ll 查看该节点是否
+4. 检查节点的健康状况。如果节点无响应，控制器通过云平台 API 查看该节点是否
    已从云中禁用、删除或终止。如果节点已从云中删除，则控制器从 Kubernetes 集群
    中删除 Node 对象。
 
