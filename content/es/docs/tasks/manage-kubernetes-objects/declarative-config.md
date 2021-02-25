@@ -1,15 +1,15 @@
 ---
-title: Administración declarativa de Objetos en Kubernetes usando Ficheros de Configuración
+title: Administración declarativa de Objetos en Kubernetes usando archivos de Configuración
 content_type: task
 weight: 10
 ---
 
 <!-- overview -->
 Objetos en Kubernetes pueden ser creados, actualizados y eliminados utilizando
-ficheros de configuración almacenados en un directorio. Usando el comando
+archivos de configuración almacenados en un directorio. Usando el comando
 `kubectl apply` podrá crearlos o actualizarlos de manera recursiva según sea necesario.
 Este método retiene cualquier escritura realizada contra objetos activos en el
-sistema sin unirlos de regreso a los ficheros de configuración. `kubectl diff` le
+sistema sin unirlos de regreso a los archivos de configuración. `kubectl diff` le
 permite visualizar de manera previa los cambios que `apply` realizará.
 
 ## {{% heading "prerequisites" %}}
@@ -36,11 +36,11 @@ para una discusión de las ventajas y desventajas de cada modo distinto de admin
 ## Visión general
 
 La configuración de objetos declarativa requiere una comprensión firme de la
-definición y configuración de objetos de Kubernetes. Lea y complete los siguientes
-documentos si aún no lo ha hecho:
+definición y configuración de objetos de Kubernetes. Si aún no lo ha hecho, lea 
+y complete los siguientes documentos:
 
-* [Administració n de Objetos de Kubernetes usando comandos imperativos](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Administración imperativa de los Objetos de Kubernetes usando ficheros de Configuración](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Administración de Objetos de Kubernetes usando comandos imperativos](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Administración imperativa de los Objetos de Kubernetes usando archivos de Configuración](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 
 {{< comment >}}
 TODO(lmurillo): Update the links above to the spanish versions of these documents once the
@@ -49,21 +49,21 @@ localizations become available
 
 A continuación la definición de términos usados en este documento:
 
-- *fichero de configuración de objeto / fichero de configuración*: Un fichero en el
+- *archivo de configuración de objeto / archivo de configuración*: Un archivo en el
   que se define la configuración de un objeto de Kubernetes. Este tema muestra como
-  utilizar ficheros de configuración con `kubectl apply`. Los ficheros de configuración
+  utilizar archivos de configuración con `kubectl apply`. Los archivos de configuración
   por lo general se almacenan en un sistema de control de versiones, como Git.
 - *configuración activa de objeto / configuración activa*: Los valores de configuración
   activos de un objeto, según estén siendo observados por el Clúster. Esta configuración
   se almacena en el sistema de almacenamiento de Kubernetes, usualmente etcd.
 - *escritor de configuración declarativo / escritor declarativo*: Una persona o
   componente de software que actualiza a un objeto activo. Los escritores activos a
-  los que se refiere este tema aplican cambios a los ficheros de configuración de objetos
+  los que se refiere este tema aplican cambios a los archivos de configuración de objetos
   y ejecutan `kubectl apply` para aplicarlos.
 
 ## Como crear objetos
 
-Utilice `kubectl apply` para crear todos los objetos definidos en los ficheros
+Utilice `kubectl apply` para crear todos los objetos definidos en los archivos
 de configuración existentes en un directorio específico, con excepción de aquellos que
 ya existen:
 
@@ -72,14 +72,14 @@ kubectl apply -f <directorio>/
 ```
 
 Esto definirá la anotación `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
-en cada objeto. Esta anotación contiene el contenido del fichero de configuración
+en cada objeto. Esta anotación contiene el contenido del archivo de configuración
 utilizado para la creación del objeto.
 
 {{< note >}}
 Agregue la opción `-R` para procesar un directorio de manera recursiva.
 {{< /note >}}
 
-El siguiente es un ejemplo de fichero de configuración para un objeto:
+El siguiente es un ejemplo de archivo de configuración para un objeto:
 
 {{< codenew file="application/simple_deployment.yaml" >}}
 
@@ -113,7 +113,7 @@ kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yam
 ```
 
 La salida le demostrará que la anotación `kubectl.kubernetes.io/last-applied-configuration`
-fue escrita a la configuración activa, y es consistente con los contenidos del fichero
+fue escrita a la configuración activa, y es consistente con los contenidos del archivo
 de configuración:
 
 ```yaml
@@ -162,7 +162,7 @@ aún cuando esos objetos ya existan en la configuración activa. Con este enfoqu
 lo siguiente:
 
 1. Definir los campos que aparecerán en la configuración activa.
-2. Eliminar aquellos campos eliminados en el fichero de configuración, de la configuración activa.
+2. Eliminar aquellos campos eliminados en el archivo de configuración, de la configuración activa.
 
 ```shell
 kubectl diff -f <directorio>/
@@ -173,7 +173,7 @@ kubectl apply -f <directorio>/
 Agregue la opción `-R` para procesar directorios de manera recursiva.
 {{< /note >}}
 
-Este es un ejemplo de fichero de configuración:
+Este es un ejemplo de archivo de configuración:
 
 {{< codenew file="application/simple_deployment.yaml" >}}
 
@@ -184,7 +184,7 @@ kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 {{< note >}}
-Con el propósito de ilustrar, el comando anterior se refiere a un único fichero
+Con el propósito de ilustrar, el comando anterior se refiere a un único archivo
 de configuración en vez de un directorio.
 {{< /note >}}
 
@@ -195,7 +195,7 @@ kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yam
 ```
 
 La salida le demostrará que la anotación `kubectl.kubernetes.io/last-applied-configuration`
-fue escrita a la configuración activa, y es consistente con los contenidos del fichero
+fue escrita a la configuración activa, y es consistente con los contenidos del archivo
 de configuración:
 
 ```yaml
@@ -291,12 +291,12 @@ spec:
       # ...
 ```
 
-Actualice el fichero de configuración `simple_deployment.yaml` para cambiar el campo `image`
+Actualice el archivo de configuración `simple_deployment.yaml` para cambiar el campo `image`
 de `nginx:1.14.2` a `nginx:1.16.1`, y elimine el campo `minReadySeconds`:
 
 {{< codenew file="application/update_deployment.yaml" >}}
 
-Aplique los cambios realizados al fichero de configuración:
+Aplique los cambios realizados al archivo de configuración:
 
 ```shell
 kubectl diff -f https://k8s.io/examples/application/update_deployment.yaml
@@ -312,7 +312,7 @@ kubectl get -f https://k8s.io/examples/application/update_deployment.yaml -o yam
 La salida le mostrará los siguienes cambios hechos a la configuración activa:
 
 * El campo `replicas` retiene el valor de 2 definido por `kubectl scale`.
-  Esto es posible ya que el campo fue omitido en el fichero de configuración.
+  Esto es posible ya que el campo fue omitido en el archivo de configuración.
 * El campo `image` ha sido actualizado de `nginx:1.16.1` a `nginx:1.14.2`.
 * La anotación `last-applied-configuration` ha sido actualizada con la nueva imagen.
 * El campo `minReadySeconds` ha sido despejado.
@@ -360,24 +360,24 @@ spec:
 ```
 
 {{< warning >}}
-No es soportado combinar `kubectl apply` con los comandos de configuración imperativa de objetos 
-`create` y `replace`. Esto se debe a que `create`
+No se puede combinar `kubectl apply` con comandos de configuración imperativa de objetos 
+como `create` y `replace`. Esto se debe a que `create`
 y `replace` no retienen la anotación `kubectl.kubernetes.io/last-applied-configuration`
 que `kubectl apply` utiliza para calcular los cambios por realizar.
 {{< /warning >}}
 
 ## Como eliminar objetos
 
-Hay dos diferentes opciones para eliminar objetos gestionados por `kubectl apply`.
+Hay dos opciones diferentes para eliminar objetos gestionados por `kubectl apply`.
 
-### Manera recomendada: `kubectl delete -f <fichero>`
+### Manera recomendada: `kubectl delete -f <archivo>`
 
 Eliminar objetos de manera manual utilizando el comando imperativo es la opción
 recomendada, ya que es más explícito en relación a lo que será eliminado, y es
 menos probable que resulte en algo siendo eliminado sin la intención del usuario.
 
 ```shell
-kubectl delete -f <fichero>
+kubectl delete -f <archivo>
 ```
 
 ### Manera alternativa: `kubectl apply -f <directorio/> --prune -l etiqueta=deseada`
@@ -397,8 +397,8 @@ no intencionalmente.
 Como una alternativa a `kubectl delete`, puede usar `kubectl apply`para identificar objetos por ser
 eliminados, luego de que sus archivos de configuración han sido eliminados del directorio. El commando `apply` con `--prune`
 consulta a la API del servidor por todos los objetos que coincidan con un grupo de etiquetas, e intenta relacionar
-la configuración obtenida de los objetos activos contra los objetos según sus ficheros de configuración.
-Si un objeto coincide con la consulta, y no tiene un fichero de configuración en el directorio, pero si
+la configuración obtenida de los objetos activos contra los objetos según sus archivos de configuración.
+Si un objeto coincide con la consulta, y no tiene un archivo de configuración en el directorio, pero si
 tiene una anotación `last-applied-configuration`, entonces será eliminado.
 
 {{< comment >}}
@@ -411,7 +411,7 @@ kubectl apply -f <directorio/> --prune -l <etiquetas>
 
 {{< warning >}}
 `apply` con `--prune` debería de ser ejecutado únicamente en contra del directorio
-raíz que contiene los ficheros de configuración. Ejecutarlo en contra de sub-directorios
+raíz que contiene los archivos de configuración. Ejecutarlo en contra de sub-directorios
 podría causar que objetos sean eliminados no intencionalmente, si son retornados en la
 consulta por selección de etiqueta usando `-l <etiquetas>` y no existen en el subdirectorio.
 {{< /warning >}}
@@ -421,7 +421,7 @@ consulta por selección de etiqueta usando `-l <etiquetas>` y no existen en el s
 Puede usar `kubectl get` con `-o yaml` para ver la configuración de objetos activos:
 
 ```shell
-kubectl get -f <fichero|url> -o yaml
+kubectl get -f <archivo|url> -o yaml
 ```
 
 ## Como son las diferencias calculadas y unidas por apply
@@ -435,7 +435,7 @@ específicos en un objeto sin tener que leer el objeto primero.
 Cuando `kubectl apply` actualiza la configuración activa para un objeto, lo hace enviando
 una solicitud de patch al servidor de API. El patch define actualizaciones para campos
 específicos en la configuración del objeto activo. El comando `kubectl apply` calcula esta solicitud
-de patch usando el fichero de configuración, la configuración activa, y la anotación `last-applied-configuration`
+de patch usando el archivo de configuración, la configuración activa, y la anotación `last-applied-configuration`
 almacenada en la configuración activa.
 
 ### Calculando la unión de un patch
@@ -445,10 +445,10 @@ El comando `kubectl apply` escribe los contenidos de la configuración a la anot
 que han sido eliminados de la configuración y deben ser limpiados. Los siguientes pasos
 son usados para calcular que campos deben ser eliminados o definidos:
 
-1. Calculo de campos por eliminar. Estos son los campos presentes en `last-applied-configuration` pero ausentes en el fichero de configuración.
-2. Calculo de campos por agregar o definir. Estos son los campos presentes en el fichero de configuración, con valores inconsistentes con la configuración activa.
+1. Calculo de campos por eliminar. Estos son los campos presentes en `last-applied-configuration` pero ausentes en el archivo de configuración.
+2. Calculo de campos por agregar o definir. Estos son los campos presentes en el archivo de configuración, con valores inconsistentes con la configuración activa.
 
-A continuación un ejemplo. Suponga que este es el fichero de configuración para un objeto de tipo Deployment:
+A continuación un ejemplo. Suponga que este es el archivo de configuración para un objeto de tipo Deployment:
 
 {{< codenew file="application/update_deployment.yaml" >}}
 
@@ -495,18 +495,18 @@ spec:
 Estos son los cálculos de unión que serían realizados por `kubectl apply`:
 
 1. Calcular los campos por eliminar, leyendo los valores de `last-applied-configuration`
-   y comparándolos con los valores en el fichero de configuración.
-   Limpiar los campos definidos en null de manera explícita en el fichero de configuración
+   y comparándolos con los valores en el archivo de configuración.
+   Limpiar los campos definidos en null de manera explícita en el archivo de configuración
    sin tomar en cuenta si se encuentran presentes en la anotación `last-applied-configuration`.
    En este ejemplo, `minReadySeconds` aparece en la anotación
-   `last-applied-configuration` pero no aparece en el fichero de configuración.
+   `last-applied-configuration` pero no aparece en el archivo de configuración.
     **Acción:** Limpiar `minReadySeconds` de la configuración activa.
 2. Calcular los campos por ser definidos, al leer los valores del firecho de configuración
    y compararlos con los valores en la configuración activa. En este ejemplo, el valor `image`
-   en el fichero de configuración, no coincide con el valor en la configuración activa.
+   en el archivo de configuración, no coincide con el valor en la configuración activa.
    **Acción:** Definir el campo `image` en la configuración activa.
 3. Definir el valor de la anotación `last-applied-configuration` para que sea consistente
-   con el fichero de configuración.
+   con el archivo de configuración.
 4. Unir los resultados de 1, 2 y 3, en una única solicitud de patch para enviar al API server.
 
 Esta es la configuración activa como resultado de esta unión:
@@ -554,7 +554,7 @@ spec:
 
 ### Como se unen los diferentes tipos de campos
 
-La manera en la que los campos en un fichero de configuración son unidos con la
+La manera en la que los campos en un archivo de configuración son unidos con la
 configuración activa depende del tipo de campo. Existen varios tipos de campos:
 
 - *primitivo*: Campos de cadena de texto (string), enteros (integer), o lógicos (boolean).
@@ -581,9 +581,9 @@ Campos primitivos son limpiados o reemplazados.
 `-` determina que "no aplica" debido a que el valor no es utilizado.
 {{< /note >}}
 
-| Campo en el fichero de configuración  | Campo en la configuración activa   | Campo en last-applied-configuration | Acción                                                       |
+| Campo en el archivo de configuración  | Campo en la configuración activa   | Campo en last-applied-configuration | Acción                                                       |
 |---------------------------------------|------------------------------------|-------------------------------------|--------------------------------------------------------------|
-| Si                                    | Si                                 | -                                   | Define el valor en el fichero de configuración como activo.  |
+| Si                                    | Si                                 | -                                   | Define el valor en el archivo de configuración como activo.  |
 | Si                                    | No                                 | -                                   | Define el valor a la configuración local.                    |
 | No                                    | -                                  | Si                                  | Elimina de la configuración activa.                          |
 | No                                    | -                                  | No                                  | No hacer nada. Mantiene el valor activo.                     |
@@ -596,7 +596,7 @@ Los campos que conjúntamente representan un mapa, son unidos al comparar cada u
 `-` determina que "no aplica" debido a que el valor no es utilizado.
 {{< /note >}}
 
-| Propiedad en fichero de configuración | Propiedad en configuración activa | Campo en last-applied-configuration | Acción                                   |
+| Propiedad en archivo de configuración | Propiedad en configuración activa | Campo en last-applied-configuration | Acción                                   |
 |---------------------------------------|-----------------------------------|-------------------------------------|------------------------------------------|
 | Si                                    | Si                                | -                                   | Comparar valores de sub-propiedades.     |
 | Si                                    | No                                | -                                   | Usar configuracón local.                 |
@@ -620,16 +620,16 @@ Esto preserva el orden de los elementos.
 
 
 **Ejemplo:** Usndo `kubectl apply` para actualizar el campo `args` de un Contenedor en un Pod.
-Esto define el valor de `args` en la configuración activa, al valor en el fichero de configuración.
+Esto define el valor de `args` en la configuración activa, al valor en el archivo de configuración.
 Cualquier elemento de `args` que haya sido previamente agregado a la configuración activa se perderá.
-El orden de los elementos definidos en `args` en el fichero de configuración, serán conservados
+El orden de los elementos definidos en `args` en el archivo de configuración, serán conservados
 en la configuración activa.
 
 ```yaml
 # valor en last-applied-configuration
     args: ["a", "b"]
 
-# valores en fichero de configuración
+# valores en archivo de configuración
     args: ["a", "c"]
 
 # configuración activa
@@ -639,7 +639,7 @@ en la configuración activa.
     args: ["a", "c"]
 ```
 
-**Explicación:** La unión utilizó los valores del fichero de configuración para definir los nuevos valores de la lista.
+**Explicación:** La unión utilizó los valores del archivo de configuración para definir los nuevos valores de la lista.
 
 #### Unir elementos individuales en una lista de elementos complejos
 
@@ -665,7 +665,7 @@ Esto une la lista como si fuese un mapa donde cada elemento utiliza `name` por l
     - name: nginx-helper-b # llave: nginx-helper-b; será conservado
       image: helper:1.3
 
-# valor en fichero de configuración
+# valor en archivo de configuración
     containers:
     - name: nginx
       image: nginx:1.16
@@ -703,16 +703,16 @@ Esto une la lista como si fuese un mapa donde cada elemento utiliza `name` por l
 **Explicación:**
 
 - El contenedor llamado "nginx-helper-a" fué eliminado al no aparecer ningún
-  contenedor llamado "nginx-helper-a" en el fichero de configuración.
+  contenedor llamado "nginx-helper-a" en el archivo de configuración.
 - El contenedor llamado "nginx-helper-b" mantiene los cambios a  `args`
   existentes en la configuración activa. `kubectl apply` pudo identificar que
   el contenedor "nginx-helper-b" en la configuración activa es el mismo
-  "nginx-helper-b" que aparece en el fichero de configuración, aún teniendo diferentes
-  valores en los campos (no existe `args` en el fichero de configuración). Esto sucede
+  "nginx-helper-b" que aparece en el archivo de configuración, aún teniendo diferentes
+  valores en los campos (no existe `args` en el archivo de configuración). Esto sucede
   debido a que el valor del campo `patchMergeKey` (name) es idéntico en ambos.
 - El contenedor llamado "nginx-helper-c" fue agregado ya que no existe ningún contenedor
   con ese nombre en la configuración activa, pero si existe uno con ese nombre
-  en el fichero de configuración.
+  en el archivo de configuración.
 - El contendor llamado "nginx-helper-d" fue conservado debido a que no aparece
   ningún elemento con ese nombre en last-applied-configuration.
 
@@ -721,10 +721,9 @@ Esto une la lista como si fuese un mapa donde cada elemento utiliza `name` por l
 A partir de Kubernetes 1.5, el unir listas de elementos primitivos no es soportado.
 
 {{< note >}}
-La escogencia de estrategia por selecciones para un campo en particular, es controlada
-por la etiqueta `patchStrategy` en [types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2748)
-Si no se especifica `patchStrategy` para un campo de tipo lista, entonces el campo
-es reemplazado.
+La etiqueta `patchStrategy` en [types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2748) es la que
+determina cual de las estrategias aplica para cualquier campo en particular.
+Para campos de tipo lista, el campo será reemplazado cuando no exista una especificación de `patchStrategy`.
 {{< /note >}}
 
 {{< comment >}}
@@ -743,7 +742,7 @@ is lost.
 El Servidor de API define algunos campos a sus valores por defecto si no son especificados
 al momento de crear un objeto.
 
-Aquí puede ver un fichero de configuración para un Deployment. Este fichero no especifica
+Aquí puede ver un archivo de configuración para un Deployment. Este archivo no especifica
 el campo `strategy`:
 
 {{< codenew file="application/simple_deployment.yaml" >}}
@@ -760,8 +759,8 @@ Despliegue la configuración activa usando `kubectl get`:
 kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
-La salida demuestra que el API Server definió varios campos con los valores por defecto
-en la configuración activa. Estos campos no fueron especificados en el fichero de
+La salida muestra que el servidor de API definió varios campos con los valores por defecto
+en la configuración activa. Estos campos no fueron especificados en el archivo de
 configuración.
 
 ```yaml
@@ -801,14 +800,14 @@ spec:
 # ...
 ```
 
-En una solicitud de patch, los campos definidos a valores por defecto no son re-definidos exceptuando
-cuando hayan sido limpiados de manera explícita como parte de la solicitud de patch. Esto puede
+En una solicitud de patch, los campos definidos a valores por defecto no son redefinidos a excepción
+de cuando hayan sido limpiados de manera explícita como parte de la solicitud de patch. Esto puede
 causar comportamientos no esperados para campos cuyo valor por defecto es basado en los valores
 de otros campos. Cuando el otro campo ha cambiado, el valor por defecto de ellos no será actualizado
 de no ser que sean limpiados de manera explícita.
 
 Por esta razón, se recomienda que algunos campos que reciben un valor por defecto del
-servidor sean definidos de manera explícita en los ficheros de configuración, aun cuando
+servidor sean definidos de manera explícita en los archivos de configuración, aun cuando
 el valor definido sea idéntico al valor por defecto. Esto facilita la identificación
 de valores conflictivos que podrían no ser revertidos a valores por defecto por parte
 del servidor.
@@ -829,7 +828,7 @@ spec:
         ports:
         - containerPort: 80
 
-# fichero de configuración
+# archivo de configuración
 spec:
   strategy:
     type: Recreate # valor actualizado
@@ -888,12 +887,12 @@ spec:
    agrega los valores por defecto a `strategy.rollingUpdate`.
 3. El usuario cambia `strategy.type` a `Recreate`. Los valores de `strategy.rollingUpdate`
    se mantienen en su configuración por defecto, sin embargo el servidor espera que se limpien.
-   Si los valores de `strategy.rollingUpdate` hubiesen sido definidos inicialmente en el fichero
+   Si los valores de `strategy.rollingUpdate` hubiesen sido definidos inicialmente en el archivo
    de configuración, hubiese sido más claro que requerían ser eliminados.
 4. Apply fallará debido a que `strategy.rollingUpdate` no fue eliminado. El campo `strategy.rollingupdate`
    no puede estar definido, si el valor de `strategy.type` es `Recreate`.
 
-Recomendación: Estos campos deberían de ser definidos de manera explícita en el fichero de configuración:
+Recomendación: Estos campos deberían de ser definidos de manera explícita en el archivo de configuración:
 
 - Etiquetas de Selectors y PodTemplate en cargas de trabajo como Deployment, StatefulSet, Job, DaemonSet,
   ReplicaSet, y ReplicationController
@@ -901,31 +900,31 @@ Recomendación: Estos campos deberían de ser definidos de manera explícita en 
 
 ### Como limpiar campos definidos a valores por defecto por el servidor, o definidos por otros escritores
 
-Campos que no aparecen en el fichero de configuración pueden ser limpiados si se define su valor
-a `null` y luego se aplica el fichero de configuración.
-Para los campos definidos a valores por defecto por el servidor, esto provoca el re establecimiento
+Campos que no aparecen en el archivo de configuración pueden ser limpiados si se define su valor
+a `null` y luego se aplica el archivo de configuración.
+Para los campos definidos a valores por defecto por el servidor, esto provoca que se reestablezca
 a sus valores por defecto.
 
-## Como cambiar al propietario de un campo entre un fichero de configuración y un escritor imperativo
+## Como cambiar al propietario de un campo entre un archivo de configuración y un escritor imperativo
 
 Estos son los únicos métodos que debe usar para cambiar un campo individual de un objeto:
 
 - Usando `kubectl apply`.
-- Escribiendo de manera directa a la configuración activa sin modificar el fichero de configuración:
+- Escribiendo de manera directa a la configuración activa sin modificar el archivo de configuración:
 por ejemplo, usando `kubectl scale`.
 
-### Cambiando al propietario de un campo de un escritor imperativo a un fichero de configuración
+### Cambiando al propietario de un campo de un escritor imperativo a un archivo de configuración
 
-Añada el campo al fichero de configuración, y no realice nuevas actualizaciones a la configuración
+Añada el campo al archivo de configuración, y no realice nuevas actualizaciones a la configuración
 activa que no sucedan por medio de `kubectl apply`.
 
-### Cambiando al propietario de un fichero de configuración a un escritor imperativo
+### Cambiando al propietario de un archivo de configuración a un escritor imperativo
 
 A partir de Kubernetes 1.5, el cambiar un campo que ha sido definido por medio de un
-fichero de configuración para que sea modificado por un escritor imperativo requiere
+archivo de configuración para que sea modificado por un escritor imperativo requiere
 pasos manuales:
 
-- Eliminar el campo del fichero de configuración.
+- Eliminar el campo del archivo de configuración.
 - Eliminar el campo de la anotación `kubectl.kubernetes.io/last-applied-configuration` en el objeto activo.
 
 ## Cambiando los métodos de gestión
@@ -950,17 +949,17 @@ fields to the annotation, and instead.  Then add this bullet point.
 El migrar de gestión imperativa utilizando comandos a la gestión declarativa de objetos
 requiere varios pasos manuales:
 
-1. Exporte el objeto activo a un fichero local de configuración:
+1. Exporte el objeto activo a un archivo local de configuración:
 
      ```shell
      kubectl get <tipo>/<nombre> -o yaml > <tipo>_<nombre>.yaml
      ```
 
-1. Elimine de manera manual el campo `status` del fichero de configuración.
+1. Elimine de manera manual el campo `status` del archivo de configuración.
 
     {{< note >}}
     Este paso es opcional, ya que `kubectl apply` no actualiza el campo `status`
-   aunque este presente en el fichero de configuración.
+   aunque este presente en el archivo de configuración.
     {{< /note >}}
 
 1. Defina la anotación `kubectl.kubernetes.io/last-applied-configuration` en el objeto:
@@ -988,7 +987,7 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 ## Definiendo los selectores para el controlador y las etiquetas de PodTemplate
 
 {{< warning >}}
-Actualizar selectores en controladores se desaconseja encarecidamente.
+Se desaconseja encarecidamente actualizar los selectores en controladores.
 {{< /warning >}}
 
 La forma recomendada es definir una etiqueta única e inmutable para PodTemplate usada
