@@ -112,7 +112,7 @@ ContainerDはLinux上のKubernetesで動作するOCI準拠のランタイムで�
 
 Kubernetes v1.18におけるWindows上でのContainerDは以下の既知の欠点があります:
 
-* ContainerDは公式リリースではWindowsをサポートしていません。すなわち、Kubernetesでのすべての開発はアクティブなContainerD開発ブランチに対して行われています。本番環境へのデプロイはつねに、完全にテストされセキュリティ修正をサポートした公式リリースを利用するべきです。
+* ContainerDは公式リリースではWindowsをサポートしていません。すなわち、Kubernetesでのすべての開発はアクティブなContainerD開発ブランチに対して行われています。本番環境へのデプロイは常に、完全にテストされセキュリティ修正をサポートした公式リリースを利用するべきです。
 * ContainerDを利用した場合、Group Managed Service Accountsは実装されていません。詳細は[containerd/cri#1276](https://github.com/containerd/cri/issues/1276)を参照してください。
 
 {{< /caution >}}
