@@ -71,7 +71,7 @@ Acesso de rede ao servidor API (Control plane) | Todo o acesso ao control plane 
 Acesso de rede aos Nós (nodes) | Os nós devem ser configurados para _só_ aceitar conexões (por meio de listas de controle de acesso à rede) do control plane nas portas especificadas e aceitar conexões para serviços no Kubernetes do tipo NodePort e LoadBalancer. Se possível, esses nós não devem ser expostos inteiramente na Internet pública.
 Acesso do Kubernetes à API do provedor de Cloud | Cada provedor de nuvem precisa conceder um conjunto diferente de permissões para o control plane e nós do Kubernetes. É melhor fornecer ao cluster permissão de acesso ao provedor de nuvem que segue o [princípio do menor privilégio](https://en.wikipedia.org/wiki/Principle_of_least_privilege) para os recursos que ele precisa administrar. A [documentação do Kops](https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles) fornece informações sobre as políticas e roles do IAM.
 Acesso ao etcd | O acesso ao etcd (o armazenamento de dados do Kubernetes) deve ser limitado apenas ao control plane. Dependendo de sua configuração, você deve tentar usar etcd sobre TLS. Mais informações podem ser encontradas na [documentação do etcd](https://github.com/etcd-io/etcd/tree/master/Documentation).
-Encriptação etcd | Sempre que possível, é uma boa prática encriptar todas as unidades em repouso, mas como o etcd mantém o estado de todo o cluster (incluindo os Secrets), seu disco deve ser criptografado em repouso.
+Encriptação etcd | Sempre que possível, é uma boa prática encriptar todas as unidades de armazenamento, mas como o etcd mantém o estado de todo o cluster (incluindo os Secrets), seu disco deve ser criptografado.
 
 {{< /table >}}
 
@@ -104,7 +104,7 @@ Autenticação | https://kubernetes.io/docs/concepts/security/controlling-access
 Gerenciamento de segredos na aplicação (e encriptando-os no etcd em repouso) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
 Políticas de segurança do Pod | https://kubernetes.io/docs/concepts/policy/pod-security-policy/
 Qualidade de serviço (e gerenciamento de recursos de cluster) | https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/
-Políticas de Network | https://kubernetes.io/docs/concepts/services-networking/network-policies/
+Políticas de Rede | https://kubernetes.io/docs/concepts/services-networking/network-policies/
 TLS para Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
 
 ## Container
@@ -144,10 +144,10 @@ Ataques de sondagem dinâmica | Existem algumas ferramentas automatizadas que vo
 Saiba mais sobre os tópicos de segurança do Kubernetes:
 
 * [Padrões de segurança do Pod](/docs/concepts/security/pod-security-standards/)
-* [Network policies para Pods](/docs/concepts/services-networking/network-policies/)
+* [Políticas de rede para Pods](/docs/concepts/services-networking/network-policies/)
 * [Controle de acesso à API Kubernetes](/docs/concepts/security/controlling-access)
 * [Protegendo seu cluster](/docs/tasks/administer-cluster/securing-a-cluster/)
-* [Data encryption in transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
-* [Data encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
+* [Criptografia de dados em trânsito](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
+* [Criptografia de dados em repouso](/docs/tasks/administer-cluster/encrypt-data/)
 * [Secrets no Kubernetes](/docs/concepts/configuration/secret/)
 * [Runtime class](/docs/concepts/containers/runtime-class)
