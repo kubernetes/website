@@ -191,7 +191,7 @@ livenessProbe:
 ## Protéger les conteneurs à démarrage lent avec des startup probes {#define-startup-probes}
 
 Parfois, vous devez faire face à des applications legacy qui peuvent nécessiter un temps de démarrage supplémentaire lors de leur première initialisation.
-Dans de telles situations, il peut être compliqué de régler les paramètres de la liveness probe sans compromettant la réponse rapide aux blocages qui ont motivé une telle probe.
+Dans de telles situations, il peut être compliqué de régler les paramètres de la liveness probe sans compromettre la réponse rapide aux blocages qui ont motivé une telle probe.
 L'astuce est de configurer une startup probe avec la même commande, HTTP ou TCP check avec un `failureThreshold * periodSeconds` assez long pour couvrir le pire des scénarios des temps de démarrage.
 
 Ainsi, l'exemple précédent deviendrait :
@@ -225,7 +225,7 @@ Si la startup probe ne réussit jamais, le conteneur est tué après 300s puis s
 
 Parfois, les applications sont temporairement incapables de servir le trafic.
 Par exemple, une application peut avoir besoin de charger des larges données ou des fichiers de configuration pendant le démarrage, ou elle peut dépendre de services externes après le démarrage.
-Dans ces cas, vous ne voulez pas tuer l'application, mais tu ne veux pas non plus lui envoyer de requêtes. Kubernetes fournit des readiness probes pour détecter et atténuer ces situations. Un pod avec des conteneurs qui signale qu'elle n'est pas prête ne reçoit pas de trafic par les services de Kubernetes.
+Dans ces cas, vous ne voulez pas tuer l'application, mais vous ne voulez pas non plus lui envoyer de requêtes. Kubernetes fournit des readiness probes pour détecter et atténuer ces situations. Un pod avec des conteneurs qui signale qu'elle n'est pas prête ne reçoit pas de trafic par les services de Kubernetes.
 
 {{< note >}}
 Readiness probes fonctionnent sur le conteneur pendant tout son cycle de vie.
