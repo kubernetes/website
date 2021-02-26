@@ -108,7 +108,7 @@ In this example:
 -->
 * `selector` 字段定义 Deployment 如何查找要管理的 Pods。
   在这里，你只需选择在 Pod 模板中定义的标签（`app: nginx`）。
-  不过，更复杂的选择规则是也可能的，只要 Pod 模板本身满足所给规则即可。
+  不过，更复杂的选择规则也是可能的，只要 Pod 模板本身满足所给规则即可。
 
   <!--
   The `matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
@@ -140,7 +140,7 @@ In this example:
 Before you begin, make sure your Kubernetes cluster is up and running.
 Follow the steps given below to create the above Deployment:
 -->
-开始之前，请确保的 Kubernetes 集群已启动并运行。
+开始之前，请确保你的 Kubernetes 集群已启动并运行。
 按照以下步骤创建上述 Deployment ：
 
 <!--
