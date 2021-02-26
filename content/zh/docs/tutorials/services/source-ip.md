@@ -116,6 +116,7 @@ If you don't see a command prompt, try pressing enter.
 
 ```shell
 # 在终端内使用"kubectl run"执行
+
 ip addr
 ```
 ```
@@ -136,7 +137,8 @@ ip addr
 然后使用`wget`去请求本地Web服务器
 ```shell
 # 用名为"clusterip"的服务的IPv4地址替换"10.0.170.92"
-# wget -qO - 10.0.170.92
+
+wget -qO - 10.0.170.92
 ```
 ```
 CLIENT VALUES:
