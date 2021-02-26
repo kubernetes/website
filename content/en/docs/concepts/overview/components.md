@@ -33,7 +33,7 @@ The control plane's components make global decisions about the cluster (for exam
 Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
-[Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
+[Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-control-plane-VM setup.
 
 ### kube-apiserver
 
