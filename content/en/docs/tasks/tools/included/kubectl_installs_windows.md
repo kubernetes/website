@@ -9,7 +9,7 @@ The following methods exist for installing kubectl on Windows:
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
 - [Install with PowerShell from PSGallery](#install-with-powershell-from-psgallery)
 - [Install on Windows using Chocolatey or Scoop](#install-on-windows-using-chocolatey-or-scoop)
-- [Download as part of the Google Cloud SDK](#download-as-part-of-the-google-cloud-sdk)
+- [Install on Windows as part of the Google Cloud SDK](#install-on-windows-as-part-of-the-google-cloud-sdk)
 
 
 ### Install kubectl binary with curl on Windows
@@ -144,6 +144,6 @@ Edit the config file with a text editor of your choice, such as Notepad.
 
 
 
-### Download as part of the Google Cloud SDK
+### Install on Windows as part of the Google Cloud SDK
 
 {{< include "kubectl_installs_gcloud.md" >}}
