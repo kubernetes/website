@@ -225,7 +225,7 @@ You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin tha
 
 {{< feature-state for_k8s_version="v1.21" state="alpha" >}}
 
-When writing a Network Policy, you can target a range of Ports instead of a single port.
+When writing a NetworkPolicy, you can target a range of ports instead of a single port.
 
 This is achiveable with the usage of the `endPort` field, as the following example:
 
@@ -260,7 +260,8 @@ The following restrictions apply when using this field:
 * When using `endPort` field, the `port` field must be numeric.
 
 {{< note >}}
-You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports endPort field in NetworkPolicies ports specification.
+Your cluster must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that
+supports the `endPort` field in NetworkPolicy specifications.
 {{< /note >}}
 
 ## What you can't do with network policies (at least, not yet)
