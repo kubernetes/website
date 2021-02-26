@@ -103,15 +103,22 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 
 从相同集群中的一个 pod 访问这个 `ClusterIP`：
 
-```console
+```shell
 kubectl run busybox -it --image=busybox --restart=Never --rm
 ```
 输出结果与以下结果类似：
 ```
 Waiting for pod default/busybox to be running, status is Pending, pod ready: false
 If you don't see a command prompt, try pressing enter.
+```
 
-# ip addr
+然后你可以在Pod内运行命令：
+
+```shell
+# 在终端内使用"kubectl run"执行
+ip addr
+```
+```
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -124,8 +131,14 @@ If you don't see a command prompt, try pressing enter.
        valid_lft forever preferred_lft forever
     inet6 fe80::188a:84ff:feb0:26a5/64 scope link
        valid_lft forever preferred_lft forever
+```
 
+然后使用`wget`去请求本地Web服务器
+```shell
+# 用名为"clusterip"的服务的IPv4地址替换"10.0.170.92"
 # wget -qO - 10.0.170.92
+```
+```
 CLIENT VALUES:
 client_address=10.244.3.8
 command=GET
@@ -178,17 +191,19 @@ client_address=10.240.0.3
 
 用图表示：
 
-```
-          client
-             \ ^
-              \ \
-               v \
-   node 1 <--- node 2
-    | ^   SNAT
-    | |   --->
-    v |
- endpoint
-```
+{{< mermaid >}}
+graph LR;
+  client(client)-->node2[Node 2];
+  node2-->client;
+  node2-. SNAT .->node1[Node 1];
+  node1-. SNAT .->node2;
+  node1-->endpoint(Endpoint);
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 
 为了防止这种情况发生，Kubernetes 提供了一个特性来保留客户端的源 IP 地址[(点击此处查看可用特性)](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)。设置 `service.spec.externalTrafficPolicy` 的值为 `Local`，请求就只会被代理到本地 endpoints 而不会被转发到其它节点。这样就保留了最初的源 IP 地址。如果没有本地 endpoints，发送到这个节点的数据包将会被丢弃。这样在应用到数据包的任何包处理规则下，你都能依赖这个正确的 source-ip 使数据包通过并到达 endpoint。
@@ -229,17 +244,18 @@ client_address=104.132.1.79
 
 用图表示：
 
-```
-        client
-       ^ /   \
-      / /     \
-     / v       X
-   node 1     node 2
-    ^ |
-    | |
-    | v
- endpoint
-```
+{{< mermaid >}}
+graph TD;
+  client --> node1[Node 1];
+  client(client) --x node2[Node 2];
+  node1 --> endpoint(endpoint);
+  endpoint --> node1;
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 
 
@@ -285,17 +301,7 @@ client_address=10.240.0.5
 
 用图表示：
 
-```
-                      client
-                        |
-                      lb VIP
-                     / ^
-                    v /
-health check --->   node 1   node 2 <--- health check
-        200  <---   ^ |             ---> 500
-                    | V
-                 endpoint
-```
+![Source IP with externalTrafficPolicy](/images/docs/sourceip-externaltrafficpolicy.svg)
 
 
 你可以设置 annotation 来进行测试：
@@ -394,6 +400,5 @@ $ kubectl delete deployment source-ip-app
 ## {{% heading "whatsnext" %}}
 
 
-* 学习更多关于 [通过 services 连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)
-* 学习更多关于 [负载均衡](/zh/docs/user-guide/load-balancer)
+* 进一步学习 [通过 services 连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)
 
