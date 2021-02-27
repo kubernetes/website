@@ -112,7 +112,7 @@ Waiting for pod default/busybox to be running, status is Pending, pod ready: fal
 If you don't see a command prompt, try pressing enter.
 ```
 
-然后你可以在Pod内运行命令：
+然后你可以在 Pod 内运行命令：
 
 ```shell
 # 在终端内使用"kubectl run"执行
@@ -134,7 +134,7 @@ ip addr
        valid_lft forever preferred_lft forever
 ```
 
-然后使用`wget`去请求本地Web服务器
+然后使用 `wget` 去请求本地Web服务器
 ```shell
 # 用名为"clusterip"的服务的IPv4地址替换"10.0.170.92"
 
@@ -203,7 +203,7 @@ graph LR;
 
   classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
   classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class node1,node2,endpoint k8s;
+  class 节点1,节点2,endpoint k8s;
   class client plain;
 {{</ mermaid >}}
 
@@ -255,7 +255,7 @@ graph TD;
 
   classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
   classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class node1,node2,endpoint k8s;
+  class 节点1,节点2,endpoint k8s;
   class client plain;
 {{</ mermaid >}}
 
