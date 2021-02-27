@@ -199,7 +199,7 @@ graph LR;
   node2-->client;
   node2-. SNAT .->node1[节点 1];
   node1-. SNAT .->node2;
-  node1-->endpoint(Endpoint);
+  node1-->endpoint(端点);
 
   classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
   classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
