@@ -148,13 +148,13 @@ one of these at random.
 最后，kube-scheduler 会将 Pod 调度到得分最高的 Node 上。
 如果存在多个得分最高的 Node，kube-scheduler 会从中随机选取一个。
 
-<!-- 
+<!--
 There are two supported ways to configure the filtering and scoring behavior
 of the scheduler:
 -->
 支持以下两种方式配置调度器的过滤和打分行为：
 
-<!-- 
+<!--
 1. [Scheduling Policies](/docs/reference/scheduling/policies) allow you to
   configure _Predicates_ for filtering and _Priorities_ for scoring.
 1. [Scheduling Profiles](/docs/reference/scheduling/config/#profiles) allow you to
@@ -162,14 +162,14 @@ of the scheduler:
   `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You
   can also configure the kube-scheduler to run different profiles.
  -->
-1. [调度策略](/zh/docs/reference/scheduling/policies) 允许你配置过滤的 _谓词(Predicates)_
+1. [调度策略](/zh/docs/reference/scheduling/policies) 允许你配置过滤的 _断言(Predicates)_
    和打分的 _优先级(Priorities)_ 。
 2. [调度配置](/zh/docs/reference/scheduling/config/#profiles) 允许你配置实现不同调度阶段的插件，
    包括：`QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` 等等。
    你也可以配置 kube-scheduler 运行不同的配置文件。
 
 ## {{% heading "whatsnext" %}}
-<!-- 
+<!--
 * Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
@@ -183,4 +183,3 @@ of the scheduler:
 * 了解关于 [配置多个调度器](/zh/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) 的方式
 * 了解关于 [拓扑结构管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)
 * 了解关于 [Pod 额外开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
-
