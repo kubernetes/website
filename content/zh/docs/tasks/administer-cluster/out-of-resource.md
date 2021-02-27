@@ -21,7 +21,7 @@ are low. This is especially important when dealing with incompressible
 compute resources, such as memory or disk space. If such resources are exhausted,
 nodes become unstable.
 -->
-本页介绍如何使用 `kubelet` 配置资源不足时的处理方式。
+本页介绍资源不足时如何配置 `kubelet` 来进行处理。
 
 当可用计算资源较少时，`kubelet`需要保证节点稳定性。
 这在处理如内存和硬盘之类的不可压缩资源时尤为重要。
@@ -706,4 +706,3 @@ the ability to get root container stats on an on-demand basis [(https://github.c
 由于状态采集的时间差，驱逐操作可能驱逐比所需的更多的 pod。将来可通过添加从根容器获取所需状态的能力
 [https://github.com/google/cadvisor/issues/1247](https://github.com/google/cadvisor/issues/1247)
 来减缓这种状况。
-
