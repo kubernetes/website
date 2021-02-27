@@ -250,7 +250,7 @@ client_address=104.132.1.79
 graph TD;
   client --> node1[节点 1];
   client(client) --x node2[节点 2];
-  node1 --> endpoint(endpoint);
+  node1 --> endpoint(端点);
   endpoint --> node1;
 
   classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
@@ -403,4 +403,3 @@ $ kubectl delete deployment source-ip-app
 
 
 * 进一步学习 [通过 services 连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)
-
