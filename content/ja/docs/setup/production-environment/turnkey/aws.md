@@ -16,13 +16,13 @@ AWS上でKubernetesクラスターを作成するには、AWSからアクセス�
 
 ### サポートされているプロダクショングレードのツール
 
-* [conjure-up](https://docs.conjure-up.io/stable/en/cni/k8s-and-aws) - Ubuntu上でネイティブなAWSインテグレーションを用いてKubernetesクラスターを作成するオープンソースのインストーラーです。
+* [conjure-up](https://docs.conjure-up.io/stable/en/cni/k8s-and-aws)はUbuntu上でネイティブなAWSインテグレーションを用いてKubernetesクラスターを作成するオープンソースのインストーラーです。
 
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - プロダクショングレードなKubernetesのインストール、アップグレード、管理が可能です。AWS上のDebian、Ubuntu、CentOS、RHELをサポートしています。
 
-* [kube-aws](https://github.com/kubernetes-incubator/kube-aws) - EC2、CloudFormation、Auto Scalingを使用して、[Flatcar Linux](https://www.flatcar-linux.org/)ノードでKubernetesクラスターを作成および管理します。
+* [kube-aws](https://github.com/kubernetes-incubator/kube-aws) EC2、CloudFormation、Auto Scalingを使用して、[Flatcar Linux](https://www.flatcar-linux.org/)ノードでKubernetesクラスターを作成および管理します。
 
-* [KubeOne](https://github.com/kubermatic/kubeone) - 可用性の高いKubernetesクラスターを作成、アップグレード、管理するための、オープンソースのライフサイクル管理ツールです。
+* [KubeOne](https://github.com/kubermatic/kubeone)は可用性の高いKubernetesクラスターを作成、アップグレード、管理するための、オープンソースのライフサイクル管理ツールです。
 
 
 
