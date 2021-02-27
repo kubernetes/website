@@ -9,7 +9,7 @@ weight: 10
 
 <!-- overview -->
 
-A imagem de um container representa informações binárias que encapsulam uma aplicação e todas as suas depêndencias. Imagens de containers são pacotes de softwares executáveis que podem ser executados de maneira independente e que fazem suposições bem definidas sobre o runtime do ambiente.
+A imagem de um container representa informações binárias que encapsulam uma aplicação e todas as suas depêndencias. Imagens de containers são pacotes de softwares executáveis que podem ser executados de maneira independente e que fazem suposições bem definidas sobre o agente de execução do ambiente.
 
 Tipicamente você cria a imagem de um container da sua aplicação e realiza um push para um registro antes de referiá-la em um {{< glossary_tooltip text="Pod" term_id="pod" >}}
 
@@ -17,11 +17,14 @@ Esta página fornece um resumo sobre o conceito de imagens de container.
 
 <!-- body -->
 
-## Image names
+## Nomes das imagens
 
-Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
+Imagens de containers, normalmente, recebem nomes como `pause`, `exemplo/meucontainer`, ou `kube-apiserver`.
+Imagens também podem incluir um hostname de algum registro; por exemplo: `exemplo.registro.ficticio/nomeimagem`, e possivelmente um número de porta também; por exemplo: `exemplo.registro.ficticio:10443/nomeimagem`.
+
+<!-- Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
-and possible a port number as well; for example: `fictional.registry.example:10443/imagename`.
+and possible a port number as well; for example: `fictional.registry.example:10443/imagename`. -->
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
