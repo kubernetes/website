@@ -34,7 +34,7 @@ fair queuing technique so that, for example, a poorly-behaved
 {{< glossary_tooltip text="controller" term_id="controller" >}} need not
 starve others (even at the same priority level).
 -->
-API 优先级和公平性（ APF ）是一种替代方案，可提升上述最大并发限制。
+API 优先级和公平性（APF）是一种替代方案，可提升上述最大并发限制。
 APF 以更细粒度的方式对请求进行分类和隔离。
 它还引入了空间有限的排队机制，因此在非常短暂的突发情况下，API 服务器不会拒绝任何请求。
 通过使用公平排队技术从队列中分发请求，这样，
@@ -50,7 +50,7 @@ Fairness feature enabled.
 {{< /caution >}}
 -->
 {{< caution >}}
-属于“长时间运行”类型的请求（主要是 watch ）不受 API 优先级和公平性过滤器的约束。
+属于“长时间运行”类型的请求（主要是 watch）不受 API 优先级和公平性过滤器的约束。
 如果未启用 APF 特性，即便设置 `--max-requests-inflight` 标志，该类请求也不受约束。
 {{< /caution >}}
 
@@ -354,9 +354,9 @@ semantics.
 ## 资源    {#Resources}
 
 流控 API 涉及两种资源。
-[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io)
+[PriorityLevelConfigurations](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io)
 定义隔离类型和可处理的并发预算量，还可以微调排队行为。
-[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1alpha1-flowcontrol-apiserver-k8s-io)
+[FlowSchemas](/zh/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1alpha1-flowcontrol-apiserver-k8s-io)
 用于对每个入站请求进行分类，并与一个 PriorityLevelConfigurations 相匹配。
 此外同一 API 组还有一个 `v1alpha1` 版本，其中包含语法和语义都相同的资源类别。
 
@@ -529,7 +529,7 @@ incoming request is for a resource or non-resource URL) matches the request.
 当给定的请求与某个 FlowSchema 的 `rules` 的其中一条匹配，那么就认为该请求与该 FlowSchema 匹配。
 判断规则与该请求是否匹配，**不仅**要求该条规则的 `subjects` 字段至少存在一个与该请求相匹配，
 **而且**要求该条规则的 `resourceRules` 或 `nonResourceRules`
-（取决于传入请求是针对资源URL还是非资源URL）字段至少存在一个与该请求相匹配。
+（取决于传入请求是针对资源 URL 还是非资源 URL）字段至少存在一个与该请求相匹配。
 
 <!--
 For the `name` field in subjects, and the `verbs`, `apiGroups`, `resources`,
@@ -638,7 +638,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_rejected_requests_total` 是一个计数器向量，
   记录被拒绝的请求数量（自服务器启动以来累计值），
-  由标签 `flow_chema` （表示与请求匹配的 FlowSchema ），`priority_evel` 
+  由标签 `flow_chema` （表示与请求匹配的 FlowSchema），`priority_evel` 
   （表示分配给请该求的优先级）和 `reason` 来区分。
   `reason` 标签将具有以下值之一：
 
@@ -701,8 +701,8 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_read_vs_write_request_count_watermarks` 是一个直方图向量，
   记录请求数量的高/低水位线，
-  由标签 `phase` （取值为 `waiting` 和 `executing` ）和 `request_kind`
-  （取值为 `mutating` 和 `readOnly` ）拆分；标签 `mark` 取值为 `high` 和 `low` 。
+  由标签 `phase` （取值为 `waiting` 和 `executing`）和 `request_kind`
+  （取值为 `mutating` 和 `readOnly`）拆分；标签 `mark` 取值为 `high` 和 `low` 。
   `apiserver_flowcontrol_read_vs_write_request_count_samples` 向量观察到有值新增，
   则该向量累积。这些水位线显示了样本值的范围。
 
