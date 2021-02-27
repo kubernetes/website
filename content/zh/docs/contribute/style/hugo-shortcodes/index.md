@@ -191,7 +191,6 @@ You can also include a full definition:
 
 <!--
 which renders as:
-{{< glossary_definition term_id="cluster" length="all" >}}
 -->
 呈现为： 
 {{< glossary_definition term_id="cluster" length="all" >}}
