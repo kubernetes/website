@@ -445,7 +445,7 @@ For more information, please see [labels](/docs/concepts/overview/working-with-o
 
 想要了解更多信息，请参考
 [标签](/zh/docs/concepts/overview/working-with-objects/labels/) 和
-[`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands/#label)
+[`kubectl label`](/zh/docs/reference/generated/kubectl/kubectl-commands/#label)
 命令文档。
 
 <!--
@@ -476,7 +476,7 @@ For more information, please see [annotations](/docs/concepts/overview/working-w
  -->
 想要了解更多信息，请参考
 [注解](/zh/docs/concepts/overview/working-with-objects/annotations/)和
-[`kubectl annotate`](/docs/reference/generated/kubectl/kubectl-commands/#annotate)
+[`kubectl annotate`](/zh/docs/reference/generated/kubectl/kubectl-commands/#annotate)
 命令文档。
 
 <!--
@@ -531,8 +531,8 @@ For more information, please see [kubectl scale](/docs/reference/generated/kubec
 现在，你的 nginx 副本将根据需要自动地增加或者减少。
 
 想要了解更多信息，请参考
-[kubectl scale](/docs/reference/generated/kubectl/kubectl-commands/#scale)命令文档、
-[kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 命令文档和
+[kubectl scale](/zh/docs/reference/generated/kubectl/kubectl-commands/#scale)命令文档、
+[kubectl autoscale](/zh/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 命令文档和
 [水平 Pod 自动伸缩](/zh/docs/tasks/run-application/horizontal-pod-autoscale/) 文档。
 
 <!--
@@ -554,7 +554,7 @@ Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-co
 建议在源代码管理中维护一组配置文件
 （参见[配置即代码](https://martinfowler.com/bliki/InfrastructureAsCode.html)），
 这样，它们就可以和应用代码一样进行维护和版本管理。
-然后，你可以用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)
+然后，你可以用 [`kubectl apply`](/zh/docs/reference/generated/kubectl/kubectl-commands/#apply)
 将配置变更应用到集群中。
 
 <!--
@@ -633,7 +633,7 @@ For more information, please see [kubectl edit](/docs/reference/generated/kubect
 请注意，可以使用 `EDITOR` 或 `KUBE_EDITOR` 环境变量来指定编辑器。
 
 想要了解更多信息，请参考
-[kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) 文档。
+[kubectl edit](/zh/docs/reference/generated/kubectl/kubectl-commands/#edit) 文档。
 
 ### kubectl patch
 
@@ -648,7 +648,7 @@ and
 JSON merge patch、以及 strategic merge patch。 请参考
 [使用 kubectl patch 更新 API 对象](/zh/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 和
-[kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
+[kubectl patch](/zh/docs/reference/generated/kubectl/kubectl-commands/#patch).
 
 <!--
 ## Disruptive updates
