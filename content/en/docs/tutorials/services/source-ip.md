@@ -412,7 +412,7 @@ protocol between the loadbalancer and backend to communicate the true client IP
 such as the HTTP [Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)
 or [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
 headers, or the
-[proxy protocol](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt).
+[proxy protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
 Load balancers in the second category can leverage the feature described above
 by creating an HTTP health check pointing at the port stored in
 the `service.spec.healthCheckNodePort` field on the Service.

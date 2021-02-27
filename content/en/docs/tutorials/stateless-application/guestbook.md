@@ -134,7 +134,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment
 1. Query the list of Pods to verify that the three frontend replicas are running:
 
       ```shell
-      kubectl get pods -l app=guestbook -l tier=frontend
+      kubectl get pods -l app.kubernetes.io/name=guestbook -l app.kubernetes.io/component=frontend
       ```
 
       The response should be similar to this:
