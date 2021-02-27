@@ -195,15 +195,15 @@ client_address=10.240.0.3
 
 {{< mermaid >}}
 graph LR;
-  client(client)-->node2[Node 2];
+  client(client)-->node2[节点 2];
   node2-->client;
-  node2-. SNAT .->node1[Node 1];
+  node2-. SNAT .->node1[节点 1];
   node1-. SNAT .->node2;
   node1-->endpoint(Endpoint);
 
   classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
   classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class 节点1,节点2,endpoint k8s;
+  class node1,node2,endpoint k8s;
   class client plain;
 {{</ mermaid >}}
 
@@ -248,14 +248,14 @@ client_address=104.132.1.79
 
 {{< mermaid >}}
 graph TD;
-  client --> node1[Node 1];
-  client(client) --x node2[Node 2];
+  client --> node1[节点 1];
+  client(client) --x node2[节点 2];
   node1 --> endpoint(endpoint);
   endpoint --> node1;
 
   classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
   classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class 节点1,节点2,endpoint k8s;
+  class node1,node2,endpoint k8s;
   class client plain;
 {{</ mermaid >}}
 
