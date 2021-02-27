@@ -134,7 +134,7 @@ ip addr
        valid_lft forever preferred_lft forever
 ```
 
-然后使用 `wget` 去请求本地Web服务器
+然后使用 `wget` 去请求本地 Web 服务器
 ```shell
 # 用名为"clusterip"的服务的IPv4地址替换"10.0.170.92"
 
