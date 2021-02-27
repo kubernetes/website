@@ -267,7 +267,7 @@ Teams must merge localized content into the same release branch from which the c
 
 An approver must maintain a development branch by keeping it current with its source branch and resolving merge conflicts. The longer a development branch stays open, the more maintenance it typically requires. Consider periodically merging development branches and opening new ones, rather than maintaining one extremely long-running development branch.
 
-At the beginning of every team milestone, it's helpful to open an issue [comparing upstream changes](https://github.com/kubernetes/website/blob/master/scripts/upstream_changes.py) between the previous development branch and the current development branch.
+At the beginning of every team milestone, it's helpful to open an issue comparing upstream changes between the previous development branch and the current development branch. There are two scripts for comparing upstream changes. [`upstream_changes.py`](https://github.com/kubernetes/website/tree/master/scripts#upstream_changespy) is useful for checking the changes made to a specific file. And [`diff_l10n_branches.py`](https://github.com/kubernetes/website/tree/master/scripts#diff_l10n_branchespy) is useful for creating a list of outdated files for a specific localization branch.
 
  While only approvers can open a new development branch and merge pull requests, anyone can open a pull request for a new development branch. No special permissions are required.
 
