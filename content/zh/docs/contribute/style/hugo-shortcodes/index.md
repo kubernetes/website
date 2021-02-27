@@ -236,7 +236,7 @@ Parameter | Description | Default
 {{< /table >}}
 -->
 
-​```go-html-template
+```go-html-template
 {{</* table caption="配置参数" >}}
 参数      | 描述        | 默认值
 :---------|:------------|:-------
