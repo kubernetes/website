@@ -92,10 +92,10 @@ These controllers include:
 -->
 这些控制器包括:
 
-* 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应。
-* 副本控制器（Replication Controller）: 负责为系统中的每个副本控制器对象维护正确数量的 Pod。
-* 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)。
-* 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌.
+* 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应
+* 副本控制器（Replication Controller）: 负责为系统中的每个副本控制器对象维护正确数量的 Pod
+* 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)
+* 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌
 
 <!--
 ### cloud-controller-manager

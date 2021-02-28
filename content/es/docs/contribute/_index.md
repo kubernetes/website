@@ -83,3 +83,7 @@ para proporcionar un punto de partida.
   - Proponer mejoras al sitio web de Kubernetes y otras herramientas
 
 
+## {{% heading "whatsnext" %}}
+
+También puedes leer la
+[guía de localización para español](/es/docs/contribute/localization_es/).

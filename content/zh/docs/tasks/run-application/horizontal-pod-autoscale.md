@@ -435,6 +435,127 @@ usual.
 {{< /note >}}
 
 <!--
+## Support for resource metrics
+
+Any HPA target can be scaled based on the resource usage of the pods in the scaling target.
+When defining the pod specification the resource requests like `cpu` and `memory` should
+be specified. This is used to determine the resource utilization and used by the HPA controller
+to scale the target up or down. To use resource utilization based scaling specify a metric source
+like this:
+-->
+## 对资源指标的支持   {#support-for-resource-metrics}
+
+HPA 的任何目标资源都可以基于其中的 Pods 的资源用量来实现扩缩。
+在定义 Pod 规约时，类似 `cpu` 和 `memory` 这类资源请求必须被设定。
+这些设定值被用来确定资源利用量并被 HPA 控制器用来对目标资源完成扩缩操作。
+要使用基于资源利用率的扩缩，可以像下面这样指定一个指标源：
+
+```yaml
+type: Resource
+resource:
+  name: cpu
+  target:
+    type: Utilization
+    averageUtilization: 60
+```
+
+<!--
+With this metric the HPA controller will keep the average utilization of the pods in the scaling
+target at 60%. Utilization is the ratio between the current usage of resource to the requested
+resources of the pod. See [Algorithm](#algorithm-details) for more details about how the utilization
+is calculated and averaged.
+-->
+基于这一指标设定，HPA 控制器会维持扩缩目标中的 Pods 的平均资源利用率在 60%。
+利用率是 Pod 的当前资源用量与其请求值之间的比值。关于如何计算利用率以及如何计算平均值
+的细节可参考[算法](#algorithm-details)小节。
+
+{{< note >}}
+<!--
+Since the resource usages of all the containers are summed up the total pod utilization may not
+accurately represent the individual container resource usage. This could lead to situations where
+a single container might be running with high usage and the HPA will not scale out because the overall
+pod usage is still within acceptable limits.
+-->
+由于所有的容器的资源用量都会被累加起来，Pod 的总体资源用量值可能不会精确体现
+各个容器的资源用量。这一现象也会导致一些问题，例如某个容器运行时的资源用量非常
+高，但因为 Pod 层面的资源用量总值让人在可接受的约束范围内，HPA 不会执行扩大
+目标对象规模的操作。
+{{< /note >}}
+
+<!--
+### Container Resource Metrics
+-->
+### 容器资源指标   {#container-resource-metrics}
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+<!--
+`HorizontalPodAutoscaler` also supports a container metric source where the HPA can track the
+resource usage of individual containers across a set of Pods, in order to scale the target resource.
+This lets you configure scaling thresholds for the containers that matter most in a particular Pod.
+For example, if you have a web application and a logging sidecar, you can scale based on the resource
+use of the web application, ignoring the sidecar container and its resource use.
+-->
+`HorizontalPodAutoscaler` 也支持容器指标源，这时 HPA 可以跟踪记录一组 Pods 中各个容器的
+资源用量，进而触发扩缩目标对象的操作。
+容器资源指标的支持使得你可以为特定 Pod 中最重要的容器配置规模缩放阈值。
+例如，如果你有一个 Web 应用和一个执行日志操作的边车容器，你可以基于 Web 应用的
+资源用量来执行扩缩，忽略边车容器的存在及其资源用量。
+
+<!--
+If you revise the target resource to have a new Pod specification with a different set of containers,
+you should revise the HPA spec if that newly added container should also be used for
+scaling. If the specified container in the metric source is not present or only present in a subset
+of the pods then those pods are ignored and the recommendation is recalculated. See [Algorithm](#algorithm-details)
+for more details about the calculation. To use container resources for autoscaling define a metric
+source as follows:
+-->
+如果你更改缩放目标对象，令其使用新的、包含一组不同的容器的 Pod 规约，你就需要
+修改 HPA 的规约才能基于新添加的容器来执行规模扩缩操作。
+如果指标源中指定的容器不存在或者仅存在于部分 Pods 中，那么这些 Pods 会被忽略，
+HPA 会重新计算资源用量值。参阅[算法](#algorithm-details)小节进一步了解计算细节。
+要使用容器资源用量来完成自动扩缩，可以像下面这样定义指标源：
+
+```yaml
+type: ContainerResource
+containerResource:
+  name: cpu
+  container: application
+  target:
+    type: Utilization
+    averageUtilization: 60
+```
+
+<!--
+In the above example the HPA controller scales the target such that the average utilization of the cpu
+in the `application` container of all the pods is 60%.
+-->
+在上面的例子中，HPA 控制器会对目标对象执行扩缩操作以确保所有 Pods 中
+`application` 容器的平均 CPU 用量为 60%。
+
+{{< note >}}
+<!--
+If you change the name of a container that a HorizontalPodAutoscaler is tracking, you can
+make that change in a specific order to ensure scaling remains available and effective
+whilst the change is being applied. Before you update the resource that defines the container
+(such as a Deployment), you should update the associated HPA to track both the new and
+old container names. This way, the HPA is able to calculate a scaling recommendation
+throughout the update process.
+-->
+如果你要更改 HorizontalPodAutoscaler 所跟踪记录的容器的名称，你可以按一定顺序
+来执行这一更改，确保在应用更改的过程中用来判定扩缩行为的容器可用。
+在更新定义容器的资源（如 Deployment）之前，你需要更新相关的 HPA，使之能够同时
+跟踪记录新的和老的容器名称。这样，HPA 就能够在整个更新过程中继续计算并提供扩缩操作建议。
+
+<!--
+Once you have rolled out the container name change to the workload resource, tidy up by removing
+the old container name from the HPA specification.
+-->
+一旦你已经将容器名称变更这一操作应用到整个负载对象至上，就可以从 HPA
+的规约中去掉老的容器名称，完成清理操作。
+{{< /note >}}
+
+<!--
 ## Support for multiple metrics
 
 Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2beta2` API
