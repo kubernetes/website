@@ -58,7 +58,7 @@ kubectl apply -f redis-config.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/config/redis-pod.yaml
 ```
 
-Examine the contents of the Redis pod manifest and note the follwing:
+Examine the contents of the Redis pod manifest and note the following:
 
 * A volume named `config` is created by `spec.volumes[1]`
 * The `key` and `path` under `spec.volumes[1].items[0]` exposes the `redis-config` key from the 
