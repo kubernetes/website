@@ -55,7 +55,7 @@ order to safely use Secrets, we recommend you (at a minimum):
 1. [Enable Encryption at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
 2. [Enable RBAC rules that restrict reading and writing the Secret](https://kubernetes.io/docs/reference/access-authn-authz/authorization/). Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
 -->
-Kubernetes Secret 默认情况下存储为 base64-编码的、非加密的字符串。
+Kubernetes Secret 默认情况下存储为 base64编码的、非加密的字符串。
 默认情况下，能够访问 API 的任何人，或者能够访问 Kubernetes 下层数据存储（etcd）
 的任何人都可以以明文形式读取这些数据。
 为了能够安全地使用 Secret，我们建议你（至少）：
