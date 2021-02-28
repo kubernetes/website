@@ -1,7 +1,7 @@
 ---
 reviewers:
-- erictune
-- thockin
+- femrtnz
+- jcjesus
 title: Imagens
 content_type: concept
 weight: 10
@@ -9,62 +9,90 @@ weight: 10
 
 <!-- overview -->
 
-A imagem de um container representa informações binárias que encapsulam uma aplicação e todas as suas depêndencias. Imagens de containers são pacotes de softwares executáveis que podem ser executados de maneira independente e que fazem suposições bem definidas sobre o agente de execução do ambiente.
+A imagem de um contêiner representa informações binárias que encapsulam uma aplicação e todas as suas depêndencias. Imagens de contêineres são pacotes de softwares executáveis que podem ser executados de maneira independente e que fazem suposições bem definidas sobre o agente de execução do ambiente.
 
-Tipicamente você cria a imagem de um container da sua aplicação e realiza um push para um registro antes de referiá-la em um {{< glossary_tooltip text="Pod" term_id="pod" >}}
+Tipicamente você cria a imagem de um contêiner da sua aplicação e realiza um push para um registro antes de referiá-la em um {{< glossary_tooltip text="Pod" term_id="pod" >}}
 
-Esta página fornece um resumo sobre o conceito de imagens de container. 
+Esta página fornece um resumo sobre o conceito de imagens de contêiner. 
 
 <!-- body -->
 
 ## Nomes das imagens
 
-Imagens de containers, normalmente, recebem nomes como `pause`, `exemplo/meucontainer`, ou `kube-apiserver`.
+Imagens de contêineres, normalmente, recebem nomes como `pause`, `exemplo/meuconteiner`, ou `kube-apiserver`.
 Imagens também podem incluir um hostname de algum registro; por exemplo: `exemplo.registro.ficticio/nomeimagem`, e possivelmente um número de porta também; por exemplo: `exemplo.registro.ficticio:10443/nomeimagem`.
 
 <!-- Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
 and possible a port number as well; for example: `fictional.registry.example:10443/imagename`. -->
 
-If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
+Se você não especificar um hostname de registro, Kubernetes assumirá que você quer o registro público do Docker.
+<!-- If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry. -->
 
-After the image name part you can add a _tag_ (as also using with commands such
+Depois da parte do nome da imagem, você pode adicionar a _tag_ (como também usando com comandos como 
+`docker` e `podman`).
+Tags também deixam você identificar versões diferentes da mesma série de imagens.
+<!-- After the image name part you can add a _tag_ (as also using with commands such
 as `docker` and `podman`).
-Tags let you identify different versions of the same series of images.
+Tags let you identify different versions of the same series of images. -->
 
-Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
+Tags da imagem consiste de letras maiusculas e minisculas, digitos e underscores (`_`),
+pontos finais (`.`) e traços (`-`)
+Existem regras adicionais onde será possível colocar caractéres (`_`, `-`, `.`) dentro de uma tag de imagem.
+Se você não especificar a tag, Kubernetes assumirá que você quer o a tag definida como `latest`.
+<!-- Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
 periods (`.`), and dashes (`-`).  
 There are additional rules about where you can place the separator
 characters (`_`, `-`, and `.`) inside an image tag.  
-If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
+If you don't specify a tag, Kubernetes assumes you mean the tag `latest`. -->
 
 {{< caution >}}
+Você deve evitar de usar a tag `latest` quando estiver realizando o deploy de containers em produção, 
+pois dificulta a visualização de qual imagem está sendo rodada, além de tornar mais difícil
+o processo de reverter para uma versão funcional. 
+
+No lugar, especifique uma tag significativa como `v1.42.0`
+{{< /caution >}}
+<!-- {{< caution >}}
 You should avoid using the `latest` tag when deploying containers in production,
 as it is harder to track which version of the image is running and more difficult
 to roll back to a working version.
 
 Instead, specify a meaningful tag such as `v1.42.0`.
-{{< /caution >}}
+{{< /caution >}} -->
 
-## Updating images
+## Atualizando imagens
+<!-- ## Updating images -->
 
-The default pull policy is `IfNotPresent` which causes the
+A política de *pull* padrão é `ifNotPresent` que faz com que o 
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} ignore 
+o processo de *pull* da imagem, caso a mesma já exista. Se você prefere sempre forçar o processo de *pull*, 
+você pode fazer um como demonstrado: 
+<!-- The default pull policy is `IfNotPresent` which causes the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip
 pulling an image if it already exists. If you would like to always force a pull,
-you can do one of the following:
+you can do one of the following: -->
 
-- set the `imagePullPolicy` of the container to `Always`.
+- defina a `imagePullPolicy` do contêiner para `Always`
+- omita a `imagePullPolicy` e use `:latest` como a tag para a imagem usar.
+- omita a `imagePullPolicy` e a tag para a imagem usar. 
+- habilite o [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) controlador de admissão.
+<!-- - set the `imagePullPolicy` of the container to `Always`.
 - omit the `imagePullPolicy` and use `:latest` as the tag for the image to use.
 - omit the `imagePullPolicy` and the tag for the image to use.
-- enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+- enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller. -->
 
-When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
+Quando `imagePullPolicy` é definia sem nenhum valor, também será definido como `Always`.
+<!-- When `imagePullPolicy` is defined without a specific value, it is also set to `Always`. -->
 
-## Multi-architecture images with image indexes
+## Multi-arquitetura de imagens com índice de imagens
+<!-- ## Multi-architecture images with image indexes -->
 
-As well as providing binary images, a container registry can also serve a [container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md). An image index can point to multiple [image manifests](https://github.com/opencontainers/image-spec/blob/master/manifest.md) for architecture-specific versions of a container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
+Além de fornecer o binário das imagens, um registro de contêiner também pode servir um [container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md). Um índice de imagem pode apontar para multiplos [manifestos da imagem](https://github.com/opencontainers/image-spec/blob/master/manifest.md) para versões específicas de arquiteturas de um contêiner. A ideia é que você consiga ter um nome para uma imagem (por exemplo: `pause`, `exemple/meuconteiner`, `kube-apiserver`) e permitir que diferentes sistemas possam baixar o binário da imagem correto para a arquitetura da maquina que estão usando.  
+<!-- As well as providing binary images, a container registry can also serve a [container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md). An image index can point to multiple [image manifests](https://github.com/opencontainers/image-spec/blob/master/manifest.md) for architecture-specific versions of a container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using. -->
 
-Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
+Tipicamente o próprio Kubernetes nomeia as imagens dos contêineres com o sufixo `-$(ARCH)`.
+<!-- Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes. -->
 
 ## Using a private registry
 
