@@ -534,7 +534,7 @@ kubectl delete pvc data-mysql-4
 * Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
 * Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
 * Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
-* Look in the [Helm Charts repository](https://github.com/kubernetes/charts)
+* Look in the [Helm Charts repository](https://artifacthub.io/)
   for other stateful application examples.
 
 
