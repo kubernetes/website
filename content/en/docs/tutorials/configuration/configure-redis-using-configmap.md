@@ -54,7 +54,7 @@ EOF
 Apply the ConfigMap created above, along with a Redis pod manifest:
 
 ```shell
-kubectl apply -f redis-config.yaml
+kubectl apply -f example-redis-config.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/config/redis-pod.yaml
 ```
 
