@@ -1,68 +1,48 @@
 ---
-title: Configuring your kubernetes cluster to self-host the control plane
+title: コントロールプレーンをセルフホストするようにkubernetesクラスターを構成する
 content_type: concept
 weight: 100
 ---
 
 <!-- overview -->
 
-### Self-hosting the Kubernetes control plane {#self-hosting}
+### コントロールプレーンのセルフホスティング {#self-hosting}
 
-kubeadm allows you to experimentally create a _self-hosted_ Kubernetes control
-plane. This means that key components such as the API server, controller
-manager, and scheduler run as [DaemonSet pods](/ja/docs/concepts/workloads/controllers/daemonset/)
-configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/)
-configured in the kubelet via static files.
+kubeadmを使用すると、_セルフホスト型の_Kubernetesコントロールプレーンを実験的に作成できます。これはAPIサーバー、コントローラーマネージャー、スケジューラーなどの主要コンポーネントは、静的ファイルを介してkubeletで構成された[static pods](/docs/tasks/administer-cluster/static-pod/)ではなく、Kubernetes APIを介して構成された[DaemonSet pods](/ja/docs/concepts/workloads/controllers/daemonset/)として実行されることを意味します。
 
-To create a self-hosted cluster see the
-[kubeadm alpha selfhosting pivot](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-selfhosting) command.
+セルフホスト型クラスターを作成する場合は[kubeadm alpha selfhosting pivot](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-selfhosting)を参照してください。
 
 
 
 <!-- body -->
 
-#### Caveats
+#### 警告
 
 {{< caution >}}
-This feature pivots your cluster into an unsupported state, rendering kubeadm unable
-to manage you cluster any longer. This includes `kubeadm upgrade`.
+この機能により、クラスターがサポートされていない状態になり、kubeadmがクラスターを管理できなくなります。これには`kubeadm upgrade`が含まれます。
 {{< /caution >}}
 
-1. Self-hosting in 1.8 and later has some important limitations. In particular, a
-  self-hosted cluster _cannot recover from a reboot of the control-plane node_
-  without manual intervention.
+1. 1.8以降のセルフホスティングには、いくつかの重要な制限があります。特に、セルフホスト型クラスタは、手動の介入なしに_コントロールプレーンのノード再起動から回復することはできません_。
 
-1. By default, self-hosted control plane Pods rely on credentials loaded from
-  [`hostPath`](/docs/concepts/storage/volumes/#hostpath)
-  volumes. Except for initial creation, these credentials are not managed by
-  kubeadm.
+1. デフォルトでは、セルフホスト型のコントロールプレーンのポッドは、[`hostPath`](/docs/concepts/storage/volumes/#hostpath)ボリュームからロードされた資格情報に依存しています。最初の作成を除いて、これらの資格情報はkubeadmによって管理されません。
 
-1. The self-hosted portion of the control plane does not include etcd,
-  which still runs as a static Pod.
+1. コントロールプレーンのセルフホストされた部分にはetcdが含まれていませんが、etcdは静的ポッドとして実行されます。
 
-#### Process
+#### プロセス
 
-The self-hosting bootstrap process is documented in the [kubeadm design
-document](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.9.md#optional-self-hosting).
+セルフホスティングのブートストラッププロセスは、[kubeadm design
+document](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.9.md#optional-self-hosting)に記載されています。
 
-In summary, `kubeadm alpha selfhosting` works as follows:
+要約すると、`kubeadm alpha selfhosting`は次のように機能します。
 
-  1. Waits for this bootstrap static control plane to be running and
-    healthy. This is identical to the `kubeadm init` process without self-hosting.
+  1. ブートストラップ静的コントロールプレーンが起動し、正常になるのを待ちます。これは`kubeadm init`セルフホスティングを使用しないプロセスと同じです。
 
-  1. Uses the static control plane Pod manifests to construct a set of
-    DaemonSet manifests that will run the self-hosted control plane.
-    It also modifies these manifests where necessary, for example adding new volumes
-    for secrets.
+  1. 静的コントロールプレーンのポッドのマニフェストを使用して、セルフホストコントロールプレーンを実行する一連のデーモンセットのマニフェストを構築します。また、必要に応じてこれらのマニフェストを変更します。たとえば、シークレット用の新しいボリュームを追加します。
 
-  1. Creates DaemonSets in the `kube-system` namespace and waits for the
-     resulting Pods to be running.
+  1. `kube-system`のネームスペースにデーモンセットを作成し、ポッドの結果が起動されるのを待ちます。
 
-  1. Once self-hosted Pods are operational, their associated static Pods are deleted
-     and kubeadm moves on to install the next component. This triggers kubelet to
-     stop those static Pods.
+  1. セルフホスト型のポッドが操作可能になると、関連する静的ポッドが削除され、kubeadmは次のコンポーネントのインストールに進みます。これによりkubeletがトリガーされて静的ポッドが停止します。
 
-  1. When the original static control plane stops, the new self-hosted control
-    plane is able to bind to listening ports and become active.
+  1. 元の静的なコントロールプレーンが停止すると、新しいセルフホスト型コントロールプレーンはリスニングポートにバインドしてアクティブになります。
 
 
