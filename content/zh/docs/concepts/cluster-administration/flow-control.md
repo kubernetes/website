@@ -234,7 +234,7 @@ APF 特性附带推荐配置，该配置对实验场景应该足够；
   workloads to be able to schedule on them.
 -->
 * `system` 优先级用于 `system:nodes` 组（即 Kubelets ）的请求；
-  kubelets 必须能连上 API 服务器，以便工作负载能够调度到其上。
+  Kubelets 必须能连上 API 服务器，以便工作负载能够调度到其上。
 
 <!--
 * The `leader-election` priority level is for leader election requests from
