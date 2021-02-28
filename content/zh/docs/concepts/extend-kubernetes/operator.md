@@ -234,7 +234,7 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
   * [Metacontroller](https://metacontroller.app/)，可与 Webhook 结合使用，以实现自己的功能。
   * [Operator Framework](https://operatorframework.io)
 * [发布](https://operatorhub.io/)你的 Operator，让别人也可以使用
-* 阅读 [CoreOS 原文](https://coreos.com/blog/introducing-operators.html)，其介绍了 Operator 介绍
+* 阅读 [CoreOS 原文](https://coreos.com/blog/introducing-operators.html)，其介绍了 Operator 模式
 * 阅读这篇来自谷歌云的关于构建 Operator 最佳实践的
   [文章](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
 
