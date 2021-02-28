@@ -84,7 +84,7 @@ heterogenous node configurations, see [Scheduling](#scheduling) below.
 -->
 {{< note >}}
 RuntimeClass 假设集群中的节点配置是同构的（换言之，所有的节点在容器运行时方面的配置是相同的）。
-如果需要支持异构节点，配置方法请参阅下面的 [调度](#scheduling)。
+如果需要支持异构节点，配置方法请参阅下面的[调度](#scheduling)。
 {{< /note >}}
 
 <!--
@@ -109,7 +109,7 @@ the configuration. For each handler, create a corresponding RuntimeClass object.
 The RuntimeClass resource currently only has 2 significant fields: the RuntimeClass name
 (`metadata.name`) and the handler (`handler`). The object definition looks like this:
 -->
-RuntimeClass 资源当前只有两个重要的字段：RuntimeClass 名 (`metadata.name`) 和 handler (`handler`)。
+RuntimeClass 资源当前只有两个重要的字段：RuntimeClass 名 （`metadata.name`） 和 handler （`handler`）。
 对象定义如下所示：
 
 ```yaml

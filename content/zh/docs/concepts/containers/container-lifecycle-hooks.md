@@ -108,7 +108,7 @@ the Kubernetes management system execute the handler according to the hook actio
 ### 回调处理程序执行
 
 当调用容器生命周期管理回调时，Kubernetes 管理系统根据回调动作执行其处理程序，
-`httpGet` 和 `tcpSocket` 在kubelet 进程执行，而 `exec` 则由容器内执行 。
+`httpGet` 和 `tcpSocket` 在 kubelet 进程执行，而 `exec` 则由容器内执行 。
 
 <!--
 Hook handler calls are synchronous within the context of the Pod containing the Container.
