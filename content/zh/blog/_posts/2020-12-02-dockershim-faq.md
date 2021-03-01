@@ -203,7 +203,7 @@ even better fit for your environment.
 -->
 这是一个复杂的问题，依赖于许多因素。
 在 Docker 工作良好的情况下，迁移到 containerd 是一个相对容易的转换，并将获得更好的性能和更少的开销。
-然而，我们建议你先探索 [CNCF 全景图](https://landscape.cncf.io/category=container-runtime&format=card-mode&grouping=category)
+然而，我们建议你先探索 [CNCF 全景图](https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category)
 提供的所有选项，以做出更适合你的环境的选择。
 
 <!-- 
