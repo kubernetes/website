@@ -257,7 +257,7 @@ The following restrictions apply when using this field:
 * As an alpha feature, this is disabled by default. To enable endPort field at a cluster level, you (or your cluster administrator) will need to enable the `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=NetworkPolicyEndPort=true,…`.
 * The `endPort` field must be equal than or greater to `port` field.
 * `endPort` can only be defined if `port` is also defined.
-* When using `endPort` field, the `port` field must be numeric.
+* Both ports must be numeric.
 
 {{< note >}}
 Your cluster must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that
