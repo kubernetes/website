@@ -2,6 +2,7 @@
 reviewers:
 - femrtnz
 - jcjesus
+- hugopfeffer
 title: Imagens
 content_type: concept
 weight: 10
@@ -172,7 +173,7 @@ in the search paths list below, kubelet uses it as the credential provider when 
 * `/.dockercfg`
 
 {{< note >}}
-Você talvez tenha que definir `HOME = / root` explicitamente no ambiente do processo kubelet.
+Você talvez tenha que definir `HOME=/root` explicitamente no ambiente do processo kubelet.
 {{< /note >}}
 
 <!-- {{< note >}}
@@ -184,7 +185,7 @@ exemplo, execute-os em seu desktop/laptop:
 <!-- Here are the recommended steps to configuring your nodes to use a private registry.  In this
 example, run these on your desktop/laptop: -->
 
-  1. Execute `docker login [servidor]` para cada conjunto de credenciais que deseja usar. Isso atualiza `$HOME/.docker/config.json` em seu PC.
+  1. Execute `docker login [servidor]` para cada conjunto de credenciais que deseja usar. Isso atualiza o `$HOME/.docker/config.json` em seu PC.
   1. Visualize `$HOME/.docker/config.json` em um editor para garantir que contém apenas as credenciais que você deseja usar.
   1. Obtenha uma lista de seus nós; por exemplo:
       - se você quiser os nomes: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
@@ -262,7 +263,7 @@ Você deve garantir que todos os nós no cluster tenham o mesmo `.docker/config.
 some nodes and fail to run on others.  For example, if you use node autoscaling, then each instance
 template needs to include the `.docker/config.json` or mount a drive that contains it. -->
 
-Todos os pods terão acesso de leitura às imagens em qualquer registro privado, uma vez privado
+Todos os pods terão premissão de leitura às imagens em qualquer registro privado, uma vez privado
 as chaves de registro são adicionadas ao `.docker/config.json`.
 <!-- All pods will have read access to images in any private registry once private
 registry keys are added to the `.docker/config.json`. -->
@@ -271,59 +272,96 @@ registry keys are added to the `.docker/config.json`. -->
 <!-- ### Pre-pulled images -->
 
 {{< note >}}
+Essa abordagem é adequada se você puder controlar a configuração do nó. Isto
+não funcionará de forma confiável se o seu provedor de nuvem for responsável pelo gerenciamento de nós e os substituir
+automaticamente.
+{{< /note >}}
+
+<!-- {{< note >}}
 This approach is suitable if you can control node configuration.  It
 will not work reliably if your cloud provider manages nodes and replaces
 them automatically.
-{{< /note >}}
+{{< /note >}} -->
 
-By default, the kubelet tries to pull each image from the specified registry.
+Por padrão, o kubelet tenta realizar um "pull" para cada imagem do registro especificado.
+No entanto, se a propriedade `imagePullPolicy` do contêiner for definida como` IfNotPresent` ou `Never`,
+em seguida, uma imagem local é usada (preferencial ou exclusivamente, respectivamente).
+<!-- By default, the kubelet tries to pull each image from the specified registry.
 However, if the `imagePullPolicy` property of the container is set to `IfNotPresent` or `Never`,
-then a local image is used (preferentially or exclusively, respectively).
+then a local image is used (preferentially or exclusively, respectively). -->
 
-If you want to rely on pre-pulled images as a substitute for registry authentication,
-you must ensure all nodes in the cluster have the same pre-pulled images.
+Se você quiser usar imagens pré-obtidas como um substituto para a autenticação do registro,
+você deve garantir que todos os nós no cluster tenham as mesmas imagens pré-obtidas.
+<!-- If you want to rely on pre-pulled images as a substitute for registry authentication,
+you must ensure all nodes in the cluster have the same pre-pulled images. -->
 
-This can be used to preload certain images for speed or as an alternative to authenticating to a private registry.
+Isso pode ser usado para pré-carregar certas imagens com o intuíto de aumentar a velocidade ou como uma alternativa para autenticação em um registro privado.
+<!-- This can be used to preload certain images for speed or as an alternative to authenticating to a private registry. -->
 
-All pods will have read access to any pre-pulled images.
+Todos os pods terão permissão de leitura a quaisquer imagens pré-obtidas.
+<!-- All pods will have read access to any pre-pulled images. -->
 
-### Specifying imagePullSecrets on a Pod
+### Especificando imagePullSecrets em um pod
+<!-- ### Specifying imagePullSecrets on a Pod -->
 
+{{< note >}}
+Esta é a abordagem recomendada para executar contêineres com base em imagens
+de registros privados.
+{{< /note >}}
+<!-- 
 {{< note >}}
 This is the recommended approach to run containers based on images
 in private registries.
-{{< /note >}}
+{{< /note >}} -->
 
-Kubernetes supports specifying container image registry keys on a Pod.
+O Kubernetes oferece suporte à especificação de chaves de registro de imagem de contêiner em um pod.
+<!-- Kubernetes supports specifying container image registry keys on a Pod. -->
 
-#### Creating a Secret with a Docker config
+#### Criando um segredo com Docker config
+<!-- #### Creating a Secret with a Docker config -->
 
-Run the following command, substituting the appropriate uppercase values:
+Execute o seguinte comando, substituindo as palavras em maiúsculas com os valores apropriados:
+<!-- Run the following command, substituting the appropriate uppercase values: -->
 
 ```shell
 kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 ```
 
-If you already have a Docker credentials file then, rather than using the above
+Se você já tem um arquivo de credenciais do Docker, em vez de usar o
+comando acima, você pode importar o arquivo de credenciais como um Kubernetes
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.
+[Criar um segredo com base nas credenciais Docker existentes](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) explica como configurar isso.
+<!-- If you already have a Docker credentials file then, rather than using the above
 command, you can import the credentials file as a Kubernetes
 {{< glossary_tooltip text="Secrets" term_id="secret" >}}.  
-[Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) explains how to set this up.
+[Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) explains how to set this up. -->
 
-This is particularly useful if you are using multiple private container
+Isso é particularmente útil se você estiver usando vários registros privados de contêineres, como `kubectl create secret docker-registry` cria um Segredo que
+só funciona com um único registro privado.
+<!-- This is particularly useful if you are using multiple private container
 registries, as `kubectl create secret docker-registry` creates a Secret that
-only works with a single private registry.
+only works with a single private registry. -->
 
 {{< note >}}
-Pods can only reference image pull secrets in their own namespace,
-so this process needs to be done one time per namespace.
+Os pods só podem fazer referência a *pull secrets* de imagem em seu próprio namespace,
+portanto, esse processo precisa ser feito uma vez por namespace.
 {{< /note >}}
 
-#### Referring to an imagePullSecrets on a Pod
+<!-- {{< note >}}
+Pods can only reference image pull secrets in their own namespace,
+so this process needs to be done one time per namespace.
+{{< /note >}} -->
 
-Now, you can create pods which reference that secret by adding an `imagePullSecrets`
-section to a Pod definition.
+#### Referenciando um imagePullSecrets em um pod
+<!-- #### Referring to an imagePullSecrets on a Pod -->
 
-For example:
+Agora, você pode criar pods que fazem referência a esse segredo adicionando uma seção `imagePullSecrets`
+na definição de Pod.
+<!-- Now, you can create pods which reference that secret by adding an `imagePullSecrets`
+section to a Pod definition. -->
+
+Por exemplo:
+<!-- For example: -->
 
 ```shell
 cat <<EOF > pod.yaml
@@ -346,7 +384,16 @@ resources:
 EOF
 ```
 
-This needs to be done for each pod that is using a private registry.
+Isso precisa ser feito para cada pod que está usando um registro privado.
+
+No entanto, a configuração deste campo pode ser automatizada definindo o imagePullSecrets
+em um recurso de [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/).
+
+Verifique [Adicionar ImagePullSecrets a uma conta de serviço](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) para obter instruções detalhadas.
+
+Você pode usar isso em conjunto com um `.docker / config.json` por nó. As credenciais
+será mesclado.
+<!-- This needs to be done for each pod that is using a private registry.
 
 However, setting of this field can be automated by setting the imagePullSecrets
 in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) resource.
@@ -354,12 +401,15 @@ in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-acco
 Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) for detailed instructions.
 
 You can use this in conjunction with a per-node `.docker/config.json`.  The credentials
-will be merged.
+will be merged. -->
 
-## Use cases
+## Casos de uso
+<!-- ## Use cases -->
 
-There are a number of solutions for configuring private registries.  Here are some
-common use cases and suggested solutions.
+Existem várias soluções para configurar registros privados. Aqui estão alguns
+casos de uso comuns e soluções sugeridas.
+<!-- There are a number of solutions for configuring private registries.  Here are some
+common use cases and suggested solutions. -->
 
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
    - Use public images on the Docker hub.
