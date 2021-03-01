@@ -87,7 +87,7 @@ Adopting a common convention for annotations ensures consistency and understanda
 
 ## Visualizing Annotations: Service Catalogs
 
-As the number of microservices and annotations proliferate, using `kubectl describe` can get tedious. Moreover, kubectl describe requires every developer to have some direct access to the Kubernetes cluster. A [service catalog](https://www.getambassador.io/learn/kubernetes-glossary/service-catalog) presents an internal, developer-oriented view of all services. 
+As the number of microservices and annotations proliferate, running `kubectl describe` can get tedious. Moreover, using `kubectl describe` requires every developer to have some direct access to the Kubernetes cluster. An [service catalog](https://www.getambassador.io/learn/kubernetes-glossary/service-catalog), in the Ambassador meaning of that term, presents an internal, developer-oriented view of all services.
 
 Historically, service catalogs have not been a key piece of infrastructure, as applications consisted of a single monolith. Today, with distributed development and microservices the norm, service catalogs are increasingly being adopted as a best practice. Some popular options today include Backstage and Ambassador. [Backstage](https://backstage.io/) is a highly flexible project ideal for organizations that wish to customize every aspect of their service catalog, while [Ambassador](https://www.getambassador.io/products/service-catalog) provides a turnkey, cloud-hosted solution that can be set up quickly.
 
