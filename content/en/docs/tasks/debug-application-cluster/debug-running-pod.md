@@ -99,7 +99,7 @@ kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 ```
 
 The examples in this section use the `pause` container image because it does not
-contain userland debugging utilities, but this method works with all container
+contain user and debugging utilities, but this method works with all container
 images.
 
 If you attempt to use `kubectl exec` to create a shell you will see an error
