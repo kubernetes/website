@@ -18,7 +18,7 @@ This section of the Kubernetes documentation contains references.
 
 <!-- body -->
 
-## Standardized Glossary
+## API Reference
 
 * [Glossary](/docs/reference/glossary/) -  a comprehensive, standardized list of Kubernetes terminology
 
@@ -30,7 +30,7 @@ This section of the Kubernetes documentation contains references.
 * [API access control](/docs/reference/access-authn-authz/) - details on how Kubernetes controls API access
 * [Well-Known Labels, Annotations and Taints](/docs/reference/kubernetes-api/labels-annotations-taints/)
 
-## API Client Libraries
+## Officially supported client libraries
 
 To call the Kubernetes API from a programming language, you can use
 [client libraries](/docs/reference/using-api/client-libraries/). Officially supported
