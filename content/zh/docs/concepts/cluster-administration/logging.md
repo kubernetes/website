@@ -39,7 +39,7 @@ integrate with Kubernetes. The following sections describe how to handle and sto
 -->
 集群级日志架构需要一个独立的后端用来存储、分析和查询日志。
 Kubernetes 并不为日志数据提供原生的存储解决方案。
-相反，有很多现成的日志方案可以集成到 Kubernetes 中.
+相反，有很多现成的日志方案可以集成到 Kubernetes 中。
 下面各节描述如何在节点上处理和存储日志。
 
 <!--
@@ -458,7 +458,7 @@ a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to c
 <!--
 For information about configuring fluentd, see the [fluentd documentation](https://docs.fluentd.org/).
 -->
-要进一步了解如何配置 fluentd，请参考 [fluentd 官方文档](https://docs.fluentd.org/).
+要进一步了解如何配置 fluentd，请参考 [fluentd 官方文档](https://docs.fluentd.org/)。
 {{< /note >}}
 
 <!--
