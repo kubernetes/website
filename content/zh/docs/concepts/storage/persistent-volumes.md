@@ -316,7 +316,7 @@ Cinder 卷）中移除所关联的存储资产。
 动态供应的卷会继承[其 StorageClass 中设置的回收策略](#reclaim-policy)，该策略默认
 为 `Delete`。
 管理员需要根据用户的期望来配置 StorageClass；否则 PV 卷被创建之后必须要被
-编辑或者修补。参阅[更改 PV 卷的回收策略](/zh/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
+编辑或者修补。参阅[更改 PV 卷的回收策略](/zh/docs/tasks/administer-cluster/change-pv-reclaim-policy/)。
 
 <!--
 #### Recycle
@@ -594,7 +594,7 @@ If expanding underlying storage fails, the cluster administrator can manually re
 4. Re-create the PVC with smaller size than PV and set `volumeName` field of the PVC to the name of the PV. This should bind new PVC to existing PV.
 5. Don't forget to restore the reclaim policy of the PV.
 -->
-1. 将绑定到 PVC 申领的 PV 卷标记为 `Retain` 回收策略；
+1. 将绑定到 PVC 申领的 PV 卷标记为 `Retain` 回收策略。
 2. 删除 PVC 对象。由于 PV 的回收策略为 `Retain`，我们不会在重建 PVC 时丢失数据。
 3. 删除 PV 规约中的 `claimRef` 项，这样新的 PVC 可以绑定到该卷。
    这一操作会使得 PV 卷变为 "可用（Available）"。
@@ -1467,7 +1467,7 @@ and need persistent storage, it is recommended that you use the following patter
 -->
 - 为用户提供在实例化模板时指定存储类名称的能力。
   - 仍按用户提供存储类名称，将该名称放到 `persistentVolumeClaim.storageClassName` 字段中。
-    这样会使得 PVC 在集群被管理员启用了存储类支持时能够匹配到正确的存储类，
+    这样会使得 PVC 在集群被管理员启用了存储类支持时能够匹配到正确的存储类。
   - 如果用户未指定存储类名称，将 `persistentVolumeClaim.storageClassName` 留空（nil）。
     这样，集群会使用默认 `StorageClass` 为用户自动供应一个存储卷。
     很多集群环境都配置了默认的 `StorageClass`，或者管理员也可以自行创建默认的
