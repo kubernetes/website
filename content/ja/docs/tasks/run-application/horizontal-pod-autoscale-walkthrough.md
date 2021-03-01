@@ -382,13 +382,6 @@ Events:
 
 ## 付録: 数量
 
-All metrics in the HorizontalPodAutoscaler and metrics APIs are specified using
-a special whole-number notation known in Kubernetes as a
-{{< glossary_tooltip term_id="quantity" text="quantity">}}.  For example,
-the quantity `10500m` would be written as `10.5` in decimal notation.  The metrics APIs
-will return whole numbers without a suffix when possible, and will generally return
-quantities in milli-units otherwise.  This means you might see your metric value fluctuate
-between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.
 全てのHorizontalPodAutoscalerおよびメトリクスAPIにおけるメトリクスは{{< glossary_tooltip term_id="quantity" text="quantity">}}として知られる特殊な整数表記によって指定されます。例えば、`10500m`という数量は10進数表記で`10.5`と書くことができます。メトリクスAPIは可能であれば接尾辞を用いない整数を返し、そうでない場合は基本的にミリ単位での数量を返します。これはメトリクス値が`1`と`1500m`の間で、もしくは10進法表記で書かれた場合は`1`と`1.5`の間で変動するということを意味します。
 
 ## 付録: その他の起きうるシナリオ
