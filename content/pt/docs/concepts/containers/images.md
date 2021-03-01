@@ -9,11 +9,17 @@ weight: 10
 
 <!-- overview -->
 
-A imagem de um contêiner representa informações binárias que encapsulam uma aplicação e todas as suas depêndencias. Imagens de contêineres são pacotes de softwares executáveis que podem ser executados de maneira independente e que fazem suposições bem definidas sobre o agente de execução do ambiente.
+Uma imagem de contêiner representa dados binários que encapsulam uma aplicação e todas as suas dependências de software. As imagens de contêiner são pacotes de software executáveis que podem ser executados de forma autônoma e que fazem suposições muito bem definidas sobre seu agente de execução do ambiente.
 
-Tipicamente você cria a imagem de um contêiner da sua aplicação e realiza um push para um registro antes de referiá-la em um {{< glossary_tooltip text="Pod" term_id="pod" >}}
+Normalmente, você cria uma imagem de contêiner da sua aplicação e a envia para um registro antes de fazer referência a ela em um {{< glossary_tooltip text="Pod" term_id="pod" >}}
 
-Esta página fornece um resumo sobre o conceito de imagens de contêiner. 
+Esta página fornece um resumo sobre o conceito de imagem de contêiner.  
+
+<!-- A container image represents binary data that encapsulates an application and all its software dependencies. Container images are executable software bundles that can run standalone and that make very well defined assumptions about their runtime environment.
+
+You typically create a container image of your application and push it to a registry before referring to it in a Pod
+
+This page provides an outline of the container image concept. -->
 
 <!-- body -->
 
@@ -107,7 +113,7 @@ Credentials can be provided in several ways: -->
   - Configurando nós para autenticação em um registro privado
      - todos os pods podem ler qualquer registro privado configurado
      - requer configuração de nó pelo administrador do cluster
-   - Imagens pré-puxadas
+   - Imagens pré-obtidas
      - todos os pods podem usar qualquer imagem armazenada em cache em um nó
      - requer acesso root a todos os nós para configurar
    - Especificando ImagePullSecrets em um Pod
@@ -130,21 +136,31 @@ Credentials can be provided in several ways: -->
 Essas opções são explicadas com mais detalhes abaixo.
 <!-- These options are explained in more detail below. -->
 
-### Configuring nodes to authenticate to a private registry
+### Configurando nós para autenticação em um registro privado
+<!-- ### Configuring nodes to authenticate to a private registry -->
 
-If you run Docker on your nodes, you can configure the Docker container
+Se você executar o Docker em seus nós, poderá configurar o contêiner do Docker
+runtime para autenticação em um registro de contêiner privado.
+
+Essa abordagem é adequada se você puder controlar a configuração do nó.
+<!-- If you run Docker on your nodes, you can configure the Docker container
 runtime to authenticate to a private container registry.
 
-This approach is suitable if you can control node configuration.
+This approach is suitable if you can control node configuration. -->
 
+{{< note >}}
+O Kubernetes padrão é compatível apenas com as seções `auths` e` HttpHeaders` na configuração do Docker.
+Auxiliares de credencial do Docker (`credHelpers` ou` credsStore`) não são suportados.
+{{< /note >}}
+<!-- 
 {{< note >}}
 Default Kubernetes only supports the `auths` and `HttpHeaders` section in Docker configuration.
 Docker credential helpers (`credHelpers` or `credsStore`) are not supported.
-{{< /note >}}
+{{< /note >}} -->
 
-
-Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
-in the search paths list below, kubelet uses it as the credential provider when pulling images.
+Docker armazena chaves de registros privados no arquivo `$HOME/.dockercfg` ou `$HOME/.docker/config.json`. Se você colocar o mesmo arquivo na lista de caminhos de pesquisa abaixo, o kubelet o usa como provedor de credenciais ao obter imagens.
+<!-- Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
+in the search paths list below, kubelet uses it as the credential provider when pulling images. -->
 
 * `{--root-dir:-/var/lib/kubelet}/config.json`
 * `{cwd of kubelet}/config.json`
@@ -156,26 +172,45 @@ in the search paths list below, kubelet uses it as the credential provider when 
 * `/.dockercfg`
 
 {{< note >}}
-You may have to set `HOME=/root` explicitly in the environment of the kubelet process.
+Você talvez tenha que definir `HOME = / root` explicitamente no ambiente do processo kubelet.
 {{< /note >}}
 
-Here are the recommended steps to configuring your nodes to use a private registry.  In this
-example, run these on your desktop/laptop:
+<!-- {{< note >}}
+You may have to set `HOME=/root` explicitly in the environment of the kubelet process.
+{{< /note >}} -->
 
-   1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
+Aqui estão as etapas recomendadas para configurar seus nós para usar um registro privado. Neste
+exemplo, execute-os em seu desktop/laptop:
+<!-- Here are the recommended steps to configuring your nodes to use a private registry.  In this
+example, run these on your desktop/laptop: -->
+
+  1. Execute `docker login [servidor]` para cada conjunto de credenciais que deseja usar. Isso atualiza `$HOME/.docker/config.json` em seu PC.
+  1. Visualize `$HOME/.docker/config.json` em um editor para garantir que contém apenas as credenciais que você deseja usar.
+  1. Obtenha uma lista de seus nós; por exemplo:
+      - se você quiser os nomes: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
+      - se você deseja obter os endereços IP: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
+  1. Copie seu `.docker/config.json` local para uma das listas de caminhos de busca acima.
+      - por exemplo, para testar isso: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
+   <!-- 1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
    1. View `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
    1. Get a list of your nodes; for example:
       - if you want the names: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
       - if you want to get the IP addresses: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
    1. Copy your local `.docker/config.json` to one of the search paths list above.
-      - for example, to test this out: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
+      - for example, to test this out: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done` -->
 
+{{< note >}}
+Para clusters de produção, use uma ferramenta de gerenciamento de configuração para que você possa aplicar esta
+configuração para todos os nós onde você precisa.
+{{< /note >}}
+<!-- 
 {{< note >}}
 For production clusters, use a configuration management tool so that you can apply this
 setting to all the nodes where you need it.
-{{< /note >}}
+{{< /note >}} -->
 
-Verify by creating a Pod that uses a private image; for example:
+Verifique se está funcionando criando um pod que usa uma imagem privada; por exemplo:
+<!-- Verify by creating a Pod that uses a private image; for example: -->
 
 ```shell
 kubectl apply -f - <<EOF
@@ -195,34 +230,45 @@ EOF
 pod/private-image-test-1 created
 ```
 
-If everything is working, then, after a few moments, you can run:
+Se tudo estiver funcionando, então, após algum tempo, você pode executar:
+<!-- If everything is working, then, after a few moments, you can run: -->
 
 ```shell
 kubectl logs private-image-test-1
 ```
-and see that the command outputs:
+e veja o resultado do comando:
+<!-- and see that the command outputs: -->
 ```
 SUCCESS
 ```
 
-If you suspect that the command failed, you can run:
+Se você suspeitar que o comando falhou, você pode executar:
+<!-- If you suspect that the command failed, you can run: -->
 ```shell
 kubectl describe pods/private-image-test-1 | grep 'Failed'
 ```
-In case of failure, the output is similar to:
+Em caso de falha, a saída é semelhante a:
+<!-- In case of failure, the output is similar to: -->
 ```
   Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
 
-You must ensure all nodes in the cluster have the same `.docker/config.json`.  Otherwise, pods will run on
+Você deve garantir que todos os nós no cluster tenham o mesmo `.docker/config.json`. Caso contrário, os pods serão executados em
+alguns nós e não funcionam em outros. Por exemplo, se você usar o escalonamento automático de nós, cada instância
+o modelo precisa incluir o `.docker / config.json` ou montar uma unidade que o contenha.
+Você deve garantir que todos os nós no cluster tenham o mesmo `.docker/config.json`. Caso contrário, os pods serão executados com sucesso em alguns nós e falharão em outros. Por exemplo, se você usar o escalonamento automático de nós, cada modelo de instância precisa incluir o `.docker/config.json` ou montar um drive que o contenha.
+<!-- You must ensure all nodes in the cluster have the same `.docker/config.json`.  Otherwise, pods will run on
 some nodes and fail to run on others.  For example, if you use node autoscaling, then each instance
-template needs to include the `.docker/config.json` or mount a drive that contains it.
+template needs to include the `.docker/config.json` or mount a drive that contains it. -->
 
-All pods will have read access to images in any private registry once private
-registry keys are added to the `.docker/config.json`.
+Todos os pods terão acesso de leitura às imagens em qualquer registro privado, uma vez privado
+as chaves de registro são adicionadas ao `.docker/config.json`.
+<!-- All pods will have read access to images in any private registry once private
+registry keys are added to the `.docker/config.json`. -->
 
-### Pre-pulled images
+### Imagens pré-obtidas
+<!-- ### Pre-pulled images -->
 
 {{< note >}}
 This approach is suitable if you can control node configuration.  It
