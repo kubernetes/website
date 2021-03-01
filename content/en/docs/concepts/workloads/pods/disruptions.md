@@ -75,7 +75,7 @@ Here are some ways to mitigate involuntary disruptions:
   and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
 - For even higher availability when running replicated applications,
   spread applications across racks (using
-  [anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
+  [anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity))
   or across zones (if using a
   [multi-zone cluster](/docs/setup/multiple-zones).)
 
@@ -104,7 +104,7 @@ ensure that the number of replicas serving load never falls below a certain
 percentage of the total.
 
 Cluster managers and hosting providers should use tools which
-respect PodDisruptionBudgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)
+respect PodDisruptionBudgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api)
 instead of directly deleting pods or deployments.
 
 For example, the `kubectl drain` subcommand lets you mark a node as going out of
