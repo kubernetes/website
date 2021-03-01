@@ -19,27 +19,29 @@ Esta página fornece um resumo sobre o conceito de imagens de contêiner.
 
 ## Nomes das imagens
 
-Imagens de contêineres, normalmente, recebem nomes como `pause`, `exemplo/meuconteiner`, ou `kube-apiserver`.
-Imagens também podem incluir um hostname de algum registro; por exemplo: `exemplo.registro.ficticio/nomeimagem`, e possivelmente um número de porta também; por exemplo: `exemplo.registro.ficticio:10443/nomeimagem`.
+As imagens de contêiner geralmente recebem um nome como `pause`, `exemplo/meuconteiner`, ou `kube-apiserver`.
+As imagens também podem incluir um hostname de algum registro; por exemplo: `exemplo.registro.ficticio/nomeimagem`,
+e um possível número de porta; por exemplo: `exemplo.registro.ficticio:10443/nomeimagem`.
 
 <!-- Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
 Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
 and possible a port number as well; for example: `fictional.registry.example:10443/imagename`. -->
 
-Se você não especificar um hostname de registro, Kubernetes assumirá que você quer o registro público do Docker.
+Se você não especificar um hostname de registro, o Kubernetes presumirá que você se refere ao registro público do Docker.
 <!-- If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry. -->
 
-Depois da parte do nome da imagem, você pode adicionar a _tag_ (como também usando com comandos como 
-`docker` e `podman`).
-Tags também deixam você identificar versões diferentes da mesma série de imagens.
+Após a parte do nome da imagem, você pode adicionar uma _tag_ (como também usar com comandos como
+como `docker` e` podman`).
+As tags permitem identificar diferentes versões da mesma série de imagens.
 <!-- After the image name part you can add a _tag_ (as also using with commands such
 as `docker` and `podman`).
 Tags let you identify different versions of the same series of images. -->
 
-Tags da imagem consiste de letras maiusculas e minisculas, digitos e underscores (`_`),
-pontos finais (`.`) e traços (`-`)
-Existem regras adicionais onde será possível colocar caractéres (`_`, `-`, `.`) dentro de uma tag de imagem.
-Se você não especificar a tag, Kubernetes assumirá que você quer o a tag definida como `latest`.
+Tags de imagem consistem em letras maiúsculas e minúsculas, dígitos, sublinhados (`_`),
+pontos (`.`) e travessões (` -`).
+Existem regras adicionais sobre onde você pode colocar o separador
+caracteres (`_`,` -` e `.`) dentro de uma tag de imagem.
+Se você não especificar uma tag, o Kubernetes presumirá que você se refere à tag `latest` (mais recente).
 <!-- Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
 periods (`.`), and dashes (`-`).  
 There are additional rules about where you can place the separator
@@ -47,11 +49,10 @@ characters (`_`, `-`, and `.`) inside an image tag.
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`. -->
 
 {{< caution >}}
-Você deve evitar de usar a tag `latest` quando estiver realizando o deploy de containers em produção, 
-pois dificulta a visualização de qual imagem está sendo rodada, além de tornar mais difícil
-o processo de reverter para uma versão funcional. 
+Você deve evitar usar a tag `latest` quando estiver realizando o deploy de contêineres em produção,
+pois é mais difícil rastrear qual versão da imagem está sendo executada, além de tornar mais difícil o processo de reversão para uma versão funcional.
 
-No lugar, especifique uma tag significativa como `v1.42.0`
+Em vez disso, especifique uma tag significativa, como `v1.42.0`.
 {{< /caution >}}
 <!-- {{< caution >}}
 You should avoid using the `latest` tag when deploying containers in production,
@@ -64,41 +65,56 @@ Instead, specify a meaningful tag such as `v1.42.0`.
 ## Atualizando imagens
 <!-- ## Updating images -->
 
-A política de *pull* padrão é `ifNotPresent` que faz com que o 
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} ignore 
+A política de pull padrão é `IfNotPresent` que faz com que o
+{{<glossary_tooltip text = "kubelet" term_id = "kubelet">}} ignore 
 o processo de *pull* da imagem, caso a mesma já exista. Se você prefere sempre forçar o processo de *pull*, 
-você pode fazer um como demonstrado: 
+você pode fazer como exemplo:
 <!-- The default pull policy is `IfNotPresent` which causes the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip
 pulling an image if it already exists. If you would like to always force a pull,
 you can do one of the following: -->
 
-- defina a `imagePullPolicy` do contêiner para `Always`
-- omita a `imagePullPolicy` e use `:latest` como a tag para a imagem usar.
-- omita a `imagePullPolicy` e a tag para a imagem usar. 
+- defina a `imagePullPolicy` do contêiner para` Always`.
+- omita `imagePullPolicy` e use`: latest` como a tag para a imagem a ser usada.
+- omita o `imagePullPolicy` e a tag da imagem a ser usada.
 - habilite o [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) controlador de admissão.
 <!-- - set the `imagePullPolicy` of the container to `Always`.
 - omit the `imagePullPolicy` and use `:latest` as the tag for the image to use.
 - omit the `imagePullPolicy` and the tag for the image to use.
 - enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller. -->
 
-Quando `imagePullPolicy` é definia sem nenhum valor, também será definido como `Always`.
+Quando `imagePullPolicy` é definido sem um valor específico, ele também é definido como` Always`.
 <!-- When `imagePullPolicy` is defined without a specific value, it is also set to `Always`. -->
 
-## Multi-arquitetura de imagens com índice de imagens
+## Multiarquitetura de imagens com índice de imagens
 <!-- ## Multi-architecture images with image indexes -->
 
-Além de fornecer o binário das imagens, um registro de contêiner também pode servir um [container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md). Um índice de imagem pode apontar para multiplos [manifestos da imagem](https://github.com/opencontainers/image-spec/blob/master/manifest.md) para versões específicas de arquiteturas de um contêiner. A ideia é que você consiga ter um nome para uma imagem (por exemplo: `pause`, `exemple/meuconteiner`, `kube-apiserver`) e permitir que diferentes sistemas possam baixar o binário da imagem correto para a arquitetura da maquina que estão usando.  
+Além de fornecer o binário das imagens, um registro de contêiner também pode servir um [índice de imagem do contêiner](https://github.com/opencontainers/image-spec/blob/master/image-index.md). Um índice de imagem pode apontar para multiplos [manifestos da imagem](https://github.com/opencontainers/image-spec/blob/master/manifest.md) para versões específicas de arquitetura de um contêiner. A ideia é que você possa ter um nome para uma imagem (por exemplo: `pause`, `exemple/meuconteiner`, `kube-apiserver`) e permitir que diferentes sistemas busquem o binário da imagem correta para a arquitetura de máquina que estão usando.
 <!-- As well as providing binary images, a container registry can also serve a [container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md). An image index can point to multiple [image manifests](https://github.com/opencontainers/image-spec/blob/master/manifest.md) for architecture-specific versions of a container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using. -->
 
-Tipicamente o próprio Kubernetes nomeia as imagens dos contêineres com o sufixo `-$(ARCH)`.
-<!-- Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes. -->
+<!-- Tipicamente o próprio Kubernetes nomeia as imagens dos contêineres com o sufixo `-$(ARCH)`. Para retro-compatibilidade, gere as imagens mais antigas com sufixos. A ideia é gerar a imagem `pause` que contém o manifesto para todas as arquiteturas e ` pause-amd64` que é retro-compativel com as configurações anteriores ou arquivos YAML que podem ter codificado as imagens com sufixos.
 
-## Using a private registry
+O próprio Kubernetes normalmente nomeia as imagens de contêiner com o sufixo `- $ (ARCH)`. Para retrocompatibilidade, gere as imagens mais antigas com sufixos. A ideia é gerar a imagem `pause` que tem o manifesto para todas as arquiteturas e `pause-amd64` que é retrocompatível com as configurações anteriores ou arquivos YAML que podem ter codificado as imagens com sufixos. -->
+Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
 
-Private registries may require keys to read images from them.  
-Credentials can be provided in several ways:
-  - Configuring Nodes to Authenticate to a Private Registry
+## Usando um registro privado
+<!-- ## Using a private registry -->
+
+Os registros privados podem exigir chaves para acessar as imagens deles.
+As credenciais podem ser fornecidas de várias maneiras:
+<!-- Private registries may require keys to read images from them.  
+Credentials can be provided in several ways: -->
+  - Configurando nós para autenticação em um registro privado
+     - todos os pods podem ler qualquer registro privado configurado
+     - requer configuração de nó pelo administrador do cluster
+   - Imagens pré-puxadas
+     - todos os pods podem usar qualquer imagem armazenada em cache em um nó
+     - requer acesso root a todos os nós para configurar
+   - Especificando ImagePullSecrets em um Pod
+     - apenas pods que fornecem chaves próprias podem acessar o registro privado
+   - Extensões locais ou específicas do fornecedor
+     - se estiver usando uma configuração de nó personalizado, você (ou seu provedor de nuvem) pode implementar seu mecanismo para autenticar o nó ao registro do contêiner.
+  <!-- - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
   - Pre-pulled Images
@@ -109,9 +125,10 @@ Credentials can be provided in several ways:
   - Vendor-specific or local extensions
     - if you're using a custom node configuration, you (or your cloud
       provider) can implement your mechanism for authenticating the node
-      to the container registry.
+      to the container registry. -->
 
-These options are explained in more detail below.
+Essas opções são explicadas com mais detalhes abaixo.
+<!-- These options are explained in more detail below. -->
 
 ### Configuring nodes to authenticate to a private registry
 
