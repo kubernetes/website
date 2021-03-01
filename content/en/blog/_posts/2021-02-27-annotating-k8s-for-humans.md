@@ -85,7 +85,7 @@ Adopting a common convention for annotations ensures consistency and understanda
 | `a8r.io/dependencies`                      | Unstructured text describing the service dependencies for humans. |
 
 
-## Visualizing Annotations: Service Catalogs
+## Visualizing annotations: service catalogs
 
 As the number of microservices and annotations proliferate, running `kubectl describe` can get tedious. Moreover, using `kubectl describe` requires every developer to have some direct access to the Kubernetes cluster. An [service catalog](https://www.getambassador.io/learn/kubernetes-glossary/service-catalog), in the Ambassador meaning of that term, presents an internal, developer-oriented view of all services.
 
