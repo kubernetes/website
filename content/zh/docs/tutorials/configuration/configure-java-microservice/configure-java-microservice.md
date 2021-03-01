@@ -34,7 +34,7 @@ Dockerfile、kubernetes.yml、Kubernetes ConfigMaps、和 Kubernetes Secrets。
 比如赋值给不同的容器中的不同环境变量。
 
 <!-- 
-ConfigMaps are API Objects that store non-confidential key-value pairs.  In the Interactive Tutorial you will learn how to use a ConfigMap to store the application's name.  For more information regarding ConfigMaps, you can find the documentation [here].
+ConfigMaps are API Objects that store non-confidential key-value pairs.  In the Interactive Tutorial you will learn how to use a ConfigMap to store the application's name.  For more information regarding ConfigMaps, you can find the documentation [here](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 Although Secrets are also used to store key-value pairs, they differ from ConfigMaps in that they're intended for confidential/sensitive information and are stored using Base64 encoding.  This makes secrets the appropriate choice for storing such things as credentials, keys, and tokens, the former of which you'll do in the Interactive Tutorial.  For more information on Secrets, you can find the documentation [here](/docs/concepts/configuration/secret/).
 -->
@@ -90,4 +90,4 @@ CDI & MicroProfile 都会被用在互动教程中，
 ### [Start Interactive Tutorial](/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
 -->
 ## 示例：使用 MicroProfile、ConfigMaps、Secrets 实现外部化应用配置
-### [启动互动教程](/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
+### [启动互动教程](/zh/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
