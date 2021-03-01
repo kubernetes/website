@@ -5,7 +5,7 @@ date: 2021-02-27
 slug: annotating-k8s-for-humans
 ---
 
-**Authors:** Richard Li (Ambassador Labs)
+**Author:** Richard Li, Ambassador Labs
 
 Have you ever been asked to troubleshoot a failing Kubernetes service and struggled to find basic information about the service such as the source repository and owner?
 
@@ -15,7 +15,7 @@ One of the problems as Kubernetes applications grow is the proliferation of serv
 
 Troubleshooting always begins with information gathering. While much attention has been paid to centralizing machine data (e.g., logs, metrics), much less attention has been given to the human aspect of service discovery. Who owns a particular service? What Slack channel does the team work on? Where is the source for the service? What issues are currently known and being tracked?
 
-## Kubernetes Annotations
+## Kubernetes annotations
 
 Kubernetes annotations are designed to solve exactly this problem. Oft-overlooked, Kubernetes annotations are designed to add metadata to Kubernetes objects. The Kubernetes documentation says annotations can “attach arbitrary non-identifying metadata to objects.” This means that annotations should be used for attaching metadata that is external to Kubernetes (i.e., metadata that Kubernetes won’t use to identify objects. As such, annotations can contain any type of data. This is a contrast to labels, which are designed for uses internal to Kubernetes. As such, label structure and values are [constrained](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) so they can be efficiently used by Kubernetes.
 
@@ -87,9 +87,9 @@ Adopting a common convention for annotations ensures consistency and understanda
 
 ## Visualizing annotations: service catalogs
 
-As the number of microservices and annotations proliferate, running `kubectl describe` can get tedious. Moreover, using `kubectl describe` requires every developer to have some direct access to the Kubernetes cluster. An [service catalog](https://www.getambassador.io/learn/kubernetes-glossary/service-catalog), in the Ambassador meaning of that term, presents an internal, developer-oriented view of all services.
+As the number of microservices and annotations proliferate, running `kubectl describe` can get tedious. Moreover, using `kubectl describe` requires every developer to have some direct access to the Kubernetes cluster. Over the past few years, [service catalogs](https://www.getambassador.io/learn/kubernetes-glossary/service-catalog) have gained greater visibility in the Kubernetes ecosystem. Popularized by tools such as [Shopify's ServicesDB](https://shopify.engineering/scaling-mobile-development-by-treating-apps-as-services) and [Spotify's System Z](https://dzone.com/articles/modeling-microservices-at-spotify-with-petter-mari), service catalogs are internally-facing developer portals that present critical information about microservices. Note that these service catalogs should not be confused with the [Kubernetes Service Catalog project](https://svc-cat.io/). Built on the Open Service Broker API, the Kubernetes Service Catalog enables Kubernetes operators to plug in different services (e.g., databases) to their cluster.
 
-Historically, service catalogs have not been a key piece of infrastructure, as applications consisted of a single monolith. Today, with distributed development and microservices the norm, service catalogs are increasingly being adopted as a best practice. Some popular options today include Backstage and Ambassador. [Backstage](https://backstage.io/) is a highly flexible project ideal for organizations that wish to customize every aspect of their service catalog, while [Ambassador](https://www.getambassador.io/products/service-catalog) provides a turnkey, cloud-hosted solution that can be set up quickly.
+Historically, service catalogs have not been a key piece of infrastructure, as applications consisted of a single monolith. Today, with distributed development and microservices the norm, service catalogs are increasingly being adopted as a best practice. Some popular options today include [Backstage]((https://backstage.io/) and [Ambassador Service Catalog](https://www.getambassador.io/products/service-catalog). Backstage is a highly flexible project ideal for organizations that wish to customize every aspect of their service catalog, while Ambassador Service Catalog provides a turnkey, cloud-hosted solution that can be set up quickly.
 
 ## Annotate your services now and thank yourself later
 Much like implementing observability within microservice systems, you often don’t realize that you need human service discovery until it’s too late. Don't wait until something is on fire in production to start wishing you had implemented better metrics and also documented how to get in touch with the part of your organization that looks after it.
