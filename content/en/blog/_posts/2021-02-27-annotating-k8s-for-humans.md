@@ -91,7 +91,7 @@ As the number of microservices and annotations proliferate, running `kubectl des
 
 Historically, service catalogs have not been a key piece of infrastructure, as applications consisted of a single monolith. Today, with distributed development and microservices the norm, service catalogs are increasingly being adopted as a best practice. Some popular options today include Backstage and Ambassador. [Backstage](https://backstage.io/) is a highly flexible project ideal for organizations that wish to customize every aspect of their service catalog, while [Ambassador](https://www.getambassador.io/products/service-catalog) provides a turnkey, cloud-hosted solution that can be set up quickly.
 
-## Annotate Your Services Now and Thank Yourself Later
+## Annotate your services now and thank yourself later
 Much like implementing observability within microservice systems, you often don’t realize that you need human service discovery until it’s too late. Don't wait until something is on fire in production to start wishing you had implemented better metrics and also documented how to get in touch with the part of your organization that looks after it.
 
 There's enormous benefits to building an effective “[version 0](https://www.getambassador.io/learn/kubernetes-glossary/version-0/)” of any service: a “[dancing skeleton](https://containerjournal.com/topics/container-management/dancing-skeleton-apis-and-microservices/)” application with a thin slice of complete functionality that can be deployed to production with a minimal yet effective continuous delivery pipeline. 
