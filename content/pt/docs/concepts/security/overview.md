@@ -91,9 +91,9 @@ boas práticas de informação, leia e siga os conselhos sobre
 ### Componentes no cluster (sua aplicação) {#cluster-applications}
 
 Dependendo da superfície de ataque de sua aplicação, você pode querer se concentrar em
-aspectos específicos de segurança. Por exemplo: se você estiver executando um serviço (Serviço A) que é crítico
+tópicos específicos de segurança. Por exemplo: se você estiver executando um serviço (Serviço A) que é crítico
 numa cadeia de outros recursos e outra carga de trabalho separada (Serviço B) que é
-vulnerável a um ataque de exaustão de recursos e, por consequencia, o risco de comprometer o Serviço A
+vulnerável a um ataque de exaustão de recursos e, por consequência, o risco de comprometer o Serviço A
 é alto se você não limitar os recursos do Serviço B. A tabela a seguir lista
 áreas de atenção na segurança e recomendações para proteger cargas de trabalho em execução no Kubernetes:
 
@@ -107,17 +107,17 @@ Qualidade de serviço (e gerenciamento de recursos de cluster) | https://kuberne
 Políticas de Rede | https://kubernetes.io/docs/concepts/services-networking/network-policies/
 TLS para Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
 
-## Container
+## Contêiner
 
-Container security is outside the scope of this guide. Here are general recommendations and
-links to explore this topic:
+A segurança do contêiner está fora do escopo deste guia. Aqui estão recomendações gerais e
+links para explorar este tópico:
 
-Area of Concern for Containers | Recommendation |
+Área de Interesse para Contêineres | Recomendação |
 ------------------------------ | -------------- |
-Container Vulnerability Scanning and OS Dependency Security | As part of an image build step, you should scan your containers for known vulnerabilities.
-Image Signing and Enforcement | Sign container images to maintain a system of trust for the content of your containers.
-Disallow privileged users | When constructing containers, consult your documentation for how to create users inside of the containers that have the least level of operating system privilege necessary in order to carry out the goal of the container.
-Use container runtime with stronger isolation | Select [container runtime classes](/docs/concepts/containers/runtime-class/) that provider stronger isolation
+Scanners de Vulnerabilidade de Contêiner e Segurança de Dependência de SO | Como parte da etapa de construção de imagem, você deve usar algum scanner em seus contêineres em busca de vulnerabilidades.
+Assinatura Imagem e Enforcement | Assinatura de imagens de contêineres para manter um sistema de confiança para o conteúdo de seus contêineres.
+Proibir Usuários Privilegiados | Ao construir contêineres, consulte a documentação para criar usuários dentro dos contêineres que tenham o menor nível de privilégio no sistema operacional necessário para cumprir o objetivo do contêiner.
+Use o Contêiner em Runtime com Isolamento mais Forte | Selecione [classes de contêiner runtime](/docs/concepts/containers/runtime-class/) com o provedor de isolamento mais forte.
 
 ## Código
 
