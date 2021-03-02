@@ -31,7 +31,6 @@ $ kubectl annotate service quote a8r.io/owner=”@sally”
 In this example, we’ve just added an annotation called `a8r.io/owner` with the value of @sally. Now, we can use `kubectl describe` to get the information.
 
 ```
-$ kubectl describe svc quote
 Name:              quote
 Namespace:         default
 Labels:            <none>
@@ -48,7 +47,7 @@ Events:            <none>
 
 If you’re practicing GitOps (and you should be!) you’ll want to code these values directly into your Kubernetes manifest, e.g.,
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -68,20 +67,21 @@ spec:
 
 Adopting a common convention for annotations ensures consistency and understandability. Typically, you’ll want to attach the annotation to the service object, as services are the high-level resource that maps most clearly to a team’s responsibility. Namespacing your annotations is also very important. Here is one set of conventions, documented at [a8r.io](https://a8r.io), and reproduced below:
 
+{{< table caption="Annotation convention for human-readable services">}}
 | Annotation                                 | Description                                 |
 | ------------------------------------------ | ------------------------------------------- |
 | `a8r.io/description`                       | Unstructured text description of the service for humans.      |
 | `a8r.io/owner`                             | SSO username (GitHub), email address (linked to GitHub account), or unstructured owner description. |
-| `a8r.io/chat`                              | Slack channel, or link to external chat system |
-| `a8r.io/bugs`                              | Link to external bug tracker |
-| `a8r.io/logs`                              | Link to external log viewer |
-| `a8r.io/documentation`                     | Link to external project documentation |
-| `a8r.io/repository`                        | Link to external VCS repository |
-| `a8r.io/support`                           | Link to external support center |
-| `a8r.io/runbook`                           | Link to external project runbook |
-| `a8r.io/incidents`                         | Link to external incident dashboard |
-| `a8r.io/uptime`                            | Link to external uptime dashboard |
-| `a8r.io/performance`                       | Link to external performance dashboard |
+| `a8r.io/chat`                              | Slack channel, or link to external chat system. |
+| `a8r.io/bugs`                              | Link to external bug tracker. |
+| `a8r.io/logs`                              | Link to external log viewer. |
+| `a8r.io/documentation`                     | Link to external project documentation. |
+| `a8r.io/repository`                        | Link to external VCS repository. |
+| `a8r.io/support`                           | Link to external support center. |
+| `a8r.io/runbook`                           | Link to external project runbook. |
+| `a8r.io/incidents`                         | Link to external incident dashboard. |
+| `a8r.io/uptime`                            | Link to external uptime dashboard. |
+| `a8r.io/performance`                       | Link to external performance dashboard. |
 | `a8r.io/dependencies`                      | Unstructured text describing the service dependencies for humans. |
 
 
