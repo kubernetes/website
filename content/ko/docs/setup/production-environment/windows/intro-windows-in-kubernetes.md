@@ -12,7 +12,7 @@ weight: 65
 
 ## 쿠버네티스의 윈도우 컨테이너
 
-쿠버네티스에서 윈도우 컨테이너 오케스트레이션을 활성화하려면, 기존 리눅스 클러스터에 윈도우 노드를 포함하기만 하면 된다. 쿠버네티스의 {{< glossary_tooltip text="파드" term_id="pod" >}}에서 윈도우 컨테이너를 스케줄링하는 것은 리눅스 기반 컨테이너를 스케줄링하는 것만큼 간단하고 쉽다.
+쿠버네티스에서 윈도우 컨테이너 오케스트레이션을 활성화하려면, 기존 리눅스 클러스터에 윈도우 노드를 포함한다. 쿠버네티스의 {{< glossary_tooltip text="파드" term_id="pod" >}}에서 윈도우 컨테이너를 스케줄링하는 것은 리눅스 기반 컨테이너를 스케줄링하는 것과 유사하다.
 
 윈도우 컨테이너를 실행하려면, 쿠버네티스 클러스터에 리눅스를 실행하는 컨트롤 플레인 노드와 사용자의 워크로드 요구에 따라 윈도우 또는 리눅스를 실행하는 워커가 있는 여러 운영 체제가 포함되어 있어야 한다. 윈도우 서버 2019는 윈도우에서 [쿠버네티스 노드](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)를 활성화하는 유일한 윈도우 운영 체제이다(kubelet, [컨테이너 런타임](https://docs.microsoft.com/ko-kr/virtualization/windowscontainers/deploy-containers/containerd) 및 kube-proxy 포함). 윈도우 배포 채널에 대한 자세한 설명은 [Microsoft 문서](https://docs.microsoft.com/ko-kr/windows-server/get-started-19/servicing-channels-19)를 참고한다.
 
@@ -544,7 +544,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 
 1. `start.ps1`을 시작한 후, flanneld가 "Waiting for the Network to be created"에서 멈춘다.
 
-    이 [조사 중인 이슈](https://github.com/coreos/flannel/issues/1066)에 대한 수많은 보고가 있다. 플란넬 네트워크의 관리 IP가 설정될 때 타이밍 이슈일 가능성이 높다. 해결 방법은 간단히 start.ps1을 다시 시작하거나 다음과 같이 수동으로 다시 시작하는 것이다.
+    이 [이슈](https://github.com/coreos/flannel/issues/1066)에 대한 수많은 보고가 있다. 플란넬 네트워크의 관리 IP가 설정될 때의 타이밍 이슈일 가능성이 높다. 해결 방법은 start.ps1을 다시 시작하거나 다음과 같이 수동으로 다시 시작하는 것이다.
 
     ```powershell
     PS C:> [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")
