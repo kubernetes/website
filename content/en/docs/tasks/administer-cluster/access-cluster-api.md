@@ -354,4 +354,4 @@ exampleWithKubeConfig = do
 
 ## {{% heading "whatsnext" %}}
 
-* [Accessing the Kubernetes API from a Pod](/docs/tasks/access-api-from-pod/access-api-from-pod/)
+* [Accessing the Kubernetes API from a Pod](/docs/tasks/run-application/access-api-from-pod/)
