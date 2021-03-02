@@ -88,7 +88,7 @@ page content.
 -->
 ## 词汇
 
-有两种词汇表提示：<code>glossary_tooltip</code> 和 <code>glossary_definition</code>。
+有两种词汇表提示：`glossary_tooltip` 和 `glossary_definition`。
 
 你可以通过加入术语词汇的短代码，来自动更新和替换相应链接中的内容
 （[我们的词汇库](/zh/docs/reference/glossary/)）
@@ -477,4 +477,3 @@ Renders to:
 * 了解[使用页面内容类型](/zh/docs/contribute/style/page-content-types/)。
 * 了解[发起 PR](/zh/docs/contribute/new-content/open-a-pr/)。
 * 了解[高级贡献](/zh/docs/contribute/advanced/)。
-
