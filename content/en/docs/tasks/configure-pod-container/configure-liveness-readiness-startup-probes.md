@@ -293,9 +293,9 @@ Services.
 Readiness probes runs on the container during its whole lifecycle.
 {{< /note >}}
 
-{{< warning >}}
+{{< caution >}}
 Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
-{{< /warning >}}
+{{< /caution >}}
 
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.
