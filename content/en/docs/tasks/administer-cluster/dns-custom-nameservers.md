@@ -34,7 +34,7 @@ As of Kubernetes v1.12, CoreDNS is the recommended DNS Server, replacing kube-dn
 originally used kube-dns, you may still have `kube-dns` deployed rather than CoreDNS.
 
 {{< note >}}
-Both the CoreDNS and kube-dns Service are named `kube-dns` in the `metadata.name` field.  
+The CoreDNS Service is named `kube-dns` in the `metadata.name` field.  
 This is so that there is greater interoperability with workloads that relied on the legacy `kube-dns` Service name to resolve addresses internal to the cluster. Using a Service named `kube-dns` abstracts away the implementation detail of which DNS provider is running behind that common name.
 {{< /note >}}
 
@@ -179,17 +179,14 @@ During translation, all FQDN nameservers will be omitted from the CoreDNS config
 
 CoreDNS supports the features of kube-dns and more.
 A ConfigMap created for kube-dns to support `StubDomains`and `upstreamNameservers` translates to the `forward` plugin in CoreDNS.
-Similarly, the `Federations` plugin in kube-dns translates to the `federation` plugin in CoreDNS.
 
 ### Example
 
-This example ConfigMap for kube-dns specifies federations, stubdomains and upstreamnameservers:
+This example ConfigMap for kube-dns specifies stubdomains and upstreamnameservers:
 
 ```yaml
 apiVersion: v1
 data:
-  federations: |
-    {"foo" : "foo.feddomain.com"}
   stubDomains: |
     {"abc.com" : ["1.2.3.4"], "my.cluster.local" : ["2.3.4.5"]}
   upstreamNameservers: |
@@ -198,13 +195,6 @@ kind: ConfigMap
 ```
 
 The equivalent configuration in CoreDNS creates a Corefile:
-
-* For federations:
-```
-federation cluster.local {
-    foo foo.feddomain.com
-}
-```
 
 * For stubDomains:
 ```yaml
@@ -229,9 +219,6 @@ The complete Corefile with the default plugins:
     kubernetes cluster.local in-addr.arpa ip6.arpa {
         pods insecure
         fallthrough in-addr.arpa ip6.arpa
-    }
-    federation cluster.local {
-        foo foo.feddomain.com
     }
     prometheus :9153
     forward . 8.8.8.8 8.8.4.4

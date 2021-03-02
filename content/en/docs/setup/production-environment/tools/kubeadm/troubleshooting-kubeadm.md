@@ -137,10 +137,10 @@ journalctl -u docker
 Right after `kubeadm init` there should not be any pods in these states.
 
 - If there are pods in one of these states _right after_ `kubeadm init`, please open an
-  issue in the kubeadm repo. `coredns` (or `kube-dns`) should be in the `Pending` state
+  issue in the kubeadm repo. `coredns` should be in the `Pending` state
   until you have deployed the network add-on.
 - If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
-  after deploying the network add-on and nothing happens to `coredns` (or `kube-dns`),
+  after deploying the network add-on and nothing happens to `coredns`,
   it's very likely that the Pod Network add-on that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
@@ -149,7 +149,7 @@ Right after `kubeadm init` there should not be any pods in these states.
   MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
   The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 
-## `coredns` (or `kube-dns`) is stuck in the `Pending` state
+## `coredns` is stuck in the `Pending` state
 
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
 should [install the pod network add-on](/docs/concepts/cluster-administration/addons/)

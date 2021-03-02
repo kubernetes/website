@@ -20,10 +20,6 @@ For more information navigate to
 [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
 or [Using kubeadm join with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file).
 
-In Kubernetes v1.13.0 and later to list/pull kube-dns images instead of the CoreDNS image
-the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
-has to be used.
-
 <!-- body -->
 ## kubeadm config view {#cmd-config-view}
 
