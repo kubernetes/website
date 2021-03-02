@@ -62,13 +62,13 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
+* [Example: Deploying PHP Guestbook application with MongoDB](/docs/tutorials/stateless-application/guestbook/)
 -->
 ## 无状态应用程序
 
 * [公开外部 IP 地址访问集群中的应用程序](/zh/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [示例：使用 Redis 部署 PHP 留言板应用程序](/zh/docs/tutorials/stateless-application/guestbook/)
+* [示例：使用 MongoDB 部署 PHP 留言板应用程序](/zh/docs/tutorials/stateless-application/guestbook/)
 
 
 <!--

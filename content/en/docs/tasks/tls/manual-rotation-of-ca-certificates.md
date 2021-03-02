@@ -105,8 +105,8 @@ Configurations with a single API server will experience unavailability while the
       * Make sure control plane components logs no TLS errors.
 
       {{< note >}}
-      To generate certificates and private keys for your cluster using the `openssl` command line tool, see [Certificates (`openssl`)](/docs/concepts/cluster-administration/certificates/#openssl).
-      You can also use [`cfssl`](/docs/concepts/cluster-administration/certificates/#cfssl).
+      To generate certificates and private keys for your cluster using the `openssl` command line tool, see [Certificates (`openssl`)](/docs/tasks/administer-cluster/certificates/#openssl).
+      You can also use [`cfssl`](/docs/tasks/administer-cluster/certificates/#cfssl).
       {{< /note >}}
 
    1. Annotate any Daemonsets and Deployments to trigger pod replacement in a safer rolling fashion.

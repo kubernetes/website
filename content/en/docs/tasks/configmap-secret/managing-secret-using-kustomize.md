@@ -92,7 +92,7 @@ kubectl describe secrets/db-user-pass-96mffmfh4k
 The output is similar to:
 
 ```
-Name:            db-user-pass
+Name:            db-user-pass-96mffmfh4k
 Namespace:       default
 Labels:          <none>
 Annotations:     <none>

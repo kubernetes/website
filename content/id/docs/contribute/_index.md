@@ -75,5 +75,5 @@ terhadap dokumentasi Kubernetes, tetapi daftar ini dapat membantumu memulainya.
 
 - Untuk berkontribusi ke komunitas Kubernetes melalui forum-forum daring seperti Twitter atau Stack Overflow, atau mengetahui tentang pertemuan komunitas (_meetup_) lokal dan acara-acara Kubernetes, kunjungi [situs komunitas Kubernetes](/community/).
 - Untuk mulai berkontribusi ke pengembangan fitur, baca [_cheatseet_ kontributor](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet).
-- Untuk kontribusi khusus ke halaman Bahansa Indonesia, baca [Dokumentasi Khusus Untuk Translasi Bahasa Indonesia](/docs/contribute/localization_id.md)
+- Untuk kontribusi khusus ke halaman Bahasa Indonesia, baca [Dokumentasi Khusus Untuk Translasi Bahasa Indonesia](/docs/contribute/localization_id.md)
 

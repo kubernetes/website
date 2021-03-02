@@ -266,7 +266,7 @@ In `$HOME/.kube/config`, relative paths are stored relatively, and absolute path
 are stored absolutely.
 -->
 kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位置。
-命令行上的文件引用是相当对于当前工作目录的。
+命令行上的文件引用是相对于当前工作目录的。
 在 `$HOME/.kube/config` 中，相对路径按相对路径存储，绝对路径按绝对路径存储。
 
 ## {{% heading "whatsnext" %}}

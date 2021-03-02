@@ -18,14 +18,7 @@ For information how to create a cluster with kubeadm once you have performed thi
 ## {{% heading "prerequisites" %}}
 
 
-* One or more machines running one of:
-  - Ubuntu 16.04+
-  - Debian 9+
-  - CentOS 7+
-  - Red Hat Enterprise Linux (RHEL) 7+
-  - Fedora 25+
-  - HypriotOS v1.0.1+
-  - Flatcar Container Linux (tested with 2512.3.0)
+* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
 * 2 CPUs or more.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
@@ -122,7 +115,7 @@ The following table lists container runtimes and their associated socket paths:
 {{< table caption = "Container runtimes and their socket paths" >}}
 | Runtime    | Path to Unix domain socket        |
 |------------|-----------------------------------|
-| Docker     | `/var/run/docker.sock`            |
+| Docker     | `/var/run/dockershim.sock`        |
 | containerd | `/run/containerd/containerd.sock` |
 | CRI-O      | `/var/run/crio/crio.sock`         |
 {{< /table >}}
@@ -181,7 +174,7 @@ For more information on version skews, see:
 * Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{% tab name="Debian-based distributions" %}}
 ```bash
 sudo apt-get update && sudo apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -193,7 +186,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
+{{% tab name="Red Hat-based distributions" %}}
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -224,7 +217,7 @@ sudo systemctl enable --now kubelet
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
 
 {{% /tab %}}
-{{% tab name="Fedora CoreOS or Flatcar Container Linux" %}}
+{{% tab name="Without a package manager" %}}
 Install CNI plugins (required for most pod network):
 
 ```bash
