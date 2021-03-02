@@ -25,7 +25,7 @@ Kubernetes annotations are designed to solve exactly this problem. Oft-overlooke
 Here is an example. Imagine you have a Kubernetes service for quoting, called the quote service. You can do the following:
 
 ```
-$ kubectl annotate service quote a8r.io/owner=”@sally”
+kubectl annotate service quote a8r.io/owner=”@sally”
 ```
 
 In this example, we’ve just added an annotation called `a8r.io/owner` with the value of @sally. Now, we can use `kubectl describe` to get the information.
