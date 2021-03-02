@@ -358,36 +358,37 @@ The two most commonly used version parameters are `latest` and `version`.
 -->
 ## 版本号信息
 
-文档中的版本号信息可以通过短代码的方式生成。在配置文件 `config.toml` 中，定义了一些版本号信息，通过短代码及版本号参数可以从配置文件中提取并展示指定的版本号信息。
-最常见的版本号短代码参数包括 `latest` 和 `version`。
+要在文档中生成版本号信息，可以从以下几种短代码中选择。每个短代码可以基于站点配置文件
+`config.toml` 中的版本参数生成一个版本号取值。最常用的参数为 `latest` 和 `version`。
 
 <!--
 ### `{{</* param "version" */>}}`
 
 The `{{</* param "version" */>}}` shortcode generates the value of the current version of
-the Kubernetes documentation from the `version` site parameter. The `param` shortcode accepts the name of one site parameter, in this case: `version`.
+the Kubernetes documentation from the `version` site parameter. The `param` shortcode accepts
+the name of one site parameter, in this case: `version`.
 -->
 ### `{{</* param "version" */>}}`
 
-`{{</* param "version" */>}}` 短代码可以转换为 Kubernetes 文档的当前版本，具体的版本号来源于配置文件中的 `version` 参数。
-短代码 `param` 允许传入一个配置参数，例子里的参数为 `version`。
+`{{</* param "version" */>}}` 短代码可以基于站点参数 `version` 生成 Kubernetes
+文档的当前版本号取值。短代码 `param` 允许传入一个站点参数名称，在这里是 `version`。
 
 <!--
 {{< note >}}
 In previously released documentation, `latest` and `version` parameter values are not equivalent.
-After a new version is released, `latest` is incremented and the value of `version` for the documentation set remains unchanged. For example, a previously released version of the documentation displays `version` as
-`v1.19` and `latest` as `v1.20`.
+After a new version is released, `latest` is incremented and the value of `version` for the
+documentation set remains unchanged. For example, a previously released version of the
+documentation displays `version` as `v1.19` and `latest` as `v1.20`.
 {{< /note >}}
 -->
 {{< note >}}
-在先前已经发布的文档中，`latest` 和 `version` 参数转换得到的版本号并不相同。
-新版本文档发布后，参数 `latest` 会增加，而 `version` 则保持不变。例如，在上一版本的文档中使用 `version` 会得到 `v1.19`，而使用 `latest` 则会得到 `v1.20`。
+在先前已经发布的文档中，`latest` 和 `version` 参数值并不完全等价。新版本文档发布后，参数
+`latest` 会增加，而 `version` 则保持不变。例如，在上一版本的文档中使用 `version` 会得到
+`v1.19`，而使用 `latest` 则会得到 `v1.20`。
 {{< /note >}}
 
 <!--
 Renders to:
-
-{{< param "version" >}}
 -->
 转换为：
 
@@ -401,12 +402,10 @@ The `latest` site parameter is updated when a new version of the documentation i
 This parameter does not always match the value of `version` in a documentation set.
 
 Renders to:
-
-{{< latest-version >}}
 -->
 ### `{{</* latest-version */>}}`
 
-`{{</* latest-version */>}}` 会转换为配置文件中参数 `latest` 对应的值。每当有新版本文档发布时，该参数均会更新。
+`{{</* latest-version */>}}` 返回站点参数 `latest` 的取值。每当新版本文档发布时，该参数均会被更新。
 因此，参数 `latest` 与 `version` 并不总是相同。
 
 转换为：
@@ -419,12 +418,10 @@ Renders to:
 The `{{</* latest-semver */>}}` shortcode generates the value of `latest` without the "v" prefix.
 
 Renders to:
-
-{{< latest-semver >}}
 -->
 ### `{{</* latest-semver */>}}`
 
-`{{</* latest-semver */>}}` 会转换为配置文件中参数 `latest` 对应的值，并且会删除前缀 `v`。
+`{{</* latest-semver */>}}` 短代码可以生成站点参数 `latest` 不含前缀 `v` 的版本号取值。
 
 转换为：
 
@@ -437,12 +434,11 @@ The `{{</* version-check */>}}` shortcode checks if the `min-kubernetes-server-v
 page parameter is present and then uses this value to compare to `version`.
  
 Renders to:
-
-{{< version-check >}}
 -->
 ### `{{</* version-check */>}}`
 
-`{{</* version-check */>}}` 会检查是否设置了页面参数 `min-kubernetes-server-version` 并将其与 `version` 进行比较。
+`{{</* version-check */>}}` 会检查是否设置了页面参数 `min-kubernetes-server-version`
+并将其与 `version` 进行比较。
 
 转换为：
 
@@ -452,15 +448,15 @@ Renders to:
 ### `{{</* latest-release-notes */>}}`
 
 The `{{</* latest-release-notes */>}}` shortcode generates a version string from `latest` and removes
-the "v" prefix. The shortcode prints a new URL for the release note CHANGELOG page with the modified version string.
+the "v" prefix. The shortcode prints a new URL for the release note CHANGELOG page with the modified
+version string.
 
 Renders to:
-
-{{< latest-release-notes >}}
 -->
 ### `{{</* latest-release-notes */>}}`
 
-`{{</* latest-release-notes */>}}` 会转换为 `latest` 版本的更新日志的超链接。
+`{{</* latest-release-notes */>}}` 短代码基于站点参数 `latest` 生成不含前缀 `v`
+的版本号取值，并输出该版本更新日志的超链接地址。
 
 转换为：
 
