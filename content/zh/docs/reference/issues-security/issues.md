@@ -1,7 +1,6 @@
 ---
 title: Kubernetes 问题追踪
 weight: 10
-aliases: [cve/,cves/]
 ---
 
 <!--
