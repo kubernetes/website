@@ -134,7 +134,7 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 
 ### kube-scheduler metrics
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 The scheduler exposes optional metrics that reports the requested resources and the desired limits of all running pods. These metrics can be used to build capacity planning dashboards, assess current or historical scheduling limits, quickly identify workloads that cannot schedule due to lack of resources, and compare actual usage to the pod's request.
 
