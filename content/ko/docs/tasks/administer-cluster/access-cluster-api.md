@@ -216,7 +216,7 @@ for i in ret.items:
 
 #### Java 클라이언트 {#java-client}
 
-* [Java 클라이언트](https://github.com/kubernetes-client/java)를 설치하려면, 다음을 실행한다.
+[Java 클라이언트](https://github.com/kubernetes-client/java)를 설치하려면, 다음을 실행한다.
 
 ```shell
 # java 라이브러리를 클론한다
