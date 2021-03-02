@@ -124,6 +124,10 @@ In release 1.8, quota support for local ephemeral storage is added as an alpha f
 | `limits.ephemeral-storage` | Across all pods in the namespace, the sum of local ephemeral storage limits cannot exceed this value. |
 | `ephemeral-storage` | Same as `requests.ephemeral-storage`. |
 
+{{< note >}}
+When using a CRI container runtime, container logs will count against the ephemeral storage quota. This can result in the unexpected eviction of pods that have exhausted their storage quotas. Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) for details.
+{{< /note >}}
+
 ## Object Count Quota
 
 You can set quota for the total number of certain resources of all standard,
