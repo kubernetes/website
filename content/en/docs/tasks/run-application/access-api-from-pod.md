@@ -1,7 +1,7 @@
 ---
 title: Accessing the Kubernetes API from a Pod
-description: Accessing the Kubernetes REST API from within a Pod
 content_type: task
+weight: 120
 ---
 
 <!-- overview -->
