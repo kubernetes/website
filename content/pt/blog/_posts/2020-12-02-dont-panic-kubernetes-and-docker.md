@@ -7,7 +7,7 @@ slug: dont-panic-kubernetes-and-docker
 
 **Autores / Autoras**: Jorge Castro, Duffie Cooley, Kat Cosgrove, Justin Garrison, Noah Kantrowitz, Bob Killen, Rey Lejano, Dan “POP” Papandrea, Jeffrey Sica, Davanum “Dims” Srinivas
 
-**Tradução:** João Brito (Getup)
+**Tradução:** João Brito
 
 Kubernetes está [deixando de usar Docker](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md#deprecation) como seu agente de execução após a versão v1.20.
 
