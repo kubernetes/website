@@ -45,34 +45,30 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
    * A network plugin that supports dual-stack (such as Kubenet or Calico)
 
-## Enable IPv4/IPv6 dual-stack
+## Configure IPv4/IPv6 dual-stack
 
-To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
+To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
 
    * kube-apiserver:
-      * `--feature-gates="IPv6DualStack=true"`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
    * kube-controller-manager:
-      * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
-   * kubelet:
-      * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
-      * `--feature-gates="IPv6DualStack=true"`
 
 {{< note >}}
 An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own address range)
 
 An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but is not a valid address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
 
+Starting in 1.21, IPv4/IPv6 dual-stack defaults to true. Disable if necessary on kube-apiserver, kube-controller-manager, kubelet, and kube-proxy with `--feature-gates="IPv6DualStack=false"`.
 {{< /note >}}
 
 ## Services
 
-If your cluster has dual-stack enabled, you can create {{< glossary_tooltip text="Services" term_id="service" >}} which can use IPv4, IPv6, or both. 
+You can create {{< glossary_tooltip text="Services" term_id="service" >}} which can use IPv4, IPv6, or both.
 
 The address family of a Service defaults to the address family of the first service cluster IP range (configured via the `--service-cluster-ip-range` flag to the kube-apiserver).
 
@@ -81,11 +77,9 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
 
 * `SingleStack`: Single-stack service. The control plane allocates a cluster IP for the Service, using the first configured service cluster IP range.
 * `PreferDualStack`:
-  * Only used if the cluster has dual-stack enabled. Allocates IPv4 and IPv6 cluster IPs for the Service
-  * If the cluster does not have dual-stack enabled, this setting follows the same behavior as `SingleStack`.
+  * Allocates IPv4 and IPv6 cluster IPs for the Service. (If the cluster has `--feature-gates="IPv6DualStack=false"`, this setting follows the same behavior as `SingleStack`.)
 * `RequireDualStack`: Allocates Service `.spec.ClusterIPs` from both IPv4 and IPv6 address ranges.
   * Selects the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family of the first element in the `.spec.ipFamilies` array.
-  * The cluster must have dual-stack networking configured.
 
 If you would like to define which IP family to use for single stack or define the order of IP families for dual-stack, you can choose the address families by setting an optional field, `.spec.ipFamilies`, on the Service. 
 
@@ -126,7 +120,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
 
 #### Dual-stack defaults on existing Services
 
-These examples demonstrate the default behavior when dual-stack is newly enabled on a cluster where Services already exist.
+These examples demonstrate the default behavior when dual-stack is newly enabled on a cluster where Services already exist. (Upgrading an existing cluster to 1.21 will enable dual-stack unless `--feature-gates="IPv6DualStack=false"` is set.)
 
 1. When dual-stack is enabled on a cluster, existing Services (whether `IPv4` or `IPv6`) are configured by the control plane to set `.spec.ipFamilyPolicy` to `SingleStack` and set `.spec.ipFamilies` to the address family of the existing Service. The existing Service cluster IP will be stored in `.spec.ClusterIPs`.
 
