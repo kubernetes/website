@@ -1,71 +1,8 @@
 ---
-reviewers:
-- mikedanese
-title: Install and Set Up kubectl
-content_type: task
-weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl
+title: "Optional kubectl configuration"
+description: "Some optional configuration for kubectl such as autocompletion."
+headless: true
 ---
-
-<!-- overview -->
-The Kubernetes command-line tool, [kubectl](/docs/reference/kubectl/kubectl/), allows
-you to run commands against Kubernetes clusters.
-You can use kubectl to deploy applications, inspect and manage cluster resources,
-and view logs. For a complete list of kubectl operations, see
-[Overview of kubectl](/docs/reference/kubectl/overview/).
-
-
-## {{% heading "prerequisites" %}}
-
-You must use a kubectl version that is within one minor version difference of your cluster.
-For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master.
-Using the latest version of kubectl helps avoid unforeseen issues.
-
-<!-- steps -->
-
-## Installing kubectl
-
-   {{< tabs name="kubectl_installs" >}}
-   {{< tab name="Linux" include="included/kubectl_installs_linux.md" />}}
-   {{< tab name="macOS" include="included/kubectl_installs_macOS.md" />}}
-   {{< tab name="Windows" include="included/kubectl_installs_windows.md" />}}
-   {{< /tabs >}}
-
-## Verifying kubectl configuration
-
-In order for kubectl to find and access a Kubernetes cluster, it needs a
-[kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/),
-which is created automatically when you create a cluster using
-[kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
-or successfully deploy a Minikube cluster.
-By default, kubectl configuration is located at `~/.kube/config`.
-
-Check that kubectl is properly configured by getting the cluster state:
-
-```shell
-kubectl cluster-info
-```
-
-If you see a URL response, kubectl is correctly configured to access your cluster.
-
-If you see a message similar to the following, kubectl is not configured correctly or is not able to connect to a Kubernetes cluster.
-
-```
-The connection to the server <server-name:port> was refused - did you specify the right host or port?
-```
-
-For example, if you are intending to run a Kubernetes cluster on your laptop (locally), you will need a tool like Minikube to be installed first and then re-run the commands stated above.
-
-If kubectl cluster-info returns the url response but you can't access your cluster, to check whether it is configured properly, use:
-
-```shell
-kubectl cluster-info dump
-```
-
-## Optional kubectl configurations
 
 ### Enabling shell autocompletion
 
@@ -244,12 +181,3 @@ compinit
 ```
 {{% /tab %}}
 {{< /tabs >}}
-
-## {{% heading "whatsnext" %}}
-
-* [Install Minikube](https://minikube.sigs.k8s.io/docs/start/)
-* See the [getting started guides](/docs/setup/) for more about creating clusters.
-* [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* If you need access to a cluster you didn't create, see the
-  [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
-* Read the [kubectl reference docs](/docs/reference/kubectl/kubectl/)

@@ -1,7 +1,7 @@
 ---
 title: "gcloud kubectl install"
 description: "How to install kubectl with gcloud snippet for inclusion in each OS-specific tab."
-toc_hide: true
+headless: true
 ---
 
 You can install kubectl as part of the Google Cloud SDK.

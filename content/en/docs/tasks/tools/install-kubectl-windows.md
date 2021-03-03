@@ -1,8 +1,22 @@
 ---
-title: "windows kubectl install"
-description: "Content for the Windows tab in the main page."
-toc_hide: true
+reviewers:
+- mikedanese
+title: Install and Set Up kubectl on Windows
+content_type: task
+weight: 10
+card:
+  name: tasks
+  weight: 20
+  title: Install kubectl on Windows
 ---
+
+## {{% heading "prerequisites" %}}
+
+You must use a kubectl version that is within one minor version difference of your cluster.
+For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master.
+Using the latest version of kubectl helps avoid unforeseen issues.
+
+## Install kubectl on Windows
 
 The following methods exist for installing kubectl on Windows:
 
@@ -142,8 +156,18 @@ Updating the installation is performed by rerunning the two commands listed in s
 Edit the config file with a text editor of your choice, such as Notepad.
 {{< /note >}}
 
-
-
 ### Install on Windows as part of the Google Cloud SDK
 
-{{< include "kubectl_installs_gcloud.md" >}}
+{{< include "included/kubectl_installs_gcloud.md" >}}
+
+## Verifying kubectl configuration
+
+{{< include "included/verify-kubectl.md" >}}
+
+## Optional kubectl configurations
+
+{{< include "included/optional-kubectl-configs.md" >}}
+
+## {{% heading "whatsnext" %}}
+
+{{< include "included/kubectl-whats-next.md" >}}

@@ -1,5 +1,5 @@
 ---
 title: "Tools Included"
-description: "Pages and snippets to be included in the main install-kubectl.md page."
-toc_hide: true
+description: "Snippets to be included in the main kubectl-installs-*.md pages."
+headless: true
 ---

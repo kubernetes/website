@@ -1,15 +1,29 @@
 ---
-title: "macOS kubectl install"
-description: "Content for the macOS tab in the main page."
-toc_hide: true
+reviewers:
+- mikedanese
+title: Install and Set Up kubectl on macOS
+content_type: task
+weight: 10
+card:
+  name: tasks
+  weight: 20
+  title: Install kubectl on macOS
 ---
+
+## {{% heading "prerequisites" %}}
+
+You must use a kubectl version that is within one minor version difference of your cluster.
+For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master.
+Using the latest version of kubectl helps avoid unforeseen issues.
+
+## Install kubectl on macOS
 
 The following methods exist for installing kubectl on macOS:
 
 - [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
 - [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
 - [Install with Macports on macOS](#install-with-macports-on-macos)
-- [Install on macOS as part of the Google Cloud SDK](#install-on-macos-as-part-of-the-google-cloud-sdk)
+- [Install on Linux as part of the Google Cloud SDK](#install-on-linux-as-part-of-the-google-cloud-sdk)
 
 ### Install kubectl binary with curl on macOS
 
@@ -122,4 +136,16 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 
 ### Install on macOS as part of the Google Cloud SDK
 
-{{< include "kubectl_installs_gcloud.md" >}}
+{{< include "included/install-kubectl-gcloud.md" >}}
+
+## Verifying kubectl configuration
+
+{{< include "included/verify-kubectl.md" >}}
+
+## Optional kubectl configurations
+
+{{< include "included/optional-kubectl-configs.md" >}}
+
+## {{% heading "whatsnext" %}}
+
+{{< include "included/kubectl-whats-next.md" >}}

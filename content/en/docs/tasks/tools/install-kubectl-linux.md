@@ -1,8 +1,22 @@
 ---
-title: "linux kubectl install"
-description: "Content for the Linux tab in the main page."
-toc_hide: true
+reviewers:
+- mikedanese
+title: Install and Set Up kubectl on Linux
+content_type: task
+weight: 10
+card:
+  name: tasks
+  weight: 20
+  title: Install kubectl on Linux
 ---
+
+## {{% heading "prerequisites" %}}
+
+You must use a kubectl version that is within one minor version difference of your cluster.
+For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master.
+Using the latest version of kubectl helps avoid unforeseen issues.
+
+## Install kubectl on Linux
 
 The following methods exist for installing kubectl on Linux:
 
@@ -10,7 +24,6 @@ The following methods exist for installing kubectl on Linux:
 - [Install using native package management](#install-using-native-package-management)
 - [Install using other package management](#install-using-other-package-management)
 - [Install on Linux as part of the Google Cloud SDK](#install-on-linux-as-part-of-the-google-cloud-sdk)
-
 
 ### Install kubectl binary with curl on Linux
 
@@ -137,4 +150,16 @@ kubectl version --client
 
 ### Install on Linux as part of the Google Cloud SDK
 
-{{< include "kubectl_installs_gcloud.md" >}}
+{{< include "included/install-kubectl-gcloud.md" >}}
+
+## Verifying kubectl configuration
+
+{{< include "included/verify-kubectl.md" >}}
+
+## Optional kubectl configurations
+
+{{< include "included/optional-kubectl-configs.md" >}}
+
+## {{% heading "whatsnext" %}}
+
+{{< include "included/kubectl-whats-next.md" >}}
