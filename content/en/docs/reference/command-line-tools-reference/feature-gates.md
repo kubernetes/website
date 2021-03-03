@@ -139,6 +139,7 @@ different Kubernetes components.
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | |
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | |
+| `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
 | `PodOverhead` | `true` | Beta | 1.18 |  |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
@@ -668,6 +669,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
 - `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
+- `PodAffinityNamespaceSelector`: Enable the [Pod Affinity Namespace Selector](/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)
+  and [CrossNamespacePodAffinity](/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota) quota scope features.
 - `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
   feature to account for pod overheads.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their
