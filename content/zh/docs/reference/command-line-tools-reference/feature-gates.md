@@ -435,7 +435,7 @@ A *Beta* feature means:
   that can be upgraded independently, you may be able to relax this restriction.
 -->
 
-* 默认禁用。
+* 默认启用。
 * 该特性已经经过良好测试。启用该特性是安全的。
 * 尽管详细信息可能会更改，但不会放弃对整体特性的支持。
 * 对象的架构或语义可能会在随后的 Beta 或稳定版本中以不兼容的方式更改。当发生这种情况时，我们将提供迁移到下一版本的说明。此特性可能需要删除、编辑和重新创建 API 对象。编辑过程可能需要慎重操作，因为这可能会导致依赖该特性的应用程序停机。
