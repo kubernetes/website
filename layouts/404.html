@@ -5,7 +5,7 @@
     {{ T "error_404_were_you_looking_for" }}
     </p>
     <ul id="error-sections">
-        {{ $sections := slice "docs" "blog" "training" "partners" "community" "case-studies" }}
+        {{ $sections := slice "docs/home" "blog" "training" "partners" "community" "case-studies" }}
         {{ range $sections }}
         {{ with site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
         {{ end }}
