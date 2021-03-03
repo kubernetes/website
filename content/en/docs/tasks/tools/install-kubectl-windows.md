@@ -158,7 +158,7 @@ Edit the config file with a text editor of your choice, such as Notepad.
 
 ### Install on Windows as part of the Google Cloud SDK
 
-{{< include "included/kubectl_installs_gcloud.md" >}}
+{{< include "included/install-kubectl-gcloud.md" >}}
 
 ## Verifying kubectl configuration
 
