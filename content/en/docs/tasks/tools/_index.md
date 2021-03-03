@@ -17,9 +17,9 @@ and view logs. For more information including a complete list of kubectl operati
 kubectl is installable on a variety of Linux platforms, macOS and Windows. 
 Find your preferred operating system below.
 
-- [Install kubectl on Linux](install-kubectl-linux.md)
-- [Install kubectl on macOS](install-kubectl-macos.md)
-- [Install kubectl on Windows](install-kubectl-windows.md)
+- [Install kubectl on Linux](install-kubectl-linux)
+- [Install kubectl on macOS](install-kubectl-macos)
+- [Install kubectl on Windows](install-kubectl-windows)
 
 ## kind
 
