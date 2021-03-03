@@ -172,7 +172,7 @@ kubectl provides autocompletion support for Bash and Zsh, which can save you a l
 
 Below are the procedures to set up autocompletion for Zsh, if you are running that on Windows.
 
-{{< include include="included/optional-kubectl-configs-zsh.md" >}}
+{{< include "included/optional-kubectl-configs-zsh.md" >}}
 
 ## {{% heading "whatsnext" %}}
 
