@@ -158,7 +158,16 @@ kubectl version --client
 
 ## Optional kubectl configurations
 
-{{< include "included/optional-kubectl-configs.md" >}}
+### Enabling shell autocompletion
+
+kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
+
+Below are the procedures to set up autocompletion for Bash and Zsh.
+
+{{< tabs name="kubectl_autocompletion" >}}
+{{% tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
+{{% tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
+{{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
 

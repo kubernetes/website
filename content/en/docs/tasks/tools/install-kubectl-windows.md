@@ -166,7 +166,13 @@ Edit the config file with a text editor of your choice, such as Notepad.
 
 ## Optional kubectl configurations
 
-{{< include "included/optional-kubectl-configs.md" >}}
+### Enabling shell autocompletion
+
+kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
+
+Below are the procedures to set up autocompletion for Zsh, if you are running that on Windows.
+
+{{< include include="included/optional-kubectl-configs-zsh.md" />}}
 
 ## {{% heading "whatsnext" %}}
 
