@@ -5,7 +5,7 @@
 ###############################################
 
 /concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
-/docs/     /docs/home/ 301!
+#/docs/     /docs/home/ 301!
 /de/docs/     /de/docs/home/ 301!
 /es/docs/     /es/docs/home/ 301!
 /fr/docs/     /fr/docs/home/ 301!
