@@ -151,8 +151,8 @@ kubectl provides autocompletion support for Bash and Zsh, which can save you a l
 Below are the procedures to set up autocompletion for Bash and Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
-{{% tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
-{{% tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
+{{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
+{{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
