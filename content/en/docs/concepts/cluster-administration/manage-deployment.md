@@ -47,7 +47,7 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 
 It is a recommended practice to put resources related to the same microservice or application tier into the same file, and to group all of the files associated with your application in the same directory. If the tiers of your application bind to each other using DNS, you can deploy all of the components of your stack together.
 
-A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into github:
+A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into GitHub:
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
