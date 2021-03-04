@@ -133,6 +133,7 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | |
+| `NetworkPolicyEndPort` | `false` | Alpha | 1.21 |  |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | 1.18 |
 | `NodeDisruptionExclusion` | `true` | Beta | 1.19 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
@@ -659,6 +660,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   the volume mounter.
 - `MountPropagation`: Enable sharing volume mounted by one container to other containers or pods.
   For more details, please see [mount propagation](/docs/concepts/storage/volumes/#mount-propagation).
+- `NetworkPolicyEndPort`: Enable use of the field `endPort` in NetworkPolicy objects, allowing the selection of a port range instead of a single port.
 - `NodeDisruptionExclusion`: Enable use of the Node label `node.kubernetes.io/exclude-disruption`
   which prevents nodes from being evacuated during zone failures.
 - `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
