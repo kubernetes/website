@@ -63,7 +63,9 @@ An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own ad
 
 An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but is not a valid address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
 
-Starting in 1.21, IPv4/IPv6 dual-stack defaults to true. Disable if necessary on kube-apiserver, kube-controller-manager, kubelet, and kube-proxy with `--feature-gates="IPv6DualStack=false"`.
+Starting in 1.21, IPv4/IPv6 dual-stack defaults to true.
+You can disable it when necessary by specifying `--feature-gates="IPv6DualStack=false"`
+on the kube-apiserver, kube-controller-manager, kubelet, and kube-proxy command line.
 {{< /note >}}
 
 ## Services
