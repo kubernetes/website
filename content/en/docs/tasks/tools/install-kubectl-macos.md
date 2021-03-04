@@ -60,7 +60,7 @@ The following methods exist for installing kubectl on macOS:
 
    If valid, the output is:
 
-   ```bash
+   ```console
    kubectl: OK
    ```
 
