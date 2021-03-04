@@ -84,7 +84,7 @@ The following methods exist for installing kubectl on macOS:
 1. Move the kubectl binary to a file location on your system `PATH`.
 
    ```bash
-   sudo mv ./kubectl /usr/local/bin/kubectl && \
+   sudo mv ./kubectl /usr/local/bin/kubectl
    sudo chown root: /usr/local/bin/kubectl
    ```
 
