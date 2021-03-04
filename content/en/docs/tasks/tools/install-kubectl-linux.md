@@ -59,7 +59,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 
    If valid, the output is:
 
-   ```bash
+   ```console
    kubectl: OK
    ```
 
