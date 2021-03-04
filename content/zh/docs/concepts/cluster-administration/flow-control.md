@@ -98,7 +98,7 @@ Alternatively, you can enable the v1alpha1 version of the API group
 with `--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=true`.
 -->
 或者，你也可以通过
-`--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=true`
+`--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true`
 启用 API 组的 v1alpha1 版本。
 
 <!--
