@@ -227,7 +227,7 @@ You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin tha
 
 When writing a NetworkPolicy, you can target a range of ports instead of a single port.
 
-This is achiveable with the usage of the `endPort` field, as the following example:
+This is achievable with the usage of the `endPort` field, as the following example:
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -251,11 +251,11 @@ spec:
       endPort: 32768
 ```
 
-The above rule will allow a Pod with label `db` on the namespace `default` to communicate with any IP within the range `10.0.0.0/24` if the target port is between the range 32000 and 32768.
+The above rule allows any Pod with label `db` on the namespace `default` to communicate with any IP within the range `10.0.0.0/24` over TCP, provided that the target port is between the range 32000 and 32768.
 
 The following restrictions apply when using this field:
-* As an alpha feature, this is disabled by default. To enable endPort field at a cluster level, you (or your cluster administrator) will need to enable the `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=NetworkPolicyEndPort=true,…`.
-* The `endPort` field must be equal than or greater to `port` field.
+* As an alpha feature, this is disabled by default. To enable the `endPort` field at a cluster level, you (or your cluster administrator) need to enable the `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=NetworkPolicyEndPort=true,…`.
+* The `endPort` field must be equal than or greater to the `port` field.
 * `endPort` can only be defined if `port` is also defined.
 * Both ports must be numeric.
 
