@@ -869,3 +869,14 @@ body.td-documentation {
       display: none;
     }
 }
+
+// nav-tabs and tab-content
+.nav-tabs {
+  border-bottom: none !important;
+}
+
+.tab-content {
+  padding: 0 16px 10px;
+
+  border: 1px solid #dee2e6;
+}
