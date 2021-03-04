@@ -139,7 +139,6 @@ If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
 
 ```shell
 brew install kubectl
-
 kubectl version --client
 ```
 
