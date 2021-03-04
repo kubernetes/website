@@ -140,6 +140,38 @@ The Kubernetes certificates normally reach their expiration date after one year.
 
 - It's also possible to renew a single certificate instead of all.
 
+## Renew certificates with the Kubernetes certificates API
+
+This section provide more details about how to execute manual certificate renewal using the Kubernetes certificates API.
+
+{{< caution >}}
+These are advanced topics for users who need to integrate their organization's certificate infrastructure into a kubeadm-built cluster. If the default kubeadm configuration satisfies your needs, you should let kubeadm manage certificates instead.
+{{< /caution >}}
+
+### Set up a signer
+
+The Kubernetes Certificate Authority does not work out of the box.
+You can configure an external signer such as [cert-manager](https://docs.cert-manager.io/en/latest/tasks/issuers/setup-ca.html), or you can use the built-in signer.
+
+The built-in signer is part of [`kube-controller-manager`](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+
+To activate the built-in signer, you must pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` flags.
+
+If you're creating a new cluster, you can use a kubeadm [configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2):
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+controllerManager:
+  extraArgs:
+    cluster-signing-cert-file: /etc/kubernetes/pki/ca.crt
+    cluster-signing-key-file: /etc/kubernetes/pki/ca.key
+```
+
+### Create certificate signing requests (CSR)
+
+see [Create CertificateSigningRequest](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest) for creating CSR with the Kubernetes API.
+
 ## Renew certificates with external CA
 
 This section provide more details about how to execute manual certificate renewal using an external CA.
