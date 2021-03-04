@@ -129,7 +129,6 @@ If you are on Ubuntu or another Linux distribution that support [snap](https://s
 
 ```shell
 snap install kubectl --classic
-
 kubectl version --client
 ```
 
