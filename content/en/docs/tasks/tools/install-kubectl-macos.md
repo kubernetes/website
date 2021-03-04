@@ -138,13 +138,13 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 
 {{< include "included/install-kubectl-gcloud.md" >}}
 
-## Verifying kubectl configuration
+## Verify kubectl configuration
 
 {{< include "included/verify-kubectl.md" >}}
 
 ## Optional kubectl configurations
 
-### Enabling shell autocompletion
+### Enable shell autocompletion
 
 kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
 

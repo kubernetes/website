@@ -160,13 +160,13 @@ Edit the config file with a text editor of your choice, such as Notepad.
 
 {{< include "included/install-kubectl-gcloud.md" >}}
 
-## Verifying kubectl configuration
+## Verify kubectl configuration
 
 {{< include "included/verify-kubectl.md" >}}
 
 ## Optional kubectl configurations
 
-### Enabling shell autocompletion
+### Enable shell autocompletion
 
 kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
 
