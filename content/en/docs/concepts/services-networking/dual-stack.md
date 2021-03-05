@@ -18,9 +18,9 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
- IPv4/IPv6 dual-stack enables the allocation of both IPv4 and IPv6 addresses to {{< glossary_tooltip text="Pods" term_id="pod" >}} and {{< glossary_tooltip text="Services" term_id="service" >}}.
+IPv4/IPv6 dual-stack networking enables the allocation of both IPv4 and IPv6 addresses to {{< glossary_tooltip text="Pods" term_id="pod" >}} and {{< glossary_tooltip text="Services" term_id="service" >}}.
 
-If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
+IPv4/IPv6 dual-stack networking is enabled by default for your Kubernetes cluster starting in 1.21, allowing the simultaneous assignment of both IPv4 and IPv6 addresses.
 
 
 
@@ -28,7 +28,7 @@ If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the c
 
 ## Supported Features
 
-Enabling IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
+IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
 
    * Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
    * IPv4 and IPv6 enabled Services
@@ -47,6 +47,8 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 
 ## Configure IPv4/IPv6 dual-stack
 
+To use IPv4/IPv6 dual-stack, ensure the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for the relevant components of your cluster. (Starting in 1.21, IPv4/IPv6 dual-stack defaults to enabled.)
+
 To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
 
    * kube-apiserver:
@@ -63,7 +65,7 @@ An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own ad
 
 An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but is not a valid address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
 
-Starting in 1.21, IPv4/IPv6 dual-stack defaults to true.
+Starting in 1.21, IPv4/IPv6 dual-stack defaults to enabled.
 You can disable it when necessary by specifying `--feature-gates="IPv6DualStack=false"`
 on the kube-apiserver, kube-controller-manager, kubelet, and kube-proxy command line.
 {{< /note >}}
