@@ -23,7 +23,7 @@ Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [i
 * continuous integration tests
 
 To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to
-[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
+[kubeadm](/docs/reference/setup-tools/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
 
 <!-- body -->
 
