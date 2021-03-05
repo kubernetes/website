@@ -8,6 +8,7 @@ short_description: >
 
 aka:
 tags:
+- fundamental
 - operation
 ---
  Reclaimation of resources by stopping one or more {{< glossary_tooltip text="pods" term_id="pod" >}} and deleting unused {{< glossary_tooltip text="images" term_id="image" >}} on a {{< glossary_tooltip text="nodes" term_id="node" >}}.
