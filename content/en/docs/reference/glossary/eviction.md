@@ -15,8 +15,6 @@ tags:
 
 <!--more-->
 
-Eviction is a process performed by the {{< glossary_tooltip term_id="kubelet" >}} upon one of the following triggers:
-* A {{< glossary_tooltip term_id="node" >}} is running out of PIDs, memory or filesystem storage (based on [eviction thresholds](/docs/tasks/administer-cluster/out-of-resource/#eviction-thresholds)).
-* The {{< glossary_tooltip term_id="kube-scheduler" >}} is unable to schedule a Pod (through the use of {{< glossary_tooltip term_id="preemption" >}} logic).
-* A {{< glossary_tooltip term_id="cluster-operator" >}} requests the eviction through the use of {{< glossary_tooltip term_id="kubectl" >}} `drain` command.
-* A client application requests the eviction through the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api).
+Eviction is a process performed by the {{< glossary_tooltip term_id="kubelet" >}} due to resource constraints on a {{< glossary_tooltip term_id="node" >}}, use of the {{< glossary_tooltip term_id="kubectl" >}} `drain` command, or an [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api) request.
+
+See [Pod Eviction](/docs/concepts/scheduling-eviction/pod-eviction) for more information.
