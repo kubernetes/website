@@ -26,14 +26,13 @@ e um possível número de porta; por exemplo: `exemplo.registro.ficticio:10443/n
 
 Se você não especificar um hostname de registro, o Kubernetes presumirá que você se refere ao registro público do Docker.
 
-Após a parte do nome da imagem, você pode adicionar uma _tag_ (como também usar com comandos como
-como `docker` e` podman`).
+Após a parte do nome da imagem, você pode adicionar uma _tag_ (como também usar com comandos como `docker` e` podman`).
 As tags permitem identificar diferentes versões da mesma série de imagens.
 
 Tags de imagem consistem em letras maiúsculas e minúsculas, dígitos, sublinhados (`_`),
 pontos (`.`) e travessões (` -`).
 Existem regras adicionais sobre onde você pode colocar o separador
-caracteres (`_`,` -` e `.`) dentro de uma tag de imagem.
+caracteres (`_`,`-` e `.`) dentro de uma tag de imagem.
 Se você não especificar uma tag, o Kubernetes presumirá que você se refere à tag `latest` (mais recente).
 
 {{< caution >}}
@@ -45,7 +44,7 @@ Em vez disso, especifique uma tag significativa, como `v1.42.0`.
 
 ## Atualizando imagens
 
-A política de pull padrão é `IfNotPresent` que faz com que o
+A política padrão de pull é `IfNotPresent` a qual faz com que o
 {{<glossary_tooltip text = "kubelet" term_id = "kubelet">}} ignore 
 o processo de *pull* da imagem, caso a mesma já exista. Se você prefere sempre forçar o processo de *pull*, 
 você pode fazer como exemplo:
@@ -59,9 +58,9 @@ Quando `imagePullPolicy` é definido sem um valor específico, ele também é de
 
 ## Multiarquitetura de imagens com índice de imagens
 
-Além de fornecer o binário das imagens, um registro de contêiner também pode servir um [índice de imagem do contêiner](https://github.com/opencontainers/image-spec/blob/master/image-index.md). Um índice de imagem pode apontar para multiplos [manifestos da imagem](https://github.com/opencontainers/image-spec/blob/master/manifest.md) para versões específicas de arquitetura de um contêiner. A ideia é que você possa ter um nome para uma imagem (por exemplo: `pause`, `exemple/meuconteiner`, `kube-apiserver`) e permitir que diferentes sistemas busquem o binário da imagem correta para a arquitetura de máquina que estão usando.
+Além de fornecer o binário das imagens, um registro de contêiner também pode servir um [índice de imagem do contêiner](https://github.com/opencontainers/image-spec/blob/master/image-index.md). Um índice de imagem pode apontar para múltiplos [manifestos da imagem](https://github.com/opencontainers/image-spec/blob/master/manifest.md) para versões específicas de arquitetura de um contêiner. A ideia é que você possa ter um nome para uma imagem (por exemplo: `pause`, `exemple/meuconteiner`, `kube-apiserver`) e permitir que diferentes sistemas busquem o binário da imagem correta para a arquitetura de máquina que estão usando.
 
-O próprio Kubernetes normalmente nomeia as imagens de contêiner com o sufixo `- $ (ARCH)`. Para retrocompatibilidade, gere as imagens mais antigas com sufixos. A ideia é gerar a imagem `pause` que tem o manifesto para todas as arquiteturas e `pause-amd64` que é retrocompatível com as configurações anteriores ou arquivos YAML que podem ter codificado as imagens com sufixos.
+O próprio Kubernetes normalmente nomeia as imagens de contêiner com o sufixo `-$(ARCH)`. Para retrocompatibilidade, gere as imagens mais antigas com sufixos. A ideia é gerar a imagem `pause` que tem o manifesto para todas as arquiteturas e `pause-amd64` que é retrocompatível com as configurações anteriores ou arquivos YAML que podem ter codificado as imagens com sufixos.
 
 ## Usando um registro privado
 
@@ -165,8 +164,8 @@ Em caso de falha, a saída é semelhante a:
 
 Você deve garantir que todos os nós no cluster tenham o mesmo `.docker/config.json`. Caso contrário, os pods serão executados com sucesso em alguns nós e falharão em outros. Por exemplo, se você usar o escalonamento automático de nós, cada modelo de instância precisa incluir o `.docker/config.json` ou montar um drive que o contenha.
 
-Todos os pods terão premissão de leitura às imagens em qualquer registro privado, uma vez privado
-as chaves de registro são adicionadas ao `.docker/config.json`.
+Todos os pods terão premissão de leitura às imagens em qualquer registro privado, uma vez que
+as chaves privadas do registro são adicionadas ao `.docker/config.json`.
 
 ### Imagens pré-obtidas
 
@@ -252,7 +251,7 @@ em um recurso de [ServiceAccount](/docs/tasks/configure-pod-container/configure-
 Verifique [Adicionar ImagePullSecrets a uma conta de serviço](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) para obter instruções detalhadas.
 
 Você pode usar isso em conjunto com um `.docker / config.json` por nó. As credenciais
-será mesclado.
+serão mescladas.
 
 ## Casos de uso
 
@@ -274,10 +273,10 @@ casos de uso comuns e soluções sugeridas.
       - Funcionará melhor com o escalonamento automático do cluster do que com a configuração manual de nós.
     - Ou, em um cluster onde alterar a configuração do nó é inconveniente, use `imagePullSecrets`.
 1. Cluster com imagens proprietárias, algumas das quais requerem controle de acesso mais rígido.
-    - Certifique-se de [controlador de admissão AlwaysPullImages] (/ docs / reference / access-authn-authz / admission-controllers / # alwayspullimages) está ativo. Caso contrário, todos os pods têm potencialmente acesso a todas as imagens.
+    - Certifique-se de que o [controlador de admissão AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) está ativo. Caso contrário, todos os pods têm potencialmente acesso a todas as imagens.
     - Mova dados confidenciais para um recurso "secreto", em vez de empacotá-los em uma imagem.
 1. Um cluster multilocatário em que cada locatário precisa de seu próprio registro privado.
-    - Certifique-se de [controlador de admissão AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) está ativo. Caso contrário, todos os Pods de todos os locatários terão potencialmente acesso a todas as imagens.
+    - Certifique-se de que o [controlador de admissão AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) está ativo. Caso contrário, todos os Pods de todos os locatários terão potencialmente acesso a todas as imagens.
     - Execute um registro privado com autorização necessária.
     - Gere credenciais de registro para cada locatário, coloque em segredo e preencha o segredo para cada namespace de locatário.
     - O locatário adiciona esse segredo a imagePullSecrets de cada namespace.
@@ -288,4 +287,4 @@ O Kubelet mesclará qualquer `imagePullSecrets` em um único `.docker/config.jso
 
 ## {{% heading "whatsnext" %}}
 
-* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+* Leia a [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
