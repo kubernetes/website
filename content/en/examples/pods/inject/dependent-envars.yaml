@@ -23,4 +23,4 @@ spec:
         - name: SERVICE_ADDRESS
           value: "$(PROTOCOL)://$(SERVICE_IP):$(SERVICE_PORT)"
         - name: ESCAPED_REFERENCE
-          value: "$$(PROTOCOL)://$(SERVICE_IP):$(SERVICE_PORT)"
+          value: "$(PROTOCOL)://$(SERVICE_IP):$(SERVICE_PORT)"
