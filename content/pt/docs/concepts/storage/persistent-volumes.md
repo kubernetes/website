@@ -7,9 +7,9 @@ reviewers:
 - xing-yang
 título: Persistentes Volumes
 funcionalidade:
-  title: Orquestração de Storage
+  title: Orquestração de Armazenamento
   descrição: >
-    Mountar automaticamente o storage de sua escolha, seja de um storage local, de um provedor de cloud pública, como <a href="https://cloud.google.com/storage/">GCP</a> ou <a href="https://aws.amazon.com/products/storage/">AWS</a>, ou um storage de rede, como NFS, iSCSI, Gluster, Ceph, Cinder ou Flocker.
+    Montar automaticamente o armazenamento de sua escolha, seja de um armazenamento local, de um provedor de cloud pública, como <a href="https://cloud.google.com/storage/">GCP</a> ou <a href="https://aws.amazon.com/products/storage/">AWS</a>, ou um armazenameto de rede, como NFS, iSCSI, Gluster, Ceph, Cinder ou Flocker.
 
 content_type: conceito
 weight: 20
@@ -23,13 +23,13 @@ Esse documento descreve o estado atual dos _persistent volumes_ no Kubernetes. S
 
 ## Introdução
 
-Gerenciamento storage é uma questão bem diferente de gerenciamento de compute instances. O PersistentVolume subsystem provê uma API para usuários e administradores que mostra de forma detalhada de como o storage é provido e como ele é consumido. Para isso, nós introduzidmos duas novas APIs:  PersistentVolume e PersistentVolumeClaim.
+Gerenciamento armazenamento é uma questão bem diferente de gerenciamento de instâncias computacionais. O PersistentVolume subsystem provê uma API para usuários e administradores que mostra de forma detalhada de como o armazenamento é provido e como ele é consumido. Para isso, nós introduzidmos duas novas APIs:  PersistentVolume e PersistentVolumeClaim.
 
-Um _PersistentVolume_ (PV) é uma parte do storage dentro do cluster que tenha sido provisionada por um administrador ou dinamicamente utilizando [Storage Classes](/docs/concepts/storage/storage-classes/). Isso é um recurso dentro do cluster da mesma forma que um nó é um recurso dentro do cluster. PVs são plugins de volume da mesma forma que Volumes, porém eles têm um ciclo de vida independente de qualquer Pod que utilize um PV. Essa API tem por objetivo mostrar os detalhes da implementação do storage, seja ele NFS, iSCSI, ou um storage específico de um provedor de cloud pública.
+Um _PersistentVolume_ (PV) é uma parte do armazenamento dentro do cluster que tenha sido provisionada por um administrador ou dinamicamente utilizando [Storage Classes](/docs/concepts/storage/storage-classes/). Isso é um recurso dentro do cluster da mesma forma que um nó é um recurso dentro do cluster. PVs são plugins de volume da mesma forma que Volumes, porém eles têm um ciclo de vida independente de qualquer Pod que utilize um PV. Essa API tem por objetivo mostrar os detalhes da implementação do armazenamento, seja ele NFS, iSCSI, ou um armazenamento específico de um provedor de cloud pública.
 
-Um _PersistentVolumeClaim_ (PVC) é uma requisição para storage por um usuário. É similar a um Pod. Pods utilizam recursos do nó e PVCs utilizam recursos do PV. Pods podem solicitar níveis específicos de recursos (CPU e Memória). Claims podem requisitar tamanho e modos de acesso específicos (exemplo: montagem como ReadWriteOnce, ReadOnlyMany ou ReadWriteMany, veja [AccessModes](#access-modes)).
+Um _PersistentVolumeClaim_ (PVC) é uma requisição para armazenamento por um usuário. É similar a um Pod. Pods utilizam recursos do nó e PVCs utilizam recursos do PV. Pods podem solicitar níveis específicos de recursos (CPU e Memória). Claims podem requisitar tamanho e modos de acesso específicos (exemplo: montagem como ReadWriteOnce, ReadOnlyMany ou ReadWriteMany, veja [AccessModes](#access-modes)).
 
-Enquanto PersistentVolumeClaims permite que um usuário utilize recursos de storage de forma abstrata, é comum que usuários precisem de PersistentVolumes com diversas propriedades, como performance, para problemas diversos. Os administradores de cluster precisam estar aptos a oferecer uma variedade de PersistentVolumes que sejam diferentes em tamanho e modo de acesso, sem expor os usuários a detalhes de como esses volumes são implementados. Para necessidades como essa, temos o recurso de _StorageClass_.
+Enquanto PersistentVolumeClaims permite que um usuário utilize recursos de armazenamento de forma abstrata, é comum que usuários precisem de PersistentVolumes com diversas propriedades, como performance, para problemas diversos. Os administradores de cluster precisam estar aptos a oferecer uma variedade de PersistentVolumes que sejam diferentes em tamanho e modo de acesso, sem expor os usuários a detalhes de como esses volumes são implementados. Para necessidades como essa, temos o recurso de _StorageClass_.
 
 Veja os [exemplos de passo a passo de forma detalhada](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
 
@@ -43,18 +43,18 @@ Existem duas formas de provisionar ujm PV: staticamente ou dinamicamente.
 
 #### Stático
 
-O administrador do cluster cria uma determinada quantidade de PVs. Eles possuem todos os detalhes do storage a qual estão atrelados, que neste caso fica disponível para utilização por um usuário dentro do cluster. Eles estão presentes na API do Kubernetes e disponíveis para utilização.
+O administrador do cluster cria uma determinada quantidade de PVs. Eles possuem todos os detalhes do armazenamento a qual estão atrelados, que neste caso fica disponível para utilização por um usuário dentro do cluster. Eles estão presentes na API do Kubernetes e disponíveis para utilização.
 
 #### Dinâmico
 
 Quando nenhum dos PVs estáticos, que foram criados anteriormente pelo administrator, satisfazem os critérios de um PersistentVolumeClaim enviado por um usário, o cluster pode tentar realizar um provisionamento dinâmico para atender a esse PVC.
 Esse provisionamento é baseado em StorageClasses: o PVC deve solicitar um [storage class](/docs/concepts/storage/storage-classes/) e o administrador deve ter previamente criado e configurado essa classe para que o provisionamento dinâmico possa ocorrer. Requisições que solicitam a classe `""` efetivamente desabilitam o provisionamento dinâmico para elas mesmas.
 
-Para habilitar o provisionamento de storage dinâmico baseado em storage class, o administrador do cluster precisa habilitar a `DefaultStorageClass` [admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) no servidor da API. Isso pode ser feito, por exemplo, garantindo que `DefaultStorageClass` esteja entre aspas simples, ordenado por uma lista de valores para a flag `--enable-admission-plugins`, componente do servidor da API. Para maiores informações sobre ndo das flags do servidor de API, consulte a documentação do [kube-apiserver](/docs/admin/kube-apiserver/).
+Para habilitar o provisionamento de armazenamento dinâmico baseado em classe de armazenamento, o administrador do cluster precisa habilitar a `DefaultStorageClass` [admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) no servidor da API. Isso pode ser feito, por exemplo, garantindo que `DefaultStorageClass` esteja entre aspas simples, ordenado por uma lista de valores para a flag `--enable-admission-plugins`, componente do servidor da API. Para maiores informações sobre ndo das flags do servidor de API, consulte a documentação do [kube-apiserver](/docs/admin/kube-apiserver/).
 
 ### Binding
 
-Um usuário cria, ou em caso de um provisionamento dinâmico já ter criado, um PersistentVolumeClaim solicitando uma quantidade específica de storage e um determinado modo de acesso. Um controle de loop no master monitora por novos PVCs, encontra um PV (se possível) que satisfaça os requisitos e realiza o bind. Se o PV foi provisionado dinamicamente por um PVC, o loop sempre vai fazer o bind desse PV com esse específico PVC. Caso contrário, o usuário vai receber no mínimo o que ele tinha solicitado, porém o volume possa exceder em relação à solicitação. Uma vez realizado esse processo, PersistentVolumeClaim sempre vai ter um bind exclusivo, sem levar em conta como o isso aconteceu. Um bind entre um PVC e um PV é um mapeamento de um pra um, utilizando o ClaimRef que é um bind bidirecional entre o PersistentVolume e o PersistentVolumeClaim.
+Um usuário cria, ou em caso de um provisionamento dinâmico já ter criado, um PersistentVolumeClaim solicitando uma quantidade específica de armazenamento e um determinado modo de acesso. Um controle de loop no master monitora por novos PVCs, encontra um PV (se possível) que satisfaça os requisitos e realiza o bind. Se o PV foi provisionado dinamicamente por um PVC, o loop sempre vai fazer o bind desse PV com esse específico PVC. Caso contrário, o usuário vai receber no mínimo o que ele tinha solicitado, porém o volume possa exceder em relação à solicitação. Uma vez realizado esse processo, PersistentVolumeClaim sempre vai ter um bind exclusivo, sem levar em conta como o isso aconteceu. Um bind entre um PVC e um PV é um mapeamento de um pra um, utilizando o ClaimRef que é um bind bidirecional entre o PersistentVolume e o PersistentVolumeClaim.
 
 Requisições permanecerão sem bind se o volume solicitado não existir. O bind ocorrerá somente se os requisitos forem atendidos exatamente da mesma forma como solicitado. Por exemplo, um bind de um PVC de 100GB não vai ocorrer num cluster que foi provisionado com vários PVs de 50GB. O bind ocorrerá somente no momento em que um PV de 100GB for adicionado.
 
@@ -65,9 +65,9 @@ pecifica qual o modo desejado quando utiliza essas requisições.
 
 Uma vez que o usuário tem a requisição atrelada a um PV, ele pertence ao usuário pelo tempo que ele precisar. Usuários agendam Pods e acessam seus PVs requisitados através da seção `persistentVolumeClaim` no bloco `volumes` do Pod. Para mais detalhes sobre isso, veja [Claims As Volumes](#claims-as-volumes).
 
-### Storage Object in Proteção de Uso
+### Objeto de Armazenamento em Proteção de Uso
 
-O propósito da funcionalidade do Storage Object in Use Protection é garantir que PersistentVolumeClaims (PVCs) que estejam sendo utilizados por um Pod e PersistentVolume (PVs) que pertecem aos PVCs não sejam removidos do sistema, pois isso pode resultar numa perda de dados.
+O propósito da funcionalidade do Objeto de Armazenamento em Proteção de Uso é garantir que PersistentVolumeClaims (PVCs) que estejam sendo utilizados por um Pod e PersistentVolume (PVs) que pertecem aos PVCs não sejam removidos do sistema, pois isso pode resultar numa perda de dados.
 
 {{< note >}}
 Um PVC está sendo utilizado por um Pod quando existe um Pod que está usando esse PVC.
@@ -121,13 +121,13 @@ Quando um usuário não precisar mais utilizar um volume, ele pode deletar o PVC
 
 A política de `Retain` permite a recuperação de forma manual do recurso. Quando o PersistentVolumeClaim é deletado, ele continua existindo e o volume é considerado "liberado". Mas ele ainda não está disponível para outra requisição porque os dados da requisição anterior ainda permanecem no volume. Um administrador pode manuamente recuperar o volume executando os seguintes passos: 
 
-1. Deletar o PersistentVolume. O storage assset associado à infraestrutura externa (AWS EBS, GCE PD, Azure Disk, or Cinder volume) ainda continuará existindo após o PV ser deletado.
-1. Limpar os dados de forma manual no storage assset associado.
-1. Deletar manualmente o storage associado. Caso você queira utilizar o mesmo storage asset, crie um novo PersistentVolume com esse storage asset.
+1. Deletar o PersistentVolume. O armazenamento associado à infraestrutura externa (AWS EBS, GCE PD, Azure Disk, or Cinder volume) ainda continuará existindo após o PV ser deletado.
+1. Limpar os dados de forma manual no armazenamento associado.
+1. Deletar manualmente o armazenamento associado. Caso você queira utilizar o mesmo armazenamento, crie um novo PersistentVolume com esse armazenamento.
 
 #### Deletar
 
-Para plugins de volume que suportam a política de recuperação `Delete`, a deleção vai remover o tanto PersistentVolume do Kubernetes, quanto o storage asset associado à infraestrutura externa, como AWS EBS, GCE PD, Azure Disk, ou Cinder volume. Volumes que foram provisionados dinamicamente herdam o [reclaim policy of their StorageClass](#reclaim-policy), que é `Delete` por padrão. O administrador precisa configurar o StorageClass de acordo com as necessidades dos usuários; caso contrário, o PV deve ser editado or reparado após sua criação. Veja [Change the Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
+Para plugins de volume que suportam a política de recuperação `Delete`, a deleção vai remover o tanto PersistentVolume do Kubernetes, quanto o armazenamento associado à infraestrutura externa, como AWS EBS, GCE PD, Azure Disk, ou Cinder volume. Volumes que foram provisionados dinamicamente herdam o [reclaim policy of their StorageClass](#reclaim-policy), que é `Delete` por padrão. O administrador precisa configurar o StorageClass de acordo com as necessidades dos usuários; caso contrário, o PV deve ser editado or reparado após sua criação. Veja [Change the Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
 
 #### Reciclar
 
@@ -171,7 +171,7 @@ Especificando um PersistentVolume no PersistentVolumeClaim, você declara um bin
 O bind ocorrerá se o PersistentVolume existir e não estiver reservado por um PersistentVolumeClaims através do seu campo `claimRef`. 
 
 O bind ocorre independente de algum volume atender ao critério, incluindo afinidade de nó.
-A camada de gerenciamento verifica se a [storage class](/docs/concepts/storage/storage-classes/), modo de acesso e tamanho do storage solicitado ainda são válidos.
+A camada de gerenciamento verifica se a [storage class](/docs/concepts/storage/storage-classes/), modo de acesso e tamanho do armazenamento solicitado ainda são válidos.
 
 ```yaml
 apiVersion: v1
@@ -185,7 +185,7 @@ spec:
   ...
 ```
 
-Esse método não garante nenhum privilégio de bind no PersistentVolume. Para evitar que algum outro PersistentVolumeClaims possa usar o PV que você especificar, você precisa primeiro reservar esse storage volume. Especifique seu PersistentVolumeClaim no campo `claimRef` do PV para outros PVCs não façam bind nele.
+Esse método não garante nenhum privilégio de bind no PersistentVolume. Para evitar que algum outro PersistentVolumeClaims possa usar o PV que você especificar, você precisa primeiro reservar esse volume de armazenamento. Especifique seu PersistentVolumeClaim no campo `claimRef` do PV para outros PVCs não façam bind nele.
 
 ```yaml
 apiVersion: v1
@@ -276,7 +276,7 @@ Expandir volumes EBS é uma operação que toma muito tempo. Além disso, é pos
 
 #### Recuperação em caso de falha na expansão de volumes
 
-Se a expansão do respectivo storage falhar, o administrador do cluster pode recuperar manualmente o estado do Persistent Volume Claim (PVC) e cancelar as solicitações de redimensionamento. Caso contrário, as tentativas de solicitação de redimensionamento ocorrerão de forma contínua pelo controlador sem nenhuma intervenção do administrador.
+Se a expansão do respectivo armazenamento falhar, o administrador do cluster pode recuperar manualmente o estado do Persistent Volume Claim (PVC) e cancelar as solicitações de redimensionamento. Caso contrário, as tentativas de solicitação de redimensionamento ocorrerão de forma contínua pelo controlador sem nenhuma intervenção do administrador.
 
 1. Marque o PersistentVolume(PV) que está atrelado ao PersistentVolumeClaim(PVC) com a política de recuperação `Retain`.
 2. Delete o PVC. Desde que o PV tenha a política de recuperação `Retain` - nenhum dado será perdido quando o PVC for recriado. 
@@ -346,9 +346,9 @@ Talvez sejam necessários programas auxiliares para um determinado tipo de volum
 
 ### Capacidade
 
-Geralmente, um PV terá uma capacidade de storage específica. Isso é configurado usando o atributo `capacity` do PV. Veja Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) para entender as unidades aceitas pelo atributo `capacity`.
+Geralmente, um PV terá uma capacidade de armazenamento específica. Isso é configurado usando o atributo `capacity` do PV. Veja Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) para entender as unidades aceitas pelo atributo `capacity`.
 
-Atualmente, o tamanho do storage é o único recurso que pode ser configurado ou solicitado. Os futuros atributos podem incluir IOPS, throughput, etc.
+Atualmente, o tamanho do armazenamento é o único recurso que pode ser configurado ou solicitado. Os futuros atributos podem incluir IOPS, throughput, etc.
 
 ### Modo do Volume
 
@@ -417,7 +417,7 @@ Atuamente as políticas de retenção são:
 
 * Retenção -- recuperação manual
 * Reciclar -- limpeza básica (`rm -rf /thevolume/*`)
-* Delete -- storage associado como AWS EBS, GCE PD, Azure Disk ou OpenStack Cinder volume is deleted
+* Delete -- armazenamento associado como AWS EBS, GCE PD, Azure Disk ou OpenStack Cinder volume is deleted
 
 Atualmente, somente NFS e HostPath suportam reciclagem. Volumes AWS EBS, GCE PD, Azure Disk, and Cinder suportam delete.
 
@@ -496,7 +496,7 @@ spec:
 
 ### Modos de Acesso
 
-As requisições usam as mesmas convenções que os volumes quando eles solicitam um storage com um modo de acesso específico.
+As requisições usam as mesmas convenções que os volumes quando eles solicitam um armazenamento com um modo de acesso específico.
 
 ### Modos de Volume
 
@@ -504,7 +504,7 @@ As requisições usam as mesmas convenções que os volumes quando eles indicam 
 
 ### Recursos
 
-Assim como Pods, as requisições podem solicitar quantidades específicas de recurso. Neste caso, a solicitação é por storage. O mesmo [modelo de recurso](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) valem para volumes e requisições.
+Assim como Pods, as requisições podem solicitar quantidades específicas de recurso. Neste caso, a solicitação é por armazenamento. O mesmo [modelo de recurso](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) valem para volumes e requisições.
 
 ### Selector
 
@@ -536,7 +536,7 @@ No passado, a notação `volume.beta.kubernetes.io/storage-class` era usada no l
 
 ## Requisições como Volumes
 
-Os Pods podem ter acesso ao storage utilizando a requisição como um volume. Para isso a requisição tem que estar no mesmo namespace que o Pod. Ao localizar a requisição no namespace do Pod, o cluster passa o PersistentVolume para a requisição.
+Os Pods podem ter acesso ao armazenamento utilizando a requisição como um volume. Para isso a requisição tem que estar no mesmo namespace que o Pod. Ao localizar a requisição no namespace do Pod, o cluster passa o PersistentVolume para a requisição.
 
 ```yaml
 apiVersion: v1
@@ -726,15 +726,15 @@ spec:
 
 ## Boas Práticas de Configuração
 
-Se você está criando templates ou exemplos que rodam numa grande quantidade de clusters e que precisam de storage persistente, recomendamos que utilize a estrutura abaixo:
+Se você está criando templates ou exemplos que rodam numa grande quantidade de clusters e que precisam de armazenamento persistente, recomendamos que utilize a estrutura abaixo:
 
 - Inclua objetos PersistentVolumeClaim em seu pacote de configuração (juntanemte com Deployments, ConfigMaps, etc). 
 - Não inclua objetos PersistentVolume na configuração, pois o usuário que irá instanciar a configuração talvez não tenha permissão para criar PersistentVolume.
   the config may not have permission to create PersistentVolumes.
-- Dê ao usuário a opção dele informar o nome de uma classe de storage quando instaciar o template.
-  - Se o usuário informar o nome de uma classe de storage, coloque esse valor no campo `persistentVolumeClaim.storageClassName`. Isso fará com que o PVC encontre a classe de storage correta se o cluster tiver o StorageClasses habilitado pelo administrador.
-  - Se o usuário não informar o nome da classe de storage, deixe o campo `persistentVolumeClaim.storageClassName` sem nenhum valor (null). Isso fará com que o PV seja provisionado automaticamente no cluster para o usuário com o StorageClass padrão. Em muitos ambientes, o StorageClass padrão já instalado no cluster, ou então, os administradores podem criar seus StorageClass padrão.
-- Durante suas tarefas de administração, busque por PVCs que após um tempo não estão sendo atrelados, pois isso talvez indique que o cluster não tem provisionamento dinâmico (que no caso, o usuário deveria criar um PV que satisfaça os critérios do PVC) ou cluster não tem um sistema de storage (que no caso, o usuário não pode fazer deploy solicitando PVCs).
+- Dê ao usuário a opção dele informar o nome de uma classe de armazenamento quando instaciar o template.
+  - Se o usuário informar o nome de uma classe de armazenamento, coloque esse valor no campo `persistentVolumeClaim.storageClassName`. Isso fará com que o PVC encontre a classe de armazenamento correta se o cluster tiver o StorageClasses habilitado pelo administrador.
+  - Se o usuário não informar o nome da classe de armazenamento, deixe o campo `persistentVolumeClaim.storageClassName` sem nenhum valor (null). Isso fará com que o PV seja provisionado automaticamente no cluster para o usuário com o StorageClass padrão. Em muitos ambientes, o StorageClass padrão já instalado no cluster, ou então, os administradores podem criar seus StorageClass padrão.
+- Durante suas tarefas de administração, busque por PVCs que após um tempo não estão sendo atrelados, pois isso talvez indique que o cluster não tem provisionamento dinâmico (que no caso, o usuário deveria criar um PV que satisfaça os critérios do PVC) ou cluster não tem um sistema de armazenamento (que no caso, o usuário não pode fazer deploy solicitando PVCs).
 
   ## {{% heading "whatsnext" %}}
 
