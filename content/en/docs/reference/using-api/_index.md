@@ -1,11 +1,12 @@
 ---
-title: Kubernetes API Overview
+title: API Overview
 reviewers:
 - erictune
 - lavalamp
 - jbeda
 content_type: concept
 weight: 10
+no_list: true
 card:
   name: reference
   weight: 50
