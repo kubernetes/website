@@ -17,7 +17,7 @@ Kubernetesのコマンドラインツール`kubectl`を使用すると、Kuberne
 
 [Minikube](https://minikube.sigs.k8s.io/)は、Kubernetesをローカルで実行するツールです。MinikubeはシングルノードのKubernetesクラスターをパーソナルコンピューター上(Windows、macOS、Linux PCを含む)で実行することで、Kubernetesを試したり、日常的な開発作業のために利用できます。
 
-ツールのインストールについて知りたい場合は、公式の[Get Started!](https://minikube.sigs.k8s.io/docs/start/)のガイドに従うか、[Minikubeのインストール](/ja/docs/tasks/tools/install-minikube/)を読んでください。
+ツールのインストールについて知りたい場合は、公式の[Get Started!](https://minikube.sigs.k8s.io/docs/start/)のガイドに従ってください。
 
 Minikubeが起動したら、[サンプルアプリケーションの実行](/ja/docs/tutorials/hello-minikube/)を試すことができます。
 
