@@ -169,7 +169,7 @@ A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/d
 ## 编写 Job 规约
 
 与 Kubernetes 中其他资源的配置类似，Job 也需要 `apiVersion`、`kind` 和 `metadata` 字段。
-Job 的名字必须时合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+Job 的名字必须是合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 Job 配置还需要一个[`.spec` 节](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
@@ -565,7 +565,7 @@ more information, see the documentation for
 [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
 finished resources.
 -->
-Job `pi-with-ttl` 在结束 100 秒之后，可以成为被自动删除的标的。
+Job `pi-with-ttl` 在结束 100 秒之后，可以成为被自动删除的对象。
 
 如果该字段设置为 `0`，Job 在结束之后立即成为可被自动删除的对象。
 如果该字段没有设置，Job 不会在结束之后被 TTL 控制器自动清除。
