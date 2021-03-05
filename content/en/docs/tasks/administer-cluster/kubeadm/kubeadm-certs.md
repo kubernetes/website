@@ -170,14 +170,14 @@ controllerManager:
 
 ### Create certificate signing requests (CSR)
 
-You can create the certificate signing requests for the Kubernetes certificates API with `kubeadm certs renew --use-api`.
+You can create the certificate signing requests for the Kubernetes certificates API with `kubeadm certs renew`.
 
 If you set up an external signer such as [cert-manager](https://github.com/jetstack/cert-manager), certificate signing requests (CSRs) are automatically approved.
 Otherwise, you must manually approve certificates with the [`kubectl certificate`](/docs/setup/best-practices/certificates/) command.
 The following kubeadm command outputs the name of the certificate to approve, then blocks and waits for approval to occur:
 
 ```shell
-sudo kubeadm certs renew apiserver --use-api &
+sudo kubeadm certs renew apiserver &
 ```
 The output is similar to this:
 ```
