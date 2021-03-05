@@ -191,7 +191,7 @@ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.ty
  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
 
 # 외부 도구 없이 디코딩된 시크릿 출력
-kubectl get secret ${secret_name} -o go-template='{{range $k,$v := .data}}{{$k}}={{$v|base64decode}}{{"\n"}}{{end}}'
+kubectl get secret my-secret -o go-template='{{range $k,$v := .data}}{{"### "}}{{$k}}{{"\n"}}{{$v|base64decode}}{{"\n\n"}}{{end}}'
 
 # 파드에 의해 현재 사용되고 있는 모든 시크릿 목록 조회
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
@@ -334,7 +334,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### 리소스 타입
 
-단축명, [API 그룹](/ko/docs/concepts/overview/kubernetes-api/#api-그룹)과 함께 지원되는 모든 리소스 유형들, 그것들의 [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces)와 [종류(Kind)](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects)를 나열:
+단축명, [API 그룹](/ko/docs/concepts/overview/kubernetes-api/#api-그룹과-버전-규칙)과 함께 지원되는 모든 리소스 유형들, 그것들의 [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces)와 [종류(Kind)](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects)를 나열:
 
 ```bash
 kubectl api-resources

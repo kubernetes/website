@@ -85,6 +85,6 @@ Perhatikan bahwa hal ini dapat terjadi apabila TTL diaktifkan dengan nilai selai
 
 [Membersikan Job secara Otomatis](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
 
-[Dokumentasi Rancangan](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
+[Dokumentasi Rancangan](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/592-ttl-after-finish/README.md)
 
 

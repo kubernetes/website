@@ -15,7 +15,7 @@ function updateLandscapeSource(button,shouldUpdateFragment) {
     } else {
       var landscapeElements = document.querySelectorAll("#landscape");
       let categories=button.dataset.landscapeTypes;
-      let link = "https://landscape.cncf.io/category="+encodeURIComponent(categories)+"&format=card-mode&grouping=category&embed=yes";
+      let link = "https://landscape.cncf.io/card-mode?category="+encodeURIComponent(categories)+"&grouping=category&embed=yes";
       landscapeElements[0].src = link;
     }
   }
@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
 {{- end -}}
 <div id="frameHolder">
   {{ if ( .Get "category" ) }}
-  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/category={{ .Get "category" }}&format=card-mode&grouping=category&embed=yes" style="width: 1px; min-width: 100%"></iframe>
+  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/card-mode?category={{ .Get "category" }}&grouping=category&embed=yes" style="width: 1px; min-width: 100%"></iframe>
   {{ else }}
-  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/format=card-mode;embed=yes" style="width: 1px; min-width: 100%" title="CNCF Landscape"></iframe>
+  <iframe frameborder="0" id="landscape" scrolling="no" src="https://landscape.cncf.io/card-mode?embed=yes" style="width: 1px; min-width: 100%" title="CNCF Landscape"></iframe>
   {{ end }}
   <script src="https://landscape.cncf.io/iframeResizer.js"></script>
 </div>

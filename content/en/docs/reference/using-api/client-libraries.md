@@ -67,12 +67,13 @@ their authors, not the Kubernetes team.
 | Python               | [github.com/fiaas/k8s](https://github.com/fiaas/k8s) |
 | Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |
 | Python               | [github.com/tomplus/kubernetes_asyncio](https://github.com/tomplus/kubernetes_asyncio) |
+| Python               | [github.com/Frankkkkk/pykorm](https://github.com/Frankkkkk/pykorm) |
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
 | Ruby                 | [github.com/kontena/k8s-client](https://github.com/kontena/k8s-client) |
 | Rust                 | [github.com/clux/kube-rs](https://github.com/clux/kube-rs) |
 | Rust                 | [github.com/ynqa/kubernetes-rust](https://github.com/ynqa/kubernetes-rust) |
-| Scala                | [github.com/doriordan/skuber](https://github.com/doriordan/skuber) |
+| Scala                | [github.com/hagay3/skuber](https://github.com/hagay3/skuber) |
 | Scala                | [github.com/joan38/kubernetes-client](https://github.com/joan38/kubernetes-client) |
 | Swift                | [github.com/swiftkube/client](https://github.com/swiftkube/client) |
 | DotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |
