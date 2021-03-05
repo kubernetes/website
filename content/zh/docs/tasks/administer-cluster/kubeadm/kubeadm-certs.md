@@ -325,11 +325,11 @@ controllerManager:
 <!-- 
 ### Create certificate signing requests (CSR)
 
-You can create the certificate signing requests for the Kubernetes certificates API with `kubeadm alpha certs renew --use-api`. 
+You can create the certificate signing requests for the Kubernetes certificates API with `kubeadm alpha certs renew`. 
 -->
 ### 创建证书签名请求 (CSR)
 
-你可以用 `kubeadm alpha certs renew --use-api` 为 Kubernetes 证书 API 创建一个证书签名请求。
+你可以用 `kubeadm alpha certs renew` 为 Kubernetes 证书 API 创建一个证书签名请求。
 
 <!--
 If you set up an external signer such as [cert-manager](https://github.com/jetstack/cert-manager), certificate signing requests (CSRs) are automatically approved.
@@ -343,7 +343,7 @@ The following kubeadm command outputs the name of the certificate to approve, th
 以下 kubeadm 命令输出要批准的证书名称，然后阻塞等待批准发生：
 
 ```shell
-sudo kubeadm alpha certs renew apiserver --use-api &
+sudo kubeadm alpha certs renew apiserver &
 ```
 
 <!--
