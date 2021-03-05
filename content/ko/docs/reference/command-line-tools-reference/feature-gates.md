@@ -634,8 +634,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `KubeletCredentialProviders`: 이미지 풀 자격 증명에 대해 kubelet exec 자격 증명 공급자를 활성화한다.
 - `KubeletPluginsWatcher`: kubelet이 [CSI 볼륨 드라이버](/ko/docs/concepts/storage/volumes/#csi)와 같은
   플러그인을 검색할 수 있도록 프로브 기반 플러그인 감시자(watcher) 유틸리티를 사용한다.
-- `KubeletPodResources`: kubelet의 파드 리소스 GPRC 엔드포인트를 활성화한다. 자세한 내용은
-  [장치 모니터링 지원](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/compute-device-assignment.md)을
+- `KubeletPodResources`: kubelet의 파드 리소스 gPRC 엔드포인트를 활성화한다. 자세한 내용은
+  [장치 모니터링 지원](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/606-compute-device-assignment/README.md)을
   참고한다.
 - `LegacyNodeRoleBehavior`: 비활성화되면, 서비스 로드 밸런서 및 노드 중단의 레거시 동작은
   `NodeDisruptionExclusion` 과 `ServiceNodeExclusion` 에 의해 제공된 기능별 레이블을 대신하여
