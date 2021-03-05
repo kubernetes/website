@@ -170,7 +170,7 @@ controllerManager:
 
 ### Create certificate signing requests (CSR)
 
-see [Create CertificateSigningRequest](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest) for creating CSR with the Kubernetes API.
+See [Create CertificateSigningRequest](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest) for creating CSRs with the Kubernetes API.
 
 ## Renew certificates with external CA
 
