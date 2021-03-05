@@ -23,7 +23,7 @@ ConfigMaps allow you to decouple configuration artifacts from image content to k
 
 
 ## Create a ConfigMap
-You can use either `kubectl create configmap` or a ConfigMap generator in `kustomization.yaml` to create a ConfigMap. Note that `kubectl` starts to support `kustomization.yaml` since 1.14.
+You can use either `kubectl create configmap` or a ConfigMap generator in `kustomization.yaml` to create a ConfigMap. Note that `kubectl` supports `kustomization.yaml` as of version 1.14.
 
 ### Create a ConfigMap Using kubectl create configmap
 
