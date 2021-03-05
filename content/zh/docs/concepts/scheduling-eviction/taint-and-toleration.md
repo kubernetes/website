@@ -8,7 +8,7 @@ weight: 40
 <!--
 Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
 is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
-a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a 
+a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
 hard requirement). Taints are the opposite -they allow a node to repel a set of pods.
 -->
 节点亲和性（详见[这里](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)）
@@ -140,7 +140,7 @@ This is a "preference" or "soft" version of `NoSchedule` - the system will *try*
 pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
 `NoExecute`, described later.
 -->
-上述例子使用到的 `effect` 的一个值 `NoSchedule`，您也可以使用另外一个值 `PreferNoSchedule`。
+上述例子中 `effect` 使用的值为 `NoSchedule`，您也可以使用另外一个值 `PreferNoSchedule`。
 这是“优化”或“软”版本的 `NoSchedule` —— 系统会 *尽量* 避免将 Pod 调度到存在其不能容忍污点的节点上，
 但这不是强制的。`effect` 的值还可以设置为 `NoExecute`，下文会详细描述这个值。
 
@@ -438,7 +438,7 @@ by the user already has a toleration for `node.kubernetes.io/unreachable`.
 
 {{< note >}}
 Kubernetes 会自动给 Pod 添加一个 key 为 `node.kubernetes.io/not-ready` 的容忍度
-并配置 `tolerationSeconds=300`，除非用户提供的 Pod 配置中已经已存在了 key 为 
+并配置 `tolerationSeconds=300`，除非用户提供的 Pod 配置中已经已存在了 key 为
 `node.kubernetes.io/not-ready` 的容忍度。
 
 同样，Kubernetes 会给 Pod 添加一个 key 为 `node.kubernetes.io/unreachable` 的容忍度
@@ -517,5 +517,3 @@ arbitrary tolerations to DaemonSets.
 -->
 * 阅读[资源耗尽的处理](/zh/docs/tasks/administer-cluster/out-of-resource/)，以及如何配置其行为
 * 阅读 [Pod 优先级](/zh/docs/concepts/configuration/pod-priority-preemption/)
-
-

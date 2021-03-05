@@ -349,7 +349,7 @@ caused by previous runs.
 `.spec.template.spec.restartPolicy = "Never"`。
 当 Pod 失败时，Job 控制器会启动一个新的 Pod。
 这意味着，你的应用需要处理在一个新 Pod 中被重启的情况。
-尤其是应用需要处理之前运行所触碰或产生的临时文件、锁、不完整的输出等问题。
+尤其是应用需要处理之前运行所产生的临时文件、锁、不完整的输出等问题。
 
 <!--
 Note that even if you specify `.spec.parallelism = 1` and `.spec.completions = 1` and

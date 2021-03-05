@@ -625,6 +625,8 @@ Starting from 1.11, this admission controller is disabled by default.
 
 ### PodNodeSelector {#podnodeselector}
 
+{{< feature-state for_k8s_version="v1.5" state="alpha" >}}
+
 This admission controller defaults and limits what node selectors may be used within a namespace by reading a namespace annotation and a global configuration.
 
 #### Configuration File Format
@@ -703,6 +705,8 @@ See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-
 for more information.
 
 ### PodTolerationRestriction {#podtolerationrestriction}
+
+{{< feature-state for_k8s_version="v1.7" state="alpha" >}}
 
 The PodTolerationRestriction admission controller verifies any conflict between tolerations of a pod and the tolerations of its namespace.
 It rejects the pod request if there is a conflict.

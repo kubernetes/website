@@ -363,7 +363,7 @@ You can acquire all these from the [nginx https example](https://github.com/kube
 * 使用证书配置的 Nginx 服务器
 * 使证书可以访问 Pod 的 [Secret](/zh/docs/concepts/configuration/secret/)
 
-你可以从 [Nginx https 示例](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/staging/https-nginx/)
+你可以从 [Nginx https 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/)
 获取所有上述内容。你需要安装 go 和 make 工具。如果你不想安装这些软件，可以按照
 后文所述的手动执行步骤执行操作。简要过程如下：
 

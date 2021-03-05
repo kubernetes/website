@@ -167,11 +167,11 @@ kind: ClusterServiceBroker
 metadata:
   name: cloud-broker
 spec:
-  # 指向服务代理的末端。(这里的 URL 是无法使用的)
+  # 指向服务代理的末端。(这里的 URL 是无法使用的。)
   url:  https://servicebroker.somecloudprovider.com/v1alpha1/projects/service-catalog/brokers/default
   #####
   # 这里可以添加额外的用来与服务代理通信的属性值,
-  # 例如持有者令牌信息或者 TLS 的 CA 包
+  # 例如持有者令牌信息或者 TLS 的 CA 包。
   #####
 ```
 
