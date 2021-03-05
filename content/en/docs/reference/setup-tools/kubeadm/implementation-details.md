@@ -436,12 +436,14 @@ A ServiceAccount for `kube-proxy` is created in the `kube-system` namespace; the
 
 #### DNS
 
-- In Kubernetes version 1.21 kube-dns usage with kubeadm has been removed
 - The CoreDNS service is named `kube-dns`. This is done to prevent any interruption
 in service when the user is switching the cluster DNS from kube-dns to CoreDNS
 the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
 - A ServiceAccount for CoreDNS is created in the `kube-system` namespace.
 - The `coredns` ServiceAccount is bound to the privileges in the `system:coredns` ClusterRole
+
+- In Kubernetes version 1.21, support for using `kube-dns` with kubeadm is removed.
+You can use CoreDNS with kubeadm even when the related Service is named `kube-dns`.
 
 ## kubeadm join phases internal design
 
