@@ -219,30 +219,39 @@ sudo systemctl restart containerd
 ```
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
+
+<br />
+Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), and then run the following commands:
+<br />
+
 ```powershell
 # (Install containerd)
-# download containerd
-cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.1/containerd-1.4.1-windows-amd64.tar.gz
-cmd /c tar xvf .\containerd-1.4.1-windows-amd64.tar.gz
+# Download containerd
+curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
+tar.exe xvf .\containerd-windows-amd64.tar.gz
 ```
 
 ```powershell
-# extract and configure
+# Extract and configure
 Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
 cd $Env:ProgramFiles\containerd\
 .\containerd.exe config default | Out-File config.toml -Encoding ascii
 
-# review the configuration. depending on setup you may want to adjust:
-# - the sandbox_image (kubernetes pause image)
+# Review the configuration. Depending on setup you may want to adjust:
+# - the sandbox_image (Kubernetes pause image)
 # - cni bin_dir and conf_dir locations
 Get-Content config.toml
+
+# (Optional - but highly recommended) Exclude containerd form Windows Defender Scans
+Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe" 
 ```
 
 ```powershell
-# start containerd
+# Start containerd
 .\containerd.exe --register-service
 Start-Service containerd
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 

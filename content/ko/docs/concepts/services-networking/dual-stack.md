@@ -35,7 +35,7 @@ IPv4/IPv6 이중 스택 쿠버네티스 클러스터를 활용하려면 다음�
 
    * 쿠버네티스 1.20 이상
      이전 버전과 함께 이중 스택 서비스를 사용하는 방법에 대한 정보
-     쿠버네티스 버전, 쿠버네티스 해당 버전에 대한 
+     쿠버네티스 버전, 쿠버네티스 해당 버전에 대한
      문서 참조
    * 이중 스택 네트워킹을 위한 공급자의 지원(클라우드 공급자 또는 다른 방식으로 쿠버네티스 노드에 라우팅 가능한 IPv4/IPv6 네트워크 인터페이스를 제공할 수 있어야 한다.)
    * 이중 스택(예: Kubenet 또는 Calico)을 지원하는 네트워크 플러그인
@@ -69,9 +69,9 @@ IPv6 CIDR의 예: `fdXY:IJKL:MNOP:15::/64` (이 형식으로 표시되지만, �
 
 클러스터에 이중 스택이 활성화된 경우 IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서비스" term_id="service" >}}를 만들 수 있다.
 
-서비스의 주소 계열은 기본적으로 첫 번째 서비스 클러스터 IP 범위의 주소 계열로 설정된다. (`--service-cluster-ip-range` 플래그를 통해 kube-controller-manager에 구성)
+서비스의 주소 계열은 기본적으로 첫 번째 서비스 클러스터 IP 범위의 주소 계열로 설정된다. (`--service-cluster-ip-range` 플래그를 통해 kube-apiserver에 구성)
 
-서비스를 정의할 때 선택적으로 이중 스택으로 구성할 수 있다. 원하는 동작을 지정하려면 `.spec.ipFamilyPolicy` 필드를 
+서비스를 정의할 때 선택적으로 이중 스택으로 구성할 수 있다. 원하는 동작을 지정하려면 `.spec.ipFamilyPolicy` 필드를
 다음 값 중 하나로 설정한다.
 
 * `SingleStack`: 단일 스택 서비스. 컨트롤 플레인은 첫 번째로 구성된 서비스 클러스터 IP 범위를 사용하여 서비스에 대한 클러스터 IP를 할당한다.
@@ -158,7 +158,7 @@ status:
   loadBalancer: {}
 ```
 
-1. 클러스터에서 이중 스택이 활성화된 경우, 셀렉터가 있는 기존 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)는 `.spec.ClusterIP`가 `None`이라도 컨트롤 플레인이 `.spec.ipFamilyPolicy`을 `SingleStack`으로 지정하고 `.spec.ipFamilies`는 첫 번째 서비스 클러스터 IP 범위(kube-controller-manager에 대한 `--service-cluster-ip-range` 플래그를 통해 구성)의 주소 계열으로 지정한다.
+1. 클러스터에서 이중 스택이 활성화된 경우, 셀렉터가 있는 기존 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)는 `.spec.ClusterIP`가 `None`이라도 컨트롤 플레인이 `.spec.ipFamilyPolicy`을 `SingleStack`으로 지정하고 `.spec.ipFamilies`는 첫 번째 서비스 클러스터 IP 범위(kube-apiserver에 대한 `--service-cluster-ip-range` 플래그를 통해 구성)의 주소 계열으로 지정한다.
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 

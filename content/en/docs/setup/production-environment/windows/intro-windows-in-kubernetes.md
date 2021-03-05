@@ -308,6 +308,7 @@ The following networking functionality is not supported on Windows nodes
 * Host networking mode is not available for Windows pods
 * Local NodePort access from the node itself fails (works for other nodes or external clients)
 * Accessing service VIPs from nodes will be available with a future release of Windows Server
+* A single service can only support up to 64 backend pods / unique destination IPs
 * Overlay networking support in kube-proxy is an alpha release. In addition, it requires [KB4482887](https://support.microsoft.com/en-us/help/4482887/windows-10-update-kb4482887) to be installed on Windows Server 2019
 * Local Traffic Policy and DSR mode
 * Windows containers connected to l2bridge, l2tunnel, or overlay networks do not support communicating over the IPv6 stack. There is outstanding Windows platform work required to enable these network drivers to consume IPv6 addresses and subsequent Kubernetes work in kubelet, kube-proxy, and CNI plugins.

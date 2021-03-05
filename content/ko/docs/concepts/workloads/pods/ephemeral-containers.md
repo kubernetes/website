@@ -76,7 +76,7 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 
 임시 컨테이너를 사용해서 문제를 해결하는 예시는
 [임시 디버깅 컨테이너로 디버깅하기]
-(/docs/tasks/debug-application-cluster/debug-running-pod/#debugging-with-ephemeral-debug-container)를 참조한다.
+(/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)를 참조한다.
 
 ## 임시 컨테이너 API
 
@@ -100,7 +100,7 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
     "apiVersion": "v1",
     "kind": "EphemeralContainers",
     "metadata": {
-            "name": "example-pod"
+        "name": "example-pod"
     },
     "ephemeralContainers": [{
         "command": [

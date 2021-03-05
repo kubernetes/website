@@ -39,7 +39,7 @@ kops는 자동화된 프로비저닝 시스템인데,
 
 #### 설치
 
-[releases page](https://github.com/kubernetes/kops/releases)에서 kops를 다운로드 한다(소스코드로부터 빌드하는것도 역시 어렵지 않다).
+[releases page](https://github.com/kubernetes/kops/releases)에서 kops를 다운로드 한다(소스 코드로부터 빌드하는 것도 역시 편리하다).
 
 {{< tabs name="kops_installation" >}}
 {{% tab name="macOS" %}}
@@ -51,7 +51,7 @@ curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://
 | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
 ```
 
-특정 버전을 다운로드 받는다면 명령의 다음부분을 특정 kops 버전으로 변경한다.
+특정 버전을 다운로드 받는다면 명령의 다음 부분을 특정 kops 버전으로 변경한다.
 
 ```shell
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
@@ -147,8 +147,8 @@ Route53 hosted zone은 서브도메인도 지원한다. 여러분의 hosted zone
 `dev` NS 레코드를 `example.com`에 생성한다. 만약 이것이 루트 도메인 네임이라면 이 NS 레코드들은
 도메인 등록기관을 통해서 생성해야 한다(예를 들어, `example.com`는 `example.com`를 구매한 곳에서 설정 할 수 있다).
 
-이 단계에서 문제가 되기 쉽다.(문제를 만드는 가장 큰 이유이다!) dig 툴을 실행해서
-클러스터 설정이 정확한지 한번 더 확인 한다.
+route53 도메인 설정을 확인한다(문제를 만드는 가장 큰 이유이다!). dig 툴을 실행해서
+클러스터 설정이 정확한지 한번 더 확인한다.
 
 `dig NS dev.example.com`
 

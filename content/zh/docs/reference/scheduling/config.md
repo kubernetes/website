@@ -3,16 +3,16 @@ title: 调度器配置
 content_type: concept
 weight: 20
 ---
-<!-- 
+<!--
 title: Scheduler Configuration
 content_type: concept
 weight: 20
 -->
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-<!-- 
+<!--
 You can customize the behavior of the `kube-scheduler` by writing a configuration
-file and passing its path as a command line argument. 
+file and passing its path as a command line argument.
 -->
 你可以通过编写配置文件，并将其路径传给 `kube-scheduler` 的命令行参数，定制 `kube-scheduler` 的行为。
 
@@ -82,14 +82,14 @@ extension points:
 -->
 1. `QueueSort`：这些插件对调度队列中的悬决的 Pod 排序。
    一次只能启用一个队列排序插件。
-<!-- 
+<!--
 2. `PreFilter`: These plugins are used to pre-process or check information
    about a Pod or the cluster before filtering. They can mark a pod as
    unschedulable.
  -->
 2. `PreFilter`：这些插件用于在过滤之前预处理或检查 Pod 或集群的信息。
    它们可以将 Pod 标记为不可调度。
-<!-- 
+<!--
 3. `Filter`: These plugins are the equivalent of Predicates in a scheduling
    Policy and are used to filter out nodes that can not run the Pod. Filters
    are called in the configured order. A pod is marked as unschedulable if no
@@ -98,7 +98,7 @@ extension points:
 3. `Filter`：这些插件相当于调度策略中的断言（Predicates），用于过滤不能运行 Pod 的节点。
    过滤器的调用顺序是可配置的。
    如果没有一个节点通过所有过滤器的筛选，Pod 将会被标记为不可调度。
-<!-- 
+<!--
 4. `PreScore`: This is an informational extension point that can be used
    for doing pre-scoring work.
 -->
@@ -127,13 +127,13 @@ extension points:
    least one bind plugin is required.
 -->
 9. `Bind`：这个插件将 Pod 与节点绑定。绑定插件是按顺序调用的，只要有一个插件完成了绑定，其余插件都会跳过。绑定插件至少需要一个。
-<!-- 
+<!--
 10. `PostBind`: This is an informational extension point that is called after
    a Pod has been bound.
 -->
 10.  `PostBind`：这是一个信息扩展点，在 Pod 绑定了节点之后调用。
 
-<!-- 
+<!--
 For each extension point, you could disable specific [default plugins](#scheduling-plugins)
 or enable your own. For example:
 -->
@@ -154,18 +154,18 @@ profiles:
           weight: 1
 ```
 
-<!-- 
+<!--
 You can use `*` as name in the disabled array to disable all default plugins
 for that extension point. This can also be used to rearrange plugins order, if
 desired.
 -->
 你可以在 `disabled` 数组中使用 `*` 禁用该扩展点的所有默认插件。
 如果需要，这个字段也可以用来对插件重新顺序。
-   
+
 <!-- ### Scheduling plugins -->
 ### 调度插件    {#scheduling-plugin}
 
-<!-- 
+<!--
 1. `UnReserve`: This is an informational extension point that is called if
    a Pod is rejected after being reserved and put on hold by a `Permit` plugin.
 -->
@@ -190,7 +190,7 @@ extension points:
 - `SelectorSpread`：对于属于 {{< glossary_tooltip text="Services" term_id="service" >}}、
   {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} 和
   {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} 的 Pod，偏好跨多个节点部署。
-  
+
   实现的扩展点：`PreScore`，`Score`。
 <!--  
 - `ImageLocality`: Favors nodes that already have the container images that the
@@ -198,7 +198,7 @@ extension points:
   Extension points: `Score`.
 -->
 - `ImageLocality`：选择已经存在 Pod 运行所需容器镜像的节点。
-  
+
   实现的扩展点：`Score`。
 <!--  
 - `TaintToleration`: Implements
@@ -206,21 +206,21 @@ extension points:
   Implements extension points: `Filter`, `Prescore`, `Score`.
 -->
 - `TaintToleration`：实现了[污点和容忍](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
-  
+
   实现的扩展点：`Filter`，`Prescore`，`Score`。
 <!--  
 - `NodeName`: Checks if a Pod spec node name matches the current node.
   Extension points: `Filter`.
 -->
 - `NodeName`：检查 Pod 指定的节点名称与当前节点是否匹配。
-  
+
   实现的扩展点：`Filter`。
 <!--  
 - `NodePorts`: Checks if a node has free ports for the requested Pod ports.
   Extension points: `PreFilter`, `Filter`.
 -->
 - `NodePorts`：检查 Pod 请求的端口在节点上是否可用。
-  
+
   实现的扩展点：`PreFilter`，`Filter`。
 <!--  
 - `NodePreferAvoidPods`: Scores nodes according to the node
@@ -228,9 +228,9 @@ extension points:
   `scheduler.alpha.kubernetes.io/preferAvoidPods`.
   Extension points: `Score`.
 -->
-- `NodePreferAvoidPods`：基于节点的 {{< glossary_tooltip text="注解" term_id="annotation" >}} 
+- `NodePreferAvoidPods`：基于节点的 {{< glossary_tooltip text="注解" term_id="annotation" >}}
   `scheduler.alpha.kubernetes.io/preferAvoidPods` 打分。
-  
+
   实现的扩展点：`Score`。
 <!--  
 - `NodeAffinity`: Implements
@@ -240,7 +240,7 @@ extension points:
 -->
 - `NodeAffinity`：实现了[节点选择器](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
   和[节点亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)。
-  
+
   实现的扩展点：`Filter`，`Score`.
 <!--  
 - `PodTopologySpread`: Implements
@@ -248,7 +248,7 @@ extension points:
   Extension points: `PreFilter`, `Filter`, `PreScore`, `Score`.
 -->
 - `PodTopologySpread`：实现了 [Pod 拓扑分布](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
-  
+
   实现的扩展点：`PreFilter`，`Filter`，`PreScore`，`Score`。
 <!--  
 - `NodeUnschedulable`: Filters out nodes that have `.spec.unschedulable` set to
@@ -256,7 +256,7 @@ extension points:
   Extension points: `Filter`.
 -->
 - `NodeUnschedulable`：过滤 `.spec.unschedulable` 值为 true 的节点。
-  
+
   实现的扩展点：`Filter`。
 <!--  
 - `NodeResourcesFit`: Checks if the node has all the resources that the Pod is
@@ -264,7 +264,7 @@ extension points:
   Extension points: `PreFilter`, `Filter`.
 -->
 - `NodeResourcesFit`：检查节点是否拥有 Pod 请求的所有资源。
-  
+
   实现的扩展点：`PreFilter`，`Filter`。
 <!--  
 - `NodeResourcesBalancedAllocation`: Favors nodes that would obtain a more
@@ -272,7 +272,7 @@ extension points:
   Extension points: `Score`.
 -->
 - `NodeResourcesBalancedAllocation`：调度 Pod 时，选择资源使用更为均衡的节点。
-  
+
   实现的扩展点：`Score`。
 <!--  
 - `NodeResourcesLeastAllocated`: Favors nodes that have a low allocation of
@@ -280,7 +280,7 @@ extension points:
   Extension points: `Score`.
 -->
 - `NodeResourcesLeastAllocated`：选择资源分配较少的节点。
-  
+
   实现的扩展点：`Score`。
 <!--  
 - `VolumeBinding`: Checks if the node has or if it can bind the requested
@@ -288,15 +288,15 @@ extension points:
   Extension points: `PreFilter`, `Filter`, `Reserve`, `PreBind`.
 -->
 - `VolumeBinding`：检查节点是否有请求的卷，或是否可以绑定请求的卷。
-  
+
   实现的扩展点: `PreFilter`，`Filter`，`Reserve`，`PreBind`。
-<!-- 
+<!--
 - `VolumeRestrictions`: Checks that volumes mounted in the node satisfy
   restrictions that are specific to the volume provider.
-  Extension points: `Filter`. 
+  Extension points: `Filter`.
 -->
 - `VolumeRestrictions`：检查挂载到节点上的卷是否满足卷提供程序的限制。
-  
+
   实现的扩展点：`Filter`。
 <!--  
 - `VolumeZone`: Checks that volumes requested satisfy any zone requirements they
@@ -304,29 +304,29 @@ extension points:
   Extension points: `Filter`.
 -->
 - `VolumeZone`：检查请求的卷是否在任何区域都满足。
-  
+
   实现的扩展点：`Filter`。
-<!-- 
+<!--
 - `NodeVolumeLimits`: Checks that CSI volume limits can be satisfied for the
   node.
-  Extension points: `Filter`. 
+  Extension points: `Filter`.
 -->
 - `NodeVolumeLimits`：检查该节点是否满足 CSI 卷限制。
-  
+
   实现的扩展点：`Filter`。
 <!--  
 - `EBSLimits`: Checks that AWS EBS volume limits can be satisfied for the node.
   Extension points: `Filter`.
 -->
 - `EBSLimits`：检查节点是否满足 AWS EBS 卷限制。
-  
+
   实现的扩展点：`Filter`。
 <!--  
 - `GCEPDLimits`: Checks that GCP-PD volume limits can be satisfied for the node.
   Extension points: `Filter`.
 -->
 - `GCEPDLimits`：检查该节点是否满足 GCP-PD 卷限制。
-  
+
   实现的扩展点：`Filter`。
 <!--  
 - `AzureDiskLimits`: Checks that Azure disk volume limits can be satisfied for
@@ -334,7 +334,7 @@ extension points:
   Extension points: `Filter`.
 -->
 - `AzureDiskLimits`：检查该节点是否满足 Azure 卷限制。
-  
+
   实现的扩展点：`Filter`。
 <!--  
 - `InterPodAffinity`: Implements
@@ -342,28 +342,28 @@ extension points:
   Extension points: `PreFilter`, `Filter`, `PreScore`, `Score`.
 -->
 - `InterPodAffinity`：实现 [Pod 间亲和性与反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)。
-  
+
   实现的扩展点：`PreFilter`，`Filter`，`PreScore`，`Score`。
 <!--  
 - `PrioritySort`: Provides the default priority based sorting.
   Extension points: `QueueSort`.
 -->
 - `PrioritySort`：提供默认的基于优先级的排序。
-  
+
   实现的扩展点：`QueueSort`。
 <!--  
 - `DefaultBinder`: Provides the default binding mechanism.
   Extension points: `Bind`.
 -->
 - `DefaultBinder`：提供默认的绑定机制。
-  
+
   实现的扩展点：`Bind`。
 <!--  
 - `DefaultPreemption`: Provides the default preemption mechanism.
   Extension points: `PostFilter`.
 -->
 - `DefaultPreemption`：提供默认的抢占机制。
-  
+
   实现的扩展点：`PostFilter`。
 
 <!--  
@@ -378,7 +378,7 @@ that are not enabled by default:
   Extension points: `Score`.
 -->
 - `NodeResourcesMostAllocated`：选择已分配资源多的节点。
-  
+
   实现的扩展点：`Score`。
 <!--  
 - `RequestedToCapacityRatio`: Favor nodes according to a configured function of
@@ -386,14 +386,14 @@ that are not enabled by default:
   Extension points: `Score`.
 -->
 - `RequestedToCapacityRatio`：根据已分配资源的某函数设置选择节点。
-  
+
   实现的扩展点：`Score`。
 <!--  
 - `NodeResourceLimits`: Favors nodes that satisfy the Pod resource limits.
   Extension points: `PreScore`, `Score`.
 -->
 - `NodeResourceLimits`：选择满足 Pod 资源限制的节点。
-  
+
   实现的扩展点：`PreScore`，`Score`。
 <!--  
 - `CinderVolume`: Checks that OpenStack Cinder volume limits can be satisfied
@@ -401,16 +401,16 @@ that are not enabled by default:
   Extension points: `Filter`.
 -->
 - `CinderVolume`：检查该节点是否满足 OpenStack Cinder 卷限制。
-  
+
   实现的扩展点：`Filter`。
 <!--  
 - `NodeLabel`: Filters and / or scores a node according to configured
   {{< glossary_tooltip text="label(s)" term_id="label" >}}.
   Extension points: `Filter`, `Score`.
 -->
-- `NodeLabel`：根据配置的 {{< glossary_tooltip text="标签" term_id="label" >}} 
+- `NodeLabel`：根据配置的 {{< glossary_tooltip text="标签" term_id="label" >}}
   过滤节点和/或给节点打分。
-  
+
   实现的扩展点：`Filter`，`Score`。
 <!--  
 - `ServiceAffinity`: Checks that Pods that belong to a
@@ -422,7 +422,7 @@ that are not enabled by default:
 - `ServiceAffinity`：检查属于某个 {{< glossary_tooltip term_id="service" >}} 的 Pod
   与配置的标签所定义的节点集是否适配。
   这个插件还支持将属于某个 Service 的 Pod 分散到各个节点。
-  
+
   实现的扩展点：`PreFilter`，`Filter`，`Score`。
 
 <!-- ### Multiple profiles -->
@@ -462,14 +462,14 @@ profiles:
 Pods that want to be scheduled according to a specific profile can include
 the corresponding scheduler name in its `.spec.schedulerName`.
 -->
-希望根据特定配置文件调度的 Pod，可以在 `.spec.schedulerName` 字段指定相应的调度器名称。
+对于那些希望根据特定配置文件来进行调度的 Pod，可以在 `.spec.schedulerName` 字段指定相应的调度器名称。
 
 <!--  
 By default, one profile with the scheduler name `default-scheduler` is created.
 This profile includes the default plugins described above. When declaring more
 than one profile, a unique scheduler name for each of them is required.
 -->
-默认情况下，将创建一个名为 `default-scheduler` 的配置文件。
+默认情况下，将创建一个调度器名为 `default-scheduler` 的配置文件。
 这个配置文件包括上面描述的所有默认插件。
 声明多个配置文件时，每个配置文件中调度器名称必须唯一。
 
@@ -478,8 +478,8 @@ If a Pod doesn't specify a scheduler name, kube-apiserver will set it to
 `default-scheduler`. Therefore, a profile with this scheduler name should exist
 to get those pods scheduled.
 -->
-如果 Pod 未指定调度器名称，kube-apiserver 将会把它设置为 `default-scheduler`。
-因此，应该存在一个名为 `default-scheduler` 的配置文件来调度这些 Pod。
+如果 Pod 未指定调度器名称，kube-apiserver 将会把调度器名设置为 `default-scheduler`。
+因此，应该存在一个调度器名为 `default-scheduler` 的配置文件来调度这些 Pod。
 
 {{< note >}}
 <!--  
@@ -488,7 +488,7 @@ Events for leader election use the scheduler name of the first profile in the
 list.
 -->
 Pod 的调度事件把 `.spec.schedulerName` 字段值作为 ReportingController。
-领导者选择事件使用列表中第一个配置文件的调度器名称。
+领导者选举事件使用列表中第一个配置文件的调度器名称。
 {{< /note >}}
 
 {{< note >}}
@@ -498,7 +498,7 @@ the same configuration parameters (if applicable). This is because the scheduler
 only has one pending pods queue.
 -->
 所有配置文件必须在 QueueSort 扩展点使用相同的插件，并具有相同的配置参数（如果适用）。
-这是因为调度器只有一个的队列保存悬决的 Pod。
+这是因为调度器只有一个保存 pending 状态 Pod 的队列。
 
 {{< /note >}}
 
