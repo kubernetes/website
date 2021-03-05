@@ -83,7 +83,7 @@ heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/servi
 
 #### apiserver 프록시 URL 수동 구성
 
-위에서 언급한 것처럼, `kubectl cluster-info` 명령을 사용하여 서비스의 프록시 URL을 검색한다. 서비스 엔드포인트, 접미사 및 매개 변수를 포함하는 프록시 URL을 작성하려면, 단순히 서비스의 프록시 URL에 추가하면 된다.
+위에서 언급한 것처럼, `kubectl cluster-info` 명령을 사용하여 서비스의 프록시 URL을 검색한다. 서비스 엔드포인트, 접미사 및 매개 변수를 포함하는 프록시 URL을 작성하려면, 서비스의 프록시 URL에 추가하면 된다.
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`[https:]service_name[:port_name]`*`/proxy`
 
 포트에 대한 이름을 지정하지 않은 경우, URL에 *port_name* 을 지정할 필요가 없다.
