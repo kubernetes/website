@@ -24,6 +24,10 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/conc
 
 {{< glossary_definition term_id="name" length="all" >}}
 
+{{< note >}}
+In cases when objects represent a physical entity (like Node represent a physical host), when host is re-created under the same name without deleting and re-creating a Node, Kubernetes will treat it as a same thing, which may lead to inconsistencies.
+{{< /note >}}
+
 Below are three types of commonly used name constraints for resources.
 
 ### DNS Subdomain Names
