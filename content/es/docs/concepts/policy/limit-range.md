@@ -13,7 +13,7 @@ Dentro de un {{< glossary_tooltip text="Namespace" term_id="namespace" >}}, un {
 
 Un Pod tiene permitido consumir, si el nodo lo dispone, más de la cuota solicitada, pero no más que su propio límte establecido.
 Por ejemplo, si un Pod no especifica un valor por defecto para las solicitudes de recursos el nodo puede ofrecerle hasta el límte que ese Pod tiene.
-Existe la preocupación de que un Pod pueda monopolizar todos los recursos disponibles. Un LimitRange es una política para limitar las asignaciones de recursos a pods a nivel de espacio de nombres.
+Existe la preocupación de que un Pod pueda monopolizar todos los recursos disponibles. Un LimitRange es una política para limitar las asignaciones de recursos a pods a nivel de {{< glossary_tooltip text="espacio de nombres" term_id="namespace" >}}.
 
 <!-- body -->
 
