@@ -302,7 +302,7 @@ kubelet [flags]
 <td colspan="2">--enable-cadvisor-json-endpoints&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `false`</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Enable cAdvisor json `/spec` and `/stats/*` endpoints. (DEPRECATED: will be removed in a future version)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Enable cAdvisor json `/spec` and `/stats/*` endpoints. This flag has no effect on the /stats/summary endpoint. (DEPRECATED: will be removed in a future version)</td>
 </tr>
 
 <tr>

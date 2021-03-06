@@ -20,7 +20,7 @@ Serviceのすべてのネットワークエンドポイントが単一のEndpoin
 
 ## EndpointSliceリソース {#endpointslice-resource}
 
-Kubernetes内ではEndpointSliceにはネットワークエンドポイントの集合へのリファレンスが含まれます。EndpointSliceコントローラーは、{{< glossary_tooltip text="セレクター" term_id="selector" >}}が指定されると、Kubernetes Serviceに対するEndpointSliceを自動的に作成します。これらのEndpointSliceにはServiceセレクターに一致する任意のPodへのリファレクンスが含まれます。EndpointSliceはネットワークエンドポイントをユニークなServiceとPortの組み合わせでグループ化します。EndpointSliceオブジェクトの名前は有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+Kubernetes内ではEndpointSliceにはネットワークエンドポイントの集合へのリファレンスが含まれます。EndpointSliceコントローラーは、{{< glossary_tooltip text="セレクター" term_id="selector" >}}が指定されると、Kubernetes Serviceに対するEndpointSliceを自動的に作成します。これらのEndpointSliceにはServiceセレクターに一致する任意のPodへのリファレンスが含まれます。EndpointSliceはネットワークエンドポイントをユニークなServiceとPortの組み合わせでグループ化します。EndpointSliceオブジェクトの名前は有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 一例として、以下に`example`というKubernetes Serviceに対するサンプルのEndpointSliceリソースを示します。
 

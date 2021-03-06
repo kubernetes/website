@@ -45,7 +45,7 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
 * `.metadata.name` 필드에 따라 `nginx-deployment` 이름으로 디플로이먼트가 생성된다.
 * `.spec.replicas` 필드에 따라 디플로이먼트는 3개의 레플리카 파드를 생성한다.
 * `.spec.selector` 필드는 디플로이먼트가 관리할 파드를 찾는 방법을 정의한다.
-  이 사례에서는 간단하게 파드 템플릿에 정의된 레이블(`app: nginx`)을 선택한다.
+  이 사례에서는 파드 템플릿에 정의된 레이블(`app: nginx`)을 선택한다.
   그러나 파드 템플릿 자체의 규칙이 만족되는 한,
   보다 정교한 선택 규칙의 적용이 가능하다.
 
@@ -169,13 +169,15 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
     ```shell
     kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
-    또는 간단하게 다음의 명령어를 사용한다.
+
+    또는 다음의 명령어를 사용한다.
 
     ```shell
     kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
     ```
 
-    이와 유사하게 출력된다.
+    다음과 유사하게 출력된다.
+
     ```
     deployment.apps/nginx-deployment image updated
     ```
@@ -186,7 +188,8 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
     kubectl edit deployment.v1.apps/nginx-deployment
     ```
 
-    이와 유사하게 출력된다.
+    다음과 유사하게 출력된다.
+
     ```
     deployment.apps/nginx-deployment edited
     ```
@@ -198,10 +201,13 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
     ```
 
     이와 유사하게 출력된다.
+
     ```
     Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
     ```
+
     또는
+
     ```
     deployment "nginx-deployment" successfully rolled out
     ```
@@ -210,10 +216,11 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 
 * 롤아웃이 성공하면 `kubectl get deployments` 를 실행해서 디플로이먼트를 볼 수 있다.
     이와 유사하게 출력된다.
-    ```
-    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3/3     3            3           36s
-    ```
+
+  ```ini
+  NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+  nginx-deployment   3/3     3            3           36s
+  ```
 
 * `kubectl get rs` 를 실행해서 디플로이먼트가 새 레플리카셋을 생성해서 파드를 업데이트 했는지 볼 수 있고,
 새 레플리카셋을 최대 3개의 레플리카로 스케일 업, 이전 레플리카셋을 0개의 레플리카로 스케일 다운한다.

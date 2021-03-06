@@ -9,8 +9,8 @@ content_type: concept
 
 <!-- overview -->
 
-<!-- This page explains the custom Hugo shortcodes that can be used in Kubernetes markdown documentation. -->
-本页面将介绍定制 Hugo 短代码，可以用于 Kubernetes markdown 文档书写。
+<!-- This page explains the custom Hugo shortcodes that can be used in Kubernetes Markdown documentation. -->
+本页面将介绍 Hugo 自定义短代码，可以用于 Kubernetes Markdown 文档书写。
 
 <!-- Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content-management/shortcodes). -->
 关于短代码的更多信息可参见 [Hugo 文档](https://gohugo.io/content-management/shortcodes)。
@@ -20,31 +20,31 @@ content_type: concept
 <!--
 ## Feature state
 
-In a markdown page (.md file) on this site, you can add a shortcode to display
+In a Markdown page (.md file) on this site, you can add a shortcode to display
 version and state of the documented feature.
 -->
 ## 功能状态
 
-在本站的 markdown 页面中，你可以加入短代码来展示所描述的功能特性的版本和状态。
+在本站的 Markdown 页面中，你可以加入短代码来展示所描述的功能特性的版本和状态。
 
 <!--
 ### Feature state demo
 
-Below is a demo of the feature state snippet, which displays the feature as stable
-in Kubernetes version 1.10.
+Below is a demo of the feature state snippet, which displays the feature as stable 
+in the latest Kubernetes version.
 -->
 ### 功能状态示例
 
-下面是一个功能状态代码段的演示，表明这个功能已经在 Kubernetes v1.10 时就已经稳定了。
+下面是一个功能状态代码段的演示，表明这个功能已经在最新版 Kubernetes 中稳定了。
 
 ```
-{{</* feature-state for_k8s_version="v1.10" state="stable" */>}}
+{{</* feature-state state="stable" */>}}
 ```
 
-<!-- Will render to: -->
+<!-- Renders to: -->
 会转换为：
 
-{{< feature-state for_k8s_version="v1.10" state="stable" >}}
+{{< feature-state state="stable" >}}
 
 <!-- The valid values for `state` are: -->
 `state` 的可选值如下：
@@ -57,91 +57,42 @@ in Kubernetes version 1.10.
 <!--
 ### Feature state code
 
-The displayed Kubernetes version defaults to that of the page or the site.
-This can be changed by passing the <code>for_k8s_version</code> shortcode
-parameter.
+The displayed Kubernetes version defaults to that of the page or the site. You can change the
+feature state version by passing the `for_k8s_version` shortcode parameter. For example:
 -->
 ### 功能状态代码
 
 所显示的 Kubernetes 默认为该页或站点版本。
-可以通过修改 <code>for_k8s_version</code> 短代码参数来调整要显示的版本。
+修改 <code>for_k8s_version</code> 短代码参数可以调整要显示的版本。例如
 
 ```
-{{</* feature-state for_k8s_version="v1.11" state="stable" */>}}
-```
-
-<!-- Renders to: -->
-会转换为：
-
-{{< feature-state for_k8s_version="v1.11" state="stable" >}}
-
-<!-- #### Alpha feature -->
-#### Alpha 功能
-
-```
-{{</* feature-state feature-state state="alpha" */>}}
+{{</* feature-state for_k8s_version="v1.10" state="beta" */>}}
 ```
 
 <!-- Renders to: -->
 会转换为：
 
-{{< feature-state state="alpha" >}}
-
-<!-- #### Beta feature -->
-#### Beta 功能
-
-```
-{{</* feature-state feature-state state="beta" */>}}
-```
-
-<!-- Renders to: -->
-会转换为：
-
-{{< feature-state state="beta" >}}
-
-<!-- #### Stable feature -->
-#### 稳定功能
-
-```
-{{</* feature-state feature-state state="stable" */>}}
-```
-
-<!-- Renders to: -->
-会转换为：
-
-{{< feature-state state="stable" >}}
-
-<!-- #### Deprecated feature -->
-#### 废弃功能
-
-```
-{{</* feature-state feature-state state="deprecated" */>}}
-```
-
-<!-- Renders to: -->
-会转换为：
-
-{{< feature-state state="deprecated" >}}
+{{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 <!--
 ## Glossary
-There are two glossary tooltips.
+There are two glossary shortcodes: `glossary_tooltip` and `glossary_definition`.
 
 You can reference glossary terms with an inclusion that will automatically
 update and replace content with the relevant links from [our
-glossary](/docs/reference/glossary/). When the term is moused-over by someone
-using the online documentation, the glossary entry will display a tooltip.
+glossary](/docs/reference/glossary/). When the glossary term is moused-over,
+the glossary entry displays a tooltip. The glossary term also displays as a link.
 
 As well as inclusions with tooltips, you can reuse the definitions from the glossary in
 page content.
 -->
 ## 词汇
 
-有两种词汇表提示。
+有两种词汇表提示：`glossary_tooltip` 和 `glossary_definition`。
 
 你可以通过加入术语词汇的短代码，来自动更新和替换相应链接中的内容
 （[我们的词汇库](/zh/docs/reference/glossary/)）
-这样，在浏览在线文档，鼠标移到术语上时，术语解释就会显示在提示框中。
+在浏览在线文档时，术语会显示为超链接的样式，当鼠标移到术语上时，其解释就会显示在提示框中。
 
 除了包含工具提示外，你还可以重用页面内容中词汇表中的定义。
 <!--
@@ -153,12 +104,12 @@ The raw data for glossary terms is stored at [https://github.com/kubernetes/webs
 <!--
 ### Glossary demo
 
-For example, the following include within the markdown will render to
+For example, the following include within the Markdown will render to
 {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
 -->
 ### 词汇演示
 
-例如，下面的代码在 markdown 中将会转换为 `{{< glossary_tooltip text="cluster" term_id="cluster" >}}`，
+例如，下面的代码在 Markdown 中将会转换为 `{{< glossary_tooltip text="cluster" term_id="cluster" >}}`，
 然后在提示框中显示。
 
 ```
@@ -191,7 +142,6 @@ You can also include a full definition:
 
 <!--
 which renders as:
-{{< glossary_definition term_id="cluster" length="all" >}}
 -->
 呈现为： 
 {{< glossary_definition term_id="cluster" length="all" >}}
@@ -236,7 +186,7 @@ Parameter | Description | Default
 {{< /table >}}
 -->
 
-​```go-html-template
+```go-html-template
 {{</* table caption="配置参数" >}}
 参数      | 描述        | 默认值
 :---------|:------------|:-------
@@ -278,7 +228,7 @@ The `tabs` shortcode takes these parameters:
 -->
 ## 标签页
 
-在本站的 markdown 页面（`.md` 文件）中，你可以加入一个标签页集来显示
+在本站的 Markdown 页面（`.md` 文件）中，你可以加入一个标签页集来显示
 某解决方案的不同形式。
 
 标签页的短代码包含以下参数：
@@ -398,6 +348,120 @@ println "This is tab 2."
 {{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
+<!--
+## Version strings
+
+To generate a version string for inclusion in the documentation, you can choose from
+several version shortcodes. Each version shortcode displays a version string derived from
+the value of a version parameter found in the site configuration file, `config.toml`.
+The two most commonly used version parameters are `latest` and `version`.
+-->
+## 版本号信息
+
+要在文档中生成版本号信息，可以从以下几种短代码中选择。每个短代码可以基于站点配置文件
+`config.toml` 中的版本参数生成一个版本号取值。最常用的参数为 `latest` 和 `version`。
+
+<!--
+### `{{</* param "version" */>}}`
+
+The `{{</* param "version" */>}}` shortcode generates the value of the current version of
+the Kubernetes documentation from the `version` site parameter. The `param` shortcode accepts
+the name of one site parameter, in this case: `version`.
+-->
+### `{{</* param "version" */>}}`
+
+`{{</* param "version" */>}}` 短代码可以基于站点参数 `version` 生成 Kubernetes
+文档的当前版本号取值。短代码 `param` 允许传入一个站点参数名称，在这里是 `version`。
+
+<!--
+{{< note >}}
+In previously released documentation, `latest` and `version` parameter values are not equivalent.
+After a new version is released, `latest` is incremented and the value of `version` for the
+documentation set remains unchanged. For example, a previously released version of the
+documentation displays `version` as `v1.19` and `latest` as `v1.20`.
+{{< /note >}}
+-->
+{{< note >}}
+在先前已经发布的文档中，`latest` 和 `version` 参数值并不完全等价。新版本文档发布后，参数
+`latest` 会增加，而 `version` 则保持不变。例如，在上一版本的文档中使用 `version` 会得到
+`v1.19`，而使用 `latest` 则会得到 `v1.20`。
+{{< /note >}}
+
+<!--
+Renders to:
+-->
+转换为：
+
+{{< param "version" >}}
+
+<!--
+### `{{</* latest-version */>}}`
+
+The `{{</* latest-version */>}}` shortcode returns the value of the `latest` site parameter.
+The `latest` site parameter is updated when a new version of the documentation is released.
+This parameter does not always match the value of `version` in a documentation set.
+
+Renders to:
+-->
+### `{{</* latest-version */>}}`
+
+`{{</* latest-version */>}}` 返回站点参数 `latest` 的取值。每当新版本文档发布时，该参数均会被更新。
+因此，参数 `latest` 与 `version` 并不总是相同。
+
+转换为：
+
+{{< latest-version >}}
+
+<!--
+### `{{</* latest-semver */>}}`
+
+The `{{</* latest-semver */>}}` shortcode generates the value of `latest` without the "v" prefix.
+
+Renders to:
+-->
+### `{{</* latest-semver */>}}`
+
+`{{</* latest-semver */>}}` 短代码可以生成站点参数 `latest` 不含前缀 `v` 的版本号取值。
+
+转换为：
+
+{{< latest-semver >}}
+
+<!--
+### `{{</* version-check */>}}`
+
+The `{{</* version-check */>}}` shortcode checks if the `min-kubernetes-server-version`
+page parameter is present and then uses this value to compare to `version`.
+ 
+Renders to:
+-->
+### `{{</* version-check */>}}`
+
+`{{</* version-check */>}}` 会检查是否设置了页面参数 `min-kubernetes-server-version`
+并将其与 `version` 进行比较。
+
+转换为：
+
+{{< version-check >}}
+
+<!--
+### `{{</* latest-release-notes */>}}`
+
+The `{{</* latest-release-notes */>}}` shortcode generates a version string from `latest` and removes
+the "v" prefix. The shortcode prints a new URL for the release note CHANGELOG page with the modified
+version string.
+
+Renders to:
+-->
+### `{{</* latest-release-notes */>}}`
+
+`{{</* latest-release-notes */>}}` 短代码基于站点参数 `latest` 生成不含前缀 `v`
+的版本号取值，并输出该版本更新日志的超链接地址。
+
+转换为：
+
+{{< latest-release-notes >}}
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -408,9 +472,8 @@ println "This is tab 2."
 * Learn about [advanced contributing](/docs/contribute/advanced/).
 -->
 
-* 了解 [Hugo](https://gohugo.io/)。
+* 了解[Hugo](https://gohugo.io/)。
 * 了解[撰写新的话题](/zh/docs/contribute/style/write-new-topic/)。
 * 了解[使用页面内容类型](/zh/docs/contribute/style/page-content-types/)。
 * 了解[发起 PR](/zh/docs/contribute/new-content/open-a-pr/)。
 * 了解[高级贡献](/zh/docs/contribute/advanced/)。
-

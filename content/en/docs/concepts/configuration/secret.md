@@ -718,7 +718,7 @@ spec:
 
 #### Consuming Secret Values from environment variables
 
-Inside a container that consumes a secret in an environment variables, the secret keys appear as
+Inside a container that consumes a secret in the environment variables, the secret keys appear as
 normal environment variables containing the base64 decoded values of the secret data.
 This is the result of commands executed inside the container from the example above:
 
