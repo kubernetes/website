@@ -1,7 +1,7 @@
 ---
 reviewers:
 - raelga
-title: Limit Ranges
+title: Rangos de Límites
 content_type: concept
 weight: 10
 ---
