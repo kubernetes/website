@@ -42,7 +42,7 @@ El nombre de recurso de un objeto LimitRange debe ser un
 - Los usuarios crean recursos como Pods, o Containers de otro tipo de recurso, y PersistentVolumeClaims en el espacio de nombres.
 - El controlador de admisión `LimitRanger` aplicará valores predeterminados y límites, para todos los pods y contenedores que no establezcan requisitos de recursos informáticos. Y realiza un seguimiento del uso para garantizar que no excedan el mínimo, el máximo, y la proporción de ningún LimitRange definido en el espacio de nombres.
 - Si al crear o actualizar un recurso del ejemplo (Pod, Container, PersistentVolumeClaim) se viola una restricción al LimitRange, la solicitud al servidor API fallará con un código de estado HTTP "403 FORBIDDEN" y un mensaje que explica la restricción que se ha violado.
-- Si en un espacio de nombre se activa un LimitRange para recursos de cómputos como `cpu` y `memory`, los usuarios deberan especificar las solicitudes o límites de recursos a dichos valores. De lo contrario, el sistema puede rechazar la creación del Pod.
+- En caso de que en se active un LimitRange para recursos de cómputos como `cpu` y `memory`, los usuarios deberán especificar las solicitudes o límites de recursos a dichos valores. De lo contrario, el sistema puede rechazar la creación del {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 - Las validaciones de LimitRange ocurren solo en la etapa de Admisión de Pod, no en Pods que ya se han iniciado (Runing Pods).
 
 Algunos ejemplos de políticas que se pueden crear utilizando rangos de límites son:
