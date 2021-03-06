@@ -1,4 +1,6 @@
 ---
+
+
 title: 시크릿(Secret)
 content_type: concept
 feature:
@@ -24,8 +26,8 @@ weight: 30
 
 {{< caution >}}
 쿠버네티스 시크릿은 기본적으로 암호화되지 않은 base64 인코딩 문자열로 저장된다.
-기본적으로 API 액세스 권한이 있는 모든 사용자 또는 쿠버네티스의 기본 데이터 저장소 etcd에 
-액세스할 수 있는 모든 사용자가 일반 텍스트로 검색 할 수 있다. 
+기본적으로 API 액세스 권한이 있는 모든 사용자 또는 쿠버네티스의 기본 데이터 저장소 etcd에
+액세스할 수 있는 모든 사용자가 일반 텍스트로 검색할 수 있다.
 시크릿을 안전하게 사용하려면 (최소한) 다음과 같이 하는 것이 좋다.
 
 1. 시크릿에 대한 [암호화 활성화](/docs/tasks/administer-cluster/encrypt-data/).
@@ -280,9 +282,9 @@ API 서버는 요구되는 키가 시크릿 구성에서 제공되고 있는지
 검증도 한다.
 
 {{< caution >}}
-SSH 개인 키는 자체적으로 SSH 클라이언트와 호스트 서버간에 신뢰할 수있는 통신을 
-설정하지 않는다. ConfigMap에 추가된 `known_hosts` 파일과 같은 
-"중간자(man in the middle)" 공격을 완화하려면 신뢰를 설정하는 
+SSH 개인 키는 자체적으로 SSH 클라이언트와 호스트 서버 간에 신뢰할 수 있는 통신을
+설정하지 않는다. 컨피그맵(ConfigMap)에 추가된 `known_hosts` 파일과 같은
+"중간자(man in the middle)" 공격을 완화하려면 신뢰를 설정하는
 2차 수단이 필요하다.
 {{< /caution >}}
 
@@ -667,7 +669,7 @@ kubelet은 마운트된 시크릿이 모든 주기적인 동기화에서 최신 
 그러나, kubelet은 시크릿의 현재 값을 가져 오기 위해 로컬 캐시를 사용한다.
 캐시의 유형은 [KubeletConfiguration 구조체](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)의
 `ConfigMapAndSecretChangeDetectionStrategy` 필드를 사용하여 구성할 수 있다.
-시크릿은 watch(기본값), ttl 기반 또는 단순히 API 서버로 모든 요청을 직접
+시크릿은 watch(기본값), ttl 기반 또는 API 서버로 모든 요청을 직접
 리디렉션하여 전파할 수 있다.
 결과적으로, 시크릿이 업데이트된 순간부터 새로운 키가 파드에 투영되는
 순간까지의 총 지연 시간은 kubelet 동기화 시간 + 캐시
@@ -798,11 +800,6 @@ immutable: true
 필드를 가져오고 서비스 어카운트의 필드로 설정한다.
 해당 프로세스에 대한 자세한 설명은
 [서비스 어카운트에 ImagePullSecrets 추가하기](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)를 참고한다.
-
-### 수동으로 생성된 시크릿의 자동 마운트
-
-수동으로 생성된 시크릿(예: GitHub 계정에 접근하기 위한 토큰이 포함된 시크릿)은
-시크릿의 서비스 어카운트를 기반한 파드에 자동으로 연결될 수 있다.
 
 ## 상세 내용
 
@@ -1249,4 +1246,3 @@ API 서버에서 kubelet으로의 통신은 SSL/TLS로 보호된다.
 - [`kubectl` 을 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
 - [구성 파일을 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
 - [kustomize를 사용한 시크릿 관리](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기
-

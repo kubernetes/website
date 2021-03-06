@@ -20,9 +20,9 @@ content_type: concept
 
 ## Minikube
 
-[`minikube`](https://minikube.sigs.k8s.io/docs/)는 개발과 테스팅 목적으로 하는
+[`minikube`](https://minikube.sigs.k8s.io/docs/)는 개발과 테스팅 목적으로
 단일 노드 쿠버네티스 클러스터를 로컬 워크스테이션에서
-쉽게 구동시키는 도구이다.
+실행하는 도구이다.
 
 ## 대시보드
 

@@ -59,6 +59,22 @@ If you installed minikube locally, run `minikube start`.
 
 4. Katacoda environment only: Type `30000`, and then click **Display Port**.
 
+{{< note >}}
+The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser. You can create Kubernetes resources on the dashboard such as Deployment and Service.
+
+If you are running in an environment as root, see [Open Dashboard with URL](/docs/tutorials/hello-minikube#open-dashboard-with-url).
+
+To stop the proxy, run `Ctrl+C` to exit the process. The dashboard remains running.
+{{< /note >}}
+
+## Open Dashboard with URL
+
+If you don't want to open a web browser, run the dashboard command with the url flag to emit a URL:
+
+```shell
+minikube dashboard --url
+```
+
 ## Create a Deployment
 
 A Kubernetes [*Pod*](/docs/concepts/workloads/pods/) is a group of one or more Containers,

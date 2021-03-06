@@ -8,7 +8,7 @@ weight: 30
 
 This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Packet (bare metal), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 
-Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
+Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
 
 * a highly available cluster
 * composable attributes
@@ -21,7 +21,8 @@ Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [in
   * openSUSE Leap 15
 * continuous integration tests
 
-To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/docs/admin/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
+To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to
+[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
 
 
 
@@ -50,7 +51,7 @@ Kubespray provides the following utilities to help provision your environment:
 
 ### (2/5) インベントリファイルの用意
 
-After you provision your servers, create an [inventory file for Ansible](http://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
+After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
 
 ### (3/5) クラスタ作成の計画
 
@@ -68,7 +69,7 @@ Kubespray provides the ability to customize many aspects of the deployment:
   * {{< glossary_tooltip term_id="cri-o" >}}
 * Certificate generation methods
 
-Kubespray customizations can be made to a [variable file](http://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
+Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 
 ### (4/5) クラスタのデプロイ
 
@@ -110,7 +111,7 @@ When running the reset playbook, be sure not to accidentally target your product
 
 ## フィードバック
 
-* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](http://slack.k8s.io/))
+* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](https://slack.k8s.io/))
 * [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues)
 
 
