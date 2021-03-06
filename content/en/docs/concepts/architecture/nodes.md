@@ -67,6 +67,15 @@ delete the Node object to stop that health checking.
 The name of a Node object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
+{{< note >}}
+The [name](/docs/concepts/overview/working-with-objects/names#names) identifies a Node. Two Nodes
+cannot have the same name at the same time. Kubernetes also assumes that a resource with the same
+name is the same object. In case of a Node, it is implicitly assumed that an instance using the
+same name will have the same state (e.g. network settings, root disk contents). This may lead to
+inconsistencies if instance was altered without the change of a name or deleting and re-creating the
+Node object from API server.
+{{< /note >}}
+
 ### Self-registration of Nodes
 
 When the kubelet flag `--register-node` is true (the default), the kubelet will attempt to
