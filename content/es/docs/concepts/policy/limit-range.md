@@ -47,7 +47,7 @@ El nombre de recurso de un objeto LimitRange debe ser un
 
 Algunos ejemplos de políticas que se pueden crear utilizando rangos de límites son:
 
-- En un clúster de 2 nodos con una capacidad de 8 GiB de RAM y 16 núcleos, podría restringirse los Pods en un espacio de nombres a solicitar 100m de CPU con un límite máximo de 500m para CPU y solicitar 200Mi de memoria con un límite máximo de 600Mi de memoria.
+- En un clúster de 2 nodos con una capacidad de 8 GiB de RAM y 16 núcleos, podría restringirse los {{< glossary_tooltip text="Pods" term_id="pod" >}} en un {{< glossary_tooltip text="Namespace" term_id="namespace" >}} a solicitar `100m` de CPU con un límite máximo de `500m` para CPU y solicitar `200Mi` de memoria con un límite máximo de `600Mi` de memoria.
 - Definir el valor por defecto de límite y solicitúd de CPU a 150m y el valor por defecto de solicitud de memoria a 300Mi para Contenedores que se iniciaron sin solicitudes de CPU y memoria en sus especificaciones.
 
 En el caso de que los límites totales del espacio de nombres sean menores que la suma de los límites de los pods,
