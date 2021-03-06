@@ -8,7 +8,7 @@ weight: 10
 
 <!-- overview -->
 
-Por defecto los contenedores se ejecutan sin restricciones de los [recursos informáticos disponibles en un clúster de Kubernetes](/docs/concepts/configuration/manage-resources-containers/). Aplicando cuotas de recursos, los administradores de clústeres pueden restringir la creación de recursos de Kubernetes y el consumo de recursos de systema en base a su  {{< glossary_tooltip text="espacio de nombre" term_id="namespace" >}}.
+Por defecto, los contenedores se ejecutan sin restricciones sobre los [recursos informáticos disponibles en un clúster de Kubernetes](/docs/concepts/configuration/manage-resources-containers/). Aplicando cuotas de recursos, los administradores de clústeres pueden restringir la creación y el consumo de recursos por {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
 Dentro de un espacio de nombres, un {{< glossary_tooltip text="Pod" term_id="pod" >}} (o contenedor) puede consumir tanta CPU y memoria como según se haya definido para la cuota de recursos del espacio de nombres.
 
 Un Pod tiene permitido consumir, si el nodo lo dispone, más de la cuota solicitada, pero no más que su propio límte establecido.
