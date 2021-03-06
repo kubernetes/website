@@ -67,7 +67,7 @@ Considere executar a seguinte carga de trabalho de exemplo, test-pod:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: test-Pod
+  name: test-pod
 spec:
   runtimeClassName: kata-fc
   containers:
