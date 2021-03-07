@@ -43,7 +43,7 @@ mismo motor de ejecución pero con distintos parámetros.
 
 La configuración disponible utilizando RuntimeClass dependen de la
 implementación de la Interfaz del Motor de ejecución de Containers (CRI). Véase
-la documentación correspondiente ([más abajo)[#cri-configuration]) para más
+la sección [Configuración del CRI](#cri-configuration) para más
 información sobre cómo configurar la implementación del CRI.
 
 {{< note >}}
@@ -53,18 +53,18 @@ forma para el motor de ejecución de los contenedores). Para soportar configurac
 heterogéneas de nodos, véase [Planificación](#scheduling) más abajo.
 {{< /note >}}
 
-Las configuraciones tienen un nombre de `manejador` correspondiente, referenciado
-por la RuntimeClass. El manejador debe ser una etiqueta DNS 1123 válida
+Las configuraciones tienen un nombre de `handler` (manipulador) correspondiente, referenciado
+por la RuntimeClass. El `handler` debe ser una etiqueta DNS 1123 válida
 (alfanumérico + caracter `-`).
 
 ### 2. Crear los recursos RuntimeClass correspondientes.
 
-Cada configuración establecida en el paso 1 tiene un nombre de `manejador`, que
-identifica a dicha configuración. Para cada manejador, hay que crear un objeto
+Cada configuración establecida en el paso 1 tiene un nombre de `handler`, que
+identifica a dicha configuración. Para cada `handler`, hay que crear un objeto
 RuntimeClass correspondiente.
 
 Actualmente el recurso RuntimeClass sólo tiene dos campos significativos: el
-nombre del RuntimeClass (`metadata.name`) y el manejador (`handler`). La
+nombre del RuntimeClass (`metadata.name`) y el `handler`. La
 definición del objeto se parece a ésta:
 
 ```yaml
@@ -106,8 +106,8 @@ spec:
 ```
 
 Así se informa a Kubelet del nombre de la RuntimeClass a utilizar para
-este pod. Si dicho RuntimeClass no existe, o el CRI no puede ejecutar el
-manejador correspondiente, el pod entrará en la
+este pod. Si dicha RuntimeClass no existe, o el CRI no puede ejecutar el
+`handler` correspondiente, el pod entrará en la
 [fase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) final `Failed`.
 Se puede buscar por el correspondiente
 [evento](/docs/tasks/debug-application-cluster/debug-application-introspection/)
@@ -120,7 +120,7 @@ deshabilitada.
 ### Configuración del CRI
 
 Para más detalles sobre cómo configurar los motores de ejecución del CRI, véase
-[instalación del CRI] (/docs/setup/production-environment/container-runtimes/).
+[instalación del CRI](/docs/setup/production-environment/container-runtimes/).
 
 #### dockershim
 
@@ -129,8 +129,8 @@ ejecución.
 
 #### {{< glossary_tooltip term_id="containerd" >}}
 
-Los manejadores del motor de ejecución se configuran mediante la configuración
-de containerd en `/etc/containerd/config.toml`. Los manejadores válidos se
+Los `handlers` del motor de ejecución se configuran mediante la configuración
+de containerd en `/etc/containerd/config.toml`. Los `handlers` válidos se
 configuran en la sección de motores de ejecución:
 
 ```
@@ -142,7 +142,7 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
-Los manejadores del motor de ejecución se configuran a través de la
+Los `handlers` del motor de ejecución se configuran a través de la
 configuración del CRI-O en `/etc/crio/crio.conf`. Los manejadores válidos se
 configuran en la [tabla
 crio.runtime](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table)
