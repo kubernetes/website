@@ -47,7 +47,7 @@ Em vez disso, especifique uma tag significativa, como `v1.42.0`.
 A política padrão de pull é `IfNotPresent` a qual faz com que o
 {{<glossary_tooltip text = "kubelet" term_id = "kubelet">}} ignore 
 o processo de *pull* da imagem, caso a mesma já exista. Se você prefere sempre forçar o processo de *pull*, 
-você pode seguir uma da opções abaixo:
+você pode seguir uma das opções abaixo:
 
 - defina a `imagePullPolicy` do contêiner para` Always`.
 - omita `imagePullPolicy` e use`: latest` como a tag para a imagem a ser usada.
