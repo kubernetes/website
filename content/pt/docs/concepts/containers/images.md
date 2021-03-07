@@ -119,7 +119,7 @@ exemplo, execute-os em seu desktop/laptop:
 
 {{< note >}}
 Para clusters de produção, use uma ferramenta de gerenciamento de configuração para que você possa aplicar esta
-configuração para todos os nós onde você precisa.
+configuração em todos os nós que você precisar.
 {{< /note >}}
 
 Verifique se está funcionando criando um pod que usa uma imagem privada; por exemplo:
