@@ -256,8 +256,8 @@ If the Kubelet **does not** have `--system-reserved-cgroup` and `--kube-reserved
 the explicit cpuset provided by `reserved-cpus` will take precedence over the CPUs
 defined by `--kube-reserved` and `--system-reserved` options.
 -->
-`reserved-cpus` 旨在为操作系统守护程序和 kubernetes 系统守护程序定义一个显式 CPU
-集合。`reserved-cpus` 适用于不打算针对 cpuset 资源为操作系统守护程序和 kubernetes
+`reserved-cpus` 旨在为操作系统守护程序和 kubernetes 系统守护程序预留一组明确指定编号的
+CPU。`reserved-cpus` 适用于不打算针对 cpuset 资源为操作系统守护程序和 kubernetes
 系统守护程序定义独立的顶级 cgroups 的系统。
 如果 Kubelet **没有** 指定参数 `--system-reserved-cgroup` 和 `--kube-reserved-cgroup`，
 则 `reserved-cpus` 提供的显式 cpuset 将优先于 `--kube-reserved` 和 `--system-reserved`
