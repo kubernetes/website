@@ -23,7 +23,7 @@ Assume-se que um serviço independente do cluster gerencia usuários normais das
  
 Neste quesito, _Kubernetes não possui objetos que possam representar as contas de um usuário normal._ Usuários normais não podem ser adicionados ao _cluster_ através de uma chamada para a API.
  
-Apesar de um usuário normal não poder ser adicionado através de uma chamada para a API, qualquer usuário que apresente um certificado válido e assinado pela autoridade de certificados (CA) do _cluster_ é considerado autenticado. Nesta configuração, Kubernetes determina o nome do usuário baseado no campo de nome comum no sujeito (_subject_) do certificado (por exemplo: "/CN=bob"). A partir daí, o subsistema de controle de acesso baseado em função (RBAC) determina se o usuário é autorizado a realizar uma operação específica sobre o recurso. Para mais detalhes, veja a referência sobre o tópico de usuários normais dentro de requisição de certificado (/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user).
+Apesar de um usuário normal não poder ser adicionado através de uma chamada para a API, qualquer usuário que apresente um certificado válido e assinado pela autoridade de certificados (CA) do _cluster_ é considerado autenticado. Nesta configuração, Kubernetes determina o nome do usuário baseado no campo de nome comum no sujeito (_subject_) do certificado (por exemplo: "/CN=bob"). A partir daí, o subsistema de controle de acesso baseado em função (RBAC) determina se o usuário é autorizado a realizar uma operação específica sobre o recurso. Para mais detalhes, veja a referência sobre o tópico de usuários normais dentro de [requisição de certificado](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user).
  
 Em contraste a usuários normais, contas de serviço são considerados usuários gerenciados pela API do Kubernetes. Elas estão vinculadas à específicos _namespaces_ e criados automaticamente pelo servidor de API ou manualmente através de chamadas da API. Contas de serviço estão ligadas a um conjunto de credenciais armazenados como `Secrets`, aos quais são montados dentro dos _pods_ assim permitindo que processos internos ao _cluster_  comuniquem-se com a API do Kubernetes.
  
@@ -38,7 +38,7 @@ Kubernetes usa certificados de clientes, _bearer Token_, um proxy realizando aut
 * Groups: Um conjunto de valores em que cada item indica a associação de um usuário há uma coleção lógica de usuários. Valores comuns podem ser `system:masters` ou `devops-team`.
 * Campos extras: um mapa para uma lista que armazena informações adicionais em que autorizadores podem achar útil.
  
-Todos os valores são opacos para o sistema de autenticação e somente trazem significância quando interpretados por um autorizador (/docs/reference/access-authn-authz/authorization/).
+Todos os valores são opacos para o sistema de autenticação e somente trazem significância quando interpretados por um [autorizador](/docs/reference/access-authn-authz/authorization/).
  
 É possível habilitar múltiplos métodos de autenticação. Deve-se normalmente usar pelo menos dois métodos:
  
@@ -51,7 +51,7 @@ O servidor de API não garante a ordem em que os autenticadores são processados
  
 O grupo `system:authenticated` é incluído na lista de grupos de todos os usuários autenticados.
  
-Integrações com outros protocolos de autenticação, como LDAP, SAML, Kerberos, alternate x509 schemes, etc, podem ser alcançadas utilizando-se de um proxy (#authenticating-proxy) ou webhook (#webhook-token-authentication) de autenticação.
+Integrações com outros protocolos de autenticação, como LDAP, SAML, Kerberos, alternate x509 schemes, etc, podem ser alcançadas utilizando-se de um [proxy](#authenticating-proxy) ou [webhook](#webhook-token-authentication) de autenticação.
  
 ### Certificados de cliente X509
  
@@ -65,7 +65,7 @@ openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app
  
 Isto criaria um arquivo de tipo CSR (requisição de assinatura de certificado) para o usuário "jbeda" pertencendo a dois grupos: "app1" e "app2".
  
-Veja como gerar um certificado de cliente em [Gerenciando Certificados] (/docs/concepts/cluster-administration/certificates/)
+Veja como gerar um certificado de cliente em [Gerenciando Certificados](/docs/concepts/cluster-administration/certificates/)
  
 ### Arquivo estático de Token
  
