@@ -24,13 +24,13 @@ Esse documento descreve o estado atual dos _volumes persistentes_ no Kubernetes.
 ## Introdução
 
 
-O gerenciamento de armazenamento é uma questão bem diferente do gerenciamento de instâncias computacionais. O subsitema PersistentVolume provê uma API para usuários e administradores que mostra de forma detalhada de como o armazenamento é provido e como ele é consumido. Para isso, nós introduzidmos duas novas APIs:  PersistentVolume e PersistentVolumeClaim.
+O gerenciamento de armazenamento é uma questão bem diferente do gerenciamento de instâncias computacionais. O subsistema PersistentVolume provê uma API para usuários e administradores que mostra de forma detalhada de como o armazenamento é provido e como ele é consumido. Para isso, nós introduzidmos duas novas APIs:  PersistentVolume e PersistentVolumeClaim.
 
 Um _PersistentVolume_ (PV) é uma parte do armazenamento dentro do cluster que tenha sido provisionada por um administrador, ou dinamicamente utilizando [Classes de Armazenamento](/docs/concepts/storage/storage-classes/). Isso é um recurso dentro do cluster da mesma forma que um nó também é. PVs são plugins de volume da mesma forma que Volumes, porém eles têm um ciclo de vida independente de qualquer Pod que utilize um PV. Essa API tem por objetivo mostrar os detalhes da implementação do armazenamento, seja ele NFS, iSCSI, ou um armazenamento específico de um provedor de cloud pública.
 
 Uma_PersistentVolumeClaim_ (PVC) é uma requisição para armazenamento por um usuário. É similar a um Pod. Pods utilizam recursos do nó e PVCs utilizam recursos do PV. Pods podem solicitar níveis específicos de recursos (CPU e Memória). Claims podem solicitar tamanho e modos de acesso específicos (exemplo: montagem como ReadWriteOnce, ReadOnlyMany ou ReadWriteMany, veja [Modos de Acesso](#modos-de-acesso)).
 
-Enquanto as PersistentVolumeClaims permitem que um usuário utilize recursos de armazenamento de forma limitada, é comum que usuários precisem de PersistentVolumes com diversas propriedades, como performance, para problemas diversos. Os administradores de cluster precisam estar aptos a oferecer uma variedade de PersistentVolumes que sejam diferentes em tamanho e modo de acesso, sem expor os usuários a detalhes de como esses volumes são implementados. Para necessidades como essas, temos o recurso de _StorageClass_.
+Enquanto as PersistentVolumeClaims permitem que um usuário utilize recursos de armazenamento de forma limitada, é comum que usuários precisem de PersistentVolumes com diversas propriedades, como desempenho, para problemas diversos. Os administradores de cluster precisam estar aptos a oferecer uma variedade de PersistentVolumes que difiram em tamanho e modo de acesso, sem expor os usuários a detalhes de como esses volumes são implementados. Para necessidades como essas, temos o recurso de _StorageClass_.
 
 Veja os [exemplos de passo a passo de forma detalhada](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
 
@@ -40,7 +40,7 @@ PVs são recursos dentro um cluster. PVCs são requisições para esses recursos
 
 ### Provisionamento
 
-Existem duas formas de provisionar um PV: staticamente ou dinamicamente.
+Existem duas formas de provisionar um PV: estaticamente ou dinamicamente.
 
 #### Estático
 
@@ -48,15 +48,15 @@ O administrador do cluster cria uma determinada quantidade de PVs. Eles possuem 
 
 #### Dinâmico
 
-Quando nenhum dos PVs estáticos, que foram criados anteriormente pelo administrator, satisfazem os critérios de uma PersistentVolumeClaim enviado por um usuário, o cluster pode tentar realizar um provisionamento dinâmico para atender a essa PVC. Esse provisionamento é baseado em StorageClasses: a PVC deve solicitar uma [classe de armazenamento](/docs/concepts/storage/storage-classes/) e o administrador deve ter previamente criado e configurado essa classe para que o provisionamento dinâmico possa ocorrer. Requisições que solicitam a classe `""` efetivamente desabilitam o provisionamento dinâmico para elas mesmas.
+Quando nenhum dos PVs estáticos, que foram criados anteriormente pelo administrador, satisfazem os critérios de uma PersistentVolumeClaim enviado por um usuário, o cluster pode tentar realizar um provisionamento dinâmico para atender a essa PVC. Esse provisionamento é baseado em StorageClasses: a PVC deve solicitar uma [classe de armazenamento](/docs/concepts/storage/storage-classes/) e o administrador deve ter previamente criado e configurado essa classe para que o provisionamento dinâmico possa ocorrer. Requisições que solicitam a classe `""` efetivamente desabilitam o provisionamento dinâmico para elas mesmas.
 
-Para habilitar o provisionamento de armazenamento dinâmico baseado em classe de armazenamento, o administrador do cluster precisa habilitar o [controle de admissão](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) `DefaultStorageClass` no servidor da API. Isso pode ser feito, por exemplo, garantindo que `DefaultStorageClass` esteja entre aspas simples, ordenado por uma lista de valores para a flag `--enable-admission-plugins`, componente do servidor da API. Para maiores informações sobre os comandos das flags do servidor da API, consulte a documentação [kube-apiserver](/docs/admin/kube-apiserver/).
+Para habilitar o provisionamento de armazenamento dinâmico baseado em classe de armazenamento, o administrador do cluster precisa habilitar o [controle de admissão](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) `DefaultStorageClass` no servidor da API. Isso pode ser feito, por exemplo, garantindo que `DefaultStorageClass` esteja entre aspas simples, ordenado por uma lista de valores para a flag `--enable-admission-plugins`, componente do servidor da API. Para mais informações sobre os comandos das flags do servidor da API, consulte a documentação [kube-apiserver](/docs/admin/kube-apiserver/).
 
 ### Binding
 
-Um usuário cria, ou em caso de um provisionamento dinâmico já ter criado, uma PersistentVolumeClaim solicitando uma quantidade específica de armazenamento e um determinado modo de acesso. Um controle de loop no master monitora por novas PVCs, encontra um PV (se possível) que satisfaça os requisitos e realiza o bind. Se o PV foi provisionado dinamicamente por uma PVC, o loop sempre vai fazer o bind desse PV com essa PVC em específico. Caso contrário, o usuário vai receber no mínimo o que ele tinha solicitado, porém o volume possa exceder em relação à solicitação inicial. Uma vez realizado esse processo, PersistentVolumeClaim sempre vai ter um bind exclusivo, sem levar em conta como o isso aconteceu. Um bind entre uma PVC e um PV é um mapeamento de um pra um, utilizando o ClaimRef que é um bind bidirecional entre o PersistentVolume e o PersistentVolumeClaim.
+Um usuário cria, ou em caso de um provisionamento dinâmico já ter criado, uma PersistentVolumeClaim solicitando uma quantidade específica de armazenamento e um determinado modo de acesso. Um controle de loop no master monitora por novas PVCs, encontra um PV (se possível) que satisfaça os requisitos e realiza o bind. Se o PV foi provisionado dinamicamente por uma PVC, o loop sempre vai fazer o bind desse PV com essa PVC em específico. Caso contrário, o usuário vai receber no mínimo o que ele havia solicitado, porém, o volume possa exceder em relação à solicitação inicial. Uma vez realizado esse processo, PersistentVolumeClaim sempre vai ter um bind exclusivo, sem levar em conta como o isso aconteceu. Um bind entre uma PVC e um PV é um mapeamento de um para um, utilizando o ClaimRef que é um bind bidirecional entre o PersistentVolume e o PersistentVolumeClaim.
 
-As requisições permanecerão sem bind se o volume solicitado não existir. O bind ocorrerá somente se os requisitos forem atendidos exatamente da mesma forma como solicitado. Por exemplo, um bind de uma PVC de 100GB não vai ocorrer num cluster que foi provisionado com vários PVs de 50GB. O bind ocorrerá somente no momento em que um PV de 100GB for adicionado.
+As requisições permanecerão sem bind se o volume solicitado não existir. O bind ocorrerá somente se os requisitos forem atendidos exatamente da mesma forma como solicitado. Por exemplo, um bind de uma PVC de 100 GB não ocorrerá num cluster que foi provisionado com vários PVs de 50 GB. O bind ocorrerá somente no momento em que um PV de 100 GB for adicionado.
 
 ### Utilização
 
@@ -72,9 +72,9 @@ O propósito da funcionalidade do Objeto de Armazenamento em Proteção de Uso �
 Uma PVC está sendo utilizada por um Pod quando existe um Pod que está usando essa PVC.
 {{< /note >}}
 
-Se um usuário deleta uma PVC que está sendo utilizada por um Pod, esta PVC não é removida imediatamente. A remoção da PVC é adiada até que a PVC não esteja mais sendo utilizado por nenhum Pod. Se um admin deleta um PV que está atrelado a uma PVC, o PV não é removido imediatamente também. A remoção do PV é adiada até que o PV não esteja mais atrelado à PVC.
+Se um usuário deleta uma PVC que está sendo utilizada por um Pod, esta PVC não é removida imediatamente. A remoção da PVC é adiada até que a PVC não esteja mais sendo utilizado por nenhum Pod. Se um administrador deleta um PV que está atrelado a uma PVC, o PV não é removido imediatamente também. A remoção do PV é adiada até que o PV não esteja mais atrelado à PVC.
 
-Você pode ver que uma PVC é protegida quando o status da PVC é `Terminating` e a lista `Finalizers` contém `kubernetes.io/pvc-protection`:
+Note que uma PVC é protegida quando o status da PVC é `Terminating` e a lista `Finalizers` contém `kubernetes.io/pvc-protection`:
 
 ```shell
 kubectl describe pvc hostpath
@@ -90,7 +90,7 @@ Finalizers:    [kubernetes.io/pvc-protection]
 ...
 ```
 
-Você pode ver que um PV é protegido quando o status da PVC é `Terminating` e a lista `Finalizers` contém `kubernetes.io/pv-protection` também:
+Note que um PV é protegido quando o status da PVC é `Terminating` e a lista `Finalizers` contém `kubernetes.io/pv-protection` também:
 
 ```shell
 kubectl describe pv task-pv-volume
@@ -114,25 +114,25 @@ Events:            <none>
 
 ### Recuperação
 
-Quando um usuário não precisar mais utilizar um volume, ele pode deletar a PVC pela API, que por sua vez permite a recuperação do recurso. A política de recuperação para um PersistentVolume diz ao cluster o que fazer com o volume após ele ter sido liberado da sua requisição. Atualmente, volumes podem ser Retidos, Reciclados ou Deletados.
+Quando um usuário não precisar mais utilizar um volume, ele pode deletar a PVC pela API, que, permite a recuperação do recurso. A política de recuperação para um PersistentVolume diz ao cluster o que fazer com o volume após ele ter sido liberado da sua requisição. Atualmente, volumes podem ser Retidos, Reciclados ou Deletados.
 
 #### Retenção
 
 A política `Retain` permite a recuperação de forma manual do recurso. Quando a PersistentVolumeClaim é deletada, ela continua existindo e o volume é considerado "livre". Mas ele ainda não está disponível para outra requisição porque os dados da requisição anterior ainda permanecem no volume. Um administrador pode manuamente recuperar o volume executando os seguintes passos: 
 
 
-1. Deletar o PersistentVolume. O armazenamento associado à infraestrutura externa (AWS EBS, GCE PD, Azure Disk, or Cinder volume) ainda continuará existindo após o PV ser deletado.
+1. Deletar o PersistentVolume. O armazenamento associado à infraestrutura externa (AWS EBS, GCE PD, Azure Disk ou Cinder volume) ainda continuará existindo após o PV ser deletado.
 1. Limpar os dados de forma manual no armazenamento associado.
 1. Deletar manualmente o armazenamento associado. Caso você queira utilizar o mesmo armazenamento, crie um novo PersistentVolume com esse armazenamento.
 
 #### Deletar
 
-Para plugins de volume que suportam a política de recuperação `Delete`, a deleção vai remover o tanto o PersistentVolume do Kubernetes, quanto o armazenamento associado à infraestrutura externa, como AWS EBS, GCE PD, Azure Disk, ou Cinder volume. Volumes que foram provisionados dinamicamente herdam a [política de retenção da sua StorageClass](#política-de-retenção), que por padrão é `Delete`. O administrador precisa configurar a StorageClass de acordo com as necessidades dos usuários. Caso contrário, o PV deve ser editado ou reparado após sua criação. Veja [Alterar a política de renteção de um PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
+Para plugins de volume que suportam a política de recuperação `Delete`, a deleção vai remover o tanto o PersistentVolume do Kubernetes, quanto o armazenamento associado à infraestrutura externa, como AWS EBS, GCE PD, Azure Disk, ou Cinder volume. Volumes que foram provisionados dinamicamente herdam a [política de retenção da sua StorageClass](#política-de-retenção), que por padrão é `Delete`. O administrador precisa configurar a StorageClass de acordo com as necessidades dos usuários. Caso contrário, o PV deve ser editado ou reparado após sua criação. Veja [Alterar a política de retenção de um PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/).
 
 #### Reciclar
 
 {{< warning >}}
-A política de retenção `Recycle` está depreciada. Ao invés disso, recomendamos a utilização de provisionametno dinâmico.
+A política de retenção `Recycle` está depreciada. Ao invés disso, recomendamos a utilização de provisionamento dinâmico.
 {{< /warning >}}
 
 Em caso do volume plugin ter suporte a essa operação, a política de retenção `Recycle` faz uma limpeza básica (`rm -rf /thevolume/*`) no volume e torna ele disponível novamente para outra requisição.
@@ -165,7 +165,7 @@ Contudo, o caminho especificado no Pod reciclador personalizado em `volumes` é 
 
 ### Reservando um PersistentVolume
 
-A camada de gerenciamento pode [fazer o bind de um PersistentVolumeClaims com  PersistentVolumes equivalentes](#binding) no cluster. Contudo, se você quer que uma PVC faça um bind com um PV específco, é preciso fazer o pré-bind deles.
+A camada de gerenciamento pode [fazer o bind de um PersistentVolumeClaims com  PersistentVolumes equivalentes](#binding) no cluster. Contudo, se você quer que uma PVC faça um bind com um PV específico, é preciso fazer o pré-bind deles.
 
 Especificando um PersistentVolume na PersistentVolumeClaim, você declara um bind entre uma PVC e um PV específico. O bind ocorrerá se o PersistentVolume existir e não estiver reservado por uma PersistentVolumeClaims através do seu campo `claimRef`. 
 
@@ -217,7 +217,7 @@ Agora, o suporte à expansão de PersistentVolumeClaims (PVCs) já é habilitado
 * FlexVolumes
 * {{< glossary_tooltip text="CSI" term_id="csi" >}}
 
-Você só pode expandir uma PVC se o campo da classe de armazenamento `allowVolumeExpansion` é _true_.
+Você só pode expandir uma PVC se o campo da classe de armazenamento `allowVolumeExpansion` é `true`.
 
 ``` yaml
 apiVersion: storage.k8s.io/v1
@@ -254,7 +254,7 @@ FlexVolumes permitem redimensionamento se o `RequiresFSResize` do drive é confi
 {{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
 {{< note >}}
-A Expansão de PVCs em uso está disponível como beta desde o Kubernetes 1.15, e como alpha desde a versão 1.11. A funcionalidade `ExpandInUsePersistentVolumes` precisa ser habilitada, o que já está automático para vários clusters que possuem funcionalidades beta. Verifique a documentação [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para maiores informações.
+A Expansão de PVCs em uso está disponível como beta desde o Kubernetes 1.15, e como alpha desde a versão 1.11. A funcionalidade `ExpandInUsePersistentVolumes` precisa ser habilitada, o que já está automático para vários clusters que possuem funcionalidades beta. Verifique a documentação [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) para mais informações.
 {{< /note >}}
 
 Neste caso, você não precisa deletar e recriar um Pod ou um deployment que está sendo utilizado por uma PVC existente.
@@ -314,7 +314,7 @@ Tipos de PersistentVolume são implementados como plugins. Atualmente o Kubernet
 
 ## Volumes Persistentes
 
-Cada PV contém uma `spec` e um status, que é a espeficiação e o status do volume. O nome do PersistentVolume deve ser um [DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+Cada PV contém uma `spec` e um status, que é a especificação e o status do volume. O nome do PersistentVolume deve ser um [DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 ```yaml
 apiVersion: v1
@@ -353,7 +353,7 @@ Atualmente, o tamanho do armazenamento é o único recurso que pode ser configur
 
 O Kubernetes suporta dois `volumeModes` de PersistentVolumes: `Filesystem` e `Block`.
 
-`volumeMode` é um parâmetro opicional da API.
+`volumeMode` é um parâmetro opcional da API.
 `Filesystem` é o modo padrão utilizado quando o parâmetro `volumeMode` é omitido.
 
 Um volume com `volumeMode: Filesystem` é *montado* em um diretório nos Pods. Se o volume for de um dispositivo de bloco e ele estiver vazio, o Kubernetes cria o sistema de arquivo no dispositivo antes de fazer a montagem pela primeira vez.
@@ -376,7 +376,7 @@ Na linha de comando, os modos de acesso ficam abreviados:
 * ROX - ReadOnlyMany
 * RWX - ReadWriteMany
 
-> __Importante!__ Um volume somente pode ser montado utilizando um único modo de acesso por vez, independente se ele suportar mais de um. Por exemplo, um GCEPersistentDisk pode ser montado como ReadWriteOnce por um único nó ou ReadOnlyMany por vários nós, porém não ao mesmo tempo.
+> __Importante!__ Um volume somente pode ser montado utilizando um único modo de acesso por vez, independente se ele suportar mais de um. Por exemplo, um GCEPersistentDisk pode ser montado como ReadWriteOnce por um único nó ou ReadOnlyMany por vários nós, porém não simultaneamente.
 
 
 | Plugin de Volume     | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
@@ -404,13 +404,13 @@ Na linha de comando, os modos de acesso ficam abreviados:
 
 ### Classe
 
-Um PV pode ter uma classe, que é especificada na configuração do atributo `storageClassName` com o nome da [StorageClass](/docs/concepts/storage/storage-classes/). Um PV de uma classe específica só pode ser atrelado a requições PVCs dessa mesma classe. Um PV sem `storageClassName` não possui nenhuma classe e pode ser montado somente a PVCs que não solicitem nenhuma classe em específico.
+Um PV pode ter uma classe, que é especificada na configuração do atributo `storageClassName` com o nome da [StorageClass](/docs/concepts/storage/storage-classes/). Um PV de uma classe específica só pode ser atrelado a requisições PVCs dessa mesma classe. Um PV sem `storageClassName` não possui nenhuma classe e pode ser montado somente a PVCs que não solicitem nenhuma classe em específico.
 
 No passado, a notação `volume.beta.kubernetes.io/storage-class` era utilizada no lugar do atributo `storageClassName`. Essa notação ainda funciona. Contudo, ela será totalmente depreciada numa futura versão do Kubernetes.
 
 ### Política de Retenção
 
-Atuamente as políticas de retenção são:
+Atualmente as políticas de retenção são:
 
 * Retain -- recuperação manual
 * Recycle -- limpeza básica (`rm -rf /thevolume/*`)
@@ -449,7 +449,7 @@ No passado, a notação `volume.beta.kubernetes.io/mount-options` era usada no l
 ### Afinidade de Nó
 
 {{< note >}}
-Para a maioria dos tipos de volume, a configurção desse campo não se faz necessária. Isso é automaticamente populado pelos seguintes volumes de bloco do tipo: [AWS EBS](/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) e [Azure Disk](/docs/concepts/storage/volumes/#azuredisk). Você precisa deixar isso configurado para volumes do tipo [local](/docs/concepts/storage/volumes/#local).
+Para a maioria dos tipos de volume, a configuração desse campo não se faz necessária. Isso é automaticamente populado pelos seguintes volumes de bloco do tipo: [AWS EBS](/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) e [Azure Disk](/docs/concepts/storage/volumes/#azuredisk). Você precisa deixar isso configurado para volumes do tipo [local](/docs/concepts/storage/volumes/#local).
 {{< /note >}}
 
 Um PV pode especificar uma [afinidade de nó](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core) para definir restrições em relação ao limite de nós que podem acessar esse volume. Pods que utilizam um PV serão somente reservados para nós selecionados pela afinidade de nó.
@@ -460,7 +460,7 @@ Um volume sempre estará em dos seguintes estados:
 
 * Available -- um recurso que está livre e ainda não foi atrelado a nenhuma requisição
 * Bound -- um volume atrelado a uma requisição
-* Released -- a requisião foi deletada, mas o curso ainda não foi recuperado pelo cluster 
+* Released -- a requisição foi deletada, mas o curso ainda não foi recuperado pelo cluster 
 * Failed -- o volume fracassou na sua recuperação automática
 
 
@@ -505,7 +505,7 @@ Assim como Pods, as requisições podem solicitar quantidades específicas de re
 
 ### Seletor
 
-Requisições podem especifiar um [seletor de rótulo](/docs/concepts/overview/working-with-objects/labels/#label-selectors) para posteriormente filtrar um grupo de volumes. Somente os volumes que possuam rótulos que safistaçam os critérios do seletor podem ser atrelados à requisição. O seletor pode conter dois campos:
+Requisições podem especifiar um [seletor de rótulo](/docs/concepts/overview/working-with-objects/labels/#label-selectors) para posteriormente filtrar um grupo de volumes. Somente os volumes que possuam rótulos que satisfaçam os critérios do seletor podem ser atrelados à requisição. O seletor pode conter dois campos:
 
 * `matchLabels` - o volume deve ter um rótulo com esse valor
 * `matchExpressions` - uma lista de requisitos, como chave, lista de valores e operador relacionado aos valores e chaves. São operadores válidos: In, NotIn, Exists e DoesNotExist.
@@ -516,14 +516,14 @@ Todos os requisitos de `matchLabels` e `matchExpressions`, são do tipo AND - to
 
 Uma requisição pode solicitar uma classe específica através da [StorageClass](/docs/concepts/storage/storage-classes/) utilizando o atributo `storageClassName`. Neste caso o bind ocorrerá somente com os PVs que possuírem a mesma classe do `storageClassName` dos PVCs.
 
-As PVCs não precisam necessariamente solicitar uma classe. Uma PVC com seu `storageClassName` configurada como `""` sempre vai solicitar um PV sem classe, dessa forma ela sempre será atrelada a um PV sem classe (que não tenha nenhuma notação ou seja igual a `""`). Uma PVC sem `storageClassName` não é a mesma coisa e será tratada pelo cluster de forma diferente, porém isso vai depender se o [puglin de admissão](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) `DefaultStorageClass` estiver habilitado.
+As PVCs não precisam necessariamente solicitar uma classe. Uma PVC com sua `storageClassName` configurada como `""` sempre solicitará um PV sem classe, dessa forma ela sempre será atrelada a um PV sem classe (que não tenha nenhuma notação, ou seja, igual a `""`). Uma PVC sem `storageClassName` não é a mesma coisa e será tratada pelo cluster de forma diferente, porém isso dependerá se o [puglin de admissão](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) `DefaultStorageClass` estiver habilitado.
 
-* Se o plugin de admissão estiver habilitado, o administrador poderá especificar a StorageClass padrão. Todas as PVCs que não tiverem `storageClassName` podem ser atreladas somente a PVs que atendam a essa padrão. A especificação de uma StorageClass padrão é feita através da notação `storageclass.kubernetes.io/is-default-class` recebendo o valor `true` no objeto da StorageClass. Se o administrador não especificar nenhum padrão, o cluster vai tratar a criação de uma PVC como se o plugin de admissão estivesse desabilitado. Se mais de um valor padrão for especificado, o plugin de admissã proíbe a criação de todas as PVCs.
+* Se o plugin de admissão estiver habilitado, o administrador poderá especificar a StorageClass padrão. Todas as PVCs que não tiverem `storageClassName` podem ser atreladas somente a PVs que atendam a esse padrão. A especificação de uma StorageClass padrão é feita através da notação `storageclass.kubernetes.io/is-default-class` recebendo o valor `true` no objeto da StorageClass. Se o administrador não especificar nenhum padrão, o cluster vai tratar a criação de uma PVC como se o plugin de admissão estivesse desabilitado. Se mais de um valor padrão for especificado, o plugin de admissão proíbe a criação de todas as PVCs.
 * Se o plugin de admissão estiver desabilitado, não haverá nenhuma notação para a StorageClass padrão. Todas as PVCs que não tiverem `storageClassName` poderão ser atreladas somente aos PVs que não possuem classe. Neste caso, as PVCs que não tiverem `storageClassName` são tratadas da mesma forma como as PVCs que possuem suas `storageClassName` configuradas como `""`.
 
 Dependendo do modo de instalação, uma StorageClass padrão pode ser implantada num cluster Kubernetes durante a instalação pelo addon manager.
 
-Quando uma PVC especifica um `selector` para solicitar uma StorageClass, os requisitos são do tipo AND: somente um PV com a classe solicitada e com o rótulo requisistado pode ser atrelado à PVC.
+Quando uma PVC especifica um `selector` para solicitar uma StorageClass, os requisitos são do tipo AND: somente um PV com a classe solicitada e com o rótulo requisitado pode ser atrelado à PVC.
 
 {{< note >}}
 Atualmente, uma PVC que tenha `selector` não pode ter um PV dinamicamente provisionado.
@@ -559,7 +559,7 @@ Os binds dos PersistentVolumes são exclusivos e, desde que as PersistentVolumeC
 
 ### PersistentVolumes do tipo `hostPath`
 
-Um PersistentVolume do tipo `hostPath` utiliza um arquivo ou diretório no nó para emular um network-attached storage (NAS). Veja um [um exemplo de volume do tipo `hostPath`](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
+Um PersistentVolume do tipo `hostPath` utiliza um arquivo ou diretório no nó para emular um network-attached storage (NAS). Veja [um exemplo de volume do tipo `hostPath`](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 
 ## Suporte a Volume de Bloco Bruto
 
@@ -614,7 +614,7 @@ spec:
       storage: 10Gi
 ```
 
-### Especificação de Pod com Dipositivo de Bloco Bruto no contêiner 
+### Especificação de Pod com Dispositivo de Bloco Bruto no contêiner 
 
 ```yaml
 apiVersion: v1
@@ -643,7 +643,7 @@ Quando adicionar um dispositivo de bloco bruto num Pod, você especifica o camin
 ### Bind de Volumes de Bloco
 
 Se um usuário solicita um  volume de bloco bruto através do campo `volumeMode` na `spec` da PersistentVolumeClaim, as regras de bind agora têm uma pequena diferença em relação às versões anteriores que não consideravam esse modo como parte da `spec`.
-A tabela abaixo mostra as possíveis combinações que um usuário e um admin pode especificar para requisitar um dispositivo de bloco bruto. A tabela indica se o volume será ou não atrelado com base nas combinações:
+A tabela abaixo mostra as possíveis combinações que um usuário e um administrador pode especificar para requisitar um dispositivo de bloco bruto. A tabela indica se o volume será ou não atrelado com base nas combinações:
 Matriz de bind de volume para provisionamento estático de volumes:
 
 | PV volumeMode | PVC volumeMode  | Result           |
@@ -717,19 +717,19 @@ spec:
 
 Se você está criando templates ou exemplos que rodam numa grande quantidade de clusters e que precisam de armazenamento persistente, recomendamos que utilize o padrão abaixo:
 
-- Inclua objetos PersistentVolumeClaim em seu pacote de configuração (juntamente com Deployments, ConfigMaps, etc). 
+- Inclua objetos PersistentVolumeClaim em seu pacote de configuração (com Deployments, ConfigMaps, etc.). 
 - Não inclua objetos PersistentVolume na configuração, pois o usuário que irá instanciar a configuração talvez não tenha permissão para criar PersistentVolume.
-- Dê ao usuário a opção dele informar o nome de uma classe de armazenamento quando instaciar o template.
+- Dê ao usuário a opção dele informar o nome de uma classe de armazenamento quando instanciar o template.
   - Se o usuário informar o nome de uma classe de armazenamento, coloque esse valor no campo `persistentVolumeClaim.storageClassName`. Isso fará com que a PVC encontre a classe de armazenamento correta se o cluster tiver a StorageClasses habilitado pelo administrador.
   - Se o usuário não informar o nome da classe de armazenamento, deixe o campo `persistentVolumeClaim.storageClassName` sem nenhum valor (vazio). Isso fará com que o PV seja provisionado automaticamente no cluster para o usuário com o StorageClass padrão. Muitos ambientes de cluster já possuem uma StorageClass padrão, ou então os administradores podem criar suas StorageClass de acordo com seus critérios.
-- Durante suas tarefas de administração, busque por PVCs que após um tempo não estão sendo atreladas, pois isso talvez indique que o cluster não tem provisionamento dinâmico (onde o usuário deveria criar um PV que satisfaça os critérios da PVC) ou cluster não tem um sistema de armazenamento (onde usuário não pode realizar um deploy solicitando PVCs).
+- Durante suas tarefas de administração, busque por PVCs que após um tempo não estão sendo atreladas, pois, isso talvez indique que o cluster não tem provisionamento dinâmico (onde o usuário deveria criar um PV que satisfaça os critérios da PVC) ou cluster não tem um sistema de armazenamento (onde usuário não pode realizar um deploy solicitando PVCs).
 
   ## {{% heading "whatsnext" %}}
 
 
 * Saiba mais sobre [Criando um PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Saiba mais sobre [Criando um PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* Leia a [documentação sobre plajemamento de Armazenamento Persistente](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Leia a [documentação sobre planejamento de Armazenamento Persistente](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
 
 ### Referência
 
