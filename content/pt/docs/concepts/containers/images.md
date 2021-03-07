@@ -82,7 +82,7 @@ Essas opções são explicadas com mais detalhes abaixo.
 ### Configurando nós para autenticação em um registro privado
 
 Se você executar o Docker em seus nós, poderá configurar o contêiner runtime do Docker
-runtime para autenticação em um registro de contêiner privado.
+para autenticação em um registro de contêiner privado.
 
 Essa abordagem é adequada se você puder controlar a configuração do nó.
 
