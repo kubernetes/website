@@ -159,7 +159,7 @@ from the existing in-tree plugin to the `file.csi.azure.com` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
 Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
-features must be enabled.
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
 
 ### cephfs
 
