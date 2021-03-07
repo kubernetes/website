@@ -144,6 +144,15 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 Esta solução funciona tanto para o MacOS Catalina quanto para o MacOS Mojave.
 
+### Troubleshooting for Out of Memory
+
+Se você executar o comando `make container-serve` e retornar o seguinte erro:
+```
+make: *** [container-serve] Error 137
+```
+
+Verifique a quantidade de memória disponível para o executor/runtime de container. No caso de Docker Desktop para macOS, abra o menu "Preferences..." -> "Resources..." e tente disponibilizar mais memória.
+
 # Comunidade, discussão, contribuição e apoio
 
 Saiba mais sobre a comunidade Kubernetes SIG Docs e reuniões na [página da comunidade](http://kubernetes.io/community/).
