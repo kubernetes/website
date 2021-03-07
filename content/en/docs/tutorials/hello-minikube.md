@@ -136,7 +136,7 @@ For more information about `kubectl` commands, see the [kubectl overview](/docs/
 ## Create a Service
 
 By default, the Pod is only accessible by its internal IP address within the
-Kubernetes cluster. To make the `hello-node` Container accessible from outside the
+Kubernetes cluster. To make the `hello-node` container accessible from outside the
 Kubernetes virtual network, you have to expose the Pod as a
 Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
