@@ -242,7 +242,7 @@ cd $Env:ProgramFiles\containerd\
 # - cni bin_dir and conf_dir locations
 Get-Content config.toml
 
-# (Optional - but highly recommended) Exclude containerd form Windows Defender Scans
+# (Optional - but highly recommended) Exclude containerd from Windows Defender Scans
 Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe" 
 ```
 
