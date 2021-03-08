@@ -189,6 +189,7 @@ Resources specified on the quota outside of the allowed set results in a validat
 | `BestEffort` | Match pods that have best effort quality of service. |
 | `NotBestEffort` | Match pods that do not have best effort quality of service. |
 | `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/configuration/pod-priority-preemption). |
+| `CrossNamespacePodAffinity` | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node). |
 
 The `BestEffort` scope restricts a quota to tracking the following resource:
 
@@ -428,6 +429,63 @@ cpu         0     10
 memory      0     20Gi
 pods        0     10
 ```
+
+### Cross-namespace Pod Affinity Quota
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+Operators can use `CrossNamespacePodAffinity` quota scope to limit which namespaces are allowed to
+have pods with affinity terms that cross namespaces. Specifically, it controls which pods are allowed
+to set `namespaces` or `namespaceSelector` fields in pod affinity terms.
+
+Preventing users from using cross-namespace affinity terms might be desired since a pod
+with anti-affinity constraints can block pods from all other namespaces 
+from getting scheduled in a failure domain. 
+
+Using this scope operators can prevent certain namespaces (`foo-ns` in the example below) 
+from having pods that use cross-namespace pod affinity by creating a resource quota object in
+that namespace with `CrossNamespaceAffinity` scope and hard limit of 0:
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: disable-cross-namespace-affinity
+  namespace: foo-ns
+spec:
+  hard:
+    pods: "0"
+  scopeSelector:
+    matchExpressions:
+    - scopeName: CrossNamespaceAffinity
+```
+
+If operators want to disallow using `namespaces` and `namespaceSelector` by default, and 
+only allow it for specific namespaces, they could configure `CrossNamespaceAffinity` 
+as a limited resource by setting the kube-apiserver flag --admission-control-config-file
+to the path of the following configuration file:
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: "ResourceQuota"
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: ResourceQuotaConfiguration
+    limitedResources:
+    - resource: pods
+      matchScopes:
+      - scopeName: CrossNamespaceAffinity
+```
+
+With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
+if the namespace where they are created have a resource quota object with 
+`CrossNamespaceAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
+
+This feature is alpha and disabled by default. You can enable it by setting the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
 
 ## Requests compared to Limits {#requests-vs-limits}
 
