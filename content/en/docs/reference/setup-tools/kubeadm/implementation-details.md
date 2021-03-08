@@ -442,7 +442,7 @@ the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubea
 - A ServiceAccount for CoreDNS is created in the `kube-system` namespace.
 - The `coredns` ServiceAccount is bound to the privileges in the `system:coredns` ClusterRole
 
-- In Kubernetes version 1.21, support for using `kube-dns` with kubeadm is removed.
+- In Kubernetes version 1.21, support for using `kube-dns` with kubeadm was removed.
 You can use CoreDNS with kubeadm even when the related Service is named `kube-dns`.
 
 ## kubeadm join phases internal design
