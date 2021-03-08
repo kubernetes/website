@@ -30,11 +30,11 @@ Ingress is a collection of rules that allow inbound connections to reach the end
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../services-resources/ingress-v1#IngressSpec" >}}">IngressSpec</a>)
+- **spec** (<a href="{{< ref "../service-resources/ingress-v1#IngressSpec" >}}">IngressSpec</a>)
 
   Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../services-resources/ingress-v1#IngressStatus" >}}">IngressStatus</a>)
+- **status** (<a href="{{< ref "../service-resources/ingress-v1#IngressStatus" >}}">IngressStatus</a>)
 
   Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -274,7 +274,7 @@ IngressList is a collection of Ingress.
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>), required
+- **items** ([]<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>), required
 
   Items is the list of Ingress.
 
@@ -321,7 +321,7 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
 
 401: Unauthorized
 
@@ -354,7 +354,7 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
 
 401: Unauthorized
 
@@ -427,7 +427,7 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/ingress-v1#IngressList" >}}">IngressList</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-v1#IngressList" >}}">IngressList</a>): OK
 
 401: Unauthorized
 
@@ -495,7 +495,7 @@ GET /apis/networking.k8s.io/v1/ingresses
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/ingress-v1#IngressList" >}}">IngressList</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-v1#IngressList" >}}">IngressList</a>): OK
 
 401: Unauthorized
 
@@ -514,7 +514,7 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>, required
+- **body**: <a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>, required
 
   
 
@@ -538,11 +538,11 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
 
-201 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): Created
+201 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): Created
 
-202 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): Accepted
+202 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): Accepted
 
 401: Unauthorized
 
@@ -566,7 +566,7 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>, required
+- **body**: <a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>, required
 
   
 
@@ -590,9 +590,9 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
 
-201 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): Created
+201 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): Created
 
 401: Unauthorized
 
@@ -616,7 +616,7 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>, required
+- **body**: <a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>, required
 
   
 
@@ -640,9 +640,9 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
 
-201 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): Created
+201 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): Created
 
 401: Unauthorized
 
@@ -695,7 +695,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
 
 401: Unauthorized
 
@@ -748,7 +748,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
 
 401: Unauthorized
 
