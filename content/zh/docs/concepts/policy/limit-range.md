@@ -12,7 +12,7 @@ With resource quotas, cluster administrators can restrict resource consumption a
 Within a namespace, a Pod or Container can consume as much CPU and memory as defined by the namespace's resource quota. There is a concern that one Pod or Container could monopolize all available resources. A LimitRange is a policy to constrain resource allocations (to Pods or Containers) in a namespace.
 -->
 默认情况下， Kubernetes 集群上的容器运行使用的[计算资源](/zh/docs/concepts/configuration/manage-resources-containers/)没有限制。
-使用资源配额，集群管理员可以以{{< glossary_tooltip text="名字空间" term_id="namespace" >}}为单位，限制其资源的使用与创建。
+使用资源配额，集群管理员可以以{{< glossary_tooltip text="名称空间" term_id="namespace" >}}为单位，限制其资源的使用与创建。
 在命名空间中，一个 Pod 或 Container 最多能够使用命名空间的资源配额所定义的 CPU 和内存用量。
 有人担心，一个 Pod 或 Container 会垄断所有可用的资源。
 LimitRange 是在命名空间内限制资源分配（给多个 Pod 或 Container）的策略对象。
