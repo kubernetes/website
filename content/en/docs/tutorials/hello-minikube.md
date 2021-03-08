@@ -62,7 +62,7 @@ If you installed minikube locally, run `minikube start`.
 {{< note >}}
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser. You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
-If you are running in an environment as root, see [Open Dashboard with URL](/docs/tutorials/hello-minikube#open-dashboard-with-url).
+If you are running in an environment as root, see [Open Dashboard with URL](#open-dashboard-with-url).
 
 To stop the proxy, run `Ctrl+C` to exit the process. The dashboard remains running.
 {{< /note >}}
