@@ -29,7 +29,7 @@ The entities that a Pod can communicate with are identified through a combinatio
 2. Namespaces that are allowed
 3. IP blocks (exception: traffic to and from the node where a Pod is running is always allowed, regardless of the IP address of the Pod or the node)
 -->
-Pod 可以通信的 Pod 是通过如下三个标识符的组合来辩识的：
+Pod 可以通信的实体是通过如下三个标识符的组合来辩识的：
 
 1. 其他被允许的 Pods（例外：Pod 无法阻塞对自身的访问）
 2. 被允许的名字空间
