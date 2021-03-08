@@ -2087,7 +2087,7 @@ persistent volume:
 -->
 - `volumeHandle`：唯一标识卷的字符串值。
   该值必须与 CSI 驱动在 `CreateVolumeResponse` 的 `volume_id` 字段中返回的值相对应；
-  接口定义在 [CSI spec](https://github.com/container-storageinterface/spec/blob/master/spec.md#createvolume) 中。
+  接口定义在 [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume) 中。
   在所有对 CSI 卷驱动程序的调用中，引用该 CSI 卷时都使用此值作为 `volume_id` 参数。
 
 <!--
