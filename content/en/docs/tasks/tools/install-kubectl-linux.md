@@ -100,13 +100,35 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 ### Install using native package management
 
 {{< tabs name="kubectl_install" >}}
-{{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
-sudo apt-get install -y kubectl
-{{< /tab >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+
+1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y apt-transport-https ca-certificates wget
+   ```
+
+2. Download the Google Cloud public signing key:
+
+   ```shell
+   sudo wget -O /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   ```
+
+3. Add the Kubernetes `apt` repository:
+
+   ```shell
+   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+4. Update `apt` package index with the new repository and install `kubectl`:
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubectl
+   ```
+
+{{% /tab %}}
 
 {{< tab name="CentOS, RHEL or Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]

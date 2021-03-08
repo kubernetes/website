@@ -89,134 +89,102 @@ EOF
 sudo sysctl --system
 ```
 
-Install containerd:
+Install `containerd`:
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Ubuntu 16.04" %}}
 
-```shell
-# (Install containerd)
-## Set up the repository
-### Install packages to allow apt to use a repository over HTTPS
-sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-```
+1. Setup the [Docker Engine repository for Ubuntu](https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository)
 
-```shell
-## Add Docker's official GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-```
+2. Install `containerd`:
 
-```shell
-## Add Docker apt repository.
-sudo add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
-```
+   ```shell
+   sudo apt-get update && sudo apt-get install -y containerd.io
+   ```
 
-```shell
-## Install containerd
-sudo apt-get update && sudo apt-get install -y containerd.io
-```
+3. Configure `containerd`:
 
-```shell
-# Configure containerd
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
+   ```shell
+   sudo mkdir -p /etc/containerd
+   containerd config default | sudo tee /etc/containerd/config.toml
+   ```
 
-```shell
-# Restart containerd
-sudo systemctl restart containerd
-```
+4. Restart `containerd`:
+
+   ```shell
+   sudo systemctl restart containerd
+   ```
+
 {{% /tab %}}
 {{% tab name="Ubuntu 18.04/20.04" %}}
 
-```shell
-# (Install containerd)
-sudo apt-get update && sudo apt-get install -y containerd
-```
+1. Install `containerd`:
 
-```shell
-# Configure containerd
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
+   ```shell
+   sudo apt-get update && sudo apt-get install -y containerd
+   ```
 
-```shell
-# Restart containerd
-sudo systemctl restart containerd
-```
+2. Configure `containerd`:
+
+   ```shell
+   sudo mkdir -p /etc/containerd
+   containerd config default | sudo tee /etc/containerd/config.toml
+   ```
+
+3. Restart `containerd`:
+
+   ```shell
+   sudo systemctl restart containerd
+   ```
+
 {{% /tab %}}
 {{% tab name="Debian 9+" %}}
 
-```shell
-# (Install containerd)
-## Set up the repository
-### Install packages to allow apt to use a repository over HTTPS
-sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-```
+1. Setup the [Docker Engine repository for Debian](https://docs.docker.com/engine/install/debian/#set-up-the-repository)
 
-```shell
-## Add Docker's official GPG key
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-```
+2. Install `containerd`:
 
-```shell
-## Add Docker apt repository.
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/debian \
-   $(lsb_release -cs) \
-   stable"
-```
+   ```shell
+   sudo apt-get update && sudo apt-get install -y containerd.io
+   ```
 
-```shell
-## Install containerd
-sudo apt-get update && sudo apt-get install -y containerd.io
-```
+3. Configure `containerd`:
 
-```shell
-# Set default containerd configuration
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
+   ```shell
+   sudo mkdir -p /etc/containerd
+   containerd config default | sudo tee /etc/containerd/config.toml
+   ```
 
-```shell
-# Restart containerd
-sudo systemctl restart containerd
-```
+4. Restart `containerd`:
+
+   ```shell
+   sudo systemctl restart containerd
+   ```
+
 {{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
 
-```shell
-# (Install containerd)
-## Set up the repository
-### Install required packages
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-```
+1. Setup the [Docker Engine repository for CentOS/RHEL](https://docs.docker.com/engine/install/centos/#set-up-the-repository)
 
-```shell
-## Add docker repository
-sudo yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-```
+2. Install `containerd`:
 
-```shell
-## Install containerd
-sudo yum update -y && sudo yum install -y containerd.io
-```
+   ```shell
+   sudo yum update -y && sudo yum install -y containerd.io
+   ```
 
-```shell
-## Configure containerd
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
+3. Configure `containerd`:
 
-```shell
-# Restart containerd
-sudo systemctl restart containerd
-```
+   ```shell
+   sudo mkdir -p /etc/containerd
+   containerd config default | sudo tee /etc/containerd/config.toml
+   ```
+
+4. Restart `containerd`:
+
+   ```shell
+   sudo systemctl restart containerd
+   ```
+
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
@@ -224,33 +192,35 @@ sudo systemctl restart containerd
 Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), and then run the following commands:
 <br />
 
-```powershell
-# (Install containerd)
-# Download containerd
-curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
-tar.exe xvf .\containerd-windows-amd64.tar.gz
-```
+1. Download `containerd`:
 
-```powershell
-# Extract and configure
-Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
-cd $Env:ProgramFiles\containerd\
-.\containerd.exe config default | Out-File config.toml -Encoding ascii
+   ```powershell
+   curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
+   tar.exe xvf .\containerd-windows-amd64.tar.gz
+   ```
 
-# Review the configuration. Depending on setup you may want to adjust:
-# - the sandbox_image (Kubernetes pause image)
-# - cni bin_dir and conf_dir locations
-Get-Content config.toml
+2. Extract and configure:
 
-# (Optional - but highly recommended) Exclude containerd from Windows Defender Scans
-Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe" 
-```
+   ```powershell
+   Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
+   cd $Env:ProgramFiles\containerd\
+   .\containerd.exe config default | Out-File config.toml -Encoding ascii
 
-```powershell
-# Start containerd
-.\containerd.exe --register-service
-Start-Service containerd
-```
+   # Review the configuration. Depending on setup you may want to adjust:
+   # - the sandbox_image (Kubernetes pause image)
+   # - cni bin_dir and conf_dir locations
+   Get-Content config.toml
+
+   # (Optional - but highly recommended) Exclude containerd from Windows Defender Scans
+   Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe"
+   ```
+
+3. Start `containerd`:
+
+   ```powershell
+   .\containerd.exe --register-service
+   Start-Service containerd
+   ```
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -465,120 +435,92 @@ Use the following commands to install Docker on your system:
 {{< tabs name="tab-cri-docker-installation" >}}
 {{% tab name="Ubuntu 16.04+" %}}
 
-```shell
-# (Install Docker CE)
-## Set up the repository:
-### Install packages to allow apt to use a repository over HTTPS
-sudo apt-get update && sudo apt-get install -y \
-  apt-transport-https ca-certificates curl software-properties-common gnupg2
-```
+1. Setup the [Docker Engine repository for Ubuntu](https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository)
 
-```shell
-# Add Docker's official GPG key:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-```
+2. Install Docker CE:
 
-```shell
-# Add the Docker apt repository:
-sudo add-apt-repository \
-  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) \
-  stable"
-```
+   ```shell
+   sudo apt-get update && sudo apt-get install -y \
+     containerd.io=1.2.13-2 \
+     docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
+     docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
+   ```
 
-```shell
-# Install Docker CE
-sudo apt-get update && sudo apt-get install -y \
-  containerd.io=1.2.13-2 \
-  docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
-```
+3. Set up the Docker daemon:
 
-```shell
-## Create /etc/docker
-sudo mkdir /etc/docker
-```
+   ```shell
+   sudo mkdir /etc/docker
+   cat <<EOF | sudo tee /etc/docker/daemon.json
+   {
+     "exec-opts": ["native.cgroupdriver=systemd"],
+     "log-driver": "json-file",
+     "log-opts": {
+       "max-size": "100m"
+     },
+     "storage-driver": "overlay2"
+   }
+   EOF
+   ```
 
-```shell
-# Set up the Docker daemon
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
-```
+4. Create `/etc/systemd/system/docker.service.d`:
 
-```shell
-# Create /etc/systemd/system/docker.service.d
-sudo mkdir -p /etc/systemd/system/docker.service.d
-```
+   ```shell
+   sudo mkdir -p /etc/systemd/system/docker.service.d
+   ```
 
-```shell
-# Restart Docker
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
+5. Restart Docker:
+
+   ```shell
+   sudo systemctl daemon-reload
+   sudo systemctl restart docker
+   ```
+
 {{% /tab %}}
 {{% tab name="CentOS/RHEL 7.4+" %}}
 
-```shell
-# (Install Docker CE)
-## Set up the repository
-### Install required packages
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-```
+1. Setup the [Docker Engine repository for CentOS/RHEL](https://docs.docker.com/engine/install/centos/#set-up-the-repository)
 
-```shell
-## Add the Docker repository
-sudo yum-config-manager --add-repo \
-  https://download.docker.com/linux/centos/docker-ce.repo
-```
+2. Install Docker CE:
 
-```shell
-# Install Docker CE
-sudo yum update -y && sudo yum install -y \
-  containerd.io-1.2.13 \
-  docker-ce-19.03.11 \
-  docker-ce-cli-19.03.11
-```
+   ```shell
+   sudo yum update -y && sudo yum install -y \
+     containerd.io-1.2.13 \
+     docker-ce-19.03.11 \
+     docker-ce-cli-19.03.11
+   ```
 
-```shell
-## Create /etc/docker
-sudo mkdir /etc/docker
-```
+3. Set up the Docker daemon:
 
-```shell
-# Set up the Docker daemon
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2",
-  "storage-opts": [
-    "overlay2.override_kernel_check=true"
-  ]
-}
-EOF
-```
+   ```shell
+   sudo mkdir /etc/docker
+   cat <<EOF | sudo tee /etc/docker/daemon.json
+   {
+     "exec-opts": ["native.cgroupdriver=systemd"],
+     "log-driver": "json-file",
+     "log-opts": {
+       "max-size": "100m"
+     },
+     "storage-driver": "overlay2",
+     "storage-opts": [
+       "overlay2.override_kernel_check=true"
+     ]
+   }
+   EOF
+   ```
 
-```shell
-# Create /etc/systemd/system/docker.service.d
-sudo mkdir -p /etc/systemd/system/docker.service.d
-```
+4. Create `/etc/systemd/system/docker.service.d`:
 
-```shell
-# Restart Docker
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
+   ```shell
+   sudo mkdir -p /etc/systemd/system/docker.service.d
+   ```
+
+5. Restart Docker:
+
+   ```shell
+   sudo systemctl daemon-reload
+   sudo systemctl restart docker
+   ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
