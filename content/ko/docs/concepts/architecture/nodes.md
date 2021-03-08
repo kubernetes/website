@@ -57,7 +57,7 @@ kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록
 정상적인지 확인한다.
 
 상태 확인을 중지하려면 사용자 또는 {{< glossary_tooltip term_id="controller" text="컨트롤러">}}에서
-노드 오브젝트를 명시적으로 삭제해야한다.
+노드 오브젝트를 명시적으로 삭제해야 한다.
 {{< /note >}}
 
 노드 오브젝트의 이름은 유효한

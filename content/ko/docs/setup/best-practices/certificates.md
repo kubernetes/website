@@ -155,5 +155,5 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 |-------------------------|-------------------------|-----------------------------------------------------------------------|
 | admin.conf              | kubectl                 | 클러스터 관리자를 설정한다.                                              |
 | kubelet.conf            | kubelet                 | 클러스터 각 노드를 위해 필요하다.                            |
-| controller-manager.conf | kube-controller-manager | 반드시 매니페스트를 `manifests/kube-controller-manager.yaml`에 추가해야한다. |
-| scheduler.conf          | kube-scheduler          | 반드시 매니페스트를 `manifests/kube-scheduler.yaml`에 추가해야한다.          |
+| controller-manager.conf | kube-controller-manager | 반드시 매니페스트를 `manifests/kube-controller-manager.yaml`에 추가해야 한다. |
+| scheduler.conf          | kube-scheduler          | 반드시 매니페스트를 `manifests/kube-scheduler.yaml`에 추가해야 한다.          |
