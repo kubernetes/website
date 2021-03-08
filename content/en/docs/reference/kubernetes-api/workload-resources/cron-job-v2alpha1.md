@@ -1,103 +1,136 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "LimitRange"
+  apiVersion: "batch/v2alpha1"
+  import: "k8s.io/api/batch/v2alpha1"
+  kind: "CronJob"
 content_type: "api_reference"
-description: "LimitRange sets resource usage limits for each kind of resource in a Namespace."
-title: "LimitRange"
-weight: 1
+description: "CronJob represents the configuration of a single cron job."
+title: "CronJob v2alpha1"
+weight: 13
 ---
 
-`apiVersion: v1`
+`apiVersion: batch/v2alpha1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/batch/v2alpha1"`
 
 
-## LimitRange {#LimitRange}
+## CronJob {#CronJob}
 
-LimitRange sets resource usage limits for each kind of resource in a Namespace.
+CronJob represents the configuration of a single cron job.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: batch/v2alpha1
 
 
-- **kind**: LimitRange
+- **kind**: CronJob
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../policies-resources/limit-range-v1#LimitRangeSpec" >}}">LimitRangeSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJobSpec" >}}">CronJobSpec</a>)
 
-  Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
+- **status** (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJobStatus" >}}">CronJobStatus</a>)
 
-
-
-
-## LimitRangeSpec {#LimitRangeSpec}
-
-LimitRangeSpec defines a min/max usage limit for resources that match on kind.
-
-<hr>
-
-- **limits** ([]LimitRangeItem), required
-
-  Limits is the list of LimitRangeItem objects that are enforced.
-
-  <a name="LimitRangeItem"></a>
-  *LimitRangeItem defines a min/max usage limit for any resource that matches on kind.*
-
-  - **limits.type** (string), required
-
-    Type of resource that this limit applies to.
-
-  - **limits.default** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Default resource requirement limit value by resource name if resource limit is omitted.
-
-  - **limits.defaultRequest** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    DefaultRequest is the default resource requirement request value by resource name if resource request is omitted.
-
-  - **limits.max** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Max usage constraints on this kind by resource name.
-
-  - **limits.maxLimitRequestRatio** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    MaxLimitRequestRatio if specified, the named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value; this represents the max burst for the named resource.
-
-  - **limits.min** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Min usage constraints on this kind by resource name.
+  Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## LimitRangeList {#LimitRangeList}
+## CronJobSpec {#CronJobSpec}
 
-LimitRangeList is a list of LimitRange items.
+CronJobSpec describes how the job execution will look like and when it will actually run.
 
 <hr>
 
-- **apiVersion**: v1
+- **jobTemplate** (JobTemplateSpec), required
+
+  Specifies the job that will be created when executing a CronJob.
+
+  <a name="JobTemplateSpec"></a>
+  *JobTemplateSpec describes the data a Job should have when created from a template*
+
+  - **jobTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+    Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+  - **jobTemplate.spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
+
+    Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+
+- **schedule** (string), required
+
+  The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
+
+- **concurrencyPolicy** (string)
+
+  Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+
+- **failedJobsHistoryLimit** (int32)
+
+  The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
+
+- **startingDeadlineSeconds** (int64)
+
+  Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
+
+- **successfulJobsHistoryLimit** (int32)
+
+  The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
+
+- **suspend** (boolean)
+
+  This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 
 
-- **kind**: LimitRangeList
+
+
+
+## CronJobStatus {#CronJobStatus}
+
+CronJobStatus represents the current state of a cron job.
+
+<hr>
+
+- **active** ([]<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
+
+  A list of pointers to currently running jobs.
+
+- **lastScheduleTime** (Time)
+
+  Information when was the last time the job was successfully scheduled.
+
+  <a name="Time"></a>
+  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+
+
+
+
+## CronJobList {#CronJobList}
+
+CronJobList is a collection of cron jobs.
+
+<hr>
+
+- **apiVersion**: batch/v2alpha1
+
+
+- **kind**: CronJobList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../policies-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>), required
 
-  Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+  items is the list of CronJobs.
 
 
 
@@ -114,18 +147,18 @@ LimitRangeList is a list of LimitRange items.
 
 
 
-### `get` read the specified LimitRange
+### `get` read the specified CronJob
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/limitranges/{name}
+GET /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LimitRange
+  name of the CronJob
 
 
 - **namespace** (*in path*): string, required
@@ -142,16 +175,49 @@ GET /api/v1/namespaces/{namespace}/limitranges/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind LimitRange
+### `get` read status of the specified CronJob
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/limitranges
+GET /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}/status
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the CronJob
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
+
+401: Unauthorized
+
+
+### `list` list or watch objects of kind CronJob
+
+#### HTTP Request
+
+GET /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs
 
 #### Parameters
 
@@ -215,16 +281,16 @@ GET /api/v1/namespaces/{namespace}/limitranges
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/limit-range-v1#LimitRangeList" >}}">LimitRangeList</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJobList" >}}">CronJobList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind LimitRange
+### `list` list or watch objects of kind CronJob
 
 #### HTTP Request
 
-GET /api/v1/limitranges
+GET /apis/batch/v2alpha1/cronjobs
 
 #### Parameters
 
@@ -283,16 +349,16 @@ GET /api/v1/limitranges
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/limit-range-v1#LimitRangeList" >}}">LimitRangeList</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJobList" >}}">CronJobList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a LimitRange
+### `create` create a CronJob
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/limitranges
+POST /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs
 
 #### Parameters
 
@@ -302,7 +368,7 @@ POST /api/v1/namespaces/{namespace}/limitranges
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../policies-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>, required
+- **body**: <a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>, required
 
   
 
@@ -326,27 +392,27 @@ POST /api/v1/namespaces/{namespace}/limitranges
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): Created
+201 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): Created
 
-202 (<a href="{{< ref "../policies-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified LimitRange
+### `update` replace the specified CronJob
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/limitranges/{name}
+PUT /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LimitRange
+  name of the CronJob
 
 
 - **namespace** (*in path*): string, required
@@ -354,7 +420,7 @@ PUT /api/v1/namespaces/{namespace}/limitranges/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../policies-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>, required
+- **body**: <a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>, required
 
   
 
@@ -378,25 +444,75 @@ PUT /api/v1/namespaces/{namespace}/limitranges/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): Created
+201 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified LimitRange
+### `update` replace status of the specified CronJob
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/limitranges/{name}
+PUT /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LimitRange
+  name of the CronJob
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): Created
+
+401: Unauthorized
+
+
+### `patch` partially update the specified CronJob
+
+#### HTTP Request
+
+PATCH /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the CronJob
 
 
 - **namespace** (*in path*): string, required
@@ -433,23 +549,76 @@ PATCH /api/v1/namespaces/{namespace}/limitranges/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/limit-range-v1#LimitRange" >}}">LimitRange</a>): OK
+200 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a LimitRange
+### `patch` partially update status of the specified CronJob
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/limitranges/{name}
+PATCH /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the LimitRange
+  name of the CronJob
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a CronJob
+
+#### HTTP Request
+
+DELETE /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the CronJob
 
 
 - **namespace** (*in path*): string, required
@@ -493,11 +662,11 @@ DELETE /api/v1/namespaces/{namespace}/limitranges/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of LimitRange
+### `deletecollection` delete collection of CronJob
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/limitranges
+DELETE /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs
 
 #### Parameters
 
