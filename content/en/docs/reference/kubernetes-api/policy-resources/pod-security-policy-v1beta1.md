@@ -30,7 +30,7 @@ PodSecurityPolicy governs the ability to make requests that affect the Security 
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicySpec" >}}">PodSecurityPolicySpec</a>)
+- **spec** (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicySpec" >}}">PodSecurityPolicySpec</a>)
 
   spec defines the policy enforced.
 
@@ -331,7 +331,7 @@ PodSecurityPolicyList is a list of PodSecurityPolicy objects.
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>), required
+- **items** ([]<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>), required
 
   items is a list of schema objects.
 
@@ -373,7 +373,7 @@ GET /apis/policy/v1beta1/podsecuritypolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
 
 401: Unauthorized
 
@@ -441,7 +441,7 @@ GET /apis/policy/v1beta1/podsecuritypolicies
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicyList" >}}">PodSecurityPolicyList</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicyList" >}}">PodSecurityPolicyList</a>): OK
 
 401: Unauthorized
 
@@ -455,7 +455,7 @@ POST /apis/policy/v1beta1/podsecuritypolicies
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>, required
+- **body**: <a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>, required
 
   
 
@@ -479,11 +479,11 @@ POST /apis/policy/v1beta1/podsecuritypolicies
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): Created
 
-202 (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): Accepted
 
 401: Unauthorized
 
@@ -502,7 +502,7 @@ PUT /apis/policy/v1beta1/podsecuritypolicies/{name}
   name of the PodSecurityPolicy
 
 
-- **body**: <a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>, required
+- **body**: <a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>, required
 
   
 
@@ -526,9 +526,9 @@ PUT /apis/policy/v1beta1/podsecuritypolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): Created
 
 401: Unauthorized
 
@@ -576,7 +576,7 @@ PATCH /apis/policy/v1beta1/podsecuritypolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
 
 401: Unauthorized
 
@@ -624,9 +624,9 @@ DELETE /apis/policy/v1beta1/podsecuritypolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): OK
 
-202 (<a href="{{< ref "../policies-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/pod-security-policy-v1beta1#PodSecurityPolicy" >}}">PodSecurityPolicy</a>): Accepted
 
 401: Unauthorized
 

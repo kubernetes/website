@@ -88,7 +88,7 @@ ControllerRevisionList is a resource containing a list of ControllerRevision obj
 
   More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>), required
 
   Items is the list of ControllerRevisions
 
@@ -135,7 +135,7 @@ GET /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
 
 401: Unauthorized
 
@@ -208,7 +208,7 @@ GET /apis/apps/v1/namespaces/{namespace}/controllerrevisions
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevisionList" >}}">ControllerRevisionList</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevisionList" >}}">ControllerRevisionList</a>): OK
 
 401: Unauthorized
 
@@ -276,7 +276,7 @@ GET /apis/apps/v1/controllerrevisions
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevisionList" >}}">ControllerRevisionList</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevisionList" >}}">ControllerRevisionList</a>): OK
 
 401: Unauthorized
 
@@ -295,7 +295,7 @@ POST /apis/apps/v1/namespaces/{namespace}/controllerrevisions
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>, required
+- **body**: <a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>, required
 
   
 
@@ -319,11 +319,11 @@ POST /apis/apps/v1/namespaces/{namespace}/controllerrevisions
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): Created
+201 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): Created
 
-202 (<a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): Accepted
 
 401: Unauthorized
 
@@ -347,7 +347,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>, required
+- **body**: <a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>, required
 
   
 
@@ -371,9 +371,9 @@ PUT /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): Created
+201 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): Created
 
 401: Unauthorized
 
@@ -426,7 +426,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
+200 (<a href="{{< ref "../workload-resources/controller-revision-v1#ControllerRevision" >}}">ControllerRevision</a>): OK
 
 401: Unauthorized
 

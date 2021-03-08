@@ -1,103 +1,144 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "ReplicationController"
+  apiVersion: "apps/v1"
+  import: "k8s.io/api/apps/v1"
+  kind: "DaemonSet"
 content_type: "api_reference"
-description: "ReplicationController represents the configuration of a replication controller."
-title: "ReplicationController"
-weight: 5
+description: "DaemonSet represents the configuration of a daemon set."
+title: "DaemonSet"
+weight: 10
 ---
 
-`apiVersion: v1`
+`apiVersion: apps/v1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/apps/v1"`
 
 
-## ReplicationController {#ReplicationController}
+## DaemonSet {#DaemonSet}
 
-ReplicationController represents the configuration of a replication controller.
+DaemonSet represents the configuration of a daemon set.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: apps/v1
 
 
-- **kind**: ReplicationController
+- **kind**: DaemonSet
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationControllerSpec" >}}">ReplicationControllerSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSetSpec" >}}">DaemonSetSpec</a>)
 
-  Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationControllerStatus" >}}">ReplicationControllerStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSetStatus" >}}">DaemonSetStatus</a>)
 
-  Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
-
+  The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
-## ReplicationControllerSpec {#ReplicationControllerSpec}
 
-ReplicationControllerSpec is the specification of a replication controller.
+
+## DaemonSetSpec {#DaemonSetSpec}
+
+DaemonSetSpec is the specification of a daemon set.
 
 <hr>
 
-- **selector** (map[string]string)
+- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), required
 
-  Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+  A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
-- **template** (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-
-- **replicas** (int32)
-
-  Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+  An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 
 - **minReadySeconds** (int32)
 
-  Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+  The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
+
+- **updateStrategy** (DaemonSetUpdateStrategy)
+
+  An update strategy to replace existing DaemonSet pods with new pods.
+
+  <a name="DaemonSetUpdateStrategy"></a>
+  *DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.*
+
+  - **updateStrategy.type** (string)
+
+    Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+
+  - **updateStrategy.rollingUpdate** (RollingUpdateDaemonSet)
+
+    Rolling update config params. Present only if type = "RollingUpdate".
+
+    <a name="RollingUpdateDaemonSet"></a>
+    *Spec to control the desired behavior of daemon set rolling update.*
+
+  - **updateStrategy.rollingUpdate.maxUnavailable** (IntOrString)
+
+    The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
+
+    <a name="IntOrString"></a>
+    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+
+- **revisionHistoryLimit** (int32)
+
+  The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
 
 
 
 
 
-## ReplicationControllerStatus {#ReplicationControllerStatus}
+## DaemonSetStatus {#DaemonSetStatus}
 
-ReplicationControllerStatus represents the current status of a replication controller.
+DaemonSetStatus represents the current status of a daemon set.
 
 <hr>
 
-- **replicas** (int32), required
+- **numberReady** (int32), required
 
-  Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+  The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
 
-- **availableReplicas** (int32)
+- **numberAvailable** (int32)
 
-  The number of available replicas (ready for at least minReadySeconds) for this replication controller.
+  The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
 
-- **readyReplicas** (int32)
+- **numberUnavailable** (int32)
 
-  The number of ready replicas for this replication controller.
+  The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
 
-- **fullyLabeledReplicas** (int32)
+- **numberMisscheduled** (int32), required
 
-  The number of pods that have labels matching the labels of the pod template of the replication controller.
+  The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
 
-- **conditions** ([]ReplicationControllerCondition)
+- **desiredNumberScheduled** (int32), required
+
+  The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+
+- **currentNumberScheduled** (int32), required
+
+  The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+
+- **updatedNumberScheduled** (int32)
+
+  The total number of nodes that are running updated daemon pod
+
+- **collisionCount** (int32)
+
+  Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+
+- **conditions** ([]DaemonSetCondition)
 
   *Patch strategy: merge on key `type`*
   
-  Represents the latest available observations of a replication controller's current state.
+  Represents the latest available observations of a DaemonSet's current state.
 
-  <a name="ReplicationControllerCondition"></a>
-  *ReplicationControllerCondition describes the state of a replication controller at a certain point.*
+  <a name="DaemonSetCondition"></a>
+  *DaemonSetCondition describes the state of a DaemonSet at a certain point.*
 
   - **conditions.status** (string), required
 
@@ -105,11 +146,11 @@ ReplicationControllerStatus represents the current status of a replication contr
 
   - **conditions.type** (string), required
 
-    Type of replication controller condition.
+    Type of DaemonSet condition.
 
   - **conditions.lastTransitionTime** (Time)
 
-    The last time the condition transitioned from one status to another.
+    Last time the condition transitioned from one status to another.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
@@ -124,31 +165,31 @@ ReplicationControllerStatus represents the current status of a replication contr
 
 - **observedGeneration** (int64)
 
-  ObservedGeneration reflects the generation of the most recently observed replication controller.
+  The most recent generation observed by the daemon set controller.
 
 
 
 
 
-## ReplicationControllerList {#ReplicationControllerList}
+## DaemonSetList {#DaemonSetList}
 
-ReplicationControllerList is a collection of replication controllers.
+DaemonSetList is a collection of daemon sets.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: apps/v1
 
 
-- **kind**: ReplicationControllerList
+- **kind**: DaemonSetList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>), required
 
-  List of replication controllers. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+  A list of daemon sets.
 
 
 
@@ -165,18 +206,18 @@ ReplicationControllerList is a collection of replication controllers.
 
 
 
-### `get` read the specified ReplicationController
+### `get` read the specified DaemonSet
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
+GET /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicationController
+  name of the DaemonSet
 
 
 - **namespace** (*in path*): string, required
@@ -193,23 +234,23 @@ GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
+200 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified ReplicationController
+### `get` read status of the specified DaemonSet
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
+GET /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicationController
+  name of the DaemonSet
 
 
 - **namespace** (*in path*): string, required
@@ -226,16 +267,16 @@ GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
+200 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ReplicationController
+### `list` list or watch objects of kind DaemonSet
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/replicationcontrollers
+GET /apis/apps/v1/namespaces/{namespace}/daemonsets
 
 #### Parameters
 
@@ -299,16 +340,16 @@ GET /api/v1/namespaces/{namespace}/replicationcontrollers
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationControllerList" >}}">ReplicationControllerList</a>): OK
+200 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSetList" >}}">DaemonSetList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ReplicationController
+### `list` list or watch objects of kind DaemonSet
 
 #### HTTP Request
 
-GET /api/v1/replicationcontrollers
+GET /apis/apps/v1/daemonsets
 
 #### Parameters
 
@@ -367,16 +408,16 @@ GET /api/v1/replicationcontrollers
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationControllerList" >}}">ReplicationControllerList</a>): OK
+200 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSetList" >}}">DaemonSetList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a ReplicationController
+### `create` create a DaemonSet
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/replicationcontrollers
+POST /apis/apps/v1/namespaces/{namespace}/daemonsets
 
 #### Parameters
 
@@ -386,7 +427,7 @@ POST /api/v1/namespaces/{namespace}/replicationcontrollers
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>, required
+- **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
 
   
 
@@ -410,27 +451,27 @@ POST /api/v1/namespaces/{namespace}/replicationcontrollers
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
+200 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
+201 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): Created
 
-202 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified ReplicationController
+### `update` replace the specified DaemonSet
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
+PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicationController
+  name of the DaemonSet
 
 
 - **namespace** (*in path*): string, required
@@ -438,7 +479,7 @@ PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>, required
+- **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
 
   
 
@@ -462,25 +503,25 @@ PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
+200 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
+201 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified ReplicationController
+### `update` replace status of the specified DaemonSet
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
+PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicationController
+  name of the DaemonSet
 
 
 - **namespace** (*in path*): string, required
@@ -488,7 +529,7 @@ PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>, required
+- **body**: <a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
 
   
 
@@ -512,78 +553,25 @@ PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
+200 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
+201 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified ReplicationController
+### `patch` partially update the specified DaemonSet
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
+PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicationController
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified ReplicationController
-
-#### HTTP Request
-
-PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the ReplicationController
+  name of the DaemonSet
 
 
 - **namespace** (*in path*): string, required
@@ -620,23 +608,76 @@ PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
+200 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a ReplicationController
+### `patch` partially update status of the specified DaemonSet
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
+PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicationController
+  name of the DaemonSet
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a DaemonSet
+
+#### HTTP Request
+
+DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the DaemonSet
 
 
 - **namespace** (*in path*): string, required
@@ -680,11 +721,11 @@ DELETE /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of ReplicationController
+### `deletecollection` delete collection of DaemonSet
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/replicationcontrollers
+DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
 
 #### Parameters
 

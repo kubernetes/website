@@ -1,136 +1,192 @@
 ---
 api_metadata:
-  apiVersion: "batch/v2alpha1"
-  import: "k8s.io/api/batch/v2alpha1"
-  kind: "CronJob"
+  apiVersion: "batch/v1"
+  import: "k8s.io/api/batch/v1"
+  kind: "Job"
 content_type: "api_reference"
-description: "CronJob represents the configuration of a single cron job."
-title: "CronJob v2alpha1"
-weight: 13
+description: "Job represents the configuration of a single job."
+title: "Job"
+weight: 11
 ---
 
-`apiVersion: batch/v2alpha1`
+`apiVersion: batch/v1`
 
-`import "k8s.io/api/batch/v2alpha1"`
+`import "k8s.io/api/batch/v1"`
 
 
-## CronJob {#CronJob}
+## Job {#Job}
 
-CronJob represents the configuration of a single cron job.
+Job represents the configuration of a single job.
 
 <hr>
 
-- **apiVersion**: batch/v2alpha1
+- **apiVersion**: batch/v1
 
 
-- **kind**: CronJob
+- **kind**: Job
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJobSpec" >}}">CronJobSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
 
-  Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJobStatus" >}}">CronJobStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/job-v1#JobStatus" >}}">JobStatus</a>)
 
-  Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
-
-
-
-
-## CronJobSpec {#CronJobSpec}
-
-CronJobSpec describes how the job execution will look like and when it will actually run.
-
-<hr>
-
-- **jobTemplate** (JobTemplateSpec), required
-
-  Specifies the job that will be created when executing a CronJob.
-
-  <a name="JobTemplateSpec"></a>
-  *JobTemplateSpec describes the data a Job should have when created from a template*
-
-  - **jobTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-
-    Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-
-  - **jobTemplate.spec** (<a href="{{< ref "../workloads-resources/job-v1#JobSpec" >}}">JobSpec</a>)
-
-    Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
-- **schedule** (string), required
-
-  The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
-
-- **concurrencyPolicy** (string)
-
-  Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
-
-- **failedJobsHistoryLimit** (int32)
-
-  The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
-
-- **startingDeadlineSeconds** (int64)
-
-  Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
-
-- **successfulJobsHistoryLimit** (int32)
-
-  The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
-
-- **suspend** (boolean)
-
-  This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
+  Current status of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## CronJobStatus {#CronJobStatus}
+## JobSpec {#JobSpec}
 
-CronJobStatus represents the current state of a cron job.
+JobSpec describes how the job execution will look like.
 
 <hr>
 
-- **active** ([]<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
-  A list of pointers to currently running jobs.
 
-- **lastScheduleTime** (Time)
+### Replicas
 
-  Information when was the last time the job was successfully scheduled.
+
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
+
+  Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+
+- **parallelism** (int32)
+
+  Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) \< .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+
+### Lifecycle
+
+
+- **completions** (int32)
+
+  Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+
+- **backoffLimit** (int32)
+
+  Specifies the number of retries before marking this job failed. Defaults to 6
+
+- **activeDeadlineSeconds** (int64)
+
+  Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
+
+- **ttlSecondsAfterFinished** (int32)
+
+  ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+
+### Selector
+
+
+- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+  A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+
+- **manualSelector** (boolean)
+
+  manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
+
+
+
+## JobStatus {#JobStatus}
+
+JobStatus represents the current state of a Job.
+
+<hr>
+
+- **startTime** (Time)
+
+  Represents time when the job was acknowledged by the job controller. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
 
   <a name="Time"></a>
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
+- **completionTime** (Time)
+
+  Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+
+  <a name="Time"></a>
+  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+- **active** (int32)
+
+  The number of actively running pods.
+
+- **failed** (int32)
+
+  The number of pods which reached phase Failed.
+
+- **succeeded** (int32)
+
+  The number of pods which reached phase Succeeded.
+
+- **conditions** ([]JobCondition)
+
+  *Patch strategy: merge on key `type`*
+  
+  The latest available observations of an object's current state. When a job fails, one of the conditions will have type == "Failed". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+
+  <a name="JobCondition"></a>
+  *JobCondition describes current state of a job.*
+
+  - **conditions.status** (string), required
+
+    Status of the condition, one of True, False, Unknown.
+
+  - **conditions.type** (string), required
+
+    Type of job condition, Complete or Failed.
+
+  - **conditions.lastProbeTime** (Time)
+
+    Last time the condition was checked.
+
+    <a name="Time"></a>
+    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+  - **conditions.lastTransitionTime** (Time)
+
+    Last time the condition transit from one status to another.
+
+    <a name="Time"></a>
+    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+  - **conditions.message** (string)
+
+    Human readable message indicating details about last transition.
+
+  - **conditions.reason** (string)
+
+    (brief) reason for the condition's last transition.
 
 
 
 
-## CronJobList {#CronJobList}
 
-CronJobList is a collection of cron jobs.
+## JobList {#JobList}
+
+JobList is a collection of jobs.
 
 <hr>
 
-- **apiVersion**: batch/v2alpha1
+- **apiVersion**: batch/v1
 
 
-- **kind**: CronJobList
+- **kind**: JobList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>), required
 
-  items is the list of CronJobs.
+  items is the list of Jobs.
 
 
 
@@ -147,18 +203,18 @@ CronJobList is a collection of cron jobs.
 
 
 
-### `get` read the specified CronJob
+### `get` read the specified Job
 
 #### HTTP Request
 
-GET /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
+GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the CronJob
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -175,23 +231,23 @@ GET /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified CronJob
+### `get` read status of the specified Job
 
 #### HTTP Request
 
-GET /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}/status
+GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the CronJob
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -208,16 +264,16 @@ GET /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind CronJob
+### `list` list or watch objects of kind Job
 
 #### HTTP Request
 
-GET /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs
+GET /apis/batch/v1/namespaces/{namespace}/jobs
 
 #### Parameters
 
@@ -281,16 +337,16 @@ GET /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJobList" >}}">CronJobList</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#JobList" >}}">JobList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind CronJob
+### `list` list or watch objects of kind Job
 
 #### HTTP Request
 
-GET /apis/batch/v2alpha1/cronjobs
+GET /apis/batch/v1/jobs
 
 #### Parameters
 
@@ -349,16 +405,16 @@ GET /apis/batch/v2alpha1/cronjobs
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJobList" >}}">CronJobList</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#JobList" >}}">JobList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a CronJob
+### `create` create a Job
 
 #### HTTP Request
 
-POST /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs
+POST /apis/batch/v1/namespaces/{namespace}/jobs
 
 #### Parameters
 
@@ -368,7 +424,7 @@ POST /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>, required
+- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 
   
 
@@ -392,27 +448,27 @@ POST /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): Created
+201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
 
-202 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified CronJob
+### `update` replace the specified Job
 
 #### HTTP Request
 
-PUT /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
+PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the CronJob
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -420,7 +476,7 @@ PUT /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>, required
+- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 
   
 
@@ -444,25 +500,25 @@ PUT /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): Created
+201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified CronJob
+### `update` replace status of the specified Job
 
 #### HTTP Request
 
-PUT /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}/status
+PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the CronJob
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -470,7 +526,7 @@ PUT /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>, required
+- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 
   
 
@@ -494,78 +550,25 @@ PUT /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): Created
+201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified CronJob
+### `patch` partially update the specified Job
 
 #### HTTP Request
 
-PATCH /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
+PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the CronJob
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified CronJob
-
-#### HTTP Request
-
-PATCH /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the CronJob
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -602,23 +605,76 @@ PATCH /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/cron-job-v2alpha1#CronJob" >}}">CronJob</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a CronJob
+### `patch` partially update status of the specified Job
 
 #### HTTP Request
 
-DELETE /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
+PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the CronJob
+  name of the Job
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a Job
+
+#### HTTP Request
+
+DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -662,11 +718,11 @@ DELETE /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of CronJob
+### `deletecollection` delete collection of Job
 
 #### HTTP Request
 
-DELETE /apis/batch/v2alpha1/namespaces/{namespace}/cronjobs
+DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
 #### Parameters
 

@@ -30,11 +30,11 @@ Pod is a collection of containers that can run on a host. This resource is creat
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workloads-resources/pod-v1#PodSpec" >}}">PodSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/pod-v1#PodSpec" >}}">PodSpec</a>)
 
   Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../workloads-resources/pod-v1#PodStatus" >}}">PodStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/pod-v1#PodStatus" >}}">PodStatus</a>)
 
   Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -53,13 +53,13 @@ PodSpec is a description of a pod.
 ### Containers
 
 
-- **containers** ([]<a href="{{< ref "../workloads-resources/container#Container" >}}">Container</a>), required
+- **containers** ([]<a href="{{< ref "../workload-resources/container#Container" >}}">Container</a>), required
 
   *Patch strategy: merge on key `name`*
   
   List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
 
-- **initContainers** ([]<a href="{{< ref "../workloads-resources/container#Container" >}}">Container</a>)
+- **initContainers** ([]<a href="{{< ref "../workload-resources/container#Container" >}}">Container</a>)
 
   *Patch strategy: merge on key `name`*
   
@@ -430,7 +430,7 @@ PodSpec is a description of a pod.
 ### Alpha level
 
 
-- **ephemeralContainers** ([]<a href="{{< ref "../workloads-resources/ephemeral-container#EphemeralContainer" >}}">EphemeralContainer</a>)
+- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/ephemeral-container#EphemeralContainer" >}}">EphemeralContainer</a>)
 
   *Patch strategy: merge on key `name`*
   
@@ -547,15 +547,15 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
 
-- **initContainerStatuses** ([]<a href="{{< ref "../workloads-resources/container#ContainerStatus" >}}">ContainerStatus</a>)
+- **initContainerStatuses** ([]<a href="{{< ref "../workload-resources/container#ContainerStatus" >}}">ContainerStatus</a>)
 
   The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 
-- **containerStatuses** ([]<a href="{{< ref "../workloads-resources/container#ContainerStatus" >}}">ContainerStatus</a>)
+- **containerStatuses** ([]<a href="{{< ref "../workload-resources/container#ContainerStatus" >}}">ContainerStatus</a>)
 
   The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 
-- **ephemeralContainerStatuses** ([]<a href="{{< ref "../workloads-resources/container#ContainerStatus" >}}">ContainerStatus</a>)
+- **ephemeralContainerStatuses** ([]<a href="{{< ref "../workload-resources/container#ContainerStatus" >}}">ContainerStatus</a>)
 
   Status for any ephemeral containers that have run in this pod. This field is alpha-level and is only populated by servers that enable the EphemeralContainers feature.
 
@@ -579,7 +579,7 @@ PodList is a list of Pods.
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-- **items** ([]<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>), required
 
   List of pods. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md
 
@@ -626,7 +626,7 @@ GET /api/v1/namespaces/{namespace}/pods/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
 
 401: Unauthorized
 
@@ -732,7 +732,7 @@ GET /api/v1/namespaces/{namespace}/pods/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
 
 401: Unauthorized
 
@@ -805,7 +805,7 @@ GET /api/v1/namespaces/{namespace}/pods
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-v1#PodList" >}}">PodList</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-v1#PodList" >}}">PodList</a>): OK
 
 401: Unauthorized
 
@@ -873,7 +873,7 @@ GET /api/v1/pods
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-v1#PodList" >}}">PodList</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-v1#PodList" >}}">PodList</a>): OK
 
 401: Unauthorized
 
@@ -892,7 +892,7 @@ POST /api/v1/namespaces/{namespace}/pods
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>, required
+- **body**: <a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>, required
 
   
 
@@ -916,11 +916,11 @@ POST /api/v1/namespaces/{namespace}/pods
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): Created
 
-202 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): Accepted
 
 401: Unauthorized
 
@@ -944,7 +944,7 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>, required
+- **body**: <a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>, required
 
   
 
@@ -968,9 +968,9 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): Created
 
 401: Unauthorized
 
@@ -994,7 +994,7 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>, required
+- **body**: <a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>, required
 
   
 
@@ -1018,9 +1018,9 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): Created
 
 401: Unauthorized
 
@@ -1073,7 +1073,7 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
 
 401: Unauthorized
 
@@ -1126,7 +1126,7 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
 
 401: Unauthorized
 
@@ -1179,9 +1179,9 @@ DELETE /api/v1/namespaces/{namespace}/pods/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
 
-202 (<a href="{{< ref "../workloads-resources/pod-v1#Pod" >}}">Pod</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): Accepted
 
 401: Unauthorized
 
