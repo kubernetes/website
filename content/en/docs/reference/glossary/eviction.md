@@ -4,14 +4,14 @@ id: eviction
 date: 2021-03-05
 full_link: /docs/concepts/scheduling-eviction/pod-eviction
 short_description: >
-  Reclaimation of resources by stopping one or more {{< glossary_tooltip text="pods" term_id="pod" >}} and deleting unused {{< glossary_tooltip text="images" term_id="image" >}} on a {{< glossary_tooltip text="nodes" term_id="node" >}}.
+  Reclaimation of resources by terminating one or more {{< glossary_tooltip text="pods" term_id="pod" >}} and deleting unused {{< glossary_tooltip text="images" term_id="image" >}} on a {{< glossary_tooltip text="nodes" term_id="node" >}}.
 
 aka:
 tags:
 - fundamental
 - operation
 ---
- Reclaimation of resources by stopping one or more {{< glossary_tooltip text="pods" term_id="pod" >}} and deleting unused {{< glossary_tooltip text="images" term_id="image" >}} on a {{< glossary_tooltip text="nodes" term_id="node" >}}.
+ Reclaimation of resources by terminating one or more {{< glossary_tooltip text="pods" term_id="pod" >}} and deleting unused {{< glossary_tooltip text="images" term_id="image" >}} on a {{< glossary_tooltip text="nodes" term_id="node" >}}.
 
 <!--more-->
 
