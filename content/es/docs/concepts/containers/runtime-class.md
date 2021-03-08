@@ -1,6 +1,6 @@
 ---
 reviewers:
-title: Clase Runtime
+title: RuntimeClass
 content_type: concept
 weight: 20
 ---
