@@ -15,7 +15,7 @@ weight: 10
 In order to preserve the stability of a node, the kubelet will evict (terminate) pods and delete unused images when a node is running out of PIDs, memory, or filesystem storage. If the kubelet allows those resources to be exhausted, the node will become unstable.
 
 A number of other control plane features and logic affect how and when pods are evicted, including:
-* [Pod resource requests and limits](/docs/tasks/configure-pod-container/assign-memory-resource/), which are important to 
+* [Pod resource requests and limits](/docs/tasks/configure-pod-container/assign-memory-resource/) 
 * [Eviction thresholds](/docs/tasks/administer-cluster/out-of-resource/#eviction-thresholds), which define the triggers at which the kubelet starts to reclaim resources
 * [Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/), which is a set of classes for Pods that effect how and when they are evicted. Pods ar evicted in the following order:
   * Pods that are assigned with the `BestEffort` class 
