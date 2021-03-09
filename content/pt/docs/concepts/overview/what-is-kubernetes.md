@@ -1,7 +1,5 @@
 ---
 reviewers:
-- bgrant0607
-- mikedanese
 title: O que é Kubernetes?
 description: >
   Kubernetes é um plataforma de código aberto, portável e extensiva para o gerenciamento de cargas de trabalho e serviços distribuídos em contêineres, que facilita tanto a configuração declarativa quanto a automação. Ele possui um ecossistema grande, e de rápido crescimento.  Serviços, suporte, e ferramentas para Kubernetes estão amplamente disponíveis.

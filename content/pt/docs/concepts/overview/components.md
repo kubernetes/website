@@ -1,7 +1,5 @@
 ---
 reviewers:
-- lavalamp
-- rikatz
 title: Componentes do Kubernetes
 content_type: concept
 description: >
