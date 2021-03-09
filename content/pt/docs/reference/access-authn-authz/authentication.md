@@ -183,7 +183,7 @@ type: kubernetes.io/service-account-token
 Valores são codificados em base64 porque segredos são sempre codificados neste formato.
 {{< /note >}}
  
-O JWT assinado pode ser usado como um _bearer token_ para autenticar-se como a conta de serviço. Veja [acima](#Adicionando um _bearer token_ em uma requisição) para como o _token_ pode ser incluído em uma requisição. Normalmente esses segredos são montados no pod para um acesso interno ao cluster ao servidor de API, porém pode ser utilizado fora do cluster também.
+O JWT assinado pode ser usado como um _bearer token_ para autenticar-se como a conta de serviço. Veja [acima](#adicionando-um-bearer-token-em-uma-requisição) como o _token_ pode ser incluído em uma requisição. Normalmente esses segredos são montados no pod para um acesso interno ao cluster ao servidor de API, porém pode ser utilizado fora do cluster também.
  
 Contas de serviço são autenticadas com o nome de usuário `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)` e são atribuídas aos grupos `system:serviceaccounts` e `system:serviceaccounts:(NAMESPACE)`.
  
@@ -193,7 +193,7 @@ AVISO: porque os _tokens_ das contas de serviço são armazenados em segredos, q
  
 [OpenID Connect](https://openid.net/connect/) é uma variação do framework de autorização OAuth2 que suporta provedores como Azure Active Directory, Salesforce, e Google. A principal extensão do OAuth2 é um campo adicional de _token_ de acesso chamado [ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken). Este _token_ é um tipo de JSON Web Token (JWT) com campos bem definidos, como usuário, e-mail e é assinado pelo servidor de autorização.
  
-Para identificar o usuário, o autenticador usa o `id_token` (e não `access_token`) do _bearer token_ da resposta de autorização do  OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse). Veja [acima](#Adicionando um _bearer token_ em uma requisição) como incluir um _token_ em uma requisição.
+Para identificar o usuário, o autenticador usa o `id_token` (e não `access_token`) do _bearer token_ da resposta de autorização do  OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse). Veja [acima](#adicionando-um-bearer-token-em-uma-requisição) como incluir um _token_ em uma requisição.
  
 {{< mermaid >}}
 sequenceDiagram
@@ -373,7 +373,7 @@ contexts:
  name: webhook
 ```
  
-Quando um cliente tenta autenticar-se com o servidor de API utilizando um _bearer token_ como discutido [acima](#Colocando um _bearer token_  em uma requisição, o webhook de autenticação envia um objeto JSON serializado do tipo `TokenReview` contendo o valor do _token_ para o serviço remoto.
+Quando um cliente tenta autenticar-se com o servidor de API utilizando um _bearer token_ como discutido [acima](#adicionando-um-bearer-token-em-uma-requisição), o webhook de autenticação envia um objeto JSON serializado do tipo `TokenReview` contendo o valor do _token_ para o serviço remoto.
  
 Note que objetos de API do tipo _webhook_ estão sujeitos às mesmas [regras de compatibilidade de versão](/docs/concepts/overview/kubernetes-api/) como outros objetos de API Kubernetes.
 Implementadores devem verificar o campo de versão da API (`apiVersion`) da requisição para garantir a correta deserialização e **devem** responder com um objeto do tipo `TokenReview` da mesma versão da requisição.
