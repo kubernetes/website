@@ -13,7 +13,7 @@ Horizontal Pod Autoscalerは、Deployment、ReplicaSetまたはStatefulSetとい
 ## {{% heading "前提条件" %}}
 
 この例ではバージョン1.2以上の動作するKubernetesクラスターおよびkubectlが必要です。
-[Metrics server](https://github.com/kubernetes-sigs/metrics-server)によるモニタリングが[Metrics API](https://github.com/kubernetes/metrics)を通じてクラスター内にデプロイされている必要があります。
+[Metrics API](https://github.com/kubernetes/metrics)を介してメトリクスを提供するために、[Metrics server](https://github.com/kubernetes-sigs/metrics-server)によるモニタリングがクラスター内にデプロイされている必要があります。
 Horizontal Pod Autoscalerはメトリクスを収集するためにこのAPIを利用します。metrics-serverをデプロイする方法を知りたい場合は[metrics-server ドキュメント](https://github.com/kubernetes-sigs/metrics-server#deployment)をご覧ください。
 
 Horizontal Pod Autoscalerで複数のリソースメトリクスを利用するためには、バージョン1.6以上のKubernetesクラスターおよびkubectlが必要です。カスタムメトリクスを使えるようにするためには、あなたのクラスターがカスタムメトリクスAPIを提供するAPIサーバーと通信できる必要があります。
