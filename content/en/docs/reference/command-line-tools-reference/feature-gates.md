@@ -120,7 +120,8 @@ different Kubernetes components.
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `GenericEphemeralVolume` | `false` | Alpha | 1.19 | 1.20 |
 | `GenericEphemeralVolume` | `true` | Beta | 1.21 | |
-| `GracefulNodeShutdown` | `false` | Alpha | 1.20 | |
+| `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
+| `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
