@@ -27,7 +27,7 @@ Apesar de um usuário normal não poder ser adicionado através de uma chamada p
  
 Em contraste a usuários normais, contas de serviço são considerados usuários gerenciados pela API do Kubernetes. Elas estão vinculadas à específicos _namespaces_ e criados automaticamente pelo servidor de API ou manualmente através de chamadas da API. Contas de serviço estão ligadas a um conjunto de credenciais armazenados como `Secrets`, aos quais são montados dentro dos _pods_ assim permitindo que processos internos ao _cluster_  comuniquem-se com a API do Kubernetes.
  
-Requisições para a API estão ligadas a um usuário normal, conta de serviço ou serão tratadas como requisições anônimas (#anonymous-requests). Isto significa que cada processo dentro ou fora do _cluster_, desde um usuário humano entrando `kubectl` de uma estação de trabalho, a `kubelets` rodando nos nós, a membros do painel de controle devem autenticar-se ao realizarem suas requisições para o servidor API ou serão tratados como usuário anônimo.
+Requisições para a API estão ligadas a um usuário normal, conta de serviço ou serão tratadas como [requisições anônimas](#anonymous-requests). Isto significa que cada processo dentro ou fora do _cluster_, desde um usuário humano entrando `kubectl` de uma estação de trabalho, a `kubelets` rodando nos nós, a membros do painel de controle devem autenticar-se ao realizarem suas requisições para o servidor API ou serão tratados como usuário anônimo.
  
 ## Estratégias de autenticação
  
@@ -183,7 +183,7 @@ type: kubernetes.io/service-account-token
 Valores são codificados em base64 porque segredos são sempre codificados neste formato.
 {{< /note >}}
  
-O JWT assinado pode ser usado como um _bearer token_ para autenticar-se como a conta de serviço. Veja [acima](#Colocando um _bearer token_  em uma requisição) para como o _token_ pode ser incluído em uma requisição. Normalmente esses segredos são montados no pod para um acesso interno ao cluster ao servidor de API, porém pode ser utilizado fora do cluster também.
+O JWT assinado pode ser usado como um _bearer token_ para autenticar-se como a conta de serviço. Veja [acima](#Adicionando um _bearer token_ em uma requisição) para como o _token_ pode ser incluído em uma requisição. Normalmente esses segredos são montados no pod para um acesso interno ao cluster ao servidor de API, porém pode ser utilizado fora do cluster também.
  
 Contas de serviço são autenticadas com o nome de usuário `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)` e são atribuídas aos grupos `system:serviceaccounts` e `system:serviceaccounts:(NAMESPACE)`.
  
@@ -193,7 +193,7 @@ AVISO: porque os _tokens_ das contas de serviço são armazenados em segredos, q
  
 [OpenID Connect](https://openid.net/connect/) é uma variação do framework de autorização OAuth2 que suporta provedores como Azure Active Directory, Salesforce, e Google. A principal extensão do OAuth2 é um campo adicional de _token_ de acesso chamado [ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken). Este _token_ é um tipo de JSON Web Token (JWT) com campos bem definidos, como usuário, e-mail e é assinado pelo servidor de autorização.
  
-Para identificar o usuário, o autenticador usa o `id_token` (e não `access_token`) do _bearer token_ da resposta de autorização do  OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse). Veja [acima](#Colocando um _bearer token_  em uma requisição) como incluir um _token_ em uma requisição.
+Para identificar o usuário, o autenticador usa o `id_token` (e não `access_token`) do _bearer token_ da resposta de autorização do  OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse). Veja [acima](#Adicionando um _bearer token_ em uma requisição) como incluir um _token_ em uma requisição.
  
 {{< mermaid >}}
 sequenceDiagram
