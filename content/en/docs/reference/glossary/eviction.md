@@ -16,5 +16,3 @@ tags:
 <!--more-->
 
 Eviction is a process performed by the {{< glossary_tooltip term_id="kubelet" >}} due to resource constraints on a {{< glossary_tooltip term_id="node" >}}, use of the {{< glossary_tooltip term_id="kubectl" >}} `drain` command, or an [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api) request.
-
-See [Pod Eviction](/docs/concepts/scheduling-eviction/pod-eviction) for more information.
