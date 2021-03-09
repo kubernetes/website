@@ -175,6 +175,7 @@ aliases:
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
+    - jailton
     - jcjesus
     - devlware
     - jhonmike
@@ -182,6 +183,7 @@ aliases:
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
+    - jailton
     - jcjesus
     - devlware
     - jhonmike
