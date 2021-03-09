@@ -99,7 +99,7 @@ openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app
 
 This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
 
-See [Managing Certificates](/docs/concepts/cluster-administration/certificates/) for how to generate a client cert.
+See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert.
 
 ### Static Token File
 
@@ -328,7 +328,7 @@ Since all of the data needed to validate who you are is in the `id_token`, Kuber
 
 1. Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
 2. The `id_token` can't be revoked, it's like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes.
-3. To authenticate to the Kubernetes dashboard, you must the `kubectl proxy` command or a reverse proxy that injects the `id_token`.
+3. To authenticate to the Kubernetes dashboard, you must use the `kubectl proxy` command or a reverse proxy that injects the `id_token`.
 
 #### Configuring the API Server
 

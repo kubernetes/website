@@ -70,8 +70,9 @@ override any environment variables specified in the container image.
 {{< /note >}}
 
 {{< note >}}
-The environment variables can reference each other, and cycles are possible,
-pay attention to the order before using
+Environment variables may reference each other, however ordering is important.
+Variables making use of others defined in the same context must come later in
+the list. Similarly, avoid circular references.
 {{< /note >}}
 
 ## Using environment variables inside of your config

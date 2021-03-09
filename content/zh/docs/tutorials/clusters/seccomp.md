@@ -52,14 +52,14 @@ Kubernetes 允许你将加载到节点上的 seccomp 配置文件自动应用于
 <!--
 In order to complete all steps in this tutorial, you must install
 [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) and
-[kubectl](/doc/tasks/tools/install-kubectl/). This tutorial will show examples
+[kubectl](/docs/tasks/tools/install-kubectl/). This tutorial will show examples
 with both alpha (pre-v1.19) and generally available seccomp functionality, so
 make sure that your cluster is [configured
 correctly](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)
 for the version you are using.
 -->
 为了完成本教程中的所有步骤，你必须安装 [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) 
-和 [kubectl](/zh/doc/tasks/tools/install-kubectl/)。本教程将显示同时具有 alpha（v1.19 之前的版本）
+和 [kubectl](/zh/docs/tasks/tools/install-kubectl/)。本教程将显示同时具有 alpha（v1.19 之前的版本）
 和通常可用的 seccomp 功能的示例，因此请确保为所使用的版本[正确配置](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)了集群。
 
 <!-- steps -->

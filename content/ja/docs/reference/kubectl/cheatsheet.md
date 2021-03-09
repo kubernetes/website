@@ -8,15 +8,9 @@ card:
 
 <!-- overview -->
 
-[Kubectl概要](/ja/docs/reference/kubectl/overview/)と[JsonPathガイド](/docs/reference/kubectl/jsonpath)も合わせてご覧ください。
-
-このページは`kubectl`コマンドの概要です。
-
-
+このページには、一般的によく使われる`kubectl`コマンドとフラグのリストが含まれています。
 
 <!-- body -->
-
-# kubectl - チートシート
 
 ## Kubectlコマンドの補完
 
@@ -76,7 +70,7 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
 kubectl config unset users.foo    # ユーザーfooを削除します
 ```
 
-## Apply
+## Kubectl Apply
 
 `apply`はKubernetesリソースを定義するファイルを通じてアプリケーションを管理します。`kubectl apply`を実行して、クラスター内のリソースを作成および更新します。これは、本番環境でKubernetesアプリケーションを管理する推奨方法です。
 詳しくは[Kubectl Book](https://kubectl.docs.kubernetes.io)をご覧ください。
@@ -372,6 +366,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
+kubectlに関するより多くのサンプルは[カスタムカラムのリファレンス](/ja/docs/reference/kubectl/overview/#custom-columns)を参照してください。
 
 ### Kubectlのログレベルとデバッグ
 kubectlのログレベルは、レベルを表す整数が後に続く`-v`または`--v`フラグで制御されます。一般的なKubernetesのログ記録規則と関連するログレベルについて、[こちら](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)で説明します。
@@ -392,11 +387,10 @@ kubectlのログレベルは、レベルを表す整数が後に続く`-v`また
 
 ## {{% heading "whatsnext" %}}
 
-
-* kubectlについてより深く学びたい方は[kubectl概要](/ja/docs/reference/kubectl/overview/)をご覧ください。
+* kubectlについてより深く学びたい方は[kubectl概要](/ja/docs/reference/kubectl/overview/)や[JsonPath](/docs/reference/kubectl/jsonpath)をご覧ください。
 
 * オプションについては[kubectl](/docs/reference/kubectl/kubectl/) optionsをご覧ください。
-
+ 
 * また[kubectlの利用パターン](/docs/reference/kubectl/conventions/)では再利用可能なスクリプトでkubectlを利用する方法を学べます。
 
 * コミュニティ版[kubectlチートシート](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)もご覧ください。

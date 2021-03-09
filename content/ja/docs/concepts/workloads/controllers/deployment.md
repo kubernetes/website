@@ -31,8 +31,9 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 * ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。
 * DeploymentのPodTemplateSpecを更新することにより[Podの新しい状態を宣言する](#updating-a-deployment): 新しいReplicaSetが作成され、Deploymentは指定された頻度で古いReplicaSetから新しいReplicaSetへのPodの移行を管理します。新しいReplicaSetはDeploymentのリビジョンを更新します。
 * Deploymentの現在の状態が不安定な場合、[Deploymentのロールバック](#rolling-back-a-deployment)をする: ロールバックによる各更新作業は、Deploymentのリビジョンを更新します。
-* より多くの負荷をさばけるように、[Deploymentをスケールアップ](#scaling-a-deployment)する
+* より多くの負荷をさばけるように、[Deploymentをスケールアップ](#scaling-a-deployment)する。
 * PodTemplateSpecに対する複数の修正を適用するために[Deploymentを停止(Pause)し](#pausing-and-resuming-a-deployment)、それを再開して新しいロールアウトを開始します。
+* [Deploymentのステータス](#deployment-status) をロールアウトが失敗したサインとして利用する。
 * 今後必要としない[古いReplicaSetのクリーンアップ](#clean-up-policy)
 
 ## Deploymentの作成 {#creating-a-deployment}
@@ -82,7 +83,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   ```
   クラスターにてDeploymentを調査するとき、以下のフィールドが出力されます。
   * `NAME`は、クラスター内にあるDeploymentの名前一覧です。
-  * `READY`は、ユーザーが使用できるアプリケーションのレプリカの数です。
+  * `READY`は、ユーザーが使用できるアプリケーションのレプリカの数です。使用可能な数/理想的な数の形式で表示されます。
   * `UP-TO-DATE`は、理想的な状態を満たすためにアップデートが完了したレプリカの数です。
   * `AVAILABLE`は、ユーザーが利用可能なレプリカの数です。
   * `AGE`は、アプリケーションが稼働してからの時間です。
@@ -133,7 +134,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 {{< note >}}
 Deploymentに対して適切なセレクターとPodテンプレートのラベルを設定する必要があります(このケースでは`app: nginx`)。
 
-ラベルやセレクターを他のコントローラーと重複させないでください(他のDeploymentやStatefulSetを含む)。Kubernetesはユーザーがラベルを重複させることを止めないため、複数のコントローラーでセレクターの重複が発生すると、コントローラー間で衝突し予期せぬふるまいをすることになります。
+ラベルやセレクターを他のコントローラーと重複させないでください(他のDeploymentやStatefulSetを含む)。Kubernetesはユーザーがラベルを重複させることを阻止しないため、複数のコントローラーでセレクターの重複が発生すると、コントローラー間で衝突し予期せぬふるまいをすることになります。
 {{< /note >}}
 
 ### pod-template-hashラベル
@@ -146,7 +147,7 @@ Deploymentに対して適切なセレクターとPodテンプレートのラベ�
 
 このラベルはDeploymentが管理するReplicaSetが重複しないことを保証します。このラベルはReplicaSetの`PodTemplate`をハッシュ化することにより生成され、生成されたハッシュ値はラベル値としてReplicaSetセレクター、Podテンプレートラベル、ReplicaSetが作成した全てのPodに対して追加されます。
 
-## Deploymentの更新
+## Deploymentの更新 {#updating-a-deployment}
 
 {{< note >}}
 Deploymentのロールアウトは、DeploymentのPodテンプレート(この場合`.spec.template`)が変更された場合にのみトリガーされます。例えばテンプレートのラベルもしくはコンテナーイメージが更新された場合です。Deploymentのスケールのような更新では、ロールアウトはトリガーされません。
@@ -589,13 +590,11 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
   ```
 
 * クラスター内で、解決できない新しいイメージに更新します。
-* You update to a new image which happens to be unresolvable from inside the cluster.
     ```shell
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
     ```
 
     実行結果は以下のとおりです。
-    The output is similar to this:
     ```
     deployment.apps/nginx-deployment image updated
     ```
@@ -604,7 +603,8 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     ```shell
     kubectl get rs
     ```
-      実行結果は以下のとおりです。
+
+    実行結果は以下のとおりです。
     ```
     NAME                          DESIRED   CURRENT   READY     AGE
     nginx-deployment-1989198191   5         5         0         9s
@@ -615,24 +615,26 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
 
 上記の例では、3つのレプリカが古いReplicaSetに追加され、2つのレプリカが新しいReplicaSetに追加されました。ロールアウトの処理では、新しいレプリカ数のPodが正常になったと仮定すると、最終的に新しいReplicaSetに全てのレプリカを移動させます。これを確認するためには以下のコマンドを実行して下さい。
 
-    ```shell
-    kubectl get deploy
-    ```
-    実行結果は以下のとおりです。
-    ```
-    NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment     15        18        7            8           7m
-    ```
-  　ロールアウトのステータスでレプリカがどのように各ReplicaSetに追加されるか確認できます。
-    ```shell
-    kubectl get rs
-    ```
-    実行結果は以下のとおりです。
-    ```
-    NAME                          DESIRED   CURRENT   READY     AGE
-    nginx-deployment-1989198191   7         7         0         7m
-    nginx-deployment-618515232    11        11        11        7m
-    ```
+```shell
+kubectl get deploy
+```
+
+実行結果は以下のとおりです。
+```
+NAME                 DESIRED   CURRENT   UP-TO-DATE  AVAILABLE   AGE
+nginx-deployment     15        18        7           8           7m
+```
+ロールアウトのステータスでレプリカがどのように各ReplicaSetに追加されるか確認できます。
+```shell
+kubectl get rs
+```
+
+実行結果は以下のとおりです。
+```
+NAME                          DESIRED   CURRENT  READY     AGE
+nginx-deployment-1989198191   7         7        0         7m
+nginx-deployment-618515232    11        11       11        7m
+```
 
 ## Deployment更新の一時停止と再開 {#pausing-and-resuming-a-deployment}
 
@@ -752,7 +754,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     nginx-3926361531   3         3         3         28s
     ```
 {{< note >}}
-一時停止したDeploymentの稼働を再開させない限り、Deploymentをロールバックすることはできません。
+Deploymentの稼働を再開させない限り、一時停止したDeploymentをロールバックすることはできません。
 {{< /note >}}
 
 ## Deploymentのステータス {#deployment-status}
@@ -937,13 +939,13 @@ Deploymentが管理する古いReplicaSetをいくつ保持するかを指定す
 
 ## カナリアパターンによるデプロイ
 
-Deploymentを使って一部のユーザーやサーバーに対してリリースのロールアウトをしたい場合、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)に記載されているカナリアパターンに従って、リリース毎に1つずつ、複数のDeploymentを作成できます。
+Deploymentを使って一部のユーザーやサーバーに対してリリースのロールアウトをしたい場合、[リソースの管理](/ja/docs/concepts/cluster-administration/manage-deployment/#canary-deployments-カナリアデプロイ)に記載されているカナリアパターンに従って、リリース毎に1つずつ、複数のDeploymentを作成できます。
 
 ## Deployment Specの記述
 
 他の全てのKubernetesの設定と同様に、Deploymentは`.apiVersion`、`.kind`や`.metadata`フィールドを必要とします。
-設定ファイルの利用に関する情報は[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。コンテナーの設定に関しては[リソースを管理するためのkubectlの使用](/docs/concepts/overview/working-with-objects/object-management/)を参照してください。
-Deploymentオブジェクトの名前は、有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
+設定ファイルの利用に関する情報は[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。コンテナーの設定に関しては[リソースを管理するためのkubectlの使用](/ja/docs/concepts/overview/working-with-objects/object-management/)を参照してください。
+Deploymentオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必要とします。
 
 ### Podテンプレート
@@ -992,25 +994,25 @@ Deploymentのセレクターに一致するラベルを持つPodを直接作成�
 
 `.spec.strategy.type==RollingUpdate`と指定されているとき、DeploymentはローリングアップデートによりPodを更新します。ローリングアップデートの処理をコントロールするために`maxUnavailable`と`maxSurge`を指定できます。
 
-##### maxUnavailable
+##### Max Unavailable {#max-unavailable}
 
 `.spec.strategy.rollingUpdate.maxUnavailable`はオプションのフィールドで、更新処理において利用不可となる最大のPod数を指定します。値は絶対値(例: 5)を指定するか、理想状態のPodのパーセンテージを指定します(例: 10%)。パーセンテージを指定した場合、絶対値は小数切り捨てされて計算されます。`.spec.strategy.rollingUpdate.maxSurge`が0に指定されている場合、この値を0にできません。デフォルトでは25%です。
 
 例えば、この値が30%と指定されているとき、ローリングアップデートが開始すると古いReplicaSetはすぐに理想状態の70%にスケールダウンされます。一度新しいPodが稼働できる状態になると、古いReplicaSetはさらにスケールダウンされ、続いて新しいReplicaSetがスケールアップされます。この間、利用可能なPodの総数は理想状態のPodの少なくとも70%以上になるように保証されます。
 
-##### maxSurge
+##### Max Surge {#max-surge}
 
 `.spec.strategy.rollingUpdate.maxSurge`はオプションのフィールドで、理想状態のPod数を超えて作成できる最大のPod数を指定します。値は絶対値(例: 5)を指定するか、理想状態のPodのパーセンテージを指定します(例: 10%)。パーセンテージを指定した場合、絶対値は小数切り上げで計算されます。`MaxUnavailable`が0に指定されている場合、この値を0にできません。デフォルトでは25%です。
 
 例えば、この値が30%と指定されているとき、ローリングアップデートが開始すると新しいReplicaSetはすぐに更新されます。このとき古いPodと新しいPodの総数は理想状態の130%を超えないように更新されます。一度古いPodが削除されると、新しいReplicaSetはさらにスケールアップされます。この間、利用可能なPodの総数は理想状態のPodに対して最大130%になるように保証されます。
 
-### progressDeadlineSeconds
+### Progress Deadline Seconds
 
 `.spec.progressDeadlineSeconds`はオプションのフィールドで、システムがDeploymentの[更新に失敗](#failed-deployment)したと判断するまでに待つ秒数を指定します。更新に失敗したと判断されたとき、リソースのステータスは`Type=Progressing`、`Status=False`かつ`Reason=ProgressDeadlineExceeded`となるのを確認できます。DeploymentコントローラーはDeploymentの更新のリトライし続けます。デフォルト値は600です。今後、自動的なロールバックが実装されたとき、更新失敗状態になるとすぐにDeploymentコントローラーがロールバックを行うようになります。
 
 この値が指定されているとき、`.spec.minReadySeconds`より大きい値を指定する必要があります。
 
-### minReadySeconds {#min-ready-seconds}
+### Min Ready Seconds {#min-ready-seconds}
 
 `.spec.minReadySeconds`はオプションのフィールドで、新しく作成されたPodが利用可能となるために、最低どれくらいの秒数コンテナーがクラッシュすることなく稼働し続ければよいかを指定するものです。デフォルトでは0です(Podは作成されるとすぐに利用可能と判断されます)。Podが利用可能と判断された場合についてさらに学ぶために[Container Probes](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照してください。
 
@@ -1020,7 +1022,7 @@ Deploymentのリビジョン履歴は、Deploymentが管理するReplicaSetに�
 
 `.spec.revisionHistoryLimit`はオプションのフィールドで、ロールバック可能な古いReplicaSetの数を指定します。この古いReplicaSetは`etcd`内のリソースを消費し、`kubectl get rs`の出力結果を見にくくします。Deploymentの各リビジョンの設定はReplicaSetに保持されます。このため一度古いReplicaSetが削除されると、そのリビジョンのDeploymentにロールバックすることができなくなります。デフォルトでは10もの古いReplicaSetが保持されます。しかし、この値の最適値は新しいDeploymentの更新頻度と安定性に依存します。
 
-さらに詳しく言うと、この値を0にすると、0のレプリカを持つ古い全てのReplicaSetが削除されます。このケースでは、リビジョン履歴が完全に削除されているため新しいDeploymentのロールアウトを完了することができません。
+さらに詳しく言うと、この値を0にすると、0のレプリカを持つ古い全てのReplicaSetが削除されます。このケースでは、リビジョン履歴が完全に削除されているため新しいDeploymentのロールアウトを元に戻すことができません。
 
 ### paused
 
