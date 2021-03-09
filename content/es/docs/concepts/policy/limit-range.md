@@ -22,17 +22,17 @@ Aplicando restricciones de asignación de recursos, los administradores de clús
 
 Un **{{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}** es la política para configurar restricciones de lo siguiente:
 
-- Imponer restricciones de requisitos de recursos de los {{< glossary_tooltip text="Pods" term_id="pod" >}} por {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
-- Imponer las limitaciones de recursos mínimas/máximas para un {{< glossary_tooltip text="Pod" term_id="pod" >}} dentro de un {{< glossary_tooltip text="Namespace" term_id="namespace" >}}..
-- Especificar requisitos y límites de recursos predeterminados para los contenedores de un {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
+- Imponer restricciones de requisitos de recursos a {{< glossary_tooltip text="Pods" term_id="pod" >}} o {{< glossary_tooltip text="Contenedores" term_id="container" >}} por Namespace.
+- Imponer las limitaciones de recursos mínimas/máximas para Pods o Contenedores dentro de un Namespace.
+- Especificar requisitos y límites de recursos predeterminados para Pods o Contenedores de un Namespace.
 - Imponer una relación de proporción entre los requisitos y el límite de un recurso.
-- Imponer el cumplimiento de las demandas de almacenamiento mínimo/máximo para {{< glossary_tooltip text="peticiones de volúmenes persistentes" term_id="persistent-volume-claim" >}}.
+- Imponer el cumplimiento de las demandas de almacenamiento mínimo/máximo para {{< glossary_tooltip text="Peticiones de Volúmenes Persistentes" term_id="persistent-volume-claim" >}}.
 
 ### Habilitar el LimitRange
 
 La compatibilidad con LimitRange está habilitada por defecto en Kubernetes desde la versión 1.10.
 
-Para que un LimitRange se active en un {{< glossary_tooltip text="Namespace" term_id="namespace" >}} en particular, el LimitRange debe definirse con el {{< glossary_tooltip text="Namespace" term_id="namespace" >}}, o aplicarse a éste.
+Para que un LimitRange se active en un {{< glossary_tooltip text="Namespace" term_id="namespace" >}} en particular, el LimitRange debe definirse con el Namespace, o aplicarse a éste.
 
 El nombre de recurso de un objeto LimitRange debe ser un
 [nombre de subdominio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
@@ -40,16 +40,16 @@ El nombre de recurso de un objeto LimitRange debe ser un
 ### Aplicando rangos de límites
 
 - El administrador crea un LimitRange en un {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
-- Los usuarios crean recursos como {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip text="contenedores" term_id="container" >}} o {{< glossary_tooltip text="peticiones de volúmenes persistentes" term_id="persistent-volume-claim" >}} en el {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
-- El controlador de admisión `LimitRanger` aplicará valores predeterminados y límites, para todos los {{< glossary_tooltip text="Pods" term_id="pod" >}} o {{< glossary_tooltip text="Contenedores" term_id="container" >}} que no establezcan requisitos de recursos informáticos. Y realiza un seguimiento del uso para garantizar que no excedan el mínimo, el máximo, y la proporción de ningún LimitRange definido en el {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
-- Si al crear o actualizar un recurso del ejemplo ({{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip text="contenedores" term_id="container" >}}, {{< glossary_tooltip text="peticiones de volúmenes persistentes" term_id="persistent-volume-claim" >}}) se viola una restricción al LimitRange, la solicitud al servidor API fallará con un código de estado HTTP "403 FORBIDDEN" y un mensaje que explica la restricción que se ha violado.
-- En caso de que en se active un LimitRange para recursos de cómputos como `cpu` y `memory`, los usuarios deberán especificar los requisitos y/o límites de recursos a dichos valores. De lo contrario, el sistema puede rechazar la creación del {{< glossary_tooltip text="Pod" term_id="pod" >}}.
-- Las validaciones de LimitRange ocurren solo en la etapa de Admisión de Pod, no en {{< glossary_tooltip text="Pods" term_id="pod" >}} que ya se han iniciado (Running {{< glossary_tooltip text="Pods" term_id="pod" >}}).
+- Los usuarios crean recursos como {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip text="Contenedores" term_id="container" >}} o {{< glossary_tooltip text="Peticiones de Volúmenes Persistentes" term_id="persistent-volume-claim" >}} en el Namespace.
+- El controlador de admisión `LimitRanger` aplicará valores predeterminados y límites, para todos los Pods o Contenedores que no establezcan requisitos de recursos informáticos. Y realiza un seguimiento del uso para garantizar que no excedan el mínimo, el máximo, y la proporción de ningún LimitRange definido en el Namespace.
+- Si al crear o actualizar un recurso del ejemplo (Pods, Contenedores, {{< glossary_tooltip text="Peticiones de Volúmenes Persistentes" term_id="persistent-volume-claim" >}}) se viola una restricción al LimitRange, la solicitud al servidor API fallará con un código de estado HTTP "403 FORBIDDEN" y un mensaje que explica la restricción que se ha violado.
+- En caso de que en se active un LimitRange para recursos de cómputos como `cpu` y `memory`, los usuarios deberán especificar los requisitos y/o límites de recursos a dichos valores. De lo contrario, el sistema puede rechazar la creación del Pod.
+- Las validaciones de LimitRange ocurren solo en la etapa de Admisión de Pod, no en Pods que ya se han iniciado (Running {{< glossary_tooltip text="Pods" term_id="pod" >}}).
 
 Algunos ejemplos de políticas que se pueden crear utilizando rangos de límites son:
 
 - En un clúster de 2 nodos con una capacidad de 8 GiB de RAM y 16 núcleos, podría restringirse los {{< glossary_tooltip text="Pods" term_id="pod" >}} en un {{< glossary_tooltip text="Namespace" term_id="namespace" >}} a requerir `100m` de CPU con un límite máximo de `500m` para CPU y requerir `200Mi` de memoria con un límite máximo de `600Mi` de memoria.
-- Definir el valor por defecto de límite y requisitos de CPU a `150m` y el valor por defecto de requisito de memoria a `300Mi` {{< glossary_tooltip text="contenedores" term_id="container" >}} que se iniciaron sin requisitos de CPU y memoria en sus especificaciones.
+- Definir el valor por defecto de límite y requisitos de CPU a `150m` y el valor por defecto de requisito de memoria a `300Mi` {{< glossary_tooltip text="Contenedores" term_id="container" >}} que se iniciaron sin requisitos de CPU y memoria en sus especificaciones.
 
 En el caso de que los límites totales del {{< glossary_tooltip text="Namespace" term_id="namespace" >}} sean menores que la suma de los límites de los {{< glossary_tooltip text="Pods" term_id="pod" >}},
 puede haber contienda por los recursos. En este caso, los contenedores o pods no seran creados.
