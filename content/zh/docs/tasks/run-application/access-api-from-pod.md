@@ -108,7 +108,7 @@ If available, a certificate bundle is placed into the filesystem tree of each
 container at `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`, and should be
 used to verify the serving certificate of the API server.
 -->
-如果由证书包可用，则凭证包被放入每个容器的文件系统树中的
+如果证书包可用，则凭证包被放入每个容器的文件系统树中的
 `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt` 处，
 且将被用于验证 API 服务器的服务证书。
 
@@ -130,9 +130,9 @@ in the Pod can use it directly.
 -->
 #### 使用 kubectl proxy   {#use-kubectl-proxy}
 
-如果你希望不实用官方客户端库就完成 API 查询，可以将 `kubectl proxy` 作为
+如果你希望不使用官方客户端库就完成 API 查询，可以将 `kubectl proxy` 作为
 [command](/zh/docs/tasks/inject-data-application/define-command-argument-container/)
-在 Pod 启动一个边车（Sidecar）容器。这样，`kubectl proxy` 自动完成对 API
+在 Pod 中启动一个边车（Sidecar）容器。这样，`kubectl proxy` 自动完成对 API
 的身份认证，并将其暴露到 Pod 的 `localhost` 接口，从而 Pod 中的其他容器可以
 直接使用 API。
 
