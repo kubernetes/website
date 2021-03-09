@@ -19,4 +19,4 @@ O servidor de API é o _front end_ para a camada de gerenciamento do Kubernetes.
 
 A principal implementação de um servidor de API do Kubernetes é [kube-apiserver](/docs/reference/generated/kube-apiserver/).
 O kube-apiserver foi projetado para ser escalonado horizontalmente &mdash; ou seja, ele pode ser escalado com a implantação de mais instâncias.
-Você pode executar várias instâncias do kube-apiserver e equilibrar o tráfego entre essas instâncias.
+Você pode executar várias instâncias do kube-apiserver e balancear (balanceamento de carga, etc) o tráfego entre essas instâncias.

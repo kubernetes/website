@@ -1,6 +1,7 @@
 ---
 reviewers:
 - lavalamp
+- rikatz
 title: Componentes do Kubernetes
 content_type: concept
 description: >
@@ -25,9 +26,9 @@ Esse é o diagrama de um cluster Kubernetes com todos os componentes interligado
 <!-- body -->
 ## Componentes da camada de gerenciamento
 
-Os componentes da camada de gerenciamento tomam decisões globais sobre o cluster (por exemplo, agendamento), bem como detectam e respondem aos eventos do cluster (por exemplo, iniciando um novo _{{< glossary_tooltip text="pod" term_id="pod" >}}_ quando o campo `replicas` de uma implantação não está atendido).
+Os componentes da camada de gerenciamento tomam decisões globais sobre o cluster (por exemplo, agendamento de _pods_), bem como detectam e respondem aos eventos do cluster (por exemplo, iniciando um novo _{{< glossary_tooltip text="pod" term_id="pod" >}}_ quando o campo `replicas` de um _Deployment_ não está atendido).
 
-Os componentes da camada de gerenciamento podem ser executados em qualquer máquina do cluster. Contudo, para simplificar, os _scripts_ de configuração normalmente iniciam todos os componentes da camada de gerenciamento na mesma máquina, e não executa contêineres de usuário nesta máquina. Ver [Construindo clusters de alta disponibilidade](/docs/admin/high-availability/) para um exemplo de configuração de múltiplas VM principais (_multi-main-VM_).
+Os componentes da camada de gerenciamento podem ser executados em qualquer máquina do cluster. Contudo, para simplificar, os _scripts_ de configuração normalmente iniciam todos os componentes da camada de gerenciamento na mesma máquina, e não executa contêineres de usuário nesta máquina. Veja [Construindo clusters de alta disponibilidade](/docs/admin/high-availability/) para um exemplo de configuração de múltiplas VMs para camada de gerenciamento (_multi-main-VM_).
 
 ### kube-apiserver
 
@@ -45,10 +46,10 @@ Os componentes da camada de gerenciamento podem ser executados em qualquer máqu
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
-Esses controladores incluem:
+Alguns tipos desses controladores são:
 
   * Controlador de nó: responsável por perceber e responder quando os nós caem.
-  * Controlador de replicação: responsável por manter o número correto de _pods_ para cada objeto controlador de replicação no sistema.
+  * Controlador de _Job_: Observa os objetos _Job_ que representam tarefas únicas e, em seguida, cria _pods_ para executar essas tarefas até a conclusão.
   * Controlador de _endpoints_: preenche o objeto _Endpoints_ (ou seja, junta os Serviços e os _pods_).
   * Controladores de conta de serviço e de _token_: crie contas padrão e _tokens_ de acesso de API para novos _namespaces_.
 
@@ -86,13 +87,13 @@ Os componentes de nó são executados em todos os nós, mantendo os _pods_ em ex
 
 ## Addons
 
-Complementos (_addons_) usam recursos do Kubernetes ({{< glossary_tooltip term_id="daemonset" >}}, {{< glossary_tooltip term_id="deployment" >}}, etc) para implementar funcionalidades do cluster. Como fornecem funcionalidades de nível do cluster, recursos com _namespace_ para _addons_ pertencem ao _namespace_ `kube-system`.
+Complementos (_addons_) usam recursos do Kubernetes ({{< glossary_tooltip term_id="daemonset" >}}, {{< glossary_tooltip term_id="deployment" >}}, etc) para implementar funcionalidades do cluster. Como fornecem funcionalidades em nível do cluster, recursos de _addons_ que necessitem ser criados dentro de um _namespace_ pertencem ao _namespace_ `kube-system`.
 
-Alguns _addons_ selecionados são descridos abaixo; para uma lista estendida dos _addons_ disponíveis, por favor consulte [Addons](/docs/concepts/cluster-administration/addons/).
+Alguns _addons_ selecionados são descritos abaixo; para uma lista estendida dos _addons_ disponíveis, por favor consulte [Addons](/docs/concepts/cluster-administration/addons/).
 
 ### DNS
 
-Embora os outros complementos não sejam estritamente necessários, todos os clusters do Kubernetes devem ter um [DNS do cluster](/docs/concept/services-networking/dns-pod-service/), já que muitos exemplos dependem disso.
+Embora os outros complementos não sejam estritamente necessários, todos os clusters do Kubernetes devem ter um [DNS do cluster](/docs/concepts/services-networking/dns-pod-service/), já que muitos exemplos dependem disso.
 
 O DNS do cluster é um servidor DNS, além de outros servidores DNS em seu ambiente, que fornece registros DNS para serviços do Kubernetes.
 
@@ -100,7 +101,7 @@ Os contêineres iniciados pelo Kubernetes incluem automaticamente esse servidor 
 
 ### Web UI (Dashboard)
 
-[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) é uma interface de usuário Web, de uso geral, para clusters do Kubernetes. Ele permite que os usuários gerenciem e solucionem problemas de aplicações em execução no cluster, bem como no próprio cluster.
+[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) é uma interface de usuário Web, de uso geral, para clusters do Kubernetes. Ele permite que os usuários gerenciem e solucionem problemas de aplicações em execução no cluster, bem como o próprio cluster.
 
 ### Monitoramento de recursos do contêiner
 
