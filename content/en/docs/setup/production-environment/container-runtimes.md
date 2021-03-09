@@ -63,7 +63,7 @@ configuration, or reinstall it using automation.
 
 ### containerd
 
-This section contains the necessary steps to use `containerd` as CRI runtime.
+This section contains the necessary steps to use containerd as CRI runtime.
 
 Use the following commands to install Containerd on your system:
 
@@ -89,27 +89,27 @@ EOF
 sudo sysctl --system
 ```
 
-Install `containerd`:
+Install containerd:
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Ubuntu 16.04" %}}
 
 1. Setup the [Docker Engine repository for Ubuntu](https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository)
 
-2. Install `containerd`:
+2. Install containerd:
 
    ```shell
    sudo apt-get update && sudo apt-get install -y containerd.io
    ```
 
-3. Configure `containerd`:
+3. Configure containerd:
 
    ```shell
    sudo mkdir -p /etc/containerd
    containerd config default | sudo tee /etc/containerd/config.toml
    ```
 
-4. Restart `containerd`:
+4. Restart containerd:
 
    ```shell
    sudo systemctl restart containerd
@@ -118,20 +118,20 @@ Install `containerd`:
 {{% /tab %}}
 {{% tab name="Ubuntu 18.04/20.04" %}}
 
-1. Install `containerd`:
+1. Install containerd:
 
    ```shell
    sudo apt-get update && sudo apt-get install -y containerd
    ```
 
-2. Configure `containerd`:
+2. Configure containerd:
 
    ```shell
    sudo mkdir -p /etc/containerd
    containerd config default | sudo tee /etc/containerd/config.toml
    ```
 
-3. Restart `containerd`:
+3. Restart containerd:
 
    ```shell
    sudo systemctl restart containerd
@@ -142,20 +142,20 @@ Install `containerd`:
 
 1. Setup the [Docker Engine repository for Debian](https://docs.docker.com/engine/install/debian/#set-up-the-repository)
 
-2. Install `containerd`:
+2. Install containerd:
 
    ```shell
    sudo apt-get update && sudo apt-get install -y containerd.io
    ```
 
-3. Configure `containerd`:
+3. Configure containerd:
 
    ```shell
    sudo mkdir -p /etc/containerd
    containerd config default | sudo tee /etc/containerd/config.toml
    ```
 
-4. Restart `containerd`:
+4. Restart containerd:
 
    ```shell
    sudo systemctl restart containerd
@@ -166,20 +166,20 @@ Install `containerd`:
 
 1. Setup the [Docker Engine repository for CentOS/RHEL](https://docs.docker.com/engine/install/centos/#set-up-the-repository)
 
-2. Install `containerd`:
+2. Install containerd:
 
    ```shell
    sudo yum update -y && sudo yum install -y containerd.io
    ```
 
-3. Configure `containerd`:
+3. Configure containerd:
 
    ```shell
    sudo mkdir -p /etc/containerd
    containerd config default | sudo tee /etc/containerd/config.toml
    ```
 
-4. Restart `containerd`:
+4. Restart containerd:
 
    ```shell
    sudo systemctl restart containerd
@@ -192,7 +192,7 @@ Install `containerd`:
 Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), and then run the following commands:
 <br />
 
-1. Download `containerd`:
+1. Download containerd:
 
    ```powershell
    curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
@@ -215,7 +215,7 @@ Start a Powershell session, set `$Version` to the desired version (ex: `$Version
    Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe"
    ```
 
-3. Start `containerd`:
+3. Start containerd:
 
    ```powershell
    .\containerd.exe --register-service
