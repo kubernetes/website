@@ -875,8 +875,12 @@ body.td-documentation {
   border-bottom: none !important;
 }
 
-.tab-content {
+.tab-pane {
+  border-radius: 0.25rem;
   padding: 0 16px 10px;
 
   border: 1px solid #dee2e6;
+  &:first-of-type.active {
+    border-top-left-radius: 0;
+  }
 }
