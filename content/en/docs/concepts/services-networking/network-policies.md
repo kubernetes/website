@@ -221,6 +221,10 @@ When the feature gate is enabled, you can set the `protocol` field of a NetworkP
 You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports SCTP protocol NetworkPolicies.
 {{< /note >}}
 
+## Targeting a Namespace by its name
+
+As of Kubernetes v1.21, a default immutable label ``kubernetes.io/metadata.name`` with the namespace name will be added to all namespaces. While NetworkPolicy cannot target a namespace by its name with some object field, this label now can be used to target a specific namespace.
+
 ## What you can't do with network policies (at least, not yet)
 
 As of Kubernetes 1.20, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.  Some (but not all) of these user stories are actively being discussed for future releases of the NetworkPolicy API.
@@ -228,7 +232,7 @@ As of Kubernetes 1.20, the following functionality does not exist in the Network
 - Forcing internal cluster traffic to go through a common gateway (this might be best served with a service mesh or other proxy).
 - Anything TLS related (use a service mesh or ingress controller for this).
 - Node specific policies (you can use CIDR notation for these, but you cannot target nodes by their Kubernetes identities specifically).
-- Targeting of namespaces or services by name (you can, however, target pods or namespaces by their {{< glossary_tooltip text="labels" term_id="label" >}}, which is often a viable workaround).
+- Targeting of services by name (you can, however, target pods or namespaces by their {{< glossary_tooltip text="labels" term_id="label" >}}, which is often a viable workaround).
 - Creation or management of "Policy requests" that are fulfilled by a third party.
 - Default policies which are applied to all namespaces or pods (there are some third party Kubernetes distributions and projects which can do this).
 - Advanced policy querying and reachability tooling.

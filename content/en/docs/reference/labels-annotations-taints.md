@@ -22,6 +22,15 @@ Used on: Node
 
 The Kubelet populates this with `runtime.GOARCH` as defined by Go. This can be handy if you are mixing arm and x86 nodes.
 
+## kubernetes.io/metadata.name
+
+Example: `kubernetes.io/metadata.name=mynamespace`
+
+Used on: Namespaces
+
+Kubernetes APIServer defaults this label to the namespace name. This label can be used with any namespace selector, as an example with Network Policies.
+
+
 ## kubernetes.io/os
 
 Example: `kubernetes.io/os=linux`
