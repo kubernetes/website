@@ -17,7 +17,7 @@ Let’s dive into the key features of this release:
 
 ## Simplified Kubernetes Cluster Management with kubeadm in GA
 
-Most people who have gotten hands-on with Kubernetes have at some point been hands-on with kubeadm. It's an essential tool for managing the cluster lifecycle, from creation to configuration to upgrade; and now kubeadm is officially GA. [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) handles the bootstrapping of production clusters on existing hardware and configuring the core Kubernetes components in a best-practice-manner to providing a secure yet easy joining flow for new nodes and supporting easy upgrades. What’s notable about this GA release are the now graduated advanced features, specifically around pluggability and configurability. The scope of kubeadm is to be a toolbox for both admins and automated, higher-level system and this release is a significant step in that direction.
+Most people who have gotten hands-on with Kubernetes have at some point been hands-on with kubeadm. It's an essential tool for managing the cluster lifecycle, from creation to configuration to upgrade; and now kubeadm is officially GA. [kubeadm](/docs/reference/setup-tools/kubeadm/) handles the bootstrapping of production clusters on existing hardware and configuring the core Kubernetes components in a best-practice-manner to providing a secure yet easy joining flow for new nodes and supporting easy upgrades. What’s notable about this GA release are the now graduated advanced features, specifically around pluggability and configurability. The scope of kubeadm is to be a toolbox for both admins and automated, higher-level system and this release is a significant step in that direction.
 
 ## Container Storage Interface (CSI) Goes GA
 
