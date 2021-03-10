@@ -26,7 +26,7 @@ Un **{{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}** es la pol
 - Imponer las limitaciones de recursos mínimas/máximas para Pods o Contenedores dentro de un Namespace.
 - Especificar requisitos y límites de recursos predeterminados para Pods o Contenedores de un Namespace.
 - Imponer una relación de proporción entre los requisitos y el límite de un recurso.
-- Imponer el cumplimiento de las demandas de almacenamiento mínimo/máximo para {{< glossary_tooltip text="Peticiones de Volúmenes Persistentes" term_id="persistent-volume-claim" >}}.
+- Imponer el cumplimiento de las demandas de almacenamiento mínimo/máximo para {{< glossary_tooltip text="Solicitudes de Volúmenes Persistentes" term_id="persistent-volume-claim" >}}.
 
 ### Habilitar el LimitRange
 
