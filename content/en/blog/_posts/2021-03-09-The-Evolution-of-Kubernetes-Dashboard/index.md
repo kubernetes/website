@@ -15,19 +15,6 @@ The initial idea behind the Kubernetes Dashboard project was to provide a web in
 
 The very [first commit](https://github.com/kubernetes/dashboard/commit/5861187fa807ac1cc2d9b2ac786afeced065076c) to the Kubernetes Dashboard was made by Filip Grządkowski from Google on 16th October 2015 – just a few months from the initial commit to the Kubernetes repository. Our initial commits go back to November 2015 ([Sebastian committed on 16 November 2015](https://github.com/kubernetes/dashboard/commit/09e65b6bb08c49b926253de3621a73da05e400fd); [Marcin committed on 23 November 2015](https://github.com/kubernetes/dashboard/commit/1da4b1c25ef040818072c734f71333f9b4733f55)). Since that time, we’ve become regular contributors to the project. For the next two years, we worked closely with the Googlers, eventually becoming main project maintainers ourselves.
 
-<!--
-{{< imgproc first-ui Fit "1000x900" >}}
-The First Version of the User Interface
-{{< /imgproc >}}
-
-{{< imgproc along-the-way-ui Fit "1000x900" >}}
-Prototype of the New User Interface
-{{< /imgproc >}}
-
-{{< imgproc current-ui Fit "1000x700" >}}
-The Current User Interface
-{{< /imgproc >}}
--->
 
 As you can see, the initial look and feel of the project were completely different from the current one. We have changed the design multiple times. The same has happened with the code itself.
 
