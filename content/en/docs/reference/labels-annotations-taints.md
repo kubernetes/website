@@ -56,6 +56,16 @@ The Kubelet populates this label with the hostname. Note that the hostname can b
 
 This label is also used as part of the topology hierarchy.  See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
 
+
+## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
+
+Example: `controller.kubernetes.io/pod-deletion-cost=10`
+
+Used on: Pod
+
+This annotation is used to set [Pod Deletion Cost](/docs/content/en/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
+
 ## beta.kubernetes.io/instance-type (deprecated)
 
 {{< note >}} Starting in v1.17, this label is deprecated in favor of [node.kubernetes.io/instance-type](#nodekubernetesioinstance-type). {{< /note >}}
