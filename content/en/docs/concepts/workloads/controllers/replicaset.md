@@ -321,6 +321,36 @@ prioritize scaling down pods based on the following general algorithm:
     
 If all of the above match, then selection is random.
 
+### Pod deletion cost 
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/command-line-tools-reference/labels-annotations-taints/#pod-deletion-cost) 
+annotation, users can set a preference regarding which pods to remove first when downscaling a ReplicaSet.
+
+The annotation should be set on the pod, the range is [-2147483647, 2147483647]. It represents the cost of
+deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
+cost are preferred to be deleted before pods with higher deletion cost. 
+
+The implicit value for this annotation for pods that don't set it is 0; negative values are permitted.
+Invalid values will be rejected by the API server.
+
+This feature is alpha and disabled by default. You can enable it by setting the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDeletionCost` in both kube-apiserver and kube-controller-manager.
+
+{{< note >}}
+- This is honored on a best-effort basis, so it does not offer any guarantees on pod deletion order.
+- Users should avoid updating the annotation frequently, such as updating it based on a metric value,
+  because doing so will generate a significant number of pod updates on the apiserver.
+{{< /note >}}
+
+#### Example Use Case
+The different pods of an application could have different utilization levels. On scale down, the application 
+may prefer to remove the pods with lower utilization. To avoid frequently updating the pods, the application
+should update `controller.kubernetes.io/pod-deletion-cost` once before issuing a scale down (setting the 
+annotation to a value proportional to pod utilization level). This works if the application itself controls
+the down scaling; for example, the driver pod of a Spark deployment.
+
 ### ReplicaSet as a Horizontal Pod Autoscaler Target
 
 A ReplicaSet can also be a target for
