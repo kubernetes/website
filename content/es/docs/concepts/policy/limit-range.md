@@ -37,7 +37,7 @@ Para que un LimitRange se active en un {{< glossary_tooltip text="Namespace" ter
 El nombre de recurso de un objeto LimitRange debe ser un
 [nombre de subdominio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
-### Aplicando rangos de límites
+### Aplicando LimitRanges
 
 - El administrador crea un LimitRange en un {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
 - Los usuarios crean recursos como {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip text="Contenedores" term_id="container" >}} o {{< glossary_tooltip text="Peticiones de Volúmenes Persistentes" term_id="persistent-volume-claim" >}} en el Namespace.
