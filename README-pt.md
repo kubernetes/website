@@ -151,7 +151,7 @@ Se você executar o comando `make container-serve` e retornar o seguinte erro:
 make: *** [container-serve] Error 137
 ```
 
-Verifique a quantidade de memória disponível para o executor/runtime de container. No caso de Docker Desktop para macOS, abra o menu "Preferences..." -> "Resources..." e tente disponibilizar mais memória.
+Verifique a quantidade de memória disponível para o agente de execução de contêiner. No caso do Docker Desktop para macOS, abra o menu "Preferences..." -> "Resources..." e tente disponibilizar mais memória.
 
 # Comunidade, discussão, contribuição e apoio
 
