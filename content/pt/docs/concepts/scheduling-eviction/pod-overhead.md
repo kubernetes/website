@@ -8,7 +8,7 @@ weight: 50
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-Quando executa um Pod num nó, o próprio Pod usa uma quantidade de recursos do sistema. Estes
+Quando você executa um Pod num nó, o próprio Pod usa uma quantidade de recursos do sistema. Estes
 recursos são adicionais aos recursos necessários para executar o(s) contêiner(s) dentro do Pod.
 Sobrecarga de Pod, do inglês _Pod Overhead_, é uma funcionalidade que serve para contabilizar os recursos consumidos pela
 infraestrutura do Pod para além das solicitações e limites do contêiner.
@@ -27,11 +27,11 @@ de acordo com a sobrecarga associada à
 Quando é ativada a Sobrecarga de Pod, a sobrecarga é considerada adicionalmente à soma das
 solicitações de recursos do contêiner ao agendar um Pod. Semelhantemente, o _kubelet_
 incluirá a sobrecarga do Pod ao dimensionar o cgroup do Pod e ao
-executar a classificação de despejo do Pod.
+executar a classificação de prioridade de migração do Pod em caso de _drain_ do Node.
 
-## Possibilitando a Sobrecarga de Pod {#set-up}
+## Habilitando a Sobrecarga de Pod {#set-up}
 
-Terá de garantir que o [portão de funcionalidade](/docs/reference/command-line-tools-reference/feature-gates/)
+Terá de garantir que o [Feature Gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodOverhead` esteja ativo (está ativo por padrão a partir da versão 1.18)
 em todo o cluster, e uma `RuntimeClass` utilizada que defina o campo `overhead`.
 
