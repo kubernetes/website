@@ -36,7 +36,7 @@ Example: `kubernetes.io/metadata.name=mynamespace`
 
 Used on: Namespaces
 
-Kubernetes APIServer defaults this label to the namespace name. This label can be used with any namespace selector, as an example with Network Policies.
+Kubernetes APIServer defaults this label to the namespace name. This label can be used with any namespace selector, as an example with NetworkPolicy objects.
 
 ## beta.kubernetes.io/arch (deprecated)
 
@@ -261,4 +261,3 @@ Sets this taint on a node to mark it as unusable, when kubelet is started with t
 Example: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
 
 If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
-

@@ -266,7 +266,10 @@ supports the `endPort` field in NetworkPolicy specifications.
 
 ## Targeting a Namespace by its name
 
-As of Kubernetes v1.21, a default immutable label ``kubernetes.io/metadata.name`` with the namespace name will be added to all namespaces. While NetworkPolicy cannot target a namespace by its name with some object field, this label now can be used to target a specific namespace.
+As of Kubernetes v1.21, an immutable label `kubernetes.io/metadata.name` is added to all
+namespaces. The value of the label is the namespace name. While NetworkPolicy cannot
+target a namespace by its name with some object field, this label now can be used to target
+a specific namespace.
 
 ## What you can't do with network policies (at least, not yet)
 
