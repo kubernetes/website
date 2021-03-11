@@ -1279,7 +1279,7 @@ parameters:
   通常存在的 `default` 池。
 * `description`：指定给动态创建的卷的描述。所有卷描述对于存储类而言都是相同的，
   但不同的 storage class 可以使用不同的描述，以区分不同的使用场景。
-  默认为 `Kubernetas volume`。
+  默认为 `Kubernetes volume`。
 * `fsType`：请求的默认文件系统类型。
   请注意，在 StorageOS 中用户定义的规则可以覆盖此值。默认为 `ext4`
 * `adminSecretNamespace`：API 配置 secret 所在的命名空间。
