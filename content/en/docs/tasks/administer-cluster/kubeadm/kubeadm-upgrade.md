@@ -247,6 +247,7 @@ without compromising the minimum required capacity for running your workloads.
     # replace <node-to-drain> with the name of your node you are draining
     kubectl drain <node-to-drain> --ignore-daemonsets
     ```
+    This should be run from control plane.
 
 ### Upgrade kubelet and kubectl
 
@@ -284,6 +285,7 @@ without compromising the minimum required capacity for running your workloads.
     # replace <node-to-drain> with the name of your node
     kubectl uncordon <node-to-drain>
     ```
+    This should be run from control plane.
 
 ## Verify the status of the cluster
 
