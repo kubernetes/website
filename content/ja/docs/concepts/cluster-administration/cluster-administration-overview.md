@@ -29,8 +29,6 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
 
 ## クラスターの管理
 
-* [クラスターの管理](/docs/tasks/administer-cluster/cluster-management/)では、クラスターのライフサイクルに関するいくつかのトピックを紹介しています。例えば、新規クラスターの作成、クラスターのマスターやワーカーノードのアップグレード、ノードのメンテナンスの実施(例: カーネルのアップグレード)、稼働中のクラスターのKubernetes APIバージョンのアップグレードについてです。
-
 * [ノードの管理](/ja/docs/concepts/architecture/nodes/)方法について学んでください。
 
 * 共有クラスターにおける[リソースクォータ](/docs/concepts/policy/resource-quotas/)のセットアップと管理方法について学んでください。
@@ -41,7 +39,7 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
 
 * [Kubernetes コンテナの環境](/ja/docs/concepts/containers/container-environment/)では、Kubernetesノード上でのKubeletが管理するコンテナの環境について説明します。
 
-* [Kubernetes APIへのアクセス制御](/docs/reference/access-authn-authz/controlling-access/)では、ユーザーとサービスアカウントの権限の設定方法について説明します。
+* [Kubernetes APIへのアクセス制御](/docs/concepts/security/controlling-access)では、Kubernetesが自身のAPIに対するアクセスコントロールをどのように実装するかを説明します。
 
 * [認証](/docs/reference/access-authn-authz/authentication/)では、様々な認証オプションを含むKubernetesでの認証について説明します。
 
