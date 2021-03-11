@@ -275,4 +275,3 @@ kubeletはリソースの割当を決定する際にトポロジーのヒント�
 * [Node APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)について読む。
 * アーキテクチャ設計文書の[Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)という章を読む。
 * [TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)について読む。
-* [クラスターのオートスケール](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)について読む。
