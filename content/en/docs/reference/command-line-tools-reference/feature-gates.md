@@ -729,7 +729,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [ServiceTopology](/docs/concepts/services-networking/service-topology/)
   for more details.
 - `SizeMemoryBackedVolumes`: Enables kubelet support to size memory backed volumes.
-  See [volumes](docs/concepts/storage/volumes) for more details.
+  See [volumes](/docs/concepts/storage/volumes) for more details.
 - `SetHostnameAsFQDN`: Enable the ability of setting Fully Qualified Domain
   Name(FQDN) as the hostname of a pod. See
   [Pod's `setHostnameAsFQDN` field](/docs/concepts/services-networking/dns-pod-service/#pod-sethostnameasfqdn-field).
