@@ -20,7 +20,7 @@ Existe la preocupación de que un Pod o Contenedor pueda monopolizar todos los r
 
 Aplicando restricciones de asignación de recursos, los administradores de clústeres se aseguran del cumplimiento del consumo de recursos por espacio de nombre ({{< glossary_tooltip text="Namespace" term_id="namespace" >}}).
 
-Un **{{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}** es la política para configurar restricciones de lo siguiente:
+Un **{{< glossary_tooltip text="LimitRange" term_id="limitrange" >}}** es la política que permite:
 
 - Imponer restricciones de requisitos de recursos a {{< glossary_tooltip text="Pods" term_id="pod" >}} o {{< glossary_tooltip text="Contenedores" term_id="container" >}} por Namespace.
 - Imponer las limitaciones de recursos mínimas/máximas para Pods o Contenedores dentro de un Namespace.
