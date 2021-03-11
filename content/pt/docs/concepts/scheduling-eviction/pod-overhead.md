@@ -1,7 +1,4 @@
 ---
-reviewers:
-- femrtnz
-- jcjesus
 title: Sobrecarga de Pod 
 content_type: concept
 weight: 50
@@ -87,7 +84,7 @@ spec:
         memory: 100Mi
 ```
 
-Na altura de admissão o [controlador de admissão](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) RuntimeClass
+No tempo de admissão o [controlador de admissão](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) RuntimeClass
 atualiza o _PodSpec_ da carga de trabalho de forma a incluir o `overhead` como descrito na RuntimeClass. Se o _PodSpec_ já tiver este campo definido
 o Pod será rejeitado. No exemplo dado, como apenas o nome do RuntimeClass é especificado, o controlador de admissão muda o Pod de forma a
 incluir um `overhead`.
@@ -183,7 +180,7 @@ Isto é 320 MiB, como esperado:
 Uma métrica `kube_pod_overhead` está disponível em [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)
 para ajudar a identificar quando o _PodOverhead_ está sendo utilizado e para ajudar a observar a estabilidade das cargas de trabalho
 em execução com uma sobrecarga (_Overhead_) definida. Esta funcionalidade não está disponível na versão 1.9 do kube-state-metrics,
-mas é esperado em uma próxima versão. Os usuários necessitarão entretanto construir o kube-state-metrics a partir da fonte.
+mas é esperado em uma próxima versão. Os usuários necessitarão entretanto construir o kube-state-metrics a partir do código fonte.
 
 
 
