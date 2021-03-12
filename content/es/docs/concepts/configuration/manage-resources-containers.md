@@ -187,7 +187,7 @@ Cuando usas Docker:
   [`--memory`](https://docs.docker.com/engine/reference/run/#/user-memory-constraints)
   del comando  `docker run`.
 
-Si el Contenedor excede su límite de memoria, este quizá se detenga. Si es reiniciable,
+Si el {{< glossary_tooltip text="contenedor" term_id="container" >}} excede su límite de memoria, este quizá se detenga. Si es reiniciable,
 el kubelet lo reiniciará, así como cualquier otro error.
 
 Si un Contenedor excede su petición de memoria, es probable que ese Pod sea
