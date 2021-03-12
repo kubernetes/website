@@ -249,7 +249,7 @@ Kubelet también escribe
 y trata estos de manera similar al almacenamiento efímero.
 
 Kubelet escribe logs en ficheros dentro del directorio de logs (por defecto `/var/log`
-por defecto); y tiene un directorio base para otros datos almacenados localmente
+); y tiene un directorio base para otros datos almacenados localmente
 (`/var/lib/kubelet` por defecto).
 
 Normalmente, ambos `/var/lib/kubelet` y `/var/log`  están en el filesystem root,
