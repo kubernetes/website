@@ -88,7 +88,8 @@ Cada contenedor de un Pod puede especificar uno o más de los siguientes:
 * `spec.containers[].resources.requests.hugepages-<size>`
 
 Aunque las peticiones y límites pueden ser especificadas solo en contenedores individuales, es conveniente hablar
-sobre los recursos de peticiones y límites del Pod. Un *limite/peticion de recursos de un Pod* para un tipo de recurso particular es la suma de
+sobre los recursos de peticiones y límites del Pod. Un *limite/petición
+ de recursos de un Pod* para un tipo de recurso particular es la suma de
 peticiones/límites de cada tipo para cada contenedor del Pod.
 
 ## Unidades de recursos en Kubernetes
