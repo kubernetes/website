@@ -261,7 +261,7 @@ como quieras.
 {{% tab name="Two filesystems" %}}
 Tienes un sistema de archivos en el nodo que estás usando para datos efímeros que
 provienen de los Pods corriendo: logs, y volúmenes `emptyDir`.
-Puedes usar este filesystem para otros datos (por ejemplo: logs del sistema no relacionados
+Puedes usar este sistema de archivos para otros datos (por ejemplo: logs del sistema no relacionados
  con Kubernetes); estos pueden ser incluso del filesystem root.
 
 El kubelet también escribe
