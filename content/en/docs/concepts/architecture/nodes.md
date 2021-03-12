@@ -72,7 +72,8 @@ The [name](/docs/concepts/overview/working-with-objects/names#names) identifies 
 cannot have the same name at the same time. Kubernetes also assumes that a resource with the same
 name is the same object. In case of a Node, it is implicitly assumed that an instance using the
 same name will have the same state (e.g. network settings, root disk contents). This may lead to
-inconsistencies if instance was altered without the change of a name or deleting and re-creating the
+inconsistencies if you modify an instance without changing its name. If you want to replace a node, you should
+make sure to remove the existing
 Node object from API server.
 {{< /note >}}
 
@@ -371,4 +372,3 @@ For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-
