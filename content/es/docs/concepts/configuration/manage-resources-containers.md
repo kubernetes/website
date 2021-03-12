@@ -104,7 +104,7 @@ CPU como otro que requiere 1 CPU. La expresión `0.1` es equivalente a la expres
 "cienmilicores", y se entiende que quiere decir lo mismo. Una solicitud con un punto decimal, como `0.1`,  es convertido a `100m` por la API, y no se permite
  una precisión mayor que `1m`. Por esta razón, la forma `100m` es la preferente.
 CPU es siempre solicitada como una cantidad absoluta, nunca como una cantidad relativa;
-0.1 es la misma contidad de cpu que un core-simple, dual-core, o máquina de 48-core.
+0.1 es la misma cantidad de cpu que un core-simple, dual-core, o máquina de 48-core.
 
 ### Significado de memoria
 
