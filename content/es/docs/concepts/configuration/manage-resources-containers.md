@@ -188,7 +188,7 @@ Cuando usas Docker:
   del comando  `docker run`.
 
 Si el {{< glossary_tooltip text="contenedor" term_id="container" >}} excede su límite de memoria, este quizá se detenga. Si es reiniciable,
-el kubelet lo reiniciará, así como cualquier otro error.
+el {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} lo reiniciará, así como cualquier otro error.
 
 Si un Contenedor excede su petición de memoria, es probable que ese Pod sea
 desalojado cuando el nodo se quede sin memoria.
