@@ -242,7 +242,7 @@ Kubernetes soporta 2 maneras de configurar el almacenamiento local efímero en u
 {{% tab name="Single filesystem" %}}
 En esta configuración, colocas todos los tipos de datos (`emptyDir` volúmenes, capa de escritura,
 imágenes de contenedores, logs) en un solo sistema de ficheros.
-La manera más efectiva de configurar el kubelet es dedicando este sistema de ficheros para datos de kubernetes (kubelet).
+La manera más efectiva de configurar Kubelet es dedicando este sistema de archivos para los datos de Kubernetes (kubelet).
 
 El kubelet también escribe 
 [logs de contenedores a nivel de nodo](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
