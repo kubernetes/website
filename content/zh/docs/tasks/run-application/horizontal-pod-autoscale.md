@@ -639,7 +639,7 @@ APIs, cluster administrators must ensure that:
    * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
     确认你的指标流水线，或者查看[已知方案列表](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api)。
-    如果你想自己编写，请从 [boilerplate](https://github.com/kubernetes-sigs/custommetrics-apiserver)开始。
+    如果你想自己编写，请从 [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver)开始。
    
    * 对于外部指标，将使用 `external.metrics.k8s.io` API。可能由上面的自定义指标适配器提供。
 
