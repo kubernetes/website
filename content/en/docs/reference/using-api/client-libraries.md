@@ -54,7 +54,6 @@ their authors, not the Kubernetes team.
 | Java                 | [github.com/manusa/yakc](https://github.com/manusa/yakc) |
 | Lisp                 | [github.com/brendandburns/cl-k8s](https://github.com/brendandburns/cl-k8s) |
 | Lisp                 | [github.com/xh4/cube](https://github.com/xh4/cube) |
-| Node.js (TypeScript) | [github.com/Goyoo/node-k8s-client](https://github.com/Goyoo/node-k8s-client) |
 | Node.js              | [github.com/ajpauwels/easy-k8s](https://github.com/ajpauwels/easy-k8s)
 | Node.js              | [github.com/godaddy/kubernetes-client](https://github.com/godaddy/kubernetes-client) |
 | Node.js              | [github.com/tenxcloud/node-kubernetes-client](https://github.com/tenxcloud/node-kubernetes-client) |
