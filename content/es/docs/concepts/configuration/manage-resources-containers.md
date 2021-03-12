@@ -486,7 +486,7 @@ enviar una solicitud HTTP `PATCH` al servidor API para especificar la cantidad
 disponible en el `status.capacity` para un nodo en el clúster. Después de esta
 operación, el `status.capacity` del nodo incluirá un nuevo recurso. El campo 
 `status.allocatable` se actualiza automáticamente con el nuevo recurso
-de forma asíncrona por el kubelet. Tenga en cuenta que debido a que el scheduler
+de forma asíncrona por el {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}. Tenga en cuenta que debido a que el {{< glossary_tooltip text="planificador" term_id="kube-scheduler" >}}
 utiliza el valor de `status.allocatable` del nodo cuando evalúa la aptitud del Pod, puede haber un corto
 retraso entre parchear la capacidad del nodo con un nuevo recurso y el primer Pod
 que solicita el recurso en ese nodo.
