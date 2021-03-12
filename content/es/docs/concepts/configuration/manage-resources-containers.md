@@ -118,7 +118,7 @@ Mi, Ki. Por ejemplo, los siguientes valores representan lo mismo:
 ```
 
 Aquí un ejemplo.
-El siguiente Pod tiene dos contenedores. Cada contenedor tiene una petición de 0.25 cpu
+El siguiente {{< glossary_tooltip text="Pod" term_id="pod" >}} tiene dos contenedores. Cada contenedor tiene una petición de 0.25 cpu
 y 64MiB (2<sup>26</sup> bytes) de memoria. Cada contenedor tiene un límite de 0.5 cpu
 y 128MiB de memoria. Puedes decirle al Pod que solicite 0.5 cpu y 128MiB de memoria 
 y un límite de 1 cpu y 256MiB de memoria.
