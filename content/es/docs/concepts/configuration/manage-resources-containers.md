@@ -577,7 +577,7 @@ siempre que no se pueda satisfacer la solicitud de recursos.
 
 **Ejemplo:**
 
-El siguiente Pod solicita 2CPUs y 1 "example.com/foo" (un recurso extendido).
+El siguiente {{< glossary_tooltip text="Pod" term_id="pod" >}} solicita 2CPUs y 1 "example.com/foo" (un recurso extendido).
 
 ```yaml
 apiVersion: v1
