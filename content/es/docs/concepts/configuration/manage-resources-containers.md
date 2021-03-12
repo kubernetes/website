@@ -203,7 +203,7 @@ límite de recursos, revisa la sección de [Troubleshooting](#troubleshooting).
 
 El uso de recursos de un Pod es reportado como parte del estado del Pod.
 
-Si opcionalmente [herramientas para monitorización](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+Si [herramientas opcionales para monitorización](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
 están disponibles en tu cluster, entonces el uso de recursos del Pod pueden extraerse también de
 [Métricas API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
 directamente o desde tus herramientas de monitorización.
