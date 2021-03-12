@@ -215,7 +215,7 @@ o desde tus herramientas de monitorización.
 
 Los nodos tienen almacenamiento local efímero, respaldado por
 dispositivos de escritura agregados o, a veces, por RAM.
-"Efímero" quiere decir que no se garantiza la durabilidad a largo tiempo.
+"Efímero" significa que no se garantiza la durabilidad a largo plazo.
 .
 Los Pods usan el almacenamiento local efímero para añadir espacio, caché, y para logs.
 El kubelet puede proveer espacio añadido a los Pods usando almacenamiento lcoal efímero para
