@@ -30,7 +30,7 @@ especificada en _request_ para el contenedor.
 
 Si el nodo donde está corriendo un pod tiene suficientes recursos disponibles, es posible 
 (y válido) que el {{< glossary_tooltip text="contenedor" term_id="container" >}} utilice más recursos de los especificados en `request`.
-Sin embargo, un contenedor no está autorizado a utilizar más de lo especificado en `limit`.
+Sin embargo, un {{< glossary_tooltip text="contenedor" term_id="container" >}} no está autorizado a utilizar más de lo especificado en `limit`.
 
 Por ejemplo, si configuras una petición de `memory` de 256 MiB  para un {{< glossary_tooltip text="contenedor" term_id="container" >}}, y ese contenedor está
 en un {{< glossary_tooltip term_id="pod" >}} colocado en un nodo con 8GiB de memoria y no hay otros {{< glossary_tooltip term_id="pods" >}}, entonces el contenedor puede intentar usar
