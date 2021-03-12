@@ -1,7 +1,4 @@
 ---
-reviewers:
-- femrtnz
-- jcjesus
 title: Autenticação
 content_type: concept
 weight: 10
@@ -11,9 +8,9 @@ weight: 10
 Essa página demonstra uma visão geral sobre autenticação
  
 <!-- body -->
-## Usuários em Kubernetes
+## Usuários no Kubernetes
  
-Todos os clusters Kubernetes possuem duas categorias de usuários: contas de serviço gerenciadas por Kubernetes e usuários normais.
+Todos os clusters Kubernetes possuem duas categorias de usuários: contas de serviço gerenciadas pelo Kubernetes e usuários normais.
  
 Assume-se que um serviço independente do cluster gerencia usuários normais das seguintes formas:
  
@@ -25,9 +22,9 @@ Neste quesito, _Kubernetes não possui objetos que possam representar as contas 
  
 Apesar de um usuário normal não poder ser adicionado através de uma chamada para a API, qualquer usuário que apresente um certificado válido e assinado pela autoridade de certificados (CA) do _cluster_ é considerado autenticado. Nesta configuração, Kubernetes determina o nome do usuário baseado no campo de nome comum no sujeito (_subject_) do certificado (por exemplo: "/CN=bob"). A partir daí, o subsistema de controle de acesso baseado em função (RBAC) determina se o usuário é autorizado a realizar uma operação específica sobre o recurso. Para mais detalhes, veja a referência sobre o tópico de usuários normais dentro de [requisição de certificado](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user).
  
-Em contraste a usuários normais, contas de serviço são considerados usuários gerenciados pela API do Kubernetes. Elas estão vinculadas à específicos _namespaces_ e criados automaticamente pelo servidor de API ou manualmente através de chamadas da API. Contas de serviço estão ligadas a um conjunto de credenciais armazenados como `Secrets`, aos quais são montados dentro dos _pods_ assim permitindo que processos internos ao _cluster_  comuniquem-se com a API do Kubernetes.
+Em contraste a usuários normais, contas de serviço são considerados usuários gerenciados pela API do Kubernetes. Elas estão vinculadas à _namespaces_ específicas e criadas automaticamente pelo servidor de API ou manualmente através de chamadas da API. Contas de serviço estão ligadas a um conjunto de credenciais armazenados como `Secrets`, aos quais são montados dentro dos _pods_ assim permitindo que processos internos ao _cluster_  comuniquem-se com a API do Kubernetes.
  
-Requisições para a API estão ligadas a um usuário normal, conta de serviço ou serão tratadas como [requisições anônimas](#anonymous-requests). Isto significa que cada processo dentro ou fora do _cluster_, desde um usuário humano entrando `kubectl` de uma estação de trabalho, a `kubelets` rodando nos nós, a membros do painel de controle devem autenticar-se ao realizarem suas requisições para o servidor API ou serão tratados como usuário anônimo.
+Requisições para a API estão ligadas a um usuário normal, conta de serviço ou serão tratadas como [requisições anônimas](#anonymous-requests). Isto significa que cada processo dentro ou fora do _cluster_, desde um usuário humano utilizando o `kubectl` de uma estação de trabalho, a `kubelets` rodando nos nós, a membros da camada de gerenciamento (s/painel de controle) devem autenticar-se ao realizarem suas requisições para o servidor API ou serão tratados como usuário anônimo.
  
 ## Estratégias de autenticação
  
@@ -383,7 +380,7 @@ Implementadores devem verificar o campo de versão da API (`apiVersion`) da requ
 {{< note >}}
 O servidor de API Kubernetes envia por padrão revisão de tokens de versão `authentication.k8s.io/v1beta1` compatibilidade com versões anteriores.
  
-Para optar receber revisão de tokens de versão `authentication.k8s.io/v1`, o servidor de API API deve ser inicializado com a opção `--authentication-token-webhook-version=v1`.
+Para optar receber revisão de tokens de versão `authentication.k8s.io/v1`, o servidor de API deve ser inicializado com a opção `--authentication-token-webhook-version=v1`.
 {{< /note >}}
  
 ```yaml
@@ -395,9 +392,9 @@ Para optar receber revisão de tokens de versão `authentication.k8s.io/v1`, o s
    "token": "014fbff9a07c...",
  
    # Lista opcional de identificadores de audiência para o servidor ao qual o token foi apresentado
-   # Autenticadores de toke  sensíveis a audiência (por exemplo, autenticadores de token OIDC)
-   # Deve-se verificar que o token foi direcionado a pelo menos um membro da lista de audiência
-   # e retornar a interseção desta lista a audiência valida para o token no estado da resposta
+   # Autenticadores de token  sensíveis a audiência (por exemplo, autenticadores de token OIDC)
+   # deve-se verificar que o token foi direcionado a pelo menos um membro da lista de audiência
+   # e retornar a interseção desta lista a audiência válida para o token no estado da resposta
    # Isto garante com que o token é válido para autenticar-se no servidor ao qual foi apresentado
    # Se nenhuma audiência for especificada, o token deve ser validado para autenticar-se ao servidor de API do Kubernetes
    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
@@ -415,9 +412,9 @@ Para optar receber revisão de tokens de versão `authentication.k8s.io/v1`, o s
    "token": "014fbff9a07c...",
  
    # Lista opcional de identificadores de audiência para o servidor ao qual o token foi apresentado
-   # Autenticadores de toke  sensíveis a audiência (por exemplo, autenticadores de token OIDC)
-   # Deve-se verificar que o token foi direcionado a pelo menos um membro da lista de audiência
-   # e retornar a interseção desta lista a audiência valida para o token no estado da resposta
+   # Autenticadores de token  sensíveis a audiência (por exemplo, autenticadores de token OIDC)
+   # deve-se verificar que o token foi direcionado a pelo menos um membro da lista de audiência
+   # e retornar a interseção desta lista a audiência válida para o token no estado da resposta
    # Isto garante com que o token é válido para autenticar-se no servidor ao qual foi apresentado
    # Se nenhuma audiência for especificada, o token deve ser validado para autenticar-se ao servidor de API do Kubernetes
    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
