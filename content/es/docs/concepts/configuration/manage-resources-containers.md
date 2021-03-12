@@ -191,7 +191,7 @@ Si el {{< glossary_tooltip text="contenedor" term_id="container" >}} excede su l
 el {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} lo reiniciará, así como cualquier otro error.
 
 Si un Contenedor excede su petición de memoria, es probable que ese Pod sea
-desalojado cuando el nodo se quede sin memoria.
+desalojado en cualquier momento que el nodo se quede sin memoria.
 
 Un Contenedor quizá puedan o no tener permitido execeder el límite de CPU por
 algunos períodos de tiempo. Sin embargo, esto no matará por excesivo uso de CPU.
