@@ -38,7 +38,7 @@ más RAM.
 
 Si configuras un límite de `memory` de 4GiB  para el contenedor, {{< glossary_tooltip text="kubelet" term_id="kubelet" >}})
  (y
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}})  impone el límite.
+{{< glossary_tooltip text="motor de ejecución del contenedor" term_id="container-runtime" >}})  impone el límite.
 El Runtime evita que el contenedor use más recursos de los configurados en el límite. Por ejemplo: 
 cuando un proceso en el contenedor intenta consumir más cantidad de memoria de la permitida,
 el Kernel del sistema termina el proceso que intentó la utilización de la memoria, con un error de out of memory (OOM).
