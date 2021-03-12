@@ -228,7 +228,7 @@ imágenes de contenedores, y la capa de escritura de los contenedores.
 
 {{< caution >}}
 Si un nodo falla, los datos en el almacenamiento efímero se pueden perder.
-Tus aplicaciones no pueden esperar ninguna SLA (IOPS de disco, por ejemplo)
+Tus aplicaciones no pueden esperar ningun SLA (IOPS de disco, por ejemplo)
 del almacenamiento local efímero.
 {{< /caution >}}
 
