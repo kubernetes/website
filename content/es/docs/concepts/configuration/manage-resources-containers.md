@@ -252,7 +252,7 @@ Kubelet escribe logs en ficheros dentro del directorio de logs (por defecto `/va
 ); y tiene un directorio base para otros datos almacenados localmente
 (`/var/lib/kubelet` por defecto).
 
-Normalmente, ambos `/var/lib/kubelet` y `/var/log`  están en el filesystem root,
+Por lo general, `/var/lib/kubelet` y `/var/log`  están en el sistema de archivos de root,
 y el kubelet es designado con esa capa en mente.
 
 Tu nodo puede tener tantos otros filesystems, no usados por kubernetes,
