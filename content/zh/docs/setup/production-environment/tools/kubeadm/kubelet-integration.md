@@ -150,7 +150,7 @@ such as systemd.
 由于硬件、操作系统、网络或者其他主机特定参数的差异。某些主机需要特定的 kubelet 配置。
 以下列表提供了一些示例。
 
-- 由 kubelet 配置标志 `--resolv-confkubelet` 指定的 DNS 解析文件的路径在操作系统之间可能有所不同，
+- 由 kubelet 配置标志 `--resolv-conf` 指定的 DNS 解析文件的路径在操作系统之间可能有所不同，
   它取决于你是否使用 `systemd-resolved`。
   如果此路径错误，则在其 kubelet 配置错误的节点上 DNS 解析也将失败。
 
