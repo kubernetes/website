@@ -91,4 +91,7 @@ do escalonador:
 * Aprenda como [configurar vários escalonadores](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
 * Aprenda sobre [políticas de gerenciamento de topologia](/docs/tasks/administer-cluster/topology-manager/)
 * Aprenda sobre [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
-
+* Saiba mais sobre o agendamento de pods que usam volumes em:
+  * [Suporte de topologia de volume](/docs/concepts/storage/storage-classes/#volume-binding-mode)
+  * [Rastreamento de capacidade de armazenamento](/docs/concepts/storage/storage-capacity/)
+  * [Limites de volumes específicos do nó](/docs/concepts/storage/storage-limits/)

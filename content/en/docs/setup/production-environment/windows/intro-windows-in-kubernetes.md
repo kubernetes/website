@@ -237,7 +237,7 @@ Overlay (VXLAN) networks on Windows do not support dual-stack networking today.
 
 Windows is only supported as a worker node in the Kubernetes architecture and component matrix. This means that a Kubernetes cluster must always include Linux master nodes, zero or more Linux worker nodes, and zero or more Windows worker nodes.
 
-#### Compute {compute-limitations}
+#### Compute {#compute-limitations}
 
 ##### Resource management and process isolation
 
@@ -297,7 +297,7 @@ As a result, the following storage functionality is not supported on Windows nod
 * NFS based storage/volume support
 * Expanding the mounted volume (resizefs)
 
-#### Networking {networking-limitations}
+#### Networking {#networking-limitations}
 
 Windows Container Networking differs in some important ways from Linux networking. The [Microsoft documentation for Windows Container Networking](https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture) contains additional details and background.
 
