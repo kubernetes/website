@@ -36,7 +36,8 @@ Por ejemplo, si configuras una petición de `memory` de 256 MiB  para un contene
 en un Pod colocado en un nodo con 8GiB de memoria y no hay otros Pods, entonces el contenedor puede intentar usar
 más RAM.
 
-Si configuras un límite de `memory` de 4GiB  para el contenedor, Kubelet (y
+Si configuras un límite de `memory` de 4GiB  para el contenedor, {{< glossary_tooltip text="kubelet" term_id="kubelet" >}})
+ (y
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}})  impone el límite.
 El Runtime evita que el contenedor use más recursos de los configurados en el límite. Por ejemplo: 
 cuando un proceso en el contenedor intenta consumir más cantidad de memoria de la permitida,
