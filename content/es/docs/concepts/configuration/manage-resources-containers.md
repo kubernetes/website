@@ -262,7 +262,7 @@ como quieras.
 Tienes un sistema de archivos en el nodo que estás usando para datos efímeros que
 provienen de los Pods corriendo: logs, y volúmenes `emptyDir`.
 Puedes usar este sistema de archivos para otros datos (por ejemplo: logs del sistema no relacionados
- con Kubernetes); estos pueden ser incluso del filesystem root.
+ con Kubernetes); estos pueden ser incluso del sistema de archivos root.
 
 El kubelet también escribe
 [logs de contenedores a nivel de nodo](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
