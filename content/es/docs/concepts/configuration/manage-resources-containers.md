@@ -206,7 +206,7 @@ El uso de recursos de un Pod es reportado como parte del estado del Pod.
 Si [herramientas opcionales para monitorización](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
 están disponibles en tu cluster, entonces el uso de recursos del Pod puede extraerse directamente de
 [Métricas API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
-directamente o desde tus herramientas de monitorización.
+o desde tus herramientas de monitorización.
 
 ## Almacenamiento local efímero
 
