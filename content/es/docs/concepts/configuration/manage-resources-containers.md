@@ -600,7 +600,7 @@ spec:
 
 ### Mis Pods están en estado pendiente con un mensaje de failedScheduling
 
-Si el scheduler no puede encontrar ningún nodo donde pueda colocar un Pod, el Pod permanece
+Si el {{< glossary_tooltip text="planificador" term_id="kube-scheduler" >}} no puede encontrar ningún nodo donde pueda colocar un {{< glossary_tooltip text="Pod" term_id="pod" >}}, el {{< glossary_tooltip text="Pod" term_id="pod" >}} permanece
 no programado hasta que se pueda encontrar un lugar. Se produce un evento cada vez que
 el scheduler no encuentra un lugar para el Pod, como este:
 
