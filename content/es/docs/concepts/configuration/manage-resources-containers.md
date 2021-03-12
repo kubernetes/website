@@ -572,7 +572,7 @@ deben ser iguales si ambos están presentes en las especificaciones de un conten
 {{< /note >}}
 
 Un pod se programa solo si se satisfacen todas las solicitudes de recursos, incluidas
-CPU, memoria y cualquier recurso extendido. El Pod permanece en estado `PENDING`
+CPU, memoria y cualquier recurso extendido. El {{< glossary_tooltip text="Pod" term_id="pod" >}} permanece en estado `PENDING`
 siempre que no se pueda satisfacer la solicitud de recursos.
 
 **Ejemplo:**
