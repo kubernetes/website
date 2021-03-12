@@ -16,7 +16,7 @@ los recursos que necesita un {{< glossary_tooltip text="Contenedor" term_id="con
 Los recursos que normalmente se definen son CPU y memoria (RAM);  pero hay otros.
 
 Cuando especificas el recurso _request_  para  Contenedores en un {{< glossary_tooltip term_id="pod" >}}, 
-el Scheduler usa esta información para decidir en qué nodo colocar el {{< glossary_tooltip term_id="pod" >}}.
+el {{< glossary_tooltip text="Scheduler de Kubernetes " term_id="kube-scheduler" >}} usa esta información para decidir en qué nodo colocar el {{< glossary_tooltip term_id="pod" >}}.
 Cuando especificas el recurso _limit_ para un Contenedor, Kubelet impone estos límites, así que el contenedor no
 puede utilizar más recursos que el límite que le definimos. Kubelet también reserva al menos la cantidad
 especificada en _request_ para el contenedor.
