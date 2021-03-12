@@ -164,7 +164,7 @@ solicitud de  recursos.
 ## Cómo corren los Pods con límites de recursos
 
 Cuando el {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} inicia un {{< glossary_tooltip text="contenedor" term_id="container" >}} de un {{< glossary_tooltip text="Pod" term_id="pod" >}}, este pasa los límites de CPU y
-memoria al runtime del contenedor.
+memoria al {{< glossary_tooltip text="runtime del contenedor" term_id="container-runtime" >}}.
 
 Cuando usas Docker:
 
