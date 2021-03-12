@@ -550,7 +550,7 @@ por el extensor del scheduler.
 ### Consumiendo recursos extendidos
 
 Los usuarios pueden consumir recursos extendidos en las especificaciones del Pod, como la CPU y la memoria.
-El scheduler se encarga de la contabilidad de recursos para que no más de
+El {{< glossary_tooltip text="planificador" term_id="kube-scheduler" >}} se encarga de la contabilidad de recursos para que no más de
 la cantidad disponible sea asignada simultáneamente a los Pods.
 
 El servidor de API restringe las cantidades de recursos extendidos a números enteros.
