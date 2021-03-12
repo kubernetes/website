@@ -6,7 +6,7 @@ feature:
   title: Bin packing automático
   description: >
     Coloca los contenedores automáticamente en base a los recursos solicitados y otras limitaciones, mientras no se afecte la
-    disponibilidad. Combina cargas críticas y de mejor esfuerzo para mejorar el uso y ahorrar recursos.
+    disponibilidad. Combina cargas críticas y best-effort para mejorar el uso y ahorrar recursos.
 ---
 
 <!-- overview -->
