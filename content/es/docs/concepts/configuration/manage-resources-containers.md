@@ -222,7 +222,7 @@ Kubelet puede proveer espacio añadido a los Pods usando almacenamiento local ef
 montar [`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
  {{< glossary_tooltip term_id="volume" text="volumes" >}} en los contenedores.
 
-El kubelet también usa este tipo de almacenamiento para guardar
+Kubelet también usa este tipo de almacenamiento para guardar
 [logs de contenedores a nivel de nodo](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level),
 imágenes de contenedores, y la capa de escritura de los contenedores.
 
