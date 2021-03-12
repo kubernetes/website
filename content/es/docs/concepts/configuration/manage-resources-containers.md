@@ -264,7 +264,7 @@ provienen de los Pods corriendo: logs, y volúmenes `emptyDir`.
 Puedes usar este sistema de archivos para otros datos (por ejemplo: logs del sistema no relacionados
  con Kubernetes); estos pueden ser incluso del sistema de archivos root.
 
-El kubelet también escribe
+Kubelet también escribe
 [logs de contenedores a nivel de nodo](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
 en el primer filesystem, y trata estos de manera similar al almacenamiento efímero.
 
