@@ -202,4 +202,6 @@ verify that the pods were scheduled by the desired schedulers.
 ```shell
 kubectl get events
 ```
+You can also use a [custom scheduler configuration,](https://kubernetes.io/docs/reference/scheduling/config/#multiple-profiles) or custom container image, for the cluster's main scheduler by modifying its static pod manifest on the relevant control plane host.
+
 
