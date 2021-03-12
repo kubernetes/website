@@ -602,7 +602,7 @@ spec:
 
 Si el {{< glossary_tooltip text="planificador" term_id="kube-scheduler" >}} no puede encontrar ningún nodo donde pueda colocar un {{< glossary_tooltip text="Pod" term_id="pod" >}}, el {{< glossary_tooltip text="Pod" term_id="pod" >}} permanece
 no programado hasta que se pueda encontrar un lugar. Se produce un evento cada vez que
-el scheduler no encuentra un lugar para el Pod, como este:
+el {{< glossary_tooltip text="planificador" term_id="kube-scheduler" >}} no encuentra un lugar para el {{< glossary_tooltip text="Pod" term_id="pod" >}}, como este:
 
 ```shell
 kubectl describe pod frontend | grep -A 3 Events
