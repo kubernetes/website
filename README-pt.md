@@ -144,7 +144,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 Esta solução funciona tanto para o MacOS Catalina quanto para o MacOS Mojave.
 
-### Troubleshooting for Out of Memory
+### Erro de "Out of Memory"
 
 Se você executar o comando `make container-serve` e retornar o seguinte erro:
 ```
