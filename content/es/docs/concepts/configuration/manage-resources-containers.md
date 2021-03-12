@@ -154,7 +154,7 @@ spec:
 
 Cuando creas un {{< glossary_tooltip text="Pod" term_id="pod" >}}, el  {{< glossary_tooltip text="planificador de Kubernetes " term_id="kube-scheduler" >}} determina el nodo para correr dicho {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 Cada nodo tiene una capacidad máxima para cada tipo de recurso:
-la cantidad de CPU y memoria que dispone para los Pods. El Scheduler se asegura de que,
+la cantidad de CPU y memoria que dispone para los Pods. El {{< glossary_tooltip text="planificador de Kubernetes" term_id="kube-scheduler" >}} se asegura de que,
  para cada tipo de recurso, la suma de los recursos solicitados de los contenedores programados sea menor a la capacidad del nodo. Cabe mencionar que aunque la memoria actual o CPU
 en uso de los nodos sea muy baja, el Scheduler todavía rechaza programar un Pod en un nodo si
 la comprobación de capacidad falla. Esto protege contra escasez de recursos en un nodo
