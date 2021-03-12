@@ -246,7 +246,7 @@ La manera más efectiva de configurar Kubelet es dedicando este sistema de archi
 
 Kubelet también escribe 
 [logs de contenedores a nivel de nodo](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
-y trata estos the manera similar al almacenamiento efímero.
+y trata estos de manera similar al almacenamiento efímero.
 
 El kubelet escribe logs en ficheros dentro del directorio de logs (`/var/log`
 por defecto); y tiene un directorio base para otros datos almacenados localmente
