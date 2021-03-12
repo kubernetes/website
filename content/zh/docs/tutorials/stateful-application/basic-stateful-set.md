@@ -19,7 +19,7 @@ This tutorial provides an introduction to managing applications with
 demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 -->
 
-本教程介绍如何了使用 [StatefulSets](/zh/docs/concepts/abstractions/controllers/statefulsets/) 来管理应用。演示了如何创建、删除、扩容/缩容和更新 StatefulSets 的 Pods。
+本教程介绍如何了使用 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/) 来管理应用。演示了如何创建、删除、扩容/缩容和更新 StatefulSets 的 Pods。
 
 
 
