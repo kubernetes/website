@@ -194,7 +194,7 @@ Si un Contenedor excede su petición de memoria, es probable que ese Pod sea
 desalojado en cualquier momento que el nodo se quede sin memoria.
 
 Un Contenedor puede o no tener permitido exceder el límite de CPU por
-algunos períodos de tiempo. Sin embargo, esto no matará por excesivo uso de CPU.
+algunos períodos de tiempo. Sin embargo, esto no lo destruirá por uso excesivo de CPU.
 
 Para saber cuando un Contenedor no puede ser colocado o será parado debido a 
 límite de recursos, revisa la sección de [Troubleshooting](#troubleshooting).
