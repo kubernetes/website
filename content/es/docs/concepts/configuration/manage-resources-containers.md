@@ -487,7 +487,7 @@ disponible en el `status.capacity` para un nodo en el clúster. Después de esta
 operación, el `status.capacity` del nodo incluirá un nuevo recurso. El campo 
 `status.allocatable` se actualiza automáticamente con el nuevo recurso
 de forma asíncrona por el {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}. Tenga en cuenta que debido a que el {{< glossary_tooltip text="planificador" term_id="kube-scheduler" >}}
-utiliza el valor de `status.allocatable` del nodo cuando evalúa la aptitud del Pod, puede haber un corto
+utiliza el valor de `status.allocatable` del nodo cuando evalúa la aptitud del {{< glossary_tooltip text="Pod" term_id="pod" >}}, puede haber un breve
 retraso entre parchear la capacidad del nodo con un nuevo recurso y el primer Pod
 que solicita el recurso en ese nodo.
 
