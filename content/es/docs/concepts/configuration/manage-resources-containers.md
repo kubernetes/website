@@ -72,7 +72,7 @@ A diferencia de los recursos de `memoria` y `cpu`.
 
 CPU y memoria son colectivamente conocidos como *recursos de computación*,  o simplemente como 
 *recursos*.  Los recursos de computación son cantidades medibles que pueden ser solicitadas, asignadas
-y consumidas. Son distintas a los [Recursos API](/docs/concepts/overview/kubernetes-api/). Los recursos API , como Pods y 
+y consumidas. Son distintas a los [Recursos API](/docs/concepts/overview/kubernetes-api/). Los recursos API , como {{< glossary_tooltip text="Pods" term_id="pod" >}} y 
 [Services](/docs/concepts/services-networking/service/) son objetos que pueden ser leídos y modificados
 a través de la API de Kubernetes.
 
