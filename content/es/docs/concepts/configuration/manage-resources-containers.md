@@ -244,7 +244,7 @@ En esta configuración, colocas todos los tipos de datos (`emptyDir` volúmenes,
 imágenes de contenedores, logs) en un solo sistema de ficheros.
 La manera más efectiva de configurar Kubelet es dedicando este sistema de archivos para los datos de Kubernetes (kubelet).
 
-El kubelet también escribe 
+Kubelet también escribe 
 [logs de contenedores a nivel de nodo](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
 y trata estos the manera similar al almacenamiento efímero.
 
