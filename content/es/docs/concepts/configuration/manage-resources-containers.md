@@ -1,5 +1,5 @@
 ---
-title: Administrando Recursos de Contenedores
+title: Administrando los recursos de los contenedores
 content_type: concept
 weight: 40
 feature:
