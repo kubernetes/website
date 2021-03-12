@@ -268,7 +268,7 @@ Kubelet también escribe
 [logs de contenedores a nivel de nodo](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
 en el primer sistema de archivos, y trata estos de manera similar al almacenamiento efímero.
 
-También usas un filesystem distinto, respaldado por un dispositivo de almacenamiento lógico diferente.
+También usas un sistema de archivos distinto, respaldado por un dispositivo de almacenamiento lógico diferente.
 En esta configuración, el directorio donde le dices al kubelet que coloque
 las capas de imágenes de contenedores y capas de escritura es ene ste segundo filesystem.
 
