@@ -196,7 +196,7 @@ desalojado en cualquier momento que el nodo se quede sin memoria.
 Un Contenedor puede o no tener permitido exceder el límite de CPU por
 algunos períodos de tiempo. Sin embargo, esto no lo destruirá por uso excesivo de CPU.
 
-Para saber cuando un Contenedor no puede ser colocado o será parado debido a 
+Para conocer cuando un Contenedor no puede ser programado o será destruido debido a 
 límite de recursos, revisa la sección de [Troubleshooting](#troubleshooting).
 
 ### Monitorización del uso de recursos de computación y memoria.
