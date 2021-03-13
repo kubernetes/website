@@ -272,7 +272,7 @@ También usas un sistema de archivos distinto, respaldado por un dispositivo de 
 En esta configuración, el directorio donde le dices a Kubelet que coloque
 las capas de imágenes de los contenedores y capas de escritura es este segundo sistema de archivos.
 
-El primer filesystem no guarda ninguna capa de imágenes o de escritura.
+El primer sistema de archivos no guarda ninguna capa de imágenes o de escritura.
 
 Tu nodo puede tener tantos filesystems, no usados por Kubernetes, como quieras.
 {{% /tab %}}
