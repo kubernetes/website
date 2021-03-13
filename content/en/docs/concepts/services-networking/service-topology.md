@@ -15,7 +15,16 @@ weight: 10
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
+{{< note >}}
+
+This feature, specifically the alpha topologyKeys API, is deprecated in
+Kubernetes v1.21. [Topology Aware
+Hints](/docs/concepts/services-networking/topology-aware-hints) was introduced
+in Kubernetes v1.21 and provides similar functionality.
+
+{{</ note >}}
 
 _Service Topology_ enables a service to route traffic based upon the Node
 topology of the cluster. For example, a service can specify that traffic be
