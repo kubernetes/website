@@ -358,7 +358,7 @@ Kubelet mide el uso de almacenamiento en:
 Si un Pod está usando más almacenamiento efímero que el permitido, Kubelet
 establece una señal de desalojo que desencadena el desalojo del Pod.
 
-Para aislamiento a nivel de contenedor, si una capa de escritura de Contenedor y 
+Para aislamiento a nivel de contenedor, si una capa de escritura del contenedor y 
 logs excede el límite de uso del almacenamiento, el kubelet marca el Pod para evasión.
 
 Para aislamiento a nivel de pod el kubelet calcula un límite de almacenamiento 
