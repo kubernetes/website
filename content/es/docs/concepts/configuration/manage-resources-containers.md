@@ -338,7 +338,7 @@ spec:
         ephemeral-storage: "4Gi"
 ```
 
-### Como son colocados los Pods con solicitudes de almacenameinto efímero
+### Como son programados los Pods con solicitudes de almacenamiento efímero
 
 Cuando creas un Pod, el scheduler de kubernetes selecciona un nodo para el Pod donde crearlo.
 Cada nodo tiene una cantidad máxima de almacenamiento local efímero que puede proveer a los Pods. Para
