@@ -290,7 +290,7 @@ Si tienes una configuración diferente, entonces Kubelet no aplica límites de r
 para almacenamiento local efímero.
 
 {{< note >}}
-El kubelet rastrea `tmpfs` volúmenes emptyDir como uso de memoria de contenedor, en lugar de
+Kubelet rastrea `tmpfs` volúmenes emptyDir como uso de memoria de contenedor, en lugar de
 como almacenamiento local efímero.
 {{< /note >}}
 
