@@ -349,7 +349,7 @@ El planificador se asegura de que el total de los recursos solicitados para los 
 ### Manejo del consumo de almacenamiento efímero {#resource-emphemeralstorage-consumption}
 
 Si Kubelet está manejando el almacenamiento efímero local como un recurso, entonces
-kubelet mide el uso de almacenamiento en:
+Kubelet mide el uso de almacenamiento en:
 
 - volúmenes `emptyDir`, excepto _tmpfs_  volúmenes`emptyDir` 
 - directorios que guardan logs de nivel de nodo
