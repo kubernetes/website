@@ -340,7 +340,7 @@ spec:
 
 ### Como son programados los Pods con solicitudes de almacenamiento efímero
 
-Cuando creas un Pod, el scheduler de kubernetes selecciona un nodo para el Pod donde crearlo.
+Cuando creas un Pod, el planificador de Kubernetes selecciona un nodo para el Pod donde sera creado.
 Cada nodo tiene una cantidad máxima de almacenamiento local efímero que puede proveer a los Pods. Para
 más información, mira [Node Allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
 
