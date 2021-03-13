@@ -286,7 +286,7 @@ Kubelet puede medir la cantidad de almacenamiento local que se está usando. Est
 - has configurado el nodo usando una de las configuraciones soportadas
   para almacenamiento local efímero..
 
-Si tienes una configuración diferente, entonces el kubelet no aplica límites de recursos
+Si tienes una configuración diferente, entonces Kubelet no aplica límites de recursos
 para almacenamiento local efímero.
 
 {{< note >}}
