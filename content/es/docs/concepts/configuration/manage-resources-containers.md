@@ -372,7 +372,7 @@ Si Kubelet no está midiendo el almacenamiento local efímero, entonces el Pod
 que excede este límite de almacenamiento, no será desalojado para liberar 
 el límite del recurso de almacenamiento.
 
-Sin embargo, si el espacio del filesystem para la capa de escritura del contenedor,
+Sin embargo, si el espacio del sistema de archivos para la capa de escritura del contenedor,
 logs de nivel de nodo o volúmenes `emptyDir` decae, el 
 {{< glossary_tooltip text="taints" term_id="taint" >}}  del nodo lanza la evasión para 
 cualquier Pod que no tolere el taint. 
