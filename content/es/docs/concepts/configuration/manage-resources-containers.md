@@ -302,7 +302,7 @@ uno o más de los siguientes:
 * `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.requests.ephemeral-storage`
 
-Límites y solicitudes para `almacenamiento-efímero` son medidos en bytes. Puedes expresar el almacenamiento 
+Los límites y solicitudes para `almacenamiento-efímero` son medidos en bytes. Puedes expresar el almacenamiento 
 como un integral o como un numero flotante usando los siguientes sufijos:
 E, P, T, G, M, K. También puedes usar los siguientes equivalentes: Ei, Pi, Ti, Gi,
 Mi, Ki. Por ejemplo, los siguientes representan el mismo valor:
