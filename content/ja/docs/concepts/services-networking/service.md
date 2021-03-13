@@ -143,7 +143,7 @@ ExternalName Serviceはセレクターの代わりにDNS名を使用する特殊
 
 エンドポイントスライスは、Endpointsに対してよりスケーラブルな代替手段を提供できるAPIリソースです。概念的にはEndpointsに非常に似ていますが、エンドポイントスライスを使用すると、ネットワークエンドポイントを複数のリソースに分割できます。デフォルトでは、エンドポイントスライスは、100個のエンドポイントに到達すると「いっぱいである」と見なされ、その時点で追加のエンドポイントスライスが作成され、追加のエンドポイントが保存されます。
 
-エンドポイントスライスは、[エンドポイントスライスのドキュメント](/docs/concepts/services-networking/endpoint-slices/)にて詳しく説明されている追加の属性と機能を提供します。
+エンドポイントスライスは、[エンドポイントスライスのドキュメント](/ja/docs/concepts/services-networking/endpoint-slices/)にて詳しく説明されている追加の属性と機能を提供します。
 
 ### アプリケーションプロトコル
 
@@ -995,6 +995,6 @@ kube-proxyはuserspaceモードにおいてSCTPアソシエーションの管理
 
 ## {{% heading "whatsnext" %}}
 
-* [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)を参照してください。
-* [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。
-* [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
+* [Connecting Applications with Services](/ja/docs/concepts/services-networking/connect-applications-service/)を参照してください。
+* [Ingress](/ja/docs/concepts/services-networking/ingress/)を参照してください。
+* [EndpointSlices](/ja/docs/concepts/services-networking/endpoint-slices/)を参照してください。
