@@ -296,7 +296,7 @@ almacenamiento local efímero.
 
 ### Configurando solicitudes y límites para almacenamiento local efímero
 
-Puedes usar _ephemeral-storage_ para manejar almacenamiento local efímero. Cada Contenedor de un Pod puede especificar
+Puedes usar _ephemeral-storage_ para manejar almacenamiento local efímero. Cada contenedor de un Pod puede especificar
 uno o más de los siguientes:
 
 * `spec.containers[].resources.limits.ephemeral-storage`
