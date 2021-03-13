@@ -312,7 +312,7 @@ Mi, Ki. Por ejemplo, los siguientes representan el mismo valor:
 ```
 
 En el siguiente ejemplo, el Pod tiene dos contenedores. Cada contenedor tiene una petición de 2GiB de almacenamiento local efímero. Cada
-Contenedor tiene un límite de 4GiB de almacenamiento local efímero. Sin embargo, el Pod tiene una solicitud de 4GiB de almacenamiento efímero
+contenedor tiene un límite de 4GiB de almacenamiento local efímero. Sin embargo, el Pod tiene una petición de 4GiB de almacenamiento efímero
 , y un límite de 8GiB de almacenamiento local efímero.
 
 ```yaml
