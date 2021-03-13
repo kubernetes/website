@@ -274,7 +274,7 @@ las capas de imágenes de los contenedores y capas de escritura es este segundo 
 
 El primer sistema de archivos no guarda ninguna capa de imágenes o de escritura.
 
-Tu nodo puede tener tantos filesystems, no usados por Kubernetes, como quieras.
+Tu nodo puede tener tantos sistemas de archivos, no usados por Kubernetes, como quieras.
 {{% /tab %}}
 {{< /tabs >}}
 
