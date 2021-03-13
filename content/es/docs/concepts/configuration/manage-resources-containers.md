@@ -269,7 +269,7 @@ Kubelet también escribe
 en el primer sistema de archivos, y trata estos de manera similar al almacenamiento efímero.
 
 También usas un sistema de archivos distinto, respaldado por un dispositivo de almacenamiento lógico diferente.
-En esta configuración, el directorio donde le dices al kubelet que coloque
+En esta configuración, el directorio donde le dices a Kubelet que coloque
 las capas de imágenes de contenedores y capas de escritura es ene ste segundo filesystem.
 
 El primer filesystem no guarda ninguna capa de imágenes o de escritura.
