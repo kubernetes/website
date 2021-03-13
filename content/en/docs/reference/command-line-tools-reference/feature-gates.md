@@ -171,6 +171,7 @@ different Kubernetes components.
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
 | `Sysctls` | `true` | Beta | 1.11 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
+| `TopologyAwareHints` | `false` | Alpha | 1.21 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
 | `TopologyManager` | `true` | Beta | 1.18 | |
 | `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
@@ -779,6 +780,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TokenRequest`: Enable the `TokenRequest` endpoint on service account resources.
 - `TokenRequestProjection`: Enable the injection of service account tokens into a
   Pod through a [`projected` volume](/docs/concepts/storage/volumes/#projected).
+- `TopologyAwareHints`: Enables topology aware routing based on topology hints
+  in EndpointSlices. See [Topology Aware
+  Hints](/docs/concepts/services-networking/topology-aware-hints/) for more
+  details.
 - `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource
   assignments for different components in Kubernetes. See
   [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).

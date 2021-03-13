@@ -8,9 +8,12 @@ content_type: task
 ---
 
 <!-- overview -->
-This page provides an overview of enabling Service Topology in Kubernetes.
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
-
+This feature, specifically the alpha topologyKeys API, is deprecated in
+Kubernetes v1.21. [Topology Aware
+Hints](/docs/concepts/services-networking/topology-aware-hints) was introduced
+in Kubernetes v1.21 and provides similar functionality.
 
 ## {{% heading "prerequisites" %}}
 
