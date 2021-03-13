@@ -344,7 +344,7 @@ Cuando creas un Pod, el planificador de Kubernetes selecciona un nodo para el Po
 Cada nodo tiene una cantidad máxima de almacenamiento local efímero que puede proveer a los Pods. Para
 más información, mira [Node Allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
 
-El scheduler se asegura de que la suma de las solicitudes de recursos de los COntenedores es menor que la capacidad del nodo.
+El planificador se asegura de que el total de los recursos solicitados para los contenedores sea menor que la capacidad del nodo.
 
 ### Manejo del consumo de almacenamiento efímero {#resource-emphemeralstorage-consumption}
 
