@@ -1129,8 +1129,6 @@ resources that have the scale subresource enabled.
 
 ### Categories
 
-{{< feature-state state="beta" for_k8s_version="v1.10" >}}
-
 Categories is a list of grouped resources the custom resource belongs to (eg. `all`).
 You can use `kubectl get <category-name>` to list the resources belonging to the category.
 
