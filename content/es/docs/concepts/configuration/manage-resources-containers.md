@@ -278,7 +278,7 @@ Tu nodo puede tener tantos sistemas de archivos, no usados por Kubernetes, como 
 {{% /tab %}}
 {{< /tabs >}}
 
-El kubelet puede medir la cantidad de almacenamiento local está usando. Esto es posible por:
+Kubelet puede medir la cantidad de almacenamiento local que se está usando. Esto es posible por:
 
 - el `LocalStorageCapacityIsolation`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
