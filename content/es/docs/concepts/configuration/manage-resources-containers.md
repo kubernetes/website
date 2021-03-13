@@ -369,7 +369,7 @@ Pod, Kubelet marca el Pod para desalojo.
 
 {{< caution >}}
 Si Kubelet no está midiendo el almacenamiento local efímero, entonces el Pod
-que excede este límite de almacenamiento, no será evadido para librar 
+que excede este límite de almacenamiento, no será desalojado para liberar 
 el límite del recurso de almacenamiento.
 
 Sin embargo, si el espacio del filesystem para la capa de escritura del contenedor,
