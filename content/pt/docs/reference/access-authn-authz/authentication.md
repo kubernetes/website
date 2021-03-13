@@ -534,10 +534,10 @@ Uma requisição mal sucedida retornaria:
 O servidor de API pode ser configurado para identificar usuários através de valores de cabeçalho de requisição, como por exemplo `X-Remote-User`.
 Isto é projetado para o uso em combinação com um proxy de autenticação, o qual irá atribuir o valor do cabeçalho da requisição.
  
-* `--requestheader-username-headers` Obrigatório, nao faz distinção entre caracteres maiúsculos/minúsculos. Nomes de cabeçalhos a serem verificados, em ordem, para a identidade do usuário. O primeiro cabeçalho contendo um valor será usado para o nome do usuário.
+* `--requestheader-username-headers` Obrigatório, não faz distinção entre caracteres maiúsculos/minúsculos. Nomes de cabeçalhos a serem verificados, em ordem, para a identidade do usuário. O primeiro cabeçalho contendo um valor será usado para o nome do usuário.
 * `--requestheader-group-headers` 1.6+. Opcional, não faz distinção entre caracteres maiúsculos/minúsculos. "X-Remote-Group" é recomendado. Nomes de cabeçalhos a serem verificados, em ordem, para os grupos do usuário. Todos os valores especificados em todos os cabeçalhos serão utilizados como nome dos grupos do usuário.
  
-* `--requestheader-extra-headers-prefix` 1.6+. Opcional, não faz distinção entre caracteres maiúsculos/minúsculos. "X-Remote-Extra-" é recomendado. Prefixos de cabeçalhos a serem buscados para determinar informações extras sobre o usuário (normalmente utilizado pelo plugin de autorização configurado). Todos os cabeçalhos que começam com qualquer um dos prefixos especificados têm o prefixo removido. O restante do nome do cabeçalho é transformado em letra minuscula, decodificado [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1) e torna-se uma chave extra, e o valor do cabeçalho torna-se um valor extra.
+* `--requestheader-extra-headers-prefix` 1.6+. Opcional, não faz distinção entre caracteres maiúsculos/minúsculos. "X-Remote-Extra-" é recomendado. Prefixos de cabeçalhos para serem utilizados para definir informações extras sobre o usuário (normalmente utilizado por um plugin de autorização). Todos os cabeçalhos que começam com qualquer um dos prefixos especificados têm o prefixo removido. O restante do nome do cabeçalho é transformado em letra minúscula, decodificado [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1) e torna-se uma chave extra, e o valor do cabeçalho torna-se um valor extra.
  
 {{< note >}}
 Antes da versão 1.11.3 (e 1.10.7, 1.9.11), a chave extra só poderia conter caracteres os quais fossem [legais em rótulos de cabeçalhos HTTP](https://tools.ietf.org/html/rfc7230#section-3.2.6).
@@ -578,9 +578,9 @@ extra:
  - profile
 ```
  
-Para prevenir falsificação de cabeçalhos, o proxy de autenticação deverá apresentar um certificado de cliente válido para o servidor de API para que possa ser validado diante da autoridade de certificados (CA) antes que os cabeçalhos de requisições sejam verificados. AVISO: **não** re-utilize uma autoridade de certificados (CA) que seja utilizado em um contexto diferente ao menos que você entenda os riscos e os mecanismos de proteção da utilização de uma autoridade de certificados.
+Para prevenir falsificação de cabeçalhos, o proxy de autenticação deverá apresentar um certificado de cliente válido para o servidor de API para que possa ser validado com a autoridade de certificados (CA) antes que os cabeçalhos de requisições sejam verificados. AVISO: **não** re-utilize uma autoridade de certificados (CA) que esteja sendo utilizado em um contexto diferente ao menos que você entenda os riscos e os mecanismos de proteção da utilização de uma autoridade de certificados.
  
-* `--requestheader-client-ca-file` Obrigatório. Pacote de certificados no formato PEM . Um certificado válido deve ser apresentado e validado diante da autoridade de certificados no arquivo especificado antes da verificação de cabeçalhos de requisição para os nomes do usuário.
+* `--requestheader-client-ca-file` Obrigatório. Pacote de certificados no formato PEM. Um certificado válido deve ser apresentado e validado com a autoridade de certificados no arquivo especificado antes da verificação de cabeçalhos de requisição para os nomes do usuário.
  
 * `--requestheader-allowed-names` Opcional. Lista de valores de nomes comuns (CNs). Se especificado, um certificado de cliente válido contendo uma lista de nomes comuns denominados deve ser apresentado na verificação de cabeçalhos de requisição para os nomes do usuário. Se vazio, qualquer valor de nomes comuns será permitido.
  
@@ -588,7 +588,7 @@ Para prevenir falsificação de cabeçalhos, o proxy de autenticação deverá a
  
 Quando habilitado, requisições que não são rejeitadas por outros métodos de autenticação configurados são tratadas como requisições anônimas e são dadas o nome de usuário `system:anonymous` e filiação ao grupo `system:unauthenticated`.
  
-Por exemplo, uma requisição especificando um _bearer token_ invalido chega a um servidor com token de autenticação configurado e acesso anônimo habilitado e receberia um erro `401 Unauthorized`. Já uma requisição não especificando nenhum _bearer token_ seria tratada como uma requisição anônima.
+Por exemplo, uma requisição especificando um _bearer token_ invalido chega a um servidor com token de autenticação configurado e acesso anônimo habilitado e receberia um erro de acesso não autorizado `401 Unauthorized`. Já uma requisição não especificando nenhum _bearer token_ seria tratada como uma requisição anônima.
  
 Nas versões 1.5.1-1.5.x, acesso anônimo é desabilitado por padrão e pode ser habilitado passando a opção `--anonymous-auth=true` durante a inicialização do servidor de API.
  
@@ -613,7 +613,7 @@ Os seguintes cabeçalhos HTTP podem ser usados para realizar uma requisição de
  
 * `Impersonate-User`: O nome do usuário para se executar ações em seu nome.
 * `Impersonate-Group`: Um nome de grupo para se executar ações em seu nome. Pode ser especificado múltiplas vezes para fornecer múltiplos grupos. Opcional. Requer "Impersonate-User".
-* `Impersonate-Extra-( extra name )`: Um cabeçalho dinâmico usado para associar campos extras do usuário. Opcional. Requer "Impersonate-User". Para que seja preservado consistentemente, `( extra name )` deve ser somente minúsculo, e qualquer caracter que não seja [legal em rótulos de cabeçalhos HTTP](https://tools.ietf.org/html/rfc7230#section-3.2.6) DEVE ser utf8 e [codificado](https://tools.ietf.org/html/rfc3986#section-2.1).]
+* `Impersonate-Extra-( extra name )`: Um cabeçalho dinâmico usado para associar campos extras do usuário. Opcional. Requer "Impersonate-User". Para que seja preservado consistentemente, `( extra name )` deve ser somente minúsculo, e qualquer caracter que não seja [legal em rótulos de cabeçalhos HTTP](https://tools.ietf.org/html/rfc7230#section-3.2.6) DEVE ser utf8 e [codificado](https://tools.ietf.org/html/rfc3986#section-2.1).
  
 {{< note >}}
 Antes da versão 1.11.3 (e 1.10.7, 1.9.11), `( extra name )` só poderia conter caracteres que fossem [legais em rótulos de cabeçalhos HTTP](https://tools.ietf.org/html/rfc7230#section-3.2.6).
@@ -705,22 +705,22 @@ rules:
  resourceNames: ["view", "development"]
 ```
  
-## plugins de credenciais client-go
+## Plugins de credenciais client-go
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
  
-Ferramentas como `kubectl` e `kubelet`utilizando-se do `k8s.io/client-go` são capazes de executar um comando externo para receber credenciais de usuário.
+Ferramentas como `kubectl` e `kubelet` utilizando-se do `k8s.io/client-go` são capazes de executar um comando externo para receber credenciais de usuário.
  
-Esta funcionalidade é direcionada à integração do lado cliente, com protocolos de autenticação não suportados nativamente pelo `k8s.io/client-go` como: LDAP, Kerberos, OAuth2, SAML, etc. O plugin implementa a lógica específica do protocolo e então retorna credenciais opacas para serem utilizadas. Quase todos os casos de usos de plugins de credenciais requerem um componente de lado do servidor com suporte para um [autenticador de token webhook](#Token de autenticação via Webhook) para interpretar o formato das credenciais produzidas pelo plugin cliente.
+Esta funcionalidade é direcionada à integração do lado cliente, com protocolos de autenticação não suportados nativamente pelo `k8s.io/client-go` como: LDAP, Kerberos, OAuth2, SAML, etc. O plugin implementa a lógica específica do protocolo e então retorna credenciais opacas para serem utilizadas. Quase todos os casos de usos de plugins de credenciais requerem um componente de lado do servidor com suporte para um [autenticador de token webhook](#token-de-autenticação-via-webhook) para interpretar o formato das credenciais produzidas pelo plugin cliente.
  
 ### Exemplo de caso de uso
  
-Num caso de uso hipotético, uma organização executaria um serviço externo que efetuaria a troca de credenciais LDAP por tokens assinados para um usuário específico. Este serviço seria também capaz de responder requisições do [autenticador de token webhook](#Token de autenticação via Webhook) para validar tokens. Usuários seriam obrigados a instalar um plugin de credencial em sua estação de trabalho.
+Num caso de uso hipotético, uma organização executaria um serviço externo que efetuaria a troca de credenciais LDAP por tokens assinados para um usuário específico. Este serviço seria também capaz de responder requisições do [autenticador de token webhook](#token-de-autenticação-via-webhook) para validar tokens. Usuários seriam obrigados a instalar um plugin de credencial em sua estação de trabalho.
  
 Para autenticar na API:
 * O usuário entra um comando `kubectl`.
 * O plugin de credencial solicita ao usuário a entrada de credenciais LDAP e efetua troca das credenciais por um token via um serviço externo.
 * O plugin de credenciais retorna um token para o client-go, o qual o utiliza como um bearer token no servidor de API.
-* O servidor de API usa o [autenticador de token webhook](#Token de autenticação via Webhook) para submeter um objeto `TokenReview` para o serviço externo.
+* O servidor de API usa o [autenticador de token webhook](#token-de-autenticação-via-webhook) para submeter um objeto `TokenReview` para o serviço externo.
 * O serviço externo verifica a assinatura do token e retorna o nome e grupos do usuário.
  
 ### Configuração
