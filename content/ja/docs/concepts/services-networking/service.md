@@ -23,7 +23,7 @@ KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセッ�
 
 ## Serviceを利用する動機
 
-{{< glossary_tooltip term_id="pod" text="Pod" >}}は停止が想定して設計されています。 Podが作成され、もしそれらが停止する時、Podは再作成されません。
+Kubernetes {{< glossary_tooltip term_id="pod" text="Pods" >}}はクラスターの状態に合わせて作成され削除されます。Podは揮発的なリソースです。
 {{< glossary_tooltip term_id="deployment" >}}をアプリケーションを稼働させるために使用すると、Podを動的に作成・削除してくれます。
 
 各Podはそれ自身のIPアドレスを持ちます。しかしDeploymentでは、ある時点において同時に稼働しているPodのセットは、その後のある時点において稼働しているPodのセットとは異なる場合があります。
@@ -35,7 +35,8 @@ KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセッ�
 ## Serviceリソース {#service-resource}
 
 Kubernetesにおいて、ServiceはPodの論理的なセットや、そのPodのセットにアクセスするためのポリシーを定義します(このパターンはよくマイクロサービスと呼ばることがあります)。
-ServiceによってターゲットとされたPodのセットは、たいてい {{< glossary_tooltip text="セレクター" term_id="selector" >}} (セレクターなしのServiceを利用したい場合は[下記](#services-without-selectors)を参照してください)によって定義されます。
+ServiceによってターゲットとされたPodのセットは、たいてい {{< glossary_tooltip text="セレクター" term_id="selector" >}}によって定義されます。
+その他の方法について知りたい場合は[セレクターなしのService](#services-without-selectors)を参照してください。
 
 例えば、3つのレプリカが稼働しているステートレスな画像処理用のバックエンドを考えます。これらのレプリカは代替可能です。&mdash; フロントエンドはバックエンドが何であろうと気にしません。バックエンドのセットを構成する実際のPodのセットが変更された際、フロントエンドクライアントはその変更を気にしたり、バックエンドのPodのセットの情報を記録しておく必要はありません。
 
@@ -90,9 +91,9 @@ ServiceのデフォルトプロトコルはTCPです。また、他の[サポー
 Serviceは多くの場合、KubernetesのPodに対するアクセスを抽象化しますが、他の種類のバックエンドも抽象化できます。
 例えば:
 
-  * プロダクション環境で外部のデータベースクラスターを利用したいが、テスト環境では、自身のクラスターが持つデータベースを利用したい場合
-  * Serviceを、異なるNamespace内のServiceや他のクラスターのServiceに向ける場合
-  * ワークロードをKubernetesに移行するとき、アプリケーションに対する処理をしながら、バックエンドの一部をKubernetesで実行する場合
+* プロダクション環境で外部のデータベースクラスターを利用したいが、テスト環境では、自身のクラスターが持つデータベースを利用したい場合
+* Serviceを、異なる{{< glossary_tooltip term_id="namespace" >}}のServiceや他のクラスターのServiceに向ける場合
+* ワークロードをKubernetesに移行するとき、アプリケーションに対する処理をしながら、バックエンドの一部をKubernetesで実行する場合
 
 このような場合において、ユーザーはPodセレクター_なしで_ Serviceを定義できます。
 
@@ -137,6 +138,7 @@ link-local (169.254.0.0/16 and 224.0.0.0/24 for IPv4, fe80::/64 for IPv6)に設�
 ExternalName Serviceはセレクターの代わりにDNS名を使用する特殊なケースのServiceです。さらなる情報は、このドキュメントの後で紹介する[ExternalName](#externalname)を参照ください。
 
 ### エンドポイントスライス
+
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 エンドポイントスライスは、Endpointsに対してよりスケーラブルな代替手段を提供できるAPIリソースです。概念的にはEndpointsに非常に似ていますが、エンドポイントスライスを使用すると、ネットワークエンドポイントを複数のリソースに分割できます。デフォルトでは、エンドポイントスライスは、100個のエンドポイントに到達すると「いっぱいである」と見なされ、その時点で追加のエンドポイントスライスが作成され、追加のエンドポイントが保存されます。
@@ -145,12 +147,10 @@ ExternalName Serviceはセレクターの代わりにDNS名を使用する特殊
 
 ### アプリケーションプロトコル
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-AppProtocolフィールドは、各Serviceのポートで使用されるアプリケーションプロトコルを指定する方法を提供します。
-
-アルファ機能のため、このフィールドはデフォルトで有効化されていません。このフィールドを使用するには、 `ServiceAppProtocol` という[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効化してください。
-
+`AppProtocol`フィールドによってServiceの各ポートに対して特定のアプリケーションプロトコルを指定することができます。
+この値は、対応するEndpointsオブジェクトとEndpointSliceオブジェクトに反映されます。
 ## 仮想IPとサービスプロキシー {#virtual-ips-and-service-proxies}
 
 Kubernetesクラスターの各Nodeは`kube-proxy`を稼働させています。`kube-proxy`は[`ExternalName`](#externalname)タイプ以外の`Service`用に仮想IPを実装する責務があります。
@@ -162,9 +162,9 @@ Kubernetesクラスターの各Nodeは`kube-proxy`を稼働させています。
 
 Serviceにおいてプロキシーを使う理由はいくつかあります。
 
- * DNSの実装がレコードのTTLをうまく扱わず、期限が切れた後も名前解決の結果をキャッシュするという長い歴史がある。
- * いくつかのアプリケーションではDNSルックアップを1度だけ行い、その結果を無期限にキャッシュする。
- * アプリケーションとライブラリーが適切なDNS名の再解決を行ったとしても、DNSレコード上の0もしくは低い値のTTLがDNSに負荷をかけることがあり、管理が難しい。
+* DNSの実装がレコードのTTLをうまく扱わず、期限が切れた後も名前解決の結果をキャッシュするという長い歴史がある。
+* いくつかのアプリケーションではDNSルックアップを1度だけ行い、その結果を無期限にキャッシュする。
+* アプリケーションとライブラリーが適切なDNS名の再解決を行ったとしても、DNSレコード上の0もしくは低い値のTTLがDNSに負荷をかけることがあり、管理が難しい。
 
 ### user-spaceプロキシーモード {#proxy-mode-userspace}
 
@@ -211,12 +211,12 @@ IPVSプロキシーモードはiptablesモードと同様に、netfilterのフ�
 
 IPVSはバックエンドPodに対するトラフィックのバランシングのために多くのオプションを下記のとおりに提供します。
 
-- `rr`: ラウンドロビン
-- `lc`: 最低コネクション数(オープンされているコネクション数がもっとも小さいもの)
-- `dh`: 送信先IPによって割り当てられたハッシュ値をもとに割り当てる(Destination Hashing)
-- `sh`: 送信元IPによって割り当てられたハッシュ値をもとに割り当てる(Source Hashing)
-- `sed`: 見込み遅延が最小なもの
-- `nq`: キューなしスケジューリング
+* `rr`: ラウンドロビン
+* `lc`: 最低コネクション数(オープンされているコネクション数がもっとも小さいもの)
+* `dh`: 送信先IPによって割り当てられたハッシュ値をもとに割り当てる(Destination Hashing)
+* `sh`: 送信元IPによって割り当てられたハッシュ値をもとに割り当てる(Source Hashing)
+* `sed`: 見込み遅延が最小なもの
+* `nq`: キューなしスケジューリング
 
 {{< note >}}
 IPVSモードでkube-proxyを稼働させるためには、kube-proxyを稼働させる前にNode上でIPVSを有効にしなければなりません。
@@ -282,7 +282,7 @@ PodがNode上で稼働するとき、kubeletはアクティブな各Serviceに�
 これは[Docker links互換性](https://docs.docker.com/userguide/dockerlinks/)のある変数(
 [makeLinkVariables関数](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L72)を確認してください)や、より簡単な`{SVCNAME}_SERVICE_HOST`や、`{SVCNAME}_SERVICE_PORT`変数をサポートします。この変数名で使われるService名は大文字に変換され、`-`は`_`に変換されます。
 
-例えば、TCPポート6379番を公開していて、さらにclusterIPが10.0.0.11に割り当てられている`"redis-master"`というServiceは、下記のような環境変数を生成します。
+例えば、TCPポート6379番を公開していて、さらにclusterIPが10.0.0.11に割り当てられている`redis-master`というServiceは、下記のような環境変数を生成します。
 
 ```shell
 REDIS_MASTER_SERVICE_HOST=10.0.0.11
@@ -308,12 +308,12 @@ ServiceのclusterIPを発見するためにDNSのみを使う場合、このよ�
 CoreDNSなどのクラスター対応のDNSサーバーは新しいServiceや、各Service用のDNSレコードのセットのためにKubernetes APIを常に監視します。
 もしクラスターを通してDNSが有効になっている場合、全てのPodはDNS名によって自動的にServiceに対する名前解決をするようにできるはずです。
 
-例えば、Kubernetesの`"my-ns"`というNamespace内で`"my-service"`というServiceがある場合、KubernetesコントロールプレーンとDNS Serviceが協調して動作し、`"my-service.my-ns"`というDNSレコードを作成します。
-`"my-ns"`というNamespace内のPodは`my-service`という名前で簡単に名前解決できるはずです(`"my-service.my-ns"`でも動作します)。
+例えば、Kubernetesの`my-ns`というNamespace内で`my-service`というServiceがある場合、KubernetesコントロールプレーンとDNS Serviceが協調して動作し、`my-service.my-ns`というDNSレコードを作成します。
+`my-ns`というNamespace内のPodは`my-service`という名前で簡単に名前解決できるはずです(`my-service.my-ns`でも動作します)。
 
 他のNamespace内でのPodは`my-service.my-ns`といった形で指定しなくてはなりません。これらのDNS名は、そのServiceのclusterIPに名前解決されます。
 
-Kubernetesは名前付きのポートに対するDNS SRV(Service)レコードもサポートしています。もし`"my-service.my-ns"`というServiceが`"http"`という名前のTCPポートを持っていた場合、IPアドレスと同様に、`"http"`のポート番号を探すために`_http._tcp.my-service.my-ns`というDNS SRVクエリを実行できます。
+Kubernetesは名前付きのポートに対するDNS SRV(Service)レコードもサポートしています。もし`my-service.my-ns`というServiceが`http`という名前のTCPポートを持っていた場合、IPアドレスと同様に、`http`のポート番号を探すために`_http._tcp.my-service.my-ns`というDNS SRVクエリを実行できます。
 
 KubernetesのDNSサーバーは`ExternalName` Serviceにアクセスする唯一の方法です。
 [DNS Pods と Service](/ja/docs/concepts/services-networking/dns-pod-service/)にて`ExternalName`による名前解決に関するさらなる情報を確認できます。
@@ -337,8 +337,8 @@ KubernetesのDNSサーバーは`ExternalName` Serviceにアクセスする唯一
 ラベルセレクターを定義しないHeadless Serviceにおいては、Endpointsコントローラーは`Endpoints`レコードを作成しません。
 しかしDNSのシステムは下記の2つ両方を探索し、設定します。
 
-  * [`ExternalName`](#externalname)タイプのServiceに対するCNAMEレコード
-  * 他の全てのServiceタイプを含む、Service名を共有している全ての`Endpoints`レコード
+* [`ExternalName`](#externalname)タイプのServiceに対するCNAMEレコード
+* 他の全てのServiceタイプを含む、Service名を共有している全ての`Endpoints`レコード
 
 ## Serviceの公開 (Serviceのタイプ) {#publishing-services-service-types}
 
@@ -349,16 +349,15 @@ Kubernetesの`ServiceTypes`によって、ユーザーがどのような種類�
 
 `Type`項目の値と、そのふるまいは以下のようになります。
 
-   * `ClusterIP`: クラスター内部のIPでServiceを公開する。このタイプではServiceはクラスター内部からのみ疎通性があります。このタイプはデフォルトの`ServiceType`です。
-   * [`NodePort`](#nodeport): 各NodeのIPにて、静的なポート(`NodePort`)上でServiceを公開します。その`NodePort` のServiceが転送する先の`ClusterIP` Serviceが自動的に作成されます。`<NodeIP>:<NodePort>`にアクセスすることによって`NodePort` Serviceにアクセスできるようになります。
-   * [`LoadBalancer`](#loadbalancer): クラウドプロバイダーのロードバランサーを使用して、Serviceを外部に公開します。クラスター外部にあるロードバランサーが転送する先の`NodePort`と`ClusterIP` Serviceは自動的に作成されます。
-   * [`ExternalName`](#externalname): `CNAME`レコードを返すことにより、`externalName`フィールドに指定したコンテンツ(例: `foo.bar.example.com`)とServiceを紐づけます。しかし、いかなる種類のプロキシーも設定されません。
+* `ClusterIP`: クラスター内部のIPでServiceを公開する。このタイプではServiceはクラスター内部からのみ疎通性があります。このタイプはデフォルトの`ServiceType`です。
+* [`NodePort`](#nodeport): 各NodeのIPにて、静的なポート(`NodePort`)上でServiceを公開します。その`NodePort` のServiceが転送する先の`ClusterIP` Serviceが自動的に作成されます。`<NodeIP>:<NodePort>`にアクセスすることによって`NodePort` Serviceにアクセスできるようになります。
+* [`LoadBalancer`](#loadbalancer): クラウドプロバイダーのロードバランサーを使用して、Serviceを外部に公開します。クラスター外部にあるロードバランサーが転送する先の`NodePort`と`ClusterIP` Serviceは自動的に作成されます。
+* [`ExternalName`](#externalname): `CNAME`レコードを返すことにより、`externalName`フィールドに指定したコンテンツ(例: `foo.bar.example.com`)とServiceを紐づけます。しかし、いかなる種類のプロキシーも設定されません。
+  {{< note >}}
+  `ExternalName`タイプのServiceを利用するためには、kube-dnsのバージョン1.7かCoreDNSのバージョン0.0.8以上が必要となります。
+  {{< /note >}}
 
-     {{< note >}}
-     `ExternalName`タイプのServiceを利用するためには、kube-dnsのバージョン1.7かCoreDNSのバージョン0.0.8以上が必要となります。
-     {{< /note >}}
-
-また、Serviceを公開するために[Ingress](/docs/concepts/services-networking/ingress/)も利用可能です。IngressはServiceのタイプではありませんが、クラスターに対するエントリーポイントとして動作します。
+また、Serviceを公開するために[Ingress](/ja/docs/concepts/services-networking/ingress/)も利用可能です。IngressはServiceのタイプではありませんが、クラスターに対するエントリーポイントとして動作します。
 Ingressは同一のIPアドレスにおいて、複数のServiceを公開するように、ユーザーの設定した転送ルールを1つのリソースにまとめることができます。
 
 ### NodePort タイプ {#nodeport}
@@ -461,6 +460,7 @@ Split-HorizonなDNS環境において、ユーザーは2つのServiceを外部�
 タブを選択してください。
 {{% /tab %}}
 {{% tab name="GCP" %}}
+
 ```yaml
 [...]
 metadata:
@@ -469,8 +469,10 @@ metadata:
         cloud.google.com/load-balancer-type: "Internal"
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="AWS" %}}
+
 ```yaml
 [...]
 metadata:
@@ -479,8 +481,10 @@ metadata:
         service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="Azure" %}}
+
 ```yaml
 [...]
 metadata:
@@ -489,8 +493,10 @@ metadata:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="IBM Cloud" %}}
+
 ```yaml
 [...]
 metadata:
@@ -502,6 +508,7 @@ metadata:
 
 {{% /tab %}}
 {{% tab name="OpenStack" %}}
+
 ```yaml
 [...]
 metadata:
@@ -510,8 +517,10 @@ metadata:
         service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="Baidu Cloud" %}}
+
 ```yaml
 [...]
 metadata:
@@ -520,8 +529,10 @@ metadata:
         service.beta.kubernetes.io/cce-load-balancer-internal-vpc: "true"
 [...]
 ```
+
 {{% /tab %}}
 {{% tab name="Tencent Cloud" %}}
+
 ```yaml
 [...]
 metadata:
@@ -529,6 +540,7 @@ metadata:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
 [...]
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -675,8 +687,16 @@ AWS上でのELB Service用のアクセスログを管理するためにはいく
         # この値はservice.beta.kubernetes.io/aws-load-balancer-healthcheck-intervalの値以下である必要があります。
         # デフォルトでは5 この値は2から60の間で設定可能
 
+        service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
+        # ELBが作成される際に追加されるセキュリティグループのリスト
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groupsアノテーションと異なり
+        # 元々ELBに付与されていたセキュリティグループを置き換えることになります。
+
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
         # ELBに追加される予定のセキュリティーグループのリスト
+
+        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
+        # ロードバランサーがターゲットノードを指定する際に利用するキーバリューのペアのコンマ区切りリストです。
 ```
 
 #### AWSでのNetwork Load Balancerのサポート {#aws-nlb-support}
@@ -738,8 +758,9 @@ spec:
       annotations:
         # 指定したノードでロードバランサーをバインドします
         service.kubernetes.io/qcloud-loadbalancer-backends-label: key in (value1, value2)
+
         # 既存のロードバランサーのID
-        service.kubernetes.io/tke-existed-lbid:lb-6swtxxxx
+        service.kubernetes.io/tke-existed-lbid: lb-6swtxxxx
 
         # ロードバランサー(LB)のカスタムパラメーターは、LBタイプの変更をまだサポートしていません
         service.kubernetes.io/service.extensiveParameters: ""
@@ -750,11 +771,14 @@ spec:
         # ロードバランサーのタイプを指定します
         # 有効な値: classic(Classic Cloud Load Balancer)またはapplication(Application Cloud Load Balancer)
         service.kubernetes.io/loadbalance-type: xxxxx
+
         # パブリックネットワーク帯域幅の課金方法を指定します
         # 有効な値: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic)およびBANDWIDTH_POSTPAID_BY_HOUR(bill-by-bandwidth)
         service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
+
         # 帯域幅の値を指定します(値の範囲:[1-2000] Mbps)。
         service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
+
         # この注釈が設定されている場合、ロードバランサーはポッドが実行されているノードのみを登録します
         # そうでない場合、すべてのノードが登録されます
         service.kubernetes.io/local-svc-only-bind-node-with-pod: true
@@ -777,6 +801,7 @@ spec:
   type: ExternalName
   externalName: my.database.example.com
 ```
+
 {{< note >}}
 ExternalNameはIpv4のアドレスの文字列のみ受け付けますが、IPアドレスではなく、数字で構成されるDNS名として受け入れます。
 IPv4アドレスに似ているExternalNamesはCoreDNSもしくはIngress-Nginxによって名前解決されず、これはExternalNameは正規のDNS名を指定することを目的としているためです。
@@ -914,12 +939,12 @@ ServiceはKubernetesのREST APIにおいてトップレベルのリソースで�
 もしクラウドプロバイダーがサポートしている場合、ServiceのEndpointsに転送される外部のHTTP/HTTPSでのリバースプロキシーをセットアップするために、LoadBalancerモードでServiceを作成可能です。
 
 {{< note >}}
-ユーザーはまた、HTTP / HTTPS Serviceを公開するために、Serviceの代わりに{{< glossary_tooltip term_id="ingress" >}}を利用することもできます。
+ユーザーはまた、HTTP/HTTPS Serviceを公開するために、Serviceの代わりに{{< glossary_tooltip term_id="ingress" >}}を利用することもできます。
 {{< /note >}}
 
 ### PROXY プロトコル
 
-もしクラウドプロバイダーがサポートしている場合(例: [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws))、Kubernetesクラスターの外部のロードバランサーを設定するためにLoadBalancerモードでServiceを利用できます。これは[PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)がついた接続を転送します。
+もしクラウドプロバイダーがサポートしている場合、Kubernetesクラスターの外部のロードバランサーを設定するためにLoadBalancerモードでServiceを利用できます。これは[PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)がついた接続を転送します。
 
 ロードバランサーは、最初の一連のオクテットを送信します。
 下記のような例となります。
@@ -927,15 +952,16 @@ ServiceはKubernetesのREST APIにおいてトップレベルのリソースで�
 ```
 PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 ```
+
 クライアントからのデータのあとに追加されます。
 
 ### SCTP
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-KubernetesはService、Endpoints、NetworkPolicyとPodの定義においてα版の機能として`protocol`フィールドの値でSCTPをサポートしています。この機能を有効にするために、クラスター管理者はAPI Serverにおいて`SCTPSupport`というフィーチャーゲートを有効にする必要があります。例えば、`--feature-gates=SCTPSupport=true,…`といったように設定します。
+KubernetesはService、Endpoints、EndpointSlice、NetworkPolicyとPodの定義において`protocol`フィールドの値でSCTPをサポートしています。ベータ版の機能のため、この機能はデフォルトで有効になっています。SCTPをクラスターレベルで無効にするには、クラスター管理者はAPI Serverにおいて`SCTPSupport` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を`--feature-gates=SCTPSupport=false,…`と設定して無効にする必要があります。
 
-そのフィーチャーゲートが有効になった時、ユーザーはService、Endpoints、NetworkPolicyの`protocol`フィールドと、Podの`SCTP`フィールドを設定できます。
+そのフィーチャーゲートが有効になった時、ユーザーはService、Endpoints、EndpointSlice、NetworkPolicyの`protocol`フィールドと、Podの`SCTP`フィールドを設定できます。
 Kubernetesは、TCP接続と同様に、SCTPアソシエーションに応じてネットワークをセットアップします。
 
 #### 警告 {#caveat-sctp-overview}
@@ -967,10 +993,7 @@ SCTPはWindowsベースのNodeではサポートされていません。
 kube-proxyはuserspaceモードにおいてSCTPアソシエーションの管理をサポートしません。
 {{< /warning >}}
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)を参照してください。
 * [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。
