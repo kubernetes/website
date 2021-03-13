@@ -355,7 +355,7 @@ Kubelet mide el uso de almacenamiento en:
 - directorios que guardan logs de nivel de nodo
 - capas de escritura de contenedores
 
-Si un Pod está usando más almacenamiento efímero que el permitido, el kubelet
+Si un Pod está usando más almacenamiento efímero que el permitido, Kubelet
 crea una señal de evasión que lanza una evasión del Pod.
 
 Para aislamiento a nivel de contenedor, si una capa de escritura de Contenedor y 
