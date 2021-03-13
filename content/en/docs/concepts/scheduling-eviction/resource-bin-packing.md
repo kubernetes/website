@@ -5,7 +5,7 @@ reviewers:
 - ahg-g
 title: Resource Bin Packing for Extended Resources
 content_type: concept
-weight: 50
+weight: 30
 ---
 
 <!-- overview -->
