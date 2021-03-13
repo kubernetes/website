@@ -311,7 +311,7 @@ Mi, Ki. Por ejemplo, los siguientes representan el mismo valor:
 128974848, 129e6, 129M, 123Mi
 ```
 
-En el siguiente ejemplo, el Pod tiene dos contenedores. Cada Contenedor tiene una solicitud de 2GiB de almacenamiento local efímero. Cada
+En el siguiente ejemplo, el Pod tiene dos contenedores. Cada contenedor tiene una petición de 2GiB de almacenamiento local efímero. Cada
 Contenedor tiene un límite de 4GiB de almacenamiento local efímero. Sin embargo, el Pod tiene una solicitud de 4GiB de almacenamiento efímero
 , y un límite de 8GiB de almacenamiento local efímero.
 
