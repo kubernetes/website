@@ -291,7 +291,7 @@ para almacenamiento local efímero.
 
 {{< note >}}
 Kubelet rastrea `tmpfs` volúmenes emptyDir como uso de memoria de contenedor, en lugar de
-como almacenamiento local efímero.
+almacenamiento local efímero.
 {{< /note >}}
 
 ### Configurando solicitudes y límites para almacenamiento local efímero
