@@ -368,7 +368,7 @@ y los volúmenes `emptyDir` de los Pods excede el límite de almacenamiento gene
 Pod, Kubelet marca el Pod para desalojo.
 
 {{< caution >}}
-Si el kubelet no está midiendo el almacenamiento local efímero, entonces el Pod
+Si Kubelet no está midiendo el almacenamiento local efímero, entonces el Pod
 que excede este límite de almacenamiento, no será evadido para librar 
 el límite del recurso de almacenamiento.
 
