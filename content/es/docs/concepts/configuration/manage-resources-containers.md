@@ -304,7 +304,7 @@ uno o más de los siguientes:
 
 Los límites y solicitudes para `almacenamiento-efímero` son medidos en bytes. Puedes expresar el almacenamiento 
 como un numero entero o flotante usando los siguientes sufijos:
-E, P, T, G, M, K. También puedes usar los siguientes equivalentes: Ei, Pi, Ti, Gi,
+E, P, T, G, M, K. También puedes usar las siguientes equivalencias: Ei, Pi, Ti, Gi,
 Mi, Ki. Por ejemplo, los siguientes representan el mismo valor:
 
 ```shell
