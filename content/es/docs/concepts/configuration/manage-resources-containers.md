@@ -362,7 +362,7 @@ Para aislamiento a nivel de contenedor, si una capa de escritura del contenedor 
 logs excede el límite de uso del almacenamiento, Kubelet marca el Pod para desalojo.
 
 Para aislamiento a nivel de Pod, Kubelet calcula un límite de almacenamiento 
-general para el Pod sumando los límites para los contenedores de ese Pod.
+general para el Pod sumando los límites de los contenedores de ese Pod.
 En este caso, si la suma del uso de almacenamiento local efímero para todos los contenedores
 y también los volúmenes `emptyDir` de los Pods excede el límite de almacenamiento general del
 Pod, el kubelete marca el Pod para evasión.
