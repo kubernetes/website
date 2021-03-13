@@ -365,7 +365,7 @@ Para aislamiento a nivel de Pod, Kubelet calcula un límite de almacenamiento
 general para el Pod sumando los límites de los contenedores de ese Pod.
 En este caso, si la suma del uso de almacenamiento local efímero para todos los contenedores
 y los volúmenes `emptyDir` de los Pods excede el límite de almacenamiento general del
-Pod, el kubelete marca el Pod para evasión.
+Pod, Kubelet marca el Pod para desalojo.
 
 {{< caution >}}
 Si el kubelet no está midiendo el almacenamiento local efímero, entonces el Pod
