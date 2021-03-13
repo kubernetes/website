@@ -355,14 +355,14 @@ spec:
 <!--
 The `CSIMigration` feature for Cinder, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
-Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
+Storage Interface (CSI) Driver. In order to use this feature, the [OpenStack Cinder CSI
+Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
 beta features must be enabled.
 -->
 启用 Cinder 的 `CSIMigration` 功能后，所有插件操作会从现有的树内插件重定向到
 `cinder.csi.openstack.org` 容器存储接口（CSI）驱动程序。
-为了使用此功能，必须在集群中安装 [Openstack Cinder CSI 驱动程序](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)，
+为了使用此功能，必须在集群中安装 [OpenStack Cinder CSI 驱动程序](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)，
 并且 `CSIMigration` 和 `CSIMigrationOpenStack` Beta 功能必须被启用。
 
 ### configMap
