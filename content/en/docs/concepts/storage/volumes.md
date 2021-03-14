@@ -34,8 +34,9 @@ Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" 
 can use any number of volume types simultaneously.
 Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
 the lifetime of a pod. Consequently, a volume outlives any containers
-that run within the pod, and data is preserved across container restarts. When a
-pod ceases to exist, the volume is destroyed.
+that run within the pod, and data is preserved across container restarts. When a pod
+ceases to exist, Kubernetes destroys ephemeral volumes; however, Kubernetes does not
+destroy persistent volumes.
 
 At its core, a volume is just a directory, possibly with some data in it, which
 is accessible to the containers in a pod. How that directory comes to be, the
