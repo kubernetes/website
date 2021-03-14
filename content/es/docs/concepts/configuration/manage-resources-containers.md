@@ -398,7 +398,7 @@ para archivos eliminados.
 
 Si tú (o un contenedor) creas un archivo dentro de un volumen `emptyDir`,
 y algo mas abre ese archivo, y tú lo borras mientras este está abierto,
-entonces el inodo para este fichero borrado se mantiene hasta que cierras
+entonces el inodo para este archivo borrado se mantiene hasta que cierras
 el archivo, pero Kubelet no cataloga este espacio como en uso.
 {{< /note >}}
 {{% /tab %}}
