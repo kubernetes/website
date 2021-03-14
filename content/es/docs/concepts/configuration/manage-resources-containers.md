@@ -407,7 +407,7 @@ el fichero, pero el kubelet no este espacio como en uso.
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
 Las cuotas de proyecto están en las características de nivel de sistema operativo
-para el manejo del almacenamiento en uso del filesystem.
+para el manejo de uso de almacenamiento en uso de sistema de archivos.
 Con kubernetes, puedes habilitar las cuotas de proyecto para el uso
 de la monitorización del almacenamiento. Asegúrate que el respaldo del
 Sistema de archivos de los volúmenes `emptyDir` , en el nodo, provee soporte de
