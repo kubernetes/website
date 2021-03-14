@@ -23,7 +23,7 @@ KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセッ�
 
 ## Serviceを利用する動機
 
-Kubernetes {{< glossary_tooltip term_id="pod" text="Pods" >}}はクラスターの状態に合わせて作成され削除されます。Podは揮発的なリソースです。
+Kubernetes {{< glossary_tooltip term_id="pod" text="Pod" >}}はクラスターの状態に合わせて作成され削除されます。Podは揮発的なリソースです。
 {{< glossary_tooltip term_id="deployment" >}}をアプリケーションを稼働させるために使用すると、Podを動的に作成・削除してくれます。
 
 各Podはそれ自身のIPアドレスを持ちます。しかしDeploymentでは、ある時点において同時に稼働しているPodのセットは、その後のある時点において稼働しているPodのセットとは異なる場合があります。
