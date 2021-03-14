@@ -33,7 +33,7 @@ Si el nodo donde está corriendo un pod tiene suficientes recursos disponibles, 
 Sin embargo, un {{< glossary_tooltip text="contenedor" term_id="container" >}} no está autorizado a utilizar más de lo especificado en `limit`.
 
 Por ejemplo, si configuras una petición de `memory` de 256 MiB  para un {{< glossary_tooltip text="contenedor" term_id="container" >}}, y ese contenedor está
-en un {{< glossary_tooltip term_id="pod" >}} colocado en un nodo con 8GiB de memoria y no hay otros {{< glossary_tooltip term_id="pods" >}}, entonces el contenedor puede intentar usar
+en un {{< glossary_tooltip term_id="pod" >}} colocado en un nodo con 8GiB de memoria y no hay otros {{< glossary_tooltip term_id="pod" >}}, entonces el contenedor puede intentar usar
 más RAM.
 
 Si configuras un límite de `memory` de 4GiB  para el contenedor, {{< glossary_tooltip text="kubelet" term_id="kubelet" >}})
