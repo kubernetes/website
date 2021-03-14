@@ -34,7 +34,7 @@ If your cluster was deployed using the `kubeadm` tool, refer to
 for detailed information on how to upgrade the cluster.
 
 Once you have upgraded the cluster, remember to
-[install the latest version of `kubectl`](/docs/tasks/tools/install-kubectl/).
+[install the latest version of `kubectl`](/docs/tasks/tools/).
 
 ### Manual deployments
 
@@ -52,7 +52,7 @@ You should manually update the control plane following this sequence:
 - cloud controller manager, if you use one
 
 At this point you should
-[install the latest version of `kubectl`](/docs/tasks/tools/install-kubectl/).
+[install the latest version of `kubectl`](/docs/tasks/tools/).
 
 For each node in your cluster, [drain](/docs/tasks/administer-cluster/safely-drain-node/)
 that node and then either replace it with a new node that uses the {{< skew latestVersion >}}
