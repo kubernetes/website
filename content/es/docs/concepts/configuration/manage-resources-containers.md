@@ -386,7 +386,7 @@ Kubelet soporta diferentes maneras de medir el uso de almacenamiento del Pod:
 
 {{< tabs name="resource-emphemeralstorage-measurement" >}}
 {{% tab name="Periodic scanning" %}}
-El kubelet ejecutachecks regulares, programados que escanean cada
+Kubelet realiza frecuentemente, verificaciones programadas que revisan cada
 volumen `emptyDir`, directorio de logs del contenedor, y capa de escritura
 del contenedor.
 
