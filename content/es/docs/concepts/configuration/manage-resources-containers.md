@@ -381,7 +381,7 @@ Mira las [configuraciones soportadas](#configurations-for-local-ephemeral-storag
 para almacenamiento local efímero.
 {{< /caution >}}
 
-El kubelet soporta diferentes maneras de medir el uso de almacenamiento del Pod:
+Kubelet soporta diferentes maneras de medir el uso de almacenamiento del Pod:
 
 
 {{< tabs name="resource-emphemeralstorage-measurement" >}}
