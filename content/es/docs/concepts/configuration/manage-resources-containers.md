@@ -374,7 +374,7 @@ el límite del recurso de almacenamiento.
 
 Sin embargo, si el espacio del sistema de archivos para la capa de escritura del contenedor,
 logs de nivel de nodo o volúmenes `emptyDir` decae, el 
-{{< glossary_tooltip text="taints" term_id="taint" >}}  del nodo lanza la evasión para 
+{{< glossary_tooltip text="taints" term_id="taint" >}}  del nodo lanza la desalojo para 
 cualquier Pod que no tolere el taint. 
 
 Mira las [configuraciones soportadas](#configurations-for-local-ephemeral-storage)
