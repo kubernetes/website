@@ -20,4 +20,4 @@ Proporciona restricciones para limitar el consumo de recursos por {{< glossary_t
 
 <!--more-->
 
-LimitRange limita la cantidad de objetos que se pueden crear por tipo, así como la cantidad de recursos informáticos que pueden ser requeridos/consumidos por {{< glossary_tooltip text="Pods" term_id="pod" >}} o {{< glossary_tooltip text="Contenedores" term_id="container" >}} individuales en un espacio de nombres.
+LimitRange limita la cantidad de objetos que se pueden crear por tipo, así como la cantidad de recursos informáticos que pueden ser requeridos/consumidos por {{< glossary_tooltip text="Pods" term_id="pod" >}} o {{< glossary_tooltip text="Contenedores" term_id="container" >}} individuales en un {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
