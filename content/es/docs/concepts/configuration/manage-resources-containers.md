@@ -406,7 +406,7 @@ el archivo, pero Kubelet no cataloga este espacio como en uso.
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-Las cuotas de proyecto están en las características de nivel de sistema operativo
+Las cuotas de proyecto están definidas a nivel de sistema operativo
 para el manejo de uso de almacenamiento en uso de sistema de archivos.
 Con Kubernetes, puedes habilitar las cuotas de proyecto para el uso
 de la monitorización del almacenamiento. Asegúrate que el respaldo del
