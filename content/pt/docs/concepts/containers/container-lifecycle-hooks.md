@@ -28,12 +28,13 @@ This hook is executed immediately after a container is created.
 However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
 No parameters are passed to the handler.
 
+Este _hook_ é executado imediatamente após um contêiner ser criado.
+Entretanto, não há garantia que o _hook_ será executado antes do ENTRYPOINT do contêiner.
+Nenhum parâmetro é passado para o manipulador.
+
 `PreStop`
 
-This hook is called immediately before a container is terminated due to an API request or management
-event such as a liveness/startup probe failure, preemption, resource contention and others. A call
-to the `PreStop` hook fails if the container is already in a terminated or completed state and the
-hook must complete before the TERM signal to stop the container can be sent. The Pod's termination
+The Pod's termination
 grace period countdown begins before the `PreStop` hook is executed, so regardless of the outcome of
 the handler, the container will eventually terminate within the Pod's termination grace period. No
 parameters are passed to the handler.
@@ -41,36 +42,37 @@ parameters are passed to the handler.
 A more detailed description of the termination behavior can be found in
 [Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
-### Hook handler implementations
+Esse _hook_ é chamado imediatamente antes de um contêiner ser encerrado devido a uma solicitação de API ou um gerenciamento de evento como liveness/startup probe failure, preemption, resource contention e outros.
+Uma chamada ao _hook_ `PreStop` falha se o contêiner já está em um estado finalizado ou concluído e o _hook_ deve ser concluído antes que o sinal TERM seja enviado para parar o contêiner. 
 
-Containers can access a hook by implementing and registering a handler for that hook.
-There are two types of hook handlers that can be implemented for Containers:
 
-* Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
-Resources consumed by the command are counted against the Container.
-* HTTP - Executes an HTTP request against a specific endpoint on the Container.
+### Implementações de manipulador de hook
 
-### Hook handler execution
+Os contêineres podem acessar um _hook_ implementando e registrando um manipulador para esse _hook_.
+Existem dois tipos de manipuladores de _hooks_ que podem ser implementados para contêineres:
 
-When a Container lifecycle management hook is called,
-the Kubernetes management system execute the handler according to the hook action,
-`httpGet` and `tcpSocket` are executed by the kubelet process, and `exec` is executed in the container.
+* Exec - Executa um comando específico, como `pre-stop.sh`, dentro do cgroups e Namespaces do contêiner.
+* HTTP - Executa uma requisição HTTP em um endpoint específico do contêiner.
 
-Hook handler calls are synchronous within the context of the Pod containing the Container.
-This means that for a `PostStart` hook,
-the Container ENTRYPOINT and hook fire asynchronously.
-However, if the hook takes too long to run or hangs,
-the Container cannot reach a `running` state.
+### Execução do manipulador de hook
 
-`PreStop` hooks are not executed asynchronously from the signal to stop the Container; the hook must
-complete its execution before the TERM signal can be sent. If a `PreStop` hook hangs during
-execution, the Pod's phase will be `Terminating` and remain there until the Pod is killed after its
-`terminationGracePeriodSeconds` expires. This grace period applies to the total time it takes for
+
+Quando um _hook_ de gerenciamento de ciclo de vida do contêiner é chamado, o sistema de gerenciamento do Kubernetes executa o manipulador de acordo com a ação do _hook_, `httpGet` e `tcpSocker` são executados pelo processo kubelet e `exec` é executado pelo contêiner.
+
+As chamadas do manipulador do _hook_ são síncronas no contexto do Pod que contém o contêiner.
+Isso significa que para um _hook_ `PostStart`, o ENTRYPOINT do contêiner e o _hook_ disparam de forma assíncrona.
+No entanto, se o _hook_ demorar muito para ser executado ou travar, o contêiner não consegue atingir o estado `running`.
+
+This grace period applies to the total time it takes for
 both the `PreStop` hook to execute and for the Container to stop normally. If, for example,
 `terminationGracePeriodSeconds` is 60, and the hook takes 55 seconds to complete, and the Container
 takes 10 seconds to stop normally after receiving the signal, then the Container will be killed
 before it can stop normally, since `terminationGracePeriodSeconds` is less than the total time
 (55+10) it takes for these two things to happen.
+
+Os _hooks_ `PreStop` não são executados de forma assíncrona a partir do sinal para parar o conêiner, o _hook_ precisa finalizar a sua execução antes que o sinal TERM possa ser enviado.
+Se um _hook_ `PreStop` travar durante a execução, a fase do Pod será `Terminating` e permanecerá até que o Pod seja morto após seu `terminationGracePeriodSeconds` expirar.
+
 
 If either a `PostStart` or `PreStop` hook fails,
 it kills the Container.
