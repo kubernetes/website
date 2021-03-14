@@ -394,7 +394,7 @@ El escáner mide cuanto espacio está en uso.
 
 {{< note >}}
 En este modo, Kubelet no rastrea descriptores de archivos abiertos 
-para ficheros borrados.
+para archivos eliminados.
 
 Si tú (o un contenedor) creas un fichero dentro de un volumen `emptyDir`,
 alguien abre ese fichero, y tú lo borras mientras este está abierto,
