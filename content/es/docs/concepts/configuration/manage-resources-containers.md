@@ -408,7 +408,7 @@ el archivo, pero Kubelet no cataloga este espacio como en uso.
 
 Las cuotas de proyecto están en las características de nivel de sistema operativo
 para el manejo de uso de almacenamiento en uso de sistema de archivos.
-Con kubernetes, puedes habilitar las cuotas de proyecto para el uso
+Con Kubernetes, puedes habilitar las cuotas de proyecto para el uso
 de la monitorización del almacenamiento. Asegúrate que el respaldo del
 Sistema de archivos de los volúmenes `emptyDir` , en el nodo, provee soporte de
 cuotas de proyecto.
