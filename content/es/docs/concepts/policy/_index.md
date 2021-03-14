@@ -1,5 +1,5 @@
 ---
-title: "Políticas"
+title: Políticas
 weight: 90
 description: >
     Políticas configurables que se aplican a grupos de recursos.
