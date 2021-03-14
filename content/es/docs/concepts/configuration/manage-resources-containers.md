@@ -393,7 +393,7 @@ del contenedor.
 El escáner mide cuanto espacio está en uso.
 
 {{< note >}}
-En este modo, el kubelet no comprueba ficheros abiertos
+En este modo, Kubelet no rastrea descriptores de archivos abiertos 
 para ficheros borrados.
 
 Si tú (o un contenedor) creas un fichero dentro de un volumen `emptyDir`,
