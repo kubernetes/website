@@ -147,7 +147,7 @@ Start a Powershell session, set `$Version` to the desired version (ex: `$Version
 {{% /tab %}}
 {{< /tabs >}}
 
-#### systemd {#containerd-systemd}
+#### Using the `systemd` cgroup driver {#containerd-systemd}
 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
 
@@ -156,6 +156,12 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   ...
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
+```
+
+If you apply this change make sure to restart containerd again:
+
+```shell
+sudo systemctl restart containerd
 ```
 
 When using kubeadm, manually configure the
