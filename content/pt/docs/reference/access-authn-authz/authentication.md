@@ -15,7 +15,7 @@ Todos os clusters Kubernetes possuem duas categorias de usuários: contas de ser
 Assume-se que um serviço independente do cluster gerencia usuários normais das seguintes formas:
  
 - Um administrador distribuindo chaves privadas
-- Uma base de usuários como Keystone ou Google Accounts
+- Uma base de usuários como Keystone {{< glossary_definition term_id="keystone" length="all" >}} ou Google Accounts
 - Um arquivo com uma lista de nomes de usuários e senhas
  
 Neste quesito, _Kubernetes não possui objetos que possam representar as contas de um usuário normal._ Usuários normais não podem ser adicionados ao _cluster_ através de uma chamada para a API.
@@ -28,12 +28,12 @@ Requisições para a API estão ligadas a um usuário normal, conta de serviço 
  
 ## Estratégias de autenticação
  
-Kubernetes usa certificados de clientes, _bearer Token_, um proxy realizando autenticação, ou uma autenticação básica HTTP para autenticar requisições para o servidor de API através de plugins. Como requisições HTTP são feitas para o servidor de API, plugins tentam associar os seguintes atributos junto a requisição:
+Kubernetes usa certificados de clientes, _bearer Token_, um proxy realizando autenticação, ou uma autenticação básica HTTP para autenticar requisições para o servidor de API através de plugins. Como requisições HTTP são feitas no servidor de API, plugins tentam associar os seguintes atributos junto a requisição:
  
-* Username: um valor (String) que identifica o usuário final. Valores comuns podem ser `kube-admin` ou `jane@example.com`
-* UID: um valor (String) que identifica o usuário final e tenta ser mais consistente e único do que username.
-* Groups: Um conjunto de valores em que cada item indica a associação de um usuário há uma coleção lógica de usuários. Valores comuns podem ser `system:masters` ou `devops-team`.
-* Campos extras: um mapa para uma lista que armazena informações adicionais em que autorizadores podem achar útil.
+* Username {{< glossary_definition term_id="username" length="all" >}}: um valor (String) que identifica o usuário final. Valores comuns podem ser `kube-admin` ou `jane@example.com`
+* UID {{< glossary_definition term_id="uid" length="all" >}}: um valor (String) que identifica o usuário final e tenta ser mais consistente e único do que username.
+* Groups {{< glossary_definition term_id="groups" length="all" >}}: Um conjunto de valores em que cada item indica a associação de um usuário há uma coleção lógica de usuários. Valores comuns podem ser `system:masters` ou `devops-team`.
+* Extra fields {{< glossary_definition term_id="extra-fields" length="all" >}}: um mapa que pode conter uma lista de atributos que armazena informações adicionais em que autorizadores podem achar útil.
  
 Todos os valores são opacos para o sistema de autenticação e somente trazem significância quando interpretados por um [autorizador](/docs/reference/access-authn-authz/authorization/).
  
@@ -48,11 +48,11 @@ O servidor de API não garante a ordem em que os autenticadores são processados
  
 O grupo `system:authenticated` é incluído na lista de grupos de todos os usuários autenticados.
  
-Integrações com outros protocolos de autenticação, como LDAP, SAML, Kerberos, alternate x509 schemes, etc, podem ser alcançadas utilizando-se de um [proxy](#authenticating-proxy) ou [webhook](#webhook-token-authentication) de autenticação.
+Integrações com outros protocolos de autenticação, como LDAP {{< glossary_definition term_id="ldap" length="all" >}}, SAML {{< glossary_definition term_id="saml" length="all" >}}, Kerberos {{< glossary_definition term_id="kerberos" length="all" >}}, alternate x509 schemes {{< glossary_definition term_id="alternate-x509-schemes" length="all" >}}, etc, podem ser alcançadas utilizando-se de um [proxy](#authenticating-proxy) ou [webhook](#webhook-token-authentication) de autenticação.
  
 ### Certificados de cliente X509
  
-Autenticação via certificados de cliente pode ser habilitada ao passar a opção `--client-ca-file=ARQUIVO` para o servidor de API. O arquivo referenciado deve conter um ou mais autoridades de certificação usadas para validar o certificado de cliente passado para o servidor de API. Se o certificado de cliente é apresentado e verificado, o nome comum (CN) do sujeito é usado como o nome de usuário para a requisição. A partir da versão 1.4, certificados de cliente podem também indicar o pertencimento de um usuário a um grupo utilizando o campo de organização do certificado. Para incluir múltiplos grupos para o usuário, deve-se incluir múltiplos campos de organização no certificado.
+Autenticação via certificados de cliente pode ser habilitada ao passar a opção `--client-ca-file=ARQUIVO` para o servidor de API. O arquivo referenciado deve conter um ou mais autoridades de certificação usadas para validar o certificado de cliente passado para o servidor de API. Se o certificado de cliente é apresentado e verificado, o _common name_ {{< glossary_definition term_id="common-name" length="all" >}} do sujeito é usado como o nome de usuário para a requisição. A partir da versão 1.4, certificados de cliente podem também indicar o pertencimento de um usuário a um grupo utilizando o campo de organização do certificado. Para incluir múltiplos grupos para o usuário, deve-se incluir múltiplos campos de organização no certificado.
  
 Por exemplo, utilizando o comando de linha `openssl` para gerar uma requisição de assinatura de certificado:
  
@@ -80,7 +80,7 @@ token,usuario,uid,"grupo1,grupo2,grupo3"
  
 #### Adicionando um _bearer token_ em uma requisição
  
-Quando utilizando-se de _bearer token_ para autenticação de um cliente HTTP, o servidor de API espera um cabeçalho `Authorization` com um valor `Bearer TOKEN`. O token deve ser uma sequência de caracteres que pode ser colocada como valor em um cabeçalho HTTP não utilizando-se mais do que as facilidades de codificação e cotação de HTTP. Por exemplo, se o valor de um token é `31ada4fd-adec-460c-809a-9e56ceb75269` então iria aparecer dentro de um cabeçalho HTTP como:
+Quando utilizando-se de _bearer token_ para autenticação de um cliente HTTP, o servidor de API espera um cabeçalho `Authorization` com um valor `Bearer TOKEN`. O token deve ser uma sequência de caracteres que pode ser colocada como valor em um cabeçalho HTTP não utilizando-se mais do que as facilidades de codificação e citação de HTTP. Por exemplo, se o valor de um token é `31ada4fd-adec-460c-809a-9e56ceb75269` então iria aparecer dentro de um cabeçalho HTTP como:
  
 ```http
 Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
@@ -107,7 +107,7 @@ Por favor veja [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-t
  
 Uma conta de serviço é um autenticador habilitado automaticamente que usa bearer tokens para verificar as requisições. O plugin aceita dois parâmetros opcionais:
  
-* `--service-account-key-file` Um arquivo contendo uma chave codificada no formato PEM para assinar _bearer tokens_. Se não especificado, a chave privada de TLS servidor de API será utilizada
+* `--service-account-key-file` Um arquivo contendo uma chave codificada no formato PEM para assinar _bearer tokens_. Se não especificado, a chave privada de TLS no servidor de API será utilizada
 * `--service-account-lookup` Se habilitado, _tokens_ deletados do servidor de API serão revogados.
  
 Contas de serviço são normalmente criadas automaticamente pelo servidor de API e associada a _pods_ rodando no cluster através do controlador de admissão [Admission Controller](/docs/reference/access-authn-authz/admission-controllers/). `ServiceAccount`. Contas podem ser explicitamente associadas com _pods_ utilizando o campo `serviceAccountName` na especificação do pod (`PodSpec`):
@@ -741,7 +741,7 @@ users:
      #
      # A versão da API retornada pelo plugin DEVE ser a mesma versão listada aqui.
      #
-     # Para integrar com terramentas que suportem multiplas versoes (como )client.authentication.k8s.io/v1alpha1),
+     # Para integrar com ferramentas que suportem múltiplas versões (tal como client.authentication.k8s.io/v1alpha1),
      # defina uma variável de ambiente ou passe um argumento para a ferramenta que indique qual versão o plugin de execução deve esperar.
      apiVersion: "client.authentication.k8s.io/v1beta1"
  
