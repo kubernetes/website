@@ -25,6 +25,17 @@ deprecated API versions to newer and more stable API versions.
 
 The **v1.25** release will stop serving the following deprecated API versions:
 
+#### EndpointSlice {#endpointslice-v125}
+
+The **discovery.k8s.io/v1beta1** API version of EndpointSlice will no longer be served in v1.25.
+
+* Migrate manifests and API clients to use the **discovery.k8s.io/v1** API version, available since v1.21.
+* All existing persisted objects are accessible via the new API
+* Notable changes in **discovery.k8s.io/v1**:
+    * use per Endpoint `nodeName` field instead of deprecated `topology["kubernetes.io/hostname"]` field
+    * use per Endpoint `zone` field instead of deprecated `topology["topology.kubernetes.io/zone"]` field
+    * `topology` is replaced with the `deprecatedTopology` field which is not writable in v1
+
 #### Event {#event-v125}
 
 The **events.k8s.io/v1beta1** API version of Event will no longer be served in v1.25.
