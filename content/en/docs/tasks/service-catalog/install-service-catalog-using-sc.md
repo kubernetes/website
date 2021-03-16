@@ -23,7 +23,7 @@ Service Catalog itself can work with any kind of managed service, not just Googl
 * Install [Go 1.6+](https://golang.org/dl/) and set the `GOPATH`.
 * Install the [cfssl](https://github.com/cloudflare/cfssl) tool needed for generating SSL artifacts.
 * Service Catalog requires Kubernetes version 1.7+.
-* [Install and setup kubectl](/docs/tasks/tools/install-kubectl/) so that it is configured to connect to a Kubernetes v1.7+ cluster.
+* [Install and setup kubectl](/docs/tasks/tools/) so that it is configured to connect to a Kubernetes v1.7+ cluster.
 * The kubectl user must be bound to the *cluster-admin* role for it to install Service Catalog. To ensure that this is true, run the following command:
 
         kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<user-name>
