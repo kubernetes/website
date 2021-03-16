@@ -34,7 +34,7 @@ weight: 10
 
 			<p>Embora cada Pod tenha um endereço IP único, estes IPs não são expostos externamente ao cluster sem um Serviço. Serviços permitem que suas aplicações recebam tráfego. Serviços podem ser expostos de formas diferentes especificando um tipo <code>type</code> na especificação do serviço <code>ServiceSpec</code>:</p>
 			<ul>
-				<li><i>ClusterIP</i> (padrão) - Expõe o serviço sob um endereço IP interno no cluster. Este tipo faz do serviço somente alcancável a partir de dentro do cluster.</li>
+				<li><i>ClusterIP</i> (padrão) - Expõe o serviço sob um endereço IP interno no cluster. Este tipo faz do serviço somente alcançável de dentro do cluster.</li>
 				<li><i>NodePort</i> - Expõe o serviço sob a mesma porta em cada nó selecionado no cluster usando NAT. Faz o serviço acessível externamente ao cluster usando <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superconjunto de ClusterIP.</li>
 				<li><i>LoadBalancer</i> - Cria um balanceador de carga externo no provedor de nuvem atual (se suportado) e assinala um endereço IP fixo e externo para o serviço. Superconjunto de NodePort.</li>
 				<li><i>ExternalName</i> - Expõe o serviço usando um nome arbitrário (especificado através de <code>externalName</code> na especificação <code>spec</code>) retornando um registro de CNAME com o nome. Nenhum proxy é utilizado. Este tipo requer v1.7 ou mais recente de <code>kube-dns</code>.</li>
