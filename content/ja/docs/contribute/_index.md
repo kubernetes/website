@@ -67,7 +67,7 @@ SIG Docsは複数の方法でコミュニケーションをとっています。
 
 - [Kubernetes Slackインスタンスの`#sig-docs`に参加してください](https://slack.k8s.io/)。自己紹介を忘れずに！
 - [`kubernetes-sig-docs`メーリングリストに参加してください](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)。ここでは幅広い議論が起こり、公式な決定が記録されます。
-- [毎週のSIG Docsビデオミーティング](https://github.com/kubernetes/community/tree/master/sig-docs)に参加してください。ミーティングは `#sig-docs`でアナウンスされ、[Kubernetesコミュニティミーティングカレンダー](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)に追加されます[Zoomクライアント](https://zoom.us/download)をダウンロードするか、電話を使って通話する必要があります。
+- [毎週のSIG Docsビデオミーティング](https://github.com/kubernetes/community/tree/master/sig-docs)に参加してください。ミーティングは `#sig-docs`でアナウンスされ、[Kubernetesコミュニティミーティングカレンダー](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)に追加されます。[Zoomクライアント](https://zoom.us/download)をダウンロードするか、電話を使って通話する必要があります。
 
 ## その他の貢献方法
 
