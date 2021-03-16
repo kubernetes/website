@@ -168,7 +168,8 @@ different Kubernetes components.
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
 | `SetHostnameAsFQDN` | `false` | Alpha | 1.19 | 1.19 |
 | `SetHostnameAsFQDN` | `true` | Beta | 1.20 | |
-| `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | |
+| `SizeMemoryBackedVolumes` | `true` | Alpha | 1.20 | 1.21 |
+| `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
