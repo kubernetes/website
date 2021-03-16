@@ -664,7 +664,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   the volume mounter.
 - `MountPropagation`: Enable sharing volume mounted by one container to other containers or pods.
   For more details, please see [mount propagation](/docs/concepts/storage/volumes/#mount-propagation).
-- `NamespaceDefaultLabelName`: Enable the behavior of APIServer creating a default label `kubernetes.io/metadata.name` containing the namespace name.
+- `NamespaceDefaultLabelName`: Enable the API Server to create a default label `kubernetes.io/metadata.name` in all namespaces containing the namespace name.
 - `NetworkPolicyEndPort`: Enable use of the field `endPort` in NetworkPolicy objects, allowing the selection of a port range instead of a single port.
 - `NodeDisruptionExclusion`: Enable use of the Node label `node.kubernetes.io/exclude-disruption`
   which prevents nodes from being evacuated during zone failures.
