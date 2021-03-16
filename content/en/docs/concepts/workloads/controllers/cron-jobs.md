@@ -10,7 +10,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repeating schedule.
 
@@ -116,12 +116,17 @@ be down for the same period as the previous example (`08:29:00` to `10:21:00`,) 
 The CronJob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
 
-## New controller
+## Controller version {#new-controller}
 
-There's an alternative implementation of the CronJob controller, available as an alpha feature since Kubernetes 1.20. To select version 2 of the CronJob controller, pass the following [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+Starting with Kubernetes v1.21 the second version of the CronJob controller
+is the default implementation. To disable the default CronJob controller
+and use the original CronJob controller instead, one pass the `CronJobControllerV2`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}},
+and set this flag to `false`. For example:
 
 ```
---feature-gates="CronJobControllerV2=true"
+--feature-gates="CronJobControllerV2=false"
 ```
 
 
