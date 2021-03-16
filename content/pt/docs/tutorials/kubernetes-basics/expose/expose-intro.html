@@ -1,0 +1,103 @@
+---
+title: Utilizando um serviço para expor seu App
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+    		<h3>Objetivos</h3>
+				<ul>
+					<li>Aprenda sobre um Serviço no Kubernetes</li>
+					<li>Entenda como os objetos <code>labels</code> e <code>LabelSelector</code> se relacionam a um Serviço</li>
+					<li>Exponha uma aplicação externamente ao cluster Kubernetes usando um Serviço</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<h3>Visão Geral de Serviços Kubernetes</h3>
+
+			<p><a href="/docs/concepts/workloads/pods/">Pods</a> Kubernetes são efêmeros. Na verdade, Pods possuem um <a href="/docs/concepts/workloads/pods/pod-lifecycle/">ciclo de vida</a>. Quando um nó de processamento morre, os Pods executados no nó também são perdidos. A partir disso, o <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> pode dinamicamente retornar o cluster ao estado desejado através da criação de novos Pods para manter sua aplicação em execução. Como outro exemplo, considere um backend de processamento de imagens com 3 réplicas. Estas réplicas são intercambiáveis; o sistema front-end não deveria se importar com as réplicas backend ou ainda se um Pod é perdido ou recriado. Dito isso, cada Pod em um cluster Kubernetes tem um único endereço IP, mesmo Pods no mesmo nó, então há necessidade de ter uma forma de reconciliar automaticamente mudanças entre Pods de modo que sua aplicação continue funcionando.</p>
+
+			<p>Um serviço no Kubernetes é uma abstração que define um conjunto lógico de Pods e uma política pela qual acessá-los. Serviços permitem um baixo acoplamento entre os Pods dependentes. Um serviço é definido usando YAML <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(preferencialmente)</a> ou JSON, como todos objetos Kubernetes. O conjunto de Pods selecionados por um Serviço é geralmente determinado por um seletor de rótulos <i>LabelSelector</i> (veja abaixo o motivo pelo qual você pode querer um Serviço sem incluir um seletor <code>selector</code> na especificação <code>spec</code>).</p>
+
+			<p>Embora cada Pod tenha um endereço IP único, estes IPs não são expostos externamente ao cluster sem um Serviço. Serviços permitem que suas aplicações recebam tráfego. Serviços podem ser expostos de formas diferentes especificando um tipo <code>type</code> na especificação do serviço <code>ServiceSpec</code>:</p>
+			<ul>
+				<li><i>ClusterIP</i> (padrão) - Expõe o serviço sob um endereço IP interno no cluster. Este tipo faz do serviço somente alcancável a partir de dentro do cluster.</li>
+				<li><i>NodePort</i> - Expõe o serviço sob a mesma porta em cada nó selecionado no cluster usando NAT. Faz o serviço acessível externamente ao cluster usando <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superconjunto de ClusterIP.</li>
+				<li><i>LoadBalancer</i> - Cria um balanceador de carga externo no provedor de nuvem atual (se suportado) e assinala um endereço IP fixo e externo para o serviço. Superconjunto de NodePort.</li>
+				<li><i>ExternalName</i> - Expõe o serviço usando um nome arbitrário (especificado através de <code>externalName</code> na especificação <code>spec</code>) retornando um registro de CNAME com o nome. Nenhum proxy é utilizado. Este tipo requer v1.7 ou mais recente de <code>kube-dns</code>.</li>
+			</ul>
+			<p>Mais informações sobre diferentes tipos de Serviços podem ser encontradas no tutorial <a href="/docs/tutorials/services/source-ip/">Utilizando IP de origem</a>. Também confira <a href="/docs/concepts/services-networking/connect-applications-service">Conectando aplicações com serviços</a>.</p>
+			<p>Adicionalmente, note que existem alguns casos de uso com serviços que envolvem a não definição de <code>selector</code> em <code>spec</code>. Serviços criados sem <code>selector</code> também não criarão objetos Endpoints correspondentes. Isto permite usuários mapear manualmente um serviço a endpoints específicos. Outra possibilidade na qual pode não haver seletores é ao se utilizar estritamente <code>type: ExternalName</code>.</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>Resumo</h3>
+					<ul>
+						<li>Expõe Pods ao tráfego externo</li>
+						<li>Tráfego de balanceamento de carga entre múltiplos Pods</li>
+						<li>Uso de rótulos <code>labels</code></li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<p><i>Um serviço Kubernetes é uma camada de abstração que define um conjunto lógico de Pods e habilita a exposição ao tráfego externo, balanceamento de carga e descoberta de serviço para esses Pods.</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3>Serviços e Rótulos</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p>Um serviço roteia tráfego entre um conjunto de Pods. Serviço é a abstração que permite pods morrerem e se replicarem no Kubernetes sem impactar sua aplicação. A descoberta e o roteamento entre Pods dependentes (tal como componentes frontend e backend dentro de uma aplicação) são controlados por serviços Kubernetes.</p>
+				<p>Serviços relacionam um conjunto de Pods usando <a href="/docs/concepts/overview/working-with-objects/labels">Rótulos e seletores</a>, um agrupamento primitivo que permite operações lógicas sobre objetos Kubernetes. Rótulos são pares de chave/valor anexados à objetos e podem ser usados de inúmeras formas:</p>
+				<ul>
+					<li>Designar objetos para desenvolvimento, teste e produção</li>
+					<li>Adicionar tags de versão</li>
+					<li>Classificar um objeto usando tags</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<p>Rótulos podem ser anexados à objetos no momento de sua criação ou posteriormente. Eles podem ser modificados a qualquer tempo. Vamos agora expor sua aplicação usando um serviço e aplicar alguns rótulos.</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/pt/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">Iniciar tutorial interativo<span class="btn__next">›</span></a>
+			</div>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>
