@@ -36,7 +36,7 @@ Example: `kubernetes.io/metadata.name=mynamespace`
 
 Used on: Namespaces
 
-Kubernetes APIServer defaults this label to the namespace name. This label can be used with any namespace selector, as an example with NetworkPolicy objects.
+Kubernetes API Server defaults this label to the namespace name during admission. This label can be used with any namespace selector, as an example with NetworkPolicy objects.
 
 ## beta.kubernetes.io/arch (deprecated)
 
