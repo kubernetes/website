@@ -160,7 +160,7 @@ kubelet and the control plane is supported, but the kubelet version may never ex
 server version. For example, the kubelet running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa.
 
-For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/install-kubectl/).
+For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/).
 
 {{< warning >}}
 These instructions exclude all Kubernetes packages from any system upgrades.
