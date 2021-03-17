@@ -254,3 +254,6 @@ Example: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
 
 If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
 
+## [Common labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/)
+
+The metadata is organized around the concept of an application. Kubernetes is not a platform as a service (PaaS) and doesn't have or enforce a formal notion of an application. Instead, applications are informal and described with metadata. The definition of what an application contains is loose.`
