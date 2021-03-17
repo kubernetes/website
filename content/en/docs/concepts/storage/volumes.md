@@ -161,6 +161,8 @@ Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
 
+Azure File CSI driver does not support using same volume with different fsgroups, if Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
+
 ### cephfs
 
 A `cephfs` volume allows an existing CephFS volume to be
