@@ -8,7 +8,7 @@ weight: 30
 
 このページではPodのライフサイクルについて説明します。Podは定義されたライフサイクルに従い `Pending`[フェーズ](#pod-phase)から始まり、少なくとも1つのプライマリーコンテナが正常に開始した場合は`Running`を経由し、次に失敗により終了したコンテナの有無に応じて、`Succeeded`または`Failed`フェーズを経由します。
 
-Podの実行中、kubeletはコンテナを再起動して、ある種の障害を処理できます。Pod内で、Kubernetesはさまざまなコンテナの[ステータス](#container-states)を追跡して、対処します。
+Podの実行中、kubeletはコンテナを再起動して、ある種の障害を処理できます。Pod内で、Kubernetesはさまざまなコンテナの[ステータス](#container-states)を追跡して、回復させるためのアクションを決定します。
 
 Kubernetes APIでは、Podには仕様と実際のステータスの両方があります。Podオブジェクトのステータスは、[PodのCondition](#pod-conditions)のセットで構成されます。[カスタムのReadiness情報](#pod-readiness-gate)をPodのConditionデータに挿入することもできます。
 
@@ -43,13 +43,13 @@ Podの各フェーズの値と意味は厳重に守られています。ここ�
 
 これらが`phase`の取りうる値です。
 
-値 | 概要
-:-----|:-----------
-`Pending` | PodがKubernetesクラスターによって承認されましたが、1つ以上のコンテナがセットアップされて稼働する準備ができていません。これには、スケジュールされるまでの時間と、ネットワーク経由でイメージをダウンロードするための時間などが含まれます。
-`Running` | PodがNodeにバインドされ、すべてのコンテナが作成されました。少なくとも1つのコンテナがまだ実行されているか、開始または再起動中です。
-`Succeeded` |Pod内のすべてのコンテナが正常に終了し、再起動されません。
-`Failed` | Pod内のすべてのコンテナが終了し、少なくとも1つのコンテナが異常終了しました。つまり、コンテナはゼロ以外のステータスで終了したか、システムによって終了されました。
-`Unknown` | 何らかの理由によりPodの状態を取得できませんでした。このフェーズは通常はPodのホストとの通信エラーにより発生します。
+値          | 概要
+:-----------|:-----------
+`Pending`   | PodがKubernetesクラスターによって承認されましたが、1つ以上のコンテナがセットアップされて稼働する準備ができていません。これには、スケジュールされるまでの時間と、ネットワーク経由でイメージをダウンロードするための時間などが含まれます。
+`Running`   | PodがNodeにバインドされ、すべてのコンテナが作成されました。少なくとも1つのコンテナがまだ実行されているか、開始または再起動中です。
+`Succeeded` | Pod内のすべてのコンテナが正常に終了し、再起動されません。
+`Failed`    | Pod内のすべてのコンテナが終了し、少なくとも1つのコンテナが異常終了しました。つまり、コンテナはゼロ以外のステータスで終了したか、システムによって終了されました。
+`Unknown`   | 何らかの理由によりPodの状態を取得できませんでした。このフェーズは通常はPodのホストとの通信エラーにより発生します。
 
 Nodeが停止するか、クラスタの残りの部分から切断された場合、Kubernetesは失われたNode上のすべてのPodの`Phase`をFailedに設定するためのポリシーを適用します。
 
@@ -69,7 +69,7 @@ Podのコンテナの状態を確認するには`kubectl describe pod [POD_NAME]
 
 ### `Running` {#container-state-running}
 
-`Running`状態はコンテナが問題なく実行されていることを示します。コンテナがRunning状態に入る前に`postStart`フック（もしあれば）が実行されます。`Running`状態のコンテナを持つPodに対して`kubectl`コマンドを使用すると、そのコンテナが`Running`状態になった時刻が表示されます。
+`Running`状態はコンテナが問題なく実行されていることを示します。`postStart`フックが構成されていた場合、それはすでに実行が完了しています。`Running`状態のコンテナを持つPodに対して`kubectl`コマンドを使用すると、そのコンテナが`Running`状態になった時刻が表示されます。
 
 ### `Terminated` {#container-state-terminated}
 
@@ -81,7 +81,7 @@ Podのコンテナの状態を確認するには`kubectl describe pod [POD_NAME]
 
 Podの`spec`には、Always、OnFailure、またはNeverのいずれかの値を持つ`restartPolicy`フィールドがあります。デフォルト値はAlwaysです。
 
-`restartPolicy`は、Pod内のすべてのコンテナに適用されます。`restartPolicy`は、同じNode上のkubeletによるコンテナの再起動のみを参照します。Pod内のコンテナが終了した後、kubeletは5分を上限とする指数バックオフ遅延（10秒、20秒、40秒...）でコンテナを再起動します。コンテナが10分間問題なく実行されると、kubeletはコンテナの再起動バックオフタイマーをリセットします。
+`restartPolicy`は、Pod内のすべてのコンテナに適用されます。`restartPolicy`は、同じNode上のkubeletによるコンテナの再起動のみを参照します。Pod内のコンテナが終了した後、kubeletは5分を上限とする指数バックオフ遅延（10秒、20秒、40秒...）でコンテナを再起動します。コンテナが10分間実行されると、kubeletはコンテナの再起動バックオフタイマーをリセットします。
 
 ## PodのCondition {#pod-conditions}
 
@@ -148,7 +148,7 @@ Podのコンテナは準備完了ですが、少なくとも1つのカスタム�
 
 ## コンテナのProbe {#container-probes}
 
-[Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) は [kubelet](/docs/admin/kubelet/) により定期的に実行されるコンテナの診断です。診断を行うために、kubeletはコンテナに実装された [Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core)を呼びます。Handlerには次の3つの種類があります:
+[Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) は [kubelet](/docs/reference/command-line-tools-reference/kubelet/) により定期的に実行されるコンテナの診断です。診断を行うために、kubeletはコンテナに実装された [Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core)を呼びます。Handlerには次の3つの種類があります:
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core):
   コンテナ内で特定のコマンドを実行します。コマンドがステータス0で終了した場合に診断を成功と見まします。
@@ -209,7 +209,7 @@ Podが削除されたときにリクエストを来ないようにするため�
 
 ### startupProbeをいつ使うべきか? {#when-should-you-use-a-startup-probe}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 startupProbeは、サービスの開始に時間がかかるコンテナを持つポッドに役立ちます。livenessProbeの間隔を長く設定するのではなく、コンテナの起動時に別のProbeを構成して、livenessProbeの間隔よりも長い時間を許可できます。
 コンテナの起動時間が、`initialDelaySeconds + failureThreshold x periodSeconds`よりも長い場合は、livenessProbeと同じエンドポイントをチェックするためにstartupProbeを指定します。`periodSeconds`のデフォルトは30秒です。次に、`failureThreshold`をlivenessProbeのデフォルト値を変更せずにコンテナが起動できるように、十分に高い値を設定します。これによりデッドロックを防ぐことができます。
@@ -220,7 +220,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
 
 ユーザーは削除を要求可能であるべきで、プロセスがいつ終了するかを知ることができなければなりませんが、削除が最終的に完了することも保証できるべきです。ユーザーがPodの削除を要求すると、システムはPodが強制終了される前に意図された猶予期間を記録および追跡します。強制削除までの猶予期間がある場合、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}正常な終了を試みます。
 
-通常、コンテナランタイムは各コンテナのメインプロセスにTERMシグナルを送信します。猶予期間が終了すると、プロセスにKILLシグナルが送信され、Podは{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}から削除されます。プロセスの終了を待っている間にkubeletかコンテナランタイムの管理サービスが再起動されると、クラスターは元の猶予期間を含めて、最初からリトライされます。
+通常、コンテナランタイムは各コンテナのメインプロセスにTERMシグナルを送信します。多くのコンテナランタイムは、コンテナイメージで定義されたSTOPSIGNAL値を尊重し、TERMの代わりにこれを送信します。猶予期間が終了すると、プロセスにKILLシグナルが送信され、Podは{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}から削除されます。プロセスの終了を待っている間にkubeletかコンテナランタイムの管理サービスが再起動されると、クラスターは元の猶予期間を含めて、最初からリトライされます。
 
 フローの例は下のようになります。
 
