@@ -69,7 +69,7 @@ Podのコンテナの状態を確認するには`kubectl describe pod [POD_NAME]
 
 ### `Running` {#container-state-running}
 
-`Running`状態はコンテナが問題なく実行されていることを示します。`postStart`フックが構成されていた場合、それはすでに実行されて終了しています。`Running`状態のコンテナを持つPodに対して`kubectl`コマンドを使用すると、そのコンテナが`Running`状態になった時刻が表示されます。
+`Running`状態はコンテナが問題なく実行されていることを示します。`postStart`フックが構成されていた場合、それはすでに実行が完了しています。`Running`状態のコンテナを持つPodに対して`kubectl`コマンドを使用すると、そのコンテナが`Running`状態になった時刻が表示されます。
 
 ### `Terminated` {#container-state-terminated}
 
