@@ -40,7 +40,7 @@ weight: 10
                     </ul>
                 </div>
                 <div class="content__box content__box_fill">
-                    <p><i>Você pode criar desde o início um Deployment com múltiplas instâncias usando o parâmetro <code>--replicas</code> para o kubectl criar o comando de deployment</i></p>
+                    <p><i>Você pode criar desde o início um Deployment com múltiplas instâncias usando o parâmetro <code>--replicas</code> para que o kubectl crie o comando de deployment</i></p>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <h2 style="color: #3771e3;">Scaling overview</h2>
+                <h2 style="color: #3771e3;">Visão geral sobre escalonamento</h2>
             </div>
         </div>
 
@@ -86,9 +86,9 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>Escalar um Deployment garantirá que novos Pods serão criados e agendados para nós de processamento com recursos disponíveis. O escalonamento aumentará o número de Pods para o novo estado desejado. O Kubernetes também suporta o auto-escalonamento (<a href="/docs/user-guide/horizontal-pod-autoscaling/">autoscaling</a>) de Pods, mas isso está fora do escopo deste tutorial. Escalar para zero também é possível, e isso terminará todos Pods do Deployment especificado.</p>
+                <p>Escalar um Deployment garantirá que novos Pods serão criados e agendados para nós de processamento com recursos disponíveis. O escalonamento aumentará o número de Pods para o novo estado desejado. O Kubernetes também suporta o auto-escalonamento (<a href="/docs/user-guide/horizontal-pod-autoscaling/">autoscaling</a>) de Pods, mas isso está fora do escopo deste tutorial. Escalar para zero também é possível, e isso terminará todos os Pods do Deployment especificado.</p>
 
-                <p>Executar múltiplas instâncias de uma aplicação irá requerer uma forma de distribuir o tráfego para todas elas. Serviços possuem um balanceador de carga integrado que distribuirá o tráfego de rede entre todos os Pods de um Deployment exposto. Serviços irão monitorar continuamente os Pods em execução usando endpoints para garantir que o tráfego seja enviado apenas para Pods disponíveis.</p>
+                <p>Executar múltiplas instâncias de uma aplicação irá requerer uma forma de distribuir o tráfego entre todas elas. Serviços possuem um balanceador de carga integrado que distribuirá o tráfego de rede entre todos os Pods de um Deployment exposto. Serviços irão monitorar continuamente os Pods em execução usando endpoints para garantir que o tráfego seja enviado apenas para Pods disponíveis.</p>
 
             </div>
             <div class="col-md-4">
@@ -102,14 +102,14 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p>No momento que tiver múltiplas instâncias de uma aplicação em execução, será capaz de fazer <i>Rolling updates</i> sem indisponibilidade. Nós cobriremos isso no próximo módulo. Agora, vamos ao terminal online e escalar nossa aplicação.</p>
+                <p>No momento em que tiver múltiplas instâncias de uma aplicação em execução, será capaz de fazer <i>Rolling updates</i> sem indisponibilidade. Nós cobriremos isso no próximo módulo. Agora, vamos ao terminal online e escalar nossa aplicação.</p>
             </div>
         </div>
         <br>
 
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Iniciar tutorial interativo<span class="btn__next">›</span></a>
+                <a class="btn btn-lg btn-success" href="/pt/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Iniciar tutorial interativo<span class="btn__next">›</span></a>
             </div>
         </div>
 
