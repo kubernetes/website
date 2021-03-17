@@ -56,13 +56,14 @@ can use any number of volume types simultaneously.
 Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
 the lifetime of a pod. Consequently, a volume outlives any containers
 that run within the pod, and data is preserved across container restarts. When a
-pod ceases to exist, the volume is destroyed.
+pod ceases to exist, Kubernetes destroys ephemeral volumes; however, Kubernetes does not
+destroy persistent volumes.
 -->
 Kubernetes 支持很多类型的卷。
 {{< glossary_tooltip term_id="pod" text="Pod" >}} 可以同时使用任意数目的卷类型。
 临时卷类型的生命周期与 Pod 相同，但持久卷可以比 Pod 的存活期长。
 因此，卷的存在时间会超出 Pod 中运行的所有容器，并且在容器重新启动时数据也会得到保留。
-当 Pod 不再存在时，卷也将不再存在。
+当 Pod 不再存在时，临时卷也将不再存在。但是持久卷会继续存在。
 
 <!--
 At its core, a volume is just a directory, possibly with some data in it, which
@@ -178,6 +179,11 @@ spec:
       volumeID: "<volume-id>"
       fsType: ext4
 ```
+
+<!--
+If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which parition to mount on.
+-->
+如果 EBS 卷是分区的，你可以提供可选的字段 `partition: "<partition number>"` 来指定要挂载到哪个分区上。
 
 <!--
 #### AWS EBS CSI migration
