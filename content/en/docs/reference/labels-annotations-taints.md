@@ -254,3 +254,8 @@ Example: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
 
 If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
 
+## kubectl.kubernetes.io/default-container
+
+Example: `kubectl.kubernetes.io/default-container:container1`
+
+If a Pod has the annotation `kubectl.kubernetes.io/default-container`, consumers (CLI, operators) know which is the default container. For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container. 
