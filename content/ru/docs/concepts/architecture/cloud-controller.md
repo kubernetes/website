@@ -1,5 +1,5 @@
 ---
-title: Диспетчер облочного контроллера
+title: Диспетчер облочных контроллеров
 content_type: concept
 weight: 40
 ---
@@ -8,14 +8,11 @@ weight: 40
 
 {{< feature-state state="beta" for_k8s_version="v1.11" >}}
 
-Cloud infrastructure technologies let you run Kubernetes on public, private, and hybrid clouds.
-Kubernetes believes in automated, API-driven infrastructure without tight coupling between
-components.
+Технологии облочной инфраструктуры позволяет запускать Kubernetes в общедоступных, частных и гибритных облоках. Kubernetes верит в автоматизированную,управляемую API инфраструктуру без жесткой связи между компонентами.
 
 {{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="The cloud-controller-manager is">}}
 
-The cloud-controller-manager is structured using a plugin
-mechanism that allows different cloud providers to integrate their platforms with Kubernetes.
+Диспетчер облочных контроллеров структурирован с использованием механизма плагинов, которые позволяют различным облочным провайдерам интегрировать свои платформы с Kubernetes.
 
 
 
@@ -25,66 +22,53 @@ mechanism that allows different cloud providers to integrate their platforms wit
 
 ![Kubernetes components](/images/docs/components-of-kubernetes.svg)
 
-The cloud controller manager runs in the control plane as a replicated set of processes
-(usually, these are containers in Pods). Each cloud-controller-manager implements
-multiple {{< glossary_tooltip text="controllers" term_id="controller" >}} in a single
-process.
+Диспетчер облочных контроллеров работает в панели управления как реплицированный набот процессов 
+(обычно это контейнер в Pod-ах). Каждый диспетчер облочных контроллеров реализует многоразовые Each cloud-controller-manager implements
+multiple {{< glossary_tooltip text="контроллеры" term_id="controller" >}} в единственном
+процессе.
 
 
-{{< note >}}
-You can also run the cloud controller manager as a Kubernetes
-{{< glossary_tooltip text="addon" term_id="addons" >}} rather than as part
-of the control plane.
+{{< Примечание: >}}
+Вы так же можете запустить диспетчер облочных контроллеров как {{< glossary_tooltip text="дополнение" term_id="addons" >}} Kubernetes, а некак часть
+панели управления.
 {{< /note >}}
 
 ## Функции диспетчера облочных контроллеров {#functions-of-the-ccm}
 
-The controllers inside the cloud controller manager include:
+Контроллеры внутри диспетчера облочных контроллеров включают в себя:
 
-### Контролеры узла
+### Контролер узла
 
-The node controller is responsible for creating {{< glossary_tooltip text="Node" term_id="node" >}} objects
-when new servers are created in your cloud infrastructure. The node controller obtains information about the
-hosts running inside your tenancy with the cloud provider. The node controller performs the following functions:
+Контроллер узла отвечает за создание объектов {{< glossary_tooltip text="Узла" term_id="node" >}}
+при создании новых серверов в вашей облочной инфраструктуре. Контроллер узла получает информацию 
+о работающих хостах внутри вашего арендуемого облочного провайдера.
+Контроллер узла выполняет следующие функции:
 
-1. Initialize a Node object for each server that the controller discovers through the cloud provider API.
-2. Annotating and labelling the Node object with cloud-specific information, such as the region the node
-   is deployed into and the resources (CPU, memory, etc) that it has available.
-3. Obtain the node's hostname and network addresses.
-4. Verifying the node's health. In case a node becomes unresponsive, this controller checks with
-   your cloud provider's API to see if the server has been deactivated / deleted / terminated.
-   If the node has been deleted from the cloud, the controller deletes the Node object from your Kubernetes
-   cluster.
+1. Инициализация объектов узла для каждого сервера, контроллер которого через API облочного провайдера.
+2. Аннотирование и маркировка объеко узла специфичной для облока информацией, такой как регион, в котором развернут узел и доступные ему ресурсы (процессор, память и т.д.).
+3. Получение имени хоста и сетевых адресов.
+4. Проверка работоспособности ущла. В случае, если узел перестает отвечать на запросы, этот контроллер проверяется с помощью API вашего облочного провайдера, был ли сервер деактевирован / удален / прекращен.
+   Если узел был удален из облока, контроллер удлаяет объект узла из вашего Kubernetes кластера.
 
-Some cloud provider implementations split this into a node controller and a separate node
-lifecycle controller.
+Некоторые облочные провайдеры реализуют его разделение на контроллер узла и отдельный контроллер жизненного цикла узла.
 
-### Route controller
+### Контролер маршрута
 
-The route controller is responsible for configuring routes in the cloud
-appropriately so that containers on different nodes in your Kubernetes
-cluster can communicate with each other.
+Контролер маршрута отвечае за соответствующую настройку маршрутов облоке, чтобы контейнеры на разных узлах кластера Kubernetes могли взаимодействовать друг с другом.
 
-Depending on the cloud provider, the route controller might also allocate blocks
-of IP addresses for the Pod network.
+В зависимости от облочного провайдера, контроллер маршрута способен также выделять блоки IP адресов для сети Pod.
 
-### Service controller
+### Сервисный контроллер
 
-{{< glossary_tooltip text="Services" term_id="service" >}} integrate with cloud
-infrastructure components such as managed load balancers, IP addresses, network
-packet filtering, and target health checking. The service controller interacts with your
-cloud provider's APIs to set up load balancers and other infrastructure components
-when you declare a Service resource that requires them.
+{{< glossary_tooltip text="Службы" term_id="service" >}} интегрируются с компонентами облочной инфраструктуры, такими как управляемые балансировщики нагрузки, IP адреса, фильтрация сетевых пакетов и проверка работоспособности целевых объектов. Сервисный контроллер взаимодействует с API вашего облочного провайдера для настройки балансировщиков нагрузки и других компонентов инфраструктуры, когда вы объявляете ресурсные службы которые он требует.
 
-## Authorization
+## Авторизация
 
-This section breaks down the access that the cloud controller managers requires
-on various API objects, in order to perform its operations.
+В этом разделе разбирается доступ, который нужен для управления облочным контроллером к различным объектам API для выполнения своих операций.
 
-### Node controller {#authorization-node-controller}
+### Контроллер узла {#authorization-node-controller}
 
-The Node controller only works with Node objects. It requires full access
-to read and modify Node objects.
+Контроллер узла работает только с объектом узла. Он требует полного доступа для и изменения объектов узла.
 
 `v1/Node`:
 
@@ -96,22 +80,21 @@ to read and modify Node objects.
 - Watch
 - Delete
 
-### Route controller {#authorization-route-controller}
+### Контролер маршрута {#authorization-route-controller}
 
-The route controller listens to Node object creation and configures
-routes appropriately. It requires Get access to Node objects.
+Контролер маршрута прослушивает создание объектов узла и соответствующим образом настраивает маршруты. Для этого требуется получить доступ к  объектам узла.
 
 `v1/Node`:
 
 - Get
 
-### Service controller {#authorization-service-controller}
+### Сервисный контроллер {#authorization-service-controller}
 
-The service controller listens to Service object Create, Update and Delete events and then configures Endpoints for those Services appropriately.
+Сервисный контроллер прослушивает события Create, Update и Delete объектов службы, а затем соответствующим образом настраивает конечные точки для этих соответствующих сервисов.
 
-To access Services, it requires List, and Watch access. To update Services, it requires Patch and Update access.
+Для доступа к сервисам, требуется доступ к событиям List и Watch. Для обновления сервисов, требуется доступ к событиям Patch и Update.
 
-To set up Endpoints resources for the Services, it requires access to Create, List, Get, Watch, and Update.
+Чтобы настроить ресурсы конечных точек для сервисов, требуется доступ к событиям Create, List, Get, Watch, и Update.
 
 `v1/Service`:
 
@@ -121,9 +104,9 @@ To set up Endpoints resources for the Services, it requires access to Create, Li
 - Patch
 - Update
 
-### Others {#authorization-miscellaneous}
+### Другие {#authorization-miscellaneous}
 
-The implementation of the core of the cloud controller manager requires access to create Event objects, and to ensure secure operation, it requires access to create ServiceAccounts.
+Реализация ядра диспетчера облочных контроллеров требует доступ для создания создания объектов события, а для обеспечения безопасной работы требуется доступ для создания учетных записей сервисов (ServiceAccounts).
 
 `v1/Event`:
 
@@ -135,8 +118,7 @@ The implementation of the core of the cloud controller manager requires access t
 
 - Create
 
-The {{< glossary_tooltip term_id="rbac" text="RBAC" >}} ClusterRole for the cloud
-controller manager looks like:
+{{< glossary_tooltip term_id="rbac" text="RBAC" >}} ClusterRole для диспетчера облочных контроллеров выглядить так:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -203,13 +185,13 @@ rules:
 
 ## {{% heading "whatsnext" %}}
 
-[Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
-has instructions on running and managing the cloud controller manager.
+[Администрирование диспетчера облочных контроллеров](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
+содержить инструкции по запуску и управлению диспетером облочных контроллеров.
 
-Want to know how to implement your own cloud controller manager, or extend an existing project?
+Хотите знать как реализовать свой собственный диспетчер облочных контроллеров или расширить проект?
 
-The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the `CloudProvider` interface defined in [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62) from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
+Диспетчер облочных контроллеров использует интерфейс Go, который позволяет реализовать подключение из любого облока. В частности, он использует `CloudProvider` интерфейс, который определен в [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62) из [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
 
-The implementation of the shared controllers highlighted in this document (Node, Route, and Service), and some scaffolding along with the shared cloudprovider interface, is part of the Kubernetes core. Implementations specific to cloud providers are outside the core of Kubernetes and implement the `CloudProvider` interface.
+Реализация общих контроллеров выделенных в этом документе (Node, Route, и Service),а так же некоторые возведения вместе с общим облочным провайдерским интерфейсом являются частью ядра Kubernetes. особые реализации, для облочных провайдеров находятся вне ядра Kubernetes и реализуют интерфейс `CloudProvider`.
 
-For more information about developing plugins, see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
+Дополнительные сведения о разработке плагинов см. в разделе [Разработка диспетчера облочных контроллеров](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
