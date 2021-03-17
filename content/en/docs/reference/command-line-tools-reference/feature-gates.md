@@ -159,6 +159,7 @@ different Kubernetes components.
 | `SCTPSupport` | `true` | Beta | 1.19 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
+| `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | |
 | `ServiceLBNodePortControl` | `false` | Alpha | 1.20 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
 | `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
@@ -727,6 +728,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)
   for more details.
 - `ServiceAppProtocol`: Enables the `AppProtocol` field on Services and Endpoints.
+- `ServiceInternalTrafficPolicy`: Enables the `InternalTrafficPolicy` field on Services
 - `ServiceLBNodePortControl`: Enables the `spec.allocateLoadBalancerNodePorts`
   field on Services.
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
