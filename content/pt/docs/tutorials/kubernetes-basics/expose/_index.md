@@ -1,4 +1,4 @@
 ---
-title: Exponha publicamente seu App
+title: Exponha publicamente seu aplicativo
 weight: 40
 ---
