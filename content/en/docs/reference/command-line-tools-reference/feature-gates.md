@@ -261,6 +261,7 @@ different Kubernetes components.
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
 | `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | 1.20 |
 | `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | |
+| `IndexedJob` | `false` | Alpha | 1.21 | |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | - |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
@@ -630,10 +631,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `HyperVContainer`: Enable
   [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)
   for Windows containers.
-- `IPv6DualStack`: Enable [dual stack](/docs/concepts/services-networking/dual-stack/)
-  support for IPv6.
 - `ImmutableEphemeralVolumes`: Allows for marking individual Secrets and ConfigMaps as
   immutable for better safety and performance.
+- `IndexedJob`: Allows the [Job](/docs/concepts/workloads/controllers/job/)
+  controller to manage Pod completions per completion index.
+- `IPv6DualStack`: Enable [dual stack](/docs/concepts/services-networking/dual-stack/)
+  support for IPv6.
 - `KubeletConfigFile` (*deprecated*): Enable loading kubelet configuration from
   a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
