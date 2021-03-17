@@ -67,15 +67,15 @@ delete the Node object to stop that health checking.
 The name of a Node object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-{{< note >}}
+### Node name uniqueness
+
 The [name](/docs/concepts/overview/working-with-objects/names#names) identifies a Node. Two Nodes
 cannot have the same name at the same time. Kubernetes also assumes that a resource with the same
 name is the same object. In case of a Node, it is implicitly assumed that an instance using the
 same name will have the same state (e.g. network settings, root disk contents). This may lead to
-inconsistencies if you modify an instance without changing its name. If you want to replace a node, you should
-make sure to remove the existing
-Node object from API server.
-{{< /note >}}
+inconsistencies if an instance was modified without changing its name. If the Node needs to be
+replaced or updated significantly, the existing Node object needs to be removed from API server
+first and re-added after the update.
 
 ### Self-registration of Nodes
 
