@@ -17,7 +17,7 @@ _index number_ that the control plane sets automatically, which allows each Pod
 to identify which part of the overall task to work on.
 
 The pod index is available in the {{< glossary_tooltip text="annotation" term_id="annotation" >}}
-`batch.kubernetes.io/job-completion-index` as string representing its
+`batch.kubernetes.io/job-completion-index` as a string representing its
 decimal value. In order for the containerized task process to obtain this index,
 you can publish the value of the annotation using the [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
 mechanism.
@@ -26,14 +26,14 @@ expose the index in the `JOB_COMPLETION_INDEX` environment variable.
 
 Here is an overview of the steps in this example:
 
-1. **Create an image that can read the pod index**. You might modify the worker
-   program or add a script wrapper.
-2. **Start an Indexed Job**. The downward API allows you to pass the annotation
-   as an environment variable or file to the container.
+1. **Define a Job manifest using indexed completion**.
+   The downward API allows you to pass the pod index annotation as an
+   environment variable or file to the container.
+2. **Start an `Indexed` Job based on that manifest**.
 
 ## {{% heading "prerequisites" %}}
 
-Be familiar with the basic,
+You should already be familiar with the basic,
 non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
@@ -57,7 +57,7 @@ To access the work item from the worker program, you have a few options:
 1. Assuming that you can't modify the program, you can wrap it with a script
    that reads the index using any of the methods above and converts it into
    something that the program can use as input.
-  
+
 For this example, imagine that you chose option 3 and you want to run the
 [rev](https://man7.org/linux/man-pages/man1/rev.1.html) utility. This
 program accepts a file as an argument and prints its content reversed.
@@ -66,13 +66,21 @@ program accepts a file as an argument and prints its content reversed.
 rev data.txt
 ```
 
-For this example, you'll use the `rev` tool from the
+You'll use the `rev` tool from the
 [`busybox`](https://hub.docker.com/_/busybox) container image.
+
+As this is only an example, each Pod only does a tiny piece of work (reversing a short
+string). In a real workload you might, for example, create a Job that represents
+ the
+task of producing 60 seconds of video based on scene data.
+Each work item in the video rendering Job would be to render a particular
+frame of that video clip. Indexed completion would mean that each Pod in
+the Job knows which frame to render and publish, by counting frames from
+the start of the clip.
 
 ## Define an Indexed Job
 
-Here is a job definition. You'll need to edit the container image to match your
-preferred registry.
+Here is a sample Job manifest that uses `Indexed` completion mode:
 
 {{< codenew language="yaml" file="application/job/indexed-job.yaml" >}}
 
@@ -96,10 +104,15 @@ like shown in the following example:
 Now run the Job:
 
 ```shell
-kubectl apply -f ./indexed-job.yaml
+# This uses the first approach (relying on $JOB_COMPLETION_INDEX)
+kubectl apply -f https://kubernetes.io/examples/application/job/indexed-job.yaml
 ```
 
-Wait a bit, then check on the job:
+When you create this Job, the control plane creates a series of Pods, one for each index you specified. The value of `.spec.parallelism` determines how many can run at once whereas `.spec.completions` determines how many Pods the Job creates in total.
+
+Because `.spec.parallelism` is less than `.spec.completions`, the control plane waits for some of the first Pods to complete before starting more of them.
+
+Once you have created the Job, wait a moment then check on progress:
 
 ```shell
 kubectl describe jobs/indexed-job
@@ -162,12 +175,13 @@ Events:
   Normal  SuccessfulCreate  1s    job-controller  Created pod: indexed-job-ncslj
 ```
 
-In this example, we run the job with custom values for each index. You can
-inspect the output of the pods:
+In this example, you run the Job with custom values for each index. You can
+inspect the output of one of the pods:
 
 ```shell
-kubectl logs indexed-job-fdhq5 # Change this to match the name of a Pod in your cluster.
+kubectl logs indexed-job-fdhq5 # Change this to match the name of a Pod from that Job
 ```
+
 
 The output is similar to:
 
