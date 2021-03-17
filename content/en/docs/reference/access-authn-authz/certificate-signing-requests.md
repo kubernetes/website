@@ -256,7 +256,7 @@ Export the issued certificate from the CertificateSigningRequest.
 This example assumes the key and certificate files are located at "/home/vagrant/work/".
 
 ```
-kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > /home/vagrant/work/john.crt
+kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > john.crt
 ```
 
 ### Create Role and RoleBinding
