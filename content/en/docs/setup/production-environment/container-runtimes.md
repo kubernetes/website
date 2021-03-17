@@ -353,7 +353,7 @@ in sync.
 
 ### Docker
 
-1. On each of your nodes, install the Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server)
+1. On each of your nodes, install the Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server). You can find the latest validated version of Docker in this [dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
 
 2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
 
