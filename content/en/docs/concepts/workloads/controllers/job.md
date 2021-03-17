@@ -145,8 +145,8 @@ There are three main types of task suitable to run as a Job:
    - the Job is complete as soon as its Pod terminates successfully.
 1. Parallel Jobs with a *fixed completion count*:
    - specify a non-zero positive value for `.spec.completions`.
-   - the Job represents the overall task, and is complete when there is one successful Pod for each value in the range 1 to `.spec.completions`.
-   - **not implemented yet:** Each Pod is passed a different index in the range 1 to `.spec.completions`.
+   - the Job represents the overall task, and is complete when there are `.spec.completions` successful Pods.
+   - when using `.spec.completionMode="Indexed"`, each Pod gets a different index in the range 0 to `.spec.completions-1`.
 1. Parallel Jobs with a *work queue*:
    - do not specify `.spec.completions`, default to `.spec.parallelism`.
    - the Pods must coordinate amongst themselves or an external service to determine what each should work on. For example, a Pod might fetch a batch of up to N items from the work queue.
@@ -166,7 +166,6 @@ a non-negative integer.
 
 For more information about how to make use of the different types of job, see the [job patterns](#job-patterns) section.
 
-
 #### Controlling parallelism
 
 The requested parallelism (`.spec.parallelism`) can be set to any non-negative value.
@@ -184,6 +183,33 @@ parallelism, for a variety of reasons:
   then there may be fewer pods than requested.
 - The Job controller may throttle new Pod creation due to excessive previous pod failures in the same Job.
 - When a Pod is gracefully shut down, it takes time to stop.
+
+### Completion mode
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+{{< note >}}
+To be able to create Indexed Jobs, make sure to enable the `IndexedJob`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](docs/reference/command-line-tools-reference/kube-apiserver/)
+and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+{{< /note >}}
+
+Jobs with _fixed completion count_ - that is, jobs that have non null
+`.spec.completions` - can have a completion mode that is specified in `.spec.completionMode`:
+
+- `NonIndexed` (default): the Job is considered complete when there have been
+  `.spec.completions` successfully completed Pods. In other words, each Pod
+  completion is homologous to each other. Note that Jobs that have null
+  `.spec.completions` are implicitly `NonIndexed`.
+- `Indexed`: the Pods of a Job get an associated completion index from 0 to
+  `.spec.completions-1`, available in the annotation `batch.kubernetes.io/job-completion-index`.
+  The Job is considered complete when there is one successfully completed Pod
+  for each index. For more information about how to use this mode, see
+  [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
+  Note that, although rare, more than one Pod could be started for the same
+  index, but only one of them will count towards the completion count.
+
 
 ## Handling Pod and container failures
 
@@ -348,12 +374,12 @@ The tradeoffs are:
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
 The pattern names are also links to examples and more detailed description.
 
-|                            Pattern                                   | Single Job object | Fewer pods than work items? | Use app unmodified? |  Works in Kube 1.1? |
-| -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
-| [Job Template Expansion](/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
-| [Queue with Pod Per Work Item](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |         ✓         |                             |      sometimes      |          ✓          |
-| [Queue with Variable Pod Count](/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
-| Single Job with Static Work Assignment                               |         ✓         |                             |          ✓          |                     |
+|                  Pattern                  | Single Job object | Fewer pods than work items? | Use app unmodified? |
+| ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
+| [Queue with Pod Per Work Item]            |         ✓         |                             |      sometimes      |
+| [Queue with Variable Pod Count]           |         ✓         |             ✓               |                     |
+| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          | 
+| [Job Template Expansion]                  |                   |                             |          ✓          |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
 has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
@@ -364,13 +390,17 @@ are different ways to arrange for pods to work on different things.
 This table shows the required settings for `.spec.parallelism` and `.spec.completions` for each of the patterns.
 Here, `W` is the number of work items.
 
-|                             Pattern                                  | `.spec.completions` |  `.spec.parallelism` |
-| -------------------------------------------------------------------- |:-------------------:|:--------------------:|
-| [Job Template Expansion](/docs/tasks/job/parallel-processing-expansion/)           |          1          |     should be 1      |
-| [Queue with Pod Per Work Item](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |          W          |        any           |
-| [Queue with Variable Pod Count](/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
-| Single Job with Static Work Assignment                               |          W          |        any           |
+|             Pattern                       | `.spec.completions` |  `.spec.parallelism` |
+| ----------------------------------------- |:-------------------:|:--------------------:|
+| [Queue with Pod Per Work Item]            |          W          |        any           |
+| [Queue with Variable Pod Count]           |         null        |        any           |
+| [Indexed Job with Static Work Assignment] |          W          |        any           |
+| [Job Template Expansion]                  |          1          |     should be 1      |
 
+[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
+[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
+[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
+[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
 
 ## Advanced usage
 
