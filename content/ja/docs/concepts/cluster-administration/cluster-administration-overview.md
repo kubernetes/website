@@ -39,7 +39,7 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
 
 * [Kubernetes コンテナの環境](/ja/docs/concepts/containers/container-environment/)では、Kubernetesノード上でのKubeletが管理するコンテナの環境について説明します。
 
-* [Kubernetes APIへのアクセス制御](/docs/concepts/security/controlling-access)では、Kubernetesが自身のAPIに対するアクセスコントロールをどのように実装するかを説明します。
+* [Kubernetes APIへのアクセス制御](/docs/concepts/security/controlling-access)では、Kubernetesで自身のAPIに対するアクセスコントロールがどのように実装されているかを説明します。
 
 * [認証](/docs/reference/access-authn-authz/authentication/)では、様々な認証オプションを含むKubernetesでの認証について説明します。
 
