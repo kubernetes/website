@@ -52,7 +52,7 @@ Jobとは対照的に、クラスターの外部に変更を加える必要が�
 
 (クラスター内のノードを水平にスケールさせる[コントローラー](https://github.com/kubernetes/autoscaler/)が実際に存在します。)
 
-ここで重要な点は、コントローラーが目的の状態を実現するために変更を加えてから、現在の状態をクラスターのAPIサーバーに報告することです。 他の制御ループは、その報告されたデータを監視し、独自のアクションを実行できます。
+ここで重要な点は、コントローラーが目的の状態を実現するために変更を加えてから、現在の状態をクラスターのAPIサーバーに報告することです。他の制御ループは、その報告されたデータを監視し、独自のアクションを実行できます。
 
 サーモスタットの例では、部屋が非常に寒い場合、別のコントローラーが霜防止ヒーターをオンにすることもあります。 Kubernetesクラスターを使用すると、コントロールプレーンは、[Kubernetesを拡張して](/ja/docs/concepts/extend-kubernetes/)実装することにより、IPアドレス管理ツールやストレージサービス、クラウドプロバイダーAPI、およびその他のサービスと間接的に連携します。
 
@@ -90,4 +90,3 @@ Kubernetesを拡張するためにコントロールプレーンの外で動作�
 * 基本的な[Kubernetesオブジェクト](/ja/docs/concepts/#kubernetes-objects)について学ぶ
 * [Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)について学ぶ
 * 自分でコントローラーを書きたい場合は、「Kubernetesを拡張する」の[エクステンションパターン](/ja/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)を読んでください。
-
