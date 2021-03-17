@@ -160,6 +160,7 @@ different Kubernetes components.
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceLBNodePortControl` | `false` | Alpha | 1.20 | |
+| `ServiceLoadBalancerClass` | `false` | Alpha | 1.21 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
 | `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
@@ -729,6 +730,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceAppProtocol`: Enables the `AppProtocol` field on Services and Endpoints.
 - `ServiceLBNodePortControl`: Enables the `spec.allocateLoadBalancerNodePorts`
   field on Services.
+- `ServiceLoadBalancerClass`: Enables the `LoadBalancerClass` field on Services.
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers
   created by a cloud provider. A node is eligible for exclusion if labelled with
