@@ -532,16 +532,6 @@ or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it a
 {{< /note >}}
 
 <!--
-Restarting the kubelet is required:
--->
-需要重新启动 kubelet：
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl restart kubelet
-```
-
-<!--
 The automatic detection of cgroup driver for other container runtimes
 like CRI-O and containerd is work in progress.
 -->
