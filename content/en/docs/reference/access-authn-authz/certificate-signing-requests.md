@@ -196,8 +196,8 @@ O is the group that this user will belong to. You can refer to
 [RBAC](/docs/reference/access-authn-authz/rbac/) for standard groups.
 
 ```shell
-openssl genrsa -out john.key 2048
-openssl req -new -key john.key -out john.csr
+openssl genrsa -out myuser.key 2048
+openssl req -new -key myuser.key -out myuser.csr
 ```
 
 ### Create CertificateSigningRequest
@@ -209,7 +209,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 metadata:
-  name: john
+  name: myuser
 spec:
   groups:
   - system:authenticated
@@ -224,7 +224,7 @@ Some points to note:
 
 - `usages` has to be '`client auth`'
 - `request` is the base64 encoded value of the CSR file content.
-  You can get the content using this command: ```cat john.csr | base64 | tr -d "\n"```
+  You can get the content using this command: ```cat myuser.csr | base64 | tr -d "\n"```
 
 ### Approve certificate signing request
 
@@ -239,7 +239,7 @@ kubectl get csr
 Approve the CSR:
 
 ```shell
-kubectl certificate approve john
+kubectl certificate approve myuser
 ```
 
 ### Get the certificate
@@ -247,16 +247,15 @@ kubectl certificate approve john
 Retrieve the certificate from the CSR:
 
 ```shell
-kubectl get csr/john -o yaml
+kubectl get csr/myuser -o yaml
 ```
 
 The certificate value is in Base64-encoded format under `status.certificate`.
 
 Export the issued certificate from the CertificateSigningRequest.
-This example assumes the key and certificate files are located at "/home/vagrant/work/".
 
 ```
-kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > john.crt
+kubectl get csr myuser -o jsonpath='{.status.certificate}'| base64 -d > myuser.crt
 ```
 
 ### Create Role and RoleBinding
@@ -273,7 +272,7 @@ kubectl create role developer --verb=create --verb=get --verb=list --verb=update
 This is a sample command to create a RoleBinding for this new user:
 
 ```shell
-kubectl create rolebinding developer-binding-john --role=developer --user=john
+kubectl create rolebinding developer-binding-myuser --role=developer --user=myuser
 ```
 
 ### Add to kubeconfig
@@ -283,20 +282,20 @@ The last step is to add this user into the kubeconfig file.
 First, you need to add new credentials:
 
 ```
-kubectl config set-credentials john --client-key=/home/vagrant/work/john.key --client-certificate=/home/vagrant/work/john.crt --embed-certs=true
+kubectl config set-credentials myuser --client-key=myuser.key --client-certificate=myuser.crt --embed-certs=true
 
 ```
 
 Then, you need to add the context:
 
 ```
-kubectl config set-context john --cluster=kubernetes --user=john
+kubectl config set-context myuser --cluster=kubernetes --user=myuser
 ```
 
-To test it, change the context to `john`:
+To test it, change the context to `myuser`:
 
 ```
-kubectl config use-context john
+kubectl config use-context myuser
 ```
 
 ## Approval or rejection  {#approval-rejection}
