@@ -16,7 +16,7 @@ kubeadm은 실행 가능한 최소 클러스터를 시작하고 실행하는 데
 
 ## 설치 방법
 
-kubeadm을 설치하려면, [설치 가이드](/docs/setup/production-environment/tools/kubeadm/install-kubeadm)를 참고한다.
+kubeadm을 설치하려면, [설치 가이드](/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)를 참고한다.
 
 ## {{% heading "whatsnext" %}}
 
