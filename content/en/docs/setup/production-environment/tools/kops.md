@@ -23,7 +23,7 @@ kops is an automated provisioning system:
 ## {{% heading "prerequisites" %}}
 
 
-* You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed.
+* You must have [kubectl](/docs/tasks/tools/) installed.
 
 * You must [install](https://github.com/kubernetes/kops#installing) `kops` on a 64-bit (AMD64 and Intel 64) device architecture.
 

@@ -29,7 +29,7 @@ kubectl apply -k <kustomization_directory>
 ## {{% heading "prerequisites" %}}
 
 
-Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
+Install [`kubectl`](/docs/tasks/tools/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 

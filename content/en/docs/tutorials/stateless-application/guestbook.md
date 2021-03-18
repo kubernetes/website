@@ -104,7 +104,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
       ```shell
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    1m
-      mongo          ClusterIP   10.0.0.151   <none>        6379/TCP   8s
+      mongo          ClusterIP   10.0.0.151   <none>        27017/TCP   8s
       ```
 
 {{< note >}}
