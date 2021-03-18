@@ -438,7 +438,7 @@ checks the state of each node every `-node-monitor-period` seconds.
 第三个是监控节点的健康情况。节点控制器负责在节点不可达
 （即，节点控制器因为某些原因没有收到心跳，例如节点宕机）时，
 将节点状态的 `NodeReady` 状况更新为 "`Unknown`"。
-如果节点接下来持续处于不可达状态，节点控制器将逐出节点上的所有 Pod（使用体面终止）。
+如果节点接下来持续处于不可达状态，节点控制器将逐出节点上的所有 Pod（使用优雅停机 graceful termination）。
 默认情况下 40 秒后开始报告 "`Unknown`"，在那之后 5 分钟开始逐出 Pod。
 节点控制器每隔 `--node-monitor-period` 秒检查每个节点的状态。
 
