@@ -1,5 +1,5 @@
 ---
-title: Ciclos de Vida do Contêiner
+title: Hooks de Ciclo de Vida do Contêiner
 content_type: concept
 weight: 30
 ---
