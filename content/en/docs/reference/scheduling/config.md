@@ -181,8 +181,6 @@ that are not enabled by default:
 - `RequestedToCapacityRatio`: Favor nodes according to a configured function of
   the allocated resources.
   Extension points: `Score`.
-- `NodeResourceLimits`: Favors nodes that satisfy the Pod resource limits.
-  Extension points: `PreScore`, `Score`.
 - `CinderVolume`: Checks that OpenStack Cinder volume limits can be satisfied
   for the node.
   Extension points: `Filter`.

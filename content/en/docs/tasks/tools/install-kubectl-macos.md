@@ -23,7 +23,7 @@ The following methods exist for installing kubectl on macOS:
 - [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
 - [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
 - [Install with Macports on macOS](#install-with-macports-on-macos)
-- [Install on Linux as part of the Google Cloud SDK](#install-on-linux-as-part-of-the-google-cloud-sdk)
+- [Install on macOS as part of the Google Cloud SDK](#install-on-macos-as-part-of-the-google-cloud-sdk)
 
 ### Install kubectl binary with curl on macOS
 

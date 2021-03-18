@@ -112,13 +112,13 @@ parameters:
 Users request dynamically provisioned storage by including a storage class in
 their `PersistentVolumeClaim`. Before Kubernetes v1.6, this was done via the
 `volume.beta.kubernetes.io/storage-class` annotation. However, this annotation
-is deprecated since v1.6. Users now can and should instead use the
+is deprecated since v1.9. Users now can and should instead use the
 `storageClassName` field of the `PersistentVolumeClaim` object. The value of
 this field must match the name of a `StorageClass` configured by the
 administrator (see [below](#enabling-dynamic-provisioning)).
 -->
 用户通过在 `PersistentVolumeClaim` 中包含存储类来请求动态供应的存储。
-在 Kubernetes v1.6 之前，这通过 `volume.beta.kubernetes.io/storage-class` 注解实现。然而，这个注解自 v1.6 起就不被推荐使用了。
+在 Kubernetes v1.9 之前，这通过 `volume.beta.kubernetes.io/storage-class` 注解实现。然而，这个注解自 v1.6 起就不被推荐使用了。
 用户现在能够而且应该使用 `PersistentVolumeClaim` 对象的 `storageClassName` 字段。
 这个字段的值必须能够匹配到集群管理员配置的 `StorageClass` 名称（见[下面](#enabling-dynamic-provisioning)）。
 

@@ -221,7 +221,7 @@ On Windows, you can use the following settings to configure Services and load ba
 
 #### IPv4/IPv6 dual-stack
 
-You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the `IPv6DualStack` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/). See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
+You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
 
 {{< note >}}
 On Windows, using IPv6 with Kubernetes require Windows Server, version 2004 (kernel version 10.0.19041.610) or later.
