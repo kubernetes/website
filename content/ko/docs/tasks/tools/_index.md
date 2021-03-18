@@ -7,18 +7,19 @@ no_list: true
 
 ## kubectl
 
-쿠버네티스 커맨드 라인 도구인 `kubectl` 사용하면 쿠버네티스 클러스터에 대해 명령을
-실행할 수 있다. `kubectl` 을 사용하여 애플리케이션을 배포하고, 클러스터 리소스를 검사 및
-관리하고, 로그를 볼 수 있다.
+<!-- overview -->
+쿠버네티스 커맨드 라인 도구인 [`kubectl`](/ko/docs/reference/kubectl/kubectl/)을 사용하면 
+쿠버네티스 클러스터에 대해 명령을 실행할 수 있다. 
+`kubectl` 을 사용하여 애플리케이션을 배포하고, 클러스터 리소스를 검사 및 관리하고, 
+로그를 볼 수 있다. kubectl 전체 명령어를 포함한 추가 정보는
+[`kubectl` 레퍼런스 문서](/ko/docs/reference/kubectl/)에서 확인할 수 있다.
 
-클러스터에 접근하기 위해 `kubectl` 을 다운로드 및 설치하고 설정하는 방법에 대한 정보는
-[`kubectl` 설치 및 설정](/ko/docs/tasks/tools/install-kubectl/)을
-참고한다.
+`kubectl` 은 다양한 리눅스 플랫폼, macOS, 그리고 윈도우에 설치할 수 있다.
+각각에 대한 설치 가이드는 다음과 같다.
 
-<a class="btn btn-primary" href="/ko/docs/tasks/tools/install-kubectl/" role="button" aria-label="kubectl 설치 및 설정 가이드 보기">kubectl 설치 및 설정 가이드 보기</a>
-
-[`kubectl` 레퍼런스 문서](/ko/docs/reference/kubectl/)를
-읽어볼 수도 있다.
+- [리눅스에 `kubectl` 설치하기](install-kubectl-linux)
+- [macOS에 `kubectl` 설치하기](install-kubectl-macos)
+- [윈도우에 `kubectl` 설치하기](install-kubectl-windows)
 
 ## kind
 

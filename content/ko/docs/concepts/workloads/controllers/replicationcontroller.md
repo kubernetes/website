@@ -49,7 +49,7 @@ kubectl 명령에서 숏컷으로 사용된다.
 
 {{< codenew file="controllers/replication.yaml" >}}
 
-예제 파일을 다운로드 한 후 다음 명령을 실행하여 예제 작업을 실행하라.
+예제 파일을 다운로드한 후 다음 명령을 실행하여 예제 작업을 실행하라.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replication.yaml

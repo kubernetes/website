@@ -412,7 +412,7 @@ client_address=198.51.100.79
 HTTP [Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)
 또는 [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
 헤더 또는
-[프록시 프로토콜](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)과
+[프록시 프로토콜](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)과
 같은 로드밸런서와 백엔드 간에 합의된 프로토콜을 사용해야 한다.
 두 번째 범주의 로드밸런서는 서비스의 `service.spec.healthCheckNodePort` 필드의 저장된 포트를 가르키는
 HTTP 헬스 체크를 생성하여

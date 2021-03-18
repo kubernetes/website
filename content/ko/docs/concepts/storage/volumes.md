@@ -1332,7 +1332,7 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
 * `controllerPublishSecretRef`: CSI의 `ControllerPublishVolume`
   그리고 `ControllerUnpublishVolume` 호출을 완료하기 위해 CSI 드라이버에 전달하려는
   민감한 정보가 포함된 시크릿 오브젝트에 대한 참조이다. 이 필드는
-  선택사항이며, 시크릿이 필요하지 않은 경우 비어있을 수 있다. 만약 시크릿에
+  선택 사항이며, 시크릿이 필요하지 않은 경우 비어있을 수 있다. 만약 시크릿에
   둘 이상의 시크릿이 포함된 경우에도 모든 시크릿이 전달된다.
 * `nodeStageSecretRef`: CSI의 `NodeStageVolume` 호출을 완료하기위해
   CSI 드라이버에 전달하려는 민감한 정보가 포함 된 시크릿

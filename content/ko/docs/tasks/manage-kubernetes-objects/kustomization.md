@@ -7,7 +7,7 @@ weight: 20
 <!-- overview -->
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize)는
-[kustomization 파일](https://kubernetes-sigs.github.io/kustomize/api-reference/glossary/#kustomization)을
+[kustomization 파일](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization)을
 통해 쿠버네티스 오브젝트를 사용자가 원하는 대로 변경하는(customize) 독립형 도구이다.
 
 1.14 이후로, kubectl도

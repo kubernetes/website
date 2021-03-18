@@ -351,7 +351,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `VolumeScheduling` | `false` | 알파 | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | 베타 | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | - |
-| `VolumeSubpath` | `true` | GA | 1.13 | - |
+| `VolumeSubpath` | `true` | GA | 1.10 | - |
 | `VolumeSubpathEnvExpansion` | `false` | 알파 | 1.14 | 1.14 |
 | `VolumeSubpathEnvExpansion` | `true` | 베타 | 1.15 | 1.16 |
 | `VolumeSubpathEnvExpansion` | `true` | GA | 1.17 | - |
