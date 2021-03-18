@@ -62,8 +62,6 @@ different Kubernetes components.
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
-| `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
-| `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
 | `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
 | `CSIInlineVolume` | `true` | Beta | 1.16 | - |
 | `CSIMigration` | `false` | Alpha | 1.14 | 1.16 |
@@ -200,6 +198,9 @@ different Kubernetes components.
 | `BlockVolume` | `false` | Alpha | 1.9 | 1.12 |
 | `BlockVolume` | `true` | Beta | 1.13 | 1.17 |
 | `BlockVolume` | `true` | GA | 1.18 | - |
+| `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
+| `CRIContainerLogRotation` | `true` | Beta | 1.11 | 1.20 |
+| `CRIContainerLogRotation` | `true` | GA | 1.21 | - |
 | `CSIBlockVolume` | `false` | Alpha | 1.11 | 1.13 |
 | `CSIBlockVolume` | `true` | Beta | 1.14 | 1.17 |
 | `CSIBlockVolume` | `true` | GA | 1.18 | - |
@@ -451,7 +452,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
    for more details.
 - `CPUManager`: Enable container level CPU affinity support, see
   [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
-- `CRIContainerLogRotation`: Enable container log rotation for cri container runtime.
+- `CRIContainerLogRotation`: Enable container log rotation for CRI container runtime. The default max size of a log file is 10MB and the
+  default max number of log files allowed for a container is 5. These values can be configured in the kubelet config.
+  See the [logging at node level](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level) documentation for more details.
 - `CSIBlockVolume`: Enable external CSI volume drivers to support block storage.
   See the [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support)
   documentation for more details.
