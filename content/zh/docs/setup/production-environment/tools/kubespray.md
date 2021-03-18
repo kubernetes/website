@@ -48,10 +48,10 @@ Kubespray 是一个由 [Ansible](https://docs.ansible.com/) playbooks、[清单�
 
 <!--
 To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to
-[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
+[kubeadm](/docs/reference/setup-tools/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
 -->
 要选择最适合你的用例的工具，请阅读[此比较](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)以
- [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/) 和 [kops](/zh/docs/setup/production-environment/tools/kops/) 。
+ [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 和 [kops](/zh/docs/setup/production-environment/tools/kops/) 。
 <!-- body -->
 
 <!--

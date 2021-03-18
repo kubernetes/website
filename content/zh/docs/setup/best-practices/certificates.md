@@ -17,12 +17,12 @@ weight: 40
 
 <!--
 Kubernetes requires PKI certificates for authentication over TLS.
-If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), the certificates that your cluster requires are automatically generated.
+If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/), the certificates that your cluster requires are automatically generated.
 You can also generate your own certificates - for example, to keep your private keys more secure by not storing them on the API server.
 This page explains the certificates that your cluster requires.
 -->
 Kubernetes 需要 PKI 证书才能进行基于 TLS 的身份验证。如果你是使用
-[kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/) 安装的 Kubernetes，
+[kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 安装的 Kubernetes，
 则会自动生成集群所需的证书。你还可以生成自己的证书。
 例如，不将私钥存储在 API 服务器上，可以让私钥更加安全。此页面说明了集群必需的证书。
 
@@ -144,13 +144,13 @@ Required certificates:
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
 <!--
-[1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
+[1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/) the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
 where `kind` maps to one or more of the [x509 key usage](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage) types:
 -->
 [1]: 用来连接到集群的不同 IP 或 DNS 名
-（就像 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/) 为负载均衡所使用的固定
+（就像 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 为负载均衡所使用的固定
 IP 或 DNS 名，`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
 `kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）。
 
@@ -193,11 +193,11 @@ For kubeadm users only:
 <!--
 ### Certificate paths
 
-Certificates should be placed in a recommended path (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)). Paths should be specified using the given argument regardless of location.
+Certificates should be placed in a recommended path (as used by [kubeadm](/docs/reference/setup-tools/kubeadm/)). Paths should be specified using the given argument regardless of location.
 -->
 ### 证书路径
 
-证书应放置在建议的路径中（以便 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/)使用）。无论使用什么位置，都应使用给定的参数指定路径。
+证书应放置在建议的路径中（以便 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/)使用）。无论使用什么位置，都应使用给定的参数指定路径。
 
 | 默认 CN                   | 建议的密钥路径         | 建议的证书路径       | 命令        | 密钥参数               | 证书参数                             |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
