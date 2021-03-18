@@ -147,7 +147,7 @@ Start a Powershell session, set `$Version` to the desired version (ex: `$Version
 {{% /tab %}}
 {{< /tabs >}}
 
-#### systemd {#containerd-systemd}
+#### Using the `systemd` cgroup driver {#containerd-systemd}
 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
 
@@ -156,6 +156,12 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   ...
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
+```
+
+If you apply this change make sure to restart containerd again:
+
+```shell
+sudo systemctl restart containerd
 ```
 
 When using kubeadm, manually configure the
@@ -347,7 +353,7 @@ in sync.
 
 ### Docker
 
-1. On each of your nodes, install the Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server)
+1. On each of your nodes, install the Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server). You can find the latest validated version of Docker in this [dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
 
 2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
 
