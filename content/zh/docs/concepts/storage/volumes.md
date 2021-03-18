@@ -1479,13 +1479,13 @@ Quobyte 的 GitHub 项目包含以 CSI 形式部署 Quobyte 的
 
 <!--
 An `rbd` volume allows a
-[Rados Block Device](https://ceph.com/docs/master/rbd/rbd/) volume to mount into your
+[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) volume to mount into your
 Pod.  Unlike `emptyDir`, which is erased when a Pod is removed, the contents of
 a `rbd` volume are preserved and the volume is merely unmounted.  This
 means that a RBD volume can be pre-populated with data, and that data can
 be shared between pods.
 -->
-`rbd` 卷允许将 [Rados 块设备](https://ceph.com/docs/master/rbd/rbd/) 卷挂载到你的 Pod 中.
+`rbd` 卷允许将 [Rados 块设备](https://docs.ceph.com/en/latest/rbd/) 卷挂载到你的 Pod 中.
 不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`rbd` 卷的内容在删除 Pod 时
 会被保存，卷只是被卸载。
 这意味着 `rbd` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
