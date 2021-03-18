@@ -24,27 +24,16 @@ Existem dois _hooks_ que são expostos para os contêiners:
 
 `PostStart`
 
-This hook is executed immediately after a container is created.
-However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
-No parameters are passed to the handler.
-
 Este _hook_ é executado imediatamente após um contêiner ser criado.
 Entretanto, não há garantia que o _hook_ será executado antes do ENTRYPOINT do contêiner.
 Nenhum parâmetro é passado para o manipulador.
 
 `PreStop`
 
-The Pod's termination
-grace period countdown begins before the `PreStop` hook is executed, so regardless of the outcome of
-the handler, the container will eventually terminate within the Pod's termination grace period. No
-parameters are passed to the handler.
-
-A more detailed description of the termination behavior can be found in
-[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
-
 Esse _hook_ é chamado imediatamente antes de um contêiner ser encerrado devido a uma solicitação de API ou um gerenciamento de evento como liveness/startup probe failure, preemption, resource contention e outros.
-Uma chamada ao _hook_ `PreStop` falha se o contêiner já está em um estado finalizado ou concluído e o _hook_ deve ser concluído antes que o sinal TERM seja enviado para parar o contêiner. 
+Uma chamada ao _hook_ `PreStop` falha se o contêiner já está em um estado finalizado ou concluído e o _hook_ deve ser concluído antes que o sinal TERM seja enviado para parar o contêiner. A contagem regressiva do período de tolerância de término do Pod começa antes que o _hook_ `PreStop` seja executado, portanto, independentemente do resultado do manipulador, o contêiner será encerrado dentro do período de tolerância de encerramento do Pod. Nenhum parâmetro é passado para o manispulador.
 
+Uma descrição mais detalhada do comportamento de término pode ser encontrada em [Término de Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
 ### Implementações de manipulador de hook
 
@@ -63,47 +52,41 @@ As chamadas do manipulador do _hook_ são síncronas no contexto do Pod que cont
 Isso significa que para um _hook_ `PostStart`, o ENTRYPOINT do contêiner e o _hook_ disparam de forma assíncrona.
 No entanto, se o _hook_ demorar muito para ser executado ou travar, o contêiner não consegue atingir o estado `running`.
 
-This grace period applies to the total time it takes for
-both the `PreStop` hook to execute and for the Container to stop normally. If, for example,
-`terminationGracePeriodSeconds` is 60, and the hook takes 55 seconds to complete, and the Container
-takes 10 seconds to stop normally after receiving the signal, then the Container will be killed
-before it can stop normally, since `terminationGracePeriodSeconds` is less than the total time
-(55+10) it takes for these two things to happen.
 
 Os _hooks_ `PreStop` não são executados de forma assíncrona a partir do sinal para parar o conêiner, o _hook_ precisa finalizar a sua execução antes que o sinal TERM possa ser enviado.
-Se um _hook_ `PreStop` travar durante a execução, a fase do Pod será `Terminating` e permanecerá até que o Pod seja morto após seu `terminationGracePeriodSeconds` expirar.
+Se um _hook_ `PreStop` travar durante a execução, a fase do Pod será `Terminating` e permanecerá até que o Pod seja morto após seu `terminationGracePeriodSeconds` expirar. Esse período de tolerância se aplica ao tempo total necessário
+para o _hook_ `PreStop`executar e para o contêiner parar normalmente.
+Se por exemplo, o `terminationGracePeriodSeconds` é 60, e o _hook_ leva 55 segundos para ser concluído, e o contêiner leva 10 segundos para parar normalmente após receber o sinal, então o contêiner será morto antes que possa parar
+normalmente, uma vez que o `terminationGracePeriodSeconds` é menor que o tempo total (55 + 10) que é necessário para que essas duas coisas aconteçam.
 
+Se um _hook_ `PostStart` ou `PreStop` falhar, ele mata o contêiner. 
 
-If either a `PostStart` or `PreStop` hook fails,
-it kills the Container.
+Os usuários devem tornar seus _hooks_ o mais leve possíveis.
+Há casos, no entanto, em que comandos de longa duração fazem sentido, como ao salvar o estado
+antes de parar um contêiner.
 
-Users should make their hook handlers as lightweight as possible.
-There are cases, however, when long running commands make sense,
-such as when saving state prior to stopping a Container.
+### Garantias de entrega de _hooks_
 
-### Hook delivery guarantees
+A entrega do _hook_ é destinada a acontecer *pelo menos uma vez*,
+o que quer dizer que um _hook_ pode ser chamado várias vezes para qualquer evento, 
+como para `PostStart` ou `PreStop`.
+Depende da implementação do _hook_ lidar com isso corretamente.
 
-Hook delivery is intended to be *at least once*,
-which means that a hook may be called multiple times for any given event,
-such as for `PostStart` or `PreStop`.
-It is up to the hook implementation to handle this correctly.
+Geralmente, apenas entregas únicas são feitas.
+Se, por exemplo, um receptor de _hook_ HTTP estiver inativo e não puder receber tráfego,
+não há tentativa de reenviar.
+Em alguns casos raros, no entanto, pode ocorrer uma entrega dupla.
+Por exemplo, se um kubelet reiniciar no meio do envio de um _hook_, o _hook_ pode ser 
+reenviado depois que o kubelet voltar a funcionar.
 
-Generally, only single deliveries are made.
-If, for example, an HTTP hook receiver is down and is unable to take traffic,
-there is no attempt to resend.
-In some rare cases, however, double delivery may occur.
-For instance, if a kubelet restarts in the middle of sending a hook,
-the hook might be resent after the kubelet comes back up.
+### Depurando manipuladores de _hooks_
 
-### Debugging Hook handlers
-
-The logs for a Hook handler are not exposed in Pod events.
-If a handler fails for some reason, it broadcasts an event.
-For `PostStart`, this is the `FailedPostStartHook` event,
-and for `PreStop`, this is the `FailedPreStopHook` event.
-You can see these events by running `kubectl describe pod <pod_name>`.
-Here is some example output of events from running this command:
-
+Os logs para um manipulador de _hook_ não expostos em eventos de Pod.
+Se um manipulador falhar por algum motivo, ele transmitirá um evento.
+Para `PostStart` é o evento `FailedPostStartHook` e para `PreStop` é o evento
+`failedPreStopHook`.
+Você pode ver esses eventos executando `kubectl describe pod <nome_do_pod>`.
+Aqui está um exemplo de saída de eventos da execução deste comando:
 ```
 Events:
   FirstSeen  LastSeen  Count  From                                                   SubObjectPath          Type      Reason               Message
@@ -124,7 +107,7 @@ Events:
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about the [Container environment](/docs/concepts/containers/container-environment/).
-* Get hands-on experience
-  [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
+* Saiba mais sobre o [Ambiente de contêiner](/docs/concepts/containers/container-environment/).
+* Obtenha experiência prática
+  [anexando manipuladores a eventos de ciclo de vida do contêiner](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
