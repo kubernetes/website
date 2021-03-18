@@ -87,6 +87,7 @@ Para `PostStart` é o evento `FailedPostStartHook` e para `PreStop` é o evento
 `failedPreStopHook`.
 Você pode ver esses eventos executando `kubectl describe pod <nome_do_pod>`.
 Aqui está um exemplo de saída de eventos da execução deste comando:
+
 ```
 Events:
   FirstSeen  LastSeen  Count  From                                                   SubObjectPath          Type      Reason               Message
