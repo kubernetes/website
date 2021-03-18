@@ -1,3 +1,8 @@
+title: Kubernetes Portability Reimagined
+date:  2021-02-19
+slug:  Kubernetes-Portability-Reimagined
+url:   /blog/2021/02/Kubernetes-Portability-Reimagined
+
 Kubernetes: Portability Reimagined
 
 Kubernetes provides a portable application architecture, and is delivered through a basic execution unit, Pod.  One or more containers are embedded into a Pod that carries key property for portability.  Kubernetes enables decoupling of environment specific configuration from container images along with abstractions for having applications run on on-premise or cloud infrastructures.
