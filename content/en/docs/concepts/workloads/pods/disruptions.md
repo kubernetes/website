@@ -90,7 +90,7 @@ disruptions, if any, to expect.
 
 ## Pod disruption budgets
 
-{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 Kubernetes offers features to help you run highly available applications even when you
 introduce frequent voluntary disruptions.

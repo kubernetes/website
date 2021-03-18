@@ -145,8 +145,6 @@ different Kubernetes components.
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | |
-| `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
-| `PodDisruptionBudget` | `true` | Beta | 1.5 | |
 | `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
 | `PodOverhead` | `true` | Beta | 1.18 |  |
@@ -299,6 +297,9 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | - |
+| `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
+| `PodDisruptionBudget` | `true` | Beta | 1.5 | 1.20 |
+| `PodDisruptionBudget` | `true` | GA | 1.21 | - |
 | `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
 | `PodPriority` | `true` | Beta | 1.11 | 1.13 |
 | `PodPriority` | `true` | GA | 1.14 | - |
