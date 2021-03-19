@@ -219,11 +219,16 @@ sudo systemctl restart containerd
 ```
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
+
+<br />
+Powershell 세션을 띄우고, `$Version` 환경 변수를 원하는 버전으로 설정(예: `$Version=1.4.3`)한 뒤, 다음 명령어를 실행한다.
+<br />
+
 ```powershell
 # (containerd 설치)
 # containerd 다운로드
-cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.1/containerd-1.4.1-windows-amd64.tar.gz
-cmd /c tar xvf .\containerd-1.4.1-windows-amd64.tar.gz
+curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
+tar.exe xvf .\containerd-windows-amd64.tar.gz
 ```
 
 ```powershell
@@ -236,7 +241,9 @@ cd $Env:ProgramFiles\containerd\
 # - sandbox_image (쿠버네티스 pause 이미지)
 # - cni bin_dir 및 conf_dir locations
 Get-Content config.toml
-```
+
+# (선택 사항이지만, 강력히 권장됨) containerd를 Windows Defender 검사 예외에 추가
+Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe" ```
 
 ```powershell
 # containerd 시작

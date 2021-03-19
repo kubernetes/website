@@ -1,5 +1,8 @@
 ---
 title: 클러스터 관리
+
+
+
 weight: 100
 content_type: concept
 description: >
@@ -10,6 +13,7 @@ no_list: true
 <!-- overview -->
 클러스터 관리 개요는 쿠버네티스 클러스터를 생성하거나 관리하는 모든 사람들을 위한 것이다.
 핵심 쿠버네티스 [개념](/ko/docs/concepts/)에 어느 정도 익숙하다고 가정한다.
+
 
 <!-- body -->
 ## 클러스터 계획
@@ -41,7 +45,7 @@ no_list: true
 
 ## 클러스터 보안
 
-* [인증서](/ko/docs/concepts/cluster-administration/certificates/)는 다른 툴 체인을 사용하여 인증서를 생성하는 단계를 설명한다.
+* [인증서 생성](/ko/docs/tasks/administer-cluster/certificates/)는 다른 툴 체인을 사용하여 인증서를 생성하는 단계를 설명한다.
 
 * [쿠버네티스 컨테이너 환경](/ko/docs/concepts/containers/container-environment/)은 쿠버네티스 노드에서 Kubelet으로 관리하는 컨테이너에 대한 환경을 설명한다.
 
