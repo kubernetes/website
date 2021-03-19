@@ -133,7 +133,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment
 1. 파드의 목록을 질의하여 세 개의 프론트엔드 복제본이 실행되고 있는지 확인한다.
 
       ```shell
-      kubectl get pods -l app=guestbook -l tier=frontend
+      kubectl get pods -l app.kubernetes.io/name=guestbook -l app.kubernetes.io/component=frontend
       ```
 
       결과는 아래와 같은 형태로 나타난다.
