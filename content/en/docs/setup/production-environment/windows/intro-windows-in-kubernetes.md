@@ -1,7 +1,9 @@
 ---
 reviewers:
-- michmike
-- patricklang
+- jayunit100
+- jsturtevant
+- marosset
+- perithompson
 title: Intro to Windows support in Kubernetes
 content_type: concept
 weight: 65

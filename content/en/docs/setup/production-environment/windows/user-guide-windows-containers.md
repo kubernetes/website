@@ -1,7 +1,9 @@
 ---
 reviewers:
-- michmike
-- patricklang
+- jayunit100
+- jsturtevant
+- marosset
+- perithompson
 title: Guide for scheduling Windows containers in Kubernetes
 content_type: concept
 weight: 75
