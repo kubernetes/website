@@ -13,10 +13,10 @@ weight: 20
 <!--
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) is a standalone tool
 to customize Kubernetes objects
-through a [kustomization file](https://kubernetes-sigs.github.io/kustomize/api-reference/glossary/#kustomization).
+through a [kustomization file](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization).
 -->
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) 是一个独立的工具，用来通过
-[kustomization 文件](https://kubernetes-sigs.github.io/kustomize/api-reference/glossary/#kustomization)
+[kustomization 文件](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization)
 定制 Kubernetes 对象。
 
 <!--

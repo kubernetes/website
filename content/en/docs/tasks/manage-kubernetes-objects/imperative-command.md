@@ -12,7 +12,7 @@ explains how those commands are organized and how to use them to manage live obj
 
 ## {{% heading "prerequisites" %}}
 
-Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
+Install [`kubectl`](/docs/tasks/tools/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 

@@ -70,7 +70,7 @@ for details about addon manager and how to disable individual addons.
 
 1. Mark a StorageClass as default:
 
-      Similarly to the previous step, you need to add/set the annotation
+      Similar to the previous step, you need to add/set the annotation
       `storageclass.kubernetes.io/is-default-class=true`.
 
       ```bash

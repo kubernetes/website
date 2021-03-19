@@ -103,6 +103,8 @@ spec:
       fsType: ext4
 ```
 
+EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition number>"` 를 제공하여 마운트할 파티션을 지정할 수 있다.
+
 #### AWS EBS CSI 마이그레이션
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
@@ -207,8 +209,8 @@ spec:
 Cinder의 `CSIMigration` 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `cinder.csi.openstack.org` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [오픈스택 Cinder CSI
-드라이버](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
-를 설치하고 `CSIMigration` 과 `CSIMigrationOpenStack`
+드라이버](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)를
+설치하고 `CSIMigration` 과 `CSIMigrationOpenStack`
 베타 기능을 활성화해야 한다.
 
 ### 컨피그맵(configMap) {#configmap}
@@ -534,7 +536,7 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드 간에 데�
 
 | 값 | 행동 |
 |:------|:---------|
-| | 빈 문자열 (기본값)은 이전 버전과의 호환성을 위한 것으로, hostPash 볼륨은 마운트 하기 전에 아무런 검사도 수행되지 않는다. |
+| | 빈 문자열 (기본값)은 이전 버전과의 호환성을 위한 것으로, hostPath 볼륨은 마운트 하기 전에 아무런 검사도 수행되지 않는다. |
 | `DirectoryOrCreate` | 만약 주어진 경로에 아무것도 없다면, 필요에 따라 Kubelet이 가지고 있는 동일한 그룹과 소유권, 권한을 0755로 설정한 빈 디렉터리를 생성한다. |
 | `Directory` | 주어진 경로에 디렉터리가 있어야 함 |
 | `FileOrCreate` | 만약 주어진 경로에 아무것도 없다면, 필요에 따라 Kubelet이 가지고 있는 동일한 그룹과 소유권, 권한을 0644로 설정한 빈 디렉터리를 생성한다. |
@@ -922,7 +924,7 @@ CSI 는 쿠버네티스 내에서 Quobyte 볼륨을 사용하기 위해 권장�
 ### rbd
 
 `rbd` 볼륨을 사용하면
-[Rados Block Device](https://ceph.com/docs/master/rbd/rbd/)(RBD) 볼륨을 파드에 마운트할 수
+[Rados Block Device](https://docs.ceph.com/en/latest/rbd/)(RBD) 볼륨을 파드에 마운트할 수
 있다. 파드를 제거할 때 지워지는 `emptyDir` 와는 다르게 `rbd` 볼륨의
 내용은 유지되고, 볼륨은 마운트 해제만 된다. 이
 의미는 RBD 볼륨에 데이터를 미리 채울 수 있으며, 데이터를
@@ -1330,7 +1332,7 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
 * `controllerPublishSecretRef`: CSI의 `ControllerPublishVolume`
   그리고 `ControllerUnpublishVolume` 호출을 완료하기 위해 CSI 드라이버에 전달하려는
   민감한 정보가 포함된 시크릿 오브젝트에 대한 참조이다. 이 필드는
-  선택사항이며, 시크릿이 필요하지 않은 경우 비어있을 수 있다. 만약 시크릿에
+  선택 사항이며, 시크릿이 필요하지 않은 경우 비어있을 수 있다. 만약 시크릿에
   둘 이상의 시크릿이 포함된 경우에도 모든 시크릿이 전달된다.
 * `nodeStageSecretRef`: CSI의 `NodeStageVolume` 호출을 완료하기위해
   CSI 드라이버에 전달하려는 민감한 정보가 포함 된 시크릿

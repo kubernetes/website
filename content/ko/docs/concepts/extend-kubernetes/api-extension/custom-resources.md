@@ -1,5 +1,8 @@
 ---
 title: 커스텀 리소스
+
+
+
 content_type: concept
 weight: 10
 ---
@@ -117,7 +120,7 @@ _선언_ 하거나 지정할 수 있게 해주며 쿠버네티스 오브젝트�
 
 쿠버네티스는 다양한 사용자의 요구를 충족시키기 위해 이 두 가지 옵션을 제공하므로 사용의 용이성이나 유연성이 저하되지 않는다.
 
-애그리게이트 API는 기본 API 서버 뒤에 있는 하위 API 서버이며 프록시 역할을 한다. 이 배치를 [API 애그리게이션](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)(AA)이라고 한다. 사용자에게는 쿠버네티스 API가 확장된 것과 같다.
+애그리게이트 API는 기본 API 서버 뒤에 있는 하위 API 서버이며 프록시 역할을 한다. 이 배치를 [API 애그리게이션](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)(AA)이라고 한다. 사용자에게는 쿠버네티스 API가 확장된 것으로 나타난다.
 
 CRD를 사용하면 다른 API 서버를 추가하지 않고도 새로운 타입의 리소스를 생성할 수 있다. CRD를 사용하기 위해 API 애그리게이션을 이해할 필요는 없다.
 
