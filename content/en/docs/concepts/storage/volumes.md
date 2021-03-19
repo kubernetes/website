@@ -34,8 +34,9 @@ Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" 
 can use any number of volume types simultaneously.
 Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
 the lifetime of a pod. Consequently, a volume outlives any containers
-that run within the pod, and data is preserved across container restarts. When a
-pod ceases to exist, the volume is destroyed.
+that run within the pod, and data is preserved across container restarts. When a pod
+ceases to exist, Kubernetes destroys ephemeral volumes; however, Kubernetes does not
+destroy persistent volumes.
 
 At its core, a volume is just a directory, possibly with some data in it, which
 is accessible to the containers in a pod. How that directory comes to be, the
@@ -152,14 +153,16 @@ For more details, see the [`azureFile` volume plugin](https://github.com/kuberne
 
 #### azureFile CSI migration
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 The `CSIMigration` feature for `azureFile`, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `file.csi.azure.com` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
 Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
-alpha features must be enabled.
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+
+Azure File CSI driver does not support using same volume with different fsgroups, if Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
 
 ### cephfs
 

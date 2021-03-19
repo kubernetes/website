@@ -462,7 +462,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 <!--
 Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
 -->
-现在修改 nginx 副本，启动一个使用在秘钥中的证书的 HTTPS 服务器和 Servcie，暴露端口（80 和 443）：
+现在修改 nginx 副本，启动一个使用在秘钥中的证书的 HTTPS 服务器和 Service，暴露端口（80 和 443）：
 
 {{< codenew file="service/networking/nginx-secure-app.yaml" >}}
 
