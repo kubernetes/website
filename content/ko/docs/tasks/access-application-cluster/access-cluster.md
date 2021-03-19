@@ -280,7 +280,7 @@ heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/servi
 
 #### 수작업으로 apiserver proxy URL을 구축
 
-위에서 언급한 것처럼 서비스의 proxy URL을 검색하는데 `kubectl cluster-info` 커맨드를 사용할 수 있다. 서비스 endpoint, 접미사, 매개변수를 포함하는 proxy URL을 생성하려면 단순하게 해당 서비스에
+위에서 언급한 것처럼 서비스의 proxy URL을 검색하는데 `kubectl cluster-info` 커맨드를 사용할 수 있다. 서비스 endpoint, 접미사, 매개변수를 포함하는 proxy URL을 생성하려면 해당 서비스에
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy` 형식의 proxy URL을 덧붙인다.
 
 당신이 port에 이름을 지정하지 않았다면 URL에 *port_name* 을 지정할 필요는 없다.
