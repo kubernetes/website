@@ -30,7 +30,7 @@ La herramienta `kubectl` soporta tres modos distintos para la administración de
 * Configuración de objetos imperativa
 * Configuración de objetos declarativa
 
-Acceda a ña [Administración de objetos de Kubernetes](/docs/concepts/overview/working-with-objects/object-management/)
+Acceda [Administración de objetos de Kubernetes](/docs/concepts/overview/working-with-objects/object-management/)
 para una discusión de las ventajas y desventajas de cada modo distinto de administración.
 
 ## Visión general
