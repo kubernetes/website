@@ -1,0 +1,385 @@
+---
+layout: blog
+title: "Defining Network Policy Conformance for Container Network Interface (CNI) providers"
+date: 2021-03-21
+slug: defining-networkpolicy-conformance-cni-providers
+---
+
+Authors: Matt Fennwick, Jay Vyas, Ricardo Katz, Amim Knabben, Douglas Schilling Landgraf
+
+Special thanks to Tim Hockins and Bowie Du (Google), Dan Winship and Antonio Ojea (Red Hat), Casey Davenport and Shuan Crampton (tigera), and Abhishek Raut (Vmware) for 
+being supportive of this work, and working with us to resolve issues in different Container Network Interfaces (CNIs) over time.
+
+A brief conversation around "node local" Network Policies in April of 2020 inspired the creation of a NetworkPolicy subproject from SIG Network.
+
+In this post we'll discuss:
+
+- Why we created a Subproject for [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+- How we changed the Kubernetes e2e framework to `visualize` NetworkPolicy implementation of your CNI provider
+- The initial results of our comprehensive NetworkPolicy Conformance validator, `Cyclonus`, built around these principles
+- Improvements we've made to the NetworkPolicy user experience
+
+## Why we created a subproject for NetworkPolicies
+
+In April of 2020 it was becoming clear that many CNIs were emerging, and many vendors implement these CNIs in different ways.  Users were beggining to express a little bit of confusion around how to implement policies for different scenarios, and asking for new features.
+It was clear that we needed to begin unifying the way we think about Network Policies in Kubernetes, if we wanted to avoid becoming an "ancient" API which was going to be overrun by implementation divergences. 
+
+For example:  
+- Calico as a CNI provider can be run using IPIP or VXLAN mode.  CNI's such as Antrea and Cilium offer similar configuration divergences as well.
+- Some CNI plugins rely on iptables for NetworkPolicies, whereas others use a completely different technology stack (for example, the Antrea project uses Open vSwitch rules).
+- Some CNI providers only implement a subset of the Kubernetes NetworkPolicy API (for example, certain providers don't support the ability to target a `NamedPort`, or a port range, which is a newer feature in the K8s API).
+
+Thus, end-users need to follow a multistep process to implement Network Policies to secure their applications:
+- Confirm that their CNI supports NetworkPolicies (some don't, such as flannel)
+- Confirm that their CNI supports the specific NetworkPolicies that a user is interested in (again, the Named port or Port range examples come to mind here)
+- Confirm that their application's Network Policy definitions are doing the 'right thing'
+- Find out the vendor specific implementation of a policy, and check wether or not that implementation had a CNI neutral implementation (which is preferable for most users)
+
+The NetworkPolicy project in upstream Kubernetes aims at providing a community where people can learn about, and contribute to, the Kubernetes NetworkPolicy API and the surrounding ecosystem.
+
+## The First step: A validation framework for NetworkPolicies that was intuitive to use and understand
+
+The Kubernetes end to end suite has always had NetworkPolicy tests, but these weren't run in CI, and the way they were implemented didn't really provide any holistic, easily consumable information about how a policy was working in a cluster.
+This is because the original tests didn't provide any kind of visual summary of connectivity across a cluster.   We thus initially set out to make it easy to confirm CNI support for NetworkPolicies by
+making the end to end tests (which are often used by administrators or users to diagnose cluster conformance) easy to interpret.
+
+To solve the problem of confirming that CNI's support the basic features one cares about for a policy, we built a new NetworkPolicy validation tool into the Kubernetes e2e framework which allows for visual inspection of policys and their effect on a standard set of pods in a cluster.
+For example, in the following test output.  As an example, we found a bug in [ovn kubernetes](https://github.com/ovn-org/ovn-kubernetes/issues/1782) with this tool that was really easy to characterize,
+wherein certain policies caused a state-modification that, later on, resulted in traffic being unnecesarily blocked (even after all Network Policies, cluster wide, were deleted).
+
+```
+Nov  3 15:58:54.034: INFO: Network Policy creating netpol-3291-x/allow-ingress-port-80                                                                                                                                            
+metadata:                                                                                                                                                                                                                         
+  creationTimestamp: null                                                                                                                                                                                                         
+  name: allow-ingress-port-80                                                                                                                                                                                                     
+spec:                                                                                                                                                                                                                             
+  ingress:                                                                                                                                                                                                                        
+  - ports:                                                                                                                                                                                                                        
+    - port: serve-80-tcp                                                                                                                                                                                                          
+  podSelector: {} 
+...
+
+Nov  4 16:58:43.449: INFO: expected:
+
+-               netpol-5599-x/a netpol-5599-x/b netpol-5599-x/c netpol-5599-y/a netpol-5599-y/b netpol-5599-y/c netpol-5599-z/a netpol-5599-z/b netpol-5599-z/c
+netpol-5599-x/a .               .               .               .               .               .               .               .               .
+netpol-5599-x/b .               .               .               .               .               .               .               .               .
+netpol-5599-x/c .               .               .               .               .               .               .               .               .
+netpol-5599-y/a .               .               .               .               .               .               .               .               .
+netpol-5599-y/b .               .               .               .               .               .               .               .               .
+netpol-5599-y/c .               .               .               .               .               .               .               .               .
+netpol-5599-z/a .               .               .               .               .               .               .               .               .
+netpol-5599-z/b .               .               .               .               .               .               .               .               .
+netpol-5599-z/c .               .               .               .               .               .               .               .               .
+.......... Nov  4 16:58:43.449: INFO: observed:
+
+-               netpol-5599-x/a netpol-5599-x/b netpol-5599-x/c netpol-5599-y/a netpol-5599-y/b netpol-5599-y/c netpol-5599-z/a netpol-5599-z/b netpol-5599-z/c
+netpol-5599-x/a X               X               X               X               X               X               X               X               X
+netpol-5599-x/b X               X               X               X               X               X               X               X               X
+netpol-5599-x/c X               X               X               X               X               X               X               X               X
+netpol-5599-y/a .               .               .               .               .               .               .               .               .
+netpol-5599-y/b .               .               .               .               .               .               .               .               .
+netpol-5599-y/c .               .               .               .               .               .               .               .               .
+netpol-5599-z/a .               .               .               .               .               .               .               .               .
+netpol-5599-z/b .               .               .               .               .               .               .               .               .
+netpol-5599-z/c .               .               .               .               .               .               .               .               .
+
+```
+
+This was one of our earliest 'wins' in the Network Policy group, as we were able to identity and work with the OVN kubernetes group to fix a bug in egress policy processing.
+
+However, even though this tool has made it easy to validate roughly 30 common scenarios, it doesn't validate *all* Network Policy scenarios - because there are an enormous permutation of possible
+policies that one might create (well, technically, we might say this number is infinite given that theres an infinite number of possible namespace/pod/port/prototocol variations one can create).
+
+Once these tests were in play, we worked with the Upstream SIG Network and SIG Testing communities (thanks to Antonio Ojea and Ben Elder) to put a tesgrid Network Policy job in place.  This job
+continuously runs the entire suite of Network Policy tests against [GCE with Calico as a Network Policy provider](https://testgrid.k8s.io/sig-network-gce#presubmit-network-policies,%20google-gce).
+
+Part of our role as a subproject is to help make sure that, when these tests break, we can help triage them effectively.
+
+## Cyclonus: The next step towards Network Policy conformance {#cyclonus}
+
+Around the time that we were finishing the validation work, it became clear from the community that, in general, we needed to solve the overall problem of testing ALL possible Network Policy implementations.
+For example, a KEP was recently written which introduced the concept of micro versioning to Network Policies to accomodate [describing this at the API level](https://github.com/kubernetes/enhancements/pull/2137/files), by Dan Winship.  
+
+In response to this increasingly obvious need to comprehensively defined Network Policy for all vendors, Matt Fennwick decided to evolve our approach to Network Policy validation again by creating Cyclonus.
+
+Cyclonus is a comprehensive Network Policy fuzzing tool which verifies a CNI provider against 100s of different Network Policy scenarios, by defining the same truth table/policy combinations as done in the end to end tests, while also
+providing a hierarchical representation of policy "categories".  We've found some interesting missing implementations in almost every CNI we've tested, so far, and have even contributed some fixes back, for example:
+
+To run a cyclonus job, you create a YAML file like so:
+
+```
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cyclonus
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - command:
+            - ./cyclonus
+            - generate
+            - --perturbation-wait-seconds=15
+            - --server-protocol=tcp,udp
+          name: cyclonus
+          imagePullPolicy: IfNotPresent
+          image: mfenwick100/cyclonus:latest
+      serviceAccount: cyclonus
+```
+
+From there, cyclonus outputs a printout of all test cases it will run:
+```
+test cases to run by tag:
+- target: 6
+- peer-ipblock: 4
+- udp: 16
+- delete-pod: 1
+- conflict: 16
+- multi-port/protocol: 14
+- ingress: 51
+- all-pods: 14
+- egress: 51
+- all-namespaces: 10
+- sctp: 10
+- port: 56
+- miscellaneous: 22
+- direction: 100
+- multi-peer: 0
+- any-port-protocol: 2
+- set-namespace-labels: 1
+- upstream-e2e: 0
+- allow-all: 6
+- namespaces-by-label: 6
+- deny-all: 10
+- pathological: 6
+- action: 6
+- rule: 30
+- policy-namespace: 4
+- example: 0
+- tcp: 16
+- target-namespace: 3
+- named-port: 24
+- update-policy: 1
+- any-peer: 2
+- target-pod-selector: 3
+- IP-block-with-except: 2
+- pods-by-label: 6
+- numbered-port: 28
+- protocol: 42
+- peer-pods: 20
+- create-policy: 2
+time="2021-03-11T14:56:50Z" level=info msg="test #2 to run: set namespace to y"
+- policy-stack: 0
+- any-port: 14
+- delete-namespace: 1
+- delete-policy: 1
+- create-pod: 1
+- IP-block-no-except: 2
+- create-namespace: 1
+- set-pod-labels: 1
+testing 112 cases
+```
+Note that, cyclonus 'tags' its tests based on the type of policy being created, because of the fact that the policies themselves are auto-generated, and thus have no meaningful names to be recognized by.
+
+For each test, cyclonus outputs a truth table, which is again similar to that of the E2E tests, along with the policy being validated:
+
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  creationTimestamp: null
+  name: base
+  namespace: x
+spec:
+  egress:
+  - ports:
+    - port: 81
+    to:
+    - namespaceSelector:
+        matchExpressions:
+        - key: ns
+          operator: In
+          values:
+          - "y"
+          - z
+      podSelector:
+        matchExpressions:
+        - key: pod
+          operator: In
+          values:
+          - a
+          - b
+  - ports:
+    - port: 53
+      protocol: UDP
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchExpressions:
+        - key: ns
+          operator: In
+          values:
+          - x
+          - "y"
+      podSelector:
+        matchExpressions:
+        - key: pod
+          operator: In
+          values:
+          - b
+          - c
+    ports:
+    - port: 80
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      pod: a
+  policyTypes:
+  - Ingress
+  - Egress
+
+0 wrong, 0 ignored, 81 correct
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+| TCP/80 | X/A | X/B | X/C | Y/A | Y/B | Y/C | Z/A | Z/B | Z/C |
+| TCP/81 |     |     |     |     |     |     |     |     |     |
+| UDP/80 |     |     |     |     |     |     |     |     |     |
+| UDP/81 |     |     |     |     |     |     |     |     |     |
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+| x/a    | X   | X   | X   | X   | X   | X   | X   | X   | X   |
+|        | X   | X   | X   | .   | .   | X   | .   | .   | X   |
+|        | X   | X   | X   | X   | X   | X   | X   | X   | X   |
+|        | X   | X   | X   | X   | X   | X   | X   | X   | X   |
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+| x/b    | .   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+| x/c    | .   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+| y/a    | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+| y/b    | .   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+| y/c    | .   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+| z/a    | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+| z/b    | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+| z/c    | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
+|        | X   | .   | .   | .   | .   | .   | .   | .   | .   |
++--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+```
+
+Both cyclonus and the e2e tests use the same strategy to validate a Network Policy of "probing" pods over TCP or UDP.  
+As an example of how we use Cyclonus to help make CNI implementations better from a Network Policy perspective, you can see the following issues: 
+
+- [Antrea: NetworkPolicy: unable to allow ingress by CIDR](https://github.com/vmware-tanzu/antrea/issues/1764)
+- [Calico: default missing protocol to TCP; don't let single port overwrite all ports](https://github.com/projectcalico/libcalico-go/pull/1373)
+- [Cilium: Egress Network Policy allows traffic that should be denied ](https://github.com/cilium/cilium/issues/14678)
+
+The good news is, all of these issues are actively being fixed and iterated on between SIG Network, the CNI providers, and the Network Policy subproject.  
+
+If you're interested in verifying NetworkPolicy functionality on your cluster (and, if you care about security, or run a SaaS, you should be), then you can run the upstream end to end tests, or cyclonus, or both.
+- If you are deeply curious about your CNI providers Network Policy implementation, use cyclonus to test *100s* of policies, and evaluate your CNI for comprehensive functionality, for deep discovery of potential security holes, or for getting involved with the upstream networkpolicy efforts.
+- If your just getting started with Network Policies, your better off running the e2e tests if you want to simply verify the "common" Network Policy cases that most CNIs should be implementing correctly, in a way that is quick to diagnose.
+
+## Where to start with NetworkPolicy testing ?
+
+- You can run cyclonus on your cluster easily by following the [instructions at](https://github.com/mattfenwick/cyclonus), and determine wether *your* specific CNI configuration is
+fully conformant to the 100s of different Kubernetes Network Policy API constructs.
+- Alternatively, you can use a tool like [sonobuoy](https://github.com/vmware-tanzu/sonobuoy) to run the existing E2E tests in Kubernetes, with the `--ginkgo.focus=NetworkPolicy` flag.  Note that only versions of sonobuoy built for k8s 1.21 and above will have the *new* Network Policy tests in them.
+
+## Improvements to the NetworkPolicy API and user experience
+
+In addition to cleaning up the validation story for CNI plugins that implement NetworkPolicies, we've also spent some time improving the Kubernetes NetworkPolicy API for a few commonly requested features.
+After months of delibration, we eventually settled on a few core areas for improvement:
+
+- Port Range policies: We now allow you to specify a *range* of ports for a policy.  This allows users interested in scenarios like FTP or virtualization to enable advanced policies.  The port range
+option for networkpolicies will be available to use in Kubernetes 1.21.  You can read more about this [here](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/2079-network-policy-port-range). 
+- Namespace as name policies: Allowing users in Kubernetes >= 1.21 to target namespaces using names, when building Network Policy objects.  This was done in collaboration with jordan ligget and tim hockins on the apimachinery side.
+This change allowed us to improve the Network Policy user experience without actually changing the API! For details, you can read about it [here](https://github.com/kubernetes/enhancements/pull/2162). 
+The TLDR is that after Kubernetes 1.21, ALL NAMESPACES will have the following label, added by default: 
+
+```
+kubernetes.io/metadata.name: my-namespace
+```
+
+This means, you can write an namespace policy against this namespace, even if you can't edit its labels.  For example, this policy, will 'just work', without needing to
+run a command such as `kubectl edit namespace`.  In fact, it will even work if you can't edit or view this namespace's data at all, because of the magic of apiserver defaulting.
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: test-network-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: my-namespace
+```
+
+## Results
+
+In our tests, we found that:
+
+- Antrea CNI had 100% conformance to all the several hundred Network Policy corner cases.
+- Calico had a couple of cases around named ports, but we believe these are now fixed in the latest calico.
+- Cillium was mostly on par with Antrea and Calico but seems to have an issue around egress, more info [here](https://github.com/cilium/cilium/issues/14678). 
+
+We are continuing to curate the Network Policy conformance results from Cyclonus [here](https://raw.githubusercontent.com/K8sbykeshed/cyclonus-artifacts/).  
+
+## The Future 
+
+We're also working on some improvements for the future of Network Policies, including:
+
+- Fully qualified Domain policies: The google cloud team created a prototype (which we are really excited about) of [FQDN policies](https://github.com/GoogleCloudPlatform/gke-fqdnnetworkpolicies-golang).  This tool uses the Network Policy API to enforce policies
+against L7 URLs, by finding their IPs and blocking them proactively when requests are made.
+- Cluster Administrative policies: We're working hard at enabling *administrative* or *cluster scoped* Network Policies for the future. These are being presented iteratively to the NetworkPolicy subproject.
+You can read about them here in [Cluster Scoped Network Policy](https://docs.google.com/presentation/d/1Jk86jtS3TcGAugVSM_I4Yds5ukXFJ4F1ZCvxN5v2BaY/).
+
+The Network Policy subproject meets on mondays at 4PM EST. For details, check out the [SIG Network community repo](https://github.com/kubernetes/community/tree/master/sig-network).  We'd love
+to hang out with you, hack on stuff, and help you adopt K8s Network Policies for your cluster wherever possible.
+
+### A quick note on User Feedback
+
+We've gotten a lot of ideas and feedback from users on Network Policies.  Feedback is a double-edged sword.  Alot of people have interesting ideas about Network Policies, but we've found that as a subproject, very few people were deeply interested in implementing these ideas to the full extent.
+Almost every change to the NetworkPolicy API includes weeks or months of discussion to cover different cases, and ensure no CVEs are being introduced.  Thus, long term ownership is the biggest impediment in improving the NetworkPolicy
+user experience for us, over time.
+- We've documented a lot of the history of the Network Policy dialogue [here](https://github.com/jayunit100/network-policy-subproject/blob/master/history.md).
+- We've also taken a poll of users, for what they'd like to see in the Network Policy API [here](https://github.com/jayunit100/network-policy-subproject/blob/master/history.md).
+
+We encourage anyone to provide us with feedback, but our most pressing issues right now involve finding long term owners to help us drive changes.  This doesn't require a lot of technical
+knowledge, but rather, just a long term commitment to helping us stay organized, do paperwork, and iterate through the many stages of the K8s feature process.  If you want to help us
+and get involved, please reach out on the SIG Network mailing list, or in the SIG Network room in the k8s.io slack channel !
