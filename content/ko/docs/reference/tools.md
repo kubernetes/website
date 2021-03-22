@@ -16,7 +16,7 @@ content_type: concept
 
 ## Kubeadm
 
-[`kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)은 물리적 환경, 클라우드 서버, 또는 가상머신 상에서 안전한 쿠버네티스를 쉽게 프로비저닝하기 위한 커맨드라인 툴이다(현재는 알파 상태).
+[`kubeadm`](/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)은 물리적 환경, 클라우드 서버, 또는 가상머신 상에서 안전한 쿠버네티스를 쉽게 프로비저닝하기 위한 커맨드라인 툴이다(현재는 알파 상태).
 
 ## Minikube
 
