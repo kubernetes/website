@@ -207,6 +207,12 @@ Used on: Pod
 The Job controller in the kube-controller-manager sets this annotation for Pods
 created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
 
+## kubectl.kubernetes.io/default-container
+
+Example: `kubectl.kubernetes.io/default-container: "front-end-app"`
+
+The value of the annotation is the container name that is default for this Pod. For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container.
+
 **The taints listed below are always used on Nodes**
 
 ## node.kubernetes.io/not-ready
@@ -262,4 +268,3 @@ Sets this taint on a node to mark it as unusable, when kubelet is started with t
 Example: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
 
 If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
-
