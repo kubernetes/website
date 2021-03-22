@@ -265,7 +265,7 @@ Start-Service containerd
 ```
 
 kubeadm을 사용하는 경우,
-[kubelet용 cgroup 드라이버](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)를 수동으로 구성한다.
+[kubelet용 cgroup 드라이버](/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#컨트롤-플레인-노드에서-kubelet이-사용하는-cgroup-드라이버-구성)를 수동으로 구성한다.
 
 ### CRI-O
 
