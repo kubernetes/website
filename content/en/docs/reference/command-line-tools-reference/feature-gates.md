@@ -98,7 +98,8 @@ different Kubernetes components.
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | |
-| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | |
+| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
+| `DownwardAPIHugePages` | `false` | Beta | 1.21 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
 | `EfficientWatchResumption` | `false` | Alpha | 1.20 | |
