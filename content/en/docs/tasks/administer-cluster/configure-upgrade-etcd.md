@@ -286,7 +286,8 @@ We can also take the snapshot using various options given by etcdctl. For exampl
 ETCDCTL_API=3 etcdctl --h 
 ``` 
 
-will list various options avilable with etcdctl. If you want to take a snapshot by specifying various options available here, you can do so. For example, to take a snapshot by specifying the endpoint, certificates etc is as given below
+will list various options available from etcdctl. For example, you can take a snapshot by specifying
+the endpoint, certificates etc as shown below:
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints=[127.0.0.1:2379] --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> snapshot save <backup-file-location>
@@ -354,4 +355,3 @@ We also recommend restarting any components (e.g. `kube-scheduler`,
 stale data. Note that in practice, the restore takes a bit of time.  During the
 restoration, critical components will lose leader lock and restart themselves.
 {{< /note >}}
-
