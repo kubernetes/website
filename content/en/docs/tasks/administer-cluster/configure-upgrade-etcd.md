@@ -278,6 +278,21 @@ If etcd is running on a storage volume that supports backup, such as Amazon
 Elastic Block Store, back up etcd data by taking a snapshot of the storage
 volume.
 
+### Snapshot using etcdctl options
+
+We can also take the snapshot using various options given by etcdctl. For example 
+
+```shell
+ETCDCTL_API=3 etcdctl --h 
+``` 
+
+will list various options avilable with etcdctl. If you want to take a snapshot by specifying various options available here, you can do so. For example, to take a snapshot by specifying the endpoint, certificates etc is as given below
+
+```shell
+ETCDCTL_API=3 etcdctl --endpoints=[127.0.0.1:2379] --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> snapshot save <backup-file-location>
+```
+where, <trusted-ca-file>, <cert-file> and <key-file> can be obtained by looking at the description of the etcd pod.
+
 ## Scaling up etcd clusters
 
 Scaling up etcd clusters increases availability by trading off performance.
