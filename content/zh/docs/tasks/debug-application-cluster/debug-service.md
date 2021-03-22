@@ -608,7 +608,7 @@ Earlier you saw that the Pods were running.  You can re-check that:
 kubectl get pods -l app=hostnames
 ```
 ```none
-NAME              READY     STATUS    RESTARTS   AGE
+NAME                        READY     STATUS    RESTARTS   AGE
 hostnames-632524106-bbpiw   1/1       Running   0          1h
 hostnames-632524106-ly40y   1/1       Running   0          1h
 hostnames-632524106-tlaok   1/1       Running   0          1h
