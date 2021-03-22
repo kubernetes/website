@@ -30,6 +30,14 @@ Used on: Node
 
 The Kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
 
+## kubernetes.io/metadata.name
+
+Example: `kubernetes.io/metadata.name=mynamespace`
+
+Used on: Namespaces
+
+Kubernetes API Server defaults this label to the namespace name during admission. This label can be used with any namespace selector, as an example with NetworkPolicy objects.
+
 ## beta.kubernetes.io/arch (deprecated)
 
 This label has been deprecated. Please use `kubernetes.io/arch` instead.
