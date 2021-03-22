@@ -53,7 +53,7 @@ kind를 시작하고 실행하기 위해 수행해야 하는 작업을 보여준
 {{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}} 도구를 사용하여 쿠버네티스 클러스터를 만들고 관리할 수 있다.
 사용자 친화적인 방식으로 최소한의 실행 가능하고 안전한 클러스터를 설정하고 실행하는 데 필요한 작업을 수행한다.
 
-[kubeadm 설치](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) 페이지는 kubeadm 설치하는 방법을 보여준다.
+[kubeadm 설치](/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) 페이지는 kubeadm 설치하는 방법을 보여준다.
 설치가 끝나면, [클러스터 생성](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)이 가능하다.
 
-<a class="btn btn-primary" href="/docs/setup/production-environment/tools/kubeadm/install-kubeadm/" role="button" aria-label="kubeadm 설치 가이드 보기">kubeadm 설치 가이드 보기</a>
+<a class="btn btn-primary" href="/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/" role="button" aria-label="kubeadm 설치 가이드 보기">kubeadm 설치 가이드 보기</a>
