@@ -66,7 +66,7 @@ Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
 fields. These fields accept key-value pairs as their values.  Both the `data`
 field and the `binaryData` are optional. The `data` field is designed to
 contain UTF-8 byte sequences while the `binaryData` field is designed to
-contain binary data.
+contain binary data as base64-encoded strings.
 
 The name of a ConfigMap must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -78,7 +78,7 @@ ConfigMap 是一个 API [对象](/zh/docs/concepts/overview/working-with-objects
 和其他 Kubernetes 对象都有一个 `spec` 不同的是，ConfigMap 使用 `data` 和
 `binaryData` 字段。这些字段能够接收键-值对作为其取值。`data` 和 `binaryData`
 字段都是可选的。`data` 字段设计用来保存 UTF-8 字节序列，而 `binaryData` 则
-被设计用来保存二进制数据。
+被设计用来保存二进制数据作为 base64 编码的字串。
 
 ConfigMap 的名字必须是一个合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
@@ -361,7 +361,7 @@ kubelet 组件会在每次周期性同步时检查所挂载的 ConfigMap 是否�
 的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
 
 <!--
-A ConfigMap can be either propagated by watch (default), ttl-based, or simply redirecting
+A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting
 all requests directly to the API server.
 As a result, the total delay from the moment when the ConfigMap is updated to the moment
 when new keys are projected to the Pod can be as long as the kubelet sync period + cache
@@ -369,7 +369,7 @@ propagation delay, where the cache propagation delay depends on the chosen cache
 (it equals to watch propagation delay, ttl of cache, or zero correspondingly).
 -->
 ConfigMap 既可以通过 watch 操作实现内容传播（默认形式），也可实现基于 TTL
-的缓存，还可以直接将所有请求重定向到 API 服务器。
+的缓存，还可以直接经过所有请求重定向到 API 服务器。
 因此，从 ConfigMap 被更新的那一刻算起，到新的主键被投射到 Pod 中去，这一
 时间跨度可能与 kubelet 的同步周期加上高速缓存的传播延迟相等。
 这里的传播延迟取决于所选的高速缓存类型
