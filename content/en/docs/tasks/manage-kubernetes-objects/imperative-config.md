@@ -13,7 +13,7 @@ This document explains how to define and manage objects using configuration file
 ## {{% heading "prerequisites" %}}
 
 
-Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
+Install [`kubectl`](/docs/tasks/tools/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 

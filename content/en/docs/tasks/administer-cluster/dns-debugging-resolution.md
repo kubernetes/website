@@ -25,6 +25,12 @@ kube-dns.
 
 {{< codenew file="admin/dns/dnsutils.yaml" >}}
 
+{{< note >}}
+This example creates a pod in the `default` namespace. DNS name resolution for 
+services depends on the namespace of the pod. For more information, review
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
+{{< /note >}}
+
 Use that manifest to create a Pod:
 
 ```shell
@@ -246,6 +252,27 @@ linux/amd64, go1.10.3, 2e322f6
 2018/09/07 15:29:04 [INFO] Reloading complete
 172.17.0.18:41675 - [07/Sep/2018:15:29:11 +0000] 59925 "A IN kubernetes.default.svc.cluster.local. udp 54 false 512" NOERROR qr,aa,rd,ra 106 0.000066649s
 ```
+
+### Are you in the right namespace for the service?
+
+DNS queries that don't specify a namespace are limited to the pod's 
+namespace. 
+
+If the namespace of the pod and service differ, the DNS query must include 
+the namespace of the service.
+
+This query is limited to the pod's namespace:
+```shell
+kubectl exec -i -t dnsutils -- nslookup <service-name>
+```
+
+This query specifies the namespace:
+```shell
+kubectl exec -i -t dnsutils -- nslookup <service-name>.<namespace>
+```
+
+To learn more about name resolution, see 
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/#what-things-get-dns-names). 
 
 ## Known issues
 

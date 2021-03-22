@@ -221,7 +221,7 @@ On Windows, you can use the following settings to configure Services and load ba
 
 #### IPv4/IPv6 dual-stack
 
-You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the `IPv6DualStack` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/). See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
+You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
 
 {{< note >}}
 On Windows, using IPv6 with Kubernetes require Windows Server, version 2004 (kernel version 10.0.19041.610) or later.
@@ -237,7 +237,7 @@ Overlay (VXLAN) networks on Windows do not support dual-stack networking today.
 
 Windows is only supported as a worker node in the Kubernetes architecture and component matrix. This means that a Kubernetes cluster must always include Linux master nodes, zero or more Linux worker nodes, and zero or more Windows worker nodes.
 
-#### Compute {compute-limitations}
+#### Compute {#compute-limitations}
 
 ##### Resource management and process isolation
 
@@ -297,7 +297,7 @@ As a result, the following storage functionality is not supported on Windows nod
 * NFS based storage/volume support
 * Expanding the mounted volume (resizefs)
 
-#### Networking {networking-limitations}
+#### Networking {#networking-limitations}
 
 Windows Container Networking differs in some important ways from Linux networking. The [Microsoft documentation for Windows Container Networking](https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture) contains additional details and background.
 

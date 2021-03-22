@@ -266,9 +266,9 @@ kubeadm 不支持将没有 `--control-plane-endpoint` 参数的单个控制平�
 ### 更多信息
 
 <!--
-For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/).
+For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/).
 -->
-有关 `kubeadm init` 参数的更多信息，请参见 [kubeadm 参考指南](/zh/docs/reference/setup-tools/kubeadm/kubeadm/)。
+有关 `kubeadm init` 参数的更多信息，请参见 [kubeadm 参考指南](/zh/docs/reference/setup-tools/kubeadm/)。
 
 <!--
 To configure `kubeadm init` with a configuration file see [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
@@ -802,7 +802,7 @@ options.
 * Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
 * <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
   for details about upgrading your cluster using `kubeadm`.
-* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
+* Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm)
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/overview/).
 * See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
   of Pod network add-ons.
@@ -816,7 +816,7 @@ options.
 -->
 * 使用 [Sonobuoy](https://github.com/heptio/sonobuoy) 验证集群是否正常运行
 * <a id="lifecycle" />有关使用kubeadm升级集群的详细信息，请参阅[升级 kubeadm 集群](/zh/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
-* 在[kubeadm 参考文档](/zh/docs/reference/setup-tools/kubeadm/kubeadm)中了解有关高级 `kubeadm` 用法的信息
+* 在[kubeadm 参考文档](/zh/docs/reference/setup-tools/kubeadm)中了解有关高级 `kubeadm` 用法的信息
 * 了解有关Kubernetes[概念](/zh/docs/concepts/)和[`kubectl`](/zh/docs/reference/kubectl/overview/)的更多信息。
 * 有关Pod网络附加组件的更多列表，请参见[集群网络](/zh/docs/concepts/cluster-administration/networking/)页面。
 * <a id="other-addons" />请参阅[附加组件列表](/zh/docs/concepts/cluster-administration/addons/)以探索其他附加组件，

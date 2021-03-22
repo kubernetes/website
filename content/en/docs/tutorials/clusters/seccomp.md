@@ -37,7 +37,7 @@ profiles that give only the necessary privileges to your container processes.
 
 In order to complete all steps in this tutorial, you must install
 [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) and
-[kubectl](/docs/tasks/tools/install-kubectl/). This tutorial will show examples
+[kubectl](/docs/tasks/tools/). This tutorial will show examples
 with both alpha (pre-v1.19) and generally available seccomp functionality, so
 make sure that your cluster is [configured
 correctly](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)

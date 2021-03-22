@@ -1,0 +1,121 @@
+---
+title: Executando múltiplas instâncias de seu aplicativo
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Objetivos</h3>
+                <ul>
+                    <li>Escalar uma aplicação usando kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+       <h3>Escalando uma aplicação</h3>
+
+            <p>Nos módulos anteriores nós criamos um <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>, e então o expusemos publicamente através de um serviço (<a href="/docs/concepts/services-networking/service/">Service</a>). O Deployment criou apenas um único Pod para executar nossa aplicação. Quando o tráfego aumentar nós precisaremos escalar a aplicação para suportar a demanda de usuários.</p>
+
+            <p>O <b>escalonamento</b> é obtido pela mudança do número de réplicas em um Deployment</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Resumo:</h3>
+                    <ul>
+                        <li>Escalando um Deployment</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>Você pode criar desde o início um Deployment com múltiplas instâncias usando o parâmetro <code>--replicas</code> para que o kubectl crie o comando de deployment</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Visão geral sobre escalonamento</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Anterior</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Próximo</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Escalar um Deployment garantirá que novos Pods serão criados e agendados para nós de processamento com recursos disponíveis. O escalonamento aumentará o número de Pods para o novo estado desejado. O Kubernetes também suporta o auto-escalonamento (<a href="/docs/user-guide/horizontal-pod-autoscaling/">autoscaling</a>) de Pods, mas isso está fora do escopo deste tutorial. Escalar para zero também é possível, e isso terminará todos os Pods do Deployment especificado.</p>
+
+                <p>Executar múltiplas instâncias de uma aplicação irá requerer uma forma de distribuir o tráfego entre todas elas. Serviços possuem um balanceador de carga integrado que distribuirá o tráfego de rede entre todos os Pods de um Deployment exposto. Serviços irão monitorar continuamente os Pods em execução usando endpoints para garantir que o tráfego seja enviado apenas para Pods disponíveis.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>O Escalonamento é obtido pela mudança do número de réplicas em um Deployment.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>No momento em que tiver múltiplas instâncias de uma aplicação em execução, será capaz de fazer atualizações graduais sem indisponibilidade. Nós cobriremos isso no próximo módulo. Agora, vamos ao terminal online e escalar nossa aplicação.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/pt/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Iniciar tutorial interativo<span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

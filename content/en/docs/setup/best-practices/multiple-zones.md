@@ -59,7 +59,7 @@ When nodes start up, the kubelet on each node automatically adds
 {{< glossary_tooltip text="labels" term_id="label" >}} to the Node object
 that represents that specific kubelet in the Kubernetes API.
 These labels can include
-[zone information](/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone).
+[zone information](/docs/reference/labels-annotations-taints/#topologykubernetesiozone).
 
 If your cluster spans multiple zones or regions, you can use node labels
 in conjunction with

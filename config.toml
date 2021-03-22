@@ -91,7 +91,7 @@ blog = "/:section/:year/:month/:day/:slug/"
 [outputs]
 home = [ "HTML", "RSS", "HEADERS" ]
 page = [ "HTML"]
-section = [ "HTML"]
+section = [ "HTML", "print" ]
 
 # Add a "text/netlify" media type for auto-generating the _headers file
 [mediaTypes]
