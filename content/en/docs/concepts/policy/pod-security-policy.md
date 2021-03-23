@@ -96,7 +96,7 @@ rules:
   - <list of policies to authorize>
 ```
 
-Then the `(Cluster)Role` is bound to the authorized user(s):
+Then the `ClusterRole` is bound to the authorized user(s):
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
