@@ -48,7 +48,7 @@ O servidor de API não garante a ordem em que os autenticadores são processados
  
 O grupo `system:authenticated` é incluído na lista de grupos de todos os usuários autenticados.
  
-Integrações com outros protocolos de autenticação, como LDAP {{< glossary_definition term_id="ldap" length="all" >}}, SAML {{< glossary_definition term_id="saml" length="all" >}}, Kerberos {{< glossary_definition term_id="kerberos" length="all" >}}, alternate x509 schemes {{< glossary_definition term_id="alternate-x509-schemes" length="all" >}}, etc, podem ser alcançadas utilizando-se de um [proxy](#authenticating-proxy) ou [webhook](#webhook-token-authentication) de autenticação.
+Integrações com outros protocolos de autenticação, como LDAP {{< glossary_definition term_id="ldap" length="all" >}}, SAML {{< glossary_definition term_id="saml" length="all" >}}, Kerberos {{< glossary_definition term_id="kerberos" length="all" >}}, alternate x509 schemes {{< glossary_definition term_id="alternate-x509-schemes" length="all" >}}, etc, podem ser alcançadas utilizando-se de um [proxy](#autenticando-com-proxy) ou [webhook](#token-de-autenticação-via-webhook) de autenticação.
  
 ### Certificados de cliente X509
  
