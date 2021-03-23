@@ -52,7 +52,7 @@ Integrações com outros protocolos de autenticação, como LDAP {{< glossary_de
  
 ### Certificados de cliente X509
  
-Autenticação via certificados de cliente pode ser habilitada ao passar a opção `--client-ca-file=ARQUIVO` para o servidor de API. O arquivo referenciado deve conter um ou mais autoridades de certificação usadas para validar o certificado de cliente passado para o servidor de API. Se o certificado de cliente é apresentado e verificado, o _common name_ {{< glossary_definition term_id="common-name" length="all" >}} do sujeito é usado como o nome de usuário para a requisição. A partir da versão 1.4, certificados de cliente podem também indicar o pertencimento de um usuário a um grupo utilizando o campo de organização do certificado. Para incluir múltiplos grupos para o usuário, deve-se incluir múltiplos campos de organização no certificado.
+Autenticação via certificados de cliente pode ser habilitada ao passar a opção `--client-ca-file=ARQUIVO` para o servidor de API. O arquivo referenciado deve conter um ou mais autoridades de certificação usadas para validar o certificado de cliente passado para o servidor de API. Se o certificado de cliente é apresentado e verificado, o _common name_ {{< glossary_definition term_id="tls-common-name" length="all" >}} do sujeito é usado como o nome de usuário para a requisição. A partir da versão 1.4, certificados de cliente podem também indicar o pertencimento de um usuário a um grupo utilizando o campo de organização do certificado. Para incluir múltiplos grupos para o usuário, deve-se incluir múltiplos campos de organização no certificado.
  
 Por exemplo, utilizando o comando de linha `openssl` para gerar uma requisição de assinatura de certificado:
  
