@@ -29,7 +29,7 @@ This task also assumes that you have met the following prerequisites:
 
 ## (Optional) Configure a disruption budget {#configure-poddisruptionbudget}
 
-To endure that your workloads remain available during maintenance, you can
+To ensure that your workloads remain available during maintenance, you can
 configure a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/).
 
 If availability is important for any applications that run or could run on the node(s)
