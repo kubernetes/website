@@ -328,11 +328,10 @@ controllerManager:
 ### 创建证书签名请求 (CSR)
 
 <!--
-See [Create CertificateSigningRequest](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest) for creating CSRs with the Kubernetes API.
+See [Create CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest) for creating CSRs with the Kubernetes API.
 -->
 有关使用 Kubernetes API 创建 CSR 的信息，
-请参见[创建 CertificateSigningRequest](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest)。
-
+请参见[创建 CertificateSigningRequest](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest)。
 
 <!--
 ## Renew certificates with external CA
