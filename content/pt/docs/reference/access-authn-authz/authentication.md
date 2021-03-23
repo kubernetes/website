@@ -32,8 +32,8 @@ Kubernetes usa certificados de clientes, _bearer Token_, um proxy realizando aut
  
 * Username {{< glossary_definition term_id="username" length="all" >}}: um valor (String) que identifica o usuário final. Valores comuns podem ser `kube-admin` ou `jane@example.com`
 * UID {{< glossary_definition term_id="uid" length="all" >}}: um valor (String) que identifica o usuário final e tenta ser mais consistente e único do que username.
-* Groups {{< glossary_definition term_id="groups" length="all" >}}: Um conjunto de valores em que cada item indica a associação de um usuário há uma coleção lógica de usuários. Valores comuns podem ser `system:masters` ou `devops-team`.
-* Extra fields {{< glossary_definition term_id="extra-fields" length="all" >}}: um mapa que pode conter uma lista de atributos que armazena informações adicionais em que autorizadores podem achar útil.
+* Groups: Um conjunto de valores em que cada item indica a associação de um usuário há uma coleção lógica de usuários. Valores comuns podem ser `system:masters` ou `devops-team`.
+* Campos extras: um mapa que pode conter uma lista de atributos que armazena informações adicionais em que autorizadores podem achar útil.
  
 Todos os valores são opacos para o sistema de autenticação e somente trazem significância quando interpretados por um [autorizador](/docs/reference/access-authn-authz/authorization/).
  
