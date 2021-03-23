@@ -240,7 +240,11 @@ Start a Powershell session, set `$Version` to the desired version (ex: `$Version
 {{% /tab %}}
 {{< /tabs >}}
 
-#### systemd {#containerd-systemd}
+<!-- 
+#### Using the `systemd` cgroup driver {#containerd-systemd}
+--> 
+
+#### 使用 `systemd` cgroup 驱动程序 {#containerd-systemd}
 
 <!-- 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
@@ -251,10 +255,8 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
-
-When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 -->
+
 结合 `runc` 使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置 
 
 ```
@@ -264,6 +266,19 @@ When using kubeadm, manually configure the
     SystemdCgroup = true
 ```
 
+<!--
+If you apply this change make sure to restart containerd again:
+-->
+如果您应用此更改，请确保再次重新启动 containerd：
+
+```shell
+sudo systemctl restart containerd
+```
+
+<!--
+When using kubeadm, manually configure the
+[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
+-->
 当使用 kubeadm 时，请手动配置
 [kubelet 的 cgroup 驱动](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 
@@ -567,9 +582,10 @@ kubelet 的 cgroup 驱动程序配置（通常透过 kubeadm 完成）和CRI-O �
 
 ### Docker
 <!--
-1. On each of your nodes, install the Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server)
+1. On each of your nodes, install the Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server). You can find the latest validated version of Docker in this [dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
  -->
-1. 在每个节点上，根据 [安装 Docker 引擎](https://docs.docker.com/engine/install/#server)为你的 Linux 发行版安装 Docker。
+1. 在每个节点上，根据[安装 Docker 引擎](https://docs.docker.com/engine/install/#server) 为你的 Linux 发行版安装 Docker。
+   你可以在此文件中找到最新的经过验证的 Docker 版本[依赖关系](https://git.k8s.io/kubernetes/build/dependencies.yaml)。
 
 <!--
 2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
