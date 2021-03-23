@@ -35,7 +35,7 @@ Kubernetes usa certificados de clientes, _bearer Token_, um proxy realizando aut
 * Groups: Um conjunto de valores em que cada item indica a associação de um usuário há uma coleção lógica de usuários. Valores comuns podem ser `system:masters` ou `devops-team`.
 * Campos extras: um mapa que pode conter uma lista de atributos que armazena informações adicionais em que autorizadores podem achar útil.
  
-Todos os valores são opacos para o sistema de autenticação e somente trazem significância quando interpretados por um [autorizador](/docs/reference/access-authn-authz/authorization/).
+Todos os valores são transparente para o sistema de autenticação e somente trazem significado quando interpretados por um [autorizador](/docs/reference/access-authn-authz/authorization/).
  
 É possível habilitar múltiplos métodos de autenticação. Deve-se normalmente usar pelo menos dois métodos:
  
