@@ -29,7 +29,7 @@ content_type: concept
 * Пробуете или начинаете работу с Kubernetes
 * Локально разрабатываете и тестируете кластер
 
-Выбрать [решение для запуска на локальной машине](/docs/setup/pick-right-solution/#local-machine-solutions).
+Выбрать [решение для запуска на локальной машине](/docs/setup/learning-environment/).
 
 ## Управляемые решения
 
