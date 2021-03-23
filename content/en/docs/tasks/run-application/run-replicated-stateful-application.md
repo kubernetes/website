@@ -39,6 +39,7 @@ on general patterns for running stateful applications in Kubernetes.
   [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Some familiarity with MySQL helps, but this tutorial aims to present
   general patterns that should be useful for other systems.
+* You are using the default namespace or another namespace that does not contain any conflicting objects.
 
 
 
@@ -536,7 +537,6 @@ kubectl delete pvc data-mysql-4
 * Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 * Look in the [Helm Charts repository](https://github.com/kubernetes/charts)
   for other stateful application examples.
-
 
 
 
