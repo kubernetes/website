@@ -53,6 +53,10 @@ For a trick to generate a configuration file from a live node, see
 
 ## Start a Kubelet process configured via the config file
 
+{{< note >}}
+If you use kubeadm to initialize your cluster, use the kubelet-config while creating your cluster with `kubeadmin init`. See https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/kubelet-integration/ for details.
+{{< /note >}}
+
 Start the Kubelet with the `--config` flag set to the path of the Kubelet's config file.
 The Kubelet will then load its config from this file.
 
