@@ -5,7 +5,7 @@
 
 title: 확장된 리소스를 위한 리소스 빈 패킹(bin packing)
 content_type: concept
-weight: 50
+weight: 30
 ---
 
 <!-- overview -->

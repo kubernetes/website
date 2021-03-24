@@ -22,7 +22,7 @@ Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](h
     * Flatcar Container Linux by Kinvolk
 * 지속적인 통합 (CI) 테스트
 
-클러스터를 설치해 줄 도구로 유스케이스와 가장 잘 맞는 것을 고르고 싶다면, kubespray를 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), [kops](/ko/docs/setup/production-environment/tools/kops/)와 [비교한 글](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)을 읽어보자.
+클러스터를 설치해 줄 도구로 유스케이스와 가장 잘 맞는 것을 고르고 싶다면, kubespray를 [kubeadm](/ko/docs/reference/setup-tools/kubeadm/), [kops](/ko/docs/setup/production-environment/tools/kops/)와 [비교한 글](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)을 읽어보자.
 
 <!-- body -->
 

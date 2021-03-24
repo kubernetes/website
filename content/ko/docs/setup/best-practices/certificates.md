@@ -7,7 +7,7 @@ weight: 40
 <!-- overview -->
 
 쿠버네티스는 TLS 위에 인증을 위해 PKI 인증서가 필요하다.
-만약 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)으로 쿠버네티스를 설치했다면, 클러스터에 필요한 인증서는 자동으로 생성된다.
+만약 [kubeadm](/ko/docs/reference/setup-tools/kubeadm/)으로 쿠버네티스를 설치했다면, 클러스터에 필요한 인증서는 자동으로 생성된다.
 또한 더 안전하게 자신이 소유한 인증서를 생성할 수 있다. 이를 테면, 개인키를 API 서버에 저장하지 않으므로 더 안전하게 보관할 수 있다.
 이 페이지는 클러스터에 필요한 인증서를 설명한다.
 
@@ -72,7 +72,7 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
-[1]: 클러스터에 접속한 다른 IP 또는 DNS 이름([kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) 이 사용하는 로드 밸런서 안정 IP 또는 DNS 이름, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
+[1]: 클러스터에 접속한 다른 IP 또는 DNS 이름([kubeadm](/ko/docs/reference/setup-tools/kubeadm/) 이 사용하는 로드 밸런서 안정 IP 또는 DNS 이름, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
 `kind`는 하나 이상의 [x509 키 사용](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage) 종류를 가진다.
@@ -97,7 +97,7 @@ kubeadm 사용자만 해당:
 
 ### 인증서 파일 경로
 
-인증서는 권고하는 파일 경로에 존재해야 한다([kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)에서 사용되는 것처럼). 경로는 위치에 관계없이 주어진 파라미터를 사용하여 지정되야 한다.
+인증서는 권고하는 파일 경로에 존재해야 한다([kubeadm](/ko/docs/reference/setup-tools/kubeadm/)에서 사용되는 것처럼). 경로는 위치에 관계없이 주어진 파라미터를 사용하여 지정해야 한다.
 
 | 기본 CN                      | 권고되는 키 파일 경로         | 권고하는 인증서 파일 경로   | 명령어         | 키 파라미터                  | 인증서 파라미터                           |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
