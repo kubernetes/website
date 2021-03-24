@@ -237,7 +237,7 @@ The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/#pod-temp
 required to have labels in place. In our `frontend.yaml` example we had one label: `tier: frontend`.
 Be careful not to overlap with the selectors of other controllers, lest they try to adopt this Pod.
 
-For the template's [restart policy](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy) field,
+For the template's [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) field,
 `.spec.template.spec.restartPolicy`, the only allowed value is `Always`, which is the default.
 
 ### Pod Selector
