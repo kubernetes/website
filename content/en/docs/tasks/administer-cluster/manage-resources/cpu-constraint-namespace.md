@@ -46,7 +46,7 @@ Here's the configuration file for a LimitRange:
 Create the LimitRange:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints.yaml --namespace=constraints-cpu-example
+kubectl apply -f https://kubernetes.io/examples/admin/resource/cpu-constraints.yaml --namespace=constraints-cpu-example
 ```
 
 View detailed information about the LimitRange:
@@ -97,7 +97,7 @@ minimum and maximum CPU constraints imposed by the LimitRange.
 Create the Pod:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod.yaml --namespace=constraints-cpu-example
+kubectl apply -f https://kubernetes.io/examples/admin/resource/cpu-constraints-pod.yaml --namespace=constraints-cpu-example
 ```
 
 Verify that the Pod's Container is running:
@@ -139,7 +139,7 @@ CPU request of 500 millicpu and a cpu limit of 1.5 cpu.
 Attempt to create the Pod:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-2.yaml --namespace=constraints-cpu-example
+kubectl apply -f https://kubernetes.io/examples/admin/resource/cpu-constraints-pod-2.yaml --namespace=constraints-cpu-example
 ```
 
 The output shows that the Pod does not get created, because the Container specifies a CPU limit that is
@@ -160,7 +160,7 @@ CPU request of 100 millicpu and a CPU limit of 800 millicpu.
 Attempt to create the Pod:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-3.yaml --namespace=constraints-cpu-example
+kubectl apply -f https://kubernetes.io/examples/admin/resource/cpu-constraints-pod-3.yaml --namespace=constraints-cpu-example
 ```
 
 The output shows that the Pod does not get created, because the Container specifies a CPU
@@ -181,7 +181,7 @@ specify a CPU request, and it does not specify a CPU limit.
 Create the Pod:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-4.yaml --namespace=constraints-cpu-example
+kubectl apply -f https://kubernetes.io/examples/admin/resource/cpu-constraints-pod-4.yaml --namespace=constraints-cpu-example
 ```
 
 View detailed information about the Pod:
