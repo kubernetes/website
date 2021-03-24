@@ -23,7 +23,7 @@ kops는 자동화된 프로비저닝 시스템인데,
 ## {{% heading "prerequisites" %}}
 
 
-* [kubectl](/ko/docs/tasks/tools/install-kubectl/)을 반드시 설치해야 한다.
+* [kubectl](/ko/docs/tasks/tools/)을 반드시 설치해야 한다.
 
 * 반드시 64-bit (AMD64 그리고 Intel 64)디바이스 아키텍쳐 위에서 `kops` 를 [설치](https://github.com/kubernetes/kops#installing) 한다.
 
