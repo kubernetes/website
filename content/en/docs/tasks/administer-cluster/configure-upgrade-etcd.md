@@ -291,7 +291,7 @@ the endpoint, certificates etc as shown below:
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints=[127.0.0.1:2379] \
-  --cacert=trusted-ca-file --cert=cert-file --key=key-file \
+  --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> \
   snapshot save backup-file-location
 ```
 where `trusted-ca-file`, `cert-file` and `key-file` can be obtained from the description of the etcd Pod.
