@@ -138,6 +138,7 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | |
+| `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | |
 | `NamespaceDefaultLabelName` | `true` | Beta | 1.21 | |
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 |  |
@@ -659,6 +660,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `KubeletPodResources`: Enable the kubelet's pod resources gRPC endpoint. See
   [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/606-compute-device-assignment/README.md)
   for more details.
+- `KubeletPodResourcesGetAllocatable`: Enable the kubelet's pod resources `GetAllocatableResources` functionality.
+  This API augments the [resource allocation reporting](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
+  with informations about the allocatable resources, enabling clients to properly track the free compute resources on a node.
 - `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and
   node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the
   feature-specific labels provided by `NodeDisruptionExclusion` and `ServiceNodeExclusion`.
