@@ -170,6 +170,7 @@ different Kubernetes components.
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
+| `SuspendJob` | `false` | Alpha | 1.21 | |
 | `Sysctls` | `true` | Beta | 1.11 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
@@ -775,6 +776,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   options can be specified to ensure that the specified number of process IDs
   will be reserved for the system as a whole and for Kubernetes system daemons
   respectively.
+- `SuspendJob`: Enable support to suspend and resume Jobs. See
+  [the Jobs docs](/docs/concepts/workloads/controllers/job/) for
+  more details.
 - `Sysctls`: Enable support for namespaced kernel parameters (sysctls) that can be
   set for each pod. See
   [sysctls](/docs/tasks/administer-cluster/sysctl-cluster/) for more details.
