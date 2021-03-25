@@ -317,7 +317,8 @@ prioritize scaling down pods based on the following general algorithm:
     the pod with the lower value will come first.
  3. Pods on nodes with more replicas come before pods on nodes with fewer replicas.
  4. If the pods' creation times differ, the pod that was created more recently
-    comes before the older pod (the creation times are bucketed on an integer log scale)
+    comes before the older pod (the creation times are bucketed on an integer log scale
+    when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
     
 If all of the above match, then selection is random.
 
