@@ -7,6 +7,10 @@
 | `test_examples.sh`      | This script tests whether a change affects example files bundled in the website.                                                      |
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
+| `hash-files.sh` | This script emits as hash for the files listed in $@ |
+| `linkchecker.py` | This a link checker for Kubernetes documentation website. |
+| `lsync.sh` | This script checks if the English version of a page has changed since a localized page has been committed. |
+| `replace-capture.sh` | This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically |
 
 
 
@@ -88,3 +92,63 @@ Options:
   --src-lang TEXT  Source language
   --help           Show this message and exit.
 ```
+
+## hash-files.sh
+
+This script emits as hash for the files listed in $@.
+
+    $ ./scripts/hash-files.sh
+    
+## linkchecker.py
+
+This a link checker for Kubernetes documentation website.
+- We cover the following cases for the language you provide via `-l`, which
+  defaults to 'en'.
+- If the language specified is not English (`en`), we check if you are
+  actually using the localized links. For example, if you specify `zh` as
+  the language, and for link target `/docs/foo/bar`, we check if the English
+  version exists AND if the Chinese version exists as well. A checking record
+  is produced if the link can use the localized version.
+
+```
+
+Usage: linkchecker.py -h
+
+Cases handled:
+
+- [foo](#bar)                         : ignored currently
++ [foo](http://bar)                   : insecure links to external site
++ [foo](https://k8s.io/website/...)   : hardcoded site domain name
+
++ [foo](/<lang>/docs/bar/...)  : where <lang> is not 'en'
+  + /<lang>/docs/bar           : contains shortcode, so ignore, or
+  + /<lang>/docs/bar           : is a image link (ignore currently), or
+  + /<lang>/docs/bar           : points to shared (non-localized) page, or
+  + /<lang>/docs/bar.md        : exists for current lang, or
+  + /<lang>/docs/bar/_index.md : exists for current lang, or
+  + /<lang>/docs/bar/          : is a redirect entry, or
+  + /<lang>/docs/bar           : is something we don't understand, then ERR
+
++ [foo](/docs/bar/...)
+  + /docs/bar                : contains shortcode, so ignore, or
+  + /docs/bar                : is a image link (ignore currently), or
+  + /docs/bar                : points to a shared (non-localized) page, or
+  + /docs/bar.md             : exists for current lang, or
+  + /docs/bar/_index.md      : exists for current lang, or
+  + /docs/bar                : is a redirect entry, or
+  + /docs/bar                : is something we don't understand
+
+```
+## lsync.sh
+
+This script checks if the English version of a page has changed since a localized page has been committed.
+
+    $ ./scripts/lsync.sh 
+
+## replace-capture.sh
+
+This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically
+
+You must run the script inside the repository for that to work
+
+    $ ./scripts/replace-capture.sh
