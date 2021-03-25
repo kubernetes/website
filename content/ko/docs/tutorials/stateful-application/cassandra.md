@@ -114,7 +114,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
 ```
 
-클러스터에 맞게 `cassandra-statefulset.yaml` 를 수정해야 하는 경우 다음을 다운로드 한 다음
+클러스터에 맞게 `cassandra-statefulset.yaml` 를 수정해야 하는 경우 다음을 다운로드한 다음
 수정된 버전을 저장한 폴더에서 해당 매니페스트를 적용한다.
 https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
 ```shell
