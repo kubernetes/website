@@ -181,7 +181,7 @@ TLS For Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networ
 工作负载安全性关注领域 |  建议 |
 ------------------------------ | --------------------- |
 RBAC 授权(访问 Kubernetes API) | https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/
-认证方式 | https://kubernetes.io/zh/docs/reference/access-authn-authz/controlling-access/
+认证方式 | https://kubernetes.io/zh/docs/concepts/security/controlling-access/
 应用程序 Secret 管理 (并在 etcd 中对其进行静态数据加密) | https://kubernetes.io/zh/docs/concepts/configuration/secret/ <br> https://kubernetes.io/zh/docs/tasks/administer-cluster/encrypt-data/
 Pod 安全策略 | https://kubernetes.io/zh/docs/concepts/policy/pod-security-policy/
 服务质量（和集群资源管理）| https://kubernetes.io/zh/docs/tasks/configure-pod-container/quality-service-pod/
