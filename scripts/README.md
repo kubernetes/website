@@ -144,7 +144,13 @@ Cases handled:
 This script checks if the English version of some localized contents have changed 
 since a localized version has been committed.
 
-    $ ./scripts/lsync.sh 
+The following example check a single file:
+
+./scripts/lsync.sh content/zh/docs/concepts/_index.md
+
+The following command checks a subdirectory:
+
+./scripts/lsync.sh content/zh/docs/concepts/
 
 ## replace-capture.sh
 
