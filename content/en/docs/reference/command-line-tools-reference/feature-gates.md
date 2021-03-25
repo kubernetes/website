@@ -135,6 +135,7 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
+| `LogarithmicScaleDown` | `false` | Alpha | 1.21 | |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | |
 | `NamespaceDefaultLabelName` | `true` | Beta | 1.21 | |
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 |  |
@@ -670,6 +671,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   supports project quotas and they are enabled, use project quotas to monitor
   [emptyDir volume](/docs/concepts/storage/volumes/#emptydir) storage consumption rather than
   filesystem walk for better performance and accuracy.
+- `LogarithmicScaleDown`: Enable semi-random selection of pods to evict on controller scaledown
+  based on logarithmic bucketing of pod timestamps.
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
 - `MountContainers` (*deprecated*): Enable using utility containers on host as
