@@ -141,7 +141,8 @@ Cases handled:
 ```
 ## lsync.sh
 
-This script checks if the English version of a page has changed since a localized page has been committed.
+This script checks if the English version of some localized contents have changed 
+since a localized version has been committed.
 
     $ ./scripts/lsync.sh 
 
