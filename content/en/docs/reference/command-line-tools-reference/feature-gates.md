@@ -118,7 +118,8 @@ different Kubernetes components.
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `GenericEphemeralVolume` | `false` | Alpha | 1.19 | |
+| `GenericEphemeralVolume` | `false` | Alpha | 1.19 | 1.20 |
+| `GenericEphemeralVolume` | `true` | Beta | 1.21 | |
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
