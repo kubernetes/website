@@ -56,7 +56,7 @@ PriorityClassオブジェクトは10億以下の任意の32ビットの整数値
 クラスターの管理者は割り当てたい優先度に対して、PriorityClassオブジェクトを1つずつ作成すべきです。
 
 PriorityClassは任意でフィールド`globalDefault`と`description`を設定可能です。
-`globalDefault`フィールドは`priorityClassName`が指定されないPodはこのPriorityClassを使うべきであることを示します。`globalDefault`が設定されたPriorityClassはシステムで一つのみ存在可能です。`globalDefault`が設定されたPriorityClassが存在しない場合は、`priorityClassName`が設定されていないPodの優先度は0に設定されます。
+`globalDefault`フィールドは`priorityClassName`が指定されないPodはこのPriorityClassを使うべきであることを示します。`globalDefault`がtrueに設定されたPriorityClassはシステムで一つのみ存在可能です。`globalDefault`が設定されたPriorityClassが存在しない場合は、`priorityClassName`が設定されていないPodの優先度は0に設定されます。
 
 `description`フィールドは任意の文字列です。クラスターの利用者に対して、PriorityClassをどのような時に使うべきか示すことを意図しています。
 
@@ -66,7 +66,7 @@ PriorityClassは任意でフィールド`globalDefault`と`description`を設定
 
 -   `globalDefault`が`true`に設定されたPriorityClassを追加しても、既存のPodの優先度は変わりません。PriorityClassのそのような値は、PriorityClassが追加された以後に作成されたPodのみに適用されます。
 
--   PriorityClassを削除した場合、既存のPodは削除されたPriorityClassの名称を引き続き使用しますが、削除されたPriorityClassの名称を使うPodをそれ以上作成することはできなくなります。
+-   PriorityClassを削除した場合、削除されたPriorityClassの名前を使用する既存のPodは変更されませんが、削除されたPriorityClassの名前を使うPodをそれ以上作成することはできなくなります。
 
 ### PriorityClassの例
 
@@ -94,7 +94,7 @@ description: "この優先度クラスはXYZサービスのPodに対してのみ
 `PreemptionPolicy`を`Never`に設定すると、これが設定されたPodはプリエンプトを行わないようになります。
 
 ユースケースの例として、データサイエンスの処理を挙げます。
-ユーザーは他の処理よりも優先度を高くしたいジョブを追加できますが、そのとき既存の実行中のPodの処理結果をプリエンプトによって捨てさせたくはありません。
+ユーザーは他の処理よりも優先度を高くしたいジョブを追加できますが、そのとき既存の実行中のPodの処理結果をプリエンプトによって破棄させたくはありません。
 `PreemptionPolicy: Never`が設定された優先度の高いジョブは、他の既にキューイングされたPodよりも先に、クラスターのリソースが「自然に」開放されたときにスケジューリングされます。
 
 ### 非プリエンプトのPriorityClassの例
@@ -143,7 +143,7 @@ Podが作成されると、スケジューリング待ちのキューに入り�
 
 Pod PがノードNのPodをプリエンプトした場合、ノードNの名称がPのステータスの`nominatedNodeName`フィールドに設定されます。このフィールドはスケジューラーがPod Pのために予約しているリソースの追跡を助け、ユーザーにクラスターにおけるプリエンプトに関する情報を与えます。
 
-Pod Pは「指名したノード」へスケジューリングされる必要はないことに注意してください。Podがプリエンプトされると、そのPodは猶予期間を得ます。スケジューラーがPodの終了を待つ間に他のノードが利用可能になると、スケジューラーは他のノードをPod Pのスケジューリング先にします。この結果、Podの`nominatedNodeName`と`nodeName`は必ずしも一致しません。また、スケジューラーがノードNのPodをプリエンプトさせた後に、Pod Pよりも優先度の高いPodが来た場合、スケジューラーはノードNをその新しい優先度の高いPodへ与えます。このような場合は、スケジューラーはPod Pの`nominatedNodeName`を消去します。これによって、スケジューラーはPod Pが他のノードのPodをプリエンプトさせられるようにします。
+Pod Pは必ずしも「指名したノード」へスケジューリングされないことに注意してください。Podがプリエンプトされると、そのPodは終了までの猶予期間を得ます。スケジューラーがPodの終了を待つ間に他のノードが利用可能になると、スケジューラーは他のノードをPod Pのスケジューリング先にします。この結果、Podの`nominatedNodeName`と`nodeName`は必ずしも一致しません。また、スケジューラーがノードNのPodをプリエンプトさせた後に、Pod Pよりも優先度の高いPodが来た場合、スケジューラーはノードNをその新しい優先度の高いPodへ与えます。このような場合は、スケジューラーはPod Pの`nominatedNodeName`を消去します。これによって、スケジューラーはPod Pが他のノードのPodをプリエンプトさせられるようにします。
 
 ### プリエンプトの制限
 
@@ -238,4 +238,3 @@ kubeletによるリソース不足時のPodの追い出しでは、リソース�
 ## {{% heading "whatsnext" %}}
 
 * PriorityClassと関連付けてResourceQuotaを使用することに関して [デフォルトで優先度クラスの消費を制限する](/ja/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
-
