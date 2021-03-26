@@ -204,7 +204,6 @@ different Kubernetes components.
 | `SupportNodePidsLimit` | `true` | Beta | 1.15 | |
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
 | `SupportPodPidsLimit` | `true` | Beta | 1.14 | |
-| `Sysctls` | `true` | Beta | 1.11 | |
 | `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
 | `TokenRequest` | `true` | Beta | 1.12 | |
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
@@ -353,6 +352,8 @@ different Kubernetes components.
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
 | `SupportIPVSProxyMode` | `true` | GA | 1.11 | - |
+| `Sysctls` | `true` | Beta | 1.11 | 1.20 |
+| `Sysctls` | `true` | GA | 1.21 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | 1.12 |
 | `TaintBasedEvictions` | `true` | Beta | 1.13 | 1.17 |
 | `TaintBasedEvictions` | `true` | GA | 1.18 | - |
