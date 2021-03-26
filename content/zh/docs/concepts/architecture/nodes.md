@@ -623,7 +623,7 @@ for more information.
 <!-- 
 ## Graceful Node Shutdown {#graceful-node-shutdown}
 -->
-## 节点体面关闭 {#graceful-node-shutdown}
+## 节点优雅关闭 {#graceful-node-shutdown}
 
 {{< feature-state state="alpha" for_k8s_version="v1.20" >}}
 
