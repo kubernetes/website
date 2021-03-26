@@ -1,12 +1,12 @@
 ---
-title: Vista General da Seguridad Cloud Native
+title: Vista General de Seguridad Cloud Native
 content_type: concept
 weight: 10
 ---
 
 <!-- overview -->
 
-Esta descripción general define un modelo para la seguridad de Kubernetes en el contexto da Seguridad en Cloud Native.
+Esta descripción general define un modelo para la seguridad de Kubernetes en el contexto de Seguridad en Cloud Native.
 
 {{< warning >}}
 Este modelo de seguridad en el contenedor brinda sugerencias, no es una prueba de políticas de seguridad de la información.
@@ -16,8 +16,8 @@ Este modelo de seguridad en el contenedor brinda sugerencias, no es una prueba d
 
 ## Las 4C de Seguridad en Cloud Native
 
-Puede pensar en seguridad por capas. Las 4C de la seguridad nativa de la nube son la nube(Cloud),
-Clústeres, contenedores y código.
+Puede pensar en seguridad por capas. Las 4C de la seguridad en cloud Native son la nube(Cloud),
+Clústeres, Contenedores y Código.
 
 {{< note >}}
 Este enfoque en capas aumenta la [defensa en profundidad](https://en.wikipedia.org/wiki/Defense_in_depth_(computing))
@@ -28,7 +28,7 @@ de la seguridad, es considerada una buena práctica en seguridad para el softwar
 
 Cada capa del modelo de seguridad Cloud Native es basada en la siguiente capa más externa.
 La capa de código se beneficia de una base sólida(nube, clúster, contenedor) de capas seguras.
-No podemos garantir seguridad aplicando solo seguridad a nivel del Código, y usar estándares de seguridad deficientes en las otras capas.
+No podemos garantizar la seguridad aplicando solo seguridad a nivel del código, y usar estándares de seguridad deficientes en las otras capas.
 
 ## Cloud
 
@@ -76,7 +76,7 @@ Encriptación etcd | Siempre que sea posible, es una buena práctica encriptar t
 
 ## Cluster
 
-Existe dos áreas de preocupación para proteger o Kubernetes:
+Existe dos áreas de preocupación para proteger Kubernetes:
 
 * Protección de las configuraciones de los componentes del clúster.
 * Protección de las aplicaciones que se ejecutan en el clúster.
@@ -84,8 +84,8 @@ Existe dos áreas de preocupación para proteger o Kubernetes:
 ### Componentes del Clúster {#cluster-components}
 
 Si desea proteger su clúster de accesos accidentales o maliciosos y adoptar
-buenas prácticas de seguridad, a continuación los consejos sobre
-[protegiendo el cluster](/docs/tasks/administer-cluster/securing-a-cluster/).
+buenas prácticas de seguridad, a continuación sigue estos consejos sobre
+[como proteger el clúster](/docs/tasks/administer-cluster/securing-a-cluster/).
 
 ### Componentes del clúster (su aplicación) {#cluster-applications}
 
@@ -134,7 +134,7 @@ Acceso solo a través de TLS | Si su código necesita comunicarse a través de T
 Limitación de intervalos de puertos de comunicación | Esta recomendación puede ser un poco evidente, pero siempre que sea posible, solo debe exponer los puertos de su servicio que son absolutamente esenciales para la comunicación o la recopilación de métricas. |
 Seguridad en dependencia de terceros | Es una buena práctica comprobar periódicamente las bibliotecas de terceros de su aplicación en busca de vulnerabilidades de seguridad. Cada lenguaje de programación tiene una herramienta para realizar esta verificación de forma automática. |
 Análisis de código estático | La mayoría de los lenguajes proporcionan una forma de analizar el código en busca de prácticas de codificación potencialmente inseguras. Siempre que sea posible, debe automatizar los escaneos utilizando herramientas que puedan escanear las bases del código en busca de errores de seguridad comunes. Algunas de las herramientas se pueden encontrar en [OWASP Source Code Analysis Tools](https://owasp.org/www-community/Source_Code_Analysis_Tools). |
-Ataques de sondeo dinámica | Existen algunas herramientas automatizadas que puede ejecutar en su servicio para explorar algunos de los ataques más conocidos. Esto incluye la inyección de SQL, CSRF y XSS. Una de las herramientas de análisis dinámico más populares es la [OWASP Zed Attack proxy](https://owasp.org/www-project-zap/). |
+Ataques de sondeo dinámico | Existen algunas herramientas automatizadas que puede ejecutar en su servicio para explorar algunos de los ataques más conocidos. Esto incluye la inyección de SQL, CSRF y XSS. Una de las herramientas de análisis dinámico más populares es la [OWASP Zed Attack proxy](https://owasp.org/www-project-zap/). |
 
 {{< /table >}}
 
@@ -145,7 +145,7 @@ Obtenga más información sobre los temas de seguridad de Kubernetes:
 * [Estándares de seguridad del pod](/docs/concepts/security/pod-security-standards/)
 * [Políticas de red para pods](/docs/concepts/services-networking/network-policies/)
 * [Control de acceso a la API de Kubernetes](/docs/concepts/security/controlling-access)
-* [Protegiendo su cluster](/docs/tasks/administer-cluster/securing-a-cluster/)
+* [Protegiendo su clúster](/docs/tasks/administer-cluster/securing-a-cluster/)
 * [Criptografía de datos en tránsito](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
 * [Criptografía de datos en reposo](/docs/tasks/administer-cluster/encrypt-data/)
 * [Secretos en Kubernetes](/docs/concepts/configuration/secret/)
