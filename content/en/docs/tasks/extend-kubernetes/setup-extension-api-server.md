@@ -41,7 +41,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 1. Make sure that your extension-apiserver loads those certs from that volume and that they are used in the HTTPS handshake.
 1. Create a Kubernetes service account in your namespace.
 1. Create a Kubernetes cluster role for the operations you want to allow on your resources.
-1. Create a Kubernetes cluster role binding from the service account in your namespace to the cluster role you just created.
+1. Create a Kubernetes cluster role binding from the service account in your namespace to the cluster role you created.
 1. Create a Kubernetes cluster role binding from the service account in your namespace to the `system:auth-delegator` cluster role to delegate auth decisions to the Kubernetes core API server.
 1. Create a Kubernetes role binding from the service account in your namespace to the `extension-apiserver-authentication-reader` role. This allows your extension api-server to access the `extension-apiserver-authentication` configmap.
 1. Create a Kubernetes apiservice. The CA cert above should be base64 encoded, stripped of new lines and used as the spec.caBundle in the apiservice. This should not be namespaced. If using the [kube-aggregator API](https://github.com/kubernetes/kube-aggregator/), only pass in the PEM encoded CA bundle because the base 64 encoding is done for you.

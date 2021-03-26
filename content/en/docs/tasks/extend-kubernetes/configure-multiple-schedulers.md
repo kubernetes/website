@@ -12,7 +12,7 @@ weight: 20
 Kubernetes ships with a default scheduler that is described
 [here](/docs/reference/command-line-tools-reference/kube-scheduler/).
 If the default scheduler does not suit your needs you can implement your own scheduler.
-Not just that, you can even run multiple schedulers simultaneously alongside the default
+Moreover, you can even run multiple schedulers simultaneously alongside the default
 scheduler and instruct Kubernetes what scheduler to use for each of your pods. Let's
 learn how to run multiple schedulers in Kubernetes with an example.
 
@@ -30,7 +30,7 @@ in the Kubernetes source directory for a canonical example.
 ## Package the scheduler
 
 Package your scheduler binary into a container image. For the purposes of this example,
-let's just use the default scheduler (kube-scheduler) as our second scheduler as well.
+you can use the default scheduler (kube-scheduler) as your second scheduler.
 Clone the [Kubernetes source code from GitHub](https://github.com/kubernetes/kubernetes)
 and build the source.
 
@@ -61,9 +61,9 @@ gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0
 
 ## Define a Kubernetes Deployment for the scheduler
 
-Now that we have our scheduler in a container image, we can just create a pod
-config for it and run it in our Kubernetes cluster. But instead of creating a pod
-directly in the cluster, let's use a [Deployment](/docs/concepts/workloads/controllers/deployment/)
+Now that you have your scheduler in a container image, create a pod
+configuration for it and run it in your Kubernetes cluster. But instead of creating a pod
+directly in the cluster, you can use a [Deployment](/docs/concepts/workloads/controllers/deployment/)
 for this example. A [Deployment](/docs/concepts/workloads/controllers/deployment/) manages a
 [Replica Set](/docs/concepts/workloads/controllers/replicaset/) which in turn manages the pods,
 thereby making the scheduler resilient to failures. Here is the deployment
@@ -83,7 +83,7 @@ detailed description of other command line arguments.
 
 ## Run the second scheduler in the cluster
 
-In order to run your scheduler in a Kubernetes cluster, just create the deployment
+In order to run your scheduler in a Kubernetes cluster, create the deployment
 specified in the config above in a Kubernetes cluster:
 
 ```shell
@@ -132,9 +132,9 @@ kubectl edit clusterrole system:kube-scheduler
 
 ## Specify schedulers for pods
 
-Now that our second scheduler is running, let's create some pods, and direct them
-to be scheduled by either the default scheduler or the one we just deployed.
-In order to schedule a given pod using a specific scheduler, we specify the name of the
+Now that your second scheduler is running, create some pods, and direct them
+to be scheduled by either the default scheduler or the one you deployed.
+In order to schedule a given pod using a specific scheduler, specify the name of the
 scheduler in that pod spec. Let's look at three examples.
 
 - Pod spec without any scheduler name
@@ -196,7 +196,7 @@ while the other two pods get scheduled. Once we submit the scheduler deployment 
 and our new scheduler starts running, the `annotation-second-scheduler` pod gets
 scheduled as well.
 
-Alternatively, one could just look at the "Scheduled" entries in the event logs to
+Alternatively, you can look at the "Scheduled" entries in the event logs to
 verify that the pods were scheduled by the desired schedulers.
 
 ```shell
