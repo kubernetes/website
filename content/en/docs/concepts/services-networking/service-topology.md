@@ -57,7 +57,7 @@ the first label matches the originating Node's value for that label. If there is
 no backend for the Service on a matching Node, then the second label will be
 considered, and so forth, until no labels remain.
 
-If no match is found, the traffic will be rejected, just as if there were no
+If no match is found, the traffic will be rejected, as if there were no
 backends for the Service at all. That is, endpoints are chosen based on the first
 topology key with available backends. If this field is specified and all entries
 have no backends that match the topology of the client, the service has no
@@ -87,7 +87,7 @@ traffic as follows.
 
 * Service topology is not compatible with `externalTrafficPolicy=Local`, and
   therefore a Service cannot use both of these features. It is possible to use
-  both features in the same cluster on different Services, just not on the same
+  both features in the same cluster on different Services, only not on the same
   Service.
 
 * Valid topology keys are currently limited to `kubernetes.io/hostname`,

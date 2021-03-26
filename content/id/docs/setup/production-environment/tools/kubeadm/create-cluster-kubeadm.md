@@ -134,7 +134,7 @@ tidak didukung oleh kubeadm.
 
 ### Informasi lebih lanjut
 
-Untuk informasi lebih lanjut mengenai argumen-argumen `kubeadm init`, lihat [panduan referensi kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/).
+Untuk informasi lebih lanjut mengenai argumen-argumen `kubeadm init`, lihat [panduan referensi kubeadm](/docs/reference/setup-tools/kubeadm/).
 
 Untuk daftar pengaturan konfigurasi yang lengkap, lihat [dokumentasi berkas konfigurasi](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
 
@@ -569,7 +569,7 @@ opsinya.
 * Pastikan klaster berjalan dengan benar menggunakan [Sonobuoy](https://github.com/heptio/sonobuoy)
 * <a id="lifecycle" />Lihat [Memperbaharui klaster kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
   untuk detail mengenai pembaruan klaster menggunakan `kubeadm`.
-* Pelajari penggunaan `kubeadm` lebih lanjut pada [dokumentasi referensi kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm)
+* Pelajari penggunaan `kubeadm` lebih lanjut pada [dokumentasi referensi kubeadm](/docs/reference/setup-tools/kubeadm)
 * Pelajari lebih lanjut mengenai [konsep-konsep](/docs/concepts/) Kubernetes dan [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Lihat halaman [Cluster Networking](/id/docs/concepts/cluster-administration/networking/) untuk daftar
 _add-on_ jaringan Pod yang lebih banyak.

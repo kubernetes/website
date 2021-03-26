@@ -23,9 +23,7 @@ Pod Autoscaling does not apply to objects that can't be scaled, for example, Dae
 
 The Horizontal Pod Autoscaler is implemented as a Kubernetes API resource and a controller.
 The resource determines the behavior of the controller.
-The controller periodically adjusts the number of replicas in a replication controller or deployment
-to match the observed average CPU utilization to the target specified by user.
-
+The controller periodically adjusts the number of replicas in a replication controller or deployment to match the observed metrics such as average CPU utilisation, average memory utilisation or any other custom metric to the target specified by the user.
 
 
 
@@ -162,7 +160,7 @@ can be fetched, scaling is skipped. This means that the HPA is still capable
 of scaling up if one or more metrics give a `desiredReplicas` greater than
 the current value.
 
-Finally, just before HPA scales the target, the scale recommendation is recorded.  The
+Finally, right before HPA scales the target, the scale recommendation is recorded.  The
 controller considers all recommendations within a configurable window choosing the
 highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly

@@ -520,7 +520,7 @@ CustomResourceDefinition and migrating your objects from one version to another.
 ### Finalizers
 
 *Finalizers* allow controllers to implement asynchronous pre-delete hooks.
-Custom objects support finalizers just like built-in objects.
+Custom objects support finalizers similar to built-in objects.
 
 You can add a finalizer to a custom object like this:
 

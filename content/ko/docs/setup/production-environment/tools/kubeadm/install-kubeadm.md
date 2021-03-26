@@ -18,14 +18,7 @@ card:
 ## {{% heading "prerequisites" %}}
 
 
-* 다음 중 하나를 실행하는 하나 이상의 머신이 필요하다.
-  - Ubuntu 16.04+
-  - Debian 9+
-  - CentOS 7+
-  - Red Hat Enterprise Linux (RHEL) 7+
-  - Fedora 25+
-  - HypriotOS v1.0.1+
-  - Flatcar Container Linux (2512.3.0으로 테스트됨)
+* 호환되는 리눅스 머신. 쿠버네티스 프로젝트는 데비안 기반 배포판, 레드햇 기반 배포판, 그리고 패키지 매니저를 사용하지 않는 경우에 대한 일반적인 가이드를 제공한다.
 * 2 GB 이상의 램을 장착한 머신. (이 보다 작으면 사용자의 앱을 위한 공간이 거의 남지 않음)
 * 2 이상의 CPU.
 * 클러스터의 모든 머신에 걸친 전체 네트워크 연결. (공용 또는 사설 네트워크면 괜찮음)
@@ -121,7 +114,7 @@ etcd 포트가 컨트롤 플레인 노드에 포함되어 있지만, 외부 또�
 {{< table caption = "컨테이너 런타임과 소켓 경로" >}}
 | 런타임       | 유닉스 도메인 소켓 경로                |
 |------------|-----------------------------------|
-| 도커        | `/var/run/docker.sock`            |
+| 도커        | `/var/run/dockershim.sock`            |
 | containerd | `/run/containerd/containerd.sock` |
 | CRI-O      | `/var/run/crio/crio.sock`         |
 {{< /table >}}
@@ -180,7 +173,7 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
 * Kubeadm 관련 [버전 차이 정책](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
-{{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
+{{% tab name="데비안 기반 배포판" %}}
 ```bash
 sudo apt-get update && sudo apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -192,7 +185,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 {{% /tab %}}
-{{% tab name="CentOS, RHEL 또는 Fedora" %}}
+{{% tab name="레드햇 기반 배포판" %}}
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -223,7 +216,7 @@ sudo systemctl enable --now kubelet
   - 구성 방법을 알고 있는 경우 SELinux를 활성화된 상태로 둘 수 있지만 kubeadm에서 지원하지 않는 설정이 필요할 수 있다.
 
 {{% /tab %}}
-{{% tab name="Fedora CoreOS 또는 Flatcar Container Linux" %}}
+{{% tab name="패키지 매니저를 사용하지 않는 경우" %}}
 CNI 플러그인 설치(대부분의 파드 네트워크에 필요)
 
 ```bash

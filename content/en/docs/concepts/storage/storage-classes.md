@@ -37,7 +37,7 @@ request a particular class. Administrators set the name and other parameters
 of a class when first creating StorageClass objects, and the objects cannot
 be updated once they are created.
 
-Administrators can specify a default StorageClass just for PVCs that don't
+Administrators can specify a default StorageClass only for PVCs that don't
 request any particular class to bind to: see the
 [PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 for details.
@@ -569,7 +569,7 @@ parameters:
   `"http(s)://api-server:7860"`
 * `registry`: Quobyte registry to use to mount the volume. You can specify the
   registry as ``<host>:<port>`` pair or if you want to specify multiple
-  registries you just have to put a comma between them e.q.
+  registries, put a comma between them.
   ``<host1>:<port>,<host2>:<port>,<host3>:<port>``.
   The host can be an IP address or if you have a working DNS you can also
   provide the DNS names.
