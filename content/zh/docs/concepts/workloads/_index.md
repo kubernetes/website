@@ -38,7 +38,7 @@ all the pods on that node fail. Kubernetes treats that level of failure as final
 would need to create a new `Pod` to recover, even if the node later becomes healthy.
 -->
 Kubernetes Pods 有[确定的生命周期](/zh/docs/concepts/workloads/pods/pod-lifecycle/)。
-例如，一旦某 Pod 在你的集群中运行，Pod 运行所在的
+例如，当某 Pod 在你的集群中运行，Pod 运行所在的
 {{< glossary_tooltip text="节点" term_id="node" >}} 出现致命错误时，
 所有该节点上的 Pods 都会失败。Kubernetes 将这类失败视为最终状态：
 即使该节点后来恢复正常运行，你也需要创建新的 Pod 来恢复应用。
