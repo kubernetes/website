@@ -38,8 +38,7 @@ ID([UID](/ko/docs/concepts/overview/working-with-objects/names/#uids))가
 타임아웃 기간 후에 [삭제되도록 스케줄된다](#pod-garbage-collection).
 
 파드는 자체적으로 자가 치유되지 않는다. 파드가
-{{< glossary_tooltip text="노드" term_id="node" >}}에 스케줄된 후에 실패하거나,
-스케줄 작업 자체가 실패하면, 파드는 삭제된다. 마찬가지로, 파드는
+{{< glossary_tooltip text="노드" term_id="node" >}}에 스케줄된 후에 해당 노드가 실패하면, 파드는 삭제된다. 마찬가지로, 파드는
 리소스 부족 또는 노드 유지 관리 작업으로 인해 축출되지 않는다. 쿠버네티스는
 {{< glossary_tooltip term_id="controller" text="컨트롤러" >}}라
 부르는 하이-레벨 추상화를 사용하여

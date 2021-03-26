@@ -72,8 +72,7 @@ You cannot overcommit `hugepages-*` resources.
 This is different from the `memory` and `cpu` resources.
 {{< /note >}}
 
-CPU and memory are collectively referred to as *compute resources*, or just
-*resources*. Compute
+CPU and memory are collectively referred to as *compute resources*, or *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
 [API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
@@ -554,7 +553,7 @@ extender.
 
 ### Consuming extended resources
 
-Users can consume extended resources in Pod specs just like CPU and memory.
+Users can consume extended resources in Pod specs like CPU and memory.
 The scheduler takes care of the resource accounting so that no more than the
 available amount is simultaneously allocated to Pods.
 

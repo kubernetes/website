@@ -58,7 +58,7 @@ weight: 20
 ## 리소스 쿼터 활성화
 
 많은 쿠버네티스 배포판에 기본적으로 리소스 쿼터 지원이 활성화되어 있다.
-API 서버 `--enable-admission-plugins=` 플래그의 인수 중 하나로
+{{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}} `--enable-admission-plugins=` 플래그의 인수 중 하나로
 `ResourceQuota`가 있는 경우 활성화된다.
 
 해당 네임스페이스에 리소스쿼터가 있는 경우 특정 네임스페이스에

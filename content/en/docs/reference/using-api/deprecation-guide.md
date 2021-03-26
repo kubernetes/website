@@ -116,7 +116,7 @@ The **certificates.k8s.io/v1beta1** API version of CertificateSigningRequest wil
 * All existing persisted objects are accessible via the new API
 * Notable changes in `certificates.k8s.io/v1`:
     * For API clients requesting certificates:
-        * `spec.signerName` is now required (see [known Kubernetes signers](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)), and requests for `kubernetes.io/legacy-unknown` are not allowed to be created via the `certificates.k8s.io/v1` API
+        * `spec.signerName` is now required (see [known Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)), and requests for `kubernetes.io/legacy-unknown` are not allowed to be created via the `certificates.k8s.io/v1` API
         * `spec.usages` is now required, may not contain duplicate values, and must only contain known usages
     * For API clients approving or signing certificates:
         * `status.conditions` may not contain duplicate types

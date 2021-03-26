@@ -193,7 +193,7 @@ This admission controller will deny exec and attach commands to pods that run wi
 allow host access.  This includes pods that run as privileged, have access to the host IPC namespace, and
 have access to the host PID namespace.
 
-The DenyEscalatingExec admission plugin is deprecated and will be removed in v1.21.
+The DenyEscalatingExec admission plugin is deprecated.
 
 Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
 which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
@@ -206,7 +206,7 @@ is recommended instead.
 This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
 
 This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
-The DenyExecOnPrivileged admission plugin is deprecated and will be removed in v1.21.
+The DenyExecOnPrivileged admission plugin is deprecated.
 
 Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
 which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods

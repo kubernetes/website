@@ -39,7 +39,7 @@ kops는 자동화된 프로비저닝 시스템인데,
 
 #### 설치
 
-[releases page](https://github.com/kubernetes/kops/releases)에서 kops를 다운로드 한다(소스 코드로부터 빌드하는 것도 역시 편리하다).
+[releases page](https://github.com/kubernetes/kops/releases)에서 kops를 다운로드한다(소스 코드로부터 빌드하는 것도 역시 편리하다).
 
 {{< tabs name="kops_installation" >}}
 {{% tab name="macOS" %}}

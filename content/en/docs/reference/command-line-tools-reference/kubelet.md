@@ -909,7 +909,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `k8s.gcr.io/pause:3.2`</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The image whose network/IPC namespaces containers in each pod will use. This docker-specific flag only works when container-runtime is set to `docker`.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"> Specified image will not be pruned by the image garbage collector. When container-runtime is set to `docker`, all containers in each pod will use the network/ipc namespaces from this image. Other CRI implementations have their own configuration to set this image.</td>
 </tr>
 
 <tr>

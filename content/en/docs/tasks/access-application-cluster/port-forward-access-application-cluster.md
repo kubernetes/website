@@ -7,7 +7,7 @@ min-kubernetes-server-version: v1.10
 
 <!-- overview -->
 
-This page shows how to use `kubectl port-forward` to connect to a Redis
+This page shows how to use `kubectl port-forward` to connect to a MongoDB
 server running in a Kubernetes cluster. This type of connection can be useful
 for database debugging.
 
@@ -19,25 +19,25 @@ for database debugging.
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* Install [redis-cli](http://redis.io/topics/rediscli).
+* Install [MongoDB Shell](https://www.mongodb.com/try/download/shell).
 
 
 
 
 <!-- steps -->
 
-## Creating Redis deployment and service
+## Creating MongoDB deployment and service
 
-1. Create a Deployment that runs Redis:
+1. Create a Deployment that runs MongoDB:
 
     ```shell
-    kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
+    kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-deployment.yaml
     ```
 
     The output of a successful command verifies that the deployment was created:
 
     ```
-    deployment.apps/redis-master created
+    deployment.apps/mongo created
     ```
 
     View the pod status to check that it is ready:
@@ -49,8 +49,8 @@ for database debugging.
     The output displays the pod created:
 
     ```
-    NAME                            READY     STATUS    RESTARTS   AGE
-    redis-master-765d459796-258hz   1/1       Running   0          50s
+    NAME                     READY   STATUS    RESTARTS   AGE
+    mongo-75f59d57f4-4nd6q   1/1     Running   0          2m4s
     ```
 
     View the Deployment's status:
@@ -62,8 +62,8 @@ for database debugging.
     The output displays that the Deployment was created:
 
     ```
-    NAME         READY   UP-TO-DATE   AVAILABLE   AGE
-    redis-master 1/1     1            1           55s
+    NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+    mongo   1/1     1            1           2m21s
     ```
 
     The Deployment automatically manages a ReplicaSet.
@@ -76,50 +76,50 @@ for database debugging.
     The output displays that the ReplicaSet was created:
 
     ```
-    NAME                      DESIRED   CURRENT   READY     AGE
-    redis-master-765d459796   1         1         1         1m
+    NAME               DESIRED   CURRENT   READY   AGE
+    mongo-75f59d57f4   1         1         1       3m12s
     ```
 
 
-2. Create a Service to expose Redis on the network:
+2. Create a Service to expose MongoDB on the network:
 
     ```shell
-    kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
+    kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-service.yaml
     ```
 
     The output of a successful command verifies that the Service was created:
 
     ```
-    service/redis-master created
+    service/mongo created
     ```
 
     Check the Service created:
 
     ```shell
-    kubectl get service redis-master
+    kubectl get service mongo
     ```
 
     The output displays the service created:
 
     ```
-    NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-    redis-master   ClusterIP   10.0.0.213   <none>        6379/TCP   27s
+    NAME    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)     AGE
+    mongo   ClusterIP   10.96.41.183   <none>        27017/TCP   11s
     ```
 
-3. Verify that the Redis server is running in the Pod, and listening on port 6379:
+3. Verify that the MongoDB server is running in the Pod, and listening on port 27017:
 
     ```shell
-    # Change redis-master-765d459796-258hz to the name of the Pod
-    kubectl get pod redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
+    # Change mongo-75f59d57f4-4nd6q to the name of the Pod
+    kubectl get pod mongo-75f59d57f4-4nd6q --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
     ```
 
-    The output displays the port for Redis in that Pod:
+    The output displays the port for MongoDB in that Pod:
 
     ```
-    6379
+    27017
     ```
 
-    (this is the TCP port allocated to Redis on the internet).
+    (this is the TCP port allocated to MongoDB on the internet).
 
 ## Forward a local port to a port on the Pod
 
@@ -127,39 +127,39 @@ for database debugging.
 
 
     ```shell
-    # Change redis-master-765d459796-258hz to the name of the Pod
-    kubectl port-forward redis-master-765d459796-258hz 7000:6379
+    # Change mongo-75f59d57f4-4nd6q to the name of the Pod
+    kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
     ```
 
     which is the same as
 
     ```shell
-    kubectl port-forward pods/redis-master-765d459796-258hz 7000:6379
+    kubectl port-forward pods/mongo-75f59d57f4-4nd6q 28015:27017
     ```
 
     or
 
     ```shell
-    kubectl port-forward deployment/redis-master 7000:6379
+    kubectl port-forward deployment/mongo 28015:27017
     ```
 
     or
 
     ```shell
-    kubectl port-forward replicaset/redis-master 7000:6379
+    kubectl port-forward replicaset/mongo-75f59d57f4 28015:27017
     ```
 
     or
 
     ```shell
-    kubectl port-forward service/redis-master 7000:redis
+    kubectl port-forward service/mongo 28015:27017
     ```
 
     Any of the above commands works. The output is similar to this:
 
     ```
-    Forwarding from 127.0.0.1:7000 -> 6379
-    Forwarding from [::1]:7000 -> 6379
+    Forwarding from 127.0.0.1:28015 -> 27017
+    Forwarding from [::1]:28015 -> 27017
     ```
 
 {{< note >}}
@@ -168,22 +168,22 @@ for database debugging.
 
 {{< /note >}}
 
-2.  Start the Redis command line interface:
+2.  Start the MongoDB command line interface:
 
     ```shell
-    redis-cli -p 7000
+    mongosh --port 28015
     ```
 
-3.  At the Redis command line prompt, enter the `ping` command:
+3.  At the MongoDB command line prompt, enter the `ping` command:
 
     ```
-    ping
+    db.runCommand( { ping: 1 } )
     ```
 
     A successful ping request returns:
 
     ```
-    PONG
+    { ok: 1 }
     ```
 
 ### Optionally let _kubectl_ choose the local port {#let-kubectl-choose-local-port}
@@ -193,15 +193,22 @@ the local port and thus relieve you from having to manage local port conflicts, 
 the slightly simpler syntax:
 
 ```shell
-kubectl port-forward deployment/redis-master :6379
+kubectl port-forward deployment/mongo :27017
+```
+
+The output is similar to this:
+
+```
+Forwarding from 127.0.0.1:63753 -> 27017
+Forwarding from [::1]:63753 -> 27017
 ```
 
 The `kubectl` tool finds a local port number that is not in use (avoiding low ports numbers,
 because these might be used by other applications). The output is similar to:
 
 ```
-Forwarding from 127.0.0.1:62162 -> 6379
-Forwarding from [::1]:62162 -> 6379
+Forwarding from 127.0.0.1:63753 -> 27017
+Forwarding from [::1]:63753 -> 27017
 ```
 
 
@@ -209,8 +216,8 @@ Forwarding from [::1]:62162 -> 6379
 
 ## Discussion
 
-Connections made to local port 7000 are forwarded to port 6379 of the Pod that
-is running the Redis server. With this connection in place, you can use your
+Connections made to local port 28015 are forwarded to port 27017 of the Pod that
+is running the MongoDB server. With this connection in place, you can use your
 local workstation to debug the database that is running in the Pod.
 
 {{< note >}}

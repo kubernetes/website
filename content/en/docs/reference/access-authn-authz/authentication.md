@@ -458,7 +458,7 @@ clusters:
   - name: name-of-remote-authn-service
     cluster:
       certificate-authority: /path/to/ca.pem         # CA for verifying the remote service.
-      server: https://authn.example.com/authenticate # URL of remote service to query. Must use 'https'.
+      server: https://authn.example.com/authenticate # URL of remote service to query. 'https' recommended for production.
 
 # users refers to the API server's webhook configuration.
 users:
