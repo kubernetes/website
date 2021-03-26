@@ -623,7 +623,7 @@ for more information.
 <!-- 
 ## Graceful Node Shutdown {#graceful-node-shutdown}
 -->
-## 节点体面关闭 {#graceful-node-shutdown}
+## 节点优雅关闭 {#graceful-node-shutdown}
 
 {{< feature-state state="alpha" for_k8s_version="v1.20" >}}
 
@@ -656,9 +656,9 @@ Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/
 * `ShutdownGracePeriodCriticalPods`:
   * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This should be less than `ShutdownGracePeriod`.
 -->
-节点体面关闭的特性对应两个 [`KubeletConfiguration`](/zh/docs/tasks/administer-cluster/kubelet-config-file/) 选项：
+节点优雅关闭的特性对应两个 [`KubeletConfiguration`](/zh/docs/tasks/administer-cluster/kubelet-config-file/) 选项：
 * `ShutdownGracePeriod`：
-  * 指定节点应延迟关闭的总持续时间。此时间是 Pod 体面终止的时间总和，不区分常规 Pod 还是
+  * 指定节点应延迟关闭的总持续时间。此时间是 Pod 优雅终止的时间总和，不区分常规 Pod 还是
     [关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 * `ShutdownGracePeriodCriticalPods`：
   * 在节点关闭期间指定用于终止
@@ -669,7 +669,7 @@ Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/
 For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved for gracefully terminating normal pods, and the last 10 seconds would be reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 -->
 例如，如果设置了 `ShutdownGracePeriod=30s` 和 `ShutdownGracePeriodCriticalPods=10s`，则 kubelet 将延迟 30 秒关闭节点。
-在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，而保留最后 10 秒用于终止
+在关闭期间，将保留前 20（30 - 10）秒用于优雅终止常规 Pod，而保留最后 10 秒用于终止
 [关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
 ## {{% heading "whatsnext" %}}
