@@ -37,7 +37,7 @@ When the above conditions are true, Kubernetes will expose `amd.com/gpu` or
 `nvidia.com/gpu` as a schedulable resource.
 
 You can consume these GPUs from your containers by requesting
-`<vendor>.com/gpu` just like you request `cpu` or `memory`.
+`<vendor>.com/gpu` the same way you request `cpu` or `memory`.
 However, there are some limitations in how you specify the resource requirements
 when using GPUs:
 

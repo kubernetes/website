@@ -184,7 +184,7 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 ```
 
 Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
-nodes. For this example we'll just use SSH to install the profiles, but other approaches are
+nodes. For this example we'll use SSH to install the profiles, but other approaches are
 discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 
 ```shell

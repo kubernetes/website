@@ -167,7 +167,7 @@ data:
     users: []
 ```
 
-The `kubeconfig` member of the ConfigMap is a config file with just the cluster
+The `kubeconfig` member of the ConfigMap is a config file with only the cluster
 information filled out.  The key thing being communicated here is the
 `certificate-authority-data`.  This may be expanded in the future.
 
