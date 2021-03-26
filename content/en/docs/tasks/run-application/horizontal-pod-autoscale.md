@@ -23,9 +23,7 @@ Pod Autoscaling does not apply to objects that can't be scaled, for example, Dae
 
 The Horizontal Pod Autoscaler is implemented as a Kubernetes API resource and a controller.
 The resource determines the behavior of the controller.
-The controller periodically adjusts the number of replicas in a replication controller or deployment
-to match the observed average CPU utilization to the target specified by user.
-
+The controller periodically adjusts the number of replicas in a replication controller or deployment to match the observed metrics such as average CPU utilisation, average memory utilisation or any other custom metric to the target specified by the user.
 
 
 
