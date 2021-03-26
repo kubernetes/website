@@ -283,7 +283,7 @@ at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-l
 As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you append to the service's proxy URL:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
-If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
+If you haven't specified a name for your port, you don't have to specify *port_name* in the URL. You can also use the port number in place of the *port_name* for both named and unnamed ports.
 
 By default, the API server proxies to your service using http. To use https, prefix the service name with `https:`:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`https:service_name:[port_name]`*`/proxy`
@@ -291,9 +291,9 @@ By default, the API server proxies to your service using http. To use https, pre
 The supported formats for the name segment of the URL are:
 
 * `<service_name>` - proxies to the default or unnamed port using http
-* `<service_name>:<port_name>` - proxies to the specified port using http
+* `<service_name>:<port_name>` - proxies to the specified port name or port number using http
 * `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
-* `https:<service_name>:<port_name>` - proxies to the specified port using https
+* `https:<service_name>:<port_name>` - proxies to the specified port name or port number using https
 
 ##### Examples
 
