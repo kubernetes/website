@@ -135,7 +135,7 @@ Here are the recommended steps to configuring your nodes to use a private regist
 example, run these on your desktop/laptop:
 
    1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
-   1. View `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
+   1. View `$HOME/.docker/config.json` in an editor to ensure it contains only the credentials you want to use.
    1. Get a list of your nodes; for example:
       - if you want the names: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
       - if you want to get the IP addresses: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`

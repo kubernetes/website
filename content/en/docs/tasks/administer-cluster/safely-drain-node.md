@@ -128,8 +128,8 @@ curl -v -H 'Content-type: application/json' https://your-cluster-api-endpoint.ex
 
 The API can respond in one of three ways:
 
-- If the eviction is granted, then the Pod is deleted just as if you had sent
-  a `DELETE` request to the Pod's URL and you get back `200 OK`.
+- If the eviction is granted, then the Pod is deleted as if you sent
+  a `DELETE` request to the Pod's URL and received back `200 OK`.
 - If the current state of affairs wouldn't allow an eviction by the rules set
   forth in the budget, you get back `429 Too Many Requests`. This is
   typically used for generic rate limiting of *any* requests, but here we mean

@@ -152,7 +152,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     The application code inside the image `k8s.gcr.io/echoserver` only listens on TCP port 8080. If you used
     `kubectl expose` to expose a different port, clients could not connect to that other port.
 
-2. View the Service you just created:
+2. View the Service you created:
 
     ```shell
     kubectl get services
@@ -227,7 +227,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     metrics-server was successfully enabled
     ```
 
-3. View the Pod and Service you just created:
+3. View the Pod and Service you created:
 
     ```shell
     kubectl get pod,svc -n kube-system
