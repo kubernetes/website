@@ -17,7 +17,7 @@ and contains the services necessary to run
 {{< glossary_tooltip text="Pods" term_id="pod" >}}
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
-environment, you might have just one.
+environment, you might have only one node.
 
 The [components](/docs/concepts/overview/components/#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
@@ -237,6 +237,7 @@ responsible for:
 - Evicting all the pods from the node using graceful termination if
   the node continues to be unreachable. The default timeouts are 40s to start
   reporting ConditionUnknown and 5m after that to start evicting pods.
+
 The node controller checks the state of each node every `--node-monitor-period` seconds.
 
 #### Heartbeats
@@ -278,6 +279,7 @@ the same time:
   `--large-cluster-size-threshold` nodes - default 50), then evictions are stopped.
 - Otherwise, the eviction rate is reduced to `--secondary-node-eviction-rate`
   (default 0.01) per second.
+
 The reason these policies are implemented per availability zone is because one
 availability zone might become partitioned from the master while the others remain
 connected. If your cluster does not span multiple cloud provider availability zones,

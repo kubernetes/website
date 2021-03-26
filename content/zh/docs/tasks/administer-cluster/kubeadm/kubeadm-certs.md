@@ -324,69 +324,14 @@ controllerManager:
 
 <!-- 
 ### Create certificate signing requests (CSR)
-
-You can create the certificate signing requests for the Kubernetes certificates API with `kubeadm alpha certs renew --use-api`. 
 -->
 ### 创建证书签名请求 (CSR)
 
-你可以用 `kubeadm alpha certs renew --use-api` 为 Kubernetes 证书 API 创建一个证书签名请求。
-
 <!--
-If you set up an external signer such as [cert-manager](https://github.com/jetstack/cert-manager), certificate signing requests (CSRs) are automatically approved.
-Otherwise, you must manually approve certificates with the [`kubectl certificate`](/docs/setup/best-practices/certificates/)  command.
-The following kubeadm command outputs the name of the certificate to approve, then blocks and waits for approval to occur:
+See [Create CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest) for creating CSRs with the Kubernetes API.
 -->
-如果你设置例如 [cert-manager](https://github.com/jetstack/cert-manager)
-等外部签名者，证书签名请求（CSRs）会被自动批准。
-否则，你必须使用 [`kubectl certificate`](/zh/docs/setup/best-practices/certificates/) 
-命令手动批准证书。
-以下 kubeadm 命令输出要批准的证书名称，然后阻塞等待批准发生：
-
-```shell
-sudo kubeadm alpha certs renew apiserver --use-api &
-```
-
-<!--
-The output is similar to this:
--->
-输出类似于以下内容：
-```
-[1] 2890
-[certs] certificate request "kubeadm-cert-kube-apiserver-ld526" created
-```
-
-<!-- 
-### Approve certificate signing requests (CSR) 
-
-If you set up an external signer, certificate signing requests (CSRs) are automatically approved. 
-
-Otherwise, you must manually approve certificates with the [`kubectl certificate`](/docs/setup/best-practices/certificates/) command. e.g.
--->
-
-### 批准证书签名请求 (CSR)
-
-如果你设置了一个外部签名者， 证书签名请求 (CSRs) 会自动被批准。
-
-否则，你必须用 [`kubectl certificate`](/zh/docs/setup/best-practices/certificates/)
-命令手动批准证书，例如：
-
-```shell
-kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
-```
-
-<!-- 
-The output is similar to this:
--->
-输出类似于以下内容：
-
-```
-certificatesigningrequest.certificates.k8s.io/kubeadm-cert-kube-apiserver-ld526 approved
-```
-
-<!-- 
-You can view a list of pending certificates with `kubectl get csr`. 
--->
-你可以使用 `kubectl get csr` 查看待处理证书列表。
+有关使用 Kubernetes API 创建 CSR 的信息，
+请参见[创建 CertificateSigningRequest](/zh/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest)。
 
 <!--
 ## Renew certificates with external CA

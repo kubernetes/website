@@ -9,7 +9,7 @@ reviewers:
 - bart0sh
 title: Container runtimes
 content_type: concept
-weight: 10
+weight: 20
 -->
 
 <!-- overview -->
@@ -108,7 +108,7 @@ configuration, or reinstall it using automation.
 ### containerd
 
 <!--
-This section contains the necessary steps to use `containerd` as CRI runtime.
+This section contains the necessary steps to use containerd as CRI runtime.
 
 Use the following commands to install Containerd on your system:
 
@@ -134,7 +134,7 @@ EOF
 sudo sysctl --system
 ```
 -->
-本节包含使用 `containerd` 作为 CRI 运行时的必要步骤。
+本节包含使用 containerd 作为 CRI 运行时的必要步骤。
 
 使用以下命令在系统上安装容器：
 
@@ -156,7 +156,7 @@ net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 
-# Apply sysctl params without reboot
+# 应用 sysctl 参数而无需重新启动
 sudo sysctl --system
 ```
 
@@ -166,310 +166,85 @@ Install containerd:
 安装 containerd:
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{% tab name="Ubuntu 16.04" %}}
+{{% tab name="Linux" %}}
 
 <!--
-```shell
-# (Install containerd)
-## Set up the repository
-### Install packages to allow apt to use a repository over HTTPS
-sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-```
-
-```shell
-## Add Docker's official GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-```
-
-```shell
-## Add Docker apt repository.
-sudo add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
-```
-
-```shell
-## Install containerd
-sudo apt-get update && sudo apt-get install -y containerd.io
-```
-
-```shell
-# Configure containerd
-sudo mkdir -p /etc/containerd
-sudo containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# Restart containerd
-sudo systemctl restart containerd
-```
+1. Install the `containerd.io` package from the official Docker repositories. Instructions for setting up the Docker repository for your respective Linux distribution and installing the `containerd.io` package can be found at [Install Docker Engine](https://docs.docker.com/engine/install/#server).
 -->
-```shell
-# (安装 containerd)
-## (设置仓库)
-### (安装软件包以允许 apt 通过 HTTPS 使用存储库)
-sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-```
-
-```shell
-## 安装 Docker 的官方 GPG 密钥
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-```
-
-```shell
-## 新增 Docker apt 仓库。
-sudo add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
-```
-
-```shell
-## 安装 containerd
-sudo apt-get update && sudo apt-get install -y containerd.io
-```
-
-```shell
-# 配置 containerd
-sudo mkdir -p /etc/containerd
-sudo containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# 重启 containerd
-sudo systemctl restart containerd
-```
-{{< /tab >}}
-{{% tab name="Ubuntu 18.04/20.04" %}}
+1. 从官方Docker仓库安装 `containerd.io` 软件包。可以在 [安装 Docker 引擎](https://docs.docker.com/engine/install/#server) 中找到有关为各自的 Linux 发行版设置 Docker 存储库和安装 `containerd.io` 软件包的说明。
 
 <!--
-```shell
-# (Install containerd)
-sudo apt-get update && sudo apt-get install -y containerd
-```
-
-```shell
-# Configure containerd
-sudo mkdir -p /etc/containerd
-sudo containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# Restart containerd
-sudo systemctl restart containerd
-```
+2. Configure containerd:
 -->
-```shell
-# 安装 containerd
-sudo apt-get update && sudo apt-get install -y containerd
-```
+2. 配置 containerd：
 
-```shell
-# 配置 containerd
-sudo mkdir -p /etc/containerd
-sudo containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# 重启 containerd
-sudo systemctl restart containerd
-```
-{{% /tab %}}
-{{% tab name="Debian 9+" %}}
+   ```shell
+   sudo mkdir -p /etc/containerd
+   containerd config default | sudo tee /etc/containerd/config.toml
+   ```
 
 <!--
-```shell
-# (Install containerd)
-## Set up the repository
-### Install packages to allow apt to use a repository over HTTPS
-sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-```
-
-```shell
-## Add Docker's official GPG key
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-```
-
-```shell
-## Add Docker apt repository.
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/debian \
-   $(lsb_release -cs) \
-   stable"
-```
+3. Restart containerd:
 -->
-```shell
-# 安装 containerd
-## 配置仓库
-### 安装软件包以使 apt 能够使用 HTTPS 访问仓库
-sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-```
+3. 重新启动 containerd:
 
-```shell
-## 添加 Docker 的官方 GPG 密钥
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-```
+   ```shell
+   sudo systemctl restart containerd
+   ```
 
-```shell
-## 添加 Docker apt 仓库
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/debian \
-   $(lsb_release -cs) \
-   stable"
-```
-
-<!--
-```shell
-## Install containerd
-sudo apt-get update && sudo apt-get install -y containerd.io
-```
-
-```shell
-# Set default containerd configuration
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# Restart containerd
-sudo systemctl restart containerd
-```
--->
-```shell
-## 安装 containerd
-sudo apt-get update && sudo apt-get install -y containerd.io
-```
-
-```shell
-# 设置 containerd 的默认配置
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# 重启 containerd
-sudo systemctl restart containerd
-```
-{{% /tab %}}
-{{% tab name="CentOS/RHEL 7.4+" %}}
-
-<!--
-```shell
-# (Install containerd)
-## Set up the repository
-### Install required packages
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-```
-
-```shell
-## Add docker repository
-sudo yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-```
-
-```shell
-## Install containerd
-sudo yum update -y && sudo yum install -y containerd.io
-```
-
-```shell
-## Configure containerd
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# Restart containerd
-sudo systemctl restart containerd
-```
--->
-```shell
-# 安装 containerd
-## 设置仓库
-### 安装所需包
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-```
-
-```shell
-### 添加 Docker 仓库
-sudo yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-```
-
-```shell
-## 安装 containerd
-sudo yum update -y && sudo yum install -y containerd.io
-```
-
-```shell
-# 配置 containerd
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-```
-
-```shell
-# 重启 containerd
-sudo systemctl restart containerd
-```
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
-<!-- 
-```powershell
-# (Install containerd)
-# download containerd
-cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.1/containerd-1.4.1-windows-amd64.tar.gz
-cmd /c tar xvf .\containerd-1.4.1-windows-amd64.tar.gz
-```
+<!--
+Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), and then run the following commands:
+-->
+启动 Powershell 会话，将 `$Version` 设置为所需的版本（例如：`$ Version=1.4.3`），然后运行以下命令：
 
-```powershell
-# extract and configure
-Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
-cd $Env:ProgramFiles\containerd\
-.\containerd.exe config default | Out-File config.toml -Encoding ascii
+<!--
+1. Download containerd:
+-->
+1. 下载 containerd：
 
-# review the configuration. depending on setup you may want to adjust:
-# - the sandbox_image (kubernetes pause image)
-# - cni bin_dir and conf_dir locations
-Get-Content config.toml
-```
+   ```powershell
+   curl.exe -L https://github.com/containerd/containerd/releases/download/v$Version/containerd-$Version-windows-amd64.tar.gz -o containerd-windows-amd64.tar.gz
+   tar.exe xvf .\containerd-windows-amd64.tar.gz
+   ```
+<!--
+2. Extract and configure:
+-->
+2. 提取并配置：
 
-```powershell
-# start containerd
-.\containerd.exe --register-service
-Start-Service containerd
-```
- -->
-```powershell
-# 安装 containerd 
-# 下载 containerd
-cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.1/containerd-1.4.1-windows-amd64.tar.gz
-cmd /c tar xvf .\containerd-1.4.1-windows-amd64.tar.gz
-```
+   ```powershell
+   Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
+   cd $Env:ProgramFiles\containerd\
+   .\containerd.exe config default | Out-File config.toml -Encoding ascii
 
-```powershell
-# 解压并配置
-Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
-cd $Env:ProgramFiles\containerd\
-.\containerd.exe config default | Out-File config.toml -Encoding ascii
+   # Review the configuration. Depending on setup you may want to adjust:
+   # - the sandbox_image (Kubernetes pause image)
+   # - cni bin_dir and conf_dir locations
+   Get-Content config.toml
 
-# 检查配置文件，基于你可能想要调整的设置：
-# - sandbox_image (kubernetes pause 镜像)
-# - CNI 的 bin_dir 和 conf_dir 路径
-Get-Content config.toml
-```
+   # (Optional - but highly recommended) Exclude containerd from Windows Defender Scans
+   Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe"
+   ```
+<!--
+3. Start containerd:
+-->
 
-```powershell
-# 启动 containerd
-.\containerd.exe --register-service
-Start-Service containerd
-```
+3. 启动 containerd:
+
+   ```powershell
+   .\containerd.exe --register-service
+   Start-Service containerd
+   ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
-#### systemd {#containerd-systemd}
+<!-- 
+#### Using the `systemd` cgroup driver {#containerd-systemd}
+--> 
+
+#### 使用 `systemd` cgroup 驱动程序 {#containerd-systemd}
 
 <!-- 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
@@ -480,10 +255,8 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
-
-When using kubeadm, manually configure the
-[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 -->
+
 结合 `runc` 使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置 
 
 ```
@@ -493,6 +266,19 @@ When using kubeadm, manually configure the
     SystemdCgroup = true
 ```
 
+<!--
+If you apply this change make sure to restart containerd again:
+-->
+如果您应用此更改，请确保再次重新启动 containerd：
+
+```shell
+sudo systemctl restart containerd
+```
+
+<!--
+When using kubeadm, manually configure the
+[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
+-->
 当使用 kubeadm 时，请手动配置
 [kubelet 的 cgroup 驱动](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 
@@ -505,7 +291,7 @@ Use the following commands to install CRI-O on your system:
 
 {{< note >}}
 The CRI-O major and minor versions must match the Kubernetes major and minor versions.
-For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o).
+For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o#compatibility-matrix-cri-o--kubernetes).
 {{< /note >}}
 
 Install and configure prerequisites:
@@ -536,7 +322,7 @@ sudo sysctl --system
 使用以下命令在系统中安装 CRI-O：
 
 提示：CRI-O 的主要以及次要版本必须与 Kubernetes 的主要和次要版本相匹配。
-更多信息请查阅 [CRI-O 兼容性列表](https://github.com/cri-o/cri-o).
+更多信息请查阅 [CRI-O 兼容性列表](https://github.com/cri-o/cri-o#compatibility-matrix-cri-o--kubernetes)。
 
 安装以及配置的先决条件：
 
@@ -569,31 +355,31 @@ To install CRI-O on the following operating systems, set the environment variabl
 to the appropriate value from the following table:
 
 | Operating system | `$OS`             |
-|------------------|-------------------|
+| ---------------- | ----------------- |
 | Debian Unstable  | `Debian_Unstable` |
 | Debian Testing   | `Debian_Testing`  |
 
 <br />
 Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, set `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
 You can pin your installation to a specific release.
-To install version 1.18.3, set `VERSION=1.18:1.18.3`.
+To install version 1.20.0, set `VERSION=1.20:1.20.0`.
 <br />
 
 Then run
  -->
 在下列操作系统上安装 CRI-O, 使用下表中合适的值设置环境变量 `OS`:
 
-| 操作系统         | `$OS`             |
-|-----------------|-------------------|
-| Debian Unstable | `Debian_Unstable` |
-| Debian Testing  | `Debian_Testing`  |
+| 操作系统          | `$OS`             |
+| ---------------- | ----------------- |
+| Debian Unstable  | `Debian_Unstable` |
+| Debian Testing   | `Debian_Testing`  |
 
 <br />
 然后，将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
-例如，如果你要安装 CRI-O 1.18, 请设置 `VERSION=1.18`.
+例如，如果你要安装 CRI-O 1.20, 请设置 `VERSION=1.20`.
 你也可以安装一个特定的发行版本。
-例如要安装 1.18.3 版本，设置 `VERSION=1.18:1.18.3`.
+例如要安装 1.20.0 版本，设置 `VERSION=1.20.0:1.20.0`.
 <br />
 
 然后执行
@@ -605,8 +391,8 @@ cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cr
 deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /
 EOF
 
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg -
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg -
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
 
 sudo apt-get update
 sudo apt-get install cri-o cri-o-runc
@@ -619,36 +405,36 @@ sudo apt-get install cri-o cri-o-runc
 <!-- 
 To install on the following operating systems, set the environment variable `OS` to the appropriate field in the following table:
 
-| Operating system | `$OS`           |
-|------------------|-----------------|
-| Ubuntu 20.04     | `xUbuntu_20.04` |
-| Ubuntu 19.10     | `xUbuntu_19.10` |
-| Ubuntu 19.04     | `xUbuntu_19.04` |
-| Ubuntu 18.04     | `xUbuntu_18.04` |
+| Operating system | `$OS`             |
+| ---------------- | ----------------- |
+| Ubuntu 20.04     | `xUbuntu_20.04`   |
+| Ubuntu 19.10     | `xUbuntu_19.10`   |
+| Ubuntu 19.04     | `xUbuntu_19.04`   |
+| Ubuntu 18.04     | `xUbuntu_18.04`   |
 
 <br />
 Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, set `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
 You can pin your installation to a specific release.
-To install version 1.18.3, set `VERSION=1.18:1.18.3`.
+To install version 1.20.0, set `VERSION=1.20:1.20.0`.
 <br />
 
 Then run
 -->
 在下列操作系统上安装 CRI-O, 使用下表中合适的值设置环境变量 `OS`:
 
-| 操作系统      | `$OS`           |
-|--------------|-----------------|
-| Ubuntu 20.04 | `xUbuntu_20.04` |
-| Ubuntu 19.10 | `xUbuntu_19.10` |
-| Ubuntu 19.04 | `xUbuntu_19.04` |
-| Ubuntu 18.04 | `xUbuntu_18.04` |
+| 操作系统          | `$OS`             |
+| ---------------- | ----------------- |
+| Ubuntu 20.04     | `xUbuntu_20.04`   |
+| Ubuntu 19.10     | `xUbuntu_19.10`   |
+| Ubuntu 19.04     | `xUbuntu_19.04`   |
+| Ubuntu 18.04     | `xUbuntu_18.04`   |
 
 <br />
 然后，将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
-例如，如果你要安装 CRI-O 1.18, 请设置 `VERSION=1.18`.
+例如，如果你要安装 CRI-O 1.20, 请设置 `VERSION=1.20`.
 你也可以安装一个特定的发行版本。
-例如要安装 1.18.3 版本，设置 `VERSION=1.18:1.18.3`.
+例如要安装 1.20.0 版本，设置 `VERSION=1.20:1.20.0`.
 <br />
 
 然后执行
@@ -661,8 +447,8 @@ cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cr
 deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /
 EOF
 
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/libcontainers-cri-o.gpg -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers.gpg add -
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/Release.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/libcontainers-cri-o.gpg add -
 
 sudo apt-get update
 sudo apt-get install cri-o cri-o-runc
@@ -676,33 +462,33 @@ sudo apt-get install cri-o cri-o-runc
 To install on the following operating systems, set the environment variable `OS` to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
-|------------------|-------------------|
+| ---------------- | ----------------- |
 | Centos 8         | `CentOS_8`        |
 | Centos 8 Stream  | `CentOS_8_Stream` |
 | Centos 7         | `CentOS_7`        |
 
 <br />
 Then, set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, set `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, set `VERSION=1.20`.
 You can pin your installation to a specific release.
-To install version 1.18.3, set `VERSION=1.18:1.18.3`.
+To install version 1.20.0, set `VERSION=1.20:1.20.0`.
 <br />
 
 Then run
 -->
 在下列操作系统上安装 CRI-O, 使用下表中合适的值设置环境变量 `OS`:
 
-| 操作系统         | `$OS`             |
-|-----------------|-------------------|
-| Centos 8        | `CentOS_8`        |
-| Centos 8 Stream | `CentOS_8_Stream` |
-| Centos 7        | `CentOS_7`        |
+| 操作系统          | `$OS`             |
+| ---------------- | ----------------- |
+| Centos 8         | `CentOS_8`        |
+| Centos 8 Stream  | `CentOS_8_Stream` |
+| Centos 7         | `CentOS_7`        |
 
 <br />
 然后，将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
-例如，如果你要安装 CRI-O 1.18, 请设置 `VERSION=1.18`.
+例如，如果你要安装 CRI-O 1.20, 请设置 `VERSION=1.20`.
 你也可以安装一个特定的发行版本。
-例如要安装 1.18.3 版本，设置 `VERSION=1.18:1.18.3`.
+例如要安装 1.20.0 版本，设置 `VERSION=1.20:1.20.0`.
 <br />
 
 然后执行
@@ -725,7 +511,7 @@ sudo zypper install cri-o
 
 <!-- 
 Set `$VERSION` to the CRI-O version that matches your Kubernetes version.
-For instance, if you want to install CRI-O 1.18, `VERSION=1.18`.
+For instance, if you want to install CRI-O 1.20, `VERSION=1.20`.
 
 You can find available versions with:
 ```shell
@@ -740,7 +526,7 @@ sudo dnf install cri-o
 ```
 -->
 将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
-例如，如果要安装 CRI-O 1.18，请设置 `VERSION=1.18`。
+例如，如果要安装 CRI-O 1.20，请设置 `VERSION=1.20`。
 你可以用下列命令查找可用的版本：
 
 ```shell
@@ -751,7 +537,7 @@ CRI-O 不支持在 Fedora 上固定到特定的版本。
 然后执行
 ```shell
 sudo dnf module enable cri-o:$VERSION
-sudo dnf install cri-o
+sudo dnf install cri-o --now
 ```
 
 {{% /tab %}}
@@ -762,272 +548,90 @@ Start CRI-O:
 
 ```shell
 sudo systemctl daemon-reload
-sudo systemctl start crio
+sudo systemctl enable crio --no
 ```
 
-Refer to the [CRI-O installation guide](https://github.com/kubernetes-sigs/cri-o#getting-started)
+Refer to the [CRI-O installation guide](https://github.com/cri-o/cri-o/blob/master/install.md)
 for more information.
  -->
-启动 CRI-O:
+#### cgroup driver
+<!-- 
+CRI-O uses the systemd cgroup driver per default. To switch to the `cgroupfs`
+cgroup driver, either edit `/etc/crio/crio.conf` or place a drop-in
+configuration in `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example:
+ -->
+默认情况下，CRI-O 使用 systemd cgroup 驱动程序。切换到`
+`cgroupfs`
+cgroup 驱动程序，或者编辑 `/ etc / crio / crio.conf` 或放置一个插件
+在 `/etc/crio/crio.conf.d/02-cgroup-manager.conf` 中的配置，例如：
 
-```shell
-sudo systemctl daemon-reload
-sudo systemctl start crio
+```toml
+[crio.runtime]
+conmon_cgroup = "pod"
+cgroup_manager = "cgroupfs"
 ```
-
-更多信息请参阅 [CRI-O 安装指南](https://github.com/kubernetes-sigs/cri-o#getting-started)。
+<!-- 
+Please also note the changed `conmon_cgroup`, which has to be set to the value
+`pod` when using CRI-O with `cgroupfs`. It is generally necessary to keep the
+cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
+in sync.
+ -->
+另请注意更改后的 `conmon_cgroup` ，必须将其设置为
+`pod`将 CRI-O 与 `cgroupfs` 一起使用时。通常有必要保持
+kubelet 的 cgroup 驱动程序配置（通常透过 kubeadm 完成）和CRI-O 同步中。
 
 ### Docker
-
-<!-- 
-On each of your nodes, install Docker CE.
-
-The Kubernetes release notes list which versions of Docker are compatible
-with that version of Kubernetes.
-
-Use the following commands to install Docker on your system:
+<!--
+1. On each of your nodes, install the Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server). You can find the latest validated version of Docker in this [dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
  -->
-在你的所有节点上安装 Docker CE.
-
-Kubernetes 发布说明中列出了 Docker 的哪些版本与该版本的 Kubernetes 相兼容。
-
-在你的操作系统上使用如下命令安装 Docker:
-
-{{< tabs name="tab-cri-docker-installation" >}}
-{{% tab name="Ubuntu 16.04+" %}}
+1. 在每个节点上，根据[安装 Docker 引擎](https://docs.docker.com/engine/install/#server) 为你的 Linux 发行版安装 Docker。
+   你可以在此文件中找到最新的经过验证的 Docker 版本[依赖关系](https://git.k8s.io/kubernetes/build/dependencies.yaml)。
 
 <!--
-```shell
-# (Install Docker CE)
-## Set up the repository:
-### Install packages to allow apt to use a repository over HTTPS
-sudo apt-get update && sudo apt-get install -y \
-  apt-transport-https ca-certificates curl software-properties-common gnupg2
-```
+2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
+ -->
+2. 配置 Docker 守护程序，尤其是使用 systemd 来管理容器的cgroup。
 
-```shell
-# Add Docker's official GPG key:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/docker.gpg -
-```
--->
+   ```shell
+   sudo mkdir /etc/docker
+   cat <<EOF | sudo tee /etc/docker/daemon.json
+   {
+     "exec-opts": ["native.cgroupdriver=systemd"],
+     "log-driver": "json-file",
+     "log-opts": {
+       "max-size": "100m"
+     },
+     "storage-driver": "overlay2"
+   }
+   EOF
+   ```
 
-```shell
-# (安装 Docker CE)
-## 设置仓库:
-### 安装软件包以允许 apt 通过 HTTPS 使用存储库
-sudo apt-get update && sudo apt-get install -y \
-  apt-transport-https ca-certificates curl software-properties-common gnupg2
-```
-
-```shell
-### 新增 Docker 的 官方 GPG 秘钥:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add --keyring /etc/apt/trusted.gpg.d/docker.gpg -
-```
-
+   {{< note >}}
+   <!--
+   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher, or RHEL or CentOS using version 3.10.0-514 and above.
+    -->
+   
+   对于运行 Linux 内核版本 4.0 或更高版本，或使用 3.10.0-51 及更高版本的 RHEL 或 CentOS 的系统，`overlay2`是首选的存储驱动程序。
+   {{< /note >}}
 <!--
-```shell
-# Add the Docker apt repository:
-sudo add-apt-repository \
-  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) \
-  stable"
-```
-
-```shell
-# Install Docker CE
-sudo apt-get update && sudo apt-get install -y \
-  containerd.io=1.2.13-2 \
-  docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
-```
-
-```shell
-# Set up the Docker daemon
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
-```
-
-```shell
-# Create /etc/systemd/system/docker.service.d
-sudo mkdir -p /etc/systemd/system/docker.service.d
-```
+3. Restart Docker and enable on boot:
 -->
-```shell
-### 添加 Docker apt 仓库:
-sudo add-apt-repository \
-  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) \
-  stable"
-```
+3. 重新启动 Docker 并在启动时启用：
+   ```shell
+   sudo systemctl enable docker
+   sudo systemctl daemon-reload
+   sudo systemctl restart docker
+   ```
 
-```shell
-## 安装 Docker CE
-sudo apt-get update && sudo apt-get install -y \
-  containerd.io=1.2.13-2 \
-  docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
-```
-
-```shell
-# 设置 Docker daemon
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
-```
-
-```shell
-# Create /etc/systemd/system/docker.service.d
-sudo mkdir -p /etc/systemd/system/docker.service.d
-```
+{{< note >}}
 <!--
-# Restart docker.
-systemctl daemon-reload
-systemctl restart docker
+For more information refer to
+  - [Configure the Docker daemon](https://docs.docker.com/config/daemon/)
+  - [Control Docker with systemd](https://docs.docker.com/config/daemon/systemd/)
 -->
-```shell
-# 重启 docker.
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
-{{% /tab %}}
-{{% tab name="CentOS/RHEL 7.4+" %}}
+{{< /note >}}
 
-<!--
-```shell
-# (Install Docker CE)
-## Set up the repository
-### Install required packages
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-```
 
-```shell
-## Add the Docker repository
-sudo yum-config-manager --add-repo \
-  https://download.docker.com/linux/centos/docker-ce.repo
-```
-
-```shell
-# Install Docker CE
-sudo yum update -y && sudo yum install -y \
-  containerd.io-1.2.13 \
-  docker-ce-19.03.11 \
-  docker-ce-cli-19.03.11
-```
-
-```shell
-## Create /etc/docker
-sudo mkdir /etc/docker
-```
-
-```shell
-# Set up the Docker daemon
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2",
-  "storage-opts": [
-    "overlay2.override_kernel_check=true"
-  ]
-}
-EOF
-```
-
-```shell
-# Create /etc/systemd/system/docker.service.d
-sudo mkdir -p /etc/systemd/system/docker.service.d
-```
--->
-```shell
-# (安装 Docker CE)
-## 设置仓库
-### 安装所需包
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-```
-
-```shell
-### 新增 Docker 仓库
-sudo yum-config-manager --add-repo \
-  https://download.docker.com/linux/centos/docker-ce.repo
-```
-
-```shell
-## 安装 Docker CE
-sudo yum update -y && sudo yum install -y \
-  containerd.io-1.2.13 \
-  docker-ce-19.03.11 \
-  docker-ce-cli-19.03.11
-```
-
-```shell
-## 创建 /etc/docker 目录
-sudo mkdir /etc/docker
-```
-
-```shell
-# 设置 Docker daemon
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2",
-  "storage-opts": [
-    "overlay2.override_kernel_check=true"
-  ]
-}
-EOF
-```
-
-```shell
-# Create /etc/systemd/system/docker.service.d
-sudo mkdir -p /etc/systemd/system/docker.service.d
-```
-<!--
-# Restart Docker
-systemctl daemon-reload
-systemctl restart docker
--->
-```shell
-# 重启 Docker
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
-{{% /tab %}}
-{{% /tabs %}}
-
-<!--
-If you want the `docker` service to start on boot, run the following command:
--->
-如果你想开机即启动 `docker` 服务，执行以下命令：
-
-```shell
-sudo systemctl enable docker
-```
-
-<!--
-Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
-for more information.
--->
-请参阅[官方 Docker 安装指南](https://docs.docker.com/engine/installation/)
-获取更多的信息。
+有关更多信息，请参阅
+  - [配置 Docker 守护程序](https://docs.docker.com/config/daemon/)
+  - [使用 systemd 控制 Docker](https://docs.docker.com/config/daemon/systemd/)
