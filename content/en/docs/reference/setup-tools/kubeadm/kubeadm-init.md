@@ -125,7 +125,7 @@ If your configuration is not using the latest version it is **recommended** that
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
 For more information on the fields and usage of the configuration you can navigate to our API reference
-page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
+page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
