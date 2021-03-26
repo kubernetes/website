@@ -144,7 +144,7 @@ Cases handled:
 This script checks if the English version of some localized contents have changed 
 since a localized version has been committed.
 
-The following example check a single file:
+The following example checks a single file:
 
       ./scripts/lsync.sh content/zh/docs/concepts/_index.md
 
