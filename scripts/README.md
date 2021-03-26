@@ -97,7 +97,7 @@ Options:
 
 This script emits as hash for the files listed in $@.
 
-      $ ./scripts/hash-files.sh
+    $ ./scripts/hash-files.sh
     
 ## linkchecker.py
 
@@ -146,16 +146,9 @@ since a localized version has been committed.
 
 The following example checks a single file:
 
-      ./scripts/lsync.sh content/zh/docs/concepts/_index.md
+    ./scripts/lsync.sh content/zh/docs/concepts/_index.md
 
 The following command checks a subdirectory:
 
-      ./scripts/lsync.sh content/zh/docs/concepts/
+    ./scripts/lsync.sh content/zh/docs/concepts/
 
-## replace-capture.sh
-
-This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically
-
-You must run the script inside the repository for that to work
-
-    $ ./scripts/replace-capture.sh
