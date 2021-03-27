@@ -1,5 +1,5 @@
 ---
-title: Administração do Cluster
+title: Administração de Cluster
 weight: 100
 content_type: concept
 description: >
