@@ -1,5 +1,7 @@
 ---
 title: "예시: MongoDB를 사용한 PHP 방명록 애플리케이션 배포하기"
+
+
 content_type: tutorial
 weight: 20
 card:
@@ -14,8 +16,6 @@ min-kubernetes-server-version: v1.14
 
 * 방명록을 저장하는 단일 인스턴스 [MongoDB](https://www.mongodb.com/)
 * 여러 개의 웹 프론트엔드 인스턴스
-
-
 
 ## {{% heading "objectives" %}}
 
@@ -87,6 +87,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.ya
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-service.yaml
       ```
+
 <!--
 컨텐츠에 대한 로컬 테스트는 파일의 상대경로로 한다.
 kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
@@ -103,7 +104,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
       ```shell
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    1m
-      mongo          ClusterIP   10.0.0.151   <none>        6379/TCP   8s
+      mongo          ClusterIP   10.0.0.151   <none>        27017/TCP   8s
       ```
 
 {{< note >}}
@@ -289,7 +290,6 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.ya
       deployment.apps "mongo" deleted
       service "mongo" deleted
       deployment.apps "frontend" deleted
-      deployment.apps "frontend" deleted    
       service "frontend" deleted
       ```
 
