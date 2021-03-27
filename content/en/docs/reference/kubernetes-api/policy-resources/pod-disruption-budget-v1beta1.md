@@ -1,128 +1,128 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "ResourceQuota"
+  apiVersion: "policy/v1beta1"
+  import: "k8s.io/api/policy/v1beta1"
+  kind: "PodDisruptionBudget"
 content_type: "api_reference"
-description: "ResourceQuota sets aggregate quota restrictions enforced per namespace."
-title: "ResourceQuota"
-weight: 2
+description: "PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods."
+title: "PodDisruptionBudget v1beta1"
+weight: 4
 ---
 
-`apiVersion: v1`
+`apiVersion: policy/v1beta1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/policy/v1beta1"`
 
 
-## ResourceQuota {#ResourceQuota}
+## PodDisruptionBudget {#PodDisruptionBudget}
 
-ResourceQuota sets aggregate quota restrictions enforced per namespace
+PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: policy/v1beta1
 
 
-- **kind**: ResourceQuota
+- **kind**: PodDisruptionBudget
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuotaSpec" >}}">ResourceQuotaSpec</a>)
+- **spec** (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudgetSpec" >}}">PodDisruptionBudgetSpec</a>)
 
-  Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  Specification of the desired behavior of the PodDisruptionBudget.
 
-- **status** (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuotaStatus" >}}">ResourceQuotaStatus</a>)
+- **status** (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudgetStatus" >}}">PodDisruptionBudgetStatus</a>)
 
-  Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
-
-
-
-
-## ResourceQuotaSpec {#ResourceQuotaSpec}
-
-ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
-
-<hr>
-
-- **hard** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-  hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
-
-- **scopeSelector** (ScopeSelector)
-
-  scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
-
-  <a name="ScopeSelector"></a>
-  *A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.*
-
-  - **scopeSelector.matchExpressions** ([]ScopedResourceSelectorRequirement)
-
-    A list of scope selector requirements by scope of the resources.
-
-    <a name="ScopedResourceSelectorRequirement"></a>
-    *A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.*
-
-  - **scopeSelector.matchExpressions.operator** (string), required
-
-    Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
-
-  - **scopeSelector.matchExpressions.scopeName** (string), required
-
-    The name of the scope that the selector applies to.
-
-  - **scopeSelector.matchExpressions.values** ([]string)
-
-    An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
-
-- **scopes** ([]string)
-
-  A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects.
+  Most recently observed status of the PodDisruptionBudget.
 
 
 
 
 
-## ResourceQuotaStatus {#ResourceQuotaStatus}
+## PodDisruptionBudgetSpec {#PodDisruptionBudgetSpec}
 
-ResourceQuotaStatus defines the enforced hard limits and observed use.
+PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 
 <hr>
 
-- **hard** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+- **maxUnavailable** (IntOrString)
 
-  Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+  An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 
-- **used** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+  <a name="IntOrString"></a>
+  *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
-  Used is the current observed total usage of the resource in the namespace.
+- **minAvailable** (IntOrString)
+
+  An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+
+  <a name="IntOrString"></a>
+  *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+
+- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+  Label query over pods whose evictions are managed by the disruption budget.
 
 
 
 
 
-## ResourceQuotaList {#ResourceQuotaList}
+## PodDisruptionBudgetStatus {#PodDisruptionBudgetStatus}
 
-ResourceQuotaList is a list of ResourceQuota items.
+PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 
 <hr>
 
-- **apiVersion**: v1
+- **currentHealthy** (int32), required
+
+  current number of healthy pods
+
+- **desiredHealthy** (int32), required
+
+  minimum desired number of healthy pods
+
+- **disruptionsAllowed** (int32), required
+
+  Number of pod disruptions that are currently allowed.
+
+- **expectedPods** (int32), required
+
+  total number of pods counted by this disruption budget
+
+- **disruptedPods** (map[string]Time)
+
+  DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
+
+  <a name="Time"></a>
+  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+- **observedGeneration** (int64)
+
+  Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 
 
-- **kind**: ResourceQuotaList
+
+
+
+## PodDisruptionBudgetList {#PodDisruptionBudgetList}
+
+PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
+
+<hr>
+
+- **apiVersion**: policy/v1beta1
+
+
+- **kind**: PodDisruptionBudgetList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-- **items** ([]<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>), required
+- **items** ([]<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>), required
 
-  Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
 
 
 
@@ -139,18 +139,18 @@ ResourceQuotaList is a list of ResourceQuota items.
 
 
 
-### `get` read the specified ResourceQuota
+### `get` read the specified PodDisruptionBudget
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/resourcequotas/{name}
+GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ResourceQuota
+  name of the PodDisruptionBudget
 
 
 - **namespace** (*in path*): string, required
@@ -167,23 +167,23 @@ GET /api/v1/namespaces/{namespace}/resourcequotas/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified ResourceQuota
+### `get` read status of the specified PodDisruptionBudget
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
+GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ResourceQuota
+  name of the PodDisruptionBudget
 
 
 - **namespace** (*in path*): string, required
@@ -200,16 +200,16 @@ GET /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ResourceQuota
+### `list` list or watch objects of kind PodDisruptionBudget
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/resourcequotas
+GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets
 
 #### Parameters
 
@@ -273,16 +273,16 @@ GET /api/v1/namespaces/{namespace}/resourcequotas
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuotaList" >}}">ResourceQuotaList</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudgetList" >}}">PodDisruptionBudgetList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ResourceQuota
+### `list` list or watch objects of kind PodDisruptionBudget
 
 #### HTTP Request
 
-GET /api/v1/resourcequotas
+GET /apis/policy/v1beta1/poddisruptionbudgets
 
 #### Parameters
 
@@ -341,16 +341,16 @@ GET /api/v1/resourcequotas
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuotaList" >}}">ResourceQuotaList</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudgetList" >}}">PodDisruptionBudgetList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a ResourceQuota
+### `create` create a PodDisruptionBudget
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/resourcequotas
+POST /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets
 
 #### Parameters
 
@@ -360,7 +360,7 @@ POST /api/v1/namespaces/{namespace}/resourcequotas
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
+- **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
 
   
 
@@ -384,27 +384,27 @@ POST /api/v1/namespaces/{namespace}/resourcequotas
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Created
+201 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): Created
 
-202 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified ResourceQuota
+### `update` replace the specified PodDisruptionBudget
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}
+PUT /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ResourceQuota
+  name of the PodDisruptionBudget
 
 
 - **namespace** (*in path*): string, required
@@ -412,7 +412,7 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
+- **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
 
   
 
@@ -436,25 +436,25 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Created
+201 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified ResourceQuota
+### `update` replace status of the specified PodDisruptionBudget
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
+PUT /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ResourceQuota
+  name of the PodDisruptionBudget
 
 
 - **namespace** (*in path*): string, required
@@ -462,7 +462,7 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
+- **body**: <a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
 
   
 
@@ -486,78 +486,25 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Created
+201 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified ResourceQuota
+### `patch` partially update the specified PodDisruptionBudget
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}
+PATCH /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ResourceQuota
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified ResourceQuota
-
-#### HTTP Request
-
-PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the ResourceQuota
+  name of the PodDisruptionBudget
 
 
 - **namespace** (*in path*): string, required
@@ -594,23 +541,76 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
+200 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a ResourceQuota
+### `patch` partially update status of the specified PodDisruptionBudget
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/resourcequotas/{name}
+PATCH /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ResourceQuota
+  name of the PodDisruptionBudget
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../policy-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a PodDisruptionBudget
+
+#### HTTP Request
+
+DELETE /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the PodDisruptionBudget
 
 
 - **namespace** (*in path*): string, required
@@ -647,18 +647,18 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../policies-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Accepted
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of ResourceQuota
+### `deletecollection` delete collection of PodDisruptionBudget
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/resourcequotas
+DELETE /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets
 
 #### Parameters
 

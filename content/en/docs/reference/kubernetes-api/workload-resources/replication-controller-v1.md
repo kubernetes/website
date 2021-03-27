@@ -1,64 +1,64 @@
 ---
 api_metadata:
-  apiVersion: "apps/v1"
-  import: "k8s.io/api/apps/v1"
-  kind: "ReplicaSet"
+  apiVersion: "v1"
+  import: "k8s.io/api/core/v1"
+  kind: "ReplicationController"
 content_type: "api_reference"
-description: "ReplicaSet ensures that a specified number of pod replicas are running at any given time."
-title: "ReplicaSet"
-weight: 6
+description: "ReplicationController represents the configuration of a replication controller."
+title: "ReplicationController"
+weight: 5
 ---
 
-`apiVersion: apps/v1`
+`apiVersion: v1`
 
-`import "k8s.io/api/apps/v1"`
+`import "k8s.io/api/core/v1"`
 
 
-## ReplicaSet {#ReplicaSet}
+## ReplicationController {#ReplicationController}
 
-ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+ReplicationController represents the configuration of a replication controller.
 
 <hr>
 
-- **apiVersion**: apps/v1
+- **apiVersion**: v1
 
 
-- **kind**: ReplicaSet
+- **kind**: ReplicationController
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSetSpec" >}}">ReplicaSetSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationControllerSpec" >}}">ReplicationControllerSpec</a>)
 
-  Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSetStatus" >}}">ReplicaSetStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationControllerStatus" >}}">ReplicationControllerStatus</a>)
 
-  Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
-
+  Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
-## ReplicaSetSpec {#ReplicaSetSpec}
 
-ReplicaSetSpec is the specification of a ReplicaSet.
+
+## ReplicationControllerSpec {#ReplicationControllerSpec}
+
+ReplicationControllerSpec is the specification of a replication controller.
 
 <hr>
 
-- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), required
+- **selector** (map[string]string)
 
-  Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+  Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
-- **template** (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+  Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 
 - **replicas** (int32)
 
-  Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+  Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
 
 - **minReadySeconds** (int32)
 
@@ -68,36 +68,36 @@ ReplicaSetSpec is the specification of a ReplicaSet.
 
 
 
-## ReplicaSetStatus {#ReplicaSetStatus}
+## ReplicationControllerStatus {#ReplicationControllerStatus}
 
-ReplicaSetStatus represents the current status of a ReplicaSet.
+ReplicationControllerStatus represents the current status of a replication controller.
 
 <hr>
 
 - **replicas** (int32), required
 
-  Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+  Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
 
 - **availableReplicas** (int32)
 
-  The number of available replicas (ready for at least minReadySeconds) for this replica set.
+  The number of available replicas (ready for at least minReadySeconds) for this replication controller.
 
 - **readyReplicas** (int32)
 
-  The number of ready replicas for this replica set.
+  The number of ready replicas for this replication controller.
 
 - **fullyLabeledReplicas** (int32)
 
-  The number of pods that have labels matching the labels of the pod template of the replicaset.
+  The number of pods that have labels matching the labels of the pod template of the replication controller.
 
-- **conditions** ([]ReplicaSetCondition)
+- **conditions** ([]ReplicationControllerCondition)
 
   *Patch strategy: merge on key `type`*
   
-  Represents the latest available observations of a replica set's current state.
+  Represents the latest available observations of a replication controller's current state.
 
-  <a name="ReplicaSetCondition"></a>
-  *ReplicaSetCondition describes the state of a replica set at a certain point.*
+  <a name="ReplicationControllerCondition"></a>
+  *ReplicationControllerCondition describes the state of a replication controller at a certain point.*
 
   - **conditions.status** (string), required
 
@@ -105,7 +105,7 @@ ReplicaSetStatus represents the current status of a ReplicaSet.
 
   - **conditions.type** (string), required
 
-    Type of replica set condition.
+    Type of replication controller condition.
 
   - **conditions.lastTransitionTime** (Time)
 
@@ -124,31 +124,31 @@ ReplicaSetStatus represents the current status of a ReplicaSet.
 
 - **observedGeneration** (int64)
 
-  ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
+  ObservedGeneration reflects the generation of the most recently observed replication controller.
 
 
 
 
 
-## ReplicaSetList {#ReplicaSetList}
+## ReplicationControllerList {#ReplicationControllerList}
 
-ReplicaSetList is a collection of ReplicaSets.
+ReplicationControllerList is a collection of replication controllers.
 
 <hr>
 
-- **apiVersion**: apps/v1
+- **apiVersion**: v1
 
 
-- **kind**: ReplicaSetList
+- **kind**: ReplicationControllerList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-- **items** ([]<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>), required
 
-  List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+  List of replication controllers. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
 
 
 
@@ -165,18 +165,18 @@ ReplicaSetList is a collection of ReplicaSets.
 
 
 
-### `get` read the specified ReplicaSet
+### `get` read the specified ReplicationController
 
 #### HTTP Request
 
-GET /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
+GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicaSet
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -193,23 +193,23 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified ReplicaSet
+### `get` read status of the specified ReplicationController
 
 #### HTTP Request
 
-GET /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
+GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicaSet
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -226,16 +226,16 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ReplicaSet
+### `list` list or watch objects of kind ReplicationController
 
 #### HTTP Request
 
-GET /apis/apps/v1/namespaces/{namespace}/replicasets
+GET /api/v1/namespaces/{namespace}/replicationcontrollers
 
 #### Parameters
 
@@ -299,16 +299,16 @@ GET /apis/apps/v1/namespaces/{namespace}/replicasets
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSetList" >}}">ReplicaSetList</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationControllerList" >}}">ReplicationControllerList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ReplicaSet
+### `list` list or watch objects of kind ReplicationController
 
 #### HTTP Request
 
-GET /apis/apps/v1/replicasets
+GET /api/v1/replicationcontrollers
 
 #### Parameters
 
@@ -367,16 +367,16 @@ GET /apis/apps/v1/replicasets
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSetList" >}}">ReplicaSetList</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationControllerList" >}}">ReplicationControllerList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a ReplicaSet
+### `create` create a ReplicationController
 
 #### HTTP Request
 
-POST /apis/apps/v1/namespaces/{namespace}/replicasets
+POST /api/v1/namespaces/{namespace}/replicationcontrollers
 
 #### Parameters
 
@@ -386,7 +386,7 @@ POST /apis/apps/v1/namespaces/{namespace}/replicasets
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>, required
+- **body**: <a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>, required
 
   
 
@@ -410,27 +410,27 @@ POST /apis/apps/v1/namespaces/{namespace}/replicasets
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): Created
+201 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
 
-202 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified ReplicaSet
+### `update` replace the specified ReplicationController
 
 #### HTTP Request
 
-PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
+PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicaSet
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -438,7 +438,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>, required
+- **body**: <a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>, required
 
   
 
@@ -462,25 +462,25 @@ PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): Created
+201 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified ReplicaSet
+### `update` replace status of the specified ReplicationController
 
 #### HTTP Request
 
-PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
+PUT /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicaSet
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -488,7 +488,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>, required
+- **body**: <a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>, required
 
   
 
@@ -512,78 +512,25 @@ PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): Created
+201 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified ReplicaSet
+### `patch` partially update the specified ReplicationController
 
 #### HTTP Request
 
-PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
+PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicaSet
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified ReplicaSet
-
-#### HTTP Request
-
-PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the ReplicaSet
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -620,23 +567,76 @@ PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a ReplicaSet
+### `patch` partially update status of the specified ReplicationController
 
 #### HTTP Request
 
-DELETE /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
+PATCH /api/v1/namespaces/{namespace}/replicationcontrollers/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ReplicaSet
+  name of the ReplicationController
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/replication-controller-v1#ReplicationController" >}}">ReplicationController</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a ReplicationController
+
+#### HTTP Request
+
+DELETE /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the ReplicationController
 
 
 - **namespace** (*in path*): string, required
@@ -680,11 +680,11 @@ DELETE /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of ReplicaSet
+### `deletecollection` delete collection of ReplicationController
 
 #### HTTP Request
 
-DELETE /apis/apps/v1/namespaces/{namespace}/replicasets
+DELETE /api/v1/namespaces/{namespace}/replicationcontrollers
 
 #### Parameters
 

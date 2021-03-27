@@ -1,128 +1,154 @@
 ---
 api_metadata:
-  apiVersion: "policy/v1beta1"
-  import: "k8s.io/api/policy/v1beta1"
-  kind: "PodDisruptionBudget"
+  apiVersion: "apps/v1"
+  import: "k8s.io/api/apps/v1"
+  kind: "ReplicaSet"
 content_type: "api_reference"
-description: "PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods."
-title: "PodDisruptionBudget v1beta1"
-weight: 4
+description: "ReplicaSet ensures that a specified number of pod replicas are running at any given time."
+title: "ReplicaSet"
+weight: 6
 ---
 
-`apiVersion: policy/v1beta1`
+`apiVersion: apps/v1`
 
-`import "k8s.io/api/policy/v1beta1"`
+`import "k8s.io/api/apps/v1"`
 
 
-## PodDisruptionBudget {#PodDisruptionBudget}
+## ReplicaSet {#ReplicaSet}
 
-PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+ReplicaSet ensures that a specified number of pod replicas are running at any given time.
 
 <hr>
 
-- **apiVersion**: policy/v1beta1
+- **apiVersion**: apps/v1
 
 
-- **kind**: PodDisruptionBudget
+- **kind**: ReplicaSet
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
+  If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudgetSpec" >}}">PodDisruptionBudgetSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSetSpec" >}}">ReplicaSetSpec</a>)
 
-  Specification of the desired behavior of the PodDisruptionBudget.
+  Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudgetStatus" >}}">PodDisruptionBudgetStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSetStatus" >}}">ReplicaSetStatus</a>)
 
-  Most recently observed status of the PodDisruptionBudget.
-
-
-
-
-
-## PodDisruptionBudgetSpec {#PodDisruptionBudgetSpec}
-
-PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
-
-<hr>
-
-- **maxUnavailable** (IntOrString)
-
-  An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
-
-  <a name="IntOrString"></a>
-  *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
-
-- **minAvailable** (IntOrString)
-
-  An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
-
-  <a name="IntOrString"></a>
-  *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
-
-- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
-
-  Label query over pods whose evictions are managed by the disruption budget.
+  Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## PodDisruptionBudgetStatus {#PodDisruptionBudgetStatus}
+## ReplicaSetSpec {#ReplicaSetSpec}
 
-PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+ReplicaSetSpec is the specification of a ReplicaSet.
 
 <hr>
 
-- **currentHealthy** (int32), required
+- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), required
 
-  current number of healthy pods
+  Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
-- **desiredHealthy** (int32), required
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  minimum desired number of healthy pods
+  Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 
-- **disruptionsAllowed** (int32), required
+- **replicas** (int32)
 
-  Number of pod disruptions that are currently allowed.
+  Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 
-- **expectedPods** (int32), required
+- **minReadySeconds** (int32)
 
-  total number of pods counted by this disruption budget
+  Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 
-- **disruptedPods** (map[string]Time)
 
-  DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
 
-  <a name="Time"></a>
-  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+
+## ReplicaSetStatus {#ReplicaSetStatus}
+
+ReplicaSetStatus represents the current status of a ReplicaSet.
+
+<hr>
+
+- **replicas** (int32), required
+
+  Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+
+- **availableReplicas** (int32)
+
+  The number of available replicas (ready for at least minReadySeconds) for this replica set.
+
+- **readyReplicas** (int32)
+
+  The number of ready replicas for this replica set.
+
+- **fullyLabeledReplicas** (int32)
+
+  The number of pods that have labels matching the labels of the pod template of the replicaset.
+
+- **conditions** ([]ReplicaSetCondition)
+
+  *Patch strategy: merge on key `type`*
+  
+  Represents the latest available observations of a replica set's current state.
+
+  <a name="ReplicaSetCondition"></a>
+  *ReplicaSetCondition describes the state of a replica set at a certain point.*
+
+  - **conditions.status** (string), required
+
+    Status of the condition, one of True, False, Unknown.
+
+  - **conditions.type** (string), required
+
+    Type of replica set condition.
+
+  - **conditions.lastTransitionTime** (Time)
+
+    The last time the condition transitioned from one status to another.
+
+    <a name="Time"></a>
+    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+  - **conditions.message** (string)
+
+    A human readable message indicating details about the transition.
+
+  - **conditions.reason** (string)
+
+    The reason for the condition's last transition.
 
 - **observedGeneration** (int64)
 
-  Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+  ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
 
 
 
 
 
-## PodDisruptionBudgetList {#PodDisruptionBudgetList}
+## ReplicaSetList {#ReplicaSetList}
 
-PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
+ReplicaSetList is a collection of ReplicaSets.
 
 <hr>
 
-- **apiVersion**: policy/v1beta1
+- **apiVersion**: apps/v1
 
 
-- **kind**: PodDisruptionBudgetList
+- **kind**: ReplicaSetList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-- **items** ([]<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>), required
 
+  List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
 
 
 
@@ -139,18 +165,18 @@ PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
 
 
 
-### `get` read the specified PodDisruptionBudget
+### `get` read the specified ReplicaSet
 
 #### HTTP Request
 
-GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
+GET /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PodDisruptionBudget
+  name of the ReplicaSet
 
 
 - **namespace** (*in path*): string, required
@@ -167,23 +193,23 @@ GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
+200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified PodDisruptionBudget
+### `get` read status of the specified ReplicaSet
 
 #### HTTP Request
 
-GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
+GET /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PodDisruptionBudget
+  name of the ReplicaSet
 
 
 - **namespace** (*in path*): string, required
@@ -200,16 +226,16 @@ GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/stat
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
+200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind PodDisruptionBudget
+### `list` list or watch objects of kind ReplicaSet
 
 #### HTTP Request
 
-GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets
+GET /apis/apps/v1/namespaces/{namespace}/replicasets
 
 #### Parameters
 
@@ -273,16 +299,16 @@ GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudgetList" >}}">PodDisruptionBudgetList</a>): OK
+200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSetList" >}}">ReplicaSetList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind PodDisruptionBudget
+### `list` list or watch objects of kind ReplicaSet
 
 #### HTTP Request
 
-GET /apis/policy/v1beta1/poddisruptionbudgets
+GET /apis/apps/v1/replicasets
 
 #### Parameters
 
@@ -341,16 +367,16 @@ GET /apis/policy/v1beta1/poddisruptionbudgets
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudgetList" >}}">PodDisruptionBudgetList</a>): OK
+200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSetList" >}}">ReplicaSetList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a PodDisruptionBudget
+### `create` create a ReplicaSet
 
 #### HTTP Request
 
-POST /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets
+POST /apis/apps/v1/namespaces/{namespace}/replicasets
 
 #### Parameters
 
@@ -360,7 +386,7 @@ POST /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
+- **body**: <a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>, required
 
   
 
@@ -384,27 +410,27 @@ POST /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
+200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): Created
+201 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): Created
 
-202 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified PodDisruptionBudget
+### `update` replace the specified ReplicaSet
 
 #### HTTP Request
 
-PUT /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
+PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PodDisruptionBudget
+  name of the ReplicaSet
 
 
 - **namespace** (*in path*): string, required
@@ -412,7 +438,7 @@ PUT /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
+- **body**: <a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>, required
 
   
 
@@ -436,25 +462,25 @@ PUT /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
+200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): Created
+201 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified PodDisruptionBudget
+### `update` replace status of the specified ReplicaSet
 
 #### HTTP Request
 
-PUT /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
+PUT /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PodDisruptionBudget
+  name of the ReplicaSet
 
 
 - **namespace** (*in path*): string, required
@@ -462,7 +488,7 @@ PUT /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/stat
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>, required
+- **body**: <a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>, required
 
   
 
@@ -486,78 +512,25 @@ PUT /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/stat
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
+200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): Created
+201 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified PodDisruptionBudget
+### `patch` partially update the specified ReplicaSet
 
 #### HTTP Request
 
-PATCH /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
+PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PodDisruptionBudget
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified PodDisruptionBudget
-
-#### HTTP Request
-
-PATCH /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the PodDisruptionBudget
+  name of the ReplicaSet
 
 
 - **namespace** (*in path*): string, required
@@ -594,23 +567,76 @@ PATCH /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/st
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/pod-disruption-budget-v1beta1#PodDisruptionBudget" >}}">PodDisruptionBudget</a>): OK
+200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a PodDisruptionBudget
+### `patch` partially update status of the specified ReplicaSet
 
 #### HTTP Request
 
-DELETE /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
+PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PodDisruptionBudget
+  name of the ReplicaSet
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a ReplicaSet
+
+#### HTTP Request
+
+DELETE /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the ReplicaSet
 
 
 - **namespace** (*in path*): string, required
@@ -654,11 +680,11 @@ DELETE /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of PodDisruptionBudget
+### `deletecollection` delete collection of ReplicaSet
 
 #### HTTP Request
 
-DELETE /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets
+DELETE /apis/apps/v1/namespaces/{namespace}/replicasets
 
 #### Parameters
 

@@ -1,138 +1,143 @@
 ---
 api_metadata:
-  apiVersion: "batch/v1"
-  import: "k8s.io/api/batch/v1"
-  kind: "Job"
+  apiVersion: "apps/v1"
+  import: "k8s.io/api/apps/v1"
+  kind: "StatefulSet"
 content_type: "api_reference"
-description: "Job represents the configuration of a single job."
-title: "Job"
-weight: 11
+description: "StatefulSet represents a set of pods with consistent identities."
+title: "StatefulSet"
+weight: 8
 ---
 
-`apiVersion: batch/v1`
+`apiVersion: apps/v1`
 
-`import "k8s.io/api/batch/v1"`
+`import "k8s.io/api/apps/v1"`
 
 
-## Job {#Job}
+## StatefulSet {#StatefulSet}
 
-Job represents the configuration of a single job.
+StatefulSet represents a set of pods with consistent identities. Identities are defined as:
+ - Network: A single stable DNS and hostname.
+ - Storage: As many VolumeClaims as requested.
+The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 
 <hr>
 
-- **apiVersion**: batch/v1
+- **apiVersion**: apps/v1
 
 
-- **kind**: Job
+- **kind**: StatefulSet
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workloads-resources/job-v1#JobSpec" >}}">JobSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSetSpec" >}}">StatefulSetSpec</a>)
 
-  Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  Spec defines the desired identities of pods in this set.
 
-- **status** (<a href="{{< ref "../workloads-resources/job-v1#JobStatus" >}}">JobStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSetStatus" >}}">StatefulSetStatus</a>)
 
-  Current status of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
+  Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
 
 
 
 
-## JobSpec {#JobSpec}
 
-JobSpec describes how the job execution will look like.
+## StatefulSetSpec {#StatefulSetSpec}
 
-<hr>
-
-
-
-### Replicas
-
-
-- **template** (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
-
-  Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-
-- **parallelism** (int32)
-
-  Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) \< .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-
-### Lifecycle
-
-
-- **completions** (int32)
-
-  Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-
-- **backoffLimit** (int32)
-
-  Specifies the number of retries before marking this job failed. Defaults to 6
-
-- **activeDeadlineSeconds** (int64)
-
-  Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
-
-- **ttlSecondsAfterFinished** (int32)
-
-  ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
-
-### Selector
-
-
-- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
-
-  A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-
-- **manualSelector** (boolean)
-
-  manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
-
-
-
-## JobStatus {#JobStatus}
-
-JobStatus represents the current state of a Job.
+A StatefulSetSpec is the specification of a StatefulSet.
 
 <hr>
 
-- **startTime** (Time)
+- **serviceName** (string), required
 
-  Represents time when the job was acknowledged by the job controller. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.
+  serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 
-  <a name="Time"></a>
-  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), required
 
-- **completionTime** (Time)
+  selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
-  Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  <a name="Time"></a>
-  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+  template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
 
-- **active** (int32)
+- **replicas** (int32)
 
-  The number of actively running pods.
+  replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
 
-- **failed** (int32)
+- **updateStrategy** (StatefulSetUpdateStrategy)
 
-  The number of pods which reached phase Failed.
+  updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 
-- **succeeded** (int32)
+  <a name="StatefulSetUpdateStrategy"></a>
+  *StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.*
 
-  The number of pods which reached phase Succeeded.
+  - **updateStrategy.type** (string)
 
-- **conditions** ([]JobCondition)
+    Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+
+  - **updateStrategy.rollingUpdate** (RollingUpdateStatefulSetStrategy)
+
+    RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
+
+    <a name="RollingUpdateStatefulSetStrategy"></a>
+    *RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.*
+
+  - **updateStrategy.rollingUpdate.partition** (int32)
+
+    Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
+
+- **podManagementPolicy** (string)
+
+  podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+
+- **revisionHistoryLimit** (int32)
+
+  revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
+
+- **volumeClaimTemplates** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>)
+
+  volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
+
+
+
+
+
+## StatefulSetStatus {#StatefulSetStatus}
+
+StatefulSetStatus represents the current state of a StatefulSet.
+
+<hr>
+
+- **replicas** (int32), required
+
+  replicas is the number of Pods created by the StatefulSet controller.
+
+- **readyReplicas** (int32)
+
+  readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+
+- **currentReplicas** (int32)
+
+  currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
+
+- **updatedReplicas** (int32)
+
+  updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
+
+- **collisionCount** (int32)
+
+  collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+
+- **conditions** ([]StatefulSetCondition)
 
   *Patch strategy: merge on key `type`*
   
-  The latest available observations of an object's current state. When a job fails, one of the conditions will have type == "Failed". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  Represents the latest available observations of a statefulset's current state.
 
-  <a name="JobCondition"></a>
-  *JobCondition describes current state of a job.*
+  <a name="StatefulSetCondition"></a>
+  *StatefulSetCondition describes the state of a statefulset at a certain point.*
 
   - **conditions.status** (string), required
 
@@ -140,53 +145,56 @@ JobStatus represents the current state of a Job.
 
   - **conditions.type** (string), required
 
-    Type of job condition, Complete or Failed.
-
-  - **conditions.lastProbeTime** (Time)
-
-    Last time the condition was checked.
-
-    <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    Type of statefulset condition.
 
   - **conditions.lastTransitionTime** (Time)
 
-    Last time the condition transit from one status to another.
+    Last time the condition transitioned from one status to another.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
   - **conditions.message** (string)
 
-    Human readable message indicating details about last transition.
+    A human readable message indicating details about the transition.
 
   - **conditions.reason** (string)
 
-    (brief) reason for the condition's last transition.
+    The reason for the condition's last transition.
+
+- **currentRevision** (string)
+
+  currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
+
+- **updateRevision** (string)
+
+  updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
+
+- **observedGeneration** (int64)
+
+  observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
 
 
 
 
 
-## JobList {#JobList}
+## StatefulSetList {#StatefulSetList}
 
-JobList is a collection of jobs.
+StatefulSetList is a collection of StatefulSets.
 
 <hr>
 
-- **apiVersion**: batch/v1
+- **apiVersion**: apps/v1
 
 
-- **kind**: JobList
+- **kind**: StatefulSetList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>), required
 
-  items is the list of Jobs.
 
 
 
@@ -203,18 +211,18 @@ JobList is a collection of jobs.
 
 
 
-### `get` read the specified Job
+### `get` read the specified StatefulSet
 
 #### HTTP Request
 
-GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}
+GET /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the Job
+  name of the StatefulSet
 
 
 - **namespace** (*in path*): string, required
@@ -231,23 +239,23 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): OK
+200 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified Job
+### `get` read status of the specified StatefulSet
 
 #### HTTP Request
 
-GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
+GET /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the Job
+  name of the StatefulSet
 
 
 - **namespace** (*in path*): string, required
@@ -264,16 +272,16 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): OK
+200 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind Job
+### `list` list or watch objects of kind StatefulSet
 
 #### HTTP Request
 
-GET /apis/batch/v1/namespaces/{namespace}/jobs
+GET /apis/apps/v1/namespaces/{namespace}/statefulsets
 
 #### Parameters
 
@@ -337,16 +345,16 @@ GET /apis/batch/v1/namespaces/{namespace}/jobs
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/job-v1#JobList" >}}">JobList</a>): OK
+200 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSetList" >}}">StatefulSetList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind Job
+### `list` list or watch objects of kind StatefulSet
 
 #### HTTP Request
 
-GET /apis/batch/v1/jobs
+GET /apis/apps/v1/statefulsets
 
 #### Parameters
 
@@ -405,16 +413,16 @@ GET /apis/batch/v1/jobs
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/job-v1#JobList" >}}">JobList</a>): OK
+200 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSetList" >}}">StatefulSetList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a Job
+### `create` create a StatefulSet
 
 #### HTTP Request
 
-POST /apis/batch/v1/namespaces/{namespace}/jobs
+POST /apis/apps/v1/namespaces/{namespace}/statefulsets
 
 #### Parameters
 
@@ -424,7 +432,7 @@ POST /apis/batch/v1/namespaces/{namespace}/jobs
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>, required
+- **body**: <a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>, required
 
   
 
@@ -448,27 +456,27 @@ POST /apis/batch/v1/namespaces/{namespace}/jobs
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): OK
+200 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): Created
+201 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): Created
 
-202 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified Job
+### `update` replace the specified StatefulSet
 
 #### HTTP Request
 
-PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
+PUT /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the Job
+  name of the StatefulSet
 
 
 - **namespace** (*in path*): string, required
@@ -476,7 +484,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>, required
+- **body**: <a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>, required
 
   
 
@@ -500,25 +508,25 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): OK
+200 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): Created
+201 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified Job
+### `update` replace status of the specified StatefulSet
 
 #### HTTP Request
 
-PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
+PUT /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the Job
+  name of the StatefulSet
 
 
 - **namespace** (*in path*): string, required
@@ -526,7 +534,7 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>, required
+- **body**: <a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>, required
 
   
 
@@ -550,78 +558,25 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): OK
+200 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): Created
+201 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified Job
+### `patch` partially update the specified StatefulSet
 
 #### HTTP Request
 
-PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
+PATCH /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the Job
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): OK
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified Job
-
-#### HTTP Request
-
-PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the Job
+  name of the StatefulSet
 
 
 - **namespace** (*in path*): string, required
@@ -658,23 +613,76 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/job-v1#Job" >}}">Job</a>): OK
+200 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a Job
+### `patch` partially update status of the specified StatefulSet
 
 #### HTTP Request
 
-DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
+PATCH /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the Job
+  name of the StatefulSet
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a StatefulSet
+
+#### HTTP Request
+
+DELETE /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the StatefulSet
 
 
 - **namespace** (*in path*): string, required
@@ -718,11 +726,11 @@ DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of Job
+### `deletecollection` delete collection of StatefulSet
 
 #### HTTP Request
 
-DELETE /apis/batch/v1/namespaces/{namespace}/jobs
+DELETE /apis/apps/v1/namespaces/{namespace}/statefulsets
 
 #### Parameters
 
