@@ -152,6 +152,7 @@ different Kubernetes components.
 | `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
 | `PodOverhead` | `true` | Beta | 1.18 |  |
+| `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
@@ -709,6 +710,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PodShareProcessNamespace`: Enable the setting of `shareProcessNamespace` in a Pod for sharing
   a single process namespace between containers running in a pod.  More details can be found in
   [Share Process Namespace between Containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/).
+- `ProbeTerminationGracePeriod`: Enable [setting probe-level
+  `terminationGracePeriodSeconds`](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationGracePeriodSeconds)
+   on pods.  See the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2238-liveness-probe-grace-period) for more details.
 - `ProcMountType`: Enables control over the type proc mounts for containers
   by setting the `procMount` field of a SecurityContext.
 - `QOSReserved`: Allows resource reservations at the QoS level preventing pods
