@@ -66,4 +66,4 @@ definir os parâmetros do kernel.
 
 * [Integração com DNS](/docs/concepts/services-networking/dns-pod-service/) descreve como resolver um nome DNS diretamente para um serviço Kubernetes.
 
-* [Registro e MOnitoramento da Atividade do Cluster](/docs/concepts/cluster-administration/logging/) explica como funciona o *logging* no Kubernetes e como implementá-lo.
+* [Registro e Monitoramento da Atividade do Cluster](/docs/concepts/cluster-administration/logging/) explica como funciona o *logging* no Kubernetes e como implementá-lo.
