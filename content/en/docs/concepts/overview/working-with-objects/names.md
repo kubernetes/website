@@ -24,6 +24,10 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/conc
 
 {{< glossary_definition term_id="name" length="all" >}}
 
+{{< note >}}
+In cases when objects represent a physical entity, like a Node representing a physical host, when the host is re-created under the same name without deleting and re-creating the Node, Kubernetes treats the new host as the old one, which may lead to inconsistencies.
+{{< /note >}}
+
 Below are three types of commonly used name constraints for resources.
 
 ### DNS Subdomain Names
@@ -86,4 +90,3 @@ UUIDs are standardized as ISO/IEC 9834-8 and as ITU-T X.667.
 
 * Read about [labels](/docs/concepts/overview/working-with-objects/labels/) in Kubernetes.
 * See the [Identifiers and Names in Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) design document.
-
