@@ -1,195 +1,128 @@
 ---
 api_metadata:
-  apiVersion: "apps/v1"
-  import: "k8s.io/api/apps/v1"
-  kind: "DaemonSet"
+  apiVersion: "v1"
+  import: "k8s.io/api/core/v1"
+  kind: "ResourceQuota"
 content_type: "api_reference"
-description: "DaemonSet represents the configuration of a daemon set."
-title: "DaemonSet"
-weight: 10
+description: "ResourceQuota sets aggregate quota restrictions enforced per namespace."
+title: "ResourceQuota"
+weight: 2
 ---
 
-`apiVersion: apps/v1`
+`apiVersion: v1`
 
-`import "k8s.io/api/apps/v1"`
+`import "k8s.io/api/core/v1"`
 
 
-## DaemonSet {#DaemonSet}
+## ResourceQuota {#ResourceQuota}
 
-DaemonSet represents the configuration of a daemon set.
+ResourceQuota sets aggregate quota restrictions enforced per namespace
 
 <hr>
 
-- **apiVersion**: apps/v1
+- **apiVersion**: v1
 
 
-- **kind**: DaemonSet
+- **kind**: ResourceQuota
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSetSpec" >}}">DaemonSetSpec</a>)
+- **spec** (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuotaSpec" >}}">ResourceQuotaSpec</a>)
 
-  The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSetStatus" >}}">DaemonSetStatus</a>)
+- **status** (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuotaStatus" >}}">ResourceQuotaStatus</a>)
 
-  The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
-
-
-
-
-## DaemonSetSpec {#DaemonSetSpec}
-
-DaemonSetSpec is the specification of a daemon set.
-
-<hr>
-
-- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), required
-
-  A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-
-- **template** (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
-
-  An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-
-- **minReadySeconds** (int32)
-
-  The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
-
-- **updateStrategy** (DaemonSetUpdateStrategy)
-
-  An update strategy to replace existing DaemonSet pods with new pods.
-
-  <a name="DaemonSetUpdateStrategy"></a>
-  *DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.*
-
-  - **updateStrategy.type** (string)
-
-    Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
-
-  - **updateStrategy.rollingUpdate** (RollingUpdateDaemonSet)
-
-    Rolling update config params. Present only if type = "RollingUpdate".
-
-    <a name="RollingUpdateDaemonSet"></a>
-    *Spec to control the desired behavior of daemon set rolling update.*
-
-  - **updateStrategy.rollingUpdate.maxUnavailable** (IntOrString)
-
-    The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
-
-    <a name="IntOrString"></a>
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
-
-- **revisionHistoryLimit** (int32)
-
-  The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+  Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## DaemonSetStatus {#DaemonSetStatus}
+## ResourceQuotaSpec {#ResourceQuotaSpec}
 
-DaemonSetStatus represents the current status of a daemon set.
+ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
 
 <hr>
 
-- **numberReady** (int32), required
+- **hard** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-  The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+  hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
 
-- **numberAvailable** (int32)
+- **scopeSelector** (ScopeSelector)
 
-  The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
+  scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
 
-- **numberUnavailable** (int32)
+  <a name="ScopeSelector"></a>
+  *A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.*
 
-  The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
+  - **scopeSelector.matchExpressions** ([]ScopedResourceSelectorRequirement)
 
-- **numberMisscheduled** (int32), required
+    A list of scope selector requirements by scope of the resources.
 
-  The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+    <a name="ScopedResourceSelectorRequirement"></a>
+    *A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.*
 
-- **desiredNumberScheduled** (int32), required
+  - **scopeSelector.matchExpressions.operator** (string), required
 
-  The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+    Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
 
-- **currentNumberScheduled** (int32), required
+  - **scopeSelector.matchExpressions.scopeName** (string), required
 
-  The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+    The name of the scope that the selector applies to.
 
-- **updatedNumberScheduled** (int32)
+  - **scopeSelector.matchExpressions.values** ([]string)
 
-  The total number of nodes that are running updated daemon pod
+    An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 
-- **collisionCount** (int32)
+- **scopes** ([]string)
 
-  Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
-
-- **conditions** ([]DaemonSetCondition)
-
-  *Patch strategy: merge on key `type`*
-  
-  Represents the latest available observations of a DaemonSet's current state.
-
-  <a name="DaemonSetCondition"></a>
-  *DaemonSetCondition describes the state of a DaemonSet at a certain point.*
-
-  - **conditions.status** (string), required
-
-    Status of the condition, one of True, False, Unknown.
-
-  - **conditions.type** (string), required
-
-    Type of DaemonSet condition.
-
-  - **conditions.lastTransitionTime** (Time)
-
-    Last time the condition transitioned from one status to another.
-
-    <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-  - **conditions.message** (string)
-
-    A human readable message indicating details about the transition.
-
-  - **conditions.reason** (string)
-
-    The reason for the condition's last transition.
-
-- **observedGeneration** (int64)
-
-  The most recent generation observed by the daemon set controller.
+  A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects.
 
 
 
 
 
-## DaemonSetList {#DaemonSetList}
+## ResourceQuotaStatus {#ResourceQuotaStatus}
 
-DaemonSetList is a collection of daemon sets.
+ResourceQuotaStatus defines the enforced hard limits and observed use.
 
 <hr>
 
-- **apiVersion**: apps/v1
+- **hard** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+  Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+
+- **used** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+  Used is the current observed total usage of the resource in the namespace.
 
 
-- **kind**: DaemonSetList
+
+
+
+## ResourceQuotaList {#ResourceQuotaList}
+
+ResourceQuotaList is a list of ResourceQuota items.
+
+<hr>
+
+- **apiVersion**: v1
+
+
+- **kind**: ResourceQuotaList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-- **items** ([]<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>), required
+- **items** ([]<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>), required
 
-  A list of daemon sets.
+  Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
 
 
 
@@ -206,18 +139,18 @@ DaemonSetList is a collection of daemon sets.
 
 
 
-### `get` read the specified DaemonSet
+### `get` read the specified ResourceQuota
 
 #### HTTP Request
 
-GET /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
+GET /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the DaemonSet
+  name of the ResourceQuota
 
 
 - **namespace** (*in path*): string, required
@@ -234,23 +167,23 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
+200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified DaemonSet
+### `get` read status of the specified ResourceQuota
 
 #### HTTP Request
 
-GET /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
+GET /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the DaemonSet
+  name of the ResourceQuota
 
 
 - **namespace** (*in path*): string, required
@@ -267,16 +200,16 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
+200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind DaemonSet
+### `list` list or watch objects of kind ResourceQuota
 
 #### HTTP Request
 
-GET /apis/apps/v1/namespaces/{namespace}/daemonsets
+GET /api/v1/namespaces/{namespace}/resourcequotas
 
 #### Parameters
 
@@ -340,16 +273,16 @@ GET /apis/apps/v1/namespaces/{namespace}/daemonsets
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSetList" >}}">DaemonSetList</a>): OK
+200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuotaList" >}}">ResourceQuotaList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind DaemonSet
+### `list` list or watch objects of kind ResourceQuota
 
 #### HTTP Request
 
-GET /apis/apps/v1/daemonsets
+GET /api/v1/resourcequotas
 
 #### Parameters
 
@@ -408,16 +341,16 @@ GET /apis/apps/v1/daemonsets
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSetList" >}}">DaemonSetList</a>): OK
+200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuotaList" >}}">ResourceQuotaList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a DaemonSet
+### `create` create a ResourceQuota
 
 #### HTTP Request
 
-POST /apis/apps/v1/namespaces/{namespace}/daemonsets
+POST /api/v1/namespaces/{namespace}/resourcequotas
 
 #### Parameters
 
@@ -427,7 +360,7 @@ POST /apis/apps/v1/namespaces/{namespace}/daemonsets
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
+- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
 
   
 
@@ -451,27 +384,27 @@ POST /apis/apps/v1/namespaces/{namespace}/daemonsets
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
+200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): Created
+201 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Created
 
-202 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified DaemonSet
+### `update` replace the specified ResourceQuota
 
 #### HTTP Request
 
-PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
+PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the DaemonSet
+  name of the ResourceQuota
 
 
 - **namespace** (*in path*): string, required
@@ -479,7 +412,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
+- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
 
   
 
@@ -503,25 +436,25 @@ PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
+200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): Created
+201 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified DaemonSet
+### `update` replace status of the specified ResourceQuota
 
 #### HTTP Request
 
-PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
+PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the DaemonSet
+  name of the ResourceQuota
 
 
 - **namespace** (*in path*): string, required
@@ -529,7 +462,7 @@ PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>, required
+- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
 
   
 
@@ -553,78 +486,25 @@ PUT /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
+200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): Created
+201 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified DaemonSet
+### `patch` partially update the specified ResourceQuota
 
 #### HTTP Request
 
-PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
+PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the DaemonSet
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified DaemonSet
-
-#### HTTP Request
-
-PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the DaemonSet
+  name of the ResourceQuota
 
 
 - **namespace** (*in path*): string, required
@@ -661,23 +541,76 @@ PATCH /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/daemon-set-v1#DaemonSet" >}}">DaemonSet</a>): OK
+200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a DaemonSet
+### `patch` partially update status of the specified ResourceQuota
 
 #### HTTP Request
 
-DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
+PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the DaemonSet
+  name of the ResourceQuota
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a ResourceQuota
+
+#### HTTP Request
+
+DELETE /api/v1/namespaces/{namespace}/resourcequotas/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the ResourceQuota
 
 
 - **namespace** (*in path*): string, required
@@ -714,18 +647,18 @@ DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): OK
 
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of DaemonSet
+### `deletecollection` delete collection of ResourceQuota
 
 #### HTTP Request
 
-DELETE /apis/apps/v1/namespaces/{namespace}/daemonsets
+DELETE /api/v1/namespaces/{namespace}/resourcequotas
 
 #### Parameters
 

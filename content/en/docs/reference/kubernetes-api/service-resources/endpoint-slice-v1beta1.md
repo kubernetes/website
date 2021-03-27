@@ -1,152 +1,144 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "Endpoints"
+  apiVersion: "discovery.k8s.io/v1beta1"
+  import: "k8s.io/api/discovery/v1beta1"
+  kind: "EndpointSlice"
 content_type: "api_reference"
-description: "Endpoints is a collection of endpoints that implement the actual service."
-title: "Endpoints"
-weight: 2
+description: "EndpointSlice represents a subset of the endpoints that implement a service."
+title: "EndpointSlice v1beta1"
+weight: 3
 ---
 
-`apiVersion: v1`
+`apiVersion: discovery.k8s.io/v1beta1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/discovery/v1beta1"`
 
 
-## Endpoints {#Endpoints}
+## EndpointSlice {#EndpointSlice}
 
-Endpoints is a collection of endpoints that implement the actual service. Example:
-  Name: "mysvc",
-  Subsets: [
-    {
-      Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-      Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    },
-    {
-      Addresses: [{"ip": "10.10.3.3"}],
-      Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-    },
- ]
+EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: discovery.k8s.io/v1beta1
 
 
-- **kind**: Endpoints
+- **kind**: EndpointSlice
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard object's metadata.
 
-- **subsets** ([]EndpointSubset)
+- **addressType** (string), required
 
-  The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
+  addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
 
-  <a name="EndpointSubset"></a>
-  *EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-    {
-      Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-      Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    }
-  The resulting set of endpoints can be viewed as:
-      a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-      b: [ 10.10.1.1:309, 10.10.2.2:309 ]*
+- **endpoints** ([]Endpoint), required
 
-  - **subsets.addresses** ([]EndpointAddress)
+  *Atomic: will be replaced during a merge*
+  
+  endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
 
-    IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
+  <a name="Endpoint"></a>
+  *Endpoint represents a single logical "backend" implementing a service.*
 
-    <a name="EndpointAddress"></a>
-    *EndpointAddress is a tuple that describes single IP address.*
+  - **endpoints.addresses** ([]string), required
 
-  - **subsets.addresses.ip** (string), required
+    *Set: unique values will be kept during a merge*
+    
+    addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
 
-    The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+  - **endpoints.conditions** (EndpointConditions)
 
-  - **subsets.addresses.hostname** (string)
+    conditions contains information about the current status of the endpoint.
 
-    The Hostname of this endpoint
+    <a name="EndpointConditions"></a>
+    *EndpointConditions represents the current condition of an endpoint.*
 
-  - **subsets.addresses.nodeName** (string)
+  - **endpoints.conditions.ready** (boolean)
 
-    Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
+    ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
 
-  - **subsets.addresses.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
+  - **endpoints.conditions.serving** (boolean)
 
-    Reference to object providing the endpoint.
+    serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
 
-  - **subsets.notReadyAddresses** ([]EndpointAddress)
+  - **endpoints.conditions.terminating** (boolean)
 
-    IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
+    terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
 
-    <a name="EndpointAddress"></a>
-    *EndpointAddress is a tuple that describes single IP address.*
+  - **endpoints.hostname** (string)
 
-  - **subsets.notReadyAddresses.ip** (string), required
+    hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 
-    The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+  - **endpoints.nodeName** (string)
 
-  - **subsets.notReadyAddresses.hostname** (string)
+    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
 
-    The Hostname of this endpoint
+  - **endpoints.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
-  - **subsets.notReadyAddresses.nodeName** (string)
+    targetRef is a reference to a Kubernetes object that represents this endpoint.
 
-    Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
+  - **endpoints.topology** (map[string]string)
 
-  - **subsets.notReadyAddresses.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
+    topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
+      where the endpoint is located. This should match the corresponding
+      node label.
+    * topology.kubernetes.io/zone: the value indicates the zone where the
+      endpoint is located. This should match the corresponding node label.
+    * topology.kubernetes.io/region: the value indicates the region where the
+      endpoint is located. This should match the corresponding node label.
+    This field is deprecated and will be removed in future api versions.
 
-    Reference to object providing the endpoint.
+- **ports** ([]EndpointPort)
 
-  - **subsets.ports** ([]EndpointPort)
+  *Atomic: will be replaced during a merge*
+  
+  ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
 
-    Port numbers available on the related IP addresses.
+  <a name="EndpointPort"></a>
+  *EndpointPort represents a Port used by an EndpointSlice*
 
-    <a name="EndpointPort"></a>
-    *EndpointPort is a tuple that describes a single port.*
+  - **ports.port** (int32)
 
-  - **subsets.ports.port** (int32), required
+    The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
 
-    The port number of the endpoint.
-
-  - **subsets.ports.protocol** (string)
+  - **ports.protocol** (string)
 
     The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
 
-  - **subsets.ports.name** (string)
+  - **ports.name** (string)
 
-    The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
+    The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
 
-  - **subsets.ports.appProtocol** (string)
+  - **ports.appProtocol** (string)
 
-    The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
-
-
+    The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 
 
 
-## EndpointsList {#EndpointsList}
 
-EndpointsList is a list of endpoints.
+
+## EndpointSliceList {#EndpointSliceList}
+
+EndpointSliceList represents a list of endpoint slices
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: discovery.k8s.io/v1beta1
 
 
-- **kind**: EndpointsList
+- **kind**: EndpointSliceList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  Standard list metadata.
 
-- **items** ([]<a href="{{< ref "../services-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>), required
+- **items** ([]<a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSlice" >}}">EndpointSlice</a>), required
 
-  List of endpoints.
+  List of endpoint slices
 
 
 
@@ -163,18 +155,18 @@ EndpointsList is a list of endpoints.
 
 
 
-### `get` read the specified Endpoints
+### `get` read the specified EndpointSlice
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/endpoints/{name}
+GET /apis/discovery.k8s.io/v1beta1/namespaces/{namespace}/endpointslices/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the Endpoints
+  name of the EndpointSlice
 
 
 - **namespace** (*in path*): string, required
@@ -191,16 +183,16 @@ GET /api/v1/namespaces/{namespace}/endpoints/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSlice" >}}">EndpointSlice</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind Endpoints
+### `list` list or watch objects of kind EndpointSlice
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/endpoints
+GET /apis/discovery.k8s.io/v1beta1/namespaces/{namespace}/endpointslices
 
 #### Parameters
 
@@ -264,16 +256,16 @@ GET /api/v1/namespaces/{namespace}/endpoints
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/endpoints-v1#EndpointsList" >}}">EndpointsList</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSliceList" >}}">EndpointSliceList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind Endpoints
+### `list` list or watch objects of kind EndpointSlice
 
 #### HTTP Request
 
-GET /api/v1/endpoints
+GET /apis/discovery.k8s.io/v1beta1/endpointslices
 
 #### Parameters
 
@@ -332,16 +324,16 @@ GET /api/v1/endpoints
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/endpoints-v1#EndpointsList" >}}">EndpointsList</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSliceList" >}}">EndpointSliceList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create Endpoints
+### `create` create an EndpointSlice
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/endpoints
+POST /apis/discovery.k8s.io/v1beta1/namespaces/{namespace}/endpointslices
 
 #### Parameters
 
@@ -351,7 +343,7 @@ POST /api/v1/namespaces/{namespace}/endpoints
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../services-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>, required
+- **body**: <a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSlice" >}}">EndpointSlice</a>, required
 
   
 
@@ -375,27 +367,27 @@ POST /api/v1/namespaces/{namespace}/endpoints
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSlice" >}}">EndpointSlice</a>): OK
 
-201 (<a href="{{< ref "../services-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): Created
+201 (<a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSlice" >}}">EndpointSlice</a>): Created
 
-202 (<a href="{{< ref "../services-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): Accepted
+202 (<a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSlice" >}}">EndpointSlice</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified Endpoints
+### `update` replace the specified EndpointSlice
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/endpoints/{name}
+PUT /apis/discovery.k8s.io/v1beta1/namespaces/{namespace}/endpointslices/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the Endpoints
+  name of the EndpointSlice
 
 
 - **namespace** (*in path*): string, required
@@ -403,7 +395,7 @@ PUT /api/v1/namespaces/{namespace}/endpoints/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../services-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>, required
+- **body**: <a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSlice" >}}">EndpointSlice</a>, required
 
   
 
@@ -427,25 +419,25 @@ PUT /api/v1/namespaces/{namespace}/endpoints/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSlice" >}}">EndpointSlice</a>): OK
 
-201 (<a href="{{< ref "../services-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): Created
+201 (<a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSlice" >}}">EndpointSlice</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified Endpoints
+### `patch` partially update the specified EndpointSlice
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/endpoints/{name}
+PATCH /apis/discovery.k8s.io/v1beta1/namespaces/{namespace}/endpointslices/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the Endpoints
+  name of the EndpointSlice
 
 
 - **namespace** (*in path*): string, required
@@ -482,23 +474,23 @@ PATCH /api/v1/namespaces/{namespace}/endpoints/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/endpoints-v1#Endpoints" >}}">Endpoints</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1beta1#EndpointSlice" >}}">EndpointSlice</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete Endpoints
+### `delete` delete an EndpointSlice
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/endpoints/{name}
+DELETE /apis/discovery.k8s.io/v1beta1/namespaces/{namespace}/endpointslices/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the Endpoints
+  name of the EndpointSlice
 
 
 - **namespace** (*in path*): string, required
@@ -542,11 +534,11 @@ DELETE /api/v1/namespaces/{namespace}/endpoints/{name}
 401: Unauthorized
 
 
-### `deletecollection` delete collection of Endpoints
+### `deletecollection` delete collection of EndpointSlice
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/endpoints
+DELETE /apis/discovery.k8s.io/v1beta1/namespaces/{namespace}/endpointslices
 
 #### Parameters
 

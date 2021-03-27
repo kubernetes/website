@@ -30,7 +30,7 @@ NetworkPolicy describes what network traffic is allowed for a set of Pods
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicySpec" >}}">NetworkPolicySpec</a>)
+- **spec** (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicySpec" >}}">NetworkPolicySpec</a>)
 
   Specification of the desired behavior for this NetworkPolicy.
 
@@ -190,7 +190,7 @@ NetworkPolicyList is a list of NetworkPolicy objects.
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>), required
+- **items** ([]<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>), required
 
   Items is a list of schema objects.
 
@@ -237,7 +237,7 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
 
 401: Unauthorized
 
@@ -310,7 +310,7 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicyList" >}}">NetworkPolicyList</a>): OK
+200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicyList" >}}">NetworkPolicyList</a>): OK
 
 401: Unauthorized
 
@@ -378,7 +378,7 @@ GET /apis/networking.k8s.io/v1/networkpolicies
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicyList" >}}">NetworkPolicyList</a>): OK
+200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicyList" >}}">NetworkPolicyList</a>): OK
 
 401: Unauthorized
 
@@ -397,7 +397,7 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, required
+- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, required
 
   
 
@@ -421,11 +421,11 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): Created
 
-202 (<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): Accepted
 
 401: Unauthorized
 
@@ -449,7 +449,7 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, required
+- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, required
 
   
 
@@ -473,9 +473,9 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
 
-201 (<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): Created
 
 401: Unauthorized
 
@@ -528,7 +528,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policies-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
 
 401: Unauthorized
 

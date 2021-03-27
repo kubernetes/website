@@ -30,11 +30,11 @@ configuration of a horizontal pod autoscaler.
 
   Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerSpec" >}}">HorizontalPodAutoscalerSpec</a>)
 
   behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 
-- **status** (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerStatus" >}}">HorizontalPodAutoscalerStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerStatus" >}}">HorizontalPodAutoscalerStatus</a>)
 
   current information about the autoscaler.
 
@@ -132,7 +132,7 @@ list of horizontal pod autoscaler objects.
 
   Standard list metadata.
 
-- **items** ([]<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>), required
 
   list of horizontal pod autoscaler objects.
 
@@ -179,7 +179,7 @@ GET /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 401: Unauthorized
 
@@ -212,7 +212,7 @@ GET /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name}/
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 401: Unauthorized
 
@@ -285,7 +285,7 @@ GET /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
 
 401: Unauthorized
 
@@ -353,7 +353,7 @@ GET /apis/autoscaling/v1/horizontalpodautoscalers
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscalerList" >}}">HorizontalPodAutoscalerList</a>): OK
 
 401: Unauthorized
 
@@ -372,7 +372,7 @@ POST /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
+- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
 
   
 
@@ -396,11 +396,11 @@ POST /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
-202 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Accepted
 
 401: Unauthorized
 
@@ -424,7 +424,7 @@ PUT /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
+- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
 
   
 
@@ -448,9 +448,9 @@ PUT /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -474,7 +474,7 @@ PUT /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name}/
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
+- **body**: <a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>, required
 
   
 
@@ -498,9 +498,9 @@ PUT /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name}/
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
+201 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): Created
 
 401: Unauthorized
 
@@ -553,7 +553,7 @@ PATCH /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 401: Unauthorized
 
@@ -606,7 +606,7 @@ PATCH /apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
+200 (<a href="{{< ref "../workload-resources/horizontal-pod-autoscaler-v1#HorizontalPodAutoscaler" >}}">HorizontalPodAutoscaler</a>): OK
 
 401: Unauthorized
 

@@ -30,11 +30,11 @@ Service is a named abstraction of software service (for example, mysql) consisti
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../services-resources/service-v1#ServiceSpec" >}}">ServiceSpec</a>)
+- **spec** (<a href="{{< ref "../service-resources/service-v1#ServiceSpec" >}}">ServiceSpec</a>)
 
   Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../services-resources/service-v1#ServiceStatus" >}}">ServiceStatus</a>)
+- **status** (<a href="{{< ref "../service-resources/service-v1#ServiceStatus" >}}">ServiceStatus</a>)
 
   Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
@@ -290,7 +290,7 @@ ServiceList holds a list of services.
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-- **items** ([]<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>), required
+- **items** ([]<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>), required
 
   List of services
 
@@ -337,7 +337,7 @@ GET /api/v1/namespaces/{namespace}/services/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): OK
+200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 401: Unauthorized
 
@@ -370,7 +370,7 @@ GET /api/v1/namespaces/{namespace}/services/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): OK
+200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 401: Unauthorized
 
@@ -443,7 +443,7 @@ GET /api/v1/namespaces/{namespace}/services
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/service-v1#ServiceList" >}}">ServiceList</a>): OK
+200 (<a href="{{< ref "../service-resources/service-v1#ServiceList" >}}">ServiceList</a>): OK
 
 401: Unauthorized
 
@@ -511,7 +511,7 @@ GET /api/v1/services
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/service-v1#ServiceList" >}}">ServiceList</a>): OK
+200 (<a href="{{< ref "../service-resources/service-v1#ServiceList" >}}">ServiceList</a>): OK
 
 401: Unauthorized
 
@@ -530,7 +530,7 @@ POST /api/v1/namespaces/{namespace}/services
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>, required
+- **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
 
   
 
@@ -554,11 +554,11 @@ POST /api/v1/namespaces/{namespace}/services
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): OK
+200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
-201 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): Created
+201 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): Created
 
-202 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): Accepted
+202 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): Accepted
 
 401: Unauthorized
 
@@ -582,7 +582,7 @@ PUT /api/v1/namespaces/{namespace}/services/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>, required
+- **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
 
   
 
@@ -606,9 +606,9 @@ PUT /api/v1/namespaces/{namespace}/services/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): OK
+200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
-201 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): Created
+201 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): Created
 
 401: Unauthorized
 
@@ -632,7 +632,7 @@ PUT /api/v1/namespaces/{namespace}/services/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>, required
+- **body**: <a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>, required
 
   
 
@@ -656,9 +656,9 @@ PUT /api/v1/namespaces/{namespace}/services/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): OK
+200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
-201 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): Created
+201 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): Created
 
 401: Unauthorized
 
@@ -711,7 +711,7 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): OK
+200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 401: Unauthorized
 
@@ -764,7 +764,7 @@ PATCH /api/v1/namespaces/{namespace}/services/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../services-resources/service-v1#Service" >}}">Service</a>): OK
+200 (<a href="{{< ref "../service-resources/service-v1#Service" >}}">Service</a>): OK
 
 401: Unauthorized
 

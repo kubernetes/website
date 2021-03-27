@@ -1,80 +1,80 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "PodTemplate"
+  apiVersion: "networking.k8s.io/v1"
+  import: "k8s.io/api/networking/v1"
+  kind: "IngressClass"
 content_type: "api_reference"
-description: "PodTemplate describes a template for creating copies of a predefined pod."
-title: "PodTemplate"
-weight: 4
+description: "IngressClass represents the class of the Ingress, referenced by the Ingress Spec."
+title: "IngressClass"
+weight: 5
 ---
 
-`apiVersion: v1`
+`apiVersion: networking.k8s.io/v1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/networking/v1"`
 
 
-## PodTemplate {#PodTemplate}
+## IngressClass {#IngressClass}
 
-PodTemplate describes a template for creating copies of a predefined pod.
+IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: networking.k8s.io/v1
 
 
-- **kind**: PodTemplate
+- **kind**: IngressClass
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **template** (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
+- **spec** (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClassSpec" >}}">IngressClassSpec</a>)
 
-  Template defines the pods that will be created from this pod template. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
-
-
-
-
-## PodTemplateSpec {#PodTemplateSpec}
-
-PodTemplateSpec describes the data a pod should have when created from a template
-
-<hr>
-
-- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-
-- **spec** (<a href="{{< ref "../workloads-resources/pod-v1#PodSpec" >}}">PodSpec</a>)
-
-  Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## PodTemplateList {#PodTemplateList}
+## IngressClassSpec {#IngressClassSpec}
 
-PodTemplateList is a list of PodTemplates.
+IngressClassSpec provides information about the class of an Ingress.
 
 <hr>
 
-- **apiVersion**: v1
+- **controller** (string)
+
+  Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+
+- **parameters** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
+
+  Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
 
 
-- **kind**: PodTemplateList
+
+
+
+## IngressClassList {#IngressClassList}
+
+IngressClassList is a collection of IngressClasses.
+
+<hr>
+
+- **apiVersion**: networking.k8s.io/v1
+
+
+- **kind**: IngressClassList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  Standard list metadata.
 
-- **items** ([]<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>), required
+- **items** ([]<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>), required
 
-  List of pod templates
+  Items is the list of IngressClasses.
 
 
 
@@ -91,23 +91,18 @@ PodTemplateList is a list of PodTemplates.
 
 
 
-### `get` read the specified PodTemplate
+### `get` read the specified IngressClass
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/podtemplates/{name}
+GET /apis/networking.k8s.io/v1/ingressclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PodTemplate
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  name of the IngressClass
 
 
 - **pretty** (*in query*): string
@@ -119,89 +114,16 @@ GET /api/v1/namespaces/{namespace}/podtemplates/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind PodTemplate
+### `list` list or watch objects of kind IngressClass
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/podtemplates
-
-#### Parameters
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **allowWatchBookmarks** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
-
-
-- **continue** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
-
-
-- **fieldSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
-
-
-- **labelSelector** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
-
-
-- **limit** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-- **resourceVersion** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
-
-
-- **resourceVersionMatch** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
-
-
-- **timeoutSeconds** (*in query*): integer
-
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
-
-
-- **watch** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplateList" >}}">PodTemplateList</a>): OK
-
-401: Unauthorized
-
-
-### `list` list or watch objects of kind PodTemplate
-
-#### HTTP Request
-
-GET /api/v1/podtemplates
+GET /apis/networking.k8s.io/v1/ingressclasses
 
 #### Parameters
 
@@ -260,26 +182,21 @@ GET /api/v1/podtemplates
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplateList" >}}">PodTemplateList</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClassList" >}}">IngressClassList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a PodTemplate
+### `create` create an IngressClass
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/podtemplates
+POST /apis/networking.k8s.io/v1/ingressclasses
 
 #### Parameters
 
 
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>, required
+- **body**: <a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>, required
 
   
 
@@ -303,35 +220,30 @@ POST /api/v1/namespaces/{namespace}/podtemplates
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): Created
+201 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): Created
 
-202 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): Accepted
+202 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified PodTemplate
+### `update` replace the specified IngressClass
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/podtemplates/{name}
+PUT /apis/networking.k8s.io/v1/ingressclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PodTemplate
+  name of the IngressClass
 
 
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>, required
+- **body**: <a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>, required
 
   
 
@@ -355,30 +267,25 @@ PUT /api/v1/namespaces/{namespace}/podtemplates/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): OK
 
-201 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): Created
+201 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified PodTemplate
+### `patch` partially update the specified IngressClass
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/podtemplates/{name}
+PATCH /apis/networking.k8s.io/v1/ingressclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PodTemplate
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  name of the IngressClass
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -410,28 +317,23 @@ PATCH /api/v1/namespaces/{namespace}/podtemplates/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
+200 (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a PodTemplate
+### `delete` delete an IngressClass
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/podtemplates/{name}
+DELETE /apis/networking.k8s.io/v1/ingressclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PodTemplate
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+  name of the IngressClass
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -463,25 +365,20 @@ DELETE /api/v1/namespaces/{namespace}/podtemplates/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../workloads-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): Accepted
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of PodTemplate
+### `deletecollection` delete collection of IngressClass
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/podtemplates
+DELETE /apis/networking.k8s.io/v1/ingressclasses
 
 #### Parameters
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
