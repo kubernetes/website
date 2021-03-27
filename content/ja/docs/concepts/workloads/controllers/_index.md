@@ -1,4 +1,4 @@
 ---
-title: "コントローラー"
+title: "Workload Resources"
 weight: 20
 ---
