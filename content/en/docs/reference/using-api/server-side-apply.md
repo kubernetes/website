@@ -46,7 +46,7 @@ Server side apply is meant both as a replacement for the original `kubectl
 apply` and as a simpler mechanism for controllers to enact their changes.
 
 If you have Server Side Apply enabled, the control plane tracks managed fields
-for all newlly created objects.
+for all newly created objects.
 
 ## Field Management
 
