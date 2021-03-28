@@ -16,7 +16,7 @@ In this post we'll discuss:
 
 - Why we created a Subproject for [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
 - How we changed the Kubernetes e2e framework to `visualize` NetworkPolicy implementation of your CNI provider
-- The initial results of our comprehensive NetworkPolicy Conformance validator, `Cyclonus`, built around these principles
+- The initial results of our comprehensive NetworkPolicy conformance validator, _Cyclonus_, built around these principles
 - Improvements we've made to the NetworkPolicy user experience
 
 ## Why we created a subproject for NetworkPolicies
