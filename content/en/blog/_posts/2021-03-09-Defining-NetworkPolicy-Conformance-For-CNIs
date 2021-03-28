@@ -27,7 +27,7 @@ It was clear that we needed to begin unifying the way we think about Network Pol
 For example:  
 - Calico as a CNI provider can be run using IPIP or VXLAN mode.  CNI's such as Antrea and Cilium offer similar configuration divergences as well.
 - Some CNI plugins rely on iptables for NetworkPolicies, whereas others use a completely different technology stack (for example, the Antrea project uses Open vSwitch rules).
-- Some CNI providers only implement a subset of the Kubernetes NetworkPolicy API (for example, certain providers don't support the ability to target a `NamedPort`, or a port range, which is a newer feature in the K8s API).
+- Some CNI plugins only implement a subset of the Kubernetes NetworkPolicy API, or don't offer the latest features. For example, certain plugins don't support the ability to target a named port; others don't work with port ranges).
 
 Thus, end-users need to follow a multistep process to implement Network Policies to secure their applications:
 - Confirm that their CNI supports NetworkPolicies (some don't, such as flannel)
