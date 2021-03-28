@@ -5,7 +5,7 @@ date: 2021-03-21
 slug: defining-networkpolicy-conformance-cni-providers
 ---
 
-Authors: Matt Fennwick, Jay Vyas, Ricardo Katz, Amim Knabben, Douglas Schilling Landgraf
+Authors: Matt Fenwick, Jay Vyas, Ricardo Katz, Amim Knabben, Douglas Schilling Landgraf
 
 Special thanks to Tim Hockins and Bowie Du (Google), Dan Winship and Antonio Ojea (Red Hat), Casey Davenport and Shuan Crampton (tigera), and Abhishek Raut (Vmware) for 
 being supportive of this work, and working with us to resolve issues in different Container Network Interfaces (CNIs) over time.
@@ -101,7 +101,7 @@ Part of our role as a subproject is to help make sure that, when these tests bre
 Around the time that we were finishing the validation work, it became clear from the community that, in general, we needed to solve the overall problem of testing ALL possible Network Policy implementations.
 For example, a KEP was recently written which introduced the concept of micro versioning to Network Policies to accomodate [describing this at the API level](https://github.com/kubernetes/enhancements/pull/2137/files), by Dan Winship.  
 
-In response to this increasingly obvious need to comprehensively defined Network Policy for all vendors, Matt Fennwick decided to evolve our approach to Network Policy validation again by creating Cyclonus.
+In response to this increasingly obvious need to comprehensively defined Network Policy for all vendors, Matt Fenwick decided to evolve our approach to Network Policy validation again by creating Cyclonus.
 
 Cyclonus is a comprehensive Network Policy fuzzing tool which verifies a CNI provider against 100s of different Network Policy scenarios, by defining the same truth table/policy combinations as done in the end to end tests, while also
 providing a hierarchical representation of policy "categories".  We've found some interesting missing implementations in almost every CNI we've tested, so far, and have even contributed some fixes back, for example:
