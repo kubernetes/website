@@ -628,6 +628,15 @@ is set to `false` on an existing Service with allocated node ports, those node p
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
 You must enable the `ServiceLBNodePortControl` feature gate to use this field.
 
+#### Specifying class of load balancer implementation {#load-balancer-class}
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+Starting in v1.21, you can optionally specify class of load balancer implementation for a Service Type=LoadBalancer by setting field `spec.loadBalancerClass` value. By default, `spec.loadBalancerClass` is `nil` and type LoadBalacner Services will use the cloud providers' default load balancer implementation. 
+If `spec.loadBalancerClass` is specified, it is assumed that a matching class load balancer implementation is watching for Services and any default load balancer implementation (e.g. cloud providers) will ignore Services that set this field. `spec.loadBalancerClass` can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. 
+The value of `spec.loadBalancerClass` must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users.
+You must enable the `ServiceLoadBalancerClass` feature gate to use this field.
+
 #### Internal load balancer
 
 In a mixed environment it is sometimes necessary to route traffic from Services inside the same
