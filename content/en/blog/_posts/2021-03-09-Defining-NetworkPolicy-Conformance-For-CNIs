@@ -21,8 +21,8 @@ In this post we'll discuss:
 
 ## Why we created a subproject for NetworkPolicies
 
-In April of 2020 it was becoming clear that many CNIs were emerging, and many vendors implement these CNIs in different ways.  Users were beggining to express a little bit of confusion around how to implement policies for different scenarios, and asking for new features.
-It was clear that we needed to begin unifying the way we think about Network Policies in Kubernetes, if we wanted to avoid becoming an "ancient" API which was going to be overrun by implementation divergences.
+In April of 2020 it was becoming clear that many CNIs were emerging, and many vendors implement these CNIs in different ways.  Users were beginning to express a little bit of confusion around how to implement policies for different scenarios, and asking for new features.
+It was clear that we needed to begin unifying the way we think about Network Policies in Kubernetes, if we wanted to avoid becoming an ancient API which was going to be overrun by implementation divergences.
 
 For example:
 - Calico as a CNI provider can be run using IPIP or VXLAN mode.  CNI's such as Antrea and Cilium offer similar configuration divergences as well.
@@ -32,7 +32,7 @@ For example:
 Thus, end-users need to follow a multistep process to implement Network Policies to secure their applications:
 - Confirm that their network plugin supports NetworkPolicies (some don't, such as Flannel)
 - Confirm that their cluster's network plugin supports the specific NetworkPolicy features that they are interested in (again, the named port or port range examples come to mind here)
-- Confirm that their application's Network Policy definitions are doing the 'right thing'
+- Confirm that their application's Network Policy definitions are doing the right thing
 - Find out the vendor specific implementation of a policy, and check wether or not that implementation had a CNI neutral implementation (which is preferable for most users)
 
 The NetworkPolicy project in upstream Kubernetes aims at providing a community where people can learn about, and contribute to, the Kubernetes NetworkPolicy API and the surrounding ecosystem.
@@ -48,7 +48,7 @@ For example, in the following test output.  As an example, we found a bug in [ov
 wherein certain policies caused a state-modification that, later on, resulted in traffic being unnecessarily blocked (even after all Network Policies, cluster wide, were deleted).
 
 ```
-Nov  3 15:58:54.034: INFO: Network Policy creating netpol-3291-x/allow-ingress-port-80
+Nov  3 15:58:54.034: INFO: Network Policy creating x/allow-ingress-port-80
 metadata:
   creationTimestamp: null
   name: allow-ingress-port-80
@@ -61,32 +61,32 @@ spec:
 
 Nov  4 16:58:43.449: INFO: expected:
 
--               netpol-5599-x/a netpol-5599-x/b netpol-5599-x/c netpol-5599-y/a netpol-5599-y/b netpol-5599-y/c netpol-5599-z/a netpol-5599-z/b netpol-5599-z/c
-netpol-5599-x/a .               .               .               .               .               .               .               .               .
-netpol-5599-x/b .               .               .               .               .               .               .               .               .
-netpol-5599-x/c .               .               .               .               .               .               .               .               .
-netpol-5599-y/a .               .               .               .               .               .               .               .               .
-netpol-5599-y/b .               .               .               .               .               .               .               .               .
-netpol-5599-y/c .               .               .               .               .               .               .               .               .
-netpol-5599-z/a .               .               .               .               .               .               .               .               .
-netpol-5599-z/b .               .               .               .               .               .               .               .               .
-netpol-5599-z/c .               .               .               .               .               .               .               .               .
-.......... Nov  4 16:58:43.449: INFO: observed:
+-   x/a x/b x/c y/a y/b y/c z/a z/b z/c
+x/a .   .   .   .   .   .   .   .   .
+x/b .   .   .   .   .   .   .   .   .
+x/c .   .   .   .   .   .   .   .   .
+y/a .   .   .   .   .   .   .   .   .
+y/b .   .   .   .   .   .   .   .   .
+y/c .   .   .   .   .   .   .   .   .
+z/a .   .   .   .   .   .   .   .   .
+z/b .   .   .   .   .   .   .   .   .
+z/c .   .   .   .   .   .   .   .   .
 
--               netpol-5599-x/a netpol-5599-x/b netpol-5599-x/c netpol-5599-y/a netpol-5599-y/b netpol-5599-y/c netpol-5599-z/a netpol-5599-z/b netpol-5599-z/c
-netpol-5599-x/a X               X               X               X               X               X               X               X               X
-netpol-5599-x/b X               X               X               X               X               X               X               X               X
-netpol-5599-x/c X               X               X               X               X               X               X               X               X
-netpol-5599-y/a .               .               .               .               .               .               .               .               .
-netpol-5599-y/b .               .               .               .               .               .               .               .               .
-netpol-5599-y/c .               .               .               .               .               .               .               .               .
-netpol-5599-z/a .               .               .               .               .               .               .               .               .
-netpol-5599-z/b .               .               .               .               .               .               .               .               .
-netpol-5599-z/c .               .               .               .               .               .               .               .               .
+Nov  4 16:58:43.449: INFO: observed:
 
+-   x/a x/b x/c y/a y/b y/c z/a z/b z/c
+x/a X   X   X   X   X   X   X   X   X
+x/b X   X   X   X   X   X   X   X   X
+x/c X   X   X   X   X   X   X   X   X
+y/a .   .   .   .   .   .   .   .   .
+y/b .   .   .   .   .   .   .   .   .
+y/c .   .   .   .   .   .   .   .   .
+z/a .   .   .   .   .   .   .   .   .
+z/b .   .   .   .   .   .   .   .   .
+z/c .   .   .   .   .   .   .   .   .
 ```
 
-This was one of our earliest 'wins' in the Network Policy group, as we were able to identity and work with the OVN kubernetes group to fix a bug in egress policy processing.
+This was one of our earliest wins in the Network Policy group, as we were able to identity and work with the OVN kubernetes group to fix a bug in egress policy processing.
 
 However, even though this tool has made it easy to validate roughly 30 common scenarios, it doesn't validate *all* Network Policy scenarios - because there are an enormous permutation of possible
 policies that one might create (well, technically, we might say this number is infinite given that theres an infinite number of possible namespace/pod/port/prototocol variations one can create).
@@ -99,7 +99,7 @@ Part of our role as a subproject is to help make sure that, when these tests bre
 ## Cyclonus: The next step towards Network Policy conformance {#cyclonus}
 
 Around the time that we were finishing the validation work, it became clear from the community that, in general, we needed to solve the overall problem of testing ALL possible Network Policy implementations.
-For example, a KEP was recently written which introduced the concept of micro versioning to Network Policies to accomodate [describing this at the API level](https://github.com/kubernetes/enhancements/pull/2137/files), by Dan Winship.
+For example, a KEP was recently written which introduced the concept of micro versioning to Network Policies to accommodate [describing this at the API level](https://github.com/kubernetes/enhancements/pull/2137/files), by Dan Winship.
 
 In response to this increasingly obvious need to comprehensively defined Network Policy for all vendors, Matt Fenwick decided to evolve our approach to Network Policy validation again by creating Cyclonus.
 
@@ -315,11 +315,11 @@ fully conformant to the 100s of different Kubernetes Network Policy API construc
 ## Improvements to the NetworkPolicy API and user experience
 
 In addition to cleaning up the validation story for CNI plugins that implement NetworkPolicies, we've also spent some time improving the Kubernetes NetworkPolicy API for a few commonly requested features.
-After months of delibration, we eventually settled on a few core areas for improvement:
+After months of deliberation, we eventually settled on a few core areas for improvement:
 
 - Port Range policies: We now allow you to specify a *range* of ports for a policy.  This allows users interested in scenarios like FTP or virtualization to enable advanced policies.  The port range
-option for networkpolicies will be available to use in Kubernetes 1.21.  You can read more about this [here](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/2079-network-policy-port-range).
-- Namespace as name policies: Allowing users in Kubernetes >= 1.21 to target namespaces using names, when building Network Policy objects.  This was done in collaboration with jordan ligget and tim hockins on the apimachinery side.
+option for network policies will be available to use in Kubernetes 1.21.  You can read more about this [here](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/2079-network-policy-port-range).
+- Namespace as name policies: Allowing users in Kubernetes >= 1.21 to target namespaces using names, when building Network Policy objects.  This was done in collaboration with Jordan Ligget and Tim Hockins on the apimachinery side.
 This change allowed us to improve the Network Policy user experience without actually changing the API! For details, you can read about it [here](https://github.com/kubernetes/enhancements/pull/2162).
 The TLDR is that after Kubernetes 1.21, ALL NAMESPACES will have the following label, added by default:
 
@@ -373,7 +373,7 @@ to hang out with you, hack on stuff, and help you adopt K8s Network Policies for
 
 ### A quick note on User Feedback
 
-We've gotten a lot of ideas and feedback from users on Network Policies.  Feedback is a double-edged sword.  Alot of people have interesting ideas about Network Policies, but we've found that as a subproject, very few people were deeply interested in implementing these ideas to the full extent.
+We've gotten a lot of ideas and feedback from users on Network Policies.  Feedback is a double-edged sword.  A lot of people have interesting ideas about Network Policies, but we've found that as a subproject, very few people were deeply interested in implementing these ideas to the full extent.
 Almost every change to the NetworkPolicy API includes weeks or months of discussion to cover different cases, and ensure no CVEs are being introduced.  Thus, long term ownership is the biggest impediment in improving the NetworkPolicy
 user experience for us, over time.
 - We've documented a lot of the history of the Network Policy dialogue [here](https://github.com/jayunit100/network-policy-subproject/blob/master/history.md).
@@ -381,4 +381,4 @@ user experience for us, over time.
 
 We encourage anyone to provide us with feedback, but our most pressing issues right now involve finding long term owners to help us drive changes.  This doesn't require a lot of technical
 knowledge, but rather, just a long term commitment to helping us stay organized, do paperwork, and iterate through the many stages of the K8s feature process.  If you want to help us
-and get involved, please reach out on the SIG Network mailing list, or in the SIG Network room in the k8s.io slack channel !
+and get involved, please reach out on the SIG Network mailing list, or in the SIG Network room in the k8s.io slack channel!
