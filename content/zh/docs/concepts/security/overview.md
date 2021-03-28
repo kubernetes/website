@@ -164,7 +164,7 @@ areas of security concerns and recommendations for securing workloads running in
 Area of Concern for Workload Security | Recommendation |
 ------------------------------ | --------------------- |
 RBAC Authorization (Access to the Kubernetes API) | https://kubernetes.io/docs/reference/access-authn-authz/rbac/
-Authentication | https://kubernetes.io/docs/reference/access-authn-authz/controlling-access/
+Authentication | https://kubernetes.io/docs/concepts/security/controlling-access/
 Application secrets management (and encrypting them in etcd at rest) | https://kubernetes.io/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
 Pod Security Policies | https://kubernetes.io/docs/concepts/policy/pod-security-policy/
 Quality of Service (and Cluster resource management) | https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/
@@ -178,10 +178,10 @@ TLS For Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networ
 容易受到资源枯竭的攻击，则如果你不限制服务 B 的资源的话，损害服务 A 的风险就会很高。
 下表列出了安全性关注的领域和建议，用以保护 Kubernetes 中运行的工作负载：
 
-工作负载安全性关注领域 |  建议 |
+工作负载安全性关注领域         |  建议                 |
 ------------------------------ | --------------------- |
 RBAC 授权(访问 Kubernetes API) | https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/
-认证方式 | https://kubernetes.io/zh/docs/reference/access-authn-authz/controlling-access/
+认证方式 | https://kubernetes.io/zh/docs/concepts/security/controlling-access/
 应用程序 Secret 管理 (并在 etcd 中对其进行静态数据加密) | https://kubernetes.io/zh/docs/concepts/configuration/secret/ <br> https://kubernetes.io/zh/docs/tasks/administer-cluster/encrypt-data/
 Pod 安全策略 | https://kubernetes.io/zh/docs/concepts/policy/pod-security-policy/
 服务质量（和集群资源管理）| https://kubernetes.io/zh/docs/tasks/configure-pod-container/quality-service-pod/
@@ -199,6 +199,7 @@ Area of Concern for Containers | Recommendation |
 Container Vulnerability Scanning and OS Dependency Security | As part of an image build step, you should scan your containers for known vulnerabilities.
 Image Signing and Enforcement | Sign container images to maintain a system of trust for the content of your containers.
 Disallow privileged users | When constructing containers, consult your documentation for how to create users inside of the containers that have the least level of operating system privilege necessary in order to carry out the goal of the container.
+Use container runtime with stronger isolation | Select [container runtime classes](/docs/concepts/containers/runtime-class/) that provider stronger isolation
 -->
 ## 容器
 
@@ -209,7 +210,7 @@ Disallow privileged users | When constructing containers, consult your documenta
 容器漏洞扫描和操作系统依赖安全性 | 作为镜像构建的一部分，您应该扫描您的容器里的已知漏洞。
 镜像签名和执行 | 对容器镜像进行签名，以维护对容器内容的信任。
 禁止特权用户 | 构建容器时，请查阅文档以了解如何在具有最低操作系统特权级别的容器内部创建用户，以实现容器的目标。
-
+使用带有较强隔离能力的容器运行时 | 选择提供较强隔离能力的[容器运行时类](/zh/docs/concepts/containers/runtime-class/)。
 <!--
 ## Code
 
@@ -262,6 +263,7 @@ Learn about related Kubernetes security topics:
 * [Data encryption in transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
 * [Data encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
 * [Secrets in Kubernetes](/docs/concepts/configuration/secret/)
+* [Runtime class](/docs/concepts/containers/runtime-class)
 -->
 学习了解相关的 Kubernetes 安全主题：
 
@@ -272,4 +274,5 @@ Learn about related Kubernetes security topics:
 * 为控制面[加密通信中的数据](/zh/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [加密静止状态的数据](/zh/docs/tasks/administer-cluster/encrypt-data/)
 * [Kubernetes 中的 Secret](/zh/docs/concepts/configuration/secret/)
+* [运行时类](/zh/docs/concepts/containers/runtime-class)
 
