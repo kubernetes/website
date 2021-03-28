@@ -10,6 +10,7 @@ aliases:
     - kbarnard10
     - mrbobbytables
     - onlydole
+    - sftim
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -175,14 +176,20 @@ aliases:
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
+    - jailton
     - jcjesus
     - devlware
     - jhonmike
+    - rikatz
+    - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
+    - jailton
     - jcjesus
     - devlware
     - jhonmike
+    - rikatz
+    - yagonobre
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - ngtuna

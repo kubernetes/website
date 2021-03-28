@@ -77,9 +77,8 @@ merged. Keep the following in mind:
   Alpha features.
 - It's hard to test (and therefore to document) a feature that hasn't been merged,
   or is at least considered feature-complete in its PR.
-- Determining whether a feature needs documentation is a manual process and
-  just because a feature is not marked as needing docs doesn't mean it doesn't
-  need them.
+- Determining whether a feature needs documentation is a manual process. Even if
+  a feature is not marked as needing docs, you may need to document the feature.
 
 ## For developers or other SIG members
 

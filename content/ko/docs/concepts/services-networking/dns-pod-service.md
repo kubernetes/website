@@ -1,11 +1,14 @@
 ---
+
+
+
 title: 서비스 및 파드용 DNS
 content_type: concept
 weight: 20
 ---
 <!-- overview -->
-이 페이지는 쿠버네티스의 DNS 지원에 대한 개요를 설명한다.
-
+쿠버네티스는 파드와 서비스를 위한 DNS 레코드를 생성한다. 사용자는 IP 주소 대신에
+일관된 DNS 네임을 통해서 서비스에 접속할 수 있다.
 
 <!-- body -->
 
@@ -15,23 +18,51 @@ weight: 20
 개별 컨테이너들이 DNS 네임을 해석할 때
 DNS 서비스의 IP를 사용하도록 kubelets를 구성한다.
 
-### DNS 네임이 할당되는 것들
-
 클러스터 내의 모든 서비스(DNS 서버 자신도 포함하여)에는 DNS 네임이 할당된다.
 기본적으로 클라이언트 파드의 DNS 검색 리스트는 파드 자체의 네임스페이스와
 클러스터의 기본 도메인을 포함한다.
-이 예시는 다음과 같다.
 
-쿠버네티스 네임스페이스 `bar`에 `foo`라는 서비스가 있다. 네임스페이스 `bar`에서 running 상태인 파드는
-단순하게 `foo`를 조회하는 DNS 쿼리를 통해서 서비스 `foo`를 찾을 수 있다.
-네임스페이스 `quux`에서 실행 중인 파드는
-`foo.bar`를 조회하는 DNS 쿼리를 통해서 이 서비스를 찾을 수 있다.
+### 서비스의 네임스페이스
 
-다음 절에서는 쿠버네티스 DNS에서 지원하는 레코드 유형과 레이아웃을 자세히 설명한다.
-이 외에 동작하는 레이아웃, 네임 또는 쿼리는 구현 세부 정보로 간주하며
-경고 없이 변경될 수 있다.
-최신 업데이트에 대한 자세한 설명은 다음 링크를 통해 참조할 수 있다.
-[쿠버네티스 DNS 기반 서비스 디스커버리](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
+DNS 쿼리는 그것을 생성하는 파드의 네임스페이스에 따라 다른 결과를 반환할 수
+있다. 네임스페이스를 지정하지 않은 DNS 쿼리는 파드의 네임스페이스에
+국한된다. DNS 쿼리에 네임스페이스를 명시하여 다른 네임스페이스에 있는 서비스에 접속한다.
+
+예를 들어, `test` 네임스페이스에 있는 파드를 생각해보자. `data` 서비스는
+`prod` 네임스페이스에 있다.
+
+이 경우, `data` 에 대한 쿼리는 파드의 `test` 네임스페이스를 사용하기 때문에 결과를 반환하지 않을 것이다.
+
+`data.prod` 로 쿼리하면 의도한 결과를 반환할 것이다. 왜냐하면
+네임스페이스가 명시되어 있기 때문이다.
+
+DNS 쿼리는 파드의 `/etc/resolv.conf` 를 사용하여 확장될 수 있을 것이다. Kubelet은
+각 파드에 대해서 파일을 설정한다. 예를 들어, `data` 만을 위한 쿼리는
+`data.test.cluster.local` 로 확장된다. `search` 옵션의 값은
+쿼리를 확장하기 위해서 사용된다. DNS 쿼리에 대해 더 자세히 알고 싶은 경우,
+[`resolv.conf` 설명 페이지.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)를 참고한다.
+
+```
+nameserver 10.32.0.10
+search <namespace>.svc.cluster.local svc.cluster.local cluster.local
+options ndots:5
+```
+
+요약하면, _test_ 네임스페이스에 있는 파드는 `data.prod` 또는
+`data.prod.cluster.local` 중 하나를 통해 성공적으로 해석될 수 있다.
+
+### DNS 레코드
+
+어떤 오브젝트가 DNS 레코드를 가지는가?
+
+1. 서비스
+2. 파드
+
+다음 섹션은 지원되는 DNS 레코드의 종류 및 레이아웃에 대한 상세
+내용이다. 혹시 동작시킬 필요가 있는 다른 레이아웃, 네임, 또는 쿼리는
+구현 세부 사항으로 간주되며 경고 없이 변경될 수 있다.
+최신 명세 확인을 위해서는,
+[쿠버네티스 DNS-기반 서비스 디스커버리](https://github.com/kubernetes/dns/blob/master/docs/specification.md)를 본다.
 
 ## 서비스
 

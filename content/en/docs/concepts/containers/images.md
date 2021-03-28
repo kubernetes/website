@@ -49,15 +49,31 @@ Instead, specify a meaningful tag such as `v1.42.0`.
 
 ## Updating images
 
-The default pull policy is `IfNotPresent` which causes the
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip
-pulling an image if it already exists. If you would like to always force a pull,
-you can do one of the following:
+When you first create a {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
+{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}, Pod, or other
+object that includes a Pod template, then by default the pull policy of all
+containers in that pod will be set to `IfNotPresent` if it is not explicitly
+specified. This policy causes the
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip pulling an
+image if it already exists.
+
+If you would like to always force a pull, you can do one of the following:
 
 - set the `imagePullPolicy` of the container to `Always`.
-- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use.
+- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use;
+  Kubernetes will set the policy to `Always`.
 - omit the `imagePullPolicy` and the tag for the image to use.
 - enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+
+{{< note >}}
+The value of `imagePullPolicy` of the container is always set when the object is
+first _created_, and is not updated if the image's tag later changes.
+
+For example, if you create a Deployment with an image whose tag is _not_
+`:latest`, and later update that Deployment's image to a `:latest` tag, the
+`imagePullPolicy` field will _not_ change to `Always`. You must manually change
+the pull policy of any object after its initial creation.
+{{< /note >}}
 
 When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
 
@@ -119,7 +135,7 @@ Here are the recommended steps to configuring your nodes to use a private regist
 example, run these on your desktop/laptop:
 
    1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
-   1. View `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
+   1. View `$HOME/.docker/config.json` in an editor to ensure it contains only the credentials you want to use.
    1. Get a list of your nodes; for example:
       - if you want the names: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
       - if you want to get the IP addresses: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`

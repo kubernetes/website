@@ -29,16 +29,16 @@ weight: 10
             <div class="col-md-8">
                 <h3>Clusters do Kubernetes</h3>
                 <p>
-                <b>O Kubernetes coordena um cluster altamente disponível de computadores conectados para funcionar como uma única unidade.</b>
-                As abstrações no Kubernetes permitem implantar aplicativos em contêineres em um cluster sem amarrá-los especificamente a máquinas individuais.
-                Para fazer uso desse novo modelo de implantação, os aplicativos precisam ser empacotados de uma forma que os desacople dos hosts individuais: eles precisam ser colocados em contêineres. Os aplicativos em contêineres são mais flexíveis e disponíveis do que nos modelos de implantação anteriores, nos quais os aplicativos eram instalados diretamente em máquinas específicas como pacotes profundamente integrados ao host. 
+                <b>O Kubernetes coordena um cluster com alta disponibilidade de computadores conectados para funcionar como uma única unidade.</b>
+                As abstrações no Kubernetes permitem implantar aplicativos em contêineres em um cluster sem amarrá-los especificamente as máquinas individuais.
+                Para fazer uso desse novo modelo de implantação, os aplicativos precisam ser empacotados de uma forma que os desacoplem dos hosts individuais: eles precisam ser empacotados em contêineres. Os aplicativos em contêineres são mais flexíveis e disponíveis do que nos modelos de implantação anteriores, nos quais os aplicativos eram instalados diretamente em máquinas específicas como pacotes profundamente integrados ao host. 
                 <b> O Kubernetes automatiza a distribuição e o agendamento de contêineres de aplicativos em um cluster de maneira mais eficiente. </b> 
                 O Kubernetes é uma plataforma de código aberto e está pronto para produção.
                 </p>
                 <p>Um cluster Kubernetes consiste em dois tipos de recursos:
                     <ul>
-                        <li>O <b>Master</b> coordena o cluster </li>
-                        <li>Os <b>Nodes</b> são os trabalhadores que executam aplicativos</li>
+                        <li>A <b>Camada de gerenciamento <i>(Control Plane)</i></b> coordena o cluster </li>
+                        <li>Os <b>Nós <i>(Nodes)</i></b> são os nós de processamento que executam aplicativos</li>
                     </ul>
                 </p>
             </div>
@@ -75,22 +75,22 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p><b>O mestre é responsável por gerenciar o cluster. </b> O mestre coordena todas as atividades em seu cluster, como programação de aplicativos, manutenção do estado desejado dos aplicativos, escalonamento de aplicativos e lançamento de novas atualizações.</p>
-                <p><b>Um nó é uma VM ou um computador físico que atua como uma máquina de trabalho em um cluster Kubernetes. </b> Cada nó tem um Kubelet, que é um agente para gerenciar o nó e se comunicar com o mestre do Kubernetes. O nó também deve ter ferramentas para lidar com operações de contêiner, como containerd ou Docker. Um cluster Kubernetes que lida com o tráfego de produção deve ter no mínimo três nós.</p>
+                <p><b>A camada de gerenciamento é responsável por gerenciar o cluster. </b> A camada de gerenciamento coordena todas as atividades em seu cluster, como programação de aplicativos, manutenção do estado desejado dos aplicativos, escalonamento de aplicativos e lançamento de novas atualizações.</p>
+                <p><b>Um nó é uma VM ou um computador físico que atua como um nó de processamento em um cluster Kubernetes. </b> Cada nó tem um Kubelet, que é um agente para gerenciar o nó e se comunicar com a camada de gerenciamento do Kubernetes. O nó também deve ter ferramentas para lidar com operações de contêiner, como containerd ou Docker. Um cluster Kubernetes que lida com o tráfego de produção deve ter no mínimo três nós.</p>
 
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i>Os mestres gerenciam o cluster e os nós que são usados ​​para hospedar os aplicativos em execução.</i></p>
+                    <p><i>As camadas de gerenciamento gerenciam o cluster e os nós que são usados ​​para hospedar os aplicativos em execução.</i></p>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-8">
-                <p>Ao implantar aplicativos no Kubernetes, você diz ao mestre para iniciar os contêineres de aplicativos. O mestre agenda os contêineres para serem executados nos nós do cluster. <b> Os nós se comunicam com o mestre usando a <a href="/docs/concepts/overview/kubernetes-api/"> API Kubernetes </a> </b>, que o mestre expõe. Os usuários finais também podem usar a API Kubernetes diretamente para interagir com o cluster.</p>
+                <p>Ao implantar aplicativos no Kubernetes, você diz à camada de gerenciamento para iniciar os contêineres de aplicativos. A camada de gerenciamento agenda os contêineres para serem executados nos nós do cluster. <b> Os nós se comunicam com o camada de gerenciamento usando a <a href="/docs/concepts/overview/kubernetes-api/"> API do Kubernetes </a> </b>, que a camada de gerenciamento expõe. Os usuários finais também podem usar a API do Kubernetes diretamente para interagir com o cluster.</p>
 
-                <p>Um cluster Kubernetes pode ser implantado em máquinas físicas ou virtuais. Para começar o desenvolvimento do Kubernetes, você pode usar o Minikube. O Minikube é uma implementação leve do Kubernetes que cria uma VM em sua máquina local e implanta um cluster simples contendo apenas um nó. O Minikube está disponível para sistemas Linux, macOS e Windows. O Minikube CLI fornece operações básicas de inicialização para trabalhar com seu cluster, incluindo iniciar, parar, status e excluir. Para este tutorial, no entanto, você usará um terminal online fornecido com o Minikube pré-instalado.</p>
+                <p>Um cluster Kubernetes pode ser implantado em máquinas físicas ou virtuais. Para começar o desenvolvimento do Kubernetes, você pode usar o Minikube. O Minikube é uma implementação leve do Kubernetes que cria uma VM em sua máquina local e implanta um cluster simples contendo apenas um nó. O Minikube está disponível para sistemas Linux, macOS e Windows. A linha de comando <i>(cli)</i> do Minikube fornece operações básicas de inicialização para trabalhar com seu cluster, incluindo iniciar, parar, status e excluir. Para este tutorial, no entanto, você usará um terminal online fornecido com o Minikube pré-instalado.</p>
 
                 <p>Agora que você sabe o que é Kubernetes, vamos para o tutorial online e iniciar nosso primeiro cluster!</p>
 
@@ -100,7 +100,7 @@ weight: 10
 
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">Iniciar tutorial interativo <span class="btn__next">›</span></a>
+                <a class="btn btn-lg btn-success" href="/pt/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">Iniciar tutorial interativo <span class="btn__next">›</span></a>
             </div>
         </div>
 

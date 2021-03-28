@@ -74,8 +74,8 @@ a new instance.
 The name of a Service object must be a valid
 [DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
-For example, suppose you have a set of Pods that each listen on TCP port 9376
-and carry a label `app=MyApp`:
+For example, suppose you have a set of Pods where each listens on TCP port 9376
+and contains a label `app=MyApp`:
 
 ```yaml
 apiVersion: v1
@@ -430,7 +430,7 @@ Services by their DNS name.
 For example, if you have a Service called `my-service` in a Kubernetes
 namespace `my-ns`, the control plane and the DNS Service acting together
 create a DNS record for `my-service.my-ns`. Pods in the `my-ns` namespace
-should be able to find it by simply doing a name lookup for `my-service`
+should be able to find the service by doing a name lookup for `my-service`
 (`my-service.my-ns` would also work).
 
 Pods in other namespaces must qualify the name as `my-service.my-ns`. These names
@@ -463,7 +463,7 @@ selectors defined:
 
 For headless Services that define selectors, the endpoints controller creates
 `Endpoints` records in the API, and modifies the DNS configuration to return
-records (addresses) that point directly to the `Pods` backing the `Service`.
+A records (IP addresses) that point directly to the `Pods` backing the `Service`.
 
 ### Without selectors
 
@@ -527,7 +527,7 @@ for NodePort use.
 
 Using a NodePort gives you the freedom to set up your own load balancing solution,
 to configure environments that are not fully supported by Kubernetes, or even
-to just expose one or more nodes' IPs directly.
+to expose one or more nodes' IPs directly.
 
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
 and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
@@ -785,8 +785,7 @@ you can use the following annotations:
 ```
 
 In the above example, if the Service contained three ports, `80`, `443`, and
-`8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
-be proxied HTTP.
+`8443`, then `443` and `8443` would use the SSL certificate, but `80` would be proxied HTTP.
 
 From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
 To see which policies are available for use, you can use the `aws` command line tool:
@@ -958,7 +957,8 @@ groups are modified with the following IP rules:
 
 | Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
 |------|----------|---------|------------|---------------------|
-| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+
 | Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 
@@ -1107,7 +1107,7 @@ but the current API requires it.
 
 ## Virtual IP implementation {#the-gory-details-of-virtual-ips}
 
-The previous information should be sufficient for many people who just want to
+The previous information should be sufficient for many people who want to
 use Services.  However, there is a lot going on behind the scenes that may be
 worth understanding.
 
@@ -1163,7 +1163,7 @@ rule kicks in, and redirects the packets to the proxy's own port.
 The "Service proxy" chooses a backend, and starts proxying traffic from the client to the backend.
 
 This means that Service owners can choose any port they want without risk of
-collision.  Clients can simply connect to an IP and port, without being aware
+collision.  Clients can connect to an IP and port, without being aware
 of which Pods they are actually accessing.
 
 #### iptables

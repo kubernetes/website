@@ -34,10 +34,11 @@ Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" 
 can use any number of volume types simultaneously.
 Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
 the lifetime of a pod. Consequently, a volume outlives any containers
-that run within the pod, and data is preserved across container restarts. When a
-pod ceases to exist, the volume is destroyed.
+that run within the pod, and data is preserved across container restarts. When a pod
+ceases to exist, Kubernetes destroys ephemeral volumes; however, Kubernetes does not
+destroy persistent volumes.
 
-At its core, a volume is just a directory, possibly with some data in it, which
+At its core, a volume is a directory, possibly with some data in it, which
 is accessible to the containers in a pod. How that directory comes to be, the
 medium that backs it, and the contents of it are determined by the particular
 volume type used.
@@ -105,6 +106,8 @@ spec:
       volumeID: "<volume id>"
       fsType: ext4
 ```
+
+If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which parition to mount on.
 
 #### AWS EBS CSI migration
 
@@ -929,7 +932,7 @@ GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte
 ### rbd
 
 An `rbd` volume allows a
-[Rados Block Device](https://ceph.com/docs/master/rbd/rbd/) (RBD) volume to mount into your
+[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount into your
 Pod. Unlike `emptyDir`, which is erased when a pod is removed, the contents of
 an `rbd` volume are preserved and the volume is unmounted. This
 means that a RBD volume can be pre-populated with data, and that data can

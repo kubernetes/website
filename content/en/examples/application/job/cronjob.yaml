@@ -12,7 +12,7 @@ spec:
           - name: hello
             image: busybox
             imagePullPolicy: IfNotPresent
-            args:
+            command:
             - /bin/sh
             - -c
             - date; echo Hello from the Kubernetes cluster

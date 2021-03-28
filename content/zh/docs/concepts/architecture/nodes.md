@@ -30,9 +30,9 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 -->
 Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。
-节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。每个节点都包含用于运行
-{{< glossary_tooltip text="Pod" term_id="pod" >}} 所需要的服务，这些服务由
-{{< glossary_tooltip text="控制面" term_id="control-plane" >}}负责管理。
+节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。
+每个节点包含运行 {{< glossary_tooltip text="Pods" term_id="pod" >}} 所需的服务，
+这些 Pods 由 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理。
 
 通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也可能
 只有一个节点。
@@ -120,7 +120,7 @@ register itself with the API server.  This is the preferred pattern, used by mos
 
 For self-registration, the kubelet is started with the following options:
 -->
-### 节点自注册
+### 节点自注册 {#self-registration-of-nodes}
 
 当 kubelet 标志 `--register-node` 为 true（默认）时，它会尝试向 API 服务注册自己。
 这是首选模式，被绝大多数发行版选用。
@@ -170,7 +170,7 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node, or mark it unschedulable.
 -->
-### 手动节点管理
+### 手动节点管理 {#manual-node-administration}
 
 你可以使用 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 来创建和修改 Node 对象。
@@ -456,8 +456,7 @@ of the node heartbeats as the cluster scales.
 #### 心跳机制  {#heartbeats}
 
 Kubernetes 节点发送的心跳（Heartbeats）有助于确定节点的可用性。
-心跳有两种形式：`NodeStatus` 和 [`Lease` 对象]
-(/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io)。
+心跳有两种形式：`NodeStatus` 和 [`Lease` 对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io)。
 每个节点在 `kube-node-lease`{{< glossary_tooltip term_id="namespace" text="名字空间">}}
 中都有一个与之关联的 `Lease` 对象。
 `Lease` 是一种轻量级的资源，可在集群规模扩大时提高节点心跳机制的性能。

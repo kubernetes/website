@@ -110,7 +110,7 @@ This admission controller allows all pods into the cluster. It is deprecated bec
 This admission controller modifies every new Pod to force the image pull policy to Always. This is useful in a
 multitenant cluster so that users can be assured that their private images can only be used by those
 who have the credentials to pull them. Without this admission controller, once an image has been pulled to a
-node, any pod from any user can use it simply by knowing the image's name (assuming the Pod is
+node, any pod from any user can use it by knowing the image's name (assuming the Pod is
 scheduled onto the right node), without any authorization check against the image. When this admission controller
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
@@ -176,7 +176,7 @@ The default value for `default-not-ready-toleration-seconds` and `default-unreac
 This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
 
 This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
-The DenyExecOnPrivileged admission plugin is deprecated and will be removed in v1.18.
+The DenyExecOnPrivileged admission plugin is deprecated.
 
 Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
 which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
@@ -190,7 +190,7 @@ This admission controller will deny exec and attach commands to pods that run wi
 allow host access.  This includes pods that run as privileged, have access to the host IPC namespace, and
 have access to the host PID namespace.
 
-The DenyEscalatingExec admission plugin is deprecated and will be removed in v1.18.
+The DenyEscalatingExec admission plugin is deprecated.
 
 Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
 which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
@@ -565,6 +565,8 @@ Starting from 1.11, this admission controller is disabled by default.
 
 ### PodNodeSelector {#podnodeselector}
 
+{{< feature-state for_k8s_version="v1.5" state="alpha" >}}
+
 This admission controller defaults and limits what node selectors may be used within a namespace by reading a namespace annotation and a global configuration.
 
 #### Configuration File Format
@@ -674,6 +676,8 @@ See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-
 for more information.
 
 ### PodTolerationRestriction {#podtolerationrestriction}
+
+{{< feature-state for_k8s_version="v1.7" state="alpha" >}}
 
 The PodTolerationRestriction admission controller verifies any conflict between tolerations of a pod and the tolerations of its namespace.
 It rejects the pod request if there is a conflict.

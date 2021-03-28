@@ -35,7 +35,7 @@ and kubeadm will use this CA for signing the rest of the certificates.
 
 ## External CA mode {#external-ca-mode}
 
-It is also possible to provide just the `ca.crt` file and not the
+It is also possible to provide only the `ca.crt` file and not the
 `ca.key` file (this is only available for the root CA file, not other cert pairs).
 If all other certificates and kubeconfig files are in place, kubeadm recognizes
 this condition and activates the "External CA" mode. kubeadm will proceed without the
@@ -170,36 +170,7 @@ controllerManager:
 
 ### Create certificate signing requests (CSR)
 
-You can create the certificate signing requests for the Kubernetes certificates API with `kubeadm certs renew --use-api`.
-
-If you set up an external signer such as [cert-manager](https://github.com/jetstack/cert-manager), certificate signing requests (CSRs) are automatically approved.
-Otherwise, you must manually approve certificates with the [`kubectl certificate`](/docs/setup/best-practices/certificates/) command.
-The following kubeadm command outputs the name of the certificate to approve, then blocks and waits for approval to occur:
-
-```shell
-sudo kubeadm certs renew apiserver --use-api &
-```
-The output is similar to this:
-```
-[1] 2890
-[certs] certificate request "kubeadm-cert-kube-apiserver-ld526" created
-```
-
-### Approve certificate signing requests (CSR)
-
-If you set up an external signer, certificate signing requests (CSRs) are automatically approved.
-
-Otherwise, you must manually approve certificates with the [`kubectl certificate`](/docs/setup/best-practices/certificates/) command. e.g.
-
-```shell
-kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
-```
-The output is similar to this:
-```shell
-certificatesigningrequest.certificates.k8s.io/kubeadm-cert-kube-apiserver-ld526 approved
-```
-
-You can view a list of pending certificates with `kubectl get csr`.
+See [Create CertificateSigningRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest) for creating CSRs with the Kubernetes API.
 
 ## Renew certificates with external CA
 
