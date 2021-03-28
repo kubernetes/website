@@ -30,8 +30,8 @@ For example:
 - Some CNI plugins only implement a subset of the Kubernetes NetworkPolicy API, or don't offer the latest features. For example, certain plugins don't support the ability to target a named port; others don't work with port ranges).
 
 Thus, end-users need to follow a multistep process to implement Network Policies to secure their applications:
-- Confirm that their CNI supports NetworkPolicies (some don't, such as flannel)
-- Confirm that their CNI supports the specific NetworkPolicies that a user is interested in (again, the Named port or Port range examples come to mind here)
+- Confirm that their network plugin supports NetworkPolicies (some don't, such as Flannel)
+- Confirm that their cluster's network plugin supports the specific NetworkPolicy features that they are interested in (again, the named port or port range examples come to mind here)
 - Confirm that their application's Network Policy definitions are doing the 'right thing'
 - Find out the vendor specific implementation of a policy, and check wether or not that implementation had a CNI neutral implementation (which is preferable for most users)
 
@@ -106,7 +106,7 @@ In response to this increasingly obvious need to comprehensively defined Network
 Cyclonus is a comprehensive Network Policy fuzzing tool which verifies a CNI provider against 100s of different Network Policy scenarios, by defining the same truth table/policy combinations as done in the end to end tests, while also
 providing a hierarchical representation of policy "categories".  We've found some interesting missing implementations in almost every CNI we've tested, so far, and have even contributed some fixes back, for example:
 
-To run a cyclonus job, you create a YAML file like so:
+To perform a Cyclonus validation run, you create a Job manifest similar to:
 
 ```
 apiVersion: batch/v1
@@ -129,7 +129,7 @@ spec:
       serviceAccount: cyclonus
 ```
 
-From there, cyclonus outputs a printout of all test cases it will run:
+Cyclonus outputs a report of all the test cases it will run:
 ```
 test cases to run by tag:
 - target: 6
