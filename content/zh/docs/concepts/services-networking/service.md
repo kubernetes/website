@@ -794,12 +794,12 @@ DNS 如何实现自动配置，依赖于 Service 是否定义了选择算符。
 
 For headless Services that define selectors, the endpoints controller creates
 `Endpoints` records in the API, and modifies the DNS configuration to return
-records (addresses) that point directly to the `Pods` backing the `Service`.
+A records (IP addresses) that point directly to the `Pods` backing the `Service`.
 -->
 ### 带选择算符的服务 {#with-selectors}
 
 对定义了选择算符的无头服务，Endpoint 控制器在 API 中创建了 Endpoints 记录，
-并且修改 DNS 配置返回 A 记录（地址），通过这个地址直接到达 `Service` 的后端 Pod 上。
+并且修改 DNS 配置返回 A 记录（IP 地址），通过这个地址直接到达 `Service` 的后端 Pod 上。
 
 <!--
 ### Without selectors
