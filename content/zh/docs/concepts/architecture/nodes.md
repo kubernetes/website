@@ -432,14 +432,16 @@ ConditionUnknown when a node becomes unreachable (i.e. the node controller stops
 receiving heartbeats for some reason, e.g. due to the node being down), and then later evicting
 all the pods from the node (using graceful termination) if the node continues
 to be unreachable. (The default timeouts are 40s to start reporting
-ConditionUnknown and 5m after that to start evicting pods.) The node controller
-checks the state of each node every `-node-monitor-period` seconds.
+ConditionUnknown and 5m after that to start evicting pods.) 
+
+The node controller checks the state of each node every `-node-monitor-period` seconds.
 -->
 第三个是监控节点的健康情况。节点控制器负责在节点不可达
 （即，节点控制器因为某些原因没有收到心跳，例如节点宕机）时，
 将节点状态的 `NodeReady` 状况更新为 "`Unknown`"。
 如果节点接下来持续处于不可达状态，节点控制器将逐出节点上的所有 Pod（使用体面终止）。
 默认情况下 40 秒后开始报告 "`Unknown`"，在那之后 5 分钟开始逐出 Pod。
+
 节点控制器每隔 `--node-monitor-period` 秒检查每个节点的状态。
 
 <!--
@@ -506,8 +508,9 @@ the same time. If the fraction of unhealthy nodes is at least
 if the cluster is small (i.e. has less than or equal to
 `-large-cluster-size-threshold` nodes - default 50) then evictions are
 stopped, otherwise the eviction rate is reduced to
-`-secondary-node-eviction-rate` (default 0.01) per second. The reason these
-policies are implemented per availability zone is because one availability zone
+`-secondary-node-eviction-rate` (default 0.01) per second. 
+
+The reason these policies are implemented per availability zone is because one availability zone
 might become partitioned from the master while the others remain connected. If
 your cluster does not span multiple cloud provider availability zones, then
 there is only one availability zone (the whole cluster).
@@ -518,6 +521,7 @@ there is only one availability zone (the whole cluster).
 驱逐速率将会降低：如果集群较小（意即小于等于 `--large-cluster-size-threshold`
 个节点 - 默认为 50），驱逐操作将会停止，否则驱逐速率将降为每秒
 `--secondary-node-eviction-rate` 个（默认为 0.01）。
+
 在单个可用区域实施这些策略的原因是当一个可用区域可能从控制面脱离时其它可用区域
 可能仍然保持连接。
 如果你的集群没有跨越云服务商的多个可用区域，那（整个集群）就只有一个可用区域。
