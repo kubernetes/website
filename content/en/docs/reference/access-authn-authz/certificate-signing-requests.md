@@ -224,7 +224,7 @@ Some points to note:
 
 - `usages` has to be '`client auth`'
 - `request` is the base64 encoded value of the CSR file content.
-  You can get the content using this command: ```cat myuser.csr | base64 | tr -d "\n"```
+  You can get the content using this command: ```base64 -w 0 myuser.csr```
 
 ### Approve certificate signing request
 
