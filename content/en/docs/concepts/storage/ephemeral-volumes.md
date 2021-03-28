@@ -135,8 +135,9 @@ As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/pol
 This feature requires the `GenericEphemeralVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
 enabled. Because this is an alpha feature, it is disabled by default.
 
-Generic ephemeral volumes are similar to `emptyDir` volumes, just more
+Generic ephemeral volumes are similar to `emptyDir` volumes, except more
 flexible:
+
 - Storage can be local or network-attached.
 - Volumes can have a fixed size that Pods are not able to exceed.
 - Volumes may have some initial data, depending on the driver and

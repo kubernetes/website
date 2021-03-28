@@ -275,7 +275,8 @@
 /docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/job/ 301
 /docs/tasks/setup-konnectivity/setup-konnectivity/   /docs/tasks/extend-kubernetes/setup-konnectivity/ 301
 /docs/tasks/kubectl/get-shell-running-container/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
-/docs/tasks/kubectl/install/     /docs/tasks/tools/install-kubectl/ 301
+/docs/tasks/kubectl/install/     /docs/tasks/tools/ 301
+/docs/tasks/tools/install-kubectl/     /docs/tasks/tools/ 301
 /docs/tasks/kubectl/list-all-running-container-images/     /docs/tasks/access-application-cluster/list-all-running-container-images/ 301
 /docs/tasks/manage-stateful-set/debugging-a-statefulset/     /docs/tasks/debug-application-cluster/debug-stateful-set/ 301
 /docs/tasks/manage-stateful-set/delete-pods/     /docs/tasks/run-application/delete-stateful-set/ 301
@@ -284,6 +285,8 @@
 /docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/     /docs/tasks/run-application/upgrade-pet-set-to-stateful-set/ 301
 /docs/tasks/run-application/update-api-object-kubectl-patch/    /docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/ 301
 /docs/tasks/stateful-sets/deleting-pods/     /docs/tasks/run-application/force-delete-stateful-set-pod/ 301
+/ja/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/ 302
+/id/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/ 302
 /docs/tasks/troubleshoot/debug-init-containers/     /docs/tasks/debug-application-cluster/debug-init-containers/ 301
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 

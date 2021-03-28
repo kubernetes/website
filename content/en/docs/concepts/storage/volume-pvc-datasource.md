@@ -24,7 +24,7 @@ The {{< glossary_tooltip text="CSI" term_id="csi" >}} Volume Cloning feature add
 
 A Clone is defined as a duplicate of an existing Kubernetes Volume that can be consumed as any standard Volume would be.  The only difference is that upon provisioning, rather than creating a "new" empty Volume, the back end device creates an exact duplicate of the specified Volume.
 
-The implementation of cloning, from the perspective of the Kubernetes API, simply adds the ability to specify an existing PVC as a dataSource during new PVC creation. The source PVC must be bound and available (not in use).
+The implementation of cloning, from the perspective of the Kubernetes API, adds the ability to specify an existing PVC as a dataSource during new PVC creation. The source PVC must be bound and available (not in use).
 
 Users need to be aware of the following when using this feature:
 
@@ -40,7 +40,7 @@ Users need to be aware of the following when using this feature:
 
 ## Provisioning
 
-Clones are provisioned just like any other PVC with the exception of adding a dataSource that references an existing PVC in the same namespace.
+Clones are provisioned like any other PVC with the exception of adding a dataSource that references an existing PVC in the same namespace.
 
 ```yaml
 apiVersion: v1

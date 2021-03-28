@@ -204,7 +204,7 @@ seconds.
 
 In addition to the readiness probe, this configuration includes a liveness probe.
 The kubelet will run the first liveness probe 15 seconds after the container
-starts. Just like the readiness probe, this will attempt to connect to the
+starts. Similar to the readiness probe, this will attempt to connect to the
 `goproxy` container on port 8080. If the liveness probe fails, the container
 will be restarted.
 
@@ -292,6 +292,10 @@ Services.
 {{< note >}}
 Readiness probes runs on the container during its whole lifecycle.
 {{< /note >}}
+
+{{< caution >}}
+Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
+{{< /caution >}}
 
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.

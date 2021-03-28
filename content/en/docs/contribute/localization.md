@@ -61,7 +61,7 @@ Members of `@kubernetes/sig-docs-**-owners` can approve PRs that change content 
 
 For each localization, The `@kubernetes/sig-docs-**-reviews` team automates review assignment for new PRs.
 
-Members of `@kubernetes/website-maintainers` can create new development branches to coordinate translation efforts.
+Members of `@kubernetes/website-maintainers` can create new localization branches to coordinate translation efforts.
 
 Members of `@kubernetes/website-milestone-maintainers` can use the `/milestone` [Prow command](https://prow.k8s.io/command-help) to assign a milestone to issues or PRs.
 
@@ -205,14 +205,20 @@ To ensure accuracy in grammar and meaning, members of your localization team sho
 
 ### Source files
 
-Localizations must be based on the English files from the most recent release, {{< latest-version >}}.
+Localizations must be based on the English files from a specific release targeted by the localization team.
+Each localization team can decide which release to target which is referred to as the _target version_ below.
 
-To find source files for the most recent release:
+To find source files for your target version:
 
 1. Navigate to the Kubernetes website repository at https://github.com/kubernetes/website.
-2. Select the `release-1.X` branch for the most recent version.
+2. Select a branch for your target version from the following table:
+    Target version | Branch
+    -----|-----
+    Next version | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
+    Latest version | [`master`](https://github.com/kubernetes/website/tree/master)
+    Previous version | `release-*.**`
 
-The latest version is {{< latest-version >}}, so the most recent release branch is [`{{< release-branch >}}`](https://github.com/kubernetes/website/tree/{{< release-branch >}}).
+The `master` branch holds content for the current release `{{< latest-version >}}`. The release team will create `{{< release-branch >}}` branch shortly before the next release: v{{< skew nextMinorVersion >}}.
 
 ### Site strings in i18n
 
@@ -239,11 +245,11 @@ Some language teams have their own language-specific style guide and glossary. F
 
 ## Branching strategy
 
-Because localization projects are highly collaborative efforts, we encourage teams to work in shared development branches.
+Because localization projects are highly collaborative efforts, we encourage teams to work in shared localization branches.
 
-To collaborate on a development branch:
+To collaborate on a localization branch:
 
-1. A team member of [@kubernetes/website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers) opens a development branch from a source branch on https://github.com/kubernetes/website.
+1. A team member of [@kubernetes/website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers) opens a localization branch from a source branch on https://github.com/kubernetes/website.
 
     Your team approvers joined the `@kubernetes/website-maintainers` team when you [added your localization team](#add-your-localization-team-in-github) to the [`kubernetes/org`](https://github.com/kubernetes/org) repository.
 
@@ -251,25 +257,31 @@ To collaborate on a development branch:
 
     `dev-<source version>-<language code>.<team milestone>`
 
-    For example, an approver on a German localization team opens the development branch `dev-1.12-de.1` directly against the k/website repository, based on the source branch for Kubernetes v1.12.
+    For example, an approver on a German localization team opens the localization branch `dev-1.12-de.1` directly against the k/website repository, based on the source branch for Kubernetes v1.12.
 
-2. Individual contributors open feature branches based on the development branch.
+2. Individual contributors open feature branches based on the localization branch.
 
     For example, a German contributor opens a pull request with changes to `kubernetes:dev-1.12-de.1` from `username:local-branch-name`.
 
-3. Approvers review and merge feature branches into the development branch.
+3. Approvers review and merge feature branches into the localization branch.
 
-4. Periodically, an approver merges the development branch to its source branch by opening and approving a new pull request. Be sure to squash the commits before approving the pull request.
+4. Periodically, an approver merges the localization branch to its source branch by opening and approving a new pull request. Be sure to squash the commits before approving the pull request.
 
-Repeat steps 1-4 as needed until the localization is complete. For example, subsequent German development branches would be: `dev-1.12-de.2`, `dev-1.12-de.3`, etc.
+Repeat steps 1-4 as needed until the localization is complete. For example, subsequent German localization branches would be: `dev-1.12-de.2`, `dev-1.12-de.3`, etc.
 
-Teams must merge localized content into the same release branch from which the content was sourced. For example, a development branch sourced from {{< release-branch >}} must be based on {{< release-branch >}}.
+Teams must merge localized content into the same branch from which the content was sourced.
 
-An approver must maintain a development branch by keeping it current with its source branch and resolving merge conflicts. The longer a development branch stays open, the more maintenance it typically requires. Consider periodically merging development branches and opening new ones, rather than maintaining one extremely long-running development branch.
+For example:
+- a localization branch sourced from `master` must be merged into `master`.
+- a localization branch sourced from `release-1.19` must be merged into `release-1.19`.
 
-At the beginning of every team milestone, it's helpful to open an issue [comparing upstream changes](https://github.com/kubernetes/website/blob/master/scripts/upstream_changes.py) between the previous development branch and the current development branch.
+{{< note >}}
+If your localization branch was created from `master` branch but it is not merged into `master` before new release branch `{{< release-branch >}}` created, merge it into both `master` and new release branch `{{< release-branch >}}`. To merge your localization branch into new release branch `{{< release-branch >}}`, you need to switch upstream branch of your localization branch to `{{< release-branch >}}`.
+{{< /note >}}
 
- While only approvers can open a new development branch and merge pull requests, anyone can open a pull request for a new development branch. No special permissions are required.
+At the beginning of every team milestone, it's helpful to open an issue comparing upstream changes between the previous localization branch and the current localization branch. There are two scripts for comparing upstream changes. [`upstream_changes.py`](https://github.com/kubernetes/website/tree/master/scripts#upstream_changespy) is useful for checking the changes made to a specific file. And [`diff_l10n_branches.py`](https://github.com/kubernetes/website/tree/master/scripts#diff_l10n_branchespy) is useful for creating a list of outdated files for a specific localization branch.
+
+While only approvers can open a new localization branch and merge pull requests, anyone can open a pull request for a new localization branch. No special permissions are required.
 
 For more information about working from forks or directly from the repository, see ["fork and clone the repo"](#fork-and-clone-the-repo).
 
@@ -290,5 +302,3 @@ Once a localization meets requirements for workflow and minimum output, SIG docs
 
 - Enable language selection on the website
 - Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).
-
-

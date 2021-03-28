@@ -52,7 +52,7 @@ Members can:
 
   {{< note >}}
   Using `/lgtm` triggers automation. If you want to provide non-binding
-  approval, simply commenting "LGTM" works too!
+  approval, commenting "LGTM" works too!
   {{< /note >}}
 
 - Use the `/hold` comment to block merging for a pull request

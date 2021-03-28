@@ -253,7 +253,7 @@ paired with system groups to grant access to all pods run in the namespace:
 可以考虑将这种授权模式和系统组结合，对名字空间中的所有 Pod 授予访问权限。
 
 ```yaml
-# 授权该某名字空间中所有服务账号
+# 授权某名字空间中所有服务账号
 - kind: Group
   apiGroup: rbac.authorization.k8s.io
   name: system:serviceaccounts

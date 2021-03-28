@@ -92,7 +92,7 @@ kubectl describe secrets/db-user-pass-96mffmfh4k
 The output is similar to:
 
 ```
-Name:            db-user-pass
+Name:            db-user-pass-96mffmfh4k
 Namespace:       default
 Labels:          <none>
 Annotations:     <none>
@@ -113,7 +113,7 @@ To check the actual content of the encoded data, please refer to
 
 ## Clean Up
 
-To delete the Secret you have just created:
+To delete the Secret you have created:
 
 ```shell
 kubectl delete secret db-user-pass-96mffmfh4k

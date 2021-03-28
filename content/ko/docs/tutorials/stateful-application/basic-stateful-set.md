@@ -921,7 +921,7 @@ web-2     0/1       Terminating   0         3m
 
 `web` 스테이트풀셋이 다시 생성될 때 먼저 `web-0` 시작한다.
 `web-1`은 이미  Running과 Ready 상태이므로 `web-0`이 Running과 Ready 상태로
-전환될 때는 단순히 이 파드에 적용됬다. 스테이트풀셋에`replicas`를 2로 하고
+전환될 때는 이 파드에 적용됐다. 스테이트풀셋에 `replicas`를 2로 하고
 `web-0`을 재생성했다면 `web-1`이
 이미 Running과 Ready 상태이고,
 `web-2`은 종료되었을 것이다.
@@ -932,6 +932,7 @@ web-2     0/1       Terminating   0         3m
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
 ```
+
 ```
 web-0
 web-1
@@ -957,6 +958,7 @@ kubectl get pods -w -l app=nginx
 ```shell
 kubectl delete statefulset web
 ```
+
 ```
 statefulset.apps "web" deleted
 ```
@@ -966,6 +968,7 @@ statefulset.apps "web" deleted
 ```shell
 kubectl get pods -w -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          11m
@@ -997,6 +1000,7 @@ web-1     0/1       Terminating   0         29m
 ```shell
 kubectl delete service nginx
 ```
+
 ```
 service "nginx" deleted
 ```
@@ -1006,6 +1010,7 @@ service "nginx" deleted
 ```shell
 kubectl apply -f web.yaml
 ```
+
 ```
 service/nginx created
 statefulset.apps/web created
@@ -1017,6 +1022,7 @@ statefulset.apps/web created
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
 ```
+
 ```
 web-0
 web-1
@@ -1031,13 +1037,16 @@ web-1
 ```shell
 kubectl delete service nginx
 ```
+
 ```
 service "nginx" deleted
 ```
+
 그리고 `web` 스테이트풀셋을 삭제한다.
 ```shell
 kubectl delete statefulset web
 ```
+
 ```
 statefulset "web" deleted
 ```

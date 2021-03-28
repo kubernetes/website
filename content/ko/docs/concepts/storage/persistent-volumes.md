@@ -487,7 +487,7 @@ PV는 `storageClassName` 속성을
 * VsphereVolume
 * iSCSI
 
-마운트 옵션의 유효성이 검사되지 않으므로 마운트 옵션이 유효하지 않으면 마운트가 실패한다.
+마운트 옵션의 유효성이 검사되지 않는다. 마운트 옵션이 유효하지 않으면, 마운트가 실패한다.
 
 이전에는 `mountOptions` 속성 대신 `volume.beta.kubernetes.io/mount-options` 어노테이션이
 사용되었다. 이 어노테이션은 아직까지는 사용할 수 있지만,
@@ -628,6 +628,11 @@ spec:
 ### 네임스페이스에 대한 참고 사항
 
 퍼시스턴트볼륨 바인딩은 배타적이며, 퍼시스턴트볼륨클레임은 네임스페이스 오브젝트이므로 "다중" 모드(`ROX`, `RWX`)를 사용한 클레임은 하나의 네임스페이스 내에서만 가능하다.
+
+### `hostPath` 유형의 퍼시스턴트볼륨
+
+`hostPath` 퍼시스턴트볼륨은 노드의 파일이나 디렉터리를 사용하여 네트워크 연결 스토리지를 에뮬레이션한다.
+[`hostPath` 유형 볼륨의 예](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)를 참고한다.
 
 ## 원시 블록 볼륨 지원
 

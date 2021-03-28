@@ -137,7 +137,7 @@ is not supported by kubeadm.
 
 ### More information
 
-For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/).
+For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/).
 
 To configure `kubeadm init` with a configuration file see [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
 
@@ -434,7 +434,7 @@ Now remove the node:
 kubectl delete node <node name>
 ```
 
-If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
+If you wish to start over, run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
 ### Clean up the control plane

@@ -35,7 +35,7 @@ Kubernetes 集群中运行的应用通过 Service 抽象来互相查找、通信
 你必须拥有一个正常工作的 Kubernetes 1.5 集群来运行此文档中的示例。该示例使用一个简单的 nginx webserver，通过一个HTTP消息头返回它接收到请求的源IP。你可以像下面这样创建它：
 
 ```console
-kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
 ```
 输出结果为
 ```
@@ -103,15 +103,23 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 
 从相同集群中的一个 pod 访问这个 `ClusterIP`：
 
-```console
+```shell
 kubectl run busybox -it --image=busybox --restart=Never --rm
 ```
 输出结果与以下结果类似：
 ```
 Waiting for pod default/busybox to be running, status is Pending, pod ready: false
 If you don't see a command prompt, try pressing enter.
+```
 
-# ip addr
+然后你可以在 Pod 内运行命令：
+
+```shell
+# 在终端内使用"kubectl run"执行
+
+ip addr
+```
+```
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -124,8 +132,15 @@ If you don't see a command prompt, try pressing enter.
        valid_lft forever preferred_lft forever
     inet6 fe80::188a:84ff:feb0:26a5/64 scope link
        valid_lft forever preferred_lft forever
+```
 
-# wget -qO - 10.0.170.92
+然后使用 `wget` 去请求本地 Web 服务器
+```shell
+# 用名为 "clusterip" 的服务的 IPv4 地址替换 "10.0.170.92"
+
+wget -qO - 10.0.170.92
+```
+```
 CLIENT VALUES:
 client_address=10.244.3.8
 command=GET
@@ -178,17 +193,19 @@ client_address=10.240.0.3
 
 用图表示：
 
-```
-          client
-             \ ^
-              \ \
-               v \
-   node 1 <--- node 2
-    | ^   SNAT
-    | |   --->
-    v |
- endpoint
-```
+{{< mermaid >}}
+graph LR;
+  client(client)-->node2[节点 2];
+  node2-->client;
+  node2-. SNAT .->node1[节点 1];
+  node1-. SNAT .->node2;
+  node1-->endpoint(端点);
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 
 为了防止这种情况发生，Kubernetes 提供了一个特性来保留客户端的源 IP 地址[(点击此处查看可用特性)](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)。设置 `service.spec.externalTrafficPolicy` 的值为 `Local`，请求就只会被代理到本地 endpoints 而不会被转发到其它节点。这样就保留了最初的源 IP 地址。如果没有本地 endpoints，发送到这个节点的数据包将会被丢弃。这样在应用到数据包的任何包处理规则下，你都能依赖这个正确的 source-ip 使数据包通过并到达 endpoint。
@@ -229,17 +246,18 @@ client_address=104.132.1.79
 
 用图表示：
 
-```
-        client
-       ^ /   \
-      / /     \
-     / v       X
-   node 1     node 2
-    ^ |
-    | |
-    | v
- endpoint
-```
+{{< mermaid >}}
+graph TD;
+  client --> node1[节点 1];
+  client(client) --x node2[节点 2];
+  node1 --> endpoint(端点);
+  endpoint --> node1;
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 
 
@@ -285,17 +303,7 @@ client_address=10.240.0.5
 
 用图表示：
 
-```
-                      client
-                        |
-                      lb VIP
-                     / ^
-                    v /
-health check --->   node 1   node 2 <--- health check
-        200  <---   ^ |             ---> 500
-                    | V
-                 endpoint
-```
+![Source IP with externalTrafficPolicy](/images/docs/sourceip-externaltrafficpolicy.svg)
 
 
 你可以设置 annotation 来进行测试：
@@ -367,7 +375,7 @@ __跨平台支持__
 2. 使用一个包转发器，因此从客户端发送到负载均衡器 VIP 的请求在拥有客户端源 IP 地址的节点终止，而不被中间代理。
 
 
-第一类负载均衡器必须使用一种它和后端之间约定的协议来和真实的客户端 IP 通信，例如 HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For) 头，或者 [proxy 协议](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)。
+第一类负载均衡器必须使用一种它和后端之间约定的协议来和真实的客户端 IP 通信，例如 HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For) 头，或者 [proxy 协议](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)。
 第二类负载均衡器可以通过简单的在保存于 Service 的 `service.spec.healthCheckNodePort` 字段上创建一个 HTTP 健康检查点来使用上面描述的特性。
 
 
@@ -394,6 +402,4 @@ $ kubectl delete deployment source-ip-app
 ## {{% heading "whatsnext" %}}
 
 
-* 学习更多关于 [通过 services 连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)
-* 学习更多关于 [负载均衡](/zh/docs/user-guide/load-balancer)
-
+* 进一步学习 [通过 services 连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)

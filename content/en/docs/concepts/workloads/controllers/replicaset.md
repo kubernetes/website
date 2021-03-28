@@ -222,7 +222,7 @@ In this manner, a ReplicaSet can own a non-homogenous set of Pods
 ## Writing a ReplicaSet manifest
 
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.
-For ReplicaSets, the kind is always just ReplicaSet.
+For ReplicaSets, the `kind` is always a ReplicaSet.
 In Kubernetes 1.9 the API version `apps/v1` on the ReplicaSet kind is the current version and is enabled by default. The API version `apps/v1beta2` is deprecated.
 Refer to the first lines of the `frontend.yaml` example for guidance.
 
@@ -237,7 +237,7 @@ The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/#pod-temp
 required to have labels in place. In our `frontend.yaml` example we had one label: `tier: frontend`.
 Be careful not to overlap with the selectors of other controllers, lest they try to adopt this Pod.
 
-For the template's [restart policy](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy) field,
+For the template's [restart policy](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) field,
 `.spec.template.spec.restartPolicy`, the only allowed value is `Always`, which is the default.
 
 ### Pod Selector

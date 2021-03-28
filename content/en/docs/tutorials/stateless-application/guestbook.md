@@ -104,7 +104,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
       ```shell
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    1m
-      mongo          ClusterIP   10.0.0.151   <none>        6379/TCP   8s
+      mongo          ClusterIP   10.0.0.151   <none>        27017/TCP   8s
       ```
 
 {{< note >}}
@@ -134,7 +134,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment
 1. Query the list of Pods to verify that the three frontend replicas are running:
 
       ```shell
-      kubectl get pods -l app=guestbook -l tier=frontend
+      kubectl get pods -l app.kubernetes.io/name=guestbook -l app.kubernetes.io/component=frontend
       ```
 
       The response should be similar to this:
@@ -148,12 +148,12 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment
 
 ### Creating the Frontend Service
 
-The `mongo` Services you applied is only accessible within the Kubernetes cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
+The `mongo` Services you applied is only accessible within the Kubernetes cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services-service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
 
 If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the Kubernetes cluster. However a Kubernetes user you can use `kubectl port-forward` to access the service even though it uses a `ClusterIP`.
 
 {{< note >}}
-Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply uncomment `type: LoadBalancer`.
+Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, uncomment `type: LoadBalancer`.
 {{< /note >}}
 
 {{< codenew file="application/guestbook/frontend-service.yaml" >}}

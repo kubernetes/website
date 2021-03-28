@@ -163,7 +163,7 @@ status:
   loadBalancer: {}
 ```
 
-1. When dual-stack is enabled on a cluster, existing [headless Services](/docs/concepts/services-networking/service/#headless-services) with selectors are configured by the control plane to set `.spec.ipFamilyPolicy` to `SingleStack` and set `.spec.ipFamilies` to the address family of the first service cluster IP range (configured via the `--service-cluster-ip-range` flag to the kube-controller-manager) even though `.spec.ClusterIP` is set to `None`.
+1. When dual-stack is enabled on a cluster, existing [headless Services](/docs/concepts/services-networking/service/#headless-services) with selectors are configured by the control plane to set `.spec.ipFamilyPolicy` to `SingleStack` and set `.spec.ipFamilies` to the address family of the first service cluster IP range (configured via the `--service-cluster-ip-range` flag to the kube-apiserver) even though `.spec.ClusterIP` is set to `None`.
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 

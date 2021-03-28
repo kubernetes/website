@@ -21,7 +21,7 @@ Antes de iniciar um tutorial, é interessante que vocẽ salve a página de [Glo
 
 * [Introdução ao Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#) é um curso gratuíto da edX que te guia no entendimento do Kubernetes, seus conceitos, bem como na execução de tarefas mais simples.
 
-* [Hello Minikube](/docs/tutorials/hello-minikube/) é um "Hello World" que te permite testar rapidamente o Kubernetes em sua estação com o uso do Minikube
+* [Olá, Minikube!](/pt/docs/tutorials/hello-minikube/) é um "Hello World" que te permite testar rapidamente o Kubernetes em sua estação com o uso do Minikube
 
 ## Configuração
 

@@ -168,8 +168,7 @@ k8s-apparmor-example-deny-write (enforce)
 
 *This example assumes you have already set up a cluster with AppArmor support.*
 
-First, we need to load the profile we want to use onto our nodes. The profile we'll use simply
-denies all file writes:
+First, we need to load the profile we want to use onto our nodes. This profile denies all file writes:
 
 ```shell
 #include <tunables/global>
@@ -185,7 +184,7 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 ```
 
 Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
-nodes. For this example we'll just use SSH to install the profiles, but other approaches are
+nodes. For this example we'll use SSH to install the profiles, but other approaches are
 discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 
 ```shell

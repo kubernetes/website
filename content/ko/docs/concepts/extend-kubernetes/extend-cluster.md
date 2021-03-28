@@ -69,7 +69,7 @@ weight: 10
 웹훅 모델에서 쿠버네티스는 원격 서비스에 네트워크 요청을 한다.
 *바이너리 플러그인* 모델에서 쿠버네티스는 바이너리(프로그램)를 실행한다.
 바이너리 플러그인은 kubelet(예:
-[Flex Volume 플러그인](/ko/docs/concepts/storage/volumes/#flexvolume)과
+[Flex 볼륨 플러그인](/ko/docs/concepts/storage/volumes/#flexvolume)과
 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))과
 kubectl에서
 사용한다.
@@ -157,7 +157,7 @@ API를 추가해도 기존 API(예: 파드)의 동작에 직접 영향을 미치
 
 ### 스토리지 플러그인
 
-[Flex Volumes](/ko/docs/concepts/storage/volumes/#flexvolume)을 사용하면
+[Flex 볼륨](/ko/docs/concepts/storage/volumes/#flexvolume)을 사용하면
 Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도록 함으로써
 빌트인 지원 없이 볼륨 유형을 마운트 할 수 있다.
 

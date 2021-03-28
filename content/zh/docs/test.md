@@ -783,7 +783,7 @@ sequenceDiagram
 {{</ mermaid >}}
 
 <!--
-<br>More [examples](https://mermaid-js.github.io/mermaid/#/examples) from the offical docs.
+<br>More [examples](https://mermaid-js.github.io/mermaid/#/examples) from the official docs.
 -->
 <br>在官方网站上有更多的[示例](https://mermaid-js.github.io/mermaid/#/examples)。
 

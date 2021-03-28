@@ -17,7 +17,7 @@ and contains the services necessary to run
 {{< glossary_tooltip text="Pods" term_id="pod" >}}
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
-environment, you might have just one.
+environment, you might have only one node.
 
 The [components](/docs/concepts/overview/components/#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
@@ -31,7 +31,7 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 There are two main ways to have Nodes added to the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
 
 1. The kubelet on a node self-registers to the control plane
-2. You, or another human user, manually add a Node object
+2. You (or another human user) manually add a Node object
 
 After you create a Node object, or the kubelet on a node self-registers, the
 control plane checks whether the new Node object is valid. For example, if you
@@ -52,8 +52,8 @@ try to create a Node from the following JSON manifest:
 
 Kubernetes creates a Node object internally (the representation). Kubernetes checks
 that a kubelet has registered to the API server that matches the `metadata.name`
-field of the Node. If the node is healthy (if all necessary services are running),
-it is eligible to run a Pod. Otherwise, that node is ignored for any cluster activity
+field of the Node. If the node is healthy (i.e. all necessary services are running),
+then it is eligible to run a Pod. Otherwise, that node is ignored for any cluster activity
 until it becomes healthy.
 
 {{< note >}}
@@ -66,6 +66,16 @@ delete the Node object to stop that health checking.
 
 The name of a Node object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
+### Node name uniqueness
+
+The [name](/docs/concepts/overview/working-with-objects/names#names) identifies a Node. Two Nodes
+cannot have the same name at the same time. Kubernetes also assumes that a resource with the same
+name is the same object. In case of a Node, it is implicitly assumed that an instance using the
+same name will have the same state (e.g. network settings, root disk contents). This may lead to
+inconsistencies if an instance was modified without changing its name. If the Node needs to be
+replaced or updated significantly, the existing Node object needs to be removed from API server
+first and re-added after the update.
 
 ### Self-registration of Nodes
 
@@ -96,14 +106,14 @@ You can create and modify Node objects using
 When you want to create Node objects manually, set the kubelet flag `--register-node=false`.
 
 You can modify Node objects regardless of the setting of `--register-node`.
-For example, you can set labels on an existing Node, or mark it unschedulable.
+For example, you can set labels on an existing Node or mark it unschedulable.
 
 You can use labels on Nodes in conjunction with node selectors on Pods to control
 scheduling. For example, you can constrain a Pod to only be eligible to run on
 a subset of the available nodes.
 
 Marking a node as unschedulable prevents the scheduler from placing new pods onto
-that Node, but does not affect existing Pods on the Node. This is useful as a
+that Node but does not affect existing Pods on the Node. This is useful as a
 preparatory step before a node reboot or other maintenance.
 
 To mark a Node unschedulable, run:
@@ -179,14 +189,14 @@ The node condition is represented as a JSON object. For example, the following s
 ]
 ```
 
-If the Status of the Ready condition remains `Unknown` or `False` for longer than the `pod-eviction-timeout` (an argument passed to the {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}), all the Pods on the node are scheduled for deletion by the node controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the API server is unable to communicate with the kubelet on the node. The decision to delete the pods cannot be communicated to the kubelet until communication with the API server is re-established. In the meantime, the pods that are scheduled for deletion may continue to run on the partitioned node.
+If the Status of the Ready condition remains `Unknown` or `False` for longer than the `pod-eviction-timeout` (an argument passed to the {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}), then all the Pods on the node are scheduled for deletion by the node controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the API server is unable to communicate with the kubelet on the node. The decision to delete the pods cannot be communicated to the kubelet until communication with the API server is re-established. In the meantime, the pods that are scheduled for deletion may continue to run on the partitioned node.
 
 The node controller does not force delete pods until it is confirmed that they have stopped
 running in the cluster. You can see the pods that might be running on an unreachable node as
 being in the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce from the
 underlying infrastructure if a node has permanently left a cluster, the cluster administrator
-may need to delete the node object by hand.  Deleting the node object from Kubernetes causes
-all the Pod objects running on the node to be deleted from the API server, and frees up their
+may need to delete the node object by hand. Deleting the node object from Kubernetes causes
+all the Pod objects running on the node to be deleted from the API server and frees up their
 names.
 
 The node lifecycle controller automatically creates
@@ -199,7 +209,7 @@ for more details.
 
 ### Capacity and Allocatable {#capacity}
 
-Describes the resources available on the node: CPU, memory and the maximum
+Describes the resources available on the node: CPU, memory, and the maximum
 number of pods that can be scheduled onto the node.
 
 The fields in the capacity block indicate the total amount of resources that a
@@ -225,18 +235,20 @@ CIDR block to the node when it is registered (if CIDR assignment is turned on).
 
 The second is keeping the node controller's internal list of nodes up to date with
 the cloud provider's list of available machines. When running in a cloud
-environment, whenever a node is unhealthy, the node controller asks the cloud
+environment and whenever a node is unhealthy, the node controller asks the cloud
 provider if the VM for that node is still available. If not, the node
 controller deletes the node from its list of nodes.
 
 The third is monitoring the nodes' health. The node controller is
-responsible for updating the NodeReady condition of NodeStatus to
-ConditionUnknown when a node becomes unreachable (i.e. the node controller stops
-receiving heartbeats for some reason, for example due to the node being down), and then later evicting
-all the pods from the node (using graceful termination) if the node continues
-to be unreachable. (The default timeouts are 40s to start reporting
-ConditionUnknown and 5m after that to start evicting pods.) The node controller
-checks the state of each node every `--node-monitor-period` seconds.
+responsible for:
+- Updating the NodeReady condition of NodeStatus to ConditionUnknown when a node
+  becomes unreachable, as the node controller stops receiving heartbeats for some
+  reason such as the node being down.
+- Evicting all the pods from the node using graceful termination if
+  the node continues to be unreachable. The default timeouts are 40s to start
+  reporting ConditionUnknown and 5m after that to start evicting pods.
+
+The node controller checks the state of each node every `--node-monitor-period` seconds.
 
 #### Heartbeats
 
@@ -252,13 +264,14 @@ of the node heartbeats as the cluster scales.
 The kubelet is responsible for creating and updating the `NodeStatus` and
 a Lease object.
 
-- The kubelet updates the `NodeStatus` either when there is change in status,
+- The kubelet updates the `NodeStatus` either when there is change in status
   or if there has been no update for a configured interval. The default interval
-  for `NodeStatus` updates is 5 minutes (much longer than the 40 second default
-  timeout for unreachable nodes).
+  for `NodeStatus` updates is 5 minutes, which is much longer than the 40 second default
+  timeout for unreachable nodes.
 - The kubelet creates and then updates its Lease object every 10 seconds
   (the default update interval). Lease updates occur independently from the
-  `NodeStatus` updates. If the Lease update fails, the kubelet retries with exponential backoff starting at 200 milliseconds and capped at 7 seconds.
+  `NodeStatus` updates. If the Lease update fails, the kubelet retries with
+  exponential backoff starting at 200 milliseconds and capped at 7 seconds.
 
 #### Reliability
 
@@ -269,23 +282,25 @@ from more than 1 node per 10 seconds.
 The node eviction behavior changes when a node in a given availability zone
 becomes unhealthy. The node controller checks what percentage of nodes in the zone
 are unhealthy (NodeReady condition is ConditionUnknown or ConditionFalse) at
-the same time. If the fraction of unhealthy nodes is at least
-`--unhealthy-zone-threshold` (default 0.55) then the eviction rate is reduced:
-if the cluster is small (i.e. has less than or equal to
-`--large-cluster-size-threshold` nodes - default 50) then evictions are
-stopped, otherwise the eviction rate is reduced to
-`--secondary-node-eviction-rate` (default 0.01) per second. The reason these
-policies are implemented per availability zone is because one availability zone
-might become partitioned from the master while the others remain connected. If
-your cluster does not span multiple cloud provider availability zones, then
-there is only one availability zone (the whole cluster).
+the same time:
+- If the fraction of unhealthy nodes is at least `--unhealthy-zone-threshold` 
+  (default 0.55), then the eviction rate is reduced.
+- If the cluster is small (i.e. has less than or equal to
+  `--large-cluster-size-threshold` nodes - default 50), then evictions are stopped.
+- Otherwise, the eviction rate is reduced to `--secondary-node-eviction-rate`
+  (default 0.01) per second.
+
+The reason these policies are implemented per availability zone is because one
+availability zone might become partitioned from the master while the others remain
+connected. If your cluster does not span multiple cloud provider availability zones,
+then there is only one availability zone (i.e. the whole cluster).
 
 A key reason for spreading your nodes across availability zones is so that the
 workload can be shifted to healthy zones when one entire zone goes down.
-Therefore, if all nodes in a zone are unhealthy then the node controller evicts at
+Therefore, if all nodes in a zone are unhealthy, then the node controller evicts at
 the normal rate of `--node-eviction-rate`.  The corner case is when all zones are
 completely unhealthy (i.e. there are no healthy nodes in the cluster). In such a
-case, the node controller assumes that there's some problem with master
+case, the node controller assumes that there is some problem with master
 connectivity and stops all evictions until some connectivity is restored.
 
 The node controller is also responsible for evicting pods running on nodes with
@@ -303,8 +318,8 @@ eligible for, effectively removing incoming load balancer traffic from the cordo
 
 ### Node capacity
 
-Node objects track information about the Node's resource capacity (for example: the amount
-of memory available, and the number of CPUs).
+Node objects track information about the Node's resource capacity: for example, the amount
+of memory available and the number of CPUs.
 Nodes that [self register](#self-registration-of-nodes) report their capacity during
 registration. If you [manually](#manual-node-administration) add a Node, then
 you need to set the node's capacity information when you add it.
@@ -338,7 +353,7 @@ for more information.
 If you have enabled the `GracefulNodeShutdown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then the kubelet attempts to detect the node system shutdown and terminates pods running on the node.
 Kubelet ensures that pods follow the normal [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) during the node shutdown.
 
-When the `GracefulNodeShutdown` feature gate is enabled, kubelet uses [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to delay the node shutdown with a given duration. During a shutdown kubelet terminates pods in two phases:
+When the `GracefulNodeShutdown` feature gate is enabled, kubelet uses [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to delay the node shutdown with a given duration. During a shutdown, kubelet terminates pods in two phases:
 
 1. Terminate regular pods running on the node.
 2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
@@ -359,4 +374,3 @@ For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-
