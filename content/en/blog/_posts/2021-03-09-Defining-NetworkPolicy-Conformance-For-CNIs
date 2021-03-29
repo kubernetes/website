@@ -356,7 +356,7 @@ As an example of how we use Cyclonus to help make CNI implementations better fro
 
 - [Antrea: NetworkPolicy: unable to allow ingress by CIDR](https://github.com/vmware-tanzu/antrea/issues/1764)
 - [Calico: default missing protocol to TCP; don't let single port overwrite all ports](https://github.com/projectcalico/libcalico-go/pull/1373)
-- [Cilium: Egress Network Policy allows traffic that should be denied ](https://github.com/cilium/cilium/issues/14678)
+- [Cilium: Egress Network Policy allows traffic that should be denied](https://github.com/cilium/cilium/issues/14678)
 
 The good news is, all of these issues are actively being fixed and iterated on between SIG Network,
 the CNI providers, and the Network Policy subproject.
