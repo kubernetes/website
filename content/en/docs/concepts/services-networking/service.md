@@ -636,7 +636,12 @@ Starting in v1.21, you can optionally specify the class of a load balancer imple
 `LoadBalancer` type of Service by setting the field `spec.loadBalancerClass`.
 By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
 the cloud provider's default load balancer implementation. 
-If `spec.loadBalancerClass` is specified, it is assumed that a matching class load balancer implementation is watching for Services and any default load balancer implementation (e.g. cloud providers) will ignore Services that set this field. `spec.loadBalancerClass` can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. 
+If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
+implementation that matches the specified class is watching for Services.
+Any default load balancer implementation (for example, the one provided by
+the cloud provider) will ignore Services that have this field set.
+`spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
+Once set, it cannot be changed. 
 The value of `spec.loadBalancerClass` must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users.
 You must enable the `ServiceLoadBalancerClass` feature gate to use this field.
 
