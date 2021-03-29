@@ -27,6 +27,8 @@ Before walking through each tutorial, you may want to bookmark the
 
 ## Configuration
 
+* [Example: Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
+
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Stateless Applications
