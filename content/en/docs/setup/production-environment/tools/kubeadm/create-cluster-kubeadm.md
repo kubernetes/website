@@ -229,7 +229,7 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
 {{< /caution >}}
 
 {{< note >}}
-Currently Calico is the only CNI plugin that the kubeadm project performs e2e tests against.
+Kubeadm should be CNI agnostic and the validation of CNI providers is out of the scope of our current e2e testing.
 If you find an issue related to a CNI plugin you should log a ticket in its respective issue
 tracker instead of the kubeadm or kubernetes issue trackers.
 {{< /note >}}
