@@ -106,10 +106,6 @@ different Kubernetes components.
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
 | `EfficientWatchResumption` | `false` | Alpha | 1.20 | |
-| `EndpointSlice` | `false` | Alpha | 1.16 | 1.16 |
-| `EndpointSlice` | `false` | Beta | 1.17 | |
-| `EndpointSlice` | `true` | Beta | 1.18 | |
-| `EndpointSliceNodeName` | `false` | Alpha | 1.20 | |
 | `EndpointSliceProxying` | `false` | Alpha | 1.18 | 1.18 |
 | `EndpointSliceProxying` | `true` | Beta | 1.19 | |
 | `EndpointSliceTerminatingCondition` | `false` | Alpha | 1.20 | |
@@ -187,7 +183,8 @@ different Kubernetes components.
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
-| `WindowsEndpointSliceProxying` | `false` | Alpha | 1.19 | |
+| `WindowsEndpointSliceProxying` | `false` | Alpha | 1.19 | 1.20 |
+| `WindowsEndpointSliceProxying` | `true` | beta | 1.21 | |
 {{< /table >}}
 
 ### Feature gates for graduated or deprecated features
@@ -256,6 +253,12 @@ different Kubernetes components.
 | `EnableAggregatedDiscoveryTimeout` | `true` | Deprecated | 1.16 | - |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | 1.14 |
 | `EnableEquivalenceClassCache` | - | Deprecated | 1.15 | - |
+| `EndpointSlice` | `false` | Alpha | 1.16 | 1.16 |
+| `EndpointSlice` | `false` | Beta | 1.17 | 1.17 |
+| `EndpointSlice` | `true` | Beta | 1.18 | 1.21 |
+| `EndpointSlice` | `true` | GA | 1.21 | -  |
+| `EndpointSliceNodeName` | `false` | Alpha | 1.20 | 1.21 |
+| `EndpointSliceNodeName` | `true` | GA | 1.21 | - |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | 1.12 |
 | `ExperimentalCriticalPodAnnotation` | `false` | Deprecated | 1.13 | - |
 | `EvenPodsSpread` | `false` | Alpha | 1.16 | 1.17 |

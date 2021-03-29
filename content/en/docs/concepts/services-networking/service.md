@@ -187,9 +187,14 @@ An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
+### Over Capacity Endpoints
+If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.21 (or later)
+cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: warning`.
+This annotation indicates that the affected Endpoints object is over capacity.
+
 ### EndpointSlices
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 EndpointSlices are an API resource that can provide a more scalable alternative
 to Endpoints. Although conceptually quite similar to Endpoints, EndpointSlices

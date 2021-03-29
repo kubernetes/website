@@ -9,7 +9,7 @@ weight: 35
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 _EndpointSlices_ provide a simple way to track network endpoints within a
 Kubernetes cluster. They offer a more scalable and extensible alternative to
@@ -52,7 +52,7 @@ As an example, here's a sample EndpointSlice resource for the `example`
 Kubernetes Service.
 
 ```yaml
-apiVersion: discovery.k8s.io/v1beta1
+apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
   name: example-abc
@@ -69,9 +69,8 @@ endpoints:
     conditions:
       ready: true
     hostname: pod-1
-    topology:
-      kubernetes.io/hostname: node-1
-      topology.kubernetes.io/zone: us-west2-a
+    nodeName: node-1
+    zone: us-west2-a
 ```
 
 By default, the control plane creates and manages EndpointSlices to have no
@@ -135,29 +134,25 @@ For pods, this is any pod that has a deletion timestamp set.
 
 ### Topology information {#topology}
 
-{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
+Each endpoint within an EndpointSlice can contain relevant topology information.
+The topology information includes the location of the endpoint and information
+about the corresponding Node and zone. These are available in the following
+per endpoint fields on EndpointSlices:
+
+* `nodeName` - The name of the Node this endpoint is on.
+* `zone` - The zone this endpoint is in.
 
 {{< note >}}
-The topology field in EndpointSlices has been deprecated and will be removed in
-a future release. A new `nodeName` field will be used instead of setting
-`kubernetes.io/hostname` in topology. It was determined that other topology
-fields covering zone and region would be better represented as EndpointSlice
-labels that would apply to all endpoints within the EndpointSlice.
+In the v1 API, the per endpoint `topology` was effectively removed in favor of
+the dedicated fields `nodeName` and `zone`.
+
+Setting arbitrary topology fields on the `endpoint` field of an `EndpointSlice`
+resource has been deprecated and is not be supported in the v1 API. Instead,
+the v1 API supports setting individual `nodeName` and `zone` fields. These
+fields are automatically translated between API versions. For example, the
+value of the `"topology.kubernetes.io/zone"` key in the `topology` field in
+the v1beta1 API is accessible as the `zone` field in the v1 API.
 {{< /note >}}
-
-Each endpoint within an EndpointSlice can contain relevant topology information.
-This is used to indicate where an endpoint is, containing information about the
-corresponding Node, zone, and region. When the values are available, the
-control plane sets the following Topology labels for EndpointSlices:
-
-* `kubernetes.io/hostname` - The name of the Node this endpoint is on.
-* `topology.kubernetes.io/zone` - The zone this endpoint is in.
-* `topology.kubernetes.io/region` - The region this endpoint is in.
-
-The values of these labels are derived from resources associated with each
-endpoint in a slice. The hostname label represents the value of the NodeName
-field on the corresponding Pod. The zone and region labels represent the value
-of the labels with the same names on the corresponding Node.
 
 ### Management
 

@@ -231,6 +231,14 @@ Example: `kubectl.kubernetes.io/default-container: "front-end-app"`
 
 The value of the annotation is the container name that is default for this Pod. For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container.
 
+## endpoints.kubernetes.io/over-capacity
+
+Example: `endpoints.kubernetes.io/over-capacity:warning`
+
+Used on: Endpoints
+
+In Kubernetes clusters v1.21 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity.
+
 **The taints listed below are always used on Nodes**
 
 ## node.kubernetes.io/not-ready
