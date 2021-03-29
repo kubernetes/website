@@ -19,7 +19,7 @@ Anyone can write a blog post and submit it for review.
 Case studies require extensive review before they're approved.
 -->
 任何人都可以撰写博客并提交评阅。
-案例分析则在被批准之前需要更多的评阅。
+案例研究在获得批准之前需要广泛的审查。
 
 <!-- body -->
 
