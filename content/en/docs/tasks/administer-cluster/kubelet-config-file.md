@@ -53,6 +53,11 @@ For a trick to generate a configuration file from a live node, see
 
 ## Start a Kubelet process configured via the config file
 
+{{< note >}}
+If you use kubeadm to initialize your cluster, use the kubelet-config while creating your cluster with `kubeadmin init`.
+See [configuring kubelet using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/) for details.
+{{< /note >}}
+
 Start the Kubelet with the `--config` flag set to the path of the Kubelet's config file.
 The Kubelet will then load its config from this file.
 
@@ -77,7 +82,6 @@ In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 If you are using the [Dynamic Kubelet Configuration](/docs/tasks/administer-cluster/reconfigure-kubelet)
 feature, the combination of configuration provided via `--config` and any flags which override these values
 is considered the default "last known good" configuration by the automatic rollback mechanism.
-
 
 
 
