@@ -148,6 +148,7 @@ Wenn ein Node in einer Cloud-Umgebung ausgeführt wird und sich in einem schlech
 
 Der dritte ist die Überwachung des Zustands der Nodes. Der Node Controller ist dafür verantwortlich,
 die NodeReady-Bedingung von NodeStatus auf ConditionUnknown zu aktualisieren, wenn ein wenn ein Node unerreichbar wird (der Node Controller empfängt aus irgendeinem Grund keine Herzschläge mehr, z.B. weil der Node heruntergefahren ist) und später alle Pods aus dem Node zu entfernen (und diese ordnungsgemäss zu beenden), wenn der Node weiterhin unzugänglich ist. (Die Standard-Timeouts sind 40s, um ConditionUnknown zu melden und 5 Minuten, um mit der Evakuierung der Pods zu beginnen).
+
 Der Node Controller überprüft den Zustand jedes Nodes alle `--node-monitor-period` Sekunden.
 
 
