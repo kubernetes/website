@@ -762,7 +762,7 @@ poorly-behaved workloads that may be harming system health.
   histogram vector of queue lengths for the queues, broken down by
   the labels `priority_level` and `flow_schema`, as sampled by the
   enqueued requests.  Each request that gets queued contributes one
-  sample to its histogram, reporting the length of the queue just
+  sample to its histogram, reporting the length of the queue immediately
   after the request was added.  Note that this produces different
   statistics than an unbiased survey would.
 -->
