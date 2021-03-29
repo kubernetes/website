@@ -47,8 +47,8 @@ You can also subscribe to an RSS feed of the above using [this link](https://gro
 <!--
 We’re extremely grateful for security researchers and users that report vulnerabilities to the Kubernetes Open Source Community. All reports are thoroughly investigated by a set of community volunteers.
 -->
-我们非常感谢向 Kubernetes 开源社区报告漏洞的安全研究人员和用户。
-所有的报告都由社区志愿者进行彻底调查。
+我们非常感谢向Kubernetes开源社区报告漏洞的安全研究人员和用户。
+所有报告都由一组社区志愿者彻底调查。
 
 <!--
 To make a report, please email the private [security@kubernetes.io](mailto:security@kubernetes.io) list with the security details and the details expected for [all Kubernetes bug reports](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md).
