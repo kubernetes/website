@@ -92,7 +92,8 @@ different Kubernetes components.
 | `CSIVolumeFSGroupPolicy` | `true` | Beta | 1.20 | |
 | `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | 1.19 |
 | `ConfigurableFSGroupPolicy` | `true` | Beta | 1.20 | |
-| `CronJobControllerV2` | `false` | Alpha | 1.20 | |
+| `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
+| `CronJobControllerV2` | `true` | Beta | 1.21 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
 | `DefaultPodTopologySpread` | `true` | Beta | 1.20 | |
