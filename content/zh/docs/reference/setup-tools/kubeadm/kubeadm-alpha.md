@@ -14,8 +14,8 @@ weight: 90
 `kubeadm alpha` provides a preview of a set of features made available for gathering feedback
  from the community. Please try it out and give us feedback!
  -->
-`kubeadm alpha` 提供了一组可用于收集社区反馈的预览性质功能。
-请试用这些功能并给我们提供反馈！
+`kubeadm alpha` 提供一组可用于收集反馈的功能的预览
+ 请试用并给我们反馈！
 {{< /caution >}}
 
 ## kubeadm alpha kubeconfig user {#cmd-phase-kubeconfig}
