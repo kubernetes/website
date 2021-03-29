@@ -7,10 +7,12 @@ slug: defining-networkpolicy-conformance-cni-providers
 
 Authors: Matt Fenwick, Jay Vyas, Ricardo Katz, Amim Knabben, Douglas Schilling Landgraf
 
-Special thanks to Tim Hockins and Bowie Du (Google), Dan Winship and Antonio Ojea (Red Hat), Casey Davenport and Shuan Crampton (tigera), and Abhishek Raut (Vmware) for
+Special thanks to Tim Hockins and Bowie Du (Google), Dan Winship and Antonio Ojea (Red Hat),
+Casey Davenport and Shuan Crampton (tigera), and Abhishek Raut (Vmware) for
 being supportive of this work, and working with us to resolve issues in different Container Network Interfaces (CNIs) over time.
 
-A brief conversation around "node local" Network Policies in April of 2020 inspired the creation of a NetworkPolicy subproject from SIG Network.
+A brief conversation around "node local" Network Policies in April of 2020 inspired
+the creation of a NetworkPolicy subproject from SIG Network.
 
 In this post we'll discuss:
 
@@ -21,8 +23,11 @@ In this post we'll discuss:
 
 ## Why we created a subproject for NetworkPolicies
 
-In April of 2020 it was becoming clear that many CNIs were emerging, and many vendors implement these CNIs in different ways.  Users were beginning to express a little bit of confusion around how to implement policies for different scenarios, and asking for new features.
-It was clear that we needed to begin unifying the way we think about Network Policies in Kubernetes, if we wanted to avoid becoming an ancient API which was going to be overrun by implementation divergences.
+In April of 2020 it was becoming clear that many CNIs were emerging, and many vendors
+implement these CNIs in different ways.  Users were beginning to express a little bit
+of confusion around how to implement policies for different scenarios, and asking for new features.
+It was clear that we needed to begin unifying the way we think about Network Policies
+in Kubernetes, if we wanted to avoid becoming an ancient API overrun by implementation divergences.
 
 For example:
 - Calico as a CNI provider can be run using IPIP or VXLAN mode.  CNI's such as Antrea and Cilium offer similar configuration divergences as well.
@@ -33,19 +38,27 @@ Thus, end-users need to follow a multistep process to implement Network Policies
 - Confirm that their network plugin supports NetworkPolicies (some don't, such as Flannel)
 - Confirm that their cluster's network plugin supports the specific NetworkPolicy features that they are interested in (again, the named port or port range examples come to mind here)
 - Confirm that their application's Network Policy definitions are doing the right thing
-- Find out the vendor specific implementation of a policy, and check wether or not that implementation had a CNI neutral implementation (which is preferable for most users)
+- Find out the vendor specific implementation of a policy, and check whether or not that implementation had a CNI neutral implementation (which is preferable for most users)
 
-The NetworkPolicy project in upstream Kubernetes aims at providing a community where people can learn about, and contribute to, the Kubernetes NetworkPolicy API and the surrounding ecosystem.
+The NetworkPolicy project in upstream Kubernetes aims at providing a community where
+people can learn about, and contribute to, the Kubernetes NetworkPolicy API and the surrounding ecosystem.
 
 ## The First step: A validation framework for NetworkPolicies that was intuitive to use and understand
 
-The Kubernetes end to end suite has always had NetworkPolicy tests, but these weren't run in CI, and the way they were implemented didn't really provide any holistic, easily consumable information about how a policy was working in a cluster.
-This is because the original tests didn't provide any kind of visual summary of connectivity across a cluster.   We thus initially set out to make it easy to confirm CNI support for NetworkPolicies by
+The Kubernetes end to end suite has always had NetworkPolicy tests, but these weren't
+run in CI, and the way they were implemented didn't provide holistic, easily consumable
+information about how a policy was working in a cluster.
+This is because the original tests didn't provide any kind of visual summary of connectivity
+across a cluster.   We thus initially set out to make it easy to confirm CNI support for NetworkPolicies by
 making the end to end tests (which are often used by administrators or users to diagnose cluster conformance) easy to interpret.
 
-To solve the problem of confirming that CNIs support the basic features one cares about for a policy, we built a new NetworkPolicy validation tool into the Kubernetes e2e framework which allows for visual inspection of policys and their effect on a standard set of pods in a cluster.
-For example, in the following test output.  As an example, we found a bug in [ovn kubernetes](https://github.com/ovn-org/ovn-kubernetes/issues/1782) with this tool that was really easy to characterize,
-wherein certain policies caused a state-modification that, later on, resulted in traffic being unnecessarily blocked (even after all Network Policies, cluster wide, were deleted).
+To solve the problem of confirming that CNIs support the basic features one cares about
+for a policy, we built a new NetworkPolicy validation tool into the Kubernetes e2e
+framework which allows for visual inspection of policies and their effect on a standard set of pods in a cluster.
+For example, take the following test output.  We found a bug in
+[ovn kubernetes](https://github.com/ovn-org/ovn-kubernetes/issues/1782) with this tool
+that was really easy to characterize, wherein certain policies caused a state-modification that,
+later on, caused traffic to incorrectly be blocked (even after all Network Policies, cluster wide, were deleted).
 
 ```
 Nov  3 15:58:54.034: INFO: Network Policy creating x/allow-ingress-port-80
@@ -86,29 +99,40 @@ z/b .   .   .   .   .   .   .   .   .
 z/c .   .   .   .   .   .   .   .   .
 ```
 
-This was one of our earliest wins in the Network Policy group, as we were able to identity and work with the OVN kubernetes group to fix a bug in egress policy processing.
+This was one of our earliest wins in the Network Policy group, as we were able to
+identity and work with the OVN kubernetes group to fix a bug in egress policy processing.
 
-However, even though this tool has made it easy to validate roughly 30 common scenarios, it doesn't validate *all* Network Policy scenarios - because there are an enormous permutation of possible
-policies that one might create (well, technically, we might say this number is infinite given that theres an infinite number of possible namespace/pod/port/prototocol variations one can create).
+However, even though this tool has made it easy to validate roughly 30 common scenarios,
+it doesn't validate *all* Network Policy scenarios - because there are an enormous permutation of possible
+policies that one might create (well, technically, we might say this number is
+infinite given that there's an infinite number of possible namespace/pod/port/protocol variations one can create).
 
-Once these tests were in play, we worked with the Upstream SIG Network and SIG Testing communities (thanks to Antonio Ojea and Ben Elder) to put a tesgrid Network Policy job in place.  This job
-continuously runs the entire suite of Network Policy tests against [GCE with Calico as a Network Policy provider](https://testgrid.k8s.io/sig-network-gce#presubmit-network-policies,%20google-gce).
+Once these tests were in play, we worked with the Upstream SIG Network and SIG Testing communities
+(thanks to Antonio Ojea and Ben Elder) to put a testgrid Network Policy job in place.  This job
+continuously runs the entire suite of Network Policy tests against
+[GCE with Calico as a Network Policy provider](https://testgrid.k8s.io/sig-network-gce#presubmit-network-policies,%20google-gce).
 
 Part of our role as a subproject is to help make sure that, when these tests break, we can help triage them effectively.
 
 ## Cyclonus: The next step towards Network Policy conformance {#cyclonus}
 
-Around the time that we were finishing the validation work, it became clear from the community that, in general, we needed to solve the overall problem of testing ALL possible Network Policy implementations.
-For example, a KEP was recently written which introduced the concept of micro versioning to Network Policies to accommodate [describing this at the API level](https://github.com/kubernetes/enhancements/pull/2137/files), by Dan Winship.
+Around the time that we were finishing the validation work, it became clear from the community that,
+in general, we needed to solve the overall problem of testing ALL possible Network Policy implementations.
+For example, a KEP was recently written which introduced the concept of micro versioning to
+Network Policies to accommodate [describing this at the API level](https://github.com/kubernetes/enhancements/pull/2137/files), by Dan Winship.
 
-In response to this increasingly obvious need to comprehensively defined Network Policy for all vendors, Matt Fenwick decided to evolve our approach to Network Policy validation again by creating Cyclonus.
+In response to this increasingly obvious need to comprehensively defined Network
+Policy for all vendors, Matt Fenwick decided to evolve our approach to Network Policy validation again by creating Cyclonus.
 
-Cyclonus is a comprehensive Network Policy fuzzing tool which verifies a CNI provider against 100s of different Network Policy scenarios, by defining the same truth table/policy combinations as done in the end to end tests, while also
-providing a hierarchical representation of policy "categories".  We've found some interesting missing implementations in almost every CNI we've tested, so far, and have even contributed some fixes back, for example:
+Cyclonus is a comprehensive Network Policy fuzzing tool which verifies a CNI provider
+against 100s of different Network Policy scenarios, by defining the same truth table/policy
+combinations as done in the end to end tests, while also providing a hierarchical
+representation of policy "categories".  We've found some interesting missing
+implementations in almost every CNI we've tested, so far, and have even contributed some fixes back.
 
 To perform a Cyclonus validation run, you create a Job manifest similar to:
 
-```
+```yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -180,9 +204,12 @@ test cases to run by tag:
 - set-pod-labels: 1
 testing 112 cases
 ```
-Note that Cyclonus tags its tests based on the type of policy being created, because of the fact that the policies themselves are auto-generated, and thus have no meaningful names to be recognized by.
 
-For each test, Cyclonus outputs a truth table, which is again similar to that of the E2E tests, along with the policy being validated:
+Note that Cyclonus tags its tests based on the type of policy being created, because
+of the fact that the policies themselves are auto-generated, and thus have no meaningful names to be recognized by.
+
+For each test, Cyclonus outputs a truth table, which is again similar to that of the
+E2E tests, along with the policy being validated:
 
 ```
 apiVersion: networking.k8s.io/v1
