@@ -642,7 +642,9 @@ Any default load balancer implementation (for example, the one provided by
 the cloud provider) will ignore Services that have this field set.
 `spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
 Once set, it cannot be changed. 
-The value of `spec.loadBalancerClass` must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users.
+The value of `spec.loadBalancerClass` must be a label-style identifier,
+with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
+Unprefixed names are reserved for end-users.
 You must enable the `ServiceLoadBalancerClass` feature gate to use this field.
 
 #### Internal load balancer
