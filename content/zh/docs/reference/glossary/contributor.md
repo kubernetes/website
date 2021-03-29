@@ -28,7 +28,7 @@ tags:
  Someone who donates code, documentation, or their time to help the Kubernetes project or community.
 -->
 
-通过贡献代码、文档或者投入时间等方式来帮助 Kubernetes 项目或社区的人。
+捐出代码、文档或时间来帮助Kubernetes项目或社区的人。
 
 <!--more--> 
 <!--
