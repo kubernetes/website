@@ -251,7 +251,7 @@ After you create the localized README, add a link to the file from the main Engl
 -->
 创建本地化的 README 文件后，请在英语版文件 `README.md` 中添加指向该文件的链接，
 并给出英文形式的联系信息。你可以提供 GitHub ID、电子邮件地址、
-[Slack 频道](https://slack.com/)或其他联系方式。你还必须提供指向本地化的社区行为准则的链接。
+[Slack 频道](https://slack.com/)或其他联系方式。你还必须提供一个链接到你的本地化社区行为准则。
 
 <!-- 
 ### Setting up the OWNERS files
