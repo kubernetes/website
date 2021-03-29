@@ -42,7 +42,7 @@ Todos os valores são transparentes para o sistema de autenticação e somente t
 - _Tokens_ para contas de serviço;
 - Pelo menos um outro método de autenticação para usuários.
  
-Quando múltiplos módulos de autenticação estão habilitados, o primeiro módulo a autenticar com sucesso uma requisição termina o fluxo de avaliação da mesma.
+Quando múltiplos módulos de autenticação estão habilitados, o primeiro módulo a autenticar com sucesso uma requisição termina, o fluxo de avaliação da mesma.
  
 O servidor de API não garante a ordem em que os autenticadores são processados.
  
@@ -89,7 +89,7 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
  
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
  
-Para permitir a inicialização simplificada para novos _clusters_, Kubernetes inclui um token dinamicamente gerenciado denominado *Bootstrap Token*. Estes _tokens_ são armazenados como Secrets dentro do namespace `kube-system`, onde eles podem ser dinamicamente criados e gerenciados. O componente Gerenciador de Controle (Controller Manager) possui um controlador "limpador de tokens" (TokenCleaner) que apaga os _tokens_ de inicialização expirados.
+Para permitir a inicialização simplificada para novos _clusters_, Kubernetes inclui um token dinamicamente gerenciado denominado *Bootstrap Token*. Estes _tokens_ são armazenados como Secrets dentro do namespace `kube-system`, onde eles podem ser dinamicamente criados e gerenciados. O componente Gerenciador de Controle (Controller Manager) possui um controlador "TokenCleaner" que apaga os _tokens_ de inicialização expirados.
  
 Os _tokens_ seguem o formato `[a-z0-9]{6}.[a-z0-9]{16}`. O primeiro componente é um identificador do _token_ e o segundo é o segredo. Você pode especificar o _token_ como um cabeçalho HTTP como:
  
@@ -97,9 +97,9 @@ Os _tokens_ seguem o formato `[a-z0-9]{6}.[a-z0-9]{16}`. O primeiro componente �
 Authorization: Bearer 781292.db7bc3a58fc5f07e
 ```
  
-Deve-se habilitar os _tokens_ de inicialização com a opção `--enable-bootstrap-token-auth` no servidor de API. Deve-se habilitar o controlador `TokenCleaner` através da opção `--controllers` no Gerenciador de Controle, isto é feito, por exemplo, como: `--controllers=*,tokencleaner`. `kubeadm`, por exemplo, irá realizar isso caso seja utilizado para a inicialização do cluster.
+Deve-se habilitar os _tokens_ de inicialização com a opção `--enable-bootstrap-token-auth` no servidor de API. Deve-se habilitar o controlador `TokenCleaner` através da opção `--controllers` no Gerenciador de Controle. Isso é feito, por exemplo, como: `--controllers=*,tokencleaner`. O `kubeadm`, por exemplo, irá realizar isso caso seja utilizado para a inicialização do cluster.
  
-O autenticador o autentica como `system:bootstrap:<Token ID>` e é incluído no grupo `system:bootstrappers`. O nome e grupo são intencionalmente limitados para desencorajar usuários a usarem estes _tokens_ após inicialização. Os nomes de usuários e grupos podem ser utilizados (e são utilizados por `kubeadm`) para elaborar as políticas de autorização para suportar a inicialização de um cluster.
+O autenticador o autentica como `system:bootstrap:<Token ID>` e é incluído no grupo `system:bootstrappers`. O nome e grupo são intencionalmente limitados para desencorajar usuários a usarem estes _tokens_ após inicialização. Os nomes de usuários e grupos podem ser utilizados (e são utilizados pelo `kubeadm`) para elaborar as políticas de autorização para suportar a inicialização de um cluster.
  
 Por favor veja [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) para documentação detalhada sobre o autenticador e controladores de _Token_ de inicialização, bem como gerenciar estes _tokens_ com `kubeadm`.
  
@@ -110,14 +110,14 @@ Uma conta de serviço é um autenticador habilitado automaticamente que usa bear
 * `--service-account-key-file` Um arquivo contendo uma chave codificada no formato PEM para assinar _bearer tokens_. Se não especificado, a chave privada de TLS no servidor de API será utilizada
 * `--service-account-lookup` Se habilitado, _tokens_ deletados do servidor de API serão revogados.
  
-Contas de serviço são normalmente criadas automaticamente pelo servidor de API e associada a _pods_ rodando no cluster através do controlador de admissão [Admission Controller](/docs/reference/access-authn-authz/admission-controllers/). `ServiceAccount`. Contas podem ser explicitamente associadas com _pods_ utilizando o campo `serviceAccountName` na especificação do pod (`PodSpec`):
+Contas de serviço são normalmente criadas automaticamente pelo servidor de API e associada a _pods_ rodando no cluster através do controlador de admissão [Admission Controller](/docs/reference/access-authn-authz/admission-controllers/) de `ServiceAccount`. Os tokens de contas de serviços são montados nos Pods, em localizações já pré definidas e conhecidas e permitem processos dentro do cluster a se comunicarem com o servidor de API. Contas podem ser explicitamente associadas com _pods_ utilizando o campo `serviceAccountName` na especificação do pod (`PodSpec`):
  
 {{< note >}}
 `serviceAccountName` é normalmente omitida por ser feito automaticamente
 {{< /note >}}
  
 ```yaml
-apiVersion: apps/v1 # esta apiVersion é relevante a partir do Kubernetes 1.9
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
  name: nginx-deployment
@@ -134,7 +134,7 @@ spec:
        image: nginx:1.14.2
 ```
  
-Tokens de Contas de serviço são perfeitamente válidos para ser usados fora do cluster e podem ser utilizados para criar identidades para processos de longa duração que desejem comunicar-se com a API do Kubernetes. Para criar manualmente uma conta de serviço, utilize-se simplesmente o comando `kubectl create serviceaccount (NOME)`. Isso cria uma conta de serviço e um segredo associado a ela no namespace atual.
+Os _tokens_ de contas de serviço são perfeitamente válidos para ser usados fora do cluster e podem ser utilizados para criar identidades para processos de longa duração que desejem comunicar-se com a API do Kubernetes. Para criar manualmente uma conta de serviço, utilize-se simplesmente o comando `kubectl create serviceaccount (NOME)`. Isso cria uma conta de serviço e um segredo associado a ela no namespace atual.
  
 ```bash
 kubectl create serviceaccount jenkins
@@ -230,7 +230,7 @@ sequenceDiagram
 8.  Uma vez autorizado o servidor de API retorna a resposta para o `kubectl`.
 9.  `kubectl` fornece retorno ao usuário.
  
-Uma vez que todos os dados necessários para determinar sua identidade encontram-se no `id_token`, Kubernetes não precisa realizar outra chamada para o provedor de identidade. Em um modelo onde cada requisição _sem estado_ fornece uma solução escalável para autenticação. Isso, porem, apresenta alguns desafios:
+Uma vez que todos os dados necessários para determinar sua identidade encontram-se no `id_token`, Kubernetes não precisa realizar outra chamada para o provedor de identidade. Em um modelo onde cada requisição não possui estado, isso fornece uma solução escalável para autenticação. Isso, porem, apresenta alguns desafios:
  
 1. Kubernetes não possui uma "interface web" para disparar o processo de autenticação. Não há browser ou interface para coletar credenciais que são necessárias para autenticar-se primeiro no seu provedor de identidade.
 2. O `id_token` não pode ser revogado, funcionando como um certificado, portanto deve possuir curta validade (somente alguns minutos) o que pode tornar a experiência um pouco desconfortável, fazendo com que se requisite um novo _token_ toda vez em um curto intervalo (poucos minutos de validade do _token_)
@@ -242,14 +242,14 @@ Para habilitar o plugin de autorização, configure as seguintes opções no ser
  
 | Parâmetro | Descrição | Exemplo | Obrigatório |
 | --------- | ----------- | ------- | ------- |
-| `--oidc-issuer-url` | URL do provedor que permite ao servidor de API descobrir chaves públicas de assinatura. Somente URLS que usam o esquema `https://` são aceitas.  Isto normalmente é o endereço de descoberta do provedor sem o caminho, por exemplo "https://accounts.google.com" ou "https://login.salesforce.com".  Esta URL deve apontar para o nível abaixo do caminho .well-known/openid-configuration | Se o valor da URL de descoberta é `https://accounts.google.com/.well-known/openid-configuration`, entao o valor deve ser `https://accounts.google.com` | Yes |
-| `--oidc-client-id` |  Identificador do cliente para o qual todos os tokens são gerados. | kubernetes | Yes |
-| `--oidc-username-claim` | Atributo do JWT a ser usado como nome de usuário. Por padrão o valor `sub`, o qual é esperado que seja um identificador único do usuário final. Administradores podem escolher outro atributo, como `email` ou `name`, dependendo de seu provedor de identidade. No entanto, outros atributos além de `email` serão prefixados com a URL do emissor issuer URL para prevenir conflitos de nome com outros plugins. | sub | No |
-| `--oidc-username-prefix` | Prefixos adicionados ao atributo de nome de usuário para prevenir conflitos de nomes existentes (como por exemplo usuários `system:`). Por exemplo, o valor `oidc:` irá criar usuários como `oidc:jane.doe`. Se esta opção não for fornecida  `--oidc-username-claim` e um valor diferente de `email` irá conter um prefixo padrão com o valor de `( Issuer URL )#` onde `( Issuer URL )` era o valor da opção `--oidc-issuer-url`. O valor `-` pode ser utilizado para desabilitar todos os prefixos. | `oidc:` | No |
-| `--oidc-groups-claim` | Atributo do JWT a ser utilizado para mapear os grupos dos usuários. Se o atributo está presente, ele deve ser do tipo vetor de Strings. | groups | No |
-| `--oidc-groups-prefix` | Prefixo adicionados ao atributo de grupo para prevenir conflitos de nomes existentes (como por exemplo `system:` grupos). Por exemplo, o valor `oidc:` irá criar nomes de grupos como `oidc:engineering` e `oidc:infra`. | `oidc:` | No |
-| `--oidc-required-claim` | Um par de chave=valor que descreve atributos obrigatórios no _ID Token_. Se configurado, a presença do atributo é verificado dentro do _ID Token_ com um valor relacionado. Repita esta opção para configurar múltiplos atributos obrigatórios. | `claim=value` | No |
-| `--oidc-ca-file` | O caminho para o arquivo de certificado da autoridade de certificados (CA) que assinou o certificado do provedor de identidades. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
+| `--oidc-issuer-url` | URL do provedor que permite ao servidor de API descobrir chaves públicas de assinatura. Somente URLs que usam o esquema `https://` são aceitas.  Isto normalmente é o endereço de descoberta do provedor sem o caminho, por exemplo "https://accounts.google.com" ou "https://login.salesforce.com".  Esta URL deve apontar para o nível abaixo do caminho .well-known/openid-configuration | Se o valor da URL de descoberta é `https://accounts.google.com/.well-known/openid-configuration`, entao o valor deve ser `https://accounts.google.com` | Sim |
+| `--oidc-client-id` |  Identificador do cliente para o qual todos os tokens são gerados. | kubernetes | Sim |
+| `--oidc-username-claim` | Atributo do JWT a ser usado como nome de usuário. Por padrão o valor `sub`, o qual é esperado que seja um identificador único do usuário final. Administradores podem escolher outro atributo, como `email` ou `name`, dependendo de seu provedor de identidade. No entanto, outros atributos além de `email` serão prefixados com a URL do emissor issuer URL para prevenir conflitos de nome com outros plugins. | sub | Não |
+| `--oidc-username-prefix` | Prefixos adicionados ao atributo de nome de usuário para prevenir conflitos de nomes existentes (como por exemplo usuários `system:`). Por exemplo, o valor `oidc:` irá criar usuários como `oidc:jane.doe`. Se esta opção não for fornecida  `--oidc-username-claim` e um valor diferente de `email` irá conter um prefixo padrão com o valor de `( Issuer URL )#` onde `( Issuer URL )` era o valor da opção `--oidc-issuer-url`. O valor `-` pode ser utilizado para desabilitar todos os prefixos. | `oidc:` | Não |
+| `--oidc-groups-claim` | Atributo do JWT a ser utilizado para mapear os grupos dos usuários. Se o atributo está presente, ele deve ser do tipo vetor de Strings. | groups | Não |
+| `--oidc-groups-prefix` | Prefixo adicionados ao atributo de grupo para prevenir conflitos de nomes existentes (como por exemplo `system:` grupos). Por exemplo, o valor `oidc:` irá criar nomes de grupos como `oidc:engineering` e `oidc:infra`. | `oidc:` | Não |
+| `--oidc-required-claim` | Um par de chave=valor que descreve atributos obrigatórios no _ID Token_. Se configurado, a presença do atributo é verificado dentro do _ID Token_ com um valor relacionado. Repita esta opção para configurar múltiplos atributos obrigatórios. | `claim=value` | Não |
+| `--oidc-ca-file` | O caminho para o arquivo de certificado da autoridade de certificados (CA) que assinou o certificado do provedor de identidades. | `/etc/kubernetes/ssl/kc-ca.pem` | Não |
  
 É importante ressaltar que o servidor de API não é um cliente Oauth2, ao contrário, ele só pode ser configurado para confiar em um emissor. Isso permite o uso de emissores públicos, como Google, sem confiar em credenciais emitidas por terceiros. Administradores que desejam utilizar-se de múltiplos clientes OAuth2 devem explorar provedores os quais suportam atributos `azp` (parte autorizada), que é um mecanismo para permitir um cliente a emitir tokens em nome de outro.
  
@@ -261,13 +261,13 @@ Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
 Para um provedor de identidades funcionar no Kubernetes, ele deve:
  
 1. Suportar o framework [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); Nem todos suportam.
-2. Executar TLS com criptogramas não obsoletos.
+2. Executar TLS com cifras criptográficas não obsoletos.
 3. Possuir certificados assinados por uma Autoridade certificadora (mesmo que o CA não seja comercial ou seja auto-assinado)
  
-Uma nota sobre o requisito #3 acima. Se você instalar o seu próprio provedor de identidades (ao invés de utilizar um provedor como Google ou Microsoft) você DEVE ter o certificado web do seu provedor de identidades assinado por um certificado contendo a opção `CA` configurada para `TRUE`, mesmo que seja um certificado auto assinado. Isso deve-se a implementação do cliente TLS em Golang que é bastante restrito quanto aos padrões em torno da validação de certificados. Se você nao possui um CA em facil alcance, você pode usar [este script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh) criado pelo time Dex para criar um simples CA, um par de chaves e certificado assinados.
+Uma nota sobre o requisito #3 acima. Se você instalar o seu próprio provedor de identidades (ao invés de utilizar um provedor como Google ou Microsoft) você DEVE ter o certificado web do seu provedor de identidades assinado por um certificado contendo a opção `CA` configurada para `TRUE`, mesmo que seja um certificado auto assinado. Isso deve-se a implementação do cliente TLS em Golang que é bastante restrito quanto aos padrões em torno da validação de certificados. Se você não possui um CA em fácil alcance, você pode usar [este script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh) criado pelo time Dex para criar um simples CA, um par de chaves e certificado assinados.
 Ou você pode usar [este script similar](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh) o qual gera certificados SHA256 com uma vida mais longa e tamanho maior de chave.
  
-Instruções de configuração para sistemas específicos podem estar encontrados em:
+Instruções de configuração para sistemas específicos podem ser encontrados em:
  
 - [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
 - [Dex](https://dexidp.io/docs/kubernetes/)
@@ -336,9 +336,8 @@ kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo
 Webhook de autenticação é usado para verificar _bearer tokens_
  
 * `--authentication-token-webhook-config-file` arquivo de configuração descrevendo como acessar o serviço remoto de webhook.
-* `--authentication-token-webhook-cache-ttl` por quanto tempo guardar em caso decisões de autenticação. Configuração padrão definida para dois minutos.
-* `--authentication-token-webhook-version` determina quando usar `authentication.k8s.io/v1beta1` ou `authentication.k8s.io/v1`
- `TokenReview` objetos para enviar/receber informações do  webhook. Valor padrão `v1beta1`.
+* `--authentication-token-webhook-cache-ttl` por quanto tempo guardar em cache decisões de autenticação. Configuração padrão definida para dois minutos.
+* `--authentication-token-webhook-version` determina quando usar o apiVersion `authentication.k8s.io/v1beta1` ou `authentication.k8s.io/v1` para objetos `TokenReview` quando enviar/receber informações do  webhook. Valor padrão `v1beta1`.
  
 O arquivo de configuração usa o formato de arquivo do [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/). Dentro do arquivo, `clusters` refere-se ao serviço remoto e `users` refere-se ao servidor de API do webhook. Um exemplo seria:
  
@@ -378,7 +377,7 @@ Implementadores devem verificar o campo de versão da API (`apiVersion`) da requ
 {{< tabs name="TokenReview_request" >}}
 {{% tab name="authentication.k8s.io/v1" %}}
 {{< note >}}
-O servidor de API Kubernetes envia por padrão revisão de tokens de versão `authentication.k8s.io/v1beta1` compatibilidade com versões anteriores.
+O servidor de API Kubernetes envia por padrão revisão de tokens para a API `authentication.k8s.io/v1beta1` para fins de compatibilidade com versões anteriores.
  
 Para optar receber revisão de tokens de versão `authentication.k8s.io/v1`, o servidor de API deve ser inicializado com a opção `--authentication-token-webhook-version=v1`.
 {{< /note >}}
