@@ -5,7 +5,7 @@ weight: 50
 ---
 
 <!-- overview -->
-Conectividade é uma parte central do Kuberneres, mas pode ser desafiador 
+Conectividade é uma parte central do Kubernetes, mas pode ser desafiador 
 entender exatamente como é o seu funcionamento esperado. Existem 4 problemas
 distintos em conectividade que devem ser tratados:
 
@@ -38,7 +38,7 @@ retro-compatível onde os `Pods` podem ser tratados muito mais como VMs ou hosts
 físicos da perspectiva de alocação de portas, nomes, descobrimento de serviços 
 (_service discovery_), balanceamento de carga, configuração de aplicações e migrações.
 
-O Kubernetes impõe is seguintes requisitos fundamentais para qualquer implementação de 
+O Kubernetes impõe as seguintes requisitos fundamentais para qualquer implementação de 
 rede (exceto qualquer política de segmentação intencional):
    * pods em um nó podem se comunicar com todos os pods em todos os nós sem usar _NAT_.
    * agentes em um nó (por exemplo o kubelet ou um serviço local) podem se comunicar com 
@@ -106,7 +106,7 @@ para a construção de clusters Kubernetes. Isso inclui possibilidade de usar o
 _VPC flow logs_, políticas de roteamento da VPC e grupos de segurança para isolamento
 de tráfego.
 
-O uso desse plugin permite aos Pods no Kubernetes ter o mesom endereço de IP dentro do 
+O uso desse plugin permite aos Pods no Kubernetes ter o mesmo endereço de IP dentro do 
 pod como se eles estivessem dentro da rede do VPC. O CNI (container network interface) 
 aloca um _Elastic Networking Interface_ (ENI) para cada nó do Kubernetes e usa uma 
 faixa de endereços IP secundário de cada ENI para os Pods no nó. O CNI inclui 
