@@ -243,13 +243,18 @@ GetAllocatableResources provides information on resources initially available on
 It provides more information than kubelet exports to APIServer.
 
 ```gRPC
-// AvailableResourcesResponses contains information about all the devices known by the kubelet
+// AllocatableResourcesResponses contains informations about all the devices known by the kubelet
 message AllocatableResourcesResponse {
     repeated ContainerDevices devices = 1;
     repeated int64 cpu_ids = 2;
 }
 
 ```
+
+`ContainerDevices` do expose the topology information declaring to which NUMA cells the device is affine.
+The NUMA cells are identified using a opaque integer ID, which value is consistent to what device
+plugins report [when they register themselves to the kubelet](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
+
 
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
 Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet.
