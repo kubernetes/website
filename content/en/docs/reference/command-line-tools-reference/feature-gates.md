@@ -129,6 +129,7 @@ different Kubernetes components.
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
 | `HugePageStorageMediumSize` | `true` | Beta | 1.19 | |
+| `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
 | `IPv6DualStack` | `true` | Beta | 1.21 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
@@ -653,6 +654,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   immutable for better safety and performance.
 - `IndexedJob`: Allows the [Job](/docs/concepts/workloads/controllers/job/)
   controller to manage Pod completions per completion index.
+- `IngressClassNamespacedParams`: Allow namespace-scoped parameters reference in
+  `IngressClass` resouce. This feature adds two fields - `Scope` and `Namespace`
+  to `IngressClass.spec.parameters`.
 - `IPv6DualStack`: Enable [dual stack](/docs/concepts/services-networking/dual-stack/)
   support for IPv6.
 - `KubeletConfigFile` (*deprecated*): Enable loading kubelet configuration from
