@@ -16,7 +16,7 @@ url: /blog/2015/03/Weekly-Kubernetes-Community-Hangout
 <!--
 Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.
 -->
-每个星期，Kubernetes 贡献者社区几乎都会在谷歌 Hangouts 上聚会。我们希望任何对此感兴趣的人都能了解这个论坛的讨论内容。
+每周Kubernetes社区几乎都会在Google Hangouts上开会。我们想让任何有兴趣的人知道这个论坛讨论了什么。
 
 <!--
 Agenda:
