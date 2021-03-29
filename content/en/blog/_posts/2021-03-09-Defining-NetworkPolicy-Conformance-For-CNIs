@@ -361,20 +361,25 @@ As an example of how we use Cyclonus to help make CNI implementations better fro
 The good news is, all of these issues are actively being fixed and iterated on between SIG Network,
 the CNI providers, and the Network Policy subproject.
 
-If you're interested in verifying NetworkPolicy functionality on your cluster (and, if you
-care about security, or run a SaaS, you should be), then you can run the upstream end to end tests, or Cyclonus, or both.
-
-- If you are deeply curious about your CNI providers Network Policy implementation, use
-  Cyclonus to test *hundreds* of policies, and evaluate your CNI for comprehensive functionality,
-  for deep discovery of potential security holes, or for getting involved with the upstream networkpolicy efforts.
-- If you're just getting started with Network Policies, you're better off running the e2e
-  tests if you want to simply verify the common Network Policy cases that most CNIs
-  should be implementing correctly, in a way that is quick to diagnose.
+Are you interested in verifying NetworkPolicy functionality on your cluster?
+(if you care about security or offer multi-tenant SaaS, you should be)
+If so, you can run the upstream end to end tests, or Cyclonus, or both.
+- If you're just getting started with NetworkPolicies and want to simply
+  verify the "common" NetworkPolicy cases that most CNIs should be
+  implementing correctly, in a way that is quick to diagnose, then you're
+  better off running the e2e tests only.
+- If you are deeply curious about your CNI provider's NetworkPolicy
+  implementation, and want to verify it: use Cyclonus.
+- If you want to test *hundreds* of policies, and evaluate your CNI plugin
+  for comprehensive functionality, for deep discovery of potential security
+  holes: use Cyclonus, and also consider running end-to-end cluster tests.
+- If you're thinking of getting involved with the upstream NetworkPolicy efforts:
+  use Cyclonus, and read at least an outline of what e2e tests are relevant.
 
 ## Where to start with NetworkPolicy testing?
 
-- You can run Cyclonus on your cluster easily by following the [instructions at](https://github.com/mattfenwick/cyclonus),
-  and determine wether *your* specific CNI configuration is fully conformant to the 100s of different
+- Cyclonus is easy to run on your cluster, check out the [instructions on github](https://github.com/mattfenwick/cyclonus#run-as-a-kubernetes-job),
+  and determine whether *your* specific CNI configuration is fully conformant to the hundreds of different
   Kubernetes Network Policy API constructs.
 - Alternatively, you can use a tool like [sonobuoy](https://github.com/vmware-tanzu/sonobuoy)
   to run the existing E2E tests in Kubernetes, with the `--ginkgo.focus=NetworkPolicy` flag.
