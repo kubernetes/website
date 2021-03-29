@@ -360,7 +360,7 @@ By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corres
 ### 任务历史限制
 
 `.spec.successfulJobsHistoryLimit` 和 `.spec.failedJobsHistoryLimit`是可选的。
-这两个域声明了有多少执行完成和失败的任务会被保留。
+这两个字段指定应保留多少已完成和失败的作业。
 默认设置为3和1。限制设置为0代表相应类型的任务完成后不会保留。
 
 
