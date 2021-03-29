@@ -16,7 +16,7 @@ Este modelo de seguridad en el contenedor brinda sugerencias, no es una prueba d
 
 ## Las 4C de Seguridad en Cloud Native
 
-Puede pensar en seguridad por capas. Las 4C de la seguridad en cloud Native son la nube(Cloud),
+Puede pensar en seguridad por capas. Las 4C de la seguridad en Cloud Native son la nube(Cloud),
 Clústeres, Contenedores y Código.
 
 {{< note >}}
@@ -30,13 +30,13 @@ Cada capa del modelo de seguridad Cloud Native es basada en la siguiente capa m�
 La capa de código se beneficia de una base sólida(nube, clúster, contenedor) de capas seguras.
 No podemos garantizar la seguridad aplicando solo seguridad a nivel del código, y usar estándares de seguridad deficientes en las otras capas.
 
-## Cloud
+## Nube(Cloud)
 
 En muchos sentidos, la nube (o los servidores o el centro de datos corporativo) es la
-[base informática confiable](https://en.wikipedia.org/wiki/Trusted_computing_base)
+[base de computador confiable](https://es.wikipedia.org/wiki/Base_de_computador_confiable)
 de un clúster de Kubernetes. Si la capa de la nube es vulnerable (o
 configurado de alguna manera vulnerable), por consecuencia no hay garantía de que los componentes construidos
-encima de la base sean seguras. Cada proveedor de la nube tiene recomendaciones de seguridad
+encima de la base sean seguros. Cada proveedor de la nube tiene recomendaciones de seguridad
 para ejecutar las cargas de trabajo de forma segura en sus entornos.
 
 ### Seguridad del proveedor de la nube
@@ -47,7 +47,7 @@ A continuación, algunos enlaces a la documentación de seguridad de los proveed
 
 {{< table caption="Cloud provider security" >}}
 
-Provedor IaaS        | Link |
+Proveedor IaaS        | Link |
 -------------------- | ------------ |
 Alibaba Cloud | https://www.alibabacloud.com/trust-center |
 Amazon Web Services | https://aws.amazon.com/security/ |
@@ -66,15 +66,15 @@ Sugerencias para proteger su infraestructura en un clúster de Kubernetes:
 
 Área de Interés para la Infraestructura de Kubernetes | Recomendación |
 --------------------------------------------- | -------------- |
-Acceso de red al servidor API (Plano de Control) | Todo acceso público al plano de control del Kubernetes en la Internet no está permitido y es controlado por listas de control de acceso a la red restrictas a un conjunto de direcciones IP necesarios para administrar el clúster.|
-Acceso a la red de los Nodos | Los nodos deben ser configurados para _sólo_ aceptar conexiones (por medio de listas de control de acceso a la red) desde el plano de control en los puertos especificados y aceptar conexiones para servicios en Kubernetes del tipo NodePort y LoadBalancer. Si es posible, estos nodos no deben exponerse públicamente en la Internet.
-Acceso de la API del Kubernetes al proveedor de la Cloud | Cada proveedor de la nube debe dar un conjunto de permisos al plano de control y nodos del Kubernetes. Es mejor otorgar al clúster el permiso de acceso al proveedor de nube siguiendo el [principio del mínimo privilegio](https://en.wikipedia.org/wiki/Principle_of_least_privilege) para los recursos que necesite administrar. La [documentación del Kops](https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles) fornece informações sobre as políticas e roles do IAM.
-Acceso al etcd | El acceso al etcd (banco de dados do Kubernetes) debe ser limitado apenas al plano de control. Dependiendo de su configuración, debería intentar usar etcd sobre TLS. Mayores informaciones pueden ser encontradas en la [documentación del etcd](https://github.com/etcd-io/etcd/tree/master/Documentation).
-Encriptación etcd | Siempre que sea posible, es una buena práctica encriptar todas las unidades de almacenamiento, el etcd mantiene el estado de todo el clúster (incluidos los Secretos), su disco debe estar encriptado.
+Acceso de red al servidor API (Plano de Control) | Todo acceso público al plano de control del Kubernetes en Internet no está permitido y es controlado por listas de control de acceso a la red estrictas a un conjunto de direcciones IP necesarias para administrar el clúster.|
+Acceso a la red de los Nodos | Los nodos deben ser configurados para _sólo_ aceptar conexiones (por medio de listas de control de acceso a la red) desde el plano de control en los puertos especificados y aceptar conexiones para servicios en Kubernetes del tipo NodePort y LoadBalancer. Si es posible, estos nodos no deben exponerse públicamente en Internet.
+Acceso a la API de Kubernetes del proveedor de la nube | Cada proveedor de la nube debe dar un conjunto de permisos al plano de control y nodos del Kubernetes. Es mejor otorgar al clúster el permiso de acceso al proveedor de nube siguiendo el [principio de mínimo privilegio](https://es.wikipedia.org/wiki/Principio_de_m%C3%ADnimo_privilegio) para los recursos que necesite administrar. La [documentación del Kops](https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles) ofrece información sobre las políticas y roles de IAM.
+Acceso a etcd | El acceso a etcd (banco de datos de Kubernetes) debe ser limitado apenas al plano de control. Dependiendo de su configuración, debería intentar usar etcd sobre TLS. Puede encontrar mas información en la [documentación de etcd](https://github.com/etcd-io/etcd/tree/master/Documentation).
+Encriptación etcd | Siempre que sea posible, es una buena práctica encriptar todas las unidades de almacenamiento, etcd mantiene el estado de todo el clúster (incluidos los Secretos), su disco debe estar encriptado.
 
 {{< /table >}}
 
-## Cluster
+## Clúster
 
 Existe dos áreas de preocupación para proteger Kubernetes:
 
