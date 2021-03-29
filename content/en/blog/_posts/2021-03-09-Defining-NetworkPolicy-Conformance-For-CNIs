@@ -30,9 +30,13 @@ It was clear that we needed to begin unifying the way we think about Network Pol
 in Kubernetes, if we wanted to avoid becoming an ancient API overrun by implementation divergences.
 
 For example:
-- Calico as a CNI provider can be run using IPIP or VXLAN mode.  CNI's such as Antrea and Cilium offer similar configuration divergences as well.
-- Some CNI plugins rely on iptables for NetworkPolicies, whereas others use a completely different technology stack (for example, the Antrea project uses Open vSwitch rules).
-- Some CNI plugins only implement a subset of the Kubernetes NetworkPolicy API, or don't offer the latest features. For example, certain plugins don't support the ability to target a named port; others don't work with port ranges).
+- Calico as a CNI provider can be run using IPIP or VXLAN mode.  CNI's such as Antrea
+  and Cilium offer similar configuration divergences as well.
+- Some CNI plugins rely on iptables for NetworkPolicies, whereas others use a completely
+  different technology stack (for example, the Antrea project uses Open vSwitch rules).
+- Some CNI plugins only implement a subset of the Kubernetes NetworkPolicy API, or
+  don't offer the latest features. For example, certain plugins don't support the
+  ability to target a named port; others don't work with port ranges).
 
 Thus, end-users need to follow a multistep process to implement Network Policies to secure their applications:
 - Confirm that their network plugin supports NetworkPolicies (some don't, such as Flannel)
@@ -60,7 +64,8 @@ For example, take the following test output.  We found a bug in
 that was really easy to characterize, wherein certain policies caused a state-modification that,
 later on, caused traffic to incorrectly be blocked (even after all Network Policies, cluster wide, were deleted).
 
-```
+This is the network policy for the test in question:
+```yaml
 Nov  3 15:58:54.034: INFO: Network Policy creating x/allow-ingress-port-80
 metadata:
   creationTimestamp: null
@@ -70,8 +75,25 @@ spec:
   - ports:
     - port: serve-80-tcp
   podSelector: {}
-...
+```
 
+These are the expected connectivity results.  The test setup is 9 pods (3 namespaces: x, y, and z;
+and 3 pods in each namespace of a, b, and c); each pod runs a server on the same port and protocol
+that can be reached through HTTP calls in the absence of network policies.  Connectivity is verified
+by using the agnhost network utility to issue HTTP calls on a port and protocol that other pods are
+expected to be serving.  A test scenario first
+runs a connectivity check to ensure that each pod can reach each other pod, for 81 (= 9 x 9) data
+points.  This is the "control".  Then pertubations are applied, depending on the test scenario:
+policies are created, updated, and deleted; labels are added and removed from pods and namespaces,
+and so on.  After each change, the connectivity matrix is recollected and compared to the expected
+connectivity.
+
+These results give a visual indication of connectivity.  Going down the leftmost column is the "source"
+pod, or the pod issuing the request; going across the topmost row is the "destination" pod, or the pod
+receiving the request.  A `.` means that the connection was allowed; an `X` means the connection was
+blocked.
+
+```
 Nov  4 16:58:43.449: INFO: expected:
 
 -   x/a x/b x/c y/a y/b y/c z/a z/b z/c
@@ -84,7 +106,16 @@ y/c .   .   .   .   .   .   .   .   .
 z/a .   .   .   .   .   .   .   .   .
 z/b .   .   .   .   .   .   .   .   .
 z/c .   .   .   .   .   .   .   .   .
+```
 
+Here are the observed connectivity results.  Notice how the top three rows indicate that
+all requests from namespace x regardless of pod and destination were blocked.  Since these
+experimental results do not match the expected results, a failure will be reported.  Note
+how the specific pattern of failure provides clear insight into the nature of the problem --
+since all requests from a specific namespace fail, we have a clear clue to start our
+investigation.
+
+```
 Nov  4 16:58:43.449: INFO: observed:
 
 -   x/a x/b x/c y/a y/b y/c z/a z/b z/c
@@ -327,35 +358,51 @@ As an example of how we use Cyclonus to help make CNI implementations better fro
 - [Calico: default missing protocol to TCP; don't let single port overwrite all ports](https://github.com/projectcalico/libcalico-go/pull/1373)
 - [Cilium: Egress Network Policy allows traffic that should be denied ](https://github.com/cilium/cilium/issues/14678)
 
-The good news is, all of these issues are actively being fixed and iterated on between SIG Network, the CNI providers, and the Network Policy subproject.
+The good news is, all of these issues are actively being fixed and iterated on between SIG Network,
+the CNI providers, and the Network Policy subproject.
 
-If you're interested in verifying NetworkPolicy functionality on your cluster (and, if you care about security, or run a SaaS, you should be), then you can run the upstream end to end tests, or Cyclonus, or both.
-- If you are deeply curious about your CNI providers Network Policy implementation, use Cyclonus to test *100s* of policies, and evaluate your CNI for comprehensive functionality, for deep discovery of potential security holes, or for getting involved with the upstream networkpolicy efforts.
-- If your just getting started with Network Policies, your better off running the e2e tests if you want to simply verify the "common" Network Policy cases that most CNIs should be implementing correctly, in a way that is quick to diagnose.
+If you're interested in verifying NetworkPolicy functionality on your cluster (and, if you
+care about security, or run a SaaS, you should be), then you can run the upstream end to end tests, or Cyclonus, or both.
 
-## Where to start with NetworkPolicy testing ?
+- If you are deeply curious about your CNI providers Network Policy implementation, use
+  Cyclonus to test *hundreds* of policies, and evaluate your CNI for comprehensive functionality,
+  for deep discovery of potential security holes, or for getting involved with the upstream networkpolicy efforts.
+- If you're just getting started with Network Policies, you're better off running the e2e
+  tests if you want to simply verify the common Network Policy cases that most CNIs
+  should be implementing correctly, in a way that is quick to diagnose.
 
-- You can run Cyclonus on your cluster easily by following the [instructions at](https://github.com/mattfenwick/cyclonus), and determine wether *your* specific CNI configuration is
-fully conformant to the 100s of different Kubernetes Network Policy API constructs.
-- Alternatively, you can use a tool like [sonobuoy](https://github.com/vmware-tanzu/sonobuoy) to run the existing E2E tests in Kubernetes, with the `--ginkgo.focus=NetworkPolicy` flag.  Note that only versions of sonobuoy built for k8s 1.21 and above will have the *new* Network Policy tests in them.
+## Where to start with NetworkPolicy testing?
+
+- You can run Cyclonus on your cluster easily by following the [instructions at](https://github.com/mattfenwick/cyclonus),
+  and determine wether *your* specific CNI configuration is fully conformant to the 100s of different
+  Kubernetes Network Policy API constructs.
+- Alternatively, you can use a tool like [sonobuoy](https://github.com/vmware-tanzu/sonobuoy)
+  to run the existing E2E tests in Kubernetes, with the `--ginkgo.focus=NetworkPolicy` flag.
+  Note that only versions of sonobuoy built for k8s 1.21 and above will have the *new* Network Policy tests in them.
 
 ## Improvements to the NetworkPolicy API and user experience
 
-In addition to cleaning up the validation story for CNI plugins that implement NetworkPolicies, we've also spent some time improving the Kubernetes NetworkPolicy API for a few commonly requested features.
+In addition to cleaning up the validation story for CNI plugins that implement NetworkPolicies,
+we've also spent some time improving the Kubernetes NetworkPolicy API for a few commonly requested features.
 After months of deliberation, we eventually settled on a few core areas for improvement:
 
-- Port Range policies: We now allow you to specify a *range* of ports for a policy.  This allows users interested in scenarios like FTP or virtualization to enable advanced policies.  The port range
-option for network policies will be available to use in Kubernetes 1.21.  You can read more about this [here](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/2079-network-policy-port-range).
-- Namespace as name policies: Allowing users in Kubernetes >= 1.21 to target namespaces using names, when building Network Policy objects.  This was done in collaboration with Jordan Ligget and Tim Hockins on the apimachinery side.
-This change allowed us to improve the Network Policy user experience without actually changing the API! For details, you can read about it [here](https://github.com/kubernetes/enhancements/pull/2162).
-The TLDR is that after Kubernetes 1.21, ALL NAMESPACES will have the following label, added by default:
+- Port Range policies: We now allow you to specify a *range* of ports for a policy.
+  This allows users interested in scenarios like FTP or virtualization to enable advanced policies.
+  The port range option for network policies will be available to use in Kubernetes 1.21.
+  You can read more about this [here](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/2079-network-policy-port-range).
+- Namespace as name policies: Allowing users in Kubernetes >= 1.21 to target namespaces using names,
+  when building Network Policy objects.  This was done in collaboration with Jordan Ligget and Tim Hockins on the apimachinery side.
+  This change allowed us to improve the Network Policy user experience without actually
+  changing the API! For details, you can read about it [here](https://github.com/kubernetes/enhancements/pull/2162).
+  The TLDR is that after Kubernetes 1.21, ALL NAMESPACES will have the following label, added by default:
 
-```
-kubernetes.io/metadata.name: my-namespace
-```
+    ```
+    kubernetes.io/metadata.name: my-namespace
+    ```
 
-This means, you can write an namespace policy against this namespace, even if you can't edit its labels.  For example, this policy, will 'just work', without needing to
-run a command such as `kubectl edit namespace`.  In fact, it will even work if you can't edit or view this namespace's data at all, because of the magic of apiserver defaulting.
+This means you can write a namespace policy against this namespace, even if you can't edit its labels.
+For example, this policy, will 'just work', without needing to run a command such as `kubectl edit namespace`.
+In fact, it will even work if you can't edit or view this namespace's data at all, because of the magic of apiserver defaulting.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -390,22 +437,32 @@ We are continuing to curate the Network Policy conformance results from Cyclonus
 
 We're also working on some improvements for the future of Network Policies, including:
 
-- Fully qualified Domain policies: The google cloud team created a prototype (which we are really excited about) of [FQDN policies](https://github.com/GoogleCloudPlatform/gke-fqdnnetworkpolicies-golang).  This tool uses the Network Policy API to enforce policies
-against L7 URLs, by finding their IPs and blocking them proactively when requests are made.
-- Cluster Administrative policies: We're working hard at enabling *administrative* or *cluster scoped* Network Policies for the future. These are being presented iteratively to the NetworkPolicy subproject.
-You can read about them here in [Cluster Scoped Network Policy](https://docs.google.com/presentation/d/1Jk86jtS3TcGAugVSM_I4Yds5ukXFJ4F1ZCvxN5v2BaY/).
+- Fully qualified Domain policies: The google cloud team created a prototype (which
+  we are really excited about) of [FQDN policies](https://github.com/GoogleCloudPlatform/gke-fqdnnetworkpolicies-golang).
+  This tool uses the Network Policy API to enforce policies against L7 URLs, by finding
+  their IPs and blocking them proactively when requests are made.
+- Cluster Administrative policies: We're working hard at enabling *administrative* or
+  *cluster scoped* Network Policies for the future. These are being presented iteratively to the NetworkPolicy subproject.
+  You can read about them here in [Cluster Scoped Network Policy](https://docs.google.com/presentation/d/1Jk86jtS3TcGAugVSM_I4Yds5ukXFJ4F1ZCvxN5v2BaY/).
 
-The Network Policy subproject meets on mondays at 4PM EST. For details, check out the [SIG Network community repo](https://github.com/kubernetes/community/tree/master/sig-network).  We'd love
+The Network Policy subproject meets on mondays at 4PM EST. For details, check out the
+[SIG Network community repo](https://github.com/kubernetes/community/tree/master/sig-network).  We'd love
 to hang out with you, hack on stuff, and help you adopt K8s Network Policies for your cluster wherever possible.
 
 ### A quick note on User Feedback
 
-We've gotten a lot of ideas and feedback from users on Network Policies.  Feedback is a double-edged sword.  A lot of people have interesting ideas about Network Policies, but we've found that as a subproject, very few people were deeply interested in implementing these ideas to the full extent.
-Almost every change to the NetworkPolicy API includes weeks or months of discussion to cover different cases, and ensure no CVEs are being introduced.  Thus, long term ownership is the biggest impediment in improving the NetworkPolicy
-user experience for us, over time.
+We've gotten a lot of ideas and feedback from users on Network Policies.  Feedback is
+a double-edged sword.  A lot of people have interesting ideas about Network Policies,
+but we've found that as a subproject, very few people were deeply interested in implementing these ideas to the full extent.
+Almost every change to the NetworkPolicy API includes weeks or months of discussion to
+cover different cases, and ensure no CVEs are being introduced.  Thus, long term ownership
+is the biggest impediment in improving the NetworkPolicy user experience for us, over time.
+
 - We've documented a lot of the history of the Network Policy dialogue [here](https://github.com/jayunit100/network-policy-subproject/blob/master/history.md).
 - We've also taken a poll of users, for what they'd like to see in the Network Policy API [here](https://github.com/jayunit100/network-policy-subproject/blob/master/history.md).
 
-We encourage anyone to provide us with feedback, but our most pressing issues right now involve finding long term owners to help us drive changes.  This doesn't require a lot of technical
-knowledge, but rather, just a long term commitment to helping us stay organized, do paperwork, and iterate through the many stages of the K8s feature process.  If you want to help us
+We encourage anyone to provide us with feedback, but our most pressing issues right now
+involve finding long term owners to help us drive changes.  This doesn't require a lot of technical
+knowledge, but rather, just a long term commitment to helping us stay organized, do paperwork,
+and iterate through the many stages of the K8s feature process.  If you want to help us
 and get involved, please reach out on the SIG Network mailing list, or in the SIG Network room in the k8s.io slack channel!
