@@ -95,7 +95,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   コマンドの実行結果は以下のとおりです。
   ```shell
   Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-  deployment.apps/nginx-deployment successfully rolled out
+  deployment "nginx-deployment" successfully rolled out
   ```
 
 4. 数秒後、再度`kubectl get deployments`を実行してください。
@@ -194,7 +194,7 @@ Deploymentを更新するには以下のステップに従ってください。
     ```
     もしくは
     ```
-    deployment.apps/nginx-deployment successfully rolled out
+    deployment "nginx-deployment" successfully rolled out
     ```
 
 更新されたDeploymentのさらなる情報を取得するには、以下を確認してください。
@@ -788,7 +788,7 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 実行結果は以下のとおりです。
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
-deployment.apps/nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 ```
 そして`kubectl rollout`の終了ステータスが0となります（成功です）:
 ```shell
