@@ -442,18 +442,15 @@ this impacts removal of a metric during a Kubernetes release. These classes
 are determined by the perceived importance of the metric. The rules for
 deprecating and removing a metric are as follows:
 
-**Rule #9: ALPHA metrics have no guarantees and can be removed at any time.**
+**Rule #9a: Metrics, for the corresponding stability class, must function for no less than:**
 
-**Rule #10: STABLE metrics must undergo a deprecation lifecycle prior to removal.**
+   * **STABLE: 4 releases or 12 months (whichever is longer)**
+   * **ALPHA: 0 releases**
 
-   * **STABLE metric: 3 releases**
-   * **STABLE (but deprecated): 2 releases**
-   * **STABLE (but deprecated and now hidden by default): 1 release**
+**Rule #9b: Metrics, after their _announced deprecation_, must function for no less than:**
 
-Deprecated metrics have the same stability guarantees of their counterparts. If a stable
-metric is deprecated, then a deprecated stable metric is guaranteed to not change. When
-deprecating a stable metric, a future Kubernetes release is specified as the point from
-which the metric will be considered deprecated.
+   * **STABLE: 3 releases or 9 months (whichever is longer)**
+   * **ALPHA: 0 releases**
 
 Deprecated metrics will have their description text prefixed with a deprecation notice
 string '(Deprecated from x.y)' and a warning log will be emitted during metric
@@ -461,7 +458,7 @@ registration. Like their stable undeprecated counterparts, deprecated metrics wi
 be automatically registered to the metrics endpoint and therefore visible.
 
 On a subsequent release (when the metric's deprecatedVersion is equal to
-_current_kubernetes_version - 1_)), a deprecated metric will become a hidden metric.  
+_current_kubernetes_version - 3_)), a deprecated metric will become a _hidden_ metric.
 **_Unlike_** their deprecated counterparts, hidden metrics will _no longer_ be
 automatically registered to the metrics endpoint (hence hidden). However, they
 can be explicitly enabled through a command line flag on the binary
