@@ -461,7 +461,7 @@ registration. Like their stable undeprecated counterparts, deprecated metrics wi
 be automatically registered to the metrics endpoint and therefore visible.
 
 On a subsequent release (when the metric's deprecatedVersion is equal to
-current_kubernetes_version - 1)), a deprecated metric will become a hidden metric.
+_current_kubernetes_version - 1_)), a deprecated metric will become a hidden metric.  
 **_Unlike_** their deprecated counterparts, hidden metrics will _no longer_ be
 automatically registered to the metrics endpoint (hence hidden). However, they
 can be explicitly enabled through a command line flag on the binary
@@ -481,4 +481,3 @@ leaders to find the best solutions for those specific cases, always bearing in
 mind that Kubernetes is committed to being a stable system that, as much as
 possible, never breaks users. Exceptions will always be announced in all
 relevant release notes.
-
