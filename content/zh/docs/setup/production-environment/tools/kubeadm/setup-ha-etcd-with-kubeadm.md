@@ -24,7 +24,7 @@ or upgrades for such nodes. The long term plan is to empower the tool
 [etcdadm](https://github.com/kubernetes-sigs/etcdadm) to manage these
 aspects.
 -->
-在本指南中，当 kubeadm 用作为外部 etcd 节点管理工具，请注意 kubeadm 不计划支持此类节点的证书更换或升级。对于长期规划是使用 [etcdadm](https://github.com/kubernetes-sigs/etcdadm) 增强工具来管理这方面。
+在本指南中，虽然 kubeadm 被用作外部 etcd 节点管理工具，但请注意 kubeadm 不计划支持此类节点的证书更换或升级。长期规划是增强 [etcdadm](https://github.com/kubernetes-sigs/etcdadm) 工具来管理这些方面。
 {{< /note >}}
 
 <!--
@@ -407,7 +407,7 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     ```
     <!--
     Set ${ETCD_TAG} to the version tag of your etcd image. For example 3.4.3-0. To see the etcd image and tag that             kubeadm uses execute kubeadm config images list --kubernetes-version ${K8S_VERSION}, where ${K8S_VERSION} is for           example v1.17.0
-    --> 
+    -->
     - 将 `${ETCD_TAG}` 设置为你的 etcd 镜像的版本标签，例如 `3.4.3-0`。要查看 kubeadm 使用的 etcd 镜像和标签，请执行 `kubeadm config images list --kubernetes-version ${K8S_VERSION}`，其中 `${K8S_VERSION}` 是 `v1.17.0` 作为例子。
     <!--
     Set ${HOST0}to the IP address of the host you are testing.
@@ -424,5 +424,3 @@ kubeadm](/docs/setup/independent/high-availability/).
 一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于
 [使用 kubeadm 的外部 etcd 方法](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)，
 继续部署一个高可用的控制平面。
-
-
