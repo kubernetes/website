@@ -290,7 +290,7 @@ will list various options available from etcdctl. For example, you can take a sn
 the endpoint, certificates etc as shown below:
 
 ```shell
-ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 \
+ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
   --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> \
   snapshot save <backup-file-location>
 ```
