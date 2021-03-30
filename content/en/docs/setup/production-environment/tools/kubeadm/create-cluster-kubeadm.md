@@ -187,6 +187,13 @@ Alternatively, if you are the `root` user, you can run:
 export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
+{{< warning >}}
+Kubeadm signs the certificate in the `admin.conf` to have `Subject: O = system:masters, CN = kubernetes-admin`.
+`system:masters` is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
+Do not share the `admin.conf` file with anyone and instead grant users custom permissions by generating
+them a kubeconfig file using the `kubeadm kubeconfig user` command.
+{{< /warning >}}
+
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 need this command to [join nodes to your cluster](#join-nodes).
 
