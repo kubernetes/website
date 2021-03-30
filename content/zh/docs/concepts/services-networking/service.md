@@ -95,7 +95,7 @@ track of the set of backends themselves.
 
 The Service abstraction enables this decoupling.
 -->
-举个例子，考虑一个图片处理后端，它运行了 3 个副本。这些副本是可互换的 —— 
+举个例子，考虑一个图片处理后端，它运行了 3 个副本。这些副本是可互换的 ——
 前端不需要关心它们调用了哪个后端副本。
 然而组成这一组后端程序的 Pod 实际上可能会发生变化，
 前端客户端不应该也没必要知道，而且也不需要跟踪这一组后端的状态。
@@ -339,7 +339,7 @@ Endpoint 切片提供了附加的属性和功能，这些属性和功能在
 [EndpointSlices](/zh/docs/concepts/services-networking/endpoint-slices/)
 中有详细描述。
 
-<!-- 
+<!--
 ### Application protocol
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
@@ -359,7 +359,7 @@ domain prefixed names such as `mycompany.com/my-custom-protocol`.
 
 该字段遵循标准的 Kubernetes 标签语法。
 其值可以是 [IANA 标准服务名称](https://www.iana.org/assignments/service-names)
-或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。 
+或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。
 <!--
 ## Virtual IPs and service proxies
 
@@ -466,7 +466,7 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 ### iptables 代理模式 {#proxy-mode-iptables}
 
 这种模式，`kube-proxy` 会监视 Kubernetes 控制节点对 Service 对象和 Endpoints 对象的添加和移除。
-对每个 Service，它会配置 iptables 规则，从而捕获到达该 Service 的 `clusterIP` 
+对每个 Service，它会配置 iptables 规则，从而捕获到达该 Service 的 `clusterIP`
 和端口的请求，进而将请求重定向到 Service 的一组后端中的某个 Pod 上面。
 对于每个 Endpoints 对象，它也会配置 iptables 规则，这个规则会选择一个后端组合。
 
@@ -513,7 +513,7 @@ IPVS provides more options for balancing traffic to backend Pods;
 these are:
 -->
 在 `ipvs` 模式下，kube-proxy 监视 Kubernetes 服务和端点，调用 `netlink` 接口相应地创建 IPVS 规则，
-并定期将 IPVS 规则与 Kubernetes 服务和端点同步。 该控制循环可确保IPVS 
+并定期将 IPVS 规则与 Kubernetes 服务和端点同步。 该控制循环可确保IPVS
 状态与所需状态匹配。访问服务时，IPVS 将流量定向到后端Pod之一。
 
 IPVS代理模式基于类似于 iptables 模式的 netfilter 挂钩函数，
@@ -568,9 +568,9 @@ You can also set the maximum session sticky time by setting
 在客户端不了解 Kubernetes 或服务或 Pod 的任何信息的情况下，将 Port 代理到适当的后端。
 
 如果要确保每次都将来自特定客户端的连接传递到同一 Pod，
-则可以通过将 `service.spec.sessionAffinity` 设置为 "ClientIP" 
+则可以通过将 `service.spec.sessionAffinity` 设置为 "ClientIP"
 （默认值是 "None"），来基于客户端的 IP 地址选择会话关联。
-你还可以通过适当设置 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` 
+你还可以通过适当设置 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds`
 来设置最大会话停留时间。
 （默认值为 10800 秒，即 3 小时）。
 
@@ -617,7 +617,7 @@ also start and end with an alphanumeric character.
 For example, the names `123-abc` and `web` are valid, but `123_abc` and `-web` are not.
 -->
 {{< note >}}
-与一般的Kubernetes名称一样，端口名称只能包含小写字母数字字符 和 `-`。 
+与一般的Kubernetes名称一样，端口名称只能包含小写字母数字字符 和 `-`。
 端口名称还必须以字母数字字符开头和结尾。
 
 例如，名称 `123-abc` 和 `web` 有效，但是 `123_abc` 和 `-web` 无效。
@@ -754,7 +754,7 @@ You can find more information about `ExternalName` resolution in
 -->
 Kubernetes 还支持命名端口的 DNS SRV（服务）记录。
 如果 `my-service.my-ns` 服务具有名为 `http`　的端口，且协议设置为 TCP，
-则可以对 `_http._tcp.my-service.my-ns` 执行 DNS SRV 查询查询以发现该端口号, 
+则可以对 `_http._tcp.my-service.my-ns` 执行 DNS SRV 查询查询以发现该端口号,
 `"http"` 以及 IP 地址。
 
 Kubernetes DNS 服务器是唯一的一种能够访问 `ExternalName` 类型的 Service 的方式。
@@ -899,7 +899,7 @@ This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 192.0.2.0/
 每个节点将那个端口（每个节点上的相同端口号）代理到你的服务中。
 你的服务在其 `.spec.ports[*].nodePort` 字段中要求分配的端口。
 
-如果你想指定特定的 IP 代理端口，则可以将 kube-proxy 中的 `--nodeport-addresses` 
+如果你想指定特定的 IP 代理端口，则可以将 kube-proxy 中的 `--nodeport-addresses`
 标志设置为特定的 IP 块。从 Kubernetes v1.10 开始支持此功能。
 该标志采用逗号分隔的 IP 块列表（例如，`10.0.0.0/8`、`192.0.2.0/25`）来指定
 kube-proxy 应该认为是此节点本地的 IP 地址范围。
@@ -921,9 +921,9 @@ for NodePort use.
 （这也与早期的 Kubernetes 版本兼容）。
 
 如果需要特定的端口号，你可以在 `nodePort` 字段中指定一个值。
-控制平面将为你分配该端口或报告 API 事务失败。
+控制平面将为你分配该端口或报告 API 传输失败。
 这意味着你需要自己注意可能发生的端口冲突。
-你还必须使用有效的端口号，该端口号在配置用于 NodePort 的范围内。
+你还必须使用有效的端口号，该端口号必须在 NodePort 的配置的范围内。
 
 <!--
 Using a NodePort gives you the freedom to set up your own load balancing solution,
@@ -1085,7 +1085,7 @@ You must enable the `ServiceLBNodePortControl` feature gate to use this field.
 
 {{< feature-state for_k8s_version="v1.20" state="alpha" >}}
 
-从 v1.20 版本开始， 你可以通过设置 `spec.allocateLoadBalancerNodePorts` 为 `false` 
+从 v1.20 版本开始， 你可以通过设置 `spec.allocateLoadBalancerNodePorts` 为 `false`
 对类型为 LoadBalancer 的服务禁用节点端口分配。
 这仅适用于直接将流量路由到 Pod 而不是使用节点端口的负载均衡器实现。
 默认情况下，`spec.allocateLoadBalancerNodePorts` 为 `true`，
@@ -1367,10 +1367,10 @@ specifies the logical hierarchy you created for your Amazon S3 bucket.
 
 注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled` 控制是否启用访问日志。
 
-注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval` 
+注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval`
 控制发布访问日志的时间间隔（以分钟为单位）。你可以指定 5 分钟或 60 分钟的间隔。
 
-注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name` 
+注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name`
 控制存储负载均衡器访问日志的 Amazon S3 存储桶的名称。
 
 注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`
@@ -1980,7 +1980,7 @@ depends on the cloud provider offering this facility.
 -->
 你可以将 UDP 用于大多数服务。 对于 type=LoadBalancer 服务，对 UDP 的支持取决于提供此功能的云提供商。
 
-<!-- 
+<!--
 
 ### SCTP
 
@@ -2104,4 +2104,3 @@ followed by the data from the client.
 * 阅读[使用服务访问应用](/zh/docs/concepts/services-networking/connect-applications-service/)
 * 阅读了解 [Ingress](/zh/docs/concepts/services-networking/ingress/)
 * 阅读了解[端点切片（Endpoint Slices）](/zh/docs/concepts/services-networking/endpoint-slices/)
-
