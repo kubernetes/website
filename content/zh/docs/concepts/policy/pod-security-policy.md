@@ -316,8 +316,7 @@ controller selects policies according to the following criteria:
 2. If the pod must be defaulted or mutated, the first PodSecurityPolicy
    (ordered by name) to allow the pod is selected.
 -->
-1. 优先考虑中允许 Pod 不经修改地创建或更新的 PodSecurityPolicy，这些策略
-   不会更改 Pod 字段的默认值或者其他配置。
+1. 优先考虑允许pod保持原样，不会更改Pod字段的默认值或其他配置的PodSecurityPolicy。
    这类非更改性质的 PodSecurityPolicy 对象之间的顺序无关紧要。
 2. 如果必须要为 Pod 设置默认值或者其他配置，（按名称顺序）选择第一个允许
    Pod 操作的 PodSecurityPolicy 对象。
