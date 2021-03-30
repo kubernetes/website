@@ -128,7 +128,7 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 <!--
 ### Installing kubeadm on your hosts
 -->
-### 在你的主机上安装安装 kubeadm
+### 在你的主机上安装 kubeadm
 
 <!--
 See ["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
