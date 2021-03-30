@@ -322,7 +322,7 @@ Events:
   23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 ```
 
-Note the pod status is Failed, with a helpful error message: `Pod Cannot enforce AppArmor: profile
+Note the pod status is Pending, with a helpful error message: `Pod Cannot enforce AppArmor: profile
 "k8s-apparmor-example-allow-write" is not loaded`. An event was also recorded with the same message.
 
 ## Administration
