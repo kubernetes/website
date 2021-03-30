@@ -27,7 +27,7 @@ Kubernetesは自動化のために設計されています。追加の作業、�
 ワークロードのデプロイおよび稼働を自動化するためにKubernetesを使うことができます。 *さらに* Kubernetesがそれをどのように行うかの自動化も可能です。
 
 Kubernetesの{{< glossary_tooltip text="コントローラー" term_id="controller" >}}コンセプトは、Kubernetesのソースコードを修正すること無く、クラスターの振る舞いを拡張することを可能にします。
-オペレーターはKubernetes APIのクライアントで、[Custom Resource](/docs/concepts/api-extension/custom-resources/)にとっての、コントローラーのように振る舞います。
+オペレーターはKubernetes APIのクライアントで、[Custom Resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)にとっての、コントローラーのように振る舞います。
 
 ## オペレーターの例 {#example}
 
@@ -90,7 +90,7 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
   * [KUDO](https://kudo.dev/)（Kubernetes Universal Declarative Operator）を使います
   * [kubebuilder](https://book.kubebuilder.io/)を使います
   * [Metacontroller](https://metacontroller.app/)を自分で実装したWebHooksと一緒に使います
-  * [Operator Framework](https://github.com/operator-framework/getting-started)を使います
+  * [Operator Framework](https://operatorframework.io)を使います
 * 自前のオペレーターを他のユーザーのために[公開](https://operatorhub.io/)します
 * オペレーターパターンを紹介している[CoreOSオリジナル記事](https://coreos.com/blog/introducing-operators.html)を読みます
 * Google Cloudが出したオペレーター作成のベストプラクティス[記事](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)を読みます
