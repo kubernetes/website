@@ -42,7 +42,7 @@ in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new)
 
 See also [The upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15).
 -->
-在下一步之前，您应该仔细考虑哪种方法更好的满足您的应用程序和环境的需求。 
+在下一步之前，您应该仔细考虑哪种方法更好的满足您的应用程序和环境的需求。
 [这是对比文档](/zh/docs/setup/production-environment/tools/kubeadm/ha-topology/) 讲述了每种方法的优缺点。
 
 如果您在安装 HA 集群时遇到问题，请在 kubeadm [问题跟踪](https://github.com/kubernetes/kubeadm/issues/new)里向我们提供反馈。
@@ -220,7 +220,7 @@ To add a pod CIDR pass the flag `--pod-network-cidr`, or if you are using a kube
 set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
 -->
 {{< note >}}
-一些 CNI 网络插件如 Calico 需要 CIDR 例如 `192.168.0.0/16` 和一些像 Weave 没有。参考
+一些 CNI 网络插件如 Calico 需要配置 CIDR 例如 `192.168.0.0/16` 然而其它网络插件如 Weave 并不需要。参考
 [CNI 网络文档](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
 通过传递 `--pod-network-cidr` 标志添加 pod CIDR，或者您可以使用 kubeadm 配置文件，在 `ClusterConfiguration` 的 `networking` 对象下设置 `podSubnet` 字段。
 {{< /note >}}
