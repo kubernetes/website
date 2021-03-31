@@ -156,7 +156,7 @@ github_repo = "https://github.com/kubernetes/website"
 
 # param for displaying an announcement block on every page.
 # See /i18n/en.toml for message text and title.
-announcement = true
+announcement = false
 announcement_bg = "#000000" #choose a dark color – text is white
 
 #Searching
