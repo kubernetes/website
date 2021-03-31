@@ -221,7 +221,7 @@ must be installed on the cluster.
 You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack` 
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
 If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
-all aspects of Cinder volume storage management.
+for all aspects of Cinder volume storage management.
 
 ### configMap
 
