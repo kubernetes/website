@@ -301,7 +301,7 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
 
 1. Returns a `Warning` header (as defined in [RFC7234, Section 5.5](https://tools.ietf.org/html/rfc7234#section-5.5)) in the API response.
 2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug-application-cluster/audit/) recorded for the request.
-3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver` 
+3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver`
    process. The metric has labels for `group`, `version`, `resource`, `subresource` that can be joined
    to the `apiserver_request_total` metric, and a `removed_release` label that indicates the
    Kubernetes release in which the API will no longer be served. The following Prometheus query
@@ -428,6 +428,46 @@ transitions a lifecycle stage as follows. Feature gates must function for no les
 is deprecated it must be documented in both in the release notes and the corresponding CLI help.
 Both warnings and documentation must indicate whether a feature gate is non-operational.**
 
+## Deprecating a metric
+
+Each component of the Kubernetes control-plane exposes metrics (usually the
+`/metrics` endpoint), which are typically ingested by cluster administrators.
+Not all metrics are the same: some metrics are commonly used as SLIs or used
+to determine SLOs, these tend to have greater import. Other metrics are more
+experimental in nature or are used primarily in the Kubernetes development
+process.
+
+Accordingly, metrics fall under two stability classes (`ALPHA` and `STABLE`);
+this impacts removal of a metric during a Kubernetes release. These classes
+are determined by the perceived importance of the metric. The rules for
+deprecating and removing a metric are as follows:
+
+**Rule #9a: Metrics, for the corresponding stability class, must function for no less than:**
+
+   * **STABLE: 4 releases or 12 months (whichever is longer)**
+   * **ALPHA: 0 releases**
+
+**Rule #9b: Metrics, after their _announced deprecation_, must function for no less than:**
+
+   * **STABLE: 3 releases or 9 months (whichever is longer)**
+   * **ALPHA: 0 releases**
+
+Deprecated metrics will have their description text prefixed with a deprecation notice
+string '(Deprecated from x.y)' and a warning log will be emitted during metric
+registration. Like their stable undeprecated counterparts, deprecated metrics will
+be automatically registered to the metrics endpoint and therefore visible.
+
+On a subsequent release (when the metric's deprecatedVersion is equal to
+_current_kubernetes_version - 3_)), a deprecated metric will become a _hidden_ metric.
+**_Unlike_** their deprecated counterparts, hidden metrics will _no longer_ be
+automatically registered to the metrics endpoint (hence hidden). However, they
+can be explicitly enabled through a command line flag on the binary
+(i.e. `--show-hidden-metrics-for-version=`). This provides cluster admins an
+escape hatch to properly migrate off of a deprecated metric, if they were not
+able to react to the earlier deprecation warnings. Hidden metrics should be
+deleted after one release.
+
+
 ## Exceptions
 
 No policy can cover every possible situation.  This policy is a living
@@ -438,4 +478,3 @@ leaders to find the best solutions for those specific cases, always bearing in
 mind that Kubernetes is committed to being a stable system that, as much as
 possible, never breaks users. Exceptions will always be announced in all
 relevant release notes.
-
