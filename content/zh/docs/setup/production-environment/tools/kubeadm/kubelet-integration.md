@@ -96,7 +96,7 @@ clusterDNS:
 你可以通过使用 `kubeadm init` 和 `kubeadm join` 命令为 kubelet 提供默认值。
 有趣的示例包括使用其他 CRI 运行时或通过服务器设置不同的默认子网。
 
-如果你想使用子网 `10.96.0.0/12` 作为默认的服务，你可以给 kubeadm 传递 `--service-cidr` 参数：
+如果你想使用子网 `10.96.0.0/12` 作为services的默认网段，你可以给 kubeadm 传递 `--service-cidr` 参数：
 
 ```bash
 kubeadm init --service-cidr 10.96.0.0/12
