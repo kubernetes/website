@@ -90,7 +90,7 @@ O projeto [Antrea](https://github.com/vmware-tanzu/antrea) é uma solução de
 conectividade para Kubernetes que pretende ser nativa. Ela utiliza o Open vSwitch 
 na camada de conectividade de dados. O Open vSwitch é um switch virtual de alta 
 performance e programável que suporta Linux e Windows. O Open vSwitch permite 
-ao Antrea implementar políticas de rede do Kubernetes (_Network Policies_) de 
+ao Antrea implementar políticas de rede do Kubernetes (_NetworkPolicies_) de 
 uma forma muito performática e eficiente.
 
 Graças à característica programável do Open vSwitch, o Antrea consegue implementar 
@@ -107,14 +107,14 @@ _VPC flow logs_, políticas de roteamento da VPC e grupos de segurança para iso
 de tráfego.
 
 O uso desse plugin permite aos Pods no Kubernetes ter o mesmo endereço de IP dentro do 
-pod como se eles estivessem dentro da rede do VPC. O CNI (container network interface) 
+pod como se eles estivessem dentro da rede do VPC. O CNI (Container Network Interface) 
 aloca um _Elastic Networking Interface_ (ENI) para cada nó do Kubernetes e usa uma 
 faixa de endereços IP secundário de cada ENI para os Pods no nó. O CNI inclui 
 controles para pré alocação dos ENIs e endereços IP para um início mais rápido dos 
 pods e permite clusters com até 2,000 nós.
 
 Adicionalmente, esse CNI pode ser utilizado junto com o [Calico](https://docs.aws.amazon.com/eks/latest/userguide/calico.html)
-para a criação de políticas de rede (_Network Policies_). O projeto AWS VPC CNI 
+para a criação de políticas de rede (_NetworkPolicies_). O projeto AWS VPC CNI
 tem código fonte aberto com a [documentação no Github](https://github.com/aws/amazon-vpc-cni-k8s).
 
 ### Azure CNI para o Kubernetes
@@ -220,7 +220,7 @@ Siga a parte _"With Linux Bridge devices"_ desse
 [tutorial super bacana](https://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) do
 Lars Kellogg-Stedman.
 
-### Multus (Plugin multi redes)
+### Multus (Plugin multi redes) {#multus}
 
 [Multus](https://github.com/Intel-Corp/multus-cni) é um plugin Multi CNI para
 suportar a funcionalidade multi redes do Kubernetes usando objetos baseados em {{< glossary_tooltip text="CRDs" term_id="CustomResourceDefinition" >}}. 

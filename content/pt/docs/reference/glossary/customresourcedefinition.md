@@ -16,4 +16,4 @@ tags:
 
 <!--more-->
 
-Custom Resource Definitions permitem você extender a API do Kubernetes para seu ambiente caso as APIs atuais não cumpram com seus requisitos.
+CustomResourceDefinitions permitem você extender a API do Kubernetes para seu ambiente caso as APIs atuais não cumpram com seus requisitos.
