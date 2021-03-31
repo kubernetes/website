@@ -7,7 +7,7 @@ functions = "functions"
 command = "git submodule update --init --recursive --depth 1 && make non-production-build"
 
 [build.environment]
-HUGO_VERSION = "0.79.1"
+HUGO_VERSION = "0.82.0"
 NODE_VERSION = "10.20.0"
 RUBY_VERSION = "2.7.1"
 
