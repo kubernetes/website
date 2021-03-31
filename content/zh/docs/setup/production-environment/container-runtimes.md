@@ -136,7 +136,7 @@ sudo sysctl --system
 -->
 本节包含使用 containerd 作为 CRI 运行时的必要步骤。
 
-使用以下命令在系统上安装容器：
+使用以下命令在系统上安装 Containerd：
 
 安装和配置的先决条件：
 
