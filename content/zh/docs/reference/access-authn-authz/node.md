@@ -59,7 +59,7 @@ Write operations:
 -->
 
 * 节点和节点状态（启用 `NodeRestriction` 准入插件以限制 kubelet 只能修改自己的节点）
-* Pod 和 Pod 状态 (启用 `NodeRestriction` 准入插件以限制 kubelet 只能修改绑定到自身的 Pod)
+* Pod 和 Pod 状态（启用 `NodeRestriction` 准入插件以限制 kubelet 只能修改绑定到自身的 Pod）
 * 事件
 
 <!--
@@ -88,7 +88,8 @@ have the minimal set of permissions required to operate correctly.
 -->
 
 为了获得节点鉴权器的授权，kubelet 必须使用一个凭证以表示它在 `system:nodes` 组中，用户名为 `system:node:<nodeName>`。
-上述的组名和用户名格式要与 [kubelet TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)过程中为每个 kubelet 创建的标识相匹配。
+上述的组名和用户名格式要与 [kubelet TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+过程中为每个 kubelet 创建的标识相匹配。
 <!--
 In order to be authorized by the Node authorizer, kubelets must use a credential that identifies them as
 being in the `system:nodes` group, with a username of `system:node:<nodeName>`.
@@ -101,7 +102,9 @@ This group and user name format match the identity created for each kubelet as p
 To enable the Node authorizer, start the apiserver with `--authorization-mode=Node`.
 -->
 
-要限制 kubelet 具有写入权限的 API 对象，请使用 `--enable-admission-plugins=...,NodeRestriction,...` 启动 apiserver，从而启用 [NodeRestriction](/zh/docs/reference/access-authn-authz/admission-controllers#NodeRestriction) 准入插件。
+要限制 kubelet 具有写入权限的 API 对象，请使用 
+`--enable-admission-plugins=...,NodeRestriction,...` 启动 apiserver，
+从而启用 [NodeRestriction](/zh/docs/reference/access-authn-authz/admission-controllers#NodeRestriction) 准入插件。
 <!--
 To limit the API objects kubelets are able to write, enable the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#NodeRestriction) admission plugin by starting the apiserver with `--enable-admission-plugins=...,NodeRestriction,...`
  -->
@@ -161,7 +164,7 @@ If a cluster admin wishes to start using the `Node` authorizer and `NodeRestrict
 to limit node access to the API, that can be done non-disruptively:
  -->
 
-1. 启用 `Node` 鉴权模式 (`--authorization-mode=Node,RBAC`) 和 `NodeRestriction` 准入插件
+1. 启用 `Node` 鉴权模式（`--authorization-mode=Node,RBAC`）和 `NodeRestriction` 准入插件
 2. 确保所有 kubelet 的凭据符合组/用户名要求
 3. 审核 apiserver 日志以确保 `Node` 鉴权器不会拒绝来自 kubelet 的请求（日志中没有持续的 `NODE DENY` 消息）
 4. 删除 `system:node` 集群角色绑定
