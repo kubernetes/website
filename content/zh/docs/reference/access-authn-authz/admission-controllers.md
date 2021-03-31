@@ -192,7 +192,7 @@ scheduled onto the right node), without any authorization check against the imag
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
 -->
-该准入控制器会修改每一个新创建的 Pod 的镜像拉取策略为 Always 。
+该准入控制器会修改每一个新创建的 Pod 的镜像拉取策略为 Always。
 这在多租户集群中是有用的，这样用户就可以放心，他们的私有镜像只能被那些有凭证的人使用。
 如果没有这个准入控制器，一旦镜像被拉取到节点上，任何用户的 Pod 都可以通过已了解到的镜像
 的名称（假设 Pod 被调度到正确的节点上）来使用它，而不需要对镜像进行任何授权检查。
@@ -333,7 +333,7 @@ have access to the host PID namespace.
 -->
 该准入控制器将拒绝在由于拥有升级特权，而具备访问宿主机能力的 Pod 中执行 exec 和
 attach 命令。这包括在特权模式运行的 Pod，可以访问主机 IPC 名字空间的 Pod，
-和访问主机 PID 名字空间的 Pod 。
+和访问主机 PID 名字空间的 Pod。
 
 <!--
 The DenyEscalatingExec admission plugin is deprecated and will be removed in v1.18.
@@ -625,7 +625,7 @@ Pod 注解。
 Note that webhook API objects are subject to the same versioning compatibility rules as other Kubernetes API objects. Implementers should be aware of looser compatibility promises for alpha objects and check the "apiVersion" field of the request to ensure correct deserialization. Additionally, the API Server must enable the imagepolicy.k8s.io/v1alpha1 API extensions group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 -->
 注意，Webhook API 对象与其他 Kubernetes API 对象一样受制于相同的版本控制兼容性规则。
-实现者应该知道对 alpha 对象的更宽松的兼容性，并检查请求的 "apiVersion" 字段，
+实现者应该知道对 alpha 对象的更宽松的兼容性，并检查请求的 “apiVersion” 字段，
 以确保正确的反序列化。
 此外，API 服务器必须启用 `imagepolicy.k8s.io/v1alpha1` API 扩展组
 （`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`）。
@@ -660,7 +660,7 @@ An example request body:
 The remote service is expected to fill the `ImageReviewStatus` field of the request and respond to either allow or disallow access. The response body's "spec" field is ignored and may be omitted. A permissive response would return:
 -->
 远程服务将填充请求的 `ImageReviewStatus` 字段，并返回允许或不允许访问的响应。
-响应体的 "spec" 字段会被忽略，并且可以省略。一个允许访问应答会返回：
+响应体的 “spec” 字段会被忽略，并且可以省略。一个允许访问应答会返回：
 
 ```json
 {
@@ -716,7 +716,7 @@ Examples of information you might put here are:
  * a ticket number from a ticket system that documents the break-glass request
  * provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
 -->
-* 在紧急情况下，请求 "break glass" 覆盖一个策略。
+* 在紧急情况下，请求 “break glass” 覆盖一个策略。
 * 从一个记录了 break-glass 的请求的 ticket 系统得到的一个 ticket 号码。
 * 向策略服务器提供一个提示，用于提供镜像的 imageID，以方便它进行查找。
 
