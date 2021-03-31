@@ -27,3 +27,10 @@ command = "git submodule update --init --recursive --depth 1 && make deploy-prev
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
 command = "git submodule update --init --recursive --depth 1 && make production-build"
+
+# adding in headers to prevent clickjacking
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
