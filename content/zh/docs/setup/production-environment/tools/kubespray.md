@@ -39,7 +39,7 @@ Kubespray 是一个由 [Ansible](https://docs.ansible.com/) playbooks、[清单�
 * 支持大多数流行的 Linux 发行版
    * Ubuntu 16.04、18.04、20.04
    * CentOS / RHEL / Oracle Linux 7、8
-   * Debian Buster，Jessie，Stretch，Wheezy
+   * Debian Buster、Jessie、Stretch、Wheezy
    * Fedora 31、32
    * Fedora CoreOS
    * openSUSE Leap 15
