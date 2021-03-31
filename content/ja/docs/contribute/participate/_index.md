@@ -46,9 +46,9 @@ SIG Docsの自動化は、GitHub teamsとOWNERSファイルの2つの異なる�
 
 ### GitHub teams
 
-GitHubには、SIG Docs 
+GitHubには、二つのSIG Docs 
 [teams](https://github.com/orgs/kubernetes/teams?query=sig-docs)
-の二つのカテゴリがあります:
+カテゴリがあります:
 
 - `@sig-docs-{language}-owners`は承認者かつリードです。
 - `@sig-docs-{language}-reviewers` はレビュアーです。
