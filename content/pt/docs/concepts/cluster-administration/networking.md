@@ -12,7 +12,7 @@ distintos em conectividade que devem ser tratados:
 1. Comunicações contêiner-para-contêiner altamente acopladas: Isso é resolvido
    por {{< glossary_tooltip text="Pods" term_id="pod" >}} e comunicações através do `localhost`.
 2. Comunicações pod-para-pod: Esse é o foco primário desse documento.
-3. Comunicações pod-para-serviço (_service_): Isso é tratado em [services](/docs/concepts/services-networking/service/).
+3. Comunicações pod-para-serviço (_service_): Isso é tratado em [Services](/docs/concepts/services-networking/service/).
 4. Comunicações Externas-para-serviços: Isso é tratado em [services](/docs/concepts/services-networking/service/).
 
 <!-- body -->
@@ -23,7 +23,7 @@ as mesmas portas. Coordenar a alocação de portas entre múltiplos desenvolvedo
 muito dificil de fazer em escala e expõe os usuários a problemas em nível do cluster e 
 fora de seu controle.
 
-A alocação dinâmica de portas trás uma série de complicações para o sistema - toda
+A alocação dinâmica de portas traz uma série de complicações para o sistema - toda
 aplicação deve obter suas portas através de flags de configuração, os servidores de API 
 devem saber como inserir números dinämicos de portas nos blocos de configuração, serviços
 precisam saber como buscar um ao outro, etc. Ao invés de lidar com isso, o Kubernetes 
@@ -38,7 +38,7 @@ retro-compatível onde os `Pods` podem ser tratados muito mais como VMs ou hosts
 físicos da perspectiva de alocação de portas, nomes, descobrimento de serviços 
 (_service discovery_), balanceamento de carga, configuração de aplicações e migrações.
 
-O Kubernetes impõe as seguintes requisitos fundamentais para qualquer implementação de 
+O Kubernetes impõe os seguintes requisitos fundamentais para qualquer implementação de 
 rede (exceto qualquer política de segmentação intencional):
    * pods em um nó podem se comunicar com todos os pods em todos os nós sem usar _NAT_.
    * agentes em um nó (por exemplo o kubelet ou um serviço local) podem se comunicar com 
@@ -50,7 +50,7 @@ Nota: Para as plataformas que suportam `Pods` executando na rede do host (como o
      em todos os nós sem _NAT_.
 
 Esse modelo não só é menos complexo, mas é principalmente compatível com o 
-desejto do Kubernetes de permitir a portabilidade com baixo esforço de aplicações 
+desejo do Kubernetes de permitir a portabilidade com baixo esforço de aplicações 
 de VMs para contêineres. Se a sua aplicação executava anteriormente em uma VM, sua VM
 possuía um IP e podia se comunicar com outras VMs no seu projeto. Esse é o mesmo 
 modelo básico.
@@ -65,16 +65,16 @@ modelo "IP-por-pod".
 
 Como isso é implementado é um detalhe do agente de execução de contêiner em uso.
 
-É possível solicitar uma porta no `Nó` que será encaminhada para seu `Pod` (chamado 
+É possível solicitar uma porta no nó que será encaminhada para seu `Pod` (chamado 
 de _portas do host_), mas isso é uma operação muito específica. Como esse encaminhamento
 é implementado é um detalhe do agente de execução do contêiner. O `Pod` mesmo 
-desconhece a existëncia ou não de portas do host.
+desconhece a existência ou não de portas do host.
 
 ## Como implementar o modelo de conectividade do Kubernetes
 
 Existe um número de formas de implementar esse modelo de conectividade. Esse 
 documento não é um estudo exaustivo desses vários métodos, mas pode servir como 
-uma introdução de várias tecnologisa e serve como um ponto de início.
+uma introdução de várias tecnologias e serve como um ponto de início.
 
 A conectividade no Kubernetes é fornecida através de plugins de 
 {{< glossary_tooltip text="CNIs" term_id="cni" >}}
@@ -139,7 +139,7 @@ segurança para contêineres, máquinas virtuais e serviços nativos em hosts. O
 Calico suporta múltiplas camadas de conectividade/dados, como por exemplo: 
 uma camada Linux eBPF nativa, uma camada de conectividade baseada em conceitos 
 padrão do Linux e uma camada baseada no HNS do Windows. O calico provê uma 
-camada completa de conectividade e rede, mas também pode ser usado em conjunto 
+camada completa de conectividade e rede, mas também pode ser usado em conjunto com
 [CNIs de provedores de nuvem](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations) 
 para permitir a criação de políticas de rede.
 
