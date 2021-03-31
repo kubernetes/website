@@ -218,9 +218,10 @@ It redirects all plugin operations from the existing in-tree plugin to the
 `cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
 [OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster.
-The feature can be disabled by un-setting `CSIMigrationOpenStack` beta feature
-gate. When disabled, in-tree Cinder volume plugin will be responsible for
-all storage related tasks, as it was in the previous Kubernetes releases.
+You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
+If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
+all aspects of Cinder volume storage management.
 
 ### configMap
 
