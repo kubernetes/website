@@ -416,6 +416,18 @@ Verbosity | Description
 `--v=8` | Display HTTP request contents.
 `--v=9` | Display HTTP request contents without truncation of contents.
 
+### Vim settings
+Vim settings to help to edit yaml files
+
+```bash
+vim ~/.vimrc
+
+set nu
+set expandtab
+set shiftwidth=2
+set tabstop=2
+```
+
 ## {{% heading "whatsnext" %}}
 
 * Read the [kubectl overview](/docs/reference/kubectl/overview/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
