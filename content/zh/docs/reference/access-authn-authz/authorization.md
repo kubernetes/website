@@ -104,7 +104,7 @@ Kubernetes 仅审查以下 API 请求属性：
   要确定资源 API 端点的请求动词，请参阅
   [确定请求动词](#determine-the-request-verb)。
 * **HTTP 请求动词** - HTTP 动词 `get`、`post`、`put` 和 `delete` 用于非资源请求。
-* **Resource** - 正在访问的资源的 ID 或名称（仅限资源请求）- 
+* **Resource** - 正在访问的资源的 ID 或名称（仅限资源请求）--
   对于使用 `get`、`update`、`patch` 和 `delete` 动词的资源请求，你必须提供资源名称。
 * **子资源** - 正在访问的子资源（仅限资源请求）。
 * **名字空间** - 正在访问的对象的名称空间（仅适用于名字空间资源请求）。
@@ -273,7 +273,7 @@ field of the returned object is the result of the query.
 * `SelfSubjectRulesReview` - 返回用户可在名字空间内执行的操作集的审阅。
   用户可以快速汇总自己的访问权限，或者用于 UI 中的隐藏/显示动作。
 
-可以通过创建普通的 Kubernetes 资源来查询这些 API，其中返回对象的响应 "status"
+可以通过创建普通的 Kubernetes 资源来查询这些 API，其中返回对象的响应 “status”
 字段是查询的结果。
 
 ```bash
