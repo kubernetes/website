@@ -87,7 +87,7 @@ Pull Requestがコンテンツの公開に使用されるブランチにマー�
 公開されたコンテンツの品質を高くするために、Pull RequestのマージはSIG Docsの承認者に限定しています。仕組みは次のとおりです。
 
 - Pull Requestに`lgtm`ラベルと`approve`ラベルの両方があり、`hold`ラベルがなく、すべてのテストに合格すると、Pull Requestは自動的にマージされます。
-- Kubernetes organizationのメンバーとSIG Docsの承認者はコメントを追加して、特定のPull Requestが自動的にマージされないようにすることができます（`/hold`コメントを追加するか、`/lgtm`コメントを保留します）。
+- Kubernetes organizationのメンバーとSIG Docsの承認者はコメントを追加して、特定のPull Requestが自動的にマージされないようにすることができます(`/hold`コメントを追加するか、`/lgtm`コメントを保留します)。
 - Kubernetesメンバーは誰でも、`/lgtm`コメントを追加することで`lgtm`ラベルを追加できます。
 - `/approve`コメントを追加してPull Requestをマージできるのは、SIG Docsの承認者だけです。一部の承認者は、[PR Wrangler](/docs/contribute/participate/pr-wranglers/)や[SIG Docsのchairperson](#sig-docs-chairperson)など、追加の特定の役割も実行します。
 
