@@ -457,12 +457,12 @@ string '(Deprecated from x.y)' and a warning log will be emitted during metric
 registration. Like their stable undeprecated counterparts, deprecated metrics will
 be automatically registered to the metrics endpoint and therefore visible.
 
-On a subsequent release (when the metric's deprecatedVersion is equal to
+On a subsequent release (when the metric's `deprecatedVersion` is equal to
 _current_kubernetes_version - 3_)), a deprecated metric will become a _hidden_ metric.
 **_Unlike_** their deprecated counterparts, hidden metrics will _no longer_ be
 automatically registered to the metrics endpoint (hence hidden). However, they
 can be explicitly enabled through a command line flag on the binary
-(i.e. `--show-hidden-metrics-for-version=`). This provides cluster admins an
+(`--show-hidden-metrics-for-version=`). This provides cluster admins an
 escape hatch to properly migrate off of a deprecated metric, if they were not
 able to react to the earlier deprecation warnings. Hidden metrics should be
 deleted after one release.
