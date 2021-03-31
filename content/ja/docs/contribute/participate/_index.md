@@ -15,7 +15,7 @@ Kubernetes全体のドキュメントの作成、更新、および保守に重�
 SIGの詳細については、[SIG DocsのGithubリポジトリ](https://github.com/kubernetes/community/blob/master/sig-list.md)を参照してください。
 
 SIG Docsは、すべての寄稿者からのコンテンツとレビューを歓迎します。
-誰でもPull Request（PR）を開くことができ、コンテンツに関するissueを提出したり、進行中のPull Requestにコメントしたりできます。
+誰でもPull Request(PR)を開くことができ、コンテンツに関するissueを提出したり、進行中のPull Requestにコメントしたりできます。
 
 あなたは、[member](/docs/contribute/participate/roles-and-responsibilities/#members)や、
 [reviewer](/docs/contribute/participate/roles-and-responsibilities/#reviewers)、
