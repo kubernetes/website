@@ -37,7 +37,7 @@ While deprecation policies only affect stability guarantees for stable metrics (
 
 A stable metric undergoing the deprecation process signals that the metric will eventually be deleted. The metrics deprecation lifecycle looks roughly like this (with each stage representing a Kubernetes release):
 
-Stable metric → Deprecated metric → Hidden metric → Deletion
+![Stable metric → Deprecated metric → Hidden metric → Deletion](lifecycle-metric.png)
 
 _Deprecated metrics_ have the same stability guarantees of their stable counterparts. If a stable metric is deprecated, then a deprecated stable metric is guaranteed to not change. When deprecating a stable metric, a future Kubernetes release is specified as the point from which the metric will be considered deprecated.
 
