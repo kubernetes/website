@@ -55,7 +55,7 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 しかし、フックの実行に時間がかかりすぎたりハングしたりすると、コンテナは`running`状態になることができません。
 
 `PreStop`フックはコンテナを停止する信号から非同期で実行されるのではなく、信号が送られる前に実行を完了する必要があります。
-もし`PreStop`フックが実行中にハングした場合、Podは`Terminating`状態にになり、
+もし`PreStop`フックが実行中にハングした場合、Podは`Terminating`状態になり、
 `terminationGracePeriodSeconds`の時間切れで強制終了されるまで続きます。
 この猶予時間は、`PreStop`フックが実行され正常にコンテナを停止できるまでの合計時間に適用されます。
 例えば`terminationGracePeriodSeconds`が60で、フックの終了に55秒かかり、シグナルを受信した後にコンテナを正常に停止させるのに10秒かかる場合、コンテナは正常に停止する前に終了されてしまいます。`terminationGracePeriodSeconds`が、これら２つの実行にかかる合計時間(55+10)よりも短いからです。
@@ -105,5 +105,4 @@ Events:
 
 * [コンテナ環境](/ja/docs/concepts/containers/container-environment/)の詳細
 * [コンテナライフサイクルイベントへのハンドラー紐付け](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
-
 
