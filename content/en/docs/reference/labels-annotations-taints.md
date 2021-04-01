@@ -36,7 +36,13 @@ Example: `kubernetes.io/metadata.name=mynamespace`
 
 Used on: Namespaces
 
-Kubernetes API Server defaults this label to the namespace name during admission. This label can be used with any namespace selector, as an example with NetworkPolicy objects.
+When the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+the Kubernetes API server sets this label on all namespaces. The label value is set to
+the name of the namespace.
+
+This is useful if you want to target a specific namespace with a label
+{{< glossary_tooltip text="selector" term_id="selector" >}}.
 
 ## beta.kubernetes.io/arch (deprecated)
 
