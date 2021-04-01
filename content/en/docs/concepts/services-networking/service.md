@@ -513,8 +513,13 @@ allocates a port from a range specified by `--service-node-port-range` flag (def
 Each node proxies that port (the same port number on every Node) into your Service.
 Your Service reports the allocated port in its `.spec.ports[*].nodePort` field.
 
-If you want to specify particular IP(s) to proxy the port, you can set the `--nodeport-addresses` flag in kube-proxy to particular IP block(s); this is supported since Kubernetes v1.10.
-This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 192.0.2.0/25) to specify IP address ranges that kube-proxy should consider as local to this node.
+If you want to specify particular IP(s) to proxy the port, you can set the
+`--nodeport-addresses` flag for kube-proxy or the equivalent `nodePortAddresses`
+field of the
+[kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+to particular IP block(s).
+
+This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`) to specify IP address ranges that kube-proxy should consider as local to this node.
 
 For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag, kube-proxy only selects the loopback interface for NodePort Services. The default for `--nodeport-addresses` is an empty list. This means that kube-proxy should consider all available network interfaces for NodePort. (That's also compatible with earlier Kubernetes releases).
 
@@ -527,10 +532,12 @@ for NodePort use.
 
 Using a NodePort gives you the freedom to set up your own load balancing solution,
 to configure environments that are not fully supported by Kubernetes, or even
-to just expose one or more nodes' IPs directly.
+to expose one or more nodes' IPs directly.
 
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
-and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
+and `.spec.clusterIP:spec.ports[*].port`.
+If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
+in the kube-proxy configuration file is set, `<NodeIP>` would be filtered node IP(s).
 
 For example:
 
@@ -785,8 +792,7 @@ you can use the following annotations:
 ```
 
 In the above example, if the Service contained three ports, `80`, `443`, and
-`8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
-be proxied HTTP.
+`8443`, then `443` and `8443` would use the SSL certificate, but `80` would be proxied HTTP.
 
 From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
 To see which policies are available for use, you can use the `aws` command line tool:
@@ -958,7 +964,8 @@ groups are modified with the following IP rules:
 
 | Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
 |------|----------|---------|------------|---------------------|
-| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+
 | Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 
@@ -1107,7 +1114,7 @@ but the current API requires it.
 
 ## Virtual IP implementation {#the-gory-details-of-virtual-ips}
 
-The previous information should be sufficient for many people who just want to
+The previous information should be sufficient for many people who want to
 use Services.  However, there is a lot going on behind the scenes that may be
 worth understanding.
 

@@ -46,7 +46,7 @@ This tutorial provides a container image that uses NGINX to echo back all the re
     {{< kat-button >}}
 
 {{< note >}}
-If you installed minikube locally, run `minikube start`.
+If you installed minikube locally, run `minikube start`. Before you run `minikube dashboard`, you should open a new terminal, start `minikube dashboard` there, and then switch back to the main terminal.
 {{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
@@ -62,7 +62,7 @@ If you installed minikube locally, run `minikube start`.
 {{< note >}}
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser. You can create Kubernetes resources on the dashboard such as Deployment and Service.
 
-If you are running in an environment as root, see [Open Dashboard with URL](/docs/tutorials/hello-minikube#open-dashboard-with-url).
+If you are running in an environment as root, see [Open Dashboard with URL](#open-dashboard-with-url).
 
 To stop the proxy, run `Ctrl+C` to exit the process. The dashboard remains running.
 {{< /note >}}
@@ -152,7 +152,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     The application code inside the image `k8s.gcr.io/echoserver` only listens on TCP port 8080. If you used
     `kubectl expose` to expose a different port, clients could not connect to that other port.
 
-2. View the Service you just created:
+2. View the Service you created:
 
     ```shell
     kubectl get services
@@ -227,7 +227,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     metrics-server was successfully enabled
     ```
 
-3. View the Pod and Service you just created:
+3. View the Pod and Service you created:
 
     ```shell
     kubectl get pod,svc -n kube-system

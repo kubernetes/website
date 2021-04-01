@@ -125,7 +125,16 @@ the URL schema.
 
 Similarly, to configure etcd with secure client communication, specify flags
 `--key-file=k8sclient.key` and `--cert-file=k8sclient.cert`, and use HTTPS as
-the URL schema.
+the URL schema. Here is an example on a client command that uses secure
+communication:
+
+```
+ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  member list
+```
 
 ### Limiting access of etcd clusters
 
@@ -269,6 +278,24 @@ If etcd is running on a storage volume that supports backup, such as Amazon
 Elastic Block Store, back up etcd data by taking a snapshot of the storage
 volume.
 
+### Snapshot using etcdctl options
+
+We can also take the snapshot using various options given by etcdctl. For example 
+
+```shell
+ETCDCTL_API=3 etcdctl -h 
+``` 
+
+will list various options available from etcdctl. For example, you can take a snapshot by specifying
+the endpoint, certificates etc as shown below:
+
+```shell
+ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
+  --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> \
+  snapshot save <backup-file-location>
+```
+where `trusted-ca-file`, `cert-file` and `key-file` can be obtained from the description of the etcd Pod.
+
 ## Scaling up etcd clusters
 
 Scaling up etcd clusters increases availability by trading off performance.
@@ -293,6 +320,12 @@ employed to recover the data of a failed cluster.
 Before starting the restore operation, a snapshot file must be present. It can
 either be a snapshot file from a previous backup operation, or from a remaining
 [data directory]( https://etcd.io/docs/current/op-guide/configuration/#--data-dir).
+Here is an example:
+
+```shell
+ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
+```
+
 For more information and examples on restoring a cluster from a snapshot file, see
 [etcd disaster recovery documentation](https://etcd.io/docs/current/op-guide/recovery/#restoring-a-cluster).
 
@@ -324,4 +357,3 @@ We also recommend restarting any components (e.g. `kube-scheduler`,
 stale data. Note that in practice, the restore takes a bit of time.  During the
 restoration, critical components will lose leader lock and restart themselves.
 {{< /note >}}
-

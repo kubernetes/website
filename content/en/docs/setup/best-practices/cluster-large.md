@@ -69,10 +69,9 @@ When creating a cluster, you can (using custom tooling):
 ## Addon resources
 
 Kubernetes [resource limits](/docs/concepts/configuration/manage-resources-containers/)
-help to minimise the impact of memory leaks and other ways that pods and containers can
-impact on other components. These resource limits can and should apply to
-{{< glossary_tooltip text="addon" term_id="addons" >}} just as they apply to application
-workloads.
+help to minimize the impact of memory leaks and other ways that pods and containers can
+impact on other components. These resource limits apply to
+{{< glossary_tooltip text="addon" term_id="addons" >}} resources just as they apply to application workloads.
 
 For example, you can set CPU and memory limits for a logging component:
 

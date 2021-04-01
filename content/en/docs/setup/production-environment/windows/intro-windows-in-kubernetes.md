@@ -1,7 +1,9 @@
 ---
 reviewers:
-- michmike
-- patricklang
+- jayunit100
+- jsturtevant
+- marosset
+- perithompson
 title: Intro to Windows support in Kubernetes
 content_type: concept
 weight: 65
@@ -233,23 +235,33 @@ Overlay (VXLAN) networks on Windows do not support dual-stack networking today.
 
 ### Limitations
 
-#### Control Plane
-
 Windows is only supported as a worker node in the Kubernetes architecture and component matrix. This means that a Kubernetes cluster must always include Linux master nodes, zero or more Linux worker nodes, and zero or more Windows worker nodes.
 
-#### Compute {#compute-limitations}
 
-##### Resource management and process isolation
+#### Resource Handling
 
  Linux cgroups are used as a pod boundary for resource controls in Linux. Containers are created within that boundary for network, process and file system isolation. The cgroups APIs can be used to gather cpu/io/memory stats. In contrast, Windows uses a Job object per container with a system namespace filter to contain all processes in a container and provide logical isolation from the host. There is no way to run a Windows container without the namespace filtering in place. This means that system privileges cannot be asserted in the context of the host, and thus privileged containers are not available on Windows. Containers cannot assume an identity from the host because the Security Account Manager (SAM) is separate.
 
-##### Operating System Restrictions
+#### Resource Reservations
 
-Windows has strict compatibility rules, where the host OS version must match the container base image OS version. Only Windows containers with a container operating system of Windows Server 2019 are supported. Hyper-V isolation of containers, enabling some backward compatibility of Windows container image versions, is planned for a future release.
+##### Memory Reservations
+Windows does not have an out-of-memory process killer as Linux does. Windows always treats all user-mode memory allocations as virtual, and pagefiles are mandatory. The net effect is that Windows won't reach out of memory conditions the same way Linux does, and processes page to disk instead of being subject to out of memory (OOM) termination. If memory is over-provisioned and all physical memory is exhausted, then paging can slow down performance.
 
-##### Feature Restrictions
+Keeping memory usage within reasonable bounds is possible using the kubelet parameters `--kubelet-reserve` and/or `--system-reserve` to account for memory usage on the node (outside of containers). This reduces [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable). 
 
-* TerminationGracePeriod: requires CRI-containerD
+{{< note >}}
+As you deploy workloads, use resource limits (must set only limits or limits must equal requests) on containers. This also subtracts from NodeAllocatable and prevents the scheduler from adding more pods once a node is full.
+{{< /note >}}
+
+A best practice to avoid over-provisioning is to configure the kubelet with a system reserved memory of at least 2GB to account for Windows, Docker, and Kubernetes processes.
+
+##### CPU Reservations
+To account for Windows, Docker and other Kubernetes host processes it is recommended to reserve a percentage of CPU so they are able to respond to events. This value needs to be scaled based on the number of CPU cores available on the Windows node.To determine this percentage a user should identify the maximum pod density for each of their nodes and monitor the CPU usage of the system services choosing a value that meets their workload needs.
+
+Keeping CPU usage within reasonable bounds is possible using the kubelet parameters `--kubelet-reserve` and/or `--system-reserve` to account for CPU usage on the node (outside of containers). This reduces [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable). 
+
+#### Feature Restrictions
+* TerminationGracePeriod: not implemented
 * Single file mapping: to be implemented with CRI-ContainerD
 * Termination message: to be implemented with CRI-ContainerD
 * Privileged Containers: not currently supported in Windows containers
@@ -257,15 +269,8 @@ Windows has strict compatibility rules, where the host OS version must match the
 * The existing node problem detector is Linux-only and requires privileged containers. In general, we don't expect this to be used on Windows because privileged containers are not supported
 * Not all features of shared namespaces are supported (see API section for more details)
 
-##### Memory Reservations and Handling
-
-Windows does not have an out-of-memory process killer as Linux does. Windows always treats all user-mode memory allocations as virtual, and pagefiles are mandatory. The net effect is that Windows won't reach out of memory conditions the same way Linux does, and processes page to disk instead of being subject to out of memory (OOM) termination. If memory is over-provisioned and all physical memory is exhausted, then paging can slow down performance.
-
-Keeping memory usage within reasonable bounds is possible with a two-step process. First, use the kubelet parameters `--kubelet-reserve` and/or `--system-reserve` to account for memory usage on the node (outside of containers). This reduces [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)). As you deploy workloads, use resource limits (must set only limits or limits must equal requests) on containers. This also subtracts from NodeAllocatable and prevents the scheduler from adding more pods once a node is full.
-
-A best practice to avoid over-provisioning is to configure the kubelet with a system reserved memory of at least 2GB to account for Windows, Docker, and Kubernetes processes.
-
-The behavior of the flags behave differently as described below:
+#### Difference in behavior of flags when compared to Linux
+The behavior of the following kubelet flags is different on Windows nodes as described below:
 
 * `--kubelet-reserve`, `--system-reserve` , and `--eviction-hard` flags update Node Allocatable
 * Eviction by using `--enforce-node-allocable` is not implemented
@@ -333,7 +338,7 @@ These features were added in Kubernetes v1.15:
 ##### DNS {#dns-limitations}
 
 * ClusterFirstWithHostNet is not supported for DNS. Windows treats all names with a '.' as a FQDN and skips PQDN resolution
-* On Linux, you have a DNS suffix list, which is used when trying to resolve PQDNs. On Windows, we only have 1 DNS suffix, which is the DNS suffix associated with that pod's namespace (mydns.svc.cluster.local for example). Windows can resolve FQDNs and services or names resolvable with just that suffix. For example, a pod spawned in the default namespace, will have the DNS suffix **default.svc.cluster.local**. On a Windows pod, you can resolve both **kubernetes.default.svc.cluster.local** and **kubernetes**, but not the in-betweens, like **kubernetes.default** or **kubernetes.default.svc**.
+* On Linux, you have a DNS suffix list, which is used when trying to resolve PQDNs. On Windows, we only have 1 DNS suffix, which is the DNS suffix associated with that pod's namespace (mydns.svc.cluster.local for example). Windows can resolve FQDNs and services or names resolvable with only that suffix. For example, a pod spawned in the default namespace, will have the DNS suffix **default.svc.cluster.local**. On a Windows pod, you can resolve both **kubernetes.default.svc.cluster.local** and **kubernetes**, but not the in-betweens, like **kubernetes.default** or **kubernetes.default.svc**.
 * On Windows, there are multiple DNS resolvers that can be used. As these come with slightly different behaviors, using the `Resolve-DNSName` utility for name query resolutions is recommended.
 
 ##### IPv6
@@ -363,9 +368,9 @@ There are no differences in how most of the Kubernetes APIs work for Windows. Th
 
 At a high level, these OS concepts are different:
 
-* Identity - Linux uses userID (UID) and groupID (GID) which are represented as integer types. User and group names are not canonical - they are just an alias in `/etc/groups` or `/etc/passwd` back to UID+GID. Windows uses a larger binary security identifier (SID) which is stored in the Windows Security Access Manager (SAM) database. This database is not shared between the host and containers, or between containers.
+* Identity - Linux uses userID (UID) and groupID (GID) which are represented as integer types. User and group names are not canonical - they are an alias in `/etc/groups` or `/etc/passwd` back to UID+GID. Windows uses a larger binary security identifier (SID) which is stored in the Windows Security Access Manager (SAM) database. This database is not shared between the host and containers, or between containers.
 * File permissions - Windows uses an access control list based on SIDs, rather than a bitmask of permissions and UID+GID
-* File paths - convention on Windows is to use `\` instead of `/`. The Go IO libraries typically accept both and just make it work, but when you're setting a path or command line that's interpreted inside a container, `\` may be needed.
+* File paths - convention on Windows is to use `\` instead of `/`. The Go IO libraries accept both types of file path separators. However, when you're setting a path or command line that's interpreted inside a container, `\` may be needed.
 * Signals - Windows interactive apps handle termination differently, and can implement one or more of these:
   * A UI thread handles well-defined messages including WM_CLOSE
   * Console apps handle ctrl-c or ctrl-break using a Control Handler
@@ -412,6 +417,10 @@ None of the PodSecurityContext fields work on Windows. They're listed here for r
 * V1.PodSecurityContext.RunAsNonRoot - Windows does not have a root user. The closest equivalent is ContainerAdministrator which is an identity that doesn't exist on the node.
 * V1.PodSecurityContext.SupplementalGroups - provides GID, not available on Windows
 * V1.PodSecurityContext.Sysctls - these are part of the Linux sysctl interface. There's no equivalent on Windows.
+
+#### Operating System Version Restrictions
+
+Windows has strict compatibility rules, where the host OS version must match the container base image OS version. Only Windows containers with a container operating system of Windows Server 2019 are supported. Hyper-V isolation of containers, enabling some backward compatibility of Windows container image versions, is planned for a future release.
 
 ## Getting Help and Troubleshooting {#troubleshooting}
 

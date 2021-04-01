@@ -74,13 +74,13 @@ The upgrade workflow at high level is the following:
 <!--
 ### Additional information
 
-- [Draining nodes](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/) before kubelet MINOR version
+- [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/) before kubelet MINOR version
   upgrades is required. In the case of control plane nodes, they could be running CoreDNS Pods or other critical workloads.
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 -->
 ### 附加信息
 
-- 在对 kubelet 作次版本升级时需要[腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)。
+- 在对 kubelet 作次版本升版时需要[腾空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)。
   对于控制面节点，其上可能运行着 CoreDNS Pods 或者其它非常重要的负载。
 - 升级后，因为容器规约的哈希值已更改，所有容器都会被重新启动。
 

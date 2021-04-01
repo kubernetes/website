@@ -47,13 +47,13 @@ Nodes should be provisioned with the public root certificate for the cluster suc
 
 <!--
 Pods that wish to connect to the apiserver can do so securely by leveraging a service account so that Kubernetes will automatically inject the public root certificate and a valid bearer token into the pod when it is instantiated.
-The `kubernetes` service (in all namespaces) is configured with a virtual IP address that is redirected (via kube-proxy) to the HTTPS endpoint on the apiserver.
+The `kubernetes` service (in `default` namespace) is configured with a virtual IP address that is redirected (via kube-proxy) to the HTTPS endpoint on the apiserver.
 
 The control plane components also communicate with the cluster apiserver over the secure port.
 -->
 想要连接到 apiserver 的 Pod 可以使用服务账号安全地进行连接。
 当 Pod 被实例化时，Kubernetes 自动把公共根证书和一个有效的持有者令牌注入到 Pod 里。
-`kubernetes` 服务（位于所有名字空间中）配置了一个虚拟 IP 地址，用于（通过 kube-proxy）转发
+`kubernetes` 服务（位于 `default` 名字空间中）配置了一个虚拟 IP 地址，用于（通过 kube-proxy）转发
 请求到 apiserver 的 HTTPS 末端。
 
 控制面组件也通过安全端口与集群的 apiserver 通信。

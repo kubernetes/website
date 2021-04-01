@@ -39,8 +39,8 @@ Anyone can write a blog post and submit it for review.
   - Posts about other CNCF projects may or may not be on topic. We recommend asking the blog team before submitting a draft.
     - Many CNCF projects have their own blog. These are often a better choice for posts. There are times of major feature or milestone for a CNCF project that users would be interested in reading on the Kubernetes blog.
 - Blog posts should be original content
-    - The official blog is not for repurposing existing content from a third party as new content.
-    - The [license](https://github.com/kubernetes/website/blob/master/LICENSE) for the blog does allow commercial use of the content for commercial purposes, just not the other way around. 
+  - The official blog is not for repurposing existing content from a third party as new content.
+  - The [license](https://github.com/kubernetes/website/blob/master/LICENSE) for the blog allows commercial use of the content for commercial purposes, but not the other way around.
 - Blog posts should aim to be future proof
   - Given the development velocity of the project, we want evergreen content that won't require updates to stay accurate for the reader. 
   - It can be a better choice to add a tutorial or update official documentation than to write a high level overview as a blog post.

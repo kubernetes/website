@@ -139,7 +139,7 @@ pi-5rwd7
 
 <!--
 Here, the selector is the same as the selector for the Job.  The `-output=jsonpath` option specifies an expression
-that just gets the name from each Pod in the returned list.
+with the name from each Pod in the returned list.
 
 View the standard output of one of the pods:
 -->

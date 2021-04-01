@@ -184,7 +184,7 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 ```
 
 Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
-nodes. For this example we'll just use SSH to install the profiles, but other approaches are
+nodes. For this example we'll use SSH to install the profiles, but other approaches are
 discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 
 ```shell
@@ -322,7 +322,7 @@ Events:
   23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 ```
 
-Note the pod status is Failed, with a helpful error message: `Pod Cannot enforce AppArmor: profile
+Note the pod status is Pending, with a helpful error message: `Pod Cannot enforce AppArmor: profile
 "k8s-apparmor-example-allow-write" is not loaded`. An event was also recorded with the same message.
 
 ## Administration
