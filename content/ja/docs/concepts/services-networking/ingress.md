@@ -118,7 +118,7 @@ Events:       <none>
 
 Ingressのそれぞれのパスは対応するパスのタイプを持ちます。`pathType`が明示的に指定されていないパスはバリデーションに通らないでしょう。サポートされているパスのタイプは3種類あります。
 
-* `ImplementationSpecific`: このパスタイプでは、パスとの一致はIngressClassに依存します。Ingressの実装はこれを独立した`pathType`と扱うことも、`Prefix`や`Exact`と同一のパスタイプと扱うこともできます。
+* `ImplementationSpecific`（実装に特有）: このパスタイプでは、パスとの一致はIngressClassに依存します。Ingressの実装はこれを独立した`pathType`と扱うことも、`Prefix`や`Exact`と同一のパスタイプと扱うこともできます。
 
 * `Exact`: 大文字小文字を区別して完全に一致するURLパスと一致します。
 
