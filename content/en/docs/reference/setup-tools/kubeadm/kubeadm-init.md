@@ -130,7 +130,7 @@ page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd
 ### Adding kube-proxy parameters {#kube-proxy}
 
 For information about kube-proxy parameters in the kubeadm configuration see:
-- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+- [kube-proxy reference](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 
 For information about enabling IPVS mode with kubeadm see:
 - [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)

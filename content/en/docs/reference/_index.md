@@ -54,14 +54,17 @@ client libraries:
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - The primary *node agent* that runs on each node. The kubelet takes a set of PodSpecs and ensures that the described containers are running and healthy.
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) - REST API that validates and configures data for API objects such as  pods, services, replication controllers.
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
-* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of back-ends.
-* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.  
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can
+  do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across
+  a set of back-ends.
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
   
-## Scheduling
+  * [Scheduler Policies](/docs/reference/scheduling/policies)
+  * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
-* [Scheduler Policies](/docs/reference/scheduling/policies)
-* [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
+## Config APIs
 
+* [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 
 ## Design Docs
 
