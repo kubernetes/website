@@ -167,6 +167,8 @@ to schedule those pods onto the right nodes.
 
 ## PodSecurityPolicy
 
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
 You can further control which sysctls can be set in pods by specifying lists of
 sysctls or sysctl patterns in the `forbiddenSysctls` and/or
 `allowedUnsafeSysctls` fields of the PodSecurityPolicy. A sysctl pattern ends
