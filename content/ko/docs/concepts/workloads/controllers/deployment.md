@@ -51,8 +51,8 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
 
   {{< note >}}
   `.spec.selector.matchLabels` 필드는 {key,value}의 쌍으로 매핑되어있다. `matchLabels` 에 매핑된
-  단일 {key,value}은 `matchExpressions` 의 요소에 해당하며, 키 필드는 "key"에 그리고 연산자는 "In"에 대응되며
-  값 배열은 "value"만 포함한다.
+  단일 {key,value}은 `matchExpressions` 의 요소에 해당하며, `key` 필드는 "key"에 그리고 `operator`는 "In"에 대응되며
+  `value` 배열은 "value"만 포함한다.
   매칭을 위해서는 `matchLabels` 와 `matchExpressions` 의 모든 요건이 충족되어야 한다.
   {{< /note >}}
 

@@ -75,8 +75,8 @@ parameters:
 사용자는 `PersistentVolumeClaim` 에 스토리지 클래스를 포함시켜 동적으로 프로비전된
 스토리지를 요청한다. 쿠버네티스 v1.6 이전에는 `volume.beta.kubernetes.io/storage-class`
 어노테이션을 통해 수행되었다. 그러나 이 어노테이션은
-v1.6부터 더 이상 사용하지 않는다. 사용자는 이제 `PersistentVolumeClaim` 오브젝트의
-`storageClassName` 필드를 사용할 수 있기에 대신하여 사용해야 한다. 이 필드의 값은
+v1.9부터는 더 이상 사용하지 않는다. 사용자는 이제 `PersistentVolumeClaim` 오브젝트의
+`storageClassName` 필드를 사용해야 한다. 이 필드의 값은
 관리자가 구성한 `StorageClass` 의 이름과
 일치해야 한다. ([아래](#동적-프로비저닝-활성화하기)를 참고)
 

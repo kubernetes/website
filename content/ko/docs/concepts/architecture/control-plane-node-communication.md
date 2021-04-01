@@ -21,7 +21,7 @@ aliases:
 노드는 유효한 클라이언트 자격 증명과 함께 API 서버에 안전하게 연결할 수 있도록 클러스터에 대한 공개 루트 인증서로 프로비전해야 한다. 예를 들어, 기본 GKE 배포에서, kubelet에 제공되는 클라이언트 자격 증명은 클라이언트 인증서 형식이다. kubelet 클라이언트 인증서의 자동 프로비저닝은 [kubelet TLS 부트스트랩](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)을 참고한다.
 
 API 서버에 연결하려는 파드는 쿠버네티스가 공개 루트 인증서와 유효한 베어러 토큰(bearer token)을 파드가 인스턴스화될 때 파드에 자동으로 주입하도록 서비스 어카운트를 활용하여 안전하게 연결할 수 있다.
-`kubernetes` 서비스(모든 네임스페이스의)는 API 서버의 HTTPS 엔드포인트로 리디렉션되는 가상 IP 주소(kube-proxy를 통해)로 구성되어 있다.
+`kubernetes` 서비스(`default` 네임스페이스의)는 API 서버의 HTTPS 엔드포인트로 리디렉션되는 가상 IP 주소(kube-proxy를 통해)로 구성되어 있다.
 
 컨트롤 플레인 컴포넌트는 보안 포트를 통해 클러스터 API 서버와도 통신한다.
 
