@@ -20,10 +20,16 @@ card:
 
 다음과 같은 방법으로 리눅스에 kubectl을 설치할 수 있다.
 
-- [리눅스에서 curl을 사용하여 kubectl 바이너리 설치](#install-kubectl-binary-with-curl-on-linux)
-- [기본 패키지 관리 도구를 사용하여 설치](#install-using-native-package-management)
-- [다른 패키지 관리 도구를 사용하여 설치](#install-using-other-package-management)
-- [Google Cloud SDK를 사용하여 설치](#install-on-linux-as-part-of-the-google-cloud-sdk)
+- [{{% heading "prerequisites" %}}](#시작하기-전에)
+- [리눅스에 kubectl 설치](#리눅스에-kubectl-설치)
+  - [리눅스에서 curl을 사용하여 kubectl 바이너리 설치]{#install-kubectl-binary-with-curl-on-linux}
+  - [기본 패키지 관리 도구를 사용하여 설치]{#install-using-native-package-management}
+  - [다른 패키지 관리 도구를 사용하여 설치]{#install-using-other-package-management}
+  - [Google Cloud SDK를 사용하여 설치]{#install-on-linux-as-part-of-the-google-cloud-sdk}
+- [kubectl 구성 확인](#kubectl-구성-확인)
+- [선택적 kubectl 구성](#선택적-kubectl-구성)
+  - [셸 자동 완성 활성화](#셸-자동-완성-활성화)
+- [{{% heading "whatsnext" %}}](#다음-내용)
 
 ### 리눅스에서 curl을 사용하여 kubectl 바이너리 설치 {#install-kubectl-binary-with-curl-on-linux}
 
@@ -100,15 +106,38 @@ card:
 ### 기본 패키지 관리 도구를 사용하여 설치 {#install-using-native-package-management}
 
 {{< tabs name="kubectl_install" >}}
-{{< tab name="Ubuntu, Debian 또는 HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
-sudo apt-get install -y kubectl
-{{< /tab >}}
+{{% tab name="데비안 기반의 배포판" %}}
 
-{{< tab name="CentOS, RHEL 또는 Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+1. `apt` 패키지 색인을 업데이트하고 쿠버네티스 `apt` 리포지터리를 사용하는 데 필요한 패키지들을 설치한다.
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+
+2. 구글 클라우드 공개 사이닝 키를 다운로드한다.
+
+   ```shell
+   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   ```
+
+3. 쿠버네티스 `apt` 리포지터리를 추가한다.
+
+   ```shell
+   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+4. 새 리포지터리의 `apt` 패키지 색인을 업데이트하고 kubectl을 설치한다.
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubectl
+   ```
+
+{{% /tab %}}
+
+{{< tab name="레드햇 기반의 배포판" codelang="bash" >}}
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64

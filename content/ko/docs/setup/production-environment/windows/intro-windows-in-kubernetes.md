@@ -218,7 +218,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 
 #### IPv4/IPv6 이중 스택
 
-`IPv6DualStack` [기능 게이트](https://kubernetes.io/ko/docs/reference/command-line-tools-reference/feature-gates/)를 사용하여 `l2bridge` 네트워크에 IPv4/IPv6 이중 스택 네트워킹을 활성화할 수 있다. 자세한 내용은 [IPv4/IPv6 이중 스택 활성화](/ko/docs/concepts/services-networking/dual-stack/#ipv4-ipv6-이중-스택-활성화)을 참조한다.
+`IPv6DualStack` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 사용하여 `l2bridge` 네트워크에 IPv4/IPv6 이중 스택 네트워킹을 활성화할 수 있다. 자세한 내용은 [IPv4/IPv6 이중 스택 활성화](/ko/docs/concepts/services-networking/dual-stack/#ipv4-ipv6-이중-스택-활성화)를 참조한다.
 
 {{< note >}}
 윈도우에서 쿠버네티스와 함께 IPv6를 사용하려면 윈도우 서버 버전 2004 (커널 버전 10.0.19041.610) 이상이 필요하다.
@@ -234,7 +234,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 
 윈도우는 쿠버네티스 아키텍처 및 컴포넌트 매트릭스에서 워커 노드로만 지원된다. 즉, 쿠버네티스 클러스터에는 항상 리눅스 마스터 노드가 반드시 포함되어야 하고, 0개 이상의 리눅스 워커 노드 및 0개 이상의 윈도우 워커 노드가 포함된다.
 
-#### 컴퓨트
+#### 컴퓨트 {#컴퓨트-제한}
 
 ##### 리소스 관리 및 프로세스 격리
 
@@ -294,7 +294,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 * NFS 기반 스토리지/볼륨 지원
 * 마운트된 볼륨 확장(resizefs)
 
-#### 네트워킹
+#### 네트워킹 {#네트워킹-제한}
 
 윈도우 컨테이너 네트워킹은 리눅스 네트워킹과 몇 가지 중요한 면에서 다르다. [윈도우 컨테이너 네트워킹에 대한 Microsoft 문서](https://docs.microsoft.com/ko-kr/virtualization/windowscontainers/container-networking/architecture)에는 추가 세부 정보와 배경이 포함되어 있다.
 
