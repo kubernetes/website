@@ -668,7 +668,7 @@ When a secret currently consumed in a volume is updated, projected keys are even
 The kubelet checks whether the mounted secret is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the Secret.
 The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
-the [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 A Secret can be either propagated by watch (default), ttl-based, or by redirecting
 all requests directly to the API server.
 As a result, the total delay from the moment when the Secret is updated to the moment
@@ -760,8 +760,8 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for secrets marked as immutable.
 
-This feature is controlled by the `ImmutableEphemeralVolumes` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/),
+This feature is controlled by the `ImmutableEphemeralVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 which is enabled by default since v1.19. You can create an immutable
 Secret by setting the `immutable` field to `true`. For example,
 ```yaml
@@ -865,6 +865,7 @@ start until all the Pod's volumes are mounted.
 ### Use-Case: As container environment variables
 
 Create a secret
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -877,6 +878,7 @@ data:
 ```
 
 Create the Secret:
+
 ```shell
 kubectl apply -f mysecret.yaml
 ```
@@ -992,7 +994,7 @@ For example, if your actual password is `S!B\*d$zDsb=`, you should execute the c
 kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
 ```
 
- You do not need to escape special characters in passwords from files (`--from-file`).
+You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
 Now make the Pods:
@@ -1173,14 +1175,12 @@ privileged, system-level components.
 
 Applications that need to access the Secret API should perform `get` requests on
 the secrets they need. This lets administrators restrict access to all secrets
-while [white-listing access to individual instances](
-/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
+while [white-listing access to individual instances](/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
 the app needs.
 
 For improved performance over a looping `get`, clients can design resources that
 reference a secret then `watch` the resource, re-requesting the secret when the
-reference changes. Additionally, a ["bulk watch" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
+reference changes. Additionally, a ["bulk watch" API](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
 to let clients `watch` individual resources has also been proposed, and will likely
 be available in future releases of Kubernetes.
 
