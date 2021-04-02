@@ -1,7 +1,5 @@
 ---
-reviewers:
-- stclair
-title: Restrict a Container's Access to Resources with AppArmor
+title: AppArmorを使用してコンテナのリソースへのアクセスを制限する
 content_type: tutorial
 weight: 10
 ---
@@ -10,43 +8,23 @@ weight: 10
 
 {{< feature-state for_k8s_version="v1.4" state="beta" >}}
 
+AppArmorは、Linux標準のユーザー・グループをベースとしたパーミッションを補完するLinuxカーネルのセキュリティモジュールであり、プログラムのアクセスを限定されたリソースセットに制限するために利用されます。AppArmorを設定することで、任意のアプリケーションの攻撃サーフェイスとなりうる面を減らしたり、より優れた多重の防御を提供できます。AppArmorは、たとえばLinuxのcapability、ネットワークアクセス、ファイルのパーミッションなど、特定のプログラムやコンテナに必要なアクセスを許可するようにチューニングされたプロファイルにより設定を行います。各プロファイルは、許可されなかったリソースへのアクセスをブロックする*enforcing*モードと、ルール違反を報告するだけの*complain*モードのいずれかで実行できます。
 
-AppArmor is a Linux kernel security module that supplements the standard Linux user and group based
-permissions to confine programs to a limited set of resources. AppArmor can be configured for any
-application to reduce its potential attack surface and provide greater in-depth defense. It is
-configured through profiles tuned to allow the access needed by a specific program or container,
-such as Linux capabilities, network access, file permissions, etc. Each profile can be run in either
-*enforcing* mode, which blocks access to disallowed resources, or *complain* mode, which only reports
-violations.
-
-AppArmor can help you to run a more secure deployment by restricting what containers are allowed to
-do, and/or provide better auditing through system logs. However, it is important to keep in mind
-that AppArmor is not a silver bullet and can only do so much to protect against exploits in your
-application code. It is important to provide good, restrictive profiles, and harden your
-applications and cluster from other angles as well.
-
-
+AppArmorを利用すれば、コンテナに許可することを制限したりシステムログを通してよりよい監査を提供することで、デプロイをよりセキュアにする助けになります。しかし、AppArmorは銀の弾丸ではなく、アプリケーションコードの悪用からの防御を強化できるだけであることを心に留めておくことが重要です。制限の強い優れたプロファイルを提供し、アプリケーションとクラスターを別の角度から強化することが重要です。
 
 ## {{% heading "objectives" %}}
 
-
-* See an example of how to load a profile on a node
-* Learn how to enforce the profile on a Pod
-* Learn how to check that the profile is loaded
-* See what happens when a profile is violated
-* See what happens when a profile cannot be loaded
-
-
+* プロファイルをノードに読み込む方法の例を見る
+* Pod上でプロファイルを矯正する方法を学ぶ
+* プロファイルが読み込まれたかを確認する方法を学ぶ
+* プロファイルに違反した場合に何が起こるのかを見る
+* プロファイルが読み込めなかった場合に何が起こるのかを見る
 
 ## {{% heading "prerequisites" %}}
 
+以下のことを確認してください。
 
-Make sure:
-
-1. Kubernetes version is at least v1.4 -- Kubernetes support for AppArmor was added in
-   v1.4. Kubernetes components older than v1.4 are not aware of the new AppArmor annotations, and
-   will **silently ignore** any AppArmor settings that are provided. To ensure that your Pods are
-   receiving the expected protections, it is important to verify the Kubelet version of your nodes:
+1. Kubernetesのバージョンがv1.4以上であること。KubernetesのAppArmorのサポートはv1.4で追加されました。v1.4より古いバージョンのKubernetesのコンポーネントは、新しいAppArmorのアノテーションを認識できないため、AppArmorの設定を与えたとしても**黙って無視されてしまいます**。Podが期待した保護を確実に受けられるようにするためには、次のようにノードのKubeletのバージョンを確認することが重要です。
 
    ```shell
    kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.kubeletVersion}\n{end}'
@@ -57,35 +35,22 @@ Make sure:
    gke-test-default-pool-239f5d02-xwux: v1.4.0
    ```
 
-2. AppArmor kernel module is enabled -- For the Linux kernel to enforce an AppArmor profile, the
-   AppArmor kernel module must be installed and enabled. Several distributions enable the module by
-   default, such as Ubuntu and SUSE, and many others provide optional support. To check whether the
-   module is enabled, check the `/sys/module/apparmor/parameters/enabled` file:
+2. AppArmorカーネルモジュールが有効であること。LinuxカーネルがAppArmorプロファイルを強制するためには、AppArmorカーネルモジュールのインストールと有効化が必須です。UbuntuやSUSEなどのディストリビューションではデフォルトで有効化されますが、他の多くのディストリビューションでのサポートはオプションです。モジュールが有効になっているかチェックするには、次のように`/sys/module/apparmor/parameters/enabled`ファイルを確認します。
 
    ```shell
    cat /sys/module/apparmor/parameters/enabled
    Y
    ```
 
-   If the Kubelet contains AppArmor support (>= v1.4), it will refuse to run a Pod with AppArmor
-   options if the kernel module is not enabled.
+   KubeletがAppArmorをサポートしていれば(>= v1.4)、カーネルモジュールが有効になっていない場合にはAppArmorオプションが付いたPodを拒否します。
 
   {{< note >}}
-  Ubuntu carries many AppArmor patches that have not been merged into the upstream Linux
-  kernel, including patches that add additional hooks and features. Kubernetes has only been
-  tested with the upstream version, and does not promise support for other features.
+  UbuntuはAppArmorに対して、アップストリームのLinuxにマージしていない多数のパッチを当てています。その中には、追加のフックや機能を加えるパッチも含まれます。Kubernetesはアップストリームのバージョンでのみテストされており、その他の機能に対するサポートを約束していません。
   {{< /note >}}
 
-3. Container runtime supports AppArmor -- Currently all common Kubernetes-supported container
-   runtimes should support AppArmor, like {{< glossary_tooltip term_id="docker">}},
-   {{< glossary_tooltip term_id="cri-o" >}} or {{< glossary_tooltip term_id="containerd" >}}.
-   Please refer to the corresponding runtime documentation and verify that the cluster fulfills
-   the requirements to use AppArmor.
+3. コンテナランタイムがAppArmorをサポートしていること。現在、Kubernetesがサポートするすべての一般的なコンテナランタイム、{{< glossary_tooltip term_id="docker">}}、{{< glossary_tooltip term_id="cri-o" >}}、{{< glossary_tooltip term_id="containerd" >}}などは、AppArmorをサポートしています。関連するランタイムのドキュメントを参照して、クラスターがAppArmorを利用するための要求を満たしているかどうかを検証してください。
 
-4. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
-   container should be run with. If any of the specified profiles is not already loaded in the
-   kernel, the Kubelet (>= v1.4) will reject the Pod. You can view which profiles are loaded on a
-   node by checking the `/sys/kernel/security/apparmor/profiles` file. For example:
+4. プロファイルが読み込まれていること。AppArmorがPodに適用されるのは、各コンテナが実行されるべきAppArmorプロファイルを指定したときです。もし指定されたプロファイルがまだカーネルに読み込まれていなければ、Kubelet(>= v1.4)はPodを拒否します。どのプロファイルがノードに読み込まれているのかを確かめるには、次のようなコマンドを実行して`/sys/kernel/security/apparmor/profiles`をチェックします。
 
    ```shell
    ssh gke-test-default-pool-239f5d02-gyn2 "sudo cat /sys/kernel/security/apparmor/profiles | sort"
@@ -97,13 +62,9 @@ Make sure:
    k8s-nginx (enforce)
    ```
 
-   For more details on loading profiles on nodes, see
-   [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
+   ノード上でのプロファイルの読み込みの詳細については、[プロファイルを使用したノードのセットアップ](#setting-up-nodes-with-profiles)を参照してください。
 
-As long as the Kubelet version includes AppArmor support (>= v1.4), the Kubelet will reject a Pod
-with AppArmor options if any of the prerequisites are not met. You can also verify AppArmor support
-on nodes by checking the node ready condition message (though this is likely to be removed in a
-later release):
+KubeletのバージョンがAppArmorサポートに対応しているもの(>= v1.4)である限り、Kubeletは必要条件を1つでも満たさないAppArmorオプションが付けられたPodをリジェクトします。また、ノード上のAppArmorのサポートは、次のようにready conditionのメッセージで確認することもできます(ただし、この機能は将来のリリースで削除される可能性があります)。
 
 ```shell
 kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
@@ -114,39 +75,31 @@ gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor e
 gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
 ```
 
-
-
 <!-- lessoncontent -->
 
-## Securing a Pod
+## Podをセキュアにする
 
 {{< note >}}
-AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
-general availability, the annotations will be replaced with first-class fields (more details in
-[Upgrade path to GA](#upgrade-path-to-general-availability)).
+AppArmorは現在beta版であるため、オプションはアノテーションとして指定します。将来サポートが一般利用可能(GA)になれば、アノテーションは第1級のフィールドで置き換えられます(詳細については、[一般利用可能(General Availability)への更新パス](#upgrade-path-to-general-availability)を参照してください)。
 {{< /note >}}
 
-AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod
-container with, add an annotation to the Pod's metadata:
+AppArmorのプロファイルは*各コンテナごとに*指定します。Podのコンテナで実行するAppArmorのプロファイルを指定するには、Podのメタデータに次のようなアノテーションを追加します。
 
 ```yaml
 container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
 ```
 
-Where `<container_name>` is the name of the container to apply the profile to, and `<profile_ref>`
-specifies the profile to apply. The `profile_ref` can be one of:
+ここで、`<container_name>`はプロファイルを適用するコンテナの名前であり、`<profile_ref>`には適用するプロファイルを指定します。`profile_ref`は次の値のうち1つを指定します。
 
-* `runtime/default` to apply the runtime's default profile
-* `localhost/<profile_name>` to apply the profile loaded on the host with the name `<profile_name>`
-* `unconfined` to indicate that no profiles will be loaded
+* `runtime/default`: ランタイムのデフォルトのプロファイルを適用する
+* `localhost/<profile_name>`: `<profile_name>`という名前でホストにロードされたプロファイルを適用する
+* `unconfined`: いかなるプロファイルもロードされないことを示す
 
-See the [API Reference](#api-reference) for the full details on the annotation and profile name formats.
+アノテーションとプロファイルの名前のフォーマットの詳細については、[APIリファレンス](#api-reference)を参照してください。
 
-Kubernetes AppArmor enforcement works by first checking that all the prerequisites have been
-met, and then forwarding the profile selection to the container runtime for enforcement. If the
-prerequisites have not been met, the Pod will be rejected, and will not run.
+KubernetesのAppArmorの強制では、まずはじめにすべての前提条件が満たされているかどうかをチェックします。その後、強制を行うためにプロファイルの選択をコンテナランタイムに委ねます。前提条件が満たされなかった場合、Podはリジェクトされ、実行されません。
 
-To verify that the profile was applied, you can look for the AppArmor security option listed in the container created event:
+プロファイルが適用されたかどうか確認するには、AppArmor securityオプションがコンテナ作成イベントに一覧されているかどうかを確認します。
 
 ```shell
 kubectl get events | grep Created
@@ -155,7 +108,7 @@ kubectl get events | grep Created
 22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
 ```
 
-You can also verify directly that the container's root process is running with the correct profile by checking its proc attr:
+proc attrを調べることで、コンテナのルートプロセスが正しいプロファイルで実行されているかどうかを直接確認することもできます。
 
 ```shell
 kubectl exec <pod_name> cat /proc/1/attr/current
@@ -164,11 +117,11 @@ kubectl exec <pod_name> cat /proc/1/attr/current
 k8s-apparmor-example-deny-write (enforce)
 ```
 
-## Example
+## 例 {#example}
 
-*This example assumes you have already set up a cluster with AppArmor support.*
+*この例は、クラスターがすでにAppArmorのサポート付きでセットアップ済みであることを前提としています。*
 
-First, we need to load the profile we want to use onto our nodes. This profile denies all file writes:
+まず、使用したいプロファイルをノード上に読み込む必要があります。このプロファイルは、すべてのファイル書き込みを拒否します。
 
 ```shell
 #include <tunables/global>
@@ -183,13 +136,11 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 }
 ```
 
-Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
-nodes. For this example we'll just use SSH to install the profiles, but other approaches are
-discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
+Podがどのノードにスケジュールされるかは予測できないため、プロファイルはすべてのノードに読み込ませる必要があります。この例では、単純にSSHを使ってプロファイルをインストールしますが、[プロファイルを使用したノードのセットアップ](#setting-up-nodes-with-profiles)では、他のアプローチについて議論しています。
 
 ```shell
 NODES=(
-    # The SSH-accessible domain names of your nodes
+    # SSHでアクセス可能なノードのドメイン名
     gke-test-default-pool-239f5d02-gyn2.us-central1-a.my-k8s
     gke-test-default-pool-239f5d02-x1kf.us-central1-a.my-k8s
     gke-test-default-pool-239f5d02-xwux.us-central1-a.my-k8s)
@@ -208,7 +159,7 @@ EOF'
 done
 ```
 
-Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
+次に、deny-writeプロファイルを使用した単純な "Hello AppArmor" Podを実行します。
 
 {{< codenew file="pods/security/hello-apparmor.yaml" >}}
 
@@ -216,8 +167,7 @@ Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 kubectl create -f ./hello-apparmor.yaml
 ```
 
-If we look at the pod events, we can see that the Pod container was created with the AppArmor
-profile "k8s-apparmor-example-deny-write":
+Podイベントを確認すると、PodコンテナがAppArmorプロファイル "k8s-apparmor-example-deny-write" を使用して作成されたことがわかります。
 
 ```shell
 kubectl get events | grep hello-apparmor
@@ -230,7 +180,7 @@ kubectl get events | grep hello-apparmor
 13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Started     {kubelet gke-test-default-pool-239f5d02-gyn2}   Started container with docker id 06b6cd1c0989
 ```
 
-We can verify that the container is actually running with that profile by checking its proc attr:
+コンテナがこのプロファイルで実際に実行されていることを確認するために、コンテナのproc attrをチェックします。
 
 ```shell
 kubectl exec hello-apparmor cat /proc/1/attr/current
@@ -239,7 +189,7 @@ kubectl exec hello-apparmor cat /proc/1/attr/current
 k8s-apparmor-example-deny-write (enforce)
 ```
 
-Finally, we can see what happens if we try to violate the profile by writing to a file:
+最後に、ファイルへの書き込みを行おうとすることで、プロファイルに違反すると何が起こるか見てみましょう。
 
 ```shell
 kubectl exec hello-apparmor touch /tmp/test
@@ -249,7 +199,7 @@ touch: /tmp/test: Permission denied
 error: error executing remote command: command terminated with non-zero exit code: Error executing in Docker Container: 1
 ```
 
-To wrap up, let's look at what happens if we try to specify a profile that hasn't been loaded:
+まとめとして、読み込まれていないプロファイルを指定しようとするとどうなるのか見てみましょう。
 
 ```shell
 kubectl create -f /dev/stdin <<EOF
@@ -322,152 +272,104 @@ Events:
   23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 ```
 
-Note the pod status is Failed, with a helpful error message: `Pod Cannot enforce AppArmor: profile
-"k8s-apparmor-example-allow-write" is not loaded`. An event was also recorded with the same message.
+PodのステータスはPendingとなり、`Pod Cannot enforce AppArmor: profile
+"k8s-apparmor-example-allow-write" is not loaded`(PodはAppArmorを強制できません: プロファイル "k8s-apparmor-example-allow-write" はロードされていません)という役に立つエラーメッセージが表示されています。同じメッセージのイベントも記録されています。
 
-## Administration
+## 管理
 
-### Setting up nodes with profiles
+### プロファイルを使用したノードのセットアップ {#setting-up-nodes-with-profiles}
 
-Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
-nodes. There are lots of ways to setup the profiles though, such as:
+現在、KubernetesはAppArmorのプロファイルをノードに読み込むネイティブの仕組みは提供していません。しかし、プロファイルをセットアップする方法は、以下のように様々な方法があります。
 
-* Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
-  ensure the correct profiles are loaded. An example implementation can be found
-  [here](https://git.k8s.io/kubernetes/test/images/apparmor-loader).
-* At node initialization time, using your node initialization scripts (e.g. Salt, Ansible, etc.) or
-  image.
-* By copying the profiles to each node and loading them through SSH, as demonstrated in the
-  [Example](#example).
+* 各ノード上に正しいプロファイルがロードされていることを保証するPodを実行する[DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)を利用する方法。[ここ](https://git.k8s.io/kubernetes/test/images/apparmor-loader)に実装例があります。
+* ノードの初期化時に初期化スクリプト(例: Salt、Ansibleなど)や初期化イメージを使用する。
+* [例](#example)で示したような方法で、プロファイルを各ノードにコピーし、SSHで読み込む。
 
-The scheduler is not aware of which profiles are loaded onto which node, so the full set of profiles
-must be loaded onto every node.  An alternative approach is to add a node label for each profile (or
-class of profiles) on the node, and use a
-[node selector](/docs/concepts/scheduling-eviction/assign-pod-node/) to ensure the Pod is run on a
-node with the required profile.
+スケジューラーはどのプロファイルがどのノードに読み込まれているのかがわからないため、すべてのプロファイルがすべてのノードに読み込まれていなければなりません。もう1つのアプローチとしては、各プロファイル(あるいはプロファイルのクラス)ごとにノードラベルを追加し、[node selector](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)を用いてPodが必要なプロファイルを読み込んだノードで実行されるようにする方法もあります。
 
-### Restricting profiles with the PodSecurityPolicy
+### PodSecurityPolicyを使用したプロファイルの制限
 
-If the PodSecurityPolicy extension is enabled, cluster-wide AppArmor restrictions can be applied. To
-enable the PodSecurityPolicy, the following flag must be set on the `apiserver`:
+PodSecurityPolicy extensionが有効になっている場合、クラスタ全体でAppArmorn制限が適用されます。PodSecurityPolicyを有効にするには、`apiserver`上で次のフラグを設定する必要があります。
 
 ```
 --enable-admission-plugins=PodSecurityPolicy[,others...]
 ```
 
-The AppArmor options can be specified as annotations on the PodSecurityPolicy:
+AppArmorのオプションはPodSecurityPolicy上でアノテーションとして指定します。
 
 ```yaml
 apparmor.security.beta.kubernetes.io/defaultProfileName: <profile_ref>
 apparmor.security.beta.kubernetes.io/allowedProfileNames: <profile_ref>[,others...]
 ```
 
-The default profile name option specifies the profile to apply to containers by default when none is
-specified. The allowed profile names option specifies a list of profiles that Pod containers are
-allowed to be run with. If both options are provided, the default must be allowed. The profiles are
-specified in the same format as on containers. See the [API Reference](#api-reference) for the full
-specification.
+defaultProfileNameオプションには、noneが指定された場合にコンテナにデフォルトで適用されるプロファイルを指定します。allowedProfileNamesオプションには、Podコンテナの実行が許可されるプロファイルのリストを指定します。両方のオプションが指定された場合、デフォルトは許可されなければいけません。プロファイルはコンテナ上で同じフォーマットで指定されます。完全な仕様については、[APIリファレンス](#api-reference)を参照してください。
 
-### Disabling AppArmor
+### AppArmorの無効化
 
-If you do not want AppArmor to be available on your cluster, it can be disabled by a command-line flag:
+クラスタ上でAppArmorを利用可能にしたくない場合、次のコマンドラインフラグで無効化できます。
 
 ```
 --feature-gates=AppArmor=false
 ```
 
-When disabled, any Pod that includes an AppArmor profile will fail validation with a "Forbidden"
-error. Note that by default docker always enables the "docker-default" profile on non-privileged
-pods (if the AppArmor kernel module is enabled), and will continue to do so even if the feature-gate
-is disabled. The option to disable AppArmor will be removed when AppArmor graduates to general
-availability (GA).
+無効化すると、AppArmorプロファイルを含むPodは"Forbidden"エラーで検証に失敗します。ただし、デフォルトのdockerは非特権Pod上では"docker-default"というプロファイルを常に有効化し(AppArmorカーネルモジュールが有効である場合)、フィーチャーゲートで無効化したとしても有効化し続けることに注意してください。AppArmorを無効化するオプションは、AppArmorが一般利用(GA)になったときに削除される予定です。
 
-### Upgrading to Kubernetes v1.4 with AppArmor
+### AppArmorを使用するKubernetes v1.4にアップグレードする
 
-No action is required with respect to AppArmor to upgrade your cluster to v1.4. However, if any
-existing pods had an AppArmor annotation, they will not go through validation (or PodSecurityPolicy
-admission). If permissive profiles are loaded on the nodes, a malicious user could pre-apply a
-permissive profile to escalate the pod privileges above the docker-default. If this is a concern, it
-is recommended to scrub the cluster of any pods containing an annotation with
-`apparmor.security.beta.kubernetes.io`.
+クラスタをv1.4にアップグレードするために、AppArmorに関する操作は必要ありません。ただし、既存のPodがAppArmorのアノテーションを持っている場合、検証(またはPodSecurityPolicy admission)は行われません。もしpermissiveなプロファイルがノードに読み込まれていた場合、悪意のあるユーザーがPodの権限を上述のdocker-defaultより昇格させるために、permissiveなプロファイルを再適用する恐れがあります。これが問題となる場合、`apparmor.security.beta.kubernetes.io`のアノテーションを含むすべてのPodのクラスターをクリーンアップすることを推奨します。
 
-### Upgrade path to General Availability
+### 一般利用可能(General Availability)への更新パス {#upgrade-path-to-general-availability}
 
-When AppArmor is ready to be graduated to general availability (GA), the options currently specified
-through annotations will be converted to fields. Supporting all the upgrade and downgrade paths
-through the transition is very nuanced, and will be explained in detail when the transition
-occurs. We will commit to supporting both fields and annotations for at least 2 releases, and will
-explicitly reject the annotations for at least 2 releases after that.
+AppArmorが一般利用可能(GA)になったとき、現在アノテーションで指定しているオプションはフィールドに変換されます。移行中のすべてのアップグレードとダウングレードの経路をサポートするのは非常に微妙であるため、以降が必要になったときに詳細に説明する予定です。最低2リリースの間はフィールドとアノテーションの両方がサポートされるようにする予定です。最低2リリースの後は、アノテーションは明示的に拒否されるようになります。
 
-## Authoring Profiles
+## Profilesの作成
 
-Getting AppArmor profiles specified correctly can be a tricky business. Fortunately there are some
-tools to help with that:
+AppArmorのプロファイルを正しく指定するのはやっかいな作業です。幸い、その作業を補助するツールがいくつかあります。
 
-* `aa-genprof` and `aa-logprof` generate profile rules by monitoring an application's activity and
-  logs, and admitting the actions it takes. Further instructions are provided by the
-  [AppArmor documentation](https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools).
-* [bane](https://github.com/jfrazelle/bane) is an AppArmor profile generator for Docker that uses a
-  simplified profile language.
+* `aa-genprof`および`aa-logprof`は、アプリケーションの動作とログを監視することによりプロファイルのルールを生成します。詳しい説明については、[AppArmor documentation](https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools)を参照してください。
+* [bane](https://github.com/jfrazelle/bane)は、Docker向けのAppArmorのプロファイル・ジェネレータです。簡略化されたプロファイル言語を使用しています。
 
-It is recommended to run your application through Docker on a development workstation to generate
-the profiles, but there is nothing preventing running the tools on the Kubernetes node where your
-Pod is running.
+プロファイルの生成には、アプリケーションを開発用ワークステーション上でDockerで実行することを推奨します。しかし、実際にPodが実行されるKubernetesノード上でツールを実行してはいけない理由はありません。
 
-To debug problems with AppArmor, you can check the system logs to see what, specifically, was
-denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be found in the system
-logs or through `journalctl`. More information is provided in
-[AppArmor failures](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures).
+AppArmorに関する問題をデバッグするには、システムログをチェックして、特に何が拒否されたのかを確認できます。AppArmorのログは`dmesg`にverboseメッセージを送り、エラーは通常システムログまたは`journalctl`で確認できます。詳しい情報は、[AppArmor failures](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures)で提供されています。
 
+## APIリファレンス {#api-reference}
 
-## API Reference
+### Podアノテーション
 
-### Pod Annotation
-
-Specifying the profile a container will run with:
+コンテナが実行するプロファイルを指定します。
 
 - **key**: `container.apparmor.security.beta.kubernetes.io/<container_name>`
-  Where `<container_name>` matches the name of a container in the Pod.
-  A separate profile can be specified for each container in the Pod.
-- **value**: a profile reference, described below
+  ここで、`<container_name>`はPod内のコンテナの名前を一致させます。Pod内の各コンテナごとに別々のプロファイルを指定できます。
+- **value**: 下で説明するプロファイルのリファレンス
 
-### Profile Reference
+### プロファイルのリファレンス
 
-- `runtime/default`: Refers to the default runtime profile.
-  - Equivalent to not specifying a profile (without a PodSecurityPolicy default), except it still
-    requires AppArmor to be enabled.
-  - For Docker, this resolves to the
-    [`docker-default`](https://docs.docker.com/engine/security/apparmor/) profile for non-privileged
-    containers, and unconfined (no profile) for privileged containers.
-- `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
-  - The possible profile names are detailed in the
-    [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
-- `unconfined`: This effectively disables AppArmor on the container.
+- `runtime/default`: デフォルトのランタイムプロファイルを指します。
+  - (PodSecurityPolicyのデフォルトを設定せずに)プロファイルを指定しない場合と同等ですが、AppArmorを有効化する必要があります。
+  - Dockerの場合、非特権コンテナでは[`docker-default`](https://docs.docker.com/engine/security/apparmor/)プロファイルが選択され、特権コンテナではunconfined(プロファイルなし)が選択されます。
+- `localhost/<profile_name>`: 名前で指定されたノード(localhost)に読み込まれたプロファイルを指します。
+  - 利用できるプロファイル名の詳細は[core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications)で説明されています。
+- `unconfined`: これは実質的にコンテナ上のAppArmorを無効化します。
 
-Any other profile reference format is invalid.
+これ以外のプロファイルリファレンスはすべて無効です。
 
-### PodSecurityPolicy Annotations
+### PodSecurityPolicyアノテーション
 
-Specifying the default profile to apply to containers when none is provided:
+noneが与えられたときにコンテナに適用するデフォルトのプロファイルは、以下のように指定します。
 
 * **key**: `apparmor.security.beta.kubernetes.io/defaultProfileName`
-* **value**: a profile reference, described above
+* **value**: 上で説明したプロファイルのリファレンス
 
-Specifying the list of profiles Pod containers is allowed to specify:
+Podコンテナが指定することを許可するプロファイルのリストは、以下のように指定します。
 
 * **key**: `apparmor.security.beta.kubernetes.io/allowedProfileNames`
-* **value**: a comma-separated list of profile references (described above)
-  - Although an escaped comma is a legal character in a profile name, it cannot be explicitly
-    allowed here.
-
-
+* **value**: カンマ区切りの上述のプロファイルリファレンスのリスト
+  - プロファイル名ではエスケープしたカンマは不正な文字ではありませんが、ここでは明示的に許可されません。
 
 ## {{% heading "whatsnext" %}}
 
-
-Additional resources:
+追加のリソースとしては以下のものがあります。
 
 * [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
 * [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
-
-
