@@ -7,31 +7,21 @@ content_type: task
 ---
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 A subset of the Kubelet's configuration parameters may be
 set via an on-disk config file, as a substitute for command-line flags.
-This functionality is considered beta in v1.10.
 
 Providing parameters via a config file is the recommended approach because
 it simplifies node deployment and configuration management.
-
-
-
-## {{% heading "prerequisites" %}}
-
-
-- A v1.10 or higher Kubelet binary must be installed for beta functionality.
-
-
 
 <!-- steps -->
 
 ## Create the config file
 
 The subset of the Kubelet's configuration that can be configured via a file
-is defined by the `KubeletConfiguration` struct
-[here (v1beta1)](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+is defined by the
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
+struct.
 
 The configuration file must be a JSON or YAML representation of the parameters
 in this struct. Make sure the Kubelet has read permissions on the file.
@@ -73,8 +63,6 @@ If `--config` is provided and the values are not specified via the command line,
 defaults for the `KubeletConfiguration` version apply.
 In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 
-
-
 <!-- discussion -->
 
 ## Relationship to Dynamic Kubelet Config
@@ -83,5 +71,9 @@ If you are using the [Dynamic Kubelet Configuration](/docs/tasks/administer-clus
 feature, the combination of configuration provided via `--config` and any flags which override these values
 is considered the default "last known good" configuration by the automatic rollback mechanism.
 
+## {{% heading "whatsnext" %}}
 
+- Learn more about kubelet configuration by checking the
+  [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
+  reference.
 
