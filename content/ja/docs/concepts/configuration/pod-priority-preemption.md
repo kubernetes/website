@@ -110,7 +110,7 @@ globalDefault: false
 description: "この優先度クラスは他のPodをプリエンプトさせません。"
 ```
 
-## Podの優先度
+## Podの優先度 {#pod-priority}
 
 一つ以上のPriorityClassがあれば、仕様にPriorityClassを指定したPodを作成することができるようになります。優先度のアドミッションコントローラーは`priorityClassName`フィールドを使用し、優先度の整数値を設定します。PriorityClassが見つからない場合、そのPodの作成は拒否されます。
 
@@ -237,4 +237,4 @@ kubeletによるリソース不足時のPodの追い出しでは、リソース�
 
 ## {{% heading "whatsnext" %}}
 
-* PriorityClassと関連付けてResourceQuotaを使用することに関して [デフォルトで優先度クラスの消費を制限する](/ja/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
+* PriorityClassと関連付けてResourceQuotaを使用することに関して [デフォルトで優先度クラスの消費を制限する](/ja/docs/concepts/policy/resource-quotas/#デフォルトで優先度クラスの消費を制限する)
