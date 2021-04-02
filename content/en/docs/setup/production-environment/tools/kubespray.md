@@ -50,7 +50,7 @@ Kubespray provides the following utilities to help provision your environment:
 
 ### (2/5) Compose an inventory file
 
-After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
+After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
 
 ### (3/5) Plan your cluster deployment
 
