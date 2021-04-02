@@ -1,5 +1,4 @@
 ---
-title: "Clusters"
+title: "クラスター"
 weight: 60
 ---
-
