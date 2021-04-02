@@ -17,7 +17,6 @@ You can set a scheduling policy by running
 and using the [Policy type](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy).
 
 
-
 <!-- body -->
 
 ## Predicates
@@ -122,5 +121,6 @@ The following *priorities* implement scoring:
 ## {{% heading "whatsnext" %}}
 
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
-* Learn about [kube-scheduler Configuration](/docs/reference/scheduling/config/)
+* Learn about [kube-scheduler configuration](/docs/reference/scheduling/config/)
+* Read the [kube-scheduler configuration reference (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1)
 
