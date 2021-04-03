@@ -102,9 +102,8 @@ yang diinginkannya melalui server API, dan kemudian berkomunikasi langsung
 dengan sistem eksternal untuk membawa keadaan saat ini mendekat keadaan yang 
 diinginkan.
 
-(Sebenarnya ada sebuah _controller_ yang melakukan penskalaan node secara 
-horizontal dalam klaster kamu. Silahkan lihat
-[_autoscaling_ klaster](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)).
+(Sebenarnya ada sebuah [_controller_](https://github.com/kubernetes/autoscaler/) yang melakukan penskalaan node secara 
+horizontal dalam klaster kamu.
 
 ## Status sekarang berbanding status yang diinginkan {#sekarang-banding-diinginkan}
 
