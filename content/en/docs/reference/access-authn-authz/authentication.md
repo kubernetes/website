@@ -955,7 +955,8 @@ When run from an interactive session, `stdin` is exposed directly to the plugin.
 [TTY check](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal) to determine if it's
 appropriate to prompt a user interactively.
 
-To use bearer token credentials, the plugin returns a token in the status of the `ExecCredential`.
+To use bearer token credentials, the plugin returns a token in the status of the
+[`ExecCredential`](/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 
 ```json
 {
@@ -1005,6 +1006,7 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
   }
 }
 ```
+
 To enable the exec plugin to obtain cluster-specific information, set `provideClusterInfo` on the `user.exec`
 field in the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
 The plugin will then be supplied with an environment variable, `KUBERNETES_EXEC_INFO`.
@@ -1029,3 +1031,8 @@ The following `ExecCredential` manifest describes a cluster information sample.
   }
 }
 ```
+
+## {{% heading "whatsnext" %}}
+
+* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+

@@ -76,6 +76,10 @@ operator to use or manage a cluster.
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
 
+## Config APIs
+
+* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+
 ## Design Docs
 
 An archive of the design docs for Kubernetes functionality. Good starting points are
