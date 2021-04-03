@@ -80,6 +80,10 @@ operator to use or manage a cluster.
 
 * [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 
+## Config APIs
+
+* [kube-scheduler policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
+
 ## Design Docs
 
 An archive of the design docs for Kubernetes functionality. Good starting points are
