@@ -13,7 +13,7 @@ What are Pod Security Policies? Why did we need them? Why are they going away, a
 
 ## What does deprecation mean in Kubernetes?
 
-Whenever a Kubernetes feature is set to go away, our [deprecation policy](docs/reference/using-api/deprecation-policy/) is our guide. First the feature is marked as deprecated, then after enough time has passed, it can finally be removed.
+Whenever a Kubernetes feature is set to go away, our [deprecation policy](/docs/reference/using-api/deprecation-policy/) is our guide. First the feature is marked as deprecated, then after enough time has passed, it can finally be removed.
 
 Kubernetes 1.21 starts the deprecation process for PodSecurityPolicy. As with all feature deprecations, PodSecurityPolicy will continue to be fully functional for several more releases. The current plan is to remove PSP from Kubernetes in the 1.25 release.
 
@@ -21,11 +21,11 @@ Until then, PSP is still PSP. There will be at least a year during which the new
 
 ## What is PodSecurityPolicy?
 
-[PodSecurityPolicy](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) is a built-in [admission controller](https://kubernetes.io/blog/2019/03/21/a-guide-to-kubernetes-admission-controllers/) that allows a cluster administrator to control security-sensitive aspects of the Pod specification. 
+[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) is a built-in [admission controller](o/blog/2019/03/21/a-guide-to-kubernetes-admission-controllers/) that allows a cluster administrator to control security-sensitive aspects of the Pod specification. 
 
 First, one or more PodSecurityPolicy resources are created in a cluster to define the requirements Pods must meet. Then, RBAC rules are created to control which PodSecurityPolicy applies to a given pod. If a pod meets the requirements of its PSP, it will be admitted to the cluster as usual. In some cases, PSP can also modify Pod fields, effectively creating new defaults for those fields. If a Pod does not meet the PSP requirements, it is rejected, and cannot run. 
 
-One more important thing to know about PodSecurityPolicy: it’s not the same as PodSecurityContext.
+One more important thing to know about PodSecurityPolicy: it’s not the same as [PodSecurityContext](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context).
 
 A part of the Pod specification, PodSecurityContext is the collection of fields that specify many of the security-relevant settings for a Pod. The security context dictates to the kubelet and container runtime how the Pod should actually be run. In contrast, the PodSecurityPolicy only constrains (or defaults) the values that may be set on the security context.
 
@@ -35,7 +35,7 @@ The deprecation of PSP does not affect PodSecurityContext in any way.
 
 In Kubernetes, we define resources such as Deployments, StatefulSets, and Services that represent the building blocks of software applications. The various controllers inside a Kubernetes cluster react to these resources, creating further Kubernetes resources or configuring some software or hardware to accomplish our goals.
 
-In most Kubernetes clusters, RBAC (Role-Based Access Control) rules control access to these resources. Get, Create, Edit, and Delete are the sorts of operations that RBAC cares about, but RBAC does not consider what settings are being put into the resources it controls. For example, a Pod can be almost anything from a simple webserver to a privileged command prompt offering full access to the underlying server node and all the data. It’s all the same to RBAC: a Pod is a Pod is a Pod.
+In most Kubernetes clusters, RBAC (Role-Based Access Control) rules control access to these resources. `list`, `get`, `create`, `edit`, and `delete` are the sorts of API operations that RBAC cares about, but _RBAC does not consider what settings are being put into the resources it controls_. For example, a Pod can be almost anything from a simple webserver to a privileged command prompt offering full access to the underlying server node and all the data. It’s all the same to RBAC: a Pod is a Pod is a Pod.
 
 To control what sorts of settings are allowed in the resources defined in your cluster, you need Admission Control in addition to RBAC. Since Kubernetes 1.3, PodSecurityPolicy has been the built-in way to do that for security-related Pod fields. Using PodSecurityPolicy, you can prevent “create Pod” from automatically meaning “root on every cluster node,” without needing to deploy additional external admission controllers.
 
@@ -65,11 +65,10 @@ What this all means for you depends on your current PSP situation. If you’re a
 
 If you’re making extensive use of the flexibility of PSP with numerous PSPs and complex binding rules, you will likely find the simplicity of PSP Replacement Policy too limiting. Use the next year to evaluate the other admission controller choices in the ecosystem. There are resources available to ease this transition, such as the [Gatekeeper Policy Library](https://github.com/open-policy-agent/gatekeeper-library).
 
-If your use of PSP is relatively simple, with a few policies and straightforward binding to service accounts in each namespace, you will likely find PSP Replacement Policy to be a good match for your needs. Evaluate your PSPs compared to the [Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/) to get a feel for where you’ll be able to use the Restricted, Baseline, and Privileged policies. Please follow along with or contribute to the KEP and subsequent development, and try out the Alpha release of PSP Replacement Policy when it becomes available.
+If your use of PSP is relatively simple, with a few policies and straightforward binding to service accounts in each namespace, you will likely find PSP Replacement Policy to be a good match for your needs. Evaluate your PSPs compared to the Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-standards/) to get a feel for where you’ll be able to use the Restricted, Baseline, and Privileged policies. Please follow along with or contribute to the KEP and subsequent development, and try out the Alpha release of PSP Replacement Policy when it becomes available.
 
-If you’re just beginning your PSP journey, you will save time and effort by keeping it simple. You can approximate the functionality of PSP Replacement Policy today by using the Pod Security Standards’ PSPs. If you set the cluster default by binding a Baseline or Restricted policy to the system:authenticated group, and then make a more-permissive policy available as needed in certain Namespaces [using ServiceAccount bindings](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#run-another-pod), you will avoid many of the PSP pitfalls and have an easy migration to PSP Replacement Policy. If your needs are much more complex than this, your effort is probably better spent adopting one of the more fully-featured external admission controllers mentioned above.
+If you’re just beginning your PSP journey, you will save time and effort by keeping it simple. You can approximate the functionality of PSP Replacement Policy today by using the Pod Security Standards’ PSPs. If you set the cluster default by binding a Baseline or Restricted policy to the system:authenticated group, and then make a more-permissive policy available as needed in certain Namespaces [using ServiceAccount bindings](/docs/concepts/policy/pod-security-policy/#run-another-pod), you will avoid many of the PSP pitfalls and have an easy migration to PSP Replacement Policy. If your needs are much more complex than this, your effort is probably better spent adopting one of the more fully-featured external admission controllers mentioned above.
 
 We’re dedicated to making Kubernetes the best container orchestration tool we can, and sometimes that means we need to remove longstanding features to make space for better things to come. When that happens, the Kubernetes deprecation policy ensures you have plenty of time to plan your next move. In the case of PodSecurityPolicy, several options are available to suit a range of needs and use cases. Start planning ahead now for PSP’s eventual removal, and please consider contributing to its replacement! Happy securing!
 
 **Acknowledgment:** It takes a wonderful group to make wonderful software. Thanks are due to everyone who has contributed to the PSP replacement effort, especially (in alphabetical order) Tim Allclair, Ian Coldwater, and Jordan Liggitt. It’s been a joy to work with y’all on this.
-
