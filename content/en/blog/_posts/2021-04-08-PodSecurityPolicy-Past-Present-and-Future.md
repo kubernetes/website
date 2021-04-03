@@ -21,7 +21,7 @@ Until then, PSP is still PSP. There will be at least a year during which the new
 
 ## What is PodSecurityPolicy?
 
-[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) is a built-in [admission controller](o/blog/2019/03/21/a-guide-to-kubernetes-admission-controllers/) that allows a cluster administrator to control security-sensitive aspects of the Pod specification. 
+[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) is a built-in [admission controller](/blog/2019/03/21/a-guide-to-kubernetes-admission-controllers/) that allows a cluster administrator to control security-sensitive aspects of the Pod specification. 
 
 First, one or more PodSecurityPolicy resources are created in a cluster to define the requirements Pods must meet. Then, RBAC rules are created to control which PodSecurityPolicy applies to a given pod. If a pod meets the requirements of its PSP, it will be admitted to the cluster as usual. In some cases, PSP can also modify Pod fields, effectively creating new defaults for those fields. If a Pod does not meet the PSP requirements, it is rejected, and cannot run. 
 
