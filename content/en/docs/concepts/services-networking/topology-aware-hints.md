@@ -3,7 +3,7 @@ reviewers:
 - robscott
 title: Topology Aware Hints
 content_type: concept
-weight: 10
+weight: 45
 ---
 
 
@@ -13,9 +13,11 @@ weight: 10
 
 _Topology Aware Hints_ enable topology aware routing by including suggestions
 for how clients should consume endpoints. This approach adds metadata to enable
-consumers of Endpoint(Slice) to be able to route traffic closer to where it is
-originated. For example, users can route traffic within a locality to reduce
-costs and improve performance.
+consumers of EndpointSlice and / or and Endpoints objects, so that traffic to
+those network endpoints can be routed closer to where it originated.
+
+For example, you can route traffic within a locality to reduce
+costs, or to improve network performance.
 
 <!-- body -->
 
@@ -24,26 +26,28 @@ costs and improve performance.
 Kubernetes clusters are increasingly deployed in multi-zone environments.
 _Topology Aware Hints_ provides a mechanism to help keep traffic within the zone
 it originated from. This concept is commonly referred to as "Topology Aware
-Routing". When calculating the endpoints for a Service, the EndpointSlice
-controller considers the topology (region and zone) of each endpoint and
-populates the hints field to allocate it to a zone. These hints are then
-consumed by components like kube-proxy as they configure how requests are
-routed.
+Routing". When calculating the endpoints for a {{< glossary_tooltip term_id="Service" >}},
+the EndpointSlice controller considers the topology (region and zone) of each endpoint
+and populates the hints field to allocate it to a zone.
+Cluster components such as the {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}
+can then consume those hints, and use them to influence how traffic to is routed
+(favoring topologically closer endpoints).
 
 ## Using Topology Aware Hints
 
-You can enable Topology Aware Hints for a Service by setting the
+If you have [enabled](/docs/tasks/administer-cluster/enabling-topology-aware-hints) the
+overall feature, you can activate Topology Aware Hints for a Service by setting the
 `service.kubernetes.io/topology-aware-hints` annotation to `auto`. This tells
 the EndpointSlice controller to set topology hints if it is deemed safe.
 Importantly, this does not guarantee that hints will always be set.
 
-## How it Works
+## How it works {#implementation}
 
 The functionality enabling this feature is split into two components: The
-EndpointSlice controller and Kube-Proxy. This provides a high level overview of
-how each component implements this feature.
+EndpointSlice controller and the kube-proxy. This section provides a high level overview
+of how each component implements this feature.
 
-### EndpointSlice controller
+### EndpointSlice controller {#implementation-control-plane}
 
 The EndpointSlice controller is responsible for setting hints on EndpointSlices
 when this feature is enabled. The controller allocates a proportional amount of
@@ -80,29 +84,29 @@ endpoints:
         - name: "zone-a"
 ```
 
-### Kube-Proxy
+### kube-proxy {#implementation-kube-proxy}
 
-Kube-Proxy filters the endpoints it routes to based on the hints set by the
-EndpointSlice controller. In most cases, this means that kube-proxy will route
-to endpoints in the same zone. Sometimes the controller allocates endpoints from
-a different zone to ensure more even distribution of endpoints between zones.
+The kube-proxy component filters the endpoints it routes to based on the hints set by
+the EndpointSlice controller. In most cases, this means that the kube-proxy is able
+to route traffic to endpoints in the same zone. Sometimes the controller allocates endpoints
+from a different zone to ensure more even distribution of endpoints between zones.
 This would result in some traffic being routed to other zones.
 
 ## Safeguards
 
 The Kubernetes control plane and the kube-proxy on each node apply some
 safeguard rules before using Topology Aware Hints. If these don't check out,
-kube-proxy selects endpoints from anywhere in your cluster, regardless of the
+the kube-proxy selects endpoints from anywhere in your cluster, regardless of the
 zone.
 
 1. **Insufficient number of endpoints:** If there are less endpoints than zones
-   in a cluster, the controller will not assign any hints. 
+   in a cluster, the controller will not assign any hints.
 
 2. **Impossible to achieve balanced allocation:** In some cases, it will be
    impossible to achieve a balanced allocation of endpoints among zones. For
    example, if zone-a is twice as large as zone-b, but there are only 2
    endpoints, an endpoint allocated to zone-a may receive twice as much traffic
-   as zone-b. The controller wil not assign hints if it can't get this "expected
+   as zone-b. The controller does not assign hints if it can't get this "expected
    overload" value below an acceptable threshold for each zone. Importantly this
    is not based on real-time feedback. It is still possible for individual
    endpoints to become overloaded.
@@ -113,14 +117,14 @@ zone.
    hints and so kube-proxy does not filter endpoints by zone.
 
 4. **One or more endpoints does not have a zone hint:** When this happens,
-   kube-proxy assumes that a transition from or to Topology Aware Hints is
+   the kube-proxy assumes that a transition from or to Topology Aware Hints is
    underway. Filtering endpoints for a Service in this state would be dangerous
-   so Kube-Proxy falls back to using all endpoints.
+   so the kube-proxy falls back to using all endpoints.
 
-5. **A zone is not represented in hints:** If kube-proxy is unable to find at
-   least one endpoint with a hint targeting the zone it is running in, it will
-   fall back to using endpoints from all zones. This is most likely to happen as
-   a new zone is being added to a cluster.
+5. **A zone is not represented in hints:** If the kube-proxy is unable to find
+   at least one endpoint with a hint targeting the zone it is running in, it falls
+   to using endpoints from all zones. This is most likely to happen as you add
+   a new zone into your existing cluster.
 
 ## Constraints
 
@@ -152,5 +156,5 @@ zone.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [enabling Topology Aware Hints](/docs/tasks/administer-cluster/enabling-topology-aware-hints)
+* Read about [enabling Topology Aware Hints](/docs/tasks/administer-cluster/enabling-topology-aware-hints/)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)

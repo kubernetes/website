@@ -3,7 +3,7 @@ reviewers:
 - freehan
 title: EndpointSlices
 content_type: concept
-weight: 35
+weight: 45
 ---
 
 
