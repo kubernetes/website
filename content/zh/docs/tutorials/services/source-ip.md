@@ -387,7 +387,7 @@ __跨平台支持__
 删除服务：
 
 ```console
-$ kubectl delete svc -l run=source-ip-app
+$ kubectl delete svc -l app=source-ip-app
 ```
 
 
