@@ -1,7 +1,5 @@
 ---
 title: Dual-stack support with kubeadm
-feature:
-  title: Dual-stack support with kubeadm
 content_type: task
 weight: 110
 min-kubernetes-server-version: 1.21
