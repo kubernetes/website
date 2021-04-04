@@ -39,7 +39,7 @@ Examples of those components:
 -->
 ## Kubernetes 中组件的指标
 
-在大多数情况下，可以通过HTTP访问组件endpoint的 `/metrics` 路径来获取组件的度量值。
+在大多数情况下，可以通过 HTTP 访问组件的 `/metrics` 端点来获取组件的度量值。
 对于那些默认情况下不暴露端点的组件，可以使用 `--bind-address` 标志启用。
 
 这些组件的示例：
