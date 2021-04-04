@@ -33,7 +33,7 @@ Alternatively you can run the command directly from the pod. For example, let us
 kubectl run test-nslookup --image=busybox:1.28 --rm -it --restart=Never  -- nslookup servicesample > nslookupout.txt
 ```
 
-Suppose you want to perform nslookup against an existing pod itself (say the pod ip is 10.244.1.13 in the default namespace), then the command would be 
+Suppose you want to perform nslookup against an existing pod itself. If the example pod's IPv4 address is 10.244.1.13, and the pod is in the `default` namespace, then you run:
 
 ```none
 kubectl run test-nslookup --image=busybox:1.28 --rm -it --restart=Never  -- nslookup 10-244-1-13.default.pod > nslookupout.txt
@@ -741,5 +741,4 @@ Contact us on
 
 Visit [troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/)
 for more information.
-
 
