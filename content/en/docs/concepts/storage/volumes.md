@@ -937,7 +937,7 @@ GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte
 ### rbd
 
 An `rbd` volume allows a
-[Rados Block Device](https://ceph.com/docs/master/rbd/rbd/) (RBD) volume to mount into your
+[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount into your
 Pod. Unlike `emptyDir`, which is erased when a pod is removed, the contents of
 an `rbd` volume are preserved and the volume is unmounted. This
 means that a RBD volume can be pre-populated with data, and that data can

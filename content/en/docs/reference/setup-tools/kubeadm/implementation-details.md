@@ -251,7 +251,7 @@ Other API server flags that are set unconditionally are:
     - `--requestheader-client-ca-file` to`front-proxy-ca.crt`
     - `--proxy-client-cert-file` to `front-proxy-client.crt`
     - `--proxy-client-key-file` to `front-proxy-client.key`
- - Other flags for securing the front proxy ([API Aggregation](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)) communications:
+ - Other flags for securing the front proxy ([API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)) communications:
     - `--requestheader-username-headers=X-Remote-User`
     - `--requestheader-group-headers=X-Remote-Group`
     - `--requestheader-extra-headers-prefix=X-Remote-Extra-`
@@ -305,7 +305,7 @@ into `/var/lib/kubelet/config/init/kubelet` file.
 
 The init configuration is used for starting the kubelet on this specific node, providing an alternative for the kubelet drop-in file;
 such configuration will be replaced by the kubelet base configuration as described in following steps.
-See [set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file) for additional info.
+See [set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file) for additional information.
 
 Please note that:
 
@@ -314,6 +314,9 @@ Please note that:
 1. The kubelet configuration can be changed by passing a `KubeletConfiguration` object to `kubeadm init` or `kubeadm join` by using
    a configuration file `--config some-file.yaml`. The `KubeletConfiguration` object can be separated from other objects such
    as `InitConfiguration` using the `---` separator. For more details have a look at the `kubeadm config print-default` command.
+
+For more details about the `KubeletConfiguration` struct, take a look at the
+[`KubeletConfiguration` reference](/docs/reference/config-api/kubelet-config.v1beta1/).
 
 ### Wait for the control plane to come up
 
@@ -325,7 +328,8 @@ kubeadm relies on the kubelet to pull the control plane images and run them prop
 After the control plane is up, kubeadm completes the tasks described in following paragraphs.
 
 ### (optional) Write base kubelet configuration
-{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
+
+{{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
 
@@ -501,10 +505,9 @@ when the connection with the cluster is established, kubeadm try to access the `
 
 ## TLS Bootstrap
 
-Once the cluster info are known, the file `bootstrap-kubelet.conf` is written, thus allowing kubelet to do TLS Bootstrapping
-(conversely until v.1.7 TLS bootstrapping were managed by kubeadm).
+Once the cluster info are known, the file `bootstrap-kubelet.conf` is written, thus allowing kubelet to do TLS Bootstrapping.
 
-The TLS bootstrap mechanism uses the shared token to temporarily authenticate with the Kubernetes Master to submit a certificate
+The TLS bootstrap mechanism uses the shared token to temporarily authenticate with the Kubernetes API server to submit a certificate
 signing request (CSR) for a locally created key pair.
 
 The request is then automatically approved and the operation completes saving `ca.crt` file and `kubelet.conf` file to be used
@@ -514,17 +517,17 @@ Please note that:
 
 - The temporary authentication is validated against the token saved during the `kubeadm init` process (or with additional tokens
   created with `kubeadm token`)
-- The temporary authentication resolve to a user member of  `system:bootstrappers:kubeadm:default-node-token` group which was granted
+- The temporary authentication resolve to a user member of `system:bootstrappers:kubeadm:default-node-token` group which was granted
   access to CSR api during the `kubeadm init` process
 - The automatic CSR approval is managed by the csrapprover controller, according with configuration done the `kubeadm init` process
 
 ### (optional) Write init kubelet configuration
 
-{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
 
-1. Read the kubelet base configuration from the `kubelet-base-config-v1.9` ConfigMap in the `kube-system` namespace  using the
+1. Read the kubelet base configuration from the `kubelet-base-config-v1.x` ConfigMap in the `kube-system` namespace  using the
    Bootstrap Token credentials, and write it to disk as kubelet init configuration file  `/var/lib/kubelet/config/init/kubelet`
 2. As soon as kubelet starts with the Node's own credential (`/etc/kubernetes/kubelet.conf`), update current node configuration
    specifying that the source for the node/kubelet configuration is the above ConfigMap.

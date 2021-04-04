@@ -51,8 +51,8 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
 
   {{< note >}}
   `.spec.selector.matchLabels` 필드는 {key,value}의 쌍으로 매핑되어있다. `matchLabels` 에 매핑된
-  단일 {key,value}은 `matchExpressions` 의 요소에 해당하며, 키 필드는 "key"에 그리고 연산자는 "In"에 대응되며
-  값 배열은 "value"만 포함한다.
+  단일 {key,value}은 `matchExpressions` 의 요소에 해당하며, `key` 필드는 "key"에 그리고 `operator`는 "In"에 대응되며
+  `value` 배열은 "value"만 포함한다.
   매칭을 위해서는 `matchLabels` 와 `matchExpressions` 의 모든 요건이 충족되어야 한다.
   {{< /note >}}
 
@@ -1037,7 +1037,7 @@ echo $?
 
 ## 카나리 디플로이먼트
 
-만약 디플로이먼트를 이용해서 일부 사용자 또는 서버에 릴리즈를 롤아웃 하기 위해서는
+만약 디플로이먼트를 이용해서 일부 사용자 또는 서버에 릴리스를 롤아웃 하기 위해서는
 [리소스 관리](/ko/docs/concepts/cluster-administration/manage-deployment/#카나리-canary-디플로이먼트)에
 설명된 카나리 패던에 따라 각 릴리스 마다 하나씩 여러 디플로이먼트를 생성할 수 있다.
 

@@ -71,7 +71,7 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 
 | Protocol | Direction | Port Range | Purpose                 | Used By                   |
 |----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | Inbound   | 6443*      | Kubernetes API server   | All                       |
+| TCP      | Inbound   | 6443\*      | Kubernetes API server   | All                       |
 | TCP      | Inbound   | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
 | TCP      | Inbound   | 10250      | kubelet API             | Self, Control plane       |
 | TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
@@ -313,5 +313,5 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 
 ## {{% heading "whatsnext" %}}
 
-
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+

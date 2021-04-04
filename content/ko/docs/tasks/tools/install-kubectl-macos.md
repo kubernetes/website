@@ -23,7 +23,7 @@ card:
 - [macOS에서 curl을 사용하여 kubectl 바이너리 설치](#install-kubectl-binary-with-curl-on-macos)
 - [macOS에서 Homebrew를 사용하여 설치](#install-with-homebrew-on-macos)
 - [macOS에서 Macports를 사용하여 설치](#install-with-macports-on-macos)
-- [Google Cloud SDK를 사용하여 설치](#install-on-macos-as-part-of-the-google-cloud-sdk)
+- [macOS에서 Google Cloud SDK를 사용하여 설치](#install-on-macos-as-part-of-the-google-cloud-sdk)
 
 ### macOS에서 curl을 사용하여 kubectl 바이너리 설치 {#install-kubectl-binary-with-curl-on-macos}
 

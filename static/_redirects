@@ -29,6 +29,7 @@
 /docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
 /docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
 /docs/admin/cluster-management/     /docs/tasks/administer-cluster/ 302
+/id/docs/admin/cluster-management/     /id/docs/tasks/administer-cluster/ 302
 /docs/admin/cluster-troubleshooting/     /docs/tasks/debug-application-cluster/debug-cluster/ 301
 /docs/admin/daemons/     /docs/concepts/workloads/controllers/daemonset/ 301
 /docs/admin/disruptions/     /docs/concepts/workloads/pods/disruptions/ 301
