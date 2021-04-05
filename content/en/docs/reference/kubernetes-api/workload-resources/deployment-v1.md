@@ -1,134 +1,165 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "PersistentVolumeClaim"
+  apiVersion: "apps/v1"
+  import: "k8s.io/api/apps/v1"
+  kind: "Deployment"
 content_type: "api_reference"
-description: "PersistentVolumeClaim is a user's request for and claim to a persistent volume."
-title: "PersistentVolumeClaim"
-weight: 4
+description: "Deployment enables declarative updates for Pods and ReplicaSets."
+title: "Deployment"
+weight: 6
 ---
 
-`apiVersion: v1`
+`apiVersion: apps/v1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/apps/v1"`
 
 
-## PersistentVolumeClaim {#PersistentVolumeClaim}
+## Deployment {#Deployment}
 
-PersistentVolumeClaim is a user's request for and claim to a persistent volume
+Deployment enables declarative updates for Pods and ReplicaSets.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: apps/v1
 
 
-- **kind**: PersistentVolumeClaim
+- **kind**: Deployment
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard object metadata.
 
-- **spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/deployment-v1#DeploymentSpec" >}}">DeploymentSpec</a>)
 
-  Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+  Specification of the desired behavior of the Deployment.
 
-- **status** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimStatus" >}}">PersistentVolumeClaimStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/deployment-v1#DeploymentStatus" >}}">DeploymentStatus</a>)
 
-  Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-
-
+  Most recently observed status of the Deployment.
 
 
 
-## PersistentVolumeClaimSpec {#PersistentVolumeClaimSpec}
-
-PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
-
-<hr>
-
-- **accessModes** ([]string)
-
-  AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
-
-- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
-
-  A label query over volumes to consider for binding.
-
-- **resources** (ResourceRequirements)
-
-  Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-
-  <a name="ResourceRequirements"></a>
-  *ResourceRequirements describes the compute resource requirements.*
-
-  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-- **volumeName** (string)
-
-  VolumeName is the binding reference to the PersistentVolume backing this claim.
-
-- **storageClassName** (string)
-
-  Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
-
-- **volumeMode** (string)
-
-  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 
 
+## DeploymentSpec {#DeploymentSpec}
 
-### Alpha level
-
-
-- **dataSource** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
-
-  This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
-
-
-
-## PersistentVolumeClaimStatus {#PersistentVolumeClaimStatus}
-
-PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+DeploymentSpec is the specification of the desired behavior of the Deployment.
 
 <hr>
 
-- **accessModes** ([]string)
+- **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), required
 
-  AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+  Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
 
-- **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  Represents the actual resources of the underlying volume.
+  Template describes the pods that will be created.
 
-- **conditions** ([]PersistentVolumeClaimCondition)
+- **replicas** (int32)
+
+  Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
+
+- **minReadySeconds** (int32)
+
+  Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+
+- **strategy** (DeploymentStrategy)
+
+  *Patch strategy: retainKeys*
+  
+  The deployment strategy to use to replace existing pods with new ones.
+
+  <a name="DeploymentStrategy"></a>
+  *DeploymentStrategy describes how to replace existing pods with new ones.*
+
+  - **strategy.type** (string)
+
+    Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+
+  - **strategy.rollingUpdate** (RollingUpdateDeployment)
+
+    Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
+
+    <a name="RollingUpdateDeployment"></a>
+    *Spec to control the desired behavior of rolling update.*
+
+    - **strategy.rollingUpdate.maxSurge** (IntOrString)
+
+      The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+
+      <a name="IntOrString"></a>
+      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+
+    - **strategy.rollingUpdate.maxUnavailable** (IntOrString)
+
+      The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+
+      <a name="IntOrString"></a>
+      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+
+- **revisionHistoryLimit** (int32)
+
+  The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+
+- **progressDeadlineSeconds** (int32)
+
+  The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
+
+- **paused** (boolean)
+
+  Indicates that the deployment is paused.
+
+
+
+
+
+## DeploymentStatus {#DeploymentStatus}
+
+DeploymentStatus is the most recently observed status of the Deployment.
+
+<hr>
+
+- **replicas** (int32)
+
+  Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+
+- **availableReplicas** (int32)
+
+  Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+
+- **readyReplicas** (int32)
+
+  Total number of ready pods targeted by this deployment.
+
+- **unavailableReplicas** (int32)
+
+  Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
+
+- **updatedReplicas** (int32)
+
+  Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+
+- **collisionCount** (int32)
+
+  Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
+
+- **conditions** ([]DeploymentCondition)
 
   *Patch strategy: merge on key `type`*
   
-  Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+  Represents the latest available observations of a deployment's current state.
 
-  <a name="PersistentVolumeClaimCondition"></a>
-  *PersistentVolumeClaimCondition contails details about state of pvc*
+  <a name="DeploymentCondition"></a>
+  *DeploymentCondition describes the state of a deployment at a certain point.*
 
   - **conditions.status** (string), required
 
+    Status of the condition, one of True, False, Unknown.
 
   - **conditions.type** (string), required
 
-
-  - **conditions.lastProbeTime** (Time)
-
-    Last time we probed the condition.
-
-    <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+    Type of deployment condition.
 
   - **conditions.lastTransitionTime** (Time)
 
@@ -137,41 +168,48 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
+  - **conditions.lastUpdateTime** (Time)
+
+    The last time this condition was updated.
+
+    <a name="Time"></a>
+    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
   - **conditions.message** (string)
 
-    Human-readable message indicating details about last transition.
+    A human readable message indicating details about the transition.
 
   - **conditions.reason** (string)
 
-    Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+    The reason for the condition's last transition.
 
-- **phase** (string)
+- **observedGeneration** (int64)
 
-  Phase represents the current phase of PersistentVolumeClaim.
-
-
+  The generation observed by the deployment controller.
 
 
 
-## PersistentVolumeClaimList {#PersistentVolumeClaimList}
 
-PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
+
+## DeploymentList {#DeploymentList}
+
+DeploymentList is a list of Deployments.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: apps/v1
 
 
-- **kind**: PersistentVolumeClaimList
+- **kind**: DeploymentList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  Standard list metadata.
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>), required
 
-  A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+  Items is the list of Deployments.
 
 
 
@@ -188,18 +226,18 @@ PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
 
 
 
-### `get` read the specified PersistentVolumeClaim
+### `get` read the specified Deployment
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+GET /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the Deployment
 
 
 - **namespace** (*in path*): string, required
@@ -216,23 +254,23 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified PersistentVolumeClaim
+### `get` read status of the specified Deployment
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
+GET /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the Deployment
 
 
 - **namespace** (*in path*): string, required
@@ -249,16 +287,16 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind PersistentVolumeClaim
+### `list` list or watch objects of kind Deployment
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
+GET /apis/apps/v1/namespaces/{namespace}/deployments
 
 #### Parameters
 
@@ -322,16 +360,16 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimList" >}}">PersistentVolumeClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/deployment-v1#DeploymentList" >}}">DeploymentList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind PersistentVolumeClaim
+### `list` list or watch objects of kind Deployment
 
 #### HTTP Request
 
-GET /api/v1/persistentvolumeclaims
+GET /apis/apps/v1/deployments
 
 #### Parameters
 
@@ -390,16 +428,16 @@ GET /api/v1/persistentvolumeclaims
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimList" >}}">PersistentVolumeClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/deployment-v1#DeploymentList" >}}">DeploymentList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a PersistentVolumeClaim
+### `create` create a Deployment
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
+POST /apis/apps/v1/namespaces/{namespace}/deployments
 
 #### Parameters
 
@@ -409,7 +447,7 @@ POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, required
 
   
 
@@ -433,27 +471,27 @@ POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified PersistentVolumeClaim
+### `update` replace the specified Deployment
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the Deployment
 
 
 - **namespace** (*in path*): string, required
@@ -461,7 +499,7 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, required
 
   
 
@@ -485,25 +523,25 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified PersistentVolumeClaim
+### `update` replace status of the specified Deployment
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
+PUT /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the Deployment
 
 
 - **namespace** (*in path*): string, required
@@ -511,7 +549,7 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>, required
 
   
 
@@ -535,78 +573,25 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified PersistentVolumeClaim
+### `patch` partially update the specified Deployment
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+PATCH /apis/apps/v1/namespaces/{namespace}/deployments/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified PersistentVolumeClaim
-
-#### HTTP Request
-
-PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the PersistentVolumeClaim
+  name of the Deployment
 
 
 - **namespace** (*in path*): string, required
@@ -643,23 +628,76 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a PersistentVolumeClaim
+### `patch` partially update status of the specified Deployment
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+PATCH /apis/apps/v1/namespaces/{namespace}/deployments/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the Deployment
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/deployment-v1#Deployment" >}}">Deployment</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a Deployment
+
+#### HTTP Request
+
+DELETE /apis/apps/v1/namespaces/{namespace}/deployments/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the Deployment
 
 
 - **namespace** (*in path*): string, required
@@ -696,18 +734,18 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Accepted
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of PersistentVolumeClaim
+### `deletecollection` delete collection of Deployment
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
+DELETE /apis/apps/v1/namespaces/{namespace}/deployments
 
 #### Parameters
 
