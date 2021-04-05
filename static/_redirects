@@ -509,3 +509,4 @@
 /docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/     302
 
 /docs/concepts/configuration/pod-overhead/     /docs/concepts/scheduling-eviction/pod-overhead/   301
+/id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
