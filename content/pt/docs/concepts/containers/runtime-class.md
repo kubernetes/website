@@ -146,7 +146,7 @@ aquele conjunto de nós deve possuir uma marca/label padrão que é selecionado 
 nodeSelector do Pod em tempo de admissão, obtendo a intersecção do conjunto de nós selecionado 
 por cada. Se existir um conflito, o pod será rejeitado.
 
-Se os nós suportados possuírem marcação de restrição para previnir outros Pods com uma 
+Se os nós suportados possuírem marcação de restrição para prevenir outros Pods com uma 
 classe de execução diferente de executar no nó, você pode adicionar o campo `tolerations` 
 ao objeto RuntimeClass. Assim como com o `nodeSelector`, o `tolerations` é combinado com 
 o campo `tolerations` do Pod em tempo de admissão, efetivamente pegando a intersecção do
