@@ -60,8 +60,8 @@ ou Service através da funcionalidade de proxy do apiserver.
 As conexões do apiserver ao kubelet são usadas para:
 
   * Buscar logs para pods.
-  * Anexar (através de kubectl) pods em execução.
-  * Fornecer a funcionalidade de encaminhamento de porta do kubelet.
+  * Anexar (através de kubectl) pods em execução.
+  * Fornecer a funcionalidade de encaminhamento de porta do kubelet.
 
 Essas conexões terminam no endpoint HTTPS do kubelet. Por padrão,
 o apiserver não verifica o certificado de serviço do kubelet,
