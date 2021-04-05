@@ -626,13 +626,18 @@ basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files
 
 ### Optional References
 
-A ConfigMap reference may be marked "optional".  If the ConfigMap is non-existent, the mounted volume will be empty. If the ConfigMap exists, but the referenced key is non-existent the path will be absent beneath the mount point.
+A ConfigMap reference may be marked "optional".  If the ConfigMap is non-existent, the mounted volume will be empty. If the ConfigMap exists, but the referenced
+key is non-existent the path will be absent beneath the mount point.
 
 ### Mounted ConfigMaps are updated automatically
 
-When a mounted ConfigMap is updated, the projected content is eventually updated too.  This applies in the case where an optionally referenced ConfigMap comes into existence after a pod has started.
+When a mounted ConfigMap is updated, the projected content is eventually updated too.  This applies in the case where an optionally referenced ConfigMap comes into
+existence after a pod has started.
 
-Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period (1 minute by default) + ttl of ConfigMaps cache (1 minute by default) in kubelet. You can trigger an immediate refresh by updating one of the pod's annotations.
+Kubelet checks whether the mounted ConfigMap is fresh on every periodic sync. However, it uses its local TTL-based cache for getting the current value of the
+ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as
+kubelet sync period (1 minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet. You can trigger an immediate refresh by updating one of
+the pod's annotations.
 
 {{< note >}}
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
