@@ -961,7 +961,7 @@ PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 
 KubernetesはService、Endpoints、EndpointSlice、NetworkPolicyとPodの定義において`protocol`フィールドの値でSCTPをサポートしています。ベータ版の機能のため、この機能はデフォルトで有効になっています。SCTPをクラスターレベルで無効にするには、クラスター管理者はAPI Serverにおいて`SCTPSupport` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を`--feature-gates=SCTPSupport=false,…`と設定して無効にする必要があります。
 
-そのフィーチャーゲートが有効になった時、ユーザーはService、Endpoints、EndpointSlice、NetworkPolicyの`protocol`フィールドと、Podの`SCTP`フィールドを設定できます。
+そのフィーチャーゲートが有効になった時、ユーザーはService、Endpoints、EndpointSlice、NetworkPolicy、またはPodの`protocol`フィールドに`SCTP`を設定できます。
 Kubernetesは、TCP接続と同様に、SCTPアソシエーションに応じてネットワークをセットアップします。
 
 #### 警告 {#caveat-sctp-overview}
