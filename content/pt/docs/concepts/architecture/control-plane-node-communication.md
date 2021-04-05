@@ -1,15 +1,12 @@
 ---
-reviewers:
-- dchen1107
-- liggitt
-title: Comunicação entre Node e Master
+title: Comunicação entre Nó e Control Plane
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
 
-Este documento cataloga os caminhos de comunicação entre o Master (o
+Este documento cataloga os caminhos de comunicação entre o Control Plane (o
 apiserver) e o cluster Kubernetes. A intenção é permitir que os usuários
 personalizem sua instalação para proteger a configuração de rede
 então o cluster pode ser executado em uma rede não confiável (ou em IPs totalmente públicos em um
@@ -22,8 +19,8 @@ provedor de nuvem).
 
 ## Cluster para o Master
 
-Todos os caminhos de comunicação do cluster para o Master terminam no
-apiserver (nenhum dos outros componentes do Master são projetados para expor
+Todos os caminhos de comunicação do cluster para o Control Plane terminam no
+apiserver (nenhum dos outros componentes do Control Plane são projetados para expor
 Serviços remotos). Em uma implantação típica, o apiserver é configurado para escutar
 conexões remotas em uma porta HTTPS segura (443) com uma ou mais clientes [autenticação](/docs/reference/access-authn-authz/authentication/) habilitado.
 Uma ou mais formas de [autorização](/docs/reference/access-authn-authz/authorization/)
@@ -51,12 +48,12 @@ Como resultado, o modo de operação padrão para conexões do cluster
 (nodes e pods em execução nos Nodes) para o Master é protegido por padrão
 e pode passar por redes não confiáveis ​​e / ou públicas.
 
-## Master para o Cluster
+## Control Plane para o Nó
 
-Existem dois caminhos de comunicação primários do mestre (apiserver) para o
+Existem dois caminhos de comunicação primários do Control Plane (apiserver) para o
 cluster. O primeiro é do apiserver para o processo do kubelet que é executado em
-cada Node no cluster. O segundo é do apiserver para qualquer Node, pod,
-ou serviço através da funcionalidade de proxy do apiserver.
+cada nó no cluster. O segundo é do apiserver para qualquer nó, Pod,
+ou Service através da funcionalidade de proxy do apiserver.
 
 ### apiserver para o kubelet
 
@@ -82,9 +79,9 @@ rede não confiável ou pública.
 Finalmente, [Autenticação e/ou autorização do Kubelet](/docs/admin/kubelet-authentication-authorization/)
 deve ser ativado para proteger a API do kubelet.
 
-### apiserver para nós, pods e serviços
+### apiserver para nós, pods e services
 
-As conexões a partir do apiserver para um nó, pod ou serviço padrão para simples
+As conexões a partir do apiserver para um nó, pod ou service padrão para simples
 conexões HTTP não são autenticadas nem criptografadas. Eles
 podem ser executados em uma conexão HTTPS segura prefixando `https:` no nó,
 pod, ou nome do serviço no URL da API, mas eles não validarão o certificado
@@ -94,12 +91,22 @@ Estas conexões **não são atualmente seguras** para serem usados por redes nã
 
 ### SSH Túnel
 
-O Kubernetes suporta túneis SSH para proteger o Servidor Master -> caminhos de comunicação no cluster. Nesta configuração, o apiserver inicia um túnel SSH para cada nó
+O Kubernetes suporta túneis SSH para proteger os caminhos de comunicação do control plane para os nós. Nesta configuração, o apiserver inicia um túnel SSH para cada nó
 no cluster (conectando ao servidor ssh escutando na porta 22) e passa
 todo o tráfego destinado a um kubelet, nó, pod ou serviço através do túnel.
 Este túnel garante que o tráfego não seja exposto fora da rede aos quais
 os nós estão sendo executados.
 
-Atualmente, os túneis SSH estão obsoletos, portanto, você não deve optar por usá-los, a menos que saiba o que está fazendo. Um substituto para este canal de comunicação está sendo projetado.
+Atualmente, os túneis SSH estão obsoletos, portanto, você não deve optar por usá-los, a menos que saiba o que está fazendo. Um substituto para este canal de comunicação está sendo projetado.The Konnectivity service is a replacement for this communication channel.
+
+### Konnectivity service
+
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+
+As a replacement to the SSH tunnels, the Konnectivity service provides TCP level proxy for the control plane to cluster communication. The Konnectivity service consists of two parts: the Konnectivity server in the control plane network and the Konnectivity agents in the nodes network. The Konnectivity agents initiate connections to the Konnectivity server and maintain the network connections. After enabling the Konnectivity service, all control plane to nodes traffic goes through these connections.
+
+Follow the Konnectivity service task to set up the Konnectivity service in your cluster.
+
+
 
 
