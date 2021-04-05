@@ -33,7 +33,7 @@ de execução de contêineres mas com diferentes configurações.
 1. Configure a implementação do CRI nos nós (depende do agente de execução)
 2. Crie o recurso RuntimeClass correspondente.
 
-### 1. Configure a implementação do CRI nos nós.
+### 1. Configure a implementação do CRI nos nós
 
 As configurações disponíveis através do RuntimeClass sáo dependentes da implementação do 
 _Container Runtime Interface_ ({{< glossary_tooltip term_id="cri" >}}). Veja a documentação correspondente [abaixo](#configuração-do-cri) para a
@@ -48,7 +48,7 @@ execução). Para suportar configurações heterogêneas, veja [Associação](#a
 As configurações possuem um nome `handler` correspondente, referenciado pelo RuntimeClass. 
 Esse nome deve ser um valor DNS 1123 válido (letras, números e o carácter `-`).
 
-### 2. Crie o recurso RuntimeClass correspondente.
+### 2. Crie o recurso RuntimeClass correspondente
 
 As etapas de configuração no passo 1 devem todas estar associadas a um nome para o campo `handler` 
 que identifica a configuração. Para cada um, crie o objeto RuntimeClass correspondente.
@@ -90,7 +90,7 @@ spec:
 ```
 
 Isso irá instruir o kubelet a usar o RuntimeClass nomeado acima (myclass) para esse Pod. Se
-o nome do RuntimeClass não exustir, ou o CRI não puder executar a solicitação, o Pod irá entrar na [fase
+o nome do RuntimeClass não existir, ou o CRI não puder executar a solicitação, o Pod entrará na [fase
 final](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) `Failed`. Procure por um 
 [evento](/docs/tasks/debug-application-cluster/debug-application-introspection/) correspondente 
 para uma mensagem de erro.
@@ -104,7 +104,7 @@ Para maiores detalhes de configuração dos agentes de execução CRI, veja [ins
 
 #### dockershim
 
-O CRI dockershim embutido no Kubernetes não suporta outros agentes de execução
+O CRI dockershim embutido no Kubernetes não suporta outros agentes de execução.
 
 #### {{< glossary_tooltip term_id="containerd" >}}
 
