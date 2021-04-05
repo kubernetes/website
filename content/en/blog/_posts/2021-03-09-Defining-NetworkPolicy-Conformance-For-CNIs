@@ -8,11 +8,11 @@ slug: defining-networkpolicy-conformance-cni-providers
 Authors: Matt Fenwick, Jay Vyas, Ricardo Katz, Amim Knabben, Douglas Schilling Landgraf
 
 Special thanks to Tim Hockin and Bowie Du (Google), Dan Winship and Antonio Ojea (Red Hat),
-Casey Davenport and Shaun Crampton (Tigera), and Abhishek Raut (VMware) for
+Casey Davenport and Shaun Crampton (Tigera), and Abhishek Raut and Antonin Bas(VMware) for
 being supportive of this work, and working with us to resolve issues in different Container Network Interfaces (CNIs) over time.
 
-A brief conversation around "node local" Network Policies in April of 2020 inspired
-the creation of a NetworkPolicy subproject from SIG Network.
+A brief conversation around "node local" Network Policies in April of 2020 inspired the creation of a NetworkPolicy subproject from SIG Network. It became clear that as a community,
+we need a rock-solid story around how to do pod network security on Kubernetes, and this story needed a community around it, so as to grow the cultural adoption of enterprise security patterns in K8s.
 
 In this post we'll discuss:
 
@@ -431,11 +431,11 @@ spec:
 
 In our tests, we found that:
 
-- Antrea CNI had 100% conformance to all the several hundred Network Policy corner cases.
-- Calico had a couple of cases around named ports, but we believe these are now fixed in the latest calico.
-- Cilium was mostly on par with Antrea and Calico but seems to have an issue around ports, more info [here](https://github.com/cilium/cilium/issues/14678).
+- Antrea and Calico are at a point where they support all of cyclonus's scenarios, modulo a few very minor tweaks which we've made.
+- Cilium also conformed to the majority of the policies, outside known features that aren't fully supported (for example, related to the way cillium deals pod CIDR policies).
 
-We are continuing to curate the Network Policy conformance results from Cyclonus [here](https://raw.githubusercontent.com/K8sbykeshed/cyclonus-artifacts/).
+If you are a CNI provider and interested in helping us to do a better job curating large tests of network policies, please reach out!  We are continuing to curate the Network Policy conformance results from Cyclonus [here](https://raw.githubusercontent.com/K8sbykeshed/cyclonus-artifacts/), but
+we are not capable of maintaining all of the subtleties in NetworkPolicy testing data on our own.  For now, we use github actions and Kind to test in CI.
 
 ## The Future
 
@@ -455,18 +455,19 @@ to hang out with you, hack on stuff, and help you adopt K8s Network Policies for
 
 ### A quick note on User Feedback
 
-We've gotten a lot of ideas and feedback from users on Network Policies.  Feedback is
-a double-edged sword.  A lot of people have interesting ideas about Network Policies,
+We've gotten a lot of ideas and feedback from users on Network Policies.  A lot of people have interesting ideas about Network Policies,
 but we've found that as a subproject, very few people were deeply interested in implementing these ideas to the full extent.
-Almost every change to the NetworkPolicy API includes weeks or months of discussion to
-cover different cases, and ensure no CVEs are being introduced.  Thus, long term ownership
+
+Almost every change to the NetworkPolicy API includes weeks or months of discussion to cover different cases, and ensure no CVEs are being introduced.  Thus, long term ownership
 is the biggest impediment in improving the NetworkPolicy user experience for us, over time.
 
 - We've documented a lot of the history of the Network Policy dialogue [here](https://github.com/jayunit100/network-policy-subproject/blob/master/history.md).
 - We've also taken a poll of users, for what they'd like to see in the Network Policy API [here](https://github.com/jayunit100/network-policy-subproject/blob/master/history.md).
 
 We encourage anyone to provide us with feedback, but our most pressing issues right now
-involve finding long term owners to help us drive changes.  This doesn't require a lot of technical
-knowledge, but rather, just a long term commitment to helping us stay organized, do paperwork,
-and iterate through the many stages of the K8s feature process.  If you want to help us
-and get involved, please reach out on the SIG Network mailing list, or in the SIG Network room in the k8s.io slack channel!
+involve finding *long term owners to help us drive changes*.  
+
+This doesn't require a lot of technical knowledge, but rather, just a long term commitment to helping us stay organized, do paperwork,
+and iterate through the many stages of the K8s feature process.  If you want to help us and get involved, please reach out on the SIG Network mailing list, or in the SIG Network room in the k8s.io slack channel!
+
+Anyone can put an oar in the water and help make NetworkPolices better !
