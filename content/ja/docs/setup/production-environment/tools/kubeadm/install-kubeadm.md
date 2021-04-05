@@ -53,7 +53,7 @@ card:
 Linuxノードのiptablesがブリッジを通過するトラフィックを正確に処理する要件として、`net.bridge.bridge-nf-call-iptables`を`sysctl`の設定ファイルで1に設定してください。例えば以下のようにします。
 
 ```bash
-cat <<EOF > /etc/sysctl.d/k8s.conf
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
