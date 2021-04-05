@@ -188,6 +188,14 @@ When a single IngressClass resource has this annotation set to `"true"`, new Ing
 
 {{< note >}} Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`. {{< /note >}}
 
+## storageclass.kubernetes.io//is-default-class
+
+Example: `storageclass.kubernetes.io//is-default-class: true`
+
+Used on: StorageClass
+
+When a single StorageClass resource has this annotation set to `"true"`, new Physical Volume Claim resource without a class specified will be assigned this default class.
+
 ## alpha.kubernetes.io/provided-node-ip
 
 Example: `alpha.kubernetes.io/provided-node-ip: "10.0.0.1"`
