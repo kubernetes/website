@@ -1,0 +1,13 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Localized strings for Vietnamese.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-vi-reviews
+
+approvers:
+- sig-docs-vi-owners
+
+labels:
+- language/vi
