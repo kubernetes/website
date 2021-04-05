@@ -17,7 +17,7 @@ provedor de nuvem).
 
 <!-- body -->
 
-## Cluster para o Master
+## Cluster para o Control Plane
 
 Todos os caminhos de comunicação do cluster para o Control Plane terminam no
 apiserver (nenhum dos outros componentes do Control Plane são projetados para expor
@@ -45,7 +45,7 @@ apiserver.
 Os componentes principais também se comunicam com o apiserver do cluster através da porta segura.
 
 Como resultado, o modo de operação padrão para conexões do cluster
-(nodes e pods em execução nos Nodes) para o Master é protegido por padrão
+(nodes e pods em execução nos Nodes) para o Control Plane é protegido por padrão
 e pode passar por redes não confiáveis ​​e / ou públicas.
 
 ## Control Plane para o Nó
