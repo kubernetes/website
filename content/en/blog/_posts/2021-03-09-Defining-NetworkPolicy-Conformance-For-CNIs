@@ -36,7 +36,8 @@ For example:
   different technology stack (for example, the Antrea project uses Open vSwitch rules).
 - Some CNI plugins only implement a subset of the Kubernetes NetworkPolicy API, or
   don't offer the latest features. For example, certain plugins don't support the
-  ability to target a named port; others don't work with port ranges).
+  ability to target a named port; others don't work with certain IP address types, and there are diverging semantics for similar policy types).
+- Some CNI plugins combine with OTHER CNI plugins in order to implement NetworkPolicies (canal), some CNI's might mix implementations (multus), and some clouds do routing separately from NetworkPolicy implementation.
 
 Thus, end-users need to follow a multistep process to implement Network Policies to secure their applications:
 - Confirm that their network plugin supports NetworkPolicies (some don't, such as Flannel)
