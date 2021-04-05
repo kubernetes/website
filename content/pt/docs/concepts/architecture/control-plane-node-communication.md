@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-Este documento cataloga os caminhos de comunicação entre o Control Plane (o
+Este documento cataloga os caminhos de comunicação entre o control plane (o
 apiserver) e o cluster Kubernetes. A intenção é permitir que os usuários
 personalizem sua instalação para proteger a configuração de rede
 então o cluster pode ser executado em uma rede não confiável (ou em IPs totalmente públicos em um
@@ -17,10 +17,10 @@ provedor de nuvem).
 
 <!-- body -->
 
-## Cluster para o Control Plane
+## Nó para o Control Plane
 
-Todos os caminhos de comunicação do cluster para o Control Plane terminam no
-apiserver (nenhum dos outros componentes do Control Plane são projetados para expor
+Todos os caminhos de comunicação do cluster para o control plane terminam no
+apiserver (nenhum dos outros componentes do control plane são projetados para expor
 Serviços remotos). Em uma implantação típica, o apiserver é configurado para escutar
 conexões remotas em uma porta HTTPS segura (443) com uma ou mais clientes [autenticação](/docs/reference/access-authn-authz/authentication/) habilitado.
 Uma ou mais formas de [autorização](/docs/reference/access-authn-authz/authorization/)
@@ -45,12 +45,12 @@ apiserver.
 Os componentes principais também se comunicam com o apiserver do cluster através da porta segura.
 
 Como resultado, o modo de operação padrão para conexões do cluster
-(nodes e pods em execução nos Nodes) para o Control Plane é protegido por padrão
-e pode passar por redes não confiáveis ​​e / ou públicas.
+(nodes e pods em execução nos Nodes) para o control plane é protegido por padrão
+e pode passar por redes não confiáveis ​​e/ou públicas.
 
 ## Control Plane para o Nó
 
-Existem dois caminhos de comunicação primários do Control Plane (apiserver) para o
+Existem dois caminhos de comunicação primários do control plane (apiserver) para o
 cluster. O primeiro é do apiserver para o processo do kubelet que é executado em
 cada nó no cluster. O segundo é do apiserver para qualquer nó, Pod,
 ou Service através da funcionalidade de proxy do apiserver.
