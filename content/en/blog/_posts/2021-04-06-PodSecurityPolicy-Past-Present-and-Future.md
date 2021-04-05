@@ -1,13 +1,13 @@
 ---
 layout: blog
-title: "PodSecurityPolicy: Past, Present, and Future"
-date: 2021-04-08
-slug: PodSecurityPolicy-Past-Present-and-Future
+title: "PodSecurityPolicy Deprecation: Past, Present, and Future"
+date: 2021-04-06
+slug: podsecuritypolicy-deprecation-past-present-and-future
 ---
 
 **Author:** Tabitha Sable (Kubernetes SIG Security)
 
-PodSecurityPolicy (PSP) is being deprecated in Kubernetes 1.21. This starts the countdown to its removal, but doesn’t change anything else. PodSecurityPolicy will continue to be fully functional for several more releases before being removed completely. In the meantime, we are developing a replacement for PSP that covers key use cases more easily and sustainably.
+PodSecurityPolicy (PSP) is being deprecated in Kubernetes 1.21, to be released later this week. This starts the countdown to its removal, but doesn’t change anything else. PodSecurityPolicy will continue to be fully functional for several more releases before being removed completely. In the meantime, we are developing a replacement for PSP that covers key use cases more easily and sustainably.
 
 What are Pod Security Policies? Why did we need them? Why are they going away, and what’s next? How does this affect you? These key questions come to mind as we prepare to say goodbye to PSP, so let’s walk through them together. We’ll start with an overview of how features get removed from Kubernetes.
 
@@ -35,7 +35,7 @@ The deprecation of PSP does not affect PodSecurityContext in any way.
 
 In Kubernetes, we define resources such as Deployments, StatefulSets, and Services that represent the building blocks of software applications. The various controllers inside a Kubernetes cluster react to these resources, creating further Kubernetes resources or configuring some software or hardware to accomplish our goals.
 
-In most Kubernetes clusters, RBAC (Role-Based Access Control) rules control access to these resources. `list`, `get`, `create`, `edit`, and `delete` are the sorts of API operations that RBAC cares about, but _RBAC does not consider what settings are being put into the resources it controls_. For example, a Pod can be almost anything from a simple webserver to a privileged command prompt offering full access to the underlying server node and all the data. It’s all the same to RBAC: a Pod is a Pod is a Pod.
+In most Kubernetes clusters, RBAC (Role-Based Access Control) [rules](/docs/reference/access-authn-authz/rbac/#role-and-clusterrole) control access to these resources. `list`, `get`, `create`, `edit`, and `delete` are the sorts of API operations that RBAC cares about, but _RBAC does not consider what settings are being put into the resources it controls_. For example, a Pod can be almost anything from a simple webserver to a privileged command prompt offering full access to the underlying server node and all the data. It’s all the same to RBAC: a Pod is a Pod is a Pod.
 
 To control what sorts of settings are allowed in the resources defined in your cluster, you need Admission Control in addition to RBAC. Since Kubernetes 1.3, PodSecurityPolicy has been the built-in way to do that for security-related Pod fields. Using PodSecurityPolicy, you can prevent “create Pod” from automatically meaning “root on every cluster node,” without needing to deploy additional external admission controllers.
 
@@ -47,13 +47,13 @@ The way PSPs are applied to Pods has proven confusing to nearly everyone that ha
 
 For more information about these and other PSP difficulties, check out SIG Auth’s KubeCon NA 2019 Maintainer Track session video: {{< youtube "SFtHRmPuhEw?start=953" youtube-quote-sm >}}
 
-Today, you’re not limited only to deploying PSP or writing your own custom admission controller. Several external admission controllers are available that incorporate lessons learned from PSP to provide a better user experience. [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper/), [Kyverno](https://github.com/kyverno/kyverno/), and [K-Rail](https://github.com/cruise-automation/k-rail) are all well-known, and each has its fans.
+Today, you’re not limited only to deploying PSP or writing your own custom admission controller. Several external admission controllers are available that incorporate lessons learned from PSP to provide a better user experience. [K-Rail](https://github.com/cruise-automation/k-rail), [Kyverno](https://github.com/kyverno/kyverno/), and [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper/) are all well-known, and each has its fans.
 
 Although there are other good options available now, we believe there is still value in having a built-in admission controller available as a choice for users. With this in mind, we turn toward building what’s next, inspired by the lessons learned from PSP.
 
 ## What’s next?
 
-Kubernetes SIG Security, SIG Auth, and a diverse collection of other community members have been working together for months to ensure that what’s coming next is going to be awesome. We have developed a Kubernetes Enhancement Proposal ([KEP 2579](https://github.com/kubernetes/enhancements/issues/2579)) and a prototype for a new feature, currently being called PSP Replacement Policy. We are targeting an Alpha release in Kubernetes 1.22.
+Kubernetes SIG Security, SIG Auth, and a diverse collection of other community members have been working together for months to ensure that what’s coming next is going to be awesome. We have developed a Kubernetes Enhancement Proposal ([KEP 2579](https://github.com/kubernetes/enhancements/issues/2579)) and a prototype for a new feature, currently being called by the temporary name "PSP Replacement Policy." We are targeting an Alpha release in Kubernetes 1.22.
 
 PSP Replacement Policy starts with the realization that since there is a robust ecosystem of external admission controllers already available, PSP’s replacement doesn’t need to be all things to all people. Simplicity of deployment and adoption is the key advantage a built-in admission controller has compared to an external webhook, so we have focused on how to best utilize that advantage.
 
