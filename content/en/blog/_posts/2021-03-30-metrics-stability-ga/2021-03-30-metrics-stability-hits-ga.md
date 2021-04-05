@@ -9,6 +9,8 @@ slug: kubernetes-release-1.21-metrics-stability-ga
 
 Kubernetes 1.21 marks the graduation of the metrics stability framework and along with it, the first officially supported stable metrics. Not only do stable metrics come with supportability guarantees, the metrics stability framework brings escape hatches that you can use if you encounter problematic metrics.
 
+See the list of [stable Kubernetes metrics here](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
+
 ### What are stable metrics and why do we need them?
 A stable metric is one which, from a consumption point of view, can be reliably consumed across a number of Kubernetes versions without risk of ingestion failure.
 
