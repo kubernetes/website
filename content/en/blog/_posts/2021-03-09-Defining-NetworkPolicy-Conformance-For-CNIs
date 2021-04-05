@@ -7,8 +7,8 @@ slug: defining-networkpolicy-conformance-cni-providers
 
 Authors: Matt Fenwick, Jay Vyas, Ricardo Katz, Amim Knabben, Douglas Schilling Landgraf
 
-Special thanks to Tim Hockins and Bowie Du (Google), Dan Winship and Antonio Ojea (Red Hat),
-Casey Davenport and Shuan Crampton (tigera), and Abhishek Raut (Vmware) for
+Special thanks to Tim Hockin and Bowie Du (Google), Dan Winship and Antonio Ojea (Red Hat),
+Casey Davenport and Shaun Crampton (Tigera), and Abhishek Raut (VMware) for
 being supportive of this work, and working with us to resolve issues in different Container Network Interfaces (CNIs) over time.
 
 A brief conversation around "node local" Network Policies in April of 2020 inspired
@@ -66,7 +66,6 @@ later on, caused traffic to incorrectly be blocked (even after all Network Polic
 
 This is the network policy for the test in question:
 ```yaml
-Nov  3 15:58:54.034: INFO: Network Policy creating x/allow-ingress-port-80
 metadata:
   creationTimestamp: null
   name: allow-ingress-port-80
@@ -80,7 +79,7 @@ spec:
 These are the expected connectivity results.  The test setup is 9 pods (3 namespaces: x, y, and z;
 and 3 pods in each namespace of a, b, and c); each pod runs a server on the same port and protocol
 that can be reached through HTTP calls in the absence of network policies.  Connectivity is verified
-by using the agnhost network utility to issue HTTP calls on a port and protocol that other pods are
+by using the [agnhost](https://github.com/kubernetes/kubernetes/tree/master/test/images/agnhost) network utility to issue HTTP calls on a port and protocol that other pods are
 expected to be serving.  A test scenario first
 runs a connectivity check to ensure that each pod can reach each other pod, for 81 (= 9 x 9) data
 points.  This is the "control".  Then pertubations are applied, depending on the test scenario:
@@ -131,7 +130,7 @@ z/c .   .   .   .   .   .   .   .   .
 ```
 
 This was one of our earliest wins in the Network Policy group, as we were able to
-identity and work with the OVN kubernetes group to fix a bug in egress policy processing.
+identify and work with the OVN Kubernetes group to fix a bug in egress policy processing.
 
 However, even though this tool has made it easy to validate roughly 30 common scenarios,
 it doesn't validate *all* Network Policy scenarios - because there are an enormous permutation of possible
@@ -396,7 +395,7 @@ After months of deliberation, we eventually settled on a few core areas for impr
   The port range option for network policies will be available to use in Kubernetes 1.21.
   You can read more about this [here](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/2079-network-policy-port-range).
 - Namespace as name policies: Allowing users in Kubernetes >= 1.21 to target namespaces using names,
-  when building Network Policy objects.  This was done in collaboration with Jordan Ligget and Tim Hockins on the apimachinery side.
+  when building Network Policy objects.  This was done in collaboration with Jordan Liggitt and Tim Hockin on the API Machinery side.
   This change allowed us to improve the Network Policy user experience without actually
   changing the API! For details, you can read about it [here](https://github.com/kubernetes/enhancements/pull/2162).
   The TLDR is that after Kubernetes 1.21, ALL NAMESPACES will have the following label, added by default:
@@ -442,7 +441,7 @@ We are continuing to curate the Network Policy conformance results from Cyclonus
 
 We're also working on some improvements for the future of Network Policies, including:
 
-- Fully qualified Domain policies: The google cloud team created a prototype (which
+- Fully qualified Domain policies: The Google Cloud team created a prototype (which
   we are really excited about) of [FQDN policies](https://github.com/GoogleCloudPlatform/gke-fqdnnetworkpolicies-golang).
   This tool uses the Network Policy API to enforce policies against L7 URLs, by finding
   their IPs and blocking them proactively when requests are made.
