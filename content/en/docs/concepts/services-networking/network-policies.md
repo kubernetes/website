@@ -266,14 +266,19 @@ supports the `endPort` field in NetworkPolicy specifications.
 
 ## Targeting a Namespace by its name
 
-As of Kubernetes v1.21, an immutable label `kubernetes.io/metadata.name` is added to all
-namespaces. The value of the label is the namespace name. While NetworkPolicy cannot
-target a namespace by its name with some object field, this label now can be used to target
-a specific namespace.
+{{< feature-state state="beta" for_k8s_version="1.21" >}}
+
+The Kubernetes control plane sets an immutable label `kubernetes.io/metadata.name` on all
+namespaces, provided that the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+The value of the label is the namespace name.
+
+While NetworkPolicy cannot target a namespace by its name with some object field, you can use the
+standardized label to target a specific namespace.
 
 ## What you can't do with network policies (at least, not yet)
 
-As of Kubernetes 1.20, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.  Some (but not all) of these user stories are actively being discussed for future releases of the NetworkPolicy API.
+As of Kubernetes {{< skew latestVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
 
 - Forcing internal cluster traffic to go through a common gateway (this might be best served with a service mesh or other proxy).
 - Anything TLS related (use a service mesh or ingress controller for this).
