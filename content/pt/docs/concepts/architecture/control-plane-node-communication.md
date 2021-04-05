@@ -106,7 +106,3 @@ Atualmente, os túneis SSH estão obsoletos, portanto, você não deve optar por
 Como uma substituição aos túneis SSH, o serviço Konnectivity fornece proxy de nível TCP para a comunicação do control plane para o cluster. O serviço Konnectivity consiste em duas partes: o servidor Konnectivity na rede control plane e os agentes Konnectivity na rede dos nós. Os agentes Konnectivity iniciam conexões com o servidor Konnectivity e mantêm as conexões de rede. Depois de habilitar o serviço Konnectivity, todo o tráfego do control plane para os nós passa por essas conexões.
 
 Veja a [tarefa do Konnectivity](docs/tasks/extend-kubernetes/setup-konnectivity/) para configurar o serviço Konnectivity no seu cluster.
-
-
-
-
