@@ -1,0 +1,197 @@
+# i18n strings for the Polish site.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+[caution]
+other = "Ostrzeżenie:"
+
+[cleanup_heading]
+other = "Sprzątamy po sobie"
+
+[community_events_calendar]
+other = "Kalendarz wydarzeń"
+
+[community_forum_name]
+other = "Forum"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_warning]
+other = " dokumentacja nie jest już aktualizowana. Wyświetlona jest wersja archiwalna. Po aktualną dokumentację zajrzyj na"
+
+[deprecation_file_warning]
+other = "Przestarzały"
+
+[docs_label_browse]
+other = "Przeglądaj dokumentację"
+
+[docs_label_contributors]
+other = "Współautorzy"
+
+[docs_label_i_am]
+other = "Jestem..."
+
+[docs_label_users]
+other = "Użytkownicy"
+
+[feedback_heading]
+other = "Twoja opinia"
+
+[feedback_no]
+other = "Nie"
+
+[feedback_question]
+other = "Czy ta strona była przydatna?"
+
+[feedback_yes]
+other = "Tak"
+
+[input_placeholder_email_address]
+other = "adres e-mail"
+
+[latest_version]
+other = "to najnowsza wersja."
+
+[layouts_blog_pager_prev]
+other = "<< Poprzedni"
+
+[layouts_blog_pager_next]
+other = "Następny >>"
+
+[layouts_case_studies_list_tell]
+other = "Opowiedz swoją historię"
+
+[layouts_docs_glossary_aka]
+other = "Znany też jako"
+
+[layouts_docs_glossary_description]
+other = "Celem tego słownika jest przedstawienie wszechstronnej, ujednoliconej listy terminologii związanej z projektem Kubernetes. Słownik zawiera terminy specyficzne dla Kubernetesa, a także pojęcia bardziej ogólne, umożliwiające lepsze zrozumienie kontekstu."
+
+[layouts_docs_glossary_deselect_all]
+other = "Odznacz wszystko"
+
+[layouts_docs_glossary_click_details_after]
+other = "po dokładniejsze wytłumaczenie."
+
+[layouts_docs_glossary_click_details_before]
+other = "Kliknij w"
+
+[layouts_docs_glossary_filter]
+other = "Znajdź pojęcia według etykiet"
+
+[layouts_docs_glossary_select_all]
+other = "Zaznacz wszystko"
+
+[layouts_docs_partials_feedback_improvement]
+other = "zaproponować poprawkę"
+
+[layouts_docs_partials_feedback_issue]
+other = "Otwórz zgłoszenie w repozytorium GitHub, jeśli chcesz "
+
+[layouts_docs_partials_feedback_or]
+other = "lub"
+
+[layouts_docs_partials_feedback_problem]
+other = "zgłosić problem"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Dziękujemy za informację zwrotną. Jeśli masz konkretne pytanie dotyczące użycia Kubernetesa, odwiedź"
+
+[layouts_docs_search_fetching]
+other = "Pobieram wyniki.."
+
+[main_by]
+other = "przez"
+
+[main_cncf_project]
+other = """Nasz projekt jest uznany przez <a href="https://cncf.io/">CNCF</a> za dojrzały</p>"""
+
+[main_community_explore]
+other = "Poznaj społeczność"
+
+[main_contribute]
+other = "Wnieś swój wkład"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_edit_this_page]
+other = "Edytuj stronę"
+
+[main_github_create_an_issue]
+other = "Zgłoś problem"
+
+[main_github_invite]
+other = "Chcesz zacząć współtworzyć kod Kubernetesa?"
+
+[main_github_view_on]
+other = "Zajrzyj na GitHub"
+
+[main_kubernetes_features]
+other = "Funkcjonalności Kubernetesa"
+
+[main_kubeweekly_baseline]
+other = "Zapisz się na KubeWeekly, jeśli jesteś zainteresowany najnowszymi wiadomościami o Kubernetesie."
+
+[main_kubernetes_past_link]
+other = "Poprzednie newslettery"
+
+[main_kubeweekly_signup]
+other = "Zapisz się"
+
+[main_page_history]
+other ="Historia strony"
+
+[main_page_last_modified_on]
+other = "Ostatnia modyfikacja strony"
+
+[main_read_about]
+other = "Przeczytaj o"
+
+[main_read_more]
+other = "Przeczytaj więcej"
+
+[note]
+other = "Informacja:"
+
+[objectives_heading]
+other = "Cele"
+
+[prerequisites_heading]
+other = "Nim zaczniesz"
+
+[subscribe_button]
+other = "Subskrybuj"
+
+[ui_search_placeholder]
+other = "Szukaj"
+
+[version_check_mustbe]
+other = "Twój serwer Kubernetes musi być w wersji "
+
+[version_check_mustbeorlater]
+other = "Twój serwer Kubernetes musi być co najmniej w wersji "
+
+[version_check_tocheck]
+other = "Aby sprawdzić wersję, wpisz "
+
+[warning]
+other = "Uwaga:"
+
+[whatsnext_heading]
+other = "Następne:"
