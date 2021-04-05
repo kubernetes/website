@@ -3,6 +3,7 @@ reviewers:
 - maplain
 title: Service Internal Traffic Policy
 content_type: concept
+weight: 45
 ---
 
 
@@ -19,15 +20,21 @@ cluster. This can help to reduce costs and improve performance.
 
 ## Using Service Internal Traffic Policy
 
-You can enable Internal Traffic Policy for a Service by setting the
-`spec.internalTrafficPolicy` to "Local". This tells kube-proxy to only use node
-local endpoints for cluster internal traffic. Importantly, for pods on nodes with
-no endpoints for a given Service, the Service will behave as if it has zero
-endpoints (for Pods on this node) even if the service does have endpoints on other
-nodes. 
+Once you have enabled the `ServiceInternalTrafficPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+you can enable an internal-only traffic policy for a
+{{< glossary_tooltip text="Services" term_id="service" >}}, by setting its
+`.spec.internalTrafficPolicy` to `Local`.
+This tells kube-proxy to only use node local endpoints for cluster internal traffic.
 
-The following example shows what a Service looks like when internalTrafficPolicy
-is set to "Local":
+{{< note >}}
+For pods on nodes with no endpoints for a given Service, the Service
+behaves as if it has zero endpoints (for Pods on this node) even if the service
+does have endpoints on other nodes.
+{{< /note >}}
+
+The following example shows what a Service looks like when you set
+`.spec.internalTrafficPolicy` to `Local`:
 
 ```yaml
 apiVersion: v1
@@ -44,19 +51,19 @@ spec:
   internalTrafficPolicy: Local
 ```
 
-## How it Works
+## How it works
 
-kube-proxy filters the endpoints it routes to based on the
-`spec.internalTrafficPolicy` setting. When it's "Local", only node local
-endpoints are considered. When it's "Cluster" or missing, all endpoints are
+The kube-proxy filters the endpoints it routes to based on the
+`spec.internalTrafficPolicy` setting. When it's set to `Local`, only node local
+endpoints are considered. When it's `Cluster` or missing, all endpoints are
 considered.
-When the feature gate `ServiceInternalTrafficPolicy` is on,
-`spec.internalTrafficPolicy` defaults to "Cluster".
+When the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`ServiceInternalTrafficPolicy` is enabled, `spec.internalTrafficPolicy` defaults to "Cluster".
 
 ## Constraints
 
 * Service Internal Traffic Policy is not used when `externalTrafficPolicy` is set
-  to "Local" on a Service. It is possible to use both features in the same cluster
+  to `Local` on a Service. It is possible to use both features in the same cluster
   on different Services, just not on the same Service.
 
 ## {{% heading "whatsnext" %}}

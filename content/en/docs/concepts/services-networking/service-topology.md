@@ -2,12 +2,7 @@
 reviewers:
 - johnbelamaric
 - imroc
-title: Service Topology
-feature:
-  title: Service Topology
-  description: >
-    Routing of service traffic based upon cluster topology.
-
+title: Topology-aware traffic routing with topology keys
 content_type: concept
 weight: 10
 ---
@@ -19,10 +14,10 @@ weight: 10
 
 {{< note >}}
 
-This feature, specifically the alpha topologyKeys API, is deprecated in
-Kubernetes v1.21. [Topology Aware
-Hints](/docs/concepts/services-networking/topology-aware-hints) was introduced
-in Kubernetes v1.21 and provides similar functionality.
+This feature, specifically the alpha `topologyKeys` API, is deprecated since
+Kubernetes v1.21.
+[Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/),
+introduced in Kubernetes v1.21, provide similar functionality.
 
 {{</ note >}}
 
@@ -32,33 +27,32 @@ preferentially routed to endpoints that are on the same Node as the client, or
 in the same availability zone.
 
 
-
 <!-- body -->
 
-## Introduction
+## Topology-aware traffic routing
 
 By default, traffic sent to a `ClusterIP` or `NodePort` Service may be routed to
-any backend address for the Service. Since Kubernetes 1.7 it has been possible
-to route "external" traffic to the Pods running on the Node that received the
-traffic, but this is not supported for `ClusterIP` Services, and more complex
-topologies &mdash; such as routing zonally &mdash; have not been possible. The
-_Service Topology_ feature resolves this by allowing the Service creator to
-define a policy for routing traffic based upon the Node labels for the
-originating and destination Nodes.
+any backend address for the Service. Kubernetes 1.7 made it possible to
+route "external" traffic to the Pods running on the same Node that received the
+traffic. For `ClusterIP` Services, the equivalent same-node preference for
+routing wasn't possible; nor could you configure your cluster to favor routing
+to endpoints within the same zone.
+By setting `topologyKeys` on a Service, you're able to define a policy for routing
+traffic based upon the Node labels for the originating and destination Nodes.
 
-By using Node label matching between the source and destination, the operator
-may designate groups of Nodes that are "closer" and "farther" from one another,
-using whatever metric makes sense for that operator's requirements. For many
-operators in public clouds, for example, there is a preference to keep service
-traffic within the same zone, because interzonal traffic has a cost associated
-with it, while intrazonal traffic does not. Other common needs include being able
-to route traffic to a local Pod managed by a DaemonSet, or keeping traffic to
-Nodes connected to the same top-of-rack switch for the lowest latency.
-
+The label matching between the source and destination lets you, as a cluster
+operator, designate sets of Nodes that are "closer" and "farther" from one another.
+You can define labels to represent whatever metric makes sense for your own
+requirements.
+In public clouds, for example, you might prefer to keep network traffic within the
+same zone, because interzonal traffic has a cost associated with it (and intrazonal
+traffic typically does not). Other common needs include being able to route traffic
+to a local Pod managed by a DaemonSet, or directing traffic to Nodes connected to the
+same top-of-rack switch for the lowest latency.
 
 ## Using Service Topology
 
-If your cluster has Service Topology enabled, you can control Service traffic
+If your cluster has the `ServiceTopology` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, you can control Service traffic
 routing by specifying the `topologyKeys` field on the Service spec. This field
 is a preference-order list of Node labels which will be used to sort endpoints
 when accessing this Service. Traffic will be directed to a Node whose value for
@@ -208,5 +202,4 @@ spec:
 
 * Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
-
 
