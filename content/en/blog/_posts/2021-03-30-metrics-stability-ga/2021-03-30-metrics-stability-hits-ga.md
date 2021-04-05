@@ -5,7 +5,7 @@ date: 2021-03-30
 slug: kubernetes-release-1.21-metrics-stability-ga
 ---
 
-**Authors**: Han Kang (Google). Elana Hashman (Red Hat)
+**Authors**: Han Kang (Google), Elana Hashman (Red Hat)
 
 Kubernetes 1.21 marks the graduation of the metrics stability framework and along with it, the first officially supported stable metrics. Not only do stable metrics come with supportability guarantees, the metrics stability framework brings escape hatches that you can use if you encounter problematic metrics.
 
