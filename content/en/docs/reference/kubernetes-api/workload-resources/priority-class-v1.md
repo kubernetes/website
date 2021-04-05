@@ -1,106 +1,74 @@
 ---
 api_metadata:
-  apiVersion: "storage.k8s.io/v1"
-  import: "k8s.io/api/storage/v1"
-  kind: "StorageClass"
+  apiVersion: "scheduling.k8s.io/v1"
+  import: "k8s.io/api/scheduling/v1"
+  kind: "PriorityClass"
 content_type: "api_reference"
-description: "StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned."
-title: "StorageClass"
-weight: 6
+description: "PriorityClass defines mapping from a priority class name to the priority integer value."
+title: "PriorityClass"
+weight: 14
 ---
 
-`apiVersion: storage.k8s.io/v1`
+`apiVersion: scheduling.k8s.io/v1`
 
-`import "k8s.io/api/storage/v1"`
+`import "k8s.io/api/scheduling/v1"`
 
 
-## StorageClass {#StorageClass}
+## PriorityClass {#PriorityClass}
 
-StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
-
-StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
 
 <hr>
 
-- **apiVersion**: storage.k8s.io/v1
+- **apiVersion**: scheduling.k8s.io/v1
 
 
-- **kind**: StorageClass
+- **kind**: PriorityClass
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **provisioner** (string), required
+- **value** (int32), required
 
-  Provisioner indicates the type of the provisioner.
+  The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 
-- **allowVolumeExpansion** (boolean)
+- **description** (string)
 
-  AllowVolumeExpansion shows whether the storage class allow volume expand
+  description is an arbitrary string that usually provides guidelines on when this priority class should be used.
 
-- **allowedTopologies** ([]TopologySelectorTerm)
+- **globalDefault** (boolean)
 
-  Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+  globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
 
-  <a name="TopologySelectorTerm"></a>
-  *A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.*
+- **preemptionPolicy** (string)
 
-  - **allowedTopologies.matchLabelExpressions** ([]TopologySelectorLabelRequirement)
-
-    A list of topology selector requirements by labels.
-
-    <a name="TopologySelectorLabelRequirement"></a>
-    *A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.*
-
-    - **allowedTopologies.matchLabelExpressions.key** (string), required
-
-      The label key that the selector applies to.
-
-    - **allowedTopologies.matchLabelExpressions.values** ([]string), required
-
-      An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
-
-- **mountOptions** ([]string)
-
-  Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
-
-- **parameters** (map[string]string)
-
-  Parameters holds the parameters for the provisioner that should create volumes of this storage class.
-
-- **reclaimPolicy** (string)
-
-  Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
-
-- **volumeBindingMode** (string)
-
-  VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
 
 
 
 
 
-## StorageClassList {#StorageClassList}
+## PriorityClassList {#PriorityClassList}
 
-StorageClassList is a collection of storage classes.
+PriorityClassList is a collection of priority classes.
 
 <hr>
 
-- **apiVersion**: storage.k8s.io/v1
+- **apiVersion**: scheduling.k8s.io/v1
 
 
-- **kind**: StorageClassList
+- **kind**: PriorityClassList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>), required
 
-  Items is the list of StorageClasses
+  items is the list of PriorityClasses
 
 
 
@@ -117,18 +85,18 @@ StorageClassList is a collection of storage classes.
 
 
 
-### `get` read the specified StorageClass
+### `get` read the specified PriorityClass
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1/storageclasses/{name}
+GET /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the StorageClass
+  name of the PriorityClass
 
 
 - **pretty** (*in query*): string
@@ -140,16 +108,16 @@ GET /apis/storage.k8s.io/v1/storageclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): OK
+200 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind StorageClass
+### `list` list or watch objects of kind PriorityClass
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1/storageclasses
+GET /apis/scheduling.k8s.io/v1/priorityclasses
 
 #### Parameters
 
@@ -208,21 +176,21 @@ GET /apis/storage.k8s.io/v1/storageclasses
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClassList" >}}">StorageClassList</a>): OK
+200 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClassList" >}}">PriorityClassList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a StorageClass
+### `create` create a PriorityClass
 
 #### HTTP Request
 
-POST /apis/storage.k8s.io/v1/storageclasses
+POST /apis/scheduling.k8s.io/v1/priorityclasses
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>, required
+- **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>, required
 
   
 
@@ -246,30 +214,30 @@ POST /apis/storage.k8s.io/v1/storageclasses
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): OK
+200 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): Created
+201 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified StorageClass
+### `update` replace the specified PriorityClass
 
 #### HTTP Request
 
-PUT /apis/storage.k8s.io/v1/storageclasses/{name}
+PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the StorageClass
+  name of the PriorityClass
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>, required
+- **body**: <a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>, required
 
   
 
@@ -293,25 +261,25 @@ PUT /apis/storage.k8s.io/v1/storageclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): OK
+200 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): Created
+201 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified StorageClass
+### `patch` partially update the specified PriorityClass
 
 #### HTTP Request
 
-PATCH /apis/storage.k8s.io/v1/storageclasses/{name}
+PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the StorageClass
+  name of the PriorityClass
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -343,23 +311,23 @@ PATCH /apis/storage.k8s.io/v1/storageclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): OK
+200 (<a href="{{< ref "../workload-resources/priority-class-v1#PriorityClass" >}}">PriorityClass</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a StorageClass
+### `delete` delete a PriorityClass
 
 #### HTTP Request
 
-DELETE /apis/storage.k8s.io/v1/storageclasses/{name}
+DELETE /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the StorageClass
+  name of the PriorityClass
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -391,18 +359,18 @@ DELETE /apis/storage.k8s.io/v1/storageclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>): Accepted
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of StorageClass
+### `deletecollection` delete collection of PriorityClass
 
 #### HTTP Request
 
-DELETE /apis/storage.k8s.io/v1/storageclasses
+DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 
 #### Parameters
 

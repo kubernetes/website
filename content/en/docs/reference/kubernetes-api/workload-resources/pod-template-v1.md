@@ -2,11 +2,11 @@
 api_metadata:
   apiVersion: "v1"
   import: "k8s.io/api/core/v1"
-  kind: "ConfigMap"
+  kind: "PodTemplate"
 content_type: "api_reference"
-description: "ConfigMap holds configuration data for pods to consume."
-title: "ConfigMap"
-weight: 1
+description: "PodTemplate describes a template for creating copies of a predefined pod."
+title: "PodTemplate"
+weight: 3
 ---
 
 `apiVersion: v1`
@@ -14,57 +14,67 @@ weight: 1
 `import "k8s.io/api/core/v1"`
 
 
-## ConfigMap {#ConfigMap}
+## PodTemplate {#PodTemplate}
 
-ConfigMap holds configuration data for pods to consume.
+PodTemplate describes a template for creating copies of a predefined pod.
 
 <hr>
 
 - **apiVersion**: v1
 
 
-- **kind**: ConfigMap
+- **kind**: PodTemplate
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **binaryData** (map[string][]byte)
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)
 
-  BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
-
-- **data** (map[string]string)
-
-  Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
-
-- **immutable** (boolean)
-
-  Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
+  Template defines the pods that will be created from this pod template. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## ConfigMapList {#ConfigMapList}
+## PodTemplateSpec {#PodTemplateSpec}
 
-ConfigMapList is a resource containing a list of ConfigMap objects.
+PodTemplateSpec describes the data a pod should have when created from a template
+
+<hr>
+
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+- **spec** (<a href="{{< ref "../workload-resources/pod-v1#PodSpec" >}}">PodSpec</a>)
+
+  Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+
+
+
+
+
+## PodTemplateList {#PodTemplateList}
+
+PodTemplateList is a list of PodTemplates.
 
 <hr>
 
 - **apiVersion**: v1
 
 
-- **kind**: ConfigMapList
+- **kind**: PodTemplateList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>), required
 
-  Items is the list of ConfigMaps.
+  List of pod templates
 
 
 
@@ -81,18 +91,18 @@ ConfigMapList is a resource containing a list of ConfigMap objects.
 
 
 
-### `get` read the specified ConfigMap
+### `get` read the specified PodTemplate
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/configmaps/{name}
+GET /api/v1/namespaces/{namespace}/podtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the PodTemplate
 
 
 - **namespace** (*in path*): string, required
@@ -109,16 +119,16 @@ GET /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ConfigMap
+### `list` list or watch objects of kind PodTemplate
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/configmaps
+GET /api/v1/namespaces/{namespace}/podtemplates
 
 #### Parameters
 
@@ -182,16 +192,16 @@ GET /api/v1/namespaces/{namespace}/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMapList" >}}">ConfigMapList</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateList" >}}">PodTemplateList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ConfigMap
+### `list` list or watch objects of kind PodTemplate
 
 #### HTTP Request
 
-GET /api/v1/configmaps
+GET /api/v1/podtemplates
 
 #### Parameters
 
@@ -250,16 +260,16 @@ GET /api/v1/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMapList" >}}">ConfigMapList</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateList" >}}">PodTemplateList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a ConfigMap
+### `create` create a PodTemplate
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/configmaps
+POST /api/v1/namespaces/{namespace}/podtemplates
 
 #### Parameters
 
@@ -269,7 +279,7 @@ POST /api/v1/namespaces/{namespace}/configmaps
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>, required
+- **body**: <a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>, required
 
   
 
@@ -293,27 +303,27 @@ POST /api/v1/namespaces/{namespace}/configmaps
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified ConfigMap
+### `update` replace the specified PodTemplate
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/configmaps/{name}
+PUT /api/v1/namespaces/{namespace}/podtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the PodTemplate
 
 
 - **namespace** (*in path*): string, required
@@ -321,7 +331,7 @@ PUT /api/v1/namespaces/{namespace}/configmaps/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>, required
+- **body**: <a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>, required
 
   
 
@@ -345,25 +355,25 @@ PUT /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): Created
+201 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified ConfigMap
+### `patch` partially update the specified PodTemplate
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/configmaps/{name}
+PATCH /api/v1/namespaces/{namespace}/podtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the PodTemplate
 
 
 - **namespace** (*in path*): string, required
@@ -400,23 +410,23 @@ PATCH /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/config-map-v1#ConfigMap" >}}">ConfigMap</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a ConfigMap
+### `delete` delete a PodTemplate
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/configmaps/{name}
+DELETE /api/v1/namespaces/{namespace}/podtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ConfigMap
+  name of the PodTemplate
 
 
 - **namespace** (*in path*): string, required
@@ -453,18 +463,18 @@ DELETE /api/v1/namespaces/{namespace}/configmaps/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): OK
 
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplate" >}}">PodTemplate</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of ConfigMap
+### `deletecollection` delete collection of PodTemplate
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/configmaps
+DELETE /api/v1/namespaces/{namespace}/podtemplates
 
 #### Parameters
 

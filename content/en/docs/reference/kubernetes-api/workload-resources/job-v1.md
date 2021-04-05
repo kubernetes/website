@@ -1,177 +1,212 @@
 ---
 api_metadata:
-  apiVersion: "v1"
-  import: "k8s.io/api/core/v1"
-  kind: "PersistentVolumeClaim"
+  apiVersion: "batch/v1"
+  import: "k8s.io/api/batch/v1"
+  kind: "Job"
 content_type: "api_reference"
-description: "PersistentVolumeClaim is a user's request for and claim to a persistent volume."
-title: "PersistentVolumeClaim"
-weight: 4
+description: "Job represents the configuration of a single job."
+title: "Job"
+weight: 10
 ---
 
-`apiVersion: v1`
+`apiVersion: batch/v1`
 
-`import "k8s.io/api/core/v1"`
+`import "k8s.io/api/batch/v1"`
 
 
-## PersistentVolumeClaim {#PersistentVolumeClaim}
+## Job {#Job}
 
-PersistentVolumeClaim is a user's request for and claim to a persistent volume
+Job represents the configuration of a single job.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: batch/v1
 
 
-- **kind**: PersistentVolumeClaim
+- **kind**: Job
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>)
+- **spec** (<a href="{{< ref "../workload-resources/job-v1#JobSpec" >}}">JobSpec</a>)
 
-  Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+  Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
-- **status** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimStatus" >}}">PersistentVolumeClaimStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/job-v1#JobStatus" >}}">JobStatus</a>)
 
-  Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-
-
+  Current status of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
-## PersistentVolumeClaimSpec {#PersistentVolumeClaimSpec}
 
-PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
+
+## JobSpec {#JobSpec}
+
+JobSpec describes how the job execution will look like.
 
 <hr>
 
-- **accessModes** ([]string)
 
-  AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+
+### Replicas
+
+
+- **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
+
+  Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+
+- **parallelism** (int32)
+
+  Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) \< .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+
+### Lifecycle
+
+
+- **completions** (int32)
+
+  Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+
+- **completionMode** (string)
+
+  CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
+  
+  `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
+  
+  `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5.
+  
+  This field is alpha-level and is only honored by servers that enable the IndexedJob feature gate. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+
+- **backoffLimit** (int32)
+
+  Specifies the number of retries before marking this job failed. Defaults to 6
+
+- **activeDeadlineSeconds** (int64)
+
+  Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
+
+- **ttlSecondsAfterFinished** (int32)
+
+  ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+
+- **suspend** (boolean)
+
+  Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. This is an alpha field and requires the SuspendJob feature gate to be enabled; otherwise this field may not be set to true. Defaults to false.
+
+### Selector
+
 
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-  A label query over volumes to consider for binding.
+  A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
-- **resources** (ResourceRequirements)
+- **manualSelector** (boolean)
 
-  Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-
-  <a name="ResourceRequirements"></a>
-  *ResourceRequirements describes the compute resource requirements.*
-
-  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-- **volumeName** (string)
-
-  VolumeName is the binding reference to the PersistentVolume backing this claim.
-
-- **storageClassName** (string)
-
-  Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
-
-- **volumeMode** (string)
-
-  volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+  manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 
 
 
-### Alpha level
+## JobStatus {#JobStatus}
 
-
-- **dataSource** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
-
-  This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
-
-
-
-## PersistentVolumeClaimStatus {#PersistentVolumeClaimStatus}
-
-PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+JobStatus represents the current state of a Job.
 
 <hr>
 
-- **accessModes** ([]string)
+- **startTime** (Time)
 
-  AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+  Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
 
-- **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+  <a name="Time"></a>
+  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
-  Represents the actual resources of the underlying volume.
+- **completionTime** (Time)
 
-- **conditions** ([]PersistentVolumeClaimCondition)
+  Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
+
+  <a name="Time"></a>
+  *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+- **active** (int32)
+
+  The number of actively running pods.
+
+- **failed** (int32)
+
+  The number of pods which reached phase Failed.
+
+- **succeeded** (int32)
+
+  The number of pods which reached phase Succeeded.
+
+- **completedIndexes** (string)
+
+  CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+
+- **conditions** ([]JobCondition)
 
   *Patch strategy: merge on key `type`*
   
-  Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+  *Atomic: will be replaced during a merge*
+  
+  The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
-  <a name="PersistentVolumeClaimCondition"></a>
-  *PersistentVolumeClaimCondition contails details about state of pvc*
+  <a name="JobCondition"></a>
+  *JobCondition describes current state of a job.*
 
   - **conditions.status** (string), required
 
+    Status of the condition, one of True, False, Unknown.
 
   - **conditions.type** (string), required
 
+    Type of job condition, Complete or Failed.
 
   - **conditions.lastProbeTime** (Time)
 
-    Last time we probed the condition.
+    Last time the condition was checked.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
   - **conditions.lastTransitionTime** (Time)
 
-    Last time the condition transitioned from one status to another.
+    Last time the condition transit from one status to another.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
   - **conditions.message** (string)
 
-    Human-readable message indicating details about last transition.
+    Human readable message indicating details about last transition.
 
   - **conditions.reason** (string)
 
-    Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
-
-- **phase** (string)
-
-  Phase represents the current phase of PersistentVolumeClaim.
+    (brief) reason for the condition's last transition.
 
 
 
 
 
-## PersistentVolumeClaimList {#PersistentVolumeClaimList}
+## JobList {#JobList}
 
-PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
+JobList is a collection of jobs.
 
 <hr>
 
-- **apiVersion**: v1
+- **apiVersion**: batch/v1
 
 
-- **kind**: PersistentVolumeClaimList
+- **kind**: JobList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>), required
 
-  A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+  items is the list of Jobs.
 
 
 
@@ -188,18 +223,18 @@ PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
 
 
 
-### `get` read the specified PersistentVolumeClaim
+### `get` read the specified Job
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -216,23 +251,23 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
 401: Unauthorized
 
 
-### `get` read status of the specified PersistentVolumeClaim
+### `get` read status of the specified Job
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
+GET /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -249,16 +284,16 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind PersistentVolumeClaim
+### `list` list or watch objects of kind Job
 
 #### HTTP Request
 
-GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
+GET /apis/batch/v1/namespaces/{namespace}/jobs
 
 #### Parameters
 
@@ -322,16 +357,16 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimList" >}}">PersistentVolumeClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#JobList" >}}">JobList</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind PersistentVolumeClaim
+### `list` list or watch objects of kind Job
 
 #### HTTP Request
 
-GET /api/v1/persistentvolumeclaims
+GET /apis/batch/v1/jobs
 
 #### Parameters
 
@@ -390,16 +425,16 @@ GET /api/v1/persistentvolumeclaims
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimList" >}}">PersistentVolumeClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#JobList" >}}">JobList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a PersistentVolumeClaim
+### `create` create a Job
 
 #### HTTP Request
 
-POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
+POST /apis/batch/v1/namespaces/{namespace}/jobs
 
 #### Parameters
 
@@ -409,7 +444,7 @@ POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 
   
 
@@ -433,27 +468,27 @@ POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified PersistentVolumeClaim
+### `update` replace the specified Job
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -461,7 +496,7 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 
   
 
@@ -485,25 +520,25 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
 
 401: Unauthorized
 
 
-### `update` replace status of the specified PersistentVolumeClaim
+### `update` replace status of the specified Job
 
 #### HTTP Request
 
-PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
+PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -511,7 +546,7 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>, required
 
   
 
@@ -535,78 +570,25 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified PersistentVolumeClaim
+### `patch` partially update the specified Job
 
 #### HTTP Request
 
-PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified PersistentVolumeClaim
-
-#### HTTP Request
-
-PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the PersistentVolumeClaim
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -643,23 +625,76 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
 
 401: Unauthorized
 
 
-### `delete` delete a PersistentVolumeClaim
+### `patch` partially update status of the specified Job
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
+PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the PersistentVolumeClaim
+  name of the Job
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
+
+401: Unauthorized
+
+
+### `delete` delete a Job
+
+#### HTTP Request
+
+DELETE /apis/batch/v1/namespaces/{namespace}/jobs/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the Job
 
 
 - **namespace** (*in path*): string, required
@@ -696,18 +731,18 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Accepted
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of PersistentVolumeClaim
+### `deletecollection` delete collection of Job
 
 #### HTTP Request
 
-DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
+DELETE /apis/batch/v1/namespaces/{namespace}/jobs
 
 #### Parameters
 
