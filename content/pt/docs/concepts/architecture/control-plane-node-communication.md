@@ -97,15 +97,17 @@ todo o tráfego destinado a um kubelet, nó, pod ou serviço através do túnel.
 Este túnel garante que o tráfego não seja exposto fora da rede aos quais
 os nós estão sendo executados.
 
-Atualmente, os túneis SSH estão obsoletos, portanto, você não deve optar por usá-los, a menos que saiba o que está fazendo. Um substituto para este canal de comunicação está sendo projetado.The Konnectivity service is a replacement for this communication channel.
+Atualmente, os túneis SSH estão obsoletos, portanto, você não deve optar por usá-los, a menos que saiba o que está fazendo. O serviço Konnectivity é um substituto para este canal de comunicação. 
 
 ### Konnectivity service
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-As a replacement to the SSH tunnels, the Konnectivity service provides TCP level proxy for the control plane to cluster communication. The Konnectivity service consists of two parts: the Konnectivity server in the control plane network and the Konnectivity agents in the nodes network. The Konnectivity agents initiate connections to the Konnectivity server and maintain the network connections. After enabling the Konnectivity service, all control plane to nodes traffic goes through these connections.
+Como uma substituição aos túneis SSH, o serviço Konnectivity fornece proxy de nível TCP para a comunicação do control plane para o cluster. O serviço Konnectivity consiste em duas partes: o servidor Konnectivity na rede control plane e os agentes Konnectivity na rede dos nós. Os agentes Konnectivity iniciam conexões com o servidor Konnectivity e mantêm as conexões de rede. Depois de habilitar o serviço Konnectivity, todo o tráfego do control plane para os nós passa por essas conexões.
 
 Follow the Konnectivity service task to set up the Konnectivity service in your cluster.
+
+Veja a [tarefa do Konnectivity](docs/tasks/extend-kubernetes/setup-konnectivity/) para configurar o serviço Konnectivity no seu cluster.
 
 
 
