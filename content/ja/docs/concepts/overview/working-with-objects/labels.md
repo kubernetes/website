@@ -155,6 +155,7 @@ partition
 * 第2の例では、キーが`tier`で、値が`frontend`と`backend`以外のもの、そして`tier`キーを持たないリソースを全て選択します。  
 * 第3の例では、`partition`というキーをもつラベルを全て選択し、値はチェックしません。  
 * 第4の例では、`partition`というキーを持たないラベルを全て選択し、値はチェックしません。  
+
 同様に、コンマセパレーターは、_AND_ オペレーターと同様にふるまいます。そのため、`partition`と`environment`キーの値がともに`qa`でないラベルを選択するには、`partition,environment notin (qa)`と記述することで可能です。  
 *集合ベース* のラベルセレクターは、`environment=production`という記述が`environment in (production)`と等しいため、一般的な等価形式となります。 `!=`と`notin`も同様に等価となります。  
 
