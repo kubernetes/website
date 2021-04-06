@@ -38,22 +38,22 @@ para provisionamento automatizado de certificados de cliente kubelet.
 Os pods que desejam se conectar ao apiserver podem fazê-lo com segurança, aproveitando
 conta de serviço para que o Kubernetes injetará automaticamente o certificado raiz público
 certificado e um token de portador válido no pod quando ele é instanciado.
-O serviço `kubernetes` (em todos os namespaces) é configurado com um IP virtual
+O serviço `kubernetes` (no namespace `default`) é configurado com um IP virtual
 endereço que é redirecionado (via kube-proxy) para o endpoint com HTTPS no
 apiserver.
 
-Os componentes principais também se comunicam com o apiserver do cluster através da porta segura.
+Os componentes do control plane também se comunicam com o apiserver do cluster através da porta segura.
 
 Como resultado, o modo de operação padrão para conexões do cluster
 (nodes e pods em execução nos Nodes) para o control plane é protegido por padrão
 e pode passar por redes não confiáveis ​​e/ou públicas.
 
-## Control Plane para o Nó
+## Control Plane para o nó
 
-Existem dois caminhos de comunicação primários do control plane (apiserver) para o
-cluster. O primeiro é do apiserver para o processo do kubelet que é executado em
-cada nó no cluster. O segundo é do apiserver para qualquer nó, Pod,
-ou Service através da funcionalidade de proxy do apiserver.
+Existem dois caminhos de comunicação primários do control plane (apiserver) para os nõs.
+O primeiro é do apiserver para o processo do kubelet que é executado em
+cada nó no cluster. O segundo é do apiserver para qualquer nó, pod,
+ou serviço através da funcionalidade de proxy do apiserver.
 
 ### apiserver para o kubelet
 
@@ -79,9 +79,9 @@ rede não confiável ou pública.
 Finalmente, [Autenticação e/ou autorização do Kubelet](/docs/admin/kubelet-authentication-authorization/)
 deve ser ativado para proteger a API do kubelet.
 
-### apiserver para nós, pods e services
+### apiserver para nós, pods e serviços
 
-As conexões a partir do apiserver para um nó, pod ou service padrão para simples
+As conexões a partir do apiserver para um nó, pod ou serviço padrão para simples
 conexões HTTP não são autenticadas nem criptografadas. Eles
 podem ser executados em uma conexão HTTPS segura prefixando `https:` no nó,
 pod, ou nome do serviço no URL da API, mas eles não validarão o certificado
