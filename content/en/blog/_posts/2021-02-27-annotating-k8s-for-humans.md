@@ -94,6 +94,6 @@ Historically, service catalogs have not been a key piece of infrastructure, as a
 ## Annotate your services now and thank yourself later
 Much like implementing observability within microservice systems, you often don’t realize that you need human service discovery until it’s too late. Don't wait until something is on fire in production to start wishing you had implemented better metrics and also documented how to get in touch with the part of your organization that looks after it.
 
-There's enormous benefits to building an effective “[version 0](https://www.getambassador.io/learn/kubernetes-glossary/version-0/)” of any service: a “[dancing skeleton](https://containerjournal.com/topics/container-management/dancing-skeleton-apis-and-microservices/)” application with a thin slice of complete functionality that can be deployed to production with a minimal yet effective continuous delivery pipeline. 
+There's enormous benefits to building an effective [version 0](https://www.getambassador.io/learn/kubernetes-glossary/version-0/) of any service: a “[dancing skeleton](https://containerjournal.com/topics/container-management/dancing-skeleton-apis-and-microservices/)” application with a thin slice of complete functionality that can be deployed to production with a minimal yet effective continuous delivery pipeline. 
 
 Adding service annotations should be an essential part of your “version 0” for all of your services. Add them now, and you’ll thank yourself later.
