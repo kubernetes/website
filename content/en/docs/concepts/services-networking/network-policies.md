@@ -150,7 +150,7 @@ contains a single `from` element allowing connections from Pods with the label `
   ...
 ```
 
-contains two elements in the `from` array, and allows connections from Pods in the local Namespace with the label `role=client`, *or* from any Pod in any namespace with the label 
+contains two elements in the `from` array, and allows connections from Pods in the local Namespace with the label `role=client`, *or* from any Pod in any namespace with the label `user=alice`.
 
 ```yaml
   ...
@@ -159,7 +159,7 @@ contains two elements in the `from` array, and allows connections from Pods in t
     - namespaceSelector:
         matchLabels:
           user: alice
-    - podSelector:
+      podSelector:
         matchLabels:
           role: client
     ports:
@@ -169,7 +169,7 @@ contains two elements in the `from` array, and allows connections from Pods in t
     - namespaceSelector:
         matchLabels:
           user: alice
-    - podSelector:
+      podSelector:
         matchLabels:
           role: second-client
     ports:
@@ -177,7 +177,7 @@ contains two elements in the `from` array, and allows connections from Pods in t
        port: 6808         
   ...
 ```
-contains two different ingress pods with a full set of selectors and ports.
+contains two different ingress rules the `client` podSelector uses an configuration similar to an `AND` operator and `second-client` podSelector is akin to an `OR`. Also this illustrate on how to configure a full set of ingress rules when we have a different ports.
 
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
 
