@@ -302,7 +302,7 @@ apparmor.security.beta.kubernetes.io/defaultProfileName: <profile_ref>
 apparmor.security.beta.kubernetes.io/allowedProfileNames: <profile_ref>[,others...]
 ```
 
-defaultProfileNameオプションには、noneが指定された場合にコンテナにデフォルトで適用されるプロファイルを指定します。allowedProfileNamesオプションには、Podコンテナの実行が許可されるプロファイルのリストを指定します。両方のオプションが指定された場合、デフォルトは許可されなければいけません。プロファイルはコンテナ上で同じフォーマットで指定されます。完全な仕様については、[APIリファレンス](#api-reference)を参照してください。
+defaultProfileNameオプションには、何も指定されなかった場合にコンテナにデフォルトで適用されるプロファイルを指定します。allowedProfileNamesオプションには、Podコンテナの実行が許可されるプロファイルのリストを指定します。両方のオプションが指定された場合、デフォルトは許可されなければいけません。プロファイルはコンテナ上で同じフォーマットで指定されます。完全な仕様については、[APIリファレンス](#api-reference)を参照してください。
 
 ### AppArmorの無効化
 
@@ -356,7 +356,7 @@ AppArmorに関する問題をデバッグするには、システムログをチ
 
 ### PodSecurityPolicyアノテーション
 
-noneが与えられたときにコンテナに適用するデフォルトのプロファイルは、以下のように指定します。
+何も指定されな買った場合にコンテナに適用するデフォルトのプロファイルは、以下のように指定します。
 
 * **key**: `apparmor.security.beta.kubernetes.io/defaultProfileName`
 * **value**: 上で説明したプロファイルのリファレンス
