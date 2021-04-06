@@ -303,7 +303,7 @@ for the management of cgroups on Linux machines.
 
 {{< warning >}}
 Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
-{{< warning >}}
+{{< /warning >}}
 
 See [Configuring a cgroup driver](/tasks/administer-cluster/kubeadm/configure-cgroup-driver) for more details.
 
