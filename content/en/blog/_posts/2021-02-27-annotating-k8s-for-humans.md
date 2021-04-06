@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Annotating Kubernetes Services for Humans'
-date: 2021-02-27
+date: 2021-04-06
 slug: annotating-k8s-for-humans
 ---
 
