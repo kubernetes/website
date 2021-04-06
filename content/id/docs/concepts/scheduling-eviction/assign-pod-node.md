@@ -114,7 +114,7 @@ Berikut ini contoh dari pod yang menggunakan afinitas node:
 
 Aturan afinitas node tersebut menyatakan pod hanya bisa ditugaskan pada node dengan label yang memiliki kunci `kubernetes.io/e2e-az-name` dan bernilai `e2e-az1` atau `e2e-az2`. Selain itu, dari semua node yang memenuhi kriteria tersebut, mode dengan label dengan kunci `another-node-label-key` and bernilai `another-node-label-value` harus lebih diutamakan.
 
-Kamu dapat meilhat operator `In` digunakan dalam contoh berikut. Sitaksis afinitas node yang baru mendukung operator-operator berikut: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`. Kamu dapat menggunakan `NotIn` dan `DoesNotExist` untuk mewujudkan perilaku node anti-afinitas, atau menggunakan [node taints](/id/docs/concepts/configuration/taint-and-toleration/) untuk menolak pod dari node tertentu.
+Kamu dapat meilhat operator `In` digunakan dalam contoh berikut. Sitaksis afinitas node yang baru mendukung operator-operator berikut: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`. Kamu dapat menggunakan `NotIn` dan `DoesNotExist` untuk mewujudkan perilaku node anti-afinitas, atau menggunakan [node taints](/id/docs/concepts/scheduling-eviction/taint-and-toleration/) untuk menolak pod dari node tertentu.
 
 Jika kamu menyatakan `nodeSelector` dan `nodeAffinity`. *keduanya* harus dipenuhi agar pod dapat dijadwalkan pada node kandidat.
 
@@ -284,7 +284,7 @@ Lihat [tutorial ZooKeeper](/docs/tutorials/stateful-application/zookeeper/#toler
 
 Untuk informasi lebih lanjut tentang afinitas/anti-afinitas antar pod, lihat [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
 
-Kamu juga dapat mengecek [Taints](/id/docs/concepts/configuration/taint-and-toleration/), yang memungkinkan sebuah *node* untuk *menolak* sekumpulan pod.
+Kamu juga dapat mengecek [Taints](/id/docs/concepts/scheduling-eviction/taint-and-toleration/), yang memungkinkan sebuah *node* untuk *menolak* sekumpulan pod.
 
 ## nodeName
 
