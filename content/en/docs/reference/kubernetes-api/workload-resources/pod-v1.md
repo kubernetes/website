@@ -174,7 +174,7 @@ PodSpec is a description of a pod.
 
 - **readinessGates** ([]PodReadinessGate)
 
-  If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
+  If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates/README.md
 
   <a name="PodReadinessGate"></a>
   *PodReadinessGate contains the reference to a pod condition*
