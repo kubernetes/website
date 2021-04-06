@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Quantity is a fixed-point representation of a number."
 title: "Quantity"
-weight: 10
+weight: 18
 ---
 
 

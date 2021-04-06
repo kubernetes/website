@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceFieldSelector represents container resources (cpu, memory) and their output format."
 title: "ResourceFieldSelector"
-weight: 11
+weight: 19
 ---
 
 

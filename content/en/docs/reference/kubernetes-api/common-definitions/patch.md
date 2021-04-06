@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Patch is provided to give a concrete name and type to the Kubernetes PATCH request body."
 title: "Patch"
-weight: 9
+weight: 15
 ---
 
 

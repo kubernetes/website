@@ -67,25 +67,25 @@ RuntimeClass defines a class of container runtime supported in the cluster. The 
     <a name="Toleration"></a>
     *The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.*
 
-    - **scheduling.tolerations.key** (string)
+  - **scheduling.tolerations.key** (string)
 
-      Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
+    Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
 
-    - **scheduling.tolerations.operator** (string)
+  - **scheduling.tolerations.operator** (string)
 
-      Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+    Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
 
-    - **scheduling.tolerations.value** (string)
+  - **scheduling.tolerations.value** (string)
 
-      Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
+    Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
 
-    - **scheduling.tolerations.effect** (string)
+  - **scheduling.tolerations.effect** (string)
 
-      Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+    Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
 
-    - **scheduling.tolerations.tolerationSeconds** (int64)
+  - **scheduling.tolerations.tolerationSeconds** (int64)
 
-      TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
+    TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
 
 
 

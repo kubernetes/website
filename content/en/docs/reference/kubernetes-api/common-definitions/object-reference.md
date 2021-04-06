@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ObjectReference contains enough information to let you inspect or modify the referred object."
 title: "ObjectReference"
-weight: 8
+weight: 14
 ---
 
 

@@ -54,13 +54,13 @@ StorageClasses are non-namespaced; the name of the storage class according to et
     <a name="TopologySelectorLabelRequirement"></a>
     *A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.*
 
-    - **allowedTopologies.matchLabelExpressions.key** (string), required
+  - **allowedTopologies.matchLabelExpressions.key** (string), required
 
-      The label key that the selector applies to.
+    The label key that the selector applies to.
 
-    - **allowedTopologies.matchLabelExpressions.values** ([]string), required
+  - **allowedTopologies.matchLabelExpressions.values** ([]string), required
 
-      An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
+    An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
 
 - **mountOptions** ([]string)
 
