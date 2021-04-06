@@ -46,7 +46,7 @@ Server side apply is meant both as a replacement for the original `kubectl
 apply` and as a simpler mechanism for controllers to enact their changes.
 
 If you have Server Side Apply enabled, the control plane tracks managed fields
-for all newlly created objects.
+for all newly created objects.
 
 ## Field Management
 
@@ -209,9 +209,8 @@ would have failed due to conflicting ownership.
 
 The merging strategy, implemented with Server Side Apply, provides a generally
 more stable object lifecycle. Server Side Apply tries to merge fields based on
-the fact who manages them instead of overruling just based on values. This way
-it is intended to make it easier and more stable for multiple actors updating
-the same object by causing less unexpected interference.
+the actor who manages them instead of overruling based on values. This way
+multiple actors can update the same object without causing unexpected interference.
 
 When a user sends a "fully-specified intent" object to the Server Side Apply
 endpoint, the server merges it with the live object favoring the value in the
@@ -319,7 +318,7 @@ kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment-replic
 ```
 
 If the apply results in a conflict with the HPA controller, then do nothing. The
-conflict just indicates the controller has claimed the field earlier in the
+conflict indicates the controller has claimed the field earlier in the
 process than it sometimes does.
 
 At this point the user may remove the `replicas` field from their configuration.
@@ -436,7 +435,7 @@ Data: [{"op": "replace", "path": "/metadata/managedFields", "value": [{}]}]
 
 This will overwrite the managedFields with a list containing a single empty
 entry that then results in the managedFields being stripped entirely from the
-object. Note that just setting the managedFields to an empty list will not
+object. Note that setting the managedFields to an empty list will not
 reset the field. This is on purpose, so managedFields never get stripped by
 clients not aware of the field.
 

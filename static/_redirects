@@ -29,6 +29,7 @@
 /docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
 /docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
 /docs/admin/cluster-management/     /docs/tasks/administer-cluster/ 302
+/id/docs/admin/cluster-management/     /id/docs/tasks/administer-cluster/ 302
 /docs/admin/cluster-troubleshooting/     /docs/tasks/debug-application-cluster/debug-cluster/ 301
 /docs/admin/daemons/     /docs/concepts/workloads/controllers/daemonset/ 301
 /docs/admin/disruptions/     /docs/concepts/workloads/pods/disruptions/ 301
@@ -286,6 +287,7 @@
 /docs/tasks/run-application/update-api-object-kubectl-patch/    /docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/ 301
 /docs/tasks/stateful-sets/deleting-pods/     /docs/tasks/run-application/force-delete-stateful-set-pod/ 301
 /ja/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/ 302
+/id/docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/ 302
 /docs/tasks/troubleshoot/debug-init-containers/     /docs/tasks/debug-application-cluster/debug-init-containers/ 301
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 
@@ -507,3 +509,4 @@
 /docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/     302
 
 /docs/concepts/configuration/pod-overhead/     /docs/concepts/scheduling-eviction/pod-overhead/   301
+/id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301

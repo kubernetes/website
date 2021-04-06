@@ -125,12 +125,12 @@ If your configuration is not using the latest version it is **recommended** that
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
 For more information on the fields and usage of the configuration you can navigate to our API reference
-page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
+page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
 For information about kube-proxy parameters in the kubeadm configuration see:
-- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+- [kube-proxy reference](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 
 For information about enabling IPVS mode with kubeadm see:
 - [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)

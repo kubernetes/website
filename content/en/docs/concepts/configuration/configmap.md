@@ -224,7 +224,7 @@ When a ConfigMap currently consumed in a volume is updated, projected keys are e
 The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the ConfigMap.
 The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
-the [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/)).
 A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting
 all requests directly to the API server.
 As a result, the total delay from the moment when the ConfigMap is updated to the moment
@@ -233,6 +233,7 @@ propagation delay, where the cache propagation delay depends on the chosen cache
 (it equals to watch propagation delay, ttl of cache, or zero correspondingly).
 
 ConfigMaps consumed as environment variables are not updated automatically and require a pod restart. 
+
 ## Immutable ConfigMaps {#configmap-immutable}
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}

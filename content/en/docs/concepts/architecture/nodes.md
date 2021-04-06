@@ -17,7 +17,7 @@ and contains the services necessary to run
 {{< glossary_tooltip text="Pods" term_id="pod" >}}
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
-environment, you might have just one.
+environment, you might have only one node.
 
 The [components](/docs/concepts/overview/components/#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
@@ -66,6 +66,16 @@ delete the Node object to stop that health checking.
 
 The name of a Node object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
+### Node name uniqueness
+
+The [name](/docs/concepts/overview/working-with-objects/names#names) identifies a Node. Two Nodes
+cannot have the same name at the same time. Kubernetes also assumes that a resource with the same
+name is the same object. In case of a Node, it is implicitly assumed that an instance using the
+same name will have the same state (e.g. network settings, root disk contents). This may lead to
+inconsistencies if an instance was modified without changing its name. If the Node needs to be
+replaced or updated significantly, the existing Node object needs to be removed from API server
+first and re-added after the update.
 
 ### Self-registration of Nodes
 
@@ -237,6 +247,7 @@ responsible for:
 - Evicting all the pods from the node using graceful termination if
   the node continues to be unreachable. The default timeouts are 40s to start
   reporting ConditionUnknown and 5m after that to start evicting pods.
+
 The node controller checks the state of each node every `--node-monitor-period` seconds.
 
 #### Heartbeats
@@ -278,6 +289,7 @@ the same time:
   `--large-cluster-size-threshold` nodes - default 50), then evictions are stopped.
 - Otherwise, the eviction rate is reduced to `--secondary-node-eviction-rate`
   (default 0.01) per second.
+
 The reason these policies are implemented per availability zone is because one
 availability zone might become partitioned from the master while the others remain
 connected. If your cluster does not span multiple cloud provider availability zones,
@@ -362,4 +374,3 @@ For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-

@@ -225,14 +225,14 @@ mount options specified in the `mountOptions` field of the class.
 
 If the volume plugin does not support mount options but mount options are
 specified, provisioning will fail. Mount options are not validated on either
-the class or PV, so mount of the PV will simply fail if one is invalid.
+the class or PV, If a mount option is invalid, the PV mount fails.
  -->
 ### 挂载选项
 
 由 StorageClass 动态创建的 PersistentVolume 将使用类中 `mountOptions` 字段指定的挂载选项。
 
-如果卷插件不支持挂载选项，却指定了该选项，则制备操作会失败。
-挂载选项在 StorageClass 和 PV 上都不会做验证，所以如果挂载选项无效，那么这个 PV 就会失败。
+如果卷插件不支持挂载选项，却指定了选项，则制备操作会失败。
+挂载选项在 StorageClass 和 PV 上都不会做验证，如果其中一个挂载选项无效，那么这个 PV 挂载就会失败。
 
 <!--
 ### Volume Binding Mode
@@ -1279,7 +1279,7 @@ parameters:
   通常存在的 `default` 池。
 * `description`：指定给动态创建的卷的描述。所有卷描述对于存储类而言都是相同的，
   但不同的 storage class 可以使用不同的描述，以区分不同的使用场景。
-  默认为 `Kubernetas volume`。
+  默认为 `Kubernetes volume`。
 * `fsType`：请求的默认文件系统类型。
   请注意，在 StorageOS 中用户定义的规则可以覆盖此值。默认为 `ext4`
 * `adminSecretNamespace`：API 配置 secret 所在的命名空间。

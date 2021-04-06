@@ -71,7 +71,7 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 
 | Protocol | Direction | Port Range | Purpose                 | Used By                   |
 |----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | Inbound   | 6443*      | Kubernetes API server   | All                       |
+| TCP      | Inbound   | 6443\*      | Kubernetes API server   | All                       |
 | TCP      | Inbound   | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
 | TCP      | Inbound   | 10250      | kubelet API             | Self, Control plane       |
 | TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
@@ -308,7 +308,8 @@ kind: KubeletConfiguration
 cgroupDriver: <value>
 ```
 
-For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
+For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
+and the [`KubeletConfiguration` reference](/docs/reference/config-api/kubelet-config.v1beta1/)
 
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
 is not `cgroupfs`, because that is the default value in the kubelet already.
@@ -322,12 +323,11 @@ or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it a
 The automatic detection of cgroup driver for other container runtimes
 like CRI-O and containerd is work in progress.
 
-
 ## Troubleshooting
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
 ## {{% heading "whatsnext" %}}
 
-
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+

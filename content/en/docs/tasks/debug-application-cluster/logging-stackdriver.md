@@ -294,9 +294,9 @@ a running cluster in the [Deploying section](#deploying).
 
 ### Changing `DaemonSet` parameters
 
-When you have the Stackdriver Logging `DaemonSet` in your cluster, you can just modify the
-`template` field in its spec, daemonset controller will update the pods for you. For example,
-let's assume you've just installed the Stackdriver Logging as described above. Now you want to
+When you have the Stackdriver Logging `DaemonSet` in your cluster, you can modify the
+`template` field in its spec. The DaemonSet controller manages the pods for you.
+For example, assume you've installed the Stackdriver Logging as described above. Now you want to
 change the memory limit to give fluentd more memory to safely process more logs.
 
 Get the spec of `DaemonSet` running in your cluster:
