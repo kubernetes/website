@@ -50,11 +50,9 @@ aliases:
     - zparnold
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
-    - alexbrand
+    - electrocucaracha
   sig-docs-es-reviews: # PR reviews for Spanish content
     - raelga
-    - alexbrand
-    # glo-pena
     - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
     - remyleone
