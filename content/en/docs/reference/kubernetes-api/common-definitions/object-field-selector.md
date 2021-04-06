@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ObjectFieldSelector selects an APIVersioned field of an object."
 title: "ObjectFieldSelector"
-weight: 12
+weight: 6
 ---
 
 

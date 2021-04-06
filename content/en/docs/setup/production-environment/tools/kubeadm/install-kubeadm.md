@@ -71,7 +71,7 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 
 | Protocol | Direction | Port Range | Purpose                 | Used By                   |
 |----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | Inbound   | 6443*      | Kubernetes API server   | All                       |
+| TCP      | Inbound   | 6443\*      | Kubernetes API server   | All                       |
 | TCP      | Inbound   | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
 | TCP      | Inbound   | 10250      | kubelet API             | Self, Control plane       |
 | TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
@@ -303,9 +303,9 @@ for the management of cgroups on Linux machines.
 
 {{< warning >}}
 Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
-{{< warning >}}
 
-See [Configuring a cgroup driver](/tasks/administer-cluster/kubeadm/configure-cgroup-driver) for more details.
+See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) for more details.
+{{< /warning >}}
 
 ## Troubleshooting
 
@@ -313,5 +313,5 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 
 ## {{% heading "whatsnext" %}}
 
-
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+

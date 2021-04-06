@@ -242,6 +242,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `DynamicProvisioningScheduling` | - | 사용중단| 1.12 | - |
 | `DynamicVolumeProvisioning` | `true` | 알파 | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | - |
+| `EnableAggregatedDiscoveryTimeout` | `true` | 사용중단 | 1.16 | - |
 | `EnableEquivalenceClassCache` | `false` | 알파 | 1.8 | 1.14 |
 | `EnableEquivalenceClassCache` | - | 사용중단 | 1.15 | - |
 | `ExperimentalCriticalPodAnnotation` | `false` | 알파 | 1.5 | 1.12 |

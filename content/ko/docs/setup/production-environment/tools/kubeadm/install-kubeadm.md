@@ -159,7 +159,7 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
 높을 수 없다. 예를 들어, 1.7.0 버전의 kubelet은 1.8.0 API 서버와 완전히 호환되어야 하지만,
 그 반대의 경우는 아니다.
 
-`kubectl` 설치에 대한 정보는 [kubectl 설치 및 설정](/ko/docs/tasks/tools/install-kubectl/)을 참고한다.
+`kubectl` 설치에 대한 정보는 [kubectl 설치 및 설정](/ko/docs/tasks/tools/)을 참고한다.
 
 {{< warning >}}
 이 지침은 모든 시스템 업그레이드에서 모든 쿠버네티스 패키지를 제외한다.
@@ -174,16 +174,34 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="데비안 기반 배포판" %}}
-```bash
-sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
-```
+
+1. `apt` 패키지 색인을 업데이트하고, 쿠버네티스 `apt` 리포지터리를 사용하는 데 필요한 패키지를 설치한다.
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+
+2. 구글 클라우드의 공개 사이닝 키를 다운로드 한다.
+
+   ```shell
+   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   ```
+
+3. 쿠버네티스 `apt` 리포지터리를 추가한다.
+
+   ```shell
+   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+4. `apt` 패키지 색인을 업데이트하고, kubelet, kubeadm, kubectl을 설치하고 해당 버전을 고정한다.
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl
+   sudo apt-mark hold kubelet kubeadm kubectl
+   ```
+
 {{% /tab %}}
 {{% tab name="레드햇 기반 배포판" %}}
 ```bash

@@ -81,9 +81,9 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 - `imagePullPolicy: Always`: kubelet이 컨테이너를 시작할 때마다, kubelet은 컨테이너 이미지 레지스트리를 쿼리해서 이름을 이미지 다이제스트(digest)로 확인한다. kubelet에 정확한 다이제스트가 저장된 컨테이너 이미지가 로컬로 캐시된 경우, kubelet은 캐시된 이미지를 사용한다. 그렇지 않으면, kubelet은 확인한 다이제스트를 사용해서 이미지를 다운로드(pull)하고, 해당 이미지를 사용해서 컨테이너를 시작한다.
 
-- `imagePullPolicy`가 생략되어 있고, 이미지 태그가 `:latest` 이거나 생략되어 있다면 `Always`가 적용된다.
+- `imagePullPolicy`가 생략되어 있고, 이미지 태그가 `:latest` 이거나 생략되어 있다면 `imagePullPolicy`는 자동으로 `Always`가 적용된다. 태그 값을 변경하더라도 이 값은 `IfNotPresent`로 업데이트 되지 _않는다_.
 
-- `imagePullPolicy`가 생략되어 있고, 이미지 태그가 존재하지만 `:latest`가 아니라면 `IfNotPresent`가 적용된다.
+- `imagePullPolicy`가 생략되어 있고, 이미지 태그가 존재하지만 `:latest`가 아니라면 `imagePullPolicy`는 자동으로 `IfNotPresent`가 적용된다. 태그가 나중에 제거되거나 `:latest`로 변경되더라도 `Always`로 업데이트 되지 _않는다_.
 
 - `imagePullPolicy: Never`: 이미지가 로컬에 존재한다고 가정한다. 이미지를 풀(Pull) 하기 위해 시도하지 않는다.
 
@@ -96,7 +96,7 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 {{< /note >}}
 
 {{< note >}}
-기반이 되는 이미지 제공자의 캐시 방법은 `imagePullPolicy: Always`를 효율적으로 만든다. 예를 들어, 도커에서는 이미지가 이미 존재한다면 풀(Pull) 시도는 빠르게 진행되는데, 이는 모든 이미지 레이어가 캐시되어 있으며 이미지 다운로드가 필요하지 않기 때문이다.
+레지스트리가 안정적으로 동작하는 상황에서는, `imagePullPolicy: Always`로 설정되어 있더라도 기반 이미지 관리 도구의 캐싱 정책을 통해 이미지 풀(pull) 작업의 효율성을 높일 수 있다. 예를 들어, 도커를 사용하는 경우 이미지가 이미 존재한다면 풀(Pull) 시도는 빠르게 진행되는데, 이는 모든 이미지 레이어가 캐시되어 있으며 이미지 다운로드가 필요하지 않기 때문이다.
 {{< /note >}}
 
 ## kubectl 사용하기

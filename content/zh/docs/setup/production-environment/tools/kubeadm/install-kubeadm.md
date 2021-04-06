@@ -30,14 +30,7 @@ For information how to create a cluster with kubeadm once you have performed thi
 ## {{% heading "prerequisites" %}}
 
 <!--
-* One or more machines running one of:
-  - Ubuntu 16.04+
-  - Debian 9+
-  - CentOS 7+
-  - Red Hat Enterprise Linux (RHEL) 7+
-  - Fedora 25+
-  - HypriotOS v1.0.1+
-  - Flatcar Container Linux (tested with 2512.3.0)
+* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
 * 2 CPUs or more
 * Full network connectivity between all machines in the cluster (public or private network is fine)
@@ -45,14 +38,8 @@ For information how to create a cluster with kubeadm once you have performed thi
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
 -->
-* 一台或多台运行着下列系统的机器：
-  - Ubuntu 16.04+
-  - Debian 9+
-  - CentOS 7+
-  - Red Hat Enterprise Linux (RHEL) 7+
-  - Fedora 25+
-  - HypriotOS v1.0.1+
-  - Flatcar Container Linux （使用 2512.3.0 版本测试通过）
+* 一台兼容的 Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux
+  发行版以及一些不提供包管理器的发行版提供通用的指令
 * 每台机器 2 GB 或更多的 RAM （如果少于这个数字将会影响你应用的运行内存)
 * 2 CPU 核或更多
 * 集群中的所有机器的网络彼此均能相互连接(公网和内网都可以)
@@ -211,7 +198,7 @@ The following table lists container runtimes and their associated socket paths:
 
 | Runtime    | Domain Socket                   |
 |------------|---------------------------------|
-| Docker     | /var/run/docker.sock            |
+| Docker     | /var/run/dockershim.sock            |
 | containerd | /run/containerd/containerd.sock |
 | CRI-O      | /var/run/crio/crio.sock         |
 -->
@@ -225,7 +212,7 @@ The following table lists container runtimes and their associated socket paths:
 
 | 运行时     | 域套接字                         |
 |------------|----------------------------------|
-| Docker     | /var/run/docker.sock             |
+| Docker     | /var/run/dockershim.sock             |
 | containerd | /run/containerd/containerd.sock  |
 | CRI-O      | /var/run/crio/crio.sock          |
 
@@ -289,7 +276,7 @@ kubelet and the control plane is supported, but the kubelet version may never ex
 server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa.
 
-For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/install-kubectl/).
+For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/).
 -->
 ## 安装 kubeadm、kubelet 和 kubectl
 
@@ -308,7 +295,7 @@ kubeadm **不能** 帮你安装或者管理 `kubelet` 或 `kubectl`，所以你�
 的版本不可以超过 API 服务器的版本。
 例如，1.7.0 版本的 kubelet 可以完全兼容 1.8.0 版本的 API 服务器，反之则不可以。
 
-有关安装 `kubectl` 的信息，请参阅[安装和设置 kubectl](/zh/docs/tasks/tools/install-kubectl/)文档。
+有关安装 `kubectl` 的信息，请参阅[安装和设置 kubectl](/zh/docs/tasks/tools/)文档。
 
 {{< warning >}}
 <!--
@@ -332,22 +319,50 @@ For more information on version skews, see:
 * Kubeadm 特定的[版本偏差策略](/zh/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
-{{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+{{% tab name="基于 Debian 的发行版" %}}
 
-```bash
-sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
-```
+<!--
+1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+-->
+1. 更新 `apt` 包索引并安装使用 Kubernetes `apt` 仓库所需要的包：
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+
+<!--
+2. Download the Google Cloud public signing key:
+-->
+2. 下载 Google Cloud 公开签名秘钥：
+
+   ```shell
+   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   ```
+
+<!--
+3. Add the Kubernetes `apt` repository:
+-->
+3. 添加 Kubernetes `apt` 仓库：
+
+   ```shell
+   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+<!--
+4. Update `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
+-->
+4. 更新 `apt` 包索引，安装 kubelet、kubeadm 和 kubectl，并锁定其版本：
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl
+   sudo apt-mark hold kubelet kubeadm kubectl
+   ```
 
 {{% /tab %}}
 
-{{% tab name="CentOS、RHEL 或 Fedora" %}}
+{{% tab name="基于 Red Hat 的发行版" %}}
 
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
@@ -391,7 +406,7 @@ systemctl enable --now kubelet
   配置是 kubeadm 所不支持的。
 
 {{% /tab %}}
-{{% tab name="Fedora CoreOS 或 Flatcar Container Linux" %}}
+{{% tab name="无包管理器的情况" %}}
 
 <!--
 Install CNI plugins (required for most pod network):
@@ -411,11 +426,11 @@ Define the directory to download command files
 
 {{< note >}}
 <!--
-The DOWNLOAD_DIR variable must be set to a writable directory.
-If you are running Flatcar Container Linux, set DOWNLOAD_DIR=/opt/bin.
+The `DOWNLOAD_DIR` variable must be set to a writable directory.
+If you are running Flatcar Container Linux, set `DOWNLOAD_DIR=/opt/bin`.
 -->
-DOWNLOAD_DIR 变量必须被设置为一个可写入的目录。
-如果你在运行 Flatcar Container Linux，可将 DOWNLOAD_DIR 设置为 /opt/bin。
+`DOWNLOAD_DIR` 变量必须被设置为一个可写入的目录。
+如果你在运行 Flatcar Container Linux，可将 `DOWNLOAD_DIR` 设置为 `/opt/bin`。
 {{< /note >}}
 
 ```bash
@@ -530,16 +545,6 @@ or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it a
 并使用 KubeletConfiguration 作为替代（默认存储于
 `/var/lib/kubelet/config.yaml` 文件中）。
 {{< /note >}}
-
-<!--
-Restarting the kubelet is required:
--->
-需要重新启动 kubelet：
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl restart kubelet
-```
 
 <!--
 The automatic detection of cgroup driver for other container runtimes

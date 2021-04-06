@@ -9,7 +9,7 @@ content_type: concept
 
 Diese Sektion umfasst verschiedene Optionen zum Einrichten und Betrieb von Kubernetes.
 
-Verschiedene Kubernetes Lösungen haben verschiedene Anforderungen:  Einfache Wartung, Sicherheit, Kontrolle, verfügbare Resourcen und erforderliches Fachwissen zum Betrieb und zur Verwaltung dess folgende Diagramm zeigt die möglichen Abstraktionen eines Kubernetes-Clusters und ob eine Abstraktion selbst verwaltet oder von einem Anbieter verwaltet wird.
+Verschiedene Kubernetes Lösungen haben verschiedene Anforderungen:  Einfache Wartung, Sicherheit, Kontrolle, verfügbare Resourcen und erforderliches Fachwissen zum Betrieb und zur Verwaltung. Das folgende Diagramm zeigt die möglichen Abstraktionen eines Kubernetes-Clusters und ob eine Abstraktion selbst verwaltet oder von einem Anbieter verwaltet wird.
 
 Sie können einen Kubernetes-Cluster auf einer lokalen Maschine, Cloud, On-Prem Datacenter bereitstellen; oder wählen Sie einen verwalteten Kubernetes-Cluster. Sie können auch eine individuelle Lösung über eine grosse Auswahl an Cloud Anbietern oder Bare-Metal-Umgebungen nutzen.
 

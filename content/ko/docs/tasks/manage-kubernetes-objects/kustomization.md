@@ -29,7 +29,7 @@ kubectl apply -k <kustomization_directory>
 ## {{% heading "prerequisites" %}}
 
 
-[`kubectl`](/ko/docs/tasks/tools/install-kubectl/)을 설치한다.
+[`kubectl`](/ko/docs/tasks/tools/)을 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
