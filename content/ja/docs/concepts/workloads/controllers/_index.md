@@ -1,4 +1,4 @@
 ---
-title: "Workload Resources"
+title: "ワークロードリソース"
 weight: 20
 ---
