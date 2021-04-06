@@ -356,7 +356,7 @@ AppArmorに関する問題をデバッグするには、システムログをチ
 
 ### PodSecurityPolicyアノテーション
 
-何も指定されな買った場合にコンテナに適用するデフォルトのプロファイルは、以下のように指定します。
+何も指定されなかった場合にコンテナに適用するデフォルトのプロファイルは、以下のように指定します。
 
 * **key**: `apparmor.security.beta.kubernetes.io/defaultProfileName`
 * **value**: 上で説明したプロファイルのリファレンス
