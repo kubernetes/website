@@ -50,7 +50,7 @@ e pode passar por redes não confiáveis ​​e/ou públicas.
 
 ## Control Plane para o nó
 
-Existem dois caminhos de comunicação primários do control plane (apiserver) para os nõs.
+Existem dois caminhos de comunicação primários do control plane (apiserver) para os nós.
 O primeiro é do apiserver para o processo do kubelet que é executado em
 cada nó no cluster. O segundo é do apiserver para qualquer nó, pod,
 ou serviço através da funcionalidade de proxy do apiserver.
