@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values."
 title: "NodeSelectorRequirement"
-weight: 5
+weight: 11
 ---
 
 

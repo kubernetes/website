@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "A label selector is a label query over a set of resources."
 title: "LabelSelector"
-weight: 2
+weight: 7
 ---
 
 
