@@ -8,7 +8,7 @@ slug: defining-networkpolicy-conformance-cni-providers
 Authors: Matt Fenwick, Jay Vyas, Ricardo Katz, Amim Knabben, Douglas Schilling Landgraf
 
 Special thanks to Tim Hockin and Bowie Du (Google), Dan Winship and Antonio Ojea (Red Hat),
-Casey Davenport and Shaun Crampton (Tigera), and Abhishek Raut and Antonin Bas(VMware) for
+Casey Davenport and Shaun Crampton (Tigera), and Abhishek Raut and Antonin Bas (VMware) for
 being supportive of this work, and working with us to resolve issues in different Container Network Interfaces (CNIs) over time.
 
 A brief conversation around "node local" Network Policies in April of 2020 inspired the creation of a NetworkPolicy subproject from SIG Network. It became clear that as a community,
