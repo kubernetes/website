@@ -22,8 +22,8 @@ but this is unsafe for some parameters. Before deciding to change a parameter
 dynamically, you need a strong understanding of how that change will affect your
 cluster's behavior. Always carefully test configuration changes on a small set
 of nodes before rolling them out cluster-wide. Advice on configuring specific
-fields is available in the inline `KubeletConfiguration`
-[type documentation (for v1.20)](https://github.com/kubernetes/kubernetes/blob/release-1.20/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+fields is available in the inline
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/).
 {{< /warning >}}
 
 
@@ -55,7 +55,7 @@ For each node that you're reconfiguring, you must set the kubelet
 The basic workflow for configuring a kubelet in a live cluster is as follows:
 
 1. Write a YAML or JSON configuration file containing the
-kubelet's configuration.
+   kubelet's configuration.
 2. Wrap this file in a ConfigMap and save it to the Kubernetes control plane.
 3. Update the kubelet's corresponding Node object to use this ConfigMap.
 
@@ -135,24 +135,24 @@ To follow the tasks as written, you need to have `jq` installed. You can
 adapt the steps if you prefer to extract the `kubeletconfig` subobject manually.
 {{< /note >}}
 
-1.  Choose a Node to reconfigure. In this example, the name of this Node is
-    referred to as `NODE_NAME`.
-2.  Start the kubectl proxy in the background using the following command:
+1. Choose a Node to reconfigure. In this example, the name of this Node is
+   referred to as `NODE_NAME`.
+2. Start the kubectl proxy in the background using the following command:
 
-      ```bash
-      kubectl proxy --port=8001 &
-      ```
-3.  Run the following command to download and unpack the configuration from the
-    `configz` endpoint. The command is long, so be careful when copying and
-    pasting. **If you use zsh**, note that common zsh configurations add backslashes
-    to escape the opening and closing curly braces around the variable name in the URL.
-    For example: `${NODE_NAME}` will be rewritten as `$\{NODE_NAME\}` during the paste.
-    You must remove the backslashes before running the command, or the command will fail.
+   ```shell
+   kubectl proxy --port=8001 &
+   ```
+3. Run the following command to download and unpack the configuration from the
+   `configz` endpoint. The command is long, so be careful when copying and
+   pasting. **If you use zsh**, note that common zsh configurations add backslashes
+   to escape the opening and closing curly braces around the variable name in the URL.
+   For example: `${NODE_NAME}` will be rewritten as `$\{NODE_NAME\}` during the paste.
+   You must remove the backslashes before running the command, or the command will fail.
 
 
-      ```bash
-      NODE_NAME="the-name-of-the-node-you-are-reconfiguring"; curl -sSL "http://localhost:8001/api/v1/nodes/${NODE_NAME}/proxy/configz" | jq '.kubeletconfig|.kind="KubeletConfiguration"|.apiVersion="kubelet.config.k8s.io/v1beta1"' > kubelet_configz_${NODE_NAME}
-      ```
+   ```bash
+   NODE_NAME="the-name-of-the-node-you-are-reconfiguring"; curl -sSL "http://localhost:8001/api/v1/nodes/${NODE_NAME}/proxy/configz" | jq '.kubeletconfig|.kind="KubeletConfiguration"|.apiVersion="kubelet.config.k8s.io/v1beta1"' > kubelet_configz_${NODE_NAME}
+   ```
 
 {{< note >}}
 You need to manually add the `kind` and `apiVersion` to the downloaded
@@ -312,8 +312,6 @@ empty, since all config sources have been reset to `nil`, which indicates that
 the local default config is `assigned`, `active`, and `lastKnownGood`, and no
 error is reported.
 
-
-
 <!-- discussion -->
 ## `kubectl patch` example
 
@@ -356,7 +354,7 @@ metadata and checkpoints. The structure of the kubelet's checkpointing directory
   | - ...
 ```
 
-## Understanding Node.Status.Config.Error messages {#understanding-node-config-status-errors}
+## Understanding `Node.Status.Config.Error` messages {#understanding-node-config-status-errors}
 
 The following table describes error messages that can occur
 when using Dynamic Kubelet Config. You can search for the identical text
@@ -378,6 +376,10 @@ internal failure, see Kubelet log for details | The kubelet encountered some int
 
 ## {{% heading "whatsnext" %}}
 
- - For more information on configuring the kubelet via a configuration file, see
+- For more information on configuring the kubelet via a configuration file, see
 [Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file).
 - See the reference documentation for [`NodeConfigSource`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core)
+- Learn more about kubelet configuration by checking the
+  [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
+  reference.
+
