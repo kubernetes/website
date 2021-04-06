@@ -59,7 +59,7 @@ Migration to structured log messages is an ongoing process. Not all log messages
 
 Log formatting and value serialization are subject to change.
 -->
-{{<warning>}}
+{{< warning >}}
 到结构化日志消息的迁移是一个持续的过程。
 在此版本中，并非所有日志消息都是结构化的。
 解析日志文件时，你也必须要处理非结构化日志消息。
@@ -68,22 +68,25 @@ Log formatting and value serialization are subject to change.
 {{< /warning>}}
 
 <!--
-Structured logging is a effort to introduce a uniform structure in log messages allowing for easy extraction of information, making logs easier and cheaper to store and process.
+Structured logging introduces a uniform structure in log messages allowing for programmatic extraction of information. You can store and process structured logs with less effort and cost.
 New message format is backward compatible and enabled by default.
 
 Format of structured logs:
 -->
-结构化日志记录旨在日志消息中引入统一结构，以方便提取信息，使日志的存储和处理更容易、成本更低。
+结构化日志记录旨在日志消息中引入统一结构，以便以编程方式提取信息。
+你可以方便地用更小的开销来处理结构化日志。
 新的消息格式向后兼容，并默认启用。
 
 结构化日志的格式：
-```
+
+```ini
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
 ```
 
 <!-- Example: -->
 示例：
-```
+
+```ini
 I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod="kube-system/kubedns" status="ready"
 ```
 

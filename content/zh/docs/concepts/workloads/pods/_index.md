@@ -54,7 +54,7 @@ for debugging if your cluster offers this.
 除了应用容器，Pod 还可以包含在 Pod 启动期间运行的
 [Init 容器](/zh/docs/concepts/workloads/pods/init-containers/)。
 你也可以在集群中支持[临时性容器](/zh/docs/concepts/workloads/pods/ephemeral-containers/)
-的情况外，为调试的目的注入临时性容器。
+的情况下，为调试的目的注入临时性容器。
 
 <!-- body -->
 

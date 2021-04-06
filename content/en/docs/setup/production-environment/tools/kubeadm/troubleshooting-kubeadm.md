@@ -99,10 +99,11 @@ This may be caused by a number of problems. The most common are:
 
   There are two common ways to fix the cgroup driver problem:
 
- 1. Install Docker again following instructions
-  [here](/docs/setup/production-environment/container-runtimes/#docker).
+  1. Install Docker again following instructions
+     [here](/docs/setup/production-environment/container-runtimes/#docker).
 
- 1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to [Configure cgroup driver used by kubelet on control-plane node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
+  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
+     [Configure cgroup driver used by kubelet on control-plane node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
 
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
@@ -110,8 +111,11 @@ This may be caused by a number of problems. The most common are:
 
 The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
 
-```bash
+```shell
 sudo kubeadm reset
+```
+
+```console
 [preflight] Running pre-flight checks
 [reset] Stopping the kubelet service
 [reset] Unmounting mounted directories in "/var/lib/kubelet"
@@ -121,14 +125,14 @@ sudo kubeadm reset
 
 A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
 
-```bash
+```shell
 sudo systemctl restart docker.service
 sudo kubeadm reset
 ```
 
 Inspecting the logs for docker may also be useful:
 
-```sh
+```shell
 journalctl -u docker
 ```
 
@@ -415,3 +419,4 @@ If `/var/lib/kubelet` is being mounted, performing a `kubeadm reset` will effect
 To workaround the issue, re-mount the `/var/lib/kubelet` directory after performing the `kubeadm reset` operation.
 
 This is a regression introduced in kubeadm 1.15. The issue is fixed in 1.20.
+

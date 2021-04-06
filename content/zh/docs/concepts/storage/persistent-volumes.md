@@ -69,7 +69,7 @@ Pod 会耗用节点资源，而 PVC 申领会耗用 PV 资源。Pod 可以请求
 模式之一来挂载，参见[访问模式](#access-modes)）。
 
 <!--
-While PersistentVolumeClaims allow a user to consume abstract storage resources, it is common that users need PersistentVolumes with varying properties, such as performance, for different problems. Cluster administrators need to be able to offer a variety of PersistentVolumes that differ in more ways than just size and access modes, without exposing users to the details of how those volumes are implemented. For these needs, there is the _StorageClass_ resource.
+While PersistentVolumeClaims allow a user to consume abstract storage resources, it is common that users need PersistentVolumes with varying properties, such as performance, for different problems. Cluster administrators need to be able to offer a variety of PersistentVolumes that differ in more ways than size and access modes, without exposing users to the details of how those volumes are implemented. For these needs, there is the _StorageClass_ resource.
 
 See the [detailed walkthrough with working examples](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
 -->
@@ -935,9 +935,9 @@ The following volume types support mount options:
 * iSCSI
 
 <!--
-Mount options are not validated, so mount will simply fail if one is invalid.
+Mount options are not validated, If a mount option is invalid, the mount fails.
 -->
-Kubernetes 不对挂载选项执行合法性检查，因此非法的挂载选项只是会导致挂载失败。
+Kubernetes 不对挂载选项执行合法性检查。如果挂载选项是非法的，挂载就会失败。
 
 <!--
 In the past, the annotation `volume.beta.kubernetes.io/mount-options` was used instead
@@ -1210,6 +1210,17 @@ PersistentVolumes binds are exclusive, and since PersistentVolumeClaims are name
 PersistentVolume 卷的绑定是排他性的。
 由于 PersistentVolumeClaim 是名字空间作用域的对象，使用
 "Many" 模式（`ROX`、`RWX`）来挂载申领的操作只能在同一名字空间内进行。
+
+<!--
+### PersistentVolumes typed `hostPath`
+
+A `hostPath` PersistentVolume uses a file or directory on the Node to emulate network-attached storage.
+See [an example of `hostPath` typed volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
+-->
+### 类型为 `hostpath` 的 PersistentVolume  {#persistentvolumes-typed-hostpath}
+
+`hostPath` PersistentVolume 使用节点上的文件或目录来模拟网络附加（network-attached）存储。
+相关细节可参阅[`hostPath` 卷示例](/zh/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)。
 
 <!--
 ## Raw Block Volume Support
