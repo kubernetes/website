@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace."
 title: "LocalObjectReference"
-weight: 9
+weight: 4
 ---
 
 

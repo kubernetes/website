@@ -168,36 +168,7 @@ controllerManager:
 
 ### 인증서 서명 요청(CSR) 생성
 
-`kubeadm certs renew --use-api` 로 쿠버네티스 인증서 API에 대한 인증서 서명 요청을 만들 수 있다.
-
-[cert-manager](https://github.com/jetstack/cert-manager)와 같은 외부 서명자를 설정하면, 인증서 서명 요청(CSR)이 자동으로 승인된다.
-그렇지 않으면, [`kubectl certificate`](/ko/docs/setup/best-practices/certificates/) 명령을 사용하여 인증서를 수동으로 승인해야 한다.
-다음의 kubeadm 명령은 승인할 인증서 이름을 출력한 다음, 승인이 발생하기를 차단하고 기다린다.
-
-```shell
-sudo kubeadm certs renew apiserver --use-api &
-```
-출력 결과는 다음과 비슷하다.
-```
-[1] 2890
-[certs] certificate request "kubeadm-cert-kube-apiserver-ld526" created
-```
-
-### 인증서 서명 요청(CSR) 승인
-
-외부 서명자를 설정하면, 인증서 서명 요청(CSR)이 자동으로 승인된다.
-
-그렇지 않으면, [`kubectl certificate`](/ko/docs/setup/best-practices/certificates/) 명령을 사용하여 인증서를 수동으로 승인해야 한다. 예를 들어 다음과 같다.
-
-```shell
-kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
-```
-출력 결과는 다음과 비슷하다.
-```shell
-certificatesigningrequest.certificates.k8s.io/kubeadm-cert-kube-apiserver-ld526 approved
-```
-
-`kubectl get csr` 명령으로 보류 중인 인증서 목록을 볼 수 있다.
+쿠버네티스 API로 CSR을 작성하려면 [CertificateSigningRequest 생성](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest)을 본다.
 
 ## 외부 CA로 인증서 갱신
 

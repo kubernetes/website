@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Status is a return value for calls that don't return other objects."
 title: "Status"
-weight: 20
+weight: 12
 ---
 
 
@@ -40,21 +40,21 @@ Status is a return value for calls that don't return other objects.
     <a name="StatusCause"></a>
     *StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.*
 
-  - **details.causes.field** (string)
+    - **details.causes.field** (string)
 
-    The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
-    
-    Examples:
-      "name" - the field "name" on the current resource
-      "items[0].name" - the field "name" on the first array entry in "items"
+      The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
+      
+      Examples:
+        "name" - the field "name" on the current resource
+        "items[0].name" - the field "name" on the first array entry in "items"
 
-  - **details.causes.message** (string)
+    - **details.causes.message** (string)
 
-    A human-readable description of the cause of the error.  This field may be presented as-is to a reader.
+      A human-readable description of the cause of the error.  This field may be presented as-is to a reader.
 
-  - **details.causes.reason** (string)
+    - **details.causes.reason** (string)
 
-    A machine-readable description of the cause of the error. If this value is empty there is no information available.
+      A machine-readable description of the cause of the error. If this value is empty there is no information available.
 
   - **details.group** (string)
 
