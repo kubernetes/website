@@ -402,8 +402,7 @@ systemctl enable --now kubelet
 
   你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
 
-- 你可以保持 SELinux 处于弃用状态，前提是你知道如何配置它，不过这也意味着有些
-  配置是 kubeadm 所不支持的。
+- 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定部分 kubeadm 不支持的配置。
 
 {{% /tab %}}
 {{% tab name="无包管理器的情况" %}}
