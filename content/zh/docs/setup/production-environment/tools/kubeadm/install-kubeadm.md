@@ -517,7 +517,8 @@ cgroupDriver: <value>
 ```
 
 <!--
-For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
+For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
+and the [`KubeletConfiguration` reference](/docs/reference/config-api/kubelet-config.v1beta1/)
 
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
 is not `cgroupfs`, because that is the default value in the kubelet already.
