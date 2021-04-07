@@ -639,3 +639,10 @@ body.td-documentation {
   }
 }
 
+.td-content {
+  table code {
+    background-color: inherit !important;
+    color: inherit !important;
+    font-size: inherit !important;
+  }
+}
