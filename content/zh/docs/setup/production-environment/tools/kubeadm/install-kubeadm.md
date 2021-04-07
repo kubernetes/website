@@ -523,7 +523,7 @@ Please mind, that you **only** have to do that if the cgroup driver of your CRI
 is not `cgroupfs`, because that is the default value in the kubelet already.
 -->
 进一步的相关细节，可参阅
-[使用配置文件来执行 kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) 以及 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
+[使用配置文件来执行 kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) 以及 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)。
 
 请注意，你只需要在你的 cgroup 驱动程序不是 `cgroupfs` 时这么做，
 因为它已经是 kubelet 中的默认值。
