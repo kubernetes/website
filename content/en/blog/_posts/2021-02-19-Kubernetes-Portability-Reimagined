@@ -3,7 +3,7 @@ layout: blog
 title: Kubernetes Portability Reimagined
 date:  2021-02-19
 slug:  Kubernetes-Portability-Reimagined
-url:   /blog/2021/02/Kubernetes-Portability-Reimagined
+slug:  kubernetes-portability-reimagined
 ---
 
 Kubernetes: Portability Reimagined
