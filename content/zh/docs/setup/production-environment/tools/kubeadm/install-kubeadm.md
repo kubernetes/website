@@ -377,12 +377,12 @@ exclude=kubelet kubeadm kubectl
 EOF
 
 # 将 SELinux 设置为 permissive 模式（相当于将其禁用）
-setenforce 0
-sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+sudo setenforce 0
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
-yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
-systemctl enable --now kubelet
+sudo systemctl enable --now kubelet
 ```
 
 <!--
@@ -402,8 +402,7 @@ systemctl enable --now kubelet
 
   你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
 
-- 你可以保持 SELinux 处于弃用状态，前提是你知道如何配置它，不过这也意味着有些
-  配置是 kubeadm 所不支持的。
+- 如果你知道如何配置 SELinux 则可以将其保持启用状态，但可能需要设定 kubeadm 不支持的部分配置
 
 {{% /tab %}}
 {{% tab name="无包管理器的情况" %}}
@@ -415,7 +414,7 @@ Install CNI plugins (required for most pod network):
 
 ```bash
 CNI_VERSION="v0.8.2"
-mkdir -p /opt/cni/bin
+sudo mkdir -p /opt/cni/bin
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
 ```
 
@@ -457,16 +456,12 @@ Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
-chmod +x {kubeadm,kubelet,kubectl}
+sudo chmod +x {kubeadm,kubelet,kubectl}
 
 RELEASE_VERSION="v0.4.0"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-
-curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service
-mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/10-kubeadm.conf" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
 <!--
@@ -522,13 +517,14 @@ cgroupDriver: <value>
 ```
 
 <!--
-For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
+For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
+and the [`KubeletConfiguration` reference](/docs/reference/config-api/kubelet-config.v1beta1/)
 
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
 is not `cgroupfs`, because that is the default value in the kubelet already.
 -->
 进一步的相关细节，可参阅
-[使用配置文件来执行 kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)。
+[使用配置文件来执行 kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) 以及 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)。
 
 请注意，你只需要在你的 cgroup 驱动程序不是 `cgroupfs` 时这么做，
 因为它已经是 kubelet 中的默认值。
