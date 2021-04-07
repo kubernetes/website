@@ -71,13 +71,21 @@ Commands
 
 ConfigMap and Secrets may be listed and viewed using the following command sets.  The ‘data:’ section typically contains key-value pairs belonging to environment variables.
 
+```
+{
+
 $ kubectl get cm --all-namespaces
 $ kubectl get cm cluster-info -n kube-public -o yaml
 $ kubectl get secrets —all-namespaces
 $ kubectl get secrets default-token-hlh9z -n kube-public -o yaml
 $ kubectl get services --all-namespaces
 
+}
+```
 Sample Application with ConfigMap & Secrets
+
+```
+{
 
 $ cat kube-configmap.yaml
 
@@ -90,6 +98,12 @@ data:
   sleep_interval: "2"
 
 $ kubectl apply -f kube-configmap.yaml
+
+}
+```
+
+```
+{
 
 $ cat kube-secrets.yaml
 
@@ -104,6 +118,12 @@ stringData:
   username: admin
 
 $ kubectl apply -f kube-secrets.yaml
+
+}
+```
+
+```
+{
 
 $ cat kube-pod-env.yaml
 
@@ -142,6 +162,41 @@ spec:
         secretName: "kube-secrets"
 
 $ kubectl apply -f kube-pod-env.yaml
+
+}
+```
+
+```
+{
+
+$ kubectl logs kube-pod-env
+counter: 5
+sleep interval: 2
+Looping count ... 1
+07:47:30
+Going to sleep
+07:47:32
+Looping count ... 2
+07:47:32
+Going to sleep
+07:47:34
+Looping count ... 3
+07:47:34
+Going to sleep
+07:47:36
+Looping count ... 4
+07:47:36
+Going to sleep
+07:47:38
+Looping count ... 5
+07:47:38
+Going to sleep
+07:47:40
+Username: admin
+Password: kubernetes
+
+}
+```
 
 Summary
 
