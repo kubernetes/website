@@ -7,7 +7,7 @@ slug: graceful-node-shutdown-beta
 
 **Authors:** David Porter (Google), Murnal Patel (Red Hat), and Tim Bannister (The Scale Factory)
 
-Graceful node shutdown, beta in 1.21, enables kubelet to gracefully evict pods during a machine shutdown.
+Graceful node shutdown, beta in 1.21, enables kubelet to gracefully evict pods during a node shutdown.
 
 Kubernetes is a distributed system and as such we need to be prepared for inevitable failures — nodes will fail, containers might crash or be restarted, and - ideally - your workloads will be able to withstand these catastrophic events.
 
@@ -17,6 +17,7 @@ Prior to Kubernetes 1.20 (when graceful node shutdown was introduced as an alpha
 
 Kubernetes 1.21 brings graceful node shutdown to beta. Graceful node shutdown gives you more control over some of those unexpected shutdown situations. With graceful node shutdown, the kubelet is aware of underlying system shutdown events and can propagate these events to pods, ensuring containers can shut down as gracefully as possible. This gives the containers a chance to checkpoint their state or release back any resources they are holding.
 
+Note, that for the best availability, even with graceful node shutdown, you should still design your deployments to be resilient to node failures.
 
 ## How does it work?
 On Linux, your system can shut down in many different situations. For example:
@@ -46,7 +47,7 @@ One important consideration we took when designing this feature is that not all 
 
 In our example, the logging DaemonSet would run as a critical pod. During the graceful node shutdown, regular pods are terminated first, followed by critical pods. As an example, this would allow a critical pod associated with a logging daemonset to continue functioning, and collecting logs during the termination of regular pods.
 
-We will evaluate during the beta phase if we need more flexibility for different pod priority classes and add support if needed.
+We will evaluate during the beta phase if we need more flexibility for different pod priority classes and add support if needed, please let us know if you have some scenarios in mind.
 
 
 ## How do I use it?
