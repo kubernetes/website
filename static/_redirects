@@ -236,6 +236,7 @@
 /docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
 /docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
+/docs/tasks/administer-cluster/enabling-endpointslices/ /docs/concepts/services-networking/endpoint-slices/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301

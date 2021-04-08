@@ -48,9 +48,32 @@ IngressClassSpec provides information about the class of an Ingress.
 
   Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 
-- **parameters** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
+- **parameters** (IngressClassParametersReference)
 
   Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+
+  <a name="IngressClassParametersReference"></a>
+  *IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.*
+
+  - **parameters.kind** (string), required
+
+    Kind is the type of resource being referenced.
+
+  - **parameters.name** (string), required
+
+    Name is the name of resource being referenced.
+
+  - **parameters.apiGroup** (string)
+
+    APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+
+  - **parameters.namespace** (string)
+
+    Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+
+  - **parameters.scope** (string)
+
+    Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
 
 
 

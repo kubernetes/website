@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ControllerRevision implements an immutable snapshot of state data."
 title: "ControllerRevision"
-weight: 9
+weight: 8
 ---
 
 `apiVersion: apps/v1`

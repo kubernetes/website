@@ -48,42 +48,9 @@ IngressSpec describes the Ingress the user wishes to exist.
 
 <hr>
 
-- **defaultBackend** (IngressBackend)
+- **defaultBackend** (<a href="{{< ref "../service-resources/ingress-v1#IngressBackend" >}}">IngressBackend</a>)
 
   DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
-
-  <a name="IngressBackend"></a>
-  *IngressBackend describes all endpoints for a given service and port.*
-
-  - **defaultBackend.resource** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
-
-    Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
-
-  - **defaultBackend.service** (IngressServiceBackend)
-
-    Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
-
-    <a name="IngressServiceBackend"></a>
-    *IngressServiceBackend references a Kubernetes Service as a Backend.*
-
-  - **defaultBackend.service.name** (string), required
-
-    Name is the referenced service. The service must exist in the same namespace as the Ingress object.
-
-  - **defaultBackend.service.port** (ServiceBackendPort)
-
-    Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
-
-    <a name="ServiceBackendPort"></a>
-    *ServiceBackendPort is the service port being referenced.*
-
-  - **defaultBackend.service.port.name** (string)
-
-    Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
-
-  - **defaultBackend.service.port.number** (int32)
-
-    Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
 
 - **ingressClassName** (string)
 
@@ -115,69 +82,36 @@ IngressSpec describes the Ingress the user wishes to exist.
     <a name="HTTPIngressRuleValue"></a>
     *HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.*
 
-  - **rules.http.paths** ([]HTTPIngressPath), required
+    - **rules.http.paths** ([]HTTPIngressPath), required
 
-    *Atomic: will be replaced during a merge*
-    
-    A collection of paths that map requests to backends.
+      *Atomic: will be replaced during a merge*
+      
+      A collection of paths that map requests to backends.
 
-    <a name="HTTPIngressPath"></a>
-    *HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.*
+      <a name="HTTPIngressPath"></a>
+      *HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.*
 
-  - **rules.http.paths.backend** (IngressBackend), required
+      - **rules.http.paths.backend** (<a href="{{< ref "../service-resources/ingress-v1#IngressBackend" >}}">IngressBackend</a>), required
 
-    Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+        Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 
-    <a name="IngressBackend"></a>
-    *IngressBackend describes all endpoints for a given service and port.*
+      - **rules.http.paths.path** (string)
 
-  - **rules.http.paths.backend.resource** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
+        Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
 
-    Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+      - **rules.http.paths.pathType** (string)
 
-  - **rules.http.paths.backend.service** (IngressServiceBackend)
-
-    Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
-
-    <a name="IngressServiceBackend"></a>
-    *IngressServiceBackend references a Kubernetes Service as a Backend.*
-
-  - **rules.http.paths.backend.service.name** (string), required
-
-    Name is the referenced service. The service must exist in the same namespace as the Ingress object.
-
-  - **rules.http.paths.backend.service.port** (ServiceBackendPort)
-
-    Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
-
-    <a name="ServiceBackendPort"></a>
-    *ServiceBackendPort is the service port being referenced.*
-
-  - **rules.http.paths.backend.service.port.name** (string)
-
-    Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
-
-  - **rules.http.paths.backend.service.port.number** (int32)
-
-    Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
-
-  - **rules.http.paths.path** (string)
-
-    Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
-
-  - **rules.http.paths.pathType** (string)
-
-    PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
-      done on a path element by element basis. A path element refers is the
-      list of labels in the path split by the '/' separator. A request is a
-      match for path p if every p is an element-wise prefix of p of the
-      request path. Note that if the last element of the path is a substring
-      of the last element in request path, it is not a match (e.g. /foo/bar
-      matches /foo/bar/baz, but does not match /foo/barbaz).
-    * ImplementationSpecific: Interpretation of the Path matching is up to
-      the IngressClass. Implementations can treat this as a separate PathType
-      or treat it identically to Prefix or Exact path types.
-    Implementations are required to support all path types.
+        PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+          done on a path element by element basis. A path element refers is the
+          list of labels in the path split by the '/' separator. A request is a
+          match for path p if every p is an element-wise prefix of p of the
+          request path. Note that if the last element of the path is a substring
+          of the last element in request path, it is not a match (e.g. /foo/bar
+          matches /foo/bar/baz, but does not match /foo/barbaz).
+        * ImplementationSpecific: Interpretation of the Path matching is up to
+          the IngressClass. Implementations can treat this as a separate PathType
+          or treat it identically to Prefix or Exact path types.
+        Implementations are required to support all path types.
 
 - **tls** ([]IngressTLS)
 
@@ -197,6 +131,46 @@ IngressSpec describes the Ingress the user wishes to exist.
   - **tls.secretName** (string)
 
     SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+
+
+
+
+
+## IngressBackend {#IngressBackend}
+
+IngressBackend describes all endpoints for a given service and port.
+
+<hr>
+
+- **resource** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
+
+  Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+
+- **service** (IngressServiceBackend)
+
+  Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+
+  <a name="IngressServiceBackend"></a>
+  *IngressServiceBackend references a Kubernetes Service as a Backend.*
+
+  - **service.name** (string), required
+
+    Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+
+  - **service.port** (ServiceBackendPort)
+
+    Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+
+    <a name="ServiceBackendPort"></a>
+    *ServiceBackendPort is the service port being referenced.*
+
+    - **service.port.name** (string)
+
+      Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+
+    - **service.port.number** (int32)
+
+      Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
 
 
 
@@ -222,37 +196,37 @@ IngressStatus describe the current state of the Ingress.
     <a name="LoadBalancerIngress"></a>
     *LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.*
 
-  - **loadBalancer.ingress.hostname** (string)
+    - **loadBalancer.ingress.hostname** (string)
 
-    Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
+      Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
 
-  - **loadBalancer.ingress.ip** (string)
+    - **loadBalancer.ingress.ip** (string)
 
-    IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+      IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 
-  - **loadBalancer.ingress.ports** ([]PortStatus)
+    - **loadBalancer.ingress.ports** ([]PortStatus)
 
-    *Atomic: will be replaced during a merge*
-    
-    Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+      *Atomic: will be replaced during a merge*
+      
+      Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 
-    <a name="PortStatus"></a>
-    **
+      <a name="PortStatus"></a>
+      **
 
-  - **loadBalancer.ingress.ports.port** (int32), required
+      - **loadBalancer.ingress.ports.port** (int32), required
 
-    Port is the port number of the service port of which status is recorded here
+        Port is the port number of the service port of which status is recorded here
 
-  - **loadBalancer.ingress.ports.protocol** (string), required
+      - **loadBalancer.ingress.ports.protocol** (string), required
 
-    Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
 
-  - **loadBalancer.ingress.ports.error** (string)
+      - **loadBalancer.ingress.ports.error** (string)
 
-    Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
-      CamelCase names
-    - cloud provider specific error values must have names that comply with the
-      format foo.example.com/CamelCase.
+        Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+          CamelCase names
+        - cloud provider specific error values must have names that comply with the
+          format foo.example.com/CamelCase.
 
 
 
@@ -264,19 +238,21 @@ IngressList is a collection of Ingress.
 
 <hr>
 
-- **apiVersion**: networking.k8s.io/v1
+- **items** ([]<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>), required
 
+  Items is the list of Ingress.
 
-- **kind**: IngressList
+- **apiVersion** (string)
 
+  APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+
+- **kind** (string)
+
+  Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-
-- **items** ([]<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>), required
-
-  Items is the list of Ingress.
 
 
 

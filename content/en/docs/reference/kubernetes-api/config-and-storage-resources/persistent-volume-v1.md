@@ -78,20 +78,20 @@ PersistentVolumeSpec is the specification of a persistent volume.
     <a name="NodeSelector"></a>
     *A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.*
 
-  - **nodeAffinity.required.nodeSelectorTerms** ([]NodeSelectorTerm), required
+    - **nodeAffinity.required.nodeSelectorTerms** ([]NodeSelectorTerm), required
 
-    Required. A list of node selector terms. The terms are ORed.
+      Required. A list of node selector terms. The terms are ORed.
 
-    <a name="NodeSelectorTerm"></a>
-    *A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.*
+      <a name="NodeSelectorTerm"></a>
+      *A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.*
 
-  - **nodeAffinity.required.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+      - **nodeAffinity.required.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
-    A list of node selector requirements by node's labels.
+        A list of node selector requirements by node's labels.
 
-  - **nodeAffinity.required.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+      - **nodeAffinity.required.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
-    A list of node selector requirements by node's fields.
+        A list of node selector requirements by node's fields.
 
 - **persistentVolumeReclaimPolicy** (string)
 
@@ -252,13 +252,13 @@ PersistentVolumeSpec is the specification of a persistent volume.
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
 
-  - **cephfs.secretRef.name** (string)
+    - **cephfs.secretRef.name** (string)
 
-    Name is unique within a namespace to reference a secret resource.
+      Name is unique within a namespace to reference a secret resource.
 
-  - **cephfs.secretRef.namespace** (string)
+    - **cephfs.secretRef.namespace** (string)
 
-    Namespace defines the space within which the secret name must be unique.
+      Namespace defines the space within which the secret name must be unique.
 
   - **cephfs.user** (string)
 
@@ -290,13 +290,100 @@ PersistentVolumeSpec is the specification of a persistent volume.
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
 
-  - **cinder.secretRef.name** (string)
+    - **cinder.secretRef.name** (string)
 
-    Name is unique within a namespace to reference a secret resource.
+      Name is unique within a namespace to reference a secret resource.
 
-  - **cinder.secretRef.namespace** (string)
+    - **cinder.secretRef.namespace** (string)
 
-    Namespace defines the space within which the secret name must be unique.
+      Namespace defines the space within which the secret name must be unique.
+
+- **csi** (CSIPersistentVolumeSource)
+
+  CSI represents storage that is handled by an external CSI driver (Beta feature).
+
+  <a name="CSIPersistentVolumeSource"></a>
+  *Represents storage that is managed by an external CSI volume driver (Beta feature)*
+
+  - **csi.driver** (string), required
+
+    Driver is the name of the driver to use for this volume. Required.
+
+  - **csi.volumeHandle** (string), required
+
+    VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
+
+  - **csi.controllerExpandSecretRef** (SecretReference)
+
+    ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+
+    <a name="SecretReference"></a>
+    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
+
+    - **csi.controllerExpandSecretRef.name** (string)
+
+      Name is unique within a namespace to reference a secret resource.
+
+    - **csi.controllerExpandSecretRef.namespace** (string)
+
+      Namespace defines the space within which the secret name must be unique.
+
+  - **csi.controllerPublishSecretRef** (SecretReference)
+
+    ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+
+    <a name="SecretReference"></a>
+    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
+
+    - **csi.controllerPublishSecretRef.name** (string)
+
+      Name is unique within a namespace to reference a secret resource.
+
+    - **csi.controllerPublishSecretRef.namespace** (string)
+
+      Namespace defines the space within which the secret name must be unique.
+
+  - **csi.fsType** (string)
+
+    Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+
+  - **csi.nodePublishSecretRef** (SecretReference)
+
+    NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+
+    <a name="SecretReference"></a>
+    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
+
+    - **csi.nodePublishSecretRef.name** (string)
+
+      Name is unique within a namespace to reference a secret resource.
+
+    - **csi.nodePublishSecretRef.namespace** (string)
+
+      Namespace defines the space within which the secret name must be unique.
+
+  - **csi.nodeStageSecretRef** (SecretReference)
+
+    NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+
+    <a name="SecretReference"></a>
+    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
+
+    - **csi.nodeStageSecretRef.name** (string)
+
+      Name is unique within a namespace to reference a secret resource.
+
+    - **csi.nodeStageSecretRef.namespace** (string)
+
+      Namespace defines the space within which the secret name must be unique.
+
+  - **csi.readOnly** (boolean)
+
+    Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+
+  - **csi.volumeAttributes** (map[string]string)
+
+    Attributes of the volume to publish.
 
 - **fc** (FCVolumeSource)
 
@@ -355,13 +442,13 @@ PersistentVolumeSpec is the specification of a persistent volume.
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
 
-  - **flexVolume.secretRef.name** (string)
+    - **flexVolume.secretRef.name** (string)
 
-    Name is unique within a namespace to reference a secret resource.
+      Name is unique within a namespace to reference a secret resource.
 
-  - **flexVolume.secretRef.namespace** (string)
+    - **flexVolume.secretRef.namespace** (string)
 
-    Namespace defines the space within which the secret name must be unique.
+      Namespace defines the space within which the secret name must be unique.
 
 - **flocker** (FlockerVolumeSource)
 
@@ -480,13 +567,13 @@ PersistentVolumeSpec is the specification of a persistent volume.
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
 
-  - **iscsi.secretRef.name** (string)
+    - **iscsi.secretRef.name** (string)
 
-    Name is unique within a namespace to reference a secret resource.
+      Name is unique within a namespace to reference a secret resource.
 
-  - **iscsi.secretRef.namespace** (string)
+    - **iscsi.secretRef.namespace** (string)
 
-    Namespace defines the space within which the secret name must be unique.
+      Namespace defines the space within which the secret name must be unique.
 
 - **nfs** (NFSVolumeSource)
 
@@ -610,13 +697,13 @@ PersistentVolumeSpec is the specification of a persistent volume.
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
 
-  - **rbd.secretRef.name** (string)
+    - **rbd.secretRef.name** (string)
 
-    Name is unique within a namespace to reference a secret resource.
+      Name is unique within a namespace to reference a secret resource.
 
-  - **rbd.secretRef.namespace** (string)
+    - **rbd.secretRef.namespace** (string)
 
-    Namespace defines the space within which the secret name must be unique.
+      Namespace defines the space within which the secret name must be unique.
 
   - **rbd.user** (string)
 
@@ -640,13 +727,13 @@ PersistentVolumeSpec is the specification of a persistent volume.
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
 
-  - **scaleIO.secretRef.name** (string)
+    - **scaleIO.secretRef.name** (string)
 
-    Name is unique within a namespace to reference a secret resource.
+      Name is unique within a namespace to reference a secret resource.
 
-  - **scaleIO.secretRef.namespace** (string)
+    - **scaleIO.secretRef.namespace** (string)
 
-    Namespace defines the space within which the secret name must be unique.
+      Namespace defines the space within which the secret name must be unique.
 
   - **scaleIO.system** (string), required
 
@@ -729,96 +816,6 @@ PersistentVolumeSpec is the specification of a persistent volume.
   - **vsphereVolume.storagePolicyName** (string)
 
     Storage Policy Based Management (SPBM) profile name.
-
-### Beta level
-
-
-- **csi** (CSIPersistentVolumeSource)
-
-  CSI represents storage that is handled by an external CSI driver (Beta feature).
-
-  <a name="CSIPersistentVolumeSource"></a>
-  *Represents storage that is managed by an external CSI volume driver (Beta feature)*
-
-  - **csi.driver** (string), required
-
-    Driver is the name of the driver to use for this volume. Required.
-
-  - **csi.volumeHandle** (string), required
-
-    VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
-
-  - **csi.controllerExpandSecretRef** (SecretReference)
-
-    ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
-
-    <a name="SecretReference"></a>
-    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
-
-  - **csi.controllerExpandSecretRef.name** (string)
-
-    Name is unique within a namespace to reference a secret resource.
-
-  - **csi.controllerExpandSecretRef.namespace** (string)
-
-    Namespace defines the space within which the secret name must be unique.
-
-  - **csi.controllerPublishSecretRef** (SecretReference)
-
-    ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
-
-    <a name="SecretReference"></a>
-    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
-
-  - **csi.controllerPublishSecretRef.name** (string)
-
-    Name is unique within a namespace to reference a secret resource.
-
-  - **csi.controllerPublishSecretRef.namespace** (string)
-
-    Namespace defines the space within which the secret name must be unique.
-
-  - **csi.fsType** (string)
-
-    Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
-
-  - **csi.nodePublishSecretRef** (SecretReference)
-
-    NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
-
-    <a name="SecretReference"></a>
-    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
-
-  - **csi.nodePublishSecretRef.name** (string)
-
-    Name is unique within a namespace to reference a secret resource.
-
-  - **csi.nodePublishSecretRef.namespace** (string)
-
-    Namespace defines the space within which the secret name must be unique.
-
-  - **csi.nodeStageSecretRef** (SecretReference)
-
-    NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
-
-    <a name="SecretReference"></a>
-    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
-
-  - **csi.nodeStageSecretRef.name** (string)
-
-    Name is unique within a namespace to reference a secret resource.
-
-  - **csi.nodeStageSecretRef.namespace** (string)
-
-    Namespace defines the space within which the secret name must be unique.
-
-  - **csi.readOnly** (boolean)
-
-    Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
-
-  - **csi.volumeAttributes** (map[string]string)
-
-    Attributes of the volume to publish.
 
 
 

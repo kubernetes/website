@@ -30,6 +30,20 @@ Used on: Node
 
 The Kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
 
+## kubernetes.io/metadata.name
+
+Example: `kubernetes.io/metadata.name=mynamespace`
+
+Used on: Namespaces
+
+When the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+the Kubernetes API server sets this label on all namespaces. The label value is set to
+the name of the namespace.
+
+This is useful if you want to target a specific namespace with a label
+{{< glossary_tooltip text="selector" term_id="selector" >}}.
+
 ## beta.kubernetes.io/arch (deprecated)
 
 This label has been deprecated. Please use `kubernetes.io/arch` instead.
@@ -47,6 +61,16 @@ Used on: Node
 The Kubelet populates this label with the hostname. Note that the hostname can be changed from the "actual" hostname by passing the `--hostname-override` flag to the `kubelet`.
 
 This label is also used as part of the topology hierarchy.  See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
+
+
+## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
+
+Example: `controller.kubernetes.io/pod-deletion-cost=10`
+
+Used on: Pod
+
+This annotation is used to set [Pod Deletion Cost](/docs/content/en/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
 
 ## beta.kubernetes.io/instance-type (deprecated)
 
@@ -198,6 +222,29 @@ The kubelet can set this annotation on a Node to denote its configured IPv4 addr
 
 When kubelet is started with the "external" cloud provider, it sets this annotation on the Node to denote an IP address set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid by the cloud-controller-manager.
 
+## batch.kubernetes.io/job-completion-index
+
+Example: `batch.kubernetes.io/job-completion-index: "3"`
+
+Used on: Pod
+
+The Job controller in the kube-controller-manager sets this annotation for Pods
+created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
+
+## kubectl.kubernetes.io/default-container
+
+Example: `kubectl.kubernetes.io/default-container: "front-end-app"`
+
+The value of the annotation is the container name that is default for this Pod. For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container.
+
+## endpoints.kubernetes.io/over-capacity
+
+Example: `endpoints.kubernetes.io/over-capacity:warning`
+
+Used on: Endpoints
+
+In Kubernetes clusters v1.21 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity.
+
 **The taints listed below are always used on Nodes**
 
 ## node.kubernetes.io/not-ready
@@ -253,4 +300,3 @@ Sets this taint on a node to mark it as unusable, when kubelet is started with t
 Example: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
 
 If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
-

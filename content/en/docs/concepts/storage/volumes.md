@@ -153,14 +153,16 @@ For more details, see the [`azureFile` volume plugin](https://github.com/kuberne
 
 #### azureFile CSI migration
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 The `CSIMigration` feature for `azureFile`, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `file.csi.azure.com` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
 Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
-alpha features must be enabled.
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+
+Azure File CSI driver does not support using same volume with different fsgroups, if Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
 
 ### cephfs
 
@@ -209,14 +211,17 @@ spec:
 
 #### OpenStack CSI migration
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-The `CSIMigration` feature for Cinder, when enabled, redirects all plugin operations
-from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [OpenStack Cinder CSI
-Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
-beta features must be enabled.
+The `CSIMigration` feature for Cinder is enabled by default in Kubernetes 1.21.
+It redirects all plugin operations from the existing in-tree plugin to the
+`cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
+[OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
+must be installed on the cluster.
+You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
+If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
+for all aspects of Cinder volume storage management.
 
 ### configMap
 

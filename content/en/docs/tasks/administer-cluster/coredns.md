@@ -36,7 +36,7 @@ For manual deployment or replacement of kube-dns, see the documentation at the
 
 In Kubernetes version 1.10 and later, you can also move to CoreDNS when you use `kubeadm` to upgrade
 a cluster that is using `kube-dns`. In this case, `kubeadm` will generate the CoreDNS configuration
-("Corefile") based upon the `kube-dns` ConfigMap, preserving configurations for federation,
+("Corefile") based upon the `kube-dns` ConfigMap, preserving configurations for
 stub domains, and upstream name server.
 
 If you are moving from kube-dns to CoreDNS, make sure to set the `CoreDNS` feature gate to `true`
@@ -46,8 +46,7 @@ kubeadm upgrade apply v1.11.0 --feature-gates=CoreDNS=true
 ```
 
 In Kubernetes version 1.13 and later the `CoreDNS` feature gate is removed and CoreDNS
-is used by default. Follow the guide outlined [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon) if you want
-your upgraded cluster to use kube-dns.
+is used by default.
 
 In versions prior to 1.11 the Corefile will be **overwritten** by the one created during upgrade.
 **You should save your existing ConfigMap if you have customized it.** You may re-apply your
@@ -56,26 +55,7 @@ customizations after the new ConfigMap is up and running.
 If you are running CoreDNS in Kubernetes version 1.11 and later, during upgrade,
 your existing Corefile will be retained.
 
-
-### Installing kube-dns instead of CoreDNS with kubeadm
-
-{{< note >}}
-In Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
-and is installed by default.
-{{< /note >}}
-
-{{< warning >}}
-In Kubernetes 1.18, kube-dns usage with kubeadm has been deprecated and will be removed in a future version.
-{{< /warning >}}
-
-To install kube-dns on versions prior to 1.13, set the `CoreDNS` feature gate
-value to `false`:
-
-```
-kubeadm init --feature-gates=CoreDNS=false
-```
-
-For versions 1.13 and later, follow the guide outlined [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon).
+In Kubernetes version 1.21, support for `kube-dns` is removed from kubeadm.
 
 ## Upgrading CoreDNS
 

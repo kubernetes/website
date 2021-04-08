@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "StatefulSet represents a set of pods with consistent identities."
 title: "StatefulSet"
-weight: 8
+weight: 7
 ---
 
 `apiVersion: apps/v1`
@@ -84,9 +84,9 @@ A StatefulSetSpec is the specification of a StatefulSet.
     <a name="RollingUpdateStatefulSetStrategy"></a>
     *RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.*
 
-  - **updateStrategy.rollingUpdate.partition** (int32)
+    - **updateStrategy.rollingUpdate.partition** (int32)
 
-    Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
+      Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
 
 - **podManagementPolicy** (string)
 

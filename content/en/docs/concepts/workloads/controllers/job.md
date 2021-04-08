@@ -16,7 +16,8 @@ weight: 50
 A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate.
 As pods successfully complete, the Job tracks the successful completions.  When a specified number
 of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
-the Pods it created.
+the Pods it created. Suspending a Job will delete its active Pods until the Job
+is resumed again.
 
 A simple case is to create one Job object in order to reliably run one Pod to completion.
 The Job object will start a new Pod if the first Pod fails or is deleted (for example
@@ -145,8 +146,8 @@ There are three main types of task suitable to run as a Job:
    - the Job is complete as soon as its Pod terminates successfully.
 1. Parallel Jobs with a *fixed completion count*:
    - specify a non-zero positive value for `.spec.completions`.
-   - the Job represents the overall task, and is complete when there is one successful Pod for each value in the range 1 to `.spec.completions`.
-   - **not implemented yet:** Each Pod is passed a different index in the range 1 to `.spec.completions`.
+   - the Job represents the overall task, and is complete when there are `.spec.completions` successful Pods.
+   - when using `.spec.completionMode="Indexed"`, each Pod gets a different index in the range 0 to `.spec.completions-1`.
 1. Parallel Jobs with a *work queue*:
    - do not specify `.spec.completions`, default to `.spec.parallelism`.
    - the Pods must coordinate amongst themselves or an external service to determine what each should work on. For example, a Pod might fetch a batch of up to N items from the work queue.
@@ -166,7 +167,6 @@ a non-negative integer.
 
 For more information about how to make use of the different types of job, see the [job patterns](#job-patterns) section.
 
-
 #### Controlling parallelism
 
 The requested parallelism (`.spec.parallelism`) can be set to any non-negative value.
@@ -184,6 +184,33 @@ parallelism, for a variety of reasons:
   then there may be fewer pods than requested.
 - The Job controller may throttle new Pod creation due to excessive previous pod failures in the same Job.
 - When a Pod is gracefully shut down, it takes time to stop.
+
+### Completion mode
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+{{< note >}}
+To be able to create Indexed Jobs, make sure to enable the `IndexedJob`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](docs/reference/command-line-tools-reference/kube-apiserver/)
+and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+{{< /note >}}
+
+Jobs with _fixed completion count_ - that is, jobs that have non null
+`.spec.completions` - can have a completion mode that is specified in `.spec.completionMode`:
+
+- `NonIndexed` (default): the Job is considered complete when there have been
+  `.spec.completions` successfully completed Pods. In other words, each Pod
+  completion is homologous to each other. Note that Jobs that have null
+  `.spec.completions` are implicitly `NonIndexed`.
+- `Indexed`: the Pods of a Job get an associated completion index from 0 to
+  `.spec.completions-1`, available in the annotation `batch.kubernetes.io/job-completion-index`.
+  The Job is considered complete when there is one successfully completed Pod
+  for each index. For more information about how to use this mode, see
+  [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
+  Note that, although rare, more than one Pod could be started for the same
+  index, but only one of them will count towards the completion count.
+
 
 ## Handling Pod and container failures
 
@@ -348,12 +375,12 @@ The tradeoffs are:
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
 The pattern names are also links to examples and more detailed description.
 
-|                            Pattern                                   | Single Job object | Fewer pods than work items? | Use app unmodified? |  Works in Kube 1.1? |
-| -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
-| [Job Template Expansion](/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
-| [Queue with Pod Per Work Item](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |         ✓         |                             |      sometimes      |          ✓          |
-| [Queue with Variable Pod Count](/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
-| Single Job with Static Work Assignment                               |         ✓         |                             |          ✓          |                     |
+|                  Pattern                  | Single Job object | Fewer pods than work items? | Use app unmodified? |
+| ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
+| [Queue with Pod Per Work Item]            |         ✓         |                             |      sometimes      |
+| [Queue with Variable Pod Count]           |         ✓         |             ✓               |                     |
+| [Indexed Job with Static Work Assignment] |         ✓         |                             |          ✓          | 
+| [Job Template Expansion]                  |                   |                             |          ✓          |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
 has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
@@ -364,15 +391,120 @@ are different ways to arrange for pods to work on different things.
 This table shows the required settings for `.spec.parallelism` and `.spec.completions` for each of the patterns.
 Here, `W` is the number of work items.
 
-|                             Pattern                                  | `.spec.completions` |  `.spec.parallelism` |
-| -------------------------------------------------------------------- |:-------------------:|:--------------------:|
-| [Job Template Expansion](/docs/tasks/job/parallel-processing-expansion/)           |          1          |     should be 1      |
-| [Queue with Pod Per Work Item](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |          W          |        any           |
-| [Queue with Variable Pod Count](/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
-| Single Job with Static Work Assignment                               |          W          |        any           |
+|             Pattern                       | `.spec.completions` |  `.spec.parallelism` |
+| ----------------------------------------- |:-------------------:|:--------------------:|
+| [Queue with Pod Per Work Item]            |          W          |        any           |
+| [Queue with Variable Pod Count]           |         null        |        any           |
+| [Indexed Job with Static Work Assignment] |          W          |        any           |
+| [Job Template Expansion]                  |          1          |     should be 1      |
 
+[Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
+[Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
+[Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
+[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
 
 ## Advanced usage
+
+### Suspending a Job
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+{{< note >}}
+Suspending Jobs is available in Kubernetes versions 1.21 and above. You must
+enable the `SuspendJob` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](docs/reference/command-line-tools-reference/kube-apiserver/)
+and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+in order to use this feature.
+{{< /note >}}
+
+When a Job is created, the Job controller will immediately begin creating Pods
+to satisfy the Job's requirements and will continue to do so until the Job is
+complete. However, you may want to temporarily suspend a Job's execution and
+resume it later. To suspend a Job, you can update the `.spec.suspend` field of
+the Job to true; later, when you want to resume it again, update it to false.
+Creating a Job with `.spec.suspend` set to true will create it in the suspended
+state.
+
+When a Job is resumed from suspension, its `.status.startTime` field will be
+reset to the current time. This means that the `.spec.activeDeadlineSeconds`
+timer will be stopped and reset when a Job is suspended and resumed.
+
+Remember that suspending a Job will delete all active Pods. When the Job is
+suspended, your [Pods will be terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+with a SIGTERM signal. The Pod's graceful termination period will be honored and
+your Pod must handle this signal in this period. This may involve saving
+progress for later or undoing changes. Pods terminated this way will not count
+towards the Job's `completions` count.
+
+An example Job definition in the suspended state can be like so:
+
+```shell
+kubectl get job myjob -o yaml
+```
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myjob
+spec:
+  suspend: true
+  parallelism: 1
+  completions: 5
+  template:
+    spec:
+      ...
+```
+
+The Job's status can be used to determine if a Job is suspended or has been
+suspended in the past:
+
+```shell
+kubectl get jobs/myjob -o yaml
+```
+
+```json
+apiVersion: batch/v1
+kind: Job
+# .metadata and .spec omitted
+status:
+  conditions:
+  - lastProbeTime: "2021-02-05T13:14:33Z"
+    lastTransitionTime: "2021-02-05T13:14:33Z"
+    status: "True"
+    type: Suspended
+  startTime: "2021-02-05T13:13:48Z"
+```
+
+The Job condition of type "Suspended" with status "True" means the Job is
+suspended; the `lastTransitionTime` field can be used to determine how long the
+Job has been suspended for. If the status of that condition is "False", then the
+Job was previously suspended and is now running. If such a condition does not
+exist in the Job's status, the Job has never been stopped.
+
+Events are also created when the Job is suspended and resumed:
+
+```shell
+kubectl describe jobs/myjob
+```
+
+```
+Name:           myjob
+...
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  12m   job-controller  Created pod: myjob-hlrpl
+  Normal  SuccessfulDelete  11m   job-controller  Deleted pod: myjob-hlrpl
+  Normal  Suspended         11m   job-controller  Job suspended
+  Normal  SuccessfulCreate  3s    job-controller  Created pod: myjob-jvb44
+  Normal  Resumed           3s    job-controller  Job resumed
+```
+
+The last four events, particularly the "Suspended" and "Resumed" events, are
+directly a result of toggling the `.spec.suspend` field. In the time between
+these two events, we see that no Pods were created, but Pod creation restarted
+as soon as the Job was resumed.
 
 ### Specifying your own Pod selector
 

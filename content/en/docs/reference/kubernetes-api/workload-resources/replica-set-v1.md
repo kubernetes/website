@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicaSet ensures that a specified number of pod replicas are running at any given time."
 title: "ReplicaSet"
-weight: 6
+weight: 5
 ---
 
 `apiVersion: apps/v1`

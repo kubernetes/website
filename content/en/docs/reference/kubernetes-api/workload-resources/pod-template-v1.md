@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PodTemplate describes a template for creating copies of a predefined pod."
 title: "PodTemplate"
-weight: 4
+weight: 3
 ---
 
 `apiVersion: v1`

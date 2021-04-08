@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicationController represents the configuration of a replication controller."
 title: "ReplicationController"
-weight: 5
+weight: 4
 ---
 
 `apiVersion: v1`
