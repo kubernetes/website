@@ -179,7 +179,7 @@ js = [
 
 [[params.versions]]
 fullversion = "v1.21.0"
-version = "v1.20"
+version = "v1.21"
 githubbranch = "v1.21.0"
 docsbranch = "master"
 url = "https://kubernetes.io"
