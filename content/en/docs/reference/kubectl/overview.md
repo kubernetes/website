@@ -69,7 +69,7 @@ for example `create`, `get`, `describe`, `delete`.
 Flags that you specify from the command line override default values and any corresponding environment variables.
 {{< /caution >}}
 
-If you need help, just run `kubectl help` from the terminal window.
+If you need help, run `kubectl help` from the terminal window.
 
 ## Operations
 

@@ -426,7 +426,7 @@ HTTP 헬스 체크를 생성하여
 서비스를 삭제한다.
 
 ```shell
-kubectl delete svc -l run=source-ip-app
+kubectl delete svc -l app=source-ip-app
 ```
 
 디플로이먼트, 레플리카셋 그리고 파드를 삭제한다.

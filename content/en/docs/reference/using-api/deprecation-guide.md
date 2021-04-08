@@ -25,6 +25,17 @@ deprecated API versions to newer and more stable API versions.
 
 The **v1.25** release will stop serving the following deprecated API versions:
 
+#### EndpointSlice {#endpointslice-v125}
+
+The **discovery.k8s.io/v1beta1** API version of EndpointSlice will no longer be served in v1.25.
+
+* Migrate manifests and API clients to use the **discovery.k8s.io/v1** API version, available since v1.21.
+* All existing persisted objects are accessible via the new API
+* Notable changes in **discovery.k8s.io/v1**:
+    * use per Endpoint `nodeName` field instead of deprecated `topology["kubernetes.io/hostname"]` field
+    * use per Endpoint `zone` field instead of deprecated `topology["topology.kubernetes.io/zone"]` field
+    * `topology` is replaced with the `deprecatedTopology` field which is not writable in v1
+
 #### Event {#event-v125}
 
 The **events.k8s.io/v1beta1** API version of Event will no longer be served in v1.25.
@@ -48,6 +59,13 @@ RuntimeClass in the **node.k8s.io/v1beta1** API version will no longer be served
 * Migrate manifests and API clients to use the **node.k8s.io/v1** API version, available since v1.20.
 * All existing persisted objects are accessible via the new API
 * No notable changes
+
+#### PodSecurityPolicy {#psp-v125}
+
+PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
+
+PodSecurityPolicy replacements are still under discussion, but current use can be migrated to
+[3rd-party admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
 
 ### v1.22
 
@@ -116,7 +134,7 @@ The **certificates.k8s.io/v1beta1** API version of CertificateSigningRequest wil
 * All existing persisted objects are accessible via the new API
 * Notable changes in `certificates.k8s.io/v1`:
     * For API clients requesting certificates:
-        * `spec.signerName` is now required (see [known Kubernetes signers](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)), and requests for `kubernetes.io/legacy-unknown` are not allowed to be created via the `certificates.k8s.io/v1` API
+        * `spec.signerName` is now required (see [known Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)), and requests for `kubernetes.io/legacy-unknown` are not allowed to be created via the `certificates.k8s.io/v1` API
         * `spec.usages` is now required, may not contain duplicate values, and must only contain known usages
     * For API clients approving or signing certificates:
         * `status.conditions` may not contain duplicate types
@@ -233,6 +251,13 @@ The **extensions/v1beta1**, **apps/v1beta1**, and **apps/v1beta2** API versions 
 * All existing persisted objects are accessible via the new API
 * Notable changes:
     * `spec.selector` is now required and immutable after creation; use the existing template labels as the selector for seamless upgrades
+
+#### PodSecurityPolicy {#psp-v116}
+
+The **extensions/v1beta1** API version of PodSecurityPolicy is no longer served as of v1.16.
+
+* Migrate manifests and API client to use the **policy/v1beta1** API version, available since v1.10.
+* Note that the **policy/v1beta1** API version of PodSecurityPolicy will be removed in v1.25.
 
 ## What to do
 

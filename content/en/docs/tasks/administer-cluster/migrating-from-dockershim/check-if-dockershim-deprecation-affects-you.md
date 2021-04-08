@@ -50,7 +50,7 @@ and scheduling of Pods; on each node, the {{< glossary_tooltip text="kubelet" te
 uses the container runtime interface as an abstraction so that you can use any compatible
 container runtime.
 
-In its earliest releases, Kubernetes offered compatibility with just one container runtime: Docker.
+In its earliest releases, Kubernetes offered compatibility with one container runtime: Docker.
 Later in the Kubernetes project's history, cluster operators wanted to adopt additional container runtimes.
 The CRI was designed to allow this kind of flexibility - and the kubelet began supporting CRI. However,
 because Docker existed before the CRI specification was invented, the Kubernetes project created an
@@ -75,7 +75,7 @@ or execute something inside container using `docker exec`.
 
 If you're running workloads via Kubernetes, the best way to stop a container is through
 the Kubernetes API rather than directly through the container runtime (this advice applies
-for all container runtimes, not just Docker).
+for all container runtimes, not only Docker).
 
 {{< /note >}}
 

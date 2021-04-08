@@ -68,7 +68,7 @@ Kubespray provides the ability to customize many aspects of the deployment:
   * {{< glossary_tooltip term_id="cri-o" >}}
 * Certificate generation methods
 
-Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
+Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). If you are getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 
 ### (4/5) Deploy a Cluster
 

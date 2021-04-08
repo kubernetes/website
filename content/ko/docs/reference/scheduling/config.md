@@ -185,8 +185,6 @@ profiles:
 - `RequestedToCapacityRatio`: 할당된 리소스의 구성된 기능에 따라 노드를
   선호한다.
   익스텐션 포인트: `Score`.
-- `NodeResourceLimits`: 파드 리소스 제한을 충족하는 노드를 선호한다.
-  익스텐션 포인트: `PreScore`, `Score`.
 - `CinderVolume`: 노드에 대해 OpenStack Cinder 볼륨 제한을 충족할 수 있는지
   확인한다.
   익스텐션 포인트: `Filter`.

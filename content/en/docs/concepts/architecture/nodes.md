@@ -17,7 +17,7 @@ and contains the services necessary to run
 {{< glossary_tooltip text="Pods" term_id="pod" >}}
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
-environment, you might have just one.
+environment, you might have only one node.
 
 The [components](/docs/concepts/overview/components/#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
@@ -66,6 +66,16 @@ delete the Node object to stop that health checking.
 
 The name of a Node object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
+### Node name uniqueness
+
+The [name](/docs/concepts/overview/working-with-objects/names#names) identifies a Node. Two Nodes
+cannot have the same name at the same time. Kubernetes also assumes that a resource with the same
+name is the same object. In case of a Node, it is implicitly assumed that an instance using the
+same name will have the same state (e.g. network settings, root disk contents). This may lead to
+inconsistencies if an instance was modified without changing its name. If the Node needs to be
+replaced or updated significantly, the existing Node object needs to be removed from API server
+first and re-added after the update.
 
 ### Self-registration of Nodes
 
@@ -237,6 +247,7 @@ responsible for:
 - Evicting all the pods from the node using graceful termination if
   the node continues to be unreachable. The default timeouts are 40s to start
   reporting ConditionUnknown and 5m after that to start evicting pods.
+
 The node controller checks the state of each node every `--node-monitor-period` seconds.
 
 #### Heartbeats
@@ -278,6 +289,7 @@ the same time:
   `--large-cluster-size-threshold` nodes - default 50), then evictions are stopped.
 - Otherwise, the eviction rate is reduced to `--secondary-node-eviction-rate`
   (default 0.01) per second.
+
 The reason these policies are implemented per availability zone is because one
 availability zone might become partitioned from the master while the others remain
 connected. If your cluster does not span multiple cloud provider availability zones,
@@ -334,26 +346,43 @@ the kubelet can use topology hints when making resource assignment decisions.
 See [Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/)
 for more information.
 
-## Graceful Node Shutdown {#graceful-node-shutdown}
+## Graceful node shutdown {#graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.20" >}}
+{{< feature-state state="beta" for_k8s_version="v1.21" >}}
 
-If you have enabled the `GracefulNodeShutdown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then the kubelet attempts to detect the node system shutdown and terminates pods running on the node.
+The kubelet attempts to detect node system shutdown and terminates pods running on the node.
+
 Kubelet ensures that pods follow the normal [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) during the node shutdown.
 
-When the `GracefulNodeShutdown` feature gate is enabled, kubelet uses [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to delay the node shutdown with a given duration. During a shutdown, kubelet terminates pods in two phases:
+The Graceful node shutdown feature depends on systemd since it takes advantage of
+[systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to
+delay the node shutdown with a given duration.
+
+Graceful node shutdown is controlled with the `GracefulNodeShutdown`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) which is
+enabled by default in 1.21.
+
+Note that by default, both configuration options described below,
+`ShutdownGracePeriod` and `ShutdownGracePeriodCriticalPods` are set to zero,
+thus not activating Graceful node shutdown functionality.
+To activate the feature, the two kubelet config settings should be configured appropriately and set to non-zero values.
+
+During a graceful shutdown, kubelet terminates pods in two phases:
 
 1. Terminate regular pods running on the node.
 2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
 
-Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
+Graceful node shutdown feature is configured with two [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
 * `ShutdownGracePeriod`:
   * Specifies the total duration that the node should delay the shutdown by. This is the total grace period for pod termination for both regular and [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 * `ShutdownGracePeriodCriticalPods`:
-  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This should be less than `ShutdownGracePeriod`.
+  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This value should be less than `ShutdownGracePeriod`.
 
-For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved for gracefully terminating normal pods, and the last 10 seconds would be reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
-
+For example, if `ShutdownGracePeriod=30s`, and
+`ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by
+30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved
+for gracefully terminating normal pods, and the last 10 seconds would be
+reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 
 ## {{% heading "whatsnext" %}}
 
@@ -362,4 +391,3 @@ For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-
