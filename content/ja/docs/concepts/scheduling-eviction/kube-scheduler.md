@@ -53,7 +53,7 @@ _スコアリング_ ステップでは、Podを割り当てるのに最も適�
 スケジューラーのフィルタリングとスコアリングの動作に関する設定には2つのサポートされた手法があります。
 
 1. [スケジューリングポリシー](/docs/reference/scheduling/policies) は、フィルタリングのための_Predicates_とスコアリングのための_Priorities_の設定することができます。
-1. [スケジューリングプロファイル](/docs/reference/scheduling/config/#profiles)は、`QueueSort`、 `Filter`、 `Score`、 `Bind`、 `Reserve`、 `Permit`やその他を含む異なるスケジューリングの段階を実装するプラグインを設定することができます。kube-schdulerを異なるプロファイルを実行するように設定することもできます。
+1. [スケジューリングプロファイル](/docs/reference/scheduling/config/#profiles)は、`QueueSort`、 `Filter`、 `Score`、 `Bind`、 `Reserve`、 `Permit`やその他を含む異なるスケジューリングの段階を実装するプラグインを設定することができます。kube-schedulerを異なるプロファイルを実行するように設定することもできます。
 
 
 ## {{% heading "whatsnext" %}}
