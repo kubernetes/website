@@ -60,6 +60,13 @@ RuntimeClass in the **node.k8s.io/v1beta1** API version will no longer be served
 * All existing persisted objects are accessible via the new API
 * No notable changes
 
+#### PodSecurityPolicy {#psp-v125}
+
+PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
+
+PodSecurityPolicy replacements are still under discussion, but current use can be migrated to
+[3rd-party admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
+
 ### v1.22
 
 The **v1.22** release will stop serving the following deprecated API versions:
@@ -244,6 +251,13 @@ The **extensions/v1beta1**, **apps/v1beta1**, and **apps/v1beta2** API versions 
 * All existing persisted objects are accessible via the new API
 * Notable changes:
     * `spec.selector` is now required and immutable after creation; use the existing template labels as the selector for seamless upgrades
+
+#### PodSecurityPolicy {#psp-v116}
+
+The **extensions/v1beta1** API version of PodSecurityPolicy is no longer served as of v1.16.
+
+* Migrate manifests and API client to use the **policy/v1beta1** API version, available since v1.10.
+* Note that the **policy/v1beta1** API version of PodSecurityPolicy will be removed in v1.25.
 
 ## What to do
 
