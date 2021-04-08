@@ -50,65 +50,10 @@ _スコアリング_ ステップでは、Podを割り当てるのに最も適�
 
 最後に、kube-schedulerは最も高いランクのNodeに対してPodを割り当てます。もし同一のスコアのNodeが複数ある場合は、kube-schedulerがランダムに1つ選択します。
 
-### デフォルトのポリシーについて
+スケジューラーのフィルタリングとスコアリングの動作に関する設定には2つのサポートされた手法があります。
 
-kube-schedulerは、デフォルトで用意されているスケジューリングポリシーのセットを持っています。
-
-### フィルタリング
-
-- `PodFitsHostPorts`: Nodeに、Podが要求するポートが利用可能かどうかをチェックします。
-
-- `PodFitsHost`: Podがそのホスト名において特定のNodeを指定しているかをチェックします。
-
-- `PodFitsResources`: Nodeに、Podが要求するリソース(例: CPUとメモリー)が利用可能かどうかをチェックします。
-
-- `PodMatchNodeSelector`: PodのNodeSelectorが、Nodeのラベルにマッチするかどうかをチェックします。
-
-- `NoVolumeZoneConflict`: Podが要求するVolumeがNode上で利用可能かを、障害が発生しているゾーンを考慮して評価します。
-
-- `NoDiskConflict`: NodeのVolumeがPodの要求を満たし、すでにマウントされているかどうかを評価します。
-
-- `MaxCSIVolumeCount`: CSI Volumeをいくつ割り当てるべきか決定し、それが設定された上限を超えるかどうかを評価します。
-
-- `CheckNodeMemoryPressure`: もしNodeがメモリーの容量が逼迫している場合、また設定された例外がない場合はそのPodはそのNodeにスケジュールされません。
-
-- `CheckNodePIDPressure`: もしNodeのプロセスIDが枯渇しそうになっていた場合や、設定された例外がない場合はそのPodはそのNodeにスケジュールされません。
-
-- `CheckNodeDiskPressure`: もしNodeのストレージが逼迫している場合(ファイルシステムの残り容量がほぼない場合)や、設定された例外がない場合はそのPodはそのNodeにスケジュールされません。
-
-- `CheckNodeCondition`: Nodeは、ファイルシステムの空き容量が完全になくなった場合、ネットワークが利用不可な場合、kubeletがPodを稼働させる準備をできていない場合などに、その状況を通知できます。Nodeがこの状況下かつ設定された例外がない場合、Podは該当のNodeにスケジュールされません。
-
-- `PodToleratesNodeTaints`: PodのTolerationがNodeのTaintを許容できるかチェックします。
-
-- `CheckVolumeBinding`: Podが要求するVolumeの要求を満たすか評価します。これはPersistentVolumeClaimがバインドされているかに関わらず適用されます。
-
-### スコアリング
-
-- `SelectorSpreadPriority`:　同一のService、StatefulSetや、ReplicaSetに属するPodを複数のホストをまたいで稼働させます。
-
-- `InterPodAffinityPriority`: weightedPodAffinityTermの要素をイテレートして合計を計算したり、もし一致するPodAffinityTermがNodeに適合している場合は、"重み"を合計値に足したりします。:最も高い合計値を持つNode(複数もあり)が候補となります。
-
-- `LeastRequestedPriority`: 要求されたリソースがより低いNodeを優先するものです。言い換えると、Nodeに多くのPodが稼働しているほど、Podが使用するリソースが多くなり、その要求量が低いNodeが選択されます。
-
-- `MostRequestedPriority`: 要求されたリソースがより多いNodeを優先するものです。このポリシーは、ワークロードの全体セットを実行するために必要な最小数のNodeに対して、スケジュールされたPodを適合させます。　
-
-- `RequestedToCapacityRatioPriority`: デフォルトのリソーススコアリング関数を使用して、requestedToCapacityベースのResourceAllocationPriorityを作成します。
-
-- `BalancedResourceAllocation`: バランスのとれたリソース使用量になるようにNodeを選択します。
-
-- `NodePreferAvoidPodsPriority`: Nodeの`scheduler.alpha.kubernetes.io/preferAvoidPods`というアノテーションに基づいてNodeの優先順位づけをします。この設定により、2つの異なるPodが同じNode上で実行しないことを示唆できます。
-
-- `NodeAffinityPriority`: "PreferredDuringSchedulingIgnoredDuringExecution"の値によって示されたNode Affinityのスケジューリング性向に基づいてNodeの優先順位づけを行います。詳細は[NodeへのPodの割り当て](https://kubernetes.io/ja/docs/concepts/scheduling-eviction/assign-pod-node/)にて確認できます。
-
-- `TaintTolerationPriority`: Node上における許容できないTaintsの数に基づいて、全てのNodeの優先順位リストを準備します。このポリシーでは優先順位リストを考慮してNodeのランクを調整します。
-
-- `ImageLocalityPriority`: すでにPodに対するコンテナイメージをローカルにキャッシュしているNodeを優先します。
-
-- `ServiceSpreadingPriority`: このポリシーの目的は、特定のServiceに対するバックエンドのPodが、それぞれ異なるNodeで実行されるようにすることです。このポリシーではServiceのバックエンドのPodがすでに実行されていないNode上にスケジュールするように優先します。これによる結果として、Serviceは単体のNode障害に対してより耐障害性が高まります。
-
-- `CalculateAntiAffinityPriorityMap`: このポリシーは[PodのAnti-Affinity](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)の実装に役立ちます。
-
-- `EqualPriorityMap`: 全てのNodeに対して等しい重みを与えます。
+1. [スケジューリングポリシー](/docs/reference/scheduling/policies) は、フィルタリングのための_Predicates_とスコアリングのための_Priorities_の設定することができます。
+1. [スケジューリングプロファイル](/docs/reference/scheduling/config/#profiles)は、`QueueSort`、 `Filter`、 `Score`、 `Bind`、 `Reserve`、 `Permit`やその他を含む異なるスケジューリングの段階を実装するプラグインを設定することができます。kube-schedulerを異なるプロファイルを実行するように設定することもできます。
 
 
 ## {{% heading "whatsnext" %}}
@@ -118,4 +63,8 @@ kube-schedulerは、デフォルトで用意されているスケジューリン
 * kube-schedulerの[リファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-scheduler/)を参照してください。
 * [複数のスケジューラーの設定](/docs/tasks/administer-cluster/configure-multiple-schedulers/)について学んでください。
 * [トポロジーの管理ポリシー](/docs/tasks/administer-cluster/topology-manager/)について学んでください。
-* [Podのオーバーヘッド](/docs/concepts/configuration/pod-overhead/)について学んでください。
+* [Podのオーバーヘッド](/docs/concepts/scheduling-eviction/pod-overhead/)について学んでください。
+* ボリュームを使用するPodのスケジューリングについて以下で学んでください。
+  * [Volume Topology Support](/docs/concepts/storage/storage-classes/#volume-binding-mode)
+  * [ストレージ容量の追跡](/ja//docs/concepts/storage/storage-capacity/)
+  * [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)
