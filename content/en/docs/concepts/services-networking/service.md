@@ -187,9 +187,14 @@ An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
+### Over Capacity Endpoints
+If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.21 (or later)
+cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: warning`.
+This annotation indicates that the affected Endpoints object is over capacity.
+
 ### EndpointSlices
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 EndpointSlices are an API resource that can provide a more scalable alternative
 to Endpoints. Although conceptually quite similar to Endpoints, EndpointSlices
@@ -634,6 +639,25 @@ is `true` and type LoadBalancer Services will continue to allocate node ports. I
 is set to `false` on an existing Service with allocated node ports, those node ports will NOT be de-allocated automatically.
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
 You must enable the `ServiceLBNodePortControl` feature gate to use this field.
+
+#### Specifying class of load balancer implementation {#load-balancer-class}
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+Starting in v1.21, you can optionally specify the class of a load balancer implementation for
+`LoadBalancer` type of Service by setting the field `spec.loadBalancerClass`.
+By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
+the cloud provider's default load balancer implementation. 
+If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
+implementation that matches the specified class is watching for Services.
+Any default load balancer implementation (for example, the one provided by
+the cloud provider) will ignore Services that have this field set.
+`spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
+Once set, it cannot be changed. 
+The value of `spec.loadBalancerClass` must be a label-style identifier,
+with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
+Unprefixed names are reserved for end-users.
+You must enable the `ServiceLoadBalancerClass` feature gate to use this field.
 
 #### Internal load balancer
 

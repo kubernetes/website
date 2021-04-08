@@ -427,7 +427,48 @@ For a TCP probe, the kubelet makes the probe connection at the node, not in the 
 means that you can not use a service name in the `host` parameter since the kubelet is unable
 to resolve it.
 
+### Probe-level `terminationGracePeriodSeconds`
 
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+Prior to release 1.21, the pod-level `terminationGracePeriodSeconds` was used
+for terminating a container that failed its liveness or startup probe. This
+coupling was unintended and may have resulted in failed containers taking an
+unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
+was set.
+
+In 1.21, when the feature flag `ProbeTerminationGracePeriod` is enabled, users
+can specify a probe-level `terminationGracePeriodSeconds` as part of the probe
+specification. When the feature flag is enabled, and both a pod- and
+probe-level `terminationGracePeriodSeconds` are set, the kubelet will use the
+probe-level value.
+
+For example,
+
+```yaml
+spec:
+  terminationGracePeriodSeconds: 3600  # pod-level
+  containers:
+  - name: test
+    image: ...
+
+    ports:
+    - name: liveness-port
+      containerPort: 8080
+      hostPort: 8080
+
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: liveness-port
+      failureThreshold: 1
+      periodSeconds: 60
+      # Override pod-level terminationGracePeriodSeconds #
+      terminationGracePeriodSeconds: 60
+```
+
+Probe-level `terminationGracePeriodSeconds` cannot be set for readiness probes.
+It will be rejected by the API server.
 
 ## {{% heading "whatsnext" %}}
 

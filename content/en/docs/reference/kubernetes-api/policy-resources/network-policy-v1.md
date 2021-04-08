@@ -50,7 +50,7 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
 
 - **policyTypes** ([]string)
 
-  List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+  List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 
 - **ingress** ([]NetworkPolicyIngressRule)
 
@@ -66,32 +66,32 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
     <a name="NetworkPolicyPeer"></a>
     *NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed*
 
-  - **ingress.from.ipBlock** (IPBlock)
+    - **ingress.from.ipBlock** (IPBlock)
 
-    IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+      IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 
-    <a name="IPBlock"></a>
-    *IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
+      <a name="IPBlock"></a>
+      *IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
 
-  - **ingress.from.ipBlock.cidr** (string), required
+      - **ingress.from.ipBlock.cidr** (string), required
 
-    CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+        CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
 
-  - **ingress.from.ipBlock.except** ([]string)
+      - **ingress.from.ipBlock.except** ([]string)
 
-    Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
 
-  - **ingress.from.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+    - **ingress.from.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
-    
-    If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+      Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+      
+      If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
 
-  - **ingress.from.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+    - **ingress.from.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
-    
-    If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
+      This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+      
+      If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
 
   - **ingress.ports** ([]NetworkPolicyPort)
 
@@ -100,16 +100,20 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
     <a name="NetworkPolicyPort"></a>
     *NetworkPolicyPort describes a port to allow traffic on*
 
-  - **ingress.ports.port** (IntOrString)
+    - **ingress.ports.port** (IntOrString)
 
-    The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
+      The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 
-    <a name="IntOrString"></a>
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+      <a name="IntOrString"></a>
+      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
-  - **ingress.ports.protocol** (string)
+    - **ingress.ports.endPort** (int32)
 
-    The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+      If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+
+    - **ingress.ports.protocol** (string)
+
+      The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 
 - **egress** ([]NetworkPolicyEgressRule)
 
@@ -125,32 +129,32 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
     <a name="NetworkPolicyPeer"></a>
     *NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed*
 
-  - **egress.to.ipBlock** (IPBlock)
+    - **egress.to.ipBlock** (IPBlock)
 
-    IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+      IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 
-    <a name="IPBlock"></a>
-    *IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
+      <a name="IPBlock"></a>
+      *IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
 
-  - **egress.to.ipBlock.cidr** (string), required
+      - **egress.to.ipBlock.cidr** (string), required
 
-    CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+        CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
 
-  - **egress.to.ipBlock.except** ([]string)
+      - **egress.to.ipBlock.except** ([]string)
 
-    Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
 
-  - **egress.to.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+    - **egress.to.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
-    
-    If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+      Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+      
+      If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
 
-  - **egress.to.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+    - **egress.to.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
-    
-    If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
+      This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+      
+      If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
 
   - **egress.ports** ([]NetworkPolicyPort)
 
@@ -159,16 +163,20 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
     <a name="NetworkPolicyPort"></a>
     *NetworkPolicyPort describes a port to allow traffic on*
 
-  - **egress.ports.port** (IntOrString)
+    - **egress.ports.port** (IntOrString)
 
-    The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers.
+      The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 
-    <a name="IntOrString"></a>
-    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+      <a name="IntOrString"></a>
+      *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
 
-  - **egress.ports.protocol** (string)
+    - **egress.ports.endPort** (int32)
 
-    The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+      If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+
+    - **egress.ports.protocol** (string)
+
+      The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 
 
 

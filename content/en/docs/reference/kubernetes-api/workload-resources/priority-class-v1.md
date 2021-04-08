@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass defines mapping from a priority class name to the priority integer value."
 title: "PriorityClass"
-weight: 16
+weight: 14
 ---
 
 `apiVersion: scheduling.k8s.io/v1`

@@ -30,7 +30,7 @@ Namespaces are a way to divide cluster resources between multiple users (via [re
 
 It is not necessary to use multiple namespaces to separate slightly different
 resources, such as different versions of the same software: use
-[labels](/docs/concepts/overview/working-with-objects/labels) to distinguish
+{{< glossary_tooltip text="labels" term_id="label" >}} to distinguish
 resources within the same namespace.
 
 ## Working with Namespaces
@@ -113,6 +113,16 @@ kubectl api-resources --namespaced=true
 # Not in a namespace
 kubectl api-resources --namespaced=false
 ```
+
+## Automatic labelling
+
+{{< feature-state state="beta" for_k8s_version="1.21" >}}
+
+The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
+`kubernetes.io/metadata.name` on all namespaces, provided that the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+The value of the label is the namespace name.
+
 
 ## {{% heading "whatsnext" %}}
 
