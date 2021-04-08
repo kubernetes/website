@@ -140,24 +140,11 @@ kubectl get pods --selector=name=nginx,type=frontend
 ```
 
 to list pods that match this selector.  Verify that the list matches the Pods that you expect to provide your Service.
-
-If the list of pods matches expectations, but your endpoints are still empty, it's possible that you don't
-have the right ports exposed.  If your service has a `containerPort` specified, but the Pods that are
-selected don't have that port listed, then they won't be added to the endpoints list.
-
 Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 
 #### Network traffic is not forwarded
 
-If you can connect to the service, but the connection is immediately dropped, and there are endpoints
-in the endpoints list, it's likely that the proxy can't contact your pods.
-
-There are three things to
-check:
-
-   * Are your pods working correctly?  Look for restart count, and [debug pods](#debugging-pods).
-   * Can you connect to your pods directly?  Get the IP address for the Pod, and try to connect directly to that IP.
-   * Is your application serving on the port that you configured?  Kubernetes doesn't do port remapping, so if your application serves on 8080, the `containerPort` field needs to be 8080.
+Please see [debugging service](/docs/tasks/debug-application-cluster/debug-service.md) for more information.
 
 ## {{% heading "whatsnext" %}}
 
