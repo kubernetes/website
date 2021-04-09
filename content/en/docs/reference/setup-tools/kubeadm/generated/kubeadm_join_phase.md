@@ -1,3 +1,16 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+
+Use this command to invoke single phase of the join workflow
 
 ### Synopsis
 
@@ -17,7 +30,7 @@ Use this command to invoke single phase of the join workflow
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">help for phase</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for phase</p></td>
 </tr>
 
 </tbody>
@@ -38,7 +51,7 @@ Use this command to invoke single phase of the join workflow
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
 </tr>
 
 </tbody>
