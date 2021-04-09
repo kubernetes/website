@@ -7,6 +7,10 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
+feature:
+  title: Designed for extensibility
+  description: >
+    Add features to your Kubernetes cluster without changing upstream source code.
 content_type: concept
 no_list: true
 ---
