@@ -8,7 +8,7 @@ layout: blog
 **Author:** Adhityaa Chandrasekar (Google)
 
 [Jobs](/docs/concepts/workloads/controllers/job/) are a crucial part of
-Kubernetes API. While other kinds of workloads such as [Deployments](/docs/concepts/workloads/controllers/deployment/),
+Kubernetes' API. While other kinds of workloads such as [Deployments](/docs/concepts/workloads/controllers/deployment/),
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/),
 [StatefulSets](/docs/concepts/workloads/controllers/statefulset/), and
 [DaemonSets](/docs/concepts/workloads/controllers/daemonset/)
@@ -33,8 +33,8 @@ in order to use it.
 
 ## API changes
 
-A new boolean field `suspend` is introduced in the Job spec API. Let's say I
-create the following Job:
+We introduced a new boolean field `suspend` into the `.spec` of Jobs. Let's say
+I create the following Job:
 
 ```yaml
 apiVersion: batch/v1
@@ -55,17 +55,17 @@ spec:
 ```
 
 Jobs are not suspended by default, so I'm explicitly setting the `suspend` field
-to true in the above Job spec. In the above example, the Job controller will
-refrain from creating Pods until I'm ready to start the Job, which I can do by
-updating the field to false.
+to _true_ in the `.spec` of the above Job manifest. In the above example, the
+Job controller will refrain from creating Pods until I'm ready to start the Job,
+which I can do by updating `suspend` to false.
 
 As another example, consider a Job that was created with the `suspend` field
 omitted. The Job controller will happily create Pods to work towards Job
 completion. However, before the Job completes, if I explicitly set the field to
 true with a Job update, the Job controller will terminate all active Pods that
 are running and will wait indefinitely for the flag to be flipped back to false.
-Pod termination is done by sending a SIGTERM signal to all active Pods; the
-[graceful termination period](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+Typically, Pod termination is done by sending a SIGTERM signal to all container
+processes in the Pod; the [graceful termination period](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 defined in the Pod spec will be honoured. Pods terminated this way will not be
 counted as failures by the Job controller.
 
@@ -91,8 +91,8 @@ resources are cheaper at night than in the morning. If I have a long-running Job
 that takes multiple days to complete, being able to suspend the Job in the
 morning and then resume it in the evening every day can reduce costs.
 
-Since this field is a part of the Job spec, CronJobs automatically get this
-feature for free too.
+Since this field is a part of the Job spec, [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
+automatically get this feature for free too.
 
 ## References and next steps
 
@@ -101,9 +101,9 @@ the decisions we have taken, consider reading the [enhancement proposal](https:/
 There's more detail on suspending and resuming jobs in the documentation for [Job](/docs/concepts/workloads/controllers/job#suspending-a-job).
 
 As previously mentioned, this feature is currently in alpha and is available
-only if you explicitly opt-in through the `SuspendJob` feature gate. If this is
-a feature you're interested in, please consider testing suspended Jobs in your
-cluster and providing feedback. You can discuss this enhancement [on GitHub](https://github.com/kubernetes/enhancements/issues/2232).
+only if you explicitly opt-in through the `SuspendJob` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+If this is a feature you're interested in, please consider testing suspended
+Jobs in your cluster and providing feedback. You can discuss this enhancement [on GitHub](https://github.com/kubernetes/enhancements/issues/2232).
 The SIG Apps community also [meets regularly](https://github.com/kubernetes/community/tree/master/sig-apps#meetings)
 and can be reached through [Slack or the mailing list](https://github.com/kubernetes/community/tree/master/sig-apps#contact).
 Barring any unexpected changes to the API, we intend to graduate the feature to
