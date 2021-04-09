@@ -188,15 +188,6 @@ also be used as the container runtime for Windows Kubernetes nodes.
 Learn how to
 [install ContainerD on a Windows](/docs/setup/production-environment/container-runtimes/#install-containerd).
 
-{{< caution >}}
-There is a [known limitation](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)
-when using GMSA with ContainerD to access Windows network shares which
-requires a kernel patch. Updates to address this limitation are currently
-available for Windows Server, Version 2004 and will be available for Windows
-Server 2019 in early 2021. Check for updates on the
-[Microsoft Windows Containers issue tracker](https://github.com/microsoft/Windows-Containers/issues/44).
-{{< /caution >}}
-
 #### Persistent Storage
 
 Kubernetes [volumes](/docs/concepts/storage/volumes/) enable complex
