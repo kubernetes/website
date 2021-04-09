@@ -50,11 +50,10 @@ A more detailed description of the termination behavior can be found in
 ### Hook handler implementations
 
 Containers can access a hook by implementing and registering a handler for that hook.
-There are three types of hook handlers that can be implemented for Containers:
+There are two types of hook handlers that can be implemented for Containers:
 
 * Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
 Resources consumed by the command are counted against the Container.
-* TCP - Opens a TCP connecton against a specific port on the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
 
 ### Hook handler execution
