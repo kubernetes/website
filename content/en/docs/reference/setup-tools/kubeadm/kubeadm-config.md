@@ -28,9 +28,9 @@ the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubea
 has to be used.
 
 <!-- body -->
-## kubeadm config view {#cmd-config-view}
+## kubeadm config print {#cmd-config-view}
 
-{{< include "generated/kubeadm_config_view.md" >}}
+{{< include "generated/kubeadm_config_print.md" >}}
 
 ## kubeadm config print init-defaults {#cmd-config-print-init-defaults}
 

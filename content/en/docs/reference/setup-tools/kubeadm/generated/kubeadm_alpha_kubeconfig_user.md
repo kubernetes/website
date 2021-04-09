@@ -10,15 +10,24 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap
+Output a kubeconfig file for an additional user
 
 ### Synopsis
 
 
-Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap
+Output a kubeconfig file for an additional user.
+
+Alpha Disclaimer: this command is currently alpha.
 
 ```
-kubeadm join phase control-plane-join update-status [flags]
+kubeadm alpha kubeconfig user [flags]
+```
+
+### Examples
+
+```
+  # Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
+  kubeadm alpha kubeconfig user --client-name=foo --config=bar
 ```
 
 ### Options
@@ -31,38 +40,38 @@ kubeadm join phase control-plane-join update-status [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--apiserver-advertise-address string</td>
+<td colspan="2">--client-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The name of user. It will be used as the CN if client certificates are created</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to kubeadm config file.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--control-plane</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Create a new control plane instance on this node</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for update-status</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for user</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--node-name string</td>
+<td colspan="2">--org strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Specify the node name.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The orgnizations of the client certificate. It will be used as the O if client certificates are created</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--token string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The token that should be used as the authentication mechanism for this kubeconfig, instead of client certificates</p></td>
 </tr>
 
 </tbody>
