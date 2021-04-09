@@ -99,6 +99,7 @@
 /docs/concepts/cluster-administration/static-pod/     /docs/tasks/administer-cluster/static-pod/ 301
 /docs/concepts/clusters/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/concepts/configuration/assign-pod-node/     /docs/concepts/scheduling-eviction/assign-pod-node/ 301
+/id/docs/concepts/configuration/assign-pod-node/     /id/docs/concepts/scheduling-eviction/assign-pod-node/ 301
 /docs/concepts/configuration/container-command-arg/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/concepts/configuration/container-command-args/     /docs/tasks/inject-data-application/define-command-argument-container/     301
 /docs/concepts/configuration/manage-compute-resources-container/ /docs/concepts/configuration/manage-resources-containers/ 301
@@ -106,6 +107,7 @@
 /docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
 /docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/configuration/taint-and-toleration/     /docs/concepts/scheduling-eviction/taint-and-toleration/ 301
+/id/docs/concepts/configuration/taint-and-toleration/     /id/docs/concepts/scheduling-eviction/taint-and-toleration/ 301
 /docs/concepts/extend-kubernetes/extend-cluster/      /docs/concepts/extend-kubernetes/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
