@@ -49,7 +49,7 @@ PriorityClassはnamespaceによらないオブジェクトで、優先度クラ�
 PriorityClassオブジェクトのメタデータの`name`フィールドにて名称を指定します。
 値は`value`フィールドで指定し、必須です。
 値が大きいほど、高い優先度を示します。
-PriorityClassオブジェクトの名称は[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)として適切であり、かつ`system-`から始まらないことが必要です。
+PriorityClassオブジェクトの名称は[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)として適切であり、かつ`system-`から始まってはいけません。
 
 PriorityClassオブジェクトは10億以下の任意の32ビットの整数値を持つことができます。
 それよりも大きな値は通常はプリエンプトや追い出すべきではない重要なシステム用のPodのために予約されています。
