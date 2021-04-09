@@ -8,7 +8,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-[Pod](/docs/concepts/workloads/pods/)は _priority_（優先度）を持つことができます。 
+[Pod](/ja/docs/concepts/workloads/pods/)は _priority_（優先度）を持つことができます。 
 優先度は他のPodに対する相対的なPodの重要度を示します。
 もしPodをスケジューリングできないときには、スケジューラーはそのPodをスケジューリングできるようにするため、優先度の低いPodをプリエンプトする（追い出す）ことを試みます。
 
@@ -21,7 +21,7 @@ weight: 70
 クラスターの全てのユーザーが信用されていない場合、悪意のあるユーザーが可能な範囲で最も高い優先度のPodを作成することが可能です。これは他のPodが追い出されたりスケジューリングできない状態を招きます。
 管理者はResourceQuotaを使用して、ユーザーがPodを高い優先度で作成することを防ぐことができます。
 
-詳細は[デフォルトで優先度クラスの消費を制限する](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
+詳細は[デフォルトで優先度クラスの消費を制限する](/ja/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 を参照してください。
 {{< /warning >}}
 
@@ -49,7 +49,7 @@ PriorityClassはnamespaceによらないオブジェクトで、優先度クラ�
 PriorityClassオブジェクトのメタデータの`name`フィールドにて名称を指定します。
 値は`value`フィールドで指定し、必須です。
 値が大きいほど、高い優先度を示します。
-PriorityClassオブジェクトの名称は[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)として適切であり、かつ`system-`から始まってはいけません。
+PriorityClassオブジェクトの名称は[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)として適切であり、かつ`system-`から始まってはいけません。
 
 PriorityClassオブジェクトは10億以下の任意の32ビットの整数値を持つことができます。
 それよりも大きな値は通常はプリエンプトや追い出すべきではない重要なシステム用のPodのために予約されています。
@@ -237,4 +237,4 @@ kubeletによるリソース不足時のPodの追い出しでは、リソース�
 
 ## {{% heading "whatsnext" %}}
 
-* PriorityClassと関連付けてResourceQuotaを使用することに関して [デフォルトで優先度クラスの消費を制限する](/ja/docs/concepts/policy/resource-quotas/#デフォルトで優先度クラスの消費を制限する)
+* PriorityClassと関連付けてResourceQuotaを使用することに関して [デフォルトで優先度クラスの消費を制限する](/ja/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
