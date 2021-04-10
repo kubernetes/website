@@ -602,9 +602,9 @@ very
 Comme avant, tous les fichiers précédents dans le répertoire `/etc/config/` seront supprimés.
 {{< /caution >}}
 
-### Clés de projet pour des chemins et des autorisations de fichiers spécifiques
+### Projections de clés pour des chemins et des autorisations de fichiers spécifiques
 
-You can project keys to specific paths and specific permissions on a per-file basis.
+Vous pouvez projeter des clés vers des chemins spécifiques avec des autorisations spécifiques fichiers par fichiers.
 Le guide de l'utilisateur [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) explique la syntaxe.
 
 ### Les ConfigMaps montées sont mises à jour automatiquement
