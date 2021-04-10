@@ -579,55 +579,65 @@ SPECIAL_TYPE
 S'il y a des fichiers dans le dossier `/etc/config/`, ils seront supprimés.
 {{< /caution >}}
 
-### Add ConfigMap data to a specific path in the Volume
+### Ajouter un configmap à un chemin spécifique dans un volume
 
-Use the `path` field to specify the desired file path for specific ConfigMap items.
-In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
+Utilisez le champ `path` pour spécifier le chemin de fichier souhaité pour les éléments de configmap spécifiques.
+Dans ce cas, le `SPECIAL_LEVEL` sera monté dans le volume `config-volume` au chemin `/etc/config/keys`.
 
 {{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
 
-Create the Pod:
+Créez le Pod :
 
 ```shell
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume-specific-key.yaml
 ```
 
-When the pod runs, the command `cat /etc/config/keys` produces the output below:
+Lorsque le pod fonctionne, la commande `cat /etc/config/keys` produit la sortie ci-dessous :
 
 ```shell
 very
 ```
 
 {{< caution >}}
-Like before, all previous files in the `/etc/config/` directory will be deleted.
+Comme avant, tous les fichiers précédents dans le répertoire `/etc/config/` seront supprimés.
 {{< /caution >}}
 
-### Project keys to specific paths and file permissions
+### Clés de projet pour des chemins et des autorisations de fichiers spécifiques
 
-You can project keys to specific paths and specific permissions on a per-file
-basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) user guide explains the syntax.
+You can project keys to specific paths and specific permissions on a per-file basis.
+Le guide de l'utilisateur [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) explique la syntaxe.
 
-### Mounted ConfigMaps are updated automatically
+### Les ConfigMaps montées sont mises à jour automatiquement
 
-When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period (1 minute by default) + ttl of ConfigMaps cache (1 minute by default) in kubelet. You can trigger an immediate refresh by updating one of the pod's annotations.
+Lorsqu'une ConfigMap déjà consommée dans un volume est mise à jour, les clés projetées sont éventuellement mises à jour elles aussi.
+Kubelet vérifie si la ConfigMap montée est fraîche à chaque synchronisation périodique.
+Cependant, il utilise son cache local basé sur le ttl pour obtenir la valeur actuelle de la ConfigMap.
+Par conséquent, le délai total entre le moment où la ConfigMap est mise à jour et le moment où les nouvelles clés sont projetées vers le pod peut être aussi long que la période de synchronisation de kubelet (1 minute par défaut) + le ttl du cache ConfigMaps (1 minute par défaut) dans kubelet.
+Vous pouvez déclencher un rafraîchissement immédiat en mettant à jour l'une des annotations du pod.
 
 {{< note >}}
-A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
+Un conteneur utilisant un ConfigMap comme volume [subPath](/docs/concepts/storage/volumes/#using-subpath) ne recevra pas les mises à jour de ConfigMap.
 {{< /note >}}
 
 {{% /capture %}}
 
 {{% capture discussion %}}
 
-## Understanding ConfigMaps and Pods
+## Comprendre le lien entre les ConfigMaps et les Pods
 
-The ConfigMap API resource stores configuration data as key-value pairs. The data can be consumed in pods or provide the configurations for system components such as controllers. ConfigMap is similar to [Secrets](/docs/concepts/configuration/secret/), but provides a means of working with strings that don't contain sensitive information. Users and system components alike can store configuration data in ConfigMap.
+La ressource API ConfigMap stocke les données de configuration sous forme de paires clé-valeur.
+Les données peuvent être consommées dans des pods ou fournir les configurations des composants du système tels que les contrôleurs.
+ConfigMap est similaire à [Secrets](/docs/concepts/configuration/secret/), mais fournit un moyen de travailler avec des chaînes de caractères qui ne contiennent pas d'informations sensibles.
+Les utilisateurs comme les composants du système peuvent stocker des données de configuration dans un ConfigMap.
 
 {{< note >}}
-ConfigMaps should reference properties files, not replace them. Think of the ConfigMap as representing something similar to the Linux `/etc` directory and its contents. For example, if you create a [Kubernetes Volume](/docs/concepts/storage/volumes/) from a ConfigMap, each data item in the ConfigMap is represented by an individual file in the volume.
+Les ConfigMaps doivent faire référence aux fichiers de propriétés, et non les remplacer.
+Pensez à la ConfigMap comme représentant quelque chose de similaire au répertoire `/etc` de Linux et à son contenu.
+Par exemple, si vous créez un [volume Kubernetes] (/docs/concepts/storage/volumes/) à partir d'une ConfigMap, chaque élément de données de la ConfigMap est représenté par un fichier individuel dans le volume.
 {{< /note >}}
 
-The ConfigMap's `data` field contains the configuration data. As shown in the example below, this can be simple -- like individual properties defined using `--from-literal` -- or complex -- like configuration files or JSON blobs defined using `--from-file`.
+Le champ `data` de la ConfigMap contient les données de configuration.
+Comme le montre l'exemple ci-dessous, cela peut être simple -- comme des propriétés individuelles définies à l'aide de `--from-literal` -- ou complexe -- comme des fichiers de configuration ou des blobs JSON définis à l'aide de `--from-file`.
 
 ```yaml
 apiVersion: v1
@@ -649,35 +659,35 @@ data:
 
 ### Restrictions
 
-* You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional").
-  If you reference a ConfigMap that doesn't exist, the Pod won't start.
-  Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
+* Vous devez créer un ConfigMap avant de le référencer dans une spécification de Pod (sauf si vous marquez le ConfigMap comme "facultatif").
+  Si vous faites référence à un ConfigMap qui n'existe pas, le Pod ne démarrera pas.
+  De même, les références à des clés qui n'existent pas dans la ConfigMap empêcheront le pod de démarrer.
 
-* If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped.
-  The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`).
-  The log message lists each skipped key.
-  For example:
+* Si vous utilisez `envFrom` pour définir des variables d'environnement à partir de ConfigMaps, les clés considérées comme invalides seront ignorées.
+  Le pod sera autorisé à démarrer, mais les noms invalides seront enregistrés dans le journal des événements (`InvalidVariableNames`).
+  Le message du journal énumère chaque clé sautée.
+  Par exemple :
 
   ```shell
   kubectl get events
   ```
 
-  The output is similar to this:
+  Le résultat est similaire à celui-ci :
   
   ```text
   LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
   0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
   ```
 
-* ConfigMaps reside in a specific {{< glossary_tooltip term_id="namespace" >}}.
-  A ConfigMap can only be referenced by pods residing in the same namespace.
+* Les ConfigMaps résident dans un {{< glossary_tooltip term_id="namespace" >}}.
+  Un ConfigMap ne peut être référencé que par des pods résidant dans le même namespace.
 
-* You can't use ConfigMaps for {{< glossary_tooltip text="static pods" term_id="static-pod" >}}, because the Kubelet does not support this.
+* Vous ne pouvez pas utiliser des ConfigMaps pour {{< glossary_tooltip text="static pods" term_id="static-pod" >}}, car le Kubelet ne le supporte pas.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-* Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
+* Suivez un exemple concret de [Configurer Redis en utilisant un ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
 
 {{% /capture %}}
