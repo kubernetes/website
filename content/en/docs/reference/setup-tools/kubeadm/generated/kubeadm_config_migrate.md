@@ -1,3 +1,16 @@
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference conent, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+
+Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version
 
 ### Synopsis
 
@@ -34,21 +47,21 @@ kubeadm config migrate [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">help for migrate</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for migrate</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--new-config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to the resulting equivalent kubeadm config file using the new API version. Optional, if not specified output will be sent to STDOUT.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the resulting equivalent kubeadm config file using the new API version. Optional, if not specified output will be sent to STDOUT.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--old-config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to the kubeadm config file that is using an old API version and should be converted. This flag is mandatory.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kubeadm config file that is using an old API version and should be converted. This flag is mandatory.</p></td>
 </tr>
 
 </tbody>
@@ -69,14 +82,14 @@ kubeadm config migrate [flags]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
 </tr>
 
 </tbody>
