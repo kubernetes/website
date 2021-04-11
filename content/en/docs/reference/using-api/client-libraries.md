@@ -71,6 +71,7 @@ their authors, not the Kubernetes team.
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
 | Ruby                 | [github.com/kontena/k8s-client](https://github.com/kontena/k8s-client) |
+| Ruby                 | [github.com/k8s-ruby/k8s-ruby](https://github.com/k8s-ruby/k8s-ruby) |
 | Rust                 | [github.com/clux/kube-rs](https://github.com/clux/kube-rs) |
 | Rust                 | [github.com/ynqa/kubernetes-rust](https://github.com/ynqa/kubernetes-rust) |
 | Scala                | [github.com/hagay3/skuber](https://github.com/hagay3/skuber) |
