@@ -5,7 +5,7 @@ date: 2021-03-21
 slug: defining-networkpolicy-conformance-cni-providers
 ---
 
-Authors: Matt Fenwick, Jay Vyas, Ricardo Katz, Amim Knabben, Douglas Schilling Landgraf
+Authors: Matt Fenwick (Synopsys), Jay Vyas (VMWare), Ricardo Katz, Amim Knabben (Loadsmart), Douglas Schilling Landgraf (Red Hat)
 
 Special thanks to Tim Hockin and Bowie Du (Google), Dan Winship and Antonio Ojea (Red Hat),
 Casey Davenport and Shaun Crampton (Tigera), and Abhishek Raut and Antonin Bas (VMware) for
