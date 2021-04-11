@@ -8,34 +8,33 @@ spec:
   hostNetwork: true
   containers:
   - name: konnectivity-server-container
-    image: us.gcr.io/k8s-artifacts-prod/kas-network-proxy/proxy-server:v0.0.8
+    image: us.gcr.io/k8s-artifacts-prod/kas-network-proxy/proxy-server:v0.0.16
     command: ["/proxy-server"]
     args: [
-            "--log-file=/var/log/konnectivity-server.log",
-            "--logtostderr=false",
-            "--log-file-max-size=0",
+            "--logtostderr=true",
             # This needs to be consistent with the value set in egressSelectorConfiguration.
-            "--uds-name=/etc/srv/kubernetes/konnectivity-server/konnectivity-server.socket",
+            "--uds-name=/etc/kubernetes/konnectivity-server/konnectivity-server.socket",
             # The following two lines assume the Konnectivity server is
             # deployed on the same machine as the apiserver, and the certs and
             # key of the API Server are at the specified location.
-            "--cluster-cert=/etc/srv/kubernetes/pki/apiserver.crt",
-            "--cluster-key=/etc/srv/kubernetes/pki/apiserver.key",
+            "--cluster-cert=/etc/kubernetes/pki/apiserver.crt",
+            "--cluster-key=/etc/kubernetes/pki/apiserver.key",
             # This needs to be consistent with the value set in egressSelectorConfiguration.
             "--mode=grpc",
             "--server-port=0",
             "--agent-port=8132",
             "--admin-port=8133",
+            "--health-port=8134",
             "--agent-namespace=kube-system",
             "--agent-service-account=konnectivity-agent",
-            "--kubeconfig=/etc/srv/kubernetes/konnectivity-server/kubeconfig",
+            "--kubeconfig=/etc/kubernetes/konnectivity-server.conf",
             "--authentication-audience=system:konnectivity-server"
             ]
     livenessProbe:
       httpGet:
         scheme: HTTP
         host: 127.0.0.1
-        port: 8133
+        port: 8134
         path: /healthz
       initialDelaySeconds: 30
       timeoutSeconds: 60
@@ -46,25 +45,28 @@ spec:
     - name: adminport
       containerPort: 8133
       hostPort: 8133
+    - name: healthport
+      containerPort: 8134
+      hostPort: 8134
     volumeMounts:
-    - name: varlogkonnectivityserver
-      mountPath: /var/log/konnectivity-server.log
-      readOnly: false
-    - name: pki
-      mountPath: /etc/srv/kubernetes/pki
+    - name: k8s-certs
+      mountPath: /etc/kubernetes/pki
+      readOnly: true
+    - name: kubeconfig
+      mountPath: /etc/kubernetes/konnectivity-server.conf
       readOnly: true
     - name: konnectivity-uds
-      mountPath: /etc/srv/kubernetes/konnectivity-server
+      mountPath: /etc/kubernetes/konnectivity-server
       readOnly: false
   volumes:
-  - name: varlogkonnectivityserver
+  - name: k8s-certs
     hostPath:
-      path: /var/log/konnectivity-server.log
+      path: /etc/kubernetes/pki
+  - name: kubeconfig
+    hostPath:
+      path: /etc/kubernetes/konnectivity-server.conf
       type: FileOrCreate
-  - name: pki
-    hostPath:
-      path: /etc/srv/kubernetes/pki
   - name: konnectivity-uds
     hostPath:
-      path: /etc/srv/kubernetes/konnectivity-server
+      path: /etc/kubernetes/konnectivity-server
       type: DirectoryOrCreate
