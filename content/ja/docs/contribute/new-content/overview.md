@@ -1,6 +1,6 @@
 ---
-title: Contributing new content overview
-linktitle: Overview
+title: 新しいコンテンツの貢献の概要
+linktitle: 概要
 content_type: concept
 main_menu: true
 weight: 5
@@ -8,58 +8,47 @@ weight: 5
 
 <!-- overview -->
 
-This section contains information you should know before contributing new content.
-
-
-
+このセクションでは、新しいコンテンツの貢献を行う前に知っておくべき情報を説明します。
 
 <!-- body -->
 
-## Contributing basics
+## 貢献の基本
 
-- Write Kubernetes documentation in Markdown and build the Kubernetes site using [Hugo](https://gohugo.io/).
-- The source is in [GitHub](https://github.com/kubernetes/website). You can find Kubernetes documentation at `/content/en/docs/`. Some of the reference documentation is automatically generated from scripts in the `update-imported-docs/` directory.
-- [Page content types](/docs/contribute/style/page-content-types/) describe the presentation of documentation content in Hugo.
-- In addition to the standard Hugo shortcodes, we use a number of
-  [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) in our documentation to control the presentation of content.
-- Documentation source is available in multiple languages in `/content/`. Each
-  language has its own folder with a two-letter code determined by the
-  [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For
-  example, English documentation source is stored in `/content/en/docs/`.
-- For more information about contributing to documentation in multiple languages or starting a new translation, see [localization](/docs/contribute/localization).
+- KubernetesのドキュメントはMarkdownで書き、Kubernetesのウェブサイトは[Hugo](https://gohugo.io/)を使ってビルドします。
+- ソースは[GitHub](https://github.com/kubernetes/website)にあります。Kubernetesのドキュメントは`/content/en/docs/`にあります。リファレンスドキュメントの一部は、`update-imported-docs/`ディレクトリ内のスクリプトから自動的に生成されます。
+- [Page content types](/docs/contribute/style/page-content-types/)はHugo内のドキュメントのコンテンツの見え方を？指定します？
+- 標準のHugoのshortcodeに加えて、多数の[カスタムのHugo shortcode](/docs/contribute/style/hugo-shortcodes/)を使用してコンテンツの見え方をコントロールしています。
+- ドキュメントのソースは`/content/`内にある複数の言語で利用できます。各言語はそれぞれ[ISO 639-1標準](https://www.loc.gov/standards/iso639-2/php/code_list.php)で定義された2文字のコードの名前のフォルダを持ちます。たとえば、英語のドキュメントのソースは`/content/en/docs/`内に置かれています。
+- 複数言語でのドキュメントへの貢献や新しい翻訳の開始に関する情報については、[ローカライゼーション](/docs/contribute/localization)を参照してください。
 
-## Before you begin {#before-you-begin}
+## 始める前に {#before-you-begin}
 
-### Sign the CNCF CLA {#sign-the-cla}
+### CNCF CLAに署名する {#sign-the-cla}
 
-All Kubernetes contributors **must** read the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) and [sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
+すべてのKubernetesのコントリビューターは、[コントリビューターガイド](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md)を読み、[Contributor License Agreement(コントリビューターライセンス契約、CLA)への署名](https://github.com/kubernetes/community/blob/master/CLA.md)を**必ず行わなければなりません**。
 
-Pull requests from contributors who haven't signed the CLA fail the automated tests. The name and email you provide must match those found in your `git config`, and your git name and email must match those used for the CNCF CLA.
+CLAへの署名が完了していないコントリビューターからのpull requestは、自動化されたテストで失敗します。名前とメールアドレスは`git config`コマンドで表示されるものに一致し、gitの名前とメールアドレスはCNCF CLAで使われたものに一致しなければなりません。
 
-### Choose which Git branch to use
+### どのGitブランチを使用するかを選ぶ
 
-When opening a pull request, you need to know in advance which branch to base your work on.
+pull requestをオープンするときは、どのブランチをベースにして作業するかをあらかじめ知っておく必要があります。
 
-Scenario | Branch
+シナリオ | ブランチ
 :---------|:------------
-Existing or new English language content for the current release | `master`
-Content for a feature change release | The branch which corresponds to the major and minor version the feature change is in, using the pattern `dev-<version>`. For example, if a feature changes in the `v{{< skew nextMinorVersion >}}` release, then add documentation changes to the ``dev-{{< skew nextMinorVersion >}}`` branch.
-Content in other languages (localizations) | Use the localization's convention. See the [Localization branching strategy](/docs/contribute/localization/#branching-strategy) for more information.
+現在のリリースに対する既存または新しい英語のコンテンツ | `master`
+機能変更のリリースに対するコンテンツ | 機能変更が含まれるメジャーおよびマイナーバージョンに対応する、`dev-<version>`というパターンのブランチを使います。たとえば、機能変更が`v{{< skew nextMinorVersion >}}`に含まれる場合、ドキュメントの変更は``dev-{{< skew nextMinorVersion >}}``ブランチに追加します。
+他の言語内のコンテンツ(翻訳) | 各翻訳対象の言語のルールに従います。詳しい情報は、[翻訳のブランチ戦略](/docs/contribute/localization/#branching-strategy)を読んでください。
 
-
-If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
+それでも選ぶべきブランチがわからないときは、Slack上の`#sig-docs`チャンネルで質問してください。
 
 {{< note >}}
-If you already submitted your pull request and you know that the base branch
-was wrong, you (and only you, the submitter) can change it.
+すでにpull requestを作成していて、ベースブランチが間違っていたことに気づいた場合は、作成者であるあなただけがベースブランチを変更できます。
 {{< /note >}}
 
-### Languages per PR
+### 言語ごとのPR
 
-Limit pull requests to one language per PR. If you need to make an identical change to the same code sample in multiple languages, open a separate PR for each language.
+pull requestはPRごとに1つの言語に限定してください。複数の言語に同一の変更を行う必要がある場合は、言語ごとに別々のPRを作成してください。
 
-## Tools for contributors
+## コントリビューターのためのツール
 
-The [doc contributors tools](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools) directory in the `kubernetes/website` repository contains tools to help your contribution journey go more smoothly.
-
-
+`kubernetes/website`リポジトリ内の[doc contributors tools](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools)ディレクトリには、コントリビューターとしての旅を楽にしてくれるツールがあります。
