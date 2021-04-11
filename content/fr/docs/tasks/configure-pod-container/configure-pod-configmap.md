@@ -7,19 +7,16 @@ card:
   weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
+
 Les ConfigMaps vous permettent de découpler les artefacts de configuration du contenu de l'image pour garder les applications conteneurisées portables.
 Cette page fournit une série d'exemples d'utilisation montrant comment créer des ConfigMaps et configurer des pods à l'aide des données stockées dans des ConfigMaps.
 
-{{% /capture %}}
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## Créer un ConfigMap
 
@@ -619,9 +616,7 @@ Vous pouvez déclencher un rafraîchissement immédiat en mettant à jour l'une 
 Un conteneur utilisant un ConfigMap comme volume [subPath](/docs/concepts/storage/volumes/#using-subpath) ne recevra pas les mises à jour de ConfigMap.
 {{< /note >}}
 
-{{% /capture %}}
-
-{{% capture discussion %}}
+<!-- discussion -->
 
 ## Comprendre le lien entre les ConfigMaps et les Pods
 
@@ -684,10 +679,6 @@ data:
 
 * Vous ne pouvez pas utiliser des ConfigMaps pour {{< glossary_tooltip text="static pods" term_id="static-pod" >}}, car le Kubelet ne le supporte pas.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+{{% heading "whatsnext" %}}
 
 * Suivez un exemple concret de [Configurer Redis en utilisant un ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
-
-{{% /capture %}}
