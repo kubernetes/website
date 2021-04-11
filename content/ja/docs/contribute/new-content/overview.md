@@ -19,7 +19,7 @@ weight: 5
 - [Page content types](/docs/contribute/style/page-content-types/)はHugo内のドキュメントのコンテンツの見え方を？指定します？
 - 標準のHugoのshortcodeに加えて、多数の[カスタムのHugo shortcode](/docs/contribute/style/hugo-shortcodes/)を使用してコンテンツの見え方をコントロールしています。
 - ドキュメントのソースは`/content/`内にある複数の言語で利用できます。各言語はそれぞれ[ISO 639-1標準](https://www.loc.gov/standards/iso639-2/php/code_list.php)で定義された2文字のコードの名前のフォルダを持ちます。たとえば、英語のドキュメントのソースは`/content/en/docs/`内に置かれています。
-- 複数言語でのドキュメントへの貢献や新しい翻訳の開始に関する情報については、[ローカライゼーション](/docs/contribute/localization)を参照してください。
+- 複数言語でのドキュメントへの貢献や新しい翻訳の開始に関する情報については、[Kubernetesのドキュメントを翻訳する](/docs/contribute/localization)を参照してください。
 
 ## 始める前に {#before-you-begin}
 
