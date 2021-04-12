@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes 1.21: Metrics Stability hits GA'
-date: 2021-03-30
+date: 2021-04-23
 slug: kubernetes-release-1.21-metrics-stability-ga
 ---
 
