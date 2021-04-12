@@ -407,7 +407,7 @@ After months of deliberation, we eventually settled on a few core areas for impr
 
 This means you can write a namespace policy against this namespace, even if you can't edit its labels.
 For example, this policy, will 'just work', without needing to run a command such as `kubectl edit namespace`.
-In fact, it will even work if you can't edit or view this namespace's data at all, because of the magic of apiserver defaulting.
+In fact, it will even work if you can't edit or view this namespace's data at all, because of the magic of API server defaulting.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
