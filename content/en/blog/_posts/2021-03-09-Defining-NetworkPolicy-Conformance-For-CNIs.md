@@ -398,8 +398,9 @@ After months of deliberation, we eventually settled on a few core areas for impr
 - Namespace as name policies: Allowing users in Kubernetes >= 1.21 to target namespaces using names,
   when building Network Policy objects.  This was done in collaboration with Jordan Liggitt and Tim Hockin on the API Machinery side.
   This change allowed us to improve the Network Policy user experience without actually
-  changing the API! For details, you can read about it [here](https://github.com/kubernetes/enhancements/pull/2162).
-  The TLDR is that after Kubernetes 1.21, ALL NAMESPACES will have the following label, added by default:
+  changing the API! For more details, you can read
+  [Automatic labelling](/docs/concepts/overview/working-with-objects/namespaces/#automatic-labelling) in the page about Namespaces.
+  The TL,DR; is that for Kubernetes 1.21 and later, **all namespaces** have the following label added by default:
 
     ```
     kubernetes.io/metadata.name: <name-of-namespace>
