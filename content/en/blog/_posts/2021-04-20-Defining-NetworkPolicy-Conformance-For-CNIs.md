@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Defining Network Policy Conformance for Container Network Interface (CNI) providers"
-date: 2021-03-21
+date: 2021-04-20
 slug: defining-networkpolicy-conformance-cni-providers
 ---
 
@@ -394,7 +394,7 @@ After months of deliberation, we eventually settled on a few core areas for impr
 - Port Range policies: We now allow you to specify a *range* of ports for a policy.
   This allows users interested in scenarios like FTP or virtualization to enable advanced policies.
   The port range option for network policies will be available to use in Kubernetes 1.21.
-  You can read more about this [here](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/2079-network-policy-port-range).
+  Read more in [targeting a range of ports](/docs/concepts/services-networking/network-policies/#targeting-a-range-of-ports).
 - Namespace as name policies: Allowing users in Kubernetes >= 1.21 to target namespaces using names,
   when building Network Policy objects.  This was done in collaboration with Jordan Liggitt and Tim Hockin on the API Machinery side.
   This change allowed us to improve the Network Policy user experience without actually
