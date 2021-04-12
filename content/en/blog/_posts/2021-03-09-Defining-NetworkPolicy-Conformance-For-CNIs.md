@@ -402,7 +402,7 @@ After months of deliberation, we eventually settled on a few core areas for impr
   The TLDR is that after Kubernetes 1.21, ALL NAMESPACES will have the following label, added by default:
 
     ```
-    kubernetes.io/metadata.name: my-namespace
+    kubernetes.io/metadata.name: <name-of-namespace>
     ```
 
 This means you can write a namespace policy against this namespace, even if you can't edit its labels.
