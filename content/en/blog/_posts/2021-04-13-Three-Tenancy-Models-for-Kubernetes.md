@@ -24,7 +24,7 @@ To isolate tenant workloads, each namespace must also contain:
 
 With this model, tenants share cluster-wide resources like ClusterRoles and CustomResourceDefinitions (CRDs) and hence cannot create or update these cluster-wide resources.
 
-The [Hierarchical Namespace Controller (HNC)](https://kubernetes.io/blog/2020/08/14/introducing-hierarchical-namespaces/) project makes it easier to manage namespace based tenancy by allowing users to create additional namespaces under a namespace, and propagating resources within the namespace hierarchy. This allows self-service namespaces for tenants, without requiring cluster-wide permissions.
+The [Hierarchical Namespace Controller (HNC)](/blog/2020/08/14/introducing-hierarchical-namespaces/) project makes it easier to manage namespace based tenancy by allowing users to create additional namespaces under a namespace, and propagating resources within the namespace hierarchy. This allows self-service namespaces for tenants, without requiring cluster-wide permissions.
 
 The [Multi-Tenancy Benchmarks (MTB)](https://github.com/kubernetes-sigs/multi-tenancy/tree/master/benchmarks) project provides benchmarks and a command-line tool that performs several configuration and runtime checks to report if tenant namespaces are properly isolated and the necessary security controls are implemented.
 
@@ -72,7 +72,7 @@ The **clusters as a service** tenancy model addresses these limitations, but wit
 
 The **control planes as a service** model provides a way to share resources of a single Kubernetes cluster and also let tenants manage their own cluster-wide resources. Sharing worker node resources increases resource effeciencies, but also exposes cross tenant security and isolation concerns that exist for shared clusters.
 
- In many cases, organizations will use multiple tenancy models to address different use cases and as different product and development teams will have varying needs. Following security and management best practices, such as applying [Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/) and not using the `default` namespace, makes it easer to switch from one model to another.
+ In many cases, organizations will use multiple tenancy models to address different use cases and as different product and development teams will have varying needs. Following security and management best practices, such as applying [Pod Security Standards](/docs/concepts/security/pod-security-standards/) and not using the `default` namespace, makes it easer to switch from one model to another.
 
 The [Kubernetes Multi-Tenancy Working Group](https://github.com/kubernetes-sigs/multi-tenancy) has created several projects like [Hierarchical Namespaces Controller](https://github.com/kubernetes-sigs/multi-tenancy/tree/master/incubator/hnc), [Virtual Cluster](https://github.com/kubernetes-sigs/multi-tenancy/tree/master/incubator/virtualcluster) / [CAPI Nested](https://github.com/kubernetes-sigs/cluster-api-provider-nested), and [Multi-Tenancy Benchmarks](https://github.com/kubernetes-sigs/multi-tenancy/tree/master/benchmarks) to make it easier to provision and manage multi-tenancy models.
 
