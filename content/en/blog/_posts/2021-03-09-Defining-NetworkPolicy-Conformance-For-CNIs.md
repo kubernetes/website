@@ -421,6 +421,8 @@ spec:
       role: db
   policyTypes:
   - Ingress
+  # Allow inbound traffic to Pods labelled role=db, in the namespace 'default'
+  # provided that the source is a Pod in the namespace 'my-namespace'
   ingress:
   - from:
     - namespaceSelector:
