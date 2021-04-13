@@ -104,6 +104,7 @@
 /docs/concepts/configuration/container-command-args/     /docs/tasks/inject-data-application/define-command-argument-container/     301
 /docs/concepts/configuration/manage-compute-resources-container/ /docs/concepts/configuration/manage-resources-containers/ 301
 /docs/concepts/configuration/resource-bin-packing/      /docs/concepts/scheduling-eviction/resource-bin-packing/ 301
+/id/docs/concepts/configuration/resource-bin-packing/      /id/docs/concepts/scheduling-eviction/resource-bin-packing/ 301
 /docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
 /docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/configuration/taint-and-toleration/     /docs/concepts/scheduling-eviction/taint-and-toleration/ 301
