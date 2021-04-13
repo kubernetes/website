@@ -549,7 +549,7 @@ empty `topologyKey` is not allowed.
 2. 对于 `requiredDuringSchedulingIgnoredDuringExecution` 要求的 Pod 反亲和性，
    准入控制器 `LimitPodHardAntiAffinityTopology` 被引入来限制 `topologyKey`
    为 `kubernetes.io/hostname`。
-   如果你想设置topologyKey为其他值，来用于自定义拓扑结构，你必须修改准入控制器或者禁用它。
+   如果你想设置topologyKey为其他值来用于自定义拓扑结构，你必须修改准入控制器或者禁用它。
 3. 对于 `preferredDuringSchedulingIgnoredDuringExecution` 要求的 Pod 反亲和性，
    空的 `topologyKey` 被解释为“所有拓扑结构”（这里的“所有拓扑结构”限制为
    `kubernetes.io/hostname`，`topology.kubernetes.io/zone` 和
