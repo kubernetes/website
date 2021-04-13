@@ -8,7 +8,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
-[kube-scheduler](/id/docs/concepts/scheduling/kube-scheduler/#kube-scheduler)
+[kube-scheduler](/id/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
 merupakan penjadwal (_scheduler_) Kubernetes bawaan yang bertanggung jawab
 terhadap penempatan Pod-Pod pada seluruh Node di dalam sebuah klaster.
 
@@ -66,7 +66,7 @@ Kamu bisa mengatur ambang batas untuk menentukan berapa banyak jumlah Node minim
 persentase bagian dari seluruh Node di dalam klaster kamu. kube-scheduler akan mengubahnya menjadi
 bilangan bulat berisi jumlah Node. Saat penjadwalan, jika kube-scheduler mengidentifikasi
 cukup banyak Node-Node layak untuk melewati jumlah persentase yang diatur, maka kube-scheduler
-akan berhenti mencari Node-Node layak dan lanjut ke [fase penskoran] (/id/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation).
+akan berhenti mencari Node-Node layak dan lanjut ke [fase penskoran] (/id/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation).
 
 [Bagaimana penjadwal mengecek Node](#bagaimana-penjadwal-mengecek-node) menjelaskan proses ini secara detail.
 
