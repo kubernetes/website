@@ -85,7 +85,7 @@ stabilized the system. To configure this for Docker, set `native.cgroupdriver=sy
 
 <!--
 {{< caution >}}
-Changing the cgroup driver of a Node that has joined a cluster is strongly *not* recommended.  
+Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation. 
 If the kubelet has created Pods using the semantics of one cgroup driver, changing the container
 runtime to another cgroup driver can cause errors when trying to re-create the Pod sandbox
 for such existing Pods. Restarting the kubelet may not solve such errors.
@@ -94,9 +94,21 @@ If you have automation that makes it feasible, replace the node with another usi
 configuration, or reinstall it using automation.
 {{< /caution >}}
 -->
-注意：非常 *不* 建议更改已加入集群的节点的 cgroup 驱动。
+注意：更改已加入集群的节点的 cgroup 驱动是一项敏感的操作。
 如果 kubelet 已经使用某 cgroup 驱动的语义创建了 pod，更改运行时以使用别的 cgroup 驱动，当为现有 Pods 重新创建 PodSandbox 时会产生错误。重启 kubelet 也可能无法解决此类问题。
 如果你有切实可行的自动化方案，使用其他已更新配置的节点来替换该节点，或者使用自动化方案来重新安装。
+
+<!-- 
+### Migrating to the `systemd` driver in kubeadm managed clusters
+-->
+### 将 kubeadm 托管的集群迁移到 `systemd` 驱动
+
+<!-- 
+Follow this [Migration guide](docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
+if you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters.
+-->
+如果你想迁移到现有 kubeadm 托管集群中的 `systemd` cgroup 驱动程序，
+遵循此[迁移指南](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)。
 
 <!-- 
 ## Container runtimes
