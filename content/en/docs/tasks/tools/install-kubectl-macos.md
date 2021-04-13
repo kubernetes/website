@@ -29,17 +29,28 @@ The following methods exist for installing kubectl on macOS:
 
 1. Download the latest release:
 
-   ```bash
+   {{< tabs name="download_binary_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
-   ```
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    {{< note >}}
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
 
-   For example, to download version {{< param "fullversion" >}} on macOS, type:
+   For example, to download version {{< param "fullversion" >}} on Intel macOS, type:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   ```
+
+   And for macOS on Apple Silicon, type:
+
+   ```bash
+   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
    ```
 
    {{< /note >}}
@@ -48,10 +59,15 @@ The following methods exist for installing kubectl on macOS:
 
    Download the kubectl checksum file:
 
-   ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl.sha256"
-   ```
-
+   {{< tabs name="download_checksum_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl.sha256"
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
+  
    Validate the kubectl binary against the checksum file:
 
    ```bash
