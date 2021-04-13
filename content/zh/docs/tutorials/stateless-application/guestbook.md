@@ -261,7 +261,7 @@ The `mongo` Services you applied is only accessible within the Kubernetes cluste
 <!--
 If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the Kubernetes cluster. However a Kubernetes user you can use `kubectl port-forward` to access the service even though it uses a `ClusterIP`.
 -->
-如果您希望访客能够访问您的留言板，您必须将前端服务配置为外部可见的，以便客户端可以从 Kubernetes 集群之外请求服务。然而即便使用了 `ClusterIP` Kubernets 用户仍可以通过 `kubectl port-forward` 访问服务。
+如果您希望访客能够访问您的留言板，您必须将前端服务配置为外部可见的，以便客户端可以从 Kubernetes 集群之外请求服务。然而即便使用了 `ClusterIP` Kubernetes 用户仍可以通过 `kubectl port-forward` 访问服务。
 
 <!--
 Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, uncomment `type: LoadBalancer`.
@@ -515,5 +515,4 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 * 使用 Kubernetes 创建一个博客，使用 [MySQL 和 Wordpress 的持久卷](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * 阅读更多关于[连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
 * 阅读更多关于[管理资源](/zh/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
-
 
