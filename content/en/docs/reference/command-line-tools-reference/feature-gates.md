@@ -125,8 +125,6 @@ different Kubernetes components.
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
 | `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
-| `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
-| `HugePageStorageMediumSize` | `true` | Beta | 1.19 | |
 | `IndexedJob` | `false` | Alpha | 1.21 | 1.21 |
 | `IndexedJob` | `true` | Beta | 1.22 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | |
@@ -293,6 +291,9 @@ different Kubernetes components.
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
 | `HugePages` | `true` | Beta| 1.10 | 1.13 |
 | `HugePages` | `true` | GA | 1.14 | - |
+| `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
+| `HugePageStorageMediumSize` | `true` | Beta | 1.19 | 1.21 |
+| `HugePageStorageMediumSize` | `true` | GA | 1.22 | - |
 | `HyperVContainer` | `false` | Alpha | 1.10 | 1.19 |
 | `HyperVContainer` | `false` | Deprecated | 1.20 | - |
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
