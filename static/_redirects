@@ -105,7 +105,9 @@
 /docs/concepts/configuration/manage-compute-resources-container/ /docs/concepts/configuration/manage-resources-containers/ 301
 /docs/concepts/configuration/resource-bin-packing/      /docs/concepts/scheduling-eviction/resource-bin-packing/ 301
 /docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
+/id/docs/concepts/configuration/scheduler-perf-tuning/      /id/docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
 /docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
+/id/docs/concepts/configuration/scheduling-framework/     /id/docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/configuration/taint-and-toleration/     /docs/concepts/scheduling-eviction/taint-and-toleration/ 301
 /id/docs/concepts/configuration/taint-and-toleration/     /id/docs/concepts/scheduling-eviction/taint-and-toleration/ 301
 /docs/concepts/extend-kubernetes/extend-cluster/      /docs/concepts/extend-kubernetes/ 301
@@ -118,8 +120,11 @@
 /docs/concepts/policy/container-capabilities/     /docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container/ 301
 /docs/concepts/policy/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
 /docs/concepts/scheduling/kube-scheduler/     /docs/concepts/scheduling-eviction/kube-scheduler/ 301
+/id/docs/concepts/scheduling/kube-scheduler/     /id/docs/concepts/scheduling-eviction/kube-scheduler/ 301
 /docs/concepts/scheduling/scheduler-perf-tuning/     /docs/concepts/scheduling-eviction/scheduler-perf-tuning/ 301
+/id/docs/concepts/scheduling/scheduler-perf-tuning/     /id/docs/concepts/scheduling-eviction/scheduler-perf-tuning/ 301
 /docs/concepts/scheduling/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/ 301
+/id/docs/concepts/scheduling/scheduling-framework/     /id/docs/concepts/scheduling-eviction/scheduling-framework/ 301
 /docs/concepts/service-catalog/     /docs/concepts/extend-kubernetes/service-catalog/ 301
 /docs/concepts/services-networking/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
 /docs/concepts/storage/etcd-store-api-object/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
