@@ -27,7 +27,7 @@ There are drivers for local storage, like
 [TopoLVM](https://github.com/cybozu-go/topolvm) for traditional disks
 and [PMEM-CSI](https://intel.github.io/pmem-csi/latest/README.html)
 for [persistent memory](https://pmem.io/). They work and are ready for
-usage today also on older Kubernetes release, but making that possible
+usage today also on older Kubernetes releases, but making that possible
 was not trivial.
 
 ### Central component required
@@ -118,7 +118,7 @@ local driver containers. But it is better also for users to eliminate
 the need for a scheduler extender completely because the driver
 deployment becomes simpler. [Storage capacity
 tracking](/docs/concepts/storage/storage-capacity/), [introduced in
-1.19](https://kubernetes.io/blog/2020/09/01/ephemeral-volumes-with-storage-capacity-tracking/)
+1.19](/blog/2020/09/01/ephemeral-volumes-with-storage-capacity-tracking/)
 and promoted to beta in Kubernetes 1.21, achieves that. It works by
 publishing information about capacity in `CSIStorageCapacity`
 objects. The scheduler itself then uses that information to filter out
@@ -132,7 +132,7 @@ better once the information got refreshed.
 So CSI drivers still need the ability to recover from a bad scheduling
 decision, something that turned out to be impossible to implement for
 "CSI ephemeral volumes". ["*Generic* ephemeral
-volumes"](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes),
+volumes"](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes),
 another feature that got promoted to beta in 1.21, don't have that
 limitation. This feature adds a controller that will create and manage
 PVCs with the lifetime of the Pod and therefore the normal recovery
