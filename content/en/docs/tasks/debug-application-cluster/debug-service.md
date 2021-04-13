@@ -27,7 +27,7 @@ kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/bu
 If you don't see a command prompt, try pressing enter.
 {{< /note >}}
 
-Alternatively you can run the command directly from the pod. For example, let us say we wish to run nslookup for an existing service `servicesample` and store the output in nslookupout.txt. Then the command will be 
+Alternatively you can run the command directly from the pod. For example, let us say you wish to run `nslookup `for an existing Service named `servicesample`, and will store the output in `nslookupout.txt`. A command that achieves this is:
 
 ```none
 kubectl run test-nslookup --image=busybox:1.28 --rm -it --restart=Never  -- nslookup servicesample > nslookupout.txt
@@ -741,4 +741,3 @@ Contact us on
 
 Visit [troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/)
 for more information.
-
