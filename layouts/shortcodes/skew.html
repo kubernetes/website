@@ -2,7 +2,7 @@
 {{- $version := .Get 0 -}}
 
 <!-- strip "v" from latest verison  -->
-{{- $latestVersion := site.Params.latest -}}
+{{- $latestVersion := site.Params.version -}}
 {{- $latestVersion := (replace $latestVersion "v" "") -}}
 
 <!-- splits a string x.Xy into substrings separated by a "." delimiter  -->
