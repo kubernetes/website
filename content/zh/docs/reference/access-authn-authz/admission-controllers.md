@@ -962,7 +962,7 @@ PersistentVolumeLabel 已被废弃，标记持久卷已由
 <!--
 This admission controller defaults and limits what node selectors may be used within a namespace by reading a namespace annotation and a global configuration.
 -->
-该准入控制器通过读取名字空间注解和全局配置，来为名字空间中可以可以使用的节点选择器
+该准入控制器通过读取名字空间注解和全局配置，来为名字空间中可以使用的节点选择器
 设置默认值并实施限制。
 
 <!--
