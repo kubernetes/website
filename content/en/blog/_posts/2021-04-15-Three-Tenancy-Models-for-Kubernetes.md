@@ -44,7 +44,7 @@ The [Virtual Cluster](https://github.com/kubernetes-sigs/multi-tenancy/tree/mast
 
 ## Security considerations
 
-Cloud native security involves different system layers and lifecycle phases as described in the [Cloud Native Security Whitepaper](https://kubernetes.io/blog/2020/11/18/cloud-native-security-for-your-clusters) from CNCF SIG Security.  Without proper security measures implemented across all layers and phases, Kubernetes tenant isolation can be compromised and a security breach with one tenant can threaten other tenants.
+Cloud native security involves different system layers and lifecycle phases as described in the [Cloud Native Security Whitepaper](/blog/2020/11/18/cloud-native-security-for-your-clusters) from CNCF SIG Security.  Without proper security measures implemented across all layers and phases, Kubernetes tenant isolation can be compromised and a security breach with one tenant can threaten other tenants.
 
 It is important for any new user to Kubernetes to realize that the default installation of a new upstream Kubernetes cluster is not secure, and you are going to need to invest in hardening it in order to avoid security issues.
 
@@ -77,5 +77,4 @@ The **control planes as a service** model provides a way to share resources of a
 The [Kubernetes Multi-Tenancy Working Group](https://github.com/kubernetes-sigs/multi-tenancy) has created several projects like [Hierarchical Namespaces Controller](https://github.com/kubernetes-sigs/multi-tenancy/tree/master/incubator/hnc), [Virtual Cluster](https://github.com/kubernetes-sigs/multi-tenancy/tree/master/incubator/virtualcluster) / [CAPI Nested](https://github.com/kubernetes-sigs/cluster-api-provider-nested), and [Multi-Tenancy Benchmarks](https://github.com/kubernetes-sigs/multi-tenancy/tree/master/benchmarks) to make it easier to provision and manage multi-tenancy models.
 
 If you are interested in multi-tenancy topics, or would like to share your use cases, please join us in an upcoming [community meeting](https://github.com/kubernetes/community/blob/master/wg-multitenancy/README.md) or reach out on the *wg-multitenancy channel* on the [Kubernetes slack](https://slack.k8s.io/).
-
 
