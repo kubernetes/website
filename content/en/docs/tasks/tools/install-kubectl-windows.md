@@ -21,7 +21,6 @@ Using the latest version of kubectl helps avoid unforeseen issues.
 The following methods exist for installing kubectl on Windows:
 
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
-- [Install with PowerShell from PSGallery](#install-with-powershell-from-psgallery)
 - [Install on Windows using Chocolatey or Scoop](#install-on-windows-using-chocolatey-or-scoop)
 - [Install on Windows as part of the Google Cloud SDK](#install-on-windows-as-part-of-the-google-cloud-sdk)
 
@@ -74,33 +73,6 @@ The following methods exist for installing kubectl on Windows:
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to `PATH`.
 If you have installed Docker Desktop before, you may need to place your `PATH` entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
-{{< /note >}}
-
-### Install with PowerShell from PSGallery
-
-If you are on Windows and using the [PowerShell Gallery](https://www.powershellgallery.com/) package manager, you can install and update kubectl with PowerShell.
-
-1. Run the installation commands (making sure to specify a `DownloadLocation`):
-
-   ```powershell
-   Install-Script -Name 'install-kubectl' -Scope CurrentUser -Force
-   install-kubectl.ps1 [-DownloadLocation <path>]
-   ```
-
-   {{< note >}}
-   If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's `temp` Directory.
-   {{< /note >}}
-
-   The installer creates `$HOME/.kube` and instructs it to create a config file.
-
-1. Test to ensure the version you installed is up-to-date:
-
-   ```powershell
-   kubectl version --client
-   ```
-
-{{< note >}}
-Updating the installation is performed by rerunning the two commands listed in step 1.
 {{< /note >}}
 
 ### Install on Windows using Chocolatey or Scoop
