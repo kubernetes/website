@@ -44,7 +44,7 @@ The [Virtual Cluster](https://github.com/kubernetes-sigs/multi-tenancy/tree/mast
 
 ## Security considerations
 
-Cloud native security involves different system layers and lifecycle phases as described in the [Cloud Native Security Whitepaper](https://www.cncf.io/blog/2020/11/18/announcing-the-cloud-native-security-white-paper/) from CNCF SIG Security.  Without proper security measures implemented across all layers and phases, Kubernetes tenant isolation can be compromised and a security breach with one tenant can threaten other tenants.
+Cloud native security involves different system layers and lifecycle phases as described in the [Cloud Native Security Whitepaper](https://kubernetes.io/blog/2020/11/18/cloud-native-security-for-your-clusters) from CNCF SIG Security.  Without proper security measures implemented across all layers and phases, Kubernetes tenant isolation can be compromised and a security breach with one tenant can threaten other tenants.
 
 It is important for any new user to Kubernetes to realize that the default installation of a new upstream Kubernetes cluster is not secure, and you are going to need to invest in hardening it in order to avoid security issues.
 
