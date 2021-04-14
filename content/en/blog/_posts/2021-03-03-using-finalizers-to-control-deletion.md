@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Using Finalizers to Control Deletion'
-date: 2021-03-03
+date: 2021-04-28
 slug: using-finalizers-to-control-deletion
 ---
 
