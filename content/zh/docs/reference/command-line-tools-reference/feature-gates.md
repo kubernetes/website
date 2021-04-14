@@ -388,17 +388,14 @@ different Kubernetes components.
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
 | `SupportIPVSProxyMode` | `true` | GA | 1.11 | - |
-<<<<<<< HEAD
 | `Sysctls` | `true` | Beta | 1.11 | 1.20 |
 | `Sysctls` | `true` | GA | 1.21 | |
-=======
 | `SupportNodePidsLimit` | `false` | Alpha | 1.14 | 1.14 |
 | `SupportNodePidsLimit` | `true` | Beta | 1.15 | 1.19 |
 | `SupportNodePidsLimit` | `true` | GA | 1.20 | - |
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
 | `SupportPodPidsLimit` | `true` | Beta | 1.14 | 1.19 |
 | `SupportPodPidsLimit` | `true` | GA | 1.20 | - |
->>>>>>> upstream/master
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | 1.12 |
 | `TaintBasedEvictions` | `true` | Beta | 1.13 | 1.17 |
 | `TaintBasedEvictions` | `true` | GA | 1.18 | - |
