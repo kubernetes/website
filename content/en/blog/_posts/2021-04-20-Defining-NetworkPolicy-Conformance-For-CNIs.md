@@ -350,7 +350,8 @@ spec:
 +--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
 ```
 
-Both Cyclonus and the e2e tests use the same strategy to validate a Network Policy of probing pods over TCP or UDP.
+Both Cyclonus and the e2e tests use the same strategy to validate a Network Policy - probing pods over TCP or UDP, with
+SCTP support available as well for CNIs that support it (such as Calico).
 
 As examples of how we use Cyclonus to help make CNI implementations better from a Network Policy perspective, you can see the following issues:
 
