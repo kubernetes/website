@@ -57,7 +57,7 @@ kubectl describe pods ${POD_NAME}
   절대 스케줄 될 수 없다.
 
 	사용자는 `kubectl get nodes -o <format>` 명령으로 노드의
-	용량을 점검할 수 있다. 다음은 필요한 정보만을 추출하는 몇 가지
+	용량을 점검할 수 있다. 다음은 필요한 정보를 추출하는 몇 가지
 	명령의 예이다.
 
     ```shell
