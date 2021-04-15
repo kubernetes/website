@@ -73,7 +73,6 @@ Kubernetesオブジェクトを`.yaml`ファイルに記載して作成する場
 
 
 * 最も重要、かつ基本的なKubernetesオブジェクト群を学びましょう、例えば、[Pod](/ja/docs/concepts/workloads/pods/)です。
-* Kubernetesの[コントローラー](/docs/concepts/architecture/controller/)を学びましょう。
+* Kubernetesの[コントローラー](/ja/docs/concepts/architecture/controller/)を学びましょう。
 * [Using the Kubernetes API](/docs/reference/using-api/)はこのページでは取り上げていない他のAPIについて説明します。
-
 
