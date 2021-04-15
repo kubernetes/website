@@ -62,7 +62,7 @@ framework which allows for visual inspection of policies and their effect on a s
 For example, take the following test output.  We found a bug in
 [OVN Kubernetes](https://github.com/ovn-org/ovn-kubernetes/issues/1782). This bug has now been resolved. With this tool the bug was really
 easy to characterize, wherein certain policies caused a state-modification that,
-later on, caused traffic to incorrectly be blocked (even after all Network Policies, cluster wide, were deleted).
+later on, caused traffic to incorrectly be blocked (even after all Network Policies were deleted from the cluster).
 
 This is the network policy for the test in question:
 ```yaml
@@ -107,7 +107,7 @@ z/b .   .   .   .   .   .   .   .   .
 z/c .   .   .   .   .   .   .   .   .
 ```
 
-Below are the observed connectivity results in the case of the OVN bug.  Notice how the top three rows indicate that
+Below are the observed connectivity results in the case of the OVN Kubernetes bug.  Notice how the top three rows indicate that
 all requests from namespace x regardless of pod and destination were blocked.  Since these
 experimental results do not match the expected results, a failure will be reported.  Note
 how the specific pattern of failure provides clear insight into the nature of the problem --
@@ -151,14 +151,14 @@ in general, we needed to solve the overall problem of testing ALL possible Netwo
 For example, a KEP was recently written which introduced the concept of micro versioning to
 Network Policies to accommodate [describing this at the API level](https://github.com/kubernetes/enhancements/pull/2137/files), by Dan Winship.
 
-In response to this increasingly obvious need to comprehensively defined Network
-Policy for all vendors, Matt Fenwick decided to evolve our approach to Network Policy validation again by creating Cyclonus.
+In response to this increasingly obvious need to comprehensively evaluate Network
+Policy implementations from all vendors, Matt Fenwick decided to evolve our approach to Network Policy validation again by creating Cyclonus.
 
 Cyclonus is a comprehensive Network Policy fuzzing tool which verifies a CNI provider
 against hundreds of different Network Policy scenarios, by defining similar truth table/policy
 combinations as demonstrated in the end to end tests, while also providing a hierarchical
 representation of policy "categories".  We've found some interesting nuances and issues
-in almost every CNI we've tested, so far, and have even contributed some fixes back.
+in almost every CNI we've tested so far, and have even contributed some fixes back.
 
 To perform a Cyclonus validation run, you create a Job manifest similar to:
 
@@ -375,7 +375,7 @@ If so, you can run the upstream end to end tests, or Cyclonus, or both.
   for comprehensive functionality, for deep discovery of potential security
   holes: use Cyclonus, and also consider running end-to-end cluster tests.
 - If you're thinking of getting involved with the upstream NetworkPolicy efforts:
-  use Cyclonus, and read at least an outline of what e2e tests are relevant.
+  use Cyclonus, and read at least an outline of which e2e tests are relevant.
 
 ## Where to start with NetworkPolicy testing?
 
@@ -384,7 +384,8 @@ If so, you can run the upstream end to end tests, or Cyclonus, or both.
   Kubernetes Network Policy API constructs.
 - Alternatively, you can use a tool like [sonobuoy](https://github.com/vmware-tanzu/sonobuoy)
   to run the existing E2E tests in Kubernetes, with the `--ginkgo.focus=NetworkPolicy` flag.
-  Note that only versions of sonobuoy built for k8s 1.21 and above will have the *new* Network Policy tests in them.
+  Make sure that you use the K8s conformance image for K8s 1.21 or above (for example, by using the `--kube-conformance-image-version v1.21.0` flag),
+  as older images will not have the *new* Network Policy tests in them.
 
 ## Improvements to the NetworkPolicy API and user experience
 
@@ -467,7 +468,7 @@ Almost every change to the NetworkPolicy API includes weeks or months of discuss
 is the biggest impediment in improving the NetworkPolicy user experience for us, over time.
 
 - We've documented a lot of the history of the Network Policy dialogue [here](https://github.com/jayunit100/network-policy-subproject/blob/master/history.md).
-- We've also taken a poll of users, for what they'd like to see in the Network Policy API [here](https://github.com/jayunit100/network-policy-subproject/blob/master/history.md).
+- We've also taken a poll of users, for what they'd like to see in the Network Policy API [here](https://github.com/jayunit100/network-policy-subproject/blob/master/p0_user_stories.md).
 
 We encourage anyone to provide us with feedback, but our most pressing issues right now
 involve finding *long term owners to help us drive changes*.  
