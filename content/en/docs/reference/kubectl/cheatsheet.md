@@ -217,8 +217,8 @@ kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 # Produce a period-delimited tree of all keys returned for pods, etc
 kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 
-# Produce ENV for all pods
-# Make sure to set your default namespace or this will run on system pods
+# Produce ENV for all pods, assuming you have a default container for the pods, default namespace and the `env` command is supported.
+# Helpful when running any supported command across all pods, not just `env`
 for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod env; done
 ```
 
