@@ -145,7 +145,7 @@ Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz 
 
 # Zasady postępowania
 
-Udział w działaniach społeczności Kubernetes jest regulowany przez [Kodeks postępowania CNCF]((https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/pl.md).
+Udział w działaniach społeczności Kubernetesa jest regulowany przez [Kodeks postępowania CNCF](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/pl.md).
 
 # Dziękujemy!
 
