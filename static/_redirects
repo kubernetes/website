@@ -187,6 +187,8 @@
 /docs/home/contribute/blog-post/ /docs/contribute/start/ 301
 /docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
 
+/docs/reference/command-line-tools-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
+
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
 /docs/reference/generated/cloud-controller-manager/     /docs/reference/command-line-tools-reference/cloud-controller-manager/ 301
