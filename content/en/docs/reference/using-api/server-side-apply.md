@@ -243,7 +243,7 @@ The `atomic` list type is recursive.
 These markers are specified as comments and don't have to be repeated as
 field tags.
 
-#### Compatibility across topology changes
+### Compatibility across topology changes
 
 On rare occurences, a CRD or built-in type author may want to change the
 specific topology of a field in their resource without incrementing its
@@ -292,7 +292,7 @@ Before `spec.data` gets changed from `atomic` to `granular`,
 without a conflict), but it no longer owns `key1` and `key2`, so another
 manager can then modify or delete those fields without conflict.
 
-### Custom Resources
+## Custom Resources
 
 By default, Server Side Apply treats custom resources as unstructured data. All
 keys are treated the same as struct fields, and all lists are considered atomic.
@@ -303,7 +303,7 @@ that contains annotations as defined in the previous "Merge Strategy"
 section, these annotations will be used when merging objects of this
 type.
 
-### Using Server-Side Apply in a controller
+## Using Server-Side Apply in a controller
 
 As a developer of a controller, you can use server-side apply as a way to
 simplify the update logic of your controller. The main differences with a
@@ -318,7 +318,7 @@ read-modify-write and/or patch are the following:
 It is strongly recommended for controllers to always "force" conflicts, since they
 might not be able to resolve or act on these conflicts.
 
-### Transferring Ownership
+## Transferring Ownership
 
 In addition to the concurrency controls provided by [conflict resolution](#conflicts),
 Server Side Apply provides ways to perform coordinated
@@ -387,7 +387,7 @@ Note that whenever the HPA controller sets the `replicas` field to a new value,
 the temporary field manager will no longer own any fields and will be
 automatically deleted. No clean up is required.
 
-## Transferring Ownership Between Users
+### Transferring Ownership Between Users
 
 Users can transfer ownership of a field between each other by setting the field
 to the same value in both of their applied configs, causing them to share
