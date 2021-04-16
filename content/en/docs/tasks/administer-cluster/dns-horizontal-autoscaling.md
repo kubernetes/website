@@ -87,7 +87,7 @@ Create a file named `dns-horizontal-autoscaler.yaml` with this content:
 
 {{< codenew file="admin/dns/dns-horizontal-autoscaler.yaml" >}}
 
-In the file, replace `<SCALE_TARGET>` with your scale target.
+In the file, replace `<SCALE_TARGET>` with your scale target with format: deployment/\*, replicationcontroller/\* or replicaset/\* (not case sensitive).
 
 Go to the directory that contains your configuration file, and enter this
 command to create the Deployment:
