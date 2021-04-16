@@ -69,7 +69,7 @@ Example: `controller.kubernetes.io/pod-deletion-cost=10`
 
 Used on: Pod
 
-This annotation is used to set [Pod Deletion Cost](/docs/content/en/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
 which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
 
 ## beta.kubernetes.io/instance-type (deprecated)
