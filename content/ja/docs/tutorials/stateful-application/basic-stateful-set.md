@@ -421,7 +421,7 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 
 まだ、5つのPersistentVolumeClaimと5つのPersistentVolumeが残っています。[安定したストレージへの書き込み](#writing-to-stable-storage)を読むと、StatefulSetのPodが削除されても、StatefulSetのPodにマウントされたPersistentVolumeは削除されないと書かれています。このことは、StatefulSetのスケールダウンによってPodが削除された場合にも当てはまります。
 
-## StatefulSetsを更新する
+## StatefulSetsを更新する {#updating-statefulsets}
 
 Kubernetes 1.7以降では、StatefulSetコントローラーは自動アップデートをサポートしています。使われる戦略は、StatefulSet APIオブジェクトの`spec.updateStrategy`フィールドによって決まります。この機能はコンテナイメージのアップグレード、リソースのrequestsやlimits、ラベル、StatefulSet内のPodのアノテーションの更新時に利用できます。有効なアップデートの戦略は、`RollingUpdate`と`OnDelete`の2種類です。
 
