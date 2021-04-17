@@ -82,12 +82,12 @@ Kubernetesを保護する為には２つの懸念事項があります。
 
 ワークロードセキュリティに関する懸念事項 | 推奨事項 |
 ------------------------------ | --------------------- |
-RBAC認可(Kubernetes APIへのアクセス) | https://kubernetes.io/docs/reference/access-authn-authz/rbac/
-認証 | https://kubernetes.io/docs/reference/access-authn-authz/controlling-access/ |
+RBAC認可(Kubernetes APIへのアクセス) | https://kubernetes.io/ja/docs/reference/access-authn-authz/rbac/
+認証 | https://kubernetes.io/docs/concepts/security/controlling-access/ |
 アプリケーションのSecret管理(およびetcdへの保存時に暗号化) | https://kubernetes.io/ja/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/ |
 PodSecurityPolicy | https://kubernetes.io/docs/concepts/policy/pod-security-policy/ |
 Quality of Service (およびクラスターリソース管理) | https://kubernetes.io/ja/docs/tasks/configure-pod-container/quality-service-pod/ |
-NetworkPolicy | https://kubernetes.io/docs/concepts/services-networking/network-policies/ |
+NetworkPolicy | https://kubernetes.io/ja/docs/concepts/services-networking/network-policies/ |
 Kubernetes IngressのTLS | https://kubernetes.io/ja/docs/concepts/services-networking/ingress/#tls |
 
 
@@ -123,10 +123,10 @@ TLS経由のアクセスのみ | コードがTCP通信を必要とする場合�
 
 関連するKubernetesセキュリティについて学びます。
 
-* [Podのセキュリティ基準](/docs/concepts/security/pod-security-standards/)
-* [PodのNetworkPolicy](/docs/concepts/services-networking/network-policies/)
+* [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)
+* [Podのネットワークポリシー]](/ja/docs/concepts/services-networking/network-policies/)
+* [Kubernetes APIへのアクセスを制御する](/docs/concepts/security/controlling-access)
 * [クラスターの保護](/docs/tasks/administer-cluster/securing-a-cluster/)
-* [APIアクセスコントロール](/docs/reference/access-authn-authz/controlling-access/)
 * コントロールプレーンとの[通信時のデータ暗号化](/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [保存時のデータ暗号化](/docs/tasks/administer-cluster/encrypt-data/)
 * [Kubernetes Secret](/ja/docs/concepts/configuration/secret/)
