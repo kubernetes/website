@@ -34,7 +34,7 @@ weight: 10
 더 이상 존재하지 않으면, 쿠버네티스는 임시(ephemeral) 볼륨을 삭제하지만,
 퍼시스턴트(persistent) 볼륨은 삭제하지 않는다.
 
-기본적으로 볼륨은 디렉터리일 뿐이며, 일부 데이터가 있을 수 있으며, 파드
+기본적으로 볼륨은 디렉터리이며, 일부 데이터가 있을 수 있으며, 파드
 내 컨테이너에서 접근할 수 있다. 디렉터리의 생성 방식, 이를 지원하는
 매체와 내용은 사용된 특정 볼륨의 유형에 따라
 결정된다.
@@ -149,14 +149,16 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 
 #### azureFile CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 `azureFile` 의 `CSIMigration` 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `file.csi.azure.com` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [Azure 파일 CSI
 드라이버](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 를 설치하고 `CSIMigration` 과 `CSIMigrationAzureFile`
-알파 기능을 활성화해야 한다.
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+
+Azure File CSI 드라이버는 동일한 볼륨을 다른 fsgroup에서 사용하는 것을 지원하지 않는다. Azurefile CSI 마이그레이션이 활성화된 경우, 다른 fsgroup에서 동일한 볼륨을 사용하는 것은 전혀 지원되지 않는다.
 
 ### cephfs
 
@@ -205,14 +207,17 @@ spec:
 
 #### 오픈스택 CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-Cinder의 `CSIMigration` 기능이 활성화된 경우, 기존 트리 내 플러그인에서
-`cinder.csi.openstack.org` 컨테이너 스토리지 인터페이스(CSI)
-드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [오픈스택 Cinder CSI
-드라이버](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)를
-설치하고 `CSIMigration` 과 `CSIMigrationOpenStack`
-베타 기능을 활성화해야 한다.
+Cinder의`CSIMigration` 기능은 Kubernetes 1.21에서 기본적으로 활성화됩니다.
+기존 트리 내 플러그인에서 `cinder.csi.openstack.org` 컨테이너 스토리지 인터페이스(CSI)
+드라이버로 모든 플러그인 작업을 수행한다.
+[오픈스택 Cinder CSI 드라이버](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)가
+클러스터에 설치되어 있어야 한다.
+`CSIMigrationOpenStack` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+`false` 로 설정하여 클러스터에 대한 Cinder CSI 마이그레이션을 비활성화할 수 있다.
+`CSIMigrationOpenStack` 기능을 비활성화하면, 트리 내 Cinder 볼륨 플러그인이
+Cinder 볼륨 스토리지 관리의 모든 측면을 담당한다.
 
 ### 컨피그맵(configMap) {#configmap}
 
