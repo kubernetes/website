@@ -181,6 +181,9 @@ other = "始める前に"
 [subscribe_button]
 other = "購読する"
 
+[thirdparty_message]
+other = """このセクションはKubernetesに必要な機能を提供するサードパーティのプロジェクトへリンクしています。Kubernetesプロジェクトの作者はこれらのプロジェクトへの責任を持ちません。このページはプロジェクトをアルファベット順に列挙しており、<a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCFウェブサイトガイドライン</a>に従っています。このリストにプロジェクトを追加する場合は、変更を送信する前に<a href="/ja/docs/contribute/style/content-guide/#third-party-content">コンテンツガイド</a>を読んでください。"""
+
 [ui_search_placeholder]
 other = "検索"
 
