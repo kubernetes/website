@@ -1,5 +1,5 @@
 ---
-title: Secrets
+title: Secret
 content_type: concept
 feature:
   title: Secretと構成管理
