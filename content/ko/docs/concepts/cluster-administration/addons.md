@@ -16,6 +16,7 @@ content_type: concept
 ## 네트워킹과 네트워크 폴리시
 
 * [ACI](https://www.github.com/noironetworks/aci-containers)는 Cisco ACI로 통합 컨테이너 네트워킹 및 네트워크 보안을 제공한다.
+* [Antrea](https://antrea.io/)는 레이어 3/4에서 작동하여 쿠버네티스를 위한 네트워킹 및 보안 서비스를 제공하며, Open vSwitch를 네트워킹 데이터 플레인으로 활용한다.
 * [Calico](https://docs.projectcalico.org/latest/introduction/)는 네트워킹 및 네트워크 폴리시 제공자이다. Calico는 유연한 네트워킹 옵션을 지원하므로 BGP 유무에 관계없이 비-오버레이 및 오버레이 네트워크를 포함하여 가장 상황에 맞는 옵션을 선택할 수 있다. Calico는 동일한 엔진을 사용하여 서비스 메시 계층(service mesh layer)에서 호스트, 파드 및 (이스티오(istio)와 Envoy를 사용하는 경우) 애플리케이션에 대한 네트워크 폴리시를 적용한다.
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install)은 Flannel과 Calico를 통합하여 네트워킹 및 네트워크 폴리시를 제공한다.
 * [Cilium](https://github.com/cilium/cilium)은 L3 네트워크 및 네트워크 폴리시 플러그인으로 HTTP/API/L7 폴리시를 투명하게 시행할 수 있다. 라우팅 및 오버레이/캡슐화 모드를 모두 지원하며, 다른 CNI 플러그인 위에서 작동할 수 있다.
