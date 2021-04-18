@@ -205,7 +205,7 @@ They use the [`klog`](https://github.com/kubernetes/klog)
 logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 -->
-在使用 systemd 机制的服务器上，kubelet 和容器容器运行时将日志写入到 journald 中。
+在使用 systemd 机制的服务器上，kubelet 和容器运行时将日志写入到 journald 中。
 如果没有 systemd，它们将日志写入到 `/var/log` 目录下的 `.log` 文件中。
 容器中的系统组件通常将日志写到 `/var/log` 目录，绕过了默认的日志机制。
 他们使用 [klog](https://github.com/kubernetes/klog) 日志库。
