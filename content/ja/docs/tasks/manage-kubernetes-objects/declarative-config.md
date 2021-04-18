@@ -1,54 +1,41 @@
 ---
-title: Declarative Management of Kubernetes Objects Using Configuration Files
+title: 設定ファイルを使用したKubernetesオブジェクトの宣言型の管理
 content_type: task
 weight: 10
 ---
 
 <!-- overview -->
-Kubernetes objects can be created, updated, and deleted by storing multiple
-object configuration files in a directory and using `kubectl apply` to
-recursively create and update those objects as needed. This method
-retains writes made to live objects without merging the changes
-back into the object configuration files. `kubectl diff` also gives you a
-preview of what changes `apply` will make.
 
+Kubernetesオブジェクトの作成・更新・削除は、1つのディレクトリに複数のオブジェクトファイルを保存して、`kubectl apply`を使用することで可能になり、必要に応じてこれらのオブジェクトを再帰的に作成・更新できます。この方法では、変更点をオブジェクトの設定ファイルにマージせずに、作成済みのオブジェクトに対して書き込みを行います。また、`kubectl diff`を使用すると、`apply`によってどんな変更が行われるかをプレビューできます。
 
 ## {{% heading "prerequisites" %}}
 
-
-Install [`kubectl`](/docs/tasks/tools/).
+[`kubectl`](/ja/docs/tasks/tools/)をインストールしてください。
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-
-
 <!-- steps -->
 
-## Trade-offs
+## トレードオフ
 
-The `kubectl` tool supports three kinds of object management:
+`kubectl`ツールは3種類のオブジェクトの管理方法をサポートしています。
 
-* Imperative commands
-* Imperative object configuration
-* Declarative object configuration
+* 命令型のコマンド
+* 命令型のオブジェクト管理
+* 宣言型のオブジェクト管理
 
-See [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
-for a discussion of the advantages and disadvantage of each kind of object management.
+各種類のオブジェクト管理の利点と欠点の議論については、[Kubernetesのオブジェクト管理](/ja/docs/concepts/overview/working-with-objects/object-management/)を読んでください。
 
-## Overview
+## 概要
 
-Declarative object configuration requires a firm understanding of
-the Kubernetes object definitions and configuration. Read and complete
-the following documents if you have not already:
+宣言型のオブジェクトの設定はKubernetesオブジェクトの定義と設定について確かな理解を必要とします。まだ読んでいない場合は、以下のドキュメントを読んでください。
 
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [命令型のコマンドを使用してKubernetesのオブジェクトを管理する](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [設定ファイルを使用したKubernetesオブジェクトの命令型の管理](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 
-Following are definitions for terms used in this document:
+以下に、このドキュメントで使用する用語の定義を説明します。
 
-- *object configuration file / configuration file*: A file that defines the
-  configuration for a Kubernetes object. This topic shows how to pass configuration
-  files to `kubectl apply`. Configuration files are typically stored in source control, such as Git.
+- *オブジェクトの設定ファイル/設定ファイル*: Kubernetesオブジェクトの設定を定義するファイル。このトピックでは、設定ファイルを`kubectl apply`にわたす方法について説明します。設定ファイルはGitなどのソースコントロールの中に保存するのが普通です。
 - *live object configuration / live configuration*: The live configuration
   values of an object, as observed by the Kubernetes cluster. These are kept in the Kubernetes
   cluster storage, typically etcd.
@@ -56,66 +43,57 @@ Following are definitions for terms used in this document:
   that makes updates to a live object. The live writers referred to in this topic make changes
   to object configuration files and run `kubectl apply` to write the changes.
 
-## How to create objects
+## オブジェクトの作成方法
 
-Use `kubectl apply` to create all objects, except those that already exist,
-defined by configuration files in a specified directory:
+すでに存在するオブジェクト以外の、指定されたディレクトリ内の設定ファイルとして定義されたすべてのオブジェクトを作成するには、`kubectl apply`を使用してください。
 
 ```shell
 kubectl apply -f <directory>/
 ```
 
-This sets the `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
-annotation on each object. The annotation contains the contents of the object
-configuration file that was used to create the object.
+これにより、各オブジェクトに`kubectl.kubernetes.io/last-applied-configuration: '{...}'`アノテーションが設定されます。このアノテーションには、オブジェクトの作成に使われたオブジェクトの設定ファイルの内容が含まれています。
 
 {{< note >}}
-Add the `-R` flag to recursively process directories.
+`-R`フラグを追加すると、ディレクトリが再帰的に処理されます。
 {{< /note >}}
 
-Here's an example of an object configuration file:
+以下は、オブジェクトの設定ファイルの一例です。
 
 {{< codenew file="application/simple_deployment.yaml" >}}
 
-Run `kubectl diff` to print the object that will be created:
+作成予定のオブジェクトを出力するには、`kubectl diff`を実行します。
 
 ```shell
 kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 {{< note >}}
-`diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run),
-which needs to be enabled on `kube-apiserver`.
+`diff`は、[server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run)を使用しています。そのためには、`kube-apiserver`上で設定を有効にする必要があります。
 
-Since `diff` performs a server-side apply request in dry-run mode,
-it requires granting `PATCH`, `CREATE`, and `UPDATE` permissions.
-See [Dry-Run Authorization](/docs/reference/using-api/api-concepts#dry-run-authorization)
-for details.
-
+`diff`はサーバーサイドのapplyリクエストをdry-runモードで実行するため、`PATCH`、`CREATE`、`UPDATE`の権限を与える必要があります。詳細については、[Dry-Run Authorization](/docs/reference/using-api/api-concepts#dry-run-authorization)を参照してください。
 {{< /note >}}
 
-Create the object using `kubectl apply`:
+`kubectl apply`を使用してオブジェクトを作成します。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
-Print the live configuration using `kubectl get`:
+実際の設定を出力するには、`kubectl get`を使用します。
 
 ```shell
 kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
-The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
-was written to the live configuration, and it matches the configuration file:
+出力を見ると、実際の設定に`kubectl.kubernetes.io/last-applied-configuration`アノテーションが書き込まれていて、それが設定ファイルの内容と一致することがわかります。
 
 ```yaml
 kind: Deployment
 metadata:
   annotations:
     # ...
-    # This is the json representation of simple_deployment.yaml
-    # It was written by kubectl apply when the object was created
+    # これは simple_deployment.yaml の json 表現です。
+    # オブジェクトの作成時に kubectl apply によって書き込まれました。
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
@@ -148,13 +126,12 @@ spec:
   # ...
 ```
 
-## How to update objects
+## オブジェクトの更新方法
 
-You can also use `kubectl apply` to update all objects defined in a directory, even
-if those objects already exist. This approach accomplishes the following:
+`kubectl apply`は、たとえすでにオブジェクトが存在していたとしても、ディレクトリ内で定義されたすべてのオブジェクトの更新をするためにも使用できます。更新を実現するには、次のようなアプローチがあります。
 
-1. Sets fields that appear in the configuration file in the live configuration.
-2. Clears fields removed from the configuration file in the live configuration.
+1. 設定ファイルに現れるフィールドを実際の設定上に設定する。
+2. 設定ファイルからフィールドを実際の設定上でクリアする。
 
 ```shell
 kubectl diff -f <directory>/
@@ -162,40 +139,38 @@ kubectl apply -f <directory>/
 ```
 
 {{< note >}}
-Add the `-R` flag to recursively process directories.
+`-R`フラグを追加すると、ディレクトリが再帰的に処理されます。
 {{< /note >}}
 
-Here's an example configuration file:
+以下は、設定ファイルの一例です。
 
 {{< codenew file="application/simple_deployment.yaml" >}}
 
-Create the object using `kubectl apply`:
+`kubectl apply`を使用してオブジェクトを作成します。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 {{< note >}}
-For purposes of illustration, the preceding command refers to a single
-configuration file instead of a directory.
+説明のために、上記のコマンドではディレクトリではなく単一のファイルを指定しています。
 {{< /note >}}
 
-Print the live configuration using `kubectl get`:
+`kubectl get`を使用して実際の設定を出力します。
 
 ```shell
 kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
-The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
-was written to the live configuration, and it matches the configuration file:
+出力を見ると、実際の設定に`kubectl.kubernetes.io/last-applied-configuration`アノテーションが書き込まれていて、それが設定ファイルの内容と一致することがわかります。
 
 ```yaml
 kind: Deployment
 metadata:
   annotations:
     # ...
-    # This is the json representation of simple_deployment.yaml
-    # It was written by kubectl apply when the object was created
+    # これは simple_deployment.yaml の json 表現です。
+    # オブジェクトの作成時に kubectl apply によって書き込まれました。
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
@@ -228,21 +203,20 @@ spec:
   # ...
 ```
 
-Directly update the `replicas` field in the live configuration by using `kubectl scale`.
-This does not use `kubectl apply`:
+次に、`kubectl scale`を実行して、実際の設定内の`replicas`フィールドを直接更新します。この方法では、`kubectl apply`は使用しません。
 
 ```shell
 kubectl scale deployment/nginx-deployment --replicas=2
 ```
 
-Print the live configuration using `kubectl get`:
+`kubectl get`を使用して実際の設定を出力します。
 
 ```shell
 kubectl get deployment nginx-deployment -o yaml
 ```
 
-The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
-annotation does not contain a `replicas` field:
+
+出力を見ると、`replicas`フィールドが2に設定されていて、`kubectl.kubernetes.io/last-applied-configuration`アノテーションには`replicas`フィールドが含まれないことがわかります。
 
 ```yaml
 apiVersion: apps/v1
@@ -250,8 +224,8 @@ kind: Deployment
 metadata:
   annotations:
     # ...
-    # note that the annotation does not contain replicas
-    # because it was not updated through apply
+    # アノテーションには replicas が含まれていないことに注目してください。
+    # apply によって更新されたわけではないためです。
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
@@ -260,7 +234,7 @@ metadata:
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
-  replicas: 2 # written by scale
+  replicas: 2 # scale によって書き込まれた
   # ...
   minReadySeconds: 5
   selector:
@@ -282,32 +256,31 @@ spec:
       # ...
 ```
 
-Update the `simple_deployment.yaml` configuration file to change the image from
-`nginx:1.14.2` to `nginx:1.16.1`, and delete the `minReadySeconds` field:
+`simple_deployment.yaml`設定ファイルを更新して、imageを`nginx:1.14.2`から`nginx:1.16.1`に変更し、`minReadySeconds`フィールドを削除します。
 
 {{< codenew file="application/update_deployment.yaml" >}}
 
-Apply the changes made to the configuration file:
+設定ファイルに加えた変更をapplyします。
 
 ```shell
 kubectl diff -f https://k8s.io/examples/application/update_deployment.yaml
 kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 ```
 
-Print the live configuration using `kubectl get`:
+`kubectl get`を使用して実際の設定を出力します。
 
 ```shell
 kubectl get -f https://k8s.io/examples/application/update_deployment.yaml -o yaml
 ```
 
-The output shows the following changes to the live configuration:
+出力には、実際の設定に加えられた以下の変更が表示されます。
 
-* The `replicas` field retains the value of 2 set by `kubectl scale`.
+* `replicas` field retains the value of 2 set by `kubectl scale`.
   This is possible because it is omitted from the configuration file.
-* The `image` field has been updated to `nginx:1.16.1` from `nginx:1.14.2`.
-* The `last-applied-configuration` annotation has been updated with the new image.
-* The `minReadySeconds` field has been cleared.
-* The `last-applied-configuration` annotation no longer contains the `minReadySeconds` field.
+* `image` field has been updated to `nginx:1.16.1` from `nginx:1.14.2`.
+* `last-applied-configuration` annotation has been updated with the new image.
+* `minReadySeconds`フィールドがクリアされた。
+* `last-applied-configuration`アノテーションには`minReadySeconds`フィールドが
 
 ```yaml
 apiVersion: apps/v1
@@ -351,38 +324,31 @@ spec:
 ```
 
 {{< warning >}}
-Mixing `kubectl apply` with the imperative object configuration commands
-`create` and `replace` is not supported. This is because `create`
-and `replace` do not retain the `kubectl.kubernetes.io/last-applied-configuration`
-that `kubectl apply` uses to compute updates.
+`kubectl apply`を命令型のオブジェクト設定コマンドの`create`や`replace`と組み合わせて使用することはできません。その理由は、`create`と`replace`は`kubectl apply`が更新するために使う`kubectl.kubernetes.io/last-applied-configuration`を保持しないためです。
 {{< /warning >}}
 
-## How to delete objects
+## オブジェクトの削除方法
 
-There are two approaches to delete objects managed by `kubectl apply`.
+`kubectl apply`で管理されたオブジェクトの削除には、2種類のアプローチがあります。
 
-### Recommended: `kubectl delete -f <filename>`
+### 推奨の方法: `kubectl delete -f <filename>`
 
-Manually deleting objects using the imperative command is the recommended
-approach, as it is more explicit about what is being deleted, and less likely
-to result in the user deleting something unintentionally:
+以下のように、命令型のコマンドを使用してオブジェクトを手動で削除するアプローチが推奨されます。このほうが削除される対象がより明確で、ユーザーが意図しないオブジェクトを削除してしまう可能性が低いからです。
 
 ```shell
 kubectl delete -f <filename>
 ```
 
-### Alternative: `kubectl apply -f <directory/> --prune -l your=label`
+### 別の方法: `kubectl apply -f <directory/> --prune -l your=label`
 
-Only use this if you know what you are doing.
+どういう意味であるかを理解していない場合、このコマンドは使わないでください。
 
 {{< warning >}}
-`kubectl apply --prune` is in alpha, and backwards incompatible
-changes might be introduced in subsequent releases.
+`kubectl apply --prune`はアルファ版の機能であるため、将来のリリースで後方互換性のない変更が導入される可能性があります。
 {{< /warning >}}
 
 {{< warning >}}
-You must be careful when using this command, so that you
-do not delete objects unintentionally.
+意図しないオブジェクトを削除しないようにするため、このコマンドを使用するときは十分気をつけなければなりません。
 {{< /warning >}}
 
 As an alternative to `kubectl delete`, you can use `kubectl apply` to identify objects to be deleted after their
@@ -409,18 +375,18 @@ by the label selector query specified with `-l <labels>` and
 do not appear in the subdirectory.
 {{< /warning >}}
 
-## How to view an object
+## オブジェクトの確認方法
 
-You can use `kubectl get` with `-o yaml` to view the configuration of a live object:
+`kubectl get`に`-o yaml`を使用すると、実際のオブジェクトの設定を表示することができます。
 
 ```shell
 kubectl get -f <filename|url> -o yaml
 ```
 
-## How apply calculates differences and merges changes
+## applyが変更の差分とマージを計算する仕組み
 
 {{< caution >}}
-A *patch* is an update operation that is scoped to specific fields of an object
+*patch* is an update operation that is scoped to specific fields of an object
 instead of the entire object. This enables updating only a specific set of fields
 on an object without reading the object first.
 {{< /caution >}}
@@ -432,7 +398,7 @@ configuration. The `kubectl apply` command calculates this patch request
 using the configuration file, the live configuration, and the
 `last-applied-configuration` annotation stored in the live configuration.
 
-### Merge patch calculation
+### マージパッチの計算
 
 The `kubectl apply` command writes the contents of the configuration file to the
 `kubectl.kubernetes.io/last-applied-configuration` annotation. This
@@ -734,7 +700,7 @@ keeps elements added to the live configuration.  Ordering of finalizers
 is lost.
 {{< /comment >}}
 
-## Default field values
+## デフォルトのフィールドの値
 
 The API server sets certain fields to default values in the live configuration if they are
 not specified when the object is created.
@@ -808,7 +774,7 @@ if the desired values match the server defaults. This makes it
 easier to recognize conflicting values that will not be re-defaulted
 by the server.
 
-**Example:**
+**例:**
 
 ```yaml
 # last-applied-configuration
@@ -824,10 +790,10 @@ spec:
         ports:
         - containerPort: 80
 
-# configuration file
+# 設定ファイル
 spec:
   strategy:
-    type: Recreate # updated value
+    type: Recreate # 更新された値
   template:
     metadata:
       labels:
@@ -876,7 +842,7 @@ spec:
         - containerPort: 80
 ```
 
-**Explanation:**
+**説明:**
 
 1. The user creates a Deployment without defining `strategy.type`.
 2. The server defaults `strategy.type` to `RollingUpdate` and defaults the
@@ -916,19 +882,17 @@ the live configuration that do not go through `kubectl apply`.
 
 ### Changing the owner from a configuration file to a direct imperative writer
 
-As of Kubernetes 1.5, changing ownership of a field from a configuration file to
-an imperative writer requires manual steps:
+Kubernetes 1.5時点で、フィールドの所有権を設定ファイルから命令型の書き込みに変更するには、以下のような手動の作業が必要です。
 
-- Remove the field from the configuration file.
-- Remove the field from the `kubectl.kubernetes.io/last-applied-configuration` annotation on the live object.
+- 設定ファイルからフィールドを削除する。
+- 実際のオブジェクト上の`kubectl.kubernetes.io/last-applied-configuration`アノテーションからフィールドを削除する。
 
-## Changing management methods
+## 管理の方法を変更する
 
-Kubernetes objects should be managed using only one method at a time.
-Switching from one method to another is possible, but is a manual process.
+Kubernetesオブジェクトは一度に1つの方法で管理するべきです。1つの方法から他の方法へ切り替えることは可能ではありますが、手動のプロセスになります。
 
 {{< note >}}
-It is OK to use imperative deletion with declarative management.
+宣言型の管理とともに命令型の削除を使用することは問題ありません。
 {{< /note >}}
 
 {{< comment >}}
@@ -979,16 +943,15 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
-## Defining controller selectors and PodTemplate labels
+## コントローラーセレクターとPodTempalteのラベルを定義する
 
 {{< warning >}}
-Updating selectors on controllers is strongly discouraged.
+コントローラー上のセレクターを更新することは強くお勧めしません。
 {{< /warning >}}
 
-The recommended approach is to define a single, immutable PodTemplate label
-used only by the controller selector with no other semantic meaning.
+コントローラーセレクターにしか使用されないような他には意味を持たない、単一のイミュータブルなPodTemplateのラベルを定義するというアプローチが推奨されます。
 
-**Example:**
+**例:**
 
 ```yaml
 selector:
@@ -1002,10 +965,7 @@ template:
 
 ## {{% heading "whatsnext" %}}
 
-
-* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
-* [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-
-
+* [命令型のコマンドを使用してKubernetesオブジェクトを管理する](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [設定ファイルを使用したKubernetesオブジェクトの命令型の管理](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Kubectlコマンドリファレンス](/docs/reference/generated/kubectl/kubectl-commands/)
+* [Kubernetes APIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
