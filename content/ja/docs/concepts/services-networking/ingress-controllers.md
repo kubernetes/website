@@ -24,7 +24,7 @@ Ingressリソースが動作するためには、クラスターでIngressコン
 * [Citrix ingress controller](https://github.com/citrix/citrix-k8s-ingress-controller#readme)は、Citrix Application Delivery Controllerで動作します。
 * [Contour](https://projectcontour.io/)は、[Envoy](https://www.envoyproxy.io/)ベースのIngressコントローラーです。
 * F5 BIG-IPの[Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)はF5 BIG-IPの仮想サーバー上でIngressの設定を可能にします。
-* [Gloo](https://gloo.solo.io)は[Envoy](https://www.envoyproxy.io)をベースにしたオープンソースのIngressコントローラーです。
+* [Gloo](https://gloo.solo.io)は[Envoy](https://www.envoyproxy.io)をベースにしたオープンソースのIngressコントローラーで、API Gateway機能を提供しています。
 * [HAProxy Ingress](https://haproxy-ingress.github.io)は、[HAProxy](http://www.haproxy.org/#desc)用のIngressコントローラーです。
 * [HAProxy Ingress Controller for Kubernetes](https://github.com/haproxytech/kubernetes-ingress)も、[HAProxy](http://www.haproxy.org/#desc)用のIngressコントローラーです。
 * [Istio Ingress](https://istio.io/latest/docs/tasks/traffic-management/ingress/kubernetes-ingress/)は、[Istio](https://istio.io/)ベースのIngressコントローラーです。
