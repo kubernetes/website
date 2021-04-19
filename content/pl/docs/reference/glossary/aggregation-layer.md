@@ -16,4 +16,4 @@ Warstwa agregujące pozwala instalować dodatkowe API w Kubernetesie.
 
 <!--more-->
 
-Po konfiguracji {{< glossary_tooltip text="Kubernetes API Server" term_id="kube-apiserver" >}} aby [wspierał dodatkowe APIs](/docs/tasks/extend-kubernetes/configure-aggregation-layer/), można dodawać obiekty typu `APIService`, w celu "zarejestrowania" ścieżki w URL w API Kubernetes.
+Po ustawieniu {{< glossary_tooltip text="serwera API Kubernetesa" term_id="kube-apiserver" >}}, aby [wspierał dodatkowe APIs](/docs/tasks/extend-kubernetes/configure-aggregation-layer/), można dodawać obiekty typu `APIService`, w celu "zarejestrowania" ścieżki w URL w API Kubernetes.
