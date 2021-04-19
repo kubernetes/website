@@ -18,21 +18,12 @@ APIサーバーは、エンドユーザー、クラスターのさまざまな�
 
 Kubernetes APIを使用すると、Kubernetes API内のオブジェクトの状態をクエリで操作できます（例：Pod、Namespace、ConfigMap、Events）。
 
-APIエンドポイント、リソースタイプ、サンプルについては[APIリファレンス](/docs/reference/kubernetes-api/)で説明しています。
+ほとんどの操作は、APIを使用している[kubectl](/docs/reference/kubectl/overview/)コマンドラインインターフェースもしくは[kubeadm](/docs/reference/setup-tools/kubeadm/)のような別のコマンドラインツールを通して実行できます。
+RESTコールを利用して直接APIにアクセスすることも可能です。
+
+Kubernetes APIを利用してアプリケーションを書いているのであれば、[client libraries](/docs/reference/using-api/client-libraries/)のうちひとつの利用を考えてみてください。
 
 <!-- body -->
-
-## APIの変更
-
-成功を収めているシステムはすべて、新しいユースケースの出現や既存の変化に応じて成長し、変化する必要があります。
-したがって、Kubernetesには、Kubernetes APIを継続的に変更および拡張できる設計機能があります。
-Kubernetesプロジェクトは、既存のクライアントとの互換性を破壊しないこと、およびその互換性を一定期間維持して、他のプロジェクトが適応する機会を提供することを目的としています。
-
-基本的に、新しいAPIリソースと新しいリソースフィールドは追加することができます。
-リソースまたはフィールドを削除するには、[API非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)に従ってください。
-
-互換性のある変更の構成要素とAPIの変更方法については、[APIの変更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)で詳しく説明しています。
-
 
 ## OpenAPI 仕様 {#api-specification}
 
@@ -43,6 +34,7 @@ Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOp
 
 
 <table>
+  <caption style="display:none">OpenAPI v2クエリの有効なリクエストヘッダー値</caption>
   <thead>
      <tr>
         <th>Header</th>
@@ -70,74 +62,53 @@ Kubernetes APIサーバーは、`/openapi/v2`エンドポイントを介してOp
         <td><code>application/json</code>を提供</td>
      </tr>
   </tbody>
-  <caption>OpenAPI v2クエリの有効なリクエストヘッダー値</caption>
 </table>
 
 
-Kubernetesは、他の手段として主にクラスター間の連携用途向けのAPIに、Protocol buffersをベースにしたシリアライズフォーマットを実装しており、そのフォーマットの概要は[デザイン提案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)に記載されています。また各スキーマのIDFファイルは、APIオブジェクトを定義しているGoパッケージ内に配置されています。
-
-## APIバージョニング
-
-フィールドの削除やリソース表現の再構成を簡単に行えるようにするため、Kubernetesは複数のAPIバージョンをサポートしており、`/api/v1`や`/apis/rbac.authorization.k8s.io/v1alpha1`のように、それぞれ異なるAPIのパスが割り当てられています。
-
-APIが、システムリソースと動作について明確かつ一貫したビューを提供し、サポート終了、実験的なAPIへのアクセス制御を有効にするために、リソースまたはフィールドレベルではなく、APIレベルでバージョンが行われます。
-
-JSONとProtocol Buffersのシリアライズスキーマも、スキーマ変更に関して同じガイドラインに従います。ここから以下の説明は、双方のフォーマットをカバーしています。
-
-APIとソフトウエアのバージョニングは、間接的にしか関連していないことに注意してください。[APIとリリースバージョニング提案](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)で、APIとソフトウェアのバージョニングの関連について記載しています。
-
-異なるバージョンのAPIでは、安定性やサポートのレベルも変わります。各レベルの詳細な条件は、[APIの変更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)に記載されています。下記に簡潔にまとめます:
-
-- アルファレベル(版):
-  - バージョン名に`alpha`を含みます(例、`v1alpha1`)。
-  - バグが多いかもしれません。アルファ機能の有効化がバグを顕在化させるかもしれません。デフォルトでは無効となっています。
-  - アルファ機能のサポートは、いつでも通知無しに取りやめられる可能性があります。
-  - ソフトウェアリリース後、APIが通知無しに互換性が無い形で変更される可能性があります。
-  - バグが増えるリスク、また長期サポートが無いことから、短期間のテスト用クラスターでの利用を推奨します。
-- ベータレベル(版):
-  - バージョン名に`beta`を含みます(例、`v2beta3`)。
-  - コードは十分にテストされています。ベータ機能の有効化は安全だと考えられます。デフォルトで有効化されています。
-  - 全体的な機能のサポートは取りやめられませんが、詳細は変更される可能性があります。
-  - オブジェクトのスキーマ、意味はその後のベータ、安定版リリースで互換性が無い形で変更される可能性があります。その場合、次のバージョンへアップデートするための手順を提供します。その手順ではAPIオブジェクトの削除、修正、再作成が必要になるかもしれません。修正のプロセスは多少の検討が必要になるかもしれません。これは、この機能を利用しているアプリケーションでダウンタイムが必要になる可能性があるためです。
-  - 今後のリリースで、互換性の無い変更が行われる可能性があるため、ビジネスクリティカルな場面以外での利用を推奨します。もし複数のクラスターを持っており、それぞれ個別にアップグレードが可能な場合、この制限の影響を緩和できるかもしれません。
-  - **是非ベータ機能を試して、フィードバックをください！ベータから安定版になってしまうと、より多くの変更を加えることが難しくなってしまいます。**
-- 安定版:
-  - バージョン名は`vX`のようになっており、`X`は整数です。
-  - 安定版の機能は、今後のリリースバージョンにも適用されます。
-
-## APIグループ {#api-groups}
-
-APIの拡張を簡易に行えるようにするため、Kubernetesは[*APIグループ*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)を実装しました。
-APIグループは、RESTのパスとシリアライズされたオブジェクトの`apiVersion`フィールドで指定されます。
-
-クラスターにはいくつかのAPIグループがあります:
-
-1. *core* グループ(*legacy group* とも呼ばれます)は、`/api/v1`というRESTのパスで、`apiVersion: v1`を使います。
-
-1. 名前付きのグループは、`/apis/$GROUP_NAME/$VERSION`というRESTのパスで、`apiVersion: $GROUP_NAME/$VERSION`(例、`apiVersion: batch/v1`)を使います。Kubernetesの[APIリファレンス](/docs/reference/kubernetes-api/)にすべての使用可能なAPIグループのリストがあります。
-
-[カスタムリソース](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)でAPIを拡張するために、2つの方法があります:
-
-1. [カスタムリソース定義](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)は、APIサーバーが選択したリソースAPIを提供する方法を宣言的に定義できます。
-1. [独自の拡張APIサーバーを実装](/docs/tasks/extend-kubernetes/setup-extension-api-server/)し、[アグリゲーター](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)を使用してクライアントに対してシームレスにすることもできます。
-
-## APIグループの有効化、無効化
-
-いくつかのリソースとAPIグループはデフォルトで有効になっています。それらは、kube-apiserverのコマンドラインオプションとしてAPIサーバーの`--runtime-config`設定で、有効化、無効化できます。
-
-`--runtime-config`は、カンマ区切りの複数の値を設定可能です。例えば、batch/v1を無効化する場合、`--runtime-config=batch/v1=false`をセットし、batch/v2alpha1を有効化する場合、`--runtime-config=batch/v2alpha1`をセットします。このフラグは、APIサーバーのランタイム設定を表すkey=valueのペアを、カンマ区切りで指定したセットを指定可能です。
-
-{{< note >}}APIグループ、リソースの有効化、無効化は、`--runtime-config`の変更を反映するため、kube-apiserverとkube-controller-managerの再起動が必要です。{{< /note >}}
+Kubernetesは、他の手段として主にクラスター間の連携用途向けのAPIに、Protocol buffersをベースにしたシリアライズフォーマットを実装しています。このフォーマットに関しては、[Kubernetes Protobuf serialization](https://github.com/kubernetes/community/blob/master/contributors/des ign-proposals/api-machinery/protobuf.md)デザイン提案を参照してください。また、各スキーマのInterface Definition Language（IDL）ファイルは、APIオブジェクトを定義しているGoパッケージないに配置されています。
 
 ## 永続性
 
 KubernetesはAPIリソースの観点からシリアル化された状態を{{< glossary_tooltip term_id="etcd" >}}に書き込むことで保存します。
 
+## APIグループとバージョニング
+
+フィールドの削除やリソース表現の再構成を簡単に行えるようにするため、Kubernetesは複数のAPIバージョンをサポートしており、`/api/v1`や`/apis/rbac.authorization.k8s.io/v1alpha1`のように、それぞれ異なるAPIのパスが割り当てられています。
+
+APIが、システムリソースと動作について明確かつ一貫したビューを提供し、サポート終了、実験的なAPIへのアクセス制御を有効にするために、リソースまたはフィールドレベルではなく、APIレベルでバージョンが行われます。
+
+APIの発展や拡張を簡易に行えるようにするため、Kubernetesは[enabled or disabled](/docs/reference/using-api/#enabling-or-disabling)を行える[APIグループ](/docs/reference/using-api/#api-groups)を実装しました。
+
+APIリソースは、APIグループ、リソースタイプ、ネームスペース（namespacedリソースのための）、名前によって区別されます。APIサーバーは、APIバージョン間の変換を透過的に処理します。すべてのバージョンの違いは、実際のところ同じ永続データとして表現されます。APIサーバーは、同じ基本的なデータを複数のAPIバージョンで提供することができます。
+
+例えば、同じリソースで`v1`と`v1beta1`の2つのバージョンが有ることを考えてみます。`v1beta1`バージョンのAPIを利用しオブジェクトを最初に作成したとして、`v1beta1`もしくは`v1`どちらのAPIバージョンを利用してもオブジェクトのread、update、deleteができます。
+
+## APIの変更
+
+成功を収めているシステムはすべて、新しいユースケースの出現や既存の変化に応じて成長し、変化する必要があります。
+したがって、Kubernetesには、Kubernetes APIを継続的に変更および拡張できる設計機能があります。
+Kubernetesプロジェクトは、既存のクライアントとの互換性を破壊しないこと、およびその互換性を一定期間維持して、他のプロジェクトが適応する機会を提供することを目的としています。
+
+基本的に、新しいAPIリソースと新しいリソースフィールドは追加することができます。
+リソースまたはフィールドを削除するには、[API非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)に従ってください。
+
+Kubernetesは、公式のKubernetes APIが一度一般提供（GA）に達した場合、通常は`v1`APIバージョンです、互換性を維持することを強い責任があります。さらに、Kubernetesは_beta_についても可能な限り互換性を維持し続けます。ベータAPIを採用した場合、その機能が安定版になったあとでも、APIを利用してクラスタを操作し続けることができます。
+
+{{< note >}}
+Kubernetesは、_alpha_APIバージョンについても互換性の維持に注力しますが、いくつかの事情により不可である場合もあります。アルファAPIバージョンを使っている場合、クラスタのアップグレードやAPIが変更された場合に備えて、Kubernetesのリリースノートを確認してください。
+{{< /note >}}
+
+## APIの拡張
+
+Kubernetes APIは2つの方法で拡張できます。
+
+1. [カスタムリソース](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)は、APIサーバーが選択したリソースAPIをどのように提供するかを宣言的に定義します。
+1. [アグリゲーションレイヤー](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)を実装することでKubernetes APIを拡張することもできます。
+
 
 ## {{% heading "whatsnext" %}}
 
-[APIアクセスの制御](/docs/reference/access-authn-authz/controlling-access/)は、クラスターがAPIアクセスの認証と承認を管理する方法を説明しています。
-
-全体的なAPI規則は、[API規則](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)の資料で説明されています。
-
-APIエンドポイント、リソースタイプ、サンプルについては、[APIリファレンス](/docs/reference/kubernetes-api/)をご覧ください。
+- 自分自身で[CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)を追加してKubernetes APIを拡張する方法について学んでください。
+- [Controlling Access To The Kubernetes API](/docs/concepts/security/controlling-access/)では、クラスターがAPIアクセスの認証と承認を管理する方法を説明しています。
+- [APIリファレンス](/ja/docs/reference/kubernetes-api/)を読んで、APIエンドポイント、リソースタイプやサンプルについて学んでください。
+- [API changes](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)から、互換性のある変更とは何か, どのようにAPIを変更するかについて学んでください。
