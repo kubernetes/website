@@ -181,8 +181,8 @@ and influencing the scheduler to schedule workloads to the compromised node.
 The `NodeRestriction` admission plugin prevents kubelets from setting or modifying labels with a `node-restriction.kubernetes.io/` prefix.
 To make use of that label prefix for node isolation:
 -->
-`NodeRestriction` 准入插件防止 kubelet 使用 `node-restriction.kubernetes.io/`
-前缀设置或修改标签。要使用该标签前缀进行节点隔离：
+`NodeRestriction` 准入插件防止 kubelet 设置或修改前缀为`node-restriction.kubernetes.io/`的标签。
+要使用该标签前缀进行节点隔离：
 
 <!--
 1. Check that you're using Kubernetes v1.11+ so that NodeRestriction is available.
