@@ -15,4 +15,4 @@ Osoba tworząca aplikację która działa na klastrze Kubernetes.
 <!--more-->
 
 Deweloper aplikacji skupia się na jednej części aplikacji.
-to może mieć różny zakres - zależy od kierunku spojrzenia i perspektywy.
+Zakres jego prac może być bardzo różny.
