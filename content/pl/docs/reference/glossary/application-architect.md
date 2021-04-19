@@ -14,6 +14,6 @@ Osoba odpowiedzialna za wysokopoziomową architekturę aplikacji.
 
 <!--more-->
 
-Architekt zapewnia wytyczne, według których zaimplementowana aplikacja jest w stanie współdziałać z otoczeniem w taki sposób. Architektura powinna być tak dobrana aby aplikacje były łatwe w skalowaniu i utrzymaniu.
+Architekt zapewnia wytyczne, według których zaimplementowana aplikacja jest w stanie współdziałać z otoczeniem w sposób, który jest łatwy w skalowaniu i utrzymaniu.
 
 Otoczenie może zawierać takie komponenty jak bazy danych, warstwę zbierania logów i metryk, inne mikroserwisy itd.
