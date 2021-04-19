@@ -188,9 +188,9 @@ When a single IngressClass resource has this annotation set to `"true"`, new Ing
 
 {{< note >}} Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`. {{< /note >}}
 
-## storageclass.kubernetes.io//is-default-class
+## storageclass.kubernetes.io/is-default-class
 
-Example: `storageclass.kubernetes.io//is-default-class: true`
+Example: `storageclass.kubernetes.io/is-default-class=true`
 
 Used on: StorageClass
 
@@ -261,4 +261,3 @@ Sets this taint on a node to mark it as unusable, when kubelet is started with t
 Example: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
 
 If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
-
