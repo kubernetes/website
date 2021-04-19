@@ -664,7 +664,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `IndexedJob`: Allows the [Job](/docs/concepts/workloads/controllers/job/)
   controller to manage Pod completions per completion index.
 - `IngressClassNamespacedParams`: Allow namespace-scoped parameters reference in
-  `IngressClass` resouce. This feature adds two fields - `Scope` and `Namespace`
+  `IngressClass` resource. This feature adds two fields - `Scope` and `Namespace`
   to `IngressClass.spec.parameters`.
 - `IPv6DualStack`: Enable [dual stack](/docs/concepts/services-networking/dual-stack/)
   support for IPv6.
@@ -679,7 +679,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/606-compute-device-assignment/README.md)
   for more details.
 - `KubeletPodResourcesGetAllocatable`: Enable the kubelet's pod resources `GetAllocatableResources` functionality.
-  This API augments the [resource allocation reporting](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
+  This API augments the [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
   with informations about the allocatable resources, enabling clients to properly track the free compute resources on a node.
 - `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and
   node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the
@@ -712,7 +712,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
-- `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/content/en/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+- `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
    feature which allows users to influence ReplicaSet downscaling order.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
@@ -730,7 +730,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   a single process namespace between containers running in a pod.  More details can be found in
   [Share Process Namespace between Containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/).
 - `ProbeTerminationGracePeriod`: Enable [setting probe-level
-  `terminationGracePeriodSeconds`](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationGracePeriodSeconds)
+  `terminationGracePeriodSeconds`](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationgraceperiodseconds)
    on pods.  See the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2238-liveness-probe-grace-period) for more details.
 - `ProcMountType`: Enables control over the type proc mounts for containers
   by setting the `procMount` field of a SecurityContext.
@@ -776,7 +776,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceInternalTrafficPolicy`: Enables the `InternalTrafficPolicy` field on Services
 - `ServiceLBNodePortControl`: Enables the `spec.allocateLoadBalancerNodePorts`
   field on Services.
-- `ServiceLoadBalancerClass`: Enables the `LoadBalancerClass` field on Services. See [Specifying class of load balancer implementation](/docs/concepts/services-networking/service/#specifying-class-of-load-balancer-implementation-load-balancer-class) for more details.
+- `ServiceLoadBalancerClass`: Enables the `LoadBalancerClass` field on Services. See [Specifying class of load balancer implementation](/docs/concepts/services-networking/service/#load-balancer-class) for more details.
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers
   created by a cloud provider. A node is eligible for exclusion if labelled with
@@ -835,7 +835,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource
   assignments for different components in Kubernetes. See
   [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
-- 'VolumeCapacityPriority`: Enable support for prioritizing nodes in different
+- `VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
 - `VolumePVCDataSource`: Enable support for specifying an existing PVC as a DataSource.
 - `VolumeScheduling`: Enable volume topology aware scheduling and make the
