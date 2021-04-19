@@ -77,7 +77,7 @@ KubernetesはAPIリソースの観点からシリアル化された状態を{{< 
 
 APIが、システムリソースと動作について明確かつ一貫したビューを提供し、サポート終了、実験的なAPIへのアクセス制御を有効にするために、リソースまたはフィールドレベルではなく、APIレベルでバージョンが行われます。
 
-APIの発展や拡張を簡易に行えるようにするため、Kubernetesは[enabled or disabled](/docs/reference/using-api/#enabling-or-disabling)を行える[APIグループ](/docs/reference/using-api/#api-groups)を実装しました。
+APIの発展や拡張を簡易に行えるようにするため、Kubernetesは[有効もしくは無効](/docs/reference/using-api/#enabling-or-disabling)を行える[APIグループ](/docs/reference/using-api/#api-groups)を実装しました。
 
 APIリソースは、APIグループ、リソースタイプ、ネームスペース（namespacedリソースのための）、名前によって区別されます。APIサーバーは、APIバージョン間の変換を透過的に処理します。すべてのバージョンの違いは、実際のところ同じ永続データとして表現されます。APIサーバーは、同じ基本的なデータを複数のAPIバージョンで提供することができます。
 
@@ -108,7 +108,7 @@ Kubernetes APIは2つの方法で拡張できます。
 
 ## {{% heading "whatsnext" %}}
 
-- 自分自身で[CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)を追加してKubernetes APIを拡張する方法について学んでください。
-- [Controlling Access To The Kubernetes API](/docs/concepts/security/controlling-access/)では、クラスターがAPIアクセスの認証と承認を管理する方法を説明しています。
+- 自分自身で[カスタムリソース定義](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)を追加してKubernetes APIを拡張する方法について学んでください。
+- [Kubernetes APIのアクセス制御 ](/docs/concepts/security/controlling-access/)では、クラスターがAPIアクセスの認証と承認を管理する方法を説明しています。
 - [APIリファレンス](/ja/docs/reference/kubernetes-api/)を読んで、APIエンドポイント、リソースタイプやサンプルについて学んでください。
-- [API changes](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)から、互換性のある変更とは何か, どのようにAPIを変更するかについて学んでください。
+- [APIの変更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)から、互換性のある変更とは何か, どのようにAPIを変更するかについて学んでください。
