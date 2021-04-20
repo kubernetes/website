@@ -925,7 +925,7 @@ In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` vo
 ### 将 ConfigMap 数据添加到数据卷中的特定路径
 
 使用 `path` 字段为特定的 ConfigMap 项目指定预期的文件路径。
-在这里，`SPECIAL_LEVEL` 将挂载在 `config-volume` 数据卷中 `/etc/config/keys` 目录下。
+在这里，ConfigMap中，键值 `SPECIAL_LEVEL` 的内容将挂载在 `config-volume` 数据卷中 `/etc/config/keys` 文件下。
 
 {{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
 
