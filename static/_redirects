@@ -14,7 +14,7 @@
 /ko/docs/     /ko/docs/home/ 301!
 /no/docs/     /no/docs/home/ 301!
 /pl/docs/     /pl/docs/home/ 301!
-/pt/docs/     /pt/docs/home/ 301!
+/pt-br/docs/  /pt-br/docs/home/ 301!
 /ru/docs/     /ru/docs/home/ 301!
 /uk/docs/     /uk/docs/home/ 301!
 /vi/docs/     /vi/docs/home/ 301!
@@ -524,3 +524,5 @@
 
 /docs/concepts/configuration/pod-overhead/     /docs/concepts/scheduling-eviction/pod-overhead/   301
 /id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
+
+/pt/*         /pt-br/:splat  302!
