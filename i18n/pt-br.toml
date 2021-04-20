@@ -218,8 +218,23 @@ other = "Seu servidor Kubernetes deve ser versão"
 [version_check_tocheck]
 other = "Para verificar a versão, digite "
 
+[version_menu]
+other = "Versões"
+
 [warning]
 other = "Aviso:"
 
 [whatsnext_heading]
 other = "Qual é o próximo"
+
+[print_printable_section]
+other = "Essa é a versão completa de impressão dessa seção"
+
+[print_click_to_print]
+other = "Clique aqui para imprimir"
+
+[print_show_regular]
+other = "Retornar à visualização normal"
+
+[print_entire_section]
+other = "Imprimir toda essa seção"
