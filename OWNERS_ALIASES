@@ -3,7 +3,6 @@ aliases:
     - castrojo
     - kbarnard10
     - onlydole
-    - zacharysarah
     - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
     - castrojo
@@ -33,7 +32,6 @@ aliases:
     - sftim
     - steveperry-53
     - tengqm
-    - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
