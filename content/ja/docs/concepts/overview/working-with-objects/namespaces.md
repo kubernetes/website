@@ -24,8 +24,6 @@ Namespaceは名前空間のスコープを提供します。リソース名は�
 
 Namespaceは、複数のユーザーの間でクラスターリソースを分割する方法です。(これは[リソースクォータ](/docs/concepts/policy/resource-quotas/)を介して分割します。)
 
-Kubernetesの将来的なバージョンにおいて、同一のNamespace内のオブジェクトは、デフォルトで同一のアクセスコントロールポリシーが適用されます。
-
 同じアプリケーションの異なるバージョンなど、少し違うリソースをただ分割するだけに、複数のNamespaceを使う必要はありません。
 同一のNamespace内でリソースを区別するためには[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を使用してください。
 
