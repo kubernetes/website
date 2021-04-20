@@ -20,7 +20,7 @@ Troubleshooting always begins with information gathering. While much attention h
 Kubernetes annotations are designed to solve exactly this problem. Oft-overlooked, Kubernetes annotations are designed to add metadata to Kubernetes objects. The Kubernetes documentation says annotations can “attach arbitrary non-identifying metadata to objects.” This means that annotations should be used for attaching metadata that is external to Kubernetes (i.e., metadata that Kubernetes won’t use to identify objects. As such, annotations can contain any type of data. This is a contrast to labels, which are designed for uses internal to Kubernetes. As such, label structure and values are [constrained](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) so they can be efficiently used by Kubernetes.
 
 
-## Kubernetes Annotations in Action
+## Kubernetes annotations in action
 
 Here is an example. Imagine you have a Kubernetes service for quoting, called the quote service. You can do the following:
 
@@ -28,7 +28,7 @@ Here is an example. Imagine you have a Kubernetes service for quoting, called th
 kubectl annotate service quote a8r.io/owner=”@sally”
 ```
 
-In this example, we’ve just added an annotation called `a8r.io/owner` with the value of @sally. Now, we can use `kubectl describe` to get the information.
+In this example, we've just added an annotation called `a8r.io/owner` with the value of @sally. Now, we can use `kubectl describe` to get the information.
 
 ```
 Name:              quote
@@ -85,15 +85,16 @@ Adopting a common convention for annotations ensures consistency and understanda
 | `a8r.io/dependencies`                      | Unstructured text describing the service dependencies for humans. |
 
 
-## Visualizing annotations: service catalogs
+## Visualizing annotations: Service Catalogs
 
-As the number of microservices and annotations proliferate, running `kubectl describe` can get tedious. Moreover, using `kubectl describe` requires every developer to have some direct access to the Kubernetes cluster. Over the past few years, [service catalogs](https://www.getambassador.io/learn/kubernetes-glossary/service-catalog) have gained greater visibility in the Kubernetes ecosystem. Popularized by tools such as [Shopify's ServicesDB](https://shopify.engineering/scaling-mobile-development-by-treating-apps-as-services) and [Spotify's System Z](https://dzone.com/articles/modeling-microservices-at-spotify-with-petter-mari), service catalogs are internally-facing developer portals that present critical information about microservices. Note that these service catalogs should not be confused with the [Kubernetes Service Catalog project](https://svc-cat.io/). Built on the Open Service Broker API, the Kubernetes Service Catalog enables Kubernetes operators to plug in different services (e.g., databases) to their cluster.
+As the number of microservices and annotations proliferate, running `kubectl describe` can get tedious. Moreover, using `kubectl describe` requires every developer to have some direct access to the Kubernetes cluster. Over the past few years, service catalogs have gained greater visibility in the Kubernetes ecosystem. Popularized by tools such as [Shopify's ServicesDB](https://shopify.engineering/scaling-mobile-development-by-treating-apps-as-services) and [Spotify's System Z](https://dzone.com/articles/modeling-microservices-at-spotify-with-petter-mari), service catalogs are internally-facing developer portals that present critical information about microservices.
 
-Historically, service catalogs have not been a key piece of infrastructure, as applications consisted of a single monolith. Today, with distributed development and microservices the norm, service catalogs are increasingly being adopted as a best practice. Some popular options today include [Backstage](https://backstage.io/) and [Ambassador Service Catalog](https://www.getambassador.io/products/service-catalog). Backstage is a highly flexible project ideal for organizations that wish to customize every aspect of their service catalog, while Ambassador Service Catalog provides a turnkey, cloud-hosted solution that can be set up quickly.
+Note that these service catalogs should not be confused with the [Kubernetes Service Catalog project](https://svc-cat.io/). Built on the Open Service Broker API, the Kubernetes Service Catalog enables Kubernetes operators to plug in different services (e.g., databases) to their cluster.
 
 ## Annotate your services now and thank yourself later
+
 Much like implementing observability within microservice systems, you often don’t realize that you need human service discovery until it’s too late. Don't wait until something is on fire in production to start wishing you had implemented better metrics and also documented how to get in touch with the part of your organization that looks after it.
 
-There's enormous benefits to building an effective [version 0](https://www.getambassador.io/learn/kubernetes-glossary/version-0/) of any service: a “[dancing skeleton](https://containerjournal.com/topics/container-management/dancing-skeleton-apis-and-microservices/)” application with a thin slice of complete functionality that can be deployed to production with a minimal yet effective continuous delivery pipeline. 
+There's enormous benefits to building an effective “version 0” service: a [_dancing skeleton_](https://containerjournal.com/topics/container-management/dancing-skeleton-apis-and-microservices/) application with a thin slice of complete functionality that can be deployed to production with a minimal yet effective continuous delivery pipeline.
 
 Adding service annotations should be an essential part of your “version 0” for all of your services. Add them now, and you’ll thank yourself later.
