@@ -99,6 +99,18 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 {{< note >}} Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone). {{< /note >}}
 
+## statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
+
+Example:
+
+`statefulset.kubernetes.io/pod-name=mystatefulset-7`
+
+When a StatefulSet controller creates a Pod for the StatefulSet, the control plane
+sets this label on that Pod. The value of the label is the name of the Pod being created.
+
+See [Pod Name Label](/docs/concepts/workloads/controllers/statefulset/#pod-name-label) in the
+StatefulSet topic for more details.
+
 ## topology.kubernetes.io/region {#topologykubernetesioregion}
 
 Example:
