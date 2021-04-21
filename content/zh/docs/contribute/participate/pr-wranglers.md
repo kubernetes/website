@@ -11,11 +11,11 @@ weight: 20
 
 <!-- overview -->
 <!--
-SIG Docs [approvers](/docs/contribute/participating/roles-and-responsibilites/#approvers) take week-long shifts [managing pull requests](https://github.com/kubernetes/website/wiki/PR-Wranglers) for the repository.
+SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilites/#approvers) take week-long shifts [managing pull requests](https://github.com/kubernetes/website/wiki/PR-Wranglers) for the repository.
 
 This section covers the duties of a PR wrangler. For more information on giving good reviews, see [Reviewing changes](/docs/contribute/review/).
 -->
-SIG Docs 的[批准人（Approvers）](/zh/docs/contribute/participating/#approvers)们每周轮流负责
+SIG Docs 的[批准人（Approvers）](/zh/docs/contribute/participate/roles-and-responsibilites/#approvers)们每周轮流负责
 [管理仓库的 PRs](https://github.com/kubernetes/website/wiki/PR-Wranglers)。
 
 本节介绍 PR 管理者的职责。关于如何提供较好的评审意见，可参阅
@@ -94,6 +94,7 @@ These queries exclude localization PRs. All queries are against the main branch 
 -->
 - [未签署 CLA，不可合并的 PR](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3Alanguage%2Fen)：
   提醒贡献者签署 CLA。如果机器人和审阅者都已经提醒他们，请关闭 PR，并提醒他们在签署 CLA 后可以重新提交。
+
   **在作者没有签署 CLA 之前，不要审阅他们的 PR！**
 
 - [需要 LGTM](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge%2Fwork-in-progress+-label%3Ado-not-merge%2Fhold+label%3Alanguage%2Fen+-label%3Algtm)：
@@ -108,11 +109,27 @@ These queries exclude localization PRs. All queries are against the main branch 
   列举针对主分支的、没有明确合并障碍的 PR。
   在浏览 PR 时，可以将 "XS" 尺寸标签更改为 "S"、"M"、"L"、"XL"、"XXL"。
 
-- [非主分支的 PR](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3Alanguage%2Fen+-base%3Amaster)：
+- [非主分支的 PR](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3Alanguage%2Fen+-base%3Amaster): If the PR is against a `dev-` branch, it's for an upcoming release. Assign the [docs release manager](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles) using: `/assign @<manager's_github-username>`. If the PR is against an old branch, help the author figure out whether it's targeted against the best branch.
   如果 PR 针对 `dev-` 分支，则表示它适用于即将发布的版本。
   请添加带有 `/assign @<负责人的 github 账号>`，将其指派给 
-  [发行版本负责人](https://github.com/kubernetes/sig-release/tree/master/release-team)。
+  [发行版本负责人](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles)。
   如果 PR 是针对旧分支，请帮助 PR 作者确定是否所针对的是最合适的分支。
+
+<!--
+### Helpful Prow commands for wranglers
+-->
+### 对管理者有用的 Prow 命令  {#helpful-prow-commands-for-wranglers}
+
+```
+# 添加 English 标签
+/language en
+
+# 如果 PR 包含多个提交（commits），添加 squash 标签
+/label tide/merge-method-squash
+
+# 使用 Prow 来为 PR 重设标题（例如一个正在处理 [WIP] 的 PR 或为 PR 提供更好的细节信息）
+/retitle [WIP] <TITLE>
+```
 
 <!--
 ### When to close Pull Requests
