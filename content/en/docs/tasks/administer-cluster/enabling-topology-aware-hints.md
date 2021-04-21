@@ -27,7 +27,7 @@ The following prerequisite is needed in order to enable topology aware hints:
 ## Enable Topology Aware Hints
 
 To enable service topology hints, enable the `TopologyAwareHints` [feature
-gate](docs/reference/command-line-tools-reference/feature-gates/) for the
+gate](/docs/reference/command-line-tools-reference/feature-gates/) for the
 kube-apiserver, kube-controller-manager, and kube-proxy:
 
 ```

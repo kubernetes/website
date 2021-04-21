@@ -38,7 +38,7 @@ In this document, when we talk about Windows containers we mean Windows containe
 Refer to the following table for Windows operating system support in Kubernetes. A single heterogeneous Kubernetes cluster can have both Windows and Linux worker nodes. Windows containers have to be scheduled on Windows nodes and Linux containers on Linux nodes.
 
 | Kubernetes version | Windows Server LTSC releases | Windows Server SAC releases |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | *Kubernetes v1.17* | Windows Server 2019 | Windows Server ver 1809 |
 | *Kubernetes v1.18* | Windows Server 2019 | Windows Server ver 1809, Windows Server ver 1903, Windows Server ver 1909 |
 | *Kubernetes v1.19* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |

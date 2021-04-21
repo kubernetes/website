@@ -60,7 +60,7 @@ kubeadm init --config kubeadm-config.yaml
 
 {{< note >}}
 Kubeadm uses the same `KubeletConfiguration` for all nodes in the cluster.
-The `KubeletConfiguration` is stored in a [ConfigMap](docs/concepts/configuration/configmap)
+The `KubeletConfiguration` is stored in a [ConfigMap](/docs/concepts/configuration/configmap)
 object under the `kube-system` namespace.
 
 Executing the sub commands `init`, `join` and `upgrade` would result in kubeadm
