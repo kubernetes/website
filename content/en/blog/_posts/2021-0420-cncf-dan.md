@@ -38,7 +38,7 @@ involved in with Marine Reach. -->
 During the MTN project, Bob shipped servers to Hippie's home in Portland,
 Oregon, to help with the network-booting work. When Hippie later moved to
 Aotearoa New Zealand, he was unable to bring the servers with them. Hippie then
-asked bob if he had any money available to help relocate the servers to Aotearoa
+asked Bob if he had any money available to help relocate the servers to Aotearoa
 New Zealand. Bob introduced Hippie to someone who could help. This person was
 [Dan Kohn](https://en.wikipedia.org/wiki/Dan_Kohn). Bob introduced the two of
 them, telling Dan about Hippie's work and values. A relationship was formed, the
@@ -57,7 +57,7 @@ asked Hippie if he'd like to join the CNCF to help demonstrate what the
 orginzation is capable of. Hippie jumped in, helping to create a [Demo of CNCF
 technologies](https://github.com/cncf/demo/).
 
-While the demo did not get much traction, it was foundational in expoloring
+While the demo did not get much traction, it was foundational in exploring
 ideas which evolved into Hippie's next project with CNCF. Dan had a vision to
 get all cloud providers actively engaged in the cloud-native experience. This
 vision manifested as [Cross-Cloud](https://github.com/crosscloudci/cross-cloud),
@@ -74,7 +74,7 @@ Germany. It was here that Dan introduced the Kubernetes conformance standard,
 and the Kubernetes Certified Service Provider program.
 
 A year later, in February 2018 [Kenichi Omichi](https://github.com/oomichi) dug
-into the Kubernetes logs and found that Kubernetes had 481 API endpoints only 53
+into the Kubernetes logs and found that Kubernetes had 481 API endpoints, only 53
 of them were covered by tests. Dan knew that for the [Certified Kubernetes
 brand](https://github.com/cncf/k8s-conformance/pulls#certified-kubernetes) to
 have meaning, they needed to invest to make sure test coverage was much higher.
