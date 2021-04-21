@@ -126,11 +126,23 @@ enforced/disallowed:
 		<tr>
 			<td>SELinux <em>(optional)</em></td>
 			<td>
-				Setting custom SELinux options should be disallowed.<br>
+				Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.<br>
 				<br><b>Restricted Fields:</b><br>
-				spec.securityContext.seLinuxOptions<br>
-				spec.containers[*].securityContext.seLinuxOptions<br>
-				spec.initContainers[*].securityContext.seLinuxOptions<br>
+				spec.securityContext.seLinuxOptions.type<br>
+				spec.containers[*].securityContext.seLinuxOptions.type<br>
+				spec.initContainers[*].securityContext.seLinuxOptions.type<br>
+				<br><b>Allowed Values:</b><br>
+				undefined/nil<br>
+				container_t<br>
+				container_init_t<br>
+				container_kvm_t<br>
+				<br><b>Restricted Fields:</b><br>
+				spec.securityContext.seLinuxOptions.user<br>
+				spec.containers[*].securityContext.seLinuxOptions.user<br>
+				spec.initContainers[*].securityContext.seLinuxOptions.user<br>
+				spec.securityContext.seLinuxOptions.role<br>
+				spec.containers[*].securityContext.seLinuxOptions.role<br>
+				spec.initContainers[*].securityContext.seLinuxOptions.role<br>
 				<br><b>Allowed Values:</b> undefined/nil<br>
 			</td>
 		</tr>
