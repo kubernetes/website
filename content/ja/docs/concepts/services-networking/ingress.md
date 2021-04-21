@@ -75,8 +75,8 @@ Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/
 各HTTPルールは以下の情報を含みます。
 
 * オプションで設定可能なホスト名。上記のリソースの例では、ホスト名が指定されていないと、そのルールは指定されたIPアドレスを経由する全てのインバウンドHTTPトラフィックに適用されます。ホスト名が指定されていると(例: foo.bar.com)、そのルールはホストに対して適用されます。
-* パスのリスト(例: `/testpath`)。各パスには`serviceName`と`servicePort`で定義されるバックエンドが関連づけられます。ロードバランサーがトラフィックを関連づけられたServiceに転送するために、外部からくるリクエストのホスト名とパスが条件と一致させる必要があります。
-* [Serviceドキュメント](/ja/docs/concepts/services-networking/service/)または{{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}による[カスタムリソースバックエンド](#resource-backend)に書かれているように、バックエンドはServiceとポート名の組み合わせとなります。Ingressで設定されたホスト名とパスのルールに一致するHTTP(とHTTPS)のリクエストは、リスト内のバックエンドに対して送信されます。
+* パスのリスト(例: `/testpath`)。各パスには`service.name`と`service.port.name`または`service.port.number`で定義されるバックエンドが関連づけられます。ロードバランサーがトラフィックを関連づけられたServiceに転送するために、外部からくるリクエストのホスト名とパスが条件と一致させる必要があります。
+* バックエンドは[Serviceドキュメント](/ja/docs/concepts/services-networking/service/)に書かれているようなService名とポート名の組み合わせ、または{{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}による[カスタムリソースバックエンド](#resource-backend)です。Ingressで設定されたホスト名とパスのルールに一致するHTTP(とHTTPS)のリクエストは、リスト内のバックエンドに対して送信されます。
 
 Ingressコントローラーでは、`defaultBackend`が設定されていることがあります。これはSpec内で指定されているパスに一致しないようなリクエストのためのバックエンドです。
 
