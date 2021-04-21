@@ -51,7 +51,7 @@ First, consult the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/p
 
 ### Fork and clone the repo
 
-First, [create your own fork](/docs/contribute/start/#improve-existing-content) of the [kubernetes/website](https://github.com/kubernetes/website) repository. 
+First, [create your own fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the [kubernetes/website](https://github.com/kubernetes/website) repository. 
 -->
 ### 找到两个字母的语言代码
 
@@ -122,11 +122,11 @@ The `@kubernetes/sig-docs-**-reviews` team automates review assignment for new P
 `@kubernetes/sig-docs-**-reviews` 团队被自动分派新 PR 的审阅任务。
 
 <!-- 
-Members of `@kubernetes/website-maintainers` can create new development branches to coordinate translation efforts.
+Members of `@kubernetes/website-maintainers` can create new localization branches to coordinate translation efforts.
 
 Members of `website-milestone-maintainers` can use the `/milestone` [Prow command](https://prow.k8s.io/command-help) to assign a milestone to issues or PRs. 
 -->
-`@kubernetes/website-maintainers` 成员可以创建新的开发分支来协调翻译工作。
+`@kubernetes/website-maintainers` 成员可以创建新的本地化分支来协调翻译工作。
 
 `@kubernetes/website-milestone-maintainers` 成员可以使用 `/milestone`
 [Prow 命令](https://prow.k8s.io/command-help) 为 issues 或 PR 设定里程碑。
@@ -394,26 +394,40 @@ To ensure accuracy in grammar and meaning, members of your localization team sho
 <!-- 
 ### Source files
 
-Localizations must be based on the English files from the most recent release, {{< latest-version >}}.
+Localizations must be based on the English files from a specific release targeted by the localization team.
+Each localization team can decide which release to target which is referred to as the _target version_ below.
 
-To find source files for the most recent release:
+To find source files for your target version:
 
 1. Navigate to the Kubernetes website repository at https://github.com/kubernetes/website.
-2. Select the `release-1.X` branch for the most recent version.
+2. Select a branch for your target version from the following table:
+    Target version | Branch
+    -----|-----
+    Next version | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
+    Latest version | [`master`](https://github.com/kubernetes/website/tree/master)
+    Previous version | `release-*.**`
 
-The latest version is {{< latest-version >}}, so the most recent release branch is [`{{< release-branch >}}`](https://github.com/kubernetes/website/tree/{{< release-branch >}}). 
+The `master` branch holds content for the current release `{{< latest-version >}}`. The release team will create `{{< release-branch >}}` branch shortly before the next release: v{{< skew nextMinorVersion >}}.
 -->
 ### 源文件
 
-本地化必须基于最新版本 {{< latest-version >}} 中的英文文件。
+本地化必须基于本地化团队所针对的特定发行版本中的英文文件。
+每个本地化团队可以决定要针对哪个发行版本，在下文中称作目标版本（target version）。）
 
-要查找最新版本的源文件：
+要查找你的目标版本的源文件：
 
 1. 导航到 Kubernetes website 仓库，网址为 https://github.com/kubernetes/website。
-1. 选择最新版本的 `release-1.X` 分支。
+2. 从下面的表格中选择你的目标版本分支：
 
-最新版本是 {{< latest-version >}}，所以最新的发行分支是
-[`{{< release-branch >}}`](https://github.com/kubernetes/website/tree/{{< release-branch >}})。
+   目标版本 | 分支
+   -----|-----
+   下一个版本 | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
+   最新版本 | [`master`](https://github.com/kubernetes/website/tree/master)
+   之前的版本 | `release-*.**`
+
+`master` 分支中保存的是当前发行版本 `{{< latest-version >}}` 的内容。
+发行团队会在下一个发行版本 v{{< skew nextMinorVersion >}} 出现之前创建
+`{{< release-branch >}}` 分支。
 
 <!-- 
 ### Site strings in i18n/ 
@@ -460,28 +474,29 @@ Some language teams have their own language-specific style guide and glossary. F
 <!-- 
 ## Branching strategy 
 
-Because localization projects are highly collaborative efforts, we encourage teams to work in shared development branches. 
+Because localization projects are highly collaborative efforts, we encourage teams to work in shared localization branches. 
 
-To collaborate on a development branch: 
+To collaborate on a localization branch: 
 -->
-### 分支策略
-因为本地化项目是高度协同的工作，所以我们鼓励团队基于共享的开发分支工作。
+### 分支策略 {#branching-strategy}
 
-在开发分支上协作需要：
+因为本地化项目是高度协同的工作，所以我们鼓励团队基于共享的本地化分支工作。
+
+在本地化分支上协作需要：
 
 <!-- 
-1. A team member of [@kubernetes/sig-docs-l10n-admins](https://github.com/orgs/kubernetes/teams/sig-docs-l10n-admins) opens a development branch from a source branch on https://github.com/kubernetes/website.
+1. A team member of [@kubernetes/website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers) opens a localization branch from a source branch on https://github.com/kubernetes/website.
 
-    Your team approvers joined the `sig-docs-l10n-admins` team when you [added your localization team](#add-your-localization-team-in-github) to the `kubernetes/org` repository. 
+    Your team approvers joined the `@kubernetes/website-maintainers` team when you [added your localization team](#add-your-localization-team-in-github) to the [`kubernetes/org`](https://github.com/kubernetes/org) repository. 
 
     We recommend the following branch naming scheme:
 
     `dev-<source version>-<language code>.<team milestone>`
 
-    For example, an approver on a German localization team opens the development branch `dev-1.12-de.1` directly against the k/website repository, based on the source branch for Kubernetes v1.12.
+    For example, an approver on a German localization team opens the localization branch `dev-1.12-de.1` directly against the k/website repository, based on the source branch for Kubernetes v1.12.
 -->
 1. [@kubernetes/website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers)
-   中的团队成员从 https://github.com/kubernetes/website 原有分支新建一个开发分支。
+   中的团队成员从 https://github.com/kubernetes/website 原有分支新建一个本地化分支。
    当你给 `kubernetes/org` 仓库[添加你的本地化团队](#add-your-localization-team-in-github)时，
    你的团队批准人便加入了 `@kubernetes/website-maintainers` 团队。
 
@@ -490,52 +505,72 @@ To collaborate on a development branch:
    `dev-<source version>-<language code>.<team milestone>`
 
    例如，一个德语本地化团队的批准人基于 Kubernetes v1.12 版本的源分支，
-   直接新建了 k/website 仓库的开发分支 `dev-1.12-de.1`。
+   直接新建了 k/website 仓库的本地化分支 `dev-1.12-de.1`。
 
 <!-- 
-2. Individual contributors open feature branches based on the development branch.
+2. Individual contributors open feature branches based on the localization branch.
 
     For example, a German contributor opens a pull request with changes to `kubernetes:dev-1.12-de.1` from `username:local-branch-name`.
 
-3. Approvers review and merge feature branches into the development branch.
+3. Approvers review and merge feature branches into the localization branch.
 
-4. Periodically, an approver merges the development branch to its source branch by opening and approving a new pull request. Be sure to squash the commits before approving the pull request. 
+4. Periodically, an approver merges the localization branch to its source branch by opening and approving a new pull request. Be sure to squash the commits before approving the pull request. 
 -->
-2. 个人贡献者基于开发分支创建新的特性分支
+2. 个人贡献者基于本地化分支创建新的特性分支
 
    例如，一个德语贡献者新建了一个拉取请求，并将 `username:local-branch-name` 更改为 `kubernetes:dev-1.12-de.1`。
 
-3. 批准人审查功能分支并将其合并到开发分支中。
+3. 批准人审查功能分支并将其合并到本地化分支中。
 
-4. 批准人会定期发起并批准新的 PR，将开发分支合并到其源分支。在批准 PR 之前，请确保先 squash commits。
+4. 批准人会定期发起并批准新的 PR，将本地化分支合并到其源分支。
+   在批准 PR 之前，请确保先 squash commits。
 
 <!-- 
-Repeat steps 1-4 as needed until the localization is complete. For example, subsequent German development branches would be: `dev-1.12-de.2`, `dev-1.12-de.3`, etc. 
+Repeat steps 1-4 as needed until the localization is complete. For example, subsequent German localization branches would be: `dev-1.12-de.2`, `dev-1.12-de.3`, etc. 
 -->
-根据需要重复步骤 1-4，直到完成本地化工作。例如，随后的德语开发分支将是：
+根据需要重复步骤 1-4，直到完成本地化工作。例如，随后的德语本地化分支将是：
 `dev-1.12-de.2`、`dev-1.12-de.3`，等等。
 
 <!-- 
-Teams must merge localized content into the same release branch from which the content was sourced. For example, a development branch sourced from {{< release-branch >}} must be based on {{< release-branch >}}. 
+Teams must merge localized content into the same branch from which the content was sourced.
 
-An approver must maintain a development branch by keeping it current with its source branch and resolving merge conflicts. The longer a development branch stays open, the more maintenance it typically requires. Consider periodically merging development branches and opening new ones, rather than maintaining one extremely long-running development branch. 
+For example:
+
+- a localization branch sourced from `master` must be merged into `master`.
+- a localization branch sourced from `release-1.19` must be merged into `release-1.19`.
+
+{{< note >}}
+If your localization branch was created from `master` branch but it is not merged into `master` before new release branch `{{< release-branch >}}` created, merge it into both `master` and new release branch `{{< release-branch >}}`. To merge your localization branch into new release branch `{{< release-branch >}}`, you need to switch upstream branch of your localization branch to `{{< release-branch >}}`.
+{{< /note >}}
 -->
-团队必须将本地化内容合入到发布分支中，该发布分支也正是内容的来源。
-例如，源于 {{< release-branch >}} 的开发分支必须基于 {{< release-branch >}}。
+团队必须将本地化内容合入到发布分支中，该发布分支是内容的来源。
 
-approver 必须通过使开发分支与源分支保持最新并解决合并冲突来维护开发分支。
-开发分支的存在时间越长，通常需要的维护工作就越多。
-考虑定期合并开发分支并新建分支，而不是维护一个持续时间很长的开发分支。
+例如：
+
+- 源于 `master` 分支的本地化分支必须被合并到 `master`。
+- 源于 `release-1.19` 的本地化分支必须被合并到 `release-1.19`。
+
+如果你的本地化分支是基于 `master` 分支创建的，但最终没有在新的发行
+分支 `{{< release-branch >}}` 被创建之前合并到 `master` 中，需要将其
+同时将其合并到 `master` 和新的发行分支 `{{< release-branch >}}` 中。
+要将本地化分支合并到新的发行分支 `{{< release-branch >}}` 中，你需要
+将你本地化分支的上游分支切换到 `{{< release-branch >}}`。
 
 <!-- 
-At the beginning of every team milestone, it's helpful to open an issue comparing upstream changes between the previous development branch and the current development branch.  
+At the beginning of every team milestone, it's helpful to open an issue comparing upstream changes between the previous localization branch and the current localization branch. There are two scripts for comparing upstream changes. [`upstream_changes.py`](https://github.com/kubernetes/website/tree/master/scripts#upstream_changespy) is useful for checking the changes made to a specific file. And [`diff_l10n_branches.py`](https://github.com/kubernetes/website/tree/master/scripts#diff_l10n_branchespy) is useful for creating a list of outdated files for a specific localization branch.
 
-While only approvers can open a new development branch and merge pull requests, anyone can open a pull request for a new development branch. No special permissions are required. 
+While only approvers can open a new localization branch and merge pull requests, anyone can open a pull request for a new localization branch. No special permissions are required.
  -->
+在团队每个里程碑的开始时段，创建一个 issue 来比较先前的本地化分支
+和当前的本地化分支之间的上游变化很有帮助。
+现在有两个脚本用来比较上游的变化。
+[`upstream_changes.py`](https://github.com/kubernetes/website/tree/master/scripts#upstream_changespy)
+对于检查对某个文件的变更很有用。
+[`diff_l10n_branches.py`](https://github.com/kubernetes/website/tree/master/scripts#diff_l10n_branchespy)
+可以用来为某个特定本地化分支创建过时文件的列表。
 
-在团队每个里程碑的起点，创建一个 issue 来比较先前的开发分支和当前的开发分支之间的上游变化很有帮助。
-虽然只有批准人才能创建新的开发分支并合并 PR，但任何人都可以为新的开发分支提交一个拉取请求（PR）。
-不需要特殊权限。
+虽然只有批准人才能创建新的本地化分支并合并 PR，任何人都可以
+为新的本地化分支提交一个拉取请求（PR）。不需要特殊权限。
 
 <!-- 
 For more information about working from forks or directly from the repository, see ["fork and clone the repo"](#fork-and-clone-the-repo). 

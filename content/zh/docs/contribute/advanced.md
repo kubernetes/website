@@ -359,9 +359,9 @@ For weekly meetings, copypaste the previous week's notes into the "Past meetings
 <!--
 ### Recording meetings on Zoom
 
-When you’re ready to start the recording, click Record to Cloud.
+When you're ready to start the recording, click Record to Cloud.
     
-When you’re ready to stop recording, click Stop.
+When you're ready to stop recording, click Stop.
 
 The video uploads automatically to YouTube.
 -->

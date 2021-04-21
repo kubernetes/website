@@ -80,7 +80,7 @@ Members can:
 - Use the `/lgtm` comment to add the LGTM (looks good to me) label to a pull request
 
     {{< note >}}
-    Using `/lgtm` triggers automation. If you want to provide non-binding approval, simply commenting "LGTM" works too!
+    Using `/lgtm` triggers automation. If you want to provide non-binding approval, commenting "LGTM" works too!
     {{< /note >}}
 - Use the `/hold` comment to block merging for a pull request
 - Use the `/assign` comment to assign a reviewer to a pull request
@@ -98,10 +98,11 @@ Members can:
 - 执行[任何人](#anyone)节区所列举操作
 - 使用 `/lgtm` 评论添加 LGTM (looks good to me（我觉得可以）) 标签到某个 PR
 
-    {{< note >}}
-    使用 `/lgtm` 会触发自动化机制。如果你希望提供不拘约束力的批准意见，
-    直接回复 "LGTM" 也是可以的。
-    {{< /note >}}
+  {{< note >}}
+  使用 `/lgtm` 会触发自动化机制。如果你希望提供不拘约束力的批准意见，
+  直接回复 "LGTM" 也是可以的。
+  {{< /note >}}
+
 - 利用 `/hold` 评论来阻止某个 PR 被合并
 - 使用 `/assign` 评论为某个 PR 指定评审人
 - 对 PR 提供非约束性的评审意见

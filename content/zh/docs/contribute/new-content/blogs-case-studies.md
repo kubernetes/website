@@ -46,7 +46,7 @@ Kubernetes 博客用于项目发布新功能特性、社区报告以及其他一
 ### Guidelines and expectations
 
 - Blog posts should not be vendor pitches. 
-  - Articles must contain content that applies broadly to the Kubernetes community. For example, a submission should focus on upstream Kubernetes as opposed to vendor-specific configurations. Check the [Documentation style guide](https://kubernetes.io/docs/contribute/style/content-guide/#what-s-allowed) for what is typically allowed on Kubernetes properties. 
+  - Articles must contain content that applies broadly to the Kubernetes community. For example, a submission should focus on upstream Kubernetes as opposed to vendor-specific configurations. Check the [Documentation style guide](/docs/contribute/style/content-guide/#what-s-allowed) for what is typically allowed on Kubernetes properties. 
   - Links should primarily be to the official Kubernetes documentation. When using external references, links should be diverse - For example a submission shouldn't contain only links back to a single company's blog.
   - Sometimes this is a delicate balance. The [blog team](https://kubernetes.slack.com/messages/sig-docs-blog/) is there to give guidance on whether a post is appropriate for the Kubernetes blog, so don't hesitate to reach out. 
 -->
@@ -100,8 +100,8 @@ Kubernetes 博客用于项目发布新功能特性、社区报告以及其他一
       Kubernetes 博客上阅读的内容。
 <!--
 - Blog posts should be original content
-    - The official blog is not for repurposing existing content from a third party as new content.
-    - The [license](https://github.com/kubernetes/website/blob/master/LICENSE) for the blog does allow commercial use of the content for commercial purposes, just not the other way around. 
+  - The official blog is not for repurposing existing content from a third party as new content.
+  - The [license](https://github.com/kubernetes/website/blob/master/LICENSE) for the blog allows commercial use of the content for commercial purposes, just not the other way around. 
 - Blog posts should aim to be future proof
   - Given the development velocity of the project, we want evergreen content that won't require updates to stay accurate for the reader. 
   - It can be a better choice to add a tutorial or update official documentation than to write a high level overview as a blog post.
@@ -144,7 +144,7 @@ SIG Docs [博客子项目](https://github.com/kubernetes/community/tree/master/s
 
 要提交博文，你可以遵从以下指南：
 <!--
-- [Open a pull request](/docs/contribute/new-content/new-content/#fork-the-repo) with a new blog post. New blog posts go under the [`content/en/blog/_posts`](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts) directory.
+- [Open a pull request](/docs/contribute/new-content/open-a-pr/#fork-the-repo) with a new blog post. New blog posts go under the [`content/en/blog/_posts`](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts) directory.
 
 - Ensure that your blog post follows the correct naming conventions and the following frontmatter (metadata) information:
 
