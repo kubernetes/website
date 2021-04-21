@@ -922,17 +922,14 @@ receive updates for those volume sources.
 
 ### quobyte
 
-A `quobyte` volume allows an existing [Quobyte](https://www.quobyte.com) volume to
-be mounted into your Pod.
-
-{{< note >}}
-You must have your own Quobyte setup and running with the volumes
-created before you can use it.
-{{< /note >}}
+**Quobyte's in-tree plugin is deprecated.** Use
+[Quobyte CSI](https://github.com/quobyte/quobyte-csi#quobyte-csi) in place
+of `quobyte` in-tree plugin.
 
 Quobyte supports the {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}.
-CSI is the recommended plugin to use Quobyte volumes inside Kubernetes. Quobyte's
-GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte-csi) for deploying Quobyte using CSI, along with examples.
+Quobyte CSI plugin enalbes the usage of Quobyte volumes inside Kubernetes. Quobyte's
+GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte-csi) to deploy
+the plugin and usage examples.
 
 ### rbd
 
