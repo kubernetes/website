@@ -65,10 +65,10 @@ It acts synchronously to modify pods as they are created or updated. When this p
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 When the `BoundServiceAccountTokenVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled, the service account admission controller will
-add the following projected volume instead of a secret volume for the non-expiring service account token created by Token Controller.
+add the following projected volume instead of a Secret-based volume for the non-expiring service account token created by Token Controller.
 
 ```yaml
-- name: kube-api-access-c5cs8
+- name: kube-api-access-<random-suffix>
   projected:
     defaultMode: 420 # 0644
     sources:
@@ -90,11 +90,11 @@ add the following projected volume instead of a secret volume for the non-expiri
 
 This projected volume consists of three sources:
 
-1. A ServiceAccountToken acquired from kube-apiserver via TokenRequest API. It will expire after 1 hour by default or the pod is deleted. It is bound to the pod and has kube-apiserver as the audience.
-1. A ConfigMap contains a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate enabled which publish a "kube-root-ca.crt" ConfigMap to every namespace.
+1. A ServiceAccountToken acquired from kube-apiserver via TokenRequest API. It will expire after 1 hour by default or when the pod is deleted. It is bound to the pod and has kube-apiserver as the audience.
+1. A ConfigMap containing a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate being enabled, which publishes a "kube-root-ca.crt" ConfigMap to every namespace. `RootCAConfigMap` is enabled by default in 1.20, and always enabled in 1.21+.
 1. A DownwardAPI that references the namespace of the pod.
 
-See more details about [projected volume](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
+See more details about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 
 You can manually migrate a secret-based service account volume to a projected volume when
 the `BoundServiceAccountTokenVolume` feature gate is not enabled by adding the above
