@@ -98,6 +98,8 @@ Kubernetesは、公式のKubernetes APIが一度一般提供（GA）に達した
 Kubernetesは、 _alpha_ APIバージョンについても互換性の維持に注力しますが、いくつかの事情により不可である場合もあります。アルファAPIバージョンを使っている場合、クラスタのアップグレードやAPIが変更された場合に備えて、Kubernetesのリリースノートを確認してください。
 {{< /note >}}
 
+APIバージョンレベルの定義に関する詳細は[APIバージョンのリファレンス](/docs/reference/using-api/#api-versioning)を参照してください。
+
 ## APIの拡張
 
 Kubernetes APIは2つの方法で拡張できます。
