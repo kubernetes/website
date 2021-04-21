@@ -1,5 +1,5 @@
 ---
-title: ワークロード
+title: "ワークロード"
 weight: 50
 description: >
   Kubernetesにおけるデプロイ可能な最小のオブジェクトであるPodと、高レベルな抽象化がPodの実行を助けることを理解します。
@@ -35,4 +35,3 @@ Podには定義されたライフサイクルがあります。たとえば、�
 アプリケーションが実行できるようになったら、インターネット上で公開したくなるかもしれません。その場合には、[Service](/ja/docs/concepts/services-networking/service/)として公開したり、ウェブアプリケーションだけの場合、[Ingress](/ja/docs/concepts/services-networking/ingress)を使用することができます。
 
 コードを設定から分離するKubernetesのしくみについて学ぶには、[設定](/ja/docs/concepts/configuration/)を読んでください。
-
