@@ -45,7 +45,7 @@ A minimal example of configuring the field explicitly:
 # kubeadm-config.yaml
 kind: ClusterConfiguration
 apiVersion: kubeadm.k8s.io/v1beta2
-kubernetesVersion: v1.21
+kubernetesVersion: v1.21.0
 ---
 kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
