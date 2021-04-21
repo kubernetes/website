@@ -144,7 +144,7 @@ Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 
 #### Network traffic is not forwarded
 
-Please see [debugging service](/docs/tasks/debug-application-cluster/debug-service.md) for more information.
+Please see [debugging service](/docs/tasks/debug-application-cluster/debug-service/) for more information.
 
 ## {{% heading "whatsnext" %}}
 
