@@ -16,7 +16,7 @@ In this post, I’ll look at:
 - How the propagation policy can be used to change the order of deletions
 - How deletion works, with examples
 
-For simplicity, all examples will use configmaps and basic shell commands to demonstrate the process. We’ll explore how the commands work and discuss repercussions and results from using them in practice.
+For simplicity, all examples will use ConfigMaps and basic shell commands to demonstrate the process. We’ll explore how the commands work and discuss repercussions and results from using them in practice.
 
 ## The basic `delete`
 
