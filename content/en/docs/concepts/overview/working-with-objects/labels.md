@@ -54,7 +54,7 @@ The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core com
 
 Valid label value:
 * must be 63 characters or less (can be empty),
-* must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
+* unless empty, must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
 * could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 
 For example, here's the configuration file for a Pod that has two labels `environment: production` and `app: nginx` :
