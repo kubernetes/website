@@ -50,8 +50,7 @@ weight: 10
 
 ## イメージインデックスを使ったマルチアーキテクチャイメージ
 
-コンテナレジストリはバイナリイメージの提供だけでなく、[コンテナイメージインデックス](https://github.com/opencontainers/image-spec/blob/master/image-index.md)も提供する事ができます。
-イメージインデックスはコンテナのアーキテクチャ固有バージョンに関する複数の[イメージマニフェスト](https://github.com/opencontainers/image-spec/blob/master/manifest.md)を指すことができます。イメージインデックスの目的はイメージの名前(例:`pause`、`example/mycontainer`、`kube-apiserver`)をもたせ、様々なシステムが使用しているマシンアーキテクチャにあう適切なバイナリイメージを取得できることです。
+コンテナレジストリはバイナリイメージの提供だけでなく、[コンテナイメージインデックス](https://github.com/opencontainers/image-spec/blob/master/image-index.md)も提供する事ができます。イメージインデックスはコンテナのアーキテクチャ固有バージョンに関する複数の[イメージマニフェスト](https://github.com/opencontainers/image-spec/blob/master/manifest.md)を指すことができます。イメージインデックスの目的はイメージの名前(例:`pause`、`example/mycontainer`、`kube-apiserver`)をもたせ、様々なシステムが使用しているマシンアーキテクチャにあう適切なバイナリイメージを取得できることです。
 
 Kubernetes自身は、通常コンテナイメージに`-$(ARCH)`のサフィックスを持つ名前をつけます。下位互換の為にサフィックス付きの古い仕様のイメージを生成してください。その目的は、`pause`のようなすべてのアーキテクチャのマニフェストを持つイメージと、サフィックスのあるイメージをハードコードしていた可能性のある古い仕様の設定やYAMLファイルと下位互換がある`pause-amd64`のようなイメージを生成することです。
 
