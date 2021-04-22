@@ -22,11 +22,17 @@ ConfigMapは機密性や暗号化を提供しません。保存したいデー�
 
 こうすることで、必要であればクラウド上で実行しているコンテナイメージを取得することで、ローカルでも完全に同じコードを使ってデバッグができるようになります。
 
+ConfigMapは、大量のデータを保持するようには設計されていません。ConfigMapに保存されるデータは1MiBを超えることはできません。この制限を超える設定を保存する必要がある場合は、ボリュームのマウントを検討するか、別のデータベースまたはファイルサービスを使用することを検討してください。
+
 ## ConfigMapオブジェクト
 
-ConfigMapは、他のオブジェクトが使うための設定を保存できるAPI[オブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)です。ほとんどのKubernetesオブジェクトに`spec`セクションがあるのとは違い、ConfigMapにはアイテム(キー)と値を保存するための`data`セクションがあります。
+ConfigMapは、他のオブジェクトが使うための設定を保存できるAPI[オブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)です。ほとんどのKubernetesオブジェクトに`spec`セクションがあるのとは違い、ConfigMapには`data`および`binaryData`フィールドがあります。これらのフィールドは、キーとバリューのペアを値として受け入れます。`data`フィールドと` binaryData`フィールドはどちらもオプションです。`data`フィールドはUTF-8バイトシーケンスを含むように設計されていますが、` binaryData`フィールドはバイナリデータを含むように設計されています。
 
 ConfigMapの名前は、有効な[DNSのサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
+
+`data`または` binaryData`フィールドの各キーは、英数字、`-`、`_`、または`.`で構成されている必要があります。`data`に格納されているキーは、`binaryData`フィールドのキーと重複することはできません。
+
+v1.19以降、ConfigMapの定義に`immutable`フィールドを追加して、[イミュータブルなConfigMap](#configmap-immutable)を作成できます。
 
 ## ConfigMapとPod
 
@@ -43,7 +49,7 @@ data:
   # プロパティーに似たキー。各キーは単純な値にマッピングされている
   player_initial_lives: "3"
   ui_properties_file_name: "user-interface.properties"
-  #
+
   # ファイルに似たキー
   game.properties: |
     enemy.types=aliens,monsters
@@ -56,7 +62,7 @@ data:
 
 ConfigMapを利用してPod内のコンテナを設定する方法には、次の4種類があります。
 
-1. コマンドライン引数をコンテナのエントリーポイントに渡す
+1. コンテナ内のコマンドと引数
 1. 環境変数をコンテナに渡す
 1. 読み取り専用のボリューム内にファイルを追加し、アプリケーションがそのファイルを読み取る
 1. Kubernetes APIを使用してConfigMapを読み込むコードを書き、そのコードをPod内で実行する
@@ -75,7 +81,8 @@ metadata:
 spec:
   containers:
     - name: demo
-      image: game.example/demo-game
+      image: alpine
+      command: ["sleep", "3600"]
       env:
         # 環境変数を定義します。
         - name: PLAYER_INITIAL_LIVES # ここではConfigMap内のキーの名前とは違い
@@ -117,11 +124,9 @@ ConfigMapは1行のプロパティの値と複数行のファイルに似た形�
 
 ConfigMapは、データボリュームとしてマウントできます。ConfigMapは、Podへ直接公開せずにシステムの他の部品として使うこともできます。たとえば、ConfigMapには、システムの他の一部が設定のために使用するデータを保存できます。
 
-{{< note >}}
 ConfigMapの最も一般的な使い方では、同じ名前空間にあるPod内で実行されているコンテナに設定を構成します。ConfigMapを独立して使用することもできます。
 
 たとえば、ConfigMapに基づいて動作を調整する{{< glossary_tooltip text="アドオン" term_id="addons" >}}や{{< glossary_tooltip text="オペレーター" term_id="operator-pattern" >}}を見かけることがあるかもしれません。
-{{< /note >}}
 
 ### ConfigMapをPodからファイルとして使う
 
@@ -161,14 +166,17 @@ Pod内に複数のコンテナが存在する場合、各コンテナにそれ�
 
 ボリューム内で現在使用中のConfigMapが更新されると、射影されたキーも最終的に(eventually)更新されます。kubeletは定期的な同期のたびにマウントされたConfigMapが新しいかどうか確認します。しかし、kubeletが現在のConfigMapの値を取得するときにはローカルキャッシュを使用します。キャッシュの種類は、[KubeletConfiguration構造体](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)の中の`ConfigMapAndSecretChangeDetectionStrategy`フィールドで設定可能です。ConfigMapは、監視(デフォルト)、ttlベース、またはすべてのリクエストを直接APIサーバーへ単純にリダイレクトする方法のいずれかによって伝搬されます。その結果、ConfigMapが更新された瞬間から、新しいキーがPodに射影されるまでの遅延の合計は、最長でkubeletの同期期間+キャッシュの伝搬遅延になります。ここで、キャッシュの伝搬遅延は選択したキャッシュの種類に依存します(監視の伝搬遅延、キャッシュのttl、または0に等しくなります)。
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+環境変数として使用されるConfigMapは自動的に更新されないため、ポッドを再起動する必要があります。
+## イミュータブルなConfigMap {#configmap-immutable}
 
-Kubernetesのアルファ版の機能である _イミュータブルなSecretおよびConfigMap_ は、個別のSecretやConfigMapをイミュータブルに設定するオプションを提供します。ConfigMapを広範に使用している(少なくとも数万のConfigMapがPodにマウントされている)クラスターでは、データの変更を防ぐことにより、以下のような利点が得られます。
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+Kubernetesのベータ版の機能である _イミュータブルなSecretおよびConfigMap_ は、個別のSecretやConfigMapをイミュータブルに設定するオプションを提供します。ConfigMapを広範に使用している(少なくとも数万のConfigMapがPodにマウントされている)クラスターでは、データの変更を防ぐことにより、以下のような利点が得られます。
 
 - アプリケーションの停止を引き起こす可能性のある予想外の(または望まない)変更を防ぐことができる
 - ConfigMapをイミュータブルにマークして監視を停止することにより、kube-apiserverへの負荷を大幅に削減し、クラスターの性能が向上する
 
-この機能を使用するには、`ImmutableEmphemeralVolumes`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にして、SecretやConfigMapの`immutable`フィールドを`true`に設定してください。次に例を示します。
+この機能は、`ImmutableEmphemeralVolumes`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)によって管理されます。`immutable`フィールドを`true`に設定することで、イミュータブルなConfigMapを作成できます。次に例を示します。
 
 ```yaml
 apiVersion: v1
@@ -180,9 +188,7 @@ data:
 immutable: true
 ```
 
-{{< note >}}
-一度ConfigMapやSecretがイミュータブルに設定すると、この変更を元に戻したり、`data`フィールドのコンテンツを変更することは*できません*。既存のPodは削除されたConfigMapのマウントポイントを保持するため、こうしたPodは再作成することをおすすめします。
-{{< /note >}}
+一度ConfigMapがイミュータブルに設定されると、この変更を元に戻したり、`data`または`binaryData`フィールドのコンテンツを変更することは*できません*。Configmapの削除と再作成のみ可能です。既存のPodは削除されたConfigMapのマウントポイントを保持するため、こうしたPodは再作成することをおすすめします。
 
 ## {{% heading "whatsnext" %}}
 
