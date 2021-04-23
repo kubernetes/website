@@ -26,7 +26,7 @@ ConfigMapは、大量のデータを保持するようには設計されてい�
 
 ## ConfigMapオブジェクト
 
-ConfigMapは、他のオブジェクトが使うための設定を保存できるAPI[オブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)です。ほとんどのKubernetesオブジェクトに`spec`セクションがあるのとは違い、ConfigMapには`data`および`binaryData`フィールドがあります。これらのフィールドは、キーとバリューのペアを値として受け入れます。`data`フィールドと` binaryData`フィールドはどちらもオプションです。`data`フィールドはUTF-8バイトシーケンスを含むように設計されていますが、` binaryData`フィールドはバイナリデータを含むように設計されています。
+ConfigMapは、他のオブジェクトが使うための設定を保存できるAPI[オブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)です。ほとんどのKubernetesオブジェクトに`spec`セクションがあるのとは違い、ConfigMapには`data`および`binaryData`フィールドがあります。これらのフィールドは、キーとバリューのペアを値として受け入れます。`data`フィールドと`binaryData`フィールドはどちらもオプションです。`data`フィールドはUTF-8バイトシーケンスを含むように設計されていますが、`binaryData`フィールドはバイナリデータを含むように設計されています。
 
 ConfigMapの名前は、有効な[DNSのサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 
