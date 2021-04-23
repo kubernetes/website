@@ -628,7 +628,7 @@ Les utilisateurs comme les composants du système peuvent stocker des données d
 {{< note >}}
 Les ConfigMaps doivent faire référence aux fichiers de propriétés, et non les remplacer.
 Pensez à la ConfigMap comme représentant quelque chose de similaire au répertoire `/etc` de Linux et à son contenu.
-Par exemple, si vous créez un [volume Kubernetes] (/docs/concepts/storage/volumes/) à partir d'une ConfigMap, chaque élément de données de la ConfigMap est représenté par un fichier individuel dans le volume.
+Par exemple, si vous créez un [volume Kubernetes](/docs/concepts/storage/volumes/) à partir d'une ConfigMap, chaque élément de données de la ConfigMap est représenté par un fichier individuel dans le volume.
 {{< /note >}}
 
 Le champ `data` de la ConfigMap contient les données de configuration.
