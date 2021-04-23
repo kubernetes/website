@@ -4,7 +4,6 @@ content_type: concept
 approvers:
 - remyleone
 - rlenferink
-- zacharysarah
 weight: 50
 card:
   name: contribute
