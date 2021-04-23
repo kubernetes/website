@@ -349,7 +349,7 @@ When a ConfigMap currently consumed in a volume is updated, projected keys are e
 The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the ConfigMap.
 The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
-the [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
 #### 被挂载的 ConfigMap 内容会被自动更新
 
@@ -386,15 +386,15 @@ ConfigMaps consumed as environment variables are not updated automatically and r
 -->
 ## 不可变更的 ConfigMap     {#configmap-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use ConfigMaps
 (at least tens of thousands of unique ConfigMap to Pod mounts), preventing changes to their
 data has the following advantages:
 -->
-Kubernetes Beta 特性 _不可变更的 Secret 和 ConfigMap_ 提供了一种将各个
+Kubernetes 特性 _不可变更的 Secret 和 ConfigMap_ 提供了一种将各个
 Secret 和 ConfigMap 设置为不可变更的选项。对于大量使用 ConfigMap 的
 集群（至少有数万个各不相同的 ConfigMap 给 Pod 挂载）而言，禁止更改
 ConfigMap 的数据有以下好处：
