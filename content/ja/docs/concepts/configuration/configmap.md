@@ -188,7 +188,7 @@ data:
 immutable: true
 ```
 
-一度ConfigMapがイミュータブルに設定されると、この変更を元に戻したり、`data`または`binaryData`フィールドのコンテンツを変更することは*できません*。Configmapの削除と再作成のみ可能です。既存のPodは削除されたConfigMapのマウントポイントを保持するため、こうしたPodは再作成することをおすすめします。
+一度ConfigMapがイミュータブルに設定されると、この変更を元に戻したり、`data`または`binaryData`フィールドのコンテンツを変更することは*できません*。ConfigMapの削除と再作成のみ可能です。既存のPodは削除されたConfigMapのマウントポイントを保持するため、こうしたPodは再作成することをおすすめします。
 
 ## {{% heading "whatsnext" %}}
 
