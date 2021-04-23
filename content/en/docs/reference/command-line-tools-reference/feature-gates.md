@@ -132,7 +132,7 @@ different Kubernetes components.
 | `IPv6DualStack` | `true` | Beta | 1.21 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
 | `LegacyNodeRoleBehavior` | `false` | Alpha | 1.16 | 1.18 |
-| `LegacyNodeRoleBehavior` | `true` | True | 1.19 |  |
+| `LegacyNodeRoleBehavior` | `true` | Beta | 1.19 |  |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
@@ -185,7 +185,7 @@ different Kubernetes components.
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
 | `WindowsEndpointSliceProxying` | `false` | Alpha | 1.19 | 1.20 |
-| `WindowsEndpointSliceProxying` | `true` | beta | 1.21 | |
+| `WindowsEndpointSliceProxying` | `true` | Beta | 1.21 | |
 {{< /table >}}
 
 ### Feature gates for graduated or deprecated features
