@@ -55,7 +55,7 @@ metadata:
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
     app.kubernetes.io/managed-by: helm
-    app.kubernetes.io/created-by: helm
+    app.kubernetes.io/created-by: controller-manager
 ```
 
 ## Applications And Instances Of Applications
@@ -171,5 +171,4 @@ metadata:
 ```
 
 With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and WordPress, the broader application, are included.
-
 
