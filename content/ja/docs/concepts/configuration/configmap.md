@@ -30,7 +30,7 @@ ConfigMapは、他のオブジェクトが使うための設定を保存でき�
 
 ConfigMapの名前は、有効な[DNSのサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 
-`data`または` binaryData`フィールドの各キーは、英数字、`-`、`_`、または`.`で構成されている必要があります。`data`に格納されているキーは、`binaryData`フィールドのキーと重複することはできません。
+`data`または`binaryData`フィールドの各キーは、英数字、`-`、`_`、または`.`で構成されている必要があります。`data`に格納されているキーは、`binaryData`フィールドのキーと重複することはできません。
 
 v1.19以降、ConfigMapの定義に`immutable`フィールドを追加して、[イミュータブルなConfigMap](#configmap-immutable)を作成できます。
 
