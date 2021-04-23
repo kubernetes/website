@@ -1,5 +1,5 @@
 ---
-title: Configure a Pod to Use a ConfigMap
+title: Configurer un pod pour utiliser une ConfigMap
 content_template: templates/task
 weight: 150
 card:
