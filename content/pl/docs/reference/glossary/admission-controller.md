@@ -4,7 +4,7 @@ id: admission-controller
 date: 2019-06-28
 full_link: /docs/reference/access-authn-authz/admission-controllers/
 short_description: >
-  Część kodu który przejmuje przychodzące zapytania do API Kubernetesa
+  Część kodu, która przejmuje przychodzące zapytania do API Kubernetesa
   zanim zostaną one na stałe zachowane.
 
 aka:
