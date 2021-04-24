@@ -1,78 +1,66 @@
 ---
-title: Running Automated Tasks with a CronJob
+title: CronJobを使用して自動化タスクを実行する
 min-kubernetes-server-version: v1.21
-reviewers:
-- chenopis
 content_type: task
 weight: 10
 ---
 
 <!-- overview -->
 
-CronJobs was promoted to general availability in Kubernetes v1.21. If you are using an older version of
-Kubernetes, please refer to the documentation for the version of Kubernetes that you are using,
-so that you see accurate information. Older Kubernetes versions do not support the `batch/v1` CronJob API.
+CronJobは、Kubernetes v1.21で一般利用(GA)に昇格しました。古いバージョンのKubernetesを使用している場合、正確な情報を参照できるように、使用しているバージョンのKubernetesのドキュメントを参照してください。古いKubernetesのバージョンでは、`batch/v1` CronJob APIはサポートされていません。
 
-You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}} on a time-based schedule.
-These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
+{{< glossary_tooltip text="CronJob" term_id="cronjob" >}}を使用すると、{{< glossary_tooltip text="Job" term_id="job" >}}を時間ベースのスケジュールで実行できるようになります。この自動化されたJobは、LinuxまたはUNIXシステム上の[Cron](https://en.wikipedia.org/wiki/Cron)のように実行されます。
 
-Cron jobs are useful for creating periodic and recurring tasks, like running backups or sending emails.
-Cron jobs can also schedule individual tasks for a specific time, such as if you want to schedule a job for a low activity period.
+CronJobは、バックアップやメールの送信など、定期的なタスクや繰り返しのタスクを作成する時に便利です。CronJobはそれぞれのタスクを、たとえばアクティビティが少ない期間など、特定の時間にスケジューリングすることもできます。
 
-Cron jobs have limitations and idiosyncrasies.
-For example, in certain circumstances, a single cron job can create multiple jobs.
-Therefore, jobs should be idempotent.
+CronJobには制限と特性があります。たとえば、特定の状況下では、1つのCronJobが複数のJobを作成する可能性があるため、Jobは冪等性を持つようにしなければいけません。
 
-For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-jobs).
-
-
+制限に関する詳しい情報については、[CronJob](/ja/docs/concepts/workloads/controllers/cron-jobs)を参照してください。
 
 ## {{% heading "prerequisites" %}}
 
-
 * {{< include "task-tutorial-prereqs.md" >}}
-
-
 
 <!-- steps -->
 
-## Creating a Cron Job
+## CronJobを作成する
 
-Cron jobs require a config file.
-This example cron job config `.spec` file prints the current time and a hello message every minute:
+CronJobには設定ファイルが必要です。次の例のCronJobの`.spec`は、現在の時刻とhelloというメッセージを1分ごとに表示します。
 
 {{< codenew file="application/job/cronjob.yaml" >}}
 
-Run the example CronJob by using this command:
+次のコマンドで例のCronJobを実行します。
 
 ```shell
 kubectl create -f https://k8s.io/examples/application/job/cronjob.yaml
 ```
-The output is similar to this:
+
+出力は次のようになります。
 
 ```
 cronjob.batch/hello created
 ```
 
-After creating the cron job, get its status using this command:
+CronJobを作成したら、次のコマンドで状態を取得します。
 
 ```shell
 kubectl get cronjob hello
 ```
-The output is similar to this:
+
+出力は次のようになります。
 
 ```
 NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 hello   */1 * * * *   False     0        <none>          10s
 ```
 
-As you can see from the results of the command, the cron job has not scheduled or run any jobs yet.
-Watch for the job to be created in around one minute:
+コマンドの結果からわかるように、CronJobはまだスケジュールされておらず、まだ何のJobも実行していません。約1分以内にJobが作成されるのを見てみましょう。
 
 ```shell
 kubectl get jobs --watch
 ```
-The output is similar to this:
+
+出力は次のようになります。
 
 ```
 NAME               COMPLETIONS   DURATION   AGE
@@ -81,135 +69,107 @@ hello-4111706356   0/1           0s         0s
 hello-4111706356   1/1           5s         5s
 ```
 
-Now you've seen one running job scheduled by the "hello" cron job.
-You can stop watching the job and view the cron job again to see that it scheduled the job:
+"hello"CronJobによってスケジュールされたJobが1つ実行中になっていることがわかります。Jobを見るのをやめて、再度CronJobを表示して、Jobがスケジュールされたことを確認してみます。
 
 ```shell
 kubectl get cronjob hello
 ```
-The output is similar to this:
+
+出力は次のようになります。
 
 ```
 NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 hello   */1 * * * *   False     0        50s             75s
 ```
 
-You should see that the cron job `hello` successfully scheduled a job at the time specified in `LAST SCHEDULE`. There are currently 0 active jobs, meaning that the job has completed or failed.
+CronJob`hello`が、`LAST SCHEDULE`で指定された時間にJobを正しくスケジュールしたことが確認できるはずです。現在、activeなJobの数は0です。つまり、Jobは完了または失敗したことがわかります。
 
-Now, find the pods that the last scheduled job created and view the standard output of one of the pods.
+それでは、最後にスケジュールされたJobの作成と、Podの1つの標準出力を表示してみましょう。
 
 {{< note >}}
-The job name and pod name are different.
+Jobの名前とPodの名前は異なります。
 {{< /note >}}
 
 ```shell
-# Replace "hello-4111706356" with the job name in your system
+# "hello-4111706356" の部分は、あなたのシステム上のJobの名前に置き換えてください。
 pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items[*].metadata.name})
 ```
-Show pod log:
+
+Podのログを表示します。
 
 ```shell
 kubectl logs $pods
 ```
-The output is similar to this:
+
+出力は次のようになります。
 
 ```
 Fri Feb 22 11:02:09 UTC 2019
 Hello from the Kubernetes cluster
 ```
 
-## Deleting a Cron Job
+## CronJobの削除
 
-When you don't need a cron job any more, delete it with `kubectl delete cronjob <cronjob name>`:
+CronJobが必要なくなったときは、`kubectl delete cronjob <cronjob name>`で削除します。
 
 ```shell
 kubectl delete cronjob hello
 ```
 
-Deleting the cron job removes all the jobs and pods it created and stops it from creating additional jobs.
-You can read more about removing jobs in [garbage collection](/docs/concepts/workloads/controllers/garbage-collection/).
+CronJobを削除すると、すべてのJobと、そのJobが作成したPodが削除され、追加のJobの作成が停止されます。Jobの削除について詳しく知りたい場合は、[ガベージコレクション](/ja/docs/concepts/workloads/controllers/garbage-collection/)を読んでください。
 
-## Writing a Cron Job Spec
+## CronJobのSpecを書く
 
-As with all other Kubernetes configs, a cron job needs `apiVersion`, `kind`, and `metadata` fields. For general
-information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
-and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
+すべてのKubernetesの設定と同じように、CronJobにも`apiVersion`、`kind`、`metadata`のフィールドが必要です。設定ファイルの扱い方についての一般的な情報については、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)と[kubectlを使用してリソースを管理する](/ja/docs/concepts/overview/working-with-objects/object-management/)を読んでください。
 
-A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
+CronJobの設定には、[`.spec`セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必要です。
 
 {{< note >}}
-All modifications to a cron job, especially its `.spec`, are applied only to the following runs.
+CronJobの特に`spec`へのすべての修正は、それ以降の実行にのみ適用されます。
 {{< /note >}}
 
 ### Schedule
 
-The `.spec.schedule` is a required field of the `.spec`.
-It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
+`.spec.schedule`は、`.spec`には必須のフィールドです。`0 * * * *`や`@hourly`などの[Cron](https://en.wikipedia.org/wiki/Cron)形式の文字列を取り、Jobの作成と実行のスケジュール時間を指定します。
 
-The format also includes extended `vixie cron` step values. As explained in the
-[FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
+フォーマットには`vixie cron`のステップ値(step value)も指定できます。[FreeBSDのマニュアル](https://www.freebsd.org/cgi/man.cgi?crontab%285%29)では次のように説明されています。
 
-> Step values can be	used in	conjunction with ranges.  Following a range
-> with `/<number>` specifies skips	of the number's	value through the
-> range.  For example, `0-23/2` can be used in the	hours field to specify
-> command execution every other hour	(the alternative in the	V7 standard is
-> `0,2,4,6,8,10,12,14,16,18,20,22`).  Steps are also permitted after an
-> asterisk, so if you want to say "every two hours", just use `*/2`.
+> ステップ値は範囲指定と組み合わせて使用できます。範囲の後ろに`/<number>`を付けると、範囲全体で指定したnumberの値ごとにスキップすることを意味します。たとえば、`0-23/2`をhoursフィールドに指定すると、2時間毎にコマンド実行を指定することになります(V7標準では代わりに`0,2,4,6,8,10,12,14,16,18,20,22`と指定する必要があります)。ステップはアスタリスクの後ろにつけることもできます。そのため、「2時間毎に実行」したい場合は、単純に`*/2`と指定できます。
 
 {{< note >}}
-A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
+スケジュール内の疑問符`?`はアスタリスク`*`と同じ意味を持ちます。つまり、与えられたフィールドには任意の値が使えるという意味になります。
 {{< /note >}}
 
 ### Job Template
 
-The `.spec.jobTemplate` is the template for the job, and it is required.
-It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/job/), except that it is nested and does not have an `apiVersion` or `kind`.
-For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
+`.spec.jobTemplate`はJobのテンプレートであり、必須です。[Job](/docs/concepts/workloads/controllers/job/)と完全に同一のスキーマを持ちますが、フィールドがネストされている点と、`apiVersion`と`kind`が存在しない点だけが異なります。Jobの`.spec`を書くための情報については、[JobのSpecを書く](/docs/concepts/workloads/controllers/job/#writing-a-job-spec)を参照してください。
 
 ### Starting Deadline
 
-The `.spec.startingDeadlineSeconds` field is optional.
-It stands for the deadline in seconds for starting the job if it misses its scheduled time for any reason.
-After the deadline, the cron job does not start the job.
-Jobs that do not meet their deadline in this way count as failed jobs.
-If this field is not specified, the jobs have no deadline.
+`.spec.startingDeadlineSeconds`フィールドはオプションです。何かの理由でスケジュールに間に合わなかった場合に適用される、Jobの開始のデッドライン(締め切り)を秒数で指定します。デッドラインを過ぎると、CronJobはJobを開始しません。この場合にデッドラインに間に合わなかったJobは、失敗したJobとしてカウントされます。もしこのフィールドが指定されなかった場合、Jobはデッドラインを持ちません。
 
-If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob
-controller measures the time between when a job is expected to be created and
-now. If the difference is higher than that limit, it will skip this execution.
+`.spec.startingDeadlineSeconds`フィールドがnull以外に設定された場合、CronJobコントローラーはJobの作成が期待される時間と現在時刻との間の時間を計測します。もしその差が制限よりも大きかった場合、その実行はスキップされます。
 
-For example, if it is set to `200`, it allows a job to be created for up to 200
-seconds after the actual schedule.
+たとえば、この値が`200`に設定された場合、実際のスケジュールの最大200秒後までに作成されるJobだけが許可されます。
 
 ### Concurrency Policy
 
-The `.spec.concurrencyPolicy` field is also optional.
-It specifies how to treat concurrent executions of a job that is created by this cron job.
-The spec may specify only one of the following concurrency policies:
+`.spec.concurrencyPolicy`フィールドもオプションです。このフィールドは、このCronJobで作成されたJobの並列実行をどのように扱うかを指定します。specには以下のconcurrency policyのいずれかを指定します。
 
-* `Allow` (default): The cron job allows concurrently running jobs
-* `Forbid`: The cron job does not allow concurrent runs; if it is time for a new job run and the previous job run hasn't finished yet, the cron job skips the new job run
-* `Replace`: If it is time for a new job run and the previous job run hasn't finished yet, the cron job replaces the currently running job run with a new job run
+* `Allow` (デフォルト): CronJobがJobを並列に実行することを許可します。
+* `Forbid`: CronJobの並列実行を禁止します。もし新しいJobの実行時に過去のJobがまだ完了していなかった場合、CronJobは新しいJobの実行をスキップします。
+* `Replace`: もし新しいJobの実行の時間になっても過去のJobの実行が完了していなかった場合、CronJobは現在の実行中のJobを新しいJobで置換します。
 
-Note that concurrency policy only applies to the jobs created by the same cron job.
-If there are multiple cron jobs, their respective jobs are always allowed to run concurrently.
+concurrent policyは、同じCronJobが作成したJobにのみ適用されます。もし複数のCronJobがある場合、それぞれのJobの並列実行は常に許可されます。
 
 ### Suspend
 
-The `.spec.suspend` field is also optional.
-If it is set to `true`, all subsequent executions are suspended.
-This setting does not apply to already started executions.
-Defaults to false.
+`.spec.suspend`フィールドもオプションです。このフィールドを`true`に設定すると、すべての後続の実行がサスペンド(一時停止)されます。この設定はすでに実行開始したJobには適用されません。デフォルトはfalseです。
 
 {{< caution >}}
-Executions that are suspended during their scheduled time count as missed jobs.
-When `.spec.suspend` changes from `true` to `false` on an existing cron job without a [starting deadline](#starting-deadline), the missed jobs are scheduled immediately.
+スケジュールされた時間中にサスペンドされた実行は、見逃されたJob(missed job)としてカウントされます。[starting deadline](#starting-deadline)が設定されていない既存のCronJob`.spec.suspend`が`true`から`false`に変更されると、見逃されたJobは即座にスケジュールされます。
 {{< /caution >}}
 
-### Jobs History Limits
+### Job History Limit
 
-The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
-These fields specify how many completed and failed jobs should be kept.
-By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping none of the corresponding kind of jobs after they finish.
-
-
+`.spec.successfulJobsHistoryLimit`と`.spec.failedJobsHistoryLimit`フィールドはオプションです。これらのフィールドには、完了したJobと失敗したJobをいくつ保持するかを指定します。デフォルトでは、それぞれ3と1に設定されます。リミットを`0`に設定すると、対応する種類のJobを実行完了後に何も保持しなくなります。
