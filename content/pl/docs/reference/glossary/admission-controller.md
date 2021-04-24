@@ -12,7 +12,7 @@ tags:
 - extension
 - security
 ---
-Część kodu który przejmuje przychodzące zapytania do API Kubernetesa
+Część kodu, która przejmuje przychodzące zapytania do API Kubernetesa
 zanim zostaną one na stałe zachowane.
 
 <!--more-->
