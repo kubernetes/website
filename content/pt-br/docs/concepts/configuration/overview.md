@@ -33,38 +33,41 @@ gerenciar do que vários. Veja o [guestbook-all-in-one.yaml](https://github.com/
 - Coloque descrições de objetos nas anotações para permitir uma melhor análise.
 
 
-## "Naked" Pods versus ReplicaSets, Deployments, and Jobs {#naked-pods-vs-replicasets-deployments-and-jobs}
+## "Naked" Pods comparados a ReplicaSets, Deployments, e Jobs {#naked-pods-vs-replicasets-deployments-and-jobs}
 
-- Don't use naked Pods (that is, Pods not bound to a [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) or [Deployment](/docs/concepts/workloads/controllers/deployment/)) if you can avoid it. Naked Pods will not be rescheduled in the event of a node failure.
+- Se você puder evitar, não use "naked" Pods (ou seja, se você puder evitar, pods não vinculados a um [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) ou [Deployment](/docs/concepts/workloads/controllers/deployment/)). 
+Os "naked" pods não serão reconfigurados em caso de falha de um nó.
 
-  A Deployment, which both creates a ReplicaSet to ensure that the desired number of Pods is always available, and specifies a strategy to replace Pods (such as [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), is almost always preferable to creating Pods directly, except for some explicit [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) scenarios. A [Job](/docs/concepts/workloads/controllers/job/) may also be appropriate.
+  Criar um Deployment, que cria um ReplicaSet para garantir que o número desejado de Pods esteja disponível e especifica uma estratégia para substituir os Pos (como [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), é quase sempre preferível do que criar Pods diretamente, exceto para alguns cenários explícitos de restartPolicy:Never. Um Job também pode ser apropriado.
 
 
 ## Services
 
-- Create a [Service](/docs/concepts/services-networking/service/) before its corresponding backend workloads (Deployments or ReplicaSets), and before any workloads that need to access it. When Kubernetes starts a container, it provides environment variables pointing to all the Services which were running when the container was started. For example, if a Service named `foo` exists, all containers will get the following variables in their initial environment:
+- Crie o [Service](/docs/concepts/services-networking/service/) antes de suas cargas de trabalho de backend correspondentes (Deployments ou ReplicaSets) e antes de quaisquer cargas de trabalho que precisem acessá-lo. Quando o 
+Kubernetes inicia um contêiner, ele fornece variáveis de ambiente apontando para todos os Services que estavam em execução quando o contêiner foi iniciado. Por exemplo, se um Service chamado `foo` existe, todos os contêineres vão
+receber as seguintes variáveis em seu ambiente inicial:
 
   ```shell
-  FOO_SERVICE_HOST=<the host the Service is running on>
-  FOO_SERVICE_PORT=<the port the Service is running on>
+  FOO_SERVICE_HOST=<o host em que o Service está executando>
+  FOO_SERVICE_PORT=<a porta em que o Service está executando>
   ```
 
-  *This does imply an ordering requirement* - any `Service` that a `Pod` wants to access must be created before the `Pod` itself, or else the environment variables will not be populated.  DNS does not have this restriction.
+*Isso implica em um requisito de pedido* - qualquer `Service` que um `Pod` quer acessar precisa ser criado antes do `Pod`em si, ou então as variáveis de ambiente não serão populadas. O DNS não possui essa restrição.
 
-- An optional (though strongly recommended) [cluster add-on](/docs/concepts/cluster-administration/addons/) is a DNS server.  The
-DNS server watches the Kubernetes API for new `Services` and creates a set of DNS records for each.  If DNS has been enabled throughout the cluster then all `Pods` should be able to do name resolution of `Services` automatically.
+- Um [cluster add-on](/docs/concepts/cluster-administration/addons/) opcional (embora fortemente recomendado) é um servidor DNS. O
+servidor DNS assiste a API do Kubernetes buscando novos `Services` e cria um conjunto de DNS para cada um. Se o DNS foi habilitado em todo o cluster, então todos os `Pods` devem ser capazes de fazer a resolução de `Services` automaticamente.
 
-- Don't specify a `hostPort` for a Pod unless it is absolutely necessary. When you bind a Pod to a `hostPort`, it limits the number of places the Pod can be scheduled, because each <`hostIP`, `hostPort`, `protocol`> combination must be unique. If you don't specify the `hostIP` and `protocol` explicitly, Kubernetes will use `0.0.0.0` as the default `hostIP` and `TCP` as the default `protocol`.
+- Não especifique um `hostPort` para um Pod a menos que isso seja absolutamente necessário. Quando você vincula um Pod a um `hostPort`, isso limita o número de lugares em que o Pod pode ser agendado, porque cada
+combinação de <`hostIP`, `hostPort`, `protocol`> deve ser única. Se você não especificar o `hostIP` e `protocol` explicitamente, o Kubernetes vai usar `0.0.0.0` como o `hostIP` padrão e `TCP` como `protocol` padrão.
 
-  If you only need access to the port for debugging purposes, you can use the [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls) or [`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
+  Se você precisa de acesso a porta apenas para fins de depuração, pode usar o [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls) ou o [`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
 
-  If you explicitly need to expose a Pod's port on the node, consider using a [NodePort](/docs/concepts/services-networking/service/#nodeport) Service before resorting to `hostPort`.
+  Se você precisa expor explicitamente a porta de um Pod no nó, considere usar um Service do tipo [NodePort](/docs/concepts/services-networking/service/#nodeport) antes de recorrer a `hostPort`.
 
-- Avoid using `hostNetwork`, for the same reasons as `hostPort`.
+- Evite usar `hostNetwork` pelos mesmos motivos do `hostPort`.
 
-- Use [headless Services](/docs/concepts/services-networking/service/#headless-services) (which have a `ClusterIP` of `None`) for service discovery when you don't need `kube-proxy` load balancing.
-
-## Using Labels
+- Use [headless Services](/docs/concepts/services-networking/service/#headless-services) (que tem um `ClusterIP` ou `None`) para descoberta de serviço quando você não precisar de um balanceador de carga `kube-proxy`.
+## Usando Labels
 
 - Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) app for examples of this approach.
 
@@ -76,39 +79,41 @@ A desired state of an object is described by a Deployment, and if changes to tha
 
 - You can manipulate labels for debugging. Because Kubernetes controllers (such as ReplicaSet) and Services match to Pods using selector labels, removing the relevant labels from a Pod will stop it from being considered by a controller or from being served traffic by a Service. If you remove the labels of an existing Pod, its controller will create a new Pod to take its place. This is a useful way to debug a previously "live" Pod in a "quarantine" environment. To interactively remove or add labels, use [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
 
-## Container Images
+## Imagens de Contêiner
 
-The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the tag of the image affect when the [kubelet](/docs/reference/command-line-tools-reference/kubelet/) attempts to pull the specified image.
 
-- `imagePullPolicy: IfNotPresent`: the image is pulled only if it is not already present locally.
+A [imagePullPolicy](/docs/concepts/containers/images/#updating-images)  e tag da imagem afetam quando o [kubelet](/docs/reference/command-line-tools-reference/kubelet/) tenta puxar a imagem especificada.
 
-- `imagePullPolicy: Always`: every time the kubelet launches a container, the kubelet queries the container image registry to resolve the name to an image digest. If the kubelet has a container image with that exact digest cached locally, the kubelet uses its cached image; otherwise, the kubelet downloads (pulls) the image with the resolved digest, and uses that image to launch the container.
+- `imagePullPolicy: IfNotPresent`: a imagem é puxada apenas se ainda não estiver presente localmente.
 
-- `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `imagePullPolicy` is automatically set to `Always`. Note that this will _not_ be updated to `IfNotPresent` if the tag changes value.
+- `imagePullPolicy: Always`: sempre que o kubelet inicia um contêiner, ele consulta o *registry* da imagem do contêiner para verificar o *hash* da imagem. Se o kubelet tiver uma imagem do contêiner com o mesmo *hash*
+armazenado em cache localmente, o kubelet usará a imagem em cache, caso contrário, o kubelet baixa(*pulls*) a imagem com o *hash* resolvido, e usa essa imagem para iniciar o contêiner.
 
-- `imagePullPolicy` is omitted and the image tag is present but not `:latest`: `imagePullPolicy` is automatically set to `IfNotPresent`. Note that this will _not_ be updated to `Always` if the tag is later removed or changed to `:latest`.
+- `imagePullPolicy` é omitido se a tag da imagem é `:latest` ou se `imagePullPolicy` é omitido é automaticamente definido como `Always`. Observe que _não_ será utilizado para `ifNotPresent`se o valor da tag mudar.
 
-- `imagePullPolicy: Never`: the image is assumed to exist locally. No attempt is made to pull the image.
+- `imagePullPolicy` é omitido se uma tag da imagem existe mas não `:latest`: `imagePullPolicy` é automaticamente definido como `ifNotPresent`. Observe que isto _não_ será atualizado para `Always` se a tag for removida ou alterada para `:latest`.
+
+- `imagePullPolicy: Never`: presume-se que a imagem exista localmente. Não é feita nenhuma tentativa de puxar a imagem.
 
 {{< note >}}
-To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier); replace `<image-name>:<tag>` with `<image-name>@<digest>` (for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`). The digest uniquely identifies a specific version of the image, so it is never updated by Kubernetes unless you change the digest value.
+Para garantir que seu contêiner sempre use a mesma versão de uma imagem, você pode especificar sua [hash](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier); 
+substitua `<nome-da-imagem>:<tag>` por `<nome-da-imagem>@<hash>` (por exemplo, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`). Essa hash identifica exclusivamente uma versão 
+específica de uma imagem, então isso nunca vai ser atualizado pelo Kubernetes a menos que você mude o valor da hash.
 {{< /note >}}
 
 {{< note >}}
-You should avoid using the `:latest` tag when deploying containers in production as it is harder to track which version of the image is running and more difficult to roll back properly.
+Você deve evitar o uso da tag `:latest` em produção, pois é mais difícil rastrear qual versão da imagem está sendo executada e mais difícil reverter adequadamente. 
 {{< /note >}}
 
 {{< note >}}
-The caching semantics of the underlying image provider make even `imagePullPolicy: Always` efficient, as long as the registry is reliably accessible. With Docker, for example, if the image already exists, the pull attempt is fast because all image layers are cached and no image download is needed.
+A semântica de cache do provedor de imagem subjacente torna até mesmo `imagePullPolicy: Always` eficiente, contanto que o registro esteja acessível de forma confiável. Com o Docker, por exemplo, se a imagem já existe, a tentativa de baixar(pull) é rápida porque todas as camadas da imagem são armazenadas em cache e nenhum download de imagem é necessário.
 {{< /note >}}
 
-## Using kubectl
+## Usando kubectl
 
-- Use `kubectl apply -f <directory>`. This looks for Kubernetes configuration in all `.yaml`, `.yml`, and `.json` files in `<directory>` and passes it to `apply`.
+- Use `kubectl apply -f <directory>`. Isso procura por configurações do Kubernetes em todos os arquivos `.yaml`, `.yml` em `<directory>` e passa isso para `apply`.
 
-- Use label selectors for `get` and `delete` operations instead of specific object names. See the sections on [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
+- Use *labels selectors* para operações `get` e `delete` em vez de nomes de objetos específicos. Consulte as seções sobre [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
+e [usando Labels efetivamente](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
 
-- Use `kubectl create deployment` and `kubectl expose` to quickly create single-container Deployments and Services. See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.
-
-
-
+- Use `kubectl create deployment` e `kubectl expose` para criar rapidamente Deployments e Services de um único contêiner. Consulte [Use um Service para acessar uma aplicação em um cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) para obter um exemplo.
