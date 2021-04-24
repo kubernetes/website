@@ -18,7 +18,7 @@ weight: 10
 
 *カスタムリソース* は、Kubernetes APIの拡張で、デフォルトのKubernetesインストールでは、必ずしも利用できるとは限りません。つまりそれは、特定のKubernetesインストールのカスタマイズを表します。しかし、今現在、多数のKubernetesのコア機能は、カスタムリソースを用いて作られており、Kubernetesをモジュール化しています。
 
-カスタムリソースは、稼働しているクラスターに動的に登録され、現れたり、消えたりし、クラスター管理者はクラスター自体とは無関係にカスタムリソースを更新できます。一度、カスタムリソースがインストールされると、ユーザーは[kubectl](/docs/user-guide/kubectl-overview/)を使い、ビルトインのリソースである *Pods* と同じように、オブジェクトを作成、アクセスすることが可能です。
+カスタムリソースは、稼働しているクラスターに動的に登録され、現れたり、消えたりし、クラスター管理者はクラスター自体とは無関係にカスタムリソースを更新できます。一度、カスタムリソースがインストールされると、ユーザーは[kubectl](/ja/docs/reference/kubectl/overview/)を使い、ビルトインのリソースである *Pods* と同じように、オブジェクトを作成、アクセスすることが可能です。
 
 ## カスタムコントローラー
 
@@ -31,7 +31,7 @@ weight: 10
 
 ## カスタムリソースをクラスターに追加するべきか？
 
-新しいAPIを作る場合、[APIをKubernetesクラスターAPIにアグリゲート(集約)する](/ja/docs/concepts/api-extension/apiserver-aggregation/)か、もしくはAPIをスタンドアローンで動かすかを検討します。
+新しいAPIを作る場合、[APIをKubernetesクラスターAPIにアグリゲート(集約)する](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)か、もしくはAPIをスタンドアローンで動かすかを検討します。
 
 | APIアグリゲーションを使う場合: | スタンドアローンAPIを使う場合: |
 | ------------------------------ | ---------------------------- |
@@ -78,7 +78,7 @@ APIが宣言的ではない兆候として、次のものがあります:
 * ファイルが更新されたときに、Deploymentなどを介してローリングアップデートを行いたい
 
 {{< note >}}
-センシティブなデータには、ConfigMapに類似していますがよりセキュアな[secret](/docs/concepts/configuration/secret/)を使ってください
+センシティブなデータには、ConfigMapに類似していますがよりセキュアな[secret](/ja/docs/concepts/configuration/secret/)を使ってください
 {{< /note >}}
 
 下記のほとんどに該当する場合、カスタムリソース(CRD、またはアグリゲートAPI)を使ってください:
@@ -107,7 +107,7 @@ CRDでは、APIサーバーの追加なしに、ユーザーが新しい種類�
 
 ## CustomResourceDefinition
 
-[CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)APIリソースは、カスタムリソースを定義します。CRDオブジェクトを定義することで、指定した名前、スキーマで新しいカスタムリソースが作成されます。Kubernetes APIは、作成したカスタムリソースのストレージを提供、および処理します。
+[CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)APIリソースは、カスタムリソースを定義します。CRDオブジェクトを定義することで、指定した名前、スキーマで新しいカスタムリソースが作成されます。Kubernetes APIは、作成したカスタムリソースのストレージを提供、および処理します。
 CRDオブジェクトの名前は[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)に従わなければなりません。
 
 これはカスタムリソースを処理するために、独自のAPIサーバーを書くことから解放してくれますが、一般的な性質として[APIサーバーアグリゲーション](#APIサーバーアグリゲーション)と比べると、柔軟性に欠けます。
@@ -136,7 +136,7 @@ CRDは、アグリゲートAPIと比べ、簡単に作れます。
 | CRD                        | アグリゲートAPI |
 | -------------------------- | --------------- |
 | プログラミングが不要で、ユーザーはCRDコントローラーとしてどの言語でも選択可能 | Go言語でプログラミングし、バイナリとイメージの作成が必要 |
-| 追加のサービスは不要。カスタムリソースはAPIサーバーで処理される | 追加のサービス作成が必要で、障害が発生する可能性がある |
+| 追加のサービスは不要。CRDはAPIサーバーで処理される | 追加のサービス作成が必要で、障害が発生する可能性がある |
 | CRDが作成されると、継続的なサポートは無い。バグ修正は通常のKubernetesマスターのアップグレードで行われる | 定期的にアップストリームからバグ修正の取り込み、リビルド、そしてアグリゲートAPIサーバーの更新が必要かもしれない |
 | 複数バージョンのAPI管理は不要。例えば、あるリソースを操作するクライアントを管理していた場合、APIのアップグレードと一緒に更新される | 複数バージョンのAPIを管理しなければならない。例えば、世界中に共有されている拡張機能を開発している場合 |
 
@@ -146,17 +146,17 @@ CRDは、アグリゲートAPIと比べ、簡単に作れます。
 
 | 機能 | 詳細 | CRD | アグリゲートAPI |
 | ---- | ---- | --- | --------------- |
-| バリデーション | エラーを予防し、クライアントと無関係にAPIを発達させることができるようになる。これらの機能は多数のクライアントがおり、同時に全てを更新できないときに最も効果を発揮する | はい、ほとんどのバリデーションは[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation)で、CRDに指定できる。その他のバリデーションは[Webhookのバリデーション](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)によりサポートされている | はい、任意のバリデーションが可能 |
+| バリデーション | エラーを予防し、クライアントと無関係にAPIを発達させることができるようになる。これらの機能は多数のクライアントがおり、同時に全てを更新できないときに最も効果を発揮する | はい、ほとんどのバリデーションは[OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation)で、CRDに指定できる。その他のバリデーションは[Webhookのバリデーション](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)によりサポートされている | はい、任意のバリデーションが可能 |
 | デフォルト設定 | 上記を参照 | はい、[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting)の`default`キーワード(1.17でGA)、または[Mutating Webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)を通じて可能 (ただし、この方法は古いオブジェクトをetcdから読み込む場合には動きません) | はい |
-| 複数バージョニング | 同じオブジェクトを、違うAPIバージョンで利用可能にする。フィールドの名前を変更するなどのAPIの変更を簡単に行うのに役立つ。クライアントのバージョンを管理する場合、重要性は下がる | [はい](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning) | はい |
+| 複数バージョニング | 同じオブジェクトを、違うAPIバージョンで利用可能にする。フィールドの名前を変更するなどのAPIの変更を簡単に行うのに役立つ。クライアントのバージョンを管理する場合、重要性は下がる | [はい](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning) | はい |
 | カスタムストレージ | 異なる性能のストレージが必要な場合(例えば、キーバリューストアの代わりに時系列データベース)または、セキュリティの分離(例えば、機密情報の暗号化、その他)| いいえ | はい |
 | カスタムビジネスロジック | オブジェクトが作成、読み込み、更新、また削除されるときに任意のチェック、アクションを実行する| はい、[Webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)を利用 | はい |
-| サブリソースのスケール | HorizontalPodAutoscalerやPodDisruptionBudgetなどのシステムが、新しいリソースと連携できるようにする | [はい](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#scale-subresource) | はい |
-| サブリソースの状態 | ユーザーがspecセクションに書き込み、コントローラーがstatusセクションに書き込む際に、より詳細なアクセスコントロールができるようにする。カスタムリソースのデータ変換時にオブジェクトの世代を上げられるようにする(リソース内のspecとstatusでセクションが分離している必要がある) | [はい](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | はい |
+| サブリソースのスケール | HorizontalPodAutoscalerやPodDisruptionBudgetなどのシステムが、新しいリソースと連携できるようにする | [はい](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource) | はい |
+| サブリソースの状態 | ユーザーがspecセクションに書き込み、コントローラーがstatusセクションに書き込む際に、より詳細なアクセスコントロールができるようにする。カスタムリソースのデータ変換時にオブジェクトの世代を上げられるようにする(リソース内のspecとstatusでセクションが分離している必要がある) | [はい](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#status-subresource) | はい |
 | その他のサブリソース | "logs"や"exec"のような、CRUD以外の処理の追加 | いいえ | はい |
-| strategic-merge-patch |`Content-Type: application/strategic-merge-patch+json`で、PATCHをサポートする新しいエンドポイント。ローカル、サーバー、どちらでも更新されうるオブジェクトに有用。さらなる情報は["APIオブジェクトをkubectl patchで決まった場所で更新"](/docs/tasks/run-application/update-api-object-kubectl-patch/)を参照 | いいえ | はい |
+| strategic-merge-patch |`Content-Type: application/strategic-merge-patch+json`で、PATCHをサポートする新しいエンドポイント。ローカル、サーバー、どちらでも更新されうるオブジェクトに有用。さらなる情報は["APIオブジェクトをkubectl patchで決まった場所で更新"](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)を参照 | いいえ | はい |
 | プロトコルバッファ | プロトコルバッファを使用するクライアントをサポートする新しいリソース | いいえ | はい |
-| OpenAPIスキーマ | サーバーから動的に取得できる型のOpenAPI(Swagger)スキーマはあるか、許可されたフィールドのみが設定されるようにすることで、ユーザーはフィールド名のスペルミスから保護されているか、型は強制されているか(言い換えると、「文字列」フィールドに「int」を入れさせない) | はい、[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) スキーマがベース(1.16でGA) | はい |
+| OpenAPIスキーマ | サーバーから動的に取得できる型のOpenAPI(Swagger)スキーマはあるか、許可されたフィールドのみが設定されるようにすることで、ユーザーはフィールド名のスペルミスから保護されているか、型は強制されているか(言い換えると、「文字列」フィールドに「int」を入れさせない) | はい、[OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) スキーマがベース(1.16でGA) | はい |
 
 ### 一般的な機能
 
@@ -166,7 +166,7 @@ CRD、またはアグリゲートAPI、どちらを使ってカスタムリソ�
 | ---- | -------------- |
 | CRUD | 新しいエンドポイントが、HTTP、`kubectl`を通じて、基本的なCRUD処理をサポート |
 | Watch | 新しいエンドポイントが、HTTPを通じて、KubernetesのWatch処理をサポート |
-| Discovery | kubectlやダッシュボードのようなクライアントが、自動的にリソースの一覧表示、個別表示、フィールドの編集処理を提供 |
+| Discovery | `kubectl`やダッシュボードのようなクライアントが、自動的にリソースの一覧表示、個別表示、フィールドの編集処理を提供 |
 | json-patch | 新しいエンドポイントが`Content-Type: application/json-patch+json`を用いたPATCHをサポート |
 | merge-patch | 新しいエンドポイントが`Content-Type: application/merge-patch+json`を用いたPATCHをサポート |
 | HTTPS | 新しいエンドポイントがHTTPSを利用 |
@@ -205,11 +205,11 @@ CRDでは、APIサーバーのビルトインリソースと同じ認証、認�
 
 ## カスタムリソースへのアクセス
 
-Kubernetesの[クライアントライブラリー](/docs/reference/using-api/client-libraries/)を使い、カスタムリソースにアクセスすることが可能です。全てのクライアントライブラリーがカスタムリソースをサポートしているわけでは無いですが、GoとPythonのライブラリーはサポートしています。
+Kubernetesの[クライアントライブラリー](/docs/reference/using-api/client-libraries/)を使い、カスタムリソースにアクセスすることが可能です。全てのクライアントライブラリーがカスタムリソースをサポートしているわけでは無いですが、_Go_ と _Python_ のライブラリーはサポートしています。
 
 カスタムリソースは、下記のような方法で操作できます:
 
-- kubectl
+- `kubectl`
 - kubernetesの動的クライアント
 - 自作のRESTクライアント
 - [Kubernetesクライアント生成ツール](https://github.com/kubernetes/code-generator)を使い生成したクライアント(生成は高度な作業ですが、一部のプロジェクトは、CRDまたはAAとともにクライアントを提供する場合があります)
@@ -220,4 +220,4 @@ Kubernetesの[クライアントライブラリー](/docs/reference/using-api/cl
 
 
 * [Kubernetes APIをアグリゲーションレイヤーで拡張する方法](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)について学ぶ
-* [Kubernetes APIをCustomResourceDefinitionで拡張する方法](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)について学ぶ
+* [Kubernetes APIをCustomResourceDefinitionで拡張する方法](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)について学ぶ

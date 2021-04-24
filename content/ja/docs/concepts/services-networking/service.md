@@ -143,6 +143,14 @@ ExternalName Serviceはセレクターの代わりにDNS名を使用する特殊
 
 エンドポイントスライスは、[エンドポイントスライスのドキュメント](/docs/concepts/services-networking/endpoint-slices/)にて詳しく説明されている追加の属性と機能を提供します。
 
+### アプリケーションプロトコル
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+AppProtocolフィールドは、各Serviceのポートで使用されるアプリケーションプロトコルを指定する方法を提供します。
+
+アルファ機能のため、このフィールドはデフォルトで有効化されていません。このフィールドを使用するには、 `ServiceAppProtocol` という[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効化してください。
+
 ## 仮想IPとサービスプロキシー {#virtual-ips-and-service-proxies}
 
 Kubernetesクラスターの各Nodeは`kube-proxy`を稼働させています。`kube-proxy`は[`ExternalName`](#externalname)タイプ以外の`Service`用に仮想IPを実装する責務があります。
@@ -272,7 +280,7 @@ Kubernetesは、Serviceオブジェクトを見つけ出すために2つの主�
 
 PodがNode上で稼働するとき、kubeletはアクティブな各Serviceに対して、環境変数のセットを追加します。
 これは[Docker links互換性](https://docs.docker.com/userguide/dockerlinks/)のある変数(
-[makeLinkVariables関数](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L72)を確認してください)や、より簡単な`{SVCNAME}_SERVICE_HOST`や、`{SVCNAME}_SERVICE_PORT`変数をサポートします。この変数名で使われるService名は大文字に変換され、`-`は`_`に変換されます。
+[makeLinkVariables関数](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L72)を確認してください)や、より簡単な`{SVCNAME}_SERVICE_HOST`や、`{SVCNAME}_SERVICE_PORT`変数をサポートします。この変数名で使われるService名は大文字に変換され、`-`は`_`に変換されます。
 
 例えば、TCPポート6379番を公開していて、さらにclusterIPが10.0.0.11に割り当てられている`"redis-master"`というServiceは、下記のような環境変数を生成します。
 
@@ -373,6 +381,26 @@ NodePortの使用は、Kubernetesによって完全にサポートされてい�
 注意点として、このServiceは`<NodeIP>:spec.ports[*].nodePort`と、`.spec.clusterIP:spec.ports[*].port`として疎通可能です。
 (もしkube-proxyにおいて`--nodeport-addressses`が設定された場合、<NodeIP>はフィルターされたNodeIPとなります。)
 
+例えば:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort
+  selector:
+    app: MyApp
+  ports:
+      # デフォルトでは利便性のため、 `targetPort` は `port` と同じ値にセットされます。
+    - port: 80
+      targetPort: 80
+      # 省略可能なフィールド
+      # デフォルトでは利便性のため、Kubernetesコントロールプレーンはある範囲から1つポートを割り当てます(デフォルト値の範囲:30000-32767)
+      nodePort: 30007
+```
+
 ### LoadBalancer タイプ {#loadbalancer}
 
 外部のロードバランサーをサポートするクラウドプロバイダー上で、`type`フィールドに`LoadBalancer`を設定すると、Service用にロードバランサーがプロビジョニングされます。
@@ -462,6 +490,17 @@ metadata:
 [...]
 ```
 {{% /tab %}}
+{{% tab name="IBM Cloud" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
+[...]
+```
+
+{{% /tab %}}
 {{% tab name="OpenStack" %}}
 ```yaml
 [...]
@@ -532,7 +571,7 @@ TCPとSSLでは、レイヤー4でのプロキシーを選択します。ELBは�
 
 上記の例では、もしServiceが`80`、`443`、`8443`と3つのポートを含んでいる場合、`443`と`8443`はSSL証明書を使いますが、`80`では単純にHTTPでのプロキシーとなります。
 
-Kubernetes v1.9以降のバージョンからは、Serviceのリスナー用にHTTPSやSSLと[事前定義されたAWS SSLポリシー](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)を使用できます。
+Kubernetes v1.9以降のバージョンからは、Serviceのリスナー用にHTTPSやSSLと[事前定義されたAWS SSLポリシー](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)を使用できます。
 どのポリシーが使用できるかを確認するために、`aws`コマンドラインツールを使用できます。
 
 ```bash
@@ -654,7 +693,7 @@ AWSでNetwork Load Balancerを使用するには、値を`nlb`に設定してア
 ```
 
 {{< note >}}
-NLBは特定のインスタンスクラスでのみ稼働します。サポートされているインスタンスタイプを確認するためには、ELBに関する[AWS documentation](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)を参照してください。
+NLBは特定のインスタンスクラスでのみ稼働します。サポートされているインスタンスタイプを確認するためには、ELBに関する[AWS documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)を参照してください。
 {{< /note >}}
 
 古いタイプのElastic Load Balancersとは異なり、Network Load Balancers (NLBs)はクライアントのIPアドレスをNodeに転送します。
@@ -663,7 +702,7 @@ NLBは特定のインスタンスクラスでのみ稼働します。サポー�
 `.spec.externalTrafficPolicy`を`Local`に設定することにより、クライアントIPアドレスは末端のPodに伝播します。しかし、これにより、トラフィックの分配が不均等になります。
 特定のLoadBalancer Serviceに紐づいたPodがないNodeでは、自動的に割り当てられた`.spec.healthCheckNodePort`に対するNLBのターゲットグループのヘルスチェックが失敗し、トラフィックを全く受信しません。
 
-均等なトラフィックの分配を実現するために、DaemonSetの使用や、同一のNodeに配備しないように[Podのanti-affinity](/ja/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)を設定します。
+均等なトラフィックの分配を実現するために、DaemonSetの使用や、同一のNodeに配備しないように[Podのanti-affinity](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を設定します。
 
 また、[内部のロードバランサー](/ja/docs/concepts/services-networking/service/#internal-load-balancer)のアノテーションとNLB Serviceを使用できます。
 
@@ -673,7 +712,7 @@ NLBの背後にあるインスタンスに対してクライアントのトラ�
 |------|----------|---------|------------|---------------------|
 | ヘルスチェック | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
 | クライアントのトラフィック | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (デフォルト: `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
-| MTCによるサービスディスカバリー | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (デフォルト: `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
+| MTUによるサービスディスカバリー | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (デフォルト: `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 
 どのクライアントIPがNLBにアクセス可能かを制限するためには、`loadBalancerSourceRanges`を指定してください。
 
@@ -689,7 +728,7 @@ spec:
 
 {{< /note >}}
 
-#### Tencent Kubernetes Engine（TKE）におけるその他のCLBアノテーション
+#### Tencent Kubernetes Engine(TKE)におけるその他のCLBアノテーション
 
 以下に示すように、TKEでCloud Load Balancerを管理するためのその他のアノテーションがあります。
 
@@ -700,7 +739,7 @@ spec:
         # 指定したノードでロードバランサーをバインドします
         service.kubernetes.io/qcloud-loadbalancer-backends-label: key in (value1, value2)
         # 既存のロードバランサーのID
-        service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
+        service.kubernetes.io/tke-existed-lbid:lb-6swtxxxx
 
         # ロードバランサー(LB)のカスタムパラメーターは、LBタイプの変更をまだサポートしていません
         service.kubernetes.io/service.extensiveParameters: ""
@@ -714,7 +753,7 @@ spec:
         # パブリックネットワーク帯域幅の課金方法を指定します
         # 有効な値: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic)およびBANDWIDTH_POSTPAID_BY_HOUR(bill-by-bandwidth)
         service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
-        # 帯域幅の値を指定します(値の範囲：[1-2000] Mbps)。
+        # 帯域幅の値を指定します(値の範囲:[1-2000] Mbps)。
         service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
         # この注釈が設定されている場合、ロードバランサーはポッドが実行されているノードのみを登録します
         # そうでない場合、すべてのノードが登録されます
@@ -785,10 +824,10 @@ spec:
   - 80.11.12.10
 ```
 
-## Serviceのデメリット
+## Serviceの欠点
 
 仮想IP用にuserspaceモードのプロキシーを使用すると、小規模もしくは中規模のスケールでうまく稼働できますが、1000以上のServiceがあるようなとても大きなクラスターではうまくスケールしません。
-これについては、[Serviceのデザインプロポーザル](http://issue.k8s.io/1107)にてさらなる詳細を確認できます。
+これについては、[Serviceのデザインプロポーザル](https://github.com/kubernetes/kubernetes/issues/1107)にてさらなる詳細を確認できます。
 
 userspaceモードのプロキシーの使用は、Serviceにアクセスするパケットの送信元IPアドレスが不明瞭になります。
 これは、いくつかの種類のネットワークフィルタリング(ファイアウォールによるフィルタリング)を不可能にします。
@@ -812,8 +851,8 @@ Kubernetesは各Serviceに、それ自身のIPアドレスを割り当てるこ�
 各Serviceが固有のIPを割り当てられるのを保証するために、内部のアロケーターは、Serviceを作成する前に、etcd内のグローバルの割り当てマップをアトミックに更新します。
 そのマップオブジェクトはServiceのIPアドレスの割り当てのためにレジストリー内に存在しなくてはならず、そうでない場合は、Serviceの作成時にIPアドレスが割り当てられなかったことを示すエラーメッセージが表示されます。
 
-コントロールプレーンにおいて、バックグラウンドのコントローラーはそのマップを作成する責務があります(インメモリーのロックが使われていた古いバージョンのKubernetesのマイグレーションも必要です)。
-また、Kubernetesは無効な割り当てがされているかをチェックすることと、現時点でどのServiceにも使用されていない割り当て済みIPアドレスのクリーンアップのためにコントローラーを使用します。
+コントロールプレーンにおいて、バックグラウンドのコントローラーはそのマップを作成する責務があります(インメモリーのロックが使われていた古いバージョンのKubernetesからのマイグレーションをサポートすることも必要です)。
+また、Kubernetesは(例えば、管理者の介入によって)無効な割り当てがされているかをチェックすることと、現時点でどのServiceにも使用されていない割り当て済みIPアドレスのクリーンアップのためにコントローラーを使用します。
 
 ### ServiceのIPアドレス {#ips-and-vips}
 
@@ -894,9 +933,9 @@ PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-KubernetesはService、Endpoints、NetworkPolicyとPodの定義においてα版の機能として`protocol`フィールドの値でSCTPをサポートしています。この機能を有効にするために、クラスター管理者はAPI Serverにおいて`SCTPSupport`というFeature Gateを有効にする必要があります。例えば、`--feature-gates=SCTPSupport=true,…`といったように設定します。
+KubernetesはService、Endpoints、NetworkPolicyとPodの定義においてα版の機能として`protocol`フィールドの値でSCTPをサポートしています。この機能を有効にするために、クラスター管理者はAPI Serverにおいて`SCTPSupport`というフィーチャーゲートを有効にする必要があります。例えば、`--feature-gates=SCTPSupport=true,…`といったように設定します。
 
-そのFeature Gateが有効になった時、ユーザーはService、Endpoints、NetworkPolicyの`protocol`フィールドと、Podの`SCTP`フィールドを設定できます。
+そのフィーチャーゲートが有効になった時、ユーザーはService、Endpoints、NetworkPolicyの`protocol`フィールドと、Podの`SCTP`フィールドを設定できます。
 Kubernetesは、TCP接続と同様に、SCTPアソシエーションに応じてネットワークをセットアップします。
 
 #### 警告 {#caveat-sctp-overview}
@@ -936,5 +975,3 @@ kube-proxyはuserspaceモードにおいてSCTPアソシエーションの管理
 * [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)を参照してください。
 * [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。
 * [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
-
-

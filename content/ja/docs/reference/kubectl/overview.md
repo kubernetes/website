@@ -8,9 +8,9 @@ card:
 ---
 
 <!-- overview -->
-`kubectl`は、Kubernetesクラスターを制御するためのコマンドラインツールです。`kubectl`は、`$HOME/.kube`ディレクトリにある`config`という名前のファイルを探します。他の[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)ファイルは、`KUBECONFIG`環境変数を設定するか、[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)フラグを設定することで指定できます。
+`kubectl`コマンドラインツールを使うと、Kubernetesクラスターを制御できます。環境設定のために、`kubectl`は、`$HOME/.kube`ディレクトリにある`config`という名前のファイルを探します。他の[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)ファイルは、`KUBECONFIG`環境変数を設定するか、[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)フラグを設定することで指定できます。
+この概要では、`kubectl`の構文を扱い、コマンド操作を説明し、一般的な例を示します。サポートされているすべてのフラグやサブコマンドを含め、各コマンドの詳細については、[kubectl](/docs/reference/generated/kubectl/kubectl-commands/)リファレンスドキュメントを参照してください。インストール方法については、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)をご覧ください。
 
-この概要では、`kubectl`の構文を扱い、コマンド操作を説明し、一般的な例を示します。サポートされているすべてのフラグやサブコマンドを含め、各コマンドの詳細については、[kubectl](/docs/reference/generated/kubectl/kubectl-commands/)リファレンスドキュメントを参照してください。インストール方法については、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/kubectl/install/)をご覧ください。
 
 
 <!-- body -->
@@ -29,11 +29,11 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 * `TYPE`: [リソースタイプ](#resource-types)を指定します。リソースタイプは大文字と小文字を区別せず、単数形や複数形、省略形を指定できます。例えば、以下のコマンドは同じ出力を生成します。
 
-      ```shell
-      kubectl get pod pod1
-      kubectl get pods pod1
-      kubectl get po pod1
-      ```
+   ```shell
+   kubectl get pod pod1
+   kubectl get pods pod1
+   kubectl get po pod1
+   ```
 
 * `NAME`: リソースの名前を指定します。名前は大文字と小文字を区別します。`kubectl get pods`のように名前が省略された場合は、すべてのリソースの詳細が表示されます。
 
@@ -49,7 +49,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 
    * リソースを1つ以上のファイルで指定する場合は、`-f file1 -f file2 -f file<#>`とします。
 
-      * 特に設定ファイルについては、YAMLの方がより使いやすいため、[JSONではなくYAMLを使用してください](/docs/concepts/configuration/overview/#general-configuration-tips)。<br/>
+      * 特に設定ファイルについては、YAMLの方がより使いやすいため、[JSONではなくYAMLを使用してください](/ja/docs/concepts/configuration/overview/#一般的な設定のtips)。<br/>
      例: `kubectl get pod -f ./pod.yaml`
 
 * `flags`: オプションのフラグを指定します。例えば、`-s`または`--server`フラグを使って、Kubernetes APIサーバーのアドレスやポートを指定できます。<br/>
@@ -64,42 +64,59 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 以下の表に、`kubectl`のすべての操作の簡単な説明と一般的な構文を示します。
 
-操作       | 構文    |       説明
+操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       | 構文    |       説明
 -------------------- | -------------------- | --------------------
+`alpha`| `kubectl alpha SUBCOMMAND [flags]` | アルファ機能に該当する利用可能なコマンドを一覧表示します。これらの機能は、デフォルトではKubernetesクラスターで有効になっていません。
 `annotate`    | <code>kubectl annotate (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | 1つ以上のリソースのアノテーションを、追加または更新します。
-`api-versions`    | `kubectl api-versions [flags]` | 利用可能なAPIバージョンを表示します。
+`api-resources`    | `kubectl api-resources [flags]` | 利用可能なAPIリソースを一覧表示します。
+`api-versions`    | `kubectl api-versions [flags]` | 利用可能なAPIバージョンを一覧表示します。
 `apply`            | `kubectl apply -f FILENAME [flags]`| ファイルまたは標準出力から、リソースの設定変更を適用します。
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | 実行中のコンテナにアタッチして、出力ストリームを表示するか、コンテナ(標準入力)と対話します。
+`auth`    | `kubectl auth [flags] [options]` | 認可を検査します。
 `autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | ReplicationControllerで管理されているPodのセットを、自動的にスケールします。
+`certificate`    | `kubectl certificate SUBCOMMAND [options]` | 証明書のリソースを変更します。
 `cluster-info`    | `kubectl cluster-info [flags]` | クラスター内のマスターとサービスに関するエンドポイント情報を表示します。
+`completion`    | `kubectl completion SHELL [options]` | 指定されたシェル(bashまたはzsh)のシェル補完コードを出力します。
 `config`        | `kubectl config SUBCOMMAND [flags]` | kubeconfigファイルを変更します。詳細は、個々のサブコマンドを参照してください。
+`convert`    | `kubectl convert -f FILENAME [options]` | 異なるAPIバージョン間で設定ファイルを変換します。YAMLとJSONに対応しています。
+`cordon`    | `kubectl cordon NODE [options]` | Nodeをスケジュール不可に設定します。
+`cp`    | `kubectl cp <file-spec-src> <file-spec-dest> [options]` | コンテナとの間でファイルやディレクトリをコピーします。
 `create`        | `kubectl create -f FILENAME [flags]` | ファイルまたは標準出力から、1つ以上のリソースを作成します。
 `delete`        | <code>kubectl delete (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label &#124; --all]) [flags]</code> | ファイル、標準出力、またはラベルセレクター、リソースセレクター、リソースを指定して、リソースを削除します。
 `describe`    | <code>kubectl describe (-f FILENAME &#124; TYPE [NAME_PREFIX &#124; /NAME &#124; -l label]) [flags]</code> | 1つ以上のリソースの詳細な状態を表示します。
 `diff`        | `kubectl diff -f FILENAME [flags]`| ファイルまたは標準出力と、現在の設定との差分を表示します。
+`drain`    | `kubectl drain NODE [options]` | メンテナンスの準備のためにNodeをdrainします。
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | デファルトのエディタを使い、サーバー上の1つ以上のリソースリソースの定義を編集し、更新します。
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Pod内のコンテナに対して、コマンドを実行します。
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | 様々なリソースのドキュメントを取得します。例えば、Pod、Node、Serviceなどです。
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | ReplicationController、Service、Podを、新しいKubernetesサービスとして公開します。
 `get`        | <code>kubectl get (-f FILENAME &#124; TYPE [NAME &#124; /NAME &#124; -l label]) [--watch] [--sort-by=FIELD] [[-o &#124; --output]=OUTPUT_FORMAT] [flags]</code> | 1つ以上のリソースを表示します。
+`kustomize`    | `kubectl kustomize <dir> [flags] [options]` | kustomization.yamlファイル内の指示から生成されたAPIリソースのセットを一覧表示します。引数はファイルを含むディレクトリのPath，またはリポジトリルートに対して同じ場所を示すパスサフィックス付きのgitリポジトリのURLを指定しなければなりません。
 `label`        | <code>kubectl label (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | 1つ以上のリソースのラベルを、追加または更新します。
 `logs`        | `kubectl logs POD [-c CONTAINER] [--follow] [flags]` | Pod内のコンテナのログを表示します。
+`options`    | `kubectl options` | すべてのコマンドに適用されるグローバルコマンドラインオプションを一覧表示します。
 `patch`        | <code>kubectl patch (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --patch PATCH [flags]</code> | Strategic Merge Patchの処理を使用して、リソースの1つ以上のフィールドを更新します。
-`port-forward`    | `kubectl port-forward POD [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N] [flags]` | 1つ以上のリーカルポートを、Podに転送します。
+`plugin`    | `kubectl plugin [flags] [options]` | プラグインと対話するためのユーティリティを提供します。
+`port-forward`    | `kubectl port-forward POD [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N] [flags]` | 1つ以上のローカルポートを、Podに転送します。
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Kubernetes APIサーバーへのプロキシーを実行します。
 `replace`        | `kubectl replace -f FILENAME` | ファイルや標準出力から、リソースを置き換えます。
-`rolling-update`    | <code>kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE &#124; -f NEW_CONTROLLER_SPEC) [flags]</code> | 指定されたReplicationControllerとそのPodを徐々に置き換えることで、ローリングアップデートを実行します。
-`run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=server|client|none] [--overrides=inline-json] [flags]` | 指定したイメージを、クラスタ上で実行します。
-`scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | していしたReplicationControllerのサイズを更新します。
+`rollout`    | `kubectl rollout SUBCOMMAND [options]` | リソースのロールアウトを管理します。有効なリソースには、Deployment、DaemonSetとStatefulSetが含まれます。
+`run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]</code> | 指定したイメージを、クラスタ上で実行します。
+`scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | 指定したReplicationControllerのサイズを更新します。
+`set`    | `kubectl set SUBCOMMAND [options]` | アプリケーションリソースを設定します。
+`taint`    | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | 1つ以上のNodeのtaintを更新します。
+`top`    | `kubectl top [flags] [options]` | リソース(CPU/メモリー/ストレージ)の使用量を表示します。
+`uncordon`    | `kubectl uncordon NODE [options]` | Nodeをスケジュール可に設定します。
 `version`        | `kubectl version [--client] [flags]` | クライアントとサーバーで実行中のKubernetesのバージョンを表示します。
+`wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | 実験中の機能: 1つ以上のリソースが特定の状態になるまで待ちます。
 
-コマンド操作の詳細については、[kubectl](/docs/user-guide/kubectl/)リファレンスドキュメントを参照してください。
+コマンド操作について詳しく知りたい場合は、[kubectl](/docs/reference/kubectl/kubectl/)リファレンスドキュメントを参照してください。
 
 ## リソースタイプ {#resource-types}
 
 以下の表に、サポートされているすべてのリソースと、省略されたエイリアスの一覧を示します。
 
-(この出力は`kubectl api-resources`から取得でき、Kubernetes 1.13.3時点で正確です。)
+(この出力は`kubectl api-resources`から取得でき、Kubernetes 1.13.3時点で正確でした。)
 
 | リソース名 | 短縮名 | APIグループ | 名前空間に属するか | リソースの種類 |
 |---|---|---|---|---|
@@ -155,7 +172,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 ## 出力オプション
 
-ある特定のコマンドの出力に対してフォーマットやソートを行う方法については、以下の節を参照してください。どのコマンドが様々な出力オプションをサポートしているかについては、[kubectl](/docs/user-guide/kubectl/)リファレンスドキュメントをご覧ください。
+ある特定のコマンドの出力に対してフォーマットやソートを行う方法については、以下の節を参照してください。どのコマンドが様々な出力オプションをサポートしているかについては、[kubectl](/docs/reference/kubectl/kubectl/)リファレンスドキュメントをご覧ください。
 
 ### 出力のフォーマット
 
@@ -174,8 +191,8 @@ kubectl [command] [TYPE] [NAME] -o <output_format>
 `-o custom-columns=<spec>` | [カスタムカラム](#custom-columns)のコンマ区切りのリストを使用して、テーブルを表示します。
 `-o custom-columns-file=<filename>` | `<filename>`ファイル内の[カスタムカラム](#custom-columns)のテンプレートを使用して、テーブルを表示します。
 `-o json`     | JSON形式のAPIオブジェクトを出力します。
-`-o jsonpath=<template>` | [jsonpath](/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
-`-o jsonpath-file=<filename>` | `<filename>`ファイル内の[jsonpath](/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
+`-o jsonpath=<template>` | [jsonpath](/ja/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
+`-o jsonpath-file=<filename>` | `<filename>`ファイル内の[jsonpath](/ja/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
 `-o name`     | リソース名のみを表示します。
 `-o wide`     | 追加情報を含めて、プレーンテキスト形式で出力します。Podの場合は、Node名が含まれます。
 `-o yaml`     | YAML形式のAPIオブジェクトを出力します。
@@ -188,12 +205,11 @@ kubectl [command] [TYPE] [NAME] -o <output_format>
 kubectl get pod web-pod-13je7 -o yaml
 ```
 
-各コマンドでサポートされている出力フォーマットの詳細については、[kubectl](/docs/user-guide/kubectl/)リファレンスドキュメントを参照してください。
+各コマンドでサポートされている出力フォーマットの詳細については、[kubectl](/docs/reference/kubectl/kubectl/)リファレンスドキュメントを参照してください。
 
 #### カスタムカラム {#custom-columns}
 
 カスタムカラムを定義して、必要な詳細のみをテーブルに出力するには、`custom-columns`オプションを使います。カスタムカラムをインラインで定義するか、`-o custom-columns=<spec>`または`-o custom-columns-file=<filename>`のようにテンプレートファイルを使用するかを選択できます。
-
 
 ##### 例
 
@@ -215,10 +231,9 @@ kubectl get pods <pod-name> -o custom-columns-file=template.txt
 NAME          RSRC
 metadata.name metadata.resourceVersion
 ```
-
 どちらのコマンドを実行した場合でも、以下の結果を得ます。
 
-```shell
+```
 NAME           RSRC
 submit-queue   610995
 ```
@@ -229,12 +244,11 @@ submit-queue   610995
 つまり、与えられた任意のリソースについて、サーバーはそのリソースに関連する列や行を返し、クライアントが表示できるようにします。
 これにより、サーバーが表示の詳細をカプセル化することで、同一クラスターに対して使用されているクライアント間で、一貫した人間が読みやすい出力が可能です。
 
-この機能は、`kubectl`1.11以降ではデフォルトで有効になっています。無効にするには、`kubectl get`コマンドに`--server-print=false`フラグを追加します。
+この機能は、デフォルトで有効になっています。無効にするには、`kubectl get`コマンドに`--server-print=false`フラグを追加します。
 
 ##### 例
 
 Podの状態に関する情報を表示するには、以下のようなコマンドを使用します。
-
 
 ```shell
 kubectl get pods <pod-name> --server-print=false
@@ -242,14 +256,14 @@ kubectl get pods <pod-name> --server-print=false
 
 以下のように出力されます。
 
-```shell
-NAME       READY     STATUS              RESTARTS   AGE
-pod-name   1/1       Running             0          1m
+```
+NAME       AGE
+pod-name   1m
 ```
 
 ### オブジェクトリストのソート
 
-ターミナルウィンドウで、オブジェクトをソートされたリストに出力するには、サポートされている`kubectl`コマンドに`--sort-by`フラグを追加します。`--sort-by`フラグで任意の数値フィールドや文字列フィールドを指定することで、オブジェクトをソートします。フィールドの指定には、[jsonpath](/docs/reference/kubectl/jsonpath/)式を使用します。
+ターミナルウィンドウで、オブジェクトをソートされたリストに出力するには、サポートされている`kubectl`コマンドに`--sort-by`フラグを追加します。`--sort-by`フラグで任意の数値フィールドや文字列フィールドを指定することで、オブジェクトをソートします。フィールドの指定には、[jsonpath](/ja/docs/reference/kubectl/jsonpath/)式を使用します。
 
 #### 構文
 
@@ -315,6 +329,7 @@ kubectl describe pods/<pod-name>
 
 # ReplicationController <rc-name>が管理しているすべてのPodの詳細を表示します。
 # ReplicationControllerによって作成された任意のPodには、ReplicationControllerの名前がプレフィックスとして付与されます。
+kubectl describe pods <rc-name>
 
 # すべてのPodの詳細を表示します。
 kubectl describe pods
@@ -330,8 +345,8 @@ kubectl describe pods
 # pod.yamlファイルで指定されたタイプと名前を用いて、Podを削除します。
 kubectl delete -f pod.yaml
 
-# name=<label-name>というラベルを持つPodとServiceをすべて削除します。
-kubectl delete pods,services -l name=<label-name>
+# '<label-key>=<label-value>'というラベルを持つPodとServiceをすべて削除します。
+kubectl delete pods,services -l <label-key>=<label-value>
 
 # 初期化されていないPodを含む、すべてのPodを削除します。
 kubectl delete pods --all
@@ -341,14 +356,13 @@ kubectl delete pods --all
 
 ```shell
 # Pod <pod-name>から、'date'を実行している時の出力を取得します。デフォルトでは、最初のコンテナから出力されます。
-kubectl exec <pod-name> date
+kubectl exec <pod-name> -- date
 
 # Pod <pod-name>のコンテナ <container-name>から、'date'を実行している時の出力を取得します。
-kubectl exec <pod-name> -c <container-name> date
+kubectl exec <pod-name> -c <container-name> -- date
 
 # インタラクティブな TTY を取得し、Pod <pod-name>から/bin/bashを実行します。デフォルトでは、最初のコンテナから出力されます。
-Get an interactive TTY and run /bin/bash from pod <pod-name>. By default, output is from the first container.
-kubectl exec -ti <pod-name> /bin/bash
+kubectl exec -ti <pod-name> -- /bin/bash
 ```
 
 `kubectl logs` - Pod内のコンテナのログを表示します。
@@ -379,16 +393,20 @@ cat service.yaml | kubectl diff -f -
 # 任意の言語でシンプルなプラグインを作成し、生成される実行可能なファイルに
 # プレフィックス"kubectl-"で始まる名前を付けます。
 cat ./kubectl-hello
-#!/bin/bash
+```
+```shell
+#!/bin/sh
 
 # このプラグインは、"hello world"という単語を表示します。
 echo "hello world"
-
-# プラグインを書いたら、実行可能にします。
-sudo chmod +x ./kubectl-hello
+```
+プラグインを書いたら、実行可能にします。
+```bash
+chmod a+x ./kubectl-hello
 
 # さらに、PATH内の場所に移動させます。
 sudo mv ./kubectl-hello /usr/local/bin
+sudo chown root:root /usr/local/bin
 
 # これでkubectlプラグインを作成し、"インストール"できました。
 # 通常のコマンドのようにkubectlから呼び出すことで、プラグインを使用できます。
@@ -399,14 +417,16 @@ hello world
 ```
 
 ```shell
-# 単純にPATHから削除することで、プラグインを"アンインストール"できます。
+# 配置したPATHのフォルダから削除することで、プラグインを"アンインストール"できます。
 sudo rm /usr/local/bin/kubectl-hello
 ```
 
-`kubectl`で利用可能なプラグインをすべて表示するには、以下のように`kubectl plugin list`サブコマンドを使用します。
+`kubectl`で利用可能なプラグインをすべて表示するには、`kubectl plugin list`サブコマンドを使用してください。
+
 ```shell
 kubectl plugin list
 ```
+出力は以下のようになります。
 ```
 The following kubectl-compatible plugins are available:
 
@@ -414,9 +434,10 @@ The following kubectl-compatible plugins are available:
 /usr/local/bin/kubectl-foo
 /usr/local/bin/kubectl-bar
 ```
+
+`kubectl plugin list`コマンドは、実行不可能なプラグインや、他のプラグインの影に隠れてしまっているプラグインなどについて、警告することもできます。例えば、以下のようになります。
 ```shell
-# このコマンドで、実行不可能なプラグインや、他のプラグインの影に隠れてしまっているプラグインなどについて、警告することもできます。
-sudo chmod -x /usr/local/bin/kubectl-foo
+sudo chmod -x /usr/local/bin/kubectl-foo # 実行権限を削除します。
 kubectl plugin list
 ```
 ```
@@ -434,14 +455,19 @@ error: one plugin warning was found
 
 ```shell
 cat ./kubectl-whoami
+```
+次の例では、下記の内容を含んだ`kubectl-whoami`が既に作成済であることを前提としています。
+The next few examples assume that you already made `kubectl-whoami` have
+the following contents:
+```shell
 #!/bin/bash
 
 # このプラグインは、`kubectl config`コマンドを使って
 # 現在選択されているコンテキストに基づいて、現在のユーザーに関する情報を提供します。
-kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ .context.user }}{{ end }}{{ end }}'
+kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ printf "%s\n" .context.user }}{{ end }}{{ end }}'
 ```
 
-上記のプラグインを実行すると、以下のように、KUBECONFIGファイルの中で現在選択されているユーザーを含む出力が得られます。
+上記のコマンドを実行すると、KUBECONFIGファイル内のカレントコンテキストのユーザーを含んだ出力を得られます。
 
 ```shell
 # ファイルを実行可能にします。
@@ -454,10 +480,8 @@ kubectl whoami
 Current user: plugins-user
 ```
 
-プラグインについてより詳しく知りたい場合は、[example cli plugin](https://github.com/kubernetes/sample-cli-plugin)をご覧ください。
-
-
 ## {{% heading "whatsnext" %}}
 
-[kubectl](/docs/reference/generated/kubectl/kubectl-commands/)を使い始めてください。
+* [kubectl](/docs/reference/generated/kubectl/kubectl-commands/)を使い始めてください。
 
+* プラグインについてより詳しく知りたい場合は, [example cli plugin](https://github.com/kubernetes/sample-cli-plugin)を御覧ください。

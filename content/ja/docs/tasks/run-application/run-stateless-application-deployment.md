@@ -49,7 +49,6 @@ Kubernetes Deploymentオブジェクトを作成することでアプリケー�
 
     出力はこのようになります:
 
-        user@computer:~/website$ kubectl describe deployment nginx-deployment
         Name:     nginx-deployment
         Namespace:    default
         CreationTimestamp:  Tue, 30 Aug 2016 18:11:37 -0700
@@ -96,7 +95,7 @@ Kubernetes Deploymentオブジェクトを作成することでアプリケー�
 
 ## Deploymentの更新
 
-新しいYAMLファイルを適用してDeploymentを更新できます。このYAMLファイルは、Deploymentを更新してnginx 1.8を使用するように指定しています。
+新しいYAMLファイルを適用してDeploymentを更新できます。このYAMLファイルは、Deploymentを更新してnginx 1.16.1を使用するように指定しています。
 
 {{< codenew file="application/deployment-update.yaml" >}}
 

@@ -136,7 +136,7 @@ Nodeアフィニティを使用したPodの例を以下に示します:
 
 この例ではオペレーター`In`が使われています。
 Nodeアフィニティでは、`In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt`、`Lt`のオペレーターが使用できます。
-`NotIn`と`DoesNotExist`はNodeアンチアフィニティ、またはPodを特定のNodeにスケジュールさせない場合に使われる[Taints](/docs/concepts/configuration/taint-and-toleration/)に使用します。
+`NotIn`と`DoesNotExist`はNodeアンチアフィニティ、またはPodを特定のNodeにスケジュールさせない場合に使われる[Taints](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)に使用します。
 
 `nodeSelector`と`nodeAffinity`の両方を指定した場合、Podは**両方の**条件を満たすNodeにスケジュールされます。
 
@@ -186,10 +186,10 @@ Pod間アフィニティは、PodSpecの`affinity`フィールド内に`podAffin
 
 このPodのアフィニティは、PodアフィニティとPodアンチアフィニティを1つずつ定義しています。
 この例では、`podAffinity`に`requiredDuringSchedulingIgnoredDuringExecution`、`podAntiAffinity`に`preferredDuringSchedulingIgnoredDuringExecution`が設定されています。
-Podアフィニティは、「キーが"security"、値が"S1"のラベルが付与されたPodが少なくとも1つは稼働しているNodeが同じゾーンにあれば、PodはそのNodeにスケジュールされる」という条件を指定しています(より正確には、キーが"security"、値が"S1"のラベルが付与されたPodが稼働しており、キーが`failure-domain.beta.kubernetes.io/zone`、値がVであるNodeが少なくとも1つはある状態で、
-Node Nがキー`failure-domain.beta.kubernetes.io/zone`、値Vのラベルを持つ場合に、PodはNode Nで稼働させることができます)。
+Podアフィニティは、「キーが"security"、値が"S1"のラベルが付与されたPodが少なくとも1つは稼働しているNodeが同じゾーンにあれば、PodはそのNodeにスケジュールされる」という条件を指定しています(より正確には、キーが"security"、値が"S1"のラベルが付与されたPodが稼働しており、キーが`topology.kubernetes.io/zone`、値がVであるNodeが少なくとも1つはある状態で、
+Node Nがキー`topology.kubernetes.io/zone`、値Vのラベルを持つ場合に、PodはNode Nで稼働させることができます)。
 Podアンチアフィニティは、「すでにあるNode上で、キーが"security"、値が"S2"であるPodが稼働している場合に、Podを可能な限りそのNode上で稼働させない」という条件を指定しています
-(`topologyKey`が`failure-domain.beta.kubernetes.io/zone`であった場合、キーが"security"、値が"S2"であるであるPodが稼働しているゾーンと同じゾーン内のNodeにはスケジュールされなくなります)。
+(`topologyKey`が`topology.kubernetes.io/zone`であった場合、キーが"security"、値が"S2"であるであるPodが稼働しているゾーンと同じゾーン内のNodeにはスケジュールされなくなります)。
 PodアフィニティとPodアンチアフィニティや、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`に関する他の使用例は[デザインドック](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)を参照してください。
 
 PodアフィニティとPodアンチアフィニティで使用できるオペレーターは、`In`、`NotIn`、 `Exists`、 `DoesNotExist`です。
@@ -201,7 +201,7 @@ PodアフィニティとPodアンチアフィニティで使用できるオペ�
 2. `requiredDuringSchedulingIgnoredDuringExecution`を指定したPodアンチアフィニティでは、`kubernetes.io/hostname`の`topologyKey`を制限するため、アドミッションコントローラー`LimitPodHardAntiAffinityTopology`が導入されました。
 トポロジーをカスタマイズする場合には、アドミッションコントローラーを修正または無効化する必要があります。
 3. `preferredDuringSchedulingIgnoredDuringExecution`を指定したPodアンチアフィニティでは、`topologyKey`を省略することはできません。
-4. 上記の場合を除き、`topologyKey` は任意のラベルとキーを指定することができあます。
+4. 上記の場合を除き、`topologyKey` は任意のラベルとキーを指定することができます。
 
 `labelSelector`と`topologyKey`に加え、`labelSelector`が合致すべき`namespaces`のリストを特定することも可能です(これは`labelSelector`と`topologyKey`を定義することと同等です)。
 省略した場合や空の場合は、アフィニティとアンチアフィニティが定義されたPodのnamespaceがデフォルトで設定されます。
@@ -361,7 +361,7 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 
-[Taints](/docs/concepts/configuration/taint-and-toleration/)を使うことで、NodeはPodを追い出すことができます。
+[Taints](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を使うことで、NodeはPodを追い出すことができます。
 
 [Nodeアフィニティ](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)と
 [Pod間アフィニティ/アンチアフィニティ](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)

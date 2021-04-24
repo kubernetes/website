@@ -98,7 +98,7 @@ kube-schedulerは、デフォルトで用意されているスケジューリン
 
 - `NodePreferAvoidPodsPriority`: Nodeの`scheduler.alpha.kubernetes.io/preferAvoidPods`というアノテーションに基づいてNodeの優先順位づけをします。この設定により、2つの異なるPodが同じNode上で実行しないことを示唆できます。
 
-- `NodeAffinityPriority`: "PreferredDuringSchedulingIgnoredDuringExecution"の値によって示されたNode Affinityのスケジューリング性向に基づいてNodeの優先順位づけを行います。詳細は[NodeへのPodの割り当て](https://kubernetes.io/ja/docs/concepts/configuration/assign-pod-node/)にて確認できます。
+- `NodeAffinityPriority`: "PreferredDuringSchedulingIgnoredDuringExecution"の値によって示されたNode Affinityのスケジューリング性向に基づいてNodeの優先順位づけを行います。詳細は[NodeへのPodの割り当て](https://kubernetes.io/ja/docs/concepts/scheduling-eviction/assign-pod-node/)にて確認できます。
 
 - `TaintTolerationPriority`: Node上における許容できないTaintsの数に基づいて、全てのNodeの優先順位リストを準備します。このポリシーでは優先順位リストを考慮してNodeのランクを調整します。
 
@@ -106,7 +106,7 @@ kube-schedulerは、デフォルトで用意されているスケジューリン
 
 - `ServiceSpreadingPriority`: このポリシーの目的は、特定のServiceに対するバックエンドのPodが、それぞれ異なるNodeで実行されるようにすることです。このポリシーではServiceのバックエンドのPodがすでに実行されていないNode上にスケジュールするように優先します。これによる結果として、Serviceは単体のNode障害に対してより耐障害性が高まります。
 
-- `CalculateAntiAffinityPriorityMap`: このポリシーは[PodのAnti-Affinity](/ja/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)の実装に役立ちます。
+- `CalculateAntiAffinityPriorityMap`: このポリシーは[PodのAnti-Affinity](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)の実装に役立ちます。
 
 - `EqualPriorityMap`: 全てのNodeに対して等しい重みを与えます。
 

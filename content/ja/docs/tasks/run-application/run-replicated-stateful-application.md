@@ -21,11 +21,11 @@ weight: 30
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * {{< include "default-storage-class-prereqs.md" >}}
-* このチュートリアルは、あなたが[PersistentVolume](/docs/concepts/storage/persistent-volumes/)
+* このチュートリアルは、あなたが[PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)
   と[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)、
-  さらには[Pod](/ja/docs/concepts/workloads/pods/pod/)、
+  さらには[Pod](/ja/docs/concepts/workloads/pods/)、
   [Service](/ja/docs/concepts/services-networking/service/)、
-  [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)などの
+  [ConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)などの
   他のコアな概念に精通していることを前提としています。
 * MySQLに関する知識は記事の理解に役立ちますが、
   このチュートリアルは他のシステムにも役立つ一般的なパターンを提示することを目的としています。
@@ -264,7 +264,7 @@ Podを強制的にReadyではない状態にする間、上記の`SELECT @@serve
 ### Readiness Probeを壊す
 
 `mysql`コンテナに対する
-[readiness probe](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-readiness-probes)
+[readiness probe](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
 は、`mysql -h 127.0.0.1 -e 'SELECT 1'`コマンドを実行することで、サーバーが起動していてクエリーが実行できることを確認します。
 
 このreadiness probeを失敗させる1つの方法は、そのコマンドを壊すことです。

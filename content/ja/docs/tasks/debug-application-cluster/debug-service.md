@@ -34,9 +34,9 @@ kubectl exec <POD-NAME> -c <CONTAINER-NAME> -- <COMMAND>
 
 このドキュメントのウォークスルーのために、いくつかのPodを実行しましょう。おそらくあなた自身のServiceをデバッグしているため、あなた自身の詳細に置き換えることもできますし、これに沿って2番目のデータポイントを取得することもできます。
 
+
 ```shell
-kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
-                      --replicas=3
+kubectl create deployment hostnames --image=k8s.gcr.io/serve_hostname
 ```
 ```none
 deployment.apps/hostnames created
@@ -45,6 +45,15 @@ deployment.apps/hostnames created
 
 `kubectl`コマンドは作成、変更されたリソースのタイプと名前を出力するため、この後のコマンドで使用することもできます。
 
+Deploymentを3つのレプリカにスケールさせてみましょう。
+
+```shell
+kubectl scale deployment hostnames --replicas=3
+```
+```none
+deployment.apps/hostnames scaled
+```
+
 これは、次のYAMLでDeploymentを開始した場合と同じです。
 
 ```yaml
@@ -52,27 +61,29 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hostnames
+  labels:
+    app: hostnames
 spec:
   selector:
     matchLabels:
-      run: hostnames
+      app: hostnames
   replicas: 3
   template:
     metadata:
       labels:
-        run: hostnames
+        app: hostnames
     spec:
       containers:
       - name: hostnames
         image: k8s.gcr.io/serve_hostname
 ```
 
-"run"ラベルは`kubectl run`によって、Deploymentの名前に自動的にセットされます。
+"app"ラベルは`kubectl create deployment`によって、Deploymentの名前に自動的にセットされます。
 
 Podが実行されていることを確認できます。
 
 ```shell
-kubectl get pods -l run=hostnames
+kubectl get pods -l app=hostnames
 ```
 ```none
 NAME                        READY     STATUS    RESTARTS   AGE
@@ -84,7 +95,7 @@ hostnames-632524106-tlaok   1/1       Running   0          2m
 Podが機能していることも確認できます。Pod IP アドレスリストを取得し、直接テストできます。
 
 ```shell
-kubectl get pods -l run=hostnames \
+kubectl get pods -l app=hostnames \
     -o go-template='{{range .items}}{{.status.podIP}}{{"\n"}}{{end}}'
 ```
 ```none
@@ -106,9 +117,9 @@ done
 次のように表示されます。
 
 ```
-hostnames-0uton
-hostnames-bvc05
-hostnames-yp2kp
+hostnames-632524106-bbpiw
+hostnames-632524106-ly40y
+hostnames-632524106-tlaok
 ```
 
 この時点で期待通りの応答が得られない場合、Podが正常でないか、想定しているポートでリッスンしていない可能性があります。なにが起きているかを確認するために`kubectl logs`が役立ちます。Podに直接に入りデバッグする場合は`kubectl exec`が必要になります。
@@ -312,7 +323,7 @@ kubectl get service hostnames -o json
         "resourceVersion": "347189",
         "creationTimestamp": "2015-07-07T15:24:29Z",
         "labels": {
-            "run": "hostnames"
+            "app": "hostnames"
         }
     },
     "spec": {
@@ -326,7 +337,7 @@ kubectl get service hostnames -o json
             }
         ],
         "selector": {
-            "run": "hostnames"
+            "app": "hostnames"
         },
         "clusterIP": "10.0.1.175",
         "type": "ClusterIP",
@@ -351,15 +362,15 @@ kubectl get service hostnames -o json
 以前に、Podが実行されていることを確認しました。再確認しましょう。
 
 ```shell
-kubectl get pods -l run=hostnames
+kubectl get pods -l app=hostnames
 ```
 ```none
-NAME              READY     STATUS    RESTARTS   AGE
-hostnames-0uton   1/1       Running   0          1h
-hostnames-bvc05   1/1       Running   0          1h
-hostnames-yp2kp   1/1       Running   0          1h
+NAME                        READY     STATUS    RESTARTS   AGE
+hostnames-632524106-bbpiw   1/1       Running   0          1h
+hostnames-632524106-ly40y   1/1       Running   0          1h
+hostnames-632524106-tlaok   1/1       Running   0          1h
 ```
-`-l run=hostnames`引数はラベルセレクターで、ちょうど私たちの`Service`に定義されているものと同じです。
+`-l app=hostnames`引数はラベルセレクターで、ちょうど私たちの`Service`に定義されているものと同じです。
 
 "AGE"列は、これらのPodが約1時間前のものであることを示しており、それらが正常に実行され、クラッシュしていないことを意味します。
 
@@ -374,7 +385,7 @@ NAME        ENDPOINTS
 hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
 ```
 
-これにより、EndpointsコントローラーがServiceの正しいPodを見つけていることを確認できます。`ENDPOINTS`列が`<none>`の場合、Serviceの`spec.selector`フィールドが実際にPodの`metadata.labels`値を選択していることを確認する必要があります。よくある間違いは、タイプミスまたは他のエラー、たとえばServiceが`app=hostnames`を選択しているのにDeploymentが`run=hostnames`を指定していることです。
+これにより、EndpointsコントローラーがServiceの正しいPodを見つけていることを確認できます。`ENDPOINTS`列が`<none>`の場合、Serviceの`spec.selector`フィールドが実際にPodの`metadata.labels`値を選択していることを確認する必要があります。よくある間違いは、タイプミスやその他のエラー、たとえばDeployment作成にも`kubectl run`が使われた1.18以前のバージョンのように、Serviceが`app=hostnames`を選択しているのにDeploymentが`run=hostnames`を指定していることです。
 
 ## Podは機能しているか？
 
@@ -395,9 +406,9 @@ done
 次のように表示されます。
 
 ```
-hostnames-0uton
-hostnames-bvc05
-hostnames-yp2kp
+hostnames-632524106-bbpiw
+hostnames-632524106-ly40y
+hostnames-632524106-tlaok
  ```
 
 Endpointsリスト内の各Podは、それぞれの自身のホスト名を返すはずです。そうならない(または、あなた自身のPodの正しい振る舞いにならない)場合は、そこで何が起こっているのかを調査する必要があります。
@@ -510,7 +521,7 @@ iptables-save | grep hostnames
 curl 10.0.1.175:80
 ```
 ```none
-hostnames-0uton
+hostnames-632524106-bbpiw
 ```
 
 もしこれが失敗し、あなたがuserspaceプロキシーを使用している場合、プロキシーへの直接アクセスを試してみてください。もしiptablesプロキシーを使用している場合、このセクションはスキップしてください。
@@ -521,7 +532,7 @@ hostnames-0uton
 curl localhost:48577
 ```
 ```none
-hostnames-yp2kp
+hostnames-632524106-tlaok
 ```
 
 もしまだ失敗する場合は、`kube-proxy`ログで次のような特定の行を探してください。
@@ -534,7 +545,7 @@ Setting endpoints for default/hostnames:default to [10.244.0.5:9376 10.244.0.6:9
 
 ### エッジケース: PodがService IP経由で自身に到達できない {#a-pod-fails-to-reach-itself-via-the-service-ip}
 
-これはありそうに聞こえないかもしれませんが、実際には起こり、動作するはずです。これはネットワークが"hairpin"トラフィック用に適切に設定されていない場合、通常は`kube-proxy`が`iptables`モードで実行され、Podがブリッジネットワークに接続されている場合に発生します。`Kubelet`は`hairpin-mode`[フラグ](/docs/admin/kubelet/)を公開します。これにより、Serviceのエンドポイントが自身のServiceのVIPにアクセスしようとした場合に、自身への負荷分散を可能にします。`hairpin-mode`フラグは`hairpin-veth`または`promiscuous-bridge`に設定する必要があります。
+これはありそうに聞こえないかもしれませんが、実際には起こり、動作するはずです。これはネットワークが"hairpin"トラフィック用に適切に設定されていない場合、通常は`kube-proxy`が`iptables`モードで実行され、Podがブリッジネットワークに接続されている場合に発生します。`Kubelet`は`hairpin-mode`[フラグ](/docs/reference/command-line-tools-reference/kubelet/)を公開します。これにより、Serviceのエンドポイントが自身のServiceのVIPにアクセスしようとした場合に、自身への負荷分散を可能にします。`hairpin-mode`フラグは`hairpin-veth`または`promiscuous-bridge`に設定する必要があります。
 
 この問題をトラブルシューティングする一般的な手順は次のとおりです。
 
@@ -580,13 +591,11 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 
 ここまでたどり着いたということは、とてもおかしなことが起こっています。Serviceは実行中で、Endpointsがあり、Podは実際にサービスを提供しています。DNSは動作していて、`kube-proxy`も誤動作していないようです。それでも、あなたのServiceは機能していません。おそらく私たちにお知らせ頂いた方がよいでしょう。調査をお手伝いします！
 
-[Slack](/docs/troubleshooting/#slack)、[Forum](https://discuss.kubernetes.io)または[GitHub](https://github.com/kubernetes/kubernetes)でお問い合わせください。
+[Slack](/docs/tasks/debug-application-cluster/troubleshooting/#slack)、[Forum](https://discuss.kubernetes.io)または[GitHub](https://github.com/kubernetes/kubernetes)でお問い合わせください。
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-詳細については、[トラブルシューティングドキュメント](/docs/troubleshooting/)をご覧ください。
-
-
+詳細については、[トラブルシューティングドキュメント](/docs/tasks/debug-application-cluster/troubleshooting/)をご覧ください。

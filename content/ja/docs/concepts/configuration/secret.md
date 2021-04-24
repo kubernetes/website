@@ -457,7 +457,7 @@ Secretは直接Podが参照できるようにはされず、システムの別�
 PodのボリュームとしてSecretを使うには、
 
 1. Secretを作成するか既存のものを使用します。複数のPodが同一のSecretを参照することができます。
-1. ボリュームを追加するため、Podの定義の`.spec.volumes[]`以下をを書き換えます。ボリュームに命名し、`.spec.volumes[].secret.secretName`フィールドはSecretオブジェクトの名称と同一にします。
+1. ボリュームを追加するため、Podの定義の`.spec.volumes[]`以下を書き換えます。ボリュームに命名し、`.spec.volumes[].secret.secretName`フィールドはSecretオブジェクトの名称と同一にします。
 1. Secretを必要とするそれぞれのコンテナに`.spec.containers[].volumeMounts[]`を追加します。`.spec.containers[].volumeMounts[].readOnly = true`を指定して`.spec.containers[].volumeMounts[].mountPath`をSecretをマウントする未使用のディレクトリ名にします。
 1. イメージやコマンドラインを変更し、プログラムがそのディレクトリを参照するようにします。連想配列`data`のキーは`mountPath`以下のファイル名になります。
 

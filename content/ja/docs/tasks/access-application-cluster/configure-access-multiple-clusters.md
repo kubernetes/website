@@ -21,7 +21,9 @@ card:
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}がインストールされているか確認するため、`kubectl version --client`を実行してください。kubectlのバージョンは、クラスターのAPIサーバーの[1つのマイナーバージョン内](/ja/docs/setup/release/version-skew-policy/#kubectl)である必要があります。
 
 
 
@@ -29,9 +31,9 @@ card:
 
 ## クラスター、ユーザー、コンテキストを設定する
 
-例として、開発用のクラスターが一つ、実験用のクラスターが一つ、計二つのクラスターが存在する場合を考えます。`development`と呼ばれる開発用のクラスター内では、フロントエンドの開発者は`frontend`というnamespace内で、ストレージの開発者は`storage`というnamespace内で作業をします。`scratch`と呼ばれる実験用のクラスター内では、開発者はデフォルトのnamespaceで作業をするか、状況に応じて追加のnamespaceを作成します。開発用のクラスターは証明書を通しての認証を必要とします。実験用のクラスターはユーザーネームとパスワードを通しての認証を必要とします。
+例として、開発用のクラスターが一つ、実験用のクラスターが一つ、計二つのクラスターが存在する場合を考えます。`development`と呼ばれる開発用のクラスター内では、フロントエンドの開発者は`frontend`というnamespace内で、ストレージの開発者は`storage`というnamespace内で作業をします。`scratch`と呼ばれる実験用のクラスター内では、開発者はデフォルトのnamespaceで作業をするか、状況に応じて追加のnamespaceを作成します。開発用のクラスターは証明書を通しての認証を必要とします。実験用のクラスターはユーザーネームとパスワードを通しての認証を必要とします。
 
-`config-exercise`というディレクトリを作成してください。`config-exercise`ディレクトリ内に、以下を含む`config-demo`というファイルを作成してください:
+`config-exercise`というディレクトリを作成してください。`config-exercise`ディレクトリ内に、以下を含む`config-demo`というファイルを作成してください:
 
 ```shell
 apiVersion: v1
@@ -59,7 +61,7 @@ contexts:
 
 設定ファイルには、クラスター、ユーザー、コンテキストの情報が含まれています。上記の`config-demo`設定ファイルには、二つのクラスター、二人のユーザー、三つのコンテキストの情報が含まれています。
 
-`config-exercise`ディレクトリに移動してください。クラスター情報を設定ファイルに追加するために、以下のコマンドを実行してください:
+`config-exercise`ディレクトリに移動してください。クラスター情報を設定ファイルに追加するために、以下のコマンドを実行してください:
 
 ```shell
 kubectl config --kubeconfig=config-demo set-cluster development --server=https://1.2.3.4 --certificate-authority=fake-ca-file
@@ -87,7 +89,7 @@ kubectl config --kubeconfig=config-demo set-context dev-storage --cluster=develo
 kubectl config --kubeconfig=config-demo set-context exp-scratch --cluster=scratch --namespace=default --user=experimenter
 ```
 
-追加した情報を確認するために、`config-demo`ファイルを開いてください。`config-demo`ファイルを開く代わりに、`config view`のコマンドを使うこともできます。
+追加した情報を確認するために、`config-demo`ファイルを開いてください。`config-demo`ファイルを開く代わりに、`config view`のコマンドを使うこともできます。
 
 ```shell
 kubectl config --kubeconfig=config-demo view
@@ -306,7 +308,7 @@ export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
 ### Windows Powershell
 ```shell
-$Env:KUBECONFIG=($Env:KUBECONFIG;$HOME/.kube/config)
+$Env:KUBECONFIG="$Env:KUBECONFIG;$HOME/.kube/config"
 ```
 
 `KUBECONFIG`環境変数内のファイルからまとめられた設定情報を確認してください。`config-exercise`ディレクトリ内から、以下のコマンドを実行してください:
@@ -319,11 +321,11 @@ kubectl config view
 
 `KUBECONFIG`環境変数を元に戻してください。例えば:
 
-Linux:
+### Linux:
 ```shell
 export KUBECONFIG=$KUBECONFIG_SAVED
 ```
-Windows PowerShell
+### Windows PowerShell
 ```shell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
@@ -335,4 +337,3 @@ $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 
 * [kubeconfigファイルを使ってクラスターへのアクセスを管理する](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
-

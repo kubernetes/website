@@ -16,7 +16,7 @@ content_type: concept
 
 ## APIリファレンス
 
-* [Kubernetes API概要](/docs/reference/using-api/api-overview/) - Kubernetes APIの概要です。
+* [Kubernetes API概要](/docs/reference/using-api/) - Kubernetes APIの概要です。
 * [Kubernetes APIリファレンス {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 ## APIクライアントライブラリー
@@ -30,17 +30,19 @@ content_type: concept
 
 ## CLIリファレンス
 
-* [kubectl](/docs/reference/kubectl/overview/) - コマンドの実行やKubernetesクラスターの管理に使う主要なCLIツールです。
-    * [JSONPath](/docs/reference/kubectl/jsonpath/) - kubectlで[JSONPath記法](http://goessner.net/articles/JsonPath/)を使うための構文ガイドです。
-* [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) - セキュアなKubernetesクラスターを簡単にプロビジョニングするためのCLIツールです。
+* [kubectl](/ja/docs/reference/kubectl/overview/) - コマンドの実行やKubernetesクラスターの管理に使う主要なCLIツールです。
+    * [JSONPath](/ja/docs/reference/kubectl/jsonpath/) - kubectlで[JSONPath記法](https://goessner.net/articles/JsonPath/)を使うための構文ガイドです。
+* [kubeadm](ja/docs/reference/setup-tools/kubeadm/) - セキュアなKubernetesクラスターを簡単にプロビジョニングするためのCLIツールです。
 
-## 設定リファレンス
+## コンポーネントリファレンス
 
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - 各ノード上で動作する最も重要なノードエージェントです。kubeletは一通りのPodSpecを受け取り、コンテナーが実行中で正常であることを確認します。
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) - Pod、Service、Replication Controller等、APIオブジェクトのデータを検証・設定するREST APIサーバーです。
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Kubernetesに同梱された、コアのコントロールループを埋め込むデーモンです。
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - 単純なTCP/UDPストリームのフォワーディングや、一連のバックエンド間でTCP/UDPのラウンドロビンでのフォワーディングを実行できます。
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - 可用性、パフォーマンス、およびキャパシティを管理するスケジューラーです。
+  * [kube-schedulerポリシー](/docs/reference/scheduling/policies)
+  * [kube-schedulerプロファイル](/docs/reference/scheduling/profiles)
 
 ## 設計のドキュメント
 

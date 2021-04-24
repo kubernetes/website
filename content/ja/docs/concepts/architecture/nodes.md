@@ -6,27 +6,108 @@ weight: 10
 
 <!-- overview -->
 
-ノードは、以前には `ミニオン` としても知られていた、Kubernetesにおけるワーカーマシンです。1つのノードはクラスターの性質にもよりますが、1つのVMまたは物理的なマシンです。各ノードには[Pod](/ja/docs/concepts/workloads/pods/pod/)を動かすために必要なサービスが含まれており、マスターコンポーネントによって管理されています。ノード上のサービスには[コンテナランタイム](/ja/docs/concepts/overview/components/#container-runtime)、kubelet、kube-proxyが含まれています。詳細については、設計ドキュメントの[Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)セクションをご覧ください。
+Kubernetesはコンテナを _Node_ 上で実行されるPodに配置することで、ワークロードを実行します。
+ノードはクラスターによりますが、1つのVMまたは物理的なマシンです。
+各ノードは{{< glossary_tooltip text="Pod" term_id="pod" >}}やそれを制御する{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}を実行するのに必要なサービスを含んでいます。
 
+通常、1つのクラスターで複数のノードを持ちます。学習用途やリソースの制限がある環境では、1ノードかもしれません。
 
-
+1つのノード上の[コンポーネント](/ja/docs/concepts/overview/components/#node-components)には、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}、{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}が含まれます。
 
 <!-- body -->
 
+## 管理 {#management}
+
+ノードを{{< glossary_tooltip text="APIサーバー" term_id="kube-apiserver" >}}に加えるには2つの方法があります:
+
+1. ノード上のkubeletが、コントロールプレーンに自己登録する。
+2. あなた、もしくは他のユーザーが手動でNodeオブジェクトを追加する。
+
+Nodeオブジェクトの作成、もしくはノード上のkubeketによる自己登録の後、コントロールプレーンはNodeオブジェクトが有効かチェックします。例えば、下記のjsonマニフェストでノードを作成してみましょう:
+
+```json
+{
+  "kind": "Node",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "10.240.79.157",
+    "labels": {
+      "name": "my-first-k8s-node"
+    }
+  }
+}
+```
+
+Kubernetesは内部的にNodeオブジェクトを作成します。 APIサーバーに登録したkubeletがノードの`metadata.name`フィールドが一致しているか検証します。ノードが有効な場合、つまり必要なサービスがすべて実行されている場合は、Podを実行する資格があります。それ以外の場合、該当ノードが有効になるまではいかなるクラスターの活動に対しても無視されます。
+
+{{< note >}}
+Kubernetesは無効なNodeのオブジェクトを保持し、それが有効になるまで検証を続けます。
+
+ヘルスチェックを止めるためには、あなた、もしくは{{< glossary_tooltip term_id="controller" text="コントローラー">}}が明示的にNodeを削除する必要があります。
+{{< /note >}}
+
+Nodeオブジェクトの名前は有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+
+### ノードの自己登録 {#self-registration-of-nodes}
+
+kubeletのフラグ `--register-node`がtrue（デフォルト）のとき、kubeletは自分自身をAPIサーバーに登録しようとします。これはほとんどのディストリビューションで使用されている推奨パターンです。
+
+自己登録については、kubeletは以下のオプションを伴って起動されます:
+
+  - `--kubeconfig` - 自分自身をAPIサーバーに対して認証するための資格情報へのパス
+  - `--cloud-provider` - 自身に関するメタデータを読むために{{< glossary_tooltip text="クラウドプロバイダー" term_id="cloud-provider" >}}と会話する方法
+  - `--register-node` - 自身をAPIサーバーに自動的に登録
+  - `--register-with-taints` - 与えられた{{< glossary_tooltip text="taint" term_id="taint" >}}のリストでノードを登録します (カンマ区切りの `<key>=<value>:<effect>`)。 
+  
+  `register-node`がfalseの場合、このオプションは機能しません
+  - `--node-ip` - ノードのIPアドレス
+  - `--node-labels` - ノードをクラスターに登録するときに追加する{{< glossary_tooltip text="Label" term_id="label" >}}（[NodeRestriction許可プラグイン](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)によって適用されるラベルの制限を参照）
+  - `--node-status-update-frequency` - kubeletがノードのステータスをマスターにPOSTする頻度の指定
+
+[ノード認証モード](/docs/reference/access-authn-authz/node/)および[NodeRestriction許可プラグイン](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が有効になっている場合、kubeletは自分自身のノードリソースを作成/変更することのみ許可されています。
+
+### 手動によるノード管理 {#manual-node-administration}
+
+クラスター管理者は{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}を使用してNodeオブジェクトを作成および変更できます。
+
+管理者が手動でNodeオブジェクトを作成したい場合は、kubeletフラグ `--register-node = false`を設定してください。
+
+管理者は`--register-node`の設定に関係なくNodeオブジェクトを変更することができます。
+例えば、ノードにラベルを設定し、それをunschedulableとしてマークすることが含まれます。
+
+ノード上のラベルは、スケジューリングを制御するためにPod上のノードセレクターと組み合わせて使用できます。
+例えば、Podをノードのサブセットでのみ実行する資格があるように制限します。
+
+ノードをunschedulableとしてマークすると、新しいPodがそのノードにスケジュールされるのを防ぎますが、ノード上の既存のPodには影響しません。
+これは、ノードの再起動などの前の準備ステップとして役立ちます。
+
+ノードにスケジュール不可能のマークを付けるには、次のコマンドを実行します:
+
+```shell
+kubectl cordon $ノード名
+```
+
+{{< note >}}
+{{< glossary_tooltip term_id="daemonset" >}}によって作成されたPodはノード上のunschedulable属性を考慮しません。
+これは、再起動の準備中にアプリケーションからアプリケーションが削除されている場合でも、DaemonSetがマシンに属していることを前提としているためです。
+{{< /note >}}
+
 ## ノードのステータス
 
-ノードのステータスには以下のような情報が含まれます:
+ノードのステータスは以下の情報を含みます:
 
 * [Addresses](#addresses)
 * [Conditions](#condition)
 * [CapacityとAllocatable](#capacity)
 * [Info](#info)
 
-ノードのステータスや、ノードに関するその他の詳細は、下記のコマンドを使うことで表示できます:
+`kubectl`を使用し、ノードのステータスや詳細を確認できます:
+
 ```shell
-kubectl describe node <ノード名>
+kubectl describe node <ノード名をここに挿入>
 ```
-各セクションについては、下記で説明します。
+
+出力情報の各箇所について、以下で説明します。
 
 ### Addresses
 
@@ -41,15 +122,22 @@ kubectl describe node <ノード名>
 
 `conditions`フィールドは全ての`Running`なノードのステータスを表します。例として、以下のような状態を含みます:
 
-| ノードのCondition | 概要 |
-|----------------|-------------|
-| `Ready`        | ノードの状態がHealthyでPodを配置可能な場合に`True`になります。ノードの状態に問題があり、Podが配置できない場合に`False`になります。ノードコントローラーが、`node-monitor-grace-period`で設定された時間内(デフォルトでは40秒)に該当ノードと疎通できない場合、`Unknown`になります。 |
-| `MemoryPressure`    | ノードのメモリが圧迫されているときに`True`になります。圧迫とは、メモリの空き容量が少ないことを指します。それ以外のときは`False`です。 |
-| `PIDPressure`    | プロセスが圧迫されているときに`True`になります。圧迫とは、プロセス数が多すぎることを指します。それ以外のときは`False`です。 |
-| `DiskPressure`    | ノードのディスク容量が圧迫されているときに`True`になります。圧迫とは、ディスクの空き容量が少ないことを指します。それ以外のときは`False`です。 |
-| `NetworkUnavailable`    | ノードのネットワークが適切に設定されていない場合に`True`になります。それ以外のときは`False`です。 |
+{{< table caption = "ノードのConditionと、各condition適用時の概要" >}}
+| ノードのCondition       | 概要 |
+|----------------------|-------------|
+| `Ready`              | ノードの状態が有効でPodを配置可能な場合に`True`になります。ノードの状態に問題があり、Podが配置できない場合に`False`になります。ノードコントローラーが、`node-monitor-grace-period`で設定された時間内(デフォルトでは40秒)に該当ノードと疎通できない場合、`Unknown`になります。 |
+| `DiskPressure`       | ノードのディスク容量が圧迫されているときに`True`になります。圧迫とは、ディスクの空き容量が少ないことを指します。それ以外のときは`False`です。 |
+| `MemoryPressure`     | ノードのメモリが圧迫されているときに`True`になります。圧迫とは、メモリの空き容量が少ないことを指します。それ以外のときは`False`です。 |
+| `PIDPressure`        | プロセスが圧迫されているときに`True`になります。圧迫とは、プロセス数が多すぎることを指します。それ以外のときは`False`です。 |
+| `NetworkUnavailable` | ノードのネットワークが適切に設定されていない場合に`True`になります。それ以外のときは`False`です。 |
+{{< /table >}}
 
-ノードのConditionはJSONオブジェクトで表現されます。例えば、正常なノードの場合は以下のようなレスポンスが表示されます。
+{{< note >}}
+コマンドラインを使用してcordonされたNodeを表示する場合、Conditionは`SchedulingDisabled`を含みます。
+`SchedulingDisabled`はKubernetesのAPIにおけるConditionではありません;その代わり、cordonされたノードはUnschedulableとしてマークされます。
+{{< /note >}}
+
+ノードのConditionはJSONオブジェクトで表現されます。例えば、正常なノードの場合は以下のような構造体が表示されます。
 
 ```json
 "conditions": [
@@ -64,13 +152,14 @@ kubectl describe node <ノード名>
 ]
 ```
 
-Ready conditionが`pod-eviction-timeout`に設定された時間を超えても`Unknown`や`False`のままになっている場合、[kube-controller-manager](/docs/admin/kube-controller-manager/)に引数が渡され、該当ノード上にあるPodはノードコントローラーによって削除がスケジュールされます。デフォルトの退役のタイムアウトの時間は**5分**です。ノードが到達不能ないくつかの場合においては、APIサーバーが該当ノードのkubeletと疎通できない状態になっています。その場合、APIサーバーがkubeletと再び通信を確立するまでの間、Podの削除を行うことはできません。削除がスケジュールされるまでの間、削除対象のPodたちは切り離されたノードの上で稼働を続けることになります。
+Ready conditionが`pod-eviction-timeout`({{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}に渡された引数)に設定された時間を超えても`Unknown`や`False`のままになっている場合、該当ノード上にあるPodはノードコントローラーによって削除がスケジュールされます。デフォルトの退役のタイムアウトの時間は**5分**です。ノードが到達不能ないくつかの場合においては、APIサーバーが該当ノードのkubeletと疎通できない状態になっています。その場合、APIサーバーがkubeletと再び通信を確立するまでの間、Podの削除を行うことはできません。削除がスケジュールされるまでの間、削除対象のPodは切り離されたノードの上で稼働を続けることになります。
 
-バージョン1.5よりも前のKubernetesでは、ノードコントローラーはAPIサーバーから到達不能なそれらのPodを[強制削除](/ja/docs/concepts/workloads/pods/pod/#podの強制削除)していました。しかしながら、1.5以降では、ノードコントローラーはクラスター内でPodが停止するのを確認するまでは強制的に削除しないようになりました。到達不能なノード上で動いているPodは`Terminating`または`Unknown`のステータスになります。Kubernetesが基盤となるインフラストラクチャーを推定できない場合、クラスター管理者は手動でNodeオブジェクトを削除する必要があります。KubernetesからNodeオブジェクトを削除すると、そのノードで実行されているすべてのPodオブジェクトがAPIサーバーから削除され、それらの名前が解放されます。
+ノードコントローラーはクラスター内でPodが停止するのを確認するまでは強制的に削除しないようになりました。到達不能なノード上で動いているPodは`Terminating`または`Unknown`のステータスになります。Kubernetesが基盤となるインフラストラクチャーを推定できない場合、クラスター管理者は手動でNodeオブジェクトを削除する必要があります。KubernetesからNodeオブジェクトを削除すると、そのノードで実行されているすべてのPodオブジェクトがAPIサーバーから削除され、それらの名前が解放されます。
 
-ノードのライフサイクルコントローラーがconditionを表した[taint](/docs/concepts/configuration/taint-and-toleration/)を自動的に生成します。
-
+ノードのライフサイクルコントローラーがconditionを表した[taint](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)を自動的に生成します。
 スケジューラーがPodをノードに割り当てる際、ノードのtaintを考慮します。Podが許容するtaintは例外です。
+
+詳細は[条件によるtaintの付与](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)を参照してください。
 
 ### CapacityとAllocatable {#capacity}
 
@@ -115,7 +204,7 @@ Kubernetesは無効なノードのためにオブジェクトを保存し、そ�
 
 ### ノードコントローラー
 
-ノードコントローラーは、ノードのさまざまな側面を管理するKubernetesのマスターコンポーネントです。
+ノード{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は、ノードのさまざまな側面を管理するKubernetesのコントロールプレーンコンポーネントです。
 
 ノードコントローラーは、ノードの存続期間中に複数の役割を果たします。1つ目は、ノードが登録されたときにCIDRブロックをノードに割り当てることです（CIDR割り当てがオンになっている場合）。
 
@@ -140,10 +229,6 @@ kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担�
 
 #### 信頼性
 
-
-Kubernetes 1.4では、マスターに問題が発生した場合の対処方法を改善するように、ノードコントローラーのロジックをアップデートしています（マスターのネットワークに問題があるため）
-バージョン1.4以降、ノードコントローラーは、Podの退役について決定する際に、クラスター内のすべてのノードの状態を調べます。
-
 ほとんどの場合、排除の速度は1秒あたり`--node-eviction-rate`に設定された数値（デフォルトは秒間0.1）です。つまり、10秒間に1つ以上のPodをノードから追い出すことはありません。
 
 特定のアベイラビリティーゾーン内のノードのステータスが異常になると、ノード排除の挙動が変わります。ノードコントローラーは、ゾーン内のノードの何%が異常（NodeReady条件がConditionUnknownまたはConditionFalseである）であるかを同時に確認します。
@@ -156,51 +241,8 @@ Kubernetes 1.4では、マスターに問題が発生した場合の対処方法
 コーナーケースは、すべてのゾーンが完全にUnhealthyである（すなわち、クラスタ内にHealthyなノードがない）場合です。
 このような場合、ノードコントローラーはマスター接続に問題があると見なし、接続が回復するまですべての退役を停止します。
 
-Kubernetes 1.6以降では、ノードコントローラーは、Podがtaintを許容しない場合、 `NoExecute`のtaintを持つノード上で実行されているPodを排除する責務もあります。
-さらに、デフォルトで無効になっているアルファ機能として、ノードコントローラーはノードに到達できない、または準備ができていないなどのノードの問題に対応するtaintを追加する責務があります。
-`NoExecute`のtaint及び上述のアルファ機能に関する詳細は、[こちらのドキュメント](/docs/concepts/configuration/taint-and-toleration/)をご覧ください。
-
-バージョン1.8以降、ノードコントローラーに対してノードの状態を表すtaintを作成する責務を持たせることができます。これはバージョン1.8のアルファ機能です。
-
-### ノードの自己登録
-
-kubeletのフラグ `--register-node`がtrue（デフォルト）のとき、kubeletは自分自身をAPIサーバーに登録しようとします。これはほとんどのディストリビューションで使用されている推奨パターンです。
-
-自己登録については、kubeletは以下のオプションを伴って起動されます:
-
-  - `--kubeconfig` - 自分自身をAPIサーバーに対して認証するための資格情報へのパス
-  - `--cloud-provider` - 自身に関するメタデータを読むためにクラウドプロバイダーと会話する方法
-  - `--register-node` - 自身をAPIサーバーに自動的に登録
-  - `--register-with-taints` - 与えられたtaintのリストでノードを登録します (カンマ区切りの `<key>=<value>:<effect>`). `register-node`がfalseの場合、このオプションは機能しません
-  - `--node-ip` - ノードのIPアドレス
-  - `--node-labels` - ノードをクラスターに登録するときに追加するラベル（1.13以降の[NodeRestriction許可プラグイン](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)によって適用されるラベルの制限を参照）
-  - `--node-status-update-frequency` - kubeletがノードのステータスをマスターにPOSTする頻度の指定
-
-[ノード認証モード](/docs/reference/access-authn-authz/node/)および[NodeRestriction許可プラグイン](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が有効になっている場合、kubeletは自分自身のノードリソースを作成/変更することのみ許可されています。
-
-#### 手動によるノード管理 {#manual-node-administration}
-
-クラスター管理者はNodeオブジェクトを作成および変更できます。
-
-管理者が手動でNodeオブジェクトを作成したい場合は、kubeletフラグ `--register-node = false`を設定してください。
-
-管理者は`--register-node`の設定に関係なくNodeリソースを変更することができます。
-変更には、ノードにラベルを設定し、それをunschedulableとしてマークすることが含まれます。
-
-ノード上のラベルは、スケジューリングを制御するためにPod上のノードセレクタと組み合わせて使用できます。
-例えば、Podをノードのサブセットでのみ実行する資格があるように制限します。
-
-ノードをunschedulableとしてマークすると、新しいPodがそのノードにスケジュールされるのを防ぎますが、ノード上の既存のPodには影響しません。
-これは、ノードの再起動などの前の準備ステップとして役立ちます。たとえば、ノードにスケジュール不可能のマークを付けるには、次のコマンドを実行します:
-
-```shell
-kubectl cordon $ノード名
-```
-
-{{< note >}}
-DaemonSetコントローラーによって作成されたPodはKubernetesスケジューラーをバイパスし、ノード上のunschedulable属性を考慮しません。
-これは、再起動の準備中にアプリケーションからアプリケーションが削除されている場合でも、デーモンがマシンに属していることを前提としているためです。
-{{< /note >}}
+ノードコントローラーは、Podがtaintを許容しない場合、 `NoExecute`のtaintを持つノード上で実行されているPodを排除する責務もあります。
+さらに、ノードコントローラーはノードに到達できない、または準備ができていないなどのノードの問題に対応する{{< glossary_tooltip text="taint" term_id="taint" >}}を追加する責務があります。これはスケジューラーが、問題のあるノードにPodを配置しない事を意味しています。
 
 {{< caution >}}
 `kubectl cordon`はノードに'unschedulable'としてマークします。それはロードバランサーのターゲットリストからノードを削除するという
@@ -209,29 +251,28 @@ DaemonSetコントローラーによって作成されたPodはKubernetesスケ�
 
 ### ノードのキャパシティ
 
-ノードのキャパシティ（CPUの数とメモリの量）はNodeオブジェクトの一部です。
-通常、ノードは自分自身を登録し、Nodeオブジェクトを作成するときにキャパシティを報告します。
+Nodeオブジェクトはノードのリソースキャパシティ（CPUの数とメモリの量）を監視します。
+[自己登録](#self-registration-of-nodes)したノードは、Nodeオブジェクトを作成するときにキャパシティを報告します。
 [手動によるノード管理](#manual-node-administration)を実行している場合は、ノードを追加するときにキャパシティを設定する必要があります。
 
-Kubernetesスケジューラーは、ノード上のすべてのPodに十分なリソースがあることを確認します。
-ノード上のコンテナが要求するリソースの合計がノードキャパシティ以下であることを確認します。
-これは、kubeletによって開始されたすべてのコンテナを含みますが、[コンテナランタイム](/ja/docs/concepts/overview/components/#container-runtime)によって直接開始されたコンテナやコンテナの外で実行されているプロセスは含みません。
+Kubernetes{{< glossary_tooltip text="スケジューラー" term_id="kube-scheduler" >}}は、ノード上のすべてのPodに十分なリソースがあることを確認します。スケジューラーは、ノード上のコンテナが要求するリソースの合計がノードキャパシティ以下であることを確認します。
+これは、kubeletによって管理されたすべてのコンテナを含みますが、コンテナランタイムによって直接開始されたコンテナやkubeletの制御外で実行されているプロセスは含みません。
 
-Pod以外のプロセス用にリソースを明示的に予約したい場合は、このチュートリアルに従って[Systemデーモン用にリソースを予約](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved)してください。
+{{< note >}}
+Pod以外のプロセス用にリソースを明示的に予約したい場合は、[Systemデーモン用にリソースを予約](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved)を参照してください。
+{{< /note >}}
 
 ## ノードのトポロジー
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 `TopologyManager`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
 kubeletはリソースの割当を決定する際にトポロジーのヒントを利用できます。
-
-## APIオブジェクト
-
-NodeはKubernetesのREST APIにおけるトップレベルのリソースです。APIオブジェクトに関する詳細は以下の記事にてご覧いただけます:
-[Node APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-
+詳細は、[ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 
-* [ノードコンポーネント](/ja/docs/concepts/overview/components/#node-components)について読む。
-* ノードレベルのトポロジーについて読む: [ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)
+* [ノードコンポーネント](/ja/docs/concepts/overview/components/#node-components)について学習する。
+* [Node APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)について読む。
+* アーキテクチャ設計文書の[Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)という章を読む。
+* [TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)について読む。
+* [クラスターのオートスケール](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)について読む。

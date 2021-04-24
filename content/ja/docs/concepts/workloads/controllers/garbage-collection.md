@@ -83,9 +83,6 @@ Kubernetes1.7では、認証されていない従属オブジェクトがオー�
 
 カスケード削除ポリシーを制御するためには、オブジェクトをいつ設定するか`deleteOptions`引数上の`propagationPolicy`フィールドに設定してください。設定可能な値は`Orphan`、`Foreground`、もしくは`Background`のどれかです。
 
-Kubernetes1.9以前では多くのコントローラーにおけるデフォルトのガベージコレクションポリシーは`orphan`でした。
-この対象のコントローラーはReplicationController、ReplicaSet、StatefulSet、DaemonSetとDeploymentを含みます。`extensions/v1beta1`、`apps/v1beta1`、`apps/v1beta2`のグループバージョンに含まれるオブジェクト種においては、もしユーザーがガベージコレクションに他の値を設定しない限り、デフォルトで従属オブジェクトはみなしご(orphaned)になります。
-Kubernetes1.9において、`apps/v1`というグループバージョンにおいて、従属オブジェクトはデフォルトで削除されます。
 
 下記のコマンドは従属オブジェクトをバックグラウンドで削除する例です。
 

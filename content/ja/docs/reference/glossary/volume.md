@@ -4,17 +4,17 @@ id: volume
 date: 2018-04-12
 full_link: /docs/concepts/storage/volumes/
 short_description: >
-  Pod内のコンテナからアクセス可能なデータを含むディレクトリです。
+  データを格納するディレクトリで、Pod内のコンテナからアクセス可能です。
 
-aka: 
+aka:
 tags:
 - core-object
 - fundamental
 ---
- {{< glossary_tooltip text="Pod" term_id="pod" >}}内の{{< glossary_tooltip text="コンテナ" term_id="container" >}}からアクセス可能なデータを含むディレクトリです。
+ データを格納するディレクトリで、{{< glossary_tooltip text="Pod" term_id="pod" >}}内の{{< glossary_tooltip text="コンテナ" term_id="container" >}}からアクセス可能です。
 
-<!--more--> 
+<!--more-->
 
-Kubernetesボリュームはボリュームを含むPodが存在する限り有効です。そのためボリュームはPod内で実行されるすべてのコンテナよりも長持ちし、コンテナの再起動後もデータは保持されます。
+Kubernetesボリュームはボリュームを含んだPodが存在する限り有効です。そのため、ボリュームはPod内で実行されるどのコンテナよりも長く存在し、コンテナが再起動してもボリューム内のデータは維持されます。
 
-詳しくは[ストレージ](https://kubernetes.io/docs/concepts/storage/)をご覧下さい。
+詳しくは[ストレージ](/ja/docs/concepts/storage/)をご覧ください。

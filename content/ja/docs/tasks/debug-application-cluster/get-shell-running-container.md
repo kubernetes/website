@@ -43,7 +43,7 @@ kubectl get pod shell-demo
 実行中のコンテナへのシェルを取得します:
 
 ```shell
-kubectl exec -it shell-demo -- /bin/bash
+kubectl exec --stdin --tty shell-demo -- /bin/bash
 ```
 {{< note >}}
 
@@ -54,23 +54,25 @@ kubectl exec -it shell-demo -- /bin/bash
 シェル内で、ルートディレクトリーのファイル一覧を表示します:
 
 ```shell
-root@shell-demo:/# ls /
+# このコマンドをコンテナ内で実行します
+ls /
 ```
 
 シェル内で、他のコマンドを試しましょう。以下がいくつかの例です:
 
 ```shell
-root@shell-demo:/# ls /
-root@shell-demo:/# cat /proc/mounts
-root@shell-demo:/# cat /proc/1/maps
-root@shell-demo:/# apt-get update
-root@shell-demo:/# apt-get install -y tcpdump
-root@shell-demo:/# tcpdump
-root@shell-demo:/# apt-get install -y lsof
-root@shell-demo:/# lsof
-root@shell-demo:/# apt-get install -y procps
-root@shell-demo:/# ps aux
-root@shell-demo:/# ps aux | grep nginx
+# これらのサンプルコマンドをコンテナ内で実行することができます
+ls /
+cat /proc/mounts
+cat /proc/1/maps
+apt-get update
+apt-get install -y tcpdump
+tcpdump
+apt-get install -y lsof
+lsof
+apt-get install -y procps
+ps aux
+ps aux | grep nginx
 ```
 
 ## nginxのルートページへの書き込み
@@ -81,24 +83,30 @@ Podの設定ファイルを再度確認します。Podは`emptyDir`ボリュー�
 シェル内で、`/usr/share/nginx/html`ディレクトリに`index.html`を作成します。
 
 ```shell
-root@shell-demo:/# echo Hello shell demo > /usr/share/nginx/html/index.html
+# このコマンドをコンテナ内で実行します
+echo 'Hello shell demo' > /usr/share/nginx/html/index.html
 ```
 
 シェル内で、nginxサーバーにGETリクエストを送信します:
 
 ```shell
-root@shell-demo:/# apt-get update
-root@shell-demo:/# apt-get install curl
-root@shell-demo:/# curl localhost
+# これらのコマンドをコンテナ内のシェルで実行します
+apt-get update
+apt-get install curl
+curl http://localhost/
 ```
 
 出力に`index.html`ファイルに書き込んだ文字列が表示されます:
 
-```shell
+```
 Hello shell demo
 ```
 
 シェルを終了する場合、`exit`を入力します。
+
+```shell
+exit # コンテナ内のシェルを終了する
+```
 
 ## コンテナ内での各コマンドの実行
 
@@ -111,9 +119,9 @@ kubectl exec shell-demo env
 他のコマンドを試します。以下がいくつかの例です:
 
 ```shell
-kubectl exec shell-demo ps aux
-kubectl exec shell-demo ls /
-kubectl exec shell-demo cat /proc/1/mounts
+kubectl exec shell-demo -- ps aux
+kubectl exec shell-demo -- ls /
+kubectl exec shell-demo -- cat /proc/1/mounts
 ```
 
 
@@ -123,22 +131,21 @@ kubectl exec shell-demo cat /proc/1/mounts
 ## Podが1つ以上のコンテナを持つ場合にシェルを開く
 
 Podが1つ以上のコンテナを持つ場合、`--container`か`-c`を使用して、`kubectl exec`コマンド内でコンテナを指定します。
-例えば、my-podという名前のPodがあり、そのPodがmain-appとhelper-appという2つのコンテナを持つとします。
-以下のコマンドはmain-appのコンテナへのシェルを開きます。
+例えば、my-podという名前のPodがあり、そのPodが _main-app_ と _helper-app_ という2つのコンテナを持つとします。
+以下のコマンドは _main-app_ のコンテナへのシェルを開きます。
 
 ```shell
-kubectl exec -it my-pod --container main-app -- /bin/bash
+kubectl exec -i -t my-pod --container main-app -- /bin/bash
 ```
 
-
-
+{{< note >}}
+ショートオプションの`-i`と`-t`は、ロングオプションの`--stdin`と`--tty`と同様です。
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
 
-* [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)
-
-
+* [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)について読む
 
 
 

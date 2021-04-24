@@ -19,7 +19,7 @@ Windowsアプリケーションは、多くの組織で実行されるサービ�
 
 ## 始める前に
 
-* [Windows Serverを実行するマスターノードとワーカーノード](/ja/docs/setup/production-environment/windows/user-guide-windows-nodes/)を含むKubernetesクラスターを作成します
+* [Windows Serverを実行するマスターノードとワーカーノード](/ja/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)を含むKubernetesクラスターを作成します
 * Kubernetes上にServiceとワークロードを作成してデプロイすることは、LinuxコンテナとWindowsコンテナ共に、ほぼ同じように動作することに注意してください。クラスターとのインタフェースとなる[Kubectlコマンド](/docs/reference/kubectl/overview/)も同じです。Windowsコンテナをすぐに体験できる例を以下セクションに用意しています。
 
 ## はじめに:Windowsコンテナのデプロイ
@@ -65,7 +65,7 @@ spec:
           command:
             - powershell.exe
             - -command
-            - "<#code used from https://gist.github.com/wagnerandrade/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count = $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
+            - "<#code used from https://gist.github.com/19WAS85/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count = $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
       nodeSelector:
         kubernetes.io/os: windows
 ```
@@ -96,7 +96,7 @@ spec:
     * ネットワークを介したノードとPod間通信、LinuxマスターからのPod IPのポート80に向けて`curl`して、ウェブサーバーの応答をチェックします
     * docker execまたはkubectl execを使用したPod間通信、Pod間(および複数のWindowsノードがある場合はホスト間)へのpingします
     * ServiceからPodへの通信、Linuxマスターおよび個々のPodからの仮想Service IP(`kubectl get services`で表示される)に`curl`します
-    * サービスディスカバリ、Kuberntesの[default DNS suffix](/ja/docs/concepts/services-networking/dns-pod-service/#services)と共にService名に`curl`します
+    * サービスディスカバリ、Kubernetesの[default DNS suffix](/ja/docs/concepts/services-networking/dns-pod-service/#services)と共にService名に`curl`します
     * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
     * インバウンド接続、Linuxマスターまたはクラスター外のマシンからNodePortに`curl`します
     * アウトバウンド接続、kubectl execを使用したPod内からの外部IPに`curl`します

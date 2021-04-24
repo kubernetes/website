@@ -1,6 +1,7 @@
 ---
 title: チュートリアル
 main_menu: true
+no_list: true
 weight: 60
 content_type: concept
 ---
@@ -54,6 +55,6 @@ content_type: concept
 ## {{% heading "whatsnext" %}}
 
 
-チュートリアルを書きたい場合は、[ページテンプレートの使用](/docs/contribute/style/page-templates/)を参照し、チュートリアルのページタイプとチュートリアルテンプレートについてご確認ください。
+チュートリアルのページタイプについての情報は、[Content Page Types](/docs/contribute/style/page-content-types/)を参照してください。
 
 

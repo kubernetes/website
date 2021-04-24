@@ -26,7 +26,7 @@ MinikubeのサポートするKubernetesの機能:
 
 ## インストール
 
-[Minikubeのインストール](/ja/docs/tasks/tools/install-minikube/)を参照してください。
+ツールのインストールについて知りたい場合は、公式の[Get Started!](https://minikube.sigs.k8s.io/docs/start/)のガイドに従ってください。
 
 ## クイックスタート
 
@@ -50,7 +50,8 @@ MinikubeのサポートするKubernetesの機能:
    特定のKubernetesのバージョン、VM、コンテナランタイム上でクラスターを起動するための詳細は、[クラスターの起動](#starting-a-cluster)を参照してください。
 
 2. kubectlを使用してクラスターと対話できるようになります。詳細は[クラスターに触れてみよう](#interacting-with-your-cluster)を参照してください。
-単純なHTTPサーバーである`echoserver`という既存のイメージを使用して、Kubernetes Deploymentを作りましょう。そして`--port`を使用して8080番ポートで公開しましょう。
+
+   単純なHTTPサーバーである`echoserver`という既存のイメージを使用して、Kubernetes Deploymentを作りましょう。そして`--port`を使用して8080番ポートで公開しましょう。
 
    ```shell
    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
@@ -69,6 +70,7 @@ MinikubeのサポートするKubernetesの機能:
    ```
 
    `--type=NodePort`オプションで、Serviceのタイプを指定します。
+
    出力はこのようになります:
 
    ```
@@ -78,6 +80,7 @@ MinikubeのサポートするKubernetesの機能:
 4. `hello-minikube`Podが起動開始されましたが、公開したService経由で接続する前にPodが起動完了になるまで待つ必要があります。
 
    Podが稼働しているか確認します:
+
    ```shell
    kubectl get pod
    ```
@@ -110,19 +113,19 @@ MinikubeのサポートするKubernetesの機能:
    Hostname: hello-minikube-7c77b68cff-8wdzq
    
    Pod Information:
-   	-no pod information available-
+    -no pod information available-
    
    Server values:
-   	server_version=nginx: 1.13.3 - lua: 10008
+    server_version=nginx: 1.13.3 - lua: 10008
    
    Request Information:
-   	client_address=172.17.0.1
-   	method=GET
-   	real path=/
-   	query=
-   	request_version=1.1
-   	request_scheme=http
-   	request_uri=http://192.168.99.100:8080/
+    client_address=172.17.0.1
+    method=GET
+    real path=/
+    query=
+    request_version=1.1
+    request_scheme=http
+    request_uri=http://192.168.99.100:8080/
    
    Request Headers:
    	accept=*/*
@@ -168,8 +171,8 @@ MinikubeのサポートするKubernetesの機能:
    出力はこのようになります:
 
    ```
-   Stopping local Kubernetes cluster...
    Stopping "minikube"...
+   "minikube" stopped.
    ```
 
    詳細は[クラスターの停止](#stopping-a-cluster)を参照ください。
@@ -222,24 +225,27 @@ minikube start --kubernetes-version {{< param "fullversion" >}}
 
 #### VMドライバーの指定
 
-もしVMドライバーを変更したい場合は、`--vm-driver=<enter_driver_name>`フラグを`minikube start`に設定してください。例えば、コマンドは以下のようになります。
+もしVMドライバーを変更したい場合は、`--driver=<enter_driver_name>`フラグを`minikube start`に設定してください。例えば、コマンドは以下のようになります。
 
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --driver=<driver_name>
 ```
 
 Minikubeは以下のドライバーをサポートしています:
  {{< note >}}
-サポートされているドライバーとプラグインのインストールの詳細については[DRIVERS](https://git.k8s.io/minikube/docs/drivers.md)を参照してください。
+サポートされているドライバーとプラグインのインストールの詳細については[DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/)を参照してください。
 {{< /note >}}
 
-* virtualbox  
+* docker ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/docker/))
+* virtualbox ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/virtualbox/))
+* podman ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/podman/)) (実験的)
 * vmwarefusion
-* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
-* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
-* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
+* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
+* hyperv ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
 注意: 以下のIPは動的であり、変更される可能性があります。IPは`minikube ip`で取得することができます。
 * vmware ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
+* parallels ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
 * none (VMではなくホスト上でKubernetesコンポーネントを起動。このドライバーを使用するには{{< glossary_tooltip term_id="docker" >}}とLinux環境を必要とします)
 
 {{< caution >}}
@@ -372,7 +378,12 @@ Kubeletの `MaxPods` 設定を5に変更するには、このフラグを渡し�
 このコマンドはMinikube仮想マシンをシャットダウンして削除します。データや状態は保存されません。
 
 ### minikubeのアップグレード {#upgrading-minikube}
-[minikubeのアップグレード](https://minikube.sigs.k8s.io/docs/start/macos/)を参照してください。
+macOSを使用し[Brew Package Manager](https://brew.sh/)がインストールされている場合、以下を実行します:
+
+```shell
+brew update
+brew upgrade minikube
+```
 
 ## クラスターに触れてみよう {#interacting-with-your-cluster}
 
@@ -383,9 +394,11 @@ Kubeletの `MaxPods` 設定を5に変更するには、このフラグを渡し�
 
 Minikubeはこのコンテキストを自動的にデフォルトに設定しますが、将来的に設定を切り戻す場合には次のコマンドを実行してください:
 
-`kubectl config use-context minikube`,
+`kubectl config use-context minikube`
 
-もしくは各コマンドにコンテキストを次のように渡します: `kubectl get pods --context=minikube`
+もしくは各コマンドにコンテキストを次のように渡します:
+
+ `kubectl get pods --context=minikube`
 
 ### ダッシュボード
 
@@ -500,13 +513,13 @@ Minikubeの詳細については、[proposal](https://git.k8s.io/community/contr
 
 ## 追加リンク集
 
-* **目標と非目標**: Minikubeプロジェクトの目標と非目標については、[ロードマップ](https://git.k8s.io/minikube/docs/contributors/roadmap.md)を参照してください。
-* **開発ガイド**: プルリクエストを送る方法の概要については、[CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md)を参照してください。
-* **Minikubeのビルド**: Minikubeをソースからビルド/テストする方法については、[ビルドガイド](https://git.k8s.io/minikube/docs/contributors/build_guide.md)を参照してください。
-* **新しい依存性の追加**: Minikubeに新しい依存性を追加する方法については、[依存性追加ガイド](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)を参照してください。
-* **新しいアドオンの追加**: Minikubeに新しいアドオンを追加する方法については、[アドオン追加ガイド](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)を参照してください。
+* **目標と非目標**: Minikubeプロジェクトの目標と非目標については、[ロードマップ](https://minikube.sigs.k8s.io/docs/contrib/roadmap/)を参照してください。
+* **開発ガイド**: プルリクエストを送る方法の概要については、[コントリビュートする](https://minikube.sigs.k8s.io/docs/contrib/)を参照してください。
+* **Minikubeのビルド**: Minikubeをソースからビルド/テストする方法については、[ビルドガイド](https://minikube.sigs.k8s.io/docs/contrib/building/)を参照してください。
+* **新しい依存性の追加**: Minikubeに新しい依存性を追加する方法については、[依存性追加ガイド](https://minikube.sigs.k8s.io/docs/contrib/drivers/)を参照してください。
+* **新しいアドオンの追加**: Minikubeに新しいアドオンを追加する方法については、[アドオン追加ガイド](https://minikube.sigs.k8s.io/docs/contrib/addons/)を参照してください。
 * **MicroK8s**: 仮想マシンを実行したくないLinuxユーザーは代わりに[MicroK8s](https://microk8s.io/)を検討してみてください。
 
 ## コミュニティ
 
-コントリビューションや質問、コメントは歓迎・奨励されています! Minikubeの開発者は[Slack](https://kubernetes.slack.com)の#minikubeチャンネルにいます(Slackへの招待状は[こちら](http://slack.kubernetes.io/))。[kubernetes-dev Google Groupsメーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-dev)もあります。メーリングリストに投稿する際は件名の最初に "minikube: " をつけてください。
+コントリビューションや質問、コメントは歓迎・奨励されています! Minikubeの開発者は[Slack](https://kubernetes.slack.com)の`#minikube`チャンネルにいます(Slackへの招待状は[こちら](http://slack.kubernetes.io/))。[kubernetes-dev Google Groupsメーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-dev)もあります。メーリングリストに投稿する際は件名の最初に "minikube: " をつけてください。

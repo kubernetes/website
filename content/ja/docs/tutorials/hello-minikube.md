@@ -7,7 +7,7 @@ menu:
     title: "Get Started"
     weight: 10
     post: >
-      <p>手を動かす準備はできていますか？本チュートリアルでは、Node.jsを使った簡単な"Hello World"を実行するKubernetesクラスタをビルドします。</p>
+      <p>手を動かす準備はできていますか？本チュートリアルでは、サンプルアプリケーションを実行するKubernetesクラスターをビルドします。</p>
 card: 
   name: tutorials
   weight: 10
@@ -15,10 +15,10 @@ card:
 
 <!-- overview -->
 
-このチュートリアルでは、[Minikube](/ja/docs/setup/learning-environment/minikube)とKatacodaを使用して、Kubernetes上でシンプルなHello WorldのNode.jsアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
+このチュートリアルでは、[Minikube](/ja/docs/setup/learning-environment/minikube)とKatacodaを使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
 
 {{< note >}}
-[Minikubeをローカルにインストール](/ja/docs/tasks/tools/install-minikube/)している場合もこのチュートリアルを進めることが可能です。
+[Minikubeをローカルにインストール](https://minikube.sigs.k8s.io/docs/start/)している場合もこのチュートリアルを進めることが可能です。
 {{< /note >}}
 
 
@@ -26,7 +26,7 @@ card:
 ## {{% heading "objectives" %}}
 
 
-* Minikubeへのhello worldアプリケーションのデプロイ
+* Minikubeへのサンプルアプリケーションのデプロイ
 * アプリケーションの実行
 * アプリケーションログの確認
 
@@ -35,25 +35,23 @@ card:
 ## {{% heading "prerequisites" %}}
 
 
-このチュートリアルは下記のファイルからビルドされるコンテナーイメージを提供します:
+このチュートリアルはNGINXを利用してすべての要求をエコーバックするコンテナイメージを提供します。
 
-{{< codenew language="js" file="minikube/server.js" >}}
 
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
-
-`docker build`コマンドについての詳細な情報は、[Dockerのドキュメント](https://docs.docker.com/engine/reference/commandline/build/)を参照してください。
 
 
 
 <!-- lessoncontent -->
 
-## Minikubeクラスタの作成
+## Minikubeクラスターの作成
 
 1. **Launch Terminal** をクリックしてください
 
     {{< kat-button >}}
 
-    {{< note >}}Minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。{{< /note >}}
+{{< note >}}
+    Minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。
+{{< /note >}}
 
 2. ブラウザーでKubernetesダッシュボードを開いてください:
 
@@ -67,7 +65,7 @@ card:
 
 ## Deploymentの作成
 
-Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
+Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
 
 1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
@@ -101,7 +99,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-4. クラスタイベントを確認します:
+4. クラスターイベントを確認します:
 
     ```shell
     kubectl get events
@@ -113,11 +111,13 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
     kubectl config view
     ```
 
-    {{< note >}} `kubectl`コマンドの詳細な情報は[kubectl overview](/docs/user-guide/kubectl-overview/)を参照してください。{{< /note >}}
+{{< note >}}
+`kubectl`コマンドの詳細な情報は[kubectl overview](/ja/docs/reference/kubectl/overview/)を参照してください。
+{{< /note >}}
 
 ## Serviceの作成
 
-通常、PodはKubernetesクラスタ内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/ja/docs/concepts/services-networking/service/)としてPodを公開する必要があります。
+通常、PodはKubernetesクラスター内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/ja/docs/concepts/services-networking/service/)としてPodを公開する必要があります。
 
 1. `kubectl expose` コマンドを使用してPodをインターネットに公開します:
 
@@ -125,7 +125,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
 
-    `--type=LoadBalancer`フラグはServiceをクラスタ外部に公開したいことを示しています。
+    `--type=LoadBalancer`フラグはServiceをクラスター外部に公開したいことを示しています。
 
 2. 作成したServiceを確認します:
 
@@ -154,7 +154,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
 
 5. Katacoda環境のみ：`8080`の反対側のService出力に、5桁のポート番号が表示されます。このポート番号はランダムに生成されるため、ここで使用するポート番号と異なる場合があります。ポート番号テキストボックスに番号を入力し、ポートの表示をクリックしてください。前の例の場合は、`30369`と入力します。
 
-    "Hello World"メッセージが表示されるアプリケーションのブラウザウィンドウが開きます。
+    アプリケーションとその応答が表示されるブラウザーウィンドウが開きます。
 
 ## アドオンの有効化
 
@@ -243,7 +243,7 @@ Minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
 
 ## クリーンアップ
 
-クラスタに作成したリソースをクリーンアップします:
+クラスターに作成したリソースをクリーンアップします:
 
 ```shell
 kubectl delete service hello-node
@@ -270,5 +270,3 @@ minikube delete
 * [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ.
 * [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ.
 * [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ.
-
-

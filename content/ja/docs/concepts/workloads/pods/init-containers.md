@@ -29,7 +29,7 @@ Initコンテナのステータスは、`.status.initContainerStatuses`フィー
 
 Initコンテナは、リソースリミット、ボリューム、セキュリティ設定などのアプリケーションコンテナの全てのフィールドと機能をサポートしています。しかし、Initコンテナに対するリソースリクエストやリソースリミットの扱いは異なります。[リソース](#resources)にて説明します。
 
-また、InitコンテナはそのPodの準備ができる前に完了しなくてはならないため、`readinessProbe`をサポートしていません。
+また、InitコンテナはそのPodの準備ができる前に完了しなくてはならないため、`lifecycle`、`livenessProbe`、`readinessProbe`および`startupProbe`をサポートしていません。
 
 複数のInitコンテナを単一のPodに対して指定した場合、KubeletはそれらのInitコンテナを1つずつ順番に実行します。各Initコンテナは、次のInitコンテナが稼働する前に正常終了しなくてはなりません。全てのInitコンテナの実行が完了すると、KubeletはPodのアプリケーションコンテナを初期化し、通常通り実行します。
 
@@ -200,11 +200,11 @@ NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
 ```
 
-このシンプルな例を独自のInitコンテナを作成する際の参考にしてください。[次の項目](#what-s-next)にさらに詳細な使用例に関するリンクがあります。
+このシンプルな例を独自のInitコンテナを作成する際の参考にしてください。[次の項目](#whats-next)にさらに詳細な使用例に関するリンクがあります。
 
 ## Initコンテナのふるまいに関する詳細 {#detailed-behavior}
 
-Podの起動時において、各Initコンテナはネットワークとボリュームが初期化されたのちに順番に起動します。各Initコンテナは次のInitコンテナが起動する前に正常に終了しなくてはなりません。もしあるInitコンテナがランタイムもしくはエラーにより起動失敗した場合、そのPodの`restartPolicy`の値に従ってリトライされます。しかし、もしPodの`restartPolicy`が`Always`に設定されていた場合、Initコンテナの`restartPolicy`は`OnFailure`が適用されます。
+Podの起動時は各Initコンテナが起動状態となるまで、kubeletはネットワーキングおよびストレージを利用可能な状態にしません。また、kubeletはPodのspecに定義された順番に従ってPodのInitコンテナを起動します。各Initコンテナは次のInitコンテナが起動する前に正常に終了しなくてはなりません。もしあるInitコンテナがランタイムもしくはエラーにより起動失敗した場合、そのPodの`restartPolicy`の値に従ってリトライされます。しかし、もしPodの`restartPolicy`が`Always`に設定されていた場合、Initコンテナの`restartPolicy`は`OnFailure`が適用されます。
 
 Podは全てのInitコンテナが完了するまで`Ready`状態となりません。Initコンテナ上のポートはServiceによって集約されません。初期化中のPodのステータスは`Pending`となりますが、`Initialized`という値はtrueとなります。
 

@@ -6,7 +6,7 @@ weight: 40
 
 
 <!-- overview -->
-[_Nodeアフィニティ_](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)は
+[_Nodeアフィニティ_](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)は
 {{< glossary_tooltip text="Pod" term_id="pod" >}}の属性であり、ある{{< glossary_tooltip text="Node" term_id="node" >}}群を*引きつけます*（優先条件または必須条件）。反対に _taint_ はNodeがある種のPodを排除できるようにします。
 
 _toleration_ はPodに適用され、一致するtaintが付与されたNodeへPodがスケジューリングされることを認めるものです。ただしそのNodeへ必ずスケジューリングされるとは限りません。
