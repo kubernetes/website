@@ -1,5 +1,5 @@
 ---
-title: Indexed Job for Parallel Processing with Static Work Assignment
+title: 静的な処理の割り当てを使用した並列処理のためのインデックス付きJob
 content_type: task
 min-kubernetes-server-version: v1.21
 weight: 30
@@ -9,116 +9,75 @@ weight: 30
 
 <!-- overview -->
 
+この例では、複数の並列ワーカープロセスを使用するKubernetesのJobを実行します。各ワーカーは、それぞれが自分のPod内で実行される異なるコンテナです。Podはコントロールプレーンが自動的に設定する*インデックス値*を持ち、この値を利用することで、各Podは処理するタスク全体のどの部分を処理するのかを特定できます。
 
-In this example, you will run a Kubernetes Job that uses multiple parallel
-worker processes.
-Each worker is a different container running in its own Pod. The Pods have an
-_index number_ that the control plane sets automatically, which allows each Pod
-to identify which part of the overall task to work on.
+Podのインデックスは、{{< glossary_tooltip text="アノテーション" term_id="annotation" >}}内の`batch.kubernetes.io/job-completion-index`を整数値の文字列表現としてで利用できます。コンテナ化されたタスクプロセスがこのインデックスを取得できるようにするために、このアノテーションの値は[downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)の仕組みを利用することで公開できます。利便性のために、コントロールプレーンは自動的にdownward APIを設定して、`JOB_COMPLETION_INDEX`環境変数内のインデックスを公開してくれます。
 
-The pod index is available in the {{< glossary_tooltip text="annotation" term_id="annotation" >}}
-`batch.kubernetes.io/job-completion-index` as a string representing its
-decimal value. In order for the containerized task process to obtain this index,
-you can publish the value of the annotation using the [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
-mechanism.
-For convenience, the control plane automatically sets the downward API to
-expose the index in the `JOB_COMPLETION_INDEX` environment variable.
+以下に、この例で実行するステップの概要を示します。
 
-Here is an overview of the steps in this example:
-
-1. **Define a Job manifest using indexed completion**.
-   The downward API allows you to pass the pod index annotation as an
-   environment variable or file to the container.
-2. **Start an `Indexed` Job based on that manifest**.
+1. **completionのインデックスを使用してJobのマニフェストを定義する**。downward APIはPodのインデックスのアノテーションを環境変数またはファイルとしてコンテナに渡してくれます。
+2. **そのマニフェストに基づいてインデックス付き(Indexed)のJobを開始する**。
 
 ## {{% heading "prerequisites" %}}
 
-You should already be familiar with the basic,
-non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
+あらかじめ基本的な非並列の[Job](/docs/concepts/workloads/controllers/job/)の使用に慣れている必要があります。
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-To be able to create Indexed Jobs, make sure to enable the `IndexedJob`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
-and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+インデックス付きJobを作成できるようにするには、[APIサーバー](/docs/reference/command-line-tools-reference/kube-apiserver/)と[コントローラーマネージャー](/docs/reference/command-line-tools-reference/kube-controller-manager/)上で`IndexedJob`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にしていることを確認してください。
 
 <!-- steps -->
 
-## Choose an approach
+## アプローチを選択する
 
-To access the work item from the worker program, you have a few options:
+ワーカープログラムから処理アイテムにアクセスするには、いくつかの選択肢があります。
 
-1. Read the `JOB_COMPLETION_INDEX` environment variable. The Job
-   {{< glossary_tooltip text="controller" term_id="controller" >}}
-   automatically links this variable to the annotation containing the completion
-   index.
-1. Read a file that contains the completion index.
-1. Assuming that you can't modify the program, you can wrap it with a script
-   that reads the index using any of the methods above and converts it into
-   something that the program can use as input.
+1. `JOB_COMPLETION_INDEX`環境変数を読み込む。Job{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は、この変数をcompletion indexを含むアノテーションに自動的にリンクします。
+1. completion indexを含むファイルを読み込む。
+1. プログラムを修正できない場合、プログラムをスクリプトでラップし、上のいずれかの方法でインデックスを読み取り、プログラムが入力として使用できるものに変換する。
 
-For this example, imagine that you chose option 3 and you want to run the
-[rev](https://man7.org/linux/man-pages/man1/rev.1.html) utility. This
-program accepts a file as an argument and prints its content reversed.
+この例では、3番目のオプションを選択肢して、[rev](https://man7.org/linux/man-pages/man1/rev.1.html)ユーティリティを実行したいと考えているとしましょう。このプログラムはファイルを引数として受け取り、内容を逆さまに表示します。
 
 ```shell
 rev data.txt
 ```
 
-You'll use the `rev` tool from the
-[`busybox`](https://hub.docker.com/_/busybox) container image.
+`rev`ツールは[`busybox`](https://hub.docker.com/_/busybox)コンテナイメージから利用できます。
 
-As this is only an example, each Pod only does a tiny piece of work (reversing a short
-string). In a real workload you might, for example, create a Job that represents
- the
-task of producing 60 seconds of video based on scene data.
-Each work item in the video rendering Job would be to render a particular
-frame of that video clip. Indexed completion would mean that each Pod in
-the Job knows which frame to render and publish, by counting frames from
-the start of the clip.
+これは単なる例であるため、各Podはごく簡単な処理(短い文字列を逆にする)をするだけです。現実のワークロードでは、たとえば、シーンデータをもとに60秒の動画を生成するというようなタスクを記述したJobを作成するかもしれません。ビデオレンダリングJobの各処理アイテムは、ビデオクリップの特定のフレームのレンダリングを行うものになるでしょう。その場合、インデックス付きの完了が意味するのは、クリップの最初からフレームをカウントすることで、Job内の各Podがレンダリングと公開をするのがどのフレームであるかがわかるということです。
 
-## Define an Indexed Job
+## インデックス付きJobを定義する
 
-Here is a sample Job manifest that uses `Indexed` completion mode:
+以下は、completion modeとして`Indexed`を使用するJobのマニフェストの例です。
 
 {{< codenew language="yaml" file="application/job/indexed-job.yaml" >}}
 
-In the example above, you use the builtin `JOB_COMPLETION_INDEX` environment
-variable set by the Job controller for all containers. An [init container](/docs/concepts/workloads/pods/init-containers/)
-maps the index to a static value and writes it to a file that is shared with the
-container running the worker through an [emptyDir volume](/docs/concepts/storage/volumes/#emptydir).
-Optionally, you can [define your own environment variable through the downward
-API](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
-to publish the index to containers. You can also choose to load a list of values
-from a [ConfigMap as an environment variable or file](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+上記の例では、Jobコントローラーがすべてのコンテナに設定する組み込みの`JOB_COMPLETION_INDEX`環境変数を使っています。[initコンテナ](/ja/docs/concepts/workloads/pods/init-containers/)がインデックスを静的な値にマッピングし、その値をファイルに書き込み、ファイルを[emptyDir volume](/docs/concepts/storage/volumes/#emptydir)を介してワーカーを実行しているコンテナと共有します。オプションとして、インデックスとコンテナに公開するために[downward APIを使用して独自の環境変数を定義する](/ja/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)こともできます。[環境変数やファイルとして設定したConfigMap](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)から値のリストを読み込むという選択肢もあります。
 
-Alternatively, you can directly [use the downward API to pass the annotation
-value as a volume file](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields),
-like shown in the following example:
+他には、以下の例のように、直接[downward APIを使用してアノテーションの値をボリュームファイルとして渡す](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#store-pod-fields)こともできます。
 
 {{< codenew language="yaml" file="application/job/indexed-job-vol.yaml" >}}
 
-## Running the Job
+## Jobを実行する
 
-Now run the Job:
+次のコマンドでJobを実行します。
 
 ```shell
-# This uses the first approach (relying on $JOB_COMPLETION_INDEX)
+# このコマンドでは1番目のアプローチを使っています ($JOB_COMPLETION_INDEX に依存しています)
 kubectl apply -f https://kubernetes.io/examples/application/job/indexed-job.yaml
 ```
 
-When you create this Job, the control plane creates a series of Pods, one for each index you specified. The value of `.spec.parallelism` determines how many can run at once whereas `.spec.completions` determines how many Pods the Job creates in total.
+このJobを作成したら、コントロールプレーンは指定した各インデックスごとに一連のPodを作成します。`.spec.parallelism`の値が同時に実行できるPodの数を決定し、`.spec.completions`の値がJobが作成するPodの合計数を決定します。
 
-Because `.spec.parallelism` is less than `.spec.completions`, the control plane waits for some of the first Pods to complete before starting more of them.
+`.spec.parallelism`は`.spec.completions`より小さいため、コントロールプレーンは別のPodを開始する前に最初のPodの一部が完了するまで待機します。
 
-Once you have created the Job, wait a moment then check on progress:
+Jobを作成したら、少し待ってから進行状況を確認します。
 
 ```shell
 kubectl describe jobs/indexed-job
 ```
 
-The output is similar to:
+出力は次のようになります。
 
 ```
 Name:              indexed-job
@@ -175,15 +134,13 @@ Events:
   Normal  SuccessfulCreate  1s    job-controller  Created pod: indexed-job-ncslj
 ```
 
-In this example, you run the Job with custom values for each index. You can
-inspect the output of one of the pods:
+この例では、各インデックスごとにカスタムの値を使用してJobを実行します。次のコマンドでPodの1つの出力を確認できます。
 
 ```shell
-kubectl logs indexed-job-fdhq5 # Change this to match the name of a Pod from that Job
+kubectl logs indexed-job-fdhq5 # これを対象のJobのPodの名前に一致するように変更してください。
 ```
 
-
-The output is similar to:
+出力は次のようになります。
 
 ```
 xuq
