@@ -57,7 +57,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ### Write an admission webhook server
 
 Please refer to the implementation of the [admission webhook
-server](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `AdmissionReview` request sent by the apiservers, and sends back its decision
 as an `AdmissionReview` object in the same version it received.
