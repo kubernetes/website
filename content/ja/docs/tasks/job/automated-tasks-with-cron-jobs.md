@@ -9,13 +9,13 @@ weight: 10
 
 CronJobは、Kubernetes v1.21で一般利用(GA)に昇格しました。古いバージョンのKubernetesを使用している場合、正確な情報を参照できるように、使用しているバージョンのKubernetesのドキュメントを参照してください。古いKubernetesのバージョンでは、`batch/v1` CronJob APIはサポートされていません。
 
-{{< glossary_tooltip text="CronJob" term_id="cronjob" >}}を使用すると、{{< glossary_tooltip text="Job" term_id="job" >}}を時間ベースのスケジュールで実行できるようになります。この自動化されたJobは、LinuxまたはUNIXシステム上の[Cron](https://en.wikipedia.org/wiki/Cron)のように実行されます。
+{{< glossary_tooltip text="CronJob" term_id="cronjob" >}}を使用すると、{{< glossary_tooltip text="Job" term_id="job" >}}を時間ベースのスケジュールで実行できるようになります。この自動化されたJobは、LinuxまたはUNIXシステム上の[Cron](https://ja.wikipedia.org/wiki/Cron)のように実行されます。
 
 CronJobは、バックアップやメールの送信など、定期的なタスクや繰り返しのタスクを作成する時に便利です。CronJobはそれぞれのタスクを、たとえばアクティビティが少ない期間など、特定の時間にスケジューリングすることもできます。
 
 CronJobには制限と特性があります。たとえば、特定の状況下では、1つのCronJobが複数のJobを作成する可能性があるため、Jobは冪等性を持つようにしなければいけません。
 
-制限に関する詳しい情報については、[CronJob](/ja/docs/concepts/workloads/controllers/cron-jobs)を参照してください。
+制限に関する詳しい情報については、[CronJob](/ja/docs/concepts/workloads/controllers/cron-jobs/)を参照してください。
 
 ## {{% heading "prerequisites" %}}
 
@@ -118,7 +118,7 @@ kubectl delete cronjob hello
 
 CronJobを削除すると、すべてのJobと、そのJobが作成したPodが削除され、追加のJobの作成が停止されます。Jobの削除について詳しく知りたい場合は、[ガベージコレクション](/ja/docs/concepts/workloads/controllers/garbage-collection/)を読んでください。
 
-## CronJobのSpecを書く
+## CronJobのspecを書く{#writing-a-cron-job-spec}
 
 すべてのKubernetesの設定と同じように、CronJobにも`apiVersion`、`kind`、`metadata`のフィールドが必要です。設定ファイルの扱い方についての一般的な情報については、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)と[kubectlを使用してリソースを管理する](/ja/docs/concepts/overview/working-with-objects/object-management/)を読んでください。
 
@@ -130,9 +130,9 @@ CronJobの特に`spec`へのすべての修正は、それ以降の実行にの�
 
 ### Schedule
 
-`.spec.schedule`は、`.spec`には必須のフィールドです。`0 * * * *`や`@hourly`などの[Cron](https://en.wikipedia.org/wiki/Cron)形式の文字列を取り、Jobの作成と実行のスケジュール時間を指定します。
+`.spec.schedule`は、`.spec`には必須のフィールドです。`0 * * * *`や`@hourly`などの[Cron](https://ja.wikipedia.org/wiki/Cron)形式の文字列を取り、Jobの作成と実行のスケジュール時間を指定します。
 
-フォーマットには`vixie cron`のステップ値(step value)も指定できます。[FreeBSDのマニュアル](https://www.freebsd.org/cgi/man.cgi?crontab%285%29)では次のように説明されています。
+フォーマットにはVixie cronのステップ値(step value)も指定できます。[FreeBSDのマニュアル](https://www.freebsd.org/cgi/man.cgi?crontab%285%29)では次のように説明されています。
 
 > ステップ値は範囲指定と組み合わせて使用できます。範囲の後ろに`/<number>`を付けると、範囲全体で指定したnumberの値ごとにスキップすることを意味します。たとえば、`0-23/2`をhoursフィールドに指定すると、2時間毎にコマンド実行を指定することになります(V7標準では代わりに`0,2,4,6,8,10,12,14,16,18,20,22`と指定する必要があります)。ステップはアスタリスクの後ろにつけることもできます。そのため、「2時間毎に実行」したい場合は、単純に`*/2`と指定できます。
 
@@ -160,7 +160,7 @@ CronJobの特に`spec`へのすべての修正は、それ以降の実行にの�
 * `Forbid`: CronJobの並列実行を禁止します。もし新しいJobの実行時に過去のJobがまだ完了していなかった場合、CronJobは新しいJobの実行をスキップします。
 * `Replace`: もし新しいJobの実行の時間になっても過去のJobの実行が完了していなかった場合、CronJobは現在の実行中のJobを新しいJobで置換します。
 
-concurrent policyは、同じCronJobが作成したJobにのみ適用されます。もし複数のCronJobがある場合、それぞれのJobの並列実行は常に許可されます。
+Concurrency policyは、同じCronJobが作成したJobにのみ適用されます。もし複数のCronJobがある場合、それぞれのJobの並列実行は常に許可されます。
 
 ### Suspend
 
