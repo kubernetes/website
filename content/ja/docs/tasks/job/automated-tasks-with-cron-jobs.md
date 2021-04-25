@@ -118,7 +118,7 @@ kubectl delete cronjob hello
 
 CronJobを削除すると、すべてのJobと、そのJobが作成したPodが削除され、追加のJobの作成が停止されます。Jobの削除について詳しく知りたい場合は、[ガベージコレクション](/ja/docs/concepts/workloads/controllers/garbage-collection/)を読んでください。
 
-## CronJobのspecを書く{#writing-a-cron-job-spec}
+## CronJobのspecを書く {#writing-a-cron-job-spec}
 
 すべてのKubernetesの設定と同じように、CronJobにも`apiVersion`、`kind`、`metadata`のフィールドが必要です。設定ファイルの扱い方についての一般的な情報については、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)と[kubectlを使用してリソースを管理する](/ja/docs/concepts/overview/working-with-objects/object-management/)を読んでください。
 
@@ -160,7 +160,7 @@ CronJobの特に`spec`へのすべての修正は、それ以降の実行にの�
 * `Forbid`: CronJobの並列実行を禁止します。もし新しいJobの実行時に過去のJobがまだ完了していなかった場合、CronJobは新しいJobの実行をスキップします。
 * `Replace`: もし新しいJobの実行の時間になっても過去のJobの実行が完了していなかった場合、CronJobは現在の実行中のJobを新しいJobで置換します。
 
-Concurrency policyは、同じCronJobが作成したJobにのみ適用されます。もし複数のCronJobがある場合、それぞれのJobの並列実行は常に許可されます。
+concurrency policyは、同じCronJobが作成したJobにのみ適用されます。もし複数のCronJobがある場合、それぞれのJobの並列実行は常に許可されます。
 
 ### Suspend
 
