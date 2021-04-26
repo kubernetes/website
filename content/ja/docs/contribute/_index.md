@@ -50,7 +50,7 @@ Kubernetesコミュニティで効果的に働くためには、[git](https://gi
 - 既存のドキュメントに対して[GitHubを使ってプルリクエストをオープン](/docs/contribute/new-content/open-a-pr/#changes-using-github)し、GitHubへのissueの登録について学んでください。
 - 正確さと言語の校正のため、他のKubernetesコミュニティメンバーから[プルリクエストのレビュー](/docs/contribute/review/reviewing-prs/)を受けてください。
 - 見識のあるコメントを残せるようにするため、Kubernetesの[コンテンツ](/docs/contribute/style/content-guide/)と[スタイルガイド](/docs/contribute/style/style-guide/)を読んでください。
-- [ページコンテンツの種類](/docs/contribute/style/page-content-types/)と[Hugoショートカット](/docs/contribute/style/hugo-shortcodes/)について勉強してください。
+- [ページコンテンツの種類](/docs/contribute/style/page-content-types/)と[Hugoショートコード](/docs/contribute/style/hugo-shortcodes/)について勉強してください。
 
 ## 次のステップ
 
