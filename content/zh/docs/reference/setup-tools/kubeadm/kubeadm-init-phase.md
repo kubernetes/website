@@ -4,11 +4,9 @@ weight: 90
 content_type: concept
 ---
 <!--
----
 title: kubeadm init phase
 weight: 90
 content_type: concept
----
 -->
 
 <!--
@@ -16,14 +14,15 @@ content_type: concept
 Hence, you can let kubeadm do some of the work and you can fill in the gaps
 if you wish to apply customization.
 -->
-`kubeadm init phase` 能确保调用引导过程的原子步骤。因此，如果希望自定义应用，则可以让 kubeadm 做一些工作，然后填补空白。
-
+`kubeadm init phase` 能确保调用引导过程的原子步骤。
+因此，如果希望自定义应用，则可以让 kubeadm 做一些工作，然后填补空白。
 
 <!--
 `kubeadm init phase` is consistent with the [kubeadm init workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow),
 and behind the scene both use the same code.
 -->
-`kubeadm init phase` 与 [kubeadm init 工作流](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow)一致，后台都使用相同的代码。
+`kubeadm init phase` 与 [kubeadm init 工作流](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow)
+一致，后台都使用相同的代码。
 
 <!--
 ## kubeadm init phase preflight {#cmd-phase-preflight}
@@ -143,7 +142,8 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 You can use this command to upload the kubeadm configuration to your cluster.
 Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
 -->
-可以使用此命令将 kubeadm 配置文件上传到集群。或者使用 [kubeadm config](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
+可以使用此命令将 kubeadm 配置文件上传到集群。或者使用
+[kubeadm config](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
 
 {{< tabs name="upload-config" >}}
 {{< tab name="upload-config" include="generated/kubeadm_init_phase_upload-config.md" />}}
@@ -177,7 +177,8 @@ By default the certs and encryption key expire after two hours.
 <!--
 Use the following phase to label and taint the node with the `node-role.kubernetes.io/master=""` key-value pair.
 -->
-使用以下阶段来给具有 `node-role.kubernetes.io/master=""` 键值对的节点打标签（label）和记录污点（taint）。
+使用以下阶段来给具有 `node-role.kubernetes.io/master=""` 键值对的节点
+打标签（label）和记录污点（taint）。
 
 {{< tabs name="tab-mark-control-plane" >}}
 {{< tab name="mark-control-plane" include="generated/kubeadm_init_phase_mark-control-plane.md" />}}
@@ -233,49 +234,11 @@ install them selectively.
 {{< /tabs >}}
 
 <!--
-To use kube-dns instead of CoreDNS you have to pass a configuration file:
--->
-要使用 kube-dns 代替 CoreDNS，必须传递一个配置文件：
-
-<!--
-# for installing a DNS addon only
-# 仅用于安装 DNS 插件
-# for creating a complete control plane node
-# 用于创建完整的控制平面节点
-# for listing or pulling images
-# 用于列出或者拉取镜像
-# for upgrades
--->
-
-```bash
-# 仅用于安装 DNS 插件
-kubeadm init phase addon coredns --config=someconfig.yaml
-# 用于创建完整的控制平面节点
-kubeadm init --config=someconfig.yaml
-# 用于列出或者拉取镜像
-kubeadm config images list/pull --config=someconfig.yaml
-# 升级
-kubeadm upgrade apply --config=someconfig.yaml
-```
-
-<!--
-The file has to contain a [`DNS`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#DNS) field in[`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration)
-and also a type for the addon - `kube-dns` (default value is `CoreDNS`).
--->
-该文件必须在 [`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration) 中包含一个 [`DNS`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#DNS) 字段，以及包含一个插件的类型 - `kube-dns`（默认值为 `CoreDNS`）。
-
-```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
-kind: ClusterConfiguration
-dns:
-  type: "kube-dns"
-```
-
-<!--
 For more details on each field in the `v1beta2` configuration you can navigate to our
 [API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
 -->
-有关 `v1beta2` 配置中每个字段的更多详细信息，可以访问 [API](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)。
+有关 `v1beta2` 配置中每个字段的更多详细信息，可以访问
+[API](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -285,7 +248,11 @@ For more details on each field in the `v1beta2` configuration you can navigate t
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
-* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引导 Kubernetes 控制平面节点
-* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 将节点连接到集群
-* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 恢复通过 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改
-* [kubeadm alpha](/zh/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) 尝试实验性功能
+* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/)
+  引导 Kubernetes 控制平面节点
+* [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)
+  将节点加入到集群
+* [kubeadm reset](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
+  恢复通过 `kubeadm init` 或 `kubeadm join` 操作对主机所做的任何更改
+* [kubeadm alpha](/zh/docs/reference/setup-tools/kubeadm/kubeadm-alpha/)
+  尝试实验性功能
