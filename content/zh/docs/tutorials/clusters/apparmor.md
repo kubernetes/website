@@ -1,12 +1,14 @@
 ---
-title: AppArmor
+title: 使用 AppArmor 限制容器对资源的访问
 content_type: tutorial
+weight: 10
 ---
 <!-- ---
 reviewers:
 - stclair
-title: AppArmor
+title: Restrict a Container's Access to Resources with AppArmor
 content_type: tutorial
+weight: 10
 --- -->
 
 <!-- overview -->
@@ -17,11 +19,15 @@ content_type: tutorial
 <!-- AppArmor is a Linux kernel security module that supplements the standard Linux user and group based
 permissions to confine programs to a limited set of resources. AppArmor can be configured for any
 application to reduce its potential attack surface and provide greater in-depth defense. It is
-configured through profiles tuned to whitelist the access needed by a specific program or container,
+configured through profiles tuned to allow the access needed by a specific program or container,
 such as Linux capabilities, network access, file permissions, etc. Each profile can be run in either
 *enforcing* mode, which blocks access to disallowed resources, or *complain* mode, which only reports
 violations. -->
-Apparmor 是一个 Linux 内核安全模块，它补充了标准的基于 Linux 用户和组的安全模块将程序限制为有限资源集的权限。AppArmor 可以配置为任何应用程序减少潜在的攻击面，并且提供更加深入的防御。AppArmor 是通过配置文件进行配置的，这些配置文件被调整为报名单，列出了特定程序或者容器所需要的访问权限，如 Linux 功能、网络访问、文件权限等。每个配置文件都可以在*强制*模式(阻止访问不允许的资源)或*投诉*模式(仅报告冲突)下运行。
+Apparmor 是一个 Linux 内核安全模块，它补充了标准的基于 Linux 用户和组的安全模块将程序限制为有限资源集的权限。
+AppArmor 可以配置为任何应用程序减少潜在的攻击面，并且提供更加深入的防御。
+AppArmor 是通过配置文件进行配置的，这些配置文件被调整为允许特定程序或者容器访问，如 Linux 功能、网络访问、文件权限等。
+每个配置文件都可以在*强制（enforcing）*模式（阻止访问不允许的资源）或*投诉（complain）*模式
+（仅报告冲突）下运行。
 
 
 
@@ -244,9 +250,8 @@ k8s-apparmor-example-deny-write (enforce)
 <!-- *This example assumes you have already set up a cluster with AppArmor support.* -->
 *本例假设您已经使用 AppArmor 支持设置了一个集群。*
 
-<!-- First, we need to load the profile we want to use onto our nodes. The profile we'll use simply
-denies all file writes: -->
-首先，我们需要将要使用的配置文件加载到节点上。我们将使用的配置文件仅拒绝所有文件写入：
+<!-- First, we need to load the profile we want to use onto our nodes. This profile denies all file writes: -->
+首先，我们需要将要使用的配置文件加载到节点上。配置文件拒绝所有文件写入：
 
 ```shell
 #include <tunables/global>
@@ -259,9 +264,12 @@ profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
 ```
 
 <!-- Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
-nodes. For this example we'll just use SSH to install the profiles, but other approaches are
-discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles). -->
-由于我们不知道 Pod 将被安排在那里，我们需要在所有节点上加载配置文件。在本例中，我们将只使用 SSH 来安装概要文件，但是在[使用配置文件设置节点](#setting-up-nodes-with-profiles)中讨论了其他方法。
+nodes. For this example we'll use SSH to install the profiles, but other approaches are
+discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles). 
+-->
+由于我们不知道 Pod 将被调度到哪里，我们需要在所有节点上加载配置文件。
+在本例中，我们将使用 SSH 来安装概要文件，但是在[使用配置文件设置节点](#setting-up-nodes-with-profiles)
+中讨论了其他方法。
 
 ```shell
 NODES=(
@@ -403,9 +411,9 @@ Events:
   23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 ```
 
-<!-- Note the pod status is Failed, with a helpful error message: `Pod Cannot enforce AppArmor: profile
+<!-- Note the pod status is Pending, with a helpful error message: `Pod Cannot enforce AppArmor: profile
 "k8s-apparmor-example-allow-write" is not loaded`. An event was also recorded with the same message. -->
-注意 pod 呈现失败状态，并且显示一条有用的错误信息：`Pod Cannot enforce AppArmor: profile
+注意 pod 呈现 Pending 状态，并且显示一条有用的错误信息：`Pod Cannot enforce AppArmor: profile
 "k8s-apparmor-example-allow-write" 未加载`。还用相同的消息记录了一个事件。
 
 <!-- ## Administration -->
