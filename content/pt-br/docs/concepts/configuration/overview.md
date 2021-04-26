@@ -69,7 +69,8 @@ combinação de <`hostIP`, `hostPort`, `protocol`> deve ser única. Se você nã
 - Use [headless Services](/docs/concepts/services-networking/service/#headless-services) (que tem um `ClusterIP` ou `None`) para descoberta de serviço quando você não precisar de um balanceador de carga `kube-proxy`.
 ## Usando Labels
 
-- Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify __semantic attributes__ of your application or Deployment, such as `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the appropriate Pods for other resources; for example, a Service that selects all `tier: frontend` Pods, or all `phase: test` components of `app: myapp`. See the [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) app for examples of this approach.
+- Defina e use [labels](/docs/concepts/overview/working-with-objects/labels/) que identifiquem _atributos semânticos_ da sua aplicação ou Deployment, como `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. Você pode usar essas labels para selecionar os Pods apropriados para outros recursos; por exemplo, um Service que seleciona todos os Pods `tier: frontend`, ou todos
+os componentes de `app: myapp`. Veja o app [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) para exemplos dessa abordagem.
 
 A Service can be made to span multiple Deployments by omitting release-specific labels from its selector. When you need to update a running service without downtime, use a [Deployment](/docs/concepts/workloads/controllers/deployment/).
 
@@ -86,8 +87,8 @@ A [imagePullPolicy](/docs/concepts/containers/images/#updating-images)  e tag da
 
 - `imagePullPolicy: IfNotPresent`: a imagem é puxada apenas se ainda não estiver presente localmente.
 
-- `imagePullPolicy: Always`: sempre que o kubelet inicia um contêiner, ele consulta o *registry* da imagem do contêiner para verificar o *hash* da imagem. Se o kubelet tiver uma imagem do contêiner com o mesmo *hash*
-armazenado em cache localmente, o kubelet usará a imagem em cache, caso contrário, o kubelet baixa(*pulls*) a imagem com o *hash* resolvido, e usa essa imagem para iniciar o contêiner.
+- `imagePullPolicy: Always`: sempre que o kubelet inicia um contêiner, ele consulta o *registry* da imagem do contêiner para verificar o resumo de assinatura da imagem. Se o kubelet tiver uma imagem do contêiner com o mesmo resumo de assinatura
+armazenado em cache localmente, o kubelet usará a imagem em cache, caso contrário, o kubelet baixa(*pulls*) a imagem com o resumo de assinatura resolvido, e usa essa imagem para iniciar o contêiner.
 
 - `imagePullPolicy` é omitido se a tag da imagem é `:latest` ou se `imagePullPolicy` é omitido é automaticamente definido como `Always`. Observe que _não_ será utilizado para `ifNotPresent`se o valor da tag mudar.
 
@@ -96,9 +97,9 @@ armazenado em cache localmente, o kubelet usará a imagem em cache, caso contrá
 - `imagePullPolicy: Never`: presume-se que a imagem exista localmente. Não é feita nenhuma tentativa de puxar a imagem.
 
 {{< note >}}
-Para garantir que seu contêiner sempre use a mesma versão de uma imagem, você pode especificar sua [hash](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier); 
-substitua `<nome-da-imagem>:<tag>` por `<nome-da-imagem>@<hash>` (por exemplo, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`). Essa hash identifica exclusivamente uma versão 
-específica de uma imagem, então isso nunca vai ser atualizado pelo Kubernetes a menos que você mude o valor da hash.
+Para garantir que seu contêiner sempre use a mesma versão de uma imagem, você pode especificar seu [resumo de assinatura](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier); 
+substitua `<nome-da-imagem>:<tag>` por `<nome-da-imagem>@<hash>` (por exemplo, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`). Esse resumo de assinatura identifica exclusivamente uma versão 
+específica de uma imagem, então isso nunca vai ser atualizado pelo Kubernetes a menos que você mude o valor do resumo de assinatura da imagem.
 {{< /note >}}
 
 {{< note >}}
