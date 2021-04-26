@@ -1,6 +1,6 @@
 ---
-title: Reviewing for approvers and reviewers
-linktitle: For approvers and reviewers
+title: approverとreviewer向けのレビュー
+linktitle: approverとreviewer向け
 slug: for-approvers
 content_type: concept
 weight: 20
@@ -8,194 +8,146 @@ weight: 20
 
 <!-- overview -->
 
-SIG Docs [Reviewers](/docs/contribute/participate/#reviewers) and
-[Approvers](/docs/contribute/participate/#approvers) do a few extra things
-when reviewing a change.
+SIG Docsの[Reviewer(レビュア)](/docs/contribute/participate/#reviewers)と[Approver(承認者)](/docs/contribute/participate/#approvers)は、変更をレビューする時にいくつか追加の作業を行います。
 
-Every week a specific docs approver volunteers to triage
-and review pull requests. This
-person is the "PR Wrangler" for the week. See the
-[PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers) for more information. To become a PR Wrangler, attend the weekly SIG Docs meeting and volunteer. Even if you are not on the schedule for the current week, you can still review pull
-requests (PRs) that are not already under active review.
+毎週、docsのメンバーの特定のapproverのボランティアは、pull requestのトリアージとレビューを担当します。この担当者は、その週の「PR Wrangler(PRの世話人)」と呼ばれます。詳しい情報は、[PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)を参照してください。PR Wranglerになるには、週次のSIG Docsミーティングに参加し、ボランティアをします。もしその週にスケジュールされていなくても、活発なレビューが行われていないpull request(PR)をレビューすることは問題ありません。
 
-In addition to the rotation, a bot assigns reviewers and approvers
-for the PR based on the owners for the affected files.
+このローテーションに加えて、変更されたファイルのオーナーに基づいて、botがPRにreviewerとapproverを割り当てます。
 
 <!-- body -->
 
-## Reviewing a PR
+## PRをレビューする
 
-Kubernetes documentation follows the [Kubernetes code review process](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process).
+Kubernetesのドキュメントは[Kubernetesコードレビュープロセス](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process)に従います。
 
-Everything described in [Reviewing a pull request](/docs/contribute/review/reviewing-prs) applies, but Reviewers and Approvers should also do the following:
+[pull requestのレビュー](/ja/docs/contribute/review/reviewing-prs/)に書かれているすべてのことが適用されますが、ReviewerとApproverはそれに加えて次のことも行います。
 
-- Using the `/assign` Prow command to assign a specific reviewer to a PR as needed. This is extra important
-when it comes to requesting technical review from code contributors.
-
-  {{< note >}}
-  Look at the `reviewers` field in the front-matter at the top of a Markdown file to see who can
-  provide technical review.
-  {{< /note >}}
-
-- Making sure the PR follows the [Content](/docs/contribute/style/content-guide/) and [Style](/docs/contribute/style/style-guide/) guides; link the author to the relevant part of the guide(s) if it doesn't.
-- Using the GitHub **Request Changes** option when applicable to suggest changes to the PR author.
-- Changing your review status in GitHub using the `/approve` or `/lgtm` Prow commands, if your suggestions are implemented.
-
-## Commit into another person's PR
-
-Leaving PR comments is helpful, but there might be times when you need to commit
-into another person's PR instead.
-
-Do not "take over" for another person unless they explicitly ask
-you to, or you want to resurrect a long-abandoned PR. While it may be faster
-in the short term, it deprives the person of the chance to contribute.
-
-The process you use depends on whether you need to edit a file that is already
-in the scope of the PR, or a file that the PR has not yet touched.
-
-You can't commit into someone else's PR if either of the following things is
-true:
-
-- If the PR author pushed their branch directly to the
-  [https://github.com/kubernetes/website/](https://github.com/kubernetes/website/)
-  repository. Only a reviewer with push access can commit to another user's PR.
+- 必要に応じて、`/assign`Prowコマンドを使用して、特定のreviewerにPRを割り当てる。これは、コードのコントリビュータからの技術的なレビューが必要な場合には特に重要です。
 
   {{< note >}}
-  Encourage the author to push their branch to their fork before
-  opening the PR next time.
+  技術的なレビューを行える人物を知るには、Markdownファイル上部にあるfront-matterの`reviewers`フィールドを確認してください。
   {{< /note >}}
 
-- The PR author explicitly disallows edits from approvers.
+- PRが[コンテンツ](/ja/docs/contribute/style/content-guide/)および[スタイル](/docs/contribute/style/style-guide/)のガイドに従っていることを確認してください。ガイドに従っていない場合は、ガイドの関連する部分にリンクを作者に示してください。
+- PRの作者に変更を提案できるときは、GitHubの**Request Changes**(変更をリクエスト)オプションを利用してください。
+- 提案したことが反映されたら、`/approve`や`/lgtm`コマンドを使用して、GitHubのレビューステータスを変更してください。
 
-## Prow commands for reviewing
+## 他の作者のPRにコミットを追加する
 
-[Prow](https://github.com/kubernetes/test-infra/blob/master/prow/README.md) is
-the Kubernetes-based CI/CD system that runs jobs against pull requests (PRs). Prow
-enables chatbot-style commands to handle GitHub actions across the Kubernetes
-organization, like [adding and removing labels](#adding-and-removing-issue-labels), closing issues, and assigning an approver. Enter Prow commands as GitHub comments using the `/<command-name>` format.
+PRにコメントを残すのは助けになりますが、まれに他の作者のPRに代わりにコミットを追加する必要がある場合があります。
 
-The most common prow commands reviewers and approvers use are:
+あなたが明示的に作者から頼まれたり、長い間放置されたPRを蘇らせるような場合でない限り、他の作者のPRを「乗っ取る」ようなことはしないでください。短期的に見ればそのほうが短時間で終わるかもしれませんが、そのようなことをするとその人が貢献するチャンスを奪ってしまうことになります。
+
+あなたが取る方法は、編集する必要のあるファイルがすでにPRのスコープに入っているか、あるいはPRがまだ触れていないファイルであるかによって変わります。
+
+以下のいずれかが当てはまる場合、他の作者のPRにあなたがコミットを追加することはできません。
+
+- PRの作者が自分のブランチを直接[https://github.com/kubernetes/website/](https://github.com/kubernetes/website/)リポジトリにpushした場合。この場合、pushアクセス権限を持つreviewerしか他のユーザーのPRにコミットを追加することはできません。
+
+  {{< note >}}
+  次回PRを作成するとき、自分のブランチを自分のforkに対してpushするように作者に促してください。
+  {{< /note >}}
+
+- PRの作者が明示的にapproverからの編集を禁止している場合。
+
+## レビュー向けのProwコマンド
+
+[Prow](https://github.com/kubernetes/test-infra/blob/master/prow/README.md)は、pull request(PR)に対してジョブを実行するKubernetesベースのCI/CDシステムです。Prowは、Kubernetes organization全体でchatbotスタイルのコマンドを利用してGitHub actionsを扱えるようにします。たとえば、[ラベルの追加と削除](#adding-and-removing-issue-labels)、issueのclose、approverの割り当てなどが行なえます。Prowコマンドは、GitHubのコメントに`/<command-name>`という形式で入力します。
+
+reviewerとapproverが最もよく使うprowコマンドには、以下のようなものがあります。
 
 {{< table caption="Prow commands for reviewing" >}}
-Prow Command | Role Restrictions | Description
+Prowコマンド | Roleの制限 | 説明
 :------------|:------------------|:-----------
-`/lgtm` | Anyone, but triggers automation if a Reviewer or Approver uses it | Signals that you've finished reviewing a PR and are satisfied with the changes.
-`/approve` | Approvers | Approves a PR for merging.
-`/assign` | Reviewers or Approvers | Assigns a person to review or approve a PR
-`/close` | Reviewers or Approvers | Closes an issue or PR.
-`/hold` | Anyone | Adds the `do-not-merge/hold` label, indicating the PR cannot be automatically merged.
-`/hold cancel` | Anyone | Removes the `do-not-merge/hold` label.
+`/lgtm` | 誰でも。ただし、オートメーションがトリガされるのはReviewerまたはApproverが使用したときのみ。 | PRのレビューが完了し、変更に納得したことを知らせる。
+`/approve` | Approver | PRをマージすることを承認する。
+`/assign` | ReviewerまたはApprover | PRのレビューまたは承認するひとを割り当てる。
+`/close` | ReviewerまたはApprover | issueまたはPRをクローンする。
+`/hold` | 誰でも | `do-not-merge/hold`ラベルを追加して、自動的にマージできないPRであることを示す。
+`/hold cancel` | 誰でも | `do-not-merge/hold`ラベルを削除する。
 {{< /table >}}
 
-See [the Prow command reference](https://prow.k8s.io/command-help) to see the full list
-of commands you can use in a PR.
+PRで利用できるすべてのコマンド一覧を確認するには、[Prowコマンドリファレンス](https://prow.k8s.io/command-help)を参照してください。
 
-## Triage and categorize issues
+## issueのトリアージとカテゴリ分類
 
+一般に、SIG Docsは[Kubernetes issue triage](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md)のプロセスに従い、同じラベルを使用しています。
 
-In general, SIG Docs follows the [Kubernetes issue triage](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md) process and uses the same labels.
+このGitHub issueの[フィルタ](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Atriage%2Fneeds-information+-label%3Atriage%2Fsupport+sort%3Acreated-asc)は、トリアージが必要な可能性があるissueを表示します。
 
+### issueをトリアージする
 
-This GitHub Issue [filter](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Atriage%2Fneeds-information+-label%3Atriage%2Fsupport+sort%3Acreated-asc)
-finds issues that might need triage.
+1. issueを検証する
+  - issueがドキュメントのウェブサイトに関係するものであることを確かめる。質問に答えたりリソースの場所を報告者に教えることですぐに閉じられるissueもあります。詳しくは、[サポートリクエストまたはコードのバグレポート](#support-requests-or-code-bug-reports)のセクションを読んでください。
+  - issueにメリットがあるかどうか評価する。
+  - issueに行動を取るのに十分な詳細情報がない場合や、テンプレートが十分埋められていない場合は、`triage/needs-information`ラベルを追加する。
+  - `lifecycle/stale`と`triage/needs-information`の両方のラベルがあるときは、issueをcloseする。
 
-### Triaging an issue
+2. 優先度(priority)ラベルを追加する([issueトリアージガイドライン](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority)は、priorityラベルについて詳しく定義しています。)
 
-1. Validate the issue
-  - Make sure the issue is about website documentation. Some issues can be closed quickly by
-    answering a question or pointing the reporter to a resource. See the
-    [Support requests or code bug reports](#support-requests-or-code-bug-reports) section for details.
-  - Assess whether the issue has merit.
-  - Add the `triage/needs-information` label if the issue doesn't have enough
-    detail to be actionable or the template is not filled out adequately.
-  - Close the issue if it has both the `lifecycle/stale` and `triage/needs-information` labels.
-
-2. Add a priority label (the
-  [Issue Triage Guidelines](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority) define priority labels in detail)
-
-  {{< table caption="Issue labels" >}}
-  Label | Description
+  {{< table caption="issueのラベル" >}}
+  ラベル | 説明
   :------------|:------------------
-  `priority/critical-urgent` | Do this right now.
-  `priority/important-soon` | Do this within 3 months.
-  `priority/important-longterm` | Do this within 6 months.
-  `priority/backlog` | Deferrable indefinitely. Do when resources are available.
-  `priority/awaiting-more-evidence` | Placeholder for a potentially good issue so it doesn't get lost.
-  `help` or `good first issue` | Suitable for someone with very little Kubernetes or SIG Docs experience. See [Help Wanted and Good First Issue Labels](https://github.com/kubernetes/community/blob/master/contributors/guide/help-wanted.md) for more information.
-
+  `priority/critical-urgent` | 今すぐに作業する。
+  `priority/important-soon` | 3ヶ月以内に取り組む。
+  `priority/important-longterm` | 6ヶ月以内に取り組む。
+  `priority/backlog` | 無期限に延期可能。リソースに余裕がある時に取り組む。
+  `priority/awaiting-more-evidence` | よいissueの可能性があるissueを見失わないようにするためのプレースホルダー。
+  `help`または`good first issue` | KubernetesまたはSIG Docsでほとんど経験がない人に適したissue。より詳しい情報は、[Help WantedとGood First Issueラベル](https://github.com/kubernetes/community/blob/master/contributors/guide/help-wanted.md)を読んでください。
   {{< /table >}}
 
-  At your discretion, take ownership of an issue and submit a PR for it
-  (especially if it's quick or relates to work you're already doing).
+  あなたの裁量で、issueのオーナーシップを取り、issueに対するPRを提出してください(簡単なissueや、自分がすでに行った作業に関連するissueである場合は特に)。
 
-If you have questions about triaging an issue, ask in `#sig-docs` on Slack or
-the [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+issueのトリアージについて質問があるときは、Slackの`#sig-docs`か[kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)で質問してください。
 
-## Adding and removing issue labels
+## issueラベルの追加と削除 {#adding-and-removing-issue-labels}
 
-To add a label, leave a comment in one of the following formats:
+ラベルを追加するには、以下のいずれかの形式でコメントします。
 
-- `/<label-to-add>` (for example, `/good-first-issue`)
-- `/<label-category> <label-to-add>` (for example, `/triage needs-information` or `/language ja`)
+- `/<label-to-add>`(たとえば、`/good-first-issue`)
+- `/<label-category> <label-to-add>`(たとえば、`/triage needs-information`や`/language ja`)
 
-To remove a label, leave a comment in one of the following formats:
+ラベルを削除するには、以下のいずれかの形式でコメントします。
 
-- `/remove-<label-to-remove>` (for example, `/remove-help`)
-- `/remove-<label-category> <label-to-remove>` (for example, `/remove-triage needs-information`)`
+- `/remove-<label-to-remove>`(たとえば、`/remove-help`)
+- `/remove-<label-category> <label-to-remove>`(たとえば、`/remove-triage needs-information`)
 
-In both cases, the label must already exist. If you try to add a label that does not exist, the command is
-silently ignored.
+いずれの場合でも、ラベルは既存のものでなければなりません。存在しないラベルを追加しようとした場合、コマンドは無視されます。
 
-For a list of all labels, see the [website repository's Labels section](https://github.com/kubernetes/website/labels). Not all labels are used by SIG Docs.
+すべてのラベル一覧は、[websiteリポジトリのラベルセクション](https://github.com/kubernetes/website/labels)で確認できます。SIG Docsですべてのラベルが使われているわけではありません。
 
-### Issue lifecycle labels
+### issueのライフサイクルに関するラベル
 
-Issues are generally opened and closed quickly.
-However, sometimes an issue is inactive after its opened.
-Other times, an issue may need to remain open for longer than 90 days.
+issueは一般にopen後に短期間でcloseされます。しかし、issueがopenされた後にアクティブでなくなったり、issueが90日以上openのままである場合もあります。
 
-{{< table caption="Issue lifecycle labels" >}}
-Label | Description
+{{< table caption="issueのライブラリに関するラベル" >}}
+ラベル | 説明
 :------------|:------------------
-`lifecycle/stale` | After 90 days with no activity, an issue is automatically labeled as stale. The issue will be automatically closed if the lifecycle is not manually reverted using the `/remove-lifecycle stale` command.
-`lifecycle/frozen` | An issue with this label will not become stale after 90 days of inactivity. A user manually adds this label to issues that need to remain open for much longer than 90 days, such as those with a `priority/important-longterm` label.
+`lifecycle/stale` | 90日間活動がない場合、issueは自動的にstaleとラベル付けされます。`/remove-lifecycle stale`コマンドを使って手動でlifecycleをリバートしない限り、issueは自動的にcloseされます。
+`lifecycle/frozen` | このラベルが付けられたissueは、90日間活動がなくてもstaleになりません。`priority/important-longterm`ラベルを付けたissueなど、90日以上openにしておく必要があるissueには、このラベルを手動で追加します。
 {{< /table >}}
 
-## Handling special issue types
+## 特別な種類のissueに対処する
 
-SIG Docs encounters the following types of issues often enough to document how
-to handle them.
+SIG Docsでは、対処方法をドキュメントに書いても良いくらい頻繁に、以下のような種類のissueに出会います。
 
-### Duplicate issues
+### 重服したissue
 
-If a single problem has one or more issues open for it, combine them into a single issue.
-You should decide which issue to keep open (or
-open a new issue), then move over all relevant information and link related issues.
-Finally, label all other issues that describe the same problem with
-`triage/duplicate` and close them. Only having a single issue to work on reduces confusion
-and avoids duplicate work on the same problem.
+1つの問題に対して1つ以上のissueがopenしている場合、1つのissueに統合します。あなたはどちらのissueをopenにしておくか(あるいは新しいissueを作成するか)を決断して、すべての関連する情報を移動し、関連するすべてのissueにリンクしなければなりません。最後に、同じ問題について書かれたすべての他のissueに`triage/duplicate`ラベルを付けて、それらをcloseします。作業対象のissueを1つだけにすることで、混乱を晒し、同じ問題に対して作業が重複することを避けられます。
 
-### Dead link issues
+### リンク切れに関するissue
 
-If the dead link issue is in the API or `kubectl` documentation, assign them `/priority critical-urgent` until the problem is fully understood. Assign all other dead link issues `/priority important-longterm`, as they must be manually fixed.
+リンク切れのissueがAPIまたは`kubectl`のドキュメントにあるものは、問題が完全に理解されるまでは`/priority critical-urgent`を割り当ててください。その他のすべてのリンク切れに関するissueには、手動で修正が必要であるため、`/priority important-longterm`を付けます。
 
-### Blog issues
+### Blogに関するissue
 
-We expect [Kubernetes Blog](https://kubernetes.io/blog/) entries to become
-outdated over time. Therefore, we only maintain blog entries less than a year old.
-If an issue is related to a blog entry that is more than one year old,
-close the issue without fixing.
+[Kubernetes Blog](https://kubernetes.io/blog/)のエントリーは時間が経つと情報が古くなるものだと考えています。そのため、ブログのエントリーは1年以内のものだけをメンテナンスします。1年以上前のブログエントリーに関するissueは修正せずにcloseします。
 
-### Support requests or code bug reports
+### サポートリクエストまたはコードのバグレポート {#support-requests-or-code-bug-reports}
 
-Some docs issues are actually issues with the underlying code, or requests for
-assistance when something, for example a tutorial, doesn't work.
-For issues unrelated to docs, close the issue with the `kind/support` label and a comment
-directing the requester to support venues (Slack, Stack Overflow) and, if
-relevant, the repository to file an issue for bugs with features (`kubernetes/kubernetes`
-is a great place to start).
+一部のドキュメントのissueは、実際には元になっているコードの問題や、何か(たとえば、チュートリアル)がうまく動かないときにサポートをリクエストするものです。ドキュメントに関係のない問題は、`kind/support`ラベルを付け、サポートチャンネル(SlackやStack Overflowなど)へ報告者を導くコメントをして、もし関連があれば機能のバグに対するissueを報告するリポジトリ(`kubernetes/kubernetes`は始めるのに最適な場所です)を教えて、closeします。
 
-Sample response to a request for support:
+サポートリクエストに対する返答の例を示します。
 
 ```none
 This issue sounds more like a request for support and less
@@ -212,7 +164,20 @@ https://github.com/kubernetes/kubernetes.
 If this is a documentation issue, please re-open this issue.
 ```
 
-Sample code bug report response:
+```none
+このissueは特定のドキュメントに関するissueではなく、サポートリクエストのようです。
+Kubernetesに関する質問については、[Kubernetes slack](https://slack.k8s.io/)の
+`#kubernetes-users`チャンネルに投稿することをおすすめします。同様の質問に対する回答を
+[Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes)などの
+リソースで検索することもできます。
+
+Kubernetesの機能に関するissueについては、https://github.com/kubernetes/kubernetes
+でissueを作成できます。
+
+もしこれがドキュメントに関するissueの場合、このissueを再びopenしてください。
+```
+
+コードのバグに対する返答の例を示します。
 
 ```none
 This sounds more like an issue with the code than an issue with
@@ -222,4 +187,9 @@ https://github.com/kubernetes/kubernetes/issues.
 If this is a documentation issue, please re-open this issue.
 ```
 
+```none
+こちらのissueは、ドキュメントではなくコードに関係するissueのようです。
+https://github.com/kubernetes/kubernetes/issues でissueを作成してください。
 
+もしこれがドキュメントに関するissueの場合、このissueを再びopenしてください。
+```
