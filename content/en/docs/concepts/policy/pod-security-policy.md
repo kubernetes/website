@@ -464,12 +464,12 @@ allowed prefix, and a `readOnly` field indicating it must be mounted read-only.
 For example:
 
 ```yaml
-allowedHostPaths:
+  allowedHostPaths:
   # This allows "/foo", "/foo/", "/foo/bar" etc., but
   # disallows "/fool", "/etc/foo" etc.
   # "/foo/../" is never valid.
-  - pathPrefix: "/foo"
-    readOnly: true # only allow read-only mounts
+    - pathPrefix: "/foo"
+      readOnly: true # only allow read-only mounts
 ```
 
 {{< warning >}}There are many ways a container with unrestricted access to the host
