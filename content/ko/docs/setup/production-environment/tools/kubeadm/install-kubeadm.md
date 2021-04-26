@@ -70,7 +70,7 @@ sudo sysctl --system
 
 | 프로토콜   | 방향       | 포트 범위    | 목적                      | 사용자                     |
 |----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | 인바운드    | 6443*      | 쿠버네티스 API 서버         | 모두                       |
+| TCP      | 인바운드    | 6443\*      | 쿠버네티스 API 서버         | 모두                       |
 | TCP      | 인바운드    | 2379-2380  | etcd 서버 클라이언트 API    | kube-apiserver, etcd      |
 | TCP      | 인바운드    | 10250      | kubelet API             | 자체, 컨트롤 플레인          |
 | TCP      | 인바운드    | 10251      | kube-scheduler          | 자체                      |
@@ -307,7 +307,8 @@ kind: KubeletConfiguration
 cgroupDriver: <value>
 ```
 
-자세한 내용은 [구성 파일과 함께 kubeadm init 사용](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)을 참고한다.
+자세한 내용은 [구성 파일과 함께 kubeadm init 사용](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)과
+[`KubeletConfiguration` 레퍼런스](/docs/reference/config-api/kubelet-config.v1beta1/)를 참고한다.
 
 `cgroupfs` 가 이미 kubelet의 기본값이기 때문에, 사용자의
 CRI cgroup 드라이버가 `cgroupfs` 가 아닌 **경우에만** 위와 같이 설정해야 한다.
@@ -321,12 +322,10 @@ CRI cgroup 드라이버가 `cgroupfs` 가 아닌 **경우에만** 위와 같이 
 CRI-O 및 containerd와 같은 다른 컨테이너 런타임에 대한 cgroup 드라이버의
 자동 감지에 대한 작업이 진행 중이다.
 
-
 ## 문제 해결
 
 kubeadm에 문제가 있는 경우, [문제 해결 문서](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)를 참고한다.
 
 ## {{% heading "whatsnext" %}}
-
 
 * [kubeadm을 사용하여 클러스터 생성](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
