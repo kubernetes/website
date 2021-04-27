@@ -1,6 +1,6 @@
 ---
-title: "Networking"
-description: Learn how to configure networking for your cluster.
+title: "ネットワーク"
+description: クラスターのネットワークの設定方法を学びます。
 weight: 160
 ---
 
