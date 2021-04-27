@@ -134,8 +134,7 @@ This is different from the `memory` and `cpu` resources.
 {{< /note >}}
 
 <!--
-CPU and memory are collectively referred to as *compute resources*, or just
-*resources*. Compute
+CPU and memory are collectively referred to as *compute resources*, or *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
 [API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
@@ -810,7 +809,9 @@ If you want to use project quotas, you should:
 
 * Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in the kubelet configuration.
+  using the `featureGates` field in the
+  [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
+  or the `--feature-gates` command line flag.
 
 * Ensure that the root filesystem (or optional runtime filesystem)
   has project quotas enabled. All XFS filesystems support project quotas.
@@ -828,8 +829,8 @@ If you want to use project quotas, you should:
 
 如果你希望使用项目配额，你需要：
 
-* 在 kubelet 配置中启用 `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
-  [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+* 在 [kubelet 配置](/zh/docs/reference/config-api/kubelet-config.v1beta1/)中使用 `featureGates` 字段 或者使用 `--feature-gates` 命令行参数
+启用 `LocalStorageCapacityIsolationFSQuotaMonitoring=true` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/) 。
 
 * 确保根文件系统（或者可选的运行时文件系统）启用了项目配额。所有 XFS
   文件系统都支持项目配额。
@@ -952,15 +953,14 @@ Cluster-level extended resources are not tied to nodes. They are usually managed
 by scheduler extenders, which handle the resource consumption and resource quota.
 
 You can specify the extended resources that are handled by scheduler extenders
-in [scheduler policy
-configuration](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31).
+in [scheduler policy configuration](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 -->
 #### 集群层面的扩展资源   {#cluster-level-extended-resources}
 
 集群层面的扩展资源并不绑定到具体节点。
 它们通常由调度器扩展程序（Scheduler Extenders）管理，这些程序处理资源消耗和资源配额。
 
-你可以在[调度器策略配置](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31)
+你可以在[调度器策略配置](/zh/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 中指定由调度器扩展程序处理的扩展资源。
 
 <!--
@@ -1005,7 +1005,7 @@ extender.
 <!--
 ### Consuming extended resources
 
-Users can consume extended resources in Pod specs just like CPU and memory.
+Users can consume extended resources in Pod specs like CPU and memory.
 The scheduler takes care of the resource accounting so that no more than the
 available amount is simultaneously allocated to Pods.
 
@@ -1281,17 +1281,13 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 
 <!--
 * Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
-
 * Get hands-on experience [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
-
 * For more details about the difference between requests and limits, see
   [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
-
 * Read the [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) API reference
-
 * Read the [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API reference
-
 * Read about [project quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
+* Read more about the [kube-scheduler Policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 -->
 
 * 获取[分配内存资源给容器和 Pod ](/zh/docs/tasks/configure-pod-container/assign-memory-resource/) 的实践经验
@@ -1300,4 +1296,5 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 * 阅读 API 参考文档中 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) 部分。
 * 阅读 API 参考文档中 [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) 部分。
 * 阅读 XFS 中关于[项目配额](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) 的文档。
+* 阅读更多关于[kube-scheduler 策略参考 (v1)](/zh/docs/reference/config-api/kube-scheduler-policy-config.v1/) 的文档。
 
