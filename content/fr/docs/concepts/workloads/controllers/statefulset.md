@@ -129,7 +129,7 @@ Un StatefulSet peut utiliser un [Service Headless](/docs/concepts/services-netwo
 pour contrôler le domaine de ses Pods. Le domaine pris en charge par ce Service prend la forme :
 `$(nom service).$(namespace).svc.cluster.local`, où "cluster.local" est le domaine du cluster.
 Chaque fois qu'un Pod est créé, il obtient un sous-domaine DNS correspondant, prenant la forme :
-`$(nom pod).$(domaine du service gouvernant)`, où le service gouvernant est défini par par le
+`$(nom pod).$(domaine du service gouvernant)`, où le service gouvernant est défini par le
 champ `serviceName` du StatefulSet.
 
 En fonction de la façon dont est configuré le DNS dans votre cluster, vous ne pourrez peut-être pas rechercher immédiatement
@@ -166,7 +166,7 @@ Le domaine cluster sera `cluster.local` à moins qu'il soit
 Kubernetes crée un [PersistentVolume](/docs/concepts/storage/persistent-volumes/) pour chaque
 VolumeClaimTemplate. Dans l'exemple nginx ci-dessus, chaque Pod se verra affecter un unique PersistentVolume
 avec un StorageClass de `my-storage-class` et 1 Gib de stockage provisionné. Si aucun StorageClass
-n'est spécifié, alors le StorageClass par défaut sera utilié. Lorsqu'un Pod est (re)schedulé
+n'est spécifié, alors le StorageClass par défaut sera utilisé. Lorsqu'un Pod est (re)schedulé
 sur un noeud, ses `volumeMounts` montent les PersistentVolumes associés aux  
 PersistentVolumeClaims. Notez que les PersistentVolumes associés avec les PersistentVolumeClaims des Pods
 ne sont pas supprimés lorsque les Pods, ou le StatefulSet, sont supprimés.
