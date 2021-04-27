@@ -11,11 +11,11 @@ weight: 70
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
- IPv4/IPv6 이중 스택을 사용하면 {{< glossary_tooltip text="파드" term_id="pod" >}} 와 {{< glossary_tooltip text="서비스" term_id="service" >}} 에 IPv4와 IPv6 주소를 모두 할당 할 수 있다.
+IPv4/IPv6 이중 스택 네트워킹을 사용하면 {{< glossary_tooltip text="파드" term_id="pod" >}}와 {{< glossary_tooltip text="서비스" term_id="service" >}}에 IPv4와 IPv6 주소를 모두 할당할 수 있다.
 
-만약 쿠버네티스 클러스터에서 IPv4/IPv6 이중 스택 네트워킹을 활성화하면, 클러스터는 IPv4와 IPv6 주소의 동시 할당을 지원하게 된다.
+IPv4/IPv6 이중 스택 네트워킹은 1.21부터 쿠버네티스 클러스터에 기본적으로 활성화되어 있고, IPv4 및 IPv6 주소를 동시에 할당할 수 있다.
 
 
 
@@ -23,7 +23,7 @@ weight: 70
 
 ## 지원되는 기능
 
-쿠버네티스 클러스터에서 IPv4/IPv6 이중 스택을 활성화하면 다음의 기능을 제공한다.
+쿠버네티스 클러스터의 IPv4/IPv6 이중 스택은 다음의 기능을 제공한다.
 
    * 이중 스택 파드 네트워킹(파드 당 단일 IPv4와 IPv6 주소 할당)
    * IPv4와 IPv6 지원 서비스
@@ -40,34 +40,34 @@ IPv4/IPv6 이중 스택 쿠버네티스 클러스터를 활용하려면 다음�
    * 이중 스택 네트워킹을 위한 공급자의 지원(클라우드 공급자 또는 다른 방식으로 쿠버네티스 노드에 라우팅 가능한 IPv4/IPv6 네트워크 인터페이스를 제공할 수 있어야 한다.)
    * 이중 스택(예: Kubenet 또는 Calico)을 지원하는 네트워크 플러그인
 
-## IPv4/IPv6 이중 스택 활성화
+## IPv4/IPv6 이중 스택 구성
 
-IPv4/IPv6 이중 스택을 활성화 하려면, 클러스터의 관련 구성요소에 대해 `IPv6DualStack` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 를 활성화 하고, 이중 스택 클러스터 네트워크 할당을 설정한다.
+IPv4/IPv6 이중 스택을 사용하려면, 클러스터의 관련 구성 요소에 대해 `IPv6DualStack` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화한다. (1.21부터 IPv4/IPv6 이중 스택이 기본적으로 활성화된다.)
+
+IPv4/IPv6 이중 스택을 구성하려면, 이중 스택 클러스터 네트워크 할당을 설정한다.
 
    * kube-apiserver:
-      * `--feature-gates="IPv6DualStack=true"`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
    * kube-controller-manager:
-      * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` IPv4의 기본값은 /24 이고 IPv6의 기본값은 /64 이다.
-   * kubelet:
-      * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
-      * `--feature-gates="IPv6DualStack=true"`
 
 {{< note >}}
 IPv4 CIDR의 예: `10.244.0.0/16` (자신의 주소 범위를 제공하더라도)
 
 IPv6 CIDR의 예: `fdXY:IJKL:MNOP:15::/64` (이 형식으로 표시되지만, 유효한 주소는 아니다 - [RFC 4193](https://tools.ietf.org/html/rfc4193)을 본다.)
 
+1.21부터, IPv4/IPv6 이중 스택은 기본적으로 활성화된다.
+필요한 경우 kube-apiserver, kube-controller-manager, kubelet 및 kube-proxy 커맨드 라인에
+`--feature-gates="IPv6DualStack=false"` 를 지정하여 비활성화할 수 있다.
 {{< /note >}}
 
 ## 서비스
 
-클러스터에 이중 스택이 활성화된 경우 IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서비스" term_id="service" >}}를 만들 수 있다.
+IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서비스" term_id="service" >}}를 생성할 수 있다.
 
 서비스의 주소 계열은 기본적으로 첫 번째 서비스 클러스터 IP 범위의 주소 계열로 설정된다. (`--service-cluster-ip-range` 플래그를 통해 kube-apiserver에 구성)
 
@@ -76,11 +76,9 @@ IPv6 CIDR의 예: `fdXY:IJKL:MNOP:15::/64` (이 형식으로 표시되지만, �
 
 * `SingleStack`: 단일 스택 서비스. 컨트롤 플레인은 첫 번째로 구성된 서비스 클러스터 IP 범위를 사용하여 서비스에 대한 클러스터 IP를 할당한다.
 * `PreferDualStack`:
-  * 클러스터에 이중 스택이 활성화된 경우에만 사용된다. 서비스에 대해 IPv4 및 IPv6 클러스터 IP를 할당한다.
-  * 클러스터에 이중 스택이 활성화되지 않은 경우, 이 설정은 `SingleStack`과 동일한 동작을 따른다.
+  * 서비스에 IPv4 및 IPv6 클러스터 IP를 할당한다. (클러스터에 `--feature-gates="IPv6DualStack=false"` 가 있는 경우, 이 설정은 `SingleStack` 과 동일한 동작을 따른다.)
 * `RequireDualStack`: IPv4 및 IPv6 주소 범위 모두에서 서비스 `.spec.ClusterIPs`를 할당한다.
   * `.spec.ipFamilies` 배열의 첫 번째 요소의 주소 계열을 기반으로 `.spec.ClusterIPs` 목록에서 `.spec.ClusterIP`를 선택한다.
-  * 클러스터에는 이중 스택 네트워킹이 구성되어 있어야 한다.
 
 단일 스택에 사용할 IP 계열을 정의하거나 이중 스택에 대한 IP 군의 순서를 정의하려는 경우, 서비스에서 옵션 필드 `.spec.ipFamilies`를 설정하여 주소 군을 선택할 수 있다.
 
@@ -121,7 +119,7 @@ IPv6 CIDR의 예: `fdXY:IJKL:MNOP:15::/64` (이 형식으로 표시되지만, �
 
 #### 기존 서비스의 이중 스택 기본값
 
-이 예제는 서비스가 이미있는 클러스터에서 이중 스택이 새로 활성화된 경우의 기본 동작을 보여준다.
+이 예제는 서비스가 이미 있는 클러스터에서 이중 스택이 새로 활성화된 경우의 기본 동작을 보여준다. (`--feature-gates="IPv6DualStack=false"` 가 설정되지 않은 경우 기존 클러스터를 1.21로 업그레이드하면 이중 스택이 활성화된다.)
 
 1. 클러스터에서 이중 스택이 활성화된 경우 기존 서비스 (`IPv4` 또는 `IPv6`)는 컨트롤 플레인이 `.spec.ipFamilyPolicy`를 `SingleStack`으로 지정하고 `.spec.ipFamilies`를 기존 서비스의 주소 계열로 설정한다. 기존 서비스 클러스터 IP는 `.spec.ClusterIPs`에 저장한다.
 
@@ -237,3 +235,5 @@ spec:
 
 
 * [IPv4/IPv6 이중 스택 검증](/ko/docs/tasks/network/validate-dual-stack) 네트워킹
+* [kubeadm을 사용하여 이중 스택 네트워킹 활성화
+](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
