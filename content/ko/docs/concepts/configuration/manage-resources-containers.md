@@ -21,9 +21,6 @@ feature:
 컨테이너가 사용할 수 있도록 해당 시스템 리소스의 최소 _요청_ 량을
 예약한다.
 
-
-
-
 <!-- body -->
 
 ## 요청 및 제한
@@ -72,7 +69,7 @@ Huge page는 노드 커널이 기본 페이지 크기보다 훨씬 큰 메모리
 이것은 `memory` 및 `cpu` 리소스와는 다르다.
 {{< /note >}}
 
-CPU와 메모리를 통칭하여 *컴퓨트 리소스* 또는 그냥 *리소스* 라고 한다. 컴퓨트
+CPU와 메모리를 통칭하여 *컴퓨트 리소스* 또는 *리소스* 라고 한다. 컴퓨트
 리소스는 요청, 할당 및 소비될 수 있는 측정 가능한
 수량이다. 이것은
 [API 리소스](/ko/docs/concepts/overview/kubernetes-api/)와는 다르다. 파드 및
@@ -441,7 +438,9 @@ kubelet은 각 `emptyDir` 볼륨, 컨테이너 로그 디렉터리 및 쓰기 �
 
 프로젝트 쿼터를 사용하려면, 다음을 수행해야 한다.
 
-* kubelet 구성에서 `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
+* [kubelet 구성](/docs/reference/config-api/kubelet-config.v1beta1/)의
+  `featureGates` 필드 또는 `--feature-gates` 커맨드 라인 플래그를 사용하여
+  `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
   [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
   활성화한다.
 
@@ -449,6 +448,7 @@ kubelet은 각 `emptyDir` 볼륨, 컨테이너 로그 디렉터리 및 쓰기 �
   프로젝트 쿼터가 활성화되어 있는지 확인한다. 모든 XFS 파일시스템은 프로젝트 쿼터를 지원한다.
   ext4 파일시스템의 경우, 파일시스템이 마운트되지 않은 상태에서 프로젝트 쿼터
   추적 기능을 활성화해야 한다.
+
   ```bash
   # ext4인 /dev/block-device가 마운트되지 않은 경우
   sudo tune2fs -O project -Q prjquota /dev/block-device
@@ -518,9 +518,8 @@ JSON-Pointer로 해석된다. 더 자세한 내용은,
 클러스터-레벨의 확장된 리소스는 노드에 연결되지 않는다. 이들은 일반적으로
 리소스 소비와 리소스 쿼터를 처리하는 스케줄러 익스텐더(extender)에 의해 관리된다.
 
-[스케줄러 정책 구성](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31)에서
-스케줄러 익스텐더가
-처리하는 확장된 리소스를 지정할 수 있다.
+[스케줄러 정책 구성](/docs/reference/config-api/kube-scheduler-policy-config.v1/)에서
+스케줄러 익스텐더가 처리하는 확장된 리소스를 지정할 수 있다.
 
 **예제:**
 
@@ -743,23 +742,13 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 컨테이너가 `reason:OOM Killed`(`OOM` 은 메모리 부족(Out Of Memory)의 약자) 때문에 종료된 것을 알 수 있다.
 
-
-
-
-
-
 ## {{% heading "whatsnext" %}}
 
-
 * [컨테이너와 파드에 메모리 리소스를 할당](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)하는 핸즈온 경험을 해보자.
-
 * [컨테이너와 파드에 CPU 리소스를 할당](/docs/tasks/configure-pod-container/assign-cpu-resource/)하는 핸즈온 경험을 해보자.
-
 * 요청과 제한의 차이점에 대한 자세한 내용은,
   [리소스 QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md)를 참조한다.
-
 * [컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) API 레퍼런스 읽어보기
-
 * [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API 레퍼런스 읽어보기
-
 * XFS의 [프로젝트 쿼터](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html)에 대해 읽어보기
+* [kube-scheduler 정책 레퍼런스 (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)에 대해 더 읽어보기
