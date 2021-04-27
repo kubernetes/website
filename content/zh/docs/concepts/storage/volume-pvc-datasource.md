@@ -5,6 +5,11 @@ weight: 30
 ---
 
 <!--
+reviewers:
+- jsafrane
+- saad-ali
+- thockin
+- msau42
 title: CSI Volume Cloning
 content_type: concept
 weight: 30
@@ -15,7 +20,8 @@ weight: 30
 <!--
 This document describes the concept of cloning existing CSI Volumes in Kubernetes.  Familiarity with [Volumes](/docs/concepts/storage/volumes) is suggested.
 -->
-本文档介绍 Kubernetes 中克隆现有 CSI 卷的概念。阅读前建议先熟悉[卷](/zh/docs/concepts/storage/volumes)。
+本文档介绍 Kubernetes 中克隆现有 CSI 卷的概念。阅读前建议先熟悉
+[卷](/zh/docs/concepts/storage/volumes)。
 
 <!-- body -->
 
@@ -24,7 +30,6 @@ This document describes the concept of cloning existing CSI Volumes in Kubernete
 
 The {{< glossary_tooltip text="CSI" term_id="csi" >}} Volume Cloning feature adds support for specifying existing {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}s in the `dataSource` field to indicate a user would like to clone a {{< glossary_tooltip term_id="volume" >}}.
 -->
-
 ## 介绍
 
 {{< glossary_tooltip text="CSI" term_id="csi" >}} 卷克隆功能增加了通过在
@@ -35,16 +40,14 @@ The {{< glossary_tooltip text="CSI" term_id="csi" >}} Volume Cloning feature add
 <!--
 A Clone is defined as a duplicate of an existing Kubernetes Volume that can be consumed as any standard Volume would be.  The only difference is that upon provisioning, rather than creating a "new" empty Volume, the back end device creates an exact duplicate of the specified Volume.
 -->
-
-克隆，意思是为已有的 Kubernetes 卷创建副本，它可以像任何其它标准卷一样被使用。
+克隆（Clone），意思是为已有的 Kubernetes 卷创建副本，它可以像任何其它标准卷一样被使用。
 唯一的区别就是配置后，后端设备将创建指定完全相同的副本，而不是创建一个“新的”空卷。
 
 <!--
-The implementation of cloning, from the perspective of the Kubernetes API, simply adds the ability to specify an existing PVC as a dataSource during new PVC creation. The source PVC must be bound and available (not in use).
+The implementation of cloning, from the perspective of the Kubernetes API, adds the ability to specify an existing PVC as a dataSource during new PVC creation. The source PVC must be bound and available (not in use).
 
 Users need to be aware of the following when using this feature:
 -->
-
 从 Kubernetes API 的角度看，克隆的实现只是在创建新的 PVC 时，
 增加了指定一个现有 PVC 作为数据源的能力。源 PVC 必须是 bound
 状态且可用的（不在使用中）。
@@ -61,7 +64,6 @@ Users need to be aware of the following when using this feature:
     - Default storage class can be used and storageClassName omitted in the spec
 * Cloning can only be performed between two volumes that use the same VolumeMode setting (if you request a block mode volume, the source MUST also be block mode)
 -->
-
 * 克隆支持（`VolumePVCDataSource`）仅适用于 CSI 驱动。
 * 克隆支持仅适用于 动态供应器。
 * CSI 驱动可能实现，也可能未实现卷克隆功能。
@@ -75,9 +77,9 @@ Users need to be aware of the following when using this feature:
 <!--
 ## Provisioning
 
-Clones are provisioned just like any other PVC with the exception of adding a dataSource that references an existing PVC in the same namespace.
+Clones are provisioned like any other PVC with the exception of adding a dataSource that references an existing PVC in the same namespace.
 -->
-## 供应
+## 制备
 
 克隆卷与其他任何 PVC 一样配置，除了需要增加 dataSource 来引用同一命名空间中现有的 PVC。
 
@@ -99,19 +101,17 @@ spec:
     name: pvc-1
 ```
 
+{{< note >}}
 <!--
 You must specify a capacity value for `spec.resources.requests.storage`, 
 and the value you specify must be the same or larger than the capacity of the source volume.
 -->
-
-{{< note >}}
 你必须为 `spec.resources.requests.storage` 指定一个值，并且你指定的值必须大于或等于源卷的值。
 {{< /note >}}
 
 <!--
 The result is a new PVC with the name `clone-of-pvc-1` that has the exact same content as the specified source `pvc-1`.
 -->
-
 结果是一个名称为 `clone-of-pvc-1` 的新 PVC 与指定的源 `pvc-1` 拥有相同的内容。
 
 <!--
@@ -119,8 +119,7 @@ The result is a new PVC with the name `clone-of-pvc-1` that has the exact same c
 
 Upon availability of the new PVC, the cloned PVC is consumed the same as other PVC.  It's also expected at this point that the newly created PVC is an independent object.  It can be consumed, cloned, snapshotted, or deleted independently and without consideration for it's original dataSource PVC.  This also implies that the source is not linked in any way to the newly created clone, it may also be modified or deleted without affecting the newly created clone.
 -->
-
-## 用法
+## 使用
 
 一旦新的 PVC 可用，被克隆的 PVC 像其他 PVC 一样被使用。
 可以预期的是，新创建的 PVC 是一个独立的对象。
