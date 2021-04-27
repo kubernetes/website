@@ -5,6 +5,8 @@ metadata:
   labels:
     app: MyApp
 spec:
+  ipFamilies:
+  - IPv6
   selector:
     app: MyApp
   ports:
