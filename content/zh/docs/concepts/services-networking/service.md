@@ -2003,7 +2003,7 @@ provider offering this facility. (Most do not).
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 一旦你使用了支持 SCTP 流量的网络插件，你就可以使用 SCTP 于更多的服务。
-对于 type = LoadBalancer 的服务，SCTP 的支持取决于提供此设施的云供应商（多大数不支持）。
+对于 type = LoadBalancer 的服务，SCTP 的支持取决于提供此设施的云供应商（大多数不支持）。
 
 <!--
 #### Warnings {#caveat-sctp-overview}
