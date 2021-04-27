@@ -64,10 +64,10 @@ There should be one IPv4 block and one IPv6 block allocated.
 应该分配一个 IPv4 块和一个 IPv6 块。
 
 <!--
-Validate that the node has an IPv4 and IPv6 interface detected (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0): 
+Validate that the node has an IPv4 and IPv6 interface detected. Replace node name with a valid node from the cluster. In this example the node name is `k8s-linuxpool1-34450317-0`:
 -->
-验证节点是否检测到 IPv4 和 IPv6 接口（用集群中的有效节点替换节点名称。
-在此示例中，节点名称为 `k8s-linuxpool1-34450317-0`）：
+验证节点是否检测到 IPv4 和 IPv6 接口。用集群中的有效节点替换节点名称。
+在此示例中，节点名称为 `k8s-linuxpool1-34450317-0`：
 
 ```shell
 kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s \n" .type .address}}{{end}}'
@@ -81,12 +81,12 @@ InternalIP: 2001:1234:5678:9abc::5
 <!--
 ### Validate Pod addressing
 
-Validate that a Pod has an IPv4 and IPv6 address assigned. (replace the Pod name with a valid Pod in your cluster. In this example the Pod name is pod01)
+Validate that a Pod has an IPv4 and IPv6 address assigned. Replace the Pod name with a valid Pod in your cluster. In this example the Pod name is `pod01`:
 -->
 ### 验证 Pod 寻址
 
-验证 Pod 已分配了 IPv4 和 IPv6 地址。（用集群中的有效 Pod 替换 Pod 名称。
-在此示例中，Pod 名称为 pod01）
+验证 Pod 已分配了 IPv4 和 IPv6 地址。用集群中的有效 Pod 替换 Pod 名称。
+在此示例中，Pod 名称为 pod01：
 
 ```shell
 kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s \n" .ip}}{{end}}'
