@@ -113,7 +113,7 @@ enforced/disallowed:
 			</td>
 		</tr>
 		<tr>
-			<td>AppArmor <em>(optional)</em></td>
+			<td>AppArmor</td>
 			<td>
 				On supported hosts, the 'runtime/default' AppArmor profile is applied by default.
 				The baseline policy should prevent overriding or disabling the default AppArmor
@@ -124,7 +124,7 @@ enforced/disallowed:
 			</td>
 		</tr>
 		<tr>
-			<td>SELinux <em>(optional)</em></td>
+			<td>SELinux</td>
 			<td>
 				Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.<br>
 				<br><b>Restricted Fields:</b><br>
@@ -132,7 +132,7 @@ enforced/disallowed:
 				spec.containers[*].securityContext.seLinuxOptions.type<br>
 				spec.initContainers[*].securityContext.seLinuxOptions.type<br>
 				<br><b>Allowed Values:</b><br>
-				undefined/nil<br>
+				undefined/empty<br>
 				container_t<br>
 				container_init_t<br>
 				container_kvm_t<br>
@@ -143,7 +143,7 @@ enforced/disallowed:
 				spec.securityContext.seLinuxOptions.role<br>
 				spec.containers[*].securityContext.seLinuxOptions.role<br>
 				spec.initContainers[*].securityContext.seLinuxOptions.role<br>
-				<br><b>Allowed Values:</b> undefined/nil<br>
+				<br><b>Allowed Values:</b> undefined/empty<br>
 			</td>
 		</tr>
 		<tr>
