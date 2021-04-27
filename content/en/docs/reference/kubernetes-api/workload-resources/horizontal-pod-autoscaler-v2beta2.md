@@ -6,8 +6,20 @@ api_metadata:
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified."
 title: "HorizontalPodAutoscaler v2beta2"
-weight: 15
+weight: 13
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: autoscaling/v2beta2`
 
@@ -89,32 +101,32 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
     <a name="HPAScalingRules"></a>
     *HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.*
 
-  - **behavior.scaleDown.policies** ([]HPAScalingPolicy)
+    - **behavior.scaleDown.policies** ([]HPAScalingPolicy)
 
-    policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+      policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
 
-    <a name="HPAScalingPolicy"></a>
-    *HPAScalingPolicy is a single policy which must hold true for a specified past interval.*
+      <a name="HPAScalingPolicy"></a>
+      *HPAScalingPolicy is a single policy which must hold true for a specified past interval.*
 
-  - **behavior.scaleDown.policies.type** (string), required
+      - **behavior.scaleDown.policies.type** (string), required
 
-    Type is used to specify the scaling policy.
+        Type is used to specify the scaling policy.
 
-  - **behavior.scaleDown.policies.value** (int32), required
+      - **behavior.scaleDown.policies.value** (int32), required
 
-    Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        Value contains the amount of change which is permitted by the policy. It must be greater than zero
 
-  - **behavior.scaleDown.policies.periodSeconds** (int32), required
+      - **behavior.scaleDown.policies.periodSeconds** (int32), required
 
-    PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
 
-  - **behavior.scaleDown.selectPolicy** (string)
+    - **behavior.scaleDown.selectPolicy** (string)
 
-    selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
+      selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
 
-  - **behavior.scaleDown.stabilizationWindowSeconds** (int32)
+    - **behavior.scaleDown.stabilizationWindowSeconds** (int32)
 
-    StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+      StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 
   - **behavior.scaleUp** (HPAScalingRules)
 
@@ -126,32 +138,32 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
     <a name="HPAScalingRules"></a>
     *HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.*
 
-  - **behavior.scaleUp.policies** ([]HPAScalingPolicy)
+    - **behavior.scaleUp.policies** ([]HPAScalingPolicy)
 
-    policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+      policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
 
-    <a name="HPAScalingPolicy"></a>
-    *HPAScalingPolicy is a single policy which must hold true for a specified past interval.*
+      <a name="HPAScalingPolicy"></a>
+      *HPAScalingPolicy is a single policy which must hold true for a specified past interval.*
 
-  - **behavior.scaleUp.policies.type** (string), required
+      - **behavior.scaleUp.policies.type** (string), required
 
-    Type is used to specify the scaling policy.
+        Type is used to specify the scaling policy.
 
-  - **behavior.scaleUp.policies.value** (int32), required
+      - **behavior.scaleUp.policies.value** (int32), required
 
-    Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        Value contains the amount of change which is permitted by the policy. It must be greater than zero
 
-  - **behavior.scaleUp.policies.periodSeconds** (int32), required
+      - **behavior.scaleUp.policies.periodSeconds** (int32), required
 
-    PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
 
-  - **behavior.scaleUp.selectPolicy** (string)
+    - **behavior.scaleUp.selectPolicy** (string)
 
-    selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
+      selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
 
-  - **behavior.scaleUp.stabilizationWindowSeconds** (int32)
+    - **behavior.scaleUp.stabilizationWindowSeconds** (int32)
 
-    StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+      StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 
 - **metrics** ([]MetricSpec)
 
@@ -171,36 +183,36 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
     <a name="ContainerResourceMetricSource"></a>
     *ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.*
 
-  - **metrics.containerResource.container** (string), required
+    - **metrics.containerResource.container** (string), required
 
-    container is the name of the container in the pods of the scaling target
+      container is the name of the container in the pods of the scaling target
 
-  - **metrics.containerResource.name** (string), required
+    - **metrics.containerResource.name** (string), required
 
-    name is the name of the resource in question.
+      name is the name of the resource in question.
 
-  - **metrics.containerResource.target** (MetricTarget), required
+    - **metrics.containerResource.target** (MetricTarget), required
 
-    target specifies the target value for the given metric
+      target specifies the target value for the given metric
 
-    <a name="MetricTarget"></a>
-    *MetricTarget defines the target value, average value, or average utilization of a specific metric*
+      <a name="MetricTarget"></a>
+      *MetricTarget defines the target value, average value, or average utilization of a specific metric*
 
-  - **metrics.containerResource.target.type** (string), required
+      - **metrics.containerResource.target.type** (string), required
 
-    type represents whether the metric type is Utilization, Value, or AverageValue
+        type represents whether the metric type is Utilization, Value, or AverageValue
 
-  - **metrics.containerResource.target.averageUtilization** (int32)
+      - **metrics.containerResource.target.averageUtilization** (int32)
 
-    averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
+        averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
 
-  - **metrics.containerResource.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **metrics.containerResource.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
+        averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 
-  - **metrics.containerResource.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **metrics.containerResource.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    value is the target value of the metric (as a quantity).
+        value is the target value of the metric (as a quantity).
 
   - **metrics.external** (ExternalMetricSource)
 
@@ -209,43 +221,43 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
     <a name="ExternalMetricSource"></a>
     *ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).*
 
-  - **metrics.external.metric** (MetricIdentifier), required
+    - **metrics.external.metric** (MetricIdentifier), required
 
-    metric identifies the target metric by name and selector
+      metric identifies the target metric by name and selector
 
-    <a name="MetricIdentifier"></a>
-    *MetricIdentifier defines the name and optionally selector for a metric*
+      <a name="MetricIdentifier"></a>
+      *MetricIdentifier defines the name and optionally selector for a metric*
 
-  - **metrics.external.metric.name** (string), required
+      - **metrics.external.metric.name** (string), required
 
-    name is the name of the given metric
+        name is the name of the given metric
 
-  - **metrics.external.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+      - **metrics.external.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
+        selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
 
-  - **metrics.external.target** (MetricTarget), required
+    - **metrics.external.target** (MetricTarget), required
 
-    target specifies the target value for the given metric
+      target specifies the target value for the given metric
 
-    <a name="MetricTarget"></a>
-    *MetricTarget defines the target value, average value, or average utilization of a specific metric*
+      <a name="MetricTarget"></a>
+      *MetricTarget defines the target value, average value, or average utilization of a specific metric*
 
-  - **metrics.external.target.type** (string), required
+      - **metrics.external.target.type** (string), required
 
-    type represents whether the metric type is Utilization, Value, or AverageValue
+        type represents whether the metric type is Utilization, Value, or AverageValue
 
-  - **metrics.external.target.averageUtilization** (int32)
+      - **metrics.external.target.averageUtilization** (int32)
 
-    averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
+        averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
 
-  - **metrics.external.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **metrics.external.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
+        averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 
-  - **metrics.external.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **metrics.external.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    value is the target value of the metric (as a quantity).
+        value is the target value of the metric (as a quantity).
 
   - **metrics.object** (ObjectMetricSource)
 
@@ -254,61 +266,61 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
     <a name="ObjectMetricSource"></a>
     *ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).*
 
-  - **metrics.object.describedObject** (CrossVersionObjectReference), required
+    - **metrics.object.describedObject** (CrossVersionObjectReference), required
 
 
-    <a name="CrossVersionObjectReference"></a>
-    *CrossVersionObjectReference contains enough information to let you identify the referred resource.*
+      <a name="CrossVersionObjectReference"></a>
+      *CrossVersionObjectReference contains enough information to let you identify the referred resource.*
 
-  - **metrics.object.describedObject.kind** (string), required
+      - **metrics.object.describedObject.kind** (string), required
 
-    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
 
-  - **metrics.object.describedObject.name** (string), required
+      - **metrics.object.describedObject.name** (string), required
 
-    Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
 
-  - **metrics.object.describedObject.apiVersion** (string)
+      - **metrics.object.describedObject.apiVersion** (string)
 
-    API version of the referent
+        API version of the referent
 
-  - **metrics.object.metric** (MetricIdentifier), required
+    - **metrics.object.metric** (MetricIdentifier), required
 
-    metric identifies the target metric by name and selector
+      metric identifies the target metric by name and selector
 
-    <a name="MetricIdentifier"></a>
-    *MetricIdentifier defines the name and optionally selector for a metric*
+      <a name="MetricIdentifier"></a>
+      *MetricIdentifier defines the name and optionally selector for a metric*
 
-  - **metrics.object.metric.name** (string), required
+      - **metrics.object.metric.name** (string), required
 
-    name is the name of the given metric
+        name is the name of the given metric
 
-  - **metrics.object.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+      - **metrics.object.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
+        selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
 
-  - **metrics.object.target** (MetricTarget), required
+    - **metrics.object.target** (MetricTarget), required
 
-    target specifies the target value for the given metric
+      target specifies the target value for the given metric
 
-    <a name="MetricTarget"></a>
-    *MetricTarget defines the target value, average value, or average utilization of a specific metric*
+      <a name="MetricTarget"></a>
+      *MetricTarget defines the target value, average value, or average utilization of a specific metric*
 
-  - **metrics.object.target.type** (string), required
+      - **metrics.object.target.type** (string), required
 
-    type represents whether the metric type is Utilization, Value, or AverageValue
+        type represents whether the metric type is Utilization, Value, or AverageValue
 
-  - **metrics.object.target.averageUtilization** (int32)
+      - **metrics.object.target.averageUtilization** (int32)
 
-    averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
+        averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
 
-  - **metrics.object.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **metrics.object.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
+        averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 
-  - **metrics.object.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **metrics.object.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    value is the target value of the metric (as a quantity).
+        value is the target value of the metric (as a quantity).
 
   - **metrics.pods** (PodsMetricSource)
 
@@ -317,43 +329,43 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
     <a name="PodsMetricSource"></a>
     *PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.*
 
-  - **metrics.pods.metric** (MetricIdentifier), required
+    - **metrics.pods.metric** (MetricIdentifier), required
 
-    metric identifies the target metric by name and selector
+      metric identifies the target metric by name and selector
 
-    <a name="MetricIdentifier"></a>
-    *MetricIdentifier defines the name and optionally selector for a metric*
+      <a name="MetricIdentifier"></a>
+      *MetricIdentifier defines the name and optionally selector for a metric*
 
-  - **metrics.pods.metric.name** (string), required
+      - **metrics.pods.metric.name** (string), required
 
-    name is the name of the given metric
+        name is the name of the given metric
 
-  - **metrics.pods.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+      - **metrics.pods.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
+        selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
 
-  - **metrics.pods.target** (MetricTarget), required
+    - **metrics.pods.target** (MetricTarget), required
 
-    target specifies the target value for the given metric
+      target specifies the target value for the given metric
 
-    <a name="MetricTarget"></a>
-    *MetricTarget defines the target value, average value, or average utilization of a specific metric*
+      <a name="MetricTarget"></a>
+      *MetricTarget defines the target value, average value, or average utilization of a specific metric*
 
-  - **metrics.pods.target.type** (string), required
+      - **metrics.pods.target.type** (string), required
 
-    type represents whether the metric type is Utilization, Value, or AverageValue
+        type represents whether the metric type is Utilization, Value, or AverageValue
 
-  - **metrics.pods.target.averageUtilization** (int32)
+      - **metrics.pods.target.averageUtilization** (int32)
 
-    averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
+        averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
 
-  - **metrics.pods.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **metrics.pods.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
+        averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 
-  - **metrics.pods.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **metrics.pods.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    value is the target value of the metric (as a quantity).
+        value is the target value of the metric (as a quantity).
 
   - **metrics.resource** (ResourceMetricSource)
 
@@ -362,32 +374,32 @@ HorizontalPodAutoscalerSpec describes the desired functionality of the Horizonta
     <a name="ResourceMetricSource"></a>
     *ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.*
 
-  - **metrics.resource.name** (string), required
+    - **metrics.resource.name** (string), required
 
-    name is the name of the resource in question.
+      name is the name of the resource in question.
 
-  - **metrics.resource.target** (MetricTarget), required
+    - **metrics.resource.target** (MetricTarget), required
 
-    target specifies the target value for the given metric
+      target specifies the target value for the given metric
 
-    <a name="MetricTarget"></a>
-    *MetricTarget defines the target value, average value, or average utilization of a specific metric*
+      <a name="MetricTarget"></a>
+      *MetricTarget defines the target value, average value, or average utilization of a specific metric*
 
-  - **metrics.resource.target.type** (string), required
+      - **metrics.resource.target.type** (string), required
 
-    type represents whether the metric type is Utilization, Value, or AverageValue
+        type represents whether the metric type is Utilization, Value, or AverageValue
 
-  - **metrics.resource.target.averageUtilization** (int32)
+      - **metrics.resource.target.averageUtilization** (int32)
 
-    averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
+        averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
 
-  - **metrics.resource.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **metrics.resource.target.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
+        averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
 
-  - **metrics.resource.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **metrics.resource.target.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    value is the target value of the metric (as a quantity).
+        value is the target value of the metric (as a quantity).
 
 
 
@@ -455,32 +467,32 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
     <a name="ContainerResourceMetricStatus"></a>
     *ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.*
 
-  - **currentMetrics.containerResource.container** (string), required
+    - **currentMetrics.containerResource.container** (string), required
 
-    Container is the name of the container in the pods of the scaling target
+      Container is the name of the container in the pods of the scaling target
 
-  - **currentMetrics.containerResource.current** (MetricValueStatus), required
+    - **currentMetrics.containerResource.current** (MetricValueStatus), required
 
-    current contains the current value for the given metric
+      current contains the current value for the given metric
 
-    <a name="MetricValueStatus"></a>
-    *MetricValueStatus holds the current value for a metric*
+      <a name="MetricValueStatus"></a>
+      *MetricValueStatus holds the current value for a metric*
 
-  - **currentMetrics.containerResource.current.averageUtilization** (int32)
+      - **currentMetrics.containerResource.current.averageUtilization** (int32)
 
-    currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 
-  - **currentMetrics.containerResource.current.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **currentMetrics.containerResource.current.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
+        averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 
-  - **currentMetrics.containerResource.current.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **currentMetrics.containerResource.current.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    value is the current value of the metric (as a quantity).
+        value is the current value of the metric (as a quantity).
 
-  - **currentMetrics.containerResource.name** (string), required
+    - **currentMetrics.containerResource.name** (string), required
 
-    Name is the name of the resource in question.
+      Name is the name of the resource in question.
 
   - **currentMetrics.external** (ExternalMetricStatus)
 
@@ -489,39 +501,39 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
     <a name="ExternalMetricStatus"></a>
     *ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.*
 
-  - **currentMetrics.external.current** (MetricValueStatus), required
+    - **currentMetrics.external.current** (MetricValueStatus), required
 
-    current contains the current value for the given metric
+      current contains the current value for the given metric
 
-    <a name="MetricValueStatus"></a>
-    *MetricValueStatus holds the current value for a metric*
+      <a name="MetricValueStatus"></a>
+      *MetricValueStatus holds the current value for a metric*
 
-  - **currentMetrics.external.current.averageUtilization** (int32)
+      - **currentMetrics.external.current.averageUtilization** (int32)
 
-    currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 
-  - **currentMetrics.external.current.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **currentMetrics.external.current.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
+        averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 
-  - **currentMetrics.external.current.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **currentMetrics.external.current.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    value is the current value of the metric (as a quantity).
+        value is the current value of the metric (as a quantity).
 
-  - **currentMetrics.external.metric** (MetricIdentifier), required
+    - **currentMetrics.external.metric** (MetricIdentifier), required
 
-    metric identifies the target metric by name and selector
+      metric identifies the target metric by name and selector
 
-    <a name="MetricIdentifier"></a>
-    *MetricIdentifier defines the name and optionally selector for a metric*
+      <a name="MetricIdentifier"></a>
+      *MetricIdentifier defines the name and optionally selector for a metric*
 
-  - **currentMetrics.external.metric.name** (string), required
+      - **currentMetrics.external.metric.name** (string), required
 
-    name is the name of the given metric
+        name is the name of the given metric
 
-  - **currentMetrics.external.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+      - **currentMetrics.external.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
+        selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
 
   - **currentMetrics.object** (ObjectMetricStatus)
 
@@ -530,57 +542,57 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
     <a name="ObjectMetricStatus"></a>
     *ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).*
 
-  - **currentMetrics.object.current** (MetricValueStatus), required
+    - **currentMetrics.object.current** (MetricValueStatus), required
 
-    current contains the current value for the given metric
+      current contains the current value for the given metric
 
-    <a name="MetricValueStatus"></a>
-    *MetricValueStatus holds the current value for a metric*
+      <a name="MetricValueStatus"></a>
+      *MetricValueStatus holds the current value for a metric*
 
-  - **currentMetrics.object.current.averageUtilization** (int32)
+      - **currentMetrics.object.current.averageUtilization** (int32)
 
-    currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 
-  - **currentMetrics.object.current.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **currentMetrics.object.current.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
+        averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 
-  - **currentMetrics.object.current.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **currentMetrics.object.current.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    value is the current value of the metric (as a quantity).
+        value is the current value of the metric (as a quantity).
 
-  - **currentMetrics.object.describedObject** (CrossVersionObjectReference), required
+    - **currentMetrics.object.describedObject** (CrossVersionObjectReference), required
 
 
-    <a name="CrossVersionObjectReference"></a>
-    *CrossVersionObjectReference contains enough information to let you identify the referred resource.*
+      <a name="CrossVersionObjectReference"></a>
+      *CrossVersionObjectReference contains enough information to let you identify the referred resource.*
 
-  - **currentMetrics.object.describedObject.kind** (string), required
+      - **currentMetrics.object.describedObject.kind** (string), required
 
-    Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
 
-  - **currentMetrics.object.describedObject.name** (string), required
+      - **currentMetrics.object.describedObject.name** (string), required
 
-    Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
 
-  - **currentMetrics.object.describedObject.apiVersion** (string)
+      - **currentMetrics.object.describedObject.apiVersion** (string)
 
-    API version of the referent
+        API version of the referent
 
-  - **currentMetrics.object.metric** (MetricIdentifier), required
+    - **currentMetrics.object.metric** (MetricIdentifier), required
 
-    metric identifies the target metric by name and selector
+      metric identifies the target metric by name and selector
 
-    <a name="MetricIdentifier"></a>
-    *MetricIdentifier defines the name and optionally selector for a metric*
+      <a name="MetricIdentifier"></a>
+      *MetricIdentifier defines the name and optionally selector for a metric*
 
-  - **currentMetrics.object.metric.name** (string), required
+      - **currentMetrics.object.metric.name** (string), required
 
-    name is the name of the given metric
+        name is the name of the given metric
 
-  - **currentMetrics.object.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+      - **currentMetrics.object.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
+        selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
 
   - **currentMetrics.pods** (PodsMetricStatus)
 
@@ -589,39 +601,39 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
     <a name="PodsMetricStatus"></a>
     *PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).*
 
-  - **currentMetrics.pods.current** (MetricValueStatus), required
+    - **currentMetrics.pods.current** (MetricValueStatus), required
 
-    current contains the current value for the given metric
+      current contains the current value for the given metric
 
-    <a name="MetricValueStatus"></a>
-    *MetricValueStatus holds the current value for a metric*
+      <a name="MetricValueStatus"></a>
+      *MetricValueStatus holds the current value for a metric*
 
-  - **currentMetrics.pods.current.averageUtilization** (int32)
+      - **currentMetrics.pods.current.averageUtilization** (int32)
 
-    currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 
-  - **currentMetrics.pods.current.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **currentMetrics.pods.current.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
+        averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 
-  - **currentMetrics.pods.current.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **currentMetrics.pods.current.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    value is the current value of the metric (as a quantity).
+        value is the current value of the metric (as a quantity).
 
-  - **currentMetrics.pods.metric** (MetricIdentifier), required
+    - **currentMetrics.pods.metric** (MetricIdentifier), required
 
-    metric identifies the target metric by name and selector
+      metric identifies the target metric by name and selector
 
-    <a name="MetricIdentifier"></a>
-    *MetricIdentifier defines the name and optionally selector for a metric*
+      <a name="MetricIdentifier"></a>
+      *MetricIdentifier defines the name and optionally selector for a metric*
 
-  - **currentMetrics.pods.metric.name** (string), required
+      - **currentMetrics.pods.metric.name** (string), required
 
-    name is the name of the given metric
+        name is the name of the given metric
 
-  - **currentMetrics.pods.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+      - **currentMetrics.pods.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
+        selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
 
   - **currentMetrics.resource** (ResourceMetricStatus)
 
@@ -630,28 +642,28 @@ HorizontalPodAutoscalerStatus describes the current status of a horizontal pod a
     <a name="ResourceMetricStatus"></a>
     *ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.*
 
-  - **currentMetrics.resource.current** (MetricValueStatus), required
+    - **currentMetrics.resource.current** (MetricValueStatus), required
 
-    current contains the current value for the given metric
+      current contains the current value for the given metric
 
-    <a name="MetricValueStatus"></a>
-    *MetricValueStatus holds the current value for a metric*
+      <a name="MetricValueStatus"></a>
+      *MetricValueStatus holds the current value for a metric*
 
-  - **currentMetrics.resource.current.averageUtilization** (int32)
+      - **currentMetrics.resource.current.averageUtilization** (int32)
 
-    currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 
-  - **currentMetrics.resource.current.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **currentMetrics.resource.current.averageValue** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
+        averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 
-  - **currentMetrics.resource.current.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+      - **currentMetrics.resource.current.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    value is the current value of the metric (as a quantity).
+        value is the current value of the metric (as a quantity).
 
-  - **currentMetrics.resource.name** (string), required
+    - **currentMetrics.resource.name** (string), required
 
-    Name is the name of the resource in question.
+      Name is the name of the resource in question.
 
 - **lastScaleTime** (Time)
 

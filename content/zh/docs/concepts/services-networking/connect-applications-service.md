@@ -44,8 +44,8 @@ Create an nginx Pod, and note that it has a container port specification:
 -->
 ## 在集群中暴露 Pod
 
-我们在之前的示例中已经做过，然而再让我重试一次，这次聚焦在网络连接的视角。
-创建一个 Nginx Pod，指示它具有一个容器端口的说明：
+我们在之前的示例中已经做过，然而让我们以网络连接的视角再重做一遍。
+创建一个 Nginx Pod，并且注意，它有一个容器端口的规范：
 
 {{< codenew file="service/networking/run-my-nginx.yaml" >}}
 
@@ -314,9 +314,9 @@ The rest of this section will assume you have a Service with a long lived IP
 本段剩余的内容，将假设已经有一个 Service，它具有一个长久存在的 IP（my-nginx），
 一个为该 IP 指派名称的 DNS 服务器。 这里我们使用 CoreDNS 集群插件（应用名为 `kube-dns`），
 所以可以通过标准做法，使在集群中的任何 Pod 都能与该 Service 通信（例如：`gethostbyname()`）。
-如果 CoreDNS 没有在运行，你可以参照 
-[CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 或者 
-[安装 CoreDNS](/zh/docs/tasks/administer-cluster/coredns/#installing-coredns) 来启用它。 
+如果 CoreDNS 没有在运行，你可以参照
+[CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 或者
+[安装 CoreDNS](/zh/docs/tasks/administer-cluster/coredns/#installing-coredns) 来启用它。
 让我们运行另一个 curl 应用来进行测试：
 
 ```shell

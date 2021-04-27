@@ -310,6 +310,48 @@ assuming that the number of replicas is not also changed).
 A ReplicaSet can be easily scaled up or down by simply updating the `.spec.replicas` field. The ReplicaSet controller
 ensures that a desired number of Pods with a matching label selector are available and operational.
 
+When scaling down, the ReplicaSet controller chooses which pods to delete by sorting the available pods to
+prioritize scaling down pods based on the following general algorithm:
+ 1. Pending (and unschedulable) pods are scaled down first
+ 2. If controller.kubernetes.io/pod-deletion-cost annotation is set, then
+    the pod with the lower value will come first.
+ 3. Pods on nodes with more replicas come before pods on nodes with fewer replicas.
+ 4. If the pods' creation times differ, the pod that was created more recently
+    comes before the older pod (the creation times are bucketed on an integer log scale
+    when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+    
+If all of the above match, then selection is random.
+
+### Pod deletion cost 
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost) 
+annotation, users can set a preference regarding which pods to remove first when downscaling a ReplicaSet.
+
+The annotation should be set on the pod, the range is [-2147483647, 2147483647]. It represents the cost of
+deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
+cost are preferred to be deleted before pods with higher deletion cost. 
+
+The implicit value for this annotation for pods that don't set it is 0; negative values are permitted.
+Invalid values will be rejected by the API server.
+
+This feature is alpha and disabled by default. You can enable it by setting the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDeletionCost` in both kube-apiserver and kube-controller-manager.
+
+{{< note >}}
+- This is honored on a best-effort basis, so it does not offer any guarantees on pod deletion order.
+- Users should avoid updating the annotation frequently, such as updating it based on a metric value,
+  because doing so will generate a significant number of pod updates on the apiserver.
+{{< /note >}}
+
+#### Example Use Case
+The different pods of an application could have different utilization levels. On scale down, the application 
+may prefer to remove the pods with lower utilization. To avoid frequently updating the pods, the application
+should update `controller.kubernetes.io/pod-deletion-cost` once before issuing a scale down (setting the 
+annotation to a value proportional to pod utilization level). This works if the application itself controls
+the down scaling; for example, the driver pod of a Spark deployment.
+
 ### ReplicaSet as a Horizontal Pod Autoscaler Target
 
 A ReplicaSet can also be a target for

@@ -50,7 +50,7 @@ Kubespray provides the following utilities to help provision your environment:
 
 ### (2/5) Compose an inventory file
 
-After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
+After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
 
 ### (3/5) Plan your cluster deployment
 
@@ -68,7 +68,7 @@ Kubespray provides the ability to customize many aspects of the deployment:
   * {{< glossary_tooltip term_id="cri-o" >}}
 * Certificate generation methods
 
-Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/playbooks_variables.html). If you are getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
+Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). If you are getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 
 ### (4/5) Deploy a Cluster
 

@@ -1,23 +1,24 @@
 ---
 reviewers:
-- bprashanth
-- davidopp
-- lavalamp
-- liggitt
+  - bprashanth
+  - davidopp
+  - lavalamp
+  - liggitt
 title: Managing Service Accounts
 content_type: concept
 weight: 50
 ---
 
 <!-- overview -->
+
 This is a Cluster Administrator guide to service accounts. You should be familiar with
 [configuring Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/).
 
-Support for authorization and user accounts is planned but incomplete.  Sometimes
+Support for authorization and user accounts is planned but incomplete. Sometimes
 incomplete features are referred to in order to better describe service accounts.
 
-
 <!-- body -->
+
 ## User accounts versus service accounts
 
 Kubernetes distinguishes between the concept of a user account and a service account
@@ -53,37 +54,51 @@ It is part of the API server.
 It acts synchronously to modify pods as they are created or updated. When this plugin is active
 (and it is by default on most distributions), then it does the following when a pod is created or modified:
 
-  1. If the pod does not have a `ServiceAccount` set, it sets the `ServiceAccount` to `default`.
-  1. It ensures that the `ServiceAccount` referenced by the pod exists, and otherwise rejects it.
-  1. If the pod does not contain any `ImagePullSecrets`, then `ImagePullSecrets` of the `ServiceAccount` are added to the pod.
-  1. It adds a `volume` to the pod which contains a token for API access.
-  1. It adds a `volumeSource` to each container of the pod mounted at `/var/run/secrets/kubernetes.io/serviceaccount`.
+1. If the pod does not have a `ServiceAccount` set, it sets the `ServiceAccount` to `default`.
+1. It ensures that the `ServiceAccount` referenced by the pod exists, and otherwise rejects it.
+1. It adds a `volume` to the pod which contains a token for API access if neither the ServiceAccount `automountServiceAccountToken` nor the Pod's `automountServiceAccountToken` is set to `false`.
+1. It adds a `volumeSource` to each container of the pod mounted at `/var/run/secrets/kubernetes.io/serviceaccount`, if the previous step has created a volume for ServiceAccount token.
+1. If the pod does not contain any `ImagePullSecrets`, then `ImagePullSecrets` of the `ServiceAccount` are added to the pod.
 
 #### Bound Service Account Token Volume
-{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
-When the `BoundServiceAccountTokenVolume` feature gate is enabled, the service account admission controller will
-add a projected service account token volume instead of a secret volume. The service account token will expire after 1 hour by default or the pod is deleted. See more details about [projected volume](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-This feature depends on the `RootCAConfigMap` feature gate enabled which publish a "kube-root-ca.crt" ConfigMap to every namespace. This ConfigMap contains a CA bundle used for verifying connections to the kube-apiserver.
-1. If the pod does not have a `serviceAccountName` set, it sets the
-   `serviceAccountName` to `default`.
-1. It ensures that the `serviceAccountName` referenced by the pod exists, and
-   otherwise rejects it.
-1. If the pod does not contain any `imagePullSecrets`, then `imagePullSecrets`
-   of the ServiceAccount referenced by `serviceAccountName` are added to the pod.
-1. It adds a `volume` to the pod which contains a token for API access
-   if neither the ServiceAccount `automountServiceAccountToken` nor the Pod's
-   `automountServiceAccountToken` is set to `false`.
-1. It adds a `volumeSource` to each container of the pod mounted at
-   `/var/run/secrets/kubernetes.io/serviceaccount`, if the previous step has
-   created a volume for ServiceAccount token.
+When the `BoundServiceAccountTokenVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled, the service account admission controller will
+add the following projected volume instead of a Secret-based volume for the non-expiring service account token created by Token Controller.
 
-You can migrate a service account volume to a projected volume when
-the `BoundServiceAccountTokenVolume` feature gate is enabled.
-The service account token will expire after 1 hour or the pod is deleted. See
-more details about
-[projected volume](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
+```yaml
+- name: kube-api-access-<random-suffix>
+  projected:
+    defaultMode: 420 # 0644
+    sources:
+      - serviceAccountToken:
+          expirationSeconds: 3600
+          path: token
+      - configMap:
+          items:
+            - key: ca.crt
+              path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+```
+
+This projected volume consists of three sources:
+
+1. A ServiceAccountToken acquired from kube-apiserver via TokenRequest API. It will expire after 1 hour by default or when the pod is deleted. It is bound to the pod and has kube-apiserver as the audience.
+1. A ConfigMap containing a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate being enabled, which publishes a "kube-root-ca.crt" ConfigMap to every namespace. `RootCAConfigMap` is enabled by default in 1.20, and always enabled in 1.21+.
+1. A DownwardAPI that references the namespace of the pod.
+
+See more details about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
+
+You can manually migrate a secret-based service account volume to a projected volume when
+the `BoundServiceAccountTokenVolume` feature gate is not enabled by adding the above
+projected volume to the pod spec. However, `RootCAConfigMap` needs to be enabled.
 
 ### Token Controller
 
@@ -140,4 +155,3 @@ kubectl delete secret mysecretname
 
 A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
 ensures a ServiceAccount named "default" exists in every active namespace.
-

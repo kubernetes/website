@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "CustomResourceDefinition represents a resource that should be exposed on the API server."
 title: "CustomResourceDefinition"
 weight: 1
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: apiextensions.k8s.io/v1`
 
@@ -112,29 +124,29 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
     <a name="CustomResourceColumnDefinition"></a>
     *CustomResourceColumnDefinition specifies a column for server side printing.*
 
-  - **versions.additionalPrinterColumns.jsonPath** (string), required
+    - **versions.additionalPrinterColumns.jsonPath** (string), required
 
-    jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
+      jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
 
-  - **versions.additionalPrinterColumns.name** (string), required
+    - **versions.additionalPrinterColumns.name** (string), required
 
-    name is a human readable name for the column.
+      name is a human readable name for the column.
 
-  - **versions.additionalPrinterColumns.type** (string), required
+    - **versions.additionalPrinterColumns.type** (string), required
 
-    type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
+      type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
 
-  - **versions.additionalPrinterColumns.description** (string)
+    - **versions.additionalPrinterColumns.description** (string)
 
-    description is a human readable description of this column.
+      description is a human readable description of this column.
 
-  - **versions.additionalPrinterColumns.format** (string)
+    - **versions.additionalPrinterColumns.format** (string)
 
-    format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
+      format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
 
-  - **versions.additionalPrinterColumns.priority** (int32)
+    - **versions.additionalPrinterColumns.priority** (int32)
 
-    priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
+      priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
 
   - **versions.deprecated** (boolean)
 
@@ -151,9 +163,9 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
     <a name="CustomResourceValidation"></a>
     *CustomResourceValidation is a list of validation methods for CustomResources.*
 
-  - **versions.schema.openAPIV3Schema** (<a href="{{< ref "../common-definitions/json-schema-props#JSONSchemaProps" >}}">JSONSchemaProps</a>)
+    - **versions.schema.openAPIV3Schema** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
-    openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
+      openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
 
   - **versions.subresources** (CustomResourceSubresources)
 
@@ -162,31 +174,31 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
     <a name="CustomResourceSubresources"></a>
     *CustomResourceSubresources defines the status and scale subresources for CustomResources.*
 
-  - **versions.subresources.scale** (CustomResourceSubresourceScale)
+    - **versions.subresources.scale** (CustomResourceSubresourceScale)
 
-    scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
+      scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
 
-    <a name="CustomResourceSubresourceScale"></a>
-    *CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.*
+      <a name="CustomResourceSubresourceScale"></a>
+      *CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.*
 
-  - **versions.subresources.scale.specReplicasPath** (string), required
+      - **versions.subresources.scale.specReplicasPath** (string), required
 
-    specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
+        specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
 
-  - **versions.subresources.scale.statusReplicasPath** (string), required
+      - **versions.subresources.scale.statusReplicasPath** (string), required
 
-    statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
+        statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
 
-  - **versions.subresources.scale.labelSelectorPath** (string)
+      - **versions.subresources.scale.labelSelectorPath** (string)
 
-    labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
+        labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
 
-  - **versions.subresources.status** (CustomResourceSubresourceStatus)
+    - **versions.subresources.status** (CustomResourceSubresourceStatus)
 
-    status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
+      status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
 
-    <a name="CustomResourceSubresourceStatus"></a>
-    *CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza*
+      <a name="CustomResourceSubresourceStatus"></a>
+      *CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza*
 
 - **conversion** (CustomResourceConversion)
 
@@ -207,63 +219,275 @@ CustomResourceDefinitionSpec describes how a user wants their resource to appear
     <a name="WebhookConversion"></a>
     *WebhookConversion describes how to call a conversion webhook*
 
-  - **conversion.webhook.conversionReviewVersions** ([]string), required
+    - **conversion.webhook.conversionReviewVersions** ([]string), required
 
-    conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
+      conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
 
-  - **conversion.webhook.clientConfig** (WebhookClientConfig)
+    - **conversion.webhook.clientConfig** (WebhookClientConfig)
 
-    clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
+      clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
 
-    <a name="WebhookClientConfig"></a>
-    *WebhookClientConfig contains the information to make a TLS connection with the webhook.*
+      <a name="WebhookClientConfig"></a>
+      *WebhookClientConfig contains the information to make a TLS connection with the webhook.*
 
-  - **conversion.webhook.clientConfig.caBundle** ([]byte)
+      - **conversion.webhook.clientConfig.caBundle** ([]byte)
 
-    caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+        caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
 
-  - **conversion.webhook.clientConfig.service** (ServiceReference)
+      - **conversion.webhook.clientConfig.service** (ServiceReference)
 
-    service is a reference to the service for this webhook. Either service or url must be specified.
-    
-    If the webhook is running within the cluster, then you should use `service`.
+        service is a reference to the service for this webhook. Either service or url must be specified.
+        
+        If the webhook is running within the cluster, then you should use `service`.
 
-    <a name="ServiceReference"></a>
-    *ServiceReference holds a reference to Service.legacy.k8s.io*
+        <a name="ServiceReference"></a>
+        *ServiceReference holds a reference to Service.legacy.k8s.io*
 
-  - **conversion.webhook.clientConfig.service.name** (string), required
+        - **conversion.webhook.clientConfig.service.name** (string), required
 
-    name is the name of the service. Required
+          name is the name of the service. Required
 
-  - **conversion.webhook.clientConfig.service.namespace** (string), required
+        - **conversion.webhook.clientConfig.service.namespace** (string), required
 
-    namespace is the namespace of the service. Required
+          namespace is the namespace of the service. Required
 
-  - **conversion.webhook.clientConfig.service.path** (string)
+        - **conversion.webhook.clientConfig.service.path** (string)
 
-    path is an optional URL path at which the webhook will be contacted.
+          path is an optional URL path at which the webhook will be contacted.
 
-  - **conversion.webhook.clientConfig.service.port** (int32)
+        - **conversion.webhook.clientConfig.service.port** (int32)
 
-    port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
+          port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
 
-  - **conversion.webhook.clientConfig.url** (string)
+      - **conversion.webhook.clientConfig.url** (string)
 
-    url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
-
-    The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
-
-    Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installations are likely to be non-portable or not readily run in a new cluster.
-
-    The scheme must be "https"; the URL must begin with "https://".
-
-    A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
-
-    Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
+        url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+        
+        The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
+        
+        Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
+        
+        The scheme must be "https"; the URL must begin with "https://".
+        
+        A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
+        
+        Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
 
 - **preserveUnknownFields** (boolean)
 
   preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+
+
+
+
+
+## JSONSchemaProps {#JSONSchemaProps}
+
+JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+
+<hr>
+
+- **$ref** (string)
+
+
+- **$schema** (string)
+
+
+- **additionalItems** (JSONSchemaPropsOrBool)
+
+
+  <a name="JSONSchemaPropsOrBool"></a>
+  *JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.*
+
+- **additionalProperties** (JSONSchemaPropsOrBool)
+
+
+  <a name="JSONSchemaPropsOrBool"></a>
+  *JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.*
+
+- **allOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
+
+
+- **anyOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
+
+
+- **default** (JSON)
+
+  default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
+
+  <a name="JSON"></a>
+  *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
+
+- **definitions** (map[string]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
+
+
+- **dependencies** (map[string]JSONSchemaPropsOrStringArray)
+
+
+  <a name="JSONSchemaPropsOrStringArray"></a>
+  *JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array.*
+
+- **description** (string)
+
+
+- **enum** ([]JSON)
+
+
+  <a name="JSON"></a>
+  *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
+
+- **example** (JSON)
+
+
+  <a name="JSON"></a>
+  *JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.*
+
+- **exclusiveMaximum** (boolean)
+
+
+- **exclusiveMinimum** (boolean)
+
+
+- **externalDocs** (ExternalDocumentation)
+
+
+  <a name="ExternalDocumentation"></a>
+  *ExternalDocumentation allows referencing an external resource for extended documentation.*
+
+  - **externalDocs.description** (string)
+
+
+  - **externalDocs.url** (string)
+
+
+- **format** (string)
+
+  format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
+  
+  - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\d{3}[- ]?\d{2}[- ]?\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+
+- **id** (string)
+
+
+- **items** (JSONSchemaPropsOrArray)
+
+
+  <a name="JSONSchemaPropsOrArray"></a>
+  *JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.*
+
+- **maxItems** (int64)
+
+
+- **maxLength** (int64)
+
+
+- **maxProperties** (int64)
+
+
+- **maximum** (double)
+
+
+- **minItems** (int64)
+
+
+- **minLength** (int64)
+
+
+- **minProperties** (int64)
+
+
+- **minimum** (double)
+
+
+- **multipleOf** (double)
+
+
+- **not** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
+
+
+- **nullable** (boolean)
+
+
+- **oneOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
+
+
+- **pattern** (string)
+
+
+- **patternProperties** (map[string]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
+
+
+- **properties** (map[string]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
+
+
+- **required** ([]string)
+
+
+- **title** (string)
+
+
+- **type** (string)
+
+
+- **uniqueItems** (boolean)
+
+
+- **x-kubernetes-embedded-resource** (boolean)
+
+  x-kubernetes-embedded-resource defines that the value is an embedded Kubernetes runtime.Object, with TypeMeta and ObjectMeta. The type must be object. It is allowed to further restrict the embedded object. kind, apiVersion and metadata are validated automatically. x-kubernetes-preserve-unknown-fields is allowed to be true, but does not have to be if the object is fully specified (up to kind, apiVersion, metadata).
+
+- **x-kubernetes-int-or-string** (boolean)
+
+  x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
+  
+  1) anyOf:
+     - type: integer
+     - type: string
+  2) allOf:
+     - anyOf:
+       - type: integer
+       - type: string
+     - ... zero or more
+
+- **x-kubernetes-list-map-keys** ([]string)
+
+  x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
+  
+  This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
+  
+  The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
+
+- **x-kubernetes-list-type** (string)
+
+  x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
+  
+  1) `atomic`: the list is treated as a single entity, like a scalar.
+       Atomic lists will be entirely replaced when updated. This extension
+       may be used on any type of list (struct, scalar, ...).
+  2) `set`:
+       Sets are lists that must not have multiple items with the same value. Each
+       value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+       array with x-kubernetes-list-type `atomic`.
+  3) `map`:
+       These lists are like maps in that their elements have a non-index key
+       used to identify them. Order is preserved upon merge. The map tag
+       must only be used on a list with elements of type object.
+  Defaults to atomic for arrays.
+
+- **x-kubernetes-map-type** (string)
+
+  x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
+  
+  1) `granular`:
+       These maps are actual maps (key-value pairs) and each fields are independent
+       from each other (they can each be manipulated by separate actors). This is
+       the default behaviour for all maps.
+  2) `atomic`: the list is treated as a single entity, like a scalar.
+       Atomic maps will be entirely replaced when updated.
+
+- **x-kubernetes-preserve-unknown-fields** (boolean)
+
+  x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
 
 
 
@@ -308,6 +532,8 @@ CustomResourceDefinitionStatus indicates the state of the CustomResourceDefiniti
 
 - **conditions** ([]CustomResourceDefinitionCondition)
 
+  *Map: unique values on key type will be kept during a merge*
+  
   conditions indicate state for particular aspects of a CustomResourceDefinition
 
   <a name="CustomResourceDefinitionCondition"></a>
@@ -350,18 +576,20 @@ CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
 
 <hr>
 
-- **apiVersion**: apiextensions.k8s.io/v1
-
-
-- **kind**: CustomResourceDefinitionList
-
-
-- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
-
-
 - **items** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>), required
 
   items list individual CustomResourceDefinition objects
+
+- **apiVersion** (string)
+
+  APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+
+- **kind** (string)
+
+  Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+
+- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
 
 
 

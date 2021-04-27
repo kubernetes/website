@@ -104,7 +104,7 @@ In summary, `kubeadm alpha selfhosting` works as follows:
     for secrets.
 -->
   2. 使用静态控制平面 Pod 清单来构造一组 DaemonSet 清单，这些清单将运行自托管的控制平面。
-     它还会在必要时修改这些清单，例如添加新的秘密卷。
+     它还会在必要时修改这些清单，例如添加新的 secrets 卷。
 
 <!--
   1. Creates DaemonSets in the `kube-system` namespace and waits for the

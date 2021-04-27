@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "ResourceQuota sets aggregate quota restrictions enforced per namespace."
 title: "ResourceQuota"
 weight: 2
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: v1`
 
@@ -66,17 +78,17 @@ ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
     <a name="ScopedResourceSelectorRequirement"></a>
     *A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.*
 
-  - **scopeSelector.matchExpressions.operator** (string), required
+    - **scopeSelector.matchExpressions.operator** (string), required
 
-    Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
+      Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
 
-  - **scopeSelector.matchExpressions.scopeName** (string), required
+    - **scopeSelector.matchExpressions.scopeName** (string), required
 
-    The name of the scope that the selector applies to.
+      The name of the scope that the selector applies to.
 
-  - **scopeSelector.matchExpressions.values** ([]string)
+    - **scopeSelector.matchExpressions.values** ([]string)
 
-    An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+      An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 
 - **scopes** ([]string)
 

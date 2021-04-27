@@ -99,10 +99,11 @@ This may be caused by a number of problems. The most common are:
 
   There are two common ways to fix the cgroup driver problem:
 
- 1. Install Docker again following instructions
-  [here](/docs/setup/production-environment/container-runtimes/#docker).
+  1. Install Docker again following instructions
+     [here](/docs/setup/production-environment/container-runtimes/#docker).
 
- 1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to [Configure cgroup driver used by kubelet on control-plane node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
+  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
+     [Configure cgroup driver used by kubelet on control-plane node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
 
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
@@ -110,8 +111,11 @@ This may be caused by a number of problems. The most common are:
 
 The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
 
-```bash
+```shell
 sudo kubeadm reset
+```
+
+```console
 [preflight] Running pre-flight checks
 [reset] Stopping the kubelet service
 [reset] Unmounting mounted directories in "/var/lib/kubelet"
@@ -121,14 +125,14 @@ sudo kubeadm reset
 
 A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
 
-```bash
+```shell
 sudo systemctl restart docker.service
 sudo kubeadm reset
 ```
 
 Inspecting the logs for docker may also be useful:
 
-```sh
+```shell
 journalctl -u docker
 ```
 
@@ -149,7 +153,7 @@ Right after `kubeadm init` there should not be any pods in these states.
   MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
   The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 
-## `coredns` (or `kube-dns`) is stuck in the `Pending` state
+## `coredns` is stuck in the `Pending` state
 
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
 should [install the pod network add-on](/docs/concepts/cluster-administration/addons/)
@@ -404,7 +408,7 @@ be advised that this is modifying a design principle of the Linux distribution.
 
 ## `kubeadm upgrade plan` prints out `context deadline exceeded` error message
 
-This error message is shown when upgrading a Kubernetes cluster with `kubeadm` in the case of running an external etcd. This is not a critical bug and happens because older versions of kubeadm perform a version check on the external etcd cluster. You can proceed with `kubeadm upgrade apply ...`. 
+This error message is shown when upgrading a Kubernetes cluster with `kubeadm` in the case of running an external etcd. This is not a critical bug and happens because older versions of kubeadm perform a version check on the external etcd cluster. You can proceed with `kubeadm upgrade apply ...`.
 
 This issue is fixed as of version 1.19.
 
@@ -415,3 +419,21 @@ If `/var/lib/kubelet` is being mounted, performing a `kubeadm reset` will effect
 To workaround the issue, re-mount the `/var/lib/kubelet` directory after performing the `kubeadm reset` operation.
 
 This is a regression introduced in kubeadm 1.15. The issue is fixed in 1.20.
+
+## Cannot use the metrics-server securely in a kubeadm cluster
+
+In a kubeadm cluster, the [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
+can be used insecurely by passing the `--kubelet-insecure-tls` to it. This is not recommended for production clusters.
+
+If you want to use TLS between the metrics-server and the kubelet there is a problem,
+since kubeadm deploys a self-signed serving certificate for the kubelet. This can cause the following errors
+on the side of the metrics-server:
+```
+x509: certificate signed by unknown authority
+x509: certificate is valid for IP-foo not IP-bar
+```
+
+See [Enabling signed kubelet serving certificates](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
+to understand how to configure the kubelets in a kubeadm cluster to have properly signed serving certificates.
+
+Also see [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely).

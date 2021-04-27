@@ -187,9 +187,14 @@ An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
+### Over Capacity Endpoints
+If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.21 (or later)
+cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: warning`.
+This annotation indicates that the affected Endpoints object is over capacity.
+
 ### EndpointSlices
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 EndpointSlices are an API resource that can provide a more scalable alternative
 to Endpoints. Although conceptually quite similar to Endpoints, EndpointSlices
@@ -513,8 +518,13 @@ allocates a port from a range specified by `--service-node-port-range` flag (def
 Each node proxies that port (the same port number on every Node) into your Service.
 Your Service reports the allocated port in its `.spec.ports[*].nodePort` field.
 
-If you want to specify particular IP(s) to proxy the port, you can set the `--nodeport-addresses` flag in kube-proxy to particular IP block(s); this is supported since Kubernetes v1.10.
-This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 192.0.2.0/25) to specify IP address ranges that kube-proxy should consider as local to this node.
+If you want to specify particular IP(s) to proxy the port, you can set the
+`--nodeport-addresses` flag for kube-proxy or the equivalent `nodePortAddresses`
+field of the
+[kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+to particular IP block(s).
+
+This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`) to specify IP address ranges that kube-proxy should consider as local to this node.
 
 For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8` flag, kube-proxy only selects the loopback interface for NodePort Services. The default for `--nodeport-addresses` is an empty list. This means that kube-proxy should consider all available network interfaces for NodePort. (That's also compatible with earlier Kubernetes releases).
 
@@ -530,7 +540,9 @@ to configure environments that are not fully supported by Kubernetes, or even
 to expose one or more nodes' IPs directly.
 
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
-and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
+and `.spec.clusterIP:spec.ports[*].port`.
+If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
+in the kube-proxy configuration file is set, `<NodeIP>` would be filtered node IP(s).
 
 For example:
 
@@ -627,6 +639,25 @@ is `true` and type LoadBalancer Services will continue to allocate node ports. I
 is set to `false` on an existing Service with allocated node ports, those node ports will NOT be de-allocated automatically.
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
 You must enable the `ServiceLBNodePortControl` feature gate to use this field.
+
+#### Specifying class of load balancer implementation {#load-balancer-class}
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+Starting in v1.21, you can optionally specify the class of a load balancer implementation for
+`LoadBalancer` type of Service by setting the field `spec.loadBalancerClass`.
+By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
+the cloud provider's default load balancer implementation. 
+If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
+implementation that matches the specified class is watching for Services.
+Any default load balancer implementation (for example, the one provided by
+the cloud provider) will ignore Services that have this field set.
+`spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
+Once set, it cannot be changed. 
+The value of `spec.loadBalancerClass` must be a label-style identifier,
+with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
+Unprefixed names are reserved for end-users.
+You must enable the `ServiceLoadBalancerClass` feature gate to use this field.
 
 #### Internal load balancer
 
@@ -905,11 +936,18 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # value. Defaults to 5, must be between 2 and 60
 
         service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
-        # A list of existing security groups to be added to ELB created. Unlike the annotation
-        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other security groups previously assigned to the ELB.
+        # A list of existing security groups to be configured on the ELB created. Unlike the annotation
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other security groups previously assigned to the ELB and also overrides the creation 
+        # of a uniquely generated security group for this ELB.
+        # The first security group ID on this list is used as a source to permit incoming traffic to target worker nodes (service traffic and health checks).
+        # If multiple ELBs are configured with the same security group ID, only a single permit line will be added to the worker node security groups, that means if you delete any
+        # of those ELBs it will remove the single permit line and block access for all ELBs that shared the same security group ID.
+        # This can cause a cross-service outage if not used properly
 
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-        # A list of additional security groups to be added to the ELB
+        #  A list of additional security groups to be added to the created ELB, this leaves the uniquely generated security group in place, this ensures that every ELB
+        # has a unique security group ID and a matching permit line to allow traffic to the target worker nodes (service traffic and health checks).
+        # Security groups defined here can be shared between services. 
 
         service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
         # A comma separated list of key-value pairs which are used
@@ -958,7 +996,6 @@ groups are modified with the following IP rules:
 | Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
 |------|----------|---------|------------|---------------------|
 | Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
-
 | Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 

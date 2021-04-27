@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "Endpoints is a collection of endpoints that implement the actual service."
 title: "Endpoints"
 weight: 2
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: v1`
 
@@ -62,21 +74,21 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
     <a name="EndpointAddress"></a>
     *EndpointAddress is a tuple that describes single IP address.*
 
-  - **subsets.addresses.ip** (string), required
+    - **subsets.addresses.ip** (string), required
 
-    The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+      The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
 
-  - **subsets.addresses.hostname** (string)
+    - **subsets.addresses.hostname** (string)
 
-    The Hostname of this endpoint
+      The Hostname of this endpoint
 
-  - **subsets.addresses.nodeName** (string)
+    - **subsets.addresses.nodeName** (string)
 
-    Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
+      Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
 
-  - **subsets.addresses.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
+    - **subsets.addresses.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
-    Reference to object providing the endpoint.
+      Reference to object providing the endpoint.
 
   - **subsets.notReadyAddresses** ([]EndpointAddress)
 
@@ -85,21 +97,21 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
     <a name="EndpointAddress"></a>
     *EndpointAddress is a tuple that describes single IP address.*
 
-  - **subsets.notReadyAddresses.ip** (string), required
+    - **subsets.notReadyAddresses.ip** (string), required
 
-    The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+      The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
 
-  - **subsets.notReadyAddresses.hostname** (string)
+    - **subsets.notReadyAddresses.hostname** (string)
 
-    The Hostname of this endpoint
+      The Hostname of this endpoint
 
-  - **subsets.notReadyAddresses.nodeName** (string)
+    - **subsets.notReadyAddresses.nodeName** (string)
 
-    Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
+      Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
 
-  - **subsets.notReadyAddresses.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
+    - **subsets.notReadyAddresses.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
-    Reference to object providing the endpoint.
+      Reference to object providing the endpoint.
 
   - **subsets.ports** ([]EndpointPort)
 
@@ -108,21 +120,21 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
     <a name="EndpointPort"></a>
     *EndpointPort is a tuple that describes a single port.*
 
-  - **subsets.ports.port** (int32), required
+    - **subsets.ports.port** (int32), required
 
-    The port number of the endpoint.
+      The port number of the endpoint.
 
-  - **subsets.ports.protocol** (string)
+    - **subsets.ports.protocol** (string)
 
-    The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+      The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
 
-  - **subsets.ports.name** (string)
+    - **subsets.ports.name** (string)
 
-    The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
+      The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 
-  - **subsets.ports.appProtocol** (string)
+    - **subsets.ports.appProtocol** (string)
 
-    The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
+      The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
 
 
 

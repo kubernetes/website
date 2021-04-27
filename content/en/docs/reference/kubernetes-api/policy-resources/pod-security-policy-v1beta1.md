@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container."
 title: "PodSecurityPolicy v1beta1"
 weight: 5
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: policy/v1beta1`
 
@@ -16,7 +28,7 @@ weight: 5
 
 ## PodSecurityPolicy {#PodSecurityPolicy}
 
-PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
 
 <hr>
 
@@ -62,13 +74,13 @@ PodSecurityPolicySpec defines the policy enforced.
     <a name="IDRange"></a>
     *IDRange provides a min/max of an allowed range of IDs.*
 
-  - **runAsUser.ranges.max** (int64), required
+    - **runAsUser.ranges.max** (int64), required
 
-    max is the end of the range, inclusive.
+      max is the end of the range, inclusive.
 
-  - **runAsUser.ranges.min** (int64), required
+    - **runAsUser.ranges.min** (int64), required
 
-    min is the start of the range, inclusive.
+      min is the start of the range, inclusive.
 
 - **runAsGroup** (RunAsGroupStrategyOptions)
 
@@ -88,13 +100,13 @@ PodSecurityPolicySpec defines the policy enforced.
     <a name="IDRange"></a>
     *IDRange provides a min/max of an allowed range of IDs.*
 
-  - **runAsGroup.ranges.max** (int64), required
+    - **runAsGroup.ranges.max** (int64), required
 
-    max is the end of the range, inclusive.
+      max is the end of the range, inclusive.
 
-  - **runAsGroup.ranges.min** (int64), required
+    - **runAsGroup.ranges.min** (int64), required
 
-    min is the start of the range, inclusive.
+      min is the start of the range, inclusive.
 
 - **fsGroup** (FSGroupStrategyOptions), required
 
@@ -110,13 +122,13 @@ PodSecurityPolicySpec defines the policy enforced.
     <a name="IDRange"></a>
     *IDRange provides a min/max of an allowed range of IDs.*
 
-  - **fsGroup.ranges.max** (int64), required
+    - **fsGroup.ranges.max** (int64), required
 
-    max is the end of the range, inclusive.
+      max is the end of the range, inclusive.
 
-  - **fsGroup.ranges.min** (int64), required
+    - **fsGroup.ranges.min** (int64), required
 
-    min is the start of the range, inclusive.
+      min is the start of the range, inclusive.
 
   - **fsGroup.rule** (string)
 
@@ -136,13 +148,13 @@ PodSecurityPolicySpec defines the policy enforced.
     <a name="IDRange"></a>
     *IDRange provides a min/max of an allowed range of IDs.*
 
-  - **supplementalGroups.ranges.max** (int64), required
+    - **supplementalGroups.ranges.max** (int64), required
 
-    max is the end of the range, inclusive.
+      max is the end of the range, inclusive.
 
-  - **supplementalGroups.ranges.min** (int64), required
+    - **supplementalGroups.ranges.min** (int64), required
 
-    min is the start of the range, inclusive.
+      min is the start of the range, inclusive.
 
   - **supplementalGroups.rule** (string)
 
@@ -166,21 +178,21 @@ PodSecurityPolicySpec defines the policy enforced.
     <a name="SELinuxOptions"></a>
     *SELinuxOptions are the labels to be applied to the container*
 
-  - **seLinux.seLinuxOptions.level** (string)
+    - **seLinux.seLinuxOptions.level** (string)
 
-    Level is SELinux level label that applies to the container.
+      Level is SELinux level label that applies to the container.
 
-  - **seLinux.seLinuxOptions.role** (string)
+    - **seLinux.seLinuxOptions.role** (string)
 
-    Role is a SELinux role label that applies to the container.
+      Role is a SELinux role label that applies to the container.
 
-  - **seLinux.seLinuxOptions.type** (string)
+    - **seLinux.seLinuxOptions.type** (string)
 
-    Type is a SELinux type label that applies to the container.
+      Type is a SELinux type label that applies to the container.
 
-  - **seLinux.seLinuxOptions.user** (string)
+    - **seLinux.seLinuxOptions.user** (string)
 
-    User is a SELinux user label that applies to the container.
+      User is a SELinux user label that applies to the container.
 
 - **readOnlyRootFilesystem** (boolean)
 
