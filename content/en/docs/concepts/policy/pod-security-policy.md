@@ -465,9 +465,9 @@ For example:
 
 ```yaml
   allowedHostPaths:
-  # This allows "/foo", "/foo/", "/foo/bar" etc., but
-  # disallows "/fool", "/etc/foo" etc.
-  # "/foo/../" is never valid.
+    # This allows "/foo", "/foo/", "/foo/bar" etc., but
+    # disallows "/fool", "/etc/foo" etc.
+    # "/foo/../" is never valid.
     - pathPrefix: "/foo"
       readOnly: true # only allow read-only mounts
 ```
