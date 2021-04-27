@@ -2,7 +2,7 @@
 title: Parallel Processing using Expansions
 content_type: task
 min-kubernetes-server-version: v1.8
-weight: 20
+weight: 50
 ---
 
 <!-- overview -->

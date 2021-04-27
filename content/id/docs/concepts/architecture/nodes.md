@@ -134,6 +134,7 @@ Jika sudah tidak tersedia, kontroler node menghilangkan node tersebut dari dafta
 
 Ketiga, melakukan monitor terhadap kondisi kesehatan (<i>health</i>) node.
 Kontroler node bertanggung jawab untuk mengubah status `NodeReady condition` pada `NodeStatus` menjadi `ConditionUnknown`, ketika sebuah node terputus jaringannya (kontroler node tidak lagi mendapat <i>heartbeat</i> karena suatu hal, contohnya karena node tidak hidup), dan saat kemudian melakukan <i>eviction</i> terhadap semua pod yang ada pada node tersebut (melalui terminasi halus -- <i>graceful</i>) jika node masih terus terputus. (<i>Timeout</i> standar adalah 40 detik untuk mulai melaporkan `ConditionUnknown` dan 5 menit setelah itu untuk mulai melakukan <i>eviction</i> terhadap pod.)
+
 Kontroler node memeriksa <i>state</i> masing-masing node untuk durasi yang ditentukan oleh argumen `--node-monitor-period`.
 
 Pada versi Kubernetes sebelum 1.13, `NodeStatus` adalah <i>heartbeat</i> yang diberikan oleh node.
@@ -154,6 +155,7 @@ Perlakuan <i>eviction</i> pada node berubah ketika sebuah node menjadi tidak seh
 Kontroler node memeriksa berapa persentase node di dalam zona tersebut yang tidak sehat (saat `NodeReady condition` menjadi `ConditionUnknown` atau `ConditionFalse`) pada saat yang bersamaan.
 Jika persentase node yang tidak sehat bernilai `--unhealthy-zone-threshold` (<i>default</i>-nya 0.55), maka <i>rate eviction</i> berkurang: untuk ukuran klaster yang kecil (saat jumlahnya lebih kecil atau sama dengan jumlah node `--large-cluster-size-threshold` - <i>default</i>-nya 50), maka <i>eviction</i> akan berhenti dilakukan.
 Jika masih besar jumlahnya,  <i>rate eviction</i> dikurangi menjadi `--secondary-node-eviction-rate` (<i>default</i>-nya 0.01) per detik.
+
 Alasan kenapa hal ini diimplementasi untuk setiap zona <i>availability</i> adalah karena satu zona bisa saja terputus dari master, saat yang lainnya masih terhubung.
 Jika klaster tidak menjangkau banyak zona <i>availability</i> yang disediakan oleh penyedia cloud, maka hanya ada satu zona (untuk semua node di dalam klaster).
 
@@ -164,7 +166,7 @@ Pada kasus ini, kontroler node berasumsi ada masalah pada jaringan master, dan m
 
 Mulai dari Kubernetes 1.6, kontroler node juga bertanggung jawab untuk melakukan <i>eviction</i> pada pod-pod yang berjalan di atas node dengan <i>taints</i> `NoExecute`, ketika pod-pod tersebut sudah tidak lagi <i>tolerate</i> terhadap <i>taints</i>.
 Sebagai tambahan, hal ini di-nonaktifkan secara <i>default</i> pada fitur alpha, kontroler node bertanggung jawab untuk menambahkan <i>taints</i> yang berhubungan dengan masalah pada node, seperti terputus atau `NotReady`.
-Lihat [dokumentasi ini](/id/docs/concepts/configuration/taint-and-toleration/) untuk bahasan detail tentang <i>taints</i> `NoExecute` dan fitur alpha.
+Lihat [dokumentasi ini](/id/docs/concepts/scheduling-eviction/taint-and-toleration/) untuk bahasan detail tentang <i>taints</i> `NoExecute` dan fitur alpha.
 
 Mulai dari versi 1.8, kontroler node bisa diatur untuk bertanggung jawab pada pembuatan <i>taints</i> yang merepresentasikan node <i>condition</i>.
 Ini merupakan fitur alpha untuk versi 1.8.

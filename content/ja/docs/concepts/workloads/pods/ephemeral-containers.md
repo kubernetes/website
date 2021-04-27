@@ -59,7 +59,7 @@ weight: 80
     "apiVersion": "v1",
     "kind": "EphemeralContainers",
     "metadata": {
-            "name": "example-pod"
+        "name": "example-pod"
     },
     "ephemeralContainers": [{
         "command": [

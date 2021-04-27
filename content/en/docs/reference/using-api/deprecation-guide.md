@@ -25,6 +25,25 @@ deprecated API versions to newer and more stable API versions.
 
 The **v1.25** release will stop serving the following deprecated API versions:
 
+#### CronJob {#cronjob-v125}
+
+The **batch/v1beta1** API version of CronJob will no longer be served in v1.25.
+
+* Migrate manifests and API clients to use the **batch/v1** API version, available since v1.21.
+* All existing persisted objects are accessible via the new API
+* No notable changes
+
+#### EndpointSlice {#endpointslice-v125}
+
+The **discovery.k8s.io/v1beta1** API version of EndpointSlice will no longer be served in v1.25.
+
+* Migrate manifests and API clients to use the **discovery.k8s.io/v1** API version, available since v1.21.
+* All existing persisted objects are accessible via the new API
+* Notable changes in **discovery.k8s.io/v1**:
+    * use per Endpoint `nodeName` field instead of deprecated `topology["kubernetes.io/hostname"]` field
+    * use per Endpoint `zone` field instead of deprecated `topology["topology.kubernetes.io/zone"]` field
+    * `topology` is replaced with the `deprecatedTopology` field which is not writable in v1
+
 #### Event {#event-v125}
 
 The **events.k8s.io/v1beta1** API version of Event will no longer be served in v1.25.
@@ -40,6 +59,22 @@ The **events.k8s.io/v1beta1** API version of Event will no longer be served in v
     * use `series.count` instead of the deprecated `count` field (which is renamed to `deprecatedCount` and not permitted in new **events.k8s.io/v1** Events)
     * use `reportingComponent` instead of the deprecated `source.component` field (which is renamed to `deprecatedSource.component` and not permitted in new **events.k8s.io/v1** Events)
     * use `reportingInstance` instead of the deprecated `source.host` field (which is renamed to `deprecatedSource.host` and not permitted in new **events.k8s.io/v1** Events)
+
+#### PodDisruptionBudget {#poddisruptionbudget-v125}
+
+The **policy/v1beta1** API version of PodDisruptionBudget will no longer be served in v1.25.
+
+* Migrate manifests and API clients to use the **policy/v1** API version, available since v1.21.
+* All existing persisted objects are accessible via the new API
+* Notable changes in **policy/v1**:
+  * an empty `spec.selector` (`{}`) written to a `policy/v1` PodDisruptionBudget selects all pods in the namespace (in `policy/v1beta1` an empty `spec.selector` selected no pods). An unset `spec.selector` selects no pods in either API version.
+
+#### PodSecurityPolicy {#psp-v125}
+
+PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
+
+PodSecurityPolicy replacements are still under discussion, but current use can be migrated to
+[3rd-party admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
 
 #### RuntimeClass {#runtimeclass-v125}
 
@@ -233,6 +268,13 @@ The **extensions/v1beta1**, **apps/v1beta1**, and **apps/v1beta2** API versions 
 * All existing persisted objects are accessible via the new API
 * Notable changes:
     * `spec.selector` is now required and immutable after creation; use the existing template labels as the selector for seamless upgrades
+
+#### PodSecurityPolicy {#psp-v116}
+
+The **extensions/v1beta1** API version of PodSecurityPolicy is no longer served as of v1.16.
+
+* Migrate manifests and API client to use the **policy/v1beta1** API version, available since v1.10.
+* Note that the **policy/v1beta1** API version of PodSecurityPolicy will be removed in v1.25.
 
 ## What to do
 

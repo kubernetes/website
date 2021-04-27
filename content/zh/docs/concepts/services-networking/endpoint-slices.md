@@ -336,7 +336,7 @@ resources to corresponding EndpointSlices.
 ### EndpointSlice 镜像    {#endpointslice-mirroring}
 
 在某些场合，应用会创建定制的 Endpoints 资源。为了保证这些应用不需要并发
-递更改 Endpoints 和 EndpointSlice 资源，集群的控制面将大多数 Endpoints
+的更改 Endpoints 和 EndpointSlice 资源，集群的控制面将大多数 Endpoints
 映射到对应的 EndpointSlice 之上。
 
 <!--

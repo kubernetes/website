@@ -83,16 +83,16 @@ This section shows how to generate the
 ### Setting build variables
 
 * Set `K8S_ROOT` to `<k8s-base>`.
-* Set `WEB_ROOT` to `<web-base>`.
+* Set `K8S_WEBROOT` to `<web-base>`.
 * Set `K8S_RELEASE` to the version of the docs you want to build.
-  For example, if you want to build docs for Kubernetes 1.17, set `K8S_RELEASE` to 1.17.
+  For example, if you want to build docs for Kubernetes 1.17.0, set `K8S_RELEASE` to 1.17.0.
 
 For example:
 
 ```shell
-export WEB_ROOT=$(GOPATH)/src/github.com/<your-username>/website
+export K8S_WEBROOT=$(GOPATH)/src/github.com/<your-username>/website
 export K8S_ROOT=$(GOPATH)/src/k8s.io/kubernetes
-export K8S_RELEASE=1.17
+export K8S_RELEASE=1.17.0
 ```
 
 ### Creating versioned directory and fetching Open API spec
@@ -124,8 +124,8 @@ make copyapi
 Verify that these two files have been generated:
 
 ```shell
-[ -e "<rdocs-base>/gen-apidocs/generators/build/index.html" ] && echo "index.html built" || echo "no index.html"
-[ -e "<rdocs-base>/gen-apidocs/generators/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
+[ -e "<rdocs-base>/gen-apidocs/build/index.html" ] && echo "index.html built" || echo "no index.html"
+[ -e "<rdocs-base>/gen-apidocs/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
 ```
 
 Go to the base of your local `<web-base>`, and

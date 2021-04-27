@@ -14,7 +14,7 @@
 /ko/docs/     /ko/docs/home/ 301!
 /no/docs/     /no/docs/home/ 301!
 /pl/docs/     /pl/docs/home/ 301!
-/pt/docs/     /pt/docs/home/ 301!
+/pt-br/docs/  /pt-br/docs/home/ 301!
 /ru/docs/     /ru/docs/home/ 301!
 /uk/docs/     /uk/docs/home/ 301!
 /vi/docs/     /vi/docs/home/ 301!
@@ -29,6 +29,7 @@
 /docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
 /docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
 /docs/admin/cluster-management/     /docs/tasks/administer-cluster/ 302
+/id/docs/admin/cluster-management/     /id/docs/tasks/administer-cluster/ 302
 /docs/admin/cluster-troubleshooting/     /docs/tasks/debug-application-cluster/debug-cluster/ 301
 /docs/admin/daemons/     /docs/concepts/workloads/controllers/daemonset/ 301
 /docs/admin/disruptions/     /docs/concepts/workloads/pods/disruptions/ 301
@@ -98,13 +99,17 @@
 /docs/concepts/cluster-administration/static-pod/     /docs/tasks/administer-cluster/static-pod/ 301
 /docs/concepts/clusters/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/concepts/configuration/assign-pod-node/     /docs/concepts/scheduling-eviction/assign-pod-node/ 301
+/id/docs/concepts/configuration/assign-pod-node/     /id/docs/concepts/scheduling-eviction/assign-pod-node/ 301
 /docs/concepts/configuration/container-command-arg/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/concepts/configuration/container-command-args/     /docs/tasks/inject-data-application/define-command-argument-container/     301
 /docs/concepts/configuration/manage-compute-resources-container/ /docs/concepts/configuration/manage-resources-containers/ 301
 /docs/concepts/configuration/resource-bin-packing/      /docs/concepts/scheduling-eviction/resource-bin-packing/ 301
 /docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
+/id/docs/concepts/configuration/scheduler-perf-tuning/      /id/docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
 /docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
+/id/docs/concepts/configuration/scheduling-framework/     /id/docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/configuration/taint-and-toleration/     /docs/concepts/scheduling-eviction/taint-and-toleration/ 301
+/id/docs/concepts/configuration/taint-and-toleration/     /id/docs/concepts/scheduling-eviction/taint-and-toleration/ 301
 /docs/concepts/extend-kubernetes/extend-cluster/      /docs/concepts/extend-kubernetes/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
@@ -115,8 +120,11 @@
 /docs/concepts/policy/container-capabilities/     /docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container/ 301
 /docs/concepts/policy/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
 /docs/concepts/scheduling/kube-scheduler/     /docs/concepts/scheduling-eviction/kube-scheduler/ 301
+/id/docs/concepts/scheduling/kube-scheduler/     /id/docs/concepts/scheduling-eviction/kube-scheduler/ 301
 /docs/concepts/scheduling/scheduler-perf-tuning/     /docs/concepts/scheduling-eviction/scheduler-perf-tuning/ 301
+/id/docs/concepts/scheduling/scheduler-perf-tuning/     /id/docs/concepts/scheduling-eviction/scheduler-perf-tuning/ 301
 /docs/concepts/scheduling/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/ 301
+/id/docs/concepts/scheduling/scheduling-framework/     /id/docs/concepts/scheduling-eviction/scheduling-framework/ 301
 /docs/concepts/service-catalog/     /docs/concepts/extend-kubernetes/service-catalog/ 301
 /docs/concepts/services-networking/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
 /docs/concepts/storage/etcd-store-api-object/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
@@ -179,6 +187,8 @@
 /docs/home/contribute/blog-post/ /docs/contribute/start/ 301
 /docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
 
+/docs/reference/command-line-tools-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
+
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
 /docs/reference/generated/cloud-controller-manager/     /docs/reference/command-line-tools-reference/cloud-controller-manager/ 301
@@ -235,6 +245,7 @@
 /docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
 /docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
 /docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
+/docs/tasks/administer-cluster/enabling-endpointslices/ /docs/concepts/services-networking/endpoint-slices/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
@@ -474,10 +485,14 @@
 /docs/setup/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
 
 /docs/setup/minikube/     /docs/tasks/tools/ 302
+/id/docs/setup/minikube/     /id/docs/tasks/tools/ 302
 /docs/setup/learning-environment/     /docs/tasks/tools/  302!
+/id/docs/setup/learning-environment/     /id/docs/tasks/tools/  302!
 /zh/docs/setup/learning-environment/     /zh/docs/tasks/tools/  302!
 /docs/setup/learning-environment/kind/  /docs/tasks/tools/  302
+/id/docs/setup/learning-environment/kind/  /id/docs/tasks/tools/  302
 /docs/setup/learning-environment/minikube/  /docs/tasks/tools/ 302
+/id/docs/setup/learning-environment/minikube/  /id/docs/tasks/tools/ 302
 /docs/setup/cri/     /docs/setup/production-environment/container-runtimes/   301
 /docs/setup/independent/install-kubeadm/     /docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
 /ja/docs/setup/independent/install-kubeadm/     /ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
@@ -508,3 +523,6 @@
 /docs/tasks/tools/install-minikube/     https://minikube.sigs.k8s.io/docs/start/     302
 
 /docs/concepts/configuration/pod-overhead/     /docs/concepts/scheduling-eviction/pod-overhead/   301
+/id/docs/concepts/configuration/pod-overhead/     /id/docs/concepts/scheduling-eviction/pod-overhead/   301
+
+/pt/*         /pt-br/:splat  302!

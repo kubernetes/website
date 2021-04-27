@@ -72,7 +72,7 @@ verify that it worked by running `kubectl get pods -o wide` and looking at the
 ## Interlude: built-in node labels {#built-in-node-labels}
 
 In addition to labels you [attach](#step-one-attach-label-to-the-node), nodes come pre-populated
-with a standard set of labels. See [Well-Known Labels, Annotations and Taints](/docs/reference/kubernetes-api/labels-annotations-taints/) for a list of these.
+with a standard set of labels. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/) for a list of these.
 
 {{< note >}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.
@@ -269,6 +269,18 @@ If omitted or empty, it defaults to the namespace of the pod where the affinity/
 
 All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
 must be satisfied for the pod to be scheduled onto a node.
+
+#### Namespace selector
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+Users can also select matching namespaces using `namespaceSelector`, which is a label query over the set of namespaces.
+The affinity term is applied to the union of the namespaces selected by `namespaceSelector` and the ones listed in the `namespaces` field.
+Note that an empty `namespaceSelector` ({}) matches all namespaces, while a null or empty `namespaces` list and 
+null `namespaceSelector` means "this pod's namespace".
+
+This feature is alpha and disabled by default. You can enable it by setting the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
 
 #### More Practical Use-cases
 

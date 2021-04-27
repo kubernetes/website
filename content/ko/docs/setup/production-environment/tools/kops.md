@@ -23,7 +23,7 @@ kops는 자동화된 프로비저닝 시스템인데,
 ## {{% heading "prerequisites" %}}
 
 
-* [kubectl](/ko/docs/tasks/tools/install-kubectl/)을 반드시 설치해야 한다.
+* [kubectl](/ko/docs/tasks/tools/)을 반드시 설치해야 한다.
 
 * 반드시 64-bit (AMD64 그리고 Intel 64)디바이스 아키텍쳐 위에서 `kops` 를 [설치](https://github.com/kubernetes/kops#installing) 한다.
 
@@ -44,7 +44,7 @@ kops는 자동화된 프로비저닝 시스템인데,
 {{< tabs name="kops_installation" >}}
 {{% tab name="macOS" %}}
 
-최신 버전의 릴리즈를 다운받는 명령어:
+최신 버전의 릴리스를 다운받는 명령어:
 
 ```shell
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest
@@ -84,7 +84,7 @@ brew update && brew install kops
 {{% /tab %}}
 {{% tab name="리눅스" %}}
 
-최신 릴리즈를 다운로드 받는 명령어:
+최신 릴리스를 다운로드 받는 명령어:
 
 ```shell
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
