@@ -1,25 +1,27 @@
 ---
 title: 端点切片（Endpoint Slices）
 content_type: concept
-weight: 35
+weight: 45
 ---
 
 <!--
+reviewers:
+- freehan
 title: Endpoint Slices
 content_type: concept
-weight: 35
+weight: 45
 -->
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-_Endpoint Slices_ provide a simple way to track network endpoints within a
+_EndpointSlices_ provide a simple way to track network endpoints within a
 Kubernetes cluster. They offer a more scalable and extensible alternative to
 Endpoints.
 -->
-_端点切片（Endpoint Slices）_ 提供了一种简单的方法来跟踪 Kubernetes 集群中的网络端点
+_端点切片（EndpointSlices）_ 提供了一种简单的方法来跟踪 Kubernetes 集群中的网络端点
 （network endpoints）。它们为 Endpoints 提供了一种可伸缩和可拓展的替代方案。
 
 <!-- body -->
@@ -85,7 +87,7 @@ EndpointSlice 的名称必须是合法的
 例如，下面是 Kubernetes 服务 `example` 的 EndpointSlice 资源示例。
 
 ```yaml
-apiVersion: discovery.k8s.io/v1beta1
+apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
   name: example-abc
@@ -102,9 +104,8 @@ endpoints:
     conditions:
       ready: true
     hostname: pod-1
-    topology:
-      kubernetes.io/hostname: node-1
-      topology.kubernetes.io/zone: us-west2-a
+    nodeName: node-1
+    zone: us-west2-a
 ```
 
 <!--
@@ -228,54 +229,46 @@ For pods, this is any pod that has a deletion timestamp set.
 <!--
 ### Topology information {#topology}
 
-{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
-
-{{< note >}}
-The topology field in EndpointSlices has been deprecated and will be removed in
-a future release. A new `nodeName` field will be used instead of setting
-`kubernetes.io/hostname` in topology. It was determined that other topology
-fields covering zone and region would be better represented as EndpointSlice
-labels that would apply to all endpoints within the EndpointSlice.
-{{< /note >}}
-
 Each endpoint within an EndpointSlice can contain relevant topology information.
-This is used to indicate where an endpoint is, containing information about the
-corresponding Node, zone, and region. When the values are available, the
-control plane sets the following Topology labels for EndpointSlices:
+The topology information includes the location of the endpoint and information
+about the corresponding Node and zone. These are available in the following
+per endpoint fields on EndpointSlices:
 -->
 ### 拓扑信息   {#topology}
 
-{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
+EndpointSlice 中的每个端点都可以包含一定的拓扑信息。
+拓扑信息包括端点的位置，对应节点、可用区的信息。
+这些信息体现为 EndpointSlices 的如下端点字段：
+
+<!--
+* `nodeName` - The name of the Node this endpoint is on.
+* `zone` - The zone this endpoint is in.
+-->
+* `nodeName` - 端点所在的 Node 名称；
+* `zone` - 端点所处的可用区。
 
 {{< note >}}
-EndpointSlices 中的 topology 字段已被弃用，并将在以后的版本中删除。
-将使用新的 `nodeName` 字段代替在 topology 中设置 `kubernetes.io/hostname`。
-可以确定的是，其他覆盖区和域的拓扑字段用 EndpointSlice 标签来表达更合适，
-该标签将应用于 EndpointSlice 内的所有端点。
+<!--
+In the v1 API, the per endpoint `topology` was effectively removed in favor of
+the dedicated fields `nodeName` and `zone`.
+-->
+在 v1 API 中，逐个端点设置的 `topology` 实际上被去除，以鼓励使用专用
+的字段 `nodeName` 和 `zone`。
+
+<!--
+Setting arbitrary topology fields on the `endpoint` field of an `EndpointSlice`
+resource has been deprecated and is not be supported in the v1 API. Instead,
+the v1 API supports setting individual `nodeName` and `zone` fields. These
+fields are automatically translated between API versions. For example, the
+value of the `"topology.kubernetes.io/zone"` key in the `topology` field in
+the v1beta1 API is accessible as the `zone` field in the v1 API.
+-->
+对 `EndpointSlice` 对象的 `endpoint` 字段设置任意的拓扑结构信息这一操作已被
+废弃，不再被 v1 API 所支持。取而代之的是 v1 API 所支持的 `nodeName` 和 `zone`
+这些独立的字段。这些字段可以在不同的 API 版本之间自动完成转译。
+例如，v1beta1 API 中 `topology` 字段的 `topology.kubernetes.io/zone` 取值可以
+在 v1 API 中通过 `zone` 字段访问。
 {{< /note >}}
-
-EndpointSlice 中的每个端点都可以包含一定的拓扑信息。
-这一信息用来标明端点的位置，包含对应节点、可用区、区域的信息。
-当这些值可用时，控制面会为 EndpointSlice 设置如下拓扑标签：
-
-<!--
-* `kubernetes.io/hostname` - The name of the Node this endpoint is on.
-* `topology.kubernetes.io/zone` - The zone this endpoint is in.
-* `topology.kubernetes.io/region` - The region this endpoint is in.
--->
-* `kubernetes.io/hostname` - 端点所在的节点名称
-* `topology.kubernetes.io/zone` - 端点所处的可用区
-* `topology.kubernetes.io/region` - 端点所处的区域
-
-<!--
-The values of these labels are derived from resources associated with each
-endpoint in a slice. The hostname label represents the value of the NodeName
-field on the corresponding Pod. The zone and region labels represent the value
-of the labels with the same names on the corresponding Node.
--->
-这些标签的值时根据与切片中各个端点相关联的资源来生成的。
-标签 `hostname` 代表的是对应的 Pod 的 NodeName 字段的取值。
-`zone` 和 `region` 标签则代表的是对应的节点所拥有的同名标签的值。
 
 <!--
 ### Management
@@ -288,7 +281,7 @@ entities or controllers managing additional sets of EndpointSlices.
 -->
 ### 管理   {#management}
 
-通常，控制面（尤其是端点切片的 {{< glossary_tooltip text="controller" term_id="controller" >}}）
+通常，控制面（尤其是端点切片的 {{< glossary_tooltip text="控制器" term_id="controller" >}}）
 会创建和管理 EndpointSlice 对象。EndpointSlice 对象还有一些其他使用场景，
 例如作为服务网格（Service Mesh）的实现。这些场景都会导致有其他实体
 或者控制器负责管理额外的 EndpointSlice 集合。
