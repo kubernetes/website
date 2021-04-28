@@ -48,7 +48,7 @@ Before choosing a guide, here are some considerations:
 请选择使用最近 Kubernetes 版本测试过的发行版。
 {{< /note >}}
 
-在选择一个指南前，有一些因素需要考虑：
+在选择一个指南前，有一些因素需要着重考虑：
 
 <!--
 - Do you want to try out Kubernetes on your computer, or do you want to build a high-availability, multi-node cluster? Choose distros best suited for your needs.
