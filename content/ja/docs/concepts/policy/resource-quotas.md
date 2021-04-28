@@ -15,17 +15,17 @@ weight: 10
 
 <!-- body -->
 
-`ResourceQuota`オブジェクトによって定義されるリソースクォータは、名前空間ごとの総リソース消費を制限するための制約を提供します。リソースクォータは同じ名前空間のクラスター内でタイプごとに作成できるオブジェクト数や、プロジェクト内のリソースによって消費されるコンピュートリソースの総量を制限できます。
+`ResourceQuota`オブジェクトによって定義されるリソースクォータは、名前空間ごとの総リソース消費を制限するための制約を提供します。リソースクォータは同じ名前空間のクラスター内でタイプごとに作成できるオブジェクト数や、名前空間内のリソースによって消費されるコンピュートリソースの総量を制限できます。
 
 リソースクォータは下記のように働きます。
 
 - 異なる名前空間で異なるチームが存在するとき。現時点ではこれは自主的なものですが、将来的にはACLsを介してリソースクォータの設定を強制するように計画されています。
-- 管理者は各名前空間で1つの`ResourceQuota`を作成します。
-- ユーザーが名前空間内でリソース(Pod、Serviceなど)を作成し、クォータシステムが`ResourceQuota`によって定義されたハードリソースリミットを超えないことを保証するために、リソースの使用量をトラッキングします。
+- 管理者は各名前空間で1つのResourceQuotaを作成します。
+- ユーザーが名前空間内でリソース(Pod、Serviceなど)を作成し、クォータシステムがResourceQuotaによって定義されたハードリソースリミットを超えないことを保証するために、リソースの使用量をトラッキングします。
 - リソースの作成や更新がクォータの制約に違反しているとき、そのリクエストはHTTPステータスコード`403 FORBIDDEN`で失敗し、違反した制約を説明するメッセージが表示されます。
 - `cpu`や`memory`といったコンピューターリソースに対するクォータが名前空間内で有効になっているとき、ユーザーはそれらの値に対する`requests`や`limits`を設定する必要があります。設定しないとクォータシステムがPodの作成を拒否します。 ヒント: コンピュートリソースの要求を設定しないPodに対してデフォルト値を強制するために、`LimitRanger`アドミッションコントローラーを使用してください。この問題を解決する例は[walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)で参照できます。
 
-`ResourceQuota`のオブジェクト名は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります.
+ResourceQuotaのオブジェクト名は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります.
 
 名前空間とクォータを使用して作成できるポリシーの例は以下の通りです。
 
@@ -40,7 +40,7 @@ weight: 10
 
 多くのKubernetesディストリビューションにおいてリソースクォータはデフォルトで有効になっています。APIサーバーで`--enable-admission-plugins=`の値に`ResourceQuota`が含まれるときに有効になります。
 
-特定の名前空間に`ResourceQuota`があるとき、そのリソースクォータはその名前空間に適用されます。
+特定の名前空間にResourceQuotaがあるとき、そのリソースクォータはその名前空間に適用されます。
 
 ## リソースクォータの計算
 
@@ -55,6 +55,9 @@ weight: 10
 | `limits.memory` | 停止していない状態の全てのPodで、メモリーの合計がこの値を超えることができません。 |
 | `requests.cpu` | 停止していない状態の全てのPodで、CPUリクエストの合計がこの値を超えることができません。 |
 | `requests.memory` | 停止していない状態の全てのPodで、メモリーリクエストの合計がこの値を超えることができません。 |
+| `hugepages-<size>` | 停止していない状態の全てのPodで, 指定されたサイズのHuge Pageリクエスト数がこの値を超えることができません。 |
+| `cpu` | `requests.cpu`と同じ。 |
+| `memory` | `requests.memory`と同じ。 |
 
 ### 拡張リソースのためのリソースクォータ
 
@@ -79,8 +82,8 @@ GPUリソースを例にすると、もしリソース名が`nvidia.com/gpu`で�
 | --------------------- | ----------------------------------------------------------- |
 | `requests.storage` | 全てのPersistentVolumeClaimにおいて、ストレージのリクエストの合計がこの値を超えないようにします。 |
 | `persistentvolumeclaims` | 特定の名前空間内で作成可能な[PersistentVolumeClaim](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)の総数。 |
-| `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | ストレージクラス名に関連する全てのPersistentVolumeClaimにおいて、ストレージリクエストの合計がこの値を超えないようにします。 |
-| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | ストレージクラス名に関連する全てのPersistentVolumeClaimにおいて、特定の名前空間内で作成可能な[PersistentVolumeClaim](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)の総数。 |
+| `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | ストレージクラス名`<storage-class-name>`に関連する全てのPersistentVolumeClaimにおいて、ストレージリクエストの合計がこの値を超えないようにします。 |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | ストレージクラス名`<storage-class-name>`に関連する全てのPersistentVolumeClaimにおいて、特定の名前空間内で作成可能な[PersistentVolumeClaim](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)の総数。 |
 
 例えば、もし管理者が`gold`ストレージクラスを`bronze`ストレージクラスと分けてリソースクォータを設定するとき、管理者はリソースクォータを下記のように指定できます。
 
@@ -93,12 +96,14 @@ Kubernetes v1.8において、ローカルのエフェメラルストレージ�
 | ------------------------------- |----------------------------------------------------------- |
 | `requests.ephemeral-storage` | 名前空間内の全てのPodで、ローカルのエフェメラルストレージのリクエストの合計がこの値を超えないようにします。 |
 | `limits.ephemeral-storage` | 名前空間内の全てのPodで、ローカルのエフェメラルストレージのリミットの合計がこの値を超えないようにします。 |
+| `ephemeral-storage` | `requests.ephemeral-storage`と同じ。 |
 
 ## オブジェクト数に対するクォータ
 
-Kubernetes v1.9では下記のシンタックスを使用して、名前空間に紐づいた全ての標準リソースタイプに対するリソースクォータのサポートが追加されました。
+下記のシンタックスを使用して、名前空間に紐づいた全ての標準であるリソースタイプの中の特定のリソースの総数に対するリソースクォータを設定できます。
 
-* `count/<resource>.<group>`
+* `count/<resource>.<group>` コアでないグループのリソース用
+* `count/<resource>` コアグループのリソース用
 
 オブジェクト数に対するクォータでユーザーが設定するリソースの例は下記の通りです。
 
@@ -112,13 +117,12 @@ Kubernetes v1.9では下記のシンタックスを使用して、名前空間�
 * `count/statefulsets.apps`
 * `count/jobs.batch`
 * `count/cronjobs.batch`
-* `count/deployments.extensions`
 
-Kubernetes v1.15において、同一のシンタックスを使用して、カスタムリソースに対するサポートが追加されました。例えば、`example.com`というAPIグループ内の`widgets`というカスタムリソースのリソースクォータを設定するには`count/widgets.example.com`と記述します。
+カスタムリソースに対して同じシンタックスを使用できます。例えば、`example.com`というAPIグループ内の`widgets`というカスタムリソースのリソースクォータを設定するには`count/widgets.example.com`と記述します。
 
-`count/*`リソースクォータの使用において、オブジェクトがサーバーストレージに存在するときオブジェクトはクォータの計算対象となります。このようなタイプのリソースクォータはストレージリソース浪費の防止に有効です。例えば、もしSecretが大量に存在するとき、そのSecretリソースの総数に対してリソースクォータの制限をかけたい場合です。クラスター内でSecretが大量にあると、サーバーとコントローラーの起動を妨げることになります！また、適切に設定されていないCronJobが名前空間内で大量のJobを作成し、サービスが利用不可能になることを防ぐためにリソースクォータを設定できます。
+`count/*`リソースクォータの使用において、オブジェクトがサーバーストレージに存在するときオブジェクトはクォータの計算対象となります。このようなタイプのリソースクォータはストレージリソース浪費の防止に有効です。例えば、もしSecretが大量に存在するとき、そのSecretリソースの総数に対してリソースクォータの制限をかけたい場合です。クラスター内でSecretが大量にあると、サーバーとコントローラーの起動を妨げることになります。適切に設定されていないCronJobから保護するためにジョブのクォータを設定できます。名前空間内で大量のJobを作成するCronJobは、サービスを利用不可能にする可能性があります。
 
-Kubernetes v1.9より前のバージョンでは、限定されたリソースのセットにおいて汎用オブジェクトカウントのリソースクォータを実行可能でした。さらに、特定のリソースに対するリソースクォータを種類ごとに制限することができます。
+また、限定されたリソースのセットにおいて汎用オブジェクトカウントのリソースクォータを実行可能です。
 
 下記のタイプのリソースがサポートされています。
 
@@ -128,7 +132,7 @@ Kubernetes v1.9より前のバージョンでは、限定されたリソース�
 | `persistentvolumeclaims` | 名前空間内で存在可能な[PersistentVolumeClaim](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)の総数。 |
 | `pods` | 名前空間内で存在可能な停止していないPodの総数。`.status.phase in (Failed, Succeeded)`がtrueのとき、Podは停止状態にあります。  |
 | `replicationcontrollers` | 名前空間内で存在可能なReplicationControlerの総数。 |
-| `resourcequotas` | 名前空間内で存在可能な[リソースクォータ](/docs/reference/access-authn-authz/admission-controllers/#resourcequota)の総数。 |
+| `resourcequotas` | 名前空間内で存在可能なResourceQuotaの総数。 |
 | `services` | 名前空間内で存在可能なServiceの総数。 |
 | `services.loadbalancers` | 名前空間内で存在可能なtype:LoadBalancerであるServiceの総数。 |
 | `services.nodeports` | 名前空間内で存在可能なtype:NodePortであるServiceの総数。 |
@@ -138,7 +142,7 @@ Kubernetes v1.9より前のバージョンでは、限定されたリソース�
 
 ## クォータのスコープについて
 
-各リソースクォータには関連するスコープのセットを関連づけることができます。クォータは、列挙されたスコープの共通部分と一致する場合にのみリソースの使用量を計測します。
+各リソースクォータには関連する`scope`のセットを関連づけることができます。クォータは、列挙されたscopeの共通部分と一致する場合にのみリソースの使用量を計測します。
 
 スコープがクォータに追加されると、サポートするリソースの数がスコープに関連するリソースに制限されます。許可されたセット以外のクォータ上でリソースを指定するとバリデーションエラーになります。
 
@@ -148,26 +152,71 @@ Kubernetes v1.9より前のバージョンでは、限定されたリソース�
 | `NotTerminating` | `.spec.activeDeadlineSecondsがnil`であるPodに一致します。 |
 | `BestEffort` | ベストエフォート型のサービス品質のPodに一致します。 |
 | `NotBestEffort` | ベストエフォート型のサービス品質でないPodに一致します。 |
+| `PriorityClass` | 指定された[優先度クラス](/docs/concepts/configuration/pod-priority-preemption)と関連付いているPodに一致します。 |
 
-`BestEffort`スコープはリソースクォータを次のリソースに対するトラッキングのみに制限します: `pods`
+`BestEffort`スコープはリソースクォータを次のリソースに対するトラッキングのみに制限します:
 
-`Terminating`、`NotTerminating`、`NotBestEffort`スコープは、リソースクォータを次のリソースに対するトラッキングのみに制限します:
-
-* `cpu`
-* `limits.cpu`
-* `limits.memory`
-* `memory`
 * `pods`
+
+`Terminating`、`NotTerminating`、`NotBestEffort`、`PriorityClass`スコープは、リソースクォータを次のリソースに対するトラッキングのみに制限します:
+
+* `pods`
+* `cpu`
+* `memory`
 * `requests.cpu`
 * `requests.memory`
+* `limits.cpu`
+* `limits.memory`
+
+同じクォータで`Terminating`と`NotTerminating`の両方のスコープを指定することはできず、また同じクォータで`BestEffort`と`NotBestEffort`の両方のスコープを指定することもできないことに注意してください。
+
+`scopeSelector`は`operator` フィールドにおいて下記の値をサポートしています。:
+
+* `In`
+* `NotIn`
+* `Exists`
+* `DoesNotExist`
+
+`scopeSelector`の定義において`scopeName`に下記のいずれかの値を使用する場合、`operator`に`Exists`を指定してください。 
+
+* `Terminating`
+* `NotTerminating`
+* `BestEffort`
+* `NotBestEffort`
+
+`operator`が`In`または`NotIn`の場合、`values`フィールドには少なくとも1つの値が必要です。例えば以下のように記述します：
+
+```yaml
+  scopeSelector:
+    matchExpressions:
+      - scopeName: PriorityClass
+        operator: In
+        values:
+          - middle
+```
+
+`operator`が`Exists`または`DoesNotExist`の場合、`values`フィールドは指定*しないでください*。
 
 ### PriorityClass毎のリソースクォータ
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
 Podは特定の[優先度](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)で作成されます。リソースクォータのSpec内にある`scopeSelector`フィールドを使用して、Podの優先度に基づいてPodのシステムリソースの消費をコントロールできます。
 
 リソースクォータのSpec内の`scopeSelector`によってPodが選択されたときのみ、そのリソースクォータが一致し、消費されます。
+
+リソースクォータが`scopeSelector`フィールドを使用して優先度クラスに対してスコープされる場合、リソースクォータのオプジェクトは、次のリソースのみトラッキングするように制限されます:
+
+* `pods`
+* `cpu`
+* `memory`
+* `ephemeral-storage`
+* `limits.cpu`
+* `limits.memory`
+* `limits.ephemeral-storage`
+* `requests.cpu`
+* `requests.memory`
+* `requests.ephemeral-storage`
 
 この例ではリソースクォータのオブジェクトを作成し、特定の優先度を持つPodに一致させます。この例は下記のように動作します。
 
@@ -230,7 +279,7 @@ items:
 kubectl create -f ./quota.yml
 ```
 
-```shell
+```
 resourcequota/pods-high created
 resourcequota/pods-medium created
 resourcequota/pods-low created
@@ -242,7 +291,7 @@ resourcequota/pods-low created
 kubectl describe quota
 ```
 
-```shell
+```
 Name:       pods-high
 Namespace:  default
 Resource    Used  Hard
@@ -305,7 +354,7 @@ kubectl create -f ./high-priority-pod.yml
 kubectl describe quota
 ```
 
-```shell
+```
 Name:       pods-high
 Namespace:  default
 Resource    Used  Hard
@@ -332,13 +381,6 @@ cpu         0     10
 memory      0     20Gi
 pods        0     10
 ```
-
-`scopeSelector`は`operator`フィールドにおいて下記の値をサポートしています。
-
-* `In`
-* `NotIn`
-* `Exist`
-* `DoesNotExist`
 
 ## リクエスト vs リミット
 
@@ -400,7 +442,7 @@ kubectl create -f ./object-counts.yaml --namespace=myspace
 kubectl get quota --namespace=myspace
 ```
 
-```shell
+```
 NAME                    AGE
 compute-resources       30s
 object-counts           32s
@@ -410,7 +452,7 @@ object-counts           32s
 kubectl describe quota compute-resources --namespace=myspace
 ```
 
-```shell
+```
 Name:                    compute-resources
 Namespace:               myspace
 Resource                 Used  Hard
@@ -426,7 +468,7 @@ requests.nvidia.com/gpu  0     4
 kubectl describe quota object-counts --namespace=myspace
 ```
 
-```shell
+```
 Name:                   object-counts
 Namespace:              myspace
 Resource                Used    Hard
@@ -447,40 +489,39 @@ kubectl create namespace myspace
 ```
 
 ```shell
-kubectl create quota test --hard=count/deployments.extensions=2,count/replicasets.extensions=4,count/pods=3,count/secrets=4 --namespace=myspace
+kubectl create quota test --hard=count/deployments.apps=2,count/replicasets.apps=4,count/pods=3,count/secrets=4 --namespace=myspace
 ```
 
 ```shell
-kubectl create deployment nginx --image=nginx --namespace=myspace
-kubectl scale deployment nginx --replicas=2 --namespace=myspace
+kubectl create deployment nginx --image=nginx --namespace=myspace --replicas=2
 ```
 
 ```shell
 kubectl describe quota --namespace=myspace
 ```
 
-```shell
+```
 Name:                         test
 Namespace:                    myspace
 Resource                      Used  Hard
 --------                      ----  ----
-count/deployments.extensions  1     2
+count/deployments.apps        1     2
 count/pods                    2     3
-count/replicasets.extensions  1     4
+count/replicasets.apps        1     4
 count/secrets                 1     4
 ```
 
 ## クォータとクラスター容量
 
-`ResourceQuotas`はクラスター容量に依存しません。またユニット数の絶対値で表されます。そのためクラスターにノードを追加したことにより、各名前空間が自動的により多くのリソースを消費するような機能が提供されるわけでは*ありません*。
+ResourceQuotaはクラスター容量に依存しません。またユニット数の絶対値で表されます。そのためクラスターにノードを追加したことにより、各名前空間が自動的により多くのリソースを消費するような機能が提供されるわけでは*ありません*。
 
 下記のようなより複雑なポリシーが必要な状況があります。
 
-  - 複数チーム間でクラスターリソースの総量を分けあう。
-  - 各テナントが必要な時にリソース使用量を増やせるようにするが、偶発的なリソースの枯渇を防ぐために上限を設定する。
-  - 1つの名前空間に対してリソース消費の需要を検出し、ノードを追加し、クォータを増加させる。
+- 複数チーム間でクラスターリソースの総量を分けあう。
+- 各テナントが必要な時にリソース使用量を増やせるようにするが、偶発的なリソースの枯渇を防ぐために上限を設定する。
+- 1つの名前空間に対してリソース消費の需要を検出し、ノードを追加し、クォータを増加させる。
 
-このようなポリシーは、クォータの使用量の監視と、他のシグナルにしたがってクォータのハードの制限を調整する"コントローラー"を記述することにより、`ResourceQuotas`をビルディングブロックのように使用して実装できます。
+このようなポリシーは、クォータの使用量の監視と、他のシグナルにしたがってクォータのハードの制限を調整する"コントローラー"を記述することにより、ResourceQuotaをビルディングブロックのように使用して実装できます。
 
 リソースクォータは集約されたクラスターリソースを分割しますが、ノードに対しては何の制限も行わないことに注意して下さい。例: 複数の名前空間のPodは同一のノード上で稼働する可能性があります。
 
@@ -490,10 +531,8 @@ count/secrets                 1     4
 
 このメカニズムにより、オペレーターは特定の高優先度クラスの使用を限られた数の名前空間に制限することができ、全ての名前空間でこれらの優先度クラスをデフォルトで使用することはできなくなります。
 
-これを実施するには、kube-apiserverの`--admission-control-config-file`というフラグを使い、下記の設定ファイルに対してパスを渡す必要がります。
+これを実施するには、`kube-apiserver`の`--admission-control-config-file`というフラグを使い、下記の設定ファイルに対してパスを渡す必要がります。
 
-{{< tabs name="example1" >}}
-{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
@@ -509,27 +548,6 @@ plugins:
         operator: In
         values: ["cluster-services"]
 ```
-{{% /tab %}}
-{{% tab name="apiserver.k8s.io/v1alpha1" %}}
-```yaml
-# v1.17では非推奨になり、apiserver.config.k8s.io/v1の使用を推奨します。
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: "ResourceQuota"
-  configuration:
-    # v1.17では非推奨になり、apiserver.config.k8s.io/v1、ResourceQuotaConfigurationの使用を推奨します。
-    apiVersion: resourcequota.admission.k8s.io/v1beta1
-    kind: Configuration
-    limitedResources:
-    - resource: pods
-      matchScopes:
-      - scopeName: PriorityClass
-        operator: In
-        values: ["cluster-services"]
-```
-{{% /tab %}}
-{{< /tabs >}}
 
 なお、"cluster-services"Podは、条件に一致する`scopeSelector`を持つクォータオブジェクトが存在する名前空間でのみ許可されます。
 
@@ -541,14 +559,9 @@ plugins:
         values: ["cluster-services"]
 ```
 
-さらなる情報は、[LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)と[優先度クラスに対するクォータサポートの design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)を参照してください。
-
-## 例
-
-[リソースクォータの使用方法の例](/docs/tasks/administer-cluster/quota-api-object/)を参照してください。
-
-
 ## {{% heading "whatsnext" %}}
 
 - さらなる情報は[クォータの design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)を参照してください。
-
+- [リソースクォータの使用方法の例](/docs/tasks/administer-cluster/quota-api-object/)を参照してください。
+- [優先度クラスに対するクォータサポートの design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md)を参照してください。
+- [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)を参照してください。
