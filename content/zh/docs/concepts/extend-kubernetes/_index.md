@@ -2,6 +2,10 @@
 title: 扩展 Kubernetes
 weight: 110
 description: 改变你的 Kubernetes 集群的行为的若干方法。
+feature:
+  title: 为扩展性设计
+  description: >
+    无需更改上游源码即可扩展你的 Kubernetes 集群。
 content_type: concept
 no_list: true
 ---
@@ -14,6 +18,10 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
+feature:
+  title: Designed for extensibility
+  description: >
+    Add features to your Kubernetes cluster without changing upstream source code.
 content_type: concept
 no_list: true
 -->
@@ -176,9 +184,11 @@ Kubernetes control plane.
 
 下面的示意图中展示了这些扩展点如何与 Kubernetes 控制面交互。
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vQBRWyXLVUlQPlp7BvxvV9S1mxyXSM6rAc_cbLANvKlu6kCCf-kGTporTMIeG5GZtUdxXz1xowN7RmL/pub?w=960&h=720">
-
 <!-- image source drawing https://docs.google.com/drawings/d/1muJ7Oxuj_7Gtv7HV9-2zJbOnkQJnjxq-v1ym_kZfB-4/edit?ts=5a01e054 -->
+<!--
+![Extension Points and the Control Plane](/docs/concepts/extend-kubernetes/control-plane.png)
+-->
+![扩展点与控制面](/docs/concepts/extend-kubernetes/control-plane.png)
 
 <!--
 ## Extension Points
@@ -189,9 +199,11 @@ This diagram shows the extension points in a Kubernetes system.
 
 此示意图显示的是 Kubernetes 系统中的扩展点。
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vSH5ZWUO2jH9f34YHenhnCd14baEb4vT-pzfxeFC7NzdNqRDgdz4DDAVqArtH4onOGqh0bhwMX0zGBb/pub?w=425&h=809">
-
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
+<!--
+![Extension Points](/docs/concepts/extend-kubernetes/extension-points.png)
+-->
+![扩展点](/docs/concepts/extend-kubernetes/extension-points.png)
 
 <!--
 1.   Users often interact with the Kubernetes API using `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) extend the kubectl binary. They only affect the individual user's local environment, and so cannot enforce site-wide policies.
@@ -236,12 +248,15 @@ If you are unsure where to start, this flowchart can help. Note that some soluti
 如果你无法确定从何处入手，下面的流程图可能对你有些帮助。
 注意，某些方案可能需要同时采用几种类型的扩展。
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vRWXNNIVWFDqzDY0CsKZJY3AR8sDeFDXItdc5awYxVH8s0OLherMlEPVUpxPIB1CSUu7GPk7B2fEnzM/pub?w=1440&h=1080">
-
 <!-- image source drawing: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
+<!--
+![Flowchart for Extension](/docs/concepts/extend-kubernetes/flowchart.png)
+-->
+![扩展流程图](/docs/concepts/extend-kubernetes/flowchart.png)
 
 <!--
 ## API Extensions
+
 ### User-Defined Types
 
 Consider adding a Custom Resource to Kubernetes if you want to define new controllers, application configuration objects or other declarative APIs, and to manage them using Kubernetes tools, such as `kubectl`.
@@ -329,7 +344,7 @@ Kubernetes 提供若干种内置的认证方法，以及
 <!--
 ### Authorization
 
-[Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources - it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
+[Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It works at the level of whole resources - it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
 -->
 ### 鉴权    {#authorization}
 
