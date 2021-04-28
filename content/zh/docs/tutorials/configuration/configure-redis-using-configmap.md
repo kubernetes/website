@@ -98,7 +98,7 @@ EOF
 <!--
 Apply the kustomization directory to create both the ConfigMap and Pod objects:
 -->
-应用整个 kustomization 文件夹以创建 ConfigMap 和 Pod 对象：
+应用整个 kustomization 文件夹来创建 ConfigMap 和 Pod 对象：
 
 ```shell
 kubectl apply -k .
@@ -127,7 +127,7 @@ This is where the image will look for the config file for the redis master.
 在示例中，配置卷挂载在 `/redis-master` 下。
 它使用 `path` 将 `redis-config` 密钥添加到名为 `redis.conf` 的文件中。
 因此，redis配置的文件路径为 `/redis-master/redis.conf`。
-这是镜像将在其中查找 redis master 的配置文件的位置。
+在这里，镜像将查找 redis master 的配置文件。
 
 <!--
 Use `kubectl exec` to enter the pod and run the `redis-cli` tool to verify that
