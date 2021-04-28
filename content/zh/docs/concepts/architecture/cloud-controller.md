@@ -321,7 +321,8 @@ Want to know how to implement your own cloud controller manager, or extend an ex
 [云控制器管理器的管理](/zh/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
 给出了运行和管理云控制器管理器的指南。
 
-要升级 HA 控制平面以使用云控制器管理器，请参见 [将复制的控制平面迁移以使用云控制器管理器](/zh/docs/tasks/administer-cluster/controller-manager-leader-migration/)
+要升级 HA 控制平面以使用云控制器管理器，
+请参见 [将复制的控制平面迁移以使用云控制器管理器](/zh/docs/tasks/administer-cluster/controller-manager-leader-migration/)
 
 想要了解如何实现自己的云控制器管理器，或者对现有项目进行扩展么？
 

@@ -118,7 +118,8 @@ updates that Job object to mark it `Finished`.
 (This is a bit like how some thermostats turn a light off to
 indicate that your room is now at the temperature you set).
 -->
-创建新 Job 后，所期望的状态就是完成这个 Job。Job 控制器会让 Job 的当前状态不断接近期望状态：创建为 Job 要完成工作所需要的 Pod，使 Job 的状态接近完成。
+创建新 Job 后，所期望的状态就是完成这个 Job。
+Job 控制器会让 Job 的当前状态不断接近期望状态：创建为 Job 要完成工作所需要的 Pod，使 Job 的状态接近完成。
 
 控制器也会更新配置对象。例如：一旦 Job 的工作完成了，Job 控制器会更新 Job 对象的状态为 `Finished`。
 

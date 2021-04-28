@@ -22,7 +22,8 @@ configuration files. After your clusters, users, and contexts are defined in
 one or more configuration files, you can quickly switch between clusters by using the
 `kubectl config use-context` command.
 -->
-本文展示如何使用配置文件来配置对多个集群的访问。 在将集群、用户和上下文定义在一个或多个配置文件中之后，用户可以使用 `kubectl config use-context` 命令快速地在集群之间进行切换。
+本文展示如何使用配置文件来配置对多个集群的访问。 
+在将集群、用户和上下文定义在一个或多个配置文件中之后，用户可以使用 `kubectl config use-context` 命令快速地在集群之间进行切换。
 
 <!--
 A file that is used to configure access to a cluster is sometimes called
