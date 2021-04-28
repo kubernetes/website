@@ -39,7 +39,8 @@ title: "Example: Deploying Cassandra with Stateful Sets"
 ## 准备工作
 
 
-本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](/zh/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](/zh/docs/getting-started-guides/) 获取关于你的平台的安装说明。
+本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](/zh/docs/tasks/tools/install-kubectl/) 命令行工具。
+请查看 [getting started guides](/zh/docs/getting-started-guides/) 获取关于你的平台的安装说明。
 
 
 本示例还需要一些代码和配置文件。为了避免手动输入，你可以 `git clone` Kubernetes 源到你本地。
@@ -48,7 +49,9 @@ title: "Example: Deploying Cassandra with Stateful Sets"
 ## Cassandra Docker 镜像
 
 
-Pod 使用来自 Google [容器仓库](https://cloud.google.com/container-registry/docs/) 的 [```gcr.io/google-samples/cassandra:v12```](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile) 镜像。这个 docker 镜像基于 `debian:jessie` 并包含 OpenJDK 8。该镜像包含一个从 Apache Debian 源中安装的标准 Cassandra。你可以通过使用环境变量改变插入到 `cassandra.yaml` 文件中的参数值。
+Pod 使用来自 Google [容器仓库](https://cloud.google.com/container-registry/docs/) 的 [```gcr.io/google-samples/cassandra:v12```](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile) 镜像。
+这个 docker 镜像基于 `debian:jessie` 并包含 OpenJDK 8。该镜像包含一个从 Apache Debian 源中安装的标准 Cassandra。
+你可以通过使用环境变量改变插入到 `cassandra.yaml` 文件中的参数值。
 
 | ENV VAR                | DEFAULT VALUE  |
 | ---------------------- | :------------: |
@@ -133,7 +136,8 @@ kubectl delete daemonset cassandra
 ## 步骤 1：创建 Cassandra Headless Service
 
 
-Kubernetes _[Service](/zh/docs/user-guide/services)_ 描述一组执行同样任务的 [_Pod_](/zh/docs/user-guide/pods)。在 Kubernetes 中，一个应用的原子调度单位是一个 Pod：一个或多个_必须_调度到相同主机上的容器。
+Kubernetes _[Service](/zh/docs/user-guide/services)_ 描述一组执行同样任务的 [_Pod_](/zh/docs/user-guide/pods)。
+在 Kubernetes 中，一个应用的原子调度单位是一个 Pod：一个或多个_必须_调度到相同主机上的容器。
 
 这个 Service 用于在 Kubernetes 集群内部进行 Cassandra 客户端和 Cassandra Pod 之间的 DNS 查找。
 
@@ -182,7 +186,10 @@ cassandra   None         <none>        9042/TCP   45s
 
 ## 步骤 2：使用 StatefulSet 创建 Cassandra Ring环
 
-StatefulSets（以前叫做 PetSets）特性在 Kubernetes 1.5 中升级为一个 <i>Beta</i> 组件。在集群环境中部署类似于 Cassandra 的有状态分布式应用是一项具有挑战性的工作。我们实现了 StatefulSet，极大的简化了这个过程。本示例使用了 StatefulSet 的多个特性，但其本身超出了本文的范围。[请参考 StatefulSet 文档](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)。
+StatefulSets（以前叫做 PetSets）特性在 Kubernetes 1.5 中升级为一个 <i>Beta</i> 组件。
+在集群环境中部署类似于 Cassandra 的有状态分布式应用是一项具有挑战性的工作。我们实现了 StatefulSet，极大的简化了这个过程。
+本示例使用了 StatefulSet 的多个特性，但其本身超出了本文的范围。
+[请参考 StatefulSet 文档](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)。
 
 以下是 StatefulSet 的清单文件，用于创建一个由三个 pod 组成的 Cassandra ring 环。
 
@@ -313,7 +320,8 @@ NAME        DESIRED   CURRENT   AGE
 cassandra   3         3         13s
 ```
 
-接下来观察 Cassandra pod 以一个接一个的形式部署。StatefulSet 资源按照数字序号的模式部署 pod：1, 2, 3 等。如果在 pod 部署前执行下面的命令，你就能够看到这种顺序的创建过程。
+接下来观察 Cassandra pod 以一个接一个的形式部署。StatefulSet 资源按照数字序号的模式部署 pod：1, 2, 3 等。
+如果在 pod 部署前执行下面的命令，你就能够看到这种顺序的创建过程。
 
 ```console
 $ kubectl get pods -l="app=cassandra"
@@ -412,7 +420,8 @@ cassandra   4         4         36m
 ## 步骤 4：删除 Cassandra StatefulSet
 
 
-删除或者缩容 StatefulSet 时不会删除与之关联的 volumes。这样做是为了优先保证安全。你的数据比其它会被自动清除的 StatefulSet 关联资源更宝贵。删除 Persistent Volume Claims 可能会导致关联的 volumes 被删除，这种行为依赖 storage class 和 reclaim policy。永远不要期望能在 claim 删除后访问一个 volume。
+删除或者缩容 StatefulSet 时不会删除与之关联的 volumes。这样做是为了优先保证安全。你的数据比其它会被自动清除的 StatefulSet 关联资源更宝贵。
+删除 Persistent Volume Claims 可能会导致关联的 volumes 被删除，这种行为依赖 storage class 和 reclaim policy。 永远不要期望能在 claim 删除后访问一个 volume。
 
 
 使用如下命令删除 StatefulSet。
@@ -429,7 +438,8 @@ $ grace=$(kubectl get po cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodS
 ## 步骤 5：使用 Replication Controller 创建 Cassandra 节点 pod
 
 
-Kubernetes _[Replication Controller](/zh/docs/user-guide/replication-controller)_ 负责复制一个完全相同的 pod 集合。像 Service 一样，它具有一个 selector query，用来识别它的集合成员。和 Service 不一样的是，它还具有一个期望的副本数，并且会通过创建或删除 Pod 来保证 Pod 的数量满足它期望的状态。
+Kubernetes _[Replication Controller](/zh/docs/user-guide/replication-controller)_ 负责复制一个完全相同的 pod 集合。
+像 Service 一样，它具有一个 selector query，用来识别它的集合成员。和 Service 不一样的是，它还具有一个期望的副本数，并且会通过创建或删除 Pod 来保证 Pod 的数量满足它期望的状态。
 
 和我们刚才定义的 Service 一起，Replication Controller 能够让我们轻松的构建一个复制的、可扩展的 Cassandra 集群。
 
@@ -566,7 +576,8 @@ subsets:
 ```
 
 
-为了显示 `SeedProvider` 逻辑是按设想在运行，你可以使用 `nodetool` 命令来检查  Cassandra 集群的状态。为此，请使用 `kubectl exec` 命令，这样你就能在一个 Cassandra pod 上运行 `nodetool`。同样的，请替换 `cassandra-xxxxx` 为任意一个 pods的真实名字。
+为了显示 `SeedProvider` 逻辑是按设想在运行，你可以使用 `nodetool` 命令来检查  Cassandra 集群的状态。
+为此，请使用 `kubectl exec` 命令，这样你就能在一个 Cassandra pod 上运行 `nodetool`。同样的，请替换 `cassandra-xxxxx` 为任意一个 pods的真实名字。
 
 ```console
 
@@ -639,9 +650,13 @@ $ kubectl delete rc cassandra
 ## 步骤 8：使用 DaemonSet 替换 Replication Controller
 
 
-在 Kubernetes中，[_DaemonSet_](/zh/docs/admin/daemons) 能够将 pod 一对一的分布到 Kubernetes 节点上。和  _ReplicationController_ 相同的是它也有一个用于识别它的集合成员的 selector query。但和 _ReplicationController_ 不同的是，它拥有一个节点 selector，用于限制基于模板的 pod 可以调度的节点。并且 pod 的复制不是基于一个设置的数量，而是为每一个节点分配一个 pod。
+在 Kubernetes中，[_DaemonSet_](/zh/docs/admin/daemons) 能够将 pod 一对一的分布到 Kubernetes 节点上。
+和  _ReplicationController_ 相同的是它也有一个用于识别它的集合成员的 selector query。
+但和 _ReplicationController_ 不同的是，它拥有一个节点 selector，用于限制基于模板的 pod 可以调度的节点。
+并且 pod 的复制不是基于一个设置的数量，而是为每一个节点分配一个 pod。
 
-示范用例：当部署到云平台时，预期情况是实例是短暂的并且随时可能终止。Cassandra 被搭建成为在各个节点间复制数据以便于实现数据冗余。这样的话，即使一个实例终止了，存储在它上面的数据却没有，并且集群会通过重新复制数据到其它运行节点来作为响应。
+示范用例：当部署到云平台时，预期情况是实例是短暂的并且随时可能终止。Cassandra 被搭建成为在各个节点间复制数据以便于实现数据冗余。
+这样的话，即使一个实例终止了，存储在它上面的数据却没有，并且集群会通过重新复制数据到其它运行节点来作为响应。
 
 `DaemonSet` 设计为在 Kubernetes 集群中的每个节点上放置一个 pod。那样就会给我们带来数据冗余度。让我们创建一个 DaemonSet 来启动我们的存储集群：
 
@@ -774,7 +789,8 @@ UN  10.244.3.3  51.28 KB   256     100.0%            dafe3154-1d67-42e1-ac1d-78e
 ```
 
 
-**注意**：这个示例让你在创建 DaemonSet 前删除了 cassandra 的 Replication Controller。这是因为为了保持示例的简单，RC 和 DaemonSet 使用了相同的 `app=cassandra` 标签（如此它们的 pod 映射到了我们创建的 service，这样 SeedProvider 就能识别它们）。
+**注意**：这个示例让你在创建 DaemonSet 前删除了 cassandra 的 Replication Controller。
+这是因为为了保持示例的简单，RC 和 DaemonSet 使用了相同的 `app=cassandra` 标签（如此它们的 pod 映射到了我们创建的 service，这样 SeedProvider 就能识别它们）。
 
 
 如果我们没有预先删除 RC，这两个资源在需要运行多少 pod 上将会发生冲突。如果希望的话，我们可以使用额外的标签和 selectors 来支持同时运行它们。
@@ -796,7 +812,10 @@ $ kubectl delete daemonset cassandra
 ### Seed Provider Source
 
 
-我们使用了一个自定义的 [`SeedProvider`](https://gitbox.apache.org/repos/asf?p=cassandra.git;a=blob;f=src/java/org/apache/cassandra/locator/SeedProvider.java;h=7efa9e050a4604c2cffcb953c3c023a2095524fe;hb=c2e11bd4224b2110abe6aa84c8882e85980e3491) 来在 Kubernetes 之上运行 Cassandra。仅当你通过 replication control 或者 daemonset 部署 Cassandra 时才需要使用自定义的 seed provider。在 Cassandra 中，`SeedProvider` 引导 Cassandra 使用 gossip 协议来查找其它 Cassandra 节点。Seed 地址是被视为连接端点的主机。Cassandra 实例使用 seed 列表来查找彼此并学习 ring 环拓扑。[`KubernetesSeedProvider`](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 通过 Kubernetes API 发现 Cassandra seeds IP 地址，那些 Cassandra 实例在 Cassandra Service 中定义。
+我们使用了一个自定义的 [`SeedProvider`](https://gitbox.apache.org/repos/asf?p=cassandra.git;a=blob;f=src/java/org/apache/cassandra/locator/SeedProvider.java;h=7efa9e050a4604c2cffcb953c3c023a2095524fe;hb=c2e11bd4224b2110abe6aa84c8882e85980e3491) 来在 Kubernetes 之上运行 Cassandra。
+仅当你通过 replication control 或者 daemonset 部署 Cassandra 时才需要使用自定义的 seed provider。在 Cassandra 中，`SeedProvider` 引导 Cassandra 使用 gossip 协议来查找其它 Cassandra 节点。
+Seed 地址是被视为连接端点的主机。 Cassandra 实例使用 seed 列表来查找彼此并学习 ring 环拓扑。
+[`KubernetesSeedProvider`](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java) 通过 Kubernetes API 发现 Cassandra seeds IP 地址，那些 Cassandra 实例在 Cassandra Service 中定义。
 
 请查阅自定义 seed provider 的 [README](https://git.k8s.io/examples/cassandra/java/README.md) 文档，获取 `KubernetesSeedProvider` 进阶配置。对于本示例来说，你应该不需要自定义 Seed Provider 的配置。
 
