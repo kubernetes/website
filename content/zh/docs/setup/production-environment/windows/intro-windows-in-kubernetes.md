@@ -19,12 +19,12 @@ Windows applications constitute a large portion of the services and applications
 -->
 在很多组织中，其服务和应用的很大比例是 Windows 应用。
 [Windows 容器](https://aka.ms/windowscontainers)提供了一种对进程和包依赖关系
-进行封装的现代方式，这使得用户更容易采用 DevOps 实践，令 Windows 应用同样遵从
+进行封装的现代方式,这使得用户更容易采用 DevOps 实践,令 Windows 应用同样遵从
 云原生模式。
 Kubernetes 已经成为事实上的标准容器编排器，Kubernetes 1.14 发行版本中包含了将
 Windows 容器调度到 Kubernetes 集群中 Windows 节点上的生产级支持，从而使得巨大
 的 Windows 应用生态圈能够充分利用 Kubernetes 的能力。
-对于同时投入基于 Windows 应用和 Linux 应用的组织而言，他们不必寻找不同的编排系统
+对于同时投入基于 Windows 应用和 Linux 应用的组织而言,他们不必寻找不同的编排系统
 来管理其工作负载，其跨部署的运维效率得以大幅提升，而不必关心所用操作系统。 
 
 <!-- body -->
