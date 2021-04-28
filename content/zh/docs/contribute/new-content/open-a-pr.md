@@ -218,8 +218,8 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
     ```bash
     origin	git@github.com:<github_username>/website.git (fetch)
     origin	git@github.com:<github_username>/website.git (push)
-    upstream	https://github.com/kubernetes/website (fetch)
-    upstream	https://github.com/kubernetes/website (push)
+    upstream	https://github.com/kubernetes/website.git (fetch)
+    upstream	https://github.com/kubernetes/website.git (push)
     ```
 <!--
 6. Fetch commits from your fork's `origin/master` and `kubernetes/website`'s `upstream/master`:
