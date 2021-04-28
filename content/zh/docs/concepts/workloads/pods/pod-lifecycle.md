@@ -74,18 +74,17 @@ ID（[UID](/zh/docs/concepts/overview/working-with-objects/names/#uids)），
 
 <!--
 Pods do not, by themselves, self-heal. If a Pod is scheduled to a
-{{< glossary_tooltip text="node" term_id="node" >}} that then fails,
-or if the scheduling operation itself fails, the Pod is deleted; likewise, a Pod won't
+{{< glossary_tooltip text="node" term_id="node" >}} that then fails, the Pod is deleted; likewise, a Pod won't
 survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a
 higher-level abstraction, called a
 {{< glossary_tooltip term_id="controller" text="controller" >}}, that handles the work of
 managing the relatively disposable Pod instances.
 -->
 Pod 自身不具有自愈能力。如果 Pod 被调度到某{{< glossary_tooltip text="节点" term_id="node" >}}
-而该节点之后失效，或者调度操作本身失效，Pod 会被删除；与此类似，Pod 无法在节点资源
-耗尽或者节点维护期间继续存活。Kubernetes 使用一种高级抽象，称作
-{{< glossary_tooltip term_id="controller" text="控制器" >}}，来管理这些相对而言
-可随时丢弃的 Pod 实例。
+而该节点之后失效，Pod 会被删除；类似地，Pod 无法在因节点资源
+耗尽或者节点维护而被驱逐期间继续存活。Kubernetes 使用一种高级抽象
+来管理这些相对而言可随时丢弃的 Pod 实例，称作
+{{< glossary_tooltip term_id="controller" text="控制器" >}}。
 
 <!--
 A given Pod (as defined by a UID) is never "rescheduled" to a different node; instead,
@@ -577,14 +576,14 @@ is different from the liveness probe.
 如果你希望容器能够自行进入维护状态，也可以指定一个就绪态探针，检查某个特定于
 就绪态的因此不同于存活态探测的端点。
 
+{{< note >}}
 <!--
-If you just want to be able to drain requests when the Pod is deleted, you do not
+If you want to be able to drain requests when the Pod is deleted, you do not
 necessarily need a readiness probe; on deletion, the Pod automatically puts itself
 into an unready state regardless of whether the readiness probe exists.
 The Pod remains in the unready state while it waits for the containers in the Pod
 to stop.
 -->
-{{< note >}}
 请注意，如果你只是想在 Pod 被删除时能够排空请求，则不一定需要使用就绪态探针；
 在删除 Pod 时，Pod 会自动将自身置于未就绪状态，无论就绪态探针是否存在。
 等待 Pod 中的容器停止期间，Pod 会一直处于未就绪状态。
@@ -677,18 +676,6 @@ An example flow:
    On the node where the Pod is running: as soon as the kubelet sees that a Pod has been marked
    as terminating (a graceful shutdown duration has been set), the kubelet begins the local Pod
    shutdown process.
-
-   1. If one of the Pod's containers has defined a `preStop`
-      [hook](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), the kubelet
-      runs that hook inside of the container. If the `preStop` hook is still running after the
-      grace period expires, the kubelet requests a small, one-off grace period extension of 2
-      seconds.
-      If the `preStop` hook needs longer to complete than the default grace period allows,
-      you must modify `terminationGracePeriodSeconds` to suit this.
-   1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
-      container.
-      The containers in the Pod receive the TERM signal at different times and in an arbitrary
-      order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
 -->
 下面是一个例子：
 
@@ -701,6 +688,19 @@ An example flow:
    在 Pod 运行所在的节点上：`kubelet` 一旦看到 Pod
    被标记为正在终止（已经设置了体面终止限期），`kubelet` 即开始本地的 Pod 关闭过程。 
 
+   <!--
+   1. If one of the Pod's containers has defined a `preStop`
+      [hook](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), the kubelet
+      runs that hook inside of the container. If the `preStop` hook is still running after the
+      grace period expires, the kubelet requests a small, one-off grace period extension of 2
+      seconds.
+      If the `preStop` hook needs longer to complete than the default grace period allows,
+      you must modify `terminationGracePeriodSeconds` to suit this.
+   1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
+      container.
+      The containers in the Pod receive the TERM signal at different times and in an arbitrary
+      order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
+   -->
    1. 如果 Pod 中的容器之一定义了 `preStop`
       [回调](/zh/docs/concepts/containers/container-lifecycle-hooks/#hook-details)，
       `kubelet` 开始在容器内运行该回调逻辑。如果超出体面终止限期时，`preStop` 回调逻辑
@@ -847,7 +847,6 @@ This avoids a resource leak as Pods are created and terminated over time.
 and
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
 -->
-
 * 动手实践[为容器生命周期时间关联处理程序](/zh/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
 * 动手实践[配置存活态、就绪态和启动探针](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
 * 进一步了解[容器生命周期回调](/zh/docs/concepts/containers/container-lifecycle-hooks/)。
