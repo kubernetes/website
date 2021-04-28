@@ -111,7 +111,7 @@ metadata:
 
 In short, what’s happened is that the object was updated, not deleted. That’s because Kubernetes saw that the object contained finalizers and put it into a read-only state. The deletion timestamp signals that the object can only be read, with the exception of removing the finalizer key updates. In other words, the deletion will not be complete until we edit the object and remove the finalizer.
 
-Here's a demonstration of using the `patch` command to remove finalizers. If we want to delete and object, we can simply patch it on the command line to remove the finalizers. In this way, the deletion that was running in the background will complete and the object will be deleted. When we attempt to `get` that configmap, it will be gone. 
+Here's a demonstration of using the `patch` command to remove finalizers. If we want to delete an object, we can simply patch it on the command line to remove the finalizers. In this way, the deletion that was running in the background will complete and the object will be deleted. When we attempt to `get` that configmap, it will be gone. 
 
 ```
 $ kubectl patch configmap/mymap \
@@ -207,7 +207,7 @@ NAME          DATA   AGE
 mymap-child   0      13m21s
 ```
 
-The --cascade option links to the propagation policy in the API, which allows you to change the order in which objects are deleted within a tree. In the following example uses API access to craft a custom delete API call with a the background propagation policy:
+The --cascade option links to the propagation policy in the API, which allows you to change the order in which objects are deleted within a tree. In the following example uses API access to craft a custom delete API call with the background propagation policy:
 
 ```
 $ kubectl proxy --port=8080 &
