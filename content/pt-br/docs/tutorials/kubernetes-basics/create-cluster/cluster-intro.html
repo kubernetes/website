@@ -1,0 +1,112 @@
+---
+title: Usando Minikube para criar um cluster
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+      <div class="col-md-8">
+          <h3>Objetivos</h3>
+                <ul>
+                    <li>Aprenda o que é um cluster Kubernetes.</li>
+                    <li>Aprenda o que é o Minikube.</li>
+                    <li>Inicie um cluster Kubernetes usando um terminal online.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Clusters do Kubernetes</h3>
+                <p>
+                <b>O Kubernetes coordena um cluster com alta disponibilidade de computadores conectados para funcionar como uma única unidade.</b>
+                As abstrações no Kubernetes permitem implantar aplicativos em contêineres em um cluster sem amarrá-los especificamente as máquinas individuais.
+                Para fazer uso desse novo modelo de implantação, os aplicativos precisam ser empacotados de uma forma que os desacoplem dos hosts individuais: eles precisam ser empacotados em contêineres. Os aplicativos em contêineres são mais flexíveis e disponíveis do que nos modelos de implantação anteriores, nos quais os aplicativos eram instalados diretamente em máquinas específicas como pacotes profundamente integrados ao host. 
+                <b> O Kubernetes automatiza a distribuição e o agendamento de contêineres de aplicativos em um cluster de maneira mais eficiente. </b> 
+                O Kubernetes é uma plataforma de código aberto e está pronto para produção.
+                </p>
+                <p>Um cluster Kubernetes consiste em dois tipos de recursos:
+                    <ul>
+                        <li>A <b>Camada de gerenciamento <i>(Control Plane)</i></b> coordena o cluster </li>
+                        <li>Os <b>Nós <i>(Nodes)</i></b> são os nós de processamento que executam aplicativos</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Resumo:</h3>
+                    <ul>
+                        <li>Cluster do Kubernetes</li>
+                        <li>Minikube</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        O Kubernetes é uma plataforma de código aberto de nível de produção que orquestra o agendamento e a execução de contêineres de aplicativos dentro e entre clusters de computador.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Diagrama de Cluster</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><b>A camada de gerenciamento é responsável por gerenciar o cluster. </b> A camada de gerenciamento coordena todas as atividades em seu cluster, como programação de aplicativos, manutenção do estado desejado dos aplicativos, escalonamento de aplicativos e lançamento de novas atualizações.</p>
+                <p><b>Um nó é uma VM ou um computador físico que atua como um nó de processamento em um cluster Kubernetes. </b> Cada nó tem um Kubelet, que é um agente para gerenciar o nó e se comunicar com a camada de gerenciamento do Kubernetes. O nó também deve ter ferramentas para lidar com operações de contêiner, como containerd ou Docker. Um cluster Kubernetes que lida com o tráfego de produção deve ter no mínimo três nós.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>As camadas de gerenciamento gerenciam o cluster e os nós que são usados ​​para hospedar os aplicativos em execução.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>Ao implantar aplicativos no Kubernetes, você diz à camada de gerenciamento para iniciar os contêineres de aplicativos. A camada de gerenciamento agenda os contêineres para serem executados nos nós do cluster. <b> Os nós se comunicam com o camada de gerenciamento usando a <a href="/docs/concepts/overview/kubernetes-api/"> API do Kubernetes </a> </b>, que a camada de gerenciamento expõe. Os usuários finais também podem usar a API do Kubernetes diretamente para interagir com o cluster.</p>
+
+                <p>Um cluster Kubernetes pode ser implantado em máquinas físicas ou virtuais. Para começar o desenvolvimento do Kubernetes, você pode usar o Minikube. O Minikube é uma implementação leve do Kubernetes que cria uma VM em sua máquina local e implanta um cluster simples contendo apenas um nó. O Minikube está disponível para sistemas Linux, macOS e Windows. A linha de comando <i>(cli)</i> do Minikube fornece operações básicas de inicialização para trabalhar com seu cluster, incluindo iniciar, parar, status e excluir. Para este tutorial, no entanto, você usará um terminal online fornecido com o Minikube pré-instalado.</p>
+
+                <p>Agora que você sabe o que é Kubernetes, vamos para o tutorial online e iniciar nosso primeiro cluster!</p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/pt/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">Iniciar tutorial interativo <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

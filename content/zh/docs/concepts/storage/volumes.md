@@ -56,13 +56,14 @@ can use any number of volume types simultaneously.
 Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
 the lifetime of a pod. Consequently, a volume outlives any containers
 that run within the pod, and data is preserved across container restarts. When a
-pod ceases to exist, the volume is destroyed.
+pod ceases to exist, Kubernetes destroys ephemeral volumes; however, Kubernetes does not
+destroy persistent volumes.
 -->
 Kubernetes 支持很多类型的卷。
 {{< glossary_tooltip term_id="pod" text="Pod" >}} 可以同时使用任意数目的卷类型。
 临时卷类型的生命周期与 Pod 相同，但持久卷可以比 Pod 的存活期长。
 因此，卷的存在时间会超出 Pod 中运行的所有容器，并且在容器重新启动时数据也会得到保留。
-当 Pod 不再存在时，卷也将不再存在。
+当 Pod 不再存在时，临时卷也将不再存在。但是持久卷会继续存在。
 
 <!--
 At its core, a volume is just a directory, possibly with some data in it, which
@@ -178,6 +179,11 @@ spec:
       volumeID: "<volume-id>"
       fsType: ext4
 ```
+
+<!--
+If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which parition to mount on.
+-->
+如果 EBS 卷是分区的，你可以提供可选的字段 `partition: "<partition number>"` 来指定要挂载到哪个分区上。
 
 <!--
 #### AWS EBS CSI migration
@@ -355,14 +361,14 @@ spec:
 <!--
 The `CSIMigration` feature for Cinder, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
-Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
+Storage Interface (CSI) Driver. In order to use this feature, the [OpenStack Cinder CSI
+Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
 beta features must be enabled.
 -->
 启用 Cinder 的 `CSIMigration` 功能后，所有插件操作会从现有的树内插件重定向到
 `cinder.csi.openstack.org` 容器存储接口（CSI）驱动程序。
-为了使用此功能，必须在集群中安装 [Openstack Cinder CSI 驱动程序](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)，
+为了使用此功能，必须在集群中安装 [OpenStack Cinder CSI 驱动程序](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)，
 并且 `CSIMigration` 和 `CSIMigrationOpenStack` Beta 功能必须被启用。
 
 ### configMap
@@ -1479,13 +1485,13 @@ Quobyte 的 GitHub 项目包含以 CSI 形式部署 Quobyte 的
 
 <!--
 An `rbd` volume allows a
-[Rados Block Device](https://ceph.com/docs/master/rbd/rbd/) volume to mount into your
+[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) volume to mount into your
 Pod.  Unlike `emptyDir`, which is erased when a Pod is removed, the contents of
 a `rbd` volume are preserved and the volume is merely unmounted.  This
 means that a RBD volume can be pre-populated with data, and that data can
 be shared between pods.
 -->
-`rbd` 卷允许将 [Rados 块设备](https://ceph.com/docs/master/rbd/rbd/) 卷挂载到你的 Pod 中.
+`rbd` 卷允许将 [Rados 块设备](https://docs.ceph.com/en/latest/rbd/) 卷挂载到你的 Pod 中.
 不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`rbd` 卷的内容在删除 Pod 时
 会被保存，卷只是被卸载。
 这意味着 `rbd` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
@@ -2087,7 +2093,7 @@ persistent volume:
 -->
 - `volumeHandle`：唯一标识卷的字符串值。
   该值必须与 CSI 驱动在 `CreateVolumeResponse` 的 `volume_id` 字段中返回的值相对应；
-  接口定义在 [CSI spec](https://github.com/container-storageinterface/spec/blob/master/spec.md#createvolume) 中。
+  接口定义在 [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume) 中。
   在所有对 CSI 卷驱动程序的调用中，引用该 CSI 卷时都使用此值作为 `volume_id` 参数。
 
 <!--

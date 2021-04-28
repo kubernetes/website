@@ -44,9 +44,9 @@ for StatefulSet Pods. Graceful deletion is safe and will ensure that the Pod
 [shuts down gracefully](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 before the kubelet deletes the name from the apiserver.
 
-Kubernetes (versions 1.5 or newer) will not delete Pods just because a Node is unreachable.
+A Pod is not deleted automatically when a node is unreachable.
 The Pods running on an unreachable Node enter the 'Terminating' or 'Unknown' state after a
-[timeout](/docs/concepts/architecture/nodes/#node-condition).
+[timeout](/docs/concepts/architecture/nodes/#condition).
 Pods may also enter these states when the user attempts graceful deletion of a Pod
 on an unreachable Node.
 The only ways in which a Pod in such a state can be removed from the apiserver are as follows:

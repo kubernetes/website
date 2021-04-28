@@ -22,7 +22,7 @@ weight: 50
 
 <!-- overview -->
 <!--
-A Job creates one or more Pods and ensures that a specified number of them successfully terminate.
+A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate.
 As pods successfully complete, the Job tracks the successful completions.  When a specified number
 of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
 the Pods it created.
@@ -33,7 +33,8 @@ due to a node hardware failure or a node reboot).
 
 You can also use a Job to run multiple Pods in parallel.
 -->
-Job 会创建一个或者多个 Pods，并确保指定数量的 Pods 成功终止。
+
+Job 会创建一个或者多个 Pods，并将继续重试 Pods 的执行，直到指定数量的 Pods 成功终止。
 随着 Pods 成功结束，Job 跟踪记录成功完成的 Pods 个数。
 当数量达到指定的成功个数阈值时，任务（即 Job）结束。
 删除 Job 的操作会清除所创建的全部 Pods。
@@ -138,7 +139,7 @@ pi-5rwd7
 
 <!--
 Here, the selector is the same as the selector for the Job.  The `-output=jsonpath` option specifies an expression
-that just gets the name from each Pod in the returned list.
+with the name from each Pod in the returned list.
 
 View the standard output of one of the pods:
 -->
@@ -168,7 +169,7 @@ A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/d
 ## 编写 Job 规约
 
 与 Kubernetes 中其他资源的配置类似，Job 也需要 `apiVersion`、`kind` 和 `metadata` 字段。
-Job 的名字必须时合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+Job 的名字必须是合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 Job 配置还需要一个[`.spec` 节](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
@@ -348,7 +349,7 @@ caused by previous runs.
 `.spec.template.spec.restartPolicy = "Never"`。
 当 Pod 失败时，Job 控制器会启动一个新的 Pod。
 这意味着，你的应用需要处理在一个新 Pod 中被重启的情况。
-尤其是应用需要处理之前运行所触碰或产生的临时文件、锁、不完整的输出等问题。
+尤其是应用需要处理之前运行所产生的临时文件、锁、不完整的输出等问题。
 
 <!--
 Note that even if you specify `.spec.parallelism = 1` and `.spec.completions = 1` and
@@ -383,8 +384,8 @@ other Pods for the Job failing around that time.
 可能意味着遇到了配置错误。
 为了实现这点，可以将 `.spec.backoffLimit` 设置为视 Job 为失败之前的重试次数。
 失效回退的限制值默认为 6。
-与 Job 相关的失效的 Pod 会被 Job 控制器重建，并且以指数型回退计算重试延迟
-（从 10 秒、20 秒到 40 秒，最多 6 分钟）。
+与 Job 相关的失效的 Pod 会被 Job 控制器重建，回退重试时间将会按指数增长
+（从 10 秒、20 秒到 40 秒）最多至 6 分钟。
 当 Job 的 Pod 被删除时，或者 Pod 成功时没有其它 Pod 处于失败状态，失效回退的次数也会被重置（为 0）。
 
 <!--
@@ -564,7 +565,7 @@ more information, see the documentation for
 [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
 finished resources.
 -->
-Job `pi-with-ttl` 在结束 100 秒之后，可以成为被自动删除的标的。
+Job `pi-with-ttl` 在结束 100 秒之后，可以成为被自动删除的对象。
 
 如果该字段设置为 `0`，Job 在结束之后立即成为可被自动删除的对象。
 如果该字段没有设置，Job 不会在结束之后被 TTL 控制器自动清除。

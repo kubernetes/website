@@ -10,11 +10,9 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
-The scheduling framework is a pluggable architecture for Kubernetes Scheduler
-that makes scheduler customizations easy. It adds a new set of "plugin" APIs to
-the existing scheduler. Plugins are compiled into the scheduler. The APIs
-allow most scheduling features to be implemented as plugins, while keeping the
-scheduling "core" simple and maintainable. Refer to the [design proposal of the
+The scheduling framework is a pluggable architecture for the Kubernetes scheduler.
+It adds a new set of "plugin" APIs to the existing scheduler. Plugins are compiled into the scheduler. The APIs allow most scheduling features to be implemented as plugins, while keeping the
+scheduling "core" lightweight and maintainable. Refer to the [design proposal of the
 scheduling framework][kep] for more technical information on the design of the
 framework.
 
@@ -185,7 +183,7 @@ the three things:
 
 {{< note >}}
 While any plugin can access the list of "waiting" Pods and approve them
-(see [`FrameworkHandle`](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md#frameworkhandle)), we expect only the permit
+(see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)), we expect only the permit
 plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
 is approved, it is sent to the [PreBind](#pre-bind) phase.
 {{< /note >}}

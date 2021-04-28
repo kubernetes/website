@@ -35,7 +35,7 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 -->
 <!-- overview -->
 当你部署完 Kubernetes, 即拥有了一个完整的集群。
-{{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes 集群包含">}}
+{{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes">}}
 
 本文档概述了交付正常运行的 Kubernetes 集群所需的各种组件。
 
@@ -82,20 +82,20 @@ the same machine, and do not run user containers on this machine. See
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
 <!--
-These controllers include:
+Some types of these controllers are:
 
   * Node controller: Responsible for noticing and responding when nodes go down.
-  * Replication controller: Responsible for maintaining the correct number of pods for every replication
-  controller object in the system.
+  * Job controller: Watches for Job objects that represent one-off tasks, then creates
+    Pods to run those tasks to completion.
   * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
   * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
 -->
 这些控制器包括:
 
-* 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应。
-* 副本控制器（Replication Controller）: 负责为系统中的每个副本控制器对象维护正确数量的 Pod。
-* 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)。
-* 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌.
+* 节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应
+* 任务控制器（Job controller）: 监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
+* 端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)
+* 服务帐户和令牌控制器（Service Account & Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌
 
 <!--
 ### cloud-controller-manager

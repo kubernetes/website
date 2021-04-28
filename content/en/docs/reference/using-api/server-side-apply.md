@@ -16,10 +16,10 @@ min-kubernetes-server-version: 1.16
 
 ## Introduction
 
-Server Side Apply helps users and controllers manage their resources via
-declarative configurations. It allows them to create and/or modify their
+Server Side Apply helps users and controllers manage their resources through
+declarative configurations. Clients can create and modify their
 [objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
-declaratively, simply by sending their fully specified intent.
+declaratively by sending their fully specified intent.
 
 A fully specified intent is a partial object that only includes the fields and
 values for which the user has an opinion. That intent either creates a new
@@ -46,7 +46,7 @@ Server side apply is meant both as a replacement for the original `kubectl
 apply` and as a simpler mechanism for controllers to enact their changes.
 
 If you have Server Side Apply enabled, the control plane tracks managed fields
-for all newlly created objects.
+for all newly created objects.
 
 ## Field Management
 
@@ -209,9 +209,8 @@ would have failed due to conflicting ownership.
 
 The merging strategy, implemented with Server Side Apply, provides a generally
 more stable object lifecycle. Server Side Apply tries to merge fields based on
-the fact who manages them instead of overruling just based on values. This way
-it is intended to make it easier and more stable for multiple actors updating
-the same object by causing less unexpected interference.
+the actor who manages them instead of overruling based on values. This way
+multiple actors can update the same object without causing unexpected interference.
 
 When a user sends a "fully-specified intent" object to the Server Side Apply
 endpoint, the server merges it with the live object favoring the value in the
@@ -225,17 +224,75 @@ merging, see
 A number of markers were added in Kubernetes 1.16 and 1.17, to allow API
 developers to describe the merge strategy supported by lists, maps, and
 structs. These markers can be applied to objects of the respective type,
-in Go files or in the OpenAPI schema definition of the 
+in Go files or in the OpenAPI schema definition of the
 [CRD](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io):
 
 | Golang marker | OpenAPI extension | Accepted values | Description | Introduced in |
 |---|---|---|---|---|
-| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | Applicable to lists. `atomic` and `set` apply to lists with scalar elements only. `map` applies to lists of nested types only. If configured as `atomic`, the entire list is replaced during merge; a single manager manages the list as a whole at any one time. If `set` or `map`, different managers can manage entries separately. | 1.16          |
-| `//+listMapKey` | `x-kubernetes-list-map-keys` | Slice of map keys that uniquely identify entries for example `["port", "protocol"]` | Only applicable when `+listType=map`. A slice of strings whose values in combination must uniquely identify list entries. While there can be multiple keys, `listMapKey` is singular because keys need to be specified individually in the Go type. | 1.16 |
+| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | Applicable to lists. `set` applies to lists that include only scalar elements. These elements must be unique. `map` applies to lists of nested types only. The key values (see `listMapKey`) must be unique in the list. `atomic` can apply to any list. If configured as `atomic`, the entire list is replaced during merge. At any point in time, a single manager owns the list. If `set` or `map`, different managers can manage entries separately. | 1.16          |
+| `//+listMapKey` | `x-kubernetes-list-map-keys` | List of field names, e.g. `["port", "protocol"]` | Only applicable when `+listType=map`. A list of field names whose values uniquely identify entries in the list. While there can be multiple keys, `listMapKey` is singular because keys need to be specified individually in the Go type. The key fields must be scalars. | 1.16 |
 | `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to maps. `atomic` means that the map can only be entirely replaced by a single manager. `granular` means that the map supports separate managers updating individual fields. | 1.17 |
 | `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | Applicable to structs; otherwise same usage and OpenAPI annotation as `//+mapType`.| 1.17 |
 
-### Custom Resources
+If `listType` is missing, the API server interprets a
+`patchMergeStrategy=merge` marker as a `listType=map` and the
+corresponding `patchMergeKey` marker as a `listMapKey`.
+
+The `atomic` list type is recursive.
+
+These markers are specified as comments and don't have to be repeated as
+field tags.
+
+### Compatibility across topology changes
+
+On rare occurences, a CRD or built-in type author may want to change the
+specific topology of a field in their resource without incrementing its
+version. Changing the topology of types, by upgrading the cluster or
+updating the CRD, has different consequences when updating existing
+objects. There are two categories of changes: when a field goes from
+`map`/`set`/`granular` to `atomic` and the other way around.
+
+When the `listType`, `mapType`, or `structType` changes from
+`map`/`set`/`granular` to `atomic`, the whole list, map or struct of
+existing objects will end-up being owned by actors who owned an element
+of these types. This means that any further change to these objects
+would cause a conflict.
+
+When a list, map, or struct changes from `atomic` to
+`map`/`set`/`granular`, the API server won't be able to infer the new
+ownership of these fields. Because of that, no conflict will be produced
+when objects have these fields updated. For that reason, it is not
+recommended to change a type from `atomic` to `map`/`set`/`granular`.
+
+Take for example, the custom resource:
+
+```yaml
+apiVersion: example.com/v1
+kind: Foo
+metadata:
+  name: foo-sample
+  managedFields:
+  - manager: manager-one
+    operation: Apply
+    apiVersion: example.com/v1
+    fields:
+      f:spec:
+        f:data: {}
+spec:
+  data:
+    key1: val1
+    key2: val2
+```
+
+Before `spec.data` gets changed from `atomic` to `granular`,
+`manager-one` owns the field `spec.data`, and all the fields within it
+(`key1` and `key2`). When the CRD gets changed to make `spec.data`
+`granular`, `manager-one` continues to own the top-level field
+`spec.data` (meaning no other managers can delete the map called `data`
+without a conflict), but it no longer owns `key1` and `key2`, so another
+manager can then modify or delete those fields without conflict.
+
+## Custom Resources
 
 By default, Server Side Apply treats custom resources as unstructured data. All
 keys are treated the same as struct fields, and all lists are considered atomic.
@@ -246,7 +303,7 @@ that contains annotations as defined in the previous "Merge Strategy"
 section, these annotations will be used when merging objects of this
 type.
 
-### Using Server-Side Apply in a controller
+## Using Server-Side Apply in a controller
 
 As a developer of a controller, you can use server-side apply as a way to
 simplify the update logic of your controller. The main differences with a
@@ -261,7 +318,7 @@ read-modify-write and/or patch are the following:
 It is strongly recommended for controllers to always "force" conflicts, since they
 might not be able to resolve or act on these conflicts.
 
-### Transferring Ownership
+## Transferring Ownership
 
 In addition to the concurrency controls provided by [conflict resolution](#conflicts),
 Server Side Apply provides ways to perform coordinated
@@ -297,7 +354,7 @@ is not what the user wants to happen, even temporarily.
 
 There are two solutions:
 
-- (easy) Leave `replicas` in the configuration; when HPA eventually writes to that
+- (basic) Leave `replicas` in the configuration; when HPA eventually writes to that
   field, the system gives the user a conflict over it. At that point, it is safe
   to remove from the configuration.
 
@@ -319,7 +376,7 @@ kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment-replic
 ```
 
 If the apply results in a conflict with the HPA controller, then do nothing. The
-conflict just indicates the controller has claimed the field earlier in the
+conflict indicates the controller has claimed the field earlier in the
 process than it sometimes does.
 
 At this point the user may remove the `replicas` field from their configuration.
@@ -330,7 +387,7 @@ Note that whenever the HPA controller sets the `replicas` field to a new value,
 the temporary field manager will no longer own any fields and will be
 automatically deleted. No clean up is required.
 
-## Transferring Ownership Between Users
+### Transferring Ownership Between Users
 
 Users can transfer ownership of a field between each other by setting the field
 to the same value in both of their applied configs, causing them to share
@@ -436,7 +493,7 @@ Data: [{"op": "replace", "path": "/metadata/managedFields", "value": [{}]}]
 
 This will overwrite the managedFields with a list containing a single empty
 entry that then results in the managedFields being stripped entirely from the
-object. Note that just setting the managedFields to an empty list will not
+object. Note that setting the managedFields to an empty list will not
 reset the field. This is on purpose, so managedFields never get stripped by
 clients not aware of the field.
 
@@ -459,4 +516,3 @@ Server Side Apply is a beta feature, so it is enabled by default. To turn this
 you need to include the `--feature-gates ServerSideApply=false` flag when
 starting `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all
 should have the same flag setting.
-

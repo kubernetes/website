@@ -1,4 +1,6 @@
 ---
+
+
 title: 리소스 관리
 content_type: concept
 weight: 40
@@ -43,9 +45,9 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 
 `kubectl` 은 접미사가 `.yaml`, `.yml` 또는 `.json` 인 파일을 읽는다.
 
-동일한 마이크로서비스 또는 애플리케이션 티어(tier)와 관련된 리소스를 동일한 파일에 배치하고, 애플리케이션과 연관된 모든 파일을 동일한 디렉터리에 그룹화하는 것이 좋다. 애플리케이션의 티어가 DNS를 사용하여 서로 바인딩되면, 스택의 모든 컴포넌트를 일괄로 배포할 수 있다.
+동일한 마이크로서비스 또는 애플리케이션 티어(tier)와 관련된 리소스를 동일한 파일에 배치하고, 애플리케이션과 연관된 모든 파일을 동일한 디렉터리에 그룹화하는 것이 좋다. 애플리케이션의 티어가 DNS를 사용하여 서로 바인딩되면, 스택의 모든 컴포넌트를 함께 배포할 수 있다.
 
-URL을 구성 소스로 지정할 수도 있다. 이는 github에 체크인된 구성 파일에서 직접 배포하는 데 편리하다.
+URL을 구성 소스로 지정할 수도 있다. 이는 GitHub에 체크인된 구성 파일에서 직접 배포하는 데 편리하다.
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
@@ -68,7 +70,7 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-두 개의 리소스만 있는 경우, 리소스/이름 구문을 사용하여 커맨드 라인에서 둘다 모두 쉽게 지정할 수도 있다.
+두 개의 리소스가 있는 경우, 리소스/이름 구문을 사용하여 커맨드 라인에서 둘다 모두 지정할 수도 있다.
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -85,10 +87,11 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-`kubectl` 은 입력을 받아들이는 것과 동일한 구문으로 리소스 이름을 출력하므로, `$()` 또는 `xargs` 를 사용하여 작업을 쉽게 연결할 수 있다.
+`kubectl` 은 입력을 받아들이는 것과 동일한 구문으로 리소스 이름을 출력하므로, `$()` 또는 `xargs` 를 사용하여 작업을 연결할 수 있다.
 
 ```shell
 kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
+kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service | xargs -i kubectl get {}
 ```
 
 ```shell
@@ -262,7 +265,7 @@ guestbook-redis-slave-qgazl   1/1       Running   0          3m
 ## 레이블 업데이트
 
 새로운 리소스를 만들기 전에 기존 파드 및 기타 리소스의 레이블을 다시 지정해야 하는 경우가 있다. 이것은 `kubectl label` 로 수행할 수 있다.
-예를 들어, 모든 nginx 파드에 프론트엔드 티어로 레이블을 지정하려면, 간단히 다음과 같이 실행한다.
+예를 들어, 모든 nginx 파드에 프론트엔드 티어로 레이블을 지정하려면, 다음과 같이 실행한다.
 
 ```shell
 kubectl label pods -l app=nginx tier=fe
@@ -275,7 +278,7 @@ pod/my-nginx-2035384211-u3t6x labeled
 ```
 
 먼저 "app=nginx" 레이블이 있는 모든 파드를 필터링한 다음, "tier=fe" 레이블을 지정한다.
-방금 레이블을 지정한 파드를 보려면, 다음을 실행한다.
+레이블을 지정한 파드를 보려면, 다음을 실행한다.
 
 ```shell
 kubectl get pods -l app=nginx -L tier
@@ -299,6 +302,7 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
 kubectl get pods my-nginx-v4-9gw19 -o yaml
 ```
+
 ```shell
 apiVersion: v1
 kind: pod
@@ -312,11 +316,12 @@ metadata:
 
 ## 애플리케이션 스케일링
 
-애플리케이션의 로드가 증가하거나 축소되면, `kubectl` 을 사용하여 쉽게 스케일링할 수 있다. 예를 들어, nginx 레플리카 수를 3에서 1로 줄이려면, 다음을 수행한다.
+애플리케이션의 로드가 증가하거나 축소되면, `kubectl` 을 사용하여 애플리케이션을 스케일링한다. 예를 들어, nginx 레플리카 수를 3에서 1로 줄이려면, 다음을 수행한다.
 
 ```shell
 kubectl scale deployment/my-nginx --replicas=1
 ```
+
 ```shell
 deployment.apps/my-nginx scaled
 ```
@@ -326,6 +331,7 @@ deployment.apps/my-nginx scaled
 ```shell
 kubectl get pods -l app=nginx
 ```
+
 ```shell
 NAME                        READY     STATUS    RESTARTS   AGE
 my-nginx-2035384211-j5fhi   1/1       Running   0          30m
@@ -336,6 +342,7 @@ my-nginx-2035384211-j5fhi   1/1       Running   0          30m
 ```shell
 kubectl autoscale deployment/my-nginx --min=1 --max=3
 ```
+
 ```shell
 horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 ```
@@ -404,11 +411,12 @@ JSON 병합 패치 그리고 전략적 병합 패치를 지원한다.
 
 ## 파괴적(disruptive) 업데이트
 
-경우에 따라, 한 번 초기화하면 업데이트할 수 없는 리소스 필드를 업데이트해야 하거나, 디플로이먼트에서 생성된 손상된 파드를 고치는 등의 재귀적 변경을 즉시 원할 수도 있다. 이러한 필드를 변경하려면, `replace --force` 를 사용하여 리소스를 삭제하고 다시 만든다. 이 경우, 원래 구성 파일을 간단히 수정할 수 있다.
+경우에 따라, 한 번 초기화하면 업데이트할 수 없는 리소스 필드를 업데이트해야 하거나, 디플로이먼트에서 생성된 손상된 파드를 고치는 등의 재귀적 변경을 즉시 원할 수도 있다. 이러한 필드를 변경하려면, `replace --force` 를 사용하여 리소스를 삭제하고 다시 만든다. 이 경우, 원래 구성 파일을 수정할 수 있다.
 
 ```shell
 kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
 ```
+
 ```shell
 deployment.apps/my-nginx deleted
 deployment.apps/my-nginx replaced
@@ -425,19 +433,22 @@ nginx 1.14.2 버전을 실행한다고 가정해 보겠다.
 ```shell
 kubectl create deployment my-nginx --image=nginx:1.14.2
 ```
+
 ```shell
 deployment.apps/my-nginx created
 ```
 
 3개의 레플리카를 포함한다(이전과 새 개정판이 공존할 수 있음).
+
 ```shell
 kubectl scale deployment my-nginx --current-replicas=1 --replicas=3
 ```
+
 ```
 deployment.apps/my-nginx scaled
 ```
 
-1.16.1 버전으로 업데이트하려면, 위에서 배운 kubectl 명령을 사용하여 `.spec.template.spec.containers[0].image` 를 `nginx:1.14.2` 에서 `nginx:1.16.1` 로 간단히 변경한다.
+1.16.1 버전으로 업데이트하려면, 위에서 배운 kubectl 명령을 사용하여 `.spec.template.spec.containers[0].image` 를 `nginx:1.14.2` 에서 `nginx:1.16.1` 로 변경한다.
 
 ```shell
 kubectl edit deployment/my-nginx
@@ -452,5 +463,3 @@ kubectl edit deployment/my-nginx
 
 - [애플리케이션 검사 및 디버깅에 `kubectl` 을 사용하는 방법](/docs/tasks/debug-application-cluster/debug-application-introspection/)에 대해 알아본다.
 - [구성 모범 사례 및 팁](/ko/docs/concepts/configuration/overview/)을 참고한다.
-
-

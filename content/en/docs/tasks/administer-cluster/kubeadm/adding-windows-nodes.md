@@ -1,7 +1,9 @@
 ---
 reviewers:
-- michmike
-- patricklang
+- jayunit100
+- jsturtevant
+- marosset
+- perithompson
 title: Adding Windows nodes
 min-kubernetes-server-version: 1.17
 content_type: tutorial
@@ -72,7 +74,7 @@ Once you have a Linux-based Kubernetes control-plane node you are ready to choos
           "Network": "10.244.0.0/16",
           "Backend": {
             "Type": "vxlan",
-            "VNI" : 4096,
+            "VNI": 4096,
             "Port": 4789
           }
         }

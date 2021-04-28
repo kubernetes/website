@@ -102,24 +102,25 @@ In this example:
 
 <!--
 * The `selector` field defines how the Deployment finds which Pods to manage.
-  In this case, you simply select a label that is defined in the Pod template (`app: nginx`).
+  In this case, you select a label that is defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
 -->
 * `selector` 字段定义 Deployment 如何查找要管理的 Pods。
-  在这里，你只需选择在 Pod 模板中定义的标签（`app: nginx`）。
+  在这里，你选择在 Pod 模板中定义的标签（`app: nginx`）。
   不过，更复杂的选择规则是也可能的，只要 Pod 模板本身满足所给规则即可。
 
+  {{< note >}}
   <!--
-  The `matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
-  is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In",
-  and the values array contains only "value".
+  The `spec.selector.matchLabels` field is a map of {key,value} pairs.
+  A single {key,value} in the `matchLabels` map is equivalent to an element of `matchExpressions`,
+  whose `key` field is "key", the `operator` is "In", and the `values` array contains only "value".
   All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
   -->
-  {{< note >}}
-  `matchLabels` 字段是 `{key,value}` 偶对的映射。在 `matchLabels` 映射中的单个 `{key,value}`
-  映射等效于 `matchExpressions` 中的一个元素，即其 `key` 字段是 “key”，operator 为 “In”，`value`
-  数组仅包含 “value”。在 `matchLabels` 和 `matchExpressions` 中给出的所有条件都必须满足才能匹配。
+  `spec.selector.matchLabels` 字段是 `{key,value}` 键值对映射。
+  在 `matchLabels` 映射中的每个 `{key,value}` 映射等效于 `matchExpressions` 中的一个元素，
+  即其 `key` 字段是 “key”，`operator` 为 “In”，`values` 数组仅包含 “value”。
+  在 `matchLabels` 和 `matchExpressions` 中给出的所有条件都必须满足才能匹配。
   {{< /note >}}
 
 <!--
@@ -186,7 +187,7 @@ Follow the steps given below to create the above Deployment:
    -->
    * `NAME` 列出了集群中 Deployment 的名称。
    * `READY` 显示应用程序的可用的 _副本_ 数。显示的模式是“就绪个数/期望个数”。
-   * `UP-TO-DATE` 显示为了打到期望状态已经更新的副本数。
+   * `UP-TO-DATE` 显示为了达到期望状态已经更新的副本数。
    * `AVAILABLE` 显示应用可供用户使用的副本数。
    * `AGE` 显示应用程序运行的时间。
 
@@ -347,7 +348,7 @@ is changed, for example if the labels or container images of the template are up
       deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
    ```
    <!--
-   or simply use the following command:
+   or use the following command:
    -->
    或者使用下面的命令：
     
@@ -355,7 +356,7 @@ is changed, for example if the labels or container images of the template are up
    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
    ```
 
-   <!-- The output is similar to this: -->
+   <!-- The output is similar to: -->
    输出类似于：
 
    ```
@@ -429,7 +430,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   kubectl get rs
   ```
 
-  <!-- The output is similar to this: -->
+  <!-- The output is similar to: -->
   输出类似于：
 
   ```
@@ -1179,7 +1180,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 这样做使得你能够在暂停和恢复执行之间应用多个修补程序，而不会触发不必要的上线操作。
 
 <!--
-* For example, with a Deployment that was just created:
+* For example, with a Deployment that was created:
   Get the Deployment details:
 -->
 * 例如，对于一个刚刚创建的 Deployment：

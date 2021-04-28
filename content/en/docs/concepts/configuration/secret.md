@@ -109,14 +109,14 @@ empty-secret   Opaque   0      2m6s
 ```
 
 The `DATA` column shows the number of data items stored in the Secret.
-In this case, `0` means we have just created an empty Secret.
+In this case, `0` means we have created an empty Secret.
 
 ###  Service account token Secrets
 
 A `kubernetes.io/service-account-token` type of Secret is used to store a
 token that identifies a service account. When using this Secret type, you need
 to ensure that the `kubernetes.io/service-account.name` annotation is set to an
-existing service account name. An Kubernetes controller fills in some other
+existing service account name. A Kubernetes controller fills in some other
 fields such as the `kubernetes.io/service-account.uid` annotation and the
 `token` key in the `data` field set to actual token content.
 
@@ -668,8 +668,8 @@ When a secret currently consumed in a volume is updated, projected keys are even
 The kubelet checks whether the mounted secret is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the Secret.
 The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
-the [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
-A Secret can be either propagated by watch (default), ttl-based, or simply redirecting
+the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
+A Secret can be either propagated by watch (default), ttl-based, or by redirecting
 all requests directly to the API server.
 As a result, the total delay from the moment when the Secret is updated to the moment
 when new keys are projected to the Pod can be as long as the kubelet sync period + cache
@@ -718,7 +718,7 @@ spec:
 
 #### Consuming Secret Values from environment variables
 
-Inside a container that consumes a secret in an environment variables, the secret keys appear as
+Inside a container that consumes a secret in the environment variables, the secret keys appear as
 normal environment variables containing the base64 decoded values of the secret data.
 This is the result of commands executed inside the container from the example above:
 
@@ -749,9 +749,9 @@ There are third party solutions for triggering restarts when secrets change.
 
 ## Immutable Secrets {#secret-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
 (at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
 data has the following advantages:
@@ -760,8 +760,8 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for secrets marked as immutable.
 
-This feature is controlled by the `ImmutableEphemeralVolumes` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/),
+This feature is controlled by the `ImmutableEphemeralVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 which is enabled by default since v1.19. You can create an immutable
 Secret by setting the `immutable` field to `true`. For example,
 ```yaml
@@ -800,11 +800,6 @@ or created with that ServiceAccount by default, will get their `imagePullSecrets
 field set to that of the service account.
 See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
-
-### Automatic mounting of manually created Secrets
-
-Manually created secrets (for example, one containing a token for accessing a GitHub account)
-can be automatically attached to pods based on their service account.
 
 ## Details
 
@@ -870,6 +865,7 @@ start until all the Pod's volumes are mounted.
 ### Use-Case: As container environment variables
 
 Create a secret
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -882,6 +878,7 @@ data:
 ```
 
 Create the Secret:
+
 ```shell
 kubectl apply -f mysecret.yaml
 ```
@@ -997,7 +994,7 @@ For example, if your actual password is `S!B\*d$zDsb=`, you should execute the c
 kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
 ```
 
- You do not need to escape special characters in passwords from files (`--from-file`).
+You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
 Now make the Pods:
@@ -1178,14 +1175,12 @@ privileged, system-level components.
 
 Applications that need to access the Secret API should perform `get` requests on
 the secrets they need. This lets administrators restrict access to all secrets
-while [white-listing access to individual instances](
-/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
+while [white-listing access to individual instances](/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
 the app needs.
 
 For improved performance over a looping `get`, clients can design resources that
 reference a secret then `watch` the resource, re-requesting the secret when the
-reference changes. Additionally, a ["bulk watch" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
+reference changes. Additionally, a ["bulk watch" API](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
 to let clients `watch` individual resources has also been proposed, and will likely
 be available in future releases of Kubernetes.
 

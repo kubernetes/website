@@ -10,7 +10,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 _크론잡은_ 반복 일정에 따라 {{< glossary_tooltip term_id="job" text="잡" >}}을 만든다.
 
@@ -89,6 +89,11 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 `concurrencyPolicy` 가 `Allow` 로 설정될 경우, 잡은 항상 적어도 한 번은
 실행될 것이다.
 
+{{< caution >}}
+`startingDeadlineSeconds` 가 10초 미만의 값으로 설정되면, 크론잡이 스케줄되지 않을 수 있다. 이는 크론잡 컨트롤러가 10초마다 항목을 확인하기 때문이다.
+{{< /caution >}}
+
+
 모든 크론잡에 대해 크론잡 {{< glossary_tooltip term_id="controller" text="컨트롤러" >}} 는 마지막 일정부터 지금까지 얼마나 많은 일정이 누락되었는지 확인한다. 만약 100회 이상의 일정이 누락되었다면, 잡을 실행하지 않고 아래와 같은 에러 로그를 남긴다.
 
 ````
@@ -110,12 +115,17 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 크론잡은 오직 그 일정에 맞는 잡 생성에 책임이 있고,
 잡은 그 잡이 대표하는 파드 관리에 책임이 있다.
 
-## 새 컨트롤러
+## 컨트롤러 버전 {#new-controller}
 
-쿠버네티스 1.20부터 알파 기능으로 사용할 수 있는 크론잡 컨트롤러의 대체 구현이 있다. 크론잡 컨트롤러의 버전 2를 선택하려면, 다음의 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 플래그를 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}에 전달한다.
+쿠버네티스 v1.21부터 크론잡 컨트롤러의 두 번째 버전이
+기본 구현이다. 기본 크론잡 컨트롤러를 비활성화하고
+대신 원래 크론잡 컨트롤러를 사용하려면, `CronJobControllerV2`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+플래그를 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}에 전달하고,
+이 플래그를 `false` 로 설정한다. 예를 들면, 다음과 같다.
 
 ```
---feature-gates="CronJobControllerV2=true"
+--feature-gates="CronJobControllerV2=false"
 ```
 
 

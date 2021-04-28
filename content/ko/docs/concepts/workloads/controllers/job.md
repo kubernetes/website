@@ -13,10 +13,11 @@ weight: 50
 
 <!-- overview -->
 
-잡에서 하나 이상의 파드를 생성하고 지정된 수의 파드가 성공적으로 종료되도록 한다.
+잡에서 하나 이상의 파드를 생성하고 지정된 수의 파드가 성공적으로 종료될 때까지 계속해서 파드의 실행을 재시도한다.
 파드가 성공적으로 완료되면, 성공적으로 완료된 잡을 추적한다.  지정된 수의
 성공 완료에 도달하면, 작업(즉, 잡)이 완료된다.  잡을 삭제하면 잡이 생성한
-파드가 정리된다.
+파드가 정리된다. 작업을 일시 중지하면 작업이 다시 재개될 때까지 활성 파드가
+삭제된다.
 
 간단한 사례는 잡 오브젝트를 하나 생성해서 파드 하나를 안정적으로 실행하고 완료하는 것이다.
 첫 번째 파드가 실패 또는 삭제된 경우(예로는 노드 하드웨어의 실패 또는
@@ -98,8 +99,8 @@ echo $pods
 pi-5rwd7
 ```
 
-여기서 셀렉터는 잡의 셀렉터와 동일하다.  `--output=jsonpath` 옵션은 반환된 목록의
-각각의 파드에서 이름을 가져와서 표현하는 방식을 지정한다.
+여기서 셀렉터는 잡의 셀렉터와 동일하다. `--output = jsonpath` 옵션은 반환된
+목록에 있는 각 파드의 이름으로 표현식을 지정한다.
 
 파드 중 하나를 표준 출력으로 본다.
 
@@ -145,8 +146,8 @@ kubectl logs $pods
   - 파드가 성공적으로 종료하자마자 즉시 잡이 완료된다.
 1. *고정적(fixed)인 완료 횟수* 를 가진 병렬 잡:
   - `.spec.completions` 에 0이 아닌 양수 값을 지정한다.
-  - 잡은 전체 작업을 나타내며 1에서 `.spec.completions` 까지의 범위의 각 값에 대해 한 개씩 성공한 파드가 있으면 완료된다.
-  - **아직 구현되지 않음:** 각 파드에게는 1부터 `.spec.completions` 까지의 범위 내의 서로 다른 인덱스가 전달된다.
+  - 잡은 전체 작업을 나타내며, `.spec.completions` 성공한 파드가 있을 때 완료된다.
+  - `.spec.completionMode="Indexed"` 를 사용할 때, 각 파드는 0에서 `.spec.completions-1` 범위 내의 서로 다른 인덱스를 가져온다.
 1. *작업 큐(queue)* 가 있는 병렬 잡:
   - `.spec.completions` 를 지정하지 않고, `.spec.parallelism` 를 기본으로 한다.
   - 파드는 각자 또는 외부 서비스 간에 조정을 통해 각각의 작업을 결정해야 한다. 예를 들어 파드는 작업 큐에서 최대 N 개의 항목을 일괄로 가져올(fetch) 수 있다.
@@ -166,7 +167,6 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 다른 유형의 잡을 사용하는 방법에 대한 더 자세한 정보는 [잡 패턴](#잡-패턴) 섹션을 본다.
 
-
 #### 병렬 처리 제어하기
 
 요청된 병렬 처리(`.spec.parallelism`)는 음수가 아닌 값으로 설정할 수 있다.
@@ -184,6 +184,33 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
   요청한 것보다 적은 수의 파드가 있을 수 있다.
 - 잡 컨트롤러는 동일한 잡에서 과도하게 실패한 이전 파드들로 인해 새로운 파드의 생성을 조절할 수 있다.
 - 파드가 정상적으로(gracefully) 종료되면, 중지하는데 시간이 소요된다.
+
+### 완료 모드
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+{{< note >}}
+인덱싱된 잡을 생성하려면, [API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)
+및 [컨트롤러 관리자](/docs/reference/command-line-tools-reference/kube-controller-manager/)에서
+`IndexedJob` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+활성화해야 한다.
+{{< /note >}}
+
+완료 횟수가 _고정적인 완료 횟수_ 즉, null이 아닌 `.spec.completions` 가 있는 잡은
+`.spec.completionMode` 에 지정된 완료 모드를 가질 수 있다.
+
+- `NonIndexed` (기본값): `.spec.completions` 가 성공적으로
+  완료된 파드가 있는 경우 작업이 완료된 것으로 간주된다. 즉, 각 파드
+  완료는 서로 상동하다(homologous). null `.spec.completions` 가 있는
+  잡은 암시적으로 `NonIndexed` 이다.
+- `Indexed`: 잡의 파드는 `batch.kubernetes.io/job-completion-index`
+  어노테이션에서 사용할 수 있는 0에서 `.spec.completions-1` 까지 연결된 완료 인덱스를 가져온다.
+  각 인덱스에 대해 성공적으로 완료된 파드가 하나 있으면 작업이 완료된 것으로
+  간주된다. 이 모드를 사용하는 방법에 대한 자세한 내용은
+  [정적 작업 할당을 사용한 병렬 처리를 위해 인덱싱된 잡](/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
+  참고로, 드물기는 하지만, 동일한 인덱스에 대해 둘 이상의 파드를 시작할 수
+  있지만, 그 중 하나만 완료 횟수에 포함된다.
+
 
 ## 파드와 컨테이너 장애 처리하기
 
@@ -348,12 +375,12 @@ spec:
 여기에 트레이드오프가 요약되어있고, 2열에서 4열까지가 위의 트레이드오프에 해당한다.
 패턴 이름은 예시와 더 자세한 설명을 위한 링크이다.
 
-|                            패턴                                   | 단일 잡 오브젝트 | 작업 항목보다 파드가 적은가? | 수정하지 않은 앱을 사용하는가? |  Kube 1.1에서 작동하는가? |
-| -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
-| [잡 템플릿 확장](/ko/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
-| [작업 항목 당 파드가 있는 큐](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |         ✓         |                             |      때때로      |          ✓          |
-| [가변 파드 수를 가진 큐](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
-| 정적 작업이 할당된 단일 잡                               |         ✓         |                             |          ✓          |                     |
+|                  패턴                      | 단일 잡 오브젝트      | 작업 항목보다 파드가 적은가?       | 수정되지 않은 앱을 사용하는가? |
+| ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
+| [작업 항목 당 파드가 있는 큐]                   |         ✓         |                             |      때때로           |
+| [가변 파드 수를 가진 큐]                       |         ✓         |             ✓               |                     |
+| [정적 작업 할당을 사용한 인덱싱된 잡]             |         ✓         |                             |          ✓          |
+| [잡 템플릿 확장]                             |                   |                             |          ✓          |
 
 `.spec.completions` 로 완료를 지정할 때, 잡 컨트롤러에 의해 생성된 각 파드는
 동일한 [`사양`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)을 갖는다.  이 의미는
@@ -364,15 +391,120 @@ spec:
 이 표는 각 패턴에 필요한 `.spec.parallelism` 그리고 `.spec.completions` 설정을 보여준다.
 여기서 `W` 는 작업 항목의 수이다.
 
-|                             패턴                                  | `.spec.completions` |  `.spec.parallelism` |
-| -------------------------------------------------------------------- |:-------------------:|:--------------------:|
-| [잡 템플릿 확장](/ko/docs/tasks/job/parallel-processing-expansion/)           |          1          |     1이어야 함      |
-| [작업 항목 당 파드가 있는 큐](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |          W          |        any           |
-| [가변 파드 수를 가진 큐](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
-| 정적 작업이 할당된 단일 잡                               |          W          |        any           |
+|             패턴                           | `.spec.completions` |  `.spec.parallelism` |
+| ----------------------------------------- |:-------------------:|:--------------------:|
+| [작업 항목 당 파드가 있는 큐]                   |          W          |        any           |
+| [가변 파드 수를 가진 큐]                       |         null        |        any           |
+| [정적 작업 할당을 사용한 인덱싱된 잡]             |          W          |        any           |
+| [잡 템플릿 확장]                             |          1          |     1이어야 함         |
 
+[작업 항목 당 파드가 있는 큐]: /docs/tasks/job/coarse-parallel-processing-work-queue/
+[가변 파드 수를 가진 큐]: /docs/tasks/job/fine-parallel-processing-work-queue/
+[정적 작업 할당을 사용한 인덱싱된 잡]: /docs/tasks/job/indexed-parallel-processing-static/
+[잡 템플릿 확장]: /docs/tasks/job/parallel-processing-expansion/
 
 ## 고급 사용법
+
+### 잡 일시 중지
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+{{< note >}}
+잡 일시 중지는 쿠버네티스 버전 1.21 이상에서 사용할 수 있다. 이 기능을
+사용하려면 [API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)
+및 [컨트롤러 관리자](/docs/reference/command-line-tools-reference/kube-controller-manager/)에서
+`SuspendJob` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+활성화해야 한다.
+{{< /note >}}
+
+잡이 생성되면, 잡 컨트롤러는 잡의 요구 사항을 충족하기 위해
+즉시 파드 생성을 시작하고 잡이 완료될 때까지
+계속한다. 그러나, 잡의 실행을 일시적으로 중단하고 나중에
+다시 시작할 수도 있다. 잡을 일시 중지하려면, 잡의 `.spec.suspend` 필드를 true로
+업데이트할 수 있다. 나중에, 다시 재개하려면, false로 업데이트한다.
+`.spec.suspend` 로 설정된 잡을 생성하면 일시 중지된 상태로
+생성된다.
+
+잡이 일시 중지에서 재개되면, 해당 `.status.startTime` 필드가
+현재 시간으로 재설정된다. 즉, 잡이 일시 중지 및 재개되면 `.spec.activeDeadlineSeconds`
+타이머가 중지되고 재설정된다.
+
+잡을 일시 중지하면 모든 활성 파드가 삭제된다. 잡이
+일시 중지되면, SIGTERM 시그널로 [파드가 종료된다](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+파드의 정상 종료 기간이 적용되며 사용자의 파드는 이 기간 동안에
+이 시그널을 처리해야 한다. 나중에 진행 상황을 저장하거나
+변경 사항을 취소하는 작업이 포함될 수 있다. 이 방법으로 종료된 파드는
+잡의 `completions` 수에 포함되지 않는다.
+
+일시 중지된 상태의 잡 정의 예시는 다음과 같다.
+
+```shell
+kubectl get job myjob -o yaml
+```
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myjob
+spec:
+  suspend: true
+  parallelism: 1
+  completions: 5
+  template:
+    spec:
+      ...
+```
+
+잡의 상태를 사용하여 잡이 일시 중지되었는지 또는 과거에 일시 중지되었는지
+확인할 수 있다.
+
+```shell
+kubectl get jobs/myjob -o yaml
+```
+
+```json
+apiVersion: batch/v1
+kind: Job
+# .metadata and .spec omitted
+status:
+  conditions:
+  - lastProbeTime: "2021-02-05T13:14:33Z"
+    lastTransitionTime: "2021-02-05T13:14:33Z"
+    status: "True"
+    type: Suspended
+  startTime: "2021-02-05T13:13:48Z"
+```
+
+"True" 상태인 "Suspended" 유형의 잡의 컨디션은 잡이
+일시 중지되었음을 의미한다. 이 `lastTransitionTime` 필드는 잡이 일시 중지된
+기간을 결정하는 데 사용할 수 있다. 해당 컨디션의 상태가 "False"이면, 잡이
+이전에 일시 중지되었다가 현재 실행 중이다. 이러한 컨디션이
+잡의 상태에 없으면, 잡이 중지되지 않은 것이다.
+
+잡이 일시 중지 및 재개될 때에도 이벤트가 생성된다.
+
+```shell
+kubectl describe jobs/myjob
+```
+
+```
+Name:           myjob
+...
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  12m   job-controller  Created pod: myjob-hlrpl
+  Normal  SuccessfulDelete  11m   job-controller  Deleted pod: myjob-hlrpl
+  Normal  Suspended         11m   job-controller  Job suspended
+  Normal  SuccessfulCreate  3s    job-controller  Created pod: myjob-jvb44
+  Normal  Resumed           3s    job-controller  Job resumed
+```
+
+마지막 4개의 이벤트, 특히 "Suspended" 및 "Resumed" 이벤트는
+`.spec.suspend` 필드를 전환한 결과이다. 이 두 이벤트 사이의 시간동안
+파드가 생성되지 않았지만, 잡이 재개되자마자 파드 생성이 다시
+시작되었음을 알 수 있다.
 
 ### 자신의 파드 셀렉터를 지정하기
 

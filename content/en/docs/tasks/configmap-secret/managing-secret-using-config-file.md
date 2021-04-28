@@ -184,10 +184,10 @@ Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
 
 ## Clean Up
 
-To delete the Secret you have just created:
+To delete the Secret you have created:
 
 ```shell
-kubectl delete secret db-user-pass
+kubectl delete secret mysecret
 ```
 
 ## {{% heading "whatsnext" %}}

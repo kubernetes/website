@@ -33,8 +33,6 @@ explains how to use `kubeadm` to migrate from `kube-dns`.
 文档[迁移到 CoreDNS](/zh/docs/tasks/administer-cluster/coredns/#migrating-to-coredns)
 解释了如何使用 `kubeadm` 从 `kube-dns` 迁移到 CoreDNS。
 
-{{% version-check %}}
-
 <!-- steps -->
 
 <!-- 
@@ -155,7 +153,7 @@ data:
            ttl 30
         }
         prometheus :9153
-        forward ./etc/resolv.conf
+        forward . /etc/resolv.conf
         cache 30
         loop
         reload

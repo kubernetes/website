@@ -1,7 +1,9 @@
 ---
 reviewers:
-- michmike
-- patricklang
+- jayunit100
+- jsturtevant
+- marosset
+- perithompson
 title: Intro to Windows support in Kubernetes
 content_type: concept
 weight: 65
@@ -15,7 +17,7 @@ Windows applications constitute a large portion of the services and applications
 
 ## Windows containers in Kubernetes
 
-To enable the orchestration of Windows containers in Kubernetes, simply include Windows nodes in your existing Linux cluster. Scheduling Windows containers in {{< glossary_tooltip text="Pods" term_id="pod" >}} on Kubernetes is as simple and easy as scheduling Linux-based containers.
+To enable the orchestration of Windows containers in Kubernetes, include Windows nodes in your existing Linux cluster. Scheduling Windows containers in {{< glossary_tooltip text="Pods" term_id="pod" >}} on Kubernetes is similar to scheduling Linux-based containers.
 
 In order to run Windows containers, your Kubernetes cluster must include multiple operating systems, with control plane nodes running Linux and workers running either Windows or Linux depending on your workload needs. Windows Server 2019 is the only Windows operating system supported, enabling [Kubernetes Node](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) on Windows (including kubelet, [container runtime](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/containerd), and kube-proxy). For a detailed explanation of Windows distribution channels see the [Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
 
@@ -36,7 +38,7 @@ In this document, when we talk about Windows containers we mean Windows containe
 Refer to the following table for Windows operating system support in Kubernetes. A single heterogeneous Kubernetes cluster can have both Windows and Linux worker nodes. Windows containers have to be scheduled on Windows nodes and Linux containers on Linux nodes.
 
 | Kubernetes version | Windows Server LTSC releases | Windows Server SAC releases |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | *Kubernetes v1.17* | Windows Server 2019 | Windows Server ver 1809 |
 | *Kubernetes v1.18* | Windows Server 2019 | Windows Server ver 1809, Windows Server ver 1903, Windows Server ver 1909 |
 | *Kubernetes v1.19* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
@@ -213,15 +215,16 @@ On Windows, you can use the following settings to configure Services and load ba
 {{< table caption="Windows Service Settings" >}}
 | Feature | Description | Supported Kubernetes version  | Supported Windows OS build | How to enable |
 | ------- | ----------- | ----------------------------- | -------------------------- | ------------- |
-| Session affinity | Ensures that connections from a particular client are passed to the same Pod each time. | v1.19+ | [Windows Server vNext Insider Preview Build 19551](https://blogs.windows.com/windowsexperience/2020/01/28/announcing-windows-server-vnext-insider-preview-build-19551/) (or higher) | Set `service.spec.sessionAffinity` to "ClientIP" |
-| Direct Server Return | Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly; service traffic arrives with the source IP set as the originating pod IP. Promises lower latency and scalability. | v1.15+ | Windows Server, version 2004 | Set the following flags in kube-proxy: `--feature-gates="WinDSR=true" --enable-dsr=true` |
-| Preserve-Destination | Skips DNAT of service traffic, thereby preserving the virtual IP of the target service in packets reaching the backend Pod. This setting will also ensure that the client IP of incoming packets get preserved. | v1.15+ | Windows Server, version 1903 (or higher) | Set `"preserve-destination": "true"` in service annotations and enable DSR flags in kube-proxy. |
-| IPv4/IPv6 dual-stack networking | Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster | v1.19+ | Windows Server vNext Insider Preview Build 19603 (or higher) | See [IPv4/IPv6 dual-stack](#ipv4ipv6-dual-stack) |
+| Session affinity | Ensures that connections from a particular client are passed to the same Pod each time. | v1.20+ | [Windows Server vNext Insider Preview Build 19551](https://blogs.windows.com/windowsexperience/2020/01/28/announcing-windows-server-vnext-insider-preview-build-19551/) (or higher) | Set `service.spec.sessionAffinity` to "ClientIP" |
+| Direct Server Return (DSR) | Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly; service traffic arrives with the source IP set as the originating pod IP. | v1.20+ | Windows Server 2019 | Set the following flags in kube-proxy: `--feature-gates="WinDSR=true" --enable-dsr=true` |
+| Preserve-Destination | Skips DNAT of service traffic, thereby preserving the virtual IP of the target service in packets reaching the backend Pod. Also disables node-node forwarding. | v1.20+ | Windows Server, version 1903 (or higher) | Set `"preserve-destination": "true"` in service annotations and enable DSR in kube-proxy. |
+| IPv4/IPv6 dual-stack networking | Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster | v1.19+ | Windows Server, version 2004 (or higher) | See [IPv4/IPv6 dual-stack](#ipv4ipv6-dual-stack) |
+| Client IP preservation | Ensures that source IP of incoming ingress traffic gets preserved. Also disables node-node forwarding. | v1.20+ | Windows Server, version 2019 (or higher) | Set `service.spec.externalTrafficPolicy` to "Local" and enable DSR in kube-proxy |
 {{< /table >}}
 
 #### IPv4/IPv6 dual-stack
 
-You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the `IPv6DualStack` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/). See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
+You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
 
 {{< note >}}
 On Windows, using IPv6 with Kubernetes require Windows Server, version 2004 (kernel version 10.0.19041.610) or later.
@@ -233,23 +236,33 @@ Overlay (VXLAN) networks on Windows do not support dual-stack networking today.
 
 ### Limitations
 
-#### Control Plane
-
 Windows is only supported as a worker node in the Kubernetes architecture and component matrix. This means that a Kubernetes cluster must always include Linux master nodes, zero or more Linux worker nodes, and zero or more Windows worker nodes.
 
-#### Compute {compute-limitations}
 
-##### Resource management and process isolation
+#### Resource Handling
 
  Linux cgroups are used as a pod boundary for resource controls in Linux. Containers are created within that boundary for network, process and file system isolation. The cgroups APIs can be used to gather cpu/io/memory stats. In contrast, Windows uses a Job object per container with a system namespace filter to contain all processes in a container and provide logical isolation from the host. There is no way to run a Windows container without the namespace filtering in place. This means that system privileges cannot be asserted in the context of the host, and thus privileged containers are not available on Windows. Containers cannot assume an identity from the host because the Security Account Manager (SAM) is separate.
 
-##### Operating System Restrictions
+#### Resource Reservations
 
-Windows has strict compatibility rules, where the host OS version must match the container base image OS version. Only Windows containers with a container operating system of Windows Server 2019 are supported. Hyper-V isolation of containers, enabling some backward compatibility of Windows container image versions, is planned for a future release.
+##### Memory Reservations
+Windows does not have an out-of-memory process killer as Linux does. Windows always treats all user-mode memory allocations as virtual, and pagefiles are mandatory. The net effect is that Windows won't reach out of memory conditions the same way Linux does, and processes page to disk instead of being subject to out of memory (OOM) termination. If memory is over-provisioned and all physical memory is exhausted, then paging can slow down performance.
 
-##### Feature Restrictions
+Keeping memory usage within reasonable bounds is possible using the kubelet parameters `--kubelet-reserve` and/or `--system-reserve` to account for memory usage on the node (outside of containers). This reduces [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable). 
 
-* TerminationGracePeriod: requires CRI-containerD
+{{< note >}}
+As you deploy workloads, use resource limits (must set only limits or limits must equal requests) on containers. This also subtracts from NodeAllocatable and prevents the scheduler from adding more pods once a node is full.
+{{< /note >}}
+
+A best practice to avoid over-provisioning is to configure the kubelet with a system reserved memory of at least 2GB to account for Windows, Docker, and Kubernetes processes.
+
+##### CPU Reservations
+To account for Windows, Docker and other Kubernetes host processes it is recommended to reserve a percentage of CPU so they are able to respond to events. This value needs to be scaled based on the number of CPU cores available on the Windows node.To determine this percentage a user should identify the maximum pod density for each of their nodes and monitor the CPU usage of the system services choosing a value that meets their workload needs.
+
+Keeping CPU usage within reasonable bounds is possible using the kubelet parameters `--kubelet-reserve` and/or `--system-reserve` to account for CPU usage on the node (outside of containers). This reduces [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable). 
+
+#### Feature Restrictions
+* TerminationGracePeriod: not implemented
 * Single file mapping: to be implemented with CRI-ContainerD
 * Termination message: to be implemented with CRI-ContainerD
 * Privileged Containers: not currently supported in Windows containers
@@ -257,15 +270,8 @@ Windows has strict compatibility rules, where the host OS version must match the
 * The existing node problem detector is Linux-only and requires privileged containers. In general, we don't expect this to be used on Windows because privileged containers are not supported
 * Not all features of shared namespaces are supported (see API section for more details)
 
-##### Memory Reservations and Handling
-
-Windows does not have an out-of-memory process killer as Linux does. Windows always treats all user-mode memory allocations as virtual, and pagefiles are mandatory. The net effect is that Windows won't reach out of memory conditions the same way Linux does, and processes page to disk instead of being subject to out of memory (OOM) termination. If memory is over-provisioned and all physical memory is exhausted, then paging can slow down performance.
-
-Keeping memory usage within reasonable bounds is possible with a two-step process. First, use the kubelet parameters `--kubelet-reserve` and/or `--system-reserve` to account for memory usage on the node (outside of containers). This reduces [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)). As you deploy workloads, use resource limits (must set only limits or limits must equal requests) on containers. This also subtracts from NodeAllocatable and prevents the scheduler from adding more pods once a node is full.
-
-A best practice to avoid over-provisioning is to configure the kubelet with a system reserved memory of at least 2GB to account for Windows, Docker, and Kubernetes processes.
-
-The behavior of the flags behave differently as described below:
+#### Difference in behavior of flags when compared to Linux
+The behavior of the following kubelet flags is different on Windows nodes as described below:
 
 * `--kubelet-reserve`, `--system-reserve` , and `--eviction-hard` flags update Node Allocatable
 * Eviction by using `--enforce-node-allocable` is not implemented
@@ -297,7 +303,7 @@ As a result, the following storage functionality is not supported on Windows nod
 * NFS based storage/volume support
 * Expanding the mounted volume (resizefs)
 
-#### Networking {networking-limitations}
+#### Networking {#networking-limitations}
 
 Windows Container Networking differs in some important ways from Linux networking. The [Microsoft documentation for Windows Container Networking](https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture) contains additional details and background.
 
@@ -308,9 +314,10 @@ The following networking functionality is not supported on Windows nodes
 * Host networking mode is not available for Windows pods
 * Local NodePort access from the node itself fails (works for other nodes or external clients)
 * Accessing service VIPs from nodes will be available with a future release of Windows Server
-* Overlay networking support in kube-proxy is an alpha release. In addition, it requires [KB4482887](https://support.microsoft.com/en-us/help/4482887/windows-10-update-kb4482887) to be installed on Windows Server 2019
-* Local Traffic Policy and DSR mode
-* Windows containers connected to l2bridge, l2tunnel, or overlay networks do not support communicating over the IPv6 stack. There is outstanding Windows platform work required to enable these network drivers to consume IPv6 addresses and subsequent Kubernetes work in kubelet, kube-proxy, and CNI plugins.
+* A single service can only support up to 64 backend pods / unique destination IPs
+* Overlay networking support in kube-proxy is a beta feature. In addition, it requires [KB4482887](https://support.microsoft.com/en-us/help/4482887/windows-10-update-kb4482887) to be installed on Windows Server 2019
+* Local Traffic Policy in non-DSR mode
+* Windows containers connected to overlay networks do not support communicating over the IPv6 stack. There is outstanding Windows platform work required to enable this network driver to consume IPv6 addresses and subsequent Kubernetes work in kubelet, kube-proxy, and CNI plugins.
 * Outbound communication using the ICMP protocol via the win-overlay, win-bridge, and Azure-CNI plugin. Specifically, the Windows data plane ([VFP](https://www.microsoft.com/en-us/research/project/azure-virtual-filtering-platform/)) doesn't support ICMP packet transpositions. This means:
   * ICMP packets directed to destinations within the same network (e.g. pod to pod communication via ping) work as expected and without any limitations
   * TCP/UDP packets work as expected and without any limitations
@@ -332,7 +339,7 @@ These features were added in Kubernetes v1.15:
 ##### DNS {#dns-limitations}
 
 * ClusterFirstWithHostNet is not supported for DNS. Windows treats all names with a '.' as a FQDN and skips PQDN resolution
-* On Linux, you have a DNS suffix list, which is used when trying to resolve PQDNs. On Windows, we only have 1 DNS suffix, which is the DNS suffix associated with that pod's namespace (mydns.svc.cluster.local for example). Windows can resolve FQDNs and services or names resolvable with just that suffix. For example, a pod spawned in the default namespace, will have the DNS suffix **default.svc.cluster.local**. On a Windows pod, you can resolve both **kubernetes.default.svc.cluster.local** and **kubernetes**, but not the in-betweens, like **kubernetes.default** or **kubernetes.default.svc**.
+* On Linux, you have a DNS suffix list, which is used when trying to resolve PQDNs. On Windows, we only have 1 DNS suffix, which is the DNS suffix associated with that pod's namespace (mydns.svc.cluster.local for example). Windows can resolve FQDNs and services or names resolvable with only that suffix. For example, a pod spawned in the default namespace, will have the DNS suffix **default.svc.cluster.local**. On a Windows pod, you can resolve both **kubernetes.default.svc.cluster.local** and **kubernetes**, but not the in-betweens, like **kubernetes.default** or **kubernetes.default.svc**.
 * On Windows, there are multiple DNS resolvers that can be used. As these come with slightly different behaviors, using the `Resolve-DNSName` utility for name query resolutions is recommended.
 
 ##### IPv6
@@ -362,9 +369,9 @@ There are no differences in how most of the Kubernetes APIs work for Windows. Th
 
 At a high level, these OS concepts are different:
 
-* Identity - Linux uses userID (UID) and groupID (GID) which are represented as integer types. User and group names are not canonical - they are just an alias in `/etc/groups` or `/etc/passwd` back to UID+GID. Windows uses a larger binary security identifier (SID) which is stored in the Windows Security Access Manager (SAM) database. This database is not shared between the host and containers, or between containers.
+* Identity - Linux uses userID (UID) and groupID (GID) which are represented as integer types. User and group names are not canonical - they are an alias in `/etc/groups` or `/etc/passwd` back to UID+GID. Windows uses a larger binary security identifier (SID) which is stored in the Windows Security Access Manager (SAM) database. This database is not shared between the host and containers, or between containers.
 * File permissions - Windows uses an access control list based on SIDs, rather than a bitmask of permissions and UID+GID
-* File paths - convention on Windows is to use `\` instead of `/`. The Go IO libraries typically accept both and just make it work, but when you're setting a path or command line that's interpreted inside a container, `\` may be needed.
+* File paths - convention on Windows is to use `\` instead of `/`. The Go IO libraries accept both types of file path separators. However, when you're setting a path or command line that's interpreted inside a container, `\` may be needed.
 * Signals - Windows interactive apps handle termination differently, and can implement one or more of these:
   * A UI thread handles well-defined messages including WM_CLOSE
   * Console apps handle ctrl-c or ctrl-break using a Control Handler
@@ -411,6 +418,10 @@ None of the PodSecurityContext fields work on Windows. They're listed here for r
 * V1.PodSecurityContext.RunAsNonRoot - Windows does not have a root user. The closest equivalent is ContainerAdministrator which is an identity that doesn't exist on the node.
 * V1.PodSecurityContext.SupplementalGroups - provides GID, not available on Windows
 * V1.PodSecurityContext.Sysctls - these are part of the Linux sysctl interface. There's no equivalent on Windows.
+
+#### Operating System Version Restrictions
+
+Windows has strict compatibility rules, where the host OS version must match the container base image OS version. Only Windows containers with a container operating system of Windows Server 2019 are supported. Hyper-V isolation of containers, enabling some backward compatibility of Windows container image versions, is planned for a future release.
 
 ## Getting Help and Troubleshooting {#troubleshooting}
 
@@ -547,7 +558,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
 1. After launching `start.ps1`, flanneld is stuck in "Waiting for the Network to be created"
 
-    There are numerous reports of this [issue which are being investigated](https://github.com/coreos/flannel/issues/1066); most likely it is a timing issue for when the management IP of the flannel network is set. A workaround is to simply relaunch start.ps1 or relaunch it manually as follows:
+    There are numerous reports of this [issue](https://github.com/coreos/flannel/issues/1066); most likely it is a timing issue for when the management IP of the flannel network is set. A workaround is to relaunch start.ps1 or relaunch it manually as follows:
 
     ```powershell
     PS C:> [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")

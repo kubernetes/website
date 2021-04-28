@@ -28,9 +28,9 @@ resource can only be in one namespace.
 
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
 
-It is not necessary to use multiple namespaces just to separate slightly different
+It is not necessary to use multiple namespaces to separate slightly different
 resources, such as different versions of the same software: use
-[labels](/docs/concepts/overview/working-with-objects/labels) to distinguish
+{{< glossary_tooltip text="labels" term_id="label" >}} to distinguish
 resources within the same namespace.
 
 ## Working with Namespaces
@@ -91,7 +91,7 @@ kubectl config view --minify | grep namespace:
 When you create a [Service](/docs/concepts/services-networking/service/),
 it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
-that if a container just uses `<service-name>`, it will resolve to the service which
+that if a container only uses `<service-name>`, it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
@@ -113,6 +113,16 @@ kubectl api-resources --namespaced=true
 # Not in a namespace
 kubectl api-resources --namespaced=false
 ```
+
+## Automatic labelling
+
+{{< feature-state state="beta" for_k8s_version="1.21" >}}
+
+The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
+`kubernetes.io/metadata.name` on all namespaces, provided that the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+The value of the label is the namespace name.
+
 
 ## {{% heading "whatsnext" %}}
 

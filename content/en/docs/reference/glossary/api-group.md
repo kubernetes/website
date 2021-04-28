@@ -2,7 +2,7 @@
 title: API Group
 id: api-group
 date: 2019-09-02
-full_link: /docs/concepts/overview/kubernetes-api/#api-groups
+full_link: /docs/concepts/overview/kubernetes-api/#api-groups-and-versioning
 short_description: >
   A set of related paths in the Kubernetes API.
 

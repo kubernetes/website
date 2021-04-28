@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "FlowSchema defines the schema of a group of flows."
 title: "FlowSchema v1beta1"
 weight: 7
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: flowcontrol.apiserver.k8s.io/v1beta1`
 
@@ -92,43 +104,43 @@ FlowSchemaSpec describes how the FlowSchema's specification looks like.
     <a name="Subject"></a>
     *Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.*
 
-  - **rules.subjects.kind** (string), required
+    - **rules.subjects.kind** (string), required
 
-    Required
+      Required
 
-  - **rules.subjects.group** (GroupSubject)
-
-
-    <a name="GroupSubject"></a>
-    *GroupSubject holds detailed information for group-kind subject.*
-
-  - **rules.subjects.group.name** (string), required
-
-    name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
-
-  - **rules.subjects.serviceAccount** (ServiceAccountSubject)
+    - **rules.subjects.group** (GroupSubject)
 
 
-    <a name="ServiceAccountSubject"></a>
-    *ServiceAccountSubject holds detailed information for service-account-kind subject.*
+      <a name="GroupSubject"></a>
+      *GroupSubject holds detailed information for group-kind subject.*
 
-  - **rules.subjects.serviceAccount.name** (string), required
+      - **rules.subjects.group.name** (string), required
 
-    `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
+        name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
 
-  - **rules.subjects.serviceAccount.namespace** (string), required
-
-    `namespace` is the namespace of matching ServiceAccount objects. Required.
-
-  - **rules.subjects.user** (UserSubject)
+    - **rules.subjects.serviceAccount** (ServiceAccountSubject)
 
 
-    <a name="UserSubject"></a>
-    *UserSubject holds detailed information for user-kind subject.*
+      <a name="ServiceAccountSubject"></a>
+      *ServiceAccountSubject holds detailed information for service-account-kind subject.*
 
-  - **rules.subjects.user.name** (string), required
+      - **rules.subjects.serviceAccount.name** (string), required
 
-    `name` is the username that matches, or "*" to match all usernames. Required.
+        `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
+
+      - **rules.subjects.serviceAccount.namespace** (string), required
+
+        `namespace` is the namespace of matching ServiceAccount objects. Required.
+
+    - **rules.subjects.user** (UserSubject)
+
+
+      <a name="UserSubject"></a>
+      *UserSubject holds detailed information for user-kind subject.*
+
+      - **rules.subjects.user.name** (string), required
+
+        `name` is the username that matches, or "*" to match all usernames. Required.
 
   - **rules.nonResourceRules** ([]NonResourcePolicyRule)
 
@@ -139,23 +151,23 @@ FlowSchemaSpec describes how the FlowSchema's specification looks like.
     <a name="NonResourcePolicyRule"></a>
     *NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.*
 
-  - **rules.nonResourceRules.nonResourceURLs** ([]string), required
+    - **rules.nonResourceRules.nonResourceURLs** ([]string), required
 
-    *Set: unique values will be kept during a merge*
-    
-    `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
-      - "/healthz" is legal
-      - "/hea*" is illegal
-      - "/hea" is legal but matches nothing
-      - "/hea/*" also matches nothing
-      - "/healthz/*" matches all per-component health checks.
-    "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+      *Set: unique values will be kept during a merge*
+      
+      `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
+        - "/healthz" is legal
+        - "/hea*" is illegal
+        - "/hea" is legal but matches nothing
+        - "/hea/*" also matches nothing
+        - "/healthz/*" matches all per-component health checks.
+      "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
 
-  - **rules.nonResourceRules.verbs** ([]string), required
+    - **rules.nonResourceRules.verbs** ([]string), required
 
-    *Set: unique values will be kept during a merge*
-    
-    `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
+      *Set: unique values will be kept during a merge*
+      
+      `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
 
   - **rules.resourceRules** ([]ResourcePolicyRule)
 
@@ -166,33 +178,33 @@ FlowSchemaSpec describes how the FlowSchema's specification looks like.
     <a name="ResourcePolicyRule"></a>
     *ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.*
 
-  - **rules.resourceRules.apiGroups** ([]string), required
+    - **rules.resourceRules.apiGroups** ([]string), required
 
-    *Set: unique values will be kept during a merge*
-    
-    `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
+      *Set: unique values will be kept during a merge*
+      
+      `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
 
-  - **rules.resourceRules.resources** ([]string), required
+    - **rules.resourceRules.resources** ([]string), required
 
-    *Set: unique values will be kept during a merge*
-    
-    `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
+      *Set: unique values will be kept during a merge*
+      
+      `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
 
-  - **rules.resourceRules.verbs** ([]string), required
+    - **rules.resourceRules.verbs** ([]string), required
 
-    *Set: unique values will be kept during a merge*
-    
-    `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
+      *Set: unique values will be kept during a merge*
+      
+      `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
 
-  - **rules.resourceRules.clusterScope** (boolean)
+    - **rules.resourceRules.clusterScope** (boolean)
 
-    `clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.
+      `clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.
 
-  - **rules.resourceRules.namespaces** ([]string)
+    - **rules.resourceRules.namespaces** ([]string)
 
-    *Set: unique values will be kept during a merge*
-    
-    `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
+      *Set: unique values will be kept during a merge*
+      
+      `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
 
 
 

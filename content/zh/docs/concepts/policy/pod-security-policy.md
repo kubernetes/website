@@ -253,7 +253,7 @@ paired with system groups to grant access to all pods run in the namespace:
 可以考虑将这种授权模式和系统组结合，对名字空间中的所有 Pod 授予访问权限。
 
 ```yaml
-# 授权该某名字空间中所有服务账号
+# 授权某名字空间中所有服务账号
 - kind: Group
   apiGroup: rbac.authorization.k8s.io
   name: system:serviceaccounts
@@ -1230,7 +1230,7 @@ By default, all safe sysctls are allowed.
 
 - Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 -->
-- 参阅[Pod 安全标准](zh/docs/concepts/security/pod-security-standards/)
+- 参阅[Pod 安全标准](/zh/docs/concepts/security/pod-security-standards/)
   了解策略建议。
 - 阅读 [Pod 安全策略参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)了解 API 细节。
 

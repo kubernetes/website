@@ -37,7 +37,7 @@ profiles that give only the necessary privileges to your container processes.
 
 In order to complete all steps in this tutorial, you must install
 [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) and
-[kubectl](/docs/tasks/tools/install-kubectl/). This tutorial will show examples
+[kubectl](/docs/tasks/tools/). This tutorial will show examples
 with both alpha (pre-v1.19) and generally available seccomp functionality, so
 make sure that your cluster is [configured
 correctly](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)
@@ -67,8 +67,8 @@ into the cluster.
 
 For simplicity, [kind](https://kind.sigs.k8s.io/) can be used to create a single
 node cluster with the seccomp profiles loaded. Kind runs Kubernetes in Docker,
-so each node of the cluster is actually just a container. This allows for files
-to be mounted in the filesystem of each container just as one might load files
+so each node of the cluster is a container. This allows for files
+to be mounted in the filesystem of each container similar to loading files
 onto a node.
 
 {{< codenew file="pods/security/seccomp/kind.yaml" >}}

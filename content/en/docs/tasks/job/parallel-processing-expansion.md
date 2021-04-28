@@ -2,7 +2,7 @@
 title: Parallel Processing using Expansions
 content_type: task
 min-kubernetes-server-version: v1.8
-weight: 20
+weight: 50
 ---
 
 <!-- overview -->
@@ -12,7 +12,7 @@ based on a common template. You can use this approach to process batches of work
 parallel.
 
 For this example there are only three items: _apple_, _banana_, and _cherry_.
-The sample Jobs process each item simply by printing a string then pausing.
+The sample Jobs process each item by printing a string then pausing.
 
 See [using Jobs in real workloads](#using-jobs-in-real-workloads) to learn about how
 this pattern fits more realistic use cases.

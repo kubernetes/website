@@ -69,6 +69,10 @@ Details on the various `scopes` and `policies` available today can be found belo
 To align CPU resources with other requested resources in a Pod Spec, the CPU Manager should be enabled and proper CPU Manager policy should be configured on a Node. See [control CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 {{< /note >}}
 
+{{< note >}}
+To align memory (and hugepages) resources with other requested resources in a Pod Spec, the Memory Manager should be enabled and proper Memory Manager policy should be configured on a Node. Examine [Memory Manager](/docs/tasks/administer-cluster/memory-manager/) documentation.
+{{< /note >}}
+
 ### Topology Manager Scopes
 
 The Topology Manager can deal with the alignment of resources in a couple of distinct scopes:
@@ -264,7 +268,3 @@ Using this information the Topology Manager calculates the optimal hint for the 
 1. The maximum number of NUMA nodes that Topology Manager allows is 8. With more than 8 NUMA nodes there will be a state explosion when trying to enumerate the possible NUMA affinities and generating their hints.
 
 2. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail on the node due to the Topology Manager.
-
-3. The Device Manager and the CPU Manager are the only components to adopt the Topology Manager's HintProvider interface. This means that NUMA alignment can only be achieved for resources managed by the CPU Manager and the Device Manager. Memory or Hugepages are not considered by the Topology Manager for NUMA alignment.
-
-

@@ -3,13 +3,13 @@ aliases:
     - castrojo
     - kbarnard10
     - onlydole
-    - zacharysarah
     - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
     - castrojo
     - kbarnard10
     - mrbobbytables
     - onlydole
+    - sftim
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -32,7 +32,6 @@ aliases:
     - sftim
     - steveperry-53
     - tengqm
-    - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
@@ -49,11 +48,9 @@ aliases:
     - zparnold
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
-    - alexbrand
+    - electrocucaracha
   sig-docs-es-reviews: # PR reviews for Spanish content
     - raelga
-    - alexbrand
-    # glo-pena
     - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
     - remyleone
@@ -92,15 +89,21 @@ aliases:
     - daminisatya
     - mittalyashu
   sig-docs-id-owners: # Admins for Indonesian content
-    - girikuncoro
-    - irvifa
-  sig-docs-id-reviews: # PR reviews for Indonesian content
+    - ariscahyadi
+    - danninov
     - girikuncoro
     - habibrosyad
     - irvifa
-    - wahyuoi
     - phanama
+    - wahyuoi
+  sig-docs-id-reviews: # PR reviews for Indonesian content
+    - ariscahyadi
     - danninov
+    - girikuncoro
+    - habibrosyad
+    - irvifa
+    - phanama
+    - wahyuoi
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
     - Fale
@@ -169,14 +172,20 @@ aliases:
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
+    - jailton
     - jcjesus
     - devlware
     - jhonmike
+    - rikatz
+    - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
+    - jailton
     - jcjesus
     - devlware
     - jhonmike
+    - rikatz
+    - yagonobre
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - ngtuna

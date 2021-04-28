@@ -95,10 +95,10 @@ kube-apiserver \
 
 <!--
 Alternatively, you can enable the v1alpha1 version of the API group
-with `--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=true`.
+with `--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true`.
 -->
 或者，你也可以通过
-`--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=true`
+`--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true`
 启用 API 组的 v1alpha1 版本。
 
 <!--
@@ -762,7 +762,7 @@ poorly-behaved workloads that may be harming system health.
   histogram vector of queue lengths for the queues, broken down by
   the labels `priority_level` and `flow_schema`, as sampled by the
   enqueued requests.  Each request that gets queued contributes one
-  sample to its histogram, reporting the length of the queue just
+  sample to its histogram, reporting the length of the queue immediately
   after the request was added.  Note that this produces different
   statistics than an unbiased survey would.
 -->
@@ -939,10 +939,10 @@ For background information on design details for API priority and fairness, see 
 [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
 You can make suggestions and feature requests via
 [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
-or the feature's [slack channel](http://kubernetes.slack.com/messages/api-priority-and-fairness).
+or the feature's [slack channel](https://kubernetes.slack.com/messages/api-priority-and-fairness).
 -->
 有关API优先级和公平性的设计细节的背景信息，
 请参阅[增强建议](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md)。
-你可以通过 [SIG APIMachinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
-或特性的 [Slack 频道](http://kubernetes.slack.com/messages/api-priority-and-fairness)
+你可以通过 [SIG APIMachinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery/)
+或特性的 [Slack 频道](https://kubernetes.slack.com/messages/api-priority-and-fairness/)
 提出建议和特性请求。

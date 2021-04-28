@@ -1,7 +1,9 @@
 ---
 reviewers:
-- michmike
-- patricklang
+- jayunit100
+- jsturtevant
+- marosset
+- perithompson
 title: Guide for scheduling Windows containers in Kubernetes
 content_type: concept
 weight: 75
@@ -23,7 +25,7 @@ Windows applications constitute a large portion of the services and applications
 ## Before you begin
 
 * Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)
-* It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
+* It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows container
 

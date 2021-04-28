@@ -1,4 +1,4 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: hello
@@ -12,7 +12,7 @@ spec:
           - name: hello
             image: busybox
             imagePullPolicy: IfNotPresent
-            args:
+            command:
             - /bin/sh
             - -c
             - date; echo Hello from the Kubernetes cluster

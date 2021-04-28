@@ -65,7 +65,7 @@ Pod 是非永久性资源。
 每个 Pod 都有自己的 IP 地址，但是在 Deployment 中，在同一时刻运行的 Pod 集合可能与稍后运行该应用程序的 Pod 集合不同。
 
 这导致了一个问题： 如果一组 Pod（称为“后端”）为集群内的其他 Pod（称为“前端”）提供功能，
-那么前端如何找出并跟踪要连接的 IP 地址，以便前端可以使用工作量的后端部分？
+那么前端如何找出并跟踪要连接的 IP 地址，以便前端可以使用提供工作负载的后端部分？
 
 进入 _Services_。
 
@@ -129,8 +129,8 @@ a new instance.
 The name of a Service object must be a valid
 [DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
-For example, suppose you have a set of Pods that each listen on TCP port 9376
-and carry a label `app=MyApp`:
+For example, suppose you have a set of Pods where each listens on TCP port 9376
+and contains a label `app=MyApp`:
 -->
 
 ## 定义 Service
@@ -255,11 +255,11 @@ spec:
 ```
 
 <!--
-Because this Service has no selector, the corresponding Endpoint object is *not*
+Because this Service has no selector, the corresponding Endpoints object is not
 created automatically. You can manually map the Service to the network address and port
-where it's running, by adding an Endpoint object manually:
+where it's running, by adding an Endpoints object manually:
 -->
-由于此服务没有选择算符，因此 *不会* 自动创建相应的 Endpoint 对象。
+由于此服务没有选择算符，因此不会自动创建相应的 Endpoint 对象。
 你可以通过手动添加 Endpoint 对象，将服务手动映射到运行该服务的网络地址和端口：
 
 ```yaml
@@ -348,7 +348,7 @@ each Service port. The value of this field is mirrored by the corresponding
 Endpoints and EndpointSlice objects.
 
 This field follows standard Kubernetes label syntax. Values should either be
-[IANA standard service names](http://www.iana.org/assignments/service-names) or
+[IANA standard service names](https://www.iana.org/assignments/service-names) or
 domain prefixed names such as `mycompany.com/my-custom-protocol`.
 -->
 ### 应用程序协议   {#application-protocol}
@@ -358,8 +358,8 @@ domain prefixed names such as `mycompany.com/my-custom-protocol`.
 此字段的取值会被映射到对应的 Endpoints 和 EndpointSlices 对象。
 
 该字段遵循标准的 Kubernetes 标签语法。
-其值可以是 [IANA 标准服务名称](http://www.iana.org/assignments/service-names)或以域名前缀的名称，
-如 `mycompany.com/my-custom-protocol`。 
+其值可以是 [IANA 标准服务名称](https://www.iana.org/assignments/service-names)
+或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。 
 <!--
 ## Virtual IPs and service proxies
 
@@ -728,7 +728,7 @@ Services by their DNS name.
 For example, if you have a Service called `my-service` in a Kubernetes
 namespace `my-ns`, the control plane and the DNS Service acting together
 create a DNS record for `my-service.my-ns`. Pods in the `my-ns` namespace
-should be able to find it by simply doing a name lookup for `my-service`
+should be able to find the service by doing a name lookup for `my-service`
 (`my-service.my-ns` would also work).
 
 Pods in other Namespaces must qualify the name as `my-service.my-ns`. These names
@@ -736,7 +736,7 @@ will resolve to the cluster IP assigned for the Service.
 -->
 例如，如果你在 Kubernetes 命名空间 `my-ns` 中有一个名为 `my-service` 的服务，
 则控制平面和 DNS 服务共同为 `my-service.my-ns` 创建 DNS 记录。
-`my-ns` 命名空间中的 Pod 应该能够通过简单地按名检索 `my-service` 来找到它
+`my-ns` 命名空间中的 Pod 应该能够通过按名检索 `my-service` 来找到服务
 （`my-service.my-ns` 也可以工作）。
 
 其他命名空间中的 Pod 必须将名称限定为 `my-service.my-ns`。
@@ -794,12 +794,12 @@ DNS 如何实现自动配置，依赖于 Service 是否定义了选择算符。
 
 For headless Services that define selectors, the endpoints controller creates
 `Endpoints` records in the API, and modifies the DNS configuration to return
-records (addresses) that point directly to the `Pods` backing the `Service`.
+A records (IP addresses) that point directly to the `Pods` backing the `Service`.
 -->
 ### 带选择算符的服务 {#with-selectors}
 
 对定义了选择算符的无头服务，Endpoint 控制器在 API 中创建了 Endpoints 记录，
-并且修改 DNS 配置返回 A 记录（地址），通过这个地址直接到达 `Service` 的后端 Pod 上。
+并且修改 DNS 配置返回 A 记录（IP 地址），通过这个地址直接到达 `Service` 的后端 Pod 上。
 
 <!--
 ### Without selectors
@@ -889,8 +889,13 @@ allocates a port from a range specified by `--service-node-port-range` flag (def
 Each node proxies that port (the same port number on every Node) into your Service.
 Your Service reports the allocated port in its `.spec.ports[*].nodePort` field.
 
-If you want to specify particular IP(s) to proxy the port, you can set the `--nodeport-addresses` flag in kube-proxy to particular IP block(s); this is supported since Kubernetes v1.10.
-This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 192.0.2.0/25) to specify IP address ranges that kube-proxy should consider as local to this node.
+If you want to specify particular IP(s) to proxy the port, you can set the
+`--nodeport-addresses` flag for kube-proxy or the equivalent `nodePortAddresses`
+field of the
+[kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+to particular IP block(s).
+
+This flag takes a comma-delimited list of IP blocks (e.g. `10.0.0.0/8`, `192.0.2.0/25`) to specify IP address ranges that kube-proxy should consider as local to this node.
 -->
 ### NodePort 类型  {#nodeport}
 
@@ -899,8 +904,9 @@ This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 192.0.2.0/
 每个节点将那个端口（每个节点上的相同端口号）代理到你的服务中。
 你的服务在其 `.spec.ports[*].nodePort` 字段中要求分配的端口。
 
-如果你想指定特定的 IP 代理端口，则可以将 kube-proxy 中的 `--nodeport-addresses` 
-标志设置为特定的 IP 块。从 Kubernetes v1.10 开始支持此功能。
+如果你想指定特定的 IP 代理端口，则可以设置 kube-proxy 中的 `--nodeport-addresses` 参数
+或者将[kube-proxy 配置文件](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+中的等效 `nodePortAddresses` 字段设置为特定的 IP 块。
 该标志采用逗号分隔的 IP 块列表（例如，`10.0.0.0/8`、`192.0.2.0/25`）来指定
 kube-proxy 应该认为是此节点本地的 IP 地址范围。
 
@@ -928,10 +934,12 @@ for NodePort use.
 <!--
 Using a NodePort gives you the freedom to set up your own load balancing solution,
 to configure environments that are not fully supported by Kubernetes, or even
-to just expose one or more nodes' IPs directly.
+to expose one or more nodes' IPs directly.
 
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
-and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
+and `.spec.clusterIP:spec.ports[*].port`.
+If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
+in the kube-proxy configuration file is set, `<NodeIP>` would be filtered node IP(s).
 
 For example:
 -->
@@ -940,8 +948,9 @@ For example:
 甚至直接暴露一个或多个节点的 IP。
 
 需要注意的是，Service 能够通过 `<NodeIP>:spec.ports[*].nodePort` 和
-`spec.clusterIp:spec.ports[*].port` 而对外可见
-（如果 kube-proxy 的 `--nodeport-addresses` 参数被设置了， <NodeIP>将被过滤 NodeIP。）。
+`spec.clusterIp:spec.ports[*].port` 而对外可见。
+如果设置了 kube-proxy 的 `--nodeport-addresses` 参数或 kube-proxy 配置文件中的等效字段，
+ `<NodeIP>` 将被过滤 NodeIP。
 
 例如：
 
@@ -1284,14 +1293,13 @@ TCP 和 SSL 选择第4层代理：ELB 转发流量而不修改报头。
 
 <!--
 In the above example, if the Service contained three ports, `80`, `443`, and
-`8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
-be proxied HTTP.
+`8443`, then `443` and `8443` would use the SSL certificate, but `80` would be proxied HTTP.
 
 From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
 To see which policies are available for use, you can use the `aws` command line tool:
 -->
 在上例中，如果服务包含 `80`、`443` 和 `8443` 三个端口， 那么 `443` 和 `8443` 将使用 SSL 证书，
-而 `80` 端口将仅仅转发 HTTP 数据包。
+而 `80` 端口将转发 HTTP 数据包。
 
 从 Kubernetes v1.9 起可以使用
 [预定义的 AWS SSL 策略](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)
@@ -1540,7 +1548,7 @@ groups are modified with the following IP rules:
 
 | Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
 |------|----------|---------|------------|---------------------|
-| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy=Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
 | Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 
@@ -1794,7 +1802,7 @@ iptables 代理不会隐藏 Kubernetes 集群内部的 IP 地址，但却要求�
 <!--
 ## Virtual IP implementation {#the-gory-details-of-virtual-ips}
 
-The previous information should be sufficient for many people who just want to
+The previous information should be sufficient for many people who want to
 use Services.  However, there is a lot going on behind the scenes that may be
 worth understanding.
 -->
@@ -1889,7 +1897,7 @@ rule kicks in, and redirects the packets to the proxy's own port.
 The "Service proxy" chooses a backend, and starts proxying traffic from the client to the backend.
 
 This means that Service owners can choose any port they want without risk of
-collision.  Clients can simply connect to an IP and port, without being aware
+collision.  Clients can connect to an IP and port, without being aware
 of which Pods they are actually accessing.
 -->
 
@@ -1904,7 +1912,7 @@ of which Pods they are actually accessing.
 "服务代理" 选择一个后端，并将客户端的流量代理到后端上。
 
 这意味着 Service 的所有者能够选择任何他们想使用的端口，而不存在冲突的风险。
-客户端可以简单地连接到一个 IP 和端口，而不需要知道实际访问了哪些 Pod。
+客户端可以连接到一个 IP 和端口，而不需要知道实际访问了哪些 Pod。
 
 #### iptables
 
@@ -2060,7 +2068,7 @@ You can also use {{< glossary_tooltip term_id="ingress" >}} in place of Service
 to expose HTTP / HTTPS Services.
 -->
 {{< note >}}
-你还可以使用 {{< glossary_tooltip text="Ingres" term_id="ingress" >}} 代替
+你还可以使用 {{< glossary_tooltip text="Ingress" term_id="ingress" >}} 代替
 Service 来公开 HTTP/HTTPS 服务。
 {{< /note >}}
 

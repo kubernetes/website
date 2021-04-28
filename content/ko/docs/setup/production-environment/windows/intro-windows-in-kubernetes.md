@@ -12,7 +12,7 @@ weight: 65
 
 ## 쿠버네티스의 윈도우 컨테이너
 
-쿠버네티스에서 윈도우 컨테이너 오케스트레이션을 활성화하려면, 기존 리눅스 클러스터에 윈도우 노드를 포함하기만 하면 된다. 쿠버네티스의 {{< glossary_tooltip text="파드" term_id="pod" >}}에서 윈도우 컨테이너를 스케줄링하는 것은 리눅스 기반 컨테이너를 스케줄링하는 것만큼 간단하고 쉽다.
+쿠버네티스에서 윈도우 컨테이너 오케스트레이션을 활성화하려면, 기존 리눅스 클러스터에 윈도우 노드를 포함한다. 쿠버네티스의 {{< glossary_tooltip text="파드" term_id="pod" >}}에서 윈도우 컨테이너를 스케줄링하는 것은 리눅스 기반 컨테이너를 스케줄링하는 것과 유사하다.
 
 윈도우 컨테이너를 실행하려면, 쿠버네티스 클러스터에 리눅스를 실행하는 컨트롤 플레인 노드와 사용자의 워크로드 요구에 따라 윈도우 또는 리눅스를 실행하는 워커가 있는 여러 운영 체제가 포함되어 있어야 한다. 윈도우 서버 2019는 윈도우에서 [쿠버네티스 노드](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)를 활성화하는 유일한 윈도우 운영 체제이다(kubelet, [컨테이너 런타임](https://docs.microsoft.com/ko-kr/virtualization/windowscontainers/deploy-containers/containerd) 및 kube-proxy 포함). 윈도우 배포 채널에 대한 자세한 설명은 [Microsoft 문서](https://docs.microsoft.com/ko-kr/windows-server/get-started-19/servicing-channels-19)를 참고한다.
 
@@ -33,7 +33,7 @@ weight: 65
 쿠버네티스의 윈도우 운영 체제 지원은 다음 표를 참조한다. 단일 이기종 쿠버네티스 클러스터에는 윈도우 및 리눅스 워커 노드가 모두 있을 수 있다. 윈도우 컨테이너는 윈도우 노드에서, 리눅스 컨테이너는 리눅스 노드에서 스케줄되어야 한다.
 
 | 쿠버네티스 버전 | 윈도우 서버 LTSC 릴리스 | 윈도우 서버 SAC 릴리스 |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | *Kubernetes v1.17* | Windows Server 2019 | Windows Server ver 1809 |
 | *Kubernetes v1.18* | Windows Server 2019 | Windows Server ver 1809, Windows Server ver 1903, Windows Server ver 1909 |
 | *Kubernetes v1.19* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
@@ -218,7 +218,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 
 #### IPv4/IPv6 이중 스택
 
-`IPv6DualStack` [기능 게이트](https://kubernetes.io/ko/docs/reference/command-line-tools-reference/feature-gates/)를 사용하여 `l2bridge` 네트워크에 IPv4/IPv6 이중 스택 네트워킹을 활성화할 수 있다. 자세한 내용은 [IPv4/IPv6 이중 스택 활성화](/ko/docs/concepts/services-networking/dual-stack/#ipv4-ipv6-이중-스택-활성화)을 참조한다.
+`IPv6DualStack` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 사용하여 `l2bridge` 네트워크에 IPv4/IPv6 이중 스택 네트워킹을 활성화할 수 있다. 자세한 내용은 [IPv4/IPv6 이중 스택 활성화](/ko/docs/concepts/services-networking/dual-stack/#ipv4-ipv6-이중-스택-활성화)를 참조한다.
 
 {{< note >}}
 윈도우에서 쿠버네티스와 함께 IPv6를 사용하려면 윈도우 서버 버전 2004 (커널 버전 10.0.19041.610) 이상이 필요하다.
@@ -230,23 +230,32 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 
 ### 제한
 
-#### 컨트롤 플레인
-
 윈도우는 쿠버네티스 아키텍처 및 컴포넌트 매트릭스에서 워커 노드로만 지원된다. 즉, 쿠버네티스 클러스터에는 항상 리눅스 마스터 노드가 반드시 포함되어야 하고, 0개 이상의 리눅스 워커 노드 및 0개 이상의 윈도우 워커 노드가 포함된다.
 
-#### 컴퓨트
-
-##### 리소스 관리 및 프로세스 격리
+#### 자원 관리
 
  리눅스 cgroup은 리눅스에서 리소스 제어를 위한 파드 경계로 사용된다. 컨테이너는 네트워크, 프로세스 및 파일시스템 격리를 위해 해당 경계 내에 생성된다. cgroups API는 cpu/io/memory 통계를 수집하는 데 사용할 수 있다. 반대로 윈도우는 시스템 네임스페이스 필터가 있는 컨테이너별로 잡(Job) 오브젝트를 사용하여 컨테이너의 모든 프로세스를 포함하고 호스트와의 논리적 격리를 제공한다. 네임스페이스 필터링 없이 윈도우 컨테이너를 실행할 수 있는 방법은 없다. 즉, 시스템 권한은 호스트 컨텍스트에서 삽입 될(assert) 수 없으므로 권한이 있는(privileged) 컨테이너는 윈도우에서 사용할 수 없다. 보안 계정 매니져(Security Account Manager, SAM)가 분리되어 있으므로 컨테이너는 호스트의 ID를 가정할 수 없다.
 
-##### 운영 체제 제한
+#### 자원 예약
 
-윈도우에는 호스트 OS 버전이 컨테이너 베이스 이미지 OS 버전과 일치해야 하는 엄격한 호환성 규칙이 있다. 윈도우 서버 2019의 컨테이너 운영 체제가 있는 윈도우 컨테이너만 지원된다. 윈도우 컨테이너 이미지 버전의 일부 이전 버전과의 호환성을 가능하게 하는 컨테이너의 Hyper-V 격리는 향후 릴리스로 계획되어 있다.
+##### 메모리 예약
+윈도우에는 리눅스에는 있는 메모리 부족 프로세스 킬러가 없다. 윈도우는 모든 사용자-모드 메모리 할당을 항상 가상 메모리처럼 처리하며, 페이지파일이 필수이다. 결과적으로 윈도우에서는 리눅스에서 발생할 수 있는 메모리 부족 상태에 도달하지 않으며, 프로세스는 메모리 부족 (out of memory, OOM) 종료를 겪는 대신 디스크로 페이징한다. 메모리가 오버프로비저닝되고 모든 물리 메모리가 고갈되면 페이징으로 인해 성능이 저하될 수 있다.
 
-##### 기능 제한
+kubelet 파라미터 `--kubelet-reserve` 를 사용하여 메모리 사용량을 합리적인 범위 내로 유지할 수 있으며, `--system-reserve` 를 사용하여 노드 (컨테이너 외부) 의 메모리 사용량을 예약할 수 있다. 이들을 사용하면 그만큼 [노드 할당(NodeAllocatable)](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)은 줄어든다.
 
-* TerminationGracePeriod: CRI-containerD 필요
+{{< note >}}
+워크로드를 배포할 때, 컨테이너에 리소스 제한을 걸어라 (제한만 설정하거나, 제한이 요청과 같아야 함). 이 또한 NodeAllocatable 에서 차감되며, 메모리가 꽉 찬 노드에 스케줄러가 파드를 할당하지 않도록 제한한다.
+{{< /note >}}
+
+오버프로비저닝을 방지하는 가장 좋은 방법은 윈도우, 도커, 그리고 쿠버네티스 프로세스를 위해 최소 2GB 이상의 시스템 예약 메모리로 kubelet을 설정하는 것이다.
+
+##### CPU 예약
+윈도우, 도커, 그리고 다른 쿠버네티스 호스트 프로세스가 이벤트에 잘 응답할 수 있도록, CPU의 일정 비율을 예약하는 것이 좋다. 이 값은 윈도우 노드에 있는 CPU 코어 수에 따라 조정해야 한다. 이 비율을 결정하려면, 각 노드의 최대 파드 밀도(density)를 관찰하고, 시스템 서비스의 CPU 사용량을 모니터링하여 워크로드 요구사항을 충족하는 값을 선택해야 한다.
+
+kubelet 파라미터 `--kubelet-reserve` 를 사용하여 CPU 사용량을 합리적인 범위 내로 유지할 수 있으며, `--system-reserve` 를 사용하여 노드 (컨테이너 외부) 의 CPU 사용량을 예약할 수 있다. 이들을 사용하면 그만큼 [노드 할당(NodeAllocatable)](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)은 줄어든다.
+
+#### 기능 제한
+* TerminationGracePeriod: 구현되지 않음
 * 단일 파일 매핑: CRI-ContainerD로 구현 예정
 * 종료 메시지: CRI-ContainerD로 구현 예정
 * 특권을 가진(Privileged) 컨테이너: 현재 윈도우 컨테이너에서 지원되지 않음
@@ -254,15 +263,8 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 * 기존 노드 문제 감지기는 리눅스 전용이며 특권을 가진 컨테이너가 필요하다. 윈도우에서 특권을 가진 컨테이너를 지원하지 않기 때문에 일반적으로 윈도우에서 이 기능이 사용될 것으로 예상하지 않는다.
 * 공유 네임스페이스의 모든 기능이 지원되는 것은 아니다. (자세한 내용은 API 섹션 참조).
 
-##### 메모리 예약 및 처리
-
-윈도우에는 리눅스처럼 out-of-memory 프로세스 킬러가 없다. 윈도우는 항상 모든 사용자 모드 메모리 할당을 가상으로 처리하며 페이지 파일은 필수이다. 결과적으로 윈도우는 리눅스와 같은 방식으로 메모리 부족 상태에 도달하지 않고, 메모리 부족(OOM)으로 인한 종료 대신 페이지를 디스크로 처리한다. 메모리가 과도하게 프로비저닝되고 모든 실제 메모리가 고갈되면, 페이징으로 인해 성능이 저하될 수 있다.
-
-2단계 프로세스를 통해 적절한 범위 내에서 메모리 사용량을 유지할 수 있다. 먼저, kubelet 파라미터 `--kubelet-reserve` 그리고/또는 `--system-reserve`를 사용하여 노드(컨테이너 외부)의 메모리 사용량을 고려한다. 이렇게 하면 [노드 할당(NodeAllocatable)](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)이 줄어든다. 워크로드를 배포할 때 컨테이너에 리소스 제한을 사용(limits만 설정하거나 limits이 requests과 같아야 함)한다. 또한 NodeAllocatable에서 빼고 노드가 가득차면 스케줄러가 더 많은 파드를 추가하지 못하도록 한다.
-
-오버 프로비저닝을 방지하는 모범 사례는 윈도우, 도커 및 쿠버네티스 프로세스를 고려하여 최소 2GB의 시스템 예약 메모리로 kubelet을 구성하는 것이다.
-
-플래그의 동작은 아래에 설명된 대로 다르게 동작한다.
+#### 각 플래그의 리눅스와의 차이점
+윈도우 노드에서의 kubelet 플래그의 동작은 아래에 설명된 대로 다르게 동작한다.
 
 * `--kubelet-reserve`, `--system-reserve`, `--eviction-hard` 플래그는 Node Allocatable 업데이트
 * `--enforce-node-allocable`을 사용한 축출(Eviction)은 구현되지 않았다.
@@ -294,7 +296,7 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 * NFS 기반 스토리지/볼륨 지원
 * 마운트된 볼륨 확장(resizefs)
 
-#### 네트워킹
+#### 네트워킹 {#네트워킹-제한}
 
 윈도우 컨테이너 네트워킹은 리눅스 네트워킹과 몇 가지 중요한 면에서 다르다. [윈도우 컨테이너 네트워킹에 대한 Microsoft 문서](https://docs.microsoft.com/ko-kr/virtualization/windowscontainers/container-networking/architecture)에는 추가 세부 정보와 배경이 포함되어 있다.
 
@@ -303,8 +305,9 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 다음 네트워킹 기능은 윈도우 노드에서 지원되지 않는다.
 
 * 윈도우 파드에서는 호스트 네트워킹 모드를 사용할 수 없다.
-* 노드 자체에서 로컬 NodePort 접근은 실패한다. (다른 노드 또는 외부 클라이언트에서 작동)
+* 노드 자체에서 로컬 NodePort 접근은 실패한다. (다른 노드 또는 외부 클라이언트에서는 가능)
 * 노드에서 서비스 VIP에 접근하는 것은 향후 윈도우 서버 릴리스에서 사용할 수 있다.
+* 한 서비스는 최대 64개의 백엔드 파드 또는 고유한 목적지 IP를 지원할 수 있다.
 * kube-proxy의 오버레이 네트워킹 지원은 알파 릴리스이다. 또한 윈도우 서버 2019에 [KB4482887](https://support.microsoft.com/ko-kr/help/4482887/windows-10-update-kb4482887)을 설치해야 한다.
 * 로컬 트래픽 정책 및 DSR 모드
 * l2bridge, l2tunnel 또는 오버레이 네트워크에 연결된 윈도우 컨테이너는 IPv6 스택을 통한 통신을 지원하지 않는다. 이러한 네트워크 드라이버가 IPv6 주소를 사용하고 kubelet, kube-proxy 및 CNI 플러그인에서 후속 쿠버네티스 작업을 사용할 수 있도록 하는데 필요한 뛰어난 윈도우 플랫폼 작업이 있다.
@@ -361,7 +364,7 @@ SELinux, AppArmor, Seccomp, 기능(POSIX 기능)과 같은 리눅스 특유의 �
 
 * ID - 리눅스는 정수형으로 표시되는 userID(UID) 및 groupID(GID)를 사용한다. 사용자와 그룹 이름은 정식 이름이 아니다. UID+GID에 대한 `/etc/groups` 또는 `/etc/passwd`의 별칭일 뿐이다. 윈도우는 윈도우 보안 계정 관리자(Security Account Manager, SAM) 데이터베이스에 저장된 더 큰 이진 보안 식별자(SID)를 사용한다. 이 데이터베이스는 호스트와 컨테이너 간에 또는 컨테이너들 간에 공유되지 않는다.
 * 파일 퍼미션 - 윈도우는 권한 및 UUID+GID의 비트 마스크(bitmask) 대신 SID를 기반으로 하는 접근 제어 목록을 사용한다.
-* 파일 경로 - 윈도우의 규칙은 `/` 대신 `\`를 사용하는 것이다. Go IO 라이브러리는 일반적으로 두 가지를 모두 허용하고 작동하도록 하지만, 컨테이너 내부에서 해석되는 경로 또는 커맨드 라인을 설정할 때 `\`가 필요할 수 있다.
+* 파일 경로 - 윈도우의 규칙은 `/` 대신 `\`를 사용하는 것이다. Go IO 라이브러리는 두 가지 파일 경로 분리자를 모두 허용한다. 하지만, 컨테이너 내부에서 해석되는 경로 또는 커맨드 라인을 설정할 때 `\`가 필요할 수 있다.
 * 신호(Signals) - 윈도우 대화형(interactive) 앱은 종료를 다르게 처리하며, 다음 중 하나 이상을 구현할 수 있다.
   * UI 스레드는 WM_CLOSE를 포함하여 잘 정의된(well-defined) 메시지를 처리한다.
   * 콘솔 앱은 컨트롤 핸들러(Control Handler)를 사용하여 ctrl-c 또는 ctrl-break를 처리한다.
@@ -408,6 +411,10 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 * V1.PodSecurityContext.RunAsNonRoot - 윈도우에는 root 사용자가 없다. 가장 가까운 항목은 노드에 존재하지 않는 아이덴티티인 ContainerAdministrator이다.
 * V1.PodSecurityContext.SupplementalGroups - 윈도우에서는 사용할 수 없는 GID를 제공한다.
 * V1.PodSecurityContext.Sysctls - 이것들은 리눅스 sysctl 인터페이스의 일부이다. 윈도우에는 이에 상응하는 것이 없다.
+
+#### 운영 체제 버전 제한
+
+윈도우에는 호스트 OS 버전이 컨테이너 베이스 이미지 OS 버전과 일치해야 하는 엄격한 호환성 규칙이 있다. 윈도우 서버 2019의 컨테이너 운영 체제가 있는 윈도우 컨테이너만 지원된다. 윈도우 컨테이너 이미지 버전의 일부 이전 버전과의 호환성을 가능하게 하는 컨테이너의 Hyper-V 격리는 향후 릴리스로 계획되어 있다.
 
 ## 도움 받기 및 트러블슈팅 {#troubleshooting}
 
@@ -544,7 +551,7 @@ PodSecurityContext 필드는 윈도우에서 작동하지 않는다. 참조를 �
 
 1. `start.ps1`을 시작한 후, flanneld가 "Waiting for the Network to be created"에서 멈춘다.
 
-    이 [조사 중인 이슈](https://github.com/coreos/flannel/issues/1066)에 대한 수많은 보고가 있다. 플란넬 네트워크의 관리 IP가 설정될 때 타이밍 이슈일 가능성이 높다. 해결 방법은 간단히 start.ps1을 다시 시작하거나 다음과 같이 수동으로 다시 시작하는 것이다.
+    이 [이슈](https://github.com/coreos/flannel/issues/1066)에 대한 수많은 보고가 있다. 플란넬 네트워크의 관리 IP가 설정될 때의 타이밍 이슈일 가능성이 높다. 해결 방법은 start.ps1을 다시 시작하거나 다음과 같이 수동으로 다시 시작하는 것이다.
 
     ```powershell
     PS C:> [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")

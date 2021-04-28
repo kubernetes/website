@@ -18,14 +18,7 @@ For information how to create a cluster with kubeadm once you have performed thi
 ## {{% heading "prerequisites" %}}
 
 
-* One or more machines running one of:
-  - Ubuntu 16.04+
-  - Debian 9+
-  - CentOS 7+
-  - Red Hat Enterprise Linux (RHEL) 7+
-  - Fedora 25+
-  - HypriotOS v1.0.1+
-  - Flatcar Container Linux (tested with 2512.3.0)
+* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
 * 2 CPUs or more.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
@@ -78,7 +71,7 @@ For more details please see the [Network Plugin Requirements](/docs/concepts/ext
 
 | Protocol | Direction | Port Range | Purpose                 | Used By                   |
 |----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | Inbound   | 6443*      | Kubernetes API server   | All                       |
+| TCP      | Inbound   | 6443\*      | Kubernetes API server   | All                       |
 | TCP      | Inbound   | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
 | TCP      | Inbound   | 10250      | kubelet API             | Self, Control plane       |
 | TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
@@ -122,7 +115,7 @@ The following table lists container runtimes and their associated socket paths:
 {{< table caption = "Container runtimes and their socket paths" >}}
 | Runtime    | Path to Unix domain socket        |
 |------------|-----------------------------------|
-| Docker     | `/var/run/docker.sock`            |
+| Docker     | `/var/run/dockershim.sock`        |
 | containerd | `/run/containerd/containerd.sock` |
 | CRI-O      | `/var/run/crio/crio.sock`         |
 {{< /table >}}
@@ -167,7 +160,7 @@ kubelet and the control plane is supported, but the kubelet version may never ex
 server version. For example, the kubelet running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa.
 
-For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/install-kubectl/).
+For information about installing `kubectl`, see [Install and set up kubectl](/docs/tasks/tools/).
 
 {{< warning >}}
 These instructions exclude all Kubernetes packages from any system upgrades.
@@ -181,19 +174,37 @@ For more information on version skews, see:
 * Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
-```bash
-sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
-```
+{{% tab name="Debian-based distributions" %}}
+
+1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+
+2. Download the Google Cloud public signing key:
+
+   ```shell
+   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   ```
+
+3. Add the Kubernetes `apt` repository:
+
+   ```shell
+   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+4. Update `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl
+   sudo apt-mark hold kubelet kubeadm kubectl
+   ```
+
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
+{{% tab name="Red Hat-based distributions" %}}
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -224,7 +235,7 @@ sudo systemctl enable --now kubelet
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
 
 {{% /tab %}}
-{{% tab name="Fedora CoreOS or Flatcar Container Linux" %}}
+{{% tab name="Without a package manager" %}}
 Install CNI plugins (required for most pod network):
 
 ```bash
@@ -233,11 +244,11 @@ sudo mkdir -p /opt/cni/bin
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
 ```
 
-Define the directory to download command files  
+Define the directory to download command files
 
 {{< note >}}
-The DOWNLOAD_DIR variable must be set to a writable directory.
-If you are running Flatcar Container Linux, set DOWNLOAD_DIR=/opt/bin.
+The `DOWNLOAD_DIR` variable must be set to a writable directory.
+If you are running Flatcar Container Linux, set `DOWNLOAD_DIR=/opt/bin`.
 {{< /note >}}
 
 ```bash
@@ -284,40 +295,17 @@ See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 
-## Configure cgroup driver used by kubelet on control-plane node
+## Configuring a cgroup driver
 
-When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
-and set it in the `/var/lib/kubelet/config.yaml` file during runtime.
+Both the container runtime and the kubelet have a property called
+["cgroup driver"](/docs/setup/production-environment/container-runtimes/), which is important
+for the management of cgroups on Linux machines.
 
-If you are using a different CRI, you must pass your `cgroupDriver` value to `kubeadm init`, like so:
+{{< warning >}}
+Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
 
-```yaml
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-cgroupDriver: <value>
-```
-
-For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
-
-Please mind, that you **only** have to do that if the cgroup driver of your CRI
-is not `cgroupfs`, because that is the default value in the kubelet already.
-
-{{< note >}}
-Since `--cgroup-driver` flag has been deprecated by the kubelet, if you have that in `/var/lib/kubelet/kubeadm-flags.env`
-or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it and use the KubeletConfiguration instead
-(stored in `/var/lib/kubelet/config.yaml` by default).
-{{< /note >}}
-
-Restarting the kubelet is required:
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl restart kubelet
-```
-
-The automatic detection of cgroup driver for other container runtimes
-like CRI-O and containerd is work in progress.
-
+See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) for more details.
+{{< /warning >}}
 
 ## Troubleshooting
 
@@ -325,5 +313,5 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 
 ## {{% heading "whatsnext" %}}
 
-
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+
