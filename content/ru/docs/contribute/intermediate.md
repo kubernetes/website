@@ -217,8 +217,8 @@ PR объединяется, когда у него есть комментар�
     ```bash
     origin	git@github.com:<github_username>/website.git (fetch)
     origin	git@github.com:<github_username>/website.git (push)
-    upstream	https://github.com/kubernetes/website.git (fetch)
-    upstream	https://github.com/kubernetes/website.git (push)
+    upstream	https://github.com/kubernetes/website (fetch)
+    upstream	https://github.com/kubernetes/website (push)
     ```
 
 ### Работа в локальном репозитории
