@@ -103,12 +103,12 @@ In the following, we describe how to quickly experiment with admission webhooks.
 
 <!--
 Please refer to the implementation of the [admission webhook
-server](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `AdmissionReview` request sent by the apiservers, and sends back its decision
 as an `AdmissionReview` object in the same version it received.
 -->
-请参阅 Kubernetes e2e 测试中的 [admission webhook 服务器](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/main.go) 的实现。webhook 处理由 apiserver 发送的 `AdmissionReview` 请求，并且将其决定作为 `AdmissionReview` 对象以相同版本发送回去。
+请参阅 Kubernetes e2e 测试中的 [admission webhook 服务器](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go) 的实现。webhook 处理由 apiserver 发送的 `AdmissionReview` 请求，并且将其决定作为 `AdmissionReview` 对象以相同版本发送回去。
 
 <!--
 See the [webhook request](#request) section for details on the data sent to webhooks.
