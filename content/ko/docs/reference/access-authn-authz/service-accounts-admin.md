@@ -55,9 +55,9 @@ weight: 50
  1. `/var/run/secrets/kubernetes.io/serviceaccount` 에 마운트된 파드의 각 컨테이너에 `volumeSource` 를 추가한다.
 
 #### 바인딩된 서비스 어카운트 토큰 볼륨
-{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-`BoundServiceAccountTokenVolume` 기능 게이트가 활성화되면, 서비스 어카운트 어드미션 컨트롤러가
+`BoundServiceAccountTokenVolume` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되면, 서비스 어카운트 어드미션 컨트롤러가
 시크릿 볼륨 대신 프로젝티드 서비스 어카운트 토큰 볼륨을 추가한다. 서비스 어카운트 토큰은 기본적으로 1시간 후에 만료되거나 파드가 삭제된다. [프로젝티드 볼륨](/docs/tasks/configure-pod-container/configure-projected-volume-storage/)에 대한 자세한 내용을 참고한다.
 
 이 기능은 모든 네임스페이스에 "kube-root-ca.crt" 컨피그맵을 게시하는 활성화된 `RootCAConfigMap` 기능 게이트에 따라 다르다. 이 컨피그맵에는 kube-apiserver에 대한 연결을 확인하는 데 사용되는 CA 번들이 포함되어 있다.
