@@ -42,7 +42,7 @@ For example, a workload that has a web server and a database might run the
 database in one {{< glossary_tooltip term_id="StatefulSet" >}} and the web server
 in a {{< glossary_tooltip term_id="Deployment" >}}.
 -->
-代表不同类型或部分工作负载的各种核心对象包括 DaemonSet， Deployment， Job， ReplicaSet， and StatefulSet。
+代表不同类型或部分工作负载的各种核心对象包括 DaemonSet，Deployment，Job，ReplicaSet and StatefulSet。
 
 例如，具有 Web 服务器和数据库的工作负载可能在一个 {{< glossary_tooltip term_id="StatefulSet" >}} 中运行数据库，
 而 Web 服务器运行在 {{< glossary_tooltip term_id="Deployment" >}}。
