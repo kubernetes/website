@@ -34,7 +34,7 @@ Kubernetes 包含一些内置工具，可以帮助用户更好的使用 Kubernet
 -->
 [`kubeadm`](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) 是一个命令行工具，
 可以用来在物理机、云服务器或虚拟机（目前处于 alpha 阶段）
-上轻松部署一个安全可靠的 Kubernetes 集群。
+上轻松部署一个安全可靠的 Kubernetes 集群.
 
 ## Minikube
 
@@ -44,7 +44,7 @@ easy to run a single-node Kubernetes cluster locally on your workstation for
 development and testing purposes.
 -->
 [`minikube`](https://minikube.sigs.k8s.io/docs/) 是一个可以方便用户
-在其工作站点本地部署一个单节点 Kubernetes 集群的工具，用于开发和测试。
+在其工作站点本地部署一个单节点 Kubernetes 集群的工具,用于开发和测试.
 
 ## Dashboard
 
@@ -53,7 +53,7 @@ development and testing purposes.
 to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself.
 -->
 [`Dashboard`](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/) 
-是 Kubernetes 基于 Web 的用户管理界面，允许用户部署容器化应用到 Kubernetes
+是 Kubernetes 基于 Web 的用户管理界面,允许用户部署容器化应用到 Kubernetes
 集群，进行故障排查以及管理集群和集群资源。
 
 ## Helm
