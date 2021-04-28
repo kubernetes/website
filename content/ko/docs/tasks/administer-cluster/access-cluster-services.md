@@ -19,22 +19,22 @@ content_type: task
 
 쿠버네티스에서, [노드](/ko/docs/concepts/architecture/nodes/),
 [파드](/ko/docs/concepts/workloads/pods/) 및 [서비스](/ko/docs/concepts/services-networking/service/)는 모두
-고유한 IP를 가진다. 대부분의 경우, 클러스터의 노드 IP, 파드 IP 및 일부 서비스 IP는 라우팅할 수
-없으므로, 데스크톱 시스템과 같은 클러스터 외부 시스템에서
-도달할 수 없다.
+고유한 IP를 가진다. 사용자의 데스크탑 PC와 같은 클러스터 외부 장비에서는
+클러스터 상의 노드 IP, 파드 IP, 서비스 IP로 라우팅되지 않아서 
+접근할 수 없을 것이다.
 
 ### 연결하는 방법
 
-클러스터 외부에서 노드, 파드 및 서비스에 연결하기 위한 몇 가지 옵션이 있다.
+클러스터 외부에서 노드, 파드 및 서비스에 접속하기 위한 몇 가지 옵션이 있다.
 
   - 퍼블릭 IP를 통해 서비스에 접근한다.
-    - `NodePort` 또는 `LoadBalancer` 타입의 서비스를 사용하여 해당 서비스를 클러스터 외부에서
-      접근할 수 있게 한다. [서비스](/ko/docs/concepts/services-networking/service/)와
+    - 클러스터 외부에서 접근할 수 있도록 `NodePort` 또는 `LoadBalancer` 타입의
+      서비스를 사용한다. [서비스](/ko/docs/concepts/services-networking/service/)와
       [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) 문서를 참고한다.
-    - 클러스터 환경에 따라, 서비스는 단지 회사 네트워크에 노출되기도 하며,
-      인터넷에 노출되는 경우도 있다. 노출되는 서비스가 안전한지 생각한다.
-      자체 인증을 수행하는가?
-    - 서비스 뒤에 파드를 배치한다. 디버깅과 같은 목적으로 레플리카 집합에서 특정 파드에 접근하려면,
+    - 클러스터 환경에 따라, 서비스는 회사 네트워크에만 노출되기도 하며,
+      인터넷에 노출되는 경우도 있다. 이 경우 노출되는 서비스의 보안 여부를 고려해야 한다.
+      해당 서비스는 자체적으로 인증을 수행하는가?
+    - 파드는 서비스 뒤에 위치시킨다. 디버깅과 같은 목적으로 레플리카 집합에서 특정 파드에 접근하려면,
       파드에 고유한 레이블을 배치하고 이 레이블을 선택하는 새 서비스를 생성한다.
     - 대부분의 경우, 애플리케이션 개발자가 nodeIP를 통해 노드에 직접
       접근할 필요는 없다.
@@ -54,8 +54,8 @@ content_type: task
 
 ### 빌트인 서비스 검색
 
-일반적으로, kube-system에 의해 클러스터에서 시작되는 몇 가지 서비스가 있다. `kubectl cluster-info` 명령을
-사용하여 이들의 목록을 얻는다.
+일반적으로 kube-system에 의해 클러스터에 실행되는 몇 가지 서비스가 있다. 
+`kubectl cluster-info` 커맨드로 이 서비스의 리스트를 볼 수 있다.
 
 ```shell
 kubectl cluster-info
