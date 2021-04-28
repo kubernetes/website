@@ -40,12 +40,12 @@ You can follow the official
 [Get Started!](https://minikube.sigs.k8s.io/docs/start/) guide if your focus is
 on getting the tool installed.
 -->
-与 `kind` 类似，[`minikube`](https://minikube.sigs.k8s.io/) 是一个允许你在
+与 `kind` 类似,[`minikube`](https://minikube.sigs.k8s.io/) 是一个允许你在
 本地运行 Kubernetes 的工具。`minikube` 在你的个人计算机上运行一个单节点的
 Kubernetes 集群（包括 Windows、macOS 和 Linux PC 机），这样你可以尝试
 Kubernetes 或者执行每天的开发工作。
 
-如果你所关注的是如何安装该工具，可以查阅官方的
+如果你所关注的是如何安装该工具,可以查阅官方的
 [Get Started!](https://minikube.sigs.k8s.io/docs/start/)
 文档。
 
