@@ -25,7 +25,8 @@ weight: 50
 A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate.
 As pods successfully complete, the Job tracks the successful completions.  When a specified number
 of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
-the Pods it created.
+the Pods it created. Suspending a Job will delete its active Pods until the Job
+is resumed again.
 
 A simple case is to create one Job object in order to reliably run one Pod to completion.
 The Job object will start a new Pod if the first Pod fails or is deleted (for example
@@ -33,11 +34,11 @@ due to a node hardware failure or a node reboot).
 
 You can also use a Job to run multiple Pods in parallel.
 -->
-
 Job 会创建一个或者多个 Pods，并将继续重试 Pods 的执行，直到指定数量的 Pods 成功终止。
 随着 Pods 成功结束，Job 跟踪记录成功完成的 Pods 个数。
 当数量达到指定的成功个数阈值时，任务（即 Job）结束。
 删除 Job 的操作会清除所创建的全部 Pods。
+挂起 Job 的操作会删除 Job 的所有活跃 Pod，直到 Job 被再次恢复执行。
 
 一种简单的使用场景下，你会创建一个 Job 对象以便以一种可靠的方式运行某 Pod 直到完成。
 当第一个 Pod 失败或者被删除（比如因为节点硬件失效或者重启）时，Job
@@ -224,8 +225,8 @@ There are three main types of task suitable to run as a Job:
    - the Job is complete as soon as its Pod terminates successfully.
 1. Parallel Jobs with a *fixed completion count*:
    - specify a non-zero positive value for `.spec.completions`.
-   - the Job represents the overall task, and is complete when there is one successful Pod for each value in the range 1 to `.spec.completions`.
-   - **not implemented yet:** Each Pod is passed a different index in the range 1 to `.spec.completions`.
+   - the Job represents the overall task, and is complete when there are `.spec.completions` successful Pods.
+   - when using `.spec.completionMode="Indexed"`, each Pod gets a different index in the range 0 to `.spec.completions-1`.
 1. Parallel Jobs with a *work queue*:
    - do not specify `.spec.completions`, default to `.spec.parallelism`.
    - the Pods must coordinate amongst themselves or an external service to determine what each should work on. For example, a Pod might fetch a batch of up to N items from the work queue.
@@ -234,21 +235,21 @@ There are three main types of task suitable to run as a Job:
    - once at least one Pod has terminated with success and all Pods are terminated, then the Job is completed with success.
    - once any Pod has exited with success, no other Pod should still be doing any work for this task or writing any output.  They should all be in the process of exiting.
 -->
-1. 非并行 Job
-   - 通常只启动一个 Pod，除非该 Pod 失败
-   - 当 Pod 成功终止时，立即视 Job 为完成状态
-1. 具有 *确定完成计数* 的并行 Job
-   - `.spec.completions` 字段设置为非 0 的正数值
-   - Job 用来代表整个任务，当对应于 1 和 `.spec.completions` 之间的每个整数都存在
-     一个成功的 Pod 时，Job 被视为完成
-   - **尚未实现**：每个 Pod 收到一个介于 1 和 `spec.completions` 之间的不同索引值
-1. 带 *工作队列* 的并行 Job
-   - 不设置 `spec.completions`，默认值为 `.spec.parallelism`
+1. 非并行 Job：
+   - 通常只启动一个 Pod，除非该 Pod 失败。
+   - 当 Pod 成功终止时，立即视 Job 为完成状态。
+1. 具有 *确定完成计数* 的并行 Job：
+   - `.spec.completions` 字段设置为非 0 的正数值。
+   - Job 用来代表整个任务，当成功的 Pod 个数达到 `.spec.completions` 时，Job 被视为完成。
+   - 当使用 `.spec.completionMode="Indexed"` 时，每个 Pod 都会获得一个不同的
+     索引值，介于 0 和 `.spec.completions-1` 之间。
+1. 带 *工作队列* 的并行 Job：
+   - 不设置 `spec.completions`，默认值为 `.spec.parallelism`。
    - 多个 Pod 之间必须相互协调，或者借助外部服务确定每个 Pod 要处理哪个工作条目。
      例如，任一 Pod 都可以从工作队列中取走最多 N 个工作条目。
-   - 每个 Pod 都可以独立确定是否其它 Pod 都已完成，进而确定 Job 是否完成
-   - 当 Job 中 _任何_ Pod 成功终止，不再创建新 Pod
-   - 一旦至少 1 个 Pod 成功完成，并且所有 Pod 都已终止，即可宣告 Job 成功完成
+   - 每个 Pod 都可以独立确定是否其它 Pod 都已完成，进而确定 Job 是否完成。
+   - 当 Job 中 _任何_ Pod 成功终止，不再创建新 Pod。
+   - 一旦至少 1 个 Pod 成功完成，并且所有 Pod 都已终止，即可宣告 Job 成功完成。
    - 一旦任何 Pod 成功退出，任何其它 Pod 都不应再对此任务执行任何操作或生成任何输出。
      所有 Pod 都应启动退出过程。
 
@@ -313,6 +314,59 @@ parallelism, for a variety of reasons:
   Pods 个数可能比请求的数目小。
 - Job 控制器可能会因为之前同一 Job 中 Pod 失效次数过多而压制新 Pod 的创建。
 - 当 Pod 处于体面终止进程中，需要一定时间才能停止。
+
+<!--
+### Completion mode
+-->
+### 完成模式   {#completion-mode}
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+{{< note >}}
+<!--
+To be able to create Indexed Jobs, make sure to enable the `IndexedJob`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+-->
+若想创建带索引的 Job（Indexed Job），请确保
+[API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
+和[控制器管理器](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+上的
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+`IndexedJob` 被启用。
+{{< /note >}}
+
+<!--
+Jobs with _fixed completion count_ - that is, jobs that have non null
+`.spec.completions` - can have a completion mode that is specified in `.spec.completionMode`:
+-->
+带有 *确定完成计数* 的 Job，即 `.spec.completions` 不为 null 的 Job，
+都可以在其 `.spec.completionMode` 中设置完成模式：
+
+<!--
+- `NonIndexed` (default): the Job is considered complete when there have been
+  `.spec.completions` successfully completed Pods. In other words, each Pod
+  completion is homologous to each other. Note that Jobs that have null
+  `.spec.completions` are implicitly `NonIndexed`.
+- `Indexed`: the Pods of a Job get an associated completion index from 0 to
+  `.spec.completions-1`, available in the annotation `batch.kubernetes.io/job-completion-index`.
+  The Job is considered complete when there is one successfully completed Pod
+  for each index. For more information about how to use this mode, see
+  [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
+  Note that, although rare, more than one Pod could be started for the same
+  index, but only one of them will count towards the completion count.
+-->
+- `NonIndexed` （默认值）：当成功完成的 Pod 个数达到 `.spec.completions` 所
+  设值时认为 Job 已经完成。换言之，每个 Job 完成事件都是独立无关且同质的。
+  要注意的是，当 `.spec.completions` 取值为 null 时，Job 被隐式处理为 `NonIndexed`。
+- `Indexed`：Job 的 Pod 会获得对应的完成索引，取值为 0 到 `.spec.completions-1`，
+  存放在注解 `batch.kubernetes.io/job-completion-index` 中。
+  当每个索引都对应一个完成完成的 Pod 时，Job 被认为是已完成的。
+  关于如何使用这种模式的更多信息，可参阅
+  [用带索引的 Job 执行基于静态任务分配的并行处理](/zh/docs/tasks/job/indexed-parallel-processing-static/)。
+  需要注意的是，对同一索引值可能被启动的 Pod 不止一个，尽管这种情况很少发生。
+  这时，只有一个会被记入完成计数中。
 
 <!--
 ## Handling Pod and container failures
@@ -631,12 +685,12 @@ The pattern names are also links to examples and more detailed description.
 下面是对这些权衡的汇总，列 2 到 4 对应上面的权衡比较。
 模式的名称对应了相关示例和更详细描述的链接。
 
-| 模式  | 单个 Job 对象 | Pods 数少于工作条目数？ | 直接使用应用无需修改? | 在 Kube 1.1 上可用？|
-| ----- |:-------------:|:-----------------------:|:---------------------:|:-------------------:|
-| [Job 模版扩展](/zh/docs/tasks/job/parallel-processing-expansion/)  |  |  | ✓ | ✓ |
-| [每工作条目一 Pod 的队列](/zh/docs/tasks/job/coarse-parallel-processing-work-queue/) | ✓ | | 有时 | ✓ |
-| [Pod 数量可变的队列](/zh/docs/tasks/job/fine-parallel-processing-work-queue/) | ✓ | ✓ |  | ✓ |
-| 静态工作分派的单个 Job | ✓ |  | ✓ |  |
+| 模式  | 单个 Job 对象 | Pods 数少于工作条目数？ | 直接使用应用无需修改? |
+| ----- |:-------------:|:-----------------------:|:---------------------:|
+| [每工作条目一 Pod 的队列](/zh/docs/tasks/job/coarse-parallel-processing-work-queue/) | ✓ | | 有时 |
+| [Pod 数量可变的队列](/zh/docs/tasks/job/fine-parallel-processing-work-queue/) | ✓ | ✓ |  |
+| [静态任务分派的带索引的 Job](/zh/docs/tasks/job/indexed-parallel-processing-static) | ✓ |  | ✓ |
+| [Job 模版扩展](/zh/docs/tasks/job/parallel-processing-expansion/)  |  |  | ✓ |
 
 <!--
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
@@ -659,14 +713,169 @@ Here, `W` is the number of work items.
 
 | 模式  | `.spec.completions` |  `.spec.parallelism` |
 | ----- |:-------------------:|:--------------------:|
-| [Job 模版扩展](/zh/docs/tasks/job/parallel-processing-expansion/) | 1 | 应该为 1 |
 | [每工作条目一 Pod 的队列](/zh/docs/tasks/job/coarse-parallel-processing-work-queue/) | W | 任意值 |
 | [Pod 个数可变的队列](/zh/docs/tasks/job/fine-parallel-processing-work-queue/) | 1 | 任意值 |
-| 基于静态工作分派的单一 Job | W | 任意值 |
+| [静态任务分派的带索引的 Job](/zh/docs/tasks/job/indexed-parallel-processing-static) | W |  | 任意值 |
+| [Job 模版扩展](/zh/docs/tasks/job/parallel-processing-expansion/) | 1 | 应该为 1 |
 
 <!--
 ## Advanced usage
 
+### Suspending a Job
+-->
+## 高级用法   {#advanced-usage}
+
+### 挂起 Job   {#suspending-a-job}
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+{{< note >}}
+<!--
+Suspending Jobs is available in Kubernetes versions 1.21 and above. You must
+enable the `SuspendJob` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+in order to use this feature.
+-->
+在 Kubernetes 1.21 及更高版本中可以执行挂起（Suspending）Job 的操作。
+你必须在
+[API 服务器](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
+和[控制器管理器](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
+上启用 `SuspendJob` 这一
+[特性门控](/docs/reference/command-line-tools-reference/feature-gates/)
+才能执行此操作，
+{{< /note >}}
+
+<!--
+When a Job is created, the Job controller will immediately begin creating Pods
+to satisfy the Job's requirements and will continue to do so until the Job is
+complete. However, you may want to temporarily suspend a Job's execution and
+resume it later. To suspend a Job, you can update the `.spec.suspend` field of
+the Job to true; later, when you want to resume it again, update it to false.
+Creating a Job with `.spec.suspend` set to true will create it in the suspended
+state.
+-->
+Job 被创建时，Job 控制器会马上开始执行 Pod 创建操作以满足 Job 的需求，
+并持续执行此操作直到 Job 完成为止。
+不过你可能想要暂时挂起 Job 执行，之后再恢复其执行。
+要挂起一个 Job，你可以将 Job 的 `.spec.suspend` 字段更新为 true。
+之后，当你希望恢复其执行时，将其更新为 false。
+创建一个 `.spec.suspend` 被设置为 true 的 Job 本质上会将其创建为被挂起状态。
+
+<!--
+When a Job is resumed from suspension, its `.status.startTime` field will be
+reset to the current time. This means that the `.spec.activeDeadlineSeconds`
+timer will be stopped and reset when a Job is suspended and resumed.
+-->
+当 Job 被从挂起状态恢复执行时，其 `.status.startTime` 字段会被重置为
+当前的时间。这意味着 `.spec.activeDeadlineSeconds` 计时器会在 Job 挂起时
+被停止，并在 Job 恢复执行时复位。
+
+<!--
+Remember that suspending a Job will delete all active Pods. When the Job is
+suspended, your [Pods will be terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+with a SIGTERM signal. The Pod's graceful termination period will be honored and
+your Pod must handle this signal in this period. This may involve saving
+progress for later or undoing changes. Pods terminated this way will not count
+towards the Job's `completions` count.
+-->
+要记住的是，挂起 Job 会删除其所有活跃的 Pod。当 Job 被挂起时，你的 Pod 会
+收到 SIGTERM 信号而被[终止](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+Pod 的体面终止期限会被考虑，不过 Pod 自身也必须在此期限之内处理完信号。
+处理逻辑可能包括保存进度以便将来恢复，或者取消已经做出的变更等等。
+Pod 以这种形式终止时，不会被记入 Job 的 `completions` 计数。
+
+<!--
+An example Job definition in the suspended state can be like so:
+-->
+处于被挂起状态的 Job 的定义示例可能是这样子：
+
+```shell
+kubectl get job myjob -o yaml
+```
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myjob
+spec:
+  suspend: true
+  parallelism: 1
+  completions: 5
+  template:
+    spec:
+      ...
+```
+
+<!--
+The Job's status can be used to determine if a Job is suspended or has been
+suspended in the past:
+-->
+Job 的 `status` 可以用来确定 Job 是否被挂起，或者曾经被挂起。
+
+```shell
+kubectl get jobs/myjob -o yaml
+```
+
+```json
+apiVersion: batch/v1
+kind: Job
+# .metadata and .spec omitted
+status:
+  conditions:
+  - lastProbeTime: "2021-02-05T13:14:33Z"
+    lastTransitionTime: "2021-02-05T13:14:33Z"
+    status: "True"
+    type: Suspended
+  startTime: "2021-02-05T13:13:48Z"
+```
+
+<!--
+The Job condition of type "Suspended" with status "True" means the Job is
+suspended; the `lastTransitionTime` field can be used to determine how long the
+Job has been suspended for. If the status of that condition is "False", then the
+Job was previously suspended and is now running. If such a condition does not
+exist in the Job's status, the Job has never been stopped.
+
+Events are also created when the Job is suspended and resumed:
+-->
+Job 的 "Suspended" 类型的状况在状态值为 "True" 时意味着 Job 正被
+挂起；`lastTransitionTime` 字段可被用来确定 Job 被挂起的时长。
+如果此状况字段的取值为 "False"，则 Job 之前被挂起且现在在运行。
+如果 "Suspended" 状况在 `status` 字段中不存在，则意味着 Job 从未
+被停止执行。
+
+当 Job 被挂起和恢复执行时，也会生成事件：
+
+```shell
+kubectl describe jobs/myjob
+```
+
+```
+Name:           myjob
+...
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  12m   job-controller  Created pod: myjob-hlrpl
+  Normal  SuccessfulDelete  11m   job-controller  Deleted pod: myjob-hlrpl
+  Normal  Suspended         11m   job-controller  Job suspended
+  Normal  SuccessfulCreate  3s    job-controller  Created pod: myjob-jvb44
+  Normal  Resumed           3s    job-controller  Job resumed
+```
+
+<!--
+The last four events, particularly the "Suspended" and "Resumed" events, are
+directly a result of toggling the `.spec.suspend` field. In the time between
+these two events, we see that no Pods were created, but Pod creation restarted
+as soon as the Job was resumed.
+-->
+最后四个四件，特别是 "Suspended" 和 "Resumed" 事件，都是因为 `.spec.suspend`
+字段值被改来改去造成的。在这两个事件之间，我们看到没有 Pod 被创建，不过当
+Job 被恢复执行时，Pod 创建操作立即被重启执行。
+
+<!--
 ### Specifying your own Pod selector {#specifying-your-own-pod-selector}
 
 Normally, when you create a Job object, you do not specify `.spec.selector`.
@@ -676,8 +885,6 @@ It picks a selector value that will not overlap with any other jobs.
 However, in some cases, you might need to override this automatically set selector.
 To do this, you can specify the `.spec.selector` of the Job.
 -->
-## 高级用法   {#advanced-usage}
-
 ### 指定你自己的 Pod 选择算符 {#specifying-your-own-pod-selector}
 
 通常，当你创建一个 Job 对象时，你不会设置 `.spec.selector`。
