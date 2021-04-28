@@ -99,10 +99,11 @@ This may be caused by a number of problems. The most common are:
 
   There are two common ways to fix the cgroup driver problem:
 
- 1. Install Docker again following instructions
-  [here](/docs/setup/production-environment/container-runtimes/#docker).
+  1. Install Docker again following instructions
+     [here](/docs/setup/production-environment/container-runtimes/#docker).
 
- 1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to [Configure cgroup driver used by kubelet on control-plane node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
+  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
+     [Configure cgroup driver used by kubelet on control-plane node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
 
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
@@ -110,8 +111,11 @@ This may be caused by a number of problems. The most common are:
 
 The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
 
-```bash
+```shell
 sudo kubeadm reset
+```
+
+```console
 [preflight] Running pre-flight checks
 [reset] Stopping the kubelet service
 [reset] Unmounting mounted directories in "/var/lib/kubelet"
@@ -121,14 +125,14 @@ sudo kubeadm reset
 
 A possible solution is to restart the Docker service and then re-run `kubeadm reset`:
 
-```bash
+```shell
 sudo systemctl restart docker.service
 sudo kubeadm reset
 ```
 
 Inspecting the logs for docker may also be useful:
 
-```sh
+```shell
 journalctl -u docker
 ```
 
@@ -138,10 +142,10 @@ Right after `kubeadm init` there should not be any pods in these states.
 
 - If there are pods in one of these states _right after_ `kubeadm init`, please open an
   issue in the kubeadm repo. `coredns` (or `kube-dns`) should be in the `Pending` state
-  until you have deployed the network solution.
+  until you have deployed the network add-on.
 - If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
-  after deploying the network solution and nothing happens to `coredns` (or `kube-dns`),
-  it's very likely that the Pod Network solution that you installed is somehow broken.
+  after deploying the network add-on and nothing happens to `coredns` (or `kube-dns`),
+  it's very likely that the Pod Network add-on that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 - If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
@@ -149,17 +153,17 @@ Right after `kubeadm init` there should not be any pods in these states.
   MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
   The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 
-## `coredns` (or `kube-dns`) is stuck in the `Pending` state
+## `coredns` is stuck in the `Pending` state
 
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
-should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
+should [install the pod network add-on](/docs/concepts/cluster-administration/addons/)
 of choice. You have to install a Pod Network
 before CoreDNS may be deployed fully. Hence the `Pending` state before the network is set up.
 
 ## `HostPort` services do not work
 
 The `HostPort` and `HostIP` functionality is available depending on your Pod Network
-provider. Please contact the author of the Pod Network solution to find out whether
+provider. Please contact the author of the Pod Network add-on to find out whether
 `HostPort` and `HostIP` functionality are available.
 
 Calico, Canal, and Flannel CNI providers are verified to support HostPort.
@@ -363,7 +367,7 @@ kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
 
 ## `/usr` is mounted read-only on nodes {#usr-mounted-read-only}
 
-On Linux distributions such as Fedora CoreOS, the directory `/usr` is mounted as a read-only filesystem.
+On Linux distributions such as Fedora CoreOS or Flatcar Container Linux, the directory `/usr` is mounted as a read-only filesystem.
 For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md),
 Kubernetes components like the kubelet and kube-controller-manager use the default path of
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
@@ -404,7 +408,7 @@ be advised that this is modifying a design principle of the Linux distribution.
 
 ## `kubeadm upgrade plan` prints out `context deadline exceeded` error message
 
-This error message is shown when upgrading a Kubernetes cluster with `kubeadm` in the case of running an external etcd. This is not a critical bug and happens because older versions of kubeadm perform a version check on the external etcd cluster. You can proceed with `kubeadm upgrade apply ...`. 
+This error message is shown when upgrading a Kubernetes cluster with `kubeadm` in the case of running an external etcd. This is not a critical bug and happens because older versions of kubeadm perform a version check on the external etcd cluster. You can proceed with `kubeadm upgrade apply ...`.
 
 This issue is fixed as of version 1.19.
 
@@ -415,3 +419,21 @@ If `/var/lib/kubelet` is being mounted, performing a `kubeadm reset` will effect
 To workaround the issue, re-mount the `/var/lib/kubelet` directory after performing the `kubeadm reset` operation.
 
 This is a regression introduced in kubeadm 1.15. The issue is fixed in 1.20.
+
+## Cannot use the metrics-server securely in a kubeadm cluster
+
+In a kubeadm cluster, the [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
+can be used insecurely by passing the `--kubelet-insecure-tls` to it. This is not recommended for production clusters.
+
+If you want to use TLS between the metrics-server and the kubelet there is a problem,
+since kubeadm deploys a self-signed serving certificate for the kubelet. This can cause the following errors
+on the side of the metrics-server:
+```
+x509: certificate signed by unknown authority
+x509: certificate is valid for IP-foo not IP-bar
+```
+
+See [Enabling signed kubelet serving certificates](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
+to understand how to configure the kubelets in a kubeadm cluster to have properly signed serving certificates.
+
+Also see [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely).

@@ -31,14 +31,15 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * The [Citrix ingress controller](https://github.com/citrix/citrix-k8s-ingress-controller#readme) works with
   Citrix Application Delivery Controller.
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller.
+* [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
   lets you use an Ingress to configure F5 BIG-IP virtual servers.
 * [Gloo](https://gloo.solo.io) is an open-source ingress controller based on [Envoy](https://www.envoyproxy.io),
   which offers API gateway functionality.
 * [HAProxy Ingress](https://haproxy-ingress.github.io/) is an ingress controller for
-  [HAProxy](http://www.haproxy.org/#desc).
+  [HAProxy](https://www.haproxy.org/#desc).
 * The [HAProxy Ingress Controller for Kubernetes](https://github.com/haproxytech/kubernetes-ingress#readme)
-  is also an ingress controller for [HAProxy](http://www.haproxy.org/#desc).
+  is also an ingress controller for [HAProxy](https://www.haproxy.org/#desc).
 * [Istio Ingress](https://istio.io/latest/docs/tasks/traffic-management/ingress/kubernetes-ingress/)
   is an [Istio](https://istio.io/) based ingress controller.
 * The [Kong Ingress Controller for Kubernetes](https://github.com/Kong/kubernetes-ingress-controller#readme)
@@ -48,8 +49,9 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP router and reverse proxy for service composition, including use cases like Kubernetes Ingress, designed as a library to build your custom proxy.
 * The [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) is an
   ingress controller for the [Traefik](https://traefik.io/traefik/) proxy.
+* [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) extends Ingress with Custom Resources to bring API Management capabilities to Ingress. Tyk Operator works with the Open Source Tyk Gateway & Tyk Cloud control plane.
 * [Voyager](https://appscode.com/products/voyager) is an ingress controller for
-  [HAProxy](http://www.haproxy.org/#desc).
+  [HAProxy](https://www.haproxy.org/#desc).
 
 ## Using multiple Ingress controllers
 

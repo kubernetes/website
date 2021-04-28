@@ -33,11 +33,11 @@ drivers, but the functionality is somewhat limited.
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
 Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
-the lifetime of a pod. Consequently, a volume outlives any containers
-that run within the pod, and data is preserved across container restarts. When a
-pod ceases to exist, the volume is destroyed.
+the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes; 
+however, Kubernetes does not destroy persistent volumes. 
+For any kind of volume in a given pod, data is preserved across container restarts.
 
-At its core, a volume is just a directory, possibly with some data in it, which
+At its core, a volume is a directory, possibly with some data in it, which
 is accessible to the containers in a pod. How that directory comes to be, the
 medium that backs it, and the contents of it are determined by the particular
 volume type used.
@@ -106,6 +106,8 @@ spec:
       fsType: ext4
 ```
 
+If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which parition to mount on.
+
 #### AWS EBS CSI migration
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
@@ -150,14 +152,16 @@ For more details, see the [`azureFile` volume plugin](https://github.com/kuberne
 
 #### azureFile CSI migration
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 The `CSIMigration` feature for `azureFile`, when enabled, redirects all plugin operations
 from the existing in-tree plugin to the `file.csi.azure.com` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
 Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
-alpha features must be enabled.
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+
+Azure File CSI driver does not support using same volume with different fsgroups, if Azurefile CSI migration is enabled, using same volume with different fsgroups won't be supported at all.
 
 ### cephfs
 
@@ -206,14 +210,17 @@ spec:
 
 #### OpenStack CSI migration
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-The `CSIMigration` feature for Cinder, when enabled, redirects all plugin operations
-from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
-Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
-Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
-must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
-beta features must be enabled.
+The `CSIMigration` feature for Cinder is enabled by default in Kubernetes 1.21.
+It redirects all plugin operations from the existing in-tree plugin to the
+`cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
+[OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
+must be installed on the cluster.
+You can disable Cinder CSI migration for your cluster by setting the `CSIMigrationOpenStack` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to `false`.
+If you disable the `CSIMigrationOpenStack` feature, the in-tree Cinder volume plugin takes responsibility
+for all aspects of Cinder volume storage management.
 
 ### configMap
 
@@ -929,7 +936,7 @@ GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte
 ### rbd
 
 An `rbd` volume allows a
-[Rados Block Device](https://ceph.com/docs/master/rbd/rbd/) (RBD) volume to mount into your
+[Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount into your
 Pod. Unlike `emptyDir`, which is erased when a pod is removed, the contents of
 an `rbd` volume are preserved and the volume is unmounted. This
 means that a RBD volume can be pre-populated with data, and that data can

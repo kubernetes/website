@@ -5,22 +5,21 @@
 
 title: 노드에 파드 할당하기
 content_type: concept
-weight: 50
+weight: 20
 ---
 
 
 <!-- overview -->
 
-{{< glossary_tooltip text="파드" term_id="pod" >}}를 특정한 {{< glossary_tooltip text="노드(들)" term_id="node" >}}에서만 동작하도록 하거나,
-특정 노드들을 선호하도록 제한할 수 있다.
-이를 수행하는 방법에는 여러 가지가 있으며, 권장되는 접근 방식은 모두
-[레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)를 사용하여 선택한다.
-보통 스케줄러가 자동으로 합리적인 배치(예: 노드들에 걸쳐 파드를 분배하거나,
-자원이 부족한 노드에 파드를 배치하지 않는 등)를 수행하기에 이런 제약 조건은 필요하지 않지만
-간혹 파드가 배치되는 노드에 대해 더 많은 제어를 원할 수 있는 상황이 있다.
+특정한 {{< glossary_tooltip text="노드(들)" term_id="node" >}} 집합에서만 동작하도록
+{{< glossary_tooltip text="파드" term_id="pod" >}}를 제한할 수 있다.
+이를 수행하는 방법에는 여러 가지가 있으며 권장되는 접근 방식은 모두
+[레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)를 사용하여 선택을 용이하게 한다.
+보통 스케줄러가 자동으로 합리적인 배치(예: 자원이 부족한 노드에 파드를 배치하지 않도록
+노드 간에 파드를 분배하는 등)를 수행하기에 이러한 제약 조건은 필요하지 않지만
+간혹 파드가 배포할 노드를 제어해야 하는 경우가 있다.
 예를 들어 SSD가 장착된 머신에 파드가 연결되도록 하거나 또는 동일한 가용성 영역(availability zone)에서
 많은 것을 통신하는 두 개의 서로 다른 서비스의 파드를 같이 배치할 수 있다.
-
 
 
 <!-- body -->
@@ -120,13 +119,13 @@ spec:
 
 여기에 현재 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` 로 부르는
 두 가지 종류의 노드 어피니티가 있다. 전자는 파드가 노드에 스케줄되도록 *반드시*
-규칙을 만족해야 하는 것(`nodeSelector` 와 같으나 보다 표현적인 구문을 사용해서)을 지정하고,
+규칙을 만족해야 하는 것(`nodeSelector` 와 비슷하나 보다 표현적인 구문을 사용해서)을 지정하고,
 후자는 스케줄러가 시도하려고는 하지만, 보증하지 않는 *선호(preferences)* 를 지정한다는 점에서
 이를 각각 "엄격함(hard)" 과 "유연함(soft)" 으로 생각할 수 있다.
 이름의 "IgnoredDuringExecution" 부분은 `nodeSelector` 작동 방식과 유사하게 노드의
-레이블이 런타임 중에 변경되어 파드의 어피니티 규칙이 더 이상 충족되지 않으면 파드가 여전히 그 노드에서
+레이블이 런타임 중에 변경되어 파드의 어피니티 규칙이 더 이상 충족되지 않으면 파드가 그 노드에서
 동작한다는 의미이다. 향후에는 파드의 노드 어피니티 요구 사항을 충족하지 않는 노드에서 파드를 제거한다는
-점을 제외하고는 `preferredDuringSchedulingIgnoredDuringExecution` 와 같은 `requiredDuringSchedulingIgnoredDuringExecution` 를 제공할 계획이다.
+점을 제외하고는 `preferredDuringSchedulingIgnoredDuringExecution` 와 동일한 `requiredDuringSchedulingIgnoredDuringExecution` 를 제공할 계획이다.
 
 따라서 `requiredDuringSchedulingIgnoredDuringExecution` 의 예로는 "인텔 CPU가 있는 노드에서만 파드 실행"이
 될 수 있고, `preferredDuringSchedulingIgnoredDuringExecution` 의 예로는 "장애 조치 영역 XYZ에 파드 집합을 실행하려고
@@ -261,7 +260,7 @@ PodSpec에 지정된 NodeAffinity도 적용된다.
 `topologyKey` 의 빈 값을 허용하지 않는다.
 2. 파드 안티-어피니티에서도 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` 는
 `topologyKey` 의 빈 값을 허용하지 않는다.
-3. `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에서 `topologyKey` 를 `kubernetes.io/hostname` 로 제한하기 위해 어드미션 컨트롤러 `LimitPodHardAntiAffinityTopology` 가 도입되었다. 사용자 지정 토폴로지를 사용할 수 있도록 하려면, 어드미션 컨트롤러를 수정하거나 아니면 간단히 이를 비활성화해야 한다.
+3. `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에서 `topologyKey` 를 `kubernetes.io/hostname` 로 제한하기 위해 어드미션 컨트롤러 `LimitPodHardAntiAffinityTopology` 가 도입되었다. 사용자 지정 토폴로지를 사용할 수 있도록 하려면, 어드미션 컨트롤러를 수정하거나 아니면 이를 비활성화해야 한다.
 4. 위의 경우를 제외하고, `topologyKey` 는 적법한 어느 레이블-키도 가능하다.
 
 `labelSelector` 와 `topologyKey` 외에도 `labelSelector` 와 일치해야 하는 네임스페이스 목록 `namespaces` 를
@@ -270,6 +269,18 @@ PodSpec에 지정된 NodeAffinity도 적용된다.
 
 파드를 노드에 스케줄하려면 `requiredDuringSchedulingIgnoredDuringExecution` 어피니티와 안티-어피니티와
 연관된 `matchExpressions` 가 모두 충족되어야 한다.
+
+#### 네임스페이스 셀렉터
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+사용자는 네임스페이스 집합에 대한 레이블 쿼리인 `namespaceSelector` 를 사용하여 일치하는 네임스페이스를 선택할 수도 있다.
+어피니티 용어는 `namespaceSelector` 에서 선택한 네임스페이스와 `namespaces` 필드에 나열된 네임스페이스의 결합에 적용된다.
+빈 `namespaceSelector` ({})는 모든 네임스페이스와 일치하는 반면, null 또는 빈 `namespaces` 목록과
+null `namespaceSelector` 는 "이 파드의 네임스페이스"를 의미한다.
+
+이 기능은 알파이며 기본적으로 비활성화되어 있다. kube-apiserver 및 kube-scheduler 모두에서
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+`PodAffinityNamespaceSelector` 를 설정하여 활성화할 수 있다.
 
 #### 더 실용적인 유스케이스
 

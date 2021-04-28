@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "PriorityLevelConfiguration represents the configuration of a priority level."
 title: "PriorityLevelConfiguration v1beta1"
 weight: 8
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: flowcontrol.apiserver.k8s.io/v1beta1`
 
@@ -76,28 +88,28 @@ PriorityLevelConfigurationSpec specifies the configuration of a priority level.
     <a name="LimitResponse"></a>
     *LimitResponse defines how to handle requests that can not be executed right now.*
 
-  - **limited.limitResponse.type** (string), required
+    - **limited.limitResponse.type** (string), required
 
-    `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
+      `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
 
-  - **limited.limitResponse.queuing** (QueuingConfiguration)
+    - **limited.limitResponse.queuing** (QueuingConfiguration)
 
-    `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
+      `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
 
-    <a name="QueuingConfiguration"></a>
-    *QueuingConfiguration holds the configuration parameters for queuing*
+      <a name="QueuingConfiguration"></a>
+      *QueuingConfiguration holds the configuration parameters for queuing*
 
-  - **limited.limitResponse.queuing.handSize** (int32)
+      - **limited.limitResponse.queuing.handSize** (int32)
 
-    `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
+        `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
 
-  - **limited.limitResponse.queuing.queueLengthLimit** (int32)
+      - **limited.limitResponse.queuing.queueLengthLimit** (int32)
 
-    `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
+        `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
 
-  - **limited.limitResponse.queuing.queues** (int32)
+      - **limited.limitResponse.queuing.queues** (int32)
 
-    `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
+        `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
 
 
 

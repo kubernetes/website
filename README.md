@@ -43,6 +43,8 @@ make container-image
 make container-serve
 ```
 
+If you see errors, it probably means that the hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) and [Windows](https://docs.docker.com/docker-for-windows/#resources)).
+
 Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
 ## Running the website locally using Hugo
@@ -99,6 +101,8 @@ You can test the results locally by making and serving the site from a container
 make container-image
 make container-serve
 ```
+
+In a web browser, go to http://localhost:1313/docs/reference/kubernetes-api/ to view the API reference.
 
 6. When all changes of the new contract are reflected into the configuration files `toc.yaml` and `fields.yaml`, create a Pull Request with the newly generated API reference pages.
 

@@ -11,7 +11,7 @@ emeritus_approvers:
 # - jaredbhatti, commented out to disable PR assignments
 # - steveperry-53, commented out to disable PR assignments
 - stewart-yu 
-- zacharysarah
+# - zacharysarah, commented out to disable PR assignments
 
 labels:
 - sig/docs

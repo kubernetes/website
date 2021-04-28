@@ -30,6 +30,20 @@ Used on: Node
 
 The Kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
 
+## kubernetes.io/metadata.name
+
+Example: `kubernetes.io/metadata.name=mynamespace`
+
+Used on: Namespaces
+
+When the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+the Kubernetes API server sets this label on all namespaces. The label value is set to
+the name of the namespace.
+
+This is useful if you want to target a specific namespace with a label
+{{< glossary_tooltip text="selector" term_id="selector" >}}.
+
 ## beta.kubernetes.io/arch (deprecated)
 
 This label has been deprecated. Please use `kubernetes.io/arch` instead.
@@ -47,6 +61,16 @@ Used on: Node
 The Kubelet populates this label with the hostname. Note that the hostname can be changed from the "actual" hostname by passing the `--hostname-override` flag to the `kubelet`.
 
 This label is also used as part of the topology hierarchy.  See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
+
+
+## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
+
+Example: `controller.kubernetes.io/pod-deletion-cost=10`
+
+Used on: Pod
+
+This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
 
 ## beta.kubernetes.io/instance-type (deprecated)
 
@@ -74,6 +98,18 @@ See [topology.kubernetes.io/region](#topologykubernetesioregion).
 See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 {{< note >}} Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone). {{< /note >}}
+
+## statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
+
+Example:
+
+`statefulset.kubernetes.io/pod-name=mystatefulset-7`
+
+When a StatefulSet controller creates a Pod for the StatefulSet, the control plane
+sets this label on that Pod. The value of the label is the name of the Pod being created.
+
+See [Pod Name Label](/docs/concepts/workloads/controllers/statefulset/#pod-name-label) in the
+StatefulSet topic for more details.
 
 ## topology.kubernetes.io/region {#topologykubernetesioregion}
 
@@ -114,3 +150,173 @@ The scheduler (through the _VolumeZonePredicate_ predicate) also will ensure tha
 If `PersistentVolumeLabel` does not support automatic labeling of your PersistentVolumes, you should consider
 adding the labels manually (or adding support for `PersistentVolumeLabel`). With `PersistentVolumeLabel`, the scheduler prevents Pods from mounting volumes in a different zone. If your infrastructure doesn't have this constraint, you don't need to add the zone labels to the volumes at all.
 
+## node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
+
+Example: `node.kubernetes.io/windows-build=10.0.17763`
+
+Used on: Node
+
+When the kubelet is running on Microsoft Windows, it automatically labels its node to record the version of Windows Server in use.
+
+The label's value is in the format "MajorVersion.MinorVersion.BuildNumber".
+
+## service.kubernetes.io/headless {#servicekubernetesioheadless}
+
+Example: `service.kubernetes.io/headless=""`
+
+Used on: Service
+
+The control plane adds this label to an Endpoints object when the owning Service is headless.
+
+## kubernetes.io/service-name {#kubernetesioservice-name}
+
+Example: `kubernetes.io/service-name="nginx"`
+
+Used on: Service
+
+Kubernetes uses this label to differentiate multiple Services. Used currently for `ELB`(Elastic Load Balancer) only.
+
+## endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
+
+Example: `endpointslice.kubernetes.io/managed-by="controller"`
+
+Used on: EndpointSlices
+
+The label is used to indicate the controller or entity that manages an EndpointSlice. This label aims to enable different EndpointSlice objects to be managed by different controllers or entities within the same cluster.
+
+## endpointslice.kubernetes.io/skip-mirror {#endpointslicekubernetesioskip-mirror}
+
+Example: `endpointslice.kubernetes.io/skip-mirror="true"`
+
+Used on: Endpoints
+
+The label can be set to `"true"` on an Endpoints resource to indicate that the EndpointSliceMirroring controller should not mirror this resource with EndpointSlices.
+
+## service.kubernetes.io/service-proxy-name {#servicekubernetesioservice-proxy-name}
+
+Example: `service.kubernetes.io/service-proxy-name="foo-bar"`
+
+Used on: Service
+
+The kube-proxy has this label for custom proxy, which delegates service control to custom proxy.
+
+## experimental.windows.kubernetes.io/isolation-type
+
+Example: `experimental.windows.kubernetes.io/isolation-type: "hyperv"`
+
+Used on: Pod
+
+The annotation is used to run Windows containers with Hyper-V isolation. To use Hyper-V isolation feature and create a Hyper-V isolated container, the kubelet should be started with feature gates HyperVContainer=true and the Pod should include the annotation experimental.windows.kubernetes.io/isolation-type=hyperv.
+
+{{< note >}}
+You can only set this annotation on Pods that have a single container.
+{{< /note >}}
+
+## ingressclass.kubernetes.io/is-default-class
+
+Example: `ingressclass.kubernetes.io/is-default-class: "true"`
+
+Used on: IngressClass
+
+When a single IngressClass resource has this annotation set to `"true"`, new Ingress resource without a class specified will be assigned this default class.
+
+## kubernetes.io/ingress.class (deprecated)
+
+{{< note >}} Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`. {{< /note >}}
+
+## storageclass.kubernetes.io/is-default-class
+
+Example: `storageclass.kubernetes.io/is-default-class=true`
+
+Used on: StorageClass
+
+When a single StorageClass resource has this annotation set to `"true"`, new Physical Volume Claim resource without a class specified will be assigned this default class.
+
+## alpha.kubernetes.io/provided-node-ip
+
+Example: `alpha.kubernetes.io/provided-node-ip: "10.0.0.1"`
+
+Used on: Node
+
+The kubelet can set this annotation on a Node to denote its configured IPv4 address.
+
+When kubelet is started with the "external" cloud provider, it sets this annotation on the Node to denote an IP address set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid by the cloud-controller-manager.
+
+## batch.kubernetes.io/job-completion-index
+
+Example: `batch.kubernetes.io/job-completion-index: "3"`
+
+Used on: Pod
+
+The Job controller in the kube-controller-manager sets this annotation for Pods
+created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
+
+## kubectl.kubernetes.io/default-container
+
+Example: `kubectl.kubernetes.io/default-container: "front-end-app"`
+
+The value of the annotation is the container name that is default for this Pod. For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container.
+
+## endpoints.kubernetes.io/over-capacity
+
+Example: `endpoints.kubernetes.io/over-capacity:warning`
+
+Used on: Endpoints
+
+In Kubernetes clusters v1.21 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity.
+
+**The taints listed below are always used on Nodes**
+
+## node.kubernetes.io/not-ready
+
+Example: `node.kubernetes.io/not-ready:NoExecute`
+
+The node controller detects whether a node is ready by monitoring its health and adds or removes this taint accordingly.
+
+## node.kubernetes.io/unreachable
+
+Example: `node.kubernetes.io/unreachable:NoExecute`
+
+The node controller adds the taint to a node corresponding to the [NodeCondition](/docs/concepts/architecture/nodes/#condition) `Ready` being `Unknown`.
+
+## node.kubernetes.io/unschedulable
+
+Example: `node.kubernetes.io/unschedulable:NoSchedule`
+
+The taint will be added to a node when initializing the node to avoid race condition.
+
+## node.kubernetes.io/memory-pressure
+
+Example: `node.kubernetes.io/memory-pressure:NoSchedule`
+
+The kubelet detects memory pressure based on `memory.available` and `allocatableMemory.available` observed on a Node. The observed values are then compared to the corresponding thresholds that can be set on the kubelet to determine if the Node condition and taint should be added/removed.
+
+## node.kubernetes.io/disk-pressure
+
+Example: `node.kubernetes.io/disk-pressure:NoSchedule`
+
+The kubelet detects disk pressure based on `imagefs.available`, `imagefs.inodesFree`, `nodefs.available` and `nodefs.inodesFree`(Linux only) observed on a Node. The observed values are then compared to the corresponding thresholds that can be set on the kubelet to determine if the Node condition and taint should be added/removed.
+
+## node.kubernetes.io/network-unavailable
+
+Example: `node.kubernetes.io/network-unavailable:NoSchedule`
+
+This is initially set by the kubelet when the cloud provider used indicates a requirement for additional network configuration. Only when the route on the cloud is configured properly will the taint be removed by the cloud provider.
+
+## node.kubernetes.io/pid-pressure
+
+Example: `node.kubernetes.io/pid-pressure:NoSchedule`
+
+The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PIDs consumed by Kubernetes on a node to get the number of available PIDs that referred to as the `pid.available` metric. The metric is then compared to the corresponding threshold that can be set on the kubelet to determine if the node condition and taint should be added/removed.
+
+## node.cloudprovider.kubernetes.io/uninitialized
+
+Example: `node.cloudprovider.kubernetes.io/uninitialized:NoSchedule`
+
+Sets this taint on a node to mark it as unusable, when kubelet is started with the "external" cloud provider, until a controller from the cloud-controller-manager initializes this node, and then removes the taint.
+
+## node.cloudprovider.kubernetes.io/shutdown
+
+Example: `node.cloudprovider.kubernetes.io/shutdown:NoSchedule`
+
+If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.

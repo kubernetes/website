@@ -745,7 +745,7 @@ dan tidak akan menerima trafik apa pun.
 
 Untuk menghasilkan distribusi trafik yang merata, kamu dapat menggunakan
 _DaemonSet_ atau melakukan spesifikasi
-[pod anti-affinity](/id/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
+[pod anti-affinity](/id/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
 agar `Pod` tidak di-_assign_ ke _node_ yang sama.
 
 NLB juga dapat digunakan dengan anotasi [internal load balancer](/id/docs/concepts/services-networking/service/#internal-load-balancer).

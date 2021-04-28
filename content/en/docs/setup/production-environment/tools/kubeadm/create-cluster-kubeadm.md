@@ -8,7 +8,7 @@ weight: 30
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Creating a minimum viable Kubernetes cluster that conforms to best practices. In fact, you can use `kubeadm` to set up a cluster that will pass the [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Using `kubeadm`, you can create a minimum viable Kubernetes cluster that conforms to best practices. In fact, you can use `kubeadm` to set up a cluster that will pass the [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).
 `kubeadm` also supports other cluster
 lifecycle functions, such as [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and cluster upgrades.
 
@@ -137,7 +137,7 @@ is not supported by kubeadm.
 
 ### More information
 
-For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/).
+For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/).
 
 To configure `kubeadm init` with a configuration file see [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
 
@@ -187,6 +187,13 @@ Alternatively, if you are the `root` user, you can run:
 export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
+{{< warning >}}
+Kubeadm signs the certificate in the `admin.conf` to have `Subject: O = system:masters, CN = kubernetes-admin`.
+`system:masters` is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
+Do not share the `admin.conf` file with anyone and instead grant users custom permissions by generating
+them a kubeconfig file using the `kubeadm kubeconfig user` command.
+{{< /warning >}}
+
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 need this command to [join nodes to your cluster](#join-nodes).
 
@@ -229,7 +236,7 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
 {{< /caution >}}
 
 {{< note >}}
-Currently Calico is the only CNI plugin that the kubeadm project performs e2e tests against.
+Kubeadm should be CNI agnostic and the validation of CNI providers is out of the scope of our current e2e testing.
 If you find an issue related to a CNI plugin you should log a ticket in its respective issue
 tracker instead of the kubeadm or kubernetes issue trackers.
 {{< /note >}}
@@ -434,7 +441,7 @@ Now remove the node:
 kubectl delete node <node name>
 ```
 
-If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
+If you wish to start over, run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
 ### Clean up the control plane

@@ -22,7 +22,7 @@ components.
 使用云基础设施技术，你可以在公有云、私有云或者混合云环境中运行 Kubernetes。
 Kubernetes 的信条是基于自动化的、API 驱动的基础设施，同时避免组件间紧密耦合。
 
-{{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="组件 cloud-controller-manager 是">}}
+{{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="组件 cloud-controller-manager 是指云控制器管理器，">}}
 
 <!--
 The cloud-controller-manager is structured using a plugin
@@ -35,7 +35,7 @@ mechanism that allows different cloud providers to integrate their platforms wit
 <!--
 ## Design
 
-![Kubernetes components](/images/docs/components-of-kubernetes.png)
+![Kubernetes components](/images/docs/components-of-kubernetes.svg)
 
 The cloud controller manager runs in the control plane as a replicated set of processes
 (usually, these are containers in Pods). Each cloud-controller-manager implements
@@ -44,7 +44,7 @@ process.
 -->
 ## 设计  {#design}
 
-![Kubernetes 组件](/images/docs/components-of-kubernetes.png)
+![Kubernetes 组件](/images/docs/components-of-kubernetes.svg)
 
 云控制器管理器以一组多副本的进程集合的形式运行在控制面中，通常表现为 Pod
 中的容器。每个 `cloud-controller-manager` 在同一进程中实现多个
@@ -96,7 +96,7 @@ hosts running inside your tenancy with the cloud provider. The node controller p
 2. 利用特定云平台的信息为 Node 对象添加注解和标签，例如节点所在的
    区域（Region）和所具有的资源（CPU、内存等等）；
 3. 获取节点的网络地址和主机名；
-4. 检查节点的健康状况。如果节点无响应，控制器通过云平台 API ll 查看该节点是否
+4. 检查节点的健康状况。如果节点无响应，控制器通过云平台 API 查看该节点是否
    已从云中禁用、删除或终止。如果节点已从云中删除，则控制器从 Kubernetes 集群
    中删除 Node 对象。
 
@@ -126,7 +126,7 @@ Route 控制器负责适当地配置云平台中的路由，以便 Kubernetes �
 <!--
 ### Service controller
 
-{< glossary_tooltip text="Services" term_id="service" >}} integrate with cloud
+{{< glossary_tooltip text="Services" term_id="service" >}} integrate with cloud
 infrastructure components such as managed load balancers, IP addresses, network
 packet filtering, and target health checking. The service controller interacts with your
 cloud provider's APIs to set up load balancers and other infrastructure components
@@ -314,10 +314,14 @@ rules:
 [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
 has instructions on running and managing the cloud controller manager.
 
+To upgrade a HA control plane to use the cloud controller manager, see [Migrate Replicated Control Plane To Use Cloud Controller Manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/).
+
 Want to know how to implement your own cloud controller manager, or extend an existing project?
 -->
 [云控制器管理器的管理](/zh/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
 给出了运行和管理云控制器管理器的指南。
+
+要升级 HA 控制平面以使用云控制器管理器，请参见 [将复制的控制平面迁移以使用云控制器管理器](/zh/docs/tasks/administer-cluster/controller-manager-leader-migration/)
 
 想要了解如何实现自己的云控制器管理器，或者对现有项目进行扩展么？
 

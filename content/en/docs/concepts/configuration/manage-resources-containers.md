@@ -21,9 +21,6 @@ allowed to use more of that resource than the limit you set. The kubelet also re
 at least the _request_ amount of that system resource specifically for that container
 to use.
 
-
-
-
 <!-- body -->
 
 ## Requests and limits
@@ -72,8 +69,7 @@ You cannot overcommit `hugepages-*` resources.
 This is different from the `memory` and `cpu` resources.
 {{< /note >}}
 
-CPU and memory are collectively referred to as *compute resources*, or just
-*resources*. Compute
+CPU and memory are collectively referred to as *compute resources*, or *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
 consumed. They are distinct from
 [API resources](/docs/concepts/overview/kubernetes-api/). API resources, such as Pods and
@@ -443,12 +439,15 @@ If you want to use project quotas, you should:
 
 * Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in the kubelet configuration.
+  using the `featureGates` field in the
+  [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
+  or the `--feature-gates` command line flag.
 
 * Ensure that the root filesystem (or optional runtime filesystem)
   has project quotas enabled. All XFS filesystems support project quotas.
   For ext4 filesystems, you need to enable the project quota tracking feature
   while the filesystem is not mounted.
+
   ```bash
   # For ext4, with /dev/block-device not mounted
   sudo tune2fs -O project -Q prjquota /dev/block-device
@@ -519,8 +518,7 @@ Cluster-level extended resources are not tied to nodes. They are usually managed
 by scheduler extenders, which handle the resource consumption and resource quota.
 
 You can specify the extended resources that are handled by scheduler extenders
-in [scheduler policy
-configuration](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/scheduler/api/v1/types.go#L31).
+in [scheduler policy configuration](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 
 **Example:**
 
@@ -554,7 +552,7 @@ extender.
 
 ### Consuming extended resources
 
-Users can consume extended resources in Pod specs just like CPU and memory.
+Users can consume extended resources in Pod specs like CPU and memory.
 The scheduler takes care of the resource accounting so that no more than the
 available amount is simultaneously allocated to Pods.
 
@@ -743,23 +741,14 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 You can see that the Container was terminated because of `reason:OOM Killed`, where `OOM` stands for Out Of Memory.
 
-
-
-
-
-
 ## {{% heading "whatsnext" %}}
 
-
 * Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
-
 * Get hands-on experience [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
-
 * For more details about the difference between requests and limits, see
   [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
-
 * Read the [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) API reference
-
 * Read the [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API reference
-
 * Read about [project quotas](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
+* Read more about the [kube-scheduler Policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
+

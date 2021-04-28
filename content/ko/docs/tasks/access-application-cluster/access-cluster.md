@@ -26,9 +26,9 @@ kubectl이 인지하는 위치정보와 인증정보는 다음 커맨드로 확�
 kubectl config view
 ```
 
-많은 [예제들](/ko/docs/reference/kubectl/cheatsheet/)에서
-kubectl을 사용하는 것을 소개하고 있으며 완전한 문서는
-[kubectl 매뉴얼](/ko/docs/reference/kubectl/overview/)에서 찾아볼 수 있다.
+[여기](/ko/docs/reference/kubectl/cheatsheet/)에서 
+kubectl 사용 예시를 볼 수 있으며, 완전한 문서는
+[kubectl 매뉴얼](/ko/docs/reference/kubectl/overview/)에서 확인할 수 있다.
 
 ## REST API에 직접 접근
 
@@ -44,12 +44,12 @@ REST API에 직접 접근하려고 한다면 위치 파악과 인증을 하는 �
     - 앞으로는 클라이언트 측의 지능형 load balancing과 failover가 될 것이다.
   - 직접적으로 http 클라이언트에 위치정보와 인증정보를 제공.
     - 대안적인 접근 방식.
-    - proxy 사용과 혼동되는 몇 가지 타입의 클라이언트 code들과 같이 동작한다.
-    - MITM로부터 보호를 위해 root 인증서를 당신의 브라우저로 import해야 한다.
+    - proxy 사용과 혼동되는 몇 가지 타입의 클라이언트 코드와 같이 동작한다.
+    - MITM로부터 보호를 위해 root 인증서를 당신의 브라우저로 임포트해야 한다.
 
 ### kubectl proxy 사용
 
-다음 커맨드는 kubectl을 reverse proxy처럼 동작하는 모드를 실행한다. 이는
+다음 커맨드는 kubectl을 리버스 프록시(reverse proxy)처럼 동작하는 모드를 실행한다. 이는
 apiserver의 위치지정과 인증을 처리한다.
 다음과 같이 실행한다.
 
@@ -205,7 +205,7 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
 
   - 파드의 sidecar 컨테이너 내에서 `kubectl proxy`를 실행하거나,
     컨테이너 내부에서 백그라운드 프로세스로 실행한다.
-    이는 쿠버네티스 API를 파드의 localhost 인터페이스로 proxy하여
+    이는 쿠버네티스 API를 파드의 localhost 인터페이스로 프록시하여
     해당 파드의 컨테이너 내에 다른 프로세스가 API에 접속할 수 있게 해준다.
   - Go 클라이언트 라이브러리를 이용하여 `rest.InClusterConfig()`와 `kubernetes.NewForConfig()` 함수들을 사용하도록 클라이언트를 만든다.
     이는 apiserver의 위치지정과 인증을 처리한다. [예제](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
@@ -215,47 +215,47 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
 ## 클러스터에서 실행되는 서비스로 접근
 
 이전 장은 쿠버네티스 API server 접속에 대한 내용을 다루었다. 이번 장은
-쿠버네티스 클러스터 상에서 실행되는 다른 서비스로의 연결을 다룰 것이다. 쿠버네티스에서
-[노드들](/ko/docs/concepts/architecture/nodes/),
-[파드들](/ko/docs/concepts/workloads/pods/),
-[서비스들](/ko/docs/concepts/services-networking/service/)은
-모두 자신의 IP들을 가진다. 당신의 데스크탑 PC와 같은 클러스터 외부 장비에서는
-클러스터 상의 노드 IP들, 파드 IP들, 서비스 IP들로 라우팅되지 않아서 접근을
+쿠버네티스 클러스터 상에서 실행되는 다른 서비스로의 연결을 다룰 것이다. 
+
+쿠버네티스에서, [노드](/ko/docs/concepts/architecture/nodes/),
+[파드](/ko/docs/concepts/workloads/pods/) 및 [서비스](/ko/docs/concepts/services-networking/service/)는 모두
+고유한 IP를 가진다. 당신의 데스크탑 PC와 같은 클러스터 외부 장비에서는
+클러스터 상의 노드 IP, 파드 IP, 서비스 IP로 라우팅되지 않아서 접근을
 할 수 없을 것이다.
 
 ### 통신을 위한 방식들
 
-클러스터 외부에서 노드들, 파드들, 서비스들에 접속하는 데는 몇 가지 선택지들이 있다.
+클러스터 외부에서 노드, 파드 및 서비스에 접속하기 위한 몇 가지 옵션이 있다.
 
   - 공인 IP를 통해 서비스에 접근.
     - 클러스터 외부에서 접근할 수 있도록 `NodePort` 또는 `LoadBalancer` 타입의
       서비스를 사용한다. [서비스](/ko/docs/concepts/services-networking/service/)와
       [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) 문서를 참조한다.
-    - 당신의 클러스터 환경에 따라 회사 네트워크에만 서비스를 노출하거나
-      인터넷으로 노출할 수 있다. 이 경우 노출되는 서비스의 보안 여부를 고려해야 한다.
+    - 클러스터 환경에 따라, 서비스는 회사 네트워크에만 노출되기도 하며,
+      인터넷에 노출되는 경우도 있다. 이 경우 노출되는 서비스의 보안 여부를 고려해야 한다.
       해당 서비스는 자체적으로 인증을 수행하는가?
-    - 파드들은 서비스 뒤에 위치시킨다. 레플리카들의 집합에서 특정 파드 하나에 debugging 같은 목적으로 접근하려면
-      해당 파드에 고유의 레이블을 붙이고 셀렉터에 해당 레이블을 선택한 신규 서비스를 생성한다.
+    - 파드는 서비스 뒤에 위치시킨다. 레플리카들의 집합에서 특정 파드 하나에 debugging 같은 목적으로 접근하려면
+      해당 파드에 고유의 레이블을 붙이고 셀렉터에 해당 레이블을 선택하는 신규 서비스를 생성한다.
     - 대부분의 경우에는 애플리케이션 개발자가 노드 IP를 통해 직접 노드에
       접근할 필요는 없다.
   - Proxy Verb를 사용하여 서비스, 노드, 파드에 접근.
     - 원격 서비스에 접근하기에 앞서 apiserver의 인증과 인가를 받아야 한다.
-      서비스가 인터넷에 노출하기에 보안이 충분하지 않거나 노드 IP 상의 port에
+      서비스가 인터넷에 노출하기에 보안이 충분하지 않거나 노드 IP 상의 포트에
       접근을 하려고 하거나 debugging을 하려면 이를 사용한다.
-    - 어떤 web 애플리케이션에서는 proxy가 문제를 일으킬 수 있다.
+    - 어떤 web 애플리케이션에서는 프록시가 문제를 일으킬 수 있다.
     - HTTP/HTTPS에서만 동작한다.
     - [여기](#수작업으로-apiserver-proxy-url들을-구축)에서 설명하고 있다.
   - 클러스터 내 노드 또는 파드에서 접근.
-    - 파드를 Running시킨 다음 [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)를 사용하여 해당 파드의 셸로 접속한다.
-      해당 셸에서 다른 노드들, 파드들, 서비스들에 연결한다.
+    - 파드를 실행한 다음, [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)를 사용하여 해당 파드의 셸로 접속한다.
+      해당 셸에서 다른 노드, 파드, 서비스에 연결한다.
     - 어떤 클러스터는 클러스터 내의 노드에 ssh 접속을 허용하기도 한다. 이런 클러스터에서는
       클러스터 서비스에 접근도 가능하다. 이는 비표준 방식으로 특정 클러스터에서는 동작하지만
       다른 클러스터에서는 동작하지 않을 수 있다. 브라우저와 다른 도구들이 설치되지 않았거나 설치되었을 수 있다. 클러스터 DNS가 동작하지 않을 수도 있다.
 
-### 빌트인 서비스들의 발견
+### 빌트인 서비스 검색
 
-일반적으로 kube-system에 의해 클러스터 상에서 start되는 몇 가지 서비스들이 존재한다.
-`kubectl cluster-info` 커맨드로 이 서비스들의 리스트를 볼 수 있다.
+일반적으로 kube-system에 의해 클러스터에 실행되는 몇 가지 서비스가 있다. 
+`kubectl cluster-info` 커맨드로 이 서비스의 리스트를 볼 수 있다.
 
 ```shell
 kubectl cluster-info
@@ -280,20 +280,20 @@ heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/servi
 
 #### 수작업으로 apiserver proxy URL을 구축
 
-위에서 언급한 것처럼 서비스의 proxy URL을 검색하는데 `kubectl cluster-info` 커맨드를 사용할 수 있다. 서비스 endpoint, 접미사, 매개변수를 포함하는 proxy URL을 생성하려면 단순하게 해당 서비스에
+위에서 언급한 것처럼 서비스의 proxy URL을 검색하는 데 `kubectl cluster-info` 커맨드를 사용할 수 있다. 서비스 endpoint, 접미사, 매개변수를 포함하는 proxy URL을 생성하려면 해당 서비스에
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy` 형식의 proxy URL을 덧붙인다.
 
-당신이 port에 이름을 지정하지 않았다면 URL에 *port_name* 을 지정할 필요는 없다.
+당신이 포트에 이름을 지정하지 않았다면 URL에 *port_name* 을 지정할 필요는 없다. 이름이 있는 포트와 이름이 없는 포트 모두에 대하여, *port_name* 이 들어갈 자리에 포트 번호를 기재할 수도 있다.
 
-기본적으로 API server는 http를 사용하여 서비스를 proxy한다. https를 사용하려면 다음과 같이 서비스 네임의 접두사에 `https:`를 붙인다.
+기본적으로 API server는 http를 사용하여 서비스를 프록시한다. https를 사용하려면 다음과 같이 서비스 네임의 접두사에 `https:`를 붙인다.
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`https:service_name:[port_name]`*`/proxy`
 
 URL의 네임 부분에 지원되는 양식은 다음과 같다.
 
-* `<service_name>` - http를 사용하여 기본값 또는 이름이 없는 port로 proxy한다
-* `<service_name>:<port_name>` - http를 사용하여 지정된 port로 proxy한다
-* `https:<service_name>:` - https를 사용하여 기본값 또는 이름이 없는 port로 proxy한다(마지막 콜론:에 주의)
-* `https:<service_name>:<port_name>` - https를 사용하여 지정된 port로 proxy한다
+* `<service_name>` - http를 사용하여 기본값 또는 이름이 없는 포트로 프록시한다.
+* `<service_name>:<port_name>` - http를 사용하여 지정된 포트 이름 또는 포트 번호로 프록시한다.
+* `https:<service_name>:` - https를 사용하여 기본값 또는 이름이 없는 포트로 프록시한다. (마지막 콜론:에 주의)
+* `https:<service_name>:<port_name>` - https를 사용하여 지정된 포트 이름 또는 포트 번호로 프록시한다.
 
 ##### 예제들
 
@@ -326,38 +326,38 @@ URL의 네임 부분에 지원되는 양식은 다음과 같다.
 
 ## 요청 redirect
 
-redirect 기능은 deprecated되고 제거 되었다. 대신 (아래의) proxy를 사용하기를 바란다.
+redirect 기능은 deprecated되고 제거 되었다. 대신 (아래의) 프록시를 사용하기를 바란다.
 
-## 다양한 Proxy들
+## 다양한 프록시들
 
-쿠버네티스를 사용하면서 당신이 접할 수 있는 몇 가지 다른 proxy들이 존재한다.
+쿠버네티스를 사용하면서 당신이 접할 수 있는 몇 가지 다른 프록시들이 존재한다.
 
 1.  [kubectl proxy](#rest-api에-직접-접근):
 
     - 사용자의 데스크탑이나 파드 내에서 실행한다
-    - localhost 주소에서 쿠버네티스 apiserver로 proxy한다
-    - proxy하는 클라이언트는 HTTP를 사용한다
-    - apiserver의 proxy는 HTTPS를 사용한다
+    - localhost 주소에서 쿠버네티스 apiserver로 프록시한다
+    - 프록시하는 클라이언트는 HTTP를 사용한다
+    - apiserver의 프록시는 HTTPS를 사용한다
     - apiserver를 위치지정한다
     - 인증 header들을 추가한다
 
-1.  [apiserver proxy](#빌트인-서비스들의-발견):
+1.  [apiserver proxy](#빌트인-서비스-검색):
 
     - apiserver 내의 빌트인 bastion이다
-    - 다른 방식으로는 연결할 수 없는 클러스터 외부의 사용자를 클러스터 IP들로 연결한다
+    - 다른 방식으로는 연결할 수 없는 클러스터 외부의 사용자를 클러스터 IP로 연결한다
     - apiserver process들 내에서 실행된다
-    - proxy하는 클라이언트는 HTTPS를 사용한다(또는 apiserver가 http로 구성되었다면 http)
-    - 타겟으로의 proxy는 가용정보를 사용하는 proxy에 의해서 HTTP 또는 HTTPS를 사용할 수도 있다
+    - 프록시하는 클라이언트는 HTTPS를 사용한다(또는 apiserver가 http로 구성되었다면 http)
+    - 타겟으로의 프록시는 가용정보를 사용하는 프록시에 의해서 HTTP 또는 HTTPS를 사용할 수도 있다
     - 노드, 파드, 서비스에 접근하는 데 사용될 수 있다
     - 서비스에 접근하는 데 사용되면 load balacing한다
 
 1.  [kube proxy](/ko/docs/concepts/services-networking/service/#ips-and-vips):
 
     - 각 노드 상에서 실행된다
-    - UDP와 TCP를 proxy한다
+    - UDP와 TCP를 프록시한다
     - HTTP를 인지하지 않는다
     - load balancing을 제공한다
-    - 서비스에 접근하는 데만 사용된다
+    - 서비스에 접근하는 데에만 사용된다
 
 1.  apiserver(s) 전면의 Proxy/Load-balancer:
 

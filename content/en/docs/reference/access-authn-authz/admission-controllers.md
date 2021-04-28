@@ -94,7 +94,7 @@ kube-apiserver -h | grep enable-admission-plugins
 In the current version, the default ones are:
 
 ```shell
-NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota
+CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
 ```
 
 ## What does each admission controller do?
@@ -105,21 +105,21 @@ NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority
 
 This admission controller allows all pods into the cluster. It is deprecated because its behavior is the same as if there were no admission controller at all.
 
+### AlwaysDeny {#alwaysdeny}
+
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+
+Rejects all requests. AlwaysDeny is DEPRECATED as it has no real meaning.
+
 ### AlwaysPullImages {#alwayspullimages}
 
 This admission controller modifies every new Pod to force the image pull policy to Always. This is useful in a
 multitenant cluster so that users can be assured that their private images can only be used by those
 who have the credentials to pull them. Without this admission controller, once an image has been pulled to a
-node, any pod from any user can use it simply by knowing the image's name (assuming the Pod is
+node, any pod from any user can use it by knowing the image's name (assuming the Pod is
 scheduled onto the right node), without any authorization check against the image. When this admission controller
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
-
-### AlwaysDeny {#alwaysdeny}
-
-{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
-
-Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
 
 ### CertificateApproval {#certificateapproval}
 
@@ -145,6 +145,22 @@ This admission controller observes creation of CertificateSigningRequest resourc
 of `kubernetes.io/kube-apiserver-client`. It rejects any request that specifies a 'group' (or 'organization attribute')
 of `system:masters`.
 
+### DefaultIngressClass {#defaultingressclass}
+
+This admission controller observes creation of `Ingress` objects that do not request any specific
+ingress class and automatically adds a default ingress class to them.  This way, users that do not
+request any special ingress class do not need to care about them at all and they will get the
+default one.
+
+This admission controller does not do anything when no default ingress class is configured. When more than one ingress
+class is marked as default, it rejects any creation of `Ingress` with an error and an administrator
+must revisit their `IngressClass` objects and mark only one as default (with the annotation
+"ingressclass.kubernetes.io/is-default-class").  This admission controller ignores any `Ingress`
+updates; it acts only on creation.
+
+See the [ingress](/docs/concepts/services-networking/ingress/) documentation for more about ingress
+classes and how to mark one as default.
+
 ### DefaultStorageClass {#defaultstorageclass}
 
 This admission controller observes creation of `PersistentVolumeClaim` objects that do not request any specific storage class
@@ -169,19 +185,6 @@ have toleration for taints `node.kubernetes.io/not-ready:NoExecute` or
 `node.kubernetes.io/unreachable:NoExecute`.
 The default value for `default-not-ready-toleration-seconds` and `default-unreachable-toleration-seconds` is 5 minutes.
 
-### DenyExecOnPrivileged {#denyexeconprivileged}
-
-{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
-
-This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
-
-This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
-The DenyExecOnPrivileged admission plugin is deprecated and will be removed in v1.18.
-
-Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
-which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
-is recommended instead.
-
 ### DenyEscalatingExec {#denyescalatingexec}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
@@ -190,11 +193,37 @@ This admission controller will deny exec and attach commands to pods that run wi
 allow host access.  This includes pods that run as privileged, have access to the host IPC namespace, and
 have access to the host PID namespace.
 
-The DenyEscalatingExec admission plugin is deprecated and will be removed in v1.18.
+The DenyEscalatingExec admission plugin is deprecated.
 
 Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
 which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
 is recommended instead.
+
+### DenyExecOnPrivileged {#denyexeconprivileged}
+
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+
+This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
+
+This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
+The DenyExecOnPrivileged admission plugin is deprecated.
+
+Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
+which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
+is recommended instead.
+
+### DenyServiceExternalIPs
+
+This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
+feature is very powerful (allows network traffic interception) and not well
+controlled by policy.  When enabled, users of the cluster may not create new
+Services which use `externalIPs` and may not add new values to `externalIPs` on
+existing `Service` objects.  Existing uses of `externalIPs` are not affected,
+and users may remove values from `externalIPs` on existing `Service` objects.
+
+Most users do not need this feature at all, and cluster admins should consider disabling it.
+Clusters that do need to use this feature should consider using some custom policy to manage usage
+of it.
 
 ### EventRateLimit {#eventratelimit}
 
@@ -462,8 +491,6 @@ and the [example of Limit Range](/docs/tasks/administer-cluster/manage-resources
 
 ### MutatingAdmissionWebhook {#mutatingadmissionwebhook}
 
-{{< feature-state for_k8s_version="v1.13" state="beta" >}}
-
 This admission controller calls any mutating webhooks which match the request. Matching
 webhooks are called in serial; each one may modify the object if it desires.
 
@@ -474,7 +501,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 webhooks or validating admission controllers will permit the request to finish.
 
 If you disable the MutatingAdmissionWebhook, you must also disable the
-`MutatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1beta1`
+`MutatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1`
 group/version via the `--runtime-config` flag (both are on by default in
 versions >= 1.9).
 
@@ -486,8 +513,6 @@ versions >= 1.9).
    different when read back.
    * Setting originally unset fields is less likely to cause problems than
      overwriting fields set in the original request. Avoid doing the latter.
- * This is a beta feature. Future versions of Kubernetes may restrict the types of
-   mutations these webhooks can make.
  * Future changes to control loops for built-in resources or third-party resources
    may break webhooks that work well today. Even when the webhook installation API
    is finalized, not all possible webhook behaviors will be guaranteed to be supported
@@ -553,6 +578,37 @@ This admission controller also protects the access to `metadata.ownerReferences[
 of an object, so that only users with "update" permission to the `finalizers`
 subresource of the referenced *owner* can change it.
 
+### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
+
+This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
+
+{{< note >}}
+Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
+to `true` to enable resizing.
+{{< /note >}}
+
+After enabling the `ExpandPersistentVolumes` feature gate, enabling the `PersistentVolumeClaimResize` admission
+controller is recommended, too. This admission controller prevents resizing of all claims by default unless a claim's `StorageClass`
+ explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
+
+For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gluster-vol-default
+provisioner: kubernetes.io/glusterfs
+parameters:
+  resturl: "http://192.168.10.100:8080"
+  restuser: ""
+  secretNamespace: ""
+  secretName: ""
+allowVolumeExpansion: true
+```
+
+For more information about persistent volume claims, see [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
+
 ### PersistentVolumeLabel {#persistentvolumelabel}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
@@ -568,6 +624,8 @@ the {{< glossary_tooltip text="cloud-controller-manager" term_id="cloud-controll
 Starting from 1.11, this admission controller is disabled by default.
 
 ### PodNodeSelector {#podnodeselector}
+
+{{< feature-state for_k8s_version="v1.5" state="alpha" >}}
 
 This admission controller defaults and limits what node selectors may be used within a namespace by reading a namespace annotation and a global configuration.
 
@@ -638,37 +696,6 @@ PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also s
 admission plugin, which allows preventing pods from running on specifically tainted nodes.
 {{< /note >}}
 
-### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
-
-This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
-
-{{< note >}}
-Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
-to `true` to enable resizing.
-{{< /note >}}
-
-After enabling the `ExpandPersistentVolumes` feature gate, enabling the `PersistentVolumeClaimResize` admission
-controller is recommended, too. This admission controller prevents resizing of all claims by default unless a claim's `StorageClass`
- explicitly enables resizing by setting `allowVolumeExpansion` to `true`.
-
-For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: gluster-vol-default
-provisioner: kubernetes.io/glusterfs
-parameters:
-  resturl: "http://192.168.10.100:8080"
-  restuser: ""
-  secretNamespace: ""
-  secretName: ""
-allowVolumeExpansion: true
-```
-
-For more information about persistent volume claims, see [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
-
 ### PodSecurityPolicy {#podsecuritypolicy}
 
 This admission controller acts on creation and modification of the pod and determines if it should be admitted
@@ -678,6 +705,8 @@ See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-
 for more information.
 
 ### PodTolerationRestriction {#podtolerationrestriction}
+
+{{< feature-state for_k8s_version="v1.7" state="alpha" >}}
 
 The PodTolerationRestriction admission controller verifies any conflict between tolerations of a pod and the tolerations of its namespace.
 It rejects the pod request if there is a conflict.
@@ -766,8 +795,6 @@ This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}}
 
 ### ValidatingAdmissionWebhook {#validatingadmissionwebhook}
 
-{{< feature-state for_k8s_version="v1.13" state="beta" >}}
-
 This admission controller calls any validating webhooks which match the request. Matching
 webhooks are called in parallel; if any of them rejects the request, the request
 fails. This admission controller only runs in the validation phase; the webhooks it calls may not
@@ -778,7 +805,7 @@ If a webhook called by this has side effects (for example, decrementing quota) i
 webhooks or other validating admission controllers will permit the request to finish.
 
 If you disable the ValidatingAdmissionWebhook, you must also disable the
-`ValidatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1beta1`
+`ValidatingWebhookConfiguration` object in the `admissionregistration.k8s.io/v1`
 group/version via the `--runtime-config` flag (both are on by default in
 versions 1.9 and later).
 

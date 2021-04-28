@@ -3,31 +3,40 @@ title: 使用 Service 把前端连接到后端
 content_type: tutorial
 weight: 70
 ---
+<!--
+title: Connect a Frontend to a Backend Using Services
+content_type: tutorial
+weight: 70
+-->
 
 <!-- overview -->
 
 <!--
-This task shows how to create a frontend and a backend
-microservice. The backend microservice is a hello greeter. The
-frontend and backend are connected using a Kubernetes
-{{< glossary_tooltip term_id="service" >}} object.
+This task shows how to create a _frontend_ and a _backend_ microservice. The backend 
+microservice is a hello greeter. The frontend exposes the backend using nginx and a 
+Kubernetes {{< glossary_tooltip term_id="service" >}} object.
 -->
 
-本任务会描述如何创建前端微服务和后端微服务。后端微服务是一个 hello 欢迎程序。
-前端和后端的连接是通过 Kubernetes {{< glossary_tooltip term_id="service" text="服务" >}}
-完成的。
+本任务会描述如何创建前端（Frontend）微服务和后端（Backend）微服务。后端微服务是一个 hello 欢迎程序。
+前端通过 nginx 和一个 Kubernetes {{< glossary_tooltip term_id="service" text="服务" >}}
+暴露后端所提供的服务。
 
 ## {{% heading "objectives" %}}
 
 <!--
-* Create and run a microservice using a {{< glossary_tooltip term_id="deployment" >}} object.
-* Route traffic to the backend using a frontend.
-* Use a Service object to connect the frontend application to the
-  backend application.
+* Create and run a sample `hello` backend microservice using a
+  {{< glossary_tooltip term_id="deployment" >}} object.
+* Use a Service object to send traffic to the backend microservice's multiple replicas.
+* Create and run a `nginx` frontend microservice, also using a Deployment object.
+* Configure the frontend microservice to send traffic to the backend microservice.
+* Use a Service object of `type=LoadBalancer` to expose the frontend microservice
+  outside the cluster.
 -->
-* 使用部署对象（Deployment object）创建并运行一个微服务
-* 从后端将流量路由到前端
-* 使用服务对象把前端应用连接到后端应用
+* 使用部署对象（Deployment object）创建并运行一个 `hello` 后端微服务
+* 使用一个 Service 对象将请求流量发送到后端微服务的多个副本
+* 同样使用一个 Deployment 对象创建并运行一个 `nginx` 前端微服务
+* 配置前端微服务将请求流量发送到后端微服务
+* 使用 `type=LoadBalancer` 的 Service 对象将全段微服务暴露到集群外部
 
 ## {{% heading "prerequisites" %}}
 
@@ -39,8 +48,7 @@ This task uses
 require a supported environment. If your environment does not support this, you can use a Service of type
 [NodePort](/docs/concepts/services-networking/service/#nodeport) instead.
 -->
-
-本任务使用 [外部负载均衡服务](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，
+本任务使用[外部负载均衡服务](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，
 所以需要对应的可支持此功能的环境。如果你的环境不能支持，你可以使用
 [NodePort](/zh/docs/concepts/services-networking/service/#nodeport)
 类型的服务代替。
@@ -57,7 +65,7 @@ file for the backend Deployment:
 
 后端是一个简单的 hello 欢迎微服务应用。这是后端应用的 Deployment 配置文件：
 
-{{< codenew file="service/access/hello.yaml" >}}
+{{< codenew file="service/access/backend-deployment.yaml" >}}
 
 <!-- 
 Create the backend Deployment:
@@ -65,7 +73,7 @@ Create the backend Deployment:
 创建后端 Deployment：
 
 ```shell
-kubectl apply -f https://k8s.io/examples/service/access/hello.yaml
+kubectl apply -f https://k8s.io/examples/service/access/backend-deployment.yaml
 ```
 
 <!--
@@ -73,7 +81,7 @@ View information about the backend Deployment:
 -->
 查看后端的 Deployment 信息：
 
-```
+```shell
 kubectl describe deployment hello
 ```
 
@@ -83,7 +91,7 @@ The output is similar to this:
 输出类似于：
 
 ```
-Name:                           hello
+Name:                           backend
 Namespace:                      default
 CreationTimestamp:              Mon, 24 Oct 2016 14:21:02 -0700
 Labels:                         app=hello
@@ -91,7 +99,7 @@ Labels:                         app=hello
                                 track=stable
 Annotations:                    deployment.kubernetes.io/revision=1
 Selector:                       app=hello,tier=backend,track=stable
-Replicas:                       7 desired | 7 updated | 7 total | 7 available | 0 unavailable
+Replicas:                       3 desired | 3 updated | 3 total | 3 available | 0 unavailable
 StrategyType:                   RollingUpdate
 MinReadySeconds:                0
 RollingUpdateStrategy:          1 max unavailable, 1 max surge
@@ -112,15 +120,15 @@ Conditions:
   Available     True    MinimumReplicasAvailable
   Progressing   True    NewReplicaSetAvailable
 OldReplicaSets:                 <none>
-NewReplicaSet:                  hello-3621623197 (7/7 replicas created)
+NewReplicaSet:                  hello-3621623197 (3/3 replicas created)
 Events:
 ...
 ```
 
 <!--
-## Creating the backend Service object
+## Creating the `hello` Service object
 
-The key to connecting a frontend to a backend is the backend
+The key to sending requests from a frontend to a backend is the backend
 Service. A Service creates a persistent IP address and DNS name entry
 so that the backend microservice can always be reached. A Service uses
 {{< glossary_tooltip text="selectors" term_id="selector" >}} to find
@@ -128,68 +136,84 @@ the Pods that it routes traffic to.
 
 First, explore the Service configuration file:
 -->
-### 创建后端服务对象
+### 创建 `hello` Service 对象
 
-前端连接到后端的关键是 Service（服务）。Service 创建一个固定 IP 和 DNS 解析名入口，
-使得后端微服务可达。Service 使用
+将请求从前端发送到到后端的关键是后端 Service。Service 创建一个固定 IP 和 DNS 解析名入口，
+使得后端微服务总是可达。Service 使用
 {{< glossary_tooltip text="选择算符" term_id="selector" >}} 
 来寻找目标 Pod。
 
 首先，浏览 Service 的配置文件：
 
-{{< codenew file="service/access/hello-service.yaml" >}}
+{{< codenew file="service/access/backend-service.yaml" >}}
 
 <!--
-In the configuration file, you can see that the Service routes traffic to Pods
-that have the labels `app: hello` and `tier: backend`.
+In the configuration file, you can see that the Service named `hello` routes
+traffic to Pods that have the labels `app: hello` and `tier: backend`.
 -->
-配置文件中，你可以看到 Service 将流量路由到包含 `app: hello` 和 `tier: backend` 标签的 Pod。
+配置文件中，你可以看到名为 `hello` 的 Service 将流量路由到包含 `app: hello`
+和 `tier: backend` 标签的 Pod。
 
 <!--
-Create the `hello` Service:
+Create the backend Service:
 -->
-创建 `hello` Service：
+创建后端 Service：
 
 ```shell
-kubectl apply -f https://k8s.io/examples/service/access/hello-service.yaml
+kubectl apply -f https://k8s.io/examples/service/access/backend-service.yaml
 ```
 
 <!--
-At this point, you have a backend Deployment running, and you have a
-Service that can route traffic to it.
+At this point, you have a `backend` Deployment running three replicas of your `hello`
+application, and you have a Service that can route traffic to them. However, this
+service is neither available nor resolvable outside the cluster.
 -->
-此时，你已经有了一个在运行的后端 Deployment，你也有了一个 Service 用于路由网络流量。
+此时，你已经有了一个运行着 `hello` 应用的三个副本的 `backend` Deployment，你也有了
+一个 Service 用于路由网络流量。不过，这个服务在集群外部无法访问也无法解析。
 
 <!--
 ## Creating the frontend
 
-Now that you have your backend, you can create a frontend that connects to the backend.
-The frontend connects to the backend worker Pods by using the DNS name
-given to the backend Service. The DNS name is "hello", which is the value
-of the `name` field in the preceding Service configuration file.
+Now that you have your backend running, you can create a frontend that is accessible 
+outside the cluster, and connects to the backend by proxying requests to it.
+
+The frontend sends requests to the backend worker Pods by using the DNS name
+given to the backend Service. The DNS name is `hello`, which is the value
+of the `name` field in the `examples/service/access/backend-service.yaml` 
+configuration file.
 
 The Pods in the frontend Deployment run an nginx image that is configured
-to find the hello backend Service. Here is the nginx configuration file:
+to proxy requests to the hello backend Service. Here is the nginx configuration file:
 -->
 ### 创建前端应用
 
-既然你已经有了后端应用，你可以创建一个前端应用连接到后端。前端应用通过 DNS 名连接到后端的工作 Pods。
-DNS 名是 "hello"，也就是 Service 配置文件中 `name` 字段的值。
+现在你已经有了运行中的后端应用，你可以创建一个可在集群外部访问的前端，并通过代理
+前端的请求连接到后端。
 
-前端 Deployment 中的 Pods 运行一个 nginx 镜像，这个已经配置好镜像去寻找后端的 hello Service。
-只是 nginx 的配置文件：
+前端使用被赋予后端 Service 的 DNS 名称将请求发送到后端工作 Pods。这一 DNS
+名称为 `hello`，也就是 `examples/service/access/backend-service.yaml` 配置
+文件中 `name` 字段的取值。
 
-{{< codenew file="service/access/frontend.conf" >}}
+前端 Deployment 中的 Pods 运行一个 nginx 镜像，这个已经配置好的镜像会将请求转发
+给后端的 hello Service。下面是  nginx 的配置文件：
+
+{{< codenew file="service/access/frontend-nginx.conf" >}}
 
 <!--
-Similar to the backend, the frontend has a Deployment and a Service. The
-configuration for the Service has `type: LoadBalancer`, which means that
-the Service uses the default load balancer of your cloud provider.
+Similar to the backend, the frontend has a Deployment and a Service. An important
+difference to notice between the backend and frontend services, is that the
+configuration for the frontend Service has `type: LoadBalancer`, which means that
+the Service uses a load balancer provisioned by your cloud provider and will be
+accessible from outside the cluster.
 -->
-与后端类似，前端用包含一个 Deployment 和一个 Service。Service 的配置文件包含了 `type: LoadBalancer`，
-也就是说，Service 会使用你的云服务商的默认负载均衡设备。
+与后端类似，前端用包含一个 Deployment 和一个 Service。后端与前端服务之间的一个
+重要区别是前端 Service 的配置文件包含了 `type: LoadBalancer`，也就是说，Service
+会使用你的云服务商的默认负载均衡设备，从而实现从集群外访问的目的。
 
-{{< codenew file="service/access/frontend.yaml" >}}
+{{< codenew file="service/access/frontend-service.yaml" >}}
+
+{{< codenew file="service/access/frontend-deployment.yaml" >}}
+
 
 <!--
 Create the frontend Deployment and Service:
@@ -197,7 +221,8 @@ Create the frontend Deployment and Service:
 创建前端 Deployment 和 Service：
 
 ```shell
-kubectl apply -f https://k8s.io/examples/service/access/frontend.yaml
+kubectl apply -f https://k8s.io/examples/service/access/frontend-deployment.yaml
+kubectl apply -f https://k8s.io/examples/service/access/frontend-service.yaml
 ```
 
 <!--
@@ -271,21 +296,22 @@ cluster.
 <!--
 ## Send traffic through the frontend
 
-The frontend and backends are now connected. You can hit the endpoint
+The frontend and backend are now connected. You can hit the endpoint
 by using the curl command on the external IP of your frontend Service.
 -->
 ### 通过前端发送流量
 
-前端和后端已经完成连接了。你可以使用 curl 命令通过你的前端 Service 的外部 IP 访问服务端点。
+前端和后端已经完成连接了。你可以使用 curl 命令通过你的前端 Service 的外部
+IP 访问服务端点。
 
 ```shell
-curl http://<EXTERNAL-IP>
+curl http://${EXTERNAL_IP} # 将 EXTERNAL_P 替换为你之前看到的外部 IP
 ```
 
 <!--
 The output shows the message generated by the backend:
 -->
-后端生成的消息输出如下：
+输出显示后端生成的消息：
 
 ```json
 {"message":"Hello"}
@@ -299,7 +325,7 @@ To delete the Services, enter this command:
 要删除服务，输入下面的命令：
 
 ```shell
-kubectl delete services frontend hello
+kubectl delete services frontend backend
 ```
 
 <!--
@@ -308,14 +334,16 @@ To delete the Deployments, the ReplicaSets and the Pods that are running the bac
 要删除在前端和后端应用中运行的 Deployment、ReplicaSet 和 Pod，输入下面的命令：
 
 ```shell
-kubectl delete deployment frontend hello
+kubectl delete deployment frontend backend
 ```
 ## {{% heading "whatsnext" %}}
 
 <!--
 * Learn more about [Services](/docs/concepts/services-networking/service/)
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* Learn more about [DNS for Service and Pods](/docs/concepts/services-networking/dns-pod-service/)
 -->
-* 进一步了解[Service](/zh/docs/concepts/services-networking/service/)
-* 进一步了解[ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* 进一步了解 [Service](/zh/docs/concepts/services-networking/service/)
+* 进一步了解 [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* 进一步了解 [Service 和 Pods 的 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
 

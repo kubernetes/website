@@ -195,7 +195,7 @@ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.ty
  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
 
 # Output decoded secrets without external tools
-kubectl get secret ${secret_name} -o go-template='{{range $k,$v := .data}}{{$k}}={{$v|base64decode}}{{"\n"}}{{end}}'
+kubectl get secret my-secret -o go-template='{{range $k,$v := .data}}{{"### "}}{{$k}}{{"\n"}}{{$v|base64decode}}{{"\n\n"}}{{end}}'
 
 # List all Secrets currently in use by a pod
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
@@ -320,6 +320,18 @@ kubectl top pod POD_NAME --containers               # Show metrics for a given p
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
 ```
 
+## Interacting with Deployments and Services
+```bash
+kubectl logs deploy/my-deployment                         # dump Pod logs for a Deployment (single-container case)
+kubectl logs deploy/my-deployment -c my-container         # dump Pod logs for a Deployment (multi-container case)
+
+kubectl port-forward svc/my-service 5000                  # listen on local port 5000 and forward to port 5000 on Service backend
+kubectl port-forward svc/my-service 5000:my-service-port  # listen on local port 5000 and forward to Service target port with name <my-service-port>
+
+kubectl port-forward deploy/my-deployment 5000:6000       # listen on local port 5000 and forward to port 6000 on a Pod created by <my-deployment>
+kubectl exec deploy/my-deployment -- ls                   # run command in first Pod and first container in Deployment (single- or multi-container cases)
+```
+
 ## Interacting with Nodes and cluster
 
 ```bash
@@ -337,7 +349,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### Resource types
 
-List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
+List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
 ```bash
 kubectl api-resources
@@ -348,7 +360,7 @@ Other operations for exploring API resources:
 ```bash
 kubectl api-resources --namespaced=true      # All namespaced resources
 kubectl api-resources --namespaced=false     # All non-namespaced resources
-kubectl api-resources -o name                # All resources with simple output (just the resource name)
+kubectl api-resources -o name                # All resources with simple output (only the resource name)
 kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
 kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
 kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
@@ -374,6 +386,9 @@ Examples using `-o=custom-columns`:
 ```bash
 # All images running in a cluster
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+# All images running in namespace: default, grouped by Pod
+kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
  # All images excluding "k8s.gcr.io/coredns:1.6.2"
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'

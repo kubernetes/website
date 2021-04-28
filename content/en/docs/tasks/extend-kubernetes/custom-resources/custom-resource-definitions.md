@@ -520,7 +520,7 @@ CustomResourceDefinition and migrating your objects from one version to another.
 ### Finalizers
 
 *Finalizers* allow controllers to implement asynchronous pre-delete hooks.
-Custom objects support finalizers just like built-in objects.
+Custom objects support finalizers similar to built-in objects.
 
 You can add a finalizer to a custom object like this:
 
@@ -1128,8 +1128,6 @@ You can use a [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) 
 resources that have the scale subresource enabled.
 
 ### Categories
-
-{{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
 Categories is a list of grouped resources the custom resource belongs to (eg. `all`).
 You can use `kubectl get <category-name>` to list the resources belonging to the category.

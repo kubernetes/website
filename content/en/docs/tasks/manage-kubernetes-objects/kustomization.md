@@ -8,7 +8,7 @@ weight: 20
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) is a standalone tool
 to customize Kubernetes objects
-through a [kustomization file](https://kubernetes-sigs.github.io/kustomize/api-reference/glossary/#kustomization).
+through a [kustomization file](https://kubectl.docs.kubernetes.io/references/kustomize/glossary/#kustomization).
 
 Since 1.14, Kubectl also
 supports the management of Kubernetes objects using a kustomization file.
@@ -29,7 +29,7 @@ kubectl apply -k <kustomization_directory>
 ## {{% heading "prerequisites" %}}
 
 
-Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
+Install [`kubectl`](/docs/tasks/tools/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -114,6 +114,98 @@ metadata:
   name: example-configmap-2-g2hdhfc6tk
 ```
 
+To use a generated ConfigMap in a Deployment, reference it by the name of the configMapGenerator. Kustomize will automatically replace this name with the generated name.
+
+This is an example deployment that uses a generated ConfigMap:
+
+```yaml
+# Create a application.properties file
+cat <<EOF >application.properties
+FOO=Bar
+EOF
+
+cat <<EOF >deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: app
+        image: my-app
+        volumeMount:
+        - name: config
+          mountPath: /config
+      volumes:
+      - name: config
+        configMap:
+          name: example-configmap-1
+EOF
+
+cat <<EOF >./kustomization.yaml
+resources:
+- deployment.yaml
+configMapGenerator:
+- name: example-configmap-1
+  files:
+  - application.properties
+EOF
+```
+
+Generate the ConfigMap and Deployment:
+
+```shell
+kubectl kustomize ./
+```
+
+The generated Deployment will refer to the generated ConfigMap by name:
+
+```yaml
+apiVersion: v1
+data:
+  application.properties: |
+    FOO=Bar
+kind: ConfigMap
+metadata:
+  name: example-configmap-1-g4hk9g2ff8
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-app
+  name: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - image: my-app
+        name: app
+        volumeMount:
+        - mountPath: /config
+          name: config
+      volumes:
+      - configMap:
+          name: example-configmap-1-g4hk9g2ff8
+        name: config
+```
+
 #### secretGenerator
 
 You can generate Secrets from files or literal key-value pairs. To generate a Secret from a file, add an entry to the `files` list in `secretGenerator`. Here is an example of generating a Secret with a data item from a file:
@@ -168,6 +260,53 @@ kind: Secret
 metadata:
   name: example-secret-2-t52t6g96d8
 type: Opaque
+```
+
+Like ConfigMaps, generated Secrets can be used in Deployments by refering to the name of the secretGenerator:
+
+```shell
+# Create a password.txt file
+cat <<EOF >./password.txt
+username=admin
+password=secret
+EOF
+
+cat <<EOF >deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: app
+        image: my-app
+        volumeMount:
+        - name: password
+          mountPath: /secrets
+      volumes:
+      - name: password
+        secret:
+          secretName: example-secret-1
+EOF
+
+cat <<EOF >./kustomization.yaml
+resources:
+- deployment.yaml
+secretGenerator:
+- name: example-secret-1
+  files:
+  - password.txt
+EOF
 ```
 
 #### generatorOptions
@@ -815,14 +954,14 @@ deployment.apps "dev-my-nginx" deleted
 | commonLabels          | map[string]string                                                                                            | labels to add to all resources and selectors                                       |
 | commonAnnotations     | map[string]string                                                                                            | annotations to add to all resources                                                |
 | resources             | []string                                                                                                     | each entry in this list must resolve to an existing resource configuration file    |
-| configmapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L99)  | Each entry in this list generates a ConfigMap                                      |
-| secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L106)     | Each entry in this list generates a Secret                                         |
-| generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/kustomization.go#L109) | Modify behaviors of all ConfigMap and Secret generator                             |
+| configMapGenerator    | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/configmapargs.go#L7)    | Each entry in this list generates a ConfigMap                                      |
+| secretGenerator       | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/secretargs.go#L7)          | Each entry in this list generates a Secret                                         |
+| generatorOptions      | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/generatoroptions.go#L7) | Modify behaviors of all ConfigMap and Secret generator                             |
 | bases                 | []string                                                                                                     | Each entry in this list should resolve to a directory containing a kustomization.yaml file |
 | patchesStrategicMerge | []string                                                                                                     | Each entry in this list should resolve a strategic merge patch of a Kubernetes object |
-| patchesJson6902       | [][Json6902](https://github.com/kubernetes-sigs/kustomize/blob/release-kustomize-v4.0/api/types/patchjson6902.go#L8)             | Each entry in this list should resolve to a Kubernetes object and a Json Patch     |
-| vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L31)                       | Each entry is to capture text from one resource's field                            |
-| images                | [][Image](https://github.com/kubernetes-sigs/kustomize/tree/master/api/types/image.go#L23)                   | Each entry is to modify the name, tags and/or digest for one image without creating patches |
+| patchesJson6902       | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10)                   | Each entry in this list should resolve to a Kubernetes object and a Json Patch     |
+| vars                  | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L19)                       | Each entry is to capture text from one resource's field                            |
+| images                | [][Image](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/image.go#L8)                    | Each entry is to modify the name, tags and/or digest for one image without creating patches |
 | configurations        | []string                                                                                                     | Each entry in this list should resolve to a file containing [Kustomize transformer configurations](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) |
 | crds                  | []string                                                                                                     | Each entry in this list should resolve to an OpenAPI definition file for Kubernetes types |
 

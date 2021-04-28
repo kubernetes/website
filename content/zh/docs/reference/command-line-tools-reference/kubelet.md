@@ -585,19 +585,6 @@ kubelet 使用此目录来保存所下载的配置，跟踪配置运行状况。
 </tr>
 
 <tr>
-<td colspan="2">--enable-cadvisor-json-endpoints&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `false`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Enable cAdvisor json `/spec` and `/stats/*` endpoints. (DEPRECATED: will be removed in a future version)
--->
-启用 cAdvisor JSON 数据的 <code>/spec</code> 和 <code>/stats/&ast;</code> 端点。
-已弃用：未来版本将会移除此标志。
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--enable-controller-attach-detach&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: `true`-->默认值：<code>true</code></td>
 </tr>
 <tr>

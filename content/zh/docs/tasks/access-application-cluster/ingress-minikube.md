@@ -277,7 +277,7 @@ The following file is an Ingress resource that sends traffic to your Service via
    If you are running Minikube locally, you can visit hello-world.info from your browser.
    -->
    {{< note >}}
-   如果你在使用本地 Minikube 环境，你可以从浏览器中访问 hellow-world.info。
+   如果你在使用本地 Minikube 环境，你可以从浏览器中访问 hello-world.info。
    {{< /note >}}
 
 <!--
@@ -396,7 +396,7 @@ The following file is an Ingress resource that sends traffic to your Service via
    -->
    {{< note >}}
    如果你在本地运行 Minikube 环境，你可以使用浏览器来访问
-   hellow-world.info 和 hello-world.info/v2。
+   hello-world.info 和 hello-world.info/v2。
    {{< /note >}}
 
 ## {{% heading "whatsnext" %}}

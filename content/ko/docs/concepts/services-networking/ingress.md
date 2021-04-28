@@ -167,7 +167,7 @@ Events:       <none>
 
 ### 예제
 
-| 종류    | 경로                             | 요청 경로                       | 일치 여부                            |
+| 종류    | 경로                             | 요청 경로                       | 일치 여부                            |
 |--------|---------------------------------|-------------------------------|------------------------------------|
 | Prefix | `/`                             | (모든 경로)                     | 예                                  |
 | Exact  | `/foo`                          | `/foo`                        | 예                                  |
@@ -218,7 +218,19 @@ Events:       <none>
 {{< codenew file="service/networking/external-lb.yaml" >}}
 
 IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클래스에 대한
-추가 구성을 참조하는데 사용할 수 있다.
+추가 구현 별 구성을 참조하는데 사용할 수 있다.
+
+#### 네임스페이스 범위의 파라미터
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+`Parameters` 필드에는 인그레스 클래스 구성을 위해 네임스페이스 별 리소스를 참조하는 데
+사용할 수 있는 `scope` 및 `namespace` 필드가 있다.
+`Scope` 필드의 기본값은 `Cluster` 이다. 즉, 기본값은 클러스터 범위의
+리소스이다. `Scope` 를 `Namespace` 로 설정하고 `Namespace` 필드를
+설정하면 특정 네임스페이스의 파라미터 리소스를 참조한다.
+
+{{< codenew file="service/networking/namespaced-params.yaml" >}}
 
 ### 사용중단(Deprecated) 어노테이션
 
@@ -257,7 +269,7 @@ IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클
 
 {{< codenew file="service/networking/test-ingress.yaml" >}}
 
-만약 `kubectl apply -f` 를 사용해서 생성한다면 방금 추가한 인그레스의
+만약 `kubectl apply -f` 를 사용해서 생성한다면 추가한 인그레스의
 상태를 볼 수 있어야 한다.
 
 ```bash
@@ -376,7 +388,7 @@ graph LR;
 트래픽을 일치 시킬 수 있다.
 
 예를 들어, 다음 인그레스는 `first.bar.com`에 요청된 트래픽을
-`service1`로, `second.foo.com`는 `service2`로, 호스트 이름이 정의되지
+`service1`로, `second.bar.com`는 `service2`로, 호스트 이름이 정의되지
 않은(즉, 요청 헤더가 표시 되지 않는) IP 주소로의 모든
 트래픽은 `service3`로 라우팅 한다.
 

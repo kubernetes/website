@@ -1,6 +1,10 @@
 ---
-title: 使用 Kubernetes API
+title: API 概述
 weight: 10
+no_list: true
+card:
+   name: reference
+   weight: 50
 ---
 
 <!-- overview -->
@@ -68,7 +72,7 @@ can find more information about the criteria for each level in the
 [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions).
 -->
 不同的 API 版本代表着不同的稳定性和支持级别。
-你可以在 [API 变更文档]https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)
+你可以在 [API 变更文档](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)
 中查看到更多的不同级别的判定标准。
 
 <!--
@@ -76,7 +80,7 @@ Here's a summary of each level:
 -->
 下面是每个级别的摘要：
 
-<--
+<!--
 - Alpha:
   - The version names contain `alpha` (for example, `v1alpha1`).
   - The software may contain bugs. Enabling a feature may expose bugs. A
@@ -188,7 +192,7 @@ part is omitted, it is treated as if `=true` is specified. For example:
  - to disable `batch/v1`, set `--runtime-config=batch/v1=false`
  - to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
 -->
-##　启用或禁用 API 组   {#enabling-or-disabling}
+## 启用或禁用 API 组   {#enabling-or-disabling}
 资源和 API 组是在默认情况下被启用的。
 你可以通过在 API 服务器上设置 `--runtime-config` 参数来启用或禁用它们。
 `--runtime-config` 参数接受逗号分隔的 `<key>[=<value>]` 对，

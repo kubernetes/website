@@ -17,6 +17,7 @@ which a pod runs: network-attached storage might not be accessible by
 all nodes, or storage is local to a node to begin with.
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 This page describes how Kubernetes keeps track of storage capacity and
 how the scheduler uses that information to schedule Pods onto nodes
@@ -103,34 +104,10 @@ to handle this automatically.
 
 ## Enabling storage capacity tracking
 
-Storage capacity tracking is an *alpha feature* and only enabled when
-the `CSIStorageCapacity` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) and
-the `storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}} are enabled. For details on
-that, see the `--feature-gates` and `--runtime-config` [kube-apiserver
-parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
-
-A quick check
-whether a Kubernetes cluster supports the feature is to list
-CSIStorageCapacity objects with:
-```shell
-kubectl get csistoragecapacities --all-namespaces
-```
-
-If your cluster supports CSIStorageCapacity, the response is either a list of CSIStorageCapacity objects or:
-```
-No resources found
-```
-
-If not supported, this error is printed instead:
-```
-error: the server doesn't have a resource type "csistoragecapacities"
-```
-
-In addition to enabling the feature in the cluster, a CSI
-driver also has to
-support it. Please refer to the driver's documentation for
-details.
+Storage capacity tracking is a beta feature and enabled by default in
+a Kubernetes cluster since Kubernetes 1.21. In addition to having the
+feature enabled in the cluster, a CSI driver also has to support
+it. Please refer to the driver's documentation for details.
 
 ## {{% heading "whatsnext" %}}
 

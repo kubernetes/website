@@ -54,7 +54,7 @@ for debugging if your cluster offers this.
 除了应用容器，Pod 还可以包含在 Pod 启动期间运行的
 [Init 容器](/zh/docs/concepts/workloads/pods/init-containers/)。
 你也可以在集群中支持[临时性容器](/zh/docs/concepts/workloads/pods/ephemeral-containers/)
-的情况外，为调试的目的注入临时性容器。
+的情况下，为调试的目的注入临时性容器。
 
 <!-- body -->
 
@@ -489,7 +489,7 @@ Processes within a privileged container get almost the same privileges that are 
 Pod 中的任何容器都可以使用容器规约中的
 [安全性上下文](/zh/docs/tasks/configure-pod-container/security-context/)中的
 `privileged` 参数启用特权模式。
-这对于想要使用使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问设备）
+这对于想要使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问设备）
 的容器很有用。
 容器内的进程几乎可以获得与容器外的进程相同的特权。
 

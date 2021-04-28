@@ -220,6 +220,6 @@ selector:
 #### Memilih kumpulan Node
 
 Salah satu contoh penggunaan pemilihan dengan menggunakan label yaitu untuk membatasi suatu kumpulan Node tertentu yang dapat digunakan oleh Pod.
-Lihat dokumentasi pada [pemilihan Node](/id/docs/concepts/configuration/assign-pod-node/) untuk informasi lebih lanjut.
+Lihat dokumentasi pada [pemilihan Node](/id/docs/concepts/scheduling-eviction/assign-pod-node/) untuk informasi lebih lanjut.
 
 

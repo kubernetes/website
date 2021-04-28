@@ -2,7 +2,7 @@
 title: Coarse Parallel Processing Using a Work Queue
 min-kubernetes-server-version: v1.8
 content_type: task
-weight: 30
+weight: 20
 ---
 
 
@@ -19,7 +19,7 @@ Here is an overview of the steps in this example:
 1. **Start a message queue service.**  In this example, we use RabbitMQ, but you could use another
    one.  In practice you would set up a message queue service once and reuse it for many jobs.
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
-   this example, a message is just an integer that we will do a lengthy computation on.
+   this example, a message is an integer that we will do a lengthy computation on.
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
    one task from the message queue, processes it, and repeats until the end of the queue is reached.
 
@@ -35,7 +35,7 @@ non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 
 ## Starting a message queue service
 
-This example uses RabbitMQ, but it should be easy to adapt to another AMQP-type message service.
+This example uses RabbitMQ, however, you can adapt the example to use another AMQP-type message service.
 
 In practice you could set up a message queue service once in a
 cluster and reuse it for many jobs, as well as for long-running services.
@@ -141,13 +141,12 @@ root@temp-loe07:/#
 ```
 
 In the last command, the `amqp-consume` tool takes one message (`-c 1`)
-from the queue, and passes that message to the standard input of an arbitrary command.  In this case, the program `cat` is just printing
-out what it gets on the standard input, and the echo is just to add a carriage
+from the queue, and passes that message to the standard input of an arbitrary command.  In this case, the program `cat` prints out the characters read from standard input, and the echo adds a carriage
 return so the example is readable.
 
 ## Filling the Queue with tasks
 
-Now let's fill the queue with some "tasks".  In our example, our tasks are just strings to be
+Now let's fill the queue with some "tasks".  In our example, our tasks are strings to be
 printed.
 
 In a practice, the content of the messages might be:

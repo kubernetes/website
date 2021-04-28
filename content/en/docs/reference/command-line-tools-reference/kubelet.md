@@ -224,14 +224,14 @@ kubelet [flags]
 <td colspan="2">--container-log-max-files int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Beta feature&gt; Set the maximum number of container log files that can be present for a container. The number must be &ge; 2. This flag can only be used with `--container-runtime=remote`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Set the maximum number of container log files that can be present for a container. The number must be &ge; 2. This flag can only be used with `--container-runtime=remote`. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>
 <td colspan="2">--container-log-max-size string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `10Mi`</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Beta feature&gt; Set the maximum size (e.g. 10Mi) of container log file before it is rotated. This flag can only be used with `--container-runtime=remote`.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Set the maximum size (e.g. 10Mi) of container log file before it is rotated. This flag can only be used with `--container-runtime=remote`.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>
@@ -296,13 +296,6 @@ kubelet [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">The Kubelet will use this directory for checkpointing downloaded configurations and tracking configuration health. The Kubelet will create this directory if it does not already exist. The path may be absolute or relative; relative paths start at the Kubelet's current working directory. Providing this flag enables dynamic Kubelet configuration. The `DynamicKubeletConfig` feature gate must be enabled to pass this flag; this gate currently defaults to `true` because the feature is beta.</td>
-</tr>
-
-<tr>
-<td colspan="2">--enable-cadvisor-json-endpoints&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `false`</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Enable cAdvisor json `/spec` and `/stats/*` endpoints. (DEPRECATED: will be removed in a future version)</td>
 </tr>
 
 <tr>
@@ -462,7 +455,6 @@ AppArmor=true|false (BETA - default=true)<br/>
 BalanceAttachedNodeVolumes=true|false (ALPHA - default=false)<br/>
 BoundServiceAccountTokenVolume=true|false (ALPHA - default=false)<br/>
 CPUManager=true|false (BETA - default=true)<br/>
-CRIContainerLogRotation=true|false (BETA - default=true)<br/>
 CSIInlineVolume=true|false (BETA - default=true)<br/>
 CSIMigration=true|false (BETA - default=true)<br/>
 CSIMigrationAWS=true|false (BETA - default=false)<br/>
@@ -917,7 +909,7 @@ WindowsEndpointSliceProxying=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: `k8s.gcr.io/pause:3.2`</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The image whose network/IPC namespaces containers in each pod will use. This docker-specific flag only works when container-runtime is set to `docker`.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"> Specified image will not be pruned by the image garbage collector. When container-runtime is set to `docker`, all containers in each pod will use the network/ipc namespaces from this image. Other CRI implementations have their own configuration to set this image.</td>
 </tr>
 
 <tr>

@@ -54,7 +54,9 @@ Run the example job by downloading the example file and then running this comman
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
 ```
+
 The output is similar to this:
+
 ```
 replicationcontroller/nginx created
 ```
@@ -64,7 +66,9 @@ Check on the status of the ReplicationController using this command:
 ```shell
 kubectl describe replicationcontrollers/nginx
 ```
+
 The output is similar to this:
+
 ```
 Name:        nginx
 Namespace:   default
@@ -103,22 +107,23 @@ To list all the pods that belong to the ReplicationController in a machine reada
 pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
 echo $pods
 ```
+
 The output is similar to this:
+
 ```
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
 Here, the selector is the same as the selector for the ReplicationController (seen in the
 `kubectl describe` output), and in a different form in `replication.yaml`.  The `--output=jsonpath` option
-specifies an expression that just gets the name from each pod in the returned list.
-
+specifies an expression with the name from each pod in the returned list.
 
 ## Writing a ReplicationController Spec
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
 The name of a ReplicationController object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-For general information about working with config files, see [object management ](/docs/concepts/overview/working-with-objects/object-management/).
+For general information about working with configuration files, see [object management](/docs/concepts/overview/working-with-objects/object-management/).
 
 A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -140,7 +145,7 @@ for example the [Kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 
 The ReplicationController can itself have labels (`.metadata.labels`).  Typically, you
 would set these the same as the `.spec.template.metadata.labels`; if `.metadata.labels` is not specified
-then it defaults to  `.spec.template.metadata.labels`.  However, they are allowed to be
+then it defaults to  `.spec.template.metadata.labels`. However, they are allowed to be
 different, and the `.metadata.labels` do not affect the behavior of the ReplicationController.
 
 ### Pod Selector
@@ -180,16 +185,16 @@ delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).  Kubectl wi
 for it to delete each pod before deleting the ReplicationController itself.  If this kubectl
 command is interrupted, it can be restarted.
 
-When using the REST API or go client library, you need to do the steps explicitly (scale replicas to
+When using the REST API or Go client library, you need to do the steps explicitly (scale replicas to
 0, wait for pod deletions, then delete the ReplicationController).
 
-### Deleting just a ReplicationController
+### Deleting only a ReplicationController
 
 You can delete a ReplicationController without affecting any of its pods.
 
 Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
 
-When using the REST API or go client library, simply delete the ReplicationController object.
+When using the REST API or Go client library, you can delete the ReplicationController object.
 
 Once the original is deleted, you can create a new ReplicationController to replace it.  As long
 as the old and new `.spec.selector` are the same, then the new one will adopt the old pods.
@@ -198,7 +203,7 @@ To update pods to a new spec in a controlled way, use a [rolling update](#rollin
 
 ### Isolating pods from a ReplicationController
 
-Pods may be removed from a ReplicationController's target set by changing their labels. This technique may be used to remove pods from service for debugging, data recovery, etc. Pods that are removed in this way will be replaced automatically (assuming that the number of replicas is not also changed).
+Pods may be removed from a ReplicationController's target set by changing their labels. This technique may be used to remove pods from service for debugging and data recovery. Pods that are removed in this way will be replaced automatically (assuming that the number of replicas is not also changed).
 
 ## Common usage patterns
 
@@ -208,7 +213,7 @@ As mentioned above, whether you have 1 pod you want to keep running, or 1000, a 
 
 ### Scaling
 
-The ReplicationController makes it easy to scale the number of replicas up or down, either manually or by an auto-scaling control agent, by simply updating the `replicas` field.
+The ReplicationController enables scaling the number of replicas up or down, either manually or by an auto-scaling control agent, by updating the `replicas` field.
 
 ### Rolling updates
 
@@ -239,12 +244,11 @@ Pods created by a ReplicationController are intended to be fungible and semantic
 
 ## Responsibilities of the ReplicationController
 
-The ReplicationController simply ensures that the desired number of pods matches its label selector and are operational. Currently, only terminated pods are excluded from its count. In the future, [readiness](https://issue.k8s.io/620) and other information available from the system may be taken into account, we may add more controls over the replacement policy, and we plan to emit events that could be used by external clients to implement arbitrarily sophisticated replacement and/or scale-down policies.
+The ReplicationController ensures that the desired number of pods matches its label selector and are operational. Currently, only terminated pods are excluded from its count. In the future, [readiness](https://issue.k8s.io/620) and other information available from the system may be taken into account, we may add more controls over the replacement policy, and we plan to emit events that could be used by external clients to implement arbitrarily sophisticated replacement and/or scale-down policies.
 
 The ReplicationController is forever constrained to this narrow responsibility. It itself will not perform readiness nor liveness probes. Rather than performing auto-scaling, it is intended to be controlled by an external auto-scaler (as discussed in [#492](https://issue.k8s.io/492)), which would change its `replicas` field. We will not add scheduling policies (for example, [spreading](https://issue.k8s.io/367#issuecomment-48428019)) to the ReplicationController. Nor should it verify that the pods controlled match the currently specified template, as that would obstruct auto-sizing and other automated processes. Similarly, completion deadlines, ordering dependencies, configuration expansion, and other features belong elsewhere. We even plan to factor out the mechanism for bulk pod creation ([#170](https://issue.k8s.io/170)).
 
 The ReplicationController is intended to be a composable building-block primitive. We expect higher-level APIs and/or tools to be built on top of it and other complementary primitives for user convenience in the future. The "macro" operations currently supported by kubectl (run, scale) are proof-of-concept examples of this. For instance, we could imagine something like [Asgard](https://techblog.netflix.com/2012/06/asgard-web-based-cloud-management-and.html) managing ReplicationControllers, auto-scalers, services, scheduling policies, canaries, etc.
-
 
 ## API Object
 
@@ -259,7 +263,6 @@ API object can be found at:
 [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is the next-generation ReplicationController that supports the new [set-based label selector](/docs/concepts/overview/working-with-objects/labels/#set-based-requirement).
 It's mainly used by [Deployment](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate pod creation, deletion and updates.
 Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don't require updates at all.
-
 
 ### Deployment (Recommended)
 
@@ -284,5 +287,3 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 ## For more information
 
 Read [Run Stateless Application Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
-
-

@@ -37,7 +37,7 @@ weight: 10
 				<li><i>ClusterIP</i> (기본값) - 클러스터 내에서 내부 IP 에 대해 서비스를 노출해준다. 이 방식은 오직 클러스터 내에서만 서비스가 접근될 수 있도록 해준다.</li>
 				<li><i>NodePort</i> - NAT가 이용되는 클러스터 내에서 각각 선택된 노드들의 동일한 포트에 서비스를 노출시켜준다. <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>를 이용하여 클러스터 외부로부터 서비스가 접근할 수 있도록 해준다. ClusterIP의 상위 집합이다.</li>
 				<li><i>LoadBalancer</i> - (지원 가능한 경우) 기존 클라우드에서 외부용 로드밸런서를 생성하고 서비스에 고정된 공인 IP를 할당해준다. NodePort의 상위 집합이다. </li>
-				<li><i>ExternalName</i> - 이름으로 CNAME 레코드를 반환함으로써 임의의 이름(스펙에서 <code>externalName</code>으로 명시)을 이용하여 서비스를 노출시켜준다. 프록시는 사용되지 않는다. 이 방식은 <code>kube-dns</code> 버전 1.7 이상에서 지원 가능하다.</li>
+				<li><i>ExternalName</i> - <code>CNAME</code> 레코드 및 값을 반환함으로써 서비스를 <code>externalName</code> 필드의 내용(예를 들면, `foo.bar.example.com`)에 매핑한다. 어떠한 종류의 프록시도 설정되지 않는다. 이 방식은 <code>kube-dns</code> v1.7 이상 또는 CoreDNS 버전 0.0.8 이상을 필요로 한다.</li>
 			</ul>
 			<p>다른 서비스 타입들에 대한 추가 정보는 <a href="/ko/docs/tutorials/services/source-ip/">소스 IP 이용하기</a>  튜토리얼에서 확인 가능하다. 또한 <a href="/docs/concepts/services-networking/connect-applications-service">서비스들로 애플리케이션에 접속하기</a>도 참고해 보자.</p>
 			<p>부가적으로, spec에 <code>selector</code>를 정의하지 않고 말아넣은 서비스들의 몇 가지 유즈케이스들이 있음을 주의하자. <code>selector</code> 없이 생성된 서비스는 상응하는 엔드포인트 오브젝트들 또한 생성하지 않는다. 이로써 사용자들로 하여금 하나의 서비스를 특정한 엔드포인트에 매핑 시킬수 있도록 해준다. selector를 생략하게 되는 또 다른 가능성은 여러분이 <code>type: ExternalName</code>을 이용하겠다고 확고하게 의도하는 경우이다.</p>
@@ -61,12 +61,6 @@ weight: 10
 		<div class="row">
 			<div class="col-md-8">
 				<h3>서비스와 레이블</h3>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-8">
-				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg" width="150%" height="150%"></p>
 			</div>
 		</div>
 

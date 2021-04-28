@@ -17,8 +17,6 @@ Changes to the style guide are made by SIG Docs as a group. To propose a change
 or addition, [add it to the agenda](https://docs.google.com/document/d/1ddHwLK3kUMX1wVFIwlksjTk0MsqitBnWPe1LRa1Rx5A/edit) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
 discussion.
 
-
-
 <!-- body -->
 
 {{< note >}}
@@ -44,35 +42,38 @@ The English-language documentation uses U.S. English spelling and grammar.
 
 ### Use upper camel case for API objects
 
-When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as Pascal Case. When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as Pascal case. You may see different capitalization, such as "configMap", in the [API Reference](/docs/reference/kubernetes-api/). When writing general documentation, it's better to use upper camel case, calling it "ConfigMap" instead.
 
-Don't split the API object name into separate words. For example, use
-PodTemplateList, not Pod Template List.
+When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
-Refer to API objects without saying "object," unless omitting "object"
-leads to an awkward construction.
+You may use the word "resource", "API", or "object" to clarify a Kubernetes resource type in a sentence.
 
-{{< table caption = "Do and Don't - API objects" >}}
+Don't split an API object name into separate words. For example, use PodTemplateList, not Pod Template List.
+
+The following examples focus on capitalization. For more information about formatting API object names, review the related guidance on [Code Style](#code-style-inline-code).
+
+{{< table caption = "Do and Don't - Use Pascal case for API objects" >}}
 Do | Don't
 :--| :-----
-The pod has two containers. | The Pod has two containers.
-The HorizontalPodAutoscaler is responsible for ... | The HorizontalPodAutoscaler object is responsible for ...
-A PodList is a list of pods. | A Pod List is a list of pods.
-The two ContainerPorts ... | The two ContainerPort objects ...
-The two ContainerStateTerminated objects ... | The two ContainerStateTerminateds ...
+The HorizontalPodAutoscaler resource is responsible for ... | The Horizontal pod autoscaler is responsible for ...
+A PodList object is a list of pods. | A Pod List object is a list of pods.
+The Volume object contains a `hostPath` field. | The volume object contains a hostPath field.
+Every ConfigMap object is part of a namespace. | Every configMap object is part of a namespace.
+For managing confidential data, consider using the Secret API. | For managing confidential data, consider using the secret API.
 {{< /table >}}
-
 
 ### Use angle brackets for placeholders
 
 Use angle brackets for placeholders. Tell the reader what a placeholder
-represents.
+represents, for example:
 
-1. Display information about a pod:
+Display information about a pod:
 
-        kubectl describe pod <pod-name> -n <namespace>
+```shell
+kubectl describe pod <pod-name> -n <namespace>
+```
 
-    If the namespace of the pod is `default`, you can omit the '-n' parameter.
+If the namespace of the pod is `default`, you can omit the '-n' parameter.
 
 ### Use bold for user interface elements
 
@@ -113,12 +114,12 @@ The copy is called a "fork". | The copy is called a "fork."
 
 ## Inline code formatting
 
-### Use code style for inline code, commands, and API objects
+### Use code style for inline code, commands, and API objects {#code-style-inline-code}
 
 For inline code in an HTML document, use the `<code>` tag. In a Markdown
 document, use the backtick (`` ` ``).
 
-{{< table caption = "Do and Don't - Use code style for inline code and commands" >}}
+{{< table caption = "Do and Don't - Use code style for inline code, commands, and API objects" >}}
 Do | Don't
 :--| :-----
 The `kubectl run` command creates a `Pod`. | The "kubectl run" command creates a pod.
@@ -186,7 +187,6 @@ Set the value of `image` to nginx:1.16. | Set the value of `image` to `nginx:1.1
 Set the value of the `replicas` field to 2. | Set the value of the `replicas` field to `2`.
 {{< /table >}}
 
-
 ## Code snippet formatting
 
 ### Don't include the command prompt
@@ -197,17 +197,20 @@ Do | Don't
 kubectl get pods | $ kubectl get pods
 {{< /table >}}
 
-
 ### Separate commands from output
 
 Verify that the pod is running on your chosen node:
 
-    kubectl get pods --output=wide
+```shell
+kubectl get pods --output=wide
+```
 
 The output is similar to this:
 
-    NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
-    nginx    1/1       Running   0          13s    10.200.0.4   worker0
+```console
+NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
+nginx    1/1       Running   0          13s    10.200.0.4   worker0
+```
 
 ### Versioning Kubernetes examples
 
@@ -260,17 +263,17 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
 
 2. Use the following syntax to apply a style:
 
-    ```
-    {{</* note */>}}
-    No need to include a prefix; the shortcode automatically provides one. (Note:, Caution:, etc.)
-    {{</* /note */>}}
-    ```
+   ```none
+   {{</* note */>}}
+   No need to include a prefix; the shortcode automatically provides one. (Note:, Caution:, etc.)
+   {{</* /note */>}}
+   ```
 
-The output is:
+   The output is:
 
-{{< note >}}
-The prefix you choose is the same text for the tag.
-{{< /note >}}
+   {{< note >}}
+   The prefix you choose is the same text for the tag.
+   {{< /note >}}
 
 ### Note
 
@@ -400,7 +403,7 @@ The output is:
 
 1. Prepare the batter, and pour into springform pan.
 
-    {{< note >}}Grease the pan for best results.{{< /note >}}
+   {{< note >}}Grease the pan for best results.{{< /note >}}
 
 1. Bake for 20-25 minutes or until set.
 
@@ -414,13 +417,14 @@ Shortcodes inside include statements will break the build. You must insert them 
 {{</* /note */>}}
 ```
 
-
 ## Markdown elements
 
 ### Line breaks
+
 Use a single newline to separate block-level content like headings, lists, images, code blocks, and others. The exception is second-level headings, where it should be two newlines. Second-level headings follow the first-level (or the title) without any preceding paragraphs or texts. A two line spacing helps visualize the overall structure of content in a code editor better.
 
 ### Headings
+
 People accessing this documentation may use a screen reader or other assistive technology (AT). [Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices, they output items on a page one at a time. If there is a lot of content on a page, you can use headings to give the page an internal structure. A good page structure helps all readers to easily navigate the page or filter topics of interest.
 
 {{< table caption = "Do and Don't - Headings" >}}
@@ -450,24 +454,24 @@ Write hyperlinks that give you context for the content they link to. For example
 Write Markdown-style links: `[link text](URL)`. For example: `[Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions)` and the output is [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions). | Write HTML-style links: `<a href="/media/examples/link-element-example.css" target="_blank">Visit our tutorial!</a>`, or create links that open in new tabs or windows. For example: `[example website](https://example.com){target="_blank"}`
 {{< /table >}}
 
-
 ### Lists
+
 Group items in a list that are related to each other and need to appear in a specific order or to indicate a correlation between multiple items. When a screen reader comes across a list—whether it is an ordered or unordered list—it will be announced to the user that there is a group of list items. The user can then use the arrow keys to move up and down between the various items in the list.
 Website navigation links can also be marked up as list items; after all they are nothing but a group of related links.
 
- - End each item in a list with a period if one or more items in the list are complete sentences. For the sake of consistency, normally either all items or none should be complete sentences.
+- End each item in a list with a period if one or more items in the list are complete sentences. For the sake of consistency, normally either all items or none should be complete sentences.
 
-   {{< note >}} Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence.{{< /note >}}
+  {{< note >}} Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence.{{< /note >}}
 
- - Use the number one (`1.`) for ordered lists.
+- Use the number one (`1.`) for ordered lists.
 
- - Use (`+`), (`*`), or (`-`) for unordered lists.
+- Use (`+`), (`*`), or (`-`) for unordered lists.
 
- - Leave a blank line after each list.
+- Leave a blank line after each list.
 
- - Indent nested lists with four spaces (for example, ⋅⋅⋅⋅).
+- Indent nested lists with four spaces (for example, ⋅⋅⋅⋅).
 
- - List items may consist of multiple paragraphs. Each subsequent paragraph in a list item must be indented by either four spaces or one tab.
+- List items may consist of multiple paragraphs. Each subsequent paragraph in a list item must be indented by either four spaces or one tab.
 
 ### Tables
 
@@ -487,7 +491,6 @@ Do | Don't
 This command starts a proxy. | This command will start a proxy.
  {{< /table >}}
 
-
 Exception: Use future or past tense if it is required to convey the correct
 meaning.
 
@@ -499,7 +502,6 @@ Do | Don't
 You can explore the API using a browser. | The API can be explored using a browser.
 The YAML file specifies the replica count. | The replica count is specified in the YAML file.
 {{< /table >}}
-
 
 Exception: Use passive voice if active voice leads to an awkward construction.
 
@@ -524,7 +526,6 @@ You can create a Deployment by ... | We'll create a Deployment by ...
 In the preceding output, you can see... | In the preceding output, we can see ...
 {{< /table >}}
 
-
 ### Avoid Latin phrases
 
 Prefer English terms over Latin abbreviations.
@@ -535,7 +536,6 @@ Do | Don't
 For example, ... | e.g., ...
 That is, ...| i.e., ...
 {{< /table >}}
-
 
 Exception: Use "etc." for et cetera.
 
@@ -554,7 +554,6 @@ Kubernetes provides a new feature for ... | We provide a new feature ...
 This page teaches you how to use pods. | In this page, we are going to learn about pods.
 {{< /table >}}
 
-
 ### Avoid jargon and idioms
 
 Some readers speak English as a second language. Avoid jargon and idioms to help them understand better.
@@ -566,12 +565,15 @@ Internally, ... | Under the hood, ...
 Create a new cluster. | Turn up a new cluster.
 {{< /table >}}
 
-
 ### Avoid statements about the future
 
 Avoid making promises or giving hints about the future. If you need to talk about
 an alpha feature, put the text under a heading that identifies it as alpha
 information.
+
+An exception to this rule is documentation about announced deprecations
+targeting removal in future versions. One example of documentation like this
+is the [Deprecated API migration guide](/docs/reference/using-api/deprecation-guide/).
 
 ### Avoid statements that will soon be out of date
 
@@ -585,6 +587,18 @@ In version 1.4, ... | In the current version, ...
 The Federation feature provides ... | The new Federation feature provides ...
 {{< /table >}}
 
+### Avoid words that assume a specific level of understanding
+
+Avoid words such as "just", "simply", "easy", "easily", or "simple". These words do not add value.
+
+{{< table caption = "Do and Don't - Avoid insensitive words" >}}
+Do | Don't
+:--| :-----
+Include one command in ... | Include just one command in ...
+Run the container ... | Simply run the container ...
+You can remove ... | You can easily remove ...
+These steps ... | These simple steps ...
+{{< /table >}}
 
 ## {{% heading "whatsnext" %}}
 

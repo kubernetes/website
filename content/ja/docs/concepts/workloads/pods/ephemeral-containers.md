@@ -42,7 +42,7 @@ weight: 80
 
 エフェメラルコンテナを利用する場合には、他のコンテナ内のプロセスにアクセスできるように、[プロセス名前空間の共有](/ja/docs/tasks/configure-pod-container/share-process-namespace/)を有効にすると便利です。
 
-エフェメラルコンテナを利用してトラブルシューティングを行う例については、[デバッグ用のエフェメラルコンテナを使用してデバッグする](/docs/tasks/debug-application-cluster/debug-running-pod/#debugging-with-ephemeral-debug-container)を参照してください。
+エフェメラルコンテナを利用してトラブルシューティングを行う例については、[デバッグ用のエフェメラルコンテナを使用してデバッグする](/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)を参照してください。
 
 ## Ephemeral containers API
 
@@ -59,7 +59,7 @@ weight: 80
     "apiVersion": "v1",
     "kind": "EphemeralContainers",
     "metadata": {
-            "name": "example-pod"
+        "name": "example-pod"
     },
     "ephemeralContainers": [{
         "command": [

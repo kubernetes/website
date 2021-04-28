@@ -552,7 +552,7 @@ In another terminal, watch the Pods in the StatefulSet:
 ```shell
 kubectl get pod -l app=nginx -w
 ```
-The output is simular to:
+The output is similar to:
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          7m
@@ -934,10 +934,10 @@ web-2     0/1       Terminating   0         3m
 
 When the `web` StatefulSet was recreated, it first relaunched `web-0`.
 Since `web-1` was already Running and Ready, when `web-0` transitioned to
- Running and Ready, it simply adopted this Pod. Since you recreated the StatefulSet
- with `replicas` equal to 2, once `web-0` had been recreated, and once
- `web-1` had been determined to already be Running and Ready, `web-2` was
- terminated.
+Running and Ready, it adopted this Pod. Since you recreated the StatefulSet
+with `replicas` equal to 2, once `web-0` had been recreated, and once
+`web-1` had been determined to already be Running and Ready, `web-2` was
+terminated.
 
 Let's take another look at the contents of the `index.html` file served by the
 Pods' webservers:
@@ -945,6 +945,7 @@ Pods' webservers:
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
 ```
+
 ```
 web-0
 web-1
@@ -970,15 +971,18 @@ In another terminal, delete the StatefulSet again. This time, omit the
 ```shell
 kubectl delete statefulset web
 ```
+
 ```
 statefulset.apps "web" deleted
 ```
+
 Examine the output of the `kubectl get` command running in the first terminal,
 and wait for all of the Pods to transition to Terminating.
 
 ```shell
 kubectl get pods -w -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          11m
@@ -1006,10 +1010,10 @@ the cascade does not delete the headless Service associated with the StatefulSet
 You must delete the `nginx` Service manually.
 {{< /note >}}
 
-
 ```shell
 kubectl delete service nginx
 ```
+
 ```
 service "nginx" deleted
 ```
@@ -1019,6 +1023,7 @@ Recreate the StatefulSet and headless Service one more time:
 ```shell
 kubectl apply -f web.yaml
 ```
+
 ```
 service/nginx created
 statefulset.apps/web created
@@ -1030,6 +1035,7 @@ the contents of their `index.html` files:
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
 ```
+
 ```
 web-0
 web-1
@@ -1044,13 +1050,17 @@ Finally, delete the `nginx` Service...
 ```shell
 kubectl delete service nginx
 ```
+
 ```
 service "nginx" deleted
 ```
+
 ...and the `web` StatefulSet:
+
 ```shell
 kubectl delete statefulset web
 ```
+
 ```
 statefulset "web" deleted
 ```
@@ -1073,7 +1083,7 @@ above.
 `Parallel` pod management tells the StatefulSet controller to launch or
 terminate all Pods in parallel, and not to wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
-Pod.
+Pod. This option only affects the behavior for scaling operations. Updates are not affected.
 
 {{< codenew file="application/web/web-parallel.yaml" >}}
 

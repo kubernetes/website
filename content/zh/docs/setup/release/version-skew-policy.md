@@ -27,12 +27,14 @@ For more information, see [Kubernetes Release Versioning](https://github.com/kub
 -->
 Kubernetes 版本号格式为 **x.y.z**，其中 **x** 为大版本号，**y** 为小版本号，**z** 为补丁版本号。
 版本号格式遵循 [Semantic Versioning](https://semver.org/) 规则。
-更多信息，请参阅 [Kubernetes 发布版本](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning)。
+更多信息，请参阅
+[Kubernetes 发布版本](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning)。
 
 <!--
 The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).  Kubernetes 1.19 and newer receive approximately 1 year of patch support. Kubernetes 1.18 and older received approximately 9 months of patch support.
 -->
-Kubernetes 项目会维护最近的三个小版本分支（{{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}）。
+Kubernetes 项目会维护最近的三个小版本分支（{{< skew latestVersion >}}, 
+{{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}）。
 Kubernetes 1.19 及更高的版本将获得大约1年的补丁支持。
 Kubernetes 1.18 及更早的版本获得大约9个月的补丁支持。
 
@@ -45,9 +47,13 @@ The [Release Managers](https://git.k8s.io/sig-release/release-managers.md) group
 For more information, see the Kubernetes [patch releases](https://git.k8s.io/sig-release/releases/patch-releases.md) page.
 -->
 一些 bug 修复，包括安全修复，取决于其严重性和可行性，有可能会反向合并到这三个发布分支。
-补丁版本会[定期](https://git.k8s.io/sig-release/releases/patch-releases.md#cadence)或根据需要从这些分支中发布。 
-最终是否发布是由[发布管理者](https://github.com/kubernetes/sig-release/blob/master/release-managers.md)来决定的。
-如需了解更多信息，请查看 Kubernetes [补丁发布](https://github.com/kubernetes/sig-release/blob/master/releases/patch-releases.md)。
+补丁版本会[定期](https://git.k8s.io/sig-release/releases/patch-releases.md#cadence)
+或根据需要从这些分支中发布。 
+最终是否发布是由
+[发布管理者](https://github.com/kubernetes/sig-release/blob/master/release-managers.md)
+来决定的。
+如需了解更多信息，请查看 Kubernetes
+[补丁发布](https://github.com/kubernetes/sig-release/blob/master/releases/patch-releases.md)。
 
 <!--
 ## Supported version skew
@@ -72,7 +78,8 @@ Example:
 * other `kube-apiserver` instances are supported at **{{< skew latestVersion >}}** and **{{< skew prevMinorVersion >}}**
 -->
 * 最新的 `kube-apiserver` 版本号如果是 **{{< skew latestVersion >}}**
-* 则受支持的 `kube-apiserver` 版本号包括 **{{< skew latestVersion >}}** 和 **{{< skew prevMinorVersion >}}**
+* 其他受支持的 `kube-apiserver` 版本号包括 **{{< skew latestVersion >}}** 和
+  **{{< skew prevMinorVersion >}}**
 
 ### kubelet
 
@@ -90,7 +97,8 @@ Example:
 例如：
 
 * `kube-apiserver` 版本号如果是 **{{< skew latestVersion >}}**
-* 受支持的的 `kubelet` 版本将包括 **{{< skew latestVersion >}}**、**{{< skew prevMinorVersion >}}** 和 **{{< skew oldestMinorVersion >}}**
+* 受支持的的 `kubelet` 版本将包括 **{{< skew latestVersion >}}**、
+  **{{< skew prevMinorVersion >}}** 和 **{{< skew oldestMinorVersion >}}**
 
 <!--
 If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the allowed `kubelet` versions.
@@ -107,9 +115,12 @@ Example:
 -->
 例如：
 
-* 如果 `kube-apiserver` 实例同时存在 **{{< skew latestVersion >}}** 和 **{{< skew prevMinorVersion >}}**
-* `kubelet` 的受支持版本将是 **{{< skew prevMinorVersion >}}** 和 **{{< skew oldestMinorVersion >}}**
-（**{{< skew latestVersion >}}** 不再支持，因为它比 **{{< skew prevMinorVersion >}}** 版本的 `kube-apiserver` 更新）
+* 如果 `kube-apiserver` 实例同时存在 **{{< skew latestVersion >}}** 和
+  **{{< skew prevMinorVersion >}}**
+* `kubelet` 的受支持版本将是 **{{< skew prevMinorVersion >}}** 和
+  **{{< skew oldestMinorVersion >}}**
+  （**{{< skew latestVersion >}}** 不再支持，因为它比
+  **{{< skew prevMinorVersion >}}** 版本的 `kube-apiserver` 更新）
 
 <!--
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
@@ -119,8 +130,10 @@ Example:
 <!--
 `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` must not be newer than the `kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version, but may be up to one minor version older (to allow live upgrades).
 -->
-`kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager` 版本不能高于 `kube-apiserver` 版本号。
-最好它们的版本号与 `kube-apiserver` 保持一致，但允许比 `kube-apiserver` 低一个小版本（为了支持在线升级）。
+`kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
+版本不能高于 `kube-apiserver` 版本号。
+最好它们的版本号与 `kube-apiserver` 保持一致，但允许比 `kube-apiserver`
+低一个小版本（为了支持在线升级）。
 
 <!--
 Example:
@@ -131,14 +144,17 @@ Example:
 例如：
 
 * 如果 `kube-apiserver` 版本号为 **{{< skew latestVersion >}}**
-* `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager` 版本支持 **{{< skew latestVersion >}}** 和 **{{< skew prevMinorVersion >}}**
+* `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
+  版本支持 **{{< skew latestVersion >}}** 和 **{{< skew prevMinorVersion >}}**
 
 <!--
 If version skew exists between `kube-apiserver` instances in an HA cluster, and these components can communicate with any `kube-apiserver` instance in the cluster (for example, via a load balancer), this narrows the allowed versions of these components.
 -->
 {{< note >}}
-如果在 HA 集群中，多个 `kube-apiserver` 实例版本号不一致，他们也可以跟任意一个 `kube-apiserver` 实例通信（例如，通过 load balancer），
-但 `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager` 版本可用范围会相应的减小。
+如果在 HA 集群中，多个 `kube-apiserver` 实例版本号不一致，他们也可以跟
+任意一个 `kube-apiserver` 实例通信（例如，通过 load balancer），
+但 `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
+版本可用范围会相应的减小。
 {{< /note >}}
 
 <!--
@@ -150,10 +166,14 @@ Example:
 -->
 例如：
 
-* `kube-apiserver` 实例同时存在 **{{< skew latestVersion >}}** 和 **{{< skew prevMinorVersion >}}** 版本
-* `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager` 可以通过 load balancer 与所有的 `kube-apiserver` 通信
-* `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager` 可选版本为 **{{< skew prevMinorVersion >}}**
-（**{{< skew latestVersion >}}** 不再支持，因为它比 **{{< skew prevMinorVersion >}}** 版本的 `kube-apiserver` 更新）
+* `kube-apiserver` 实例同时存在 **{{< skew latestVersion >}}** 和
+  **{{< skew prevMinorVersion >}}** 版本
+* `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
+  可以通过 load balancer 与所有的 `kube-apiserver` 通信
+* `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
+  可选版本为 **{{< skew prevMinorVersion >}}**
+  （**{{< skew latestVersion >}}** 不再支持，因为它比 **{{< skew prevMinorVersion >}}**
+  版本的 `kube-apiserver` 更新）
 
 ### kubectl
 
@@ -171,7 +191,8 @@ Example:
 例如：
 
 * 如果 `kube-apiserver` 当前是 **{{< skew latestVersion >}}** 版本
-* `kubectl` 则支持 **{{< skew nextMinorVersion >}}**、**{{< skew latestVersion >}}** 和 **{{< skew prevMinorVersion >}}**
+* `kubectl` 则支持 **{{< skew nextMinorVersion >}}**、**{{< skew latestVersion >}}**
+  和 **{{< skew prevMinorVersion >}}**
 
 <!--
 If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the supported `kubectl` versions.
@@ -188,8 +209,11 @@ Example:
 -->
 例如：
 
-* `kube-apiserver` 多个实例同时存在 **{{< skew latestVersion >}}** 和 **{{< skew prevMinorVersion >}}**
-* `kubectl` 可选的版本为 **{{< skew latestVersion >}}** 和 **{{< skew prevMinorVersion >}}**（其他版本不再支持，因为它会比其中某个 `kube-apiserver` 实例高或低一个小版本）
+* `kube-apiserver` 多个实例同时存在 **{{< skew latestVersion >}}** 和
+  **{{< skew prevMinorVersion >}}**
+* `kubectl` 可选的版本为 **{{< skew latestVersion >}}** 和
+  **{{< skew prevMinorVersion >}}**（其他版本不再支持，
+  因为它会比其中某个 `kube-apiserver` 实例高或低一个小版本）
 
 <!--
 ## Supported component upgrade order
@@ -201,7 +225,8 @@ The supported version skew between components has implications on the order in w
 This section describes the order in which components must be upgraded to transition an existing cluster from version **{{< skew prevMinorVersion >}}** to version **{{< skew latestVersion >}}**.
 -->
 组件之间支持的版本偏差会影响组件升级的顺序。
-本节描述组件从版本 **{{< skew prevMinorVersion >}}** 到 **{{< skew latestVersion >}}** 的升级次序。
+本节描述组件从版本 **{{< skew prevMinorVersion >}}** 到 **{{< skew latestVersion >}}**
+的升级次序。
 
 ### kube-apiserver
 
@@ -220,9 +245,14 @@ Pre-requisites:
   * The webhooks are able to handle any new versions of REST resources that will be sent to them, and any new fields added to existing versions in **{{< skew latestVersion >}}**
 -->
 * 单实例集群中，`kube-apiserver` 实例版本号须是 **{{< skew prevMinorVersion >}}**
-* 高可用（HA）集群中，所有的 `kube-apiserver` 实例版本号必须是 **{{< skew prevMinorVersion >}}** 或 **{{< skew latestVersion >}}**（确保满足最新和最旧的实例小版本号相差不大于1）
-* `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager` 版本号必须为 **{{< skew prevMinorVersion >}}**（确保不高于 API server 的版本，且版本号相差不大于1）
-* `kubelet` 实例版本号必须是 **{{< skew prevMinorVersion >}}** 或 **{{< skew oldestMinorVersion >}}**（确保版本号不高于 API server，且版本号相差不大于2）
+* 高可用（HA）集群中，所有的 `kube-apiserver` 实例版本号必须是
+  **{{< skew prevMinorVersion >}}** 或 **{{< skew latestVersion >}}**
+  （确保满足最新和最旧的实例小版本号相差不大于1）
+* `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
+  版本号必须为 **{{< skew prevMinorVersion >}}**
+  （确保不高于 API server 的版本，且版本号相差不大于1）
+* `kubelet` 实例版本号必须是 **{{< skew prevMinorVersion >}}** 或
+  **{{< skew oldestMinorVersion >}}**（确保版本号不高于 API server，且版本号相差不大于2）
 * 注册的 admission 插件必须能够处理新的 `kube-apiserver` 实例发送过来的数据：
   * `ValidatingWebhookConfiguration` 和 `MutatingWebhookConfiguration` 对象必须升级到可以处理
     **{{< skew latestVersion >}}** 版本新加的 REST 资源（或使用 1.15 版本提供的
@@ -258,12 +288,14 @@ Pre-requisites:
 -->
 前提条件：
 
-* `kube-apiserver` 实例必须为 **{{< skew latestVersion >}}** （HA 集群中，所有的`kube-apiserver` 实例必须在组件升级前完成升级）
+* `kube-apiserver` 实例必须为 **{{< skew latestVersion >}}** 
+  （HA 集群中，所有的`kube-apiserver` 实例必须在组件升级前完成升级）
 
 <!--
 Upgrade `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` to **{{< skew latestVersion >}}**
 -->
-升级 `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager` 到 **{{< skew latestVersion >}}**
+升级 `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
+到 **{{< skew latestVersion >}}**
 
 ### kubelet
 
@@ -278,15 +310,26 @@ Optionally upgrade `kubelet` instances to **{{< skew latestVersion >}}** (or the
 
 * `kube-apiserver` 实例必须为 **{{< skew latestVersion >}}** 版本
 
-`kubelet` 可以升级到 **{{< skew latestVersion >}}**（或者停留在 **{{< skew prevMinorVersion >}}** 或 **{{< skew oldestMinorVersion >}}**）
+`kubelet` 可以升级到 **{{< skew latestVersion >}}**（或者停留在
+**{{< skew prevMinorVersion >}}** 或 **{{< skew oldestMinorVersion >}}**）
 
+{{< note >}}
+<!--
+Before performing a minor version `kubelet` upgrade, [drain](/docs/tasks/administer-cluster/safely-drain-node/) pods from that node.
+In-place minor version `kubelet` upgrades are not supported.
+-->
+在对 `kubelet` 执行次版本升级时，先[腾空](/zh/docs/tasks/administer-cluster/safely-drain-node/)
+节点上的 Pods。
+目前不支持原地升级 `kubelet` 的次版本。
+{{</ note >}}
+
+{{< warning >}}
 <!--
 Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` is not recommended:
 
 * they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
 * it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
 -->
-{{< warning >}}
 集群中 `kubelet` 版本号不建议比 `kube-apiserver` 低两个版本号：
 
 * 它们必须升级到与 `kube-apiserver` 相差不超过 1 个小版本，才可以升级其他控制面组件
@@ -318,4 +361,5 @@ If `kube-proxy` version is **{{< skew oldestMinorVersion >}}**:
 如果 `kube-proxy` 的版本是 **{{< skew oldestMinorVersion >}}**：
 
 * `kubelet` 版本必须相同，也是 **{{< skew oldestMinorVersion >}}**
-* `kube-apiserver` 版本必须在 **{{< skew oldestMinorVersion >}}** 到 **{{< skew latestVersion >}}** 之间（闭区间）
+* `kube-apiserver` 版本必须在 **{{< skew oldestMinorVersion >}}** 到
+  **{{< skew latestVersion >}}** 之间（闭区间）

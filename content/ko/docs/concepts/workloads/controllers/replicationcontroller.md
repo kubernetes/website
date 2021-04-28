@@ -49,12 +49,14 @@ kubectl 명령에서 숏컷으로 사용된다.
 
 {{< codenew file="controllers/replication.yaml" >}}
 
-예제 파일을 다운로드 한 후 다음 명령을 실행하여 예제 작업을 실행하라.
+예제 파일을 다운로드한 후 다음 명령을 실행하여 예제 작업을 실행하라.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
 ```
+
 출력 결과는 다음과 같다.
+
 ```
 replicationcontroller/nginx created
 ```
@@ -64,7 +66,9 @@ replicationcontroller/nginx created
 ```shell
 kubectl describe replicationcontrollers/nginx
 ```
+
 출력 결과는 다음과 같다.
+
 ```
 Name:        nginx
 Namespace:   default
@@ -103,14 +107,16 @@ Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
 echo $pods
 ```
+
 출력 결과는 다음과 같다.
+
 ```
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
 여기서 셀렉터는 레플리케이션컨트롤러(`kubectl describe` 의 출력에서 보인)의 셀렉터와 같고,
-다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 옵션은
-반환된 목록의 각 파드에서 이름을 가져오는 표현식을 지정한다.
+다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 은
+반환된 목록의 각 파드의 이름을 출력하도록 하는 옵션이다.
 
 
 ## 레플리케이션 컨트롤러의 Spec 작성
@@ -118,7 +124,7 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 다른 모든 쿠버네티스 컨피그와 마찬가지로 레플리케이션 컨트롤러는 `apiVersion`, `kind`, `metadata` 와 같은 필드가 필요하다.
 레플리케이션 컨트롤러 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
-컨피그 파일의 동작에 관련된 일반적인 정보는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를 참고한다.
+환경설정 파일의 동작에 관련된 일반적인 정보는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를 참고한다.
 
 레플리케이션 컨트롤러는 또한 [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.
 
@@ -180,7 +186,7 @@ delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 를 사용�
 Kubectl은 레플리케이션 컨트롤러를 0으로 스케일하고 레플리케이션 컨트롤러 자체를
 삭제하기 전에 각 파드를 삭제하기를 기다린다. 이 kubectl 명령이 인터럽트되면 다시 시작할 수 있다.
 
-REST API나 go 클라이언트 라이브러리를 사용하는 경우 명시적으로 단계를 수행해야 한다 (레플리카를 0으로 스케일하고 파드의 삭제를 기다린 이후,
+REST API나 Go 클라이언트 라이브러리를 사용하는 경우 명시적으로 단계를 수행해야 한다(레플리카를 0으로 스케일하고 파드의 삭제를 기다린 이후,
 레플리케이션 컨트롤러를 삭제).
 
 ### 레플리케이션 컨트롤러만 삭제
@@ -189,7 +195,7 @@ REST API나 go 클라이언트 라이브러리를 사용하는 경우 명시적�
 
 kubectl을 사용하여, [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)에 옵션으로 `--cascade=false`를 지정하라.
 
-REST API나 go 클라이언트 라이브러리를 사용하는 경우 간단히 레플리케이션 컨트롤러 오브젝트를 삭제하라.
+REST API나 Go 클라이언트 라이브러리를 사용하는 경우 레플리케이션 컨트롤러 오브젝트를 삭제하라.
 
 원본이 삭제되면 대체할 새로운 레플리케이션 컨트롤러를 생성하여 교체할 수 있다. 오래된 파드와 새로운 파드의 `.spec.selector` 가 동일하다면,
 새로운 레플리케이션 컨트롤러는 오래된 파드를 채택할 것이다. 그러나 기존 파드를
@@ -198,7 +204,7 @@ REST API나 go 클라이언트 라이브러리를 사용하는 경우 간단히 
 
 ### 레플리케이션 컨트롤러에서 파드 격리
 
-파드는 레이블을 변경하여 레플리케이션 컨트롤러의 대상 셋에서 제거될 수 있다. 이 기술은 디버깅, 데이터 복구 등을 위해 서비스에서 파드를 제거하는데 사용될 수 있다. 이 방법으로 제거된 파드는 자동으로 교체된다 (레플리카 수가 변경되지 않는다고 가정).
+파드는 레이블을 변경하여 레플리케이션 컨트롤러의 대상 셋에서 제거될 수 있다. 이 기술은 디버깅과 데이터 복구를 위해 서비스에서 파드를 제거하는 데 사용될 수 있다. 이 방법으로 제거된 파드는 자동으로 교체된다 (레플리카 수가 변경되지 않는다고 가정).
 
 ## 일반적인 사용법 패턴
 
@@ -208,7 +214,7 @@ REST API나 go 클라이언트 라이브러리를 사용하는 경우 간단히 
 
 ### 스케일링
 
-레플리케이션 컨트롤러는 `replicas` 필드를 업데이트함으로써 수동으로 또는 오토 스케일링 제어 에이전트로 레플리카의 수를 쉽게 스케일 업하거나 스케일 다운할 수 있다.
+레플리케이션컨트롤러는 `replicas` 필드를 업데이트하여, 수동으로 또는 오토 스케일링 제어 에이전트를 통해, 레플리카의 수를 늘리거나 줄일 수 있다.
 
 ### 롤링 업데이트
 
@@ -239,12 +245,11 @@ REST API나 go 클라이언트 라이브러리를 사용하는 경우 간단히 
 
 ## 레플리케이션 컨트롤러의 책임
 
-레플리케이션 컨트롤러는 의도한 수의 파드가 해당 레이블 선택기와 일치하고 동작하는지를 단순히 확인한다. 현재, 종료된 파드만 해당 파드의 수에서 제외된다. 향후 시스템에서 사용할 수 있는 [readiness](https://issue.k8s.io/620) 및 기타 정보가 고려될 수 있으며 교체 정책에 대한 통제를 더 추가 할 수 있고 외부 클라이언트가 임의로 정교한 교체 또는 스케일 다운 정책을 구현하기 위해 사용할 수 있는 이벤트를 내보낼 계획이다.
+레플리케이션 컨트롤러는 의도한 수의 파드가 해당 레이블 셀렉터와 일치하고 동작하는지를 확인한다. 현재, 종료된 파드만 해당 파드의 수에서 제외된다. 향후 시스템에서 사용할 수 있는 [readiness](https://issue.k8s.io/620) 및 기타 정보가 고려될 수 있으며 교체 정책에 대한 통제를 더 추가 할 수 있고 외부 클라이언트가 임의로 정교한 교체 또는 스케일 다운 정책을 구현하기 위해 사용할 수 있는 이벤트를 내보낼 계획이다.
 
 레플리케이션 컨트롤러는 이 좁은 책임에 영원히 제약을 받는다. 그 자체로는 준비성 또는 활성 프로브를 실행하지 않을 것이다. 오토 스케일링을 수행하는 대신, 외부 오토 스케일러 ([#492](https://issue.k8s.io/492)에서 논의된)가 레플리케이션 컨트롤러의 `replicas` 필드를 변경함으로써 제어되도록 의도되었다. 레플리케이션 컨트롤러에 스케줄링 정책 (예를 들어 [spreading](https://issue.k8s.io/367#issuecomment-48428019))을 추가하지 않을 것이다. 오토사이징 및 기타 자동화 된 프로세스를 방해할 수 있으므로 제어된 파드가 현재 지정된 템플릿과 일치하는지 확인해야 한다. 마찬가지로 기한 완료, 순서 종속성, 구성 확장 및 기타 기능은 다른 곳에 속한다. 대량의 파드 생성 메커니즘 ([#170](https://issue.k8s.io/170))까지도 고려해야 한다.
 
 레플리케이션 컨트롤러는 조합 가능한 빌딩-블록 프리미티브가 되도록 고안되었다. 향후 사용자의 편의를 위해 더 상위 수준의 API 및/또는 도구와 그리고 다른 보완적인 기본 요소가 그 위에 구축 될 것으로 기대한다. 현재 kubectl이 지원하는 "매크로" 작업 (실행, 스케일)은 개념 증명의 예시이다. 예를 들어 [Asgard](https://techblog.netflix.com/2012/06/asgard-web-based-cloud-management-and.html)와 같이 레플리케이션 컨트롤러, 오토 스케일러, 서비스, 정책 스케줄링, 카나리 등을 관리할 수 있다.
-
 
 ## API 오브젝트
 
@@ -260,8 +265,7 @@ API 오브젝트에 대한 더 자세한 것은
 이것은 주로 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)에 의해 파드의 생성, 삭제 및 업데이트를 오케스트레이션 하는 메커니즘으로 사용된다.
 사용자 지정 업데이트 조정이 필요하거나 업데이트가 필요하지 않은 경우가 아니면 레플리카셋을 직접 사용하는 대신 디플로이먼트를 사용하는 것이 좋다.
 
-
-### 디플로이먼트 (권장되는)
+### 디플로이먼트 (권장됨)
 
 [`Deployment`](/ko/docs/concepts/workloads/controllers/deployment/)는 기본 레플리카셋과 그 파드를 업데이트하는 상위 수준의 API 오브젝트이다. 선언적이며, 서버 사이드이고, 추가 기능이 있기 때문에 롤링 업데이트 기능을 원한다면 디플로이먼트를 권장한다.
 

@@ -30,9 +30,9 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 -->
 Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。
-节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。每个节点都包含用于运行
-{{< glossary_tooltip text="Pod" term_id="pod" >}} 所需要的服务，这些服务由
-{{< glossary_tooltip text="控制面" term_id="control-plane" >}}负责管理。
+节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。
+每个节点包含运行 {{< glossary_tooltip text="Pods" term_id="pod" >}} 所需的服务，
+这些 Pods 由 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理。
 
 通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也可能
 只有一个节点。
@@ -120,7 +120,7 @@ register itself with the API server.  This is the preferred pattern, used by mos
 
 For self-registration, the kubelet is started with the following options:
 -->
-### 节点自注册
+### 节点自注册 {#self-registration-of-nodes}
 
 当 kubelet 标志 `--register-node` 为 true（默认）时，它会尝试向 API 服务注册自己。
 这是首选模式，被绝大多数发行版选用。
@@ -170,7 +170,7 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node, or mark it unschedulable.
 -->
-### 手动节点管理
+### 手动节点管理 {#manual-node-administration}
 
 你可以使用 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 来创建和修改 Node 对象。
@@ -432,14 +432,16 @@ ConditionUnknown when a node becomes unreachable (i.e. the node controller stops
 receiving heartbeats for some reason, e.g. due to the node being down), and then later evicting
 all the pods from the node (using graceful termination) if the node continues
 to be unreachable. (The default timeouts are 40s to start reporting
-ConditionUnknown and 5m after that to start evicting pods.) The node controller
-checks the state of each node every `-node-monitor-period` seconds.
+ConditionUnknown and 5m after that to start evicting pods.) 
+
+The node controller checks the state of each node every `-node-monitor-period` seconds.
 -->
 第三个是监控节点的健康情况。节点控制器负责在节点不可达
 （即，节点控制器因为某些原因没有收到心跳，例如节点宕机）时，
 将节点状态的 `NodeReady` 状况更新为 "`Unknown`"。
 如果节点接下来持续处于不可达状态，节点控制器将逐出节点上的所有 Pod（使用体面终止）。
 默认情况下 40 秒后开始报告 "`Unknown`"，在那之后 5 分钟开始逐出 Pod。
+
 节点控制器每隔 `--node-monitor-period` 秒检查每个节点的状态。
 
 <!--
@@ -456,8 +458,7 @@ of the node heartbeats as the cluster scales.
 #### 心跳机制  {#heartbeats}
 
 Kubernetes 节点发送的心跳（Heartbeats）有助于确定节点的可用性。
-心跳有两种形式：`NodeStatus` 和 [`Lease` 对象]
-(/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io)。
+心跳有两种形式：`NodeStatus` 和 [`Lease` 对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lease-v1-coordination-k8s-io)。
 每个节点在 `kube-node-lease`{{< glossary_tooltip term_id="namespace" text="名字空间">}}
 中都有一个与之关联的 `Lease` 对象。
 `Lease` 是一种轻量级的资源，可在集群规模扩大时提高节点心跳机制的性能。
@@ -507,8 +508,9 @@ the same time. If the fraction of unhealthy nodes is at least
 if the cluster is small (i.e. has less than or equal to
 `-large-cluster-size-threshold` nodes - default 50) then evictions are
 stopped, otherwise the eviction rate is reduced to
-`-secondary-node-eviction-rate` (default 0.01) per second. The reason these
-policies are implemented per availability zone is because one availability zone
+`-secondary-node-eviction-rate` (default 0.01) per second. 
+
+The reason these policies are implemented per availability zone is because one availability zone
 might become partitioned from the master while the others remain connected. If
 your cluster does not span multiple cloud provider availability zones, then
 there is only one availability zone (the whole cluster).
@@ -519,6 +521,7 @@ there is only one availability zone (the whole cluster).
 驱逐速率将会降低：如果集群较小（意即小于等于 `--large-cluster-size-threshold`
 个节点 - 默认为 50），驱逐操作将会停止，否则驱逐速率将降为每秒
 `--secondary-node-eviction-rate` 个（默认为 0.01）。
+
 在单个可用区域实施这些策略的原因是当一个可用区域可能从控制面脱离时其它可用区域
 可能仍然保持连接。
 如果你的集群没有跨越云服务商的多个可用区域，那（整个集群）就只有一个可用区域。
