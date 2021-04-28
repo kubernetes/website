@@ -48,7 +48,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     {{< kat-button >}}
 
 {{< note >}}
-    minikube를 로컬에 설치했다면 `minikube start`를 실행한다.
+    minikube를 로컬에 설치했다면 `minikube start`를 실행한다. `minikube dashboard` 명령을 실행하기 전에, 새 터미널을 열고, 그 터미널에서 `minikube dashboard` 명령을 실행한 후, 원래의 터미널로 돌아온다.
 {{< /note >}}
 
 2. 브라우저에서 쿠버네티스 대시보드를 열어보자.
@@ -154,7 +154,7 @@ minikube dashboard --url
     `k8s.gcr.io/echoserver` 이미지 내의 애플리케이션 코드는 TCP 포트 8080에서만 수신한다. `kubectl expose`를
     사용하여 다른 포트를 노출한 경우, 클라이언트는 다른 포트에 연결할 수 없다.
 
-2. 방금 생성한 서비스 살펴보기
+2. 생성한 서비스 살펴보기
 
     ```shell
     kubectl get services
@@ -229,7 +229,7 @@ minikube 툴은 활성화하거나 비활성화할 수 있고 로컬 쿠버네�
     metrics-server was successfully enabled
     ```
 
-3. 방금 생성한 파드와 서비스를 확인한다.
+3. 생성한 파드와 서비스를 확인한다.
 
     ```shell
     kubectl get pod,svc -n kube-system

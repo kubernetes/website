@@ -936,11 +936,18 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # value. Defaults to 5, must be between 2 and 60
 
         service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
-        # A list of existing security groups to be added to ELB created. Unlike the annotation
-        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other security groups previously assigned to the ELB.
+        # A list of existing security groups to be configured on the ELB created. Unlike the annotation
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other security groups previously assigned to the ELB and also overrides the creation 
+        # of a uniquely generated security group for this ELB.
+        # The first security group ID on this list is used as a source to permit incoming traffic to target worker nodes (service traffic and health checks).
+        # If multiple ELBs are configured with the same security group ID, only a single permit line will be added to the worker node security groups, that means if you delete any
+        # of those ELBs it will remove the single permit line and block access for all ELBs that shared the same security group ID.
+        # This can cause a cross-service outage if not used properly
 
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-        # A list of additional security groups to be added to the ELB
+        #  A list of additional security groups to be added to the created ELB, this leaves the uniquely generated security group in place, this ensures that every ELB
+        # has a unique security group ID and a matching permit line to allow traffic to the target worker nodes (service traffic and health checks).
+        # Security groups defined here can be shared between services. 
 
         service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
         # A comma separated list of key-value pairs which are used
@@ -989,7 +996,6 @@ groups are modified with the following IP rules:
 | Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
 |------|----------|---------|------------|---------------------|
 | Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
-
 | Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 

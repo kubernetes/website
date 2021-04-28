@@ -59,7 +59,7 @@ configuration, or reinstall it using automation.
 
 ### Migrating to the `systemd` driver in kubeadm managed clusters
 
-Follow this [Migration guide](docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
+Follow this [Migration guide](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)
 if you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters.
 
 ## Container runtimes

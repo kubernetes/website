@@ -43,7 +43,7 @@ ClusterRolesにはいくつかの用途があります。ClusterRoleを利用し
 2. Namespaceに属するリソースに対する権限を定義し、すべてのNamespaceにわたって付与する
 3. クラスター単位でスコープされているリソースに対するアクセス許可を定義する
 
-NamespaceでRoleを定義する場合は、Roleを使用します。クラスター全体でRoleを定義する婆は、ClusterRoleを使用します
+NamespaceでRoleを定義する場合は、Roleを使用します。クラスター全体でRoleを定義する場合は、ClusterRoleを使用します
 
 #### Roleの例
 

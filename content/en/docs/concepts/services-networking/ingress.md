@@ -230,7 +230,7 @@ reference additional implementation-specific configuration for this class.
 reference a namespace-specific resource for configuration of an Ingress class.
 `Scope` field defaults to `Cluster`, meaning, the default is cluster-scoped
 resource. Setting `Scope` to `Namespace` and setting the `Namespace` field
-will reference a paramters resource in a specific namespace:
+will reference a parameters resource in a specific namespace:
 
 {{< codenew file="service/networking/namespaced-params.yaml" >}}
 

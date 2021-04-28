@@ -5,7 +5,7 @@ date: 2021-04-21
 slug: graceful-node-shutdown-beta
 ---
 
-**Authors:** David Porter (Google), Murnal Patel (Red Hat), and Tim Bannister (The Scale Factory)
+**Authors:** David Porter (Google), Mrunal Patel (Red Hat), and Tim Bannister (The Scale Factory)
 
 Graceful node shutdown, beta in 1.21, enables kubelet to gracefully evict pods during a node shutdown.
 
@@ -74,7 +74,7 @@ Note that by default, both configuration options described above, `ShutdownGrace
 ## How can I learn more?
 * Read the [documentation](/docs/concepts/architecture/nodes/#graceful-node-shutdown)
 * Read the enhancement proposal, [KEP 2000](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2000-graceful-node-shutdown)
-* View the [code](https://github.com/kubernetes/kubernetes/tree/release-1.20/pkg/kubelet/nodeshutdown)
+* View the [code](https://github.com/kubernetes/kubernetes/tree/release-1.21/pkg/kubelet/nodeshutdown)
 
 ## How do I get involved?
 Your feedback is always welcome! SIG Node meets regularly and can be reached via [Slack](https://slack.k8s.io) (channel `#sig-node`), or the SIG's [mailing list](https://github.com/kubernetes/community/tree/master/sig-node#contact)

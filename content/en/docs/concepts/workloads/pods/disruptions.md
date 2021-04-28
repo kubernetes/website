@@ -136,7 +136,7 @@ during application updates is configured in the spec for the specific workload r
 
 When a pod is evicted using the eviction API, it is gracefully
 [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
-`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).)
+`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
 ## PodDisruptionBudget example {#pdb-example}
 

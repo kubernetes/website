@@ -48,7 +48,7 @@ Systemd는 cgroup과의 긴밀한 통합을 통해 프로세스당 cgroup을 할
 시스템이 안정화된다. 도커에 대해 구성하려면, `native.cgroupdriver=systemd`를 설정한다.
 
 {{< caution >}}
-클러스터에 결합되어 있는 노드의 cgroup 관리자를 변경하는 것은 강력하게 권장하지 *않는다*.
+클러스터에 결합되어 있는 노드의 cgroup 관리자를 변경하는 것은 신중하게 수행해야 한다.
 하나의 cgroup 드라이버의 의미를 사용하여 kubelet이 파드를 생성해왔다면,
 컨테이너 런타임을 다른 cgroup 드라이버로 변경하는 것은 존재하는 기존 파드에 대해 파드 샌드박스 재생성을 시도할 때, 에러가 발생할 수 있다.
 kubelet을 재시작하는 것은 에러를 해결할 수 없을 것이다.
@@ -56,6 +56,11 @@ kubelet을 재시작하는 것은 에러를 해결할 수 없을 것이다.
 자동화가 가능하다면, 업데이트된 구성을 사용하여 노드를 다른 노드로
 교체하거나, 자동화를 사용하여 다시 설치한다.
 {{< /caution >}}
+
+### kubeadm으로 생성한 클러스터의 드라이버를 `systemd`로 변경하기
+
+kubeadm으로 생성한 클러스터의 cgroup 드라이버를 `systemd`로 변경하려면
+[변경 가이드](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)를 참고한다.
 
 ## 컨테이너 런타임
 

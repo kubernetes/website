@@ -26,7 +26,7 @@ This section of the Kubernetes documentation contains references.
 * [One-page API Reference for Kubernetes {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [Using The Kubernetes API](/docs/reference/using-api/) - overview of the API for Kubernetes.
 * [API access control](/docs/reference/access-authn-authz/) - details on how Kubernetes controls API access
-* [Well-Known Labels, Annotations and Taints](/docs/reference/kubernetes-api/labels-annotations-taints/)
+* [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
 
 ## Officially supported client libraries
 

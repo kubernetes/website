@@ -53,8 +53,8 @@ If the prefix is omitted, the label Key is presumed to be private to the user. A
 The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core components.
 
 Valid label value:
-* must be 63 characters or less (cannot be empty),
-* must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
+* must be 63 characters or less (can be empty),
+* unless empty, must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
 * could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 
 For example, here's the configuration file for a Pod that has two labels `environment: production` and `app: nginx` :
@@ -237,4 +237,3 @@ selector:
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
 See the documentation on [node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.
-
