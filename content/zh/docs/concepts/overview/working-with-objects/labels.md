@@ -100,10 +100,17 @@ _标签_ 是键值对。有效的标签键有两个段：可选的前缀和名�
 `kubernetes.io/` 前缀是为 Kubernetes 核心组件保留的。
 
 <!--
-Valid label values must be 63 characters or less and must be empty or begin and end with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
+Valid label value:
+
+* must be 63 characters or less (can be empty),
+* unless empty, must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
+* could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 -->
-有效标签值必须为 63 个字符或更少，并且必须为空或以字母数字字符（`[a-z0-9A-Z]`）开头和结尾，
-中间可以包含破折号（`-`）、下划线（`_`）、点（`.`）和字母或数字。
+有效标签值：
+
+* 必须为 63 个字符或更少（可以为空）
+* 除非标签值为空，必须以字母数字字符（`[a-z0-9A-Z]`）开头和结尾
+* 包含破折号（`-`）、下划线（`_`）、点（`.`）和字母或数字。
 
 <!--
 ## Label selectors
