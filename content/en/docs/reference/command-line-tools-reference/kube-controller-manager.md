@@ -44,7 +44,7 @@ kube-controller-manager [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--add_dir_header</td>
+<td colspan="2">--add-dir-header</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, adds the file directory to the header of the log messages</p></td>
@@ -352,7 +352,7 @@ kube-controller-manager [flags]
 </tr>
 
 <tr>
-<td colspan="2">--concurrent_rc_syncs int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5</td>
+<td colspan="2">--concurrent-rc-syncs int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The number of replication controllers that are allowed to sync concurrently. Larger number = more responsive replica management, but more CPU (and network) load</p></td>
@@ -632,28 +632,28 @@ kube-controller-manager [flags]
 </tr>
 
 <tr>
-<td colspan="2">--log_backtrace_at &lt;a string in the form 'file:N'&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: :0</td>
+<td colspan="2">--log-backtrace-at &lt;a string in the form 'file:N'&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: :0</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>when logging hits line file:N, emit a stack trace</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--log_dir string</td>
+<td colspan="2">--log-dir string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If non-empty, write log files in this directory</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--log_file string</td>
+<td colspan="2">--log-file string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If non-empty, use this log file</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--log_file_max_size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1800</td>
+<td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1800</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Defines the maximum size a log file can grow to. Unit is megabytes. If the value is 0, the maximum file size is unlimited.</p></td>
@@ -663,7 +663,7 @@ kube-controller-manager [flags]
 <td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Sets the log format. Permitted formats: &quot;json&quot;, &quot;text&quot;.<br/>Non-default formats don't honor these flags: --add_dir_header, --alsologtostderr, --log_backtrace_at, --log_dir, --log_file, --log_file_max_size, --logtostderr, --one_output, --skip_headers, --skip_log_headers, --stderrthreshold, --vmodule, --log-flush-frequency.<br/>Non-default choices are currently alpha and subject to change without warning.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Sets the log format. Permitted formats: &quot;json&quot;, &quot;text&quot;.<br/>Non-default formats don't honor these flags: --add-dir-header, --alsologtostderr, --log-backtrace-at, --log-dir, --log-file, --log-file-max-size, --logtostderr, --one-output, --skip-headers, --skip-log-headers, --stderrthreshold, --vmodule, --log-flush-frequency.<br/>Non-default choices are currently alpha and subject to change without warning.</p></td>
 </tr>
 
 <tr>
@@ -772,7 +772,7 @@ kube-controller-manager [flags]
 </tr>
 
 <tr>
-<td colspan="2">--one_output</td>
+<td colspan="2">--one-output</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, only write logs to their native severity level (vs also writing to each lower severity level)</p></td>
@@ -947,14 +947,14 @@ kube-controller-manager [flags]
 </tr>
 
 <tr>
-<td colspan="2">--skip_headers</td>
+<td colspan="2">--skip-headers</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, avoid header prefixes in the log messages</p></td>
 </tr>
 
 <tr>
-<td colspan="2">--skip_log_headers</td>
+<td colspan="2">--skip-log-headers</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If true, avoid headers when opening log files</p></td>
