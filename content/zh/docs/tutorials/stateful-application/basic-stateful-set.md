@@ -19,7 +19,7 @@ This tutorial provides an introduction to managing applications with
 demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 -->
 
-本教程介绍如何了使用 [StatefulSets](/zh/docs/concepts/abstractions/controllers/statefulsets/) 来管理应用。
+本教程介绍如何了使用 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/) 来管理应用。
 演示了如何创建、删除、扩容/缩容和更新 StatefulSets 的 Pods。
 
 
@@ -88,11 +88,21 @@ StatefulSets 旨在与有状态的应用及分布式系统一起使用。然而�
 
 <!-- lessoncontent -->
 
+<!--
+## Creating a StatefulSet
+
+Begin by creating a StatefulSet using the example below. It is similar to the
+example presented in the
+[StatefulSets](/docs/concepts/workloads/controllers/statefulset/) concept.
+It creates a [headless Service](/docs/concepts/services-networking/service/#headless-services),
+`nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`.
+-->
+
 ## 创建 StatefulSet
 
 
-作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/zh/docs/concepts/abstractions/controllers/statefulsets/) 概念中的示例相似。
-它创建了一个 [Headless Service](/zh/docs/user-guide/services/#headless-services) `nginx` 用来发布 StatefulSet `web` 中的 Pod 的 IP 地址。
+作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/) 概念中的示例相似。
+它创建了一个 [Headless Service](/zh/docs/concepts/services-networking/service/#headless-services) `nginx` 用来发布 StatefulSet `web` 中的 Pod 的 IP 地址。
 
 {{< codenew file="application/web/web.yaml" >}}
 
@@ -107,8 +117,7 @@ of the StatefulSet's Pods.
 下载上面的例子并保存为文件 `web.yaml`。
 
 
-你需要使用两个终端窗口。
-在第一个终端中，使用 [`kubectl get`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#get)  来查看 StatefulSet 的 Pods 的创建情况。
+你需要使用两个终端窗口。 在第一个终端中，使用 [`kubectl get`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#get)  来查看 StatefulSet 的 Pods 的创建情况。
 
 ```shell
 kubectl get pods -w -l app=nginx
@@ -227,8 +236,10 @@ Each Pod has a stable hostname based on its ordinal index. Use
 `hostname` command in each Pod.
 -->
 
-如同 [StatefulSets](/zh/docs/concepts/abstractions/controllers/statefulsets/) 概念中所提到的， StatefulSet 中的 Pod 拥有一个具有黏性的、独一无二的身份标志。
-这个标志基于 StatefulSet 控制器分配给每个 Pod 的唯一顺序索引。Pod 的名称的形式为`<statefulset name>-<ordinal index>`。
+如同 [StatefulSets](/zh/docs/concepts/workloads/controllers/statefulset/) 概念中所提到的， 
+StatefulSet 中的 Pod 拥有一个具有黏性的、独一无二的身份标志。
+这个标志基于 StatefulSet 控制器分配给每个 Pod 的唯一顺序索引。
+Pod 的名称的形式为`<statefulset name>-<ordinal index>`。
 `web`StatefulSet 拥有两个副本，所以它创建了两个 Pod：`web-0`和`web-1`。
 
 ### 使用稳定的网络身份标识
@@ -248,7 +259,8 @@ Using `nslookup` on the Pods' hostnames, you can examine their in-cluster DNS
 addresses.
 -->
 
-使用 [`kubectl run`](/zh/docs/reference/generated/kubectl/kubectl-commands/#run) 运行一个提供 `nslookup` 命令的容器，该命令来自于 `dnsutils` 包。
+使用 [`kubectl run`](/zh/docs/reference/generated/kubectl/kubectl-commands/#run) 
+运行一个提供 `nslookup` 命令的容器，该命令来自于 `dnsutils` 包。
 通过对 Pod 的主机名执行 `nslookup`，你可以检查他们在集群内部的 DNS 地址。
 
 ```shell
