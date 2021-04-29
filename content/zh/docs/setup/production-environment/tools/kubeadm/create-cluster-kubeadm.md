@@ -6,13 +6,13 @@ content_type: task
 weight: 30
 ---
 
-<!-- ---
+<!--
 reviewers:
 - sig-cluster-lifecycle
 title: Creating a cluster with kubeadm
 content_type: task
 weight: 30
---- -->
+-->
 
 <!-- overview -->
 
@@ -346,6 +346,20 @@ Alternatively, if you are the `root` user, you can run:
 export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
+{{< warning >}}
+<!--
+Kubeadm signs the certificate in the `admin.conf` to have `Subject: O = system:masters, CN = kubernetes-admin`.
+`system:masters` is a break-glass, super user group that bypasses the authorization layer (e.g. RBAC).
+Do not share the `admin.conf` file with anyone and instead grant users custom permissions by generating
+them a kubeconfig file using the `kubeadm kubeconfig user` command.
+-->
+kubeadm 对 `admin.conf` 中的证书进行签名时，将其配置为
+`Subject: O = system:masters, CN = kubernetes-admin`。
+`system:masters` 是一个例外的、超级用户组，可以绕过鉴权层（例如 RBAC）。
+不要将 `admin.conf` 文件与任何人共享，应该使用 `kubeadm kubeconfig user`
+命令为其他用户生成 kubeconfig 文件，完成对他们的定制授权。
+{{< /warning >}}
+
 <!--
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 need this command to [join nodes to your cluster](#join-nodes).
@@ -428,13 +442,14 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
 {{< /caution >}}
 
 <!--
-Currently Calico is the only CNI plugin that the kubeadm project performs e2e tests against.
+Kubeadm should be CNI agnostic and the validation of CNI providers is out of the scope of our current e2e testing.
 If you find an issue related to a CNI plugin you should log a ticket in its respective issue
 tracker instead of the kubeadm or kubernetes issue trackers.
 -->
 {{< note >}}
-目前 Calico 是 kubeadm 项目中执行 e2e 测试的唯一 CNI 插件。
-如果你发现与 CNI 插件相关的问题，应在其各自的问题跟踪器中记录而不是在 kubeadm 或 kubernetes 问题跟踪器中记录。
+kubeadm 应该是与 CNI 无关的，对 CNI 驱动进行验证目前不在我们的端到端测试范畴之内。
+如果你发现与 CNI 插件相关的问题，应在其各自的问题跟踪器中记录而不是在 kubeadm
+或 kubernetes 问题跟踪器中记录。
 {{< /note >}}
 
 <!--
