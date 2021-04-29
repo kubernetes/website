@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Using Finalizers to Control Deletion'
-date: 2021-04-28
+date: 2021-04-30
 slug: using-finalizers-to-control-deletion
 ---
 
@@ -50,7 +50,7 @@ Shell commands preceded by `$` are followed by their output. You can see that we
 The state diagram for the basic `delete` command is very simple:
 
 
-{{<figure width="495" src="/images/blog/2021-04-28-using-finalizers-to-control-deletion/state-diagram-delete.png" caption="State diagram for delete">}}
+{{<figure width="495" src="/images/blog/2021-04-30-using-finalizers-to-control-deletion/state-diagram-delete.png" caption="State diagram for delete">}}
 
 Although this operation is straightforward, other factors may interfere with the deletion, including finalizers and owner references.
 
@@ -125,7 +125,7 @@ Error from server (NotFound): configmaps "mymap" not found
 
 Here's a state diagram for finalization: 
 
-{{<figure width="617" src="/images/blog/2021-04-28-using-finalizers-to-control-deletion/state-diagram-finalize.png" caption="State diagram for finalize">}}
+{{<figure width="617" src="/images/blog/2021-04-30-using-finalizers-to-control-deletion/state-diagram-finalize.png" caption="State diagram for finalize">}}
 
 So, if you attempt to delete an object that has a finalizer on it, it will remain in finalization until the controller has removed the finalizer keys or the finalizers are removed using Kubectl. Once that finalizer list is empty, the object can actually be reclaimed by Kubernetes and put into a queue to be deleted from the registry.
 
