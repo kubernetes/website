@@ -132,5 +132,5 @@ Your feedback is always welcome!
 - SIG-Storage [meets regularly](https://github.com/kubernetes/community/tree/master/sig-storage#meetings) and can be reached via [Slack and the mailing list](https://github.com/kubernetes/community/tree/master/sig-storage#contact).
 -->
 随时欢迎您提供反馈!
-- SIG-Auth [定期开会](https://github.com/kubernetes/community/tree/master/sig-auth#meetings)，可以通过 [Slack 和邮件列表](https://github.com/kubernetes/community/tree/master/sig-auth＃contact)加入
+- SIG-Auth [定期开会](https://github.com/kubernetes/community/tree/master/sig-auth#meetings)，可以通过 [Slack 和邮件列表](https://github.com/kubernetes/community/tree/master/sig-auth#contact)加入
 - SIG-Storage [定期开会](https://github.com/kubernetes/community/tree/master/sig-storage#meetings)，可以通过 [Slack 和邮件列表](https://github.com/kubernetes/community/tree/master/sig-storage＃contact)加入
