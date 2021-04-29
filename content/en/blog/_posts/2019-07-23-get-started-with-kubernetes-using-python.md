@@ -201,7 +201,7 @@ kubectl get pods
 ```
 <img src="/images/blog/get-started-with-kubernetes-using-python/kubectl-get-pods.png" alt="Pod listing" />
 
-Now navigate to http://localhost:6000, and you should see the “Hello form Python!” message. 
+Now navigate to http://localhost:6000, and you should see the “Hello from Python!” message. 
 
 That’s it! The application is now running in Kubernetes!
 
