@@ -203,10 +203,10 @@ We approached the Cloud Native Computing Foundation (CNCF) to develop DevStats t
 * [Time spent in each phase of our PR workflow](https://k8s.devstats.cncf.io/d/44/pr-time-to-approve-and-merge?orgId=1)
 
 <!--
-## Into the Beyond
+## 展望未来
 -->
 
-## Into the Beyond
+## 展望未来
 
 <!--
 Today, the Kubernetes project spans over 125 repos across five orgs. There are 31 Special Interests Groups and 10 Working Groups coordinating development within the project. In the last year the project has had [participation from over 13,800 unique developers](https://k8s.devstats.cncf.io/d/13/developer-activity-counts-by-repository-group?orgId=1&var-period_name=Last%20year&var-metric=contributions&var-repogroup_name=All) on GitHub.
