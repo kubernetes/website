@@ -214,12 +214,8 @@ $ kubectl proxy --port=8080 &
 Starting to serve on 127.0.0.1:8080
 
 $ curl -X DELETE \
-localhost:8080/api/v1/namespaces/default/configmaps/mymap-parent \
-  -d '{
-"kind":"DeleteOptions",
-"apiVersion":"v1",
-"propagationPolicy":"Background"
-}' \
+  localhost:8080/api/v1/namespaces/default/configmaps/mymap-parent \
+  -d '{ "kind":"DeleteOptions", "apiVersion":"v1", "propagationPolicy":"Background" }' \
   -H "Content-Type: application/json"
 {
   "kind": "Status",
@@ -227,6 +223,7 @@ localhost:8080/api/v1/namespaces/default/configmaps/mymap-parent \
   "metadata": {},
   "status": "Success",
   "details": { ... }
+}
 ```
 
 Note that the propagation policy cannot be specified on the command line using kubectl. You have to specify it using a custom API call. Simply create a proxy, so you have access to the API server from the client, and execute a `curl` command with just a URL to execute that `delete` command. 
