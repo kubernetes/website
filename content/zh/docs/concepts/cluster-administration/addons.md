@@ -25,8 +25,8 @@ Add-ons 扩展了 Kubernetes 的功能。
 <!--
 ## Networking and Network Policy
 
-
 * [ACI](https://www.github.com/noironetworks/aci-containers) provides integrated container networking and network security with Cisco ACI.
+* [Antrea](https://antrea.io/) operates at Layer 3/4 to provide networking and security services for Kubernetes, leveraging Open vSwitch as the networking data plane.
 * [Calico](https://docs.projectcalico.org/latest/getting-started/kubernetes/) is a secure L3 networking and network policy provider.
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install) unites Flannel and Calico, providing networking and network policy.
 * [Cilium](https://github.com/cilium/cilium) is a L3 network and network policy plugin that can enforce HTTP/API/L7 policies transparently. Both routing and overlay/encapsulation mode are supported.
@@ -46,6 +46,8 @@ Add-ons 扩展了 Kubernetes 的功能。
 ## 网络和网络策略
 
 * [ACI](https://www.github.com/noironetworks/aci-containers) 通过 Cisco ACI 提供集成的容器网络和安全网络。
+* [Antrea](https://antrea.io/) 在第 3/4 层执行操作，为 Kubernetes 
+  提供网络连接和安全服务。Antrea 利用 Open vSwitch 作为网络的数据面。
 * [Calico](https://docs.projectcalico.org/v3.11/getting-started/kubernetes/installation/calico)
   是一个安全的 L3 网络和网络策略驱动。
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install) 结合 Flannel 和 Calico，提供网络和网络策略。
