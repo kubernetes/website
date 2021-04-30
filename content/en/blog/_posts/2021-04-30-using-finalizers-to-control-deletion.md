@@ -25,23 +25,23 @@ Kubernetes has several different commands you can use that allow you to create, 
 Here are examples of the basic `kubectl delete` command:
 
 ```
-$ kubectl create configmap mymap
+kubectl create configmap mymap
 configmap/mymap created
 ```
 
 ```
-$ kubectl get configmap/mymap
+kubectl get configmap/mymap
 NAME    DATA   AGE
 mymap   0      12s
 ```
 
 ```
-$ kubectl delete configmap/mymap
+kubectl delete configmap/mymap
 configmap "mymap" deleted
 ```
 
 ```
-$ kubectl get configmap/mymap
+kubectl get configmap/mymap
 Error from server (NotFound): configmaps "mymap" not found
 ```
 
@@ -70,8 +70,7 @@ The finalizers above are used on volumes to prevent accidental deletion. Similar
 Below with a custom configmap, which has no properties but contains a finalizer:
 
 ```
-$ cat <<EOF | kubectl create -f -
-
+cat <<EOF | kubectl create -f -
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -84,16 +83,16 @@ EOF
 The configmap resource controller doesn't understand what to do with the `kubernetes` finalizer key. I term these “dead” finalizers for configmaps as it is normally used on namespaces. Here’s what happen upon attempting to delete the configmap:
 
 ```
-$ kubectl delete configmap/mymap &
+kubectl delete configmap/mymap &
 configmap "mymap" deleted
-$ jobs
+jobs
 [1]+  Running kubectl delete configmap/mymap
 ```
 
 Kubernetes will report back that the object has been deleted, however, it hasn’t been deleted in a traditional sense. Rather, it’s in the process of deletion. When we attempt to `get` that object again, we discover the object has been modified to include the deletion timestamp. 
 
 ```
-$ kubectl get configmap/mymap -o yaml
+kubectl get configmap/mymap -o yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -114,12 +113,13 @@ In short, what’s happened is that the object was updated, not deleted. That’
 Here's a demonstration of using the `patch` command to remove finalizers. If we want to delete an object, we can simply patch it on the command line to remove the finalizers. In this way, the deletion that was running in the background will complete and the object will be deleted. When we attempt to `get` that configmap, it will be gone. 
 
 ```
-$ kubectl patch configmap/mymap \
+kubectl patch configmap/mymap \
     --type json \
     --patch='[ { "op": "remove", "path": "/metadata/finalizers" } ]'
 configmap/mymap patched
 [1]+  Done  kubectl delete configmap/mymap
-$ kubectl get configmap/mymap -o yaml
+
+kubectl get configmap/mymap -o yaml
 Error from server (NotFound): configmaps "mymap" not found
 ```
 
@@ -138,15 +138,15 @@ Finalizer rules are processed when there are owner references. An owner referenc
 Here are some examples of owner references and how they work. In the first example, we create a parent object first, then the child. The result is a very simple configmap that contains an owner reference to its parent:
 
 ```
-$ cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl create -f -
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mymap-parent
 EOF
-$ CM_UID=$(kubectl get configmap mymap-parent -o jsonpath="{.metadata.uid}")
+CM_UID=$(kubectl get configmap mymap-parent -o jsonpath="{.metadata.uid}")
 
-$ cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl create -f -
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -162,15 +162,15 @@ EOF
 Deleting the child object when an owner reference is involved does not delete the parent:
 
 ```
-$ kubectl get configmap
+kubectl get configmap
 NAME           DATA   AGE
 mymap-child    0      12m4s
 mymap-parent   0      12m4s
 
-$ kubectl delete configmap/mymap-child
+kubectl delete configmap/mymap-child
 configmap "mymap-child" deleted
 
-$ kubectl get configmap
+kubectl get configmap
 NAME           DATA   AGE
 mymap-parent   0      12m10s
 ```
@@ -178,14 +178,15 @@ mymap-parent   0      12m10s
 In this example, we re-created the parent-child configmaps from above. Now, when deleting from the parent (instead of the child) with an owner reference from the child to the parent, when we `get` the configmaps, none are in the namespace:
 
 ```
-$ kubectl get configmap
+kubectl get configmap
 NAME           DATA   AGE
 mymap-child    0      10m2s
 mymap-parent   0      10m2s
 
-$ kubectl delete configmap/mymap-parent
+kubectl delete configmap/mymap-parent
 configmap "mymap-parent" deleted
-$ kubectl get configmap
+
+kubectl get configmap
 No resources found in default namespace.
 ```
 
@@ -194,15 +195,15 @@ To sum things up, when there's an override owner reference from a child to a par
 In the following example, there is a parent and a child. Notice the owner references are still included. If I delete the parent using --cascade=false, the parent is deleted but the child still exists:
 
 ```
-$ kubectl get configmap
+kubectl get configmap
 NAME           DATA   AGE
 mymap-child    0      13m8s
 mymap-parent   0      13m8s
 
-$ kubectl delete --cascade=false configmap/mymap-parent
+kubectl delete --cascade=false configmap/mymap-parent
 configmap "mymap-parent" deleted
 
-$ kubectl get configmap
+kubectl get configmap
 NAME          DATA   AGE
 mymap-child   0      13m21s
 ```
@@ -210,10 +211,10 @@ mymap-child   0      13m21s
 The --cascade option links to the propagation policy in the API, which allows you to change the order in which objects are deleted within a tree. In the following example uses API access to craft a custom delete API call with the background propagation policy:
 
 ```
-$ kubectl proxy --port=8080 &
+kubectl proxy --port=8080 &
 Starting to serve on 127.0.0.1:8080
 
-$ curl -X DELETE \
+curl -X DELETE \
   localhost:8080/api/v1/namespaces/default/configmaps/mymap-parent \
   -d '{ "kind":"DeleteOptions", "apiVersion":"v1", "propagationPolicy":"Background" }' \
   -H "Content-Type: application/json"
@@ -241,7 +242,7 @@ Keep in mind that when you delete an object and owner references have been speci
 There's one situation that may require forcing finalization for a namespace. If you've deleted a namespace and you've cleaned out all of the objects under it, but the namespace still exists, deletion can be forced by updating the namespace subresource, `finalize`. This informs the namespace controller that it needs to remove the finalizer from the namespace and perform any cleanup:
 
 ```
-$ cat <<EOF | curl -X PUT \
+cat <<EOF | curl -X PUT \
   localhost:8080/api/v1/namespaces/test/finalize \
   -H "Content-Type: application/json" \
   --data-binary @-
