@@ -148,6 +148,4 @@ Kubernetes 允许 39 个卷关联至节点。
 * 如果 CSI 存储驱动程序（使用 `NodeGetInfo` ）为节点通告卷数上限，则 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} 将遵守该限制值。
 参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) 获取更多详细信息。
 
-* 对于由已迁移到 CSI 驱动程序的树内插件管理的卷，最大卷数将是 CSI 驱动程序报告的卷数。
-
-
+* 对于由已迁移到 CSI 驱动程序的内建插件管理的卷，最大卷数将是 CSI 驱动程序报告的卷数。
