@@ -113,6 +113,7 @@ Operator.
 
 {{% thirdparty-content %}}
 
+* [Charmed Operator Framework](https://juju.is/)
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
 * [Metacontroller](https://metacontroller.app/) along with WebHooks that
