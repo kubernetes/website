@@ -28,7 +28,7 @@ You can use the Kubernetes command line tool kubectl to interact with the API Se
 <!--
 To run an nginx Deployment and expose the Deployment, see [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-).
 -->
-要运行 nginx 部署并将其暴露，请参见[kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-)
+要运行 nginx 部署并将其暴露，请参见[kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-)。
 docker:
 
 ```shell
