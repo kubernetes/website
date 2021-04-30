@@ -1,5 +1,5 @@
 ---
-title: Installing Addons
+title: アドオンのインストール
 content_type: concept
 ---
 
@@ -7,47 +7,47 @@ content_type: concept
 
 {{% thirdparty-content %}}
 
-Add-ons extend the functionality of Kubernetes.
+アドオンはKubernetesの機能を拡張するものです。
 
-This page lists some of the available add-ons and links to their respective installation instructions.
+このページでは、利用可能なアドオンの一部の一覧と、それぞれのアドオンのインストール方法へのリンクを提供します。
 
 <!-- body -->
 
-## Networking and Network Policy
+## ネットワークとネットワークポリシー
 
-* [ACI](https://www.github.com/noironetworks/aci-containers) provides integrated container networking and network security with Cisco ACI.
-* [Antrea](https://antrea.io/) operates at Layer 3/4 to provide networking and security services for Kubernetes, leveraging Open vSwitch as the networking data plane.
-* [Calico](https://docs.projectcalico.org/latest/introduction/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer.
-* [Canal](https://github.com/tigera/canal/tree/master/k8s-install) unites Flannel and Calico, providing networking and network policy.
-* [Cilium](https://github.com/cilium/cilium) is a L3 network and network policy plugin that can enforce HTTP/API/L7 policies transparently. Both routing and overlay/encapsulation mode are supported, and it can work on top of other CNI plugins.
-* [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) enables Kubernetes to seamlessly connect to a choice of CNI plugins, such as Calico, Canal, Flannel, Romana, or Weave.
-* [Contiv](https://contiv.github.io) provides configurable networking (native L3 using BGP, overlay using vxlan, classic L2, and Cisco-SDN/ACI) for various use cases and a rich policy framework. Contiv project is fully [open sourced](https://github.com/contiv). The [installer](https://github.com/contiv/install) provides both kubeadm and non-kubeadm based installation options.
-* [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [Tungsten Fabric](https://tungsten.io), is an open source, multi-cloud network virtualization and policy management platform. Contrail and Tungsten Fabric are integrated with orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provide isolation modes for virtual machines, containers/pods and bare metal workloads.
-* [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md) is an overlay network provider that can be used with Kubernetes.
-* [Knitter](https://github.com/ZTE/Knitter/) is a plugin to support multiple network interfaces in a Kubernetes pod.
-* [Multus](https://github.com/Intel-Corp/multus-cni) is a Multi plugin for multiple network support in Kubernetes to support all CNI plugins (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and VPP based workloads in Kubernetes.
-* [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) is a networking provider for Kubernetes based on [OVN (Open Virtual Network)](https://github.com/ovn-org/ovn/), a virtual networking implementation that came out of the Open vSwitch (OVS) project. OVN-Kubernetes provides an overlay based networking implementation for Kubernetes, including an OVS based implementation of load balancing and network policy.
-* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) is OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC), Multiple OVN overlay networking, dynamic subnet creation, dynamic creation of virtual networks, VLAN Provider network, Direct provider network and pluggable with other Multi-network plugins, ideal for edge based cloud native workloads in Multi-cluster networking
-* [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in (NCP) provides integration between VMware NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
-* [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) is an SDN platform that provides policy-based networking between Kubernetes Pods and non-Kubernetes environments with visibility and security monitoring.
-* [Romana](https://romana.io) is a Layer 3 networking solution for pod networks that also supports the [NetworkPolicy API](/docs/concepts/services-networking/network-policies/). Kubeadm add-on installation details available [here](https://github.com/romana/romana/tree/master/containerize).
-* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) provides networking and network policy, will carry on working on both sides of a network partition, and does not require an external database.
+* [ACI](https://www.github.com/noironetworks/aci-containers)は、統合されたコンテナネットワークとネットワークセキュリティをCisco ACIを使用して提供します。
+* [Antrea](https://antrea.io/)は、L3またはL4で動作して、Open vSwitchをネットワークデータプレーンとして活用する、Kubernetes向けのネットワークとセキュリティサービスを提供します。
+* [Calico](https://docs.projectcalico.org/latest/introduction/)はネットワークとネットワークプリシーのプロバイダーです。Calicoは、BGPを使用または未使用の非オーバーレイおよびオーバーレイネットワークを含む、フレキシブルなさまざまなネットワークオプションサポートします。Calicoはホスト、Pod、そして(IstioとEnvoyを使用している場合には)サービスメッシュ上のアプリケーションに対してネットワークポリシーを強制するために、同一のエンジンを使用します。
+* [Canal](https://github.com/tigera/canal/tree/master/k8s-install)はFlannelとCalicoをあわせたもので、ネットワークとネットワークポリシーを提供します。
+* [Cilium](https://github.com/cilium/cilium)は、L3のネットワークとネットワークポリシーのプラグインで、HTTP/API/L7のポリシーを透過的に強制できます。ルーティングとoverlay/encapsulationモードの両方をサポートしており、他のCNIプラグイン上で機能できます。
+* [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)は、KubernetesをCalico、Canal、Flannel、Romana、Weaveなど選択したCNIプラグインをシームレスに接続できるようにするプラグインです。
+* [Contiv](https://contiv.github.io)は、さまざまなユースケースと豊富なポリシーフレームワーク向けに設定可能なネットワーク(BGPを使用したネイティブのL3、vxlanを使用したオーバーレイ、古典的なL2、Cisco-SDN/ACI)を提供します。Contivプロジェクトは完全に[オープンソース](https://github.com/contiv)です。[インストーラ](https://github.com/contiv/install)はkubeadmとkubeadm以外の両方をベースとしたインストールオプションがあります。
+* [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)は、[Tungsten Fabric](https://tungsten.io)をベースにしている、オープンソースでマルチクラウドに対応したネットワーク仮想化およびポリシー管理プラットフォームです。ContrailおよびTungsten Fabricは、Kubernetes、OpenShift、OpenStack、Mesosなどのオーケストレーションシステムと統合されており、仮想マシン、コンテナ/Pod、ベアメタルのワークロードに隔離モードを提供します。
+* [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md)は、Kubernetesで使用できるオーバーレイネットワークプロバイダーです。
+* [Knitter](https://github.com/ZTE/Knitter/)は、1つのKubernetes Podで複数のネットワークインターフェイスをサポートするためのプラグインです。
+* [Multus](https://github.com/Intel-Corp/multus-cni)は、すべてのCNIプラグイン(たとえば、Calico、Cilium、Contiv、Flannel)に加えて、SRIOV、DPDK、OVS-DPDK、VPPをベースとするKubernetes上のワークロードをサポートする、複数のネットワークサポートのためのMultiプラグインです。
+* [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/)は、Open vSwitch(OVS)プロジェクトから生まれた仮想ネットワーク実装である[OVN(Open Virtual Network)](https://github.com/ovn-org/ovn/)をベースとする、Kubernetesのためのネットワークプロバイダです。OVN-Kubernetesは、OVSベースのロードバランサーおよびネットワークポリシーの実装を含む、Kubernetes向けのオーバーレイベースのネットワーク実装を提供します。
+* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin)は、クラウドネイティブベースのService function chaining(SFC)、Multiple OVNオーバーレイネットワーク、動的なサブネットの作成、動的な仮想ネットワークの作成、VLANプロバイダーネットワーク、Directプロバイダーネットワークを提供し、他のMulti-networkプラグインと付け替え可能なOVNベースのCNIコントローラープラグインです。
+* [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in(NCP)は、VMware NSX-TとKubernetesなどのコンテナオーケストレーター間のインテグレーションを提供します。また、NSX-Tと、Pivotal Container Service(PKS)とOpenShiftなどのコンテナベースのCaaS/PaaSプラットフォームとのインテグレーションも提供します。
+* [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)は、Kubernetes Podと非Kubernetes環境間で可視化とセキュリティモニタリングを使用してポリシーベースのネットワークを提供するSDNプラットフォームです。
+* [Romana](https://romana.io)は、[NetworkPolicy API](/docs/concepts/services-networking/network-policies/)もサポートするPodネットワーク向けのL3のネットワークソリューションです。Kubeadmアドオンのインストールの詳細は[こちら](https://github.com/romana/romana/tree/master/containerize)で確認できます。
+* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)は、ネットワークパーティションの両面で機能し、外部データベースを必要とせずに、ネットワークとネットワークポリシーを提供します。
 
-## Service Discovery
+## サービスディスカバリ
 
-* [CoreDNS](https://coredns.io) is a flexible, extensible DNS server which can be [installed](https://github.com/coredns/deployment/tree/master/kubernetes) as the in-cluster DNS for pods.
+* [CoreDNS](https://coredns.io)は、フレキシブルで拡張可能なDNSサーバーです。Pod向けのクラスター内DNSとして[インストール](https://github.com/coredns/deployment/tree/master/kubernetes)できます。
 
-## Visualization &amp; Control
+## 可視化と制御
 
-* [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) is a dashboard web interface for Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) is a tool for graphically visualizing your containers, pods, services etc. Use it in conjunction with a [Weave Cloud account](https://cloud.weave.works/) or host the UI yourself.
+* [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)はKubernetes向けのダッシュボードを提供するウェブインターフェイスです。
+* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)は、コンテナ、Pod、Serviceなどをグラフィカルに可視化するツールです。[Weave Cloud account](https://cloud.weave.works/)と組み合わせて使うか、UIを自分でホストして使います。
 
-## Infrastructure
+## インフラストラクチャ
 
-* [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) is an add-on to run virtual machines on Kubernetes. Usually run on bare-metal clusters.
+* [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation)は仮想マシンをKubernetes上で実行するためのアドオンです。通常、ベアメタルのクラスタで実行します。
 
-## Legacy Add-ons
+## レガシーなアドオン
 
-There are several other add-ons documented in the deprecated [cluster/addons](https://git.k8s.io/kubernetes/cluster/addons) directory.
+いくつかのアドオンは、廃止された[cluster/addons](https://git.k8s.io/kubernetes/cluster/addons)ディレクトリに掲載されています。
 
-Well-maintained ones should be linked to here. PRs welcome!
+よくメンテナンスされたアドオンはここにリンクしてください。PRを歓迎しています。
