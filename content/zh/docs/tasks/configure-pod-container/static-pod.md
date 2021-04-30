@@ -190,7 +190,7 @@ Pods, the kubelet applies them.
 
 To use this approach:
 -->
-### Web 网上的静态 Pod 声明文件 {#pods-created-via-http}
+### Web 上的静态 Pod 声明文件 {#pods-created-via-http}
 
 Kubelet 根据 `--manifest-url=<URL>` 参数的配置定期的下载指定文件，并且转换成
 JSON/YAML 格式的 Pod 定义文件。
@@ -408,5 +408,3 @@ docker ps
 CONTAINER ID        IMAGE         COMMAND                CREATED           ...
 e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
 ```
-
-
