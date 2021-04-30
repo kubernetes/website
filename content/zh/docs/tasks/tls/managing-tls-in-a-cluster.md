@@ -66,9 +66,9 @@ pods have access to use.
 [`tls.Config`](https://godoc.org/crypto/tls#Config) 结构中的 `RootCAs`
 字段中。
 
-你可以用你的应用能够访问到的
+你可以用
 [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap)
-的形式来发布 CA 证书。
+的形式将 CA 证书分发给你需要使用的Pod。
 
 <!--
 ## Requesting a Certificate
@@ -348,4 +348,3 @@ your Certificate Authority's keypair.
 提供了一个签名者的默认实现。要启用它，请为控制器管理器设置
 `--cluster-signing-cert-file` 和 `--cluster-signing-key-file` 参数，
 使之取值为你的证书机构的密钥对的路径。
-
