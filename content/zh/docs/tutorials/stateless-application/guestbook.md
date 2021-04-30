@@ -100,15 +100,14 @@ The manifest file, included below, specifies a Deployment controller that runs a
 1. 在下载清单文件的目录中启动终端窗口。
 2. 从 `mongo-deployment.yaml` 文件中应用 MongoDB Deployment：
 
+      <!---
+      for local testing of the content via relative file path
+      kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.yaml
+      -->
+
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-deployment.yaml
       ```
-
-<!---
-for local testing of the content via relative file path
-kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.yaml
--->
-
 
 <!--
 1. Query the list of Pods to verify that the MongoDB Pod is running:
@@ -156,14 +155,14 @@ The guestbook application needs to communicate to the MongoDB to write its data.
 -->
 1. 使用下面的 `mongo-service.yaml` 文件创建 MongoDB 的服务：
 
+      <!---
+      for local testing of the content via relative file path
+      kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
+      -->
+   
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-service.yaml
       ```
-
-<!---
-for local testing of the content via relative file path
-kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
--->
 
 <!--
 1. Query the list of Services to verify that the MongoDB Service is running:
@@ -182,7 +181,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
       ```shell
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    1m
-      mongo          ClusterIP   10.0.0.151   <none>        6379/TCP   8s
+      mongo          ClusterIP   10.0.0.151   <none>        27017/TCP   8s
       ```
 
 <!--
@@ -216,14 +215,14 @@ The guestbook application has a web frontend serving the HTTP requests written i
 -->
 1. 从 `frontend-deployment.yaml` 应用前端 Deployment 文件：
 
+      <!---
+      for local testing of the content via relative file path
+      kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment.yaml
+      -->
+   
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml
       ```
-
-<!---
-for local testing of the content via relative file path
-kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment.yaml
--->
 
 <!--
 1. Query the list of Pods to verify that the three frontend replicas are running:
@@ -253,10 +252,11 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment
 ### 创建前端服务
 
 <!--
-The `mongo` Services you applied is only accessible within the Kubernetes cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
+The `mongo` Services you applied is only accessible within the Kubernetes cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services-service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
 -->
 应用的 `mongo` 服务只能在 Kubernetes 集群中访问，因为服务的默认类型是
-[ClusterIP](/zh/docs/concepts/services-networking/service/#publishing-services---service-types)。`ClusterIP` 为服务指向的 Pod 集提供一个 IP 地址。这个 IP 地址只能在集群中访问。
+[ClusterIP](/zh/docs/concepts/services-networking/service/#publishing-services-service-types)。
+`ClusterIP` 为服务指向的 Pod 集提供一个 IP 地址。这个 IP 地址只能在集群中访问。
 
 <!--
 If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the Kubernetes cluster. However a Kubernetes user you can use `kubectl port-forward` to access the service even though it uses a `ClusterIP`.
@@ -278,14 +278,14 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
 -->
 1. 从 `frontend-service.yaml` 文件中应用前端服务：
 
+      <!---
+      for local testing of the content via relative file path
+      kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.yaml
+      -->
+   
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-service.yaml
       ```
-
-<!---
-for local testing of the content via relative file path
-kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.yaml
--->
 
 <!--
 1. Query the list of Services to verify that the frontend Service is running:
@@ -303,7 +303,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.ya
 
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      frontend       ClusterIP   10.0.0.112   <none>       80/TCP   6s
+      frontend       ClusterIP   10.0.0.112   <none>        80/TCP         6s
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP        4m
       mongo          ClusterIP   10.0.0.151   <none>        6379/TCP       2m
       ```
@@ -364,8 +364,8 @@ If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` y
       响应应该与此类似：
 
       ```
-      NAME       TYPE        CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
-      frontend   ClusterIP   10.51.242.136   109.197.92.229     80:32372/TCP   1m
+      NAME       TYPE           CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
+      frontend   LoadBalancer   10.51.242.136   109.197.92.229     80:32372/TCP   1m
       ```
 
 <!--
@@ -414,7 +414,7 @@ Scaling up or down is easy because your servers are defined as a Service that us
       frontend-3823415956-k22zn       1/1       Running   0          54m
       frontend-3823415956-w9gbt       1/1       Running   0          54m
       frontend-3823415956-x2pld       1/1       Running   0          5s
-      mongo-1068406935-3lswp   1/1       Running   0          56m
+      mongo-1068406935-3lswp          1/1       Running   0          56m
       ```
 
 <!--
@@ -444,7 +444,7 @@ Scaling up or down is easy because your servers are defined as a Service that us
       NAME                            READY     STATUS    RESTARTS   AGE
       frontend-3823415956-k22zn       1/1       Running   0          1h
       frontend-3823415956-w9gbt       1/1       Running   0          1h
-      mongo-1068406935-3lswp   1/1       Running   0          1h
+      mongo-1068406935-3lswp          1/1       Running   0          1h
       ```
 
 

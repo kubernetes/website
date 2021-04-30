@@ -5,13 +5,11 @@ weight: 70
 ---
 
 <!--
----
 reviewers:
 - sig-cluster-lifecycle
 title: Set up a High Availability etcd cluster with kubeadm
 content_type: task
 weight: 70
----
 -->
 
 <!-- overview -->
@@ -35,7 +33,7 @@ becoming unavailable. This task walks through the process of creating a high
 availability etcd cluster of three members that can be used as an external etcd
 when using kubeadm to set up a kubernetes cluster.
 -->
-默认情况下，kubeadm 运行单成员的 etcd 集群，该集群由控制面节点上的 kubelet 以静态 Pod 的方式进行管理。由于 etcd 集群只包含一个成员且不能在任一成员不可用时保持运行，所以这不是一种高可用设置。本任务，将告诉您如何在使用 kubeadm 创建一个 kubernetes 集群时创建一个外部 etcd：有三个成员的高可用 etcd 集群。
+默认情况下，kubeadm 运行单成员的 etcd 集群，该集群由控制面节点上的 kubelet 以静态 Pod 的方式进行管理。由于 etcd 集群只包含一个成员且不能在任一成员不可用时保持运行，所以这不是一种高可用设置。本任务，将告诉你如何在使用 kubeadm 创建一个 kubernetes 集群时创建一个外部 etcd：有三个成员的高可用 etcd 集群。
 
 
 
@@ -85,334 +83,287 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
 
 <!--
 1. Configure the kubelet to be a service manager for etcd.
-
-    Since etcd was created first, you must override the service priority by creating a new unit file
-    that has higher precedence than the kubeadm-provided kubelet unit file.
+ 
+   {{< note >}}You must do this on every host where etcd should be running.{{< /note >}}
+   Since etcd was created first, you must override the service priority by creating a new unit file
+   that has higher precedence than the kubeadm-provided kubelet unit file.
 -->
 1. 将 kubelet 配置为 etcd 的服务管理器。
 
-    由于 etcd 是首先创建的，因此您必须通过创建具有更高优先级的新文件来覆盖 kubeadm 提供的 kubelet 单元文件。
+   {{< note >}}
+   你必须在要运行 etcd 的所有主机上执行此操作。
+   {{< /note >}}
+   由于 etcd 是首先创建的，因此你必须通过创建具有更高优先级的新文件来覆盖
+   kubeadm 提供的 kubelet 单元文件。
 
-    ```sh
-    cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
-    [Service]
-    ExecStart=
-    #  Replace "systemd" with the cgroup driver of your container runtime. The default value in the kubelet is "cgroupfs".
-    ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --cgroup-driver=systemd
-    Restart=always
-    EOF
+   ```sh
+   cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
+   [Service]
+   ExecStart=
+   # 将下面的 "systemd" 替换为你的容器运行时所使用的 cgroup 驱动。
+   # kubelet 的默认值为 "cgroupfs"。
+   ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --cgroup-driver=systemd
+   Restart=always
+   EOF
 
-    systemctl daemon-reload
-    systemctl restart kubelet
-    ```
+   systemctl daemon-reload
+   systemctl restart kubelet
+   ```
 
-    <!--
-    1.Create configuration files for kubeadm.
+   <!--
+   Check the kubelet status to ensure it is running.
+   -->
+   检查 kubelet 的状态以确保其处于运行状态：
 
-        Generate one kubeadm configuration file for each host that will have an etcd
-        member running on it using the following script.
-    -->
 
-1. 为 kubeadm 创建配置文件。
+   ```shell
+   systemctl status kubelet
+   ```
 
-    使用以下脚本为每个将要运行 etcd 成员的主机生成一个 kubeadm 配置文件。
+<!--
+1. Create configuration files for kubeadm.
 
-    <!--
-    ```sh
-    # Update HOST0, HOST1, and HOST2 with the IPs or resolvable names of your hosts
-    export HOST0=10.0.0.6
-    export HOST1=10.0.0.7
-    export HOST2=10.0.0.8
+   Generate one kubeadm configuration file for each host that will have an etcd
+   member running on it using the following script.
+-->
+2. 为 kubeadm 创建配置文件。
 
-    # Create temp directories to store files that will end up on other hosts.
-    mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
+   使用以下脚本为每个将要运行 etcd 成员的主机生成一个 kubeadm 配置文件。
 
-    ETCDHOSTS=(${HOST0} ${HOST1} ${HOST2})
-    NAMES=("infra0" "infra1" "infra2")
+   ```sh
+   # 使用 IP 或可解析的主机名替换 HOST0、HOST1 和 HOST2
+   export HOST0=10.0.0.6
+   export HOST1=10.0.0.7
+   export HOST2=10.0.0.8
 
-    for i in "${!ETCDHOSTS[@]}"; do
-    HOST=${ETCDHOSTS[$i]}
-    NAME=${NAMES[$i]}
-    cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
-    apiVersion: "kubeadm.k8s.io/v1beta2"
-    kind: ClusterConfiguration
-    etcd:
-        local:
-            serverCertSANs:
-            - "${HOST}"
-            peerCertSANs:
-            - "${HOST}"
-            extraArgs:
-                initial-cluster: infra0=https://${ETCDHOSTS[0]}:2380,infra1=https://${ETCDHOSTS[1]}:2380,infra2=https://${ETCDHOSTS[2]}:2380
-                initial-cluster-state: new
-                name: ${NAME}
-                listen-peer-urls: https://${HOST}:2380
-                listen-client-urls: https://${HOST}:2379
-                advertise-client-urls: https://${HOST}:2379
-                initial-advertise-peer-urls: https://${HOST}:2380
-    EOF
-    done
-    ```
-    -->
-    ```sh
-    # 使用 IP 或可解析的主机名替换 HOST0、HOST1 和 HOST2
-    export HOST0=10.0.0.6
-    export HOST1=10.0.0.7
-    export HOST2=10.0.0.8
+   # 创建临时目录来存储将被分发到其它主机上的文件
+   mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
 
-    # 创建临时目录来存储将被分发到其它主机上的文件
-    mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
+   ETCDHOSTS=(${HOST0} ${HOST1} ${HOST2})
+   NAMES=("infra0" "infra1" "infra2")
 
-    ETCDHOSTS=(${HOST0} ${HOST1} ${HOST2})
-    NAMES=("infra0" "infra1" "infra2")
+   for i in "${!ETCDHOSTS[@]}"; do
+   HOST=${ETCDHOSTS[$i]}
+   NAME=${NAMES[$i]}
+   cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
+   apiVersion: "kubeadm.k8s.io/v1beta2"
+   kind: ClusterConfiguration
+   etcd:
+       local:
+           serverCertSANs:
+           - "${HOST}"
+           peerCertSANs:
+           - "${HOST}"
+           extraArgs:
+               initial-cluster: infra0=https://${ETCDHOSTS[0]}:2380,infra1=https://${ETCDHOSTS[1]}:2380,infra2=https://${ETCDHOSTS[2]}:2380
+               initial-cluster-state: new
+               name: ${NAME}
+               listen-peer-urls: https://${HOST}:2380
+               listen-client-urls: https://${HOST}:2379
+               advertise-client-urls: https://${HOST}:2379
+               initial-advertise-peer-urls: https://${HOST}:2380
+   EOF
+   done
+   ```
 
-    for i in "${!ETCDHOSTS[@]}"; do
-    HOST=${ETCDHOSTS[$i]}
-    NAME=${NAMES[$i]}
-    cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
-    apiVersion: "kubeadm.k8s.io/v1beta2"
-    kind: ClusterConfiguration
-    etcd:
-        local:
-            serverCertSANs:
-            - "${HOST}"
-            peerCertSANs:
-            - "${HOST}"
-            extraArgs:
-                initial-cluster: infra0=https://${ETCDHOSTS[0]}:2380,infra1=https://${ETCDHOSTS[1]}:2380,infra2=https://${ETCDHOSTS[2]}:2380
-                initial-cluster-state: new
-                name: ${NAME}
-                listen-peer-urls: https://${HOST}:2380
-                listen-client-urls: https://${HOST}:2379
-                advertise-client-urls: https://${HOST}:2379
-                initial-advertise-peer-urls: https://${HOST}:2380
-    EOF
-    done
-    ```
+<!--
+1. Generate the certificate authority
 
-    <!--
-    1.Generate the certificate authority
+   If you already have a CA then the only action that is copying the CA's `crt` and
+   `key` file to `/etc/kubernetes/pki/etcd/ca.crt` and
+   `/etc/kubernetes/pki/etcd/ca.key`. After those files have been copied,
+   proceed to the next step, "Create certificates for each member".
+-->
+3. 生成证书颁发机构
 
-        If you already have a CA then the only action that is copying the CA's `crt` and
-        `key` file to `/etc/kubernetes/pki/etcd/ca.crt` and
-        `/etc/kubernetes/pki/etcd/ca.key`. After those files have been copied,
-        proceed to the next step, "Create certificates for each member".
-    -->
-1. 生成证书颁发机构
+   如果你已经拥有 CA，那么唯一的操作是复制 CA 的 `crt` 和 `key` 文件到
+   `etc/kubernetes/pki/etcd/ca.crt` 和 `/etc/kubernetes/pki/etcd/ca.key`。
+   复制完这些文件后继续下一步，“为每个成员创建证书”。
 
-    如果您已经拥有 CA，那么唯一的操作是复制 CA 的 `crt` 和 `key` 文件到 `etc/kubernetes/pki/etcd/ca.crt` 和 `/etc/kubernetes/pki/etcd/ca.key`。复制完这些文件后继续下一步，“为每个成员创建证书”。
+   <!--
+   If you do not already have a CA then run this command on `$HOST0` (where you generated the configuration files for kubeadm).
+   -->
+   如果你还没有 CA，则在 `$HOST0`（你为 kubeadm 生成配置文件的位置）上运行此命令。
 
-    <!--
-    If you do not already have a CA then run this command on `$HOST0` (where you generated the configuration files for kubeadm).
-    -->
-    如果您还没有 CA，则在 `$HOST0`（您为 kubeadm 生成配置文件的位置）上运行此命令。
+   ```
+   kubeadm init phase certs etcd-ca
+   ```
 
-    ```
-    kubeadm init phase certs etcd-ca
-    ```
+   <!--
+   This creates two files
+   -->
+   这一操作创建如下两个文件
 
-    <!--
-    This creates two files
-    -->
-    创建了如下两个文件
+   - `/etc/kubernetes/pki/etcd/ca.crt`
+   - `/etc/kubernetes/pki/etcd/ca.key`
 
-    - `/etc/kubernetes/pki/etcd/ca.crt`
-    - `/etc/kubernetes/pki/etcd/ca.key`
+<!--
+1. Create certificates for each member
+-->
+4. 为每个成员创建证书
 
-    <!--
-    1. Create certificates for each member
-    -->
-1. 为每个成员创建证书
+   ```shell
+   kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
+   kubeadm init phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
+   kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+   kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+   cp -R /etc/kubernetes/pki /tmp/${HOST2}/
+   # 清理不可重复使用的证书
+   find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    <!--
-    ```sh
-    kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    cp -R /etc/kubernetes/pki /tmp/${HOST2}/
-    # cleanup non-reusable certificates
-    find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
+   kubeadm init phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
+   kubeadm init phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
+   kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+   kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+   cp -R /etc/kubernetes/pki /tmp/${HOST1}/
+   find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm init phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    cp -R /etc/kubernetes/pki /tmp/${HOST1}/
-    find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
+   kubeadm init phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
+   kubeadm init phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
+   kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+   kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+   # 不需要移动 certs 因为它们是给 HOST0 使用的
 
-    kubeadm init phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    # No need to move the certs because they are for HOST0
+   # 清理不应从此主机复制的证书
+   find /tmp/${HOST2} -name ca.key -type f -delete
+   find /tmp/${HOST1} -name ca.key -type f -delete
+   ```
 
-    # clean up certs that should not be copied off this host
-    find /tmp/${HOST2} -name ca.key -type f -delete
-    find /tmp/${HOST1} -name ca.key -type f -delete
-    ```
-    -->
-    ```sh
-    kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    cp -R /etc/kubernetes/pki /tmp/${HOST2}/
-    # 清理不可重复使用的证书
-    find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
+<!--
+1. Copy certificates and kubeadm configs
+   The certificates have been generated and now they must be moved to their
+   respective hosts.
+-->
+5. 复制证书和 kubeadm 配置
 
-    kubeadm init phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    cp -R /etc/kubernetes/pki /tmp/${HOST1}/
-    find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
+   证书已生成，现在必须将它们移动到对应的主机。
 
-    kubeadm init phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    # 不需要移动 certs 因为它们是给 HOST0 使用的
+   ```shell
+   USER=ubuntu
+   HOST=${HOST1}
+   scp -r /tmp/${HOST}/* ${USER}@${HOST}:
+   ssh ${USER}@${HOST}
+   USER@HOST $ sudo -Es
+   root@HOST $ chown -R root:root pki
+   root@HOST $ mv pki /etc/kubernetes/
+   ```
 
-    # 清理不应从此主机复制的证书
-    find /tmp/${HOST2} -name ca.key -type f -delete
-    find /tmp/${HOST1} -name ca.key -type f -delete
-    ```
+<!--
+1. Ensure all expected files exist
 
-    <!--
-    1.Copy certificates and kubeadm configs
+   The complete list of required files on `$HOST0` is:
+-->
+6. 确保已经所有预期的文件都存在
 
-        The certificates have been generated and now they must be moved to their
-        respective hosts.
-    -->
-1. 复制证书和 kubeadm 配置
+   `$HOST0` 所需文件的完整列表如下：
 
-    证书已生成，现在必须将它们移动到对应的主机。
+   ```none
+   /tmp/${HOST0}
+   └── kubeadmcfg.yaml
+   ---
+   /etc/kubernetes/pki
+   ├── apiserver-etcd-client.crt
+   ├── apiserver-etcd-client.key
+   └── etcd
+       ├── ca.crt
+       ├── ca.key
+       ├── healthcheck-client.crt
+       ├── healthcheck-client.key
+       ├── peer.crt
+       ├── peer.key
+       ├── server.crt
+       └── server.key
+   ```
 
-    ```sh
-    USER=ubuntu
-    HOST=${HOST1}
-    scp -r /tmp/${HOST}/* ${USER}@${HOST}:
-    ssh ${USER}@${HOST}
-    USER@HOST $ sudo -Es
-    root@HOST $ chown -R root:root pki
-    root@HOST $ mv pki /etc/kubernetes/
-    ```
+   <!--
+   On `$HOST1`:
+   -->
+   在 `$HOST1` 上：
 
-    <!--
-    1.Ensure all expected files exist
+   ```
+   $HOME
+   └── kubeadmcfg.yaml
+   ---
+   /etc/kubernetes/pki
+   ├── apiserver-etcd-client.crt
+   ├── apiserver-etcd-client.key
+   └── etcd
+       ├── ca.crt
+       ├── healthcheck-client.crt
+       ├── healthcheck-client.key
+       ├── peer.crt
+       ├── peer.key
+       ├── server.crt
+       └── server.key
+   ```
 
-        The complete list of required files on `$HOST0` is:
-    -->
-1. 确保已经所有预期的文件都存在
+   <!--
+   On `$HOST2`
+   -->
+   在 `$HOST2` 上：
 
-    `$HOST0` 所需文件的完整列表如下：
+   ```
+   $HOME
+   └── kubeadmcfg.yaml
+   ---
+   /etc/kubernetes/pki
+   ├── apiserver-etcd-client.crt
+   ├── apiserver-etcd-client.key
+   └── etcd
+       ├── ca.crt
+       ├── healthcheck-client.crt
+       ├── healthcheck-client.key
+       ├── peer.crt
+       ├── peer.key
+       ├── server.crt
+       └── server.key
+   ```
 
-    ```
-    /tmp/${HOST0}
-    └── kubeadmcfg.yaml
-    ---
-    /etc/kubernetes/pki
-    ├── apiserver-etcd-client.crt
-    ├── apiserver-etcd-client.key
-    └── etcd
-        ├── ca.crt
-        ├── ca.key
-        ├── healthcheck-client.crt
-        ├── healthcheck-client.key
-        ├── peer.crt
-        ├── peer.key
-        ├── server.crt
-        └── server.key
-    ```
+<!--
+1. Create the static pod manifests
 
-    <!--
-    On `$HOST1`:
-    -->
-    在 `$HOST1`:
+   Now that the certificates and configs are in place it's time to create the
+   manifests. On each host run the `kubeadm` command to generate a static manifest
+   for etcd.
+-->
+7. 创建静态 Pod 清单
 
-    ```
-    $HOME
-    └── kubeadmcfg.yaml
-    ---
-    /etc/kubernetes/pki
-    ├── apiserver-etcd-client.crt
-    ├── apiserver-etcd-client.key
-    └── etcd
-        ├── ca.crt
-        ├── healthcheck-client.crt
-        ├── healthcheck-client.key
-        ├── peer.crt
-        ├── peer.key
-        ├── server.crt
-        └── server.key
-    ```
+   既然证书和配置已经就绪，是时候去创建清单了。
+   在每台主机上运行 `kubeadm` 命令来生成 etcd 使用的静态清单。
 
-    <!--
-    On `$HOST2`
-    -->
-    在 `$HOST2`
+   ```shell
+   root@HOST0 $ kubeadm init phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
+   root@HOST1 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
+   root@HOST2 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
+   ```
 
-    ```
-    $HOME
-    └── kubeadmcfg.yaml
-    ---
-    /etc/kubernetes/pki
-    ├── apiserver-etcd-client.crt
-    ├── apiserver-etcd-client.key
-    └── etcd
-        ├── ca.crt
-        ├── healthcheck-client.crt
-        ├── healthcheck-client.key
-        ├── peer.crt
-        ├── peer.key
-        ├── server.crt
-        └── server.key
-    ```
+<!--
+1. Optional: Check the cluster health
+-->
+8. 可选：检查群集运行状况
 
-    <!--
-    1.Create the static pod manifests
-
-        Now that the certificates and configs are in place it's time to create the
-        manifests. On each host run the `kubeadm` command to generate a static manifest
-        for etcd.
-    -->
-1. 创建静态 Pod 清单
-
-    既然证书和配置已经就绪，是时候去创建清单了。在每台主机上运行 `kubeadm` 命令来生成 etcd 使用的静态清单。
-
-    ```sh
-    root@HOST0 $ kubeadm init phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    root@HOST1 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
-    root@HOST2 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
-    ```
-
-    <!--
-    1.Optional: Check the cluster health
-    -->
-1. 可选：检查群集运行状况
-
-    ```sh
-    docker run --rm -it \
-    --net host \
-    -v /etc/kubernetes:/etc/kubernetes k8s.gcr.io/etcd:${ETCD_TAG} etcdctl \
-    --cert /etc/kubernetes/pki/etcd/peer.crt \
-    --key /etc/kubernetes/pki/etcd/peer.key \
-    --cacert /etc/kubernetes/pki/etcd/ca.crt \
-    --endpoints https://${HOST0}:2379 endpoint health --cluster
-    ...
-    https://[HOST0 IP]:2379 is healthy: successfully committed proposal: took = 16.283339ms
-    https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
-    https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
-    ```
-    <!--
-    Set ${ETCD_TAG} to the version tag of your etcd image. For example 3.4.3-0. To see the etcd image and tag that             kubeadm uses execute kubeadm config images list --kubernetes-version ${K8S_VERSION}, where ${K8S_VERSION} is for           example v1.17.0
-    --> 
-    - 将 `${ETCD_TAG}` 设置为你的 etcd 镜像的版本标签，例如 `3.4.3-0`。要查看 kubeadm 使用的 etcd 镜像和标签，请执行 `kubeadm config images list --kubernetes-version ${K8S_VERSION}`，其中 `${K8S_VERSION}` 是 `v1.17.0` 作为例子。
-    <!--
-    Set ${HOST0}to the IP address of the host you are testing.
-    -->
-    - 将 `${HOST0}` 设置为要测试的主机的 IP 地址
+   ```shell
+   docker run --rm -it \
+   --net host \
+   -v /etc/kubernetes:/etc/kubernetes k8s.gcr.io/etcd:${ETCD_TAG} etcdctl \
+   --cert /etc/kubernetes/pki/etcd/peer.crt \
+   --key /etc/kubernetes/pki/etcd/peer.key \
+   --cacert /etc/kubernetes/pki/etcd/ca.crt \
+   --endpoints https://${HOST0}:2379 endpoint health --cluster
+   ...
+   https://[HOST0 IP]:2379 is healthy: successfully committed proposal: took = 16.283339ms
+   https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
+   https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
+   ```
+   <!--
+   Set ${ETCD_TAG} to the version tag of your etcd image. For example 3.4.3-0. To see the etcd image and tag that             kubeadm uses execute kubeadm config images list --kubernetes-version ${K8S_VERSION}, where ${K8S_VERSION} is for           example v1.17.0
+   Set ${HOST0}to the IP address of the host you are testing.
+   -->
+   - 将 `${ETCD_TAG}` 设置为你的 etcd 镜像的版本标签，例如 `3.4.3-0`。
+     要查看 kubeadm 使用的 etcd 镜像和标签，请执行
+     `kubeadm config images list --kubernetes-version ${K8S_VERSION}`，
+     例如，其中的 `${K8S_VERSION}` 可以是 `v1.17.0`。
+   - 将 `${HOST0}` 设置为要测试的主机的 IP 地址。
 
 ## {{% heading "whatsnext" %}}
 
@@ -422,7 +373,6 @@ highly available control plane using the [external etcd method with
 kubeadm](/docs/setup/independent/high-availability/).
 -->
 一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于
-[使用 kubeadm 的外部 etcd 方法](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)，
+[使用 kubeadm 外部 etcd 的方法](/zh/docs/setup/production-environment/tools/kubeadm/high-availability/)，
 继续部署一个高可用的控制平面。
-
 
