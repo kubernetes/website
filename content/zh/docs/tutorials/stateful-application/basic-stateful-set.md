@@ -133,6 +133,8 @@ Headless Service and StatefulSet defined in `web.yaml`.
 
 ```shell
 kubectl apply -f web.yaml
+```
+```
 service/nginx created
 statefulset.apps/web created
 ```
@@ -148,10 +150,19 @@ The command above creates two Pods, each running an
 
 ```shell
 kubectl get service nginx
+```
+```
 NAME      TYPE         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 nginx     ClusterIP    None         <none>        80/TCP    12s
-
+```
+<!--
+...then get the `web` StatefulSet, to verify that both were created successfully:
+-->
+...然后获取 `web` StatefulSet，以验证两者均已成功创建：
+```shell
 kubectl get statefulset web
+```
+```
 NAME      DESIRED   CURRENT   AGE
 web       2         1         20s
 ```
@@ -174,6 +185,8 @@ look like the example below.
 
 ```shell
 kubectl get pods -w -l app=nginx
+```
+```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     0/1       Pending   0          0s
 web-0     0/1       Pending   0         0s
@@ -215,10 +228,11 @@ StatefulSet 中的 Pod 拥有一个唯一的顺序索引和稳定的网络身份
 
 ```shell
 kubectl get pods -l app=nginx
+```
+```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          1m
 web-1     1/1       Running   0          1m
-
 ```
 
 <!--
@@ -247,7 +261,9 @@ Pod 的名称的形式为`<statefulset name>-<ordinal index>`。
 每个 Pod 都拥有一个基于其顺序索引的稳定的主机名。使用[`kubectl exec`](/zh/docs/reference/generated/kubectl/kubectl-commands/#exec)在每个 Pod 中执行`hostname`。
 
 ```shell
-for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
+for i in 0 1; do kubectl exec "web-$i" -- sh -c 'hostname'; done
+```
+```
 web-0
 web-1
 ```
@@ -265,7 +281,20 @@ addresses.
 
 ```shell
 kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
+```
+<!--
+which starts a new shell. In that new shell, run:
+-->
+这将启动一个新的 shell。在新 shell 中，运行：
+```shell
+# Run this in the dns-test container shell
 nslookup web-0.nginx
+```
+<!--
+The output is similar to:
+-->
+输出类似于：
+```
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
@@ -306,6 +335,8 @@ the Pods in the StatefulSet.
 
 ```shell
 kubectl delete pod -l app=nginx
+```
+```
 pod "web-0" deleted
 pod "web-1" deleted
 ```
@@ -319,6 +350,8 @@ Running and Ready.
 
 ```shell
 kubectl get pod -w -l app=nginx
+```
+```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     0/1       ContainerCreating   0          0s
 NAME      READY     STATUS    RESTARTS   AGE
@@ -338,11 +371,32 @@ DNS entries.
 
 ```shell
 for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
+```
+```
 web-0
 web-1
-
+```
+<!--
+then, run:
+-->
+然后，运行：
+```
 kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh
+```
+<!--
+which starts a new shell.  
+In that new shell, run:
+-->
+这将启动一个新的 shell。在新 shell 中，运行：
+```shell
+# Run this in the dns-test container shell
 nslookup web-0.nginx
+```
+<!--
+The output is similar to:
+-->
+输出类似于：
+```
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
@@ -401,6 +455,12 @@ Get the PersistentVolumeClaims for `web-0` and `web-1`.
 
 ```shell
 kubectl get pvc -l app=nginx
+```
+<!--
+The output is similar to:
+-->
+输出类似于：
+```
 NAME        STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
 www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 www-web-1   Bound     pvc-15c79307-b507-11e6-932f-42010a800002   1Gi        RWO           48s
@@ -430,31 +490,35 @@ StatefulSets `spec` 中的 `volumeMounts` 字段保证了 `/usr/share/nginx/html
 将 Pod 的主机名写入它们的`index.html`文件并验证 NGINX web 服务器使用该主机名提供服务。
 
 ```shell
-for i in 0 1; do kubectl exec web-$i -- sh -c 'echo $(hostname) > /usr/share/nginx/html/index.html'; done
+for i in 0 1; do kubectl exec "web-$i" -- sh -c 'echo "$(hostname)" > /usr/share/nginx/html/index.html'; done
 
-for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
+for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
+```
+```
 web-0
 web-1
 ```
 
 {{< note >}}
 <!--
-If you instead see 403 Forbidden responses for the above curl command,
+If you instead see **403 Forbidden** responses for the above curl command,
 you will need to fix the permissions of the directory mounted by the `volumeMounts`
-(due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)) with:
+(due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)),
+by running:
 -->
 
-请注意，如果你看见上面的 curl 命令返回了 403 Forbidden 的响应，
-你需要像这样修复使用 `volumeMounts`（due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)）挂载的目录的权限：
+请注意，如果你看见上面的 curl 命令返回了 **403 Forbidden** 的响应，你需要像这样修复使用 `volumeMounts`
+（原因归咎于[使用 hostPath 卷时存在的缺陷](https://github.com/kubernetes/kubernetes/issues/2630)）
+挂载的目录的权限
+运行：
 
-```shell
-for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done
-```
+`for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done`
+
 <!--
-before retrying the curl command above.
+before retrying the `curl` command above.
 -->
 
-在你重新尝试上面的 curl 命令之前。
+在你重新尝试上面的 `curl` 命令之前。
 {{< /note >}}
 
 <!--
@@ -475,6 +539,8 @@ In a second terminal, delete all of the StatefulSet's Pods.
 
 ```shell
 kubectl delete pod -l app=nginx
+```
+```
 pod "web-0" deleted
 pod "web-1" deleted
 ```
@@ -487,6 +553,8 @@ for all of the Pods to transition to Running and Ready.
 
 ```shell
 kubectl get pod -w -l app=nginx
+```
+```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     0/1       ContainerCreating   0          0s
 NAME      READY     STATUS    RESTARTS   AGE
@@ -504,7 +572,9 @@ Verify the web servers continue to serve their hostnames.
 验证所有 web 服务器在继续使用它们的主机名提供服务。
 
 ```
-for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
+for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
+```
+```
 web-0
 web-1
 ```
@@ -555,6 +625,8 @@ to 5.-->
 
 ```shell
 kubectl scale sts web --replicas=5
+```
+```
 statefulset.apps/web scaled
 ```
 <!--
@@ -566,6 +638,8 @@ for the three additional Pods to transition to Running and Ready.
 
 ```shell
 kubectl get pods -w -l app=nginx
+```
+```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          2h
 web-1     1/1       Running   0          2h
@@ -617,8 +691,9 @@ three replicas.
 
 ```shell
 kubectl patch sts web -p '{"spec":{"replicas":3}}'
+```
+```
 statefulset.apps/web patched
-
 ```
 
 <!--
@@ -627,8 +702,10 @@ Wait for `web-4` and `web-3` to transition to Terminating.
 
 等待 `web-4` 和 `web-3` 状态变为 Terminating。
 
-```
+```shell
 kubectl get pods -w -l app=nginx
+```
+```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          3h
 web-1     1/1       Running             0          3h
@@ -663,6 +740,8 @@ Get the StatefulSet's PersistentVolumeClaims.
 
 ```shell
 kubectl get pvc -l app=nginx
+```
+```
 NAME        STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
 www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO           13h
 www-web-1   Bound     pvc-15c79307-b507-11e6-932f-42010a800002   1Gi        RWO           13h
@@ -718,6 +797,8 @@ Patch `web` StatefulSet 来执行 `RollingUpdate` 更新策略。
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}'
+```
+```
 statefulset.apps/web patched
 ```
 <!--
@@ -729,8 +810,9 @@ image again.
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
+```
+```
 statefulset.apps/web patched
-
 ```
 
 <!--
@@ -741,6 +823,12 @@ In another terminal, watch the Pods in the StatefulSet.
 
 ```shell
 kubectl get po -l app=nginx -w
+```
+<!--
+The output is similar to:
+-->
+输出类似于：
+```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          7m
 web-1     1/1       Running   0          7m
@@ -798,7 +886,9 @@ StatefulSet 里的 Pod 采用和序号相反的顺序更新。在更新下一个
 获取 Pod 来查看他们的容器镜像。
 
 ```shell
-for p in 0 1 2; do kubectl get po web-$p --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
+for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
+```
+```
 k8s.gcr.io/nginx-slim:0.8
 k8s.gcr.io/nginx-slim:0.8
 k8s.gcr.io/nginx-slim:0.8
@@ -836,6 +926,8 @@ Patch `web` StatefulSet 来对 `updateStrategy` 字段添加一个分区。
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":3}}}}'
+```
+```
 statefulset.apps/web patched
 ```
 
@@ -847,6 +939,8 @@ Patch the StatefulSet again to change the container's image.
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
+```
+```
 statefulset.apps/web patched
 ```
 
@@ -857,7 +951,9 @@ Delete a Pod in the StatefulSet.
 删除 StatefulSet 中的 Pod。
 
 ```shell
-kubectl delete po web-2
+kubectl delete pod web-2
+```
+```
 pod "web-2" deleted
 ```
 
@@ -868,7 +964,9 @@ Wait for the Pod to be Running and Ready.
 等待 Pod 变成 Running 和 Ready。
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get pod -l app=nginx -w
+```
+```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          4m
 web-1     1/1       Running             0          4m
@@ -883,10 +981,10 @@ Get the Pod's container.
 获取 Pod 的容器。
 
 ```shell
-kubectl get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+```
+```
 k8s.gcr.io/nginx-slim:0.8
-
-
 ```
 
 <!--
@@ -915,6 +1013,8 @@ Patch the StatefulSet to decrement the partition.
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
+```
+```
 statefulset.apps/web patched
 ```
 
@@ -925,7 +1025,9 @@ Wait for `web-2` to be Running and Ready.
 等待 `web-2` 变成 Running 和 Ready。
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get pod -l app=nginx -w
+```
+```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          4m
 web-1     1/1       Running             0          4m
@@ -940,7 +1042,9 @@ Get the Pod's container.
 获取 Pod 的容器。
 
 ```shell
-kubectl get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+```
+```
 k8s.gcr.io/nginx-slim:0.7
 
 ```
@@ -959,7 +1063,9 @@ Delete the `web-1` Pod.
 删除 `web-1` Pod。
 
 ```shell
-kubectl delete po web-1
+kubectl delete pod web-1
+```
+```
 pod "web-1" deleted
 ```
 
@@ -970,7 +1076,13 @@ Wait for the `web-1` Pod to be Running and Ready.
 等待 `web-1` 变成 Running 和 Ready。
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get pod -l app=nginx -w
+```
+<!--
+The output is similar to:
+-->
+输出类似于：
+```
 NAME      READY     STATUS        RESTARTS   AGE
 web-0     1/1       Running       0          6m
 web-1     0/1       Terminating   0          6m
@@ -991,7 +1103,9 @@ Get the `web-1` Pods container.
 获取 `web-1` Pod 的容器。
 
 ```shell
-kubectl get po web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+```
+```
 k8s.gcr.io/nginx-slim:0.8
 ```
 
@@ -1027,6 +1141,8 @@ The partition is currently set to `2`. Set the partition to `0`.
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":0}}}}'
+```
+```
 statefulset.apps/web patched
 ```
 
@@ -1037,7 +1153,13 @@ Wait for all of the Pods in the StatefulSet to become Running and Ready.
 等待 StatefulSet 中的所有 Pod 变成 Running 和 Ready。
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get pod -l app=nginx -w
+```
+<!--
+The output is similar to:
+-->
+输出类似于：
+```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          3m
 web-1     0/1       ContainerCreating   0          11s
@@ -1061,11 +1183,12 @@ Get the Pod's containers.
 获取 Pod 的容器。
 
 ```shell
-for p in 0 1 2; do kubectl get po web-$p --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
+for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
+```
+```
 k8s.gcr.io/nginx-slim:0.7
 k8s.gcr.io/nginx-slim:0.7
 k8s.gcr.io/nginx-slim:0.7
-
 ```
 
 <!--
@@ -1126,6 +1249,8 @@ not delete any of its Pods.
 
 ```shell
 kubectl delete statefulset web --cascade=false
+```
+```
 statefulset.apps "web" deleted
 ```
 
@@ -1137,6 +1262,8 @@ Get the Pods to examine their status.
 
 ```shell
 kubectl get pods -l app=nginx
+```
+```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          6m
 web-1     1/1       Running   0          7m
@@ -1153,6 +1280,8 @@ Delete `web-0`.
 
 ```shell
 kubectl delete pod web-0
+```
+```
 pod "web-0" deleted
 ```
 
@@ -1164,6 +1293,8 @@ Get the StatefulSet's Pods.
 
 ```shell
 kubectl get pods -l app=nginx
+```
+```
 NAME      READY     STATUS    RESTARTS   AGE
 web-1     1/1       Running   0          10m
 web-2     1/1       Running   0          7m
@@ -1193,9 +1324,10 @@ an error indicating that the Service already exists.
 
 ```shell
 kubectl apply -f web.yaml
+```
+```
 statefulset.apps/web created
 service/nginx unchanged
-
 ```
 <!--
 Ignore the error. It only indicates that an attempt was made to create the nginx
@@ -1211,6 +1343,8 @@ Examine the output of the `kubectl get` command running in the first terminal.
 
 ```shell
 kubectl get pods -w -l app=nginx
+```
+```
 NAME      READY     STATUS    RESTARTS   AGE
 web-1     1/1       Running   0          16m
 web-2     1/1       Running   0          2m
@@ -1228,24 +1362,28 @@ web-2     0/1       Terminating   0         3m
 <!--
 When the `web` StatefulSet was recreated, it first relaunched `web-0`.
 Since `web-1` was already Running and Ready, when `web-0` transitioned to
- Running and Ready, it simply adopted this Pod. Since you recreated the StatefulSet
- with `replicas` equal to 2, once `web-0` had been recreated, and once
- `web-1` had been determined to already be Running and Ready, `web-2` was
- terminated.
+Running and Ready, it adopted this Pod. Since you recreated the StatefulSet
+with `replicas` equal to 2, once `web-0` had been recreated, and once
+`web-1` had been determined to already be Running and Ready, `web-2` was
+terminated.
 
 Let's take another look at the contents of the `index.html` file served by the
-Pods' webservers.
+Pods' webservers:
 -->
 
-当重新创建 `web` StatefulSet 时，`web-0`被第一个重新启动。
-由于 `web-1` 已经处于 Running 和 Ready 状态，当 `web-0` 变成 Running 和 Ready 时，StatefulSet 会直接接收这个 Pod。
-由于你重新创建的 StatefulSet 的 `replicas` 等于 2，一旦 `web-0` 被重新创建并且 `web-1` 被认为已经处于 Running 和 Ready 状态时，`web-2`将会被终止。
+当重新创建 `web` StatefulSet 时，`web-0` 被第一个重新启动。
+由于 `web-1` 已经处于 Running 和 Ready 状态，当 `web-0` 变成 Running 和 Ready 时，
+StatefulSet 会接收这个 Pod。由于你重新创建的 StatefulSet 的 `replicas` 等于 2，
+一旦 `web-0` 被重新创建并且 `web-1` 被认为已经处于 Running 和 Ready 状态时，`web-2` 将会被终止。
 
 
-让我们再看看被 Pod 的 web 服务器加载的 `index.html` 的内容。
+让我们再看看被 Pod 的 web 服务器加载的 `index.html` 的内容：
 
 ```shell
-for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
+for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
+```
+
+```
 web-0
 web-1
 ```
@@ -1276,11 +1414,17 @@ In one terminal window, watch the Pods in the StatefulSet.
 kubectl get pods -w -l app=nginx
 ```
 
+<!--
+In another terminal, delete the StatefulSet again. This time, omit the
+-->
 
 在另一个窗口中再次删除这个 StatefulSet。这次省略 `--cascade=false` 参数。
 
 ```shell
 kubectl delete statefulset web
+```
+
+```
 statefulset.apps "web" deleted
 ```
 
@@ -1293,6 +1437,9 @@ and wait for all of the Pods to transition to Terminating.
 
 ```shell
 kubectl get pods -w -l app=nginx
+```
+
+```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          11m
 web-1     1/1       Running   0          27m
@@ -1327,6 +1474,9 @@ must delete the `nginx` Service manually.
 
 ```shell
 kubectl delete service nginx
+```
+
+```
 service "nginx" deleted
 ```
 
@@ -1338,9 +1488,11 @@ Recreate the StatefulSet and Headless Service one more time.
 
 ```shell
 kubectl apply -f web.yaml
+```
+
+```
 service/nginx created
 statefulset.apps/web created
-
 ```
 
 <!--
@@ -1351,7 +1503,10 @@ the contents of their `index.html` files.
 当 StatefulSet 所有的 Pod 变成 Running 和 Ready 时，获取它们的 `index.html` 文件的内容。
 
 ```shell
-for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
+for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
+```
+
+```
 web-0
 web-1
 ```
@@ -1372,13 +1527,17 @@ Finally delete the `web` StatefulSet and the `nginx` service.
 ```shell
 kubectl delete service nginx
 ```
+
 ```
 service "nginx" deleted
 ```
+
 ... 并且删除 `web` StatefulSet:
+
 ```shell
 kubectl delete statefulset web
 ```
+
 ```
 statefulset "web" deleted
 ```
@@ -1402,15 +1561,17 @@ above.
 `Parallel` pod management tells the StatefulSet controller to launch or
 terminate all Pods in parallel, and not to wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
-Pod.
+Pod. This option only affects the behavior for scaling operations. Updates are not affected.
 -->
 
 ## Pod 管理策略
 
 
-对于某些分布式系统来说，StatefulSet 的顺序性保证是不必要和/或者不应该的。这些系统仅仅要求唯一性和身份标志。
-为了解决这个问题，在 Kubernetes 1.7 中我们针对 StatefulSet API Object 引入了 `.spec.podManagementPolicy`。
 
+对于某些分布式系统来说，StatefulSet 的顺序性保证是不必要和/或者不应该的。
+这些系统仅仅要求唯一性和身份标志。为了解决这个问题，在 Kubernetes 1.7 中
+我们针对 StatefulSet API 对象引入了 `.spec.podManagementPolicy`。
+此选项仅影响扩缩操作的行为。更新不受影响。
 
 ### OrderedReady Pod 管理策略
 
@@ -1421,7 +1582,8 @@ Pod.
 ### Parallel Pod 管理策略
 
 
-`Parallel` pod 管理策略告诉 StatefulSet 控制器并行的终止所有 Pod，在启动或终止另一个 Pod 前，不必等待这些 Pod 变成 Running 和 Ready 或者完全终止状态。
+`Parallel` pod 管理策略告诉 StatefulSet 控制器并行的终止所有 Pod，
+在启动或终止另一个 Pod 前，不必等待这些 Pod 变成 Running 和 Ready 或者完全终止状态。
 
 {{< codenew file="application/web/web-parallel.yaml" >}}
 
@@ -1447,16 +1609,17 @@ kubectl get po -lapp=nginx -w
 ```
 
 <!--
-In another terminal, create the StatefulSet and Service in the manifest.
+In another terminal, create the StatefulSet and Service in the manifest:
 -->
 
-在另一个终端窗口创建清单中的 StatefulSet 和 Service。
+在另一个终端窗口创建清单中的 StatefulSet 和 Service：
 
 ```shell
 kubectl apply -f web-parallel.yaml
+```
+```
 service/nginx created
 statefulset.apps/web created
-
 ```
 
 <!--
@@ -1466,7 +1629,9 @@ Examine the output of the `kubectl get` command that you executed in the first t
 查看你在第一个终端中运行的 `kubectl get` 命令的输出。
 
 ```shell
-kubectl get po -lapp=nginx -w
+kubectl get pod -l app=nginx -w
+```
+```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     0/1       Pending   0          0s
 web-0     0/1       Pending   0         0s
@@ -1491,6 +1656,8 @@ StatefulSet 控制器同时启动了 `web-0` 和 `web-1`。
 
 ```shell
 kubectl scale statefulset/web --replicas=4
+```
+```
 statefulset.apps/web scaled
 ```
 
@@ -1500,7 +1667,7 @@ Examine the output of the terminal where the `kubectl get` command is running.
 
 在 `kubectl get` 命令运行的终端里检查它的输出。
 
-```shell
+```
 web-3     0/1       Pending   0         0s
 web-3     0/1       Pending   0         0s
 web-3     0/1       Pending   0         7s
@@ -1510,27 +1677,36 @@ web-3     1/1       Running   0         26s
 ```
 
 <!--
-The StatefulSet controller launched two new Pods, and it did not wait for
+The StatefulSet launched two new Pods, and it did not wait for
 the first to become Running and Ready prior to launching the second.
 
-Keep this terminal open, and in another terminal delete the `web` StatefulSet.
+## {{% heading "cleanup" %}}
+
+You should have two terminals open, ready for you to run `kubectl` commands as
+part of cleanup.
 -->
 
-StatefulSet 控制器启动了两个新的 Pod，而且在启动第二个之前并没有等待第一个变成 Running 和 Ready 状态。
+StatefulSet 启动了两个新的 Pod，而且在启动第二个之前并没有等待第一个变成 Running 和 Ready 状态。
 
-保持这个终端打开，并在另一个终端删除 `web` StatefulSet。
+## {{% heading "cleanup" %}}
+
+您应该打开两个终端，准备在清理过程中运行 `kubectl` 命令。
 
 ```shell
 kubectl delete sts web
+# sts is an abbreviation for statefulset
 ```
 
 <!--
-Again, examine the output of the `kubectl get` command running in the other terminal.
+You can watch `kubectl get` to see those Pods being deleted.
 -->
 
-在另一个终端里再次检查 `kubectl get` 命令的输出。
+你可以监测 `kubectl get` 来查看那些 Pod 被删除
 
 ```shell
+kubectl get pod -l app=nginx -w
+```
+```
 web-3     1/1       Terminating   0         9m
 web-2     1/1       Terminating   0         9m
 web-3     1/1       Terminating   0         9m
@@ -1579,10 +1755,12 @@ kubectl delete svc nginx
 
 
 <!--
-You will need to delete the persistent storage media for the PersistentVolumes
-used in this tutorial. Follow the necessary steps, based on your environment,
-storage configuration, and provisioning method, to ensure that all storage is
-reclaimed.
+You also need to delete the persistent storage media for the PersistentVolumes
+used in this tutorial.
+
+
+Follow the necessary steps, based on your environment, storage configuration,
+and provisioning method, to ensure that all storage is reclaimed.
 -->
 
 你需要删除本教程中用到的 PersistentVolumes 的持久化存储介质。基于你的环境、存储配置和提供方式，按照必须的步骤保证回收所有的存储。
