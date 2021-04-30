@@ -629,7 +629,7 @@ kubectl run nginx --image=nginx                     # 运行 ngins Pod 并将其
 kubectl attach my-pod -i                            # 挂接到一个运行的容器中
 kubectl port-forward my-pod 5000:6000               # 在本地计算机上侦听端口 5000 并转发到 my-pod 上的端口 6000
 kubectl exec my-pod -- ls /                         # 在已有的 Pod 中运行命令（单容器场景）
-kubectl exec --stdin --tty my-pod -- /bin/sh        # 使用交互 shell 访问正在运行的 Pod (一个容器场景)
+kubectl exec --stdin --tty my-pod -- /bin/sh        # 使用交互 shell 访问正在运行的 Pod (单容器场景)
 kubectl exec my-pod -c my-container -- ls /         # 在已有的 Pod 中运行命令（多容器场景）
 kubectl top pod POD_NAME --containers               # 显示给定 Pod 和其中容器的监控数据
 ```
