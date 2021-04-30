@@ -169,7 +169,7 @@ whatever reclaim policy they were assigned at creation.
 由 StorageClass 动态创建的 PersistentVolume 会在类的 `reclaimPolicy` 字段中指定回收策略，可以是
 `Delete` 或者 `Retain`。如果 StorageClass 对象被创建时没有指定 `reclaimPolicy`，它将默认为 `Delete`。
 
-通过 StorageClass 手动创建并管理的 PersistentVolume 会使用它们被创建时指定的回收政策。
+通过 StorageClass 手动创建并管理的 PersistentVolume 会使用它们被创建时指定的回收策略。
 
 <!--
 ### Allow Volume Expansion
@@ -192,7 +192,7 @@ PersistentVolume 可以配置为可扩展。将此功能设置为 `true` 时，�
 
 {{< table caption = "Table of Volume types and the version of Kubernetes they require"  >}}
 
-<!-- 
+<!--
 Volume type | Required Kubernetes version
 -->
 | 卷类型               | Kubernetes 版本要求        |
@@ -675,7 +675,7 @@ OpenStack 的内部驱动已经被弃用。请使用
 ### vSphere
 
 <!--
-There are two types of provisioners for vSphere storage classes: 
+There are two types of provisioners for vSphere storage classes:
 
 - [CSI provisioner](#csi-provisioner): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
@@ -689,7 +689,7 @@ vSphere 存储类有两种制备器
 
 树内制备器已经被
 [弃用](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)。
-更多关于 CSI 制备器的详情，请参阅 
+更多关于 CSI 制备器的详情，请参阅
 [Kubernetes vSphere CSI 驱动](https://vsphere-csi-driver.sigs.k8s.io/)
 和 [vSphereVolume CSI 迁移](/zh/docs/concepts/storage/volumes/#csi-migration-5)。
 
@@ -704,7 +704,7 @@ vSphere CSI StorageClass 制备器在 Tanzu Kubernetes 集群下运行。示例�
 [vSphere CSI 仓库](https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/example/vanilla-k8s-file-driver/example-sc.yaml)。
 
 <!--
-#### vCP Provisioner 
+#### vCP Provisioner
 
 The following examples use the VMware Cloud Provider (vCP) StorageClass provisioner.  
 -->
@@ -760,7 +760,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
    `datastore`：用户也可以在 StorageClass 中指定数据存储。
    卷将在 storage class 中指定的数据存储上创建，在这种情况下是 `VSANDatastore`。
    该字段是可选的。
-   如果未指定数据存储，则将在用于初始化 vSphere Cloud Provider 的 vSphere 
+   如果未指定数据存储，则将在用于初始化 vSphere Cloud Provider 的 vSphere
    配置文件中指定的数据存储上创建该卷。
 
 <!--
@@ -1042,8 +1042,8 @@ parameters:
   unmanaged disk in the same resource group as the cluster. When `kind` is
   `managed`, all managed disks are created in the same resource group as
   the cluster.
-* `resourceGroup`: Specify the resource group in which the Azure disk will be created. 
-   It must be an existing resource group name. If it is unspecified, the disk will be 
+* `resourceGroup`: Specify the resource group in which the Azure disk will be created.
+   It must be an existing resource group name. If it is unspecified, the disk will be
    placed in the same resource group as the current Kubernetes cluster.
 -->
 * `storageaccounttype`：Azure 存储帐户 Sku 层。默认为空。
