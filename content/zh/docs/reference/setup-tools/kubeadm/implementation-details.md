@@ -289,15 +289,15 @@ Kubeadm 生成用于不同目的的证书和私钥对：
   - Kubernetes 服务的内部 clusterIP（服务 CIDR 的第一个地址。
     例如：如果服务的子网是 `10.96.0.0/12`，则为 `10.96.0.1`）
   - Kubernetes DNS 名称，例如：如果 `--service-dns-domain` 标志值是 `cluster.local`，
-    则为 `kubernetes.default.svc.cluster.local`；
-    加上默认的 DNS 名称 `kubernetes.default.svc`、`kubernetes.default` 和 `kubernetes`，
+    则为 `kubernetes.default.svc.cluster.local`;
+    加上默认的 DNS 名称 `kubernetes.default.svc`、`kubernetes.default` 和 `kubernetes`
   - 节点名称
   - `--apiserver-advertise-address`
   - 用户指定的其他备用名称 
 
 - 用于 API 服务器安全连接到 kubelet 的客户端证书，使用 `ca.crt` 作为 CA 生成，
   并保存到 `apiserver-kubelet-client.crt`，私钥保存到 `apiserver-kubelet-client.key`
-  文件中。该证书应该在 `system:masters` 组织中。
+  文件中。该证书应该在 `system:masters` 组织中
 - 用于签名 ServiceAccount 令牌的私钥保存到 `sa.key` 文件中，公钥保存到 `sa.pub` 文件中
 - 用于前端代理的证书颁发机构保存到 `front-proxy-ca.crt` 文件中，私钥保存到
   `front-proxy-ca.key` 文件中
