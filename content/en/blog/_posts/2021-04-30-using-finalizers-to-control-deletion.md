@@ -252,7 +252,7 @@ $ cat <<EOF | curl -X PUT \
     "name": "test"
   },
   "spec": {
-    "finalizers": null,
+    "finalizers": null
   }
 }
 EOF
