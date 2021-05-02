@@ -1,72 +1,66 @@
 ---
-reviewers:
-- dims
-- 44past4
-title: System Logs
+title: システムログ
 content_type: concept
 weight: 60
 ---
 
 <!-- overview -->
 
-System component logs record events happening in cluster, which can be very useful for debugging.
-You can configure log verbosity to see more or less detail.
-Logs can be as coarse-grained as showing errors within a component, or as fine-grained as showing step-by-step traces of events (like HTTP access logs, pod state changes, controller actions, or scheduler decisions).
+システムコンポーネントのログは、クラスター内で起こったイベントを記録します。このログはデバッグのために非常に役立ちます。ログのverbosityを設定すると、ログをどの程度詳細に見るのかを変更できます。ログはコンポーネント内のエラーを表示する程度の荒い粒度にすることも、イベントのステップバイステップのトレース(HTTPのアクセスログ、Podの状態の変更、コントローラーの動作、スケジューラーの決定など)を表示するような細かい粒度に設定することもできます。
 
 <!-- body -->
 
-## Klog
+## klog
 
-klog is the Kubernetes logging library. [klog](https://github.com/kubernetes/klog)
-generates log messages for the Kubernetes system components.
+klogは、Kubernetesのログライブラリです。[klog](https://github.com/kubernetes/klog)は、Kubernetesのシステムコンポーネント向けのログメッセージを生成します。
 
-For more information about klog configuration, see the [Command line tool reference](/docs/reference/command-line-tools-reference/).
+klogの設定に関する詳しい情報については、[コマンドラインツールのリファレンス](/docs/reference/command-line-tools-reference/)を参照してください。
 
-An example of the klog native format:
+klogネイティブ形式の例:
+
 ```
 I1025 00:15:15.525108       1 httplog.go:79] GET /api/v1/namespaces/kube-system/pods/metrics-server-v0.3.1-57c75779f-9p8wg: (1.512ms) 200 [pod_nanny/v0.0.0 (linux/amd64) kubernetes/$Format 10.56.1.19:51756]
 ```
 
-### Structured Logging
+### 構造化ログ
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
 {{< warning >}}
-Migration to structured log messages is an ongoing process. Not all log messages are structured in this version. When parsing log files, you must also handle unstructured log messages.
+構造化ログへのマイグレーションは現在進行中の作業です。このバージョンでは、すべてのログメッセージが構造化されているわけではありません。ログファイルをパースする場合、JSONではないログの行にも対処しなければなりません。
 
-Log formatting and value serialization are subject to change.
+ログの形式と値のシリアライズは変更される可能性があります。
 {{< /warning>}}
 
-Structured logging introduces a uniform structure in log messages allowing for programmatic extraction of information. You can store and process structured logs with less effort and cost.
-New message format is backward compatible and enabled by default.
+構造化ログは、ログメッセージに単一の構造を導入し、プログラムで情報の抽出ができるようにするものです。構造化ログは、僅かな労力とコストで保存・処理できます。新しいメッセージ形式は後方互換性があり、デフォルトで有効化されます。
 
-Format of structured logs:
+構造化ログの形式:
 
 ```ini
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
 ```
 
-Example:
+例:
 
 ```ini
 I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod="kube-system/kubedns" status="ready"
 ```
 
 
-### JSON log format
+### JSONログ形式
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
 {{<warning >}}
-JSON output does not support many standard klog flags. For list of unsupported klog flags, see the [Command line tool reference](/docs/reference/command-line-tools-reference/).
+JSONの出力は多数の標準のklogフラグをサポートしていません。非対応のklogフラグの一覧については、[コマンドラインツールリファレンス](/docs/reference/command-line-tools-reference/)を参照してください。
 
-Not all logs are guaranteed to be written in JSON format (for example, during process start). If you intend to parse logs, make sure you can handle log lines that are not JSON as well.
+すべてのログがJSON形式で書き込むことに対応しているわけではありません(たとえば、プロセスの開始時など)。ログのパースを行おうとしている場合、JSONではないログの行に対処できるようにしてください。
 
-Field names and JSON serialization are subject to change.
+フィールド名とJSONのシリアライズは変更される可能性があります。
 {{< /warning >}}
 
-The `--logging-format=json` flag changes the format of logs from klog native format to JSON format.
-Example of JSON log format (pretty printed):
+`--logging-format=json`フラグは、ログの形式をネイティブ形式klogからJSON形式に変更します。以下は、JSONログ形式の例(pretty printしたもの)です。
+
 ```json
 {
    "ts": 1580306777.04728,
@@ -80,63 +74,53 @@ Example of JSON log format (pretty printed):
 }
 ```
 
-Keys with special meaning:
-* `ts` - timestamp as Unix time (required, float)
-* `v` - verbosity (required, int, default 0)
-* `err` - error string (optional, string)
-* `msg` - message (required, string)
+特別な意味を持つキー:
+* `ts` - Unix時間のタイムスタンプ(必須、float)
+* `v` - verbosity (必須、int、デフォルトは0)
+* `err` - エラー文字列 (オプション、string)
+* `msg` - メッセージ (必須、string)
 
-
-List of components currently supporting JSON format:
+現在サポートされているJSONフォーマットの一覧:
 * {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
 * {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 * {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
 * {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
-### Log sanitization
+### ログのサニタイズ
 
 {{< feature-state for_k8s_version="v1.20" state="alpha" >}}
 
 {{<warning >}}
-Log sanitization might incur significant computation overhead and therefore should not be enabled in production.
+ログのサニタイズ大きな計算のオーバーヘッドを引き起こす可能性があるため、本番環境では有効にするべきではありません。
 {{< /warning >}}
 
-The `--experimental-logging-sanitization` flag enables the klog sanitization filter.
-If enabled all log arguments are inspected for fields tagged as sensitive data (e.g. passwords, keys, tokens) and logging of these fields will be prevented.
+`--experimental-logging-sanitization`フラグはklogのサニタイズフィルタを有効にします。有効にすると、すべてのログの引数が機密データ(パスワード、キー、トークンなど)としてタグ付けされたフィールドについて検査され、これらのフィールドのログの記録は防止されます。
 
-List of components currently supporting log sanitization:
+現在ログのサニタイズをサポートしているコンポーネント一覧:
 * kube-controller-manager
 * kube-apiserver
 * kube-scheduler
 * kubelet
 
 {{< note >}}
-The Log sanitization filter does not prevent user workload logs from leaking sensitive data.
+ログのサニタイズフィルターは、ユーザーのワークロードのログが機密データを漏洩するのを防げるわけではありません。
 {{< /note >}}
 
-### Log verbosity level
+### ログのverbosityレベル
 
-The `-v` flag controls log verbosity. Increasing the value increases the number of logged events. Decreasing the value decreases the number of logged events.
-Increasing verbosity settings logs increasingly less severe events. A verbosity setting of 0 logs only critical events.
+`-v`フラグはログのverbosityを制御します。値を増やすとログに記録されるイベントの数が増えます。値を減らすとログに記録されるイベントの数が減ります。verbosityの設定を増やすと、ますます多くの深刻度の低いイベントをログに記録するようになります。verbosityの設定を0にすると、クリティカルなイベントだけをログに記録します。
 
-### Log location
+### ログの場所
 
-There are two types of system components: those that run in a container and those
-that do not run in a container. For example:
+システムコンポーネントには2種類あります。コンテナ内で実行されるコンポーネントと、コンテナ内で実行されないコンポーネントです。たとえば、次のようなコンポーネントがあります。
 
-* The Kubernetes scheduler and kube-proxy run in a container.
-* The kubelet and container runtime, for example Docker, do not run in containers.
+* Kubernetesのスケジューラーやkube-proxyはコンテナ内で実行されます。
+* kubeletやDockerのようなコンテナランタイムはコンテナ内で実行されません。
 
-On machines with systemd, the kubelet and container runtime write to journald.
-Otherwise, they write to `.log` files in the `/var/log` directory.
-System components inside containers always write to `.log` files in the `/var/log` directory,
-bypassing the default logging mechanism.
-Similar to the container logs, you should rotate system component logs in the `/var/log` directory.
-In Kubernetes clusters created by the `kube-up.sh` script, log rotation is configured by the `logrotate` tool.
-The `logrotate` tool rotates logs daily, or once the log size is greater than 100MB.
+systemdを使用しているマシンでは、kubeletとコンテナランタイムはjournaldに書き込みを行います。それ以外のマシンでは、`/var/log`ディレクトリ内の`.log`ファイルに書き込みます。コンテナ内部のシステムコンポーネントは、デフォルトのログ機構をバイパスするため、常に`/var/log`ディレクトリ内の`.log`ファイルに書き込みます。コンテナのログと同様に、`/var/log`ディレクトリ内のシステムコンポーネントのログはローテートする必要があります。`kube-up.sh`スクリプトによって作成されたKubernetesクラスターでは、ログローテーションは`logrotate`ツールで設定されます。`logrotate`ツールはログを1日ごとまたはログのサイズが100MBを超えたときにローテートします。
 
 ## {{% heading "whatsnext" %}}
 
-* Read about the [Kubernetes Logging Architecture](/docs/concepts/cluster-administration/logging/)
-* Read about [Structured Logging](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
-* Read about the [Conventions for logging severity](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)
+* [Kubernetesのログのアーキテクチャ](/docs/concepts/cluster-administration/logging/)について読む。
+* [構造化ログ](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)について読む。
+* [ログの深刻度の慣習](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)について読む。
