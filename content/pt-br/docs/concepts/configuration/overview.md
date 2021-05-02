@@ -72,16 +72,22 @@ combinação de <`hostIP`, `hostPort`, `protocol`> deve ser única. Se você nã
 - Defina e use [labels](/docs/concepts/overview/working-with-objects/labels/) que identifiquem _atributos semânticos_ da sua aplicação ou Deployment, como `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. Você pode usar essas labels para selecionar os Pods apropriados para outros recursos; por exemplo, um Service que seleciona todos os Pods `tier: frontend`, ou todos
 os componentes de `app: myapp`. Veja o app [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) para exemplos dessa abordagem.
 
-A Service can be made to span multiple Deployments by omitting release-specific labels from its selector. When you need to update a running service without downtime, use a [Deployment](/docs/concepts/workloads/controllers/deployment/).
+Um Service pode ser feito para abranger vários Deployments, omitindo labels específicas de lançamento de seu seletor. Quando você
+precisar atualizar um serviço em execução sem _downtime_, use um [Deployment](/docs/concepts/workloads/controllers/deployment/).
 
-A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate.
+Um estado desejado de um objeto é descrito por um Deployment, e se as alterações nesse _spec_ forem _aplicadas_ o controlador 
+do Deployment altera o estado real para o estado desejado em uma taxa controlada.
 
-- Use the [Kubernetes common labels](/docs/concepts/overview/working-with-objects/common-labels/) for common use cases. These standardized labels enrich the metadata in a way that allows tools, including `kubectl` and [dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard), to work in an interoperable way.
+- Use as [labels comuns do Kubernetes](/docs/concepts/overview/working-with-objects/common-labels/) para casos de uso comuns.
+Essas labels padronizadas enriquecem os metadados de uma forma que permite que ferramentas, incluindo `kubectl` e a [dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard), funcionem de uma forma interoperável.
 
-- You can manipulate labels for debugging. Because Kubernetes controllers (such as ReplicaSet) and Services match to Pods using selector labels, removing the relevant labels from a Pod will stop it from being considered by a controller or from being served traffic by a Service. If you remove the labels of an existing Pod, its controller will create a new Pod to take its place. This is a useful way to debug a previously "live" Pod in a "quarantine" environment. To interactively remove or add labels, use [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
+- Você pode manipular labels para depuração. Como os controladores do Kubernetes (como ReplicaSet) e Services se relacionam com os Pods usando seletor de labels, remover as labels relevantes de um Pod impedirá que ele seja considerado por um controlador ou que
+seja atendido pelo tráfego de um Service. Se você remover as labels de um Pod existente, seu controlador criará um novo Pod para
+substituí-lo. Essa é uma maneira útil de depurar um Pod anteriormente "ativo" em um ambiente de "quarentena". Para remover ou
+alterar labels interativamente, use [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
+
 
 ## Imagens de Contêiner
-
 
 A [imagePullPolicy](/docs/concepts/containers/images/#updating-images)  e tag da imagem afetam quando o [kubelet](/docs/reference/command-line-tools-reference/kubelet/) tenta puxar a imagem especificada.
 
