@@ -194,7 +194,7 @@ A 또는 AAAA 레코드만 생성할 수 있다. (`default-subdomain.my-namespac
 또한 서비스에서 `publishNotReadyAddresses=True` 를 설정하지 않았다면, 파드가 준비 상태가 되어야 레코드를 가질 수 있다.
 {{< /note >}}
 
-### 파드의 setHostnameAsFQDN 필드 {# pod-sethostnameasfqdn-field}
+### 파드의 setHostnameAsFQDN 필드 {#pod-sethostnameasfqdn-field}
 
 {{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
