@@ -88,7 +88,7 @@ EOF
 
 여기서 `192.0.2.24`는 서비스의 클러스터 IP, 
 `my-svc.my-namespace.svc.cluster.local`은 서비스의 DNS 이름, 
-`10.0.34.2`는 파드의 IP,`my-pod.my- namespace.pod.cluster.local`은 
+`10.0.34.2`는 파드의 IP,`my-pod.my-namespace.pod.cluster.local`은 
 파드의 DNS 이름이다. 다음 출력이 표시되어야 한다.
 
 ```
