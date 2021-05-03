@@ -206,9 +206,9 @@ tolerations:
    `Ready` 가 "`False`"로 됨에 해당한다.
  * `node.kubernetes.io/unreachable`: 노드가 노드 컨트롤러에서 도달할 수 없다. 이는
    NodeCondition `Ready` 가 "`Unknown`"로 됨에 해당한다.
- * `node.kubernetes.io/out-of-disk`: 노드에 디스크가 부족하다.
  * `node.kubernetes.io/memory-pressure`: 노드에 메모리 할당 압박이 있다.
  * `node.kubernetes.io/disk-pressure`: 노드에 디스크 할당 압박이 있다.
+ * `node.kubernetes.io/pid-pressure`: 노드에 PID 할당 압박이 있다.
  * `node.kubernetes.io/network-unavailable`: 노드의 네트워크를 사용할 수 없다.
  * `node.kubernetes.io/unschedulable`: 노드를 스케줄할 수 없다.
  * `node.cloudprovider.kubernetes.io/uninitialized`: "외부" 클라우드 공급자로
@@ -271,7 +271,7 @@ tolerations:
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
-  * `node.kubernetes.io/out-of-disk` (*중요한 파드에만 해당*)
+  * `node.kubernetes.io/pid-pressure` (1.14 이상)
   * `node.kubernetes.io/unschedulable` (1.10 이상)
   * `node.kubernetes.io/network-unavailable` (*호스트 네트워크만 해당*)
 

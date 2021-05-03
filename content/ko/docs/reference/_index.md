@@ -25,7 +25,7 @@ no_list: true
 * [쿠버네티스 {{< param "version" >}}용 원페이지(One-page) API 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [쿠버네티스 API 사용](/ko/docs/reference/using-api/) - 쿠버네티스 API에 대한 개요
 * [API 접근 제어](/ko/docs/reference/access-authn-authz/) - 쿠버네티스가 API 접근을 제어하는 방법에 대한 세부사항
-* [잘 알려진 레이블, 어노테이션과 테인트](/docs/reference/kubernetes-api/labels-annotations-taints/)
+* [잘 알려진 레이블, 어노테이션과 테인트](/docs/reference/labels-annotations-taints/)
 
 ## 공식적으로 지원되는 클라이언트 라이브러리
 

@@ -5,14 +5,15 @@ weight: 50
 ---
 
 <!-- overview -->
+
 이것은 서비스 어카운트에 대한 클러스터 관리자 안내서다.
 독자는 [쿠버네티스 서비스 어카운트 설정](/docs/tasks/configure-pod-container/configure-service-account/)에 익숙하다고 가정한다.
 
 인증 및 사용자 어카운트에 대한 지원은 아직 준비 중이다.
-가끔은 서비스 어카운트를 더 잘 설명하기 위해 준비 중인 기능을 참조한다.
-
+서비스 어카운트를 더 잘 설명하기 위해, 때때로 미완성 기능이 언급될 수 있다.
 
 <!-- body -->
+
 ## 사용자 어카운트와 서비스 어카운트 비교
 
 쿠버네티스는 여러 가지 이유로 사용자 어카운트와 서비스 어카운트의 개념을
@@ -48,37 +49,51 @@ weight: 50
 파드가 생성되거나 수정될 때 파드를 수정하기 위해 동기적으로 동작한다.
 이 플러그인이 활성 상태(대부분의 배포에서 기본값)인 경우 파드 생성 또는 수정 시 다음 작업을 수행한다.
 
- 1. 파드에 `ServiceAccount` 가 없다면, `ServiceAccount` 를 `default` 로 설정한다.
- 1. 파드에 참조되는 `ServiceAccount` 가 있도록 하고, 그렇지 않으면 이를 거부한다.
- 1. 파드에 `ImagePullSecrets` 이 없는 경우, `ServiceAccount` 의 `ImagePullSecrets` 이 파드에 추가된다.
- 1. 파드에 API 접근을 위한 토큰이 포함된 `volume` 을 추가한다.
- 1. `/var/run/secrets/kubernetes.io/serviceaccount` 에 마운트된 파드의 각 컨테이너에 `volumeSource` 를 추가한다.
+1. 파드에 `ServiceAccount` 가 없다면, `ServiceAccount` 를 `default` 로 설정한다.
+1. 이전 단계는 파드에 참조되는 `ServiceAccount` 가 있도록 하고, 그렇지 않으면 이를 거부한다.
+1. 서비스어카운트 `automountServiceAccountToken` 와 파드의 `automountServiceAccountToken` 중 어느 것도 `false` 로 설정되어 있지 않다면, API 접근을 위한 토큰이 포함된 `volume` 을 파드에 추가한다.
+1. 이전 단계에서 서비스어카운트 토큰을 위한 볼륨이 만들어졌다면, `/var/run/secrets/kubernetes.io/serviceaccount` 에 마운트된 파드의 각 컨테이너에 `volumeSource` 를 추가한다.
+1. 파드에 `ImagePullSecrets` 이 없는 경우, `ServiceAccount` 의 `ImagePullSecrets` 이 파드에 추가된다.
 
 #### 바인딩된 서비스 어카운트 토큰 볼륨
+
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-`BoundServiceAccountTokenVolume` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되면, 서비스 어카운트 어드미션 컨트롤러가
-시크릿 볼륨 대신 프로젝티드 서비스 어카운트 토큰 볼륨을 추가한다. 서비스 어카운트 토큰은 기본적으로 1시간 후에 만료되거나 파드가 삭제된다. [프로젝티드 볼륨](/docs/tasks/configure-pod-container/configure-projected-volume-storage/)에 대한 자세한 내용을 참고한다.
+`BoundServiceAccountTokenVolume` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되면, 
+토큰 컨트롤러에 의해 생성된 무기한 서비스 어카운트 토큰을 위해, 서비스 어카운트 어드미션 컨트롤러가 시크릿 기반 볼륨 대신 다음과 같은 프로젝티드 볼륨을 추가한다.
 
-이 기능은 모든 네임스페이스에 "kube-root-ca.crt" 컨피그맵을 게시하는 활성화된 `RootCAConfigMap` 기능 게이트에 따라 다르다. 이 컨피그맵에는 kube-apiserver에 대한 연결을 확인하는 데 사용되는 CA 번들이 포함되어 있다.
+```yaml
+- name: kube-api-access-<random-suffix>
+  projected:
+    defaultMode: 420 # 0644
+    sources:
+      - serviceAccountToken:
+          expirationSeconds: 3600
+          path: token
+      - configMap:
+          items:
+            - key: ca.crt
+              path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+```
 
-1. 파드에 `serviceAccountName`가 없다면, `serviceAccountName`를
-   `default`로 설정한다.
-1. 파드에 참조되는 `serviceAccountName`가 있도록 하고, 그렇지 않으면
-   이를 거부한다.
-1. 파드에 `imagePullSecrets`이 없는 경우, 서비스어카운트의
-   `imagePullSecrets`이 파드에 추가된다.
-1. 서비스어카운트 `automountServiceAccountToken` 또는 파드의
-   `automountServiceAccountToken` 이 `false` 로 설정되지 않은 경우
-   파드에 API 접근 토큰이 포함된 `volume`을 추가한다.
-1. 이전 단계에서 서비스어카운트 토큰에 대한 볼륨을 생성한 경우,
-   `/var/run/secrets/kubernetes.io/serviceaccount`에 마운트된
-   파드의 각 컨테이너에 `volumeSource`를 추가한다.
+프로젝티드 볼륨은 세 가지로 구성된다.
 
-`BoundServiceAccountTokenVolume` 기능 게이트가 활성화되면 서비스 어카운트 볼륨을 프로젝티드 볼륨으로 마이그레이션할 수 있다.
-서비스 어카운트 토큰은 1시간 후에 만료되거나 파드가 삭제된다.
-[프로젝티드 볼륨](/docs/tasks/configure-pod-container/configure-projected-volume-storage/)에 대한
-자세한 내용을 참조한다.
+1. kube-apiserver로부터 TokenRequest API를 통해 얻은 서비스어카운트토큰(ServiceAccountToken). 서비스어카운트토큰은 기본적으로 1시간 뒤에, 또는 파드가 삭제될 때 만료된다. 서비스어카운트토큰은 파드에 연결되며 kube-apiserver를 위해 존재한다.
+1. kube-apiserver에 대한 연결을 확인하는 데 사용되는 CA 번들을 포함하는 컨피그맵(ConfigMap). 이 기능은 모든 네임스페이스에 "kube-root-ca.crt" 컨피그맵을 게시하는 기능 게이트인 `RootCAConfigMap`이 활성화되어 있어야 동작한다. `RootCAConfigMap`은 1.20에서 기본적으로 활성화되어 있으며, 1.21 이상에서는 항상 활성화된 상태이다.
+1. 파드의 네임스페이스를 참조하는 DownwardAPI.
+
+상세 사항은 [프로젝티드 볼륨](/docs/tasks/configure-pod-container/configure-projected-volume-storage/)을 참고한다.
+
+`BoundServiceAccountTokenVolume` 기능 게이트가 활성화되어 있지 않은 경우, 
+위의 프로젝티드 볼륨을 파드 스펙에 추가하여 시크릿 기반 서비스 어카운트 볼륨을 프로젝티드 볼륨으로 수동으로 옮길 수 있다.
+그러나, `RootCAConfigMap`은 활성화되어 있어야 한다.
 
 ### 토큰 컨트롤러
 
