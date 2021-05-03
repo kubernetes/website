@@ -135,7 +135,7 @@ PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)이 발생
 
 Eviction API를 사용하여 파드를 축출하면,
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)의
-`terminationGracePeriodSeconds` 설정을 준수하여 정상적으로 [종료됨](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-종료) 상태가 된다.)
+`terminationGracePeriodSeconds` 설정을 준수하여 정상적으로 [종료됨](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-종료) 상태가 된다.
 
 ## PodDisruptionBudget 예시 {#pdb-example}
 
