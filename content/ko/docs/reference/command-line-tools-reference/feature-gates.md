@@ -53,7 +53,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `APIPriorityAndFairness` | `false` | 알파 | 1.17 | 1.19 |
 | `APIPriorityAndFairness` | `true` | 베타 | 1.20 | |
 | `APIResponseCompression` | `false` | 알파 | 1.7 | 1.15 |
-| `APIResponseCompression` | `false` | 베타 | 1.16 | |
+| `APIResponseCompression` | `true` | 베타 | 1.16 | |
 | `APIServerIdentity` | `false` | 알파 | 1.20 | |
 | `AllowInsecureBackendProxy` | `true` | 베타 | 1.17 | |
 | `AnyVolumeDataSource` | `false` | 알파 | 1.18 | |
@@ -90,6 +90,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `CSIStorageCapacity` | `true` | 베타 | 1.21 | |
 | `CSIVolumeFSGroupPolicy` | `false` | 알파 | 1.19 | 1.19 |
 | `CSIVolumeFSGroupPolicy` | `true` | 베타 | 1.20 | |
+| `CSIVolumeHealth` | `false` | 알파 | 1.21 | |
 | `ConfigurableFSGroupPolicy` | `false` | 알파 | 1.18 | 1.19 |
 | `ConfigurableFSGroupPolicy` | `true` | 베타 | 1.20 | |
 | `CronJobControllerV2` | `false` | 알파 | 1.20 | 1.20 |
@@ -125,14 +126,13 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `HPAScaleToZero` | `false` | 알파 | 1.16 | |
 | `HugePageStorageMediumSize` | `false` | 알파 | 1.18 | 1.18 |
 | `HugePageStorageMediumSize` | `true` | 베타 | 1.19 | |
+| `IndexedJob` | `false` | 알파 | 1.21 | |
 | `IngressClassNamespacedParams` | `false` | 알파 | 1.21 | |
 | `IPv6DualStack` | `false` | 알파 | 1.15 | 1.20 |
 | `IPv6DualStack` | `true` | 베타 | 1.21 | |
 | `KubeletCredentialProviders` | `false` | 알파 | 1.20 | |
-| `KubeletPodResources` | `true` | 알파 | 1.13 | 1.14 |
-| `KubeletPodResources` | `true` | 베타 | 1.15 | |
 | `LegacyNodeRoleBehavior` | `false` | 알파 | 1.16 | 1.18 |
-| `LegacyNodeRoleBehavior` | `true` | True | 1.19 |  |
+| `LegacyNodeRoleBehavior` | `true` | 베타 | 1.19 |  |
 | `LocalStorageCapacityIsolation` | `false` | 알파 | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | 베타 | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | 알파 | 1.15 | |
@@ -158,8 +158,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `RotateKubeletServerCertificate` | `false` | 알파 | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | 베타 | 1.12 | |
 | `RunAsGroup` | `true` | 베타 | 1.14 | |
-| `SCTPSupport` | `false` | 알파 | 1.12 | 1.18 |
-| `SCTPSupport` | `true` | 베타 | 1.19 | |
 | `ServerSideApply` | `false` | 알파 | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | 베타 | 1.16 | |
 | `ServiceInternalTrafficPolicy` | `false` | 알파 | 1.21 | |
@@ -181,12 +179,13 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `TopologyManager` | `true` | 베타 | 1.18 | |
 | `ValidateProxyRedirects` | `false` | 알파 | 1.12 | 1.13 |
 | `ValidateProxyRedirects` | `true` | 베타 | 1.14 | |
+| `VolumeCapacityPriority` | `false` | 알파 | 1.21 | - |
 | `WarningHeaders` | `true` | 베타 | 1.19 | |
 | `WinDSR` | `false` | 알파 | 1.14 | |
 | `WinOverlay` | `false` | 알파 | 1.14 | 1.19 |
 | `WinOverlay` | `true` | 베타 | 1.20 | |
 | `WindowsEndpointSliceProxying` | `false` | 알파 | 1.19 | 1.20 |
-| `WindowsEndpointSliceProxying` | `true` | beta | 1.21 | |
+| `WindowsEndpointSliceProxying` | `true` | 베타 | 1.21 | |
 {{< /table >}}
 
 ### GA 또는 사용 중단된 기능을 위한 기능 게이트
@@ -225,7 +224,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `CSIPersistentVolume` | `false` | 알파 | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | 베타 | 1.10 | 1.12 |
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
-| `CSIVolumeHealth` | `false` | 알파 | 1.21 | - |
 | `CustomPodDNS` | `false` | 알파 | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | 베타| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
@@ -258,9 +256,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `EnableEquivalenceClassCache` | - | 사용중단 | 1.15 | - |
 | `EndpointSlice` | `false` | 알파 | 1.16 | 1.16 |
 | `EndpointSlice` | `false` | 베타 | 1.17 | 1.17 |
-| `EndpointSlice` | `true` | 베타 | 1.18 | 1.21 |
+| `EndpointSlice` | `true` | 베타 | 1.18 | 1.20 |
 | `EndpointSlice` | `true` | GA | 1.21 | -  |
-| `EndpointSliceNodeName` | `false` | 알파 | 1.20 | 1.21 |
+| `EndpointSliceNodeName` | `false` | 알파 | 1.20 | 1.20 |
 | `EndpointSliceNodeName` | `true` | GA | 1.21 | - |
 | `ExperimentalCriticalPodAnnotation` | `false` | 알파 | 1.5 | 1.12 |
 | `ExperimentalCriticalPodAnnotation` | `false` | 사용중단 | 1.13 | - |
@@ -278,7 +276,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ImmutableEphemeralVolumes` | `false` | 알파 | 1.18 | 1.18 |
 | `ImmutableEphemeralVolumes` | `true` | 베타 | 1.19 | 1.20 |
 | `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | |
-| `IndexedJob` | `false` | 알파 | 1.21 | |
 | `Initializers` | `false` | 알파 | 1.7 | 1.13 |
 | `Initializers` | - | 사용중단 | 1.14 | - |
 | `KubeletConfigFile` | `false` | 알파 | 1.8 | 1.9 |
@@ -315,6 +312,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `PodShareProcessNamespace` | `true` | 베타 | 1.12 | 1.16 |
 | `PodShareProcessNamespace` | `true` | GA | 1.17 | - |
 | `RequestManagement` | `false` | 알파 | 1.15 | 1.16 |
+| `RequestManagement` | - | 사용중단 | 1.17 | - |
 | `ResourceLimitsPriorityFunction` | `false` | 알파 | 1.9 | 1.18 |
 | `ResourceLimitsPriorityFunction` | - | 사용중단 | 1.19 | - |
 | `ResourceQuotaScopeSelectors` | `false` | 알파 | 1.11 | 1.11 |
@@ -338,7 +336,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ServiceAccountIssuerDiscovery` | `true` | 베타 | 1.20 | 1.20 |
 | `ServiceAccountIssuerDiscovery` | `true` | GA | 1.21 | - |
 | `ServiceAppProtocol` | `false` | 알파 | 1.18 | 1.18 |
-| `ServiceAppProtocol` | `true` | 베타 | 1.19 | |
+| `ServiceAppProtocol` | `true` | 베타 | 1.19 | 1.19 |
 | `ServiceAppProtocol` | `true` | GA | 1.20 | - |
 | `ServiceLoadBalancerFinalizer` | `false` | 알파 | 1.15 | 1.15 |
 | `ServiceLoadBalancerFinalizer` | `true` | 베타 | 1.16 | 1.16 |
@@ -350,7 +348,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
 | `StreamingProxyRedirects` | `false` | 베타 | 1.5 | 1.5 |
 | `StreamingProxyRedirects` | `true` | 베타 | 1.6 | 1.18 |
-| `StreamingProxyRedirects` | - | 사용중단| 1.19 | - |
+| `StreamingProxyRedirects` | - | GA | 1.19 | - |
 | `SupportIPVSProxyMode` | `false` | 알파 | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | 베타 | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | 베타 | 1.10 | 1.10 |
@@ -376,15 +374,15 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `TokenRequestProjection` | `true` | 베타 | 1.12 | 1.19 |
 | `TokenRequestProjection` | `true` | GA | 1.20 | - |
 | `VolumeCapacityPriority` | `false` | 알파 | 1.21 | - |
-| `VolumeSnapshotDataSource` | `false` | 알파 | 1.12 | 1.16 |
-| `VolumeSnapshotDataSource` | `true` | 베타 | 1.17 | 1.19 |
-| `VolumeSnapshotDataSource` | `true` | GA | 1.20 | - |
 | `VolumePVCDataSource` | `false` | 알파 | 1.15 | 1.15 |
 | `VolumePVCDataSource` | `true` | 베타 | 1.16 | 1.17 |
 | `VolumePVCDataSource` | `true` | GA | 1.18 | - |
 | `VolumeScheduling` | `false` | 알파 | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | 베타 | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | - |
+| `VolumeSnapshotDataSource` | `false` | 알파 | 1.12 | 1.16 |
+| `VolumeSnapshotDataSource` | `true` | 베타 | 1.17 | 1.19 |
+| `VolumeSnapshotDataSource` | `true` | GA | 1.20 | - |
 | `VolumeSubpath` | `true` | GA | 1.10 | - |
 | `VolumeSubpathEnvExpansion` | `false` | 알파 | 1.14 | 1.14 |
 | `VolumeSubpathEnvExpansion` | `true` | 베타 | 1.15 | 1.16 |
@@ -451,7 +449,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `APIServerIdentity`: 클러스터의 각 API 서버에 ID를 할당한다.
 - `Accelerators`: 도커 사용 시 Nvidia GPU 지원 활성화한다.
 - `AdvancedAuditing`: [고급 감사](/docs/tasks/debug-application-cluster/audit/#advanced-audit) 기능을 활성화한다.
-- `AffinityInAnnotations`(*사용 중단됨*): [파드 어피니티 또는 안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
+- `AffinityInAnnotations`: [파드 어피니티 또는 안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
   설정을 활성화한다.
 - `AllowExtTrafficLocalEndpoints`: 서비스가 외부 요청을 노드의 로컬 엔드포인트로 라우팅할 수 있도록 한다.
 - `AllowInsecureBackendProxy`: 사용자가 파드 로그 요청에서 kubelet의
@@ -477,8 +475,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   확인한다.
 - `CPUManager`: 컨테이너 수준의 CPU 어피니티 지원을 활성화한다.
   [CPU 관리 정책](/docs/tasks/administer-cluster/cpu-management-policies/)을 참고한다.
-- `CRIContainerLogRotation`: cri 컨테이너 런타임에 컨테이너 로그 로테이션을 활성화한다. 로그 파일 사이즈 기본값은 10MB이며, 
-컨테이너 당 최대 로그 파일 수 기본값은 5이다. 이 값은 kubelet 환경설정으로 변경할 수 있다. 
+- `CRIContainerLogRotation`: cri 컨테이너 런타임에 컨테이너 로그 로테이션을 활성화한다. 로그 파일 사이즈 기본값은 10MB이며,
+컨테이너 당 최대 로그 파일 수 기본값은 5이다. 이 값은 kubelet 환경설정으로 변경할 수 있다.
 더 자세한 내용은 [노드 레벨에서의 로깅](/ko/docs/concepts/cluster-administration/logging/#노드-레벨에서의-로깅)을 참고한다.
 - `CSIBlockVolume`: 외부 CSI 볼륨 드라이버가 블록 스토리지를 지원할 수 있게 한다.
   자세한 내용은 [`csi` 원시 블록 볼륨 지원](/ko/docs/concepts/storage/volumes/#csi-원시-raw-블록-볼륨-지원)
@@ -592,18 +590,18 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   hugepages 사용을 활성화한다.
 - `DryRun`: 서버 측의 [dry run](/docs/reference/using-api/api-concepts/#dry-run) 요청을
   요청을 활성화하여 커밋하지 않고 유효성 검사, 병합 및 변화를 테스트할 수 있다.
-- `DynamicAuditing`(*사용 중단됨*): v1.19 이전의 버전에서 동적 감사를 활성화하는 데 사용된다.
+- `DynamicAuditing`: v1.19 이전의 버전에서 동적 감사를 활성화하는 데 사용된다.
 - `DynamicKubeletConfig`: kubelet의 동적 구성을 활성화한다.
   [kubelet 재구성](/docs/tasks/administer-cluster/reconfigure-kubelet/)을 참고한다.
 - `DynamicProvisioningScheduling`: 볼륨 토폴로지를 인식하고 PV 프로비저닝을 처리하도록
   기본 스케줄러를 확장한다.
   이 기능은 v1.12의 `VolumeScheduling` 기능으로 대체되었다.
-- `DynamicVolumeProvisioning`(*사용 중단됨*): 파드에 퍼시스턴트 볼륨의
+- `DynamicVolumeProvisioning`: 파드에 퍼시스턴트 볼륨의
   [동적 프로비저닝](/ko/docs/concepts/storage/dynamic-provisioning/)을 활성화한다.
 - `EfficientWatchResumption`: 스토리지에서 생성된 북마크(진행
   알림) 이벤트를 사용자에게 전달할 수 있다. 이것은 감시 작업에만
   적용된다.
-- `EnableAggregatedDiscoveryTimeout` (*사용 중단됨*): 수집된 검색 호출에서 5초
+- `EnableAggregatedDiscoveryTimeout`: 수집된 검색 호출에서 5초
   시간 초과를 활성화한다.
 - `EnableEquivalenceClassCache`: 스케줄러가 파드를 스케줄링할 때 노드의
   동등성을 캐시할 수 있게 한다.
@@ -661,11 +659,13 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   기능을 활성화한다.
 - `ImmutableEphemeralVolumes`: 안정성과 성능 향상을 위해 개별 시크릿(Secret)과 컨피그맵(ConfigMap)을
   변경할 수 없는(immutable) 것으로 표시할 수 있다.
-- `IndexedJob`: [잡](/ko/docs/concepts/workloads/controllers/job/) 컨트롤러가 
+- `IndexedJob`: [잡](/ko/docs/concepts/workloads/controllers/job/) 컨트롤러가
   완료 횟수를 기반으로 파드 완료를 관리할 수 있도록 한다.
-- `IngressClassNamespacedParams`: `IngressClass` 리소스가 네임스페이스 범위로 
-  한정된 파라미터를 이용할 수 있도록 한다. 이 기능은 `IngressClass.spec.parameters` 에 
+- `IngressClassNamespacedParams`: `IngressClass` 리소스가 네임스페이스 범위로
+  한정된 파라미터를 이용할 수 있도록 한다. 이 기능은 `IngressClass.spec.parameters` 에
   `Scope` 와 `Namespace` 2개의 필드를 추가한다.
+- `Initializers`: Initializers 어드미션 플러그인을 사용하여 오브젝트 생성의
+  비동기 조정을 허용한다.
 - `IPv6DualStack`: IPv6을 위한 [이중 스택](/ko/docs/concepts/services-networking/dual-stack/)
   기능을 활성화한다.
 - `KubeletConfigFile`: 구성 파일을 사용하여 지정된 파일에서
@@ -679,12 +679,12 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   [장치 모니터링 지원](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/606-compute-device-assignment/README.md)을
   참고한다.
 - `KubeletPodResourcesGetAllocatable`: kubelet의 파드 리소스 `GetAllocatableResources` 기능을 활성화한다.
-  이 API는 클라이언트가 노드의 여유 컴퓨팅 자원을 잘 파악할 수 있도록, 할당 가능 자원에 대한 정보를 
+  이 API는 클라이언트가 노드의 여유 컴퓨팅 자원을 잘 파악할 수 있도록, 할당 가능 자원에 대한 정보를
   [자원 할당 보고](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#장치-플러그인-리소스-모니터링)한다.
 - `LegacyNodeRoleBehavior`: 비활성화되면, 서비스 로드 밸런서 및 노드 중단의 레거시 동작은
   `NodeDisruptionExclusion` 과 `ServiceNodeExclusion` 에 의해 제공된 기능별 레이블을 대신하여
   `node-role.kubernetes.io/master` 레이블을 무시한다.
-- `LocalStorageCapacityIsolation`: 
+- `LocalStorageCapacityIsolation`:
   [로컬 임시 스토리지](/ko/docs/concepts/configuration/manage-resources-containers/)와
   [emptyDir 볼륨](/ko/docs/concepts/storage/volumes/#emptydir)의
   `sizeLimit` 속성을 사용할 수 있게 한다.
@@ -695,15 +695,14 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   프로젝트 쿼터를 사용하여 [emptyDir 볼륨](/ko/docs/concepts/storage/volumes/#emptydir)
   스토리지 사용을 모니터링하여 성능과 정확성을
   향상시킨다.
-- `LogarithmicScaleDown`: 컨트롤러 스케일 다운 시에 파드 타임스탬프를 로그 스케일로 버켓화하여 
+- `LogarithmicScaleDown`: 컨트롤러 스케일 다운 시에 파드 타임스탬프를 로그 스케일로 버켓화하여
   축출할 파드를 반-랜덤하게 선택하는 기법을 활성화한다.
 - `MixedProtocolLBService`: 동일한 로드밸런서 유형 서비스 인스턴스에서 다른 프로토콜
   사용을 활성화한다.
-- `MountContainers` (*사용 중단됨*): 호스트의 유틸리티 컨테이너를 볼륨 마운터로
-  사용할 수 있다.
+- `MountContainers`: 호스트의 유틸리티 컨테이너를 볼륨 마운터로 사용할 수 있다.
 - `MountPropagation`: 한 컨테이너에서 다른 컨테이너 또는 파드로 마운트된 볼륨을 공유할 수 있다.
   자세한 내용은 [마운트 전파(propagation)](/ko/docs/concepts/storage/volumes/#마운트-전파-propagation)을 참고한다.
-- `NamespaceDefaultLabelName`: API 서버로 하여금 모든 네임스페이스에 대해 변경할 수 없는 (immutable) 
+- `NamespaceDefaultLabelName`: API 서버로 하여금 모든 네임스페이스에 대해 변경할 수 없는 (immutable)
   {{< glossary_tooltip text="레이블" term_id="label" >}} `kubernetes.io/metadata.name`을 설정하도록 한다. (네임스페이스의 이름도 변경 불가)
 - `NetworkPolicyEndPort`: 네트워크폴리시(NetworkPolicy)	오브젝트에서 단일 포트를 지정하는 것 대신에 포트 범위를 지정할 수 있도록, `endPort` 필드의 사용을 활성화한다.
 - `NodeDisruptionExclusion`: 영역(zone) 장애 시 노드가 제외되지 않도록 노드 레이블 `node.kubernetes.io/exclude-disruption`
@@ -712,12 +711,12 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `NonPreemptingPriority`: 프라이어리티클래스(PriorityClass)와 파드에 `preemptionPolicy` 필드를 활성화한다.
 - `PVCProtection`: 파드에서 사용 중일 때 퍼시스턴트볼륨클레임(PVC)이
   삭제되지 않도록 한다.
-- `PodDeletionCost`: 레플리카셋 다운스케일 시 삭제될 파드의 우선순위를 사용자가 조절할 수 있도록, 
+- `PodDeletionCost`: 레플리카셋 다운스케일 시 삭제될 파드의 우선순위를 사용자가 조절할 수 있도록,
    [파드 삭제 비용](/ko/docs/concepts/workloads/controllers/replicaset/#파드-삭제-비용) 기능을 활성화한다.
 - `PersistentLocalVolumes`: 파드에서 `local` 볼륨 유형의 사용을 활성화한다.
   `local` 볼륨을 요청하는 경우 파드 어피니티를 지정해야 한다.
 - `PodDisruptionBudget`: [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) 기능을 활성화한다.
-- `PodAffinityNamespaceSelector`: [파드 어피니티 네임스페이스 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#네임스페이스-셀렉터) 기능과 
+- `PodAffinityNamespaceSelector`: [파드 어피니티 네임스페이스 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#네임스페이스-셀렉터) 기능과
   [CrossNamespacePodAffinity](/ko/docs/concepts/policy/resource-quotas/#네임스페이스-간-파드-어피니티-쿼터) 쿼터 범위 기능을 활성화한다.
 - `PodOverhead`: 파드 오버헤드를 판단하기 위해 [파드오버헤드(PodOverhead)](/ko/docs/concepts/scheduling-eviction/pod-overhead/)
   기능을 활성화한다.
@@ -729,8 +728,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `PodShareProcessNamespace`: 파드에서 실행되는 컨테이너 간에 단일 프로세스 네임스페이스를
   공유하기 위해 파드에서 `shareProcessNamespace` 설정을 활성화한다. 자세한 내용은
   [파드의 컨테이너 간 프로세스 네임스페이스 공유](/docs/tasks/configure-pod-container/share-process-namespace/)에서 확인할 수 있다.
-- `ProbeTerminationGracePeriod`: 파드의 [프로브-수준 
-  `terminationGracePeriodSeconds` 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationgraceperiodseconds) 기능을 활성화한다. 
+- `ProbeTerminationGracePeriod`: 파드의 [프로브-수준
+  `terminationGracePeriodSeconds` 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationgraceperiodseconds) 기능을 활성화한다.
   더 자세한 사항은 [기능개선 제안](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2238-liveness-probe-grace-period)을 참고한다.
 - `ProcMountType`: SecurityContext의 `procMount` 필드를 설정하여
   컨테이너의 proc 타입의 마운트를 제어할 수 있다.
@@ -742,7 +741,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   응답에서 남은 항목 수를 표시하도록 허용한다.
 - `RemoveSelfLink`: ObjectMeta 및 ListMeta에서 `selfLink` 를 사용하지 않고
   제거한다.
-- `ResourceLimitsPriorityFunction` (*사용 중단됨*): 입력 파드의 CPU 및 메모리 한도 중
+- `RequestManagement`: 각 API 서버에서 우선 순위 및 공정성으로 요청 동시성을
+  관리할 수 있다. 1.17 이후 `APIPriorityAndFairness` 에서 사용 중단되었다.
+- `ResourceLimitsPriorityFunction`: 입력 파드의 CPU 및 메모리 한도 중
   하나 이상을 만족하는 노드에 가능한 최저 점수 1을 할당하는
   스케줄러 우선 순위 기능을 활성화한다. 의도는 동일한 점수를 가진
   노드 사이의 관계를 끊는 것이다.
@@ -770,11 +771,11 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   JWKS URL)를 활성화한다. 자세한 내용은
   [파드의 서비스 어카운트 구성](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)을
   참고한다.
-- `ServiceAppProtocol`: 서비스와 엔드포인트에서 `AppProtocol` 필드를 활성화한다.
-- `ServiceInternalTrafficPolicy`: 서비스에서 `InternalTrafficPolicy` 필드를 활성화한다.
-- `ServiceLBNodePortControl`: 서비스에서`spec.allocateLoadBalancerNodePorts` 필드를
-  활성화한다.
-- `ServiceLoadBalancerClass`: 서비스에서 `LoadBalancerClass` 필드를 활성화한다. 자세한 내용은 [로드밸런서 구현체의 종류 확인하기](/ko/docs/concepts/services-networking/service/#load-balancer-class)를 참고한다.
+- `ServiceAppProtocol`: 서비스와 엔드포인트에서 `appProtocol` 필드를 활성화한다.
+- `ServiceInternalTrafficPolicy`: 서비스에서 `internalTrafficPolicy` 필드를 활성화한다.
+- `ServiceLBNodePortControl`: 서비스에서 `allocateLoadBalancerNodePorts` 필드를 활성화한다.
+- `ServiceLoadBalancerClass`: 서비스에서 `loadBalancerClass` 필드를 활성화한다. 자세한 내용은
+  [로드밸런서 구현체의 종류 확인하기](/ko/docs/concepts/services-networking/service/#load-balancer-class)를 참고한다.
 - `ServiceLoadBalancerFinalizer`: 서비스 로드 밸런서에 대한 Finalizer 보호를 활성화한다.
 - `ServiceNodeExclusion`: 클라우드 제공자가 생성한 로드 밸런서에서 노드를
   제외할 수 있다. "`node.kubernetes.io/exclude-from-external-load-balancers`"로
@@ -800,14 +801,14 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   스트리밍 요청의 예로는 `exec`, `attach` 및 `port-forward` 요청이 있다.
 - `SupportIPVSProxyMode`: IPVS를 사용하여 클러스터 내 서비스 로드 밸런싱을 제공한다.
   자세한 내용은 [서비스 프록시](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)를 참고한다.
-- `SupportPodPidsLimit`: 파드의 PID 제한을 지원한다.
 - `SupportNodePidsLimit`: 노드에서 PID 제한 지원을 활성화한다.
   `--system-reserved` 및 `--kube-reserved` 옵션의 `pid=<number>`
   파라미터를 지정하여 지정된 수의 프로세스 ID가
   시스템 전체와 각각 쿠버네티스 시스템 데몬에 대해 예약되도록
   할 수 있다.
-- `SuspendJob`: 잡 중지/재시작 기능을 활성화한다. 
-  자세한 내용은 [잡 문서](/ko/docs/concepts/workloads/controllers/job/)를 
+- `SupportPodPidsLimit`: 파드의 PID 제한에 대한 지원을 활성화한다.
+- `SuspendJob`: 잡 중지/재시작 기능을 활성화한다.
+  자세한 내용은 [잡 문서](/ko/docs/concepts/workloads/controllers/job/)를
   참고한다.
 - `Sysctls`: 각 파드에 설정할 수 있는 네임스페이스 커널
   파라미터(sysctl)를 지원한다. 자세한 내용은
@@ -824,14 +825,17 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `TokenRequest`: 서비스 어카운트 리소스에서 `TokenRequest` 엔드포인트를 활성화한다.
 - `TokenRequestProjection`: [`projected` 볼륨](/ko/docs/concepts/storage/volumes/#projected)을 통해
   서비스 어카운트 토큰을 파드에 주입할 수 있다.
-- `TopologyAwareHints`: 엔드포인트슬라이스(EndpointSlices)에서 토폴로지 힌트 기반 
-  토폴로지-어웨어 라우팅을 활성화한다. 자세한 내용은 
+- `TopologyAwareHints`: 엔드포인트슬라이스(EndpointSlices)에서 토폴로지 힌트 기반
+  토폴로지-어웨어 라우팅을 활성화한다. 자세한 내용은
   [토폴로지 어웨어 힌트](/docs/concepts/services-networking/topology-aware-hints/)
   를 참고한다.
 - `TopologyManager`: 쿠버네티스의 다른 컴포넌트에 대한 세분화된 하드웨어 리소스
   할당을 조정하는 메커니즘을 활성화한다.
   [노드의 토폴로지 관리 정책 제어](/docs/tasks/administer-cluster/topology-manager/)를 참고한다.
-- `VolumeCapacityPriority`: 가용 PV 용량을 기반으로 
+- `ValidateProxyRedirects`: 이 플래그는 API 서버가 동일한 호스트로만 리디렉션되는가를
+  확인해야 하는지 여부를 제어한다. `StreamingProxyRedirects`
+  플래그가 활성화된 경우에만 사용된다.
+- `VolumeCapacityPriority`: 가용 PV 용량을 기반으로
   여러 토폴로지에 있는 노드들의 우선순위를 정하는 기능을 활성화한다.
 - `VolumePVCDataSource`: 기존 PVC를 데이터 소스로 지정하는 기능을 지원한다.
 - `VolumeScheduling`: 볼륨 토폴로지 인식 스케줄링을 활성화하고
@@ -839,6 +843,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   `PersistentLocalVolumes` 기능 게이트와 함께 사용될 때
   [`local`](/ko/docs/concepts/storage/volumes/#local) 볼륨 유형을 사용할 수 있다.
 - `VolumeSnapshotDataSource`: 볼륨 스냅샷 데이터 소스 지원을 활성화한다.
+- `VolumeSubpath`: 컨테이너에 볼륨의 하위 경로(subpath)를 마운트할 수 있다.
 - `VolumeSubpathEnvExpansion`: 환경 변수를 `subPath`로 확장하기 위해
   `subPathExpr` 필드를 활성화한다.
 - `WarningHeaders`: API 응답에서 경고 헤더를 보낼 수 있다.
