@@ -57,10 +57,10 @@ curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
 
-예를 들어 kops 버전을 v1.15.0을 다운로드 하려면 다음을 입력한다.
+예를 들어 kops 버전을 v1.20.0을 다운로드 하려면 다음을 입력한다.
 
 ```shell
-curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-darwin-amd64
 ```
 
 kops 바이너리를 실행 가능하게 만든다.
@@ -94,10 +94,10 @@ curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://
 ```shell
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
-예를 들어 kops 버전을 v1.15.0을 다운로드 하려면 다음을 입력한다.
+예를 들어 kops 버전을 v1.20.0을 다운로드 하려면 다음을 입력한다.
 
 ```shell
-curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-linux-amd64
 ```
 
 kops 바이너리를 실행 가능하게 만든다.
