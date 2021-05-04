@@ -37,8 +37,8 @@ kubectl delete statefulsets <statefulset-name>
 kubectl delete service <service-name>
 ```
 
-kubectl을 통해 스테이트풀셋을 삭제하면 0으로 스케일이 낮아지고, 스테이트풀셋에 포함된 모든 파드가 삭제된다.
-파드가 아닌 스테이트풀셋만 삭제하려면, `--cascade=false` 를 사용한다.
+kubectl을 통해 스테이트풀셋을 삭제하면, 스테이트풀셋의 크기가 0으로 설정되고 이로 인해 스테이트풀셋에 포함된 모든 파드가 삭제된다. 파드가 아닌 스테이트풀셋만 삭제하려면, `--cascade=false` 옵션을 사용한다. 
+예시는 다음과 같다.
 
 ```shell
 kubectl delete -f <file.yaml> --cascade=false

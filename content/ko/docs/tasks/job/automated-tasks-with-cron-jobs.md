@@ -1,11 +1,15 @@
 ---
 title: 크론잡(CronJob)으로 자동화된 작업 실행
-min-kubernetes-server-version: v1.8
+min-kubernetes-server-version: v1.21
 content_type: task
 weight: 10
 ---
 
 <!-- overview -->
+
+쿠버네티스 버전 1.21에서 {{< glossary_tooltip text="크론잡" term_id="cronjob" >}}이 GA (General Availability)로 승격되었다.
+이전 버전의 쿠버네티스를 사용하고 있다면, 해당 쿠버네티스 버전의 문서를 참고하여 정확한 정보를 확인할 수 있다.
+이전 버전의 쿠버네티스는 `batch/v1` 크론잡 API를 지원하지 않는다.
 
 시간 기반의 스케줄에 따라 {{< glossary_tooltip text="크론잡" term_id="cronjob" >}}을 이용해서 {{< glossary_tooltip text="잡(Job)" term_id="job" >}}을 실행할 수 있다.
 이러한 자동화된 잡은 리눅스 또는 유닉스 시스템에서 [크론](https://ko.wikipedia.org/wiki/Cron) 작업처럼 실행된다.
@@ -168,13 +172,11 @@ kubectl delete cronjob hello
 이러한 방식으로 기한을 맞추지 못한 잡은 실패한 작업으로 간주된다.
 이 필드를 지정하지 않으면, 잡에 기한이 없다.
 
-크론잡 컨트롤러는 크론 잡에 대해 얼마나 많은 스케줄이 누락되었는지를 계산한다. 누락된 스케줄이 100개를 초과 한다면, 크론 잡은 더이상 스케줄되지 않는다. `.spec.startingDeadlineSeconds` 이 설정되지 않았다면, 크론잡 컨트롤러는 `status.lastScheduleTime` 부터 지금까지 누락된 스케줄을 계산한다.
+`.spec.startingDeadlineSeconds` 필드가 (null이 아닌 값으로) 설정되어 있다면, 
+크론잡 컨트롤러는 잡 생성 완료 예상 시각과 현재 시각의 차이를 측정하고, 
+시각 차이가 설정한 값보다 커지면 잡 생성 동작을 스킵한다.
 
-예를 들어, 하나의 크론 잡이 1분마다 실행되도록 설정되어 있고, 크론잡의 `status.lastScheduleTime` 은 새벽 5:00시이지만, 지금은 오전 7:00시라고 가정하자. 즉 120개의 스케줄이 누락되었다는 것이고, 그래서 크론 잡은 더이상 스케줄되지 않는다.
-
-`.spec.startingDeadlineSeconds` 필드가 (null이 아닌) 값으로 설정되어 있다면, 크론잡 컨트롤러는 `.spec.startingDeadlineSeconds` 의 값으로부터 지금까지 얼마나 많은 잡이 누락되었는지를 계산한다.
-
-예를 들어, `200` 으로 설정되었다면, 지난 200초 동안 누락된 스케줄이 몇 번 발생했는지 계산한다. 이 경우, 지난 200초 동안 누락된 스케줄이 100개가 넘으면, 크론 잡이 더이상 스케줄되지 않는다.
+예를 들어, `200` 으로 설정되었다면, 잡 생성 완료 예상 시각으로부터 200초까지는 잡이 생성될 수 있다.
 
 ### 동시성 정책
 

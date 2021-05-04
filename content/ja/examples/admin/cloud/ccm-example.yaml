@@ -1,4 +1,4 @@
-# This is an example of how to setup cloud-controller-manger as a Daemonset in your cluster.
+# This is an example of how to setup cloud-controller-manager as a Daemonset in your cluster.
 # It assumes that your masters can run pods and has the role node-role.kubernetes.io/master
 # Note that this Daemonset will not work straight out of the box for your cloud, this is
 # meant to be a guideline.

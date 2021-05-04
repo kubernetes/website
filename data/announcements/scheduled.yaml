@@ -61,3 +61,14 @@ announcements:
     We stand in solidarity with the Black community.<br/>
     Racism is unacceptable.<br/>
     It conflicts with the [core values of the Kubernetes project](https://git.k8s.io/community/values.md) and our community does not tolerate it.
+
+- name: Kubecon 2021 EU
+  startTime: 2021-04-30T00:00:00 
+  endTime: 2021-05-07T00:00:00 
+  style: "background-image: linear-gradient(90deg, rgb(249, 145, 6) 0%, rgb(252, 29, 68) 100%)"
+  title: |
+    <img src="/images/announcements/kubecon-eu-2021-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon EU 2021</a> <em>virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    May 4 - May 7, 2021.

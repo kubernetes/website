@@ -373,7 +373,7 @@ def parse_arguments():
     parser.add_argument("-f", dest="filter", default="/docs/**/*.md",
                         metavar="<FILTER>",
                         help=("File pattern to scan, e.g. '/docs/foo.md'. "
-                              "(default='/docs/foo/*.md')"))
+                              "(default='/docs/**/*.md')"))
     parser.add_argument("-n", "--no-color", action="store_true",
                         help="Suppress colored printing.")
 

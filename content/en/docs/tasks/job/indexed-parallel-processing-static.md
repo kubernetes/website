@@ -40,7 +40,7 @@ non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 
 To be able to create Indexed Jobs, make sure to enable the `IndexedJob`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](docs/reference/command-line-tools-reference/kube-apiserver/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 
 <!-- steps -->

@@ -189,7 +189,7 @@ fullversion = "v1.20.5"
 version = "v1.20"
 githubbranch = "v1.20.5"
 docsbranch = "release-1.20"
-url = "https://v1-20.kubernetes.io"
+url = "https://v1-20.docs.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.19.9"
@@ -399,15 +399,15 @@ time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
 
-[languages.pt]
+[languages.pt-br]
 title = "Kubernetes"
 description = "Orquestração de contêineres em nível de produção"
 languageName ="Português"
 weight = 9
-contentDir = "content/pt"
+contentDir = "content/pt-br"
 languagedirection = "ltr"
 
-[languages.pt.params]
+[languages.pt-br.params]
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
