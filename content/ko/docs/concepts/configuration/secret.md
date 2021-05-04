@@ -109,7 +109,7 @@ empty-secret   Opaque   0      2m6s
 ```
 
 해당 `DATA` 열은 시크릿에 저장된 데이터 아이템의 수를 보여준다.
-이 경우, `0` 은 비어 있는 시크릿을 방금 하나 생성하였다는 것을 의미한다.
+이 경우, `0` 은 비어 있는 시크릿을 하나 생성하였다는 것을 의미한다.
 
 ###  서비스 어카운트 토큰 시크릿
 
@@ -667,7 +667,7 @@ cat /etc/foo/password
 볼륨에서 현재 사용되는 시크릿이 업데이트되면, 투영된 키도 결국 업데이트된다.
 kubelet은 마운트된 시크릿이 모든 주기적인 동기화에서 최신 상태인지 여부를 확인한다.
 그러나, kubelet은 시크릿의 현재 값을 가져 오기 위해 로컬 캐시를 사용한다.
-캐시의 유형은 [KubeletConfiguration 구조체](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)의
+캐시의 유형은 [KubeletConfiguration 구조체](/docs/reference/config-api/kubelet-config.v1beta1/)의
 `ConfigMapAndSecretChangeDetectionStrategy` 필드를 사용하여 구성할 수 있다.
 시크릿은 watch(기본값), ttl 기반 또는 API 서버로 모든 요청을 직접
 리디렉션하여 전파할 수 있다.
@@ -749,9 +749,9 @@ echo $SECRET_PASSWORD
 
 ## 변경할 수 없는(immutable) 시크릿 {#secret-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-쿠버네티스 베타 기능인 _변경할 수 없는 시크릿과 컨피그맵_ 은
+쿠버네티스 기능인 _변경할 수 없는 시크릿과 컨피그맵_ 은
 개별 시크릿과 컨피그맵을 변경할 수 없는 것으로 설정하는 옵션을 제공한다. 시크릿을 광범위하게 사용하는
 클러스터(최소 수만 개의 고유한 시크릿이 파드에 마운트)의 경우, 데이터 변경을 방지하면
 다음과 같은 이점이 있다.
@@ -760,8 +760,8 @@ echo $SECRET_PASSWORD
 - immutable로 표시된 시크릿에 대한 감시를 중단하여, kube-apiserver의 부하를
 크게 줄임으로써 클러스터의 성능을 향상시킴
 
-이 기능은 v1.19부터 기본적으로 활성화된 `ImmutableEphemeralVolumes` [기능
-게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)에
+이 기능은 v1.19부터 기본적으로 활성화된 `ImmutableEphemeralVolumes`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)에
 의해 제어된다. `immutable` 필드를 `true` 로 설정하여
 변경할 수 없는 시크릿을 생성할 수 있다. 다음은 예시이다.
 ```yaml
@@ -865,6 +865,7 @@ LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT            
 ### 사용 사례: 컨테이너 환경 변수로 사용하기
 
 시크릿 정의를 작성한다.
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -877,6 +878,7 @@ data:
 ```
 
 시크릿을 생성한다.
+
 ```shell
 kubectl apply -f mysecret.yaml
 ```
@@ -1173,14 +1175,12 @@ HTTP 요청을 처리하고, 복잡한 비즈니스 로직을 수행한 다음, 
 
 시크릿 API에 접근해야 하는 애플리케이션은 필요한 시크릿에 대한 `get` 요청을
 수행해야 한다. 이를 통해 관리자는 앱에 필요한
-[개별 인스턴스에 대한 접근을 허용 목록에 추가](
-/docs/reference/access-authn-authz/rbac/#referring-to-resources)하면서 모든 시크릿에 대한 접근을
+[개별 인스턴스에 대한 접근을 허용 목록에 추가](/docs/reference/access-authn-authz/rbac/#referring-to-resources)하면서 모든 시크릿에 대한 접근을
 제한할 수 있다.
 
 `get` 반복을 통한 성능 향상을 위해, 클라이언트는 시크릿을
 참조한 다음 리소스를 감시(`watch`)하고, 참조가 변경되면 시크릿을 다시 요청하는 리소스를
-설계할 수 있다. 덧붙여, 클라이언트에게 개별 리소스를 감시(`watch`)하도록 하는 ["대량 감시" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)도
+설계할 수 있다. 덧붙여, 클라이언트에게 개별 리소스를 감시(`watch`)하도록 하는 ["대량 감시" API](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)도
 제안되었으며, 쿠버네티스의 후속 릴리스에서 사용할 수
 있을 것이다.
 

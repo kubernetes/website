@@ -45,7 +45,7 @@ A minimal example of configuring the field explicitly:
 # kubeadm-config.yaml
 kind: ClusterConfiguration
 apiVersion: kubeadm.k8s.io/v1beta2
-kubernetesVersion: v1.21
+kubernetesVersion: v1.21.0
 ---
 kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -60,7 +60,7 @@ kubeadm init --config kubeadm-config.yaml
 
 {{< note >}}
 Kubeadm uses the same `KubeletConfiguration` for all nodes in the cluster.
-The `KubeletConfiguration` is stored in a [ConfigMap](docs/concepts/configuration/configmap)
+The `KubeletConfiguration` is stored in a [ConfigMap](/docs/concepts/configuration/configmap)
 object under the `kube-system` namespace.
 
 Executing the sub commands `init`, `join` and `upgrade` would result in kubeadm
