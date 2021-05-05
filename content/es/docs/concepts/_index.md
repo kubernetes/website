@@ -71,6 +71,6 @@ En un clúster de Kubernetes, los nodos son las máquinas (máquinas virtuales, 
 ## {{% heading "whatsnext" %}}
 
 
-Si quieres empezar a contribuir a la documentación de Kubernetes accede la pagina [Empieza a contribuir](/es/docs/contribute/start/).
+Si quieres empezar a contribuir a la documentación de Kubernetes accede la página [Empieza a contribuir](/es/docs/contribute/start/).
 
 
