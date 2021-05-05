@@ -12,24 +12,17 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다.
-예를 들어, v1.2 클라이언트는 v1.1, v1.2 및 v1.3의 마스터와 함께 작동해야 한다.
+클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다. 예를 들어, v{{< skew latestVersion >}} 클라이언트는 v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, v{{< skew nextMinorVersion >}}의 컨트롤 플레인과 연동될 수 있다.
 최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
 
 ## 리눅스에 kubectl 설치
 
 다음과 같은 방법으로 리눅스에 kubectl을 설치할 수 있다.
 
-- [{{% heading "prerequisites" %}}](#시작하기-전에)
-- [리눅스에 kubectl 설치](#리눅스에-kubectl-설치)
-  - [리눅스에서 curl을 사용하여 kubectl 바이너리 설치]{#install-kubectl-binary-with-curl-on-linux}
-  - [기본 패키지 관리 도구를 사용하여 설치]{#install-using-native-package-management}
-  - [다른 패키지 관리 도구를 사용하여 설치]{#install-using-other-package-management}
-  - [Google Cloud SDK를 사용하여 설치]{#install-on-linux-as-part-of-the-google-cloud-sdk}
-- [kubectl 구성 확인](#kubectl-구성-확인)
-- [선택적 kubectl 구성](#선택적-kubectl-구성)
-  - [셸 자동 완성 활성화](#셸-자동-완성-활성화)
-- [{{% heading "whatsnext" %}}](#다음-내용)
+- [리눅스에 curl을 사용하여 kubectl 바이너리 설치](#install-kubectl-binary-with-curl-on-linux)
+- [기본 패키지 관리 도구를 사용하여 설치](#install-using-native-package-management)
+- [다른 패키지 관리 도구를 사용하여 설치](#install-using-other-package-management)
+- [리눅스에 Google Cloud SDK를 사용하여 설치](#install-on-linux-as-part-of-the-google-cloud-sdk)
 
 ### 리눅스에서 curl을 사용하여 kubectl 바이너리 설치 {#install-kubectl-binary-with-curl-on-linux}
 
@@ -158,7 +151,6 @@ yum install -y kubectl
 
 ```shell
 snap install kubectl --classic
-
 kubectl version --client
 ```
 
@@ -169,7 +161,6 @@ kubectl version --client
 
 ```shell
 brew install kubectl
-
 kubectl version --client
 ```
 
@@ -177,7 +168,7 @@ kubectl version --client
 
 {{< /tabs >}}
 
-### Google Cloud SDK를 사용하여 설치 {#install-on-linux-as-part-of-the-google-cloud-sdk}
+### 리눅스에 Google Cloud SDK를 사용하여 설치 {#install-on-linux-as-part-of-the-google-cloud-sdk}
 
 {{< include "included/install-kubectl-gcloud.md" >}}
 
