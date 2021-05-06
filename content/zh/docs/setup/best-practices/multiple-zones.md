@@ -38,7 +38,7 @@ one zone also impairs services in another zone.
 ## 背景
 
 Kubernetes 从设计上允许同一个 Kubernetes 集群跨多个失效区来运行，
-通常这些去位于某个称作 _区域（region）_ 逻辑分组中。
+通常这些区位于某个称作 _区域（region）_ 逻辑分组中。
 主要的云提供商都将区域定义为一组失效区的集合（也称作 _可用区（Availability Zones）_），
 能够提供一组一致的功能特性：每个区域内，各个可用区提供相同的 API 和服务。
 
