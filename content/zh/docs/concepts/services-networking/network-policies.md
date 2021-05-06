@@ -427,47 +427,138 @@ When the feature gate is enabled, you can set the `protocol` field of a NetworkP
 来禁用 `SCTPSupport` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 启用该特性门控后，用户可以将 NetworkPolicy 的 `protocol` 字段设置为 `SCTP`。
 
+{{< note >}}
 <!-- 
 You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports SCTP protocol NetworkPolicies.
  -->
-{{< note >}}
 你必须使用支持 SCTP 协议网络策略的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件。
 {{< /note >}}
 
 <!--
+## Targeting a range of Ports
+-->
+## 针对某个端口范围   {#targeting-a-range-of-ports}
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+<!--
+When writing a NetworkPolicy, you can target a range of ports instead of a single port.
+
+This is achievable with the usage of the `endPort` field, as the following example:
+-->
+在编写 NetworkPolicy 时，你可以针对一个端口范围而不是某个固定端口。
+
+这一目的可以通过使用 `endPort` 字段来实现，如下例所示：
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: multi-port-egress
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/24
+    ports:
+    - protocol: TCP
+      port: 32000
+      endPort: 32768
+```
+
+<!--
+The above rule allows any Pod with label `db` on the namespace `default` to communicate with any IP within the range `10.0.0.0/24` over TCP, provided that the target port is between the range 32000 and 32768.
+-->
+上面的规则允许名字空间 `default` 中所有带有标签 `db` 的 Pod 使用 TCP 协议
+与 `10.0.0.0/24` 范围内的 IP 通信，只要目标端口介于 32000 和 32768 之间就可以。
+
+<!--
+The following restrictions apply when using this field:
+* As an alpha feature, this is disabled by default. To enable the `endPort` field at a cluster level, you (or your cluster administrator) need to enable the `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `-feature-gates=NetworkPolicyEndPort=true,…`.
+* The `endPort` field must be equal than or greater to the `port` field.
+* `endPort` can only be defined if `port` is also defined.
+* Both ports must be numeric.
+-->
+使用此字段时存在以下限制：
+
+* 作为一种 Alpha 阶段的特性，端口范围设定默认是被禁用的。要在整个集群
+  范围内允许使用 `endPort` 字段，你（或者你的集群管理员）需要为 API
+  服务器设置 `-feature-gates=NetworkPolicyEndPort=true,...` 以启用
+  `NetworkPolicyEndPort` 
+  [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+* `endPort` 字段必须等于或者大于 `port` 字段的值。
+* 两个字段的设置值都只能是数字。
+
+{{< note >}}
+<!--
+Your cluster must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that
+supports the `endPort` field in NetworkPolicy specifications.
+-->
+你的集群所使用的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件
+必须支持在 NetworkPolicy 规约中使用 `endPort` 字段。
+{{< /note >}}
+
+<!--
+## Targeting a Namespace by its name
+-->
+## 基于名字指向某名字空间   {#targeting-a-namespace-by-its-name}
+
+{{< feature-state state="beta" for_k8s_version="1.21" >}}
+
+<!--
+The Kubernetes control plane sets an immutable label `kubernetes.io/metadata.name` on all
+namespaces, provided that the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+The value of the label is the namespace name.
+
+While NetworkPolicy cannot target a namespace by its name with some object field, you can use the
+standardized label to target a specific namespace.
+-->
+只要 `NamespaceDefaultLabelName`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+被启用，Kubernetes 控制面会在所有名字空间上设置一个不可变更的标签
+`kubernetes.io/metadata.name`。该标签的值是名字空间的名称。
+
+如果 NetworkPolicy 无法在某些对象字段中指向某名字空间，你可以使用标准的
+标签方式来指向特定名字空间。
+
+<!--
 ## What you can't do with network policies (at least, not yet)
 
-As of Kubernetes 1.20, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.  Some (but not all) of these user stories are actively being discussed for future releases of the NetworkPolicy API.
+As of Kubernetes {{< skew latestVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
 -->
-## 你通过网络策略（至少目前还）无法完成的工作
+## 通过网络策略（至少目前还）无法完成的工作
 
-到 Kubernetes v1.20 为止，NetworkPolicy API 还不支持以下功能，不过
+到 Kubernetes {{< skew latestVersion >}} 为止，NetworkPolicy API 还不支持以下功能，不过
 你可能可以使用操作系统组件（如 SELinux、OpenVSwitch、IPTables 等等）
 或者第七层技术（Ingress 控制器、服务网格实现）或准入控制器来实现一些
 替代方案。
 如果你对 Kubernetes 中的网络安全性还不太了解，了解使用 NetworkPolicy API
 还无法实现下面的用户场景是很值得的。
-对这些用户场景中的一部分（而非全部）的讨论扔在进行，或许在将来 NetworkPolicy
-API 中会给出一定支持。
 
 <!--
 - Forcing internal cluster traffic to go through a common gateway (this might be best served with a service mesh or other proxy).
 - Anything TLS related (use a service mesh or ingress controller for this).
 - Node specific policies (you can use CIDR notation for these, but you cannot target nodes by their Kubernetes identities specifically).
-- Targeting of namespaces or services by name (you can, however, target pods or namespaces by their {{< glossary_tooltip text="labels" term_id="label" >}}, which is often a viable workaround).
+- Targeting of services by name (you can, however, target pods or namespaces by their {{< glossary_tooltip text="labels" term_id="label" >}}, which is often a viable workaround).
 - Creation or management of "Policy requests" that are fulfilled by a third party.
 -->
 - 强制集群内部流量经过某公用网关（这种场景最好通过服务网格或其他代理来实现）；
 - 与 TLS 相关的场景（考虑使用服务网格或者 Ingress 控制器）；
 - 特定于节点的策略（你可以使用 CIDR 来表达这一需求不过你无法使用节点在
   Kubernetes 中的其他标识信息来辩识目标节点）；
-- 基于名字来选择名字空间或者服务（不过，你可以使用 {{< glossary_tooltip text="标签" term_id="label" >}}
+- 基于名字来选择服务（不过，你可以使用 {{< glossary_tooltip text="标签" term_id="label" >}}
   来选择目标 Pod 或名字空间，这也通常是一种可靠的替代方案）；
 - 创建或管理由第三方来实际完成的“策略请求”；
 <!--
 - Default policies which are applied to all namespaces or pods (there are some third party Kubernetes distributions and projects which can do this).
 - Advanced policy querying and reachability tooling.
-- The ability to target ranges of Ports in a single policy declaration.
 - The ability to log network security events (for example connections that are blocked or accepted).
 - The ability to explicitly deny policies (currently the model for NetworkPolicies are deny by default, with only the ability to add allow rules).
 - The ability to prevent loopback or incoming host traffic (Pods cannot currently block localhost access, nor do they have the ability to block access from their resident node).
@@ -475,7 +566,6 @@ API 中会给出一定支持。
 - 实现适用于所有名字空间或 Pods 的默认策略（某些第三方 Kubernetes 发行版本
   或项目可以做到这点）；
 - 高级的策略查询或者可达性相关工具；
-- 在同一策略声明中选择目标端口范围的能力；
 - 生成网络安全事件日志的能力（例如，被阻塞或接收的连接请求）；
 - 显式地拒绝策略的能力（目前，NetworkPolicy 的模型默认采用拒绝操作，
   其唯一的能力是添加允许策略）；
