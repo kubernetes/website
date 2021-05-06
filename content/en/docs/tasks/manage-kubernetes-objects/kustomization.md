@@ -86,6 +86,41 @@ metadata:
   name: example-configmap-1-8mbdf7882g
 ```
 
+To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`. Here is an example of generating a ConfigMap with a data item from a `.env` file:
+
+```shell
+# Create a .env file
+cat <<EOF >.env
+FOO=Bar
+EOF
+
+cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: example-configmap-1
+  envs:
+  - .env
+EOF
+```
+
+The generated ConfigMap can be examined with the following command:
+
+```shell
+kubectl kustomize ./
+```
+
+The generated ConfigMap is:
+
+```yaml
+apiVersion: v1
+data:
+    FOO=Bar
+kind: ConfigMap
+metadata:
+  name: example-configmap-1-8mbdf7882g
+```
+
+**Note:** They variables are added as top level keys in the ConfigMap, instead of nested within the name of the file, like the previous example does.
+
 ConfigMaps can also be generated from literal key-value pairs. To generate a ConfigMap from a literal key-value pair, add an entry to the `literals` list in configMapGenerator. Here is an example of generating a ConfigMap with a data item from a key-value pair:
 
 ```shell
