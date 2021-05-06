@@ -59,16 +59,21 @@ No parameters are passed to the handler.
 `PreStop`
 
 <!--
-This hook is called immediately before a container is terminated due to an API request or management event such as liveness probe failure, preemption, resource contention and others. A call to the preStop hook fails if the container is already in terminated or completed state.
-It is blocking, meaning it is synchronous,
-so it must complete before the signal to stop the container can be sent.
-No parameters are passed to the handler.
+This hook is called immediately before a container is terminated due to an API request or management
+event such as a liveness/startup probe failure, preemption, resource contention and others. A call
+to the `PreStop` hook fails if the container is already in a terminated or completed state and the
+hook must complete before the TERM signal to stop the container can be sent. The Pod's termination
+grace period countdown begins before the `PreStop` hook is executed, so regardless of the outcome of
+the handler, the container will eventually terminate within the Pod's termination grace period. No
+parameters are passed to the handler.
 -->
-在容器因 API 请求或者管理事件（诸如存活态探针失败、资源抢占、资源竞争等）而被终止之前，
-此回调会被调用。
-如果容器已经处于终止或者完成状态，则对 preStop 回调的调用将失败。
-此调用是阻塞的，也是同步调用，因此必须在发出删除容器的信号之前完成。
-没有参数传递给处理程序。
+在容器因 API 请求或者管理事件（诸如存活态探针、启动探针失败、资源抢占、资源竞争等）
+而被终止之前，此回调会被调用。
+如果容器已经处于已终止或者已完成状态，则对 preStop 回调的调用将失败。
+在用来停止容器的 TERM 信号被发出之前，回调必须执行结束。
+Pod 的终止宽限周期在 `PreStop` 回调被执行之前即开始计数，所以无论
+回调函数的执行结果如何，容器最终都会在 Pod 的终止宽限期内被终止。
+没有参数会被传递给处理程序。
 
 <!--
 A more detailed description of the termination behavior can be found in
@@ -124,6 +129,20 @@ the Container cannot reach a `running` state.
 <!--
 `PreStop` hooks are not executed asynchronously from the signal
 to stop the Container; the hook must complete its execution before
+the TERM signal can be sent.
+If a `PreStop` hook hangs during execution,
+the Pod's phase will be `Terminating` and remain there until the Pod is
+killed after its `terminationGracePeriodSeconds` expires.
+This grace period applies to the total time it takes for both
+the `PreStop` hook to execute and for the Container to stop normally.
+If, for example, `terminationGracePeriodSeconds` is 60, and the hook
+takes 55 seconds to complete, and the Container takes 10 seconds to stop
+normally after receiving the signal, then the Container will be killed
+before it can stop normally, since `terminationGracePeriodSeconds` is
+less than the total time (55+10) it takes for these two things to happen.
+
+`PreStop` hooks are not executed asynchronously from the signal
+to stop the Container; the hook must complete its execution before
 the signal can be sent.
 If a `PreStop` hook hangs during execution,
 the Pod's phase will be `Terminating` and remain there until the Pod is
@@ -145,7 +164,7 @@ less than the total time (55+10) it takes for these two things to happen.
 例如，如果 `terminationGracePeriodSeconds` 是 60，回调函数花了 55 秒钟
 完成执行，而容器在收到信号之后花了 10 秒钟来正常结束，那么容器会在其
 能够正常结束之前即被杀死，因为 `terminationGracePeriodSeconds` 的值
-小于后面两件事情所花费的总时间（55 + 10）。
+小于后面两件事情所花费的总时间（55+10）。
 
 <!--
 If either a `PostStart` or `PreStop` hook fails,
