@@ -1,10 +1,5 @@
 ---
-title: 服务拓扑（Service Topology）
-feature:
-  title: 服务拓扑（Service Topology）
-  description: >
-    基于集群拓扑的服务流量路由。
-
+title: 使用拓扑键实现拓扑感知的流量路由
 content_type: concept
 weight: 10
 ---
@@ -12,19 +7,27 @@ weight: 10
 reviewers:
 - johnbelamaric
 - imroc
-title: Service Topology
-feature:
-  title: Service Topology
-  description: >
-    Routing of service traffic based upon cluster topology.
-
+title: Topology-aware traffic routing with topology keys
 content_type: concept
 weight: 10
 -->
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
+{{< note >}}
+<!--
+This feature, specifically the alpha `topologyKeys` API, is deprecated since
+Kubernetes v1.21.
+[Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/),
+introduced in Kubernetes v1.21, provide similar functionality.
+-->
+此功能特性，尤其是 Alpha 阶段的 `topologyKeys` API，在 Kubernetes v1.21
+版本中已被废弃。Kubernetes v1.21 版本中引入的
+[拓扑感知的提示](/zh/docs/concepts/services-networking/topology-aware-hints/),
+提供类似的功能。
+{{</ note >}}
 
 <!--
 _Service Topology_ enables a service to route traffic based upon the Node
@@ -38,45 +41,50 @@ in the same availability zone.
 <!-- body -->
 
 <!--
-## Introduction
+## Topology-aware traffic routing
 
 By default, traffic sent to a `ClusterIP` or `NodePort` Service may be routed to
-any backend address for the Service. Since Kubernetes 1.7 it has been possible
-to route "external" traffic to the Pods running on the Node that received the
-traffic, but this is not supported for `ClusterIP` Services, and more complex
-topologies &mdash; such as routing zonally &mdash; have not been possible. The
-_Service Topology_ feature resolves this by allowing the Service creator to
-define a policy for routing traffic based upon the Node labels for the
-originating and destination Nodes.
-
-By using Node label matching between the source and destination, the operator
-may designate groups of Nodes that are "closer" and "farther" from one another,
-using whatever metric makes sense for that operator's requirements. For many
-operators in public clouds, for example, there is a preference to keep service
-traffic within the same zone, because interzonal traffic has a cost associated
-with it, while intrazonal traffic does not. Other common needs include being able
-to route traffic to a local Pod managed by a DaemonSet, or keeping traffic to
-Nodes connected to the same top-of-rack switch for the lowest latency.
+any backend address for the Service. Kubernetes 1.7 made it possible to
+route "external" traffic to the Pods running on the same Node that received the
+traffic. For `ClusterIP` Services, the equivalent same-node preference for
+routing wasn't possible; nor could you configure your cluster to favor routing
+to endpoints within the same zone.
+By setting `topologyKeys` on a Service, you're able to define a policy for routing
+traffic based upon the Node labels for the originating and destination Nodes.
 -->
-## 介绍 {#introduction}
+## 拓扑感知的流量路由 
 
-默认情况下，发往 `ClusterIP` 或者 `NodePort` 服务的流量可能会被路由到任意一个服务后端的地址上。
-从 Kubernetes 1.7 开始，可以将“外部”流量路由到节点上运行的 Pod 上，但不支持 `ClusterIP` 服务，
-更复杂的拓扑 &mdash; 比如分区路由 &mdash; 也还不支持。
-通过允许 `Service` 创建者根据源 `Node` 和目的 `Node` 的标签来定义流量路由策略，
-服务拓扑特性实现了服务流量的路由。
+默认情况下，发往 `ClusterIP` 或者 `NodePort` 服务的流量可能会被路由到
+服务的任一后端的地址。Kubernetes 1.7 允许将“外部”流量路由到接收到流量的
+节点上的 Pod。对于 `ClusterIP` 服务，无法完成同节点优先的路由，你也无法
+配置集群优选路由到同一可用区中的端点。
+通过在 Service 上配置 `topologyKeys`，你可以基于来源节点和目标节点的
+标签来定义流量路由策略。
 
-通过对源 `Node` 和目的 `Node` 标签的匹配，运营者可以使用任何符合运营者要求的度量值
-来指定彼此“较近”和“较远”的节点组。
-例如，对于在公有云上的运营者来说，更偏向于把流量控制在同一区域内，
-因为区域间的流量是有费用成本的，而区域内的流量没有。
-其它常用需求还包括把流量路由到由 `DaemonSet` 管理的本地 Pod 上，或者
-把保持流量在连接同一机架交换机的 `Node` 上，以获得低延时。
+<!--
+The label matching between the source and destination lets you, as a cluster
+operator, designate sets of Nodes that are "closer" and "farther" from one another.
+You can define labels to represent whatever metric makes sense for your own
+requirements.
+In public clouds, for example, you might prefer to keep network traffic within the
+same zone, because interzonal traffic has a cost associated with it (and intrazonal
+traffic typically does not). Other common needs include being able to route traffic
+to a local Pod managed by a DaemonSet, or directing traffic to Nodes connected to the
+same top-of-rack switch for the lowest latency.
+-->
+通过对源和目的之间的标签匹配，作为集群操作者的你可以根据节点间彼此“较近”和“较远”
+来定义节点集合。你可以基于符合自身需求的任何度量值来定义标签。
+例如，在公有云上，你可能更偏向于把流量控制在同一区内，因为区间流量是有费用成本的，
+而区内流量则没有。
+其它常见需求还包括把流量路由到由 `DaemonSet` 管理的本地 Pod 上，或者
+把将流量转发到连接在同一机架交换机的节点上，以获得低延时。
 
 <!--
 ## Using Service Topology
 
-If your cluster has Service Topology enabled, you can control Service traffic
+If your cluster has the `ServiceTopology`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled, you can control Service traffic
 routing by specifying the `topologyKeys` field on the Service spec. This field
 is a preference-order list of Node labels which will be used to sort endpoints
 when accessing this Service. Traffic will be directed to a Node whose value for
@@ -84,7 +92,7 @@ the first label matches the originating Node's value for that label. If there is
 no backend for the Service on a matching Node, then the second label will be
 considered, and so forth, until no labels remain.
 
-If no match is found, the traffic will be rejected, just as if there were no
+If no match is found, the traffic will be rejected, as if there were no
 backends for the Service at all. That is, endpoints are chosen based on the first
 topology key with available backends. If this field is specified and all entries
 have no backends that match the topology of the client, the service has no
@@ -95,8 +103,9 @@ as the last value in the list.
 
 ## 使用服务拓扑 {#using-service-topology}
 
-如果集群启用了服务拓扑功能后，就可以在 `Service` 配置中指定 `topologyKeys` 字段，
-从而控制 `Service` 的流量路由。
+如果集群启用了 `ServiceTopology`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+你就可以在 Service 规约中设定 `topologyKeys` 字段，从而控制其流量路由。
 此字段是 `Node` 标签的优先顺序字段，将用于在访问这个 `Service` 时对端点进行排序。
 流量会被定向到第一个标签值和源 `Node` 标签值相匹配的 `Node`。
 如果这个 `Service` 没有匹配的后端 `Node`，那么第二个标签会被使用做匹配，
@@ -144,7 +153,7 @@ traffic as follows.
 
 * Service topology is not compatible with `externalTrafficPolicy=Local`, and
   therefore a Service cannot use both of these features. It is possible to use
-  both features in the same cluster on different Services, just not on the same
+  both features in the same cluster on different Services, only not on the same
   Service.
 
 * Valid topology keys are currently limited to `kubernetes.io/hostname`,
@@ -156,11 +165,11 @@ traffic as follows.
 * The catch-all value, `"*"`, must be the last value in the topology keys, if
   it is used.
 -->
-
 ## 约束条件 {#constraints}
 
 * 服务拓扑和 `externalTrafficPolicy=Local` 是不兼容的，所以 `Service` 不能同时使用这两种特性。
-  但是在同一个集群的不同 `Service` 上是可以分别使用这两种特性的，只要不在同一个 `Service` 上就可以。
+  但是在同一个集群的不同 `Service` 上是可以分别使用这两种特性的，只要不在同一个
+  `Service` 上就可以。
 
 * 有效的拓扑键目前只有：`kubernetes.io/hostname`、`topology.kubernetes.io/zone` 和
   `topology.kubernetes.io/region`，但是未来会推广到其它的 `Node` 标签。
@@ -171,23 +180,21 @@ traffic as follows.
 
 <!--
 ## Examples
+
+The following are common examples of using the Service Topology feature.
 -->
 ## 示例
 
-<!--
-The following are common examples of using the Service Topology feature.
--->
 以下是使用服务拓扑功能的常见示例。
 
 <!--
 ### Only Node Local Endpoints
+
+A Service that only routes to node local endpoints. If no endpoints exist on the node, traffic is dropped:
 -->
 ### 仅节点本地端点
 
-<!--
-A Service that only routes to node local endpoints. If no endpoints exist on the node, traffic is dropped:
--->
-仅路由到节点本地端点的一种服务。 如果节点上不存在端点，流量则被丢弃：
+仅路由到节点本地端点的一种服务。如果节点上不存在端点，流量则被丢弃：
 
 ```yaml
 apiVersion: v1
@@ -207,12 +214,11 @@ spec:
 
 <!--
 ### Prefer Node Local Endpoints
+
+A Service that prefers node local Endpoints but falls back to cluster wide endpoints if node local endpoints do not exist:
 -->
 ### 首选节点本地端点
 
-<!--
-A Service that prefers node local Endpoints but falls back to cluster wide endpoints if node local endpoints do not exist:
--->
 首选节点本地端点，如果节点本地端点不存在，则回退到集群范围端点的一种服务：
 
 ```yaml
@@ -234,13 +240,13 @@ spec:
 
 <!--
 ### Only Zonal or Regional Endpoints
--->
-### 仅地域或区域端点
-<!--
+
 A Service that prefers zonal then regional endpoints. If no endpoints exist in either, traffic is dropped.
 -->
-首选地域端点而不是区域端点的一种服务。 如果以上两种范围内均不存在端点，流量则被丢弃。
+### 仅地域或区域端点
 
+首选地域端点而不是区域端点的一种服务。 如果以上两种范围内均不存在端点，
+流量则被丢弃。
 
 ```yaml
 apiVersion: v1
@@ -261,13 +267,13 @@ spec:
 
 <!--
 ### Prefer Node Local, Zonal, then Regional Endpoints
--->
-### 优先选择节点本地端点，地域端点，然后是区域端点
 
-<!--
 A Service that prefers node local, zonal, then regional endpoints but falls back to cluster wide endpoints.
 -->
-优先选择节点本地端点，地域端点，然后是区域端点，然后才是集群范围端点的一种服务。
+### 优先选择节点本地端点、地域端点，然后是区域端点
+
+优先选择节点本地端点，地域端点，然后是区域端点，最后才是集群范围端点的
+一种服务。
 
 ```yaml
 apiVersion: v1
@@ -296,3 +302,4 @@ spec:
 -->
 * 阅读关于[启用服务拓扑](/zh/docs/tasks/administer-cluster/enabling-service-topology/)
 * 阅读[用服务连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
+

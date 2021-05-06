@@ -313,11 +313,25 @@ ExternalName Service 是 Service 的特例，它没有选择算符，但是使�
 有关更多信息，请参阅本文档后面的[ExternalName](#externalname)。
 
 <!--
+### Over Capacity Endpoints
+
+If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.21 (or later)
+cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: warning`.
+This annotation indicates that the affected Endpoints object is over capacity.
+-->
+### 超出容量的 Endpoints    {#over-capacity-endpoints}
+
+如果某个 Endpoints 资源中包含的端点个数超过 1000，则 Kubernetes v1.21 版本
+（及更新版本）的集群会将为该 Endpoints 添加注解
+`endpoints.kubernetes.io/over-capacity: warning`。
+这一注解表明所影响到的 Endpoints 对象已经超出容量。
+
+<!--
 ### EndpointSlices
 -->
 ### EndpointSlice
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
 Endpoint Slices are an API resource that can provide a more scalable alternative
@@ -351,9 +365,10 @@ This field follows standard Kubernetes label syntax. Values should either be
 [IANA standard service names](https://www.iana.org/assignments/service-names) or
 domain prefixed names such as `mycompany.com/my-custom-protocol`.
 -->
-### 应用程序协议   {#application-protocol}
+### 应用协议   {#application-protocol}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
+
 `appProtocol` 字段提供了一种为每个 Service 端口指定应用协议的方式。
 此字段的取值会被映射到对应的 Endpoints 和 EndpointSlices 对象。
 
@@ -1077,11 +1092,15 @@ The set of protocols that can be used for LoadBalancer type of Services is still
 {{< note >}}
 可用于 LoadBalancer 类型服务的协议集仍然由云提供商决定。
 {{< /note >}}
+
 <!--
 #### Disabling load balancer NodePort allocation {#load-balancer-nodeport-allocation}
+-->
+### 禁用负载均衡器节点端口分配 {#load-balancer-nodeport-allocation}
 
 {{< feature-state for_k8s_version="v1.20" state="alpha" >}}
 
+<!--
 Starting in v1.20, you can optionally disable node port allocation for a Service Type=LoadBalancer by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
 that route traffic directly to pods as opposed to using node ports. By default, `spec.allocateLoadBalancerNodePorts`
@@ -1090,19 +1109,56 @@ is set to `false` on an existing Service with allocated node ports, those node p
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
 You must enable the `ServiceLBNodePortControl` feature gate to use this field.
 -->
-### 禁用负载均衡器节点端口分配 {#load-balancer-nodeport-allocation}
-
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
-
 从 v1.20 版本开始， 你可以通过设置 `spec.allocateLoadBalancerNodePorts` 为 `false` 
 对类型为 LoadBalancer 的服务禁用节点端口分配。
 这仅适用于直接将流量路由到 Pod 而不是使用节点端口的负载均衡器实现。
 默认情况下，`spec.allocateLoadBalancerNodePorts` 为 `true`，
 LoadBalancer 类型的服务继续分配节点端口。
-如果现有服务已被分配节点端口，将参数 `spec.allocateLoadBalancerNodePorts` 设置为 `false` 时，
-这些服务上已分配置的节点端口不会被自动释放。
+如果现有服务已被分配节点端口，将参数 `spec.allocateLoadBalancerNodePorts`
+设置为 `false` 时，这些服务上已分配置的节点端口不会被自动释放。
 你必须显式地在每个服务端口中删除 `nodePorts` 项以释放对应端口。
 你必须启用 `ServiceLBNodePortControl` 特性门控才能使用该字段。
+
+<!--
+#### Specifying class of load balancer implementation {#load-balancer-class}
+-->
+#### 设置负载均衡器实现的类别 {#load-balancer-class}
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+<!--
+Starting in v1.21, you can optionally specify the class of a load balancer implementation for
+`LoadBalancer` type of Service by setting the field `spec.loadBalancerClass`.
+By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
+the cloud provider's default load balancer implementation. 
+If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
+implementation that matches the specified class is watching for Services.
+Any default load balancer implementation (for example, the one provided by
+the cloud provider) will ignore Services that have this field set.
+`spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
+Once set, it cannot be changed. 
+-->
+从 v1.21 开始，你可以有选择地为 `LoadBalancer` 类型的服务设置字段
+`.spec.loadBalancerClass`，以指定其负载均衡器实现的类别。
+默认情况下，`.spec.loadBalancerClass` 的取值是 `nil`，`LoadBalancer` 类型
+服务会使用云提供商的默认负载均衡器实现。
+如果设置了 `.spec.loadBalancerClass`，则假定存在某个与所指定的类相匹配的
+负载均衡器实现在监视服务变化。
+所有默认的负载均衡器实现（例如，由云提供商所提供的）都会忽略设置了此字段
+的服务。`.spec.loadBalancerClass` 只能设置到类型为 `LoadBalancer` 的 Service
+之上，而且一旦设置之后不可变更。
+
+<!--
+The value of `spec.loadBalancerClass` must be a label-style identifier,
+with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
+Unprefixed names are reserved for end-users.
+You must enable the `ServiceLoadBalancerClass` feature gate to use this field.
+-->
+`.spec.loadBalancerClass` 的值必须是一个标签风格的标识符，
+可以有选择地带有类似 "`internal-vip`" 或 "`example.com/internal-vip`" 这类
+前缀。没有前缀的名字是保留给最终用户的。
+你必须启用 `ServiceLoadBalancerClass` 特性门控才能使用此字段。
+
 <!--
 #### Internal load balancer
 
@@ -1435,43 +1491,54 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
     metadata:
       name: my-service
       annotations:
-        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
         # 按秒计的时间，表示负载均衡器关闭连接之前连接可以保持空闲
         # （连接上无数据传输）的时间长度
+        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
 
-        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
         # 指定该负载均衡器上是否启用跨区的负载均衡能力
+        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
 
-        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "environment=prod,owner=devops"
         # 逗号分隔列表值，每一项都是一个键-值耦对，会作为额外的标签记录于 ELB 中
+        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "environment=prod,owner=devops"
 
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
         # 将某后端视为健康、可接收请求之前需要达到的连续成功健康检查次数。
         # 默认为 2，必须介于 2 和 10 之间
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
 
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
         # 将某后端视为不健康、不可接收请求之前需要达到的连续不成功健康检查次数。
         # 默认为 6，必须介于 2 和 10 之间
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
 
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
         # 对每个实例进行健康检查时，连续两次检查之间的大致间隔秒数
         # 默认为 10，必须介于 5 和 300 之间
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
 
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
         # 时长秒数，在此期间没有响应意味着健康检查失败
         # 此值必须小于 service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
         # 默认值为 5，必须介于 2 和 60 之间
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
 
+        # 由已有的安全组所构成的列表，可以配置到所创建的 ELB 之上。
+        # 与注解 service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 不同，
+        # 这一设置会替代掉之前指定给该 ELB 的所有其他安全组，也会覆盖掉为此
+        # ELB 所唯一创建的安全组。 
+        # 此列表中的第一个安全组 ID 被用来作为决策源，以允许入站流量流入目标工作节点
+        # (包括服务流量和健康检查）。
+        # 如果多个 ELB 配置了相同的安全组 ID，为工作节点安全组添加的允许规则行只有一个，
+        # 这意味着如果你删除了这些 ELB 中的任何一个，都会导致该规则记录被删除，
+        # 以至于所有共享该安全组 ID 的其他 ELB 都无法访问该节点。
+        # 此注解如果使用不当，会导致跨服务的不可用状况。
         service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
-        # 要添加到所创建的 ELB 之上的已有安全组列表。与注解
-        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 不同，此
-        # 注解会替换掉之前指派给 ELB 的所有其他安全组
 
+        # 额外的安全组列表，将被添加到所创建的 ELB 之上。
+        # 添加时，会保留为 ELB 所专门创建的安全组。
+        # 这样会确保每个 ELB 都有一个唯一的安全组 ID 和与之对应的允许规则记录，
+        # 允许请求（服务流量和健康检查）发送到目标工作节点。
+        # 这里顶一个安全组可以被多个服务共享。
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-        # 要添加到 ELB 上的额外安全组列表
 
-        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
         # 用逗号分隔的一个键-值偶对列表，用来为负载均衡器选择目标节点
+        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
 ```
 
 <!--
