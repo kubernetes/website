@@ -248,13 +248,17 @@ features:
 
 Example:
 -->
-通用临时卷与 `emptyDir` 卷类似，因为它们为暂存数据提供了一个 per-pod 的目录，该目录通常在置备后为空。
-但他们可能还会有其他特征：
+通用临时卷类似于 `emptyDir` 卷，因为它为每个 Pod 提供临时数据存放目录，
+在最初制备完毕时一般为空。不过通用临时卷也有一些额外的功能特性：
 
 - 存储可以是本地的，也可以是网络连接的。
 - 卷可以有固定的大小，pod不能超量使用。
 - 卷可能有一些初始数据，这取决于驱动程序和参数。
-- 当驱动程序支持，卷上的典型操作将被支持，包括（[快照](/zh/docs/concepts/storage/volume-snapshots/)、[克隆](/zh/docs/concepts/storage/volume-pvc-datasource/)、[调整大小](/zh/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)和[存储容量跟踪](/zh/docs/concepts/storage/storage-capacity/)）。
+- 当驱动程序支持，卷上的典型操作将被支持，包括
+  （[快照](/zh/docs/concepts/storage/volume-snapshots/)、
+  [克隆](/zh/docs/concepts/storage/volume-pvc-datasource/)、
+  [调整大小](/zh/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)和
+  [存储容量跟踪](/zh/docs/concepts/storage/storage-capacity/)）。
 
 示例：
 
@@ -375,8 +379,8 @@ Pods (a Pod "pod-a" with volume "scratch" and another Pod with name
 -->
 这种确定性命名方式也引入了潜在的冲突，
 比如在不同的 Pod 之间（名为 “Pod-a” 的 Pod 挂载名为 "scratch" 的卷，
-名为 "pod" 的 Pod 挂载名为 “a-scratch” 的卷，这两者均会生成名为 "pod-a-scratch" 的PVC），
-或者在 Pod 和手工创建的 PVC 之间。
+和名为 "pod" 的 Pod 挂载名为 “a-scratch” 的卷，这两者均会生成名为
+"pod-a-scratch" 的PVC），或者在 Pod 和手工创建的 PVC 之间。
 
 <!--
 Such conflicts are detected: a PVC is only used for an ephemeral
@@ -412,7 +416,8 @@ two choices:
 启用 GenericEphemeralVolume 特性会导致那些没有 PVCs 创建权限的用户，
 在创建 Pods 时，被允许间接的创建 PVCs。
 集群管理员必须意识到这一点。
-如果这不符合他们的安全模型，他们有两种选择：
+如果这不符合他们的安全模型，他们有如下选择：
+
 <!--
 - Explicitly disable the feature through the feature gate.
 - Use a [Pod Security
@@ -424,19 +429,19 @@ two choices:
   volume.
 -->
 - 通过特性门控显式禁用该特性。
-- 当`卷`列表不包含 `ephemeral` 卷类型时，使用
-  [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)
-  （在 Kubernetes 1.21 中已弃用）。
-- 使用[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  拒绝像 Pod 这样具有通用临时卷。
+- 当 `volumes` 列表不包含 `ephemeral` 卷类型时，使用
+  [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)。
+  （这一方式在 Kubernetes 1.21 版本已经弃用）
+- 使用一个[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  拒绝包含通用临时卷的 Pods。
 
 <!--
 The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) still applies, so
 even if users are allowed to use this new mechanism, they cannot use
 it to circumvent other policies.
 -->
-在一个命名空间中，用于 PVCs 的常规命名空间配额[用于 PVCs 的常规命名空间配额](/zh/docs/concepts/policy/resource-quotas/#storage-resource-quota)仍然适用，
-因此即使允许用户使用这种新机制，他们也不能使用它来规避其他策略。
+[为 PVC 卷所设置的逐名字空间的配额](/zh/docs/concepts/policy/resource-quotas/#storage-resource-quota)
+仍然有效，因此即使允许用户使用这种新机制，他们也不能使用它来规避其他策略。
 
 ## {{% heading "whatsnext" %}}
 
@@ -474,5 +479,5 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 
 - 有关设计的更多信息，参阅
   [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md)。
-- 本特性下一步开发的更多信息，参阅
-  [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698).
+- 关于本特性下一步开发的更多信息，参阅
+  [enhancement tracking issue #1698](https://github.com/kubernetes/enhancements/issues/1698)。
