@@ -154,9 +154,9 @@ the class or PV. If a mount option is invalid, the PV mount fails.
 ### Volume Binding Mode
 
 The `volumeBindingMode` field controls when [volume binding and dynamic
-provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
+provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur. When unset, "Immediate" mode is used by default.
 
-By default, the `Immediate` mode indicates that volume binding and dynamic
+The `Immediate` mode indicates that volume binding and dynamic
 provisioning occurs once the PersistentVolumeClaim is created. For storage
 backends that are topology-constrained and not globally accessible from all Nodes
 in the cluster, PersistentVolumes will be bound or provisioned without knowledge of the Pod's scheduling
@@ -187,6 +187,36 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 [CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
 to see its supported topology keys and examples.
+
+{{< note >}}
+   If you choose to use `waitForFirstConsumer`, do not use `nodeName` in the Pod spec
+   to specify node affinity. If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
+
+   Instead, you can use node selector for hostname in this case as shown below.
+{{< /note >}}
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: kube-01
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+```
 
 ### Allowed Topologies
 
