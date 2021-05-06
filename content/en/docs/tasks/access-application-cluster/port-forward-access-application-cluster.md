@@ -196,13 +196,6 @@ the slightly simpler syntax:
 kubectl port-forward deployment/mongo :27017
 ```
 
-The output is similar to this:
-
-```
-Forwarding from 127.0.0.1:63753 -> 27017
-Forwarding from [::1]:63753 -> 27017
-```
-
 The `kubectl` tool finds a local port number that is not in use (avoiding low ports numbers,
 because these might be used by other applications). The output is similar to:
 
