@@ -19,6 +19,8 @@ card:
 
 ## v1.21.0 다운로드
 
+### 소스 코드
+
 파일명 | sha512 해시
 -------- | -----------
 [kubernetes.tar.gz](https://dl.k8s.io/v1.21.0/kubernetes.tar.gz) | `19bb76a3fa5ce4b9f043b2a3a77c32365ab1fcb902d8dd6678427fb8be8f49f64a5a03dc46aaef9c7dadee05501cf83412eda46f0edacbb8fc1ed0bf5fb79142`
@@ -61,12 +63,6 @@ card:
 [kubernetes-node-windows-amd64.tar.gz](https://dl.k8s.io/v1.21.0/kubernetes-node-windows-amd64.tar.gz) | `b82e94663d330cff7a117f99a7544f27d0bc92b36b5a283b3c23725d5b33e6f15e0ebf784627638f22f2d58c58c0c2b618ddfd226a64ae779693a0861475d355`
 
 ## v1.20.0 이후 변경로그 (Changelog)
-
-# v1.21.0-rc.0 릴리스 노트
-
-[문서](https://docs.k8s.io/docs/home)
-
-# v1.20.0 이후 변경로그 (Changelog)
 
 ## 새로운 소식 (주요 테마)
 
@@ -157,18 +153,18 @@ The feature gate currently falls back to the default behavior in most cases. Ena
 - `audit.k8s.io/v1beta1` and `audit.k8s.io/v1alpha1` audit policy configuration and audit events are deprecated in favor of `audit.k8s.io/v1`, available since v1.13. kube-apiserver invocations that specify alpha or beta policy configurations with `--audit-policy-file`, or explicitly request alpha or beta audit events with `--audit-log-version` / `--audit-webhook-version` must update to use `audit.k8s.io/v1` and accept `audit.k8s.io/v1` events prior to v1.24. ([#98858](https://github.com/kubernetes/kubernetes/pull/98858), [@carlory](https://github.com/carlory)) [SIG Auth]
 - `discovery.k8s.io/v1beta1` EndpointSlices are deprecated in favor of `discovery.k8s.io/v1`, and will no longer be served in Kubernetes v1.25. ([#100472](https://github.com/kubernetes/kubernetes/pull/100472), [@liggitt](https://github.com/liggitt))
 - `diskformat` storage class parameter for in-tree vSphere volume plugin is deprecated as of v1.21 release. Please consider updating storageclass and remove `diskformat` parameter. vSphere CSI Driver does not support diskformat storageclass parameter.
-  
+
   vSphere releases less than 67u3 are deprecated as of v1.21. Please consider upgrading vSphere to 67u3 or above. vSphere CSI Driver requires minimum vSphere 67u3.
-  
+
   VM Hardware version less than 15 is deprecated as of v1.21. Please consider upgrading the Node VM Hardware version to 15 or above. vSphere CSI Driver recommends Node VM's Hardware version set to at least vmx-15.
-  
+
   Multi vCenter support is deprecated as of v1.21. If you have a Kubernetes cluster spanning across multiple vCenter servers, please consider moving all k8s nodes to a single vCenter Server. vSphere CSI Driver does not support Kubernetes deployment spanning across multiple vCenter servers.
-  
+
   Support for these deprecations will be available till Kubernetes v1.24. ([#98546](https://github.com/kubernetes/kubernetes/pull/98546), [@divyenpatel](https://github.com/divyenpatel))
 
 ### API 변경
 
-- 1. PodAffinityTerm includes a namespaceSelector field to allow selecting eligible namespaces based on their labels. 
+- 1. PodAffinityTerm includes a namespaceSelector field to allow selecting eligible namespaces based on their labels.
   2. A new CrossNamespacePodAffinity quota scope API that allows restricting which namespaces allowed to use PodAffinityTerm with corss-namespace reference via namespaceSelector or namespaces fields. ([#98582](https://github.com/kubernetes/kubernetes/pull/98582), [@ahg-g](https://github.com/ahg-g)) [SIG API Machinery, Apps, Auth and Testing]
 - Add Probe-level terminationGracePeriodSeconds field ([#99375](https://github.com/kubernetes/kubernetes/pull/99375), [@ehashman](https://github.com/ehashman)) [SIG API Machinery, Apps, Node and Testing]
 - Added `.spec.completionMode` field to Job, with accepted values `NonIndexed` (default) and `Indexed`. This is an alpha field and is only honored by servers with the `IndexedJob` feature gate enabled. ([#98441](https://github.com/kubernetes/kubernetes/pull/98441), [@alculquicondor](https://github.com/alculquicondor)) [SIG Apps and CLI]
@@ -182,8 +178,8 @@ The feature gate currently falls back to the default behavior in most cases. Ena
 - Generic ephemeral volumes are beta. ([#99643](https://github.com/kubernetes/kubernetes/pull/99643), [@pohly](https://github.com/pohly)) [SIG API Machinery, Apps, Auth, CLI, Node, Storage and Testing]
 - Hugepages request values are limited to integer multiples of the page size. ([#98515](https://github.com/kubernetes/kubernetes/pull/98515), [@lala123912](https://github.com/lala123912)) [SIG Apps]
 - Implement the GetAvailableResources in the podresources API. ([#95734](https://github.com/kubernetes/kubernetes/pull/95734), [@fromanirh](https://github.com/fromanirh)) [SIG Instrumentation, Node and Testing]
-- IngressClass resource can now reference a resource in a specific namespace 
-  for implementation-specific configuration (previously only Cluster-level resources were allowed). 
+- IngressClass resource can now reference a resource in a specific namespace
+  for implementation-specific configuration (previously only Cluster-level resources were allowed).
   This feature can be enabled using the IngressClassNamespacedParams feature gate. ([#99275](https://github.com/kubernetes/kubernetes/pull/99275), [@hbagdi](https://github.com/hbagdi))
 - Jobs API has a new `.spec.suspend` field that can be used to suspend and resume Jobs. This is an alpha field which is only honored by servers with the `SuspendJob` feature gate enabled. ([#98727](https://github.com/kubernetes/kubernetes/pull/98727), [@adtac](https://github.com/adtac))
 - Kubelet Graceful Node Shutdown feature graduates to Beta and enabled by default. ([#99735](https://github.com/kubernetes/kubernetes/pull/99735), [@bobbypage](https://github.com/bobbypage))
@@ -275,7 +271,7 @@ The feature gate currently falls back to the default behavior in most cases. Ena
 - The Kubernetes pause image manifest list now contains an image for Windows Server 20H2. ([#97322](https://github.com/kubernetes/kubernetes/pull/97322), [@claudiubelu](https://github.com/claudiubelu)) [SIG Windows]
 - The NodeAffinity plugin implements the PreFilter extension, offering enhanced performance for Filter. ([#99213](https://github.com/kubernetes/kubernetes/pull/99213), [@AliceZhang2016](https://github.com/AliceZhang2016)) [SIG Scheduling]
 - The `CronJobControllerV2` feature flag graduates to Beta and set to be enabled by default. ([#98878](https://github.com/kubernetes/kubernetes/pull/98878), [@soltysh](https://github.com/soltysh))
-- The `EndpointSlice` mirroring controller mirrors endpoints annotations and labels to the generated endpoint slices, it also ensures that updates on any of these fields are mirrored. 
+- The `EndpointSlice` mirroring controller mirrors endpoints annotations and labels to the generated endpoint slices, it also ensures that updates on any of these fields are mirrored.
   The well-known annotation `endpoints.kubernetes.io/last-change-trigger-time` is skipped and not mirrored. ([#98116](https://github.com/kubernetes/kubernetes/pull/98116), [@aojea](https://github.com/aojea))
 - The `RunAsGroup` feature has been promoted to GA in this release. ([#94641](https://github.com/kubernetes/kubernetes/pull/94641), [@krmayankk](https://github.com/krmayankk)) [SIG Auth and Node]
 - The `ServiceAccountIssuerDiscovery` feature has graduated to GA, and is unconditionally enabled. The `ServiceAccountIssuerDiscovery` feature-gate will be removed in 1.22. ([#98553](https://github.com/kubernetes/kubernetes/pull/98553), [@mtaufen](https://github.com/mtaufen)) [SIG API Machinery, Auth and Testing]
@@ -554,91 +550,6 @@ The feature gate currently falls back to the default behavior in most cases. Ena
 - sigs.k8s.io/kustomize: v2.0.3+incompatible
 
 
-## 의존성
-
-### 추가
-- github.com/go-errors/errors: [v1.0.1](https://github.com/go-errors/errors/tree/v1.0.1)
-- github.com/gobuffalo/here: [v0.6.0](https://github.com/gobuffalo/here/tree/v0.6.0)
-- github.com/google/shlex: [e7afc7f](https://github.com/google/shlex/tree/e7afc7f)
-- github.com/markbates/pkger: [v0.17.1](https://github.com/markbates/pkger/tree/v0.17.1)
-- github.com/moby/spdystream: [v0.2.0](https://github.com/moby/spdystream/tree/v0.2.0)
-- github.com/monochromegane/go-gitignore: [205db1a](https://github.com/monochromegane/go-gitignore/tree/205db1a)
-- github.com/niemeyer/pretty: [a10e7ca](https://github.com/niemeyer/pretty/tree/a10e7ca)
-- github.com/xlab/treeprint: [a009c39](https://github.com/xlab/treeprint/tree/a009c39)
-- go.starlark.net: 8dd3e2e
-- golang.org/x/term: 6a3ed07
-- sigs.k8s.io/kustomize/api: v0.8.5
-- sigs.k8s.io/kustomize/cmd/config: v0.9.7
-- sigs.k8s.io/kustomize/kustomize/v4: v4.0.5
-- sigs.k8s.io/kustomize/kyaml: v0.10.15
-
-### 변경
-- dmitri.shuralyov.com/gpu/mtl: 666a987 → 28db891
-- github.com/Azure/go-autorest/autorest: [v0.11.1 → v0.11.12](https://github.com/Azure/go-autorest/autorest/compare/v0.11.1...v0.11.12)
-- github.com/NYTimes/gziphandler: [56545f4 → v1.1.1](https://github.com/NYTimes/gziphandler/compare/56545f4...v1.1.1)
-- github.com/cilium/ebpf: [1c8d4c9 → v0.2.0](https://github.com/cilium/ebpf/compare/1c8d4c9...v0.2.0)
-- github.com/container-storage-interface/spec: [v1.2.0 → v1.3.0](https://github.com/container-storage-interface/spec/compare/v1.2.0...v1.3.0)
-- github.com/containerd/console: [v1.0.0 → v1.0.1](https://github.com/containerd/console/compare/v1.0.0...v1.0.1)
-- github.com/containerd/containerd: [v1.4.1 → v1.4.4](https://github.com/containerd/containerd/compare/v1.4.1...v1.4.4)
-- github.com/coredns/corefile-migration: [v1.0.10 → v1.0.11](https://github.com/coredns/corefile-migration/compare/v1.0.10...v1.0.11)
-- github.com/creack/pty: [v1.1.7 → v1.1.11](https://github.com/creack/pty/compare/v1.1.7...v1.1.11)
-- github.com/docker/docker: [bd33bbf → v20.10.2+incompatible](https://github.com/docker/docker/compare/bd33bbf...v20.10.2)
-- github.com/go-logr/logr: [v0.2.0 → v0.4.0](https://github.com/go-logr/logr/compare/v0.2.0...v0.4.0)
-- github.com/go-openapi/spec: [v0.19.3 → v0.19.5](https://github.com/go-openapi/spec/compare/v0.19.3...v0.19.5)
-- github.com/go-openapi/strfmt: [v0.19.3 → v0.19.5](https://github.com/go-openapi/strfmt/compare/v0.19.3...v0.19.5)
-- github.com/go-openapi/validate: [v0.19.5 → v0.19.8](https://github.com/go-openapi/validate/compare/v0.19.5...v0.19.8)
-- github.com/gogo/protobuf: [v1.3.1 → v1.3.2](https://github.com/gogo/protobuf/compare/v1.3.1...v1.3.2)
-- github.com/golang/mock: [v1.4.1 → v1.4.4](https://github.com/golang/mock/compare/v1.4.1...v1.4.4)
-- github.com/google/cadvisor: [v0.38.5 → v0.39.0](https://github.com/google/cadvisor/compare/v0.38.5...v0.39.0)
-- github.com/heketi/heketi: [c2e2a4a → v10.2.0+incompatible](https://github.com/heketi/heketi/compare/c2e2a4a...v10.2.0)
-- github.com/kisielk/errcheck: [v1.2.0 → v1.5.0](https://github.com/kisielk/errcheck/compare/v1.2.0...v1.5.0)
-- github.com/konsorten/go-windows-terminal-sequences: [v1.0.3 → v1.0.2](https://github.com/konsorten/go-windows-terminal-sequences/compare/v1.0.3...v1.0.2)
-- github.com/kr/text: [v0.1.0 → v0.2.0](https://github.com/kr/text/compare/v0.1.0...v0.2.0)
-- github.com/mattn/go-runewidth: [v0.0.2 → v0.0.7](https://github.com/mattn/go-runewidth/compare/v0.0.2...v0.0.7)
-- github.com/miekg/dns: [v1.1.4 → v1.1.35](https://github.com/miekg/dns/compare/v1.1.4...v1.1.35)
-- github.com/moby/sys/mountinfo: [v0.1.3 → v0.4.0](https://github.com/moby/sys/mountinfo/compare/v0.1.3...v0.4.0)
-- github.com/moby/term: [672ec06 → df9cb8a](https://github.com/moby/term/compare/672ec06...df9cb8a)
-- github.com/mrunalp/fileutils: [abd8a0e → v0.5.0](https://github.com/mrunalp/fileutils/compare/abd8a0e...v0.5.0)
-- github.com/olekukonko/tablewriter: [a0225b3 → v0.0.4](https://github.com/olekukonko/tablewriter/compare/a0225b3...v0.0.4)
-- github.com/opencontainers/runc: [v1.0.0-rc92 → v1.0.0-rc93](https://github.com/opencontainers/runc/compare/v1.0.0-rc92...v1.0.0-rc93)
-- github.com/opencontainers/runtime-spec: [4d89ac9 → e6143ca](https://github.com/opencontainers/runtime-spec/compare/4d89ac9...e6143ca)
-- github.com/opencontainers/selinux: [v1.6.0 → v1.8.0](https://github.com/opencontainers/selinux/compare/v1.6.0...v1.8.0)
-- github.com/sergi/go-diff: [v1.0.0 → v1.1.0](https://github.com/sergi/go-diff/compare/v1.0.0...v1.1.0)
-- github.com/sirupsen/logrus: [v1.6.0 → v1.7.0](https://github.com/sirupsen/logrus/compare/v1.6.0...v1.7.0)
-- github.com/syndtr/gocapability: [d983527 → 42c35b4](https://github.com/syndtr/gocapability/compare/d983527...42c35b4)
-- github.com/willf/bitset: [d5bec33 → v1.1.11](https://github.com/willf/bitset/compare/d5bec33...v1.1.11)
-- github.com/yuin/goldmark: [v1.1.27 → v1.2.1](https://github.com/yuin/goldmark/compare/v1.1.27...v1.2.1)
-- golang.org/x/crypto: 7f63de1 → 5ea612d
-- golang.org/x/exp: 6cc2880 → 85be41e
-- golang.org/x/mobile: d2bd2a2 → e6ae53a
-- golang.org/x/mod: v0.3.0 → ce943fd
-- golang.org/x/net: 69a7880 → 3d97a24
-- golang.org/x/sync: cd5d95a → 67f06af
-- golang.org/x/sys: 5cba982 → a50acf3
-- golang.org/x/time: 3af7569 → f8bda1e
-- golang.org/x/tools: c1934b7 → v0.1.0
-- gopkg.in/check.v1: 41f04d3 → 8fa4692
-- gopkg.in/yaml.v2: v2.2.8 → v2.4.0
-- gotest.tools/v3: v3.0.2 → v3.0.3
-- k8s.io/gengo: 83324d8 → b6c5ce2
-- k8s.io/klog/v2: v2.4.0 → v2.8.0
-- k8s.io/kube-openapi: d219536 → 591a79e
-- k8s.io/system-validators: v1.2.0 → v1.4.0
-- sigs.k8s.io/apiserver-network-proxy/konnectivity-client: v0.0.14 → v0.0.15
-- sigs.k8s.io/structured-merge-diff/v4: v4.0.2 → v4.1.0
-
-### 제거
-- github.com/codegangsta/negroni: [v1.0.0](https://github.com/codegangsta/negroni/tree/v1.0.0)
-- github.com/docker/spdystream: [449fdfc](https://github.com/docker/spdystream/tree/449fdfc)
-- github.com/golangplus/bytes: [45c989f](https://github.com/golangplus/bytes/tree/45c989f)
-- github.com/golangplus/fmt: [2a5d6d7](https://github.com/golangplus/fmt/tree/2a5d6d7)
-- github.com/gorilla/context: [v1.1.1](https://github.com/gorilla/context/tree/v1.1.1)
-- github.com/kr/pty: [v1.1.5](https://github.com/kr/pty/tree/v1.1.5)
-- rsc.io/quote/v3: v3.1.0
-- rsc.io/sampler: v1.3.0
-- sigs.k8s.io/kustomize: v2.0.3+incompatible
-
-
 
 # v1.21.0-rc.0
 
@@ -695,7 +606,7 @@ filename | sha512 hash
 ### (No, really, you MUST read this before you upgrade)
 
  - Migrated pkg/kubelet/cm/cpuset/cpuset.go to structured logging. Exit code changed from 255 to 1. ([#100007](https://github.com/kubernetes/kubernetes/pull/100007), [@utsavoza](https://github.com/utsavoza)) [SIG Instrumentation and Node]
- 
+
 ## Changes by Kind
 
 ### API Change
@@ -865,7 +776,7 @@ filename | sha512 hash
   Exit code changed from 255 to 1 ([#99838](https://github.com/kubernetes/kubernetes/pull/99838), [@adisky](https://github.com/adisky)) [SIG Node]
   - Pkg/kubelet/kuberuntime/kuberuntime_manager.go migrated to structured logging
   Exit code changed from 255 to 1 ([#99841](https://github.com/kubernetes/kubernetes/pull/99841), [@adisky](https://github.com/adisky)) [SIG Instrumentation and Node]
- 
+
 ## Changes by Kind
 
 ### Deprecation
@@ -875,18 +786,18 @@ filename | sha512 hash
   Deprecate --serviceaccount --hostport --requests --limits in kubectl run ([#99732](https://github.com/kubernetes/kubernetes/pull/99732), [@soltysh](https://github.com/soltysh)) [SIG CLI and Testing]
 - `audit.k8s.io/v1beta1` and `audit.k8s.io/v1alpha1` audit policy configuration and audit events are deprecated in favor of `audit.k8s.io/v1`, available since v1.13. kube-apiserver invocations that specify alpha or beta policy configurations with `--audit-policy-file`, or explicitly request alpha or beta audit events with `--audit-log-version` / `--audit-webhook-version` must update to use `audit.k8s.io/v1` and accept `audit.k8s.io/v1` events prior to v1.24. ([#98858](https://github.com/kubernetes/kubernetes/pull/98858), [@carlory](https://github.com/carlory)) [SIG Auth]
 - `diskformat` stroage class parameter for in-tree vSphere volume plugin is deprecated as of v1.21 release. Please consider updating storageclass and remove `diskformat` parameter. vSphere CSI Driver does not support diskformat storageclass parameter.
-  
+
   vSphere releases less than 67u3 are deprecated as of v1.21. Please consider upgrading vSphere to 67u3 or above. vSphere CSI Driver requires minimum vSphere 67u3.
-  
+
   VM Hardware version less than 15 is deprecated as of v1.21. Please consider upgrading the Node VM Hardware version to 15 or above. vSphere CSI Driver recommends Node VM's Hardware version set to at least vmx-15.
-  
+
   Multi vCenter support is deprecated as of v1.21. If you have a Kubernetes cluster spanning across multiple vCenter servers, please consider moving all k8s nodes to a single vCenter Server. vSphere CSI Driver does not support Kubernetes deployment spanning across multiple vCenter servers.
-  
+
   Support for these deprecations will be available till Kubernetes v1.24. ([#98546](https://github.com/kubernetes/kubernetes/pull/98546), [@divyenpatel](https://github.com/divyenpatel)) [SIG Cloud Provider and Storage]
 
 ### API Change
 
-- 1. PodAffinityTerm includes a namespaceSelector field to allow selecting eligible namespaces based on their labels. 
+- 1. PodAffinityTerm includes a namespaceSelector field to allow selecting eligible namespaces based on their labels.
   2. A new CrossNamespacePodAffinity quota scope API that allows restricting which namespaces allowed to use PodAffinityTerm with corss-namespace reference via namespaceSelector or namespaces fields. ([#98582](https://github.com/kubernetes/kubernetes/pull/98582), [@ahg-g](https://github.com/ahg-g)) [SIG API Machinery, Apps, Auth and Testing]
 - Add a default metadata name labels for selecting any namespace by its name. ([#96968](https://github.com/kubernetes/kubernetes/pull/96968), [@jayunit100](https://github.com/jayunit100)) [SIG API Machinery, Apps, Cloud Provider, Storage and Testing]
 - Added `.spec.completionMode` field to Job, with accepted values `NonIndexed` (default) and `Indexed` ([#98441](https://github.com/kubernetes/kubernetes/pull/98441), [@alculquicondor](https://github.com/alculquicondor)) [SIG Apps and CLI]
@@ -894,8 +805,8 @@ filename | sha512 hash
 - DaemonSets accept a MaxSurge integer or percent on their rolling update strategy that will launch the updated pod on nodes and wait for those pods to go ready before marking the old out-of-date pods as deleted. This allows workloads to avoid downtime during upgrades when deployed using DaemonSets. This feature is alpha and is behind the DaemonSetUpdateSurge feature gate. ([#96441](https://github.com/kubernetes/kubernetes/pull/96441), [@smarterclayton](https://github.com/smarterclayton)) [SIG Apps and Testing]
 - EndpointSlice API is now GA. The EndpointSlice topology field has been removed from the GA API and will be replaced by a new per Endpoint Zone field. If the topology field was previously used, it will be converted into an annotation in the v1 Resource. The discovery.k8s.io/v1alpha1 API is removed. ([#99662](https://github.com/kubernetes/kubernetes/pull/99662), [@swetharepakula](https://github.com/swetharepakula)) [SIG API Machinery, CLI, Cloud Provider, Cluster Lifecycle, Instrumentation, Network and Testing]
 - EndpointSlice Controllers are now GA. The EndpointSlice Controller will not populate the `deprecatedTopology` field and will only provide topology information through the `zone` and `nodeName` fields. ([#99870](https://github.com/kubernetes/kubernetes/pull/99870), [@swetharepakula](https://github.com/swetharepakula)) [SIG API Machinery, Apps, Auth, Network and Testing]
-- IngressClass resource can now reference a resource in a specific namespace 
-  for implementation-specific configuration(previously only Cluster-level resources were allowed). 
+- IngressClass resource can now reference a resource in a specific namespace
+  for implementation-specific configuration(previously only Cluster-level resources were allowed).
   This feature can be enabled using the IngressClassNamespacedParams feature gate. ([#99275](https://github.com/kubernetes/kubernetes/pull/99275), [@hbagdi](https://github.com/hbagdi)) [SIG API Machinery, CLI and Network]
 - Introduce conditions for PodDisruptionBudget ([#98127](https://github.com/kubernetes/kubernetes/pull/98127), [@mortent](https://github.com/mortent)) [SIG API Machinery, Apps, Auth, CLI, Cloud Provider, Cluster Lifecycle and Instrumentation]
 - Jobs API has a new .spec.suspend field that can be used to suspend and resume Jobs ([#98727](https://github.com/kubernetes/kubernetes/pull/98727), [@adtac](https://github.com/adtac)) [SIG API Machinery, Apps, Node, Scheduling and Testing]
@@ -909,7 +820,7 @@ filename | sha512 hash
 - PodSecurityPolicy only stores "generic" as allowed volume type if the GenericEphemeralVolume feature gate is enabled ([#98918](https://github.com/kubernetes/kubernetes/pull/98918), [@pohly](https://github.com/pohly)) [SIG Auth and Security]
 - Promote CronJobs to batch/v1 ([#99423](https://github.com/kubernetes/kubernetes/pull/99423), [@soltysh](https://github.com/soltysh)) [SIG API Machinery, Apps, CLI and Testing]
 - Remove support for building Kubernetes with bazel. ([#99561](https://github.com/kubernetes/kubernetes/pull/99561), [@BenTheElder](https://github.com/BenTheElder)) [SIG API Machinery, Apps, Architecture, Auth, Autoscaling, CLI, Cloud Provider, Cluster Lifecycle, Instrumentation, Network, Node, Release, Scalability, Scheduling, Storage, Testing and Windows]
-- Setting loadBalancerClass in load balancer type of service is available with this PR. 
+- Setting loadBalancerClass in load balancer type of service is available with this PR.
   Users who want to use a custom load balancer can specify loadBalancerClass to achieve it. ([#98277](https://github.com/kubernetes/kubernetes/pull/98277), [@XudongLiuHarold](https://github.com/XudongLiuHarold)) [SIG API Machinery, Apps, Cloud Provider and Network]
 - Storage capacity tracking (= the CSIStorageCapacity feature) is beta, storage.k8s.io/v1alpha1/VolumeAttachment and storage.k8s.io/v1alpha1/CSIStorageCapacity objects are deprecated ([#99641](https://github.com/kubernetes/kubernetes/pull/99641), [@pohly](https://github.com/pohly)) [SIG API Machinery, Apps, Auth, Scheduling, Storage and Testing]
 - Support for Indexed Job: a Job that is considered completed when Pods associated to indexes from 0 to (.spec.completions-1) have succeeded. ([#98812](https://github.com/kubernetes/kubernetes/pull/98812), [@alculquicondor](https://github.com/alculquicondor)) [SIG Apps and CLI]
@@ -942,7 +853,7 @@ filename | sha512 hash
 - Remove cAdvisor json metrics api collected by Kubelet ([#99236](https://github.com/kubernetes/kubernetes/pull/99236), [@pacoxu](https://github.com/pacoxu)) [SIG Node]
 - Sysctls is now GA and locked to default ([#99158](https://github.com/kubernetes/kubernetes/pull/99158), [@wgahnagl](https://github.com/wgahnagl)) [SIG Node]
 - The NodeAffinity plugin implements the PreFilter extension, offering enhanced performance for Filter. ([#99213](https://github.com/kubernetes/kubernetes/pull/99213), [@AliceZhang2016](https://github.com/AliceZhang2016)) [SIG Scheduling]
-- The endpointslice mirroring controller mirrors endpoints annotations and labels to the generated endpoint slices, it also ensures that updates on any of these fields are mirrored. 
+- The endpointslice mirroring controller mirrors endpoints annotations and labels to the generated endpoint slices, it also ensures that updates on any of these fields are mirrored.
   The well-known annotation endpoints.kubernetes.io/last-change-trigger-time is skipped and not mirrored. ([#98116](https://github.com/kubernetes/kubernetes/pull/98116), [@aojea](https://github.com/aojea)) [SIG Apps, Network and Testing]
 - Update the latest validated version of Docker to 20.10 ([#98977](https://github.com/kubernetes/kubernetes/pull/98977), [@neolit123](https://github.com/neolit123)) [SIG CLI, Cluster Lifecycle and Node]
 - Upgrade node local dns to 1.17.0 for better IPv6 support ([#99749](https://github.com/kubernetes/kubernetes/pull/99749), [@pacoxu](https://github.com/pacoxu)) [SIG Cloud Provider and Network]
@@ -973,7 +884,7 @@ filename | sha512 hash
 - Return zero time (midnight on Jan. 1, 1970) instead of negative number when reporting startedAt and finishedAt of the not started or a running Pod when using dockershim as a runtime. ([#99585](https://github.com/kubernetes/kubernetes/pull/99585), [@Iceber](https://github.com/Iceber)) [SIG Node]
 - Stdin is now only passed to client-go exec credential plugins when it is detected to be an interactive terminal. Previously, it was passed to client-go exec plugins when **stdout*- was detected to be an interactive terminal. ([#99654](https://github.com/kubernetes/kubernetes/pull/99654), [@ankeesler](https://github.com/ankeesler)) [SIG API Machinery and Auth]
 - The maximum number of ports allowed in EndpointSlices has been increased from 100 to 20,000 ([#99795](https://github.com/kubernetes/kubernetes/pull/99795), [@robscott](https://github.com/robscott)) [SIG Network]
-- Updates the commands 
+- Updates the commands
    - kubectl kustomize {arg}
    - kubectl apply -k {arg}
   to use same code as kustomize CLI v4.0.5
@@ -1115,7 +1026,7 @@ filename | sha512 hash
 ### (No, really, you MUST read this before you upgrade)
 
  - The metric `storage_operation_errors_total` is not removed, but is marked deprecated, and the metric `storage_operation_status_count` is marked deprecated. In both cases the storage_operation_duration_seconds metric can be used to recover equivalent counts (using `status=fail-unknown` in the case of `storage_operations_errors_total`). ([#99045](https://github.com/kubernetes/kubernetes/pull/99045), [@mattcary](https://github.com/mattcary)) [SIG Instrumentation and Storage]
- 
+
 ## Changes by Kind
 
 ### Deprecation
@@ -1248,7 +1159,7 @@ filename | sha512 hash
 
  - Newly provisioned PVs by gce-pd will no longer have the beta FailureDomain label. gce-pd volume plugin will start to have GA topology label instead. ([#98700](https://github.com/kubernetes/kubernetes/pull/98700), [@Jiawei0227](https://github.com/Jiawei0227)) [SIG Cloud Provider, Storage and Testing]
   - Remove alpha CSIMigrationXXComplete flag and add alpha InTreePluginXXUnregister flag. Deprecate CSIMigrationvSphereComplete flag and it will be removed in 1.22. ([#98243](https://github.com/kubernetes/kubernetes/pull/98243), [@Jiawei0227](https://github.com/Jiawei0227)) [SIG Node and Storage]
- 
+
 ## Changes by Kind
 
 ### API Change
@@ -1395,7 +1306,7 @@ filename | sha512 hash
 ### (No, really, you MUST read this before you upgrade)
 
  - Remove storage metrics `storage_operation_errors_total`, since we already have `storage_operation_status_count`.And add new field `status` for `storage_operation_duration_seconds`, so that we can know about all status storage operation latency. ([#98332](https://github.com/kubernetes/kubernetes/pull/98332), [@JornShen](https://github.com/JornShen)) [SIG Instrumentation and Storage]
- 
+
 ## Changes by Kind
 
 ### Deprecation
@@ -1516,7 +1427,7 @@ filename | sha512 hash
 ### (No, really, you MUST read this before you upgrade)
 
  - Kube-proxy's IPVS proxy mode no longer sets the net.ipv4.conf.all.route_localnet sysctl parameter. Nodes upgrading will have net.ipv4.conf.all.route_localnet set to 1 but new nodes will inherit the system default (usually 0). If you relied on any behavior requiring net.ipv4.conf.all.route_localnet, you must set ensure it is enabled as kube-proxy will no longer set it automatically. This change helps to further mitigate CVE-2020-8558. ([#92938](https://github.com/kubernetes/kubernetes/pull/92938), [@lbernail](https://github.com/lbernail)) [SIG Network and Release]
- 
+
 ## Changes by Kind
 
 ### Deprecation
@@ -1552,7 +1463,7 @@ filename | sha512 hash
 ### Bug or Regression
 
 - ## Changelog
-  
+
   ### General
   - Fix priority expander falling back to a random choice even though there is a higher priority option to choose
   - Clone `kubernetes/kubernetes` in `update-vendor.sh` shallowly, instead of fetching all revisions
@@ -1571,17 +1482,17 @@ filename | sha512 hash
   - Fix `update-vendor.sh` to work on OSX and zsh
   - Add best-effort eviction for DaemonSet pods while scaling down non-empty nodes
   - Add build support for ARM64
-  
+
   ### AliCloud
   - Add missing daemonsets and replicasets to ALI example cluster role
-  
+
   ### Apache CloudStack
   - Add support for Apache CloudStack
-  
+
   ### AWS
   - Regenerate list of EC2 instances
   - Fix pricing endpoint in AWS China Region
-  
+
   ### Azure
   - Add optional jitter on initial VMSS VM cache refresh, keep the refreshes spread over time
   - Serve from cache for the whole period of ongoing throttling
@@ -1591,17 +1502,17 @@ filename | sha512 hash
   - Support allocatable resources overrides via VMSS tags
   - Add missing stable labels in template nodes
   - Proactively set instance status to deleting on node deletions
-  
+
   ### Cluster API
   - Migrate interaction with the API from using internal types to using Unstructured
   - Improve tests to work better with constrained resources
   - Add support for node autodiscovery
   - Add support for `--cloud-config`
   - Update group identifier to use for Cluster API annotations
-  
+
   ### Exoscale
   - Add support for Exoscale
-  
+
   ### GCE
   - Decrease the number of GCE Read Requests made while deleting nodes
   - Base pricing of custom instances on their instance family type
@@ -1609,7 +1520,7 @@ filename | sha512 hash
   - Add pricing information for different GPU types
   - Ignore the new `topology.gke.io/zone` label when comparing groups
   - Add missing stable labels to template nodes
-  
+
   ### HuaweiCloud
   - Add auto scaling group support
   - Implement node group by AS
@@ -1617,21 +1528,21 @@ filename | sha512 hash
   - Implement increasing node group size
   - Implement TemplateNodeInfo
   - Implement caching instances
-  
+
   ### IONOS
   - Add support for IONOS
-  
+
   ### Kubemark
   - Skip non-kubemark nodes while computing node infos for node groups.
-  
+
   ### Magnum
   - Add Magnum support in the Cluster Autoscaler helm chart
-  
+
   ### Packet
   - Allow empty nodepools
   - Add support for multiple nodepools
   - Add pricing support
-  
+
   ## Image
   Image: `k8s.gcr.io/autoscaling/cluster-autoscaler:v1.20.0` ([#97011](https://github.com/kubernetes/kubernetes/pull/97011), [@towca](https://github.com/towca)) [SIG Cloud Provider]
 - AcceleratorStats will be available in the Summary API of kubelet when cri_stats_provider is used. ([#96873](https://github.com/kubernetes/kubernetes/pull/96873), [@ruiwen-zhao](https://github.com/ruiwen-zhao)) [SIG Node]
@@ -1689,7 +1600,7 @@ filename | sha512 hash
 - The `AttachVolumeLimit` feature gate that is GA since v1.17 is now removed. ([#96539](https://github.com/kubernetes/kubernetes/pull/96539), [@ialidzhikov](https://github.com/ialidzhikov)) [SIG Storage]
 - The `CSINodeInfo` feature gate that is GA since v1.17 is unconditionally enabled, and can no longer be specified via the `--feature-gates` argument. ([#96561](https://github.com/kubernetes/kubernetes/pull/96561), [@ialidzhikov](https://github.com/ialidzhikov)) [SIG Apps, Auth, Scheduling, Storage and Testing]
 - The deprecated feature gates `RotateKubeletClientCertificate`, `AttachVolumeLimit`, `VolumePVCDataSource` and `EvenPodsSpread` are now unconditionally enabled and can no longer be specified in component invocations. ([#97306](https://github.com/kubernetes/kubernetes/pull/97306), [@gavinfish](https://github.com/gavinfish)) [SIG Node, Scheduling and Storage]
-- `ServiceNodeExclusion`, `NodeDisruptionExclusion` and `LegacyNodeRoleBehavior`(locked to false) features have been promoted to GA. 
+- `ServiceNodeExclusion`, `NodeDisruptionExclusion` and `LegacyNodeRoleBehavior`(locked to false) features have been promoted to GA.
   To prevent control plane nodes being added to load balancers automatically, upgrade users need to add "node.kubernetes.io/exclude-from-external-load-balancers"  label to control plane nodes. ([#97543](https://github.com/kubernetes/kubernetes/pull/97543), [@pacoxu](https://github.com/pacoxu)) [SIG API Machinery, Apps, Cloud Provider and Network]
 
 ### Uncategorized
