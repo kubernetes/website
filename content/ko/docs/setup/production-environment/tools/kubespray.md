@@ -68,7 +68,7 @@ Kubespray에서는 디플로이먼트의 많은 속성들을 사용자가 정의
   * {{< glossary_tooltip term_id="cri-o" >}}
 * 인증서 생성 방법
 
-Kubespray의 [변수 파일들](https://docs.ansible.com/ansible/playbooks_variables.html)을 사용자가 정의할 수 있다. 만약 Kubespray를 막 시작한 경우, kubespray의 기본 설정값을 이용해 클러스터를 배포하고 Kubernetes를 탐색하는 것이 좋다.
+Kubespray의 [변수 파일들](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)을 사용자가 정의할 수 있다. 만약 Kubespray를 처음 접하는 경우, kubespray의 기본 설정값을 이용해 클러스터를 배포하고 쿠버네티스를 탐색하는 것이 좋다.
 
 ### (4/5) 클러스터 배포하기
 
