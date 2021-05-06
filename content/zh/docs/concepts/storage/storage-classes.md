@@ -5,6 +5,11 @@ weight: 30
 ---
 
 <!--
+reviewers:
+- jsafrane
+- saad-ali
+- thockin
+- msau42
 title: Storage Classes
 content_type: concept
 weight: 30
@@ -17,8 +22,9 @@ This document describes the concept of a StorageClass in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 -->
-本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉 [卷](/zh/docs/concepts/storage/volumes/) 和
-[持久卷](/zh/docs/concepts/storage/persistent-volumes) 的概念。
+本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉
+[卷](/zh/docs/concepts/storage/volumes/)和
+[持久卷](/zh/docs/concepts/storage/persistent-volumes)的概念。
 
 <!-- body -->
 
@@ -45,7 +51,7 @@ Each StorageClass contains the fields `provisioner`, `parameters`, and
 `reclaimPolicy`, which are used when a PersistentVolume belonging to the
 class needs to be dynamically provisioned.
 
- -->
+-->
 ## StorageClass 资源
 
 每个 StorageClass 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
@@ -61,12 +67,12 @@ StorageClass 对象的命名很重要，用户使用这个命名来请求生成�
 当创建 StorageClass 对象时，管理员设置 StorageClass 对象的命名和其他参数，一旦创建了对象就不能再对其更新。
 
 <!--
-Administrators can specify a default StorageClass just for PVCs that don't
+Administrators can specify a default StorageClass only for PVCs that don't
 request any particular class to bind to: see the
 [PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 for details.
  -->
-管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类 ：
+管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类：
 更多详情请参阅
 [PersistentVolumeClaim 章节](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
@@ -928,20 +934,19 @@ parameters:
   `"http(s)://api-server:7860"`
 * `registry`: Quobyte registry to use to mount the volume. You can specify the
   registry as ``<host>:<port>`` pair or if you want to specify multiple
-  registries you just have to put a comma between them e.q.
+  registries, put a comma between them.
   ``<host1>:<port>,<host2>:<port>,<host3>:<port>``.
   The host can be an IP address or if you have a working DNS you can also
   provide the DNS names.
 * `adminSecretNamespace`: The namespace for `adminSecretName`.
   Default is "default".
 -->
-* `quobyteAPIServer`：Quobyte API 服务器的格式是
-  `"http(s)://api-server:7860"`
-* `registry`：用于挂载卷的 Quobyte registry。你可以指定 registry 为 ``<host>:<port>``
-  或者如果你想指定多个 registry，你只需要在他们之间添加逗号，例如
-  ``<host1>:<port>,<host2>:<port>,<host3>:<port>``。
+* `quobyteAPIServer`：Quobyte API 服务器的格式是 `"http(s)://api-server:7860"`
+* `registry`：用于挂载卷的 Quobyte 仓库。你可以指定仓库为 `<host>:<port>`
+  或者如果你想指定多个 registry，在它们之间添加逗号，例如
+  `<host1>:<port>,<host2>:<port>,<host3>:<port>`。
   主机可以是一个 IP 地址，或者如果你有正在运行的 DNS，你也可以提供 DNS 名称。
-* `adminSecretNamespace`：`adminSecretName`的 namespace。
+* `adminSecretNamespace`：`adminSecretName` 的名字空间。
   默认值是 "default"。
 
 <!--
@@ -957,15 +962,16 @@ parameters:
     ```
 -->
 
-* `adminSecretName`：保存关于 Quobyte 用户和密码的 secret，用于对 API 服务器进行身份验证。
-  提供的 secret 必须有值为 "kubernetes.io/quobyte" 的 type 参数 和 `user` 与 `password` 的键值，
+* `adminSecretName`：保存关于 Quobyte 用户和密码的 Secret，用于对 API 服务器进行身份验证。
+  提供的 secret 必须有值为 "kubernetes.io/quobyte" 的 type 参数和 `user`
+  与 `password` 的键值，
   例如以这种方式创建：
 
-    ```shell
-    kubectl create secret generic quobyte-admin-secret \
-      --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
-      --namespace=kube-system
-    ```
+  ```shell
+  kubectl create secret generic quobyte-admin-secret \
+    --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
+    --namespace=kube-system
+  ```
 <!--
 * `user`: maps all access to this user. Default is "root".
 * `group`: maps all access to this group. Default is "nfsnobody".
@@ -978,10 +984,10 @@ parameters:
 -->
 * `user`：对这个用户映射的所有访问权限。默认是 "root"。
 * `group`：对这个组映射的所有访问权限。默认是 "nfsnobody"。
-* `quobyteConfig`：使用指定的配置来创建卷。你可以创建一个新的配置，或者，可以修改 Web console 或
-  quobyte CLI 中现有的配置。默认是 "BASE"。
-* `quobyteTenant`：使用指定的租户 ID 创建/删除卷。这个 Quobyte 租户必须已经于 Quobyte。
-  默认是 "DEFAULT"。
+* `quobyteConfig`：使用指定的配置来创建卷。你可以创建一个新的配置，
+  或者，可以修改 Web 控制台或 quobyte CLI 中现有的配置。默认是 "BASE"。
+* `quobyteTenant`：使用指定的租户 ID 创建/删除卷。这个 Quobyte 租户必须
+  已经于 Quobyte 中存在。默认是 "DEFAULT"。
 
 <!--
 ### Azure Disk
@@ -1015,7 +1021,9 @@ parameters:
 -->
 * `skuName`：Azure 存储帐户 Sku 层。默认为空。
 * `location`：Azure 存储帐户位置。默认为空。
-* `storageAccount`：Azure 存储帐户名称。如果提供存储帐户，它必须位于与集群相同的资源组中，并且 `location` 是被忽略的。如果未提供存储帐户，则会在与群集相同的资源组中创建新的存储帐户。
+* `storageAccount`：Azure 存储帐户名称。
+  如果提供存储帐户，它必须位于与集群相同的资源组中，并且 `location`
+  是被忽略的。如果未提供存储帐户，则会在与群集相同的资源组中创建新的存储帐户。
 
 <!--
 #### Azure Disk Storage Class (starting from v1.7.2) {#azure-disk-storage-class}
@@ -1058,7 +1066,8 @@ parameters:
 - Managed VM can only attach managed disks and unmanaged VM can only attach
   unmanaged disks.
 -->
-- Premium VM 可以同时添加 Standard_LRS 和 Premium_LRS 磁盘，而 Standard 虚拟机只能添加 Standard_LRS 磁盘。
+- Premium VM 可以同时添加 Standard_LRS 和 Premium_LRS 磁盘，而 Standard
+  虚拟机只能添加 Standard_LRS 磁盘。
 - 托管虚拟机只能连接托管磁盘，非托管虚拟机只能连接非托管磁盘。
 
 <!--
@@ -1097,11 +1106,15 @@ parameters:
 * `skuName`：Azure 存储帐户 Sku 层。默认为空。
 * `location`：Azure 存储帐户位置。默认为空。
 * `storageAccount`：Azure 存储帐户名称。默认为空。
-  如果不提供存储帐户，会搜索所有与资源相关的存储帐户，以找到一个匹配 `skuName` 和 `location` 的账号。
+  如果不提供存储帐户，会搜索所有与资源相关的存储帐户，以找到一个匹配
+  `skuName` 和 `location` 的账号。
   如果提供存储帐户，它必须存在于与集群相同的资源组中，`skuName` 和 `location` 会被忽略。
-* `secretNamespace`：包含 Azure 存储帐户名称和密钥的密钥的名称空间。 默认值与 Pod 相同。
-* `secretName`：包含 Azure 存储帐户名称和密钥的密钥的名称。 默认值为 `azure-storage-account-<accountName>-secret`
-* `readOnly`：指示是否将存储安装为只读的标志。默认为 false，表示 读/写 挂载。 该设置也会影响VolumeMounts中的 `ReadOnly` 设置。
+* `secretNamespace`：包含 Azure 存储帐户名称和密钥的密钥的名称空间。
+  默认值与 Pod 相同。
+* `secretName`：包含 Azure 存储帐户名称和密钥的密钥的名称。
+  默认值为 `azure-storage-account-<accountName>-secret`
+* `readOnly`：指示是否将存储安装为只读的标志。默认为 false，表示"读/写"挂载。
+  该设置也会影响VolumeMounts中的 `ReadOnly` 设置。
 
 <!--
 During storage provisioning, a secret named by `secretName` is created for the
@@ -1305,7 +1318,7 @@ kubectl create secret generic storageos-secret \
 -->
 StorageOS Kubernetes 卷插件可以使 Secret 对象来指定用于访问 StorageOS API 的端点和凭据。
 只有当默认值已被更改时，这才是必须的。
-secret 必须使用 `kubernetes.io/storageos` 类型创建，如以下命令：
+Secret 必须使用 `kubernetes.io/storageos` 类型创建，如以下命令：
 
 ```shell
 kubectl create secret generic storageos-secret \
