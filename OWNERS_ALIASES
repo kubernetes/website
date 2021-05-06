@@ -233,3 +233,20 @@ aliases:
     - mrbobbytables
     - nikhita
     - parispittman
+  # authoritative source: git.k8s.io/release/OWNERS_ALIASES
+  release-engineering-approvers:
+    - cpanato # Release Manager
+    - hasheddan # subproject owner / Release Manager
+    - puerco # Release Manager
+    - saschagrunert # subproject owner / Release Manager
+    - justaugustus # subproject owner / Release Manager
+    - xmudrii # Release Manager
+  release-engineering-reviewers:
+    - ameukam # Release Manager Associate
+    - jimangel # Release Manager Associate
+    - markyjackson-taulia # Release Manager Associate
+    - mkorbi # Release Manager Associate
+    - onlydole # Release Manager Associate
+    - sethmccombs # Release Manager Associate
+    - verolop # Release Manager Associate
+    - wilsonehusin # Release Manager Associate
