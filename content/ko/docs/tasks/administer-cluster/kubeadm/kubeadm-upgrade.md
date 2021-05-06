@@ -37,7 +37,7 @@ weight: 20
 
 ### 추가 정보
 
-- kubelet 마이너 버전을 업그레이드하기 전에 [노드 드레이닝(draining)](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)이
+- kubelet 마이너 버전을 업그레이드하기 전에 [노드 드레이닝(draining)](/docs/tasks/administer-cluster/safely-drain-node/)이
   필요하다. 컨트롤 플레인 노드의 경우 CoreNDS 파드 또는 기타 중요한 워크로드를 실행할 수 있다.
 - 컨테이너 사양 해시 값이 변경되므로, 업그레이드 후 모든 컨테이너가 다시 시작된다.
 
