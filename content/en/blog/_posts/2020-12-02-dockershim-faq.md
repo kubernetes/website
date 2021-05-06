@@ -50,7 +50,7 @@ as the situation evolves.
 ### Can I still use dockershim after it is removed from Kubernetes?
 
 Update:
-[Mirantis and Docker have committed to maintaining the dockershim][mirantis] after
+Mirantis and Docker have [committed][mirantis] to maintaining the dockershim after
 it is removed from Kubernetes.
 
 [mirantis]: https://www.mirantis.com/blog/mirantis-to-take-over-support-of-kubernetes-dockershim-2/
@@ -186,5 +186,4 @@ discussion of the changes.
 ### Can I have a hug?
 
 Always and whenever you want!  🤗🤗
-
 
