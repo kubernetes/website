@@ -204,6 +204,7 @@
 
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
+/docs/reference/kubectl/kubectl-cmds/    https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/ 301
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/scheduling/profiles/    /docs/reference/scheduling/config/#profiles 301
 
