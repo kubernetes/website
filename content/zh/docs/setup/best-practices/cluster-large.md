@@ -25,10 +25,6 @@ At {{< param "version" >}}, Kubernetes supports clusters with up to 5000 nodes. 
 * 容器总数不超过 300000
 * 每个节点的 pod 数量不超过 100
 
-<br>
-
-{{< toc >}}
-
 <!--
 ## Setup
 -->
