@@ -563,8 +563,8 @@ parameters:
 * `quobyteAPIServer`: `"http(s)://api-server:7860"` 형식의
   Quobyte의 API 서버이다.
 * `registry`: 볼륨을 마운트하는 데 사용할 Quobyte 레지스트리이다. 레지스트리를
-  ``<host>:<port>`` 의 쌍으로 지정하거나 여러 레지스트리를
-  지정하려면 쉼표만 있으면 된다.
+  ``<host>:<port>`` 의 쌍으로 지정할 수 있으며, 여러 레지스트리를
+  지정하려면 각 쌍을 쉼표로 구분하면 된다.
   예: ``<host1>:<port>,<host2>:<port>,<host3>:<port>``
   호스트는 IP 주소이거나 DNS가 작동 중인 경우
   DNS 이름을 제공할 수도 있다.

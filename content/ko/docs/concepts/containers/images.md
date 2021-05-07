@@ -135,7 +135,7 @@ kubelet 프로세스의 환경 변수에서 `HOME=/root` 를 명시적으로 설
 예제의 경우, 사용자의 데스크탑/랩탑에서 아래 내용을 실행한다.
 
    1. 사용하고 싶은 각 자격 증명 세트에 대해서 `docker login [서버]`를 실행한다. 이것은 여러분 PC의 `$HOME/.docker/config.json`를 업데이트한다.
-   1. 편집기에서 `$HOME/.docker/config.json`를 보고 사용하고 싶은 자격 증명만 포함하고 있는지 확인한다.
+   1. 편집기로 `$HOME/.docker/config.json`를 열여서 사용하고 싶은 자격 증명만 포함하고 있는지 확인한다.
    1. 노드의 리스트를 구한다. 예를 들면 다음과 같다.
       - 이름을 원하는 경우: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
       - IP를 원하는 경우: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
