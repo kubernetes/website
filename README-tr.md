@@ -2,14 +2,14 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-master-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-Bu depo,[Kubernetes web sitesini ve dökümantasyonunu](https://kubernetes.io/) oluşturmak için gerekli varlıkları içerir. Katkıda bulunmak istemenize sevindik!
+Bu depo, [Kubernetes web sitesini ve dökümantasyonunu](https://kubernetes.io/) oluşturmak için gerekli varlıkları içerir. Katkıda bulunmak istemenize sevindik!
 
 + [Dokümanlara katkıda bulunmak](#contributing-to-the-docs)
 + [Yerelleştirme BeniOku](#localization-readmemds)
 
 # Bu depoyu kullanma
 
-Web sitesini Hugo (Genişletilmiş sürüm) kullanarak yerel olarak çalıştırabilirsiniz, veya bir konteynır çalışma zamanında çalıştırabilirsiniz. Canlı web sitesiyle dağıtım tutarlılığı sağladığı için konteyner çalışma zamanını kullanmanızı şiddetle tavsiye ederiz.
+Web sitesini Hugo (Genişletilmiş sürüm) kullanarak yerel olarak çalıştırabilirsiniz, veya bir konteynır çalışma zamanında çalıştırabilirsiniz. Canlı web sitesiyle dağıtım tutarlılığı sağladığı için konteynır çalışma zamanını kullanmanızı şiddetle tavsiye ederiz.
 
 ## Önkoşullar
 
@@ -57,77 +57,78 @@ npm ci
 make serve
 ```
 
-Bu, yerel Hugo sunucusunu 1313 numaralı bağlantı noktasından başlatacak. Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
+Bu, yerel Hugo sunucusunu 1313 numaralı bağlantı noktasından başlatacak. Web sitesini görüntülemek için tarayıcınızı http://localhost:1313 de açın.  Kaynak dosyalarda değişiklik yaptıkça, Hugo web sitesini günceller ve bir tarayıcının yenilenmesini zorlar.
 
-## Building the API reference pages
+## API referans sayfalarını oluşturma
 
-The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, using https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs.
+`content/en/docs/reference/kubernetes-api` de bulunan API referans sayfaları, https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs kullanılarak, Swagger şartnamesinden oluşturulmuştur.
 
-To update the reference pages for a new Kubernetes release (replace v1.20 in the following examples with the release to update to):
+Yeni bir Kubernetes sürümünün referans sayfalarını güncellemek için (aşağıdaki örneklerde v1.20'yi güncelleme yapılacak sürümle değiştirin):
 
-1. Pull the `kubernetes-resources-reference` submodule:
+1. `kubernetes-resources-reference` alt modülünü çekin: 
 
 ```
 git submodule update --init --recursive --depth 1
 ```
 
-2. Create a new API revision into the submodule, and add the Swagger specification:
+2. Alt modüle yeni bir API revizyonu oluşturun ve Swagger şartnamesini ekleyin:
 
 ```
 mkdir api-ref-generator/gen-resourcesdocs/api/v1.20
 curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-generator/gen-resourcesdocs/api/v1.20/swagger.json
 ```
 
-3. Copy the table of contents and fields configuration for the new release from a previous one:
+3. Yeni sürümün içindekiler ve alan yapılandırmasını bir öncekinden kopyalayın:
 
 ```
 mkdir api-ref-generator/gen-resourcesdocs/api/v1.20
 cp api-ref-generator/gen-resourcesdocs/api/v1.19/* api-ref-generator/gen-resourcesdocs/api/v1.20/
 ```
 
-4. Adapt the files `toc.yaml` and `fields.yaml` to reflect the changes between the two releases
+4. Dosyaları, iki sürüm arasındaki değişiklikleri yansıtacak şekilde `toc.yaml` ve `fields.yaml` biçimlerine uyarlayın.
 
-5. Next, build the pages:
+5. Ardından, sayfaları oluşturun:
 
 ```
 make api-reference
 ```
 
-You can test the results locally by making and serving the site from a container image:
+Siteyi bir konteynır görüntüsünden oluşturup sunarak sonuçları yerel olarak test edebilirsiniz:
 
 ```
 make container-image
 make container-serve
 ```
 
-In a web browser, go to http://localhost:1313/docs/reference/kubernetes-api/ to view the API reference.
+Bir web tarayıcısında, API referansını görüntülemek için http://localhost:1313/docs/reference/kubernetes-api/ adresine gidin.
 
-6. When all changes of the new contract are reflected into the configuration files `toc.yaml` and `fields.yaml`, create a Pull Request with the newly generated API reference pages.
+6. Yeni sözleşmedeki tüm değişiklikler, `toc.yaml` ve `fields.yaml` yapılandırma dosyalarına yansıtıldığında, yeni oluşturulan API referans sayfalarıyla bir çekme isteği oluşturun.
 
-## Troubleshooting
-### error: failed to transform resource: TOCSS: failed to transform "scss/main.scss" (text/x-scss): this feature is not available in your current Hugo version
+## Sorun giderme
 
-Hugo is shipped in two set of binaries for technical reasons. The current website runs based on the **Hugo Extended** version only. In the [release page](https://github.com/gohugoio/hugo/releases) look for archives with `extended` in the name. To confirm, run `hugo version` and look for the word `extended`.
+### hata: kaynak dönüştürülemedi:TOCSS: dönüştürülemedi "scss/main.scss" (text/x-scss): bu özellik mevcut Hugo sürümünüzde mevcut değil
 
-### Troubleshooting macOS for too many open files
+Hugo, teknik nedenlerden dolayı iki grup ikili dosyada gönderilir. Mevcut web sitesi yalnızca **Hugo Extended** versiyonuna göre çalışmaktadır. [Yayın sayfasında](https://github.com/gohugoio/hugo/releases) adında `genişletilmiş` arşivleri arayın. Onaylamak için `hugo sürümünü` çalıştırın ve `genişletilmiş` kelimeyi arayın.
 
-If you run `make serve` on macOS and receive the following error:
+### macOS'ta çok fazla açık dosya için sorun giderme
+
+macOS üzerinde `make serve` çalıştırırsanız ve aşağıdaki hatayı alırsanız:
 
 ```
 ERROR 2020/08/01 19:09:18 Error: listen tcp 127.0.0.1:1313: socket: too many open files
 make: *** [serve] Error 1
 ```
 
-Try checking the current limit for open files:
+Açık dosyalar için mevcut sınırı kontrol etmeyi deneyin:
 
 `launchctl limit maxfiles`
 
-Then run the following commands (adapted from https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c):
+Ardından aşağıdaki komutları çalıştırın (https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c adresinden uyarlanmıştır):
 
 ```shell
 #!/bin/sh
 
-# These are the original gist links, linking to my gists now.
+# Bunlar orijinal gist bağlantıları, şimdi benim gistlerime bağlanıyor.
 # curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxfiles.plist
 # curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxproc.plist
 
@@ -143,36 +144,36 @@ sudo chown root:wheel /Library/LaunchDaemons/limit.maxproc.plist
 sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 ```
 
-This works for Catalina as well as Mojave macOS.
+Bu, Catalina ve Mojave macOS için çalışır.
 
 
-# Get involved with SIG Docs
+# SIG Docs'a katılın
 
-Learn more about SIG Docs Kubernetes community and meetings on the [community page](https://github.com/kubernetes/community/tree/master/sig-docs#meetings).
+[Topluluk sayfasından](https://github.com/kubernetes/community/tree/master/sig-docs#meetings) SIG Docs Kubernetes topluluğu ve toplantıları hakkında daha fazla bilgi edinin.
 
-You can also reach the maintainers of this project at:
+Bu projenin sorumlularına şu adresten de ulaşabilirsiniz: 
 
-- [Slack](https://kubernetes.slack.com/messages/sig-docs) [Get an invite for this Slack](https://slack.k8s.io/)
-- [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+- [Slack](https://kubernetes.slack.com/messages/sig-docs) [Bu Slack için bir davet alın](https://slack.k8s.io/)
+- [Mail Listesi](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 # Dokümanlara katkıda bulunmak
 
 GitHub hesabınızda bu deponun bir kopyasını oluşturmak için ekranın sağ üst kısmındaki **Fork(Çatal)** düğmesine tıklayabilirsiniz. Bu kopyaya *fork* adı verilir. Çatalınızda istediğiniz değişiklikleri yapın ve bu değişiklikleri bize göndermeye hazır olduğunuzda çatalınıza gidin ve bunu bize bildirmek için yeni bir çekme isteği oluşturun.
 
-Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.  As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**
+Çekme talebiniz oluşturulduktan sonra, bir Kubernetes incelemecisi açık, eyleme geçirilebilir geri bildirim sağlama sorumluluğunu üstlenecektir. Çekme talebinin sahibi olarak, **Kubernetes incelemecisi tarafından size sağlanan geri bildirimi ele alacak şekilde çekme isteğinizi değiştirmek sizin sorumluluğunuzdadır.**
 
-Also, note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one initially assigned to provide you feedback.
+Ayrıca, birden fazla Kubernetes incelemecisine sahip olabileceğinizi veya size geri bildirim sağlamak için başlangıçta atanandan farklı bir Kubernetes incelemecisinden geri bildirim alabileceğinizi unutmayın.
 
-Furthermore, in some cases, one of your reviewers might ask for a technical review from a Kubernetes tech reviewer when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
+Buna ek olarak, bazı durumlarda incelemecilerinizden biri, gerektiğinde bir Kubernetes teknoloji incelemecisinden teknik inceleme isteyebilir. İncelemeciler zamanında geri bildirim sağlamak için ellerinden geleni yapacaklardır ancak yanıt süresi koşullara göre değişebilir.
 
-For more information about contributing to the Kubernetes documentation, see:
+Kubernetes dökümantasyonuna katkıda bulunma hakkında daha fazla bilgi için bakınız:
 
 * [Kubernetes belgelerine katkıda bulunma](https://kubernetes.io/docs/contribute/)
 * [Sayfa İçerik Türleri](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Dokümantasyon Stil Kılavuzu](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Kubernetes Dokümantasyonunu Yerelleştirme](https://kubernetes.io/docs/contribute/localization/)
 
-# Localization `README.md`'s
+#  `README.md`'nin Yerelleştirmesi
 
 | Dil  | Dil |
 |---|---|
@@ -189,6 +190,6 @@ For more information about contributing to the Kubernetes documentation, see:
 
 Kubernetes topluluğuna katılım, [CNCF Davranış Kuralları'na](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) tabidir .
 
-# Thank you!
+# Teşekkürler!
 
 Kubernetes, topluluk katılımıyla gelişir ve web sitemize ve dökümantasyonumuza yaptığınız katkılar için teşekkür ederiz!
