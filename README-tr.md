@@ -27,7 +27,7 @@ git clone https://github.com/kubernetes/website.git
 cd website
 ```
 
-Kubernetes web sitesi [Docsy Hugo temasını](https://github.com/google/docsy#readme)kullanır. Web sitesini bir konteynırda çalıştırmayı planlasanız bile, aşağıdakileri çalıştırarak alt modülü ve diğer geliştirme bağımlılıklarını çekmenizi şiddetle tavsiye ederiz:
+Kubernetes web sitesi [Docsy Hugo temasını](https://github.com/google/docsy#readme) kullanır. Web sitesini bir konteynırda çalıştırmayı planlasanız bile, aşağıdakileri çalıştırarak alt modülü ve diğer geliştirme bağımlılıklarını çekmenizi şiddetle tavsiye ederiz:
 
 ```
 # pull in the Docsy submodule
