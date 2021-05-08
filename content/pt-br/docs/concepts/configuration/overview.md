@@ -38,7 +38,7 @@ gerenciar do que vários. Veja o [guestbook-all-in-one.yaml](https://github.com/
 - Se você puder evitar, não use "naked" Pods (ou seja, se você puder evitar, pods não vinculados a um [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) ou [Deployment](/docs/concepts/workloads/controllers/deployment/)). 
 Os "naked" pods não serão reconfigurados em caso de falha de um nó.
 
-  Criar um Deployment, que cria um ReplicaSet para garantir que o número desejado de Pods esteja disponível e especifica uma estratégia para substituir os Pos (como [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), é quase sempre preferível do que criar Pods diretamente, exceto para alguns cenários explícitos de restartPolicy:Never. Um Job também pode ser apropriado.
+  Criar um Deployment, que cria um ReplicaSet para garantir que o número desejado de Pods esteja disponível e especifica uma estratégia para substituir os Pods (como [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), é quase sempre preferível do que criar Pods diretamente, exceto para alguns cenários explícitos de restartPolicy:Never. Um Job também pode ser apropriado.
 
 
 ## Services
@@ -52,10 +52,10 @@ receber as seguintes variáveis em seu ambiente inicial:
   FOO_SERVICE_PORT=<a porta em que o Service está executando>
   ```
 
-*Isso implica em um requisito de pedido* - qualquer `Service` que um `Pod` quer acessar precisa ser criado antes do `Pod`em si, ou então as variáveis de ambiente não serão populadas. O DNS não possui essa restrição.
+*Isso implica em um requisito de pedido* - qualquer `Service` que um `Pod` quer acessar precisa ser criado antes do `Pod` em si, ou então as variáveis de ambiente não serão populadas. O DNS não possui essa restrição.
 
 - Um [cluster add-on](/docs/concepts/cluster-administration/addons/) opcional (embora fortemente recomendado) é um servidor DNS. O
-servidor DNS assiste a API do Kubernetes buscando novos `Services` e cria um conjunto de DNS para cada um. Se o DNS foi habilitado em todo o cluster, então todos os `Pods` devem ser capazes de fazer a resolução de `Services` automaticamente.
+servidor DNS monitora a API do Kubernetes buscando novos `Services` e cria um conjunto de DNS para cada um. Se o DNS foi habilitado em todo o cluster, então todos os `Pods` devem ser capazes de fazer a resolução de `Services` automaticamente.
 
 - Não especifique um `hostPort` para um Pod a menos que isso seja absolutamente necessário. Quando você vincula um Pod a um `hostPort`, isso limita o número de lugares em que o Pod pode ser agendado, porque cada
 combinação de <`hostIP`, `hostPort`, `protocol`> deve ser única. Se você não especificar o `hostIP` e `protocol` explicitamente, o Kubernetes vai usar `0.0.0.0` como o `hostIP` padrão e `TCP` como `protocol` padrão.
