@@ -29,15 +29,15 @@ Deployment（或其他工作负载控制器）运行了 Pod，并创建 Service 
 ## Running commands in a Pod
 
 For many steps here you will want to see what a Pod running in the cluster
-sees.  The simplest way to do this is to run an interactive alpine Pod:
+sees.  The simplest way to do this is to run an interactive busybox Pod:
 -->
 ## 在 Pod 中运行命令
 
 对于这里的许多步骤，你可能希望知道运行在集群中的 Pod 看起来是什么样的。
-最简单的方法是运行一个交互式的 alpine Pod：
+最简单的方法是运行一个交互式的 busybox Pod：
 
 ```none
-$ kubectl run -it --rm --restart=Never alpine --image=alpine sh
+kubectl run -it --rm --restart=Never busybox --image=gcr.io/google-containers/busybox sh
 ```
 
 <!--
@@ -161,13 +161,13 @@ kubectl get pods -l app=hostnames \
 ```
 
 <!--
-The example container used for this walk-through simply serves its own hostname
+The example container used for this walk-through serves its own hostname
 via HTTP on port 9376, but if you are debugging your own app, you'll want to
 use whatever port number your Pods are listening on.
 
 From within a pod:
 -->
-用于本教程的示例容器仅通过 HTTP 在端口 9376 上提供其自己的主机名，
+用于本教程的示例容器通过 HTTP 在端口 9376 上提供其自己的主机名，
 但是如果要调试自己的应用程序，则需要使用你的 Pod 正在侦听的端口号。
 
 在 Pod 内运行：
@@ -260,9 +260,9 @@ service/hostnames exposed
 ```
 
 <!--
-And read it back, just to be sure:
+And read it back:
 -->
-重新运行查询命令，确认没有问题：
+重新运行查询命令：
 
 ```shell
 kubectl get svc hostnames
@@ -608,14 +608,13 @@ Earlier you saw that the Pods were running.  You can re-check that:
 kubectl get pods -l app=hostnames
 ```
 ```none
-NAME              READY     STATUS    RESTARTS   AGE
+NAME                        READY     STATUS    RESTARTS   AGE
 hostnames-632524106-bbpiw   1/1       Running   0          1h
 hostnames-632524106-ly40y   1/1       Running   0          1h
 hostnames-632524106-tlaok   1/1       Running   0          1h
 ```
 <!--
-The `-l app=hostnames` argument is a label selector - just like our Service
-has.
+The `-l app=hostnames` argument is a label selector configured on the Service.
 
 The "AGE" column says that these Pods are about an hour old, which implies that
 they are running fine and not crashing.
@@ -627,7 +626,7 @@ If the restart count is high, read more about how to [debug pods](/docs/tasks/de
 Inside the Kubernetes system is a control loop which evaluates the selector of
 every Service and saves the results into a corresponding Endpoints object.
 -->
-`-l app=hostnames` 参数是一个标签选择算符 - 和我们 Service 中定义的一样。
+`-l app=hostnames` 参数是在 Service 上配置的标签选择器。
 
 "AGE" 列表明这些 Pod 已经启动一个小时了，这意味着它们运行良好，而未崩溃。
 
@@ -899,7 +898,7 @@ iptables-save | grep hostnames
 ```
 
 <!--
-There should be 2 rules for each port of your Service (just one in this
+There should be 2 rules for each port of your Service (only one in this
 example) - a "KUBE-PORTALS-CONTAINER" and a "KUBE-PORTALS-HOST".
 
 Almost nobody should be using the "userspace" mode any more, so you won't spend
