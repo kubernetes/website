@@ -38,11 +38,10 @@ In this document, when we talk about Windows containers we mean Windows containe
 Refer to the following table for Windows operating system support in Kubernetes. A single heterogeneous Kubernetes cluster can have both Windows and Linux worker nodes. Windows containers have to be scheduled on Windows nodes and Linux containers on Linux nodes.
 
 | Kubernetes version | Windows Server LTSC releases | Windows Server SAC releases |
-| --- | --- | --- |
-| *Kubernetes v1.17* | Windows Server 2019 | Windows Server ver 1809 |
-| *Kubernetes v1.18* | Windows Server 2019 | Windows Server ver 1809, Windows Server ver 1903, Windows Server ver 1909 |
+| --- | --- | --- | --- |
 | *Kubernetes v1.19* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
 | *Kubernetes v1.20* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
+| *Kubernetes v1.21* | Windows Server 2019 | Windows Server ver 2004, Windows Server ver 20H2 |
 
 {{< note >}}
 Information on the different Windows Server servicing channels including their support models can be found at [Windows Server servicing channels](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
@@ -59,7 +58,7 @@ Windows containers with process isolation have strict compatibility rules, [wher
 
 #### Pause Image
 
-Microsoft maintains a Windows pause infrastructure container at `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`.
+Microsoft maintains a Windows pause infrastructure container at `mcr.microsoft.com/oss/kubernetes/pause:3.4.1`.
 
 #### Compute
 
@@ -484,9 +483,9 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
         nssm start flanneld
 
         # Register kubelet.exe
-        # Microsoft releases the pause infrastructure container at mcr.microsoft.com/oss/kubernetes/pause:1.4.1
+        # Microsoft releases the pause infrastructure container at mcr.microsoft.com/oss/kubernetes/pause:3.4.1
         nssm install kubelet C:\k\kubelet.exe
-        nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/oss/kubernetes/pause:1.4.1 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
+        nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/oss/kubernetes/pause:3.4.1 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
         nssm set kubelet AppDirectory C:\k
         nssm start kubelet
 
@@ -601,7 +600,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
 1. `kubectl port-forward` fails with "unable to do port forwarding: wincat not found"
 
-    This was implemented in Kubernetes 1.15 by including wincat.exe in the pause infrastructure container `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`. Be sure to use these versions or newer ones.
+    This was implemented in Kubernetes 1.15 by including wincat.exe in the pause infrastructure container `mcr.microsoft.com/oss/kubernetes/pause:3.4.1`. Be sure to use these versions or newer ones.
     If you would like to build your own pause infrastructure container be sure to include [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
 
 1. My Kubernetes installation is failing because my Windows Server node is behind a proxy
@@ -617,7 +616,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     In a Kubernetes Pod, an infrastructure or "pause" container is first created to host the container endpoint. Containers that belong to the same pod, including infrastructure and worker containers, share a common network namespace and endpoint (same IP and port space). Pause containers are needed to accommodate worker containers crashing or restarting without losing any of the networking configuration.
 
-    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `mcr.microsoft.com/oss/kubernetes/pause:1.4.1`. For more details, see the [DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile).
+    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `mcr.microsoft.com/oss/kubernetes/pause:3.4.1`. For more details, see the [DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile).
 
 ### Further investigation
 
