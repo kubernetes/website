@@ -45,9 +45,6 @@ has to be used.
 <!-- body -->
 ## kubeadm config upload from-file {#cmd-config-from-file}
 
-## kubeadm config view {#cmd-config-view}
-{{< include "generated/kubeadm_config_view.md" >}}
-
 ## kubeadm config print init-defaults {#cmd-config-print-init-defaults}
 {{< include "generated/kubeadm_config_print_init-defaults.md" >}}
 
