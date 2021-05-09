@@ -43,7 +43,7 @@ to work effectively in the Kubernetes community.
 
 To get involved with documentation:
 
-1. Sign the CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
+1. Sign the CNCF [Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
 1. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website)
    and the website's [static site generator](https://gohugo.io).
 1. Make sure you understand the basic processes for
