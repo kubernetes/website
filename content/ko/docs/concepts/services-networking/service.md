@@ -513,8 +513,12 @@ API에서 `엔드포인트` 레코드를 생성하고, DNS 구성을 수정하�
 각 노드는 해당 포트 (모든 노드에서 동일한 포트 번호)를 서비스로 프록시한다.
 서비스는 할당된 포트를 `.spec.ports[*].nodePort` 필드에 나타낸다.
 
-포트를 프록시하기 위해 특정 IP를 지정하려면 kube-proxy의 `--nodeport-addresses` 플래그를 특정 IP 블록으로 설정할 수 있다. 이것은 쿠버네티스 v1.10부터 지원된다.
-이 플래그는 쉼표로 구분된 IP 블록 목록 (예: 10.0.0.0/8, 192.0.2.0/25)을 사용하여 kube-proxy가 로컬 노드로 고려해야 하는 IP 주소 범위를 지정한다.
+포트를 프록시하기 위해 특정 IP를 지정하려면, kube-proxy에 대한
+`--nodeport-addresses` 플래그 또는
+[kube-proxy 구성 파일](/docs/reference/config-api/kube-proxy-config.v1alpha1/)의
+동등한 `nodePortAddresses` 필드를
+특정 IP 블록으로 설정할 수 있다.
+이 플래그는 쉼표로 구분된 IP 블록 목록(예: `10.0.0.0/8`, `192.0.2.0/25`)을 사용하여 kube-proxy가 로컬 노드로 고려해야 하는 IP 주소 범위를 지정한다.
 
 예를 들어, `--nodeport-addresses=127.0.0.0/8` 플래그로 kube-proxy를 시작하면, kube-proxy는 NodePort 서비스에 대하여 루프백(loopback) 인터페이스만 선택한다. `--nodeport-addresses`의 기본 값은 비어있는 목록이다. 이것은 kube-proxy가 NodePort에 대해 사용 가능한 모든 네트워크 인터페이스를 고려해야 한다는 것을 의미한다. (이는 이전 쿠버네티스 릴리스와도 호환된다).
 
@@ -526,11 +530,13 @@ API에서 `엔드포인트` 레코드를 생성하고, DNS 구성을 수정하�
 사용해야 한다.
 
 NodePort를 사용하면 자유롭게 자체 로드 밸런싱 솔루션을 설정하거나,
-쿠버네티스가 완벽하게 지원하지 않는 환경을 구성하거나,
+쿠버네티스가 완벽하게 지원하지 못하는 환경을 구성하거나,
 하나 이상의 노드 IP를 직접 노출시킬 수 있다.
 
 이 서비스는 `<NodeIP>:spec.ports[*].nodePort`와
-`.spec.clusterIP:spec.ports[*].port`로 표기된다. (kube-proxy에서 `--nodeport-addresses` 플래그가 설정되면, <NodeIP>는 NodeIP를 필터링한다.)
+`.spec.clusterIP:spec.ports[*].port`로 표기된다.
+kube-proxy에 대한 `--nodeport-addresses` 플래그 또는 kube-proxy 구성 파일의
+동등한 필드가 설정된 경우, `<NodeIP>` 는 노드 IP를 필터링한다.
 
 예를 들면
 
@@ -785,8 +791,7 @@ TCP 및 SSL은 4 계층 프록시를 선택한다. ELB는 헤더를 수정하지
 ```
 
 위의 예에서, 서비스에 `80`, `443`, `8443`의 3개 포트가 포함된 경우,
-`443`, `8443`은 SSL 인증서를 사용하지만, `80`은 단순히
-프록시만 하는 HTTP이다.
+`443`, `8443`은 SSL 인증서를 사용하지만, `80`은 프록시하는 HTTP이다.
 
 쿠버네티스 v1.9부터는 서비스에 대한 HTTPS 또는 SSL 리스너와 함께 [사전에 정의된 AWS SSL 정책](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)을 사용할 수 있다.
 사용 가능한 정책을 확인하려면, `aws` 커맨드라인 툴을 사용한다.
@@ -958,7 +963,7 @@ NLB는 특정 인스턴스 클래스에서만 작동한다. 지원되는 인스�
 
 | 규칙 | 프로토콜 | 포트 | IP 범위 | IP 범위 설명 |
 |------|----------|---------|------------|---------------------|
-| 헬스 체크 | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| 헬스 체크 | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
 | 클라이언트 트래픽 | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU 탐색 | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 

@@ -115,7 +115,7 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
 여기서 셀렉터는 레플리케이션컨트롤러(`kubectl describe` 의 출력에서 보인)의 셀렉터와 같고,
-다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 은
+다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 는
 반환된 목록의 각 파드 이름을 출력하도록 하는 옵션이다.
 
 
