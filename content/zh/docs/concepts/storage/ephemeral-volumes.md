@@ -141,6 +141,7 @@ CSI ephemeral volumes are only supported by a subset of CSI drivers.
 The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/drivers.html)
 shows which drivers support ephemeral volumes.
 -->
+
 该特性需要启用参数 `CSIInlineVolume` 
 [特性门控（feature gate）](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 该参数从 Kubernetes 1.16 开始默认启用。
@@ -158,7 +159,7 @@ Conceptually, CSI ephemeral volumes are similar to `configMap`,
 scheduled onto a node. Kubernetes has no concept of rescheduling Pods
 anymore at this stage. Volume creation has to be unlikely to fail,
 otherwise Pod startup gets stuck. In particular, [storage capacity
-aware Pod scheduling](/docs/concepts/storage-capacity/) is *not*
+aware Pod scheduling](/docs/concepts/storage/storage-capacity/) is *not*
 supported for these volumes. They are currently also not covered by
 the storage resource usage limits of a Pod, because that is something
 that kubelet can only enforce for storage that it manages itself.
@@ -218,19 +219,22 @@ As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/pol
 -->
 ### 通用临时卷 {#generic-ephemeral-volumes}
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 <!--
 This feature requires the `GenericEphemeralVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled. Because this is an alpha feature, it is disabled by default.
+enabled. Because this is a beta feature, it is enabled by default.
 -->
 这个特性需要启用 `GenericEphemeralVolume` 
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-因为这是一个alpha特性，默认禁用。
+因为这是一个 beta 特性，默认情况下启用。
 
 <!--
-Generic ephemeral volumes are similar to `emptyDir` volumes, just more
-flexible:
+Generic ephemeral volumes are similar to `emptyDir` volumes in the
+sense that they provide a per-pod directory for scratch data that is
+usually empty after provisioning. But they may also have additional
+features:
+
 - Storage can be local or network-attached.
 - Volumes can have a fixed size that Pods are not able to exceed.
 - Volumes may have some initial data, depending on the driver and
@@ -240,11 +244,13 @@ flexible:
   ([snapshotting](/docs/concepts/storage/volume-snapshots/),
   [cloning](/docs/concepts/storage/volume-pvc-datasource/),
   [resizing](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims),
-  and [storage capacity tracking](/docs/concepts/storage-capacity/).
+  and [storage capacity tracking](/docs/concepts/storage/storage-capacity/).
 
 Example:
 -->
-通用临时卷类似于 `emptyDir` 卷，但更加灵活：
+通用临时卷与 `emptyDir` 卷类似，因为它们为暂存数据提供了一个 per-pod 的目录，该目录通常在置备后为空。
+但他们可能还会有其他特征：
+
 - 存储可以是本地的，也可以是网络连接的。
 - 卷可以有固定的大小，pod不能超量使用。
 - 卷可能有一些初始数据，这取决于驱动程序和参数。
@@ -408,23 +414,28 @@ two choices:
 集群管理员必须意识到这一点。
 如果这不符合他们的安全模型，他们有两种选择：
 <!--
-- Explicitly disable the feature through the feature gate, to avoid
-  being surprised when some future Kubernetes version enables it
-  by default.
+- Explicitly disable the feature through the feature gate.
 - Use a [Pod Security
   Policy](/docs/concepts/policy/pod-security-policy/) where the
-  `volumes` list does not contain the `ephemeral` volume type.
+  `volumes` list does not contain the `ephemeral` volume type
+  (deprecated in Kubernetes 1.21).
+- Use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  which rejects objects like Pods that have a generic ephemeral
+  volume.
 -->
-- 通过特性门控显式禁用该特性，可以避免将来的 Kubernetes 版本默认启用时带来混乱。
+- 通过特性门控显式禁用该特性。
 - 当`卷`列表不包含 `ephemeral` 卷类型时，使用
-  [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)。
+  [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/)
+  （在 Kubernetes 1.21 中已弃用）。
+- 使用[准入 Webhook](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  拒绝像 Pod 这样具有通用临时卷。
 
 <!--
-The normal namespace quota for PVCs in a namespace still applies, so
+The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota) still applies, so
 even if users are allowed to use this new mechanism, they cannot use
 it to circumvent other policies.
 -->
-在一个命名空间中，用于 PVCs 的常规命名空间配额仍然适用，
+在一个命名空间中，用于 PVCs 的常规命名空间配额[用于 PVCs 的常规命名空间配额](/zh/docs/concepts/policy/resource-quotas/#storage-resource-quota)仍然适用，
 因此即使允许用户使用这种新机制，他们也不能使用它来规避其他策略。
 
 ## {{% heading "whatsnext" %}}

@@ -53,7 +53,7 @@ different Kubernetes components.
 | `APIPriorityAndFairness` | `false` | Alpha | 1.17 | 1.19 |
 | `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | 1.15 |
-| `APIResponseCompression` | `false` | Beta | 1.16 | |
+| `APIResponseCompression` | `true` | Beta | 1.16 | |
 | `APIServerIdentity` | `false` | Alpha | 1.20 | |
 | `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | |
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | |
@@ -90,6 +90,7 @@ different Kubernetes components.
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | |
 | `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | 1.19 |
 | `CSIVolumeFSGroupPolicy` | `true` | Beta | 1.20 | |
+| `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | 1.19 |
 | `ConfigurableFSGroupPolicy` | `true` | Beta | 1.20 | |
 | `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
@@ -125,14 +126,13 @@ different Kubernetes components.
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
 | `HugePageStorageMediumSize` | `true` | Beta | 1.19 | |
+| `IndexedJob` | `false` | Alpha | 1.21 | |
 | `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
 | `IPv6DualStack` | `true` | Beta | 1.21 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
-| `KubeletPodResources` | `true` | Alpha | 1.13 | 1.14 |
-| `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `LegacyNodeRoleBehavior` | `false` | Alpha | 1.16 | 1.18 |
-| `LegacyNodeRoleBehavior` | `true` | True | 1.19 |  |
+| `LegacyNodeRoleBehavior` | `true` | Beta | 1.19 |  |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
@@ -158,8 +158,6 @@ different Kubernetes components.
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
-| `SCTPSupport` | `false` | Alpha | 1.12 | 1.18 |
-| `SCTPSupport` | `true` | Beta | 1.19 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | |
@@ -181,12 +179,13 @@ different Kubernetes components.
 | `TopologyManager` | `true` | Beta | 1.18 | |
 | `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
 | `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
+| `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
 | `WarningHeaders` | `true` | Beta | 1.19 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
 | `WindowsEndpointSliceProxying` | `false` | Alpha | 1.19 | 1.20 |
-| `WindowsEndpointSliceProxying` | `true` | beta | 1.21 | |
+| `WindowsEndpointSliceProxying` | `true` | Beta | 1.21 | |
 {{< /table >}}
 
 ### Feature gates for graduated or deprecated features
@@ -225,7 +224,6 @@ different Kubernetes components.
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
-| `CSIVolumeHealth` | `false` | Alpha | 1.21 | - |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
@@ -258,9 +256,9 @@ different Kubernetes components.
 | `EnableEquivalenceClassCache` | - | Deprecated | 1.15 | - |
 | `EndpointSlice` | `false` | Alpha | 1.16 | 1.16 |
 | `EndpointSlice` | `false` | Beta | 1.17 | 1.17 |
-| `EndpointSlice` | `true` | Beta | 1.18 | 1.21 |
+| `EndpointSlice` | `true` | Beta | 1.18 | 1.20 |
 | `EndpointSlice` | `true` | GA | 1.21 | -  |
-| `EndpointSliceNodeName` | `false` | Alpha | 1.20 | 1.21 |
+| `EndpointSliceNodeName` | `false` | Alpha | 1.20 | 1.20 |
 | `EndpointSliceNodeName` | `true` | GA | 1.21 | - |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | 1.12 |
 | `ExperimentalCriticalPodAnnotation` | `false` | Deprecated | 1.13 | - |
@@ -278,7 +276,6 @@ different Kubernetes components.
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
 | `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | 1.20 |
 | `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | |
-| `IndexedJob` | `false` | Alpha | 1.21 | |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | - |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
@@ -315,6 +312,7 @@ different Kubernetes components.
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | 1.16 |
 | `PodShareProcessNamespace` | `true` | GA | 1.17 | - |
 | `RequestManagement` | `false` | Alpha | 1.15 | 1.16 |
+| `RequestManagement` | - | Derecated | 1.17 | - |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | 1.18 |
 | `ResourceLimitsPriorityFunction` | - | Deprecated | 1.19 | - |
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
@@ -338,7 +336,7 @@ different Kubernetes components.
 | `ServiceAccountIssuerDiscovery` | `true` | Beta | 1.20 | 1.20 |
 | `ServiceAccountIssuerDiscovery` | `true` | GA | 1.21 | - |
 | `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
-| `ServiceAppProtocol` | `true` | Beta | 1.19 | |
+| `ServiceAppProtocol` | `true` | Beta | 1.19 | 1.19 |
 | `ServiceAppProtocol` | `true` | GA | 1.20 | - |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | 1.15 |
 | `ServiceLoadBalancerFinalizer` | `true` | Beta | 1.16 | 1.16 |
@@ -350,7 +348,7 @@ different Kubernetes components.
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
 | `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
 | `StreamingProxyRedirects` | `true` | Beta | 1.6 | 1.18 |
-| `StreamingProxyRedirects` | - | Deprecated| 1.19 | - |
+| `StreamingProxyRedirects` | - | GA | 1.19 | - |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
@@ -375,16 +373,15 @@ different Kubernetes components.
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | Beta | 1.12 | 1.19 |
 | `TokenRequestProjection` | `true` | GA | 1.20 | - |
-| `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
-| `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | 1.16 |
-| `VolumeSnapshotDataSource` | `true` | Beta | 1.17 | 1.19 |
-| `VolumeSnapshotDataSource` | `true` | GA | 1.20 | - |
 | `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
 | `VolumePVCDataSource` | `true` | Beta | 1.16 | 1.17 |
 | `VolumePVCDataSource` | `true` | GA | 1.18 | - |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | - |
+| `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | 1.16 |
+| `VolumeSnapshotDataSource` | `true` | Beta | 1.17 | 1.19 |
+| `VolumeSnapshotDataSource` | `true` | GA | 1.20 | - |
 | `VolumeSubpath` | `true` | GA | 1.10 | - |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
 | `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | 1.16 |
@@ -451,7 +448,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIServerIdentity`: Assign each API server an ID in a cluster.
 - `Accelerators`: Enable Nvidia GPU support when using Docker
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
-- `AffinityInAnnotations`(*deprecated*): Enable setting
+- `AffinityInAnnotations`: Enable setting
   [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
 - `AllowInsecureBackendProxy`: Enable the users to skip TLS verification of
@@ -592,18 +589,18 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information).
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.
-- `DynamicAuditing`(*deprecated*): Used to enable dynamic auditing before v1.19.
+- `DynamicAuditing`: Used to enable dynamic auditing before v1.19.
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See
   [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of
   volume topology and handle PV provisioning.
   This feature is superseded by the `VolumeScheduling` feature completely in v1.12.
-- `DynamicVolumeProvisioning`(*deprecated*): Enable the
+- `DynamicVolumeProvisioning`: Enable the
   [dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods.
 - `EfficientWatchResumption`: Allows for storage-originated bookmark (progress
   notify) events to be delivered to the users. This is only applied to watch
   operations.
-- `EnableAggregatedDiscoveryTimeout` (*deprecated*): Enable the five second
+- `EnableAggregatedDiscoveryTimeout`: Enable the five second
   timeout on aggregated discovery calls.
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of
   nodes when scheduling Pods.
@@ -664,11 +661,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `IndexedJob`: Allows the [Job](/docs/concepts/workloads/controllers/job/)
   controller to manage Pod completions per completion index.
 - `IngressClassNamespacedParams`: Allow namespace-scoped parameters reference in
-  `IngressClass` resouce. This feature adds two fields - `Scope` and `Namespace`
+  `IngressClass` resource. This feature adds two fields - `Scope` and `Namespace`
   to `IngressClass.spec.parameters`.
+- `Initializers`: Allow asynchronous coordination of object creation using the
+  Initializers admission plugin.
 - `IPv6DualStack`: Enable [dual stack](/docs/concepts/services-networking/dual-stack/)
   support for IPv6.
-- `KubeletConfigFile` (*deprecated*): Enable loading kubelet configuration from
+- `KubeletConfigFile`: Enable loading kubelet configuration from
   a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
   for more details.
@@ -679,7 +678,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/606-compute-device-assignment/README.md)
   for more details.
 - `KubeletPodResourcesGetAllocatable`: Enable the kubelet's pod resources `GetAllocatableResources` functionality.
-  This API augments the [resource allocation reporting](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
+  This API augments the [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
   with informations about the allocatable resources, enabling clients to properly track the free compute resources on a node.
 - `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and
   node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the
@@ -699,8 +698,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   based on logarithmic bucketing of pod timestamps.
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
-- `MountContainers` (*deprecated*): Enable using utility containers on host as
-  the volume mounter.
+- `MountContainers`: Enable using utility containers on host as the volume mounter.
 - `MountPropagation`: Enable sharing volume mounted by one container to other containers or pods.
   For more details, please see [mount propagation](/docs/concepts/storage/volumes/#mount-propagation).
 - `NamespaceDefaultLabelName`: Configure the API Server to set an immutable {{< glossary_tooltip text="label" term_id="label" >}}
@@ -712,7 +710,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
-- `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/content/en/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+- `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
    feature which allows users to influence ReplicaSet downscaling order.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
@@ -730,7 +728,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   a single process namespace between containers running in a pod.  More details can be found in
   [Share Process Namespace between Containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/).
 - `ProbeTerminationGracePeriod`: Enable [setting probe-level
-  `terminationGracePeriodSeconds`](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationGracePeriodSeconds)
+  `terminationGracePeriodSeconds`](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationgraceperiodseconds)
    on pods.  See the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2238-liveness-probe-grace-period) for more details.
 - `ProcMountType`: Enables control over the type proc mounts for containers
   by setting the `procMount` field of a SecurityContext.
@@ -742,7 +740,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [chunking list request](/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks).
 - `RemoveSelfLink`: Deprecates and removes `selfLink` from ObjectMeta and
   ListMeta.
-- `ResourceLimitsPriorityFunction` (*deprecated*): Enable a scheduler priority function that
+- `RequestManagement`: Enables managing request concurrency with prioritization and fairness
+  at each API server. Deprecated by `APIPriorityAndFairness` since 1.17.
+- `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
   assigns a lowest possible score of 1 to a node that satisfies at least one of
   the input Pod's cpu and memory limits. The intent is to break ties between
   nodes with same scores.
@@ -772,11 +772,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   JWKS URLs) for the service account issuer in the API server. See
   [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)
   for more details.
-- `ServiceAppProtocol`: Enables the `AppProtocol` field on Services and Endpoints.
-- `ServiceInternalTrafficPolicy`: Enables the `InternalTrafficPolicy` field on Services
-- `ServiceLBNodePortControl`: Enables the `spec.allocateLoadBalancerNodePorts`
-  field on Services.
-- `ServiceLoadBalancerClass`: Enables the `LoadBalancerClass` field on Services. See [Specifying class of load balancer implementation](/docs/concepts/services-networking/service/#specifying-class-of-load-balancer-implementation-load-balancer-class) for more details.
+- `ServiceAppProtocol`: Enables the `appProtocol` field on Services and Endpoints.
+- `ServiceInternalTrafficPolicy`: Enables the `internalTrafficPolicy` field on Services
+- `ServiceLBNodePortControl`: Enables the `allocateLoadBalancerNodePorts` field on Services.
+- `ServiceLoadBalancerClass`: Enables the `loadBalancerClass` field on Services. See
+  [Specifying class of load balancer implementation](/docs/concepts/services-networking/service/#load-balancer-class) for more details.
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers
   created by a cloud provider. A node is eligible for exclusion if labelled with
@@ -804,12 +804,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Examples of streaming requests include the `exec`, `attach` and `port-forward` requests.
 - `SupportIPVSProxyMode`: Enable providing in-cluster service load balancing using IPVS.
   See [service proxies](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies) for more details.
-- `SupportPodPidsLimit`: Enable the support to limiting PIDs in Pods.
 - `SupportNodePidsLimit`: Enable the support to limiting PIDs on the Node.
   The parameter `pid=<number>` in the `--system-reserved` and `--kube-reserved`
   options can be specified to ensure that the specified number of process IDs
   will be reserved for the system as a whole and for Kubernetes system daemons
   respectively.
+- `SupportPodPidsLimit`: Enable the support to limiting PIDs in Pods.
 - `SuspendJob`: Enable support to suspend and resume Jobs. See
   [the Jobs docs](/docs/concepts/workloads/controllers/job/) for
   more details.
@@ -835,6 +835,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource
   assignments for different components in Kubernetes. See
   [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
+- `ValidateProxyRedirects`: This flag controls whether the API server should
+  validate that redirects are only followed to the same host. Only used if the
+  `StreamingProxyRedirects` flag is enabled.
 - 'VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
 - `VolumePVCDataSource`: Enable support for specifying an existing PVC as a DataSource.
@@ -843,6 +846,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
   type when used together with the `PersistentLocalVolumes` feature gate.
 - `VolumeSnapshotDataSource`: Enable volume snapshot data source support.
+- `VolumeSubpath`: Allow mounting a subpath of a volume in a container.
 - `VolumeSubpathEnvExpansion`: Enable `subPathExpr` field for expanding environment
   variables into a `subPath`.
 - `WarningHeaders`: Allow sending warning headers in API responses.

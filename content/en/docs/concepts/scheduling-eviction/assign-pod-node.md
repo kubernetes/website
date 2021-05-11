@@ -72,7 +72,7 @@ verify that it worked by running `kubectl get pods -o wide` and looking at the
 ## Interlude: built-in node labels {#built-in-node-labels}
 
 In addition to labels you [attach](#step-one-attach-label-to-the-node), nodes come pre-populated
-with a standard set of labels. See [Well-Known Labels, Annotations and Taints](/docs/reference/kubernetes-api/labels-annotations-taints/) for a list of these.
+with a standard set of labels. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/) for a list of these.
 
 {{< note >}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.

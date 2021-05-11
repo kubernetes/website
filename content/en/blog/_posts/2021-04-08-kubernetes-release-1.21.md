@@ -9,7 +9,7 @@ slug: kubernetes-1-21-release-announcement
 
 We’re pleased to announce the release of Kubernetes 1.21, our first release of 2021! This release consists of 51 enhancements: 13 enhancements have graduated to stable, 16 enhancements are moving to beta, 20 enhancements are entering alpha, and 2 features have been deprecated.
 
-This release cycle, we saw a major shift in ownership of processes around the release team. We moved from a  synchronous mode of communcation, where we periodically asked the community for inputs, to a mode where the community opts-in features and/or blogs to the release. These changes have resulted in an increase in collaboration and teamwork across the community. The result of all that is reflected in Kubernetes 1.21 having the most number of features in the recent times.
+This release cycle, we saw a major shift in ownership of processes around the release team. We moved from a synchronous mode of communication, where we periodically asked the community for inputs, to a mode where the community opts-in to contribute features and/or blogs to the release. These changes have resulted in an increase in collaboration and teamwork across the community. The result of all that is reflected in Kubernetes 1.21 having the most number of features in the recent times.
 
 ## Major Themes
 

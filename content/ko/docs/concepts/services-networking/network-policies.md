@@ -220,18 +220,72 @@ __ipBlock__: 인그레스 소스 또는 이그레스 대상으로 허용할 IP C
 SCTP 프로토콜 네트워크폴리시를 지원하는 {{< glossary_tooltip text="CNI" term_id="cni" >}} 플러그인을 사용하고 있어야 한다.
 {{< /note >}}
 
+## 포트 범위 지정
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+네트워크폴리시를 작성할 때, 단일 포트 대신 포트 범위를 대상으로 지정할 수 있다.
+
+다음 예와 같이 `endPort` 필드를 사용하면, 이 작업을 수행할 수 있다.
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: multi-port-egress
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/24
+    ports:
+    - protocol: TCP
+      port: 32000
+      endPort: 32768
+```
+
+위 규칙은 대상 포트가 32000에서 32768 사이에 있는 경우, 네임스페이스 `default` 에 레이블이 `db` 인 모든 파드가 TCP를 통해 `10.0.0.0/24` 범위 내의 모든 IP와 통신하도록 허용한다.
+
+이 필드를 사용할 때 다음의 제한 사항이 적용된다.
+* 알파 기능으로, 기본적으로 비활성화되어 있다. 클러스터 수준에서 `endPort` 필드를 활성화하려면, 사용자(또는 클러스터 관리자)가 `--feature-gates=NetworkPolicyEndPort=true,…` 가 있는 API 서버에 대해 `NetworkPolicyEndPort` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+* `endPort` 필드는 `port` 필드보다 크거나 같아야 한다.
+* `endPort` 는 `port` 도 정의된 경우에만 정의할 수 있다.
+* 두 포트 모두 숫자여야 한다.
+
+{{< note >}}
+클러스터는 {{< glossary_tooltip text="CNI" term_id="cni" >}} 플러그인을 사용해야 한다.
+네트워크폴리시 명세에서 `endPort` 필드를 지원한다.
+{{< /note >}}
+
+## 이름으로 네임스페이스 지정
+
+{{< feature-state state="beta" for_k8s_version="1.21" >}}
+
+쿠버네티스 컨트롤 플레인은 `NamespaceDefaultLabelName`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화된 경우
+모든 네임스페이스에 변경할 수 없는(immutable) 레이블 `kubernetes.io/metadata.name` 을 설정한다.
+레이블의 값은 네임스페이스 이름이다.
+
+네트워크폴리시는 일부 오브젝트 필드가 있는 이름으로 네임스페이스를 대상으로 지정할 수 없지만, 표준화된 레이블을 사용하여
+특정 네임스페이스를 대상으로 지정할 수 있다.
+
 ## 네트워크 정책으로 할 수 없는 것(적어도 아직은 할 수 없는)
 
-쿠버네티스 1.20부터 다음의 기능은 네트워크폴리시 API에 존재하지 않지만, 운영 체제 컴포넌트(예: SELinux, OpenVSwitch, IPTables 등) 또는 Layer 7 기술(인그레스 컨트롤러, 서비스 메시 구현) 또는 어드미션 컨트롤러를 사용하여 제2의 해결책을 구현할 수 있다. 쿠버네티스의 네트워크 보안을 처음 사용하는 경우, 네트워크폴리시 API를 사용하여 다음의 사용자 스토리를 (아직) 구현할 수 없다는 점에 유의할 가치가 있다. 이러한 사용자 스토리 중 일부(전부는 아님)가 네트워크폴리시 API의 향후 릴리스에서 활발히 논의되고 있다.
+쿠버네티스 {{< skew latestVersion >}}부터 다음의 기능은 네트워크폴리시 API에 존재하지 않지만, 운영 체제 컴포넌트(예: SELinux, OpenVSwitch, IPTables 등) 또는 Layer 7 기술(인그레스 컨트롤러, 서비스 메시 구현) 또는 어드미션 컨트롤러를 사용하여 제2의 해결책을 구현할 수 있다. 쿠버네티스의 네트워크 보안을 처음 사용하는 경우, 네트워크폴리시 API를 사용하여 다음의 사용자 스토리를 (아직) 구현할 수 없다는 점에 유의할 필요가 있다.
 
 - 내부 클러스터 트래픽이 공통 게이트웨이를 통과하도록 강제한다(서비스 메시나 기타 프록시와 함께 제공하는 것이 가장 좋을 수 있음).
 - TLS와 관련된 모든 것(이를 위해 서비스 메시나 인그레스 컨트롤러 사용).
 - 노드별 정책(이에 대해 CIDR 표기법을 사용할 수 있지만, 특히 쿠버네티스 ID로 노드를 대상으로 지정할 수 없음).
-- 이름으로 네임스페이스나 서비스를 타겟팅한다(그러나, {{< glossary_tooltip text="레이블" term_id="label" >}}로 파드나 네임스페이스를 타겟팅할 수 있으며, 이는 종종 실행할 수 있는 해결 방법임).
+- 이름으로 서비스를 타겟팅한다(그러나, {{< glossary_tooltip text="레이블" term_id="label" >}}로 파드나 네임스페이스를 타겟팅할 수 있으며, 이는 종종 실행할 수 있는 해결 방법임).
 - 타사 공급사가 이행한 "정책 요청"의 생성 또는 관리.
 - 모든 네임스페이스나 파드에 적용되는 기본 정책(이를 수행할 수 있는 타사 공급사의 쿠버네티스 배포본 및 프로젝트가 있음).
 - 고급 정책 쿼리 및 도달 가능성 도구.
-- 단일 정책 선언에서 포트 범위를 대상으로 하는 기능.
 - 네트워크 보안 이벤트를 기록하는 기능(예: 차단되거나 수락된 연결).
 - 명시적으로 정책을 거부하는 기능(현재 네트워크폴리시 모델은 기본적으로 거부하며, 허용 규칙을 추가하는 기능만 있음).
 - 루프백 또는 들어오는 호스트 트래픽을 방지하는 기능(파드는 현재 로컬 호스트 접근을 차단할 수 없으며, 상주 노드의 접근을 차단할 수 있는 기능도 없음).

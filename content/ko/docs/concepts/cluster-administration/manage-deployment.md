@@ -278,7 +278,7 @@ pod/my-nginx-2035384211-u3t6x labeled
 ```
 
 먼저 "app=nginx" 레이블이 있는 모든 파드를 필터링한 다음, "tier=fe" 레이블을 지정한다.
-방금 레이블을 지정한 파드를 보려면, 다음을 실행한다.
+레이블을 지정한 파드를 보려면, 다음을 실행한다.
 
 ```shell
 kubectl get pods -l app=nginx -L tier

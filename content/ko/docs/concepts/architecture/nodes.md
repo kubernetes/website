@@ -63,6 +63,16 @@ kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록
 노드 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
+### 노드 이름 고유성
+
+[이름](/ko/docs/concepts/overview/working-with-objects/names#names)은 노드를 식별한다. 두 노드는
+동시에 같은 이름을 가질 수 없다. 쿠버네티스는 또한 같은 이름의 리소스가
+동일한 객체라고 가정한다. 노드의 경우, 동일한 이름을 사용하는 인스턴스가 동일한
+상태(예: 네트워크 설정, 루트 디스크 내용)를 갖는다고 암시적으로 가정한다. 인스턴스가
+이름을 변경하지 않고 수정된 경우 이로 인해 불일치가 발생할 수 있다. 노드를 대폭 교체하거나
+업데이트해야 하는 경우, 기존 노드 오브젝트를 먼저 API 서버에서 제거하고
+업데이트 후 다시 추가해야 한다.
+
 ### 노드에 대한 자체-등록
 
 kubelet 플래그 `--register-node`는 참(기본값)일 경우, kubelet 은 API 서버에
@@ -233,6 +243,7 @@ apiserver로부터 삭제되어 그 이름을 사용할 수 있는 결과를 낳
 - 노드가 계속 접근 불가할 경우 나중에 노드로부터 정상적인 종료를 이용해서 모든 파드를 축출 한다.
   ConditionUnknown을 알리기 시작하는 기본 타임아웃 값은 40초 이고,
   파드를 축출하기 시작하는 값은 5분이다.
+
 노드 컨트롤러는 매 `--node-monitor-period` 초 마다 각 노드의 상태를 체크한다.
 
 #### 하트비트
@@ -273,6 +284,7 @@ ConditionFalse 다.).
 - 클러스터가 작으면 (즉 `--large-cluster-size-threshold`
   노드 이하면 - 기본값 50) 축출은 중지되고, 그렇지 않으면 축출 비율은 초당
   `--secondary-node-eviction-rate`(기본값 0.01)로 감소된다.
+
 이 정책들이 가용성 영역 단위로 실행되어지는 이유는 나머지가 연결되어 있는 동안
 하나의 가용성 영역이 마스터로부터 분할되어 질 수도 있기 때문이다.
 만약 클러스터가 여러 클라우드 제공사업자의 가용성 영역에 걸쳐 있지 않으면,
@@ -329,14 +341,27 @@ ConditionFalse 다.).
 자세한 내용은
 [노드의 컨트롤 토폴로지 관리 정책](/docs/tasks/administer-cluster/topology-manager/)을 본다.
 
-## 그레이스풀(Graceful) 노드 셧다운
+## 그레이스풀(Graceful) 노드 셧다운 {#graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.20" >}}
+{{< feature-state state="beta" for_k8s_version="v1.21" >}}
 
-`GracefulNodeShutdown` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화한 경우 kubelet은 노드 시스템 종료를 감지하고 노드에서 실행 중인 파드를 종료한다.
+kubelet은 노드 시스템 셧다운을 감지하고 노드에서 실행 중인 파드를 종료하려고 시도한다.
+
 Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로세스](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)를 따르도록 한다.
 
-`GracefulNodeShutdown` 기능 게이트가 활성화되면 kubelet은 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)를 사용하여 주어진 기간 동안 노드 종료를 지연시킨다. 종료 중에 kubelet은 두 단계로 파드를 종료시킨다.
+그레이스풀 노드 셧다운 기능은
+[systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)를
+사용하여 주어진 기간 동안 노드 종료를 지연시키므로 systemd에 의존한다.
+
+그레이스풀 노드 셧다운은 1.21에서 기본적으로 활성화된 `GracefulNodeShutdown`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)로 제어된다.
+
+기본적으로, 아래 설명된 두 구성 옵션,
+`ShutdownGracePeriod` 및 `ShutdownGracePeriodCriticalPods` 는 모두 0으로 설정되어 있으므로,
+그레이스풀 노드 셧다운 기능이 활성화되지 않는다.
+기능을 활성화하려면, 두 개의 kubelet 구성 설정을 적절하게 구성하고 0이 아닌 값으로 설정해야 한다.
+
+그레이스풀 셧다운 중에 kubelet은 다음의 두 단계로 파드를 종료한다.
 
 1. 노드에서 실행 중인 일반 파드를 종료시킨다.
 2. 노드에서 실행 중인 [중요(critical) 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)를 종료시킨다.
@@ -345,9 +370,13 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 * `ShutdownGracePeriod`:
   * 노드가 종료를 지연해야 하는 총 기간을 지정한다. 이것은 모든 일반 및 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)의 파드 종료에 필요한 총 유예 기간에 해당한다.
 * `ShutdownGracePeriodCriticalPods`:
-  * 노드 종료 중에 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)를 종료하는 데 사용되는 기간을 지정한다. 이는 `ShutdownGracePeriod`보다 작아야 한다.
+  * 노드 종료 중에 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)를 종료하는 데 사용되는 기간을 지정한다. 이 값은 `ShutdownGracePeriod` 보다 작아야 한다.
 
-예를 들어 `ShutdownGracePeriod=30s`, `ShutdownGracePeriodCriticalPods=10s` 인 경우 kubelet은 노드 종료를 30 초까지 지연시킨다. 종료하는 동안 처음 20(30-10) 초는 일반 파드의 유예 종료에 할당되고, 마지막 10 초는 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)의 종료에 할당된다.
+예를 들어, `ShutdownGracePeriod=30s`,
+`ShutdownGracePeriodCriticalPods=10s` 인 경우, kubelet은 노드 종료를 30초까지
+지연시킨다. 종료하는 동안 처음 20(30-10)초는 일반 파드의
+유예 종료에 할당되고, 마지막 10초는
+[중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)의 종료에 할당된다.
 
 
 ## {{% heading "whatsnext" %}}

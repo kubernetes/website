@@ -166,7 +166,7 @@ Pada kasus ini, kontroler node berasumsi ada masalah pada jaringan master, dan m
 
 Mulai dari Kubernetes 1.6, kontroler node juga bertanggung jawab untuk melakukan <i>eviction</i> pada pod-pod yang berjalan di atas node dengan <i>taints</i> `NoExecute`, ketika pod-pod tersebut sudah tidak lagi <i>tolerate</i> terhadap <i>taints</i>.
 Sebagai tambahan, hal ini di-nonaktifkan secara <i>default</i> pada fitur alpha, kontroler node bertanggung jawab untuk menambahkan <i>taints</i> yang berhubungan dengan masalah pada node, seperti terputus atau `NotReady`.
-Lihat [dokumentasi ini](/id/docs/concepts/configuration/taint-and-toleration/) untuk bahasan detail tentang <i>taints</i> `NoExecute` dan fitur alpha.
+Lihat [dokumentasi ini](/id/docs/concepts/scheduling-eviction/taint-and-toleration/) untuk bahasan detail tentang <i>taints</i> `NoExecute` dan fitur alpha.
 
 Mulai dari versi 1.8, kontroler node bisa diatur untuk bertanggung jawab pada pembuatan <i>taints</i> yang merepresentasikan node <i>condition</i>.
 Ini merupakan fitur alpha untuk versi 1.8.
