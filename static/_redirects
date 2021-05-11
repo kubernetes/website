@@ -111,6 +111,7 @@
 /id/docs/concepts/configuration/scheduling-framework/     /id/docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/configuration/taint-and-toleration/     /docs/concepts/scheduling-eviction/taint-and-toleration/ 301
 /id/docs/concepts/configuration/taint-and-toleration/     /id/docs/concepts/scheduling-eviction/taint-and-toleration/ 301
+/docs/concepts/configuration/pod-priority-preemption/    /docs/concepts/scheduling-eviction/pod-priority-preemption/ 301
 /docs/concepts/extend-kubernetes/extend-cluster/      /docs/concepts/extend-kubernetes/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
