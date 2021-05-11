@@ -27,6 +27,8 @@ content_type: concept
 
 ## 구성
 
+* [예제: Java 마이크로서비스 구성하기](/ko/docs/tutorials/configuration/configure-java-microservice/)
+
 * [컨피그 맵을 사용해서 Redis 설정하기](/ko/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## 상태 유지를 하지 않는(stateless) 애플리케이션

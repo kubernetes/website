@@ -156,7 +156,7 @@ Sangat disarankan untuk menggunakan Kubernetes [fitur _taints and toleration_](/
 Pod dengan sysctl _unsafe_ akan gagal diluncurkan pada sembarang Node yang belum
 mengaktifkan kedua sysctl _unsafe_ secara eksplisit. Seperti halnya sysctl _node-level_ sangat
 disarankan untuk menggunakan [fitur _taints and toleration_](/docs/reference/generated/kubectl/kubectl-commands/#taint) atau
-[pencemaran dalam Node](/docs/concepts/scheduling-eviction/taint-and-toleration/)
+[pencemaran dalam Node](/id/docs/concepts/scheduling-eviction/taint-and-toleration/)
 untuk Pod dalam Node yang tepat.
 
 ## PodSecurityPolicy

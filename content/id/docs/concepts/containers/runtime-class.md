@@ -45,7 +45,7 @@ soal bagaimana melakukan konfigurasi untuk implementasi CRI yang kamu miliki.
 Untuk saat ini, RuntimeClass berasumsi bahwa semua _node_ di dalam klaster punya
 konfigurasi yang sama (homogen). Jika ada _node_ yang punya konfigurasi berbeda dari
 yang lain (heterogen), maka perbedaan ini harus diatur secara independen di luar RuntimeClass
-melalui fitur _scheduling_ (lihat [Menempatkan Pod pada Node](/id/docs/concepts/configuration/assign-pod-node/)).
+melalui fitur _scheduling_ (lihat [Menempatkan Pod pada Node](/id/docs/concepts/scheduling-eviction/assign-pod-node/)).
 {{< /note >}}
 
 Seluruh konfigurasi memiliki nama `handler` yang terkait, dijadikan referensi oleh RuntimeClass.

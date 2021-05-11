@@ -14,12 +14,17 @@ weight: 30
 <!--
 This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Packet (bare metal), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 -->
-此快速入门有助于使用 [Kubespray](https://github.com/kubernetes-sigs/kubespray) 安装在 GCE、Azure、OpenStack、AWS、vSphere、Packet（裸机）、Oracle Cloud Infrastructure（实验性）或 Baremetal 上托管的 Kubernetes 集群。
+此快速入门有助于使用 [Kubespray](https://github.com/kubernetes-sigs/kubespray)
+安装在 GCE、Azure、OpenStack、AWS、vSphere、Packet（裸机）、Oracle Cloud
+Infrastructure（实验性）或 Baremetal 上托管的 Kubernetes 集群。
 
 <!--
 Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
 -->
-Kubespray 是一个由 [Ansible](https://docs.ansible.com/) playbooks、[清单（inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、供应工具和通用 OS/Kubernetes 集群配置管理任务的领域知识组成的。 Kubespray 提供：
+Kubespray 是一个由 [Ansible](https://docs.ansible.com/) playbooks、
+[清单（inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、
+制备工具和通用 OS/Kubernetes 集群配置管理任务的领域知识组成的。
+Kubespray 提供：
 
 <!--
 * a highly available cluster
@@ -50,17 +55,18 @@ Kubespray 是一个由 [Ansible](https://docs.ansible.com/) playbooks、[清单�
 To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to
 [kubeadm](/docs/reference/setup-tools/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
 -->
-要选择最适合你的用例的工具，请阅读[此比较](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)以
- [kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 和 [kops](/zh/docs/setup/production-environment/tools/kops/) 。
+要选择最适合你的用例的工具，请阅读
+[kubeadm](/zh/docs/reference/setup-tools/kubeadm/) 和
+[kops](/zh/docs/setup/production-environment/tools/kops/) 之间的
+[这份比较](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)。
+ 。
 <!-- body -->
 
 <!--
 ## Creating a cluster
 
 ### (1/5) Meet the underlay requirements
-
 -->
-
 ## 创建集群
 
 ### （1/5）满足下层设施要求
@@ -81,11 +87,14 @@ Provision servers with the following [requirements](https://github.com/kubernete
 -->
 * 在将运行 Ansible 命令的计算机上安装 Ansible v2.9 和 python-netaddr
 * **运行 Ansible Playbook 需要 Jinja 2.11（或更高版本）**
-* 目标服务器必须有权访问 Internet 才能拉取 Docker 镜像。否则，需要其他配置（[请参见离线环境](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md)）
+* 目标服务器必须有权访问 Internet 才能拉取 Docker 镜像。否则，
+  需要其他配置（[请参见离线环境](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md)）
 * 目标服务器配置为允许 IPv4 转发
 * **你的 SSH 密钥必须复制**到清单中的所有服务器部分
-* 防火墙不受管理，你将需要按照以前的方式实施自己的规则。为了避免在部署过程中出现任何问题，你应该禁用防火墙
-* 如果从非 root 用户帐户运行 kubespray，则应在目标服务器中配置正确的特权升级方法。然后应指定“ansible_become” 标志或命令参数 “--become” 或 “-b”
+* 防火墙不受管理，你将需要按照以前的方式实施自己的规则。
+  为了避免在部署过程中出现任何问题，你应该禁用防火墙
+* 如果从非 root 用户帐户运行 kubespray，则应在目标服务器中配置正确的特权升级方法。
+  然后应指定“ansible_become” 标志或命令参数 “--become” 或 “-b”
 
 <!--
 Kubespray provides the following utilities to help provision your environment:
@@ -105,16 +114,18 @@ Kubespray 提供以下实用程序来帮助你设置环境：
 <!--
 ### (2/5) Compose an inventory file
 
-After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
+After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
 
 ### (3/5) Plan your cluster deployment
 
 Kubespray provides the ability to customize many aspects of the deployment:
-
 -->
 ### （2/5）编写清单文件
 
-设置服务器后，请创建一个 [Ansible 的清单文件](https://docs.ansible.com/ansible/intro_inventory.html)。你可以手动执行此操作，也可以通过动态清单脚本执行此操作。有关更多信息，请参阅“[建立你自己的清单](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)”。
+设置服务器后，请创建一个
+[Ansible 的清单文件](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)。
+你可以手动执行此操作，也可以通过动态清单脚本执行此操作。有关更多信息，请参阅
+“[建立你自己的清单](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)”。
 
 ### （3/5）规划集群部署
 
@@ -146,11 +157,12 @@ Kubespray 能够自定义部署的许多方面：
 * 证书生成方式
 
 <!--
-Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
+Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 -->
-
-可以修改[变量文件](https://docs.ansible.com/ansible/playbooks_variables.html)以进行 Kubespray 定制。
-如果你刚刚开始使用 Kubespray，请考虑使用 Kubespray 默认设置来部署你的集群并探索 Kubernetes 。
+可以修改[变量文件](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
+以进行 Kubespray 定制。
+如果你刚刚开始使用 Kubespray，请考虑使用 Kubespray 默认设置来部署你的集群
+并探索 Kubernetes 。
 <!--
 ### (4/5) Deploy a Cluster
 
@@ -158,12 +170,12 @@ Next, deploy your cluster:
 
 Cluster deployment using [ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
 -->
-
 ### （4/5）部署集群
 
 接下来，部署你的集群：
 
-使用 [ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment) 进行j集群部署。
+使用 [ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment)
+进行集群部署。
 
 ```shell
 ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
@@ -172,7 +184,9 @@ ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
 <!--
 Large deployments (100+ nodes) may require [specific adjustments](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md) for best results.
 -->
-大型部署（超过 100 个节点）可能需要[特定的调整](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md)，以获得最佳效果。
+大型部署（超过 100 个节点）可能需要
+[特定的调整](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md)，
+以获得最佳效果。
 
 <!--
 ### (5/5) Verify the deployment
@@ -181,7 +195,8 @@ Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [
 -->
 ### （5/5）验证部署
 
-Kubespray 提供了一种使用 [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md)
+Kubespray 提供了一种使用
+[Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md)
 验证 Pod 间连接和 DNS 解析的方法。
 Netchecker 确保 netchecker-agents pod 可以解析。
 DNS 请求并在默认名称空间内对每个请求执行 ping 操作。
@@ -241,16 +256,17 @@ When running the reset playbook, be sure not to accidentally target your product
 -->
 ## 反馈
 
-* Slack 频道：[#kubespray](https://kubernetes.slack.com/messages/kubespray/)（你可以在[此处](https://slack.k8s.io/)获得邀请）
+* Slack 频道：[#kubespray](https://kubernetes.slack.com/messages/kubespray/)
+  （你可以在[此处](https://slack.k8s.io/)获得邀请）
 * [GitHub 问题](https://github.com/kubernetes-sigs/kubespray/issues)
 
 <!--
 ## {{% heading "whatsnext" %}}
 
-
 Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md).
 -->
 ## {{% heading "whatsnext" %}}
 
-
-查看有关 Kubespray 的[路线图](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)的计划工作。
+查看有关 Kubespray 的
+[路线图](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)
+的计划工作。

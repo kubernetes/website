@@ -130,7 +130,6 @@ As a cluster administrator, you can use a [PodSecurityPolicy](/docs/concepts/pol
 
 ### Generic ephemeral volumes
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 This feature requires the `GenericEphemeralVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be

@@ -495,66 +495,36 @@ kubeadm to tell it what to do.
 kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 指令的死循环。
 
 <!--
-## Configure cgroup driver used by kubelet on control-plane node
+## Configure cgroup driver
 
-When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
-and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
-
-If you are using a different CRI, you must pass your `cgroupDriver` value to `kubeadm init`, like so:
+Both the container runtime and the kubelet have a property called
+["cgroup driver"](/docs/setup/production-environment/container-runtimes/), which is important
+for the management of cgroups on Linux machines.
 -->
-## 在控制平面节点上配置 kubelet 使用的 cgroup 驱动程序  {#configure-cgroup-driver-used-by-kubelet-on-contol-plane-node}
+## 配置 cgroup 驱动程序  {#configure-cgroup-driver}
 
-使用 Docker 时，kubeadm 会自动为其检测 cgroup 驱动并在运行时对
-`/var/lib/kubelet/kubeadm-flags.env` 文件进行配置。
+容器运行时和 kubelet 都具有名字为 
+["cgroup driver"](/zh/docs/setup/production-environment/container-runtimes/)
+的属性，该属性对于在 Linux 机器上管理 CGroups 而言非常重要。
 
-如果你在使用不同的 CRI，你必须为 `kubeadm init` 传递 `cgroupDriver`
-值，像这样：
-
-```yaml
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-cgroupDriver: <value>
-```
-
+{{< warning >}}
 <!--
-For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
-and the [`KubeletConfiguration` reference](/docs/reference/config-api/kubelet-config.v1beta1/)
+Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
 
-Please mind, that you **only** have to do that if the cgroup driver of your CRI
-is not `cgroupfs`, because that is the default value in the kubelet already.
+See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) for more details.
 -->
-进一步的相关细节，可参阅
-[使用配置文件来执行 kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) 以及 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)。
+你需要确保容器运行时和 kubelet 所使用的是相同的 cgroup 驱动，否则 kubelet
+进程会失败。
 
-请注意，你只需要在你的 cgroup 驱动程序不是 `cgroupfs` 时这么做，
-因为它已经是 kubelet 中的默认值。
-
-{{< note >}}
-<!--
-Since `--cgroup-driver` flag has been deprecated by the kubelet, if you have that in `/var/lib/kubelet/kubeadm-flags.env`
-or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it and use the KubeletConfiguration instead
-(stored in `/var/lib/kubelet/config.yaml` by default).
--->
-由于 kubelet 已经弃用了 `--cgroup-driver` 标志，如果你在配置文件
-`/var/lib/kubelet/kubeadm-flags.env` 或者 `/etc/default/kubelet`
-（对于 RPM 而言是 `/etc/sysconfig/kubelet`）包含此设置，请将其删除
-并使用 KubeletConfiguration 作为替代（默认存储于
-`/var/lib/kubelet/config.yaml` 文件中）。
-{{< /note >}}
-
-<!--
-The automatic detection of cgroup driver for other container runtimes
-like CRI-O and containerd is work in progress.
--->
-自动检测其他容器运行时（例如 CRI-O 和 containerd）的 cgroup 驱动的相关
-工作扔在进行中。
+相关细节可参见[配置 cgroup 驱动](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
+{{< /warning >}}
 
 <!--
 ## Troubleshooting
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 -->
-## 故障排查
+## 故障排查   {#troubleshooting}
 
 如果你在使用 kubeadm 时遇到困难，请参阅我们的
 [故障排查文档](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。

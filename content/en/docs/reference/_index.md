@@ -26,7 +26,7 @@ This section of the Kubernetes documentation contains references.
 * [One-page API Reference for Kubernetes {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [Using The Kubernetes API](/docs/reference/using-api/) - overview of the API for Kubernetes.
 * [API access control](/docs/reference/access-authn-authz/) - details on how Kubernetes controls API access
-* [Well-Known Labels, Annotations and Taints](/docs/reference/kubernetes-api/labels-annotations-taints/)
+* [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
 
 ## Officially supported client libraries
 
@@ -73,16 +73,11 @@ operator to use or manage a cluster.
 
 * [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
 * [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
+* [kube-scheduler policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-
-## Config APIs
-
 * [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
-
-## Config APIs
-
-* [kube-scheduler policy reference (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/)
+* [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 
 ## Design Docs
 

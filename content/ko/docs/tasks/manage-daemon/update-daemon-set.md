@@ -111,8 +111,8 @@ kubectl edit ds/fluentd-elasticsearch -n kube-system
 
 ##### 컨테이너 이미지만 업데이트
 
-데몬셋 템플릿에서 컨테이너 이미지를 업데이트해야 하는
-경우(예: `.spec.template.spec.containers[*].image`), `kubectl set image` 를 사용한다.
+데몬셋 템플릿(예: `.spec.template.spec.containers[*].image`)에 의해 정의된 컨테이너 이미지만 업데이트하려면, 
+`kubectl set image` 를 사용한다.
 
 ```shell
 kubectl set image ds/fluentd-elasticsearch fluentd-elasticsearch=quay.io/fluentd_elasticsearch/fluentd:v2.6.0 -n kube-system
@@ -168,7 +168,7 @@ kubectl get pods -l name=fluentd-elasticsearch -o wide -n kube-system
 데몬셋 롤아웃이 진행되지 않는다.
 
 이 문제를 해결하려면, 데몬셋 템플릿을 다시 업데이트한다. 이전의 비정상 롤아웃으로 인해
-새로운 롤아웃이 차단되지 않는다.
+새로운 롤아웃이 차단되지는 않는다.
 
 #### 클럭 차이(skew)
 

@@ -58,7 +58,7 @@ graph TB
     class zoneA,zoneB cluster;
 {{< /mermaid >}}
 
-Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/kubernetes-api/labels-annotations-taints/) that are created and populated automatically on most clusters.
+Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/labels-annotations-taints/) that are created and populated automatically on most clusters.
 
 ## Spread Constraints for Pods
 

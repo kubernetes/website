@@ -18,7 +18,7 @@ weight: 10
 
 **사전요구사항**: [gcloud](https://cloud.google.com/sdk/docs/quickstarts).
 
-1.  캘리코로 GKE 클러스터를 시작하려면, `--enable-network-policy` 플래그를 추가하면 된다.
+1.  캘리코로 GKE 클러스터를 시작하려면, `--enable-network-policy` 플래그를 추가한다.
 
     **문법**
     ```shell

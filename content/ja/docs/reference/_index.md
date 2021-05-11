@@ -16,7 +16,7 @@ content_type: concept
 
 ## APIリファレンス
 
-* [Kubernetes API概要](/docs/reference/using-api/api-overview/) - Kubernetes APIの概要です。
+* [Kubernetes API概要](/docs/reference/using-api/) - Kubernetes APIの概要です。
 * [Kubernetes APIリファレンス {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
 
 ## APIクライアントライブラリー
@@ -30,9 +30,9 @@ content_type: concept
 
 ## CLIリファレンス
 
-* [kubectl](/docs/reference/kubectl/overview/) - コマンドの実行やKubernetesクラスターの管理に使う主要なCLIツールです。
+* [kubectl](/ja/docs/reference/kubectl/overview/) - コマンドの実行やKubernetesクラスターの管理に使う主要なCLIツールです。
     * [JSONPath](/ja/docs/reference/kubectl/jsonpath/) - kubectlで[JSONPath記法](https://goessner.net/articles/JsonPath/)を使うための構文ガイドです。
-* [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) - セキュアなKubernetesクラスターを簡単にプロビジョニングするためのCLIツールです。
+* [kubeadm](ja/docs/reference/setup-tools/kubeadm/) - セキュアなKubernetesクラスターを簡単にプロビジョニングするためのCLIツールです。
 
 ## コンポーネントリファレンス
 

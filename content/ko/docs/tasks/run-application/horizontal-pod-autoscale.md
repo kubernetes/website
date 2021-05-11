@@ -23,9 +23,7 @@ Pod Autoscaler는 크기를 조정할 수 없는 오브젝트(예: 데몬셋(Dae
 
 Horizontal Pod Autoscaler는 쿠버네티스 API 리소스 및 컨트롤러로 구현된다.
 리소스는 컨트롤러의 동작을 결정한다.
-컨트롤러는 관찰된 평균 CPU 사용률이 사용자가 지정한 대상과 일치하도록 레플리케이션
-컨트롤러 또는 디플로이먼트에서 레플리카 개수를 주기적으로 조정한다.
-
+컨트롤러는 평균 CPU 사용률, 평균 메모리 사용률 또는 다른 커스텀 메트릭과 같은 관찰 대상 메트릭이 사용자가 지정한 목표값과 일치하도록 레플리케이션 컨트롤러 또는 디플로이먼트에서 레플리카 개수를 주기적으로 조정한다.
 
 
 
@@ -355,7 +353,7 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 
 ## 구성가능한 스케일링 동작 지원
 
-[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity/README.md)
 부터 `v2beta2` API는 HPA `behavior` 필드를 통해
 스케일링 동작을 구성할 수 있다.
 동작은 `behavior` 필드 아래의 `scaleUp` 또는 `scaleDown`

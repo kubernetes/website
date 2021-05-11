@@ -206,6 +206,8 @@ rules:
 [클라우드 컨트롤러 매니저 관리](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)에는
 클라우드 컨트롤러 매니저의 실행과 관리에 대한 지침이 있다.
 
+클라우드 컨트롤러 매니저를 사용하기 위해 HA 컨트롤 플레인을 업그레이드하려면, [클라우드 컨트롤러 매니저를 사용하기 위해 복제된 컨트롤 플레인 마이그레이션 하기](/docs/tasks/administer-cluster/controller-manager-leader-migration/)를 참고한다.
+
 자체 클라우드 컨트롤러 매니저를 구현하거나 기존 프로젝트를 확장하는 방법을 알고 싶은가?
 
 클라우드 컨트롤러 매니저는 Go 인터페이스를 사용해서 모든 클라우드 플러그인을 구현할 수 있다. 구체적으로, [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)의 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62)에 정의된 `CloudProvider` 인터페이스를 사용한다.

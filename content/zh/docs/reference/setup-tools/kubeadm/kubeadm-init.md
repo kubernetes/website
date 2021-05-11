@@ -129,22 +129,18 @@ following steps:
 <!-- 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
-   To install kube-dns instead of CoreDNS, the DNS addon has to be configured in the kubeadm `ClusterConfiguration`.
-   For more information about the configuration see the section `Using kubeadm init with a configuration file` below.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
    {{< warning >}}
-   kube-dns usage with kubeadm is deprecated as of v1.18 and will be removed in a future release.
+   kube-dns usage with kubeadm is deprecated as of v1.18 and is removed in v1.21.
    {{< /warning >}}
 -->
 8. 通过 API 服务器安装一个 DNS 服务器 (CoreDNS) 和 kube-proxy 附加组件。
    在 Kubernetes 版本 1.11 和更高版本中，CoreDNS 是默认的 DNS 服务器。
-   要安装 kube-dns 而不是 CoreDNS，必须在 kubeadm `ClusterConfiguration` 中配置 DNS 插件。
-   有关配置的更多信息，请参见下面的"带配置文件使用 kubeadm init" 一节。
    请注意，尽管已部署 DNS 服务器，但直到安装 CNI 时才调度它。
 
    {{< warning >}}
-   从 v1.18 开始，在 kubeadm 中使用 kube-dns 已废弃，并将在以后的版本中将其删除。
+   从 v1.18 开始，在 kubeadm 中使用 kube-dns 的支持已被废弃，并已在 v1.21 版本中删除。
    {{< /warning >}}
 
 <!--
@@ -244,7 +240,7 @@ If your configuration is not using the latest version it is **recommended** that
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
 For more information on the fields and usage of the configuration you can navigate to our API reference
-page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories).
+page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories).
 -->
 可以使用 [kubeadm config print](/zh/docs/reference/setup-tools/kubeadm/kubeadm-config/)
 命令打印出默认配置。
@@ -255,7 +251,7 @@ page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/
 
 有关配置的字段和用法的更多信息，
 你可以访问 API 参考页面并从
-[列表](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#pkg-subdirectories)
+[列表](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories)
 中选择一个版本。
 
 <!--
@@ -265,15 +261,17 @@ page and pick a version from [the list](https://godoc.org/k8s.io/kubernetes/cmd/
 
 <!--
 For information about kube-proxy parameters in the kubeadm configuration see:
-- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+- [kube-proxy reference](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 
 For information about enabling IPVS mode with kubeadm see:
 - [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)
 -->
 kubeadm 配置中有关 kube-proxy 的说明请查看：
-- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+
+- [kube-proxy 参考](/zh/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 
 使用 kubeadm 启用 IPVS 模式的说明请查看：
+
 - [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)
 
 <!--

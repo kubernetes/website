@@ -40,9 +40,10 @@ a00:100::/24
 ```
 There should be one IPv4 block and one IPv6 block allocated.
 
-Validate that the node has an IPv4 and IPv6 interface detected (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0):
+Validate that the node has an IPv4 and IPv6 interface detected. Replace node name with a valid node from the cluster. In this example the node name is `k8s-linuxpool1-34450317-0`:
+
 ```shell
-kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s \n" .type .address}}{{end}}'
+kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s\n" .type .address}}{{end}}'
 ```
 ```
 Hostname: k8s-linuxpool1-34450317-0
@@ -52,9 +53,10 @@ InternalIP: 2001:1234:5678:9abc::5
 
 ### Validate Pod addressing
 
-Validate that a Pod has an IPv4 and IPv6 address assigned. (replace the Pod name with a valid Pod in your cluster. In this example the Pod name is pod01)
+Validate that a Pod has an IPv4 and IPv6 address assigned. Replace the Pod name with a valid Pod in your cluster. In this example the Pod name is `pod01`:
+
 ```shell
-kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s \n" .ip}}{{end}}'
+kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s\n" .ip}}{{end}}'
 ```
 ```
 10.244.1.4
@@ -72,6 +74,7 @@ You can also validate Pod IPs using the Downward API via the `status.podIPs` fie
 ```
 
 The following command prints the value of the `MY_POD_IPS` environment variable from within a container. The value is a comma separated list that corresponds to the Pod's IPv4 and IPv6 addresses.
+
 ```shell
 kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
