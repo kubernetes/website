@@ -151,7 +151,7 @@ exit
 
 {{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
-By default, Kubernetes recursively changes ownership and permissions for the contents of each
+Support for ConfigurableFSGroupPolicy is now enabled by default. By default, Kubernetes recursively changes ownership and permissions for the contents of each
 volume to match the `fsGroup` specified in a Pod's `securityContext` when that volume is
 mounted.
 For large volumes, checking and changing ownership and permissions can take a lot of time,
