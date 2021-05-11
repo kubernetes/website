@@ -301,7 +301,7 @@ requested Kubernetes version is a CI label (such as `ci/latest`)
 <!--
 You can override this behavior by using [kubeadm with a configuration file](#config-file).
 -->
-你可以通过使用[带有配置文件的 kubeadm](#config-file)来重写此操作。
+你可以通过使用[带有配置文件的 kubeadm](#config-file) 来重写此操作。
 
 <!--
 Allowed customization are:
@@ -513,7 +513,7 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 -->
 注意这种搭建集群的方式在安全保证上会有一些宽松，因为这种方式不允许使用 `--discovery-token-ca-cert-hash` 
 来验证根 CA 的哈希值（因为当配置节点的时候，它还没有被生成）。
-更多信息请参阅 [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/)文档。
+更多信息请参阅 [kubeadm join](/zh/docs/reference/setup-tools/kubeadm/kubeadm-join/) 文档。
 
 ## {{% heading "whatsnext" %}}
 
