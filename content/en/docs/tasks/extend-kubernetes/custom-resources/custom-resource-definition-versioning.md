@@ -72,7 +72,7 @@ after upgrading the objects to a new stored version.
 Removing an old version:
 
 1. Ensure all clients are fully migrated to the new version. The kube-apiserver
-   logs can reviewed to help identify any clients that are still accessing via
+   logs can be reviewed to help identify any clients that are still accessing via
    the old version.
 1. Set `served` to `false` for the old version in the `spec.versions` list. If
    any clients are still unexpectedly using the old version they may begin reporting

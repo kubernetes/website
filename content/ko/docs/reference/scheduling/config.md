@@ -18,12 +18,10 @@ weight: 20
 각 단계는 익스텐션 포인트(extension point)를 통해 노출된다. 플러그인은 이러한
 익스텐션 포인트 중 하나 이상을 구현하여 스케줄링 동작을 제공한다.
 
-컴포넌트 구성 API([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha1?tab=doc#KubeSchedulerConfiguration)
-또는 [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha2?tab=doc#KubeSchedulerConfiguration))를
-사용하고, `kube-scheduler --config <filename>`을 실행하여
+[KubeSchedulerConfiguration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 
+구조에 맞게 파일을 작성하고, 
+`kube-scheduler --config <filename>`을 실행하여 
 스케줄링 프로파일을 지정할 수 있다.
-`v1alpha2` API를 사용하면 [여러 프로파일](#여러-프로파일)을
-실행하도록 kube-scheduler를 구성할 수 있다.
 
 최소 구성은 다음과 같다.
 
@@ -149,7 +147,12 @@ profiles:
   익스텐션 포인트: `Score`.
 - `VolumeBinding`: 노드에 요청된 {{< glossary_tooltip text="볼륨" term_id="volume" >}}이 있는지
   또는 바인딩할 수 있는지 확인한다.
-  익스텐션 포인트: `PreFilter`, `Filter`, `Reserve`, `PreBind`.
+  익스텐션 포인트: `PreFilter`, `Filter`, `Reserve`, `PreBind`, `Score`.
+  {{< note >}}
+  `Score` 익스텐션 포인트는 `VolumeCapacityPriority` 기능이 
+  활성화되어 있어야 활성화되며, 
+  요청된 볼륨 사이즈를 만족하는 가장 작은 PV들을 우선순위 매긴다.
+  {{< /note >}}
 - `VolumeRestrictions`: 노드에 마운트된 볼륨이 볼륨 제공자에 특정한
   제한 사항을 충족하는지 확인한다.
   익스텐션 포인트: `Filter`.
@@ -249,3 +252,4 @@ profiles:
 
 * [kube-scheduler 레퍼런스](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/) 읽어보기
 * [스케줄링](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 알아보기
+* [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 레퍼런스 읽어보기

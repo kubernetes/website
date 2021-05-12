@@ -90,7 +90,7 @@ disruptions, if any, to expect.
 
 ## Pod disruption budgets
 
-{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 Kubernetes offers features to help you run highly available applications even when you
 introduce frequent voluntary disruptions.
@@ -136,7 +136,7 @@ during application updates is configured in the spec for the specific workload r
 
 When a pod is evicted using the eviction API, it is gracefully
 [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
-`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).)
+`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
 ## PodDisruptionBudget example {#pdb-example}
 

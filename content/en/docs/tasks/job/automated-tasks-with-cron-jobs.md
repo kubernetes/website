@@ -1,6 +1,6 @@
 ---
 title: Running Automated Tasks with a CronJob
-min-kubernetes-server-version: v1.8
+min-kubernetes-server-version: v1.21
 reviewers:
 - chenopis
 content_type: task
@@ -8,6 +8,10 @@ weight: 10
 ---
 
 <!-- overview -->
+
+CronJobs was promoted to general availability in Kubernetes v1.21. If you are using an older version of
+Kubernetes, please refer to the documentation for the version of Kubernetes that you are using,
+so that you see accurate information. Older Kubernetes versions do not support the `batch/v1` CronJob API.
 
 You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}} on a time-based schedule.
 These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
@@ -170,13 +174,12 @@ After the deadline, the cron job does not start the job.
 Jobs that do not meet their deadline in this way count as failed jobs.
 If this field is not specified, the jobs have no deadline.
 
-The CronJob controller counts how many missed schedules happen for a cron job. If there are more than 100 missed schedules, the cron job is no longer scheduled. When `.spec.startingDeadlineSeconds` is not set, the CronJob controller counts missed schedules from `status.lastScheduleTime` until now. 
+If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob
+controller measures the time between when a job is expected to be created and
+now. If the difference is higher than that limit, it will skip this execution.
 
-For example, one cron job is supposed to run every minute, the `status.lastScheduleTime` of the cronjob is 5:00am, but now it's 7:00am. That means 120 schedules were missed, so the cron job is no longer scheduled. 
-
-If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob controller counts how many missed jobs occurred from the value of `.spec.startingDeadlineSeconds` until now. 
-
-For example, if it is set to `200`, it counts how many missed schedules occurred in the last 200 seconds. In that case, if there were more than 100 missed schedules in the last 200 seconds, the cron job is no longer scheduled. 
+For example, if it is set to `200`, it allows a job to be created for up to 200
+seconds after the actual schedule.
 
 ### Concurrency Policy
 

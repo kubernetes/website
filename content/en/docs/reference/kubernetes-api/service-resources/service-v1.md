@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy."
 title: "Service"
 weight: 1
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: v1`
 
@@ -134,13 +146,21 @@ ServiceSpec describes the attributes that a user creates on a service.
 
   If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
 
+- **loadBalancerClass** (string)
+
+  loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
+
 - **externalName** (string)
 
-  externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be
+  externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
 
 - **externalTrafficPolicy** (string)
 
   externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+
+- **internalTrafficPolicy** (string)
+
+  InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
 
 - **healthCheckNodePort** (int32)
 
@@ -164,13 +184,13 @@ ServiceSpec describes the attributes that a user creates on a service.
     <a name="ClientIPConfig"></a>
     *ClientIPConfig represents the configurations of Client IP based session affinity.*
 
-  - **sessionAffinityConfig.clientIP.timeoutSeconds** (int32)
+    - **sessionAffinityConfig.clientIP.timeoutSeconds** (int32)
 
-    timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && \<=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
+      timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && \<=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
 
 - **topologyKeys** ([]string)
 
-  topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.
+  topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature. This field is deprecated and will be removed in a future version.
 
 - **allocateLoadBalancerNodePorts** (boolean)
 
@@ -238,37 +258,37 @@ ServiceStatus represents the current status of a service.
     <a name="LoadBalancerIngress"></a>
     *LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.*
 
-  - **loadBalancer.ingress.hostname** (string)
+    - **loadBalancer.ingress.hostname** (string)
 
-    Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
+      Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
 
-  - **loadBalancer.ingress.ip** (string)
+    - **loadBalancer.ingress.ip** (string)
 
-    IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+      IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 
-  - **loadBalancer.ingress.ports** ([]PortStatus)
+    - **loadBalancer.ingress.ports** ([]PortStatus)
 
-    *Atomic: will be replaced during a merge*
-    
-    Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+      *Atomic: will be replaced during a merge*
+      
+      Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 
-    <a name="PortStatus"></a>
-    **
+      <a name="PortStatus"></a>
+      **
 
-  - **loadBalancer.ingress.ports.port** (int32), required
+      - **loadBalancer.ingress.ports.port** (int32), required
 
-    Port is the port number of the service port of which status is recorded here
+        Port is the port number of the service port of which status is recorded here
 
-  - **loadBalancer.ingress.ports.protocol** (string), required
+      - **loadBalancer.ingress.ports.protocol** (string), required
 
-    Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
 
-  - **loadBalancer.ingress.ports.error** (string)
+      - **loadBalancer.ingress.ports.error** (string)
 
-    Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
-      CamelCase names
-    - cloud provider specific error values must have names that comply with the
-      format foo.example.com/CamelCase.
+        Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+          CamelCase names
+        - cloud provider specific error values must have names that comply with the
+          format foo.example.com/CamelCase.
 
 
 

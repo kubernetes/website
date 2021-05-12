@@ -22,7 +22,7 @@ System component metrics can give a better look into what is happening inside th
 Kubernetes components emit metrics in [Prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 This format is structured plain text, designed so that people and machines can both read it.
 -->
-系统组件指标可以更好地了解系统内部发生的情况。指标对于构建仪表板和告警特别有用。
+通过系统组件指标可以更好地了解系统组个内部发生的情况。系统组件指标对于构建仪表板和告警特别有用。
 
 Kubernetes 组件以 [Prometheus 格式](https://prometheus.io/docs/instrumenting/exposition_formats/)
 生成度量值。
@@ -37,10 +37,10 @@ In most cases metrics are available on `/metrics` endpoint of the HTTP server. F
 
 Examples of those components:
 -->
-## Kubernetes 中的指标
+## Kubernetes 中组件的指标
 
-在大多数情况下，可以在 HTTP 服务器的 `/metrics` 端点上访问度量值。
-对于默认情况下不公开端点的组件，可以使用 `--bind-address` 标志启用。
+在大多数情况下，可以通过 HTTP 访问组件的 `/metrics` 端点来获取组件的度量值。
+对于那些默认情况下不暴露端点的组件，可以使用 `--bind-address` 标志启用。
 
 这些组件的示例：
 

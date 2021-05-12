@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "Event is a report of an event somewhere in the cluster."
 title: "Event"
 weight: 3
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: events.k8s.io/v1`
 
@@ -26,15 +38,16 @@ Event is a report of an event somewhere in the cluster. It generally denotes som
 - **kind**: Event
 
 
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
 - **eventTime** (MicroTime), required
 
   eventTime is the time when this Event was first observed. It is required.
 
   <a name="MicroTime"></a>
   *MicroTime is version of Time with microsecond level precision.*
-
-- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>), required
-
 
 - **action** (string)
 

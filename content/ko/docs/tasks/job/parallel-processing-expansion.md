@@ -2,7 +2,7 @@
 title: 확장을 사용한 병렬 처리
 content_type: task
 min-kubernetes-server-version: v1.8
-weight: 20
+weight: 50
 ---
 
 <!-- overview -->

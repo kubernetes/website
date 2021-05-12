@@ -185,7 +185,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 1. Podのリストを問い合わせて、3つのフロントエンドのレプリカが実行中になっていることを確認します。
 
       ```shell
-      kubectl get pods -l app=guestbook -l tier=frontend
+      kubectl get pods -l app.kubernetes.io/name=guestbook -l app.kubernetes.io/component=frontend
       ```
 
       結果は次のようになるはずです。
