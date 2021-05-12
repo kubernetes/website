@@ -357,7 +357,7 @@ API 리소스를 탐색하기 위한 다른 작업:
 ```bash
 kubectl api-resources --namespaced=true      # 네임스페이스를 가지는 모든 리소스
 kubectl api-resources --namespaced=false     # 네임스페이스를 가지지 않는 모든 리소스
-kubectl api-resources -o name                # 모든 리소스의 단순한 (리소스 이름 만) 출력
+kubectl api-resources -o name                # 모든 리소스의 단순한 (리소스 이름만) 출력
 kubectl api-resources -o wide                # 모든 리소스의 확장된 ("wide"로 알려진) 출력
 kubectl api-resources --verbs=list,get       # "list"와 "get"의 요청 동사를 지원하는 모든 리소스 출력
 kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든 리소스
@@ -384,7 +384,10 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 # 클러스터에서 실행 중인 모든 이미지
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 
- # "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
+# `default` 네임스페이스의 모든 이미지를 파드별로 그룹지어 출력
+kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
+
+# "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
 
 # 이름에 관계없이 메타데이터 아래의 모든 필드

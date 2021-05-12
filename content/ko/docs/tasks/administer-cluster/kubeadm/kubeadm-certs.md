@@ -168,7 +168,7 @@ controllerManager:
 
 ### 인증서 서명 요청(CSR) 생성
 
-쿠버네티스 API로 CSR을 작성하려면 [CertificateSigningRequest 생성](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest)을 본다.
+쿠버네티스 API로 CSR을 작성하려면 [CertificateSigningRequest 생성](/docs/reference/access-authn-authz/certificate-signing-requests/#create-certificatesigningrequest)을 본다.
 
 ## 외부 CA로 인증서 갱신
 

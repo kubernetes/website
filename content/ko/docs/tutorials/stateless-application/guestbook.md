@@ -49,13 +49,14 @@ min-kubernetes-server-version: v1.14
 1. 매니페스트 파일을 다운로드한 디렉터리에서 터미널 창을 시작한다.
 1. `mongo-deployment.yaml` 파일을 통해 MongoDB 디플로이먼트에 적용한다.
 
+      <!--
+      콘텐츠에 대한 로컬 테스트는 파일의 상대 경로로 한다.
+      kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.yaml
+      -->
+
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-deployment.yaml
       ```
-<!--
-컨텐츠에 대한 로컬 테스트는 파일의 상대경로로 한다.
-kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.yaml
--->
 
 1. 파드의 목록을 질의하여 MongoDB 파드가 실행 중인지 확인한다.
 
@@ -84,14 +85,14 @@ kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.ya
 
 1. `mongo-service.yaml` 파일을 통해 MongoDB 서비스에 적용한다.
 
+      <!--
+      콘텐츠에 대한 로컬 테스트는 파일의 상대 경로로 한다.
+      kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
+      -->
+
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-service.yaml
       ```
-
-<!--
-컨텐츠에 대한 로컬 테스트는 파일의 상대경로로 한다.
-kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
--->
 
 1. 서비스의 목록을 질의하여 MongoDB 서비스가 실행 중인지 확인한다.
 
@@ -122,14 +123,14 @@ kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
 
 1. `frontend-deployment.yaml` 파일을 통해 프론트엔드의 디플로이먼트에 적용한다.
 
+      <!--
+      콘텐츠에 대한 로컬 테스트는 파일의 상대 경로로 한다.
+      kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment.yaml
+      -->
+
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml
       ```
-
-<!--
-컨텐츠에 대한 로컬 테스트는 파일의 상대경로로 한다.
-kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment.yaml
--->
 
 1. 파드의 목록을 질의하여 세 개의 프론트엔드 복제본이 실행되고 있는지 확인한다.
 
@@ -160,14 +161,14 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
 
 1. `frontend-service.yaml` 파일을 통해 프론트엔드 서비스에 적용시킨다.
 
+      <!--
+      콘텐츠에 대한 로컬 테스트는 파일의 상대 경로로 한다.
+      kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.yaml
+      -->
+
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-service.yaml
       ```
-
-<!--
-컨텐츠에 대한 로컬 테스트는 파일의 상대경로로 한다.
-kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.yaml
--->
 
 1. 서비스의 목록을 질의하여 프론트엔드 서비스가 실행 중인지 확인한다.
 
@@ -179,7 +180,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.ya
 
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      frontend       ClusterIP   10.0.0.112   <none>       80/TCP   6s
+      frontend       ClusterIP   10.0.0.112   <none>        80/TCP         6s
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP        4m
       mongo          ClusterIP   10.0.0.151   <none>        6379/TCP       2m
       ```
@@ -214,8 +215,8 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.ya
       결과는 아래와 같은 형태로 나타난다.
 
       ```
-      NAME       TYPE        CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
-      frontend   ClusterIP   10.51.242.136   109.197.92.229     80:32372/TCP   1m
+      NAME       TYPE           CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
+      frontend   LoadBalancer   10.51.242.136   109.197.92.229     80:32372/TCP   1m
       ```
 
 1. IP 주소를 복사하고, 방명록을 보기 위해 브라우저에서 페이지를 로드한다.
@@ -245,7 +246,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.ya
       frontend-3823415956-k22zn       1/1       Running   0          54m
       frontend-3823415956-w9gbt       1/1       Running   0          54m
       frontend-3823415956-x2pld       1/1       Running   0          5s
-      mongo-1068406935-3lswp   1/1       Running   0          56m
+      mongo-1068406935-3lswp          1/1       Running   0          56m
       ```
 
 1. 프론트엔드 파드의 수를 축소하기 위해 아래 명령어를 실행한다.
@@ -266,7 +267,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.ya
       NAME                            READY     STATUS    RESTARTS   AGE
       frontend-3823415956-k22zn       1/1       Running   0          1h
       frontend-3823415956-w9gbt       1/1       Running   0          1h
-      mongo-1068406935-3lswp   1/1       Running   0          1h
+      mongo-1068406935-3lswp          1/1       Running   0          1h
       ```
 
 

@@ -222,7 +222,7 @@ pod2             1/1     Running   0          36s
 ## 레플리카셋 매니페스트 작성하기
 
 레플리카셋은 모든 쿠버네티스 API 오브젝트와 마찬가지로 `apiVersion`, `kind`, `metadata` 필드가 필요하다.
-레플리카셋에 대한 kind 필드의 값은 항상 레플리카셋이다.
+레플리카셋에 대한 `kind` 필드의 값은 항상 레플리카셋이다.
 쿠버네티스 1.9에서의 레플리카셋의 kind에 있는 API 버전 `apps/v1`은 현재 버전이며, 기본으로 활성화 되어있다. API 버전 `apps/v1beta2`은 사용 중단(deprecated)되었다.
 API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한다.
 
@@ -237,7 +237,7 @@ API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한
 우리는 `frontend.yaml` 예제에서 `tier: frontend`이라는 레이블을 하나 가지고 있다.
 이 파드를 다른 컨트롤러가 취하지 않도록 다른 컨트롤러의 셀렉터와 겹치지 않도록 주의해야 한다.
 
-템플릿의 [재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책) 필드인
+템플릿의 [재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 필드인
 `.spec.template.spec.restartPolicy`는 기본값인 `Always`만 허용된다.
 
 ### 파드 셀렉터

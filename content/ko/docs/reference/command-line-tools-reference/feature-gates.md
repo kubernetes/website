@@ -546,7 +546,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   생성된 리소스에서 스키마 기반 유효성 검사를 활성화한다.
 - `CustomResourceWebhookConversion`: [커스텀리소스데피니션](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에서
   생성된 리소스에 대해 웹 훅 기반의 변환을 활성화한다.
-  실행 중인 파드 문제를 해결한다.
 - `DefaultPodTopologySpread`: `PodTopologySpread` 스케줄링 플러그인을 사용하여
   [기본 분배](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/#내부-기본-제약)를 수행한다.
 - `DevicePlugins`: 노드에서 [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
@@ -725,11 +724,9 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   있도록 한다. 자세한 내용은
   [서비스토폴로지(ServiceTopology)](/ko/docs/concepts/services-networking/service-topology/)를
   참고한다.
-- `SizeMemoryBackedVolumes`: kubelet 지원을 사용하여 메모리 백업 볼륨의 크기를 조정한다.
-  자세한 내용은 [volumes](/ko/docs/concepts/storage/volumes)를 참조한다.
 - `SetHostnameAsFQDN`: 전체 주소 도메인 이름(FQDN)을 파드의 호스트 이름으로
   설정하는 기능을 활성화한다.
-  [파드의 `setHostnameAsFQDN` 필드](/ko/docs/concepts/services-networking/dns-pod-service/#파드의-sethostnameasfqdn-필드)를 참고한다.
+  [파드의 `setHostnameAsFQDN` 필드](/ko/docs/concepts/services-networking/dns-pod-service/#pod-sethostnameasfqdn-field)를 참고한다.
 - `StartupProbe`: kubelet에서
   [스타트업](/ko/docs/concepts/workloads/pods/pod-lifecycle/#언제-스타트업-프로브를-사용해야-하는가)
   프로브를 활성화한다.

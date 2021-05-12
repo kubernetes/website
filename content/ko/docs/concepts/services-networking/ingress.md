@@ -218,7 +218,7 @@ Events:       <none>
 {{< codenew file="service/networking/external-lb.yaml" >}}
 
 IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클래스에 대한
-추가 구성을 참조하는데 사용할 수 있다.
+추가 구성을 참조하는 데에 사용할 수 있다.
 
 ### 사용중단(Deprecated) 어노테이션
 
@@ -257,8 +257,8 @@ IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클
 
 {{< codenew file="service/networking/test-ingress.yaml" >}}
 
-만약 `kubectl apply -f` 를 사용해서 생성한다면 방금 추가한 인그레스의
-상태를 볼 수 있어야 한다.
+만약 `kubectl apply -f` 를 사용해서 생성했다면 생성한 인그레스의
+상태를 볼 수 있을 것이다.
 
 ```bash
 kubectl get ingress test-ingress
