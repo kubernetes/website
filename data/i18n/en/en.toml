@@ -57,6 +57,9 @@ other = "Latest version"
 [docs_version_other_heading]
 other = "Older versions"
 
+[end_of_life]
+other = "End of Life:"
+
 [error_404_were_you_looking_for]
 other = "Were you looking for:"
 
@@ -75,8 +78,14 @@ other = "Was this page helpful?"
 [feedback_yes]
 other = "Yes"
 
+[inline_list_separator]
+other = ","
+
 [input_placeholder_email_address]
 other = "email address"
+
+[latest_release]
+other = "Latest Release:"
 
 [latest_version]
 other = "latest version."
@@ -191,6 +200,9 @@ other = "Create an issue"
 
 [prerequisites_heading]
 other = "Before you begin"
+
+[previous_patches]
+other = "Patch Releases:"
 
 [seealso_heading]
 other = "See Also"
