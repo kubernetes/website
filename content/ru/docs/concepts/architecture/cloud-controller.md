@@ -28,7 +28,7 @@ multiple {{< glossary_tooltip text="контроллеры" term_id="controller"
 процессе.
 
 
-{{< Примечание: >}}
+{{< note: >}}
 Вы так же можете запустить диспетчер облочных контроллеров как {{< glossary_tooltip text="дополнение" term_id="addons" >}} Kubernetes, а некак часть
 панели управления.
 {{< /note >}}
