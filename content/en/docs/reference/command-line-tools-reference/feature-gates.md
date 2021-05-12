@@ -158,6 +158,7 @@ different Kubernetes components.
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
+| `SeccompDefault` | `false` | Alpha | 1.22 | |
 | `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | |
 | `ServiceLBNodePortControl` | `false` | Alpha | 1.20 | |
 | `ServiceLoadBalancerClass` | `false` | Alpha | 1.21 | |
@@ -767,6 +768,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   instead of the DaemonSet controller.
 - `SCTPSupport`: Enables the _SCTP_ `protocol` value in Pod, Service,
   Endpoints, EndpointSlice, and NetworkPolicy definitions.
+- `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile for all workloads. 
+  The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
 - `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
   feature on the API Server.
 - `ServiceAccountIssuerDiscovery`: Enable OIDC discovery endpoints (issuer and
