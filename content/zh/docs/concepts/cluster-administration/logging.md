@@ -158,6 +158,16 @@ up logging for COS image on GCP in the corresponding
 [`configure-helper` 脚本](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)。
 
 <!--
+When using a **CRI container runtime**, the kubelet is responsible for rotating the logs and managing the logging directory structure. The kubelet
+sends this information to the CRI container runtime and the runtime writes the container logs to the given location. The two kubelet flags `container-log-max-size` and `container-log-max-files` can be used to configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
+-->
+当使用某 *CRI 容器运行时* 时，kubelet 要负责对日志进行轮换，并
+管理日志目录的结构。kubelet 将此信息发送给 CRI 容器运行时，后者
+将容器日志写入到指定的位置。kubelet 标志 `container-log-max-size`
+和 `container-log-max-files` 可以用来配置每个日志文件的最大长度
+和每个容器可以生成的日志文件个数上限。
+
+<!--
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file. The kubelet returns the content of the log file.
@@ -166,14 +176,15 @@ reads directly from the log file. The kubelet returns the content of the log fil
 节点上的 kubelet 处理该请求并直接读取日志文件，同时在响应中返回日志文件内容。
 
 <!--
-If an external system has performed the rotation,
+If an external system has performed the rotation or a CRI container runtime is used,
 only the contents of the latest log file will be available through
 `kubectl logs`. For example, if there's a 10MB file, `logrotate` performs
 the rotation and there are two files: one file that is 10MB in size and a second file that is empty.
 `kubectl logs` returns the latest log file which in this example is an empty response.
 -->
 {{< note >}}
-如果有外部系统执行日志轮转，那么 `kubectl logs` 仅可查询到最新的日志内容。
+如果有外部系统执行日志轮转或者使用了 CRI 容器运行时，那么 `kubectl logs` 
+仅可查询到最新的日志内容。
 比如，对于一个 10MB 大小的文件，通过 `logrotate` 执行轮转后生成两个文件，
 一个 10MB 大小，一个为空，`kubectl logs` 返回最新的日志文件，而该日志文件
 在这个例子中为空。
