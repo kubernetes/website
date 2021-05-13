@@ -137,7 +137,7 @@ Here are some ways to mitigate involuntary disruptions:
 and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
 - For even higher availability when running replicated applications,
 spread applications across racks (using
-[anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
+[anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity))
 or across zones (if using a
 [multi-zone cluster](/docs/setup/multiple-zones).)
 -->
@@ -188,7 +188,7 @@ percentage of the total.
 -->
 ## 干扰预算
 
-{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 即使你会经常引入自愿性干扰，Kubernetes 也能够支持你运行高度可用的应用。
 
@@ -199,12 +199,12 @@ Web 前端可能希望确保提供负载的副本数量永远不会低于总数�
 
 <!--
 Cluster managers and hosting providers should use tools which
-respect Pod Disruption Budgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)
+respect Pod Disruption Budgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api)
 instead of directly deleting pods or deployments.  Examples are the `kubectl drain` command
 and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
 -->
 集群管理员和托管提供商应该使用遵循 Pod Disruption Budgets 的接口
-（通过调用[Eviction API](/zh/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
+（通过调用[Eviction API](/zh/docs/tasks/administer-cluster/safely-drain-node/#eviction-api)），
 而不是直接删除 Pod 或 Deployment。
 
 <!--
@@ -264,7 +264,7 @@ during application updates is configured in spec for the specific workload resou
 When a pod is evicted using the eviction API, it is gracefully
 [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination),
 hornoring the 
-`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).)
+`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
 [终止](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，期间会
