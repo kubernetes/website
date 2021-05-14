@@ -2,12 +2,12 @@
 title: 使用工作队列进行精细的并行处理
 content_type: task
 min-kubernetes-server-version: v1.8
-weight: 40
+weight: 30
 ---
 <!--
 title: Fine Parallel Processing Using a Work Queue
 content_type: task
-weight: 40
+weight: 30
 min-kubernetes-server-version: v1.8
 -->
 
@@ -45,10 +45,10 @@ Here is an overview of the steps in this example:
 
 <!--
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
-  this example, a message is just an integer that we will do a lengthy computation on.
+   this example, a message is an integer that we will do a lengthy computation on.
 -->
 2. **创建一个队列，然后向其中填充消息。** 每个消息表示一个将要被处理的工作任务。
-   在这个例子中，消息只是一个我们将用于进行长度计算的整数。
+   在这个例子中，消息是一个我们将用于进行长度计算的整数。
 
 <!--
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
@@ -97,14 +97,14 @@ You could also download the following files directly:
 <!--
 ## Filling the Queue with tasks
 
-Now let's fill the queue with some "tasks".  In our example, our tasks are just strings to be
+Now let's fill the queue with some "tasks".  In our example, our tasks are strings to be
 printed.
 
 Start a temporary interactive pod for running the Redis CLI.
 -->
 ## 使用任务填充队列
 
-现在，让我们往队列里添加一些“任务”。在这个例子中，我们的任务只是一些将被打印出来的字符串。
+现在，让我们往队列里添加一些“任务”。在这个例子中，我们的任务是一些将被打印出来的字符串。
 
 启动一个临时的可交互的 pod 用于运行 Redis 命令行界面。
 
