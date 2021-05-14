@@ -26,9 +26,9 @@ preview of what changes `apply` will make.
 ## {{% heading "prerequisites" %}}
 
 <!--
-Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
+Install [`kubectl`](/docs/tasks/tools/).
 -->
-安装 [`kubectl`](/zh/docs/tasks/tools/install-kubectl/)。
+安装 [`kubectl`](/zh/docs/tasks/tools/)。
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
