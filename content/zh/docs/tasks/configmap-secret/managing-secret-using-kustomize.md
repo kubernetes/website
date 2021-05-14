@@ -125,7 +125,7 @@ kubectl describe secrets/db-user-pass-96mffmfh4k
 输出类似于：
 
 ```
-Name:            db-user-pass
+Name:            db-user-pass-96mffmfh4k
 Namespace:       default
 Labels:          <none>
 Annotations:     <none>
@@ -154,8 +154,8 @@ To check the actual content of the encoded data, please refer to
 <!-- ## Clean Up -->
 ## 清理    {#clean-up}
 
-<!-- To delete the Secret you have just created: -->
-删除你刚才创建的 Secret：
+<!-- To delete the Secret you have created: -->
+删除你创建的 Secret：
 
 ```shell
 kubectl delete secret db-user-pass-96mffmfh4k
