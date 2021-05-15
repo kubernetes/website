@@ -1,15 +1,7 @@
 ---
 title: Patch Releases
 type: docs
-auto_generated: true
 ---
-<!-- THIS CONTENT IS AUTO-GENERATED via ./scripts/update-release-info.sh in k/website -->
-
-{{< warning >}}
-This content is auto-generated and links may not function. The source of the document is located [here](https://github.com/kubernetes/sig-release/blob/master/releases/patch-releases.md).
-{{< /warning >}}
-
-# Kubernetes Patch Releases
 
 Schedule and team contact information for Kubernetes patch releases.
 
@@ -30,24 +22,24 @@ See the [Release Managers page][release-managers] for full contact details on th
 
 Please give us a business day to respond - we may be in a different timezone!
 
-In between releases the team is looking at incoming cherry-pick
+In between releases the team is looking at incoming cherry pick
 requests on a weekly basis.  The team will get in touch with
 submitters via GitHub PR, SIG channels in Slack, and direct messages
 in Slack and [email](mailto:release-managers-private@kubernetes.io)
 if there are questions on the PR.
 
-## Cherry-Picks
+## Cherry picks
 
-Please follow the [cherry-pick process].
+Please follow the [cherry pick process][cherry-picks].
 
-Cherry-picks must be merge-ready in GitHub with proper labels (eg:
-approved, lgtm, release note) and passing CI tests ahead of the
-cherry-pick deadline.  This is typically two days before the target
+Cherry picks must be merge-ready in GitHub with proper labels (e.g.,
+`approved`, `lgtm`, `release-note`) and passing CI tests ahead of the
+cherry pick deadline.  This is typically two days before the target
 release, but may be more.  Earlier PR readiness is better, as we
-need time to get CI signal after merging your cherry-picks ahead
+need time to get CI signal after merging your cherry picks ahead
 of the actual release.
 
-Cherry-pick PRs which miss merge criteria will be carried over and tracked
+Cherry pick PRs which miss merge criteria will be carried over and tracked
 for the next patch release.
 
 ## Support Period
@@ -189,7 +181,7 @@ These releases are no longer supported.
 | 1.3  | 1.3.10  | 2016-11-01 |
 | 1.2  | 1.2.7   | 2016-10-23 |
 
-[cherry-pick process]: https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md
+[cherry-picks]: https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md
 [release-managers]: /release-managers.md
-[release process description]: https://git.k8s.io/community/contributors/devel/sig-release/release.md
+[release process description]: /release.md
 [yearly-support]: https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md
