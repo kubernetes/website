@@ -9,7 +9,9 @@ reviewers:
 
 approvers:
   - sig-docs-en-owners
+  - sig-release-leads
   - release-engineering-approvers
 
 labels:
 - sig/release
+- area/release-eng
