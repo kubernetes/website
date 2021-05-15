@@ -30,11 +30,11 @@ The responsibilities of each role are described below.
 
 ## Handbooks
 
-**NOTE: The Patch Release Team and Branch Manager handbooks will be deduplicated at a later date.**
+**NOTE: The Patch Release Team and Branch Manager handbooks will be de-duplicated at a later date.**
 
-- [Patch Release Team](/release-engineering/role-handbooks/patch-release-team.md)
-- [Branch Managers](/release-engineering/role-handbooks/branch-manager.md)
-- [Build Admins](/release-engineering/packaging.md)
+- [Patch Release Team][handbook-patch-release]
+- [Branch Managers][handbook-branch-mgmt]
+- [Build Admins][handbook-packaging]
 
 ## Release Managers
 
@@ -49,7 +49,7 @@ Minimum requirements for Release Managers and Release Manager Associates are:
   `git` command line invocations.
 - General knowledge of Google Cloud (Cloud Build and Cloud Storage).
 - Open to seeking help and communicating clearly.
-- [Kubernetes Community Membership](https://github.com/kubernetes/community/blob/master/community-membership.md#member)
+- Kubernetes Community [membership][community-membership]
 
 Release Managers are responsible for:
 
@@ -57,9 +57,9 @@ Release Managers are responsible for:
   - Patch releases (`x.y.z`, where `z` > 0)
   - Minor releases (`x.y.z`, where `z` = 0)
   - Pre-releases (alpha, beta, and release candidates)
-  - Working with the [Release Team](/release-team/README.md) through each
+  - Working with the [Release Team][release-team] through each
   release cycle
-  - Setting the [schedule and cadence for patch releases](/releases/patch-releases.md)
+  - Setting the [schedule and cadence for patch releases][patches]
 - Maintaining the release branches:
   - Reviewing cherry picks
   - Ensuring the release branch stays healthy and that no unintended patch
@@ -120,7 +120,7 @@ referred to as Release Manager shadows. They are responsible for:
 - Seeking opportunities to help with prioritization and communication
   - Sending out pre-announcements and updates about patch releases
   - Updating the calendar, helping with the release dates and milestones from
-  the [release cycle Timeline](https://github.com/kubernetes/sig-release/tree/master/releases)
+    the [release cycle timeline][k-sig-release-releases]
 - Through the Buddy program, onboarding new contributors and pairing up with
   them on tasks
 
@@ -197,9 +197,17 @@ GitHub team: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/
 
 ---
 
-Past Branch Managers, can be found in the [releases directory](/releases)
-within `release-x.y/release_team.md`.
-Example: [1.15 Release Team](/releases/release-1.15/release_team.md)
+Past Branch Managers, can be found in the [releases directory][k-sig-release-releases]
+of the kubernetes/sig-release repository within `release-x.y/release_team.md`.
 
+Example: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.15/release_team.md)
+
+[community-membership]: https://git.k8s.io/community/community-membership.md#member
+[handbook-branch-mgmt]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/branch-manager.md
+[handbook-packaging]: https://git.k8s.io/sig-release/release-engineering/packaging.md
+[handbook-patch-release]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
+[k-sig-release-releases]: https://git.k8s.io/sig-release/releases
+[patches]: /patch-releases.md
 [psc]: https://git.k8s.io/community/committee-product-security/README.md
+[release-team]: https://git.k8s.io/sig-release/release-team/README.md
 [security-release-process]: https://git.k8s.io/security/security-release-process.md
