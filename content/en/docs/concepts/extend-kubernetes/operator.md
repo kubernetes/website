@@ -119,6 +119,7 @@ Operator.
 * [Metacontroller](https://metacontroller.app/) along with WebHooks that
   you implement yourself
 * [Operator Framework](https://operatorframework.io)
+* [shell-operator](https://github.com/flant/shell-operator)
 
 ## {{% heading "whatsnext" %}}
 
