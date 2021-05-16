@@ -266,6 +266,7 @@ different Kubernetes components.
 | `EvenPodsSpread` | `true` | Beta | 1.18 | 1.18 |
 | `EvenPodsSpread` | `true` | GA | 1.19 | - |
 | `ExecProbeTimeout` | `true` | GA | 1.20 | - |
+| `ExternalPolicyForExternalIP` | `true` | GA | 1.18 | - |
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
@@ -635,6 +636,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   host mounts, or containers that are privileged or using specific non-namespaced
   capabilities (e.g. `MKNODE`, `SYS_MODULE` etc.). This should only be enabled
   if user namespace remapping is enabled in the Docker daemon.
+- `ExternalPolicyForExternalIP`: Fix a bug where ExternalTrafficPolicy is not applied to Service ExternalIPs.
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `GenericEphemeralVolume`: Enables ephemeral, inline volumes that support all features
   of normal volumes (can be provided by third-party storage vendors, storage capacity tracking,
