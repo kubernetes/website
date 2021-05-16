@@ -1,19 +1,16 @@
 ---
-title: Managing Secret using Kustomize
+title: Gerenciando Secret usando Kustomize
 content_type: task
 weight: 30
-description: Creating Secret objects using kustomization.yaml file.
+description: Criando objetos Secret usando o arquivo kustomization.yaml
 ---
 
 <!-- overview -->
 
-Since Kubernetes v1.14, `kubectl` supports
-[managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/).
-Kustomize provides resource Generators to create Secrets and ConfigMaps. The
-Kustomize generators should be specified in a `kustomization.yaml` file inside
-a directory. After generating the Secret, you can create the Secret on the API
-server with `kubectl apply`.
-
+Desde o Kubernetes v1.14, o `kubectl` provê suporte para [gerenciamento de objetos usando Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/).
+O Kustomize provê geradores de recursos para criar Secrets e ConfigMaps. 
+Os geradores Kustomize devem ser especificados em um arquivo `kustomization.yaml` dentro
+de um diretório. Depois de gerar o Secret, você pode criar o Secret na API server com `kubectl apply`.
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
