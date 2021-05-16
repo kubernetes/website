@@ -69,7 +69,7 @@ Example: `controller.kubernetes.io/pod-deletion-cost=10`
 
 Used on: Pod
 
-This annotation is used to set [Pod Deletion Cost](/docs/content/en/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+This annotation is used to set [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
 which allows users to influence ReplicaSet downscaling order. The annotation parses into an `int32` type.
 
 ## beta.kubernetes.io/instance-type (deprecated)
@@ -98,6 +98,18 @@ See [topology.kubernetes.io/region](#topologykubernetesioregion).
 See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 {{< note >}} Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone). {{< /note >}}
+
+## statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
+
+Example:
+
+`statefulset.kubernetes.io/pod-name=mystatefulset-7`
+
+When a StatefulSet controller creates a Pod for the StatefulSet, the control plane
+sets this label on that Pod. The value of the label is the name of the Pod being created.
+
+See [Pod Name Label](/docs/concepts/workloads/controllers/statefulset/#pod-name-label) in the
+StatefulSet topic for more details.
 
 ## topology.kubernetes.io/region {#topologykubernetesioregion}
 
@@ -211,6 +223,14 @@ When a single IngressClass resource has this annotation set to `"true"`, new Ing
 ## kubernetes.io/ingress.class (deprecated)
 
 {{< note >}} Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`. {{< /note >}}
+
+## storageclass.kubernetes.io/is-default-class
+
+Example: `storageclass.kubernetes.io/is-default-class=true`
+
+Used on: StorageClass
+
+When a single StorageClass resource has this annotation set to `"true"`, new Physical Volume Claim resource without a class specified will be assigned this default class.
 
 ## alpha.kubernetes.io/provided-node-ip
 

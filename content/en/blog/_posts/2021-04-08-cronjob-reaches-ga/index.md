@@ -102,4 +102,4 @@ controllers. As mentioned before, the new controller is on by default starting
 from Kubernetes v1.21; if you want to check it out in the previous release (1.20),
 you can enable the `CronJobControllerV2`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
-for the kube-controller-manger: `--feature-gate="CronJobControllerV2=true"`.
+for the kube-controller-manager: `--feature-gate="CronJobControllerV2=true"`.

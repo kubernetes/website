@@ -1,5 +1,5 @@
 ---
-title: 容器运行时类(Runtime Class)
+title: 容器运行时类（Runtime Class）
 content_type: concept
 weight: 20
 ---
@@ -184,9 +184,11 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 #### dockershim
 
 <!--
-Kubernetes built-in dockershim CRI does not support runtime handlers.
+RuntimeClasses with dockershim must set the runtime handler to `docker`. Dockershim does not support
+custom configurable runtime handlers.
 -->
-Kubernetes 内置的 dockershim CRI 不支持配置运行时 handler。
+为 dockershim 设置 RuntimeClass 时，必须将运行时处理程序设置为 `docker`。
+Dockershim 不支持自定义的可配置的运行时处理程序。
 
 #### [containerd](https://containerd.io/)
 

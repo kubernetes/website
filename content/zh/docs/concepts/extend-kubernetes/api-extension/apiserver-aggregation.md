@@ -64,9 +64,7 @@ apiserver-builder 库同时提供构造扩展 API 服务器和控制器框架代
 Extension API servers should have low latency networking to and from the kube-apiserver.
 Discovery requests are required to round-trip from the kube-apiserver in five seconds or less.
 
-If your extension API server cannot achieve that latency requirement, consider making changes that let you meet it. You can also set the
-`EnableAggregatedDiscoveryTimeout=false` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on the kube-apiserver
-to disable the timeout restriction. This deprecated feature gate will be removed in a future release.
+If your extension API server cannot achieve that latency requirement, consider making changes that let you meet it.
 -->
 ### 反应延迟  {#response-latency}
 
@@ -74,9 +72,6 @@ to disable the timeout restriction. This deprecated feature gate will be removed
 发现请求需要在五秒钟或更短的时间内完成到 kube-apiserver 的往返。
 
 如果你的扩展 API 服务器无法满足这一延迟要求，应考虑如何更改配置已满足需要。
-你也可以为 kube-apiserver 设置 `EnableAggregatedDiscoveryTimeout=false`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-来禁用超时限制。此特性门控已经废弃，将在未来版本中被删除。
 
 ## {{% heading "whatsnext" %}}
 

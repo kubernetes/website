@@ -37,7 +37,7 @@ weight: 20
 
 ### 추가 정보
 
-- kubelet 마이너 버전을 업그레이드하기 전에 [노드 드레이닝(draining)](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)이
+- kubelet 마이너 버전을 업그레이드하기 전에 [노드 드레이닝(draining)](/docs/tasks/administer-cluster/safely-drain-node/)이
   필요하다. 컨트롤 플레인 노드의 경우 CoreNDS 파드 또는 기타 중요한 워크로드를 실행할 수 있다.
 - 컨테이너 사양 해시 값이 변경되므로, 업그레이드 후 모든 컨테이너가 다시 시작된다.
 
@@ -328,7 +328,7 @@ etcd 업그레이드가 실패하고 자동 롤백이 작동하지 않으면, �
 - 컨트롤 플레인 이미지가 사용 가능한지 또는 머신으로 가져올 수 있는지 확인한다.
 - 컴포넌트 구성에 버전 업그레이드가 필요한 경우 대체 구성을 생성하거나 사용자가 제공한 것으로 덮어 쓰기한다.
 - 컨트롤 플레인 컴포넌트 또는 롤백 중 하나라도 나타나지 않으면 업그레이드한다.
-- 새로운 `kube-dns` 와 `kube-proxy` 매니페스트를 적용하고 필요한 모든 RBAC 규칙이 생성되도록 한다.
+- 새로운 `CoreDNS` 와 `kube-proxy` 매니페스트를 적용하고 필요한 모든 RBAC 규칙이 생성되도록 한다.
 - API 서버의 새 인증서와 키 파일을 작성하고 180일 후에 만료될 경우 이전 파일을 백업한다.
 
 `kubeadm upgrade node` 는 추가 컨트롤 플레인 노드에서 다음을 수행한다.

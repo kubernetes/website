@@ -309,13 +309,6 @@ The node controller also adds {{< glossary_tooltip text="taints" term_id="taint"
 corresponding to node problems like node unreachable or not ready. This means
 that the scheduler won't place Pods onto unhealthy nodes.
 
-
-{{< caution >}}
-`kubectl cordon` marks a node as 'unschedulable', which has the side effect of the service
-controller removing the node from any LoadBalancer node target lists it was previously 
-eligible for, effectively removing incoming load balancer traffic from the cordoned node(s).
-{{< /caution >}}
-
 ### Node capacity
 
 Node objects track information about the Node's resource capacity: for example, the amount

@@ -192,7 +192,7 @@ parallelism, for a variety of reasons:
 {{< note >}}
 To be able to create Indexed Jobs, make sure to enable the `IndexedJob`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](docs/reference/command-line-tools-reference/kube-apiserver/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 {{< /note >}}
 
@@ -412,7 +412,7 @@ Here, `W` is the number of work items.
 {{< note >}}
 Suspending Jobs is available in Kubernetes versions 1.21 and above. You must
 enable the `SuspendJob` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](docs/reference/command-line-tools-reference/kube-apiserver/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
 in order to use this feature.
 {{< /note >}}
