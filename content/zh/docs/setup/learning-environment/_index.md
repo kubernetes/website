@@ -26,7 +26,7 @@ shows you what you need to do to get up and running with kind.
 此工具要求你已经安装并配置了 [Docker](https://docs.docker.com/get-docker/)。
 
 kind [快速入门](https://kind.sigs.k8s.io/docs/user/quick-start/)页面
-为你展示了如何开始使用 kind 的相关信息。 
+为你展示了如何开始使用 kind 的相关信息。 测试
 
 ## minikube
 
