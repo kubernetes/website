@@ -248,7 +248,7 @@ The examples we've used so far apply at most a single label to any resource. The
 -->
 ## 有效地使用标签
 
-到目前为止我们使用的示例中的资源最多使用了一个标签。
+到目前为止，我们使用的示例中的资源只使用了一个标签。
 在许多情况下，应使用多个标签来区分集合。
 
 <!--
