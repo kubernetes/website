@@ -114,10 +114,10 @@ kubectl get secret db-user-pass -o jsonpath='{.data}'
 出力は次のようになります:
 
 ```json
-{"password.txt":"MWYyZDFlMmU2N2Rm","username.txt":"YWRtaW4="}
+{"password":"MWYyZDFlMmU2N2Rm","username":"YWRtaW4="}
 ```
 
-`password.txt`のデータをデコードします:
+`password`のデータをデコードします:
 
 ```shell
 echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
