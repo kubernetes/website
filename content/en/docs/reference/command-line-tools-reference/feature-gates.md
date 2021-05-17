@@ -132,7 +132,7 @@ different Kubernetes components.
 | `IPv6DualStack` | `true` | Beta | 1.21 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
 | `LegacyNodeRoleBehavior` | `false` | Alpha | 1.16 | 1.18 |
-| `LegacyNodeRoleBehavior` | `true` | Beta | 1.19 |  |
+| `LegacyNodeRoleBehavior` | `true` | Beta | 1.19 | 1.20 |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
@@ -142,7 +142,7 @@ different Kubernetes components.
 | `NamespaceDefaultLabelName` | `true` | Beta | 1.21 | |
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 |  |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | 1.18 |
-| `NodeDisruptionExclusion` | `true` | Beta | 1.19 | |
+| `NodeDisruptionExclusion` | `true` | Beta | 1.19 | 1.20 |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | |
@@ -164,7 +164,7 @@ different Kubernetes components.
 | `ServiceLBNodePortControl` | `false` | Alpha | 1.20 | |
 | `ServiceLoadBalancerClass` | `false` | Alpha | 1.21 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
-| `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
+| `ServiceNodeExclusion` | `true` | Beta | 1.19 | 1.20 |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
 | `SetHostnameAsFQDN` | `false` | Alpha | 1.19 | 1.19 |
 | `SetHostnameAsFQDN` | `true` | Beta | 1.20 | |
@@ -287,11 +287,13 @@ different Kubernetes components.
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `KubeletPodResources` | `true` | GA | 1.20 | |
+| `LegacyNodeRoleBehavior` | `false` | GA | 1.21 | - |
 | `MountContainers` | `false` | Alpha | 1.9 | 1.16 |
 | `MountContainers` | `false` | Deprecated | 1.17 | - |
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
 | `MountPropagation` | `true` | GA | 1.12 | - |
+| `NodeDisruptionExclusion` | `true` | GA | 1.21 | - |
 | `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
 | `NodeLease` | `true` | Beta | 1.14 | 1.16 |
 | `NodeLease` | `true` | GA | 1.17 | - |
@@ -342,6 +344,7 @@ different Kubernetes components.
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | 1.15 |
 | `ServiceLoadBalancerFinalizer` | `true` | Beta | 1.16 | 1.16 |
 | `ServiceLoadBalancerFinalizer` | `true` | GA | 1.17 | - |
+| `ServiceNodeExclusion` | `true` | GA | 1.21 | - |
 | `StartupProbe` | `false` | Alpha | 1.16 | 1.17 |
 | `StartupProbe` | `true` | Beta | 1.18 | 1.19 |
 | `StartupProbe` | `true` | GA | 1.20 | - |
