@@ -190,7 +190,7 @@ then you will see that a token has automatically been created and is referenced 
 
 You may use authorization plugins to [set permissions on service accounts](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
-To use a non-default service account, simply set the `spec.serviceAccountName`
+To use a non-default service account, set the `spec.serviceAccountName`
 field of a pod to the name of the service account you wish to use.
 -->
 那么你就能看到系统已经自动创建了一个令牌并且被服务账户所引用。
@@ -198,7 +198,7 @@ field of a pod to the name of the service account you wish to use.
 你可以使用授权插件来
 [设置服务账户的访问许可](/zh/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
 
-要使用非默认的服务账户，只需简单的将 Pod 的 `spec.serviceAccountName` 字段设置为你想用的服务账户名称。
+要使用非默认的服务账户，将 Pod 的 `spec.serviceAccountName` 字段设置为你想用的服务账户名称。
 
 <!--
 The service account has to exist at the time the pod is created, or it will be rejected.
@@ -489,18 +489,15 @@ The application is responsible for reloading the token when it rotates. Periodic
 -->
 ## 发现服务账号分发者
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-The Service Account Issuer Discovery feature is enabled by enabling the
-`ServiceAccountIssuerDiscovery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates)
-and then enabling the Service Account Token Projection feature as described
+The Service Account Issuer Discovery feature is enabled when the Service Account
+Token Projection feature is enabled, as described
 [above](#service-account-token-volume-projection).
 -->
-通过启用 `ServiceAccountIssuerDiscovery`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates)，
-并按[前文所述](#service-account-token-volume-projection)启用服务账号令牌投射，
-可以启用发现服务账号分发者（Service Account Issuer Discovery）这一功能特性。
+当启用服务账号令牌投射时启用发现服务账号分发者（Service Account Issuer Discovery）这一功能特性，
+如[上文所述](#service-account-token-volume-projection)。
 
 <!--
 The issuer URL must comply with the
@@ -542,14 +539,15 @@ JSON Web Key Set（JWKS）。
 这里的 OpenID 提供者配置有时候也被称作 _发现文档（Discovery Document）_。
 
 <!--
-When enabled, the cluster is also configured with a default RBAC ClusterRole
-called `system:service-account-issuer-discovery`. No role bindings are provided
+Clusters include a default RBAC ClusterRole called
+`system:service-account-issuer-discovery`. No role bindings are provided
 by default. Administrators may, for example, choose whether to bind the role to
 `system:authenticated` or `system:unauthenticated` depending on their security
 requirements and which external systems they intend to federate with.
 -->
-特性被启用时，集群也会配置名为 `system:service-account-issuer-discovery`
-的默认 RBAC ClusterRole，但默认情况下不提供角色绑定对象。
+集群包括一个默认的 RBAC ClusterRole，
+名为 `system:service-account-issuer-discovery`。
+默认情况下不提供角色绑定对象。
 举例而言，管理员可以根据其安全性需要以及期望集成的外部系统选择是否将该角色绑定到
 `system:authenticated` 或 `system:unauthenticated`。
 
