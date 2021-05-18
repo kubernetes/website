@@ -334,7 +334,7 @@ given private key for `--key`.
 The private key must be in what is commonly called PEM private key format,
 unencrypted. In both cases, the initial and the last lines from PEM (for
 example, `--------BEGIN CERTIFICATE-----` and `-------END CERTIFICATE----` for
-a cetificate) are *not* included.
+a certificate) are *not* included.
 
 ### Bootstrap token Secrets
 
