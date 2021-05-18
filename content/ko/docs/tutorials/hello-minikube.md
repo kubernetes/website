@@ -41,7 +41,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 <!-- lessoncontent -->
 
-## minikubue 클러스터 만들기
+## minikube 클러스터 만들기
 
 1. **Launch Terminal** 을 클릭
 
