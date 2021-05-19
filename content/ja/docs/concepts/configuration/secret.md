@@ -626,8 +626,6 @@ echo $SECRET_PASSWORD
 ```
 1f2d1e2e67df
 ```
-// diffの762あたり
-
 
 ## Immutable Secrets {#secret-immutable}
 
