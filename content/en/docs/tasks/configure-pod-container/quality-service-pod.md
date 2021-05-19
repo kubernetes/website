@@ -45,7 +45,12 @@ kubectl create namespace qos-example
 
 For a Pod to be given a QoS class of Guaranteed:
 
-* Every Container, including init containers, in the Pod must have a memory limit and a memory request, and the two values must be the same.
+* Every Container in the Pod must have a memory limit and a memory request.
+* For every Container in the Pod, the memory limit must equal the memory request.
+* Every Container in the Pod must have a CPU limit and a CPU request.
+* For every Container in the Pod, the CPU limit must equal the CPU request.
+
+These restrictions apply to init containers and app containers equally.
 * Every Container, including init containers, in the Pod must have a CPU limit and a CPU request, and the two values must be the same.
 
 Here is the configuration file for a Pod that has one Container. The Container has a memory limit and a
@@ -269,7 +274,6 @@ kubectl delete namespace qos-example
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
 * [Control Topology Management policies on a node](/docs/tasks/administer-cluster/topology-manager/)
-
 
 
 
