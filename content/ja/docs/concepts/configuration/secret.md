@@ -184,7 +184,7 @@ metadata:
 type: kubernetes.io/basic-auth
 stringData:
   username: admin
-  password: t0p-Secret  config.yaml: |-
+  password: t0p-Secret
 ```
 
 
