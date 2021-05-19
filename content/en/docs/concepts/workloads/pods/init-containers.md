@@ -324,7 +324,7 @@ init container completion record has been lost due to garbage collection. This
 applies for Kubernetes v1.20 and later. If you are using an earlier version of
 Kubernetes, consult the documentation for the version you are using.
 
-## {{% heading "whatsnext" %}}
+## What's next {#whats-next}
 
 
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
