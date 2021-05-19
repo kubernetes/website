@@ -649,7 +649,7 @@ data:
 immutable: true
 ```
 {{< note >}}
-SecretまたはConfigMapがimutableとしてマークされると、この変更を元に戻したり、`data`フィールドの内容を変更したりすることはできません。Secretを削除して再作成することしかできません。
+SecretまたはConfigMapがimutableとしてマークされると、この変更を元に戻したり、`data`フィールドの内容を変更したりすることは*できません*。Secretを削除して再作成することしかできません。
 既存のPodは、削除されたSecretへのマウントポイントを維持します。これらのPodを再作成することをお勧めします。
 {{< /note >}}
 
