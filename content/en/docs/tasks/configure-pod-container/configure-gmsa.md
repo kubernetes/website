@@ -197,21 +197,70 @@ As Pod specs with GMSA fields populated (as described above) are applied in a cl
 
 1. The container runtime configures each Windows container with the specified GMSA credential spec so that the container can assume the identity of the GMSA in Active Directory and access services in the domain using that identity.
 
+## Containerd 
+
+On Windows Server 2019, in order to use GMSA with containerd, you must be running OS Build 17763.1817 (or later) which can be installed using the patch [KB5000822](https://support.microsoft.com/en-us/topic/march-9-2021-kb5000822-os-build-17763-1817-2eb6197f-e3b1-4f42-ab51-84345e063564). 
+
+There is also a known issue with containerd that occurs when trying to connect to SMB shares from Pods. Once you have configured GMSA, the pod will be unable to connect to the share using the hostname or FQDN, but connecting to the share using an IP address works as expected. 
+
+```PowerShell
+ping adserver.ad.local
+```
+and correctly resolves the hostname to an IPv4 address. The output is similar to:
+
+```
+Pinging adserver.ad.local [192.168.111.18] with 32 bytes of data:
+Reply from 192.168.111.18: bytes=32 time=6ms TTL=124
+Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
+Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
+Reply from 192.168.111.18: bytes=32 time=5ms TTL=124
+```
+
+However, when attempting to browse the directory using the hostname
+
+```PowerShell
+cd \\adserver.ad.local\test
+```
+
+you see an error that implies the target share doesn't exist:
+
+```
+cd : Cannot find path '\\adserver.ad.local\test' because it does not exist.
+At line:1 char:1
++ cd \\adserver.ad.local\test
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (\\adserver.ad.local\test:String) [Set-Location], ItemNotFoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
+```
+
+but you notice that the error disappears if you browse to the share using its IPv4 address instead; for example:
+
+```PowerShell
+cd \\192.168.111.18\test
+```
+
+After you change into a directory within the share, you see a prompt similar to:
+
+```
+Microsoft.PowerShell.Core\FileSystem::\\192.168.111.18\test>
+```
+
+To correct the behaviour you must run the following on the node `reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1` to add the required registry key. This node change will only take effect in newly created pods, meaning you must now recreate any running pods which require access to SMB shares.
+
 ## Troubleshooting
 
 If you are having difficulties getting GMSA to work in your environment, there are a few troubleshooting steps you can take.
 
-First, make sure the credspec has been passed to the Pod.  To do this you will need to `exec` into one of your Pods and check the output of the `nltest.exe /parentdomain` command.  In the example below the Pod did not get the credspec correctly:
+First, make sure the credspec has been passed to the Pod.  To do this you will need to `exec` into one of your Pods and check the output of the `nltest.exe /parentdomain` command.  
 
-```shell
+In the example below the Pod did not get the credspec correctly:
+
+```PowerShell
 kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
-
-Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-PS C:\> nltest.exe /parentdomain
+```
+nltest.exe /parentdomain` results in the following error:
+```
 Getting parent domain failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
-PS C:\>
 ```
 
 If your Pod did get the credspec correctly, then next check communication with the domain.  First, from inside of your Pod, quickly do an nslookup to find the root of your domain.
@@ -224,23 +273,30 @@ This will tell us 3 things:
 
 If the DNS and communication test passes, next you will need to check if the Pod has established secure channel communication with the domain.  To do this, again, `exec` into your Pod and run the `nltest.exe /query` command.
 
-```shell
-PS C:\> nltest.exe /query
+```PowerShell
+nltest.exe /query
+```
+
+Results in the following output:
+```
 I_NetLogonControl failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
-This tells us that for some reason, the Pod was unable to logon to the domain using the account specified in the credspec.  You can try to repair the secure channel by running the `nltest.exe /sc_reset:domain.example` command.
+This tells us that for some reason, the Pod was unable to logon to the domain using the account specified in the credspec.  You can try to repair the secure channel by running the following:
 
-```shell
-PS C:\> nltest /sc_reset:domain.example
+```PowerShell
+nltest /sc_reset:domain.example
+```
+
+If the command is successful you will see and output similar to this:
+```
 Flags: 30 HAS_IP  HAS_TIMESERV
 Trusted DC Name \\dc10.domain.example
 Trusted DC Connection Status Status = 0 0x0 NERR_Success
 The command completed successfully
-PS C:\>
 ```
 
-If the above command corrects the error, you can automate the step by adding the following lifecycle hook to your Pod spec.  If it did not correct the error, you will need to examine your credspec again and confirm that it is correct and complete.
+If the above corrects the error, you can automate the step by adding the following lifecycle hook to your Pod spec.  If it did not correct the error, you will need to examine your credspec again and confirm that it is correct and complete.
 
 ```yaml
         image: registry.domain.example/iis-auth:1809v1
@@ -252,6 +308,3 @@ If the above command corrects the error, you can automate the step by adding the
 ```
 
 If you add the `lifecycle` section show above to your Pod spec, the Pod will execute the commands listed to restart the `netlogon` service until the `nltest.exe /query` command exits without error.
-
-## GMSA limitations
-When using the [ContainerD runtime for Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#cri-containerd) accessing restricted network shares via the GMSA domain identity fails. The container will receive the identity of and calls from `nltest.exe /query` will work.  It is recommended to use the [Docker EE runtime](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#docker-ee) if access to network shares is required.  The Windows Server team is working on resolving the issue in the Windows Kernel and will release a patch to resolve this issue in the future. Look for updates on the [Microsoft Windows Containers issue tracker](https://github.com/microsoft/Windows-Containers/issues/44).
