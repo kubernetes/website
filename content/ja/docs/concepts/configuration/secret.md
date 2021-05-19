@@ -633,7 +633,7 @@ echo $SECRET_PASSWORD
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-Kubernetesベータ機能_ImmutableSecrets and ConfigMaps_は、個々のSecretsとConfigMapsをimutableとして設定するオプションを提供します。Secret（少なくとも数万の、SecretからPodへの一意のマウント）を広範囲に使用するクラスターの場合、データの変更を防ぐことには次の利点があります。
+Kubernetesベータ機能*ImmutableSecrets and ConfigMaps*は、個々のSecretsとConfigMapsをimutableとして設定するオプションを提供します。Secret（少なくとも数万の、SecretからPodへの一意のマウント）を広範囲に使用するクラスターの場合、データの変更を防ぐことには次の利点があります。
 
 - アプリケーションの停止を引き起こす可能性のある偶発的な（または不要な）更新からユーザーを保護します
 - imutableとしてマークされたSecretのウォッチを閉じることで、kube-apiserverの負荷を大幅に削減することができ、クラスターのパフォーマンスを向上させます。
