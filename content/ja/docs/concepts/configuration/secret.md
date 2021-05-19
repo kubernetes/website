@@ -80,7 +80,7 @@ empty-secret   Opaque   0      2m6s
 ```
 
 `DATA`列には、Secretに保存されているデータ項目の数が表示されます。
-この場合、「0」は空のSecretを作成したことを意味します。
+この場合、`0`は空のSecretを作成したことを意味します。
 
 ###  Service account token Secrets
 
@@ -1064,4 +1064,3 @@ Podに複数のコンテナが含まれることもあります。しかし、Po
 - [`kubectl`を使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)方法を学ぶ
 - [config fileを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-config-file/)方法を学ぶ
 - [kustomizeを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)方法を学ぶ
-
