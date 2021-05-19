@@ -248,7 +248,7 @@ kubectl create secret tls my-tls-secret \
 
 
 公開鍵と秘密鍵のペアは、事前に存在している必要があります。`--cert`の公開鍵証明書は.PEMエンコード（Base64エンコードDER形式）であり、`--key`の指定された秘密鍵と一致する必要があります。
-秘密鍵は、一般にPEM秘密鍵形式と呼ばれる暗号化されていない形式である必要があります。どちらの場合も、PEMの最初と最後の行（たとえば、`-------- BEGIN CERTIFICATE -----`と`------- END CERTIFICATE ----`）は含まれていません。
+秘密鍵は、一般にPEM秘密鍵形式と呼ばれる暗号化されていない形式である必要があります。どちらの場合も、PEMの最初と最後の行（たとえば、`-------- BEGIN CERTIFICATE -----`と`------- END CERTIFICATE ----`）は含まれて*いません*。
 
 ### Bootstrap token Secrets
 
