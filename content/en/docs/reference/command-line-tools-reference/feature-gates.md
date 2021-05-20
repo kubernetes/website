@@ -152,7 +152,8 @@ different Kubernetes components.
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
-| `RemainingItemCount` | `false` | Alpha | 1.15 | |
+| `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
+| `RemainingItemCount` | `true` | Beta | 1.16 | |
 | `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
 | `RemoveSelfLink` | `true` | Beta | 1.20 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
