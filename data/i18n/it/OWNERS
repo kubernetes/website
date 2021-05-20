@@ -1,0 +1,11 @@
+# Localized strings for Italian.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-it-reviews
+
+approvers:
+- sig-docs-it-owners
+
+labels:
+- language/it
