@@ -28,12 +28,12 @@ API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 
 | 언어      | 클라이언트 라이브러리 | 예제 프로그램 |
 |----------|----------------|-----------------|
-| Go       | [github.com/kubernetes/client-go/](https://github.com/kubernetes/client-go/) | [둘러보기](https://github.com/kubernetes/client-go/tree/master/examples)
-| Python       | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [둘러보기](https://github.com/kubernetes-client/python/tree/master/examples)
-| Java     | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [둘러보기](https://github.com/kubernetes-client/java#installation)
 | dotnet   | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [둘러보기](https://github.com/kubernetes-client/csharp/tree/master/examples/simple)
-| JavaScript   | [github.com/kubernetes-client/javascript](https://github.com/kubernetes-client/javascript) | [둘러보기](https://github.com/kubernetes-client/javascript/tree/master/examples)
+| Go       | [github.com/kubernetes/client-go/](https://github.com/kubernetes/client-go/) | [둘러보기](https://github.com/kubernetes/client-go/tree/master/examples)
 | Haskell  | [github.com/kubernetes-client/haskell](https://github.com/kubernetes-client/haskell) | [둘러보기](https://github.com/kubernetes-client/haskell/tree/master/kubernetes-client/example)
+| Java     | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [둘러보기](https://github.com/kubernetes-client/java#installation)
+| JavaScript   | [github.com/kubernetes-client/javascript](https://github.com/kubernetes-client/javascript) | [둘러보기](https://github.com/kubernetes-client/javascript/tree/master/examples)
+| Python   | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [둘러보기](https://github.com/kubernetes-client/python/tree/master/examples)
 
 
 ## 커뮤니티에 의해 관리되는 클라이언트 라이브러리
@@ -46,6 +46,10 @@ API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 | 언어                  | 클라이언트 라이브러리                          |
 | -------------------- | ---------------------------------------- |
 | Clojure              | [github.com/yanatan16/clj-kubernetes-api](https://github.com/yanatan16/clj-kubernetes-api) |
+| DotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |
+| DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
+| Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |
+| Elixir               | [github.com/coryodaniel/k8s](https://github.com/coryodaniel/k8s) |
 | Go                   | [github.com/ericchiang/k8s](https://github.com/ericchiang/k8s) |
 | Java (OSGi)          | [bitbucket.org/amdatulabs/amdatu-kubernetes](https://bitbucket.org/amdatulabs/amdatu-kubernetes) |
 | Java (Fabric8, OSGi) | [github.com/fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client) |
@@ -68,13 +72,10 @@ API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 | Python               | [github.com/Frankkkkk/pykorm](https://github.com/Frankkkkk/pykorm) |
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
+| Ruby                 | [github.com/k8s-ruby/k8s-ruby](https://github.com/k8s-ruby/k8s-ruby) |
 | Ruby                 | [github.com/kontena/k8s-client](https://github.com/kontena/k8s-client) |
 | Rust                 | [github.com/clux/kube-rs](https://github.com/clux/kube-rs) |
 | Rust                 | [github.com/ynqa/kubernetes-rust](https://github.com/ynqa/kubernetes-rust) |
 | Scala                | [github.com/hagay3/skuber](https://github.com/hagay3/skuber) |
 | Scala                | [github.com/joan38/kubernetes-client](https://github.com/joan38/kubernetes-client) |
-| DotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |
 | Swift                | [github.com/swiftkube/client](https://github.com/swiftkube/client) |
-| DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
-| Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |
-| Elixir               | [github.com/coryodaniel/k8s](https://github.com/coryodaniel/k8s) |

@@ -1,11 +1,11 @@
 ---
-title: 云控制器管理器的基础概念
+title: 云控制器管理器
 content_type: concept
 weight: 40
 ---
 
 <!--
-title: Concepts Underlying the Cloud Controller Manager
+title: Cloud Controller Manager
 content_type: concept
 weight: 40
 -->

@@ -247,15 +247,14 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 
 <!--
 ### kube-scheduler metrics
-
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
-
-The scheduler exposes optional metrics that reports the requested resources and the desired limits of all running pods. These metrics can be used to build capacity planning dashboards, assess current or historical scheduling limits, quickly identify workloads that cannot schedule due to lack of resources, and compare actual usage to the pod's request.
 -->
 ### kube-scheduler 指标   {#kube-scheduler-metrics}
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
+<!--
+The scheduler exposes optional metrics that reports the requested resources and the desired limits of all running pods. These metrics can be used to build capacity planning dashboards, assess current or historical scheduling limits, quickly identify workloads that cannot schedule due to lack of resources, and compare actual usage to the pod's request.
+-->
 调度器会暴露一些可选的指标，报告所有运行中 Pods 所请求的资源和期望的约束值。
 这些指标可用来构造容量规划监控面板、访问调度约束的当前或历史数据、
 快速发现因为缺少资源而无法被调度的负载，或者将 Pod 的实际资源用量
@@ -287,7 +286,7 @@ kube-scheduler 组件能够辩识各个 Pod 所配置的资源
 Once a pod reaches completion (has a `restartPolicy` of `Never` or `OnFailure` and is in the `Succeeded` or `Failed` pod phase, or has been deleted and all containers have a terminated state) the series is no longer reported since the scheduler is now free to schedule other pods to run. The two metrics are called `kube_pod_resource_request` and `kube_pod_resource_limit`.
 
 The metrics are exposed at the HTTP endpoint `/metrics/resources` and require the same authorization as the `/metrics`
-endpoint on the scheduler. You must use the `--show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
+endpoint on the scheduler. You must use the `-show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
 -->
 一旦 Pod 进入完成状态（其 `restartPolicy` 为 `Never` 或 `OnFailure`，且
 其处于 `Succeeded` 或 `Failed` Pod 阶段，或者已经被删除且所有容器都具有
@@ -298,6 +297,42 @@ endpoint on the scheduler. You must use the `--show-hidden-metrics-for-version=1
 一样要求相同的访问授权。你必须使用
 `--show-hidden-metrics-for-version=1.20` 标志才能暴露那些稳定性为 Alpha
 的指标。
+
+<!--
+## Disabling metrics
+
+You can explicitly turn off metrics via command line flag `--disabled-metrics`. This may be desired if, for example, a metric is causing a performance problem. The input is a list of disabled metrics (i.e. `--disabled-metrics=metric1,metric2`).
+-->
+## 禁用指标 {#disabling-metrics}
+
+你可以通过命令行标志 `--disabled-metrics` 来关闭某指标。
+在例如某指标会带来性能问题的情况下，这一操作可能是有用的。
+标志的参数值是一组被禁止的指标（例如：`--disabled-metrics=metric1,metric2`）。
+
+<!--
+## Metric cardinality enforcement
+
+Metrics with unbounded dimensions could cause memory issues in the components they instrument. To limit resource use, you can use the `--allow-label-value` command line option to dynamically configure an allow-list of label values for a metric.
+-->
+## 指标顺序性保证    {#metric-cardinality-enforcement}
+
+在 Alpha 阶段，标志只能接受一组映射值作为可以使用的指标标签。
+每个映射值的格式为`<指标名称>,<标签名称>=<可用标签列表>`，其中
+`<可用标签列表>` 是一个用逗号分隔的、可接受的标签名的列表。
+
+<!--
+The overall format looks like:
+`--allow-label-value <metric_name>,<label_name>='<allow_value1>, <allow_value2>...', <metric_name2>,<label_name>='<allow_value1>, <allow_value2>...', ...`.
+-->
+最终的格式看起来会是这样：
+`--allow-label-value <指标名称>,<标签名称>='<可用值1>,<可用值2>...', <指标名称2>,<标签名称>='<可用值1>, <可用值2>...', ...`.
+
+<!--
+Here is an example:
+-->
+下面是一个例子：
+
+`--allow-label-value number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'`
 
 ## {{% heading "whatsnext" %}}
 
