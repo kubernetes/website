@@ -935,11 +935,18 @@ Classic ELB의 연결 드레이닝은
         # 값 보다 작아야한다. 기본값은 5이며, 2와 60 사이여야 한다.
 
         service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
-        # 생성된 ELB에 추가할 기존 보안 그룹 목록.
-        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 어노테이션과 달리, 이는 이전에 ELB에 할당된 다른 모든 보안 그룹을 대체한다.
+        # 생성된 ELB에 설정할 기존 보안 그룹(security group) 목록.
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 어노테이션과 달리, 이는 이전에 ELB에 할당된 다른 모든 보안 그룹을 대체하며,
+        # '해당 ELB를 위한 고유 보안 그룹 생성'을 오버라이드한다.
+        # 목록의 첫 번째 보안 그룹 ID는 인바운드 트래픽(서비스 트래픽과 헬스 체크)이 워커 노드로 향하도록 하는 규칙으로 사용된다.
+        # 여러 ELB가 하나의 보안 그룹 ID와 연결되면, 1줄의 허가 규칙만이 워커 노드 보안 그룹에 추가된다.
+        # 즉, 만약 여러 ELB 중 하나를 지우면, 1줄의 허가 규칙이 삭제되어, 같은 보안 그룹 ID와 연결된 모든 ELB에 대한 접속이 막힌다.
+        # 적절하게 사용되지 않으면 이는 다수의 서비스가 중단되는 상황을 유발할 수 있다.
 
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-        # ELB에 추가될 추가 보안 그룹(security group) 목록
+        # 생성된 ELB에 추가할 추가 보안 그룹 목록
+        # 이 방법을 사용하면 이전에 생성된 고유 보안 그룹이 그대로 유지되므로, 각 ELB가 고유 보안 그룹 ID와 그에 매칭되는 허가 규칙 라인을 소유하여
+        # 트래픽(서비스 트래픽과 헬스 체크)이 워커 노드로 향할 수 있도록 한다. 여기에 기재되는 보안 그룹은 여러 서비스 간 공유될 수 있다.
 
         service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
         # 로드 밸런서의 대상 노드를 선택하는 데
@@ -988,7 +995,6 @@ NLB는 특정 인스턴스 클래스에서만 작동한다. 지원되는 인스�
 | 규칙 | 프로토콜 | 포트 | IP 범위 | IP 범위 설명 |
 |------|----------|---------|------------|---------------------|
 | 헬스 체크 | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
-
 | 클라이언트 트래픽 | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU 탐색 | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 

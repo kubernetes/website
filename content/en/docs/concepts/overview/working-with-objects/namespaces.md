@@ -39,7 +39,7 @@ Creation and deletion of namespaces are described in the
 [Admin Guide documentation for namespaces](/docs/tasks/administer-cluster/namespaces).
 
 {{< note >}}
-    Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+    Avoid creating namespaces with the prefix `kube-`, since it is reserved for Kubernetes system namespaces.
 {{< /note >}}
 
 ### Viewing namespaces
