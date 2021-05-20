@@ -30,7 +30,7 @@ Ceux-ci peuvent être fondamental aux opérations de votre cluster, comme un out
 Quand un nouveau noeud est ajouté au cluster, le controle plane organise l'ajout d'un `Pod` pour ce `DeamonSet` sur le nouveau noeud.
 * Les [`Job`](/docs/concepts/workloads/controllers/job/) et  [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) sont des tâchent lancées jusqu’à accomplissement puis s’arrêtent. Les `Jobs` réprésentent une tâche ponctuelle, les `CronJob` sont des tâches récurrentes planifiés.
 
-Dans l’écosystème étendu de Kubernetes, vous pouvez trouver des ressources workload de fournisseurs tiers qui permetent des fonctionnalités supplémentaires. L’utilisation d’un [custom resource definition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) permet d’ajouter une ressource workload d’un fournisseur tiers si vous souhaites une fonctionnalité ou un comportement spécifique qui ne fait pas partie du noyau de Kubernetes. Par exemple, si vous voulez lancer un groupe de `Pods` pour votre application mais vous devez arrêter leurs fonctionnement tant qu’ils ne sont pas tous disponibles, alors vous pouvez implémenter ou installer une extension qui permet cette fonctionnalité.
+Dans l’écosystème étendu de Kubernetes, vous pouvez trouver des ressources workload de fournisseurs tiers qui permetent des fonctionnalités supplémentaires. L’utilisation d’un [`CustomResourceDefinition`](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) permet d’ajouter une ressource workload d’un fournisseur tiers si vous souhaites une fonctionnalité ou un comportement spécifique qui ne fait pas partie du noyau de Kubernetes. Par exemple, si vous voulez lancer un groupe de `Pods` pour votre application mais vous devez arrêter leurs fonctionnement tant qu’ils ne sont pas tous disponibles, alors vous pouvez implémenter ou installer une extension qui permet cette fonctionnalité.
 
 ## {{% heading "whatsnext" %}}
 Vous pouvez continuer la lecture des ressources, vous pouvez aussi apprendre à connaitre les taches qui leurs sont liées :
@@ -47,4 +47,3 @@ Il y a deux concepts supportés qui fournissent un contexte sur le sujet : comme
 * Le [temps de vie d’un controlleur éteint](/docs/concepts/workloads/controllers/ttlafterfinished/) supprime les Jobs une fois qu’un temps définit soit passé après son accomplissement.
 
 Une fois que votre application est lancée, vous souhaitez peut etre la rendre disponible sur internet comme un [Service](/docs/concepts/services-networking/service/) ou comme une application web uniquement en utilsant un [Ingress](/docs/concepts/services-networking/ingress).
-
