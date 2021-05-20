@@ -246,7 +246,7 @@ myapp-pod   1/1       Running   0          9m
 ```
 
 This simple example should provide some inspiration for you to create your own
-init containers. [What's next](#whats-next) contains a link to a more detailed example.
+init containers. [What's next](#what-s-next) contains a link to a more detailed example.
 
 ## Detailed behavior
 
@@ -324,8 +324,7 @@ init container completion record has been lost due to garbage collection. This
 applies for Kubernetes v1.20 and later. If you are using an earlier version of
 Kubernetes, consult the documentation for the version you are using.
 
-## What's next {#whats-next}
-
+## {{% heading "whatsnext" %}}
 
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
