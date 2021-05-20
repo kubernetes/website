@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "Node is a worker node in Kubernetes."
 title: "Node"
 weight: 1
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: v1`
 
@@ -62,25 +74,25 @@ NodeSpec describes the attributes that a node is created with.
     <a name="ConfigMapNodeConfigSource"></a>
     *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
 
-  - **configSource.configMap.kubeletConfigKey** (string), required
+    - **configSource.configMap.kubeletConfigKey** (string), required
 
-    KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
+      KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
 
-  - **configSource.configMap.name** (string), required
+    - **configSource.configMap.name** (string), required
 
-    Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
+      Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
 
-  - **configSource.configMap.namespace** (string), required
+    - **configSource.configMap.namespace** (string), required
 
-    Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
+      Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
 
-  - **configSource.configMap.resourceVersion** (string)
+    - **configSource.configMap.resourceVersion** (string)
 
-    ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+      ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
-  - **configSource.configMap.uid** (string)
+    - **configSource.configMap.uid** (string)
 
-    UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+      UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
 - **externalID** (string)
 
@@ -216,32 +228,32 @@ NodeStatus is information about the current status of a node.
     <a name="NodeConfigSource"></a>
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
 
-  - **config.active.configMap** (ConfigMapNodeConfigSource)
+    - **config.active.configMap** (ConfigMapNodeConfigSource)
 
-    ConfigMap is a reference to a Node's ConfigMap
+      ConfigMap is a reference to a Node's ConfigMap
 
-    <a name="ConfigMapNodeConfigSource"></a>
-    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+      <a name="ConfigMapNodeConfigSource"></a>
+      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
 
-  - **config.active.configMap.kubeletConfigKey** (string), required
+      - **config.active.configMap.kubeletConfigKey** (string), required
 
-    KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
+        KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
 
-  - **config.active.configMap.name** (string), required
+      - **config.active.configMap.name** (string), required
 
-    Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
+        Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.active.configMap.namespace** (string), required
+      - **config.active.configMap.namespace** (string), required
 
-    Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
+        Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.active.configMap.resourceVersion** (string)
+      - **config.active.configMap.resourceVersion** (string)
 
-    ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
-  - **config.active.configMap.uid** (string)
+      - **config.active.configMap.uid** (string)
 
-    UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
   - **config.assigned** (NodeConfigSource)
 
@@ -250,32 +262,32 @@ NodeStatus is information about the current status of a node.
     <a name="NodeConfigSource"></a>
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
 
-  - **config.assigned.configMap** (ConfigMapNodeConfigSource)
+    - **config.assigned.configMap** (ConfigMapNodeConfigSource)
 
-    ConfigMap is a reference to a Node's ConfigMap
+      ConfigMap is a reference to a Node's ConfigMap
 
-    <a name="ConfigMapNodeConfigSource"></a>
-    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+      <a name="ConfigMapNodeConfigSource"></a>
+      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
 
-  - **config.assigned.configMap.kubeletConfigKey** (string), required
+      - **config.assigned.configMap.kubeletConfigKey** (string), required
 
-    KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
+        KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
 
-  - **config.assigned.configMap.name** (string), required
+      - **config.assigned.configMap.name** (string), required
 
-    Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
+        Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.assigned.configMap.namespace** (string), required
+      - **config.assigned.configMap.namespace** (string), required
 
-    Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
+        Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.assigned.configMap.resourceVersion** (string)
+      - **config.assigned.configMap.resourceVersion** (string)
 
-    ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
-  - **config.assigned.configMap.uid** (string)
+      - **config.assigned.configMap.uid** (string)
 
-    UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
   - **config.error** (string)
 
@@ -288,32 +300,32 @@ NodeStatus is information about the current status of a node.
     <a name="NodeConfigSource"></a>
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
 
-  - **config.lastKnownGood.configMap** (ConfigMapNodeConfigSource)
+    - **config.lastKnownGood.configMap** (ConfigMapNodeConfigSource)
 
-    ConfigMap is a reference to a Node's ConfigMap
+      ConfigMap is a reference to a Node's ConfigMap
 
-    <a name="ConfigMapNodeConfigSource"></a>
-    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+      <a name="ConfigMapNodeConfigSource"></a>
+      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
 
-  - **config.lastKnownGood.configMap.kubeletConfigKey** (string), required
+      - **config.lastKnownGood.configMap.kubeletConfigKey** (string), required
 
-    KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
+        KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
 
-  - **config.lastKnownGood.configMap.name** (string), required
+      - **config.lastKnownGood.configMap.name** (string), required
 
-    Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
+        Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.lastKnownGood.configMap.namespace** (string), required
+      - **config.lastKnownGood.configMap.namespace** (string), required
 
-    Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
+        Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
 
-  - **config.lastKnownGood.configMap.resourceVersion** (string)
+      - **config.lastKnownGood.configMap.resourceVersion** (string)
 
-    ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
-  - **config.lastKnownGood.configMap.uid** (string)
+      - **config.lastKnownGood.configMap.uid** (string)
 
-    UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
 
 - **daemonEndpoints** (NodeDaemonEndpoints)
 
@@ -329,9 +341,9 @@ NodeStatus is information about the current status of a node.
     <a name="DaemonEndpoint"></a>
     *DaemonEndpoint contains information about a single Daemon endpoint.*
 
-  - **daemonEndpoints.kubeletEndpoint.Port** (int32), required
+    - **daemonEndpoints.kubeletEndpoint.Port** (int32), required
 
-    Port number of the given endpoint.
+      Port number of the given endpoint.
 
 - **images** ([]ContainerImage)
 

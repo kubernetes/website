@@ -89,7 +89,7 @@ weight: 60
 
 ## 파드 disruption budgets
 
-{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 쿠버네티스는 자발적인 중단이 자주 발생하는 경우에도 고 가용성 애플리케이션을
 실행하는 데 도움이 되는 기능을 제공한다.

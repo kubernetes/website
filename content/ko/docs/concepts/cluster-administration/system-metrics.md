@@ -130,7 +130,7 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 
 ### kube-scheduler 메트릭
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 스케줄러는 실행 중인 모든 파드의 요청(request)된 리소스와 요구되는 제한(limit)을 보고하는 선택적 메트릭을 노출한다. 이러한 메트릭은 용량 계획(capacity planning) 대시보드를 구축하고, 현재 또는 과거 스케줄링 제한을 평가하고, 리소스 부족으로 스케줄할 수 없는 워크로드를 빠르게 식별하고, 실제 사용량을 파드의 요청과 비교하는 데 사용할 수 있다.
 
@@ -147,6 +147,24 @@ kube-scheduler는 각 파드에 대해 구성된 리소스 [요청과 제한](/k
 
 메트릭은 HTTP 엔드포인트 `/metrics/resources`에 노출되며 스케줄러의 `/metrics` 엔드포인트
 와 동일한 인증이 필요하다. 이러한 알파 수준의 메트릭을 노출시키려면 `--show-hidden-metrics-for-version=1.20` 플래그를 사용해야 한다.
+
+## 메트릭 비활성화
+
+커맨드 라인 플래그 `--disabled-metrics` 를 통해 메트릭을 명시적으로 끌 수 있다. 이 방법이 필요한 이유는 메트릭이 성능 문제를 일으키는 경우을 예로 들 수 있다. 입력값은 비활성화되는 메트릭 목록이다(예: `--disabled-metrics=metric1,metric2`).
+
+## 메트릭 카디널리티(cardinality) 적용
+
+제한되지 않은 차원의 메트릭은 계측하는 컴포넌트에서 메모리 문제를 일으킬 수 있다. 리소스 사용을 제한하려면, `--allow-label-value` 커맨드 라인 옵션을 사용하여 메트릭 항목에 대한 레이블 값의 허용 목록(allow-list)을 동적으로 구성한다.
+
+알파 단계에서, 플래그는 메트릭 레이블 허용 목록으로 일련의 매핑만 가져올 수 있다.
+각 매핑은 `<metric_name>,<label_name>=<allowed_labels>` 형식이다. 여기서
+`<allowed_labels>` 는 허용되는 레이블 이름의 쉼표로 구분된 목록이다.
+
+전체 형식은 다음과 같다.
+`--allow-label-value <metric_name>,<label_name>='<allow_value1>, <allow_value2>...', <metric_name2>,<label_name>='<allow_value1>, <allow_value2>...', ...`.
+
+예시는 다음과 같다.
+`--allow-label-value number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'`
 
 
 ## {{% heading "whatsnext" %}}

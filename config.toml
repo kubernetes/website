@@ -138,10 +138,10 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.20"
+latest = "v1.21"
 
-fullversion = "v1.20.0"
-version = "v1.20"
+fullversion = "v1.21.0"
+version = "v1.21"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
@@ -178,39 +178,39 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.20.0"
-version = "v1.20"
-githubbranch = "v1.20.0"
+fullversion = "v1.21.0"
+version = "v1.21"
+githubbranch = "v1.21.0"
 docsbranch = "master"
 url = "https://kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.19.4"
+fullversion = "v1.20.5"
+version = "v1.20"
+githubbranch = "v1.20.5"
+docsbranch = "release-1.20"
+url = "https://v1-20.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.19.9"
 version = "v1.19"
-githubbranch = "v1.19.4"
+githubbranch = "v1.19.9"
 docsbranch = "release-1.19"
 url = "https://v1-19.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.18.12"
+fullversion = "v1.18.17"
 version = "v1.18"
-githubbranch = "v1.18.12"
+githubbranch = "v1.18.17"
 docsbranch = "release-1.18"
 url = "https://v1-18.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.17.14"
+fullversion = "v1.17.17"
 version = "v1.17"
-githubbranch = "v1.17.14"
+githubbranch = "v1.17.17"
 docsbranch = "release-1.17"
 url = "https://v1-17.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.16.15"
-version = "v1.16"
-githubbranch = "v1.16.15"
-docsbranch = "release-1.16"
-url = "https://v1-16.docs.kubernetes.io"
 
 
 # User interface configuration
@@ -399,15 +399,15 @@ time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
 
-[languages.pt]
+[languages.pt-br]
 title = "Kubernetes"
 description = "Orquestração de contêineres em nível de produção"
 languageName ="Português"
 weight = 9
-contentDir = "content/pt"
+contentDir = "content/pt-br"
 languagedirection = "ltr"
 
-[languages.pt.params]
+[languages.pt-br.params]
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]

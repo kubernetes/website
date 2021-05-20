@@ -48,7 +48,7 @@ Changing the settings such that your container runtime and kubelet use `systemd`
 stabilized the system. To configure this for Docker, set `native.cgroupdriver=systemd`.
 
 {{< caution >}}
-Changing the cgroup driver of a Node that has joined a cluster is strongly *not* recommended.  
+Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation.
 If the kubelet has created Pods using the semantics of one cgroup driver, changing the container
 runtime to another cgroup driver can cause errors when trying to re-create the Pod sandbox
 for such existing Pods. Restarting the kubelet may not solve such errors.
@@ -56,6 +56,11 @@ for such existing Pods. Restarting the kubelet may not solve such errors.
 If you have automation that makes it feasible, replace the node with another using the updated
 configuration, or reinstall it using automation.
 {{< /caution >}}
+
+### Migrating to the `systemd` driver in kubeadm managed clusters
+
+Follow this [Migration guide](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)
+if you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters.
 
 ## Container runtimes
 

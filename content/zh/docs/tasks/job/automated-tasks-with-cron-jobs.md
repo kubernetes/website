@@ -2,7 +2,7 @@
 title: 使用 CronJob 运行自动化任务
 content_type: task
 weight: 10
-min-kubernetes-server-version: v1.8
+min-kubernetes-server-version: v1.21
 ---
 
 <!--
@@ -11,12 +11,17 @@ reviewers:
 - chenopis
 content_type: task
 weight: 10
-min-kubernetes-server-version: v1.8
+min-kubernetes-server-version: v1.21
 -->
 
 <!-- overview -->
 
 <!--
+
+CronJobs was promoted to general availability in Kubernetes v1.21. If you are using an older version of
+Kubernetes, please refer to the documentation for the version of Kubernetes that you are using,
+so that you see accurate information. Older Kubernetes versions do not support the `batch/v1` CronJob API.
+
 You can use [CronJobs](/docs/concepts/workloads/controllers/cron-jobs) to run jobs on a time-based schedule.
 These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
 
@@ -24,6 +29,7 @@ Cron jobs are useful for creating periodic and recurring tasks, like running bac
 Cron jobs can also schedule individual tasks for a specific time, such as if you want to schedule a job for a low activity period.
 -->
 
+在Kubernetes v1.21 版本中，CronJob 被提升为通用版本。如果你使用的是旧版本的 Kubernetes，请参考你正在使用的 Kubernetes 版本的文档，这样你就能看到准确的信息。旧的 Kubernetes 版本不支持`batch/v1` CronJob API。
 你可以利用 [CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
 
 CronJobs 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。CronJobs 也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
@@ -283,25 +289,17 @@ If this field is not specified, the jobs have no deadline.
 不满足这种最后期限的任务会被统计为失败任务。如果该域没有声明，那任务就没有最后期限。
 
 <!--
-The CronJob controller counts how many missed schedules happen for a cron job. If there are more than 100 missed
-schedules, the cron job is no longer scheduled. When `.spec.startingDeadlineSeconds` is not set, the CronJob
-controller counts missed schedules from `status.lastScheduleTime` until now. For example, one cron job is
-supposed to run every minute, the `status.lastScheduleTime` of the cronjob is 5:00am, but now it's 7:00am.
-That means 120 schedules were missed, so the cron job is no longer scheduled. If the `.spec.startingDeadlineSeconds`
-field is set (not null), the CronJob controller counts how many missed jobs occurred from the value of
-`.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed
-schedules occurred in the last 200 seconds. In that case, if there were more than 100 missed schedules in the
-last 200 seconds, the cron job is no longer scheduled.
+If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob
+controller measures the time between when a job is expected to be created and
+now. If the difference is higher than that limit, it will skip this execution.
+
+For example, if it is set to `200`, it allows a job to be created for up to 200
+seconds after the actual schedule.
 -->
-CronJob 控制器会统计错过了多少次调度。如果错过了100次以上的调度，CronJob 就不再调度了。
-当没有设置 `.spec.startingDeadlineSeconds` 时，CronJob 控制器统计从
-`status.lastScheduleTime` 到当前的调度错过次数。
-例如一个 CronJob 期望每分钟执行一次，`status.lastScheduleTime`是 `5:00am`，
-但现在是 `7:00am`。那意味着 120 次调度被错过了，所以 CronJob 将不再被调度。
-如果设置了 `.spec.startingDeadlineSeconds` 域(非空)，CronJob 控制器统计从
-`.spec.startingDeadlineSeconds` 到当前时间错过了多少次任务。
-例如设置了 `200`，它会统计过去 200 秒内错过了多少次调度。
-在那种情况下，如果过去 200 秒内错过了超过 100 次的调度，CronJob 就不再调度。
+如果`.spec.startingDeadlineSeconds`字段被设置(非空)，CronJob 控制器会计算从预期创建 Job 到当前时间的时间差。
+如果时间差大于该限制，则跳过此次执行。
+
+例如，如果将其设置为 `200`，则 Job 控制器允许在实际调度之后最多 200 秒内创建 Job。
 
 <!--
 ### Concurrency Policy

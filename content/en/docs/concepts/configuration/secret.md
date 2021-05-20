@@ -328,13 +328,13 @@ kubectl create secret tls my-tls-secret \
   --key=path/to/key/file
 ```
 
-The public/private key pair must exist before hand. The public key certificate
+The public/private key pair must exist beforehand. The public key certificate
 for `--cert` must be .PEM encoded (Base64-encoded DER format), and match the
 given private key for `--key`.
 The private key must be in what is commonly called PEM private key format,
 unencrypted. In both cases, the initial and the last lines from PEM (for
 example, `--------BEGIN CERTIFICATE-----` and `-------END CERTIFICATE----` for
-a cetificate) are *not* included.
+a certificate) are *not* included.
 
 ### Bootstrap token Secrets
 
@@ -749,9 +749,9 @@ There are third party solutions for triggering restarts when secrets change.
 
 ## Immutable Secrets {#secret-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
 (at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
 data has the following advantages:
