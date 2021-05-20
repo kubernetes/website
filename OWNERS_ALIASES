@@ -233,7 +233,13 @@ aliases:
     - mrbobbytables
     - nikhita
     - parispittman
-  # authoritative source: git.k8s.io/release/OWNERS_ALIASES
+  # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
+  sig-release-leads:
+    - hasheddan # SIG Technical Lead
+    - jeremyrickard # SIG Technical Lead
+    - justaugustus # SIG Chair
+    - LappleApple # SIG Program Manager
+    - saschagrunert # SIG Chair
   release-engineering-approvers:
     - cpanato # Release Manager
     - hasheddan # subproject owner / Release Manager
@@ -244,9 +250,10 @@ aliases:
   release-engineering-reviewers:
     - ameukam # Release Manager Associate
     - jimangel # Release Manager Associate
-    - markyjackson-taulia # Release Manager Associate
     - mkorbi # Release Manager Associate
+    - palnabarun # Release Manager Associate
     - onlydole # Release Manager Associate
     - sethmccombs # Release Manager Associate
+    - thejoycekung # Release Manager Associate
     - verolop # Release Manager Associate
     - wilsonehusin # Release Manager Associate

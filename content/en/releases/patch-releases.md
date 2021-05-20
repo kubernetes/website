@@ -1,15 +1,7 @@
 ---
 title: Patch Releases
 type: docs
-auto_generated: true
 ---
-<!-- THIS CONTENT IS AUTO-GENERATED via ./scripts/update-release-info.sh in k/website -->
-
-{{< warning >}}
-This content is auto-generated and links may not function. The source of the document is located [here](https://github.com/kubernetes/sig-release/blob/master/releases/patch-releases.md).
-{{< /warning >}}
-
-# Kubernetes Patch Releases
 
 Schedule and team contact information for Kubernetes patch releases.
 
@@ -30,24 +22,24 @@ See the [Release Managers page][release-managers] for full contact details on th
 
 Please give us a business day to respond - we may be in a different timezone!
 
-In between releases the team is looking at incoming cherry-pick
+In between releases the team is looking at incoming cherry pick
 requests on a weekly basis.  The team will get in touch with
 submitters via GitHub PR, SIG channels in Slack, and direct messages
 in Slack and [email](mailto:release-managers-private@kubernetes.io)
 if there are questions on the PR.
 
-## Cherry-Picks
+## Cherry picks
 
-Please follow the [cherry-pick process].
+Please follow the [cherry pick process][cherry-picks].
 
-Cherry-picks must be merge-ready in GitHub with proper labels (eg:
-approved, lgtm, release note) and passing CI tests ahead of the
-cherry-pick deadline.  This is typically two days before the target
+Cherry picks must be merge-ready in GitHub with proper labels (e.g.,
+`approved`, `lgtm`, `release-note`) and passing CI tests ahead of the
+cherry pick deadline.  This is typically two days before the target
 release, but may be more.  Earlier PR readiness is better, as we
-need time to get CI signal after merging your cherry-picks ahead
+need time to get CI signal after merging your cherry picks ahead
 of the actual release.
 
-Cherry-pick PRs which miss merge criteria will be carried over and tracked
+Cherry pick PRs which miss merge criteria will be carried over and tracked
 for the next patch release.
 
 ## Support Period
@@ -86,9 +78,10 @@ releases may also occur in between these.
 
 | Monthly Patch Release | Target date |
 | --- | --- |
-| May 2021 | 2021-05-12 |
 | June 2021 | 2021-06-16 |
 | July 2021 | 2021-07-14 |
+| August 2021 | 2021-08-11 |
+| September 2021 | 2021-09-15 |
 
 ## Detailed Release History for Active Branches
 
@@ -100,6 +93,7 @@ End of Life for **1.21** is **2022-06-28**
 
 | PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE |
 |--- |--- |--- |
+| 1.21.2        | 2021-06-12           | 2021-06-16  |
 | 1.21.1        | 2021-05-07           | 2021-05-12  |
 
 ### 1.20
@@ -110,6 +104,7 @@ End of Life for **1.20** is **2022-02-28**
 
 | PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE |
 |--- |--- |--- |
+| 1.20.8        | 2021-06-12           | 2021-06-16  |
 | 1.20.7        | 2021-05-07           | 2021-05-12  |
 | 1.20.6        | 2021-04-09           | 2021-04-14  |
 | 1.20.5        | 2021-03-12           | 2021-03-17  |
@@ -126,6 +121,7 @@ End of Life for **1.19** is **2021-10-28**
 
 | PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE |
 |--- |--- |--- |
+| 1.19.12       | 2021-06-12           | 2021-06-16  |
 | 1.19.11       | 2021-05-07           | 2021-05-12  |
 | 1.19.10       | 2021-04-09           | 2021-04-14  |
 | 1.19.9        | 2021-03-12           | 2021-03-17  |
@@ -138,40 +134,13 @@ End of Life for **1.19** is **2021-10-28**
 | 1.19.2        | 2020-09-11           | 2020-09-16  |
 | 1.19.1        | 2020-09-04           | 2020-09-09  |
 
-### 1.18
-
-**1.18** enters maintenance mode on **2021-04-28**
-
-End of Life for **1.18** is **2021-05-12**
-
-| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE |
-|--- |--- |--- |
-| 1.18.19       | 2021-05-07           | 2021-05-12  |
-| 1.18.18       | 2021-04-09           | 2021-04-14  |
-| 1.18.17       | 2021-03-12           | 2021-03-17  |
-| 1.18.16       | 2021-02-12           | 2021-02-17  |
-| 1.18.15       | 2021-01-08           | 2021-01-13  |
-| 1.18.14       | [Tagging Issue](https://groups.google.com/g/kubernetes-dev/c/dNH2yknlCBA) | 2020-12-18  |
-| 1.18.13       | 2020-12-04           | 2020-12-09  |
-| 1.18.12       | N/A                  | 2020-11-12  |
-| 1.18.11       | [No-op release](https://groups.google.com/g/kubernetes-dev/c/nJix1xLQvZE) | 2020-11-11  |
-| 1.18.10       | 2020-10-09           | 2020-10-14  |
-| 1.18.9        | 2020-09-11           | 2020-09-16  |
-| 1.18.8        | N/A                  | 2020-08-13  |
-| 1.18.7        | 2020-08-07           | 2020-08-12  |
-| 1.18.6        | 2020-07-10           | 2020-07-15  |
-| 1.18.5        | 2020-06-25           | 2020-06-26  |
-| 1.18.4        | 2020-06-12           | 2020-06-17  |
-| 1.18.3        | 2020-05-15           | 2020-05-20  |
-| 1.18.2        | 2020-04-13           | 2020-04-16  |
-| 1.18.1        | 2020-04-06           | 2020-04-08  |
-
 ## Non-Active Branch History
 
 These releases are no longer supported.
 
 | Minor Version | Final Patch Release | EOL date |
 | --- | --- | --- |
+| 1.18 | 1.18.19 | 2021-05-12 |
 | 1.17 | 1.17.17 | 2021-01-13 |
 | 1.16 | 1.16.15 | 2020-09-02 |
 | 1.15 | 1.15.12 | 2020-05-06 |
@@ -189,7 +158,7 @@ These releases are no longer supported.
 | 1.3  | 1.3.10  | 2016-11-01 |
 | 1.2  | 1.2.7   | 2016-10-23 |
 
-[cherry-pick process]: https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md
+[cherry-picks]: https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md
 [release-managers]: /release-managers.md
-[release process description]: https://git.k8s.io/community/contributors/devel/sig-release/release.md
+[release process description]: /release.md
 [yearly-support]: https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md
