@@ -72,7 +72,7 @@ spec:
 ## 넘어가기 전에: 내장 노드 레이블들 {#built-in-node-labels}
 
 [붙인](#1-단계-노드에-레이블-붙이기) 레이블뿐만 아니라, 노드에는
-표준 레이블 셋이 미리 채워져 있다. 이들 목록은 [잘 알려진 레이블, 어노테이션 및 테인트](/docs/reference/kubernetes-api/labels-annotations-taints/)를 참고한다.
+표준 레이블 셋이 미리 채워져 있다. 이들 목록은 [잘 알려진 레이블, 어노테이션 및 테인트](/docs/reference/labels-annotations-taints/)를 참고한다.
 
 {{< note >}}
 이 레이블들의 값은 클라우드 공급자에 따라 다르고 신뢰성이 보장되지 않는다.
