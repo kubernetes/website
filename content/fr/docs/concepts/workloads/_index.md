@@ -27,7 +27,7 @@ Votre code, présent dans les `Pods` du `StatefulSet`, peut répliquer des donn�
 pour améliorer la résilience global.
 * Le [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) permet de définir les `Pods` qui effectuent des actions sur le noeud local.
 Ceux-ci peuvent être fondamental aux opérations de votre cluster, comme un outil d’aide réseau, ou peuvent faire part d’un module complémentaire (add-on).
-Quand un nouveau noeud est ajouté au cluster, le controle plane organise l'ajout d'un `Pod` pour ce `DeamonSet` sur le nouveau noeud.
+Pour chaque nouveau noeud ajouté au cluster, le controle plane organise l'ajout d'un `Pod` pour ce `DaemonSet` sur le nouveau noeud.
 * Les [`Job`](/docs/concepts/workloads/controllers/job/) et  [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) sont des tâchent lancées jusqu’à accomplissement puis s’arrêtent. Les `Jobs` réprésentent une tâche ponctuelle, les `CronJob` sont des tâches récurrentes planifiés.
 
 Dans l’écosystème étendu de Kubernetes, vous pouvez trouver des ressources workload de fournisseurs tiers qui permetent des fonctionnalités supplémentaires. L’utilisation d’un [`CustomResourceDefinition`](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) permet d’ajouter une ressource workload d’un fournisseur tiers si vous souhaites une fonctionnalité ou un comportement spécifique qui ne fait pas partie du noyau de Kubernetes. Par exemple, si vous voulez lancer un groupe de `Pods` pour votre application mais vous devez arrêter leurs fonctionnement tant qu’ils ne sont pas tous disponibles, alors vous pouvez implémenter ou installer une extension qui permet cette fonctionnalité.
