@@ -328,13 +328,13 @@ kubectl create secret tls my-tls-secret \
   --key=path/to/key/file
 ```
 
-The public/private key pair must exist before hand. The public key certificate
+The public/private key pair must exist beforehand. The public key certificate
 for `--cert` must be .PEM encoded (Base64-encoded DER format), and match the
 given private key for `--key`.
 The private key must be in what is commonly called PEM private key format,
 unencrypted. In both cases, the initial and the last lines from PEM (for
 example, `--------BEGIN CERTIFICATE-----` and `-------END CERTIFICATE----` for
-a cetificate) are *not* included.
+a certificate) are *not* included.
 
 ### Bootstrap token Secrets
 

@@ -17,9 +17,10 @@ weight: 10
 <!--
 Kubernetes runs your workload by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
-contains the services necessary to run
-{{< glossary_tooltip text="Pods" term_id="pod" >}}, managed by the
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
+is managed by the 
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}}
+and contains the services necessary to run
+{{< glossary_tooltip text="Pods" term_id="pod" >}}.
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have just one.
@@ -31,8 +32,8 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 -->
 Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。
 节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。
-每个节点包含运行 {{< glossary_tooltip text="Pods" term_id="pod" >}} 所需的服务，
-这些 Pods 由 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理。
+每个节点包含运行 {{< glossary_tooltip text="Pods" term_id="pod" >}} 所需的服务；
+这些节点由 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 负责管理。
 
 通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也可能
 只有一个节点。
@@ -557,17 +558,6 @@ that the scheduler won't place Pods onto unhealthy nodes.
 这意味着调度器不会将 Pod 调度到不健康的节点上。
 
 <!--
-`kubectl cordon` marks a node as 'unschedulable', which has the side effect of the service
-controller removing the node from any LoadBalancer node target lists it was previously 
-eligible for, effectively removing incoming load balancer traffic from the cordoned node(s).
--->
-{{< caution>}}
-`kubectl cordon` 会将节点标记为“不可调度（Unschedulable）”。
-此操作的副作用是，服务控制器会将该节点从负载均衡器中之前的目标节点列表中移除，
-从而使得来自负载均衡器的网络请求不会到达被保护起来的节点。
-{{< /caution>}}
-
-<!--
 ### Node capacity
 
 Node objects track information about the Node's resource capacity (for example: the amount
@@ -625,31 +615,58 @@ for more information.
 了解详细信息。
 
 <!-- 
-## Graceful Node Shutdown {#graceful-node-shutdown}
+## Graceful node shutdown {#graceful-node-shutdown}
 -->
 ## 节点体面关闭 {#graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.20" >}}
+{{< feature-state state="beta" for_k8s_version="v1.21" >}}
 
 <!-- 
-If you have enabled the `GracefulNodeShutdown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/), then the kubelet attempts to detect the node system shutdown and terminates pods running on the node.
+The kubelet attempts to detect node system shutdown and terminates pods running on the node.
+
 Kubelet ensures that pods follow the normal [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) during the node shutdown.
 -->
-如果你启用了 `GracefulNodeShutdown` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
-那么 kubelet 尝试检测节点的系统关闭事件并终止在节点上运行的 Pod。
+kubelet 会尝试检测节点系统关闭事件并终止在节点上运行的 Pods。
+
 在节点终止期间，kubelet 保证 Pod 遵从常规的 [Pod 终止流程](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!-- 
-When the `GracefulNodeShutdown` feature gate is enabled, kubelet uses [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to delay the node shutdown with a given duration. During a shutdown kubelet terminates pods in two phases:
+The graceful node shutdown feature depends on systemd since it takes advantage of
+[systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to
+delay the node shutdown with a given duration.
 -->
-当启用了 `GracefulNodeShutdown` 特性门控时，
-kubelet 使用 [systemd 抑制器锁](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)
-在给定的期限内延迟节点关闭。在关闭过程中，kubelet 分两个阶段终止 Pod：
+体面节点关闭特性依赖于 systemd，因为它要利用
+[systemd 抑制器锁](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)
+在给定的期限内延迟节点关闭。
+
+<!--
+Graceful node shutdown is controlled with the `GracefulNodeShutdown`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) which is
+enabled by default in 1.21.
+-->
+体面节点关闭特性受 `GracefulNodeShutdown`
+[特性门控](/docs/reference/command-line-tools-reference/feature-gates/)
+控制，在 1.21 版本中是默认启用的。
+
+<!--
+Note that by default, both configuration options described below,
+`ShutdownGracePeriod` and `ShutdownGracePeriodCriticalPods` are set to zero,
+thus not activating Graceful node shutdown functionality.
+To activate the feature, the two kubelet config settings should be configured appropriately and set to non-zero values.
+-->
+注意，默认情况下，下面描述的两个配置选项，`ShutdownGracePeriod` 和
+`ShutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活
+体面节点关闭功能。
+要激活此功能特性，这两个 kubelet 配置选项要适当配置，并设置为非零值。
 
 <!-- 
+During a graceful shutdown, kubelet terminates pods in two phases:
+
 1. Terminate regular pods running on the node.
 2. Terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) running on the node.
 -->
+在体面关闭节点过程中，kubelet 分两个阶段来终止 Pods：
+
 1. 终止在节点上运行的常规 Pod。
 2. 终止在节点上运行的[关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
@@ -658,9 +675,11 @@ Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/
 * `ShutdownGracePeriod`:
   * Specifies the total duration that the node should delay the shutdown by. This is the total grace period for pod termination for both regular and [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 * `ShutdownGracePeriodCriticalPods`:
-  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This should be less than `ShutdownGracePeriod`.
+  * Specifies the duration used to terminate [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical) during a node shutdown. This value should be less than `ShutdownGracePeriod`.
 -->
-节点体面关闭的特性对应两个 [`KubeletConfiguration`](/zh/docs/tasks/administer-cluster/kubelet-config-file/) 选项：
+节点体面关闭的特性对应两个
+[`KubeletConfiguration`](/zh/docs/tasks/administer-cluster/kubelet-config-file/) 选项：
+
 * `ShutdownGracePeriod`：
   * 指定节点应延迟关闭的总持续时间。此时间是 Pod 体面终止的时间总和，不区分常规 Pod 还是
     [关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
@@ -670,10 +689,16 @@ Graceful Node Shutdown feature is configured with two [`KubeletConfiguration`](/
     的持续时间。该值应小于 `ShutdownGracePeriod`。
 
 <!--  
-For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved for gracefully terminating normal pods, and the last 10 seconds would be reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+For example, if `ShutdownGracePeriod=30s`, and
+`ShutdownGracePeriodCriticalPods=10s`, kubelet will delay the node shutdown by
+30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved
+for gracefully terminating normal pods, and the last 10 seconds would be
+reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
 -->
-例如，如果设置了 `ShutdownGracePeriod=30s` 和 `ShutdownGracePeriodCriticalPods=10s`，则 kubelet 将延迟 30 秒关闭节点。
-在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，而保留最后 10 秒用于终止
+例如，如果设置了 `ShutdownGracePeriod=30s` 和 `ShutdownGracePeriodCriticalPods=10s`，
+则 kubelet 将延迟 30 秒关闭节点。
+在关闭期间，将保留前 20（30 - 10）秒用于体面终止常规 Pod，
+而保留最后 10 秒用于终止
 [关键 Pod](/zh/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)。
 
 ## {{% heading "whatsnext" %}}
@@ -685,8 +710,10 @@ For example, if `ShutdownGracePeriod=30s`, and `ShutdownGracePeriodCriticalPods=
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 -->
-* 了解有关节点[组件](/zh/docs/concepts/overview/components/#node-components)
-* 阅读[节点的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)
-* 阅读架构设计文档中有关[节点](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)的章节
-* 了解[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)
+* 了解有关节点[组件](/zh/docs/concepts/overview/components/#node-components)。
+* 阅读 [Node 的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)。
+* 阅读架构设计文档中有关
+  [节点](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
+  的章节。
+* 了解[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 

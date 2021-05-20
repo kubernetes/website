@@ -109,8 +109,8 @@ for provisioning PVs. This field must be specified.
 | 卷插件               | 内置制备器 |               配置例子                |
 |:---------------------|:----------:|:-------------------------------------:|
 | AWSElasticBlockStore |  &#x2713;  |          [AWS EBS](#aws-ebs)          |
-| AzureFile            |  &#x2713;  |       [Azure File](#azure-file)       |
-| AzureDisk            |  &#x2713;  |       [Azure Disk](#azure-disk)       |
+| AzureFile            |  &#x2713;  |       [Azure File](#azure-文件)       |
+| AzureDisk            |  &#x2713;  |       [Azure Disk](#azure-磁盘)       |
 | CephFS               |     -      |                   -                   |
 | Cinder               |  &#x2713;  | [OpenStack Cinder](#openstack-cinder) |
 | FC                   |     -      |                   -                   |
@@ -123,10 +123,10 @@ for provisioning PVs. This field must be specified.
 | NFS                  |     -      |                   -                   |
 | RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
 | VsphereVolume        |  &#x2713;  |          [vSphere](#vsphere)          |
-| PortworxVolume       |  &#x2713;  |  [Portworx Volume](#portworx-volume)  |
+| PortworxVolume       |  &#x2713;  |  [Portworx Volume](#portworx-卷)  |
 | ScaleIO              |  &#x2713;  |          [ScaleIO](#scaleio)          |
 | StorageOS            |  &#x2713;  |        [StorageOS](#storageos)        |
-| Local                |     -      |            [Local](#local)            |
+| Local                |     -      |            [Local](#本地)            |
 
 <!--
 You are not restricted to specifying the "internal" provisioners

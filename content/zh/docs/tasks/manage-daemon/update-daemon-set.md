@@ -191,7 +191,7 @@ kubectl edit ds/fluentd-elasticsearch -n kube-system
 <!--
 ##### Updating only the container image
 
-If you just need to update the container image in the DaemonSet template, i.e.
+If you only need to update the container image in the DaemonSet template, i.e.
 `.spec.template.spec.containers[*].image`, use `kubectl set image`:
 --->
 ##### 只更新容器镜像
@@ -295,10 +295,10 @@ DaemonSet rollout won't progress.
 （通常由于拼写错误），就会发生 DaemonSet 滚动更新中断。
 
 <!--
-To fix this, just update the DaemonSet template again. New rollout won't be
+To fix this, update the DaemonSet template again. New rollout won't be
 blocked by previous unhealthy rollouts.
 -->
-要解决此问题，只需再次更新 DaemonSet 模板即可。以前不健康的滚动更新不会阻止新的滚动更新。
+要解决此问题，需再次更新 DaemonSet 模板。新的滚动更新不会被以前的不健康的滚动更新阻止。
 
 <!--
 #### Clock skew

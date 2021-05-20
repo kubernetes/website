@@ -479,7 +479,7 @@ If you add the `lifecycle` section show above to your Pod spec, the Pod will exe
 
 <!--
 ## GMSA limitations
-When using the [ContainerD runtime for Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#cri-containerd) accessing restricted network shares via the GMSA domain identity fails. The container will recieve the identity of and calls from `nltest.exe /query` will work.  It is recommended to use the [Docker EE runtime](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#docker-ee) if access to network shares is required.  The Windows Server team is working on resolving the issue in the Windows Kernel and will release a patch to resolve this issue in the future. Look for updates on the [Microsoft Windows Containers issue tracker](https://github.com/microsoft/Windows-Containers/issues/44).
+When using the [ContainerD runtime for Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#cri-containerd) accessing restricted network shares via the GMSA domain identity fails. The container will receive the identity of and calls from `nltest.exe /query` will work.  It is recommended to use the [Docker EE runtime](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#docker-ee) if access to network shares is required.  The Windows Server team is working on resolving the issue in the Windows Kernel and will release a patch to resolve this issue in the future. Look for updates on the [Microsoft Windows Containers issue tracker](https://github.com/microsoft/Windows-Containers/issues/44).
 -->
 ## GMSA 的局限  {#gmsa-limitations}
 
