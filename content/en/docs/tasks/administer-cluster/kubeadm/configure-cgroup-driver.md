@@ -33,10 +33,8 @@ driver of the kubelet.
 
 {{< note >}}
 
-{{< feature-state for_k8s_version="v1.21" state="stable" >}}
-
-If the user is not setting the `cgroupDriver` field under `KubeletConfiguration`,
-`kubeadm init` will default it to `systemd`.
+In v1.22, if the user is not setting the `cgroupDriver` field under `KubeletConfiguration`,
+`kubeadm` will default it to `systemd`.
 {{< /note >}}
 
 A minimal example of configuring the field explicitly:
