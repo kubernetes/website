@@ -146,7 +146,7 @@ All modifications to a cron job, especially its `.spec`, are applied only to the
 The `.spec.schedule` is a required field of the `.spec`.
 It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
 
-The format also includes extended `vixie cron` step values. As explained in the
+The format also includes extended "Vixie cron" step values. As explained in the
 [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
 
 > Step values can be	used in	conjunction with ranges.  Following a range

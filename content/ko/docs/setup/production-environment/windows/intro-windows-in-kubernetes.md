@@ -210,10 +210,11 @@ CSI 노드 플러그인(특히 블록 디바이스 또는 공유 파일시스템
 {{< table caption="윈도우 서비스 구성" >}}
 | 기능 | 설명 | 지원되는 쿠버네티스 버전 | 지원되는 윈도우 OS 빌드 | 활성화하는 방법 |
 | ------- | ----------- | ----------------------------- | -------------------------- | ------------- |
-| 세션 어피니티 | 특정 클라이언트의 연결이 매번 동일한 파드로 전달되도록 한다. | v1.19 이상 | [윈도우 서버 vNext Insider Preview Build 19551](https://blogs.windows.com/windowsexperience/2020/01/28/announcing-windows-server-vnext-insider-preview-build-19551/) 이상 | `service.spec.sessionAffinity`를 "ClientIP"로 설정 |
-| 직접 서버 반환 | IP 주소 수정 및 LBNAT가 컨테이너 vSwitch 포트에서 직접 발생하는 로드 밸런싱 모드. 서비스 트래픽은 소스 IP가 원래 파드 IP로 설정된 상태로 도착한다. 낮은 지연 시간과 확장성을 약속한다. | v1.15 이상 | 윈도우 서버, 버전 2004 | kube-proxy에서 다음 플래그를 설정한다. `--feature-gates="WinDSR=true" --enable-dsr=true` |
-| 대상 보존(Preserve-Destination) | 서비스 트래픽의 DNAT를 스킵하여, 백엔드 파드에 도달하는 패킷에서 대상 서비스의 가상 IP를 보존한다. 이 설정은 또한 수신 패킷의 클라이언트 IP가 보존되도록 한다. | v1.15 이상 | 윈도우 서버, 버전 1903 (이상) | 서비스 어느테이션에서 `"preserve-destination": "true"`를 설정하고 kube-proxy에서 DSR 플래그를 활성화한다. |
-| IPv4/IPv6 이중 스택 네트워킹 | 클러스터 내/외부 기본 IPv4-to-IPv4 통신과 함께 IPv6-to-IPv6 통신 | v1.19 이상 | 윈도우 서버 vNext Insider Preview Build 19603(또는 그 이상) | [IPv4/IPv6 이중 스택](#ipv4ipv6-이중-스택)을 참고한다. |
+| 세션 어피니티 | 특정 클라이언트의 연결이 매번 동일한 파드로 전달되도록 한다. | v1.20 이상 | [윈도우 서버 vNext Insider Preview Build 19551](https://blogs.windows.com/windowsexperience/2020/01/28/announcing-windows-server-vnext-insider-preview-build-19551/) 이상 | `service.spec.sessionAffinity`를 "ClientIP"로 설정 |
+| 직접 서버 반환 (DSR) | IP 주소 수정 및 LBNAT가 컨테이너 vSwitch 포트에서 직접 발생하는 로드 밸런싱 모드. 서비스 트래픽은 소스 IP가 원래 파드 IP로 설정된 상태로 도착한다. | v1.20 이상 | 윈도우 서버 2019 | kube-proxy에서 다음 플래그를 설정한다. `--feature-gates="WinDSR=true" --enable-dsr=true` |
+| 대상 보존(Preserve-Destination) | 서비스 트래픽의 DNAT를 스킵하여, 백엔드 파드에 도달하는 패킷에서 대상 서비스의 가상 IP를 보존한다. 또한 노드-노드 전달을 비활성화한다. | v1.20 이상 | 윈도우 서버, 버전 1903 (또는 그 이상) | 서비스 어노테이션에서 `"preserve-destination": "true"`를 설정하고 kube-proxy에서 DSR을 활성화한다. |
+| IPv4/IPv6 이중 스택 네트워킹 | 클러스터 내/외부 기본 IPv4-to-IPv4 통신과 함께 IPv6-to-IPv6 통신 | v1.19 이상 | 윈도우 서버, 버전 2004 (또는 그 이상) | [IPv4/IPv6 이중 스택](#ipv4ipv6-이중-스택)을 참고한다. |
+| 클라이언트 IP 보존 | 인그레스 트래픽의 소스 IP가 유지되도록 한다. 또한 노드-노드 전달을 비활성화한다. | v1.20 이상 | 윈도우 서버, 버전 2019 (또는 그 이상) | `service.spec.externalTrafficPolicy` 를 "Local"로 설정하고 kube-proxy에서 DSR을 활성화한다. |
 {{< /table >}}
 
 #### IPv4/IPv6 이중 스택
@@ -308,9 +309,9 @@ kubelet 파라미터 `--kubelet-reserve` 를 사용하여 CPU 사용량을 합�
 * 노드 자체에서 로컬 NodePort 접근은 실패한다. (다른 노드 또는 외부 클라이언트에서는 가능)
 * 노드에서 서비스 VIP에 접근하는 것은 향후 윈도우 서버 릴리스에서 사용할 수 있다.
 * 한 서비스는 최대 64개의 백엔드 파드 또는 고유한 목적지 IP를 지원할 수 있다.
-* kube-proxy의 오버레이 네트워킹 지원은 알파 릴리스이다. 또한 윈도우 서버 2019에 [KB4482887](https://support.microsoft.com/ko-kr/help/4482887/windows-10-update-kb4482887)을 설치해야 한다.
-* 로컬 트래픽 정책 및 DSR 모드
-* l2bridge, l2tunnel 또는 오버레이 네트워크에 연결된 윈도우 컨테이너는 IPv6 스택을 통한 통신을 지원하지 않는다. 이러한 네트워크 드라이버가 IPv6 주소를 사용하고 kubelet, kube-proxy 및 CNI 플러그인에서 후속 쿠버네티스 작업을 사용할 수 있도록 하는데 필요한 뛰어난 윈도우 플랫폼 작업이 있다.
+* kube-proxy의 오버레이 네트워킹 지원은 베타 기능이다. 또한 윈도우 서버 2019에 [KB4482887](https://support.microsoft.com/ko-kr/help/4482887/windows-10-update-kb4482887)을 설치해야 한다.
+* 비-DSR 모드의 로컬 트래픽 정책
+* 오버레이 네트워크에 연결된 윈도우 컨테이너는 IPv6 스택을 통한 통신을 지원하지 않는다. 이 네트워크 드라이버가 IPv6 주소를 사용하고 kubelet, kube-proxy 및 CNI 플러그인에서 후속 쿠버네티스 작업을 사용할 수 있도록 하는데 필요한 뛰어난 윈도우 플랫폼 작업이 있다.
 * win-overlay, win-bridge, Azure-CNI 플러그인을 통해 ICMP 프로토콜을 사용하는 아웃바운드 통신. 특히, 윈도우 데이터 플레인([VFP](https://www.microsoft.com/en-us/research/project/azure-virtual-filtering-platform/))은 ICMP 패킷 치환을 지원하지 않는다. 이것은 다음을 의미한다.
   * 동일한 네트워크(예: ping을 통한 파드 간 통신) 내의 목적지로 전달되는 ICMP 패킷은 예상대로 제한 없이 작동한다.
   * TCP/UDP 패킷은 예상대로 제한 없이 작동한다.

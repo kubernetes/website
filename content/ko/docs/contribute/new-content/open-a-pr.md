@@ -123,8 +123,8 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
     ```bash
     origin	git@github.com:<github_username>/website.git (fetch)
     origin	git@github.com:<github_username>/website.git (push)
-    upstream	https://github.com/kubernetes/website (fetch)
-    upstream	https://github.com/kubernetes/website (push)
+    upstream	https://github.com/kubernetes/website.git (fetch)
+    upstream	https://github.com/kubernetes/website.git (push)
     ```
 
 6. 포크의 `origin/master` 와 `kubernetes/website` 의 `upstream/master` 에서 커밋을 가져온다.

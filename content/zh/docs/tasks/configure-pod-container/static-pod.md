@@ -27,6 +27,7 @@ The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Po
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
+The Pod names will suffixed with the node hostname with a leading hyphen
 
 {{< note >}}
 If you are running clustered Kubernetes and are using static
@@ -40,6 +41,7 @@ instead.
 kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建一个
 {{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
 这意味着节点上运行的静态 Pod 对 API 服务来说是可见的，但是不能通过 API 服务器来控制。
+Pod 名称将把以连字符开头的节点主机名作为后缀。
 
 {{< note >}}
 如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，
@@ -47,7 +49,6 @@ kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -76,7 +77,9 @@ You can configure a static Pod with either a [file system hosted configuration f
 <!--
 ### Filesystem-hosted static Pod manifest {#configuration-files}
 
-Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file), which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
+Manifests are standard Pod definitions in JSON or YAML format in a specific directory. Use the `staticPodPath: <the directory>` field in the
+[kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/),
+which periodically scans the directory and creates/deletes static Pods as YAML/JSON files appear/disappear there.
 Note that the kubelet will ignore files starting with dots when scanning the specified directory.
 
 For example, this is how to start a simple web server as a static Pod:
@@ -84,7 +87,7 @@ For example, this is how to start a simple web server as a static Pod:
 ### 文件系统上的静态 Pod 声明文件 {#configuration-files}
 
 声明文件是标准的 Pod 定义文件，以 JSON 或者 YAML 格式存储在指定目录。路径设置在
-[Kubelet 配置文件](/zh/docs/tasks/administer-cluster/kubelet-config-file/)
+[Kubelet 配置文件](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
 的 `staticPodPath: <目录>` 字段，kubelet 会定期的扫描这个文件夹下的 YAML/JSON
 文件来创建/删除静态 Pod。
 注意 kubelet 扫描目录的时候会忽略以点开头的文件。
@@ -148,12 +151,13 @@ For example, this is how to start a simple web server as a static Pod:
    ```
 
 <!--
-1. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
+3. Configure your kubelet on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument. On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 
-    ```
-    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
-    ```
-    or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file).
+   ```
+   KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
+   ```
+   or add the `staticPodPath: <the directory>` field in the
+   [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
 3. 配置这个节点上的 kubelet，使用这个参数执行 `--pod-manifest-path=/etc/kubelet.d/`。
 在 Fedora 上编辑 `/etc/kubernetes/kubelet` 以包含下行：
@@ -161,16 +165,16 @@ For example, this is how to start a simple web server as a static Pod:
    ```
    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
    ```
-   或者在 [Kubelet配置文件](/zh/docs/tasks/administer-cluster/kubelet-config-file/)
+   或者在 [Kubelet 配置文件](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
    中添加 `staticPodPath: <目录>`字段。
 
 <!--
-1. Restart the kubelet. On Fedora, you would run:
+4. Restart the kubelet. On Fedora, you would run:
 
-    ```shell
-    # Run this command on the node where the kubelet is running
-    systemctl restart kubelet
-    ```
+   ```shell
+   # Run this command on the node where the kubelet is running
+   systemctl restart kubelet
+   ```
 -->
 4. 重启 kubelet。Fedora 上使用下面的命令：
 

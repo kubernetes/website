@@ -12,8 +12,7 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다.
-예를 들어, v1.2 클라이언트는 v1.1, v1.2 및 v1.3의 마스터와 함께 작동해야 한다.
+클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다. 예를 들어, v{{< skew latestVersion >}} 클라이언트는 v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, v{{< skew nextMinorVersion >}}의 컨트롤 플레인과 연동될 수 있다.
 최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
 
 ## macOS에 kubectl 설치
@@ -29,17 +28,28 @@ card:
 
 1. 최신 릴리스를 다운로드한다.
 
-   ```bash
+   {{< tabs name="download_binary_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
-   ```
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    {{< note >}}
    특정 버전을 다운로드하려면, `$(curl -L -s https://dl.k8s.io/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.
 
-   예를 들어, macOS에서 버전 {{< param "fullversion" >}}을 다운로드하려면, 다음을 입력한다.
+   예를 들어, Intel macOS에 버전 {{< param "fullversion" >}}을 다운로드하려면, 다음을 입력한다.
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   ```
+
+   Apple Silicon의 macOS라면, 다음을 입력한다.
+
+   ```bash
+   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
    ```
 
    {{< /note >}}
@@ -48,9 +58,14 @@ card:
 
    kubectl 체크섬 파일을 다운로드한다.
 
-   ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl.sha256"
-   ```
+   {{< tabs name="download_checksum_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl.sha256"
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    kubectl 바이너리를 체크섬 파일을 통해 검증한다.
 
