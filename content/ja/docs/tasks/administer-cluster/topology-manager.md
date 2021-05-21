@@ -8,12 +8,11 @@ reviewers:
 - nolancon
 - bg-chun
 
-
 content_template: templates/task
 min-kubernetes-server-version: v1.18
 ---
 
-<!-- overview -->
+{{% capture overview %}}
 
 {{< feature-state state="beta" for_k8s_version="v1.18" >}}
 
@@ -23,16 +22,15 @@ min-kubernetes-server-version: v1.18
 
 _トポロジーマネージャー_ はKubeletコンポーネントの1つで最適化の役割を担い、コンポーネント群を調和して機能させます。
 
+{{% /capture %}}
 
-
-## {{% heading "prerequisites" %}}
-
+{{% capture prerequisites %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+{{% /capture %}}
 
-
-<!-- steps -->
+{{% capture steps %}}
 
 ## トポロジーマネージャーはどのように機能するか
 
