@@ -29,13 +29,13 @@ DaemonSet has two update strategy types:
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
   will be created automatically, in a controlled fashion. At most one pod of the DaemonSet will be running on each node during the whole update process.
 
-## Performing a Rolling Update
+## Performing a Rolling Updatec
 
 To enable the rolling update feature of a DaemonSet, you must set its
 `.spec.updateStrategy.type` to `RollingUpdate`.
 
 You may want to set [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/controllers/deployment/#max-unavailable) (default
-to 1) and [`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (default to 0) as well.
+to 1), [`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (default to 0) [`.spec.maxSurge`](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#max-surge) (a beta feature and defaults to 25%) as well.
 
 ### Creating a DaemonSet with `RollingUpdate` update strategy
 
