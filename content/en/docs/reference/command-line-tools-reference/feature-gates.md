@@ -137,6 +137,7 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | |
+| `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | |
 | `NamespaceDefaultLabelName` | `true` | Beta | 1.21 | |
