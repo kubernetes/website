@@ -20,7 +20,7 @@ Kubernetes fournit plusieurs ressources workload pré-faites :
 
 * [`Deployment`](/docs/concepts/workloads/controllers/deployment/) et [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) 
 (qui remplacent l’ancienne ressource {{< glossary_tooltip text="ReplicationController" term_id="replication-controller" >}})).
-le `Deployment` (déploiement) est une bonne approche pour manager une application stateless sur votre cluster, tous les `Pods` d’un `Deployment` sont interchangeables et peuvent être remplacés si besoin.
+Le `Deployment` (déploiement) est une bonne approche pour manager une application stateless sur votre cluster, tous les `Pods` d’un `Deployment` sont interchangeables et peuvent être remplacés si besoin.
 * Le [`StatefulSet`](/docs/concepts/workloads/controllers/statefulset/)  vous permet de lancer un ou plusieurs Pods en relation qui garde plus ou moins la trace de leurs état.
 Par exemple si votre workload enregistre des données de façon persistente, vous pouvez lancer un `StatefulSet` qui fera le lien entre les `Pods` et un volume persistent ([`PersistentVolume`](/docs/concepts/storage/persistent-volumes/)).
 Votre code, présent dans les `Pods` du `StatefulSet`, peut répliquer des données dans les autres `Pods` qui sont dans le même `StatefulSet`,
