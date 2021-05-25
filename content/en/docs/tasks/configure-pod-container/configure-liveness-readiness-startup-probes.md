@@ -220,6 +220,10 @@ After 15 seconds, view Pod events to verify that liveness probes:
 kubectl describe pod goproxy
 ```
 
+## Define a gRPC liveness probe
+
+TODO
+
 ## Use a named port
 
 You can use a named
