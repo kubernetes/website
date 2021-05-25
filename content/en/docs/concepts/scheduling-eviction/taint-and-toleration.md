@@ -210,9 +210,9 @@ are true. The following taints are built in:
    the NodeCondition `Ready` being "`False`".
  * `node.kubernetes.io/unreachable`: Node is unreachable from the node
    controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
- * `node.kubernetes.io/out-of-disk`: Node becomes out of disk.
  * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
  * `node.kubernetes.io/disk-pressure`: Node has disk pressure.
+ * `node.kubernetes.io/pid-pressure`: Node has PID pressure.
  * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
  * `node.kubernetes.io/unschedulable`: Node is unschedulable.
  * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
@@ -275,7 +275,7 @@ tolerations to all daemons, to prevent DaemonSets from breaking.
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
-  * `node.kubernetes.io/out-of-disk` (*only for critical pods*)
+  * `node.kubernetes.io/pid-pressure` (1.14 or later)
   * `node.kubernetes.io/unschedulable` (1.10 or later)
   * `node.kubernetes.io/network-unavailable` (*host network only*)
 

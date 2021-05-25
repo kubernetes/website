@@ -7,7 +7,19 @@ content_type: "api_reference"
 description: "StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned."
 title: "StorageClass"
 weight: 6
+auto_generated: true
 ---
+
+<!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the 
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
 
 `apiVersion: storage.k8s.io/v1`
 
@@ -54,13 +66,13 @@ StorageClasses are non-namespaced; the name of the storage class according to et
     <a name="TopologySelectorLabelRequirement"></a>
     *A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.*
 
-  - **allowedTopologies.matchLabelExpressions.key** (string), required
+    - **allowedTopologies.matchLabelExpressions.key** (string), required
 
-    The label key that the selector applies to.
+      The label key that the selector applies to.
 
-  - **allowedTopologies.matchLabelExpressions.values** ([]string), required
+    - **allowedTopologies.matchLabelExpressions.values** ([]string), required
 
-    An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
+      An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
 
 - **mountOptions** ([]string)
 

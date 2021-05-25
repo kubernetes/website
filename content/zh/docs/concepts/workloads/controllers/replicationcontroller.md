@@ -174,10 +174,10 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 <!--
 Here, the selector is the same as the selector for the ReplicationController (seen in the
 `kubectl describe` output), and in a different form in `replication.yaml`.  The `--output=jsonpath` option
-specifies an expression that just gets the name from each pod in the returned list.
+specifies an expression with the name from each pod in the returned list.
 -->
 这里，选择算符与 ReplicationController 的选择算符相同（参见 `kubectl describe` 输出），并以不同的形式出现在 `replication.yaml` 中。
-`--output=jsonpath` 选项指定了一个表达式，只从返回列表中的每个 Pod 中获取名称。
+`--output=jsonpath` 选项指定了一个表达式，仅从返回列表中的每个 Pod 中获取名称。
 
 <!--
 ## Writing a ReplicationController Spec
@@ -305,7 +305,7 @@ delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).  Kubectl wi
 for it to delete each pod before deleting the ReplicationController itself.  If this kubectl
 command is interrupted, it can be restarted.
 
-When using the REST API or go client library, you need to do the steps explicitly (scale replicas to
+When using the REST API or Go client library, you need to do the steps explicitly (scale replicas to
 0, wait for pod deletions, then delete the ReplicationController).
 -->
 ## 使用 ReplicationController {#working-with-replicationcontrollers}
@@ -317,16 +317,17 @@ When using the REST API or go client library, you need to do the steps explicitl
 kubectl 将 ReplicationController 缩放为 0 并等待以便在删除 ReplicationController 本身之前删除每个 Pod。
 如果这个 kubectl 命令被中断，可以重新启动它。
 
-当使用 REST API 或 go 客户端库时，你需要明确地执行这些步骤（缩放副本为 0、 等待 Pod 删除，之后删除 ReplicationController 资源）。
+当使用 REST API 或 Go 客户端库时，你需要明确地执行这些步骤（缩放副本为 0、
+等待 Pod 删除，之后删除 ReplicationController 资源）。
 
 <!--
-### Deleting just a ReplicationController
+### Deleting only a ReplicationController
 
 You can delete a ReplicationController without affecting any of its pods.
 
 Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
 
-When using the REST API or go client library, simply delete the ReplicationController object.
+When using the REST API or Go client library, simply delete the ReplicationController object.
 -->
 ### 只删除 ReplicationController
 
@@ -334,7 +335,7 @@ When using the REST API or go client library, simply delete the ReplicationContr
 
 使用 kubectl，为 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 指定 `--cascade=false` 选项。
 
-当使用 REST API 或 go 客户端库时，只需删除 ReplicationController 对象。
+当使用 REST API 或 Go 客户端库时，只需删除 ReplicationController 对象。
 
 <!--
 Once the original is deleted, you can create a new ReplicationController to replace it.  As long
@@ -373,11 +374,13 @@ As mentioned above, whether you have 1 pod you want to keep running, or 1000, a 
 <!--
 ### Scaling
 
-The ReplicationController makes it easy to scale the number of replicas up or down, either manually or by an auto-scaling control agent, by simply updating the `replicas` field.
+The ReplicationController scales the number of replicas up or down by setting the `replicas` field.
+You can configure the ReplicationController to manage the replicas manually or by an auto-scaling control agent.
 -->
 ### 扩缩容   {#scaling}
 
-通过简单地更新 `replicas` 字段，ReplicationController 可以方便地横向扩容或缩容副本的数量，或手动或通过自动缩放控制代理。
+通过设置 `replicas` 字段，ReplicationController 可以方便地横向扩容或缩容副本的数量。
+你可以手动或通过自动缩放控制代理来控制 ReplicationController 执行此操作。
 
 <!--
 ### Rolling updates
@@ -463,11 +466,11 @@ Pods created by a ReplicationController are intended to be fungible and semantic
 <!--
 ## Responsibilities of the ReplicationController
 
-The ReplicationController simply ensures that the desired number of pods matches its label selector and are operational. Currently, only terminated pods are excluded from its count. In the future, [readiness](http://issue.k8s.io/620) and other information available from the system may be taken into account, we may add more controls over the replacement policy, and we plan to emit events that could be used by external clients to implement arbitrarily sophisticated replacement and/or scale-down policies.
+The ReplicationController ensures that the desired number of pods matches its label selector and are operational. Currently, only terminated pods are excluded from its count. In the future, [readiness](http://issue.k8s.io/620) and other information available from the system may be taken into account, we may add more controls over the replacement policy, and we plan to emit events that could be used by external clients to implement arbitrarily sophisticated replacement and/or scale-down policies.
 -->
 ## ReplicationController 的职责
 
-ReplicationController 只需确保所需的 Pod 数量与其标签选择算符匹配，并且是可操作的。
+ReplicationController 仅确保所需的 Pod 数量与其标签选择算符匹配，并且是可操作的。
 目前，它的计数中只排除终止的 Pod。
 未来，可能会考虑系统提供的[就绪状态](https://issue.k8s.io/620)和其他信息，
 我们可能会对替换策略添加更多控制，

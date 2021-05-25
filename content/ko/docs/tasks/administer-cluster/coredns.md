@@ -33,8 +33,8 @@ Kube-dns의 배포나 교체에 관한 매뉴얼은 [CoreDNS GitHub 프로젝트
 ### Kubeadm을 사용해 기존 클러스터 업그레이드하기
 
 쿠버네티스 버전 1.10 이상에서, `kube-dns` 를 사용하는 클러스터를 업그레이드하기 위하여
-`kubeadm` 을 사용할 때 CoreDNS로 이동할 수도 있다. 이 경우, `kubeadm` 은
-`kube-dns` 컨피그맵(ConfigMap)을 기반으로 패더레이션, 스텁 도메인(stub domain), 업스트림 네임 서버의
+`kubeadm` 을 사용할 때 CoreDNS로 전환할 수도 있다. 이 경우, `kubeadm` 은
+`kube-dns` 컨피그맵(ConfigMap)을 기반으로 스텁 도메인(stub domain), 업스트림 네임 서버의
 설정을 유지하며 CoreDNS 설정("Corefile")을 생성한다.
 
 만약 kube-dns에서 CoreDNS로 이동하는 경우, 업그레이드 과정에서 기능 게이트의 `CoreDNS` 값을 `true` 로 설정해야 한다.
@@ -44,8 +44,6 @@ kubeadm upgrade apply v1.11.0 --feature-gates=CoreDNS=true
 ```
 
 쿠버네티스 1.13 이상에서 기능 게이트의 `CoreDNS` 항목은 제거되었으며, CoreDNS가 기본적으로 사용된다.
-업그레이드된 클러스터에서 kube-dns를 사용하려는 경우, [여기](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon)에 
-설명된 지침 가이드를 참고하자.
 
 1.11 미만 버전일 경우 업그레이드 과정에서 만들어진 파일이 Corefile을 **덮어쓴다**.
 **만약 컨피그맵을 사용자 정의한 경우, 기존의 컨피그맵을 저장해야 한다.** 새 컨피그맵이
@@ -54,26 +52,7 @@ kubeadm upgrade apply v1.11.0 --feature-gates=CoreDNS=true
 만약 쿠버네티스 1.11 이상 버전에서 CoreDNS를 사용하는 경우, 업그레이드 과정에서,
 기존의 Corefile이 유지된다.
 
-
-### Kubeadm을 사용해 CoreDNS가 아닌 kube-dns 설치하기
-
-{{< note >}}
-쿠버네티스 1.11 버전에서, CoreDNS는 GA(General Availability) 되었으며,
-기본적으로 설치된다.
-{{< /note >}}
-
-{{< warning >}}
-쿠버네티스 1.18 버전에서, kubeadm을 통한 kube-dns는 사용 중단되었으며, 향후 버전에서 제거될 예정이다.
-{{< /warning >}}
-
-1.13 보다 이전 버전에서 kube-dns를 설치하는경우, 기능 게이트의 `CoreDNS` 
-값을 `false` 로 변경해야 한다.
-
-```
-kubeadm init --feature-gates=CoreDNS=false
-```
-
-1.13 이후 버전에서는, [여기](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon)에 설명된 지침 가이드를 참고하자.
+쿠버네티스 버전 1.21에서, kubeadm 의 `kube-dns` 지원 기능이 삭제되었다.
 
 ## CoreDNS 업그레이드하기
 

@@ -153,7 +153,7 @@ data:
            ttl 30
         }
         prometheus :9153
-        forward ./etc/resolv.conf
+        forward . /etc/resolv.conf
         cache 30
         loop
         reload

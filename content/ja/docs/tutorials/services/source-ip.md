@@ -399,7 +399,7 @@ client_address=198.51.100.79
 Serviceを削除します。
 
 ```shell
-kubectl delete svc -l run=source-ip-app
+kubectl delete svc -l app=source-ip-app
 ```
 
 Deployment、ReplicaSet、Podを削除します。

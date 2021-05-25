@@ -66,12 +66,10 @@ following steps:
 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
-   To install kube-dns instead of CoreDNS, the DNS addon has to be configured in the kubeadm `ClusterConfiguration`.
-   For more information about the configuration see the section `Using kubeadm init with a configuration file` below.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
    {{< warning >}}
-   kube-dns usage with kubeadm is deprecated as of v1.18 and will be removed in a future release.
+   kube-dns usage with kubeadm is deprecated as of v1.18 and is removed in v1.21.
    {{< /warning >}}
 
 ### Using init phases with kubeadm {#init-phases}
@@ -130,7 +128,7 @@ page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd
 ### Adding kube-proxy parameters {#kube-proxy}
 
 For information about kube-proxy parameters in the kubeadm configuration see:
-- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+- [kube-proxy reference](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 
 For information about enabling IPVS mode with kubeadm see:
 - [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)

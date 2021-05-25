@@ -193,7 +193,7 @@ func main() {
 }
 ```
 
-애플리케이션이 클러스터에서 파드로 배치된 경우, [파드 내에서 API 접근](#accessing-the-api-from-within-a-pod)을 참고한다.
+애플리케이션이 클러스터 내의 파드로 배치된 경우, [파드 내에서 API 접근](/ko/docs/tasks/access-application-cluster/access-cluster/#파드에서-api-접근)을 참고한다.
 
 #### Python 클라이언트 {#python-client}
 

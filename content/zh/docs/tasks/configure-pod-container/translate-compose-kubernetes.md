@@ -106,7 +106,7 @@ sudo yum -y install kompose
 {{% tab name="Fedora package" %}}
 
 <!--
-Kompose is in Fedora 24, 25 and 26 repositories. You can install it just like any other package.
+Kompose is in Fedora 24, 25 and 26 repositories. You can install it like any other package.
 -->
 Kompose 位于 Fedora 24、25 和 26 的代码仓库。你可以像安装其他软件包一样安装 Kompose。
 
@@ -135,7 +135,7 @@ brew install kompose
 ## 使用 Kompose
 
 <!--
-In just a few steps, we'll take you from Docker Compose to Kubernetes. All
+In a few steps, we'll take you from Docker Compose to Kubernetes. All
 you need is an existing `docker-compose.yml` file.
 -->
 再需几步，我们就把你从 Docker Compose 带到 Kubernetes。

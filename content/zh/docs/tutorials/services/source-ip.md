@@ -35,7 +35,7 @@ Kubernetes 集群中运行的应用通过 Service 抽象来互相查找、通信
 你必须拥有一个正常工作的 Kubernetes 1.5 集群来运行此文档中的示例。该示例使用一个简单的 nginx webserver，通过一个HTTP消息头返回它接收到请求的源IP。你可以像下面这样创建它：
 
 ```console
-kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
 ```
 输出结果为
 ```
@@ -387,7 +387,7 @@ __跨平台支持__
 删除服务：
 
 ```console
-$ kubectl delete svc -l run=source-ip-app
+$ kubectl delete svc -l app=source-ip-app
 ```
 
 

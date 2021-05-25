@@ -109,7 +109,8 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 
 #### dockershim
 
-Kubernetes built-in dockershim CRI does not support runtime handlers.
+RuntimeClasses with dockershim must set the runtime handler to `docker`. Dockershim does not support
+custom configurable runtime handlers.
 
 #### {{< glossary_tooltip term_id="containerd" >}}
 
@@ -163,7 +164,7 @@ Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
-the cluster (including the scheduler) to account for it when making decisions about Pods and resources.  
+the cluster (including the scheduler) to account for it when making decisions about Pods and resources.
 To use Pod overhead, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled (it is on by default).
 

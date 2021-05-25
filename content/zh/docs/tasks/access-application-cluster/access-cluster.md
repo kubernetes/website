@@ -381,7 +381,7 @@ You have several options for connecting to nodes, pods and services from outside
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
       the cluster.  See the [services](/docs/user-guide/services) and
       [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) documentation.
-    - Depending on your cluster environment, this may just expose the service to your corporate network,
+    - Depending on your cluster environment, this may only expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
     - Place pods behind services.  To access one specific pod from a set of replicas, such as for debugging,
@@ -482,10 +482,10 @@ at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-l
 <!--
 #### Manually constructing apiserver proxy URLs
 
-As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you simply append to the service's proxy URL:
+As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you append to the service's proxy URL:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
-If you haven't specified a name for your port, you don't have to specify *port_name* in the URL.
+If you haven't specified a name for your port, you don't have to specify *port_name* in the URL. You can also use the port number in place of the *port_name* for both named and unnamed ports.
 
 By default, the API server proxies to your service using http. To use https, prefix the service name with `https:`:
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`https:service_name:[port_name]`*`/proxy`
@@ -493,17 +493,18 @@ By default, the API server proxies to your service using http. To use https, pre
 The supported formats for the name segment of the URL are:
 
 * `<service_name>` - proxies to the default or unnamed port using http
-* `<service_name>:<port_name>` - proxies to the specified port using http
+* `<service_name>:<port_name>` - proxies to the specified port name or port number using http
 * `https:<service_name>:` - proxies to the default or unnamed port using https (note the trailing colon)
-* `https:<service_name>:<port_name>` - proxies to the specified port using https
+* `https:<service_name>:<port_name>` - proxies to the specified port name or port number using https
 -->
 #### 手动构建 apiserver 代理 URL {#manually-constructing-apiserver-proxy-urls}
 
 如上所述，你可以使用 `kubectl cluster-info` 命令来获得服务的代理 URL。
-要创建包含服务端点、后缀和参数的代理 URL，只需添加到服务的代理 URL：
+要创建包含服务端点、后缀和参数的代理 URL，需添加到服务的代理 URL：
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
 如果尚未为端口指定名称，则不必在 URL 中指定 *port_name*。
+对于已命名和未命名的端口，也可以使用端口号代替 *port_name*。
 
 默认情况下，API server 使用 HTTP 代理你的服务。
 要使用 HTTPS，请在服务名称前加上 `https:`：
@@ -512,9 +513,9 @@ The supported formats for the name segment of the URL are:
 URL 名称段支持的格式为：
 
 * `<service_name>` - 使用 http 代理到默认或未命名的端口
-* `<service_name>:<port_name>` - 使用 http 代理到指定的端口
+* `<service_name>:<port_name>` - 使用 http 代理到指定的端口名称或端口号
 * `https:<service_name>:` - 使用 https 代理到默认或未命名的端口（注意后面的冒号）
-* `https:<service_name>:<port_name>` - 使用 https 代理到指定的端口
+* `https:<service_name>:<port_name>` - 使用 https 代理到指定的端口名称或端口号
 
 <!--
 ##### Examples
@@ -628,7 +629,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxies UDP and TCP
     - does not understand HTTP
     - provides load balancing
-    - is just used to reach services
+    - is only used to reach services
 -->
 3. [kube proxy](/zh/docs/concepts/services-networking/service/#ips-and-vips)：
 

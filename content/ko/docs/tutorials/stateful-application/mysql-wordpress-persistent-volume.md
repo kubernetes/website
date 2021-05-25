@@ -91,7 +91,7 @@ EOF
 
 ## MySQL과 WordPress에 필요한 리소스 구성 추가하기
 
-다음 매니페스트는 MySQL 디플로이먼트 단일 인스턴스를 기술한다. MySQL 컨테이너는 퍼시스턴트볼륨을 /var/lib/mysql에 마운트한다. `MYSQL_ROOT_PASSWORD` 환경변수는 시크릿에서 가져와 데이터베이스 암호로 설정한다.
+다음 매니페스트는 MySQL 디플로이먼트 단일 인스턴스를 기술한다. MySQL 컨케이너는 퍼시스턴트볼륨을 /var/lib/mysql에 마운트한다. `MYSQL_ROOT_PASSWORD` 환경 변수는 시크릿에서 가져와 데이터베이스 암호로 설정한다.
 
 {{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 

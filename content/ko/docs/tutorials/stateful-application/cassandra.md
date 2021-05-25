@@ -270,7 +270,7 @@ kubectl apply -f cassandra-statefulset.yaml
 기반하였고 OpenJDK 8을 포함한다.
 
 이 이미지는 아파치 데비안 리포의 표준 카산드라 설치본을 포함한다.
-환경변수를 이용하여 `cassandra.yaml`에 삽입된 값을 바꿀 수 있다.
+환경 변수를 이용하여 `cassandra.yaml`에 삽입된 값을 바꿀 수 있다.
 
 | 환경 변수       | 기본값  |
 | ------------- |:-------------: |

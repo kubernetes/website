@@ -51,7 +51,6 @@ YAML berikut mendeskripsikan sebuah Deployment yang menjalankan _image_ Docker n
 
     Keluaran dari perintah tersebut akan menyerupai:
 
-        user@computer:~/website$ kubectl describe deployment nginx-deployment
         Name:     nginx-deployment
         Namespace:    default
         CreationTimestamp:  Tue, 30 Aug 2016 18:11:37 -0700

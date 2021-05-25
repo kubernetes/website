@@ -7,6 +7,10 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
+feature:
+  title: Designed for extensibility
+  description: >
+    Add features to your Kubernetes cluster without changing upstream source code.
 content_type: concept
 no_list: true
 ---
@@ -80,18 +84,15 @@ and by kubectl.
 Below is a diagram showing how the extension points interact with the
 Kubernetes control plane.
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vQBRWyXLVUlQPlp7BvxvV9S1mxyXSM6rAc_cbLANvKlu6kCCf-kGTporTMIeG5GZtUdxXz1xowN7RmL/pub?w=960&h=720">
-
 <!-- image source drawing https://docs.google.com/drawings/d/1muJ7Oxuj_7Gtv7HV9-2zJbOnkQJnjxq-v1ym_kZfB-4/edit?ts=5a01e054 -->
-
+![Extension Points and the Control Plane](/docs/concepts/extend-kubernetes/control-plane.png)
 
 ## Extension Points
 
 This diagram shows the extension points in a Kubernetes system.
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vSH5ZWUO2jH9f34YHenhnCd14baEb4vT-pzfxeFC7NzdNqRDgdz4DDAVqArtH4onOGqh0bhwMX0zGBb/pub?w=425&h=809">
-
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
+![Extension Points](/docs/concepts/extend-kubernetes/extension-points.png)
 
 1.   Users often interact with the Kubernetes API using `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) extend the kubectl binary. They only affect the individual user's local environment, and so cannot enforce site-wide policies.
 2.   The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](#api-access-extensions) section.
@@ -103,12 +104,11 @@ This diagram shows the extension points in a Kubernetes system.
 
 If you are unsure where to start, this flowchart can help. Note that some solutions may involve several types of extensions.
 
-
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vRWXNNIVWFDqzDY0CsKZJY3AR8sDeFDXItdc5awYxVH8s0OLherMlEPVUpxPIB1CSUu7GPk7B2fEnzM/pub?w=1440&h=1080">
-
 <!-- image source drawing: https://docs.google.com/drawings/d/1sdviU6lDz4BpnzJNHfNpQrqI9F19QZ07KnhnxVrp2yg/edit -->
+![Flowchart for Extension](/docs/concepts/extend-kubernetes/flowchart.png)
 
 ## API Extensions
+
 ### User-Defined Types
 
 Consider adding a Custom Resource to Kubernetes if you want to define new controllers, application configuration objects or other declarative APIs, and to manage them using Kubernetes tools, such as `kubectl`.
@@ -156,7 +156,6 @@ After a request is authorized, if it is a write operation, it also goes through 
 *   To make arbitrary admission control decisions, a general [Admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
 
 ## Infrastructure Extensions
-
 
 ### Storage Plugins
 

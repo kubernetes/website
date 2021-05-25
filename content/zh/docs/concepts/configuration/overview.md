@@ -151,7 +151,7 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of DN
 
 <!--
 - Use [headless Services](/docs/concepts/services-networking/service/#headless-
-services) (which have a `ClusterIP` of `None`) for easy service discovery when you don't need `kube-proxy` load balancing.
+services) (which have a `ClusterIP` of `None`) for service discovery when you don't need `kube-proxy` load balancing.
 -->
 - 当您不需要 `kube-proxy` 负载均衡时，使用
   [无头服务](/zh/docs/concepts/services-networking/service/#headless-services)  
@@ -175,7 +175,7 @@ services) (which have a `ClusterIP` of `None`) for easy service discovery when y
 A Service can be made to span multiple Deployments by omitting release-specific labels from its selector. [Deployments](/docs/concepts/workloads/controllers/deployment/) make it easy to update a running service without downtime.
 -->
 通过从选择器中省略特定发行版的标签，可以使服务跨越多个 Deployment。
-[Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 可以在不停机的情况下轻松更新正在运行的服务。
+当你需要不停机的情况下更新正在运行的服务，可以使用[Deployment](/zh/docs/concepts/workloads/controllers/deployment/)。
 
 <!--
 A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate.
@@ -216,14 +216,14 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 <!--
 - `imagePullPolicy: IfNotPresent`: the image is pulled only if it is not already present locally.
 - `imagePullPolicy: Always`: the image is pulled every time the pod is started.
-- `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `Always` is applied.
-- `imagePullPolicy` is omitted and the image tag is present but not `:latest`: `IfNotPresent` is applied.
+- `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `imagePullPolicy` is automatically set to `Always`. Note that this will _not_ be updated to `IfNotPresent` if the tag changes value.
+- `imagePullPolicy` is omitted and the image tag is present but not `:latest`: `imagePullPolicy` is automatically set to `IfNotPresent`. Note that this will _not_ be updated to `Always` if the tag is later removed or changed to `:latest`.
 - `imagePullPolicy: Never`: the image is assumed to exist locally. No attempt is made to pull the image.
 -->
 - `imagePullPolicy: IfNotPresent`：仅当镜像在本地不存在时才被拉取。
 - `imagePullPolicy: Always`：每次启动 Pod 的时候都会拉取镜像。
-- `imagePullPolicy` 省略时，镜像标签为 `:latest` 或不存在，使用 `Always` 值。
-- `imagePullPolicy` 省略时，指定镜像标签并且不是 `:latest`，使用 `IfNotPresent` 值。
+- `imagePullPolicy` 省略时，镜像标签为 `:latest` 或不存在，其值自动被设置为 `Always`。注意，如果镜像标签的值发生改变，`imagePullPolicy` 的值不会被更新为 `IfNotPresent`。
+- `imagePullPolicy` 省略时，指定镜像标签并且不是 `:latest`，其值自动被设置为 `IfNotPresent`。注意，如果镜像标签的值之后被移除或者修改为 `latest`，`imagePullPolicy` 的值不会被更新为 `Always`。
 - `imagePullPolicy: Never`：假设镜像已经存在本地，不会尝试拉取镜像。
 
 <!--
@@ -244,10 +244,10 @@ You should avoid using the `:latest` tag when deploying containers in production
 {{< /note >}}
 
 <!--
-The caching semantics of the underlying image provider make even `imagePullPolicy: Always` efficient. With Docker, for example, if the image already exists, the pull attempt is fast because all image layers are cached and no image download is needed.
+The caching semantics of the underlying image provider make even `imagePullPolicy: Always` efficient, as long as the registry is reliably accessible. With Docker, for example, if the image already exists, the pull attempt is fast because all image layers are cached and no image download is needed.
 -->
 {{< note >}}
-底层镜像驱动程序的缓存语义能够使即便 `imagePullPolicy: Always` 的配置也很高效。
+只要镜像仓库是可访问的，底层镜像驱动程序的缓存语义能够使即便 `imagePullPolicy: Always` 的配置也很高效。
 例如，对于 Docker，如果镜像已经存在，则拉取尝试很快，因为镜像层都被缓存并且不需要下载。
 {{< /note >}}
 

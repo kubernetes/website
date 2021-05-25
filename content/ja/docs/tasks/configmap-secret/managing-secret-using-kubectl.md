@@ -114,10 +114,10 @@ kubectl get secret db-user-pass -o jsonpath='{.data}'
 出力は次のようになります:
 
 ```json
-{"password.txt":"MWYyZDFlMmU2N2Rm","username.txt":"YWRtaW4="}
+{"password":"MWYyZDFlMmU2N2Rm","username":"YWRtaW4="}
 ```
 
-`password.txt`のデータをデコードします:
+`password`のデータをデコードします:
 
 ```shell
 echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
@@ -142,5 +142,5 @@ kubectl delete secret db-user-pass
 ## {{% heading "whatsnext" %}}
 
 - [Secretのコンセプト](/ja/docs/concepts/configuration/secret/)を読む
-- [設定ファイルを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-config-file/)方法を知る
+- [設定ファイルを使用してSecretを管理する](/ja/docs/tasks/configmap-secret/managing-secret-using-config-file/)方法を知る
 - [kustomizeを使用してSecretを管理する](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)方法を知る

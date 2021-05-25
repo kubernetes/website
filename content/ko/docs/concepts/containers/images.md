@@ -49,15 +49,31 @@ weight: 10
 
 ## 이미지 업데이트
 
-기본 풀(pull) 정책은 `IfNotPresent`이며, 이것은
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}이 이미
-존재하는 이미지에 대한 풀을 생략하게 한다. 만약 항상 풀을 강제하고 싶다면,
-다음 중 하나를 수행하면 된다.
+{{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}},
+{{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}}, 파드 또는 파드
+템플릿은 포함하는 다른 오브젝트를 처음 만들 때 특별히 명시하지 않은 경우
+기본적으로 해당 파드에 있는 모든 컨테이너의 풀(pull)
+정책은 `IfNotPresent`로 설정된다. 이 정책은
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}이 이미 존재하는
+이미지에 대한 풀을 생략하게 한다.
+
+만약 항상 풀을 강제하고 싶다면, 다음 중 하나를 수행하면 된다.
 
 - 컨테이너의 `imagePullPolicy`를 `Always`로 설정.
-- `imagePullPolicy`를 생략하고 `:latest`를 사용할 이미지의 태그로 사용.
+- `imagePullPolicy`를 생략하고 `:latest`를 사용할 이미지의 태그로 사용,
+  쿠버네티스는 정책을 `Always`로 설정한다.
 - `imagePullPolicy`와 사용할 이미지의 태그를 생략.
 - [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) 어드미션 컨트롤러를 활성화.
+
+{{< note >}}
+컨테이너의 `imagePullPolicy` 값은 오브젝트가 처음 _created_ 일 때 항상
+설정되고 나중에 이미지 태그가 변경되더라도 업데이트되지 않는다.
+
+예를 들어, 태그가 `:latest`가 아닌 이미지로 디플로이먼트를 생성하고,
+나중에 해당 디플로이먼트의 이미지를 `:latest` 태그로 업데이트하면
+`imagePullPolicy` 필드가 `Always` 로 변경되지 않는다. 오브젝트를
+처음 생성 한 후 모든 오브젝트의 풀 정책을 수동으로 변경해야 한다.
+{{< /note >}}
 
 `imagePullPolicy` 가 특정값 없이 정의되면, `Always` 로 설정된다.
 

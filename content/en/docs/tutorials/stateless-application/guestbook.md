@@ -49,13 +49,14 @@ The manifest file, included below, specifies a Deployment controller that runs a
 1. Launch a terminal window in the directory you downloaded the manifest files.
 1. Apply the MongoDB Deployment from the `mongo-deployment.yaml` file:
 
+      <!---
+      for local testing of the content via relative file path
+      kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.yaml
+      -->
+
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-deployment.yaml
       ```
-<!---
-for local testing of the content via relative file path
-kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.yaml
--->
 
 1. Query the list of Pods to verify that the MongoDB Pod is running:
 
@@ -84,14 +85,14 @@ The guestbook application needs to communicate to the MongoDB to write its data.
 
 1. Apply the MongoDB Service from the following `mongo-service.yaml` file:
 
+      <!---
+      for local testing of the content via relative file path
+      kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
+      -->
+
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-service.yaml
       ```
-
-<!---
-for local testing of the content via relative file path
-kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
--->
 
 1. Query the list of Services to verify that the MongoDB Service is running:
 
@@ -122,14 +123,14 @@ The guestbook application has a web frontend serving the HTTP requests written i
 
 1. Apply the frontend Deployment from the `frontend-deployment.yaml` file:
 
+      <!---
+      for local testing of the content via relative file path
+      kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment.yaml
+      -->
+
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml
       ```
-
-<!---
-for local testing of the content via relative file path
-kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment.yaml
--->
 
 1. Query the list of Pods to verify that the three frontend replicas are running:
 
@@ -160,14 +161,14 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
 
 1. Apply the frontend Service from the `frontend-service.yaml` file:
 
+      <!---
+      for local testing of the content via relative file path
+      kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.yaml
+      -->
+
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-service.yaml
       ```
-
-<!---
-for local testing of the content via relative file path
-kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.yaml
--->
 
 1. Query the list of Services to verify that the frontend Service is running:
 
@@ -179,7 +180,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.ya
 
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      frontend       ClusterIP   10.0.0.112   <none>       80/TCP   6s
+      frontend       ClusterIP   10.0.0.112   <none>        80/TCP         6s
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP        4m
       mongo          ClusterIP   10.0.0.151   <none>        6379/TCP       2m
       ```
@@ -214,8 +215,8 @@ If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` y
       The response should be similar to this:
 
       ```
-      NAME       TYPE        CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
-      frontend   ClusterIP   10.51.242.136   109.197.92.229     80:32372/TCP   1m
+      NAME       TYPE           CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
+      frontend   LoadBalancer   10.51.242.136   109.197.92.229     80:32372/TCP   1m
       ```
 
 1. Copy the external IP address, and load the page in your browser to view your guestbook.
@@ -245,7 +246,7 @@ You can scale up or down as needed because your servers are defined as a Service
       frontend-3823415956-k22zn       1/1       Running   0          54m
       frontend-3823415956-w9gbt       1/1       Running   0          54m
       frontend-3823415956-x2pld       1/1       Running   0          5s
-      mongo-1068406935-3lswp   1/1       Running   0          56m
+      mongo-1068406935-3lswp          1/1       Running   0          56m
       ```
 
 1. Run the following command to scale down the number of frontend Pods:
@@ -266,7 +267,7 @@ You can scale up or down as needed because your servers are defined as a Service
       NAME                            READY     STATUS    RESTARTS   AGE
       frontend-3823415956-k22zn       1/1       Running   0          1h
       frontend-3823415956-w9gbt       1/1       Running   0          1h
-      mongo-1068406935-3lswp   1/1       Running   0          1h
+      mongo-1068406935-3lswp          1/1       Running   0          1h
       ```
 
 
