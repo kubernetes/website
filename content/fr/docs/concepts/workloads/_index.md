@@ -2,7 +2,7 @@
 title: Workloads
 weight: 50
 description: >
-  Comprendre les Pods, Le plus petit objet déployable sur Kubernetes et les abstractions de haut niveaux vous permettant de les lancer.
+  Comprendre les Pods, le plus petit objet déployable sur Kubernetes, et les abstractions de haut niveaux vous permettant de les lancer.
 no_list: true
 ---
 
