@@ -25,7 +25,7 @@ CNCF コミュニティ行動規範 v1.0
 
 Kubernetesで虐待的、嫌がらせ、または許されない行動があった場合には、<conduct@kubernetes.io>から[Kubernetes Code of Conduct Committee](https://git.k8s.io/community/committee-code-of-conduct)（行動規範委員会）にご連絡ください。その他のプロジェクトにつきましては、CNCFプロジェクト管理者または仲介者<mishi@linux.com>にご連絡ください。
 
-本行動規範は、コントリビューターの合意 (http://contributor-covenant.org) バージョン 1.2.0 http://contributor-covenant.org/version/1/2/0/ から適応されています。
+本行動規範は、コントリビューターの合意 (https://contributor-covenant.org) バージョン 1.2.0 https://contributor-covenant.org/version/1/2/0/ から適応されています。
 
 ### CNCF イベント行動規範
 

@@ -502,7 +502,7 @@ compinit
 
 ## {{% heading "whatsnext" %}}
 
-* [Minikubeをインストールする](/ja/docs/tasks/tools/install-minikube/)
+* [Minikubeをインストールする](https://minikube.sigs.k8s.io/docs/start/)
 * クラスターの作成に関する詳細を[スタートガイド](/ja/docs/setup/)で確認する
 * [アプリケーションを起動して公開する方法を学ぶ](/ja/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * あなたが作成していないクラスターにアクセスする必要がある場合は、[クラスターアクセスドキュメントの共有](/ja/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)を参照してください
