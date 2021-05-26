@@ -176,8 +176,6 @@ different Kubernetes components.
 | `TopologyAwareHints` | `false` | Alpha | 1.21 | |
 | `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
 | `TopologyManager` | `true` | Beta | 1.18 | |
-| `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
-| `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
 | `WarningHeaders` | `true` | Beta | 1.19 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
@@ -353,8 +351,9 @@ different Kubernetes components.
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
 | `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
-| `StreamingProxyRedirects` | `true` | Beta | 1.6 | 1.18 |
-| `StreamingProxyRedirects` | - | GA | 1.19 | - |
+| `StreamingProxyRedirects` | `true` | Beta | 1.6 | 1.17 |
+| `StreamingProxyRedirects` | `true` | Deprecated | 1.18 | 1.21 |
+| `StreamingProxyRedirects` | `false` | Deprecated | 1.22 | - |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
@@ -379,6 +378,9 @@ different Kubernetes components.
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | Beta | 1.12 | 1.19 |
 | `TokenRequestProjection` | `true` | GA | 1.20 | - |
+| `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
+| `ValidateProxyRedirects` | `true` | Beta | 1.14 | 1.21 |
+| `ValidateProxyRedirects` | `true` | Deprecated | 1.22 | - |
 | `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
 | `VolumePVCDataSource` | `true` | Beta | 1.16 | 1.17 |
 | `VolumePVCDataSource` | `true` | GA | 1.18 | - |
