@@ -17,12 +17,7 @@ kubectl get pods --field-selector status.phase=Running
 ```
 
 {{< note >}}
-フィールドセレクターは本質的にリソースの _フィルター_ となります。デフォルトでは、セレクター/フィルターが指定されていない場合は、全てのタイプのリソースが取得されます。これは、下記の2つの`kubectl`クエリが同じであることを意味します。  
-
-```shell
-kubectl get pods
-kubectl get pods --field-selector ""
-```
+フィールドセレクターは本質的にリソースの _フィルター_ となります。デフォルトでは、セレクター/フィルターが指定されていない場合は、全てのタイプのリソースが取得されます。これは、`kubectl`クエリの`kubectl get pods`と`kubectl get pods --field-selector ""`が同じであることを意味します。  
 {{< /note >}}
 
 ## サポートされているフィールド

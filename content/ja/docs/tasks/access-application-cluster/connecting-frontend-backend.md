@@ -26,10 +26,10 @@ weight: 70
 ## {{% heading "prerequisites" %}}
 
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* このタスクでは[Serviceで外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を使用しますが、外部ロードバランサーの使用がサポートされている環境である必要があります。
-  ご使用の環境がこれをサポートしていない場合は、代わりにタイプ[NodePort](/ja/docs/concepts/services-networking/service/#nodeport)のServiceを使用できます。
+このタスクでは[Serviceで外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を使用しますが、外部ロードバランサーの使用がサポートされている環境である必要があります。
+ご使用の環境がこれをサポートしていない場合は、代わりにタイプ[NodePort](/ja/docs/concepts/services-networking/service/#nodeport)のServiceを使用できます。
 
 
 
@@ -186,15 +186,25 @@ curl http://${EXTERNAL_IP} # これを前に見たEXTERNAL-IPに置き換えま�
 {"message":"Hello"}
 ```
 
+## {{% heading "cleanup" %}}
 
+Serviceを削除するには、このコマンドを入力してください：
 
+```shell
+kubectl delete services frontend hello
+```
+
+バックエンドとフロントエンドアプリケーションを実行しているDeploymentとReplicaSetとPodを削除するために、このコマンドを入力してください：
+
+```shell
+kubectl delete deployment frontend hello
+```
 
 ## {{% heading "whatsnext" %}}
 
 
 * [Service](/ja/docs/concepts/services-networking/service/)の詳細
 * [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)の詳細
-
 
 
 

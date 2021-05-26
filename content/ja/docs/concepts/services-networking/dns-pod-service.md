@@ -42,6 +42,20 @@ Headless Serviceに対しては、このSRVレコードは複数の結果を返�
 
 ## Pod
 
+### A/AAAAレコード
+
+一般的にPodは下記のDNS解決となります。
+
+`pod-ip-address.my-namespace.pod.cluster-domain.example`
+
+例えば、`default`ネームスペースのpodのIPアドレスが172.17.0.3で、クラスターのドメイン名が`cluster.local`の場合、PodのDNS名は以下になります。
+
+`172-17-0-3.default.pod.cluster.local`
+
+DeploymentかDaemonSetに作成され、Serviceに公開されるどのPodも以下のDNS解決が利用できます。
+
+`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`
+
 ### Podのhostnameとsubdomainフィールド
 
 現在、Podが作成されたとき、そのPodのホスト名はPodの`metadata.name`フィールドの値となります。
@@ -113,9 +127,9 @@ A(AAAA)レコードはPodの名前に対して作成されないため、`hostna
 DNSポリシーはPod毎に設定できます。現在のKubernetesでは次のようなPod固有のDNSポリシーをサポートしています。これらのポリシーはPod Specの`dnsPolicy`フィールドで指定されます。
 
 - "`Default`": そのPodはPodが稼働しているNodeから名前解決の設定を継承します。詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)を参照してください。
-- "`ClusterFirst`": "`www.kubernetes.io`"のようなクラスタードメインのサフィックスにマッチしないようなDNSクエリーは、Nodeから継承された上流のネームサーバーにフォワーディングされます。クラスター管理者は、追加のstubドメインと上流のDNSサーバーを設定できます。
+- "`ClusterFirst`": "`www.kubernetes.io`"のようなクラスタードメインのサフィックスにマッチしないようなDNSクエリーは、Nodeから継承された上流のネームサーバーにフォワーディングされます。クラスター管理者は、追加のstubドメインと上流のDNSサーバーを設定できます。このような場合におけるDNSクエリー処理の詳細に関しては、[関連する議論](/docs/tasks/administer-cluster/dns-custom-nameservers/#effects-on-pods)を参照してください。
 - "`ClusterFirstWithHostNet`": hostNetworkによって稼働しているPodに対しては、ユーザーは明示的にDNSポリシーを"`ClusterFirstWithHostNet`"とセットするべきです。
-- "`None`": この設定では、Kubernetesの環境からDNS設定を無視することができます。全てのDNS設定は、Pod Spec内の`dnsConfig`フィールドを指定して提供することになっています。下記のセクションの[Pod's DNS config](#pod-s-dns-config)を参照ください。
+- "`None`": この設定では、Kubernetesの環境からDNS設定を無視することができます。全てのDNS設定は、Pod Spec内の`dnsConfig`フィールドを指定して提供することになっています。下記のセクションの[Pod's DNS config](#pod-dns-config)を参照ください。
 
 {{< note >}}
 "Default"は、デフォルトのDNSポリシーではありません。もし`dnsPolicy`が明示的に指定されていない場合、"ClusterFirst"が使用されます。
@@ -142,7 +156,7 @@ spec:
   dnsPolicy: ClusterFirstWithHostNet
 ```
 
-### PodのDNS設定 {#pods-dns-config}
+### PodのDNS設定 {#pod-dns-config}
 
 PodのDNS設定は、ユーザーがPodに対してそのDNS設定上でさらに制御するための手段を提供します。
 

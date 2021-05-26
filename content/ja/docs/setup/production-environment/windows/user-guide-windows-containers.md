@@ -19,7 +19,7 @@ Windowsアプリケーションは、多くの組織で実行されるサービ�
 
 ## 始める前に
 
-* [Windows Serverを実行するマスターノードとワーカーノード](/ja/docs/setup/production-environment/windows/user-guide-windows-nodes/)を含むKubernetesクラスターを作成します
+* [Windows Serverを実行するマスターノードとワーカーノード](/ja/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)を含むKubernetesクラスターを作成します
 * Kubernetes上にServiceとワークロードを作成してデプロイすることは、LinuxコンテナとWindowsコンテナ共に、ほぼ同じように動作することに注意してください。クラスターとのインタフェースとなる[Kubectlコマンド](/docs/reference/kubectl/overview/)も同じです。Windowsコンテナをすぐに体験できる例を以下セクションに用意しています。
 
 ## はじめに:Windowsコンテナのデプロイ

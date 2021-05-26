@@ -148,7 +148,7 @@ ip addr
 そして、`wget`を使用してローカルのウェブサーバーに問い合わせます。
 
 ```shell
-# 10.0.170.92 の部分をウェブサーバーのPodのIPv4アドレスに置き換えてください
+# "10.0.170.92" の部分をService名が"clusterip"のIPv4アドレスに置き換えてください
 wget -qO - 10.0.170.92
 ```
 ```
@@ -176,7 +176,7 @@ service/nodeport exposed
 
 ```shell
 NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
+NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="InternalIP")].address }')
 ```
 
 クラウドプロバイダーで実行する場合、上に示した`nodes:nodeport`に対してファイアウォールのルールを作成する必要があるかもしれません。それでは、上で割り当てたノードポート経由で、クラスターの外部からServiceにアクセスしてみましょう。
@@ -204,17 +204,19 @@ client_address=10.240.0.3
 
 図で表すと次のようになります。
 
-```
-          client
-             \ ^
-              \ \
-               v \
-   node 1 <--- node 2
-    | ^   SNAT
-    | |   --->
-    v |
- endpoint
-```
+{{< mermaid >}}
+graph LR;
+  client(client)-->node2[Node 2];
+  node2-->client;
+  node2-. SNAT .->node1[Node 1];
+  node1-. SNAT .->node2;
+  node1-->endpoint(Endpoint);
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 クライアントのIPが失われることを回避するために、Kubernetesには[クライアントの送信元IPを保持する](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)機能があります。`service.spec.externalTrafficPolicy`の値を`Local`に設定すると、kube-proxyはローカルに存在するエンドポイントへのプロキシーリクエストだけをプロキシーし、他のノードへはトラフィックを転送しなくなります。このアプローチでは、オリジナルの送信元IPアドレスが保持されます。ローカルにエンドポイントが存在しない場合には、そのノードに送信されたパケットは損失します。そのため、エンドポイントに到達するパケットに適用する可能性のあるパケット処理ルールでは、送信元IPが正しいことを信頼できます。
 
@@ -253,17 +255,20 @@ client_address=198.51.100.79
 
 図で表すと次のようになります。
 
-```
-        client
-       ^ /   \
-      / /     \
-     / v       X
-   node 1     node 2
-    ^ |
-    | |
-    | v
- endpoint
-```
+{{< mermaid >}}
+graph TD;
+  client --> node1[Node 1];
+  client(client) --x node2[Node 2];
+  node1 --> endpoint(endpoint);
+  endpoint --> node1;
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
+
+
 
 ## `Type=LoadBalancer`を使用したServiceでの送信元IP
 
@@ -312,17 +317,7 @@ client_address=10.240.0.5
 
 図で表すと次のようになります。
 
-```
-                      client
-                        |
-                      lb VIP
-                     / ^
-                    v /
-ヘルスチェック --->   node 1   node 2 <--- ヘルスチェック
-        200  <---   ^ |             ---> 500
-                    | V
-                 endpoint
-```
+![Source IP with externalTrafficPolicy](/images/docs/sourceip-externaltrafficpolicy.svg)
 
 アノテーションを設定することで動作をテストできます。
 
@@ -397,7 +392,7 @@ client_address=198.51.100.79
 
 2. クライアントからロードバランサーのVIPに送信されたリクエストが、中間のプロキシーではなく、クライアントの送信元IPとともにノードまで到達するようなパケット転送が使用される。
 
-1つめのカテゴリーのロードバランサーの場合、真のクライアントIPと通信するために、 HTTPの[Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)ヘッダーや[X-FORWARDED-FOR](https://ja.wikipedia.org/wiki/X-Forwarded-For)ヘッダー、[proxy protocol](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)などの、ロードバランサーとバックエンドの間で合意されたプロトコルを使用する必要があります。2つ目のカテゴリーのロードバランサーの場合、Serviceの`service.spec.healthCheckNodePort`フィールドに保存されたポートを指すHTTPのヘルスチェックを作成することで、上記の機能を活用できます。
+1つめのカテゴリーのロードバランサーの場合、真のクライアントIPと通信するために、 HTTPの[Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)ヘッダーや[X-FORWARDED-FOR](https://ja.wikipedia.org/wiki/X-Forwarded-For)ヘッダー、[proxy protocol](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)などの、ロードバランサーとバックエンドの間で合意されたプロトコルを使用する必要があります。2つ目のカテゴリーのロードバランサーの場合、Serviceの`service.spec.healthCheckNodePort`フィールドに保存されたポートを指すHTTPのヘルスチェックを作成することで、上記の機能を活用できます。
 
 ## {{% heading "cleanup" %}}
 

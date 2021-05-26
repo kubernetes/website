@@ -12,7 +12,7 @@ GCPの[Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-ser
 
 ## {{% heading "prerequisites" %}}
 
-* [サービスカタログ](/docs/concepts/service-catalog/)の基本概念を理解してください。
+* [サービスカタログ](/docs/concepts/extend-kubernetes/service-catalog/)の基本概念を理解してください。
 * [Go 1.6+](https://golang.org/dl/)をインストールして、`GOPATH`を設定してください。
 * SSLに関するファイルを生成するために必要な[cfssl](https://github.com/cloudflare/cfssl)ツールをインストールしてください。
 * サービスカタログを使用するには、Kubernetesクラスターのバージョンが1.7以降である必要があります。

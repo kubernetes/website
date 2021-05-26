@@ -32,9 +32,9 @@ kube-apiserverとの間を5秒以内に往復するためには、ディスカ�
 ## {{% heading "whatsnext" %}}
 
 
-* アグリゲーターをあなたの環境で動かすには、まず[アグリゲーションレイヤーを設定](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)します
-* そして、アグリゲーションレイヤーと一緒に動作させるために[extension api-serverをセットアップ](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)します
-* また、[Custom Resource Definitionを使いKubernetes APIを拡張する](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)方法を学んで下さい
+* アグリゲーターをあなたの環境で動かすには、まず[アグリゲーションレイヤーを設定](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)します
+* そして、アグリゲーションレイヤーと一緒に動作させるために[extension api-serverをセットアップ](/docs/tasks/extend-kubernetes/setup-extension-api-server/)します
+* また、[Custom Resource Definitionを使いKubernetes APIを拡張する](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)方法を学んで下さい
 * [APIService](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apiservice-v1-apiregistration-k8s-io)の仕様をお読み下さい
 
 
