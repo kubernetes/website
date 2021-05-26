@@ -160,20 +160,21 @@ kubernetes 系统守护进程记述其资源预留值。
 kubernetes 系统守护进程预留指定数量的进程 ID。
 
 <!--
-To optionally enforce `kube-reserved` on system daemons, specify the parent
+To optionally enforce `kube-reserved` on kubernetes system daemons, specify the parent
 control group for kube daemons as the value for `--kube-reserved-cgroup` kubelet
 flag.
 
 It is recommended that the kubernetes system daemons are placed under a top
 level control group (`runtime.slice` on systemd machines for example). Each
 system daemon should ideally run within its own child control group. Refer to
-[this doc](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)
+[this
+doc](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)
 for more details on recommended control group hierarchy.
 
 Note that Kubelet **does not** create `--kube-reserved-cgroup` if it doesn't
 exist. Kubelet will fail if an invalid cgroup is specified.
 -->
-要选择性地对系统守护进程上执行 `kube-reserved` 保护，需要把 kubelet 的
+要选择性地对 kubernetes 系统守护进程上执行 `kube-reserved` 保护，需要把 kubelet 的
 `--kube-reserved-cgroup` 标志的值设置为 kube 守护进程的父控制组。
 
 推荐将 kubernetes 系统守护进程放置于顶级控制组之下（例如 systemd 机器上的
@@ -256,12 +257,11 @@ If the Kubelet **does not** have `--system-reserved-cgroup` and `--kube-reserved
 the explicit cpuset provided by `reserved-cpus` will take precedence over the CPUs
 defined by `--kube-reserved` and `--system-reserved` options.
 -->
-`reserved-cpus` 旨在为操作系统守护程序和 kubernetes 系统守护程序定义一个显式 CPU
-集合。`reserved-cpus` 适用于不打算针对 cpuset 资源为操作系统守护程序和 kubernetes
+`reserved-cpus` 旨在为操作系统守护程序和 kubernetes 系统守护程序保留一组明确指定编号的
+CPU。`reserved-cpus` 适用于不打算针对 cpuset 资源为操作系统守护程序和 kubernetes
 系统守护程序定义独立的顶级 cgroups 的系统。
 如果 Kubelet **没有** 指定参数 `--system-reserved-cgroup` 和 `--kube-reserved-cgroup`，
-则 `reserved-cpus` 提供的显式 cpuset 将优先于 `--kube-reserved` 和 `--system-reserved`
-选项定义的 cpuset。
+则 `reserved-cpus` 的设置将优先于 `--kube-reserved` 和 `--system-reserved` 选项。
 
 <!--
 This option is specifically designed for Telco/NFV use cases where uncontrolled

@@ -138,7 +138,7 @@ no
 exposes the API server authorization to external services. Other resources in
 this group include:
 
-* `SubjectAccessReview` - Access review for any user, not just the current one. Useful for delegating authorization decisions to the API server. For example, the kubelet and extension API servers use this to determine user access to their own APIs.
+* `SubjectAccessReview` - Access review for any user, not only the current one. Useful for delegating authorization decisions to the API server. For example, the kubelet and extension API servers use this to determine user access to their own APIs.
 * `LocalSubjectAccessReview` - Like `SubjectAccessReview` but restricted to a specific namespace.
 * `SelfSubjectRulesReview` - A review which returns the set of actions a user can perform within a namespace. Useful for users to quickly summarize their own access, or for UIs to hide/show actions.
 

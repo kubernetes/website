@@ -1,5 +1,7 @@
 ---
 title: 서비스 카탈로그
+
+
 content_type: concept
 weight: 40
 ---
@@ -24,7 +26,7 @@ weight: 40
 
 클러스터 운영자는 서비스 카탈로그를 설정하고 이를 이용하여 클라우드 공급자의 서비스 브로커와 통신하여 메시지 큐 서비스의 인스턴스를 프로비저닝하고 쿠버네티스 클러스터 내의 애플리케이션에서 사용할 수 있게 한다.
 따라서 애플리케이션 개발자는 메시지 큐의 세부 구현 또는 관리에 신경 쓸 필요가 없다.
-애플리케이션은 그것을 서비스로 간단하게 사용할 수 있다.
+애플리케이션은 메시지 큐에 서비스로 접속할 수 있다.
 
 ## 아키텍처
 
@@ -229,8 +231,3 @@ spec:
 * [샘플 서비스 브로커](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers) 살펴보기
 * [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) 프로젝트 탐색
 * [svc-cat.io](https://svc-cat.io/docs/) 살펴보기
-
-
-
-
-

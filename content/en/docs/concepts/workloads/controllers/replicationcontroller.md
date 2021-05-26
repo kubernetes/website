@@ -54,7 +54,9 @@ Run the example job by downloading the example file and then running this comman
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
 ```
+
 The output is similar to this:
+
 ```
 replicationcontroller/nginx created
 ```
@@ -64,7 +66,9 @@ Check on the status of the ReplicationController using this command:
 ```shell
 kubectl describe replicationcontrollers/nginx
 ```
+
 The output is similar to this:
+
 ```
 Name:        nginx
 Namespace:   default
@@ -103,22 +107,23 @@ To list all the pods that belong to the ReplicationController in a machine reada
 pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
 echo $pods
 ```
+
 The output is similar to this:
+
 ```
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
 Here, the selector is the same as the selector for the ReplicationController (seen in the
 `kubectl describe` output), and in a different form in `replication.yaml`.  The `--output=jsonpath` option
-specifies an expression that just gets the name from each pod in the returned list.
-
+specifies an expression with the name from each pod in the returned list.
 
 ## Writing a ReplicationController Spec
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
 The name of a ReplicationController object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-For general information about working with config files, see [object management ](/docs/concepts/overview/working-with-objects/object-management/).
+For general information about working with configuration files, see [object management](/docs/concepts/overview/working-with-objects/object-management/).
 
 A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -140,7 +145,7 @@ for example the [Kubelet](/docs/reference/command-line-tools-reference/kubelet/)
 
 The ReplicationController can itself have labels (`.metadata.labels`).  Typically, you
 would set these the same as the `.spec.template.metadata.labels`; if `.metadata.labels` is not specified
-then it defaults to  `.spec.template.metadata.labels`.  However, they are allowed to be
+then it defaults to  `.spec.template.metadata.labels`. However, they are allowed to be
 different, and the `.metadata.labels` do not affect the behavior of the ReplicationController.
 
 ### Pod Selector
@@ -198,7 +203,7 @@ To update pods to a new spec in a controlled way, use a [rolling update](#rollin
 
 ### Isolating pods from a ReplicationController
 
-Pods may be removed from a ReplicationController's target set by changing their labels. This technique may be used to remove pods from service for debugging, data recovery, etc. Pods that are removed in this way will be replaced automatically (assuming that the number of replicas is not also changed).
+Pods may be removed from a ReplicationController's target set by changing their labels. This technique may be used to remove pods from service for debugging and data recovery. Pods that are removed in this way will be replaced automatically (assuming that the number of replicas is not also changed).
 
 ## Common usage patterns
 
@@ -208,8 +213,7 @@ As mentioned above, whether you have 1 pod you want to keep running, or 1000, a 
 
 ### Scaling
 
-The ReplicationController scales the number of replicas up or down by setting the `replicas` field.
-You can configure the ReplicationController to manage the replicas manually or by an auto-scaling control agent.
+The ReplicationController enables scaling the number of replicas up or down, either manually or by an auto-scaling control agent, by updating the `replicas` field.
 
 ### Rolling updates
 
@@ -246,7 +250,6 @@ The ReplicationController is forever constrained to this narrow responsibility. 
 
 The ReplicationController is intended to be a composable building-block primitive. We expect higher-level APIs and/or tools to be built on top of it and other complementary primitives for user convenience in the future. The "macro" operations currently supported by kubectl (run, scale) are proof-of-concept examples of this. For instance, we could imagine something like [Asgard](https://techblog.netflix.com/2012/06/asgard-web-based-cloud-management-and.html) managing ReplicationControllers, auto-scalers, services, scheduling policies, canaries, etc.
 
-
 ## API Object
 
 Replication controller is a top-level resource in the Kubernetes REST API. More details about the
@@ -260,7 +263,6 @@ API object can be found at:
 [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is the next-generation ReplicationController that supports the new [set-based label selector](/docs/concepts/overview/working-with-objects/labels/#set-based-requirement).
 It's mainly used by [Deployment](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate pod creation, deletion and updates.
 Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don't require updates at all.
-
 
 ### Deployment (Recommended)
 
@@ -285,5 +287,3 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 ## For more information
 
 Read [Run Stateless Application Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
-
-

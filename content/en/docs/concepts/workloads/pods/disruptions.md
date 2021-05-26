@@ -80,17 +80,19 @@ Here are some ways to mitigate involuntary disruptions:
   [multi-zone cluster](/docs/setup/multiple-zones).)
 
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
-no voluntary disruptions at all.  However, your cluster administrator or hosting provider
+no automated voluntary disruptions (only user-triggered ones).  However, your cluster administrator or hosting provider
 may run some additional services which cause voluntary disruptions. For example,
 rolling out node software updates can cause voluntary disruptions. Also, some implementations
 of cluster (node) autoscaling may cause voluntary disruptions to defragment and compact nodes.
 Your cluster administrator or hosting provider should have documented what level of voluntary
-disruptions, if any, to expect.
+disruptions, if any, to expect. Certain configuration options, such as
+[using PriorityClasses](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)
+in your pod spec can also cause voluntary (and involuntary) disruptions.
 
 
 ## Pod disruption budgets
 
-{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 Kubernetes offers features to help you run highly available applications even when you
 introduce frequent voluntary disruptions.
@@ -136,7 +138,7 @@ during application updates is configured in the spec for the specific workload r
 
 When a pod is evicted using the eviction API, it is gracefully
 [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
-`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).)
+`terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
 ## PodDisruptionBudget example {#pdb-example}
 

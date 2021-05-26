@@ -22,7 +22,7 @@ content_type: task
 
 ## kubectl 플러그인 설치
 
-플러그인은 이름이 `kubectl-` 로 시작되는 독립형 실행 파일이다. 플러그인을 설치하려면, 간단히 실행 파일을 `PATH` 에 지정된 디렉터리로 옮기면 된다.
+플러그인은 이름이 `kubectl-` 로 시작되는 독립형 실행 파일이다. 플러그인을 설치하려면, 실행 파일을 `PATH` 에 지정된 디렉터리로 옮기면 된다.
 
 [Krew](https://krew.dev/)를 사용하여 오픈소스에서 사용 가능한
 kubectl 플러그인을 검색하고 설치할 수도 있다. Krew는 쿠버네티스 SIG CLI 커뮤니티에서 관리하는
@@ -57,9 +57,9 @@ Krew [플러그인 인덱스](https://krew.sigs.k8s.io/plugins/)를 통해 사�
 
 플러그인 설치 또는 사전 로딩이 필요하지 않다. 플러그인 실행 파일은
 `kubectl` 바이너리에서 상속된 환경을 받는다.
-플러그인은 이름을 기반으로 구현할 명령 경로를 결정한다. 예를
-들어, 새로운 명령인 `kubectl foo` 를 제공하려는 플러그인은 단순히 이름이
-`kubectl-foo` 이고, `PATH` 의 어딘가에 있다.
+플러그인은 이름을 기반으로 구현할 명령 경로를 결정한다.
+예를 들어, `kubectl-foo` 라는 플러그인은 `kubectl foo` 명령을 제공한다.
+`PATH` 어딘가에 플러그인 실행 파일을 설치해야 한다.
 
 ### 플러그인 예제
 
@@ -85,30 +85,31 @@ echo "I am a plugin named kubectl-foo"
 
 ### 플러그인 사용
 
-위의 플러그인을 사용하려면, 간단히 실행 가능하게 만든다.
+플러그인을 사용하려면, 실행 가능하게 만든다.
 
-```
+```shell
 sudo chmod +x ./kubectl-foo
 ```
 
 그리고 `PATH` 의 어느 곳에나 옮겨 놓는다.
 
-```
+```shell
 sudo mv ./kubectl-foo /usr/local/bin
 ```
 
 이제 플러그인을 `kubectl` 명령으로 호출할 수 있다.
 
-```
+```shell
 kubectl foo
 ```
+
 ```
 I am a plugin named kubectl-foo
 ```
 
 모든 인수와 플래그는 그대로 실행 파일로 전달된다.
 
-```
+```shell
 kubectl foo version
 ```
 ```
@@ -120,6 +121,7 @@ kubectl foo version
 ```bash
 export KUBECONFIG=~/.kube/config
 kubectl foo config
+
 ```
 ```
 /home/<user>/.kube/config
@@ -128,6 +130,7 @@ kubectl foo config
 ```shell
 KUBECONFIG=/etc/kube/config kubectl foo config
 ```
+
 ```
 /etc/kube/config
 ```
@@ -373,10 +376,7 @@ kubectl 플러그인의 배포 패키지를
 컴파일된 패키지를 사용 가능하게 하거나, Krew를 사용하면 설치가
 더 쉬워진다.
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Go로 작성된 플러그인의
   [자세한 예제](https://github.com/kubernetes/sample-cli-plugin)에 대해서는

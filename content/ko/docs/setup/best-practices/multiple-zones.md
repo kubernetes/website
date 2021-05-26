@@ -55,7 +55,7 @@ content_type: concept
 특정 kubelet을 나타내는 노드 오브젝트에
 {{< glossary_tooltip text="레이블" term_id="label" >}}을 자동으로 추가한다.
 이러한 레이블에는
-[영역 정보](/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)가 포함될 수 있다.
+[영역 정보](/docs/reference/labels-annotations-taints/#topologykubernetesiozone)가 포함될 수 있다.
 
 클러스터가 여러 영역 또는 지역에 걸쳐있는 경우,
 [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)과

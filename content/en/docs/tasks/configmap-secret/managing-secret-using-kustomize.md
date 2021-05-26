@@ -48,7 +48,19 @@ secretGenerator:
   - password=1f2d1e2e67df
 ```
 
-Note that in both cases, you don't need to base64 encode the values.
+You can also define the `secretGenerator` in the `kustomization.yaml`
+file by providing `.env` files.
+For example, the following `kustomization.yaml` file pulls in data from
+`.env.secret` file:
+
+```yaml
+secretGenerator:
+- name: db-user-pass
+  envs:
+  - .env.secret
+```
+
+Note that in all cases, you don't need to base64 encode the values.
 
 ## Create the Secret
 
@@ -113,7 +125,7 @@ To check the actual content of the encoded data, please refer to
 
 ## Clean Up
 
-To delete the Secret you have just created:
+To delete the Secret you have created:
 
 ```shell
 kubectl delete secret db-user-pass-96mffmfh4k

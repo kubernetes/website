@@ -15,17 +15,17 @@ weight: 40
 이 튜토리얼을 시작하기 전에
 다음 쿠버네티스 개념에 친숙해야 한다.
 
--   [파드](/ko/docs/concepts/workloads/pods/)
--   [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
--   [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
--   [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)
--   [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
--   [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
--   [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets)
--   [파드안티어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
--   [kubectl CLI](/ko/docs/reference/kubectl/kubectl/)
+- [파드](/ko/docs/concepts/workloads/pods/)
+- [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
+- [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
+- [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)
+- [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+- [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
+- [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets)
+- [파드안티어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
+- [kubectl CLI](/ko/docs/reference/kubectl/kubectl/)
 
-최소한 4개의 노드가 있는 클러스터가 필요하며, 각 노드는 적어도 2 개의 CPU와 4 GiB 메모리가 필요하다. 이 튜토리얼에서 클러스터 노드를 통제(cordon)하고 비우게(drain) 할 것이다. **이것은 클러스터를 종료하여 노드의 모든 파드를 퇴출(evict)하는 것으로, 모든 파드는 임시로 언스케줄된다는 의미이다.** 이 튜토리얼을 위해 전용 클러스터를 이용하거나, 다른 테넌트에 간섭을 하는 혼란이 발생하지 않도록 해야 합니다.
+반드시 최소한 4개의 노드가 있는 클러스터가 필요하며, 각 노드는 적어도 2 개의 CPU와 4 GiB 메모리가 필요하다. 이 튜토리얼에서 클러스터 노드를 통제(cordon)하고 비우게(drain) 할 것이다. **이것은 클러스터를 종료하여 노드의 모든 파드를 축출(evict)하는 것으로, 모든 파드는 임시로 언스케줄된다는 의미이다.** 이 튜토리얼을 위해 전용 클러스터를 이용하거나, 다른 테넌트에 간섭을 하는 혼란이 발생하지 않도록 해야 합니다.
 
 이 튜토리얼은 클러스터가 동적으로 퍼시스턴트볼륨을 프로비저닝하도록 구성한다고 가정한다.
 그렇게 설정되어 있지 않다면
@@ -37,15 +37,15 @@ weight: 40
 
 이 튜토리얼을 마치면 다음에 대해 알게 된다.
 
--   어떻게 스테이트풀셋을 이용하여 ZooKeeper 앙상블을 배포하는가.
--   어떻게 앙상블을 일관되게 설정하는가.
--   어떻게 ZooKeeper 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
--   어떻게 PodDisruptionBudget을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
+- 어떻게 스테이트풀셋을 이용하여 ZooKeeper 앙상블을 배포하는가.
+- 어떻게 앙상블을 일관되게 설정하는가.
+- 어떻게 ZooKeeper 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
+- 어떻게 PodDisruptionBudget을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
 
 
 <!-- lessoncontent -->
 
-### ZooKeeper 기본 {#zookeeper-basics}
+### ZooKeeper
 
 [아파치 ZooKeeper](https://zookeeper.apache.org/doc/current/)는
 분산 애플리케이션을 위한 분산 오픈 소스 코디네이션 서비스이다.
@@ -438,8 +438,8 @@ datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       R
 
 ```shell
 volumeMounts:
-        - name: datadir
-          mountPath: /var/lib/zookeeper
+- name: datadir
+  mountPath: /var/lib/zookeeper
 ```
 
 `zk` 스테이트풀셋이 (재)스케줄링될 때 항상 동일한 `퍼시스턴트볼륨`을
@@ -462,6 +462,7 @@ ZooKeeper 앙상블에 서버는 리더 선출과 쿼럼을 구성하기 위한 
 ```shell
 kubectl get sts zk -o yaml
 ```
+
 ```
 …
 command:
@@ -551,11 +552,9 @@ kubectl logs zk-0 --tail 20
 2016-12-06 19:34:46,230 [myid:1] - INFO  [Thread-1142:NIOServerCnxn@1008] - Closed socket connection for client /127.0.0.1:52768 (no session established for client)
 ```
 
-쿠버네티스는 더 강력하지만 조금 복잡한 로그 통합을
-[스택드라이버](/docs/tasks/debug-application-cluster/logging-stackdriver/)와
-[Elasticsearch와 Kibana](/ko/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)를 지원한다.
-클러스터 수준의 로그 적재(ship)와 통합을 위해서는 로그 순환과 적재를 위해
-[사이드카](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns) 컨테이너를 배포하는 것을 고려한다.
+쿠버네티스는 많은 로그 솔루션과 통합된다. 클러스터와 애플리케이션에
+가장 적합한 로그 솔루션을 선택할 수 있다. 클러스터 수준의
+로그 적재(ship)와 통합을 위해서는 로그 순환과 적재를 위해 [사이드카 컨테이너](/ko/docs/concepts/cluster-administration/logging/#로깅-에이전트와-함께-사이드카-컨테이너-사용)를 배포하는 것을 고려한다.
 
 ### 권한 없는 사용자를 위해 구성하기
 
@@ -623,6 +622,7 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ```shell
 kubectl patch sts zk --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/requests/cpu", "value":"0.3"}]'
 ```
+
 ```
 statefulset.apps/zk patched
 ```
@@ -632,6 +632,7 @@ statefulset.apps/zk patched
 ```shell
 kubectl rollout status sts/zk
 ```
+
 ```
 waiting for statefulset rolling update to complete 0 pods at revision zk-5db4499664...
 Waiting for 1 pods to be ready...
@@ -872,8 +873,8 @@ kubernetes-node-2g2d
 
 ## 생존 유지
 
-**이 섹션에서는 노드를 통제(cordon)하고 비운다(drain). 공유된 클러스터에서 이 튜토리얼을 진행한다면,
-다른 테넌트에 부정적인 영향을 비치지 않음을 보증해야 한다.**
+이 섹션에서는 노드를 통제(cordon)하고 비운다(drain). 공유된 클러스터에서 이 튜토리얼을 진행한다면,
+다른 테넌트에 부정적인 영향을 비치지 않음을 보증해야 한다.
 
 이전 섹션은 계획되지 않은 노드 실패에서 살아남도록
 어떻게 파드를 확산할 것인가에 대해 알아보았다.
@@ -1008,6 +1009,7 @@ zk-1      0/1       Pending   0         0s
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
 ```
+
 ```
 node "kubernetes-node-i4c4" cordoned
 
@@ -1051,6 +1053,7 @@ numChildren = 0
 ```shell
 kubectl uncordon kubernetes-node-pb41
 ```
+
 ```
 node "kubernetes-node-pb41" uncordoned
 ```
@@ -1060,6 +1063,7 @@ node "kubernetes-node-pb41" uncordoned
 ```shell
 kubectl get pods -w -l app=zk
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 zk-0      1/1       Running   2          1h
@@ -1125,7 +1129,6 @@ drain으로 노드를 통제하고 유지보수를 위해 노드를 오프라인
 
 
 - `kubectl uncordon`은 클러스터 내에 모든 노드를 통제 해제한다.
-- 이 튜토리얼에서 사용한 퍼시스턴트 볼륨을 위한
-  퍼시스턴트 스토리지 미디어를 삭제하자.
+- 반드시 이 튜토리얼에서 사용한 퍼시스턴트 볼륨을 위한 퍼시스턴트 스토리지 미디어를 삭제하자.
   귀하의 환경과 스토리지 구성과 프로비저닝 방법에서 필요한 절차를 따라서
   모든 스토리지가 재확보되도록 하자.

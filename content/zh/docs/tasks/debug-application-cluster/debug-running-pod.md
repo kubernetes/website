@@ -143,7 +143,7 @@ kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 ```
 
 This section use the `pause` container image in examples because it does not
-contain userland debugging utilities, but this method works with all container
+contain debugging utilities, but this method works with all container
 images.
 -->
 ## 使用临时容器来调试的例子 {#ephemeral-container-example}
@@ -162,7 +162,7 @@ kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 ```
 
 {{< note >}}
-本节示例中使用 `pause` 容器镜像，因为它不包含任何用户级调试程序，但是这个方法适用于所有容器镜像。
+本节示例中使用 `pause` 容器镜像，因为它不包含调试程序，但是这个方法适用于所有容器镜像。
 {{< /note >}}
 
 <!--

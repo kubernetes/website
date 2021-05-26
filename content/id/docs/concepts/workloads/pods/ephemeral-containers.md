@@ -106,7 +106,7 @@ deskripsikan kontainer sementara untuk ditambahkan dalam daftar
     "apiVersion": "v1",
     "kind": "EphemeralContainers",
     "metadata": {
-            "name": "example-pod"
+        "name": "example-pod"
     },
     "ephemeralContainers": [{
         "command": [

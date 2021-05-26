@@ -323,11 +323,10 @@ The application is responsible for reloading the token when it rotates. Periodic
 
 ## Service Account Issuer Discovery
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-The Service Account Issuer Discovery feature is enabled by enabling the
-`ServiceAccountIssuerDiscovery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates)
-and then enabling the Service Account Token Projection feature as described
+The Service Account Issuer Discovery feature is enabled when the Service Account
+Token Projection feature is enabled, as described
 [above](#service-account-token-volume-projection).
 
 {{< note >}}
@@ -349,8 +348,8 @@ Configuration document at `/.well-known/openid-configuration` and the associated
 JSON Web Key Set (JWKS) at `/openid/v1/jwks`. The OpenID Provider Configuration
 is sometimes referred to as the _discovery document_.
 
-When enabled, the cluster is also configured with a default RBAC ClusterRole
-called `system:service-account-issuer-discovery`. No role bindings are provided
+Clusters include a default RBAC ClusterRole called
+`system:service-account-issuer-discovery`. No role bindings are provided
 by default. Administrators may, for example, choose whether to bind the role to
 `system:authenticated` or `system:unauthenticated` depending on their security
 requirements and which external systems they intend to federate with.

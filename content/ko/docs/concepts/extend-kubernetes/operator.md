@@ -102,27 +102,28 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 
 ## 자신만의 오퍼레이터 작성 {#writing-operator}
 
-에코시스템에 원하는 동작을 구현하는 오퍼레이터가 없다면 직접 코딩할 수 있다.
-[다음 내용](#다음-내용)에서는 클라우드 네이티브 오퍼레이터를 작성하는 데
-사용할 수 있는 라이브러리 및 도구에 대한 몇 가지 링크를
-찾을 수 있다.
+에코시스템에 원하는 동작을 구현하는 오퍼레이터가 없다면
+직접 코딩할 수 있다.
 
 또한 [쿠버네티스 API의 클라이언트](/ko/docs/reference/using-api/client-libraries/)
 역할을 할 수 있는 모든 언어 / 런타임을 사용하여 오퍼레이터(즉, 컨트롤러)를 구현한다.
 
+다음은 클라우드 네이티브 오퍼레이터를 작성하는 데 사용할 수 있는
+몇 가지 라이브러리와 도구들이다.
 
+{{% thirdparty-content %}}
+
+* [kubebuilder](https://book.kubebuilder.io/) 사용하기
+* [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
+* 웹훅(WebHook)과 함께 [Metacontroller](https://metacontroller.app/)를
+  사용하여 직접 구현하기
+* [오퍼레이터 프레임워크](https://operatorframework.io)
 
 ## {{% heading "whatsnext" %}}
 
 
 * [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
 * [OperatorHub.io](https://operatorhub.io/)에서 유스케이스에 맞는 이미 만들어진 오퍼레이터 찾기
-* 기존 도구를 사용하여 자신만의 오퍼레이터를 작성해보자. 다음은 예시이다.
-  * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator) 사용하기
-  * [kubebuilder](https://book.kubebuilder.io/) 사용하기
-  * 웹훅(WebHook)과 함께 [Metacontroller](https://metacontroller.app/)를
-    사용하여 직접 구현하기
-  * [오퍼레이터 프레임워크](https://operatorframework.io) 사용하기
 * 다른 사람들이 사용할 수 있도록 자신의 오퍼레이터를 [게시](https://operatorhub.io/)하기
-* 오퍼레이터 패턴을 소개한 [CoreOS 원본 기사](https://coreos.com/blog/introducing-operators.html) 읽기
+* 오퍼레이터 패턴을 소개한 [CoreOS 원본 글](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html) 읽기 (이 링크는 원본 글에 대한 보관 버전임)
 * 오퍼레이터 구축을 위한 모범 사례에 대한 구글 클라우드(Google Cloud)의 [기사](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) 읽기

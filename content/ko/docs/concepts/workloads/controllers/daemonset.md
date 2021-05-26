@@ -141,8 +141,8 @@ nodeAffinity:
 | ---------------------------------------- | ---------- | ------- | ------------------------------------------------------------ |
 | `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+   | 네트워크 파티션과 같은 노드 문제가 발생해도 데몬셋 파드는 축출되지 않는다. |
 | `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+   | 네트워크 파티션과 같은 노드 문제가 발생해도 데몬셋 파드는 축출되지 않는다. |
-| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    | |
-| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    | |
+| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    | 데몬셋 파드는 기본 스케줄러에서 디스크-압박(disk-pressure) 속성을 허용한다. |
+| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    | 데몬셋 파드는 기본 스케줄러에서 메모리-압박(memory-pressure) 속성을 허용한다. |
 | `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | 데몬셋 파드는 기본 스케줄러의 스케줄할 수 없는(unschedulable) 속성을 극복한다. |
 | `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | 호스트 네트워크를 사용하는 데몬셋 파드는 기본 스케줄러에 의해 이용할 수 없는 네트워크(network-unavailable) 속성을 극복한다. |
 

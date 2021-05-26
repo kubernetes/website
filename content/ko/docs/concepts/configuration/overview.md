@@ -59,13 +59,13 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 - `hostPort`와 같은 이유로, `hostNetwork`를 사용하는 것을 피한다.
 
-- `kube-proxy` 로드 밸런싱이 필요하지 않을 때, 쉬운 서비스 발견을 위해 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
+- `kube-proxy` 로드 밸런싱이 필요하지 않을 때, 서비스 발견을 위해 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
 
 ## 레이블 사용하기
 
 - `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`처럼 애플리케이션이나 디플로이먼트의 __속성에 대한 의미__ 를 식별하는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app: myapp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다. 이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 앱을 참고한다.
 
-릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를 생성할 수 있다. [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)는 생성되어 있는 서비스를 다운타임 없이 수정하기 쉽도록 만든다.
+릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를 생성할 수 있다. 동작 중인 서비스를 다운타임 없이 갱신하려면, [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)를 사용한다.
 
 오브젝트의 의도한 상태는 디플로이먼트에 의해 기술되며, 만약 그 스펙에 대한 변화가 _적용될_ 경우, 디플로이먼트 컨트롤러는 일정한 비율로 실제 상태를 의도한 상태로 변화시킨다.
 
@@ -81,9 +81,9 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 - `imagePullPolicy: Always`: kubelet이 컨테이너를 시작할 때마다, kubelet은 컨테이너 이미지 레지스트리를 쿼리해서 이름을 이미지 다이제스트(digest)로 확인한다. kubelet에 정확한 다이제스트가 저장된 컨테이너 이미지가 로컬로 캐시된 경우, kubelet은 캐시된 이미지를 사용한다. 그렇지 않으면, kubelet은 확인한 다이제스트를 사용해서 이미지를 다운로드(pull)하고, 해당 이미지를 사용해서 컨테이너를 시작한다.
 
-- `imagePullPolicy`가 생략되어 있고, 이미지 태그가 `:latest` 이거나 생략되어 있다면 `Always`가 적용된다.
+- `imagePullPolicy`가 생략되어 있고, 이미지 태그가 `:latest` 이거나 생략되어 있다면 `imagePullPolicy`는 자동으로 `Always`가 적용된다. 태그 값을 변경하더라도 이 값은 `IfNotPresent`로 업데이트 되지 _않는다_.
 
-- `imagePullPolicy`가 생략되어 있고, 이미지 태그가 존재하지만 `:latest`가 아니라면 `IfNotPresent`가 적용된다.
+- `imagePullPolicy`가 생략되어 있고, 이미지 태그가 존재하지만 `:latest`가 아니라면 `imagePullPolicy`는 자동으로 `IfNotPresent`가 적용된다. 태그가 나중에 제거되거나 `:latest`로 변경되더라도 `Always`로 업데이트 되지 _않는다_.
 
 - `imagePullPolicy: Never`: 이미지가 로컬에 존재한다고 가정한다. 이미지를 풀(Pull) 하기 위해 시도하지 않는다.
 
@@ -96,7 +96,7 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 {{< /note >}}
 
 {{< note >}}
-기반이 되는 이미지 제공자의 캐시 방법은 `imagePullPolicy: Always`를 효율적으로 만든다. 예를 들어, 도커에서는 이미지가 이미 존재한다면 풀(Pull) 시도는 빠르게 진행되는데, 이는 모든 이미지 레이어가 캐시되어 있으며 이미지 다운로드가 필요하지 않기 때문이다.
+레지스트리가 안정적으로 동작하는 상황에서는, `imagePullPolicy: Always`로 설정되어 있더라도 기반 이미지 관리 도구의 캐싱 정책을 통해 이미지 풀(pull) 작업의 효율성을 높일 수 있다. 예를 들어, 도커를 사용하는 경우 이미지가 이미 존재한다면 풀(Pull) 시도는 빠르게 진행되는데, 이는 모든 이미지 레이어가 캐시되어 있으며 이미지 다운로드가 필요하지 않기 때문이다.
 {{< /note >}}
 
 ## kubectl 사용하기

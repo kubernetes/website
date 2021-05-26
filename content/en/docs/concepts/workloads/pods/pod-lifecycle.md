@@ -312,7 +312,7 @@ can specify a readiness probe that checks an endpoint specific to readiness that
 is different from the liveness probe.
 
 {{< note >}}
-If you just want to be able to drain requests when the Pod is deleted, you do not
+If you want to be able to drain requests when the Pod is deleted, you do not
 necessarily need a readiness probe; on deletion, the Pod automatically puts itself
 into an unready state regardless of whether the readiness probe exists.
 The Pod remains in the unready state while it waits for the containers in the Pod

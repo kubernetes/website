@@ -111,7 +111,7 @@ kubectl edit ds/fluentd-elasticsearch -n kube-system
 
 ##### Updating only the container image
 
-If you just need to update the container image in the DaemonSet template, i.e.
+If you only need to update the container image in the DaemonSet template, i.e.
 `.spec.template.spec.containers[*].image`, use `kubectl set image`:
 
 ```shell
@@ -167,7 +167,7 @@ If the recent DaemonSet template update is broken, for example, the container is
 crash looping, or the container image doesn't exist (often due to a typo),
 DaemonSet rollout won't progress.
 
-To fix this, just update the DaemonSet template again. New rollout won't be
+To fix this, update the DaemonSet template again. New rollout won't be
 blocked by previous unhealthy rollouts.
 
 #### Clock skew

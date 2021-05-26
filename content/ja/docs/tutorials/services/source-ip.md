@@ -272,7 +272,7 @@ graph TD;
 
 ## `Type=LoadBalancer`を使用したServiceでの送信元IP
 
-[`Type=LoadBalancer`](/ja/docs/concepts/services-networking/service/#loadbalancer)を使用したServiceに送られたパケットは、デフォルトでは送信元のNATは行われません。`Ready`状態にあるすべてのスケジュール可能なKubernetesのNodeは、ロードバランサーからのトラフィックを受付可能であるためです。そのため、エンドポイントが存在しないノードにパケットが到達した場合、システムはエンドポイントが*存在する*ノードにパケットをプロシキーします。このとき、(前のセクションで説明したように)パケットの送信元IPがノードのIPに置換されます。
+[`Type=LoadBalancer`](/ja/docs/concepts/services-networking/service/#loadbalancer)を使用したServiceに送られたパケットは、デフォルトで送信元のNATが行われます。`Ready`状態にあるすべてのスケジュール可能なKubernetesのNodeは、ロードバランサーからのトラフィックを受付可能であるためです。そのため、エンドポイントが存在しないノードにパケットが到達した場合、システムはエンドポイントが*存在する*ノードにパケットをプロシキーします。このとき、(前のセクションで説明したように)パケットの送信元IPがノードのIPに置換されます。
 
 ロードバランサー経由でsource-ip-appを公開することで、これをテストできます。
 
@@ -399,7 +399,7 @@ client_address=198.51.100.79
 Serviceを削除します。
 
 ```shell
-kubectl delete svc -l run=source-ip-app
+kubectl delete svc -l app=source-ip-app
 ```
 
 Deployment、ReplicaSet、Podを削除します。

@@ -178,7 +178,7 @@ kubectl expose deployment hostnames --port=80 --target-port=9376
 service/hostnames exposed
 ```
 
-And read it back, just to be sure:
+And read it back:
 
 ```shell
 kubectl get svc hostnames
@@ -427,8 +427,7 @@ hostnames-632524106-ly40y   1/1       Running   0          1h
 hostnames-632524106-tlaok   1/1       Running   0          1h
 ```
 
-The `-l app=hostnames` argument is a label selector - just like our Service
-has.
+The `-l app=hostnames` argument is a label selector configured on the Service.
 
 The "AGE" column says that these Pods are about an hour old, which implies that
 they are running fine and not crashing.
@@ -607,7 +606,7 @@ iptables-save | grep hostnames
 -A KUBE-PORTALS-HOST -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j DNAT --to-destination 10.240.115.247:48577
 ```
 
-There should be 2 rules for each port of your Service (just one in this
+There should be 2 rules for each port of your Service (only one in this
 example) - a "KUBE-PORTALS-CONTAINER" and a "KUBE-PORTALS-HOST".
 
 Almost nobody should be using the "userspace" mode any more, so you won't spend

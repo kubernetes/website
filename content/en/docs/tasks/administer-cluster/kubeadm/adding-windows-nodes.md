@@ -1,7 +1,9 @@
 ---
 reviewers:
-- michmike
-- patricklang
+- jayunit100
+- jsturtevant
+- marosset
+- perithompson
 title: Adding Windows nodes
 min-kubernetes-server-version: 1.17
 content_type: tutorial

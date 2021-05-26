@@ -842,12 +842,12 @@ CustomResourceDefinition and migrating your objects from one version to another.
 
 <!--
 *Finalizers* allow controllers to implement asynchronous pre-delete hooks.
-Custom objects support finalizers just like built-in objects.
+Custom objects support finalizers similar to built-in objects.
 
 You can add a finalizer to a custom object like this:
 -->
 *Finalizer* 能够让控制器实现异步的删除前（Pre-delete）回调。
-定制对象和内置对象一样支持 Finalizer。
+与内置对象类似，定制对象也支持 Finalizer。
 
 你可以像下面一样为定制对象添加 Finalizer：
 
@@ -1787,8 +1787,6 @@ resources that have the scale subresource enabled.
 ### Categories
 -->
 ### 分类   {#categories}
-
-{{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
 <!--
 Categories is a list of grouped resources the custom resource belongs to (eg. `all`).

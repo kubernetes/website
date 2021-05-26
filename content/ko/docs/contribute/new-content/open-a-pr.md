@@ -123,8 +123,8 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
     ```bash
     origin	git@github.com:<github_username>/website.git (fetch)
     origin	git@github.com:<github_username>/website.git (push)
-    upstream	https://github.com/kubernetes/website (fetch)
-    upstream	https://github.com/kubernetes/website (push)
+    upstream	https://github.com/kubernetes/website.git (fetch)
+    upstream	https://github.com/kubernetes/website.git (push)
     ```
 
 6. 포크의 `origin/master` 와 `kubernetes/website` 의 `upstream/master` 에서 커밋을 가져온다.
@@ -224,7 +224,7 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 {{% tab name="Hugo 컨테이너" %}}
 
 {{< note >}}
-아래 명령은 도커를 기본 컨테이너 엔진으로 사용한다. 이 동작을 무시하려면 `CONTAINER_ENGINE` 환경변수를 설정한다.
+아래 명령은 도커를 기본 컨테이너 엔진으로 사용한다. 이 동작을 무시하려면 `CONTAINER_ENGINE` 환경 변수를 설정한다.
 {{< /note >}}
 
 1.  로컬에서 이미지를 빌드한다.

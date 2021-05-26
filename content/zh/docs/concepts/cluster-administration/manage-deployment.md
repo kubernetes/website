@@ -72,7 +72,7 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 <!--
 `kubectl` will read any files with suffixes `.yaml`, `.yml`, or `.json`.
 
-It is a recommended practice to put resources related to the same microservice or application tier into the same file, and to group all of the files associated with your application in the same directory. If the tiers of your application bind to each other using DNS, then you can then simply deploy all of the components of your stack en masse.
+It is a recommended practice to put resources related to the same microservice or application tier into the same file, and to group all of the files associated with your application in the same directory. If the tiers of your application bind to each other using DNS, then you can deploy all of the components of your stack together.
 
 A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into github:
  -->
@@ -80,7 +80,7 @@ A URL can also be specified as a configuration source, which is handy for deploy
 
 建议的做法是，将同一个微服务或同一应用层相关的资源放到同一个文件中，
 将同一个应用相关的所有文件按组存放到同一个目录中。
-如果应用的各层使用 DNS 相互绑定，那么你可以简单地将堆栈的所有组件一起部署。
+如果应用的各层使用 DNS 相互绑定，那么你可以将堆栈的所有组件一起部署。
 
 还可以使用 URL 作为配置源，便于直接使用已经提交到 Github 上的配置文件进行部署：
 
@@ -113,7 +113,7 @@ service "my-nginx-svc" deleted
 ```
 
 <!--
-In the case of just two resources, it's also easy to specify both on the command line using the resource/name syntax:
+In the case of two resources, it's also easy to specify both on the command line using the resource/name syntax:
  -->
 在仅有两种资源的情况下，可以使用"资源类型/资源名"的语法在命令行中
 同时指定这两个资源：
@@ -138,13 +138,14 @@ service "my-nginx-svc" deleted
 ```
 
 <!--
-Because `kubectl` outputs resource names in the same syntax it accepts, it's easy to chain operations using `$()` or `xargs`:
+Because `kubectl` outputs resource names in the same syntax it accepts, you can chain operations using `$()` or `xargs`:
 -->
 由于 `kubectl` 用来输出资源名称的语法与其所接受的资源名称语法相同，
-所以很容易使用 `$()` 或 `xargs` 进行链式操作：
+你可以使用 `$()` 或 `xargs` 进行链式操作：
 
 ```shell
 kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
+kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service | xargs -i kubectl get {}
 ```
 
 ```
@@ -399,13 +400,13 @@ For a more concrete example, check the [tutorial of deploying Ghost](https://git
 ## Updating labels
 
 Sometimes existing pods and other resources need to be relabeled before creating new resources. This can be done with `kubectl label`.
-For example, if you want to label all your nginx pods as frontend tier, simply run:
+For example, if you want to label all your nginx pods as frontend tier, run:
  -->
 ## 更新标签  {#updating-labels}
 
 有时，现有的 pod 和其它资源需要在创建新资源之前重新标记。
 这可以用 `kubectl label` 完成。
-例如，如果想要将所有 nginx pod 标记为前端层，只需运行：
+例如，如果想要将所有 nginx pod 标记为前端层，运行：
 
 ```shell
 kubectl label pods -l app=nginx tier=fe
@@ -419,7 +420,7 @@ pod/my-nginx-2035384211-u3t6x labeled
 
 <!--
 This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe".
-To see the pods you just labeled, run:
+To see the pods you labeled, run:
  -->
 首先用标签 "app=nginx" 过滤所有的 Pod，然后用 "tier=fe" 标记它们。
 想要查看你刚才标记的 Pod，请运行：
@@ -482,11 +483,11 @@ For more information, please see [annotations](/docs/concepts/overview/working-w
 <!--
 ## Scaling your application
 
-When load on your application grows or shrinks, it's easy to scale with `kubectl`. For instance, to decrease the number of nginx replicas from 3 to 1, do:
+When load on your application grows or shrinks, use `kubectl` to scale you application. For instance, to decrease the number of nginx replicas from 3 to 1, do:
  -->
 ## 扩缩你的应用
 
-当应用上的负载增长或收缩时，使用 `kubectl` 能够轻松实现规模的扩缩。
+当应用上的负载增长或收缩时，使用 `kubectl` 能够实现应用规模的扩缩。
 例如，要将 nginx 副本的数量从 3 减少到 1，请执行以下操作：
 
 ```shell
@@ -505,6 +506,7 @@ Now you only have one pod managed by the deployment.
 ```shell
 kubectl get pods -l app=nginx
 ```
+
 ```
 NAME                        READY     STATUS    RESTARTS   AGE
 my-nginx-2035384211-j5fhi   1/1       Running   0          30m
@@ -653,13 +655,13 @@ JSON merge patch、以及 strategic merge patch。 请参考
 <!--
 ## Disruptive updates
 
-In some cases, you may need to update resource fields that cannot be updated once initialized, or you may just want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can simply modify your original configuration file:
+In some cases, you may need to update resource fields that cannot be updated once initialized, or you may want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can modify your original configuration file:
  -->
 ## 破坏性的更新  {#disruptive-updates}
 
 在某些情况下，你可能需要更新某些初始化后无法更新的资源字段，或者你可能只想立即进行递归更改，
 例如修复 Deployment 创建的不正常的 Pod。若要更改这些字段，请使用 `replace --force`，
-它将删除并重新创建资源。在这种情况下，你可以简单地修改原始配置文件：
+它将删除并重新创建资源。在这种情况下，你可以修改原始配置文件：
 
 ```shell
 kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
@@ -700,7 +702,7 @@ deployment.apps/my-nginx created
 ```
 
 <!--
-To update to version 1.16.1, simply change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1`, with the kubectl commands we learned above.
+To update to version 1.16.1, change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1`, with the previous kubectl commands.
  -->
 要更新到 1.16.1 版本，只需使用我们前面学到的 kubectl 命令将
 `.spec.template.spec.containers[0].image` 从 `nginx:1.14.2` 修改为 `nginx:1.16.1`。

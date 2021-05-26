@@ -8,9 +8,7 @@ weight: 10
 
 스케줄링 정책을 사용하여 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}가 각각 노드를 필터링하고 스코어링(scoring)하기 위해 실행하는 *단정(predicates)* 및 *우선순위(priorities)* 를 지정할 수 있다.
 
-`kube-scheduler --policy-config-file <filename>` 또는 `kube-scheduler --policy-configmap <ConfigMap>`을 실행하고 [정책 유형](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy)을 사용하여 스케줄링 정책을 설정할 수 있다.
-
-
+`kube-scheduler --policy-config-file <filename>` 또는 `kube-scheduler --policy-configmap <ConfigMap>`을 실행하고 [정책 유형](/docs/reference/config-api/kube-scheduler-policy-config.v1/)을 사용하여 스케줄링 정책을 설정할 수 있다.
 
 <!-- body -->
 
@@ -110,9 +108,9 @@ weight: 10
 - `EvenPodsSpreadPriority`: 선호된
   [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)을 구현한다.
 
-
-
 ## {{% heading "whatsnext" %}}
 
 * [스케줄링](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 배우기
 * [kube-scheduler 프로파일](/docs/reference/scheduling/profiles/)에 대해 배우기
+* [kube-scheduler configuration 레퍼런스 (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1) 읽어보기
+* [kube-scheduler Policy 레퍼런스 (v1)](/docs/reference/config-api/kube-scheduler-policy-config.v1/) 읽어보기

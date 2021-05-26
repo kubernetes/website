@@ -8,7 +8,7 @@ min-kubernetes-server-version: v1.10
 <!-- overview -->
 
 이 페이지는 `kubectl port-forward` 를 사용해서 쿠버네티스 클러스터 내에서
-실행중인 Redis 서버에 연결하는 방법을 보여준다. 이 유형의 연결은 데이터베이스
+실행중인 MongoDB 서버에 연결하는 방법을 보여준다. 이 유형의 연결은 데이터베이스
 디버깅에 유용할 수 있다.
 
 
@@ -19,25 +19,25 @@ min-kubernetes-server-version: v1.10
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* [redis-cli](http://redis.io/topics/rediscli)를 설치한다.
+* [MongoDB Shell](https://www.mongodb.com/try/download/shell)을 설치한다.
 
 
 
 
 <!-- steps -->
 
-## Redis 디플로이먼트와 서비스 생성하기
+## MongoDB 디플로이먼트와 서비스 생성하기
 
-1. Redis를 실행하기 위해 디플로이먼트를 생성한다.
+1. MongoDB를 실행하기 위해 디플로이먼트를 생성한다.
 
     ```shell
-    kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
+    kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-deployment.yaml
     ```
 
     성공적인 명령어의 출력은 디플로이먼트가 생성됐다는 것을 확인해준다.
 
     ```
-    deployment.apps/redis-master created
+    deployment.apps/mongo created
     ```
 
     파드 상태를 조회하여 파드가 준비되었는지 확인한다.
@@ -49,8 +49,8 @@ min-kubernetes-server-version: v1.10
     출력은 파드가 생성되었다는 것을 보여준다.
 
     ```
-    NAME                            READY     STATUS    RESTARTS   AGE
-    redis-master-765d459796-258hz   1/1       Running   0          50s
+    NAME                     READY   STATUS    RESTARTS   AGE
+    mongo-75f59d57f4-4nd6q   1/1     Running   0          2m4s
     ```
 
     디플로이먼트 상태를 조회한다.
@@ -62,64 +62,65 @@ min-kubernetes-server-version: v1.10
     출력은 디플로이먼트가 생성되었다는 것을 보여준다.
 
     ```
-    NAME         READY   UP-TO-DATE   AVAILABLE   AGE
-    redis-master 1/1     1            1           55s
+    NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+    mongo   1/1     1            1           2m21s
     ```
 
+    디플로이먼트는 자동으로 레플리카셋을 관리한다.
     아래의 명령어를 사용하여 레플리카셋 상태를 조회한다.
 
     ```shell
-    kubectl get rs
+    kubectl get replicaset
     ```
 
     출력은 레플리카셋이 생성되었다는 것을 보여준다.
 
     ```
-    NAME                      DESIRED   CURRENT   READY     AGE
-    redis-master-765d459796   1         1         1         1m
+    NAME               DESIRED   CURRENT   READY   AGE
+    mongo-75f59d57f4   1         1         1       3m12s
     ```
 
 
-2. Redis를 네트워크에 노출시키기 위해 서비스를 생성한다.
+2. MongoDB를 네트워크에 노출시키기 위해 서비스를 생성한다.
 
     ```shell
-    kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
+    kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-service.yaml
     ```
 
     성공적인 커맨드의 출력은 서비스가 생성되었다는 것을 확인해준다.
 
     ```
-    service/redis-master created
+    service/mongo created
     ```
 
     서비스가 생성되었는지 확인한다.
 
     ```shell
-    kubectl get svc | grep redis
+    kubectl get service mongo
     ```
 
     출력은 서비스가 생성되었다는 것을 보여준다.
 
     ```
-    NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-    redis-master   ClusterIP   10.0.0.213   <none>        6379/TCP   27s
+    NAME    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)     AGE
+    mongo   ClusterIP   10.96.41.183   <none>        27017/TCP   11s
     ```
 
-3. Redis 서버가 파드 안에서 실행되고 있고, 6379번 포트에서 수신하고 있는지 확인한다.
+3. MongoDB 서버가 파드 안에서 실행되고 있고, 27017번 포트에서 수신하고 있는지 확인한다.
 
     ```shell
-    # redis-master-765d459796-258hz 를 파드 이름으로 변경한다.
-    kubectl get pod redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
+    # mongo-75f59d57f4-4nd6q 를 당신의 파드 이름으로 대체한다.
+    kubectl get pod mongo-75f59d57f4-4nd6q --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
 
     ```
 
-    출력은 파드 내 Redis 포트 번호를 보여준다.
+    출력은 파드 내 MongoDB 포트 번호를 보여준다.
 
     ```
-    6379
+    27017
     ```
 
-    (이 TCP 포트는 Redis가 인터넷에 할당된 것이다).
+    (이는 인터넷 상의 MongoDB에 할당된 TCP 포트이다.)
 
 ## 파드의 포트를 로컬 포트로 포워딩하기
 
@@ -127,39 +128,39 @@ min-kubernetes-server-version: v1.10
 
 
     ```shell
-    # redis-master-765d459796-258hz 를 파드 이름으로 변경한다.
-    kubectl port-forward redis-master-765d459796-258hz 7000:6379
+    # mongo-75f59d57f4-4nd6q 를 당신의 파드 이름으로 대체한다.
+    kubectl port-forward mongo-75f59d57f4-4nd6q 28015:27017
     ```
 
     이것은
 
     ```shell
-    kubectl port-forward pods/redis-master-765d459796-258hz 7000:6379
+    kubectl port-forward pods/mongo-75f59d57f4-4nd6q 28015:27017
     ```
 
     또는
 
     ```shell
-    kubectl port-forward deployment/redis-master 7000:6379
+    kubectl port-forward deployment/mongo 28015:27017
     ```
 
     또는
 
     ```shell
-    kubectl port-forward rs/redis-master 7000:6379
+    kubectl port-forward replicaset/mongo-75f59d57f4 28015:27017
     ```
 
     또는 다음과 같다.
 
     ```shell
-    kubectl port-forward service/redis-master 7000:redis
+    kubectl port-forward service/mongo 28015:27017
     ```
 
     위의 명령어들은 모두 동일하게 동작한다. 이와 유사하게 출력된다.
 
     ```
-    Forwarding from 127.0.0.1:7000 -> 6379
-    Forwarding from [::1]:7000 -> 6379
+    Forwarding from 127.0.0.1:28015 -> 27017
+    Forwarding from [::1]:28015 -> 27017
     ```
 
 {{< note >}}
@@ -168,22 +169,22 @@ min-kubernetes-server-version: v1.10
 
 {{< /note >}}
 
-2.  Redis 커맨드라인 인터페이스를 실행한다.
+2.  MongoDB 커맨드라인 인터페이스를 실행한다.
 
     ```shell
-    redis-cli -p 7000
+    mongosh --port 28015
     ```
 
-3.  Redis 커맨드라인 프롬프트에 `ping` 명령을 입력한다.
+3.  MongoDB 커맨드라인 프롬프트에 `ping` 명령을 입력한다.
 
     ```shell
-    ping
+    db.runCommand( { ping: 1 } )
     ```
 
     성공적인 핑 요청을 반환한다.
 
     ```
-    PONG
+    { ok: 1 }
     ```
 
 ### 선택적으로 _kubectl_ 이 로컬 포트를 선택하게 하기 {#let-kubectl-choose-local-port}
@@ -193,15 +194,15 @@ min-kubernetes-server-version: v1.10
 부담을 줄일 수 있다.
 
 ```shell
-kubectl port-forward deployment/redis-master :6379
+kubectl port-forward deployment/mongo :27017
 ```
 
-`kubectl` 도구는 사용 중이 아닌 로컬 포트 번호를 찾는다. (낮은 포트 번호는
-다른 애플리케이션에서 사용될 것이므로, 낮은 포트 번호를 피해서) 출력은 다음과 같을 것이다.
+`kubectl` 도구는 사용 중이 아닌 로컬 포트 번호를 찾는다 (낮은 포트 번호는
+다른 애플리케이션에서 사용될 것이므로, 낮은 포트 번호를 피해서). 출력은 다음과 같을 것이다.
 
 ```
-Forwarding from 127.0.0.1:62162 -> 6379
-Forwarding from [::1]:62162 -> 6379
+Forwarding from 127.0.0.1:63753 -> 27017
+Forwarding from [::1]:63753 -> 27017
 ```
 
 
@@ -209,7 +210,7 @@ Forwarding from [::1]:62162 -> 6379
 
 ## 토의
 
-로컬 7000 포트에 대한 연결은 Redis 서버가 실행중인 파드의 6379 포트로 포워딩된다.
+로컬 28015 포트에 대한 연결은 MongoDB 서버가 실행중인 파드의 27017 포트로 포워딩된다.
 이 연결로 로컬 워크스테이션에서 파드 안에서 실행 중인 데이터베이스를 디버깅하는데
 사용할 수 있다.
 

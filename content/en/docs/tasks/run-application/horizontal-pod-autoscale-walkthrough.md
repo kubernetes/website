@@ -382,7 +382,7 @@ with *external metrics*.
 
 Using external metrics requires knowledge of your monitoring system; the setup is
 similar to that required when using custom metrics. External metrics allow you to autoscale your cluster
-based on any metric available in your monitoring system. Just provide a `metric` block with a
+based on any metric available in your monitoring system. Provide a `metric` block with a
 `name` and `selector`, as above, and use the `External` metric type instead of `Object`.
 If multiple time series are matched by the `metricSelector`,
 the sum of their values is used by the HorizontalPodAutoscaler.

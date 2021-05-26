@@ -65,6 +65,8 @@ MySQL을 실행하고 퍼시스턴트볼륨클레임을 참조하는 디플로�
 
         kubectl describe deployment mysql
 
+    출력은 다음과 유사하다.
+
         Name:                 mysql
         Namespace:            default
         CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
@@ -105,12 +107,16 @@ MySQL을 실행하고 퍼시스턴트볼륨클레임을 참조하는 디플로�
 
         kubectl get pods -l app=mysql
 
+    출력은 다음과 유사하다.
+
         NAME                   READY     STATUS    RESTARTS   AGE
         mysql-63082529-2z3ki   1/1       Running   0          3m
 
 1. 퍼시스턴트볼륨클레임을 살펴본다.
 
         kubectl describe pvc mysql-pv-claim
+
+    출력은 다음과 유사하다.
 
         Name:         mysql-pv-claim
         Namespace:    default

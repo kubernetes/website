@@ -220,7 +220,19 @@ of the controller that should implement the class.
 {{< codenew file="service/networking/external-lb.yaml" >}}
 
 IngressClass resources contain an optional parameters field. This can be used to
-reference additional configuration for this class.
+reference additional implementation-specific configuration for this class.
+
+#### Namespace-scoped parameters
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+`Parameters` field has a `scope` and `namespace` field that can be used to
+reference a namespace-specific resource for configuration of an Ingress class.
+`Scope` field defaults to `Cluster`, meaning, the default is cluster-scoped
+resource. Setting `Scope` to `Namespace` and setting the `Namespace` field
+will reference a parameters resource in a specific namespace:
+
+{{< codenew file="service/networking/namespaced-params.yaml" >}}
 
 ### Deprecated annotation
 
@@ -260,7 +272,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 {{< codenew file="service/networking/test-ingress.yaml" >}}
 
 If you create it using `kubectl apply -f` you should be able to view the state
-of the Ingress you just added:
+of the Ingress you added:
 
 ```bash
 kubectl get ingress test-ingress

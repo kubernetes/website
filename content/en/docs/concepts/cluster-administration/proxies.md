@@ -39,7 +39,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxies UDP, TCP and SCTP
     - does not understand HTTP
     - provides load balancing
-    - is just used to reach services
+    - is only used to reach services
 
 1.  A Proxy/Load-balancer in front of apiserver(s):
 
