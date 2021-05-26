@@ -19,7 +19,7 @@ Windowsアプリケーションは、多くの組織で実行されるサービ�
 
 ## 始める前に
 
-* [Windows Serverを実行するマスターノードとワーカーノード](/ja/docs/setup/production-environment/windows/user-guide-windows-nodes/)を含むKubernetesクラスターを作成します
+* [Windows Serverを実行するマスターノードとワーカーノード](/ja/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)を含むKubernetesクラスターを作成します
 * Kubernetes上にServiceとワークロードを作成してデプロイすることは、LinuxコンテナとWindowsコンテナ共に、ほぼ同じように動作することに注意してください。クラスターとのインタフェースとなる[Kubectlコマンド](/docs/reference/kubectl/overview/)も同じです。Windowsコンテナをすぐに体験できる例を以下セクションに用意しています。
 
 ## はじめに:Windowsコンテナのデプロイ
@@ -96,7 +96,7 @@ spec:
     * ネットワークを介したノードとPod間通信、LinuxマスターからのPod IPのポート80に向けて`curl`して、ウェブサーバーの応答をチェックします
     * docker execまたはkubectl execを使用したPod間通信、Pod間(および複数のWindowsノードがある場合はホスト間)へのpingします
     * ServiceからPodへの通信、Linuxマスターおよび個々のPodからの仮想Service IP(`kubectl get services`で表示される)に`curl`します
-    * サービスディスカバリ、Kuberntesの[default DNS suffix](/ja/docs/concepts/services-networking/dns-pod-service/#services)と共にService名に`curl`します
+    * サービスディスカバリ、Kubernetesの[default DNS suffix](/ja/docs/concepts/services-networking/dns-pod-service/#services)と共にService名に`curl`します
     * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
     * インバウンド接続、Linuxマスターまたはクラスター外のマシンからNodePortに`curl`します
     * アウトバウンド接続、kubectl execを使用したPod内からの外部IPに`curl`します

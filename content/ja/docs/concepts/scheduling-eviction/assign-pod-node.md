@@ -66,17 +66,7 @@ nodeSelectorを以下のように追加します:
 ## 補足: ビルトインNodeラベル {#built-in-node-labels}
 
 明示的に[付与](#step-one-attach-label-to-the-node)するラベルの他に、事前にNodeへ付与されているものもあります。
-以下のようなラベルが該当します。
-
-* [`kubernetes.io/hostname`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-hostname)
-* [`failure-domain.beta.kubernetes.io/zone`](/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesiozone)
-* [`failure-domain.beta.kubernetes.io/region`](/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesioregion)
-* [`topology.kubernetes.io/zone`](/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
-* [`topology.kubernetes.io/region`](/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
-* [`beta.kubernetes.io/instance-type`](/docs/reference/kubernetes-api/labels-annotations-taints/#beta-kubernetes-io-instance-type)
-* [`node.kubernetes.io/instance-type`](/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
-* [`kubernetes.io/os`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-os)
-* [`kubernetes.io/arch`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-arch)
+これらのラベルのリストは、[Well-Known Labels, Annotations and Taints](/docs/reference/kubernetes-api/labels-annotations-taints/)を参照してください。
 
 {{< note >}}
 これらのラベルは、クラウドプロバイダー固有であり、確実なものではありません。
@@ -140,9 +130,9 @@ Nodeアフィニティでは、`In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt`
 
 `nodeSelector`と`nodeAffinity`の両方を指定した場合、Podは**両方の**条件を満たすNodeにスケジュールされます。
 
-`nodeAffinity`内で複数の`nodeSelectorTerms`を指定した場合、Podは**全ての**`nodeSelectorTerms`を満たしたNodeへスケジュールされます。
+`nodeAffinity`内で複数の`nodeSelectorTerms`を指定した場合、Podは**いずれかの**`nodeSelectorTerms`を満たしたNodeへスケジュールされます。
 
-`nodeSelectorTerms`内で複数の`matchExpressions`を指定した場合にはPodは**いずれかの**`matchExpressions`を満たしたNodeへスケジュールされます。
+`nodeSelectorTerms`内で複数の`matchExpressions`を指定した場合にはPodは**全ての**`matchExpressions`を満たしたNodeへスケジュールされます。
 
 PodがスケジュールされたNodeのラベルを削除したり変更しても、Podは削除されません。
 言い換えると、アフィニティはPodをスケジュールする際にのみ考慮されます。
