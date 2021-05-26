@@ -1,5 +1,9 @@
 ---
 title: 애그리게이션 레이어(aggregation layer)로 쿠버네티스 API 확장하기
+
+
+
+
 content_type: concept
 weight: 10
 ---
@@ -25,8 +29,6 @@ Extension-apiserver는 kube-apiserver로 오가는 연결의 레이턴시가 낮
 kube-apiserver로 부터의 디스커버리 요청은 왕복 레이턴시가 5초 이내여야 한다.
 
 extention API server가 레이턴시 요구 사항을 달성할 수 없는 경우 이를 충족할 수 있도록 변경하는 것을 고려한다.
-`EnableAggregatedDiscoveryTimeout=false` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 설정해서 타임아웃
-제한을 비활성화 할 수 있다. 이 사용 중단(deprecated)된 기능 게이트는 향후 릴리스에서 제거될 예정이다.
 
 ## {{% heading "whatsnext" %}}
 

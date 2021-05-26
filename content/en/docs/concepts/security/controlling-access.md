@@ -43,7 +43,7 @@ Authenticators are described in more detail in
 [Authentication](/docs/reference/access-authn-authz/authentication/).
 
 The input to the authentication step is the entire HTTP request; however, it typically
-just examines the headers and/or client certificate.
+examines the headers and/or client certificate.
 
 Authentication modules include client certificates, password, and plain tokens,
 bootstrap tokens, and JSON Web Tokens (used for service accounts).

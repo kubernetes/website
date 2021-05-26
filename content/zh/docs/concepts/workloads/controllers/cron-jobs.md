@@ -154,6 +154,14 @@ at least once.
 如果 `startingDeadlineSeconds` 设置为很大的数值或未设置（默认），并且
 `concurrencyPolicy` 设置为 `Allow`，则作业将始终至少运行一次。
 
+{{< caution >}}
+<!--
+If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob may not be scheduled. This is because the CronJob controller checks things every 10 seconds.
+-->
+如果 `startingDeadlineSeconds` 的设置值低于 10 秒钟，CronJob 可能无法被调度。
+这是因为 CronJob 控制器每 10 秒钟执行一次检查。
+{{< /caution >}}
+
 <!--
 For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error
 -->

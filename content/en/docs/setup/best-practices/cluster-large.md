@@ -24,7 +24,7 @@ on how your cluster is deployed.
 
 To avoid running into cloud provider quota issues, when creating a cluster with many nodes,
 consider:
-* Request a quota increase for cloud resources such as:
+* Requesting a quota increase for cloud resources such as:
     * Computer instances
     * CPUs
     * Storage volumes
@@ -33,7 +33,7 @@ consider:
     * Number of load balancers
     * Network subnets
     * Log streams
-* Gate the cluster scaling actions to brings up new nodes in batches, with a pause
+* Gating the cluster scaling actions to bring up new nodes in batches, with a pause
   between batches, because some cloud providers rate limit the creation of new instances.
 
 ## Control plane components
@@ -66,13 +66,16 @@ When creating a cluster, you can (using custom tooling):
 * start and configure additional etcd instance
 * configure the {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} to use it for storing events
 
+See [Operating etcd clusters for Kubernetes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/) and
+[Set up a High Availability etcd cluster with kubeadm](docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+for details on configuring and managing etcd for a large cluster.
+
 ## Addon resources
 
 Kubernetes [resource limits](/docs/concepts/configuration/manage-resources-containers/)
-help to minimise the impact of memory leaks and other ways that pods and containers can
-impact on other components. These resource limits can and should apply to
-{{< glossary_tooltip text="addon" term_id="addons" >}} just as they apply to application
-workloads.
+help to minimize the impact of memory leaks and other ways that pods and containers can
+impact on other components. These resource limits apply to
+{{< glossary_tooltip text="addon" term_id="addons" >}} resources just as they apply to application workloads.
 
 For example, you can set CPU and memory limits for a logging component:
 

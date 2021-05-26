@@ -149,10 +149,10 @@ PersistentVolumeClaim dibuat. PersistentVolume akan dipilih atau di-_provisionin
 sesuai dengan topologi yang dispesifikasikan oleh limitasi yang diberikan
 oleh mekanisme _scheduling_ Pod. Hal ini termasuk, tetapi tidak hanya terbatas pada,
 [persyaratan sumber daya](/id/docs/concepts/configuration/manage-compute-resources-container),
-[_node selector_](/id/docs/concepts/configuration/assign-pod-node/#nodeselector),
+[_node selector_](/id/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector),
 [afinitas dan
-anti-afinitas Pod](/id/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
-serta [_taint_ dan _toleration_](/id/docs/concepts/configuration/taint-and-toleration).
+anti-afinitas Pod](/id/docs/concepts/scheduling-evictionassign-pod-node/#affinity-and-anti-affinity),
+serta [_taint_ dan _toleration_](/id/docs/concepts/scheduling-eviction/taint-and-toleration).
 
 Beberapa _plugin_ di bawah ini mendukung `WaitForFirstConsumer` dengan _provisioning_
 dinamis:

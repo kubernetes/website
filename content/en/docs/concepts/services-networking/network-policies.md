@@ -221,18 +221,72 @@ When the feature gate is enabled, you can set the `protocol` field of a NetworkP
 You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports SCTP protocol NetworkPolicies.
 {{< /note >}}
 
+## Targeting a range of Ports
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+When writing a NetworkPolicy, you can target a range of ports instead of a single port.
+
+This is achievable with the usage of the `endPort` field, as the following example:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: multi-port-egress
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/24
+    ports:
+    - protocol: TCP
+      port: 32000
+      endPort: 32768
+```
+
+The above rule allows any Pod with label `db` on the namespace `default` to communicate with any IP within the range `10.0.0.0/24` over TCP, provided that the target port is between the range 32000 and 32768.
+
+The following restrictions apply when using this field:
+* As an alpha feature, this is disabled by default. To enable the `endPort` field at a cluster level, you (or your cluster administrator) need to enable the `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=NetworkPolicyEndPort=true,…`.
+* The `endPort` field must be equal than or greater to the `port` field.
+* `endPort` can only be defined if `port` is also defined.
+* Both ports must be numeric.
+
+{{< note >}}
+Your cluster must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that
+supports the `endPort` field in NetworkPolicy specifications.
+{{< /note >}}
+
+## Targeting a Namespace by its name
+
+{{< feature-state state="beta" for_k8s_version="1.21" >}}
+
+The Kubernetes control plane sets an immutable label `kubernetes.io/metadata.name` on all
+namespaces, provided that the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+The value of the label is the namespace name.
+
+While NetworkPolicy cannot target a namespace by its name with some object field, you can use the
+standardized label to target a specific namespace.
+
 ## What you can't do with network policies (at least, not yet)
 
-As of Kubernetes 1.20, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.  Some (but not all) of these user stories are actively being discussed for future releases of the NetworkPolicy API.
+As of Kubernetes {{< skew latestVersion >}}, the following functionality does not exist in the NetworkPolicy API, but you might be able to implement workarounds using Operating System components (such as SELinux, OpenVSwitch, IPTables, and so on) or Layer 7 technologies (Ingress controllers, Service Mesh implementations) or admission controllers.  In case you are new to network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be implemented using the NetworkPolicy API.
 
 - Forcing internal cluster traffic to go through a common gateway (this might be best served with a service mesh or other proxy).
 - Anything TLS related (use a service mesh or ingress controller for this).
 - Node specific policies (you can use CIDR notation for these, but you cannot target nodes by their Kubernetes identities specifically).
-- Targeting of namespaces or services by name (you can, however, target pods or namespaces by their {{< glossary_tooltip text="labels" term_id="label" >}}, which is often a viable workaround).
+- Targeting of services by name (you can, however, target pods or namespaces by their {{< glossary_tooltip text="labels" term_id="label" >}}, which is often a viable workaround).
 - Creation or management of "Policy requests" that are fulfilled by a third party.
 - Default policies which are applied to all namespaces or pods (there are some third party Kubernetes distributions and projects which can do this).
 - Advanced policy querying and reachability tooling.
-- The ability to target ranges of Ports in a single policy declaration.
 - The ability to log network security events (for example connections that are blocked or accepted).
 - The ability to explicitly deny policies (currently the model for NetworkPolicies are deny by default, with only the ability to add allow rules).
 - The ability to prevent loopback or incoming host traffic (Pods cannot currently block localhost access, nor do they have the ability to block access from their resident node).

@@ -381,7 +381,7 @@ object:
 외부 메트릭 사용시, 먼저 모니터링 시스템에 대한 이해가 있어야 한다.
 이 설치는 사용자 정의 메트릭과 유사하다.
 외부 메트릭을 사용하면 모니터링 시스템의 사용 가능한 메트릭에 기반하여 클러스터를 오토스케일링 할 수 있다.
-위의 예제처럼 `name`과 `selector`를 갖는 `metric` 블록을 제공하고,
+위의 예제처럼 `name`과 `selector`를 갖는 `metric` 블록을 명시하고,
 `Object` 대신에 `External` 메트릭 타입을 사용한다.
 만일 여러 개의 시계열이 `metricSelector`와 일치하면, HorizontalPodAutoscaler가 값의 합을 사용한다.
 외부 메트릭들은 `Value`와 `AverageValue` 대상 타입을 모두 지원하고,

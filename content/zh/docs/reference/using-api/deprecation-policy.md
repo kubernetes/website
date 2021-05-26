@@ -45,7 +45,7 @@ into 3 main tracks, each of which has different policies for deprecation:
 ## 弃用 API 的一部分  {#deprecating-parts-of-the-api}
 
 由于 Kubernetes 是一个 API 驱动的系统，API 会随着时间推移而演化，以反映
-人们对问题共建的认识的变化。Kubernetes API 实际上是一个 API 集合，其中每个
+人们对问题空间的认识的变化。Kubernetes API 实际上是一个 API 集合，其中每个
 成员称作“API 组（API Group）”，并且每个 API 组都是独立管理版本的。
 [API 版本](/zh/docs/reference/using-api/#api-versioning)会有
 三类，每类有不同的废弃策略：
@@ -448,7 +448,7 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
 
 1. Returns a `Warning` header (as defined in [RFC7234, Section 5.5](https://tools.ietf.org/html/rfc7234#section-5.5)) in the API response.
 2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug-application-cluster/audit/) recorded for the request.
-3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver` 
+3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver`
    process. The metric has labels for `group`, `version`, `resource`, `subresource` that can be joined
    to the `apiserver_request_total` metric, and a `removed_release` label that indicates the
    Kubernetes release in which the API will no longer be served. The following Prometheus query
@@ -510,7 +510,7 @@ supported in API v1 must exist and function until API v1 is removed.
 <!--
 ### Component config structures
 
-Component configs are versioned and managed just like REST resources.
+Component configs are versioned and managed similar to REST resources.
 -->
 ### 组件配置结构  {#component-config-structures}
 
@@ -714,6 +714,82 @@ Both warnings and documentation must indicate whether a feature gate is non-oper
 **规则 #9：已弃用的特色门控再被使用时必须给出警告回应。当特性门控被
 弃用时，必须在发布说明和对应的 CLI 帮助信息中通过文档宣布。
 警告信息和文档都要标明是否某特性门控不再起作用。**
+
+<!--
+## Deprecating a metric
+
+Each component of the Kubernetes control-plane exposes metrics (usually the
+`/metrics` endpoint), which are typically ingested by cluster administrators.
+Not all metrics are the same: some metrics are commonly used as SLIs or used
+to determine SLOs, these tend to have greater import. Other metrics are more
+experimental in nature or are used primarily in the Kubernetes development
+process.
+
+Accordingly, metrics fall under two stability classes (`ALPHA` and `STABLE`);
+this impacts removal of a metric during a Kubernetes release. These classes
+are determined by the perceived importance of the metric. The rules for
+deprecating and removing a metric are as follows:
+-->
+
+### 弃用度量值    {#Deprecating a metric}
+
+Kubernetes 控制平面的每个组件都公开度量值（通常是 `/metrics` 端点），它们通常由集群管理员使用。
+并不是所有的度量值都是同样重要的：一些度量值通常用作 SLIs 或被使用来确定 SLOs，这些往往比较重要。
+其他度量值在本质上带有实验性，或者主要用于 Kubernetes 开发过程。
+
+因此，度量值分为两个稳定性类别（`ALPHA` 和 `STABLE`）;
+此分类会影响在 Kubernetes 发布版本中移除某度量值。
+所对应的分类取决于对该度量值重要性的预期。
+弃用和移除度量值的规则如下：
+
+<!--
+**Rule #9a: Metrics, for the corresponding stability class, must function for no less than:**
+
+   * **STABLE: 4 releases or 12 months (whichever is longer)**
+   * **ALPHA: 0 releases**
+
+**Rule #9b: Metrics, after their _announced deprecation_, must function for no less than:**
+
+   * **STABLE: 3 releases or 9 months (whichever is longer)**
+   * **ALPHA: 0 releases**
+-->
+**规则 #9a: 对于相应的稳定性类别，度量值起作用的周期必须不小于：**
+
+   * **STABLE: 4 个发布版本或者 12 个月 (取其较长者)**
+   * **ALPHA: 0 个发布版本**
+
+**规则 #9b: 在度量值被宣布启用之后，它起作用的周期必须不小于：**
+
+   * **STABLE: 3 个发布版本或者 9 个月 (取其较长者)**
+   * **ALPHA: 0 个发布版本**
+
+<!--
+Deprecated metrics will have their description text prefixed with a deprecation notice
+string '(Deprecated from x.y)' and a warning log will be emitted during metric
+registration. Like their stable undeprecated counterparts, deprecated metrics will
+be automatically registered to the metrics endpoint and therefore visible.
+
+On a subsequent release (when the metric's `deprecatedVersion` is equal to
+_current_kubernetes_version - 3_)), a deprecated metric will become a _hidden_ metric.
+**_Unlike_** their deprecated counterparts, hidden metrics will _no longer_ be
+automatically registered to the metrics endpoint (hence hidden). However, they
+can be explicitly enabled through a command line flag on the binary
+(`--show-hidden-metrics-for-version=`). This provides cluster admins an
+escape hatch to properly migrate off of a deprecated metric, if they were not
+able to react to the earlier deprecation warnings. Hidden metrics should be
+deleted after one release.
+-->
+已弃用的度量值将在其描述文本前加上一个已弃用通知字符串 '(Deprecated from x.y)'，
+并将在度量值被记录期间发出警告日志。就像稳定的、未被弃用的度量指标一样，
+被弃用的度量值将自动注册到 metrics 端点，因此被弃用的度量值也是可见的。
+
+在随后的版本中（当度量值 `deprecatedVersion` 等于_当前 Kubernetes 版本 - 3_），
+被弃用的度量值将变成 _隐藏（Hidden）_ metric 度量值。
+与被弃用的度量值不同，隐藏的度量值将不再被自动注册到 metrics 端点（因此被隐藏）。
+但是，它们可以通过可执行文件的命令行标志显式启用（`--show-hidden-metrics-for-version=`）。
+
+如果集群管理员不能对早期的弃用警告作出反应，这一设计就为他们提供了抓紧迁移弃用度量值的途径。
+隐藏的度量值应该在再过一个发行版本后被删除。
 
 <!--
 ## Exceptions

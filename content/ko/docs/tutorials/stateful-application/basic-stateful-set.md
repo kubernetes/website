@@ -434,7 +434,7 @@ web-4     0/1       ContainerCreating   0         0s
 web-4     1/1       Running   0         19s
 ```
 
-스테이트풀셋 컨트롤러는 레플리카개수를 스케일링한다.
+스테이트풀셋 컨트롤러는 레플리카 개수를 스케일링한다.
 [스테이트풀셋 생성](#차례대로-파드-생성하기)으로 스테이트풀셋 컨트롤러는
 각 파드을 순차적으로 각 순번에 따라 생성하고 후속 파드 시작 전에
 이전 파드가 Running과 Ready 상태가 될 때까지
@@ -921,7 +921,7 @@ web-2     0/1       Terminating   0         3m
 
 `web` 스테이트풀셋이 다시 생성될 때 먼저 `web-0` 시작한다.
 `web-1`은 이미  Running과 Ready 상태이므로 `web-0`이 Running과 Ready 상태로
-전환될 때는 단순히 이 파드에 적용됬다. 스테이트풀셋에`replicas`를 2로 하고
+전환될 때는 이 파드에 적용됐다. 스테이트풀셋에 `replicas`를 2로 하고
 `web-0`을 재생성했다면 `web-1`이
 이미 Running과 Ready 상태이고,
 `web-2`은 종료되었을 것이다.
@@ -932,6 +932,7 @@ web-2     0/1       Terminating   0         3m
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
 ```
+
 ```
 web-0
 web-1
@@ -957,6 +958,7 @@ kubectl get pods -w -l app=nginx
 ```shell
 kubectl delete statefulset web
 ```
+
 ```
 statefulset.apps "web" deleted
 ```
@@ -966,6 +968,7 @@ statefulset.apps "web" deleted
 ```shell
 kubectl get pods -w -l app=nginx
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          11m
@@ -997,6 +1000,7 @@ web-1     0/1       Terminating   0         29m
 ```shell
 kubectl delete service nginx
 ```
+
 ```
 service "nginx" deleted
 ```
@@ -1006,6 +1010,7 @@ service "nginx" deleted
 ```shell
 kubectl apply -f web.yaml
 ```
+
 ```
 service/nginx created
 statefulset.apps/web created
@@ -1017,6 +1022,7 @@ statefulset.apps/web created
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
 ```
+
 ```
 web-0
 web-1
@@ -1031,13 +1037,16 @@ web-1
 ```shell
 kubectl delete service nginx
 ```
+
 ```
 service "nginx" deleted
 ```
+
 그리고 `web` 스테이트풀셋을 삭제한다.
 ```shell
 kubectl delete statefulset web
 ```
+
 ```
 statefulset "web" deleted
 ```
@@ -1058,9 +1067,10 @@ statefulset "web" deleted
 ### Parallel 파드 관리
 
 `Parallel` 파드 관리는 스테이트풀셋 컨트롤러가 모든 파드를
-병렬로 시작하고 종료하는 것으로 다른 파드를 시작/종료하기 전에
+병렬로 시작하고 종료하는 것으로, 다른 파드를 시작/종료하기 전에
 파드가 Running과 Ready 상태로 전환되거나 완전히 종료되기까지
 기다리지 않음을 뜻한다.
+이 옵션은 스케일링 동작에만 영향을 미치며, 업데이트 동작에는 영향을 미치지 않는다.
 
 {{< codenew file="application/web/web-parallel.yaml" >}}
 
@@ -1105,7 +1115,7 @@ web-1     1/1       Running   0         10s
 스테이트풀셋 컨트롤러는 `web-0`와  `web-1`를 둘 다 동시에 시작했다.
 
 두 번째 터미널을 열어 놓고 다른 터미널창에서 스테이트풀셋을
-스케일링 하자.
+스케일링하자.
 
 ```shell
 kubectl scale statefulset/web --replicas=4

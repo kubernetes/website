@@ -205,12 +205,10 @@ spec:
 ```
 
 Service account bearer tokens are perfectly valid to use outside the cluster and
-
 can be used to create identities for long standing jobs that wish to talk to the
-Kubernetes API. To manually create a service account, simply use the `kubectl`
-
-create serviceaccount (NAME)` command. This creates a service account in the
-current namespace and an associated secret.
+Kubernetes API. To manually create a service account, use the `kubectl create
+serviceaccount (NAME)` command. This creates a service account in the current
+namespace and an associated secret.
 
 ```bash
 kubectl create serviceaccount jenkins
@@ -458,7 +456,7 @@ clusters:
   - name: name-of-remote-authn-service
     cluster:
       certificate-authority: /path/to/ca.pem         # CA for verifying the remote service.
-      server: https://authn.example.com/authenticate # URL of remote service to query. Must use 'https'.
+      server: https://authn.example.com/authenticate # URL of remote service to query. 'https' recommended for production.
 
 # users refers to the API server's webhook configuration.
 users:
@@ -955,7 +953,8 @@ When run from an interactive session, `stdin` is exposed directly to the plugin.
 [TTY check](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal) to determine if it's
 appropriate to prompt a user interactively.
 
-To use bearer token credentials, the plugin returns a token in the status of the `ExecCredential`.
+To use bearer token credentials, the plugin returns a token in the status of the
+[`ExecCredential`](/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 
 ```json
 {
@@ -1005,6 +1004,7 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
   }
 }
 ```
+
 To enable the exec plugin to obtain cluster-specific information, set `provideClusterInfo` on the `user.exec`
 field in the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
 The plugin will then be supplied with an environment variable, `KUBERNETES_EXEC_INFO`.
@@ -1029,3 +1029,8 @@ The following `ExecCredential` manifest describes a cluster information sample.
   }
 }
 ```
+
+## {{% heading "whatsnext" %}}
+
+* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+

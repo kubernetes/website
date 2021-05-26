@@ -77,16 +77,15 @@ one of these at random.
 There are two supported ways to configure the filtering and scoring behavior
 of the scheduler:
 
-
 1. [Scheduling Policies](/docs/reference/scheduling/policies) allow you to configure _Predicates_ for filtering and _Priorities_ for scoring.
 1. [Scheduling Profiles](/docs/reference/scheduling/config/#profiles) allow you to configure Plugins that implement different scheduling stages, including: `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You can also configure the kube-scheduler to run different profiles.
-
 
 ## {{% heading "whatsnext" %}}
 
 * Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
+* Read the [kube-scheduler config (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) reference
 * Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * Learn about [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
@@ -94,3 +93,4 @@ of the scheduler:
   * [Volume Topology Support](/docs/concepts/storage/storage-classes/#volume-binding-mode)
   * [Storage Capacity Tracking](/docs/concepts/storage/storage-capacity/)
   * [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)
+

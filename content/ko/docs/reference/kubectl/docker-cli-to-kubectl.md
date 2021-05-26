@@ -7,7 +7,7 @@ content_type: concept
 ---
 
 <!-- overview -->
-당신은 쿠버네티스 커맨드 라인 도구인 kubectl을 사용하여 API 서버와 상호 작용할 수 있다. 만약 도커 커맨드 라인 도구에 익숙하다면 kubectl을 사용하는 것은 간단하다. 다음 섹션에서는 도커의 하위 명령을 보여주고 kubectl과 같은 명령어를 설명한다.
+당신은 쿠버네티스 커맨드 라인 도구인 `kubectl`을 사용하여 API 서버와 상호 작용할 수 있다. 만약 도커 커맨드 라인 도구에 익숙하다면 `kubectl`을 사용하는 것은 간단하다. 다음 섹션에서는 도커의 하위 명령을 보여주고 `kubectl`과 같은 명령어를 설명한다.
 
 
 <!-- body -->
@@ -265,7 +265,7 @@ nginx-app    1/1     1            1           2m
 ```
 
 ```shell
-kubectl get po -l run=nginx-app
+kubectl get po -l app=nginx-app
 ```
 ```
 NAME                         READY     STATUS    RESTARTS   AGE
@@ -279,7 +279,7 @@ deployment "nginx-app" deleted
 ```
 
 ```shell
-kubectl get po -l run=nginx-app
+kubectl get po -l app=nginx-app
 # 아무것도 반환하지 않는다
 ```
 

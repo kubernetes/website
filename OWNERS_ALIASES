@@ -3,7 +3,6 @@ aliases:
     - castrojo
     - kbarnard10
     - onlydole
-    - zacharysarah
     - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
     - castrojo
@@ -28,12 +27,12 @@ aliases:
     - kbarnard10
     - kbhawkey
     - onlydole
+    - pi-victor
     - reylejano
     - savitharaghunathan
     - sftim
     - steveperry-53
     - tengqm
-    - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
@@ -50,11 +49,9 @@ aliases:
     - zparnold
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
-    - alexbrand
+    - electrocucaracha
   sig-docs-es-reviews: # PR reviews for Spanish content
     - raelga
-    - alexbrand
-    # glo-pena
     - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
     - remyleone
@@ -176,14 +173,20 @@ aliases:
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
+    - jailton
     - jcjesus
     - devlware
     - jhonmike
+    - rikatz
+    - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
+    - jailton
     - jcjesus
     - devlware
     - jhonmike
+    - rikatz
+    - yagonobre
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - ngtuna
@@ -230,3 +233,27 @@ aliases:
     - mrbobbytables
     - nikhita
     - parispittman
+  # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
+  sig-release-leads:
+    - hasheddan # SIG Technical Lead
+    - jeremyrickard # SIG Technical Lead
+    - justaugustus # SIG Chair
+    - LappleApple # SIG Program Manager
+    - saschagrunert # SIG Chair
+  release-engineering-approvers:
+    - cpanato # Release Manager
+    - hasheddan # subproject owner / Release Manager
+    - puerco # Release Manager
+    - saschagrunert # subproject owner / Release Manager
+    - justaugustus # subproject owner / Release Manager
+    - xmudrii # Release Manager
+  release-engineering-reviewers:
+    - ameukam # Release Manager Associate
+    - jimangel # Release Manager Associate
+    - mkorbi # Release Manager Associate
+    - palnabarun # Release Manager Associate
+    - onlydole # Release Manager Associate
+    - sethmccombs # Release Manager Associate
+    - thejoycekung # Release Manager Associate
+    - verolop # Release Manager Associate
+    - wilsonehusin # Release Manager Associate

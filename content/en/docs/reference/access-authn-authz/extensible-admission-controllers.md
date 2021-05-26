@@ -57,7 +57,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ### Write an admission webhook server
 
 Please refer to the implementation of the [admission webhook
-server](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `AdmissionReview` request sent by the apiservers, and sends back its decision
 as an `AdmissionReview` object in the same version it received.
@@ -147,7 +147,7 @@ webhooks:
 {{< /tabs >}}
 
 The scope field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
-resources ("Namespaced") will match this rule. "*" means that there are no scope restrictions.
+resources ("Namespaced") will match this rule. "&lowast;" means that there are no scope restrictions.
 
 {{< note >}}
 When using `clientConfig.service`, the server cert must be valid for
@@ -225,7 +225,7 @@ plugins:
 {{< /tabs >}}
 
 For more information about `AdmissionConfiguration`, see the
-[AdmissionConfiguration schema](https://github.com/kubernetes/kubernetes/blob/v1.17.0/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1/types.go#L27).
+[AdmissionConfiguration (v1) reference](/docs/reference/config-api/apiserver-webhookadmission.v1/).
 See the [webhook configuration](#webhook-configuration) section for details about each config field.
 
 * In the kubeConfig file, provide the credentials:

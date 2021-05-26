@@ -81,9 +81,9 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 
 - `imagePullPolicy: Always`: every time the kubelet launches a container, the kubelet queries the container image registry to resolve the name to an image digest. If the kubelet has a container image with that exact digest cached locally, the kubelet uses its cached image; otherwise, the kubelet downloads (pulls) the image with the resolved digest, and uses that image to launch the container.
 
-- `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `Always` is applied.
+- `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `imagePullPolicy` is automatically set to `Always`. Note that this will _not_ be updated to `IfNotPresent` if the tag changes value.
 
-- `imagePullPolicy` is omitted and the image tag is present but not `:latest`: `IfNotPresent` is applied.
+- `imagePullPolicy` is omitted and the image tag is present but not `:latest`: `imagePullPolicy` is automatically set to `IfNotPresent`. Note that this will _not_ be updated to `Always` if the tag is later removed or changed to `:latest`.
 
 - `imagePullPolicy: Never`: the image is assumed to exist locally. No attempt is made to pull the image.
 
@@ -96,7 +96,7 @@ You should avoid using the `:latest` tag when deploying containers in production
 {{< /note >}}
 
 {{< note >}}
-The caching semantics of the underlying image provider make even `imagePullPolicy: Always` efficient. With Docker, for example, if the image already exists, the pull attempt is fast because all image layers are cached and no image download is needed.
+The caching semantics of the underlying image provider make even `imagePullPolicy: Always` efficient, as long as the registry is reliably accessible. With Docker, for example, if the image already exists, the pull attempt is fast because all image layers are cached and no image download is needed.
 {{< /note >}}
 
 ## Using kubectl

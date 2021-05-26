@@ -98,12 +98,12 @@ Configurations with a single API server will experience unavailability while the
    也会获得此更新并且同时信任老的和新的 CA 证书。
    <!--
    ```shell
-   base64_encoded_ca="$(base64 <path to file containing both old and new CAs>)"
+   base64_encoded_ca="$(base64 -w0 <path to file containing both old and new CAs>)"
 
    for namespace in $(kubectl get ns --no-headers | awk '{print $1}'); do
        for token in $(kubectl get secrets --namespace "$namespace" --field-selector type=kubernetes.io/service-account-token -o name); do
            kubectl get $token --namespace "$namespace" -o yaml | \
-             /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}" | \
+             /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}/" | \
              kubectl apply -f -
        done
    done
@@ -111,12 +111,12 @@ Configurations with a single API server will experience unavailability while the
    -->
 
    ```shell
-   base64_encoded_ca="$(base64 <path to file containing both old and new CAs>)"
+   base64_encoded_ca="$(base64 -w0 <path to file containing both old and new CAs>)"
 
    for namespace in $(kubectl get ns --no-headers | awk '{print $1}'); do
        for token in $(kubectl get secrets --namespace "$namespace" --field-selector type=kubernetes.io/service-account-token -o name); do
            kubectl get $token --namespace "$namespace" -o yaml | \
-             /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}" | \
+             /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}/" | \
              kubectl apply -f -
        done
    done
@@ -205,13 +205,13 @@ Configurations with a single API server will experience unavailability while the
 
       <!--
       To generate certificates and private keys for your cluster using the `openssl`
-      command line tool, see [Certificates (`openssl`)](/docs/concepts/cluster-administration/certificates/#openssl).
-      You can also use [`cfssl`](/docs/concepts/cluster-administration/certificates/#cfssl).
+      command line tool, see [Certificates (`openssl`)](/docs/tasks/administer-cluster/certificates/#openssl).
+      You can also use [`cfssl`](/docs/tasks/administer-cluster/certificates/#cfssl).
       -->
       {{< note >}}
       要使用 `openssl` 命令行为集群生成新的证书和私钥，可参阅
-      [证书（`openssl`）](/zh/docs/concepts/cluster-administration/certificates/#openssl)。
-      你也可以使用[`cfssl`](/zh/docs/concepts/cluster-administration/certificates/#cfssl).
+      [证书（`openssl`）](/zh/docs/tasks/administer-cluster/certificates/#openssl)。
+      你也可以使用[`cfssl`](/zh/docs/tasks/administer-cluster/certificates/#cfssl).
       {{< /note >}}
 
    <!--
@@ -249,10 +249,10 @@ Configurations with a single API server will experience unavailability while the
    ConfigMap `cluster-info`，使之包含新的 CA 证书。
 
    ```shell
-   base64_encoded_ca="$(base64 /etc/kubernetes/pki/ca.crt)"
+   base64_encoded_ca="$(base64 -w0 /etc/kubernetes/pki/ca.crt)"
 
    kubectl get cm/cluster-info --namespace kube-public -o yaml | \
-       /bin/sed "s/\(certificate-authority-data:\).*/\1 ${base64_encoded_ca}" | \
+       /bin/sed "s/\(certificate-authority-data:\).*/\1 ${base64_encoded_ca}/" | \
        kubectl apply -f -
    ```
 <!--

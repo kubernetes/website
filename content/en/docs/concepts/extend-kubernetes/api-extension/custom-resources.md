@@ -44,7 +44,7 @@ desired state, and continually maintains this state.
 You can deploy and update a custom controller on a running cluster, independently
 of the cluster's lifecycle. Custom controllers can work with any kind of resource,
 but they are especially effective when combined with custom resources. The
-[Operator pattern](https://coreos.com/blog/introducing-operators.html) combines custom
+[Operator pattern](/docs/concepts/extend-kubernetes/operator/) combines custom
 resources and custom controllers. You can use custom controllers to encode domain knowledge
 for specific applications into an extension of the Kubernetes API.
 

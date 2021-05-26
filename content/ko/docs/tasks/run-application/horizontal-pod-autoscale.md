@@ -23,9 +23,7 @@ Pod Autoscaler는 크기를 조정할 수 없는 오브젝트(예: 데몬셋(Dae
 
 Horizontal Pod Autoscaler는 쿠버네티스 API 리소스 및 컨트롤러로 구현된다.
 리소스는 컨트롤러의 동작을 결정한다.
-컨트롤러는 관찰된 평균 CPU 사용률이 사용자가 지정한 대상과 일치하도록 레플리케이션
-컨트롤러 또는 디플로이먼트에서 레플리카 개수를 주기적으로 조정한다.
-
+컨트롤러는 평균 CPU 사용률, 평균 메모리 사용률 또는 다른 커스텀 메트릭과 같은 관찰 대상 메트릭이 사용자가 지정한 목표값과 일치하도록 레플리케이션 컨트롤러 또는 디플로이먼트에서 레플리카 개수를 주기적으로 조정한다.
 
 
 
@@ -190,7 +188,7 @@ Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`�
 `kubectl get hpa`로 오토스케일러 목록을 조회할 수 있고, `kubectl describe hpa`로 세부 사항을 확인할 수 있다.
 마지막으로 `kubectl delete hpa`를 사용하여 오토스케일러를 삭제할 수 있다.
 
-또한 Horizontal Pod Autoscaler를 쉽게 생성 할 수 있는 `kubectl autoscale`이라는 특별한 명령이 있다.
+또한 Horizontal Pod Autoscaler를 생성할 수 있는 `kubectl autoscale`이라는 특별한 명령이 있다.
 예를 들어 `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`을
 실행하면 레플리케이션 셋 *foo* 에 대한 오토스케일러가 생성되고, 목표 CPU 사용률은 `80 %`,
 그리고 2와 5 사이의 레플리카 개수로 설정된다.
@@ -220,9 +218,10 @@ v1.6 부터 클러스터 운영자는 `kube-controller-manager` 컴포넌트의 
 v1.12부터는 새로운 알고리즘 업데이트가 업스케일 지연에 대한
 필요성을 제거하였다.
 
-- `--horizontal-pod-autoscaler-downscale-delay` : 이 옵션 값은
-  오토스케일러가 현재의 작업이 완료된 후에 다른 다운스케일 작업을
-  수행하기까지 기다려야 하는 시간을 지정하는 지속 시간이다.
+- `--horizontal-pod-autoscaler-downscale-delay` : 다운스케일이
+  안정화되기까지의 시간 간격을 지정한다.
+  Horizontal Pod Autoscaler는 이전의 권장하는 크기를 기억하고,
+  이 시간 간격에서의 가장 큰 크기에서만 작동한다.
   기본값은 5분(`5m0s`)이다.
 
 {{< note >}}
@@ -354,7 +353,7 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 
 ## 구성가능한 스케일링 동작 지원
 
-[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity/README.md)
 부터 `v2beta2` API는 HPA `behavior` 필드를 통해
 스케일링 동작을 구성할 수 있다.
 동작은 `behavior` 필드 아래의 `scaleUp` 또는 `scaleDown`
@@ -382,17 +381,18 @@ behavior:
       periodSeconds: 60
 ```
 
-파드 수가 40개를 초과하면 두 번째 폴리시가 스케일링 다운에 사용된다.
+`periodSeconds` 는 폴리시가 참(true)으로 유지되어야 하는 기간을 나타낸다.
+첫 번째 정책은 _(파드들)_ 이 1분 내에 최대 4개의 레플리카를 스케일 다운할 수 있도록 허용한다.
+두 번째 정책은 _비율_ 로 현재 레플리카의 최대 10%를 1분 내에 스케일 다운할 수 있도록 허용한다.
+
+기본적으로 가장 많은 변경을 허용하는 정책이 선택되기에 두 번째 정책은
+파드의 레플리카 수가 40개를 초과하는 경우에만 사용된다. 레플리카가 40개 이하인 경우 첫 번째 정책이 적용된다.
 예를 들어 80개의 레플리카가 있고 대상을 10개의 레플리카로 축소해야 하는
 경우 첫 번째 단계에서 8개의 레플리카가 스케일 다운 된다. 레플리카의 수가 72개일 때
 다음 반복에서 파드의 10%는 7.2 이지만, 숫자는 8로 올림된다. 오토스케일러 컨트롤러의
 각 루프에서 변경될 파드의 수는 현재 레플리카의 수에 따라 재계산된다. 레플리카의 수가 40
 미만으로 떨어지면 첫 번째 폴리시 _(파드들)_ 가 적용되고 한번에
 4개의 레플리카가 줄어든다.
-
-`periodSeconds` 는 폴리시가 참(true)으로 유지되어야 하는 기간을 나타낸다.
-첫 번째 정책은 1분 내에 최대 4개의 레플리카를 스케일 다운할 수 있도록 허용한다.
-두 번째 정책은 현재 레플리카의 최대 10%를 1분 내에 스케일 다운할 수 있도록 허용한다.
 
 확장 방향에 대해 `selectPolicy` 필드를 확인하여 폴리시 선택을 변경할 수 있다.
 레플리카의 수를 최소로 변경할 수 있는 폴리시를 선택하는 `최소(Min)`로 값을 설정한다.
@@ -440,7 +440,7 @@ behavior:
       periodSeconds: 15
     selectPolicy: Max
 ```
-안정화 윈도우의 스케일링 다운의 경우 _300_ 초(또는 제공된
+안정화 윈도우의 스케일링 다운의 경우 _300_ 초 (또는 제공된
 경우`--horizontal-pod-autoscaler-downscale-stabilization` 플래그의 값)이다. 스케일링 다운에서는 현재
 실행 중인 레플리카의 100%를 제거할 수 있는 단일 정책만 있으며, 이는 스케일링
 대상을 최소 허용 레플리카로 축소할 수 있음을 의미한다.

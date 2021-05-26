@@ -1,13 +1,13 @@
 ---
 title: 엔드포인트슬라이스
 content_type: concept
-weight: 35
+weight: 45
 ---
 
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 _엔드포인트슬라이스_ 는 쿠버네티스 클러스터 내의 네트워크 엔드포인트를
 추적하는 간단한 방법을 제공한다. 이것은 엔드포인트를 더 확장하고, 확장 가능한
@@ -50,7 +50,7 @@ term_id="selector" >}}가 지정되면 컨트롤 플레인은 자동으로
 리소스 샘플이 있다.
 
 ```yaml
-apiVersion: discovery.k8s.io/v1beta1
+apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
   name: example-abc
@@ -67,13 +67,12 @@ endpoints:
     conditions:
       ready: true
     hostname: pod-1
-    topology:
-      kubernetes.io/hostname: node-1
-      topology.kubernetes.io/zone: us-west2-a
+    nodeName: node-1
+    zone: us-west2-a
 ```
 
 기본적으로, 컨트롤 플레인은 각각 100개 이하의 엔드포인트를
-갖도록 엔드포인트슬라이스를 
+갖도록 엔드포인트슬라이스를
 생성하고 관리한다. `--max-endpoints-per-slice`
 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
 플래그를 사용하여, 최대 1000개까지 구성할 수 있다.
@@ -98,9 +97,9 @@ endpoints:
 
 #### 준비
 
-`ready`는 파드의 `Ready` 조건에 매핑되는 조건이다. `Ready` 조건이 `True`로 설정된 실행 중인 파드는 
-이 엔드포인트슬라이스 조건도 `true`로 설정되어야 한다. 호환성의 
-이유로, 파드가 종료될 때 `ready`는 절대 `true`가 되면 안 된다. 컨슈머는 `serving` 조건을 참조하여 
+`ready`는 파드의 `Ready` 조건에 매핑되는 조건이다. `Ready` 조건이 `True`로 설정된 실행 중인 파드는
+이 엔드포인트슬라이스 조건도 `true`로 설정되어야 한다. 호환성의
+이유로, 파드가 종료될 때 `ready`는 절대 `true`가 되면 안 된다. 컨슈머는 `serving` 조건을 참조하여
 파드 종료 준비 상태(readiness)를 검사해야 한다.
 이 규칙의 유일한 예외는 `spec.publishNotReadyAddresses`가 `true`로 설정된 서비스이다.
 이러한 서비스의 엔드 포인트는 항상 `ready`조건이 `true`로 설정된다.
@@ -110,16 +109,16 @@ endpoints:
 {{< feature-state for_k8s_version="v1.20" state="alpha" >}}
 
 `serving`은 종료 상태를 고려하지 않는다는 점을 제외하면 `ready` 조건과 동일하다.
-엔드포인트슬라이스 API 컨슈머는 파드가 종료되는 동안 파드 준비 상태에 관심이 있다면 
+엔드포인트슬라이스 API 컨슈머는 파드가 종료되는 동안 파드 준비 상태에 관심이 있다면
 이 조건을 확인해야 한다.
 
 {{< note >}}
 
 `serving`은 `ready`와 거의 동일하지만 `ready`의 기존 의미가 깨지는 것을 방지하기 위해 추가되었다.
-엔드포인트를 종료하기 위해 `ready`가 `true` 일 수 있다면 기존 클라이언트에게는 예상치 못한 일이 될 수 있다. 
+엔드포인트를 종료하기 위해 `ready`가 `true` 일 수 있다면 기존 클라이언트에게는 예상치 못한 일이 될 수 있다.
 역사적으로 종료된 엔드포인트는 처음부터 엔드포인트 또는 엔드포인트슬라이스 API에 포함되지 않았기 때문이다.
-이러한 이유로 `ready`는 엔드포인트 종료를 위해 _always_ `false`이며, 
-클라이언트가 `ready`에 대한 기존 의미와 관계없이 파드 종료 준비 상태를 
+이러한 이유로 `ready`는 엔드포인트 종료를 위해 _always_ `false`이며,
+클라이언트가 `ready`에 대한 기존 의미와 관계없이 파드 종료 준비 상태를
 추적 할 수 있도록 v1.20에 새로운 조건 `serving`이 추가되었다.
 
 {{< /note >}}
@@ -133,29 +132,25 @@ endpoints:
 
 ### 토폴로지 정보 {#토폴로지}
 
-{{< feature-state for_k8s_version="v1.20" state="deprecated" >}}
+엔드포인트슬라이스 내의 각 엔드 포인트는 관련 토폴로지 정보를 포함할 수 있다.
+토폴로지 정보에는 엔드 포인트의 위치와 해당 노드 및
+영역에 대한 정보가 포함된다. 엔드포인트슬라이스의 다음의 엔드 포인트별
+필드에서 사용할 수 있다.
+
+*`nodeName` - 이 엔드 포인트가 있는 노드의 이름이다.
+*`zone` - 이 엔드 포인트가 있는 영역이다.
 
 {{< note >}}
-엔드포인트슬라이스의 토폴로지 필드는 사용 중단되었으며 향후 릴리스에서 제거된다.
-토폴로지에서 `kubernetes.io/hostname`을 설정하는 대신 새로운 `nodeName` 필드가 
-사용된다. 영역 및 리전을 커버하는 다른 토폴로지 필드는 
-엔드포인트슬라이스 내의 모든 엔드포인트에 적용되는 
-엔드포인트슬라이스 레이블을 이용해 더 잘 표현될 수 있다.
+v1 API에서는, 전용 필드 `nodeName` 및 `zone` 을 위해 엔드 포인트별
+`topology` 가 효과적으로 제거되었다.
+
+`EndpointSlice` 리소스의 `endpoint` 필드에 임의의 토폴로지 필드를
+설정하는 것은 더 이상 사용되지 않으며, v1 API에서 지원되지 않는다. 대신,
+v1 API는 개별 `nodeName` 및 `zone` 필드 설정을 지원한다. 이러한
+필드는 API 버전 간에 자동으로 번역된다. 예를 들어,
+v1beta1 API의 `topology` 필드에 있는 `"topology.kubernetes.io/zone"`
+키 값은 v1 API의 `zone` 필드로 접근할 수 있다.
 {{< /note >}}
-
-엔드포인트슬라이스 내 각 엔드포인트는 연관된 토폴로지 정보를 포함할 수 있다.
-이는 해당 노드, 영역 그리고 지역에 대한 정보가 포함된
-엔드포인트가 있는 위치를 나타나는데 사용 한다. 값을 사용할 수 있으면,
-컨트롤 플레인은 엔드포인트슬라이스에 대해 다음의 토폴로지 레이블을 설정한다.
-
-* `kubernetes.io/hostname` - 이 엔드포인트가 있는 노드의 이름.
-* `topology.kubernetes.io/zone` - 이 엔드포인트가 있는 영역의 이름.
-* `topology.kubernetes.io/region` - 이 엔드포인트가 있는 지역의 이름.
-
-이런 레이블 값은 슬라이스의 각 엔드포인트와 연관된 리소스에서
-파생된다. 호스트 이름 레이블은 해당 파드의
-NodeName 필드 값을 나타낸다. 영역 및 지역 레이블은 해당
-노드에서 이름이 같은 값을 나타낸다.
 
 ### 관리
 

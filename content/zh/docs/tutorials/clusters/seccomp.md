@@ -52,14 +52,14 @@ Kubernetes 允许你将加载到节点上的 seccomp 配置文件自动应用于
 <!--
 In order to complete all steps in this tutorial, you must install
 [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) and
-[kubectl](/docs/tasks/tools/install-kubectl/). This tutorial will show examples
+[kubectl](/docs/tasks/tools/). This tutorial will show examples
 with both alpha (pre-v1.19) and generally available seccomp functionality, so
 make sure that your cluster is [configured
 correctly](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)
 for the version you are using.
 -->
 为了完成本教程中的所有步骤，你必须安装 [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) 
-和 [kubectl](/zh/docs/tasks/tools/install-kubectl/)。本教程将显示同时具有 alpha（v1.19 之前的版本）
+和 [kubectl](/zh/docs/tasks/tools/)。本教程将显示同时具有 alpha（v1.19 之前的版本）
 和通常可用的 seccomp 功能的示例，因此请确保为所使用的版本[正确配置](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)了集群。
 
 <!-- steps -->
@@ -91,8 +91,8 @@ into the cluster.
 
 For simplicity, [kind](https://kind.sigs.k8s.io/) can be used to create a single
 node cluster with the seccomp profiles loaded. Kind runs Kubernetes in Docker,
-so each node of the cluster is actually just a container. This allows for files
-to be mounted in the filesystem of each container just as one might load files
+so each node of the cluster is a container. This allows for files
+to be mounted in the filesystem of each container similar to loading files
 onto a node.
 
 Download the example above, and save it to a file named `kind.yaml`. Then create
@@ -101,8 +101,8 @@ the cluster with the configuration.
 ## 使用 Kind 创建一个本地 Kubernetes 集群
 
 为简单起见，可以使用 [kind](https://kind.sigs.k8s.io/) 创建一个已经加载 seccomp 配置文件的单节点集群。
-Kind 在 Docker 中运行 Kubernetes，因此集群的每个节点实际上只是一个容器。这允许将文件挂载到每个容器的文件系统中，
-就像将文件挂载到节点上一样。
+Kind 在 Docker 中运行 Kubernetes，因此集群的每个节点都是一个容器。这允许将文件挂载到每个容器的文件系统中，
+类似于将文件挂载到节点上。
 
 {{< codenew file="pods/security/seccomp/kind.yaml" >}}
 <br>

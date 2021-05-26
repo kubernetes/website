@@ -12,8 +12,7 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of your cluster.
-For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master.
+You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew latestVersion >}} client can communicate with v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, and v{{< skew nextMinorVersion >}} control planes.
 Using the latest version of kubectl helps avoid unforeseen issues.
 
 ## Install kubectl on macOS
@@ -23,23 +22,34 @@ The following methods exist for installing kubectl on macOS:
 - [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
 - [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
 - [Install with Macports on macOS](#install-with-macports-on-macos)
-- [Install on Linux as part of the Google Cloud SDK](#install-on-linux-as-part-of-the-google-cloud-sdk)
+- [Install on macOS as part of the Google Cloud SDK](#install-on-macos-as-part-of-the-google-cloud-sdk)
 
 ### Install kubectl binary with curl on macOS
 
 1. Download the latest release:
 
-   ```bash
+   {{< tabs name="download_binary_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
-   ```
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    {{< note >}}
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
 
-   For example, to download version {{< param "fullversion" >}} on macOS, type:
+   For example, to download version {{< param "fullversion" >}} on Intel macOS, type:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   ```
+
+   And for macOS on Apple Silicon, type:
+
+   ```bash
+   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
    ```
 
    {{< /note >}}
@@ -48,10 +58,15 @@ The following methods exist for installing kubectl on macOS:
 
    Download the kubectl checksum file:
 
-   ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl.sha256"
-   ```
-
+   {{< tabs name="download_checksum_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl.sha256"
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
+  
    Validate the kubectl binary against the checksum file:
 
    ```bash

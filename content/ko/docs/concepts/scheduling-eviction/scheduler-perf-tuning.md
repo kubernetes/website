@@ -1,4 +1,6 @@
 ---
+
+
 title: 스케줄러 성능 튜닝
 content_type: concept
 weight: 80
@@ -22,8 +24,6 @@ API 서버에 해당 결정을 통지한다.
 본 페이지에서는 상대적으로 큰 규모의 쿠버네티스 클러스터에 대한 성능 튜닝
 최적화에 대해 설명한다.
 
-
-
 <!-- body -->
 
 큰 규모의 클러스터에서는 스케줄러의 동작을 튜닝하여 응답 시간
@@ -42,8 +42,10 @@ kube-scheduler 의 `percentageOfNodesToScore` 설정을 통해
 `percentageOfNodesToScore` 를 100 보다 높게 설정해도 kube-scheduler는
 마치 100을 설정한 것처럼 작동한다.
 
-값을 변경하려면, kube-scheduler 구성 파일(이 파일은 `/etc/kubernetes/config/kube-scheduler.yaml`
-일 수 있다)을 편집한 다음 스케줄러를 재시작 한다.
+값을 변경하려면,
+[kube-scheduler 구성 파일](/docs/reference/config-api/kube-scheduler-config.v1beta1/)을
+편집한 다음 스케줄러를 재시작한다.
+대부분의 경우, 구성 파일은 `/etc/kubernetes/config/kube-scheduler.yaml` 에서 찾을 수 있다.
 
 이를 변경한 후에 다음을 실행해서
 
@@ -96,7 +98,6 @@ algorithmSource:
 
 percentageOfNodesToScore: 50
 ```
-
 
 ### percentageOfNodesToScore 튜닝
 
@@ -157,3 +158,7 @@ percentageOfNodesToScore: 50
 ```
 
 모든 노드를 검토한 후, 노드 1로 돌아간다.
+
+## {{% heading "whatsnext" %}}
+
+* [kube-scheduler 구성 레퍼런스(v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 확인

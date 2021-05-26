@@ -9,17 +9,12 @@ weight: 100
 이 페이지는 프라이빗 도커 레지스트리나 리포지터리로부터 이미지를 받아오기 위해 시크릿(Secret)을 
 사용하는 파드를 생성하는 방법을 보여준다.
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * 이 실습을 수행하기 위해, 
 [도커 ID](https://docs.docker.com/docker-id/)와 비밀번호가 필요하다.
-
-
 
 <!-- steps -->
 
@@ -106,7 +101,8 @@ kubectl create secret docker-registry regcred --docker-server=<your-registry-ser
 
 아래의 각 항목에 대한 설명을 참고한다.
 
-* `<your-registry-server>` 은 프라이빗 도커 저장소의 FQDN 주소이다. (도커허브(DockerHub)의 경우, https://index.docker.io/v1/)
+* `<your-registry-server>` 은 프라이빗 도커 저장소의 FQDN 주소이다.
+  도커허브(DockerHub)는 `https://index.docker.io/v2/` 를 사용한다.
 * `<your-name>` 은 도커 사용자의 계정이다.
 * `<your-pword>` 은 도커 사용자의 비밀번호이다.
 * `<your-email>` 은 도커 사용자의 이메일 주소이다.
@@ -192,7 +188,8 @@ your.private.registry.example.com/janedoe/jdoe-private:v1
 ```
 
 프라이빗 저장소에서 이미지를 받아오기 위하여, 쿠버네티스에서 자격 증명이 필요하다.
-구성 파일의 `imagePullSecrets` 필드를 통해 쿠버네티스가 `regcred` 라는 시크릿으로부터 자격 증명을 가져올 수 있다.
+구성 파일의 `imagePullSecrets` 필드를 통해 쿠버네티스가
+`regcred` 라는 시크릿으로부터 자격 증명을 가져올 수 있다.
 
 시크릿을 사용해서 파드를 생성하고, 파드가 실행되는지 확인하자.
 
@@ -201,10 +198,7 @@ kubectl apply -f my-private-reg-pod.yaml
 kubectl get pod private-reg
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * [시크릿](/ko/docs/concepts/configuration/secret/)에 대해 더 배워 보기.
 * [프라이빗 레지스트리 사용](/ko/docs/concepts/containers/images/#프라이빗-레지스트리-사용)에 대해 더 배워 보기.
@@ -212,5 +206,3 @@ kubectl get pod private-reg
 * [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)에 대해 읽어보기.
 * [시크릿](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)에 대해 읽어보기.
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)의 `imagePullSecrets` 필드에 대해 읽어보기.
-
-

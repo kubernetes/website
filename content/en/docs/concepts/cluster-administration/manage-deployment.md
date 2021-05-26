@@ -47,7 +47,7 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 
 It is a recommended practice to put resources related to the same microservice or application tier into the same file, and to group all of the files associated with your application in the same directory. If the tiers of your application bind to each other using DNS, you can deploy all of the components of your stack together.
 
-A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into github:
+A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into GitHub:
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
@@ -278,7 +278,7 @@ pod/my-nginx-2035384211-u3t6x labeled
 ```
 
 This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe".
-To see the pods you just labeled, run:
+To see the pods you labeled, run:
 
 ```shell
 kubectl get pods -l app=nginx -L tier
@@ -411,7 +411,7 @@ and
 
 ## Disruptive updates
 
-In some cases, you may need to update resource fields that cannot be updated once initialized, or you may just want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can modify your original configuration file:
+In some cases, you may need to update resource fields that cannot be updated once initialized, or you may want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can modify your original configuration file:
 
 ```shell
 kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force

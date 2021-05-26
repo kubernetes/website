@@ -40,7 +40,7 @@ Users need to be aware of the following when using this feature:
 
 ## Provisioning
 
-Clones are provisioned just like any other PVC with the exception of adding a dataSource that references an existing PVC in the same namespace.
+Clones are provisioned like any other PVC with the exception of adding a dataSource that references an existing PVC in the same namespace.
 
 ```yaml
 apiVersion: v1

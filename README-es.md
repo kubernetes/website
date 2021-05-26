@@ -30,6 +30,17 @@ El método recomendado para levantar una copia local del sitio web kubernetes.io
 
 > Si prefiere levantar el sitio web sin utilizar **Docker**, puede seguir las instrucciones disponibles en la sección [Levantando kubernetes.io en local con Hugo](#levantando-kubernetesio-en-local-con-hugo).
 
+**`Nota`: Para el procedimiento de construir una imagen de Docker e iniciar el servidor.**
+El sitio web de Kubernetes utiliza Docsy Hugo theme. Se sugiere que se instale si aún no se ha hecho, los **submódulos** y otras dependencias de herramientas de desarrollo ejecutando el siguiente comando de `git`:
+
+```bash
+# pull de los submódulos del repositorio
+git submodule update --init --recursive --depth 1
+
+```
+
+Si identifica que `git` reconoce una cantidad innumerable de cambios nuevos en el proyecto, la forma más simple de solucionarlo es cerrando y volviendo a abrir el proyecto en el editor. Los submódulos son automáticamente detectados por `git`, pero los plugins usados por los editores pueden tener dificultades para ser cargados.
+
 Una vez tenga Docker [configurado en su máquina](https://www.docker.com/get-started), puede construir la imagen de Docker `kubernetes-hugo` localmente ejecutando el siguiente comando en la raíz del repositorio:
 
 ```bash

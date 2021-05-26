@@ -55,6 +55,7 @@ on general patterns for running stateful applications in Kubernetes.
   [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Some familiarity with MySQL helps, but this tutorial aims to present
   general patterns that should be useful for other systems.
+* You are using the default namespace or another namespace that does not contain any conflicting objects.
 -->
 * 本教程假定你熟悉
   [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/)
@@ -63,6 +64,7 @@ on general patterns for running stateful applications in Kubernetes.
   [服务](/zh/docs/concepts/services-networking/service/) 与
   [ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * 熟悉 MySQL 会有所帮助，但是本教程旨在介绍对其他系统应该有用的常规模式。
+* 您正在使用默认命名空间或不包含任何冲突对象的另一个命名空间。
 
 ## {{% heading "objectives" %}}
 
@@ -280,21 +282,20 @@ properties.
 The script in the `init-mysql` container also applies either `primary.cnf` or
 `replica.cnf` from the ConfigMap by copying the contents into `conf.d`.
 Because the example topology consists of a single primary MySQL server and any number of
-replicas, the script simply assigns ordinal `0` to be the primary server, and everyone
+replicas, the script assigns ordinal `0` to be the primary server, and everyone
 else to be replicas. 
 
 Combined with the StatefulSet controller's
-[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/),
+[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees),
 this ensures the primary MySQL server is Ready before creating replicas, so they can begin
 replicating.
 -->
-通过将内容复制到 conf.d 中，`init-mysql` 容器中的脚本也可以应用 ConfigMap 中的
-`primary.cnf` 或 `replica.cnf`。
-由于示例部署结构由单个 MySQL 主节点和任意数量的副本节点组成，因此脚本仅将序数
-`0` 指定为主节点，而将其他所有节点指定为副本节点。
+通过将内容复制到 conf.d 中，`init-mysql` 容器中的脚本也可以应用 ConfigMap 中的 `primary.cnf` 或 `replica.cnf`。
+由于示例部署结构由单个 MySQL 主节点和任意数量的副本节点组成，
+因此脚本仅将序数 `0` 指定为主节点，而将其他所有节点指定为副本节点。
 
 与 StatefulSet 控制器的
-[部署顺序保证](/zh/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/)
+[部署顺序保证](/zh/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)
 相结合，
 可以确保 MySQL 主服务器在创建副本服务器之前已准备就绪，以便它们可以开始复制。
 

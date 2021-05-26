@@ -1,4 +1,6 @@
 ---
+
+
 title: 리소스 쿼터
 content_type: concept
 weight: 20
@@ -56,7 +58,7 @@ weight: 20
 ## 리소스 쿼터 활성화
 
 많은 쿠버네티스 배포판에 기본적으로 리소스 쿼터 지원이 활성화되어 있다.
-API 서버 `--enable-admission-plugins=` 플래그의 인수 중 하나로
+{{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}} `--enable-admission-plugins=` 플래그의 인수 중 하나로
 `ResourceQuota`가 있는 경우 활성화된다.
 
 해당 네임스페이스에 리소스쿼터가 있는 경우 특정 네임스페이스에
@@ -122,6 +124,10 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 | `limits.ephemeral-storage` | 네임스페이스의 모든 파드에서 로컬 임시 스토리지 제한의 합은 이 값을 초과할 수 없음. |
 | `ephemeral-storage` | `requests.ephemeral-storage` 와 같음. |
 
+{{< note >}}
+CRI 컨테이너 런타임을 사용할 때, 컨테이너 로그는 임시 스토리지 쿼터에 포함된다. 이로 인해 스토리지 쿼터를 소진한 파드가 예기치 않게 축출될 수 있다. 자세한 내용은 [로깅 아키텍처](/ko/docs/concepts/cluster-administration/logging/)를 참조한다.
+{{< /note >}}
+
 ## 오브젝트 수 쿼터
 
 다음 구문을 사용하여 모든 표준 네임스페이스 처리된(namespaced) 리소스 유형에 대한
@@ -186,7 +192,8 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 | `NotTerminating` | `.spec.activeDeadlineSeconds is nil`에 일치하는 파드 |
 | `BestEffort` | 최상의 서비스 품질을 제공하는 파드 |
 | `NotBestEffort` | 서비스 품질이 나쁜 파드 |
-| `PriorityClass` | 지정된 [프라이올리티 클래스](/ko/docs/concepts/configuration/pod-priority-preemption)를 참조하여 일치하는 파드. |
+| `PriorityClass` | 지정된 [프라이어리티 클래스](/ko/docs/concepts/configuration/pod-priority-preemption)를 참조하여 일치하는 파드. |
+| `CrossNamespacePodAffinity` | 크로스-네임스페이스 파드 [(안티)어피니티 용어]가 있는 파드 |
 
 `BestEffort` 범위는 다음의 리소스를 추적하도록 쿼터를 제한한다.
 
@@ -427,6 +434,63 @@ memory      0     20Gi
 pods        0     10
 ```
 
+### 네임스페이스 간 파드 어피니티 쿼터
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+오퍼레이터는 네임스페이스를 교차하는 어피니티가 있는 파드를 가질 수 있는 네임스페이스를
+제한하기 위해 `CrossNamespacePodAffinity` 쿼터 범위를 사용할 수 있다. 특히, 파드 어피니티 용어의
+`namespaces` 또는 `namespaceSelector` 필드를 설정할 수 있는 파드를 제어한다.
+
+안티-어피니티 제약 조건이 있는 파드는 장애 도메인에서 다른 모든 네임스페이스의 파드가 예약되지 않도록
+차단할 수 있으므로 사용자가 네임스페이스 간 어피니티 용어를
+사용하지 못하도록 하는 것이 바람직할 수 있다.
+
+이 범위 오퍼레이터를 사용하면 `CrossNamespaceAffinity` 범위와 하드(hard) 제한이 0인
+네임스페이스에 리소스 쿼터 오브젝트를 생성하여 특정 네임스페이스(아래 예에서 `foo-ns`)가 네임스페이스 간 파드 어피니티를
+사용하는 파드를 사용하지 못하도록 방지할 수 있다.
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: disable-cross-namespace-affinity
+  namespace: foo-ns
+spec:
+  hard:
+    pods: "0"
+  scopeSelector:
+    matchExpressions:
+    - scopeName: CrossNamespaceAffinity
+```
+
+오퍼레이터가 기본적으로 `namespaces` 및 `namespaceSelector` 사용을 허용하지 않고,
+특정 네임스페이스에만 허용하려는 경우, kube-apiserver 플래그 --admission-control-config-file를
+다음의 구성 파일의 경로로 설정하여 `CrossNamespaceAffinity` 를
+제한된 리소스로 구성할 수 있다.
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: "ResourceQuota"
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: ResourceQuotaConfiguration
+    limitedResources:
+    - resource: pods
+      matchScopes:
+      - scopeName: CrossNamespaceAffinity
+```
+
+위의 구성을 사용하면, 파드는 생성된 네임스페이스에 `CrossNamespaceAffinity` 범위가 있는 리소스 쿼터 오브젝트가 있고,
+해당 필드를 사용하는 파드 수보다 크거나 같은 하드 제한이 있는 경우에만
+파드 어피니티에서 `namespaces` 및 `namespaceSelector` 를 사용할 수 있다.
+
+이 기능은 알파이며 기본적으로 비활성화되어 있다. kube-apiserver 및 kube-scheduler 모두에서
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+`PodAffinityNamespaceSelector` 를 설정하여 활성화할 수 있다.
+
 ## 요청과 제한의 비교 {#requests-vs-limits}
 
 컴퓨트 리소스를 할당할 때 각 컨테이너는 CPU 또는 메모리에 대한 요청과 제한값을 지정할 수 있다.
@@ -608,16 +672,27 @@ plugins:
         values: ["cluster-services"]
 ```
 
-이제 "cluster-services" 파드는 `scopeSelector`와 일치하는 쿼터 오브젝트가 있는 네임스페이스에서만 허용된다.
-예를 들면 다음과 같다.
+그리고, `kube-system` 네임스페이스에 리소스 쿼터 오브젝트를 생성한다.
 
-```yaml
-    scopeSelector:
-      matchExpressions:
-      - scopeName: PriorityClass
-        operator: In
-        values: ["cluster-services"]
+{{< codenew file="policy/priority-class-resourcequota.yaml" >}}
+
+```shell
+$ kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system
 ```
+
+```
+resourcequota/pods-cluster-services created
+```
+
+이 경우, 파드 생성은 다음의 조건을 만족해야 허용될 것이다.
+
+1.  파드의 `priorityClassName` 가 명시되지 않음.
+1.  파드의 `priorityClassName` 가 `cluster-services` 이외의 다른 값으로 명시됨.
+1.  파드의 `priorityClassName` 가 `cluster-services` 로 설정되고, 파드가 `kube-system`
+   네임스페이스에 생성되었으며 리소스 쿼터 검증을 통과함.
+
+파드 생성 요청은 `priorityClassName` 가 `cluster-services` 로 명시되고
+`kube-system` 이외의 다른 네임스페이스에 생성되는 경우, 거절된다.
 
 ## {{% heading "whatsnext" %}}
 

@@ -219,7 +219,7 @@ the role that is granted to those subjects.
 1. A binding to a different role is a fundamentally different binding.
 Requiring a binding to be deleted/recreated in order to change the `roleRef`
 ensures the full list of subjects in the binding is intended to be granted
-the new role (as opposed to enabling accidentally modifying just the roleRef
+the new role (as opposed to enabling or accidentally modifying only the roleRef
 without verifying all of the existing subjects should be given the new role's
 permissions).
 
@@ -333,7 +333,7 @@ as a cluster administrator, include rules for custom resources, such as those se
 or aggregated API servers, to extend the default roles.
 
 For example: the following ClusterRoles let the "admin" and "edit" default roles manage the custom resource
-named CronTab, whereas the "view" role can perform just read actions on CronTab resources.
+named CronTab, whereas the "view" role can perform only read actions on CronTab resources.
 You can assume that CronTab objects are named `"crontabs"` in URLs as seen by the API server.
 
 ```yaml
