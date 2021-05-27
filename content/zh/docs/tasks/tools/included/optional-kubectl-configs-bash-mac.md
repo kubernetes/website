@@ -4,11 +4,9 @@ description: "在 macOS 上实现 Bash 自动补全的一些可选配置。"
 headless: true
 ---
 <!-- 
----
 title: "bash auto-completion on macOS"
 description: "Some optional configuration for bash auto-completion on macOS."
 headless: true
----
  -->
 
 <!-- 
@@ -154,20 +152,23 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
     ```
 
 <!-- 
-- If you installed kubectl with Homebrew (as explained [above](#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
+- If you installed kubectl with Homebrew (as explained [here](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
 -->
-- 如果你是用 Homebrew 安装的 kubectl（[如上所述](#install-with-homebrew-on-macos)），
-  那么 kubectl 补全脚本应该已经安装到目录 `/usr/local/etc/bash_completion.d/kubectl` 中了。
-  这种情况下，你什么都不需要做。
+- 如果你是用 Homebrew 安装的 kubectl（如
+  [此页面](/zh/docs/tasks/install-with-homebrew-on-macos/#install-with-homebrew-on-macos)
+  所描述），则kubectl 补全脚本应该已经安装到目录 `/usr/local/etc/bash_completion.d/kubectl`
+  中了。这种情况下，你什么都不需要做。
 
-   {{< note >}}
-   <!-- 
-   The Homebrew installation of bash-completion v2 sources all the files in the `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
-   -->
-   用 Hommbrew 安装的 bash-completion v2 会初始化 目录 `BASH_COMPLETION_COMPAT_DIR` 中的所有文件，这就是后两种方法能正常工作的原因。
-   {{< /note >}}
+  {{< note >}}
+  <!-- 
+  The Homebrew installation of bash-completion v2 sources all the files in the `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
+  -->
+  用 Hommbrew 安装的 bash-completion v2 会初始化 目录 `BASH_COMPLETION_COMPAT_DIR`
+  中的所有文件，这就是后两种方法能正常工作的原因。
+  {{< /note >}}
 
 <!-- 
 In any case, after reloading your shell, kubectl completion should be working.
 -->
 总之，重新加载 shell 之后，kubectl 补全功能将立即生效。
+
