@@ -1,6 +1,4 @@
 ---
-approvers:
-- erictune
 title: Init 容器
 content_type: concept
 weight: 40
@@ -514,9 +512,6 @@ Pod 级别的 cgroups 是基于有效 Pod 的请求和限制值，和调度器�
 A Pod can restart, causing re-execution of init containers, for the following
 reasons:
 
-* A user updates the Pod specification, causing the init container image to change.
-  Any changes to the init container image restarts the Pod. App container image
-  changes only restart the app container.
 * The Pod infrastructure container is restarted. This is uncommon and would
   have to be done by someone with root access to nodes.
 * All containers in a Pod are terminated while `restartPolicy` is set to Always,
@@ -527,14 +522,21 @@ reasons:
 
 Pod 重启会导致 Init 容器重新执行，主要有如下几个原因：
 
-* 用户更新 Pod 的规约导致 Init 容器镜像发生改变。Init 容器镜像的变更会引起 Pod 重启。
-  应用容器镜像的变更仅会重启应用容器。
-
 * Pod 的基础设施容器 (译者注：如 `pause` 容器) 被重启。这种情况不多见，
   必须由具备 root 权限访问节点的人员来完成。
 
 * 当 `restartPolicy` 设置为 "`Always`"，Pod 中所有容器会终止而强制重启。
   由于垃圾收集机制的原因，Init 容器的完成记录将会丢失。
+
+<!--
+The Pod will not be restarted when the init container image is changed, or the
+init container completion record has been lost due to garbage collection. This
+applies for Kubernetes v1.20 and later. If you are using an earlier version of
+Kubernetes, consult the documentation for the version you are using.
+-->
+当 Init 容器的镜像发生改变或者 Init 容器的完成记录因为垃圾收集等原因被丢失时，
+Pod 不会被重启。这一行为适用于 Kubernetes v1.20 及更新版本。如果你在使用较早
+版本的 Kubernetes，可查阅你所使用的版本对应的文档。
 
 ## {{% heading "whatsnext" %}}
 
