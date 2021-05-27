@@ -51,13 +51,14 @@ Namespaces are a way to divide cluster resources between multiple users (via [re
 名字空间是在多个用户之间划分集群资源的一种方法（通过[资源配额](/zh/docs/concepts/policy/resource-quotas/)）。
 
 <!--
-It is not necessary to use multiple namespaces just to separate slightly different
+It is not necessary to use multiple namespaces to separate slightly different
 resources, such as different versions of the same software: use
-[labels](/docs/concepts/overview/working-with-objects/labels/) to distinguish
+{{< glossary_tooltip text="labels" term_id="label" >}} to distinguish
 resources within the same namespace.
 -->
-不需要使用多个名字空间来分隔轻微不同的资源，例如同一软件的不同版本：
-使用[标签](/zh/docs/concepts/overview/working-with-objects/labels)来区分同一名字空间中的不同资源。
+不必使用多个名字空间来分隔仅仅轻微不同的资源，例如同一软件的不同版本：
+应该使用{{< glossary_tooltip text="标签" term_id="label" >}}
+来区分同一名字空间中的不同资源。
 
 <!--
 ## Working with Namespaces
@@ -160,7 +161,7 @@ Kubernetes 会创建一个相应的 [DNS 条目](/zh/docs/concepts/services-netw
 
 <!--
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
-that if a container just uses `<service-name>`, it will resolve to the service which
+that if a container only uses `<service-name>`, it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
@@ -197,6 +198,25 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
+<!--
+## Automatic labelling
+-->
+## 自动打标签   {#automatic-labelling}
+
+{{< feature-state state="beta" for_k8s_version="1.21" >}}
+
+<!--
+The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
+`kubernetes.io/metadata.name` on all namespaces, provided that the `NamespaceDefaultLabelName`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+The value of the label is the namespace name.
+-->
+Kubernetes 控制面会为所有名字空间设置一个不可变更的
+{{< glossary_tooltip text="标签" term_id="label" >}}
+`kubernetes.io/metadata.name`，只要 `NamespaceDefaultLabelName` 这一
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+被启用。标签的值是名字空间的名称。
+ 
 ## {{% heading "whatsnext" %}}
 
 <!--
