@@ -12,7 +12,12 @@ content_type: concept
 weight: 30
 -->
 
-{{< feature-state state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
+<!--
+PodSecurityPolicy is deprecated as of Kubernetes v1.21, and will be removed in v1.25.
+-->
+PodSecurityPolicy 在 Kubernetes v1.21 版本中被启用，将在 v1.25 中删除。
 
 <!--
 Pod Security Policies enable fine-grained authorization of pod creation and
