@@ -6,11 +6,11 @@ weight: 40
 
 <!-- overview -->
 
-<!--{{< feature-state state="beta" for_k8s_version="v1.11" >}} -->
+{{< feature-state state="beta" for_k8s_version="v1.11" >}}
 
 Технологии облочной инфраструктуры позволяет запускать Kubernetes в общедоступных, частных и гибритных облоках. Kubernetes верит в автоматизированную,управляемую API инфраструктуру без жесткой связи между компонентами.
 
-<!--{{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="The cloud-controller-manager is">}} -->
+{{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="Диспетчер облочных контроллеров">}} 
 
 Диспетчер облочных контроллеров структурирован с использованием механизма плагинов, которые позволяют различным облочным провайдерам интегрировать свои платформы с Kubernetes.
 
