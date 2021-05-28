@@ -708,7 +708,7 @@ kube-controller-manager [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The length of EndpointSlice updates batching period for EndpointSliceMirroring controller. Processing of EndpointSlice changes will be delayed by this duration to join them with potential upcoming updates and reduce the overall number of EndpointSlice updates. Larger number = higher endpoint programming latency, but lower number of endpoints revision generated</p></td>
 </tr>
 
-*<tr>
+<tr>
 <td colspan="2">--mirroring-max-endpoints-per-subset int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1000</td>
 </tr>
 <tr>
