@@ -58,13 +58,6 @@ kube-scheduler [flags]
 </tr>
 
 <tr>
-<td colspan="2">--algorithm-provider string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>DEPRECATED: the scheduling algorithm provider to use, this sets the default plugins for component config profiles. Choose one of: ClusterAutoscalerProvider | DefaultProvider</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--allow-metric-labels stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: []</td>
 </tr>
 <tr>
@@ -166,7 +159,7 @@ kube-scheduler [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path to the configuration file. The following flags can overwrite fields in this file:<br/>--algorithm-provider<br/>--policy-config-file<br/>--policy-configmap<br/>--policy-configmap-namespace</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path to the configuration file. The following flags can overwrite fields in this file:<br/>--policy-config-file<br/>--policy-configmap<br/>--policy-configmap-namespace</p></td>
 </tr>
 
 <tr>

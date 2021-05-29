@@ -66,19 +66,6 @@ DEPRECATED: the IP address on which to listen for the --port port (set to 0.0.0.
 </tr>
 
 <tr>
-<td colspan="2">--algorithm-provider string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-DEPRECATED: the scheduling algorithm provider to use, this sets the default plugins for component config profiles. Choose one of: ClusterAutoscalerProvider | DefaultProvider
--->
-已弃用: 要使用的调度算法驱动，此标志设置组件配置框架的默认插件。
-可选值：ClusterAutoscalerProvider | DefaultProvider
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--alsologtostderr</td>
 </tr>
 <tr>
@@ -248,7 +235,7 @@ If set, any request presenting a client certificate signed by one of the authori
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path to the configuration file. The following flags can overwrite fields in this file:<br/>  --address<br/>  --port<br/>  --use-legacy-policy-config<br/>  --policy-configmap<br/>  --policy-config-file<br/>  --algorithm-provider
+The path to the configuration file. The following flags can overwrite fields in this file:<br/>  --address<br/>  --port<br/>  --use-legacy-policy-config<br/>  --policy-configmap<br/>  --policy-config-file
 -->
 配置文件的路径。以下标志会覆盖此文件中的值：<br/>
 --address<br/>
@@ -256,7 +243,6 @@ The path to the configuration file. The following flags can overwrite fields in 
 --use-legacy-policy-config<br/>
 --policy-configmap<br/>
 --policy-config-file<br/>
---algorithm-provider
 </td>
 </tr>
 
