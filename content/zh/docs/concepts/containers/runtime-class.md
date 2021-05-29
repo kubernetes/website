@@ -163,7 +163,7 @@ error message.
 如果所指的 RuntimeClass 不存在或者 CRI 无法运行相应的 handler，
 那么 pod 将会进入 `Failed` 终止[阶段](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
 你可以查看相应的[事件](/zh/docs/tasks/debug-application-cluster/debug-application-introspection/)，
-获取出错信息。
+获取执行过程中的错误信息。
 
 <!--
 If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent
