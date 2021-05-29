@@ -237,8 +237,8 @@ the class or PV, If a mount option is invalid, the PV mount fails.
 
 由 StorageClass 动态创建的 PersistentVolume 将使用类中 `mountOptions` 字段指定的挂载选项。
 
-如果卷插件不支持挂载选项，却指定了选项，则制备操作会失败。
-挂载选项在 StorageClass 和 PV 上都不会做验证，如果其中一个挂载选项无效，那么这个 PV 挂载就会失败。
+如果卷插件不支持挂载选项，却指定了挂载选项，则制备操作会失败。
+挂载选项在 StorageClass 和 PV 上都不会做验证，如果其中一个挂载选项无效，那么这个 PV 挂载操作就会失败。
 
 <!--
 ### Volume Binding Mode
