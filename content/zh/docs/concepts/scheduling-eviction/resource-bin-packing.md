@@ -1,16 +1,18 @@
 ---
 title: 扩展资源的资源装箱
 content_type: concept
-weight: 30
+weight: 80
 ---
 <!--
+---
 reviewers:
 - bsalamat
 - k82cn
 - ahg-g
 title: Resource Bin Packing for Extended Resources
 content_type: concept
-weight: 30
+weight: 80
+---
 -->
 
 <!-- overview -->
@@ -18,7 +20,7 @@ weight: 30
 {{< feature-state for_k8s_version="1.16" state="alpha" >}}
 
 <!--
-The kube-scheduler can be configured to enable bin packing of resources along with extended resources using `RequestedToCapacityRatioResourceAllocation` priority function. Priority functions can be used to fine-tune the kube-scheduler as per custom needs. 
+The kube-scheduler can be configured to enable bin packing of resources along with extended resources using `RequestedToCapacityRatioResourceAllocation` priority function. Priority functions can be used to fine-tune the kube-scheduler as per custom needs.
 -->
 
 使用 `RequestedToCapacityRatioResourceAllocation` 优先级函数，可以将 kube-scheduler
@@ -48,7 +50,7 @@ Kubernetes 1.16 在优先级函数中添加了一个新参数，该参数允许�
 （least requested）或
 最多请求（most requested）计算。
 `resources` 包含由 `name` 和  `weight` 组成，`name` 指定评分时要考虑的资源，
-`weight` 指定每种资源的权重。 
+`weight` 指定每种资源的权重。
 
 <!--
 Below is an example configuration that sets `requestedToCapacityRatioArguments` to bin packing behavior for extended resources `intel.com/foo` and `intel.com/bar`
@@ -130,7 +132,7 @@ The above arguments give the node a score of 0 if utilization is 0% and 10 for u
 ```
 
 <!--
-It can be used to add extended resources as follows: 
+It can be used to add extended resources as follows:
 -->
 它可以用来添加扩展资源，如下所示：
 
@@ -249,4 +251,3 @@ CPU            = resourceScoringFunction((2+6),8)
 NodeScore   =  (5 * 5) + (7 * 1) + (10 * 3) / (5 + 1 + 3)
             =  7
 ```
-
