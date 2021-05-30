@@ -16,7 +16,7 @@ During a node-pressure eviction, the kubelet sets the `PodPhase` for the
 selected pods to `Failed`. This terminates the pods. 
 
 Node-pressure eviction is not the same as 
-[API-initiated eviction](/docs/concepts/scheduling-eviction/eviction/#api-eviction).
+[API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
 
 The kubelet does not respect your configured `PodDisruptionBudget` or the pod's
 `terminationGracePeriodSeconds`. If you use [soft eviction thresholds](#soft-eviction-thresholds),
