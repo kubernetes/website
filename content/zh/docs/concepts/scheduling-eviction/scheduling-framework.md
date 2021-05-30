@@ -1,6 +1,4 @@
 ---
-reviewers:
-- ahg-g
 title: 调度框架
 content_type: concept
 weight: 70
@@ -11,7 +9,7 @@ reviewers:
 - ahg-g
 title: Scheduling Framework
 content_type: concept
-weight: 60
+weight: 70
 -->
 
 <!-- overview -->
@@ -19,16 +17,17 @@ weight: 60
 {{< feature-state for_k8s_version="1.15" state="alpha" >}}
 
 <!--
-The scheduling framework is a plugable architecture for Kubernetes Scheduler
-that makes scheduler customizations easy. It adds a new set of "plugin" APIs to
-the existing scheduler. Plugins are compiled into the scheduler. The APIs
-allow most scheduling features to be implemented as plugins, while keeping the
+The scheduling framework is a plugable architecture for the Kubernetes Scheduler.
+It adds a new set of "plugin" APIs to the existing scheduler. Plugins are compiled
+into the scheduler. The APIs allow most scheduling features to be implemented as
+plugins, while keeping the
 scheduling "core" simple and maintainable. Refer to the [design proposal of the
 scheduling framework][kep] for more technical information on the design of the
 framework.
 -->
-调度框架是 Kubernetes Scheduler 的一种可插入架构，可以简化调度器的自定义。
-它向现有的调度器增加了一组新的“插件” API。插件被编译到调度器程序中。
+调度框架是 Kubernetes 调度器的一种可插入架构。
+调度框架向现有的调度器增加了一组新的“插件（Plugin）” API。
+插件被编译到调度器程序中。
 这些 API 允许大多数调度功能以插件的形式实现，同时使调度“核心”保持简单且可维护。
 请参考[调度框架的设计提案](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md)
 获取框架设计的更多技术信息。
@@ -328,15 +327,15 @@ _Permit_ 插件在每个 Pod 调度周期的最后调用，用于防止或延迟
 
 <!-- 
 While any plugin can access the list of "waiting" Pods and approve them
-(see [`FrameworkHandle`](#frameworkhandle)), we expect only the permit
+(see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)), we expect only the permit
 plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
 is approved, it is sent to the [PreBind](#pre-bind) phase.
  -->
 {{< note >}}
 尽管任何插件可以访问 “等待中” 状态的 Pod 列表并批准它们 
-(查看 [`FrameworkHandle`](#frameworkhandle))。
-我们希望只有允许插件可以批准处于 “等待中” 状态的预留 Pod 的绑定。
-一旦 Pod 被批准了，它将发送到[预绑定](#pre-bind) 阶段。
+（参阅 [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)）。
+我们希望只有被允许的插件可以批准处于“等待中”状态的预留 Pod 的绑定。
+一旦 Pod 被批准了，它将进入到[预绑定](#pre-bind) 阶段。
 {{< /note >}}
 
 <!--
