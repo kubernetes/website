@@ -79,74 +79,82 @@ Kubernetes 文档已经被翻译为多个语种
 
 ### Use upper camel case for API objects
 
-When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also 
-known as Pascal Case. When you are generally discussing an API object, use [sentence-style capitalization]
-(https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as Pascal Case. You may see different capitalization, such as "configMap", in the [API reference](/docs/reference/kubernetes-api/). When writing general documentation, it's better to use upper camel case, calling it "ConfigMap" instead.
 
-Don't split the API object name into separate words. For example, use
-PodTemplateList, not Pod Template List.
+When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
-Refer to API objects without saying "object," unless omitting "object"
-leads to an awkward construction.
+You may use the word "resource", "API", or "object" to clarify a Kubernetes resource type in a sentence.
+
+Don't split an API object name into separate words. For example, use PodTemplateList, not Pod Template List.
+
+The following examples focus on capitalization. For more information about formatting API object names, review the related guidance on [Code Style](#code-style-inline-code).
 -->
 ## 文档格式标准 {#documentation-formatting-standards}
 
 ### 对 API 对象使用大写驼峰式命名法  {#use-upper-camel-case-for-api-objects}
 
-当你与指定的 API 对象进行交互时，使用 [大写驼峰式命名法](https://en.wikipedia.org/wiki/Camel_case)，
-也被称为帕斯卡拼写法.
-通常在讨论 API 对象时，使用
-[句子式大写](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+当你与指定的 API 对象进行交互时，使用 [大写驼峰式命名法](https://en.wikipedia.org/wiki/Camel_case)，也被称为帕斯卡拼写法（PascalCase）.
+你可能在 [API 参考](/docs/reference/kubernetes-api/) 中看到不同的大小写形式，
+例如 "configMap"。在一般性的文档中，最好使用大写驼峰形式，将之称作 "ConfigMap"。
+
+在一般性地讨论 API 对象时，使用
+[句子式大写](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization)。
+
+你可以使用“资源”、“API”或者“对象”这类词汇来进一步在句子中明确所指的是
+一个 Kubernetes 资源类型。
 
 不要将 API 对象的名称切分成多个单词。例如，使用 PodTemplateList，不要
 使用 Pod Template List。
 
-引用 API 对象时不必强调 “object（对象）”，除非省略“object（object）”
-会使得文字读起来很别扭。
+下面的例子关注的是大小写问题。关于如何格式化 API 对象的名称，
+有关详细细节可参考相关的[代码风格](#code-style-inline-code)指南。
 
 <!--
-{{< table caption = "Do and Don't - API objects" >}}
+{{< table caption = "Do and Don't - Use Pascal case for API objects" >}}
 Do | Don't
 :--| :-----
-The Pod has two containers. | The pod has two containers.
-The HorizontalPodAutoscaler  is responsible for ... | The HorizontalPodAutoscaler  object is responsible for ...
-A PodList is a list of Pods. | A Pod List is a list of pods.
-The two ContainerPorts ... | The two ContainerPort objects ...
-The two ContainerStateTerminated objects ... | The two ContainerStateTerminateds ...
+The HorizontalPodAutoscaler resource is responsible for ... | The Horizontal pod autoscaler is responsible for ...
+A PodList object is a list of pods. | A Pod List object is a list of pods.
+The Volume object contains a `hostPath` field. | The volume object contains a hostPath field.
+Every ConfigMap object is part of a namespace. | Every configMap object is part of a namespace.
+For managing confidential data, consider using the Secret API. | For managing confidential data, consider using the secret API.
 {{< /table >}}
 -->
-{{< table caption = "关于 API 对象的约定" >}}
+{{< table caption = "使用 Pascal 风格大小写来给出 API 对象的约定" >}}
 可以 | 不可以
 :--| :-----
-Pod 有两个容器 | pod 中有两个容器
-此 HorizontalPodAutoscaler 负责... | 此 HorizontalPodAutoscaler 对象负责 ...
-PodList 是 Pod 的列表 | Pod List 是 pods 的列表
-这两个 ContainerPorts ... | 这两个 ContainerPort 对象 ...
-这两个 ContainerStateTerminated 对象 ... | 这两个 ContainerStateTerminateds ...
+该 HorizontalPodAutoscaler 负责... | 该 HorizontalPodAutoscaler 负责...
+每个 PodList 是一个 Pod 组成的列表。 | 每个 Pod List 是一个由 pods 组成的列表。
+该 Volume 对象包含一个 `hostPath` 字段。 | 此卷对象包含一个 hostPath 字段。
+每个 ConfigMap 对象都是某个名字空间的一部分。| 每个 configMap 对象是某个名字空间的一部分。
+要管理机密数据，可以考虑使用 Secret API。 | 要管理机密数据，可以考虑使用秘密 API。
 {{< /table >}}
 
 <!--
 ### Use angle brackets for placeholders
 
 Use angle brackets for placeholders. Tell the reader what a placeholder
-represents.
+represents, for example:
 
-1. Display information about a Pod:
+Display information about a Pod:
 
-        kubectl describe pod <pod-name> -n <namespace>
+```shell
+kubectl describe pod <pod-name> -n <namespace>
+```
 
-    If the namespace of the pod is `default`, you can omit the '-n' parameter.
+If the namespace of the pod is `default`, you can omit the '-n' parameter.
 -->
 ### 在占位符中使用尖括号
 
 在占位符中使用尖括号，并让读者知道其中代表的事物。例如：
 
-1. 显示 Pod 信息：
+显示 Pod 信息：
 
-        kubectl describe pod <pod-名称> -n <名字空间>
+```shell
+kubectl describe pod <pod-名称> -n <名字空间>
+```
 
-    如果名字空间被忽略，默认为 `default`，你可以忽略 '-n' 参数。
-
+如果名字空间被忽略，默认为 `default`，你可以忽略 '-n' 参数。
 
 <!--
 ### Use bold for user interface elements
@@ -236,13 +244,13 @@ document, use the backtick (`` ` ``).
 -->
 ## 行间代码格式    {#inline-code-formatting}
 
-### 为行间代码、命令与 API 对象使用代码样式
+### 为行间代码、命令与 API 对象使用代码样式  {#code-style-inline-code}
 
 对于 HTML 文档中的行间代码，使用 `<code>` 标记。
 在 Markdown 文档中，使用反引号（`` ` ``）。
 
 <!--
-{{< table caption = "Do and Don't - Use code style for inline code and commands" >}}
+{{< table caption = "Do and Don't - Use code style for inline code, commands and API objects" >}}
 Do | Don't
 :--| :-----
 The `kubectl run` command creates a `Pod`. | The "kubectl run" command creates a pod.
@@ -256,7 +264,7 @@ Use meaningful variable names that have a context. | Use variable names such as 
 Remove trailing spaces in the code. | Add trailing spaces in the code, where these are important, because the screen reader will read out the spaces as well.
 {{< /table >}}
 -->
-{{< table caption = "行间代码和命令约定" >}}
+{{< table caption = "行间代码、命令和 API 对象约定" >}}
 可以 | 不可以
 :--| :-----
 `kubectl run` 命令会创建一个 `Pod` | "kubectl run" 命令会创建一个 pod。
@@ -409,12 +417,16 @@ kubectl get pods | $ kubectl get pods
 
 Verify that the pod is running on your chosen node:
 
-    kubectl get pods --output=wide
+```shell
+kubectl get pods --output=wide
+```
 
 The output is similar to this:
 
-    NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
-    nginx    1/1       Running   0          13s    10.200.0.4   worker0
+```console
+NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
+nginx    1/1       Running   0          13s    10.200.0.4   worker0
+```
 -->
 ### 将命令和输出分开
 
@@ -422,12 +434,16 @@ The output is similar to this:
 
 验证 Pod 已经在你所选的节点上运行：
 
-    kubectl get pods --output=wide
+```shell
+kubectl get pods --output=wide
+```
 
 输出类似于：
 
-    NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
-    nginx    1/1       Running   0          13s    10.200.0.4   worker0
+```console
+NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
+nginx    1/1       Running   0          13s    10.200.0.4   worker0
+```
 
 <!--
 ### Versioning Kubernetes examples
@@ -531,17 +547,17 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
 
 2. Use the following syntax to apply a style:
 
-    ```
-    {{</* note */>}}
-    No need to include a prefix; the shortcode automatically provides one. (Note:, Caution:, etc.)
-    {{</* /note */>}}
-    ```
+   ```none
+   {{</* note */>}}
+   No need to include a prefix; the shortcode automatically provides one. (Note:, Caution:, etc.)
+   {{</* /note */>}}
+   ```
 
-The output is:
+   The output is:
 
-{{< note >}}
-The prefix you choose is the same text for the tag.
-{{< /note >}}
+   {{< note >}}
+   The prefix you choose is the same text for the tag.
+   {{< /note >}}
 -->
 
 ## 短代码（Shortcodes） {#shortcodes}
@@ -553,17 +569,17 @@ Hugo [短代码（Shortcodes）](https://gohugo.io/content-management/shortcodes
 1. 将要突出显示的文字用短代码的开始和结束形式包围。
 2. 使用下面的语法来应用某种样式：
 
-    ```
-    {{</* note */>}}
-    不需要前缀；短代码会自动添加前缀（注意：、小心：等）
-    {{</* /note */>}}
-    ```
+   ```none
+   {{</* note */>}}
+   不需要前缀；短代码会自动添加前缀（注意：、小心：等）
+   {{</* /note */>}}
+   ```
 
-输出的样子是：
+   输出的样子是：
 
-{{< note >}}
-你所选择的标记决定了文字的前缀。
-{{< /note >}}
+   {{< note >}}
+   你所选择的标记决定了文字的前缀。
+   {{< /note >}}
 
 <!--
 ### Note
@@ -807,7 +823,7 @@ The output is:
 
 1. Prepare the batter, and pour into springform pan.
 
-    {{< note >}}Grease the pan for best results.{{< /note >}}
+   {{< note >}}Grease the pan for best results.{{< /note >}}
 
 1. Bake for 20-25 minutes or until set.
 -->
@@ -830,7 +846,7 @@ The output is:
 
 1. 预热到 350˚F
 1. 准备好面糊，倒入烘烤盘
-    {{< note >}}给盘子抹上油可以达到最佳效果。{{< /note >}}
+   {{< note >}}给盘子抹上油可以达到最佳效果。{{< /note >}}
 1. 烘烤 20 到 25 分钟，或者直到满意为止。
 
 <!--
@@ -941,12 +957,13 @@ Write Markdown-style links: `[link text](URL)`. For example: `[Hugo shortcodes](
 
 <!--
 ### Lists
+
 Group items in a list that are related to each other and need to appear in a specific order or to indicate a correlation between multiple items. When a screen reader comes across a list—whether it is an ordered or unordered list—it will be announced to the user that there is a group of list items. The user can then use the arrow keys to move up and down between the various items in the list.
 Website navigation links can also be marked up as list items; after all they are nothing but a group of related links.
 
- - End each item in a list with a period if one or more items in the list are complete sentences. For the sake of consistency, normally either all items or none should be complete sentences.
+- End each item in a list with a period if one or more items in the list are complete sentences. For the sake of consistency, normally either all items or none should be complete sentences.
 
-   {{< note >}} Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence.{{< /note >}}
+  {{< note >}} Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence.{{< /note >}}
 -->
 ### 列表  {#lists}
 
@@ -955,32 +972,34 @@ Website navigation links can also be marked up as list items; after all they are
 用户可以使用箭头键来上下移动，浏览列表中条目。
 网站导航链接也可以标记成列表条目，因为说到底他们也是一组相互关联的链接而已。
 
- - 如果列表中一个或者多个条目是完整的句子，则在每个条目末尾添加句号。
-   出于一致性考虑，一般要么所有条目要么没有条目是完整句子。
+- 如果列表中一个或者多个条目是完整的句子，则在每个条目末尾添加句号。
+  出于一致性考虑，一般要么所有条目要么没有条目是完整句子。
 
-   {{< note >}} 编号列表如果是不完整的介绍性句子的一部分，可以全部用小写字母，并按照
-   每个条目都是句子的一部分来看待和处理。{{< /note >}}
+  {{< note >}}
+  编号列表如果是不完整的介绍性句子的一部分，可以全部用小写字母，并按照
+  每个条目都是句子的一部分来看待和处理。
+  {{< /note >}}
 
 <!--
- - Use the number one (`1.`) for ordered lists.
+- Use the number one (`1.`) for ordered lists.
 
- - Use (`+`), (`*`), or (`-`) for unordered lists.
+- Use (`+`), (`*`), or (`-`) for unordered lists.
 
- - Leave a blank line after each list.
+- Leave a blank line after each list.
 
- - Indent nested lists with four spaces (for example, ⋅⋅⋅⋅).
+- Indent nested lists with four spaces (for example, ⋅⋅⋅⋅).
 
- - List items may consist of multiple paragraphs. Each subsequent paragraph in a list item must be indented by either four spaces or one tab.
+- List items may consist of multiple paragraphs. Each subsequent paragraph in a list item must be indented by either four spaces or one tab.
 -->
- - 在编号列表中，使用数字一（`1.`）
+- 在编号列表中，使用数字 1（`1.`）
 
- - 对非排序列表，使用加号（`+`）、星号（`*`）、或者减号（`-`）
+- 对非排序列表，使用加号（`+`）、星号（`*`）、或者减号（`-`）
 
- - 在每个列表之后留一个空行
+- 在每个列表之后留一个空行
 
- - 对于嵌套的列表，相对缩进四个空格（例如，⋅⋅⋅⋅）。
+- 对于嵌套的列表，相对缩进四个空格（例如，⋅⋅⋅⋅）。
 
- - 列表条目可能包含多个段落。每个后续段落都要缩进或者四个空格或者一个制表符。
+- 列表条目可能包含多个段落。每个后续段落都要缩进或者四个空格或者一个制表符。
 
 <!--
 ### Tables
@@ -1009,7 +1028,7 @@ This section contains suggested best practices for clear, concise, and consisten
 {{< table caption = "Do and Don't - Use present tense" >}}
 Do | Don't
 This command starts a proxy. | This command will start a proxy.
- {{< /table >}}
+{{< /table >}}
 
 Exception: Use future or past tense if it is required to convey the correct
 meaning.
@@ -1180,6 +1199,20 @@ Avoid making promises or giving hints about the future. If you need to talk abou
 an alpha feature, put the text under a heading that identifies it as alpha
 information.
 
+An exception to this rule is documentation about announced deprecations
+targeting removal in future versions. One example of documentation like this
+is the [Deprecated API migration guide](/docs/reference/using-api/deprecation-guide/).
+-->
+### 避免关于将来的陈述
+
+要避免对将来作出承诺或暗示。如果你需要讨论的是 Alpha 功能特性，可以将相关文字
+放在一个单独的标题下，标示为 alpha 版本信息。
+
+此规则的一个例外是对未来版本中计划移除的已废弃功能选项的文档。
+此类文档的例子之一是
+[已弃用 API 迁移指南](/docs/reference/using-api/deprecation-guide/)。
+
+<!--
 ### Avoid statements that will soon be out of date
 
 Avoid words like "currently" and "new." A feature that is new today might not be
@@ -1191,10 +1224,6 @@ In version 1.4, ... | In the current version, ...
 The Federation feature provides ... | The new Federation feature provides ...
 {{< /table >}}  
 -->
-### 避免关于将来的陈述
-
-要避免对将来作出承诺或暗示。如果你需要讨论的是 Alpha 功能特性，可以将相关文字
-放在一个单独的标题下，标示为 alpha 版本信息。
 
 ### 避免使用很快就会过时的表达
 
@@ -1208,8 +1237,37 @@ The Federation feature provides ... | The new Federation feature provides ...
 联邦功能特性提供 ... | 新的联邦功能特性提供 ...
 {{< /table >}}  
 
+<!--
+### Avoid words that assume a specific level of understanding
+
+Avoid words such as "just", "simply", "easy", "easily", or "simple". These words do not add value.
+
+{{< table caption = "Do and Don't - Avoid insensitive words" >}}
+Do | Don't
+:--| :-----
+Include one command in ... | Include just one command in ...
+Run the container ... | Simply run the container ...
+You can easily remove ... | You can remove ...
+These simple steps ... | These steps ...
+{{< /table >}}
+-->
+### 避免使用隐含用户对某技术有一定理解的词汇
+
+避免使用“只是”、“仅仅”、“简单”、“很容易地”、“很简单”这类词汇。
+这些词并没有提升文档的价值。
+
+{{< table caption = "避免无意义词汇的注意事项" >}}
+可以 | 不可以
+:--| :-----
+在 ... 中包含一个命令 | 只需要在... 中包含一个命令
+运行容器 ... | 只需运行该容器...
+你可以很容易地移除... | 你可以移除...
+这些简单的步骤... | 这些步骤...
+{{< /table >}}
+
 ## {{% heading "whatsnext" %}}
 
 * 了解[编写新主题](/zh/docs/contribute/style/write-new-topic/).
 * 了解[页面内容类型](/zh/docs/contribute/style/page-content-types/).
 * 了解[发起 PR](/zh/docs/contribute/new-content/open-a-pr/).
+
