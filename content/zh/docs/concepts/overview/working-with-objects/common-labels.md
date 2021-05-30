@@ -68,7 +68,8 @@ on every resource object.
 | `app.kubernetes.io/version`         | The current version of the application (e.g., a semantic version, revision hash, etc.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
 | `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
-| `app.kubernetes.io/managed-by`  | The tool being used to manage the operation of an application | `helm` | string |
+| `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `helm` | string |
+| `app.kubernetes.io/created-by`      | The controller/user who created this resource | `controller-manager` | string |
 -->
 | 键                                 | 描述           | 示例  | 类型 |
 | ----------------------------------- | --------------------- | -------- | ---- |
@@ -77,7 +78,8 @@ on every resource object.
 | `app.kubernetes.io/version`         | 应用程序的当前版本（例如，语义版本，修订版哈希等） | `5.7.21` | 字符串 |
 | `app.kubernetes.io/component`       | 架构中的组件 | `database` | 字符串 |
 | `app.kubernetes.io/part-of`         | 此级别的更高级别应用程序的名称 | `wordpress` | 字符串 |
-| `app.kubernetes.io/managed-by`  | 用于管理应用程序的工具 | `helm` | 字符串 |
+| `app.kubernetes.io/managed-by`      | 用于管理应用程序的工具 | `helm` | 字符串 |
+| `app.kubernetes.io/created-by`      | 创建该资源的控制器或者用户 | `controller-manager` | 字符串 |
 <!--
 To illustrate these labels in action, consider the following StatefulSet object:
 -->
@@ -94,6 +96,7 @@ metadata:
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
     app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/created-by: controller-manager
 ```
 
 <!--
@@ -253,5 +256,3 @@ metadata:
 With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and Wordpress, the broader application, are included.
 -->
 使用 MySQL `StatefulSet` 和 `Service`，您会注意到有关 MySQL 和 Wordpress 的信息，包括更广泛的应用程序。
-
-
