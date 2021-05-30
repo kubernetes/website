@@ -32,7 +32,7 @@ secretGenerator:
 ```
 
 また、`kustomization.yaml`ファイルの中でリテラルを指定して`secretGenerator`を定義することもできます。
-たとえば、以下のkustomizationファイルには`username`と`password`の2つのリテラルが含まれています。
+たとえば、以下の`kustomization.yaml`ファイルには`username`と`password`の2つのリテラルが含まれています。
 
 ```yaml
 secretGenerator:
@@ -42,7 +42,17 @@ secretGenerator:
   - password=1f2d1e2e67df
 ```
 
-なお、どちらの場合も、値をbase64エンコードする必要はありません。
+また、`kustomization.yaml`ファイルに`.env`ファイルを用意して`secretGenerator`を定義することもできます。
+たとえば、以下の`kustomization.yaml`ファイルは、`.env.secret`ファイルからデータを取り込みます。
+
+```yaml
+secretGenerator:
+- name: db-user-pass
+  envs:
+  - .env.secret
+```
+
+なお、いずれの場合も、値をbase64エンコードする必要はありません。
 
 ## Secretを作成する
 
