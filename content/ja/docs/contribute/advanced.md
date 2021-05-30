@@ -7,34 +7,24 @@ weight: 98
 
 <!-- overview -->
 
-このページはあなたが[新しいコンテンツに貢献し](/ja/docs/contribute/new-content/overview)、[他の人の作業をレビューする](/docs/contribute/review/reviewing-prs/)方法を理解しており、さらに貢献する方法について学ぶ準備ができていることを前提としています。
+このページはあなたが[新しいコンテンツに貢献し](/ja/docs/contribute/new-content/overview)、[他の人の作業をレビューする](/ja/docs/contribute/review/reviewing-prs/)方法を理解しており、さらに貢献する方法について学ぶ準備ができていることを前提としています。
 これらのタスクの一部には、Gitコマンドラインクライアントとその他のツールを使用する必要があります。
 
 <!-- body -->
 
-## Propose improvements
+## 改善の提案
 
-SIG Docs [members](/docs/contribute/participate/roles-and-responsibilities/#members)
-can propose improvements.
+<!-- TODO: update this link after translated this page -->
+SIG Docsの[メンバー](/docs/contribute/participate/roles-and-responsibilities/#members)は改善を提案できます。
 
-After you've been contributing to the Kubernetes documentation for a while, you
-may have ideas for improving the [Style Guide](/docs/contribute/style/style-guide/)
-, the [Content Guide](/docs/contribute/style/content-guide/), the toolchain used to build
-the documentation, the website style, the processes for reviewing and merging
-pull requests, or other aspects of the documentation. For maximum transparency,
-these types of proposals need to be discussed in a SIG Docs meeting or on the
-[kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
-In addition, it can really help to have some context about the way things
-currently work and why past decisions have been made before proposing sweeping
-changes. The quickest way to get answers to questions about how the documentation
-currently works is to ask in the `#sig-docs` Slack channel on
-[kubernetes.slack.com](https://kubernetes.slack.com)
+<!-- TODO: update this link after translated this page -->
+Kubernetesのドキュメントへの貢献をしばらく行っていると、[スタイルガイド](/docs/contribute/style/style-guide/) 、[コンテンツガイド](/ja/docs/contribute/style/content-guide/)、ドキュメントの作成に使用されるツールチェーン、Webサイトのスタイル、プルリクエストのレビューとマージのプロセス、またはドキュメントの他の側面について、改善のアイデアが浮かんでくるかもしれません。
+最大限の透明性を得るために、この種の提案はSIG Docsミーティングまたは[kubernetes-sig-docsメーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)で議論する必要があります。
+さらに抜本的な変更を提案する前に現在の仕組みや過去の決定が行われた理由について、ある程度の文脈を理解しておくと非常に役立ちます。
+ドキュメントが、現在どのように機能しているかについての質問の回答を得る最も簡単な方法は、[kubernetes.slack.com](https://kubernetes.slack.com) の `#sig-docs` Slackチャネルで質問することです。
 
-After the discussion has taken place and the SIG is in agreement about the desired
-outcome, you can work on the proposed changes in the way that is the most
-appropriate. For instance, an update to the style guide or the website's
-functionality might involve opening a pull request, while a change related to
-documentation testing might involve working with sig-testing.
+議論が行われ、SIG が望ましい結果について合意した後、最も適切な方法で提案された変更に取り組むことができます。
+たとえば、スタイルガイドやWebサイトの機能の更新にはプルリクエストを開くことが含まれ、ドキュメントのテストに関連する変更には sig-testing の作業が含まれる場合があります。
 
 ## Coordinate docs for a Kubernetes release
 
