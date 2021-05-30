@@ -1,5 +1,5 @@
 ---
-title: Advanced contributing
+title: 高度な貢献
 slug: advanced
 content_type: concept
 weight: 98
@@ -7,11 +7,8 @@ weight: 98
 
 <!-- overview -->
 
-This page assumes that you understand how to
-[contribute to new content](/docs/contribute/new-content/overview) and
-[review others' work](/docs/contribute/review/reviewing-prs/), and are ready
-to learn about more ways to contribute. You need to use the Git command line
-client and other tools for some of these tasks.
+このページはあなたが[新しいコンテンツに貢献し](/ja/docs/contribute/new-content/overview)、[他の人の作業をレビューする](/docs/contribute/review/reviewing-prs/)方法を理解しており、さらに貢献する方法について学ぶ準備ができていることを前提としています。
+これらのタスクの一部には、Gitコマンドラインクライアントとその他のツールを使用する必要があります。
 
 <!-- body -->
 
