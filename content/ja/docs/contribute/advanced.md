@@ -26,36 +26,27 @@ Kubernetesのドキュメントへの貢献をしばらく行っていると、[
 議論が行われ、SIG が望ましい結果について合意した後、最も適切な方法で提案された変更に取り組むことができます。
 たとえば、スタイルガイドやWebサイトの機能の更新にはプルリクエストを開くことが含まれ、ドキュメントのテストに関連する変更には sig-testing の作業が含まれる場合があります。
 
-## Coordinate docs for a Kubernetes release
+## Kubernetesリリースのドキュメントを調整する
 
-SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers)
-can coordinate docs for a Kubernetes release.
+<!-- TODO: update this link after translated this page -->
+SIG Docsの[approver](/docs/contribute/participate/roles-and-responsibilities/#approvers)はKubernetesリリースのドキュメントを調整できます。
 
-Each Kubernetes release is coordinated by a team of people participating in the
-sig-release Special Interest Group (SIG). Others on the release team for a given
-release include an overall release lead, as well as representatives from
-sig-testing and others. To find out more about Kubernetes release processes,
-refer to
-[https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release).
+Kubernetesの各リリースは、sig-release Special Interest Group (SIG)に参加しているチームによって調整されます。
+1つのリリースを行うリリースチームには、リリース全体のリーダーや、sig-testingなどの代表者が含まれます。
+Kubernetesのリリースプロセスの詳細については[https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release) を参照してください。
 
-The SIG Docs representative for a given release coordinates the following tasks:
+1つのリリースのSIG Docsの担当者は以下のタスクを調整します:
 
-- Monitor the feature-tracking spreadsheet for new or changed features with an
-  impact on documentation. If documentation for a given feature won't be ready
-  for the release, the feature may not be allowed to go into the release.
-- Attend sig-release meetings regularly and give updates on the status of the
-  docs for the release.
-- Review and copyedit feature documentation drafted by the SIG responsible for
-  implementing the feature.
-- Merge release-related pull requests and maintain the Git feature branch for
-  the release.
-- Mentor other SIG Docs contributors who want to learn how to do this role in
-  the future. This is known as "shadowing".
-- Publish the documentation changes related to the release when the release
-  artifacts are published.
+- ドキュメントに影響を与える新機能または変更された機能がないか、機能追跡スプレッドシートを監視します。
+  特定の機能のドキュメントがリリースの準備ができていない場合、その機能をリリースに入れることが許可されない場合があります。
+- sig-release ミーティングに定期的に参加し、リリースに関するドキュメントのステータスに関する最新情報を提供します。
+- 機能の実装を担当するSIGによって作成された機能ドキュメントのドラフトをレビュー〜編集します。
+- リリース関連のプルリクエストをマージし、リリース用のGitのfeatureブランチをメンテナンスします。
+- 将来この役割を行う方法を学びたい他のSIG Docs 貢献者を指導します。
+  これは「シャドーイング」として知られています。
+- リリースアーティファクトが公開されたときに、リリースに関連するドキュメントの変更を公開します。
 
-Coordinating a release is typically a 3-4 month commitment, and the duty is
-rotated among SIG Docs approvers.
+リリースの調整は通常3〜4か月のコミットメントであり、この責務はSIG Docsのapproverの間でローテーションされます。
 
 ## Serve as a New Contributor Ambassador
 
