@@ -33,13 +33,13 @@ Kubernetes 支持多个虚拟集群，它们底层依赖于同一个物理集群
 Namespaces are intended for use in environments with many users spread across multiple
 teams, or projects.  For clusters with a few to tens of users, you should not
 need to create or think about namespaces at all.  Start using namespaces when you
-need the features they provide. 
+need the features they provide.
 -->
 名字空间适用于存在很多跨多个团队或项目的用户的场景。对于只有几到几十个用户的集群，根本不需要创建或考虑名字空间。当需要名称空间提供的功能时，请开始使用它们。
 
 <!--
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
-but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes 
+but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes
 resource can only be in one namespace.
 -->
 名字空间为名称提供了一个范围。资源的名称需要在名字空间内是唯一的，但不能跨名字空间。
@@ -71,7 +71,7 @@ for namespaces](/docs/tasks/administer-cluster/namespaces/).
 名字空间的创建和删除在[名字空间的管理指南文档](/zh/docs/tasks/administer-cluster/namespaces/)描述。
 
 <!--
-Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+Avoid creating namespaces with the prefix `kube-`, since it is reserved for Kubernetes system namespaces.
 -->
 {{< note >}}
 避免使用前缀 `kube-` 创建名字空间，因为它是为 Kubernetes 系统名字空间保留的。
@@ -216,7 +216,7 @@ Kubernetes 控制面会为所有名字空间设置一个不可变更的
 `kubernetes.io/metadata.name`，只要 `NamespaceDefaultLabelName` 这一
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
 被启用。标签的值是名字空间的名称。
- 
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -225,4 +225,3 @@ Kubernetes 控制面会为所有名字空间设置一个不可变更的
 -->
 * 进一步了解[建立新的名字空间](/zh/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)。
 * 进一步了解[删除名字空间](/zh/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)。
-
