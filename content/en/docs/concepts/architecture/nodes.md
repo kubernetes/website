@@ -19,7 +19,7 @@ and contains the services necessary to run
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
 
-The [components](/docs/concepts/overview/components/#node-components) on a node include the
+The [components](/docs/concepts/overview/components.md#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
@@ -379,7 +379,7 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the [components](/docs/concepts/overview/components/#node-components) that make up a node.
+* Learn about the [components](/docs/concepts/overview/components.md#node-components) that make up a node.
 * Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
