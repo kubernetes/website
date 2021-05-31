@@ -98,7 +98,7 @@ a00:100::4    pod01
 
 ## Serviceの検証
 
-`.spec.isFamilyPolicy`を明示的に定義していない、以下のようなServiceを作成してみます。Kubernetesは最初に設定した`service-cluster-ip-range`の範囲からServiceにcluster IPを割り当てて、`.spec.ipFamilyPolicy`を`SingleStack`に設定します。
+`.spec.isFamilyPolicy`を明示的に定義していない、以下のようなServiceを作成してみます。Kubernetesは最初に設定した`service-cluster-ip-range`の範囲からServiceにcluster IPを割り当てて、`.spec.ipFamilyPolicy`を`SingleStack`に設定します。
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
