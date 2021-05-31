@@ -312,7 +312,7 @@ For volume plugins that support the `Delete` reclaim policy, deletion removes bo
 
 对于支持 `Delete` 回收策略的卷插件，删除动作会将 PersistentVolume 对象从
 Kubernetes 中移除，同时也会从外部基础设施（如 AWS EBS、GCE PD、Azure Disk 或
-Cinder 卷）中移除所关联的存储资产。 
+Cinder 卷）中移除所关联的存储资产。
 动态供应的卷会继承[其 StorageClass 中设置的回收策略](#reclaim-policy)，该策略默认
 为 `Delete`。
 管理员需要根据用户的期望来配置 StorageClass；否则 PV 卷被创建之后必须要被
@@ -726,7 +726,7 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 一般而言，每个 PV 卷都有确定的存储容量。
 容量属性是使用 PV 对象的 `capacity` 属性来设置的。
 参考 Kubernetes
-[资源模型（Resource Model）](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) 
+[资源模型（Resource Model）](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md)
 设计提案，了解 `capacity` 字段可以接受的单位。
 
 目前，存储大小是可以设置和请求的唯一资源。
@@ -1491,8 +1491,8 @@ and need persistent storage, it is recommended that you use the following patter
   config requiring PVCs).
 -->
 - 在你的工具链中，监测经过一段时间后仍未被绑定的 PVC 对象，要让用户知道这些对象，
-  因为这可能意味着集群没有动态存储支持（因而用户必须先创建一个匹配的 PV），或者
-  集群没有配置存储系统（因而用户无法配置需要 PVC 的工作负载配置）。 
+  因为这可能意味着集群不支持动态存储（因而用户必须先创建一个匹配的 PV），或者
+  集群没有配置存储系统（因而用户无法配置需要 PVC 的工作负载配置）。
 
 ## {{% heading "whatsnext" %}}
 
@@ -1519,4 +1519,3 @@ and need persistent storage, it is recommended that you use the following patter
 * [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
 * [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
 * [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
-

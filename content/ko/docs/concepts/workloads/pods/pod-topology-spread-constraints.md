@@ -58,7 +58,7 @@ graph TB
     class zoneA,zoneB cluster;
 {{< /mermaid >}}
 
-레이블을 수동으로 적용하는 대신에, 사용자는 대부분의 클러스터에서 자동으로 생성되고 채워지는 [잘-알려진 레이블](/docs/reference/kubernetes-api/labels-annotations-taints/)을 재사용할 수 있다.
+레이블을 수동으로 적용하는 대신에, 사용자는 대부분의 클러스터에서 자동으로 생성되고 채워지는 [잘-알려진 레이블](/docs/reference/labels-annotations-taints/)을 재사용할 수 있다.
 
 ## 파드의 분배 제약 조건
 

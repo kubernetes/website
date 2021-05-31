@@ -223,7 +223,7 @@ spec:
 현재 볼륨에서 사용된 컨피그맵이 업데이트되면, 프로젝션된 키도 마찬가지로 업데이트된다.
 kubelet은 모든 주기적인 동기화에서 마운트된 컨피그맵이 최신 상태인지 확인한다.
 그러나, kubelet은 로컬 캐시를 사용해서 컨피그맵의 현재 값을 가져온다.
-캐시 유형은 [KubeletConfiguration 구조체](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)의
+캐시 유형은 [KubeletConfiguration 구조체](/docs/reference/config-api/kubelet-config.v1beta1/)의
 `ConfigMapAndSecretChangeDetectionStrategy` 필드를 사용해서 구성할 수 있다.
 컨피그맵은 watch(기본값), ttl 기반 또는 API 서버로 직접
 모든 요청을 리디렉션할 수 있다.
@@ -233,11 +233,12 @@ kubelet은 모든 주기적인 동기화에서 마운트된 컨피그맵이 최�
 지연을 지켜보거나, 캐시의 ttl 또는 0에 상응함).
 
 환경 변수로 사용되는 컨피그맵은 자동으로 업데이트되지 않으며 파드를 다시 시작해야 한다.
+
 ## 변경할 수 없는(immutable) 컨피그맵 {#configmap-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-쿠버네티스 베타 기능인 _변경할 수 없는 시크릿과 컨피그맵_ 은 개별 시크릿과
+쿠버네티스 기능인 _변경할 수 없는 시크릿과 컨피그맵_ 은 개별 시크릿과
 컨피그맵을 변경할 수 없는 것으로 설정하는 옵션을 제공한다. 컨피그맵을 광범위하게
 사용하는 클러스터(최소 수만 개의 고유한 컨피그맵이 파드에 마운트)의 경우
 데이터 변경을 방지하면 다음과 같은 이점이 있다.

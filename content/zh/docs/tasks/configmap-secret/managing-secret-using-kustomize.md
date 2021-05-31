@@ -68,7 +68,25 @@ secretGenerator:
   - password=1f2d1e2e67df
 ```
 
-<!-- Note that in both cases, you don't need to base64 encode the values. -->
+<!-- 
+You can also define the `secretGenerator` in the `kustomization.yaml`
+file by providing `.env` files.
+For example, the following `kustomization.yaml` file pulls in data from
+`.env.secret` file:
+-->
+你也可以使用 `.env` 文件在 `kustomization.yaml` 中定义 `secretGenerator`。
+例如：下面的 `kustomization.yaml` 文件从 `.env.secret` 文件获取数据。
+
+```yaml
+secretGenerator:
+- name: db-user-pass
+  envs:
+  - .env.secret
+```
+
+<!--
+Note that in all cases, you don't need to base64 encode the values.
+-->
 注意，上面两种情况，你都不需要使用 base64 编码。
 
 <!-- ## Create the Secret -->
@@ -125,7 +143,7 @@ kubectl describe secrets/db-user-pass-96mffmfh4k
 输出类似于：
 
 ```
-Name:            db-user-pass
+Name:            db-user-pass-96mffmfh4k
 Namespace:       default
 Labels:          <none>
 Annotations:     <none>
@@ -154,8 +172,8 @@ To check the actual content of the encoded data, please refer to
 <!-- ## Clean Up -->
 ## 清理    {#clean-up}
 
-<!-- To delete the Secret you have just created: -->
-删除你刚才创建的 Secret：
+<!-- To delete the Secret you have created: -->
+删除你创建的 Secret：
 
 ```shell
 kubectl delete secret db-user-pass-96mffmfh4k

@@ -147,7 +147,7 @@ kubeadm join [api-server-endpoint] [flags]
 <td colspan="2">--discovery-token-ca-cert-hash strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>For token-based discovery, validate that the root CA public key matches this hash (format: &quot;<!-- raw HTML omitted -->:<!-- raw HTML omitted -->&quot;).</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>For token-based discovery, validate that the root CA public key matches this hash (format: &quot;&lt;type&gt;:&lt;value&gt;&quot;).</p></td>
 </tr>
 
 <tr>

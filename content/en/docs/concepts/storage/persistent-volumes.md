@@ -387,7 +387,7 @@ Kubernetes supports two `volumeModes` of PersistentVolumes: `Filesystem` and `Bl
 `Filesystem` is the default mode used when `volumeMode` parameter is omitted.
 
 A volume with `volumeMode: Filesystem` is *mounted* into Pods into a directory. If the volume
-is backed by a block device and the device is empty, Kuberneretes creates a filesystem
+is backed by a block device and the device is empty, Kubernetes creates a filesystem
 on the device before mounting it for the first time.
 
 You can set the value of `volumeMode` to `Block` to use a volume as a raw block device.
@@ -540,11 +540,11 @@ spec:
 
 ### Access Modes
 
-Claims use the same conventions as volumes when requesting storage with specific access modes.
+Claims use [the same conventions as volumes](#access-modes) when requesting storage with specific access modes.
 
 ### Volume Modes
 
-Claims use the same convention as volumes to indicate the consumption of the volume as either a filesystem or block device.
+Claims use [the same convention as volumes](#volume-mode) to indicate the consumption of the volume as either a filesystem or block device.
 
 ### Resources
 

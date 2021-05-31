@@ -493,13 +493,13 @@ a running cluster in the [Deploying section](#deploying).
 ### 更改 `DaemonSet` 参数    {#changing-daemonset-parameters}
 
 <!--
-When you have the Stackdriver Logging `DaemonSet` in your cluster, you can just modify the
-`template` field in its spec, daemonset controller will update the pods for you. For example,
-let's assume you've just installed the Stackdriver Logging as described above. Now you want to
+When you have the Stackdriver Logging `DaemonSet` in your cluster, you can modify the
+`template` field in its spec. The DaemonSet controller manages the pods for you.
+For example, assume you've installed the Stackdriver Logging as described above. Now you want to
 change the memory limit to give fluentd more memory to safely process more logs.
 -->
 当集群中有 Stackdriver 日志机制的 `DaemonSet` 时，你只需修改其 spec 中的
-`template` 字段，daemonset 控制器将为你更新 Pod。
+`template` 字段，DaemonSet 控制器将为你管理 Pod。
 例如，假设你按照上面的描述已经安装了 Stackdriver 日志机制。
 现在，你想更改内存限制，来给 fluentd 提供的更多内存，从而安全地处理更多日志。
 
