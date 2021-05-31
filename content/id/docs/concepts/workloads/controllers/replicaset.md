@@ -193,7 +193,7 @@ Sebuah ReplicaSet juga membutuhkan [bagian `.spec`](https://git.k8s.io/community
 `.spec.template` adalah sebuah [templat pod](/docs/concepts/workloads/Pods/pod-overview/#pod-templates) yang juga dibutuhkan untuk mempunyai label. Pada contoh `frontend.yaml` kita memiliki satu label: `tier: frontend`. 
 Hati-hati agar tidak tumpang tindih dengan selektor dari _controller_ lain, agar mereka tidak mencoba untuk mengadopsi Pod ini.
 
-Untuk _field_ [_restart policy_](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy) dari templat, `.spec.template.spec.restartPolicy`, nilai yang diperbolehkan hanyalah `Always`, yang merupakan nilai _default_. 
+Untuk _field_ [_restart policy_](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) dari templat, `.spec.template.spec.restartPolicy`, nilai yang diperbolehkan hanyalah `Always`, yang merupakan nilai _default_. 
 
 ### Selektor Pod
 
