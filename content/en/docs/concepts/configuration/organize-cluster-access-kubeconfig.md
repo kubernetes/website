@@ -17,6 +17,11 @@ a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
+{{< warning >}}
+Using unverified kubeconfig files could result in malicious code execution and file exposure. 
+Inspect your kubeconfig files carefully and only use config files from trusted sources.
+{{< /warning>}}
+
 By default, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
 You can specify other kubeconfig files by setting the `KUBECONFIG` environment
 variable or by setting the
