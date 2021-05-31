@@ -25,7 +25,7 @@ and contains the services necessary to run
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have just one.
 
-The [components](/docs/concepts/overview/components.md#node-components) on a node include the
+The [components](/content/zh/docs/concepts/overview/components.md#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
@@ -38,7 +38,7 @@ Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行
 通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也可能
 只有一个节点。
 
-节点上的[组件](/zh/docs/concepts/overview/components.md#node-components)包括
+节点上的[组件](/content/zh/docs/concepts/overview/components.md#node-components)包括
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}以及
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}。
@@ -704,13 +704,13 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn about the [components](/docs/concepts/overview/components.md#node-components) that make up a node.
+* Learn about the [components](/content/zh/docs/concepts/overview/components.md#node-components) that make up a node.
 * Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 -->
-* 了解有关节点[组件](/zh/docs/concepts/overview/components.md#node-components)。
+* 了解有关节点[组件](/content/zh/docs/concepts/overview/components.md#node-components)。
 * 阅读 [Node 的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)。
 * 阅读架构设计文档中有关
   [节点](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
