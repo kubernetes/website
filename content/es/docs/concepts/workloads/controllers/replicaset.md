@@ -223,7 +223,7 @@ El campo `.spec.template` es una [plantilla pod](/docs/concepts/workloads/Pods/p
  también necesita obligatoriamente tener etiquetas definidas. En nuestro ejemplo `frontend.yaml` teníamos una etiqueta: `tier: frontend`.
 Lleva cuidado de que no se entremezcle con los selectores de otros controladores, no sea que traten de adquirir este Pod.
 
-Para el campo de [regla de reinicio](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy) de la plantilla,
+Para el campo de [regla de reinicio](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) de la plantilla,
 `.spec.template.spec.restartPolicy`, el único valor permitido es `Always`, que es el valor predeterminado.
 
 ### Selector de Pod
