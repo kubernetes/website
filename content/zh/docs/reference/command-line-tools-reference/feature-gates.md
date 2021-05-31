@@ -410,7 +410,6 @@ different Kubernetes components.
 | `StreamingProxyRedirects` | `true` | Beta | 1.6 | 1.17 |
 | `StreamingProxyRedirects` | `true` | Deprecated | 1.18 | 1.21 |
 | `StreamingProxyRedirects` | `false` | Deprecated | 1.22 | - |
-| `StreamingProxyRedirects` | - | GA | 1.19 | - |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
