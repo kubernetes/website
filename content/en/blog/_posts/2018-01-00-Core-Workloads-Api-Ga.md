@@ -97,6 +97,6 @@ The core workloads API surface is stable, but it’s still software, and softwar
 
 - [Download](http://get.k8s.io/) Kubernetes
 - Get involved with the Kubernetes project on [GitHub](https://github.com/kubernetes/kubernetes)
-- Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
+- Post questions (or answer questions) on [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes)
 - Connect with the community on [Slack](https://slack.k8s.io/)
 - Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
