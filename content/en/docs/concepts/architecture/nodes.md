@@ -65,7 +65,7 @@ delete the Node object to stop that health checking.
 {{< /note >}}
 
 The name of a Node object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS subdomain name](content/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 ### Node name uniqueness
 
