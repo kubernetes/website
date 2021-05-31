@@ -28,7 +28,7 @@ weight: 10
             <div class="col-md-8">
                 <h3>Kubernetes Deployments</h3>
                 <p>
-                実行中のKubernetesクラスターを入手すると、その上にコンテナ化アプリケーションをデプロイすることができます。そのためには、Kubernetesの<b>Deployment</b> の設定を作成します。DeploymentはKubernetesにあなたのアプリケーションのインスタンスを作成し、更新する方法を指示します。Deploymentを作成すると、Kubernetesマスターは指定されたアプリケーションインスタンスをクラスター内の個々のノードにスケジュールします。
+                実行中のKubernetesクラスターを入手すると、その上にコンテナ化アプリケーションをデプロイすることができます。そのためには、Kubernetesの<b>Deployment</b> の設定を作成します。DeploymentはKubernetesにあなたのアプリケーションのインスタンスを作成し、更新する方法を指示します。Deploymentを作成すると、KubernetesマスターはDeployment内に含まれるアプリケーションインスタンスをクラスター内の個々のノードで実行するようにスケジュールします。
                 </p>
 
                 <p>アプリケーションインスタンスが作成されると、Kubernetes Deploymentコントローラーは、それらのインスタンスを継続的に監視します。インスタンスをホストしているノードが停止、削除された場合、Deploymentコントローラーはそのインスタンスをクラスター内の別のノード上のインスタンスと置き換えます。<b>これは、マシンの故障やメンテナンスに対処するためのセルフヒーリングの仕組みを提供しています。</b></p>
@@ -72,7 +72,7 @@ weight: 10
 
                 <p>Kubernetesのコマンドラインインターフェイスである<b>kubectl</b>を使用して、Deploymentを作成、管理できます。kubectlはKubernetes APIを使用してクラスターと対話します。このモジュールでは、Kubernetesクラスターでアプリケーションを実行するDeploymentを作成するために必要な、最も一般的なkubectlコマンドについて学びます。</p>
 
-                <p>Deploymentを作成するときは、アプリケーションのコンテナイメージと実行するレプリカの数を指定する必要があります。Deploymentを更新することで、あとでその情報を変更できます。チュートリアルのモジュール<a href="/ja/docs/tutorials/kubernetes-basics/scale-intro/">5</a>と<a href="/ja/docs/tutorials/kubernetes-basics/update-intro/">6</a>では、Deploymentをどのようにスケール、更新できるかについて説明します。</p>
+                <p>Deploymentを作成するときは、アプリケーションのコンテナイメージと実行するレプリカの数を指定する必要があります。Deploymentを更新することで、あとでその情報を変更できます。チュートリアルのモジュール<a href="/ja/docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a>と<a href="/ja/docs/tutorials/kubernetes-basics/update/update-intro/">6</a>では、Deploymentをどのようにスケール、更新できるかについて説明します。</p>
 
             </div>
             <div class="col-md-4">

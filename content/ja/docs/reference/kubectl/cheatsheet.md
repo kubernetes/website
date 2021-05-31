@@ -8,15 +8,9 @@ card:
 
 <!-- overview -->
 
-[Kubectl概要](/docs/reference/kubectl/overview/)と[JsonPathガイド](/docs/reference/kubectl/jsonpath)も合わせてご覧ください。
-
-このページは`kubectl`コマンドの概要です。
-
-
+このページには、一般的によく使われる`kubectl`コマンドとフラグのリストが含まれています。
 
 <!-- body -->
-
-# kubectl - チートシート
 
 ## Kubectlコマンドの補完
 
@@ -37,14 +31,14 @@ complete -F __start_kubectl k
 ### ZSH
 
 ```bash
-source <(kubectl completion zsh)  # 現在のzshシェルでコマンド補完を設定します
+source <(kubectl completion zsh)  # 現在のzshシェルにコマンド補完を設定します
 echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # zshシェルでのコマンド補完を永続化するために.zshrcに追記します。
 ```
 
 ## Kubectlコンテキストの設定
 
 `kubectl`がどのKubernetesクラスターと通信するかを設定します。
-設定ファイル詳細については[kubeconfigを使用した複数クラスターとの認証](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)をご覧ください。
+設定ファイル詳細については[kubeconfigを使用した複数クラスターとの認証](/ja/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)をご覧ください。
 
 ```bash
 kubectl config view # マージされたkubeconfigの設定を表示します。
@@ -63,10 +57,10 @@ kubectl config get-contexts                          # コンテキストのリ�
 kubectl config current-context                       # 現在のコンテキストを表示します
 kubectl config use-context my-cluster-name           # デフォルトのコンテキストをmy-cluster-nameに設定します
 
-# basic認証をサポートする新たなクラスターをkubeconfigに追加します
+# basic認証をサポートする新たなユーザーをkubeconfigに追加します
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
-# 現在のコンテキストでkubectlのサブコマンドのネームスペースを永続的に変更します
+# 現在のコンテキストでkubectlのサブコマンドの名前空間を永続的に変更します
 kubectl config set-context --current --namespace=ggckad-s2
 
 # 特定のユーザー名と名前空間を使用してコンテキストを設定します
@@ -76,7 +70,7 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
 kubectl config unset users.foo    # ユーザーfooを削除します
 ```
 
-## Apply
+## Kubectl Apply
 
 `apply`はKubernetesリソースを定義するファイルを通じてアプリケーションを管理します。`kubectl apply`を実行して、クラスター内のリソースを作成および更新します。これは、本番環境でKubernetesアプリケーションを管理する推奨方法です。
 詳しくは[Kubectl Book](https://kubectl.docs.kubernetes.io)をご覧ください。
@@ -141,18 +135,18 @@ EOF
 
 ```bash
 # Getコマンドで基本的な情報を確認します
-kubectl get services                          # 現在のネームスペース上にあるすべてのサービスのリストを表示します
-kubectl get pods --all-namespaces             # すべてのネームスペース上にあるすべてのPodのリストを表示します
-kubectl get pods -o wide                      # 現在のネームスペース上にあるすべてのPodについてより詳細なリストを表示します
+kubectl get services                          # 現在の名前空間上にあるすべてのサービスのリストを表示します
+kubectl get pods --all-namespaces             # すべての名前空間上にあるすべてのPodのリストを表示します
+kubectl get pods -o wide                      # 現在の名前空間上にあるすべてのPodについてより詳細なリストを表示します
 kubectl get deployment my-dep                 # 特定のDeploymentを表示します
-kubectl get pods                              # 現在のネームスペース上にあるすべてのPodのリストを表示します
+kubectl get pods                              # 現在の名前空間上にあるすべてのPodのリストを表示します
 kubectl get pod my-pod -o yaml                # PodのYAMLを表示します
 
 # Describeコマンドで詳細な情報を確認します
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 
-# 名前順にソートしたリストを表示します
+# 名前順にソートしたServiceのリストを表示します
 kubectl get services --sort-by=.metadata.name
 
 # Restartカウント順にPodのリストを表示します
@@ -165,33 +159,33 @@ kubectl get pv --sort-by=.spec.capacity.storage
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
+# 'ca.crt'のようなピリオドが含まれるキーの値を取得します
+kubectl get configmap myconfig \
+  -o jsonpath='{.data.ca\.crt}'
+
 # すべてのワーカーノードを取得します（セレクターを使用して、
 # 「node-role.kubernetes.io/master」という名前のラベルを持つ結果を除外します）
 kubectl get node --selector='!node-role.kubernetes.io/master'
 
-# 現在のネームスペースでrunning状態のPodをリストを表示します
+# 現在の名前空間でrunning状態のPodのリストを表示します
 kubectl get pods --field-selector=status.phase=Running
 
-# すべてのノードのExternal IPをリストを表示します
+# すべてのノードのExternal IPのリストを表示します
 kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 
 # 特定のRCに属するPodの名前のリストを表示します
 # `jq`コマンドは複雑なjsonpathを変換する場合に便利であり、https://stedolan.github.io/jq/で見つけることが可能です
-
 sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
 
 # すべてのPod(またはラベル付けをサポートする他のKubernetesオブジェクト)のラベルのリストを表示します
-
 kubectl get pods --show-labels
 
 # どのノードがready状態か確認します
-
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
 
 # Podで現在使用中のSecretをすべて表示します
-
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 
 # すべてのPodのInitContainerのコンテナIDのリストを表示します
@@ -199,16 +193,20 @@ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secre
 kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
 
 # タイムスタンプでソートされたEventのリストを表示します
-
 kubectl get events --sort-by=.metadata.creationTimestamp
 
 # クラスターの現在の状態を、マニフェストが適用された場合のクラスターの状態と比較します。
 kubectl diff -f ./my-manifest.yaml
+
+# Nodeから返されるすべてのキーをピリオド区切りの階層表記で生成します。
+# 複雑にネストされたJSON構造をもつキーを指定したい時に便利です
+kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+
+# Pod等から返されるすべてのキーをピリオド区切り階層表記で生成します。
+kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 ```
 
 ## リソースのアップデート
-
-version 1.11で`rolling-update`は廃止されました、代わりに`rollout`コマンドをお使いください(詳しくはこちらをご覧ください [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md))。
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # frontend Deploymentのwwwコンテナイメージをv2にローリングアップデートします
@@ -219,11 +217,6 @@ kubectl rollout status -w deployment/frontend                    # frontend Depl
 kubectl rollout restart deployment/frontend                      # frontend Deployment を再起動します
 
 
-# これらのコマンドは1.11から廃止されました
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # (廃止) frontend-v1 Podをローリングアップデートします
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (廃止) リソース名とイメージを変更します
-kubectl rolling-update frontend --image=image:v2                 # (廃止) frontendのイメージを変更します
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (廃止) 現在実行中のローリングアップデートを中止します
 cat pod.json | kubectl replace -f -                              # 標準入力から渡されたJSONに基づいてPodを置き換えます
 
 # リソースを強制的に削除してから再生成し、置き換えます。サービスの停止が発生します
@@ -260,7 +253,6 @@ kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", 
 ```
 
 ## リソースの編集
-
 任意のエディターでAPIリソースを編集します。
 
 ```bash
@@ -301,10 +293,10 @@ kubectl logs -f my-pod                              # Podのログをストリ�
 kubectl logs -f my-pod -c my-container              # 複数のコンテナがあるPodで、特定のコンテナのログをストリームで確認します(標準出力)
 kubectl logs -f -l name=myLabel --all-containers    # name-myLabelラベルを持つすべてのコンテナのログをストリームで確認します(標準出力)
 kubectl run -i --tty busybox --image=busybox -- sh  # Podをインタラクティブシェルとして実行します
-kubectl run nginx --image=nginx --restart=Never -n 
-mynamespace                                         # 特定のネームスペースでnginx Podを実行します
-kubectl run nginx --image=nginx --restart=Never     # nginx Podを実行し、マニフェストファイルををpod.yamlという名前で書き込みます
---dry-run -o yaml > pod.yaml
+kubectl run nginx --image=nginx -n 
+mynamespace                                         # 特定の名前空間でnginx Podを実行します
+kubectl run nginx --image=nginx                     # nginx Podを実行し、マニフェストファイルをpod.yamlという名前で書き込みます
+--dry-run=client -o yaml > pod.yaml
 kubectl attach my-pod -i                            # 実行中のコンテナに接続します
 kubectl port-forward my-pod 5000:6000               # ローカルマシンのポート5000を、my-podのポート6000に転送します
 kubectl exec my-pod -- ls /                         # 既存のPodでコマンドを実行(単一コンテナの場合)
@@ -315,9 +307,9 @@ kubectl top pod POD_NAME --containers               # 特定のPodとそのコ�
 ## ノードおよびクラスターとの対話処理
 
 ```bash
-kubectl cordon my-node                                                # my-nodeにスケーリングされないように設定します
+kubectl cordon my-node                                                # my-nodeをスケーリングされないように設定します
 kubectl drain my-node                                                 # メンテナンスの準備としてmy-nodeで動作中のPodを空にします
-kubectl uncordon my-node                                              # my-nodeにスケーリングされるように設定します
+kubectl uncordon my-node                                              # my-nodeをスケーリングされるように設定します
 kubectl top node my-node                                              # 特定のノードのメトリクスを表示します
 kubectl cluster-info                                                  # Kubernetesクラスターのマスターとサービスのアドレスを表示します
 kubectl cluster-info dump                                             # 現在のクラスター状態を標準出力にダンプします
@@ -329,7 +321,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### リソースタイプ
 
-サポートされているすべてのリソースタイプを、それらが[API group](/ja/docs/concepts/overview/kubernetes-api/#api-groups)か[Namespaced](/docs/concepts/overview/working-with-objects/namespaces)、[Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects)に関わらずその短縮名をリストします。
+サポートされているすべてのリソースタイプを、それらが[API group](/ja/docs/concepts/overview/kubernetes-api/#api-groups)か[Namespaced](/ja/docs/concepts/overview/working-with-objects/namespaces)、[Kind](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects)に関わらずその短縮名をリストします。
 
 ```bash
 kubectl api-resources
@@ -352,7 +344,7 @@ kubectl api-resources --api-group=extensions # "extensions" APIグループの�
 
 出力フォーマット | 説明
 ---------------- | -----------
-`-o=custom-columns=<spec>` | カスタムカラムを使用してコンマ区切りのテーブルを表示します
+`-o=custom-columns=<spec>` | コンマ区切りされたカスタムカラムのリストを指定してテーブルを表示します
 `-o=custom-columns-file=<filename>` | `<filename>`ファイル内のカスタムカラムテンプレートを使用してテーブルを表示します
 `-o=json`     | JSON形式のAPIオブジェクトを出力します
 `-o=jsonpath=<template>` | [jsonpath](/docs/reference/kubectl/jsonpath)式で定義されたフィールドを出力します
@@ -361,13 +353,28 @@ kubectl api-resources --api-group=extensions # "extensions" APIグループの�
 `-o=wide`     | 追加の情報を含むプレーンテキスト形式で出力します。Podの場合、Node名が含まれます。
 `-o=yaml`     | YAML形式のAPIオブジェクトを出力します
 
+`-o=custom-columns`を使用したサンプル:
+
+```bash
+# クラスター内で実行中のすべてのイメージ名を表示する
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+# "k8s.gcr.io/coredns:1.6.2"を除いたすべてのイメージ名を表示する
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+
+# 名前に関係なくmetadata以下のすべてのフィールドを表示する
+kubectl get pods -A -o=custom-columns='DATA:metadata.*'
+```
+
+kubectlに関するより多くのサンプルは[カスタムカラムのリファレンス](/ja/docs/reference/kubectl/overview/#custom-columns)を参照してください。
+
 ### Kubectlのログレベルとデバッグ
 kubectlのログレベルは、レベルを表す整数が後に続く`-v`または`--v`フラグで制御されます。一般的なKubernetesのログ記録規則と関連するログレベルについて、[こちら](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)で説明します。
 
 ログレベル    | 説明
 --------------| -----------
 `--v=0`       | これは、クラスターオペレーターにログレベルが0であることを"常に"見えるようにするために役立ちます
-`--v=1`       | 冗長性が必要ない場合は、妥当なデフォルトのログレベルです
+`--v=1`       | ログレベルが必要ない場合に、妥当なデフォルトのログレベルです
 `--v=2`       | サービスに関する重要な定常状態情報と、システムの重要な変更に関連する可能性がある重要なログメッセージを表示します。 これは、ほとんどのシステムで推奨されるデフォルトのログレベルです。
 `--v=3`       | 変更に関するより詳細なログレベルを表示します
 `--v=4`       | デバックにむいたログレベルで表示します
@@ -380,13 +387,10 @@ kubectlのログレベルは、レベルを表す整数が後に続く`-v`また
 
 ## {{% heading "whatsnext" %}}
 
-
-* kubectlについてより深く学びたい方は[kubectl概要](/docs/reference/kubectl/overview/)をご覧ください。
+* kubectlについてより深く学びたい方は[kubectl概要](/ja/docs/reference/kubectl/overview/)や[JsonPath](/docs/reference/kubectl/jsonpath)をご覧ください。
 
 * オプションについては[kubectl](/docs/reference/kubectl/kubectl/) optionsをご覧ください。
-
+ 
 * また[kubectlの利用パターン](/docs/reference/kubectl/conventions/)では再利用可能なスクリプトでkubectlを利用する方法を学べます。
 
 * コミュニティ版[kubectlチートシート](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)もご覧ください。
-
-

@@ -1,28 +1,11 @@
 ---
-title: Kubernetesドキュメントがサポートしているバージョン
-content_type: concept
+title: 利用可能なドキュメントバージョン
+content_type: custom
+layout: supported-versions 
 card:
   name: about
   weight: 10
-  title: ドキュメントがサポートしているバージョン
+  title: 利用可能なドキュメントバージョン
 ---
 
-<!-- overview -->
-
 本ウェブサイトには、現行版とその直前4バージョンのKubernetesドキュメントがあります。
-
-
-
-<!-- body -->
-
-## 現行版
-
-現在のバージョンは[{{< param "version" >}}](/)です。
-
-## 以前のバージョン
-
-{{< versions-other >}}
-
-
-
-

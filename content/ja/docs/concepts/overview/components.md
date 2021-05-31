@@ -1,6 +1,8 @@
 ---
 title: Kubernetesのコンポーネント
 content_type: concept
+description: >
+  Kubernetesクラスターはコントロールプレーンやノードと呼ばれるマシン群といったコンポーネントからなります。
 weight: 20
 card: 
   name: concepts
@@ -53,20 +55,18 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 
 ### cloud-controller-manager
 
-[cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) は、基盤であるクラウドプロバイダーと対話するコントローラーを実行します。
-cloud-controller-managerバイナリは、Kubernetesリリース1.6で導入された機能です。
+{{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
-cloud-controller-managerは、クラウドプロバイダー固有のコントローラーループのみを実行します。これらのコントローラーループはkube-controller-managerで無効にする必要があります。 kube-controller-managerの起動時に `--cloud-provider` フラグを `external` に設定することで、コントローラーループを無効にできます。
+cloud-controller-managerは、クラウドプロバイダー固有のコントローラーのみを実行します。
+KubernetesをオンプレミスあるいはPC内での学習環境で動かす際には、クラスターにcloud container managerはありません。
 
-cloud-controller-managerを使用すると、クラウドベンダーのコードとKubernetesコードを互いに独立して進化させることができます。以前のリリースでは、コアKubernetesコードは、機能的にクラウドプロバイダー固有のコードに依存していました。将来のリリースでは、クラウドベンダーに固有のコードはクラウドベンダー自身で管理し、Kubernetesの実行中にcloud-controller-managerにリンクする必要があります。
+kube-controller-managerを使用すると、cloud-controller-managerは複数の論理的に独立したコントロールループをシングルバイナリにまとめ、これが一つのプロセスとして動作します。パフォーマンスを向上させるあるいは障害に耐えるために水平方向にスケールする(一つ以上のコピーを動かす)ことができます。
 
-次のコントローラーには、クラウドプロバイダーへの依存関係があります。
+次のコントローラーには、クラウドプロバイダーへの依存関係を持つ可能性があります。
 
   * ノードコントローラー：ノードが応答を停止した後、クラウドで削除されたかどうかを判断するため、クラウドプロバイダーをチェックします。
   * ルーティングコントローラー：基盤であるクラウドインフラでルーティングを設定します。
   * サービスコントローラー：クラウドプロバイダーのロードバランサーの作成、更新、削除を行います。
-  * ボリュームコントローラー：ボリュームを作成、アタッチ、マウントしたり、クラウドプロバイダーとやり取りしてボリュームを調整したりします。
-
 ## ノードコンポーネント {#node-components}
 
 ノードコンポーネントはすべてのノードで実行され、稼働中のPodの管理やKubernetesの実行環境を提供します。

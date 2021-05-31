@@ -1,12 +1,12 @@
 ---
-title: kubeadmを使用したシングルコントロールプレーンクラスターの作成
+title: kubeadmを使用したクラスターの作成
 content_type: task
 weight: 30
 ---
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">`kubeadm`ツールは、ベストプラクティスに準拠した実用最小限のKubernetesクラスターをブートストラップする手助けをします。実際、`kubeadm`を使用すれば、[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification)に通るクラスターをセットアップすることができます。`kubeadm`は、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)やクラスターのアップグレードなどのその他のクラスターのライフサイクルの機能もサポートします。
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">ベストプラクティスに準拠した実用最小限のKubernetesクラスターを作成します。実際、`kubeadm`を使用すれば、[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification)に通るクラスターをセットアップすることができます。`kubeadm`は、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)やクラスターのアップグレードなどのその他のクラスターのライフサイクルの機能もサポートします。
 
 `kubeadm`ツールは、次のようなときに適しています。
 
@@ -41,7 +41,7 @@ kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。
 
 ## 目的
 
-* シングルコントロールプレーンのKubernetesクラスターまたは[高可用性クラスター](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)をインストールする
+* シングルコントロールプレーンのKubernetesクラスターをインストールする
 * クラスター上にPodネットワークをインストールして、Podがお互いに通信できるようにする
 
 ## 手順
@@ -63,7 +63,7 @@ kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。
 1. (推奨)シングルコントロールプレーンの`kubeadm`クラスターを高可用性クラスターにアップグレードする予定がある場合、`--control-plane-endpoint`を指定して、すべてのコントロールプレーンノードとエンドポイントを共有する必要があります。エンドポイントにはDNSネームやロードバランサーのIPアドレスが使用できます。
 1. Podネットワークアドオンを選んで、`kubeadm init`に引数を渡す必要があるかどうか確認してください。選んだサードパーティーのプロバイダーによっては、`--pod-network-cidr`をプロバイダー固有の値に設定する必要がある場合があります。詳しくは、[Podネットワークアドオンのインストール](#pod-network)を参照してください。
 1. (オプション)バージョン1.14から、`kubeadm`はよく知られたドメインソケットのパスリストを用いて、Linux上のコンテナランタイムの検出を試みます。異なるコンテナランタイムを使用する場合やプロビジョニングするノードに2つ以上のランタイムがインストールされている場合、`kubeadm init`に`--cri-socket`引数を指定してください。詳しくは、[ランタイムのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)を読んでください。
-1. (オプション)明示的に指定しない限り、`kubeadm`はデフォルトゲートウェイに関連付けられたネットワークインターフェイスを使用して、この特定のコントロールプレーンノードのAPIサーバーのadvertise addressを設定します。異なるネットワークインターフェイスを使用するには、`kubeadm init`に`--apiserver-advertize-address=<ip-address>`引数を指定してください。IPv6アドレスを使用するIPv6 Kubernetesクラスターをデプロイするには、たとえば`--apiserver-advertise-address=fd00::101`のように、IPv6アドレスを指定する必要があります。
+1. (オプション)明示的に指定しない限り、`kubeadm`はデフォルトゲートウェイに関連付けられたネットワークインターフェイスを使用して、この特定のコントロールプレーンノードのAPIサーバーのadvertise addressを設定します。異なるネットワークインターフェイスを使用するには、`kubeadm init`に`--apiserver-advertise-address=<ip-address>`引数を指定してください。IPv6アドレスを使用するIPv6 Kubernetesクラスターをデプロイするには、たとえば`--apiserver-advertise-address=fd00::101`のように、IPv6アドレスを指定する必要があります。
 1. (オプション)`kubeadm init`を実行する前に`kubeadm config images pull`を実行して、gcr.ioコンテナイメージレジストリに接続できるかどうかを確認します。
 
 コントロールプレーンノードを初期化するには、次のコマンドを実行します。
@@ -76,7 +76,7 @@ kubeadm init <args>
 
 `--apiserver-advertise-address`は、この特定のコントロールプレーンノードのAPIサーバーへのadvertise addressを設定するために使えますが、`--control-plane-endpoint`は、すべてのコントロールプレーンノード共有のエンドポイントを設定するために使えます。
 
-`--control-plane-endpoint`はIPアドレスを受け付けますが、IPアドレスへマッピングされるDNSネームも使用できます。利用可能なソリューションをそうしたマッピングの観点から評価するには、ネットワーク管理者に相談してください。
+`--control-plane-endpoint`はIPアドレスと、IPアドレスへマッピングできるDNS名を使用できます。利用可能なソリューションをそうしたマッピングの観点から評価するには、ネットワーク管理者に相談してください。
 
 以下にマッピングの例を示します。
 
@@ -203,9 +203,14 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
 {{< /caution >}}
 
-CNIを使用するKubernetes Podネットワークを提供する外部のプロジェクトがいくつかあります。一部のプロジェクトでは、[ネットワークポリシー](/docs/concepts/services-networking/networkpolicies/)もサポートしています。
+{{< note >}}
+現在、Calicoはkubeadmプロジェクトがe2eテストを実施している唯一のCNIプラグインです。
+もしCNIプラグインに関する問題を見つけた場合、kubeadmやkubernetesではなく、そのCNIプラグインの課題管理システムへ問題を報告してください。
+{{< /note >}}
 
-利用できる[ネットワークアドオンとネットワークポリシーアドオン](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)のリストを確認してください。
+CNIを使用するKubernetes Podネットワークを提供する外部のプロジェクトがいくつかあります。一部のプロジェクトでは、[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)もサポートしています。
+
+[Kubernetesのネットワークモデル](/ja/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)を実装したアドオンの一覧も確認してください。
 
 Podネットワークアドオンをインストールするには、コントロールプレーンノード上またはkubeconfigクレデンシャルを持っているノード上で、次のコマンドを実行します。
 
@@ -213,91 +218,7 @@ Podネットワークアドオンをインストールするには、コント�
 kubectl apply -f <add-on.yaml>
 ```
 
-インストールできるPodネットワークは、クラスターごとに1つだけです。以下の手順で、いくつかのよく使われるPodネットワークプラグインをインストールできます。
-
-{{< tabs name="tabs-pod-install" >}}
-
-{{% tab name="Calico" %}}
-[Calico](https://docs.projectcalico.org/latest/introduction/)は、ネットワークとネットワークポリシーのプロバイダーです。Calicoは柔軟なさまざまなネットワークオプションをサポートするため、自分の状況に適した最も効果的なオプションを選択できます。たとえば、ネットワークのオーバーレイの有無や、BGPの有無が選べます。Calicoは、ホスト、Pod、(もしIstioとEnvoyを使っている場合)サービスメッシュレイヤー上のアプリケーションに対してネットワークポリシーを強制するために、同一のエンジンを使用しています。Calicoは、`amd64`、`arm64`、`ppc64le`を含む複数のアーキテクチャで動作します。
-
-デフォルトでは、Calicoは`192.168.0.0/16`をPodネットワークのCIDRとして使いますが、このCIDRはcalico.yamlファイルで設定できます。Calicoを正しく動作させるためには、これと同じCIDRを`--pod-network-cidr=192.168.0.0/16`フラグまたはkubeadmの設定を使って、`kubeadm init`コマンドに渡す必要があります。
-
-```shell
-kubectl apply -f https://docs.projectcalico.org/v3.11/manifests/calico.yaml
-```
-
-{{% /tab %}}
-
-{{% tab name="Cilium" %}}
-Ciliumを正しく動作させるためには、`kubeadm init`に `--pod-network-cidr=10.217.0.0/16`を渡さなければなりません。
-
-Ciliumのデプロイは、次のコマンドを実行するだけでできます。
-
-```shell
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml
-```
-
-すべてのCilium Podが`READY`とマークされたら、クラスターを使い始められます。
-
-```shell
-kubectl get pods -n kube-system --selector=k8s-app=cilium
-```
-
-出力は次のようになります。
-
-```
-NAME           READY   STATUS    RESTARTS   AGE
-cilium-drxkl   1/1     Running   0          18m
-```
-
-Ciliumはkube-proxyの代わりに利用することもできます。詳しくは[Kubernetes without kube-proxy](https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free)を読んでください。
-
-KubernetesでのCiliumの使い方に関するより詳しい情報は、[Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/)を参照してください。
-{{% /tab %}}
-
-{{% tab name="Contiv-VPP" %}}
-[Contiv-VPP](https://contivpp.io/)は、[FD.io VPP](https://fd.io/)をベースとするプログラマブルなCNF vSwitchを採用し、機能豊富で高性能なクラウドネイティブなネットワーキングとサービスを提供します。
-
-Contiv-VPPは、k8sサービスとネットワークポリシーを(VPP上の)ユーザースペースで実装しています。
-
-こちらのインストールガイドを参照してください: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
-{{% /tab %}}
-
-{{% tab name="Flannel" %}}
-`flannel`を正しく動作させるためには、`--pod-network-cidr=10.244.0.0/16`を`kubeadm init`に渡す必要があります。
-
-オーバーレイネットワークに参加しているすべてのホスト上で、ファイアウォールのルールが、UDPポート8285と8472のトラフィックを許可するように設定されていることを確認してください。この設定に関するより詳しい情報は、Flannelのトラブルシューティングガイドの[Firewall](https://coreos.com/flannel/docs/latest/troubleshooting.html#firewalls)のセクションを参照してください。
-
-Flannelは、Linux下の`amd64`、`arm`、`arm64`、`ppc64le`、`s390x`アーキテクチャ上で動作します。Windows(`amd64`)はv0.11.0でサポートされたとされていますが、使用方法はドキュメントに書かれていません。
-
-```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
-```
-
-`flannel`に関するより詳しい情報は、[GitHub上のCoreOSのflannelリポジトリ](https://github.com/coreos/flannel)を参照してください。
-{{% /tab %}}
-
-{{% tab name="Kube-router" %}}
-Kube-routerは、ノードへのPod CIDRの割り当てをkube-controller-managerに依存しています。そのため、`kubeadm init`時に`--pod-network-cidr`フラグを使用する必要があります。
-
-Kube-routerは、Podネットワーク、ネットワークポリシー、および高性能なIP Virtual Server(IPVS)/Linux Virtual Server(LVS)ベースのサービスプロキシーを提供します。
-
-Kube-routerを有効にしたKubernetesクラスターをセットアップするために`kubeadm`ツールを使用する方法については、公式の[セットアップガイド](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md)を参照してください。
-{{% /tab %}}
-
-{{% tab name="Weave Net" %}}
-Weave Netを使用してKubernetesクラスターをセットアップするより詳しい情報は、[アドオンを使用してKubernetesを統合する](https://www.weave.works/docs/net/latest/kube-addon/)を読んでください。
-
-Weave Netは、`amd64`、`arm`、`arm64`、`ppc64le`プラットフォームで追加の操作なしで動作します。Weave Netはデフォルトでharipinモードをセットします。このモードでは、Pod同士はPodIPを知らなくても、Service IPアドレス経由でアクセスできます。
-
-```shell
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-```
-
-{{% /tab %}}
-
-{{< /tabs >}}
-
+インストールできるPodネットワークは、クラスターごとに1つだけです。
 
 Podネットワークがインストールされたら、`kubectl get pods --all-namespaces`の出力結果でCoreDNS Podが`Running`状態であることをチェックすることで、ネットワークが動作していることを確認できます。そして、一度CoreDNS Podが動作すれば、続けてノードを追加できます。
 
@@ -375,7 +296,7 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 ```
 
 {{< note >}}
-IPv6タプルを`<control-plane-host>:<control-plane-ip>`に指定するためには、IPv6アドレスをブラケットで囲みます。たとえば、`[fd00::101]:2073`のように書きます。
+IPv6タプルを`<control-plane-host>:<control-plane-port>`と指定するためには、IPv6アドレスを角括弧で囲みます。たとえば、`[fd00::101]:2073`のように書きます。
 {{< /note >}}
 
 出力は次のようになります。
@@ -407,7 +328,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 {{< note >}}
 上の例では、rootユーザーに対するSSH接続が有効であることを仮定しています。もしそうでない場合は、`admin.conf`ファイルを誰か他のユーザーからアクセスできるようにコピーした上で、代わりにそのユーザーを使って`scp`してください。
 
-`admin.conf`ファイルはユーザーにクラスターに対する _特権ユーザー_ の権限を与えます。そのため、このファイルを使うのは控えめにしなければなりません。通常のユーザーには、一部の権限をホワイトリストに加えたユニークなクレデンシャルを生成することを推奨します。これには、`kubeadm alpha kubeconfig user --client-name <CN>`コマンドが使えます。このコマンドを実行すると、KubeConfigファイルがSTDOUTに出力されるので、ファイルに保存してユーザーに配布します。その後、`kubectl create (cluster)rolebinding`コマンドを使って権限をホワイトリストに加えます。
+`admin.conf`ファイルはユーザーにクラスターに対する _特権ユーザー_ の権限を与えます。そのため、このファイルを使うのは控えめにしなければなりません。通常のユーザーには、明示的に許可した権限を持つユニークなクレデンシャルを生成することを推奨します。これには、`kubeadm alpha kubeconfig user --client-name <CN>`コマンドが使えます。このコマンドを実行すると、KubeConfigファイルがSTDOUTに出力されるので、ファイルに保存してユーザーに配布します。その後、`kubectl create (cluster)rolebinding`コマンドを使って権限を付与します。
 {{< /note >}}
 
 ### (オプション)APIサーバーをlocalhostへプロキシする
@@ -433,10 +354,9 @@ kubectl --kubeconfig ./admin.conf proxy
 
 ```bash
 kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
-kubectl delete node <node name>
 ```
 
-その後、ノードが削除されたら、`kubeadm`のインストール状態をすべてリセットします。
+ノードが削除される前に、`kubeadm`によってインストールされた状態をリセットします。
 
 ```bash
 kubeadm reset
@@ -454,6 +374,11 @@ IPVS tablesをリセットしたい場合は、次のコマンドを実行する
 ipvsadm -C
 ```
 
+ノードを削除します。
+```bash
+kubectl delete node <node name>
+```
+
 クラスターのセットアップを最初から始めたいときは、`kubeadm init`や`kubeadm join`を適切な引数を付けて実行すればいいだけです。
 
 ### コントロールプレーンのクリーンアップ
@@ -469,7 +394,7 @@ ipvsadm -C
 * [Sonobuoy](https://github.com/heptio/sonobuoy)を使用してクラスターが適切に動作しているか検証する。
 * <a id="lifecycle" />`kubeadm`を使用したクラスターをアップグレードする方法について、[kubeadmクラスターをアップグレードする](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を読む。
 * `kubeadm`の高度な利用方法について[kubeadmリファレンスドキュメント](/docs/reference/setup-tools/kubeadm/kubeadm)で学ぶ。
-* Kubernetesの[コンセプト](/ja/docs/concepts/)や[`kubectl`](/docs/user-guide/kubectl-overview/)についてもっと学ぶ。
+* Kubernetesの[コンセプト](/ja/docs/concepts/)や[`kubectl`](/ja/docs/reference/kubectl/overview/)についてもっと学ぶ。
 * Podネットワークアドオンのより完全なリストを[クラスターのネットワーク](/docs/concepts/cluster-administration/networking/)で確認する。
 * <a id="other-addons" />ロギング、モニタリング、ネットワークポリシー、仮想化、Kubernetesクラスターの制御のためのツールなど、その他のアドオンについて、[アドオンのリスト](/docs/concepts/cluster-administration/addons/)で確認する。
 * クラスターイベントやPod内で実行中のアプリケーションから送られるログをクラスターがハンドリングする方法を設定する。関係する要素の概要を理解するために、[ロギングのアーキテクチャ](/docs/concepts/cluster-administration/logging/)を読んでください。
@@ -486,9 +411,9 @@ ipvsadm -C
 
 ## バージョン互換ポリシー {#version-skew-policy}
 
-バージョンvX.Yの`kubeadm`ツールは、バージョンvX.YまたはvX.(Y-1)のコントロールプレーンを持つクラスターをデプロイできます。また、`kubeadm` vX.Yは、kubeadmで構築された既存のvX.(Y-1)のクラスターをアップグレートできます。
+バージョンv{{< skew latestVersion >}}の`kubeadm`ツールは、バージョンv{{< skew latestVersion >}}またはv{{< skew prevMinorVersion >}}のコントロールプレーンを持つクラスターをデプロイできます。また、バージョンv{{< skew latestVersion >}}の`kubeadm`は、バージョンv{{< skew prevMinorVersion >}}のkubeadmで構築されたクラスターをアップグレートできます。
 
-未来を見ることはできないため、kubeadm CLI vX.YはvX.(Y+1)をデプロイすることはできません。
+未来を見ることはできないため、kubeadm CLI v{{< skew latestVersion >}}はv{{< skew nextMinorVersion >}}をデプロイできないかもしれません。
 
 例: `kubeadm` v1.8は、v1.7とv1.8のクラスターをデプロイでき、v1.7のkubeadmで構築されたクラスターをv1.8にアップグレートできます。
 
@@ -507,7 +432,7 @@ kubeletとコントロールプレーンの間や、他のKubernetesコンポー
 
 * 定期的に[etcdをバックアップ](https://coreos.com/etcd/docs/latest/admin_guide.html)する。kubeadmが設定するetcdのデータディレクトリは、コントロールプレーンノードの`/var/lib/etcd`にあります。
 
-* 複数のコントロールプレーンノードを使用する。[高可用性トポロジーのオプション](/docs/setup/production-environment/tools/kubeadm/ha-topology/)では、より高い可用性を提供するクラスターのトポロジーの選択について説明してます。
+* 複数のコントロールプレーンノードを使用する。[高可用性トポロジーのオプション](/ja/docs/setup/production-environment/tools/kubeadm/ha-topology/)では、[より高い可用性](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)を提供するクラスターのトポロジーの選択について説明してます。
 
 ### プラットフォームの互換性 {#multi-platform}
 
@@ -520,4 +445,3 @@ kubeadmのdeb/rpmパッケージおよびバイナリは、[multi-platform propo
 ## トラブルシューティング {#troubleshooting}
 
 kubeadmに関する問題が起きたときは、[トラブルシューティングドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)を確認してください。
-

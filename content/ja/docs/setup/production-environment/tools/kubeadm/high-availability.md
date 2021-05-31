@@ -57,9 +57,9 @@ weight: 60
 
     - ロードバランサーは、apiserverポートで、全てのコントロールプレーンノードと通信できなければなりません。また、リスニングポートに対する流入トラフィックも許可されていなければなりません。
 
-    - [HAProxy](http://www.haproxy.org/)をロードバランサーとして使用することができます。
-
     - ロードバランサーのアドレスは、常にkubeadmの`ControlPlaneEndpoint`のアドレスと一致することを確認してください。
+
+    - 詳細は[Options for Software Load Balancing](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)をご覧ください。
 
 1.  ロードバランサーに、最初のコントロールプレーンノードを追加し、接続をテストする:
 
@@ -87,7 +87,7 @@ weight: 60
 
     {{< note >}}`kubeadm init`の`--config`フラグと`--certificate-key`フラグは混在させることはできないため、[kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)を使用する場合は`certificateKey`フィールドを適切な場所に追加する必要があります(`InitConfiguration`と`JoinConfiguration: controlPlane`の配下)。{{< /note >}}
 
-    {{< note >}}CalicoなどのいくつかのCNIネットワークプラグインは`192.168.0.0/16`のようなCIDRを必要としますが、Weaveなどは必要としません。[CNIネットワークドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。{{< /note >}}
+    {{< note >}}いくつかのCNIネットワークプラグインはPodのIPのCIDRの指定など追加の設定を必要としますが、必要としないプラグインもあります。[CNIネットワークドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。{{< /note >}}
 
     - このような出力がされます:
 

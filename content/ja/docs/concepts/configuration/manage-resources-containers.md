@@ -84,7 +84,7 @@ CPUは常に相対量としてではなく、絶対量として要求されま�
 ### メモリーの意味
 
 `メモリー`の制限と要求はバイト単位で測定されます。
-E、P、T、G、M、Kのいずれかのサフィックスを使用して、メモリーを整数または固定小数点整数として表すことができます。
+E、P、T、G、M、Kのいずれかのサフィックスを使用して、メモリーを整数または固定小数点数として表すことができます。
 また、Ei、Pi、Ti、Gi、Mi、Kiのような2の累乗の値を使用することもできます。
 たとえば、以下はほぼ同じ値を表しています。
 
@@ -104,11 +104,9 @@ metadata:
   name: frontend
 spec:
   containers:
-  - name: db
-    image: mysql
+  - name: app
+    image: images.my-company.example/app:v4
     env:
-    - name: MYSQL_ROOT_PASSWORD
-      value: "password"
     resources:
       requests:
         memory: "64Mi"
@@ -116,8 +114,8 @@ spec:
       limits:
         memory: "128Mi"
         cpu: "500m"
-  - name: wp
-    image: wordpress
+  - name: log-aggregator
+    image: images.my-company.example/log-aggregator:v6
     resources:
       requests:
         memory: "64Mi"
@@ -185,7 +183,7 @@ kubeletは、ローカルのエフェメラルストレージを使用して、P
 また、kubeletはこの種類のストレージを使用して、[Nodeレベルのコンテナログ](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)、コンテナイメージ、実行中のコンテナの書き込み可能なレイヤーを保持します。
 
 {{< caution >}}
-Nodeに障害が発生すると、そのエフェメラルストレージ内のデータが失われる可能性があります。  
+Nodeに障害が発生すると、そのエフェメラルストレージ内のデータが失われる可能性があります。
 アプリケーションは、ローカルのエフェメラルストレージにパフォーマンスのサービス品質保証(ディスクのIOPSなど)を期待することはできません。
 {{< /caution >}}
 
@@ -242,7 +240,7 @@ Podの各コンテナは、次の1つ以上を指定できます。
 * `spec.containers[].resources.requests.ephemeral-storage`
 
 `ephemeral-storage`の制限と要求はバイト単位で記します。
-ストレージは、次のいずれかの接尾辞を使用して、通常の整数または固定小数点整数として表すことができます。
+ストレージは、次のいずれかの接尾辞を使用して、通常の整数または固定小数点数として表すことができます。
 E、P、T、G、M、K。Ei、Pi、Ti、Gi、Mi、Kiの2のべき乗を使用することもできます。
 たとえば、以下はほぼ同じ値を表しています。
 
@@ -262,18 +260,15 @@ metadata:
   name: frontend
 spec:
   containers:
-  - name: db
-    image: mysql
-    env:
-    - name: MYSQL_ROOT_PASSWORD
-      value: "password"
+  - name: app
+    image: images.my-company.example/app:v4
     resources:
       requests:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
-  - name: wp
-    image: wordpress
+  - name: log-aggregator
+    image: images.my-company.example/log-aggregator:v6
     resources:
       requests:
         ephemeral-storage: "2Gi"
@@ -300,6 +295,7 @@ kubeletがローカルのエフェメラルストレージをリソースとし�
 Podが許可するよりも多くのエフェメラルストレージを使用している場合、kubeletはPodの排出をトリガーするシグナルを設定します。
 
 コンテナレベルの分離の場合、コンテナの書き込み可能なレイヤーとログ使用量がストレージの制限を超えると、kubeletはPodに排出のマークを付けます。
+
 Podレベルの分離の場合、kubeletはPod内のコンテナの制限を合計し、Podの全体的なストレージ制限を計算します。
 このケースでは、すべてのコンテナからのローカルのエフェメラルストレージの使用量とPodの`emptyDir`ボリュームの合計がPod全体のストレージ制限を超過する場合、
 kubeletはPodをまた排出対象としてマークします。
@@ -345,7 +341,7 @@ Kubernetesでは、`1048576`から始まるプロジェクトIDを使用しま�
 Kubernetesが使用しないようにする必要があります。
 
 クォータはディレクトリスキャンよりも高速で正確です。
-ディレクトリがプロジェクトに割り当てられると、ディレクトリ配下に作成されたファイルはすべてそのプロジェクト内に作成され、カーネルはそのプロジェクト内のファイルによって使用されているブロックの数を追跡するだけです。  
+ディレクトリがプロジェクトに割り当てられると、ディレクトリ配下に作成されたファイルはすべてそのプロジェクト内に作成され、カーネルはそのプロジェクト内のファイルによって使用されているブロックの数を追跡するだけです。
 ファイルが作成されて削除されても、開いているファイルディスクリプタがあれば、スペースを消費し続けます。
 クォータトラッキングはそのスペースを正確に記録しますが、ディレクトリスキャンは削除されたファイルが使用するストレージを見落としてしまいます。
 
@@ -354,7 +350,7 @@ Kubernetesが使用しないようにする必要があります。
 * kubelet設定で、`LocalocalStorpactionCapactionIsolationFSQuotaMonitoring=true`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gate/)を有効にします。
 
 * ルートファイルシステム(またはオプションのランタイムファイルシステム))がプロジェクトクォータを有効にしていることを確認してください。
-  すべてのXFSファイルシステムはプロジェクトクォータをサポートしています。  
+  すべてのXFSファイルシステムはプロジェクトクォータをサポートしています。
   ext4ファイルシステムでは、ファイルシステムがマウントされていない間は、プロジェクトクォータ追跡機能を有効にする必要があります。
   ```bash
   # ext4の場合、/dev/block-deviceがマウントされていません
