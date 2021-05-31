@@ -108,10 +108,10 @@ Kubernetes 会一直保存着非法节点对应的对象，并持续检查该节
 
 <!--
 The name of a Node object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names.md#dns-subdomain-names).
+[DNS subdomain name](/content/zh/docs/concepts/overview/working-with-objects/names.md#dns-subdomain-names).
 -->
 Node 对象的名称必须是合法的
-[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names.md#dns-subdomain-names)。
+[DNS 子域名](/content/zh/docs/concepts/overview/working-with-objects/names.md#dns-subdomain-names)。
 
 <!--
 ### Self-registration of Nodes
