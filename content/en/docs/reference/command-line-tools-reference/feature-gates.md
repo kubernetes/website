@@ -83,7 +83,7 @@ different Kubernetes components.
 | `CSIMigrationOpenStack` | `true` | Beta | 1.18 | |
 | `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
-| `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | 1.20 |
+| `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | |
 | `CSIServiceAccountToken` | `false` | Alpha | 1.20 | 1.20 |
 | `CSIServiceAccountToken` | `true` | Beta | 1.21 | |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
