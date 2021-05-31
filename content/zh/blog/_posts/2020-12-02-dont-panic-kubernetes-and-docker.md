@@ -45,7 +45,7 @@ tool for building containers, and the images that result from running `docker
 build` can still run in your Kubernetes cluster. 
 --> 
 如果你是 Kubernetes 的终端用户，这对你不会有太大影响。
-这事并不意味着 Dockder 已死、也不意味着你不能或不该继续把 Docker 用作开发工具。
+这事并不意味着 Docker 已死、也不意味着你不能或不该继续把 Docker 用作开发工具。
 Docker 仍然是构建容器的利器，使用命令 `docker build` 构建的镜像在 Kubernetes 集群中仍然可以运行。
 
 <!-- 

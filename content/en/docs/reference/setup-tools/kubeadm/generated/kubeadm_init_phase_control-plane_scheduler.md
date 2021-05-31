@@ -76,7 +76,7 @@ kubeadm init phase control-plane scheduler [flags]
 <td colspan="2">--scheduler-extra-args &lt;comma-separated 'key=value' pairs&gt;</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of extra flags to pass to the Scheduler or override default ones in form of <!-- raw HTML omitted -->=<!-- raw HTML omitted --></p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</p></td>
 </tr>
 
 </tbody>

@@ -26,7 +26,7 @@ weight: 30
 
 동일한 소프트웨어의 다른 버전과 같이 약간 다른 리소스를 분리하기 위해
 여러 네임스페이스를 사용할 필요는 없다. 동일한 네임스페이스 내에서 리소스를
-구별하기 위해 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을
+구별하기 위해 {{< glossary_tooltip text="레이블" term_id="label" >}}을
 사용한다.
 
 ## 네임스페이스 다루기
@@ -108,6 +108,16 @@ kubectl api-resources --namespaced=true
 # 네임스페이스에 속하지 않는 리소스
 kubectl api-resources --namespaced=false
 ```
+
+## 자동 레이블링
+
+{{< feature-state state="beta" for_k8s_version="1.21" >}}
+
+쿠버네티스 컨트롤 플레인은 `NamespaceDefaultLabelName` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
+활성화된 경우 모든 네임스페이스에 변경할 수 없는(immutable) {{< glossary_tooltip text="레이블" term_id="label" >}}
+`kubernetes.io / metadata.name` 을 설정한다.
+레이블 값은 네임스페이스 이름이다.
+
 
 ## {{% heading "whatsnext" %}}
 

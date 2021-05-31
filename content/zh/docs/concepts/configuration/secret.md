@@ -50,10 +50,10 @@ Secret 是一种包含少量敏感信息例如密码、令牌或密钥的对象�
 Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
 strings. By default they can be retrieved - as plain text - by anyone with API
 access, or anyone with access to Kubernetes' underlying data store, etcd. In
-order to safely use Secrets, we recommend you (at a minimum):
+order to safely use Secrets, it is recommended you (at a minimum):
 
-1. [Enable Encryption at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
-2. [Enable RBAC rules that restrict reading and writing the Secret](https://kubernetes.io/docs/reference/access-authn-authz/authorization/). Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+1. [Enable Encryption at Rest](/zh/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
+2. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that restrict reading and writing the Secret. Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
 -->
 Kubernetes Secret 默认情况下存储为 base64-编码的、非加密的字符串。
 默认情况下，能够访问 API 的任何人，或者能够访问 Kubernetes 下层数据存储（etcd）
@@ -61,7 +61,7 @@ Kubernetes Secret 默认情况下存储为 base64-编码的、非加密的字符
 为了能够安全地使用 Secret，我们建议你（至少）：
 
 1. 为 Secret [启用静态加密](/zh/docs/tasks/administer-cluster/encrypt-data/)；
-2. [启用 RBAC 规则来限制对 Secret 的读写操作](/zh/docs/reference/access-authn-authz/authorization/)。
+2. [启用 或配置 RBAC 规则](/zh/docs/reference/access-authn-authz/authorization/)来限制对 Secret 的读写操作。
    要注意，任何被允许创建 Pod 的人都默认地具有读取 Secret 的权限。
 {{< /caution >}}
 
@@ -193,7 +193,7 @@ empty-secret   Opaque   0      2m6s
 
 <!--
 The `DATA` column shows the number of data items stored in the Secret.
-In this case, `0` means we have just created an empty Secret.
+In this case, `0` means we have created an empty Secret.
 -->
 `DATA` 列显示 Secret 中保存的数据条目个数。
 在这个例子种，`0` 意味着我们刚刚创建了一个空的 Secret。
@@ -204,7 +204,7 @@ In this case, `0` means we have just created an empty Secret.
 A `kubernetes.io/service-account-token` type of Secret is used to store a
 token that identifies a service account. When using this Secret type, you need
 to ensure that the `kubernetes.io/service-account.name` annotation is set to an
-existing service account name. An Kubernetes controller fills in some other
+existing service account name. A Kubernetes controller fills in some other
 fields such as the `kubernetes.io/service-account.uid` annotation and the
 `token` key in the `data` field set to actual token content.
 
@@ -1068,8 +1068,8 @@ Kubelet is checking whether the mounted secret is fresh on every periodic sync.
 However, it is using its local cache for getting the current value of the Secret.
 
 The type of the cache is configurable using the  (`ConfigMapAndSecretChangeDetectionStrategy` field in
-[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
-It can be either propagated via watch (default), ttl-based, or simply redirecting
+the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
+A Secret can be either propagated by watch (default), ttl-based, or by redirecting
 all requests to directly kube-apiserver.
 As a result, the total delay from the moment when the Secret is updated to the moment
 when new keys are projected to the Pod can be as long as kubelet sync period + cache
@@ -1082,7 +1082,7 @@ propagation delay, where cache propagation delay depends on the chosen cache typ
 组件 kubelet 在周期性同步时检查被挂载的 Secret 是不是最新的。
 但是，它会使用其本地缓存的数值作为 Secret 的当前值。
 
-缓存的类型可以使用 [KubeletConfiguration 结构](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)
+缓存的类型可以使用 [KubeletConfiguration 结构](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
 中的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
 它可以通过 watch 操作来传播（默认），基于 TTL 来刷新，也可以
 将所有请求直接重定向到 API 服务器。
@@ -1151,7 +1151,7 @@ spec:
 <!--
 #### Consuming Secret Values from environment variables
 
-Inside a container that consumes a secret in an environment variables, the secret keys appear as
+Inside a container that consumes a secret in the environment variables, the secret keys appear as
 normal environment variables containing the base64 decoded values of the secret data.
 This is the result of commands executed inside the container from the example above:
 -->
@@ -1203,10 +1203,10 @@ There are third party solutions for triggering restarts when secrets change.
 -->
 ## 不可更改的 Secret {#secret-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
 (at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
 data has the following advantages:
@@ -1215,7 +1215,7 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for secrets marked as immutable.
 -->
-Kubernetes 的 alpha 特性 _不可变的 Secret 和 ConfigMap_ 提供了一种可选配置，
+Kubernetes 的特性 _不可变的 Secret 和 ConfigMap_ 提供了一种可选配置，
 可以设置各个 Secret 和 ConfigMap 为不可变的。
 对于大量使用 Secret 的集群（至少有成千上万各不相同的 Secret 供 Pod 挂载），
 禁止变更它们的数据有下列好处：
@@ -1225,8 +1225,8 @@ Kubernetes 的 alpha 特性 _不可变的 Secret 和 ConfigMap_ 提供了一种�
   kube-apiserver 的负载，提升集群性能。
 
 <!--
-This feature is controlled by the `ImmutableEphemeralVolumes` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/),
+This feature is controlled by the `ImmutableEphemeralVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 which is enabled by default since v1.19. You can create an immutable
 Secret by setting the `immutable` field to `true`. For example,
 -->
@@ -1300,17 +1300,6 @@ Pod 将会将其的 imagePullSecret 字段设置为服务帐户的 imagePullSecr
 有关该过程的详细说明，请参阅
 [将 ImagePullSecrets 添加到服务帐户](/zh/docs/tasks/configure-pod-container/configure-service-account/#adding-imagepullsecrets-to-a-service-account)。
 
-<!--
-### Automatic Mounting of Manually Created Secrets
-
-Manually created secrets (e.g. one containing a token for accessing a github account)
-can be automatically attached to pods based on their service account.
--->
-
-#### 自动挂载手动创建的 Secret
-
-手动创建的 Secret（例如包含用于访问 GitHub 帐户令牌的 Secret）可以
-根据其服务帐户自动附加到 Pod。
 
 <!--
 ## Details
@@ -1863,14 +1852,12 @@ Secret 中的值对于不同的环境来说重要性可能不同。
 <!--
 Applications that need to access the secrets API should perform `get` requests on
 the secrets they need. This lets administrators restrict access to all secrets
-while [white-listing access to individual instances](
-/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
+while [white-listing access to individual instances](/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
 the app needs.
 
 For improved performance over a looping `get`, clients can design resources that
 reference a secret then `watch` the resource, re-requesting the secret when the
-reference changes. Additionally, a ["bulk watch" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
+reference changes. Additionally, a ["bulk watch" API](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
 to let clients `watch` individual resources has also been proposed, and will likely
 be available in future releases of Kubernetes.
 -->

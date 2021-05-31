@@ -472,7 +472,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 <!--
 ### Deleting just a ReplicaSet
 
-You can delete a ReplicaSet without affecting any of its Pods using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `--cascade=orphan` option.
+You can delete a ReplicaSet without affecting any of its Pods using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `-cascade=orphan` option.
 When using the REST API or the `client-go` library, you must set `propagationPolicy` to `Orphan`.
 For example:
 -->
@@ -530,6 +530,102 @@ ensures that a desired number of pods with a matching label selector are availab
 
 通过更新 `.spec.replicas` 字段，ReplicaSet 可以被轻松的进行缩放。ReplicaSet
 控制器能确保匹配标签选择器的数量的 Pod 是可用的和可操作的。
+
+<!--
+When scaling down, the ReplicaSet controller chooses which pods to delete by sorting the available pods to
+prioritize scaling down pods based on the following general algorithm:
+-->
+在降低集合规模时，ReplicaSet 控制器通过对可用的 Pods 进行排序来优先选择
+要被删除的 Pods。其一般性算法如下：
+
+<!--
+ 1. Pending (and unschedulable) pods are scaled down first
+ 2. If controller.kubernetes.io/pod-deletion-cost annotation is set, then
+    the pod with the lower value will come first.
+ 3. Pods on nodes with more replicas come before pods on nodes with fewer replicas.
+ 4. If the pods' creation times differ, the pod that was created more recently
+    comes before the older pod (the creation times are bucketed on an integer log scale
+    when the `LogarithmicScaleDown` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+-->
+1. 首先选择剔除悬决（Pending，且不可调度）的 Pods
+2. 如果设置了 `controller.kubernetes.io/pod-deletion-cost` 注解，则注解值
+   较小的优先被裁减掉
+3. 所处节点上副本个数较多的 Pod 优先于所处节点上副本较少者
+4. 如果 Pod 的创建时间不同，最近创建的 Pod 优先于早前创建的 Pod 被裁减。
+   （当 `LogarithmicScaleDown` 这一
+   [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+   被启用时，创建时间是按整数幂级来分组的）。
+
+如果以上比较结果都相同，则随机选择。   
+
+<!--
+### Pod deletion cost 
+-->
+### Pod 删除开销   {#pod-deletion-cost}
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+<!--
+Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost) 
+annotation, users can set a preference regarding which pods to remove first when downscaling a ReplicaSet.
+-->
+通过使用 [`controller.kubernetes.io/pod-deletion-cost`](/zh/docs/reference/labels-annotations-taints/#pod-deletion-cost)
+注解，用户可以对 ReplicaSet 缩容时要先删除哪些 Pods 设置偏好。
+
+<!--
+The annotation should be set on the pod, the range is [-2147483647, 2147483647]. It represents the cost of
+deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
+cost are preferred to be deleted before pods with higher deletion cost. 
+-->
+此注解要设置到 Pod 上，取值范围为 [-2147483647, 2147483647]。
+所代表的的是删除同一 ReplicaSet 中其他 Pod 相比较而言的开销。
+删除开销较小的 Pods 比删除开销较高的 Pods 更容易被删除。
+
+<!--
+The implicit value for this annotation for pods that don't set it is 0; negative values are permitted.
+Invalid values will be rejected by the API server.
+-->
+Pods 如果未设置此注解，则隐含的设置值为 0。负值也是可接受的。
+如果注解值非法，API 服务器会拒绝对应的 Pod。
+
+<!--
+This feature is alpha and disabled by default. You can enable it by setting the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDeletionCost` in both kube-apiserver and kube-controller-manager.
+-->
+此功能特性处于 Alpha 阶段，默认被禁用。你可以通过为 kube-apiserver 和
+kube-controller-manager 设置
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDeletionCost` 来启用此功能。
+
+{{< note >}}
+<!--
+- This is honored on a best-effort basis, so it does not offer any guarantees on pod deletion order.
+- Users should avoid updating the annotation frequently, such as updating it based on a metric value,
+  because doing so will generate a significant number of pod updates on the apiserver.
+-->
+- 此机制实施时仅是尽力而为，并不能对 Pod 的删除顺序作出任何保证；
+- 用户应避免频繁更新注解值，例如根据某观测度量值来更新此注解值是应该避免的。
+  这样做会在 API 服务器上产生大量的 Pod 更新操作。 
+{{< /note >}}
+
+<!--
+#### Example Use Case
+
+The different pods of an application could have different utilization levels. On scale down, the application 
+may prefer to remove the pods with lower utilization. To avoid frequently updating the pods, the application
+should update `controller.kubernetes.io/pod-deletion-cost` once before issuing a scale down (setting the 
+annotation to a value proportional to pod utilization level). This works if the application itself controls
+the down scaling; for example, the driver pod of a Spark deployment.
+-->
+#### 使用场景示例
+
+同一应用的不同 Pods 可能其利用率是不同的。在对应用执行缩容操作时，可能
+希望移除利用率较低的 Pods。为了避免频繁更新 Pods，应用应该在执行缩容
+操作之前更新一次 `controller.kubernetes.io/pod-deletion-cost` 注解值
+（将注解值设置为一个与其 Pod 利用率对应的值）。
+如果应用自身控制器缩容操作时（例如 Spark 部署的驱动 Pod），这种机制
+是可以起作用的。
 
 <!--
 ### ReplicaSet as an Horizontal Pod Autoscaler Target

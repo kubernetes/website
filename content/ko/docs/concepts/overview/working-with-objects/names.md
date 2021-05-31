@@ -21,11 +21,15 @@ weight: 20
 
 {{< glossary_definition term_id="name" length="all" >}}
 
+{{< note >}}
+물리적 호스트를 나타내는 노드와 같이 오브젝트가 물리적 엔티티를 나타내는 경우, 노드를 삭제한 후 다시 생성하지 않은 채 동일한 이름으로 호스트를 다시 생성하면, 쿠버네티스는 새 호스트를 불일치로 이어질 수 있는 이전 호스트로 취급한다.
+{{< /note >}}
+
 다음은 리소스에 일반적으로 사용되는 세 가지 유형의 이름 제한 조건이다.
 
 ### DNS 서브도메인 이름
 
-대부분의 리소스 유형에는 [RFC 1123](https://tools.ietf.org/html/rfc1123)에 정의된 대로 
+대부분의 리소스 유형에는 [RFC 1123](https://tools.ietf.org/html/rfc1123)에 정의된 대로
 DNS 서브도메인 이름으로 사용할 수 있는 이름이 필요하다.
 이것은 이름이 다음을 충족해야 한다는 것을 의미한다.
 
@@ -83,4 +87,3 @@ UUID는 ISO/IEC 9834-8 과 ITU-T X.667 로 표준화 되어 있다.
 
 * 쿠버네티스의 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)에 대해 읽기.
 * [쿠버네티스의 식별자와 이름](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) 디자인 문서 읽기.
-

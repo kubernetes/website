@@ -95,10 +95,11 @@ graph TB
 {{< /mermaid >}}
 
 <!--
-Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/kubernetes-api/labels-annotations-taints/) that are created and populated automatically on most clusters.
+
+Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/labels-annotations-taints/) that are created and populated automatically on most clusters.
 -->
 你可以复用在大多数集群上自动创建和填充的
-[常用标签](/zh/docs/reference/kubernetes-api/labels-annotations-taints/)，
+[常用标签](/zh/docs/reference/labels-annotations-taints/)，
 而不是手动添加标签。
 
 <!--

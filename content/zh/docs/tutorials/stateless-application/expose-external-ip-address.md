@@ -20,7 +20,7 @@ external IP address.
 ## {{% heading "prerequisites" %}}
 
 <!--
-* Install [kubectl](/docs/tasks/tools/install-kubectl/).
+* Install [kubectl](/docs/tasks/tools/).
 * Use a cloud provider like Google Kubernetes Engine or Amazon Web Services to
   create a Kubernetes cluster. This tutorial creates an
   [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/),
@@ -28,7 +28,7 @@ external IP address.
 * Configure `kubectl` to communicate with your Kubernetes API server. For instructions, see the
   documentation for your cloud provider.
 -->
- * 安装 [kubectl](/zh/docs/tasks/tools/install-kubectl/).
+ * 安装 [kubectl](/zh/docs/tasks/tools/).
  * 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 集群。
    本教程创建了一个[外部负载均衡器](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，
    需要云供应商。
