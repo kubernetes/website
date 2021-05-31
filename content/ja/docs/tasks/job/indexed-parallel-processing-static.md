@@ -11,7 +11,7 @@ weight: 30
 
 この例では、複数の並列ワーカープロセスを使用するKubernetesのJobを実行します。各ワーカーは、それぞれが自分のPod内で実行される異なるコンテナです。Podはコントロールプレーンが自動的に設定する*インデックス値*を持ち、この値を利用することで、各Podは処理するタスク全体のどの部分を処理するのかを特定できます。
 
-Podのインデックスは、{{< glossary_tooltip text="アノテーション" term_id="annotation" >}}内の`batch.kubernetes.io/job-completion-index`を整数値の文字列表現としてで利用できます。コンテナ化されたタスクプロセスがこのインデックスを取得できるようにするために、このアノテーションの値は[downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)の仕組みを利用することで公開できます。利便性のために、コントロールプレーンは自動的にdownward APIを設定して、`JOB_COMPLETION_INDEX`環境変数内のインデックスを公開してくれます。
+Podのインデックスは、{{< glossary_tooltip text="アノテーション" term_id="annotation" >}}内の`batch.kubernetes.io/job-completion-index`を整数値の文字列表現として利用できます。コンテナ化されたタスクプロセスがこのインデックスを取得できるようにするために、このアノテーションの値は[downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)の仕組みを利用することで公開できます。利便性のために、コントロールプレーンは自動的にdownward APIを設定して、`JOB_COMPLETION_INDEX`環境変数にインデックスを公開します。
 
 以下に、この例で実行するステップの概要を示します。
 
