@@ -200,11 +200,11 @@ all the Pod objects running on the node to be deleted from the API server and fr
 names.
 
 The node lifecycle controller automatically creates
-[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that represent conditions.
+[taints](/content/en/docs/concepts/scheduling-eviction/taint-and-toleration.md) that represent conditions.
 The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
 Pods can also have tolerations which let them tolerate a Node's taints.
 
-See [Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
+See [Taint Nodes by Condition](/content/en/docs/concepts/scheduling-eviction/taint-and-toleration.md#taint-nodes-by-condition)
 for more details.
 
 ### Capacity and Allocatable {#capacity}
@@ -383,4 +383,4 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 * Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
-* Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+* Read about [taints and tolerations](/content/en/docs/concepts/scheduling-eviction/taint-and-toleration.md).

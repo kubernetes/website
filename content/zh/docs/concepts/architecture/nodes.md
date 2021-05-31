@@ -352,12 +352,12 @@ names.
 
 <!--
 The node lifecycle controller automatically creates
-[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that represent conditions.
+[taints](/content/zh/docs/concepts/scheduling-eviction/taint-and-toleration.md) that represent conditions.
 The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
 Pods can also have tolerations which let them tolerate a Node's taints.
 -->
 节点生命周期控制器会自动创建代表状况的
-[污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+[污点](/content/zh/docs/concepts/scheduling-eviction/taint-and-toleration.md)。
 当调度器将 Pod 指派给某节点时，会考虑节点上的污点。
 Pod 则可以通过容忍度（Toleration）表达所能容忍的污点。
 
@@ -708,12 +708,12 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 * Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
-* Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+* Read about [taints and tolerations](/content/zh/docs/concepts/scheduling-eviction/taint-and-toleration.md).
 -->
 * 了解有关节点[组件](/zh/docs/concepts/overview/components/#node-components)。
 * 阅读 [Node 的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)。
 * 阅读架构设计文档中有关
   [节点](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   的章节。
-* 了解[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+* 了解[污点和容忍度](/content/zh/docs/concepts/scheduling-eviction/taint-and-toleration.md)。
 
