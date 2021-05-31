@@ -6,7 +6,7 @@ url: /blog/2015/12/How-Weave-Built-A-Multi-Deployment-Solution-For-Scope-Using-K
 ---
 _Today we hear from Peter Bourgon, Software Engineer at Weaveworks, a company that provides software for developers to network, monitor and control microservices-based apps in docker containers. Peter tells us what was involved in selecting and deploying Kubernetes&nbsp;_  
 
-Earlier this year at Weaveworks we launched [Weave Scope](http://weave.works/product/scope/index.html), an open source solution for visualization and monitoring of containerised apps and services. Recently we released a hosted Scope service into an [Early Access Program](http://blog.weave.works/2015/10/08/weave-the-fastest-path-to-docker-on-amazon-ec2-container-service/). Today, we want to walk you through how we initially prototyped that service, and how we ultimately chose and deployed Kubernetes as our platform.  
+Earlier this year at Weaveworks we launched [Weave Scope](https://weave.works/product/scope/index.html), an open source solution for visualization and monitoring of containerised apps and services. Recently we released a hosted Scope service into an [Early Access Program](http://blog.weave.works/2015/10/08/weave-the-fastest-path-to-docker-on-amazon-ec2-container-service/). Today, we want to walk you through how we initially prototyped that service, and how we ultimately chose and deployed Kubernetes as our platform.  
 
 
 ##### A cloud-native architecture&nbsp;
