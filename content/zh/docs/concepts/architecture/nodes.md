@@ -381,9 +381,9 @@ Node that is available to be consumed by normal Pods.
 
 <!--
 You may read more about capacity and allocatable resources while learning how
-to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) on a Node.
+to [reserve compute resources](/content/zh/docs/tasks/administer-cluster/reserve-compute-resources.md) on a Node.
 -->
-可以在学习如何在节点上[预留计算资源](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+可以在学习如何在节点上[预留计算资源](/content/zh/docs/tasks/administer-cluster/reserve-compute-resources.md/#node-allocatable)
 的时候了解有关容量和可分配资源的更多信息。
 
 <!--
@@ -588,11 +588,11 @@ Kubernetes {{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}保
 
 <!--
 If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
-[reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
+[reserve resources for system daemons](/content/zh/docs/tasks/administer-cluster/reserve-compute-resources.md).
 -->
 {{< note >}}
 如果要为非 Pod 进程显式保留资源。请参考
-[为系统守护进程预留资源](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved)。
+[为系统守护进程预留资源](/content/zh/docs/tasks/administer-cluster/reserve-compute-resources.md)。
 {{< /note >}}
 
 <!--
