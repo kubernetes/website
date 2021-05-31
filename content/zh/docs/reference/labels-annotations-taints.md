@@ -73,7 +73,7 @@ This label is also used as part of the topology hierarchy.  See [topology.kubern
 -->
 Kubelet 用主机名生成此标签。需要注意的是主机名可修改，这是把“实际的”主机名通过参数 `--hostname-override` 传给 `kubelet` 实现的。
 
-此标签也可用做拓扑层次的一个部分。更多信息参见[topology.kubernetes.io/zone](#topologykubernetesiozone)。
+此标签也可用作拓扑层次的一个部分。更多信息参见[topology.kubernetes.io/zone](#topologykubernetesiozone)。
 
 ## beta.kubernetes.io/instance-type (deprecated)
 
