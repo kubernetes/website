@@ -103,7 +103,7 @@ spec:
     - name: NAME
       value: "Kubernetes"
     command: ["echo"]
-    args: ["$(GREETING) $(HONORIFIC) $(NAME)"]
+    args: ["${GREETING} ${HONORIFIC} ${NAME}"]
 ```
 
 Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes` is run on the container.
