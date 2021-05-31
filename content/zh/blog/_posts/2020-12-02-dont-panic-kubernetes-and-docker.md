@@ -35,7 +35,7 @@ cluster with all runtimes, as they always have.
 弃用 Docker 这个底层运行时，转而支持符合为 Kubernetes 创建的
 [Container Runtime Interface (CRI)](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)
 的运行时。
-Docker 构建的镜像，将在你的集群的所有运行时中继续工作，一如既往。
+Docker 构建的镜像，将在你的集群的所有运行时中一如既往的继续工作。
 
 <!-- 
 If you’re an end-user of Kubernetes, not a whole lot will be changing for you.
