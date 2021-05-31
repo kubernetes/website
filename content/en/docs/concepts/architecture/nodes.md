@@ -91,11 +91,11 @@ For self-registration, the kubelet is started with the following options:
 
     No-op if `register-node` is false.
   - `--node-ip` - IP address of the node.
-  - `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
+  - `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/content/en/docs/reference/access-authn-authz/admission-controllers.md/#noderestriction)).
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
 
-When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
-[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
+When the [Node authorization mode](/content/en/docs/reference/access-authn-authz/node.md) and
+[NodeRestriction admission plugin](/content/en/docs/reference/access-authn-authz/admission-controllers.md/#noderestriction) are enabled,
 kubelets are only authorized to create/modify their own Node resource.
 
 ### Manual Node administration
