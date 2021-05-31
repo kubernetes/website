@@ -83,7 +83,7 @@ different Kubernetes components.
 | `CSIMigrationOpenStack` | `true` | Beta | 1.18 | |
 | `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
-| `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | |
+| `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | 1.21 |
 | `CSIServiceAccountToken` | `false` | Alpha | 1.20 | 1.20 |
 | `CSIServiceAccountToken` | `true` | Beta | 1.21 | |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
@@ -549,7 +549,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   from the vSphere in-tree plugin to vSphere CSI plugin.
   Supports falling back to in-tree vSphere plugin if a node does not have vSphere
   CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
-- `CSIMigrationvSphereComplete` or `InTreePluginvSphereUnregister`: Stops registering the vSphere in-tree plugin in kubelet
+- `InTreePluginvSphereUnregister`: Stops registering the vSphere in-tree plugin in kubelet
   and volume controllers and enables shims and translation logic to route volume operations
   from the vSphere in-tree plugin to vSphere CSI plugin. Requires CSIMigration and
   CSIMigrationvSphere feature flags enabled and vSphere CSI plugin installed and
