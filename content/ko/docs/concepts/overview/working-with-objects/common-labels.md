@@ -32,14 +32,15 @@ kubectl과 대시보드와 같은 많은 도구들로 쿠버네티스 오브젝�
 레이블을 최대한 활용하려면 모든 리소스 오브젝트에
 적용해야 한다.
 
-| Key                                 | Description           | Example  | Type |
+| 키                                  | 설명                  | 예시     | 타입 |
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | 애플리케이션 이름 | `mysql` | 문자열 |
 | `app.kubernetes.io/instance`        | 애플리케이션의 인스턴스를 식별하는 고유한 이름 | `mysql-abcxzy` | 문자열 |
 | `app.kubernetes.io/version`         | 애플리케이션의 현재 버전 (예: a semantic version, revision hash 등.) | `5.7.21` | 문자열 |
 | `app.kubernetes.io/component`       | 아키텍처 내 구성요소 | `database` | 문자열 |
 | `app.kubernetes.io/part-of`         | 이 애플리케이션의 전체 이름 | `wordpress` | 문자열 |
-| `app.kubernetes.io/managed-by`  | 애플리케이션의 작동을 관리하는데 사용되는 도구 | `helm` | 문자열 |
+| `app.kubernetes.io/managed-by`      | 애플리케이션의 작동을 관리하는 데 사용되는 도구 | `helm` | 문자열 |
+| `app.kubernetes.io/created-by`      | 이 리소스를 만든 컨트롤러/사용자 | `controller-manager` | 문자열 |
 
 위 레이블의 실제 예시는 다음 스테이트풀셋 오브젝트를 고려한다.
 
@@ -54,6 +55,7 @@ metadata:
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
     app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/created-by: controller-manager
 ```
 
 ## 애플리케이션과 애플리케이션 인스턴스
@@ -76,7 +78,7 @@ WordPress가 여러 번 설치되어 각각 서로 다른 웹사이트를 서비
 
 `Deployment` 와 `Service` 오브젝트를 통해 배포된 단순한 스테이트리스 서비스의 경우를 보자. 다음 두 식별자는 레이블을 가장 간단한 형태로 사용하는 방법을 나타낸다.
 
-`Deployment` 는 애플리케이션을 실행하는 파드를 감시하는데 사용한다.
+`Deployment` 는 애플리케이션을 실행하는 파드를 감시하는 데 사용한다.
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -102,9 +104,9 @@ metadata:
 
 Helm을 이용해서 데이터베이스(MySQL)을 이용하는 웹 애플리케이션(WordPress)을
 설치한 것과 같이 좀 더 복잡한 애플리케이션을 고려할 수 있다.
-다음 식별자는 이 애플리케이션을 배포하는데 사용하는 오브젝트의 시작을 보여준다.
+다음 식별자는 이 애플리케이션을 배포하는 데 사용하는 오브젝트의 시작을 보여준다.
 
-WordPress를 배포하는데 다음과 같이 `Deployment` 로 시작한다.
+WordPress를 배포하는 데 다음과 같이 `Deployment` 로 시작한다.
 
 ```yaml
 apiVersion: apps/v1
@@ -152,7 +154,7 @@ metadata:
 ...
 ```
 
-`Service` 는 WordPress의 일부로 MySQL을 노출하는데 이용한다.
+`Service` 는 WordPress의 일부로 MySQL을 노출하는 데 이용한다.
 
 ```yaml
 apiVersion: v1
