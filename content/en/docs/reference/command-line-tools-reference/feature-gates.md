@@ -500,7 +500,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   operations from the AWS-EBS in-tree plugin to EBS CSI plugin. Supports
   falling back to in-tree EBS plugin if a node does not have EBS CSI plugin
   installed and configured. Requires CSIMigration feature flag enabled.
-- `CSIMigrationAWSComplete`: Stops registering the EBS in-tree plugin in
+- `InTreePluginAWSUnregister`: Stops registering the EBS in-tree plugin in
   kubelet and volume controllers and enables shims and translation logic to
   route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin.
   Requires CSIMigration and CSIMigrationAWS feature flags enabled and EBS CSI
@@ -510,7 +510,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Supports falling back to in-tree AzureDisk plugin if a node does not have
   AzureDisk CSI plugin installed and configured. Requires CSIMigration feature
   flag enabled.
-- `CSIMigrationAzureDiskComplete`: Stops registering the Azure-Disk in-tree
+- `InTreePluginAzureDiskUnregister`: Stops registering the Azure-Disk in-tree
   plugin in kubelet and volume controllers and enables shims and translation
   logic to route volume operations from the Azure-Disk in-tree plugin to
   AzureDisk CSI plugin. Requires CSIMigration and CSIMigrationAzureDisk feature
@@ -521,7 +521,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   Supports falling back to in-tree AzureFile plugin if a node does not have
   AzureFile CSI plugin installed and configured. Requires CSIMigration feature
   flag enabled.
-- `CSIMigrationAzureFileComplete`: Stops registering the Azure-File in-tree
+- `InTreePluginAzureFileUnregister`: Stops registering the Azure-File in-tree
   plugin in kubelet and volume controllers and enables shims and translation
   logic to route volume operations from the Azure-File in-tree plugin to
   AzureFile CSI plugin. Requires CSIMigration and CSIMigrationAzureFile feature
@@ -531,7 +531,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling
   back to in-tree GCE plugin if a node does not have PD CSI plugin installed and
   configured. Requires CSIMigration feature flag enabled.
-- `CSIMigrationGCEComplete`: Stops registering the GCE-PD in-tree plugin in
+- `InTreePluginGCEUnregister`: Stops registering the GCE-PD in-tree plugin in
   kubelet and volume controllers and enables shims and translation logic to
   route volume operations from the GCE-PD in-tree plugin to PD CSI plugin.
   Requires CSIMigration and CSIMigrationGCE feature flags enabled and PD CSI
@@ -540,7 +540,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   operations from the Cinder in-tree plugin to Cinder CSI plugin. Supports
   falling back to in-tree Cinder plugin if a node does not have Cinder CSI
   plugin installed and configured. Requires CSIMigration feature flag enabled.
-- `CSIMigrationOpenStackComplete`: Stops registering the Cinder in-tree plugin in
+- `InTreePluginOpenStackUnregister`: Stops registering the Cinder in-tree plugin in
   kubelet and volume controllers and enables shims and translation logic to route
   volume operations from the Cinder in-tree plugin to Cinder CSI plugin.
   Requires CSIMigration and CSIMigrationOpenStack feature flags enabled and Cinder
@@ -549,7 +549,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   from the vSphere in-tree plugin to vSphere CSI plugin.
   Supports falling back to in-tree vSphere plugin if a node does not have vSphere
   CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
-- `CSIMigrationvSphereComplete`: Stops registering the vSphere in-tree plugin in kubelet
+- `CSIMigrationvSphereComplete` or `InTreePluginvSphereUnregister`: Stops registering the vSphere in-tree plugin in kubelet
   and volume controllers and enables shims and translation logic to route volume operations
   from the vSphere in-tree plugin to vSphere CSI plugin. Requires CSIMigration and
   CSIMigrationvSphere feature flags enabled and vSphere CSI plugin installed and
