@@ -69,21 +69,15 @@ different Kubernetes components.
 | `CSIMigration` | `true` | Beta | 1.17 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAWS` | `false` | Beta | 1.17 | |
-| `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | 1.18 |
 | `CSIMigrationAzureDisk` | `false` | Beta | 1.19 | |
-| `CSIMigrationAzureDiskComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.19 |
 | `CSIMigrationAzureFile` | `false` | Beta | 1.21 | |
-| `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigrationGCE` | `false` | Beta | 1.17 | |
-| `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
 | `CSIMigrationOpenStack` | `true` | Beta | 1.18 | |
-| `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
-| `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | 1.21 |
 | `CSIServiceAccountToken` | `false` | Alpha | 1.20 | 1.20 |
 | `CSIServiceAccountToken` | `true` | Beta | 1.21 | |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
@@ -231,6 +225,13 @@ different Kubernetes components.
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
+| `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationAzureDiskComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | 1.20 |
+| `CSIMigrationvSphereComplete` | `false` | Deprecated | 1.21 | 1.21 |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
