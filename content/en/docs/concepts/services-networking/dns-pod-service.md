@@ -38,7 +38,7 @@ namespace.
 
 DNS queries may be expanded using the pod's `/etc/resolv.conf`. Kubelet 
 sets this file for each pod. For example, a query for just `data` may be 
-expanded to `data.test.cluster.local`. The values of the `search` option 
+expanded to `data.prod.cluster.local`. The values of the `search` option 
 are used to expand queries. To learn more about DNS queries, see 
 [the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html) 
 
