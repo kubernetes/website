@@ -28,7 +28,7 @@ docker login
 
 When prompted, enter your Docker username and password.
 
-The login process creates or updates a `config.json` file that holds an authorization token.
+The login process creates or updates a `config.json` file that holds an authorization token. Review [how Kubernetes interprets this file](/docs/concepts/containers/images#config-json). 
 
 View the `config.json` file:
 
