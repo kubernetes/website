@@ -320,6 +320,7 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 * [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
 * [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+  (**deprecated**)
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
 * [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
 * [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
@@ -329,15 +330,12 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 * [`local`](/docs/concepts/storage/volumes/#local) - local storage devices
   mounted on nodes.
 * [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
-* `photonPersistentDisk` - Photon controller persistent disk.
-  (This volume type no longer works since the removal of the corresponding
-  cloud provider.)
 * [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
 * [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
-* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
-* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
   (**deprecated**)
+* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
 * [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+  (**deprecated**)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
 
 ## Persistent Volumes
@@ -437,7 +435,6 @@ In the CLI, the access modes are abbreviated to:
 | RBD                  | &#x2713;               | &#x2713;              | -            |
 | VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated)  |
 | PortworxVolume       | &#x2713;               | -                     | &#x2713;     |
-| ScaleIO              | &#x2713;               | &#x2713;              | -            |
 | StorageOS            | &#x2713;               | -                     | -            |
 
 ### Class
