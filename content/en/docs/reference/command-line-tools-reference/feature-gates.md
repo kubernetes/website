@@ -93,8 +93,6 @@ different Kubernetes components.
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | 1.19 |
 | `ConfigurableFSGroupPolicy` | `true` | Beta | 1.20 | |
-| `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
-| `CronJobControllerV2` | `true` | Beta | 1.21 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
 | `DefaultPodTopologySpread` | `true` | Beta | 1.20 | |
@@ -200,6 +198,9 @@ different Kubernetes components.
 | `AffinityInAnnotations` | - | Deprecated | 1.8 | - |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
 | `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | - |
+| `AttachVolumeLimit` | `false` | Alpha | 1.11 | 1.11 |
+| `AttachVolumeLimit` | `true` | Beta | 1.12 | 1.16 |
+| `AttachVolumeLimit` | `true` | GA | 1.17 | - |
 | `BlockVolume` | `false` | Alpha | 1.9 | 1.12 |
 | `BlockVolume` | `true` | Beta | 1.13 | 1.17 |
 | `BlockVolume` | `true` | GA | 1.18 | - |
@@ -215,12 +216,12 @@ different Kubernetes components.
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
 | `CSINodeInfo` | `true` | Beta | 1.14 | 1.16 |
 | `CSINodeInfo` | `true` | GA | 1.17 | |
-| `AttachVolumeLimit` | `false` | Alpha | 1.11 | 1.11 |
-| `AttachVolumeLimit` | `true` | Beta | 1.12 | 1.16 |
-| `AttachVolumeLimit` | `true` | GA | 1.17 | - |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
+| `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
+| `CronJobControllerV2` | `true` | Beta | 1.21 | 1.21 |
+| `CronJobControllerV2` | `true` | GA | 1.22 | - |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
@@ -575,7 +576,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CronJobControllerV2`: Use an alternative implementation of the
   {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} controller. Otherwise,
   version 1 of the same controller is selected.
-  The version 2 controller provides experimental performance improvements.
 - `CustomCPUCFSQuotaPeriod`: Enable nodes to change `cpuCFSQuotaPeriod` in
   [kubelet config](/docs/tasks/administer-cluster/kubelet-config-file/).
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
