@@ -49,7 +49,7 @@ MULTIZONE=true KUBE_GCE_ZONE=europe-west1-b  ENABLE_ETCD_QUORUM_READS=true ./clu
 Note that the commands above create a cluster with one control plane node;
 however, you can add new control plane nodes to the cluster with subsequent commands.
 
-## Adding a new control plane nodes
+## Adding a new control plane node
 
 After you have created an HA-compatible cluster, you can add control plane nodes to it.
 You add control plane nodes by using a `kube-up` script with the following flags:
