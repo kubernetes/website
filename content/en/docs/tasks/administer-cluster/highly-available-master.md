@@ -3,6 +3,7 @@ reviewers:
 - jszczepkowski
 title: Set up a High-Availability Control Plane
 content_type: task
+aliases: [ '/docs/tasks/administer-cluster/highly-available-master/' ]
 ---
 
 <!-- overview -->
