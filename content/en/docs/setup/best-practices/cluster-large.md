@@ -66,8 +66,8 @@ When creating a cluster, you can (using custom tooling):
 * start and configure additional etcd instance
 * configure the {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} to use it for storing events
 
-See [Operating etcd clusters for Kubernetes](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/) and
-[Set up a High Availability etcd cluster with kubeadm](docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) and
+[Set up a High Availability etcd cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 for details on configuring and managing etcd for a large cluster.
 
 ## Addon resources
