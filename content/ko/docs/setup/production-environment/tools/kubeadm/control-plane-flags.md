@@ -76,7 +76,11 @@ kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 scheduler:
   extraArgs:
-    bind-address: 0.0.0.0
-    config: /home/johndoe/schedconfig.yaml
-    kubeconfig: /home/johndoe/kubeconfig.yaml
+    config: /etc/kubernetes/scheduler-config.yaml
+  extraVolumes:
+    - name: schedulerconfig
+      hostPath: /home/johndoe/schedconfig.yaml
+      mountPath: /etc/kubernetes/scheduler-config.yaml
+      readOnly: true
+      pathType: "File"
 ```
