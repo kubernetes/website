@@ -507,60 +507,28 @@ Each feature gate is designed for enabling/disabling a specific feature:
   operations from the AWS-EBS in-tree plugin to EBS CSI plugin. Supports
   falling back to in-tree EBS plugin if a node does not have EBS CSI plugin
   installed and configured. Requires CSIMigration feature flag enabled.
-- `InTreePluginAWSUnregister`: Stops registering the EBS in-tree plugin in
-  kubelet and volume controllers and enables shims and translation logic to
-  route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin.
-  Requires CSIMigration and CSIMigrationAWS feature flags enabled and EBS CSI
-  plugin installed and configured on all nodes in the cluster.
 - `CSIMigrationAzureDisk`: Enables shims and translation logic to route volume
   operations from the Azure-Disk in-tree plugin to AzureDisk CSI plugin.
   Supports falling back to in-tree AzureDisk plugin if a node does not have
   AzureDisk CSI plugin installed and configured. Requires CSIMigration feature
   flag enabled.
-- `InTreePluginAzureDiskUnregister`: Stops registering the Azure-Disk in-tree
-  plugin in kubelet and volume controllers and enables shims and translation
-  logic to route volume operations from the Azure-Disk in-tree plugin to
-  AzureDisk CSI plugin. Requires CSIMigration and CSIMigrationAzureDisk feature
-  flags enabled and AzureDisk CSI plugin installed and configured on all nodes
-  in the cluster.
 - `CSIMigrationAzureFile`: Enables shims and translation logic to route volume
   operations from the Azure-File in-tree plugin to AzureFile CSI plugin.
   Supports falling back to in-tree AzureFile plugin if a node does not have
   AzureFile CSI plugin installed and configured. Requires CSIMigration feature
   flag enabled.
-- `InTreePluginAzureFileUnregister`: Stops registering the Azure-File in-tree
-  plugin in kubelet and volume controllers and enables shims and translation
-  logic to route volume operations from the Azure-File in-tree plugin to
-  AzureFile CSI plugin. Requires CSIMigration and CSIMigrationAzureFile feature
-  flags  enabled and AzureFile CSI plugin installed and configured on all nodes
-  in the cluster.
 - `CSIMigrationGCE`: Enables shims and translation logic to route volume
   operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling
   back to in-tree GCE plugin if a node does not have PD CSI plugin installed and
   configured. Requires CSIMigration feature flag enabled.
-- `InTreePluginGCEUnregister`: Stops registering the GCE-PD in-tree plugin in
-  kubelet and volume controllers and enables shims and translation logic to
-  route volume operations from the GCE-PD in-tree plugin to PD CSI plugin.
-  Requires CSIMigration and CSIMigrationGCE feature flags enabled and PD CSI
-  plugin installed and configured on all nodes in the cluster.
 - `CSIMigrationOpenStack`: Enables shims and translation logic to route volume
   operations from the Cinder in-tree plugin to Cinder CSI plugin. Supports
   falling back to in-tree Cinder plugin if a node does not have Cinder CSI
   plugin installed and configured. Requires CSIMigration feature flag enabled.
-- `InTreePluginOpenStackUnregister`: Stops registering the Cinder in-tree plugin in
-  kubelet and volume controllers and enables shims and translation logic to route
-  volume operations from the Cinder in-tree plugin to Cinder CSI plugin.
-  Requires CSIMigration and CSIMigrationOpenStack feature flags enabled and Cinder
-  CSI plugin installed and configured on all nodes in the cluster.
 - `CSIMigrationvSphere`: Enables shims and translation logic to route volume operations
   from the vSphere in-tree plugin to vSphere CSI plugin.
   Supports falling back to in-tree vSphere plugin if a node does not have vSphere
   CSI plugin installed and configured. Requires CSIMigration feature flag enabled.
-- `InTreePluginvSphereUnregister`: Stops registering the vSphere in-tree plugin in kubelet
-  and volume controllers and enables shims and translation logic to route volume operations
-  from the vSphere in-tree plugin to vSphere CSI plugin. Requires CSIMigration and
-  CSIMigrationvSphere feature flags enabled and vSphere CSI plugin installed and
-  configured on all nodes in the cluster.
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
@@ -684,6 +652,38 @@ Each feature gate is designed for enabling/disabling a specific feature:
   to `IngressClass.spec.parameters`.
 - `Initializers`: Allow asynchronous coordination of object creation using the
   Initializers admission plugin.
+- `InTreePluginAWSUnregister`: Stops registering the EBS in-tree plugin in
+  kubelet and volume controllers and enables shims and translation logic to
+  route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin.
+  Requires CSIMigration and CSIMigrationAWS feature flags enabled and EBS CSI
+  plugin installed and configured on all nodes in the cluster.
+- `InTreePluginAzureDiskUnregister`: Stops registering the Azure-Disk in-tree
+  plugin in kubelet and volume controllers and enables shims and translation
+  logic to route volume operations from the Azure-Disk in-tree plugin to
+  AzureDisk CSI plugin. Requires CSIMigration and CSIMigrationAzureDisk feature
+  flags enabled and AzureDisk CSI plugin installed and configured on all nodes
+  in the cluster.
+- `InTreePluginAzureFileUnregister`: Stops registering the Azure-File in-tree
+  plugin in kubelet and volume controllers and enables shims and translation
+  logic to route volume operations from the Azure-File in-tree plugin to
+  AzureFile CSI plugin. Requires CSIMigration and CSIMigrationAzureFile feature
+  flags  enabled and AzureFile CSI plugin installed and configured on all nodes
+  in the cluster.
+- `InTreePluginGCEUnregister`: Stops registering the GCE-PD in-tree plugin in
+  kubelet and volume controllers and enables shims and translation logic to
+  route volume operations from the GCE-PD in-tree plugin to PD CSI plugin.
+  Requires CSIMigration and CSIMigrationGCE feature flags enabled and PD CSI
+  plugin installed and configured on all nodes in the cluster.
+- `InTreePluginOpenStackUnregister`: Stops registering the Cinder in-tree plugin in
+  kubelet and volume controllers and enables shims and translation logic to route
+  volume operations from the Cinder in-tree plugin to Cinder CSI plugin.
+  Requires CSIMigration and CSIMigrationOpenStack feature flags enabled and Cinder
+  CSI plugin installed and configured on all nodes in the cluster.
+- `InTreePluginvSphereUnregister`: Stops registering the vSphere in-tree plugin in kubelet
+  and volume controllers and enables shims and translation logic to route volume operations
+  from the vSphere in-tree plugin to vSphere CSI plugin. Requires CSIMigration and
+  CSIMigrationvSphere feature flags enabled and vSphere CSI plugin installed and
+  configured on all nodes in the cluster.
 - `IPv6DualStack`: Enable [dual stack](/docs/concepts/services-networking/dual-stack/)
   support for IPv6.
 - `KubeletConfigFile`: Enable loading kubelet configuration from
