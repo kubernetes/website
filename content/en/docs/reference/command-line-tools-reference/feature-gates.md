@@ -237,7 +237,7 @@ different Kubernetes components.
 | `CSIMigrationOpenStackComplete` | `false` | Renamed to `InTreePluginOpenStackUnregister` | 1.21 | — |
 | `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | 1.20 |
 | `CSIMigrationvSphereComplete` | `false` | Deprecated | 1.21 | 1.21 |
-| `CSIMigrationvSphereComplete` | `false` | Renamed to `InTreePluginAWSUnregister` | 1.21 | — |
+| `CSIMigrationvSphereComplete` | `false` | Renamed to `InTreePluginvSphereUnregister` | 1.21 | — |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
