@@ -58,7 +58,8 @@ If a Pod's init container fails, the kubelet repeatedly restarts that init conta
 However, if the Pod has a `restartPolicy` of Never, and an init container fails during startup of that Pod, Kubernetes treats the overall Pod as failed.
 -->
 如果 Pod 的 Init 容器失败，kubelet 会不断地重启该 Init 容器直到该容器成功为止。
-然而，如果 Pod 对应的 `restartPolicy` 值为 "Never"，Kubernetes 不会重新启动 Pod。
+然而，如果 Pod 对应的 `restartPolicy` 值为 "Never"，并且 Pod 的 Init 容器失败，
+则 Kubernetes 会将整个 Pod 状态设置为失败。
 
 <!--
 To specify an init container for a Pod, add the `initContainers` field into
