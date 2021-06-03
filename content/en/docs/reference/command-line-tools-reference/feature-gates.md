@@ -127,7 +127,7 @@ different Kubernetes components.
 | `InTreePluginAzureFileUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginGCEUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginOpenStackUnregister` | `false` | Alpha | 1.21 | |
-| `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginvSphereUnregister` | `false` | Beta | 1.21 | |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
 | `IPv6DualStack` | `true` | Beta | 1.21 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
@@ -226,12 +226,18 @@ different Kubernetes components.
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
 | `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationAWSComplete` | `false` | Renamed to `InTreePluginAWSUnregister` | 1.21 | — |
 | `CSIMigrationAzureDiskComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationAzureDiskComplete` | `false` | Renamed to `InTreePluginAzureDiskUnregister` | 1.21 | — |
 | `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationAzureFileComplete` | `false` | Renamed to `InTreePluginAzureFileUnregister` | 1.21 | — |
 | `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationGCEComplete` | `false` | Renamed to `InTreePluginGCEUnregister` | 1.21 | — |
 | `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationOpenStackComplete` | `false` | Renamed to `InTreePluginOpenStackUnregister` | 1.21 | — |
 | `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | 1.20 |
 | `CSIMigrationvSphereComplete` | `false` | Deprecated | 1.21 | 1.21 |
+| `CSIMigrationvSphereComplete` | `false` | Renamed to `InTreePluginAWSUnregister` | 1.21 | — |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
