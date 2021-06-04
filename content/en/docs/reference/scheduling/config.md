@@ -250,7 +250,7 @@ only has one pending pods queue.
 
 ## {{% heading "whatsnext" %}}
 
-* Read the [kube-scheduler reference](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
+* Read the [kube-scheduler reference](/docs/reference/command-line-tools-reference/kube-scheduler/)
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read the [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) reference
 
