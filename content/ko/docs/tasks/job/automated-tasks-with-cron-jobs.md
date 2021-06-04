@@ -1,6 +1,8 @@
 ---
 title: 크론잡(CronJob)으로 자동화된 작업 실행
 min-kubernetes-server-version: v1.21
+
+
 content_type: task
 weight: 10
 ---
@@ -144,7 +146,7 @@ kubectl delete cronjob hello
 `.spec.schedule` 은 `.spec` 의 필수 필드이다.
 이는 해당 잡이 생성되고 실행되는 스케줄 시간으로 `0 * * * *` 또는 `@hourly` 와 같이 [크론](https://ko.wikipedia.org/wiki/Cron) 형식의 문자열을 받아들인다.
 
-이 형식은 확장된 `vixie cron` 스텝(step) 값도 포함한다. 이 내용은
+이 형식은 확장된 "Vixie cron" 스텝(step) 값도 포함한다. 이 내용은
 [FreeBSD 매뉴얼](https://www.freebsd.org/cgi/man.cgi?crontab%285%29)에 설명되어 있다.
 
 > 스텝 값은 범위(range)와 함께 사용할 수 있다. 범위 뒤에 `/<number>` 를
@@ -172,8 +174,8 @@ kubectl delete cronjob hello
 이러한 방식으로 기한을 맞추지 못한 잡은 실패한 작업으로 간주된다.
 이 필드를 지정하지 않으면, 잡에 기한이 없다.
 
-`.spec.startingDeadlineSeconds` 필드가 (null이 아닌 값으로) 설정되어 있다면, 
-크론잡 컨트롤러는 잡 생성 완료 예상 시각과 현재 시각의 차이를 측정하고, 
+`.spec.startingDeadlineSeconds` 필드가 (null이 아닌 값으로) 설정되어 있다면,
+크론잡 컨트롤러는 잡 생성 완료 예상 시각과 현재 시각의 차이를 측정하고,
 시각 차이가 설정한 값보다 커지면 잡 생성 동작을 스킵한다.
 
 예를 들어, `200` 으로 설정되었다면, 잡 생성 완료 예상 시각으로부터 200초까지는 잡이 생성될 수 있다.

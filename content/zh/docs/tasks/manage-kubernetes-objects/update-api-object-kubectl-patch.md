@@ -452,10 +452,10 @@ spec:
 
 {{< tabs name="kubectl_retainkeys_example" >}}
 {{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment retainkeys-demo --patch "$(cat patch-file-no-retainkeys.yaml)"
+kubectl patch deployment retainkeys-demo --type merge --patch "$(cat patch-file-no-retainkeys.yaml)"
 {{< /tab >}}
 {{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment retainkeys-demo --patch $(Get-Content patch-file-no-retainkeys.yaml -Raw)
+kubectl patch deployment retainkeys-demo --type merge --patch $(Get-Content patch-file-no-retainkeys.yaml -Raw)
 {{< /tab >}}}
 {{< /tabs >}}
 
@@ -499,10 +499,10 @@ Patch your Deployment again with this new patch:
 
 {{< tabs name="kubectl_retainkeys2_example" >}}
 {{{< tab name="Bash" codelang="bash" >}}
-kubectl patch deployment retainkeys-demo --patch "$(cat patch-file-retainkeys.yaml)"
+kubectl patch deployment retainkeys-demo --type merge --patch "$(cat patch-file-retainkeys.yaml)"
 {{< /tab >}}
 {{< tab name="PowerShell" codelang="posh" >}}
-kubectl patch deployment retainkeys-demo --patch $(Get-Content patch-file-retainkeys.yaml -Raw)
+kubectl patch deployment retainkeys-demo --type merge --patch $(Get-Content patch-file-retainkeys.yaml -Raw)
 {{< /tab >}}}
 {{< /tabs >}}
 

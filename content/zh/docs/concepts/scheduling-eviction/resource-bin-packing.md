@@ -1,12 +1,16 @@
 ---
 title: 扩展资源的资源装箱
 content_type: concept
-weight: 50
+weight: 30
 ---
 <!--
+reviewers:
+- bsalamat
+- k82cn
+- ahg-g
 title: Resource Bin Packing for Extended Resources
 content_type: concept
-weight: 50
+weight: 30
 -->
 
 <!-- overview -->

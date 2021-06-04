@@ -4,7 +4,7 @@ reviewers:
 - wojtek-t
 title: Pod Priority and Preemption
 content_type: concept
-weight: 70
+weight: 50
 ---
 
 <!-- overview -->
@@ -372,4 +372,6 @@ that exceeds its requests may be evicted.
 ## {{% heading "whatsnext" %}}
 
 * Read about using ResourceQuotas in connection with PriorityClasses: [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
-
+* Learn about [Pod Disruption](/docs/concepts/workloads/pods/disruptions/)
+* Learn about [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
+* Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
