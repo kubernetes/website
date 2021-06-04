@@ -13,7 +13,7 @@ obsolete -->
 사용자는 _토폴로지 분배 제약 조건_ 을 사용해서 지역, 영역, 노드 그리고 기타 사용자-정의 토폴로지 도메인과 같이 장애-도메인으로 설정된 클러스터에 걸쳐 파드가 분산되는 방식을 제어할 수 있다. 이를 통해 고가용성뿐만 아니라, 효율적인 리소스 활용의 목적을 이루는 데 도움이 된다.
 
 {{< note >}}
-v1.19 이전 버전의 쿠버네티스에서는 파드 토폴로지 분배 제약조건을 사용하려면
+v1.18 이전 버전의 쿠버네티스에서는 파드 토폴로지 분배 제약조건을 사용하려면
 [API 서버](/ko/docs/concepts/overview/components/#kube-apiserver)와
 [스케줄러](/docs/reference/generated/kube-scheduler/)에서
 `EvenPodsSpread`[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
