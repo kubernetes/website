@@ -5,6 +5,7 @@ metadata:
   labels:
     app: MyApp
 spec:
+  ipFamilyPolicy: PreferDualStack
   selector:
     app: MyApp
   ports:
