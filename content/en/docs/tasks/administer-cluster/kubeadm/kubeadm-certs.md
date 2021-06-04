@@ -239,7 +239,7 @@ The field `serverTLSBootstrap: true` will enable the bootstrap of kubelet servin
 certificates by requesting them from the `certificates.k8s.io` API. One known limitation
 is that the CSRs (Certificate Signing Requests) for these certificates cannot be automatically
 approved by the default signer in the kube-controller-manager -
-[`kubernetes.io/kubelet-serving`](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers).
+[`kubernetes.io/kubelet-serving`](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers).
 This will require action from the user or a third party controller.
 
 These CSRs can be viewed using:

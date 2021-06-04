@@ -18,7 +18,7 @@
 #    title: "Sample 1 announcement"
 #    # title is optional
 #    message: |
-#      Message *one*.  
+#      Message *one*.
 #      [Hyperlink](https://en.wikipedia.org/wiki/Hyperlink).
 #    # message is required. You can use Markdown.
 #  - name: Sample 2
@@ -36,7 +36,7 @@ announcements:
   style: "background: #3d4cb7"
   title: |
     <img src="images/kccnc-na-virtual-2020-white.svg" style="float: right; height: 80px;" />
-    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kuberntes.io&utm_medium=search&utm_campaign=KC_CNC_Virtual">KubeCon + CloudNativeCon NA 2020</a> <em>virtual</em>.
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kubernetes.io&utm_medium=search&utm_campaign=KC_CNC_Virtual">KubeCon + CloudNativeCon NA 2020</a> <em>virtual</em>.
   message: |
     4 days of incredible opportunities to collaborate, learn, and share with the entire community!<br />
     November 17 – 20, 2020
@@ -47,7 +47,7 @@ announcements:
   style: "background: #3f0374"
   title: |
     <img src="images/kubecon_ad_eu_2020.png" style="float: right; height: 80px;" />
-    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/?utm_source=kuberntes.io&utm_medium=search&utm_campaign=KC_CNC_Virtual">KubeCon + CloudNativeCon EU 2020</a> <em>virtual</em>.
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/?utm_source=kubernetes.io&utm_medium=search&utm_campaign=KC_CNC_Virtual">KubeCon + CloudNativeCon EU 2020</a> <em>virtual</em>.
   message: |
     4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     August 17 – 20, 2020.

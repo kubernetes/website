@@ -339,7 +339,7 @@ For example:
   you want development workloads to be limited to 512 MB. You create separate namespaces
   for production and development, and you apply memory constraints to each namespace.
 -->
-做为集群管理员，你可能想规定 Pod 可以使用的内存总量限制。例如：
+作为集群管理员，你可能想规定 Pod 可以使用的内存总量限制。例如：
 
 * 集群的每个节点有 2 GB 内存。你不想接受任何请求超过 2 GB 的 Pod，因为集群中没有节点可以满足。
 * 集群由生产部门和开发部门共享。你希望允许产品部门的负载最多耗用 8 GB 内存，

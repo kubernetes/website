@@ -78,12 +78,14 @@ had set a value of 100.
 kube-scheduler 的表现等价于设置值为 100。
 
 <!-- 
-To change the value, edit the kube-scheduler configuration file (this is likely
-to be `/etc/kubernetes/config/kube-scheduler.yaml`), then restart the scheduler.
- -->
-要修改这个值，编辑 kube-scheduler 的配置文件
-（通常是 `/etc/kubernetes/config/kube-scheduler.yaml`），
-然后重启调度器。
+To change the value, edit the
+[kube-scheduler configuration file](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
+and then restart the scheduler.
+In many cases, the configuration file can be found at `/etc/kubernetes/config/kube-scheduler.yaml`. 
+-->
+要修改这个值，编辑 [kube-scheduler 的配置文件](/zh/docs/reference/config-api/kube-scheduler-config.v1beta1/)，
+之后重启调度器。
+在很多场合下，配置文件位于 `/etc/kubernetes/config/kube-scheduler.yaml`。
 
 <!-- 
 After you have made this change, you can run
@@ -193,8 +195,8 @@ minimum value of 50 nodes.
 另外，还有一个 50 个 Node 的最小值是硬编码在程序中。
 
 <!--
-{{< note >}} In clusters with less than 50 feasible nodes, the scheduler still
-checks all the nodes, simply because there are not enough feasible nodes to stop
+In clusters with less than 50 feasible nodes, the scheduler still
+checks all the nodes because there are not enough feasible nodes to stop
 the scheduler's search early. 
 
 In a small cluster, if you set a low value for `percentageOfNodesToScore`, your
@@ -203,7 +205,6 @@ change will have no or little effect, for a similar reason.
 If your cluster has several hundred Nodes or fewer, leave this configuration option
 at its default value. Making changes is unlikely to improve the
 scheduler's performance significantly.
-{{< /note >}}
 -->
 {{< note >}}
 当集群中的可调度节点少于 50 个时，调度器仍然会去检查所有的 Node，
@@ -292,4 +293,9 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 After going over all the Nodes, it goes back to Node 1.
 -->
 在评估完所有 Node 后，将会返回到 Node 1，从头开始。
+
+
+## {{% heading "whatsnext" %}}
+
+* 查阅 [kube-scheduler 配置参考 (v1beta1)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta1/)
 

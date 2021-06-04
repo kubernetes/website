@@ -162,6 +162,49 @@ spec:
 ```
 ただし、カスタムリサイクラーPodテンプレートの`volumes`パート内で指定された特定のパスは、リサイクルされるボリュームの特定のパスに置き換えられます。
 
+### 永続ボリュームの予約
+
+コントロールプレーンは、永続ボリュームクレームをクラスター内の一致する永続ボリュームに[バインド](#バインディング)できます。
+ただし、永続ボリュームクレームを特定の永続ボリュームにバインドする場合、それらを事前にバインドする必要があります。
+
+永続ボリュームクレームで永続ボリュームを指定することにより、その特定の永続ボリュームと永続ボリュームクレームの間のバインディングを宣言します。
+永続ボリュームが存在し、その`claimRef`フィールドで永続ボリュームクレームを予約していない場合に永続ボリュームと永続ボリュームクレームがバインドされます。
+
+バインディングは、ノードアフィニティを含むいくつかのボリュームの一致基準に関係なく発生します。
+コントロールプレーンは、依然として[ストレージクラス](/docs/concepts/storage/storage-classes/)、アクセスモード、および要求されたストレージサイズが有効であることをチェックします。
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: foo-pvc
+  namespace: foo
+spec:
+  storageClassName: "" # 空の文字列を明示的に指定する必要があります。そうしないとデフォルトのストレージクラスが設定されてしまいます。
+  volumeName: foo-pv
+  ...
+```
+
+この方法は、永続ボリュームへのバインド特権を保証するものではありません。
+他の永続ボリュームクレームが指定した永続ボリュームを使用できる場合、最初にそのストレージボリュームを予約する必要があります。
+永続ボリュームの`claimRef`フィールドに関連する永続ボリュームクレームを指定して、他の永続ボリュームクレームがその永続ボリュームにバインドできないようにしてください。
+
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: foo-pv
+spec:
+  storageClassName: ""
+  claimRef:
+    name: foo-pvc
+    namespace: foo
+  ...
+```
+
+これは、既存の永続ボリュームを再利用する場合など、`claimPolicy`が`Retain`に設定されている永続ボリュームを使用する場合に役立ちます。
+
 ### 永続ボリュームクレームの拡大
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
@@ -247,26 +290,32 @@ EBSの拡張は時間がかかる操作です。また変更は、ボリュー�
 
 PersistentVolumeの種類はプラグインとして実装されます。Kubernetesは現在次のプラグインに対応しています。
 
-* GCEPersistentDisk
-* AWSElasticBlockStore
-* AzureFile
-* AzureDisk
-* CSI
-* FC (Fibre Channel)
-* FlexVolume
-* Flocker
-* NFS
-* iSCSI
-* RBD (Ceph Block Device)
-* CephFS
-* Cinder (OpenStack block storage)
-* Glusterfs
-* VsphereVolume
-* Quobyte Volumes
-* HostPath (テスト用の単一ノードのみ。ローカルストレージはどのような方法でもサポートされておらず、またマルチノードクラスターでは動作しません)
-* Portworx Volumes
-* ScaleIO Volumes
-* StorageOS
+* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+* [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
+* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
+* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
+  (**非推奨**)
+* [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
+* [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
+* [`flexVolume`](/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
+* [`flocker`](/docs/concepts/storage/volumes/#flocker) - Flocker storage
+* [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+* [`glusterfs`](/docs/concepts/storage/volumes/#glusterfs) - Glusterfs volume
+* [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
+  (テスト用の単一ノードのみ。マルチノードクラスターでは動作しません。代わりに`local`ボリュームを利用することを検討してください。)
+* [`iscsi`](/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) storage
+* [`local`](/docs/concepts/storage/volumes/#local) - ノードにマウントされたローカルストレージデバイス
+* [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
+* `photonPersistentDisk` - Photon controller persistent disk
+  (対応するクラウドプロバイダーが削除されたため、このボリュームタイプは機能しなくなりました。)
+* [`portworxVolume`](/docs/concepts/storage/volumes/#portworxvolume) - Portworx volume
+* [`quobyte`](/docs/concepts/storage/volumes/#quobyte) - Quobyte volume
+* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
+* [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
+  (**非推奨**)
+* [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
+* [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
 
 ## 永続ボリューム
 

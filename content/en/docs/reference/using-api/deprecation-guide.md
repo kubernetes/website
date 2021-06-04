@@ -74,7 +74,7 @@ The **policy/v1beta1** API version of PodDisruptionBudget will no longer be serv
 PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
 
 PodSecurityPolicy replacements are still under discussion, but current use can be migrated to
-[3rd-party admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
+[3rd-party admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
 
 #### RuntimeClass {#runtimeclass-v125}
 

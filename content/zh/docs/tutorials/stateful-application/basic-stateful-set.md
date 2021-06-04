@@ -1057,7 +1057,7 @@ the `partition`.
 Delete the `web-1` Pod.
 -->
 
-当你改变 `partition` 时，StatefulSet 会自动的更新 `web-2` Pod，这是因为 Pod 的序号小于或等于 `partition`。
+当你改变 `partition` 时，StatefulSet 会自动的更新 `web-2` Pod，这是因为 Pod 的序号大于或等于 `partition`。
 
 
 删除 `web-1` Pod。
