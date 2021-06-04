@@ -1,0 +1,30 @@
+
+
+<link href="{{ "css/filter.css" | relURL }}" rel="stylesheet">
+<script src="{{ "js/filter.js" | relURL }}"></script>
+<script
+  src="/js/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+<table class="table">
+  <thead>
+    <tr class="filters">
+      <th><input type="text" placeholder="kep-number" disabled></th>
+      <th><input type="text" placeholder="KEP Name" disabled></th>
+      <th><input type="text" placeholder="SIG" disabled></th>
+    </tr>
+  </thead>
+  <tbody>
+		{{ range $data := .Site.Data.keps.keps_data.keps }}
+		<tr>
+      <td>{{ printf "%s" $data.kep_number  }}</td>
+      <td>{{ printf "%s" $data.name  }}</td>
+      <td>{{ printf "%s" $data.owning_sig  }}</td>
+    </tr>
+    {{ end }}
+
+  </tbody>
+</table>
+
+
