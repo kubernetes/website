@@ -227,7 +227,7 @@ It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 
 ### 时间安排
 
 `.spec.schedule` 是 `.spec` 需要的域。它使用了 [Cron](https://en.wikipedia.org/wiki/Cron)
-格式串，例如 `0 * * * *` or `@hourly` ，做为它的任务被创建和执行的调度时间。
+格式串，例如 `0 * * * *` or `@hourly` ，作为它的任务被创建和执行的调度时间。
 
 <!--
 The format also includes extended `vixie cron` step values. As explained in the [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
