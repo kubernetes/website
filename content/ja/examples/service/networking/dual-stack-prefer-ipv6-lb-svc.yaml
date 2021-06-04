@@ -5,6 +5,10 @@ metadata:
   labels:
     app: MyApp
 spec:
+  ipFamilyPolicy: PreferDualStack
+  ipFamilies:
+  - IPv6
+  type: LoadBalancer
   selector:
     app: MyApp
   ports:
