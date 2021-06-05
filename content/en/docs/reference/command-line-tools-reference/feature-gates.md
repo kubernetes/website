@@ -113,6 +113,7 @@ different Kubernetes components.
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
 | `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
+| `ExpandedDNSConfig` | `false` | Alpha | 1.22 | |
 | `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
 | `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | |
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
@@ -632,6 +633,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   now-corrected fault where Kubernetes ignored exec probe timeouts. See
   [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes).
 - `ExpandCSIVolumes`: Enable the expanding of CSI volumes.
+- `ExpandedDNSConfig`: Enable kubelet and kube-apiserver to allow more DNS
+  search paths and longer list of DNS search paths. See
+  [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See
   [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
 - `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See
