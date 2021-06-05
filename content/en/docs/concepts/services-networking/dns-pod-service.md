@@ -310,6 +310,17 @@ search default.svc.cluster-domain.example svc.cluster-domain.example cluster-dom
 options ndots:5
 ```
 
+#### Expanded DNS Configuration
+
+{{< feature-state for_k8s_version="1.22" state="alpha" >}}
+
+By default, for Pod's DNS Config, Kubernetes allows at most 6 search domains and
+a list of search domains of up to 256 characters.
+
+If the feature gate `ExpandedDNSConfig` is enabled for the kube-apiserver and
+the kubelet, it is allowed for Kubernetes to have at most 32 search domains and
+a list of search domains of up to 2048 characters.
+
 ### Feature availability
 
 The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
