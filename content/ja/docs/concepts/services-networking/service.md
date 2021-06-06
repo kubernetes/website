@@ -95,7 +95,7 @@ Serviceは多くの場合、KubernetesのPodに対するアクセスを抽象化
 * Serviceを、異なる{{< glossary_tooltip term_id="namespace" >}}のServiceや他のクラスターのServiceに向ける場合
 * ワークロードをKubernetesに移行するとき、アプリケーションに対する処理をしながら、バックエンドの一部をKubernetesで実行する場合
 
-このような場合において、ユーザーはPodセレクター_なしで_ Serviceを定義できます。
+このような場合において、ユーザーはPodセレクター*なしで*Serviceを定義できます。
 
 ```yaml
 apiVersion: v1
@@ -882,7 +882,7 @@ Kubernetesは各Serviceに、それ自身のIPアドレスを割り当てるこ�
 ### ServiceのIPアドレス {#ips-and-vips}
 
 実際に固定された向き先であるPodのIPアドレスとは異なり、ServiceのIPは実際には単一のホストによって応答されません。
-その代わり、kube-proxyは必要な時に透過的にリダイレクトされる_仮想_ IPアドレスを定義するため、iptables(Linuxのパケット処理ロジック)を使用します。
+その代わり、kube-proxyは必要な時に透過的にリダイレクトされる*仮想*IPアドレスを定義するため、iptables(Linuxのパケット処理ロジック)を使用します。
 クライアントがVIPに接続する時、そのトラフィックは自動的に適切なEndpointsに転送されます。
 Service用の環境変数とDNSは、Serviceの仮想IPアドレス(とポート)の面において、自動的に生成されます。
 
