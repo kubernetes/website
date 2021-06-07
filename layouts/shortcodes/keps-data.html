@@ -61,7 +61,7 @@
     <thead>
       <tr>
         <th scope="col">KEP Number</th>
-        <th scope="col">KEP Name</th>
+        <th scope="col">KEP Title</th>
         <th scope="col">SIG-Group</th>
         <th scope="col">Author</th>
       </tr>
@@ -71,7 +71,7 @@
       <tr>
         <td>{{ printf "%s" $data.kep_number }}</td>
         <td>
-          <a href="https://github.com/kubernetes/enhancements/tree/master/keps/{{$data.owning_sig}}/{{$data.name}}">{{ printf "%s" $data.name }}</a></td>
+          <a href="https://github.com/kubernetes/enhancements/tree/master/keps/{{$data.owning_sig}}/{{$data.name}}">{{ printf "%s" $data.title }}</a></td>
         <td>{{ printf "%s" $data.owning_sig }}</td>
         <td>{{ printf "%s" $data.authors }}</td>
       </tr>
