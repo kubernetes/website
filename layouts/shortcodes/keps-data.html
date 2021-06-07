@@ -1,30 +1,63 @@
-
-
-<link href="{{ "css/filter.css" | relURL }}" rel="stylesheet">
-<script src="{{ "js/filter.js" | relURL }}"></script>
-<script
-  src="/js/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-
-<table class="table">
+<script>
+  $(document).ready(function(){
+           $('#keps_search').keyup(function(){
+                search_table($(this).val());
+           });
+           $("select").on('change', function() {
+            search_table($(this).val());
+           })
+           function search_table(value){
+                $('#keps_table tr').each(function(){
+                     var found = 'false';
+                     $(this).each(function(){
+                          if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                          {
+                               found = 'true';
+                          }
+                     });
+                     if(found == 'true')
+                     {
+                          $(this).show();
+                     }
+                     else
+                     {
+                          $(this).hide();
+                     }
+                });
+           }
+      });
+ </script>
+<div align="center">
+  <input type="text" name="search" id="keps_search" class="form-control" placeholder="Search KEP(s) by keyword" />
+</div>
+<form>
+  <label for="keps">Choose SIG group:</label>
+  <select name="sig group" id="sig_group">
+    {{ range $data_sig := .Site.Data.sigs.sigs.sigs }}
+    <option value="{{$data_sig.dir}}">{{ printf "%s" $data_sig.name }}</option>
+    {{ end }}
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+<table id="keps_table" class="display" class="table">
   <thead>
-    <tr class="filters">
-      <th><input type="text" placeholder="kep-number" disabled></th>
-      <th><input type="text" placeholder="KEP Name" disabled></th>
-      <th><input type="text" placeholder="SIG" disabled></th>
+    <tr>
+      <th>KEP Number</th>
+      <th>KEP Name</th>
+      <th>SIG-Group</th>
+      <th>Author</th>
     </tr>
   </thead>
   <tbody>
-		{{ range $data := .Site.Data.keps.keps_data.keps }}
-		<tr>
-      <td>{{ printf "%s" $data.kep_number  }}</td>
-      <td>{{ printf "%s" $data.name  }}</td>
-      <td>{{ printf "%s" $data.owning_sig  }}</td>
+    {{ range $data := .Site.Data.keps.keps_data.keps }}
+    <tr>
+      <td>{{ printf "%s" $data.kep_number }}</td>
+      <td>
+        <a href="https://github.com/kubernetes/enhancements/tree/master/keps/{{$data.owning_sig}}/{{$data.name}}">{{ printf "%s" $data.name }}</a></td>
+      <td>{{ printf "%s" $data.owning_sig }}</td>
+      <td>{{ printf "%s" $data.authors }}</td>
     </tr>
     {{ end }}
-
   </tbody>
 </table>
-
-
