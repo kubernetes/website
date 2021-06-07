@@ -121,7 +121,7 @@ It acts synchronously to modify pods as they are created or updated. When this p
 1. 如果 Pod 不包含 `imagePullSecrets` 设置，将 `serviceAccountName` 所引用
    的服务账号中的 `imagePullSecrets` 信息添加到 Pod 中。
 1. 如果服务账号的 `automountServiceAccountToken` 或 Pod 的
-   `automountServiceAccountToken` 都为设置为 `false`，则为 Pod 创建一个
+   `automountServiceAccountToken` 都未设置为 `false`，则为 Pod 创建一个
    `volume`，在其中包含用来访问 API 的令牌。
 1. 如果前一步中为服务账号令牌创建了卷，则为 Pod 中的每个容器添加一个
    `volumeSource`，挂载在其 `/var/run/secrets/kubernetes.io/serviceaccount`
