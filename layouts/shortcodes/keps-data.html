@@ -33,12 +33,11 @@
 <form>
   <label for="keps">Choose SIG group:</label>
   <select name="sig group" id="sig_group">
+    <option selected="selected">Select SIG group to filter</option>
     {{ range $data_sig := .Site.Data.sigs.sigs.sigs }}
     <option value="{{$data_sig.dir}}">{{ printf "%s" $data_sig.name }}</option>
     {{ end }}
   </select>
-  <br><br>
-  <input type="submit" value="Submit">
 </form>
 <table id="keps_table" class="display" class="table">
   <thead>
