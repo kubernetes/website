@@ -58,7 +58,6 @@ different Kubernetes components.
 | `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | |
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `BalanceAttachedNodeVolumes` | `false` | Alpha | 1.11 | |
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | 1.20 |
 | `BoundServiceAccountTokenVolume` | `true` | Beta | 1.21 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
@@ -465,9 +464,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.
   See [dynamic volume limits](/docs/concepts/storage/storage-limits/#dynamic-volume-limits) for more details.
-- `BalanceAttachedNodeVolumes`: Include volume count on node to be considered for balanced resource allocation
-  while scheduling. A node which has closer CPU, memory utilization, and volume count is favored by the scheduler
-  while making decisions.
 - `BlockVolume`: Enable the definition and consumption of raw block devices in Pods.
   See [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
   for more details.
