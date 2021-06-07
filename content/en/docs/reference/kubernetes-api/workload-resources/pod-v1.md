@@ -65,19 +65,19 @@ PodSpec is a description of a pod.
 ### Containers
 
 
-- **containers** ([]<a href="{{< ref "../workload-resources/pod-v1#Container" >}}">Container</a>), required
+- **containers** (<a href="{{< ref "../workload-resources/pod-v1#Container" >}}">Container</a>), required
 
   *Patch strategy: merge on key `name`*
   
   List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
 
-- **initContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#Container" >}}">Container</a>)
+- **initContainers** (<a href="{{< ref "../workload-resources/pod-v1#Container" >}}">Container</a>)
 
   *Patch strategy: merge on key `name`*
   
   List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 
-- **imagePullSecrets** ([]<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
+- **imagePullSecrets** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
   *Patch strategy: merge on key `name`*
   
@@ -90,7 +90,7 @@ PodSpec is a description of a pod.
 ### Volumes
 
 
-- **volumes** ([]<a href="{{< ref "../config-and-storage-resources/volume#Volume" >}}">Volume</a>)
+- **volumes** (<a href="{{< ref "../config-and-storage-resources/volume#Volume" >}}">Volume</a>)
 
   *Patch strategies: retainKeys, merge on key `name`*
   
@@ -126,7 +126,7 @@ PodSpec is a description of a pod.
 
     Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
 
-- **tolerations** ([]Toleration)
+- **tolerations** (Toleration)
 
   If specified, the pod's tolerations.
 
@@ -169,7 +169,7 @@ PodSpec is a description of a pod.
 
   The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
 
-- **topologySpreadConstraints** ([]TopologySpreadConstraint)
+- **topologySpreadConstraints** (TopologySpreadConstraint)
 
   *Patch strategy: merge on key `topologyKey`*
   
@@ -214,7 +214,7 @@ PodSpec is a description of a pod.
 
   Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
 
-- **readinessGates** ([]PodReadinessGate)
+- **readinessGates** (PodReadinessGate)
 
   If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
 
@@ -240,7 +240,7 @@ PodSpec is a description of a pod.
 
   If specified, the fully qualified Pod hostname will be "\<hostname>.\<subdomain>.\<pod namespace>.svc.\<cluster domain>". If not specified, the pod will not have a domainname at all.
 
-- **hostAliases** ([]HostAlias)
+- **hostAliases** (HostAlias)
 
   *Patch strategy: merge on key `ip`*
   
@@ -249,7 +249,7 @@ PodSpec is a description of a pod.
   <a name="HostAlias"></a>
   *HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.*
 
-  - **hostAliases.hostnames** ([]string)
+  - **hostAliases.hostnames** (string)
 
     Hostnames for the above IP address.
 
@@ -264,11 +264,11 @@ PodSpec is a description of a pod.
   <a name="PodDNSConfig"></a>
   *PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.*
 
-  - **dnsConfig.nameservers** ([]string)
+  - **dnsConfig.nameservers** (string)
 
     A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
 
-  - **dnsConfig.options** ([]PodDNSConfigOption)
+  - **dnsConfig.options** (PodDNSConfigOption)
 
     A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy.
 
@@ -282,7 +282,7 @@ PodSpec is a description of a pod.
     - **dnsConfig.options.value** (string)
 
 
-  - **dnsConfig.searches** ([]string)
+  - **dnsConfig.searches** (string)
 
     A list of DNS search domains for host-name lookup. This will be appended to the base search paths generated from DNSPolicy. Duplicated search paths will be removed.
 
@@ -342,7 +342,7 @@ PodSpec is a description of a pod.
 
     The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
 
-  - **securityContext.supplementalGroups** ([]int64)
+  - **securityContext.supplementalGroups** (int64)
 
     A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
 
@@ -398,7 +398,7 @@ PodSpec is a description of a pod.
 
       User is a SELinux user label that applies to the container.
 
-  - **securityContext.sysctls** ([]Sysctl)
+  - **securityContext.sysctls** (Sysctl)
 
     Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.
 
@@ -446,7 +446,7 @@ PodSpec is a description of a pod.
 ### Alpha level
 
 
-- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/ephemeral-containers-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
+- **ephemeralContainers** (<a href="{{< ref "../workload-resources/ephemeral-containers-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
 
   *Patch strategy: merge on key `name`*
   
@@ -487,11 +487,11 @@ A single application container that you want to run within a pod.
 ### Entrypoint
 
 
-- **command** ([]string)
+- **command** (string)
 
   Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 
-- **args** ([]string)
+- **args** (string)
 
   Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 
@@ -502,7 +502,7 @@ A single application container that you want to run within a pod.
 ### Ports
 
 
-- **ports** ([]ContainerPort)
+- **ports** (ContainerPort)
 
   *Patch strategy: merge on key `containerPort`*
   
@@ -536,7 +536,7 @@ A single application container that you want to run within a pod.
 ### Environment variables
 
 
-- **env** ([]EnvVar)
+- **env** (EnvVar)
 
   *Patch strategy: merge on key `name`*
   
@@ -606,7 +606,7 @@ A single application container that you want to run within a pod.
 
         Specify whether the Secret or its key must be defined
 
-- **envFrom** ([]EnvFromSource)
+- **envFrom** (EnvFromSource)
 
   List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
 
@@ -654,7 +654,7 @@ A single application container that you want to run within a pod.
 ### Volumes
 
 
-- **volumeMounts** ([]VolumeMount)
+- **volumeMounts** (VolumeMount)
 
   *Patch strategy: merge on key `mountPath`*
   
@@ -687,7 +687,7 @@ A single application container that you want to run within a pod.
 
     Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
 
-- **volumeDevices** ([]VolumeDevice)
+- **volumeDevices** (VolumeDevice)
 
   *Patch strategy: merge on key `devicePath`*
   
@@ -805,11 +805,11 @@ A single application container that you want to run within a pod.
     <a name="Capabilities"></a>
     *Adds and removes POSIX capabilities from running containers.*
 
-    - **securityContext.capabilities.add** ([]string)
+    - **securityContext.capabilities.add** (string)
 
       Added capabilities
 
-    - **securityContext.capabilities.drop** ([]string)
+    - **securityContext.capabilities.drop** (string)
 
       Removed capabilities
 
@@ -902,7 +902,7 @@ Handler defines a specific action that should be taken
   <a name="ExecAction"></a>
   *ExecAction describes a "run in container" action.*
 
-  - **exec.command** ([]string)
+  - **exec.command** (string)
 
     Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
 
@@ -924,7 +924,7 @@ Handler defines a specific action that should be taken
 
     Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
 
-  - **httpGet.httpHeaders** ([]HTTPHeader)
+  - **httpGet.httpHeaders** (HTTPHeader)
 
     Custom headers to set in the request. HTTP allows repeated headers.
 
@@ -975,7 +975,7 @@ Node affinity is a group of node affinity scheduling rules.
 
 <hr>
 
-- **preferredDuringSchedulingIgnoredDuringExecution** ([]PreferredSchedulingTerm)
+- **preferredDuringSchedulingIgnoredDuringExecution** (PreferredSchedulingTerm)
 
   The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
 
@@ -989,11 +989,11 @@ Node affinity is a group of node affinity scheduling rules.
     <a name="NodeSelectorTerm"></a>
     *A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.*
 
-    - **preferredDuringSchedulingIgnoredDuringExecution.preference.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+    - **preferredDuringSchedulingIgnoredDuringExecution.preference.matchExpressions** (<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
       A list of node selector requirements by node's labels.
 
-    - **preferredDuringSchedulingIgnoredDuringExecution.preference.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+    - **preferredDuringSchedulingIgnoredDuringExecution.preference.matchFields** (<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
       A list of node selector requirements by node's fields.
 
@@ -1008,18 +1008,18 @@ Node affinity is a group of node affinity scheduling rules.
   <a name="NodeSelector"></a>
   *A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.*
 
-  - **requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms** ([]NodeSelectorTerm), required
+  - **requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms** (NodeSelectorTerm), required
 
     Required. A list of node selector terms. The terms are ORed.
 
     <a name="NodeSelectorTerm"></a>
     *A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.*
 
-    - **requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+    - **requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms.matchExpressions** (<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
       A list of node selector requirements by node's labels.
 
-    - **requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
+    - **requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms.matchFields** (<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
       A list of node selector requirements by node's fields.
 
@@ -1033,7 +1033,7 @@ Pod affinity is a group of inter pod affinity scheduling rules.
 
 <hr>
 
-- **preferredDuringSchedulingIgnoredDuringExecution** ([]WeightedPodAffinityTerm)
+- **preferredDuringSchedulingIgnoredDuringExecution** (WeightedPodAffinityTerm)
 
   The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
 
@@ -1059,7 +1059,7 @@ Pod affinity is a group of inter pod affinity scheduling rules.
 
       A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is alpha-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
 
-    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** ([]string)
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** (string)
 
       namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
 
@@ -1067,7 +1067,7 @@ Pod affinity is a group of inter pod affinity scheduling rules.
 
     weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
 
-- **requiredDuringSchedulingIgnoredDuringExecution** ([]PodAffinityTerm)
+- **requiredDuringSchedulingIgnoredDuringExecution** (PodAffinityTerm)
 
   If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
 
@@ -1086,7 +1086,7 @@ Pod affinity is a group of inter pod affinity scheduling rules.
 
     A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is alpha-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
 
-  - **requiredDuringSchedulingIgnoredDuringExecution.namespaces** ([]string)
+  - **requiredDuringSchedulingIgnoredDuringExecution.namespaces** (string)
 
     namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
 
@@ -1100,7 +1100,7 @@ Pod anti affinity is a group of inter pod anti affinity scheduling rules.
 
 <hr>
 
-- **preferredDuringSchedulingIgnoredDuringExecution** ([]WeightedPodAffinityTerm)
+- **preferredDuringSchedulingIgnoredDuringExecution** (WeightedPodAffinityTerm)
 
   The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
 
@@ -1126,7 +1126,7 @@ Pod anti affinity is a group of inter pod anti affinity scheduling rules.
 
       A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is alpha-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
 
-    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** ([]string)
+    - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** (string)
 
       namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
 
@@ -1134,7 +1134,7 @@ Pod anti affinity is a group of inter pod anti affinity scheduling rules.
 
     weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
 
-- **requiredDuringSchedulingIgnoredDuringExecution** ([]PodAffinityTerm)
+- **requiredDuringSchedulingIgnoredDuringExecution** (PodAffinityTerm)
 
   If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
 
@@ -1153,7 +1153,7 @@ Pod anti affinity is a group of inter pod anti affinity scheduling rules.
 
     A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is alpha-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
 
-  - **requiredDuringSchedulingIgnoredDuringExecution.namespaces** ([]string)
+  - **requiredDuringSchedulingIgnoredDuringExecution.namespaces** (string)
 
     namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
 
@@ -1174,7 +1174,7 @@ Probe describes a health check to be performed against a container to determine 
   <a name="ExecAction"></a>
   *ExecAction describes a "run in container" action.*
 
-  - **exec.command** ([]string)
+  - **exec.command** (string)
 
     Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
 
@@ -1196,7 +1196,7 @@ Probe describes a health check to be performed against a container to determine 
 
     Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
 
-  - **httpGet.httpHeaders** ([]HTTPHeader)
+  - **httpGet.httpHeaders** (HTTPHeader)
 
     Custom headers to set in the request. HTTP allows repeated headers.
 
@@ -1306,7 +1306,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
 
-- **podIPs** ([]PodIP)
+- **podIPs** (PodIP)
 
   *Patch strategy: merge on key `ip`*
   
@@ -1320,7 +1320,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
     ip is an IP address (IPv4 or IPv6) assigned to the pod
 
-- **conditions** ([]PodCondition)
+- **conditions** (PodCondition)
 
   *Patch strategy: merge on key `type`*
   
@@ -1363,7 +1363,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
 
-- **initContainerStatuses** ([]ContainerStatus)
+- **initContainerStatuses** (ContainerStatus)
 
   The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 
@@ -1552,7 +1552,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
     Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
 
-- **containerStatuses** ([]ContainerStatus)
+- **containerStatuses** (ContainerStatus)
 
   The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 
@@ -1741,7 +1741,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
     Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
 
-- **ephemeralContainerStatuses** ([]ContainerStatus)
+- **ephemeralContainerStatuses** (ContainerStatus)
 
   Status for any ephemeral containers that have run in this pod. This field is alpha-level and is only populated by servers that enable the EphemeralContainers feature.
 
@@ -1940,7 +1940,7 @@ PodList is a list of Pods.
 
 <hr>
 
-- **items** ([]<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>), required
+- **items** (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>), required
 
   List of pods. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md
 
