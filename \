@@ -1358,7 +1358,7 @@ This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}}
 -->
 该准入控制器为新创建的节点添加 `NotReady` 和 `NoSchedule` 
 {{< glossary_tooltip text="污点" term_id="taint" >}}。
-这些污点能够避免一些竞态条件的发生，这类竞态条件可能导致 Pod 在更新节点污点以准确
+这些污点能够避免一些静态条件的发生，这类静态条件可能导致 Pod 在更新节点污点以准确
 反映其所报告状况之前，就被调度到新节点上。
 
 ### ValidatingAdmissionWebhook {#validatingadmissionwebhook} 
