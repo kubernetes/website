@@ -39,19 +39,25 @@
       });
  </script>
 <div class="container">
-  <div align="center" class="input-group">
-    <input type="text" name="search" id="keps_search" class="form-control" placeholder="Search KEP(s) by keyword" />
-  </div>
-  <div class="input-group mx-auto" style="width: 400px;">
-    <label for="keps">Choose SIG group:</label>
-    <select class="custom-select" name="sig group" id="sig_group">
-      <option selected value="all">Choose...</option>
-      {{ range $data_sig := .Site.Data.sigs.sigs.sigs }}
-      <option value="{{$data_sig.dir}}">{{ printf "%s" $data_sig.name }}</option>
-      {{ end }}
-    </select>
-  </div>
-  <table id="keps_table" class="table table-bordered table-hover">
+  <dir class="d-flex">
+    <div class="col">
+      <div class="input-group mt-2 col-md-12">
+        <input type="text" name="search" id="keps_search" class="form-control" placeholder="Search KEP(s) by keyword" />
+      </div>
+    </div>
+    <div class="col ml-auto">
+      <div class="input-group mx-auto mt-2 col-md-12" style="width: 400px;">
+        <label for="keps">Choose SIG group:</label>
+        <select class="custom-select" name="sig group" id="sig_group">
+          <option selected value="all">Choose...</option>
+          {{ range $data_sig := .Site.Data.sigs.sigs.sigs }}
+          <option value="{{$data_sig.dir}}">{{ printf "%s" $data_sig.name }}</option>
+          {{ end }}
+        </select>
+      </div>
+    </div>
+  </dir>
+  <table id="keps_table" class="table table-bordered table-hover mt-2 col-md-12">
     <thead>
       <tr>
         <th scope="col">KEP Number</th>
