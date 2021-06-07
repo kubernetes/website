@@ -4,7 +4,13 @@
                 search_table($(this).val());
            });
            $("select").on('change', function() {
-            search_table($(this).val());
+            if($(this).val() != 'all')
+             {
+                search_table($(this).val());
+             } else {
+                reset_keps_table();
+             }
+
            })
            function search_table(value){
                 $('#keps_table tr').each(function(){
@@ -25,38 +31,45 @@
                      }
                 });
            }
+           function reset_keps_table() {
+              $('#keps_table tr').each(function(f) {
+                  $(this).show();
+              });
+           }
       });
  </script>
-<div align="center">
-  <input type="text" name="search" id="keps_search" class="form-control" placeholder="Search KEP(s) by keyword" />
+<div class="container">
+  <div align="center" class="input-group">
+    <input type="text" name="search" id="keps_search" class="form-control" placeholder="Search KEP(s) by keyword" />
+  </div>
+  <div class="input-group mx-auto" style="width: 400px;">
+    <label for="keps">Choose SIG group:</label>
+    <select class="custom-select" name="sig group" id="sig_group">
+      <option selected value="all">Choose...</option>
+      {{ range $data_sig := .Site.Data.sigs.sigs.sigs }}
+      <option value="{{$data_sig.dir}}">{{ printf "%s" $data_sig.name }}</option>
+      {{ end }}
+    </select>
+  </div>
+  <table id="keps_table" class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">KEP Number</th>
+        <th scope="col">KEP Name</th>
+        <th scope="col">SIG-Group</th>
+        <th scope="col">Author</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range $data := .Site.Data.keps.keps_data.keps }}
+      <tr>
+        <td>{{ printf "%s" $data.kep_number }}</td>
+        <td>
+          <a href="https://github.com/kubernetes/enhancements/tree/master/keps/{{$data.owning_sig}}/{{$data.name}}">{{ printf "%s" $data.name }}</a></td>
+        <td>{{ printf "%s" $data.owning_sig }}</td>
+        <td>{{ printf "%s" $data.authors }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
 </div>
-<form>
-  <label for="keps">Choose SIG group:</label>
-  <select name="sig group" id="sig_group">
-    <option selected="selected">Select SIG group to filter</option>
-    {{ range $data_sig := .Site.Data.sigs.sigs.sigs }}
-    <option value="{{$data_sig.dir}}">{{ printf "%s" $data_sig.name }}</option>
-    {{ end }}
-  </select>
-</form>
-<table id="keps_table" class="display" class="table">
-  <thead>
-    <tr>
-      <th>KEP Number</th>
-      <th>KEP Name</th>
-      <th>SIG-Group</th>
-      <th>Author</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{ range $data := .Site.Data.keps.keps_data.keps }}
-    <tr>
-      <td>{{ printf "%s" $data.kep_number }}</td>
-      <td>
-        <a href="https://github.com/kubernetes/enhancements/tree/master/keps/{{$data.owning_sig}}/{{$data.name}}">{{ printf "%s" $data.name }}</a></td>
-      <td>{{ printf "%s" $data.owning_sig }}</td>
-      <td>{{ printf "%s" $data.authors }}</td>
-    </tr>
-    {{ end }}
-  </tbody>
-</table>
