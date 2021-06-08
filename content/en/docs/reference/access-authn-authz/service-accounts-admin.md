@@ -91,7 +91,7 @@ add the following projected volume instead of a Secret-based volume for the non-
 This projected volume consists of three sources:
 
 1. A ServiceAccountToken acquired from kube-apiserver via TokenRequest API. It will expire after 1 hour by default or when the pod is deleted. It is bound to the pod and has kube-apiserver as the audience.
-1. A ConfigMap containing a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate, which publishes a "kube-root-ca.crt" ConfigMap to every namespace. `RootCAConfigMap` feature gate is graduated to GA in 1.21 and default to true.(This flag will be removed from --feature-gate arg in 1.22)
+1. A ConfigMap containing a CA bundle used for verifying connections to the kube-apiserver. This feature depends on the `RootCAConfigMap` feature gate, which publishes a "kube-root-ca.crt" ConfigMap to every namespace. `RootCAConfigMap` feature gate is graduated to GA in 1.21 and default to true. (This flag will be removed from --feature-gate arg in 1.22)
 1. A DownwardAPI that references the namespace of the pod.
 
 See more details about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
