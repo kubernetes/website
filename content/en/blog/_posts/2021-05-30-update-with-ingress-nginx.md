@@ -15,14 +15,9 @@ since [2017](https://github.com/kubernetes/kubernetes/issues/43214),
 [2019](https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/) with 1.16 Kubernetes API deprecations,
 and most recently in KEP-1453: [Graduate Ingress API to GA](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1453-ingress-api#122).
 
-During our last community meeting the group has decided to continue to 
-support Kubernetes versions older than 1.22 with ingress version 0.46.0 
-for six months after the release of Kubernetes 1.22 with only CVE and 
-crashes only fixes, on a rolling basis. There will be a separate branch and 
-release of Ingress-NGINX to support this very similar to how Kubernetes 
-project proper does. As we advance the Ingress-NGINX project, the mainline 
-will support Kubernetes 1.22 and above, similar to the maintainers of the 
-Kubernetes project as a whole.
+During our last community meeting, the group has decided to continue supporting Kubernetes versions older than 1.22 with Ingress version 0.46.0. Support for Ingress-NGINX will continue for six months after Kubernetes 1.22 is released. Any additional bug fixes and CVEs for Ingress-NGINX will be addressed on a need-by-need basis.
+
+Ingress-NGINX will have separate branches and releases of Ingress-NGINX to support this model, mirroring the Kubernetes project process. Future releases of the Ingress-NGINX project will track and support the latest versions of Kubernetes.
 
 {{< table caption="Ingress NGINX supported version with Kubernetes Versions" >}}
 Kubernetes Version  | Ingress-NGINX version | Support Notes
