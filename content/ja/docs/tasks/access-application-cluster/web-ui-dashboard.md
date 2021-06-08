@@ -55,7 +55,7 @@ kubectl proxy
 
 kubectlは、ダッシュボードを http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/ で利用できるようにします。
 
-UIはコマンドを実行しているマシンから_のみ_ アクセスできます。オプションについては`kubectl proxy --help`を参照してください。
+UIはコマンドを実行しているマシンから _のみ_ アクセスできます。オプションについては`kubectl proxy --help`を参照してください。
 
 {{< note >}}
 Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベースの認証には対応していません。
