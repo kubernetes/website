@@ -35,8 +35,7 @@ not work with Kubernetes 1.22.
 
 The team is currently in the process of upgrading ingress-nginx to support 
 the v1 migration, you can track the progress 
-[here](https://github.com/kubernetes/ingress-nginx/pull/7156).  This also 
-means the feature requests are being frozen until the v1 update is completed. 
+[here](https://github.com/kubernetes/ingress-nginx/pull/7156).  Feature requests are being frozen until the v1 update is completed. 
 
 In the meantime to ensure no compatibility issues: 
 
