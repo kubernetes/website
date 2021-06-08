@@ -12,7 +12,7 @@ ultimately deprecating them once they become GA. The network API is no
 different. With the release of Kubernetes 1.22, the network API goes from
 v1beta1 to v1, with v1beta is deprecated. This move has been in discussion
 since [2017](https://github.com/kubernetes/kubernetes/issues/43214),
-[2019 with 1.16 api deprecation](https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/)
+[2019](https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/) with 1.16 Kubernetes API deprecations,
 , and more recently in
 [KEP-1453:Graduate Ingress API to GA.](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1453-ingress-api#122)
 
@@ -54,4 +54,3 @@ The community’s feedback and support in this effort is welcome. The
 Ingress-Nginx Sub-project regularly hold community meetings where we discuss
 this and other issues facing the project, meeting notes and details are
 [here](https://github.com/kubernetes/community/tree/master/sig-network)
-
