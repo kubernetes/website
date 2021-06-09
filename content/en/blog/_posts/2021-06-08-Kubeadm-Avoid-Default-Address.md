@@ -39,7 +39,7 @@ Kubernetes.
 
 You may also like to read a related blog post, [Kubernetes Setup Using
 Ansible and
-Vagrant](https://kubernetes.io/blog/2019/03/15/kubernetes-setup-using-ansible-and-vagrant/).
+Vagrant](/blog/2019/03/15/kubernetes-setup-using-ansible-and-vagrant/).
 In contrast, the post at hand is about comprehensively overriding the
 default address and not being specific to one form of automation.
 
