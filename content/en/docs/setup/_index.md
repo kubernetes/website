@@ -57,7 +57,11 @@ for deploying Kubernetes is [kubeadm](/docs/setup/production-environment/tools/k
 - Select a [container runtime](/docs/setup/production-environment/container-runtimes/) for your new cluster
 - Learn about [best practices](/docs/setup/best-practices/) for cluster setup
 
+[Kubernetes Partners](/partners/#conformance) includes a list of [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) providers.
+
 Kubernetes is designed for its {{< glossary_tooltip term_id="control-plane" text="control plane" >}} to
 run on Linux. Within your cluster you can run applications on Linux or other operating systems, including
 Windows.
+
 - Learn to [set up clusters with Windows nodes](/docs/setup/production-environment/windows/)
+
