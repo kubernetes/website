@@ -6,10 +6,9 @@ full_link: /docs/reference/generated/kubelet
 short_description: >
   クラスター内の各ノードで実行されるエージェントです。各コンテナがPodで実行されていることを保証します。
 
-aka: 
+aka:
 tags:
 - fundamental
-- core-object
 ---
  クラスター内の各{{< glossary_tooltip text="ノード" term_id="node" >}}で実行されるエージェントです。各{{< glossary_tooltip text="コンテナ" term_id="container" >}}が{{< glossary_tooltip text="Pod" term_id="pod" >}}で実行されていることを保証します。
 
