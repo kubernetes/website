@@ -220,18 +220,20 @@ on the one control node and noting the `kubeadm join` command that was
 printed at the end.
 
 Next I used `kubectl` to look around an verify that everything looks
-good.  The kube-apiserver's Endpoints object looks good.
+good.  The kube-apiserver's EndpointSlice objects look good; the DNS
+servers are not in business yet because I have not install the
+network plugin yet.
 
 ```
-root@init1:~# kubectl get Endpoints --all-namespaces
-NAMESPACE     NAME         ENDPOINTS             AGE
-default       kubernetes   192.168.56.101:6443   30s
-kube-system   kube-dns     <none>                14s
+root@init1:~# kubectl get endpointslices --all-namespaces
+NAMESPACE     NAME             ADDRESSTYPE   PORTS        ENDPOINTS               AGE
+default       kubernetes       IPv4          6443         192.168.56.117          10h
+kube-system   kube-dns-8zjqs   IPv4          9153,53,53   10.244.0.2,10.244.0.3   10h
 ```
 
-This control plane node has the right IPv4 address but is not ready
-Investigation (not shown here) shows that it is because there is no
-network plugin installed yet. Checking node status reveals:
+This control plane node has the right IPv4 address but is not ready,
+also because there is no network plugin installed yet.  Checking node
+status reveals:
 
 ```
 root@init1:~# kubectl get Node -o wide
