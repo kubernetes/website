@@ -253,9 +253,8 @@ kube-system   kube-proxy-bn8s4                1/1     Running   0          29s  
 kube-system   kube-scheduler-init1            1/1     Running   0          41s   192.168.56.101   init1    <none>           <none>
 ```
 
-Next I installed Flannel as the network plugin, following the
-instructions at
-[https://github.com/flannel-io/flannel#deploying-flannel-manually].
+Next I installed Flannel as the network plugin, following [the
+instructions](https://github.com/flannel-io/flannel#deploying-flannel-manually).
 
 ```
 root@init1:~# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
