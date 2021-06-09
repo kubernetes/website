@@ -163,7 +163,7 @@ error message.
 如果所指的 RuntimeClass 不存在或者 CRI 无法运行相应的 handler，
 那么 pod 将会进入 `Failed` 终止[阶段](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
 你可以查看相应的[事件](/zh/docs/tasks/debug-application-cluster/debug-application-introspection/)，
-获取出错信息。
+获取执行过程中的错误信息。
 
 <!--
 If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent
@@ -257,7 +257,7 @@ the intersection of the set of nodes selected by each. If there is a conflict, t
 rejected.
 -->
 为了确保 pod 会被调度到支持指定运行时的 node 上，每个 node 需要设置一个通用的 label 用于被 
-`runtimeclass.scheduling.nodeSelector` 挑选。在 admission 阶段，RuntimeClass 的 nodeSelector 将会于
+`runtimeclass.scheduling.nodeSelector` 挑选。在 admission 阶段，RuntimeClass 的 nodeSelector 将会与
 pod 的 nodeSelector 合并，取二者的交集。如果有冲突，pod 将会被拒绝。
 
 <!--

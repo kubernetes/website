@@ -174,7 +174,7 @@ Learn more about SIG Docs Kubernetes community and meetings on the [community pa
 
 You can also reach the maintainers of this project at:
 
-- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+- [Slack](https://kubernetes.slack.com/messages/sig-docs) [Get an invite for this Slack](https://slack.k8s.io/)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 -->
 # 参与 SIG Docs 工作
@@ -184,7 +184,7 @@ You can also reach the maintainers of this project at:
 
 你也可以通过以下渠道联系本项目的维护人员：
 
-- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+- [Slack](https://kubernetes.slack.com/messages/sig-docs) [加入Slack](https://slack.k8s.io/)
 - [邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 <!--

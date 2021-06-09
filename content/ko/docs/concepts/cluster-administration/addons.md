@@ -23,7 +23,7 @@ content_type: concept
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)를 사용하면 쿠버네티스는 Calico, Canal, Flannel, Romana 또는 Weave와 같은 CNI 플러그인을 완벽하게 연결할 수 있다.
 * [Contiv](https://contiv.github.io)는 다양한 유스케이스와 풍부한 폴리시 프레임워크를 위해 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3, vxlan을 사용하는 오버레이, 클래식 L2 그리고 Cisco-SDN/ACI)을 제공한다. Contiv 프로젝트는 완전히 [오픈소스](https://github.com/contiv)이다. [인스톨러](https://github.com/contiv/install)는 kubeadm을 이용하거나, 그렇지 않은 경우에 대해서도 설치 옵션을 모두 제공한다.
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)은 [Tungsten Fabric](https://tungsten.io)을 기반으로 하며, 오픈소스이고, 멀티 클라우드 네트워크 가상화 및 폴리시 관리 플랫폼이다. Contrail과 Tungsten Fabric은 쿠버네티스, OpenShift, OpenStack 및 Mesos와 같은 오케스트레이션 시스템과 통합되어 있으며, 가상 머신, 컨테이너/파드 및 베어 메탈 워크로드에 대한 격리 모드를 제공한다.
-* [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md)은 쿠버네티스와 함께 사용할 수 있는 오버레이 네트워크 제공자이다.
+* [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually)은 쿠버네티스와 함께 사용할 수 있는 오버레이 네트워크 제공자이다.
 * [Knitter](https://github.com/ZTE/Knitter/)는 쿠버네티스 파드에서 여러 네트워크 인터페이스를 지원하는 플러그인이다.
 * [Multus](https://github.com/Intel-Corp/multus-cni)는 쿠버네티스에서 SRIOV, DPDK, OVS-DPDK 및 VPP 기반 워크로드 외에 모든 CNI 플러그인(예: Calico, Cilium, Contiv, Flannel)을 지원하기 위해 쿠버네티스에서 다중 네트워크 지원을 위한 멀티 플러그인이다.
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/)는 Open vSwitch(OVS) 프로젝트에서 나온 가상 네트워킹 구현인 [OVN(Open Virtual Network)](https://github.com/ovn-org/ovn/)을 기반으로 하는 쿠버네티스용 네트워킹 제공자이다. OVN-Kubernetes는 OVS 기반 로드 밸런싱과 네트워크 폴리시 구현을 포함하여 쿠버네티스용 오버레이 기반 네트워킹 구현을 제공한다.

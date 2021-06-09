@@ -99,7 +99,10 @@ Install containerd:
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
 
-1. Install the `containerd.io` package from the official Docker repositories. Instructions for setting up the Docker repository for your respective Linux distribution and installing the `containerd.io` package can be found at [Install Docker Engine](https://docs.docker.com/engine/install/#server).
+1. Install the `containerd.io` package from the official Docker repositories. 
+Instructions for setting up the Docker repository for your respective Linux distribution and 
+installing the `containerd.io` package can be found at 
+[Install Docker Engine](https://docs.docker.com/engine/install/#server).
 
 2. Configure containerd:
 
@@ -117,7 +120,8 @@ Install containerd:
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
-Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), and then run the following commands:
+Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), 
+and then run the following commands:
 
 1. Download containerd:
 
@@ -243,7 +247,8 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="Ubuntu" %}}
 
-To install on the following operating systems, set the environment variable `OS` to the appropriate field in the following table:
+To install on the following operating systems, set the environment variable `OS` 
+to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
 | ---------------- | ----------------- |
@@ -278,7 +283,8 @@ sudo apt-get install cri-o cri-o-runc
 
 {{% tab name="CentOS" %}}
 
-To install on the following operating systems, set the environment variable `OS` to the appropriate field in the following table:
+To install on the following operating systems, set the environment variable `OS` 
+to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
 | ---------------- | ----------------- |
@@ -358,7 +364,10 @@ in sync.
 
 ### Docker
 
-1. On each of your nodes, install the Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server). You can find the latest validated version of Docker in this [dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
+1. On each of your nodes, install the Docker for your Linux distribution as per 
+[Install Docker Engine](https://docs.docker.com/engine/install/#server). 
+You can find the latest validated version of Docker in this 
+[dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
 
 2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
 
@@ -377,7 +386,8 @@ in sync.
    ```
 
    {{< note >}}
-   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher, or RHEL or CentOS using version 3.10.0-514 and above.
+   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher, 
+   or RHEL or CentOS using version 3.10.0-514 and above.
    {{< /note >}}
 
 3. Restart Docker and enable on boot:
