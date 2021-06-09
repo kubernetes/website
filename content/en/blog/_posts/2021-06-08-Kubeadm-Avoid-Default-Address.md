@@ -225,7 +225,7 @@ good.  The kube-apiserver's EndpointSlice objects look good.
 ```
 root@init1:~# kubectl get endpointslices kubernetes
 NAME         ADDRESSTYPE   PORTS   ENDPOINTS        AGE
-kubernetes   IPv4          6443    192.168.56.101   11h
+kubernetes   IPv4          6443    192.168.56.101   30s
 ```
 
 This control plane node has the right IPv4 address but is not ready,
