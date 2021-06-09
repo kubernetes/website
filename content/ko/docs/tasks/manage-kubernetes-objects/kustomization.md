@@ -86,6 +86,43 @@ metadata:
   name: example-configmap-1-8mbdf7882g
 ```
 
+env 파일에서 컨피그맵을 생성하려면, `configMapGenerator`의 `envs` 리스트에 항목을 추가한다. 다음은 `.env` 파일의 데이터 항목으로 컨피그맵을 생성하는 예시를 보여준다.
+
+```shell
+# .env 파일 생성
+cat <<EOF >.env
+FOO=Bar
+EOF
+
+cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: example-configmap-1
+  envs:
+  - .env
+EOF
+```
+
+생성된 컨피그맵은 다음 명령어로 검사할 수 있다.
+
+```shell
+kubectl kustomize ./
+```
+
+생성된 컨피그맵은 다음과 같다.
+
+```yaml
+apiVersion: v1
+data:
+    FOO=Bar
+kind: ConfigMap
+metadata:
+  name: example-configmap-1-8mbdf7882g
+```
+
+{{< note >}}
+`.env` 파일의 각 변수는 생성한 컨피그맵에서 분리된 키가 된다. `.properties` 라는 이름의 파일을 내장하는 이전 예시(그리고 모든 항목들)는 단일 키를 위한 값이므로 이 예시와는 다르다.
+{{< /note >}}
+
 컨피그맵은 문자로된 키-값 쌍들로도 생성할 수 있다. 문자로된 키-값 쌍에서 컨피그맵을 생성하려면, configMapGenerator 내의 `literals` 리스트에 항목을 추가한다. 다음은 키-값 쌍을 데이터 항목으로 받는 컨피그맵을 생성하는 예제이다.
 
 ```shell

@@ -39,7 +39,7 @@ Kubernetesは、ネットワークの実装に次の基本的な要件を課し�
 
 このモデルは全体としてそれほど複雑ではないことに加え、KubernetesがVMからコンテナへのアプリへの移植を簡単にするという要望と基本的に互換性があります。ジョブがVMで実行されていた頃も、VMにはIPがあってプロジェクト内の他のVMと通信できました。これは同じ基本モデルです。
 
-KubernetesのIPアドレスは`Pod`スコープに存在します。`Pod`内のコンテナは、IPアドレスを含むネットワーク名前空間を共有します。これは、`Pod`内のコンテナがすべて`localhost`上の互いのポートに到達できることを意味します。また、`Pod`内のコンテナがポートの使用を調整する必要があることも意味しますが、これもVM内のプロセスと同じです。これのことを「IP-per-pod(Pod毎のIP)」モデルと呼びます。
+KubernetesのIPアドレスは`Pod`スコープに存在します。`Pod`内のコンテナは、IPアドレスとMACアドレスを含むネットワーク名前空間を共有します。これは、`Pod`内のコンテナがすべて`localhost`上の互いのポートに到達できることを意味します。また、`Pod`内のコンテナがポートの使用を調整する必要があることも意味しますが、これもVM内のプロセスと同じです。これのことを「IP-per-pod(Pod毎のIP)」モデルと呼びます。
 
 この実装方法は実際に使われているコンテナランタイムの詳細部分です。
 
@@ -50,6 +50,8 @@ KubernetesのIPアドレスは`Pod`スコープに存在します。`Pod`内の�
 このネットワークモデルを実装する方法はいくつかあります。このドキュメントは、こうした方法を網羅的にはカバーしませんが、いくつかの技術の紹介として、また出発点として役立つことを願っています。
 
 この一覧はアルファベット順にソートされており、順序は優先ステータスを意味するものではありません。
+
+{{% thirdparty-content %}}
 
 ### ACI
 
@@ -99,6 +101,10 @@ With the help of the Big Cloud Fabric's virtual pod multi-tenant architecture, c
 
 BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](https://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html). One of the BCF Kubernetes on-premises deployments (which includes Kubernetes, DC/OS & VMware running on multiple DCs across different geographic regions) is also referenced [here](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/).
 
+### Calico
+
+[Calico](https://docs.projectcalico.org/)は、コンテナ、仮想マシン、ホストベースのワークロードのためのオープンソースのネットワーク及びネットワークセキュリティのソリューションです。Calicoは、純粋なLinuxのeBPFデータプレーンや、Linuxの標準的なネットワークデータプレーン、WindowsのHNSデータプレーンを含む、複数のデータプレーンをサポートしています。Calicoは完全なネットワークスタックを提供していますが、[クラウドプロバイダーのCNI](https://docs.projectcalico.org/networking/determine-best-networking#calico-compatible-cni-plugins-and-cloud-provider-integrations)と組み合わせてネットワークポリシーを提供することもできます。
+
 ### Cilium
 
 [Cilium](https://github.com/cilium/cilium) is open source software for
@@ -128,6 +134,11 @@ networks, BGP, disabling source/destination checks, or adjusting VPC route
 tables to provide per-instance subnets to each host (which is limited to 50-100
 entries per VPC). In short, cni-ipvlan-vpc-k8s significantly reduces the
 network complexity required to deploy Kubernetes at scale within AWS.
+
+### Coil
+
+[Coil](https://github.com/cybozu-go/coil)は、容易に連携できるよう設計されていて、フレキシブルなEgressネットワークを提供することができるCNIプラグインです。
+Coilはベアメタルと比較して低いオーバーヘッドで操作することができ、また外部のネットワークへの任意のEgress NATゲートウェイを定義することができます。
 
 ### Contiv
 
@@ -266,14 +277,6 @@ stateful ACLs, load-balancers etc to build different virtual networking
 topologies.  The project has a specific Kubernetes plugin and documentation
 at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 
-### Project Calico
-
-[Project Calico](https://docs.projectcalico.org/) is an open source container networking provider and network policy engine.
-
-Calico provides a highly scalable networking and network policy solution for connecting Kubernetes pods based on the same IP networking principles as the internet, for both Linux (open source) and Windows (proprietary - available from [Tigera](https://www.tigera.io/essentials/)).  Calico can be deployed without encapsulation or overlays to provide high-performance, high-scale data center networking.  Calico also provides fine-grained, intent based network security policy for Kubernetes pods via its distributed firewall.
-
-Calico can also be run in policy enforcement mode in conjunction with other networking solutions such as Flannel, aka [canal](https://github.com/tigera/canal), or native GCE, AWS or Azure networking.
-
 ### Romana
 
 [Romana](https://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
@@ -287,9 +290,7 @@ or stand-alone.  In either version, it doesn't require any configuration or extr
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
 
-
 ## {{% heading "whatsnext" %}}
 
 
 ネットワークモデルの初期設計とその根拠、および将来の計画については、[ネットワーク設計ドキュメント](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)で詳細に説明されています。
-

@@ -49,7 +49,7 @@ access cluster resources. You can use role-based access control
 security mechanisms to make sure that users and workloads can get access to the
 resources they need, while keeping workloads, and the cluster itself, secure.
 You can set limits on the resources that users and workloads can access
-by managing [policies](https://kubernetes.io/docs/concepts/policy/) and
+by managing [policies](/docs/concepts/policy/) and
 [container resources](/docs/concepts/configuration/manage-resources-containers/).
 
 Before building a Kubernetes production environment on your own, consider
@@ -286,8 +286,8 @@ and the
 deployment methods.
 - Configure user management by determining your
 [Authentication](/docs/reference/access-authn-authz/authentication/) and
-[Authorization](docs/reference/access-authn-authz/authorization/) methods.
+[Authorization](/docs/reference/access-authn-authz/authorization/) methods.
 - Prepare for application workloads by setting up
-[resource limits](docs/tasks/administer-cluster/manage-resources/),
+[resource limits](/docs/tasks/administer-cluster/manage-resources/),
 [DNS autoscaling](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 and [service accounts](/docs/reference/access-authn-authz/service-accounts-admin/).
