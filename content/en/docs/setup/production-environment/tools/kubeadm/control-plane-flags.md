@@ -24,7 +24,7 @@ The `extraArgs` field consist of `key: value` pairs. To override a flag for a co
 3.  Run `kubeadm init` with `--config <YOUR CONFIG YAML>`.
 
 For more details on each field in the configuration you can navigate to our
-[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration).
+[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3#ClusterConfiguration).
 
 {{< note >}}
 You can generate a `ClusterConfiguration` object with default values by running `kubeadm config print init-defaults` and saving the output to a file of your choice.
@@ -40,7 +40,7 @@ For details, see the [reference documentation for kube-apiserver](/docs/referenc
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 apiServer:
@@ -57,7 +57,7 @@ For details, see the [reference documentation for kube-controller-manager](/docs
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 controllerManager:
@@ -73,7 +73,7 @@ For details, see the [reference documentation for kube-scheduler](/docs/referenc
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 scheduler:
@@ -86,5 +86,3 @@ scheduler:
       readOnly: true
       pathType: "File"
 ```
-
-
