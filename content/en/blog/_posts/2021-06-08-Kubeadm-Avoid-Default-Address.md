@@ -185,7 +185,7 @@ kube-system   kube-dns     <none>                14s
 
 This control plane node has the right IPv4 address but is not ready
 Investigation (not shown here) shows that it is because there is no
-network plugin yet.
+network plugin installed yet. Checking node status reveals:
 
 ```shell
 root@init1:~# kubectl get Node -o wide
