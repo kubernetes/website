@@ -64,4 +64,3 @@ run on Linux. Within your cluster you can run applications on Linux or other ope
 Windows.
 
 - Learn to [set up clusters with Windows nodes](/docs/setup/production-environment/windows/)
-
