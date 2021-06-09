@@ -142,7 +142,7 @@ Alternative Name list.
 
 The command line flag is `--control-plane-endpoint=192.168.56.101`.
 
-The config file contents sets the `controlPlaneEndpoint` of a
+The config file content sets the `controlPlaneEndpoint` of a
 `ClusterConfiguration`.  Following is the cumulative config file
 content so far.
 
