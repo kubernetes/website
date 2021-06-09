@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Avoiding the Default Address when Using kubeadm to Create a Cluster"
-date: YYYY-MM-DD
+date: 2021-06-08
 slug: avoiding-the-default-address-when-using-kubeadm-to-create-a-cluster
 ---
 
