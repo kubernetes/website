@@ -229,7 +229,7 @@ serverTLSBootstrap: true
 
 만약 이미 클러스터를 생성했다면 다음을 따라 이를 조정해야 한다.
  - `kube-system` 네임스페이스에서 `kubelet-config-{{< skew latestVersion >}}` 컨피그맵을 찾아서 수정한다.
-해당 컨피그맵에는 `config` 키가
+해당 컨피그맵에는 `kubelet` 키가
 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 문서를 값으로 가진다. `serverTLSBootstrap: true` 가 되도록 KubeletConfiguration 문서를 수정한다.
 - 각 노드에서, `serverTLSBootstrap: true` 필드를 `/var/lib/kubelet/config.yaml` 에 추가한다.
