@@ -149,7 +149,7 @@ into the `systemd` configuration for the kubelet and discovering that:
 
 So I was able to use a simple solution that does not conflict with any
 maintained configuration.  On each node I create the file named
-`/etc/default/kubelet` and give it content like the following.
+`/etc/default/kubelet` and give it content like the following:
 
 ```shell
 KUBELET_EXTRA_ARGS=--node-ip=192.168.56.101
