@@ -183,7 +183,7 @@ default       kubernetes   192.168.56.101:6443   30s
 kube-system   kube-dns     <none>                14s
 ```
 
-The control node has the right address but is not ready.
+This control plane node has the right IPv4 address but is not ready
 Investigation (not shown here) shows that it is because there is no
 network plugin yet.
 
