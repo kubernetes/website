@@ -33,7 +33,7 @@ needed results are getting the desired address to appear in the
 following places.
 
 - The IP address that the kube-apiserver puts in its Endpoints object.
-- The Subject Alternative Name list of the x509 certificate generated
+- The Subject Alternative Name list of the X.509 certificate generated
   for the kube-apiserver.
 - The IP address that appears in the `kubeadm join` commands that
   `kubeadm` outputs.
