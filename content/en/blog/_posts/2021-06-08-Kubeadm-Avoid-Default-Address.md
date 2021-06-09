@@ -35,7 +35,7 @@ following places.
   Node's status.
 
 This post describes work done with version 1.21.1 of kubeadm and
-kubernetes.
+Kubernetes.
 
 You may also like to read a related blog post, [Kubernetes Setup Using
 Ansible and
