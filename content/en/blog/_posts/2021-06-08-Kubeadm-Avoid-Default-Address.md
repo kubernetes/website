@@ -15,18 +15,24 @@ and dual-stack should be follow the same lines.  The default address
 of a node is the address of the network interface that appears in the
 default route.  In some use cases, this default address is not
 reachable from other nodes and so _must not_ be used in any part of
-Kuberntes configuration.  In a recent adventure of mine, this arose
-because each node is a VirtualBox VM that uses what VirtualBox calls a
-"NAT network adapter" to get connectivity to the outside world.  You
+Kuberntes configuration.  I recently had this happen to me, when I
+tried to do a quick experiment using VirtualBox VMs created in the
+most direct and simple way using the VirtualBox GUI.  I gave each VM
+two network interfaces: one using a "NAT adapter" to support
+connectivity with the external world, and one using a "Host-only
+adapter" for connectivity between the VMs.  The NAT adapter interfaces
+all get the same IP address, 10.0.2.15, and so do not provide
+connectivity between the VMs _but_ appear in the default route.  You
 may have other use cases, perhaps involving containers.
 
 In this post I will look at how to make all of the changes needed for
 a single-control-node cluster.  I have not yet attempted multiple
-control nodes, and the solution will need further work for that case.
-The needed results are getting the desired address to appear in the
+control nodes, and the solution will need further work for that case
+(to give each kube-apiserver a distinct advertise-address).  The
+needed results are getting the desired address to appear in the
 following places.
 
-- The IP address that the kube-apiserver puts in its Endoints object.
+- The IP address that the kube-apiserver puts in its Endpoints object.
 - The Subject Alternative Name list of the x509 certificate generated
   for the kube-apiserver.
 - The IP address that appears in the `kubeadm join` commands that
@@ -47,6 +53,9 @@ As an added bonus, I will also mention how to stop DHCP from assigning
 the same address to every node for networks where that is not desired.
 This comes first because everything else depends on it; you can skip
 that section if you are not having that problem.
+
+As another added bonus, I also discuss a couple of gotchas when using
+Flannel as the network plugin.
 
 ## Getting DHCP to assign unique addresses
 
@@ -81,6 +90,14 @@ network:
 
 ## The kube-apiserver's address in its Endpoints object
 
+An Endpoints kind of object holds the (protocol,address,port) tuples
+of the servers that provide a Service.  There is also a recently added
+possibility to divide a large set of these among several EndpointSlice
+objects.  Each kube-apiserver has an "advertise address" that it puts
+in the relevant Endpoints/EndpointSlice object(s) for the `kubernetes`
+Service.  The default for the advertise address is the default address
+that we are avoiding here.
+
 The default for this can be overridden by passing
 `--advertise-address=${desired_address}` on the kube-apiservers's
 command line.  You can get `kubeadm init` to do that either with a
@@ -102,13 +119,15 @@ apiServer:
 
 ## The Subject Alternative Name list in the kube-apiserver's certificate
 
-This job can be done with either a command line flag or a bit of
-config file contents.  The command line flag is
+This job can be done with either a `kubeadm init` command line flag or
+a bit of config file contents.  The command line flag is
 `--apiserver-cert-extra-sans=192.168.56.101`.  The config file content
 sets the `apiServer.certSANS` of a `ClusterConfiguration` to hold the
 desired extra entries, such as `IP:192.168.56.101`.  Because the
 Subject Alternative Name list is a list, it is not functionally
-critical to make that list exclude the undesired default address.
+critical to make that list exclude the undesired default address.  If
+your use case places a premium on security, you will want to think
+about also removing the irrelevant address from that list.
 
 This job together with replacing the address
 that appears in the generated `kubeadm join` command can be done with
@@ -118,7 +137,7 @@ a different command line flag or bit of configuration content.
 
 This is overridden with a command line flag or bit of config file
 contents.  This same bit of kubeadm configuration also gets the
-desired address into the kube-apisever's x509 certificate's Subject
+desired address into the kube-apisever's X.509 certificate's Subject
 Alternative Name list.
 
 The command line flag is `--control-plane-endpoint=192.168.56.101`.
@@ -155,11 +174,38 @@ maintained configuration.  On each node I create the file named
 KUBELET_EXTRA_ARGS=--node-ip=192.168.56.101
 ```
 
-Note: the kubelet also accepts a command line flag named `--address`,
-but that one does not get this job done.
+**CAUTION:**
+1. The kubelet also accepts a command line flag named `--address`, but
+   that one does not get this job done.
+2. The proper content for this file is different on every node.
 
-**Note well:** the proper content for this file is different on every
-node.
+## Flannel and kubeadm
+
+I chose to use the Flannel network plugin because it is commonly used
+and easy to install, with fairly minimal entanglements.  However,
+there are a couple of things you have to take care of when using
+Flannel with `kubeadm`.  Flannel requires each node to have a pod CIDR
+block assigned --- which kubeadm does _not_ do by default.  I added a
+bit more kubeadm config file content to accomplish that.  Following is
+the full config file content that I used.  Note that the pod subnet
+has to be /23 or bigger in my case (because the default allocation to
+each node is /24), and you never want it to overlap with the service
+subnet.  Note also that Flannel does not pick up on the pod subnet you
+configured through kubeadm, it has its own configuration and that
+defaults to `10.244.0.0/16`.  To keep my life simple, I used that in
+the kubeadm configuration.
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+apiServer:
+  extraArgs:
+    advertise-address: 192.168.56.101
+controlPlaneEndpoint: 192.168.56.101
+networking:
+  serviceSubnet: 10.96.0.0/16
+  podSubnet: 10.244.0.0/16
+```
 
 ## The grand finale
 
@@ -176,8 +222,8 @@ printed at the end.
 Next I used `kubectl` to look around an verify that everything looks
 good.  The kube-apiserver's Endpoints object looks good.
 
-```shell
-root@init1:~# kubectl get Endpoints -A
+```
+root@init1:~# kubectl get Endpoints --all-namespaces
 NAMESPACE     NAME         ENDPOINTS             AGE
 default       kubernetes   192.168.56.101:6443   30s
 kube-system   kube-dns     <none>                14s
@@ -187,7 +233,7 @@ This control plane node has the right IPv4 address but is not ready
 Investigation (not shown here) shows that it is because there is no
 network plugin installed yet. Checking node status reveals:
 
-```shell
+```
 root@init1:~# kubectl get Node -o wide
 NAME    STATUS     ROLES                  AGE   VERSION   INTERNAL-IP      EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION     CONTAINER-RUNTIME
 init1   NotReady   control-plane,master   40s   v1.21.1   192.168.56.101   <none>        Ubuntu 20.04.1 LTS   5.4.0-65-generic   docker://20.10.2
@@ -196,8 +242,8 @@ init1   NotReady   control-plane,master   40s   v1.21.1   192.168.56.101   <none
 The pods look good, except for the DNS ones that are waiting for pod
 networking.
 
-```shell
-root@init1:~# kubectl get Pod -A -o wide
+```
+root@init1:~# kubectl get Pod --all-namespaces -o wide
 NAMESPACE     NAME                            READY   STATUS    RESTARTS   AGE   IP               NODE     NOMINATED NODE   READINESS GATES
 kube-system   coredns-558bd4d5db-pgn9l        0/1     Pending   0          29s   <none>           <none>   <none>           <none>
 kube-system   coredns-558bd4d5db-xjdlp        0/1     Pending   0          29s   <none>           <none>   <none>           <none>
@@ -212,7 +258,7 @@ Next I installed Flannel as the network plugin, following the
 instructions at
 [https://github.com/flannel-io/flannel#deploying-flannel-manually].
 
-```shell
+```
 root@init1:~# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 Warning: policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
 podsecuritypolicy.policy/psp.flannel.unprivileged created
@@ -223,34 +269,11 @@ configmap/kube-flannel-cfg created
 daemonset.apps/kube-flannel-ds created
 ```
 
-BTW, Flannel requires each node to have a pod CIDR block assigned ---
-which kubeadm does _not_ do by default.  I added a bit more kubeadm
-config file content to accomplish that.  Following is the full config
-file content that I used.  Note that the pod subnet has to be /23 or
-bigger in my case (because the default allocation to each node is
-/24), and you never want it to overlap with the service subnet.  Note
-also that Flannel does not pick up on the pod subnet you configured
-through kubeadm, it has its own configuration and that defaults to
-`10.244.0.0/16`.  To keep my life simple, I used that in the kubeadm
-configuration.
-
-```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
-kind: ClusterConfiguration
-apiServer:
-  extraArgs:
-    advertise-address: 192.168.56.101
-controlPlaneEndpoint: 192.168.56.101
-networking:
-  serviceSubnet: 10.96.0.0/16
-  podSubnet: 10.244.0.0/16
-```
-
 After giving Flannel about half a minute for startup transients, I
 re-examined the pods and found them all happily running.
 
-```shell
-root@init1:~# kubectl get Pod -A -o wide
+```
+root@init1:~# kubectl get Pod --all-namespaces -o wide
 NAMESPACE     NAME                            READY   STATUS    RESTARTS   AGE   IP               NODE    NOMINATED NODE   READINESS GATES
 kube-system   coredns-558bd4d5db-pgn9l        1/1     Running   0          71s   10.244.0.3       init1   <none>           <none>
 kube-system   coredns-558bd4d5db-xjdlp        1/1     Running   0          71s   10.244.0.2       init1   <none>           <none>
@@ -269,8 +292,8 @@ examined all the pods again and found some running on the worker node
 (for which I use the example name join1 and address 192.168.56.102
 here).
 
-```shell
-root@init1:~# kubectl get Pod -A -o wide
+```
+root@init1:~# kubectl get Pod --all-namespaces -o wide
 NAMESPACE     NAME                            READY   STATUS    RESTARTS   AGE     IP               NODE    NOMINATED NODE   READINESS GATES
 kube-system   coredns-558bd4d5db-pgn9l        1/1     Running   0          2m38s   10.244.0.3       init1   <none>           <none>
 kube-system   coredns-558bd4d5db-xjdlp        1/1     Running   0          2m38s   10.244.0.2       init1   <none>           <none>
@@ -283,3 +306,10 @@ kube-system   kube-proxy-bn8s4                1/1     Running   0          2m38s
 kube-system   kube-proxy-wxvpg                1/1     Running   0          15s     192.168.56.102   join1   <none>           <none>
 kube-system   kube-scheduler-init1            1/1     Running   0          2m50s   192.168.56.101   init1   <none>           <none>
 ```
+
+## Conclusion
+
+My attempt at a quick little experiment turned into a bigger adventure
+than I expected.  It pushed on a rough edge of kubeadm and involved
+some other relevant networking obscura.  I hope you enjoyed reading
+about these corners of the kubeadm and networking world.
