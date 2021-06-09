@@ -16,7 +16,7 @@ url: /blog/2015/03/Welcome-To-Kubernetes-Blog
 <!--
 Welcome to the new Kubernetes Blog. Follow this blog to learn about the Kubernetes Open Source project. We plan to post release notes, how-to articles, events, and maybe even some off topic fun here from time to time.
 -->
-欢迎来到新的 Kubernetes 博客。关注此博客，了解 Kubernetes 开源项目。我们计划不时发布发布说明，操作方法文章，活动，甚至一些非常有趣的话题。
+欢迎来到新的 Kubernetes 博客。关注此博客，了解 Kubernetes 开源项目。我们计划时不时的发布发布说明，操作方法文章，活动，甚至一些非常有趣的话题。
 
 <!--
 If you are using Kubernetes or contributing to the project and would like to do a guest post, [please let me know](mailto:kitm@google.com).

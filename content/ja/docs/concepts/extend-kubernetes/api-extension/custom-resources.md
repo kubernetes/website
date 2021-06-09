@@ -14,7 +14,7 @@ weight: 10
 
 ## カスタムリソース
 
-*リソース* は、[Kubernetes API](/docs/reference/using-api/api-overview/)のエンドポイントで、特定の[APIオブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)のコレクションを保持します。例えば、ビルトインの *Pods* リソースは、Podオブジェクトのコレクションを包含しています。
+*リソース* は、[Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)のエンドポイントで、特定の[APIオブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)のコレクションを保持します。例えば、ビルトインの *Pods* リソースは、Podオブジェクトのコレクションを包含しています。
 
 *カスタムリソース* は、Kubernetes APIの拡張で、デフォルトのKubernetesインストールでは、必ずしも利用できるとは限りません。つまりそれは、特定のKubernetesインストールのカスタマイズを表します。しかし、今現在、多数のKubernetesのコア機能は、カスタムリソースを用いて作られており、Kubernetesをモジュール化しています。
 
