@@ -49,7 +49,7 @@ Some resource types will have one or more sub-resources, represented as sub path
 * Cluster-scoped subresource: `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE`
 * Namespace-scoped subresource: `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME/SUBRESOURCE`
 
-The verbs supported for each subresource will differ depending on the object - see the API documentation more information. It is not possible to access sub-resources across multiple resources - generally a new virtual resource type would be used if that becomes necessary.
+The verbs supported for each subresource will differ depending on the object - see the API documentation for more information. It is not possible to access sub-resources across multiple resources - generally a new virtual resource type would be used if that becomes necessary.
 
 
 ## Efficient detection of changes
@@ -442,7 +442,7 @@ feature, see the section on
 
 ## Resource Versions
 
-Resource versions are strings that identify the server's internal version of an object. Resource versions can be used by clients to determine when objects have changed, or to express data consistency requirements when getting, listing and watching resources. Resource versions must be treated as opaque by clients and passed unmodified back to the server. For example, clients must not assume resource versions are numeric, and may only compare two resource version for equality (i.e. must not compare resource versions for greater-than or less-than relationships).
+Resource versions are strings that identify the server's internal version of an object. Resource versions can be used by clients to determine when objects have changed, or to express data consistency requirements when getting, listing and watching resources. Resource versions must be treated as opaque by clients and passed unmodified back to the server. For example, clients must not assume resource versions are numeric, and may only compare two resource versions for equality (i.e. must not compare resource versions for greater-than or less-than relationships).
 
 ### ResourceVersion in metadata
 
@@ -454,7 +454,7 @@ Clients find resource versions in resources, including the resources in watch ev
 
 ### The ResourceVersion Parameter
 
-The get, list and watch operations support the `resourceVersion` parameter.
+The get, list, and watch operations support the `resourceVersion` parameter.
 
 The exact meaning of this parameter differs depending on the operation and the value of `resourceVersion`.
 
