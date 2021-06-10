@@ -1,0 +1,35 @@
+## Annotated examples
+## Just for documentation, not used by code. Please leave intact.
+examples:
+
+  # A feature gate that is alpha, enabled, and still configurable
+- name: ExampleFeature1
+  alpha:
+    fromVersion: v1.3
+    state: true # override the default state for this stage (false)
+  deprecated:
+    fromVersion: v1.18
+
+  # An experiment that didn't work out. After a while in alpha, it
+  # was deprecated and can no longer be enabled.
+- name: ExampleFeature2
+  alpha:
+    fromVersion: v1.15
+  deprecated:
+    fromVersion: v1.18
+
+  # A feature gate that is no longer available. This started as a
+  # beta featured but, unusually, one that was initially disabled
+  # by default.
+  # Later, it was enabled by default (still beta), eventually
+  # graduating to general availability.
+- name: ExampleFeature3
+  beta:
+    fromVersion: v1.4
+    state: false #
+    enabledFromVersion: v1.5
+  stable:
+    fromVersion: v1.7
+
+featureGateList:
+# Sorted alphabetically
