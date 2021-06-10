@@ -38,11 +38,13 @@ etcd also implements mutual TLS to authenticate clients and peers.
 
 ## Where certificates are stored
 
-If you install Kubernetes with kubeadm, certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory.
+If you install Kubernetes with kubeadm, most certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory, with the exception of user account certificates (which are in `/etc/kubernetes`).
+The following diagram:
 
 ## Configure certificates manually
 
-If you don't want kubeadm to generate the required certificates, you can create them in either of the following ways.
+If you don't want kubeadm to generate the required certificates, you can create them using a single root CA or by providing all certificates. See [Certificates](/docs/tasks/administer-cluster/certificates/) for details on creating your own certificate authority and certificates and [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/) for more on managing certificates.
+
 
 ### Single root CA
 
@@ -57,6 +59,9 @@ Required CAs:
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | For the [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 On top of the above CAs, it is also necessary to get a public/private key pair for service account management, `sa.key` and `sa.pub`.
+The diagram below illustrates the CA key and certificate files shown in the previous table that you need to provide to use a single root CA from which all other keys and certificates are generated:
+
+![Certificates for single root CA](/images/docs/Certs-SingleRootCA.svg)
 
 ### All certificates
 
@@ -127,6 +132,15 @@ Same considerations apply for the service account key pair:
 |  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file   |
 |                              | sa.pub                      | kube-apiserver          | --service-account-key-file           |
 
+The following diagram illustrates the files from the previous tables you need to provide if you are generating all of your own keys and certificates:
+
+
+![Generate all certificates yourself](/images/docs/Certs-AllCerts.svg)
+
+Flags in the following diagram illustrate which Kubernetes control plane services and commands consume each certificate and key. Refer to the previous table to see which options are needed to pass each file.
+
+![Certificates and keys passed to commands and services](/images/docs/Certs-AllFlags.svg)
+
 ## Configure certificates for user accounts
 
 You must manually configure these administrator account and service accounts:
@@ -162,4 +176,6 @@ These files are used as follows:
 | controller-manager.conf | kube-controller-manager | Must be added to manifest in `manifests/kube-controller-manager.yaml` |
 | scheduler.conf          | kube-scheduler          | Must be added to manifest in `manifests/kube-scheduler.yaml`          |
 
+This diagram illustrates the files listed in the previous table that contain client user certificates and keys:
 
+![User account certificates](/images/docs/Certs-User.svg)
