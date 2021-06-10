@@ -62,7 +62,7 @@ criteria, it will be auto approved by the controller manager, then it will have
 a status of `Approved`. Next, the controller manager will sign a certificate,
 issued for the duration specified by the 
 `--cluster-signing-duration` parameter, and the signed certificate
-will be attached to the certificate signing requests.
+will be attached to the certificate signing request.
 
 The kubelet will retrieve the signed certificate from the Kubernetes API and
 write that to disk, in the location specified by `--cert-dir`. Then the kubelet
