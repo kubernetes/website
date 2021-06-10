@@ -214,19 +214,19 @@ kubectl apply -f cassandra-statefulset.yaml
 
 1.获取 Cassandra StatefulSet:
 
-    ```shell
-    kubectl get statefulset cassandra
-    ```
+```shell
+kubectl get statefulset cassandra
+```
    
 <!--
    The response should be similar to:
 -->
    响应应该与此类似：
 
-    ```
-    NAME        DESIRED   CURRENT   AGE
-    cassandra   3         0         13s
-    ```
+```
+NAME        DESIRED   CURRENT   AGE
+cassandra   3         0         13s
+```
 
 <!--
    The `StatefulSet` resource deploys Pods sequentially.
@@ -237,20 +237,20 @@ kubectl apply -f cassandra-statefulset.yaml
 
 2.获取 Pod 查看已排序的创建状态：
    
-    ```shell
-    kubectl get pods -l="app=cassandra"
-    ```
+```shell
+kubectl get pods -l="app=cassandra"
+```
 
 <!--
    The response should be similar to:
 -->
    响应应该与此类似：
 
-    ```shell
-    NAME          READY     STATUS              RESTARTS   AGE
-    cassandra-0   1/1       Running             0          1m
-    cassandra-1   0/1       ContainerCreating   0          8s
-    ```
+```shell
+NAME          READY     STATUS              RESTARTS   AGE
+cassandra-0   1/1       Running             0          1m
+cassandra-1   0/1       ContainerCreating   0          8s
+```
 
 <!--
    It can take several minutes for all three Pods to deploy. Once they are deployed, the same command
@@ -258,37 +258,37 @@ kubectl apply -f cassandra-statefulset.yaml
 -->
    这三个 Pod 要花几分钟的时间才能部署。部署之后，相同的命令将返回类似于以下的输出：
 
-    ```
-    NAME          READY     STATUS    RESTARTS   AGE
-    cassandra-0   1/1       Running   0          10m
-    cassandra-1   1/1       Running   0          9m
-    cassandra-2   1/1       Running   0          8m
-    ```
+```
+NAME          READY     STATUS    RESTARTS   AGE
+cassandra-0   1/1       Running   0          10m
+cassandra-1   1/1       Running   0          9m
+cassandra-2   1/1       Running   0          8m
+```
 <!--
 3. Run the Cassandra [nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool) inside the first Pod, to
    display the status of the ring.
 -->
 3.运行第一个 Pod 中的 Cassandra [nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool)，以显示 ring 的状态。
 
-    ```shell
-    kubectl exec -it cassandra-0 -- nodetool status
-    ```
+```shell
+kubectl exec -it cassandra-0 -- nodetool status
+```
 
 <!--
    The response should be similar to:
 -->
    响应应该与此类似：
 
-    ```
-    Datacenter: DC1-K8Demo
-    ======================
-    Status=Up/Down
-    |/ State=Normal/Leaving/Joining/Moving
-    --  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
-    UN  172.17.0.5  83.57 KiB  32           74.0%             e2dd09e6-d9d3-477e-96c5-45094c08db0f  Rack1-K8Demo
-    UN  172.17.0.4  101.04 KiB  32           58.8%             f89d6835-3a42-4419-92b3-0e62cae1479c  Rack1-K8Demo
-    UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
-    ```
+```
+Datacenter: DC1-K8Demo
+======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  172.17.0.5  83.57 KiB  32           74.0%             e2dd09e6-d9d3-477e-96c5-45094c08db0f  Rack1-K8Demo
+UN  172.17.0.4  101.04 KiB  32           58.8%             f89d6835-3a42-4419-92b3-0e62cae1479c  Rack1-K8Demo
+UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
+```
 
 <!--
 ## Modifying the Cassandra StatefulSet
@@ -303,9 +303,9 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 1.运行以下命令：
 
-    ```shell
-    kubectl edit statefulset cassandra
-    ```
+```shell
+kubectl edit statefulset cassandra
+```
 
 <!--
    This command opens an editor in your terminal. The line you need to change is the `replicas` field.
@@ -313,25 +313,25 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 -->
    此命令你的终端中打开一个编辑器。需要更改的是 `replicas` 字段。下面是 StatefulSet 文件的片段示例：
 
-    ```yaml
-    # Please edit the object below. Lines beginning with a '#' will be ignored,
-    # and an empty file will abort the edit. If an error occurs while saving this file will be
-    # reopened with the relevant failures.
-    #
-    apiVersion: apps/v1
-    kind: StatefulSet
-    metadata:
-      creationTimestamp: 2016-08-13T18:40:58Z
-      generation: 1
-      labels:
-      app: cassandra
-      name: cassandra
-      namespace: default
-      resourceVersion: "323"
-      uid: 7a219483-6185-11e6-a910-42010a8a0fc0
-    spec:
-      replicas: 3
-    ```
+```yaml
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: 2016-08-13T18:40:58Z
+  generation: 1
+  labels:
+    app: cassandra
+    name: cassandra
+    namespace: default
+    resourceVersion: "323"
+    uid: 7a219483-6185-11e6-a910-42010a8a0fc0
+spec:
+  replicas: 3
+```
 
 <!--
 1. Change the number of replicas to 4, and then save the manifest.
@@ -346,19 +346,19 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 3.获取 Cassandra StatefulSet 验证更改：
 
-    ```shell
-    kubectl get statefulset cassandra
-    ```
+```shell
+kubectl get statefulset cassandra
+```
 
 <!--
    The response should be similar to:
 -->
    响应应该与此类似：
 
-    ```
-    NAME        DESIRED   CURRENT   AGE
-    cassandra   4         4         36m
-    ```
+```
+NAME        DESIRED   CURRENT   AGE
+cassandra   4         4         36m
+```
 
 ## {{% heading "cleanup" %}}
 
@@ -383,22 +383,22 @@ to also be deleted. Never assume you'll be able to access data if its volume cla
 
 1.运行以下命令（连在一起成为一个单独的命令）删除 Cassandra StatefulSet 中的所有内容：
 
-    ```shell
-    grace=$(kubectl get pod cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
-      && kubectl delete statefulset -l app=cassandra \
-      && echo "Sleeping ${grace} seconds" 1>&2 \
-      && sleep $grace \
-      && kubectl delete persistentvolumeclaim -l app=cassandra
-    ```
+```shell
+grace=$(kubectl get pod cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
+  && kubectl delete statefulset -l app=cassandra \
+  && echo "Sleeping ${grace} seconds" 1>&2 \
+  && sleep $grace \
+  && kubectl delete persistentvolumeclaim -l app=cassandra
+```
 
 <!--
 1. Run the following command to delete the Service you set up for Cassandra:
 -->
 2.运行以下命令，删除你为 Cassandra 设置的 Service：
 
-    ```shell
-    kubectl delete service -l app=cassandra
-    ```
+```shell
+kubectl delete service -l app=cassandra
+```
 
 <!--
 ## Cassandra container environment variables
