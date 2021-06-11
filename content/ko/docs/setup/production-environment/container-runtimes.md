@@ -118,8 +118,8 @@ containerd를 설치한다.
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
 
-PowerShell 세션을 시작하고 `$Version`을 원하는 버전(예: `$Version:1.4.3`)으로
-설정한 후 다음 명령을 실행한다.
+PowerShell 세션을 시작하고 `$Version`을 원하는 버전으로
+설정(예: `$Version:1.4.3`)한 후 다음 명령을 실행한다.
 
 1. containerd 다운로드
 
