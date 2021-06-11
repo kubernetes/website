@@ -1,16 +1,17 @@
 ---
 reviewers:
 - jszczepkowski
-title: Set up High-Availability Kubernetes Masters
+title: Set up a High-Availability Control Plane
 content_type: task
+aliases: [ '/docs/tasks/administer-cluster/highly-available-master/' ]
 ---
 
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.5" state="alpha" >}}
 
-You can replicate Kubernetes masters in `kube-up` or `kube-down` scripts for Google Compute Engine.
-This document describes how to use kube-up/down scripts to manage highly available (HA) masters and how HA masters are implemented for use with GCE.
+You can replicate Kubernetes control plane nodes in `kube-up` or `kube-down` scripts for Google Compute Engine.
+This document describes how to use kube-up/down scripts to manage a highly available (HA) control plane and how HA control planes are implemented for use with GCE.
 
 
 
@@ -28,17 +29,17 @@ This document describes how to use kube-up/down scripts to manage highly availab
 
 To create a new HA-compatible cluster, you must set the following flags in your `kube-up` script:
 
-* `MULTIZONE=true` - to prevent removal of master replicas kubelets from zones different than server's default zone.
-Required if you want to run master replicas in different zones, which is recommended.
+* `MULTIZONE=true` - to prevent removal of control plane kubelets from zones different than server's default zone.
+Required if you want to run control plane nodes in different zones, which is recommended.
 
 * `ENABLE_ETCD_QUORUM_READ=true` - to ensure that reads from all API servers will return most up-to-date data.
 If true, reads will be directed to leader etcd replica.
 Setting this value to true is optional: reads will be more reliable but will also be slower.
 
-Optionally, you can specify a GCE zone where the first master replica is to be created.
+Optionally, you can specify a GCE zone where the first control plane node is to be created.
 Set the following flag:
 
-* `KUBE_GCE_ZONE=zone` - zone where the first master replica will run.
+* `KUBE_GCE_ZONE=zone` - zone where the first control plane node will run.
 
 The following sample command sets up a HA-compatible cluster in the GCE zone europe-west1-b:
 
@@ -46,50 +47,52 @@ The following sample command sets up a HA-compatible cluster in the GCE zone eur
 MULTIZONE=true KUBE_GCE_ZONE=europe-west1-b  ENABLE_ETCD_QUORUM_READS=true ./cluster/kube-up.sh
 ```
 
-Note that the commands above create a cluster with one master;
-however, you can add new master replicas to the cluster with subsequent commands.
+Note that the commands above create a cluster with one control plane node;
+however, you can add new control plane nodes to the cluster with subsequent commands.
 
-## Adding a new master replica
+## Adding a new control plane node
 
-After you have created an HA-compatible cluster, you can add master replicas to it.
-You add master replicas by using a `kube-up` script with the following flags:
+After you have created an HA-compatible cluster, you can add control plane nodes to it.
+You add control plane nodes by using a `kube-up` script with the following flags:
 
-* `KUBE_REPLICATE_EXISTING_MASTER=true` - to create a replica of an existing
-master.
+* `KUBE_REPLICATE_EXISTING_MASTER=true` - to create a replica of an existing control plane
+node.
 
-* `KUBE_GCE_ZONE=zone` - zone where the master replica will run.
-Must be in the same region as other replicas' zones.
+* `KUBE_GCE_ZONE=zone` - zone where the control plane node will run.
+Must be in the same region as other control plane nodes' zones.
 
 You don't need to set the `MULTIZONE` or `ENABLE_ETCD_QUORUM_READS` flags,
 as those are inherited from when you started your HA-compatible cluster.
 
-The following sample command replicates the master on an existing HA-compatible cluster:
+The following sample command replicates the control plane node on an existing
+HA-compatible cluster:
 
 ```shell
 KUBE_GCE_ZONE=europe-west1-c KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
 ```
 
-## Removing a master replica
+## Removing a control plane node
 
-You can remove a master replica from an HA cluster by using a `kube-down` script with the following flags:
+You can remove a control plane node from an HA cluster by using a `kube-down` script with the following flags:
 
 * `KUBE_DELETE_NODES=false` - to restrain deletion of kubelets.
 
-* `KUBE_GCE_ZONE=zone` - the zone from where master replica will be removed.
+* `KUBE_GCE_ZONE=zone` - the zone from where the control plane node will be removed.
 
-* `KUBE_REPLICA_NAME=replica_name` - (optional) the name of master replica to remove.
-If empty: any replica from the given zone will be removed.
+* `KUBE_REPLICA_NAME=replica_name` - (optional) the name of control plane node to
+remove. If empty: any replica from the given zone will be removed.
 
-The following sample command removes a master replica from an existing HA cluster:
+The following sample command removes a control plane node from an existing HA cluster:
 
 ```shell
 KUBE_DELETE_NODES=false KUBE_GCE_ZONE=europe-west1-c ./cluster/kube-down.sh
 ```
 
-## Handling master replica failures
+## Handling control plane node failures
 
-If one of the master replicas in your HA cluster fails,
-the best practice is to remove the replica from your cluster and add a new replica in the same zone.
+If one of the control plane nodes in your HA cluster fails,
+the best practice is to remove the node from your cluster and add a new control plane
+node in the same zone.
 The following sample commands demonstrate this process:
 
 1. Remove the broken replica:
@@ -98,26 +101,31 @@ The following sample commands demonstrate this process:
 KUBE_DELETE_NODES=false KUBE_GCE_ZONE=replica_zone KUBE_REPLICA_NAME=replica_name ./cluster/kube-down.sh
 ```
 
-<ol start="2"><li>Add a new replica in place of the old one:</li></ol>
+<ol start="2"><li>Add a new node in place of the old one:</li></ol>
 
 ```shell
 KUBE_GCE_ZONE=replica-zone KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
 ```
 
-## Best practices for replicating masters for HA clusters
+## Best practices for replicating control plane nodes for HA clusters
 
-* Try to place master replicas in different zones. During a zone failure, all masters placed inside the zone will fail.
+* Try to place control plane nodes in different zones. During a zone failure, all
+control plane nodes placed inside the zone will fail.
 To survive zone failure, also place nodes in multiple zones
 (see [multiple-zones](/docs/setup/best-practices/multiple-zones/) for details).
 
-* Do not use a cluster with two master replicas. Consensus on a two-replica cluster requires both replicas running when changing persistent state.
-As a result, both replicas are needed and a failure of any replica turns cluster into majority failure state.
-A two-replica cluster is thus inferior, in terms of HA, to a single replica cluster.
+* Do not use a cluster with two control plane nodes. Consensus on a two-node
+control plane requires both nodes running when changing persistent state.
+As a result, both nodes are needed and a failure of any node turns the cluster
+into majority failure state.
+A two-node control plane is thus inferior, in terms of HA, to a cluster with
+one control plane node.
 
-* When you add a master replica, cluster state (etcd) is copied to a new instance.
+* When you add a control plane node, cluster state (etcd) is copied to a new instance.
 If the cluster is large, it may take a long time to duplicate its state.
-This operation may be sped up by migrating etcd data directory, as described [here](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration)
-(we are considering adding support for etcd data dir migration in future).
+This operation may be sped up by migrating the etcd data directory, as described in
+the [etcd administration guide](https://etcd.io/docs/v2.3/admin_guide/#member-migration)
+(we are considering adding support for etcd data dir migration in the future).
 
 
 
@@ -129,7 +137,7 @@ This operation may be sped up by migrating etcd data directory, as described [he
 
 ### Overview
 
-Each of master replicas will run the following components in the following mode:
+Each of the control plane nodes will run the following components in the following mode:
 
 * etcd instance: all instances will be clustered together using consensus;
 
@@ -143,9 +151,9 @@ In addition, there will be a load balancer in front of API servers that will rou
 
 ### Load balancing
 
-When starting the second master replica, a load balancer containing the two replicas will be created
+When starting the second control plane node, a load balancer containing the two replicas will be created
 and the IP address of the first replica will be promoted to IP address of load balancer.
-Similarly, after removal of the penultimate master replica, the load balancer will be removed and its IP address will be assigned to the last remaining replica.
+Similarly, after removal of the penultimate control plane node, the load balancer will be removed and its IP address will be assigned to the last remaining replica.
 Please note that creation and removal of load balancer are complex operations and it may take some time (~20 minutes) for them to propagate.
 
 ### Master service & kubelets
@@ -153,17 +161,17 @@ Please note that creation and removal of load balancer are complex operations an
 Instead of trying to keep an up-to-date list of Kubernetes apiserver in the Kubernetes service,
 the system directs all traffic to the external IP:
 
-* in one master cluster the IP points to the single master,
+* in case of a single node control plane, the IP points to the control plane node,
 
-* in multi-master cluster the IP points to the load balancer in-front of the masters.
+* in case of an HA control plane, the IP points to the load balancer in-front of the masters.
 
-Similarly, the external IP will be used by kubelets to communicate with master.
+Similarly, the external IP will be used by kubelets to communicate with the control plane.
 
-### Master certificates
+### Control plane node certificates
 
-Kubernetes generates Master TLS certificates for the external public IP and local IP for each replica.
-There are no certificates for the ephemeral public IP for replicas;
-to access a replica via its ephemeral public IP, you must skip TLS verification.
+Kubernetes generates TLS certificates for the external public IP and local IP for each control plane node.
+There are no certificates for the ephemeral public IP for control plane nodes;
+to access a control plane node via its ephemeral public IP, you must skip TLS verification.
 
 ### Clustering etcd
 
@@ -172,7 +180,7 @@ To make such deployment secure, communication between etcd instances is authoriz
 
 ### API server identity
 
-{{< feature-state state="alpha"  for_k8s_version="v1.20" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.20" >}}
 
 The API Server Identity feature is controlled by a
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)

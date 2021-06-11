@@ -237,7 +237,7 @@ kubeletは、`tmpfs`のemptyDirボリュームをローカルのエフェメラ�
 
 ### ローカルのエフェメラルストレージの要求と制限設定
 
-ローカルのエフェメラルストレージを管理するためには_ephemeral-storage_パラメーターを利用することができます。
+ローカルのエフェメラルストレージを管理するためには _ephemeral-storage_ パラメーターを利用することができます。
 Podの各コンテナは、次の1つ以上を指定できます。
 * `spec.containers[].resources.limits.ephemeral-storage`
 * `spec.containers[].resources.requests.ephemeral-storage`
