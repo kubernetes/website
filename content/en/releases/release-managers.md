@@ -192,6 +192,8 @@ GitHub team: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/
 
 ### Technical Leads
 
+- Adolfo García Veytia ([@puerco](https://github.com/puerco))
+- Carlos Panato ([@cpanato](https://github.com/cpanato))
 - Daniel Mangum ([@hasheddan](https://github.com/hasheddan))
 - Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 
