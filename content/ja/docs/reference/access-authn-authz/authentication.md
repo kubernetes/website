@@ -195,7 +195,35 @@ Secretは常にbase64でエンコードされるため、これらの値もbase6
 このプロトコルのOAuth2の主な拡張機能は、[ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)と呼ばれる、アクセストークンとアクセストークンと一緒に返される追加フィールドです。
 このトークンは、ユーザーの電子メールなどのよく知られたフィールドを持つJSON Web Token(JWT)であり、サーバーによって署名されています。トークンをリクエストに含める方法については、[リクエストにBearerトークンを含める](#putting-a-bearer-token-in-a-request)を参照してください。
 
-![Kubernetes OpenID Connect Flow](/images/docs/admin/k8s_oidc_login.svg)
+{{< mermaid >}}
+sequenceDiagram
+    participant user as User
+    participant idp as Identity Provider
+    participant kube as Kubectl
+    participant api as API Server
+
+    user ->> idp: 1. IdPにログイン
+    activate idp
+    idp -->> user: 2. access_tokenとid_token、<br>refresh_tokenを提供
+    deactivate idp
+    activate user
+    user ->> kube: 3. Kubectlを使用する場合、<br>--tokenフラグでid_tokenを使用するか、<br>または.kube/configにトークンを追加する
+    deactivate user
+    activate kube
+    kube ->> api: 4. 認可: Bearer...
+    deactivate kube
+    activate api
+    api ->> api: 5. JWT署名は有効であるか?
+    api ->> api: 6. JWTの有効期限はどうか?
+    api ->> api: 7. ユーザ認証はどうか?
+    api -->> kube: 8. 認可後:アクションを実行して結果を返却
+    deactivate api
+    activate kube
+    kube --x user: 9. 結果を返却
+    deactivate kube
+{{< /mermaid >}}
+
+
 
 1.  IDプロバイダーにログインします
 2.  IDプロバイダーは、`access_token`、`id_token`、`refresh_token`を提供します
@@ -231,7 +259,7 @@ Secretは常にbase64でエンコードされるため、これらの値もbase6
 
 重要なのは、APIサーバーはOAuth2クライアントではなく、ある単一の発行者を信頼するようにしか設定できないことです。これにより、サードパーティーに発行されたクレデンシャルを信頼せずに、Googleのようなパブリックプロバイダーを使用することができます。複数のOAuthクライアントを利用したい管理者は、`azp`クレームをサポートしているプロバイダや、あるクライアントが別のクライアントに代わってトークンを発行できるような仕組みを検討する必要があります。
 
-KubernetesはOpenID Connect IDプロバイダーを提供していません。既存のパブリックなOpenID Connect IDプロバイダー(Googleや[その他](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)など)を使用できます。もしくは、CoreOS [dex](https://github.com/coreos/dex)、[Keycloak](https://github.com/keycloak/keycloak)、CloudFoundry[UAA](https://github.com/cloudfoundry/uaa)、Tremolo Securityの[OpenUnison](https://github.com/tremolosecurity/openunison)など、独自のIDプロバイダーを実行することもできます。
+KubernetesはOpenID Connect IDプロバイダーを提供していません。既存のパブリックなOpenID Connect IDプロバイダー(Googleや[その他](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)など)を使用できます。もしくは、[dex](https://github.com/coreos/dex)、[Keycloak](https://github.com/keycloak/keycloak)、CloudFoundry[UAA](https://github.com/cloudfoundry/uaa)、Tremolo Securityの[OpenUnison](https://github.com/tremolosecurity/openunison)など、独自のIDプロバイダーを実行することもできます。
 
 IDプロバイダーがKubernetesと連携するためには、以下のことが必要です。
 
@@ -239,7 +267,7 @@ IDプロバイダーがKubernetesと連携するためには、以下のこと�
 2.  廃れていない暗号を用いたTLSで実行されていること
 3.  認証局が署名した証明書を持っていること(認証局が商用ではない場合や、自己署名の場合も可)
 
-上述の要件#3、認証局署名付き証明書を必要とすることについて、注意事項があります。GoogleやMicrosoftなどのクラウドプロバイダーではなく、独自のIDプロバイダーをデプロイする場合は、たとえ自己署名されていても、`CA`フラグが`TRUE`に設定されている証明書によって署名されたIDプロバイダーのWebサーバー証明書を持っていなければなりません。これは、Go言語のTLSクライアント実装が、証明書検証に関する標準に対して非常に厳格であるためです。認証局をお持ちでない場合は、CoreOSチームの[このスクリプト](https://github.com/coreos/dex/blob/1ee5920c54f5926d6468d2607c728b71cfe98092/examples/k8s/gencert.sh)を使用して、シンプルな認証局と署名付きの証明書と鍵のペアを作成することができます。
+上述の要件#3、認証局署名付き証明書を必要とすることについて、注意事項があります。GoogleやMicrosoftなどのクラウドプロバイダーではなく、独自のIDプロバイダーをデプロイする場合は、たとえ自己署名されていても、`CA`フラグが`TRUE`に設定されている証明書によって署名されたIDプロバイダーのWebサーバー証明書を持っていなければなりません。これは、Go言語のTLSクライアント実装が、証明書検証に関する標準に対して非常に厳格であるためです。認証局をお持ちでない場合は、Dexチームの[このスクリプト](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh)を使用して、シンプルな認証局と署名付きの証明書と鍵のペアを作成することができます。
 または、[この類似のスクリプト](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)を使って、より寿命が長く、よりキーサイズの大きいSHA256証明書を生成できます。
 
 特定のシステム用のセットアップ手順は、以下を参照してください。
@@ -341,65 +369,154 @@ current-context: webhook
 contexts:
 - context:
     cluster: name-of-remote-authn-service
-    user: name-of-api-sever
+    user: name-of-api-server
   name: webhook
 ```
 
-クライアントが[上記](#putting-a-bearer-token-in-a-request)のようにBearerトークンを使用してAPIサーバーとの認証を試みた場合、認証Webhookはトークンを含むJSONでシリアライズされた`authentication.k8s.io/v1beta1` `TokenReview`オブジェクトをリモートサービスにPOSTします。Kubernetesはそのようなヘッダーが不足しているリクエストを作成しようとはしません。
+クライアントが[上記](#putting-a-bearer-token-in-a-request)のようにBearerトークンを使用してAPIサーバーとの認証を試みた場合、認証Webhookはトークンを含むJSONでシリアライズされた`TokenReview`オブジェクトをリモートサービスにPOSTします。
 
-Webhook APIオブジェクトは、他のKubernetes APIオブジェクトと同じように、[Versioning Compatibility Rule](/docs/concepts/overview/kubernetes-api/)に従うことに注意してください。実装者は、ベータオブジェクトで保証される互換性が緩いことに注意し、正しいデシリアライゼーションが使用されるようにリクエストの"apiVersion"フィールドを確認する必要があります。さらにAPIサーバーは、API拡張グループ`authentication.k8s.io/v1beta1`を有効にしなければなりません(`--runtime config=authentication.k8s.io/v1beta1=true`)。
+Webhook APIオブジェクトは、他のKubernetes APIオブジェクトと同じように、[Versioning Compatibility Rule](/docs/concepts/overview/kubernetes-api/)に従うことに注意してください。実装者は、正しいデシリアライゼーションが使用されるようにリクエストの"apiVersion"フィールドを確認する必要があり、リクエストと同じバージョンの`TokenReview`オブジェクトで応答する必要があります。
 
-POSTボディは、以下の形式になります。
+{{< tabs name="TokenReview_request" >}}
+{{% tab name="authentication.k8s.io/v1" %}}
+{{< note >}}
+Kubernetes APIサーバーは、下位互換のためにデフォルトで`authentication.k8s.io/v1beta1` トークンレビューを送付します。`authentication.k8s.io/v1`トークンレビューの受信を選択するためには、APIサーバーを`--authentication-token-webhook-version=v1`で起動する必要があります。
+{{< /note >}}
 
-```json
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "spec": {
+    # APIサーバーに送信される不透明なbearerトークン
+    "token": "014fbff9a07c...",
+   
+    # トークンが提示されたサーバーのオーディエンス識別子のオプションリストに関して、
+    # オーディエンス対応トークン認証機能(例えば、OIDCトークン認証機能) は
+    # オプションリスト内の少なくとも１つのオーディエンスが対応しているものであることを確認し、
+    # トークンに対する有効なオーディエンスとこのリストの共通部分をレスポンスステータスに
+    # 返却する必要があります。
+    # これにより、トークンが提示されたサーバーへの認証に有効であることが保障されます。
+    # オーディエンスが指定されていない場合、Kubernetes APIサーバーへの認証のために
+    # トークンを検証する必要があります。
+    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="authentication.k8s.io/v1beta1" %}}
+```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
   "kind": "TokenReview",
   "spec": {
-    "token": "(Bearerトークン)"
+
+    # APIサーバーに送信される不透明なbearerトークン
+    "token": "014fbff9a07c...",
+   
+    # トークンが提示されたサーバーのオーディエンス識別子のオプションリストに関して、
+    # オーディエンス対応トークン認証機能(例えば、OIDCトークン認証機能) は
+    # オプションリスト内の少なくとも１つのオーディエンスが対応しているものであることを確認し、、
+    # トークンに対する有効なオーディエンスとこのリストの共通部分をレスポンスステータスに
+    # 返却する必要があります。
+    # これにより、トークンが提示されたサーバーへの認証に有効であることが保障されます。
+    # オーディエンスが指定されていない場合、Kubernetes APIサーバーへの認証のために
+    # トークンを検証する必要があります。
+    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
-リモートサービスはログインの成功を示すために、リクエストの`status`フィールドを埋めることが期待されます。レスポンスボディの`spec`フィールドは無視され、省略することができます。Bearerトークンの検証に成功すると、以下のようにBearerトークンが返されます。
+リモートサービスはログインの成功を示すために、リクエストの`status`フィールドを埋めることが期待されます。レスポンスボディの`spec`フィールドは無視され、省略することができます。リモートサービスは、トークンが受信したものと同じ`TokenReview` APIバージョンを使用して、レスポンスを返却する必要があります。Bearerトークンの検証に成功すると、以下のようにBearerトークンが返されます。
 
-```json
+{{< tabs name="TokenReview_response_success" >}}
+{{% tab name="authentication.k8s.io/v1" %}}
+```yaml
 {
-  "apiVersion": "authentication.k8s.io/v1beta1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "TokenReview",
   "status": {
     "authenticated": true,
     "user": {
+      # 必須
       "username": "janedoe@example.com",
+      # オプション
       "uid": "42",
-      "groups": [
-        "developers",
-        "qa"
-      ],
+      # オプションのグループメンバーシップ
+      "groups": ["developers", "qa"],
+      # 認証機能が提供するオプションの追加情報です。
+      # これは、ログやAPIオブジェクトに記録されたり、アドミッションのWebhookで
+      # 利用可能になったりするため、機密データを記載するべきではないです。
       "extra": {
         "extrafield1": [
           "extravalue1",
           "extravalue2"
         ]
       }
-    }
+    },
+    # オーディエンス対応トークン認証機能が応答できるオプションリストに、
+    # 提供されたトークンが有効だった`spec.audiences`リストのオーディエンスを含みます。
+    # これが省略された場合、トークンはKubernetes APIサーバーへの認証に有効であるとみなされます。
+    "audiences": ["https://myserver.example.com"]
   }
 }
 ```
-
-リクエストに失敗した場合は、以下のように返されます。
-
-```json
+{{% /tab %}}
+{{% tab name="authentication.k8s.io/v1beta1" %}}
+```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
   "kind": "TokenReview",
   "status": {
-    "authenticated": false
+    "authenticated": true,
+    "user": {
+      # 必須
+      "username": "janedoe@example.com",
+      # オプション
+      "uid": "42",
+      # オプショングループメンバーシップ
+      "groups": ["developers", "qa"],
+      # 認証機能が提供するオプションの追加情報です。
+      # これは、ログやAPIオブジェクトに記録されたり、アドミッションのWebhookで
+      # 利用可能になったりするため、機密データを記載するべきではないです。
+      "extra": {
+        "extrafield1": [
+          "extravalue1",
+          "extravalue2"
+        ]
+      }
+    },
+    # オーディエンス対応トークン認証機能が応答できるオプションリストに、
+    # 提供されたトークンが有効だった`spec.audiences`リストのオーディエンスを含みます。
+    # これが省略された場合、トークンはKubernetes APIサーバーへの認証に有効であるとみなされます。
+    "audiences": ["https://myserver.example.com"]
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
-HTTPステータスコードは、追加のエラーコンテキストを提供するために使うことができます。
+リクエストに失敗した場合は、以下のように返されます。
+
+{{< tabs name="TokenReview_response_error" >}}
+{{% tab name="authentication.k8s.io/v1" %}}
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": false,
+    # 認証に失敗した詳細をオプションで記載します。
+    # エラーが提供されていない場合、APIは一般的なUnauthorizedメッセージを返却します。
+    # authenticated=trueの場合、エラーフィールドは無視されます。
+    "error": "Credentials are expired"
+  }
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 
 ### 認証プロキシー {#authenticating-proxy}
@@ -629,6 +746,27 @@ users:
       args:
       - "arg1"
       - "arg2"
+
+      # 実行可能ファイルが存在しないと思われる場合にユーザーに表示するテキストを
+      # オプションで設定可能。
+      #　installHint:
+      #    現在のクラスターへの認証にexample-client-go-exec-pluginが必要です。
+      #    下記コマンドでインストールすることで可能です。
+      #      macOSの場合: brew install example-client-go-exec-plugin
+      #      Ubuntuの場合: apt-get install example-client-go-exec-plugin
+      #      Fedoraの場合: dnf install example-client-go-exec-plugin
+      installHint: |
+        example-client-go-exec-plugin is required to authenticate
+        to the current cluster.  It can be installed:
+
+        On macOS: brew install example-client-go-exec-plugin
+
+        On Ubuntu: apt-get install example-client-go-exec-plugin
+
+        On Fedora: dnf install example-client-go-exec-plugin
+
+        ...
+
 clusters:
 - name: my-cluster
   cluster:
