@@ -26,7 +26,7 @@ This guide walks you through the steps to configure and deploy a Windows contain
 ## Before you begin
 
 * Create a Kubernetes cluster that includes a 
-[master and a worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)
+master and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)
 * It is important to note that creating and deploying services and workloads on Kubernetes 
 behaves in much the same way for Linux and Windows containers. 
 [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. 
@@ -184,7 +184,7 @@ For example:  `--register-with-taints='os=windows:NoSchedule'`
 
 By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). 
 In order for a Windows Pod to be scheduled on a Windows node, 
-it would need both the nodeSelector to choose Windows, and the appropriate matching toleration.
+it would need both the nodeSelector and the appropriate matching toleration to choose Windows.
 
 ```yaml
 nodeSelector:
