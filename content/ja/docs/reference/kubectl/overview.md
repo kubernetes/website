@@ -50,7 +50,7 @@ kubectl [command] [TYPE] [NAME] [flags]
    * リソースを1つ以上のファイルで指定する場合は、`-f file1 -f file2 -f file<#>`とします。
 
       * 特に設定ファイルについては、YAMLの方がより使いやすいため、[JSONではなくYAMLを使用してください](/ja/docs/concepts/configuration/overview/#一般的な設定のtips)。<br/>
-     例: `kubectl get pod -f ./pod.yaml`
+     例: `kubectl get -f ./pod.yaml`
 
 * `flags`: オプションのフラグを指定します。例えば、`-s`または`--server`フラグを使って、Kubernetes APIサーバーのアドレスやポートを指定できます。<br/>
 
@@ -116,14 +116,15 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 以下の表に、サポートされているすべてのリソースと、省略されたエイリアスの一覧を示します。
 
-(この出力は`kubectl api-resources`から取得でき、Kubernetes 1.13.3時点で正確でした。)
+(この出力は`kubectl api-resources`から取得でき、Kubernetes 1.19.1時点で正確でした。)
 
 | リソース名 | 短縮名 | APIグループ | 名前空間に属するか | リソースの種類 |
 |---|---|---|---|---|
-| `bindings` | | | true | Binding|
+| `bindings` | | | true | Binding |
 | `componentstatuses` | `cs` | | false | ComponentStatus |
 | `configmaps` | `cm` | | true | ConfigMap |
 | `endpoints` | `ep` | | true | Endpoints |
+| `events` | `ev` | | true | Event |
 | `limitranges` | `limits` | | true | LimitRange |
 | `namespaces` | `ns` | | false | Namespace |
 | `nodes` | `no` | | false | Node |
@@ -131,14 +132,14 @@ kubectl [command] [TYPE] [NAME] [flags]
 | `persistentvolumes` | `pv` | | false | PersistentVolume |
 | `pods` | `po` | | true | Pod |
 | `podtemplates` | | | true | PodTemplate |
-| `replicationcontrollers` | `rc` | | true| ReplicationController |
+| `replicationcontrollers` | `rc` | | true | ReplicationController |
 | `resourcequotas` | `quota` | | true | ResourceQuota |
 | `secrets` | | | true | Secret |
 | `serviceaccounts` | `sa` | | true | ServiceAccount |
 | `services` | `svc` | | true | Service |
 | `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
 | `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
-| `customresourcedefinitions` | `crd`, `crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
+| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
 | `apiservices` | | apiregistration.k8s.io | false | APIService |
 | `controllerrevisions` | | apps | true | ControllerRevision |
 | `daemonsets` | `ds` | apps | true | DaemonSet |
@@ -155,9 +156,15 @@ kubectl [command] [TYPE] [NAME] [flags]
 | `jobs` | | batch | true | Job |
 | `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
 | `leases` | | coordination.k8s.io | true | Lease |
+| `endpointslices` |  | discovery.k8s.io | true | EndpointSlice |
 | `events` | `ev` | events.k8s.io | true | Event |
 | `ingresses` | `ing` | extensions | true | Ingress |
+| `flowschemas` |  | flowcontrol.apiserver.k8s.io | false | FlowSchema |
+| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io | false | PriorityLevelConfiguration |
+| `ingressclasses` |  | networking.k8s.io | false | IngressClass |
+| `ingresses` | `ing` | networking.k8s.io | true | Ingress |
 | `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
+| `runtimeclasses` |  | node.k8s.io | false | RuntimeClass |
 | `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
 | `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
 | `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
@@ -167,7 +174,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 | `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
 | `csidrivers` | | storage.k8s.io | false | CSIDriver |
 | `csinodes` | | storage.k8s.io | false | CSINode |
-| `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
+| `storageclasses` | `sc` | storage.k8s.io | false | StorageClass |
 | `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
 ## 出力オプション
