@@ -8,13 +8,14 @@ content_type: concept
 
 <!-- overview -->
 
-Tutaj znajdziesz dokumentację źródłową Kubernetes.
+Tutaj znajdziesz dokumentację źródłową Kubernetesa.
 
 <!-- body -->
 
 ## Dokumentacja API
 
-* [Dokumentacja źródłowa API Kubernetesa {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [Kubernetes API Reference](/docs/reference/kubernetes-api/)
+* [One-page API Reference for Kubernetes {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [Using The Kubernetes API](/docs/reference/using-api/) - ogólne informacje na temat API Kubernetesa.
 
 ## Biblioteki klientów API
@@ -32,7 +33,7 @@ biblioteki to:
 
 * [kubectl](/docs/reference/kubectl/overview/) - Główne narzędzie tekstowe (linii poleceń) do zarządzania klastrem Kubernetes.
   * [JSONPath](/docs/reference/kubectl/jsonpath/) - Podręcznik składni [wyrażeń JSONPath](https://goessner.net/articles/JsonPath/) dla kubectl.
-* [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) - Narzędzie tekstowe do łatwego budowania klastra Kubernetes spełniającego niezbędne wymogi bezpieczeństwa.
+* [kubeadm](/docs/reference/setup-tools/kubeadm/) - Narzędzie tekstowe do łatwego budowania klastra Kubernetes spełniającego niezbędne wymogi bezpieczeństwa.
 
 ## Dokumentacja komponentów
 

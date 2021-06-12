@@ -28,7 +28,7 @@ a private certificate authority (CA), or based on a public key infrastructure li
 to a generally recognized CA.
 
 If your cluster uses a private certificate authority, you need a copy of that CA
-certifcate configured into your `~/.kube/config` on the client, so that you can
+certificate configured into your `~/.kube/config` on the client, so that you can
 trust the connection and be confident it was not intercepted.
 
 Your client can present a TLS client certificate at this stage.
@@ -43,7 +43,7 @@ Authenticators are described in more detail in
 [Authentication](/docs/reference/access-authn-authz/authentication/).
 
 The input to the authentication step is the entire HTTP request; however, it typically
-just examines the headers and/or client certificate.
+examines the headers and/or client certificate.
 
 Authentication modules include client certificates, password, and plain tokens,
 bootstrap tokens, and JSON Web Tokens (used for service accounts).
@@ -135,7 +135,7 @@ for the corresponding API object, and then written to the object store (shown as
 The previous discussion applies to requests sent to the secure port of the API server
 (the typical case).  The API server can actually serve on 2 ports:
 
-By default the Kubernetes API server serves HTTP on 2 ports:
+By default, the Kubernetes API server serves HTTP on 2 ports:
 
   1. `localhost` port:
 

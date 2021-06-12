@@ -86,8 +86,9 @@ Because ClusterRoles are cluster-scoped, you can also use them to grant access t
 * cluster-scoped resources (like {{< glossary_tooltip text="nodes" term_id="node" >}})
 * non-resource endpoints (like `/healthz`)
 * namespaced resources (like Pods), across all namespaces
+  
   For example: you can use a ClusterRole to allow a particular user to run
-  `kubectl get pods --all-namespaces`.
+  `kubectl get pods --all-namespaces`
 
 Here is an example of a ClusterRole that can be used to grant read access to
 {{< glossary_tooltip text="secrets" term_id="secret" >}} in any particular namespace,
@@ -218,7 +219,7 @@ the role that is granted to those subjects.
 1. A binding to a different role is a fundamentally different binding.
 Requiring a binding to be deleted/recreated in order to change the `roleRef`
 ensures the full list of subjects in the binding is intended to be granted
-the new role (as opposed to enabling accidentally modifying just the roleRef
+the new role (as opposed to enabling or accidentally modifying only the roleRef
 without verifying all of the existing subjects should be given the new role's
 permissions).
 
@@ -332,7 +333,7 @@ as a cluster administrator, include rules for custom resources, such as those se
 or aggregated API servers, to extend the default roles.
 
 For example: the following ClusterRoles let the "admin" and "edit" default roles manage the custom resource
-named CronTab, whereas the "view" role can perform just read actions on CronTab resources.
+named CronTab, whereas the "view" role can perform only read actions on CronTab resources.
 You can assume that CronTab objects are named `"crontabs"` in URLs as seen by the API server.
 
 ```yaml
@@ -514,13 +515,22 @@ subjects:
   namespace: kube-system
 ```
 
-For all service accounts in the "qa" namespace:
+For all service accounts in the "qa" group in any namespace:
 
 ```yaml
 subjects:
 - kind: Group
   name: system:serviceaccounts:qa
   apiGroup: rbac.authorization.k8s.io
+```
+For all service accounts in the "dev" group in the "development" namespace:
+
+```yaml
+subjects:
+- kind: Group
+  name: system:serviceaccounts:dev
+  apiGroup: rbac.authorization.k8s.io
+  namespace: development
 ```
 
 For all service accounts in any namespace:

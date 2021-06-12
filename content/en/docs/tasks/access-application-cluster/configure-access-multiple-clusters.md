@@ -160,7 +160,7 @@ for the pathnames of the certificate files. You need to change these to the actu
 of certificate files in your environment.
 
 Sometimes you may want to use Base64-encoded data embedded here instead of separate
-certificate files; in that case you need add the suffix `-data` to the keys, for example,
+certificate files; in that case you need to add the suffix `-data` to the keys, for example,
 `certificate-authority-data`, `client-certificate-data`, `client-key-data`.
 
 Each context is a triple (cluster, user, namespace). For example, the

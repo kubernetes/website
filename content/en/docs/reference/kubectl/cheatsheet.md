@@ -194,6 +194,9 @@ kubectl get pods --show-labels
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
 
+# Output decoded secrets without external tools
+kubectl get secret my-secret -o go-template='{{range $k,$v := .data}}{{"### "}}{{$k}}{{"\n"}}{{$v|base64decode}}{{"\n\n"}}{{end}}'
+
 # List all Secrets currently in use by a pod
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 
@@ -213,6 +216,10 @@ kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 
 # Produce a period-delimited tree of all keys returned for pods, etc
 kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+
+# Produce ENV for all pods, assuming you have a default container for the pods, default namespace and the `env` command is supported.
+# Helpful when running any supported command across all pods, not just `env`
+for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod env; done
 ```
 
 ## Updating resources
@@ -314,6 +321,19 @@ kubectl exec my-pod -- ls /                         # Run command in existing po
 kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case) 
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
+kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
+```
+
+## Interacting with Deployments and Services
+```bash
+kubectl logs deploy/my-deployment                         # dump Pod logs for a Deployment (single-container case)
+kubectl logs deploy/my-deployment -c my-container         # dump Pod logs for a Deployment (multi-container case)
+
+kubectl port-forward svc/my-service 5000                  # listen on local port 5000 and forward to port 5000 on Service backend
+kubectl port-forward svc/my-service 5000:my-service-port  # listen on local port 5000 and forward to Service target port with name <my-service-port>
+
+kubectl port-forward deploy/my-deployment 5000:6000       # listen on local port 5000 and forward to port 6000 on a Pod created by <my-deployment>
+kubectl exec deploy/my-deployment -- ls                   # run command in first Pod and first container in Deployment (single- or multi-container cases)
 ```
 
 ## Interacting with Nodes and cluster
@@ -333,7 +353,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### Resource types
 
-List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
+List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
 ```bash
 kubectl api-resources
@@ -344,7 +364,7 @@ Other operations for exploring API resources:
 ```bash
 kubectl api-resources --namespaced=true      # All namespaced resources
 kubectl api-resources --namespaced=false     # All non-namespaced resources
-kubectl api-resources -o name                # All resources with simple output (just the resource name)
+kubectl api-resources -o name                # All resources with simple output (only the resource name)
 kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
 kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
 kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
@@ -371,6 +391,9 @@ Examples using `-o=custom-columns`:
 # All images running in a cluster
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 
+# All images running in namespace: default, grouped by Pod
+kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
+
  # All images excluding "k8s.gcr.io/coredns:1.6.2"
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
 
@@ -391,6 +414,7 @@ Verbosity | Description
 `--v=2` | Useful steady state information about the service and important log messages that may correlate to significant changes in the system. This is the recommended default log level for most systems.
 `--v=3` | Extended information about changes.
 `--v=4` | Debug level verbosity.
+`--v=5` | Trace level verbosity.
 `--v=6` | Display requested resources.
 `--v=7` | Display HTTP request headers.
 `--v=8` | Display HTTP request contents.

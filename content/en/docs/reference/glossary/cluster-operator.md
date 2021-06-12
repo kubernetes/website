@@ -17,6 +17,6 @@ tags:
 Their primary responsibility is keeping a cluster up and running, which may involve periodic maintenance activities or upgrades.<br>
 
 {{< note >}}
-Cluster operators are different from the [Operator pattern](https://coreos.com/operators) that extends the Kubernetes API.
+Cluster operators are different from the [Operator pattern](https://www.openshift.com/learn/topics/operators) that extends the Kubernetes API.
 {{< /note >}}
 

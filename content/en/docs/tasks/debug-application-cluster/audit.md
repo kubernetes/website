@@ -46,7 +46,9 @@ Each request can be recorded with an associated _stage_. The defined stages are:
 - `Panic` - Events generated when a panic occurred.
 
 {{< note >}}
-Audit events are different from the
+The configuration of an
+[Audit Event configuration](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+is different from the
 [Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core)
 API object.
 {{< /note >}}
@@ -59,7 +61,7 @@ Memory consumption depends on the audit logging configuration.
 
 Audit policy defines rules about what events should be recorded and what data
 they should include. The audit policy object structure is defined in the
-[`audit.k8s.io` API group](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go).
+[`audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy).
 When an event is processed, it's
 compared against the list of rules in order. The first matching rule sets the
 _audit level_ of the event. The defined audit levels are:
@@ -95,6 +97,9 @@ If you're crafting your own audit profile, you can use the audit profile for Goo
 [configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
 script, which generates an audit policy file. You can see most of the audit policy file by looking directly at the script.
 
+You can also refer to the [`Policy` configuration reference](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+for details about the fields defined.
+
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
@@ -104,9 +109,7 @@ Out of the box, the kube-apiserver provides two backends:
 - Webhook backend, which sends events to an external HTTP API
 
 In all cases, audit events follow a structure defined by the Kubernetes API in the
-`audit.k8s.io` API group. For Kubernetes {{< param "fullversion" >}}, that
-API is at version
-[`v1`](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go).
+[`audit.k8s.io` API group](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event).
 
 {{< note >}}
 In case of patches, request body is a JSON array with patch operations, not a JSON object
@@ -173,8 +176,6 @@ and finally configure the `hostPath`:
     type: FileOrCreate
 
 ```
-
-
 
 ### Webhook backend
 
@@ -250,3 +251,7 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 ## {{% heading "whatsnext" %}}
 
 * Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
+* Learn more about [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+  and the [`Policy`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+  resource types by reading the Audit configuration reference.
+

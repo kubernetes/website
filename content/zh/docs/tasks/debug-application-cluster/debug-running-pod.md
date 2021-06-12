@@ -135,7 +135,7 @@ The examples in this section require the `EphemeralContainers` [feature gate](
 /docs/reference/command-line-tools-reference/feature-gates/) enabled in your
 cluster and `kubectl` version v1.18 or later.
 
-You can use the `kubectl alpha debug` command to add ephemeral containers to a
+You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
 
 ```shell
@@ -143,7 +143,7 @@ kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 ```
 
 This section use the `pause` container image in examples because it does not
-contain userland debugging utilities, but this method works with all container
+contain debugging utilities, but this method works with all container
 images.
 -->
 ## 使用临时容器来调试的例子 {#ephemeral-container-example}
@@ -154,7 +154,7 @@ images.
 `kubectl` 版本为 v1.18 或者更高。
 {{< /note >}}
 
-你可以使用 `kubectl alpha debug` 命令来给正在运行中的 Pod 增加一个临时容器。
+你可以使用 `kubectl debug` 命令来给正在运行中的 Pod 增加一个临时容器。
 首先，像示例一样创建一个 pod：
 
 ```shell
@@ -162,7 +162,7 @@ kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 ```
 
 {{< note >}}
-本节示例中使用 `pause` 容器镜像，因为它不包含任何用户级调试程序，但是这个方法适用于所有容器镜像。
+本节示例中使用 `pause` 容器镜像，因为它不包含调试程序，但是这个方法适用于所有容器镜像。
 {{< /note >}}
 
 <!--
@@ -177,12 +177,12 @@ kubectl exec -it ephemeral-demo -- sh
 OCI runtime exec failed: exec failed: container_linux.go:346: starting container process caused "exec: \"sh\": executable file not found in $PATH": unknown
 ```
 
-You can instead add a debugging container using `kubectl alpha debug`. If you
+You can instead add a debugging container using `kubectl debug`. If you
 specify the `-i`/`--interactive` argument, `kubectl` will automatically attach
 to the console of the Ephemeral Container.
 
 ```shell
-kubectl alpha debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
+kubectl debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
 ```
 
 ```
@@ -201,11 +201,11 @@ kubectl exec -it ephemeral-demo -- sh
 OCI runtime exec failed: exec failed: container_linux.go:346: starting container process caused "exec: \"sh\": executable file not found in $PATH": unknown
 ```
 
-你可以改为使用 `kubectl alpha debug` 添加调试容器。
+你可以改为使用 `kubectl debug` 添加调试容器。
 如果你指定 `-i` 或者 `--interactive` 参数，`kubectl` 将自动挂接到临时容器的控制台。
 
 ```shell
-kubectl alpha debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
+kubectl debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
 ```
 
 ```
@@ -313,10 +313,10 @@ this scenario using `kubectl run`:
 kubectl run myapp --image=busybox --restart=Never -- sleep 1d
 ```
 <!--
-Run this command to create a copy of `myapp` named `myapp-copy` that adds a
+Run this command to create a copy of `myapp` named `myapp-debug` that adds a
 new Ubuntu container for debugging:
 -->
-通过运行以下命令，建立 `myapp` 的一个名为 `myapp-copy` 的副本，
+通过运行以下命令，建立 `myapp` 的一个名为 `myapp-debug` 的副本，
 新增了一个用于调试的 Ubuntu 容器，
 
 ```shell

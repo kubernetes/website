@@ -21,39 +21,37 @@ and [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affini
 ## {{% heading "prerequisites" %}}
 
 Before starting this tutorial, you should be familiar with the following
-Kubernetes concepts.
+Kubernetes concepts:
 
--   [Pods](/docs/concepts/workloads/pods/)
--   [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
--   [Headless Services](/docs/concepts/services-networking/service/#headless-services)
--   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
--   [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
--   [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
--   [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
--   [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
--   [kubectl CLI](/docs/reference/kubectl/kubectl/)
+- [Pods](/docs/concepts/workloads/pods/)
+- [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
+- [Headless Services](/docs/concepts/services-networking/service/#headless-services)
+- [PersistentVolumes](/docs/concepts/storage/volumes/)
+- [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+- [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
+- [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
+- [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+- [kubectl CLI](/docs/reference/kubectl/kubectl/)
 
-You will require a cluster with at least four nodes, and each node requires at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and drain the cluster's nodes. **This means that the cluster will terminate and evict all Pods on its nodes, and the nodes will temporarily become unschedulable.** You should use a dedicated cluster for this tutorial, or you should ensure that the disruption you cause will not interfere with other tenants.
+You must have a cluster with at least four nodes, and each node requires at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and drain the cluster's nodes. **This means that the cluster will terminate and evict all Pods on its nodes, and the nodes will temporarily become unschedulable.** You should use a dedicated cluster for this tutorial, or you should ensure that the disruption you cause will not interfere with other tenants.
 
 This tutorial assumes that you have configured your cluster to dynamically provision
 PersistentVolumes. If your cluster is not configured to do so, you
 will have to manually provision three 20 GiB volumes before starting this
 tutorial.
 
-
 ## {{% heading "objectives" %}}
 
 After this tutorial, you will know the following.
 
--   How to deploy a ZooKeeper ensemble using StatefulSet.
--   How to consistently configure the ensemble.
--   How to spread the deployment of ZooKeeper servers in the ensemble.
--   How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
-
+- How to deploy a ZooKeeper ensemble using StatefulSet.
+- How to consistently configure the ensemble.
+- How to spread the deployment of ZooKeeper servers in the ensemble.
+- How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
 
 <!-- lessoncontent -->
 
-### ZooKeeper Basics
+### ZooKeeper
 
 [Apache ZooKeeper](https://zookeeper.apache.org/doc/current/) is a
 distributed, open-source coordination service for distributed applications.
@@ -68,7 +66,7 @@ The ensemble uses the Zab protocol to elect a leader, and the ensemble cannot wr
 
 ZooKeeper servers keep their entire state machine in memory, and write every mutation to a durable WAL (Write Ahead Log) on storage media. When a server crashes, it can recover its previous state by replaying the WAL. To prevent the WAL from growing without bound, ZooKeeper servers will periodically snapshot them in memory state to storage media. These snapshots can be loaded directly into memory, and all WAL entries that preceded the snapshot may be discarded.
 
-## Creating a ZooKeeper Ensemble
+## Creating a ZooKeeper ensemble
 
 The manifest below contains a
 [Headless Service](/docs/concepts/services-networking/service/#headless-services),
@@ -127,7 +125,7 @@ zk-2      1/1       Running   0         40s
 The StatefulSet controller creates three Pods, and each Pod has a container with
 a [ZooKeeper](https://www-us.apache.org/dist/zookeeper/stable/) server.
 
-### Facilitating Leader Election
+### Facilitating leader election
 
 Because there is no terminating algorithm for electing a leader in an anonymous network, Zab requires explicit membership configuration to perform leader election. Each server in the ensemble needs to have a unique identifier, all servers need to know the global set of identifiers, and each identifier needs to be associated with a network address.
 
@@ -211,7 +209,7 @@ server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
 server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
-### Achieving Consensus
+### Achieving consensus
 
 Consensus protocols require that the identifiers of each participant be unique. No two participants in the Zab protocol should claim the same unique identifier. This is necessary to allow the processes in the system to agree on which processes have committed which data. If two Pods are launched with the same ordinal, two ZooKeeper servers would both identify themselves as the same server.
 
@@ -260,7 +258,7 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 
 When the servers use the Zab protocol to attempt to commit a value, they will either achieve consensus and commit the value (if leader election has succeeded and at least two of the Pods are Running and Ready), or they will fail to do so (if either of the conditions are not met). No state will arise where one server acknowledges a write on behalf of another.
 
-### Sanity Testing the Ensemble
+### Sanity testing the ensemble
 
 The most basic sanity test is to write data to one ZooKeeper server and
 to read the data from another.
@@ -270,6 +268,7 @@ The command below executes the `zkCli.sh` script to write `world` to the path `/
 ```shell
 kubectl exec zk-0 zkCli.sh create /hello world
 ```
+
 ```
 WATCHER::
 
@@ -304,7 +303,7 @@ dataLength = 5
 numChildren = 0
 ```
 
-### Providing Durable Storage
+### Providing durable storage
 
 As mentioned in the [ZooKeeper Basics](#zookeeper-basics) section,
 ZooKeeper commits all entries to a durable WAL, and periodically writes snapshots
@@ -445,8 +444,8 @@ The `volumeMounts` section of the `StatefulSet`'s container `template` mounts th
 
 ```shell
 volumeMounts:
-        - name: datadir
-          mountPath: /var/lib/zookeeper
+- name: datadir
+  mountPath: /var/lib/zookeeper
 ```
 
 When a Pod in the `zk` `StatefulSet` is (re)scheduled, it will always have the
@@ -454,7 +453,7 @@ same `PersistentVolume` mounted to the ZooKeeper server's data directory.
 Even when the Pods are rescheduled, all the writes made to the ZooKeeper
 servers' WALs, and all their snapshots, remain durable.
 
-## Ensuring Consistent Configuration
+## Ensuring consistent configuration
 
 As noted in the [Facilitating Leader Election](#facilitating-leader-election) and
 [Achieving Consensus](#achieving-consensus) sections, the servers in a
@@ -469,6 +468,7 @@ Get the `zk` StatefulSet.
 ```shell
 kubectl get sts zk -o yaml
 ```
+
 ```
 …
 command:
@@ -497,7 +497,7 @@ command:
 
 The command used to start the ZooKeeper servers passed the configuration as command line parameter. You can also use environment variables to pass configuration to the ensemble.
 
-### Configuring Logging
+### Configuring logging
 
 One of the files generated by the `zkGenConfig.sh` script controls ZooKeeper's logging.
 ZooKeeper uses [Log4j](https://logging.apache.org/log4j/2.x/), and, by default,
@@ -558,13 +558,11 @@ You can view application logs written to standard out or standard error using `k
 2016-12-06 19:34:46,230 [myid:1] - INFO  [Thread-1142:NIOServerCnxn@1008] - Closed socket connection for client /127.0.0.1:52768 (no session established for client)
 ```
 
-Kubernetes supports more powerful, but more complex, logging integrations
-with [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)
-and [Elasticsearch and Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/).
-For cluster level log shipping and aggregation, consider deploying a [sidecar](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
-container to rotate and ship your logs.
+Kubernetes integrates with many logging solutions. You can choose a logging solution
+that best fits your cluster and applications. For cluster-level logging and aggregation,
+consider deploying a [sidecar container](/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent) to rotate and ship your logs.
 
-### Configuring a Non-Privileged User
+### Configuring a non-privileged user
 
 The best practices to allow an application to run as a privileged
 user inside of a container are a matter of debate. If your organization requires
@@ -612,7 +610,7 @@ Because the `fsGroup` field of the `securityContext` object is set to 1000, the 
 drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ```
 
-## Managing the ZooKeeper Process
+## Managing the ZooKeeper process
 
 The [ZooKeeper documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision)
 mentions that "You will want to have a supervisory process that
@@ -622,7 +620,7 @@ common pattern. When deploying an application in Kubernetes, rather than using
 an external utility as a supervisory process, you should use Kubernetes as the
 watchdog for your application.
 
-### Updating the Ensemble
+### Updating the ensemble
 
 The `zk` `StatefulSet` is configured to use the `RollingUpdate` update strategy.
 
@@ -631,6 +629,7 @@ You can use `kubectl patch` to update the number of `cpus` allocated to the serv
 ```shell
 kubectl patch sts zk --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/requests/cpu", "value":"0.3"}]'
 ```
+
 ```
 statefulset.apps/zk patched
 ```
@@ -640,6 +639,7 @@ Use `kubectl rollout status` to watch the status of the update.
 ```shell
 kubectl rollout status sts/zk
 ```
+
 ```
 waiting for statefulset rolling update to complete 0 pods at revision zk-5db4499664...
 Waiting for 1 pods to be ready...
@@ -678,7 +678,7 @@ kubectl rollout undo sts/zk
 statefulset.apps/zk rolled back
 ```
 
-### Handling Process Failure
+### Handling process failure
 
 [Restart Policies](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) control how
 Kubernetes handles process failures for the entry point of the container in a Pod.
@@ -731,7 +731,7 @@ that implements the application's business logic, the script must terminate with
 child process. This ensures that Kubernetes will restart the application's
 container when the process implementing the application's business logic fails.
 
-### Testing for Liveness
+### Testing for liveness
 
 Configuring your application to restart failed processes is not enough to
 keep a distributed system healthy. There are scenarios where
@@ -795,7 +795,7 @@ zk-0      0/1       Running   1         1h
 zk-0      1/1       Running   1         1h
 ```
 
-### Testing for Readiness
+### Testing for readiness
 
 Readiness is not the same as liveness. If a process is alive, it is scheduled
 and healthy. If a process is ready, it is able to process input. Liveness is
@@ -824,7 +824,7 @@ Even though the liveness and readiness probes are identical, it is important
 to specify both. This ensures that only healthy servers in the ZooKeeper
 ensemble receive network traffic.
 
-## Tolerating Node Failure
+## Tolerating Node failure
 
 ZooKeeper needs a quorum of servers to successfully commit mutations
 to data. For a three server ensemble, two servers must be healthy for
@@ -879,10 +879,10 @@ as `zk` in the domain defined by the `topologyKey`. The `topologyKey`
 different rules, labels, and selectors, you can extend this technique to spread
 your ensemble across physical, network, and power failure domains.
 
-## Surviving Maintenance
+## Surviving maintenance
 
-**In this section you will cordon and drain nodes. If you are using this tutorial
-on a shared cluster, be sure that this will not adversely affect other tenants.**
+In this section you will cordon and drain nodes. If you are using this tutorial
+on a shared cluster, be sure that this will not adversely affect other tenants.
 
 The previous section showed you how to spread your Pods across nodes to survive
 unplanned node failures, but you also need to plan for temporary node failures
@@ -1017,6 +1017,7 @@ Continue to watch the Pods of the stateful set, and drain the node on which
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
 ```
+
 ```
 node "kubernetes-node-i4c4" cordoned
 
@@ -1059,6 +1060,7 @@ Use [`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#unc
 ```shell
 kubectl uncordon kubernetes-node-pb41
 ```
+
 ```
 node "kubernetes-node-pb41" uncordoned
 ```
@@ -1068,6 +1070,7 @@ node "kubernetes-node-pb41" uncordoned
 ```shell
 kubectl get pods -w -l app=zk
 ```
+
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 zk-0      1/1       Running   2          1h
@@ -1130,9 +1133,7 @@ You should always allocate additional capacity for critical services so that the
 
 ## {{% heading "cleanup" %}}
 
-
 - Use `kubectl uncordon` to uncordon all the nodes in your cluster.
-- You will need to delete the persistent storage media for the PersistentVolumes
-  used in this tutorial. Follow the necessary steps, based on your environment,
-  storage configuration, and provisioning method, to ensure that all storage is
-  reclaimed.
+- You must delete the persistent storage media for the PersistentVolumes used in this tutorial.
+  Follow the necessary steps, based on your environment, storage configuration,
+  and provisioning method, to ensure that all storage is reclaimed.

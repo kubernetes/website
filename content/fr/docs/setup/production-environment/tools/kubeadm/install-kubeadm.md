@@ -40,7 +40,7 @@ Pour plus d'informations sur la création d'un cluster avec kubeadm, une fois qu
 ## Vérifiez que les adresses MAC et product_uuid sont uniques pour chaque nœud {#verify-mac-address}
 
 * Vous pouvez obtenir l'adresse MAC des interfaces réseau en utilisant la commande `ip link` ou` ifconfig -a`
-* Le product_uuid peut être vérifié en utilisant la commande `sudo cat/sys/class/dmi/id/product_uuid`
+* Le product_uuid peut être vérifié en utilisant la commande `sudo cat /sys/class/dmi/id/product_uuid`
 
 Il est très probable que les périphériques matériels aient des adresses uniques, bien que
 certaines machines virtuelles puissent avoir des valeurs identiques. Kubernetes utilise ces valeurs pour identifier de manière unique les nœuds du cluster.
@@ -250,13 +250,14 @@ curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL
 
 Installez `kubeadm`,` kubelet`, `kubectl` et ajoutez un service systemd` kubelet`:
 
+RELEASE_VERSION="v0.6.0"
+
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
 sudo chmod +x {kubeadm,kubelet,kubectl}
 
-RELEASE_VERSION="v0.4.0"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf

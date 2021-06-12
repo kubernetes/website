@@ -42,7 +42,7 @@ Example labels:
    * `"partition" : "customerA"`, `"partition" : "customerB"`
    * `"track" : "daily"`, `"track" : "weekly"`
 
-These are just examples of commonly used labels; you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
+These are examples of commonly used labels; you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
 
 ## Syntax and character set
 
@@ -52,7 +52,10 @@ If the prefix is omitted, the label Key is presumed to be private to the user. A
 
 The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core components.
 
-Valid label values must be 63 characters or less and must be empty or begin and end with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
+Valid label value:
+* must be 63 characters or less (can be empty),
+* unless empty, must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
+* could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 
 For example, here's the configuration file for a Pod that has two labels `environment: production` and `app: nginx` :
 
@@ -98,7 +101,7 @@ For both equality-based and set-based conditions there is no logical _OR_ (`||`)
 ### _Equality-based_ requirement
 
 _Equality-_ or _inequality-based_ requirements allow filtering by label keys and values. Matching objects must satisfy all of the specified label constraints, though they may have additional labels as well.
-Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _equality_ (and are simply synonyms), while the latter represents _inequality_. For example:
+Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _equality_ (and are synonyms), while the latter represents _inequality_. For example:
 
 ```
 environment = production
@@ -234,4 +237,3 @@ selector:
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
 See the documentation on [node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.
-

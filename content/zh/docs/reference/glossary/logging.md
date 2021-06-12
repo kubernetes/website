@@ -1,5 +1,5 @@
 ---
-title: 日志
+title: 日志（Logging）
 id: logging
 date: 2019-04-04
 full_link: /zh/docs/concepts/cluster-administration/logging/
@@ -11,7 +11,7 @@ tags:
 - architecture
 - fundamental
 ---
-  日志是 {{< glossary_tooltip text="集群" term_id="cluster" >}} 或应用程序记录的事件列表。
+  日志是 {{< glossary_tooltip text="集群（cluster）" term_id="cluster" >}} 或应用程序记录的事件列表。
   
 <!--
 ---

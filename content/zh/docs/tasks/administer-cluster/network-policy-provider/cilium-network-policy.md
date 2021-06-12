@@ -33,7 +33,7 @@ For background on Cilium, read the [Introduction to Cilium](https://docs.cilium.
 ## Deploying Cilium on Minikube for Basic Testing
 
 To get familiar with Cilium easily you can follow the
-[Cilium Kubernetes Getting Started Guide](https://docs.cilium.io/en/latest/gettingstarted/minikube/)
+[Cilium Kubernetes Getting Started Guide](https://docs.cilium.io/en/stable/gettingstarted/minikube/)
 to perform a basic DaemonSet installation of Cilium in minikube.
 
 To start minikube, minimal version required is >= v1.3.1, run the with the
@@ -42,7 +42,7 @@ following arguments:
 ## 在 Minikube 上部署 Cilium 用于基本测试
 
 为了轻松熟悉 Cilium 你可以根据
-[Cilium Kubernetes 入门指南](https://docs.cilium.io/en/latest/gettingstarted/minikube/)
+[Cilium Kubernetes 入门指南](https://docs.cilium.io/en/stable/gettingstarted/minikube/)
 在 minikube 中执行一个 cilium 的基本 DaemonSet 安装。
 
 要启动 minikube，需要的最低版本为 1.3.1，使用下面的参数运行：
@@ -76,7 +76,7 @@ DaemonSet configurations for Cilium as well as appropriate RBAC settings:
 
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/master/examples/kubernetes/cilium.yaml
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.8/install/kubernetes/quick-install.yaml
 ```
 
 ```

@@ -18,7 +18,7 @@ card:
 このチュートリアルでは、[Minikube](/ja/docs/setup/learning-environment/minikube)とKatacodaを使用して、Kubernetes上でサンプルアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
 
 {{< note >}}
-[Minikubeをローカルにインストール](/ja/docs/tasks/tools/install-minikube/)している場合もこのチュートリアルを進めることが可能です。
+[Minikubeをローカルにインストール](https://minikube.sigs.k8s.io/docs/start/)している場合もこのチュートリアルを進めることが可能です。
 {{< /note >}}
 
 

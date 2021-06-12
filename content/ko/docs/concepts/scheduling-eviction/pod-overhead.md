@@ -1,7 +1,7 @@
 ---
 title: 파드 오버헤드
 content_type: concept
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->
@@ -26,7 +26,7 @@ _파드 오버헤드_ 는 컨테이너 리소스 요청과 상한 위에서 파�
 이 수행될 때 지정된다.
 
 파드 오버헤드가 활성화 되면, 파드를 노드에 스케줄링 할 때 컨테이너 리소스 요청의 합에
-파드의 오버헤드를 추가해서 스케줄링을 고려한다. 마찬가지로, Kubelet은 파드의 cgroups 크기를 변경하거나
+파드의 오버헤드를 추가해서 스케줄링을 고려한다. 마찬가지로, kubelet은 파드의 cgroups 크기를 변경하거나
 파드의 축출 등급을 부여할 때에도 파드의 오버헤드를 포함하여 고려한다.
 
 ## 파드 오버헤드 활성화하기 {#set-up}
@@ -44,7 +44,7 @@ _파드 오버헤드_ 는 컨테이너 리소스 요청과 상한 위에서 파�
 ```yaml
 ---
 kind: RuntimeClass
-apiVersion: node.k8s.io/v1beta1
+apiVersion: node.k8s.io/v1
 metadata:
     name: kata-fc
 handler: kata-fc
@@ -190,4 +190,4 @@ sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 
 
 * [런타임클래스](/ko/docs/concepts/containers/runtime-class/)
-* [파드오버헤드 디자인](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+* [파드오버헤드 디자인](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

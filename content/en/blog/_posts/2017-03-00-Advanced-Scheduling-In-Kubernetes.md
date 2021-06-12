@@ -20,21 +20,14 @@ For example, if we want to require scheduling on a node that is in the us-centra
 
 
 ```
-affinity:
-
-  nodeAffinity:
-
-    requiredDuringSchedulingIgnoredDuringExecution:
-
-      nodeSelectorTerms:
-
-        - matchExpressions:
-
-          - key: "failure-domain.beta.kubernetes.io/zone"
-
-            operator: In
-
-            values: ["us-central1-a"]
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+            - key: "failure-domain.beta.kubernetes.io/zone"
+              operator: In
+              values: ["us-central1-a"]
  ```
 
 
@@ -44,21 +37,14 @@ Preferred rules mean that if nodes match the rules, they will be chosen first, a
 
 
 ```
-affinity:
-
-  nodeAffinity:
-
-    preferredDuringSchedulingIgnoredDuringExecution:
-
-      nodeSelectorTerms:
-
-        - matchExpressions:
-
-          - key: "failure-domain.beta.kubernetes.io/zone"
-
-            operator: In
-
-            values: ["us-central1-a"]
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+            - key: "failure-domain.beta.kubernetes.io/zone"
+              operator: In
+              values: ["us-central1-a"]
  ```
 
 
@@ -67,21 +53,14 @@ Node anti-affinity can be achieved by using negative operators. So for instance 
 
 
 ```
-affinity:
-
-  nodeAffinity:
-
-    requiredDuringSchedulingIgnoredDuringExecution:
-
-      nodeSelectorTerms:
-
-        - matchExpressions:
-
-          - key: "failure-domain.beta.kubernetes.io/zone"
-
-            operator: NotIn
-
-            values: ["us-central1-a"]
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+            - key: "failure-domain.beta.kubernetes.io/zone"
+              operator: NotIn
+              values: ["us-central1-a"]
  ```
 
 
@@ -99,7 +78,7 @@ The kubectl command allows you to set taints on nodes, for example:
 
 ```
 kubectl taint nodes node1 key=value:NoSchedule
- ```
+```
 
 
 creates a taint that marks the node as unschedulable by any pods that do not have a toleration for taint with key key, value value, and effect NoSchedule. (The other taint effects are PreferNoSchedule, which is the preferred version of NoSchedule, and NoExecute, which means any pods that are running on the node when the taint is applied will be evicted unless they tolerate the taint.) The toleration you would add to a PodSpec to have the corresponding pod tolerate this taint would look like this  
@@ -107,15 +86,11 @@ creates a taint that marks the node as unschedulable by any pods that do not hav
 
 
 ```
-tolerations:
-
-- key: "key"
-
-  operator: "Equal"
-
-  value: "value"
-
-  effect: "NoSchedule"
+  tolerations:
+  - key: "key"
+    operator: "Equal"
+    value: "value"
+    effect: "NoSchedule"
  ```
 
 
@@ -138,21 +113,13 @@ Let’s look at an example. Say you have front-ends in service S1, and they comm
 
 ```
 affinity:
-
     podAffinity:
-
       requiredDuringSchedulingIgnoredDuringExecution:
-
       - labelSelector:
-
           matchExpressions:
-
           - key: service
-
             operator: In
-
             values: [“S1”]
-
         topologyKey: failure-domain.beta.kubernetes.io/zone
  ```
 
@@ -172,25 +139,15 @@ Here we have a Pod where we specify the schedulerName field:
 
 ```
 apiVersion: v1
-
 kind: Pod
-
 metadata:
-
   name: nginx
-
   labels:
-
     app: nginx
-
 spec:
-
   schedulerName: my-scheduler
-
   containers:
-
   - name: nginx
-
     image: nginx:1.10
  ```
 

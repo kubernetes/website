@@ -203,7 +203,7 @@ As the Kubernetes community has grown, our release process represents an amazing
 <!--
 The LHC is the world’s largest and most powerful particle accelerator.  It is the result of the collaboration of thousands of scientists from around the world, all for the advancement of science. In a similar manner, Kubernetes has been a project that has united thousands of contributors from hundreds of organizations – all to work towards the same goal of improving cloud computing in all aspects! "A Bit Quarky" as the release name is meant to remind us that unconventional ideas can bring about great change and keeping an open mind to diversity will lead help us innovate.
 -->
-LHC 是世界上最大，功能最强大的粒子加速器。，是来自世界各地成千上万科学家合作的结果。所有这些合作都是为了促进科学的发展。以类似的方式，Kubernetes 已经成为一个聚集了来自数百个组织的数千名贡献者–所有人都朝着在各个方面改善云计算的相同目标努力的项目！ 发布名称“ A  Bit Quarky” 的意思是提醒我们，非常规的想法可以带来巨大的变化，对开放性保持开放态度将有助于我们进行创新。
+LHC 是世界上最大，功能最强大的粒子加速器。它是由来自世界各地成千上万科学家合作的结果，所有这些合作都是为了促进科学的发展。以类似的方式，Kubernetes 已经成为一个聚集了来自数百个组织的数千名贡献者–所有人都朝着在各个方面改善云计算的相同目标努力的项目！ 发布名称“ A  Bit Quarky” 的意思是提醒我们，非常规的想法可以带来巨大的变化，对开放性保持开放态度将有助于我们进行创新。
 
 
 <!--

@@ -7,7 +7,7 @@ reviewers:
 ---
 
 <!-- overview -->
-You can use the Kubernetes command line tool kubectl to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a docker sub-command and describe the equivalent kubectl command.
+You can use the Kubernetes command line tool `kubectl` to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the Docker commands and the kubectl commands. The following sections show a Docker sub-command and describe the equivalent `kubectl` command.
 
 
 <!-- body -->
@@ -37,16 +37,11 @@ kubectl:
 # start the pod running nginx
 kubectl create deployment --image=nginx nginx-app
 ```
-
-```shell
-# add env to nginx-app
-kubectl set env deployment/nginx-app  DOMAIN=cluster
-```
 ```
 deployment.apps/nginx-app created
 ```
 
-```
+```shell
 # add env to nginx-app
 kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```
@@ -270,7 +265,7 @@ nginx-app    1/1     1            1           2m
 ```
 
 ```shell
-kubectl get po -l run=nginx-app
+kubectl get po -l app=nginx-app
 ```
 ```
 NAME                         READY     STATUS    RESTARTS   AGE
@@ -284,7 +279,7 @@ deployment "nginx-app" deleted
 ```
 
 ```shell
-kubectl get po -l run=nginx-app
+kubectl get po -l app=nginx-app
 # Return nothing
 ```
 

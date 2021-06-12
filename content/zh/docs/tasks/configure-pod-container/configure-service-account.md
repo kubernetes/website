@@ -125,6 +125,14 @@ You can list this and any other serviceAccount resources in the namespace with t
 
 ```shell
 kubectl get serviceAccounts
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```
 NAME      SECRETS    AGE
 default   1          1d
 ```
@@ -141,8 +149,14 @@ kind: ServiceAccount
 metadata:
   name: build-robot
 EOF
-serviceaccount/build-robot created
 ```
+
+<!--
+The name of a ServiceAccount object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+-->
+ServiceAccount 对象的名字必须是一个有效的
+[DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 <!--
 If you get a complete dump of the service account object, like this:
@@ -151,6 +165,14 @@ If you get a complete dump of the service account object, like this:
 
 ```shell
 kubectl get serviceaccounts/build-robot -o yaml
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -168,7 +190,7 @@ then you will see that a token has automatically been created and is referenced 
 
 You may use authorization plugins to [set permissions on service accounts](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
-To use a non-default service account, simply set the `spec.serviceAccountName`
+To use a non-default service account, set the `spec.serviceAccountName`
 field of a pod to the name of the service account you wish to use.
 -->
 那么你就能看到系统已经自动创建了一个令牌并且被服务账户所引用。
@@ -176,7 +198,7 @@ field of a pod to the name of the service account you wish to use.
 你可以使用授权插件来
 [设置服务账户的访问许可](/zh/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
 
-要使用非默认的服务账户，只需简单的将 Pod 的 `spec.serviceAccountName` 字段设置为你想用的服务账户名称。
+要使用非默认的服务账户，将 Pod 的 `spec.serviceAccountName` 字段设置为你想用的服务账户名称。
 
 <!--
 The service account has to exist at the time the pod is created, or it will be rejected.
@@ -229,6 +251,14 @@ Any tokens for non-existent service accounts will be cleaned up by the token con
 
 ```shell
 kubectl describe secrets/build-robot-secret
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```
 Name:           build-robot-secret
 Namespace:      default
 Labels:         <none>
@@ -384,23 +414,26 @@ myregistrykey
 -->
 ## 服务帐户令牌卷投射   {#service-account-token-volume-projection}
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 <!--
-This ServiceAccountTokenVolumeProjection is __beta__ in 1.12 and
-enabled by passing all of the following flags to the API server:
+To enable and use token request projection, you must specify each of the following
+command line arguments to `kube-apiserver`:
 
 * `--service-account-issuer`
+* `--service-account-key-file`
 * `--service-account-signing-key-file`
-* `--service-account-api-audiences`
+* `--api-audiences`
+
 -->
 {{< note >}}
-ServiceAccountTokenVolumeProjection 在 1.12 版本中是 __beta__ 阶段，
-可以通过向 API 服务器传递以下所有参数来启用它：
+为了启用令牌请求投射，你必须为 `kube-apiserver` 设置以下命令行参数：
 
 * `--service-account-issuer`
+* `--service-account-key-file`
 * `--service-account-signing-key-file`
-* `--service-account-api-audiences`
+* `--api-audiences`
+
 {{< /note >}}
 
 <!--
@@ -438,7 +471,8 @@ kubectl create -f https://k8s.io/examples/pods/pod-projected-svc-token.yaml
 
 <!--
 The kubelet will request and store the token on behalf of the pod, make the
-token available to the pod at a configurable file path, and refresh the token as it approaches expiration. Kubelet proactively rotates the token if it is older than 80% of its total TTL, or if the token is older than 24 hours.
+token available to the pod at a configurable file path, and refresh the token as it approaches expiration. 
+The kubelet proactively rotates the token if it is older than 80% of its total TTL, or if the token is older than 24 hours.
 
 The application is responsible for reloading the token when it rotates. Periodic reloading (e.g. once every 5 minutes) is sufficient for most use cases.
 -->
@@ -455,18 +489,15 @@ The application is responsible for reloading the token when it rotates. Periodic
 -->
 ## 发现服务账号分发者
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-The Service Account Issuer Discovery feature is enabled by enabling the
-`ServiceAccountIssuerDiscovery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates)
-and then enabling the Service Account Token Projection feature as described
+The Service Account Issuer Discovery feature is enabled when the Service Account
+Token Projection feature is enabled, as described
 [above](#service-account-token-volume-projection).
 -->
-通过启用 `ServiceAccountIssuerDiscovery`
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates)，
-并按[前文所述](#service-account-token-volume-projection)启用服务账号令牌投射，
-可以启用发现服务账号分发者（Service Account Issuer Discovery）这一功能特性。
+当启用服务账号令牌投射时启用发现服务账号分发者（Service Account Issuer Discovery）这一功能特性，
+如[上文所述](#service-account-token-volume-projection)。
 
 <!--
 The issuer URL must comply with the
@@ -508,14 +539,15 @@ JSON Web Key Set（JWKS）。
 这里的 OpenID 提供者配置有时候也被称作 _发现文档（Discovery Document）_。
 
 <!--
-When enabled, the cluster is also configured with a default RBAC ClusterRole
-called `system:service-account-issuer-discovery`. No role bindings are provided
+Clusters include a default RBAC ClusterRole called
+`system:service-account-issuer-discovery`. No role bindings are provided
 by default. Administrators may, for example, choose whether to bind the role to
 `system:authenticated` or `system:unauthenticated` depending on their security
 requirements and which external systems they intend to federate with.
 -->
-特性被启用时，集群也会配置名为 `system:service-account-issuer-discovery`
-的默认 RBAC ClusterRole，但默认情况下不提供角色绑定对象。
+集群包括一个默认的 RBAC ClusterRole，
+名为 `system:service-account-issuer-discovery`。
+默认情况下不提供角色绑定对象。
 举例而言，管理员可以根据其安全性需要以及期望集成的外部系统选择是否将该角色绑定到
 `system:authenticated` 或 `system:unauthenticated`。
 
@@ -572,4 +604,3 @@ See also:
 - [服务账号的集群管理员指南](/zh/docs/reference/access-authn-authz/service-accounts-admin/)
 - [服务账号签署密钥检索 KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
 - [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)
-

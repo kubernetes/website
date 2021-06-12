@@ -23,7 +23,7 @@
 
 如需举报侮辱、骚扰或其他不可接受的行为，您可发送邮件至 <conduct@kubernetes.io> 联系 [Kubernetes行为守则委员会](https://github.com/kubernetes/community/tree/master/committee-code-of-conduct)。其他事务请联系CNCF项目维护专员，或发送邮件至 <mishi@linux.com> 联系我们的调解员Mishi Choudhary。
 
-本行为准则改编自《贡献者契约》（ http://contributor-covenant.org ）1.2.0 版本，可在 http://contributor-covenant.org/version/1/2/0/ 查看。
+本行为准则改编自《贡献者契约》（ https://contributor-covenant.org ）1.2.0 版本，可在 https://contributor-covenant.org/version/1/2/0/ 查看。
 
 ### CNCF 活动行为准则
 

@@ -93,7 +93,7 @@ Since a namespace is a cluster-scoped resource type, you can retrieve the list o
 
 Almost all object resource types support the standard HTTP verbs - GET, POST, PUT, PATCH, and DELETE. Kubernetes uses the term **list** to describe returning a collection of resources to distinguish from retrieving a single resource which is usually called a **get**.
 -->
-由于名字空间本身是一个集群作用域的资源累;，你可以通过 `GET /api/v1/namespaces/`
+由于名字空间本身是一个集群作用域的资源类型，你可以通过 `GET /api/v1/namespaces/`
 检视所有名字空间的列表，使用 `GET /api/v1/namespaces/NAME` 查看特定名字空间的
 详细信息。
 

@@ -99,7 +99,7 @@ kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 ```
 
 The examples in this section use the `pause` container image because it does not
-contain userland debugging utilities, but this method works with all container
+contain debugging utilities, but this method works with all container
 images.
 
 If you attempt to use `kubectl exec` to create a shell you will see an error
@@ -192,7 +192,7 @@ this scenario using `kubectl run`:
 kubectl run myapp --image=busybox --restart=Never -- sleep 1d
 ```
 
-Run this command to create a copy of `myapp` named `myapp-copy` that adds a
+Run this command to create a copy of `myapp` named `myapp-debug` that adds a
 new Ubuntu container for debugging:
 
 ```shell

@@ -60,16 +60,19 @@ _A_ 영역에 있는 컨트롤 플레인 호스트로만 전달한다. 단일 �
 클러스터 생성시의 부가 스트립트이다.
 클러스터 생성 시에 (사용자 도구를 사용하여) 다음을 수행할 수 있다.
 
-* 추가 ectd 인스턴스 시작 및 설정
+* 추가 etcd 인스턴스 시작 및 설정
 * 이벤트를 저장하기 위한 {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} 설정
+
+[쿠버네티스를 위한 etcd 클러스터 운영하기](/docs/tasks/administer-cluster/configure-upgrade-etcd/)와
+[kubeadm을 이용하여 고가용성 etcd 생성하기](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)에서 
+큰 클러스터를 위한 etcd를 설정하고 관리하는 방법에 대한 상세 사항을 확인한다.
 
 ## 애드온 리소스
 
 쿠버네티스 [리소스 제한](/ko/docs/concepts/configuration/manage-resources-containers/)은
 파드와 컨테이너가 다른 컴포넌트에 영향을 줄 수 있는 메모리 누수 및 기타 방식의 영향을
-최소화하는 데 도움이 된다. 이러한 리소스 제한은 애플리케이션 워크로드에 적용되는 것과 마찬가지로
-{{< glossary_tooltip text="애드온" term_id="addons" >}}에도 적용될 수 있으며
-적용되어야 한다.
+최소화하는 데 도움이 된다. 이러한 리소스 제한은 애플리케이션 워크로드에 적용될 수 있는 것처럼 
+{{< glossary_tooltip text="애드온" term_id="addons" >}} 리소스에도 적용될 수 있다.
 
 예를 들어, 로깅 컴포넌트에 대한 CPU 및 메모리 제한을 설정할 수 있다.
 

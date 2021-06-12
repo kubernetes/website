@@ -19,8 +19,10 @@ support, on some other application-provided metrics). Note that Horizontal
 Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSets.
 -->
 Pod 水平自动扩缩（Horizontal Pod Autoscaler）
-可以基于 CPU 利用率自动扩缩 ReplicationController、Deployment、ReplicaSet 和 StatefulSet 中的 Pod 数量。
-除了 CPU 利用率，也可以基于其他应程序提供的[自定义度量指标](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
+可以基于 CPU 利用率自动扩缩 ReplicationController、Deployment、ReplicaSet 和
+StatefulSet 中的 Pod 数量。
+除了 CPU 利用率，也可以基于其他应程序提供的
+[自定义度量指标](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
 来执行自动扩缩。
 Pod 自动扩缩不适用于无法扩缩的对象，比如 DaemonSet。
 
@@ -28,11 +30,11 @@ Pod 自动扩缩不适用于无法扩缩的对象，比如 DaemonSet。
 The Horizontal Pod Autoscaler is implemented as a Kubernetes API resource and a controller.
 The resource determines the behavior of the controller.
 The controller periodically adjusts the number of replicas in a replication controller or deployment
-to match the observed average CPU utilization to the target specified by user.
+to match the observed metrics such as average CPU utilisation, average memory utilisation or any other custom metric to the target specified by the user.
 -->
 Pod 水平自动扩缩特性由 Kubernetes API 资源和控制器实现。资源决定了控制器的行为。
-控制器会周期性的调整副本控制器或 Deployment 中的副本数量，以使得 Pod 的平均 CPU
-利用率与用户所设定的目标值匹配。
+控制器会周期性地调整副本控制器或 Deployment 中的副本数量，以使得类似 Pod 平均 CPU
+利用率、平均内存利用率这类观测到的度量值与用户所设定的目标值匹配。
 
 <!-- body -->
 
@@ -57,7 +59,8 @@ obtains the metrics from either the resource metrics API (for per-pod resource m
 or the custom metrics API (for all other metrics).
 -->
 每个周期内，控制器管理器根据每个 HorizontalPodAutoscaler 定义中指定的指标查询资源利用率。
-控制器管理器可以从资源度量指标 API（按 Pod 统计的资源用量）和自定义度量指标 API（其他指标）获取度量值。
+控制器管理器可以从资源度量指标 API（按 Pod 统计的资源用量）和自定义度量指标
+API（其他指标）获取度量值。
 
 <!--
 * For per-pod resource metrics (like CPU), the controller fetches the metrics
@@ -288,7 +291,7 @@ the current value.
 这表示，如果一个或多个指标给出的 `desiredReplicas` 值大于当前值，HPA 仍然能实现扩容。
 
 <!--
-Finally, just before HPA scales the target, the scale recommendation is recorded.  The
+Finally, right before HPA scales the target, the scale recommendation is recorded.  The
 controller considers all recommendations within a configurable window choosing the
 highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
@@ -296,7 +299,8 @@ fluctuating metric values.
 -->
 最后，在 HPA 控制器执行扩缩操作之前，会记录扩缩建议信息。
 控制器会在操作时间窗口中考虑所有的建议信息，并从中选择得分最高的建议。
-这个值可通过 `kube-controller-manager` 服务的启动参数 `--horizontal-pod-autoscaler-downscale-stabilization` 进行配置，
+这个值可通过 `kube-controller-manager` 服务的启动参数
+`--horizontal-pod-autoscaler-downscale-stabilization` 进行配置，
 默认值为 5 分钟。
 这个配置可以让系统更为平滑地进行缩容操作，从而消除短时间内指标值快速波动产生的影响。
 
@@ -349,7 +353,7 @@ Finally, we can delete an autoscaler using `kubectl delete hpa`.
 最后，可以使用 `kubectl delete hpa` 命令删除对象。
 
 <!--
-In addition, there is a special `kubectl autoscale` command for easy creation of a Horizontal Pod Autoscaler.
+In addition, there is a special `kubectl autoscale` command for creating a HorizontalPodAutoscaler.
 For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
 will create an autoscaler for replication set *foo*, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
@@ -412,14 +416,15 @@ upscale delay.
 从 v1.12 开始，算法调整后，扩容操作时的延迟就不必设置了。
 
 <!--
-- `--horizontal-pod-autoscaler-downscale-stabilization`: The value for this option is a
-  duration that specifies how long the autoscaler has to wait before another
-  downscale operation can be performed after the current one has completed.
+- `--horizontal-pod-autoscaler-downscale-stabilization`: Specifies the duration of the
+  downscale stabilization time window. Horizontal Pod Autoscaler remembers
+  this historical recommended sizes and only acts on the largest size within this time window.
   The default value is 5 minutes (`5m0s`).
 -->
-- `--horizontal-pod-autoscaler-downscale-stabilization`: 
-  `kube-controller-manager` 的这个参数表示缩容冷却时间。
-  即自从上次缩容执行结束后，多久可以再次执行缩容，默认时间是 5 分钟(`5m0s`)。
+- `--horizontal-pod-autoscaler-downscale-stabilization`: 设置缩容冷却时间窗口长度。
+  水平 Pod
+扩缩器能够记住过去建议的负载规模，并仅对此时间窗口内的最大规模执行操作。
+  默认值是 5 分钟（`5m0s`）。
 
 <!--
 When tuning these parameter values, a cluster operator should be aware of the possible
@@ -432,6 +437,127 @@ usual.
 当调整这些参数时，集群操作员需要明白其可能的影响。
 如果延迟（冷却）时间设置的太长，Horizontal Pod Autoscaler 可能会不能很好的改变负载。
 如果延迟（冷却）时间设置的太短，那么副本数量有可能跟以前一样出现抖动。
+{{< /note >}}
+
+<!--
+## Support for resource metrics
+
+Any HPA target can be scaled based on the resource usage of the pods in the scaling target.
+When defining the pod specification the resource requests like `cpu` and `memory` should
+be specified. This is used to determine the resource utilization and used by the HPA controller
+to scale the target up or down. To use resource utilization based scaling specify a metric source
+like this:
+-->
+## 对资源指标的支持   {#support-for-resource-metrics}
+
+HPA 的任何目标资源都可以基于其中的 Pods 的资源用量来实现扩缩。
+在定义 Pod 规约时，类似 `cpu` 和 `memory` 这类资源请求必须被设定。
+这些设定值被用来确定资源利用量并被 HPA 控制器用来对目标资源完成扩缩操作。
+要使用基于资源利用率的扩缩，可以像下面这样指定一个指标源：
+
+```yaml
+type: Resource
+resource:
+  name: cpu
+  target:
+    type: Utilization
+    averageUtilization: 60
+```
+
+<!--
+With this metric the HPA controller will keep the average utilization of the pods in the scaling
+target at 60%. Utilization is the ratio between the current usage of resource to the requested
+resources of the pod. See [Algorithm](#algorithm-details) for more details about how the utilization
+is calculated and averaged.
+-->
+基于这一指标设定，HPA 控制器会维持扩缩目标中的 Pods 的平均资源利用率在 60%。
+利用率是 Pod 的当前资源用量与其请求值之间的比值。关于如何计算利用率以及如何计算平均值
+的细节可参考[算法](#algorithm-details)小节。
+
+{{< note >}}
+<!--
+Since the resource usages of all the containers are summed up the total pod utilization may not
+accurately represent the individual container resource usage. This could lead to situations where
+a single container might be running with high usage and the HPA will not scale out because the overall
+pod usage is still within acceptable limits.
+-->
+由于所有的容器的资源用量都会被累加起来，Pod 的总体资源用量值可能不会精确体现
+各个容器的资源用量。这一现象也会导致一些问题，例如某个容器运行时的资源用量非常
+高，但因为 Pod 层面的资源用量总值让人在可接受的约束范围内，HPA 不会执行扩大
+目标对象规模的操作。
+{{< /note >}}
+
+<!--
+### Container Resource Metrics
+-->
+### 容器资源指标   {#container-resource-metrics}
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+<!--
+`HorizontalPodAutoscaler` also supports a container metric source where the HPA can track the
+resource usage of individual containers across a set of Pods, in order to scale the target resource.
+This lets you configure scaling thresholds for the containers that matter most in a particular Pod.
+For example, if you have a web application and a logging sidecar, you can scale based on the resource
+use of the web application, ignoring the sidecar container and its resource use.
+-->
+`HorizontalPodAutoscaler` 也支持容器指标源，这时 HPA 可以跟踪记录一组 Pods 中各个容器的
+资源用量，进而触发扩缩目标对象的操作。
+容器资源指标的支持使得你可以为特定 Pod 中最重要的容器配置规模缩放阈值。
+例如，如果你有一个 Web 应用和一个执行日志操作的边车容器，你可以基于 Web 应用的
+资源用量来执行扩缩，忽略边车容器的存在及其资源用量。
+
+<!--
+If you revise the target resource to have a new Pod specification with a different set of containers,
+you should revise the HPA spec if that newly added container should also be used for
+scaling. If the specified container in the metric source is not present or only present in a subset
+of the pods then those pods are ignored and the recommendation is recalculated. See [Algorithm](#algorithm-details)
+for more details about the calculation. To use container resources for autoscaling define a metric
+source as follows:
+-->
+如果你更改缩放目标对象，令其使用新的、包含一组不同的容器的 Pod 规约，你就需要
+修改 HPA 的规约才能基于新添加的容器来执行规模扩缩操作。
+如果指标源中指定的容器不存在或者仅存在于部分 Pods 中，那么这些 Pods 会被忽略，
+HPA 会重新计算资源用量值。参阅[算法](#algorithm-details)小节进一步了解计算细节。
+要使用容器资源用量来完成自动扩缩，可以像下面这样定义指标源：
+
+```yaml
+type: ContainerResource
+containerResource:
+  name: cpu
+  container: application
+  target:
+    type: Utilization
+    averageUtilization: 60
+```
+
+<!--
+In the above example the HPA controller scales the target such that the average utilization of the cpu
+in the `application` container of all the pods is 60%.
+-->
+在上面的例子中，HPA 控制器会对目标对象执行扩缩操作以确保所有 Pods 中
+`application` 容器的平均 CPU 用量为 60%。
+
+{{< note >}}
+<!--
+If you change the name of a container that a HorizontalPodAutoscaler is tracking, you can
+make that change in a specific order to ensure scaling remains available and effective
+whilst the change is being applied. Before you update the resource that defines the container
+(such as a Deployment), you should update the associated HPA to track both the new and
+old container names. This way, the HPA is able to calculate a scaling recommendation
+throughout the update process.
+-->
+如果你要更改 HorizontalPodAutoscaler 所跟踪记录的容器的名称，你可以按一定顺序
+来执行这一更改，确保在应用更改的过程中用来判定扩缩行为的容器可用。
+在更新定义容器的资源（如 Deployment）之前，你需要更新相关的 HPA，使之能够同时
+跟踪记录新的和老的容器名称。这样，HPA 就能够在整个更新过程中继续计算并提供扩缩操作建议。
+
+<!--
+Once you have rolled out the container name change to the workload resource, tidy up by removing
+the old container name from the HPA specification.
+-->
+一旦你已经将容器名称变更这一操作应用到整个负载对象至上，就可以从 HPA
+的规约中去掉老的容器名称，完成清理操作。
 {{< /note >}}
 
 <!--
@@ -513,7 +639,7 @@ APIs, cluster administrators must ensure that:
 * 相应的 API 已注册：
 
    * 对于资源指标，将使用 `metrics.k8s.io` API，一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
-     它可以做为集群插件启动。
+     它可以作为集群插件启动。
     
    * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
@@ -548,7 +674,7 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 ## Support for configurable scaling behavior
 
 Starting from
-[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity/README.md)
 the `v2beta2` API allows scaling behavior to be configured through the HPA
 `behavior` field. Behaviors are specified separately for scaling up and down in
 `scaleUp` or `scaleDown` section under the `behavior` field. A stabilization
@@ -558,7 +684,7 @@ policies controls the rate of change of replicas while scaling.
 -->
 ## 支持可配置的扩缩 {#support-for-configurable-scaling-behaviour}
 
-从 [v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+从 [v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity/README.md)
 开始，`v2beta2` API 允许通过 HPA 的 `behavior` 字段配置扩缩行为。
 在 `behavior` 字段中的 `scaleUp` 和 `scaleDown` 分别指定扩容和缩容行为。
 可以两个方向指定一个稳定窗口，以防止扩缩目标中副本数量的波动。
@@ -590,7 +716,12 @@ behavior:
 ```
 
 <!--  
-When the number of pods is more than 40 the second policy will be used for scaling down.
+`periodSeconds` indicates the length of time in the past for which the policy must hold true.
+The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy
+_(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
+
+Since by default the policy which allows the highest amount of change is selected, the second policy will
+only be used when the number of pod replicas is more than 40. With 40 or less replicas, the first policy will be applied.
 For instance if there are 80 replicas and the target has to be scaled down to 10 replicas
 then during the first step 8 replicas will be reduced. In the next iteration when the number
 of replicas is 72, 10% of the pods is 7.2 but the number is rounded up to 8. On each loop of
@@ -598,20 +729,16 @@ the autoscaler controller the number of pods to be change is re-calculated based
 of current replicas. When the number of replicas falls below 40 the first policy _(Pods)_ is applied
 and 4 replicas will be reduced at a time.
 -->
-当 Pod 数量超过 40 个时，第二个策略将用于缩容。
+`periodSeconds` 表示在过去的多长时间内要求策略值为真。
+第一个策略（Pods）允许在一分钟内最多缩容 4 个副本。第二个策略（Percent）
+允许在一分钟内最多缩容当前副本个数的百分之十。
+
+由于默认情况下会选择容许更大程度作出变更的策略，只有 Pod 副本数大于 40 时，
+第二个策略才会被采用。如果副本数为 40 或者更少，则应用第一个策略。
 例如，如果有 80 个副本，并且目标必须缩小到 10 个副本，那么在第一步中将减少 8 个副本。
 在下一轮迭代中，当副本的数量为 72 时，10% 的 Pod 数为 7.2，但是这个数字向上取整为 8。
 在 autoscaler 控制器的每个循环中，将根据当前副本的数量重新计算要更改的 Pod 数量。
-当副本数量低于 40 时，应用第一个策略 _（Pods）_ ，一次减少 4 个副本。
-
-<!-- 
-`periodSeconds` indicates the length of time in the past for which the policy must hold true.
-The first policy allows at most 4 replicas to be scaled down in one minute. The second policy
-allows at most 10% of the current replicas to be scaled down in one minute.
--->
-`periodSeconds` 表示策略的时间长度必须保证有效。
-第一个策略允许在一分钟内最多缩小 4 个副本。
-第二个策略最多允许在一分钟内缩小当前副本的 10%。
+当副本数量低于 40 时，应用第一个策略（Pods），一次减少 4 个副本。
 
 <!--  
 The policy selection can be changed by specifying the `selectPolicy` field for a scaling
@@ -685,7 +812,7 @@ behavior:
 ```
 
 <!--  
-For scaling down the stabilization window is _300_ seconds(or the value of the
+For scaling down the stabilization window is _300_ seconds (or the value of the
 `--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy
 for scaling down which allows a 100% of the currently running replicas to be removed which
 means the scaling target can be scaled down to the minimum allowed replicas.
@@ -693,7 +820,8 @@ For scaling up there is no stabilization window. When the metrics indicate that 
 scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
 running replicas will be added every 15 seconds till the HPA reaches its steady state.
 -->
-用于缩小稳定窗口的时间为 _300_  秒(或是 `--horizontal-pod-autoscaler-downscale-stabilization` 参数设定值)。
+用于缩小稳定窗口的时间为 _300_  秒(或是 `--horizontal-pod-autoscaler-downscale-stabilization`
+参数设定值)。
 只有一种缩容的策略，允许 100% 删除当前运行的副本，这意味着扩缩目标可以缩小到允许的最小副本数。
 对于扩容，没有稳定窗口。当指标显示目标应该扩容时，目标会立即扩容。
 这里有两种策略，每 15 秒添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
@@ -738,7 +866,8 @@ To ensure that no more than 5 Pods are removed per minute, you can add a second 
 policy with a fixed size of 5, and set `selectPolicy` to minimum. Setting `selectPolicy` to `Min` means
 that the autoscaler chooses the policy that affects the smallest number of Pods:
 -->
-为了确保每分钟删除的 Pod 数不超过 5 个，可以添加第二个缩容策略，大小固定为 5，并将 `selectPolicy` 设置为最小值。
+为了确保每分钟删除的 Pod 数不超过 5 个，可以添加第二个缩容策略，大小固定为 5，
+并将 `selectPolicy` 设置为最小值。
 将 `selectPolicy` 设置为 `Min` 意味着 autoscaler 会选择影响 Pod 数量最小的策略:
 
 ```yaml

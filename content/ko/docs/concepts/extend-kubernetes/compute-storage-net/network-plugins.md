@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: 네트워크 플러그인
 content_type: concept
 weight: 10
@@ -20,7 +24,7 @@ weight: 10
 kubelet에는 단일 기본 네트워크 플러그인과 전체 클러스터에 공통된 기본 네트워크가 있다. 플러그인은 시작할 때 플러그인을 검색하고, 찾은 것을 기억하며, 파드 라이프사이클에서 적절한 시간에 선택한 플러그인을 실행한다(CRI는 자체 CNI 플러그인을 관리하므로 도커에만 해당됨). 플러그인 사용 시 명심해야 할 두 가지 Kubelet 커맨드라인 파라미터가 있다.
 
 * `cni-bin-dir`: Kubelet은 시작할 때 플러그인에 대해 이 디렉터리를 검사한다.
-* `network-plugin`: `cni-bin-dir` 에서 사용할 네트워크 플러그인. 플러그인 디렉터리에서 검색한 플러그인이 보고된 이름과 일치해야 한다. CNI 플러그인의 경우, 이는 단순히 "cni"이다.
+* `network-plugin`: `cni-bin-dir` 에서 사용할 네트워크 플러그인. 플러그인 디렉터리에서 검색한 플러그인이 보고된 이름과 일치해야 한다. CNI 플러그인의 경우, 이는 "cni"이다.
 
 ## 네트워크 플러그인 요구 사항
 
@@ -155,5 +159,5 @@ AWS에서 `eth0` MTU는 일반적으로 9001이므로, `--network-plugin-mtu=900
 ## 용법 요약
 
 * `--network-plugin=cni` 는 `--cni-bin-dir`(기본값 `/opt/cni/bin`)에 있는 실제 CNI 플러그인 바이너리와 `--cni-conf-dir`(기본값 `/etc/cni/net.d`)에 있는 CNI 플러그인 구성과 함께 `cni` 네트워크 플러그인을 사용하도록 지정한다.
-* `--network-plugin=kubenet` 은 `/opt/cni/bin` 또는 `cni-bin-dir` 에 있는 CNI `bridge` 및 `host-local` 플러그인과 함께 kubenet 네트워크 플러그인을 사용하도록 지정한다.
+* `--network-plugin=kubenet` 은 `/opt/cni/bin` 또는 `cni-bin-dir` 에 있는 CNI `bridge`, `lo` 및 `host-local` 플러그인과 함께 `kubenet` 네트워크 플러그인을 사용하도록 지정한다.
 * 현재 kubenet 네트워크 플러그인에서만 사용하는 `--network-plugin-mtu=9001` 은 사용할 MTU를 지정한다.

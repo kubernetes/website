@@ -19,7 +19,7 @@ Up to date information on this process can be found at the
 * You must have a Kubernetes cluster with cluster DNS enabled.
     * If you are using a cloud-based Kubernetes cluster or {{< glossary_tooltip text="Minikube" term_id="minikube" >}}, you may already have cluster DNS enabled.
     * If you are using `hack/local-up-cluster.sh`, ensure that the `KUBE_ENABLE_CLUSTER_DNS` environment variable is set, then run the install script.
-* [Install and setup kubectl](/docs/tasks/tools/install-kubectl/) v1.7 or higher. Make sure it is configured to connect to the Kubernetes cluster.
+* [Install and setup kubectl](/docs/tasks/tools/) v1.7 or higher. Make sure it is configured to connect to the Kubernetes cluster.
 * Install [Helm](https://helm.sh/) v2.7.0 or newer.
     * Follow the [Helm install instructions](https://helm.sh/docs/intro/install/).
     * If you already have an appropriate version of Helm installed, execute `helm init` to install Tiller, the server-side component of Helm.
@@ -33,7 +33,7 @@ Up to date information on this process can be found at the
 Once Helm is installed, add the *service-catalog* Helm repository to your local machine by executing the following command:
 
 ```shell
-helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com
+helm repo add svc-cat https://kubernetes-sigs.github.io/service-catalog
 ```
 
 Check to make sure that it installed successfully by executing the following command:

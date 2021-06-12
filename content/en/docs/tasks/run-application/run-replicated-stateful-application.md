@@ -39,6 +39,7 @@ on general patterns for running stateful applications in Kubernetes.
   [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Some familiarity with MySQL helps, but this tutorial aims to present
   general patterns that should be useful for other systems.
+* You are using the default namespace or another namespace that does not contain any conflicting objects.
 
 
 
@@ -171,10 +172,10 @@ properties.
 The script in the `init-mysql` container also applies either `primary.cnf` or
 `replica.cnf` from the ConfigMap by copying the contents into `conf.d`.
 Because the example topology consists of a single primary MySQL server and any number of
-replicas, the script simply assigns ordinal `0` to be the primary server, and everyone
+replicas, the script assigns ordinal `0` to be the primary server, and everyone
 else to be replicas.
 Combined with the StatefulSet controller's
-[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees/),
+[deployment order guarantee](/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees),
 this ensures the primary MySQL server is Ready before creating replicas, so they can begin
 replicating.
 
@@ -534,9 +535,8 @@ kubectl delete pvc data-mysql-4
 * Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
 * Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
 * Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
-* Look in the [Helm Charts repository](https://github.com/kubernetes/charts)
+* Look in the [Helm Charts repository](https://artifacthub.io/)
   for other stateful application examples.
-
 
 
 

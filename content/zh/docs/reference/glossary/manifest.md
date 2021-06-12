@@ -1,5 +1,5 @@
 ---
-title: 清单
+title: 清单（Manifest）
 id: manifest
 date: 2019-06-28
 short_description: >

@@ -47,6 +47,15 @@ and other ecosystem groups to ensure a smooth transition and will evaluate thing
 as the situation evolves.
 
 
+### Can I still use dockershim after it is removed from Kubernetes?
+
+Update:
+Mirantis and Docker have [committed][mirantis] to maintaining the dockershim after
+it is removed from Kubernetes.
+
+[mirantis]: https://www.mirantis.com/blog/mirantis-to-take-over-support-of-kubernetes-dockershim-2/
+
+
 ### Will my existing Docker images still work?
 
 Yes, the images produced from `docker build` will work with all CRI implementations.
@@ -55,7 +64,7 @@ All your existing images will still work exactly the same.
 
 ### What about private images?
 
-Also yes. All CRI runtimes support the same pull secrets configuration used in
+Yes. All CRI runtimes support the same pull secrets configuration used in
 Kubernetes, either via the PodSpec or ServiceAccount.
 
 
@@ -82,7 +91,7 @@ usability of other container runtimes. As an example, OpenShift 4.x has been
 using the [CRI-O] runtime in production since June 2019.
 
 For other examples and references you can look at the adopters of containerd and
-cri-o, two container runtimes under the Cloud Native Computing Foundation ([CNCF]).
+CRI-O, two container runtimes under the Cloud Native Computing Foundation ([CNCF]).
 - [containerd](https://github.com/containerd/containerd/blob/master/ADOPTERS.md)
 - [CRI-O](https://github.com/cri-o/cri-o/blob/master/ADOPTERS.md)
 
@@ -110,11 +119,11 @@ provide an end-to-end standard for managing containers.
 
 That’s a complex question and it depends on a lot of factors. If Docker is
 working for you, moving to containerd should be a relatively easy swap and
-has have strictly better performance and less overhead. However we encourage you
+will have strictly better performance and less overhead. However, we encourage you
 to explore all the options from the [CNCF landscape] in case another would be an
 even better fit for your environment.
 
-[CNCF landscape]: https://landscape.cncf.io/category=container-runtime&format=card-mode&grouping=category
+[CNCF landscape]: https://landscape.cncf.io/card-mode?category=container-runtime&grouping=category
 
 
 ### What should I look out for when changing CRI implementations?
@@ -129,7 +138,7 @@ common things to consider when migrating are:
 - Kubectl plugins that require docker CLI or the control socket
 - Kubernetes tools that require direct access to Docker (e.g. kube-imagepuller)
 - Configuration of functionality like `registry-mirrors` and insecure registries 
-- Other support scripts or daemons that expect docker to be available and are run
+- Other support scripts or daemons that expect Docker to be available and are run
   outside of Kubernetes (e.g. monitoring or security agents)
 - GPUs or special hardware and how they integrate with your runtime and Kubernetes
 
@@ -177,5 +186,4 @@ discussion of the changes.
 ### Can I have a hug?
 
 Always and whenever you want!  🤗🤗
-
 

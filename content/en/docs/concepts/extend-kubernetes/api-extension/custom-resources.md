@@ -31,7 +31,7 @@ Once a custom resource is installed, users can create and access its objects usi
 
 ## Custom controllers
 
-On their own, custom resources simply let you store and retrieve structured data.
+On their own, custom resources let you store and retrieve structured data.
 When you combine a custom resource with a *custom controller*, custom resources
 provide a true _declarative API_.
 
@@ -44,7 +44,7 @@ desired state, and continually maintains this state.
 You can deploy and update a custom controller on a running cluster, independently
 of the cluster's lifecycle. Custom controllers can work with any kind of resource,
 but they are especially effective when combined with custom resources. The
-[Operator pattern](https://coreos.com/blog/introducing-operators.html) combines custom
+[Operator pattern](/docs/concepts/extend-kubernetes/operator/) combines custom
 resources and custom controllers. You can use custom controllers to encode domain knowledge
 for specific applications into an extension of the Kubernetes API.
 
@@ -120,7 +120,7 @@ Kubernetes provides two ways to add custom resources to your cluster:
 
 Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility is compromised.
 
-Aggregated APIs are subordinate API servers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
+Aggregated APIs are subordinate API servers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). To users, the Kubernetes API appears extended.
 
 CRDs allow users to create new types of resources without adding another API server. You do not need to understand API Aggregation to use CRDs.
 

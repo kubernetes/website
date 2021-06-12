@@ -27,7 +27,7 @@ You can use _topology spread constraints_ to control how {{< glossary_tooltip te
 
 <!--
 {{< note >}}
-In versions of Kubernetes before v1.19, you must enable the `EvenPodsSpread`
+In versions of Kubernetes before v1.18, you must enable the `EvenPodsSpread`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on
 the [API server](/docs/concepts/overview/components/#kube-apiserver) and the
 [scheduler](/docs/reference/generated/kube-scheduler/) in order to use Pod
@@ -36,7 +36,8 @@ topology spread constraints.
 -->
 
 {{< note >}}
-在 v1.19 之前的 Kubernetes 版本中，如果要使用 Pod 拓扑扩展约束，你必须在 [API 服务器](/zh/docs/concepts/overview/components/#kube-apiserver) 
+在 v1.18 之前的 Kubernetes 版本中，如果要使用 Pod 拓扑扩展约束，你必须在
+[API 服务器](/zh/docs/concepts/overview/components/#kube-apiserver)
 和[调度器](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
 中启用 `EvenPodsSpread` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 {{< /note >}}
@@ -95,10 +96,11 @@ graph TB
 {{< /mermaid >}}
 
 <!--
-Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/kubernetes-api/labels-annotations-taints/) that are created and populated automatically on most clusters.
+
+Instead of manually applying labels, you can also reuse the [well-known labels](/docs/reference/labels-annotations-taints/) that are created and populated automatically on most clusters.
 -->
 你可以复用在大多数集群上自动创建和填充的
-[常用标签](/zh/docs/reference/kubernetes-api/labels-annotations-taints/)，
+[常用标签](/zh/docs/reference/labels-annotations-taints/)，
 而不是手动添加标签。
 
 <!--
@@ -217,7 +219,7 @@ If we want an incoming Pod to be evenly spread with existing Pods across zones, 
 则让它保持悬决状态。
 
 <!--
-If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1], 
+If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1],
 hence the actual skew is 2 (3 - 1) - which violates `maxSkew: 1`. In this example, the incoming Pod can only be placed onto "zoneB":
 -->
 如果调度器将新的 Pod 放入 "zoneA"，Pods 分布将变为 [3, 1]，因此实际的偏差
@@ -499,6 +501,7 @@ profiles:
             - maxSkew: 1
               topologyKey: topology.kubernetes.io/zone
               whenUnsatisfiable: ScheduleAnyway
+          defaultingType: List
 ```
 
 {{< note >}}
@@ -520,15 +523,15 @@ using default constraints for `PodTopologySpread`.
 -->
 #### 内部默认约束    {#internal-default-constraints}
 
-{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
 <!--
-When you enable the `DefaultPodTopologySpread` feature gate, the
+With the `DefaultPodTopologySpread` feature gate, enabled by default, the
 legacy `SelectorSpread` plugin is disabled.
 kube-scheduler uses the following default topology constraints for the
 `PodTopologySpread` plugin configuration:
 -->
-当你启用了 `DefaultPodTopologySpread` 特性门控时，原来的
+当你使用了默认启用的 `DefaultPodTopologySpread` 特性门控时，原来的
 `SelectorSpread` 插件会被禁用。
 kube-scheduler 会使用下面的默认拓扑约束作为 `PodTopologySpread` 插件的
 配置：
@@ -564,6 +567,26 @@ Kubernetes 的默认约束。
 
 插件 `PodTopologySpread` 不会为未设置分布约束中所给拓扑键的节点评分。
 {{< /note >}}
+
+<!--
+If you don't want to use the default Pod spreading constraints for your cluster,
+you can disable those defaults by setting `defaultingType` to `List` and leaving
+empty `defaultConstraints` in the `PodTopologySpread` plugin configuration:
+-->
+如果你不想为集群使用默认的 Pod 分布约束，你可以通过设置 `defaultingType` 参数为 `List` 和
+将 `PodTopologySpread` 插件配置中的 `defaultConstraints` 参数置空来禁用默认 Pod 分布约束。
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+
+profiles:
+  - pluginConfig:
+      - name: PodTopologySpread
+        args:
+          defaultConstraints: []
+          defaultingType: List
+```
 
 <!--
 ## Comparison with PodAffinity/PodAntiAffinity
@@ -623,4 +646,3 @@ See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig
 -->
 - [博客: PodTopologySpread介绍](https://kubernetes.io/blog/2020/05/introducing-podtopologyspread/)
   详细解释了 `maxSkew`，并给出了一些高级的使用示例。
-

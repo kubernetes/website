@@ -134,7 +134,7 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 
 ### kube-scheduler metrics
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 The scheduler exposes optional metrics that reports the requested resources and the desired limits of all running pods. These metrics can be used to build capacity planning dashboards, assess current or historical scheduling limits, quickly identify workloads that cannot schedule due to lack of resources, and compare actual usage to the pod's request.
 
@@ -151,6 +151,24 @@ Once a pod reaches completion (has a `restartPolicy` of `Never` or `OnFailure` a
 
 The metrics are exposed at the HTTP endpoint `/metrics/resources` and require the same authorization as the `/metrics`
 endpoint on the scheduler. You must use the `--show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
+
+## Disabling metrics
+
+You can explicitly turn off metrics via command line flag `--disabled-metrics`. This may be desired if, for example, a metric is causing a performance problem. The input is a list of disabled metrics (i.e. `--disabled-metrics=metric1,metric2`).
+
+## Metric cardinality enforcement
+
+Metrics with unbounded dimensions could cause memory issues in the components they instrument. To limit resource use, you can use the `--allow-label-value` command line option to dynamically configure an allow-list of label values for a metric.
+
+In alpha stage, the flag can only take in a series of mappings as metric label allow-list.
+Each mapping is of the format `<metric_name>,<label_name>=<allowed_labels>` where 
+`<allowed_labels>` is a comma-separated list of acceptable label names.
+                                                                                           
+The overall format looks like:
+`--allow-label-value <metric_name>,<label_name>='<allow_value1>, <allow_value2>...', <metric_name2>,<label_name>='<allow_value1>, <allow_value2>...', ...`.
+
+Here is an example:
+`--allow-label-value number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'`
 
 
 ## {{% heading "whatsnext" %}}

@@ -32,7 +32,7 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
+* [Example: Deploying PHP Guestbook application with MongoDB](/docs/tutorials/stateless-application/guestbook/)
 
 ## Aplikacje stanowe *(Stateful Applications)*
 

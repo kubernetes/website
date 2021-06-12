@@ -44,8 +44,8 @@ Create an nginx Pod, and note that it has a container port specification:
 -->
 ## 在集群中暴露 Pod
 
-我们在之前的示例中已经做过，然而再让我重试一次，这次聚焦在网络连接的视角。
-创建一个 Nginx Pod，指示它具有一个容器端口的说明：
+我们在之前的示例中已经做过，然而让我们以网络连接的视角再重做一遍。
+创建一个 Nginx Pod，并且注意，它有一个容器端口的规范：
 
 {{< codenew file="service/networking/run-my-nginx.yaml" >}}
 
@@ -314,9 +314,9 @@ The rest of this section will assume you have a Service with a long lived IP
 本段剩余的内容，将假设已经有一个 Service，它具有一个长久存在的 IP（my-nginx），
 一个为该 IP 指派名称的 DNS 服务器。 这里我们使用 CoreDNS 集群插件（应用名为 `kube-dns`），
 所以可以通过标准做法，使在集群中的任何 Pod 都能与该 Service 通信（例如：`gethostbyname()`）。
-如果 CoreDNS 没有在运行，你可以参照 
-[CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 或者 
-[安装 CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns) 来启用它。 
+如果 CoreDNS 没有在运行，你可以参照
+[CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 或者
+[安装 CoreDNS](/zh/docs/tasks/administer-cluster/coredns/#installing-coredns) 来启用它。
 让我们运行另一个 curl 应用来进行测试：
 
 ```shell
@@ -354,16 +354,18 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
 -->
 
-## Service 安全
+## 保护 Service {#securing-the-service}
 
-到现在为止，我们只在集群内部访问了 Nginx server。在将 Service 暴露到 Internet 之前，我们希望确保通信信道是安全的。对于这可能需要：
+到现在为止，我们只在集群内部访问了 Nginx 服务器。在将 Service 暴露到因特网之前，我们希望确保通信信道是安全的。
+为实现这一目的，可能需要：
 
-* https 自签名证书（除非已经有了一个识别身份的证书）
-* 使用证书配置的 Nginx server
+* 用于 HTTPS 的自签名证书（除非已经有了一个识别身份的证书）
+* 使用证书配置的 Nginx 服务器
 * 使证书可以访问 Pod 的 [Secret](/zh/docs/concepts/configuration/secret/)
 
-可以从 [Nginx https 示例](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/examples/https-nginx/)
-获取所有上述内容，简明示例如下：
+你可以从 [Nginx https 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/)
+获取所有上述内容。你需要安装 go 和 make 工具。如果你不想安装这些软件，可以按照
+后文所述的手动执行步骤执行操作。简要过程如下：
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
@@ -415,7 +417,7 @@ nginxconfigmap   1      114s
 <!--
 Following are the manual steps to follow in case you run into problems running make (on windows for example):
 -->
-以下是您在运行make时遇到问题时要遵循的手动步骤（例如，在Windows上）：
+以下是你在运行 make 时遇到问题时要遵循的手动步骤（例如，在 Windows 上）：
 
 ```shell
 # Create a public private key pair
@@ -428,7 +430,7 @@ cat /d/tmp/nginx.key | base64
 <!--
 Use the output from the previous commands to create a yaml file as follows. The base64 encoded value should all be on a single line.
 -->
-使用前面命令的输出来创建yaml文件，如下所示。 base64编码的值应全部放在一行上。
+使用前面命令的输出来创建 yaml 文件，如下所示。 base64 编码的值应全部放在一行上。
 
 ```yaml
 apiVersion: "v1"
@@ -436,7 +438,7 @@ kind: "Secret"
 metadata:
   name: "nginxsecret"
   namespace: "default"
- type: kubernetes.io/tls  
+type: kubernetes.io/tls  
 data:
   tls.crt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURIekNDQWdlZ0F3SUJBZ0lKQUp5M3lQK0pzMlpJTUEwR0NTcUdTSWIzRFFFQkJRVUFNQ1l4RVRBUEJnTlYKQkFNVENHNW5hVzU0YzNaak1SRXdEd1lEVlFRS0V3aHVaMmx1ZUhOMll6QWVGdzB4TnpFd01qWXdOekEzTVRKYQpGdzB4T0RFd01qWXdOekEzTVRKYU1DWXhFVEFQQmdOVkJBTVRDRzVuYVc1NGMzWmpNUkV3RHdZRFZRUUtFd2h1CloybHVlSE4yWXpDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSjFxSU1SOVdWM0IKMlZIQlRMRmtobDRONXljMEJxYUhIQktMSnJMcy8vdzZhU3hRS29GbHlJSU94NGUrMlN5ajBFcndCLzlYTnBwbQppeW1CL3JkRldkOXg5UWhBQUxCZkVaTmNiV3NsTVFVcnhBZW50VWt1dk1vLzgvMHRpbGhjc3paenJEYVJ4NEo5Ci82UVRtVVI3a0ZTWUpOWTVQZkR3cGc3dlVvaDZmZ1Voam92VG42eHNVR0M2QURVODBpNXFlZWhNeVI1N2lmU2YKNHZpaXdIY3hnL3lZR1JBRS9mRTRqakxCdmdONjc2SU90S01rZXV3R0ljNDFhd05tNnNTSzRqYUNGeGpYSnZaZQp2by9kTlEybHhHWCtKT2l3SEhXbXNhdGp4WTRaNVk3R1ZoK0QrWnYvcW1mMFgvbVY0Rmo1NzV3ajFMWVBocWtsCmdhSXZYRyt4U1FVQ0F3RUFBYU5RTUU0d0hRWURWUjBPQkJZRUZPNG9OWkI3YXc1OUlsYkROMzhIYkduYnhFVjcKTUI4R0ExVWRJd1FZTUJhQUZPNG9OWkI3YXc1OUlsYkROMzhIYkduYnhFVjdNQXdHQTFVZEV3UUZNQU1CQWY4dwpEUVlKS29aSWh2Y05BUUVGQlFBRGdnRUJBRVhTMW9FU0lFaXdyMDhWcVA0K2NwTHI3TW5FMTducDBvMm14alFvCjRGb0RvRjdRZnZqeE04Tzd2TjB0clcxb2pGSW0vWDE4ZnZaL3k4ZzVaWG40Vm8zc3hKVmRBcStNZC9jTStzUGEKNmJjTkNUekZqeFpUV0UrKzE5NS9zb2dmOUZ3VDVDK3U2Q3B5N0M3MTZvUXRUakViV05VdEt4cXI0Nk1OZWNCMApwRFhWZmdWQTRadkR4NFo3S2RiZDY5eXM3OVFHYmg5ZW1PZ05NZFlsSUswSGt0ejF5WU4vbVpmK3FqTkJqbWZjCkNnMnlwbGQ0Wi8rUUNQZjl3SkoybFIrY2FnT0R4elBWcGxNSEcybzgvTHFDdnh6elZPUDUxeXdLZEtxaUMwSVEKQ0I5T2wwWW5scE9UNEh1b2hSUzBPOStlMm9KdFZsNUIyczRpbDlhZ3RTVXFxUlU9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
   tls.key: "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQ2RhaURFZlZsZHdkbFIKd1V5eFpJWmVEZWNuTkFhbWh4d1NpeWF5N1AvOE9ta3NVQ3FCWmNpQ0RzZUh2dGtzbzlCSzhBZi9WemFhWm9zcApnZjYzUlZuZmNmVUlRQUN3WHhHVFhHMXJKVEVGSzhRSHA3VkpMcnpLUC9QOUxZcFlYTE0yYzZ3MmtjZUNmZitrCkU1bEVlNUJVbUNUV09UM3c4S1lPNzFLSWVuNEZJWTZMMDUrc2JGQmd1Z0ExUE5JdWFubm9UTWtlZTRuMG4rTDQKb3NCM01ZUDhtQmtRQlAzeE9JNHl3YjREZXUraURyU2pKSHJzQmlIT05Xc0RadXJFaXVJMmdoY1kxeWIyWHI2UAozVFVOcGNSbC9pVG9zQngxcHJHclk4V09HZVdPeGxZZmcvbWIvNnBuOUYvNWxlQlkrZStjSTlTMkQ0YXBKWUdpCkwxeHZzVWtGQWdNQkFBRUNnZ0VBZFhCK0xkbk8ySElOTGo5bWRsb25IUGlHWWVzZ294RGQwci9hQ1Zkank4dlEKTjIwL3FQWkUxek1yall6Ry9kVGhTMmMwc0QxaTBXSjdwR1lGb0xtdXlWTjltY0FXUTM5SjM0VHZaU2FFSWZWNgo5TE1jUHhNTmFsNjRLMFRVbUFQZytGam9QSFlhUUxLOERLOUtnNXNrSE5pOWNzMlY5ckd6VWlVZWtBL0RBUlBTClI3L2ZjUFBacDRuRWVBZmI3WTk1R1llb1p5V21SU3VKdlNyblBESGtUdW1vVlVWdkxMRHRzaG9reUxiTWVtN3oKMmJzVmpwSW1GTHJqbGtmQXlpNHg0WjJrV3YyMFRrdWtsZU1jaVlMbjk4QWxiRi9DSmRLM3QraTRoMTVlR2ZQegpoTnh3bk9QdlVTaDR2Q0o3c2Q5TmtEUGJvS2JneVVHOXBYamZhRGR2UVFLQmdRRFFLM01nUkhkQ1pKNVFqZWFKClFGdXF4cHdnNzhZTjQyL1NwenlUYmtGcVFoQWtyczJxWGx1MDZBRzhrZzIzQkswaHkzaE9zSGgxcXRVK3NHZVAKOWRERHBsUWV0ODZsY2FlR3hoc0V0L1R6cEdtNGFKSm5oNzVVaTVGZk9QTDhPTm1FZ3MxMVRhUldhNzZxelRyMgphRlpjQ2pWV1g0YnRSTHVwSkgrMjZnY0FhUUtCZ1FEQmxVSUUzTnNVOFBBZEYvL25sQVB5VWs1T3lDdWc3dmVyClUycXlrdXFzYnBkSi9hODViT1JhM05IVmpVM25uRGpHVHBWaE9JeXg5TEFrc2RwZEFjVmxvcG9HODhXYk9lMTAKMUdqbnkySmdDK3JVWUZiRGtpUGx1K09IYnRnOXFYcGJMSHBzUVpsMGhucDBYSFNYVm9CMUliQndnMGEyOFVadApCbFBtWmc2d1BRS0JnRHVIUVV2SDZHYTNDVUsxNFdmOFhIcFFnMU16M2VvWTBPQm5iSDRvZUZKZmcraEppSXlnCm9RN3hqWldVR3BIc3AyblRtcHErQWlSNzdyRVhsdlhtOElVU2FsbkNiRGlKY01Pc29RdFBZNS9NczJMRm5LQTQKaENmL0pWb2FtZm1nZEN0ZGtFMXNINE9MR2lJVHdEbTRpb0dWZGIwMllnbzFyb2htNUpLMUI3MkpBb0dBUW01UQpHNDhXOTVhL0w1eSt5dCsyZ3YvUHM2VnBvMjZlTzRNQ3lJazJVem9ZWE9IYnNkODJkaC8xT2sybGdHZlI2K3VuCnc1YytZUXRSTHlhQmd3MUtpbGhFZDBKTWU3cGpUSVpnQWJ0LzVPbnlDak9OVXN2aDJjS2lrQ1Z2dTZsZlBjNkQKckliT2ZIaHhxV0RZK2Q1TGN1YSt2NzJ0RkxhenJsSlBsRzlOZHhrQ2dZRUF5elIzT3UyMDNRVVV6bUlCRkwzZAp4Wm5XZ0JLSEo3TnNxcGFWb2RjL0d5aGVycjFDZzE2MmJaSjJDV2RsZkI0VEdtUjZZdmxTZEFOOFRwUWhFbUtKCnFBLzVzdHdxNWd0WGVLOVJmMWxXK29xNThRNTBxMmk1NVdUTThoSDZhTjlaMTltZ0FGdE5VdGNqQUx2dFYxdEYKWSs4WFJkSHJaRnBIWll2NWkwVW1VbGc9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K"
@@ -445,7 +447,7 @@ data:
 <!--
 Now create the secrets using the file:
 -->
-现在使用文件创建 secrets：
+现在使用文件创建 Secrets：
 
 ```shell
 kubectl apply -f nginxsecrets.yaml
@@ -460,8 +462,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 <!--
 Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
 -->
-
-现在修改 Nginx 副本，启动一个使用在秘钥中的证书的 https 服务器和 Servcie，都暴露端口（80 和 443）：
+现在修改 nginx 副本，启动一个使用在秘钥中的证书的 HTTPS 服务器和 Service，暴露端口（80 和 443）：
 
 {{< codenew file="service/networking/nginx-secure-app.yaml" >}}
 
@@ -475,13 +476,12 @@ Noteworthy points about the nginx-secure-app manifest:
 - Each container has access to the keys through a volume mounted at `/etc/nginx/ssl`.
   This is setup *before* the nginx server is started.
 -->
+关于 nginx-secure-app 清单，值得注意的几点如下：
 
-关于 nginx-secure-app manifest 值得注意的点如下：
-
-- 它在相同的文件中包含了 Deployment 和 Service 的规格
-- [Nginx 服务器](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/examples/https-nginx/default.conf)
-  处理 80 端口上的 http 流量，以及 443  端口上的 https 流量，Nginx Service 暴露了这两个端口。
-- 每个容器访问挂载在 /etc/nginx/ssl 卷上的秘钥。这需要在 Nginx server 启动之前安装好。
+- 它在相同的文件中包含了 Deployment 和 Service 的规约
+- [nginx 服务器](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/staging/https-nginx/default.conf)
+  处理 80 端口上的 HTTP 流量，以及 443  端口上的 HTTPS 流量，Nginx Service 暴露了这两个端口。
+- 每个容器访问挂载在 /etc/nginx/ssl 卷上的秘钥。这需要在 Nginx 服务器启动之前安装好。
 
 ```shell
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml
@@ -490,8 +490,7 @@ kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.ya
 <!--
 At this point you can reach the nginx server from any node.
 -->
-
-这时可以从任何节点访问到 Nginx server。
+这时，你可以从任何节点访问到 Nginx 服务器。
 
 ```shell
 kubectl get pods -o yaml | grep -i podip
@@ -506,10 +505,9 @@ Note how we supplied the `-k` parameter to curl in the last step, this is becaus
 so we have to tell curl to ignore the CName mismatch. By creating a Service we linked the CName used in the certificate with the actual DNS name used by pods during Service lookup.
 Let's test this from a pod (the same secret is being reused for simplicity, the pod only needs nginx.crt to access the Service):
 -->
-
-注意最后一步我们是如何提供 `-k` 参数执行 curl命令的，这是因为在证书生成时，
-我们不知道任何关于运行 Nginx 的 Pod 的信息，所以不得不在执行 curl 命令时忽略 CName 不匹配的情况。
-通过创建 Service，我们连接了在证书中的 CName 与在 Service 查询时被 Pod使用的实际 DNS 名字。
+注意最后一步我们是如何提供 `-k` 参数执行 curl 命令的，这是因为在证书生成时，
+我们不知道任何关于运行 nginx 的 Pod 的信息，所以不得不在执行 curl 命令时忽略 CName 不匹配的情况。
+通过创建 Service，我们连接了在证书中的 CName 与在 Service 查询时被 Pod 使用的实际 DNS 名字。
 让我们从一个 Pod 来测试（为了简化使用同一个秘钥，Pod 仅需要使用 nginx.crt 去访问 Service）：
 
 {{< codenew file="service/networking/curlpod.yaml" >}}
@@ -591,7 +589,8 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 Let's now recreate the Service to use a cloud load balancer, just change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
 -->
 
-让我们重新创建一个 Service，使用一个云负载均衡器，只需要将 `my-nginx` Service 的 `Type` 由 `NodePort` 改成 `LoadBalancer`。
+让我们重新创建一个 Service，使用一个云负载均衡器，只需要将 `my-nginx` Service 的 `Type`
+由 `NodePort` 改成 `LoadBalancer`。
 
 ```shell
 kubectl edit svc my-nginx

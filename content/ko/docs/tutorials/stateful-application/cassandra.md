@@ -114,7 +114,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
 ```
 
-클러스터에 맞게 `cassandra-statefulset.yaml` 를 수정해야 하는 경우 다음을 다운로드 한 다음
+클러스터에 맞게 `cassandra-statefulset.yaml` 를 수정해야 하는 경우 다음을 다운로드한 다음
 수정된 버전을 저장한 폴더에서 해당 매니페스트를 적용한다.
 https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
 ```shell
@@ -270,7 +270,7 @@ kubectl apply -f cassandra-statefulset.yaml
 기반하였고 OpenJDK 8을 포함한다.
 
 이 이미지는 아파치 데비안 리포의 표준 카산드라 설치본을 포함한다.
-환경변수를 이용하여 `cassandra.yaml`에 삽입된 값을 바꿀 수 있다.
+환경 변수를 이용하여 `cassandra.yaml`에 삽입된 값을 바꿀 수 있다.
 
 | 환경 변수       | 기본값  |
 | ------------- |:-------------: |

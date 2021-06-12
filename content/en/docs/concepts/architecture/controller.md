@@ -102,7 +102,7 @@ Other control loops can observe that reported data and take their own actions.
 In the thermostat example, if the room is very cold then a different controller
 might also turn on a frost protection heater. With Kubernetes clusters, the control
 plane indirectly works with IP address management tools, storage services,
-cloud provider APIS, and other services by
+cloud provider APIs, and other services by
 [extending Kubernetes](/docs/concepts/extend-kubernetes/) to implement that.
 
 ## Desired versus current state {#desired-vs-current}
@@ -115,7 +115,7 @@ control loops automatically fix failures. This means that,
 potentially, your cluster never reaches a stable state.
 
 As long as the controllers for your cluster are running and able to make
-useful changes, it doesn't matter if the overall state is or is not stable.
+useful changes, it doesn't matter if the overall state is stable or not.
 
 ## Design
 

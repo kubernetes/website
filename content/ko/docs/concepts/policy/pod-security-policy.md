@@ -1,12 +1,17 @@
 ---
+
+
+
 title: 파드 시큐리티 폴리시
 content_type: concept
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->
 
-{{< feature-state state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+
+파드시큐리티폴리시(PodSecurityPolicy)는 쿠버네티스 v1.21부터 더이상 사용되지 않으며, v1.25에서 제거된다.
 
 파드 시큐리티 폴리시를 사용하면 파드 생성 및 업데이트에 대한 세분화된 권한을
 부여할 수 있다.
@@ -213,12 +218,17 @@ kubectl-user create -f- <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
-  name:      pause
+  name: pause
 spec:
   containers:
-    - name:  pause
+    - name: pause
       image: k8s.gcr.io/pause
 EOF
+```
+
+이것의 출력은 다음과 같을 것이다.
+
+```
 Error from server (Forbidden): error when creating "STDIN": pods "pause" is forbidden: unable to validate against any pod security policy: []
 ```
 
@@ -261,12 +271,17 @@ kubectl-user create -f- <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
-  name:      pause
+  name: pause
 spec:
   containers:
-    - name:  pause
+    - name: pause
       image: k8s.gcr.io/pause
 EOF
+```
+
+이것의 출력은 다음과 같을 것이다.
+
+```
 pod "pause" created
 ```
 
@@ -278,14 +293,19 @@ kubectl-user create -f- <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
-  name:      privileged
+  name: privileged
 spec:
   containers:
-    - name:  pause
+    - name: pause
       image: k8s.gcr.io/pause
       securityContext:
         privileged: true
 EOF
+```
+
+이것의 출력은 다음과 같을 것이다.
+
+```
 Error from server (Forbidden): error when creating "STDIN": pods "privileged" is forbidden: unable to validate against any pod security policy: [spec.containers[0].securityContext.privileged: Invalid value: true: Privileged containers are not allowed]
 ```
 

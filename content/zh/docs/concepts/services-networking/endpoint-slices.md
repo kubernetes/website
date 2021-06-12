@@ -1,25 +1,27 @@
 ---
 title: 端点切片（Endpoint Slices）
 content_type: concept
-weight: 35
+weight: 45
 ---
 
 <!--
+reviewers:
+- freehan
 title: Endpoint Slices
 content_type: concept
-weight: 35
+weight: 45
 -->
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-_Endpoint Slices_ provide a simple way to track network endpoints within a
+_EndpointSlices_ provide a simple way to track network endpoints within a
 Kubernetes cluster. They offer a more scalable and extensible alternative to
 Endpoints.
 -->
-_端点切片（Endpoint Slices）_ 提供了一种简单的方法来跟踪 Kubernetes 集群中的网络端点
+_端点切片（EndpointSlices）_ 提供了一种简单的方法来跟踪 Kubernetes 集群中的网络端点
 （network endpoints）。它们为 Endpoints 提供了一种可伸缩和可拓展的替代方案。
 
 <!-- body -->
@@ -85,7 +87,7 @@ EndpointSlice 的名称必须是合法的
 例如，下面是 Kubernetes 服务 `example` 的 EndpointSlice 资源示例。
 
 ```yaml
-apiVersion: discovery.k8s.io/v1beta1
+apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
   name: example-abc
@@ -102,9 +104,8 @@ endpoints:
     conditions:
       ready: true
     hostname: pod-1
-    topology:
-      kubernetes.io/hostname: node-1
-      topology.kubernetes.io/zone: us-west2-a
+    nodeName: node-1
+    zone: us-west2-a
 ```
 
 <!--
@@ -146,37 +147,128 @@ EndpointSlice 支持三种地址类型：
 * FQDN (完全合格的域名)
 
 <!--
+### Conditions
+
+The EndpointSlice API stores conditions about endpoints that may be useful for consumers.
+The three conditions are `ready`, `serving`, and `terminating`.
+-->
+### 状况
+
+EndpointSlice API 存储了可能对使用者有用的、有关端点的状况。
+这三个状况分别是 `ready`、`serving` 和 `terminating`。
+
+
+<!--
+#### Ready
+
+`ready` is a condition that maps to a Pod's `Ready` condition. A running Pod with the `Ready`
+condition set to `True` should have this EndpointSlice condition also set to `true`. For
+compatibility reasons, `ready` is NEVER `true` when a Pod is terminating. Consumers should refer
+to the `serving` condition to inspect the readiness of terminating Pods. The only exception to
+this rule is for Services with `spec.publishNotReadyAddresses` set to `true`. Endpoints for these
+Services will always have the `ready` condition set to `true`.
+-->
+#### Ready（就绪）
+
+`ready` 状况是映射 Pod 的 `Ready` 状况的。
+处于运行中的 Pod，它的 `Ready` 状况被设置为 `True`，应该将此 EndpointSlice 状况也设置为 `true`。
+出于兼容性原因，当 Pod 处于终止过程中，`ready` 永远不会为 `true`。
+消费者应参考 `serving` 状况来检查处于终止中的 Pod 的就绪情况。
+该规则的唯一例外是将 `spec.publishNotReadyAddresses` 设置为 `true` 的服务。
+这些服务（Service）的端点将始终将 `ready` 状况设置为 `true`。
+
+<!--
+#### Serving
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+`serving` is identical to the `ready` condition, except it does not account for terminating states.
+Consumers of the EndpointSlice API should check this condition if they care about pod readiness while
+the pod is also terminating.
+-->
+#### Serving（服务中）
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+`serving` 状况与 `ready` 状况相同，不同之处在于它不考虑终止状态。
+如果 EndpointSlice API 的使用者关心 Pod 终止时的就绪情况，就应检查此状况。
+
+{{< note >}}
+<!--
+Although `serving` is almost identical to `ready`, it was added to prevent break the existing meaning
+of `ready`. It may be unexpected for existing clients if `ready` could be `true` for terminating
+endpoints, since historically terminating endpoints were never included in the Endpoints or
+EndpointSlice API to begin with. For this reason, `ready` is _always_ `false` for terminating
+endpoints, and a new condition `serving` was added in v1.20 so that clients can track readiness
+for terminating pods independent of the existing semantics for `ready`.
+-->
+尽管 `serving` 与 `ready` 几乎相同，但是它是为防止破坏 `ready` 的现有含义而增加的。
+如果对于处于终止中的端点，`ready` 可能是 `true`，那么对于现有的客户端来说可能是有些意外的，
+因为从始至终，Endpoints 或 EndpointSlice API 从未包含处于终止中的端点。
+出于这个原因，`ready` 对于处于终止中的端点 _总是_ `false`，
+并且在 v1.20 中添加了新的状况 `serving`，以便客户端可以独立于 `ready`
+的现有语义来跟踪处于终止中的 Pod 的就绪情况。
+{{< /note >}}
+
+<!-- 
+#### Terminating
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+`Terminating` is a condition that indicates whether an endpoint is terminating.
+For pods, this is any pod that has a deletion timestamp set.
+-->
+#### Terminating（终止中）
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+`Terminating` 是表示端点是否处于终止中的状况。
+对于 Pod 来说，这是设置了删除时间戳的 Pod。
+
+
+<!--
 ### Topology information {#topology}
 
 Each endpoint within an EndpointSlice can contain relevant topology information.
-This is used to indicate where an endpoint is, containing information about the
-corresponding Node, zone, and region. When the values are available, the
-control plane sets the following Topology labels for EndpointSlices:
+The topology information includes the location of the endpoint and information
+about the corresponding Node and zone. These are available in the following
+per endpoint fields on EndpointSlices:
 -->
 ### 拓扑信息   {#topology}
 
 EndpointSlice 中的每个端点都可以包含一定的拓扑信息。
-这一信息用来标明端点的位置，包含对应节点、可用区、区域的信息。
-当这些值可用时，控制面会为 EndpointSlice 设置如下拓扑标签：
+拓扑信息包括端点的位置，对应节点、可用区的信息。
+这些信息体现为 EndpointSlices 的如下端点字段：
 
 <!--
-* `kubernetes.io/hostname` - The name of the Node this endpoint is on.
-* `topology.kubernetes.io/zone` - The zone this endpoint is in.
-* `topology.kubernetes.io/region` - The region this endpoint is in.
+* `nodeName` - The name of the Node this endpoint is on.
+* `zone` - The zone this endpoint is in.
 -->
-* `kubernetes.io/hostname` - 端点所在的节点名称
-* `topology.kubernetes.io/zone` - 端点所处的可用区
-* `topology.kubernetes.io/region` - 端点所处的区域
+* `nodeName` - 端点所在的 Node 名称；
+* `zone` - 端点所处的可用区。
+
+{{< note >}}
+<!--
+In the v1 API, the per endpoint `topology` was effectively removed in favor of
+the dedicated fields `nodeName` and `zone`.
+-->
+在 v1 API 中，逐个端点设置的 `topology` 实际上被去除，以鼓励使用专用
+的字段 `nodeName` 和 `zone`。
 
 <!--
-The values of these labels are derived from resources associated with each
-endpoint in a slice. The hostname label represents the value of the NodeName
-field on the corresponding Pod. The zone and region labels represent the value
-of the labels with the same names on the corresponding Node.
+Setting arbitrary topology fields on the `endpoint` field of an `EndpointSlice`
+resource has been deprecated and is not be supported in the v1 API. Instead,
+the v1 API supports setting individual `nodeName` and `zone` fields. These
+fields are automatically translated between API versions. For example, the
+value of the `"topology.kubernetes.io/zone"` key in the `topology` field in
+the v1beta1 API is accessible as the `zone` field in the v1 API.
 -->
-这些标签的值时根据与切片中各个端点相关联的资源来生成的。
-标签 `hostname` 代表的是对应的 Pod 的 NodeName 字段的取值。
-`zone` 和 `region` 标签则代表的是对应的节点所拥有的同名标签的值。
+对 `EndpointSlice` 对象的 `endpoint` 字段设置任意的拓扑结构信息这一操作已被
+废弃，不再被 v1 API 所支持。取而代之的是 v1 API 所支持的 `nodeName` 和 `zone`
+这些独立的字段。这些字段可以在不同的 API 版本之间自动完成转译。
+例如，v1beta1 API 中 `topology` 字段的 `topology.kubernetes.io/zone` 取值可以
+在 v1 API 中通过 `zone` 字段访问。
+{{< /note >}}
 
 <!--
 ### Management
@@ -189,7 +281,7 @@ entities or controllers managing additional sets of EndpointSlices.
 -->
 ### 管理   {#management}
 
-通常，控制面（尤其是端点切片的 {{< glossary_tooltip text="controller" term_id="controller" >}}）
+通常，控制面（尤其是端点切片的 {{< glossary_tooltip text="控制器" term_id="controller" >}}）
 会创建和管理 EndpointSlice 对象。EndpointSlice 对象还有一些其他使用场景，
 例如作为服务网格（Service Mesh）的实现。这些场景都会导致有其他实体
 或者控制器负责管理额外的 EndpointSlice 集合。
@@ -237,7 +329,7 @@ resources to corresponding EndpointSlices.
 ### EndpointSlice 镜像    {#endpointslice-mirroring}
 
 在某些场合，应用会创建定制的 Endpoints 资源。为了保证这些应用不需要并发
-递更改 Endpoints 和 EndpointSlice 资源，集群的控制面将大多数 Endpoints
+的更改 Endpoints 和 EndpointSlice 资源，集群的控制面将大多数 Endpoints
 映射到对应的 EndpointSlice 之上。
 
 <!--

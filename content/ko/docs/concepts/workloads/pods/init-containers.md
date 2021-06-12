@@ -1,4 +1,6 @@
 ---
+
+
 title: 초기화 컨테이너
 content_type: concept
 weight: 40
@@ -47,9 +49,9 @@ weight: 40
 또한, 초기화 컨테이너는 `lifecycle`, `livenessProbe`, `readinessProbe` 또는 `startupProbe` 를 지원하지 않는다.
 왜냐하면 초기화 컨테이너는 파드가 준비 상태가 되기 전에 완료를 목표로 실행되어야 하기 때문이다.
 
-만약 다수의 초기화 컨테이너가 파드에 지정되어 있다면, Kubelet은 해당 초기화 컨테이너들을
+만약 다수의 초기화 컨테이너가 파드에 지정되어 있다면, kubelet은 해당 초기화 컨테이너들을
 한 번에 하나씩 실행한다. 각 초기화 컨테이너는 다음 컨테이너를 실행하기 전에 꼭 성공해야 한다.
-모든 초기화 컨테이너들이 실행 완료되었을 때, Kubelet은 파드의 애플리케이션 컨테이너들을
+모든 초기화 컨테이너들이 실행 완료되었을 때, kubelet은 파드의 애플리케이션 컨테이너들을
 초기화하고 평소와 같이 실행한다.
 
 ## 초기화 컨테이너 사용하기
@@ -131,6 +133,7 @@ spec:
 ```shell
 kubectl apply -f myapp.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 pod/myapp-pod created
 ```
@@ -139,6 +142,7 @@ pod/myapp-pod created
 ```shell
 kubectl get -f myapp.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
@@ -148,6 +152,7 @@ myapp-pod   0/1       Init:0/2   0          6m
 ```shell
 kubectl describe -f myapp.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 Name:          myapp-pod
 Namespace:     default
@@ -222,6 +227,7 @@ spec:
 ```shell
 kubectl apply -f services.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 service/myservice created
 service/mydb created
@@ -233,6 +239,7 @@ service/mydb created
 ```shell
 kubectl get -f myapp.yaml
 ```
+출력 결과는 다음과 같다.
 ```
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
@@ -255,7 +262,7 @@ myapp-pod   1/1       Running   0          9m
 
 파드는 모든 초기화 컨테이너가 성공되기 전까지 `Ready` 될 수 없다. 초기화 컨테이너의 포트는
 서비스 하에 합쳐지지 않는다. 초기화 중인 파드는 `Pending` 상태이지만
-`Initialized` 가 참이 되는 조건을 가져야 한다.
+`Initialized` 가 거짓이 되는 조건을 가져야 한다.
 
 만약 파드가 [재시작](#파드-재시작-이유)되었다면, 모든 초기화 컨테이너는
 반드시 다시 실행된다.
@@ -306,20 +313,18 @@ myapp-pod   1/1       Running   0          9m
 파드는 다음과 같은 사유로, 초기화 컨테이너들의 재-실행을 일으키는, 재시작을 수행할 수
 있다.
 
-* 사용자가 초기화 컨테이너 이미지의 변경을 일으키는 파드 스펙 업데이트를 수행했다.
-  Init Container 이미지를 변경하면 파드가 다시 시작된다. 앱 컨테이너
-  이미지의 변경은 앱 컨테이너만 재시작시킨다.
-* 파드 인프라스트럭처 컨테이너가 재시작되었다. 이는 일반적인 상황이 아니며 노드에
+* 파드 인프라스트럭처 컨테이너가 재시작된 상황. 이는 일반적인 상황이 아니며 노드에
   대해서 root 접근 권한을 가진 누군가에 의해서 수행됐을 것이다.
-* 파드 내의 모든 컨테이너들이, 재시작을 강제하는 `restartPolicy` 가 항상(Always)으로 설정되어 있는,
-  동안 종료되었다. 그리고 초기화 컨테이너의 완료 기록이 가비지 수집
-  때문에 유실되었다.
+* 초기화 컨테이너의 완료 기록이 가비지 수집 때문에 유실된 상태에서, 
+  `restartPolicy`가 Always로 설정된 파드의 모든 컨테이너가 종료되어 
+  모든 컨테이너를 재시작해야 하는 상황
 
-
-
+초기화 컨테이너 이미지가 변경되거나 초기화 컨테이너의 완료 기록이 가비지 수집 
+때문에 유실된 상태이면 파드는 재시작되지 않는다. 이는 쿠버네티스 버전 1.20 이상에 
+적용된다. 이전 버전의 쿠버네티스를 사용하는 경우 해당 쿠버네티스 버전의 문서를 
+참고한다.
 
 ## {{% heading "whatsnext" %}}
-
 
 * [초기화 컨테이너를 가진 파드 생성하기](/ko/docs/tasks/configure-pod-container/configure-pod-initialization/#초기화-컨테이너를-갖는-파드-생성)
 * [초기화 컨테이너 디버깅](/ko/docs/tasks/debug-application-cluster/debug-init-containers/) 알아보기

@@ -65,6 +65,8 @@ for a secure solution.
 
         kubectl describe deployment mysql
 
+    The output is similar to this:
+
         Name:                 mysql
         Namespace:            default
         CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
@@ -105,12 +107,16 @@ for a secure solution.
 
         kubectl get pods -l app=mysql
 
+    The output is similar to this:
+
         NAME                   READY     STATUS    RESTARTS   AGE
         mysql-63082529-2z3ki   1/1       Running   0          3m
 
 1. Inspect the PersistentVolumeClaim:
 
         kubectl describe pvc mysql-pv-claim
+
+    The output is similar to this:
 
         Name:         mysql-pv-claim
         Namespace:    default

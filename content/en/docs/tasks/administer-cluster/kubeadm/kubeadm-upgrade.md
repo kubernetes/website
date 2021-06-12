@@ -37,7 +37,7 @@ The upgrade workflow at high level is the following:
 
 ### Additional information
 
-- [Draining nodes](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/) before kubelet MINOR version
+- [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/) before kubelet MINOR version
   upgrades is required. In the case of control plane nodes, they could be running CoreDNS Pods or other critical workloads.
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 
@@ -231,6 +231,14 @@ without compromising the minimum required capacity for running your workloads.
 {{% /tab %}}
 {{< /tabs >}}
 
+### Call "kubeadm upgrade"
+
+-  For worker nodes this upgrades the local kubelet configuration:
+
+    ```shell
+    sudo kubeadm upgrade node
+    ```
+
 ### Drain the node
 
 -  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
@@ -238,14 +246,6 @@ without compromising the minimum required capacity for running your workloads.
     ```shell
     # replace <node-to-drain> with the name of your node you are draining
     kubectl drain <node-to-drain> --ignore-daemonsets
-    ```
-
-### Call "kubeadm upgrade"
-
--  For worker nodes this upgrades the local kubelet configuration:
-
-    ```shell
-    sudo kubeadm upgrade node
     ```
 
 ### Upgrade kubelet and kubectl
@@ -328,7 +328,7 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 - Makes sure the control plane images are available or available to pull to the machine.
 - Generates replacements and/or uses user supplied overwrites if component configs require version upgrades.
 - Upgrades the control plane components or rollbacks if any of them fails to come up.
-- Applies the new `kube-dns` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
+- Applies the new `CoreDNS` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
 - Creates new certificate and key files of the API server and backs up old files if they're about to expire in 180 days.
 
 `kubeadm upgrade node` does the following on additional control plane nodes:

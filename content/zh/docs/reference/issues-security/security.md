@@ -1,6 +1,5 @@
 ---
 title: Kubernetes 安全和信息披露
-aliases: [security/]
 content_type: concept
 weight: 20
 ---

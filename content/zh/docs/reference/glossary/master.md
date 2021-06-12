@@ -31,4 +31,4 @@ tags:
 <!-- 
 The term is still being used by some provisioning tools, such as {{< glossary_tooltip text="kubeadm" term_id="kubeadm" >}}, and managed services, to {{< glossary_tooltip text="label" term_id="label" >}} {{< glossary_tooltip text="nodes" term_id="node" >}} with `kubernetes.io/role` and control placement of {{< glossary_tooltip text="control plane" term_id="control-plane" >}} {{< glossary_tooltip text="pods" term_id="pod" >}}.
 -->
-该术语仍被一些配置工具使用，如 {{< glossary_tooltip text="kubeadm" term_id="kubeadm" >}} 以及托管的服务，为 {{< glossary_tooltip text="节点" term_id="node" >}} 添加 `kubernetes.io/role` 的 {{< glossary_tooltip text="标签" term_id="label" >}}，以及管理控制平面 Pod 的调度。
+该术语仍被一些配置工具使用，如 {{< glossary_tooltip text="kubeadm" term_id="kubeadm" >}} 以及托管的服务，为 {{< glossary_tooltip text="节点（nodes）" term_id="node" >}} 添加 `kubernetes.io/role` 的 {{< glossary_tooltip text="标签（label）" term_id="label" >}}，以及管理控制平面 Pod 的调度。

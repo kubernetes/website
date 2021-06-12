@@ -1,5 +1,5 @@
 ---
-title: 名称
+title: 名称（Name）
 id: name
 date: 2018-04-12
 full_link: /zh/docs/concepts/overview/working-with-objects/names/
@@ -16,7 +16,7 @@ tags:
 title: Name
 id: name
 date: 2018-04-12
-full_link: /zh/docs/concepts/overview/working-with-objects/names/
+full_link: /docs/concepts/overview/working-with-objects/names/
 short_description: >
   A client-provided string that refers to an object in a resource URL, such as `/api/v1/pods/some-name`.
 
@@ -38,4 +38,4 @@ tags:
 Only one object of a given kind can have a given name at a time. However, if you delete the object, you can make a new object with the same name.
 -->
 
-一次只能有一个给定类型的对象具有给定的名称。但是，如果删除对象，则可以创建同名的新对象。
+某一时刻，只能有一个给定类型的对象具有给定的名称。但是，如果删除该对象，则可以创建同名的新对象。

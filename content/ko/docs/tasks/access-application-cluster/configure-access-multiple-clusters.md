@@ -30,7 +30,7 @@ card:
 
 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}이 설치되었는지 확인하려면,
 `kubectl version --client`을 실행한다. kubectl 버전은 클러스터의 API 서버 버전과
-[마이너 버전 하나 차이 이내](/docs/setup/release/version-skew-policy/#kubectl)여야
+[마이너 버전 하나 차이 이내](/ko/docs/setup/release/version-skew-policy/#kubectl)여야
 한다.
 
 
@@ -383,7 +383,3 @@ export KUBECONFIG=$KUBECONFIG_SAVED
 
 * [kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
-
-
-
-

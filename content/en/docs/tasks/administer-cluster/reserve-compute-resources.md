@@ -90,7 +90,7 @@ In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
 specified to reserve the specified number of process IDs for
 kubernetes system daemons.
 
-To optionally enforce `kube-reserved` on system daemons, specify the parent
+To optionally enforce `kube-reserved` on kubernetes system daemons, specify the parent
 control group for kube daemons as the value for `--kube-reserved-cgroup` kubelet
 flag.
 

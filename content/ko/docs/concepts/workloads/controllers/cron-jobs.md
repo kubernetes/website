@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: 크론잡
 content_type: concept
 weight: 80
@@ -6,7 +10,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 _크론잡은_ 반복 일정에 따라 {{< glossary_tooltip term_id="job" text="잡" >}}을 만든다.
 
@@ -28,8 +32,6 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 11자를 자동으로 추가하고, 작업 이름의 최대 길이는
 63자라는 제약 조건이 있기 때문이다.
 
-
-
 <!-- body -->
 
 ## 크론잡
@@ -47,6 +49,36 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 ([크론잡으로 자동화된 작업 실행하기](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)는
 이 예시를 더 자세히 설명한다.)
 
+### 크론 스케줄 문법
+
+```
+# ┌───────────── 분 (0 - 59)
+# │ ┌───────────── 시 (0 - 23)
+# │ │ ┌───────────── 일 (1 - 31)
+# │ │ │ ┌───────────── 월 (1 - 12)
+# │ │ │ │ ┌───────────── 요일 (0 - 6) (일요일부터 토요일까지;
+# │ │ │ │ │                                   특정 시스템에서는 7도 일요일)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
+```
+
+
+| 항목   										 | 설명	      																								  | 상응 표현       |
+| ------------- 						| ------------- 																							|-------------  |
+| @yearly (or @annually)		| 매년 1월 1일 자정에 실행                 										   | 0 0 1 1 * 		|
+| @monthly 									| 매월 1일 자정에 실행  	                                        | 0 0 1 * * 		|
+| @weekly 									| 매주 일요일 자정에 실행							                             | 0 0 * * 0 		|
+| @daily (or @midnight)			| 매일 자정에 실행 																             	| 0 0 * * * 		|
+| @hourly 									| 매시 0분에 시작                          								       | 0 * * * * 		|
+
+
+예를 들면, 다음은 해당 작업이 매주 금요일 자정에 시작되어야 하고, 매월 13일 자정에도 시작되어야 한다는 뜻이다.
+
+`0 0 13 * 5`
+
+크론잡 스케줄 표현을 생성하기 위해서 [crontab.guru](https://crontab.guru/)와 같은 웹 도구를 사용할 수도 있다.
+
 ## 크론잡의 한계 {#cron-job-limitations}
 
 크론잡은 일정의 실행시간 마다 _약_ 한 번의 잡 오브젝트를 생성한다. "약" 이라고 하는 이유는
@@ -56,6 +88,11 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 만약 `startingDeadlineSeconds` 가 큰 값으로 설정되거나, 설정되지 않고(디폴트 값),
 `concurrencyPolicy` 가 `Allow` 로 설정될 경우, 잡은 항상 적어도 한 번은
 실행될 것이다.
+
+{{< caution >}}
+`startingDeadlineSeconds` 가 10초 미만의 값으로 설정되면, 크론잡이 스케줄되지 않을 수 있다. 이는 크론잡 컨트롤러가 10초마다 항목을 확인하기 때문이다.
+{{< /caution >}}
+
 
 모든 크론잡에 대해 크론잡 {{< glossary_tooltip term_id="controller" text="컨트롤러" >}} 는 마지막 일정부터 지금까지 얼마나 많은 일정이 누락되었는지 확인한다. 만약 100회 이상의 일정이 누락되었다면, 잡을 실행하지 않고 아래와 같은 에러 로그를 남긴다.
 
@@ -77,6 +114,19 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 크론잡은 오직 그 일정에 맞는 잡 생성에 책임이 있고,
 잡은 그 잡이 대표하는 파드 관리에 책임이 있다.
+
+## 컨트롤러 버전 {#new-controller}
+
+쿠버네티스 v1.21부터 크론잡 컨트롤러의 두 번째 버전이
+기본 구현이다. 기본 크론잡 컨트롤러를 비활성화하고
+대신 원래 크론잡 컨트롤러를 사용하려면, `CronJobControllerV2`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+플래그를 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}에 전달하고,
+이 플래그를 `false` 로 설정한다. 예를 들면, 다음과 같다.
+
+```
+--feature-gates="CronJobControllerV2=false"
+```
 
 
 ## {{% heading "whatsnext" %}}

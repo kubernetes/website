@@ -108,7 +108,7 @@ if the `kubeadm init` command was called with `--upload-certs`.
   control-plane node even if other worker nodes or the network are compromised.
 
 - Convenient to execute manually since all of the information required fits
-  into a single `kubeadm join` command that is easy to copy and paste.
+  into a single `kubeadm join` command.
 
 **Disadvantages:**
 

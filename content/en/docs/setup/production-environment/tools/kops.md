@@ -23,7 +23,7 @@ kops is an automated provisioning system:
 ## {{% heading "prerequisites" %}}
 
 
-* You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed.
+* You must have [kubectl](/docs/tasks/tools/) installed.
 
 * You must [install](https://github.com/kubernetes/kops#installing) `kops` on a 64-bit (AMD64 and Intel 64) device architecture.
 
@@ -39,7 +39,7 @@ kops is an automated provisioning system:
 
 #### Installation
 
-Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also easy to build from source):
+Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also convenient to build from source):
 
 {{< tabs name="kops_installation" >}}
 {{% tab name="macOS" %}}
@@ -56,10 +56,10 @@ To download a specific version, replace the following portion of the command wit
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
 
-For example, to download kops version v1.15.0 type:
+For example, to download kops version v1.20.0 type:
 
 ```shell
-curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-darwin-amd64
 ```
 
 Make the kops binary executable.
@@ -94,10 +94,10 @@ To download a specific version of kops, replace the following portion of the com
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
 
-For example, to download kops version v1.15.0 type:
+For example, to download kops version v1.20.0 type:
 
 ```shell
-curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.20.0/kops-linux-amd64
 ```
 
 Make the kops binary executable
@@ -147,7 +147,7 @@ You must then set up your NS records in the parent domain, so that records in th
 you would create NS records in `example.com` for `dev`.  If it is a root domain name you would configure the NS
 records at your domain registrar (e.g. `example.com` would need to be configured where you bought `example.com`).
 
-This step is easy to mess up (it is the #1 cause of problems!)  You can double-check that
+Verify your route53 domain setup (it is the #1 cause of problems!). You can double-check that
 your cluster is configured correctly if you have the dig tool by running:
 
 `dig NS dev.example.com`

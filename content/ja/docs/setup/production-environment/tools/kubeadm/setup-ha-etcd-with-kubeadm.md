@@ -29,7 +29,8 @@ when using kubeadm to set up a kubernetes cluster.
 * Three hosts that can talk to each other over ports 2379 and 2380. This
   document assumes these default ports. However, they are configurable through
   the kubeadm config file.
-* Each host must [have docker, kubelet, and kubeadm installed][toolbox].
+* Each host must [have docker, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+* Each host should have access to the Kubernetes container image registry (`k8s.gcr.io`) or list/pull the required etcd image using `kubeadm config images list/pull`. This guide will setup etcd instances as [static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
 * Some infrastructure to copy files between hosts. For example `ssh` and `scp`
   can satisfy this requirement.
 

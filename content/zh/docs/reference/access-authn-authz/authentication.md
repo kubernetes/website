@@ -41,7 +41,7 @@ accounts._ Normal users cannot be added to a cluster through an API call.
 
 所有 Kubernetes 集群都有两类用户：由 Kubernetes 管理的服务账号和普通用户。
 
-Kuernetes 假定使用以下方式之一来利用与集群无关的服务来管理普通用户：
+Kubernetes 假定普通用户是由一个与集群无关的服务通过以下方式之一进行管理的：
 
 - 负责分发私钥的管理员
 - 类似 Keystone 或者 Google Accounts 这类用户数据库

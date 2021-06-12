@@ -191,8 +191,8 @@ kubectl [command] [TYPE] [NAME] -o <output_format>
 `-o custom-columns=<spec>` | [カスタムカラム](#custom-columns)のコンマ区切りのリストを使用して、テーブルを表示します。
 `-o custom-columns-file=<filename>` | `<filename>`ファイル内の[カスタムカラム](#custom-columns)のテンプレートを使用して、テーブルを表示します。
 `-o json`     | JSON形式のAPIオブジェクトを出力します。
-`-o jsonpath=<template>` | [jsonpath](/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
-`-o jsonpath-file=<filename>` | `<filename>`ファイル内の[jsonpath](/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
+`-o jsonpath=<template>` | [jsonpath](/ja/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
+`-o jsonpath-file=<filename>` | `<filename>`ファイル内の[jsonpath](/ja/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
 `-o name`     | リソース名のみを表示します。
 `-o wide`     | 追加情報を含めて、プレーンテキスト形式で出力します。Podの場合は、Node名が含まれます。
 `-o yaml`     | YAML形式のAPIオブジェクトを出力します。
@@ -263,7 +263,7 @@ pod-name   1m
 
 ### オブジェクトリストのソート
 
-ターミナルウィンドウで、オブジェクトをソートされたリストに出力するには、サポートされている`kubectl`コマンドに`--sort-by`フラグを追加します。`--sort-by`フラグで任意の数値フィールドや文字列フィールドを指定することで、オブジェクトをソートします。フィールドの指定には、[jsonpath](/docs/reference/kubectl/jsonpath/)式を使用します。
+ターミナルウィンドウで、オブジェクトをソートされたリストに出力するには、サポートされている`kubectl`コマンドに`--sort-by`フラグを追加します。`--sort-by`フラグで任意の数値フィールドや文字列フィールドを指定することで、オブジェクトをソートします。フィールドの指定には、[jsonpath](/ja/docs/reference/kubectl/jsonpath/)式を使用します。
 
 #### 構文
 

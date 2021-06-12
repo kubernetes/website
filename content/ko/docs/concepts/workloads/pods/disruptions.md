@@ -1,4 +1,8 @@
 ---
+
+
+
+
 title: 중단(disruption)
 content_type: concept
 weight: 60
@@ -45,7 +49,7 @@ weight: 60
 
 - 복구 또는 업그레이드를 위한 [노드 드레이닝](/docs/tasks/administer-cluster/safely-drain-node/).
 - 클러스터의 스케일 축소를 위한
-  노드 드레이닝([클러스터 오토스케일링](/ko/docs/tasks/administer-cluster/cluster-management/#클러스터-오토스케일링)에 대해 알아보기
+  노드 드레이닝([클러스터 오토스케일링](https://github.com/kubernetes/autoscaler/#readme)에 대해 알아보기
   ).
 - 노드에 다른 무언가를 추가하기 위해 파드를 제거.
 
@@ -75,17 +79,19 @@ weight: 60
   ([다중 영역 클러스터](/docs/setup/multiple-zones)를 이용한다면)에
   애플리케이션을 분산해야 한다.
 
-자발적 중단의 빈도는 다양하다. 기본적인 쿠버네티스 클러스터에서는 자발적인 운영 중단이 전혀 없다.
+자발적 중단의 빈도는 다양하다. 기본적인 쿠버네티스 클러스터에서는 자동화된 자발적 중단은 발생하지 않는다(사용자가 지시한 자발적 중단만 발생한다).
 그러나 클러스터 관리자 또는 호스팅 공급자가 자발적 중단이 발생할 수 있는 일부 부가 서비스를 운영할 수 있다.
 예를 들어 노드 소프트웨어의 업데이트를 출시하는 경우 자발적 중단이 발생할 수 있다.
 또한 클러스터(노드) 오토스케일링의 일부 구현에서는
 단편화를 제거하고 노드의 효율을 높이는 과정에서 자발적 중단을 야기할 수 있다.
 클러스터 관리자 또는 호스팅 공급자는
 예측 가능한 자발적 중단 수준에 대해 문서화해야 한다.
+파드 스펙 안에 [프라이어리티클래스 사용하기](/ko/docs/concepts/configuration/pod-priority-preemption/)와 같은 특정 환경설정 옵션
+또한 자발적(+ 비자발적) 중단을 유발할 수 있다.
 
 ## 파드 disruption budgets
 
-{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 쿠버네티스는 자발적인 중단이 자주 발생하는 경우에도 고 가용성 애플리케이션을
 실행하는 데 도움이 되는 기능을 제공한다.
@@ -99,7 +105,7 @@ PDB는 자발적 중단으로
 일정 비율 이하로 떨어지지 않도록 보장할 수 있다.
 
 클러스터 관리자와 호스팅 공급자는 직접적으로 파드나 디플로이먼트를 제거하는 대신
-[Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)로
+[Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api)로
 불리는 PodDisruptionBudget을 준수하는 도구를 이용해야 한다.
 
 예를 들어, `kubectl drain` 하위 명령을 사용하면 노드를 서비스 중단으로 표시할 수
@@ -131,7 +137,7 @@ PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)이 발생
 
 Eviction API를 사용하여 파드를 축출하면,
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)의
-`terminationGracePeriodSeconds` 설정을 준수하여 정상적으로 [종료됨](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-종료) 상태가 된다.)
+`terminationGracePeriodSeconds` 설정을 준수하여 정상적으로 [종료됨](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-종료) 상태가 된다.
 
 ## PodDisruptionBudget 예시 {#pdb-example}
 

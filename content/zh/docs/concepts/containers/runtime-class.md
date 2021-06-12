@@ -1,5 +1,5 @@
 ---
-title: 容器运行时类(Runtime Class)
+title: 容器运行时类（Runtime Class）
 content_type: concept
 weight: 20
 ---
@@ -14,7 +14,7 @@ weight: 20
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.14" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 <!-- 
 This page describes the RuntimeClass resource and runtime selection mechanism.
@@ -53,17 +53,9 @@ but with different settings.
 
 <!-- 
 ## Setup
-
-Ensure the RuntimeClass feature gate is enabled (it is by default). See [Feature
-Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling
-feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _and_ kubelets.
 -->
-## 设置  {#setup}
 
-确保 RuntimeClass 特性开关处于开启状态（默认为开启状态）。
-关于特性开关的详细介绍，请参阅
-[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
-`RuntimeClass` 特性开关必须在 API 服务器和 kubelet 端同时开启。
+## 设置  {#setup}
 
 <!--
 1. Configure the CRI implementation on nodes (runtime dependent)
@@ -121,7 +113,7 @@ RuntimeClass 资源当前只有两个重要的字段：RuntimeClass 名 (`metada
 对象定义如下所示：
 
 ```yaml
-apiVersion: node.k8s.io/v1beta1  # RuntimeClass 定义于 node.k8s.io API 组
+apiVersion: node.k8s.io/v1  # RuntimeClass 定义于 node.k8s.io API 组
 kind: RuntimeClass
 metadata:
   name: myclass  # 用来引用 RuntimeClass 的名字
@@ -161,7 +153,7 @@ spec:
 ```
 
 <!--
-This will instruct the Kubelet to use the named RuntimeClass to run this pod. If the named
+This will instruct the kubelet to use the named RuntimeClass to run this pod. If the named
 RuntimeClass does not exist, or the CRI cannot run the corresponding handler, the pod will enter the
 `Failed` terminal [phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase). Look for a
 corresponding [event](/docs/tasks/debug-application-cluster/debug-application-introspection/) for an
@@ -171,7 +163,7 @@ error message.
 如果所指的 RuntimeClass 不存在或者 CRI 无法运行相应的 handler，
 那么 pod 将会进入 `Failed` 终止[阶段](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
 你可以查看相应的[事件](/zh/docs/tasks/debug-application-cluster/debug-application-introspection/)，
-获取出错信息。
+获取执行过程中的错误信息。
 
 <!--
 If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent
@@ -192,9 +184,11 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 #### dockershim
 
 <!--
-Kubernetes built-in dockershim CRI does not support runtime handlers.
+RuntimeClasses with dockershim must set the runtime handler to `docker`. Dockershim does not support
+custom configurable runtime handlers.
 -->
-Kubernetes 内置的 dockershim CRI 不支持配置运行时 handler。
+为 dockershim 设置 RuntimeClass 时，必须将运行时处理程序设置为 `docker`。
+Dockershim 不支持自定义的可配置的运行时处理程序。
 
 #### [containerd](https://containerd.io/)
 
@@ -246,16 +240,14 @@ See CRI-O's [config documentation](https://raw.githubusercontent.com/cri-o/cri-o
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 <!--
-As of Kubernetes v1.16, RuntimeClass includes support for heterogenous clusters through its
-`scheduling` fields. Through the use of these fields, you can ensure that pods running with this
-RuntimeClass are scheduled to nodes that support it. To use the scheduling support, you must have
-the [RuntimeClass admission controller][] enabled (the default, as of 1.16).
+By specifying the `scheduling` field for a RuntimeClass, you can set constraints to
+ensure that Pods running with this RuntimeClass are scheduled to nodes that support it.
+If `scheduling` is not set, this RuntimeClass is assumed to be supported by all nodes.
 -->
-在 Kubernetes v1.16 版本里，RuntimeClass 特性引入了 `scheduling` 字段来支持异构集群。
-通过该字段，可以确保 pod 被调度到支持指定运行时的节点上。
-该调度支持，需要确保
-[RuntimeClass 准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#runtimeclass)
-处于开启状态（1.16 版本默认开启）。
+
+通过为 RuntimeClass 指定 `scheduling` 字段，
+你可以通过设置约束，确保运行该 RuntimeClass 的 Pod 被调度到支持该 RuntimeClass 的节点上。
+如果未设置 `scheduling`，则假定所有节点均支持此 RuntimeClass 。
 
 <!--
 To ensure pods land on nodes supporting a specific RuntimeClass, that set of nodes should have a
@@ -265,7 +257,7 @@ the intersection of the set of nodes selected by each. If there is a conflict, t
 rejected.
 -->
 为了确保 pod 会被调度到支持指定运行时的 node 上，每个 node 需要设置一个通用的 label 用于被 
-`runtimeclass.scheduling.nodeSelector` 挑选。在 admission 阶段，RuntimeClass 的 nodeSelector 将会于
+`runtimeclass.scheduling.nodeSelector` 挑选。在 admission 阶段，RuntimeClass 的 nodeSelector 将会与
 pod 的 nodeSelector 合并，取二者的交集。如果有冲突，pod 将会被拒绝。
 
 <!--
@@ -321,6 +313,4 @@ Pod 开销通过 RuntimeClass 的 `overhead` 字段定义。
 - [RuntimeClass 设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass 调度设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - 阅读关于 [Pod 开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/) 的概念
-- [PodOverhead 特性设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
-
-
+- [PodOverhead 特性设计](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

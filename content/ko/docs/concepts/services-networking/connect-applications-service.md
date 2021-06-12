@@ -383,7 +383,7 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 <h1>Welcome to nginx!</h1>
 ```
 
-이제 클라우드 로드 밸런서를 사용하도록 서비스를 재생성하고, `my-nginx` 서비스의 `Type` 을  `NodePort` 에서 `LoadBalancer` 로 변경한다.
+이제 클라우드 로드 밸런서를 사용하도록 서비스를 재생성한다. `my-nginx` 서비스의 `Type` 을  `NodePort` 에서 `LoadBalancer` 로 변경한다.
 
 ```shell
 kubectl edit svc my-nginx
@@ -420,5 +420,5 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 
 
 * [서비스를 사용해서 클러스터 내 애플리케이션에 접근하기](/ko/docs/tasks/access-application-cluster/service-access-application-cluster/)를 더 자세히 알아본다.
-* [서비스를 사용해서 프론트 엔드부터 백 엔드까지 연결하기](/docs/tasks/access-application-cluster/connecting-frontend-backend/)를 더 자세히 알아본다.
+* [서비스를 사용해서 프론트 엔드부터 백 엔드까지 연결하기](/ko/docs/tasks/access-application-cluster/connecting-frontend-backend/)를 더 자세히 알아본다.
 * [외부 로드 밸런서를 생성하기](/docs/tasks/access-application-cluster/create-external-load-balancer/)를 더 자세히 알아본다.

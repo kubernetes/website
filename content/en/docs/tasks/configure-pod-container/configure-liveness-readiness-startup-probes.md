@@ -30,7 +30,7 @@ getting killed by the kubelet before they are up and running.
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 
 
@@ -204,7 +204,7 @@ seconds.
 
 In addition to the readiness probe, this configuration includes a liveness probe.
 The kubelet will run the first liveness probe 15 seconds after the container
-starts. Just like the readiness probe, this will attempt to connect to the
+starts. Similar to the readiness probe, this will attempt to connect to the
 `goproxy` container on port 8080. If the liveness probe fails, the container
 will be restarted.
 
@@ -293,6 +293,10 @@ Services.
 Readiness probes runs on the container during its whole lifecycle.
 {{< /note >}}
 
+{{< caution >}}
+Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
+{{< /caution >}}
+
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.
 
@@ -366,7 +370,7 @@ have additional fields that can be set on `httpGet`:
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
 set "Host" in httpHeaders instead.
 * `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to HTTP.
-* `path`: Path to access on the HTTP server.
+* `path`: Path to access on the HTTP server. Defaults to /.
 * `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
 * `port`: Name or number of the port to access on the container. Number must be
 in the range 1 to 65535.
@@ -389,24 +393,32 @@ You can override the default headers by defining `.httpHeaders` for the probe; f
 
 ```yaml
 livenessProbe:
-  httpHeaders:
-    Accept: application/json
+  httpGet:
+    httpHeaders:
+      - name: Accept
+        value: application/json
 
 startupProbe:
-  httpHeaders:
-    User-Agent: MyUserAgent
+  httpGet:
+    httpHeaders:
+      - name: User-Agent
+        value: MyUserAgent
 ```
 
 You can also remove these two headers by defining them with an empty value.
 
 ```yaml
 livenessProbe:
-  httpHeaders:
-    Accept: ""
+  httpGet:
+    httpHeaders:
+      - name: Accept
+        value: ""
 
 startupProbe:
-  httpHeaders:
-    User-Agent: ""
+  httpGet:
+    httpHeaders:
+      - name: User-Agent
+        value: ""
 ```
 
 ### TCP probes
@@ -415,7 +427,48 @@ For a TCP probe, the kubelet makes the probe connection at the node, not in the 
 means that you can not use a service name in the `host` parameter since the kubelet is unable
 to resolve it.
 
+### Probe-level `terminationGracePeriodSeconds`
 
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+Prior to release 1.21, the pod-level `terminationGracePeriodSeconds` was used
+for terminating a container that failed its liveness or startup probe. This
+coupling was unintended and may have resulted in failed containers taking an
+unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
+was set.
+
+In 1.21, when the feature flag `ProbeTerminationGracePeriod` is enabled, users
+can specify a probe-level `terminationGracePeriodSeconds` as part of the probe
+specification. When the feature flag is enabled, and both a pod- and
+probe-level `terminationGracePeriodSeconds` are set, the kubelet will use the
+probe-level value.
+
+For example,
+
+```yaml
+spec:
+  terminationGracePeriodSeconds: 3600  # pod-level
+  containers:
+  - name: test
+    image: ...
+
+    ports:
+    - name: liveness-port
+      containerPort: 8080
+      hostPort: 8080
+
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: liveness-port
+      failureThreshold: 1
+      periodSeconds: 60
+      # Override pod-level terminationGracePeriodSeconds #
+      terminationGracePeriodSeconds: 60
+```
+
+Probe-level `terminationGracePeriodSeconds` cannot be set for readiness probes.
+It will be rejected by the API server.
 
 ## {{% heading "whatsnext" %}}
 

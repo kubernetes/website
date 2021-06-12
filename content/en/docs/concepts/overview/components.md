@@ -33,7 +33,8 @@ The control plane's components make global decisions about the cluster (for exam
 Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
-[Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
+[Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+for an example control plane setup that runs across multiple VMs.
 
 ### kube-apiserver
 
@@ -51,11 +52,11 @@ the same machine, and do not run user containers on this machine. See
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
-These controllers include:
+Some types of these controllers are:
 
   * Node controller: Responsible for noticing and responding when nodes go down.
-  * Replication controller: Responsible for maintaining the correct number of pods for every replication
-  controller object in the system.
+  * Job controller: Watches for Job objects that represent one-off tasks, then creates
+    Pods to run those tasks to completion.
   * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
   * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
 
@@ -132,4 +133,3 @@ saving container logs to a central log store with search/browsing interface.
 * Learn about [Controllers](/docs/concepts/architecture/controller/)
 * Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read etcd's official [documentation](https://etcd.io/docs/)
-

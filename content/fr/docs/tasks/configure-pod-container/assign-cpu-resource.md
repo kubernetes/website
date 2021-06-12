@@ -114,7 +114,7 @@ cpu-demo                    974m         <something>
 Souvenez-vous qu'en réglant `-cpu "2"`, vous avez configuré le conteneur pour faire en sorte qu'il utilise 2 CPU, mais que le conteneur ne peut utiliser qu'environ 1 CPU. L'utilisation du CPU du conteneur est entravée, car le conteneur tente d'utiliser plus de ressources CPU que sa limite.
 
 {{< note >}}
-Une autre explication possible de la la restriction du CPU est que le Nœud pourrait ne pas avoir
+Une autre explication possible de la restriction du CPU est que le Nœud pourrait ne pas avoir
 suffisamment de ressources CPU disponibles. Rappelons que les conditions préalables à cet exercice exigent que chacun de vos Nœuds doit avoir au moins 1 CPU.
 Si votre conteneur fonctionne sur un nœud qui n'a qu'un seul CPU, le conteneur ne peut pas utiliser plus que 1 CPU, quelle que soit la limite de CPU spécifiée pour le conteneur.
 {{< /note >}}

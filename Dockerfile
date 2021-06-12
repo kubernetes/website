@@ -4,7 +4,7 @@
 # change is that the Hugo version is now an overridable argument rather than a fixed
 # environment variable.
 
-FROM alpine:latest
+FROM golang:1.15-alpine
 
 LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
 

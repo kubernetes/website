@@ -460,7 +460,7 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 - service discovery，服务发现
 - service mesh，服务网格
 - session，会话
-- sidecar，挂斗
+- sidecar，边车
 - skew，偏移
 - spec，规约
 - specification，规约

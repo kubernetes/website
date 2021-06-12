@@ -49,12 +49,14 @@ This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
 {{< figure src="/images/docs/nodelocaldns.svg" alt="NodeLocal DNSCache flow" title="Nodelocal DNSCache flow" caption="This image shows how NodeLocal DNSCache handles DNS queries." >}}
 
 ## Configuration
-{{< note >}} The local listen IP address for NodeLocal DNSCache can be any IP in the 169.254.20.0/16 space or any other IP address that can be guaranteed to not collide with any existing IP. This document uses 169.254.20.10 as an example.
+{{< note >}} The local listen IP address for NodeLocal DNSCache can be any address that can be guaranteed to not collide with any existing IP in your cluster. It's recommended to use an address with a local scope, per example, from the link-local range 169.254.0.0/16 for IPv4 or from the Unique Local Address range in IPv6 fd00::/8.
 {{< /note >}}
 
 This feature can be enabled using the following steps:
 
 * Prepare a manifest similar to the sample [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) and save it as `nodelocaldns.yaml.`
+* If using IPv6, the CoreDNS configuration file need to enclose all the IPv6 addresses into square brackets if used in IP:Port format. 
+If you are using the sample manifest from the previous point, this will require to modify [the configuration line L70](https://github.com/kubernetes/kubernetes/blob/b2ecd1b3a3192fbbe2b9e348e095326f51dc43dd/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml#L70) like this `health [__PILLAR__LOCAL__DNS__]:8080`
 * Substitute the variables in the manifest with the right values:
 
      * kubedns=`kubectl get svc kube-dns -n kube-system -o jsonpath={.spec.clusterIP}`
@@ -77,7 +79,7 @@ This feature can be enabled using the following steps:
   * If kube-proxy is running in IPVS mode:
 
     ``` bash
-     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
+     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/,__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
     ```
      In this mode, node-local-dns pods listen only on `<node-local-address>`. The node-local-dns interface cannot bind the kube-dns cluster IP since the interface used for IPVS loadbalancing already uses this address.
      `__PILLAR__UPSTREAM__SERVERS__` will be populated by the node-local-dns pods.

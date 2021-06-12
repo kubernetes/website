@@ -54,7 +54,7 @@ Tutorial ini menggunakan CFSSL: PKI dan peralatan TLS dari Cloudflare [klik disi
 ## Unduh dan Pasang CFSSL
 
 Contoh ini menggunakan cfssl yang dapat diunduh pada 
-[https://pkg.cfssl.org/](https://pkg.cfssl.org/).
+[https://github.com/cloudflare/cfssl/releases](https://github.com/cloudflare/cfssl/releases).
 
 ## Membuat CertificateSigningRequest
 

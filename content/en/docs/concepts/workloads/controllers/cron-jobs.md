@@ -10,7 +10,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repeating schedule.
 
@@ -49,6 +49,37 @@ This example CronJob manifest prints the current time and a hello message every 
 ([Running Automated Tasks with a CronJob](/docs/tasks/job/automated-tasks-with-cron-jobs/)
 takes you through this example in more detail).
 
+### Cron schedule syntax
+
+```
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
+```
+
+
+| Entry 										| Description																									| Equivalent to |
+| ------------- 						| ------------- 																							|-------------  |
+| @yearly (or @annually)		| Run once a year at midnight of 1 January										| 0 0 1 1 * 		|
+| @monthly 									| Run once a month at midnight of the first day of the month	| 0 0 1 * * 		|
+| @weekly 									| Run once a week at midnight on Sunday morning								| 0 0 * * 0 		|
+| @daily (or @midnight)			| Run once a day at midnight																	| 0 0 * * * 		|
+| @hourly 									| Run once an hour at the beginning of the hour								| 0 * * * * 		|
+
+
+
+For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
+
+`0 0 13 * 5`
+
+To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
+
 ## CronJob limitations {#cron-job-limitations}
 
 A cron job creates a job object _about_ once per execution time of its schedule. We say "about" because there
@@ -58,6 +89,11 @@ but do not completely prevent them. Therefore, jobs should be _idempotent_.
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
 at least once.
+
+{{< caution >}}
+If `startingDeadlineSeconds` is set to a value less than 10 seconds, the CronJob may not be scheduled. This is because the CronJob controller checks things every 10 seconds.
+{{< /caution >}}
+
 
 For every CronJob, the CronJob {{< glossary_tooltip term_id="controller" >}} checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error
 
@@ -80,12 +116,17 @@ be down for the same period as the previous example (`08:29:00` to `10:21:00`,) 
 The CronJob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
 
-## New controller
+## Controller version {#new-controller}
 
-There's an alternative implementation of the CronJob controller, available as an alpha feature since Kubernetes 1.20. To select version 2 of the CronJob controller, pass the following [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+Starting with Kubernetes v1.21 the second version of the CronJob controller
+is the default implementation. To disable the default CronJob controller
+and use the original CronJob controller instead, one pass the `CronJobControllerV2`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}},
+and set this flag to `false`. For example:
 
 ```
---feature-gates="CronJobControllerV2=true"
+--feature-gates="CronJobControllerV2=false"
 ```
 
 
@@ -96,5 +137,4 @@ documents the format of CronJob `schedule` fields.
 
 For instructions on creating and working with cron jobs, and for an example of CronJob
 manifest, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
-
 

@@ -28,9 +28,7 @@ The most common way to implement the APIService is to run an *extension API serv
 Extension API servers should have low latency networking to and from the kube-apiserver.
 Discovery requests are required to round-trip from the kube-apiserver in five seconds or less.
 
-If your extension API server cannot achieve that latency requirement, consider making changes that let you meet it. You can also set the
-`EnableAggregatedDiscoveryTimeout=false` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on the kube-apiserver
-to disable the timeout restriction. This deprecated feature gate will be removed in a future release.
+If your extension API server cannot achieve that latency requirement, consider making changes that let you meet it.
 
 ## {{% heading "whatsnext" %}}
 

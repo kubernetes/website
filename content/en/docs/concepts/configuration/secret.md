@@ -24,6 +24,16 @@ a password, a token, or a key. Such information might otherwise be put in a
 Pod specification or in an image. Users can create Secrets and the system
 also creates some Secrets.
 
+{{< caution >}}
+Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
+strings. By default they can be retrieved - as plain text - by anyone with API
+access, or anyone with access to Kubernetes' underlying data store, etcd. In
+order to safely use Secrets, it is recommended you (at a minimum):
+
+1. [Enable Encryption at Rest](/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
+2. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that restrict reading and writing the Secret. Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+{{< /caution >}}
+
 <!-- body -->
 
 ## Overview of Secrets
@@ -99,14 +109,14 @@ empty-secret   Opaque   0      2m6s
 ```
 
 The `DATA` column shows the number of data items stored in the Secret.
-In this case, `0` means we have just created an empty Secret.
+In this case, `0` means we have created an empty Secret.
 
 ###  Service account token Secrets
 
 A `kubernetes.io/service-account-token` type of Secret is used to store a
 token that identifies a service account. When using this Secret type, you need
 to ensure that the `kubernetes.io/service-account.name` annotation is set to an
-existing service account name. An Kubernetes controller fills in some other
+existing service account name. A Kubernetes controller fills in some other
 fields such as the `kubernetes.io/service-account.uid` annotation and the
 `token` key in the `data` field set to actual token content.
 
@@ -280,7 +290,7 @@ ConfigMap.
 
 ### TLS secrets
 
-Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
+Kubernetes provides a builtin Secret type `kubernetes.io/tls` for storing
 a certificate and its associated key that are typically used for TLS . This
 data is primarily used with TLS termination of the Ingress resource, but may
 be used with other resources or directly by a workload.
@@ -318,13 +328,13 @@ kubectl create secret tls my-tls-secret \
   --key=path/to/key/file
 ```
 
-The public/private key pair must exist before hand. The public key certificate
+The public/private key pair must exist beforehand. The public key certificate
 for `--cert` must be .PEM encoded (Base64-encoded DER format), and match the
 given private key for `--key`.
 The private key must be in what is commonly called PEM private key format,
 unencrypted. In both cases, the initial and the last lines from PEM (for
 example, `--------BEGIN CERTIFICATE-----` and `-------END CERTIFICATE----` for
-a cetificate) are *not* included.
+a certificate) are *not* included.
 
 ### Bootstrap token Secrets
 
@@ -358,7 +368,7 @@ data:
 
 A bootstrap type Secret has the following keys specified under `data`:
 
-- `token_id`: A random 6 character string as the token identifier. Required.
+- `token-id`: A random 6 character string as the token identifier. Required.
 - `token-secret`: A random 16 character string as the actual token secret. Required.
 - `description`: A human-readable string that describes what the token is
   used for. Optional.
@@ -658,8 +668,8 @@ When a secret currently consumed in a volume is updated, projected keys are even
 The kubelet checks whether the mounted secret is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the Secret.
 The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
-the [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
-A Secret can be either propagated by watch (default), ttl-based, or simply redirecting
+the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
+A Secret can be either propagated by watch (default), ttl-based, or by redirecting
 all requests directly to the API server.
 As a result, the total delay from the moment when the Secret is updated to the moment
 when new keys are projected to the Pod can be as long as the kubelet sync period + cache
@@ -708,7 +718,7 @@ spec:
 
 #### Consuming Secret Values from environment variables
 
-Inside a container that consumes a secret in an environment variables, the secret keys appear as
+Inside a container that consumes a secret in the environment variables, the secret keys appear as
 normal environment variables containing the base64 decoded values of the secret data.
 This is the result of commands executed inside the container from the example above:
 
@@ -739,9 +749,9 @@ There are third party solutions for triggering restarts when secrets change.
 
 ## Immutable Secrets {#secret-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
 (at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
 data has the following advantages:
@@ -750,8 +760,8 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for secrets marked as immutable.
 
-This feature is controlled by the `ImmutableEphemeralVolumes` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/),
+This feature is controlled by the `ImmutableEphemeralVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 which is enabled by default since v1.19. You can create an immutable
 Secret by setting the `immutable` field to `true`. For example,
 ```yaml
@@ -776,7 +786,7 @@ these pods.
 The `imagePullSecrets` field is a list of references to secrets in the same namespace.
 You can use an `imagePullSecrets` to pass a secret that contains a Docker (or other) image registry
 password to the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
+See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
 
 #### Manually specifying an imagePullSecret
 
@@ -790,12 +800,6 @@ or created with that ServiceAccount by default, will get their `imagePullSecrets
 field set to that of the service account.
 See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
-
-### Automatic mounting of manually created Secrets
-
-Manually created secrets (for example, one containing a token for accessing a GitHub account)
-can be automatically attached to pods based on their service account.
-See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset/) for a detailed explanation of that process.
 
 ## Details
 
@@ -861,6 +865,7 @@ start until all the Pod's volumes are mounted.
 ### Use-Case: As container environment variables
 
 Create a secret
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -873,6 +878,7 @@ data:
 ```
 
 Create the Secret:
+
 ```shell
 kubectl apply -f mysecret.yaml
 ```
@@ -988,7 +994,7 @@ For example, if your actual password is `S!B\*d$zDsb=`, you should execute the c
 kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
 ```
 
- You do not need to escape special characters in passwords from files (`--from-file`).
+You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
 Now make the Pods:
@@ -1169,14 +1175,12 @@ privileged, system-level components.
 
 Applications that need to access the Secret API should perform `get` requests on
 the secrets they need. This lets administrators restrict access to all secrets
-while [white-listing access to individual instances](
-/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
+while [white-listing access to individual instances](/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
 the app needs.
 
 For improved performance over a looping `get`, clients can design resources that
 reference a secret then `watch` the resource, re-requesting the secret when the
-reference changes. Additionally, a ["bulk watch" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
+reference changes. Additionally, a ["bulk watch" API](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
 to let clients `watch` individual resources has also been proposed, and will likely
 be available in future releases of Kubernetes.
 

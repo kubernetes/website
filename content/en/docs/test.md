@@ -113,7 +113,7 @@ mind:
     two consecutive lists. **The HTML comment needs to be at the left margin.**
 2.  Numbered lists can have paragraphs or block elements within them.
 
-    Just indent the content to be the same as the first line of the bullet
+    Indent the content to be the same as the first line of the bullet
     point. **This paragraph and the code block line up with the `N` in
     `Numbered` above.**
 
@@ -337,7 +337,7 @@ sequenceDiagram
     Alice->John: Yes... John, how are you?
 {{</ mermaid >}}
 
-<br>More [examples](https://mermaid-js.github.io/mermaid/#/examples) from the offical docs.
+<br>More [examples](https://mermaid-js.github.io/mermaid/#/examples) from the official docs.
 
 ## Sidebars and Admonitions
 

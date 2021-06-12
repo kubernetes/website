@@ -51,12 +51,12 @@ Configurations with a single API server will experience unavailability while the
    If any pods are started before new CA is used by API servers, they will get this update and trust both old and new CAs.
 
    ```shell
-   base64_encoded_ca="$(base64 <path to file containing both old and new CAs>)"
+   base64_encoded_ca="$(base64 -w0 <path to file containing both old and new CAs>)"
 
    for namespace in $(kubectl get ns --no-headers | awk '{print $1}'); do
        for token in $(kubectl get secrets --namespace "$namespace" --field-selector type=kubernetes.io/service-account-token -o name); do
            kubectl get $token --namespace "$namespace" -o yaml | \
-             /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}" | \
+             /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}/" | \
              kubectl apply -f -
        done
    done
@@ -105,8 +105,8 @@ Configurations with a single API server will experience unavailability while the
       * Make sure control plane components logs no TLS errors.
 
       {{< note >}}
-      To generate certificates and private keys for your cluster using the `openssl` command line tool, see [Certificates (`openssl`)](/docs/concepts/cluster-administration/certificates/#openssl).
-      You can also use [`cfssl`](/docs/concepts/cluster-administration/certificates/#cfssl).
+      To generate certificates and private keys for your cluster using the `openssl` command line tool, see [Certificates (`openssl`)](/docs/tasks/administer-cluster/certificates/#openssl).
+      You can also use [`cfssl`](/docs/tasks/administer-cluster/certificates/#cfssl).
       {{< /note >}}
 
    1. Annotate any Daemonsets and Deployments to trigger pod replacement in a safer rolling fashion.
@@ -132,10 +132,10 @@ Configurations with a single API server will experience unavailability while the
 1. If your cluster is using bootstrap tokens to join nodes, update the ConfigMap `cluster-info` in the `kube-public` namespace with new CA.
 
    ```shell
-   base64_encoded_ca="$(base64 /etc/kubernetes/pki/ca.crt)"
+   base64_encoded_ca="$(base64 -w0 /etc/kubernetes/pki/ca.crt)"
 
    kubectl get cm/cluster-info --namespace kube-public -o yaml | \
-       /bin/sed "s/\(certificate-authority-data:\).*/\1 ${base64_encoded_ca}" | \
+       /bin/sed "s/\(certificate-authority-data:\).*/\1 ${base64_encoded_ca}/" | \
        kubectl apply -f -
    ```
 

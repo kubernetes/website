@@ -2,12 +2,12 @@
 title: 使用工作队列进行精细的并行处理
 content_type: task
 min-kubernetes-server-version: v1.8
-weight: 40
+weight: 30
 ---
 <!--
 title: Fine Parallel Processing Using a Work Queue
 content_type: task
-weight: 40
+weight: 30
 min-kubernetes-server-version: v1.8
 -->
 
@@ -45,10 +45,10 @@ Here is an overview of the steps in this example:
 
 <!--
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
-  this example, a message is just an integer that we will do a lengthy computation on.
+   this example, a message is an integer that we will do a lengthy computation on.
 -->
 2. **创建一个队列，然后向其中填充消息。** 每个消息表示一个将要被处理的工作任务。
-   在这个例子中，消息只是一个我们将用于进行长度计算的整数。
+   在这个例子中，消息是一个我们将用于进行长度计算的整数。
 
 <!--
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
@@ -85,7 +85,7 @@ of deploying Redis scalably and redundantly.
 <!--
 You could also download the following files directly:
 -->
-你可以直接下载如下文件：
+你也可以直接下载如下文件：
 
 - [`redis-pod.yaml`](/examples/application/job/redis/redis-pod.yaml)
 - [`redis-service.yaml`](/examples/application/job/redis/redis-service.yaml)
@@ -97,14 +97,14 @@ You could also download the following files directly:
 <!--
 ## Filling the Queue with tasks
 
-Now let's fill the queue with some "tasks".  In our example, our tasks are just strings to be
+Now let's fill the queue with some "tasks".  In our example, our tasks are strings to be
 printed.
 
 Start a temporary interactive pod for running the Redis CLI.
 -->
 ## 使用任务填充队列
 
-现在，让我们往队列里添加一些“任务”。在这个例子中，我们的任务只是一些将被打印出来的字符串。
+现在，让我们往队列里添加一些“任务”。在这个例子中，我们的任务是一些将被打印出来的字符串。
 
 启动一个临时的可交互的 pod 用于运行 Redis 命令行界面。
 
@@ -121,7 +121,7 @@ Now hit enter, start the redis CLI, and create a list with some work items in it
 -->
 现在按回车键，启动 redis 命令行界面，然后创建一个存在若干个工作项的列表。
 
-```
+```shell
 # redis-cli -h redis
 redis:6379> rpush job2 "apple"
 (integer) 1
@@ -214,7 +214,7 @@ your username and push to the Hub with the below commands. Replace
 ### Push 镜像
 
 对于 [Docker Hub](https://hub.docker.com/)，请先用你的用户名给镜像打上标签，
-然后使用下面的命令 push 你的镜像到仓库。请将 `<username>` 替换为你自己的用户名。
+然后使用下面的命令 push 你的镜像到仓库。请将 `<username>` 替换为你自己的 Hub 用户名。
 
 ```shell
 docker tag job-wq-2 <username>/job-wq-2
@@ -270,7 +270,7 @@ too.
 -->
 在这个例子中，每个 pod 处理了队列中的多个项目，直到队列中没有项目时便退出。
 因为是由工作程序自行检测工作队列是否为空，并且 Job 控制器不知道工作队列的存在，
-所以依赖于工作程序在完成工作时发出信号。
+这依赖于工作程序在完成工作时发出信号。
 工作程序以成功退出的形式发出信号表示工作队列已经为空。
 所以，只要有任意一个工作程序成功退出，控制器就知道工作已经完成了，所有的 Pod 将很快会退出。
 因此，我们将 Job 的完成计数（Completion Count）设置为 1 。
@@ -360,11 +360,10 @@ want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-comp
 
 <!--
 If you have a continuous stream of background processing work to run, then
-consider running your background workers with a `replicationController` instead,
+consider running your background workers with a `ReplicaSet` instead,
 and consider running a background processing library such as
 [https://github.com/resque/resque](https://github.com/resque/resque).
 -->
-如果你有连续的后台处理业务，那么可以考虑使用 `replicationController` 来运行你的后台业务，
+如果你有持续的后台处理业务，那么可以考虑使用 `ReplicaSet` 来运行你的后台业务，
 和运行一个类似 [https://github.com/resque/resque](https://github.com/resque/resque)
 的后台处理库。
-

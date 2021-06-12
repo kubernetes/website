@@ -1,7 +1,7 @@
 ---
 id: pod-disruption-budget
 title: Pod Disruption Budget
-full-link: /docs/concepts/workloads/pods/disruptions/
+full-link: /zh/docs/concepts/workloads/pods/disruptions/
 date: 2019-02-12
 short_description: >
  Pod Disruption Budget 是这样一种对象：它保证在主动中断（ voluntary disruptions）时，多实例应用的 {{< glossary_tooltip text="Pod" term_id="pod" >}} 不会少于一定的数量。

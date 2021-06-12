@@ -8,7 +8,7 @@ weight: 40
 <!--
 Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
 is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
-a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a 
+a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
 hard requirement). Taints are the opposite -they allow a node to repel a set of pods.
 -->
 节点亲和性（详见[这里](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)）
@@ -67,7 +67,7 @@ kubectl taint nodes node1 key1=value1:NoSchedule-
 若要移除上述命令所添加的污点，你可以执行：
 
 ```shell
-kubectl taint nodes node1 key:NoSchedule-
+kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
 
 <!--
@@ -131,7 +131,7 @@ An empty `effect` matches all effects with key `key1`.
 如果一个容忍度的 `key` 为空且 operator 为 `Exists`，
 表示这个容忍度与任意的 key 、value 和 effect 都匹配，即这个容忍度能容忍任意 taint。
 
-如果 `effect` 为空，则可以与所有键名 `key` 的效果相匹配。
+如果 `effect` 为空，则可以与所有键名 `key1` 的效果相匹配。
 {{< /note >}}
 
 <!--
@@ -140,7 +140,7 @@ This is a "preference" or "soft" version of `NoSchedule` - the system will *try*
 pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
 `NoExecute`, described later.
 -->
-上述例子使用到的 `effect` 的一个值 `NoSchedule`，您也可以使用另外一个值 `PreferNoSchedule`。
+上述例子中 `effect` 使用的值为 `NoSchedule`，您也可以使用另外一个值 `PreferNoSchedule`。
 这是“优化”或“软”版本的 `NoSchedule` —— 系统会 *尽量* 避免将 Pod 调度到存在其不能容忍污点的节点上，
 但这不是强制的。`effect` 的值还可以设置为 `NoExecute`，下文会详细描述这个值。
 
@@ -169,7 +169,7 @@ scheduled onto the node (if it is not yet running on the node).
   则 Kubernetes 不会将 Pod 分配到该节点。
 * 如果未被过滤的污点中不存在 effect 值为 `NoSchedule` 的污点，
   但是存在 effect 值为 `PreferNoSchedule` 的污点，
-  则 Kubernetes 会 *尝试* 将 Pod 分配到该节点。
+  则 Kubernetes 会 *尝试* 不将 Pod 分配到该节点。
 * 如果未被过滤的污点中存在至少一个 effect 值为 `NoExecute` 的污点，
   则 Kubernetes 不会将 Pod 分配到该节点（如果 Pod 还未在节点上运行），
   或者将 Pod 从该节点驱逐（如果 Pod 已经在节点上运行）。
@@ -357,9 +357,9 @@ true. The following taints are built in:
    the NodeCondition `Ready` being "`False`".
  * `node.kubernetes.io/unreachable`: Node is unreachable from the node
    controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
- * `node.kubernetes.io/out-of-disk`: Node becomes out of disk.
  * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
  * `node.kubernetes.io/disk-pressure`: Node has disk pressure.
+ * `node.kubernetes.io/pid-pressure`: Node has PID pressure.
  * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
  * `node.kubernetes.io/unschedulable`: Node is unschedulable.
  * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
@@ -371,9 +371,9 @@ true. The following taints are built in:
 
  * `node.kubernetes.io/not-ready`：节点未准备好。这相当于节点状态 `Ready` 的值为 "`False`"。
  * `node.kubernetes.io/unreachable`：节点控制器访问不到节点. 这相当于节点状态 `Ready` 的值为 "`Unknown`"。
- * `node.kubernetes.io/out-of-disk`：节点磁盘耗尽。
  * `node.kubernetes.io/memory-pressure`：节点存在内存压力。
  * `node.kubernetes.io/disk-pressure`：节点存在磁盘压力。
+ * `node.kubernetes.io/pid-pressure`: 节点的 PID 压力。
  * `node.kubernetes.io/network-unavailable`：节点网络不可用。
  * `node.kubernetes.io/unschedulable`: 节点不可调度。
  * `node.cloudprovider.kubernetes.io/uninitialized`：如果 kubelet 启动时指定了一个 "外部" 云平台驱动，
@@ -438,7 +438,7 @@ by the user already has a toleration for `node.kubernetes.io/unreachable`.
 
 {{< note >}}
 Kubernetes 会自动给 Pod 添加一个 key 为 `node.kubernetes.io/not-ready` 的容忍度
-并配置 `tolerationSeconds=300`，除非用户提供的 Pod 配置中已经已存在了 key 为 
+并配置 `tolerationSeconds=300`，除非用户提供的 Pod 配置中已经已存在了 key 为
 `node.kubernetes.io/not-ready` 的容忍度。
 
 同样，Kubernetes 会给 Pod 添加一个 key 为 `node.kubernetes.io/unreachable` 的容忍度
@@ -486,7 +486,7 @@ breaking.
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
-  * `node.kubernetes.io/out-of-disk` (*only for critical pods*)
+  * `node.kubernetes.io/pid-pressure` (1.14 or later)
   * `node.kubernetes.io/unschedulable` (1.10 or later)
   * `node.kubernetes.io/network-unavailable` (*host network only*)
 -->
@@ -498,7 +498,7 @@ DaemonSet 控制器自动为所有守护进程添加如下 `NoSchedule` 容忍�
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
-  * `node.kubernetes.io/out-of-disk` (*只适合关键 Pod*)
+  * `node.kubernetes.io/pid-pressure` (1.14 或更高版本)
   * `node.kubernetes.io/unschedulable` (1.10 或更高版本)
   * `node.kubernetes.io/network-unavailable` (*只适合主机网络配置*)
 
@@ -517,5 +517,3 @@ arbitrary tolerations to DaemonSets.
 -->
 * 阅读[资源耗尽的处理](/zh/docs/tasks/administer-cluster/out-of-resource/)，以及如何配置其行为
 * 阅读 [Pod 优先级](/zh/docs/concepts/configuration/pod-priority-preemption/)
-
-

@@ -104,6 +104,9 @@ a given action, and works regardless of the authorization mode used.
 ```bash
 kubectl auth can-i create deployments --namespace dev
 ```
+
+The output is similar to this:
+
 ```
 yes
 ```
@@ -111,6 +114,9 @@ yes
 ```shell
 kubectl auth can-i create deployments --namespace prod
 ```
+
+The output is similar to this:
+
 ```
 no
 ```
@@ -121,6 +127,9 @@ to determine what action other users can perform.
 ```bash
 kubectl auth can-i list secrets --namespace dev --as dave
 ```
+
+The output is similar to this:
+
 ```
 no
 ```
@@ -129,7 +138,7 @@ no
 exposes the API server authorization to external services. Other resources in
 this group include:
 
-* `SubjectAccessReview` - Access review for any user, not just the current one. Useful for delegating authorization decisions to the API server. For example, the kubelet and extension API servers use this to determine user access to their own APIs.
+* `SubjectAccessReview` - Access review for any user, not only the current one. Useful for delegating authorization decisions to the API server. For example, the kubelet and extension API servers use this to determine user access to their own APIs.
 * `LocalSubjectAccessReview` - Like `SubjectAccessReview` but restricted to a specific namespace.
 * `SelfSubjectRulesReview` - A review which returns the set of actions a user can perform within a namespace. Useful for users to quickly summarize their own access, or for UIs to hide/show actions.
 
@@ -150,7 +159,7 @@ EOF
 ```
 
 The generated `SelfSubjectAccessReview` is:
-```
+```yaml
 apiVersion: authorization.k8s.io/v1
 kind: SelfSubjectAccessReview
 metadata:

@@ -1,4 +1,6 @@
 ---
+
+
 title: 파드와 레플리케이션컨트롤러(ReplicationController) 디버그하기
 content_type: task
 ---
@@ -48,14 +50,14 @@ kubectl describe pods ${POD_NAME}
 * 클러스터에 노드를 더 추가하기.
 
 * pending 상태인 파드를 위한 공간을 확보하기 위해
-  [불필요한 파드 종료하기](/ko/docs/concepts/workloads/pods/#pod-termination)
+  [불필요한 파드 종료하기](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 
 * 파드가 노드보다 크지 않은지 확인한다. 예를 들어 모든
   노드가 `cpu:1` 의 용량을 가지고 있을 경우, `cpu: 1.1` 을 요청하는 파드는
   절대 스케줄 될 수 없다.
 
 	사용자는 `kubectl get nodes -o <format>` 명령으로 노드의
-	용량을 점검할 수 있다. 다음은 필요한 정보만을 추출하는 몇 가지
+	용량을 점검할 수 있다. 다음은 필요한 정보를 추출하는 몇 가지
 	명령의 예이다.
 
     ```shell

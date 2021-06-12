@@ -45,6 +45,26 @@ Secret 是一种包含少量敏感信息例如密码、令牌或密钥的对象�
 这样的信息可能会被放在 Pod 规约中或者镜像中。
 用户可以创建 Secret，同时系统也创建了一些 Secret。
 
+{{< caution >}}
+<!--
+Kubernetes Secrets are, by default, stored as unencrypted base64-encoded
+strings. By default they can be retrieved - as plain text - by anyone with API
+access, or anyone with access to Kubernetes' underlying data store, etcd. In
+order to safely use Secrets, it is recommended you (at a minimum):
+
+1. [Enable Encryption at Rest](/zh/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
+2. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that restrict reading and writing the Secret. Be aware that secrets can be obtained implicitly by anyone with the permission to create a Pod.
+-->
+Kubernetes Secret 默认情况下存储为 base64-编码的、非加密的字符串。
+默认情况下，能够访问 API 的任何人，或者能够访问 Kubernetes 下层数据存储（etcd）
+的任何人都可以以明文形式读取这些数据。
+为了能够安全地使用 Secret，我们建议你（至少）：
+
+1. 为 Secret [启用静态加密](/zh/docs/tasks/administer-cluster/encrypt-data/)；
+2. [启用 或配置 RBAC 规则](/zh/docs/reference/access-authn-authz/authorization/)来限制对 Secret 的读写操作。
+   要注意，任何被允许创建 Pod 的人都默认地具有读取 Secret 的权限。
+{{< /caution >}}
+
 <!-- body -->
 
 <!--
@@ -173,7 +193,7 @@ empty-secret   Opaque   0      2m6s
 
 <!--
 The `DATA` column shows the number of data items stored in the Secret.
-In this case, `0` means we have just created an empty Secret.
+In this case, `0` means we have created an empty Secret.
 -->
 `DATA` 列显示 Secret 中保存的数据条目个数。
 在这个例子种，`0` 意味着我们刚刚创建了一个空的 Secret。
@@ -184,7 +204,7 @@ In this case, `0` means we have just created an empty Secret.
 A `kubernetes.io/service-account-token` type of Secret is used to store a
 token that identifies a service account. When using this Secret type, you need
 to ensure that the `kubernetes.io/service-account.name` annotation is set to an
-existing service account name. An Kubernetes controller fills in some other
+existing service account name. A Kubernetes controller fills in some other
 fields such as the `kubernetes.io/service-account.uid` annotation and the
 `token` key in the `data` field set to actual token content.
 
@@ -460,9 +480,21 @@ configuration.
 API 服务器确实会检查 Secret 配置中是否提供了所需要的主键。
 
 <!--
+SSH private keys do not establish trusted communication between an SSH client and
+host server on their own. A secondary means of establishing trust is needed to
+mitigate "man in the middle" attacks, such as a `known_hosts` file added to a
+ConfigMap.
+-->
+{{< caution >}}
+SSH 私钥自身无法建立 SSH 客户端与服务器端之间的可信连接。
+需要其它方式来建立这种信任关系，以缓解“中间人（Man In The Middle）”
+攻击，例如向 ConfigMap 中添加一个 `known_hosts` 文件。
+{{< /caution >}}
+
+<!--
 ### TLS secrets
 
-Kubernetes provides a builtin Secret type `kubernetes.io/tls` for to storing
+Kubernetes provides a builtin Secret type `kubernetes.io/tls` for storing
 a certificate and its associated key that are typically used for TLS . This
 data is primarily used with TLS termination of the Ingress resource, but may
 be used with other resources or directly by a workload.
@@ -581,7 +613,7 @@ data:
 <!--
 A bootstrap type has the following keys specified under `data`:
 
-- `token_id`: A random 6 character string as the token identifier. Required.
+- `token-id`: A random 6 character string as the token identifier. Required.
 - `token-secret`: A random 16 character string as the actual token secret. Required.
 - `description1`: A human-readable string that describes what the token is
   used for. Optional.
@@ -594,7 +626,7 @@ A bootstrap type has the following keys specified under `data`:
 -->
 启动引导令牌类型的 Secret 会在 `data` 字段中包含如下主键：
 
-- `token_id`：由 6 个随机字符组成的字符串，作为令牌的标识符。必需。
+- `token-id`：由 6 个随机字符组成的字符串，作为令牌的标识符。必需。
 - `token-secret`：由 16 个随机字符组成的字符串，包含实际的令牌机密。必需。
 - `description`：供用户阅读的字符串，描述令牌的用途。可选。
 - `expiration`：一个使用 RFC3339 来编码的 UTC 绝对时间，给出令牌要过期的时间。可选。
@@ -1036,8 +1068,8 @@ Kubelet is checking whether the mounted secret is fresh on every periodic sync.
 However, it is using its local cache for getting the current value of the Secret.
 
 The type of the cache is configurable using the  (`ConfigMapAndSecretChangeDetectionStrategy` field in
-[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
-It can be either propagated via watch (default), ttl-based, or simply redirecting
+the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
+A Secret can be either propagated by watch (default), ttl-based, or by redirecting
 all requests to directly kube-apiserver.
 As a result, the total delay from the moment when the Secret is updated to the moment
 when new keys are projected to the Pod can be as long as kubelet sync period + cache
@@ -1050,7 +1082,7 @@ propagation delay, where cache propagation delay depends on the chosen cache typ
 组件 kubelet 在周期性同步时检查被挂载的 Secret 是不是最新的。
 但是，它会使用其本地缓存的数值作为 Secret 的当前值。
 
-缓存的类型可以使用 [KubeletConfiguration 结构](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)
+缓存的类型可以使用 [KubeletConfiguration 结构](/zh/docs/reference/config-api/kubelet-config.v1beta1/)
 中的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
 它可以通过 watch 操作来传播（默认），基于 TTL 来刷新，也可以
 将所有请求直接重定向到 API 服务器。
@@ -1119,7 +1151,7 @@ spec:
 <!--
 #### Consuming Secret Values from environment variables
 
-Inside a container that consumes a secret in an environment variables, the secret keys appear as
+Inside a container that consumes a secret in the environment variables, the secret keys appear as
 normal environment variables containing the base64 decoded values of the secret data.
 This is the result of commands executed inside the container from the example above:
 -->
@@ -1155,14 +1187,26 @@ The output is similar to:
 ```
 
 <!--
+#### Environment variables are not updated after a secret update
+
+If a container already consumes a Secret in an environment variable, a Secret update will not be seen by the container unless it is restarted.
+There are third party solutions for triggering restarts when secrets change.
+-->
+#### Secret 更新之后对应的环境变量不会被更新
+
+如果某个容器已经在通过环境变量使用某 Secret，对该 Secret 的更新不会被
+容器马上看见，除非容器被重启。有一些第三方的解决方案能够在 Secret 发生
+变化时触发容器重启。
+
+<!--
 ## Immutable Secrets {#secret-immutable}
 -->
 ## 不可更改的 Secret {#secret-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
 (at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
 data has the following advantages:
@@ -1171,7 +1215,7 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for secrets marked as immutable.
 -->
-Kubernetes 的 alpha 特性 _不可变的 Secret 和 ConfigMap_ 提供了一种可选配置，
+Kubernetes 的特性 _不可变的 Secret 和 ConfigMap_ 提供了一种可选配置，
 可以设置各个 Secret 和 ConfigMap 为不可变的。
 对于大量使用 Secret 的集群（至少有成千上万各不相同的 Secret 供 Pod 挂载），
 禁止变更它们的数据有下列好处：
@@ -1181,8 +1225,8 @@ Kubernetes 的 alpha 特性 _不可变的 Secret 和 ConfigMap_ 提供了一种�
   kube-apiserver 的负载，提升集群性能。
 
 <!--
-This feature is controlled by the `ImmutableEphemeralVolumes` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/),
+This feature is controlled by the `ImmutableEphemeralVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
 which is enabled by default since v1.19. You can create an immutable
 Secret by setting the `immutable` field to `true`. For example,
 -->
@@ -1219,7 +1263,7 @@ these pods.
 The `imagePullSecrets` field is a list of references to secrets in the same namespace.
 You can use an `imagePullSecrets` to pass a secret that contains a Docker (or other) image registry
 password to the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
+See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
 
 #### Manually specifying an imagePullSecret
 
@@ -1230,7 +1274,8 @@ You can learn how to specify `ImagePullSecrets` from the [container images docum
 `imagePullSecrets` 字段中包含一个列表，列举对同一名字空间中的 Secret 的引用。
 你可以使用 `imagePullSecrets` 将包含 Docker（或其他）镜像仓库密码的 Secret 传递给
 kubelet。kubelet 使用此信息来替你的 Pod 拉取私有镜像。
-关于 `imagePullSecrets` 字段的更多信息，请参考 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core) 文档。
+关于 `imagePullSecrets` 字段的更多信息，请参考
+[PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 文档。
 
 #### 手动指定 imagePullSecret
 
@@ -1255,20 +1300,6 @@ Pod 将会将其的 imagePullSecret 字段设置为服务帐户的 imagePullSecr
 有关该过程的详细说明，请参阅
 [将 ImagePullSecrets 添加到服务帐户](/zh/docs/tasks/configure-pod-container/configure-service-account/#adding-imagepullsecrets-to-a-service-account)。
 
-<!--
-### Automatic Mounting of Manually Created Secrets
-
-Manually created secrets (e.g. one containing a token for accessing a github account)
-can be automatically attached to pods based on their service account.
-See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-application/podpreset/) for a detailed explanation of that process.
--->
-
-#### 自动挂载手动创建的 Secret
-
-手动创建的 Secret（例如包含用于访问 GitHub 帐户令牌的 Secret）可以
-根据其服务帐户自动附加到 Pod。
-请参阅[使用 PodPreset 向 Pod 中注入信息](/zh/docs/tasks/inject-data-application/podpreset/)
-以获取该过程的详细说明。
 
 <!--
 ## Details
@@ -1821,14 +1852,12 @@ Secret 中的值对于不同的环境来说重要性可能不同。
 <!--
 Applications that need to access the secrets API should perform `get` requests on
 the secrets they need. This lets administrators restrict access to all secrets
-while [white-listing access to individual instances](
-/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
+while [white-listing access to individual instances](/docs/reference/access-authn-authz/rbac/#referring-to-resources) that
 the app needs.
 
 For improved performance over a looping `get`, clients can design resources that
 reference a secret then `watch` the resource, re-requesting the secret when the
-reference changes. Additionally, a ["bulk watch" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
+reference changes. Additionally, a ["bulk watch" API](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
 to let clients `watch` individual resources has also been proposed, and will likely
 be available in future releases of Kubernetes.
 -->

@@ -69,8 +69,9 @@ write that to disk, in the location specified by `--cert-dir`. Then the kubelet
 will use the new certificate to connect to the Kubernetes API.
 
 As the expiration of the signed certificate approaches, the kubelet will
-automatically issue a new certificate signing request, using the Kubernetes
-API. Again, the controller manager will automatically approve the certificate
+automatically issue a new certificate signing request, using the Kubernetes API. 
+This can happen at any point between 30% and 10% of the time remaining on the 
+certificate. Again, the controller manager will automatically approve the certificate
 request and attach a signed certificate to the certificate signing request. The
 kubelet will retrieve the new signed certificate from the Kubernetes API and
 write that to disk. Then it will update the connections it has to the

@@ -49,7 +49,7 @@ debug the exact same code locally if needed.
 
 <!--
 A ConfigMap is not designed to hold large chunks of data. The data stored in a
-ConfigMap cannot exeed 1 MiB. If you need to store settings that are
+ConfigMap cannot exceed 1 MiB. If you need to store settings that are
 larger than this limit, you may want to consider mounting a volume or use a
 separate database or file service.
 -->
@@ -63,10 +63,10 @@ ConfigMap 在设计上不是用来保存大量数据的。在 ConfigMap 中保�
 A ConfigMap is an API [object](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 that lets you store configuration for other objects to use. Unlike most
 Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
-fields. These fields accepts key-value pairs as their values.  Both the `data`
+fields. These fields accept key-value pairs as their values.  Both the `data`
 field and the `binaryData` are optional. The `data` field is designed to
 contain UTF-8 byte sequences while the `binaryData` field is designed to
-contain binary data.
+contain binary data as base64-encoded strings.
 
 The name of a ConfigMap must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -78,7 +78,7 @@ ConfigMap 是一个 API [对象](/zh/docs/concepts/overview/working-with-objects
 和其他 Kubernetes 对象都有一个 `spec` 不同的是，ConfigMap 使用 `data` 和
 `binaryData` 字段。这些字段能够接收键-值对作为其取值。`data` 和 `binaryData`
 字段都是可选的。`data` 字段设计用来保存 UTF-8 字节序列，而 `binaryData` 则
-被设计用来保存二进制数据。
+被设计用来保存二进制数据作为 base64 编码的字串。
 
 ConfigMap 的名字必须是一个合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
@@ -141,7 +141,7 @@ data:
 There are four different ways that you can use a ConfigMap to configure
 a container inside a Pod:
 
-1. Command line arguments to the entrypoint of a container
+1. Inside a container command and args
 1. Environment variables for a container
 1. Add a file in read-only volume, for the application to read
 1. Write code to run inside the Pod that uses the Kubernetes API to read a ConfigMap
@@ -154,7 +154,7 @@ the ConfigMap when it launches container(s) for a Pod.
 -->
 你可以使用四种方式来使用 ConfigMap 配置 Pod 中的容器：
 
-1. 容器 entrypoint 的命令行参数
+1. 在容器命令和参数内
 1. 容器的环境变量
 1. 在只读卷里面添加一个文件，让应用来读取
 1. 编写代码在 Pod 中运行，使用 Kubernetes API 来读取 ConfigMap
@@ -349,7 +349,7 @@ When a ConfigMap currently consumed in a volume is updated, projected keys are e
 The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the ConfigMap.
 The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
-the [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
 #### 被挂载的 ConfigMap 内容会被自动更新
 
@@ -361,7 +361,7 @@ kubelet 组件会在每次周期性同步时检查所挂载的 ConfigMap 是否�
 的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
 
 <!--
-A ConfigMap can be either propagated by watch (default), ttl-based, or simply redirecting
+A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting
 all requests directly to the API server.
 As a result, the total delay from the moment when the ConfigMap is updated to the moment
 when new keys are projected to the Pod can be as long as the kubelet sync period + cache
@@ -369,7 +369,7 @@ propagation delay, where the cache propagation delay depends on the chosen cache
 (it equals to watch propagation delay, ttl of cache, or zero correspondingly).
 -->
 ConfigMap 既可以通过 watch 操作实现内容传播（默认形式），也可实现基于 TTL
-的缓存，还可以直接将所有请求重定向到 API 服务器。
+的缓存，还可以直接经过所有请求重定向到 API 服务器。
 因此，从 ConfigMap 被更新的那一刻算起，到新的主键被投射到 Pod 中去，这一
 时间跨度可能与 kubelet 的同步周期加上高速缓存的传播延迟相等。
 这里的传播延迟取决于所选的高速缓存类型
@@ -386,15 +386,15 @@ ConfigMaps consumed as environment variables are not updated automatically and r
 -->
 ## 不可变更的 ConfigMap     {#configmap-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use ConfigMaps
 (at least tens of thousands of unique ConfigMap to Pod mounts), preventing changes to their
 data has the following advantages:
 -->
-Kubernetes Beta 特性 _不可变更的 Secret 和 ConfigMap_ 提供了一种将各个
+Kubernetes 特性 _不可变更的 Secret 和 ConfigMap_ 提供了一种将各个
 Secret 和 ConfigMap 设置为不可变更的选项。对于大量使用 ConfigMap 的
 集群（至少有数万个各不相同的 ConfigMap 给 Pod 挂载）而言，禁止更改
 ConfigMap 的数据有以下好处：

@@ -31,10 +31,10 @@ card:
 
 <!--
 This tutorial shows you how to run a sample app
-on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
+on Kubernetes using minikube and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment.
 -->
-本教程向你展示如何使用 [Minikube](/zh/docs/setup/learning-environment/minikube) 和 Katacoda
+本教程向你展示如何使用 Minikube 和 Katacoda
 在 Kubernetes 上运行一个应用示例。Katacoda 提供免费的浏览器内 Kubernetes 环境。
 
 <!--
@@ -52,7 +52,7 @@ See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation 
 ## {{% heading "objectives" %}}
 
 <!--
-* Deploy a sample application to Minikube.
+* Deploy a sample application to minikube.
 * Run the app.
 * View application logs.
 -->
@@ -71,7 +71,7 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 <!-- lessoncontent -->
 
 <!--
-## Create a Minikube cluster
+## Create a minikube cluster
 
 1. Click **Launch Terminal**
 -->
@@ -81,9 +81,13 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
    {{< kat-button >}}
 
-   <!-- If you installed Minikube locally, run `minikube start`.-->
+   <!-- 
+   If you installed minikube locally, run `minikube start`. Before you run `minikube dashboard`, you should open a new terminal, start `minikube dashboard` there, and then switch back to the main terminal.
+   -->
    {{< note >}}
-   如果你在本地安装了 Minikube，运行 `minikube start`。 
+   如果你在本地安装了 Minikube，运行 `minikube start`。
+   在运行 `minikube dashboard` 之前，你应该打开一个新终端，
+   在此启动 `minikube dashboard` ，然后切换回主终端。 
    {{< /note >}}
 
 <!--
@@ -97,18 +101,49 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
 <!--
 3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
-
-4. Katacoda environment only: Type `30000`, and then click **Display Port**.
 -->
 3. 仅限 Katacoda 环境：在终端窗口的顶部，单击加号，然后单击 **选择要在主机 1 上查看的端口**。
 
+<!--
+4. Katacoda environment only: Type `30000`, and then click **Display Port**.
+-->
 4. 仅限 Katacoda 环境：输入“30000”，然后单击 **显示端口**。
+
+<!--
+The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser. You can create Kubernetes resources on the dashboard such as Deployment and Service.
+
+If you are running in an environment as root, see [Open Dashboard with URL](#open-dashboard-with-url).
+
+To stop the proxy, run `Ctrl+C` to exit the process. The dashboard remains running.
+-->
+{{< note >}}
+`dashboard` 命令启用仪表板插件，并在默认的 Web 浏览器中打开代理。你可以在仪表板上创建 Kubernetes 资源，例如 Deployment 和 Service。
+
+如果你以 root 用户身份在环境中运行，
+请参见[使用 URL 打开仪表板](#open-dashboard-with-url)。
+
+要停止代理，请运行 `Ctrl+C` 退出该进程。仪表板仍在运行中。
+{{< /note >}}
+
+<!--
+## Open Dashboard with URL
+-->
+## 使用 URL 打开仪表板
+
+<!--
+If you don't want to open a web browser, run the dashboard command with the url flag to emit a URL:
+-->
+如果你不想打开 Web 浏览器，请使用 url 标志运行显示板命令以得到 URL：
+
+```shell
+minikube dashboard --url
+```
 
 <!--
 
 ## Create a Deployment
 
-A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
+A Kubernetes [*Pod*](/docs/concepts/workloads/pods/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
 tutorial has only one Container. A Kubernetes
 [*Deployment*](/docs/concepts/workloads/controllers/deployment/) checks on the health of your
@@ -118,7 +153,7 @@ recommended way to manage the creation and scaling of Pods.
 
 ## 创建 Deployment
 
-Kubernetes [*Pod*](/zh/docs/concepts/workloads/pods/pod/) 是由一个或多个
+Kubernetes [*Pod*](/zh/docs/concepts/workloads/pods/) 是由一个或多个
 为了管理和联网而绑定在一起的容器构成的组。 本教程中的 Pod 只有一个容器。
 Kubernetes [*Deployment*](/zh/docs/concepts/workloads/controllers/deployment/)
 检查 Pod 的健康状况，并在 Pod 中的容器终止的情况下重新启动新的容器。
@@ -199,7 +234,7 @@ For more information about `kubectl`commands, see the
 [kubectl overview](/docs/user-guide/kubectl-overview/).
 -->
 {{< note >}}
-有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/user-guide/kubectl-overview/)。
+有关 `kubectl` 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/reference/kubectl/overview/)。
 {{< /note >}}
 
 <!--
@@ -226,15 +261,21 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    ```
 
    <!--
-   The `-type=LoadBalancer` flag indicates that you want to expose your Service
-   outside of the cluster.
+    The `--type=LoadBalancer` flag indicates that you want to expose your Service
+    outside of the cluster.
+
+    The application code inside the image `k8s.gcr.io/echoserver` only listens on TCP port 8080. If you used
+    `kubectl expose` to expose a different port, clients could not connect to that other port.
    -->
-   这里的 `--type=LoadBalancer` 标志表明你希望将你的 Service 暴露到集群外部。
+   这里的 `--type=LoadBalancer` 参数表明你希望将你的 Service 暴露到集群外部。
+
+   镜像 `k8s.gcr.io/echoserver` 中的应用程序代码仅监听 TCP 8080 端口。
+   如果你用 `kubectl expose` 暴露了其它的端口，客户端将不能访问其它端口。
 
 <!--
-2. View the Service you just created:
+2. View the Service you created:
 -->
-2. 查看你刚刚创建的 Service：
+2. 查看你创建的 Service：
 
    ```shell
    kubectl get services
@@ -254,7 +295,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
    <!--
    On cloud providers that support load balancers,
-   an external IP address would be provisioned to access the Service. On Minikube,
+   an external IP address would be provisioned to access the Service. On minikube,
    the `LoadBalancer` type makes the Service accessible through the `minikube service`
    command.
    -->
@@ -290,7 +331,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 <!--
 ## Enable addons
 
-Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
+The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
 
 1. List the currently supported addons:
 -->
@@ -350,9 +391,9 @@ Minikube 有一组内置的 {{< glossary_tooltip text="插件" term_id="addons" 
    ```
 
 <!--
-3. View the Pod and Service you just created:
+3. View the Pod and Service you created:
 -->
-3. 查看刚才创建的 Pod 和 Service：
+3. 查看创建的 Pod 和 Service：
 
    ```shell
    kubectl get pod,svc -n kube-system

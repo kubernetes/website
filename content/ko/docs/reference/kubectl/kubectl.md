@@ -207,6 +207,13 @@ kubectl [flags]
 </tr>
 
 <tr>
+<td colspan="2">--one-output</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">true이면, 로그를 기본 심각도 수준으로만 기록한다(그렇지 않으면 각각의 더 낮은 심각도 수준에도 기록함).</td>
+</tr>
+
+<tr>
 <td colspan="2">--password string</td>
 </tr>
 <tr>
@@ -325,7 +332,6 @@ kubectl [flags]
 
 ## {{% heading "seealso" %}}
 
-* [kubectl alpha](/docs/reference/generated/kubectl/kubectl-commands#alpha)	 - 알파 기능에 대한 커맨드
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - 리소스에 대한 어노테이션 업데이트
 * [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - 서버에서 지원되는 API 리소스 출력
 * [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - "그룹/버전" 형식으로 서버에서 지원되는 API 버전을 출력
@@ -337,10 +343,10 @@ kubectl [flags]
 * [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands#cluster-info)	 - 클러스터 정보 표시
 * [kubectl completion](/docs/reference/generated/kubectl/kubectl-commands#completion)	 - 지정된 셸(bash 또는 zsh)에 대한 셸 완성 코드 출력
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)	 - kubeconfig 파일 수정
-* [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert)	 - 다른 API 버전 간에 구성 파일 변환
 * [kubectl cordon](/docs/reference/generated/kubectl/kubectl-commands#cordon)	 - 노드를 unschedulable로 표시
 * [kubectl cp](/docs/reference/generated/kubectl/kubectl-commands#cp)	 - 컨테이너 간에 파일과 디렉터리 복사
 * [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - 파일 또는 표준 입력에서 리소스를 생성
+* [kubectl debug](/docs/reference/generated/kubectl/kubectl-commands#debug)	 - 워크로드와 노드의 문제 해결을 위한 디버깅 세션 생성
 * [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - 파일명, 표준 입력, 리소스 및 이름, 또는 리소스 및 레이블 셀렉터로 리소스 삭제
 * [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	 - 특정 리소스 또는 리소스 그룹의 세부 정보를 표시
 * [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - 적용 예정 버전과 라이브 버전 비교
@@ -354,7 +360,7 @@ kubectl [flags]
 * [kubectl label](/docs/reference/generated/kubectl/kubectl-commands#label)	 - 리소스의 레이블 업데이트
 * [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands#logs)	 - 파드의 컨테이너에 대한 로그 출력
 * [kubectl options](/docs/reference/generated/kubectl/kubectl-commands#options)	 - 모든 커맨드에서 상속된 플래그 목록을 출력
-* [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - 전략적 병합 패치를 사용하여 리소스 필드를 업데이트
+* [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands#patch)	 - 리소스 필드를 업데이트
 * [kubectl plugin](/docs/reference/generated/kubectl/kubectl-commands#plugin)	 - 플러그인과 상호 작용하기 위한 유틸리티를 제공
 * [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands#port-forward)	 - 하나 이상의 로컬 포트를 파드로 전달
 * [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy)	 - 쿠버네티스 API 서버에 대한 프록시 실행

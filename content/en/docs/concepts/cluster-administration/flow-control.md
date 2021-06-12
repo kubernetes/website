@@ -59,7 +59,7 @@ kube-apiserver \
 ```
 
 Alternatively, you can enable the v1alpha1 version of the API group
-with `--runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=true`.
+with `--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true`.
 
 The command-line flag `--enable-priority-and-fairness=false` will disable the
 API Priority and Fairness feature, even if other flags have enabled it.
@@ -427,7 +427,7 @@ poorly-behaved workloads that may be harming system health.
   histogram vector of queue lengths for the queues, broken down by
   the labels `priority_level` and `flow_schema`, as sampled by the
   enqueued requests.  Each request that gets queued contributes one
-  sample to its histogram, reporting the length of the queue just
+  sample to its histogram, reporting the length of the queue immediately
   after the request was added.  Note that this produces different
   statistics than an unbiased survey would.
     {{< note >}}
@@ -526,6 +526,6 @@ When you enable the API Priority and Fairness feature, the kube-apiserver serves
 
 
 For background information on design details for API priority and fairness, see
-the [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
-You can make suggestions and feature requests via [SIG API
-Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
+the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
+You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery) 
+or the feature's [slack channel](http://kubernetes.slack.com/messages/api-priority-and-fairness).

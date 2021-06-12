@@ -31,7 +31,7 @@ weight: 10
                 Once you have a running Kubernetes cluster, you can deploy your containerized applications on top of it.
                 To do so, you create a Kubernetes <b>Deployment</b> configuration. The Deployment instructs Kubernetes
                 how to create and update instances of your application. Once you've created a Deployment, the Kubernetes
-                master schedules the application instances included in that Deployment to run on individual Nodes in the
+                control plane schedules the application instances included in that Deployment to run on individual Nodes in the
                 cluster.
                 </p>
 
@@ -92,9 +92,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
               <p>
-                For your first Deployment, you'll use a Node.js application packaged in a Docker container. (If you didn't already try creating a 
-	              Node.js application and deploying it using a container, you can do that first by following the 
-	              instructions from the <a href="/docs/tutorials/hello-minikube/">Hello Minikube tutorial</a>).
+                For your first Deployment, you'll use a hello-node application packaged in a Docker container that uses NGINX to echo back all the requests. (If you didn't already try creating a hello-node application and deploying it using a container, you can do that first by following the instructions from the <a href="/docs/tutorials/hello-minikube/">Hello Minikube tutorial</a>).
               <p>
               
                <p>Now that you know what Deployments are, let's go to the online tutorial and deploy our first app!</p>

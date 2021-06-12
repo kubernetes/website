@@ -100,10 +100,17 @@ _标签_ 是键值对。有效的标签键有两个段：可选的前缀和名�
 `kubernetes.io/` 前缀是为 Kubernetes 核心组件保留的。
 
 <!--
-Valid label values must be 63 characters or less and must be empty or begin and end with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
+Valid label value:
+
+* must be 63 characters or less (can be empty),
+* unless empty, must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
+* could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 -->
-有效标签值必须为 63 个字符或更少，并且必须为空或以字母数字字符（`[a-z0-9A-Z]`）开头和结尾，
-中间可以包含破折号（`-`）、下划线（`_`）、点（`.`）和字母或数字。
+有效标签值：
+
+* 必须为 63 个字符或更少（可以为空）
+* 除非标签值为空，必须以字母数字字符（`[a-z0-9A-Z]`）开头和结尾
+* 包含破折号（`-`）、下划线（`_`）、点（`.`）和字母或数字。
 
 <!--
 ## Label selectors
@@ -162,7 +169,7 @@ Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _eq
 
 _基于等值_ 或 _基于不等值_ 的需求允许按标签键和值进行过滤。
 匹配对象必须满足所有指定的标签约束，尽管它们也可能具有其他标签。
-可接受的运算符有`=`、`==` 和 `！=` 三种。 
+可接受的运算符有`=`、`==` 和 `!=` 三种。 
 前两个表示 _相等_（并且只是同义词），而后者表示 _不相等_。例如：
 
 ```
@@ -255,7 +262,7 @@ LIST and WATCH operations may specify label selectors to filter the sets of obje
 -->
 ### LIST 和 WATCH 过滤
 
-LIST and WATCH 操作可以使用查询参数指定标签选择算符过滤一组对象。
+LIST 和 WATCH 操作可以使用查询参数指定标签选择算符过滤一组对象。
 两种需求都是允许的。（这里显示的是它们出现在 URL 查询字符串中）
 
 <!--

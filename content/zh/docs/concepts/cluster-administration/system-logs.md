@@ -59,7 +59,7 @@ Migration to structured log messages is an ongoing process. Not all log messages
 
 Log formatting and value serialization are subject to change.
 -->
-{{<warning>}}
+{{< warning >}}
 到结构化日志消息的迁移是一个持续的过程。
 在此版本中，并非所有日志消息都是结构化的。
 解析日志文件时，你也必须要处理非结构化日志消息。
@@ -68,22 +68,25 @@ Log formatting and value serialization are subject to change.
 {{< /warning>}}
 
 <!--
-Structured logging is a effort to introduce a uniform structure in log messages allowing for easy extraction of information, making logs easier and cheaper to store and process.
+Structured logging introduces a uniform structure in log messages allowing for programmatic extraction of information. You can store and process structured logs with less effort and cost.
 New message format is backward compatible and enabled by default.
 
 Format of structured logs:
 -->
-结构化日志记录旨在日志消息中引入统一结构，以方便提取信息，使日志的存储和处理更容易、成本更低。
+结构化日志记录旨在日志消息中引入统一结构，以便以编程方式提取信息。
+你可以方便地用更小的开销来处理结构化日志。
 新的消息格式向后兼容，并默认启用。
 
 结构化日志的格式：
-```
+
+```ini
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
 ```
 
 <!-- Example: -->
 示例：
-```
+
+```ini
 I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod="kube-system/kubedns" status="ready"
 ```
 
@@ -152,6 +155,55 @@ List of components currently supporting JSON format:
 * {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 * {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}}
 * {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
+
+<!--
+### Log sanitization
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+{{<warning >}}
+Log sanitization might incur significant computation overhead and therefore should not be enabled in production.
+{{< /warning >}}
+-->
+
+### 日志清理
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+{{<warning >}}
+日志清理可能会导致大量的计算开销，因此不应启用在生产环境中。
+{{< /warning >}}
+
+<!--
+The `--experimental-logging-sanitization` flag enables the klog sanitization filter.
+If enabled all log arguments are inspected for fields tagged as sensitive data (e.g. passwords, keys, tokens) and logging of these fields will be prevented.
+-->
+
+`--experimental-logging-sanitization` 参数可用来启用 klog 清理过滤器。
+如果启用后，将检查所有日志参数中是否有标记为敏感数据的字段（比如：密码，密钥，令牌），并且将阻止这些字段的记录。
+
+<!--
+List of components currently supporting log sanitization:
+* kube-controller-manager
+* kube-apiserver
+* kube-scheduler
+* kubelet
+
+{{< note >}}
+The Log sanitization filter does not prevent user workload logs from leaking sensitive data.
+{{< /note >}}
+-->
+
+当前支持日志清理的组件列表：
+
+* kube-controller-manager
+* kube-apiserver
+* kube-scheduler
+* kubelet
+
+{{< note >}}
+日志清理过滤器不会阻止用户工作负载日志泄漏敏感数据。
+{{< /note >}}
 
 <!--
 ### Log verbosity level

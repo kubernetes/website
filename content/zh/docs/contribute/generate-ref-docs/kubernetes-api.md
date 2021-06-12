@@ -12,11 +12,11 @@ weight: 50
 <!-- overview -->
 
 <!--
-This page shows how to update the generated reference docs for the Kubernetes API.
+This page shows how to update the Kubernetes API reference documentation.
 
 The Kubernetes API reference documentation is built from the
 [Kubernetes OpenAPI spec](https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json)
-and tools from [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs).
+using the [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) generation code.
 
 If you find bugs in the generated documentation, you need to
 [fix them upstream](/docs/contribute/generate-ref-docs/contribute-upstream/).
@@ -24,12 +24,12 @@ If you find bugs in the generated documentation, you need to
 If you need only to regenerate the reference documentation from the [OpenAPI](https://github.com/OAI/OpenAPI-Specification)
 spec, continue reading this page.
 -->
-本页面展示了如何为 Kubernetes API 更新自动生成的参考文档。
+本页面显示了如何更新 Kubernetes API 参考文档。
 
 Kubernetes API 参考文档是从
 [Kubernetes OpenAPI 规范](https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json)
-构建的，而工具是从
-[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) 构建的。
+构建的，
+且使用[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) 生成代码。
 
 如果您在生成的文档中发现错误，则需要[在上游修复](/zh/docs/contribute/generate-ref-docs/contribute-upstream/)。
 
@@ -55,23 +55,30 @@ mkdir -p $HOME/<workspace>
 export GOPATH=$HOME/<workspace>
 ```
 
-<!-- Get a local clone of the following repositories: -->
+<!-- 
+Get a local clone of the following repositories: 
+-->
 获取以下仓库的本地克隆：
 
 ```shell
-go get -u github.com/kubernetes-incubator/reference-docs
+go get -u github.com/kubernetes-sigs/reference-docs
+
 go get -u github.com/go-openapi/loads
 go get -u github.com/go-openapi/spec
 ```
 
-<!-- If you don't already have the kubernetes/website repository, get it now: -->
+<!-- 
+If you don't already have the kubernetes/website repository, get it now: 
+-->
 如果你还没有下载过 `kubernetes/website` 仓库，现在下载：
 
 ```shell
 git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
 ```
 
-<!-- Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes: -->
+<!-- 
+Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes: 
+-->
 克隆 kubernetes/kubernetes 仓库作为 k8s.io/kubernetes：
 
 ```shell
@@ -90,8 +97,8 @@ The remaining steps refer to your base directory as `<k8s-base>`.
 The remaining steps refer to your base directory as `<web-base>`.
 
 * The base directory of your clone of the
-[kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs)
-repository is `$GOPATH/src/github.com/kubernetes-incubator/reference-docs.`
+[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
+repository is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
 The remaining steps refer to your base directory as `<rdocs-base>`.
 -->
 * [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) 仓库克隆后的根目录为
@@ -99,7 +106,7 @@ The remaining steps refer to your base directory as `<rdocs-base>`.
 * [kubernetes/website](https://github.com/kubernetes/website) 仓库克隆后的根目录为
   `$GOPATH/src/github.com/<your username>/website`。后续步骤将此目录称为 `<web-base>`。
 * [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
-  仓库克隆后的基本目录为 `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`。
+  仓库克隆后的基本目录为 `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`。
   后续步骤将此目录称为 `<rdocs-base>`。
 
 <!-- 
@@ -122,21 +129,23 @@ Go to `<rdocs-base>`, and open the `Makefile` for editing:
 <!-- 
 * Set `K8S_ROOT` to `<k8s-base>`.
 * Set `K8S_WEBROOT` to `<web-base>`.
-* Set `K8S_RELEASE` to the minor version of the docs you want to build.
-For example, if you want to build docs for Kubernetes 1.17, set `K8S_RELEASE` to 1.17.
+* Set `K8S_RELEASE` to the version of the docs you want to build.
+  For example, if you want to build docs for Kubernetes 1.17.0, set `K8S_RELEASE` to 1.17.0.
 -->
 * 设置 `K8S_ROOT` 为 `<k8s-base>`.
 * 设置 `K8S_WEBROOT` 为 `<web-base>`.
 * 设置 `K8S_RELEASE` 为要构建的文档的版本。
-  例如，如果您想为 Kubernetes 1.17 构建文档，请将 `K8S_RELEASE` 设置为 1.17。
+  例如，如果您想为 Kubernetes 1.17.0 构建文档，请将 `K8S_RELEASE` 设置为 1.17.0。
 
-<!-- For example, update the following variables: -->
+<!-- 
+For example: 
+-->
 例如：
 
-```
+```shell
 export K8S_WEBROOT=$(GOPATH)/src/github.com/<your-username>/website
 export K8S_ROOT=$(GOPATH)/src/k8s.io/kubernetes
-export K8S_RELEASE=1.17
+export K8S_RELEASE=1.17.0
 ```
 
 <!--
@@ -156,9 +165,9 @@ The versioned directory name follows the pattern of `v<major>_<minor>`.
 版本化目录的名称形式为 `v<major>_<minor>`。
 
 <!--
-In the '<rdocs-base>' directory, run the following build target:
+In the `<rdocs-base>` directory, run the following build target:
 -->
-在  '<rdocs-base>'  目录中，运行以下命令来构建：
+在  `<rdocs-base>`  目录中，运行以下命令来构建：
 
 ```shell
 cd <rdocs-base>
@@ -184,12 +193,14 @@ cd <rdocs-base>
 make copyapi
 ```
 
-<!-- Verify that these two files have been generated: -->
+<!-- 
+Verify that these two files have been generated: 
+-->
 验证是否已生成这两个文件：
 
 ```shell
-[ -e "<rdocs-base>/gen-apidocs/generators/build/index.html" ] && echo "index.html built" || echo "no index.html"
-[ -e "<rdocs-base>/gen-apidocs/generators/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
+[ -e "<rdocs-base>/gen-apidocs/build/index.html" ] && echo "index.html built" || echo "no index.html"
+[ -e "<rdocs-base>/gen-apidocs/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
 ```
 
 <!--
@@ -203,7 +214,9 @@ cd <web-base>
 git status
 ```
 
-<!-- The output is similar to: -->
+<!-- 
+The output is similar to: 
+-->
 输出类似于：
 
 ```

@@ -55,13 +55,13 @@ To build an out-of-tree cloud-controller-manager for your cloud, follow these st
 
 <!--
 1. Create a go package with an implementation that satisfies [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go).
-2. Use [main.go in cloud-controller-manager](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/controller-manager.go) from Kubernetes core as a template for your main.go. As mentioned above, the only difference should be the cloud package that will be imported.
+2. Use [main.go in cloud-controller-manager](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/main.go) from Kubernetes core as a template for your main.go. As mentioned above, the only difference should be the cloud package that will be imported.
 3. Import your cloud package in `main.go`, ensure your package has an `init` block to run [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/plugins.go#L42-L52).
 -->
 1. 使用满足 [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go)
    的实现创建一个 Go 语言包。
 2. 使用来自 Kubernetes 核心代码库的
-   [cloud-controller-manager 中的 main.go](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/controller-manager.go)
+   [cloud-controller-manager 中的 main.go](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/main.go)
    作为 main.go 的模板。如上所述，唯一的区别应该是将导入的云包。
 3. 在 `main.go` 中导入你的云包，确保你的包有一个 `init` 块来运行
    [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/plugins.go#L42-L52)。

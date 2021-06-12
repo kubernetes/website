@@ -37,7 +37,7 @@ request a particular class. Administrators set the name and other parameters
 of a class when first creating StorageClass objects, and the objects cannot
 be updated once they are created.
 
-Administrators can specify a default StorageClass just for PVCs that don't
+Administrators can specify a default StorageClass only for PVCs that don't
 request any particular class to bind to: see the
 [PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 for details.
@@ -149,14 +149,14 @@ mount options specified in the `mountOptions` field of the class.
 
 If the volume plugin does not support mount options but mount options are
 specified, provisioning will fail. Mount options are not validated on either
-the class or PV, so mount of the PV will simply fail if one is invalid.
+the class or PV. If a mount option is invalid, the PV mount fails.
 
 ### Volume Binding Mode
 
 The `volumeBindingMode` field controls when [volume binding and dynamic
-provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
+provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur. When unset, "Immediate" mode is used by default.
 
-By default, the `Immediate` mode indicates that volume binding and dynamic
+The `Immediate` mode indicates that volume binding and dynamic
 provisioning occurs once the PersistentVolumeClaim is created. For storage
 backends that are topology-constrained and not globally accessible from all Nodes
 in the cluster, PersistentVolumes will be bound or provisioned without knowledge of the Pod's scheduling
@@ -187,6 +187,36 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 [CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
 to see its supported topology keys and examples.
+
+{{< note >}}
+   If you choose to use `waitForFirstConsumer`, do not use `nodeName` in the Pod spec
+   to specify node affinity. If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
+
+   Instead, you can use node selector for hostname in this case as shown below.
+{{< /note >}}
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: kube-01
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+```
 
 ### Allowed Topologies
 
@@ -569,7 +599,7 @@ parameters:
   `"http(s)://api-server:7860"`
 * `registry`: Quobyte registry to use to mount the volume. You can specify the
   registry as ``<host>:<port>`` pair or if you want to specify multiple
-  registries you just have to put a comma between them e.q.
+  registries, put a comma between them.
   ``<host1>:<port>,<host2>:<port>,<host3>:<port>``.
   The host can be an IP address or if you have a working DNS you can also
   provide the DNS names.

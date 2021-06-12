@@ -5,7 +5,7 @@ feature:
   description: >
     Kubernetes 会分步骤地将针对应用或其配置的更改上线，同时监视应用程序运行状况以确保你不会同时终止所有实例。如果出现问题，Kubernetes 会为你回滚所作更改。你应该充分利用不断成长的部署方案生态系统。
 content_type: concept
-weight: 30
+weight: 10
 ---
 <!--
 title: Deployments
@@ -15,24 +15,24 @@ feature:
     Kubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.
 
 content_type: concept
-weight: 30
+weight: 10
 -->
 
 <!-- overview -->
 
 <!--
-A _Deployment_ controller provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
+A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 -->
-一个 _Deployment_ 控制器为 {{< glossary_tooltip text="Pods" term_id="pod" >}}
+一个 _Deployment_ 为 {{< glossary_tooltip text="Pods" term_id="pod" >}}
 和 {{< glossary_tooltip term_id="replica-set" text="ReplicaSets" >}}
 提供声明式的更新能力。
 
 <!--
-You describe a _desired state_ in a Deployment, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
-
+You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_tooltip term_id="controller" >}} changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 -->
-你负责描述 Deployment 中的 _目标状态_，而 Deployment 控制器以受控速率更改实际状态，
+你负责描述 Deployment 中的 _目标状态_，而 Deployment {{< glossary_tooltip term_id="controller" >}}
+以受控速率更改实际状态，
 使其变为期望状态。你可以定义 Deployment 以创建新的 ReplicaSet，或删除现有 Deployment，
 并通过新的 Deployment 收养其资源。
 
@@ -102,24 +102,25 @@ In this example:
 
 <!--
 * The `selector` field defines how the Deployment finds which Pods to manage.
-  In this case, you simply select a label that is defined in the Pod template (`app: nginx`).
+  In this case, you select a label that is defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
 -->
 * `selector` 字段定义 Deployment 如何查找要管理的 Pods。
-  在这里，你只需选择在 Pod 模板中定义的标签（`app: nginx`）。
+  在这里，你选择在 Pod 模板中定义的标签（`app: nginx`）。
   不过，更复杂的选择规则是也可能的，只要 Pod 模板本身满足所给规则即可。
 
+  {{< note >}}
   <!--
-  The `matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
-  is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In",
-  and the values array contains only "value".
+  The `spec.selector.matchLabels` field is a map of {key,value} pairs.
+  A single {key,value} in the `matchLabels` map is equivalent to an element of `matchExpressions`,
+  whose `key` field is "key", the `operator` is "In", and the `values` array contains only "value".
   All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
   -->
-  {{< note >}}
-  `matchLabels` 字段是 `{key,value}` 偶对的映射。在 `matchLabels` 映射中的单个 `{key,value}`
-  映射等效于 `matchExpressions` 中的一个元素，即其 `key` 字段是 “key”，operator 为 “In”，`value`
-  数组仅包含 “value”。在 `matchLabels` 和 `matchExpressions` 中给出的所有条件都必须满足才能匹配。
+  `spec.selector.matchLabels` 字段是 `{key,value}` 键值对映射。
+  在 `matchLabels` 映射中的每个 `{key,value}` 映射等效于 `matchExpressions` 中的一个元素，
+  即其 `key` 字段是 “key”，`operator` 为 “In”，`values` 数组仅包含 “value”。
+  在 `matchLabels` 和 `matchExpressions` 中给出的所有条件都必须满足才能匹配。
   {{< /note >}}
 
 <!--
@@ -186,7 +187,7 @@ Follow the steps given below to create the above Deployment:
    -->
    * `NAME` 列出了集群中 Deployment 的名称。
    * `READY` 显示应用程序的可用的 _副本_ 数。显示的模式是“就绪个数/期望个数”。
-   * `UP-TO-DATE` 显示为了打到期望状态已经更新的副本数。
+   * `UP-TO-DATE` 显示为了达到期望状态已经更新的副本数。
    * `AVAILABLE` 显示应用可供用户使用的副本数。
    * `AGE` 显示应用程序运行的时间。
 
@@ -196,9 +197,12 @@ Follow the steps given below to create the above Deployment:
    请注意期望副本数是根据 `.spec.replicas` 字段设置 3。
 
 <!--
- 3. To see the Deployment rollout status, run `kubectl rollout status deployment.v1.apps/nginx-deployment`. The output is similar to this:
+3. To see the Deployment rollout status, run `kubectl rollout status deployment/nginx-deployment`.
+
+   The output is similar to:
 -->
-3. 要查看 Deployment 上线状态，运行 `kubectl rollout status deployment.v1.apps/nginx-deployment`。
+3. 要查看 Deployment 上线状态，运行 `kubectl rollout status deployment/nginx-deployment`。
+
    输出类似于：
 
    ```
@@ -341,16 +345,18 @@ is changed, for example if the labels or container images of the template are up
 
    ```shell
    kubectl --record deployment.apps/nginx-deployment set image \
-      deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+      deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
    ```
-   <!-- or simply use the following command: -->
+   <!--
+   or use the following command:
+   -->
    或者使用下面的命令：
     
    ```shell
    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
    ```
 
-   <!-- The output is similar to this: -->
+   <!-- The output is similar to: -->
    输出类似于：
 
    ```
@@ -380,7 +386,7 @@ is changed, for example if the labels or container images of the template are up
 2. 要查看上线状态，运行：
 
    ```shell
-   kubectl rollout status deployment.v1.apps/nginx-deployment
+   kubectl rollout status deployment/nginx-deployment
    ```
 
    <!-- The output is similar to this: -->
@@ -424,7 +430,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
   kubectl get rs
   ```
 
-  <!-- The output is similar to this: -->
+  <!-- The output is similar to: -->
   输出类似于：
 
   ```
@@ -655,9 +661,10 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
 {{< /note >}}
 
 <!--
-* Suppose that you made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
+* Suppose that you made a typo while updating the Deployment, by putting the image name as `nginx:1.161` instead of `nginx:1.16.1`:
 -->
-* 假设你在更新 Deployment 时犯了一个拼写错误，将镜像名称命名设置为 `nginx:1.161` 而不是 `nginx:1.16.1`：
+* 假设你在更新 Deployment 时犯了一个拼写错误，将镜像名称命名设置为
+  `nginx:1.161` 而不是 `nginx:1.16.1`：
 
   ```shell
   kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
@@ -676,7 +683,7 @@ Deployment 被触发上线时，系统就会创建 Deployment 的新的修订版
 * 此上线进程会出现停滞。你可以通过检查上线状态来验证：
 
   ```shell
-  kubectl rollout status deployment.v1.apps/nginx-deployment
+  kubectl rollout status deployment/nginx-deployment
   ```
 
   <!-- The output is similar to this: -->
@@ -1173,7 +1180,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 这样做使得你能够在暂停和恢复执行之间应用多个修补程序，而不会触发不必要的上线操作。
 
 <!--
-* For example, with a Deployment that was just created:
+* For example, with a Deployment that was created:
   Get the Deployment details:
 -->
 * 例如，对于一个刚刚创建的 Deployment：
@@ -1431,7 +1438,7 @@ successfully, `kubectl rollout status` returns a zero exit code.
 如果上线成功完成，`kubectl rollout status` 返回退出代码 0。
 
 ```shell
-kubectl rollout status deployment.v1.apps/nginx-deployment
+kubectl rollout status deployment/nginx-deployment
 ```
 
 <!-- The output is similar to this: -->
@@ -1652,16 +1659,27 @@ returns a non-zero exit code if the Deployment has exceeded the progression dead
 如果 Deployment 已超过进度限期，`kubectl rollout status` 返回非零退出代码。
 
 ```shell
-kubectl rollout status deployment.v1.apps/nginx-deployment
+kubectl rollout status deployment/nginx-deployment
 ```
 
-<!-- The output is similar to this: -->
+<!--
+The output is similar to this:
+-->
 输出类似于：
 
 ```
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline
+```
+<!--
+and the exit status from `kubectl rollout` is 1 (indicating an error):
+-->
+`kubectl rollout` 命令的退出状态为 1（表明发生了错误）：
+
+```shell
 $ echo $?
+```
+```
 1
 ```
 

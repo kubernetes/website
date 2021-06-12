@@ -293,8 +293,17 @@ how.nice.to.look=fairlyNice
 ```
 
 <!--
+When `kubectl` creates a ConfigMap from inputs that are not ASCII or UTF-8, the tool puts these into the `binaryData` field of the ConfigMap, and not in `data`. Both text and binary data sources can be combined in one ConfigMap.
+If you want to view the `binaryData` keys (and their values) in a ConfigMap, you can run `kubectl get configmap -o jsonpath='{.binaryData}' <name>`.
+
 Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
 -->
+当 `kubectl` 基于非 ASCII 或 UTF-8 的输入创建 ConfigMap 时，
+该工具将这些输入放入 ConfigMap 的 `binaryData` 字段，而不是 `data` 中。
+同一个 ConfigMap 中可同时包含文本数据和二进制数据源。
+如果你想查看 ConfigMap 中的 `binaryData` 键（及其值），
+你可以运行 `kubectl get configmap -o jsonpath='{.binaryData}' <name>`。
+
 使用 `--from-env-file` 选项从环境文件创建 ConfigMap，例如：
 
 <!--
@@ -925,7 +934,7 @@ In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` vo
 ### 将 ConfigMap 数据添加到数据卷中的特定路径
 
 使用 `path` 字段为特定的 ConfigMap 项目指定预期的文件路径。
-在这里，`SPECIAL_LEVEL` 将挂载在 `config-volume` 数据卷中 `/etc/config/keys` 目录下。
+在这里，ConfigMap中，键值 `SPECIAL_LEVEL` 的内容将挂载在 `config-volume` 数据卷中 `/etc/config/keys` 文件下。
 
 {{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
 

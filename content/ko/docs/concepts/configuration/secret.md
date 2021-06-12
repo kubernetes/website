@@ -1,4 +1,6 @@
 ---
+
+
 title: 시크릿(Secret)
 content_type: concept
 feature:
@@ -21,6 +23,16 @@ weight: 30
 포함하는 오브젝트이다. 그렇지 않으면  이러한 정보가 파드
 명세나 이미지에 포함될 수 있다. 사용자는 시크릿을 만들 수 있고 시스템도
 일부 시크릿을 만들 수 있다.
+
+{{< caution >}}
+쿠버네티스 시크릿은 기본적으로 암호화되지 않은 base64 인코딩 문자열로 저장된다.
+기본적으로 API 액세스 권한이 있는 모든 사용자 또는 쿠버네티스의 기본 데이터 저장소 etcd에
+액세스할 수 있는 모든 사용자가 일반 텍스트로 검색할 수 있다.
+시크릿을 안전하게 사용하려면 (최소한) 다음과 같이 하는 것이 좋다.
+
+1. 시크릿에 대한 [암호화 활성화](/docs/tasks/administer-cluster/encrypt-data/).
+2. 시크릿 읽기 및 쓰기를 제한하는 [RBAC 규칙 활성화 또는 구성](/docs/reference/access-authn-authz/authorization/). 파드를 만들 권한이 있는 모든 사용자는 시크릿을 암묵적으로 얻을 수 있다.
+{{< /caution >}}
 
 <!-- body -->
 
@@ -97,7 +109,7 @@ empty-secret   Opaque   0      2m6s
 ```
 
 해당 `DATA` 열은 시크릿에 저장된 데이터 아이템의 수를 보여준다.
-이 경우, `0` 은 비어 있는 시크릿을 방금 하나 생성하였다는 것을 의미한다.
+이 경우, `0` 은 비어 있는 시크릿을 하나 생성하였다는 것을 의미한다.
 
 ###  서비스 어카운트 토큰 시크릿
 
@@ -134,7 +146,7 @@ data:
 [서비스 어카운트](/docs/tasks/configure-pod-container/configure-service-account/) 문서를 보면
 서비스 어카운트가 동작하는 방법에 대한 더 자세한 정보를 얻을 수 있다.
 또한 파드에서 서비스 어카운트를 참조하는 방법을
-[`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)의
+[`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)의
 `automountServiceAccountToken` 필드와 `serviceAccountName`
 필드를 통해 확인할 수 있다.
 
@@ -152,7 +164,7 @@ data:
 인코딩된 `~/.dockercfg` 파일의 콘텐츠를 값으로 가지는 `.dockercfg` 키를 포함하고 있는지
 확실히 확인해야 한다.
 
-`kubernetes/dockerconfigjson` 타입은 `~/.dockercfg` 의
+`kubernetes.io/dockerconfigjson` 타입은 `~/.dockercfg` 의
 새로운 포맷인 `~/.docker/config.json` 파일과 동일한 포맷 법칙을
 따르는 직렬화 된 JSON의 저장을 위해 디자인되었다.
 이 시크릿 타입을 사용할 때는, 시크릿 오브젝트의 `data` 필드가 `.dockerconfigjson` 키를
@@ -269,6 +281,13 @@ SSH 인증 시크릿 타입은 사용자 편의만을 위해서 제공된다.
 API 서버는 요구되는 키가 시크릿 구성에서 제공되고 있는지
 검증도 한다.
 
+{{< caution >}}
+SSH 개인 키는 자체적으로 SSH 클라이언트와 호스트 서버 간에 신뢰할 수 있는 통신을
+설정하지 않는다. 컨피그맵(ConfigMap)에 추가된 `known_hosts` 파일과 같은
+"중간자(man in the middle)" 공격을 완화하려면 신뢰를 설정하는
+2차 수단이 필요하다.
+{{< /caution >}}
+
 ### TLS 시크릿
 
 쿠버네티스는 보통 TLS를 위해 사용되는 인증서와 관련된 키를 저장하기 위해서
@@ -347,22 +366,21 @@ data:
   usage-bootstrap-signing: dHJ1ZQ==
 ```
 
-부트스트랩 타입은 `data` 아래 명시된 다음의 키들을 가진다.
+부트스트랩 타입 시크릿은 `data` 아래 명시된 다음의 키들을 가진다.
 
-- `token_id`: 토큰 식별자로 임의의 6개 문자의 문자열. 필수 사항.
+- `token-id`: 토큰 식별자로 임의의 6개 문자의 문자열. 필수 사항.
 - `token-secret`: 실제 토큰 시크릿으로 임의의 16개 문자의 문자열. 필수 사항.
-- `description1`: 토큰의 사용처를 설명하는 사람이 읽을 수 있는
+- `description`: 토큰의 사용처를 설명하는 사람이 읽을 수 있는
   문자열. 선택 사항.
 - `expiration`: 토큰이 만료되어야 하는 시기를 명시한 RFC3339를
   사용하는 절대 UTC 시간. 선택 사항.
 - `usage-bootstrap-<usage>`: 부트스트랩 토큰의 추가적인 사용처를 나타내는
   불리언(boolean) 플래그.
-- `auth-extra-groups`: system:bootstrappers 그룹에 추가로 인증될
+- `auth-extra-groups`: `system:bootstrappers` 그룹에 추가로 인증될
   쉼표로 구분된 그룹 이름 목록.
 
 위의 YAML은 모두 base64로 인코딩된 문자열 값이므로 혼란스러워 보일
-수 있다. 사실은 다음 YAML을 사용하여 동일한 시크릿 오브젝트 결과를 만드는
-동일한 시크릿을 생성할 수 있다.
+수 있다. 사실은 다음 YAML을 사용하여 동일한 시크릿을 생성할 수 있다.
 
 ```yaml
 apiVersion: v1
@@ -649,9 +667,9 @@ cat /etc/foo/password
 볼륨에서 현재 사용되는 시크릿이 업데이트되면, 투영된 키도 결국 업데이트된다.
 kubelet은 마운트된 시크릿이 모든 주기적인 동기화에서 최신 상태인지 여부를 확인한다.
 그러나, kubelet은 시크릿의 현재 값을 가져 오기 위해 로컬 캐시를 사용한다.
-캐시의 유형은 [KubeletConfiguration 구조체](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)의
+캐시의 유형은 [KubeletConfiguration 구조체](/docs/reference/config-api/kubelet-config.v1beta1/)의
 `ConfigMapAndSecretChangeDetectionStrategy` 필드를 사용하여 구성할 수 있다.
-시크릿은 watch(기본값), ttl 기반 또는 단순히 API 서버로 모든 요청을 직접
+시크릿은 watch(기본값), ttl 기반 또는 API 서버로 모든 요청을 직접
 리디렉션하여 전파할 수 있다.
 결과적으로, 시크릿이 업데이트된 순간부터 새로운 키가 파드에 투영되는
 순간까지의 총 지연 시간은 kubelet 동기화 시간 + 캐시
@@ -724,11 +742,16 @@ echo $SECRET_PASSWORD
 1f2d1e2e67df
 ```
 
+#### 시크릿 업데이트 후 환경 변수가 업데이트되지 않음
+
+컨테이너가 환경 변수에서 이미 시크릿을 사용하는 경우, 다시 시작하지 않는 한 컨테이너에서 시크릿 업데이트를 볼 수 없다.
+시크릿이 변경될 때 재시작을 트리거하는 써드파티 솔루션이 있다.
+
 ## 변경할 수 없는(immutable) 시크릿 {#secret-immutable}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-쿠버네티스 베타 기능인 _변경할 수 없는 시크릿과 컨피그맵_ 은
+쿠버네티스 기능인 _변경할 수 없는 시크릿과 컨피그맵_ 은
 개별 시크릿과 컨피그맵을 변경할 수 없는 것으로 설정하는 옵션을 제공한다. 시크릿을 광범위하게 사용하는
 클러스터(최소 수만 개의 고유한 시크릿이 파드에 마운트)의 경우, 데이터 변경을 방지하면
 다음과 같은 이점이 있다.
@@ -737,8 +760,8 @@ echo $SECRET_PASSWORD
 - immutable로 표시된 시크릿에 대한 감시를 중단하여, kube-apiserver의 부하를
 크게 줄임으로써 클러스터의 성능을 향상시킴
 
-이 기능은 v1.19부터 기본적으로 활성화된 `ImmutableEphemeralVolumes` [기능
-게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)에
+이 기능은 v1.19부터 기본적으로 활성화된 `ImmutableEphemeralVolumes`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)에
 의해 제어된다. `immutable` 필드를 `true` 로 설정하여
 변경할 수 없는 시크릿을 생성할 수 있다. 다음은 예시이다.
 ```yaml
@@ -763,7 +786,7 @@ immutable: true
 `imagePullSecrets` 필드는 동일한 네임스페이스의 시크릿에 대한 참조 목록이다.
 `imagePullSecretsDocker` 를 사용하여 도커(또는 다른 컨테이너) 이미지 레지스트리
 비밀번호가 포함된 시크릿을 kubelet에 전달할 수 있다. kubelet은 이 정보를 사용해서 파드를 대신하여 프라이빗 이미지를 가져온다.
-`imagePullSecrets` 필드에 대한 자세한 정보는 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#podspec-v1-core)를 참고한다.
+`imagePullSecrets` 필드에 대한 자세한 정보는 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)를 참고한다.
 
 #### imagePullSecret 수동으로 지정하기
 
@@ -777,12 +800,6 @@ immutable: true
 필드를 가져오고 서비스 어카운트의 필드로 설정한다.
 해당 프로세스에 대한 자세한 설명은
 [서비스 어카운트에 ImagePullSecrets 추가하기](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)를 참고한다.
-
-### 수동으로 생성된 시크릿의 자동 마운트
-
-수동으로 생성된 시크릿(예: GitHub 계정에 접근하기 위한 토큰이 포함된 시크릿)은
-시크릿의 서비스 어카운트를 기반한 파드에 자동으로 연결될 수 있다.
-해당 프로세스에 대한 자세한 설명은 [파드프리셋(PodPreset)을 사용하여 파드에 정보 주입하기](/docs/tasks/inject-data-application/podpreset/)를 참고한다.
 
 ## 상세 내용
 
@@ -848,6 +865,7 @@ LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT            
 ### 사용 사례: 컨테이너 환경 변수로 사용하기
 
 시크릿 정의를 작성한다.
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -860,6 +878,7 @@ data:
 ```
 
 시크릿을 생성한다.
+
 ```shell
 kubectl apply -f mysecret.yaml
 ```
@@ -1156,14 +1175,12 @@ HTTP 요청을 처리하고, 복잡한 비즈니스 로직을 수행한 다음, 
 
 시크릿 API에 접근해야 하는 애플리케이션은 필요한 시크릿에 대한 `get` 요청을
 수행해야 한다. 이를 통해 관리자는 앱에 필요한
-[개별 인스턴스에 대한 접근을 허용 목록에 추가](
-/docs/reference/access-authn-authz/rbac/#referring-to-resources)하면서 모든 시크릿에 대한 접근을
+[개별 인스턴스에 대한 접근을 허용 목록에 추가](/docs/reference/access-authn-authz/rbac/#referring-to-resources)하면서 모든 시크릿에 대한 접근을
 제한할 수 있다.
 
 `get` 반복을 통한 성능 향상을 위해, 클라이언트는 시크릿을
 참조한 다음 리소스를 감시(`watch`)하고, 참조가 변경되면 시크릿을 다시 요청하는 리소스를
-설계할 수 있다. 덧붙여, 클라이언트에게 개별 리소스를 감시(`watch`)하도록 하는 ["대량 감시" API](
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)도
+설계할 수 있다. 덧붙여, 클라이언트에게 개별 리소스를 감시(`watch`)하도록 하는 ["대량 감시" API](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)도
 제안되었으며, 쿠버네티스의 후속 릴리스에서 사용할 수
 있을 것이다.
 

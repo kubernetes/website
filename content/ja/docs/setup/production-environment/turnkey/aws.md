@@ -20,9 +20,7 @@ AWS上でKubernetesクラスターを作成するには、AWSからアクセス�
 
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - プロダクショングレードなKubernetesのインストール、アップグレード、管理が可能です。AWS上のDebian、Ubuntu、CentOS、RHELをサポートしています。
 
-* [CoreOS Tectonic](https://coreos.com/tectonic/)はAWS上のContainer Linuxノードを含むKubernetesクラスターを作成できる、オープンソースの[Tectonic Installer](https://github.com/coreos/tectonic-installer)を含みます。
-
-* CoreOSから生まれ、Kubernetes IncubatorがメンテナンスしているCLIツール[kube-aws](https://github.com/kubernetes-incubator/kube-aws)は、[Container Linux](https://coreos.com/why/)ノードを使用したAWSツール(EC2、CloudFormation、Auto Scaling)によるKubernetesクラスターを作成および管理できます。
+* [kube-aws](https://github.com/kubernetes-incubator/kube-aws) EC2、CloudFormation、Auto Scalingを使用して、[Flatcar Linux](https://www.flatcar-linux.org/)ノードでKubernetesクラスターを作成および管理します。
 
 * [KubeOne](https://github.com/kubermatic/kubeone)は可用性の高いKubernetesクラスターを作成、アップグレード、管理するための、オープンソースのライフサイクル管理ツールです。
 
@@ -46,10 +44,10 @@ export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 ```
 
-ツールに関する最新のドキュメントページはこちらです: [kubectl manual](/docs/user-guide/kubectl/)
+ツールに関する最新のドキュメントページはこちらです: [kubectl manual](/docs/reference/kubectl/kubectl/)
 
 デフォルトでは、`kubectl`はクラスターの起動中に生成された`kubeconfig`ファイルをAPIに対する認証に使用します。
-詳細な情報は、[kubeconfig files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)を参照してください。
+詳細な情報は、[kubeconfig files](/ja/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)を参照してください。
 
 ### 例
 
@@ -61,7 +59,7 @@ export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 
 ## クラスターのスケーリング
 
-`kubectl`を使用したノードの追加および削除はサポートしていません。インストール中に作成された[Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html)内の'Desired'および'Max'プロパティを手動で調整することで、ノード数をスケールさせることができます。
+`kubectl`を使用したノードの追加および削除はサポートしていません。インストール中に作成された[Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html)内の'Desired'および'Max'プロパティを手動で調整することで、ノード数をスケールさせることができます。
 
 ## クラスターの解体
 
@@ -77,12 +75,8 @@ cluster/kube-down.sh
 IaaS プロバイダー    | 構成管理     | OS            | ネットワーク  | ドキュメント                                  | 適合     | サポートレベル
 -------------------- | ------------ | ------------- | ------------  | --------------------------------------------- | ---------| ----------------------------
 AWS                  | kops         | Debian        | k8s (VPC)     | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
-AWS                  | CoreOS       | CoreOS        | flannel       | [docs](/docs/getting-started-guides/aws)      |          | Community
-AWS                  | Juju         | Ubuntu        | flannel, calico, canal     | [docs](/docs/getting-started-guides/ubuntu)      | 100%     | Commercial, Community
+AWS                  | CoreOS       | CoreOS        | flannel     | -  |          | Community
+AWS                  | Juju         | Ubuntu        | flannel, calico, canal     | - | 100%     | Commercial, Community
 AWS                  | KubeOne         | Ubuntu, CoreOS, CentOS   | canal, weavenet     | [docs](https://github.com/kubermatic/kubeone)      | 100%    | Commercial, Community
-
-## 参考文献
-
-Kubernetesクラスターの利用と管理に関する詳細は、[Kubernetesドキュメント](/ja/docs/)を参照してください。
 
 

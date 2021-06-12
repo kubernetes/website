@@ -3,16 +3,13 @@ aliases:
     - castrojo
     - kbarnard10
     - onlydole
-    - zacharysarah
     - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
     - castrojo
-    - cody-clark
     - kbarnard10
     - mrbobbytables
     - onlydole
-    - parispittman
-    - vonguard
+    - sftim
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -30,11 +27,12 @@ aliases:
     - kbarnard10
     - kbhawkey
     - onlydole
+    - pi-victor
+    - reylejano
     - savitharaghunathan
     - sftim
     - steveperry-53
     - tengqm
-    - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
@@ -51,11 +49,9 @@ aliases:
     - zparnold
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
-    - alexbrand
+    - electrocucaracha
   sig-docs-es-reviews: # PR reviews for Spanish content
     - raelga
-    - alexbrand
-    # glo-pena
     - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
     - remyleone
@@ -94,15 +90,21 @@ aliases:
     - daminisatya
     - mittalyashu
   sig-docs-id-owners: # Admins for Indonesian content
-    - girikuncoro
-    - irvifa
-  sig-docs-id-reviews: # PR reviews for Indonesian content
+    - ariscahyadi
+    - danninov
     - girikuncoro
     - habibrosyad
     - irvifa
-    - wahyuoi
     - phanama
+    - wahyuoi
+  sig-docs-id-reviews: # PR reviews for Indonesian content
+    - ariscahyadi
     - danninov
+    - girikuncoro
+    - habibrosyad
+    - irvifa
+    - phanama
+    - wahyuoi
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
     - Fale
@@ -139,6 +141,7 @@ aliases:
     - seokho-son
     - ysyukr
     - pjhwa
+    - yoonian
   sig-docs-leads: # Website chairs and tech leads
     - irvifa
     - jimangel
@@ -170,14 +173,20 @@ aliases:
     # zhangxiaoyu-zidif
   sig-docs-pt-owners: # Admins for Portuguese content
     - femrtnz
+    - jailton
     - jcjesus
     - devlware
     - jhonmike
+    - rikatz
+    - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
+    - jailton
     - jcjesus
     - devlware
     - jhonmike
+    - rikatz
+    - yagonobre
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - ngtuna
@@ -215,3 +224,36 @@ aliases:
     - idvoretskyi
     - MaxymVlasov
     - Potapy4
+  # authoritative source: git.k8s.io/community/OWNERS_ALIASES
+  committee-steering: # provide PR approvals for announcements
+    - cblecker
+    - derekwaynecarr
+    - dims
+    - liggitt
+    - mrbobbytables
+    - nikhita
+    - parispittman
+  # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
+  sig-release-leads:
+    - hasheddan # SIG Technical Lead
+    - jeremyrickard # SIG Technical Lead
+    - justaugustus # SIG Chair
+    - LappleApple # SIG Program Manager
+    - saschagrunert # SIG Chair
+  release-engineering-approvers:
+    - cpanato # Release Manager
+    - hasheddan # subproject owner / Release Manager
+    - puerco # Release Manager
+    - saschagrunert # subproject owner / Release Manager
+    - justaugustus # subproject owner / Release Manager
+    - xmudrii # Release Manager
+  release-engineering-reviewers:
+    - ameukam # Release Manager Associate
+    - jimangel # Release Manager Associate
+    - mkorbi # Release Manager Associate
+    - palnabarun # Release Manager Associate
+    - onlydole # Release Manager Associate
+    - sethmccombs # Release Manager Associate
+    - thejoycekung # Release Manager Associate
+    - verolop # Release Manager Associate
+    - wilsonehusin # Release Manager Associate

@@ -177,7 +177,7 @@ tolerations:
 1. 이 파일을 `runtimeClasses.yml` 로 저장한다. 여기에는 윈도우 OS, 아키텍처 및 버전에 적합한 `nodeSelector` 가 포함되었다.
 
 ```yaml
-apiVersion: node.k8s.io/v1beta1
+apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
   name: windows-2019

@@ -22,7 +22,7 @@ Kubespray는 [Ansible](https://docs.ansible.com/) 플레이북, [인벤토리](h
     * Flatcar Container Linux by Kinvolk
 * 지속적인 통합 (CI) 테스트
 
-클러스터를 설치해 줄 도구로 유스케이스와 가장 잘 맞는 것을 고르고 싶다면, kubespray를 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), [kops](/docs/setup/production-environment/tools/kops/)와 [비교한 글](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)을 읽어보자.
+클러스터를 설치해 줄 도구로 유스케이스와 가장 잘 맞는 것을 고르고 싶다면, kubespray를 [kubeadm](/ko/docs/reference/setup-tools/kubeadm/), [kops](/ko/docs/setup/production-environment/tools/kops/)와 [비교한 글](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)을 읽어보자.
 
 <!-- body -->
 
@@ -50,7 +50,7 @@ Kubespray는 환경에 맞는 프로비저닝을 돕기 위해 아래와 같은 
 
 ### (2/5) 인벤토리 파일 구성하기
 
-서버들을 프로비저닝 한 후, [Ansible의 인벤토리 파일](https://docs.ansible.com/ansible/intro_inventory.html)을 만들어야 한다. 수동으로 만들 수도 있고, 동적인 인벤토리 스크립트를 통해 만들 수도 있다. 더 많이 알고싶다면 " [나만의 인벤토리 만들기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)" 글을 확인하자.
+서버들을 프로비저닝 한 후, [Ansible의 인벤토리 파일](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)을 만들어야 한다. 수동으로 만들 수도 있고, 동적인 인벤토리 스크립트를 통해 만들 수도 있다. 더 많이 알고싶다면 " [나만의 인벤토리 만들기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)" 글을 확인하자.
 
 ### (3/5) 클러스터 디플로이먼트 계획하기
 
@@ -68,7 +68,7 @@ Kubespray에서는 디플로이먼트의 많은 속성들을 사용자가 정의
   * {{< glossary_tooltip term_id="cri-o" >}}
 * 인증서 생성 방법
 
-Kubespray의 [변수 파일들](https://docs.ansible.com/ansible/playbooks_variables.html)을 사용자가 정의할 수 있다. 만약 Kubespray를 막 시작한 경우, kubespray의 기본 설정값을 이용해 클러스터를 배포하고 Kubernetes를 탐색하는 것이 좋다.
+Kubespray의 [변수 파일들](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)을 사용자가 정의할 수 있다. 만약 Kubespray를 처음 접하는 경우, kubespray의 기본 설정값을 이용해 클러스터를 배포하고 Kubernetes를 탐색하는 것이 좋다.
 
 ### (4/5) 클러스터 배포하기
 
@@ -103,7 +103,7 @@ upgrade-cluster 플레이북을 실행해 클러스터를 업그레이드 할 �
 
 [reset 플레이북](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml)을 이용하여 노드들을 리셋하고 Kubespray로 설치된 모든 구성요소를 삭제할 수 있다.
 
-{{< caution >}} 
+{{< caution >}}
 reset 플레이북을 실행할 때, 실수로 프로덕션 클러스터를 타겟으로 삼지 않도록 해야 한다!
 {{< /caution >}}
 
@@ -116,4 +116,3 @@ reset 플레이북을 실행할 때, 실수로 프로덕션 클러스터를 타�
 
 
 Kubespray의 [로드맵](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)에서 계획중인 작업을 확인해보자.
-

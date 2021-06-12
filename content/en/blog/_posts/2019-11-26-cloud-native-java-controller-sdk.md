@@ -58,7 +58,7 @@ Take maven project as example, adding the following dependencies into your depen
 
 Then we can make use of the provided builder libraries to write your own controller.
 For example, the following one is a simple controller prints out node information
-on watch notification, see complete example [here](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/ControllerExample.java):
+on watch notification, see complete example [here](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-13/src/main/java/io/kubernetes/client/examples/ControllerExample.java):
 
 ```java
 ...

@@ -32,7 +32,6 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 	"k8s.io/apimachinery/pkg/util/yaml"
-	// "k8s.io/apiserver/pkg/util/feature"
 	"k8s.io/kubernetes/pkg/api/legacyscheme"
 
 	"k8s.io/kubernetes/pkg/apis/apps"
@@ -56,9 +55,6 @@ import (
 	"k8s.io/kubernetes/pkg/apis/rbac"
 	rbac_validation "k8s.io/kubernetes/pkg/apis/rbac/validation"
 
-	"k8s.io/kubernetes/pkg/apis/settings"
-	settings_validation "k8s.io/kubernetes/pkg/apis/settings/validation"
-
 	"k8s.io/kubernetes/pkg/apis/storage"
 	storage_validation "k8s.io/kubernetes/pkg/apis/storage/validation"
 
@@ -73,7 +69,6 @@ import (
 	_ "k8s.io/kubernetes/pkg/apis/networking/install"
 	_ "k8s.io/kubernetes/pkg/apis/policy/install"
 	_ "k8s.io/kubernetes/pkg/apis/rbac/install"
-	_ "k8s.io/kubernetes/pkg/apis/settings/install"
 	_ "k8s.io/kubernetes/pkg/apis/storage/install"
 )
 
@@ -111,7 +106,6 @@ func initGroups() {
 		networking.GroupName,
 		policy.GroupName,
 		rbac.GroupName,
-		settings.GroupName,
 		storage.GroupName,
 	}
 
@@ -154,6 +148,11 @@ func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
 }
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
+	podValidationOptions := validation.PodValidationOptions{
+		AllowMultipleHugePageResources: true,
+		AllowDownwardAPIHugePages:      true,
+	}
+
 	// Enable CustomPodDNS for testing
 	// feature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
@@ -188,7 +187,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		opts := validation.PodValidationOptions{
 			AllowMultipleHugePageResources: true,
 		}
-		errors = validation.ValidatePod(t, opts)
+		errors = validation.ValidatePodCreate(t, opts)
 	case *api.PodList:
 		for i := range t.Items {
 			errors = append(errors, validateObject(&t.Items[i])...)
@@ -197,12 +196,12 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidatePodTemplate(t)
+		errors = validation.ValidatePodTemplate(t, podValidationOptions)
 	case *api.ReplicationController:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateReplicationController(t)
+		errors = validation.ValidateReplicationController(t, podValidationOptions)
 	case *api.ReplicationControllerList:
 		for i := range t.Items {
 			errors = append(errors, validateObject(&t.Items[i])...)
@@ -221,7 +220,11 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateService(t, true)
+		// handle clusterIPs, logic copied from service strategy
+		if len(t.Spec.ClusterIP) > 0 && len(t.Spec.ClusterIPs) == 0 {
+			t.Spec.ClusterIPs = []string{t.Spec.ClusterIP}
+		}
+		errors = validation.ValidateService(t)
 	case *api.ServiceAccount:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -256,12 +259,12 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = apps_validation.ValidateDaemonSet(t)
+		errors = apps_validation.ValidateDaemonSet(t, podValidationOptions)
 	case *apps.Deployment:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = apps_validation.ValidateDeployment(t)
+		errors = apps_validation.ValidateDeployment(t, podValidationOptions)
 	case *networking.Ingress:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -271,18 +274,30 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			Version: legacyscheme.Scheme.PrioritizedVersionsForGroup(networking.GroupName)[0].Version,
 		}
 		errors = networking_validation.ValidateIngressCreate(t, gv)
+	case *networking.IngressClass:
+		/*
+			if t.Namespace == "" {
+				t.Namespace = api.NamespaceDefault
+			}
+			gv := schema.GroupVersion{
+				Group:   networking.GroupName,
+				Version: legacyscheme.Scheme.PrioritizedVersionsForGroup(networking.GroupName)[0].Version,
+			}
+		*/
+		errors = networking_validation.ValidateIngressClass(t)
+
 	case *policy.PodSecurityPolicy:
 		errors = policy_validation.ValidatePodSecurityPolicy(t)
 	case *apps.ReplicaSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = apps_validation.ValidateReplicaSet(t)
+		errors = apps_validation.ValidateReplicaSet(t, podValidationOptions)
 	case *batch.CronJob:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = batch_validation.ValidateCronJob(t)
+		errors = batch_validation.ValidateCronJob(t, podValidationOptions)
 	case *networking.NetworkPolicy:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -293,14 +308,12 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = policy_validation.ValidatePodDisruptionBudget(t)
+	case *rbac.ClusterRole:
+		// clusterole does not accept namespace
+		errors = rbac_validation.ValidateClusterRole(t)
 	case *rbac.ClusterRoleBinding:
 		// clusterolebinding does not accept namespace
 		errors = rbac_validation.ValidateClusterRoleBinding(t)
-	case *settings.PodPreset:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = settings_validation.ValidatePodPreset(t)
 	case *storage.StorageClass:
 		// storageclass does not accept namespace
 		errors = storage_validation.ValidateStorageClass(t)
@@ -425,6 +438,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"storagelimits":            {&api.LimitRange{}},
 		},
 		"admin/sched": {
+			"clusterrole":  {&rbac.ClusterRole{}},
 			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
 			"pod1":         {&api.Pod{}},
 			"pod2":         {&api.Pod{}},
@@ -518,20 +532,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"node-problem-detector-configmap": {&apps.DaemonSet{}},
 			"termination":                     {&api.Pod{}},
 		},
-		"podpreset": {
-			"allow-db":          {&settings.PodPreset{}},
-			"allow-db-merged":   {&api.Pod{}},
-			"configmap":         {&api.ConfigMap{}},
-			"conflict-pod":      {&api.Pod{}},
-			"conflict-preset":   {&settings.PodPreset{}},
-			"merged":            {&api.Pod{}},
-			"multi-merged":      {&api.Pod{}},
-			"pod":               {&api.Pod{}},
-			"preset":            {&settings.PodPreset{}},
-			"proxy":             {&settings.PodPreset{}},
-			"replicaset-merged": {&api.Pod{}},
-			"replicaset":        {&apps.ReplicaSet{}},
-		},
 		"pods": {
 			"commands":                            {&api.Pod{}},
 			"init-containers":                     {&api.Pod{}},
@@ -564,6 +564,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"dapi-envars-pod":                  {&api.Pod{}},
 			"dapi-volume":                      {&api.Pod{}},
 			"dapi-volume-resources":            {&api.Pod{}},
+			"dependent-envars":                 {&api.Pod{}},
 			"envars":                           {&api.Pod{}},
 			"pod-multiple-secret-env-variable": {&api.Pod{}},
 			"pod-secret-envFrom":               {&api.Pod{}},
@@ -621,29 +622,41 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"load-balancer-example": {&apps.Deployment{}},
 		},
 		"service/access": {
-			"frontend":          {&api.Service{}, &apps.Deployment{}},
-			"hello-application": {&apps.Deployment{}},
-			"hello-service":     {&api.Service{}},
-			"hello":             {&apps.Deployment{}},
+			"backend-deployment":  {&apps.Deployment{}},
+			"backend-service":     {&api.Service{}},
+			"frontend-deployment": {&apps.Deployment{}},
+			"frontend-service":    {&api.Service{}},
+			"hello-application":   {&apps.Deployment{}},
 		},
 		"service/networking": {
-			"curlpod":                             {&apps.Deployment{}},
-			"custom-dns":                          {&api.Pod{}},
-			"dual-stack-default-svc":              {&api.Service{}},
-			"dual-stack-ipv4-svc":                 {&api.Service{}},
-			"dual-stack-ipv6-lb-svc":              {&api.Service{}},
-			"dual-stack-ipv6-svc":                 {&api.Service{}},
-			"hostaliases-pod":                     {&api.Pod{}},
-			"ingress":                             {&networking.Ingress{}},
-			"network-policy-allow-all-egress":     {&networking.NetworkPolicy{}},
-			"network-policy-allow-all-ingress":    {&networking.NetworkPolicy{}},
-			"network-policy-default-deny-egress":  {&networking.NetworkPolicy{}},
-			"network-policy-default-deny-ingress": {&networking.NetworkPolicy{}},
-			"network-policy-default-deny-all":     {&networking.NetworkPolicy{}},
-			"nginx-policy":                        {&networking.NetworkPolicy{}},
-			"nginx-secure-app":                    {&api.Service{}, &apps.Deployment{}},
-			"nginx-svc":                           {&api.Service{}},
-			"run-my-nginx":                        {&apps.Deployment{}},
+			"curlpod":                                 {&apps.Deployment{}},
+			"custom-dns":                              {&api.Pod{}},
+			"dual-stack-default-svc":                  {&api.Service{}},
+			"dual-stack-ipfamilies-ipv6":              {&api.Service{}},
+			"dual-stack-ipv6-svc":                     {&api.Service{}},
+			"dual-stack-prefer-ipv6-lb-svc":           {&api.Service{}},
+			"dual-stack-preferred-ipfamilies-svc":     {&api.Service{}},
+			"dual-stack-preferred-svc":                {&api.Service{}},
+			"external-lb":                             {&networking.IngressClass{}},
+			"example-ingress":                         {&networking.Ingress{}},
+			"hostaliases-pod":                         {&api.Pod{}},
+			"ingress-resource-backend":                {&networking.Ingress{}},
+			"ingress-wildcard-host":                   {&networking.Ingress{}},
+			"minimal-ingress":                         {&networking.Ingress{}},
+			"name-virtual-host-ingress":               {&networking.Ingress{}},
+			"name-virtual-host-ingress-no-third-host": {&networking.Ingress{}},
+			"network-policy-allow-all-egress":         {&networking.NetworkPolicy{}},
+			"network-policy-allow-all-ingress":        {&networking.NetworkPolicy{}},
+			"network-policy-default-deny-egress":      {&networking.NetworkPolicy{}},
+			"network-policy-default-deny-ingress":     {&networking.NetworkPolicy{}},
+			"network-policy-default-deny-all":         {&networking.NetworkPolicy{}},
+			"nginx-policy":                            {&networking.NetworkPolicy{}},
+			"nginx-secure-app":                        {&api.Service{}, &apps.Deployment{}},
+			"nginx-svc":                               {&api.Service{}},
+			"run-my-nginx":                            {&apps.Deployment{}},
+			"simple-fanout-example":                   {&networking.Ingress{}},
+			"test-ingress":                            {&networking.Ingress{}},
+			"tls-example-ingress":                     {&networking.Ingress{}},
 		},
 		"windows": {
 			"configmap-pod":             {&api.ConfigMap{}, &api.Pod{}},

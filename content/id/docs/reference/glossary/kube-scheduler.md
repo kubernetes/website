@@ -4,15 +4,14 @@ id: kube-scheduler
 date: 2019-04-21
 full_link: /docs/reference/generated/kube-scheduler/
 short_description: >
-  Komponen di master yang bertugas mengamati pod yang baru dibuat dan belum di-<i>assign</i> ke suatu node dan kemudian akan memilih sebuah node dimana pod baru tersebut akan dijalankan.
+  Komponen _control plane_ yang bertugas mengamati Pod baru yang belum ditempatkan di node manapun dan kemudian memilihkan node di mana Pod baru tersebut akan dijalankan.
 
 aka:
 tags:
 - architecture
 ---
- Komponen di master yang bertugas mengamati pod yang baru dibuat dan belum di-<i>assign</i> ke suatu node dan kemudian akan memilih sebuah node dimana pod baru tersebut akan dijalankan.
+Komponen _control plane_ yang bertugas mengamati {{< glossary_tooltip term_id="pod" >}} baru yang belum ditempatkan di node manapun dan kemudian memilihkan {{< glossary_tooltip term_id="node" >}} di mana Pod baru tersebut akan dijalankan.
 
 <!--more-->
 
-Faktor-faktor yang diperhatikan dalam proses ini adalah kebutuhan <i>resource</i> secara individual dan kolektif, konstrain perangkat keras/perangkat lunak/peraturan, spesifikasi afinitas dan non-afinitas, lokalisasi data, interferensi <i>inter-workload</i> dan <i>deadlines</i>.
-
+Faktor-faktor yang dipertimbangkan untuk keputusan penjadwalan termasuk: kebutuhan sumber daya secara individual dan kolektif, batasan perangkat keras/perangkat lunak/peraturan, spesifikasi afinitas dan nonafinitas, lokalisasi data, interferensi antar beban kerja dan tenggat waktu.

@@ -120,7 +120,7 @@ Run the following command to have Docker run the application in a container and 
 ```
 docker run -p 5001:5000 hello-python
 ```
-Now navigate to http://localhost:5001, and you should see the “Hello form Python!” message. 
+Now navigate to http://localhost:5001, and you should see the “Hello from Python!” message. 
 
 ### More info
 * [Get started with Docker](https://docs.docker.com/get-started/)
@@ -201,7 +201,7 @@ kubectl get pods
 ```
 <img src="/images/blog/get-started-with-kubernetes-using-python/kubectl-get-pods.png" alt="Pod listing" />
 
-Now navigate to http://localhost:6000, and you should see the “Hello form Python!” message. 
+Now navigate to http://localhost:6000, and you should see the “Hello from Python!” message. 
 
 That’s it! The application is now running in Kubernetes!
 

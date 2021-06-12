@@ -130,20 +130,21 @@ spec:
 <!--
 - Huge page requests must equal the limits. This is the default if limits are
   specified, but requests are not.
-- Huge pages are isolated at a container scope, so each container has own limit on their cgroup sandbox as requested in a container spec.
+- Huge pages are isolated at a container scope, so each container has own 
+  limit on their cgroup sandbox as requested in a container spec.
 - EmptyDir volumes backed by huge pages may not consume more huge page memory
   than the pod request.
 - Applications that consume huge pages via `shmget()` with `SHM_HUGETLB` must
   run with a supplemental group that matches `proc/sys/vm/hugetlb_shm_group`.
 - Huge page usage in a namespace is controllable via ResourceQuota similar
-to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
-token.
+  to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
+  token.
 - Support of multiple sizes huge pages is feature gated. It can be
   enabled with the `HugePageStorageMediumSize` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) on the {{<
 glossary_tooltip text="kubelet" term_id="kubelet" >}} and {{<
 glossary_tooltip text="kube-apiserver"
-term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`).
+term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=false`).
 --->
 
 - 巨页的资源请求值必须等于其限制值。该条件在指定了资源限制，而没有指定请求的情况下默认成立。
@@ -156,7 +157,7 @@ term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`).
 - 多种尺寸的巨页的支持需要特性门控配置。它可以通过 `HugePageStorageMediumSize` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)在  {{<
 glossary_tooltip text="kubelet" term_id="kubelet" >}} 和 {{<
 glossary_tooltip text="kube-apiserver"
-term_id="kube-apiserver" >}} 中开启（`--feature-gates=HugePageStorageMediumSize=true`）。
+term_id="kube-apiserver" >}} 中开启（`--feature-gates=HugePageStorageMediumSize=false`）。
 
 
 

@@ -34,7 +34,7 @@ overview:
 #   button: "View Tutorials"
 #   button_path: "/docs/tutorials"
 # - name: setup
-#   title: "Set up a cluster"
+#   title: "Set up a K8s cluster"
 #   description: "Get Kubernetes running based on your resources and needs."
 #   button: "Set up Kubernetes"
 #   button_path: "/docs/setup"
@@ -59,7 +59,7 @@ overview:
 #   button: Contribute to the docs
 #   button_path: /docs/contribute
 # - name: release-notes
-#   title: Release Notes
+#   title: K8s Release Notes
 #   description: If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.
 #   button: "Download Kubernetes"
 #   button_path: "/zh/docs/setup/release/notes"
@@ -78,7 +78,7 @@ cards:
   button: "查看教程"
   button_path: "/zh/docs/tutorials"
 - name: setup
-  title: "设置集群"
+  title: "设置 K8s 集群"
   description: "按照你的资源情况和需求运行 Kubernetes。"
   button: "设置 Kubernetes"
   button_path: "/zh/docs/setup"
@@ -103,7 +103,7 @@ cards:
   button: 为文档作贡献
   button_path: /zh/docs/contribute
 - name: release-notes
-  title: 发布说明
+  title: K8s 发布说明
   description: 如果你正在安装或升级 Kubernetes，最好参考最新的发布说明。
   button: "下载 Kubernetes"
   button_path: "/zh/docs/setup/release/notes"

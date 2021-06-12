@@ -20,8 +20,6 @@ For older versions of kubeadm, please refer to older documentation sets of the K
 
 You can use `kubeadm upgrade diff` to see the changes that would be applied to static pod manifests.
 
-To use kube-dns with upgrades in Kubernetes v1.13.0 and later please follow [this guide](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon).
-
 In Kubernetes v1.15.0 and later, `kubeadm upgrade apply` and `kubeadm upgrade node` will also
 automatically renew the kubeadm managed certificates on this node, including those stored in kubeconfig files.
 To opt-out, it is possible to pass the flag `--certificate-renewal=false`. For more details about certificate

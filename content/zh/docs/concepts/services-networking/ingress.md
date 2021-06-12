@@ -411,9 +411,32 @@ IngressClass 资源包含额外的配置，其中包括应当实现该类的控�
 
 <!-- 
 IngressClass resources contain an optional parameters field. This can be used to
-reference additional configuration for this class.
+reference additional implementation-specific configuration for this class.
  -->
-IngressClass 资源包含一个可选的 `parameters` 字段，可用于为该类引用额外配置。
+IngressClass 资源包含一个可选的 `parameters` 字段，可用于为该类引用额外的、
+特定于具体实现的配置。
+
+<!--
+#### Namespace-scoped parameters
+-->
+#### 名字空间域的参数
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+<!--
+`Parameters` field has a `scope` and `namespace` field that can be used to
+reference a namespace-specific resource for configuration of an Ingress class.
+`Scope` field defaults to `Cluster`, meaning, the default is cluster-scoped
+resource. Setting `Scope` to `Namespace` and setting the `Namespace` field
+will reference a parameters resource in a specific namespace:
+-->
+`parameters` 字段有一个 `scope` 和 `namespace` 字段，可用来引用特定
+于名字空间的资源，对 Ingress 类进行配置。
+`scope` 字段默认为 `Cluster`，表示默认是集群作用域的资源。
+将 `scope` 设置为 `Namespace` 并设置 `namespace` 字段就可以引用某特定
+名字空间中的参数资源。
+
+{{< codenew file="service/networking/namespaced-params.yaml" >}}
 
 <!-- 
 ### Deprecated Annotation
@@ -488,7 +511,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 
 <!-- 
 If you create it using `kubectl apply -f` you should be able to view the state
-of the Ingress you just added:
+of the Ingress you added:
 -->
 如果使用 `kubectl apply -f` 创建此 Ingress，则应该能够查看刚刚添加的 Ingress 的状态：
 
@@ -651,12 +674,12 @@ Ingress 控制器 IP 地址的任何网络流量，而无需基于名称的虚�
 
 <!-- 
 For example, the following Ingress routes traffic
-requested for `first.bar.com` to `service1`, `second.foo.com` to `service2`, and any traffic
+requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic
 to the IP address without a hostname defined in request (that is, without a request header being
 presented) to `service3`.
 -->
 例如，以下 Ingress 会将针对 `first.bar.com` 的请求流量路由到 `service1`，
-将针对 `second.foo.com` 的请求流量路由到 `service2`，
+将针对 `second.bar.com` 的请求流量路由到 `service2`，
 而针对该 IP 地址的、没有在请求中定义主机名的请求流量会被路由（即，不提供请求标头）
 到 `service3`。
 
@@ -705,7 +728,7 @@ sure the TLS secret you created came from a certificate that contains a Common
 Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `https-example.foo.com`.
 -->
 在 Ingress 中引用此 Secret 将会告诉 Ingress 控制器使用 TLS 加密从客户端到负载均衡器的通道。
-你需要确保创建的 TLS Secret 创建自包含 `sslexample.foo.com` 的公用名称（CN）的证书。
+你需要确保创建的 TLS Secret 创建自包含 `https-example.foo.com` 的公用名称（CN）的证书。
 这里的公共名称也被称为全限定域名（FQDN）。
 
 {{< note >}}

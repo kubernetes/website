@@ -140,7 +140,7 @@ RuntimeClassのnodeSelectorはアドミッション機能によりPodのnodeSele
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-Podが稼働する時に関連する_オーバーヘッド_リソースを指定できます。オーバーヘッドを宣言すると、クラスター(スケジューラーを含む)がPodとリソースに関する決定を行うときにオーバーヘッドを考慮することができます。
+Podが稼働する時に関連する _オーバーヘッド_ リソースを指定できます。オーバーヘッドを宣言すると、クラスター(スケジューラーを含む)がPodとリソースに関する決定を行うときにオーバーヘッドを考慮することができます。
 Podオーバーヘッドを使うためには、PodOverhead[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にしなければなりません。(デフォルトではonです)
 
 PodのオーバーヘッドはRuntimeClass内の`overhead`フィールドによって定義されます。
@@ -149,7 +149,7 @@ PodのオーバーヘッドはRuntimeClass内の`overhead`フィールドによ�
 
 ## {{% heading "whatsnext" %}}
 
-- [RuntimeClassデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
-- [RuntimeClassスケジューリングデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
-- [Podオーバーヘッド](/docs/concepts/configuration/pod-overhead/)のコンセプトを読む
+- [RuntimeClassデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
+- [RuntimeClassスケジューリングデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
+- [Podオーバーヘッド](/docs/concepts/scheduling-eviction/pod-overhead/)のコンセプトを読む
 - [PodOverhead機能デザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)

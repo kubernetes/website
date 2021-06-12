@@ -24,8 +24,8 @@ problems to address:
 1. 高度耦合的容器间通信：这个已经被 {{< glossary_tooltip text="Pods" term_id="pod" >}}
    和 `localhost` 通信解决了。
 2. Pod 间通信：这个是本文档的重点要讲述的。
-3. Pod 和服务间通信：这个已经在[服务](/zh/docs/concepts/services-networking/service/) 里讲述过了。
-4. 外部和服务间通信：这也已经在[服务](/zh/docs/concepts/services-networking/service/) 讲述过了。
+3. Pod 和服务间通信：这个已经在[服务](/zh/docs/concepts/services-networking/service/)里讲述过了。
+4. 外部和服务间通信：这也已经在[服务](/zh/docs/concepts/services-networking/service/)讲述过了。
 
 <!-- body -->
 
@@ -82,9 +82,9 @@ Linux):
 Kubernetes 对所有网络设施的实施，都需要满足以下的基本要求（除非有设置一些特定的网络分段策略）：
 
 * 节点上的 Pod 可以不通过 NAT 和其他任何节点上的 Pod 通信
-* 节点上的代理（比如：系统守护进程、kubelet） 可以和节点上的所有Pod通信
+* 节点上的代理（比如：系统守护进程、kubelet）可以和节点上的所有Pod通信
 
-备注：仅针对那些支持 `Pods` 在主机网络中运行的平台(比如：Linux) ：
+备注：仅针对那些支持 `Pods` 在主机网络中运行的平台（比如：Linux）：
 
 * 那些运行在节点的主机网络里的 Pod 可以不通过 NAT 和所有节点上的 Pod 通信
 
@@ -107,7 +107,7 @@ usage, but this is no different from processes in a VM.  This is called the
 Kubernetes 的 IP 地址存在于 `Pod` 范围内 - 容器共享它们的网络命名空间 - 包括它们的 IP 地址和 MAC 地址。
 这就意味着 `Pod` 内的容器都可以通过 `localhost` 到达各个端口。
 这也意味着 `Pod` 内的容器都需要相互协调端口的使用，但是这和虚拟机中的进程似乎没有什么不同，
-这也被称为“一个 Pod 一个 IP” 模型。
+这也被称为“一个 Pod 一个 IP”模型。
 
 <!--
 How this is implemented is a detail of the particular container runtime in use.
@@ -119,7 +119,7 @@ blind to the existence or non-existence of host ports.
 -->
 如何实现这一点是正在使用的容器运行时的特定信息。
 
-也可以在 `node` 本身通过端口去请求你的 `Pod` （称之为主机端口），
+也可以在 `node` 本身通过端口去请求你的 `Pod`（称之为主机端口），
 但这是一个很特殊的操作。转发方式如何实现也是容器运行时的细节。
 `Pod` 自己并不知道这些主机端口是否存在。
 
@@ -196,7 +196,7 @@ AOS 具有一组丰富的 REST API 端点，这些端点使 Kubernetes 能够根
 从而为私有云和公共云提供端到端管理系统。
 
 AOS 支持使用包括 Cisco、Arista、Dell、Mellanox、HPE 在内的制造商提供的通用供应商设备，
-以及大量白盒系统和开放网络操作系统，例如 Microsoft SONiC、Dell OPX 和 Cumulus Linux 。
+以及大量白盒系统和开放网络操作系统，例如 Microsoft SONiC、Dell OPX 和 Cumulus Linux。
 
 想要更详细地了解 AOS 系统是如何工作的可以点击这里：https://www.apstra.com/products/how-it-works/
 
@@ -218,10 +218,10 @@ AWS 虚拟私有云（VPC）网络。该 CNI 插件提供了高吞吐量和可�
 
 使用该 CNI 插件，可使 Kubernetes Pod 拥有与在 VPC 网络上相同的 IP 地址。
 CNI 将 AWS 弹性网络接口（ENI）分配给每个 Kubernetes 节点，并将每个 ENI 的辅助 IP 范围用于该节点上的 Pod 。
-CNI 包含用于 ENI 和 IP 地址的预分配的控件，以便加快 Pod 的启动时间，并且能够支持多达2000个节点的大型集群。
+CNI 包含用于 ENI 和 IP 地址的预分配的控件，以便加快 Pod 的启动时间，并且能够支持多达 2000 个节点的大型集群。
 
 此外，CNI 可以与
-[用于执行网络策略的 Calico](https://docs.aws.amazon.com/eks/latest/userguide/calico.html)一起运行。
+[用于执行网络策略的 Calico](https://docs.aws.amazon.com/eks/latest/userguide/calico.html) 一起运行。
 AWS VPC CNI 项目是开源的，请查看 [GitHub 上的文档](https://github.com/aws/amazon-vpc-cni-k8s)。
 
 <!--
@@ -482,7 +482,7 @@ Docker 会以这样的参数启动：
 DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
 ```
 
-这个网桥是由 Kubelet（由 --network-plugin=kubenet 参数控制）根据节点的 `.spec.podCIDR` 参数创建的。
+这个网桥是由 Kubelet（由 `--network-plugin=kubenet` 参数控制）根据节点的 `.spec.podCIDR` 参数创建的。
 
 Docker 将会从 `cbr-cidr` 块分配 IP。
 容器之间可以通过 `cbr0` 网桥相互访问，也可以访问节点。

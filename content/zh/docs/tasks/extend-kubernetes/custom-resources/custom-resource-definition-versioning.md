@@ -131,7 +131,7 @@ after upgrading the objects to a new stored version.
 Removing an old version:
 
 1. Ensure all clients are fully migrated to the new version. The kube-apiserver
-   logs can reviewed to help identify any clients that are still accessing via
+   logs can be reviewed to help identify any clients that are still accessing via
    the old version.
 1. Set `served` to `false` for the old version in the `spec.versions` list. If
    any clients are still unexpectedly using the old version they may begin reporting
@@ -608,14 +608,14 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 A conversion webhook must not mutate anything inside of `metadata` of the converted object
 other than `labels` and `annotations`.
 Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request
-which caused the conversion. All other changes are just ignored.  
+which caused the conversion. All other changes are ignored. 
 -->
 #### 被允许的变更
 
 转换 Webhook 不可以更改被转换对象的 `metadata` 中除 `labels` 和 `annotations`
 之外的任何属性。
 尝试更改 `name`、`UID` 和 `namespace` 时都会导致引起转换的请求失败。
-所有其他变更只是被忽略而已。
+所有其他变更都被忽略。
 
 <!--
 ### Deploy the conversion webhook service
@@ -833,14 +833,13 @@ API 服务器一旦确定请求应发送到转换 Webhook，它需要知道如�
 The `host` should not refer to a service running in the cluster; use
 a service reference by specifying the `service` field instead.
 The host might be resolved via external DNS in some apiservers
-(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would 
+(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would
 be a layering violation). `host` may also be an IP address.
 
 Please note that using `localhost` or `127.0.0.1` as a `host` is
 risky unless you take great care to run this webhook on all hosts
 which run an apiserver which might need to make calls to this
-webhook. Such installs are likely to be non-portable, i.e., not easy
-to turn up in a new cluster.
+webhook. Such installations are likely to be non-portable or not readily run in a new cluster.
 -->
 url 以标准 URL 形式给出 Webhook 的位置（`scheme://host:port/path`）。
 `host` 不应引用集群中运行的服务，而应通过指定 `service` 字段来提供
@@ -851,8 +850,7 @@ url 以标准 URL 形式给出 Webhook 的位置（`scheme://host:port/path`）�
 
 请注意，除非你非常小心地在所有运行着可能调用 Webhook 的 API 服务器的
 主机上运行此 Webhook，否则将 `localhost` 或 `127.0.0.1` 用作 `host`
-是风险很大的。这样的安装很可能是不可移植的，即很难在新集群中启用。
-
+是风险很大的。这样的安装可能是不可移植的，或者不容易在一个新的集群中运行。
 <!--
 The scheme must be "https"; the URL must begin with "https://".
 

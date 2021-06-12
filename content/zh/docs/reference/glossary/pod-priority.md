@@ -25,9 +25,9 @@ tags:
 -->
 
 <!--
- Pod Priority indicates the importance of a Pod relative to other Pods.
+ Pod Priority indicates the importance of a {{< glossary_tooltip term_id="pod" >}} relative to other Pods.
 -->
- Pod 优先级表示一个 Pod 相对于其他 Pod 的重要性。
+ Pod 优先级表示一个  {{< glossary_tooltip term_id="pod" >}} 相对于其他 Pod 的重要性。
 
 <!--more-->
 

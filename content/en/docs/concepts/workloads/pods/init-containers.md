@@ -133,6 +133,7 @@ You can start this Pod by running:
 ```shell
 kubectl apply -f myapp.yaml
 ```
+The output is similar to this:
 ```
 pod/myapp-pod created
 ```
@@ -141,6 +142,7 @@ And check on its status with:
 ```shell
 kubectl get -f myapp.yaml
 ```
+The output is similar to this:
 ```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
@@ -150,6 +152,7 @@ or for more details:
 ```shell
 kubectl describe -f myapp.yaml
 ```
+The output is similar to this:
 ```
 Name:          myapp-pod
 Namespace:     default
@@ -224,6 +227,7 @@ To create the `mydb` and `myservice` services:
 ```shell
 kubectl apply -f services.yaml
 ```
+The output is similar to this:
 ```
 service/myservice created
 service/mydb created
@@ -235,13 +239,14 @@ Pod moves into the Running state:
 ```shell
 kubectl get -f myapp.yaml
 ```
+The output is similar to this:
 ```
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
 ```
 
 This simple example should provide some inspiration for you to create your own
-init containers. [What's next](#whats-next) contains a link to a more detailed example.
+init containers. [What's next](#what-s-next) contains a link to a more detailed example.
 
 ## Detailed behavior
 
@@ -257,7 +262,7 @@ if the Pod `restartPolicy` is set to Always, the init containers use
 
 A Pod cannot be `Ready` until all init containers have succeeded. The ports on an
 init container are not aggregated under a Service. A Pod that is initializing
-is in the `Pending` state but should have a condition `Initialized` set to true.
+is in the `Pending` state but should have a condition `Initialized` set to false.
 
 If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers
 must execute again.
@@ -308,22 +313,19 @@ limit, the same as the scheduler.
 A Pod can restart, causing re-execution of init containers, for the following
 reasons:
 
-* A user updates the Pod specification, causing the init container image to change.
-  Any changes to the init container image restarts the Pod. App container image
-  changes only restart the app container.
 * The Pod infrastructure container is restarted. This is uncommon and would
   have to be done by someone with root access to nodes.
 * All containers in a Pod are terminated while `restartPolicy` is set to Always,
   forcing a restart, and the init container completion record has been lost due
   to garbage collection.
 
-
-
+The Pod will not be restarted when the init container image is changed, or the
+init container completion record has been lost due to garbage collection. This
+applies for Kubernetes v1.20 and later. If you are using an earlier version of
+Kubernetes, consult the documentation for the version you are using.
 
 ## {{% heading "whatsnext" %}}
 
-
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
-
 

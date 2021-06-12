@@ -1,15 +1,20 @@
 ---
+
+
+
+
 title: 확장된 리소스를 위한 리소스 빈 패킹(bin packing)
 content_type: concept
-weight: 50
+weight: 80
 ---
 
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
-kube-scheduler는 `RequestedToCapacityRatioResourceAllocation` 우선 순위 기능을 사용해서
-확장된 리소스와 함께 리소스의 빈 패킹이 가능하도록 구성할 수 있다. 우선 순위 기능을 사용해서 맞춤 요구에 따라
+kube-scheduler는 `RequestedToCapacityRatioResourceAllocation`
+우선 순위 기능을 사용해서 확장된 리소스와 함께 리소스의 빈 패킹이 가능하도록
+구성할 수 있다. 우선 순위 기능을 사용해서 맞춤 요구에 따라
 kube-scheduler를 미세 조정할 수 있다.
 
 <!-- body -->
@@ -77,7 +82,7 @@ shape:
 ```yaml
 shape:
   - utilization: 0
-    score: 100
+    score: 10
   - utilization: 100
     score: 0
 ```

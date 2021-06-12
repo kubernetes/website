@@ -71,7 +71,7 @@ In this example, a PVC requesting 10Gi of storage would be rejected because it e
 -->
 在此示例中，请求 10Gi 存储的 PVC 将被拒绝，因为它超过了最大 2Gi。
 
-```
+```yaml
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -114,7 +114,7 @@ a 5Gi maximum quota when combined with the 2Gi max limit above, cannot have 3 PV
 不能支持 3 个都是 2Gi 的 PVC。
 后者实际上是向名字空间请求 6Gi 容量，而该命令空间已经设置上限为 5Gi。
 
-```
+```yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:

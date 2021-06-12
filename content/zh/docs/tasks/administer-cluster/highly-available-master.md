@@ -321,6 +321,71 @@ To make such deployment secure, communication between etcd instances is authoriz
 为了使这种部署安全，etcd 实例之间的通信使用 SSL 进行鉴权。
 
 <!--
+### API server identity
+-->
+### API 服务器标识
+
+{{< feature-state state="alpha"  for_k8s_version="v1.20" >}}
+
+<!--
+The API Server Identity feature is controlled by a
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+and is not enabled by default. You can activate API Server Identity by enabling
+the feature gate named `APIServerIdentity` when you start the
+{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}:
+-->
+使用 API 服务器标识功能需要启用[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+该功能默认不启用。
+你可以在启动 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}} 的时候启用特性门控 `APIServerIdentity` 来激活 API 服务器标识：
+
+<!--
+```shell
+kube-apiserver \
+--feature-gates=APIServerIdentity=true \
+ # …and other flags as usual
+```
+-->
+```shell
+kube-apiserver \
+--feature-gates=APIServerIdentity=true \
+ # …其他标记照常
+```
+
+<!--
+During bootstrap, each kube-apiserver assigns a unique ID to itself. The ID is
+in the format of `kube-apiserver-{UUID}`. Each kube-apiserver creates a
+[Lease](/docs/reference/generated/kubernetes-api/{{< param "version" >}}//#lease-v1-coordination-k8s-io)
+in the _kube-system_ {{< glossary_tooltip text="namespaces" term_id="namespace">}}.
+-->
+在启动引导过程中，每个 kube-apiserver 会给自己分配一个唯一 ID。
+该 ID 的格式是 `kube-apiserver-{UUID}`。
+每个 kube-apiserver 会在 _kube-system_ {{< glossary_tooltip text="名字空间" term_id="namespace">}} 里创建一个 [`Lease` 对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}//#lease-v1-coordination-k8s-io)。
+<!--
+The Lease name is the unique ID for the kube-apiserver. The Lease contains a
+label `k8s.io/component=kube-apiserver`. Each kube-apiserver refreshes its
+Lease every `IdentityLeaseRenewIntervalSeconds` (defaults to 10s). Each
+kube-apiserver also checks all the kube-apiserver identity Leases every
+`IdentityLeaseDurationSeconds` (defaults to 3600s), and deletes Leases that
+hasn't got refreshed for more than `IdentityLeaseDurationSeconds`.
+`IdentityLeaseRenewIntervalSeconds` and `IdentityLeaseDurationSeconds` can be
+configured by kube-apiserver flags `identity-lease-renew-interval-seconds`
+and `identity-lease-duration-seconds`.
+-->
+`Lease` 对象的名字是 kube-apiserver 的唯一 ID。
+`Lease` 对象包含一个标签 `k8s.io/component=kube-apiserver`。
+每个 kube-apiserver 每过 `IdentityLeaseRenewIntervalSeconds`（默认是 10 秒）就会刷新它的 `Lease` 对象。
+每个 kube-apiserver 每过 `IdentityLeaseDurationSeconds`（默认是 3600 秒）也会检查所有 kube-apiserver 的标识 `Lease` 对象，
+并且会删除超过 `IdentityLeaseDurationSeconds` 时间还没被刷新的 `Lease` 对象。
+可以在 kube-apiserver 的 `identity-lease-renew-interval-seconds`
+和 `identity-lease-duration-seconds` 标记里配置 `IdentityLeaseRenewIntervalSeconds` 和 `IdentityLeaseDurationSeconds`。
+
+<!--
+Enabling this feature is a prerequisite for using features that involve HA API
+server coordination (for example, the `StorageVersionAPI` feature gate).
+-->
+启用该功能是使用 HA API 服务器协调相关功能（例如，`StorageVersionAPI` 特性门控）的前提条件。
+
+<!--
 ## Additional reading
 
 [Automated HA master deployment - design doc](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/ha_master.md)

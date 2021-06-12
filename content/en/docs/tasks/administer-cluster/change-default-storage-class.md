@@ -32,7 +32,7 @@ for example, it might provision storage that is too expensive. If this is the ca
 you can either change the default StorageClass or disable it completely to avoid
 dynamic provisioning of storage.
 
-Simply deleting the default StorageClass may not work, as it may be re-created
+Deleting the default StorageClass may not work, as it may be re-created
 automatically by the addon manager running in your cluster. Please consult the docs for your installation
 for details about addon manager and how to disable individual addons.
 
@@ -70,7 +70,7 @@ for details about addon manager and how to disable individual addons.
 
 1. Mark a StorageClass as default:
 
-      Similarly to the previous step, you need to add/set the annotation
+      Similar to the previous step, you need to add/set the annotation
       `storageclass.kubernetes.io/is-default-class=true`.
 
       ```bash

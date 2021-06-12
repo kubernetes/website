@@ -38,8 +38,7 @@ If a {{< glossary_tooltip term_id="node" >}} dies, the Pods scheduled to that no
 are [scheduled for deletion](#pod-garbage-collection) after a timeout period.
 
 Pods do not, by themselves, self-heal. If a Pod is scheduled to a
-{{< glossary_tooltip text="node" term_id="node" >}} that then fails,
-or if the scheduling operation itself fails, the Pod is deleted; likewise, a Pod won't
+{{< glossary_tooltip text="node" term_id="node" >}} that then fails, the Pod is deleted; likewise, a Pod won't
 survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a
 higher-level abstraction, called a
 {{< glossary_tooltip term_id="controller" text="controller" >}}, that handles the work of
@@ -84,6 +83,13 @@ Value       | Description
 `Succeeded` | All containers in the Pod have terminated in success, and will not be restarted.
 `Failed`    | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
 `Unknown`   | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
+
+{{< note >}}
+When a Pod is being deleted, it is shown as `Terminating` by some kubectl commands.
+This `Terminating` status is not one of the Pod phases.
+A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
+You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
+{{< /note >}}
 
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
@@ -306,7 +312,7 @@ can specify a readiness probe that checks an endpoint specific to readiness that
 is different from the liveness probe.
 
 {{< note >}}
-If you just want to be able to drain requests when the Pod is deleted, you do not
+If you want to be able to drain requests when the Pod is deleted, you do not
 necessarily need a readiness probe; on deletion, the Pod automatically puts itself
 into an unready state regardless of whether the readiness probe exists.
 The Pod remains in the unready state while it waits for the containers in the Pod
@@ -325,7 +331,7 @@ a time longer than the liveness interval would allow.
 If your container usually starts in more than
 `initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a
 startup probe that checks the same endpoint as the liveness probe. The default for
-`periodSeconds` is 30s. You should then set its `failureThreshold` high enough to
+`periodSeconds` is 10s. You should then set its `failureThreshold` high enough to
 allow the container to start, without changing the default values of the liveness
 probe. This helps to protect against deadlocks.
 

@@ -102,7 +102,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 - Action: Use IaaS providers reliable storage (e.g. GCE PD or AWS EBS volume) for VMs with apiserver+etcd
   - Mitigates: Apiserver backing storage lost
 
-- Action: Use [high-availability](/docs/admin/high-availability) configuration
+- Action: Use [high-availability](/docs/setup/production-environment/tools/kubeadm/high-availability/) configuration
   - Mitigates: Control plane node shutdown or control plane components (scheduler, API server, controller-manager) crashing
     - Will tolerate one or more simultaneous node or component failures
   - Mitigates: API server backing storage (i.e., etcd's data directory) lost

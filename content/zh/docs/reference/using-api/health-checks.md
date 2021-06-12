@@ -65,7 +65,7 @@ kubectl get --raw='/readyz?verbose'
 <!-- The output will look like this: -->
 输出将如下所示：
 
-```shell
+```
 [+]ping ok
 [+]log ok
 [+]etcd ok
@@ -101,7 +101,7 @@ curl -k 'https://localhost:6443/readyz?verbose&exclude=etcd'
 <!-- The output show that the `etcd` check is excluded: -->
 输出显示排除了 `etcd` 检查：
 
-```shell
+```
 [+]ping ok
 [+]log ok
 [+]etcd excluded: ok

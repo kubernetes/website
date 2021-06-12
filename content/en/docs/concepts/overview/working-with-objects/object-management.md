@@ -31,7 +31,7 @@ When using imperative commands, a user operates directly on live objects
 in a cluster. The user provides operations to
 the `kubectl` command as arguments or flags.
 
-This is the simplest way to get started or to run a one-off task in
+This is the recommended way to get started or to run a one-off task in
 a cluster. Because this technique operates directly on live
 objects, it provides no history of previous configurations.
 
@@ -47,7 +47,7 @@ kubectl create deployment nginx --image nginx
 
 Advantages compared to object configuration:
 
-- Commands are simple, easy to learn and easy to remember.
+- Commands are expressed as a single action word.
 - Commands require only a single step to make changes to the cluster.
 
 Disadvantages compared to object configuration:

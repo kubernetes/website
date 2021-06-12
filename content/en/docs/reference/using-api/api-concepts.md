@@ -49,7 +49,7 @@ Some resource types will have one or more sub-resources, represented as sub path
 * Cluster-scoped subresource: `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE`
 * Namespace-scoped subresource: `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME/SUBRESOURCE`
 
-The verbs supported for each subresource will differ depending on the object - see the API documentation more information. It is not possible to access sub-resources across multiple resources - generally a new virtual resource type would be used if that becomes necessary.
+The verbs supported for each subresource will differ depending on the object - see the API documentation for more information. It is not possible to access sub-resources across multiple resources - generally a new virtual resource type would be used if that becomes necessary.
 
 
 ## Efficient detection of changes
@@ -258,7 +258,7 @@ Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1, application/json
 
 ## Alternate representations of resources
 
-By default Kubernetes returns objects serialized to JSON with content type `application/json`. This is the default serialization format for the API. However, clients may request the more efficient Protobuf representation of these objects for better performance at scale. The Kubernetes API implements standard HTTP content type negotiation: passing an `Accept` header with a `GET` call will request that the server return objects in the provided content type, while sending an object in Protobuf to the server for a `PUT` or `POST` call takes the `Content-Type` header. The server will return a `Content-Type` header if the requested format is supported, or the `406 Not acceptable` error if an invalid content type is provided.
+By default, Kubernetes returns objects serialized to JSON with content type `application/json`. This is the default serialization format for the API. However, clients may request the more efficient Protobuf representation of these objects for better performance at scale. The Kubernetes API implements standard HTTP content type negotiation: passing an `Accept` header with a `GET` call will request that the server return objects in the provided content type, while sending an object in Protobuf to the server for a `PUT` or `POST` call takes the `Content-Type` header. The server will return a `Content-Type` header if the requested format is supported, or the `406 Not acceptable` error if an invalid content type is provided.
 
 See the API documentation for a list of supported content types for each API.
 
@@ -442,7 +442,7 @@ feature, see the section on
 
 ## Resource Versions
 
-Resource versions are strings that identify the server's internal version of an object. Resource versions can be used by clients to determine when objects have changed, or to express data consistency requirements when getting, listing and watching resources. Resource versions must be treated as opaque by clients and passed unmodified back to the server. For example, clients must not assume resource versions are numeric, and may only compare two resource version for equality (i.e. must not compare resource versions for greater-than or less-than relationships).
+Resource versions are strings that identify the server's internal version of an object. Resource versions can be used by clients to determine when objects have changed, or to express data consistency requirements when getting, listing and watching resources. Resource versions must be treated as opaque by clients and passed unmodified back to the server. For example, clients must not assume resource versions are numeric, and may only compare two resource versions for equality (i.e. must not compare resource versions for greater-than or less-than relationships).
 
 ### ResourceVersion in metadata
 
@@ -454,7 +454,7 @@ Clients find resource versions in resources, including the resources in watch ev
 
 ### The ResourceVersion Parameter
 
-The get, list and watch operations support the `resourceVersion` parameter.
+The get, list, and watch operations support the `resourceVersion` parameter.
 
 The exact meaning of this parameter differs depending on the operation and the value of `resourceVersion`.
 
@@ -514,7 +514,7 @@ The meaning of the get and list semantics are:
 - **Any:** Return data at any resource version. The newest available resource version is preferred,
   but strong consistency is not required; data at any resource version may be served. It is possible
   for the request to return data at a much older resource version that the client has previously
-  observed, particularly in high availabiliy configurations, due to partitions or stale
+  observed, particularly in high availability configurations, due to partitions or stale
   caches. Clients that cannot tolerate this should not use this semantic.
 - **Not older than:** Return data at least as new as the provided resourceVersion. The newest
   available data is preferred, but any data not older than the provided resourceVersion may be
@@ -560,4 +560,4 @@ If you request a a resourceVersion outside the applicable limit then, depending 
 
 ### Unavailable resource versions
 
-Servers are not required to serve unrecognized resource versions. List and Get requests for unrecognized resource versions may wait briefly for the resource version to become available, should timeout with a `504 (Gateway Timeout)` if the provided resource versions does not become available in a resonable amount of time, and may respond with a `Retry-After` response header indicating how many seconds a client should wait before retrying the request. Currently the kube-apiserver also identifies these responses with a "Too large resource version" message. Watch requests for a unrecognized resource version may wait indefinitely (until the request timeout) for the resource version to become available.
+Servers are not required to serve unrecognized resource versions. List and Get requests for unrecognized resource versions may wait briefly for the resource version to become available, should timeout with a `504 (Gateway Timeout)` if the provided resource versions does not become available in a reasonable amount of time, and may respond with a `Retry-After` response header indicating how many seconds a client should wait before retrying the request. Currently, the kube-apiserver also identifies these responses with a "Too large resource version" message. Watch requests for an unrecognized resource version may wait indefinitely (until the request timeout) for the resource version to become available.

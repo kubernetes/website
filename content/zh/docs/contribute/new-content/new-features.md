@@ -149,15 +149,14 @@ Beta 或 Stable）、负责实现该特性的 SIG 和个人、是否该特性需
   Alpha features.
 - It's hard to test (and therefore to document) a feature that hasn't been merged,
   or is at least considered feature-complete in its PR.
-- Determining whether a feature needs documentation is a manual process and
-  just because a feature is not marked as needing docs doesn't mean it doesn't
-  need them.
+- Determining whether a feature needs documentation is a manual process. Even if
+  a feature is not marked as needing docs, you may need to document the feature.
 -->
 - Beta 和 Stable 功能特性通常比 Alpha 特性更为需要文档支持。
 - 如果某功能特性尚未被合并，就很难测试或者为其撰写文档。
   对于对应的 PR 而言，也很难讲特性是否完全实现。
-- 确定某个功能特性是否需要对应的文档的过程是一个手动的过程。
-  即使某个功能特性没有标记需要文档，并不意味着该功能真的不需要任何文档。
+- 确定某个功能特性是否需要文档的过程是一个手动的过程。
+  即使某个功能特性没有标记需要文档，你仍可能需要为其提供文档。
 
 <!--
 ## For developers or other SIG members
@@ -185,24 +184,28 @@ SIG Docs 一起工作，确保这一新功能在发行之前已经为之撰写�
 <!--
 ### Open a placeholder PR
 
-1. Open a pull request against the
+1. Open a **draft** pull request against the
 `dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
-commit that you will amend later.
+commit that you will amend later. To create a draft pull request, use the
+Create Pull Request drop-down and select **Create Draft Pull Request**,
+then click **Draft Pull Request**.
 2. Edit the pull request description to include links to [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
 PR(s) and [kubernetes/enhancements](https://github.com/kubernetes/enhancements) issue(s).
-3. Use the Prow command `/milestone {{< skew nextMinorVersion >}}` to
-assign the PR to the relevant milestone. This alerts the docs person managing
-this release that the feature docs are coming.
+3. Leave a comment on the related [kubernetes/enhancements](https://github.com/kubernetes/enhancements)
+issue with a link to the PR to notify the docs person managing this release that
+the feature docs are coming and should be tracked for the release.
 -->
 ### 提交占位 PR {#open-a-placeholder-pr}
 
 1. 在 `kubernetes/website` 仓库上针对 `dev-{{< skew nextMinorVersion >}}`
-   分支提交一个 PR，其中包含较少的、待以后慢慢补齐的提交内容。
+   分支提交一个**draft** PR，其中包含较少的、待以后慢慢补齐的提交内容。
+   要创建一个草案（draft）状态的 PR，可以在 Create Pull Request 下拉菜单中
+   选择 **Create Draft Pull Request**，然后点击 **Draft Pull Request**。
 1. 编辑拉取请求描述以包括指向 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) PR
    和 [kubernetes/enhancements](https://github.com/kubernetes/enhancements) 问题的链接。  
-1. 使用 Prow 命令  `/milestone {{< skew nextMinorVersion >}}` 
-   将 PR指派到对应的里程碑。这样做会提醒负责管理对应发行版本的文档团队成员，有
-   新的功能特性要合并到将来版本。
+1. 在对应的 [kubernetes/enhancements](https://github.com/kubernetes/enhancements)
+   issue 上添加评论，附上新 PR 的链接以便管理此发行版本的人员能够得到通知，
+   了解特性的文档正在被撰写，在新的发行版本中要跟踪其进展。
 
 <!--
 If your feature does not need
@@ -219,7 +222,9 @@ milestone.
 <!--
 ### PR ready for review
 
-When ready, populate your placeholder PR with feature documentation.
+When ready, populate your placeholder PR with feature documentation and change
+the state of the PR from draft to **ready for review**. To mark a pull request
+as ready for review, navigate to the merge box and click **Ready for review**.
 
 Do your best to describe your feature and how to use it. If you need help
 structuring your documentation, ask in the `#sig-docs` slack channel.
@@ -227,15 +232,13 @@ structuring your documentation, ask in the `#sig-docs` slack channel.
 When you complete your content, the documentation person assigned to your
 feature reviews it. 
 To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
-Use their suggestions to get the content to a release
-ready state.
-
-If your feature needs documentation and the first draft content is not
-received, the feature may be removed from the milestone.
+Use their suggestions to get the content to a release ready state.
 -->
-### PR 准备好评阅
+### PR 准备好评阅  {#pr-ready-for-review}
 
-时机成熟时，你可以在你的占位 PR 中完成功能特性文档。
+时机成熟时，你可以在你的占位 PR 中完成功能特性文档，并将 PR 的状态
+从草案状态更改为 **Ready for Review**。要将一个拉取请求标记为预备
+评阅，转到页面的 merge 框，点击 **Ready for review**。
 
 尽可能为功能特性提供详尽文档以及使用说明。如果你需要文档组织方面的帮助，请
 在 `#sig-docs` Slack 频道中提问。
@@ -244,8 +247,22 @@ received, the feature may be removed from the milestone.
 为了确保技术准确性，内容可能还需要相应 SIG 的技术审核。
 尽量利用他们所给出的建议，改进文档内容以达到发布就绪状态。
 
-如果你的功能特性需要文档，而一直没有关于该特性的文档提交评阅，
-该特性可能会被从里程碑中移除。
+<!--
+If your feature is an Alpha or Beta feature and is behind a feature gate,
+make sure you add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+table as part of your pull request. With new feature gates, a description of
+the feature gate is also required. If your feature is GA'ed or deprecated,
+make sure to move it from that table to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+table with Alpha and Beta history intact.
+-->
+如果你在处理的功能特性处于 Alpha 或 Beta 阶段并由某特性门控控制，
+请确保在你的 PR 中，该特性门控被添加到 
+[Alpha/Beta 特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+表格中。对于新的特性门控选项，需要为该特性门控提供一段描述。
+如果所处理的功能特性已经进入正式发布（GA）状态或者被废弃，
+请确保将其从上述表格中迁移到
+[已毕业或废弃的特性](/zh/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+表格中，并确保迁移后保留其 Alpha、Beta 版本变迁历史。
 
 <!--
 ### All PRs reviewed and ready to merge
@@ -254,20 +271,10 @@ If your PR has not yet been merged into the `dev-{{< skew nextMinorVersion >}}` 
 docs person managing the release to get it in by the deadline. If your feature needs
 documentation and the docs are not ready, the feature may be removed from the
 milestone.
-
-If your feature is an Alpha feature and is behind a feature gate, make sure you
-add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
-as part of your pull request. If your feature is moving out of Alpha, make sure to
-remove it from that table.
 -->
-### 所有 PR 均经过评审且合并就绪
+### 所有 PR 均经过评审且合并就绪   {#all-prs-reviewd-and-ready-to-merge}
 
 如果你的 PR 在发行截止日期之前尚未合并到 `dev-{{< skew nextMinorVersion >}}` 分支，
 请与负责管理该发行版本的文档团队成员一起合作，在截止期限之前将其合并。
 如果功能特性需要文档，而文档并未就绪，该特性可能会被从里程碑中去除。
 
-如果你的功能特性是 Alpha 阶段，并且受到某个特性门控的保护，在你的 PR 中，请确保将
-该特性门控添加到
-[Alpha/Beta 特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
-表格中。
-如果你的功能特性不再是 Alpha 阶段，请确保特性门控状态得到更新。

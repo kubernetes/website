@@ -12,20 +12,15 @@ content_type: task
 This guide demonstrates how to install and write extensions for [kubectl](/docs/reference/kubectl/kubectl/). By thinking of core `kubectl` commands as essential building blocks for interacting with a Kubernetes cluster, a cluster administrator can think
 of plugins as a means of utilizing these building blocks to create more complex behavior. Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 You need to have a working `kubectl` binary installed.
-
-
 
 <!-- steps -->
 
 ## Installing kubectl plugins
 
-A plugin is nothing more than a standalone executable file, whose name begins with `kubectl-`. To install a plugin, simply move its executable file to anywhere on your `PATH`.
+A plugin is a standalone executable file, whose name begins with `kubectl-`. To install a plugin, move its executable file to anywhere on your `PATH`.
 
 You can also discover and install kubectl plugins available in the open source
 using [Krew](https://krew.dev/). Krew is a plugin manager maintained by
@@ -60,9 +55,9 @@ You can write a plugin in any programming language or script that allows you to 
 
 There is no plugin installation or pre-loading required. Plugin executables receive
 the inherited environment from the `kubectl` binary.
-A plugin determines which command path it wishes to implement based on its name. For
-example, a plugin wanting to provide a new command `kubectl foo`, would simply be named
-`kubectl-foo`, and live somewhere in your `PATH`.
+A plugin determines which command path it wishes to implement based on its name.
+For example, a plugin named `kubectl-foo` provides a command `kubectl foo`. You must
+install the plugin executable somewhere in your `PATH`.
 
 ### Example plugin
 
@@ -88,32 +83,34 @@ echo "I am a plugin named kubectl-foo"
 
 ### Using a plugin
 
-To use the above plugin, simply make it executable:
+To use a plugin, make the plugin executable:
 
-```
+```shell
 sudo chmod +x ./kubectl-foo
 ```
 
 and place it anywhere in your `PATH`:
 
-```
+```shell
 sudo mv ./kubectl-foo /usr/local/bin
 ```
 
 You may now invoke your plugin as a `kubectl` command:
 
-```
+```shell
 kubectl foo
 ```
+
 ```
 I am a plugin named kubectl-foo
 ```
 
 All args and flags are passed as-is to the executable:
 
-```
+```shell
 kubectl foo version
 ```
+
 ```
 1.0.0
 ```
@@ -124,6 +121,7 @@ All environment variables are also passed as-is to the executable:
 export KUBECONFIG=~/.kube/config
 kubectl foo config
 ```
+
 ```
 /home/<user>/.kube/config
 ```
@@ -131,6 +129,7 @@ kubectl foo config
 ```shell
 KUBECONFIG=/etc/kube/config kubectl foo config
 ```
+
 ```
 /etc/kube/config
 ```
@@ -376,10 +375,7 @@ set up a build environment (if it needs compiling), and deploy the plugin.
 If you also make compiled packages available, or use Krew, that will make
 installs easier.
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Check the Sample CLI Plugin repository for a
   [detailed example](https://github.com/kubernetes/sample-cli-plugin) of a
@@ -387,5 +383,3 @@ installs easier.
   In case of any questions, feel free to reach out to the
   [SIG CLI team](https://github.com/kubernetes/community/tree/master/sig-cli).
 * Read about [Krew](https://krew.dev/), a package manager for kubectl plugins.
-
-

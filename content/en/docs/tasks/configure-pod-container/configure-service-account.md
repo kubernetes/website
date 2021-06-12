@@ -23,15 +23,9 @@ authenticated by the apiserver as a particular User Account (currently this is
 usually `admin`, unless your cluster administrator has customized your cluster). Processes in containers inside pods can also contact the apiserver.
 When they do, they are authenticated as a particular Service Account (for example, `default`).
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -82,6 +76,7 @@ You can list this and any other serviceAccount resources in the namespace with t
 ```shell
 kubectl get serviceaccounts
 ```
+
 The output is similar to this:
 
 ```
@@ -108,9 +103,10 @@ If you get a complete dump of the service account object, like this:
 ```shell
 kubectl get serviceaccounts/build-robot -o yaml
 ```
+
 The output is similar to this:
 
-```
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -127,7 +123,7 @@ then you will see that a token has automatically been created and is referenced 
 
 You may use authorization plugins to [set permissions on service accounts](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
-To use a non-default service account, simply set the `spec.serviceAccountName`
+To use a non-default service account, set the `spec.serviceAccountName`
 field of a pod to the name of the service account you wish to use.
 
 The service account has to exist at the time the pod is created, or it will be rejected.
@@ -164,14 +160,15 @@ Any tokens for non-existent service accounts will be cleaned up by the token con
 ```shell
 kubectl describe secrets/build-robot-secret
 ```
+
 The output is similar to this:
 
 ```
 Name:           build-robot-secret
 Namespace:      default
 Labels:         <none>
-Annotations:    kubernetes.io/service-account.name=build-robot
-                kubernetes.io/service-account.uid=da68f9c6-9d26-11e7-b84e-002dc52800da
+Annotations:    kubernetes.io/service-account.name: build-robot
+                kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800da
 
 Type:   kubernetes.io/service-account-token
 
@@ -227,7 +224,7 @@ kubectl get serviceaccounts default -o yaml > ./sa.yaml
 
 The output of the `sa.yaml` file is similar to this:
 
-```shell
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -244,7 +241,7 @@ Using your editor of choice (for example `vi`), open the `sa.yaml` file, delete 
 
 The output of the `sa.yaml` file is similar to this:
 
-```shell
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -319,17 +316,17 @@ kubectl create -f https://k8s.io/examples/pods/pod-projected-svc-token.yaml
 ```
 
 The kubelet will request and store the token on behalf of the pod, make the
-token available to the pod at a configurable file path, and refresh the token as it approaches expiration. Kubelet proactively rotates the token if it is older than 80% of its total TTL, or if the token is older than 24 hours.
+token available to the pod at a configurable file path, and refresh the token as it approaches expiration.
+The kubelet proactively rotates the token if it is older than 80% of its total TTL, or if the token is older than 24 hours.
 
 The application is responsible for reloading the token when it rotates. Periodic reloading (e.g. once every 5 minutes) is sufficient for most use cases.
 
 ## Service Account Issuer Discovery
 
-{{< feature-state for_k8s_version="v1.20" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-The Service Account Issuer Discovery feature is enabled by enabling the
-`ServiceAccountIssuerDiscovery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates)
-and then enabling the Service Account Token Projection feature as described
+The Service Account Issuer Discovery feature is enabled when the Service Account
+Token Projection feature is enabled, as described
 [above](#service-account-token-volume-projection).
 
 {{< note >}}
@@ -351,8 +348,8 @@ Configuration document at `/.well-known/openid-configuration` and the associated
 JSON Web Key Set (JWKS) at `/openid/v1/jwks`. The OpenID Provider Configuration
 is sometimes referred to as the _discovery document_.
 
-When enabled, the cluster is also configured with a default RBAC ClusterRole
-called `system:service-account-issuer-discovery`. No role bindings are provided
+Clusters include a default RBAC ClusterRole called
+`system:service-account-issuer-discovery`. No role bindings are provided
 by default. Administrators may, for example, choose whether to bind the role to
 `system:authenticated` or `system:unauthenticated` depending on their security
 requirements and which external systems they intend to federate with.
@@ -379,7 +376,6 @@ JWKS URI is required to use the `https` scheme.
 
 
 ## {{% heading "whatsnext" %}}
-
 
 See also:
 
