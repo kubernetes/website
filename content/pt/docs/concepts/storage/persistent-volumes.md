@@ -24,7 +24,7 @@ Esse documento descreve o estado atual dos _volumes persistentes_ no Kubernetes.
 ## Introdução
 
 
-O gerenciamento de armazenamento é uma questão bem diferente do gerenciamento de instâncias computacionais. O subsistema PersistentVolume provê uma API para usuários e administradores que mostra de forma detalhada de como o armazenamento é provido e como ele é consumido. Para isso, nós introduzidmos duas novas APIs:  PersistentVolume e PersistentVolumeClaim.
+O gerenciamento de armazenamento é uma questão bem diferente do gerenciamento de instâncias computacionais. O subsistema PersistentVolume provê uma API para usuários e administradores que mostra de forma detalhada de como o armazenamento é provido e como ele é consumido. Para isso, nós introduzimos duas novas APIs:  PersistentVolume e PersistentVolumeClaim.
 
 Um _PersistentVolume_ (PV) é uma parte do armazenamento dentro do cluster que tenha sido provisionada por um administrador, ou dinamicamente utilizando [Classes de Armazenamento](/docs/concepts/storage/storage-classes/). Isso é um recurso dentro do cluster da mesma forma que um nó também é. PVs são plugins de volume da mesma forma que Volumes, porém eles têm um ciclo de vida independente de qualquer Pod que utilize um PV. Essa API tem por objetivo mostrar os detalhes da implementação do armazenamento, seja ele NFS, iSCSI, ou um armazenamento específico de um provedor de cloud pública.
 
@@ -44,7 +44,7 @@ Existem duas formas de provisionar um PV: estaticamente ou dinamicamente.
 
 #### Estático
 
-O administrador do cluster cria uma determinada quantidade de PVs. Eles possuem todos os detalhes do armazenamento a qual estão atrelados, que neste caso fica disponível para utilização por um usuário dentro do cluster. Eles estão presentes na API do Kubernetes e disponíveis para utilização.
+O administrador do cluster cria uma determinada quantidade de PVs. Eles possuem todos os detalhes do armazenamento os quais estão atrelados, que neste caso fica disponível para utilização por um usuário dentro do cluster. Eles estão presentes na API do Kubernetes e disponíveis para utilização.
 
 #### Dinâmico
 
@@ -118,7 +118,7 @@ Quando um usuário não precisar mais utilizar um volume, ele pode deletar a PVC
 
 #### Retenção
 
-A política `Retain` permite a recuperação de forma manual do recurso. Quando a PersistentVolumeClaim é deletada, ela continua existindo e o volume é considerado "livre". Mas ele ainda não está disponível para outra requisição porque os dados da requisição anterior ainda permanecem no volume. Um administrador pode manuamente recuperar o volume executando os seguintes passos: 
+A política `Retain` permite a recuperação de forma manual do recurso. Quando a PersistentVolumeClaim é deletada, ela continua existindo e o volume é considerado "livre". Mas ele ainda não está disponível para outra requisição porque os dados da requisição anterior ainda permanecem no volume. Um administrador pode manualmente recuperar o volume executando os seguintes passos: 
 
 
 1. Deletar o PersistentVolume. O armazenamento associado à infraestrutura externa (AWS EBS, GCE PD, Azure Disk ou Cinder volume) ainda continuará existindo após o PV ser deletado.
@@ -456,7 +456,7 @@ Um PV pode especificar uma [afinidade de nó](/docs/reference/generated/kubernet
 
 ### Estado
 
-Um volume sempre estará em dos seguintes estados:
+Um volume sempre estará em um dos seguintes estados:
 
 * Available -- um recurso que está livre e ainda não foi atrelado a nenhuma requisição
 * Bound -- um volume atrelado a uma requisição
