@@ -225,7 +225,7 @@ Si la startup probe ne réussit jamais, le conteneur est tué après 300s puis s
 
 Parfois, les applications sont temporairement incapables de servir le trafic.
 Par exemple, une application peut avoir besoin de charger des larges données ou des fichiers de configuration pendant le démarrage, ou elle peut dépendre de services externes après le démarrage.
-Dans ces cas, vous ne voulez pas tuer l'application, mais tu ne veux pas non plus lui envoyer de requêtes. Kubernetes fournit des readiness probes pour détecter et atténuer ces situations. Un pod avec des conteneurs qui signale qu'elle n'est pas prête ne reçoit pas de trafic par les services de Kubernetes.
+Dans ces cas, vous ne voulez pas tuer l'application, mais vous ne voulez pas non plus lui envoyer de requêtes. Kubernetes fournit des readiness probes pour détecter et atténuer ces situations. Un pod avec des conteneurs qui signale qu'elle n'est pas prête ne reçoit pas de trafic par les services de Kubernetes.
 
 {{< note >}}
 Readiness probes fonctionnent sur le conteneur pendant tout son cycle de vie.
