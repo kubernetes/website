@@ -357,9 +357,9 @@ true. The following taints are built in:
    the NodeCondition `Ready` being "`False`".
  * `node.kubernetes.io/unreachable`: Node is unreachable from the node
    controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
- * `node.kubernetes.io/out-of-disk`: Node becomes out of disk.
  * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
  * `node.kubernetes.io/disk-pressure`: Node has disk pressure.
+ * `node.kubernetes.io/pid-pressure`: Node has PID pressure.
  * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
  * `node.kubernetes.io/unschedulable`: Node is unschedulable.
  * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
@@ -371,9 +371,9 @@ true. The following taints are built in:
 
  * `node.kubernetes.io/not-ready`：节点未准备好。这相当于节点状态 `Ready` 的值为 "`False`"。
  * `node.kubernetes.io/unreachable`：节点控制器访问不到节点. 这相当于节点状态 `Ready` 的值为 "`Unknown`"。
- * `node.kubernetes.io/out-of-disk`：节点磁盘耗尽。
  * `node.kubernetes.io/memory-pressure`：节点存在内存压力。
  * `node.kubernetes.io/disk-pressure`：节点存在磁盘压力。
+ * `node.kubernetes.io/pid-pressure`: 节点的 PID 压力。
  * `node.kubernetes.io/network-unavailable`：节点网络不可用。
  * `node.kubernetes.io/unschedulable`: 节点不可调度。
  * `node.cloudprovider.kubernetes.io/uninitialized`：如果 kubelet 启动时指定了一个 "外部" 云平台驱动，
@@ -486,7 +486,7 @@ breaking.
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
-  * `node.kubernetes.io/out-of-disk` (*only for critical pods*)
+  * `node.kubernetes.io/pid-pressure` (1.14 or later)
   * `node.kubernetes.io/unschedulable` (1.10 or later)
   * `node.kubernetes.io/network-unavailable` (*host network only*)
 -->
@@ -498,7 +498,7 @@ DaemonSet 控制器自动为所有守护进程添加如下 `NoSchedule` 容忍�
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
-  * `node.kubernetes.io/out-of-disk` (*只适合关键 Pod*)
+  * `node.kubernetes.io/pid-pressure` (1.14 或更高版本)
   * `node.kubernetes.io/unschedulable` (1.10 或更高版本)
   * `node.kubernetes.io/network-unavailable` (*只适合主机网络配置*)
 
