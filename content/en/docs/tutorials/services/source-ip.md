@@ -50,7 +50,9 @@ IP of requests it receives through an HTTP header. You can create it as follows:
 ```shell
 kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
 ```
+
 The output is:
+
 ```
 deployment.apps/source-ip-app created
 ```
@@ -80,7 +82,9 @@ you're running kube-proxy in
 ```console
 kubectl get nodes
 ```
+
 The output is similar to this:
+
 ```
 NAME                           STATUS     ROLES    AGE     VERSION
 kubernetes-node-6jst   Ready      <none>   2h      v1.13.0
@@ -89,11 +93,14 @@ kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
 ```
 
 Get the proxy mode on one of the nodes (kube-proxy listens on port 10249):
+
 ```shell
 # Run this in a shell on the node you want to query.
 curl http://localhost:10249/proxyMode
 ```
+
 The output is:
+
 ```
 iptables
 ```
@@ -103,14 +110,19 @@ You can test source IP preservation by creating a Service over the source IP app
 ```shell
 kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
 ```
+
 The output is:
+
 ```
 service/clusterip exposed
 ```
+
 ```shell
 kubectl get svc clusterip
 ```
+
 The output is similar to:
+
 ```
 NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
@@ -121,18 +133,21 @@ And hitting the `ClusterIP` from a pod in the same cluster:
 ```shell
 kubectl run busybox -it --image=busybox --restart=Never --rm
 ```
+
 The output is similar to this:
+
 ```
 Waiting for pod default/busybox to be running, status is Pending, pod ready: false
 If you don't see a command prompt, try pressing enter.
-
 ```
+
 You can then run a command inside that Pod:
 
 ```shell
 # Run this inside the terminal from "kubectl run"
 ip addr
 ```
+
 ```
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -149,16 +164,19 @@ ip addr
 ```
 
 …then use `wget` to query the local webserver
+
 ```shell
 # Replace "10.0.170.92" with the IPv4 address of the Service named "clusterip"
 wget -qO - 10.0.170.92
 ```
+
 ```
 CLIENT VALUES:
 client_address=10.244.3.8
 command=GET
 ...
 ```
+
 The `client_address` is always the client pod's IP address, whether the client pod and server pod are in the same node or in different nodes.
 
 ## Source IP for Services with `Type=NodePort`
@@ -170,7 +188,9 @@ are source NAT'd by default. You can test this by creating a `NodePort` Service:
 ```shell
 kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
 ```
+
 The output is:
+
 ```
 service/nodeport exposed
 ```
@@ -188,7 +208,9 @@ port allocated above.
 ```shell
 for node in $NODES; do curl -s $node:$NODEPORT | grep -i client_address; done
 ```
+
 The output is similar to:
+
 ```
 client_address=10.180.1.1
 client_address=10.240.0.5
@@ -235,7 +257,9 @@ Set the `service.spec.externalTrafficPolicy` field as follows:
 ```shell
 kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
 ```
+
 The output is:
+
 ```
 service/nodeport patched
 ```
@@ -245,7 +269,9 @@ Now, re-run the test:
 ```shell
 for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
 ```
+
 The output is similar to:
+
 ```
 client_address=198.51.100.79
 ```
@@ -292,7 +318,9 @@ You can test this by exposing the source-ip-app through a load balancer:
 ```shell
 kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-port=8080 --type=LoadBalancer
 ```
+
 The output is:
+
 ```
 service/loadbalancer exposed
 ```
@@ -301,7 +329,9 @@ Print out the IP addresses of the Service:
 ```console
 kubectl get svc loadbalancer
 ```
+
 The output is similar to this:
+
 ```
 NAME           TYPE           CLUSTER-IP    EXTERNAL-IP       PORT(S)   AGE
 loadbalancer   LoadBalancer   10.0.65.118   203.0.113.140     80/TCP    5m
@@ -312,7 +342,9 @@ Next, send a request to this Service's external-ip:
 ```shell
 curl 203.0.113.140
 ```
+
 The output is similar to this:
+
 ```
 CLIENT VALUES:
 client_address=10.240.0.5
@@ -340,7 +372,9 @@ by Kubernetes:
 ```shell
 kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
 ```
+
 The output is similar to this:
+
 ```yaml
   healthCheckNodePort: 32122
 ```
@@ -351,26 +385,32 @@ serving the health check at `/healthz`. You can test this:
 ```shell
 kubectl get pod -o wide -l run=source-ip-app
 ```
+
 The output is similar to this:
+
 ```
 NAME                            READY     STATUS    RESTARTS   AGE       IP             NODE
 source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-node-6jst
 ```
 
 Use `curl` to fetch the `/healthz` endpoint on various nodes:
+
 ```shell
 # Run this locally on a node you choose
 curl localhost:32122/healthz
 ```
+
 ```
 1 Service Endpoints found
 ```
 
 On a different node you might get a different result:
+
 ```shell
 # Run this locally on a node you choose
 curl localhost:32122/healthz
 ```
+
 ```
 No Service Endpoints Found
 ```
@@ -385,7 +425,9 @@ then use `curl` to query the IPv4 address of the load balancer:
 ```shell
 curl 203.0.113.140
 ```
+
 The output is similar to this:
+
 ```
 CLIENT VALUES:
 client_address=198.51.100.79
