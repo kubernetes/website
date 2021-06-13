@@ -8,7 +8,7 @@ weight: 20
 
 <!-- overview -->
 
-SIG Docsの[Reviewer(レビュア)](/docs/contribute/participate/#reviewers)と[Approver(承認者)](/docs/contribute/participate/#approvers)は、変更をレビューする時にいくつか追加の作業を行います。
+SIG Docsの[Reviewer(レビュアー)](/docs/contribute/participate/#reviewers)と[Approver(承認者)](/docs/contribute/participate/#approvers)は、変更をレビューする時にいくつか追加の作業を行います。
 
 毎週、docsのメンバーの特定のapproverのボランティアは、pull requestのトリアージとレビューを担当します。この担当者は、その週の「PR Wrangler(PRの世話人)」と呼ばれます。詳しい情報は、[PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)を参照してください。PR Wranglerになるには、週次のSIG Docsミーティングに参加し、ボランティアをします。もしその週にスケジュールされていなくても、活発なレビューが行われていないpull request(PR)をレビューすることは問題ありません。
 
@@ -22,7 +22,7 @@ Kubernetesのドキュメントは[Kubernetesコードレビュープロセス](
 
 [pull requestのレビュー](/ja/docs/contribute/review/reviewing-prs/)に書かれているすべてのことが適用されますが、ReviewerとApproverはそれに加えて次のことも行います。
 
-- 必要に応じて、`/assign`Prowコマンドを使用して、特定のreviewerにPRを割り当てる。これは、コードのコントリビュータからの技術的なレビューが必要な場合には特に重要です。
+- 必要に応じて、`/assign`Prowコマンドを使用して、特定のreviewerにPRを割り当てる。これは、コードのコントリビューターからの技術的なレビューが必要な場合には特に重要です。
 
   {{< note >}}
   技術的なレビューを行える人物を知るには、Markdownファイル上部にあるfront-matterの`reviewers`フィールドを確認してください。
@@ -69,11 +69,11 @@ Prowコマンド | Roleの制限 | 説明
 
 PRで利用できるすべてのコマンド一覧を確認するには、[Prowコマンドリファレンス](https://prow.k8s.io/command-help)を参照してください。
 
-## issueのトリアージとカテゴリ分類
+## issueのトリアージとカテゴリー分類
 
 一般に、SIG Docsは[Kubernetes issue triage](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md)のプロセスに従い、同じラベルを使用しています。
 
-このGitHub issueの[フィルタ](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Atriage%2Fneeds-information+-label%3Atriage%2Fsupport+sort%3Acreated-asc)は、トリアージが必要な可能性があるissueを表示します。
+このGitHub issueの[フィルター](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Atriage%2Fneeds-information+-label%3Atriage%2Fsupport+sort%3Acreated-asc)は、トリアージが必要な可能性があるissueを表示します。
 
 ### issueをトリアージする
 
@@ -114,7 +114,7 @@ issueのトリアージについて質問があるときは、Slackの`#sig-docs
 
 いずれの場合でも、ラベルは既存のものでなければなりません。存在しないラベルを追加しようとした場合、コマンドは無視されます。
 
-すべてのラベル一覧は、[websiteリポジトリのラベルセクション](https://github.com/kubernetes/website/labels)で確認できます。SIG Docsですべてのラベルが使われているわけではありません。
+すべてのラベル一覧は、[websiteリポジトリーのラベルセクション](https://github.com/kubernetes/website/labels)で確認できます。SIG Docsですべてのラベルが使われているわけではありません。
 
 ### issueのライフサイクルに関するラベル
 
@@ -147,7 +147,7 @@ SIG Docsでは、対処方法をドキュメントに書いても良いくらい
 
 一部のドキュメントのissueは、実際には元になっているコードの問題や、何か(たとえば、チュートリアル)がうまく動かないときにサポートをリクエストするものです。ドキュメントに関係のない問題は、`kind/support`ラベルを付け、サポートチャンネル(SlackやStack Overflowなど)へ報告者を導くコメントをして、もし関連があれば機能のバグに対するissueを報告するリポジトリ(`kubernetes/kubernetes`は始めるのに最適な場所です)を教えて、closeします。
 
-サポートリクエストに対する返答の例を示します。(リクエストを行う際は英語で行うことが想定されるため、英文とその日本語訳を記載してます)
+サポートリクエストに対する返答の例を示します。(リクエストを行う際は英語で行うことが想定されるため、英文とその日本語訳を記載しています)
 
 ```none
 This issue sounds more like a request for support and less
