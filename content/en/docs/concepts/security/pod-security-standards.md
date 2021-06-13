@@ -70,7 +70,9 @@ enforced/disallowed:
 				spec.hostNetwork<br>
 				spec.hostPID<br>
 				spec.hostIPC<br>
-				<br><b>Allowed Values:</b> false<br>
+				<br><b>Allowed Values:</b><br>
+        false<br>
+        undefined / nil<br>
 			</td>
 		</tr>
 		<tr>
@@ -265,8 +267,7 @@ well as lower-trust users.The following listed controls should be enforced/disal
 				spec.containers[*].securityContext.seccompProfile<br>
 				spec.initContainers[*].securityContext.seccompProfile<br>
 				<br><b>Allowed Values:</b><br>
-				'runtime/default'<br>
-				undefined / nil<br>
+				'RuntimeDefault'<br>
 			</td>
 		</tr>
 	</tbody>
