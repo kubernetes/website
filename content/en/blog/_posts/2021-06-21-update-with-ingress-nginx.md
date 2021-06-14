@@ -48,7 +48,8 @@ Kubernetes 1.22.
 The team is currently in the process of upgrading ingress-nginx to support 
 the v1 migration, you can track the progress 
 [here](https://github.com/kubernetes/ingress-nginx/pull/7156).  
-Feature requests are being frozen until the v1 update is completed. 
+We're not making feature improvements to `ingress-nginx` until after the support for
+Ingress v1 is complete.
 
 In the meantime to ensure no compatibility issues: 
 
