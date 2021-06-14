@@ -18,8 +18,8 @@ It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
 {{< warning >}}
-Using unverified kubeconfig files could result in malicious code execution and file exposure. 
-Inspect your kubeconfig files carefully and only use config files from trusted sources.
+Kubeconfig files have powerful features that can run commands or access data files when they are used. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
+Only use kubeconfig files from trusted sources. If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script or other program.
 {{< /warning>}}
 
 By default, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
@@ -156,7 +156,6 @@ are stored absolutely.
 
 * [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
-
 
 
 
