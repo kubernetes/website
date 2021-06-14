@@ -746,10 +746,10 @@ Kubernetes supports two `volumeModes` of PersistentVolumes: `Filesystem` and `Bl
 `Filesystem` is the default mode used when `volumeMode` parameter is omitted.
 
 A volume with `volumeMode: Filesystem` is *mounted* into Pods into a directory. If the volume
-is backed by a block device and the device is empty, Kuberneretes creates a filesystem
+is backed by a block device and the device is empty, Kubernetes creates a filesystem
 on the device before mounting it for the first time.
 -->
-针对 PV 持久卷，Kuberneretes
+针对 PV 持久卷，Kubernetes
 支持两种卷模式（`volumeModes`）：`Filesystem（文件系统）` 和 `Block（块）`。
 `volumeMode` 是一个可选的 API 参数。
 如果该参数被省略，默认的卷模式是 `Filesystem`。
@@ -1032,20 +1032,20 @@ spec:
 <!--
 ### Access Modes
 
-Claims use the same conventions as volumes when requesting storage with specific access modes.
+Claims use [the same conventions as volumes](#access-modes) when requesting storage with specific access modes.
 -->
-### 访问模式   {#access-modes}
+### 访问模式 {#access-modes}
 
-申领在请求具有特定访问模式的存储时，使用与卷相同的访问模式约定。
+申领在请求具有特定访问模式的存储时，使用与卷相同的[访问模式约定](#access-modes)。
 
 <!--
 ### Volume Modes
 
-Claims use the same convention as volumes to indicate the consumption of the volume as either a filesystem or block device.
+Claims use [the same convention as volumes](#volume-mode) to indicate the consumption of the volume as either a filesystem or block device.
 -->
-### 卷模式   {#volume-modes}
+### 卷模式 {#volume-modes}
 
-申领使用与卷相同的约定来表明是将卷作为文件系统还是块设备来使用。
+申领使用[与卷相同的约定](#access-modes)来表明是将卷作为文件系统还是块设备来使用。
 
 <!--
 ### Resources

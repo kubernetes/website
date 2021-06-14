@@ -113,11 +113,13 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 
 {{% thirdparty-content %}}
 
+* [Charmed Operator Framework](https://juju.is/)
 * [kubebuilder](https://book.kubebuilder.io/) 사용하기
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
 * 웹훅(WebHook)과 함께 [Metacontroller](https://metacontroller.app/)를
   사용하여 직접 구현하기
 * [오퍼레이터 프레임워크](https://operatorframework.io)
+* [shell-operator](https://github.com/flant/shell-operator)
 
 ## {{% heading "whatsnext" %}}
 

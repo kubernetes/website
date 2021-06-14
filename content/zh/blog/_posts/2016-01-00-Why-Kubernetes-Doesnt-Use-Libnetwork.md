@@ -49,7 +49,7 @@ Docker 的网络模型做出了许多对 Kubernetes 无效的假设。在 docker
 
 <!-- On the other hand, CNI is more philosophically aligned with Kubernetes. It's far simpler than CNM, doesn't require daemons, and is at least plausibly cross-platform (CoreOS’s [rkt](https://coreos.com/rkt/docs/) container runtime supports it). Being cross-platform means that there is a chance to enable network configurations which will work the same across runtimes (e.g. Docker, Rocket, Hyper). It follows the UNIX philosophy of doing one thing well.   -->
 
-另一方面， CNI 在哲学上与 Kubernetes 更加一致。它比 CNM 简单得多，不需要守护进程，并且至少是合理的跨平台（ CoreOS 的 [rkt](https://coreos.com/rkt/docs/) 容器运行时支持它）。跨平台意味着有机会启用跨运行时（例如 Docker ， Rocket ， Hyper ）运行相同的网络配置。 它遵循 UNIX 的理念，即做好一件事。
+另一方面， CNI 在哲学上与 Kubernetes 更加一致。它比 CNM 简单得多，不需要守护进程，并且至少有合理的跨平台（ CoreOS 的 [rkt](https://coreos.com/rkt/docs/) 容器运行时支持它）。跨平台意味着有机会启用跨运行时（例如 Docker ， Rocket ， Hyper ）运行相同的网络配置。 它遵循 UNIX 的理念，即做好一件事。
 
 <!-- Additionally, it's trivial to wrap a CNI plugin and produce a more customized CNI plugin — it can be done with a simple shell script. CNM is much more complex in this regard. This makes CNI an attractive option for rapid development and iteration. Early prototypes have proven that it's possible to eject almost 100% of the currently hard-coded network logic in kubelet into a plugin.   -->
 
