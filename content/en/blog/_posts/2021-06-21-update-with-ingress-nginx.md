@@ -39,10 +39,10 @@ versions of Kubernetes.
 {{< table caption="Ingress NGINX supported version with Kubernetes Versions" >}}
 Kubernetes version  | Ingress-NGINX version | Notes
 :-------------------|:----------------------|:------------
-`1.22`              | TBD                   | On Going
-`1.21`              | `v0.47.0`             | On Going but only CVE and crashes
-`1.20`              | `v0.47.0`             | On Going but only CVE and crashes
-`1.19`              | `v0.47.0`             | Support will drop 6 months after 1.22 release
+v1.22              | ≥ v.0.47.0     | New features, plus bug fixes.
+v1.21              | v0.47.x        | Bugfixes only, and just for security issues or crashes. No end-of-support date announced.
+v1.20              | v0.47.x        | Bugfixes only, and just  for security issues or crashes. No end-of-support date announced.
+v1.19              | v0.47.x        | Bugfixes only, and just  for security issues or crashes. Fixes only provided until 6 months after Kubernetes v1.22.0 is released.
 {{< /table >}}    
 
 Because of the updates in Kubernetes 1.22, **v0.47.0** will not work with 
