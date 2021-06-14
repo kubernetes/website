@@ -58,6 +58,6 @@ In the meantime to ensure no compatibility issues:
   Ingress-NGINX that supports v1 networking api.
 
 The community’s feedback and support in this effort is welcome. The
-Ingress-Nginx Sub-project regularly hold community meetings where we discuss
+Ingress-NGINX Sub-project regularly holds community meetings where we discuss
 this and other issues facing the project, meeting notes and details are
 [here](https://github.com/kubernetes/community/tree/master/sig-network)
