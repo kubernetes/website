@@ -59,5 +59,5 @@ In the meantime to ensure no compatibility issues:
 
 The community’s feedback and support in this effort is welcome. The
 Ingress-NGINX Sub-project regularly holds community meetings where we discuss
-this and other issues facing the project, meeting notes and details are
-[here](https://github.com/kubernetes/community/tree/master/sig-network)
+this and other issues facing the project. For more information on the sub-project, 
+please see [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network).
