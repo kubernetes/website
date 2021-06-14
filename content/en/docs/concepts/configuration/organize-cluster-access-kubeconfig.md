@@ -18,8 +18,8 @@ It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
 {{< warning >}}
-Kubeconfig files have powerful features that can run commands or access data files when they are used. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
-Only use kubeconfig files from trusted sources. If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script or other program.
+Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
+If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
 {{< /warning>}}
 
 By default, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
