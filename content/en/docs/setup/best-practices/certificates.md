@@ -38,8 +38,7 @@ etcd also implements mutual TLS to authenticate clients and peers.
 
 ## Where certificates are stored
 
-If you install Kubernetes with kubeadm, most certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory, with the exception of user account certificates (which are in `/etc/kubernetes`).
-The following diagram:
+If you install Kubernetes with kubeadm, most certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory, with the exception of user account certificates which kubeadm places in `/etc/kubernetes`.
 
 ## Configure certificates manually
 
@@ -59,10 +58,18 @@ Required CAs:
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | For the [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 On top of the above CAs, it is also necessary to get a public/private key pair for service account management, `sa.key` and `sa.pub`.
-The diagram below illustrates the CA key and certificate files shown in the previous table that you need to provide to use a single root CA from which all other keys and certificates are generated:
+The following example illustrates the CA key and certificate files shown in the previous table:
 
-![Certificates for single root CA](/images/docs/Certs-SingleRootCA.svg)
-
+```shell
+/etc/kubernetes/pki/
+├── ca.crt
+├── ca.key
+├── etcd
+│   ├── ca.crt
+│   ├── ca.key
+├── front-proxy-ca.crt
+└── front-proxy-ca.key
+```
 ### All certificates
 
 If you don't wish to copy the CA private keys to your cluster, you can generate all certificates yourself.
@@ -132,15 +139,34 @@ Same considerations apply for the service account key pair:
 |  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file   |
 |                              | sa.pub                      | kube-apiserver          | --service-account-key-file           |
 
-The following diagram illustrates the files from the previous tables you need to provide if you are generating all of your own keys and certificates:
+The following example illustrates the files from the previous tables you need to provide if you are generating all of your own keys and certificates:
 
-
-![Generate all certificates yourself](/images/docs/Certs-AllCerts.svg)
-
-Flags in the following diagram illustrate which Kubernetes control plane services and commands consume each certificate and key. Refer to the previous table to see which options are needed to pass each file.
-
-![Certificates and keys passed to commands and services](/images/docs/Certs-AllFlags.svg)
-
+```shell
+/etc/kubernetes/pki/
+├── apiserver.crt
+├── apiserver-etcd-client.crt
+├── apiserver-etcd-client.key
+├── apiserver.key
+├── apiserver-kubelet-client.crt
+├── apiserver-kubelet-client.key
+├── ca.crt
+├── ca.key
+├── etcd
+│   ├── ca.crt
+│   ├── ca.key
+│   ├── healthcheck-client.crt
+│   ├── healthcheck-client.key
+│   ├── peer.crt
+│   ├── peer.key
+│   ├── server.crt
+│   └── server.key
+├── front-proxy-ca.crt
+├── front-proxy-ca.key
+├── front-proxy-client.crt
+├── front-proxy-client.key
+├── sa.key
+└── sa.pub
+```
 ## Configure certificates for user accounts
 
 You must manually configure these administrator account and service accounts:
@@ -160,11 +186,11 @@ The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value 
 
 1. Run `kubectl` as follows for each config:
 
-```shell
-KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
-KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
-KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
-KUBECONFIG=<filename> kubectl config use-context default-system
+   ```shell
+   KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
+   KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
+   KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
+   KUBECONFIG=<filename> kubectl config use-context default-system
 ```
 
 These files are used as follows:
@@ -176,6 +202,12 @@ These files are used as follows:
 | controller-manager.conf | kube-controller-manager | Must be added to manifest in `manifests/kube-controller-manager.yaml` |
 | scheduler.conf          | kube-scheduler          | Must be added to manifest in `manifests/kube-scheduler.yaml`          |
 
-This diagram illustrates the files listed in the previous table that contain client user certificates and keys:
+The following illustrates the files listed in the previous table that contain client user certificates and keys:
 
-![User account certificates](/images/docs/Certs-User.svg)
+```shell
+/etc/kubernetes/
+├── admin.conf
+├── kubelet.conf
+├── controller-manager.conf
+└── scheduler.conf
+```
