@@ -214,8 +214,8 @@ sequenceDiagram
     deactivate kube
     activate api
     api ->> api: 5. JWT署名は有効であるか?
-    api ->> api: 6. JWTの有効期限はどうか?
-    api ->> api: 7. ユーザ認証はどうか?
+    api ->> api: 6. JWTの有効期限はどうか?(iat+exp)
+    api ->> api: 7. ユーザ認可はどうか?
     api -->> kube: 8. 認可後:アクションを実行して結果を返却
     deactivate api
     activate kube
@@ -375,7 +375,7 @@ contexts:
 
 クライアントが[上記](#putting-a-bearer-token-in-a-request)のようにBearerトークンを使用してAPIサーバーとの認証を試みた場合、認証Webhookはトークンを含むJSONでシリアライズされた`TokenReview`オブジェクトをリモートサービスにPOSTします。
 
-Webhook APIオブジェクトは、他のKubernetes APIオブジェクトと同じように、[Versioning Compatibility Rule](/docs/concepts/overview/kubernetes-api/)に従うことに注意してください。実装者は、正しいデシリアライゼーションが使用されるようにリクエストの"apiVersion"フィールドを確認する必要があり、リクエストと同じバージョンの`TokenReview`オブジェクトで応答する必要があります。
+Webhook APIオブジェクトは、他のKubernetes APIオブジェクトと同じように、[Versioning Compatibility Rule](/docs/concepts/overview/kubernetes-api/)に従うことに注意してください。実装者は、正しいデシリアライゼーションが使用されるようにリクエストの"apiVersion"フィールドを確認する必要があり、リクエストと同じバージョンの`TokenReview`オブジェクトで応答する**必要があります**。
 
 {{< tabs name="TokenReview_request" >}}
 {{% tab name="authentication.k8s.io/v1" %}}
@@ -476,7 +476,7 @@ Kubernetes APIサーバーは、下位互換のためにデフォルトで`authe
       "username": "janedoe@example.com",
       # オプション
       "uid": "42",
-      # オプショングループメンバーシップ
+      # オプションのグループメンバーシップ
       "groups": ["developers", "qa"],
       # 認証機能が提供するオプションの追加情報です。
       # これは、ログやAPIオブジェクトに記録されたり、アドミッションのWebhookで
@@ -505,6 +505,21 @@ Kubernetes APIサーバーは、下位互換のためにデフォルトで`authe
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": false,
+    # 認証に失敗した詳細をオプションで記載します。
+    # エラーが提供されていない場合、APIは一般的なUnauthorizedメッセージを返却します。
+    # authenticated=trueの場合、エラーフィールドは無視されます。
+    "error": "Credentials are expired"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="authentication.k8s.io/v1beta1" %}}
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
   "kind": "TokenReview",
   "status": {
     "authenticated": false,
