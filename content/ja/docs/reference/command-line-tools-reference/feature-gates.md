@@ -54,7 +54,8 @@ content_type: concept
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAWS` | `false` | Beta | 1.17 | |
 | `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | |
-| `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | |
+| `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | 1.18 |
+| `CSIMigrationAzureDisk` | `false` | Beta | 1.19 | |
 | `CSIMigrationAzureDiskComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | |
 | `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | |
@@ -63,21 +64,25 @@ content_type: concept
 | `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
 | `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | |
+| `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
+| `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | |
+| `CSIStorageCapacity` | `false` | Alpha | 1.19 | |
+| `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | |
 | `ConfigurableFSGroupPolicy` | `false` | Alpha | 1.18 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
-| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
-| `CustomResourceDefaulting` | `true` | Beta | 1.16 | |
+| `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
+| `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.20 |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | |
-| `DynamicAuditing` | `false` | Alpha | 1.13 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
 | `EndpointSlice` | `false` | Alpha | 1.16 | 1.16 |
 | `EndpointSlice` | `false` | Beta | 1.17 | |
 | `EndpointSlice` | `true` | Beta | 1.18 | |
-| `EndpointSliceProxying` | `false` | Alpha | 1.18 | |
+| `EndpointSliceProxying` | `false` | Alpha | 1.18 | 1.18 |
+| `EndpointSliceProxying` | `true` | Beta | 1.19 | |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | |
 | `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
 | `ExpandCSIVolumes` | `true` | Beta | 1.16 | |
@@ -86,12 +91,14 @@ content_type: concept
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `EvenPodsSpread` | `false` | Alpha | 1.16 | 1.17 |
-| `EvenPodsSpread` | `true` | Beta | 1.18 | |
+| `GenericEphemeralVolume` | `false` | Alpha | 1.19 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
-| `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | |
+| `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
+| `HugePageStorageMediumSize` | `true` | Beta | 1.19 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
-| `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | |
+| `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
+| `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | |
+| `IPv6DualStack` | `false` | Alpha | 1.16 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `LegacyNodeRoleBehavior` | `true` | Alpha | 1.16 | |
@@ -99,34 +106,36 @@ content_type: concept
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
-| `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | |
-| `NonPreemptingPriority` | `false` | Alpha | 1.15 | |
+| `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | 1.18 |
+| `NodeDisruptionExclusion` | `true` | Beta | 1.19 | |
+| `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
+| `NonPreemptingPriority` | `true` | Beta | 1.19 | |
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | - |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
-| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
-| `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
 | `RuntimeClass` | `false` | Alpha | 1.12 | 1.13 |
 | `RuntimeClass` | `true` | Beta | 1.14 | |
-| `SCTPSupport` | `false` | Alpha | 1.12 | |
+| `SCTPSupport` | `false` | Alpha | 1.12 | 1.18 |
+| `SCTPSupport` | `true` | Beta | 1.19 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | |
-| `ServiceAppProtocol` | `false` | Alpha | 1.18 | |
-| `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
+| `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
+| `ServiceAppProtocol` | `true` | Beta | 1.19 | |
+| `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
+| `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
+| `SetHostnameAsFQDN` | `false` | Alpha | 1.19 | |
 | `StartupProbe` | `false` | Alpha | 1.16 | 1.17 |
 | `StartupProbe` | `true` | Beta | 1.18 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
-| `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
-| `StreamingProxyRedirects` | `true` | Beta | 1.6 | |
 | `SupportNodePidsLimit` | `false` | Alpha | 1.14 | 1.14 |
 | `SupportNodePidsLimit` | `true` | Beta | 1.15 | |
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
@@ -141,10 +150,9 @@ content_type: concept
 | `TopologyManager` | `true` | Beta | 1.18 | |
 | `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
 | `ValidateProxyRedirects` | `true` | Beta | 1.14 | |
-| `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
-| `VolumePVCDataSource` | `true` | Beta | 1.16 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | 1.16 |
 | `VolumeSnapshotDataSource` | `true` | Beta | 1.17 | - |
+| `WindowsEndpointSliceProxying` | `false` | Alpha | 1.19 | |
 | `WindowsGMSA` | `false` | Alpha | 1.14 | |
 | `WindowsGMSA` | `true` | Beta | 1.16 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
@@ -187,6 +195,9 @@ content_type: concept
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | - |
+| `CustomResourceDefaulting` | `false` | Alpha| 1.15 | 1.15 |
+| `CustomResourceDefaulting` | `true` | Beta | 1.16 | 1.16 |
+| `CustomResourceDefaulting` | `true` | GA | 1.17 | - |
 | `CustomResourcePublishOpenAPI` | `false` | Alpha| 1.14 | 1.14 |
 | `CustomResourcePublishOpenAPI` | `true` | Beta| 1.15 | 1.15 |
 | `CustomResourcePublishOpenAPI` | `true` | GA | 1.16 | - |
@@ -199,15 +210,19 @@ content_type: concept
 | `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | 1.14 |
 | `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | 1.15 |
 | `CustomResourceWebhookConversion` | `true` | GA | 1.16 | - |
+| `DynamicAuditing` | `false` | Alpha | 1.13 | 1.18 |
+| `DynamicAuditing` | - | Deprecated | 1.19 | - |
 | `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
 | `DynamicProvisioningScheduling` | - | Deprecated| 1.12 | - |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | - |
-| `EnableAggregatedDiscoveryTimeout` | `true` | Deprecated | 1.16 | - |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | 1.14 |
 | `EnableEquivalenceClassCache` | - | Deprecated | 1.15 | - |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | 1.12 |
 | `ExperimentalCriticalPodAnnotation` | `false` | Deprecated | 1.13 | - |
+| `EvenPodsSpread` | `false` | Alpha | 1.16 | 1.17 |
+| `EvenPodsSpread` | `true` | Beta | 1.18 | 1.18 |
+| `EvenPodsSpread` | `true` | GA | 1.19 | - |
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
@@ -241,9 +256,13 @@ content_type: concept
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | - |
 | `RequestManagement` | `false` | Alpha | 1.15 | 1.16 |
+| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | 1.18 |
+| `ResourceLimitsPriorityFunction` | - | Deprecated | 1.19 | - |
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
 | `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | 1.16 |
 | `ResourceQuotaScopeSelectors` | `true` | GA | 1.17 | - |
+| `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | 1.18 |
+| `RotateKubeletClientCertificate` | `true` | GA | 1.19 | - |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | 1.16  |
 | `ScheduleDaemonSetPods` | `true` | GA | 1.17 | - |
@@ -252,6 +271,9 @@ content_type: concept
 | `ServiceLoadBalancerFinalizer` | `true` | GA | 1.17 | - |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
+| `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
+| `StreamingProxyRedirects` | `true` | Beta | 1.6 | 1.18 |
+| `StreamingProxyRedirects` | - | Deprecated| 1.19 | - |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
@@ -265,9 +287,6 @@ content_type: concept
 | `VolumePVCDataSource` | `false` | Alpha | 1.15 | 1.15 |
 | `VolumePVCDataSource` | `true` | Beta | 1.16 | 1.17 |
 | `VolumePVCDataSource` | `true` | GA | 1.18 | - |
-| `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
-| `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
-| `VolumeScheduling` | `true` | GA | 1.13 | - |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | - |
@@ -327,13 +346,13 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `AnyVolumeDataSource`: {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}の`DataSource`としてカスタムリソースの使用を有効にします。
 - `AllowExtTrafficLocalEndpoints`: サービスが外部へのリクエストをノードのローカルエンドポイントにルーティングできるようにします。
 - `APIListChunking`: APIクライアントがAPIサーバーからチャンク単位で（`LIST`や`GET`の）リソースを取得できるようにします。
-`APIPriorityAndFairness`: 各サーバーで優先順位付けと公平性を備えた要求の並行性を管理できるようにします(`RequestManagement`から名前が変更されました)。
+- `APIPriorityAndFairness`: 各サーバーで優先順位付けと公平性を備えた要求の並行性を管理できるようにします(`RequestManagement`から名前が変更されました)。
 - `APIResponseCompression`:`LIST`や`GET`リクエストのAPIレスポンスを圧縮します。
-- `AppArmor`: Dockerを使用する場合にLinuxノードでAppArmorによる強制アクセスコントロールを有効にします。詳細は[AppArmorチュートリアル](/docs/tutorials/clusters/apparmor/)で確認できます。
-- `AttachVolumeLimit`: ボリュームプラグインを有効にすることでノードにアタッチできるボリューム数の制限を設定できます。
+- `AppArmor`: Dockerを使用する場合にLinuxノードでAppArmorによる強制アクセスコントロールを有効にします。詳細は[AppArmorチュートリアル](/ja/docs/tutorials/clusters/apparmor/)で確認できます。
+- `AttachVolumeLimit`: ボリュームプラグインを有効にすることでノードにアタッチできるボリューム数の制限を設定できます。詳細は[dynamic volume limits](/docs/concepts/storage/storage-limits/#dynamic-volume-limits)で確認できます。
 - `BalanceAttachedNodeVolumes`: スケジューリング中にバランスのとれたリソース割り当てを考慮するノードのボリュームカウントを含めます。判断を行う際に、CPU、メモリー使用率、およびボリュームカウントが近いノードがスケジューラーによって優先されます。
-- `BlockVolume`: PodでRawブロックデバイスの定義と使用を有効にします。詳細は[Rawブロックボリュームのサポート](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)で確認できます。
-- `BoundServiceAccountTokenVolume`: ServiceAccountTokenVolumeProjectionによって構成される計画ボリュームを使用するにはServiceAccountボリュームを移行します。詳細は[Service Account Token Volumes](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)で確認できます。
+- `BlockVolume`: PodでRawブロックデバイスの定義と使用を有効にします。詳細は[Rawブロックボリュームのサポート](/ja/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)で確認できます。
+- `BoundServiceAccountTokenVolume`: ServiceAccountTokenVolumeProjectionによって構成される計画ボリュームを使用するにはServiceAccountボリュームを移行します。クラスター管理者は、メトリクス`serviceaccount_stale_tokens_total`を使用して、拡張トークンに依存するワークロードを監視できます。そのようなワークロードがない場合は、フラグ`--service-account-extend-token-expiration=false`を指定し`kube-apiserver`を起動することで、拡張トークンをオフにします。詳細は[Service Account Token Volumes](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)で確認できます。
 - `ConfigurableFSGroupPolicy`: Podにボリュームをマウントするときに、ユーザーがfsGroupsのボリューム権限変更ポリシーを設定できるようにします。詳細については、[Podのボリューム権限と所有権変更ポリシーの設定](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)をご覧ください。
 - `CPUManager`: コンテナレベルのCPUアフィニティサポートを有効します。[CPUマネジメントポリシー](/docs/tasks/administer-cluster/cpu-management-policies/)を見てください。
 - `CRIContainerLogRotation`: criコンテナランタイムのコンテナログローテーションを有効にします。
@@ -351,33 +370,41 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `CSIMigrationGCEComplete`: GCE-PDのツリー内プラグインのkubeletおよびボリュームコントローラーへの登録を停止し、シムと変換ロジックがGCE-PDのツリー内プラグインからPD CSIプラグインにボリューム操作をルーティングできるようにします。CSIMigrationおよびCSIMigrationGCE機能フラグを有効にし、クラスター内のすべてのノードにPD CSIプラグインをインストールおよび設定する必要があります。
 - `CSIMigrationOpenStack`: シムと変換ロジックを有効にしてボリューム操作をKubernetesリポジトリー内のCinderプラグインからCinder CSIプラグインにルーティングします。ノードにCinder CSIプラグインがインストールおよび設定されていない場合、ツリー内のCinderプラグインへのフォールバックをサポートします。CSIMigration機能フラグを有効にする必要があります。
 - `CSIMigrationOpenStackComplete`: Cinderのツリー内プラグインのkubeletおよびボリュームコントローラーへの登録を停止し、シムと変換ロジックがCinderのツリー内プラグインからCinder CSIプラグインにボリューム操作をルーティングできるようにします。CSIMigrationおよびCSIMigrationOpenStack機能フラグを有効にし、クラスター内のすべてのノードにCinder CSIプラグインをインストールおよび設定する必要があります。
+- `CSIMigrationvSphere`: シムと変換ロジックを有効にしてボリューム操作をKubernetesリポジトリー内のvSphereプラグインからvSphere CSIプラグインにルーティングします。ノードにvSphere CSIプラグインがインストールおよび設定されていない場合、ツリー内のvSphereプラグインへのフォールバックをサポートします。CSIMigration機能フラグを有効にする必要があります。
+- `CSIMigrationvSphereComplete`: vSphereのツリー内プラグインのkubeletおよびボリュームコントローラーへの登録を停止し、シムと変換ロジックがvSphereのツリー内プラグインからvSphere CSIプラグインにボリューム操作をルーティングできるようにします。CSIMigrationおよびCSIMigrationvSphere機能フラグを有効にし、クラスター内のすべてのノードにvSphere CSIプラグインをインストールおよび設定する必要があります。
 - `CSINodeInfo`: csi.storage.k8s.ioのCSINodeInfo APIオブジェクトに関連するすべてのロジックを有効にします。
 - `CSIPersistentVolume`: [CSI(Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)互換のボリュームプラグインを通してプロビジョニングされたボリュームの検出とマウントを有効にします。
+- `CSIStorageCapacity`: CSIドライバーがストレージの容量情報を公開し、KubernetesのスケジューラーがPodをスケジュールするときにその情報を使用できるようにします。[ストレージ容量](/ja/docs/concepts/storage/storage-capacity/)を参照してください。
   詳細については[`csi`ボリュームタイプ](/docs/concepts/storage/volumes/#csi)ドキュメントを確認してください。
+- `CSIVolumeFSGroupPolicy`: CSIドライバーが`fsGroupPolicy`フィールドを使用できるようにします。このフィールドは、CSIドライバーによって作成されたボリュームがボリュームのマウント時にボリュームの所有権とアクセス許可の変更をサポートするかどうかを制御します。
 - `CustomCPUCFSQuotaPeriod`: ノードがCPUCFSQuotaPeriodを変更できるようにします。
 - `CustomPodDNS`: `dnsConfig`プロパティを使用したPodのDNS設定のカスタマイズを有効にします。詳細は[PodのDNS構成](/ja/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)で確認できます。
 - `CustomResourceDefaulting`: OpenAPI v3バリデーションスキーマにおいて、デフォルト値のCRDサポートを有効にします。
 - `CustomResourcePublishOpenAPI`: CRDのOpenAPI仕様での公開を有効にします。
-- `CustomResourceSubresources`: [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)から作成されたリソースの`/status`および`/scale`サブリソースを有効にします。
-- `CustomResourceValidation`: [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)から作成されたリソースのスキーマによる検証を有効にします。
-- `CustomResourceWebhookConversion`: [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)から作成されたリソースのWebhookベースの変換を有効にします。
+- `CustomResourceSubresources`: [CustomResourceDefinition](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)から作成されたリソースの`/status`および`/scale`サブリソースを有効にします。
+- `CustomResourceValidation`: [CustomResourceDefinition](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)から作成されたリソースのスキーマによる検証を有効にします。
+- `CustomResourceWebhookConversion`: [CustomResourceDefinition](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)から作成されたリソースのWebhookベースの変換を有効にします。
+- `DisableAcceleratorUsageMetrics`: [kubeletによって収集されたアクセラレータメトリクスを無効にします。](/docs/concepts/cluster-administration/system-metrics/)
 - `DevicePlugins`: [device-plugins](/docs/concepts/cluster-administration/device-plugins/)によるノードでのリソースプロビジョニングを有効にします。
+- `DefaultPodTopologySpread`: [デフォルトの配置](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints)に`PodTopologySpread`スケジューリングプラグインの使用を有効にします。
 - `DryRun`: サーバーサイドでの[dry run](/docs/reference/using-api/api-concepts/#dry-run)リクエストを有効にします。
-- `DynamicAuditing`: [動的監査](/docs/tasks/debug-application-cluster/audit/#dynamic-backend)を有効にします。
+- `DynamicAuditing`(*非推奨*): v1.19より前で動的監査を有効にするために使用されました。
 - `DynamicKubeletConfig`: kubeletの動的構成を有効にします。[kubeletの再設定](/docs/tasks/administer-cluster/reconfigure-kubelet/)を参照してください。
 - `DynamicProvisioningScheduling`: デフォルトのスケジューラーを拡張してボリュームトポロジーを認識しPVプロビジョニングを処理します。この機能は、v1.12の`VolumeScheduling`機能に完全に置き換えられました。
 - `DynamicVolumeProvisioning`(*非推奨*): Podへの永続ボリュームの[動的プロビジョニング](/ja/docs/concepts/storage/dynamic-provisioning/)を有効にします。
 - `EnableAggregatedDiscoveryTimeout` (*非推奨*): 集約されたディスカバリーコールで5秒のタイムアウトを有効にします。
 - `EnableEquivalenceClassCache`: Podをスケジュールするときにスケジューラーがノードの同等をキャッシュできるようにします。
 - `EphemeralContainers`: 稼働するPodに{{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}を追加する機能を有効にします。
-- `EvenPodsSpread`: Podをトポロジードメイン全体で均等にスケジュールできるようにします。[Even Pods Spread](/docs/concepts/configuration/even-pods-spread)をご覧ください。
+- `EvenPodsSpread`: Podをトポロジードメイン全体で均等にスケジュールできるようにします。[Pod Topology Spread Constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)をご覧ください。
 - `ExpandInUsePersistentVolumes`: 使用中のPVCのボリューム拡張を有効にします。[使用中のPersistentVolumeClaimのサイズ変更](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)を参照してください。
 - `ExpandPersistentVolumes`: 永続ボリュームの拡張を有効にします。[永続ボリューム要求の拡張](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)を参照してください。
-- `ExperimentalCriticalPodAnnotation`: [スケジューリングが保証されるよう](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)に特定のPodへの *クリティカル* の注釈を加える設定を有効にします。
+- `ExperimentalCriticalPodAnnotation`: [スケジューリングが保証されるよう](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)に特定のPodへの *クリティカル* の注釈を加える設定を有効にします。v1.13以降、この機能はPod PriorityおよびPreemptionによって非推奨になりました。
 - `ExperimentalHostUserNamespaceDefaultingGate`: ホストするデフォルトのユーザー名前空間を有効にします。これは他のホストの名前空間やホストのマウントを使用しているコンテナ、特権を持つコンテナ、または名前空間のない特定の機能（たとえば`MKNODE`、`SYS_MODULE`など）を使用しているコンテナ用です。これはDockerデーモンでユーザー名前空間の再マッピングが有効になっている場合にのみ有効にすべきです。
 - `EndpointSlice`: よりスケーラブルで拡張可能なネットワークエンドポイントのエンドポイントスライスを有効にします。[Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/)をご覧ください。
-- `EndpointSliceProxying`: このフィーチャーゲートを有効にすると、kube-proxyはエンドポイントの代わりにエンドポイントスライスをプライマリデータソースとして使用し、スケーラビリティとパフォーマンスの向上を実現します。[Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpointslices/).をご覧ください。
+- `EndpointSliceProxying`: このフィーチャーゲートを有効にすると、Linuxで実行されているkube-proxyはエンドポイントの代わりにエンドポイントスライスをプライマリデータソースとして使用し、スケーラビリティとパフォーマンスの向上を実現します。[Enabling Endpoint Slices](/ja/docs/tasks/administer-cluster/enabling-endpointslices/)をご覧ください。
+- `WindowsEndpointSliceProxying`: このフィーチャーゲートを有効にすると、Windowsで実行されているkube-proxyはエンドポイントの代わりにエンドポイントスライスをプライマリデータソースとして使用し、スケーラビリティとパフォーマンスの向上を実現します。[Enabling Endpoint Slices](/ja/docs/tasks/administer-cluster/enabling-endpointslices/)をご覧ください。
 - `GCERegionalPersistentDisk`: GCEでリージョナルPD機能を有効にします。
+- `GenericEphemeralVolume`: 通常のボリュームのすべての機能をサポートする一時的なインラインボリュームを有効にします (サードパーティのストレージベンダー、ストレージ容量の追跡、スナップショットからの復元などによって提供されます)。[Ephemeral Volumes](/docs/concepts/storage/ephemeral-volumes/)をご覧ください。
 - `HugePages`: 事前に割り当てられた[huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/)の割り当てと消費を有効にします。
 - `HugePageStorageMediumSize`: 事前に割り当てられた複数のサイズの[huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/)のサポートを有効にします。
 - `HyperVContainer`: Windowsコンテナの[Hyper-Vによる分離](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)を有効にします。
@@ -386,7 +413,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `KubeletConfigFile`: 設定ファイルを使用して指定されたファイルからのkubelet設定の読み込みを有効にします。詳細は[設定ファイルによるkubeletパラメーターの設定](/docs/tasks/administer-cluster/kubelet-config-file/)で確認できます。
 - `KubeletPluginsWatcher`: 調査ベースのプラグイン監視ユーティリティを有効にしてkubeletが[CSIボリュームドライバー](/docs/concepts/storage/volumes/#csi)などのプラグインを検出できるようにします。
 - `KubeletPodResources`: kubeletのPodのリソースgrpcエンドポイントを有効にします。詳細は[デバイスモニタリングのサポート](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/compute-device-assignment.md)で確認できます。
-- `LegacyNodeRoleBehavior`: 無効にすると、サービスロードバランサーの従来の動作とノードの中断により機能固有のラベルが優先され、`node-role.kubernetes.io/master`ラベルが無視されます。
+- `LegacyNodeRoleBehavior`: 無効にすると、サービスロードバランサーの従来の動作とノードの中断により、`NodeDisruptionExclusion`と`ServiceNodeExclusion`によって提供される機能固有のラベルが優先され、`node-role.kubernetes.io/master`ラベルが無視されます。
 - `LocalStorageCapacityIsolation`: [ローカルの一時ストレージ](/docs/concepts/configuration/manage-resources-containers/)の消費を有効にして、[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)の`sizeLimit`プロパティも有効にします。
 - `LocalStorageCapacityIsolationFSQuotaMonitoring`: `LocalStorageCapacityIsolation`が[ローカルの一時ストレージ](/docs/concepts/configuration/manage-resources-containers/)で有効になっていて、[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)のbacking filesystemがプロジェクトクォータをサポートし有効になっている場合、プロジェクトクォータを使用して、パフォーマンスと精度を向上させるために、ファイルシステムへのアクセスではなく[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)ストレージ消費を監視します。
 - `MountContainers`: ホスト上のユーティリティコンテナをボリュームマウンターとして使用できるようにします。
@@ -395,28 +422,29 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `NodeLease`: 新しいLease APIを有効にしてノードヘルスシグナルとして使用できるノードのハートビートをレポートします。
 - `NonPreemptingPriority`: PriorityClassとPodのNonPreemptingオプションを有効にします。
 - `PersistentLocalVolumes`: Podで`local`ボリュームタイプの使用を有効にします。`local`ボリュームを要求する場合、Podアフィニティを指定する必要があります。
-- `PodOverhead`: [PodOverhead](/docs/concepts/configuration/pod-overhead/)機能を有効にして、Podのオーバーヘッドを考慮するようにします。
+- `PodOverhead`: [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)機能を有効にして、Podのオーバーヘッドを考慮するようにします。
 - `PodDisruptionBudget`: [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/)機能を有効にします。
 - `PodPriority`: [優先度](/docs/concepts/configuration/pod-priority-preemption/)に基づいてPodの再スケジューリングとプリエンプションを有効にします。
 - `PodReadinessGates`: Podのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[Pod readiness gate](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
 - `PodShareProcessNamespace`: Podで実行されているコンテナ間で単一のプロセス名前空間を共有するには、Podで`shareProcessNamespace`の設定を有効にします。詳細については、[Pod内のコンテナ間でプロセス名前空間を共有する](/docs/tasks/configure-pod-container/share-process-namespace/)をご覧ください。
 - `ProcMountType`: コンテナのProcMountTypeの制御を有効にします。
-- `PVCProtection`: 永続ボリューム要求（PVC）がPodでまだ使用されているときに削除されないようにします。詳細は[ここ](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
+- `PVCProtection`: 永続ボリューム要求（PVC）がPodでまだ使用されているときに削除されないようにします。
 - `QOSReserved`: QoSレベルでのリソース予約を許可して、低いQoSレベルのポッドが高いQoSレベルで要求されたリソースにバーストするのを防ぎます（現時点ではメモリのみ）。
-- `ResourceLimitsPriorityFunction`: 入力したPodのCPU制限とメモリ制限の少なくとも1つを満たすノードに対して最低スコアを1に割り当てるスケジューラー優先機能を有効にします。その目的は同じスコアを持つノード間の関係を断つことです。
+- `ResourceLimitsPriorityFunction`(*非推奨*): 入力したPodのCPU制限とメモリ制限の少なくとも1つを満たすノードに対して最低スコアを1に割り当てるスケジューラー優先機能を有効にします。その目的は同じスコアを持つノード間の関係を断つことです。
 - `ResourceQuotaScopeSelectors`: リソース割当のスコープセレクターを有効にします。
-- `RotateKubeletClientCertificate`: kubeletでクライアントTLS証明書のローテーションを有効にします。詳細は[kubeletの設定](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
-- `RotateKubeletServerCertificate`: kubeletでサーバーTLS証明書のローテーションを有効にします。詳細は[kubeletの設定](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
+- `RotateKubeletClientCertificate`: kubeletでクライアントTLS証明書のローテーションを有効にします。詳細は[kubeletの設定](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)で確認できます。
+- `RotateKubeletServerCertificate`: kubeletでサーバーTLS証明書のローテーションを有効にします。詳細は[kubeletの設定](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)で確認できます。
 - `RunAsGroup`: コンテナの初期化プロセスで設定されたプライマリグループIDの制御を有効にします。
 - `RuntimeClass`: コンテナのランタイム構成を選択するには[RuntimeClass](/docs/concepts/containers/runtime-class/)機能を有効にします。
 - `ScheduleDaemonSetPods`: DaemonSetのPodをDaemonSetコントローラーではなく、デフォルトのスケジューラーによってスケジュールされるようにします。
-- `SCTPSupport`: `Service`、`Endpoints`、`NetworkPolicy`、`Pod`の定義で`protocol`の値としてSCTPを使用できるようにします
-- `ServerSideApply`: APIサーバーで[サーバーサイドApply(SSA)](/docs/reference/using-api/api-concepts/#server-side-apply)のパスを有効にします。
+- `SCTPSupport`: Pod、Service、Endpoints、EndpointSlice、およびNetworkPolicy定義で _SCTP_ `protocol`値を有効にします。
+- `ServerSideApply`: APIサーバーで[サーバーサイドApply(SSA)](/docs/reference/using-api/server-side-apply/)のパスを有効にします。
 - `ServiceAccountIssuerDiscovery`: APIサーバーにてサービスアカウント発行者のOIDC検出エンドポイント（発行者とJWKS URL）を有効にします。詳細については、[Podのサービスアカウント設定](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)をご覧ください。
 - `ServiceAppProtocol`: サービスとエンドポイントで`AppProtocol`フィールドを有効にします。
 - `ServiceLoadBalancerFinalizer`: サービスロードバランサーのファイナライザー保護を有効にします。
 - `ServiceNodeExclusion`: クラウドプロバイダーによって作成されたロードバランサーからのノードの除外を有効にします。"`alpha.service-controller.kubernetes.io/exclude-balancer`"キーまたは`node.kubernetes.io/exclude-from-external-load-balancers`でラベル付けされている場合ノードは除外の対象となります。
 - `ServiceTopology`: クラスタのノードトポロジーに基づいてトラフィックをルーティングするサービスを有効にします。詳細については、[Serviceトポロジー](/ja/docs/concepts/services-networking/service-topology/)を参照してください。
+- `SetHostnameAsFQDN`: Podのホスト名として完全修飾ドメイン名（FQDN）を設定する機能を有効にします。[PodのsetHostnameAsFQDNフィールド](/ja/docs/concepts/services-networking/dns-pod-service/#pod-sethostnameasfqdn-field)を参照してください。
 - `StartupProbe`: kubeletで[startup](/ja/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)プローブを有効にします。
 - `StorageObjectInUseProtection`: PersistentVolumeまたはPersistentVolumeClaimオブジェクトがまだ使用されている場合、それらの削除を延期します。
 - `StorageVersionHash`: apiserversがディスカバリーでストレージのバージョンハッシュを公開できるようにします。
@@ -424,11 +452,12 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `SupportIPVSProxyMode`: IPVSを使用したクラスター内サービスの負荷分散の提供を有効にします。詳細は[サービスプロキシー](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)で確認できます。
 - `SupportPodPidsLimit`: PodのPID制限のサポートを有効にします。
 - `Sysctls`: 各Podに設定できる名前空間付きのカーネルパラメーター(sysctl)のサポートを有効にします。詳細は[sysctls](/docs/tasks/administer-cluster/sysctl-cluster/)で確認できます。
-- `TaintBasedEvictions`: ノードのTaintとPodのTolerationに基づいてノードからPodを排除できるようにします。。詳細は[TaintとToleration](/docs/concepts/scheduling-eviction/taint-and-toleration/)で確認できます。
+- `TaintBasedEvictions`: ノードのTaintとPodのTolerationに基づいてノードからPodを排除できるようにします。詳細は[TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)で確認できます。
 - `TaintNodesByCondition`: [ノードの条件](/ja/docs/concepts/architecture/nodes/#condition)に基づいてノードの自動Taintを有効にします。
 - `TokenRequest`: サービスアカウントリソースで`TokenRequest`エンドポイントを有効にします。
 - `TokenRequestProjection`: [Projectedボリューム](/docs/concepts/storage/volumes/#projected)を使用したPodへのサービスアカウントのトークンの注入を有効にします。
-- `TTLAfterFinished`: [TTLコントローラー](/docs/concepts/workloads/controllers/ttlafterfinished/)が実行終了後にリソースをクリーンアップできるようにします。
+- `TopologyManager`: Kubernetesのさまざまなコンポーネントのきめ細かいハードウェアリソース割り当てを調整するメカニズムを有効にします。[ノードのトポロジー管理ポリシーの制御](/docs/tasks/administer-cluster/topology-manager/)を参照してください。
+- `TTLAfterFinished`: [TTLコントローラー](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)が実行終了後にリソースをクリーンアップできるようにします。
 - `VolumePVCDataSource`: 既存のPVCをデータソースとして指定するサポートを有効にします。
 - `VolumeScheduling`: ボリュームトポロジー対応のスケジューリングを有効にし、PersistentVolumeClaim（PVC）バインディングにスケジューリングの決定を認識させます。また`PersistentLocalVolumes`フィーチャーゲートと一緒に使用すると[`local`](/docs/concepts/storage/volumes/#local)ボリュームタイプの使用が可能になります。
 - `VolumeSnapshotDataSource`: ボリュームスナップショットのデータソースサポートを有効にします。
