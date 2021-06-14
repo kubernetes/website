@@ -20,7 +20,7 @@ in discussion since
 KEP-1453: 
 [Graduate Ingress API to GA](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1453-ingress-api#122).
 
-During our community meetings, the group has decided to continue 
+During community meetings, the networking Special Interest Group has decided to continue 
 supporting Kubernetes versions older than 1.22 with Ingress version 0.47.0. 
 Support for Ingress-NGINX will continue for six months after Kubernetes 1.22 
 is released. Any additional bug fixes and CVEs for Ingress-NGINX will be 
