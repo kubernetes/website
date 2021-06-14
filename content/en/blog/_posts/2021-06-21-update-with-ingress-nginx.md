@@ -8,7 +8,7 @@ slug: update-with-ingress-nginx
 **Authors:** James Strong, Ricardo Katz
 
 With all Kubernetes APIs, there is a process to creating, maintaining, and
-ultimately deprecating them once they become GA. The networking.k8s.io API is no
+ultimately deprecating them once they become GA. The networking.k8s.io API group is no
 different. With the release of Kubernetes 1.22, The networking.k8s.
 io/v1beta1 API version of IngressClass will no longer be served in 
 Kubernetes v1.22. The extensions/v1beta1 and networking.k8s.io/v1beta1 API 
