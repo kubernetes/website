@@ -43,7 +43,7 @@ Kubernetes Version  | Ingress-NGINX version | Support Notes
 Because of the updates in Kubernetes 1.22, **v0.47.0** will not work with 
 Kubernetes 1.22. 
 
-# What do I need to do
+# What you need to do
 
 The team is currently in the process of upgrading ingress-nginx to support 
 the v1 migration, you can track the progress 
