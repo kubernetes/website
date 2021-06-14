@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Updates to Ingress Nginx with network v1'
+title: 'Updating NGINX-Ingress to use the stable Ingress API'
 date: 2021-06-21
 slug: update-with-ingress-nginx
 ---
