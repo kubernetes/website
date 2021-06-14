@@ -55,7 +55,7 @@ In the meantime to ensure no compatibility issues:
 * Update to the latest version of Ingress-NGINX; currently
   [v0.47.0](https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v0.47.0) 
 * After Kubernetes 1.22 is released, ensure you are using the latest version of 
-  Ingress-NGINX that supports v1 networking api.
+  Ingress-NGINX that supports the stable APIs for Ingress and IngressClass.
 
 The community’s feedback and support in this effort is welcome. The
 Ingress-NGINX Sub-project regularly holds community meetings where we discuss
