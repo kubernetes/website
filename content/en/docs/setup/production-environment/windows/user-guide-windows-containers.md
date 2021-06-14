@@ -26,7 +26,7 @@ This guide walks you through the steps to configure and deploy a Windows contain
 ## Before you begin
 
 * Create a Kubernetes cluster that includes a 
-master and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)
+control plane and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 * It is important to note that creating and deploying services and workloads on Kubernetes 
 behaves in much the same way for Linux and Windows containers. 
 [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. 
@@ -105,15 +105,15 @@ the container port 80 is exposed directly to the service.
 1. Check that the deployment succeeded. To verify:
 
     * Two containers per pod on the Windows node, use `docker ps` 
-    * Two pods listed from the Linux master, use `kubectl get pods` 
-    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master 
+    * Two pods listed from the Linux control plane node, use `kubectl get pods` 
+    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane node 
       to check for a web server response
     * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) 
       using docker exec or kubectl exec
     * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) 
-      from the Linux master and from individual pods
+      from the Linux control plane node and from individual pods
     * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
-    * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
+    * Inbound connectivity, `curl` the NodePort from the Linux control plane node or machines outside of the cluster
     * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
 
 {{< note >}}
