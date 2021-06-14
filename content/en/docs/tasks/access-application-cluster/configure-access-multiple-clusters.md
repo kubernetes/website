@@ -22,8 +22,8 @@ It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
 {{< warning >}}
-Using unverified kubeconfig files could result in malicious code execution and file exposure. 
-Inspect your kubeconfig files carefully and only use config files from trusted sources.
+Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. 
+If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.
 {{< /warning>}}
 
 
