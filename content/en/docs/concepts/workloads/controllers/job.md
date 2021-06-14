@@ -304,7 +304,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
 ### TTL mechanism for finished Jobs
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 Another way to clean up finished Jobs (either `Complete` or `Failed`)
 automatically is to use a TTL mechanism provided by a
