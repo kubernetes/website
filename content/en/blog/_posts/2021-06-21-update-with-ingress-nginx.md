@@ -21,7 +21,7 @@ This change has been in
 in discussion since
 [2017](https://github.com/kubernetes/kubernetes/issues/43214),
 [2019](https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/) with 
-1.16 Kubernetes API deprecations,and most recently in 
+1.16 Kubernetes API deprecations, and most recently in
 KEP-1453: 
 [Graduate Ingress API to GA](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1453-ingress-api#122).
 
