@@ -186,7 +186,7 @@ The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value 
 
 1. Run `kubectl` as follows for each config:
 
-   ```shell
+```shell
    KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
    KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
    KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
