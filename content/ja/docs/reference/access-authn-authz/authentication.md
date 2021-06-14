@@ -504,7 +504,7 @@ Kubernetes APIサーバーは、下位互換のためにデフォルトで`authe
 {{% tab name="authentication.k8s.io/v1" %}}
 ```yaml
 {
-  "apiVersion": "authentication.k8s.io/v1beta1",
+  "apiVersion": "authentication.k8s.io/v1",
   "kind": "TokenReview",
   "status": {
     "authenticated": false,
