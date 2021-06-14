@@ -75,9 +75,9 @@ Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the o
 
 执行 `kubectl get nodes` 命令获取集群的节点名称。
 选择一个你要增加标签的节点，然后执行
-`kubectl label nodes <node-name> <label-key>=<label-value>` 
+`kubectl label nodes <node-name> <label-key>=<label-value>`
 命令将标签添加到你所选择的节点上。
-例如，如果你的节点名称为 'kubernetes-foo-node-1.c.a-robinson.internal' 
+例如，如果你的节点名称为 'kubernetes-foo-node-1.c.a-robinson.internal'
 并且想要的标签是 'disktype=ssd'，则可以执行
 `kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd` 命令。
 
@@ -136,8 +136,18 @@ with a standard set of labels. See [Well-Known Labels, Annotations and Taints](/
 -->
 ## 插曲：内置的节点标签 {#built-in-node-labels}
 
-除了你[添加](#attach-labels-to-node)的标签外，节点还预先填充了一组标准标签。
-参见[常用标签、注解和污点](/zh/docs/reference/labels-annotations-taints/)。
+除了你[添加](#step-one-attach-label-to-the-node)的标签外，节点还预制了一组标准标签。
+参见这些[常用的标签，注解以及污点](/zh/docs/reference/labels-annotations-taints/)：
+
+* [`kubernetes.io/hostname`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-hostname)
+* [`failure-domain.beta.kubernetes.io/zone`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesiozone)
+* [`failure-domain.beta.kubernetes.io/region`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesioregion)
+* [`topology.kubernetes.io/zone`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
+* [`topology.kubernetes.io/region`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
+* [`beta.kubernetes.io/instance-type`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#beta-kubernetes-io-instance-type)
+* [`node.kubernetes.io/instance-type`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
+* [`kubernetes.io/os`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-os)
+* [`kubernetes.io/arch`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-arch)
 
 {{< note >}}
 <!--
@@ -181,7 +191,7 @@ To make use of that label prefix for node isolation:
 For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.com.node-restriction.kubernetes.io/pci-dss=true`.
 -->
 1. 检查是否在使用 Kubernetes v1.11+，以便 NodeRestriction 功能可用。
-2. 确保你在使用[节点授权](/zh/docs/reference/access-authn-authz/node/)并且已经_启用_ 
+2. 确保你在使用[节点授权](/zh/docs/reference/access-authn-authz/node/)并且已经_启用_
    [NodeRestriction 准入插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)。
 3. 将 `node-restriction.kubernetes.io/` 前缀下的标签添加到 Node 对象，
    然后在节点选择器中使用这些标签。
@@ -574,7 +584,7 @@ must be satisfied for the pod to be scheduled onto a node.
 <!--
 Users can also select matching namespaces using `namespaceSelector`, which is a label query over the set of namespaces.
 The affinity term is applied to the union of the namespaces selected by `namespaceSelector` and the ones listed in the `namespaces` field.
-Note that an empty `namespaceSelector` ({}) matches all namespaces, while a null or empty `namespaces` list and 
+Note that an empty `namespaceSelector` ({}) matches all namespaces, while a null or empty `namespaces` list and
 null `namespaceSelector` means "this pod's namespace".
 -->
 用户也可以使用 `namespaceSelector` 选择匹配的名字空间，`namespaceSelector`
@@ -828,4 +838,3 @@ resource allocation decisions.
 一旦 Pod 分配给 节点，kubelet 应用将运行该 pod 并且分配节点本地资源。
 [拓扑管理器](/zh/docs/tasks/administer-cluster/topology-manager/)
 可以参与到节点级别的资源分配决定中。
-

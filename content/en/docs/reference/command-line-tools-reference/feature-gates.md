@@ -844,7 +844,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ValidateProxyRedirects`: This flag controls whether the API server should
   validate that redirects are only followed to the same host. Only used if the
   `StreamingProxyRedirects` flag is enabled.
-- 'VolumeCapacityPriority`: Enable support for prioritizing nodes in different
+- `VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
 - `VolumePVCDataSource`: Enable support for specifying an existing PVC as a DataSource.
 - `VolumeScheduling`: Enable volume topology aware scheduling and make the
