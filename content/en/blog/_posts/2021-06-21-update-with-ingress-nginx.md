@@ -37,7 +37,7 @@ releases of the Ingress-NGINX project will track and support the latest
 versions of Kubernetes.
 
 {{< table caption="Ingress NGINX supported version with Kubernetes Versions" >}}
-Kubernetes Version  | Ingress-NGINX version | Support Notes
+Kubernetes version  | Ingress-NGINX version | Notes
 :-------------------|:----------------------|:------------
 `1.22`              | TBD                   | On Going
 `1.21`              | `v0.47.0`             | On Going but only CVE and crashes
