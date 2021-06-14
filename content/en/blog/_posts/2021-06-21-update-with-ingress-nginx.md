@@ -9,10 +9,15 @@ slug: update-with-ingress-nginx
 
 With all Kubernetes APIs, there is a process to creating, maintaining, and
 ultimately deprecating them once they become GA. The networking.k8s.io API group is no
-different. With the release of Kubernetes 1.22, The networking.k8s.
-io/v1beta1 API version of IngressClass will no longer be served in 
-Kubernetes v1.22. The extensions/v1beta1 and networking.k8s.io/v1beta1 API 
-versions of Ingress also will no longer be served in v1.22.  This move has been 
+different. The upcoming Kubernetes 1.22 release will remove several deprecated APIs
+that are relevant to networking:
+
+- the `networking.k8s.io/v1beta1` API version of [IngressClass](/docs/concepts/services-networking/ingress/#ingress-class)
+- all beta versions of [Ingress](/docs/concepts/services-networking/ingress/): `extensions/v1beta1` and `networking.k8s.io/v1beta1`
+
+On a v1.22 Kubernetes cluster, you'll be able to access Ingress and IngressClass
+objects through the stable (v1) APIs, but access via their beta APIs won't be possible.
+This change has been in
 in discussion since
 [2017](https://github.com/kubernetes/kubernetes/issues/43214),
 [2019](https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/) with 
