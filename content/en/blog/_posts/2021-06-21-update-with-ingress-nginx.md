@@ -5,7 +5,7 @@ date: 2021-06-21
 slug: update-with-ingress-nginx
 ---
 
-**Authors:** James Strong, Richardo Katz 
+**Authors:** James Strong, Ricardo Katz
 
 With all Kubernetes APIs, there is a process to creating, maintaining, and
 ultimately deprecating them once they become GA. The networking.k8s.io API is no
