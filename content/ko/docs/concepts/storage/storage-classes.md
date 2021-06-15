@@ -149,9 +149,9 @@ CSI | 1.14 (alpha), 1.16 (beta)
 ### 볼륨 바인딩 모드
 
 `volumeBindingMode` 필드는 [볼륨 바인딩과 동적
-프로비저닝](/ko/docs/concepts/storage/persistent-volumes/#프로비저닝)의 시작 시기를 제어한다.
+프로비저닝](/ko/docs/concepts/storage/persistent-volumes/#프로비저닝)의 시작 시기를 제어한다. 설정되어 있지 않으면, `Immediate` 모드가 기본으로 사용된다.
 
-기본적으로, `Immediate` 모드는 퍼시스턴트볼륨클레임이 생성되면 볼륨
+`Immediate` 모드는 퍼시스턴트볼륨클레임이 생성되면 볼륨
 바인딩과 동적 프로비저닝이 즉시 발생하는 것을 나타낸다. 토폴로지 제약이
 있고 클러스터의 모든 노드에서 전역적으로 접근할 수 없는 스토리지
 백엔드의 경우, 파드의 스케줄링 요구 사항에 대한 지식 없이 퍼시스턴트볼륨이
@@ -182,6 +182,36 @@ CSI | 1.14 (alpha), 1.16 (beta)
 [CSI 볼륨](/ko/docs/concepts/storage/volumes/#csi)은 동적 프로비저닝과
 사전에 생성된 PV에서도 지원되지만, 지원되는 토폴로지 키와 예시를 보려면 해당
 CSI 드라이버에 대한 문서를 본다.
+
+{{< note >}}
+   `waitForFirstConsumer`를 사용한다면, 노드 어피니티를 지정하기 위해서 파드 스펙에 `nodeName`을 사용하지는 않아야 한다.
+   만약 `nodeName`을 사용한다면, 스케줄러가 바이패스되고 PVC가 `pending` 상태로 있을 것이다.
+
+   대신, 아래와 같이 호스트네임을 이용하는 노드셀렉터를 사용할 수 있다.
+{{< /note >}}
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: kube-01
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+```
 
 ### 허용된 토폴로지
 

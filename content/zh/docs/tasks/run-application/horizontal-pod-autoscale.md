@@ -639,7 +639,7 @@ APIs, cluster administrators must ensure that:
 * 相应的 API 已注册：
 
    * 对于资源指标，将使用 `metrics.k8s.io` API，一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
-     它可以做为集群插件启动。
+     它可以作为集群插件启动。
     
    * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。

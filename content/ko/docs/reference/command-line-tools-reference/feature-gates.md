@@ -132,7 +132,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `IPv6DualStack` | `true` | 베타 | 1.21 | |
 | `KubeletCredentialProviders` | `false` | 알파 | 1.20 | |
 | `LegacyNodeRoleBehavior` | `false` | 알파 | 1.16 | 1.18 |
-| `LegacyNodeRoleBehavior` | `true` | 베타 | 1.19 |  |
+| `LegacyNodeRoleBehavior` | `true` | 베타 | 1.19 | 1.20 |
 | `LocalStorageCapacityIsolation` | `false` | 알파 | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | 베타 | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | 알파 | 1.15 | |
@@ -142,7 +142,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `NamespaceDefaultLabelName` | `true` | 베타 | 1.21 | |
 | `NetworkPolicyEndPort` | `false` | 알파 | 1.21 |  |
 | `NodeDisruptionExclusion` | `false` | 알파 | 1.16 | 1.18 |
-| `NodeDisruptionExclusion` | `true` | 베타 | 1.19 | |
+| `NodeDisruptionExclusion` | `true` | 베타 | 1.19 | 1.20 |
 | `NonPreemptingPriority` | `false` | 알파 | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | 베타 | 1.19 | |
 | `PodDeletionCost` | `false` | 알파 | 1.21 | |
@@ -164,7 +164,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ServiceLBNodePortControl` | `false` | 알파 | 1.20 | |
 | `ServiceLoadBalancerClass` | `false` | 알파 | 1.21 | |
 | `ServiceNodeExclusion` | `false` | 알파 | 1.8 | 1.18 |
-| `ServiceNodeExclusion` | `true` | 베타 | 1.19 | |
+| `ServiceNodeExclusion` | `true` | 베타 | 1.19 | 1.20 |
 | `ServiceTopology` | `false` | 알파 | 1.17 | |
 | `SetHostnameAsFQDN` | `false` | 알파 | 1.19 | 1.19 |
 | `SetHostnameAsFQDN` | `true` | 베타 | 1.20 | |
@@ -173,7 +173,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `StorageVersionHash` | `false` | 알파 | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | 베타 | 1.15 | |
 | `SuspendJob` | `false` | 알파 | 1.21 | |
-| `TTLAfterFinished` | `false` | 알파 | 1.12 | |
+| `TTLAfterFinished` | `false` | 알파 | 1.12 | 1.20 |
+| `TTLAfterFinished` | `true` | 베타 | 1.21 | |
 | `TopologyAwareHints` | `false` | 알파 | 1.21 | |
 | `TopologyManager` | `false` | 알파 | 1.16 | 1.17 |
 | `TopologyManager` | `true` | 베타 | 1.18 | |
@@ -266,6 +267,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `EvenPodsSpread` | `true` | 베타 | 1.18 | 1.18 |
 | `EvenPodsSpread` | `true` | GA | 1.19 | - |
 | `ExecProbeTimeout` | `true` | GA | 1.20 | - |
+| `ExternalPolicyForExternalIP` | `true` | GA | 1.18 | - |
 | `GCERegionalPersistentDisk` | `true` | 베타 | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
 | `HugePages` | `false` | 알파 | 1.8 | 1.9 |
@@ -286,11 +288,13 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `KubeletPodResources` | `false` | 알파 | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | 베타 | 1.15 | |
 | `KubeletPodResources` | `true` | GA | 1.20 | |
+| `LegacyNodeRoleBehavior` | `false` | GA | 1.21 | - |
 | `MountContainers` | `false` | 알파 | 1.9 | 1.16 |
 | `MountContainers` | `false` | 사용중단 | 1.17 | - |
 | `MountPropagation` | `false` | 알파 | 1.8 | 1.9 |
 | `MountPropagation` | `true` | 베타 | 1.10 | 1.11 |
 | `MountPropagation` | `true` | GA | 1.12 | - |
+| `NodeDisruptionExclusion` | `true` | GA | 1.21 | - |
 | `NodeLease` | `false` | 알파 | 1.12 | 1.13 |
 | `NodeLease` | `true` | 베타 | 1.14 | 1.16 |
 | `NodeLease` | `true` | GA | 1.17 | - |
@@ -341,6 +345,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ServiceLoadBalancerFinalizer` | `false` | 알파 | 1.15 | 1.15 |
 | `ServiceLoadBalancerFinalizer` | `true` | 베타 | 1.16 | 1.16 |
 | `ServiceLoadBalancerFinalizer` | `true` | GA | 1.17 | - |
+| `ServiceNodeExclusion` | `true` | GA | 1.21 | - |
 | `StartupProbe` | `false` | 알파 | 1.16 | 1.17 |
 | `StartupProbe` | `true` | 베타 | 1.18 | 1.19 |
 | `StartupProbe` | `true` | GA | 1.20 | - |
@@ -636,6 +641,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   권한이 있는 컨테이너 또는 특정 비-네임스페이스(non-namespaced) 기능(예: `MKNODE`, `SYS_MODULE` 등)을
   사용하는 컨테이너를 위한 것이다. 도커 데몬에서 사용자 네임스페이스
   재 매핑이 활성화된 경우에만 활성화해야 한다.
+- `ExternalPolicyForExternalIP`: ExternalTrafficPolicy가 서비스(Service) ExternalIP에 적용되지 않는 버그를 수정한다.
 - `GCERegionalPersistentDisk`: GCE에서 지역 PD 기능을 활성화한다.
 - `GenericEphemeralVolume`: 일반 볼륨의 모든 기능을 지원하는 임시, 인라인
   볼륨을 활성화한다(타사 스토리지 공급 업체, 스토리지 용량 추적, 스냅샷으로부터 복원
