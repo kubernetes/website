@@ -213,7 +213,7 @@ sequenceDiagram
     kube ->> api: 4. 認可: Bearer...
     deactivate kube
     activate api
-    api ->> api: 5. JWT署名は有効であるか?
+    api ->> api: 5. JWT署名は有効か?
     api ->> api: 6. JWTの有効期限はどうか?(iat+exp)
     api ->> api: 7. ユーザ認可はどうか?
     api -->> kube: 8. 認可後:アクションを実行して結果を返却
