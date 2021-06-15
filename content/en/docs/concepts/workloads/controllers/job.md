@@ -342,11 +342,6 @@ If the field is set to `0`, the Job will be eligible to be automatically deleted
 immediately after it finishes. If the field is unset, this Job won't be cleaned
 up by the TTL controller after it finishes.
 
-Note that this TTL mechanism is alpha, with feature gate `TTLAfterFinished`. For
-more information, see the documentation for
-[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
-finished resources.
-
 ## Job patterns
 
 The Job object can be used to support reliable parallel execution of Pods.  The Job object is not
