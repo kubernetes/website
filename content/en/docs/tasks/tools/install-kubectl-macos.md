@@ -103,6 +103,10 @@ The following methods exist for installing kubectl on macOS:
    sudo chown root: /usr/local/bin/kubectl
    ```
 
+   {{< note >}}
+   Make sure `/usr/local/bin` is in your PATH environment variable.
+   {{< /note >}}
+
 1. Test to ensure the version you installed is up-to-date:
 
    ```bash
