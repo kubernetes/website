@@ -215,7 +215,7 @@ sequenceDiagram
     activate api
     api ->> api: 5. JWT署名は有効か?
     api ->> api: 6. JWTは期限切れでないか?(iat+exp)
-    api ->> api: 7. ユーザ認可はどうか?
+    api ->> api: 7. ユーザは認可済みか?
     api -->> kube: 8. 認可後:アクションを実行して結果を返却
     deactivate api
     activate kube
