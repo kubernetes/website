@@ -16,8 +16,8 @@ content_type: concept
 
 ## APIリファレンス
 
-* [Kubernetes API概要](/docs/reference/using-api/) - Kubernetes APIの概要です。
-* [Kubernetes APIリファレンス {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [KubernetesのAPIリファレンス {{< param "version" >}}](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+* [Kubernetes APIを使う](/docs/reference/using-api/) - Kubernetes APIの概要です。
 
 ## APIクライアントライブラリー
 
@@ -42,10 +42,8 @@ content_type: concept
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - 単純なTCP/UDPストリームのフォワーディングや、一連のバックエンド間でTCP/UDPのラウンドロビンでのフォワーディングを実行できます。
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - 可用性、パフォーマンス、およびキャパシティを管理するスケジューラーです。
   * [kube-schedulerポリシー](/docs/reference/scheduling/policies)
-  * [kube-schedulerプロファイル](/docs/reference/scheduling/profiles)
+  * [kube-schedulerプロファイル](/docs/reference/scheduling/config#profiles)
 
 ## 設計のドキュメント
 
 Kubernetesの機能に関する設計ドキュメントのアーカイブです。[Kubernetesアーキテクチャ](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) と[Kubernetesデザイン概要](https://git.k8s.io/community/contributors/design-proposals)から読み始めると良いでしょう。
-
-
