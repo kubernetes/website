@@ -45,7 +45,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. Verify that the NGINX Ingress controller is running
 
     ```shell
-    kubectl get pods -n kube-system
+    kubectl get pods -n ingress-nginx
     ```
 
     {{< note >}}This can take up to a minute.{{< /note >}}
