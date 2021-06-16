@@ -50,7 +50,7 @@ Kubespray는 환경에 맞는 프로비저닝을 돕기 위해 아래와 같은 
 
 ### (2/5) 인벤토리 파일 구성하기
 
-서버들을 프로비저닝 한 후, [Ansible의 인벤토리 파일](https://docs.ansible.com/ansible/intro_inventory.html)을 만들어야 한다. 수동으로 만들 수도 있고, 동적인 인벤토리 스크립트를 통해 만들 수도 있다. 더 많이 알고싶다면 " [나만의 인벤토리 만들기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)" 글을 확인하자.
+서버들을 프로비저닝 한 후, [Ansible의 인벤토리 파일](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)을 만들어야 한다. 수동으로 만들 수도 있고, 동적인 인벤토리 스크립트를 통해 만들 수도 있다. 더 많이 알고싶다면 " [나만의 인벤토리 만들기](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)" 글을 확인하자.
 
 ### (3/5) 클러스터 디플로이먼트 계획하기
 
