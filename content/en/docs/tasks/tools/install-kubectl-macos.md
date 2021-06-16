@@ -30,7 +30,6 @@ The following methods exist for installing kubectl on macOS:
    {{< tabs name="download_binary_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
-   chmod +x kubectl
    {{< /tab >}}
    {{< tab name="Apple Silicon" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
