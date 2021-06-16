@@ -105,7 +105,7 @@ Kubespray 提供以下实用程序来帮助你设置环境：
 <!--
 ### (2/5) Compose an inventory file
 
-After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
+After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
 
 ### (3/5) Plan your cluster deployment
 
@@ -114,7 +114,7 @@ Kubespray provides the ability to customize many aspects of the deployment:
 -->
 ### （2/5）编写清单文件
 
-设置服务器后，请创建一个 [Ansible 的清单文件](https://docs.ansible.com/ansible/intro_inventory.html)。你可以手动执行此操作，也可以通过动态清单脚本执行此操作。有关更多信息，请参阅“[建立你自己的清单](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)”。
+设置服务器后，请创建一个 [Ansible 的清单文件](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)。你可以手动执行此操作，也可以通过动态清单脚本执行此操作。有关更多信息，请参阅“[建立你自己的清单](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)”。
 
 ### （3/5）规划集群部署
 
