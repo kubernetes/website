@@ -212,7 +212,7 @@ kubectl apply -f cassandra-statefulset.yaml
 -->
 ## 验证 Cassandra StatefulSet
 
-1.获取 Cassandra StatefulSet:
+1. 获取 Cassandra StatefulSet:
 
 ```shell
 kubectl get statefulset cassandra
@@ -235,7 +235,7 @@ cassandra   3         0         13s
 -->
    `StatefulSet` 资源会按顺序部署 Pod。
 
-2.获取 Pod 查看已排序的创建状态：
+2. 获取 Pod 查看已排序的创建状态：
    
 ```shell
 kubectl get pods -l="app=cassandra"
@@ -268,7 +268,7 @@ cassandra-2   1/1       Running   0          8m
 3. Run the Cassandra [nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool) inside the first Pod, to
    display the status of the ring.
 -->
-3.运行第一个 Pod 中的 Cassandra [nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool)，以显示 ring 的状态。
+3. 运行第一个 Pod 中的 Cassandra [nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool)，以显示 ring 的状态。
 
 ```shell
 kubectl exec -it cassandra-0 -- nodetool status
@@ -301,7 +301,7 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 使用 `kubectl edit` 修改 Cassandra StatefulSet 的大小。
 
-1.运行以下命令：
+1. 运行以下命令：
 
 ```shell
 kubectl edit statefulset cassandra
@@ -340,11 +340,11 @@ spec:
 
 1. Get the Cassandra StatefulSet to verify your change:
 -->
-2.将副本数 (replicas) 更改为 4，然后保存清单。
+2. 将副本数 (replicas) 更改为 4，然后保存清单。
 
    StatefulSet 现在可以扩展到运行 4 个 Pod。
 
-3.获取 Cassandra StatefulSet 验证更改：
+3. 获取 Cassandra StatefulSet 验证更改：
 
 ```shell
 kubectl get statefulset cassandra
@@ -381,7 +381,7 @@ to also be deleted. Never assume you'll be able to access data if its volume cla
 千万不要认为其容量声明被删除，你就能访问数据。
 {{< /warning >}}
 
-1.运行以下命令（连在一起成为一个单独的命令）删除 Cassandra StatefulSet 中的所有内容：
+1. 运行以下命令（连在一起成为一个单独的命令）删除 Cassandra StatefulSet 中的所有内容：
 
 ```shell
 grace=$(kubectl get pod cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
@@ -394,7 +394,7 @@ grace=$(kubectl get pod cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSe
 <!--
 1. Run the following command to delete the Service you set up for Cassandra:
 -->
-2.运行以下命令，删除你为 Cassandra 设置的 Service：
+2. 运行以下命令，删除你为 Cassandra 设置的 Service：
 
 ```shell
 kubectl delete service -l app=cassandra
