@@ -764,7 +764,7 @@ users:
 
       # 実行可能ファイルが存在しないと思われる場合にユーザーに表示するテキストを
       # オプションで設定可能。
-      #　installHint:
+      # installHint:
       #    現在のクラスターへの認証にexample-client-go-exec-pluginが必要です。
       #    下記コマンドでインストールすることで可能です。
       #      macOSの場合: brew install example-client-go-exec-plugin
