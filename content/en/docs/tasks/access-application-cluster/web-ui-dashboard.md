@@ -3,6 +3,7 @@ reviewers:
 - bryk
 - mikedanese
 - rf232
+- jimangel
 title: Web UI (Dashboard)
 content_type: concept
 weight: 10
