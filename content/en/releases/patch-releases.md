@@ -159,6 +159,6 @@ These releases are no longer supported.
 | 1.2           | 1.2.7               | 2016-10-23 |
 
 [cherry-picks]: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
-[release-managers]: /release-managers.md
-[release process description]: /release.md
+[release-managers]: /releases/release-managers
+[release process description]: /releases/release
 [yearly-support]: https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md
