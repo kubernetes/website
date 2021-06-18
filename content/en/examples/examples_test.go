@@ -470,10 +470,12 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
 		},
 		"application/guestbook": {
-			"frontend-deployment": {&apps.Deployment{}},
-			"frontend-service":    {&api.Service{}},
-			"mongo-deployment":    {&apps.Deployment{}},
-			"mongo-service":       {&api.Service{}},
+			"frontend-deployment":       {&apps.Deployment{}},
+			"frontend-service":          {&api.Service{}},
+			"redis-follower-deployment": {&apps.Deployment{}},
+			"redis-follower-service":    {&api.Service{}},
+			"redis-leader-deployment":   {&apps.Deployment{}},
+			"redis-leader-service":      {&api.Service{}},
 		},
 		"application/hpa": {
 			"php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
