@@ -86,6 +86,13 @@ kubectl apply -f ./my1.yaml -f ./my2.yaml      # 複数のファイルからリ�
 kubectl apply -f ./dir                         # dirディレクトリ内のすべてのマニフェストファイルからリソースを作成します
 kubectl apply -f https://git.io/vPieo          # urlで公開されているファイルからリソースを作成します
 kubectl create deployment nginx --image=nginx  # 単一のnginx Deploymentを作成します
+
+# "Hello World"を出力するJobを作成します
+kubectl create job hello --image=busybox -- echo "Hello World" 
+
+# 毎分"Hello World"を出力するCronJobを作成します
+kubectl create cronjob hello --image=busybox   --schedule="*/1 * * * *" -- echo "Hello World"
+
 kubectl explain pods                           # Podマニフェストのドキュメントを取得します
 
 # 標準入力から複数のYAMLオブジェクトを作成します
@@ -300,6 +307,7 @@ kubectl run nginx --image=nginx                     # nginx Podを実行し、�
 kubectl attach my-pod -i                            # 実行中のコンテナに接続します
 kubectl port-forward my-pod 5000:6000               # ローカルマシンのポート5000を、my-podのポート6000に転送します
 kubectl exec my-pod -- ls /                         # 既存のPodでコマンドを実行(単一コンテナの場合)
+kubectl exec --stdin --tty my-pod -- /bin/sh        # 実行中のPodへのインタラクティブシェルとしてアクセス(単一コンテナの場合)
 kubectl exec my-pod -c my-container -- ls /         # 既存のPodでコマンドを実行(複数コンテナがある場合)
 kubectl top pod POD_NAME --containers               # 特定のPodとそのコンテナのメトリクスを表示します
 ```
