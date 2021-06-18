@@ -25,7 +25,7 @@ Use `-h` flag to see a full set of feature gates for all components.
 To set feature gates for a component, such as kubelet, use the `--feature-gates` flag assigned to a list of feature pairs:
 
 ```shell
---feature-gates="...,DynamicKubeletConfig=true"
+--feature-gates="...,GracefulNodeShutdown=true"
 ```
 
 The following tables are a summary of the feature gates that you can set on
@@ -102,8 +102,6 @@ different Kubernetes components.
 | `DisableCloudProviders` | `false` | Alpha | 1.22 | |
 | `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
 | `DownwardAPIHugePages` | `false` | Beta | 1.21 | |
-| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
-| `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
 | `EfficientWatchResumption` | `false` | Alpha | 1.20 | 1.20 |
 | `EfficientWatchResumption` | `true` | Beta | 1.21 | |
 | `EndpointSliceProxying` | `false` | Alpha | 1.18 | 1.18 |
@@ -265,6 +263,9 @@ different Kubernetes components.
 | `DryRun` | `true` | GA | 1.19 | - |
 | `DynamicAuditing` | `false` | Alpha | 1.13 | 1.18 |
 | `DynamicAuditing` | - | Deprecated | 1.19 | - |
+| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
+| `DynamicKubeletConfig` | `true` | Beta | 1.11 | 1.21 |
+| `DynamicKubeletConfig` | `false` | Deprecated | 1.22 | - |
 | `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
 | `DynamicProvisioningScheduling` | - | Deprecated| 1.12 | - |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
@@ -838,7 +839,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   instead of the DaemonSet controller.
 - `SCTPSupport`: Enables the _SCTP_ `protocol` value in Pod, Service,
   Endpoints, EndpointSlice, and NetworkPolicy definitions.
-- `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile for all workloads. 
+- `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile for all workloads.
   The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
 - `SelectorIndex`: Allows label and field based indexes in API server watch
   cache to accelerate list operations.
