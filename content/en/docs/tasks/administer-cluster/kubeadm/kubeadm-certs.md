@@ -146,7 +146,7 @@ The Kubernetes certificates normally reach their expiration date after one year.
 
 ## Renew certificates with the Kubernetes certificates API
 
-This section provide more details about how to execute manual certificate renewal using the Kubernetes certificates API.
+This section provides more details about how to execute manual certificate renewal using the Kubernetes certificates API.
 
 {{< caution >}}
 These are advanced topics for users who need to integrate their organization's certificate infrastructure into a kubeadm-built cluster. If the default kubeadm configuration satisfies your needs, you should let kubeadm manage certificates instead.
