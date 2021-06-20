@@ -1,11 +1,10 @@
 ---
 title: ノードのトポロジー管理ポリシーを制御する
-
-content_template: templates/task
+content_type: task
 min-kubernetes-server-version: v1.18
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" for_k8s_version="v1.18" >}}
 
@@ -15,15 +14,12 @@ min-kubernetes-server-version: v1.18
 
 _トポロジーマネージャー_ はKubeletコンポーネントの1つで最適化の役割を担い、コンポーネント群を調和して機能させます。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## トポロジーマネージャーはどのように機能するか
 
