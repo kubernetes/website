@@ -63,7 +63,7 @@ openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app
 
 これにより、"app1"と"app2"の2つのグループに属するユーザー名"jbeda"の証明書署名要求が作成されます。
 
-クライアント証明書の生成方法については、[証明書の管理](/docs/concepts/cluster-administration/certificates/)を参照してください。
+クライアント証明書の生成方法については、[証明書の管理](/ja/docs/concepts/cluster-administration/certificates/)を参照してください。
 
 ### 静的なトークンファイル
 
