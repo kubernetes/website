@@ -24,7 +24,7 @@ slug: kubernetes-1-20-release-announcement
 ## 主题 {#major-themes}
 <!-- ## Major Themes -->
 
-### Volume 快照操作变得稳定 {$volume-snapshot-operations-goes-stable}
+### Volume 快照操作变得稳定 {#volume-snapshot-operations-goes-stable}
 
 <!-- This feature provides a standard way to trigger volume snapshot operations and allows users to incorporate snapshot operations in a portable manner on any Kubernetes environment and supported storage providers. -->
 此功能提供了触发卷快照操作的标准方法，并允许用户以可移植的方式在任何 Kubernetes 环境和支持的存储提供程序上合并快照操作。
@@ -38,7 +38,7 @@ slug: kubernetes-1-20-release-announcement
 
 
 <!-- ### Kubectl Debug Graduates to Beta -->
-### Kubectl Debug 功能升级到 Beta ${#kubectl-debug-graduates-to-beta}
+### Kubectl Debug 功能升级到 Beta {#kubectl-debug-graduates-to-beta}
 
 <!-- The `kubectl alpha debug` features graduates to beta in 1.20, becoming `kubectl debug`. The feature provides support for common debugging workflows directly from kubectl. Troubleshooting scenarios supported in this release of kubectl include: -->
 `kubectl alpha debug` 功能在 1.20 中升级到测试版，成为 `kubectl debug`. 该功能直接从 kubectl 提供对常见调试工作流的支持。此版本的 kubectl 支持的故障排除场景包括：
@@ -54,22 +54,23 @@ slug: kubernetes-1-20-release-announcement
 请注意，作为新的内置命令，`kubectl debug` 优先于任何名为 “debug” 的 kubectl 插件。你必须重命名受影响的插件。
 
 <!-- Invocations using `kubectl alpha debug` are now deprecated and will be removed in a subsequent release. Update your scripts to use `kubectl debug`. For more information about `kubectl debug`, see [Debugging Running Pods](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/). -->
-`kubectl alpha debug` 现在不推荐使用，并将在后续版本中删除。更新你的脚本以使用 `kubectl debug`. 有关更多信息 `kubectl debug`，请参阅[调试正在运行的 Pod]((https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/)。
+`kubectl alpha debug` 现在不推荐使用，并将在后续版本中删除。更新你的脚本以使用 `kubectl debug`. 有关更多信息 `kubectl debug`，请参阅[调试正在运行的 Pod]((https://kubernetes.io/zh/docs/tasks/debug-application-cluster/debug-running-pod/)。
 
 <!-- ### Beta: API Priority and Fairness -->
-### 测试版：API 优先级和公平性 ${#beta-api-priority-and-fairness)
+### 测试版：API 优先级和公平性 {#beta-api-priority-and-fairness)
 
 <!-- Introduced in 1.18, Kubernetes 1.20 now enables API Priority and Fairness (APF) by default. This allows `kube-apiserver` to categorize incoming requests by priority levels. -->
 Kubernetes 1.20 由 1.18 引入，现在默认启用 API 优先级和公平性 (APF)。这允许 `kube-apiserver` 按优先级对传入请求进行分类。
 
 <!-- ### Alpha with updates: IPV4/IPV6 -->
-### Alpha 更新：IPV4/IPV6 ${#alpha-with-updates-ipv4-ipv6}
+### Alpha 更新：IPV4/IPV6 {#alpha-with-updates-ipv4-ipv6}
 
 <!-- The IPv4/IPv6 dual stack has been reimplemented to support dual stack services based on user and community feedback. This allows both IPv4 and IPv6 service cluster IP addresses to be assigned to a single service, and also enables a service to be transitioned from single to dual IP stack and vice versa. -->
-重新实现了 IPv4/IPv6 双栈，以支持基于用户和社区反馈的双栈服务。这允许将 IPv4 和 IPv6 服务集群 IP 地址分配给单个服务，还允许服务从单 IP 堆栈转换为双 IP 堆栈，反之亦然。
+基于用户和社区反馈，重新实现了 IPv4/IPv6 双栈以支持双栈服务。
+这允许将 IPv4 和 IPv6 服务集群 IP 地址分配给单个服务，还允许服务从单 IP 堆栈转换为双 IP 堆栈，反之亦然。
 
 <!-- ### GA: Process PID Limiting for Stability -->
-### GA：进程 PID 稳定性限制 ${#ga-process-pid-limiting-for-stability}
+### GA：进程 PID 稳定性限制 {#ga-process-pid-limiting-for-stability}
 
 <!-- Process IDs (pids) are a fundamental resource on Linux hosts. It is trivial to hit the task limit without hitting any other resource limits and cause instability to a host machine. -->
 进程 ID (pid) 是 Linux 主机上的基本资源。达到任务限制而不达到任何其他资源限制并导致主机不稳定是很可能发生的。
@@ -80,7 +81,7 @@ Kubernetes 1.20 由 1.18 引入，现在默认启用 API 优先级和公平性 (
 默认启用一年后，SIG Node 在 `SupportNodePidsLimit`（节点到 Pod PID 隔离）和 `SupportPodPidsLimit`（限制每个 Pod 的 PID 的能力）上都将 PID 限制升级为 GA 。
 
 <!-- ### Alpha: Graceful node shutdown -->
-### Alpha：节点体面地关闭 ${#alpha-graceful-node-shutdown}
+### Alpha：节点体面地关闭 {#alpha-graceful-node-shutdown}
 
 <!-- Users and cluster administrators expect that pods will adhere to expected pod lifecycle including pod termination. Currently, when a node shuts down, pods do not follow the expected pod termination lifecycle and are not terminated gracefully which can cause issues for some workloads.
 The `GracefulNodeShutdown` feature is now in Alpha. `GracefulNodeShutdown` makes the kubelet aware of node system shutdowns, enabling graceful termination of pods during a system shutdown. -->
@@ -91,7 +92,7 @@ The `GracefulNodeShutdown` feature is now in Alpha. `GracefulNodeShutdown` makes
 ## 主要变化 ${#major-changes}
 
 <!-- ### Dockershim Deprecation -->
-### Dockershim 弃用 ${#dockershim-deprecation}
+### Dockershim 弃用 {#dockershim-deprecation}
 
 <!-- Dockershim, the container runtime interface (CRI) shim for Docker is being deprecated. Support for Docker is deprecated and will be removed in a future release. Docker-produced images will continue to work in your cluster with all CRI compliant runtimes as Docker images follow the Open Container Initiative (OCI) image specification.
 The Kubernetes community has written a [detailed blog post about deprecation](https://blog.k8s.io/2020/12/02/dont-panic-kubernetes-and-docker/) with [a dedicated FAQ page for it](https://blog.k8s.io/2020/12/02/dockershim-faq/). -->
@@ -99,20 +100,21 @@ Dockershim，Docker 的容器运行时接口 (CRI) shim 已被弃用。不推荐
 Kubernetes 社区写了一篇关于弃用的详细[博客文章](https://blog.k8s.io/2020/12/02/dont-panic-kubernetes-and-docker/)，并为其提供了一个专门的常见问题[解答页面](https://blog.k8s.io/2020/12/02/dockershim-faq/)。
 
 <!-- ### Exec Probe Timeout Handling -->
-### Exec 探测超时处理 ${#exec-probe-timeout-handling}
+### Exec 探测超时处理 {#exec-probe-timeout-handling}
 
 <!-- A longstanding bug regarding exec probe timeouts that may impact existing pod definitions has been fixed. Prior to this fix, the field `timeoutSeconds` was not respected for exec probes. Instead, probes would run indefinitely, even past their configured deadline, until a result was returned. With this change, the default value of `1 second` will be applied if a value is not specified and existing pod definitions may no longer be sufficient if a probe takes longer than one second. A feature gate, called `ExecProbeTimeout`, has been added with this fix that enables cluster operators to revert to the previous behavior, but this will be locked and removed in subsequent releases. In order to revert to the previous behavior, cluster operators should set this feature gate to `false`. -->
-一个关于 exec 探测超时的长期错误可能会影响现有的 pod 定义，已得到修复。在此修复之前 `timeoutSeconds`，exec 探测器不考虑该字段。相反，探测将无限期运行，甚至超过其配置的截止日期，直到返回结果。通过此更改，`1 second` 如果未指定值，则将应用默认值，并且如果探测时间超过一秒，现有 pod 定义可能不再足够。
-`ExecProbeTimeout` 此修复程序添加了一个名为 的功能门，使集群操作员能够恢复到以前的行为，但这将在后续版本中锁定并删除。为了恢复到以前的行为，集群运营商应该将此功能门设置为 `false`。
+一个关于 exec 探测超时的长期错误可能会影响现有的 pod 定义，已得到修复。在此修复之前，exec 探测器不考虑 `timeoutSeconds` 字段。相反，探测将无限期运行，甚至超过其配置的截止日期，直到返回结果。
+通过此更改，如果未指定值，将应用默认值 `1 second`，并且如果探测时间超过一秒，现有 pod 定义可能不再足够。
+新引入的 `ExecProbeTimeout` 特性门控所提供的修复使集群操作员能够恢复到以前的行为，但这种行为将在后续版本中锁定并删除。为了恢复到以前的行为，集群运营商应该将此特性门控设置为 `false`。
 
 <!-- Please review the updated documentation regarding [configuring probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes) for more details. -->
-有关更多详细信息，请查看有关配置探针的[更新文档](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)。
+有关更多详细信息，请查看有关配置探针的[更新文档](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)。
 
 <!-- ## Other Updates -->
-## 其他更新 ${#other-updates}
+## 其他更新 {#other-updates}
 
 <!-- ### Graduated to Stable -->
-### 稳定版 ${#graduated-to-stable}
+### 稳定版 {#graduated-to-stable}
 
 <!-- * [RuntimeClass](https://github.com/kubernetes/enhancements/issues/585)
 * [Built-in API Types Defaults](https://github.com/kubernetes/enhancements/issues/1929)
@@ -122,37 +124,38 @@ Kubernetes 社区写了一篇关于弃用的详细[博客文章](https://blog.k8
 * [Adding AppProtocol To Services And Endpoints](https://github.com/kubernetes/enhancements/issues/1507) -->
 * [RuntimeClass](https://github.com/kubernetes/enhancements/issues/585)
 * [内置 API 类型默认值](https://github.com/kubernetes/enhancements/issues/1929)
-* [添加 Pod-Startup Liveness-Probe Holdoff](https://github.com/kubernetes/enhancements/issues/950)
+* [添加了对 Pod 层面启动探针和活跃性探针的扼制](https://github.com/kubernetes/enhancements/issues/950)
 * [在 Windows 上支持 CRI-ContainerD](https://github.com/kubernetes/enhancements/issues/1001)
 * [SCTP 对 Services 的支持](https://github.com/kubernetes/enhancements/issues/614)
 * [将 AppProtocol 添加到 Services 和 Endpoints 上](https://github.com/kubernetes/enhancements/issues/1507) 
 
 <!-- ### Notable Feature Updates -->
-### 值得注意的功能更新 ${#notable-feature-updates}
+### 值得注意的功能更新 {#notable-feature-updates}
 
 <!-- * [CronJobs](https://github.com/kubernetes/enhancements/issues/19) -->
 * [CronJobs](https://github.com/kubernetes/enhancements/issues/19)
 
 <!-- # Release notes -->
-# 发行说明 ${#release-notes}
+# 发行说明 {#release-notes}
 
 <!-- You can check out the full details of the 1.20 release in the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md). -->
 你可以在[发行说明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.20.md)中查看 1.20 发行版的完整详细信息。
 
 <!-- # Availability of release -->
-# 可用的发布 ${#availability-of-release}
+# 可用的发布 {#availability-of-release}
 
 <!-- Kubernetes 1.20 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.20.0). There are some great resources out there for getting started with Kubernetes. You can check out some [interactive tutorials](https://kubernetes.io/docs/tutorials/) on the main Kubernetes site, or run a local cluster on your machine using Docker containers with [kind](https://kind.sigs.k8s.io). If you’d like to try building a cluster from scratch, check out the [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) tutorial by Kelsey Hightower. -->
 Kubernetes 1.20 可在 [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.20.0) 上下载。有一些很棒的资源可以帮助你开始使用 Kubernetes。你可以在 Kubernetes 主站点上查看一些[交互式教程](https://kubernetes.io/docs/tutorials/)，或者使用 [kind](https://kind.sigs.k8s.io) 的 Docker 容器在你的机器上运行本地集群。如果你想尝试从头开始构建集群，请查看 Kelsey Hightower 的 [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) 教程。
 
 <!-- # Release Team -->
-# 发布团队 ${#release-team}
+# 发布团队 {#release-team}
 
 <!-- This release was made possible by a very dedicated group of individuals, who came together as a team in the midst of a lot of things happening out in the world. A huge thank you to the release lead Jeremy Rickard, and to everyone else on the release team for supporting each other, and working so hard to deliver the 1.20 release for the community. -->
-这个版本是由一群非常敬业的人促成的，他们在世界上发生的许多事情中作为一个团队走到了一起。非常感谢发布负责人 Jeremy Rickard 以及发布团队中的其他所有人，感谢他们相互支持，并努力为社区发布 1.20 版本。
+这个版本是由一群非常敬业的人促成的，他们在世界上发生的许多事情的时段作为一个团队走到了一起。
+非常感谢发布负责人 Jeremy Rickard 以及发布团队中的其他所有人，感谢他们相互支持，并努力为社区发布 1.20 版本。
 
 <!-- # Release Logo -->
-# 发布 Logo ${#release-logo}
+# 发布 Logo {#release-logo}
 
 ![Kubernetes 1.20 Release Logo](/images/blog/2020-12-08-kubernetes-1.20-release-announcement/laser.png)
 
@@ -171,13 +174,13 @@ Humphrey是发布负责人的猫，有一个永久的 `blep`. 在 1990 年代，
 发布标志由 [Henry Hsu - @robotdancebattle](https://www.instagram.com/robotdancebattle/) 创建。
 
 <!-- # User Highlights -->
-# 用户亮点 ${#user-highlights}
+# 用户亮点 {#user-highlights}
 
 <!-- - Apple is operating multi-thousand node Kubernetes clusters in data centers all over the world. Watch [Alena Prokharchyk's KubeCon NA Keynote](https://youtu.be/Tx8qXC-U3KM) to learn more about their cloud native journey. -->
 - Apple 正在世界各地的数据中心运行数千个节点的 Kubernetes 集群。观看 [Alena Prokarchyk](https://youtu.be/Tx8qXC-U3KM) 的 KubeCon NA 主题演讲，了解有关他们的云原生之旅的更多信息。
 
 <!-- # Project Velocity -->
-# 项目速度 ${#project-velocity}
+# 项目速度 {#project-velocity}
 
 <!-- The [CNCF K8s DevStats project](https://k8s.devstats.cncf.io/) aggregates a number of interesting data points related to the velocity of Kubernetes and various sub-projects. This includes everything from individual contributions to the number of companies that are contributing, and is a neat illustration of the depth and breadth of effort that goes into evolving this ecosystem. -->
 [CNCF K8S DevStats 项目](https://k8s.devstats.cncf.io/)聚集了许多有关Kubernetes和各分项目的速度有趣的数据点。这包括从个人贡献到做出贡献的公司数量的所有内容，并且清楚地说明了为发展这个生态系统所做的努力的深度和广度。
@@ -186,7 +189,7 @@ Humphrey是发布负责人的猫，有一个永久的 `blep`. 在 1990 年代，
 在持续 11 周（9 月 25 日至 12 月 9 日）的 v1.20 发布周期中，我们看到了来自 [26 个国家/地区](https://k8s.devstats.cncf.io/d/50/countries-stats?orgId=1&from=1601006400000&to=1607576399000&var-period_name=Quarter&var-countries=All&var-repogroup_name=Kubernetes&var-metric=rcommitters&var-cum=countries) 的 [967 家公司](https://k8s.devstats.cncf.io/d/9/companies-table?orgId=1&var-period_name=v1.19.0%20-%20now&var-metric=contributions) 和 [1335 名个人](https://k8s.devstats.cncf.io/d/66/developer-activity-counts-by-companies?orgId=1&var-period_name=v1.19.0%20-%20now&var-metric=contributions&var-repogroup_name=Kubernetes&var-country_name=All&var-companies=All)（其中 [44 人](https://k8s.devstats.cncf.io/d/52/new-contributors?orgId=1&from=1601006400000&to=1607576399000&var-repogroup_name=Kubernetes)首次为 Kubernetes 做出贡献）的贡献。
 
 <!-- # Ecosystem Updates -->
-# 生态系统更新 ${#ecosystem-updates}
+# 生态系统更新 {#ecosystem-updates}
 
 <!-- - KubeCon North America just wrapped up three weeks ago, the second such event to be virtual! All talks are [now available to all on-demand](https://www.youtube.com/playlist?list=PLj6h78yzYM2Pn8RxfLh2qrXBDftr6Qjut) for anyone still needing to catch up!
 - In June, the Kubernetes community formed a new working group as a direct response to the Black Lives Matter protests occurring across America. WG Naming's goal is to remove harmful and unclear language in the Kubernetes project as completely as possible and to do so in a way that is portable to other CNCF projects. A great introductory talk on this important work and how it is conducted was given [at KubeCon 2020 North America](https://sched.co/eukp), and the initial impact of this labor [can actually be seen in the v1.20 release](https://github.com/kubernetes/enhancements/issues/2067).
@@ -198,20 +201,20 @@ Humphrey是发布负责人的猫，有一个永久的 `blep`. 在 1990 年代，
 
 
 <!-- # Event Updates -->
-# 活动更新 ${#event-updates}
+# 活动更新 {#event-updates}
 
 <!-- KubeCon + CloudNativeCon Europe 2021 will take place May 4 - 7, 2021! Registration will open on January 11. You can find more information about the conference [here](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/). Remember that [the CFP](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/program/cfp/) closes on Sunday, December 13, 11:59pm PST! -->
 KubeCon + CloudNativeCon Europe 2021 将于 2021 年 5 月 4 日至 7 日举行！注册将于 1 月 11 日开放。你可以在[此处](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/)找到有关会议的更多信息。
 请记住，[CFP](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/program/cfp/) 将于太平洋标准时间 12 月 13 日星期日晚上 11:59 关闭！
 
 <!-- # Upcoming release webinar -->
-# 即将发布的网络研讨会 ${#upcoming-release-webinar}
+# 即将发布的网络研讨会 {#upcoming-release-webinar}
 
 <!-- Stay tuned for the upcoming release webinar happening this January. -->
 请继续关注今年 1 月即将举行的发布网络研讨会。
 
 <!-- # Get Involved -->
-# 参与其中 ${#get-involved}
+# 参与其中 {#get-involved}
 
 <!-- If you’re interested in contributing to the Kubernetes community, Special Interest Groups (SIGs) are a great starting point. Many of them may align with your interests! If there are things you’d like to share with the community, you can join the weekly community meeting, or use any of the following channels: -->
 如果你有兴趣为 Kubernetes 社区做出贡献，那么特别兴趣小组 (SIG) 是一个很好的起点。其中许多可能符合你的兴趣！如果你有什么想与社区分享的内容，你可以参加每周的社区会议，或使用以下任一渠道：
