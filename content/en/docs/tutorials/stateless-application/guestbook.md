@@ -16,7 +16,7 @@ source: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 <!-- overview -->
 This tutorial shows you how to build and deploy a simple _(not production ready)_, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
 
-* A single-instance [Redis](https://www.redis.com/) to store guestbook entries
+* A single-instance [Redis](https://www.redis.io/) to store guestbook entries
 * Multiple web frontend instances
 
 ## {{% heading "objectives" %}}
