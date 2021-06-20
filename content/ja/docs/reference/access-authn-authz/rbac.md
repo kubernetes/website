@@ -995,7 +995,7 @@ subjects:
       --namespace=my-namespace
     ```
 
-    多くの[アドオン](https://kubernetes.io/docs/concepts/cluster-administration/addons/)は、
+    多くの[アドオン](/ja/docs/concepts/cluster-administration/addons/)は、
     Namespace`kube-system`のサービスアカウント「default」として実行されます。
     これらのアドオンをスーパーユーザーアクセスでの実行を許可するには、Namespace`kube-system`のサービスアカウント「default」のcluster-admin権限を付与します。
 

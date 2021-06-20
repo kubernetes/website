@@ -303,7 +303,7 @@ ServiceのclusterIPを発見するためにDNSのみを使う場合、このよ�
 
 ### DNS
 
-ユーザーは[アドオン](/docs/concepts/cluster-administration/addons/)を使ってKubernetesクラスターにDNS Serviceをセットアップできます(常にセットアップすべきです)。
+ユーザーは[アドオン](/ja/docs/concepts/cluster-administration/addons/)を使ってKubernetesクラスターにDNS Serviceをセットアップできます(常にセットアップすべきです)。
 
 CoreDNSなどのクラスター対応のDNSサーバーは新しいServiceや、各Service用のDNSレコードのセットのためにKubernetes APIを常に監視します。
 もしクラスターを通してDNSが有効になっている場合、全てのPodはDNS名によって自動的にServiceに対する名前解決をするようにできるはずです。

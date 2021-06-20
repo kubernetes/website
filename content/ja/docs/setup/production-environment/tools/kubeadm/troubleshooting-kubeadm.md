@@ -133,7 +133,7 @@ journalctl -u docker
 
 ## `coredns`(もしくは`kube-dns`)が`Pending`状態でスタックする
 
-kubeadmはネットワークプロバイダに依存しないため、管理者は選択した[Podネットワークソリューションをインストール](/docs/concepts/cluster-administration/addons/)をする必要があります。CoreDNSを完全にデプロイする前にPodネットワークをインストールする必要があります。したがって、ネットワークがセットアップされる前の `Pending`状態になります。
+kubeadmはネットワークプロバイダに依存しないため、管理者は選択した[Podネットワークソリューションをインストール](/ja/docs/concepts/cluster-administration/addons/)をする必要があります。CoreDNSを完全にデプロイする前にPodネットワークをインストールする必要があります。したがって、ネットワークがセットアップされる前の `Pending`状態になります。
 
 ## `HostPort`サービスが動かない
 
