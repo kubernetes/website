@@ -89,7 +89,7 @@ The `GracefulNodeShutdown` feature is now in Alpha. `GracefulNodeShutdown` makes
 该 `GracefulNodeShutdown` 功能现在处于 Alpha 阶段。`GracefulNodeShutdown` 使 kubelet 知道节点系统关闭，从而在系统关闭期间正常终止 pod。
 
 <!-- ## Major Changes -->
-## 主要变化 ${#major-changes}
+## 主要变化 {#major-changes}
 
 <!-- ### Dockershim Deprecation -->
 ### Dockershim 弃用 {#dockershim-deprecation}
