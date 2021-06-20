@@ -343,7 +343,7 @@ kubectl delete svc/fine-pod
 
 Most container runtimes provide a sane set of default syscalls that are allowed
 or not. The defaults can easily be applied in Kubernetes by using the
-`runtime/default` annotation or setting the seccomp type in the security context
+`RuntimeDefault` annotation or setting the seccomp type in the security context
 of a pod or container to `RuntimeDefault`.
 
 Download the correct manifest for your Kubernetes version:
