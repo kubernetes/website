@@ -414,8 +414,8 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `KubeletPluginsWatcher`: 調査ベースのプラグイン監視ユーティリティを有効にしてkubeletが[CSIボリュームドライバー](/docs/concepts/storage/volumes/#csi)などのプラグインを検出できるようにします。
 - `KubeletPodResources`: kubeletのPodのリソースgrpcエンドポイントを有効にします。詳細は[デバイスモニタリングのサポート](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/compute-device-assignment.md)で確認できます。
 - `LegacyNodeRoleBehavior`: 無効にすると、サービスロードバランサーの従来の動作とノードの中断により、`NodeDisruptionExclusion`と`ServiceNodeExclusion`によって提供される機能固有のラベルが優先され、`node-role.kubernetes.io/master`ラベルが無視されます。
-- `LocalStorageCapacityIsolation`: [ローカルの一時ストレージ](/docs/concepts/configuration/manage-resources-containers/)の消費を有効にして、[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)の`sizeLimit`プロパティも有効にします。
-- `LocalStorageCapacityIsolationFSQuotaMonitoring`: `LocalStorageCapacityIsolation`が[ローカルの一時ストレージ](/docs/concepts/configuration/manage-resources-containers/)で有効になっていて、[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)のbacking filesystemがプロジェクトクォータをサポートし有効になっている場合、プロジェクトクォータを使用して、パフォーマンスと精度を向上させるために、ファイルシステムへのアクセスではなく[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)ストレージ消費を監視します。
+- `LocalStorageCapacityIsolation`: [ローカルの一時ストレージ](/ja/docs/concepts/configuration/manage-resources-containers/)の消費を有効にして、[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)の`sizeLimit`プロパティも有効にします。
+- `LocalStorageCapacityIsolationFSQuotaMonitoring`: `LocalStorageCapacityIsolation`が[ローカルの一時ストレージ](/ja/docs/concepts/configuration/manage-resources-containers/)で有効になっていて、[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)のbacking filesystemがプロジェクトクォータをサポートし有効になっている場合、プロジェクトクォータを使用して、パフォーマンスと精度を向上させるために、ファイルシステムへのアクセスではなく[emptyDirボリューム](/docs/concepts/storage/volumes/#emptydir)ストレージ消費を監視します。
 - `MountContainers`: ホスト上のユーティリティコンテナをボリュームマウンターとして使用できるようにします。
 - `MountPropagation`: あるコンテナによってマウントされたボリュームを他のコンテナまたはPodに共有できるようにします。詳細は[マウントの伝播](/docs/concepts/storage/volumes/#mount-propagation)で確認できます。
 - `NodeDisruptionExclusion`: ノードラベル`node.kubernetes.io/exclude-disruption`の使用を有効にします。これにより、ゾーン障害時にノードが退避するのを防ぎます。

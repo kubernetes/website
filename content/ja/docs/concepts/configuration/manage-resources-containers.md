@@ -366,7 +366,7 @@ Kubernetesが使用しないようにする必要があります。
 {{% /tab %}}
 {{< /tabs >}}
 
-## 拡張リソース
+## 拡張リソース {#extended-resources}
 
 拡張リソースは`kubernetes.io`ドメインの外で完全に修飾されたリソース名です。
 これにより、クラスタオペレータはKubernetesに組み込まれていないリソースをアドバタイズし、ユーザはそれを利用することができるようになります。
@@ -484,7 +484,7 @@ spec:
         example.com/foo: 1
 ```
 
-## トラブルシューティング
+## トラブルシューティング {#troubleshooting}
 
 ### failedSchedulingイベントメッセージが表示され、Podが保留中になる
 

@@ -110,7 +110,7 @@ and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
 out of resources, you should adjust the formulas that compute heapster memory request (see those PRs for details).
 
 For directions on how to detect if addon containers are hitting resource limits, see the
-[Troubleshooting section of Compute Resources](/docs/concepts/configuration/manage-resources-containers/#troubleshooting).
+[Troubleshooting section of Compute Resources](/ja/docs/concepts/configuration/manage-resources-containers/#troubleshooting).
 
 ### 少数のノードの起動の失敗を許容する
 
