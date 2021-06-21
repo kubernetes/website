@@ -283,9 +283,9 @@ of individual policies are not defined here.
 
 [**PodSecurityPolicy**](/docs/concepts/policy/pod-security-policy/)
 
-- {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
-- {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
-- {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
+- [Privileged](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/privileged-psp.yaml)
+- [Baseline](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/baseline-psp.yaml)
+- [Restricted](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/restricted-psp.yaml)
 
 ## FAQ
 
