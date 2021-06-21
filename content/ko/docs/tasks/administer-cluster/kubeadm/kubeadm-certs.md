@@ -229,7 +229,7 @@ serverTLSBootstrap: true
 
 만약 이미 클러스터를 생성했다면 다음을 따라 이를 조정해야 한다.
  - `kube-system` 네임스페이스에서 `kubelet-config-{{< skew latestVersion >}}` 컨피그맵을 찾아서 수정한다.
-해당 컨피그맵에는 `config` 키가
+해당 컨피그맵에는 `kubelet` 키가
 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 문서를 값으로 가진다. `serverTLSBootstrap: true` 가 되도록 KubeletConfiguration 문서를 수정한다.
 - 각 노드에서, `serverTLSBootstrap: true` 필드를 `/var/lib/kubelet/config.yaml` 에 추가한다.
@@ -238,7 +238,7 @@ serverTLSBootstrap: true
 `serverTLSBootstrap: true` 필드는 kubelet 인증서를 이용한 부트스트랩을
 `certificates.k8s.io` API에 요청함으로써 활성화할 것이다. 한 가지 알려진 제약은
 이 인증서들에 대한 CSR(인증서 서명 요청)들이 kube-controller-manager -
-[`kubernetes.io/kubelet-serving`](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)의
+[`kubernetes.io/kubelet-serving`](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)의
 기본 서명자(default signer)에 의해서 자동으로 승인될 수 없다는 점이다.
 이것은 사용자나 제 3의 컨트롤러의 액션을 필요로 할 것이다.
 

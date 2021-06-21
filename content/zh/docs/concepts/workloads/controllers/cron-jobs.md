@@ -12,15 +12,15 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 <!--
-A _Cron Job_ creates [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) on a time-based schedule.
+A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repeating schedule.
 
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 -->
-_Cron Job_ 创建基于时间调度的 [Jobs](/zh/docs/concepts/workloads/controllers/job/)。
+_CronJob_ 创建基于时隔重复调度的 {{< glossary_tooltip term_id="job" text="Jobs" >}}。
 
 一个 CronJob 对象就像 _crontab_ (cron table) 文件中的一行。
 它用 [Cron](https://en.wikipedia.org/wiki/Cron) 格式进行编写，
@@ -102,24 +102,22 @@ This example CronJob manifest prints the current time and a hello message every 
 # * * * * *
 ```
 
-
 <!-- 
-| Entry 										| Description																									| Equivalent to |
-| ------------- 						| ------------- 																							|-------------  |
-| @yearly (or @annually)		| Run once a year at midnight of 1 January										| 0 0 1 1 * 		|
-| @monthly 									| Run once a month at midnight of the first day of the month	| 0 0 1 * * 		|
-| @weekly 									| Run once a week at midnight on Sunday morning								| 0 0 * * 0 		|
-| @daily (or @midnight)			| Run once a day at midnight																	| 0 0 * * * 		|
-| @hourly 									| Run once an hour at the beginning of the hour								| 0 * * * * 		|
+| Entry 	| Description   | Equivalent to |
+| ------------- | ------------- |-------------  |
+| @yearly (or @annually) | Run once a year at midnight of 1 January | 0 0 1 1 * |
+| @monthly               | Run once a month at midnight of the first day of the month | 0 0 1 * * |
+| @weekly                | Run once a week at midnight on Sunday morning | 0 0 * * 0 |
+| @daily (or @midnight)  | Run once a day at midnight | 0 0 * * * |
+| @hourly                | Run once an hour at the beginning of the hour | 0 * * * * |
 -->
-| 输入                      | 描述                            | 相当于         |
-| -------------             | -------------                  |-------------   |
-| @yearly (or @annually)		| 每年 1 月 1 日的午夜运行一次     | 0 0 1 1 *      |
-| @monthly 									| 每月第一天的午夜运行一次         | 0 0 1 * *      |
-| @weekly 									| 每周的周日午夜运行一次           | 0 0 * * 0      |
-| @daily (or @midnight)			| 每天午夜运行一次                 | 0 0 * * *      |
-| @hourly 									| 每小时的开始一次                 | 0 * * * *      |
-
+| 输入                      | 描述                          | 相当于         |
+| -------------             | -------------                 |-------------   |
+| @yearly (or @annually)    | 每年 1 月 1 日的午夜运行一次  | 0 0 1 1 *      |
+| @monthly                  | 每月第一天的午夜运行一次      | 0 0 1 * *      |
+| @weekly                   | 每周的周日午夜运行一次        | 0 0 * * 0      |
+| @daily (or @midnight)     | 每天午夜运行一次              | 0 0 * * *      |
+| @hourly                   | 每小时的开始一次              | 0 * * * *      |
 
 <!--  
 For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
@@ -192,8 +190,10 @@ For example, suppose a CronJob is set to schedule a new Job every one minute beg
 `startingDeadlineSeconds` field is not set. If the CronJob controller happens to
 be down from `08:29:00` to `10:21:00`, the job will not start as the number of missed jobs which missed their schedule is greater than 100.
 -->
-例如，假设一个 CronJob 被设置为从 `08:30:00` 开始每隔一分钟创建一个新的 Job，并且它的 `startingDeadlineSeconds` 字段
-未被设置。如果 CronJob 控制器从 `08:29:00` 到 `10:21:00` 终止运行，则该 Job 将不会启动，因为其错过的调度次数超过了100。
+例如，假设一个 CronJob 被设置为从 `08:30:00` 开始每隔一分钟创建一个新的 Job，
+并且它的 `startingDeadlineSeconds` 字段未被设置。如果 CronJob 控制器从
+`08:29:00` 到 `10:21:00` 终止运行，则该 Job 将不会启动，因为其错过的调度
+次数超过了 100。
 
 <!--
 To illustrate this concept further, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
@@ -214,22 +214,25 @@ the Job in turn is responsible for the management of the Pods it represents.
 CronJob 仅负责创建与其调度时间相匹配的 Job，而 Job 又负责管理其代表的 Pod。
 
 <!--
-## New controller
+## Controller version {#new-controller}
 
-There's an alternative implementation of the CronJob controller, available as an alpha feature since Kubernetes 1.20. To select version 2 of the CronJob controller, pass the following [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
-
-```
---feature-gates="CronJobControllerV2=true"
-```
+Starting with Kubernetes v1.21 the second version of the CronJob controller
+is the default implementation. To disable the default CronJob controller
+and use the original CronJob controller instead, one pass the `CronJobControllerV2`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}},
+and set this flag to `false`. For example:
 -->
-## 新控制器
+## 控制器版本   {#new-controller}
 
-CronJob 控制器有一个替代的实现，自 Kubernetes 1.20 开始以 alpha 特性引入。
-如果选择 CronJob 控制器的 v2 版本，请在 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
-中设置以下[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/) 标志。
+从 Kubernetes v1.21 版本开始，CronJob 控制器的第二个版本被用作默认实现。
+要禁用此默认 CronJob 控制器而使用原来的 CronJob 控制器，请在
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
+中设置[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+`CronJobControllerV2`，将此标志设置为 `false`。例如：
 
 ```
---feature-gates="CronJobControllerV2=true"
+--feature-gates="CronJobControllerV2=false"
 ```
 
 ## {{% heading "whatsnext" %}}
@@ -240,7 +243,8 @@ documents the format of CronJob `schedule` fields.
 For instructions on creating and working with cron jobs, and for an example of a spec file for a cron job, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
 -->
 
-* 进一步了解 [Cron 表达式的格式](https://en.wikipedia.org/wiki/Cron)，学习设置 CronJob `schedule` 字段
+* 进一步了解 [Cron 表达式的格式](https://en.wikipedia.org/wiki/Cron)，学习设置
+  CronJob `schedule` 字段
 * 有关创建和使用 CronJob 的说明及示例规约文件，请参见
   [使用 CronJob 运行自动化任务](/zh/docs/tasks/job/automated-tasks-with-cron-jobs/)。
 

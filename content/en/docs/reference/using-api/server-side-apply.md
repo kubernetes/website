@@ -245,7 +245,7 @@ field tags.
 
 ### Compatibility across topology changes
 
-On rare occurences, a CRD or built-in type author may want to change the
+On rare occurrences, a CRD or built-in type author may want to change the
 specific topology of a field in their resource without incrementing its
 version. Changing the topology of types, by upgrading the cluster or
 updating the CRD, has different consequences when updating existing
@@ -253,7 +253,7 @@ objects. There are two categories of changes: when a field goes from
 `map`/`set`/`granular` to `atomic` and the other way around.
 
 When the `listType`, `mapType`, or `structType` changes from
-`map`/`set`/`granular` to `atomic`, the whole list, map or struct of
+`map`/`set`/`granular` to `atomic`, the whole list, map, or struct of
 existing objects will end-up being owned by actors who owned an element
 of these types. This means that any further change to these objects
 would cause a conflict.
@@ -310,7 +310,7 @@ simplify the update logic of your controller. The main differences with a
 read-modify-write and/or patch are the following:
 
 * the applied object must contain all the fields that the controller cares about.
-* there are no way to remove fields that haven't been applied by the controller
+* there is no way to remove fields that haven't been applied by the controller
   before (controller can still send a PATCH/UPDATE for these use-cases).
 * the object doesn't have to be read beforehand, `resourceVersion` doesn't have
   to be specified.
@@ -473,7 +473,7 @@ have an opinion about.
 ## Clearing ManagedFields
 
 It is possible to strip all managedFields from an object by overwriting them
-using `MergePatch`, `StrategicMergePatch`, `JSONPatch` or `Update`, so every
+using `MergePatch`, `StrategicMergePatch`, `JSONPatch`, or `Update`, so every
 non-apply operation. This can be done by overwriting the managedFields field
 with an empty entry. Two examples are:
 

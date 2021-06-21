@@ -83,7 +83,7 @@ and other ecosystem groups to ensure a smooth transition and will evaluate thing
 as the situation evolves.
 -->
 考虑到此改变带来的影响，我们使用了一个加长的废弃时间表。
-在 Kubernetes 1.22 版之前，它不会被彻底移除；换句话说，dockershim 被移除的最早版本会是 2021 年底发布 1.23 版。
+在 Kubernetes 1.22 版之前，它不会被彻底移除；换句话说，dockershim 被移除的最早版本会是 2021 年底发布的 1.23 版。
 我们将与供应商以及其他生态团队紧密合作，确保顺利过渡，并将依据事态的发展评估后续事项。
 
 <!-- 
