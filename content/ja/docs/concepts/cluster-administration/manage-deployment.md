@@ -159,7 +159,7 @@ persistentvolumeclaim/my-pvc created
 
 `kubectl`についてさらに知りたい場合は、[kubectlの概要](/docs/reference/kubectl/overview/)を参照してください。
 
-## ラベルを有効に使う
+## ラベルを有効に使う {#using-labels-effectively}
 
 これまで取り上げた例では、リソースに対して最大1つのラベルを適用してきました。リソースのセットを他のセットと区別するために、複数のラベルが必要な状況があります。
 
@@ -350,7 +350,7 @@ horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 さらなる情報は、[kubectl scale](/docs/reference/generated/kubectl/kubectl-commands/#scale)、[kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) and [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)を参照してください。
 
 
-## リソースの直接的アップデート
+## リソースの直接的アップデート {#in-place-updates-of-resources}
 
 場合によっては、作成したリソースに対して処理を中断させずに更新を行う必要があります。
 

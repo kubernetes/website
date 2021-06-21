@@ -96,7 +96,7 @@ weight: 10
 
 - `kubectl apply -f <directory>`を使いましょう。これを使うと、ディレクトリ内のすべての`.yaml`、`.yml`、および`.json`ファイルが`apply`に渡されます。
 
-- `get`や`delete`を行う際は、特定のオブジェクト名を指定するのではなくラベルセレクターを使いましょう。[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)と[ラベルの効果的な使い方](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)のセクションを参照してください。
+- `get`や`delete`を行う際は、特定のオブジェクト名を指定するのではなくラベルセレクターを使いましょう。[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)と[ラベルの効果的な使い方](/ja/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)のセクションを参照してください。
 
 - 単一コンテナのDeploymentやServiceを素早く作成するなら、`kubectl create deployment`や`kubectl expose`を使いましょう。一例として、[Serviceを利用したクラスター内のアプリケーションへのアクセス](/docs/tasks/access-application-cluster/service-access-application-cluster/)を参照してください。
 
