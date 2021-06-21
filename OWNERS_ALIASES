@@ -1,11 +1,9 @@
 aliases:
   sig-docs-blog-owners: # Approvers for blog content
-    - castrojo
     - kbarnard10
     - onlydole
     - mrbobbytables
   sig-docs-blog-reviewers: # Reviewers for blog content
-    - castrojo
     - kbarnard10
     - mrbobbytables
     - onlydole
@@ -31,9 +29,7 @@ aliases:
     - reylejano
     - savitharaghunathan
     - sftim
-    - steveperry-53
     - tengqm
-    - zparnold
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
     - celestehorgan
@@ -44,9 +40,7 @@ aliases:
     - onlydole
     - rajeshdeshpande02
     - sftim
-    - steveperry-53
     - tengqm
-    - zparnold
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - electrocucaracha
@@ -235,10 +229,12 @@ aliases:
     - parispittman
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
   sig-release-leads:
+    - cpanato # SIG Technical Lead
     - hasheddan # SIG Technical Lead
     - jeremyrickard # SIG Technical Lead
     - justaugustus # SIG Chair
     - LappleApple # SIG Program Manager
+    - puerco # SIG Technical Lead
     - saschagrunert # SIG Chair
   release-engineering-approvers:
     - cpanato # Release Manager
@@ -250,6 +246,7 @@ aliases:
   release-engineering-reviewers:
     - ameukam # Release Manager Associate
     - jimangel # Release Manager Associate
+    - markyjackson-taulia # Release Manager Associate
     - mkorbi # Release Manager Associate
     - palnabarun # Release Manager Associate
     - onlydole # Release Manager Associate
