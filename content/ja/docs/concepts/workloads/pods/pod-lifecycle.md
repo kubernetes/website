@@ -105,7 +105,7 @@ PodにはPodStatusがあります。それはPodが成功したかどうかの�
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-追加のフィードバックやシグナルをPodStatus:_Pod readiness_に注入できるようにします。これを使用するには、Podの`spec`で`readinessGates`を設定して、kubeletがPodのReadinessを評価する追加の状態のリストを指定します。
+追加のフィードバックやシグナルをPodStatus: _Pod readiness_ に注入できるようにします。これを使用するには、Podの`spec`で`readinessGates`を設定して、kubeletがPodのReadinessを評価する追加の状態のリストを指定します。
 
 ReadinessゲートはPodの`status.conditions`フィールドの現在の状態によって決まります。Kubernetesが`Podのstatus.conditions`フィールドでそのような状態を発見できない場合、ステータスはデフォルトで`False`になります。
 
@@ -236,7 +236,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
    {{< note >}}
    Pod内のすべてのコンテナが同時にTERMシグナルを受信するわけではなく、シャットダウンの順序が問題になる場合はそれぞれに`preStop`フックを使用して同期することを検討する。
    {{< /note >}}
-1. kubeletが正常な終了を開始すると同時に、コントロールプレーンは、終了中のPodをEndpoints(および有効な場合はEndpointSlice)オブジェクトから削除します。これらのオブジェクトは、{{< glossary_tooltip text="selector" term_id="selector" >}}が設定された{{< glossary_tooltip term_id="service" text="Service" >}}を表します。{{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}とその他のワークロードリソースは、終了中のPodを有効なサービス中のReplicaSetとして扱いません。ゆっくりと終了するPodは、(サービスプロキシーのような)ロードバランサーが終了猶予期間が_始まる_とエンドポイントからそれらのPodを削除するので、トラフィックを継続して処理できません。
+1. kubeletが正常な終了を開始すると同時に、コントロールプレーンは、終了中のPodをEndpoints(および有効な場合はEndpointSlice)オブジェクトから削除します。これらのオブジェクトは、{{< glossary_tooltip text="selector" term_id="selector" >}}が設定された{{< glossary_tooltip term_id="service" text="Service" >}}を表します。{{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}とその他のワークロードリソースは、終了中のPodを有効なサービス中のReplicaSetとして扱いません。ゆっくりと終了するPodは、(サービスプロキシーのような)ロードバランサーが終了猶予期間が _始まる_ とエンドポイントからそれらのPodを削除するので、トラフィックを継続して処理できません。
 1. 猶予期間が終了すると、kubeletは強制削除を開始する。コンテナランタイムは、Pod内でまだ実行中のプロセスに`SIGKILL`を送信する。kubeletは、コンテナランタイムが非表示の`pause`コンテナを使用している場合、そのコンテナをクリーンアップします。
 1. kubeletは猶予期間を0(即時削除)に設定することでAPI server上のPodの削除を終了する。
 1. API serverはPodのAPIオブジェクトを削除し、クライアントからは見えなくなります。
