@@ -456,16 +456,21 @@ Default: "1m"</td>
 <code>int32</code>
 </td>
 <td>
-   nodeLeaseDurationSeconds is the duration the Kubelet will set on its corresponding Lease,
-when the NodeLease feature is enabled. This feature provides an indicator of node
-health by having the Kubelet create and periodically renew a lease, named after the node,
-in the kube-node-lease namespace. If the lease expires, the node can be considered unhealthy.
-The lease is currently renewed every 10s, per KEP-0009. In the future, the lease renewal interval
-may be set based on the lease duration.
-Requires the NodeLease feature gate to be enabled.
-Dynamic Kubelet Config (beta): If dynamically updating this field, consider that
-decreasing the duration may reduce tolerance for issues that temporarily prevent
-the Kubelet from renewing the lease (e.g. a short-lived network issue).
+   nodeLeaseDurationSeconds is a parameter that is relevant when the
+NodeLease feature is enabled. This feature provides an indicator of
+node health by having the Kubelet create and periodically renew a
+lease, named after the node, in the kube-node-lease namespace. The
+renewal period is one fourth of the `nodeLeaseDurationSeconds`. The
+`duration` field of the lease's status is not important. Requires the
+NodeLease feature gate to be enabled. Otherwise the Kubelet indicates
+its node's health by periodically updating status conditions.  The
+kube-controller-manager has a parameter, known on the command line as
+`--node-monitor-grace-period`, and marks a node unhealthy if the
+Kubelet does no update for that amount of time. Dynamic Kubelet Config
+(beta): If dynamically updating this field, consider that decreasing
+the duration may reduce tolerance for issues that temporarily prevent
+the Kubelet from renewing the lease (e.g. a short-lived network
+issue).
 Default: 40</td>
 </tr>
     
