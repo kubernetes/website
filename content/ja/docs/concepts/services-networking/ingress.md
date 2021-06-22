@@ -18,7 +18,7 @@ weight: 40
 * ノード: Kubernetes内のワーカーマシンで、クラスターの一部です。
 * クラスター: Kubernetesによって管理されているコンテナ化されたアプリケーションを実行させるノードの集合です。この例や、多くのKubernetesによるデプロイでは、クラスター内のノードはインターネットに公開されていません。
 * エッジルーター: クラスターでファイアウォールのポリシーを強制するルーターです。クラウドプロバイダーが管理するゲートウェイや、物理的なハードウェアの一部である場合もあります。
-* クラスターネットワーク: 物理的または論理的な繋がりの集合で、Kubernetesの[ネットワークモデル](/docs/concepts/cluster-administration/networking/)によって、クラスター内でのコミュニケーションを司るものです。
+* クラスターネットワーク: 物理的または論理的な繋がりの集合で、Kubernetesの[ネットワークモデル](/ja/docs/concepts/cluster-administration/networking/)によって、クラスター内でのコミュニケーションを司るものです。
 * Service: {{< glossary_tooltip text="ラベル" term_id="label" >}}セレクターを使ったPodの集合を特定するKubernetes {{< glossary_tooltip term_id="service" >}}です。特に指定がない限り、Serviceはクラスターネットワーク内でのみ疎通可能な仮想IPを持つものとして扱われます。
 
 ## Ingressとは何か
