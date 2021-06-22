@@ -367,4 +367,4 @@ DeploymentとServiceを削除すると、実行中のPodも削除されます。
 * [Kubernetesの基本](/ja/docs/tutorials/kubernetes-basics/)のインタラクティブチュートリアルを終わらせる
 * Kubernetesを使って、[MySQLとWordpressのためにPersistent Volume](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)を使用したブログを作成する
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)についてもっと読む
-* [リソースの管理](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)についてもっと読む
+* [リソースの管理](/ja/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)についてもっと読む
