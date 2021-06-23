@@ -239,7 +239,7 @@ different Kubernetes components.
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
 | `CSIServiceAccountToken` | `false` | Alpha | 1.20 | 1.20 |
 | `CSIServiceAccountToken` | `true` | Beta | 1.21 | 1.21 |
-| `CSIServiceAccountToken` | `true` | GA | 1.22 | |
+| `CSIServiceAccountToken` | `true` | GA | 1.22 | - |
 | `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
 | `CronJobControllerV2` | `true` | Beta | 1.21 | 1.21 |
 | `CronJobControllerV2` | `true` | GA | 1.22 | - |
@@ -839,7 +839,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   instead of the DaemonSet controller.
 - `SCTPSupport`: Enables the _SCTP_ `protocol` value in Pod, Service,
   Endpoints, EndpointSlice, and NetworkPolicy definitions.
-- `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile for all workloads. 
+- `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile for all workloads.
   The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
 - `SelectorIndex`: Allows label and field based indexes in API server watch
   cache to accelerate list operations.
