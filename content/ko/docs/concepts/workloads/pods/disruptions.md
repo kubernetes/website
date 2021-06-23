@@ -86,7 +86,7 @@ weight: 60
 단편화를 제거하고 노드의 효율을 높이는 과정에서 자발적 중단을 야기할 수 있다.
 클러스터 관리자 또는 호스팅 공급자는
 예측 가능한 자발적 중단 수준에 대해 문서화해야 한다.
-파드 스펙 안에 [프라이어리티클래스 사용하기](/ko/docs/concepts/configuration/pod-priority-preemption/)와 같은 특정 환경설정 옵션
+파드 스펙 안에 [프라이어리티클래스 사용하기](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)와 같은 특정 환경설정 옵션
 또한 자발적(+ 비자발적) 중단을 유발할 수 있다.
 
 
