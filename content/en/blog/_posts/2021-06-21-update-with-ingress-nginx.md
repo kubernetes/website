@@ -39,7 +39,7 @@ versions of Kubernetes.
 {{< table caption="Ingress NGINX supported version with Kubernetes Versions" >}}
 Kubernetes version  | Ingress-NGINX version | Notes
 :-------------------|:----------------------|:------------
-v1.22              | ≥ v.0.47.0     | New features, plus bug fixes.
+v1.22              | v1.0.0-alpha.1     | New features, plus bug fixes.
 v1.21              | v0.47.x        | Bugfixes only, and just for security issues or crashes. No end-of-support date announced.
 v1.20              | v0.47.x        | Bugfixes only, and just  for security issues or crashes. No end-of-support date announced.
 v1.19              | v0.47.x        | Bugfixes only, and just  for security issues or crashes. Fixes only provided until 6 months after Kubernetes v1.22.0 is released.
@@ -62,6 +62,8 @@ In the meantime to ensure no compatibility issues:
   [v0.47.0](https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v0.47.0) 
 * After Kubernetes 1.22 is released, ensure you are using the latest version of 
   Ingress-NGINX that supports the stable APIs for Ingress and IngressClass.
+* Test Ingress-NGINX version v1.0.0-alpha.1 with Cluster versions >= 1.19 
+  and report any issues to the projects Github page. 
 
 The community’s feedback and support in this effort is welcome. The
 Ingress-NGINX Sub-project regularly holds community meetings where we discuss
