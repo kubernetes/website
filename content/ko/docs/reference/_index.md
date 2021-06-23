@@ -37,7 +37,7 @@ no_list: true
 - [쿠버네티스 Python 클라이언트 라이브러리](https://github.com/kubernetes-client/python)
 - [쿠버네티스 Java 클라이언트 라이브러리](https://github.com/kubernetes-client/java)
 - [쿠버네티스 JavaScript 클라이언트 라이브러리](https://github.com/kubernetes-client/javascript)
-- [쿠버네티스 Dotnet 클라이언트 라이브러리](https://github.com/kubernetes-client/csharp)
+- [쿠버네티스 C# 클라이언트 라이브러리](https://github.com/kubernetes-client/csharp)
 - [쿠버네티스 Haskell 클라이언트 라이브러리](https://github.com/kubernetes-client/haskell)
 
 ## CLI
