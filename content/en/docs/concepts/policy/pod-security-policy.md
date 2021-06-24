@@ -115,7 +115,7 @@ subjects:
 - kind: Group
   apiGroup: rbac.authorization.k8s.io
   name: system:serviceaccounts:<authorized namespace>
-# Authorize specific service accounts:
+# Authorize specific service accounts (not recommended):
 - kind: ServiceAccount
   name: <authorized service account name>
   namespace: <authorized pod namespace>
@@ -144,20 +144,21 @@ Examples](/docs/reference/access-authn-authz/rbac#role-binding-examples).
 For a complete example of authorizing a PodSecurityPolicy, see
 [below](#example).
 
-### Best Practices
+### Recommended Practice
 
-PodSecurityPolicy is being replaced by a new, simplified PodSecurity admission controller. The
-following recommended best-practices will make the migration to the new PodSecurity admission
-controller much simpler. For more details on this change, see
-[PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
+PodSecurityPolicy is being replaced by a new, simplified `PodSecurity` {{< glossary_tooltip
+text="admission controller" term_id="admission-controller" >}}. For more details on this change, see
+[PodSecurityPolicy Deprecation: Past, Present, and
+Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/). Follow these
+guidelines to simplify migration from PodSecurityPolicy to the new admission controller:
 
 1. Limit your PodSecurityPolicies to the policies defined by the [Pod Security Standards](/docs/concepts/security/pod-security-standards):
-    - [Privileged](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/privileged-psp.yaml)
-    - [Baseline](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/baseline-psp.yaml)
-    - [Restricted](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/restricted-psp.yaml)
+    - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
+    - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
+    - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
 
-2. Only bind PSPs to namespaces, by using the `system:serviceaccounts:<namespace>` group (where
-   `<namespace>` is the target namespace). For example:
+2. Only bind PSPs to entire namespaces, by using the `system:serviceaccounts:<namespace>` group
+   (where `<namespace>` is the target namespace). For example:
 
     ```yaml
     apiVersion: rbac.authorization.k8s.io/v1
@@ -698,6 +699,10 @@ Refer to the [Sysctl documentation](
 /docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy).
 
 ## {{% heading "whatsnext" %}}
+
+- See [PodSecurityPolicy Deprecation: Past, Present, and
+  Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/) to learn about
+  the future of pod security policy.
 
 - See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for policy recommendations.
 

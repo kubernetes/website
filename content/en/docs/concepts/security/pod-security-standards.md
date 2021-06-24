@@ -86,7 +86,7 @@ enforced/disallowed:
 		<tr>
 			<td>Capabilities</td>
 			<td>
-				Adding additional capabilities beyond the <a href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">default set (excluding NET_RAW)</a> must be disallowed.<br>
+				Adding <tt>NET_RAW</tt> or capabilities beyond the <a href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">default set</a> must be disallowed.<br>
 				<br><b>Restricted Fields:</b><br>
 				spec.containers[*].securityContext.capabilities.add<br>
 				spec.initContainers[*].securityContext.capabilities.add<br>
