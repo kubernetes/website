@@ -6,9 +6,7 @@ metadata:
     # Optional: Allow the default AppArmor profile, requires setting the default.
     apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
     apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
-    # Optional: Allow the default seccomp profile, requires setting the default.
-    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default,unconfined'
-    seccomp.security.alpha.kubernetes.io/defaultProfileName:  'unconfined'
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
 spec:
   privileged: false
   # The moby default capability set, minus NET_RAW
@@ -34,15 +32,16 @@ spec:
     - 'projected'
     - 'secret'
     - 'downwardAPI'
-    # Assume that persistentVolumes set up by the cluster admin are safe to use.
+    # Assume that ephemeral CSI drivers & persistentVolumes set up by the cluster admin are safe to use.
+    - 'csi'
     - 'persistentVolumeClaim'
+    - 'ephemeral'
     # Allow all other non-hostpath volume types.
     - 'awsElasticBlockStore'
     - 'azureDisk'
     - 'azureFile'
     - 'cephFS'
     - 'cinder'
-    - 'csi'
     - 'fc'
     - 'flexVolume'
     - 'flocker'
