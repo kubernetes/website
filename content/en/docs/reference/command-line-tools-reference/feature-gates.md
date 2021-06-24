@@ -59,8 +59,6 @@ different Kubernetes components.
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `BalanceAttachedNodeVolumes` | `false` | Alpha | 1.11 | |
-| `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | 1.20 |
-| `BoundServiceAccountTokenVolume` | `true` | Beta | 1.21 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
@@ -202,6 +200,9 @@ different Kubernetes components.
 | `BlockVolume` | `false` | Alpha | 1.9 | 1.12 |
 | `BlockVolume` | `true` | Beta | 1.13 | 1.17 |
 | `BlockVolume` | `true` | GA | 1.18 | - |
+| `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | 1.20 |
+| `BoundServiceAccountTokenVolume` | `true` | Beta | 1.21 | 1.22 |
+| `BoundServiceAccountTokenVolume` | `true` | GA | 1.22 | - |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | Beta | 1.11 | 1.20 |
 | `CRIContainerLogRotation` | `true` | GA | 1.21 | - |
