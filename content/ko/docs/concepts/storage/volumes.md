@@ -914,7 +914,7 @@ projected 볼륨 소스를 [`subPath`](#subpath-사용하기) 볼륨으로 마�
 
 ### quobyte
 
-`quobyte` 볼륨을 사용하면 기존 [Quobyte](http://www.quobyte.com) 볼륨을
+`quobyte` 볼륨을 사용하면 기존 [Quobyte](https://www.quobyte.com) 볼륨을
 파드에 마운트할 수 있다.
 
 {{< note >}}

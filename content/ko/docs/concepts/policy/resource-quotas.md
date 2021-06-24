@@ -197,7 +197,7 @@ CRI 컨테이너 런타임을 사용할 때, 컨테이너 로그는 임시 스�
 | `NotTerminating` | `.spec.activeDeadlineSeconds is nil`에 일치하는 파드 |
 | `BestEffort` | 최상의 서비스 품질을 제공하는 파드 |
 | `NotBestEffort` | 서비스 품질이 나쁜 파드 |
-| `PriorityClass` | 지정된 [프라이어리티 클래스](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption)를 참조하여 일치하는 파드. |
+| `PriorityClass` | 지정된 [프라이어리티클래스](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)를 참조하여 일치하는 파드. |
 | `CrossNamespacePodAffinity` | 크로스-네임스페이스 파드 [(안티)어피니티 용어]가 있는 파드 |
 
 `BestEffort` 범위는 다음의 리소스를 추적하도록 쿼터를 제한한다.
