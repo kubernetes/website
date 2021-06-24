@@ -149,6 +149,8 @@ different Kubernetes components.
 | `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
 | `PodOverhead` | `true` | Beta | 1.18 |  |
+| `PreferNominatedNode` | `false` | Alpha | 1.21 | 1.21 |
+| `PreferNominatedNode` | `true` | Beta | 1.22 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
