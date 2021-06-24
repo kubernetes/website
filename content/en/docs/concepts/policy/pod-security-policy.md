@@ -11,7 +11,8 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
-PodSecurityPolicy is deprecated as of Kubernetes v1.21, and will be removed in v1.25.
+PodSecurityPolicy is deprecated as of Kubernetes v1.21, and will be removed in v1.25. For more information on the deprecation,
+see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
 
 Pod Security Policies enable fine-grained authorization of pod creation and
 updates.
@@ -110,6 +111,10 @@ roleRef:
   name: <role name>
   apiGroup: rbac.authorization.k8s.io
 subjects:
+# Authorize all service accounts in a namespace (recommended):
+- kind: Group
+  apiGroup: rbac.authorization.k8s.io
+  name: system:serviceaccounts:<authorized namespace>
 # Authorize specific service accounts:
 - kind: ServiceAccount
   name: <authorized service account name>
@@ -139,6 +144,39 @@ Examples](/docs/reference/access-authn-authz/rbac#role-binding-examples).
 For a complete example of authorizing a PodSecurityPolicy, see
 [below](#example).
 
+### Best Practices
+
+PodSecurityPolicy is being replaced by a new, simplified PodSecurity admission controller. The
+following recommended best-practices will make the migration to the new PodSecurity admission
+controller much simpler. For more details on this change, see
+[PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
+
+1. Limit your PodSecurityPolicies to the policies defined by the [Pod Security Standards](/docs/concepts/security/pod-security-standards):
+    - [Privileged](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/privileged-psp.yaml)
+    - [Baseline](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/baseline-psp.yaml)
+    - [Restricted](https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/policy/restricted-psp.yaml)
+
+2. Only bind PSPs to namespaces, by using the `system:serviceaccounts:<namespace>` group (where
+   `<namespace>` is the target namespace). For example:
+
+    ```yaml
+    apiVersion: rbac.authorization.k8s.io/v1
+    # This cluster role binding allows all pods in the "development" namespace to use the baseline PSP.
+    kind: ClusterRoleBinding
+    metadata:
+      name: psp-baseline-namespaces
+    roleRef:
+      kind: ClusterRole
+      name: psp-baseline
+      apiGroup: rbac.authorization.k8s.io
+    subjects:
+    - kind: Group
+      name: system:serviceaccounts:development
+      apiGroup: rbac.authorization.k8s.io
+    - kind: Group
+      name: system:serviceaccounts:canary
+      apiGroup: rbac.authorization.k8s.io
+    ```
 
 ### Troubleshooting
 
