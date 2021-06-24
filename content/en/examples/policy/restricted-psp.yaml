@@ -22,8 +22,9 @@ spec:
     - 'projected'
     - 'secret'
     - 'downwardAPI'
-    # Assume that persistentVolumes set up by the cluster admin are safe to use.
+    # Assume that CSI drivers & persistentVolumes set up by the cluster admin are safe to use.
     - 'persistentVolumeClaim'
+    - 'csi'
   hostNetwork: false
   hostIPC: false
   hostPID: false

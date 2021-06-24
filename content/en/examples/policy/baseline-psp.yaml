@@ -11,15 +11,13 @@ metadata:
     seccomp.security.alpha.kubernetes.io/defaultProfileName:  'unconfined'
 spec:
   privileged: false
-  # The moby default capability set, defined here:
-  # https://github.com/moby/moby/blob/0a5cec2833f82a6ad797d70acbf9cbbaf8956017/oci/caps/defaults.go#L6-L19
+  # The moby default capability set, minus NET_RAW
   allowedCapabilities:
     - 'CHOWN'
     - 'DAC_OVERRIDE'
     - 'FSETID'
     - 'FOWNER'
     - 'MKNOD'
-    - 'NET_RAW'
     - 'SETGID'
     - 'SETUID'
     - 'SETFCAP'
@@ -67,6 +65,9 @@ spec:
   runAsUser:
     rule: 'RunAsAny'
   seLinux:
+    # This policy assumes the nodes are using AppArmor rather than SELinux.
+    # The PSP SELinux API cannot express the SELinux Pod Security Standards,
+    # so if using SELinux, you must choose a more restrictive default.
     rule: 'RunAsAny'
   supplementalGroups:
     rule: 'RunAsAny'
