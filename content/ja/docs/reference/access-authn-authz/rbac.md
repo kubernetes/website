@@ -72,7 +72,7 @@ ClusterRoleはクラスター単位でスコープされているため、以下
 * すべてのNamespaceに渡ってNamespaceに属するリソースに(Podなど)。
   例えば、ClusterRoleを使用して特定のユーザーに`kubectl get pods --all-namespaces`の実行を許可できます。
 
-以下は特定のNamespace、またはすべてのNamespace([バインド](#rolebindingとclusterrolebinding)方法によります)で{{< glossary_tooltip text="secrets" term_id="secret" >}}への読み取りアクセス権を付与するClusterRoleの例です。
+以下は特定のNamespace、またはすべてのNamespace([バインド](#rolebindingとclusterrolebinding)方法によります)で{{< glossary_tooltip text="Secret" term_id="secret" >}}への読み取りアクセス権を付与するClusterRoleの例です。
 
 
 ```yaml
@@ -109,11 +109,11 @@ RoleBindingまたはClusterRoleBindingオブジェクトは有効な
 #### RoleBindingの例 {#rolebinding-example}
 
 以下はNamespace「default」内でユーザー「jane」に「pod-reader」のRoleを付与するRoleBindingの例です。
-これにより、「jane」にNamespace「default」のポッドの読み取り許可されます。
+これにより、「jane」にNamespace「default」のPodの読み取りが許可されます。
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
-# このRoleBindingは「jane」にNamespace「default」のポッドの読み取りを許可する
+# このRoleBindingは「jane」にNamespace「default」のPodの読み取りを許可する
 # そのNamespaceでRole「pod-reader」を既に持っている必要があります。
 kind: RoleBinding
 metadata:
@@ -596,7 +596,7 @@ metadata:
 <td>Namespace内のほとんどのオブジェクトへの読み取り/書き込みアクセスを許可します。
 
 このRoleは、RoleまたはRoleBindingの表示または変更を許可しません。
-ただし、このRoleでは、Secretsにアクセスして、Namespace内の任意のServiceAccountとしてPodsを実行できるため、Namespace内の任意のServiceAccountのAPIアクセスレベルを取得するために使用できます。</td>
+ただし、このRoleでは、Secretにアクセスして、Namespace内の任意のServiceAccountとしてPodを実行できるため、Namespace内の任意のServiceAccountのAPIアクセスレベルを取得するために使用できます。</td>
 </tr>
 <tr>
 <td><b>view</b></td>
@@ -604,7 +604,7 @@ metadata:
 <td>Namespace内のほとんどのオブジェクトを表示するための読み取り専用アクセスを許可します。
 RoleまたはRoleBindingは表示できません。
 
-Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシャルにアクセスできるため、このRoleではSecretsの表示は許可されません。これにより、Namespace内の任意のServiceAccountとしてAPIアクセスが許可されます(特権昇格の形式)。</td>
+Secretの内容を読み取るとNamespaceのServiceAccountのクレデンシャルにアクセスできるため、このRoleではSecretの表示は許可されません。これにより、Namespace内の任意のServiceAccountとしてAPIアクセスが許可されます(特権昇格の形式)。</td>
 </tr>
 </table>
 
@@ -636,7 +636,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 <tr>
 <td><b>system:node</b></td>
 <td>None</td>
-<td><b>すべてのsecretへの読み取りアクセス、すべてのポッドステータスオブジェクトへの書き込みアクセスなど、</b>kubeletが必要とするリソースへのアクセスを許可します。
+<td><b>すべてのSecretへの読み取りアクセス、すべてのPodStatusオブジェクトへの書き込みアクセスなど、</b>kubeletが必要とするリソースへのアクセスを許可します。
 
 <tt>system:node</tt>Roleの代わりに<a href="/docs/reference/access-authn-authz/node/">Node authorizer</a>と <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction admission plugin</a>を使用し、それらで実行するようにスケジュールされたPodに基づいてkubeletへのAPIアクセスを許可する必要があります。
 
@@ -814,7 +814,7 @@ subjects:
 
 以下に、単一のNamespace内で権限を定義するRoleオブジェクトをいくつか例として作成します。
 
-* ユーザーがポッドで `get`、` watch`、および `list`を実行できるように「pod-reader」という名前のRoleを作成します。
+* ユーザーがPodに対して `get`、` watch`、および `list`を実行できるように「pod-reader」という名前のRoleを作成します。
 
     ```shell
     kubectl create role pod-reader --verb=get --verb=list --verb=watch --resource=pods
@@ -848,7 +848,7 @@ subjects:
 
 以下にClusterRoleをいくつか例として作成します。
 
-* ユーザーがポッドに対して`get`、` watch`、および `list`を実行できるようにする「pod-reader」という名前のClusterRoleを作成します。
+* ユーザーがPodに対して`get`、` watch`、および `list`を実行できるようにする「pod-reader」という名前のClusterRoleを作成します。
 
     ```shell
     kubectl create clusterrole pod-reader --verb=get,list,watch --resource=pods
@@ -1045,7 +1045,7 @@ subjects:
     権限の分割をまったく考慮しない場合は、すべてのサービスアカウントにスーパーユーザーアクセスを許可できます。
 
     {{< warning >}}
-    これにより、すべてのアプリケーションにクラスターへのフルアクセスが許可され、Secretの読み取りアクセス権(または任意のポッドを作成する機能)を持つユーザーに、クラスターへのフルアクセスが許可されます。
+    これにより、すべてのアプリケーションにクラスターへのフルアクセスが許可され、Secretの読み取りアクセス権(または任意のPodを作成する機能)を持つユーザーに、クラスターへのフルアクセスが許可されます。
     {{< /warning >}}
 
     ```shell
@@ -1092,7 +1092,7 @@ RBACRoleBindingを使用して、permissive ABACポリシーを複製できま�
 {{< warning >}}
 次のポリシーでは、**すべて**のサービスアカウントがクラスター管理者としてふるまうことを許可しています。
 コンテナで実行されているアプリケーションは、サービスアカウントのクレデンシャルを自動的に受け取ります。
-secretの表示や権限の変更など、APIに対して任意のアクションを実行できます。
+Secretの表示や権限の変更など、APIに対して任意のアクションを実行できます。
 これは推奨されるポリシーではありません。
 
 ```shell
