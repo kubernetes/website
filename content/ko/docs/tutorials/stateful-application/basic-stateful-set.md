@@ -833,11 +833,11 @@ kubectl get pods -w -l app=nginx
 
 다른 터미널에서는 스테이트풀셋을 지우기 위해
 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) 명령어를 이용하자.
-이 명령어에 `--cascade=false` 파라미터가 추가되었다.
+이 명령어에 `--cascade=orphan` 파라미터가 추가되었다.
 이 파라미터는 쿠버네티스에 스테이트풀셋만 삭제하고 그에 속한 파드는 지우지 않도록 요청한다.
 
 ```shell
-kubectl delete statefulset web --cascade=false
+kubectl delete statefulset web --cascade=orphan
 ```
 ```
 statefulset.apps "web" deleted
@@ -953,7 +953,7 @@ kubectl get pods -w -l app=nginx
 ```
 
 다른 터미널창에서 스테이트풀셋을 다시 지우자. 이번에는
-`--cascade=false` 파라미터를 생략하자.
+`--cascade=orphan` 파라미터를 생략하자.
 
 ```shell
 kubectl delete statefulset web
