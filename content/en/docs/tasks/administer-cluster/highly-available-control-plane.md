@@ -156,14 +156,14 @@ and the IP address of the first replica will be promoted to IP address of load b
 Similarly, after removal of the penultimate control plane node, the load balancer will be removed and its IP address will be assigned to the last remaining replica.
 Please note that creation and removal of load balancer are complex operations and it may take some time (~20 minutes) for them to propagate.
 
-### Master service & kubelets
+### Control plane service & kubelets
 
 Instead of trying to keep an up-to-date list of Kubernetes apiserver in the Kubernetes service,
 the system directs all traffic to the external IP:
 
 * in case of a single node control plane, the IP points to the control plane node,
 
-* in case of an HA control plane, the IP points to the load balancer in-front of the masters.
+* in case of an HA control plane, the IP points to the load balancer in-front of the control plane nodes.
 
 Similarly, the external IP will be used by kubelets to communicate with the control plane.
 
