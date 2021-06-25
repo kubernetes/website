@@ -68,19 +68,14 @@ different Kubernetes components.
 | `CSIMigration` | `true` | Beta | 1.17 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAWS` | `false` | Beta | 1.17 | |
-| `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | 1.18 |
 | `CSIMigrationAzureDisk` | `false` | Beta | 1.19 | |
-| `CSIMigrationAzureDiskComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | 1.19 |
 | `CSIMigrationAzureFile` | `false` | Beta | 1.21 | |
-| `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
 | `CSIMigrationGCE` | `false` | Beta | 1.17 | |
-| `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
 | `CSIMigrationOpenStack` | `true` | Beta | 1.18 | |
-| `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | |
 | `CSIMigrationvSphere` | `false` | Beta | 1.19 | |
 | `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | |
@@ -129,6 +124,12 @@ different Kubernetes components.
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | |
 | `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | 1.21 |
 | `IngressClassNamespacedParams` | `true` | Beta | 1.22 | |
+| `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginAzureDiskUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginAzureFileUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginGCEUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginOpenStackUnregister` | `false` | Alpha | 1.21 | |
+| `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
 | `IPv6DualStack` | `true` | Beta | 1.21 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
@@ -230,8 +231,18 @@ different Kubernetes components.
 | `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | 1.17 |
 | `CSIDriverRegistry` | `true` | GA | 1.18 | |
+| `CSIMigrationAWSComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationAWSComplete` | - | Deprecated | 1.21 | - |
+| `CSIMigrationAzureDiskComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationAzureDiskComplete` | - | Deprecated | 1.21 | - |
+| `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationAzureFileComplete` | - | Deprecated |  1.21 | - |
+| `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationGCEComplete` | - | Deprecated | 1.21 | - |
+| `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | 1.20 |
+| `CSIMigrationOpenStackComplete` | - | Deprecated | 1.21 | - |
 | `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | 1.21 |
-| `CSIMigrationvSphereComplete` | `false` | Deprecated | 1.22 | - |
+| `CSIMigrationvSphereComplete` | - | Deprecated | 1.22 | - |
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
 | `CSINodeInfo` | `true` | Beta | 1.14 | 1.16 |
 | `CSINodeInfo` | `true` | GA | 1.17 | |
@@ -556,7 +567,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   kubelet and volume controllers and enables shims and translation logic to
   route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin.
   Requires CSIMigration and CSIMigrationAWS feature flags enabled and EBS CSI
-  plugin installed and configured on all nodes in the cluster.
+  plugin installed and configured on all nodes in the cluster. This flag has
+  been deprecated in favor of the `InTreePluginAWSUnregister` feature flag
+  which prevents the registration of in-tree EBS plugin.
 - `CSIMigrationAzureDisk`: Enables shims and translation logic to route volume
   operations from the Azure-Disk in-tree plugin to AzureDisk CSI plugin.
   Supports falling back to in-tree AzureDisk plugin if a node does not have
@@ -567,7 +580,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   logic to route volume operations from the Azure-Disk in-tree plugin to
   AzureDisk CSI plugin. Requires CSIMigration and CSIMigrationAzureDisk feature
   flags enabled and AzureDisk CSI plugin installed and configured on all nodes
-  in the cluster.
+  in the cluster. This flag has been deprecated in favor of the
+  `InTreePluginAzureDiskUnregister` feature flag which prevents the registration of in-tree AzureDisk plugin.
 - `CSIMigrationAzureFile`: Enables shims and translation logic to route volume
   operations from the Azure-File in-tree plugin to AzureFile CSI plugin.
   Supports falling back to in-tree AzureFile plugin if a node does not have
@@ -578,7 +592,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   logic to route volume operations from the Azure-File in-tree plugin to
   AzureFile CSI plugin. Requires CSIMigration and CSIMigrationAzureFile feature
   flags  enabled and AzureFile CSI plugin installed and configured on all nodes
-  in the cluster.
+  in the cluster. This flag has been deprecated in favor of the
+  `InTreePluginAzureFileUnregister` feature flag which prevents the registration
+   of in-tree AzureFile plugin.
 - `CSIMigrationGCE`: Enables shims and translation logic to route volume
   operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling
   back to in-tree GCE plugin if a node does not have PD CSI plugin installed and
@@ -587,7 +603,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   kubelet and volume controllers and enables shims and translation logic to
   route volume operations from the GCE-PD in-tree plugin to PD CSI plugin.
   Requires CSIMigration and CSIMigrationGCE feature flags enabled and PD CSI
-  plugin installed and configured on all nodes in the cluster.
+  plugin installed and configured on all nodes in the cluster. This flag has
+  been deprecated in favor of the `InTreePluginGCEUnregister` feature flag which prevents the registration of in-tree GCE PD plugin.
 - `CSIMigrationOpenStack`: Enables shims and translation logic to route volume
   operations from the Cinder in-tree plugin to Cinder CSI plugin. Supports
   falling back to in-tree Cinder plugin if a node does not have Cinder CSI
@@ -596,7 +613,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   kubelet and volume controllers and enables shims and translation logic to route
   volume operations from the Cinder in-tree plugin to Cinder CSI plugin.
   Requires CSIMigration and CSIMigrationOpenStack feature flags enabled and Cinder
-  CSI plugin installed and configured on all nodes in the cluster.
+  CSI plugin installed and configured on all nodes in the cluster. This flag has
+  been deprecated in favor of the `InTreePluginOpenStackUnregister` feature flag which prevents the registration of in-tree openstack cinder plugin.
 - `CSIMigrationvSphere`: Enables shims and translation logic to route volume operations
   from the vSphere in-tree plugin to vSphere CSI plugin.
   Supports falling back to in-tree vSphere plugin if a node does not have vSphere
@@ -605,7 +623,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   and volume controllers and enables shims and translation logic to route volume operations
   from the vSphere in-tree plugin to vSphere CSI plugin. Requires CSIMigration and
   CSIMigrationvSphere feature flags enabled and vSphere CSI plugin installed and
-  configured on all nodes in the cluster.
+  configured on all nodes in the cluster. This flag has been deprecated in favor
+  of the `InTreePluginvSphereUnregister` feature flag which prevents the registration of in-tree vsphere plugin.
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
@@ -736,6 +755,18 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for Windows containers.
 - `ImmutableEphemeralVolumes`: Allows for marking individual Secrets and ConfigMaps as
   immutable for better safety and performance.
+- `InTreePluginAWSUnregister`: Stops registering the aws-ebs in-tree plugin in kubelet
+  and volume controllers.
+- `InTreePluginAzureDiskUnregister`: Stops registering the azuredisk in-tree plugin in kubelet
+  and volume controllers.
+- `InTreePluginAzureFileUnregister`: Stops registering the azurefile in-tree plugin in kubelet
+  and volume controllers.
+- `InTreePluginGCEUnregister`: Stops registering the gce-pd in-tree plugin in kubelet
+  and volume controllers.
+- `InTreePluginOpenStackUnregister`: Stops registering the OpenStack cinder in-tree plugin in kubelet
+  and volume controllers.
+- `InTreePluginvSphereUnregister`: Stops registering the vSphere in-tree plugin in kubelet
+  and volume controllers.
 - `IndexedJob`: Allows the [Job](/docs/concepts/workloads/controllers/job/)
   controller to manage Pod completions per completion index.
 - `JobTrackingWithFinalizers`: Enables tracking [Job](/docs/concepts/workloads/controllers/job)
