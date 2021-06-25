@@ -822,7 +822,10 @@ are obtained from the API server.
 This includes any Pods created using `kubectl`, or indirectly via a replication
 controller. It does not include Pods created as a result of the kubelet
 `--manifest-url` flag, its `--config` flag, or its REST API (these are
-not common ways to create Pods.)
+not common ways to create Pods). 
+The `spec` of a {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} cannot refer to a Secret
+or any other API objects.
+
 
 Secrets must be created before they are consumed in Pods as environment
 variables unless they are marked as optional. References to secrets that do
