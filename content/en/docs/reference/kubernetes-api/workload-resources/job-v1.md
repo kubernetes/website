@@ -104,7 +104,9 @@ JobSpec describes how the job execution will look like.
 
 - **suspend** (boolean)
 
-  Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. This is an alpha field and requires the SuspendJob feature gate to be enabled; otherwise this field may not be set to true. Defaults to false.
+  Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+  
+  This field is beta-level, gated by SuspendJob feature flag (enabled by default).
 
 ### Selector
 
@@ -195,6 +197,30 @@ JobStatus represents the current state of a Job.
   - **conditions.reason** (string)
 
     (brief) reason for the condition's last transition.
+
+- **uncountedTerminatedPods** (UncountedTerminatedPods)
+
+  UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+  
+  The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+      counter.
+  
+  This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+
+  <a name="UncountedTerminatedPods"></a>
+  *UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.*
+
+  - **uncountedTerminatedPods.failed** ([]string)
+
+    *Set: unique values will be kept during a merge*
+    
+    Failed holds UIDs of failed Pods.
+
+  - **uncountedTerminatedPods.succeeded** ([]string)
+
+    *Set: unique values will be kept during a merge*
+    
+    Succeeded holds UIDs of succeeded Pods.
 
 
 
