@@ -109,6 +109,6 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 * [環境変数](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)の詳細
-* [Secretを環境変数として使用する](/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)詳細
+* [Secretを環境変数として使用する](/ja/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)詳細
 * [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)をご覧ください。
 

@@ -606,7 +606,7 @@ very
 
 ### キーを特定のパスとファイルアクセス許可に投影する
 
-キーをファイル単位で特定のパスとアクセス許可に投影できます。[Secret](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)のユーザーガイドで構文が解説されています。
+キーをファイル単位で特定のパスとアクセス許可に投影できます。[Secret](/ja/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)のユーザーガイドで構文が解説されています。
 
 ### マウントされたConfigMapは自動的に更新される
 
@@ -621,7 +621,7 @@ ConfigMapを[subPath](/docs/concepts/storage/volumes/#using-subpath)ボリュー
 
 ## ConfigMapとPodsを理解する
 
-ConfigMap APIリソースは構成情報をキーバリューペアとして保存します。データはPodで利用したり、コントローラーなどのシステムコンポーネントに提供できます。ConfigMapは[Secret](/docs/concepts/configuration/secret/)に似ていますが、機密情報を含まない文字列を含まない操作する手段を提供します。ユーザーとシステムコンポーネントはどちらも構成情報をConfigMapに保存できます。
+ConfigMap APIリソースは構成情報をキーバリューペアとして保存します。データはPodで利用したり、コントローラーなどのシステムコンポーネントに提供できます。ConfigMapは[Secret](/ja/docs/concepts/configuration/secret/)に似ていますが、機密情報を含まない文字列を含まない操作する手段を提供します。ユーザーとシステムコンポーネントはどちらも構成情報をConfigMapに保存できます。
 
 {{< note >}}
 ConfigMapはプロパティーファイルを参照するべきであり、置き換えるべきではありません。ConfigMapをLinuxの`/etc`ディレクトリとそのコンテンツのように捉えましょう。例えば、[Kubernetes Volume](/docs/concepts/storage/volumes/)をConfigMapから作成した場合、ConfigMapのデータアイテムはボリューム内で個別のファイルとして表示されます。

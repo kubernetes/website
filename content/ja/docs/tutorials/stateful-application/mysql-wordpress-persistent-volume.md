@@ -75,7 +75,7 @@ Google Kubernetes Engine上で動作するKubernetesクラスターを使って�
 
 ### Secret generatorを追加する
 
-[Secret](/docs/concepts/configuration/secret/)とは、パスワードやキーのような機密性の高いデータ片を保存するためのオブジェクトです。バージョン1.14からは、`kubectl`がkustomizationファイルを使用したKubernetesオブジェクトの管理をサポートしています。`kustomization.yaml`内のgeneratorによってSecretを作成することができます。
+[Secret](/ja/docs/concepts/configuration/secret/)とは、パスワードやキーのような機密性の高いデータ片を保存するためのオブジェクトです。バージョン1.14からは、`kubectl`がkustomizationファイルを使用したKubernetesオブジェクトの管理をサポートしています。`kustomization.yaml`内のgeneratorによってSecretを作成することができます。
 
 以下のコマンドを実行して、`kustomization.yaml`の中にSecret generatorを追加します。`YOUR_PASSWORD`の部分を使いたいパスワードに置換してください。
 
