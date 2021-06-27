@@ -10,6 +10,8 @@ slug: Announcing-Kubernetes-Community-Group-Annual-Reports
 
 **Authors:** Divya Mohan
 
+{{< figure src="k8s_annual_report_2020.svg" alt="Community annual report 2020" link="https://github.com/kubernetes/steering/blob/master/reports/summary-2020.md" >}}
+
 Given the growth and scale of the Kubernetes project, the existing reporting mechanisms were proving to be inadequate and challenging.
 Kubernetes is a large open source project. With over 100000 commits just to the main k/kubernetes repository, hundreds of other code
 repositories in the project, and thousands of contributors, there's a lot going on. In fact, there are 37 contributor groups at the time of
