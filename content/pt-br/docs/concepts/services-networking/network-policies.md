@@ -38,7 +38,7 @@ Por padrão, pods não são isolados; eles aceitam tráfego de qualquer origem.
 
 Os pods tornam-se isolados ao existir uma `NetworkPolicy` que selecione eles. Uma vez que
 exista qualquer `NetworkPolicy` no namespace selecionando um pod em específico, aquele pod 
-irá rejeitar qualquer conexão não permitida por qualquer `NetworkPolicy`. (Outros pod na mesma 
+irá rejeitar qualquer conexão não permitida por qualquer `NetworkPolicy`. (Outros pod no mesmo 
 namespace que não são selecionados por nenhuma outra `NetworkPolicy` irão continuar aceitando
 todo tráfego de rede.)
 
@@ -135,10 +135,10 @@ e saída (se eles ainda não estavam isolados)
 2. (Regras de entrada/ingress) permite conexões para todos os pods no namespace "default" com a _label_ "role=db" na porta TCP 6379 de:
 
    * qualquer pod no namespace "default" com a _label_ "role=frontend"
-   * qualquer pod em uma namespace que tenha a _label_ "project=myproject" (aqui cabe ressaltar que a namespace que deve ter a _label_ e não os pods dentro dessa namespace)
+   * qualquer pod em um namespace que tenha a _label_ "project=myproject" (aqui cabe ressaltar que o namespace que deve ter a _label_ e não os pods dentro desse namespace)
    * IPs dentro das faixas 172.17.0.0–172.17.0.255 e 172.17.2.0–172.17.255.255 (ex.:, toda 172.17.0.0/16 exceto 172.17.1.0/24)
 
-3. (Regras de saída/egress) permite conexões de qualquer pod na namespace "default" com a _label_
+3. (Regras de saída/egress) permite conexões de qualquer pod no namespace "default" com a _label_
 "role=db" para a faixa de destino 10.0.0.0/24 na porta TCP 5978.
 
 Veja o tutorial [Declarando uma política de redes](/docs/tasks/administer-cluster/declare-network-policy/) para mais exemplos.
@@ -148,14 +148,14 @@ Veja o tutorial [Declarando uma política de redes](/docs/tasks/administer-clust
 Existem quatro tipos de seletores que podem ser especificados nas sessões `ingress.from` ou 
 `egress.to`:
 
-__podSelector__: Seleciona Pods na mesma namespace que a política de rede foi criada, e que deve 
+__podSelector__: Seleciona Pods no mesmo namespace que a política de rede foi criada, e que deve 
 ser permitido origens no tráfego de entrada ou destinos no tráfego de saída.
 
 __namespaceSelector__: Seleciona namespaces para o qual todos os Pods devem ser permitidos como 
 origens no caso de tráfego de entrada ou destino no tráfego de saída.
 
 __namespaceSelector__ *e* __podSelector__: Uma entrada `to`/`from` única que permite especificar 
-ambos `namespaceSelector` e `podSelector` e seleciona um conjunto de Pods dentro de uma namespace.
+ambos `namespaceSelector` e `podSelector` e seleciona um conjunto de Pods dentro de um namespace.
 Seja cuidadoso em utilizar a sintaxe YAML correta; essa política:
 
 ```yaml
@@ -186,8 +186,8 @@ namespaces com a _label_  `user=alice`. Mas *essa* política:
   ...
 ```
 
-contém dois elementos no conjunto `from` e permite conexões de Pods na namespace local com 
-a _label_ `role=client`, *OU* de qualquer outro Pod em qualquer outra namespace que tenha 
+contém dois elementos no conjunto `from` e permite conexões de Pods no namespace local com 
+a _label_ `role=client`, *OU* de qualquer outro Pod em qualquer outro namespace que tenha 
 a label `user=alice`.
 
 Quando estiver em dúvida, utilize o comando `kubectl describe` para verificar como o 
@@ -209,14 +209,11 @@ a `NetworkPolicy` atua pode ser o IP de um `LoadBalancer` ou do Nó em que o Pod
 No caso de tráfego de saída, isso significa que conexões de Pods para `Services` que são reescritos
 para IPs externos ao cluster podem ou não estar sujeitos a políticas baseadas no campo `ipBlock`.
 
-For egress, this means that connections from pods to `Service` IPs that get rewritten to
-cluster-external IPs may or may not be subject to `ipBlock`-based policies.
-
 ## Políticas padrão
 
 Por padrão, se nenhuma política existir no namespace, então todo o tráfego de entrada e saída é 
-permitido de e para os pods nessa namespace. Os exemplos a seguir permitem a você mudar o 
-comportamento padrão nessa namespace.
+permitido de e para os pods nesse namespace. Os exemplos a seguir permitem a você mudar o 
+comportamento padrão nesse namespace.
 
 ### Bloqueio padrão de todo tráfego de entrada
 
@@ -231,7 +228,7 @@ nesse namespace.
 
 ### Permitir por padrão todo tráfego de entrada
 
-Se você deseja permitir todo o tráfego de todos os pods em uma namespace (mesmo que políticas que 
+Se você deseja permitir todo o tráfego de todos os pods em um namespace (mesmo que políticas que 
 sejam adicionadas faça com que alguns pods sejam tratados como "isolados"), você pode criar 
 uma política que permite explicitamente todo o tráfego naquele namespace.
 
@@ -252,7 +249,7 @@ tráfego de saída. Essa política não muda o comportamento padrão de tráfego
 
 Caso você queira permitir todo o tráfego de todos os pods em um namespace (mesmo que políticas sejam 
 adicionadas e cause com que alguns pods sejam tratados como "isolados"), você pode criar uma 
-política que permite explicitamente todo o tráfego de saída na namespace.
+política que permite explicitamente todo o tráfego de saída no namespace.
 
 {{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
 
@@ -295,7 +292,7 @@ spec:
       endPort: 32768
 ```
 
-A regra acima permite a qualquer Pod com a _label_ "role=db" na namespace `default` de se comunicar 
+A regra acima permite a qualquer Pod com a _label_ "role=db" no namespace `default` de se comunicar 
 com qualquer IP na faixa `10.0.0.0/24` através de protocólo TCP, desde que a porta de destino 
 esteja na faixa entre 32000 e 32768.
 
@@ -326,7 +323,7 @@ um campo específico, você pode utilizar essa _label_ padrão para selecionar u
 ## O que você não pode fazer com `NetworkPolicies` (ao menos por enquanto!)
 Por enquanto no Kubernetes {{< skew latestVersion >}} as funcionalidades a seguir não existem 
 mas você pode conseguir implementar de forma alternativa utilizando componentes do Sistema Operacional 
-(como SELinux, OpenVSwitch, IPtables, etc) ou tecnologias da camada 7 OSI (Ingress controlelrs, implementações de service mesh) ou ainda _admission controllers_. 
+(como SELinux, OpenVSwitch, IPtables, etc) ou tecnologias da camada 7 OSI (Ingress controllers, implementações de service mesh) ou ainda _admission controllers_. 
 No caso do assunto "segurança de redes no Kubernetes" ser novo para você, vale notar que as 
 histórias de usuário a seguir ainda não podem ser implementadas:
 
