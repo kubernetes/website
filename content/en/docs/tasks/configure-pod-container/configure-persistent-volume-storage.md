@@ -12,27 +12,24 @@ for storage.
 Here is a summary of the process:
 
 1. You, as cluster administrator, create a PersistentVolume backed by physical
-storage. You do not associate the volume with any Pod.
+   storage. You do not associate the volume with any Pod.
 
 1. You, now taking the role of a developer / cluster user, create a
-PersistentVolumeClaim that is automatically bound to a suitable
-PersistentVolume.
+   PersistentVolumeClaim that is automatically bound to a suitable
+   PersistentVolume.
 
 1. You create a Pod that uses the above PersistentVolumeClaim for storage.
 
-
-
 ## {{% heading "prerequisites" %}}
 
+- You need to have a Kubernetes cluster that has only one Node, and the
+  {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
+  command-line tool must be configured to communicate with your cluster. If you
+  do not already have a single-node cluster, you can create one by using
+  [Minikube](https://minikube.sigs.k8s.io/docs/).
 
-* You need to have a Kubernetes cluster that has only one Node, and the
-{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
-command-line tool must be configured to communicate with your cluster. If you
-do not already have a single-node cluster, you can create one by using
-[Minikube](https://minikube.sigs.k8s.io/docs/).
-
-* Familiarize yourself with the material in
-[Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
+- Familiarize yourself with the material in
+  [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 
 <!-- steps -->
 
@@ -49,7 +46,6 @@ In your shell on that Node, create a `/mnt/data` directory:
 # as the superuser
 sudo mkdir /mnt/data
 ```
-
 
 In the `/mnt/data` directory, create an `index.html` file:
 
@@ -71,6 +67,7 @@ cat /mnt/data/index.html
 ```
 
 The output should be:
+
 ```
 Hello from Kubernetes storage
 ```
@@ -79,7 +76,7 @@ You can now close the shell to your Node.
 
 ## Create a PersistentVolume
 
-In this exercise, you create a *hostPath* PersistentVolume. Kubernetes supports
+In this exercise, you create a _hostPath_ PersistentVolume. Kubernetes supports
 hostPath for development and testing on a single-node cluster. A hostPath
 PersistentVolume uses a file or directory on the Node to emulate network-attached storage.
 
@@ -162,6 +159,12 @@ The output shows that the PersistentVolumeClaim is bound to your PersistentVolum
     NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   STORAGECLASS   AGE
     task-pv-claim   Bound     task-pv-volume   10Gi       RWO           manual         30s
 
+Running pod with the duplicate persistent volume.
+
+{{< codenew file="pods/storage/pv-duplicate.yaml" >}}
+
+Example : A container running a web application reads application data from a persistent volume and saves logs to another persistent volume.
+
 ## Create a Pod
 
 The next step is to create a Pod that uses your PersistentVolumeClaim as a volume.
@@ -208,13 +211,12 @@ hostPath volume:
 
     Hello from Kubernetes storage
 
-
 If you see that message, you have successfully configured a Pod to
 use storage from a PersistentVolumeClaim.
 
 ## Clean up
 
-Delete the Pod,  the PersistentVolumeClaim and the PersistentVolume:
+Delete the Pod, the PersistentVolumeClaim and the PersistentVolume:
 
 ```shell
 kubectl delete pod task-pv-pod
@@ -236,9 +238,6 @@ sudo rmdir /mnt/data
 
 You can now close the shell to your Node.
 
-
-
-
 <!-- discussion -->
 
 ## Access control
@@ -250,6 +249,7 @@ with a GID. Then the GID is automatically added to any Pod that uses the
 PersistentVolume.
 
 Use the `pv.beta.kubernetes.io/gid` annotation as follows:
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -258,6 +258,7 @@ metadata:
   annotations:
     pv.beta.kubernetes.io/gid: "1234"
 ```
+
 When a Pod consumes a PersistentVolume that has a GID annotation, the annotated GID
 is applied to all containers in the Pod in the same way that GIDs specified in the
 Pod's security context are. Every GID, whether it originates from a PersistentVolume
@@ -269,22 +270,14 @@ When a Pod consumes a PersistentVolume, the GIDs associated with the
 PersistentVolume are not present on the Pod resource itself.
 {{< /note >}}
 
-
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
-* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+- Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
+- Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
 
 ### Reference
 
-* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
-* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
-* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
-* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
-
-
-
-
+- [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
+- [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
+- [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
+- [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
