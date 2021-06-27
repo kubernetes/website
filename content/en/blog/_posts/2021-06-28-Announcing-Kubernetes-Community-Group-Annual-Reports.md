@@ -22,8 +22,8 @@ inspired by the Apache Software Foundation’s [open guide to PMC Reporting](htt
 the [2020 Summary report](https://github.com/kubernetes/steering/blob/master/reports/summary-2020.md) focuses on bettering the 
 Kubernetes ecosystem by assessing and promoting the healthiness of the groups within the upstream community. 
 
-Previously, the mechanisms for the Kubernetes project overall to report on groups and their activitie were 
-(devstats)[https://k8s.devstats.cncf.io/], GitHub data, issues, to measure the healthiness of a given UG/WG/SIG/Committee. As a 
+Previously, the mechanisms for the Kubernetes project overall to report on groups and their activities were 
+[devstats](https://k8s.devstats.cncf.io/), GitHub data, issues, to measure the healthiness of a given UG/WG/SIG/Committee. As a 
 project spanning several diverse communities, it was essential to have something that captured the human side of things. With 50,000+
 contributors, it’s easy to assume that the project has enough help and this report surfaces more information than /help-wanted and 
 /good-first-issue for end users. This is how we sustain the project. Paraphrasing one of the Steering Committee members, 
