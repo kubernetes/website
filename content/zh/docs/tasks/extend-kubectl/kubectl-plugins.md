@@ -332,7 +332,7 @@ command containing dashes in its commandline invocation by using underscores (`_
 # 创建文件名中包含下划线的插件
 echo -e '#!/bin/bash\n\necho "I am a plugin with a dash in my name"' > ./kubectl-foo_bar
 sudo chmod +x ./kubectl-foo_bar
-  
+
 # 将插件放到 PATH 下
 sudo mv ./kubectl-foo_bar /usr/local/bin
 
@@ -388,11 +388,11 @@ PATH=/usr/local/bin/plugins:/usr/local/bin/moreplugins kubectl plugin list
 
 ```
 The following kubectl-compatible plugins are available:
-  
+
 /usr/local/bin/plugins/kubectl-foo
 /usr/local/bin/moreplugins/kubectl-foo
   - warning: /usr/local/bin/moreplugins/kubectl-foo is overshadowed by a similarly named plugin: /usr/local/bin/plugins/kubectl-foo
-  
+
 error: one plugin warning was found
 ```
 
@@ -400,7 +400,7 @@ error: one plugin warning was found
 In the above scenario, the warning under `/usr/local/bin/moreplugins/kubectl-foo` tells us that this plugin will never be executed. Instead, the executable that appears first in our PATH, `/usr/local/bin/plugins/kubectl-foo`, will always be found and executed first by the `kubectl` plugin mechanism.
 -->
 在上面的场景中 `/usr/local/bin/moreplugins/kubectl-foo` 下的警告告诉我们这个插件永远不会被执行。
-相反，首先出现在我们路径中的可执行文件 `/usr/local/bin/plugins/kubectl-foo` 
+相反，首先出现在我们路径中的可执行文件 `/usr/local/bin/plugins/kubectl-foo`
 总是首先被 `kubectl` 插件机制找到并执行。
 
 <!--
@@ -479,7 +479,7 @@ kubectl plugin list
 ```
 ```
 The following kubectl-compatible plugins are available:
-  
+
 test/fixtures/pkg/kubectl/plugins/kubectl-foo
 /usr/local/bin/kubectl-foo
   - warning: /usr/local/bin/kubectl-foo is overshadowed by a similarly named plugin: test/fixtures/pkg/kubectl/plugins/kubectl-foo
@@ -526,7 +526,7 @@ package it, distribute it and deliver updates to your users.
 ## 分发 kubectl 插件
 
 如果你开发了一个插件给别人使用，你应该考虑如何为其封装打包、如何分发软件
-以及将来的更新到用户。
+以及如何向用户提供更新。
 
 <!--
 ### Krew {#distributing-krew}
