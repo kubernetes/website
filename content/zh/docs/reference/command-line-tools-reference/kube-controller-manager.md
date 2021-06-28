@@ -682,7 +682,7 @@ Interval between starting controller managers.
 <!--
 A list of controllers to enable. '*' enables all on-by-default controllers, 'foo' enables the controller named 'foo', '-foo' disables the controller named 'foo'.<br/>All controllers: attachdetach, bootstrapsigner, cloud-node-lifecycle, clusterrole-aggregation, cronjob, csrapproving, csrcleaner, csrsigning, daemonset, deployment, disruption, endpoint, endpointslice, endpointslicemirroring, ephemeral-volume, garbagecollector, horizontalpodautoscaling, job, namespace, nodeipam, nodelifecycle, persistentvolume-binder, persistentvolume-expander, podgc, pv-protection, pvc-protection, replicaset, replicationcontroller, resourcequota, root-ca-cert-publisher, route, service, serviceaccount, serviceaccount-token, statefulset, tokencleaner, ttl, ttl-after-finished<br/>Disabled-by-default controllers: bootstrapsigner, tokencleaner
 -->
-要启用的控制器列表。<code>\*</code> 表示启用所有默认启用的控制器；
+要启用的控制器列表。<code>*</code> 表示启用所有默认启用的控制器；
 <code>foo</code> 启用名为 foo 的控制器；
 <code>-foo</code> 表示禁用名为 foo 的控制器。<br/>
 控制器的全集：attachdetach、bootstrapsigner、cloud-node-lifecycle、clusterrole-aggregation、cronjob、csrapproving、csrcleaner、csrsigning、daemonset、deployment、disruption、endpoint、endpointslice、endpointslicemirroring、ephemeral-volume、garbagecollector、horizontalpodautoscaling、job、namespace、nodeipam、nodelifecycle、persistentvolume-binder、persistentvolume-expander、podgc、pv-protection、pvc-protection、replicaset、replicationcontroller、resourcequota、root-ca-cert-publisher、route、service、serviceaccount、serviceaccount-token、statefulset、tokencleaner、ttl、ttl-after-finished<br/>
@@ -1395,7 +1395,7 @@ Sets the log format. Permitted formats: "json", "text".<br/>Non-default formats 
 -->
 设置日志格式。允许的格式："text"，"json"。
 <br/>非默认格式不支持以下标志：<code>--add-dir-header</code>、
-<code>--alsologtostderr</code>》、<code>--log-backtrace-at</code>、
+<code>--alsologtostderr</code>、<code>--log-backtrace-at</code>、
 <code>--log-dir</code>、<code>--log-file</code>、<code>--log-file-max-size</code>、
 <code>--logtostderr</code>、<code>--one-output</code>、<code>--skip-headers</code>、
 <code>--skip-log-headers</code>、<code>--stderrthreshold</code>、
@@ -2030,13 +2030,13 @@ File containing the default x509 private key matching --tls-cert-file.
 <!--
 A pair of x509 certificate and private key file paths, optionally suffixed with a list of domain patterns which are fully qualified domain names, possibly with prefixed wildcard segments. The domain patterns also allow IP addresses, but IPs should only be used if the apiserver has visibility to the IP address requested by a client. If no domain patterns are provided, the names of the certificate are extracted. Non-wildcard matches trump over wildcard matches, explicit domain patterns trump over extracted names. For multiple key/certificate pairs, use the --tls-sni-cert-key multiple times. Examples: "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com".
 -->
-X509 证书和私钥文件路径的耦对。作为可选项，可以添加域名模式的列表，
+一对X509 证书和私钥的文件路径。作为可选项，可以添加域名模式的列表，
 其中每个域名模式都是可以带通配片段前缀的全限定域名（FQDN）。
 域名模式也可以使用 IP 地址字符串，不过只有 API 服务器在所给 IP 地址上
 对客户端可见时才可以使用 IP 地址。在未提供域名模式时，从证书中提取域名。
 如果有非通配方式的匹配，则优先于通配方式的匹配；显式的域名模式优先于提取的域名。
-当存在多个密钥/证书耦对时，可以多次使用 <code>--tls-sni-cert-key</code> 标志。
-例如：<code>example.crt,example.key</code> 或 <code>foo.crt,foo.key:\*.foo.com,foo.com</code>。
+对于多个密钥/证书对，请多次使用<code>--tls-sni-cert-key</code> 标志。
+例如：<code>example.crt,example.key</code> 或 <code>foo.crt,foo.key:*.foo.com,foo.com</code>。
 </td>
 </tr>
 
