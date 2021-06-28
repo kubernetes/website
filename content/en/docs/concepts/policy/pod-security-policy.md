@@ -49,13 +49,12 @@ administrator to control the following:
 
 ## Enabling Pod Security Policies
 
-Pod security policy control is implemented as an optional (but recommended)
-[admission
-controller](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy). PodSecurityPolicies
-are enforced by [enabling the admission
+Pod security policy control is implemented as an optional [admission
+controller](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy).
+PodSecurityPolicies are enforced by [enabling the admission
 controller](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in),
-but doing so without authorizing any policies **will prevent any pods from being
-created** in the cluster.
+but doing so without authorizing any policies **will prevent any pods from being created** in the
+cluster.
 
 Since the pod security policy API (`policy/v1beta1/podsecuritypolicy`) is
 enabled independently of the admission controller, for existing clusters it is
@@ -707,5 +706,3 @@ Refer to the [Sysctl documentation](
 - See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for policy recommendations.
 
 - Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
-
-
