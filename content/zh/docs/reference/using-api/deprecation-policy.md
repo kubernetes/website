@@ -462,7 +462,7 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
 从 Kubernetes v1.19 开始，当 API 请求被发送到一个已弃用的 REST API 末端时：
 
 1. API 响应中会包含一个 `Warning` 头部字段（如 [RFC7234 5.5 节](https://tools.ietf.org/html/rfc7234#section-5.5)所定义）；
-2. 该请求会导致对应的 
+2. 该请求会导致对应的
    [审计事件](/zh/docs/tasks/debug-application-cluster/audit/)
    中会增加一个注解 `"k8s.io/deprecated":"true"`。
 3. `kube-apiserver` 进程的 `apiserver_requested_deprecated_apis` 度量值会被
@@ -472,7 +472,7 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
    和一个 `removed_release` 标签，标明该 API 将消失的 Kubernetes 发布版本。
    下面的 Prometheus 查询会返回对 v1.22 中将移除的、已弃用的 API
    的请求的信息：
-   
+
    ```promql
    apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
    ```
@@ -545,7 +545,7 @@ Kubernetes 系统中包含若干不同的、相互协作的程序。
 这些程序可以天然地划分到两个大组中：面向用户的和面向管理员的程序。
 二者之间的弃用策略略有不同。
 除非某个标志显示地通过前缀或文档来标明其为“alpha”或“beta”，
-该标志要被视作正式发布的（GA）。
+否则该标志要被视作正式发布的（GA）。
 
 <!--
 CLI elements are effectively part of the API to the system, but since they are
@@ -553,7 +553,7 @@ not versioned in the same way as the REST API, the rules for deprecation are as
 follows:
 -->
 命令行元素相当于系统的 API 的一部分，不过因为它们并没有采用 REST API
-一样的方式来管理版本，其弃用规则规定如下： 
+一样的方式来管理版本，其弃用规则规定如下：
 
 <!--
 **Rule #5a: CLI elements of user-facing components (e.g. kubectl) must function
@@ -820,4 +820,3 @@ relevant release notes.
 寻求对应场景的最佳解决方案。请一直铭记，Kubernetes 承诺要成为一个
 稳定的系统，至少会尽力做到不会影响到其用户。此弃用策略的任何例外情况
 都会在所有相关的发布说明中公布。
-
