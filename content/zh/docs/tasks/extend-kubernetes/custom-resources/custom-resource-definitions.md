@@ -185,8 +185,7 @@ resource to show up.
 所用的 spec 中指定的 `CronTab`。
 
 创建端点的操作可能需要几秒钟。你可以监测你的 CustomResourceDefinition 的
-`Established` 状况变为 true，或者监测 API 服务器的发现信息等待你的资源出现在
-那里。
+`Established` 状况变为 true，或者等待你的资源在 API 服务器的发现信息中出现。
 
 <!--
 ## Create custom objects
@@ -1688,9 +1687,9 @@ spec:
         scale:
           # specReplicasPath 定义定制资源中对应 scale.spec.replicas 的 JSON 路径
           specReplicasPath: .spec.replicas
-          # statusReplicasPath 定义定制资源中对应 scale.status.replicas 的 JSON 路径 
+          # statusReplicasPath 定义定制资源中对应 scale.status.replicas 的 JSON 路径
           statusReplicasPath: .status.replicas
-          # labelSelectorPath  定义定制资源中对应 scale.status.selector 的 JSON 路径 
+          # labelSelectorPath  定义定制资源中对应 scale.status.selector 的 JSON 路径
           labelSelectorPath: .status.labelSelector
   scope: Namespaced
   names:
@@ -1910,4 +1909,3 @@ crontabs/my-new-cron-object   3s
 * 阅读了解[定制资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 参阅 [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io)
 * 参阅支持 CustomResourceDefinition 的[多个版本](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)
-
