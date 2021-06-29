@@ -9,6 +9,8 @@ card:
   weight: 20
 ---
 
+<!-- placeholder kubectl headers docs 1.22 -->
+
 <!-- overview -->
 The kubectl command line tool lets you control Kubernetes clusters.
 For configuration, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
