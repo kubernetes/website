@@ -184,11 +184,12 @@
 /docs/home/contribute/generated-reference/kubernetes-api/ /docs/contribute/generate-ref-docs/kubernetes-api/ 301
 /docs/home/contribute/generated-reference/kubernetes-components/ /docs/contribute/generate-ref-docs/kubernetes-components/ 301
 /docs/home/contribute/localization/ /docs/contribute/localization/ 301
-/docs/home/contribute/page-templates/ /docs/contribute/style/page-templates/ 301
-/docs/home/contribute/participating/ /docs/contribute/participating/ 301
+/docs/home/contribute/page-templates/ /docs/contribute/style/page-content-types/ 301
+/docs/home/contribute/participating/ /docs/contribute/participate/ 301
 /docs/home/contribute/review-issues/ /docs/contribute/intermediate/ 301
 /docs/home/contribute/blog-post/ /docs/contribute/start/ 301
 /docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
+/docs/contribute/style/page-templates/ /docs/contribute/style/page-content-types/ 301
 
 /docs/reference/command-line-tools-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
 
@@ -206,6 +207,7 @@
 
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
+/docs/reference/kubectl/kubectl-cmds/     /docs/reference/generated/kubectl/kubectl-commands/ 301!
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/scheduling/profiles/    /docs/reference/scheduling/config/#profiles 301
 

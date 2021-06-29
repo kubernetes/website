@@ -43,6 +43,20 @@ kube-proxy [flags]
 <tbody>
 
 <tr>
+<td colspan="2">--add-dir-header</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>true로 되어 있으면, 로그 메시지의 헤더에 파일 디렉터리를 기재한다.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--alsologtostderr</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그를 파일뿐만 아니라 표준 에러(standard error)로도 출력한다.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--azure-container-registry-config string</td>
 </tr>
 <tr>
@@ -64,10 +78,31 @@ kube-proxy [flags]
 </tr>
 
 <tr>
+<td colspan="2">--boot-id-file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: "/proc/sys/kernel/random/boot_id"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>boot-id를 위해 확인할 파일 목록(쉼표로 분리). 가장 먼저 발견되는 항목을 사용한다.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--cleanup</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>true인 경우 iptables 및 ipvs 규칙을 제거하고 종료한다.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 130.211.0.0/22,35.191.0.0/16</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>GCE 방화벽에서, L7 로드밸런싱 트래픽 프록시와 헬스 체크를 위해 개방할 CIDR 목록</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>GCE 방화벽에서, L4 로드밸런싱 트래픽 프록시와 헬스 체크를 위해 개방할 CIDR 목록</p></td>
 </tr>
 
 <tr>
@@ -117,6 +152,20 @@ kube-proxy [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>설정된 TCP 연결에 대한 유휴시간 초과(값이 0이면 그대로 유지)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 300</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>notReady:NoExecute 상태에 대한 톨러레이션(toleration) 시간이 지정되지 않은 모든 파드에 기본값으로 지정될 톨러레이션 시간(단위: 초)</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 300</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>unreachable:NoExecute 상태에 대한 톨러레이션 시간이 지정되지 않은 모든 파드에 기본값으로 지정될 톨러레이션 시간(단위: 초)</p></td>
 </tr>
 
 <tr>
@@ -260,10 +309,52 @@ kube-proxy [flags]
 </tr>
 
 <tr>
+<td colspan="2">--log-backtrace-at &lt;'file:N' 형태의 문자열&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: :0</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로깅 과정에서 file:N 번째 라인에 도달하면 스택 트레이스를 출력한다.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--log-dir string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그 파일이 저장될 디렉터리</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--log-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>사용할 로그 파일</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 1800</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그 파일의 최대 크기(단위: MB). 0으로 설정하면 무제한이다.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 5s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그 플러시 사이의 최대 시간</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그를 파일에 기록하지 않고 표준 에러로만 출력</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--machine-id-file string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: "/etc/machine-id,/var/lib/dbus/machine-id"</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>machine-id를 위해 확인할 파일 목록(쉼표로 분리). 가장 먼저 발견되는 항목을 사용한다.</p></td>
 </tr>
 
 <tr>
@@ -292,6 +383,13 @@ kube-proxy [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>NodePort에 사용할 주소를 지정하는 값의 문자열 조각. 값은 유효한 IP 블록(예: 1.2.3.0/24, 1.2.3.4/32). 기본값인 빈 문자열 조각값은([]) 모든 로컬 주소를 사용하는 것을 의미한다.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--one-output</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>true이면, 해당 로그가 속하는 심각성 레벨에만 각 로그를 기록한다(원래는 하위 심각성 레벨에도 기록한다).</p></td>
 </tr>
 
 <tr>
@@ -326,7 +424,28 @@ kube-proxy [flags]
 <td colspan="2">--show-hidden-metrics-for-version string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>숨겨진 메트릭을 표시할 이전 버전. </p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>숨겨진 메트릭을 표시하려는 이전 버전. 이전 마이너 버전만 인식하며, 다른 값은 허용하지 않는다. 포멧은 &lt;메이저&gt;.&lt;마이너&gt; 와 같으며, 예를 들면 '1.16' 과 같다. 이 포멧의 목적은, 다음 릴리스가 숨길 추가적인 메트릭을 사용자에게 공지하여, 그 이후 릴리스에서 메트릭이 영구적으로 삭제됐을 때 사용자가 놀라지 않도록 하기 위함이다.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--skip-headers</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>true이면, 로그 메시지에서 헤더 접두사를 붙이지 않는다.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--skip-log-headers</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>true이면, 로그 파일을 열 때 헤더를 붙이지 않는다.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--stderrthreshold int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본값: 2</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>이 값 이상의 로그는 표준 에러(stderr)로 출력되도록 한다.</p></td>
 </tr>
 
 <tr>
@@ -337,10 +456,24 @@ kube-proxy [flags]
 </tr>
 
 <tr>
+<td colspan="2">-v, --v int</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>로그 상세 레벨(verbosity)</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--version version[=true]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>버전 정보를 인쇄하고 종료.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>버전 정보를 출력하고 종료</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--vmodule &lt;쉼표로 구분된 'pattern=N' 설정&gt;</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>파일-필터된 로깅을 위한 'pattern=N' 설정들(쉼표로 구분됨)</p></td>
 </tr>
 
 <tr>

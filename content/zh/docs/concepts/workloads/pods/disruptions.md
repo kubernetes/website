@@ -155,18 +155,23 @@ and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/)
 
 <!--
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
-no voluntary disruptions at all.  However, your cluster administrator or hosting provider
+no automated voluntary disruptions (only user-triggered ones).  However, your cluster administrator or hosting provider
 may run some additional services which cause voluntary disruptions. For example,
 rolling out node software updates can cause voluntary disruptions. Also, some implementations
 of cluster (node) autoscaling may cause voluntary disruptions to defragment and compact nodes.
 Your cluster administrator or hosting provider should have documented what level of voluntary
-disruptions, if any, to expect.
+disruptions, if any, to expect. Certain configuration options, such as
+[using PriorityClasses](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)
+in your pod spec can also cause voluntary (and involuntary) disruptions.
 -->
-自愿干扰的频率各不相同。在一个基本的 Kubernetes 集群中，根本没有自愿干扰。然而，集群管理
-或托管提供商可能运行一些可能导致自愿干扰的额外服务。例如，节点软
+自愿干扰的频率各不相同。在一个基本的 Kubernetes 集群中，没有自愿干扰（只有用户触发的干扰）。
+然而，集群管理员或托管提供商可能运行一些可能导致自愿干扰的额外服务。例如，节点软
 更新可能导致自愿干扰。另外，集群（节点）自动缩放的某些
 实现可能导致碎片整理和紧缩节点的自愿干扰。集群
 管理员或托管提供商应该已经记录了各级别的自愿干扰（如果有的话）。
+有些配置选项，例如在 pod spec 中
+[使用 PriorityClasses](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)
+也会产生自愿（和非自愿）的干扰。
 
 <!--
 Kubernetes offers features to help run highly available applications at the same
@@ -267,7 +272,7 @@ during application updates is configured in spec for the specific workload resou
 <!--
 When a pod is evicted using the eviction API, it is gracefully
 [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination),
-hornoring the 
+hornoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
@@ -504,4 +509,3 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 * 进一步了解[排空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)的信息。
 * 了解[更新 Deployment](/zh/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性
-
