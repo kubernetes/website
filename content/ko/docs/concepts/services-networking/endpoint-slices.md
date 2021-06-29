@@ -247,5 +247,4 @@ v1beta1 API의 `topology` 필드에 있는 `"topology.kubernetes.io/zone"`
 
 ## {{% heading "whatsnext" %}}
 
-* [엔드포인트슬라이스 활성화하기](/docs/tasks/administer-cluster/enabling-endpointslices)에 대해 배우기
 * [애플리케이션을 서비스와 함께 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 읽어보기
