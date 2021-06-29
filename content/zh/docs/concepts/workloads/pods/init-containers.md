@@ -54,11 +54,12 @@ Init 容器与普通的容器非常像，除了如下两点：
 * 每个都必须在下一个启动之前成功完成。
 
 <!--
-If a Pod's init container fails, the kubelet repeatedly restarts that init container until it succeeds. 
+If a Pod's init container fails, the kubelet repeatedly restarts that init container until it succeeds.
 However, if the Pod has a `restartPolicy` of Never, and an init container fails during startup of that Pod, Kubernetes treats the overall Pod as failed.
 -->
 如果 Pod 的 Init 容器失败，kubelet 会不断地重启该 Init 容器直到该容器成功为止。
-然而，如果 Pod 对应的 `restartPolicy` 值为 "Never"，Kubernetes 不会重新启动 Pod。
+然而，如果 Pod 对应的 `restartPolicy` 值为 "Never"，并且 Pod 的 Init 容器失败，
+则 Kubernetes 会将整个 Pod 状态设置为失败。
 
 <!--
 To specify an init container for a Pod, add the `initContainers` field into
@@ -391,10 +392,10 @@ myapp-pod   1/1       Running   0          9m
 
 <!--
 This simple example should provide some inspiration for you to create your own
-init containers. [What's next](#whats-next) contains a link to a more detailed example.
+init containers. [What's next](#what-s-next) contains a link to a more detailed example.
 -->
 这个简单例子应该能为你创建自己的 Init 容器提供一些启发。
-[接下来](#whats-next)节提供了更详细例子的链接。
+[接下来](#what-s-next)节提供了更详细例子的链接。
 
 <!--
 ## Detailed behavior
@@ -546,4 +547,3 @@ Pod 不会被重启。这一行为适用于 Kubernetes v1.20 及更新版本。�
 -->
 * 阅读[创建包含 Init 容器的 Pod](/zh/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * 学习如何[调试 Init 容器](/zh/docs/tasks/debug-application-cluster/debug-init-containers/)
-
