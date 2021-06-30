@@ -164,17 +164,20 @@ Prow Command | Role Restrictions | Description
 See [the Prow command reference](https://prow.k8s.io/command-help) to see the full list
 of commands you can use in a PR.
 -->
-{{< table caption="评阅用 Prow 命令" >}}
-Prow 命令 | 角色限制 | 描述
-:------------|:------------------|:-----------
-`/lgtm` | 任何人均可使用，但只有评阅人和批准人使用此命令的时候才会触发自动化操作 | 用来表明你已经完成 PR 的评阅并对其所作变更表示满意
-`/approve` | 批准人 | 批准某 PR 可以合并
-`/assign` |评阅人或批准人 | 指派某人来评阅或批准某 PR
-`/close` | 评阅人或批准人 | 关闭 Issue 或 PR
-`/hold` | 任何人 | 添加 `do-not-merge/hold` 标签，用来表明 PR 不应被自动合并
-`/hold cancel` | 任何人 | 去掉 `do-not-merge/hold` 标签
-{{< /table >}}
+<!-- {{< table caption="评阅用 Prow 命令" >}} -->
+<table>
+<caption>评阅用 Prow 命令</caption>
 
+Prow 命令 | 角色限制 | 描述|
+:------------|:------------------|:-----------|
+`/lgtm` | 任何人均可使用，但只有评阅人和批准人使用此命令的时候才会触发自动化操作 | 用来表明你已经完成 PR 的评阅并对其所作变更表示满意|
+`/approve` | 批准人 | 批准某 PR 可以合并|
+`/assign` |评阅人或批准人 | 指派某人来评阅或批准某 PR|
+`/close` | 评阅人或批准人 | 关闭 Issue 或 PR|
+`/hold` | 任何人 | 添加 `do-not-merge/hold` 标签，用来表明 PR 不应被自动合并|
+`/hold cancel` | 任何人 | 去掉 `do-not-merge/hold` 标签|
+<!-- {{< /table >}} -->
+</table>
 请参考 [Prow 命令指南](https://prow.k8s.io/command-help)，了解你可以在 PR
 中使用的命令的完整列表。
 
