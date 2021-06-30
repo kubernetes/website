@@ -78,8 +78,9 @@ Here are links to some of the popular cloud providers' security documentation:
 请查阅相关文档来获取最好的安全实践。
 
 下面是一些比较流行的云提供商的安全性文档链接：
-
-{{< table caption="云提供商安全" >}}
+<table>
+<!-- {{< table caption="云提供商安全" >}} -->
+<caption>云提供商安全</caption>
 
 IaaS 提供商        | 链接 |
 -------------------- | ------------ |
@@ -90,7 +91,8 @@ IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
 
-{{< /table >}}
+<!-- {{< /table >}} -->
+</table>
 
 <!--
 ### Infrastructure security {#infrastructure-security}
