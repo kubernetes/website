@@ -777,9 +777,10 @@ balancing behavior:
 
 在 Windows 系统上，你可以使用以下配置来设定服务和负载均衡行为：
 
-{{< table caption="Windows 服务设置" >}}
+<!-- {{< table caption="Windows 服务设置" >}} -->
 
 <table>
+ <caption>Windows 服务设置</caption>
  <thead>
   <tr>
    <th><!--Feature-->功能特性</th>
