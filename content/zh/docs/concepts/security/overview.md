@@ -242,7 +242,7 @@ Dynamic probing attacks | There are a few automated tools that you can run again
 
 <!--{{< table caption="代码安全" >}}-->
 <table>
-<caption>基础设施安全</caption>
+<caption>代码安全</caption>
 
 代码关注领域 | 建议 |
 -------------------------| -------------- |
