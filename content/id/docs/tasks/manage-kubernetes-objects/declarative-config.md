@@ -757,7 +757,7 @@ spec:
 1. Pengguna sebelumnya sudah membuat sebuah Deployment tanpa mendefinisikan `strategy.type` (seperti yang bisa dilihat pada `last-applied-configuration`).
 2. Server mengisi `strategy.type` dengan nilai *default* `RollingUpdate` dan mengisi `strategy.rollingUpdate` dengan nilai *default* pada konfigurasi *live*.
 3. Pengguna mengubah nilai *field* `strategy.type` menjadi `Recreate` pada *file* konfigurasi. Nilai `strategy.rollingUpdate` tidak berubah dari nilai *default*, meskipun server sekarang berekspektasi nilai tersebut dihapus. Jika nilai `strategy.rollingUpdate` didefinisikan di awal pada *file* konfigurasi, akan jelas bagi *server* bahwa *field* tersebut perlu dihapus.
-4. Perintah `kubect apply` gagal karena `strategy.rollingUpdate` tidak dihapus. *Field* `strategy.rollingUpdate` tidak bisa didefinisikan jika *field* `strategy.type` berisi `Recreate`.
+4. Perintah `kubectl apply` gagal karena `strategy.rollingUpdate` tidak dihapus. *Field* `strategy.rollingUpdate` tidak bisa didefinisikan jika *field* `strategy.type` berisi `Recreate`.
 
 Rekomendasi: *Field-field* ini harus didefinisikan secara eksplisit di *file* konfigurasi objek:
 
