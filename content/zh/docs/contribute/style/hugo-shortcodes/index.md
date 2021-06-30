@@ -196,6 +196,7 @@ Parameter | Description | Default
 ```
 
 所渲染的表格如下：
+
 <table>
   <caption>配置参数</caption>
 <!-- {{< table caption="配置参数" >}} -->
