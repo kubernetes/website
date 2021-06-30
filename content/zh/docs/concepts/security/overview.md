@@ -112,7 +112,7 @@ etcd Encryption | Wherever possible it's a good practice to encrypt all drives a
 ### 基础设施安全 {#infrastructure-security}
 
 关于在 Kubernetes 集群中保护你的基础设施的建议：
-
+<table>
 <!-- {{< table caption="基础设施安全" >}} -->
 <caption>基础设施安全</caption>
 
@@ -124,8 +124,8 @@ Kubernetes 访问云提供商的 API | 每个云提供商都需要向 Kubernetes
 访问 etcd | 对 etcd（Kubernetes 的数据存储）的访问应仅限于控制平面。根据配置情况，你应该尝试通过 TLS 来使用 etcd。更多信息可以在 [etcd 文档](https://github.com/etcd-io/etcd/tree/master/Documentation)中找到。|
 etcd 加密 | 在所有可能的情况下，最好对所有驱动器进行静态数据加密，但是由于 etcd 拥有整个集群的状态（包括机密信息），因此其磁盘更应该进行静态数据加密。|
 
-{{< /table >}}
-
+<!--{{< /table >}}-->
+</table>
 <!--
 ## Cluster
 
@@ -240,7 +240,9 @@ Dynamic probing attacks | There are a few automated tools that you can run again
 -->
 ### 代码安全性
 
-{{< table caption="代码安全" >}}
+<!--{{< table caption="代码安全" >}}-->
+<table>
+<caption>基础设施安全</caption>
 
 代码关注领域 | 建议 |
 -------------------------| -------------- |
@@ -249,8 +251,8 @@ Dynamic probing attacks | There are a few automated tools that you can run again
 第三方依赖性安全 | 最好定期扫描应用程序的第三方库以了解已知的安全漏洞。每种编程语言都有一个自动执行此检查的工具。 |
 静态代码分析 | 大多数语言都提供给了一种方法，来分析代码段中是否存在潜在的不安全的编码实践。只要有可能，你都应该使用自动工具执行检查，该工具可以扫描代码库以查找常见的安全错误，一些工具可以在以下连接中找到：https://owasp.org/www-community/Source_Code_Analysis_Tools |
 动态探测攻击 | 您可以对服务运行一些自动化工具，来尝试一些众所周知的服务攻击。这些攻击包括 SQL 注入、CSRF 和 XSS。[OWASP Zed Attack](https://owasp.org/www-project-zap/) 代理工具是最受欢迎的动态分析工具之一。 |
-
-{{< /table >}}
+</table>
+<!--{{< /table >}}-->
 
 ## {{% heading "whatsnext" %}}
 
