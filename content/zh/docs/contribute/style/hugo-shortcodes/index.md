@@ -188,10 +188,10 @@ Parameter | Description | Default
 
 ```go-html-template
 {{</* table caption="配置参数" >}}
-参数      | 描述        | 默认值
+参数      | 描述        | 默认值|
 :---------|:------------|:-------
-`timeout` | 请求的超时时长 | `30s`
-`logLevel` | 日志输出的级别 | `INFO`
+`timeout` | 请求的超时时长 | `30s`|
+`logLevel` | 日志输出的级别 | `INFO`|
 {{< /table */>}}
 ```
 
