@@ -94,7 +94,7 @@ hosts running inside your tenancy with the cloud provider. The node controller p
 -->
 1. 针对控制器通过云平台驱动的 API 所发现的每个服务器初始化一个 Node 对象；
 2. 利用特定云平台的信息为 Node 对象添加注解和标签，例如节点所在的
-   区域（Region）和所具有的资源（CPU、内存等等）；
+   区域（Region）和所具有的资源（CPU、内存等）；
 3. 获取节点的网络地址和主机名；
 4. 检查节点的健康状况。如果节点无响应，控制器通过云平台 API 查看该节点是否
    已从云中禁用、删除或终止。如果节点已从云中删除，则控制器从 Kubernetes 集群
@@ -199,7 +199,7 @@ To set up Endpoints resources for the Services, it requires access to Create, Li
 对应服务的 Endpoints 对象。
 为了访问 Service 对象，它需要 List、Watch 访问权限；为了更新 Service 对象
 它需要 Patch 和 Update 访问权限。
-为了能够配置 Service 对应的 Endpoints 资源，它需要 Create、List、Get、Watch
+为了能够配置 Services 对应的 Endpoints 资源，它需要 Create、List、Get、Watch
 和 Update 等访问权限。
 
 `v1/Service`:
