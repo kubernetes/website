@@ -196,13 +196,15 @@ Parameter | Description | Default
 ```
 
 所渲染的表格如下：
-
+<table>
+<caption>配置参数</caption>
 <!-- {{< table caption="配置参数" >}} -->
 参数      | 描述        | 默认值|
 :---------|:------------|:-------|
 `timeout` | 请求的超时时长 | `30s`|
 `logLevel` | 日志输出的级别 | `INFO`|
 <!-- {{< /table >}} -->
+</table>
 <!--
 If you inspect the HTML for the table, you should see this element immediately after the opening `<table>` element:
 
