@@ -10,7 +10,7 @@ slug: Announcing-Kubernetes-Community-Group-Annual-Reports
 
 **Authors:** Divya Mohan
 
-{{< figure src="k8s_annual_report_2020.svg" alt="Community annual report 2020" link="https://github.com/kubernetes/steering/blob/master/reports/summary-2020.md" >}}
+{{< figure src="k8s_annual_report_2020.svg" alt="Community annual report 2020" link="https://www.cncf.io/reports/kubernetes-community-annual-report-2020/" >}}
 
 Given the growth and scale of the Kubernetes project, the existing reporting mechanisms were proving to be inadequate and challenging.
 Kubernetes is a large open source project. With over 100000 commits just to the main k/kubernetes repository, hundreds of other code
@@ -21,7 +21,7 @@ With that context in mind, the challenge of reporting on all this activity was a
 inspired by the Apache Software Foundation’s [open guide to PMC Reporting](https://www.apache.org/foundation/board/reporting) and the
 [CNCF project Annual Reporting](https://www.cncf.io/cncf-annual-report-2020/), the Kubernetes project is proud to announce the 
 **Kubernetes Community Group Annual Reports for Special Interest Groups (SIGs) and Working Groups (WGs)**. In its flagship edition, 
-the [2020 Summary report](https://github.com/kubernetes/steering/blob/master/reports/summary-2020.md) focuses on bettering the 
+the [2020 Summary report](https://www.cncf.io/reports/kubernetes-community-annual-report-2020/) focuses on bettering the 
 Kubernetes ecosystem by assessing and promoting the healthiness of the groups within the upstream community. 
 
 Previously, the mechanisms for the Kubernetes project overall to report on groups and their activities were 
