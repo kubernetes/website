@@ -113,7 +113,8 @@ etcd Encryption | Wherever possible it's a good practice to encrypt all drives a
 
 关于在 Kubernetes 集群中保护你的基础设施的建议：
 
-{{< table caption="基础设施安全" >}}
+<!-- {{< table caption="基础设施安全" >}} -->
+<caption>基础设施安全</caption>
 
 Kubetnetes 基础架构关注领域 | 建议 |
 --------------------------------------------- | -------------- |
