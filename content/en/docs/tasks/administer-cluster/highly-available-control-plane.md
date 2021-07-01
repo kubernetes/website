@@ -133,7 +133,7 @@ the [etcd administration guide](https://etcd.io/docs/v2.3/admin_guide/#member-mi
 
 ## Implementation notes
 
-![ha-master-gce](/images/docs/ha-master-gce.png)
+![ha-control-plane](/images/docs/ha-control-plane.svg)
 
 ### Overview
 
