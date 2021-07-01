@@ -36,6 +36,16 @@ The following methods exist for installing kubectl on macOS:
    {{< /tab >}}
    {{< /tabs >}}
 
+   Download kubectl-convert (optional)
+   {{< tabs name="download_binary_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl-convert"
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl-convert"
+   {{< /tab >}}
+   {{< /tabs >}}
+
    {{< note >}}
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
 
@@ -53,7 +63,7 @@ The following methods exist for installing kubectl on macOS:
 
    {{< /note >}}
 
-1. Validate the binary (optional)
+1. Validate the kubectl binary (optional)
 
    Download the kubectl checksum file:
 
@@ -89,10 +99,52 @@ The following methods exist for installing kubectl on macOS:
    Download the same version of the binary and checksum.
    {{< /note >}}
 
+1. Validate the kubectl-convert binary (optional)
+
+   Download the kubectl checksum file:
+
+   {{< tabs name="download_checksum_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl-convert.sha256"
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl-convert.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
+  
+   Validate the kubectl binary against the checksum file:
+
+   ```bash
+   echo "$(<kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
+   ```
+
+   If valid, the output is:
+
+   ```console
+   kubectl-convert: OK
+   ```
+
+   If the check fails, `shasum` exits with nonzero status and prints output similar to:
+
+   ```bash
+   kubectl-convert: FAILED
+   shasum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   Download the same version of the binary and checksum.
+   {{< /note >}}
+
 1. Make the kubectl binary executable.
 
    ```bash
    chmod +x ./kubectl
+   ```
+
+   Make kubectl-convert binary executable (optional).
+
+   ```bash
+   chmod +x ./kubectl-convert
    ```
 
 1. Move the kubectl binary to a file location on your system `PATH`.
@@ -100,6 +152,13 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    sudo mv ./kubectl /usr/local/bin/kubectl
    sudo chown root: /usr/local/bin/kubectl
+   ```
+
+   Move the kubectl-convert binary to your system `PATH` (optional)
+
+   ```bash
+   sudo mv ./kubectl /usr/local/bin/kubectl-convert
+   sudo chown root: /usr/local/bin/kubectl-convert
    ```
 
    {{< note >}}
