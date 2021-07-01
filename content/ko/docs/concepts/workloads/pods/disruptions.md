@@ -31,7 +31,7 @@ weight: 60
 - 클라우드 공급자 또는 하이퍼바이저의 오류로 인한 VM 장애
 - 커널 패닉
 - 클러스터 네트워크 파티션의 발생으로 클러스터에서 노드가 사라짐
-- 노드의 [리소스 부족](/docs/tasks/administer-cluster/out-of-resource/)으로 파드가 축출됨
+- 노드의 [리소스 부족](/docs/concepts/scheduling-eviction/node-pressure-eviction/)으로 파드가 축출됨
 
 리소스 부족을 제외한 나머지 조건은 대부분의 사용자가 익숙할 것이다.
 왜냐하면
@@ -76,7 +76,7 @@ weight: 60
 - 복제된 애플리케이션의 구동 시 훨씬 더 높은 가용성을 위해 랙 전체
   ([안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#파드간-어피니티와-안티-어피니티) 이용)
   또는 영역 간
-  ([다중 영역 클러스터](/docs/setup/multiple-zones)를 이용한다면)에
+  ([다중 영역 클러스터](/ko/docs/setup/best-practices/multiple-zones/)를 이용한다면)에
   애플리케이션을 분산해야 한다.
 
 자발적 중단의 빈도는 다양하다. 기본적인 쿠버네티스 클러스터에서는 자동화된 자발적 중단은 발생하지 않는다(사용자가 지시한 자발적 중단만 발생한다).

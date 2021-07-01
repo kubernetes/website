@@ -16,7 +16,7 @@ weight: 10
 튜토리얼을 시작하기 전에 다음의 쿠버네티스 컨셉에 대해
 익숙해야 한다.
 
-* [파드](/docs/user-guide/pods/single-container/)
+* [파드](/ko/docs/concepts/workloads/pods/)
 * [클러스터 DNS(Cluster DNS)](/ko/docs/concepts/services-networking/dns-pod-service/)
 * [헤드리스 서비스(Headless Services)](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
 * [퍼시스턴트볼륨(PersistentVolumes)](/ko/docs/concepts/storage/persistent-volumes/)
