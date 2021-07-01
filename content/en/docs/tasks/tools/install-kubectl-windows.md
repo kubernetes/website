@@ -33,11 +33,17 @@ The following methods exist for installing kubectl on Windows:
    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
    ```
 
+   Download kubectl-convert binary (optional)
+
+   ```powershell
+   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe
+   ```
+
    {{< note >}}
    To find out the latest stable version (for example, for scripting), take a look at [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
    {{< /note >}}
 
-1. Validate the binary (optional)
+1. Validate the kubectl binary (optional)
 
    Download the kubectl checksum file:
 
@@ -58,6 +64,29 @@ The following methods exist for installing kubectl on Windows:
 
      ```powershell
      $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
+     ```
+
+1. Validate the kubectl-convert binary (optional)
+
+   Download the kubectl-convert checksum file:
+
+   ```powershell
+   curl -LO https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256
+   ```
+
+   Validate the kubectl-convert binary against the checksum file:
+
+   - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
+
+     ```cmd
+     CertUtil -hashfile kubectl-convert.exe SHA256
+     type kubectl-convert.exe.sha256
+     ```
+
+   - Using PowerShell to automate the verification using the `-eq` operator to get a `True` or `False` result:
+
+     ```powershell
+     $($(CertUtil -hashfile .\kubectl-convert.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl-convert.exe.sha256)
      ```
 
 1. Add the binary in to your `PATH`.
