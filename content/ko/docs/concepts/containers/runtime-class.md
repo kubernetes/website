@@ -175,5 +175,5 @@ PodOverhead를 사용하려면, PodOverhead [기능 게이트](/ko/docs/referenc
 
 - [런타임클래스 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [런타임클래스 스케줄링 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
-- [파드 오버헤드](/ko/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
+- [파드 오버헤드](/ko/docs/concepts/scheduling-eviction/pod-overhead/) 개념에 대해 읽기
 - [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
