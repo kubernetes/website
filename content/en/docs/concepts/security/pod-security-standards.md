@@ -71,8 +71,7 @@ enforced/disallowed:
 				spec.hostPID<br>
 				spec.hostIPC<br>
 				<br><b>Allowed Values:</b><br>
-        false<br>
-        undefined / nil<br>
+        undefined / false<br>
 			</td>
 		</tr>
 		<tr>
@@ -264,8 +263,8 @@ well as lower-trust users.The following listed controls should be enforced/disal
 				The RuntimeDefault seccomp profile must be required, or allow specific additional profiles.<br>
 				<br><b>Restricted Fields:</b><br>
 				spec.securityContext.seccompProfile.type<br>
-				spec.containers[*].securityContext.seccompProfile<br>
-				spec.initContainers[*].securityContext.seccompProfile<br>
+				spec.containers[*].securityContext.seccompProfile.type<br>
+				spec.initContainers[*].securityContext.seccompProfile.type<br>
 				<br><b>Allowed Values:</b><br>
 				'RuntimeDefault'<br>
 			</td>
