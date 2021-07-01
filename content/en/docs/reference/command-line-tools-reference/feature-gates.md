@@ -124,7 +124,8 @@ different Kubernetes components.
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
 | `HugePageStorageMediumSize` | `true` | Beta | 1.19 | |
 | `IndexedJob` | `false` | Alpha | 1.21 | |
-| `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | |
+| `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | 1.21 |
+| `IngressClassNamespacedParams` | `true` | Beta | 1.22 | |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
 | `IPv6DualStack` | `true` | Beta | 1.21 | |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | |
