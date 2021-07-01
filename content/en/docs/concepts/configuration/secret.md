@@ -201,7 +201,8 @@ to create a Docker registry Secret, you can do:
 kubectl create secret docker-registry secret-tiger-docker \
   --docker-username=tiger \
   --docker-password=pass113 \
-  --docker-email=tiger@acme.com
+  --docker-email=tiger@acme.com \
+  --docker-server=my-registry:5000
 ```
 
 This command creates a Secret of type `kubernetes.io/dockerconfigjson`.
