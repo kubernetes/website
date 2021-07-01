@@ -4,6 +4,7 @@ description: "What's next after installing kubectl."
 headless: true
 ---
 
+* [What is kubectl-convert](/docs/reference/using-api/deprecation-guide/#migrate-to-non-deprecated-apis)
 * [Install Minikube](https://minikube.sigs.k8s.io/docs/start/)
 * See the [getting started guides](/docs/setup/) for more about creating clusters.
 * [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
