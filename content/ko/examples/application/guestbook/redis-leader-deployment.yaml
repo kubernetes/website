@@ -2,28 +2,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: redis-leader
+  labels:
+    app: redis
+    role: leader
+    tier: backend
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-        app: guestbook
-        tier: frontend
+      app: redis
   template:
     metadata:
       labels:
-        app: guestbook
-        tier: frontend
+        app: redis
+        role: leader
+        tier: backend
     spec:
       containers:
-      - name: php-redis
-        image: gcr.io/google_samples/gb-frontend:v5
-        env:
-        - name: GET_HOSTS_FROM
-          value: "dns"
+      - name: leader
+        image: "docker.io/redis:6.0.5"
         resources:
           requests:
             cpu: 100m
             memory: 100Mi
         ports:
-        - containerPort: 80
+        - containerPort: 6379
