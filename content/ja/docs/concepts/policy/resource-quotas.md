@@ -44,7 +44,7 @@ ResourceQuotaのオブジェクト名は、有効な[DNSサブドメイン名](/
 
 ## リソースクォータの計算
 
-特定の名前空間において、[コンピュートリソース](/docs/concepts/configuration/manage-resources-containers/)の合計に上限を設定できます。
+特定の名前空間において、[コンピュートリソース](/ja/docs/concepts/configuration/manage-resources-containers/)の合計に上限を設定できます。
 
 下記のリソースタイプがサポートされています。
 
@@ -61,7 +61,7 @@ ResourceQuotaのオブジェクト名は、有効な[DNSサブドメイン名](/
 
 ### 拡張リソースのためのリソースクォータ
 
-上記で取り上げたリソースに加えて、Kubernetes v1.10において、[拡張リソース](/docs/concepts/configuration/manage-resources-containers/#extended-resources)のためのリソースクォータのサポートが追加されました。
+上記で取り上げたリソースに加えて、Kubernetes v1.10において、[拡張リソース](/ja/docs/concepts/configuration/manage-resources-containers/#extended-resources)のためのリソースクォータのサポートが追加されました。
 
 拡張リソースに対するオーバーコミットが禁止されているのと同様に、リソースクォータで拡張リソース用に`requests`と`limits`の両方を指定しても意味がありません。現在、拡張リソースに対しては`requests.`というプレフィックスのついたクォータアイテムのみ設定できます。
 
