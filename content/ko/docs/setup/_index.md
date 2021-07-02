@@ -58,6 +58,6 @@ card:
 - 클러스터 구성의 [모범 사례](/ko/docs/setup/best-practices/)를 확인한다.
 
 쿠버네티스의 {{< glossary_tooltip term_id="control-plane" text="컨트롤 플레인" >}}은 
-리눅스에서 실행되어야 한다. 클러스터 내에서는 리눅스 또는 
+리눅스에서 실행되도록 설계되었다. 클러스터 내에서는 리눅스 또는 
 다른 운영 체제(예: 윈도우)에서 애플리케이션을 실행할 수 있다.
 - [윈도우 노드를 포함하는 클러스터 구성하기](/ko/docs/setup/production-environment/windows/)를 살펴본다.

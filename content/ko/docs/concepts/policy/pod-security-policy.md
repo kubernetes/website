@@ -567,7 +567,7 @@ spec:
 리눅스 기능은 전통적으로 슈퍼유저와 관련된 권한을 보다 세밀하게 분류한다.
 이러한 기능 중 일부는 권한 에스컬레이션 또는 컨테이너 분류에 사용될 수 있으며
 파드시큐리티폴리시에 의해 제한될 수 있다. 리눅스 기능에 대한 자세한 내용은
-[기능(7)](http://man7.org/linux/man-pages/man7/capabilities.7.html)을
+[기능(7)](https://man7.org/linux/man-pages/man7/capabilities.7.html)을
 참고하길 바란다.
 
 다음 필드는 대문자로 표기된 기능 이름 목록을

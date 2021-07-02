@@ -269,7 +269,7 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
       Forwarding from [::1]:8080 -> 80
       ```
 
-1. 방명록을 보기위해 브라우저에서 [http://localhost:8080](http://localhost:8080) 페이지를 로드한다.
+1. 방명록을 보기 위해 브라우저에서 [http://localhost:8080](http://localhost:8080) 페이지를 로드한다.
 
 ### `LoadBalancer`를 통해 프론트엔드 서비스 확인하기
 
