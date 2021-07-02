@@ -20,7 +20,7 @@ identificadores à seguir:
 3. Blocos de IP (exceção: o tráfego de e para o nó que um Pod está executando sempre é permitido,
 independentemente do endereço IP do Pod ou do Nó)
 
-Quando definindo uma política de rede baseada em pod ou namespace, você utiliza um {{< glossary_tooltip text="selector" term_id="selector">}}
+Quando definimos uma política de rede baseada em pod ou namespace, utiliza-se um {{< glossary_tooltip text="selector" term_id="selector">}}
 para especificar qual tráfego é permitido de e para o(s) Pod(s) que correspondem ao seletor.
 
 Quando uma política de redes baseada em IP é criada, nós definimos a política baseada em blocos de IP (faixas CIDR).
@@ -111,7 +111,7 @@ __podSelector__: Cada `NetworkPolicy` inclui um `podSelector` que seleciona o gr
 que a política se aplica. A política acima seleciona os pods com a _label_ "role=db". Um `podSelector`
 vazio seleciona todos os pods no namespace.
 
-__policyTypes__: Cada `NetworkPolicy` inclui uma lista de `policyTypes`que pode incluir `Ingress`, 
+__policyTypes__: Cada `NetworkPolicy` inclui uma lista de `policyTypes` que pode incluir `Ingress`, 
 `Egress` ou ambos. O campo `policyTypes` indica se a política se aplica ao tráfego de entrada 
 com destino aos pods selecionados, o tráfego de saída com origem dos pods selecionados ou ambos.
 Se nenhum `policyType` for definido então por padrão o tipo `Ingress` será sempre utilizado, e o 
@@ -237,7 +237,7 @@ uma política que permite explicitamente todo o tráfego naquele namespace.
 ### Bloqueio padrão de todo tráfego de saída
 
 Você pode criar uma política de isolamento de saída padrão para um namespace criando uma 
-política de redes que selecione todos os pods mas não permita o tráfego de saída a partir 
+política de redes que selecione todos os pods, mas não permita o tráfego de saída a partir 
 de nenhum desses pods.
 
 {{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
@@ -249,7 +249,7 @@ tráfego de saída. Essa política não muda o comportamento padrão de tráfego
 
 Caso você queira permitir todo o tráfego de todos os pods em um namespace (mesmo que políticas sejam 
 adicionadas e cause com que alguns pods sejam tratados como "isolados"), você pode criar uma 
-política que permite explicitamente todo o tráfego de saída no namespace.
+política explicita que permite todo o tráfego de saída no namespace.
 
 {{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
 
@@ -293,7 +293,7 @@ spec:
 ```
 
 A regra acima permite a qualquer Pod com a _label_ "role=db" no namespace `default` de se comunicar 
-com qualquer IP na faixa `10.0.0.0/24` através de protocólo TCP, desde que a porta de destino 
+com qualquer IP na faixa `10.0.0.0/24` através de protocolo TCP, desde que a porta de destino 
 esteja na faixa entre 32000 e 32768.
 
 As seguintes restrições aplicam-se ao se utilizar esse campo:
@@ -314,7 +314,7 @@ que suporte o campo `endPort` na especificação da política de redes.
 {{< feature-state state="beta" for_k8s_version="1.21" >}}
 
 A camada de gerenciamento do Kubernetes configura uma _label_ imutável `kubernetes.io/metadata.name` em 
-todos os namespaces, uma vez que o [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) está habilitado por padrão.
+todos os namespaces, uma vez que o [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) esteja habilitado por padrão.
 O valor dessa _label_  é o nome do namespace.
 
 Enquanto que um objeto `NetworkPolicy` não pode selecionar um namespace pelo seu nome através de 
@@ -330,12 +330,12 @@ histórias de usuário a seguir ainda não podem ser implementadas:
 - Forçar o tráfego interno do cluster passar por um gateway comum (pode ser implementado via service mesh ou outros proxies)
 - Qualquer coisa relacionada a TLS/mTLS (use um service mesh ou ingress controller para isso)
 - Políticas específicas a nível do nó kubernetes (você pode utilizar as notações de IP CIDR para isso, mas não pode selecionar nós Kubernetes por suas identidades)
-- Selecionar `Services` pelo seu nome (você pode, contudo, selecionar pods e namespaces por suas {{< glossary_tooltip text="labels" term_id="label" >}} o que torna-se uma solução de contorno viável).
+- Selecionar `Services` pelo seu nome (você pode, contudo, selecionar pods e namespaces por seus {{< glossary_tooltip text="labels" term_id="label" >}} o que torna-se uma solução de contorno viável).
 - Criação ou gerenciamento 
 - Políticas padrão que são aplicadas a todos os namespaces e pods (existem alguns plugins externos do Kubernetes e projetos que podem fazer isso, e a comunidade está trabalhando nessa especificação).
 - Ferramental de testes para validação de políticas de redes.
 - Possibilidade de logar eventos de segurança de redes (conexões bloqueadas, aceitas). Existem plugins CNI que conseguem fazer isso à parte.
-- Possibilidade de explicitamente negar políticas de rede (o modelo das `NetworkPolicies` são "negar por padrão, adicionar regras que permitam o tráfego).
+- Possibilidade de explicitamente negar políticas de rede (o modelo das `NetworkPolicies` são "negar por padrão e conforme a necessidade, deve-se adicionar regras que permitam o tráfego).
 - Bloquear o tráfego que venha da interface de loopback/localhost ou que venham do nó em que o Pod se encontre.
 
 ## {{% heading "whatsnext" %}}
