@@ -167,7 +167,8 @@ different Kubernetes components.
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `SeccompDefault` | `false` | Alpha | 1.22 | |
 | `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | |
-| `ServiceLBNodePortControl` | `false` | Alpha | 1.20 | |
+| `ServiceLBNodePortControl` | `false` | Alpha | 1.20 | 1.21 |
+| `ServiceLBNodePortControl` | `true` | Beta | 1.22 | |
 | `ServiceLoadBalancerClass` | `false` | Alpha | 1.21 | 1.21 |
 | `ServiceLoadBalancerClass` | `true` | Beta | 1.22 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
