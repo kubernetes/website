@@ -238,6 +238,12 @@ You can now close the shell to your Node.
 
 {{< codenew file="pods/storage/pv-duplicate.yaml" >}}
 
+Example :
+We can perform 2 volume mounts on your nginx container:
+
+- /usr/share/nginx/html for the static website
+- /etc/nginx/nginx.conf for the default config
+
 ## Access control
 
 Storage configured with a group ID (GID) allows writing only by Pods using the same
