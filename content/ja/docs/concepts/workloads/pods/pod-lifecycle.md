@@ -55,7 +55,7 @@ Nodeが停止するか、クラスタの残りの部分から切断された場�
 
 ## コンテナのステータス {#container-states}
 
-Pod全体の[フェーズ](#pod-phase)と同様に、KubernetesはPod内の各コンテナの状態を追跡します。[container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)を使用して、コンテナのライフサイクルの特定のポイントで実行するイベントをトリガーできます。
+Pod全体の[フェーズ](#pod-phase)と同様に、KubernetesはPod内の各コンテナの状態を追跡します。[container lifecycle hooks](/ja/docs/concepts/containers/container-lifecycle-hooks/)を使用して、コンテナのライフサイクルの特定のポイントで実行するイベントをトリガーできます。
 
 Podが{{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}によってNodeに割り当てられると、kubeletは{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}を使用してコンテナの作成を開始します。コンテナの状態は`Waiting`、`Running`または`Terminated`の3ついずれかです。
 
@@ -228,7 +228,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
 1. API server内のPodは、猶予期間を越えるとPodが「死んでいる」と見なされるように更新される。  
    削除中のPodに対して`kubectl describe`コマンドを使用すると、Podは「終了中」と表示される。  
    Podが実行されているNode上で、Podが終了しているとマークされている(正常な終了期間が設定されている)とkubeletが認識するとすぐに、kubeletはローカルでPodの終了プロセスを開始します。
-    1. Pod内のコンテナの1つが`preStop`[フック](/docs/concepts/containers/container-lifecycle-hooks/#hook-details)を定義している場合は、コンテナの内側で呼び出される。猶予期間が終了した後も `preStop`フックがまだ実行されている場合は、一度だけ猶予期間を延長される(2秒)。
+    1. Pod内のコンテナの1つが`preStop`[フック](/ja/docs/concepts/containers/container-lifecycle-hooks/#hook-details)を定義している場合は、コンテナの内側で呼び出される。猶予期間が終了した後も `preStop`フックがまだ実行されている場合は、一度だけ猶予期間を延長される(2秒)。
    {{< note >}}
    `preStop`フックが完了するまでにより長い時間が必要な場合は、`terminationGracePeriodSeconds`を変更する必要があります。
    {{< /note >}}
@@ -275,6 +275,6 @@ StatefulSetのPodについては、[StatefulSetからPodを削除するための
 
 * [Configure Liveness, Readiness and Startup Probes](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のハンズオンをやってみる
 
-* [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)についてもっと学ぶ
+* [Container lifecycle hooks](/ja/docs/concepts/containers/container-lifecycle-hooks/)についてもっと学ぶ
 
 * APIのPod/コンテナステータスの詳細情報は[PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)および[ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)を参照してください
