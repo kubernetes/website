@@ -727,7 +727,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
   feature to account for pod overheads.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their
-  [priorities](/docs/concepts/configuration/pod-priority-preemption/).
+  [priorities](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
   Pod readiness evaluation.  See [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
   for more details.
