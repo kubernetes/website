@@ -41,13 +41,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    ```
    {{< /note >}}
 
-   Download kubectl-convert (optional)
-
-   ```bash
-   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
-   ```
-
-1. Validate the kubectl binary (optional)
+1. Validate the binary (optional)
 
    Download the kubectl checksum file:
 
@@ -78,47 +72,10 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    Download the same version of the binary and checksum.
    {{< /note >}}
 
-1. Validate the kubectl-convert binary (optional)
-
-   Download the kubectl-convert checksum file:
-
-   ```bash
-   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
-   ```
-
-   Validate the kubectl-convert binary against the checksum file:
-
-   ```bash
-   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
-   ```
-
-   If valid, the output is:
-
-   ```console
-   kubectl-convert: OK
-   ```
-
-   If the check fails, `sha256` exits with nonzero status and prints output similar to:
-
-   ```bash
-   kubectl-convert: FAILED
-   sha256sum: WARNING: 1 computed checksum did NOT match
-   ```
-
-   {{< note >}}
-   Download the same version of the binary and checksum.
-   {{< /note >}}
-
 1. Install kubectl
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-   ```
-
-   Install kubectl-convert (optional)
-
-   ```bash
-   sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
    ```
 
    {{< note >}}
@@ -214,7 +171,7 @@ kubectl version --client
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Optional kubectl configurations
+## Optional kubectl configurations and plugins
 
 ### Enable shell autocompletion
 
@@ -226,6 +183,54 @@ Below are the procedures to set up autocompletion for Bash and Zsh.
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
+
+### Install kubectl convert plugin
+
+{{< include "included/kubectl-convert-overview.md" >}}
+
+1. Download the latest release with the command:
+
+   ```bash
+   curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert
+   ```
+
+1. Validate the binary (optional)
+
+   Download the kubectl-convert checksum file:
+
+   ```bash
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
+   ```
+
+   Validate the kubectl-convert binary against the checksum file:
+
+   ```bash
+   echo "$(<kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+   ```
+
+   If valid, the output is:
+
+   ```console
+   kubectl-convert: OK
+   ```
+
+   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+
+   ```bash
+   kubectl-convert: FAILED
+   sha256sum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   Download the same version of the binary and checksum.
+   {{< /note >}}
+
+1. Install kubectl-convert
+
+   ```bash
+   sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
+   ```
+
 
 ## {{% heading "whatsnext" %}}
 
