@@ -189,7 +189,7 @@ and pre-created PVs, but you'll need to look at the documentation for a specific
 to see its supported topology keys and examples.
 
 {{< note >}}
-   If you choose to use `waitForFirstConsumer`, do not use `nodeName` in the Pod spec
+   If you choose to use `WaitForFirstConsumer`, do not use `nodeName` in the Pod spec
    to specify node affinity. If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
 
    Instead, you can use node selector for hostname in this case as shown below.
