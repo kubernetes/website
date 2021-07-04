@@ -86,7 +86,7 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
   アプリケーション名は、選択したKubernetes[名前空間](/docs/tasks/administer-cluster/namespaces/)内で一意である必要があります。
   小文字で始まり、小文字または数字で終わり、小文字、数字、ダッシュ(-)のみを含む必要があります。文字数は24文字に制限されています。先頭と末尾のスペースは無視されます。
 
-- **Container image** (必須): 任意のレジストリ上の公開Docker[コンテナイメージ](/docs/concepts/containers/images/)、またはプライベートイメージ(一般的にはGoogle Container RegistryやDocker Hub上でホストされている)のURLです。
+- **Container image** (必須): 任意のレジストリ上の公開Docker[コンテナイメージ](/ja/docs/concepts/containers/images/)、またはプライベートイメージ(一般的にはGoogle Container RegistryやDocker Hub上でホストされている)のURLです。
   コンテナイメージの指定はコロンで終わらせる必要があります。
 
   クラスタ全体で必要な数のPodを維持するために、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)が作成されます。
@@ -141,7 +141,7 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
 
   ダッシュボードでは、利用可能なすべてのSecretがドロップダウンリストに表示され、新しいSecretを作成できます。
   Secret名は DNSドメイン名の構文に従う必要があります。たとえば、`new.image-pull.secret`です。
-  Secretの内容はbase64エンコードされ、[`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)ファイルで指定されている必要があります。
+  Secretの内容はbase64エンコードされ、[`.dockercfg`](/ja/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)ファイルで指定されている必要があります。
   Secret名は最大253文字で構成されます。
 
   イメージプルシークレットの作成に成功した場合は、デフォルトで選択されています。作成に失敗した場合は、シークレットは適用されません。

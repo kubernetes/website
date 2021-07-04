@@ -36,7 +36,7 @@ weight: 10
 {{< /caution >}}
 
 
-## イメージの更新
+## イメージの更新 {#updating-images}
 
 デフォルトのpull policyでは、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}はイメージを既に取得済みの場合、イメージのPullをスキップさせる`IfNotPresent`が設定されています。
 常にPullを強制させたい場合は、次のいずれかの方法で実行できます。
@@ -178,7 +178,7 @@ Node構成を制御できる場合、この方法が適しています。
 
 すべてのPodは事前にPullしたイメージへの読み取りアクセス権をもちます。
 
-### PodでimagePullSecretsを指定する
+### PodでimagePullSecretsを指定する {#specifying-imagepullsecrets-on-a-pod}
 
 {{< note >}}
 この方法がプライベートレジストリのイメージに基づいてコンテナを実行するための推奨の方法です。

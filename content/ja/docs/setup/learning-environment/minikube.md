@@ -469,7 +469,7 @@ spec:
 
 ## プライベートコンテナレジストリ
 
-プライベートコンテナレジストリにアクセスするには、[このページ](/docs/concepts/containers/images/)の手順に従ってください。
+プライベートコンテナレジストリにアクセスするには、[このページ](/ja/docs/concepts/containers/images/)の手順に従ってください。
 
 `ImagePullSecrets` を使用することをおすすめしますが、MinikubeのVM内でアクセス設定したい場合には、`/home/docker` ディレクトリに `.dockercfg` を置くか、または `/home/docker/.docker` ディレクトリに `config.json` を置いてください。
 
