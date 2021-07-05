@@ -50,7 +50,7 @@ options ndots:5
 ```
 
 요약하면, _test_ 네임스페이스에 있는 파드는 `data.prod` 또는
-`data.prod.cluster.local` 중 하나를 통해 성공적으로 해석될 수 있다.
+`data.prod.svc.cluster.local` 중 하나를 통해 성공적으로 해석될 수 있다.
 
 ### DNS 레코드
 
