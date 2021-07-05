@@ -18,7 +18,7 @@ weight: 40
 
 ## `website` 저장소 클론하기 {#Getting-the-docs-repository}
 
-개인 계정에 있는 포크 버전의 `website` 저장소가 `kubernetes/website` 저장소의 master 브랜치만큼 최신인지 확인한 뒤,
+개인 계정에 있는 포크 버전의 `website` 저장소가 GitHub에 있는 `kubernetes/website` 저장소(`main` 브랜치)의 최신 상태와 일치하는지 확인한 뒤,
 개인 계정에 있는 포크 버전의 `website` 저장소를 로컬 개발 환경으로 클론한다.
 
 ```shell
@@ -171,7 +171,7 @@ cd <web-base>/update-imported-docs
 `release.yml` 환경설정 파일은 상대경로 링크를 수정하는 방법을 포함하고 있다.
 임포트하는 파일 안에 있는 상대경로 링크를 수정하려면, `gen-absolute-links` 필드를 
 `true` 로 명시한다. 이에 대한 예시는 
-[`release.yml`](https://github.com/kubernetes/website/blob/master/update-imported-docs/release.yml) 에서 볼 수 있다.
+[`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml) 에서 볼 수 있다.
 
 ## `kubernetes/website` 의 변경사항을 커밋하기 {#Adding-and-committing-changes-in-kubernetes-website}
 
