@@ -168,7 +168,7 @@ Below are the procedures to set up autocompletion for Bash and Zsh.
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
-### Install kubectl convert plugin
+### Install `kubectl convert` plugin
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
@@ -235,6 +235,14 @@ Below are the procedures to set up autocompletion for Bash and Zsh.
    {{< note >}}
    Make sure `/usr/local/bin` is in your PATH environment variable.
    {{< /note >}}
+
+1. Verify plugin is successfully installed
+
+   ```shell
+   kubectl convert --help
+   ```
+
+   If you do not see an error, it means the plugin is successfully installed.
 
 ## {{% heading "whatsnext" %}}
 

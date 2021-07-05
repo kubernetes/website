@@ -140,7 +140,7 @@ Below are the procedures to set up autocompletion for Zsh, if you are running th
 
 {{< include "included/optional-kubectl-configs-zsh.md" >}}
 
-### Install kubectl-convert plugin
+### Install `kubectl convert` plugin
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
@@ -174,6 +174,14 @@ Below are the procedures to set up autocompletion for Zsh, if you are running th
      ```
 
 1. Add the binary in to your `PATH`.
+
+1. Verify plugin is successfully installed
+
+   ```shell
+   kubectl convert --help
+   ```
+
+   If you do not see an error, it means the plugin is successfully installed.
 
 ## {{% heading "whatsnext" %}}
 
