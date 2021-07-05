@@ -77,6 +77,20 @@ weight: 10
 
 `imagePullPolicy` 가 특정값 없이 정의되면, `Always` 로 설정된다.
 
+### 이미지풀백오프(ImagePullBackOff)
+
+kubelet이 컨테이너 런타임을 사용하여 파드의 컨테이너 생성을 시작할 때, 
+`ImagePullBackOff`로 인해 컨테이너가 
+[Waiting](/ko/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting) 상태에 있을 수 있다.
+
+`ImagePullBackOff`라는 상태는 (이미지 이름이 잘못됨, 또는 `imagePullSecret` 없이 
+비공개 레지스트리에서 풀링 시도 등의 이유로) 쿠버네티스가 컨테이너 이미지를 
+가져올 수 없기 때문에 컨테이너를 실행할 수 없음을 의미한다. `BackOff`라는 단어는 
+쿠버네티스가 백오프 딜레이를 증가시키면서 이미지 풀링을 계속 시도할 것임을 나타낸다.
+
+쿠버네티스는 시간 간격을 늘려가면서 시도를 계속하며, 시간 간격의 상한은 쿠버네티스 코드에 
+300초(5분)로 정해져 있다.
+
 ## 이미지 인덱스가 있는 다중 아키텍처 이미지
 
 바이너리 이미지를 제공할 뿐만 아니라, 컨테이너 레지스트리는 [컨테이너 이미지 인덱스](https://github.com/opencontainers/image-spec/blob/master/image-index.md)를 제공할 수도 있다. 이미지 인덱스는 컨테이너의 아키텍처별 버전에 대한 여러 [이미지 매니페스트](https://github.com/opencontainers/image-spec/blob/master/manifest.md)를 가리킬 수 있다. 아이디어는 이미지의 이름(예를 들어, `pause`, `example/mycontainer`, `kube-apiserver`)을 가질 수 있다는 것이다. 그래서 다른 시스템들이 사용하고 있는 컴퓨터 아키텍처에 적합한 바이너리 이미지를 가져올 수 있다.
