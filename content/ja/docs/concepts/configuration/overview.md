@@ -68,7 +68,7 @@ weight: 10
 
 ## コンテナイメージ
 
-[imagePullPolicy](/docs/concepts/containers/images/#updating-images)とイメージのタグは、[kubelet](/docs/reference/command-line-tools-reference/kubelet/)が特定のイメージをpullしようとしたときに作用します。
+[imagePullPolicy](/ja/docs/concepts/containers/images/#updating-images)とイメージのタグは、[kubelet](/docs/reference/command-line-tools-reference/kubelet/)が特定のイメージをpullしようとしたときに作用します。
 
 - `imagePullPolicy: IfNotPresent`: ローカルでイメージが見つからない場合にのみイメージをpullします。
 

@@ -662,7 +662,7 @@ kubeletはこの情報をPodのためにプライベートイメージをpullす
 
 #### imagePullSecretを手動で指定する
 
-`ImagePullSecrets`の指定の方法は[コンテナイメージのドキュメント](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)に記載されています。
+`ImagePullSecrets`の指定の方法は[コンテナイメージのドキュメント](/ja/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)に記載されています。
 
 ### imagePullSecretsが自動的にアタッチされるようにする
 
