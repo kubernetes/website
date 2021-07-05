@@ -2,7 +2,7 @@
 title: API-initiated eviction
 id: api-eviction
 date: 2021-04-27
-full_link: /docs/concepts/scheduling-eviction/pod-eviction/#api-eviction
+full_link: /docs/concepts/scheduling-eviction/api-eviction/
 short_description: >
   API-initiated eviction is the process by which you use the Eviction API to create an
   Eviction object that triggers graceful pod termination.
