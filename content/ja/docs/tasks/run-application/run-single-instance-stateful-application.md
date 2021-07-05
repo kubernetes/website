@@ -40,7 +40,7 @@ Kubernetes Deploymentを作成し、PersistentVolumeClaimを使用して既存�
 このファイルは/var/lib/mysqlのボリュームマウントを定義してから、20Gのボリュームを要求するPersistentVolumeClaimを作成します。
 この要求は、要件を満たす既存のボリューム、または動的プロビジョナーによって満たされます。
 
-注：パスワードはYAMLファイル内に定義されており、これは安全ではありません。安全な解決策については[Kubernetes Secret](/docs/concepts/configuration/secret/)を参照してください 。
+注：パスワードはYAMLファイル内に定義されており、これは安全ではありません。安全な解決策については[Kubernetes Secret](/ja/docs/concepts/configuration/secret/)を参照してください 。
 
 {{< codenew file="application/mysql/mysql-deployment.yaml" >}}
 {{< codenew file="application/mysql/mysql-pv.yaml" >}}

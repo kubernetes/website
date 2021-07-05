@@ -232,7 +232,7 @@ Address 1: 10.0.162.149
 
 * https用の自己署名証明書(既にID証明書を持っている場合を除く)
 * 証明書を使用するように構成されたnginxサーバー
-* Podが証明書にアクセスできるようにする[Secret](/docs/concepts/configuration/secret/)
+* Podが証明書にアクセスできるようにする[Secret](/ja/docs/concepts/configuration/secret/)
 
 これらはすべて[nginx httpsの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/)から取得できます。
 これにはツールをインストールする必要があります。
