@@ -75,6 +75,7 @@ for provisioning PVs. This field must be specified.
 | GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
+| ionir                | -                   | [ionir](#ionir)                      |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
 | NFS                  | -                   | -                                    |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
@@ -717,6 +718,26 @@ add the `create` permission of resource `secret` for clusterrole
 In a multi-tenancy context, it is strongly recommended to set the value for 
 `secretNamespace` explicitly, otherwise the storage account credentials may
 be read by other users.
+
+### ionir 
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ionir-default
+provisioner: ionir
+parameters:
+  blockSize: 8k
+  historyPolicy: 24-hours
+  type: ext4
+
+```
+* `blockSize`: block size in Kbytes (default: `16k`).
+* `historyPolicy`:  defines the window of time for which Ionir keeps versions of the volume in 1 second granularity (default: `0s`).
+* `type`: filesystem to configure on the created volumes: `block/xfs/ext4` (default: `ext4`).
+
+Every volumes that is created with ionir provisioner is thin-provisioned, compressed, replicated and deduplicated within the kubernetes cluster automatically without any additional configurations needed.
 
 ### Portworx Volume
 
