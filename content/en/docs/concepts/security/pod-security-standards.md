@@ -171,6 +171,24 @@ enforced/disallowed:
 				undefined/empty<br>
 			</td>
 		</tr>
+		<tr>
+ 			<td>Seccomp</td>
+ 			<td>
+ 				Seccomp profile must not be explicitly set to <code>Unconfined</code>. 
+ 				<br>
+ 				<br><b>Restricted Fields:</b><br>
+ 				spec.securityContext.seccompProfile.type<br>
+ 				spec.containers[*].securityContext.seccompProfile.type<br>
+ 				spec.initContainers[*].securityContext.seccompProfile.type<br>
+ 				<br><b>Allowed Values:</b><br>
+ 				<ul>
+ 				<li><code>RuntimeDefault</code></li>
+ 				<li><code>Localhost</code>*</li>
+ 				<li>undefined/nil</li>
+ 				</ul>
+ 				<small>* must also set <code>securityContext.SeccompProfile.localhostProfile</code></small>
+ 			</td>
+ 		</tr>
 	</tbody>
 </table>
 
@@ -258,16 +276,20 @@ well as lower-trust users.The following listed controls should be enforced/disal
 		</tr>
 		<tr>
 			<td>Seccomp</td>
-			<td>
-				The RuntimeDefault seccomp profile must be required, or allow specific additional profiles.<br>
-				<br><b>Restricted Fields:</b><br>
-				spec.securityContext.seccompProfile.type<br>
-				spec.containers[*].securityContext.seccompProfile<br>
-				spec.initContainers[*].securityContext.seccompProfile<br>
-				<br><b>Allowed Values:</b><br>
-				'runtime/default'<br>
-				undefined / nil<br>
-			</td>
+ 			<td>
+ 				Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited.
+ 				<br>
+ 				<br><b>Restricted Fields:</b><br>
+ 				spec.securityContext.seccompProfile.type<br>
+ 				spec.containers[*].securityContext.seccompProfile.type<br>
+ 				spec.initContainers[*].securityContext.seccompProfile.type<br>
+ 				<br><b>Allowed Values:</b><br>
+ 				<ul>
+ 				<li><code>RuntimeDefault</code></li>
+ 				<li><code>Localhost</code>*</li>
+ 				</ul>
+ 				<small>* must also set <code>securityContext.SeccompProfile.localhostProfile</code></small>
+ 			</td>
 		</tr>
 	</tbody>
 </table>
