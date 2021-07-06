@@ -435,7 +435,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `RotateKubeletClientCertificate`: kubeletでクライアントTLS証明書のローテーションを有効にします。詳細は[kubeletの設定](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)で確認できます。
 - `RotateKubeletServerCertificate`: kubeletでサーバーTLS証明書のローテーションを有効にします。詳細は[kubeletの設定](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)で確認できます。
 - `RunAsGroup`: コンテナの初期化プロセスで設定されたプライマリグループIDの制御を有効にします。
-- `RuntimeClass`: コンテナのランタイム構成を選択するには[RuntimeClass](/docs/concepts/containers/runtime-class/)機能を有効にします。
+- `RuntimeClass`: コンテナのランタイム構成を選択するには[RuntimeClass](/ja/docs/concepts/containers/runtime-class/)機能を有効にします。
 - `ScheduleDaemonSetPods`: DaemonSetのPodをDaemonSetコントローラーではなく、デフォルトのスケジューラーによってスケジュールされるようにします。
 - `SCTPSupport`: Pod、Service、Endpoints、EndpointSlice、およびNetworkPolicy定義で _SCTP_ `protocol`値を有効にします。
 - `ServerSideApply`: APIサーバーで[サーバーサイドApply(SSA)](/docs/reference/using-api/server-side-apply/)のパスを有効にします。
