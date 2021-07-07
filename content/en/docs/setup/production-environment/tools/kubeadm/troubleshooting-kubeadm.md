@@ -89,23 +89,11 @@ If you notice that `kubeadm init` hangs after printing out the following line:
 This may be caused by a number of problems. The most common are:
 
 - network connection problems. Check that your machine has full network connectivity before continuing.
-- the default cgroup driver configuration for the kubelet differs from that used by Docker.
-  Check the system log file (e.g. `/var/log/message`) or examine the output from `journalctl -u kubelet`. If you see something like the following:
-
-  ```shell
-  error: failed to run Kubelet: failed to create kubelet:
-  misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
-  ```
-
-  There are two common ways to fix the cgroup driver problem:
-
-  1. Install Docker again following instructions
-     [here](/docs/setup/production-environment/container-runtimes/#docker).
-
-  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
-     [Configure cgroup driver used by kubelet on control-plane node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)
-
-- control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
+- the cgroup driver of the container runtime differs from that of the kubelet. To understand how to
+configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+- control plane containers are crashlooping or hanging. You can check this by running `docker ps`
+and investigating each container by running `docker logs`. For other container runtime see
+[Debugging Kubernetes nodes with crictl](/docs/tasks/debug-application-cluster/crictl/).
 
 ## kubeadm blocks when removing managed containers
 
