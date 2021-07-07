@@ -130,7 +130,7 @@ ditulis dalam huruf kapital pada halaman asli bahasa Inggris.
 
 ### Panduan untuk "Feature Gate" Kubernetes
 
-Istilah [_functional gate_](/docs/reference/command-line-tools-reference/feature-gates/) 
+Istilah [_feature gate_](/docs/reference/command-line-tools-reference/feature-gates/) 
 Kubernetes tidak perlu diterjemahkan ke dalam bahasa Indonesia dan tetap 
 dipertahankan dalam bentuk aslinya.
 
