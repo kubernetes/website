@@ -264,7 +264,7 @@ well as lower-trust users.The following listed controls should be enforced/disal
 				spec.containers[*].securityContext.seccompProfile<br>
 				spec.initContainers[*].securityContext.seccompProfile<br>
 				<br><b>Allowed Values:</b><br>
-				'runtime/default'<br>
+				'RuntimeDefault'<br>
 				undefined / nil<br>
 			</td>
 		</tr>
