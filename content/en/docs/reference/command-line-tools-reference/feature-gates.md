@@ -138,6 +138,7 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
+| `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | |
 | `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
 | `MemoryManager` | `true` | Beta | 1.22 | |
@@ -785,6 +786,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
   for more details.
 - `KubeletCredentialProviders`: Enable kubelet exec credential providers for image pull credentials.
+- `KubeletInUserNamespace`: Enables support for running kubelet in a {{<glossary_tooltip text="user namespace" term_id="userns">}}.
+   See [Running Kubernetes Node Components as a Non-root User](/docs/tasks/administer-cluster/kubelet-in-userns/).
 - `KubeletPluginsWatcher`: Enable probe-based plugin watcher utility to enable kubelet
   to discover plugins such as [CSI volume drivers](/docs/concepts/storage/volumes/#csi).
 - `KubeletPodResources`: Enable the kubelet's pod resources gRPC endpoint. See
