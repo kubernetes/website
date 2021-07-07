@@ -146,6 +146,7 @@ different Kubernetes components.
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | |
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 | 1.21 |
 | `NetworkPolicyEndPort` | `true` | Beta | 1.22 |  |
+| `NodeSwap` | `false` | Alpha | 1.22 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
@@ -783,6 +784,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NodeDisruptionExclusion`: Enable use of the Node label `node.kubernetes.io/exclude-disruption`
   which prevents nodes from being evacuated during zone failures.
 - `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
+- `NodeSwap`: Enable the kubelet to allocate swap memory for Kubernetes workloads on a node.
+  Must be used with `KubeletConfiguration.failSwapOn` set to false.
+  For more details, please see [swap memory](/docs/concepts/architecture/nodes/#swap-memory)
 - `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
