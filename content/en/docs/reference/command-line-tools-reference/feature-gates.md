@@ -129,6 +129,7 @@ different Kubernetes components.
 | `HugePageStorageMediumSize` | `true` | Beta | 1.19 | |
 | `IndexedJob` | `false` | Alpha | 1.21 | 1.21 |
 | `IndexedJob` | `true` | Beta | 1.22 | |
+| `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | |
 | `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | 1.21 |
 | `IngressClassNamespacedParams` | `true` | Beta | 1.22 | |
 | `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
@@ -729,6 +730,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   immutable for better safety and performance.
 - `IndexedJob`: Allows the [Job](/docs/concepts/workloads/controllers/job/)
   controller to manage Pod completions per completion index.
+- `JobTrackingWithFinalizers`: Enables tracking [Job](/docs/concepts/workloads/controllers/job)
+  completions without relying on Pods remaining in the cluster indefinitely.
+  The Job controller uses Pod finalizers and a field in the Job status to keep
+  track of the finished Pods to count towards completion.
 - `IngressClassNamespacedParams`: Allow namespace-scoped parameters reference in
   `IngressClass` resource. This feature adds two fields - `Scope` and `Namespace`
   to `IngressClass.spec.parameters`.
