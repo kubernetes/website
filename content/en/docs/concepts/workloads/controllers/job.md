@@ -561,6 +561,46 @@ The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010
 `manualSelector: true` tells the system to that you know what you are doing and to allow this
 mismatch.
 
+### Job tracking with finalizers
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+{{< note >}}
+In order to use this behavior, you must enable the `JobTrackingWithFinalizers`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+It is disabled by default.
+
+When enabled, the control plane tracks new Jobs using the behavior described
+below. Existing Jobs are unaffected. As a user, the only difference you would
+see is that the control plane tracking of Job completion is more accurate.
+{{< /note >}}
+
+When this feature isn't enabled, the Job {{< glossary_tooltip term_id="controller" >}}
+relies on counting the Pods that exist in the cluster to track the Job status,
+that is, to keep the counters for `succeeded` and `failed` Pods.
+However, Pods can be removed for a number of reasons, including:
+- The garbage collector that removes orphan Pods when a Node goes down.
+- The garbage collector that removes finished Pods (in `Succeeded` or `Failed`
+  phase) after a threshold.
+- Human intervention to delete Pods belonging to a Job.
+- An external controller (not provided as part of Kubernetes) that removes or
+  replaces Pods.
+
+If you enable the `JobTrackingWithFinalizers` feature for your cluster, the
+control plane keeps track of the Pods that belong to any Job and notices if any
+such Pod is removed from the API server. To do that, the Job controller creates Pods with
+the finalizer `batch.kubernetes.io/job-tracking`. The controller removes the
+finalizer only after the Pod has been accounted for in the Job status, allowing
+the Pod to be removed by other controllers or users.
+
+The Job controller uses the new algorithm for new Jobs only. Jobs created
+before the feature is enabled are unaffected. You can determine if the Job
+controller is tracking a Job using Pod finalizers by checking if the Job has the
+annotation `batch.kubernetes.io/job-tracking`. You should **not** manually add
+or remove this annotation from Jobs.
+
 ## Alternatives
 
 ### Bare Pods

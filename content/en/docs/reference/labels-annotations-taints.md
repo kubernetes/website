@@ -268,6 +268,16 @@ Used on: Endpoints
 
 In Kubernetes clusters v1.21 (or later), the Endpoints controller adds this annotation to an Endpoints resource if it has more than 1000 endpoints. The annotation indicates that the Endpoints resource is over capacity.
 
+## batch.kubernetes.io/job-tracking
+
+Example: `batch.kubernetes.io/job-tracking: ""`
+
+Used on: Jobs
+
+The presence of this annotation on a Job indicates that the control plane is
+[tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
+You should **not** manually add or remove this annotation.
+
 ## scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
 
 Used on: Nodes
