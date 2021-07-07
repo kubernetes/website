@@ -203,7 +203,7 @@ Kernel monitor watches the kernel log and detects known kernel issues following 
 -->
 ## 内核监视器
 
-*内核监视器（Kernel Monitor）*是节点问题检测器中支持的系统日志监视器守护进程。
+*内核监视器（Kernel Monitor）* 是节点问题检测器中支持的系统日志监视器守护进程。
 内核监视器观察内核日志并根据预定义规则检测已知的内核问题。
 
 <!-- 
