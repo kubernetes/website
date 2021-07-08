@@ -24,13 +24,11 @@ The `extraArgs` field consist of `key: value` pairs. To override a flag for a co
 3.  Run `kubeadm init` with `--config <YOUR CONFIG YAML>`.
 
 For more details on each field in the configuration you can navigate to our
-[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration).
+[API reference pages](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 {{< note >}}
 You can generate a `ClusterConfiguration` object with default values by running `kubeadm config print init-defaults` and saving the output to a file of your choice.
 {{< /note >}}
-
-
 
 <!-- body -->
 
@@ -40,9 +38,9 @@ For details, see the [reference documentation for kube-apiserver](/docs/referenc
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
-kubernetesVersion: v1.16.0
+kubernetesVersion: v1.20.0
 apiServer:
   extraArgs:
     advertise-address: 192.168.0.103
@@ -57,9 +55,9 @@ For details, see the [reference documentation for kube-controller-manager](/docs
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
-kubernetesVersion: v1.16.0
+kubernetesVersion: v1.20.0
 controllerManager:
   extraArgs:
     cluster-signing-key-file: /home/johndoe/keys/ca.key
@@ -73,9 +71,9 @@ For details, see the [reference documentation for kube-scheduler](/docs/referenc
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
-kubernetesVersion: v1.16.0
+kubernetesVersion: v1.20.0
 scheduler:
   extraArgs:
     config: /etc/kubernetes/scheduler-config.yaml
