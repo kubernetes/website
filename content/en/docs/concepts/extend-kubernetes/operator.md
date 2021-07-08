@@ -51,8 +51,7 @@ Some of the things that you can use an operator to automate include:
 * choosing a leader for a distributed application without an internal
   member election process
 
-What might an Operator look like in more detail? Here's an example in more
-detail:
+What might an Operator look like in more detail? Here's an example:
 
 1. A custom resource named SampleDB, that you can configure into the cluster.
 2. A Deployment that makes sure a Pod is running that contains the
