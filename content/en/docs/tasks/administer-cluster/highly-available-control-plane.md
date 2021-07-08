@@ -10,7 +10,7 @@ aliases: [ '/docs/tasks/administer-cluster/highly-available-master/' ]
 
 {{< feature-state for_k8s_version="v1.5" state="alpha" >}}
 
-You can replicate Kubernetes control plane nodes in `kube-up` or `kube-down` scripts for Google Compute Engine.
+You can replicate Kubernetes control plane nodes in `kube-up` or `kube-down` scripts for Google Compute Engine. However this scripts are not suitable for any sort of production use, it's widely used in the project's CI.
 This document describes how to use kube-up/down scripts to manage a highly available (HA) control plane and how HA control planes are implemented for use with GCE.
 
 
