@@ -95,6 +95,7 @@ different Kubernetes components.
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | |
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
 | `DefaultPodTopologySpread` | `true` | Beta | 1.20 | |
+| `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
@@ -637,6 +638,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   availability during update per node.
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
   [default spreading](/docs/concepts/workloads/pods/pod-topology-spread-constraints/#internal-default-constraints).
+- `DelegateFSGroupToCSIDriver`: If supported by the CSI driver, delegates the
+  role of applying `fsGroup` from a Pod's `securityContext` to the driver by
+  passing `fsGroup` through the NodeStageVolume and NodePublishVolume CSI calls.
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   based resource provisioning on nodes.
 - `DisableAcceleratorUsageMetrics`:
