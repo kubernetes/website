@@ -212,7 +212,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 
 By default, kubeadm configures a kubelet with automatic rotation of client certificates by using the `/var/lib/kubelet/pki/kubelet-client-current.pem` symlink specified in `/etc/kubernetes/kubelet.conf`.
 If this rotation process fails you might see errors such as `x509: certificate has expired or is not yet valid`
-in kube-apserver logs. To fix the issue you must follow these steps:
+in kube-apiserver logs. To fix the issue you must follow these steps:
 
 1. Backup and delete `/etc/kubernetes/kubelet.conf` and `/var/lib/kubelet/pki/kubelet-client*` from the failed node.
 1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key` execute
