@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Spotlight on SIG Usability"
-date: 2021-05-16
+date: 2021-07-15
 slug: sig-usability-spotlight-2021
 ---
 
