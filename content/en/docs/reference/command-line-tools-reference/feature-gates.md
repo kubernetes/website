@@ -140,7 +140,9 @@ different Kubernetes components.
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | |
 | `NamespaceDefaultLabelName` | `true` | Beta | 1.21 | |
+| `NamespaceDefaultLabelName` | `true` | GA | 1.22 | |
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 |  |
+| `NetworkPolicyEndPort` | `true` | Beta | 1.22 |  |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | 1.18 |
 | `NodeDisruptionExclusion` | `true` | Beta | 1.19 | 1.20 |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
