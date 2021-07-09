@@ -61,6 +61,7 @@ different Kubernetes components.
 | `BalanceAttachedNodeVolumes` | `false` | Alpha | 1.11 | |
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | 1.20 |
 | `BoundServiceAccountTokenVolume` | `true` | Beta | 1.21 | |
+| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CSIInlineVolume` | `false` | Alpha | 1.15 | 1.15 |
@@ -478,6 +479,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   extended tokens by starting `kube-apiserver` with flag `--service-account-extend-token-expiration=false`.
   Check [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
    for more details.
+- `ControllerManagerLeaderMigration`: Enables Leader Migration for 
+  [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and 
+  [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager) which allows a cluster operator to live migrate 
+  controllers from the kube-controller-manager into an external controller-manager 
+  (e.g. the cloud-controller-manager) in an HA cluster without downtime.
 - `CPUManager`: Enable container level CPU affinity support, see
   [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CRIContainerLogRotation`: Enable container log rotation for CRI container runtime. The default max size of a log file is 10MB and the
