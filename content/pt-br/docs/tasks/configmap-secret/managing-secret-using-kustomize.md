@@ -17,12 +17,11 @@ de um diretório. Depois de gerar o Secret, você pode criar o Secret na API ser
 
 <!-- steps -->
 
-## Create the Kustomization file
-
-You can generate a Secret by defining a `secretGenerator` in a
-`kustomization.yaml` file that references other existing files.
-For example, the following kustomization file references the
-`./username.txt` and the `./password.txt` files:
+## Criando um arquivo de Kustomization
+Você pode criar um Secret definindo um `secretGenerator` em um 
+arquivo `kustomization.yaml` que referencia outros arquivos existentes.
+Por exemplo, o seguinte arquivo kustomization referencia os
+arquivos `./username.txt` e `./password.txt`:
 
 ```yaml
 secretGenerator:
@@ -32,10 +31,10 @@ secretGenerator:
   - password.txt
 ```
 
-You can also define the `secretGenerator` in the `kustomization.yaml`
-file by providing some literals.
-For example, the following `kustomization.yaml` file contains two literals
-for `username` and `password` respectively:
+Você também pode definir o `secretGenerator`no arquivo `kustomization.yaml`
+por meio de alguns *literais*.
+Por exemplo, o seguinte arquivo `kustomization.yaml` contém dois literais
+para `username` e `password` respectivamente:
 
 ```yaml
 secretGenerator:
@@ -45,48 +44,47 @@ secretGenerator:
   - password=1f2d1e2e67df
 ```
 
-Note that in both cases, you don't need to base64 encode the values.
+Observe que nos dois casos, você não precisa codificar os valores em base64.
 
-## Create the Secret
+## Criando o Secret
 
-Apply the directory containing the `kustomization.yaml` to create the Secret.
+Aplique o diretório que contém o arquivo `kustomization.yaml` para criar o Secret.
 
 ```shell
 kubectl apply -k .
 ```
 
-The output is similar to:
+A saída deve ser similar a:
 
 ```
 secret/db-user-pass-96mffmfh4k created
 ```
 
-Note that when a Secret is generated, the Secret name is created by hashing
-the Secret data and appending the hash value to the name. This ensures that
-a new Secret is generated each time the data is modified.
+Observe que quando um Secret é gerado, o nome do segredo é criado usando o hash
+dos dados do Secret mais o valor do hash. Isso garante que
+um novo Secret é gerado cada vez que os dados são modificados.
 
-## Check the Secret created
+## Verifique o Secret criado
 
-You can check that the secret was created:
+Você pode verificar que o secret foi criado:
 
 ```shell
 kubectl get secrets
 ```
 
-The output is similar to:
+A saída deve ser similar a:
 
 ```
 NAME                             TYPE                                  DATA      AGE
 db-user-pass-96mffmfh4k          Opaque                                2         51s
 ```
 
-You can view a description of the secret:
+Você pode ver a descrição de um secret:
 
 ```shell
 kubectl describe secrets/db-user-pass-96mffmfh4k
 ```
-
-The output is similar to:
+A saída deve ser similar a:
 
 ```
 Name:            db-user-pass-96mffmfh4k
@@ -102,15 +100,14 @@ password.txt:    12 bytes
 username.txt:    5 bytes
 ```
 
-The commands `kubectl get` and `kubectl describe` avoid showing the contents of a `Secret` by
-default. This is to protect the `Secret` from being exposed accidentally to an onlooker,
-or from being stored in a terminal log.
-To check the actual content of the encoded data, please refer to
-[decoding secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
+Os comandos `kubectl get` e `kubectl describe` omitem o conteúdo de um `Secret` por padrão.
+Isso para proteger o `Secret` de ser exposto acidentalmente para uma pessoa não autorizada,
+ou ser armazenado em um log de terminal.
+Para verificar o conteúdo atual de um dado codificado, veja [decodificando secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
 
-## Clean Up
+## Limpeza
 
-To delete the Secret you have created:
+Para apagar o Secret que você criou:
 
 ```shell
 kubectl delete secret db-user-pass-96mffmfh4k
@@ -119,7 +116,7 @@ kubectl delete secret db-user-pass-96mffmfh4k
 <!-- Optional section; add links to information related to this topic. -->
 ## {{% heading "whatsnext" %}}
 
-- Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secret with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Leia mais sobre o [conceito do Secret](/docs/concepts/configuration/secret/)
+- Leia sobre como [gerenciar Secret com o comando `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Leia sobre como [gerenciar Secret usando kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
