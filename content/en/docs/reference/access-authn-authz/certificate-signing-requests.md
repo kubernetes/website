@@ -56,7 +56,7 @@ state for some duration:
 
 * Approved requests: automatically deleted after 1 hour
 * Denied requests: automatically deleted after 1 hour
-* Pending requests: automatically deleted after 1 hour
+* Pending requests: automatically deleted after 24 hours
 
 ## Signers
 
