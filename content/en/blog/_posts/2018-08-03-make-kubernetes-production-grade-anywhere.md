@@ -104,7 +104,7 @@ Master and Worker nodes should be protected from overload and resource exhaustio
 
 Resource consumption by the control plane will correlate with the number of pods and the pod churn rate. Very large and very small clusters will benefit from non-default [settings](/docs/reference/command-line-tools-reference/kube-apiserver/) of kube-apiserver request throttling and memory. Having these too high can lead to request limit exceeded and out of memory errors.
 
-On worker nodes, [Node Allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/) should be configured based on a reasonable supportable workload density at each node. Namespaces can be created to subdivide the worker node cluster into multiple virtual clusters with resource CPU and memory [quotas](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/). Kubelet handling of [out of resource](/docs/tasks/administer-cluster/out-of-resource/) conditions can be configured.
+On worker nodes, [Node Allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/) should be configured based on a reasonable supportable workload density at each node. Namespaces can be created to subdivide the worker node cluster into multiple virtual clusters with resource CPU and memory [quotas](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/). Kubelet handling of [out of resource](/docs/concepts/scheduling-eviction/node-pressure-eviction/) conditions can be configured.
 
 ## Security
 
