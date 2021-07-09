@@ -534,7 +534,7 @@ HostPath volumes present many security risks, and it is a best practice to avoid
 HostPaths when possible. When a HostPath volume must be used, it should be scoped to only the
 required file or directory, and mounted as ReadOnly.
 
-If restricting HostPath acccess to specific directories through AdmissionPolicy, `volumeMounts` MUST
+If restricting HostPath access to specific directories through AdmissionPolicy, `volumeMounts` MUST
 be required to use `readOnly` mounts for the policy to be effective.
 {{< /warning >}}
 
