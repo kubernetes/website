@@ -263,7 +263,7 @@ KubernetesはOpenID Connect IDプロバイダーを提供していません。�
 
 IDプロバイダーがKubernetesと連携するためには、以下のことが必要です。
 
-1.  すべてではないが、[OpenID Connect Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html）をサポートしていること
+1.  すべてではないが、[OpenID Connect Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html)をサポートしていること
 2.  廃れていない暗号を用いたTLSで実行されていること
 3.  認証局が署名した証明書を持っていること(認証局が商用ではない場合や、自己署名の場合も可)
 
