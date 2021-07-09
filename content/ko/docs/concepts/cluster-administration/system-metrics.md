@@ -170,4 +170,5 @@ kube-scheduler는 각 파드에 대해 구성된 리소스 [요청과 제한](/k
 ## {{% heading "whatsnext" %}}
 
 * 메트릭에 대한 [프로메테우스 텍스트 형식](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)에 대해 읽어본다
+* [안정 버전의 쿠버네티스 메트릭](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml) 목록을 살펴본다
 * [쿠버네티스 사용 중단 정책](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)에 대해 읽어본다

@@ -40,6 +40,7 @@ IPv4/IPv6デュアルスタックを有効にするには、クラスターの�
 
    * kube-apiserver:
       * `--feature-gates="IPv6DualStack=true"`
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
@@ -89,7 +90,7 @@ IPv6が有効になった外部ロードバランサーをサポートしてい�
 
 ## 外向きのトラフィック {#egress-traffic}
 
-パブリックおよび非パブリックでのルーティングが可能なIPv6アドレスのブロックを利用するためには、クラスターがベースにしている{{< glossary_tooltip text="CNI" term_id="cni" >}}プロバイダーがIPv6の転送を実装している必要があります。もし非パブリックでのルーティングが可能なIPv6アドレスを使用するPodがあり、そのPodをクラスター外の送信先(例:パブリックインターネット)に到達させたい場合、外向きのトラフィックと応答の受信のためにIPマスカレードを設定する必要があります。[ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent)はデュアルスタックに対応しているため、デュアルスタックのクラスター上でのIPマスカレードにはip-masq-agentが利用できます。
+パブリックおよび非パブリックでのルーティングが可能なIPv6アドレスのブロックを利用するためには、クラスターがベースにしている{{< glossary_tooltip text="CNI" term_id="cni" >}}プロバイダーがIPv6の転送を実装している必要があります。もし非パブリックでのルーティングが可能なIPv6アドレスを使用するPodがあり、そのPodをクラスター外の送信先(例:パブリックインターネット)に到達させたい場合、外向きのトラフィックと応答の受信のためにIPマスカレードを設定する必要があります。[ip-masq-agent](https://github.com/kubernetes-sigs/ip-masq-agent)はデュアルスタックに対応しているため、デュアルスタックのクラスター上でのIPマスカレードにはip-masq-agentが利用できます。
 
 ## 既知の問題
 

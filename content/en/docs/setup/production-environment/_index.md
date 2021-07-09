@@ -271,7 +271,7 @@ for information on creating a new service account. For example, you might want t
   - Add secrets that a pod could use to pull images from a particular container registry. See [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/) for an example.
   - Assign RBAC permissions to a service account. See [ServiceAccount permissions](/docs/reference/access-authn-authz/rbac/#service-account-permissions) for details.
 
-## What's next {#what-s-next}
+## {{% heading "whatsnext" %}}
 
 - Decide if you want to build your own production Kubernetes or obtain one from
 available [Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/)

@@ -149,7 +149,7 @@ PodのオーバーヘッドはRuntimeClass内の`overhead`フィールドによ�
 
 ## {{% heading "whatsnext" %}}
 
-- [RuntimeClassデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
-- [RuntimeClassスケジューリングデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
-- [Podオーバーヘッド](/docs/concepts/configuration/pod-overhead/)のコンセプトを読む
+- [RuntimeClassデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
+- [RuntimeClassスケジューリングデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
+- [Podオーバーヘッド](/docs/concepts/scheduling-eviction/pod-overhead/)のコンセプトを読む
 - [PodOverhead機能デザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)

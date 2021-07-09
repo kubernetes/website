@@ -74,7 +74,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 -->
 * `command`：指定要对一个或多个资源执行的操作，例如 `create`、`get`、`describe`、`delete`。
 
-* `TYPE`：指定[资源类型](#resource-types)。资源类型不区分大小写，
+* `TYPE`：指定[资源类型](#资源类型)。资源类型不区分大小写，
   可以指定单数、复数或缩写形式。例如，以下命令输出相同的结果:
 
   ```shell
