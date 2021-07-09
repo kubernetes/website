@@ -1,8 +1,8 @@
 ---
-title: Managing Secret using Configuration File
+title: Gerenciando Secret usando Arquivo de Configuração
 content_type: task
 weight: 20
-description: Creating Secret objects using resource configuration file.
+description: Criando objetos Secret usando arquivos de configuração de recursos.
 ---
 
 <!-- overview -->
@@ -13,26 +13,24 @@ description: Creating Secret objects using resource configuration file.
 
 <!-- steps -->
 
-## Create the Config file
+## Crie o arquivo de configuração
 
-You can create a Secret in a file first, in JSON or YAML format, and then
-create that object.  The
-[Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-resource contains two maps: `data` and `stringData`.
-The `data` field is used to store arbitrary data, encoded using base64. The
-`stringData` field is provided for convenience, and it allows you to provide
-Secret data as unencoded strings.
-The keys of `data` and `stringData` must consist of alphanumeric characters,
-`-`, `_` or `.`.
+Você pode criar um Secret primeiramente em um arquivo, no formato JSON ou YAML, e depois
+criar o objeto. O recurso [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+contém dois *maps*: `data` e `stringData`.
+O campo `data` é usado para armazenar dados arbitrários, codificados usando base64. O
+campo `stringData` é usado por conveniência, e permite que você use dados para um Secret
+como *strings* não codificadas.
+As chaves para `data` e `stringData` precisam ser compostas por caracteres alfanuméricos,
+`_`, `-` ou `.`.
 
-For example, to store two strings in a Secret using the `data` field, convert
-the strings to base64 as follows:
+Por exemplo, para armazenar duas strings em um Secret usando o campo `data`, converta
+as strings para base64 da seguinte forma:
 
 ```shell
 echo -n 'admin' | base64
 ```
-
-The output is similar to:
+A saída deve ser similar a:
 
 ```
 YWRtaW4=
@@ -42,14 +40,13 @@ YWRtaW4=
 echo -n '1f2d1e2e67df' | base64
 ```
 
-The output is similar to:
+A saída deve ser similar a:
 
 ```
 MWYyZDFlMmU2N2Rm
 ```
 
-Write a Secret config file that looks like this:
-
+Escreva o arquivo de configuração do Secret, que ser parecido com:
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -61,27 +58,26 @@ data:
   password: MWYyZDFlMmU2N2Rm
 ```
 
-Note that the name of a Secret object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+Perceba que o nome do objeto Secret precisa ser um 
+[nome de subdomínio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-name) válido.
 
 {{< note >}}
-The serialized JSON and YAML values of Secret data are encoded as base64
-strings. Newlines are not valid within these strings and must be omitted. When
-using the `base64` utility on Darwin/macOS, users should avoid using the `-b`
-option to split long lines. Conversely, Linux users *should* add the option
-`-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if the `-w`
-option is not available.
+Os valores serializados dos dados JSON e YAML de um Secret são codificados em strings
+base64. Novas linhas não são válidas com essas strings e devem ser omitidas. Quando
+usar o utilitário `base64` em Darwin/MacOS, os usuários devem evitar usar a opção `-b`
+para separar linhas grandes. Por outro lado, usuários de Linux *devem* adicionar a opção
+`-w 0` ao comando `base64` ou o *pipe* `base64 | tr -d '\n'` se a opção `w` não for disponível 
 {{< /note >}}
 
-For certain scenarios, you may wish to use the `stringData` field instead. This
-field allows you to put a non-base64 encoded string directly into the Secret,
-and the string will be encoded for you when the Secret is created or updated.
+Para cenários específicos, você pode querer usar o campo `stringData` ao invés de `data`.
+Esse campo permite que você use strings não-base64 diretamente dentro do Secret, 
+e a string vai ser codificada para você quando o Secret for criado ou atualizado.
 
-A practical example of this might be where you are deploying an application
-that uses a Secret to store a configuration file, and you want to populate
-parts of that configuration file during your deployment process.
+Um exemplo prático para isso pode ser quando você esteja fazendo *deploy* de uma aplicação
+que usa um Secret para armazenar um arquivo de configuração, e você quer popular partes desse
+arquivo de configuração durante o processo de *deployment*.
 
-For example, if your application uses the following configuration file:
+Por exemplo, se sua aplicação usa o seguinte arquivo de configuração:
 
 ```yaml
 apiUrl: "https://my.api.com/api/v1"
@@ -89,7 +85,7 @@ username: "<user>"
 password: "<password>"
 ```
 
-You could store this in a Secret using the following definition:
+Você pode armazenar isso em um Secret usando a seguinte definição:
 
 ```yaml
 apiVersion: v1
@@ -104,30 +100,30 @@ stringData:
     password: <password>
 ```
 
-## Create the Secret object
+## Crie o objeto Secret
 
-Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
+Agora, crie o Secret usando [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
 
 ```shell
 kubectl apply -f ./secret.yaml
 ```
 
-The output is similar to:
+A saída deve ser similar a:
 
 ```
 secret/mysecret created
 ```
 
-## Check the Secret
+## Verifique o Secret
 
-The `stringData` field is a write-only convenience field. It is never output when
-retrieving Secrets. For example, if you run the following command:
+O campo `stringData` é um campo de conveniência apenas de leitura. Ele nunca vai ser exibido
+ao buscar um Secret. Por exemplo, se você executar o seguinte comando:
 
 ```shell
 kubectl get secret mysecret -o yaml
 ```
 
-The output is similar to:
+A saída deve ser similar a:
 
 ```yaml
 apiVersion: v1
@@ -143,14 +139,13 @@ data:
   config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 ```
 
-The commands `kubectl get` and `kubectl describe` avoid showing the contents of a `Secret` by
-default. This is to protect the `Secret` from being exposed accidentally to an onlooker,
-or from being stored in a terminal log.
-To check the actual content of the encoded data, please refer to
-[decoding secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
+Os comandos `kubectl get` e `kubectl describe` omitem o conteúdo de um `Secret` por padrão.
+Isso para proteger o `Secret` de ser exposto acidentalmente para uma pessoa não autorizada,
+ou ser armazenado em um log de terminal.
+Para verificar o conteúdo atual de um dado codificado, veja [decodificando secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
 
-If a field, such as `username`, is specified in both `data` and `stringData`,
-the value from `stringData` is used. For example, the following Secret definition:
+Se um campo, como `username`, é especificado em `data` e `stringData`,
+o valor de `stringData` é o usado. Por exemplo, dado a seguinte definição do Secret:
 
 ```yaml
 apiVersion: v1
@@ -164,7 +159,7 @@ stringData:
   username: administrator
 ```
 
-Results in the following Secret:
+Resulta no seguinte Secret:
 
 ```yaml
 apiVersion: v1
@@ -180,11 +175,11 @@ data:
   username: YWRtaW5pc3RyYXRvcg==
 ```
 
-Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
+Onde `YWRtaW5pc3RyYXRvcg==` é decodificado em `administrator`.
 
-## Clean Up
+## Limpeza
 
-To delete the Secret you have created:
+Para apagar o Secret que você criou:
 
 ```shell
 kubectl delete secret mysecret
@@ -192,7 +187,7 @@ kubectl delete secret mysecret
 
 ## {{% heading "whatsnext" %}}
 
-- Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secret with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Leia mais sobre o [conceito do Secret](/docs/concepts/configuration/secret/)
+- Leia sobre como [gerenciar Secret com o comando `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Leia sobre como [gerenciar Secret usando kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
