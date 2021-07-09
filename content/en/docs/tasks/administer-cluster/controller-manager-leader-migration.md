@@ -10,7 +10,7 @@ content_type: task
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.21" >}}
+{{< feature-state state="beta" for_k8s_version="v1.22" >}}
 
 {{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="The cloud-controller-manager is">}}
 
@@ -56,7 +56,7 @@ Leader Migration requires a configuration file representing the state of control
 
 ```yaml
 kind: LeaderMigrationConfiguration
-apiVersion: controllermanager.config.k8s.io/v1alpha1
+apiVersion: controllermanager.config.k8s.io/v1beta1
 leaderName: cloud-provider-extraction-migration
 resourceLock: leases
 controllerLeaders:
@@ -82,7 +82,7 @@ In version N + 1, the desired state of controller-to-manager assignment can be r
 
 ```yaml
 kind: LeaderMigrationConfiguration
-apiVersion: controllermanager.config.k8s.io/v1alpha1
+apiVersion: controllermanager.config.k8s.io/v1beta1
 leaderName: cloud-provider-extraction-migration
 resourceLock: leases
 controllerLeaders:
