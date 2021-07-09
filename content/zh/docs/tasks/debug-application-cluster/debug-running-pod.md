@@ -135,7 +135,7 @@ The examples in this section require the `EphemeralContainers` [feature gate](
 /docs/reference/command-line-tools-reference/feature-gates/) enabled in your
 cluster and `kubectl` version v1.18 or later.
 
-You can use the `kubectl alpha debug` command to add ephemeral containers to a
+You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
 
 ```shell
@@ -154,7 +154,7 @@ images.
 `kubectl` 版本为 v1.18 或者更高。
 {{< /note >}}
 
-你可以使用 `kubectl alpha debug` 命令来给正在运行中的 Pod 增加一个临时容器。
+你可以使用 `kubectl debug` 命令来给正在运行中的 Pod 增加一个临时容器。
 首先，像示例一样创建一个 pod：
 
 ```shell
@@ -177,12 +177,12 @@ kubectl exec -it ephemeral-demo -- sh
 OCI runtime exec failed: exec failed: container_linux.go:346: starting container process caused "exec: \"sh\": executable file not found in $PATH": unknown
 ```
 
-You can instead add a debugging container using `kubectl alpha debug`. If you
+You can instead add a debugging container using `kubectl debug`. If you
 specify the `-i`/`--interactive` argument, `kubectl` will automatically attach
 to the console of the Ephemeral Container.
 
 ```shell
-kubectl alpha debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
+kubectl debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
 ```
 
 ```
@@ -201,11 +201,11 @@ kubectl exec -it ephemeral-demo -- sh
 OCI runtime exec failed: exec failed: container_linux.go:346: starting container process caused "exec: \"sh\": executable file not found in $PATH": unknown
 ```
 
-你可以改为使用 `kubectl alpha debug` 添加调试容器。
+你可以改为使用 `kubectl debug` 添加调试容器。
 如果你指定 `-i` 或者 `--interactive` 参数，`kubectl` 将自动挂接到临时容器的控制台。
 
 ```shell
-kubectl alpha debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
+kubectl debug -it ephemeral-demo --image=busybox --target=ephemeral-demo
 ```
 
 ```
