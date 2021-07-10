@@ -1,5 +1,5 @@
 ---
-title: kubectl Gerenciando Secret usando kubectl
+title: Gerenciando Secret usando kubectl
 content_type: task
 weight: 10
 description: Criando objetos Secret usando a linha de comando kubectl.
