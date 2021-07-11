@@ -224,7 +224,7 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 - 标点符号是英文命令的一部分；
 - 标点符号是 Markdown 语法的一部分。
 
-英文排比句式中采用的逗号，在译文中要使用顿号代替，复合中文书写习惯。
+英文排比句式中采用的逗号，在译文中要使用顿号代替，以便符合中文书写习惯。
 
 ## 更新译文
 
@@ -309,8 +309,8 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 井号（`#`）转换为全角，导致链接失效。
 {{< /warning >}}
 
-英文中 "you" 翻译成 "你" 不必是 “您"
-文章内的链接用英文例如 (#deploying )，在对应的标题上后面加上 {#deploying}
+英文中 "you" 翻译成 "你" 不必是 “您"。
+文章内的链接用英文，例如 (#deploying)，在对应的标题上后面加上 {#deploying}
 
 
 ## 术语
