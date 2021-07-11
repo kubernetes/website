@@ -407,9 +407,9 @@ stringData:
 
 There are several options to create a Secret:
 
-- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [create Secrets using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [create Secrets from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [create Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 ## Editing a Secret
 
@@ -1239,7 +1239,7 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
 
 ## {{% heading "whatsnext" %}}
 
-- Learn how to [manage Secret using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Learn how to [manage Secrets using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
