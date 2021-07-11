@@ -21,6 +21,6 @@ and any implementation of the [Kubernetes CRI (Container Runtime
 Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
 
 Note that {{< glossary_tooltip term_id="docker">}} support is deprecated since `v1.20`
-and is planned to be removed in `v1.22`. For more information and and a list of
+and is planned to be removed in `v1.22`. For more information and a list of
 alternatives, refer to [this FAQ blog
 post](https://kubernetes.io/blog/2020/12/02/dockershim-faq/).
