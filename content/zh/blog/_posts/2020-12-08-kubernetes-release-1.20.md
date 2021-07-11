@@ -18,7 +18,7 @@ slug: kubernetes-1-20-release-announcement
 我们很高兴地宣布 Kubernetes 1.20 的发布，这是我们 2020 年的第三个也是最后一个版本！此版本包含 42 项增强功能：11 项增强功能已升级到稳定版，15 项增强功能正在进入测试版，16 项增强功能正在进入 Alpha 版。
 <!-- We’re pleased to announce the release of Kubernetes 1.20, our third and final release of 2020! This release consists of 42 enhancements: 11 enhancements have graduated to stable, 15 enhancements are moving to beta, and 16 enhancements are entering alpha. -->
 
-1.20 发布周期在上一个延长的发布周期之后恢复到 11 周的正常节奏。这是一段时间以来功能最密集的版本之一：Kubernetes 创新周期仍呈上升趋势。此版本具有更多的 alpha 而非稳定的增强功能，表明云原生生态系统仍有许多需要探索的地方。
+1.20 发布周期在上一个延长的发布周期之后恢复到 11 周的正常节奏。这是一段时间以来功能最密集的版本之一：Kubernetes 创新周期仍呈上升趋势。此版本具有更多的 Alpha 而非稳定的增强功能，表明云原生生态系统仍有许多需要探索的地方。
 <!-- The 1.20 release cycle returned to its normal cadence of 11 weeks following the previous extended release cycle. This is one of the most feature dense releases in a while: the Kubernetes innovation cycle is still trending upward. This release has more alpha than stable enhancements, showing that there is still much to explore in the cloud native ecosystem. -->
 
 ## 主题 {#major-themes}
@@ -54,7 +54,7 @@ slug: kubernetes-1-20-release-announcement
 请注意，作为新的内置命令，`kubectl debug` 优先于任何名为 “debug” 的 kubectl 插件。你必须重命名受影响的插件。
 
 <!-- Invocations using `kubectl alpha debug` are now deprecated and will be removed in a subsequent release. Update your scripts to use `kubectl debug`. For more information about `kubectl debug`, see [Debugging Running Pods](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/). -->
-`kubectl alpha debug` 现在不推荐使用，并将在后续版本中删除。更新你的脚本以使用 `kubectl debug`. 有关更多信息 `kubectl debug`，请参阅[调试正在运行的 Pod]((https://kubernetes.io/zh/docs/tasks/debug-application-cluster/debug-running-pod/)。
+`kubectl alpha debug` 现在不推荐使用，并将在后续版本中删除。更新你的脚本以使用 `kubectl debug`。 有关更多信息 `kubectl debug`，请参阅[调试正在运行的 Pod]((https://kubernetes.io/zh/docs/tasks/debug-application-cluster/debug-running-pod/)。
 
 <!-- ### Beta: API Priority and Fairness -->
 ### 测试版：API 优先级和公平性 {#beta-api-priority-and-fairness)
@@ -78,7 +78,7 @@ Kubernetes 1.20 由 1.18 引入，现在默认启用 API 优先级和公平性 (
 <!-- Administrators require mechanisms to ensure that user pods cannot induce pid exhaustion that prevents host daemons (runtime, kubelet, etc) from running. In addition, it is important to ensure that pids are limited among pods in order to ensure they have limited impact to other workloads on the node. -->
 <!-- After being enabled-by-default for a year, SIG Node graduates PID Limits to GA on both `SupportNodePidsLimit` (node-to-pod PID isolation) and `SupportPodPidsLimit` (ability to limit PIDs per pod). -->
 管理员需要机制来确保用户 pod 不会导致 pid 耗尽，从而阻止主机守护程序（运行时、kubelet 等）运行。此外，重要的是要确保 pod 之间的 pid 受到限制，以确保它们对节点上的其他工作负载的影响有限。
-默认启用一年后，SIG Node 在 `SupportNodePidsLimit`（节点到 Pod PID 隔离）和 `SupportPodPidsLimit`（限制每个 Pod 的 PID 的能力）上都将 PID 限制升级为 GA 。
+默认启用一年后，SIG Node 在 `SupportNodePidsLimit`（节点到 Pod PID 隔离）和 `SupportPodPidsLimit`（限制每个 Pod 的 PID 的能力）上都将 PID 限制升级为 GA。
 
 <!-- ### Alpha: Graceful node shutdown -->
 ### Alpha：节点体面地关闭 {#alpha-graceful-node-shutdown}
