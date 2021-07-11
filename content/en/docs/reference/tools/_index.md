@@ -26,7 +26,7 @@ to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resou
 
 ## Helm
 
-[`Helm`](https://github.com/helm/helm) is a tool for managing packages of pre-configured
+[Helm](https://helm.sh/) is a tool for managing packages of pre-configured
 Kubernetes resources, aka Kubernetes charts.
 
 Use Helm to:
