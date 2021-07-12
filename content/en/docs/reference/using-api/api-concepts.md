@@ -231,6 +231,10 @@ Some tools, such as `kubectl` provide another way to query the Kubernetes API. B
 $ kubectl get services -A -o yaml 
 
 apiVersion: v1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
 items:
 - apiVersion: v1
   kind: Service
@@ -255,15 +259,10 @@ items:
       kubernetes.io/name: CoreDNS
     name: kube-dns
     namespace: kube-system
-...
-kind: List
-metadata:
-  resourceVersion: ""
-  selfLink: ""
 ```
 
 {{< note >}}
-Keep in mind that the Kubernetes API does not have a `kind: List` type. `kind: List` is more of an internal mechanism for tools such as `kubectl` to present lists of mixed resources in the same output.
+Keep in mind that the Kubernetes API does not have a `kind: List` type. `kind: List` is an internal mechanism type for lists of mixed resources and should not be depended upon.
 {{< /note >}}
 
 
