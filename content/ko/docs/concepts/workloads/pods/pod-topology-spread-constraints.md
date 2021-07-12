@@ -82,12 +82,11 @@ spec:
 사용자는 하나 또는 다중 `topologySpreadConstraint` 를 정의해서 kube-scheduler 에게 클러스터에 걸쳐 있는 기존 파드와 시작하는 각각의 파드와 연관하여 배치하는 방법을 명령할 수 있다. 필드는 다음과 같다.
 
 - **maxSkew** 는 파드가 균등하지 않게 분산될 수 있는 정도를 나타낸다.
-  이것은 주어진 토폴로지 유형의 임의의 두 토폴로지 도메인에 일치하는
-  파드의 수 사이에서 허용되는 차이의 최댓값이다. 이것은 0보다는 커야
-  한다. 그 의미는 `whenUnsatisfiable` 의 값에 따라 다르다.
+  이것은 0보다는 커야 한다. 그 의미는 `whenUnsatisfiable` 의 값에 따라 다르다.
   - `whenUnsatisfiable` 이 "DoNotSchedule"과 같을 때, `maxSkew` 는
-    대상 토폴로지에서 일치하는 파드 수와 전역 최솟값 사이에
-    허용되는 최대 차이이다.
+    대상 토폴로지에서 일치하는 파드 수와 전역 최솟값
+    (토폴로지 도메인에서 레이블 셀렉터와 일치하는 최소 파드 수. 예를 들어 3개의 영역에 각각 0, 2, 3개의 일치하는 파드가 있으면, 전역 최솟값은 0) 
+    사이에 허용되는 최대 차이이다.
   - `whenUnsatisfiable` 이 "ScheduleAnyway"와 같으면, 스케줄러는
     왜곡을 줄이는데 도움이 되는 토폴로지에 더 높은 우선 순위를 부여한다.
 - **topologyKey** 는 노드 레이블의 키다. 만약 두 노드가 이 키로 레이블이 지정되고, 레이블이 동일한 값을 가진다면 스케줄러는 두 노드를 같은 토폴로지에 있는것으로 여기게 된다. 스케줄러는 각 토폴로지 도메인에 균형잡힌 수의 파드를 배치하려고 시도한다.
@@ -95,6 +94,8 @@ spec:
   - `DoNotSchedule` (기본값)은 스케줄러에 스케줄링을 하지 말라고 알려준다.
   - `ScheduleAnyway` 는 스케줄러에게 차이(skew)를 최소화하는 노드에 높은 우선 순위를 부여하면서, 스케줄링을 계속하도록 지시한다.
 - **labelSelector** 는 일치하는 파드를 찾는데 사용된다. 이 레이블 셀렉터와 일치하는 파드의 수를 계산하여 해당 토폴로지 도메인에 속할 파드의 수를 결정한다. 자세한 내용은 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)를 참조한다.
+
+파드에 2개 이상의 `topologySpreadConstraint`가 정의되어 있으면, 각 제약 조건은 AND로 연결된다 - kube-scheduler는 새로운 파드의 모든 제약 조건을 만족하는 노드를 찾는다.
 
 사용자는 `kubectl explain Pod.spec.topologySpreadConstraints` 를 실행해서 이 필드에 대한 자세한 내용을 알 수 있다.
 
@@ -387,7 +388,8 @@ profiles:
 
 ## 알려진 제한사항
 
-- 디플로이먼트를 스케일링 다운하면 그 결과로 파드의 분포가 불균형이 될 수 있다.
+- 파드가 제거된 이후에도 제약 조건이 계속 충족된다는 보장은 없다. 예를 들어 디플로이먼트를 스케일링 다운하면 그 결과로 파드의 분포가 불균형해질 수 있다.
+[Descheduler](https://github.com/kubernetes-sigs/descheduler)를 사용하여 파드 분포를 다시 균형있게 만들 수 있다.
 - 파드와 일치하는 테인트(taint)가 된 노드가 존중된다. [이슈 80921](https://github.com/kubernetes/kubernetes/issues/80921)을 본다.
 
 ## {{% heading "whatsnext" %}}

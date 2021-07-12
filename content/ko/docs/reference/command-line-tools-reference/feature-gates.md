@@ -152,7 +152,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ProbeTerminationGracePeriod` | `false` | 알파 | 1.21 | |
 | `ProcMountType` | `false` | 알파 | 1.12 | |
 | `QOSReserved` | `false` | 알파 | 1.11 | |
-| `RemainingItemCount` | `false` | 알파 | 1.15 | |
+| `RemainingItemCount` | `false` | 알파 | 1.15 | 1.15 |
+| `RemainingItemCount` | `true` | 베타 | 1.16 | |
 | `RemoveSelfLink` | `false` | 알파 | 1.16 | 1.19 |
 | `RemoveSelfLink` | `true` | 베타 | 1.20 | |
 | `RotateKubeletServerCertificate` | `false` | 알파 | 1.7 | 1.11 |

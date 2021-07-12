@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 title: 볼륨
 content_type: concept
 weight: 10
@@ -13,7 +18,6 @@ weight: 10
 파일을 공유할 때 발생한다.
 쿠버네티스 {{< glossary_tooltip text="볼륨" term_id="volume" >}} 추상화는
 이러한 문제를 모두 해결한다.
-
 [파드](/ko/docs/concepts/workloads/pods/)에 대해 익숙해지는 것을 추천한다.
 
 <!-- body -->
@@ -40,7 +44,6 @@ weight: 10
 
 볼륨을 사용하려면, `.spec.volumes` 에서 파드에 제공할 볼륨을 지정하고
 `.spec.containers[*].volumeMounts` 의 컨테이너에 해당 볼륨을 마운트할 위치를 선언한다.
-
 컨테이너의 프로세스는 도커 이미지와 볼륨으로 구성된 파일시스템
 뷰를 본다. [도커 이미지](https://docs.docker.com/userguide/dockerimages/)는
 파일시스템 계층의 루트에 있다. 볼륨은 이미지 내에 지정된 경로에
@@ -117,6 +120,7 @@ EBS 볼륨이 파티션된 경우, 선택적 필드인 `partition: "<partition n
 베타 기능을 활성화해야 한다.
 
 #### AWS EBS CSI 마이그레이션 완료
+
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
 컨트롤러 관리자와 kubelet에 의해 로드되지 않도록 `awsElasticBlockStore` 스토리지
@@ -257,6 +261,9 @@ spec:
 `path` 에서 파생된다.
 
 {{< note >}}
+* [컨피그맵](/docs/tasks/configure-pod-container/configure-pod-configmap/)을 사용하기 위해서는
+  먼저 컨피그맵을 생성해야 한다.
+
 * 컨피그맵을 [`subPath`](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 컨피그맵
 업데이트를 수신하지 않는다.
 
@@ -522,6 +529,15 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드 간에 데�
 
 ### hostPath {#hostpath}
 
+{{< warning >}}
+HostPath 볼륨에는 많은 보안 위험이 있으며, 가능하면 HostPath를 사용하지 않는 
+것이 좋다. HostPath 볼륨을 사용해야 하는 경우, 필요한 파일 또는 디렉터리로만 
+범위를 지정하고 ReadOnly로 마운트해야 한다.
+
+AdmissionPolicy를 사용하여 특정 디렉터리로의 HostPath 액세스를 제한하는 경우,
+`readOnly` 마운트를 사용하는 정책이 유효하려면 `volumeMounts` 가 반드시 지정되어야 한다.
+{{< /warning >}}
+
 `hostPath` 볼륨은 호스트 노드의 파일시스템에 있는 파일이나 디렉터리를
 파드에 마운트 한다. 이것은 대부분의 파드들이 필요한 것은 아니지만, 일부
 애플리케이션에 강력한 탈출구를 제공한다.
@@ -538,7 +554,6 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드 간에 데�
 
 필드가 `type` 에 지원되는 값은 다음과 같다.
 
-
 | 값 | 행동 |
 |:------|:---------|
 | | 빈 문자열 (기본값)은 이전 버전과의 호환성을 위한 것으로, hostPath 볼륨은 마운트 하기 전에 아무런 검사도 수행되지 않는다. |
@@ -552,6 +567,9 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드 간에 데�
 
 다음과 같은 이유로 이 유형의 볼륨 사용시 주의해야 한다.
 
+* HostPath는 권한있는 시스템 자격 증명 (예 : Kubelet 용) 또는 권한있는 API 
+  (예 : 컨테이너 런타임 소켓)를 노출 할 수 있으며, 이는 컨테이너 이스케이프 또는 
+  클러스터의 다른 부분을 공격하는 데 사용될 수 있다.
 * 동일한 구성(파드템플릿으로 생성한 것과 같은)을
   가진 파드는 노드에 있는 파일이 다르기 때문에 노드마다 다르게 동작할 수 있다.
 * 기본 호스트에 생성된 파일 또는 디렉터리는 root만 쓸 수 있다.
@@ -909,7 +927,8 @@ API 서버에 대해 `--service-account-max-token-expiration` 옵션을 지정�
 상대 경로를 지정한다.
 
 {{< note >}}
-projected 볼륨 소스를 [`subPath`](#subpath-사용하기) 볼륨으로 마운트해서 사용하는 컨테이너는 해당 볼륨 소스의 업데이트를 수신하지 않는다.
+projected 볼륨 소스를 [`subPath`](#subpath-사용하기) 볼륨으로 마운트해서 사용하는 컨테이너는 
+해당 볼륨 소스의 업데이트를 수신하지 않는다.
 {{< /note >}}
 
 ### quobyte
@@ -1103,7 +1122,6 @@ vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
 
 {{< /tabs >}}
 
-
 #### vSphere VMDK 구성 예시 {#vsphere-vmdk-configuration}
 
 ```yaml
@@ -1133,8 +1151,7 @@ spec:
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 `vsphereVolume` 용 `CSIMigration` 기능이 활성화되면, 기존 인-트리 플러그인에서
-`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버로 모든 플러그인 작업을 리디렉션한다.
-이 기능을 사용하려면,
+`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 드라이버로 모든 플러그인 작업을 리디렉션한다. 이 기능을 사용하려면,
 [vSphere CSI 드라이버](https://github.com/kubernetes-sigs/vsphere-csi-driver)가
 클러스터에 설치되어야 하며 `CSIMigration` 및 `CSIMigrationvSphere`
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어 있어야 한다.
