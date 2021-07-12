@@ -7,12 +7,12 @@ spec:
     - name: test
       image: nginx
       volumeMounts:
+        - name: site-data
+          mountPath: /usr/share/nginx/html
+          subPath: html
         - name: config
-          mountPath: /etc/a
-          subPath: a
-        - name: config
-          mountPath: /etc/b
-          subPath: b
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
   volumes:
     - name: config
       persistentVolumeClaim:
