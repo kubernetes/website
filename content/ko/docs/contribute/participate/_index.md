@@ -73,8 +73,8 @@ GitHub의 SIG Docs [팀]에는 두 분류가 있다.
 - approve
 
 이 두 플러그인은 `kubernetes/website` GitHub 리포지터리 최상위 수준에 있는
-[OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS)와
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS_ALIASES)
+[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS)와
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
 파일을 사용해서
 해당 리포지터리에 대해 prow가 작동하는 방식을 제어한다.
 

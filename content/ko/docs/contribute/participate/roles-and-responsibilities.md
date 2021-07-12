@@ -144,7 +144,7 @@ LGTM은 "Looks good to me"의 약자이며 풀 리퀘스트가 기술적으로
 지원하려면, 다음을 수행한다.
 
 1. `kubernetes/website` 리포지터리 내
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) 파일의 섹션에
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS) 파일의 섹션에
    여러분의 GitHub 사용자 이름을 추가하는 풀 리퀘스트를 연다.
 
   {{< note >}}
@@ -216,7 +216,7 @@ PR은 자동으로 병합된다. SIG Docs 승인자는 추가적인 기술 리�
 지원하려면 다음을 수행한다.
 
 1. `kubernetes/website` 리포지터리 내
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS)
    파일의 섹션에 자신을 추가하는 풀 리퀘스트를 연다.
 
     {{< note >}}
