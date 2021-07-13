@@ -126,7 +126,7 @@ command. In that case, you should explicitly set `--certificate-renewal=true`.
 
 You can renew your certificates manually at any time with the `kubeadm certs renew` command.
 
-This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`.
+This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`. As it is mentioned in the output of the command, you should restart control-plane pods. You can not use `kubectl` because these are [static pods](/docs/tasks/configure-pod-container/static-pod/) and are not managed by the API Server. So to restart them you can temporarily rename `/etc/kubernetes/manifests/` to something arbitrary and wait for 20 seconds (in case you have changed `fileCheckFrequency` field in [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/) you should wait as long as the new value set). Then `kubelet` will kill the pods and you can bring `/etc/kubernetes/manifests/` back. After another `fileCheckFrequency` period,  the `kubelet` will recreate the pods and certificate renewal is complete.
 
 {{< warning >}}
 If you are running an HA cluster, this command needs to be executed on all the control-plane nodes.
