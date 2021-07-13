@@ -238,7 +238,7 @@ deployed as powershell scripts on the host, support Windows nodes:
 
 ##### CSI Plugins
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 Code associated with {{< glossary_tooltip text="CSI" term_id="csi" >}} plugins
 ship as out-of-tree scripts and binaries that are typically distributed as
@@ -247,21 +247,15 @@ DaemonSets and StatefulSets. CSI plugins handle a wide range of volume
 management actions in Kubernetes: provisioning/de-provisioning/resizing of
 volumes, attaching/detaching of volumes to/from a Kubernetes node and
 mounting/dismounting a volume to/from individual containers in a pod,
-backup/restore of persistent data using snapshots and cloning. CSI plugins
-typically consist of node plugins (that run on each node as a DaemonSet) and
-controller plugins.
+backup/restore of persistent data using snapshots and cloning.
 
-CSI node plugins (especially those associated with persistent volumes exposed
-as either block devices or over a shared file-system) need to perform various
-privileged operations like scanning of disk devices, mounting of file systems,
-etc. These operations differ for each host operating system. For Linux worker
-nodes, containerized CSI node plugins are typically deployed as privileged
-containers. For Windows worker nodes, privileged operations for containerized
-CSI node plugins is supported using
-[csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
-stand-alone binary that needs to be pre-installed on each Windows node. Please
-refer to the deployment guide of the CSI plugin you wish to deploy for further
-details.
+CSI plugins communicate with a CSI node plugin which performs the local storage operations.
+On Windows nodes CSI node plugins typically call APIs exposed by the community-managed
+[csi-proxy](https://github.com/kubernetes-csi/csi-proxy) which handles the local storage operations.
+
+Please refer to the deployment guide of the environment where you wish to deploy a Windows CSI plugin
+for further details around installation.
+You may also refer to the following [installation steps](https://github.com/kubernetes-csi/csi-proxy#installation).
 
 #### Networking
 
