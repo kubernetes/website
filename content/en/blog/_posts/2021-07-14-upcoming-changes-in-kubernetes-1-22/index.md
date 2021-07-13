@@ -38,6 +38,9 @@ API versions.
 * The beta `Lease` API (**coordination.k8s.io/v1beta1**)
 * All beta `Ingress` APIs (the **extensions/v1beta1** and **networking.k8s.io/v1beta1** API versions)
 
+The Kubernetes documentation covers these
+[API removals for v1.22](/docs/reference/using-api/deprecation-guide/#v1-22) and explains
+how each of those APIs change between beta and stable.
 
 ## What to do
 
@@ -94,12 +97,13 @@ and explain the steps you'll need to take.
 
 `TokenReview`
 : Migrate to use the **authentication.k8s.io/v1** [TokenReview](/docs/reference/kubernetes-api/authentication-resources/token-review-v1/)
-  API, available since v1.10.
+  API, available since v1.10.  
 
-  In Kubernetes version v1.21 and earlier, the Kubernetes API server
-  [defaults](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
-  to sending _beta_ TokenReviews to webhooks. See [Rehearse for the upgrade](#rehearse-for-the-upgrade)
-  for some specific tips about switching to the stable API.
+  As well as serving this API via HTTP, the Kubernetes API server uses the same format to
+  [send](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
+  TokenReviews to webhooks. The v1.22 release continues to use the v1beta1 API for TokenReviews
+  sent to webhooks. See [Looking ahead](#looking-ahead) for some specific tips about
+  switching to the stable API.
 
 `SubjectAccessReview`, `SelfSubjectAccessReview` and `LocalSubjectAccessReview`
 : Migrate to use the **authorization.k8s.io/v1** versions of those
@@ -150,7 +154,10 @@ removals before you upgrade to Kubernetes v1.22.
 
 To do that, add the following to the kube-apiserver command line arguments:
 
-`--runtime-config=admissionregistration.k8s.io/v1beta1=false,apiextensions.k8s.io/v1beta1=false,apiregistration.k8s.io/v1beta1=false,authentication.k8s.io/v1beta1=false,authorization.k9s.io/v1=false,certificates.k8s.io/v1beta=false,coordination.k8s.io/v1beta1=false,extensions/v1beta1/ingresses=false,networking.k8s.io/v1beta1/ingresses=false,networking.k8s.io/v1beta1/ingressclasses=false`
+`--runtime-config=admissionregistration.k8s.io/v1beta1=false,apiextensions.k8s.io/v1beta1=false,apiregistration.k8s.io/v1beta1=false,authentication.k8s.io/v1beta1=false,authorization.k9s.io/v1=false,certificates.k8s.io/v1beta=false,coordination.k8s.io/v1beta1=false,extensions/v1beta1/ingresses=false,networking.k8s.io/v1beta1=false`
+
+(as a side effect, this also turns off v1beta1 of EndpointSlice - watch out for
+that when you're testing).
 
 Once you've switched all the kube-apiservers in your cluster to use that setting,
 those beta APIs are removed. You can test that API clients (`kubectl`, deployment
@@ -158,16 +165,6 @@ tools, custom controllers etc) still work how you expect, and you can revert if
 you need to without having to plan a more disruptive downgrade.
 
 
-There's another setting that's relevant if you use webhook authentication checks.
-Kubernetes v1.22 is the first version of Kubernetes that sends TokenReview objects
-to webhooks using the `authentication.k8s.io/v1` API by default. However, you can
-switch over earlier to try it out.
-Add `--authentication-token-webhook-version=v1` to the command line options for
-the kube-apiserver, and check that webhooks for authentication still work how you
-expected.
-
-Once you're happy it works, you can leave the `--authentication-token-webhook-version=v1`
-option set through and after the upgrade to v1.22.
 
 ### Advice for software authors
 
@@ -237,9 +234,23 @@ are documented.
 
 ### Looking ahead
 
-The upcoming **v1.25** release will stop serving beta versions of several Kubernetes APIs
-that have been stable for some time. The same release **removes** PodSecurityPolicy,
-which is deprecated and won't graduate to stable. See
+There's a setting that's relevant if you use webhook authentication checks.
+A future Kubernetes release will switch to sending TokenReview objects
+to webhooks using the `authentication.k8s.io/v1` API by default. At the moment,
+the default is to send `authentication.k8s.io/v1beta1` TokenReviews to webhooks,
+and that's still the default for Kubernetes v1.22.
+However, you can switch over to the stable API right now if you want:
+add `--authentication-token-webhook-version=v1` to the command line options for
+the kube-apiserver, and check that webhooks for authentication still work how you
+expected.
+
+Once you're happy it works OK, you can leave the `--authentication-token-webhook-version=v1`
+option set across your control plane.
+
+The **v1.25** release that's planned for next year will stop serving beta versions of
+several Kubernetes APIs that are stable right now and have been for some time.
+The same v1.25 release will **remove** PodSecurityPolicy, which is deprecated and won't
+graduate to stable. See
 [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)
 for more information.
 
