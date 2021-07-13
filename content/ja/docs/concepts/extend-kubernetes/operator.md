@@ -91,6 +91,7 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
   * [kubebuilder](https://book.kubebuilder.io/)を使います
   * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)を自分で実装したWebHooksと一緒に使います
   * [Operator Framework](https://operatorframework.io)を使います
+  * [shell-operator](https://github.com/flant/shell-operator)
 * 自前のオペレーターを他のユーザーのために[公開](https://operatorhub.io/)します
 * オペレーターパターンを紹介している[CoreOSオリジナル記事](https://coreos.com/blog/introducing-operators.html)を読みます
 * Google Cloudが出したオペレーター作成のベストプラクティス[記事](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)を読みます
