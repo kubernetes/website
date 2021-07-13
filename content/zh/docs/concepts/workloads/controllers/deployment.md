@@ -133,7 +133,7 @@ In this example:
 -->
 * `template` 字段包含以下子字段：
   * Pod 被使用 `labels` 字段打上 `app: nginx` 标签。
-  * Pod 模板规约（即 `.template.spec` 字段）指示 Pods 运行一个 `nginx` 容器，
+  * Pod 模板定义（即 `.template.spec` 字段）指示 Pods 运行一个 `nginx` 容器，
     该容器运行版本为 1.14.2 的 `nginx` [Docker Hub](https://hub.docker.com/)镜像。
   * 创建一个容器并使用 `name` 字段将其命名为 `nginx`。
 
