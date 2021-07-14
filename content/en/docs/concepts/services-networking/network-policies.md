@@ -251,10 +251,15 @@ spec:
       endPort: 32768
 ```
 
-The above rule allows any Pod with label `db` on the namespace `default` to communicate with any IP within the range `10.0.0.0/24` over TCP, provided that the target port is between the range 32000 and 32768.
+The above rule allows any Pod with label `db` on the namespace `default` to communicate 
+with any IP within the range `10.0.0.0/24` over TCP, provided that the target 
+port is between the range 32000 and 32768.
 
 The following restrictions apply when using this field:
-* As a beta feature, this is enabled by default. To disable the `endPort` field at a cluster level, you (or your cluster administrator) need to disable the `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=NetworkPolicyEndPort=false,…`.
+* As a beta feature, this is enabled by default. To disable the `endPort` field 
+at a cluster level, you (or your cluster administrator) need to disable the 
+`NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
+for the API server with `--feature-gates=NetworkPolicyEndPort=false,…`.
 * The `endPort` field must be equal than or greater to the `port` field.
 * `endPort` can only be defined if `port` is also defined.
 * Both ports must be numeric.
@@ -262,6 +267,9 @@ The following restrictions apply when using this field:
 {{< note >}}
 Your cluster must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that
 supports the `endPort` field in NetworkPolicy specifications.
+If your [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) 
+does not support the `endPort` field and you specify a NetworkPolicy with that,
+the policy will be applied only for the single `port` field.
 {{< /note >}}
 
 ## Targeting a Namespace by its name
