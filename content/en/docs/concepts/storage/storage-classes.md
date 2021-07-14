@@ -76,7 +76,7 @@ for provisioning PVs. This field must be specified.
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
-| NFS                  | -                   | -                                    |
+| NFS                  | -                   | [NFS](#nfs)       |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
 | VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
 | PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
@@ -422,6 +422,13 @@ parameters:
     automatically creates an endpoint and a headless service in the name
     `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically
     deleted when the persistent volume claim is deleted.
+
+### NFS
+
+NFS doesn't provide an internal provisioner. You need to use an external provisioner to create a StorageClass for NFS.
+Here are some examples:
+* [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+* [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
 
 ### OpenStack Cinder
 
