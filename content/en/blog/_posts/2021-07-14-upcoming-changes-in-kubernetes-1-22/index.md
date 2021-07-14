@@ -102,7 +102,7 @@ and explain the steps you'll need to take.
   As well as serving this API via HTTP, the Kubernetes API server uses the same format to
   [send](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
   TokenReviews to webhooks. The v1.22 release continues to use the v1beta1 API for TokenReviews
-  sent to webhooks. See [Looking ahead](#looking-ahead) for some specific tips about
+  sent to webhooks by default. See [Looking ahead](#looking-ahead) for some specific tips about
   switching to the stable API.
 
 `SubjectAccessReview`, `SelfSubjectAccessReview` and `LocalSubjectAccessReview`
