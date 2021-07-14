@@ -487,6 +487,7 @@ EndpointSliceProxying=true|false (BETA - default=true)<br/>
 EndpointSliceTerminatingCondition=true|false (ALPHA - default=false)<br/>
 EphemeralContainers=true|false (ALPHA - default=false)<br/>
 ExpandCSIVolumes=true|false (BETA - default=true)<br/>
+ExpandedDNSConfig=true|false (ALPHA - default=false)<br/>
 ExpandInUsePersistentVolumes=true|false (BETA - default=true)<br/>
 ExpandPersistentVolumes=true|false (BETA - default=true)<br/>
 ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>
