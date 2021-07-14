@@ -312,7 +312,7 @@ manually add tolerations to your pods.
   来表示特殊硬件，给配置了特殊硬件的节点添加污点时包含扩展资源名称，
   然后运行一个 [ExtendedResourceToleration](/zh/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
   准入控制器。此时，因为节点已经被设置污点了，没有对应容忍度的 Pod
-  会被调度到这些节点。但当你创建一个使用了扩展资源的 Pod 时，
+  不会被调度到这些节点。但当你创建一个使用了扩展资源的 Pod 时，
   `ExtendedResourceToleration` 准入控制器会自动给 Pod 加上正确的容忍度，
   这样 Pod 就会被自动调度到这些配置了特殊硬件件的节点上。
   这样就能够确保这些配置了特殊硬件的节点专门用于运行需要使用这些硬件的 Pod，
