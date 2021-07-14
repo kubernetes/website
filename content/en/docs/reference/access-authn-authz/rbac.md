@@ -637,7 +637,7 @@ either do not manually edit the role, or disable auto-reconciliation.
 </tr>
 <tr>
 <td><b>system:public-info-viewer</b></td>
-<td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
+<td><b>system:authenticated</b> and <b>system:unauthenticated</b> group</td>
 <td>Allows read-only access to non-sensitive information about the cluster. Introduced in Kubernetes v1.14.</td>
 </tr>
 </tbody>
