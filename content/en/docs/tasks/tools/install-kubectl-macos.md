@@ -228,7 +228,7 @@ Below are the procedures to set up autocompletion for Bash and Zsh.
 1. Move the kubectl-convert binary to a file location on your system `PATH`.
 
    ```bash
-   sudo mv ./kubectl /usr/local/bin/kubectl-convert
+   sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
    sudo chown root: /usr/local/bin/kubectl-convert
    ```
 
