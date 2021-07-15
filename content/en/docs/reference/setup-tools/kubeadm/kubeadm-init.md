@@ -122,8 +122,8 @@ The default configuration can be printed out using the
 If your configuration is not using the latest version it is **recommended** that you migrate using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-For more information on the fields and usage of the configuration you can navigate to our API reference
-page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories).
+For more information on the fields and usage of the configuration you can navigate to our
+[API reference page](/docs/reference/config-api/kubeadm-config.v1beta2/).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
