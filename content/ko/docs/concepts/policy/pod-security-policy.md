@@ -11,7 +11,8 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
-파드시큐리티폴리시(PodSecurityPolicy)는 쿠버네티스 v1.21부터 더이상 사용되지 않으며, v1.25에서 제거된다.
+파드시큐리티폴리시(PodSecurityPolicy)는 쿠버네티스 v1.21부터 더이상 사용되지 않으며, v1.25에서 제거된다. 사용 중단에 대한 상세 사항은
+[파드시큐리티폴리시 사용 중단: 과거, 현재, 그리고 미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)를 참조한다.
 
 파드 시큐리티 폴리시를 사용하면 파드 생성 및 업데이트에 대한 세분화된 권한을
 부여할 수 있다.
@@ -48,10 +49,9 @@ _Pod Security Policy_ 는 파드 명세의 보안 관련 측면을 제어하는 
 
 ## 파드 시큐리티 폴리시 활성화
 
-파드 시큐리티 폴리시 제어는 선택 사항(하지만 권장함)인
-[어드미션
-컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy)로
-구현된다. [어드미션 컨트롤러 활성화](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in)하면
+파드 시큐리티 폴리시 제어는 선택 사항인 [어드미션
+컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy)로 구현된다. 
+[어드미션 컨트롤러를 활성화](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in)하면
 파드시큐리티폴리시가 적용되지만,
 정책을 승인하지 않고 활성화하면 클러스터에
 **파드가 생성되지 않는다.**
@@ -110,11 +110,15 @@ roleRef:
   name: <role name>
   apiGroup: rbac.authorization.k8s.io
 subjects:
-# Authorize specific service accounts:
+# 네임스페이스의 모든 서비스 어카운트 승인(권장):
+- kind: Group
+  apiGroup: rbac.authorization.k8s.io
+  name: system:serviceaccounts:<authorized namespace>
+# 특정 서비스 어카운트 승인(권장하지 않음):
 - kind: ServiceAccount
   name: <authorized service account name>
   namespace: <authorized pod namespace>
-# Authorize specific users (not recommended):
+# 특정 사용자 승인(권장하지 않음):
 - kind: User
   apiGroup: rbac.authorization.k8s.io
   name: <authorized user name>
@@ -124,21 +128,55 @@ subjects:
 실행되는 파드에 대해서만 사용 권한을 부여한다. 네임스페이스에서 실행되는 모든 파드에 접근 권한을
 부여하기 위해 시스템 그룹과 쌍을 이룰 수 있다.
 ```yaml
-# Authorize all service accounts in a namespace:
+# 네임스페이스의 모든 서비스 어카운트 승인:
 - kind: Group
   apiGroup: rbac.authorization.k8s.io
   name: system:serviceaccounts
-# Or equivalently, all authenticated users in a namespace:
+# 또는 동일하게, 네임스페이스의 모든 승인된 사용자에게 사용 권한 부여
 - kind: Group
   apiGroup: rbac.authorization.k8s.io
   name: system:authenticated
 ```
 
 RBAC 바인딩에 대한 자세한 예는,
-[역할 바인딩 예제](/docs/reference/access-authn-authz/rbac#role-binding-examples)를 참고하길 바란다.
+[역할 바인딩 예제](/docs/reference/access-authn-authz/rbac#role-binding-examples)를 참고한다.
 파드시큐리티폴리시 인증에 대한 전체 예제는
-[아래](#예제)를 참고하길 바란다.
+[아래](#예제)를 참고한다.
 
+### 추천 예제
+
+파드시큐리티폴리시는 새롭고 간결해진 `PodSecurity` {{< glossary_tooltip
+text="어드미션 컨트롤러" term_id="admission-controller" >}}로 대체되고 있다.
+이 변경에 대한 상세사항은 
+[파드시큐리티폴리시 사용 중단: 과거, 현재, 그리고 미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)를 참조한다.
+다음 가이드라인을 참조하여 파드시큐리티폴리시를 새로운 어드미션 컨트롤러로 쉽게 전환할 수 있다.
+
+1. 파드시큐리티폴리시를 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)에 의해 정의된 폴리시로 한정한다.
+    - {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
+    - {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
+    - {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
+
+2. `system:serviceaccounts:<namespace>` (여기서 `<namespace>`는 타겟 네임스페이스) 그룹을 사용하여 
+  파드시큐리티폴리시를 전체 네임스페이스에만 바인드한다. 예시는 다음과 같다.
+
+    ```yaml
+    apiVersion: rbac.authorization.k8s.io/v1
+    # 이 클러스터롤바인딩(ClusterRoleBinding)을 통해 "development" 네임스페이스의 모든 파드가 기준 파드시큐리티폴리시(PSP)를 사용할 수 있다.
+    kind: ClusterRoleBinding
+    metadata:
+      name: psp-baseline-namespaces
+    roleRef:
+      kind: ClusterRole
+      name: psp-baseline
+      apiGroup: rbac.authorization.k8s.io
+    subjects:
+    - kind: Group
+      name: system:serviceaccounts:development
+      apiGroup: rbac.authorization.k8s.io
+    - kind: Group
+      name: system:serviceaccounts:canary
+      apiGroup: rbac.authorization.k8s.io
+    ```
 
 ### 문제 해결
 
@@ -567,7 +605,7 @@ spec:
 리눅스 기능은 전통적으로 슈퍼유저와 관련된 권한을 보다 세밀하게 분류한다.
 이러한 기능 중 일부는 권한 에스컬레이션 또는 컨테이너 분류에 사용될 수 있으며
 파드시큐리티폴리시에 의해 제한될 수 있다. 리눅스 기능에 대한 자세한 내용은
-[기능(7)](http://man7.org/linux/man-pages/man7/capabilities.7.html)을
+[기능(7)](https://man7.org/linux/man-pages/man7/capabilities.7.html)을
 참고하길 바란다.
 
 다음 필드는 대문자로 표기된 기능 이름 목록을
@@ -661,5 +699,10 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
+- [파드시큐리티폴리시 사용 중단: 과거, 현재, 그리고 
+미래](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/)에서 
+파드시큐리티폴리시의 미래에 대해 알아본다.
+
 - 폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
+
 - API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.

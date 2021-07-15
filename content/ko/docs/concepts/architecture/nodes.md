@@ -1,4 +1,7 @@
 ---
+
+
+
 title: 노드
 content_type: concept
 weight: 10
@@ -8,7 +11,8 @@ weight: 10
 
 쿠버네티스는 컨테이너를 파드내에 배치하고 _노드_ 에서 실행함으로 워크로드를 구동한다.
 노드는 클러스터에 따라 가상 또는 물리적 머신일 수 있다. 각 노드는
-{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}에 의해 관리되며
+{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}에 
+의해 관리되며
 {{< glossary_tooltip text="파드" term_id="pod" >}}를
 실행하는 데 필요한 서비스를 포함한다.
 
@@ -272,17 +276,18 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
 #### 안정성
 
  대부분의 경우, 노드 컨트롤러는 초당 `--node-eviction-rate`(기본값 0.1)로
-축출 비율을 제한한다. 이 말은 10초당 1개의 노드를 초과하여
+축출 속도를 제한한다. 이 말은 10초당 1개의 노드를 초과하여
 파드 축출을 하지 않는다는 의미가 된다.
 
 노드 축출 행위는 주어진 가용성 영역 내 하나의 노드가 상태가 불량할
 경우 변화한다. 노드 컨트롤러는 영역 내 동시에 상태가 불량한 노드의 퍼센티지가 얼마나 되는지
 체크한다(NodeReady 컨디션은 ConditionUnknown 또는
-ConditionFalse 다.).
-- 상태가 불량한 노드의 일부가 최소 `--unhealthy-zone-threshold`
-  (기본값 0.55)가 되면 축출 비율은 감소한다.
+ConditionFalse 다).
+- 상태가 불량한 노드의 비율이 최소 `--unhealthy-zone-threshold`
+  (기본값 0.55)가 되면 축출 속도가 감소한다.
 - 클러스터가 작으면 (즉 `--large-cluster-size-threshold`
-  노드 이하면 - 기본값 50) 축출은 중지되고, 그렇지 않으면 축출 비율은 초당
+  노드 이하면 - 기본값 50) 축출이 중지된다.
+- 이외의 경우, 축출 속도는 초당
   `--secondary-node-eviction-rate`(기본값 0.01)로 감소된다.
 
 이 정책들이 가용성 영역 단위로 실행되어지는 이유는 나머지가 연결되어 있는 동안
@@ -293,7 +298,7 @@ ConditionFalse 다.).
 노드가 가용성 영역들에 걸쳐 퍼져 있는 주된 이유는 하나의 전체 영역이
 장애가 발생할 경우 워크로드가 상태 양호한 영역으로 이전되어질 수 있도록 하기 위해서이다.
 그러므로, 하나의 영역 내 모든 노드들이 상태가 불량하면 노드 컨트롤러는
-`--node-eviction-rate` 의 정상 비율로 축출한다. 코너 케이스란 모든 영역이
+`--node-eviction-rate` 의 정상 속도로 축출한다. 코너 케이스란 모든 영역이
 완전히 상태불량 (즉 클러스터 내 양호한 노드가 없는 경우) 한 경우이다.
 이러한 경우, 노드 컨트롤러는 마스터 연결에 문제가 있어 일부 연결이
 복원될 때까지 모든 축출을 중지하는 것으로 여긴다.
@@ -347,7 +352,8 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 사용하여 주어진 기간 동안 노드 종료를 지연시키므로 systemd에 의존한다.
 
 그레이스풀 노드 셧다운은 1.21에서 기본적으로 활성화된 `GracefulNodeShutdown`
-[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)로 제어된다.
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)로 
+제어된다.
 
 기본적으로, 아래 설명된 두 구성 옵션,
 `ShutdownGracePeriod` 및 `ShutdownGracePeriodCriticalPods` 는 모두 0으로 설정되어 있으므로,
@@ -371,6 +377,20 @@ Kubelet은 노드가 종료되는 동안 파드가 일반 [파드 종료 프로�
 유예 종료에 할당되고, 마지막 10초는
 [중요 파드](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)의 종료에 할당된다.
 
+{{< note >}}
+그레이스풀 노드 셧다운 과정에서 축출된 파드는 `Failed` 라고 표시된다.
+`kubectl get pods` 명령을 실행하면 축출된 파드의 상태가 `Shutdown`으로 표시된다.
+그리고 `kubectl describe pod` 명령을 실행하면 노드 셧다운으로 인해 파드가 축출되었음을 알 수 있다.
+
+```
+Status:         Failed
+Reason:         Shutdown
+Message:        Node is shutting, evicting pods
+```
+
+실패한 파드 오브젝트는 명시적으로 삭제하거나 [가비지 콜렉션에 의해 정리](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)되기 전까지는 보존된다.
+이는 갑작스러운 노드 종료의 경우와 비교했을 때 동작에 차이가 있다.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
