@@ -38,9 +38,6 @@ In the example, the Kubelet is configured to evict Pods when available memory dr
 All other Kubelet configuration values are left at their built-in defaults, unless overridden
 by flags. Command line flags which target the same value as a config file will override that value.
 
-For a trick to generate a configuration file from a live node, see
-[Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet).
-
 ## Start a Kubelet process configured via the config file
 
 {{< note >}}
@@ -64,12 +61,6 @@ defaults for the `KubeletConfiguration` version apply.
 In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 
 <!-- discussion -->
-
-## Relationship to Dynamic Kubelet Config
-
-If you are using the [Dynamic Kubelet Configuration](/docs/tasks/administer-cluster/reconfigure-kubelet)
-feature, the combination of configuration provided via `--config` and any flags which override these values
-is considered the default "last known good" configuration by the automatic rollback mechanism.
 
 ## {{% heading "whatsnext" %}}
 
