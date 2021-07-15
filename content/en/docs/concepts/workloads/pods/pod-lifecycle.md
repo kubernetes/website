@@ -304,12 +304,22 @@ specify a readiness probe. In this case, the readiness probe might be the same
 as the liveness probe, but the existence of the readiness probe in the spec means
 that the Pod will start without receiving any traffic and only start receiving
 traffic after the probe starts succeeding.
-If your container needs to work on loading large data, configuration files, or
-migrations during startup, specify a readiness probe.
 
 If you want your container to be able to take itself down for maintenance, you
 can specify a readiness probe that checks an endpoint specific to readiness that
 is different from the liveness probe.
+
+If your app has a strict dependency on back-end services, you can implement both
+a liveness and a readiness probe. The liveness probe passes when the app itself
+is healthy, but the readiness problem additionally checks that each required
+back-end service is available. This helps you avoid directing traffic to Pods
+that can only respond with error messages.
+
+If your container needs to work on loading large data, configuration files, or
+migrations during startup, you can use a
+[startup probe](#when-should-you-use-a-startup-probe). However, if you want to
+detect the difference between an app that has failed and an app that is still
+processing its startup data, you might prefer a readiness probe.
 
 {{< note >}}
 If you want to be able to drain requests when the Pod is deleted, you do not
