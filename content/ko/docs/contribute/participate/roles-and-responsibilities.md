@@ -146,12 +146,12 @@ LGTM은 "Looks good to me"의 약자이며 풀 리퀘스트가 기술적으로
 1. `kubernetes/website` 리포지터리 내
    [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) 파일의 섹션에
    여러분의 GitHub 사용자 이름을 추가하는 풀 리퀘스트를 연다.
-
-  {{< note >}}
-  자신을 추가할 위치가 확실하지 않으면, `sig-docs-ko-reviews` 에 추가한다.
-  {{< /note >}}
-
-1. PR을 하나 이상의 SIG-Docs 승인자(`sig-docs-{language}-owners` 에
+   
+     {{< note >}}
+     자신을 추가할 위치가 확실하지 않으면, `sig-docs-ko-reviews` 에 추가한다.
+     {{< /note >}}
+   
+2. PR을 하나 이상의 SIG-Docs 승인자(`sig-docs-{language}-owners` 에
    나열된 사용자 이름)에게 지정한다.
 
 승인되면, SIG Docs 리더가 적당한 GitHub 팀에 여러분을 추가한다. 일단 추가되면,
