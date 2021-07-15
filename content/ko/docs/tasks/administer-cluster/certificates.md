@@ -116,7 +116,10 @@ weight: 20
         openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
         -CAcreateserial -out server.crt -days 10000 \
         -extensions v3_ext -extfile csr.conf
-1.  인증서를 본다.
+1.  인증서 서명 요청을 확인한다.
+
+        openssl req  -noout -text -in ./server.csr
+1.  인증서를 확인한다.
 
         openssl x509  -noout -text -in ./server.crt
 
