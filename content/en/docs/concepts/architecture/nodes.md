@@ -14,7 +14,7 @@ A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 and contains the services necessary to run
-{{< glossary_tooltip text="Pods" term_id="pod" >}}
+{{< glossary_tooltip text="Pods" term_id="pod" >}}.
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
