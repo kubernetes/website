@@ -429,7 +429,7 @@ to resolve it.
 
 ### Probe-level `terminationGracePeriodSeconds`
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 Prior to release 1.21, the pod-level `terminationGracePeriodSeconds` was used
 for terminating a container that failed its liveness or startup probe. This
@@ -437,11 +437,20 @@ coupling was unintended and may have resulted in failed containers taking an
 unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
 was set.
 
-In 1.21, when the feature flag `ProbeTerminationGracePeriod` is enabled, users
-can specify a probe-level `terminationGracePeriodSeconds` as part of the probe
-specification. When the feature flag is enabled, and both a pod- and
-probe-level `terminationGracePeriodSeconds` are set, the kubelet will use the
-probe-level value.
+In 1.21 and beyond, when the feature flag `ProbeTerminationGracePeriod` is
+enabled, users can specify a probe-level `terminationGracePeriodSeconds` as
+part of the probe specification. When the feature flag is enabled, and both a
+pod- and probe-level `terminationGracePeriodSeconds` are set, the kubelet will
+use the probe-level value.
+
+{{< note >}}
+As of Kubernetes 1.22, the `ProbeTerminationGracePeriod` feature flag is only
+available on the API Server. The Kubelet will always honour the probe-level
+`terminationGracePeriodSeconds` field if it is present on a pod. To disable the
+feature on existing pods, they must be deleted and recreated. So long as the
+feature flag is off, the API Server will ignore the field on subsequent
+creations.
+{{< /note >}}
 
 For example,
 
