@@ -115,7 +115,7 @@ option. Your cluster requirements may need a different configuration.
 
     {{< note >}}
     The `kubeadm init` flags `--config` and `--certificate-key` cannot be mixed, therefore if you want
-    to use the [kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
+    to use the [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta2/)
     you must add the `certificateKey` field in the appropriate config locations
     (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
     {{< /note >}}
