@@ -374,6 +374,24 @@ The IP address that you choose must be a valid IPv4 or IPv6 address from within 
 If you try to create a Service with an invalid clusterIP address value, the API
 server will return a 422 HTTP status code to indicate that there's a problem.
 
+## Traffic Policies
+
+### External Traffic Policy
+
+You can set the `spec.externalTrafficPolicy` field to control how traffic from external sources is routed.
+Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route external traffic to all ready endpoints
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are are no node-local
+endpoints, traffic is dropped by kube-proxy.
+
+### Internal Traffic Policy
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+You can set the `spec.internalTrafficPolicy` field to control how traffic from internal sources is routed.
+Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route internal traffic to all ready endpoints
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are are no node-local
+endpoints, traffic is dropped by kube-proxy.
+
 ## Discovering services
 
 Kubernetes supports 2 primary modes of finding a Service - environment
