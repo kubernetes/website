@@ -393,6 +393,15 @@ Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route exte
 and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are are no node-local
 endpoints, traffic is dropped by kube-proxy.
 
+{{< note >}}
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+If the feature gate ProxyTerminatingEndpoints is enabled from kube-proxy, it will route traffic to terminating endpoints
+if and only if the external traffic policy is `Local` and there are only terminating endpoints on the node. This capability
+was added to allow external load balancers to gracefully drain connections from node ports even when the health check node
+port starts to fail. Otherwise, traffic can be lost between the time a node is still in the node pool of a load balancer
+and traffic is being dropped during the termination period of a pod.
+{{< /note >}}
+
 ### Internal Traffic Policy
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
