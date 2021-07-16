@@ -55,7 +55,7 @@ These proposed dates reflect only the start and end dates, and they are subject 
 
 The only major change end users will experience is a slower release cadence. Kubernetes release artifacts, release notes, and all other aspects of any given release will stay the same.
 
-With less releases to consume per year, end user organizations will spend less time on upgrades and more time on supporting their Kubernetes clusters. It also means that Kubernetes releases are in support for a slightly longer period of time.
+With less releases to consume per year, it's intended that end user organizations will spend less time on upgrades and gain more time on supporting their Kubernetes clusters. It also means that Kubernetes releases are in support for a slightly longer period of time.
 
 
 ## What this means for Kubernetes contributors 
