@@ -65,7 +65,7 @@ With a lower release cadence, contributors have more time for project enhancemen
 
 ## Why we decided to change the release cadence
 
-The Kubernetes 1.19 cycle was far longer than usual. SIG Release extended it to lessen the burden on both Kubernetes contributors and Kubernetes end users due the COVID-19 pandemic. Following this extended release, the Kubernetes 1.20 release became the third, and final, release for 2020. 
+The Kubernetes 1.19 cycle was far longer than usual. SIG Release extended it to lessen the burden on both Kubernetes contributors and end users due the COVID-19 pandemic. Following this extended release, the Kubernetes 1.20 release became the third, and final, release for 2020. 
 
 As the Kubernetes project matures, the number of enhancements per cycle grows, along with the burden on contributors, the Release Engineering team.  Downstream consumers and integrators also face increased challenges keeping up with [ever more feature-packed releases](https://kubernetes.io/blog/2021/04/08/kubernetes-1-21-release-announcement/). A wider project adoption means the complexity of supporting a rapidly evolving platform affects a bigger downstream chain of consumers.
 
