@@ -6,16 +6,16 @@ weight: 40
 
 <!-- overview -->
 <!--
-Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
+[_Node affinity_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
-hard requirement). Taints are the opposite -they allow a node to repel a set of pods.
+hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
 -->
-节点亲和性（详见[这里](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)）
+[_节点亲和性_](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 是 {{< glossary_tooltip text="Pod" term_id="pod" >}} 的一种属性，它使 Pod
-被吸引到一类特定的{{< glossary_tooltip text="节点" term_id="node" >}}。
-这可能出于一种偏好，也可能是硬性要求。
-Taint（污点）则相反，它使节点能够排斥一类特定的 Pod。
+被吸引到一类特定的{{< glossary_tooltip text="节点" term_id="node" >}}
+（这可能出于一种偏好，也可能是硬性要求）。
+_污点_（Taint）则相反——它使节点能够排斥一类特定的 Pod。
 
 <!--
 _Tolerations_ are applied to pods, and allow (but do not require) the pods to schedule
@@ -25,7 +25,7 @@ Taints and tolerations work together to ensure that pods are not scheduled
 onto inappropriate nodes. One or more taints are applied to a node; this
 marks that the node should not accept any pods that do not tolerate the taints.
 -->
-容忍度（Tolerations）是应用于 Pod 上的，允许（但并不要求）Pod
+容忍度（Toleration）是应用于 Pod 上的，允许（但并不要求）Pod
 调度到带有与之匹配的污点的节点上。
 
 污点和容忍度（Toleration）相互配合，可以用来避免 Pod 被分配到不合适的节点上。
@@ -312,7 +312,7 @@ manually add tolerations to your pods.
   来表示特殊硬件，给配置了特殊硬件的节点添加污点时包含扩展资源名称，
   然后运行一个 [ExtendedResourceToleration](/zh/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
   准入控制器。此时，因为节点已经被设置污点了，没有对应容忍度的 Pod
-  会被调度到这些节点。但当你创建一个使用了扩展资源的 Pod 时，
+  不会被调度到这些节点。但当你创建一个使用了扩展资源的 Pod 时，
   `ExtendedResourceToleration` 准入控制器会自动给 Pod 加上正确的容忍度，
   这样 Pod 就会被自动调度到这些配置了特殊硬件件的节点上。
   这样就能够确保这些配置了特殊硬件的节点专门用于运行需要使用这些硬件的 Pod，
