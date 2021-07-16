@@ -140,7 +140,7 @@ End of Life for **1.19** is **2021-10-28**
 
 These releases are no longer supported.
 
-| Minor Version | Final Patch Release | EOL date   | NOTE                                                                   |
+| MINOR VERSION | FINAL PATCH RELEASE | EOL DATE   | NOTE                                                                   |
 | ------------- | ------------------- | ---------- | ---------------------------------------------------------------------- |
 | 1.18          | 1.18.20             | 2021-06-18 | Created to resolve regression introduced in 1.18.19                    |
 | 1.18          | 1.18.19             | 2021-05-12 | [Regression](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs) |
