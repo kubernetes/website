@@ -12,7 +12,7 @@ REF: https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-pr
 
 On April 23, 2021, the Release Team merged a Kubernetes Enhancement Proposal (KEP) changing the Kubernetes release cycle from four releases a year (once a quarter) to three releases a year. 
 
-This blog post is a high level overview post for what this means for the Kubernetes community's contributors and maintainers.
+This blog post provides a high level overview about what this means for the Kubernetes community's contributors and maintainers.
 
 ## What's changing and when
 
