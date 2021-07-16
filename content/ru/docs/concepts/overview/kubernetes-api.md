@@ -114,4 +114,3 @@ DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies и Re
 
 {{< note >}}Включение/отключение отдельных ресурсов поддерживается только в API-группе `extensions/v1beta1` по историческим причинам.{{< /note >}}
 
-
