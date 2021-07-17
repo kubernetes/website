@@ -184,6 +184,23 @@ This field has no effect on ephemeral volume types such as
 and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
 {{< /note >}}
 
+## Delegating volume permission and ownership change to CSI driver
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+If you deploy a [Container Storage Interface (CSI)][csi-spec] driver which
+supports the `VOLUME_MOUNT_GROUP` `NodeServiceCapability`, the process of
+checking and changing ownership and permissions based on the `fsGroup` specified
+in the `securityContext` will be performed by the CSI driver instead of
+Kubernetes, provided that the `DelegateFSGroupToCSIDriver` Kubernetes feature
+gate is enabled. Since Kubernetes doesn't perform the the permission check and
+change, `fsGroupChangePolicy` does not take effect and the driver decides the
+algorithm to apply the change.
+
+Please refer to the [KEP][delegate-fsgroup-to-csi-kep] for more information.
+
+[csi-spec]: https://github.com/container-storage-interface/spec/blob/master/spec.md
+[delegate-fsgroup-to-csi-kep]: https://github.com/gnufied/enhancements/blob/master/keps/sig-storage/2317-fsgroup-on-mount/README.md
 
 ## Set the security context for a Container
 
