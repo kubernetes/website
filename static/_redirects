@@ -57,7 +57,7 @@
 /docs/admin/node-conformance.md     /docs/admin/node-conformance/ 301
 /docs/admin/node-conformance/       /docs/setup/best-practices/node-conformance/ 301
 /docs/admin/node-problem/     /docs/tasks/debug-application-cluster/monitor-node-health/ 301
-/docs/admin/out-of-resource/     /docs/tasks/administer-cluster/out-of-resource/ 301
+/docs/admin/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/admin/rescheduler/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
 /docs/admin/resourcequota/*     /docs/concepts/policy/resource-quotas/ 301
 /docs/admin/resourcequota/limitstorageconsumption/     /docs/tasks/administer-cluster/limit-storage-consumption/ 301
@@ -128,6 +128,8 @@
 /docs/concepts/scheduling/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/ 301
 /id/docs/concepts/scheduling/scheduling-framework/     /id/docs/concepts/scheduling-eviction/scheduling-framework/ 301
 /docs/concepts/scheduling-eviction/eviction-policy/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
+/docs/concepts/scheduling-eviction/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
+/docs/concepts/scheduling-eviction/pod-eviction/     /docs/concepts/scheduling-eviction/#pod-disruption 301
 /docs/concepts/service-catalog/     /docs/concepts/extend-kubernetes/service-catalog/ 301
 /docs/concepts/services-networking/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
 /docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/     /docs/tasks/network/customize-hosts-file-for-pods/ 301
@@ -264,7 +266,7 @@
 /docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/ 301
 /docs/tasks/administer-cluster/quota-memory-cpu-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/ 301
 /docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/ 301
-/docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
+/docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/tasks/administer-cluster/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/tasks/administer-cluster/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301

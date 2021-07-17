@@ -353,7 +353,7 @@ the removal of the lowest priority Pods is not sufficient to allow the scheduler
 to schedule the preemptor Pod, or if the lowest priority Pods are protected by
 `PodDisruptionBudget`.
 
-The kubelet uses Priority to determine pod order for [out-of-resource eviction](/docs/tasks/administer-cluster/out-of-resource/).
+The kubelet uses Priority to determine pod order for [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 You can use the QoS class to estimate the order in which pods are most likely
 to get evicted. The kubelet ranks pods for eviction based on the following factors:
 
@@ -361,10 +361,10 @@ to get evicted. The kubelet ranks pods for eviction based on the following facto
   1. Pod Priority
   1. Amount of resource usage relative to requests 
 
-See [evicting end-user pods](/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)
+See [Pod selection for kubelet eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)
 for more details.
 
-kubelet out-of-resource eviction does not evict Pods when their
+kubelet node-pressure eviction does not evict Pods when their
 usage does not exceed their requests. If a Pod with lower priority is not
 exceeding its requests, it won't be evicted. Another Pod with higher priority
 that exceeds its requests may be evicted.
