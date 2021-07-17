@@ -26,4 +26,3 @@ em localização do usuário para acessar o site, a tradução
 da documentação usada e outros.
 
 Se você identificar um problema com essa dashboard ou quer solicitar qualquer melhoria, [abra uma issue](https://github.com/kubernetes/website/issues/new/choose) no repositório.
-
