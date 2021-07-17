@@ -33,7 +33,7 @@ Contribuidores da documentação do Kubernetes podem:
 
 ## Começando
 
-Qualquer pessoa pode abrir uma issue sobre a documentação, ou contribuir com uma mudança por meio de um pull request (PR) para o [repositório do Github `kubernetes/website`]https://github.com/kubernetes/website).
+Qualquer pessoa pode abrir uma issue sobre a documentação, ou contribuir com uma mudança por meio de um pull request (PR) para o [repositório do Github `kubernetes/website`](https://github.com/kubernetes/website).
 É recomendável que você se sinta confortável com [git](https://git-scm.com/) e 
 [Github](https://lab.github.com/) para trabalhar efetivamente na comunidade Kubernetes.
 
@@ -71,7 +71,7 @@ A comunicação do SIG Docs é feita de diferentes formas:
  - [Entre em `#sig-docs` no slack do Kubernetes](https://slack.k8s.io/).
  - [Se inscreva na lista de email `kubernetes-dig-docs`](https://groups.google.com/forum/#!forum/kubernetes-sig-docs), onde acontecem discussões e
  decisões oficiais são registradas.
- - [Participe do encontro semanal do SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs). Os encontros são sempre anunciados no `#sig-docs` e adicionados ao [calendário de eventos de comunidade do Kubernetes]https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles). Você precisa baixar o [cliente do Zoom](https://zoom.us/download) ou usar um telefone.
+ - [Participe do encontro semanal do SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs). Os encontros são sempre anunciados no `#sig-docs` e adicionados ao [calendário de eventos de comunidade do Kubernetes](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles). Você precisa baixar o [cliente do Zoom](https://zoom.us/download) ou usar um telefone.
 
 ## Outras formas de contribuir
 
