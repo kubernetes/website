@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes Release Cadence Change: Here’s What You Need To Know"
-date: 2021-07-01
+date: 2021-07-20
 slug: new-kubernetes-release-cadence
 ---
 
