@@ -57,7 +57,7 @@ sobre funções e permissões.
 ## Próximos passos
 
  - Aprenda a [trabalhar com um clone local](/docs/contribute/new-content/open-a-pr/#fork-the-repo) de um repositório.
- - Documente [funcionalidades em uma release]/docs/contribute/new-content/new-features/).
+ - Documente [funcionalidades em uma release](/docs/contribute/new-content/new-features/).
  - Participe do [SIG Docs](/docs/contribute/participate/), e se torne um 
  [membro ou revisor](/docs/contribute/participate/roles-and-responsibilities/).
  - Comece ou ajude com uma [localização](/docs/contribute/localization/).
@@ -75,7 +75,7 @@ A comunicação do SIG Docs é feita de diferentes formas:
 
 ## Outras formas de contribuir
 
-- Para contribuir com a comunidade Kubernetes por meio de fóruns on-line, como Twitter ou Stack Overflow, ou aprender sobre encontros locais e eventos do Kubernetes, visite o a area de [comunidade Kubernetes](/community/).
+- Para contribuir com a comunidade Kubernetes por meio de fóruns on-line, como Twitter ou Stack Overflow, ou aprender sobre encontros locais e eventos do Kubernetes, visite a area de [comunidade Kubernetes](/community/).
 - Para contribuir com o desenvolvimento de novas funcionalidades, leia o [cheatsheet do colaborador](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) para começar.
 - Leia o [cheatsheet de contribuidor](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) para saber mais sobre as funcionalidades de desenvolvimento do Kubernetes.
 - Submeta [um post de blog ou um caso de estudo](/docs/contribute/new-content/blogs-case-studies/).
