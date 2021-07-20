@@ -157,9 +157,8 @@ volumeMounts:
   - mountPath: /etc/kubernetes/audit-policy.yaml
     name: audit
     readOnly: true
-  - mountPath: /var/log/audit.log
+  - mountPath: /var/log
     name: audit-log
-    readOnly: false
 ```
 and finally configure the `hostPath`:
 
@@ -170,10 +169,11 @@ and finally configure the `hostPath`:
     path: /etc/kubernetes/audit-policy.yaml
     type: File
 
+# Should mount directory instead of file. Log rotation will fail if single file mounted
 - name: audit-log
   hostPath:
-    path: /var/log/audit.log
-    type: FileOrCreate
+    path: /var/log
+    type: DirectoryOrCreate
 
 ```
 

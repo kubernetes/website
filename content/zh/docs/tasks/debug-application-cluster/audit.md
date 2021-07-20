@@ -277,9 +277,8 @@ volumeMounts:
   - mountPath: /etc/kubernetes/audit-policy.yaml
     name: audit
     readOnly: true
-  - mountPath: /var/log/audit.log
+  - mountPath: /var/log
     name: audit-log
-    readOnly: false
 ```
 
 <!-- 
@@ -295,8 +294,8 @@ and finally configure the `hostPath`:
 
 - name: audit-log
   hostPath:
-    path: /var/log/audit.log
-    type: FileOrCreate
+    path: /var/log
+    type: DirectoryOrCreate
 ```
 
 <!--
