@@ -430,7 +430,7 @@ As a result, kubelet ranks and evicts pods in the following order:
 
 1. 首先考虑资源使用量超过其请求的 `BestEffort` 或 `Burstable` Pod。
    这些 Pod 会根据它们的优先级以及它们的资源使用级别超过其请求的程度被逐出。
-1. 资源使用量少于请求量的 `Guaranted` Pod 和 `Burstable` Pod 根据其优先级被最后驱逐。
+1. 资源使用量少于请求量的 `Guaranteed` Pod 和 `Burstable` Pod 根据其优先级被最后驱逐。
 
 {{<note>}}
 <!-- 
@@ -456,7 +456,7 @@ then the kubelet must choose to evict one of these pods to preserve node stabili
 and to limit the impact of resource starvation on other pods. In this case, it
 will choose to evict pods of lowest Priority first.
 -->
-仅当 `Guaranted` Pod 中所有容器都被指定了请求和限制并且二者相等时，才保证 Pod 不被驱逐。
+仅当 `Guaranteed` Pod 中所有容器都被指定了请求和限制并且二者相等时，才保证 Pod 不被驱逐。
 这些 Pod 永远不会因为另一个 Pod 的资源消耗而被驱逐。
 如果系统守护进程（例如 `kubelet`、`docker` 和 `journald`）
 消耗的资源比通过 `system-reserved` 或 `kube-reserved` 分配保留的资源多，
