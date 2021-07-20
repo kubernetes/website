@@ -16,8 +16,8 @@ This blog post provides a high level overview about what this means for the Kube
 Starting with the [Kubernetes 1.22 release](https://github.com/kubernetes/sig-release/tree/master/releases/release-1.22), a lightweight policy will drive the creation of each release schedule. This policy states:
 
 * The first Kubernetes release of a calendar year should start at the second or third
-   week of January to provide people more room after coming back from the
-   winter holidays.
+   week of January to provide people more time for contributors coming back from the
+   end of year holidays.
 * The last Kubernetes release of a calendar year should be finished by the middle of
    December.
 * A Kubernetes release cycle has a length of approximately 15 weeks.
