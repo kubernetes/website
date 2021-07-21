@@ -261,7 +261,7 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 
 ```bash
 CRICTL_VERSION="v1.17.0"
-ARCH="amd64" #or arm64
+ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
