@@ -240,7 +240,7 @@ Install CNI plugins (required for most pod network):
 
 ```bash
 CNI_VERSION="v0.8.2"
-ARCH="amd64" #or arm64
+ARCH="amd64"
 sudo mkdir -p /opt/cni/bin
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
 ```
@@ -317,4 +317,3 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 ## {{% heading "whatsnext" %}}
 
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-
