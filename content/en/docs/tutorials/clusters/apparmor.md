@@ -348,6 +348,11 @@ node with the required profile.
 
 ### Restricting profiles with the PodSecurityPolicy
 
+{{< note >}}
+PodSecurityPolicy is deprecated in Kubernetes v1.21, and will be removed in v1.25.
+See [PodSecurityPolicy documentation](/docs/concepts/policy/pod-security-policy/) for more information.
+{{< /note >}}
+
 If the PodSecurityPolicy extension is enabled, cluster-wide AppArmor restrictions can be applied. To
 enable the PodSecurityPolicy, the following flag must be set on the `apiserver`:
 
