@@ -1,0 +1,51 @@
+    <table>
+  <thead>
+   <tr>
+     <th>Name</th>
+     <th>Alpha</th>s
+     <th>Beta</th>
+     <th>Stable</th>
+     <th>Deprecated</th>
+   </tr>
+  </thead>
+  {{- range $featureGate := sort $.Site.Data.features.featureList.featureGateList "name" -}}
+
+  <tr>
+   <td>{{ $featureGate.name }}</td>
+
+   {{- with $featureGate.alpha -}}
+   <td>{{ $featureGate.alpha.from }}
+
+   <p><code>{{- with $featureGate.alpha.state -}}</code>
+
+
+  </td>
+
+   {{- else -}}
+   <td></td>
+   {{- end -}}
+
+   {{- with $featureGate.beta -}}
+   <td>{{ $featureGate.beta.from }}</td>
+   {{- else -}}
+   <td></td>
+   {{- end -}}
+
+
+   {{- with $featureGate.stable -}}
+   <td>{{ $featureGate.stable.from }}</td>
+   {{- else -}}
+   <td></td>
+   {{- end -}}
+
+
+   {{- with $featureGate.deprecated -}}
+   <td>{{ $featureGate.deprecated.from }}</td>
+   {{- else -}}
+   <td></td>
+   {{- end -}}
+
+  </tr>
+  {{- end -}}
+
+</table>
