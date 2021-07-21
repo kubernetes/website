@@ -89,7 +89,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 1. Apply the Redis Deployment from the `redis-leader-deployment.yaml` file:
 -->
 1. 在下载清单文件的目录中启动终端窗口。
-2. 从 `mongo-deployment.yaml` 文件中应用 MongoDB Deployment：
+2. 从 `redis-leader-deployment.yaml` 文件中应用 Redis Deployment：
 
    <!---
    for local testing of the content via relative file path
@@ -101,9 +101,9 @@ The manifest file, included below, specifies a Deployment controller that runs a
    ```
 
 <!--
-1. Query the list of Pods to verify that the MongoDB Pod is running:
+1. Query the list of Pods to verify that the Redis Pod is running:
 -->
-3. 查询 Pod 列表以验证 MongoDB Pod 是否正在运行：
+3. 查询 Pod 列表以验证 Redis Pod 是否正在运行：
 
    ```shell
    kubectl get pods
@@ -122,7 +122,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 <!--
 1. Run the following command to view the logs from the Redis leader Pod:
 -->
-4. 运行以下命令查看 MongoDB Deployment 中的日志：
+4. 运行以下命令查看 Redis Deployment 中的日志：
 
    ```shell
    kubectl logs -f deployment/redis-leader
@@ -136,7 +136,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 <!--
 The guestbook application needs to communicate to the Redis to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis Pod. A Service defines a policy to access the Pods.
 -->
-留言板应用程序需要往 MongoDB 中写数据。因此，需要创建
+留言板应用程序需要往 Redis 中写数据。因此，需要创建
 [Service](/zh/docs/concepts/services-networking/service/) 来转发 Redis Pod
 的流量。Service 定义了访问 Pod 的策略。
 
@@ -632,4 +632,3 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
   [MySQL 和 Wordpress 的持久卷](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * 进一步阅读[连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
 * 进一步阅读[管理资源](/zh/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
-
