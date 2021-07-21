@@ -67,10 +67,9 @@ nodes and Linux containers on Linux nodes.
 
 | Kubernetes version | Windows Server LTSC releases | Windows Server SAC releases |
 | --- | --- | --- | --- |
-| *Kubernetes v1.19* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
 | *Kubernetes v1.20* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
 | *Kubernetes v1.21* | Windows Server 2019 | Windows Server ver 2004, Windows Server ver 20H2 |
-
+| *Kubernetes v1.22* | Windows Server 2019 | Windows Server ver 2004, Windows Server ver 20H2 |
 
 Information on the different Windows Server servicing channels including their
 support models can be found at
