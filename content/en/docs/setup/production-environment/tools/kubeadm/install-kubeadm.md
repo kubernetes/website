@@ -269,7 +269,7 @@ Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
-ARCH="amd64" #or arm64
+ARCH="amd64"
 cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 sudo chmod +x {kubeadm,kubelet,kubectl}
