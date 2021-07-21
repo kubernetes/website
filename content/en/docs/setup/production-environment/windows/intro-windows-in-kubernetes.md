@@ -1263,8 +1263,6 @@ contributors. Follow the instructions in the SIG-Windows
 
   The latest version of the pause image can be found above [here](#Pause-Image).
 
-  Source / Build files for the pause image can be founud at https://github.com/kubernetes/kubernetes/blob/master/build/pause/.
-
 ### Further investigation
 
 If these steps don't resolve your problem, you can get help running Windows
@@ -1332,4 +1330,3 @@ guide is available
 [here](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/). We are
 also making investments in cluster API to ensure Windows nodes are properly
 provisioned.
-
