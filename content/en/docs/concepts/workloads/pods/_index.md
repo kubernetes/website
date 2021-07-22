@@ -282,6 +282,16 @@ on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
 
+## Container probes
+
+A Probe is a diagnostic performed periodically by the kubelet on a Container. To perform a diagnostic, the kubelet calls a Handler implemented by the container. There are three types of handlers:
+
+- ExecAction
+- TCPSocketAction
+- HTTPGetAction
+
+learn more about it [here](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
