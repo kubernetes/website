@@ -1239,7 +1239,7 @@ contributors. Follow the instructions in the SIG-Windows
   [pause infrastructure container](#Pause-Image).
   Be sure to use these versions or newer ones.  If you would like to build your
   own pause infrastructure container be sure to include
-  [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
+  [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat).
 
 * My Kubernetes installation is failing because my Windows Server node is
   behind a proxy
