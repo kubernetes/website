@@ -415,7 +415,7 @@ and make sure that the node is empty, then deconfigure the node.
 Talking to the control-plane node with the appropriate credentials, run:
 
 ```bash
-kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
+kubectl drain <node name> --delete-emptydir-data --force --ignore-daemonsets
 ```
 
 Before removing the node, reset the state installed by `kubeadm`:
