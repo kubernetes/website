@@ -25,7 +25,7 @@ Starting with the [Kubernetes 1.22 release](https://github.com/kubernetes/sig-re
 * An explicit SIG Release break of at least two weeks between each cycle will
    be enforced.
 
-As a result, Kubernetes will follow a three release pear year cadence. Kubernetes 1.23 will be the final release of the 2021 calendar year. This new policy results in a very predictable release schedule, allowing us to forecast upcoming release dates:
+As a result, Kubernetes will follow a three releases per year cadence. Kubernetes 1.23 will be the final release of the 2021 calendar year. This new policy results in a very predictable release schedule, allowing us to forecast upcoming release dates:
 
 
 *Proposed Kubernetes Release Schedule for the remainder of 2021*
