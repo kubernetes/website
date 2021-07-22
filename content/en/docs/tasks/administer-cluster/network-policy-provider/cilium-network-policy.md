@@ -24,7 +24,7 @@ For background on Cilium, read the [Introduction to Cilium](https://docs.cilium.
 ## Deploying Cilium on Minikube for Basic Testing
 
 To get familiar with Cilium easily you can follow the
-[Cilium Kubernetes Getting Started Guide](https://docs.cilium.io/en/stable/gettingstarted/minikube/)
+[Cilium Kubernetes Getting Started Guide](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/)
 to perform a basic DaemonSet installation of Cilium in minikube.
 
 To start minikube, minimal version required is >= v1.3.1, run the with the
