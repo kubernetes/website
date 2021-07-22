@@ -11,6 +11,8 @@ This page shows how to perform a rolling update on a DaemonSet.
 
 ## {{% heading "prerequisites" %}}
 
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
 <!-- steps -->
 
 ## DaemonSet Update Strategy
