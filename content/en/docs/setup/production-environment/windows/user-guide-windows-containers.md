@@ -134,8 +134,7 @@ nodeSelector and tolerations on the pod spec. Using the runtimeclasses is recomm
 [RuntimeClass] can be used to simplify the process of using taints and tolerations. 
 A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations. 
 Please note that this is the recommended way to schedule pods onto Windows nodes instead of using nodeSelector and
-tolerations as they can be added to pod spec by any user. In future, we will enforce runtimeclasses to be used. Pods
-having just nodeSelector and tolerations are going to be rejected during apiserver admission time.
+tolerations as they can be added to pod spec by any user.
 
 
 1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector` 
