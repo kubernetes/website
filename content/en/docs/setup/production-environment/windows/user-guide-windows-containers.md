@@ -36,51 +36,7 @@ The example in the section below is provided to jumpstart your experience with W
 
 To deploy a Windows container on Kubernetes, you must first create an example application. 
 The example YAML file below creates a simple webserver application. 
-Create a service spec named `win-webserver.yaml` with the contents below:
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: win-webserver
-  labels:
-    app: win-webserver
-spec:
-  ports:
-    # the port that this service should serve on
-    - port: 80
-      targetPort: 80
-  selector:
-    app: win-webserver
-  type: NodePort
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: win-webserver
-  name: win-webserver
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: win-webserver
-  template:
-    metadata:
-      labels:
-        app: win-webserver
-      name: win-webserver
-    spec:
-     containers:
-      - name: windowswebserver
-        image: mcr.microsoft.com/windows/servercore:ltsc2019
-        command:
-        - powershell.exe
-        - -command
-        - "<#code used from https://gist.github.com/19WAS85/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count += $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString+='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
-     nodeSelector:
-      kubernetes.io/os: windows
-```
+Create a file named `win-webserver.yaml` with the contents from [here](#Use RuntimeClass(Recommended approach))
 
 {{< note >}}
 Port mapping is also supported, but for simplicity in this example 
@@ -154,14 +110,106 @@ simplified service principal name (SPN) management, and the ability to delegate 
 Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. 
 Learn more about configuring and using GMSA for Windows containers [here](/docs/tasks/configure-pod-container/configure-gmsa/).
 
-## Taints and Tolerations
+## Ensuring OS-specific workloads land on the appropriate container host
 
-Users today need to use some combination of taints and node selectors in order to 
+Users today need to use some combination of taints on the node and runtimeclasses on the pod in order to 
 keep Linux and Windows workloads on their respective OS-specific nodes. 
 This likely imposes a burden only on Windows users. The recommended approach is outlined below, 
 with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
+We understand that in many cases users have a pre-existing large number of deployments for Linux containers, 
+as well as an ecosystem of off-the-shelf configurations, such as community Helm charts, and programmatic Pod generation cases, such as with Operators. 
+In those situations, you may be hesitant to make the configuration change to add runtimeclasses. 
+The alternative is to use Taints. Because the kubelet can set Taints during registration, 
+it could easily be modified to automatically add a taint when running on Windows only. 
 
-### Ensuring OS-specific workloads land on the appropriate container host
+For example:  `--register-with-taints='os=windows:NoSchedule'`
+
+By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). 
+
+In order for the pod to land on the Windows host, we need to use either runtimeclasses or a combination of 
+nodeSelector and tolerations on the pod spec. Using the runtimeclasses is recommended approach as explained below.
+
+### Use RuntimeClass(Recommended approach)
+
+[RuntimeClass] can be used to simplify the process of using taints and tolerations. 
+A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations. 
+Please note that this is the recommended way to schedule pods onto Windows nodes instead of using nodeSelector and
+tolerations as they can be added to pod spec by any user. In future, we will enforce runtimeclasses to be used. Pods
+having just nodeSelector and tolerations are going to be rejected during apiserver admission time.
+
+
+1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector` 
+for the Windows OS, architecture, and version.
+
+```yaml
+apiVersion: node.k8s.io/v1
+kind: RuntimeClass
+metadata:
+  name: windows-2019
+handler: 'runhcs-wcow-process'
+scheduling:
+  nodeSelector:
+    kubernetes.io/os: 'windows'
+    kubernetes.io/arch: 'amd64'
+  tolerations:
+  - effect: NoSchedule
+    key: os
+    operator: Equal
+    value: "windows"
+```
+
+1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
+1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
+
+For example:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: win-webserver
+  labels:
+    app: win-webserver
+spec:
+  ports:
+    # the port that this service should serve on
+    - port: 80
+      targetPort: 80
+  selector:
+    app: win-webserver
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: win-webserver
+  name: win-webserver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: win-webserver
+  template:
+    metadata:
+      labels:
+        app: win-webserver
+      name: win-webserver
+    spec:
+      runtimeClassName: windows-2019
+      containers:
+      - name: windowswebserver
+        image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+        command:
+        - powershell.exe
+        - -command
+        - "<#code used from https://gist.github.com/19WAS85/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count += $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString+='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
+```
+
+[RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
+[containerd default runtimeclass handler](https://kubernetes.io/docs/concepts/containers/runtime-class/#cri-configuration)
+
+### Use NodeSelector and tolerations explicitly(This approach is not recommended)
 
 Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations. 
 All Kubernetes nodes today have the following default labels:
@@ -172,17 +220,8 @@ All Kubernetes nodes today have the following default labels:
 If a Pod specification does not specify a nodeSelector like `"kubernetes.io/os": windows`, 
 it is possible the Pod can be scheduled on any host, Windows or Linux. 
 This can be problematic since a Windows container can only run on Windows and a Linux container can only run on Linux. 
-The best practice is to use a nodeSelector.
 
-However, we understand that in many cases users have a pre-existing large number of deployments for Linux containers, 
-as well as an ecosystem of off-the-shelf configurations, such as community Helm charts, and programmatic Pod generation cases, such as with Operators. 
-In those situations, you may be hesitant to make the configuration change to add nodeSelectors. 
-The alternative is to use Taints. Because the kubelet can set Taints during registration, 
-it could easily be modified to automatically add a taint when running on Windows only.
 
-For example:  `--register-with-taints='os=windows:NoSchedule'`
-
-By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). 
 In order for a Windows Pod to be scheduled on a Windows node, 
 it would need both the nodeSelector to choose Windows, and the appropriate matching toleration.
 
@@ -196,6 +235,8 @@ tolerations:
       value: "windows"
       effect: "NoSchedule"
 ```
+
+This is not recommended, please use runtimeclasses instead.
 
 ### Handling multiple Windows versions in the same cluster
 
@@ -214,25 +255,14 @@ Here are values used today for each Windows Server version.
 | Windows Server version 1809          | 10.0.17763             |
 | Windows Server version 1903          | 10.0.18362             |
 
-
-### Simplifying with RuntimeClass
-
-[RuntimeClass] can be used to simplify the process of using taints and tolerations. 
-A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations. 
-Please note that this is the recommended way to schedule pods onto Windows nodes instead of using nodeSelector and
-tolerations as they can be added to pod spec by any user. In future, we will enforce runtimeclasses to be used. Pods
-having just nodeSelector and tolerations are going to be rejected during apiserver admission.
-
-
-1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector` 
-for the Windows OS, architecture, and version.
+A sample runtimeclass with nodeSelectors to include build numbers is shown below
 
 ```yaml
 apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
   name: windows-2019
-handler: 'docker'
+handler: 'runhcs-wcow-process'
 scheduling:
   nodeSelector:
     kubernetes.io/os: 'windows'
@@ -244,58 +274,3 @@ scheduling:
     operator: Equal
     value: "windows"
 ```
-
-1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
-1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
-
-For example:
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: iis-2019
-  labels:
-    app: iis-2019
-spec:
-  replicas: 1
-  template:
-    metadata:
-      name: iis-2019
-      labels:
-        app: iis-2019
-    spec:
-      runtimeClassName: windows-2019
-      containers:
-      - name: iis
-        image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
-        resources:
-          limits:
-            cpu: 1
-            memory: 800Mi
-          requests:
-            cpu: .1
-            memory: 300Mi
-        ports:
-          - containerPort: 80
- selector:
-    matchLabels:
-      app: iis-2019
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: iis
-spec:
-  type: LoadBalancer
-  ports:
-  - protocol: TCP
-    port: 80
-  selector:
-    app: iis-2019
-```
-
-
-
-
-[RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
