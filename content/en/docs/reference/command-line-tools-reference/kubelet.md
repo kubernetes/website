@@ -281,7 +281,7 @@ kubelet [flags]
 <td colspan="2">--cpu-manager-policy-options strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated list of options to fine-tune the behavior of the CPU Manager policy to use. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated list of options to fine-tune the behavior of the selected CPU Manager policy. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
 </tr>
 
 <tr>
@@ -1241,5 +1241,4 @@ Insecure values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_R
 </tr>
 </tbody>
 </table>
-
 
