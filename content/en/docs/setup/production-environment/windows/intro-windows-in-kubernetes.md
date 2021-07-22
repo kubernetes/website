@@ -99,11 +99,12 @@ limitation and compatibility rules will change.
 
 #### Pause Image
 
-Kubernetes maintains a multi-architecture image `k8s.gcr.io/pause:3.5` that
-supports Linux as well as Windows.
+Kubernetes maintains a multi-architecture image that includes support for Windows at `k8s.gcr.io/pause:3.5`.
+Source for the pause image can be found  [here](https://github.com/kubernetes/kubernetes/tree/master/build/pause).
 
-Microsoft maintains a Windows pause infrastructure container with Linux and Windows amd64 images at `mcr.microsoft.com/oss/kubernetes/pause:3.5`.
-This image is built from the same source as the Kubernetes maintained image but all of the Windows binaries are (authenticode signed)[https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode] by Microsoft.
+Microsoft maintains a multi-architecture image with Linux and Windows amd64 support at `mcr.microsoft.com/oss/kubernetes/pause:3.5`.
+This image is built from the same source as the Kubernetes maintained image but all of the Windows binaries are [authenticode signed](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode) by Microsoft.
+For this reason the Microsoft maintained image is recommended for production environments.
 
 #### Compute
 
@@ -1234,8 +1235,8 @@ contributors. Follow the instructions in the SIG-Windows
 
 * `kubectl port-forward` fails with "unable to do port forwarding: wincat not found"
 
-  This was implemented in Kubernetes 1.15 by including wincat.exe in the
-  pause infrastructure container `k8s.gcr.io/pause:3.5`.
+  Port forwarding support for Windows was added in Kubernetes 1.15 by including wincat.exe in the
+  [pause infrastructure container](#Pause-Image).
   Be sure to use these versions or newer ones.  If you would like to build your
   own pause infrastructure container be sure to include
   [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
@@ -1260,9 +1261,9 @@ contributors. Follow the instructions in the SIG-Windows
   to accommodate worker containers crashing or restarting without losing any of
   the networking configuration.
 
-  The "pause" (infrastructure) image can be found at `k8s.gcr.io/pause:3.5`
-  For more details, see the
-  [DOCKERFILE](https://github.com/kubernetes/kubernetes/blob/master/build/pause/Dockerfile_windows).
+  The latest version of the pause image can be found above [here](#Pause-Image).
+
+  Source / Build files for the pause image can be founud at https://github.com/kubernetes/kubernetes/blob/master/build/pause/.
 
 ### Further investigation
 
