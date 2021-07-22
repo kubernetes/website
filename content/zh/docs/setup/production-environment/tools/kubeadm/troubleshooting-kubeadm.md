@@ -286,7 +286,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
 -->
 ## 无法通过其服务 IP 访问 Pod
 
-- 许多网络附加组件尚未启用 [hairpin 模式](/zh/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
+- 许多网络附加组件尚未启用 [hairpin 模式](/zh/docs/tasks/debug-application-cluster/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   该模式允许 Pod 通过其服务 IP 进行访问。这是与 [CNI](https://github.com/containernetworking/cni/issues/476) 有关的问题。
   请与网络附加组件提供商联系，以获取他们所提供的 hairpin 模式的最新状态。
 
