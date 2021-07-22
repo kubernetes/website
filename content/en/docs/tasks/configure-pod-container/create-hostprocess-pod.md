@@ -38,31 +38,38 @@ privileges needed by Windows nodes.
 
 ### Important Notes
 
-- HostProcess container will **only run when using version 1.5.4 (or higher) containerd [container runtime](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)**.
+- HostProcess containers will **only run when using version 1.5.4 (or higher) of the containerd [container runtime](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)**.
 - As of v1.22 HostProcess pods can only run HostProcess containers. This is a current limitation
  of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
 - HostProcess containers run as a process on the host and do not have any degree of 
 isolation other than resource constraints imposed on the HostProcess user account. Neither 
 filesystem or Hyper-V isolation are supported for HostProcess containers.
+- Volume mounts are supported and are mounted under the container volume. See [Volume Mounts](./create-hostprocess-pod#volume-mounts)
+- A limited set of host user accounts are available for HostProcess containers by default. See [Choosing a User Account](./create-hostprocess-pod#choosing-a-user-account).
 - Resource limits (disk, memory, cpu count) are supported in the same fashion as processes 
 on the host.
-- Both Named pipe mounts and Unix domain sockets will **not** be supported and should instead be accessed via their 
-path on the host (e.g. \\.\pipe\*)
-- Volume mounts are supported and are mounted under the container volume.
-- [todo] Skipping host file mounting
+- Both Named pipe mounts and Unix domain sockets are **not** currently supported and should instead be accessed via their 
+path on the host (e.g. \\\\.\\pipe\\\*)
 
- ## {{% heading "prerequisites" %}} //TODO, might have to wait for beta implementation completion
-[todo] Enabling the feature
-
+ ## {{% heading "prerequisites" %}}
 [todo] Version requirements
+[todo] Enabling the feature
+- flags that need to be set 
+- 
+
+- list of steps needed to build everything
+
 
 ## Creating HostProcess containers
 
-[todo] Testing HostProcess containers in a dev environment
-
 [todo] Deploying HostProcess containers
+## Example Manifests
+
+[todo] example specs
 
 ## Volume Mounts
+
+
 
 ## Choosing a User Account
 
@@ -70,6 +77,4 @@ path on the host (e.g. \\.\pipe\*)
 
 [todo] Using runas + changing the user
 
-## Example Manifests
 
-[todo] example specs
