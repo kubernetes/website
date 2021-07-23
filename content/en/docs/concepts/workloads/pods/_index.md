@@ -284,13 +284,13 @@ but cannot be controlled from there.
 
 ## Container probes
 
-A Probe is a diagnostic performed periodically by the kubelet on a Container. To perform a diagnostic, the kubelet calls a Handler implemented by the container. There are three types of handlers:
+A _probe_ is a diagnostic performed periodically by the kubelet on a container. To perform a diagnostic, the kubelet can invoke different actions:
 
-- ExecAction
-- TCPSocketAction
-- HTTPGetAction
+- `ExecAction` (performed with the help of the container runtime)
+- `TCPSocketAction` (checked directly by the kubelet)
+- `HTTPGetAction` (checked directly by the kubelet)
 
-learn more about it [here](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
+You can read more about [probes](docs/concepts/workloads/pods/pod-lifecycle/#container-probes) in the Pod Lifecycle documentation.
 
 ## {{% heading "whatsnext" %}}
 
