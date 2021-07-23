@@ -58,8 +58,7 @@ resources:
 Each `resources` array item is a separate config and contains a complete configuration. The
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
 that should be encrypted. The `providers` array is an ordered list of the possible encryption
-providers. Only one provider type may be specified per entry (`identity` or `aescbc` may be provided,
-but not both in the same item).
+providers. Only one provider type may be specified per entry (`identity` or `aescbc` may be provided, but not both in the same item).
 
 The first provider in the list is used to encrypt resources going into storage. When reading
 resources from storage each provider that matches the stored data attempts to decrypt the data in
@@ -78,9 +77,9 @@ read that resource will fail until it is deleted or a valid decryption key is pr
 Name | Encryption | Strength | Speed | Key Length | Other Considerations
 -----|------------|----------|-------|------------|---------------------
 `identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
-`aescbc` | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | The recommended choice for encryption at rest but may be slightly slower than `secretbox`.
 `secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
+`aescbc` | AES-CBC with PKCS#7 padding | Weak | Fast | 32-byte | Not recommended due to CBC's vulnerability to padding oracle attacks.
 `kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with PKCS#7 padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
@@ -215,5 +214,3 @@ and restart all `kube-apiserver` processes. Then run:
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 to force all secrets to be decrypted.
-
-
