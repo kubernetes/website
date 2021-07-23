@@ -36,7 +36,7 @@ The example in the section below is provided to jumpstart your experience with W
 
 To deploy a Windows container on Kubernetes, you must first create an example application. 
 The example YAML file below creates a simple webserver application. 
-Create a file named `win-webserver.yaml` with the contents from [here](#Use RuntimeClass(Recommended approach))
+Create a file named `win-webserver.yaml` with the contents from [using runtimeclasses](#use-runtimeclass-recommended-approach)
 
 {{< note >}}
 Port mapping is also supported, but for simplicity in this example 
@@ -122,23 +122,52 @@ In those situations, you may be hesitant to make the configuration change to add
 The alternative is to use Taints. Because the kubelet can set Taints during registration, 
 it could easily be modified to automatically add a taint when running on Windows only. 
 
-For example:  `--register-with-taints='os=windows:NoSchedule'`
+For example:  adding the flag `--register-with-taints='os=windows:NoSchedule'` to kubelet parameters causes kubelet to register the taint.
 
 By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). 
 
 In order for the pod to land on the Windows host, we need to use either runtimeclasses or a combination of 
 nodeSelector and tolerations on the pod spec. Using the runtimeclasses is recommended approach as explained below.
 
-### Use RuntimeClass(Recommended approach)
+### Use RuntimeClass (Recommended Approach)
 
-[RuntimeClass] can be used to simplify the process of using taints and tolerations. 
-A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations. 
-Please note that this is the recommended way to schedule pods onto Windows nodes instead of using nodeSelector and
-tolerations as they can be added to pod spec by any user.
+[RuntimeClass] can be used to simplify the process of using taints and tolerations. In this approach,
+the cluster administrator creates a `RuntimeClass` object which is used to encapsulate these tolerations 
+and nodeSelector. 
+
+Please note that this is the recommended approach to schedule pods onto Windows nodes
+instead of using nodeSelector and tolerations as they can be added to pod spec by any user making them
+insecure to be used.
 
 
 1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector` 
-for the Windows OS, architecture, and version.
+for the Windows OS, architecture. Please choose the runtimeclass based on the 
+container runtime you configured, which can be either docker or containerd
+
+
+{{< tabs name="tab-runtimeclasses-for-windows" >}}
+{{% tab name="docker" %}}
+
+```yaml
+apiVersion: node.k8s.io/v1
+kind: RuntimeClass
+metadata:
+  name: windows-2019
+handler: 'docker'
+scheduling:
+  nodeSelector:
+    kubernetes.io/os: 'windows'
+    kubernetes.io/arch: 'amd64'
+  tolerations:
+  - effect: NoSchedule
+    key: os
+    operator: Equal
+    value: "windows"
+```
+
+{{% /tab %}}
+
+{{% tab name="containerd" %}}
 
 ```yaml
 apiVersion: node.k8s.io/v1
@@ -156,6 +185,9 @@ scheduling:
     operator: Equal
     value: "windows"
 ```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
 1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
