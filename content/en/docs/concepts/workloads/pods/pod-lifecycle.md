@@ -311,7 +311,7 @@ is different from the liveness probe.
 
 If your app has a strict dependency on back-end services, you can implement both
 a liveness and a readiness probe. The liveness probe passes when the app itself
-is healthy, but the readiness problem additionally checks that each required
+is healthy, but the readiness probe additionally checks that each required
 back-end service is available. This helps you avoid directing traffic to Pods
 that can only respond with error messages.
 
