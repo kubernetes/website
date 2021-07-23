@@ -57,7 +57,15 @@ min-kubernetes-server-version: v1.14
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-deployment.yaml
       ```
+<<<<<<< HEAD
 
+||||||| 6d252624b
+<!--
+컨텐츠에 대한 로컬 테스트는 파일의 상대경로로 한다.
+kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.yaml
+-->
+=======
+>>>>>>> fork/dev-1.20-ko.8
 
 1. 파드의 목록을 질의하여 MongoDB 파드가 실행 중인지 확인한다.
 
@@ -95,7 +103,16 @@ min-kubernetes-server-version: v1.14
       kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-service.yaml
       ```
 
+<<<<<<< HEAD
 
+||||||| 6d252624b
+<!--
+컨텐츠에 대한 로컬 테스트는 파일의 상대경로로 한다.
+kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
+-->
+
+=======
+>>>>>>> fork/dev-1.20-ko.8
 1. 서비스의 목록을 질의하여 MongoDB 서비스가 실행 중인지 확인한다.
 
       ```shell
@@ -134,7 +151,16 @@ min-kubernetes-server-version: v1.14
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml
       ```
 
+<<<<<<< HEAD
 
+||||||| 6d252624b
+<!--
+컨텐츠에 대한 로컬 테스트는 파일의 상대경로로 한다.
+kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment.yaml
+-->
+
+=======
+>>>>>>> fork/dev-1.20-ko.8
 1. 파드의 목록을 질의하여 세 개의 프론트엔드 복제본이 실행되고 있는지 확인한다.
 
       ```shell
@@ -173,7 +199,16 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-service.yaml
       ```
 
+<<<<<<< HEAD
 
+||||||| 6d252624b
+<!--
+컨텐츠에 대한 로컬 테스트는 파일의 상대경로로 한다.
+kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.yaml
+-->
+
+=======
+>>>>>>> fork/dev-1.20-ko.8
 1. 서비스의 목록을 질의하여 프론트엔드 서비스가 실행 중인지 확인한다.
 
       ```shell

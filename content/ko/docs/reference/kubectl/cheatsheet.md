@@ -384,10 +384,19 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 # 클러스터에서 실행 중인 모든 이미지
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 
+<<<<<<< HEAD
 # `default` 네임스페이스의 모든 이미지를 파드별로 그룹지어 출력
 kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
  # "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
+||||||| 6d252624b
+ # "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
+=======
+# `default` 네임스페이스의 모든 이미지를 파드별로 그룹지어 출력
+kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
+
+# "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
+>>>>>>> fork/dev-1.20-ko.8
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
 
 # 이름에 관계없이 메타데이터 아래의 모든 필드

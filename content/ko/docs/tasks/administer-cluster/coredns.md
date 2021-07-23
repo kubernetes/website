@@ -33,8 +33,16 @@ Kube-dns의 배포나 교체에 관한 매뉴얼은 [CoreDNS GitHub 프로젝트
 ### Kubeadm을 사용해 기존 클러스터 업그레이드하기
 
 쿠버네티스 버전 1.10 이상에서, `kube-dns` 를 사용하는 클러스터를 업그레이드하기 위하여
+<<<<<<< HEAD
 `kubeadm` 을 사용할 때 CoreDNS로 전환할 수도 있다. 이 경우, `kubeadm` 은
 `kube-dns` 컨피그맵(ConfigMap)을 기반으로 스텁 도메인(stub domain), 업스트림 네임 서버의
+||||||| 6d252624b
+`kubeadm` 을 사용할 때 CoreDNS로 이동할 수도 있다. 이 경우, `kubeadm` 은
+`kube-dns` 컨피그맵(ConfigMap)을 기반으로 패더레이션, 스텁 도메인(stub domain), 업스트림 네임 서버의
+=======
+`kubeadm` 을 사용할 때 CoreDNS로 전환할 수도 있다. 이 경우, `kubeadm` 은
+`kube-dns` 컨피그맵(ConfigMap)을 기반으로 패더레이션, 스텁 도메인(stub domain), 업스트림 네임 서버의
+>>>>>>> fork/dev-1.20-ko.8
 설정을 유지하며 CoreDNS 설정("Corefile")을 생성한다.
 
 만약 kube-dns에서 CoreDNS로 이동하는 경우, 업그레이드 과정에서 기능 게이트의 `CoreDNS` 값을 `true` 로 설정해야 한다.

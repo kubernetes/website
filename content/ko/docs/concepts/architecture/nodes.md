@@ -63,6 +63,7 @@ kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록
 노드 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
+<<<<<<< HEAD
 ### 노드 이름 고유성
 
 [이름](/ko/docs/concepts/overview/working-with-objects/names#names)은 노드를 식별한다. 두 노드는
@@ -73,6 +74,19 @@ kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록
 업데이트해야 하는 경우, 기존 노드 오브젝트를 먼저 API 서버에서 제거하고
 업데이트 후 다시 추가해야 한다.
 
+||||||| 6d252624b
+=======
+### 노드 이름 고유성
+
+[이름](/ko/docs/concepts/overview/working-with-objects/names#names)은 노드를 식별한다. 두 노드는
+동시에 같은 이름을 가질 수 없다. 쿠버네티스는 또한 같은 이름의 리소스가
+동일한 오브젝트라고 가정한다. 노드의 경우, 동일한 이름을 사용하는 인스턴스가 동일한
+상태(예: 네트워크 설정, 루트 디스크 내용)를 갖는다고 암시적으로 가정한다. 인스턴스가
+이름을 변경하지 않고 수정된 경우 이로 인해 불일치가 발생할 수 있다. 노드를 대폭 교체하거나
+업데이트해야 하는 경우, 기존 노드 오브젝트를 먼저 API 서버에서 제거하고
+업데이트 후 다시 추가해야 한다.
+
+>>>>>>> fork/dev-1.20-ko.8
 ### 노드에 대한 자체-등록
 
 kubelet 플래그 `--register-node`는 참(기본값)일 경우, kubelet 은 API 서버에
