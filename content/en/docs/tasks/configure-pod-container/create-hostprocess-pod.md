@@ -51,16 +51,17 @@ on the host.
 - Both Named pipe mounts and Unix domain sockets are **not** currently supported and should instead be accessed via their 
 path on the host (e.g. \\\\.\\pipe\\\*)
 
- ## {{% heading "prerequisites" %}}
-# HostProcess Documentation
+## {{% heading "prerequisites" %}}
 
-To enable HostProcess containers while in Alpha you need to pass the following feature gate flag to **kubelet** and **kube-apiserver**. See [Features Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/#overview) documentation for more details.
+To enable HostProcess containers while in Alpha you need to pass the following feature gate flag to **kubelet** and **kube-apiserver**. 
+See [Features Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/#overview) documentation for more details.
 
 ```
 --feature-gates=WindowsHostProcessContainers=true
 ```
 
-You can use the latest version of Containerd (v1.5.4+) with the following settings using the containerd v2 configuration.  Add these annotations to any runtime configurations were you wish to enable the HostProcess Container feature.
+You can use the latest version of Containerd (v1.5.4+) with the following settings using the containerd v2 configuration.  
+Add these annotations to any runtime configurations were you wish to enable the HostProcess Container feature.
 
 
 ```
@@ -76,13 +77,82 @@ You can use the latest version of Containerd (v1.5.4+) with the following settin
         pod_annotations = ["microsoft.com/hostprocess-container"]
 ```
 
-The current versions of containerd ship with a version of hcsshim that does not have support. You will need to build a version of hcsshim from the main branch following the [instructions in hcsshim](https://github.com/Microsoft/hcsshim/#containerd-shim).  Once the containerd shim is built you can replace the file in your contianerd installation.  For example if you followed the instructions to [install containerd](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd) replace the `containerd-shim-runhcs-v1.exe` is installed at `$Env:ProgramFiles\containerd` with the newly built shim.
+The current versions of containerd ship with a version of hcsshim that does not have support. You will need to build 
+a version of hcsshim from the main branch following the [instructions in hcsshim](https://github.com/Microsoft/hcsshim/#containerd-shim). 
+Once the containerd shim is built you can replace the file in your contianerd installation.  For example if you followed the instructions
+ to [install containerd](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd) replace the
+  `containerd-shim-runhcs-v1.exe` is installed at `$Env:ProgramFiles\containerd` with the newly built shim.
 
-We are working to improve this process by enabling HostProcess support directly in [containerd via the CRI api](https://github.com/containerd/containerd/pull/5131) as well as shipping a version of the containerd shim for Windows with support direclty via containerd releases.
+We are working to improve this process by enabling HostProcess support directly in 
+[containerd via the CRI api](https://github.com/containerd/containerd/pull/5131) as well as shipping a version of the containerd shim
+ for Windows with support direclty via containerd releases.
 
+## Creating a HostProcess Pod
 
-### Example Manifests
+### Security Policy Config
+Enabling a Windows HostProcess pod simply requires setting the right configurations in the pod security configuration. 
+Many of the policies in the [Pod Security Standards](/docs/concepts/security/pod-security-standards) do not apply to 
+HostProcess containers (and Windows in general) due to architectural differences between Windows and Linux. As such, 
+here are the policy configurations required to enable HostProcess pods:
 
+<table>
+	<caption style="display:none">Privileged policy specification</caption>
+	<tbody>
+		<tr>
+			<td><strong>Control</strong></td>
+			<td><strong>Policy</strong></td>
+		</tr>
+		<tr>
+			<td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">Windows HostProcess</a></td>
+			<td>
+				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">
+        HostProcess containers</a> which enables privileged access to the Windows node. </p>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li><code>true</code></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">Host Networking</a></td>
+			<td>
+				<p>Will be in host network by default initially. Support 
+				to set network to a different compartment may be desirable in 
+				the future.</p>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li><code>true</code></li>
+				</ul>
+			</td>
+		</tr>
+    <tr>
+			<td style="white-space: nowrap"><a href="/docs/tasks/configure-pod-container/configure-runasusername/">runAsUsername</a></td>
+			<td>
+				<p>Specification of which user the HostProcess container should run as is required for the pod spec.</p>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li><code>"NT AUTHORITY\\Local service"</code></li>
+          <li><code>"NT AUTHORITY\\NetworkService"</code></li>
+          <li><code>"NT AUTHORITY\\Local service - Win32 Apps"</code></li>
+          <li><code>"NT AUTHORITY\\SYSTEM"</code></li>
+				</ul>
+			</td>
+		</tr>
+    <tr>
+			<td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">runAsNonRoot</a></td>
+			<td>
+				<p>HostProcess containers have privileged access to the host so the runAsNonRoot field cannot be set to true.</p>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+          <li>Undefined/Nil</li>
+					<li><code>false</code></li>
+				</ul>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+### Example Manifest
 
 ```yaml
 spec:
@@ -104,7 +174,10 @@ spec:
 
 ## Volume Mounts
 
-HostProcess containers support the ability to mount volumes within the container volume space. Applications running inside the container can access volume mounts directly via relative or absolute paths. An environment variable `$CONTAINER_SANDBOX_MOUNT_POINT` is set upon container creation and provides the absolute host path to the container volume. Relative paths are based upon the `Pod.containers.volumeMounts.mountPath` configuration.
+HostProcess containers support the ability to mount volumes within the container volume space. Applications running inside
+ the container can access volume mounts directly via relative or absolute paths. An environment variable `$CONTAINER_SANDBOX_MOUNT_POINT`
+  is set upon container creation and provides the absolute host path to the container volume. Relative paths are based upon
+   the `Pod.containers.volumeMounts.mountPath` configuration.
 
 Example: To access service account tokens the following path structures are supported within the container:
 
@@ -121,4 +194,6 @@ Currently HostProcess containers only support the ability to run as one of four 
 - **[LocalSystem](https://docs.microsoft.com/en-us/windows/win32/services/localsystem-account)**
 - **[LocalServiceAccount](https://docs.microsoft.com/en-us/windows/win32/services/localservice-account)**
 
-Operators should use these accounts to restrict access to system resources (e.g. files, registry, named pipes, WMI, etc.) and enforce the principle of least privilege. HostProcess containers have direct access to the host so it is recommended that a privileged workload only be given access to what it needs explicitly to prevent against accidental damage to the host. 
+Operators should use these accounts to restrict access to system resources (e.g. files, registry, named pipes, WMI, etc.)
+ and enforce the principle of least privilege. HostProcess containers have direct access to the host so it is recommended
+  that a privileged workload only be given access to what it needs explicitly to prevent against accidental damage to the host. 
