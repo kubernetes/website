@@ -15,5 +15,5 @@ spec:
             command:
             - /bin/sh
             - -c
-            - date; echo Olá do cluster do Kubernetes
+            - date; echo Hello from the Kubernetes cluster
           restartPolicy: OnFailure

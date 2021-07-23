@@ -1,8 +1,4 @@
 ---
-reviewers:
-- erictune
-- soltysh
-- janetkuo
 title: CronJob
 content_type: concept
 weight: 80
@@ -25,17 +21,17 @@ Se a camada de gerenciamento do cluster executa o kube-controller-manager em Pod
 {{< /caution >}}
 
 Ao criar o manifesto para um objeto CronJob, verifique se o nome que você forneceu é um [nome de subdomínio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
-O nome não pode ter mais que 52 caracteres. Esta limitação existe porque o controlador do CronJob adicionará automaticamente 11 caracteres ao final do nome de tarefa escolhido, e o comprimento máximo de um nome de tarefa não pode ultrapassar 63 caracteres.
+O nome não pode ter mais que 52 caracteres. Esta limitação existe porque o controlador do CronJob adicionará automaticamente 11 caracteres ao final do nome escolhido para a tarefa, e o tamanho máximo de um nome de tarefa não pode ultrapassar 63 caracteres.
 
 <!-- body -->
 
 ## CronJob
 
-CronJobs são úteis para criar tarefas periódicas e recorrentes, como a execução de _backups_ ou o envio de mensagens de e-mail. CronJobs também permitem o agendamento de tarefas individuais para um horário específico, como por exemplo uma tarefa que executa quando a chance do cluster estar ocioso é maior.
+CronJobs são úteis para criar tarefas periódicas e recorrentes, como a execução de _backups_ ou o envio de mensagens de e-mail. CronJobs também permitem o agendamento de tarefas individuais para um horário específico, como por exemplo uma tarefa que é executada em um período maior de ociosidade do cluster.
 
 ### Exemplo
 
-Este manifesto de CronJob de exemplo imprime o horário atual e uma mensagem dizendo olá a cada minuto:
+Este manifesto de CronJob de exemplo imprime a data e horário atuais, seguidos da mensagem "Hello from the Kubernetes cluster", uma vez por minuto:
 
 {{< codenew file="application/job/cronjob.yaml" >}}
 
@@ -71,7 +67,7 @@ Por exemplo, a linha abaixo determina que a tarefa deve iniciar toda sexta-feira
 
 ## Limitações do CronJob
 
-Um CronJob cria uma tarefa _aproximadamente_ uma vez por tempo de execução de seu cronograma. Dizemos "aproximadamente" porque existem circunstâncias em que duas tarefas podem ser criadas, e outras circunstâncias em que nenhuma tarefa será criada. Tentamos tornar estas situações raras, mas não preveni-las completamente. Portanto, as tarefas devem ser _idempotentes_.
+Um CronJob cria uma tarefa _aproximadamente_ uma vez por tempo de execução de seu cronograma. Dizemos "aproximadamente" porque existem circunstâncias em que duas tarefas podem ser criadas, e outras circunstâncias em que nenhuma tarefa será criada. Tentamos tornar estas situações raras, mas não é possível preveni-las completamente. Portanto, as tarefas devem ser _idempotentes_.
 
 Se o valor da propriedade `startingDeadlineSeconds` (limite de tempo de inicialização, em segundos) estiver definido como um valor grande, ou não definido (o padrão), e se a propriedade `concurrencyPolicy` (política de concorrência) estiver definido como `Allow` (permitir), as tarefas sempre serão executadas pelo menos uma vez.
 
