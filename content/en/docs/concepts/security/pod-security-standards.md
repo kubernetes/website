@@ -517,14 +517,14 @@ ecosystem, such as [OPA Gatekeeper](https://github.com/open-profile-agent/gateke
 ### What profiles should I apply to my Windows Pods?
 
 Windows in Kubernetes has some limitations and differentiators from standard Linux-based
-workloads. Specifically, a many of the Pod SecurityContext fields [have no effect on
+workloads. Specifically, many of the Pod SecurityContext fields [have no effect on
 Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext). As
 such, no standardized Pod Security profiles currently exist.
 
 Windows HostProcess containers can be enabled for the privileged profile, but are explicitly blocked for baseline.
 Windows pods _may_ be broken by the restricted profile, which requires setting linux-specific 
 settings (such as seccomp profile and disallow privilege escalation). If the Kubelet and/or 
-container runtime choose to ignore these linux-specific values at runtime, then windows 
+container runtime choose to ignore these linux-specific values at runtime, then Windows 
 pods should still be allowed under the restricted profile, although the profile will not 
 add additional enforcement over baseline (for Windows).
 
