@@ -260,7 +260,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Windows HostProcess</td>
 			<td>
-				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. As is similar to  privileged containers this must be disallowed in the baseline policy. </p>
+				<p>Running Windows pods as <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> enables privileged access to the Windows node and should be disallowed.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
@@ -268,7 +268,7 @@ fail validation.
 				</ul>
 				<p><strong>Allowed Values</strong></p>
 				<ul>
-					<li>Undefined/nil</li>
+					<li>Undefined/null</li>
 					<li><code>false</code></li>
 				</ul>
 			</td>
@@ -515,5 +515,4 @@ kernel. This allows for workloads requiring heightened permissions to still be i
 
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
 sandboxing. As such, no single recommended profile is recommended for all sandboxed workloads.
-
 

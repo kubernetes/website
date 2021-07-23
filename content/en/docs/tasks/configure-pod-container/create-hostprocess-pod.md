@@ -54,7 +54,7 @@ path on the host (e.g. \\\\.\\pipe\\\*)
  ## {{% heading "prerequisites" %}}
 # HostProcess Documentation
 
-To enable HostProcess containers while in Alpha you need to pass the following feature gate flag to kubelet and kube-apiserver. See [Features Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/#overview)documentation for more details.
+To enable HostProcess containers while in Alpha you need to pass the following feature gate flag to **kubelet** and **kube-apiserver**. See [Features Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/#overview) documentation for more details.
 
 ```
 --feature-gates=WindowsHostProcessContainers=true
