@@ -2,6 +2,7 @@
 title: Create a Windows HostProcess Pod
 content_type: task
 weight: 20
+min-kubernetes-server-version: 1.22
 ---
 
 <!-- overview -->
@@ -12,7 +13,7 @@ Windows HostProcess containers enable you to run containerized
 workloads on a Windows host. These containers operate as 
 normal processes but have access to the host network namespace, 
 storage, and devices when given the appropriate user privileges. 
-HostProcess containers can be used to deploy CNIs, 
+HostProcess containers can be used to deploy network plugins,
 storage configurations, device plugins, kube-proxy, and other 
 components to Windows nodes without the need for dedicated proxies or 
 the direct installation of host services.
@@ -32,15 +33,15 @@ to match that of the host.
 ### When should I use a Windows HostProcess container?
 
 - When you need to perform tasks which require the networking namespace of the host. 
-HostProcess containers have access to the host's network interfaces and IP.
+HostProcess containers have access to the host's network interfaces and IP addresses.
 - You need access to resources on the host such as the filesystem, event logs, etc.
-- Installation of specific devices drivers or services
+- Installation of specific device drivers or Windows services.
 - Consolidation of administrative tasks and security policies. This reduces the degree of 
 privileges needed by Windows nodes.
 
-### Important Notes
+## Limitations
 
-- HostProcess containers will **only run when using version 1.5.4 (or higher) of the containerd [container runtime](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)**.
+- HostProcess containers require version 1.5.4 or higher of the containerd {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 - As of v1.22 HostProcess pods can only contain HostProcess containers. This is a current limitation 
 of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
 - HostProcess containers run as a process on the host and do not have any degree of 
@@ -57,6 +58,8 @@ be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
 
 ## {{% heading "prerequisites" %}}
 
+{{% version-check %}}
+
 To enable HostProcess containers while in Alpha you need to pass the following feature gate flag to 
 **kubelet** and **kube-apiserver**. 
 See [Features Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/#overview) 
@@ -68,7 +71,7 @@ documentation for more details.
 
 You can use the latest version of Containerd (v1.5.4+) with the following settings using the containerd 
 v2 configuration. Add these annotations to any runtime configurations were you wish to enable the 
-HostProcess Container feature.
+HostProcess container feature.
 
 
 ```
@@ -89,7 +92,7 @@ You will need to build a version of hcsshim from the main branch following the
 [instructions in hcsshim](https://github.com/Microsoft/hcsshim/#containerd-shim). 
 Once the containerd shim is built you can replace the file in your contianerd installation. 
 For example if you followed the instructions to 
-[install containerd](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd) 
+[install containerd](/docs/setup/production-environment/container-runtimes/#containerd)
 replace the `containerd-shim-runhcs-v1.exe` is installed at `$Env:ProgramFiles\containerd` with the newly built shim.
 
 We are working to improve this process by enabling HostProcess support directly in 
@@ -99,7 +102,7 @@ as well as shipping a version of the containerd shim for Windows with support di
 ## Creating a HostProcess Pod
 
 ### Security Policy Config
-Enabling a Windows HostProcess pod simply requires setting the right configurations in the pod security configuration. 
+Enabling a Windows HostProcess pod requires setting the right configurations in the pod security configuration. 
 Many of the policies in the [Pod Security Standards](/docs/concepts/security/pod-security-standards) do not apply to 
 HostProcess containers (and Windows in general) due to architectural differences between Windows and Linux. As such, 
 here are the set of policies and configuration values required to enable HostProcess pods:
@@ -149,7 +152,7 @@ here are the set of policies and configuration values required to enable HostPro
     <tr>
 			<td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards">runAsNonRoot</a></td>
 			<td>
-				<p>HostProcess containers have privileged access to the host so the runAsNonRoot field cannot be set to true.</p>
+				<p>Because HostProcess containers have privileged access to the host, the <tt>runAsNonRoot</tt> field cannot be set to true.</p>
 				<p><strong>Allowed Values</strong></p>
 				<ul>
           <li>Undefined/Nil</li>
@@ -188,7 +191,9 @@ absolute paths. An environment variable `$CONTAINER_SANDBOX_MOUNT_POINT` is set 
 creation and provides the absolute host path to the container volume. Relative paths are based 
 upon the `Pod.containers.volumeMounts.mountPath` configuration.
 
-Example: To access service account tokens the following path structures are supported within the container:
+### Example {#volume-mount-example}
+
+To access service account tokens the following path structures are supported within the container:
 
 `.\var\run\secrets\kubernetes.io\serviceaccount\`
 
@@ -202,4 +207,8 @@ Currently HostProcess containers only support the ability to run as one of three
 - **[LocalService](https://docs.microsoft.com/en-us/windows/win32/services/localservice-account)**
 - **[NetworkService](https://docs.microsoft.com/en-us/windows/win32/services/networkservice-account)**
 
-Operators should use these accounts to limit the degree of privileges made available to the HostProcess container to prevent accidental damage to the host. The LocalSystem account has the highest level of privilege of the three and should be used only if absolutely necessary. It is recommended that operators follow the principle of least privilege and use the LocalService account when possible.
+You should select an appropriate Windows service account for each HostProcess
+container, aiming to limit the degree of privileges so as to avoid accidental (or even
+malicious) damage to the host. The LocalSystem servuce account has the highest level
+of privilege of the three and should be used only if absolutely necessary. Where possible,
+use the LocalService service account as it is the least privileged of the three options.

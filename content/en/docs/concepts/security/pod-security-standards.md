@@ -521,12 +521,12 @@ workloads. Specifically, many of the Pod SecurityContext fields [have no effect 
 Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext). As
 such, no standardized Pod Security profiles currently exist.
 
-Windows HostProcess containers can be enabled for the privileged profile, but are explicitly blocked for baseline.
-Windows pods _may_ be broken by the restricted profile, which requires setting linux-specific 
-settings (such as seccomp profile and disallow privilege escalation). If the Kubelet and/or 
-container runtime choose to ignore these linux-specific values at runtime, then Windows 
-pods should still be allowed under the restricted profile, although the profile will not 
-add additional enforcement over baseline (for Windows).
+If you apply the restricted profile for a Windows pod, this **may** have an impact on the pod
+at runtime. The restricted profile requires enforcing Linux-specific restrictions (such as seccomp
+profile, and disallowing privilege escalation). If the kubelet and / or its container runtime ignore
+these Linux-specific values, then the Windows pod should still work normally within the restricted
+profile. However, the lack of enforcement means that there is no additional restriction, for Pods
+that use Windows containers, compared to the baseline profile.
 
 ### What about sandboxed Pods?
 
@@ -540,4 +540,3 @@ kernel. This allows for workloads requiring heightened permissions to still be i
 
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
 sandboxing. As such, no single recommended profile is recommended for all sandboxed workloads.
-
