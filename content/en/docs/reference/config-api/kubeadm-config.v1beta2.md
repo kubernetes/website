@@ -116,7 +116,7 @@ The ClusterConfiguration type should be used to configure cluster-wide settings,
 including settings for:
 
 - Networking, that holds configuration for the networking topology of the cluster; use it e.g. to customize
-  node subnet or services subnet.
+  pod subnet or services subnet.
 - Etcd configurations; use it e.g. to customize the local etcd or to configure the API server
   for using an external etcd cluster.
 - kube-apiserver, kube-scheduler, kube-controller-manager configurations; use it to customize control-plane
@@ -164,19 +164,19 @@ bootstrapTokens:
     groups:
       - system:bootstrappers:kubeadm:default-node-token
 nodeRegistration:
-	 name: "ec2-10-100-0-1"
-	 criSocket: "/var/run/dockershim.sock"
-	 taints:
-	   - key: "kubeadmNode"
-	     value: "master"
-	     effect: "NoSchedule"
-	 kubeletExtraArgs:
-	   cgroup-driver: "cgroupfs"
-	 ignorePreflightErrors:
-	   - IsPrivilegedUser
+  name: "ec2-10-100-0-1"
+  criSocket: "/var/run/dockershim.sock"
+  taints:
+    - key: "kubeadmNode"
+      value: "master"
+      effect: "NoSchedule"
+  kubeletExtraArgs:
+    cgroup-driver: "cgroupfs"
+  ignorePreflightErrors:
+    - IsPrivilegedUser
 localAPIEndpoint:
-	 advertiseAddress: "10.100.0.1"
-	 bindPort: 6443
+  advertiseAddress: "10.100.0.1"
+  bindPort: 6443
 certificateKey: "e6a2eb8581237ab72a4f494f30285ec12a9694d750b9785706a83bfcbbbd2204"
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
@@ -184,59 +184,59 @@ kind: ClusterConfiguration
 etcd:
   # one of local or external
   local:
-	   imageRepository: "k8s.gcr.io"
-	   imageTag: "3.2.24"
-	   dataDir: "/var/lib/etcd"
-	   extraArgs:
-	     listen-client-urls: "http://10.100.0.1:2379"
-	   serverCertSANs:
-	     -  "ec2-10-100-0-1.compute-1.amazonaws.com"
-	   peerCertSANs:
-	     - "10.100.0.1"
-	 # external:
-	   # endpoints:
-	   # - "10.100.0.1:2379"
-	   # - "10.100.0.2:2379"
-	   # caFile: "/etcd/kubernetes/pki/etcd/etcd-ca.crt"
-	   # certFile: "/etcd/kubernetes/pki/etcd/etcd.crt"
-	   # keyFile: "/etcd/kubernetes/pki/etcd/etcd.key"
-	networking:
-	  serviceSubnet: "10.96.0.0/12"
-	  podSubnet: "10.100.0.1/24"
-	  dnsDomain: "cluster.local"
-	kubernetesVersion: "v1.12.0"
-	controlPlaneEndpoint: "10.100.0.1:6443"
-	apiServer:
-	  extraArgs:
-	    authorization-mode: "Node,RBAC"
-	  extraVolumes:
-	  - name: "some-volume"
-	    hostPath: "/etc/some-path"
-	    mountPath: "/etc/some-pod-path"
-	    readOnly: false
-	    pathType: File
-	  certSANs:
-	  - "10.100.1.1"
-	  - "ec2-10-100-0-1.compute-1.amazonaws.com"
-	  timeoutForControlPlane: 4m0s
-	controllerManager:
-	  extraArgs:
-	    "node-cidr-mask-size": "20"
-	  extraVolumes:
-	  - name: "some-volume"
-	    hostPath: "/etc/some-path"
-	    mountPath: "/etc/some-pod-path"
-	    readOnly: false
-	    pathType: File
-	scheduler:
-	  extraArgs:
-	    address: "10.100.0.1"
-	  extraVolumes:
-	  - name: "some-volume"
-	    hostPath: "/etc/some-path"
-	    mountPath: "/etc/some-pod-path"
-	    readOnly: false
-	    pathType: File
+    imageRepository: "k8s.gcr.io"
+    imageTag: "3.2.24"
+    dataDir: "/var/lib/etcd"
+    extraArgs:
+      listen-client-urls: "http://10.100.0.1:2379"
+    serverCertSANs:
+      - "ec2-10-100-0-1.compute-1.amazonaws.com"
+    peerCertSANs:
+      - "10.100.0.1"
+  # external:
+    # endpoints:
+    # - "10.100.0.1:2379"
+    # - "10.100.0.2:2379"
+    # caFile: "/etcd/kubernetes/pki/etcd/etcd-ca.crt"
+    # certFile: "/etcd/kubernetes/pki/etcd/etcd.crt"
+    # keyFile: "/etcd/kubernetes/pki/etcd/etcd.key"
+ networking:
+   serviceSubnet: "10.96.0.0/12"
+   podSubnet: "10.100.0.1/24"
+   dnsDomain: "cluster.local"
+ kubernetesVersion: "v1.12.0"
+ controlPlaneEndpoint: "10.100.0.1:6443"
+ apiServer:
+   extraArgs:
+     authorization-mode: "Node,RBAC"
+   extraVolumes:
+     - name: "some-volume"
+       hostPath: "/etc/some-path"
+       mountPath: "/etc/some-pod-path"
+       readOnly: false
+       pathType: File
+   certSANs:
+     - "10.100.1.1"
+     - "ec2-10-100-0-1.compute-1.amazonaws.com"
+   timeoutForControlPlane: 4m0s
+ controllerManager:
+   extraArgs:
+     "node-cidr-mask-size": "20"
+   extraVolumes:
+     - name: "some-volume"
+       hostPath: "/etc/some-path"
+       mountPath: "/etc/some-pod-path"
+       readOnly: false
+       pathType: File
+ scheduler:
+   extraArgs:
+     address: "10.100.0.1"
+   extraVolumes:
+     - name: "some-volume"
+       hostPath: "/etc/some-path"
+       mountPath: "/etc/some-pod-path"
+       readOnly: false
+       pathType: File
 certificatesDir: "/etc/kubernetes/pki"
 imageRepository: "k8s.gcr.io"
 useHyperKubeImage: false
@@ -663,7 +663,7 @@ APIServer holds settings necessary for API server deployments in the cluster
     
   
 <tr><td><code>timeoutForControlPlane</code> <B>[Required]</B><br/>
-<code>invalid type</code>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    `timeoutForControlPlane` controls the timeout that we use for API server to appear</td>
@@ -712,7 +712,7 @@ for, so other administrators can know its purpose.</td>
     
   
 <tr><td><code>ttl</code> <B>[Required]</B><br/>
-<code>invalid type</code>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    `ttl` defines the time to live for this token. Defaults to "24h".
@@ -721,7 +721,7 @@ for, so other administrators can know its purpose.</td>
     
   
 <tr><td><code>expires</code> <B>[Required]</B><br/>
-<code>invalid type</code>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    `expires` specifies the timestamp when this token expires. Defaults to being set
@@ -1004,7 +1004,7 @@ not contain any other authentication information</td>
     
   
 <tr><td><code>timeout</code> <B>[Required]</B><br/>
-<code>invalid type</code>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
    `timeout` modifies the discovery timeout.</td>
@@ -1199,7 +1199,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
     
   
 <tr><td><code>pathType</code> <B>[Required]</B><br/>
-<code>invalid type</code>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    `pathType` is the type of the `hostPath` volume.</td>
@@ -1451,7 +1451,7 @@ annotated to the Node API object, for later re-use.</td>
     
   
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<code>[]invalid type</code>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    `taints` specifies the taints the Node API object should be registered with. If
