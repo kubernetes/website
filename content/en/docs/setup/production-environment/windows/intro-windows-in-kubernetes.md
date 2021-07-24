@@ -99,7 +99,8 @@ limitation and compatibility rules will change.
 
 #### Pause Image
 
-Kubernetes maintains a multi-architecture image that includes support for Windows at `k8s.gcr.io/pause:3.5`.
+Kubernetes maintains a multi-architecture image that includes support for Windows.
+For Kubernetes v1.22 the recommended pause image is `k8s.gcr.io/pause:3.5`.
 The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
 is available on GitHub.
 
