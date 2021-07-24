@@ -28,7 +28,8 @@ to give it a clean and consolidated workspace. HostProcess containers can also b
 top of existing Windows base images and do not inherit the same 
 [compatibility requirements](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility) 
 as Windows server containers, meaning that the version of the base images does not need 
-to match that of the host.
+to match that of the host. HostProcess containers also support 
+[volume mounts](./create-hostprocess-pod#volume-mounts) within the container volume.
 
 ### When should I use a Windows HostProcess container?
 
@@ -39,22 +40,6 @@ HostProcess containers have access to the host's network interfaces and IP addre
 - Consolidation of administrative tasks and security policies. This reduces the degree of 
 privileges needed by Windows nodes.
 
-## Limitations
-
-- HostProcess containers require version 1.5.4 or higher of the containerd {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
-- As of v1.22 HostProcess pods can only contain HostProcess containers. This is a current limitation 
-of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
-- HostProcess containers run as a process on the host and do not have any degree of 
-isolation other than resource constraints imposed on the HostProcess user account. Neither 
-filesystem or Hyper-V isolation are supported for HostProcess containers.
-- Volume mounts are supported and are mounted under the container volume. 
-See [Volume Mounts](./create-hostprocess-pod#volume-mounts)
-- A limited set of host user accounts are available for HostProcess containers by default. 
-See [Choosing a User Account](./create-hostprocess-pod#choosing-a-user-account).
-- Resource limits (disk, memory, cpu count) are supported in the same fashion as processes 
-on the host.
-- Both Named pipe mounts and Unix domain sockets are **not** currently supported and should instead 
-be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
 
 ## {{% heading "prerequisites" %}}
 
@@ -95,13 +80,25 @@ For example if you followed the instructions to
 [install containerd](/docs/setup/production-environment/container-runtimes/#containerd)
 replace the `containerd-shim-runhcs-v1.exe` is installed at `$Env:ProgramFiles\containerd` with the newly built shim.
 
-We are working to improve this process by enabling HostProcess support directly in 
-[containerd via the CRI api](https://github.com/containerd/containerd/pull/5131) 
-as well as shipping a version of the containerd shim for Windows with support direclty via containerd releases.
+## Limitations
 
-## Creating a HostProcess Pod
+- HostProcess containers require version 1.5.4 or higher of the containerd {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
+- As of v1.22 HostProcess pods can only contain HostProcess containers. This is a current limitation 
+of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
+- HostProcess containers run as a process on the host and do not have any degree of 
+isolation other than resource constraints imposed on the HostProcess user account. Neither 
+filesystem or Hyper-V isolation are supported for HostProcess containers.
+- Volume mounts are supported and are mounted under the container volume. 
+See [Volume Mounts](./create-hostprocess-pod#volume-mounts)
+- A limited set of host user accounts are available for HostProcess containers by default. 
+See [Choosing a User Account](./create-hostprocess-pod#choosing-a-user-account).
+- Resource limits (disk, memory, cpu count) are supported in the same fashion as processes 
+on the host.
+- Both Named pipe mounts and Unix domain sockets are **not** currently supported and should instead 
+be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
 
-### Security Policy Config
+## Creating a HostProcess Security Policy Config
+
 Enabling a Windows HostProcess pod requires setting the right configurations in the pod security configuration. 
 Many of the policies in the [Pod Security Standards](/docs/concepts/security/pod-security-standards) do not apply to 
 HostProcess containers (and Windows in general) due to architectural differences between Windows and Linux. As such, 
@@ -163,7 +160,7 @@ here are the set of policies and configuration values required to enable HostPro
 	</tbody>
 </table>
 
-### Example Manifest
+### Example Manifest (excerpt)
 
 ```yaml
 spec:
@@ -201,7 +198,7 @@ To access service account tokens the following path structures are supported wit
 
 ## Choosing a User Account
 
-Currently HostProcess containers only support the ability to run as one of three supported Windows service accounts:
+HostProcess containers support the ability to run as one of three supported Windows service accounts:
 
 - **[LocalSystem](https://docs.microsoft.com/en-us/windows/win32/services/localsystem-account)**
 - **[LocalService](https://docs.microsoft.com/en-us/windows/win32/services/localservice-account)**
@@ -209,6 +206,6 @@ Currently HostProcess containers only support the ability to run as one of three
 
 You should select an appropriate Windows service account for each HostProcess
 container, aiming to limit the degree of privileges so as to avoid accidental (or even
-malicious) damage to the host. The LocalSystem servuce account has the highest level
+malicious) damage to the host. The LocalSystem service account has the highest level
 of privilege of the three and should be used only if absolutely necessary. Where possible,
 use the LocalService service account as it is the least privileged of the three options.
