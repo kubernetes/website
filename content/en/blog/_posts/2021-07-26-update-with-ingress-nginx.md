@@ -1,8 +1,7 @@
 ---
-draft: true
 layout: blog
 title: 'Updating NGINX-Ingress to use the stable Ingress API'
-date: 2021-07-15
+date: 2021-07-26
 slug: update-with-ingress-nginx
 ---
 
