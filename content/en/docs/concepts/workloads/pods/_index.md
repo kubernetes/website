@@ -290,7 +290,8 @@ A _probe_ is a diagnostic performed periodically by the kubelet on a container. 
 - `TCPSocketAction` (checked directly by the kubelet)
 - `HTTPGetAction` (checked directly by the kubelet)
 
-You can read more about [probes](docs/concepts/workloads/pods/pod-lifecycle/#container-probes) in the Pod Lifecycle documentation.
+You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) 
+in the Pod Lifecycle documentation.
 
 ## {{% heading "whatsnext" %}}
 
