@@ -148,83 +148,69 @@ kops твердо придерживается мнения о названии 
 
 ### (3/5) Создание корзины S3 для хранения состояния ваших кластеров.
 
-kops lets you manage your clusters even after installation.  To do this, it must keep track of the clusters
-that you have created, along with their configuration, the keys they are using etc.  This information is stored
-in an S3 bucket.  S3 permissions are used to control access to the bucket.
+kops позволяет управлять вашими кластерами даже после установки. Для этого он должен отслеживать созданные вами кластеры, а также их конфигурацию, ключи, которые они используют, и т. Эта информация хранится в корзине S3. Разрешения S3 используются для управления доступок к корзине.
 
-Multiple clusters can use the same S3 bucket, and you can share an S3 bucket between your colleagues that
-administer the same clusters - this is much easier than passing around kubecfg files.  But anyone with access
-to the S3 bucket will have administrative access to all your clusters, so you don't want to share it beyond
-the operations team.
+Несколько кластеров могут использовать одну и туже корзину S3 и вы можете совместно делиться корзиной S3 между вашими коллегами, которые управляют одними и теми же кластерами - это намного проще, чем передавать файлы kubecfg. Но любой, у кого имеется доступ к корзине S3, будет имеет управляемый доступ ка всем вашим кластерам, поэтому вы не захотите делиться им за пределами группы эксплуатации.
 
-So typically you have one S3 bucket for each ops team (and often the name will correspond
-to the name of the hosted zone above!)
+Так что обычно у вас есть одна корзина S3 для каждой операционной команды (и часто имя будет соответствовать названию размещенной зоны выше!)
 
-In our example, we chose `dev.example.com` as our hosted zone, so let's pick `clusters.dev.example.com` as
-the S3 bucket name.
+В нашем примере мы выбрали `dev.example.com` в качестве нашей зоны хостинга, поэтому давайте выберем `clusters.dev.example.com` как имя для нашей корзины 
+S3.
 
-* Export `AWS_PROFILE` (if you need to select a profile for the AWS CLI to work)
+* Экспорт `AWS_PROFILE` (если вам нужно выбрать профиль для работы AWS CLI)
 
-* Create the S3 bucket using `aws s3 mb s3://clusters.dev.example.com`
+* Создайте корзину S3 использую `aws s3 mb s3://clusters.dev.example.com`
 
-* You can `export KOPS_STATE_STORE=s3://clusters.dev.example.com` and then kops will use this location by default.
+* Вы можете выполнить команду export KOPS_STATE_STORE=s3://clusters.dev.example.com` и тогда kops будет использовать это местоположение по умолчанию.
    We suggest putting this in your bash profile or similar.
 
 
-### (4/5) Build your cluster configuration
+### (4/5) Создание конфигурации вашего кластера
 
-Run `kops create cluster` to create your cluster configuration:
+Выполните команду `kops create cluster` чтобы создать конфигурацию вашего кластера:
 
 `kops create cluster --zones=us-east-1c useast1.dev.example.com`
 
-kops will create the configuration for your cluster.  Note that it _only_ creates the configuration, it does
-not actually create the cloud resources - you'll do that in the next step with a `kops update cluster`.  This
-give you an opportunity to review the configuration or change it.
+kops создать конфигурацию для вашего кластера. Обратите внимание, что он только (_only_) создает конфигурацию, на самом деле не создает облочные ресурсы - вы сделаете это на следующем шаге с `kops update cluster`. Этодаст вам возможность пересмотреть конфигурацию или изменить ее.
 
-It prints commands you can use to explore further:
+Он печатает команды, которые можно использовать для дальнейшего изучения:
 
-* List your clusters with: `kops get cluster`
-* Edit this cluster with: `kops edit cluster useast1.dev.example.com`
-* Edit your node instance group: `kops edit ig --name=useast1.dev.example.com nodes`
-* Edit your master instance group: `kops edit ig --name=useast1.dev.example.com master-us-east-1c`
+* Посмотреть список Ваших кластеров: `kops get cluster`
+* Отредактировать этот кластер: `kops edit cluster useast1.dev.example.com`
+* Отредактировать вашу группу экземпляра узла (node): `kops edit ig --name=useast1.dev.example.com nodes`
+* Отредактировать вашу главную (master) группу экземпляра: `kops edit ig --name=useast1.dev.example.com master-us-east-1c`
 
-If this is your first time using kops, do spend a few minutes to try those out!  An instance group is a
-set of instances, which will be registered as kubernetes nodes.  On AWS this is implemented via auto-scaling-groups.
-You can have several instance groups, for example if you wanted nodes that are a mix of spot and on-demand instances, or
-GPU and non-GPU instances.
+Есои вы впервые используете kops, потратье несколько минрут, чтобы опробовать их! Группа элементов - это набор экземпляров, которые будут зарегестрированы как kubernetes nodes. В AWS это реализованно с помощью групп автоматического маштабирования. У вас может быть несколько групп экземпляров, например, если вам нужны node-ы, представляющие собой сочетание точечных экземпляров и экземпляров по запросу, или экземпляров GPU и не-GPU.
 
 
-### (5/5) Create the cluster in AWS
+### (5/5) Создание кластера в AWS
 
-Run "kops update cluster" to create your cluster in AWS:
+Запустите "kops update cluster", чтобы создать ваш кластер в  AWS:
 
 `kops update cluster useast1.dev.example.com --yes`
 
-That takes a few seconds to run, but then your cluster will likely take a few minutes to actually be ready.
-`kops update cluster` will be the tool you'll use whenever you change the configuration of your cluster; it
-applies the changes you have made to the configuration to your cluster - reconfiguring AWS or kubernetes as needed.
+Это займет несколько секунд, но тогда вашему кластеру, скорее всего, потребуется несколько минут, чтобы быть действительно готовым.
+`kops update cluster` будет инструментов, который будет использоваться вами всяки раз, когда вы изменяете  конфигурацию кластера; он применяет изменения, внесенные вами в конфигурацию вашего кластера - перенастраивая AWS или kubernetes по мере необходимости.
 
-For example, after you `kops edit ig nodes`, then `kops update cluster --yes` to apply your configuration, and
-sometimes you will also have to `kops rolling-update cluster` to roll out the configuration immediately.
+Например, после того как вы выполните `kops edit ig nodes`, далле нужно выполнить `kops update cluster --yes` чтобы применить вашу конфигурацию, а иногда вам придется выполнить`kops rolling-update cluster` чтобы немедленно развернуть конфигурацию.
 
-Without `--yes`, `kops update cluster` will show you a preview of what it is going to do.  This is handy
-for production clusters!
+Без `--yes`, `kops update cluster` покажет вам предварительный просмотр того, что он собирвается делать. Это удобно для производственных кластеров. 
 
-### Explore other add-ons
+### Изучите другие дополнения
 
-See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization, and control of your Kubernetes cluster.
+Посмотрите [список дополнений](/docs/concepts/cluster-administration/addons/) чтобы изучить другие дополнения, включая инструменты для введения журнала, мониторинга, сетевой политиеи, визуализации и управления кластером Kubernetes.
 
-## Cleanup
+## Очистка
 
-* To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
+* Чтобы удалить кластер: `kops delete cluster useast1.dev.example.com --yes`
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/overview/).
-* Learn more about `kops` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
-* Follow `kops` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
-* Contribute to `kops` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues)
+* Узнайте больше о Kubernetes [концепции](/docs/concepts/) и [`kubectl`](/docs/reference/kubectl/overview/).
+* Узнайте больше о [расширенном использовании](https://kops.sigs.k8s.io/) `kops`, передовых методов и расширенных параметров конфигурации.
+* Следите за обсуждениями сообщества kops` на Slack: [обсуждения сообщества](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
+* Внесите свой вклад в`kops` путем решения или поднятия вопроса в [GitHub Вопросы](https://github.com/kubernetes/kops/issues)
 
