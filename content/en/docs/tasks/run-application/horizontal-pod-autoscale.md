@@ -210,11 +210,6 @@ If you perform a rolling update of a StatefulSet that has an autoscaled number o
 replicas, the StatefulSet directly manages its set of Pods (there is no intermediate resource
 similar to ReplicaSet).
 
-Horizontal Pod Autoscaler does not work with rolling update using direct manipulation of replication controllers,
-i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update.
-The reason this doesn't work is that when rolling update creates a new replication controller,
-the Horizontal Pod Autoscaler will not be bound to the new replication controller.
-
 ## Support for cooldown/delay
 
 When managing the scale of a group of replicas using the Horizontal Pod Autoscaler,
