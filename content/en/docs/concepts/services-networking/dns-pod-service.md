@@ -7,6 +7,7 @@ content_type: concept
 weight: 20
 ---
 <!-- overview -->
+
 Kubernetes creates DNS records for services and pods. You can contact
 services with consistent DNS names instead of IP addresses. 
 
@@ -49,7 +50,7 @@ options ndots:5
 ```
 
 In summary, a pod in the _test_ namespace can successfully resolve either 
-`data.prod` or `data.prod.cluster.local`.
+`data.prod` or `data.prod.svc.cluster.local`.
 
 ### DNS Records
 
@@ -261,6 +262,8 @@ spec:
 
 ### Pod's DNS Config {#pod-dns-config}
 
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
+
 Pod's DNS Config allows users more control on the DNS settings for a Pod.
 
 The `dnsConfig` field is optional and it can work with any `dnsPolicy` settings.
@@ -309,18 +312,6 @@ nameserver fd00:79:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
-
-### Feature availability
-
-The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
-
-| k8s version | Feature support |
-| :---------: |:-----------:|
-| 1.14 | Stable |
-| 1.10 | Beta (on by default)|
-| 1.9 | Alpha |
-
-
 
 ## {{% heading "whatsnext" %}}
 

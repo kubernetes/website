@@ -10,6 +10,7 @@ and building/packaging Kubernetes.
 The responsibilities of each role are described below.
 
 - [Contact](#contact)
+  - [Security Embargo Policy](#security-embargo-policy)
 - [Handbooks](#handbooks)
 - [Release Managers](#release-managers)
   - [Becoming a Release Manager](#becoming-a-release-manager)
@@ -27,6 +28,10 @@ The responsibilities of each role are described below.
 | [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y) (channel) / @release-managers (user group) | Public | Public discussion for Release Managers | All Release Managers (including Associates, Build Admins, and SIG Chairs) |
 | [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) | N/A | Private | Private discussion for privileged Release Managers | Release Managers, SIG Release leadership |
 | [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io) | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG) (channel) / @security-rel-team (user group) | Private | Security release coordination with the Product Security Committee | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
+
+### Security Embargo Policy
+
+Some information about releases is subject to embargo and we have defined policy about how those embargos are set. Please refer [Security Embargo Policy](https://github.com/kubernetes/security/blob/master/private-distributors-list.md#embargo-policy) here for more information.
 
 ## Handbooks
 
@@ -192,6 +197,8 @@ GitHub team: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/
 
 ### Technical Leads
 
+- Adolfo García Veytia ([@puerco](https://github.com/puerco))
+- Carlos Panato ([@cpanato](https://github.com/cpanato))
 - Daniel Mangum ([@hasheddan](https://github.com/hasheddan))
 - Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 

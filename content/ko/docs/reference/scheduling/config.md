@@ -19,6 +19,7 @@ weight: 20
 익스텐션 포인트 중 하나 이상을 구현하여 스케줄링 동작을 제공한다.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 [KubeSchedulerConfiguration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 
 구조에 맞게 파일을 작성하고, 
 `kube-scheduler --config <filename>`을 실행하여 
@@ -31,6 +32,15 @@ weight: 20
 구조에 맞게 파일을 작성하고, 
 `kube-scheduler --config <filename>`을 실행하여
 >>>>>>> fork/dev-1.20-ko.8
+||||||| 1564cafee
+[KubeSchedulerConfiguration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 
+구조에 맞게 파일을 작성하고, 
+`kube-scheduler --config <filename>`을 실행하여 
+=======
+[KubeSchedulerConfiguration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/)
+구조에 맞게 파일을 작성하고,
+`kube-scheduler --config <filename>`을 실행하여
+>>>>>>> 2153412d4e10c91b8e681dff40c56d5bff658d07
 스케줄링 프로파일을 지정할 수 있다.
 
 최소 구성은 다음과 같다.
@@ -159,8 +169,8 @@ profiles:
   또는 바인딩할 수 있는지 확인한다.
   익스텐션 포인트: `PreFilter`, `Filter`, `Reserve`, `PreBind`, `Score`.
   {{< note >}}
-  `Score` 익스텐션 포인트는 `VolumeCapacityPriority` 기능이 
-  활성화되어 있어야 활성화되며, 
+  `Score` 익스텐션 포인트는 `VolumeCapacityPriority` 기능이
+  활성화되어 있어야 활성화되며,
   요청된 볼륨 사이즈를 만족하는 가장 작은 PV들을 우선순위 매긴다.
   {{< /note >}}
 - `VolumeRestrictions`: 노드에 마운트된 볼륨이 볼륨 제공자에 특정한
@@ -260,6 +270,6 @@ profiles:
 
 ## {{% heading "whatsnext" %}}
 
-* [kube-scheduler 레퍼런스](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/) 읽어보기
+* [kube-scheduler 레퍼런스](/docs/reference/command-line-tools-reference/kube-scheduler/) 읽어보기
 * [스케줄링](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 알아보기
 * [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) 레퍼런스 읽어보기

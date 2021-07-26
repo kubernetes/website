@@ -32,10 +32,10 @@ _파드_ (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지로)
 ## 파드란 무엇인가?
 
 {{< note >}}
-[도커](https://www.docker.com/)가 가장 일반적으로
-잘 알려진 런타임이지만, 쿠버네티스는 도커보다
-{{< glossary_tooltip text="컨테이너 런타임" term_id="container-runtime" >}}을
-더 많이 지원하며, 도커의 일부 용어를 사용하면 파드를 설명하는 데 도움이 된다.
+[도커](https://www.docker.com/)가 가장 일반적으로 잘 알려진 
+{{< glossary_tooltip text="컨테이너 런타임" term_id="container-runtime" >}}이지만, 
+쿠버네티스는 도커 외에도 다양한 컨테이너 런타임을 지원하며, 
+파드를 설명할 때 도커 관련 용어를 사용하면 더 쉽게 설명할 수 있다.
 {{< /note >}}
 
 파드의 공유 콘텍스트는 리눅스 네임스페이스, 컨트롤 그룹(cgroup) 및

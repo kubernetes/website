@@ -193,7 +193,7 @@ resources based on the filesystems on the node.
 If the node has a dedicated `imagefs` filesystem for container runtimes to use,
 the kubelet does the following:
 
-  * If the `nodefs` filesystem meets the eviction threshlds, the kubelet garbage collects
+  * If the `nodefs` filesystem meets the eviction thresholds, the kubelet garbage collects
     dead pods and containers. 
   * If the `imagefs` filesystem meets the eviction thresholds, the kubelet
     deletes all unused images. 
@@ -214,7 +214,7 @@ signal below the threshold, the kubelet begins to evict end-user pods.
 The kubelet uses the following parameters to determine pod eviction order:
 
 1. Whether the pod's resource usage exceeds requests
-1. [Pod Priority](/docs/concepts/configuration/pod-priority-preemption/)
+1. [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 1. The pod's resource usage relative to requests
 
 As a result, kubelet ranks and evicts pods in the following order:

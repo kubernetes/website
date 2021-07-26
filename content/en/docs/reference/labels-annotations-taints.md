@@ -200,7 +200,7 @@ Used on: Service
 
 The kube-proxy has this label for custom proxy, which delegates service control to custom proxy.
 
-## experimental.windows.kubernetes.io/isolation-type
+## experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
 
 Example: `experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
@@ -210,6 +210,7 @@ The annotation is used to run Windows containers with Hyper-V isolation. To use 
 
 {{< note >}}
 You can only set this annotation on Pods that have a single container.
+Starting from v1.20, this annotation is deprecated. Experimental Hyper-V support was removed in 1.21.
 {{< /note >}}
 
 ## ingressclass.kubernetes.io/is-default-class
@@ -222,7 +223,9 @@ When a single IngressClass resource has this annotation set to `"true"`, new Ing
 
 ## kubernetes.io/ingress.class (deprecated)
 
-{{< note >}} Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`. {{< /note >}}
+{{< note >}}
+Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`.
+{{< /note >}}
 
 ## storageclass.kubernetes.io/is-default-class
 
@@ -230,7 +233,8 @@ Example: `storageclass.kubernetes.io/is-default-class=true`
 
 Used on: StorageClass
 
-When a single StorageClass resource has this annotation set to `"true"`, new Physical Volume Claim resource without a class specified will be assigned this default class.
+When a single StorageClass resource has this annotation set to `"true"`, new PersistentVolumeClaim
+resource without a class specified will be assigned this default class.
 
 ## alpha.kubernetes.io/provided-node-ip
 

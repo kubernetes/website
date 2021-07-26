@@ -282,6 +282,17 @@ on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
 
+## Container probes
+
+A _probe_ is a diagnostic performed periodically by the kubelet on a container. To perform a diagnostic, the kubelet can invoke different actions:
+
+- `ExecAction` (performed with the help of the container runtime)
+- `TCPSocketAction` (checked directly by the kubelet)
+- `HTTPGetAction` (checked directly by the kubelet)
+
+You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) 
+in the Pod Lifecycle documentation.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).

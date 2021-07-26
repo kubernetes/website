@@ -188,7 +188,7 @@ To install a specific version of containerD specify the version with -ContainerD
 
 ```powershell
 # Example
-.\Install-Containerd.ps1 -ContainerDVersion v1.4.1
+.\Install-Containerd.ps1 -ContainerDVersion 1.4.1
 ```
 
 {{< /note >}}

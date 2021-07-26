@@ -53,11 +53,11 @@ The **events.k8s.io/v1beta1** API version of Event will no longer be served in v
 * Notable changes in **events.k8s.io/v1**:
     * `type` is limited to `Normal` and `Warning`
     * `involvedObject` is renamed to `regarding`
-    * `action`, `reason`, `reportingComponent`, and `reportingInstance` are required when creating new **events.k8s.io/v1** Events
+    * `action`, `reason`, `reportingController`, and `reportingInstance` are required when creating new **events.k8s.io/v1** Events
     * use `eventTime` instead of the deprecated `firstTimestamp` field (which is renamed to `deprecatedFirstTimestamp` and not permitted in new **events.k8s.io/v1** Events)
     * use `series.lastObservedTime` instead of the deprecated `lastTimestamp` field (which is renamed to `deprecatedLastTimestamp` and not permitted in new **events.k8s.io/v1** Events)
     * use `series.count` instead of the deprecated `count` field (which is renamed to `deprecatedCount` and not permitted in new **events.k8s.io/v1** Events)
-    * use `reportingComponent` instead of the deprecated `source.component` field (which is renamed to `deprecatedSource.component` and not permitted in new **events.k8s.io/v1** Events)
+    * use `reportingController` instead of the deprecated `source.component` field (which is renamed to `deprecatedSource.component` and not permitted in new **events.k8s.io/v1** Events)
     * use `reportingInstance` instead of the deprecated `source.host` field (which is renamed to `deprecatedSource.host` and not permitted in new **events.k8s.io/v1** Events)
 
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
@@ -74,7 +74,7 @@ The **policy/v1beta1** API version of PodDisruptionBudget will no longer be serv
 PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
 
 PodSecurityPolicy replacements are still under discussion, but current use can be migrated to
-[3rd-party admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
+[3rd-party admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
 
 #### RuntimeClass {#runtimeclass-v125}
 

@@ -14,7 +14,7 @@ A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 and contains the services necessary to run
-{{< glossary_tooltip text="Pods" term_id="pod" >}}
+{{< glossary_tooltip text="Pods" term_id="pod" >}}.
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
@@ -283,7 +283,7 @@ The node eviction behavior changes when a node in a given availability zone
 becomes unhealthy. The node controller checks what percentage of nodes in the zone
 are unhealthy (NodeReady condition is ConditionUnknown or ConditionFalse) at
 the same time:
-- If the fraction of unhealthy nodes is at least `--unhealthy-zone-threshold` 
+- If the fraction of unhealthy nodes is at least `--unhealthy-zone-threshold`
   (default 0.55), then the eviction rate is reduced.
 - If the cluster is small (i.e. has less than or equal to
   `--large-cluster-size-threshold` nodes - default 50), then evictions are stopped.
@@ -376,6 +376,21 @@ For example, if `ShutdownGracePeriod=30s`, and
 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved
 for gracefully terminating normal pods, and the last 10 seconds would be
 reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+
+{{< note >}}
+When pods were evicted during the graceful node shutdown, they are marked as failed.
+Running `kubectl get pods` shows the status of the the evicted pods as `Shutdown`.
+And `kubectl describe pod` indicates that the pod was evicted because of node shutdown:
+
+```
+Status:         Failed
+Reason:         Shutdown
+Message:        Node is shutting, evicting pods
+```
+
+Failed pod objects will be preserved until explicitly deleted or [cleaned up by the GC](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+This is a change of behavior compared to abrupt node termination.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
