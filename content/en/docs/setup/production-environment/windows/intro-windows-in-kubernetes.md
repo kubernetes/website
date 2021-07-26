@@ -100,7 +100,8 @@ limitation and compatibility rules will change.
 #### Pause Image
 
 Kubernetes maintains a multi-architecture image that includes support for Windows at `k8s.gcr.io/pause:3.5`.
-Source for the pause image can be found  [here](https://github.com/kubernetes/kubernetes/tree/master/build/pause).
+The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
+is available on GitHub.
 
 Microsoft maintains a multi-architecture image with Linux and Windows amd64 support at `mcr.microsoft.com/oss/kubernetes/pause:3.5`.
 This image is built from the same source as the Kubernetes maintained image but all of the Windows binaries are [authenticode signed](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode) by Microsoft.
@@ -1330,4 +1331,3 @@ guide is available
 [here](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/). We are
 also making investments in cluster API to ensure Windows nodes are properly
 provisioned.
-
