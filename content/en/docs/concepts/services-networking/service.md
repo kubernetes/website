@@ -188,7 +188,7 @@ selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
 ### Over Capacity Endpoints
-If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.21 (or later)
+If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.21
 cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: warning`.
 This annotation indicates that the affected Endpoints object is over capacity.
 
