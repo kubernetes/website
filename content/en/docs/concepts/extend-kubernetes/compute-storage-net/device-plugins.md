@@ -199,7 +199,7 @@ service PodResourcesLister {
 
 The `List` endpoint provides information on resources of running pods, with details such as the
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
-the NUMA node where these devices are allocated.
+the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the information about memory and hugepages reserved for a container.
 
 ```gRPC
 // ListPodResourcesResponse is the response returned by List function
