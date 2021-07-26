@@ -1237,7 +1237,7 @@ contributors. Follow the instructions in the SIG-Windows
 
 * `kubectl port-forward` fails with "unable to do port forwarding: wincat not found"
 
-  Port forwarding support for Windows was requires wincat.exe to be available in the
+  Port forwarding support for Windows requires wincat.exe to be available in the
   [pause infrastructure container](#pause-image).
   Ensure you are using a supported image that is compatable with your Windows OS version.
   If you would like to build your own pause infrastructure container be sure to include
