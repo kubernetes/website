@@ -106,7 +106,7 @@ is available on GitHub.
 
 Microsoft maintains a multi-architecture image with Linux and Windows amd64 support at `mcr.microsoft.com/oss/kubernetes/pause:3.5`.
 This image is built from the same source as the Kubernetes maintained image but all of the Windows binaries are [authenticode signed](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode) by Microsoft.
-For this reason the Microsoft maintained image is recommended for production environments.
+The Microsoft maintained image is recommended for production environments when signed binaries are required.
 
 #### Compute
 
