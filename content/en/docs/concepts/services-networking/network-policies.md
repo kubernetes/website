@@ -212,9 +212,9 @@ This ensures that even pods that aren't selected by any other NetworkPolicy will
 
 ## SCTP support
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-As a beta feature, this is enabled by default. To disable SCTP at a cluster level, you (or your cluster administrator) will need to disable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=false,…`.
+As a stable feature, this is enabled by default. To disable SCTP at a cluster level, you (or your cluster administrator) will need to disable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=false,…`.
 When the feature gate is enabled, you can set the `protocol` field of a NetworkPolicy to `SCTP`.
 
 {{< note >}}
@@ -255,7 +255,7 @@ The above rule allows any Pod with label `db` on the namespace `default` to comm
 
 The following restrictions apply when using this field:
 * As an alpha feature, this is disabled by default. To enable the `endPort` field at a cluster level, you (or your cluster administrator) need to enable the `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=NetworkPolicyEndPort=true,…`.
-* The `endPort` field must be equal than or greater to the `port` field.
+* The `endPort` field must be equal to or greater than the `port` field.
 * `endPort` can only be defined if `port` is also defined.
 * Both ports must be numeric.
 

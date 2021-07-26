@@ -32,6 +32,7 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
   Citrix Application Delivery Controller.
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller.
 * [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
+* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/ingresscontroller.md) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
   lets you use an Ingress to configure F5 BIG-IP virtual servers.
 * [Gloo](https://gloo.solo.io) is an open-source ingress controller based on [Envoy](https://www.envoyproxy.io),

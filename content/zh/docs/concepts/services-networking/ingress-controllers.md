@@ -69,6 +69,7 @@ Kubernetes 作为一个项目，目前支持和维护
   的 Ingress 控制器。
 * [EnRoute](https://getenroute.io/) 是一个基于 [Envoy](https://www.envoyproxy.io) API 网关，
   可以作为 Ingress 控制器来执行。
+* [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/ingresscontroller.md) 是一个基于 [Easegress](https://megaease.com/easegress/) API 网关，可以作为 Ingress 控制器来执行。
 <!--
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
   lets you use an Ingress to configure F5 BIG-IP virtual servers.

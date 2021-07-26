@@ -38,7 +38,7 @@ client libraries:
 - [Kubernetes Python client library](https://github.com/kubernetes-client/python)
 - [Kubernetes Java client library](https://github.com/kubernetes-client/java)
 - [Kubernetes JavaScript client library](https://github.com/kubernetes-client/javascript)
-- [Kubernetes Dotnet client library](https://github.com/kubernetes-client/csharp)
+- [Kubernetes C# client library](https://github.com/kubernetes-client/csharp)
 - [Kubernetes Haskell Client library](https://github.com/kubernetes-client/haskell)
 
 ## CLI
@@ -78,6 +78,10 @@ operator to use or manage a cluster.
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
 * [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
+
+## Config API for kubeadm
+
+* [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
 
 ## Design Docs
 

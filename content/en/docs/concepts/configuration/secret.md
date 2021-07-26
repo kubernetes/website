@@ -407,9 +407,9 @@ stringData:
 
 There are several options to create a Secret:
 
-- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [create Secrets using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [create Secrets from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [create Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 ## Editing a Secret
 
@@ -1235,15 +1235,11 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
  - A user who can create a Pod that uses a secret can also see the value of that secret. Even
    if the API server policy does not allow that user to read the Secret, the user could
    run a Pod which exposes the secret.
- - Currently, anyone with root permission on any node can read _any_ secret from the API server,
-   by impersonating the kubelet. It is a planned feature to only send secrets to
-   nodes that actually require them, to restrict the impact of a root exploit on a
-   single node.
 
 
 ## {{% heading "whatsnext" %}}
 
-- Learn how to [manage Secret using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Learn how to [manage Secrets using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
