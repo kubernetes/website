@@ -937,7 +937,7 @@ Use [`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain)
 drain the node on which the `zk-0` Pod is scheduled.
 
 ```shell
-kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 ```
@@ -972,7 +972,7 @@ Keep watching the `StatefulSet`'s Pods in the first terminal and drain the node 
 `zk-1` is scheduled.
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data "kubernetes-node-ixsl" cordoned
 ```
 
 ```
@@ -1015,7 +1015,7 @@ Continue to watch the Pods of the stateful set, and drain the node on which
 `zk-2` is scheduled.
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 ```
@@ -1101,7 +1101,7 @@ zk-1      1/1       Running   0         13m
 Attempt to drain the node on which `zk-2` is scheduled.
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 The output:
