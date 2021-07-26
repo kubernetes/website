@@ -154,7 +154,7 @@ removals before you upgrade to Kubernetes v1.22.
 
 To do that, add the following to the kube-apiserver command line arguments:
 
-`--runtime-config=admissionregistration.k8s.io/v1beta1=false,apiextensions.k8s.io/v1beta1=false,apiregistration.k8s.io/v1beta1=false,authentication.k8s.io/v1beta1=false,authorization.k9s.io/v1=false,certificates.k8s.io/v1beta=false,coordination.k8s.io/v1beta1=false,extensions/v1beta1/ingresses=false,networking.k8s.io/v1beta1=false`
+`--runtime-config=admissionregistration.k8s.io/v1beta1=false,apiextensions.k8s.io/v1beta1=false,apiregistration.k8s.io/v1beta1=false,authentication.k8s.io/v1beta1=false,authorization.k8s.io/v1beta1=false,certificates.k8s.io/v1beta1=false,coordination.k8s.io/v1beta1=false,extensions/v1beta1/ingresses=false,networking.k8s.io/v1beta1=false`
 
 (as a side effect, this also turns off v1beta1 of EndpointSlice - watch out for
 that when you're testing).
