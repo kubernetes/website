@@ -1262,7 +1262,8 @@ contributors. Follow the instructions in the SIG-Windows
   to accommodate worker containers crashing or restarting without losing any of
   the networking configuration.
 
-  Refer to the [pause image section](#Pause-Image) to find the latest version of the pause image.
+  Refer to the [pause image](#pause-image) section to find the recommended version
+  of the pause image.
 
 ### Further investigation
 
