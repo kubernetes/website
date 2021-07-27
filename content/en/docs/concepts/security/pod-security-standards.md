@@ -56,6 +56,24 @@ fail validation.
 			<td><strong>Policy</strong></td>
 		</tr>
 		<tr>
+			<td style="white-space: nowrap">HostProcess</td>
+			<td>
+				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. HostProcess pods are an <strong>alpha</strong> feature as of Kubernetes <strong>v1.22</strong>.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.containers[*].securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.initContainers[*].securityContext.windowsOptions.hostProcess</code></li>
+					<li><code>spec.ephemeralContainers[*].securityContext.windowsOptions.hostProcess</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li><code>false</code></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
 			<td style="white-space: nowrap">Host Namespaces</td>
 			<td>
 				<p>Sharing the host namespaces must be disallowed.</p>
@@ -483,9 +501,18 @@ ecosystem, such as [OPA Gatekeeper](https://github.com/open-profile-agent/gateke
 ### What profiles should I apply to my Windows Pods?
 
 Windows in Kubernetes has some limitations and differentiators from standard Linux-based
-workloads. Specifically, the Pod SecurityContext fields [have no effect on
+workloads. Specifically, many of the Pod SecurityContext fields [have no effect on
 Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#v1-podsecuritycontext). As
 such, no standardized Pod Security profiles currently exist.
+
+If you apply the restricted profile for a Windows pod, this **may** have an impact on the pod
+at runtime. The restricted profile requires enforcing Linux-specific restrictions (such as seccomp
+profile, and disallowing privilege escalation). If the kubelet and / or its container runtime ignore
+these Linux-specific values, then the Windows pod should still work normally within the restricted
+profile. However, the lack of enforcement means that there is no additional restriction, for Pods
+that use Windows containers, compared to the baseline profile.
+
+The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy. Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies, so any HostProcess pod should be considered privileged.
 
 ### What about sandboxed Pods?
 
@@ -499,5 +526,3 @@ kernel. This allows for workloads requiring heightened permissions to still be i
 
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
 sandboxing. As such, no single recommended profile is recommended for all sandboxed workloads.
-
-
