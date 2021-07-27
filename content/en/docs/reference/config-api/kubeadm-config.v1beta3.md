@@ -447,7 +447,7 @@ information.
   
   
 <tr><td><code>bootstrapTokens</code><br/>
-<code>[]github.com/tengqm/kubeconfig/config/bootstraptoken/v1.BootstrapToken</code>
+<a href="#BootstrapToken"><code>[]BootstrapToken</code></a>
 </td>
 <td>
    `bootstrapTokens` is respected at `kubeadm init` time and describes a set of Bootstrap Tokens to create.
@@ -1070,7 +1070,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
     
   
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    `pathType` is the type of the `hostPath` volume.</td>
@@ -1324,7 +1324,7 @@ annotated to the Node API object, for later re-use.</td>
     
   
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    `taints` specifies the taints the Node API object should be registered with. If
@@ -1359,7 +1359,7 @@ the current node is registered.</td>
     
   
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    `imagePullPolicy` specifies the policy for image pulling during `kubeadm init` and
@@ -1413,4 +1413,117 @@ first alpha-numerically.</td>
 </tbody>
 </table>
     
+
+## `BootstrapToken`     {#BootstrapToken}
+    
+**Appears in:**
+
+- [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
+
+
+BootstrapToken describes one bootstrap token, stored as a Secret in the cluster
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
   
+<tr><td><code>token</code> <B>[Required]</B><br/>
+<a href="#BootstrapTokenString"><code>BootstrapTokenString</code></a>
+</td>
+<td>
+   `token` is used for establishing bidirectional trust between nodes and control-planes.
+Used for joining nodes in the cluster.</td>
+</tr>
+    
+  
+<tr><td><code>description</code><br/>
+<code>string</code>
+</td>
+<td>
+   `description` sets a human-friendly message why this token exists and what it's used
+for, so other administrators can know its purpose.</td>
+</tr>
+    
+  
+<tr><td><code>ttl</code><br/>
+<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   `ttl` defines the time to live for this token. Defaults to `24h`.
+`expires` and `ttl` are mutually exclusive.</td>
+</tr>
+    
+  
+<tr><td><code>expires</code><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#time-v1-meta"><code>meta/v1.Time</code></a>
+</td>
+<td>
+   `expires` specifies the timestamp when this token expires. Defaults to being set
+dynamically at runtime based on the `ttl`. `expires` and `ttl` are mutually exclusive.</td>
+</tr>
+    
+  
+<tr><td><code>usages</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   `usages` describes the ways in which this token can be used. Can by default be used
+for establishing bidirectional trust, but that can be changed here.</td>
+</tr>
+    
+  
+<tr><td><code>groups</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   `groups` specifies the extra groups that this token will authenticate as when/if
+used for authentication</td>
+</tr>
+    
+  
+</tbody>
+</table>
+
+## `BootstrapTokenString`     {#BootstrapTokenString}
+    
+
+
+
+**Appears in:**
+
+- [BootstrapToken](#BootstrapToken)
+
+
+BootstrapTokenString is a token of the format `abcdef.abcdef0123456789` that is used
+for both validation of the practically of the API server from a joining node's point
+of view and as an authentication method for the node in the bootstrap phase of
+"kubeadm join". This token is and should be short-lived.
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+
+  
+<tr><td><code>-</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span>
+   </td>
+</tr>
+    
+  
+<tr><td><code>-</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span>
+   </td>
+</tr>
+    
+  
+</tbody>
+</table>
