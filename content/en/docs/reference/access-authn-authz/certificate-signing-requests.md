@@ -67,12 +67,11 @@ Custom signerNames can also be specified. All signers should provide information
 This includes:
 
 1. **Trust distribution**: how trust (CA bundles) are distributed.
-1. **Permitted subjects**: any restrictions on and behavior when a disallowed subject is requested.
-1. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames, Email subjectAltNames, URI subjectAltNames etc, and behavior when a disallowed extension is requested.
-1. **Permitted key usages / extended key usages**: any restrictions on and behavior when usages different than the signer-determined usages are specified in the CSR.
-1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR object etc
-   and the behavior when an expiration is different than the signer-determined expiration that is specified in the CSR.
-1. **CA bit allowed/disallowed**: and behavior if a CSR contains a request a for a CA certificate when the signer does not permit it.
+1. **Permitted subjects**: any restrictions on and the behavior when a disallowed subject is requested.
+1. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames, Email subjectAltNames, URI subjectAltNames etc, and the behavior when a disallowed extension is requested.
+1. **Permitted key usages / extended key usages**: any restrictions on and the behavior when usages different than the signer-determined usages are specified in the CSR.
+1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR object etc, and the behavior when an expiration is different than the signer-determined expiration that is specified in the CSR.
+1. **CA bit allowed/disallowed**: the behavior if a CSR contains a request for a CA certificate when the signer does not permit it.
 
 Commonly, the `status.certificate` field contains a single PEM-encoded X.509
 certificate once the CSR is approved and the certificate is issued. Some
