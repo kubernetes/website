@@ -213,7 +213,7 @@ The following means can be used to troubleshoot the reason why a pod could not b
 - pod status - indicates topology affinity errors
 - system logs - include valuable information for debugging, e.g., about generated hints
 - state file - the dump of internal state of the Memory Manager (includes [Node Map and Memory Maps][2]) 
-- starting from v1.22, the Resource API can be used to retrieve information about the memory reserved for containers
+- starting from v1.22, the [Device plugin resource API](#device-plugin-resource-api) can be used to retrieve information about the memory reserved for containers
 
 
 ### Pod status (TopologyAffinityError) {#TopologyAffinityError}
@@ -364,7 +364,7 @@ The line `"systemReserved":3221225472` indicates that the administrator of this 
 
 ### Device plugin resource API
 
-By employing [Resource API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/), the information about reserved memory for each container can be retrieved through `ContainerMemory` message.   
+By employing the [API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/), the information about reserved memory for each container can be retrieved, which is contained in protobuf `ContainerMemory` message.   
 
 ## {{% heading "whatsnext" %}}
 
