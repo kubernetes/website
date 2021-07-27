@@ -432,7 +432,7 @@ featureGateList:
   stable:
     from: "1.13"
 - name: KubeletPodResources
-  alpha:"
+  alpha:
     from: "1.13"
   beta:
     from: "1.15"
