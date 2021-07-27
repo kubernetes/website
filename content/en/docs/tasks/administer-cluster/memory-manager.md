@@ -362,7 +362,7 @@ For example, the total amount of free "conventional" memory in the group can be 
 
 The line `"systemReserved":3221225472` indicates that the administrator of this node reserved `3221225472` bytes (i.e. `3Gi`) to serve kubelet and system processes at NUMA node `0`, by using `--reserved-memory` flag.
 
-### Resource API
+### Device plugin resource API
 
 By employing [Resource API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/), the information about reserved memory for each container can be retrieved through `ContainerMemory` message.   
 
