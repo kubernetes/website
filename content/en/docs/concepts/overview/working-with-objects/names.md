@@ -28,7 +28,7 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/conc
 In cases when objects represent a physical entity, like a Node representing a physical host, when the host is re-created under the same name without deleting and re-creating the Node, Kubernetes treats the new host as the old one, which may lead to inconsistencies.
 {{< /note >}}
 
-Below are three types of commonly used name constraints for resources.
+Below are four types of commonly used name constraints for resources.
 
 ### DNS Subdomain Names
 
@@ -41,7 +41,7 @@ This means the name must:
 - start with an alphanumeric character
 - end with an alphanumeric character
 
-### DNS Label Names
+### RFC 1123 Label Names {#dns-label-names}
 
 Some resource types require their names to follow the DNS
 label standard as defined in [RFC 1123](https://tools.ietf.org/html/rfc1123).
@@ -50,6 +50,17 @@ This means the name must:
 - contain at most 63 characters
 - contain only lowercase alphanumeric characters or '-'
 - start with an alphanumeric character
+- end with an alphanumeric character
+
+### RFC 1035 Label Names
+
+Some resource types require their names to follow the DNS
+label standard as defined in [RFC 1035](https://tools.ietf.org/html/rfc1035).
+This means the name must:
+
+- contain at most 63 characters
+- contain only lowercase alphanumeric characters or '-'
+- start with an alphabetic character
 - end with an alphanumeric character
 
 ### Path Segment Names

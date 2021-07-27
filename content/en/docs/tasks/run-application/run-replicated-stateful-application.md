@@ -379,7 +379,7 @@ This might impact other applications on the Node, so it's best to
 **only do this in a test cluster**.
 
 ```shell
-kubectl drain <node-name> --force --delete-local-data --ignore-daemonsets
+kubectl drain <node-name> --force --delete-emptydir-data --ignore-daemonsets
 ```
 
 Now you can watch as the Pod reschedules on a different Node:
