@@ -14,13 +14,7 @@
    <td>{{ $featureGate.name }}</td>
 
    {{- with $featureGate.alpha -}}
-   <td>{{ $featureGate.alpha.from }}
-
-   <p><code>{{- with $featureGate.alpha.state -}}</code>
-
-
-  </td>
-
+   <td>{{ $featureGate.alpha.from }}</td>
    {{- else -}}
    <td></td>
    {{- end -}}
