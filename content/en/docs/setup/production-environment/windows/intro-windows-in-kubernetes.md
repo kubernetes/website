@@ -99,10 +99,14 @@ limitation and compatibility rules will change.
 
 #### Pause Image
 
-Microsoft maintains a Windows pause infrastructure container at
-`mcr.microsoft.com/oss/kubernetes/pause:3.4.1`.
-Kubernetes maintains a multi-architecture image `k8s.gcr.io/pause:3.5` that
-supports Linux as well as Windows.
+Kubernetes maintains a multi-architecture image that includes support for Windows.
+For Kubernetes v1.22 the recommended pause image is `k8s.gcr.io/pause:3.5`.
+The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
+is available on GitHub.
+
+Microsoft maintains a multi-architecture image with Linux and Windows amd64 support at `mcr.microsoft.com/oss/kubernetes/pause:3.5`.
+This image is built from the same source as the Kubernetes maintained image but all of the Windows binaries are [authenticode signed](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode) by Microsoft.
+The Microsoft maintained image is recommended for production environments when signed binaries are required.
 
 #### Compute
 
@@ -1063,9 +1067,8 @@ contributors. Follow the instructions in the SIG-Windows
     Register kubelet.exe:
 
     ```powershell
-    # Microsoft releases the pause infrastructure container at mcr.microsoft.com/oss/kubernetes/pause:3.4.1
     nssm install kubelet C:\k\kubelet.exe
-    nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/oss/kubernetes/pause:3.4.1 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
+    nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=k8s.gcr.io/pause:3.5 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
     nssm set kubelet AppDirectory C:\k
     nssm start kubelet
     ```
@@ -1234,11 +1237,11 @@ contributors. Follow the instructions in the SIG-Windows
 
 * `kubectl port-forward` fails with "unable to do port forwarding: wincat not found"
 
-  This was implemented in Kubernetes 1.15 by including wincat.exe in the
-  pause infrastructure container `mcr.microsoft.com/oss/kubernetes/pause:3.4.1`.
-  Be sure to use these versions or newer ones.  If you would like to build your
-  own pause infrastructure container be sure to include
-  [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
+  Port forwarding support for Windows requires wincat.exe to be available in the
+  [pause infrastructure container](#pause-image).
+  Ensure you are using a supported image that is compatable with your Windows OS version.
+  If you would like to build your own pause infrastructure container be sure to include
+  [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat).
 
 * My Kubernetes installation is failing because my Windows Server node is
   behind a proxy
@@ -1260,10 +1263,8 @@ contributors. Follow the instructions in the SIG-Windows
   to accommodate worker containers crashing or restarting without losing any of
   the networking configuration.
 
-  The "pause" (infrastructure) image is hosted on Microsoft Container Registry
-  (MCR). You can access it using `mcr.microsoft.com/oss/kubernetes/pause:3.4.1`.
-  For more details, see the
-  [DOCKERFILE](https://github.com/kubernetes-sigs/windows-testing/blob/master/images/pause/Dockerfile).
+  Refer to the [pause image](#pause-image) section to find the recommended version
+  of the pause image.
 
 ### Further investigation
 
@@ -1332,4 +1333,3 @@ guide is available
 [here](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/). We are
 also making investments in cluster API to ensure Windows nodes are properly
 provisioned.
-
