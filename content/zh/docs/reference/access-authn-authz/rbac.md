@@ -273,13 +273,13 @@ RoleBinding 所在名字空间的资源。这种引用使得你可以跨整个�
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
-# 此角色绑定使得用户 "dave" 能够读取 "default" 名字空间中的 Secrets
+# 此角色绑定使得用户 "dave" 能够读取 "development" 名字空间中的 Secrets
 # 你需要一个名为 "secret-reader" 的 ClusterRole
 kind: RoleBinding
 metadata:
   name: read-secrets
   # RoleBinding 的名字空间决定了访问权限的授予范围。
-  # 这里仅授权在 "development" 名字空间内的访问权限。
+  # 这里隐含授权仅在 "development" 名字空间内的访问权限。
   namespace: development
 subjects:
 - kind: User
@@ -338,15 +338,15 @@ There are two reasons for this restriction:
 1. A binding to a different role is a fundamentally different binding.
 Requiring a binding to be deleted/recreated in order to change the `roleRef`
 ensures the full list of subjects in the binding is intended to be granted
-the new role (as opposed to enabling accidentally modifying just the roleRef
+the new role (as opposed to enabling or accidentally modifying only the roleRef
 without verifying all of the existing subjects should be given the new role's permissions).
 2. Making `roleRef` immutable allows giving `update` permission on an existing binding object
 to a user, which lets them manage the list of subjects, without being able to change the
 role that is granted to those subjects.
 -->
 1. 针对不同角色的绑定是完全不一样的绑定。要求通过删除/重建绑定来更改 `roleRef`,
-   这样可以确保要赋予绑定的所有主体会被授予新的角色（而不是在允许修改
-   `roleRef` 的情况下导致所有现有主体未经验证即被授予新角色对应的权限）。
+   这样可以确保要赋予绑定的所有主体会被授予新的角色（而不是在允许或者不小心修改
+   了 `roleRef` 的情况下导致所有现有主体未经验证即被授予新角色对应的权限）。
 1. 将 `roleRef` 设置为不可以改变，这使得可以为用户授予对现有绑定对象的 `update` 权限，
    这样可以让他们管理主体列表，同时不能更改被授予这些主体的角色。
 
@@ -503,7 +503,7 @@ as a cluster administrator, include rules for custom resources, such as those se
 or aggregated API servers, to extend the default roles.
 
 For example: the following ClusterRoles let the "admin" and "edit" default roles manage the custom resource
-named CronTab, whereas the "view" role can perform just read actions on CronTab resources.
+named CronTab, whereas the "view" role can perform only read actions on CronTab resources.
 You can assume that CronTab objects are named `"crontabs"` in URLs as seen by the API server.
 -->
 默认的[面向用户的角色](#default-roles-and-role-bindings) 使用 ClusterRole 聚合。
@@ -870,7 +870,7 @@ Auto-reconciliation is enabled by default if the RBAC authorizer is active.
 ### 自动协商   {#auto-reconciliation}
 
 在每次启动时，API 服务器都会更新默认 ClusterRole 以添加缺失的各种权限，并更新
-默认的 ClusterRoleBinding 以增加缺失的的各类主体。
+默认的 ClusterRoleBinding 以增加缺失的各类主体。
 这种自动协商机制允许集群去修复一些不小心发生的修改，并且有助于保证角色和角色绑定
 在新的发行版本中有权限或主体变更时仍然保持最新。
 

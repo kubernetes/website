@@ -1,6 +1,6 @@
 ---
 title: HostAliasesを使用してPodの/etc/hostsにエントリーを追加する
-content_type: concept
+content_type: task
 weight: 60
 min-kubernetes-server-version: 1.7
 ---
@@ -13,7 +13,7 @@ Podの`/etc/hosts`ファイルにエントリーを追加すると、DNSやそ�
 HostAliasesを使用せずにファイルを修正することはおすすめできません。このファイルはkubeletが管理しており、Podの作成や再起動時に上書きされる可能性があるためです。
 
 
-<!-- body -->
+<!-- steps -->
 
 ## デフォルトのhostsファイルの内容
 
