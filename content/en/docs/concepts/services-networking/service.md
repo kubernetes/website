@@ -72,7 +72,7 @@ A Service in Kubernetes is a REST object, similar to a Pod.  Like all of the
 REST objects, you can `POST` a Service definition to the API server to create
 a new instance.
 The name of a Service object must be a valid
-[DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
+[RFC 1035 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
 
 For example, suppose you have a set of Pods where each listens on TCP port 9376
 and contains a label `app=MyApp`:
