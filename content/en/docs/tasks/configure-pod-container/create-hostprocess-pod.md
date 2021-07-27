@@ -89,20 +89,23 @@ of the Windows OS; non-privileged Windows containers cannot share a vNIC with th
 isolation other than resource constraints imposed on the HostProcess user account. Neither 
 filesystem or Hyper-V isolation are supported for HostProcess containers.
 - Volume mounts are supported and are mounted under the container volume. 
-See [Volume Mounts](./create-hostprocess-pod#volume-mounts)
+See [Volume Mounts](#volume-mounts)
 - A limited set of host user accounts are available for HostProcess containers by default. 
-See [Choosing a User Account](./create-hostprocess-pod#choosing-a-user-account).
+See [Choosing a User Account](#choosing-a-user-account).
 - Resource limits (disk, memory, cpu count) are supported in the same fashion as processes 
 on the host.
 - Both Named pipe mounts and Unix domain sockets are **not** currently supported and should instead 
 be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
 
-## Creating a HostProcess Security Policy Config
+## HostProcess Pod configuration requirements
 
-Enabling a Windows HostProcess pod requires setting the right configurations in the pod security configuration. 
-Many of the policies in the [Pod Security Standards](/docs/concepts/security/pod-security-standards) do not apply to 
-HostProcess containers (and Windows in general) due to architectural differences between Windows and Linux. As such, 
-here are the set of policies and configuration values required to enable HostProcess pods:
+Enabling a Windows HostProcess pod requires setting the right configurations in the pod security 
+configuration. Of the policies defined in the [Pod Security Standards](/docs/concepts/security/pod-security-standards) 
+HostProcess pods are disallowed by the baseline and restricted policies. It is therefore recommended 
+that HostProcess pods run in alignment with the privileged profile. 
+
+When running under the privileged policy, here are
+the configurations which need to be set to enable the creation of a HostProcess pod:
 
 <table>
 	<caption style="display:none">Privileged policy specification</caption>
@@ -140,9 +143,9 @@ here are the set of policies and configuration values required to enable HostPro
 				<p>Specification of which user the HostProcess container should run as is required for the pod spec.</p>
 				<p><strong>Allowed Values</strong></p>
 				<ul>
-          <li><code>"NT AUTHORITY\\SYSTEM"</code></li>
-					<li><code>"NT AUTHORITY\\Local service"</code></li>
-          <li><code>"NT AUTHORITY\\NetworkService"</code></li>
+          			<li><code>NT AUTHORITY\SYSTEM</code></li>
+					<li><code>NT AUTHORITY\Local service</code></li>
+					<li><code>NT AUTHORITY\NetworkService</code></li>
 				</ul>
 			</td>
 		</tr>

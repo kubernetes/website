@@ -58,7 +58,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">HostProcess</td>
 			<td>
-				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. </p>
+				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. HostProcess pods are an <strong>alpha</strong> feature as of Kubernetes <strong>v1.22</strong>.</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
@@ -272,22 +272,6 @@ fail validation.
 					<li><code>net.ipv4.ip_unprivileged_port_start</code></li>
 					<li><code>net.ipv4.tcp_syncookies</code></li>
 					<li><code>net.ipv4.ping_group_range</code></li>
-				</ul>
-			</td>
-		</tr>
-		<tr>
-			<td style="white-space: nowrap">Windows HostProcess</td>
-			<td>
-				<p>Running Windows pods as <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> enables privileged access to the Windows node and should be disallowed.</p>
-				<p><strong>Restricted Fields</strong></p>
-				<ul>
-					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
-					<li><code>spec.containers[*].securityContext.windowsOptions.hostProcess</code></li>
-				</ul>
-				<p><strong>Allowed Values</strong></p>
-				<ul>
-					<li>Undefined/null</li>
-					<li><code>false</code></li>
 				</ul>
 			</td>
 		</tr>
@@ -527,6 +511,8 @@ profile, and disallowing privilege escalation). If the kubelet and / or its cont
 these Linux-specific values, then the Windows pod should still work normally within the restricted
 profile. However, the lack of enforcement means that there is no additional restriction, for Pods
 that use Windows containers, compared to the baseline profile.
+
+The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy. Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies, so any HostProcess pod should be considered privileged.
 
 ### What about sandboxed Pods?
 
