@@ -267,7 +267,7 @@ This ensures that DaemonSet pods are never evicted due to these problems.
 ## Taint Nodes by Condition
 
 The control plane, using the node {{<glossary_tooltip text="controller" term_id="controller">}},
-automatically creates taints with a `NoSchedule` effect for [node conditions](/docs/concepts/scheduling-eviction/pod-eviction#node-conditions).
+automatically creates taints with a `NoSchedule` effect for [node conditions](/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions).
 
 The scheduler checks taints, not node conditions, when it makes scheduling
 decisions. This ensures that node conditions don't directly affect scheduling.
@@ -298,7 +298,7 @@ arbitrary tolerations to DaemonSets.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [out of resource handling](/docs/concepts/scheduling-eviction/out-of-resource/) and how you can configure it
-* Read about [pod priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* Read about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/) and how you can configure it
+* Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 
 

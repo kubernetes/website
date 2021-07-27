@@ -127,7 +127,7 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
     upstream	https://github.com/kubernetes/website.git (push)
     ```
 
-6. 포크의 `origin/master` 와 `kubernetes/website` 의 `upstream/master` 에서 커밋을 가져온다.
+6. 포크의 `origin/main` 와 `kubernetes/website` 의 `upstream/main` 에서 커밋을 가져온다.
 
     ```bash
     git fetch origin
@@ -137,15 +137,15 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
     이를 통해 변경을 시작하기 전에 로컬 리포지터리가 최신 상태인지 확인한다.
 
     {{< note >}}
-    이 워크플로는 [쿠버네티스 커뮤니티 GitHub 워크플로](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md)와 다르다. 포크에 업데이트를 푸시하기 전에 로컬의 `master` 복사본을 `upstream/master` 와 병합할 필요가 없다.
+    이 워크플로는 [쿠버네티스 커뮤니티 GitHub 워크플로](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md)와 다르다. 포크에 업데이트를 푸시하기 전에 로컬의 `main` 복사본을 `upstream/main` 와 병합할 필요가 없다.
     {{< /note >}}
 
 ### 브랜치 만들기
 
 1. 작업할 브랜치 기반을 결정한다.
 
-  - 기존 콘텐츠를 개선하려면, `upstream/master` 를 사용한다.
-  - 기존 기능에 대한 새로운 콘텐츠를 작성하려면, `upstream/master` 를 사용한다.
+  - 기존 콘텐츠를 개선하려면, `upstream/main` 를 사용한다.
+  - 기존 기능에 대한 새로운 콘텐츠를 작성하려면, `upstream/main` 를 사용한다.
   - 현지화된 콘텐츠의 경우, 현지화 규칙을 사용한다. 자세한 내용은 [쿠버네티스 문서 현지화](/ko/docs/contribute/localization_ko/)를 참고한다.
   - 다가오는 쿠버네티스 릴리스의 새로운 기능에 대해서는 기능 브랜치(feature branch)를 사용한다. 자세한 정보는 [릴리스 문서화](/docs/contribute/new-content/new-features/)를 참고한다.
   - 콘텐츠 재구성과 같이 여러 SIG Docs 기여자들이 협업하는 장기적인 작업에는,
@@ -154,10 +154,10 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
 
     브랜치 선택에 도움이 필요하면, 슬랙 채널 `#sig-docs` 에 문의한다.
 
-2. 1단계에서 식별된 브랜치를 기반으로 새 브랜치를 작성한다. 이 예에서는 기본 브랜치가 `upstream/master` 라고 가정한다.
+2. 1단계에서 식별된 브랜치를 기반으로 새 브랜치를 작성한다. 이 예에서는 기본 브랜치가 `upstream/main` 라고 가정한다.
 
     ```bash
-    git checkout -b <my_new_branch> upstream/master
+    git checkout -b <my_new_branch> upstream/main
     ```
 
 3.  텍스트 편집기를 사용하여 변경한다.
@@ -264,7 +264,7 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 
 또는, 컴퓨터에 `hugo` 명령을 설치하여 사용한다.
 
-1.  [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml)에 지정된 [Hugo](https://gohugo.io/getting-started/installing/) 버전을 설치한다.
+1.  [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml)에 지정된 [Hugo](https://gohugo.io/getting-started/installing/) 버전을 설치한다.
 
 2.  website 리포지터리를 업데이트하지 않았다면, `website/themes/docsy` 디렉터리가 비어 있다.
 테마의 로컬 복제본이 없으면 사이트를 빌드할 수 없다. website 테마를 업데이트하려면, 다음을 실행한다.
@@ -372,11 +372,11 @@ PR을 연 후, GitHub는 자동 테스트를 실행하고 [Netlify](https://www.
     git push --force-with-lease origin <your-branch-name>
     ```
 
-2. `kubernetes/website` 의 `upstream/master` 에 대한 변경 사항을 가져오고 브랜치를 리베이스한다.
+2. `kubernetes/website` 의 `upstream/main` 에 대한 변경 사항을 가져오고 브랜치를 리베이스한다.
 
     ```bash
     git fetch upstream
-    git rebase upstream/master
+    git rebase upstream/main
     ```
 
 3. 리베이스의 결과를 검사한다.

@@ -349,8 +349,11 @@ JSON Web Key Set (JWKS) at `/openid/v1/jwks`. The OpenID Provider Configuration
 is sometimes referred to as the _discovery document_.
 
 Clusters include a default RBAC ClusterRole called
-`system:service-account-issuer-discovery`. No role bindings are provided
-by default. Administrators may, for example, choose whether to bind the role to
+`system:service-account-issuer-discovery`. A default RBAC ClusterRoleBinding
+assigns this role to the `system:serviceaccounts` group, which all service
+accounts implicitly belong to. This allows pods running on the cluster to access
+the service account discovery document via their mounted service account token.
+Administrators may, additionally, choose to bind the role to
 `system:authenticated` or `system:unauthenticated` depending on their security
 requirements and which external systems they intend to federate with.
 

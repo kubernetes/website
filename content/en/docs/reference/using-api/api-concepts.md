@@ -208,6 +208,77 @@ more remaining items and the API server does not include a `remainingItemCount`
 field in its response. The intended use of the `remainingItemCount` is estimating 
 the size of a collection.
 
+## Lists
+
+There are dozens of list types (such as `PodList`, `ServiceList`, and `NodeList`) defined in the Kubernetes API.
+You can get more information about each list type from the [Kubernetes API](https://kubernetes.io/docs/reference/kubernetes-api/) documentation.
+
+When you query the API for a particular type, all items returned by that query are of that type. For example, when you
+ask for a list of services, the list type is shown as `kind: ServiceList` and each item in that list represents a single Service. For example:
+
+```console
+
+GET /api/v1/services
+---
+{
+  "kind": "ServiceList",
+  "apiVersion": "v1",
+  "metadata": {
+    "resourceVersion": "2947301"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "kubernetes",
+        "namespace": "default",
+...
+      "metadata": {
+        "name": "kube-dns",
+        "namespace": "kube-system",
+...
+```
+
+Some tools, such as `kubectl` provide another way to query the Kubernetes API. Because the output of `kubectl` might include multiple list types, the list of items is represented as `kind: List`. For example:
+
+```console
+
+$ kubectl get services -A -o yaml 
+
+apiVersion: v1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2021-06-03T14:54:12Z"
+    labels:
+      component: apiserver
+      provider: kubernetes
+    name: kubernetes
+    namespace: default
+...
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      prometheus.io/port: "9153"
+      prometheus.io/scrape: "true"
+    creationTimestamp: "2021-06-03T14:54:14Z"
+    labels:
+      k8s-app: kube-dns
+      kubernetes.io/cluster-service: "true"
+      kubernetes.io/name: CoreDNS
+    name: kube-dns
+    namespace: kube-system
+```
+
+{{< note >}}
+Keep in mind that the Kubernetes API does not have a `kind: List` type. `kind: List` is an internal mechanism type for lists of mixed resources and should not be depended upon.
+{{< /note >}}
+
 
 ## Receiving resources as Tables
 

@@ -200,7 +200,7 @@ Used on: Service
 
 The kube-proxy has this label for custom proxy, which delegates service control to custom proxy.
 
-## experimental.windows.kubernetes.io/isolation-type
+## experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
 
 Example: `experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
@@ -210,6 +210,7 @@ The annotation is used to run Windows containers with Hyper-V isolation. To use 
 
 {{< note >}}
 You can only set this annotation on Pods that have a single container.
+Starting from v1.20, this annotation is deprecated. Experimental Hyper-V support was removed in 1.21.
 {{< /note >}}
 
 ## ingressclass.kubernetes.io/is-default-class

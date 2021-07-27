@@ -150,3 +150,4 @@ networking:
 
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 * Read about [Dual-stack](/docs/concepts/services-networking/dual-stack/) cluster networking
+* Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta2/)
