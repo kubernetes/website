@@ -364,7 +364,7 @@ The line `"systemReserved":3221225472` indicates that the administrator of this 
 
 ### Device plugin resource API
 
-By employing the [API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/), the information about reserved memory for each container can be retrieved, which is contained in protobuf `ContainerMemory` message.   
+By employing the [API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/), the information about reserved memory for each container can be retrieved, which is contained in protobuf `ContainerMemory` message. This information can be retrieved solely for pods in Guaranteed QoS class.   
 
 ## {{% heading "whatsnext" %}}
 
