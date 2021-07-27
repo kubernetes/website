@@ -1,0 +1,72 @@
+---
+layout: blog
+title: 'Windows HostProcess Containers'
+date: 2021-07-27
+slug: Windows HostProcess Containers
+---
+
+**Authors:** Brandon Smith
+
+{{<feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+HostProcess containers aim to extend the Windows container model to enable a wider 
+range of Kubernetes cluster management scenarios. HostProcess containers run 
+directly on the host and maintain behavior and access similar to that of a regular 
+process. With HostProcess containers, users can package and distribute management 
+operations and functionalities that require host access while retaining versioning 
+and deployment methods provided by containers. This allows Windows containers to 
+be used for a variety of device plugin, storage, and networking management scenarios 
+in Kubernetes. With this comes the enablement of host network mode - allowing 
+HostProcess containers to be created within the host's network namespace instead of 
+their own. HostProcess containers can also be built on top of existing Windows server 
+2019 (or later) base images, managed through the Windows container runtime, and run 
+as any user that is available on or in the domain of the host machine.
+
+Linux privileged containers are currently used for a variety of key scenarios in 
+Kubernetes, including kube-proxy (via kubeadm), storage, and networking scenarios. 
+Support for these scenarios in Windows previously required workarounds via proxies 
+or other implementations. Using HostProcess containers, cluster operators no longer 
+need to log onto and individually configure each Windows node for administrative 
+tasks and management of Windows services. Operators can now utilize the container 
+model to deploy management logic to as many clusters as needed with ease. 
+
+## How does it work?
+
+Windows HostProcess containers are implemented with Job Objects, a break from the 
+previous container model using server silos. Job objects provide the ability to 
+manage a group of processes as a group, and assign resource constraints to the 
+processes in the job. Job objects have no process or file system isolation, 
+enabling the privileged payload to view and edit the host file system with the 
+correct permissions, among other host resources. The init process, and any processes 
+it launches or that are explicitly launched by the user, are all assigned to the 
+job object of that container. When the init process exits or is signaled to exit, 
+all the processes in the job will be signaled to exit, the job handle will be 
+closed and the storage will be unmounted.
+
+HostProcess and Linux privileged containers enable similar scenarios but differ 
+greatly in their implementation, hence the naming difference. 
+
+{{< figure src="hostprocess-architecture.png" alt="HostProcess Architecture" >}}
+
+## How do I use it?
+
+HostProcess containers can be run from with in a 
+[HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-container.md). 
+With the feature enabled on Kubernetes version 1.22, a containerd container runtime of 
+1.5.4 or higher, and the latest version of hcsshim, deploying a pod spec with the 
+[correct HostProcess configuration](/docs/tasks/configure-pod-container/create-hostprocess-container.md#prerequisites) 
+will enable you to run HostProcess containers. 
+
+## How can I learn more?
+
+[Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-container.md)
+
+[Pod Security Standards](/docs/concepts/security/pod-security-standards)
+
+[Windows HostProcess KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-windows/1981-windows-privileged-container-support)
+
+## How do I get involved?
+
+HostProcess containers are in active development and welcome suggestions from the community. 
+[Get involved with SIG-Windows to contribute!](https://github.com/kubernetes/community/tree/master/sig-windows)
+
