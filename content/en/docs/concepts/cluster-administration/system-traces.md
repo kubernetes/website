@@ -57,6 +57,9 @@ kind: TracingConfiguration
 samplingRatePerMillion: 100
 ```
 
+For more information about the `TracingConfiguration` struct, see
+[API server config API (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration).
+
 ## Stability
 
 Tracing instrumentation is still under active development, and may change in a variety of ways. This includes span names, attached attributes, instrumented endpoints, etc. Until this feature graduates to stable, there are no guarantees of backwards compatibility for tracing instrumentation.
