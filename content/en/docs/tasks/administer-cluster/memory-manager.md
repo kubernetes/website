@@ -1,5 +1,5 @@
 ---
-title: Memory Manager
+title: Utilizing the NUMA-aware Memory Manager
 
 reviewers:
 - klueska
@@ -11,7 +11,7 @@ min-kubernetes-server-version: v1.21
 
 <!-- overview -->
 
-{{< feature-state state="alpha" for_k8s_version="v1.21" >}}
+{{< feature-state state="beta" for_k8s_version="v1.22" >}}
 
 The Kubernetes *Memory Manager* enables the feature of guaranteed memory (and hugepages) allocation for pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}.
 
@@ -29,11 +29,13 @@ To align memory resources with other requested resources in a Pod Spec:
 - the CPU Manager should be enabled and proper CPU Manager policy should be configured on a Node. See [control CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/);
 - the Topology Manager should be enabled and proper Topology Manager policy should be configured on a Node. See [control Topology Management Policies](/docs/tasks/administer-cluster/topology-manager/).
 
-Support for the Memory Manager requires `MemoryManager` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. 
+Starting from v1.22, the Memory Manager is enabled by default through `MemoryManager` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). 
 
-That is, the `kubelet` must be started with the following flag:
+Preceding v1.22, the `kubelet` must be started with the following flag:
 
 `--feature-gates=MemoryManager=true`
+
+in order to enable the Memory Manager feature.
 
 ## How Memory Manager Operates?
 
@@ -211,6 +213,10 @@ The following means can be used to troubleshoot the reason why a pod could not b
 - pod status - indicates topology affinity errors
 - system logs - include valuable information for debugging, e.g., about generated hints
 - state file - the dump of internal state of the Memory Manager (includes [Node Map and Memory Maps][2]) 
+- starting from v1.22, the [device plugin resource API](#device-plugin-resource-api) can be used
+  to retrieve information about the memory reserved for containers
+
+
 
 ### Pod status (TopologyAffinityError) {#TopologyAffinityError}
 
@@ -357,6 +363,10 @@ In order to analyse memory resources available in a group, the corresponding ent
 For example, the total amount of free "conventional" memory in the group can be computed by adding up the free memory available at every NUMA node in the group, i.e., in the `"memory"` section of NUMA node `0` (`"free":0`) and NUMA node `1` (`"free":103739236352`). So, the total amount of free "conventional" memory in this group is equal to `0 + 103739236352` bytes.  
 
 The line `"systemReserved":3221225472` indicates that the administrator of this node reserved `3221225472` bytes (i.e. `3Gi`) to serve kubelet and system processes at NUMA node `0`, by using `--reserved-memory` flag.
+
+### Device plugin resource API
+
+By employing the [API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/), the information about reserved memory for each container can be retrieved, which is contained in protobuf `ContainerMemory` message. This information can be retrieved solely for pods in Guaranteed QoS class.   
 
 ## {{% heading "whatsnext" %}}
 
