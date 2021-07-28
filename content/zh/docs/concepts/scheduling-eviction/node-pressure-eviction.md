@@ -365,7 +365,7 @@ kubelet 在驱逐最终用户 Pod 之前会先尝试回收节点级资源。
 If the node has a dedicated `imagefs` filesystem for container runtimes to use,
 the kubelet does the following:
 
-  * If the `nodefs` filesystem meets the eviction threshlds, the kubelet garbage collects
+  * If the `nodefs` filesystem meets the eviction thresholds, the kubelet garbage collects
     dead pods and containers. 
   * If the `imagefs` filesystem meets the eviction thresholds, the kubelet
     deletes all unused images.
@@ -403,7 +403,7 @@ signal below the threshold, the kubelet begins to evict end-user pods.
 The kubelet uses the following parameters to determine pod eviction order:
 
 1. Whether the pod's resource usage exceeds requests
-1. [Pod Priority](/docs/concepts/configuration/pod-priority-preemption/)
+1. [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 1. The pod's resource usage relative to requests
 -->
 ### kubelet 驱逐时 Pod 的选择
@@ -414,7 +414,7 @@ The kubelet uses the following parameters to determine pod eviction order:
 kubelet 使用以下参数来确定 Pod 驱逐顺序：
 
 1. Pod 的资源使用是否超过其请求
-1. [Pod 优先级](/zh/docs/concepts/configuration/pod-priority-preemption/)
+1. [Pod 优先级](/zh/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 1. Pod 相对于请求的资源使用情况
 
 <!-- 
@@ -430,7 +430,7 @@ As a result, kubelet ranks and evicts pods in the following order:
 
 1. 首先考虑资源使用量超过其请求的 `BestEffort` 或 `Burstable` Pod。
    这些 Pod 会根据它们的优先级以及它们的资源使用级别超过其请求的程度被逐出。
-1. 资源使用量少于请求量的 `Guaranted` Pod 和 `Burstable` Pod 根据其优先级被最后驱逐。
+1. 资源使用量少于请求量的 `Guaranteed` Pod 和 `Burstable` Pod 根据其优先级被最后驱逐。
 
 {{<note>}}
 <!-- 
@@ -456,7 +456,7 @@ then the kubelet must choose to evict one of these pods to preserve node stabili
 and to limit the impact of resource starvation on other pods. In this case, it
 will choose to evict pods of lowest Priority first.
 -->
-仅当 `Guaranted` Pod 中所有容器都被指定了请求和限制并且二者相等时，才保证 Pod 不被驱逐。
+仅当 `Guaranteed` Pod 中所有容器都被指定了请求和限制并且二者相等时，才保证 Pod 不被驱逐。
 这些 Pod 永远不会因为另一个 Pod 的资源消耗而被驱逐。
 如果系统守护进程（例如 `kubelet`、`docker` 和 `journald`）
 消耗的资源比通过 `system-reserved` 或 `kube-reserved` 分配保留的资源多，

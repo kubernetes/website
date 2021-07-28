@@ -266,7 +266,7 @@ kubectl apply -f cassandra-statefulset.yaml
 
 이 튜토리얼의 *파드* 는 구글의 [컨테이너 레지스트리](https://cloud.google.com/container-registry/docs/)에
 [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile) 이미지를 이용한다.
-이 도커 이미지는 [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base)에
+이 도커 이미지는 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)에
 기반하였고 OpenJDK 8을 포함한다.
 
 이 이미지는 아파치 데비안 리포의 표준 카산드라 설치본을 포함한다.

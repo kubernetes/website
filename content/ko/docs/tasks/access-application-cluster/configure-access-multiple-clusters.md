@@ -20,6 +20,13 @@ card:
 반드시 존재해야 한다는 것을 의미하는 것은 아니다.
 {{< /note >}}
 
+
+{{< warning >}}
+신뢰할 수 있는 소스의 kubeconfig 파일만 사용해야 한다. 특수 제작된 kubeconfig 파일은 악성코드를 실행하거나 파일을 노출시킬 수 있다.
+신뢰할 수 없는 kubeconfig 파일을 꼭 사용해야 한다면, 셸 스크립트를 사용하는 경우처럼 신중한 검사가 선행되어야 한다.
+{{< /warning>}}
+
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}

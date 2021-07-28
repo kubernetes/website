@@ -11,6 +11,8 @@ This page shows how to perform a rolling update on a DaemonSet.
 
 ## {{% heading "prerequisites" %}}
 
+{{< include "task-tutorial-prereqs.md" >}}
+
 <!-- steps -->
 
 ## DaemonSet Update Strategy
@@ -191,4 +193,3 @@ kubectl delete ds fluentd-elasticsearch -n kube-system
 
 * See [Performing a rollback on a DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
 * See [Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
-

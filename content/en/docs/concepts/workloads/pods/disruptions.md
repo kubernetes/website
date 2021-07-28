@@ -31,7 +31,7 @@ an application.  Examples are:
 - cloud provider or hypervisor failure makes VM disappear
 - a kernel panic
 - the node disappears from the cluster due to cluster network partition
-- eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource/).
+- eviction of a pod due to the node being [out-of-resources](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 
 Except for the out-of-resources condition, all these conditions
 should be familiar to most users; they are not specific
