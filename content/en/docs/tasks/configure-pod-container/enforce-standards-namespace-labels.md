@@ -59,14 +59,20 @@ kubectl label --dry-run=server --overwrite ns --all \
 ### Applying to all namespaces
 
 If you're just getting started with the Pod Security Standards, a suitable first step would be to
-configure all namespaces as `privileged` but set up audit annotations for a stricter level such as
-`baseline`:
+configure all namespaces with audit annotations for a stricter level such as `baseline`:
 
 ```shell
 kubectl label --overwrite ns --all \
-  pod-security.kubernetes.io/enforce=privileged \
   pod-security.kubernetes.io/audit=baseline \
   pod-security.kubernetes.io/warn=baseline
+```
+
+Note that this is not setting an enforce level, so that namespaces that haven't been explicitly
+evaluated can be distinguished. You can list namespaces without an explicitly set enforce level
+using this command:
+
+```shell
+kubectl get namespaces --selector='!pod-security.kubernetes.io/enforce'
 ```
 
 ### Applying to a single namespace
