@@ -107,7 +107,7 @@ Containers are becoming popular because they have many benefits. Some of the con
 * Agile application creation and deployment: increased ease and efficiency of container image creation compared to VM image use.
 * Continuous development, integration, and deployment: provides for reliable and frequent container image build and deployment with quick and easy rollbacks (due to image immutability).
 * Dev and Ops separation of concerns: create application container images at build/release time rather than deployment time, thereby decoupling applications from infrastructure.
-* Observability not only surfaces OS-level information and metrics, but also application health and other signals.
+* Observability: not only surfaces OS-level information and metrics, but also application health and other signals.
 * Environmental consistency across development, testing, and production: Runs the same on a laptop as it does in the cloud.
 * Cloud and OS distribution portability: Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, and anywhere else.
 * Application-centric management: Raises the level of abstraction from running an OS on virtual hardware to running an application on an OS using logical resources.
@@ -120,7 +120,7 @@ Containers are becoming popular because they have many benefits. Some of the con
   容器镜像构建和部署。
 * 关注开发与运维的分离：在构建/发布时而不是在部署时创建应用程序容器镜像，
   从而将应用程序与基础架构分离。
-* 可观察性不仅可以显示操作系统级别的信息和指标，还可以显示应用程序的运行状况和其他指标信号。
+* 可观察性：不仅可以显示操作系统级别的信息和指标，还可以显示应用程序的运行状况和其他指标信号。
 * 跨开发、测试和生产的环境一致性：在便携式计算机上与在云中相同地运行。
 * 跨云和操作系统发行版本的可移植性：可在 Ubuntu、RHEL、CoreOS、本地、
   Google Kubernetes Engine 和其他任何地方运行。

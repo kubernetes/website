@@ -73,8 +73,8 @@ GitHub의 SIG Docs [팀]에는 두 분류가 있다.
 - approve
 
 이 두 플러그인은 `kubernetes/website` GitHub 리포지터리 최상위 수준에 있는
-[OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS)와
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS_ALIASES)
+[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS)와
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
 파일을 사용해서
 해당 리포지터리에 대해 prow가 작동하는 방식을 제어한다.
 
@@ -94,7 +94,7 @@ PR 소유자에게 조언하는데 활용된다.
 ## 병합 작업 방식
 
 풀 리퀘스트 요청이 콘텐츠를 발행하는데 사용하는
-브랜치에 병합되면, 해당 콘텐츠는 http://kubernetes.io 에 공개된다. 게시된 콘텐츠의
+브랜치에 병합되면, 해당 콘텐츠는 https://kubernetes.io 에 공개된다. 게시된 콘텐츠의
 품질을 높히기 위해 SIG Docs 승인자가 풀 리퀘스트를 병합하는 것을 제한한다.
 작동 방식은 다음과 같다.
 

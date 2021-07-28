@@ -5,4 +5,4 @@
 다음의 쿠버네티스 플레이그라운드 중 하나를 사용할 수 있다.
 
 * [Katacoda](https://www.katacoda.com/courses/kubernetes/playground)
-* [Play with Kubernetes](http://labs.play-with-k8s.com/)
+* [Play with Kubernetes](https://labs.play-with-k8s.com/)
