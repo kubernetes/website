@@ -19,7 +19,8 @@ The Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-sta
 different isolation levels for Pods. These standards let you define how you want to restrict the
 behavior of pods in a clear, consistent fashion.
 
-As an Alpha feature, Kubernetes offers a built-in _Pod Security_ admission plugin, the successor
+As an Alpha feature, Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip
+text="admission controller" term_id="admission-controller" >}}, the successor
 to [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/). Pod security restrictions
 are applied at the {{< glossary_tooltip text="namespace" term_id="namespace" >}} level when pods
 are created.
@@ -40,12 +41,14 @@ Setting pod security controls by namespace is an alpha feature. You must enable 
 --feature-gates="...,PodSecurity=true"
 ```
 
-## Pod Security Admission configuration for pods
+## Pod Security levels
 
-Different policy levels (e.g. `baseline`, `restricted`) have different requirements for
-[Security Context](/docs/tasks/configure-pod-container/security-context/) objects and other related
-fields. Check out the [Pod Security Standards](/docs/concepts/security/pod-security-standards) page
-for an in-depth look at those requirements.
+Pod Security admission places requirements on a Pod's [Security
+Context](/docs/tasks/configure-pod-container/security-context/) and other related fields according
+to the three levels defined by the [Pod Security
+Standards](/docs/concepts/security/pod-security-standards): `privileged`, `baseline`, and
+`restricted`. Refer to the [Pod Security Standards](/docs/concepts/security/pod-security-standards)
+page for an in-depth look at those requirements.
 
 ## Pod Security Admission labels for namespaces
 
@@ -64,7 +67,9 @@ Mode | Description
 **`warn`** | Policy violations will trigger a user-facing warning, but are otherwise allowed.
 {{< /table >}}
 
-For each mode, there are two labels that you can use:
+A namespace can configure any or all modes, or even set a different level for different modes.
+
+For each mode, there are two labels that determine the policy used:
 
 ```yaml
 # The per-mode level label indicates which policy level to apply for the mode.
@@ -74,14 +79,24 @@ For each mode, there are two labels that you can use:
 pod-security.kubernetes.io/<MODE>: <LEVEL>
 
 # Optional: per-mode version label that can be used to pin the policy to the
-# version that shipped with a given Kubernetes minor version (e.g. v{{< skew latestVersion >}}).
+# version that shipped with a given Kubernetes minor version (for example v{{< skew latestVersion >}}).
 #
 # MODE must be one of `enforce`, `audit`, or `warn`.
-# VERSION must be a valid Kubernetes version label.
+# VERSION must be a valid Kubernetes minor version, or `latest`.
 pod-security.kubernetes.io/<MODE>-version: <VERSION>
 ```
 
 Check out [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels) to see example usage.
+
+## Workload resources and Pod templates
+
+Pods are often created indirectly, by creating a [workload
+object](https://kubernetes.io/docs/concepts/workloads/controllers/) such as a {{< glossary_tooltip
+term_id="deployment" >}} or {{< glossary_tooltip term_id="job">}}. The workload object defines a
+_Pod template_ and a {{< glossary_tooltip term_id="controller" text="controller" >}} for the
+workload resource creates Pods based on that template. To help catch violations early, both the
+audit and warning modes are applied to the workload resources. However, enforce mode is **not**
+applied to workload resources, only to the resulting pod objects.
 
 ## Exemptions
 
@@ -90,35 +105,36 @@ would have otherwise been prohibited due to the policy associated with a given n
 Exemptions can be statically configured in the
 [Admission Controller configuration](#configuring-the-admission-controller).
 
-Exemptions must be explicitly enumerated, and do not support indirection such as label or group
-selectors. Requests meeting exemption criteria are _ignored_ by the Admission Controller (all
-`enforce`, `audit` and `warn` behaviors), except to record an audit annotation. Exemption
-dimensions include:
+Exemptions must be explicitly enumerated. Requests meeting exemption criteria are _ignored_ by the
+Admission Controller (all `enforce`, `audit` and `warn` behaviors are skipped). Exemption dimensions include:
 
 - **Usernames:** requests from users with an exempt authenticated (or impersonated) username are
   ignored.
-- **RuntimeClassNames:** pods and templated pods specifying an exempt runtime class name are
+- **RuntimeClassNames:** pods and [workload resources](#workload-resources-and-pod-templates) specifying an exempt runtime class name are
   ignored.
-- **Namespaces:** pods and templated pods in an exempt namespace are ignored.
+- **Namespaces:** pods and [workload resources](#workload-resources-and-pod-templates) in an exempt namespace are ignored.
 
-The username exemption is special in that the creating user is not persisted on the Pod object,
-and the Pod may be modified by different non-exempt users in the future. Use cases for username
-exemptions include:
+{{< caution >}}
 
-- Trusted {{< glossary_tooltip term_id="controller" text="controllers" >}} that create pods.
-- Usernames that represent break-glass operations roles, for example for debugging workloads
-  in a namespace that has restrictions configured. This mechanism only works with a username
-  match; you cannot grant exemptions based on group membership.
+Most pods are created by a controller in response to a [workload
+resource](#workload-resources-and-pod-templates), meaning that exempting an end user will only
+exempt them from enforcement when creating pods directly, but not when creating a workload resource.
+Controller service accounts (such as `system:serviceaccount:kube-system:replicaset-controller`)
+should generally not be exempted, as doing so would implicitly exempt any user that can create the
+corresponding workload resource.
 
-Updates to the following pod fields are exempt from policy checks, meaning that if a pod update request only changes these fields, it will not be denied even if the pod is in violation of the current policy level:
+{{< /caution >}}
 
-- Any metadata updates EXCEPT changes to the seccomp or apparmor annotations:
+Updates to the following pod fields are exempt from policy checks, meaning that if a pod update
+request only changes these fields, it will not be denied even if the pod is in violation of the
+current policy level:
+
+- Any metadata updates **except** changes to the seccomp or AppArmor annotations:
   - `seccomp.security.alpha.kubernetes.io/pod` (deprecated)
   - `container.seccomp.security.alpha.kubernetes.io/*` (deprecated)
   - `container.apparmor.security.beta.kubernetes.io/*`
 - Valid updates to `.spec.activeDeadlineSeconds`
 - Valid updates to `.spec.tolerations`
-- Valid updates to Pod resources
 
 ## {{% heading "whatsnext" %}}
 
