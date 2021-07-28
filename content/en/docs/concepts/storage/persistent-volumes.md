@@ -415,37 +415,40 @@ The access modes are:
 * ReadWriteOnce -- the volume can be mounted as read-write by a single node
 * ReadOnlyMany -- the volume can be mounted read-only by many nodes
 * ReadWriteMany -- the volume can be mounted as read-write by many nodes
+* ReadWriteOncePod -- the volume can be mounted as read-write by a single Pod.
+  This is only supported for CSI volumes and Kubernetes version 1.22+.
 
 In the CLI, the access modes are abbreviated to:
 
 * RWO - ReadWriteOnce
 * ROX - ReadOnlyMany
 * RWX - ReadWriteMany
+* RWOP - ReadWriteOncePod
 
 > __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
 
-| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
-| :---                 | :---:                  | :---:                 | :---:        |
-| AWSElasticBlockStore | &#x2713;               | -                     | -            |
-| AzureFile            | &#x2713;               | &#x2713;              | &#x2713;     |
-| AzureDisk            | &#x2713;               | -                     | -            |
-| CephFS               | &#x2713;               | &#x2713;              | &#x2713;     |
-| Cinder               | &#x2713;               | -                     | -            |
-| CSI                  | depends on the driver  | depends on the driver | depends on the driver |
-| FC                   | &#x2713;               | &#x2713;              | -            |
-| FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver |
-| Flocker              | &#x2713;               | -                     | -            |
-| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -            |
-| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;     |
-| HostPath             | &#x2713;               | -                     | -            |
-| iSCSI                | &#x2713;               | &#x2713;              | -            |
-| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;     |
-| NFS                  | &#x2713;               | &#x2713;              | &#x2713;     |
-| RBD                  | &#x2713;               | &#x2713;              | -            |
-| VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated)  |
-| PortworxVolume       | &#x2713;               | -                     | &#x2713;     |
-| StorageOS            | &#x2713;               | -                     | -            |
+| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
+| :---                 | :---:                  | :---:                 | :---:         | -                      |
+| AWSElasticBlockStore | &#x2713;               | -                     | -             | -                      |
+| AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| AzureDisk            | &#x2713;               | -                     | -             | -                      |
+| CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| Cinder               | &#x2713;               | -                     | -             | -                      |
+| CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
+| FC                   | &#x2713;               | &#x2713;              | -             | -                      |
+| FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
+| Flocker              | &#x2713;               | -                     | -             | -                      |
+| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
+| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| HostPath             | &#x2713;               | -                     | -             | -                      |
+| iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
+| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
+| VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
+| PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
+| StorageOS            | &#x2713;               | -                     | -             | -                      |
 
 ### Class
 
@@ -791,6 +794,82 @@ spec:
     requests:
       storage: 10Gi
 ```
+
+## Volume populators and data sources
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+{{< note >}}
+Kubernetes supports custom volume populators; this alpha feature was introduced
+in Kubernetes 1.18. Kubernetes 1.22 reimplemented the mechanism with a redesigned API.
+Check that you are reading the version of the Kubernetes documentation that matches your
+cluster. {{% version-check %}}
+To use custom volume populators, you must enable the `AnyVolumeDataSource`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for
+the kube-apiserver and kube-controller-manager.
+{{< /note >}}
+
+Volume populators take advantage of a PVC spec field called `dataSourceRef`. Unlike the
+`dataSource` field, which can only contain either a reference to another PersistentVolumeClaim
+or to a VolumeSnapshot, the `dataSourceRef` field can contain a reference to any object in the
+same namespace, except for core objects other than PVCs. For clusters that have the feature
+gate enabled, use of the `dataSourceRef` is preferred over `dataSource`.
+
+## Data source references
+
+The `dataSourceRef` field behaves almost the same as the `dataSource` field. If either one is
+specified while the other is not, the API server will give both fields the same value. Neither
+field can be changed after creation, and attempting to specify different values for the two
+fields will result in a validation error. Therefore the two fields will always have the same
+contents.
+
+There are two differences between the `dataSourceRef` field and the `dataSource` field that
+users should be aware of:
+* The `dataSource` field ignores invalid values (as if the field was blank) while the
+  `dataSourceRef` field never ignores values and will cause an error if an invalid value is
+  used. Invalid values are any core object (objects with no apiGroup) except for PVCs.
+* The `dataSourceRef` field may contain different types of objects, while the `dataSource` field
+  only allows PVCs and VolumeSnapshots.
+
+Users should always use `dataSourceRef` on clusters that have the feature gate enabled, and
+fall back to `dataSource` on clusters that do not. It is not necessary to look at both fields
+under any circumstance. The duplicated values with slightly different semantics exist only for
+backwards compatibility. In particular, a mixture of older and newer controllers are able to
+interoperate because the fields are the same.
+
+### Using volume populators
+
+Volume populators are {{< glossary_tooltip text="controllers" term_id="controller" >}} that can
+create non-empty volumes, where the contents of the volume are determined by a Custom Resource.
+Users create a populated volume by referring to a Custom Resource using the `dataSourceRef` field:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: populated-pvc
+spec:
+  dataSourceRef:
+    name: example-name
+    kind: ExampleDataSource
+    apiGroup: example.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+Because volume populators are external components, attempts to create a PVC that uses one
+can fail if not all the correct components are installed. External controllers should generate
+events on the PVC to provide feedback on the status of the creation, including warnings if
+the PVC cannot be created due to some missing component.
+
+You can install the alpha [volume data source validator](https://github.com/kubernetes-csi/volume-data-source-validator)
+controller into your cluster. That controller generates warning Events on a PVC in the case that no populator
+is registered to handle that kind of data source. When a suitable populator is installed for a PVC, it's the
+responsibility of that populator controller to report Events that relate to volume creation and issues during
+the process.
 
 ## Writing Portable Configuration
 
