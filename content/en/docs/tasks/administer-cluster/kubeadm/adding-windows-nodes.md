@@ -163,7 +163,7 @@ Instructions to do so are available at [Install Docker Engine - Enterprise on Wi
 #### Install wins, kubelet, and kubeadm  
 
 ```PowerShell
-curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
 .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}}
 ```
 
@@ -206,7 +206,7 @@ If you're using a different interface rather than Ethernet (i.e. "Ethernet0 2") 
 #### Install wins, kubelet, and kubeadm
 
 ```PowerShell
-curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
+curl.exe -LO https://raw.githubusercontent.com/kubernetes-sigs/sig-windows-tools/master/kubeadm/scripts/PrepareNode.ps1
 .\PrepareNode.ps1 -KubernetesVersion {{< param "fullversion" >}} -ContainerRuntime containerD
 ```
 
