@@ -255,7 +255,8 @@ from failed Jobs is not lost inadvertently.
 
 ## Job termination and cleanup
 
-When a Job completes, no more Pods are created, but the Pods are not deleted either.  Keeping them around
+When a Job completes, no more Pods are created, but the Pods are [usually](#pod-backoff-failure-policy) not deleted either.
+Keeping them around
 allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
 The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
 old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
