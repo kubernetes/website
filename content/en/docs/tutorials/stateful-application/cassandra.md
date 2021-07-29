@@ -50,7 +50,7 @@ To complete this tutorial, you should already have a basic familiarity with
 ### Additional Minikube setup instructions
 
 {{< caution >}}
-[Minikube](https://minikube.sigs.k8s.io/docs/) defaults to 1024MiB of memory and 1 CPU.
+[Minikube](https://minikube.sigs.k8s.io/docs/) defaults to 2048MB of memory and 2 CPU.
 Running Minikube with the default resource configuration results in insufficient resource
 errors during this tutorial. To avoid these errors, start Minikube with the following settings:
 
