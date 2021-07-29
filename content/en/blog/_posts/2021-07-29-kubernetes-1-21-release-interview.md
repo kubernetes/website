@@ -16,7 +16,7 @@ In these interviews we learn a little about the release, but also about the proc
 
 ---
 
-**CRAIG BOX: You have a Bachelor of Technology in metallurgic and materials engineering. How are we doing at turning lead into gold?**
+**CRAIG BOX: You have a Bachelor of Technology in Metallurgical and Materials engineering. How are we doing at turning lead into gold?**
 
 NABARUN PAL: Well, last I checked, we have yet to find the philosopher's stone!
 
@@ -36,7 +36,7 @@ Materials engineering interested me a lot. I had a passion for computer science 
 
 **CRAIG BOX: Let's dig in there a little bit. What did computing look like during your childhood?**
 
-NABARUN PAL: It was a very interesting journey. I started exploring computers back when I was seven or eight. For my first programming language, if you call it a programming language, I explored Logo.
+NABARUN PAL: It was a very interesting journey. I started exploring computers back when I was seven or eight. For my first programming language, if you call it a programming language, I explored LOGO.
 
 You have a turtle on the screen, and you issue commands to it, like move forward or rotate or pen up or pen down. You basically draw geometric figures. I could visually see how I could draw a square and how I could draw a triangle. It was an interesting journey after that. I learned BASIC, then went to some amount of HTML, JavaScript.
 
@@ -46,11 +46,11 @@ NABARUN PAL: Programming came in late. Not just in computing, but in life, I'm c
 
 We used to get magazines back then. They used to bundle OpenSuse or Debian, and I used to install them. It was an interesting experience, 15 years back, how Linux used to be. I have been a tinkerer all around, and that's what eventually led me to programming.
 
-**CRAIG BOX: With an interest in both the physical and ethereal aspects of technology, you did a lot of robotics challenges during university. That's something that I am not surprised hear from someone who has a background in Logo, to be honest. There's Mindstorms, and a lot of other technology that is based around robotics that a lot of Logo people got into. How was that something that came about for you?**
+**CRAIG BOX: With an interest in both the physical and ethereal aspects of technology, you did a lot of robotics challenges during university. That's something that I am not surprised to hear from someone who has a background in Logo, to be honest. There's Mindstorms, and a lot of other technology that is based around robotics that a lot of LOGO people got into. How was that something that came about for you?**
 
-NABARUN PAL: When I joined my university, apart from studying materials, one of the things they used to really encourage was to get involved in a lot of extracurricular activities. One which interested me was robotics. I joined [my college robotics team](http://mars.iitr.ac.in/) and participated in a lot of challenges.
+NABARUN PAL: When I joined my university, apart from studying materials, one of the things they used to really encourage was to get involved in a lot of extracurricular activities. One which interested me was robotics. I joined [my college robotics team](https://github.com/marsiitr) and participated in a lot of challenges.
 
-Predominantly, we used to participate in this competition called [ABU Robocon](https://en.wikipedia.org/wiki/ABU_Roboconhttp://mars.iitr.ac.in/), which is an event conducted by the Asia-Pacific Broadcasting Union. What they used to do was, every year, one of the participating countries in the contest would provide a problem statement. For example, one year, they asked us to build a badminton-playing robot.  They asked us to build a rugby playing robot or a Frisbee thrower, and there are some interesting problem statements around the challenge: you can't do this. You can't do that. Weight has to be like this. Dimensions have to be like that.
+Predominantly, we used to participate in this competition called [ABU Robocon](https://en.wikipedia.org/wiki/ABU_Robocon), which is an event conducted by the Asia-Pacific Broadcasting Union. What they used to do was, every year, one of the participating countries in the contest would provide a problem statement. For example, one year, they asked us to build a badminton-playing robot.  They asked us to build a rugby playing robot or a Frisbee thrower, and there are some interesting problem statements around the challenge: you can't do this. You can't do that. Weight has to be like this. Dimensions have to be like that.
 
 I got involved in that, and most of my time at university, I used to spend there. Material science became kind of a backburner for me, and my hobby became my full time thing.
 
@@ -62,7 +62,7 @@ NABARUN PAL: Over the course of time, when I gained more knowledge into how the 
 
 NABARUN PAL: Algoshelf was known as Rorodata when I joined them as an intern. This was also an interesting opportunity for me in the sense that I was always interested in writing programs which people would use. One of the things that I did there was  build an open source Function as a Service framework, if I may call it that - it was mostly turning Python functions into web servers without even writing any code. The interesting bit there was that it was targeted toward data scientists, and not towards programmers. We had to understand the pain of data scientists, that they had to learn a lot of programming in order to even deploy their machine learning models, and we wanted to solve that problem.
 
-They offered me a job after my internship, and I kept on working for them after I graduated from university. There, I got introduced to Kubernetes, so we pivoted into a product structure where the very same thing I told you, the Functions as a Service thing, could be deployed in Kubernetes. I was exploring Kubernetes as to use a scalable platform. Instead of managing pets, we wanted to manage cattle, as in, we wanted to have a very highly distributed architecture.
+They offered me a job after my internship, and I kept on working for them after I graduated from university. There, I got introduced to Kubernetes, so we pivoted into a product structure where the very same thing I told you, the Functions as a Service thing, could be deployed in Kubernetes. I was exploring Kubernetes to use it as a scalable platform. Instead of managing pets, we wanted to manage cattle, as in, we wanted to have a very highly distributed architecture.
 
 **CRAIG BOX: Not actual cattle. I've been to India. There are a lot of cows around.**
 
@@ -82,7 +82,7 @@ The person that I was working with just asked me, like hey, did you submit a tal
 
 It has been a journey since then. I talked about the same thing at FOSSASIA Summit in Singapore, and got really involved with the Python community because it was what I used to work on back then.
 
-After giving all those talks at conferences, I got also introduced to this amazing group called [DGPLUG](https://dgplug.org/), which is an acronym for the Durgapur Linux Users Group. It is a group started in-- I don't remember the exact year, but it was around 12 to 13 years back, by someone called Kushal Das, with the ideology of [training students into being better open source contributors](https://foss.training/).
+After giving all those talks at conferences, I got also introduced to this amazing group called [dgplug](https://dgplug.org/), which is an acronym for the Durgapur Linux Users Group. It is a group started in-- I don't remember the exact year, but it was around 12 to 13 years back, by someone called Kushal Das, with the ideology of [training students into being better open source contributors](https://foss.training/).
 
 I liked the idea and got involved with in teaching last year. It is not limited to students. Professionals can also join in. It's about making anyone better at upstream contributions, making things sustainable. I started training people on Vim, on how to use text editors. so they are more efficient and productive. In general life, text editors are a really good tool.
 
@@ -98,9 +98,9 @@ We have shifted more towards enabling people to contribute to whichever project 
 
 NABARUN PAL: The Kubernetes Bangalore meetup group is essentially focused towards spreading the knowledge of Kubernetes and the aligned products in the ecosystem, whatever there is in the Cloud Native Landscape, in various ways. For example, to evangelize about using them in your company or how people use them in existing ways.
 
-So a few months back in February, we did something like a Kubernetes contributor workshop. It was one of its kind in India. It was the first one if I recall correctly. We got a lot of traction and community members interested in contributing to Kubernetes and a lot of other projects. And this is becoming a really valuable thing.
+So a few months back in February, we did something like a [Kubernetes contributor workshop](https://www.youtube.com/watch?v=FgsXbHBRYIc). It was one of its kind in India. It was the first one if I recall correctly. We got a lot of traction and community members interested in contributing to Kubernetes and a lot of other projects. And this is becoming a really valuable thing.
 
-I'm not much involved in the organization of the group. They are really great people already organizing it. I keep on being around and attending the meetups and trying to answer any questions if people have any.
+I'm not much involved in the organization of the group. There are really great people already organizing it. I keep on being around and attending the meetups and trying to answer any questions if people have any.
 
 **CRAIG BOX: One way that it is possible to contribute to the Kubernetes ecosystem is through the release process. You've [written a blog](https://blog.naba.run/posts/release-enhancements-journey/) which talks about your journey through that. It started in Kubernetes 1.17, where you took a shadow role for that release. Tell me about what it was like to first take that plunge.**
 
@@ -114,7 +114,7 @@ NABARUN PAL: It was a bit tricky. I have this philosophy of contributing to proj
 
 When I was contributing to that, I explored the release team and it interested me a lot, particularly how interesting and varied the mechanics of releasing Kubernetes are. For most software projects, it's usually whenever you decide that you have made meaningful progress in terms of features, you release it. But Kubernetes is not like that. We follow a regular release cadence. And all those aspects really interested me. I actually applied for the first time in Kubernetes 1.16, but got rejected.
 
-But I still applied to Kubernetes 1.17, and I got into the enhancements team. That team was led by [Mr. Bobby Tables, Bob Killen](https://kubernetespodcast.com/episode/126-research-steering-honking/), back then, and [Jeremy Rickard](https://kubernetespodcast.com/episode/131-kubernetes-1.20/) was one of my co-shadows in the team. I shadowed enhancements again. Then I lead enhancements in 1.19. I then shadowed the lead in 1.20 and eventually led the 1.21 team. That's what my journey has been.
+But I still applied to Kubernetes 1.17, and I got into the enhancements team. That team was led by [MrBobbyTables, Bob Killen](https://kubernetespodcast.com/episode/126-research-steering-honking/), back then, and [Jeremy Rickard](https://kubernetespodcast.com/episode/131-kubernetes-1.20/) was one of my co-shadows in the team. I shadowed enhancements again. Then I lead enhancements in 1.19. I then shadowed the lead in 1.20 and eventually led the 1.21 team. That's what my journey has been.
 
 My suggestion to people is don't be afraid of failure. Even if you don't get selected, it's perfectly fine. You can still contribute to the release team. Just hop on the release calls, raise your hand, and introduce yourself.
 
@@ -124,11 +124,11 @@ NABARUN PAL: A lot of people have fingerprints on this process. Stephen certainl
 
 **CRAIG BOX: I understand that the Tanzu team is being built out in India at the moment, but I guess you probably haven't been able to meet them in person yet?**
 
-NABARUN PAL: Yes and no. I did not meet any of them after joining VMware, but I spent a lot of my teammates, before I joined VMware, at KubeCons. For example, I met Nikita, I met Dims, I met Stephen at KubeCon. I have yet to meet other members of the team and I'm really excited to catch up with them once everything comes out of lockdown and we go back to our normal lives.
+NABARUN PAL: Yes and no. I did not meet any of them after joining VMware, but I met a lot of my teammates, before I joined VMware, at KubeCons. For example, I met Nikhita, I met Dims, I met Stephen at KubeCon. I am yet to meet other members of the team and I'm really excited to catch up with them once everything comes out of lockdown and we go back to our normal lives.
 
 **CRAIG BOX: Yes, everyone that I speak to who has changed jobs in the pandemic says it's a very odd experience, just nothing really being different. And the same perhaps for people who are working on open source moving companies as well. They're doing the same thing, perhaps just for a different employer.**
 
-NABARUN PAL: As we say in the community, see you in another Slack sometime.
+NABARUN PAL: As we say in the community, see you in another Slack in some time.
 
 **CRAIG BOX: We now turn to the recent release of Kubernetes 1.21. First of all, congratulations on that.**
 
