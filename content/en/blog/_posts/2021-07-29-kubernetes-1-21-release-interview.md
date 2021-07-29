@@ -16,7 +16,7 @@ In these interviews we learn a little about the release, but also about the proc
 
 ---
 
-**CRAIG BOX: You have a Bachelor of Technology in Metallurgical and Materials engineering. How are we doing at turning lead into gold?**
+**CRAIG BOX: You have a Bachelor of Technology in Metallurgical and Materials Engineering. How are we doing at turning lead into gold?**
 
 NABARUN PAL: Well, last I checked, we have yet to find the philosopher's stone!
 
