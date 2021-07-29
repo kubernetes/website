@@ -415,7 +415,7 @@ balancer and traffic is being dropped during the termination period of a pod.
 
 You can set the `spec.internalTrafficPolicy` field to control how traffic from internal sources is routed.
 Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route internal traffic to all ready endpoints
-and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are are no node-local
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are no node-local
 endpoints, traffic is dropped by kube-proxy.
 
 ## Discovering services
