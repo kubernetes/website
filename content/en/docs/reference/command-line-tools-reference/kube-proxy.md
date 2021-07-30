@@ -116,7 +116,7 @@ kube-proxy [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path to the configuration file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path to the kube-proxy configuration file.</p></td>
 </tr>
 
 <tr>
