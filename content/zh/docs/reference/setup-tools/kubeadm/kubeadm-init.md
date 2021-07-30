@@ -293,10 +293,10 @@ For information about passing flags to control plane components see:
 <!--
 By default, kubeadm pulls images from `k8s.gcr.io`. If the
 requested Kubernetes version is a CI label (such as `ci/latest`)
-`gcr.io/kubernetes-ci-images` is used.
+`gcr.io/k8s-staging-ci-images` is used.
 -->
 默认情况下, kubeadm 会从 `k8s.gcr.io` 仓库拉取镜像。如果请求的 Kubernetes 版本是 CI 标签
-（例如 `ci/latest`），则使用 `gcr.io/kubernetes-ci-images`。
+（例如 `ci/latest`），则使用 `gcr.io/k8s-staging-ci-images`。
 
 <!--
 You can override this behavior by using [kubeadm with a configuration file](#config-file).
