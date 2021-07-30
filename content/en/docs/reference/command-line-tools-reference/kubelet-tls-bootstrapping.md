@@ -167,7 +167,7 @@ If you want to use bootstrap tokens, you must enable it on kube-apiserver with t
 
 #### Token authentication file
 
-kube-apiserver has an ability to accept tokens as authentication.
+kube-apiserver has the ability to accept tokens as authentication.
 These tokens are arbitrary but should represent at least 128 bits of entropy derived
 from a secure random number generator (such as `/dev/urandom` on most modern Linux
 systems). There are multiple ways you can generate a token. For example:
