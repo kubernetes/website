@@ -60,7 +60,7 @@ Required CAs:
 On top of the above CAs, it is also necessary to get a public/private key pair for service account management, `sa.key` and `sa.pub`.
 The following example illustrates the CA key and certificate files shown in the previous table:
 
-```shell
+```
 /etc/kubernetes/pki/
 ├── ca.crt
 ├── ca.key
@@ -141,7 +141,7 @@ Same considerations apply for the service account key pair:
 
 The following example illustrates the files from the previous tables you need to provide if you are generating all of your own keys and certificates:
 
-```shell
+```
 /etc/kubernetes/pki/
 ├── apiserver.crt
 ├── apiserver-etcd-client.crt
@@ -186,11 +186,11 @@ The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value 
 
 1. Run `kubectl` as follows for each config:
 
-```shell
-   KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
-   KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
-   KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
-   KUBECONFIG=<filename> kubectl config use-context default-system
+```
+KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
+KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
+KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
+KUBECONFIG=<filename> kubectl config use-context default-system
 ```
 
 These files are used as follows:
@@ -204,7 +204,7 @@ These files are used as follows:
 
 The following illustrates the files listed in the previous table that contain client user certificates and keys:
 
-```shell
+```
 /etc/kubernetes/
 ├── admin.conf
 ├── kubelet.conf
