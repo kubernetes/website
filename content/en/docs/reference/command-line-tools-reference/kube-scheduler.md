@@ -166,7 +166,7 @@ kube-scheduler [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path to the configuration file. The following flags can overwrite fields in this file:<br/>--algorithm-provider<br/>--policy-config-file<br/>--policy-configmap<br/>--policy-configmap-namespace</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path to the kube-scheduler configuration file. The following flags can overwrite fields in this file:<br/>--algorithm-provider<br/>--policy-config-file<br/>--policy-configmap<br/>--policy-configmap-namespace</p></td>
 </tr>
 
 <tr>
