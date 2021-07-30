@@ -385,6 +385,40 @@ The IP address that you choose must be a valid IPv4 or IPv6 address from within 
 If you try to create a Service with an invalid clusterIP address value, the API
 server will return a 422 HTTP status code to indicate that there's a problem.
 
+## Traffic policies
+
+### External traffic policy
+
+You can set the `spec.externalTrafficPolicy` field to control how traffic from external sources is routed.
+Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route external traffic to all ready endpoints
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are are no node-local
+endpoints, the kube-proxy does not forward any traffic for the relevant Service.
+
+{{< note >}}
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+If you enable the `ProxyTerminatingEndpoints`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`ProxyTerminatingEndpoints` for the kube-proxy, the kube-proxy checks if the node
+has local endpoints and whether or not all the local endpoints are marked as terminating.
+If there are local endpoints and **all** of those are terminating, then the kube-proxy ignores
+any external traffic policy of `Local`. Instead, whilst the node-local endpoints remain as all
+terminating, the kube-proxy forwards traffic for that Service to healthy endpoints elsewhere,
+as if the external traffic policy were set to `Cluster`.
+This forwarding behavior for terminating endpoints exists to allow external load balancers to
+gracefully drain connections that are backed by `NodePort` Services, even when the health check
+node port starts to fail. Otherwise, traffic can be lost between the time a node is still in the node pool of a load
+balancer and traffic is being dropped during the termination period of a pod.
+{{< /note >}}
+
+### Internal traffic policy
+
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+You can set the `spec.internalTrafficPolicy` field to control how traffic from internal sources is routed.
+Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route internal traffic to all ready endpoints
+and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are no node-local
+endpoints, traffic is dropped by kube-proxy.
+
 ## Discovering services
 
 Kubernetes supports 2 primary modes of finding a Service - environment
