@@ -1015,22 +1015,19 @@ Los siguientes parámetros de Storageclass desde el complemento incorporado `vsp
 Los volúmenes existentes creados usando estos parámetros serán migrados al controlador vSphere CSI, pero los volúmenes nuevos creados por el controlador vSphere CSI no respetarán estos parámetros
 {{< /note >}}
 
-#### vSphere CSI migration complete {#vsphere-csi-migration-complete}
+#### migración completa de vSphere CSI {#vsphere-csi-migration-complete}
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
+Para apagar el complemento `vsphereVolume` y no cargarlo por el administrador del controlador y el kubelet, necesitas establecer eta función a `true`. Debes instalar un controlador de tipo `csi.vsphere.vmware.com` en todos los nodos worker.
 
-To turn off the `vsphereVolume` plugin from being loaded by the controller manager and the kubelet, you need to set this feature flag to `true`. You must install a `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver on all worker nodes.
+## Uso de subPath {#using-subpath}
 
-## Using subPath {#using-subpath}
+Algunas veces es útil compartir un volumen para múltiples usos en un único pod.
+La propiedad `volumeMounts.subPath` especifica una sub-ruta dentro del volumen referenciado en lugar de su raíz.
 
-Sometimes, it is useful to share one volume for multiple uses in a single pod.
-The `volumeMounts.subPath` property specifies a sub-path inside the referenced volume
-instead of its root.
+El siguiente ejemplo muestra cómo configurar un Pod con la pila LAMP (Linux Apache MySQL PHP) usando un único volumen compartido. Esta configuración de ejemplo usando `subPath` no se recomienda para su uso en producción.
 
-The following example shows how to configure a Pod with a LAMP stack (Linux Apache MySQL PHP)
-using a single, shared volume. This sample `subPath` configuration is not recommended
-for production use.
-
+El código de la aplicación PHP y los recursos apuntan al directorio `html` del volumen y la base de datos MySQL se almacena en el directorio `mysql`. Por ejemplo:
 The PHP application's code and assets map to the volume's `html` folder and
 the MySQL database is stored in the volume's `mysql` folder. For example:
 
@@ -1062,18 +1059,15 @@ spec:
         claimName: my-lamp-site-data
 ```
 
-### Using subPath with expanded environment variables {#using-subpath-expanded-environment}
+### Uso de subPath con variables de entorno expandidas {#using-subpath-expanded-environment}
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
+Usa el campo `subPathExpr` para construir un nombres de directorio `subPath` desde variables de entorno de la API.
+Las propiedades `subPath` y `subPathExpr` son mutuamente exclusivas.
 
-Use the `subPathExpr` field to construct `subPath` directory names from
-downward API environment variables.
-The `subPath` and `subPathExpr` properties are mutually exclusive.
-
-In this example, a `Pod` uses `subPathExpr` to create a directory `pod1` within
-the `hostPath` volume `/var/log/pods`.
-The `hostPath` volume takes the `Pod` name from the `downwardAPI`.
-The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
+En este ejemplo, un `Pod` usa `subPathExpr` para crear un directorio `pod1` dentro del volumen `hostPath` `var/logs/pods`.
+El volumen `hostPath` toma el nombre del `Pod` desde la `downwardAPI`.
+El directorio anfitrión `var/log/pods/pod1` se monta en `/logs` en el contenedor.
 
 ```yaml
 apiVersion: v1
