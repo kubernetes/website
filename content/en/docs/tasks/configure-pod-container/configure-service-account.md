@@ -349,8 +349,11 @@ JSON Web Key Set (JWKS) at `/openid/v1/jwks`. The OpenID Provider Configuration
 is sometimes referred to as the _discovery document_.
 
 Clusters include a default RBAC ClusterRole called
-`system:service-account-issuer-discovery`. No role bindings are provided
-by default. Administrators may, for example, choose whether to bind the role to
+`system:service-account-issuer-discovery`. A default RBAC ClusterRoleBinding
+assigns this role to the `system:serviceaccounts` group, which all service
+accounts implicitly belong to. This allows pods running on the cluster to access
+the service account discovery document via their mounted service account token.
+Administrators may, additionally, choose to bind the role to
 `system:authenticated` or `system:unauthenticated` depending on their security
 requirements and which external systems they intend to federate with.
 
@@ -380,5 +383,5 @@ JWKS URI is required to use the `https` scheme.
 See also:
 
 - [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
-- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
+- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
 - [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)

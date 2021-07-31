@@ -31,7 +31,7 @@ an application.  Examples are:
 - cloud provider or hypervisor failure makes VM disappear
 - a kernel panic
 - the node disappears from the cluster due to cluster network partition
-- eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource/).
+- eviction of a pod due to the node being [out-of-resources](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 
 Except for the out-of-resources condition, all these conditions
 should be familiar to most users; they are not specific
@@ -86,7 +86,7 @@ rolling out node software updates can cause voluntary disruptions. Also, some im
 of cluster (node) autoscaling may cause voluntary disruptions to defragment and compact nodes.
 Your cluster administrator or hosting provider should have documented what level of voluntary
 disruptions, if any, to expect. Certain configuration options, such as
-[using PriorityClasses](/docs/concepts/configuration/pod-priority-preemption/)
+[using PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 in your pod spec can also cause voluntary (and involuntary) disruptions.
 
 

@@ -230,9 +230,9 @@ It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 
 格式串，例如 `0 * * * *` or `@hourly` ，作为它的任务被创建和执行的调度时间。
 
 <!--
-The format also includes extended `vixie cron` step values. As explained in the [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
+The format also includes extended "Vixie cron" step values. As explained in the [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
 -->
-该格式也包含了扩展的 `vixie cron` 步长值。
+该格式也包含了扩展的 "Vixie cron" 步长值。
 [FreeBSD 手册](https://www.freebsd.org/cgi/man.cgi?crontab%285%29)中解释如下:
 
 <!--

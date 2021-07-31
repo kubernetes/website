@@ -152,7 +152,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `ProbeTerminationGracePeriod` | `false` | 알파 | 1.21 | |
 | `ProcMountType` | `false` | 알파 | 1.12 | |
 | `QOSReserved` | `false` | 알파 | 1.11 | |
-| `RemainingItemCount` | `false` | 알파 | 1.15 | |
+| `RemainingItemCount` | `false` | 알파 | 1.15 | 1.15 |
+| `RemainingItemCount` | `true` | 베타 | 1.16 | |
 | `RemoveSelfLink` | `false` | 알파 | 1.16 | 1.19 |
 | `RemoveSelfLink` | `true` | 베타 | 1.20 | |
 | `RotateKubeletServerCertificate` | `false` | 알파 | 1.7 | 1.11 |
@@ -611,12 +612,12 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `EnableEquivalenceClassCache`: 스케줄러가 파드를 스케줄링할 때 노드의
   동등성을 캐시할 수 있게 한다.
 - `EndpointSlice`: 보다 스케일링 가능하고 확장 가능한 네트워크 엔드포인트에 대한
-  엔드포인트슬라이스(EndpointSlices)를 활성화한다. [엔드포인트슬라이스 활성화](/docs/tasks/administer-cluster/enabling-endpointslices/)를 참고한다.
+  엔드포인트슬라이스(EndpointSlices)를 활성화한다. [엔드포인트슬라이스 활성화](/ko/docs/concepts/services-networking/endpoint-slices/)를 참고한다.
 - `EndpointSliceNodeName` : 엔드포인트슬라이스 `nodeName` 필드를 활성화한다.
 - `EndpointSliceProxying`: 활성화되면, 리눅스에서 실행되는
   kube-proxy는 엔드포인트 대신 엔드포인트슬라이스를
   기본 데이터 소스로 사용하여 확장성과 성능을 향상시킨다.
-  [엔드포인트 슬라이스 활성화](/docs/tasks/administer-cluster/enabling-endpointslices/)를 참고한다.
+  [엔드포인트슬라이스 활성화](/ko/docs/concepts/services-networking/endpoint-slices/)를 참고한다.
 - `EndpointSliceTerminatingCondition`: 엔드포인트슬라이스 `terminating` 및 `serving`
   조건 필드를 활성화한다.
 - `EphemeralContainers`: 파드를 실행하기 위한
@@ -726,7 +727,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   [CrossNamespacePodAffinity](/ko/docs/concepts/policy/resource-quotas/#네임스페이스-간-파드-어피니티-쿼터) 쿼터 범위 기능을 활성화한다.
 - `PodOverhead`: 파드 오버헤드를 판단하기 위해 [파드오버헤드(PodOverhead)](/ko/docs/concepts/scheduling-eviction/pod-overhead/)
   기능을 활성화한다.
-- `PodPriority`: [우선 순위](/ko/docs/concepts/configuration/pod-priority-preemption/)를
+- `PodPriority`: [우선 순위](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)를
   기반으로 파드의 스케줄링 취소와 선점을 활성화한다.
 - `PodReadinessGates`: 파드 준비성 평가를 확장하기 위해
   `PodReadinessGate` 필드 설정을 활성화한다. 자세한 내용은 [파드의 준비성 게이트](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)를
@@ -859,12 +860,12 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `WindowsGMSA`: 파드에서 컨테이너 런타임으로 GMSA 자격 증명 스펙을 전달할 수 있다.
 - `WindowsRunAsUserName` : 기본 사용자가 아닌(non-default) 사용자로 윈도우 컨테이너에서
   애플리케이션을 실행할 수 있도록 지원한다. 자세한 내용은
-  [RunAsUserName 구성](/docs/tasks/configure-pod-container/configure-runasusername)을
+  [RunAsUserName 구성](/ko/docs/tasks/configure-pod-container/configure-runasusername/)을
   참고한다.
 - `WindowsEndpointSliceProxying`: 활성화되면, 윈도우에서 실행되는 kube-proxy는
   엔드포인트 대신 엔드포인트슬라이스를 기본 데이터 소스로 사용하여
   확장성과 성능을 향상시킨다.
-  [엔드포인트 슬라이스 활성화하기](/docs/tasks/administer-cluster/enabling-endpointslices/)를 참고한다.
+  [엔드포인트슬라이스 활성화하기](/ko/docs/concepts/services-networking/endpoint-slices/)를 참고한다.
 
 
 ## {{% heading "whatsnext" %}}

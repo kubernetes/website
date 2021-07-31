@@ -57,7 +57,7 @@
 /docs/admin/node-conformance.md     /docs/admin/node-conformance/ 301
 /docs/admin/node-conformance/       /docs/setup/best-practices/node-conformance/ 301
 /docs/admin/node-problem/     /docs/tasks/debug-application-cluster/monitor-node-health/ 301
-/docs/admin/out-of-resource/     /docs/tasks/administer-cluster/out-of-resource/ 301
+/docs/admin/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/admin/rescheduler/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
 /docs/admin/resourcequota/*     /docs/concepts/policy/resource-quotas/ 301
 /docs/admin/resourcequota/limitstorageconsumption/     /docs/tasks/administer-cluster/limit-storage-consumption/ 301
@@ -89,6 +89,7 @@
 /docs/concepts/cluster-administration/device-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/ 301
 /docs/concepts/cluster-administration/etcd-upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
+/docs/concepts/cluster-administration/kubelet-garbage-collection/   /docs/concepts/architecture/garbage-collection/#containers-images 301
 /docs/concepts/cluster-administration/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
 /docs/concepts/cluster-administration/network-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/ 301
 /docs/concepts/cluster-administration/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301   
@@ -128,8 +129,11 @@
 /docs/concepts/scheduling/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/ 301
 /id/docs/concepts/scheduling/scheduling-framework/     /id/docs/concepts/scheduling-eviction/scheduling-framework/ 301
 /docs/concepts/scheduling-eviction/eviction-policy/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
+/docs/concepts/scheduling-eviction/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
+/docs/concepts/scheduling-eviction/pod-eviction/     /docs/concepts/scheduling-eviction/#pod-disruption 301
 /docs/concepts/service-catalog/     /docs/concepts/extend-kubernetes/service-catalog/ 301
 /docs/concepts/services-networking/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
+/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/     /docs/tasks/network/customize-hosts-file-for-pods/ 301
 /docs/concepts/storage/etcd-store-api-object/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/storage/volumes/emptyDirapiVersion/     /docs/concepts/storage/volumes/#emptydir/ 301
 /docs/concepts/tools/kubectl/object-management-overview/     /docs/concepts/overview/object-management-kubectl/overview/ 301
@@ -145,7 +149,7 @@
 /docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
-
+/docs/concepts/workloads/controllers/garbage-collection/    /docs/concepts/architecture/garbage-collection/ 301
 /docs/concepts/workloads/controllers/jobs-run-to-completion/ /docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301!
@@ -184,11 +188,12 @@
 /docs/home/contribute/generated-reference/kubernetes-api/ /docs/contribute/generate-ref-docs/kubernetes-api/ 301
 /docs/home/contribute/generated-reference/kubernetes-components/ /docs/contribute/generate-ref-docs/kubernetes-components/ 301
 /docs/home/contribute/localization/ /docs/contribute/localization/ 301
-/docs/home/contribute/page-templates/ /docs/contribute/style/page-templates/ 301
+/docs/home/contribute/page-templates/ /docs/contribute/style/page-content-types/ 301
 /docs/home/contribute/participating/ /docs/contribute/participate/ 301
 /docs/home/contribute/review-issues/ /docs/contribute/intermediate/ 301
 /docs/home/contribute/blog-post/ /docs/contribute/start/ 301
 /docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
+/docs/contribute/style/page-templates/ /docs/contribute/style/page-content-types/ 301
 
 /docs/reference/command-line-tools-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
 
@@ -206,6 +211,7 @@
 
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
+/docs/reference/kubectl/kubectl-cmds/     /docs/reference/generated/kubectl/kubectl-commands/ 301!
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/scheduling/profiles/    /docs/reference/scheduling/config/#profiles 301
 
@@ -261,7 +267,7 @@
 /docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/ 301
 /docs/tasks/administer-cluster/quota-memory-cpu-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/ 301
 /docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/ 301
-/docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
+/docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/tasks/administer-cluster/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
 /docs/tasks/administer-cluster/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
