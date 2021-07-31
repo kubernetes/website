@@ -17,7 +17,7 @@ description: Criando objetos Secret usando arquivos de configuração de recurso
 
 Você pode criar um Secret primeiramente em um arquivo, no formato JSON ou YAML, e depois
 criar o objeto. O recurso [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-contém dois *maps*: `data` e `stringData`.
+contém dois mapas: `data` e `stringData`.
 O campo `data` é usado para armazenar dados arbitrários, codificados usando base64. O
 campo `stringData` é usado por conveniência, e permite que você use dados para um Secret
 como *strings* não codificadas.
@@ -46,7 +46,7 @@ A saída deve ser similar a:
 MWYyZDFlMmU2N2Rm
 ```
 
-Escreva o arquivo de configuração do Secret, que ser parecido com:
+Escreva o arquivo de configuração do Secret, que será parecido com:
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -66,7 +66,7 @@ Os valores serializados dos dados JSON e YAML de um Secret são codificados em s
 base64. Novas linhas não são válidas com essas strings e devem ser omitidas. Quando
 usar o utilitário `base64` em Darwin/MacOS, os usuários devem evitar usar a opção `-b`
 para separar linhas grandes. Por outro lado, usuários de Linux *devem* adicionar a opção
-`-w 0` ao comando `base64` ou o *pipe* `base64 | tr -d '\n'` se a opção `w` não for disponível 
+`-w 0` ao comando `base64` ou o *pipe* `base64 | tr -d '\n'` se a opção `w` não estiver disponível 
 {{< /note >}}
 
 Para cenários específicos, você pode querer usar o campo `stringData` ao invés de `data`.
@@ -75,7 +75,7 @@ e a string vai ser codificada para você quando o Secret for criado ou atualizad
 
 Um exemplo prático para isso pode ser quando você esteja fazendo *deploy* de uma aplicação
 que usa um Secret para armazenar um arquivo de configuração, e você quer popular partes desse
-arquivo de configuração durante o processo de *deployment*.
+arquivo de configuração durante o processo de implantação.
 
 Por exemplo, se sua aplicação usa o seguinte arquivo de configuração:
 
@@ -145,7 +145,7 @@ ou ser armazenado em um log de terminal.
 Para verificar o conteúdo atual de um dado codificado, veja [decodificando secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret).
 
 Se um campo, como `username`, é especificado em `data` e `stringData`,
-o valor de `stringData` é o usado. Por exemplo, dado a seguinte definição do Secret:
+o valor de `stringData` é o usado. Por exemplo, dada a seguinte definição do Secret:
 
 ```yaml
 apiVersion: v1
