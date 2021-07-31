@@ -99,7 +99,7 @@ You can use the `check-expiration` subcommand to check when certificates expire:
 你可以使用 `check-expiration` 子命令来检查证书何时过期
 
 ```shell
-kubeadm alpha certs check-expiration
+kubeadm certs check-expiration
 ```
 
 <!-- 
@@ -147,10 +147,18 @@ Additionally, kubeadm informs the user if the certificate is externally managed;
 {{< /warning >}}
 
 <!-- 
-`kubelet.conf` is not included in the list above because kubeadm configures kubelet for automatic certificate renewal.
+`kubelet.conf` is not included in the list above because kubeadm configures kubelet
+for [automatic certificate renewal](/docs/tasks/tls/certificate-rotation/)
+with rotatable certificates under `/var/lib/kubelet/pki`.
+To repair an expired kubelet client certificate see
+[Kubelet client certificate rotation fails](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#kubelet-client-cert).
 -->
 {{< note >}}
-上面的列表中没有包含 `kubelet.conf` 因为 kubeadm 将 kubelet 配置为自动更新证书。
+上面的列表中没有包含 `kubelet.conf`，因为 kubeadm 将 kubelet 配置为
+[自动更新证书](/docs/tasks/tls/certificate-rotation/)。
+轮换的证书位于目录 `/var/lib/kubelet/pki`。
+要修复过期的 kubelet 客户端证书，请参阅
+[kubelet 客户端证书轮换失败](/zh/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#kubelet-client-cert)。
 {{< /note >}}
 
 <!--
@@ -219,11 +227,11 @@ kubeadm 在 1.17 版本之前有一个[缺陷](https://github.com/kubernetes/kub
 <!-- 
 ## Manual certificate renewal 
 
-You can renew your certificates manually at any time with the `kubeadm alpha certs renew` command. 
+You can renew your certificates manually at any time with the `kubeadm certs renew` command. 
 -->
 ## 手动更新证书
 
-你能随时通过 `kubeadm alpha certs renew` 命令手动更新你的证书。
+你能随时通过 `kubeadm certs renew` 命令手动更新你的证书。
 
 <!-- 
 This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`. 
@@ -246,7 +254,7 @@ If you are running an HA cluster, this command needs to be executed on all the c
 {{< /note >}}
 
 <!--
-`kubeadm alpha certs renew` provides the following options:
+`kubeadm certs renew` provides the following options:
 -->
 `kubeadm certs renew`提供以下选项：
 
@@ -303,10 +311,10 @@ Kubernetes 证书颁发机构不是开箱即用。
 要激活内置签名者，请传递 `--cluster-signing-cert-file` 和 `--cluster-signing-key-file` 参数。
 
 <!--
-If you're creating a new cluster, you can use a kubeadm [configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2): 
+If you're creating a new cluster, you can use a kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta2/): 
 -->
 如果你正在创建一个新的集群，你可以使用 kubeadm 的
-[配置文件](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)。
+[配置文件](/docs/reference/config-api/kubeadm-config.v1beta2/)。
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
@@ -331,7 +339,7 @@ See [Create CertificateSigningRequest](/docs/reference/access-authn-authz/certif
 <!--
 ## Renew certificates with external CA
 
-This section provide more details about how to execute manual certificate renewal using an external CA.
+This section provides more details about how to execute manual certificate renewal using an external CA.
 -->
 ## 通过外部 CA 更新证书
 
@@ -349,7 +357,7 @@ CSR 表示向 CA 请求客户的签名证书。
 <!-- 
 ### Create certificate signing requests (CSR) 
 
-You can create certificate signing requests with `kubeadm alpha certs renew --csr-only`.
+You can create certificate signing requests with `kubeadm certs renew --csr-only`.
 
 Both the CSR and the accompanying private key are given in the output.
 You can pass in a directory with `--csr-dir` to output the CSRs to the specified location.
@@ -357,7 +365,7 @@ If `--csr-dir` is not specified, the default certificate directory (`/etc/kubern
 -->
 ### 创建证书签名请求 (CSR)
 
-你可以通过 `kubeadm alpha certs renew --csr-only` 命令创建证书签名请求。
+你可以通过 `kubeadm certs renew --csr-only` 命令创建证书签名请求。
 
 CSR 和随附的私钥都在输出中给出。
 你可以传入一个带有 `--csr-dir` 的目录，将 CRS 输出到指定位置。
@@ -444,7 +452,7 @@ serverTLSBootstrap: true
 <!--
 If you have already created the cluster you must adapt it by doing the following:
  - Find and edit the `kubelet-config-{{< skew latestVersion >}}` ConfigMap in the `kube-system` namespace.
-In that ConfigMap, the `config` key has a
+In that ConfigMap, the `kubelet` key has a
 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
 - On each node, add the `serverTLSBootstrap: true` field in `/var/lib/kubelet/config.yaml`
@@ -454,7 +462,7 @@ and restart the kubelet with `systemctl restart kubelet`
 
 - 找到 `kube-system` 名字空间中名为 `kubelet-config-{{< skew latestVersion >}}`
   的 ConfigMap 并编辑之。
-  在该 ConfigMap 中，`config` 键下面有一个
+  在该 ConfigMap 中，`kubelet` 键下面有一个
   [KubeletConfiguration](/zh/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
   文档作为其取值。编辑该 KubeletConfiguration 文档以设置
   `serverTLSBootstrap: true`。
@@ -467,7 +475,7 @@ The field `serverTLSBootstrap: true` will enable the bootstrap of kubelet servin
 certificates by requesting them from the `certificates.k8s.io` API. One known limitation
 is that the CSRs (Certificate Signing Requests) for these certificates cannot be automatically
 approved by the default signer in the kube-controller-manager -
-[`kubernetes.io/kubelet-serving`](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers).
+[`kubernetes.io/kubelet-serving`](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers).
 This will require action from the user or a third party controller.
 
 These CSRs can be viewed using:
