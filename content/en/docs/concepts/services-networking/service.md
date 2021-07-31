@@ -72,7 +72,7 @@ A Service in Kubernetes is a REST object, similar to a Pod.  Like all of the
 REST objects, you can `POST` a Service definition to the API server to create
 a new instance.
 The name of a Service object must be a valid
-[DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
+[RFC 1035 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
 
 For example, suppose you have a set of Pods where each listens on TCP port 9376
 and contains a label `app=MyApp`:
@@ -188,7 +188,7 @@ selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
 ### Over Capacity Endpoints
-If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.21 (or later)
+If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.21
 cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: warning`.
 This annotation indicates that the affected Endpoints object is over capacity.
 
@@ -215,7 +215,7 @@ each Service port. The value of this field is mirrored by the corresponding
 Endpoints and EndpointSlice objects.
 
 This field follows standard Kubernetes label syntax. Values should either be
-[IANA standard service names](http://www.iana.org/assignments/service-names) or
+[IANA standard service names](https://www.iana.org/assignments/service-names) or
 domain prefixed names such as `mycompany.com/my-custom-protocol`.
 
 ## Virtual IPs and service proxies

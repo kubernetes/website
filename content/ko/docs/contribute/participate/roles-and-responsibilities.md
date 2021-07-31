@@ -29,7 +29,7 @@ GitHub 계정을 가진 누구나 쿠버네티스에 기여할 수 있다. SIG D
   이슈를 올린다.
 - 풀 리퀘스트에 대해 구속력 없는 피드백을 제공한다.
 - 현지화에 기여한다.
-- [슬랙](http://slack.k8s.io/) 또는
+- [슬랙](https://slack.k8s.io/) 또는
   [SIG docs 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에 개선을 제안한다.
 
 [CLA에 서명](/ko/docs/contribute/new-content/overview/#sign-the-cla) 후에 누구나 다음을 할 수 있다.
@@ -144,14 +144,14 @@ LGTM은 "Looks good to me"의 약자이며 풀 리퀘스트가 기술적으로
 지원하려면, 다음을 수행한다.
 
 1. `kubernetes/website` 리포지터리 내
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) 파일의 섹션에
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS) 파일의 섹션에
    여러분의 GitHub 사용자 이름을 추가하는 풀 리퀘스트를 연다.
-
-  {{< note >}}
-  자신을 추가할 위치가 확실하지 않으면, `sig-docs-ko-reviews` 에 추가한다.
-  {{< /note >}}
-
-1. PR을 하나 이상의 SIG-Docs 승인자(`sig-docs-{language}-owners` 에
+   
+     {{< note >}}
+     자신을 추가할 위치가 확실하지 않으면, `sig-docs-ko-reviews` 에 추가한다.
+     {{< /note >}}
+   
+2. PR을 하나 이상의 SIG-Docs 승인자(`sig-docs-{language}-owners` 에
    나열된 사용자 이름)에게 지정한다.
 
 승인되면, SIG Docs 리더가 적당한 GitHub 팀에 여러분을 추가한다. 일단 추가되면,
@@ -203,7 +203,7 @@ PR은 자동으로 병합된다. SIG Docs 승인자는 추가적인 기술 리�
 - 주간 로테이션을 위해
   [PR Wrangler 로테이션 스케줄](https://github.com/kubernetes/website/wiki/PR-Wranglers)에
   참여한다. SIG Docs는 모든 승인자들이 이 로테이션에 참여할 것으로 기대한다. 자세한 내용은
-  [PR 랭글러(PR wrangler)](/ko/docs/contribute/participating/pr-wranglers/)를
+  [PR 랭글러(PR wrangler)](/ko/docs/contribute/participate/pr-wranglers/)를
   참고한다.
 
 ## 승인자 되기
@@ -216,7 +216,7 @@ PR은 자동으로 병합된다. SIG Docs 승인자는 추가적인 기술 리�
 지원하려면 다음을 수행한다.
 
 1. `kubernetes/website` 리포지터리 내
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS)
    파일의 섹션에 자신을 추가하는 풀 리퀘스트를 연다.
 
     {{< note >}}
@@ -231,4 +231,4 @@ PR은 자동으로 병합된다. SIG Docs 승인자는 추가적인 기술 리�
 
 ## {{% heading "whatsnext" %}}
 
-- 모든 승인자가 교대로 수행하는 역할인 [PR 랭글러](/ko/docs/contribute/participating/pr-wranglers)에 대해 읽어보기
+- 모든 승인자가 교대로 수행하는 역할인 [PR 랭글러](/ko/docs/contribute/participate/pr-wranglers)에 대해 읽어보기

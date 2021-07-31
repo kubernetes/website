@@ -255,7 +255,7 @@ The above rule allows any Pod with label `db` on the namespace `default` to comm
 
 The following restrictions apply when using this field:
 * As an alpha feature, this is disabled by default. To enable the `endPort` field at a cluster level, you (or your cluster administrator) need to enable the `NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=NetworkPolicyEndPort=true,…`.
-* The `endPort` field must be equal than or greater to the `port` field.
+* The `endPort` field must be equal to or greater than the `port` field.
 * `endPort` can only be defined if `port` is also defined.
 * Both ports must be numeric.
 

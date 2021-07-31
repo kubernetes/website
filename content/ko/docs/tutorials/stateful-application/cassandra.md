@@ -7,7 +7,7 @@ weight: 30
 
 
 <!-- overview -->
-이 튜토리얼은 쿠버네티스에서 [아파치 카산드라](http://cassandra.apache.org/)를 실행하는 방법을 소개한다.
+이 튜토리얼은 쿠버네티스에서 [아파치 카산드라](https://cassandra.apache.org/)를 실행하는 방법을 소개한다.
 데이터베이스인 카산드라는 데이터 내구성을 제공하기 위해 퍼시스턴트 스토리지가 필요하다(애플리케이션 _상태_).
 이 예제에서 사용자 지정 카산드라 시드 공급자는 카산드라가 클러스터에 가입할 때 카산드라가 인스턴스를 검색할 수 있도록 한다.
 
@@ -266,7 +266,7 @@ kubectl apply -f cassandra-statefulset.yaml
 
 이 튜토리얼의 *파드* 는 구글의 [컨테이너 레지스트리](https://cloud.google.com/container-registry/docs/)에
 [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile) 이미지를 이용한다.
-이 도커 이미지는 [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base)에
+이 도커 이미지는 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)에
 기반하였고 OpenJDK 8을 포함한다.
 
 이 이미지는 아파치 데비안 리포의 표준 카산드라 설치본을 포함한다.

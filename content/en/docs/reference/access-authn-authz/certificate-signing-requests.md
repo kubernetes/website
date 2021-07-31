@@ -3,6 +3,7 @@ reviewers:
 - liggitt
 - mikedanese
 - munnerz
+- enj
 title: Certificate Signing Requests
 content_type: concept
 weight: 20
@@ -56,20 +57,21 @@ state for some duration:
 
 * Approved requests: automatically deleted after 1 hour
 * Denied requests: automatically deleted after 1 hour
-* Pending requests: automatically deleted after 1 hour
+* Failed requests: automatically deleted after 1 hour
+* Pending requests: automatically deleted after 24 hours
+* All requests: automatically deleted after the issued certificate has expired
 
 ## Signers
 
-All signers should provide information about how they work so that clients can predict what will happen to their CSRs.
+Custom signerNames can also be specified. All signers should provide information about how they work so that clients can predict what will happen to their CSRs.
 This includes:
 
 1. **Trust distribution**: how trust (CA bundles) are distributed.
-1. **Permitted subjects**: any restrictions on and behavior when a disallowed subject is requested.
-1. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames, Email subjectAltNames, URI subjectAltNames etc, and behavior when a disallowed extension is requested.
-1. **Permitted key usages / extended key usages**: any restrictions on and behavior when usages different than the signer-determined usages are specified in the CSR.
-1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR object etc
-   and the behavior when an expiration is different than the signer-determined expiration that is specified in the CSR.
-1. **CA bit allowed/disallowed**: and behavior if a CSR contains a request a for a CA certificate when the signer does not permit it.
+1. **Permitted subjects**: any restrictions on requested subjects, and the behavior when a disallowed subject is requested.
+1. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames, Email subjectAltNames, URI subjectAltNames etc, and the behavior when a disallowed extension is requested.
+1. **Permitted key usages / extended key usages**: any restrictions on requested usages, and the behavior when usages different than the signer-determined usages are specified in the CSR.
+1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR object etc, and the behavior when an expiration different than the signer-determined expiration is specified in the CSR.
+1. **CA bit allowed/disallowed**: the behavior if a CSR contains a request for a CA certificate when the signer does not permit it.
 
 Commonly, the `status.certificate` field contains a single PEM-encoded X.509
 certificate once the CSR is approved and the certificate is issued. Some
@@ -78,7 +80,7 @@ that case, the documentation for the signer should specify the meaning of
 additional certificates; for example, this might be the certificate plus
 intermediates to be presented during TLS handshakes.
 
-The PKCS#10 signing request format doesn't allow to specify a certificate
+The PKCS#10 signing request format does not allow to specify a certificate
 expiration or lifetime. The expiration or lifetime therefore has to be set
 through e.g. an annotation on the CSR object. While it's theoretically
 possible for a signer to use that expiration date, there is currently no
@@ -185,8 +187,7 @@ To allow signing a CertificateSigningRequest:
 
 A few steps are required in order to get a normal user to be able to
 authenticate and invoke an API. First, this user must have certificate issued
-by the Kubernetes cluster, and then present that Certificate to the API call
-as the Certificate Header or through the kubectl.
+by the Kubernetes cluster, and then present that certificate to the Kubernetes API.
 
 ### Create private key
 
@@ -211,8 +212,6 @@ kind: CertificateSigningRequest
 metadata:
   name: myuser
 spec:
-  groups:
-  - system:authenticated
   request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZVzVuWld4aE1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQTByczhJTHRHdTYxakx2dHhWTTJSVlRWMDNHWlJTWWw0dWluVWo4RElaWjBOCnR2MUZtRVFSd3VoaUZsOFEzcWl0Qm0wMUFSMkNJVXBGd2ZzSjZ4MXF3ckJzVkhZbGlBNVhwRVpZM3ExcGswSDQKM3Z3aGJlK1o2MVNrVHF5SVBYUUwrTWM5T1Nsbm0xb0R2N0NtSkZNMUlMRVI3QTVGZnZKOEdFRjJ6dHBoaUlFMwpub1dtdHNZb3JuT2wzc2lHQ2ZGZzR4Zmd4eW8ybmlneFNVekl1bXNnVm9PM2ttT0x1RVF6cXpkakJ3TFJXbWlECklmMXBMWnoyalVnald4UkhCM1gyWnVVV1d1T09PZnpXM01LaE8ybHEvZi9DdS8wYk83c0x0MCt3U2ZMSU91TFcKcW90blZtRmxMMytqTy82WDNDKzBERHk5aUtwbXJjVDBnWGZLemE1dHJRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBR05WdmVIOGR4ZzNvK21VeVRkbmFjVmQ1N24zSkExdnZEU1JWREkyQTZ1eXN3ZFp1L1BVCkkwZXpZWFV0RVNnSk1IRmQycVVNMjNuNVJsSXJ3R0xuUXFISUh5VStWWHhsdnZsRnpNOVpEWllSTmU3QlJvYXgKQVlEdUI5STZXT3FYbkFvczFqRmxNUG5NbFpqdU5kSGxpT1BjTU1oNndLaTZzZFhpVStHYTJ2RUVLY01jSVUyRgpvU2djUWdMYTk0aEpacGk3ZnNMdm1OQUxoT045UHdNMGM1dVJVejV4T0dGMUtCbWRSeEgvbUNOS2JKYjFRQm1HCkkwYitEUEdaTktXTU0xMzhIQXdoV0tkNjVoVHdYOWl4V3ZHMkh4TG1WQzg0L1BHT0tWQW9FNkpsYWFHdTlQVmkKdjlOSjVaZlZrcXdCd0hKbzZXdk9xVlA3SVFjZmg3d0drWm89Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
   signerName: kubernetes.io/kube-apiserver-client
   usages:

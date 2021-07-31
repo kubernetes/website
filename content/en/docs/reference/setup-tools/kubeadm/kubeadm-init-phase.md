@@ -144,7 +144,7 @@ install them selectively.
 {{< /tabs >}}
 
 For more details on each field in the `v1beta2` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
+[API reference pages.] (/docs/reference/config-api/kubeadm-config.v1beta2/)
 
 ## {{% heading "whatsnext" %}}
 
