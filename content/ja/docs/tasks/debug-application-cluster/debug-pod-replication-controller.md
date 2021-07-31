@@ -47,7 +47,7 @@ Podをスケジュールできない理由に関するスケジューラーか�
 クラスター内のCPUまたはメモリーの供給を使い果たした可能性があります。
 この場合、いくつかのことを試すことができます。
 
-* クラスターに[ノードを追加します](/docs/tasks/administer-cluster/cluster-management/#resizing-a-cluster)。
+* クラスターにノードを追加します。
 
 * [不要なPodを終了](/docs/concepts/workloads/pods/#pod-termination)して、
   `Pending`状態のPodのための空きリソースを作ります。
