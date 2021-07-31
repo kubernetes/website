@@ -1,6 +1,6 @@
 ---
 title: "Gerenciando Secrets"
 weight: 28
-description: Gerenciando dados de configurações confidencias usando Secrets.
+description: Gerenciando dados de configurações usando Secrets.
 ---
 
