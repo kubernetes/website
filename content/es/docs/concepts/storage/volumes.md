@@ -1062,7 +1062,7 @@ spec:
 ### Uso de subPath con variables de entorno expandidas {#using-subpath-expanded-environment}
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
-Usa el campo `subPathExpr` para construir un nombres de directorio `subPath` desde variables de entorno de la API.
+Usa el campo `subPathExpr` para construir un nombre de directorio `subPath` desde variables de entorno de la API.
 Las propiedades `subPath` y `subPathExpr` son mutuamente exclusivas.
 
 En este ejemplo, un `Pod` usa `subPathExpr` para crear un directorio `pod1` dentro del volumen `hostPath` `var/logs/pods`.
@@ -1101,112 +1101,57 @@ spec:
         path: /var/log/pods
 ```
 
-## Resources
+## Recursos
+El medio de almacenamiento (como un disco o un SSD) de un volumen `emptyDir` 
+se determina por el medio del sistema de archivos que contiene el directorio raíz
+del kubelet (típicamente `/var/lib/kubelet`).
+No hay límite de cuánto espacio puede consumir un volumen `emptydir` o `hostPath`, 
+y no hay aislamiento entre contenedores o entre pods.
 
-The storage media (such as Disk or SSD) of an `emptyDir` volume is determined by the
-medium of the filesystem holding the kubelet root dir (typically
-`/var/lib/kubelet`). There is no limit on how much space an `emptyDir` or
-`hostPath` volume can consume, and no isolation between containers or between
-pods.
+Para aprender más sobre requerir espacio usando una espacificación de recurso, mira [cómo administrar recursos](/docs/concepts/configuration/manage-resources-containers/).
 
-To learn about requesting space using a resource specification, see
-[how to manage resources](/docs/concepts/configuration/manage-resources-containers/).
+## Complementos de volúmenes fuera del árbol
+Los complementos de volumen fuera del árbol incluyen {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI) y FlexVolume. Estos complementos permiten a los proveedores de almacenamiento crear complementos de almacenamiento personalizados sin añadir su código fuente al repositorio de Kubernetes.
 
-## Out-of-tree volume plugins
+Anteriormente, todos los complementos de volumen estaban "en el árbol". Los complementos "en el árbol" se construían, enlazaban, compilaban y enviaban con los binarios del núcleo de Kubernetes. Esto significaba que agregar un nuevo sistema de almacenamiento a Kubernetes ( un complemento de volumen) requería verificar el código en el repositorio de código del núcleo de Kubernetes.
 
-The out-of-tree volume plugins include
-{{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI)
-and FlexVolume. These plugins enable storage vendors to create custom storage plugins
-without adding their plugin source code to the Kubernetes repository.
+Tanto CSI como FlexVolume permiten que se desarrollen complementos de volúmenes independientemente del código base de Kubernetes, y se desplieguen (instalen) en los clústeres de Kubernetes como extensiones.
 
-Previously, all volume plugins were "in-tree". The "in-tree" plugins were built, linked, compiled,
-and shipped with the core Kubernetes binaries. This meant that adding a new storage system to
-Kubernetes (a volume plugin) required checking code into the core Kubernetes code repository.
-
-Both CSI and FlexVolume allow volume plugins to be developed independent of
-the Kubernetes code base, and deployed (installed) on Kubernetes clusters as
-extensions.
-
-For storage vendors looking to create an out-of-tree volume plugin, please refer
-to the [volume plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
+Para los proveedores de almacenamiento que buscan crear un complemento de volumen fuera del árbol, por favor refiéranse a [Preguntas frecuentees de complementos de volumen](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
 ### csi
+La [interfaz de almacenamiento del contenedor](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI) define una interfaz estándar para sistemas de orquestación del contenedor (como Kubernetes) para exponer sistemas de almacenamiento arbitrario a sus cargas de trabajo del contenedor.
 
-[Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md)
-(CSI) defines a standard interface for container orchestration systems (like
-Kubernetes) to expose arbitrary storage systems to their container workloads.
-
-Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
+Por favor, lee la [propuesta de diseño CSI](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) para más información.
 
 {{< note >}}
-Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
-v1.13 and will be removed in a future release.
+El soporte para las especificaciones de las versiones CSI 0.2 y 0.3 es´´an deprecadas en Kubernetes v1.13 y serán removidos en una versión futura.
 {{< /note >}}
 
 {{< note >}}
-CSI drivers may not be compatible across all Kubernetes releases.
-Please check the specific CSI driver's documentation for supported
-deployments steps for each Kubernetes release and a compatibility matrix.
+Los controladores CSI podrían no ser compatibles con todas las versiones de Kubernetes.
+por favor, revisa la documentación específica del controlador CSI para los pasos de despliegue soportados para cada versión de Kubernetes y una matriz de compatibilidad.
 {{< /note >}}
 
-Once a CSI compatible volume driver is deployed on a Kubernetes cluster, users
-may use the `csi` volume type to attach or mount the volumes exposed by the
-CSI driver.
+Una vez que se despliega un controlador de volumen CSI compatible, los usuarios pueden usar el tipo de volumen `csi` para adjuntar o montar los volúmenes expuestos por el controlador CSI.
 
-A `csi` volume can be used in a Pod in three different ways:
+Un olumen `csi` puede ser usado en un Pod en tres maneras distintas:
 
-- through a reference to a [PersistentVolumeClaim](#persistentvolumeclaim)
-- with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
-  (alpha feature)
-- with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
-  if the driver supports that (beta feature)
+- a través de una referencia a [PersistentVolumeClaim](#persistentvolumeclaim)
+- con un [volumen general efímero](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
+  (característica alpha)
+- con un [volumen efímero CSI](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) si el controlador permite esta (característica beta)
 
-The following fields are available to storage administrators to configure a CSI
-persistent volume:
+Los siguientes campos están disponibles para que los administradores de almacenamiento configuren el volumen persistente CSI
 
-- `driver`: A string value that specifies the name of the volume driver to use.
-  This value must correspond to the value returned in the `GetPluginInfoResponse`
-  by the CSI driver as defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo).
-  It is used by Kubernetes to identify which CSI driver to call out to, and by
-  CSI driver components to identify which PV objects belong to the CSI driver.
-- `volumeHandle`: A string value that uniquely identifies the volume. This value
-  must correspond to the value returned in the `volume.id` field of the
-  `CreateVolumeResponse` by the CSI driver as defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
-  The value is passed as `volume_id` on all calls to the CSI volume driver when
-  referencing the volume.
-- `readOnly`: An optional boolean value indicating whether the volume is to be
-  "ControllerPublished" (attached) as read only. Default is false. This value is
-  passed to the CSI driver via the `readonly` field in the
-  `ControllerPublishVolumeRequest`.
-- `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
-  to specify the filesystem that should be used to mount the volume. If the
-  volume has not been formatted and formatting is supported, this value will be
-  used to format the volume.
-  This value is passed to the CSI driver via the `VolumeCapability` field of
-  `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
-  `NodePublishVolumeRequest`.
-- `volumeAttributes`: A map of string to string that specifies static properties
-  of a volume. This map must correspond to the map returned in the
-  `volume.attributes` field of the `CreateVolumeResponse` by the CSI driver as
-  defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
-  The map is passed to the CSI driver via the `volume_context` field in the
-  `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
-  `NodePublishVolumeRequest`.
-- `controllerPublishSecretRef`: A reference to the secret object containing
-  sensitive information to pass to the CSI driver to complete the CSI
-  `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field is
-  optional, and may be empty if no secret is required. If the Secret
-  contains more than one secret, all secrets are passed.
-- `nodeStageSecretRef`: A reference to the secret object containing
-  sensitive information to pass to the CSI driver to complete the CSI
-  `NodeStageVolume` call. This field is optional, and may be empty if no secret
-  is required. If the Secret contains more than one secret, all secrets
-  are passed.
-- `nodePublishSecretRef`: A reference to the secret object containing
-  sensitive information to pass to the CSI driver to complete the CSI
-  `NodePublishVolume` call. This field is optional, and may be empty if no
-  secret is required. If the secret object contains more than one secret, all
-  secrets are passed.
+- `driver`: Un valor de cadena de caracteres que especifica el nombre del controlador de volumen a usar. Este valor debe corresponder al valor de respuesta en el `GetPluginInfoResponse` por el controlador CSI tal como se define en la [especificación CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo). Es usado por Kubernetes para identificar cuál controlador llamar, y por los ocmponentes del controlador CSI para identificar cuáles objetos PV pertenecen al controlador CSI.
+- `volumenHandle`: Un valor de cadena de caracteres que identifica el volumen unívocamente. Este valor debe corresponder al valor en el campo `volumen.id` del `CreateVolumeResponse` por el controlador CSI como se define en la [especificación CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume). El valor es pasado como `volume.id` en todas las llamadas al controlador de volumen CSI cuando referencias el volumen.
+- `readOnly`: Un valor booleano opcional que indica si el volumen es para ser  "ControllerPublished" (adjuntado) como solo lectura. Por defecto es falso. Este valor es pasado el conttrolador CSI en el campo `readOnly` en el `ControllerPublishVolumeRequest`.
+- `fsType`: Si el `VolumeMode`del PV es `Filesystem` entonces este campo se puede usar para especificar el sistema de archivos que debería usarse para montar el volumen. Si el volumen no ha sido formateado y soportado, este valor se utilizará para formatear el volumen. Este valor se para al controlador CSI con el campo `VolumeCapability` de `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, y `NodePublishVolumeRequest`.
+- `volumeAttributes`: Un mapa de cadena de caracteres que especifica las propiedades estáticas de un volumen. Este mapa debe corresponder al map devuelto por el campo `volume.attributes` del `CreateVolumeResponse` por el controlador CSI tal como se define en la [especificación CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume). El mapa es pasado al controlador CSI con el campo `volume.context` en el   `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, y `NodePublishVolumeRequest`.
+- `controllerPublishSecretRef`: Una referencia al objeto secret que contiene información sensible para pasar al controlador CSI para completar las llamadas CSI `ControllerPublishVolume` y `ControllerUnpublishVolume`. Este campo es opcional, y puede estar vacío si no se requiere un secret. Si el Secret contiene mas de un secret, se pasan todos los secrets.
+- `nodeStageSecretRef`: Una referencia al objeto secret que contiene información sensible a pasar al ontrolador CSI para completar la llamada CSI `NodeStageVolume`. Este ampo es opcional, y puede estar vacío si no se requiere un secret. Si el Secret contiene más de un secret, todos los secrets son pasados. 
+- `nodePublishSecretRef`: Una referencia al objeto que contiene información sensible a pasar al controlador CSI para completar la llamada CSI `NodePublishVolume`. Este ampo es opcional, y puede estar vacío si no se requiere un secret. Si el Secret contiene más de un secret, todos los secrets son pasados.
 
 #### CSI raw block volume support
 
