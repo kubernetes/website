@@ -40,7 +40,7 @@ Kubernetes soporta varios tipos de volúmenes
 Un volumen `awsElasticBlockStore` monta un
 [volumen EBS](https://aws.amazon.com/ebs/) de Amazon Web Services (AWS) en tu pod. A diferencia de
 `emptyDir`, que se borra cuando se quita un pod, el contenido de un volumen EBS es persistido cuando se desmonta el volumen.
-esto significa que un volumen EBS puede ser prepoblado con datos, y que los datos puedes ser compartidos entre pods.
+Esto significa que un volumen EBS puede ser pre-poblado con datos, y que los datos puedes ser compartidos entre pods.
 
 {{< note >}}
 Debes crear un volumen EBS usando `aws ec2 create-volume` o la API de AWS antes de poder usarlo.
@@ -135,10 +135,10 @@ El controlador Azure File CSI no soporta usar el mismo volumen con fsgroups dife
 ### cephfs
 
 Un volumen `cephfs` permite montar un volumen CephFS existente en tu Pod.
-A diferencia de `emptydir`, que es borrado cuando se remueve el pod, el contenido de un volumen `cephfs` es preservado y el volumen es meramente desmontado. Esto significa que un volumen `cephfs`puede ser prepoblado por múltiples escritores simultáneamente.
+A diferencia de `emptydir`, que es borrado cuando se remueve el pod, el contenido de un volumen `cephfs` es preservado y el volumen es meramente desmontado. Esto significa que un volumen `cephfs`puede ser pre-poblado por múltiples escritores simultáneamente.
 
 {{< note >}}
-Debes tener tu propio seervidor Ceph corriendo con el recurso compartido exportado antes de usarlo.
+Debes tener tu propio servidor Ceph corriendo con el recurso compartido exportado antes de usarlo.
 {{< /note >}}
 
 Mira el [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) para más detalles.
@@ -149,7 +149,7 @@ Mira el [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "
 Kubernetes no debe ser configurado con el proveedor cloud OpenStack.
 {{< /note >}}
 
-El tipo de volumen `cinder` se usa para montar un volumen Cinder de OpenStck en tu pod.
+El tipo de volumen `cinder` se usa para montar un volumen Cinder de OpenStack en tu pod.
 
 #### Cinder volume configuration example
 
@@ -177,12 +177,12 @@ spec:
 
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
-La función `CSIMigration` para Cinder está habilidata por defecto en Kubernetes 1.21.
+La función `CSIMigration` para Cinder está habilitada por defecto en Kubernetes 1.21.
 Esta redirige todas las operaciones de complemento desde el complemento existente dentro del árbol existente al controlador de Interfaz de Almacenamiento del Contenedor (CSI) de `cinder.csi.openstack.org`.
 El controlador [OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md) debe estar instalado en el clúster.
 
-Puedes deshabilitar la migración CSI para tu clúster estrableciendo el [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `CSIMigrationOpenStack` a `false`.
-Si deshabilitas la función `CSIMigrationOpenStack`, el complemento del volumen Cinder dentro del árbol toma la responsablidad para todos los aspectos de la administración del almacenamiento del volumen Cinder.
+Puedes deshabilitar la migración CSI para tu clúster estableciendo el [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `CSIMigrationOpenStack` a `false`.
+Si deshabilitas la función `CSIMigrationOpenStack`, el complemento del volumen Cinder dentro del árbol toma la responsabilidad para todos los aspectos de la administración del almacenamiento del volumen Cinder.
 
 ### configMap
 
@@ -224,7 +224,7 @@ montado en el Pod en la ruta `/etc/config/log_level`. Ten en cuenta que esta rut
 - Debes crear un [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) antes de usarlo.
 - Un contenedor usando un ConfigMap montado como un volumen [`subPath`](#using-subpath) no recibirá actualizaciones del ConfigMap
 - Los datos de texto son expuestos como ficheros usando la codificación de caracteres UTF-8. Para otras codificaciones de caracteres, use `binaryData`.
-  {{< /note >}}
+{{< /note >}}
 
 ### downwardAPI {#downwardapi}
 
@@ -255,15 +255,14 @@ Algunos usos para un `emptyDir` son:
 - Contener archivos que un contenedor de administrador de contenido recupera mientras un contenedor de servidor web
   sirve los datos
 
-Dependiendo de tu entorno, volúmenes `eptydir` se almacenan en cualquier medio que respalde el nodo tales como discoo SSD, o almacenamiento de red. Sin embargo, si estableces el campo `emptydir.medium` a `Memory`, Kubernetes monta en su lugar un tmpfs (sistema de ficheros respaldado por la RAM). Mientras que tmpfs es muy rápido, ten en cuenta que a diferencia de los discos, tmpfs se limpia cuando el nodo reinicia y cualquier fichero que escribas cuante contra el límite de memoria del contenedor.
+Dependiendo de tu entorno, volúmenes `eptydir` se almacenan en cualquier medio que respalde el nodo tales como disco SSD, o almacenamiento de red. Sin embargo, si estableces el campo `emptydir.medium` a `Memory`, Kubernetes monta en su lugar un tmpfs (sistema de ficheros respaldado por la RAM). Mientras que tmpfs es muy rápido, ten en cuenta que a diferencia de los discos, tmpfs se limpia cuando el nodo reinicia y cualquier fichero que escribas cuenta contra el límite de memoria del contenedor.
 
 {{< note >}}
 Si el [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `SizeMemoryBackedVolumes` está habilitado,
 puedes especificar un tamaño para los volúmenes respaldados en memoria. Si no se especifica ningún tamaño los volúmenes respaldados en memoria tienen un tamaño del 50% de la memoria en un host Linux.
-
 {{< /note>}}
 
-#### ejemplo de configuración de emptyDir
+#### Ejemplo de configuración de emptyDir
 
 ```yaml
 apiVersion: v1
@@ -314,7 +313,7 @@ Mira el [ejemplo de Flocker ](https://github.com/kubernetes/examples/tree/{{< pa
 Un volumen `gcePersistentDisk` monta un volumen de Google Compute Engine (GCE)
 [persistent disk](https://cloud.google.com/compute/docs/disks) (DP) en tu Pod.
 A diferencia de `emptyDir`, que se borra cuando el pod es removido, el contenido de un DP es preservado
-y el volumen solamente se desmonta. Esto significa que un PD puede ser prepoblado con datos,
+y el volumen solamente se desmonta. Esto significa que un PD puede ser pre-poblado con datos,
 y que esos datos se pueden compartir entre pods.
 
 {{< note >}}
@@ -328,7 +327,7 @@ Existen algunas restricciones cuando usas `gcePersistentDisk`:
 
 Una de las características del disco persistente CGE es acceso concurrente de solo lectura al disco persistente.
 Un volumen `gcePersistentDisk` permite montar simultáneamente un disco de solo lectura a múltiples consumidores.
-Esto significa que puedes pr-epoblar un DP con tu conjunto de datos y luego servirlo en paralelo desde tantos pods como necesites. Desafortunadamente, los DPs solo se pueden montar por un único consumidor en modo lectura-escritura.
+Esto significa que puedes pre-poblar un DP con tu conjunto de datos y luego servirlo en paralelo desde tantos pods como necesites. Desafortunadamente, los DPs solo se pueden montar por un único consumidor en modo lectura-escritura.
 No están permitidos escritores simultáneos.
 
 Usar un disco persistente GCE con un Pod controlado por un ReplicaSet fallará a manos que el DP sea de solo lectura o el número de réplicas sea 0 o 1.
@@ -446,7 +445,7 @@ spec:
 ### glusterfs
 
 Un volumen `glusterfs` permite montar un volumen [Glusterfs](https://www.gluster.org) en tu Pod.
-A diferencia de `emptyDir`, que se borra cuando se remueve un pod, el contenido de un volumen `glusterfs` es preservado
+A diferencia de `emptyDir`, que se borra cuando se remueve un pod, el contenido de un volumen `glusterfs` es preservado 
 y el volumen solamente se desmonta. Esto significa que un volumen glusterfs puede ser pre-poblado con datos,
 y que los datos pueden ser compartidos entre pods. GlusterFS puede ser montado por múltiples escritores simultáneamente.
 
@@ -486,7 +485,7 @@ Ten cuidado cuando uses este tipo de volumen, porque:
 
 - Los Pods con configuración idéntica (tales como los creados por un PodTemplate) pueden comportarse de forma distinta
   en nodos distintos debido a diferentes ficheros en los nodos.
-- Los ficheros o directorios creados en los host subyacentes son modificables solo por root. Debes ejecutar tu proceso como root en un [Contenedor privilegiado](/docs/tasks/configure-pod-container/security-context/) o modificar los permisos de archivo en el host para escribir a un volumen `hostPath`
+- Los ficheros o directorios creados en los hosts subyacentes son modificables solo por root. Debes ejecutar tu proceso como root en un [Contenedor privilegiado](/docs/tasks/configure-pod-container/security-context/) o modificar los permisos de archivo en el host para escribir a un volumen `hostPath`
 
 #### Ejemplo de configuración hostPath
 
@@ -565,7 +564,7 @@ Mira el [ ejemplo iSCSI](https://github.com/kubernetes/examples/tree/{{< param "
 
 ### local
 
-Un volumen `local` representa un dispositivo de almacenamiento local como un dico, una partición o un directorio.
+Un volumen `local` representa un dispositivo de almacenamiento local como un disco, una partición o un directorio.
 
 Los volúmenes locales solo se pueden usar como un PersistenVolume creado estáticamente.
 El aprovisionamiento dinámico no está soportado.
@@ -615,14 +614,13 @@ para exponer el volumen local como un dispositivo de bloque sin formato.
 
 Cuando usas volúmenes locales, se recomienda crear un StorageClass con `volumeBindingMode` en `WaitForFirstConsumer`.
 Para más detalles, mira el ejemplo de [StorageClass](/docs/concepts/storage/storage-classes/#local). Retrasar el enlace con el volumen asegura que la decisión del PersistenVolumeClaim sea evaluada con otras limitaciones que el Pod pueda tener,
-tales como requisitos de recuersos del nodo, selectores de nodo, afinidad del Pod, y anti-afinidad del Pod.
+tales como requisitos de recursos del nodo, selectores de nodo, afinidad del Pod, y anti-afinidad del Pod.
 
 Se puede ejecutar un aprovisionador estático externo para un manejo mejorado del ciclo de vida del volumen local.
 Ten en cuenta que este aprovisionador no soporta aprovisionamiento dinámico todavía. Para un ejemplo de un aprovisionador local externo, mira la [guía de usuario de aprovisionador de volumen local](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)
 
 {{< note >}}
-El PersistentVolume local requiere limpieza y borrado manual por el usuario si no se utiliza el aprovisionador estático externo
-para manejar el ciclo de vida del volumen.
+El PersistentVolume local requiere limpieza y borrado manual por el usuario si no se utiliza el aprovisionador estático externo para manejar el ciclo de vida del volumen.
 {{< /note >}}
 
 ### nfs
@@ -766,7 +764,7 @@ spec:
 Cada volumen proyectado está listado en spec bajo `sources`. Los parámetros son casi los mismos salvo dos excepciones:
 
 - Para los secrets, el campo `secretName` ha sido cambiado a `name` para ser consistente con el nombre del configMap.
-- El `defaultMode` solo se puede especificar en el nivel proyectado y no para cada fuente de volumen. Sin, como se muestra arriba, puedes establecer explicaitamente el `mode` para cada proyección individual.
+- El `defaultMode` solo se puede especificar en el nivel proyectado y no para cada fuente de volumen. Sin, como se muestra arriba, puedes establecer explícitamente el `mode` para cada proyección individual.
 
 Cuando la función `TokenRequestProjection` está habilitada, puedes inyectar el token para el [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens) actual en un Pod en la ruta especificada.
 Por ejemplo:
@@ -795,7 +793,7 @@ spec:
 ```
 
 El Pod de ejemplo tiene un volumen proyectado que contiene el token del serviceAccount inyectado.
-Este token se puede usar por el contenedor de un Pod para acceder al API del servidor de Kubernetes.
+Este token se puede usar por el contenedor de un Pod para acceder a la API del servidor de Kubernetes.
 El `audience` contiene la audiencia dirigida del token. Un recipiente del token debe identificarse a sí mismo con
 un identificador especificado en la audiencia del token, de lo contrario debería rechazar el token. Este campo es opcional y por defecto tiene el valor del identificador del servidor API.
 
@@ -816,18 +814,18 @@ Debes tener tu propia configuración Quobyte ejecutándose con los volúmenes cr
 {{< /note >}}
 
 Quobyte soporta el {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}.
-CSI es el complemento recomendado para usar Quobyte dentro de Kubernetes. El proyeto Github de Quobyte tiene [instrucciones](https://github.com/quobyte/quobyte-csi#quobyte-csi) para desplegar usando CSI, junto con ejemplos.
+CSI es el complemento recomendado para usar Quobyte dentro de Kubernetes. El proyecto Github de Quobyte tiene [instrucciones](https://github.com/quobyte/quobyte-csi#quobyte-csi) para desplegar usando CSI, junto con ejemplos.
 
 ### rbd
 
 Un volumen `rbd` permite montar un volumen [Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) en tu Pod.
-A diferencia de `emptyDir`, que se borra cuando el pod es removido, el contenido de un volumen `rbd` es preservado y el volumen se desmonta. Esto significa que un volumen RBD puebe ser pre-poblado con datos, y que estos datos pueden ser compartidos entre pods.
+A diferencia de `emptyDir`, que se borra cuando el pod es removido, el contenido de un volumen `rbd` es preservado y el volumen se desmonta. Esto significa que un volumen RBD puede ser pre-poblado con datos, y que estos datos pueden ser compartidos entre pods.
 
 {{< note >}}
-Debes tener una instalación de Ceph ejetutándose antes de usar RBD.
+Debes tener una instalación de Ceph ejecutándose antes de usar RBD.
 {{< /note >}}
 
-Una función de RBD es que solo se puede montar como de solo lectura por múltiples consumidores simultaneamente.
+Una función de RBD es que solo se puede montar como de solo lectura por múltiples consumidores simultáneamente.
 Esto significa que puedes pre-poblar un volumen con tu conjunto de datos y luego servirlo en paralelo desde tantos pods como necesites. Desafortunadamente, los volúmenes RBD solo se pueden montar por un único consumidor en modo lectura-escritura. No se permiten escritores simultáneos.
 
 Mira el [ejemplo RBD](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd) para más detalles.
@@ -867,7 +865,7 @@ spec:
         fsType: xfs
 ```
 
-Para más detalles, mira los ejempplos de [ScaleIO](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio)
+Para más detalles, mira los ejemplos de [ScaleIO](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio)
 
 ### secret
 
@@ -886,9 +884,9 @@ Para más detalles, mira [Configurando Secrets](/docs/concepts/configuration/sec
 
 ### storageOS {#storageos}
 
-Un volumen `storageos` permite monar un voluen existente [StorageOS](https://www.storageos.com) en tu Pod.
+Un volumen `storageos` permite montar un volumen existente [StorageOS](https://www.storageos.com) en tu Pod.
 
-StorageOS corre como un contenedor dentro de tu contenedor Kubernetes, haciendo accesible el amacenamiento local o adjunto desde cualquier node dentro del cluster de Kubernetes.
+StorageOS corre como un contenedor dentro de tu contenedor Kubernetes, haciendo accesible el almacenamiento local o adjunto desde cualquier node dentro del cluster de Kubernetes.
 Los datos pueden ser replicados para protegerlos contra fallos del nodo. Este aprovisionamiento y compresión pueden mejorar el uso y reducir costes.
 
 El contenedor StorageOs requiere Linux de 64 bits y no tiene dependencias adicionales.
@@ -959,7 +957,7 @@ vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
 
 {{% /tab %}}
 {{% tab name="Create using vmware-vdiskmanager" %}}
-Usa el siguietne comando para crear un VMDK:
+Usa el siguiente comando para crear un VMDK:
 
 ```shell
 vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
@@ -1102,40 +1100,43 @@ spec:
 ```
 
 ## Recursos
-El medio de almacenamiento (como un disco o un SSD) de un volumen `emptyDir` 
+
+El medio de almacenamiento (como un disco o un SSD) de un volumen `emptyDir`
 se determina por el medio del sistema de archivos que contiene el directorio raíz
 del kubelet (típicamente `/var/lib/kubelet`).
-No hay límite de cuánto espacio puede consumir un volumen `emptydir` o `hostPath`, 
+No hay límite de cuánto espacio puede consumir un volumen `emptydir` o `hostPath`,
 y no hay aislamiento entre contenedores o entre pods.
 
 Para aprender más sobre requerir espacio usando una espacificación de recurso, mira [cómo administrar recursos](/docs/concepts/configuration/manage-resources-containers/).
 
 ## Complementos de volúmenes fuera del árbol
+
 Los complementos de volumen fuera del árbol incluyen {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} (CSI) y FlexVolume. Estos complementos permiten a los proveedores de almacenamiento crear complementos de almacenamiento personalizados sin añadir su código fuente al repositorio de Kubernetes.
 
-Anteriormente, todos los complementos de volumen estaban "en el árbol". Los complementos "en el árbol" se construían, enlazaban, compilaban y enviaban con los binarios del núcleo de Kubernetes. Esto significaba que agregar un nuevo sistema de almacenamiento a Kubernetes ( un complemento de volumen) requería verificar el código en el repositorio de código del núcleo de Kubernetes.
+Anteriormente, todos los complementos de volumen estaban "en el árbol". Los complementos "en el árbol" se construían, enlazaban, compilaban y enviaban con los binarios del núcleo de Kubernetes. Esto significaba que agregar un nuevo sistema de almacenamiento a Kubernetes (un complemento de volumen) requería verificar el código en el repositorio de código del núcleo de Kubernetes.
 
 Tanto CSI como FlexVolume permiten que se desarrollen complementos de volúmenes independientemente del código base de Kubernetes, y se desplieguen (instalen) en los clústeres de Kubernetes como extensiones.
 
 Para los proveedores de almacenamiento que buscan crear un complemento de volumen fuera del árbol, por favor refiéranse a [Preguntas frecuentees de complementos de volumen](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 
 ### csi
+
 La [interfaz de almacenamiento del contenedor](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI) define una interfaz estándar para sistemas de orquestación del contenedor (como Kubernetes) para exponer sistemas de almacenamiento arbitrario a sus cargas de trabajo del contenedor.
 
 Por favor, lee la [propuesta de diseño CSI](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) para más información.
 
 {{< note >}}
-El soporte para las especificaciones de las versiones CSI 0.2 y 0.3 es´´an deprecadas en Kubernetes v1.13 y serán removidos en una versión futura.
+El soporte para las especificaciones de las versiones CSI 0.2 y 0.3 están deprecadas en Kubernetes v1.13 y serán removidos en una versión futura.
 {{< /note >}}
 
 {{< note >}}
-Los controladores CSI podrían no ser compatibles con todas las versiones de Kubernetes.
-por favor, revisa la documentación específica del controlador CSI para los pasos de despliegue soportados para cada versión de Kubernetes y una matriz de compatibilidad.
+Los controladores CSI podrían no ser compatibles con todas las versiones de Kubernetes. 
+Por favor, revisa la documentación específica del controlador CSI para los pasos de despliegue soportados para cada versión de Kubernetes y una matriz de compatibilidad.
 {{< /note >}}
 
 Una vez que se despliega un controlador de volumen CSI compatible, los usuarios pueden usar el tipo de volumen `csi` para adjuntar o montar los volúmenes expuestos por el controlador CSI.
 
-Un olumen `csi` puede ser usado en un Pod en tres maneras distintas:
+Un volumen `csi` puede ser usado en un Pod en tres maneras distintas:
 
 - a través de una referencia a [PersistentVolumeClaim](#persistentvolumeclaim)
 - con un [volumen general efímero](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
@@ -1144,50 +1145,40 @@ Un olumen `csi` puede ser usado en un Pod en tres maneras distintas:
 
 Los siguientes campos están disponibles para que los administradores de almacenamiento configuren el volumen persistente CSI
 
-- `driver`: Un valor de cadena de caracteres que especifica el nombre del controlador de volumen a usar. Este valor debe corresponder al valor de respuesta en el `GetPluginInfoResponse` por el controlador CSI tal como se define en la [especificación CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo). Es usado por Kubernetes para identificar cuál controlador llamar, y por los ocmponentes del controlador CSI para identificar cuáles objetos PV pertenecen al controlador CSI.
+- `driver`: Un valor de cadena de caracteres que especifica el nombre del controlador de volumen a usar. Este valor debe corresponder al valor de respuesta en el `GetPluginInfoResponse` por el controlador CSI tal como se define en la [especificación CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#getplugininfo). Es usado por Kubernetes para identificar cuál controlador llamar, y por los componentes del controlador CSI para identificar cuáles objetos PV pertenecen al controlador CSI.
 - `volumenHandle`: Un valor de cadena de caracteres que identifica el volumen unívocamente. Este valor debe corresponder al valor en el campo `volumen.id` del `CreateVolumeResponse` por el controlador CSI como se define en la [especificación CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume). El valor es pasado como `volume.id` en todas las llamadas al controlador de volumen CSI cuando referencias el volumen.
-- `readOnly`: Un valor booleano opcional que indica si el volumen es para ser  "ControllerPublished" (adjuntado) como solo lectura. Por defecto es falso. Este valor es pasado el conttrolador CSI en el campo `readOnly` en el `ControllerPublishVolumeRequest`.
+- `readOnly`: Un valor booleano opcional que indica si el volumen es para ser "ControllerPublished" (adjuntado) como solo lectura. Por defecto es falso. Este valor es pasado el controlador CSI en el campo `readOnly` en el `ControllerPublishVolumeRequest`.
 - `fsType`: Si el `VolumeMode`del PV es `Filesystem` entonces este campo se puede usar para especificar el sistema de archivos que debería usarse para montar el volumen. Si el volumen no ha sido formateado y soportado, este valor se utilizará para formatear el volumen. Este valor se para al controlador CSI con el campo `VolumeCapability` de `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, y `NodePublishVolumeRequest`.
-- `volumeAttributes`: Un mapa de cadena de caracteres que especifica las propiedades estáticas de un volumen. Este mapa debe corresponder al map devuelto por el campo `volume.attributes` del `CreateVolumeResponse` por el controlador CSI tal como se define en la [especificación CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume). El mapa es pasado al controlador CSI con el campo `volume.context` en el   `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, y `NodePublishVolumeRequest`.
-- `controllerPublishSecretRef`: Una referencia al objeto secret que contiene información sensible para pasar al controlador CSI para completar las llamadas CSI `ControllerPublishVolume` y `ControllerUnpublishVolume`. Este campo es opcional, y puede estar vacío si no se requiere un secret. Si el Secret contiene mas de un secret, se pasan todos los secrets.
-- `nodeStageSecretRef`: Una referencia al objeto secret que contiene información sensible a pasar al ontrolador CSI para completar la llamada CSI `NodeStageVolume`. Este ampo es opcional, y puede estar vacío si no se requiere un secret. Si el Secret contiene más de un secret, todos los secrets son pasados. 
+- `volumeAttributes`: Un mapa de cadena de caracteres que especifica las propiedades estáticas de un volumen. Este mapa debe corresponder al map devuelto por el campo `volume.attributes` del `CreateVolumeResponse` por el controlador CSI tal como se define en la [especificación CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume). El mapa es pasado al controlador CSI con el campo `volume.context` en el `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, y `NodePublishVolumeRequest`.
+- `controllerPublishSecretRef`: Una referencia al objeto secret que contiene información sensible para pasar al controlador CSI para completar las llamadas CSI `ControllerPublishVolume` y `ControllerUnpublishVolume`. Este campo es opcional, y puede estar vacío si no se requiere un secret. Si el Secret contiene más de un secret, se pasan todos los secrets.
+- `nodeStageSecretRef`: Una referencia al objeto secret que contiene información sensible a pasar al controlador CSI para completar la llamada CSI `NodeStageVolume`. Este ampo es opcional, y puede estar vacío si no se requiere un secret. Si el Secret contiene más de un secret, todos los secrets son pasados.
 - `nodePublishSecretRef`: Una referencia al objeto que contiene información sensible a pasar al controlador CSI para completar la llamada CSI `NodePublishVolume`. Este ampo es opcional, y puede estar vacío si no se requiere un secret. Si el Secret contiene más de un secret, todos los secrets son pasados.
 
-#### CSI raw block volume support
+#### Soporte de volumen CSI de fila de bloques
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-Vendors with external CSI drivers can implement raw block volume support
-in Kubernetes workloads.
+Los proveedores con controladores CSI externos pueden implementar soporte de volumen de bloques sin procesar en cargas de trabajo de Kubernetes.
 
-You can set up your
-[PersistentVolume/PersistentVolumeClaim with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support) as usual, without any CSI specific changes.
+Puedes configurar tu
+You can set up your [PersistentVolume/PersistentVolumeClaim with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support) como de costumbre, sin ningún cambio específico CSI.
 
-#### CSI ephemeral volumes
+#### Volúmenes efímeros CSI
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-You can directly configure CSI volumes within the Pod
-specification. Volumes specified in this way are ephemeral and do not
-persist across pod restarts. See [Ephemeral
-Volumes](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
-for more information.
+Puedes configurar directamente volúmenes CSI dentro de la especificación del Pod.
+Los volúmenes especificados de esta manera son efímeros y no se persisten entre reinicios del pod. Mira [Volúmenes efímeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) para más información.
 
-For more information on how to develop a CSI driver, refer to the
-[kubernetes-csi documentation](https://kubernetes-csi.github.io/docs/)
+Para más información de cómo desarrollador un controlador CSI, mira la [documentación kubernetes-csi](https://kubernetes-csi.github.io/docs/)
 
-#### Migrating to CSI drivers from in-tree plugins
+#### Migrando a controladores CSI desde complementos en el árbol.
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
+La función `CSIMigration`, cuando está habilitada, dirige todas las operaciones hacia complementos existentes en el árbol a complementos CSI correspondientes (que se espera que estén instalados y configurados). Como resultado, los operadores no tienen que hacer ningún cambio de configuración a las clases de almacenamiento, PersistentVolumes o PersistentVolumeClaims (refiriéndose a complementos en el árbol) cuando haces la transición a un controlador CSI que un reemplaza complemento en el árbol.
 
-The `CSIMigration` feature, when enabled, directs operations against existing in-tree
-plugins to corresponding CSI plugins (which are expected to be installed and configured).
-As a result, operators do not have to make any
-configuration changes to existing Storage Classes, PersistentVolumes or PersistentVolumeClaims
-(referring to in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
-
-The operations and features that are supported include:
-provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
+Las operaciones y funciones que están soportadas incluye:
+aprovisionamiento/borrado, adjuntar/separar, montar/desmontar y redimensionar volúmenes.
 
 In-tree plugins that support `CSIMigration` and have a corresponding CSI driver implemented
 are listed in [Types of Volumes](#volume-types).
@@ -1202,51 +1193,33 @@ plugin path on each node and in some cases the control plane nodes as well.
 Pods interact with FlexVolume drivers through the `flexvolume` in-tree volume plugin.
 For more details, see the [FlexVolume](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md) examples.
 
-## Mount propagation
+## Propagación del montaje
 
-Mount propagation allows for sharing volumes mounted by a container to
-other containers in the same pod, or even to other pods on the same node.
+La propagación del montaje permite compartir volúmenes montados por un contenedor para otros contenedores en el mismo pod, o aun para otros pods en el mismo nodo.
 
-Mount propagation of a volume is controlled by the `mountPropagation` field
-in `Container.volumeMounts`. Its values are:
+La propagación del montaje de un volumen es controlada por el campo `mountPropagation` en `Container.volumeMounts`. Sus valores son:
 
-- `None` - This volume mount will not receive any subsequent mounts
-  that are mounted to this volume or any of its subdirectories by the host.
-  In similar fashion, no mounts created by the container will be visible on
-  the host. This is the default mode.
+- `None` - Este montaje de volumen no recibirá ningún montaje posterior que el host haya montado en este volumen o en cualquiera de sus subdirectorios. De manera similar, los montajes creados por el contenedor no serán visibles en el host. Este es el modo por defecto.
 
-  This mode is equal to `private` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  Este modo es igual la propagación del montaje `private` tal como se describe en la [ documentación Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
 
-- `HostToContainer` - This volume mount will receive all subsequent mounts
-  that are mounted to this volume or any of its subdirectories.
+- `HostToContainer` - Este montaje de volumen recibirá todos los montajes subsecuentes que son montados a este volumen o cualquiera de sus subdirectorios.
 
-  In other words, if the host mounts anything inside the volume mount, the
-  container will see it mounted there.
+  En otras palabras, si el host monta algo dentro del montaje del volumen, el contenedor lo verá montado allí.
 
-  Similarly, if any Pod with `Bidirectional` mount propagation to the same
-  volume mounts anything there, the container with `HostToContainer` mount
-  propagation will see it.
+  De manera similar, si cualquier Pod con propagación de montaje `Bidirectional` al mismo volumen monta algo allí, el contenedor con propagación de montaje` HostToContainer` lo verá.
 
-  This mode is equal to `rslave` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  Este modo es igual a la propagación de montaje `rslave` tal como se describe en la [documentación del kernel de Linux](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
 
-- `Bidirectional` - This volume mount behaves the same the `HostToContainer` mount.
-  In addition, all volume mounts created by the container will be propagated
-  back to the host and to all containers of all pods that use the same volume.
+- `Bidirectional`- Este montaje de volumen se comporta de la misma manera de el montaje`HostToContainer`. Adicionalmente, todos los montajes de volúmenes creados por el contenedor serán propagados de vuelta al host y a todos los contenedores de todos los pods que usan el mismo volumen.
 
-  A typical use case for this mode is a Pod with a FlexVolume or CSI driver or
-  a Pod that needs to mount something on the host using a `hostPath` volume.
+  Un uso típico para este modo es un Pod con un FlexVolumen o un controlador CSI o un Pod que necesita montar al en el host usando un volumen `hostPath`.
 
-  This mode is equal to `rshared` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  Este modo es igual a la propagación de montaje `rshared` tal como se describe en la [documentación del kernel de Linux documentación](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
 
   {{< warning >}}
-  `Bidirectional` mount propagation can be dangerous. It can damage
-  the host operating system and therefore it is allowed only in privileged
-  containers. Familiarity with Linux kernel behavior is strongly recommended.
-  In addition, any volume mounts created by containers in pods must be destroyed
-  (unmounted) by the containers on termination.
+  La propagación por montaje `Bidirectional` puede ser peligrosa. Puede dañar el sistema operativo host y, por lo tanto, solo se permite en contenedores privilegiados. Se recomienda encarecidamente estar familiarizado con el comportamiento del kernel de Linux.
+  Además, cualquier montaje de volumen creado por contenedores en pods debe destruirse (desmontado) por los contenedores en el momento de la terminación.
   {{< /warning >}}
 
 ### Configuration
@@ -1270,4 +1243,4 @@ sudo systemctl restart docker
 
 ## {{% heading "whatsnext" %}}
 
-Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
+Sigue un ejemplo de [desplegar WordPrss y MySQL con volúmenes persistentes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
