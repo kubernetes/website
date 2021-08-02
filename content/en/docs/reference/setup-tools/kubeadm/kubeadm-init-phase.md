@@ -119,7 +119,7 @@ Use the following phase to configure bootstrap tokens.
 {{< tab name="bootstrap-token" include="generated/kubeadm_init_phase_bootstrap-token.md" />}}
 {{< /tabs >}}
 
-## kubeadm init phase kubelet-finialize {#cmd-phase-kubelet-finalize-all}
+## kubeadm init phase kubelet-finalize {#cmd-phase-kubelet-finalize-all}
 
 Use the following phase to update settings relevant to the kubelet after TLS
 bootstrap. You can use the `all` subcommand to run all `kubelet-finalize`
