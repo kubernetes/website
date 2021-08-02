@@ -61,15 +61,15 @@ Kubelet은 다음과 같은 축출 신호를 사용한다.
 
 이 표에서, `설명` 열은 kubelet이 축출 신호 값을 계산하는 방법을 나타낸다. 
 각 축출 신호는 백분율 또는 숫자값을 지원한다. 
-kubelet은 총 용량 대비 축출 신호의 백분율 값을 
+Kubelet은 총 용량 대비 축출 신호의 백분율 값을 
 계산한다.
 
 `memory.available` 값은 `free -m`과 같은 도구가 아니라 cgroupfs로부터 도출된다. 
 이는 `free -m`이 컨테이너 안에서는 동작하지 않고, 또한 사용자가 
 [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) 
 기능을 사용하는 경우 자원 부족에 대한 결정은 루트 노드뿐만 아니라 
-cgroup 계층구조의 최종 사용자 파드 부분에서도 지역적으로 이루어지기 때문에 중요하다. 
-[이 스크립트](/examples/admin/resource/memory-available.sh)는 
+cgroup 계층 구조의 최종 사용자 파드 부분에서도 지역적으로 이루어지기 때문에 중요하다. 
+이 [스크립트](/examples/admin/resource/memory-available.sh)는 
 kubelet이 `memory.available`을 계산하기 위해 수행하는 동일한 단계들을 재현한다. 
 kubelet은 메모리 압박 상황에서 메모리가 회수 가능하다고 가정하므로, 
 inactive_file(즉, 비활성 LRU 목록의 파일 기반 메모리 바이트 수)을 
@@ -82,7 +82,7 @@ kubelet은 다음과 같은 파일시스템 파티션을 지원한다.
 1. `imagefs`: 컨테이너 런타임이 컨테이너 이미지 및 
    컨테이너 쓰기 가능 레이어를 저장하는 데 사용하는 선택적 파일시스템이다.
 
-Kubelet은 이러한 파일 시스템을 자동으로 검색하고 다른 파일 시스템은 무시한다. 
+Kubelet은 이러한 파일시스템을 자동으로 검색하고 다른 파일시스템은 무시한다. 
 Kubelet은 다른 구성은 지원하지 않는다.
 
 {{<note>}}
@@ -164,9 +164,9 @@ kubelet은 다음과 같이 노드 컨디션과 축출 신호를 매핑한다.
 
 | 노드 컨디션    | 축출 신호                                                                       | 설명                                                                                                                  |
 |-------------------|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| `MemoryPressure`  | `memory.available`                                                                    | 노드의 가용 메모리 양이 축출 임계값에 도달했다                                                             |
-| `DiskPressure`    | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | 노드의 루트 파일시스템 또는 이미지 파일시스템의 가용 디스크 공간 또는 inode의 수가 축출 임계값에 도달했다 |
-| `PIDPressure`     | `pid.available`                                                                       | (리눅스) 노드의 가용 프로세스 ID(PID)가 축출 임계값 이하로 내려왔다                                   |
+| `MemoryPressure`  | `memory.available`                                                                    | 노드의 가용 메모리 양이 축출 임계값에 도달함                                                             |
+| `DiskPressure`    | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, 또는 `imagefs.inodesFree` | 노드의 루트 파일시스템 또는 이미지 파일시스템의 가용 디스크 공간 또는 inode의 수가 축출 임계값에 도달함 |
+| `PIDPressure`     | `pid.available`                                                                       | (리눅스) 노드의 가용 프로세스 ID(PID)가 축출 임계값 이하로 내려옴                                   |
 
 kubelet은 `--node-status-update-frequency`에 설정된 
 시간 간격(기본값: `10s`)마다 노드 컨디션을 업데이트한다.
@@ -203,8 +203,8 @@ kubelet은 다음 작업을 수행한다.
 노드에 `nodefs` 파일시스템만 있고 이것이 축출 임계값 조건을 충족한 경우, 
 kubelet은 다음 순서로 디스크 공간을 확보한다.
 
-1. 종료된 파드와 컨테이너에 대해 가비지 수집을 수행한다
-1. 사용중이지 않은 이미지를 삭제한다
+1. 종료된 파드와 컨테이너에 대해 가비지 수집을 수행한다.
+1. 사용중이지 않은 이미지를 삭제한다.
 
 ### kubelet 축출을 위한 파드 선택
 
@@ -229,7 +229,7 @@ kubelet은 파드 축출 순서를 결정하기 위해 다음의 파라미터를
 kubelet이 파드 축출 순서를 결정할 때 파드의 QoS 클래스는 이용하지 않는다. 
 메모리 등의 자원을 회수할 때, QoS 클래스를 이용하여 가장 가능성이 높은 파드 축출 순서를 예측할 수는 있다. 
 QoS는 EphemeralStorage 요청에 적용되지 않으므로, 
-노드가 예를 들어 'DiskPressure' 아래에 있는 경우 위의 시나리오가 적용되지 않는다.
+노드가 예를 들어 `DiskPressure` 아래에 있는 경우 위의 시나리오가 적용되지 않는다.
 {{</note>}}
 
 `Guaranteed` 파드는 모든 컨테이너에 대해 자원 요청량과 제한이 명시되고 
@@ -246,7 +246,7 @@ kubelet은 노드 안정성을 유지하고 자원 고갈이 다른 파드에 �
 또는 `PID` 고갈 때문에 파드를 축출할 때에는 파드의 `Priority`를 이용하여 축출 
 순위를 정한다.
 
-노드에 전용 'imagefs' 파일 시스템이 있는지 여부에 따라 kubelet이 파드 축출 순서를 
+노드에 전용 `imagefs` 파일시스템이 있는지 여부에 따라 kubelet이 파드 축출 순서를 
 정하는 방식에 차이가 있다.
 
 #### `imagefs`가 있는 경우
@@ -306,14 +306,14 @@ kubelet의 메모리 회수가 가능하기 이전에
 
 kubelet은 각 파드에 설정된 QoS를 기반으로 각 컨테이너에 `oom_score_adj` 값을 설정한다.
 
-| Quality of Service | oom_score_adj                                                                     |
+| 서비스 품질(Quality of Service) | oom_score_adj                                                                     |
 |--------------------|-----------------------------------------------------------------------------------|
 | `Guaranteed`       | -997                                                                              |
 | `BestEffort`       | 1000                                                                              |
 | `Burstable`        | min(max(2, 1000 - (1000 * memoryRequestBytes) / machineMemoryCapacityBytes), 999) |
 
 {{<note>}}
-또한, kubelet은 `system-node-critical` {{<glossary_tooltip text="Priority" term_id="pod-priority">}}를 갖는 파드의 컨테이너에 
+또한, kubelet은 `system-node-critical` {{<glossary_tooltip text="파드 우선 순위(Priority)" term_id="pod-priority">}}를 갖는 파드의 컨테이너에 
 `oom_score_adj` 값을 `-997`로 설정한다.
 {{</note>}}
 
@@ -372,7 +372,7 @@ kubelet이 `DaemonSet`에 속하는 파드를 축출하지 않도록 하려면
 
 #### kubelet이 메모리 압박을 즉시 감지하지 못할 수 있음
 
-기본적으로 kubelet은 'cAdvisor'를 폴링하여 
+기본적으로 kubelet은 `cAdvisor`를 폴링하여 
 일정한 간격으로 메모리 사용량 통계를 수집한다. 
 해당 타임 윈도우 내에서 메모리 사용량이 빠르게 증가하면 kubelet이 
 `MemoryPressure`를 충분히 빠르게 감지하지 못해 `OOMKiller`가 계속 호출될 수 있다.
@@ -381,7 +381,7 @@ kubelet이 `DaemonSet`에 속하는 파드를 축출하지 않도록 하려면
 kubelet의 `memcg` 알림 API가 임계값을 초과할 때 즉시 알림을 받도록 
 할 수 있다.
 
-극도의 활용도를 달성하려는 것이 아니라 오버커밋에 대한 합리적인 조치를 원하는 경우, 
+사용률(utilization)을 극단적으로 높이려는 것이 아니라 오버커밋(overcommit)에 대한 합리적인 조치만 원하는 경우, 
 이 문제에 대한 현실적인 해결 방법은 `--kube-reserved` 및 
 `--system-reserved` 플래그를 사용하여 시스템에 메모리를 할당하는 것이다.
 
