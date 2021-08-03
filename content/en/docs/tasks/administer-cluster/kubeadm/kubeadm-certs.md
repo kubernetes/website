@@ -130,7 +130,7 @@ This command performs the renewal using CA (or front-proxy-CA) certificate and k
 
 After running the command you should restart the control plane Pods. This is required since
 dynamic certificate reload is currently not supported for all components and certificates.
-[Static Pods](/docs/tasks/configure-pod-containerstatic-pod/) are managed by the local kubelet
+[Static Pods](/docs/tasks/configure-pod-container/static-pod/) are managed by the local kubelet
 and not by the API Server, thus kubectl cannot be used to delete and restart them.
 To restart a static Pod you can temporarily remove its manifest file from `/etc/kubernetes/manifests/` 
 and wait for 20 seconds (see the `fileCheckFrequency` value in [KubeletConfiguration struct](/docs/
