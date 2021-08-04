@@ -54,7 +54,7 @@ An alpha feature for default seccomp profiles has been added to the kubelet, alo
 
 A new alpha feature allows running the `kubeadm` control plane components as non-root users. This is a long requested security measure in `kubeadm`. To try it you must enable the `kubeadm` specific RootlessControlPlane feature gate. When you deploy a cluster using this alpha feature, your control plane runs with lower privileges.
 
-For `kubeadm`, Kubernetes 1.22 also brings a new [v1beta3 configuration API](https://github.com/kubernetes/kubeadm/issues/1796). This iteration adds some long requested features and deprecates some existing ones. The v1beta3 version is now the preferred API version; the v1beta2 API also remains available and is not yet deprecated.
+For `kubeadm`, Kubernetes 1.22 also brings a new [v1beta3 configuration API](/docs/reference/config-api/kubeadm-config.v1beta3/). This iteration adds some long requested features and deprecates some existing ones. The v1beta3 version is now the preferred API version; the v1beta2 API also remains available and is not yet deprecated.
 
 ## Major Changes
 
