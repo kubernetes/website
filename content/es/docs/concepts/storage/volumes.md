@@ -572,7 +572,7 @@ El aprovisionamiento dinámico no está soportado.
 Comparados con volúmenes `hostPath`, los volúmenes `local` se usan de manera duradera y portátil sin programar pods manualmente
 a los nodos. El sistema está consciente de las limitaciones del nodo del volumen al mirar la afinidad del nodo en el PersistenVolumen.
 
-Sn embargo, los volúmenes `local`están sujetos a la disponibilidad del nodo subyacente y no son compatibles para todas las aplicaciones.
+Sin embargo, los volúmenes `local`están sujetos a la disponibilidad del nodo subyacente y no son compatibles para todas las aplicaciones.
 
 Si un nodo deja de estar sano, entonces el volumen `local` se vuelve inaccesible al pod.
 El pod que utiliza este volumen no se puede ejecutar.
