@@ -185,7 +185,7 @@ Below are the procedures to set up autocompletion for Bash and Zsh.
 
 1. Validate the binary (optional)
 
-   Download the kubectl checksum file:
+   Download the kubectl-convert checksum file:
 
    {{< tabs name="download_convert_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
