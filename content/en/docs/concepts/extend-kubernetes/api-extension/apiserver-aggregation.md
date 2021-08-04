@@ -1,5 +1,5 @@
 ---
-title: Extending the Kubernetes API with the aggregation layer
+title: Kubernetes API Aggregation Layer
 reviewers:
 - lavalamp
 - cheftako
