@@ -259,7 +259,7 @@ Dependiendo de tu entorno, los volúmenes `emptydir` se almacenan en cualquier m
 
 {{< note >}}
 Si el [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `SizeMemoryBackedVolumes` está habilitado,
-puedes especificar un tamaño para los volúmenes respaldados en memoria. Si no se especifica ningún tamaño los volúmenes respaldados en memoria tienen un tamaño del 50% de la memoria en un host Linux.
+puedes especificar un tamaño para los volúmenes respaldados en memoria. Si no se especifica ningún tamaño, los volúmenes respaldados en memoria tienen un tamaño del 50% de la memoria en un host Linux.
 {{< /note>}}
 
 #### Ejemplo de configuración de emptyDir
