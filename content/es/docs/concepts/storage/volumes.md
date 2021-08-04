@@ -549,7 +549,7 @@ spec:
 Un volumen `iscsi` permite que se monte un volumen ISCSI (SCSI sobre IP) existente
 en tu Pod. A diferencia de `emptydir`, que es removido cuando se remueve un Pod,
 el contenido de un volumen `iscsi` es preservado y el volumen solamente se desmonta.
-Esto significa que un volumen iscsi puede ser pre-poblado con dato, y que estos datos se pueden compartir entre pods.
+Esto significa que un volumen iscsi puede ser pre-poblado con datos, y que estos datos se pueden compartir entre pods.
 
 {{< note >}}
 Debes tener tu propio servidor ISCSI corriendo con el volumen creado antes de poder usarlo.
