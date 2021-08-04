@@ -255,7 +255,7 @@ Algunos usos para un `emptyDir` son:
 - Contener archivos que un contenedor de administrador de contenido recupera mientras un contenedor de servidor web
   sirve los datos
 
-Dependiendo de tu entorno, volúmenes `eptydir` se almacenan en cualquier medio que respalde el nodo tales como disco SSD, o almacenamiento de red. Sin embargo, si estableces el campo `emptydir.medium` a `Memory`, Kubernetes monta en su lugar un tmpfs (sistema de ficheros respaldado por la RAM). Mientras que tmpfs es muy rápido, ten en cuenta que a diferencia de los discos, tmpfs se limpia cuando el nodo reinicia y cualquier fichero que escribas cuenta contra el límite de memoria del contenedor.
+Dependiendo de tu entorno, los volúmenes `emptydir` se almacenan en cualquier medio que respalde el nodo tales como disco SSD, o almacenamiento de red. Sin embargo, si se establece el campo `emptydir.medium` a `Memory`, Kubernetes monta en su lugar un tmpfs (sistema de ficheros respaldado por la RAM). Mientras que tmpfs es muy rápido, ten en cuenta que a diferencia de los discos, tmpfs se limpia cuando el nodo reinicia y cualquier archivo que escribas cuenta con el límite de memoria del contenedor.
 
 {{< note >}}
 Si el [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `SizeMemoryBackedVolumes` está habilitado,
