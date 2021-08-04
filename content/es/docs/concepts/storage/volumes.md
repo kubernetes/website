@@ -240,7 +240,7 @@ Mira el [downward API example](/docs/tasks/inject-data-application/downward-api-
 ### emptyDir {#emptydir}
 
 Un volumen `emptyDir`es creado primero cuando se asigna un pod a un nodo, y existe mientras el Pod está corriendo en el nodo.
-Como su nombre lo indica un volumen `emptydir`está vacío inicialmente. Todos los contenedores en el Pod pueden leer y escribir
+Como su nombre lo indica un volumen `emptydir`está inicialmente vacío. Todos los contenedores en el Pod pueden leer y escribir
 los mismos ficheros en el volumen `emptyDir`, aunque ese volumen se puede montar en la misma ruta o diferentes en cada contenedor. Cuando un Pod es removido del nodo por alguna razón, los datos en `emptydir` se borran permanentemente.
 
 {{< note >}}
