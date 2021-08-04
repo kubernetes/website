@@ -317,7 +317,7 @@ y el volumen solamente se desmonta. Esto significa que un disco persistente pued
 y que esos datos se pueden compartir entre pods.
 
 {{< note >}}
-Debes crear un PD usando `gcloud` or la API de GCE o la UI antes de poder usarlo.
+Debes crear un disco persistente usando `gcloud`, la API de GCE o la UI antes de poder usarlo.
 {{< /note >}}
 
 Existen algunas restricciones cuando usas `gcePersistentDisk`:
