@@ -23,7 +23,7 @@ Kubernetes soporta muchos tipos de volúmenes. Un {{< glossary_tooltip term_id="
 puede utilizar cualquier número de tipos de volúmenes simultáneamente. Los tipos de volúmenes efímeros tienen el mismo tiempo de vida que un Pod, pero los volúmenes persistentes existen más allá del tiempo de vida de un Pod. Cuando un Pod deja de existir,
 Kubernetes destruye los volúmenes efímeros; sin embargo, Kubernetes no destruye los volúmenes persistentes. Para cualquier tipo de volumen en un Pod dado, los datos son preservados a lo largo de los reinicios del contenedor.
 
-En su núcleo, un volumen es un directorio, posiblemente con algunos datos en este, que puede ser accesible para los contenedores en un pod. Cómo ese directorio llega a crearse, el medio que lo respalda, y el contenido de este se determinan por el tipo de volumen usado.
+En su núcleo, un volumen es un directorio, posiblemente con algunos datos en este, que puede ser accesible para los contenedores en un Pod. Cómo ese directorio llega a crearse, el medio que lo respalda, y el contenido de este se determinan por el tipo de volumen usado.
 
 Para usar un volumen, especifica los volúmenes a proveer al por en `.spec.volumes` y declara
 dónde montar estos volúmenes dentro de los contenedores en `.spec.containers[*].volumeMounts`.
@@ -38,8 +38,8 @@ Kubernetes soporta varios tipos de volúmenes
 ### awsElasticBlockStore {#awselasticblockstore}
 
 Un volumen `awsElasticBlockStore` monta un
-[volumen EBS](https://aws.amazon.com/ebs/) de Amazon Web Services (AWS) en tu pod. A diferencia de
-`emptyDir`, que se borra cuando se quita un pod, el contenido de un volumen EBS es persistido cuando se desmonta el volumen.
+[volumen EBS](https://aws.amazon.com/ebs/) de Amazon Web Services (AWS) en tu Pod. A diferencia de
+`emptyDir`, que se borra cuando se quita un Pod, el contenido de un volumen EBS es persistido cuando se desmonta el volumen.
 Esto significa que un volumen EBS puede ser pre-poblado con datos, y que los datos puedes ser compartidos entre pods.
 
 {{< note >}}
@@ -54,7 +54,7 @@ Existen algunas restricciones cuando usas un volumen `awsElasticBlockStore`:
 
 #### Creando un volumen AWS EBS
 
-Antes poder usar un volumen EBS en un pod, necesitas crearlo.
+Antes poder usar un volumen EBS en un Pod, necesitas crearlo.
 
 ```shell
 aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
@@ -103,7 +103,7 @@ Para desactivar el complemento de almacenamiento `awsElasticBlockStore` de ser c
 
 ### azureDisk {#azuredisk}
 
-El tipo de volumen `azureDisk` monta un [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) de Microsoft Azure en el pod.
+El tipo de volumen `azureDisk` monta un [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) de Microsoft Azure en el Pod.
 
 Para más detalles, mira el [`azureDisk` volume plugin](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
 
@@ -117,7 +117,7 @@ de complemento desde el complemento existente dentro del árbol existente al con
 
 ### azureFile {#azurefile}
 
-El tipo de volumen `azureFile` monta un volumen de ficheros de Microsoft Azure (SMB 2.1 and 3.0) en un pod.
+El tipo de volumen `azureFile` monta un volumen de ficheros de Microsoft Azure (SMB 2.1 and 3.0) en un Pod.
 
 Para más detalles, mira el [`azureFile` volume plugin](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
 
@@ -135,7 +135,7 @@ El controlador Azure File CSI no soporta usar el mismo volumen con fsgroups dife
 ### cephfs
 
 Un volumen `cephfs` permite montar un volumen CephFS existente en tu Pod.
-A diferencia de `emptydir`, que es borrado cuando se remueve el pod, el contenido de un volumen `cephfs` es preservado y el volumen es meramente desmontado. Esto significa que un volumen `cephfs`puede ser pre-poblado por múltiples escritores simultáneamente.
+A diferencia de `emptydir`, que es borrado cuando se remueve el Pod, el contenido de un volumen `cephfs` es preservado y el volumen es meramente desmontado. Esto significa que un volumen `cephfs`puede ser pre-poblado por múltiples escritores simultáneamente.
 
 {{< note >}}
 Debes tener tu propio servidor Ceph corriendo con el recurso compartido exportado antes de usarlo.
@@ -149,7 +149,7 @@ Mira el [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "
 Kubernetes no debe ser configurado con el proveedor cloud OpenStack.
 {{< /note >}}
 
-El tipo de volumen `cinder` se usa para montar un volumen Cinder de OpenStack en tu pod.
+El tipo de volumen `cinder` se usa para montar un volumen Cinder de OpenStack en tu Pod.
 
 #### Cinder volume configuration example
 
@@ -189,11 +189,11 @@ Si deshabilitas la función `CSIMigrationOpenStack`, el complemento del volumen 
 Un [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 provee una manera de inyectar datos de configuración a los pods.
 Los datos almacenados en un ConfigMap se pueden referenciar en un volumen de tipo `configMap`
-y luego ser consumidos por aplicaciones contenerizadas corriendo en un pod.
+y luego ser consumidos por aplicaciones contenerizadas corriendo en un Pod.
 
 Cuando haces referencia a un ConfigMap, provees el nombre del ConfigMap en el volumen.
 Puedes personalizar la ruta para una entrada específica en el ConfigMap.
-La siguiente configuración muestra cómo montar un ConfigMap `log-config` en un Pod llamado `configmap-pod:`
+La siguiente configuración muestra cómo montar un ConfigMap `log-config` en un Pod llamado `configmap-pod`:
 
 ```yaml
 apiVersion: v1
@@ -239,7 +239,7 @@ Mira el [downward API example](/docs/tasks/inject-data-application/downward-api-
 
 ### emptyDir {#emptydir}
 
-Un volumen `emptyDir`es creado primero cuando se asigna un pod a un nodo, y existe mientras el Pod está corriendo en el nodo.
+Un volumen `emptyDir`es creado primero cuando se asigna un Pod a un nodo, y existe mientras el Pod está corriendo en el nodo.
 Como su nombre lo indica un volumen `emptydir`está inicialmente vacío. Todos los contenedores en el Pod pueden leer y escribir
 los archivos en el volumen `emptyDir`, aunque ese volumen se puede montar en la misma o diferente ruta en cada contenedor. Cuando un Pod es removido del nodo por alguna razón, los datos en `emptydir` se borran permanentemente.
 
@@ -300,7 +300,7 @@ Revisa el [ejemplo de canal de fibra](https://github.com/kubernetes/examples/tre
 Flocker proporciona administración y orquestación de volúmenes de datos respaldados por una variedad de backends de almacenamiento.
 
 Un volumen `flocker` permite montar un conjunto de datos Flocker en un Pod. Si el conjunto de datos no existe en Flocker, necesita ser creado primero con el CLI de Flocker o usando la API de Flocker. Si el conjunto de datos existe será adjuntado
-de nuevo por Flocker al nodo donde el pod está programado. Esto significa que los datos pueden ser compartidos entre pods como sea necesario.
+de nuevo por Flocker al nodo donde el Pod está programado. Esto significa que los datos pueden ser compartidos entre pods como sea necesario.
 
 {{< note >}}
 Debes tener una instalación propia de Flocker ejecutándose antes de poder usarla.
@@ -312,7 +312,7 @@ Mira el [ejemplo de Flocker ](https://github.com/kubernetes/examples/tree/{{< pa
 
 Un volumen `gcePersistentDisk` monta un volumen de Google Compute Engine (GCE)
 de [disco persistente](https://cloud.google.com/compute/docs/disks) (DP) en tu Pod.
-A diferencia de `emptyDir`, que se borra cuando el pod es removido, el contenido de un disco persistente es preservado
+A diferencia de `emptyDir`, que se borra cuando el Pod es removido, el contenido de un disco persistente es preservado
 y el volumen solamente se desmonta. Esto significa que un disco persistente puede ser pre-poblado con datos,
 y que esos datos se pueden compartir entre pods.
 
@@ -366,7 +366,7 @@ spec:
 
 La función de [discos regionales persistentes](https://cloud.google.com/compute/docs/disks/#repds)
 permite la creación de discos persistentes que están disponibles en dos zonas dentro de la misma región.
-Para usar esta función, el volumen debe ser provisto como un PersistentVolumen; referenciar el volumen directamente desde un pod no está soportado.
+Para usar esta función, el volumen debe ser provisto como un PersistentVolumen; referenciar el volumen directamente desde un Pod no está soportado.
 
 #### Aprovisionamiento manual de un PD PersistentVolume Regional
 
@@ -445,7 +445,7 @@ spec:
 ### glusterfs
 
 Un volumen `glusterfs` permite montar un volumen [Glusterfs](https://www.gluster.org) en tu Pod.
-A diferencia de `emptyDir`, que se borra cuando se remueve un pod, el contenido de un volumen `glusterfs` es preservado 
+A diferencia de `emptyDir`, que se borra cuando se remueve un Pod, el contenido de un volumen `glusterfs` es preservado 
 y el volumen solamente se desmonta. Esto significa que un volumen glusterfs puede ser pre-poblado con datos,
 y que los datos pueden ser compartidos entre pods. GlusterFS puede ser montado por múltiples escritores simultáneamente.
 
@@ -457,12 +457,12 @@ Mira el [ejemplo de GlusterFS](https://github.com/kubernetes/examples/tree/{{< p
 
 ### hostPath {#hostpath}
 
-Un volumen `hostPath` mona un fichero o un directorio del sistema de archivos del nodo host a tu Pod.
+Un volumen `hostPath` monta un archivo o un directorio del sistema de archivos del nodo host a tu Pod.
 Esto no es algo de muchos Pods necesiten, pero ofrece una trampa de escape poderosa para algunas aplicaciones.
 
 Por ejemplo, algunos usos de un `hostPath` son:
 
-- ejecutar un contenedor que necesita acceso a los directorios internos de docker, usa un `hostPath` de `/var/lib/docker`
+- ejecutar un contenedor que necesita acceso a los directorios internos de Docker, usa un `hostPath` de `/var/lib/docker`
 - ejecutar un cAdvisor en un contenedor; usa un `hostPath` de `/sys`
 - permitir a un Pod especificar si un `hostPath` dado debería existir ante de correr el Pod, si debe crearse, cómo debe existir
 
@@ -475,8 +475,8 @@ Los valores soportados para el campo `tipo` son:
 |                     | Una cadena vacía (por defecto) es para compatibilidad con versiones anteriores, lo que significa que no se harán revisiones antes de montar el volumen hostPath. |
 | `DirectoryOrCreate` | Si no hay nada en la ruta dada, se creará un directorio vacío como es requerido con los permisos a 0755, teniendo el mismo grupo y propiedad que el Kubelet.     |
 | `Directory`         | Un directorio debe existir en la ruta dada                                                                                                                       |
-| `FileOrCreate`      | Si no hay nada en la ruta dada, se creará un fichero vacío como es requerido con los permisos a 0644, teniendo el mismo grupo y propiedad que el Kubelet.        |
-| `File`              | Un fichero debe existir en la ruta dada                                                                                                                          |
+| `FileOrCreate`      | Si no hay nada en la ruta dada, se creará un archivo vacío como es requerido con los permisos a 0644, teniendo el mismo grupo y propiedad que el Kubelet.        |
+| `File`              | Un archivo debe existir en la ruta dada                                                                                                                          |
 | `Socket`            | Un socket de UNIX debe existir en la ruta dada                                                                                                                   |
 | `CharDevice`        | Un dispositivo de caracteres debe existir en la ruta data                                                                                                        |
 | `BlockDevice`       | Un dispositivo de bloques dbe existir en la ruta dada                                                                                                            |
@@ -511,8 +511,8 @@ spec:
 ```
 
 {{< caution >}}
-El modo `FileOrCreate` no crea el directorio padre del fichero. Si el directorio padre del fichero montado no existe,
-el pod falla en iniciar. Para asegurar que este modo funciona, puedes intentar montar directorios y ficheros de forma separada,
+El modo `FileOrCreate` no crea el directorio padre del archivo. Si el directorio padre del archivo montado no existe,
+el Pod falla en iniciar. Para asegurar que este modo funciona, puedes intentar montar directorios y ficheros de forma separada,
 tal como se muestra en la [ confugiración `FileOrCreate`](#hostpath-fileorcreate-example)
 {{< /caution >}}
 
@@ -535,7 +535,7 @@ spec:
   volumes:
     - name: mydir
       hostPath:
-        # Asegúrate que el directorio del fichero es creado.
+        # Asegúrate que el directorio del archivo es creado.
         path: /var/local/aaa
         type: DirectoryOrCreate
     - name: myfile
@@ -574,7 +574,7 @@ a los nodos. El sistema está consciente de las limitaciones del nodo del volume
 
 Sin embargo, los volúmenes `local`están sujetos a la disponibilidad del nodo subyacente y no son compatibles para todas las aplicaciones.
 
-Si un nodo deja de estar sano, entonces el volumen `local` se vuelve inaccesible al pod.
+Si un nodo deja de estar sano, entonces el volumen `local` se vuelve inaccesible al Pod.
 El Pod que utiliza este volumen no se puede ejecutar.
 Las aplicaciones que usan volúmenes `local` deben ser capaces de tolerar esta disponibilidad reducida,
 así como la pérdida potencial de datos, dependiendo de las características de durabilidad del disco subyacente.
@@ -638,7 +638,7 @@ Mira el [ ejemplo NFS ](https://github.com/kubernetes/examples/tree/{{< param "g
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
-Un volumen `persistenceVolumeClain` se utiliza para montar un [PersistentVolume](/docs/concepts/storage/persistent-volumes/) en tu pod. PersistentVolumeClaims son una forma en que el usuario "reclama" almacenamiento duradero (como un PersistentDisk GCE o un volumen ISCSI) sin conocer los detalles del ambiente de la nube en particular.
+Un volumen `persistenceVolumeClain` se utiliza para montar un [PersistentVolume](/docs/concepts/storage/persistent-volumes/) en tu Pod. PersistentVolumeClaims son una forma en que el usuario "reclama" almacenamiento duradero (como un PersistentDisk GCE o un volumen ISCSI) sin conocer los detalles del ambiente de la nube en particular.
 
 Mira la información spbre [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) para más detalles.
 
@@ -819,7 +819,7 @@ CSI es el complemento recomendado para usar Quobyte dentro de Kubernetes. El pro
 ### rbd
 
 Un volumen `rbd` permite montar un volumen [Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) en tu Pod.
-A diferencia de `emptyDir`, que se borra cuando el pod es removido, el contenido de un volumen `rbd` es preservado y el volumen se desmonta. Esto significa que un volumen RBD puede ser pre-poblado con datos, y que estos datos pueden ser compartidos entre pods.
+A diferencia de `emptyDir`, que se borra cuando el Pod es removido, el contenido de un volumen `rbd` es preservado y el volumen se desmonta. Esto significa que un volumen RBD puede ser pre-poblado con datos, y que estos datos pueden ser compartidos entre pods.
 
 {{< note >}}
 Debes tener una instalación de Ceph ejecutándose antes de usar RBD.
@@ -1020,7 +1020,7 @@ Para apagar el complemento `vsphereVolume` y no cargarlo por el administrador de
 
 ## Uso de subPath {#using-subpath}
 
-Algunas veces es útil compartir un volumen para múltiples usos en un único pod.
+Algunas veces es útil compartir un volumen para múltiples usos en un único Pod.
 La propiedad `volumeMounts.subPath` especifica una sub-ruta dentro del volumen referenciado en lugar de su raíz.
 
 El siguiente ejemplo muestra cómo configurar un Pod con la pila LAMP (Linux Apache MySQL PHP) usando un único volumen compartido. Esta configuración de ejemplo usando `subPath` no se recomienda para su uso en producción.
@@ -1168,7 +1168,7 @@ You can set up your [PersistentVolume/PersistentVolumeClaim with raw block volum
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 Puedes configurar directamente volúmenes CSI dentro de la especificación del Pod.
-Los volúmenes especificados de esta manera son efímeros y no se persisten entre reinicios del pod. Mira [Volúmenes efímeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) para más información.
+Los volúmenes especificados de esta manera son efímeros y no se persisten entre reinicios del Pod. Mira [Volúmenes efímeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) para más información.
 
 Para más información de cómo desarrollador un controlador CSI, mira la [documentación kubernetes-csi](https://kubernetes-csi.github.io/docs/)
 
@@ -1195,7 +1195,7 @@ For more details, see the [FlexVolume](https://github.com/kubernetes/community/b
 
 ## Propagación del montaje
 
-La propagación del montaje permite compartir volúmenes montados por un contenedor para otros contenedores en el mismo pod, o aun para otros pods en el mismo nodo.
+La propagación del montaje permite compartir volúmenes montados por un contenedor para otros contenedores en el mismo Pod, o aun para otros pods en el mismo nodo.
 
 La propagación del montaje de un volumen es controlada por el campo `mountPropagation` en `Container.volumeMounts`. Sus valores son:
 
