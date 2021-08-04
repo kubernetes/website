@@ -20,7 +20,7 @@ Docker tiene el concepto de [volúmenes](https://docs.docker.com/storage/), aunq
 Un volumen de Docker es un directorio en disco o en otro contenedor. Docker provee controladores de volúmenes, pero la funcionalidad es algo limitada.
 
 Kubernetes soporta muchos tipos de volúmenes. Un {{< glossary_tooltip term_id="pod" text="Pod" >}}
-puede utilizar cualquier número de tipos de volúmenes simultáneamente. Los tipos de volúmenes efímeros tienen el tiempo de vida de un pod, pero los volúmenes persistentes existen más allá del tiempo de vida de un pod. Cuando un pod deja de existir,
+puede utilizar cualquier número de tipos de volúmenes simultáneamente. Los tipos de volúmenes efímeros tienen el mismo tiempo de vida que un Pod, pero los volúmenes persistentes existen más allá del tiempo de vida de un Pod. Cuando un Pod deja de existir,
 Kubernetes destruye los volúmenes efímeros; sin embargo, Kubernetes no destruye los volúmenes persistentes. Para cualquier tipo de volumen en un pod dado, los datos son preservados a través de los reinicios del contenedor.
 
 En su núcleo, un volumen es un directorio, posiblemente con algunos datos en este, que puede ser accesible para los contenedores en un pod. Cómo ese directorio llega a crearse, el medio que lo respalda, y el contenido de este se determinan por el tipo de volumen usado.
