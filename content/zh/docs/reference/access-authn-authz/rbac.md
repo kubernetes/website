@@ -244,7 +244,7 @@ metadata:
 subjects:
 # 你可以指定不止一个“subject（主体）”
 - kind: User
-  name: jane # "name" 是不区分大小写的
+  name: jane # "name" 是区分大小写的
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   # "roleRef" 指定与某 Role 或 ClusterRole 的绑定关系
@@ -268,7 +268,7 @@ RoleBinding 所在名字空间的资源。这种引用使得你可以跨整个�
 之后在多个名字空间中复用。
 
 例如，尽管下面的 RoleBinding 引用的是一个 ClusterRole，"dave"（这里的主体，
-不区分大小写）只能访问 "development" 名字空间中的 Secrets 对象，因为 RoleBinding
+区分大小写）只能访问 "development" 名字空间中的 Secrets 对象，因为 RoleBinding
 所在的名字空间（由其 metadata 决定）是 "development"。
 
 ```yaml
@@ -283,7 +283,7 @@ metadata:
   namespace: development
 subjects:
 - kind: User
-  name: dave # 'name' 是不区分大小写的
+  name: dave # 'name' 是区分大小写的
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -312,7 +312,7 @@ metadata:
   name: read-secrets-global
 subjects:
 - kind: Group
-  name: manager # 'name' 是不区分大小写的
+  name: manager # 'name' 是区分大小写的
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
