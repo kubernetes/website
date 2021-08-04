@@ -607,7 +607,7 @@ spec:
 ```
 
 Debes establecer un valor de `nodeAffinity` del PersistenVolume cuando uses volúmenes `local`.
-El programador de Kubernetes usa esta `nodeaffinity` del PersistenVolume para programar estos Pods al nodo correcto.
+El Scheduler de Kubernetes usa `nodeaffinity` del PersistenVolume para programar estos Pods al nodo correcto.
 
 El `volumeMode` del PersistentVolume se puede establecer en "Block" (en lugar del valor por defecto, "Filesystem")
 para exponer el volumen local como un dispositivo de bloque sin formato.
