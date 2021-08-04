@@ -284,7 +284,7 @@ spec:
 ### fc (canal de fibra) {#fc}
 
 Un tipo de volumen `fc` permite que un volumen de almacenamiento de bloque de canal de fibra existente se monte en un Pod.
-Puede especificar nombres mundiales de destino únicos o múltiples (WWN) utilizando el parámetro `targetWWNs` en su configuración de Volumen.
+Puede especificar nombres mundiales de destino únicos o múltiples (WWN) utilizando el parámetro `targetWWNs` en su configuración de volumen.
 Si se especifican varios WWN, targettWWNs esperan que esos WWN sean de conexiones de múltiples rutas.
 
 {{< note >}}
