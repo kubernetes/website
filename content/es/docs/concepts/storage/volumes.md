@@ -575,7 +575,7 @@ a los nodos. El sistema está consciente de las limitaciones del nodo del volume
 Sin embargo, los volúmenes `local`están sujetos a la disponibilidad del nodo subyacente y no son compatibles para todas las aplicaciones.
 
 Si un nodo deja de estar sano, entonces el volumen `local` se vuelve inaccesible al pod.
-El pod que utiliza este volumen no se puede ejecutar.
+El Pod que utiliza este volumen no se puede ejecutar.
 Las aplicaciones que usan volúmenes `local` deben ser capaces de tolerar esta disponibilidad reducida,
 así como la pérdida potencial de datos, dependiendo de las características de durabilidad del disco subyacente.
 
