@@ -323,7 +323,7 @@ Debes crear un disco persistente usando `gcloud`, la API de GCE o la UI antes de
 Existen algunas restricciones cuando usas `gcePersistentDisk`:
 
 - Los nodos en los que se ejecutan los pods deben ser máquinas virtuales GCE.
-- Esas máquinas virtuales deben estar en el mismo proyecto GCE y zona que el disco persistente.
+- Esas máquinas virtuales deben estar en el mismo proyecto GCE y zona que el disco persistente se encuentra.
 
 Una de las características del disco persistente CGE es acceso concurrente de solo lectura al disco persistente.
 Un volumen `gcePersistentDisk` permite montar simultáneamente un disco de solo lectura a múltiples consumidores.
