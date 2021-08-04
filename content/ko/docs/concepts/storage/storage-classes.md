@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 title: 스토리지 클래스
 content_type: concept
 weight: 30
@@ -184,7 +189,7 @@ CSI | 1.14 (alpha), 1.16 (beta)
 CSI 드라이버에 대한 문서를 본다.
 
 {{< note >}}
-   `waitForFirstConsumer`를 사용한다면, 노드 어피니티를 지정하기 위해서 파드 스펙에 `nodeName`을 사용하지는 않아야 한다.
+   `WaitForFirstConsumer`를 사용한다면, 노드 어피니티를 지정하기 위해서 파드 스펙에 `nodeName`을 사용하지는 않아야 한다.
    만약 `nodeName`을 사용한다면, 스케줄러가 바이패스되고 PVC가 `pending` 상태로 있을 것이다.
 
    대신, 아래와 같이 호스트네임을 이용하는 노드셀렉터를 사용할 수 있다.
