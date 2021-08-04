@@ -311,7 +311,7 @@ Mira el [ejemplo de Flocker ](https://github.com/kubernetes/examples/tree/{{< pa
 ### gcePersistentDisk
 
 Un volumen `gcePersistentDisk` monta un volumen de Google Compute Engine (GCE)
-[persistent disk](https://cloud.google.com/compute/docs/disks) (DP) en tu Pod.
+de [disco persistente](https://cloud.google.com/compute/docs/disks) (DP) en tu Pod.
 A diferencia de `emptyDir`, que se borra cuando el pod es removido, el contenido de un DP es preservado
 y el volumen solamente se desmonta. Esto significa que un PD puede ser pre-poblado con datos,
 y que esos datos se pueden compartir entre pods.
