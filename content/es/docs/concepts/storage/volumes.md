@@ -6,9 +6,9 @@ weight: 10
 
 <!-- overview -->
 
-Los ficheros en disco dentro de un contenedor son efímeros, lo cual presenta problemas
+Los archivos localizados dentro de un contenedor son efímeros, lo cual presenta problemas
 para aplicaciones no triviales cuando se ejecutan en contenedores. Un problema es la
-pérdida de ficheros cuando el contenedor se cae. El kubelet reinicia el contenedor pero con un estado limpio.
+pérdida de archivos cuando el contenedor termina. Kubelet reinicia el contenedor con un estado limpio.
 Un segundo problema ocurre cuando compartimos ficheros entre contenedores corriendo juntos dentro de un `Pod`. La abstracción {{< glossary_tooltip text="volume" term_id="volume" >}} de Kubernetes resuelve ambos problemas.
 Se sugiere familiaridad con [Pods](/docs/concepts/workloads/pods/)
 
