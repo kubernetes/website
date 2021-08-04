@@ -1,101 +1,91 @@
 ---
-title: Developing and debugging services with local IDE inside container
+title: Develop and debug the services in the container
 content_type: task
 ---
 
-Kubernetes applications are generally composed of many microservices. Due to environmental and resource constraints, These microservices are sometimes difficult to run locally as source code. If you use Minikube as a development environment locally, you have to rebuild docker image after writing the code, and modify the image version of the waiting to take effect, which leads to a lot of waste of time and low development efficiency.
+Kubernetes applications are generally composed of many microservices. Due to environment differences and resource constraints, these microservices somtimes can not run locally as source code. Therefore, developers need to rebuild the image, modify the image version of the workload and then wait for the Pod scheduling after coding. This causes the low efficiency of development in Kubernetes emvironment.
 
-`Nocalhost` is a tool that simplifies the development of microservices in the Kubernetes environment. The core function it provides is: use IDE plug-ins (including VSCode and Jetbrains) to develop directly in the container with a graphical interface, And realized real-time synchronization of local code and remote container, Get rid of the trouble of relying on CI/CD to verify the code in some scenarios and rebuilding the docker image.
+Nocalhost is a tool that enables developers to develop applications in Kubernetes Cluster. It can transfer the remote workload to development mode by using Nocalhost IDE (including VSCode and Jetbrains). When the developer writes code locally, any code changes will be automatically synchronized to the remote development container and initiate the application update immediately (depending on the hot load mechanism of the application or restart the application). The development container inherits all the declarative configurations (configmap, secret, volume, Env) from the original workload, which provides the basis for the application to run in the development container as source code.
 
-This document describes how to use `Nocalhost` to directly develop microservices in a container under Kubernetes environment.
+This is an tutorial of developing services in the container in Kubernetes environment using  `Nocalhost` .
+
+
 
 ## {{% heading "prerequisites" %}}
 
 * Kubernetes cluster is installed
-* Install [Nocalhost](https://nocalhost.dev/installation/) plugin (support VSCode and Jetbrains)
+*  [Nocalhost](https://nocalhost.dev/installation/) extension installed (supporting VSCode and Jetbrains)
 
-## Add Kubeconfig for Nocalhost
+## Add Kubeconfig for Nocalhost 
 
-Take the VSCode plug-in as an example, you can select context under `~/.kube/config` or "Paste kubeconfig".
+We take the VSCode extension as an example here. Open the Nocalhost extension, then you can add the Kubernetes Cluster by selecting the context in `~/.kube/config` or copying the "kubeconfig".  
 
-After add Kubeconfig has been completed, you can view the workload under the cluster in the plugin. For example, the cluster has been deployed with the Istio sample [bookinfo](https://raw.githubusercontent.com/istio/istio/release-1.10/samples/bookinfo/platform/kube/bookinfo.yaml).
+## Install the Demo application 
 
-![Nocalhost VSCode Plugin](/images/docs/nocalhost-vscode-plugin.png)
+After adding the cluster, open it and it will displays all  `Namespace`. Find the  `default` Namespace and click the right button ![](/images/docs/nocalhost-deploy.png).
 
-## Develop and debug the workload of the cluster
+Select "Deploy Demo" to install the "bookinfo" application of lstio examples.
 
-Using the Nocalhost plug-in, you can easily perform port forwarding, view logs, and enter the terminal.
+![Install bookinfo demo](/images/docs/nocalhost-demo.png)
 
-For example, to forward the remote `9080` port of `productpage-v1` to the local `9080` port, just right-click the service, select "Port Forward", and enter `9080:9080`.
+After the application is installed, open the "bookinfo" application and enter the "Deplpoyment" menu. When all service icons turn green, the application becomes ready.
 
-At this point, open the browser `127.0.0.1:9080`, you should see the following interface.
+![Wait bookinfo becomes ready](/images/docs/nocalhost-bookinfo.png)
 
-![Nocalhost Bookinfo Productpage](/images/docs/nocalhost-bookinfo-productpage.png)
+Next, open `127.0.0.1:39080` in the browser to access the `productpage` service. You will see the following interface.
 
-Now, suppose you want to change the line of "The Comedy of Errors" on the web (it is known that the text is output by the `productpage-v1` service). Generally speaking, we have two solutions:
+![Bookinfo productpage](/images/docs/nocalhost-bookinfo-productpage.png)
 
-* The first way: modify the source code locally, run `docker build` to build the image, update the workload image version and wait for it to take effect.
-* The second way: Use tools such as `Telepresence` to run the `productpage-v1` service locally with source code, and hijack the local domain name to resolve to the remote cluster so that it can access the remote `details`, `ratings `, `reviews` service.
+## Develop service
 
-For some complex microservices, because of differences in resources and environments, it is difficult to run the services to be developed locally with source code, So most people will choose the first solution, which is difficult to accept.
+Here, assume that we are going to modify the line “The Comedy of Errors” on the interface (known to be the output of the  `productpage` service). Generally, we have two methods.
 
-Now, with Nocalhost, you can choose a new development method: develop directly in the container.
+* The first method is to modify the source code, and then execute `docker build` to build the image. Push it to the image registry, update the image version of the workload and wait for it to work.
+* The second method is to use tools such as  `Telepresence`. Run `productpage` service locally as source code and intercept the local domain name resolution to the remote cluster to access the  `details`, `ratings`, `reviews` services of the remote.
 
-For example, to develop the `productpage-v1` service. 
+For some complex microservices, it is very difficult to run locally as source code due to environment differences and resource constraints. Hence, we have no choice but go back to the first method, which is the current situation of many complex application development.
 
-first step: clone the source code of the project (it may take a few minutes).
+But now, with Nocalhost, you have a new choice: develop the service in the container.
 
-```
-git clone https://github.com/istio/istio.git
-```
+It becomes very easy to develop `productpage` services. Click the ![](/images/docs/nocalhost-start-develop.png) icon on the right side of the service on the extension, and select "Clone from Git Repo" in the pop-up menu and then choose a local directory. Nocalhost will atomatically clone the source code of this service and enter its development mode.
 
-second step: change `productpage-v1` to development mode.
+In development mode, VSCode will open the source code in a new window and obtain access to the remote container  `Terminal` .
 
-back to the Nocalhost plugin and click the green "hammer" icon on the right side of the `productpage-v1` service. It only takes two steps to enter the `productpage-v1` service into development mode:
+![Nocalhost remote dev container](/images/docs/nocalhost-remote-dev-container.png)
 
-* Select `Open local directory`, and select the `istio/samples/bookinfo/src/productpage/` directory.
-* Select "Custom" in the new window and enter `python:3.7.7-slim`
-
-After entering the development mode, the VSCode plugin will get the `Terminal` of the **remote container**.
-
-![Nocalhost Remote Dev Container](/images/docs/nocalhost-remote-dev-container.png)
-
-Execute the `ls` command in `Terminal`:
+Execute `ls` command in the  `Terminal` :
 
 ```
-/home/nocalhost-dev # ls
-Dockerfile productpage.py requirements.txt static templates test-requirements.txt tests
+/home/nocalhost-dev# ls
+Dockerfile  README.md  productpage.py  requirements.txt  run.sh  static  templates  test-requirements.txt  tests
 ```
 
-It can be found that the source code of `productpage-v1` has been synchronized to the remote container. 
-
-third step: run code inside container:
+You can find that the source code of  `productpage` has been synchronized to the container. Then execute the command:
 
 ```
-pip install -r requirements.txt && python productpage.py 9080
+sh run.sh
 ```
 
-After a while, the `productpage` service will start.
+The `productpage` service will start in a moment .
+
+Next, use `VSCode` to edit the `355` line of  `productpage.py` file in the current workplace. Change `The Comedy of Errors` to `The Comedy of Errors Code Change Here`, and save the changes.
+
+![Productpage Code](/images/docs/nocalhost-bookinfo-productpage-code-change.png)
+
+Refresh the pages of `127.0.0.1:39080`. You will see the following interface.
+
+![Productpage after code changed](/images/docs/nocalhost-bookinfo-productpage-new-web.png)
+
+Now, any code changes will be automatically synchronized to the remote. Since the `productpage` service has the hot reload ablity, the changes will work with immediate effect.
+
+So far, we have finished the demostration of the `productpage` service development using Nocalhost.
+
+There is no need for developers to learn extra commands and tools in this process. It provides a visualized way to develop services in the container through developer's IDE, which greatly improves the experience and efficiency of development in Kubernetes environment.
 
 
-fourth step: edit local code.
-
-use `VSCode` to edit line `355` of `productpage.py` file under `workspace`, change `The Comedy of Errors` to `The Comedy of Errors Code Change Here`, and save the changes.
-
-![Nocalhost Bookinfo Productpage Code Change](/images/docs/nocalhost-bookinfo-productpage-code-change.png)
-
-Reopen the browser `127.0.0.1:9080`, and you should see the following interface:
-
-![Nocalhost Bookinfo Productpage New Web](/images/docs/nocalhost-bookinfo-productpage-new-web.png)
-
-Now, any local code modification will be synchronized to the remote in real time. Because the `productpage-v1` service has the capability of hot reloading, it will automatically restart the service.
-
-So far, we have completed the demonstration of using Nocalhost to develop the `productpage-v1` service.
-
-In this process, developers do not need to learn additional tool commands, and directly develop services in a graphical interface in the IDE which is closest to the developer, improves the development experience and efficiency in the Kubernetes environment.
 
 ## {{% heading "whatsnext" %}}
 
-If you are interested in this tutorial, please check [quick start](https://nocalhost.dev/getting-started/).
+If you are interested in this tutorial, please visit [quick start](https://nocalhost.dev/getting-started/).
 
-For more information, please visit [Nocalhost website](https://nocalhost.dev).
+For more information, please visit  [Nocalhost Website](https://nocalhost.dev).
