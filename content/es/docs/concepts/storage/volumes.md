@@ -17,7 +17,7 @@ Se sugiere familiaridad con [Pods](/docs/concepts/workloads/pods/)
 ## Trasfondo
 
 Docker tiene el concepto de [volúmenes](https://docs.docker.com/storage/), aunque es algo más flojo y menos controlado.
-Un volumen de docker es un directorio en disco o en otro contenedor. Docker provee controladores de volúmenes, pero la funcionalidad es algo limitada.
+Un volumen de Docker es un directorio en disco o en otro contenedor. Docker provee controladores de volúmenes, pero la funcionalidad es algo limitada.
 
 Kubernetes soporta muchos tipos de volúmenes. Un {{< glossary_tooltip term_id="pod" text="Pod" >}}
 puede utilizar cualquier número de tipos de volúmenes simultáneamente. Los tipos de volúmenes efímeros tienen el tiempo de vida de un pod, pero los volúmenes persistentes existen más allá del tiempo de vida de un pod. Cuando un pod deja de existir,
