@@ -560,7 +560,7 @@ Esto significa que puedes pre-poblar un volumen con tu conjunto de datos y servi
 Desafortunadamente, los volúmenes ISCSI solo se pueden montar por un único consumidor en modo lectura-escritura.
 Escritores simultáneos no está permitido.
 
-Mira el [ ejemplo iSCSI](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) para más detalles.
+Mira el [ejemplo iSCSI](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) para más detalles.
 
 ### local
 
