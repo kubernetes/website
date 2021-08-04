@@ -209,7 +209,7 @@ If you don't see any progress, make sure you have a dynamic PersistentVolume
 provisioner enabled as mentioned in the [prerequisites](#before-you-begin). 
 -->
 输入 **Ctrl+C** 结束 watch 操作。
-如果你看不到任何进度，确保已启用[前提条件](#before-you-begin)
+如果你看不到任何进度，确保已启用[前提条件](#准备开始)
 中提到的动态 PersistentVolume 预配器。
 
 <!--

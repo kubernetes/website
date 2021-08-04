@@ -89,7 +89,7 @@ Operation       | Syntax    |       Description
 `cluster-info`    | `kubectl cluster-info [flags]` | Display endpoint information about the master and services in the cluster.
 `completion`    | `kubectl completion SHELL [options]` | Output shell completion code for the specified shell (bash or zsh).
 `config`        | `kubectl config SUBCOMMAND [flags]` | Modifies kubeconfig files. See the individual subcommands for details.
-`convert`    | `kubectl convert -f FILENAME [options]` | Convert config files between different API versions. Both YAML and JSON formats are accepted.
+`convert`    | `kubectl convert -f FILENAME [options]` | Convert config files between different API versions. Both YAML and JSON formats are accepted. Note - requires `kubectl-convert` plugin to be installed.
 `cordon`    | `kubectl cordon NODE [options]` | Mark node as unschedulable.
 `cp`    | `kubectl cp <file-spec-src> <file-spec-dest> [options]` | Copy files and directories to and from containers.
 `create`        | `kubectl create -f FILENAME [flags]` | Create one or more resources from a file or stdin.
