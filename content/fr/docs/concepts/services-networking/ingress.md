@@ -85,10 +85,8 @@ spec:
       - path: /testpath
         pathType: Prefix
         backend:
-          service:
-            name: test
-            port:
-              number: 80
+          serviceName: test
+          servicePort: 80
 ```
 
 Comme pour toutes les autres ressources Kubernetes, un Ingress (une entrée) a besoin des champs `apiVersion`,` kind` et `metadata`.
