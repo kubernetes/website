@@ -21,14 +21,15 @@ This is an tutorial of developing services in the container in Kubernetes enviro
 * {{< include "task-tutorial-prereqs.md" >}}
 *  A local IDE: either Microsoft Visual Studio Code, or Jetbrains
 *  Nocalhost itself. To learn how to install Nocalhost, visit [Installation](https://nocalhost.dev/eng/installation/)
+*  [Install the Demo application](#install-the-demo-application)
 
-## Add Kubeconfig for Nocalhost 
+## Add Kubeconfig for Nocalhost
 
 We take the VSCode extension as an example here. Open the Nocalhost extension, then you can add the Kubernetes Cluster by selecting the context in `~/.kube/config` or pasting the "kubeconfig".
 
 ![Pasting kubeconfig to Nocalhost VSCode plugin](/images/docs/paste-kubeconfig-to-nocalhost.png)
 
-## Install the Demo application 
+## Install the Demo application
 
 After adding the cluster, open it and it will displays all  `Namespace`. Find the  `default` Namespace and click the right button ![](/images/docs/nocalhost-deploy.png).
 
@@ -38,13 +39,13 @@ Select "Deploy Demo" to install the "bookinfo" application of lstio examples.
 
 After the application is installed, open the "bookinfo" application and enter the "Deplpoyment" menu. When all service icons turn green, the application becomes ready.
 
-![Wait bookinfo becomes ready](/images/docs/nocalhost-bookinfo.png)
+![Wait for bookinfo to be ready](/images/docs/nocalhost-bookinfo.png)
 
 Next, open `127.0.0.1:39080` in the browser to access the `productpage` service. You will see the following interface.
 
 ![Bookinfo productpage](/images/docs/nocalhost-bookinfo-productpage.png)
 
-## Develop service
+## Modifiying your application
 
 Here, assume that we are going to modify the line “The Comedy of Errors” on the interface (known to be the output of the  `productpage` service). Generally, we have two methods.
 
