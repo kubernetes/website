@@ -1,5 +1,5 @@
 ---
-title: Job - Dijalankan Hingga Selesai
+title: Jobs
 content_type: concept
 feature:
   title: Eksekusi batch
