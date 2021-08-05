@@ -31,7 +31,7 @@ We take the VSCode extension as an example here. Open the Nocalhost extension, t
 
 ## Install the Demo application
 
-After adding the cluster, open it and it will displays all  `Namespace`. Find the  `default` Namespace and click the right button ![](/images/docs/nocalhost-deploy.png).
+After adding the cluster, open it and it will displays all  `Namespace`. Find the  `default` Namespace and click the ![](/images/docs/nocalhost-deploy.png) Icon on the right side.
 
 Select "Deploy Demo" to install the "bookinfo" application of lstio examples.
 
