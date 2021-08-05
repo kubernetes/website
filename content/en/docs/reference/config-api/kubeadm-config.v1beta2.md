@@ -721,7 +721,7 @@ for, so other administrators can know its purpose.</td>
     
   
 <tr><td><code>expires</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    `expires` specifies the timestamp when this token expires. Defaults to being set
@@ -1199,7 +1199,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
     
   
 <tr><td><code>pathType</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    `pathType` is the type of the `hostPath` volume.</td>
@@ -1451,7 +1451,7 @@ annotated to the Node API object, for later re-use.</td>
     
   
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    `taints` specifies the taints the Node API object should be registered with. If
