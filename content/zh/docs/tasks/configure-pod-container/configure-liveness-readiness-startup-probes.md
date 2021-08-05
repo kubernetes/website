@@ -443,8 +443,8 @@ Readiness probes runs on the container during its whole lifecycle.
 Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
 -->
 {{< caution >}}
-活跃性探测器 *不等待* 就绪性探测器成功。
-如果要在执行活跃性探测器之前等待，应该使用 initialDelaySeconds 或 startupProbe。
+存活探测器 *不等待* 就绪性探测器成功。
+如果要在执行存活探测器之前等待，应该使用 initialDelaySeconds 或 startupProbe。
 {{< /caution >}}
 
 <!--
@@ -682,7 +682,7 @@ unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
 was set.
 -->
 在 1.21 版之前，pod 级别的 `terminationGracePeriodSeconds` 被用来终止
-未能成功处理活跃性探测或启动探测的容器。
+未能成功处理存活探测或启动探测的容器。
 这种耦合是意料之外的，可能会导致在设置了 pod 级别的 `terminationGracePeriodSeconds` 后，
 需要很长的时间来重新启动失败的容器。
 
