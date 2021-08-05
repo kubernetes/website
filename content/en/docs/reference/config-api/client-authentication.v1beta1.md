@@ -187,6 +187,14 @@ ExecConfig.ProvideClusterInfo).</td>
 </tr>
     
   
+<tr><td><code>interactive</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   Interactive declares whether stdin has been passed to this exec plugin.</td>
+</tr>
+    
+  
 </tbody>
 </table>
     
@@ -215,7 +223,7 @@ itself should at least be protected via file permissions.
 
   
 <tr><td><code>expirationTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    ExpirationTimestamp indicates a time when the provided credentials expire.</td>
