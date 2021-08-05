@@ -15,9 +15,7 @@ Generate the certificate for serving the Kubernetes API
 ### Synopsis
 
 
-Generate the certificate for serving the Kubernetes API, and save them into apiserver.cert and apiserver.key files.
-
-Default SANs are kubernetes, kubernetes.default, kubernetes.default.svc, kubernetes.default.svc.cluster.local, 10.96.0.1, 127.0.0.1
+Generate the certificate for serving the Kubernetes API, and save them into apiserver.crt and apiserver.key files.
 
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 
