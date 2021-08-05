@@ -81,7 +81,7 @@ announcements:
     <img src="/images/announcements/kubecon-NA-2021-white.svg" style="float: right; height: 80px;" />
     <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/"> KubeCon + CloudNativeCon North America 2021</a> <em>Los Angeles, California + Virtual</em>.
   message: |
-    5 days of incredible opportunites to collaborate, learn + share with entire the community!<br />
+          5 days of incredible opportunites to collaborate, learn + share with the entire community!<br />
     October 11 - 15, 2021.
 
 - name: Kubecon 2021 China
