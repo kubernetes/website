@@ -17,8 +17,6 @@ Kubeconfig file utilities
 
 Kubeconfig file utilities.
 
-Alpha Disclaimer: this command is currently alpha.
-
 ### Options
 
    <table style="width: 100%; table-layout: fixed;">

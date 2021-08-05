@@ -15,7 +15,7 @@ Generate the self-signed Kubernetes CA to provision identities for other Kuberne
 ### Synopsis
 
 
-Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components, and save them into ca.cert and ca.key files.
+Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components, and save them into ca.crt and ca.key files.
 
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 
