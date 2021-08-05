@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes 1.22: CSI Windows Support (with CSI Proxy) reaches GA'
-date: 2021-07-27
+date: 2021-08-05
 slug: csi-windows-support-with-csi-proxy-reaches-ga
 ---
 
@@ -25,7 +25,7 @@ When a workload that uses persistent volumes is scheduled, it'll go through a se
 
 The node component of a CSI Driver needs to run on Windows nodes to support Windows workloads. Various privileged operations like scanning of disk devices, mounting of file systems, etc. cannot be done from a containerized application running on Windows nodes yet ([Windows HostProcess containers](https://github.com/kubernetes/enhancements/issues/1981) introduced in Kubernetes 1.22 as alpha enable functionalities that require host access like the operations mentioned before). However, we can perform these operations through a binary (CSI Proxy) that's pre-installed on the Window nodes. CSI Proxy has a client-server architecture and allows CSI drivers to issue privileged storage operations through a gRPC interface exposed over named pipes created during the startup of CSI Proxy.
 
-![CSI Proxy Architecture](/images/blog/2021-07-27-csi-windows-support-with-csi-proxy-reaches-ga/csi-proxy.png)
+![CSI Proxy Architecture](/images/blog/2021-08-05-csi-windows-support-with-csi-proxy-reaches-ga/csi-proxy.png)
 
 ## CSI Proxy reaches GA
 
