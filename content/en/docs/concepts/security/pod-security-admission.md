@@ -142,4 +142,4 @@ current policy level:
 - [Enforcing Pod Security Standards](/docs/setup/best-practices/enforcing-pod-security-standards)
 - [Enforce Pod Security Standards by Configuring the Built-in Admission Controller](/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
 - [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
-- [Migrating from PodSecurityPolicy to PodSecurity](/docs/tasks/secure-pods/migrate-from-psp)
+- [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp)
