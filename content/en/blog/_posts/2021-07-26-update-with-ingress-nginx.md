@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Updating NGINX-Ingress to use the stable Ingress API'
+title: 'Updating Ingress-Nginx-Controller, to use the stable Ingress API'
 date: 2021-07-26
 slug: update-with-ingress-nginx
 ---
@@ -25,47 +25,48 @@ in discussion since
 KEP-1453: 
 [Graduate Ingress API to GA](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/1453-ingress-api#122).
 
-During community meetings, the networking Special Interest Group has decided to continue 
-supporting Kubernetes versions older than 1.22 with Ingress-NGINX version 0.47.0. 
-Support for Ingress-NGINX will continue for six months after Kubernetes 1.22 
-is released. Any additional bug fixes and CVEs for Ingress-NGINX will be 
-addressed on a need-by-need basis.
+Because of this deprecation of older api versions, the current code-base & release of the Ingress-Nginx-Controller, will not work on Kubernetes clusters running  K8s v1.22 and above.
+Hence there will be newer releases of the Ingress-Nginx-Controller, with changed code-base to handle this deprecation.
+Unfortunately, the change in the code-base will break backward compatibility, of the Ingress-Nginx-Controller.
+The newer releases of the Ingress-Nginx-Controller, will not work on Kubernetes versions older than v1.19.
 
-Ingress-NGINX will have separate branches and releases of Ingress-NGINX to 
-support this model, mirroring the Kubernetes project process. Future 
-releases of the Ingress-NGINX project will track and support the latest 
-versions of Kubernetes.
+To manage this break in backward compatibility, during the community meetings, the networking Special Interest Group, has decided to begin maintaining/releasing two different editions of the Ingress-Nginx-Controller.
 
-{{< table caption="Ingress NGINX supported version with Kubernetes Versions" >}}
+- One edition of the ingress-nginx-controller will continue supporting Kubernetes versions older than 1.19.
+  - This support will be available for a perod of 6 months, from the date of release, of Kubernetes version 1.22.
+  - This edition of the Ingress-NGINX-Controller releases will be versions 0.X.X (but NOT 1.X.X)
+  - Any additional code changes will be limited to critical bug fixes and CVEs fixes, on a need-by-need basis.
+
+
+- Another edition of the ingress-nginx-controller will only support Kubernetes versions 1.19.X and above
+  - This other edition of the Ingress-Nginx-Controller, will jump ahead in the sem-versioning, so as to make it distinct
+  - The first release with this newer code-base, will be version 1.0.0
+  - Most future releases of the Ingress-Nginx project will track and support the latest versions of Kubernetes.
+
+
+## "Ingress NGINX supported version with Kubernetes Versions"
 Kubernetes version  | Ingress-NGINX version | Notes
 :-------------------|:----------------------|:------------
-v1.22              | v1.0.0-alpha.2     | New features, plus bug fixes.
-v1.21              | v0.47.x        | Bugfixes only, and just for security issues or crashes. No end-of-support date announced.
-v1.20              | v0.47.x        | Bugfixes only, and just  for security issues or crashes. No end-of-support date announced.
-v1.19              | v0.47.x        | Bugfixes only, and just  for security issues or crashes. Fixes only provided until 6 months after Kubernetes v1.22.0 is released.
+v1.22              | v1.0.0+        | New features, plus bug fixes.
+v1.21              | v0.48+         | Bugfixes only, and just for security issues or crashes. No end-of-support date announced.
+v1.20              | v0.48+         | Bugfixes only, and just  for security issues or crashes. No end-of-support date announced.
+v1.19              | v0.48+         | Bugfixes only, and just  for security issues or crashes. Fixes only provided until 6 months after Kubernetes v1.22.0 is released.
 {{< /table >}}    
 
-Because of the updates in Kubernetes 1.22, **v0.47.0** will not work with 
-Kubernetes 1.22. 
+Because of the deprecations of older api versions in Kubernetes v1.22, Ingress-Nginx-Controller **v0.X.X** will not work with Kubernetes v1.22. 
 
 # What you need to do
 
-The team is currently in the process of upgrading ingress-nginx to support 
-the v1 migration, you can track the progress 
-[here](https://github.com/kubernetes/ingress-nginx/pull/7156).  
-We're not making feature improvements to `ingress-nginx` until after the support for
-Ingress v1 is complete.
+Please check  https://kubernetes.github.io/ingress-nginx/ for updated information related to Ingress-Nginx-Controller v1.0.0 and the related migration documentation.
+
+The team is currently in the process of upgrading ingress-nginx to support the v1 migration, you can track the progress [here](https://github.com/kubernetes/ingress-nginx/pull/7156).  
+We're not making feature improvements to  the `Ingress-Nginx-Controller`, until after the support for Ingress v1 is complete.
 
 In the meantime to ensure no compatibility issues: 
 
-* Update to the latest version of Ingress-NGINX; currently
-  [v0.47.0](https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v0.47.0) 
-* After Kubernetes 1.22 is released, ensure you are using the latest version of 
-  Ingress-NGINX that supports the stable APIs for Ingress and IngressClass.
-* Test Ingress-NGINX version v1.0.0-alpha.2 with Cluster versions >= 1.19 
-  and report any issues to the projects Github page. 
+* Update to the latest version of Ingress-NGINX; at the time of writing this blog, it is  [v0.48.1](https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v0.48.1) 
+* After Kubernetes 1.22 is released, ensure you are using the latest version of Ingress-NGINX that supports the stable APIs for Ingress and IngressClass.
+* Test Ingress-NGINX version v1.X.X+ with Kubernetes Cluster versions >= 1.19 and report any issues to the projects Github page. 
 
-The community’s feedback and support in this effort is welcome. The
-Ingress-NGINX Sub-project regularly holds community meetings where we discuss
-this and other issues facing the project. For more information on the sub-project, 
-please see [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network).
+The community’s feedback and support in this effort is welcome. The Ingress-NGINX Sub-project regularly holds community meetings where we discuss
+this and other issues facing the project. For more information on the sub-project, please see [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network).
