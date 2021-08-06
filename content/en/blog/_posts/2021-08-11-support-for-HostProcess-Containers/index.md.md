@@ -50,7 +50,7 @@ greatly in their implementation, hence the naming difference.
 
 ## How do I use it?
 
-HostProcess containers can be run from with in a 
+HostProcess containers can be run from within a 
 [HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-container.md). 
 With the feature enabled on Kubernetes version 1.22, a containerd container runtime of 
 1.5.4 or higher, and the latest version of hcsshim, deploying a pod spec with the 
@@ -69,4 +69,3 @@ will enable you to run HostProcess containers.
 
 HostProcess containers are in active development and welcome suggestions from the community. 
 [Get involved with SIG-Windows to contribute!](https://github.com/kubernetes/community/tree/master/sig-windows)
-
