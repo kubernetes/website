@@ -17,7 +17,7 @@ the documentation for Kubernetes as a whole. See
 for more information about the SIG.
 
 SIG Docs welcomes content and reviews from all contributors. Anyone can open a
-pull request (PR), and anyone is welcome to file issues about content or comment
+pull request (PR), and everyone is welcome to file issues about content or comment
 on pull requests in progress.
 
 You can also become a [member](/docs/contribute/participate/roles-and-responsibilities/#members),
