@@ -140,28 +140,10 @@ showedit = true
 
 latest = "v1.22"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-fullversion = "v1.21.0"
-version = "v1.21"
-githubbranch = "master"
-docsbranch = "master"
-||||||| 120f24ee2
-||||||| merged common ancestors
-<<<<<<< HEAD
-=======
->>>>>>> b235923e54c8a4fd9c69b6860ac0736df6747c0f
-fullversion = "v1.21.0"
-version = "v1.21"
-githubbranch = "master"
-docsbranch = "master"
-=======
 fullversion = "v1.22.0"
 version = "v1.22"
 githubbranch = "main"
 docsbranch = "main"
->>>>>>> fork/main
 deprecated = false
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
