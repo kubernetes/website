@@ -25,7 +25,7 @@ This is an tutorial of developing services in the container in Kubernetes enviro
 
 ## Add Kubeconfig for Nocalhost
 
-We take the VSCode extension as an example here. Open the Nocalhost extension, then you can add the Kubernetes Cluster by selecting the context in `~/.kube/config` or pasting the "kubeconfig".
+We take the VSCode extension as an example here. Open the Nocalhost extension, then add the Kubernetes Cluster by selecting the context in `~/.kube/config` or pasting the "kubeconfig", click the "Add Cluster" button to add a cluster.
 
 ![Pasting kubeconfig to Nocalhost VSCode plugin](/images/docs/paste-kubeconfig-to-nocalhost.png)
 
