@@ -601,6 +601,12 @@ parameters:
 
 ### Quobyte
 
+{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
+
+The Quobyte in-tree storage plugin is deprecated, an 
+[example](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml)
+`StorageClass` for the out-of-tree Quobyte plugin can be found at the Quobyte CSI repository.
+
 ```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass

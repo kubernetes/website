@@ -75,9 +75,9 @@ precedence.
 ## Types of Secret {#secret-types}
 
 When creating a Secret, you can specify its type using the `type` field of
-the [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-resource, or certain equivalent `kubectl` command line flags (if available).
-The Secret type is used to facilitate programmatic handling of the Secret data.
+a Secret resource, or certain equivalent `kubectl` command line flags (if available).
+The `type` of a Secret is used to facilitate programmatic handling of different
+kinds of confidential data.
 
 Kubernetes provides several builtin types for some common usage scenarios.
 These types vary in terms of the validations performed and the constraints
@@ -1252,3 +1252,4 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
 - Learn how to [manage Secret using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Read the [API reference](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/) for `Secret`

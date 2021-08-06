@@ -124,7 +124,7 @@ beta features must be enabled.
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
 To disable the `awsElasticBlockStore` storage plugin from being loaded by the controller manager
-and the kubelet, set the `CSIMigrationAWSComplete` flag to `true`. This feature requires the `ebs.csi.aws.com` Container Storage Interface (CSI) driver installed on all worker nodes.
+and the kubelet, set the `InTreePluginAWSUnregister` flag to `true`.
 
 ### azureDisk {#azuredisk}
 
@@ -462,7 +462,8 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: failure-domain.beta.kubernetes.io/zone
+        # failure-domain.beta.kubernetes.io/zone should be used prior to 1.21
+        - key: topology.kubernetes.io/zone
           operator: In
           values:
           - us-central1-a
@@ -479,6 +480,13 @@ Storage Interface (CSI) Driver. In order to use this feature, the [GCE PD CSI
 Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationGCE`
 beta features must be enabled.
+
+#### GCE CSI migration complete
+
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+To disable the `gcePersistentDisk` storage plugin from being loaded by the controller manager
+and the kubelet, set the `InTreePluginGCEUnregister` flag to `true`.
 
 ### gitRepo (deprecated) {#gitrepo}
 
@@ -931,7 +939,7 @@ A container using a projected volume source as a [`subPath`](#using-subpath) vol
 receive updates for those volume sources.
 {{< /note >}}
 
-### quobyte
+### quobyte (deprecated) {#quobyte}
 
 A `quobyte` volume allows an existing [Quobyte](https://www.quobyte.com) volume to
 be mounted into your Pod.
@@ -967,49 +975,6 @@ Simultaneous writers are not allowed.
 See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd)
 for more details.
 
-### scaleIO (deprecated) {#scaleio}
-
-ScaleIO is a software-based storage platform that uses existing hardware to
-create clusters of scalable shared block networked storage. The `scaleIO` volume
-plugin allows deployed pods to access existing ScaleIO
-volumes. For information about dynamically provisioning new volumes for
-persistent volume claims, see
-[ScaleIO persistent volumes](/docs/concepts/storage/persistent-volumes/#scaleio).
-
-{{< note >}}
-You must have an existing ScaleIO cluster already setup and
-running with the volumes created before you can use them.
-{{< /note >}}
-
-The following example is a Pod configuration with ScaleIO:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: pod-0
-spec:
-  containers:
-  - image: k8s.gcr.io/test-webserver
-    name: pod-0
-    volumeMounts:
-    - mountPath: /test-pd
-      name: vol-0
-  volumes:
-  - name: vol-0
-    scaleIO:
-      gateway: https://localhost:443/api
-      system: scaleio
-      protectionDomain: sd0
-      storagePool: sp1
-      volumeName: vol-0
-      secretRef:
-        name: sio-secret
-      fsType: xfs
-```
-
-For further details, see the [ScaleIO](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio) examples.
-
 ### secret
 
 A `secret` volume is used to pass sensitive information, such as passwords, to
@@ -1029,7 +994,7 @@ receive Secret updates.
 
 For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
 
-### storageOS {#storageos}
+### storageOS (deprecated) {#storageos}
 
 A `storageos` volume allows an existing [StorageOS](https://www.storageos.com)
 volume to mount into your Pod.
@@ -1177,7 +1142,7 @@ but new volumes created by the vSphere CSI driver will not be honoring these par
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-To turn off the `vsphereVolume` plugin from being loaded by the controller manager and the kubelet, you need to set this feature flag to `true`. You must install a `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver on all worker nodes.
+To turn off the `vsphereVolume` plugin from being loaded by the controller manager and the kubelet, you need to set `InTreePluginvSphereUnregister` feature flag to `true`. You must install a `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver on all worker nodes.
 
 ## Using subPath {#using-subpath}
 

@@ -61,6 +61,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `BalanceAttachedNodeVolumes` | `false` | 알파 | 1.11 | |
 | `BoundServiceAccountTokenVolume` | `false` | 알파 | 1.13 | 1.20 |
 | `BoundServiceAccountTokenVolume` | `true` | 베타 | 1.21 | |
+| `ControllerManagerLeaderMigration` | `false` | 알파 | 1.21 | |
 | `CPUManager` | `false` | 알파 | 1.8 | 1.9 |
 | `CPUManager` | `true` | 베타 | 1.10 | |
 | `CSIInlineVolume` | `false` | 알파 | 1.15 | 1.15 |
@@ -379,7 +380,6 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `TokenRequestProjection` | `false` | 알파 | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | 베타 | 1.12 | 1.19 |
 | `TokenRequestProjection` | `true` | GA | 1.20 | - |
-| `VolumeCapacityPriority` | `false` | 알파 | 1.21 | - |
 | `VolumePVCDataSource` | `false` | 알파 | 1.15 | 1.15 |
 | `VolumePVCDataSource` | `true` | 베타 | 1.16 | 1.17 |
 | `VolumePVCDataSource` | `true` | GA | 1.18 | - |
@@ -479,6 +479,11 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
   `kube-apiserver`를 시작하여 확장 토큰 기능을 끈다.
   자세한 내용은 [바운드 서비스 계정 토큰](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)을
   확인한다.
+- `ControllerManagerLeaderMigration`: HA 클러스터에서 클러스터 오퍼레이터가
+  kube-controller-manager의 컨트롤러들을 외부 controller-manager(예를 들면,
+  cloud-controller-manager)로 다운타임 없이 라이브 마이그레이션할 수 있도록 허용하도록
+  [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration)와 [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager)의
+  리더 마이그레이션(Leader Migration)을 활성화한다.
 - `CPUManager`: 컨테이너 수준의 CPU 어피니티 지원을 활성화한다.
   [CPU 관리 정책](/docs/tasks/administer-cluster/cpu-management-policies/)을 참고한다.
 - `CRIContainerLogRotation`: cri 컨테이너 런타임에 컨테이너 로그 로테이션을 활성화한다. 로그 파일 사이즈 기본값은 10MB이며,
@@ -637,7 +642,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `ExperimentalCriticalPodAnnotation`: 특정 파드에 *critical* 로
   어노테이션을 달아서 [스케줄링이 보장되도록](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 한다.
   이 기능은 v1.13부터 파드 우선 순위 및 선점으로 인해 사용 중단되었다.
-- `ExperimentalHostUserNamespaceDefaultingGate`: 사용자 네임스페이스를 호스트로
+- `ExperimentalHostUserNamespaceDefaulting`: 사용자 네임스페이스를 호스트로
   기본 활성화한다. 이것은 다른 호스트 네임스페이스, 호스트 마운트,
   권한이 있는 컨테이너 또는 특정 비-네임스페이스(non-namespaced) 기능(예: `MKNODE`, `SYS_MODULE` 등)을
   사용하는 컨테이너를 위한 것이다. 도커 데몬에서 사용자 네임스페이스
@@ -764,6 +769,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `RotateKubeletClientCertificate`: kubelet에서 클라이언트 TLS 인증서의 로테이션을 활성화한다.
   자세한 내용은 [kubelet 구성](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)을 참고한다.
 - `RotateKubeletServerCertificate`: kubelet에서 서버 TLS 인증서의 로테이션을 활성화한다.
+  자세한 사항은
+  [kubelet 구성](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration)을 확인한다.
 - `RunAsGroup`: 컨테이너의 init 프로세스에 설정된 기본 그룹 ID 제어를
   활성화한다.
 - `RuntimeClass`: 컨테이너 런타임 구성을 선택하기 위해 [런타임클래스(RuntimeClass)](/ko/docs/concepts/containers/runtime-class/)
@@ -794,6 +801,8 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `SetHostnameAsFQDN`: 전체 주소 도메인 이름(FQDN)을 파드의 호스트 이름으로
   설정하는 기능을 활성화한다.
   [파드의 `setHostnameAsFQDN` 필드](/ko/docs/concepts/services-networking/dns-pod-service/#pod-sethostnameasfqdn-field)를 참고한다.
+- `SizeMemoryBackedVolumes`: memory-backed 볼륨(보통 `emptyDir` 볼륨)의 크기 상한을
+  지정할 수 있도록 kubelets를 활성화한다.
 - `StartupProbe`: kubelet에서
   [스타트업](/ko/docs/concepts/workloads/pods/pod-lifecycle/#언제-스타트업-프로브를-사용해야-하는가)
   프로브를 활성화한다.
