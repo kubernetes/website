@@ -79,8 +79,10 @@ releases may also occur in between these.
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
 | August 2021           | 2021-08-07           | 2021-08-11  |
-| September 2021        | 2021-09-11           | 2021-09-15  |
-| October 2021          | 2021-10-09           | 2021-10-13  |
+| September 2021        | 2021-09-10           | 2021-09-15  |
+| October 2021          | 2021-10-08           | 2021-10-13  |
+| November 2021         | 2021-11-12           | 2021-11-17  |
+| December 2021         | 2021-12-10           | 2021-12-15  |
 
 ## Detailed Release History for Active Branches
 
