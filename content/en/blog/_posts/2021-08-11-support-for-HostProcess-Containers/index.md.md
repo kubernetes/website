@@ -67,5 +67,5 @@ will enable you to run HostProcess containers.
 
 ## How do I get involved?
 
-HostProcess containers are in active development and welcome suggestions from the community. 
+HostProcess containers are in active development and we welcome suggestions from the community. 
 [Get involved with SIG-Windows to contribute!](https://github.com/kubernetes/community/tree/master/sig-windows)
