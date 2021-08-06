@@ -80,11 +80,21 @@ releases may also occur in between these.
 | --------------------- | -------------------- | ----------- |
 | August 2021           | 2021-08-07           | 2021-08-11  |
 | September 2021        | 2021-09-10           | 2021-09-15  |
-| October 2021          | 2021-10-08           | 2021-10-13  |
+| October 2021          | 2021-10-15           | 2021-10-20  |
 | November 2021         | 2021-11-12           | 2021-11-17  |
 | December 2021         | 2021-12-10           | 2021-12-15  |
 
 ## Detailed Release History for Active Branches
+
+### 1.22
+
+**1.22** enters maintenance mode on **2022-08-28**
+
+End of Life for **1.22** is **2022-10-28**
+
+| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE | NOTE |
+|---------------|----------------------|-------------|------|
+| 1.22.1        | 2021-08-16           | 2021-08-19  |      |
 
 ### 1.21
 
