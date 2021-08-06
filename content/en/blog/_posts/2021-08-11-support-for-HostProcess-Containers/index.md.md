@@ -2,7 +2,7 @@
 layout: blog
 title: 'Windows HostProcess Containers'
 date: 2021-08-16
-slug: Windows HostProcess Containers
+slug: Windows-HostProcess-Containers
 ---
 
 **Authors:** Brandon Smith
