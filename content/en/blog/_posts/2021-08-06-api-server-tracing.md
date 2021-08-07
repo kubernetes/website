@@ -1,3 +1,5 @@
+
+
 ---
 layout: blog
 title: 'API Server Tracing'
@@ -25,6 +27,30 @@ The Kubernetes API Server is a great candidate for tracing for a few reasons:
 * Users are latency-sensitive: If a request takes more than 10 seconds to complete, many clients will time-out.
 * It has a complex service topology: A single request could require consulting a dozen webhooks, or involve multiple requests to etcd.
 
-## Example: Debugging a slow webhook.
+## Examples
 
-TODO
+### Enabling API Server Tracing
+
+1. Turn on the APIServerTracing feature-gate.
+
+2. Set our configuration for tracing by pointing `--tracing-config-file` on the kube-apiserver at our config file, containing:
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1alpha1
+kind: TracingConfiguration
+samplingRatePerMillion: 10000
+```
+
+### Enabling Etcd Tracing
+
+Add `--experimental-enable-distributed-tracing`,  `--experimental-distributed-tracing-address=0.0.0.0:4317`, `--experimental-distributed-tracing-service-name=etcd` flags to etcd to enable tracing.  Note that this traces every request, so it will probably generate more traces than you want.
+
+### Putting it together
+
+If I run an OpenTelemetry collector on my control-plane node ([example](https://github.com/dashpole/dashpole_demos/tree/master/otel/controlplane)), I get:
+
+![APIServer_Etcd](https://user-images.githubusercontent.com/3262098/128613151-91cb925c-4886-4f05-a12a-771c6cbe9807.png)
+
+
+Example trace of [example webhook](https://github.com/kubernetes-sigs/controller-runtime/tree/master/examples/builtins)
+<img width="1440" alt="APIServer_webhook_etcd" src="https://user-images.githubusercontent.com/3262098/128613167-e7a14cdf-5635-422f-9fd8-f32744ce639d.png">
