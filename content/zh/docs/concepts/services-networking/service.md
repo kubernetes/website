@@ -495,7 +495,7 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 这与用户空间模式不同：在这种情况下，kube-proxy 将检测到与第一个 Pod 的连接已失败，
 并会自动使用其他后端 Pod 重试。
 
-你可以使用 Pod [就绪探测器](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
+你可以使用 Pod [就绪态探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
 验证后端 Pod 可以正常工作，以便 iptables 模式下的 kube-proxy 仅看到测试正常的后端。
 这样做意味着你避免将流量通过 kube-proxy 发送到已知已失败的 Pod。
 

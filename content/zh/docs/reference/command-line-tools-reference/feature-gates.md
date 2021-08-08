@@ -1143,7 +1143,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   以便在 Pod 中运行的容器之间共享同一进程名字空间。更多详细信息，请参见
   [在 Pod 中的容器间共享同一进程名字空间](/zh/docs/tasks/configure-pod-container/share-process-namespace/)。
 - `ProbeTerminationGracePeriod`：在 Pod 上 启用 
-  [设置探测器级别 `terminationGracePeriodSeconds`](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationgraceperiodseconds)。
+  [设置探针级别 `terminationGracePeriodSeconds`](/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationgraceperiodseconds)。
   有关更多信息，请参见 [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2238-liveness-probe-grace-period)。
 - `ProcMountType`：允许容器通过设置 SecurityContext 的 `procMount` 字段来控制
   对 proc 文件系统的挂载方式。

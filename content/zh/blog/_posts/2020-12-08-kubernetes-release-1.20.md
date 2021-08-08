@@ -103,7 +103,7 @@ Kubernetes 社区写了一篇关于弃用的详细[博客文章](https://blog.k8
 ### Exec 探测超时处理 {#exec-probe-timeout-handling}
 
 <!-- A longstanding bug regarding exec probe timeouts that may impact existing pod definitions has been fixed. Prior to this fix, the field `timeoutSeconds` was not respected for exec probes. Instead, probes would run indefinitely, even past their configured deadline, until a result was returned. With this change, the default value of `1 second` will be applied if a value is not specified and existing pod definitions may no longer be sufficient if a probe takes longer than one second. A feature gate, called `ExecProbeTimeout`, has been added with this fix that enables cluster operators to revert to the previous behavior, but this will be locked and removed in subsequent releases. In order to revert to the previous behavior, cluster operators should set this feature gate to `false`. -->
-一个关于 exec 探测超时的长期错误可能会影响现有的 pod 定义，已得到修复。在此修复之前，exec 探测器不考虑 `timeoutSeconds` 字段。相反，探测将无限期运行，甚至超过其配置的截止日期，直到返回结果。
+一个关于 exec 探测超时的长期错误可能会影响现有的 pod 定义，已得到修复。在此修复之前，exec 探针不考虑 `timeoutSeconds` 字段。相反，探测将无限期运行，甚至超过其配置的截止日期，直到返回结果。
 通过此更改，如果未指定值，将应用默认值 `1 second`，并且如果探测时间超过一秒，现有 pod 定义可能不再足够。
 新引入的 `ExecProbeTimeout` 特性门控所提供的修复使集群操作员能够恢复到以前的行为，但这种行为将在后续版本中锁定并删除。为了恢复到以前的行为，集群运营商应该将此特性门控设置为 `false`。
 

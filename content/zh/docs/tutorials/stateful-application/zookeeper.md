@@ -1110,7 +1110,7 @@ The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
 许多场景下，一个系统进程可以是活动状态但不响应请求，或者是不健康状态。
 你应该使用存活性探针来通知 Kubernetes 你的应用进程处于不健康状态，需要被重启。
 
-`zk` StatefulSet 的 Pod 的 `template` 一节指定了一个存活探针。
+`zk` StatefulSet 的 Pod 的 `template` 一节指定了一个存活态探针。
 
 ```yaml
  livenessProbe:
@@ -1162,7 +1162,7 @@ When the liveness probe for the ZooKeeper process fails, Kubernetes will
 automatically restart the process for you, ensuring that unhealthy processes in
 the ensemble are restarted.
 -->
-当 ZooKeeper 进程的存活探针探测失败时，Kubernetes 将会为你自动重启这个进程，
+当 ZooKeeper 进程的存活态探针探测失败时，Kubernetes 将会为你自动重启这个进程，
 从而保证 ensemble 中不健康状态的进程都被重启。
 
 ```shell
@@ -1202,11 +1202,11 @@ processes will not receive network traffic until their readiness checks pass.
 For a ZooKeeper server, liveness implies readiness.  Therefore, the readiness
 probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
 -->
-如果你指定了一个就绪探针，Kubernetes 将保证在就绪检查通过之前，
+如果你指定了一个就绪态探针，Kubernetes 将保证在就绪检查通过之前，
 你的应用不会接收到网络流量。
 
 对于一个 ZooKeeper 服务器来说，存活即就绪。
-因此 `zookeeper.yaml` 清单中的就绪探针和存活探针完全相同。
+因此 `zookeeper.yaml` 清单中的就绪态探针和存活态探针完全相同。
 
 ```yaml
   readinessProbe:
@@ -1224,7 +1224,7 @@ Even though the liveness and readiness probes are identical, it is important
 to specify both. This ensures that only healthy servers in the ZooKeeper
 ensemble receive network traffic.
 -->
-虽然存活探针和就绪探针是相同的，但同时指定它们两者仍然重要。
+虽然存活态探针和就绪态探针是相同的，但同时指定它们两者仍然重要。
 这保证了 ZooKeeper ensemble 中只有健康的服务器能接收网络流量。
 
 <!--

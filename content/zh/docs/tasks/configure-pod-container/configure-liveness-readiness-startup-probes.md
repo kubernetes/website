@@ -1,5 +1,5 @@
 ---
-title: 配置存活、就绪和启动探测器
+title: 配置存活态、就绪态和启动探针
 content_type: task
 weight: 110
 ---
@@ -14,11 +14,11 @@ where an application is running, but unable to make progress. Restarting a
 container in such a state can help to make the application more available
 despite bugs.
 -->
-这篇文章介绍如何给容器配置存活、就绪和启动探测器。
+这篇文章介绍如何给容器配置存活、就绪和启动探针。
 
 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
-使用存活探测器来知道什么时候要重启容器。
-例如，存活探测器可以捕捉到死锁（应用程序在运行，但是无法继续执行后面的步骤）。
+使用存活态探针来知道什么时候要重启容器。
+例如，存活态探针可以捕捉到死锁（应用程序在运行，但是无法继续执行后面的步骤）。
 这样的情况下重启容器有助于让应用程序在有问题的情况下更可用。
 
 <!--
@@ -33,14 +33,14 @@ it succeeds, making sure those probes don't interfere with the application start
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
 -->
-kubelet 使用就绪探测器可以知道容器什么时候准备好了并可以开始接受请求流量， 当一个 Pod 
+kubelet 使用就绪态探针可以知道容器什么时候准备好了并可以开始接受请求流量， 当一个 Pod 
 内的所有容器都准备好了，才能把这个 Pod 看作就绪了。
 这种信号的一个用途就是控制哪个 Pod 作为 Service 的后端。
 在 Pod 还没有准备好的时候，会从 Service 的负载均衡器中被剔除的。
 
-kubelet 使用启动探测器可以知道应用程序容器什么时候启动了。
-如果配置了这类探测器，就可以控制容器在启动成功后再进行存活性和就绪检查，
-确保这些存活、就绪探测器不会影响应用程序的启动。
+kubelet 使用启动探针可以知道应用程序容器什么时候启动了。
+如果配置了这类探针，就可以控制容器在启动成功后再进行存活性和就绪检查，
+确保这些存活、就绪态探针不会影响应用程序的启动。
 这可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
 
 ## {{% heading "prerequisites" %}}
@@ -62,7 +62,7 @@ In this exercise, you create a Pod that runs a container based on the
 ## 定义存活命令 {#define-a-liveness-command}
 
 许多长时间运行的应用程序最终会过渡到断开的状态，除非重新启动，否则无法恢复。
-Kubernetes 提供了存活探测器来发现并补救这种情况。
+Kubernetes 提供了存活态探针来发现并补救这种情况。
 
 在这篇练习中，你会创建一个 Pod，其中运行一个基于 `k8s.gcr.io/busybox` 镜像的容器。
 下面是这个 Pod 的配置文件。
@@ -123,7 +123,7 @@ kubectl describe pod liveness-exec
 <!--
 The output indicates that no liveness probes have failed yet:
 -->
-输出结果表明还没有存活探测器失败：
+输出结果表明还没有存活态探针失败：
 
 ```
 FirstSeen    LastSeen    Count   From            SubobjectPath           Type        Reason      Message
@@ -148,7 +148,7 @@ kubectl describe pod liveness-exec
 At the bottom of the output, there are messages indicating that the liveness
 probes have failed, and the containers have been killed and recreated.
 -->
-在输出结果的最下面，有信息显示存活探测器失败了，这个容器被杀死并且被重建了。
+在输出结果的最下面，有信息显示存活态探针失败了，这个容器被杀死并且被重建了。
 
 ```
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
@@ -261,7 +261,7 @@ kubectl apply -f https://k8s.io/examples/pods/probe/http-liveness.yaml
 After 10 seconds, view Pod events to verify that liveness probes have failed and
 the container has been restarted:
 -->
-10 秒之后，通过看 Pod 事件来检测存活探测器已经失败了并且容器被重新启动了。
+10 秒之后，通过看 Pod 事件来检测存活态探针已经失败了并且容器被重新启动了。
 
 ```shell
 kubectl describe pod liveness-http
@@ -311,7 +311,7 @@ will be restarted.
 To try the TCP liveness check, create a Pod:
 -->
 如你所见，TCP 检测的配置和 HTTP 检测非常相似。
-下面这个例子同时使用就绪和存活探测器。kubelet 会在容器启动 5 秒后发送第一个就绪探测。
+下面这个例子同时使用就绪和存活态探针。kubelet 会在容器启动 5 秒后发送第一个就绪探测。
 这会尝试连接 `goproxy` 容器的 8080 端口。
 如果探测成功，这个 Pod 会被标记为就绪状态，kubelet 将继续每隔 10 秒运行一次检测。
 
@@ -327,7 +327,7 @@ kubectl apply -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
 <!--
 After 15 seconds, view Pod events to verify that liveness probes:
 -->
-15 秒之后，通过看 Pod 事件来检测存活探测器：
+15 秒之后，通过看 Pod 事件来检测存活态探针：
 
 ```shell
 kubectl describe pod goproxy
@@ -370,7 +370,7 @@ worse case startup time.
 
 So, the previous example would become:
 -->
-## 使用启动探测器保护慢启动容器 {#define-startup-probes}
+## 使用启动探针保护慢启动容器 {#define-startup-probes}
 
 有时候，会有一些现有的应用程序在启动时需要较多的初始化时间。
 要不影响对引起探测死锁的快速响应，这种情况下，设置存活探测参数是要技巧的。
@@ -424,34 +424,34 @@ readiness probes to detect and mitigate these situations. A pod with containers
 reporting that they are not ready does not receive traffic through Kubernetes
 Services.
 -->
-## 定义就绪探测器 {#define-readiness-probes}
+## 定义就绪态探针 {#define-readiness-probes}
 
 有时候，应用程序会暂时性的不能提供通信服务。
 例如，应用程序在启动时可能需要加载很大的数据或配置文件，或是启动后要依赖等待外部服务。
 在这种情况下，既不想杀死应用程序，也不想给它发送请求。
-Kubernetes 提供了就绪探测器来发现并缓解这些情况。
+Kubernetes 提供了就绪态探针来发现并缓解这些情况。
 容器所在 Pod 上报还未就绪的信息，并且不接受通过 Kubernetes Service 的流量。
 
 <!--
 Readiness probes runs on the container during its whole lifecycle.
 -->
 {{< note >}}
-就绪探测器在容器的整个生命周期中保持运行状态。
+就绪态探针在容器的整个生命周期中保持运行状态。
 {{< /note >}}
 
 <!--
 Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
 -->
 {{< caution >}}
-存活探测器 *不等待* 就绪性探测器成功。
-如果要在执行存活探测器之前等待，应该使用 initialDelaySeconds 或 startupProbe。
+存活态探针 *不等待* 就绪性探针成功。
+如果要在执行存活态探针之前等待，应该使用 initialDelaySeconds 或 startupProbe。
 {{< /caution >}}
 
 <!--
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.
 -->
-就绪探测器的配置和存活探测器的配置相似。
+就绪态探针的配置和存活态探针的配置相似。
 唯一区别就是要使用 `readinessProbe` 字段，而不是 `livenessProbe` 字段。
 
 ```yaml
@@ -471,7 +471,7 @@ Readiness and liveness probes can be used in parallel for the same container.
 Using both can ensure that traffic does not reach a container that is not ready
 for it, and that containers are restarted when they fail.
 -->
-HTTP 和 TCP 的就绪探测器配置也和存活探测器的配置一样的。
+HTTP 和 TCP 的就绪态探针配置也和存活态探针的配置一样的。
 
 就绪和存活探测可以在同一个容器上并行使用。
 两者都用可以确保流量不会发给还没有准备好的容器，并且容器会在它们失败的时候被重新启动。
@@ -479,7 +479,7 @@ HTTP 和 TCP 的就绪探测器配置也和存活探测器的配置一样的。
 <!--
 ## Configure Probes
 -->
-## 配置探测器 {#configure-probes}
+## 配置探针 {#configure-probes}
 
 <!--
 Eventually, some of this section could be moved to a concept topic.
@@ -510,10 +510,10 @@ and startup Probes. Minimum value is 1.
 try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 -->
-* `initialDelaySeconds`：容器启动后要等待多少秒后存活和就绪探测器才被初始化，默认是 0 秒，最小值是 0。
+* `initialDelaySeconds`：容器启动后要等待多少秒后存活和就绪态探针才被初始化，默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
-* `successThreshold`：探测器在失败后，被视为成功的最小连续成功数。默认值是 1。
+* `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。
   存活和启动探测的这个值必须是 1。最小值是 1。
 * `failureThreshold`：当探测失败时，Kubernetes 的重试次数。
   存活探测情况下的放弃就意味着重新启动容器。
@@ -670,7 +670,7 @@ to resolve it.
 <!--
 ### Probe-level `terminationGracePeriodSeconds`
 -->
-### 探测器级别 `terminationGracePeriodSeconds`
+### 探针级别 `terminationGracePeriodSeconds`
 
 {{< feature-state for_k8s_version="v1.21" state="alpha" >}}
 
@@ -696,9 +696,9 @@ probe-level value.
 For example,
 -->
 在1.21中，启用特性标志 `ProbeTerminationGracePeriod` 后，
-用户可以指定一个探测器级别的 `terminationGracePeriodSeconds` 作为探测器规格的一部分。
-当该特性标志被启用时，若同时设置了 Pod 级别和探测器级别的 `terminationGracePeriodSeconds`，
-kubelet 将使用探测器级的值。
+用户可以指定一个探针级别的 `terminationGracePeriodSeconds` 作为探针规格的一部分。
+当该特性标志被启用时，若同时设置了 Pod 级别和探针级别的 `terminationGracePeriodSeconds`，
+kubelet 将使用探针级的值。
 
 例如，
 
@@ -728,7 +728,7 @@ spec:
 Probe-level `terminationGracePeriodSeconds` cannot be set for readiness probes.
 It will be rejected by the API server.
 -->
-探测器级别的 `terminationGracePeriodSeconds` 不能用于设置就绪态探针。
+探针级别的 `terminationGracePeriodSeconds` 不能用于设置就绪态探针。
 它将被 API 服务器拒绝。
 
 ## {{% heading "whatsnext" %}}

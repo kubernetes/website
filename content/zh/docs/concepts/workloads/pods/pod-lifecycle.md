@@ -503,7 +503,7 @@ containers:
    provide a startup probe, the default state is `Success`.
 -->
 - `livenessProbe`：指示容器是否正在运行。如果存活态探测失败，则 kubelet 会杀死容器，
-  并且容器将根据其[重启策略](#restart-policy)决定未来。如果容器不提供存活探针，
+  并且容器将根据其[重启策略](#restart-policy)决定未来。如果容器不提供存活态探针，
   则默认状态为 `Success`。
 
 - `readinessProbe`：指示容器是否准备好为请求提供服务。如果就绪态探测失败，
