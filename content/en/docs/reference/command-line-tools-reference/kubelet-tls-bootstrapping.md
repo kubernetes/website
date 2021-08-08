@@ -18,7 +18,7 @@ The normal process of bootstrapping these components, especially worker nodes th
 can be a challenging process as it is often outside of the scope of Kubernetes and requires significant additional work.
 This in turn, can make it challenging to initialize or scale a cluster.
 
-In order to simplify the process, beginning in version 1.4, Kubernetes introduced a certificate request and signing API to simplify the process. The proposal can be
+In order to simplify the process, beginning in version 1.4, Kubernetes introduced a certificate request and signing API. The proposal can be
 found [here](https://github.com/kubernetes/kubernetes/pull/20439).
 
 This document describes the process of node initialization, how to set up TLS client certificate bootstrapping for
