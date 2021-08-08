@@ -14,7 +14,7 @@ where an application is running, but unable to make progress. Restarting a
 container in such a state can help to make the application more available
 despite bugs.
 -->
-这篇文章介绍如何给容器配置存活、就绪和启动探针。
+这篇文章介绍如何给容器配置存活态、就绪态和启动探针。
 
 [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
 使用存活态探针来知道什么时候要重启容器。
@@ -311,7 +311,7 @@ will be restarted.
 To try the TCP liveness check, create a Pod:
 -->
 如你所见，TCP 检测的配置和 HTTP 检测非常相似。
-下面这个例子同时使用就绪和存活态探针。kubelet 会在容器启动 5 秒后发送第一个就绪探测。
+下面这个例子同时使用就绪态和存活态探针。kubelet 会在容器启动 5 秒后发送第一个就绪探测。
 这会尝试连接 `goproxy` 容器的 8080 端口。
 如果探测成功，这个 Pod 会被标记为就绪状态，kubelet 将继续每隔 10 秒运行一次检测。
 
@@ -443,7 +443,7 @@ Readiness probes runs on the container during its whole lifecycle.
 Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
 -->
 {{< caution >}}
-存活态探针 *不等待* 就绪性探针成功。
+存活态探针 *不等待* 就绪态探针成功。
 如果要在执行存活态探针之前等待，应该使用 initialDelaySeconds 或 startupProbe。
 {{< /caution >}}
 
@@ -510,7 +510,7 @@ and startup Probes. Minimum value is 1.
 try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 -->
-* `initialDelaySeconds`：容器启动后要等待多少秒后存活和就绪态探针才被初始化，默认是 0 秒，最小值是 0。
+* `initialDelaySeconds`：容器启动后要等待多少秒后存活态和就绪态探针才被初始化，默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。
@@ -682,7 +682,7 @@ unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
 was set.
 -->
 在 1.21 版之前，pod 级别的 `terminationGracePeriodSeconds` 被用来终止
-未能成功处理存活探测或启动探测的容器。
+未能成功处理存活态探针或启动探针的容器。
 这种耦合是意料之外的，可能会导致在设置了 pod 级别的 `terminationGracePeriodSeconds` 后，
 需要很长的时间来重新启动失败的容器。
 

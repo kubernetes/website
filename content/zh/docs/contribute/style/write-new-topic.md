@@ -47,7 +47,7 @@ Tutorial | A tutorial page shows how to accomplish a goal that ties together sev
 类型 | 描述
 :--- | :----------
 概念（Concept） | 概念页面负责解释 Kubernetes 的某方面。例如，概念页面可以描述 Kubernetes Deployment 对象，并解释当部署、扩展和更新时，它作为应用程序所扮演的角色。一般来说，概念页面不包括步骤序列，而是提供任务或教程的链接。概念主题的示例可参见 <a href="/zh/docs/concepts/architecture/nodes/">节点</a>。
-任务（Task） | 任务页面展示如何完成特定任务。其目的是给读者提供一系列的步骤，让他们在阅读时可以实际执行。任务页面可长可短，前提是它始终围绕着某个主题展开。在任务页面中，可以将简短的解释与要执行的步骤混合在一起。如果需要提供较长的解释，则应在概念主题中进行。相关联的任务和概念主题应该相互链接。一个简短的任务页面的实例可参见 <a href="/zh/docs/tasks/configure-pod-container/configure-volume-storage/">配置 Pod 使用卷存储</a>。一个较长的任务页面的实例可参见 <a href="/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">配置活跃性和就绪性探针</a>。
+任务（Task） | 任务页面展示如何完成特定任务。其目的是给读者提供一系列的步骤，让他们在阅读时可以实际执行。任务页面可长可短，前提是它始终围绕着某个主题展开。在任务页面中，可以将简短的解释与要执行的步骤混合在一起。如果需要提供较长的解释，则应在概念主题中进行。相关联的任务和概念主题应该相互链接。一个简短的任务页面的实例可参见 <a href="/zh/docs/tasks/configure-pod-container/configure-volume-storage/">配置 Pod 使用卷存储</a>。一个较长的任务页面的实例可参见 <a href="/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">配置存活态和就绪态探针</a>。
 教程（Tutorial） | 教程页面展示如何实现某个目标，该目标将若干 Kubernetes 功能特性联系在一起。教程可能提供一些步骤序列，读者可以在阅读页面时实际执行这些步骤。或者它可以提供相关代码片段的解释。例如，教程可以提供代码示例的讲解。教程可以包括对 Kubernetes 几个关联特性的简要解释，但有关更深入的特性解释应该链接到相关概念主题。 
 {{< /table >}}
 
