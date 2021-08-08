@@ -1030,7 +1030,7 @@ kube-apiserver [flags]
 <td colspan="2">--service-cluster-ip-range string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10.0.0.0</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A CIDR notation IP range from which to assign service cluster IPs. This must not overlap with any IP ranges assigned to nodes or pods. Max of two dual-stack CIDRs is allowed.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A CIDR notation IP range from which to assign service cluster IPs. This must not overlap with any IP ranges assigned to nodes or pods. Max of two dual-stack CIDRs are allowed.</p></td>
 </tr>
 
 <tr>
