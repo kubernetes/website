@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'New in Kubernetes v1.22: alpha support for using swap memory'
-date: 2021-08-18
+date: 2021-08-09
 slug: run-nodes-with-swap-alpha
 ---
 
