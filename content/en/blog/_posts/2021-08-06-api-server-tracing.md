@@ -9,7 +9,7 @@ slug: api-server-tracing
 
 **Authors:** David Ashpole (Google)
 
-In distributed systems, it can be hard to figure out where problems are. You grep through one components' logs just to discover that the source of your problem is in another component.  You search there only to discover that you need to enable debug logs to figure out what really went wrong... And it goes on. The more complex the path your request takes, the harder it is to answer questions about where it went.  I've personally spent many hours doing this dance with a variety of kubernetes components.
+In distributed systems, it can be hard to figure out where problems are. You grep through one component's logs just to discover that the source of your problem is in another component.  You search there only to discover that you need to enable debug logs to figure out what really went wrong... And it goes on. The more complex the path your request takes, the harder it is to answer questions about where it went.  I've personally spent many hours doing this dance with a variety of Kubernetes components.
 
 ## What is Tracing?
 
