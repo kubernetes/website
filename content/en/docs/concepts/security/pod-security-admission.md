@@ -91,7 +91,7 @@ Check out [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/con
 ## Workload resources and Pod templates
 
 Pods are often created indirectly, by creating a [workload
-object](https://kubernetes.io/docs/concepts/workloads/controllers/) such as a {{< glossary_tooltip
+object](/docs/concepts/workloads/controllers/) such as a {{< glossary_tooltip
 term_id="deployment" >}} or {{< glossary_tooltip term_id="job">}}. The workload object defines a
 _Pod template_ and a {{< glossary_tooltip term_id="controller" text="controller" >}} for the
 workload resource creates Pods based on that template. To help catch violations early, both the
@@ -142,4 +142,4 @@ current policy level:
 - [Enforcing Pod Security Standards](/docs/setup/best-practices/enforcing-pod-security-standards)
 - [Enforce Pod Security Standards by Configuring the Built-in Admission Controller](/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
 - [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
-- [Migrating from PodSecurityPolicy to PodSecurity](/docs/tasks/secure-pods/migrate-from-psp)
+- [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp)
