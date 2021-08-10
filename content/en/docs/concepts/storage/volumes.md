@@ -130,7 +130,7 @@ and the kubelet, set the `InTreePluginAWSUnregister` flag to `true`.
 
 The `azureDisk` volume type mounts a Microsoft Azure [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) into a pod.
 
-For more details, see the [`azureDisk` volume plugin](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
+For more details, see the [`azureDisk` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md).
 
 #### azureDisk CSI migration
 
@@ -148,7 +148,7 @@ features must be enabled.
 The `azureFile` volume type mounts a Microsoft Azure File volume (SMB 2.1 and 3.0)
 into a pod.
 
-For more details, see the [`azureFile` volume plugin](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
+For more details, see the [`azureFile` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_file/README.md).
 
 #### azureFile CSI migration
 
@@ -176,7 +176,7 @@ writers simultaneously.
 You must have your own Ceph server running with the share exported before you can use it.
 {{< /note >}}
 
-See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/cephfs/) for more details.
+See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
 
 ### cinder
 
@@ -347,7 +347,7 @@ You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to th
 beforehand so that Kubernetes hosts can access them.
 {{< /note >}}
 
-See the [fibre channel example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel) for more details.
+See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) for more details.
 
 ### flocker (deprecated) {#flocker}
 
@@ -365,7 +365,7 @@ can be shared between pods as required.
 You must have your own Flocker installation running before you can use it.
 {{< /note >}}
 
-See the [Flocker example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker) for more details.
+See the [Flocker example](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker) for more details.
 
 ### gcePersistentDisk
 
@@ -533,7 +533,7 @@ simultaneously.
 You must have your own GlusterFS installation running before you can use it.
 {{< /note >}}
 
-See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/glusterfs) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs) for more details.
 
 ### hostPath {#hostpath}
 
@@ -661,7 +661,7 @@ and then serve it in parallel from as many Pods as you need. Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode.
 Simultaneous writers are not allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/iscsi) for more details.
+See the [iSCSI example](https://github.com/kubernetes/examples/tree/master/volumes/iscsi) for more details.
 
 ### local
 
@@ -749,7 +749,7 @@ writers simultaneously.
 You must have your own NFS server running with the share exported before you can use it.
 {{< /note >}}
 
-See the [NFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs) for more details.
+See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) for more details.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -797,7 +797,7 @@ Make sure you have an existing PortworxVolume with name `pxvol`
 before using it in the Pod.
 {{< /note >}}
 
-For more details, see the [Portworx volume](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/portworx/README.md) examples.
+For more details, see the [Portworx volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) examples.
 
 ### projected
 
@@ -811,7 +811,7 @@ Currently, the following types of volume sources can be projected:
 * `serviceAccountToken`
 
 All sources are required to be in the same namespace as the Pod. For more details,
-see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
+see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md).
 
 #### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
 
@@ -972,7 +972,7 @@ and then serve it in parallel from as many pods as you need. Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode.
 Simultaneous writers are not allowed.
 
-See the [RBD example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/volumes/rbd)
+See the [RBD example](https://github.com/kubernetes/examples/tree/master/volumes/rbd)
 for more details.
 
 ### secret
