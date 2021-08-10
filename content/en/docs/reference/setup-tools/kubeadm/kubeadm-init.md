@@ -104,6 +104,10 @@ sudo kubeadm init --skip-phases=control-plane,etcd --config=configfile.yaml
 
 What this example would do is write the manifest files for the control plane and etcd in `/etc/kubernetes/manifests` based on the configuration in `configfile.yaml`. This allows you to modify the files and then skip these phases using `--skip-phases`. By calling the last command you will create a control plane node with the custom manifest files.
 
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+
+Alternatively, you can use the `skipPhases` field under `InitConfiguration`.
+
 ### Using kubeadm init with a configuration file {#config-file}
 
 {{< caution >}}
@@ -122,8 +126,8 @@ The default configuration can be printed out using the
 If your configuration is not using the latest version it is **recommended** that you migrate using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-For more information on the fields and usage of the configuration you can navigate to our API reference
-page and pick a version from [the list](https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories).
+For more information on the fields and usage of the configuration you can navigate to our
+[API reference page](/docs/reference/config-api/kubeadm-config.v1beta2/).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
@@ -142,7 +146,7 @@ For information about passing flags to control plane components see:
 
 By default, kubeadm pulls images from `k8s.gcr.io`. If the
 requested Kubernetes version is a CI label (such as `ci/latest`)
-`gcr.io/kubernetes-ci-images` is used.
+`gcr.io/k8s-staging-ci-images` is used.
 
 You can override this behavior by using [kubeadm with a configuration file](#config-file).
 Allowed customization are:

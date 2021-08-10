@@ -22,7 +22,6 @@ card:
 - [macOS에서 curl을 사용하여 kubectl 바이너리 설치](#install-kubectl-binary-with-curl-on-macos)
 - [macOS에서 Homebrew를 사용하여 설치](#install-with-homebrew-on-macos)
 - [macOS에서 Macports를 사용하여 설치](#install-with-macports-on-macos)
-- [macOS에서 Google Cloud SDK를 사용하여 설치](#install-on-macos-as-part-of-the-google-cloud-sdk)
 
 ### macOS에서 curl을 사용하여 kubectl 바이너리 설치 {#install-kubectl-binary-with-curl-on-macos}
 
@@ -99,9 +98,13 @@ card:
 1. kubectl 바이너리를 시스템 `PATH` 의 파일 위치로 옮긴다.
 
    ```bash
-   sudo mv ./kubectl /usr/local/bin/kubectl && \
+   sudo mv ./kubectl /usr/local/bin/kubectl
    sudo chown root: /usr/local/bin/kubectl
    ```
+
+   {{< note >}}
+   `PATH` 환경 변수 안에 `/usr/local/bin` 이 있는지 확인한다.
+   {{< /note >}}
 
 1. 설치한 버전이 최신 버전인지 확인한다.
 
@@ -148,16 +151,11 @@ macOS에서 [Macports](https://macports.org/) 패키지 관리자를 사용하�
    kubectl version --client
    ```
 
-
-### Google Cloud SDK를 사용하여 설치 {#install-on-macos-as-part-of-the-google-cloud-sdk}
-
-{{< include "included/install-kubectl-gcloud.md" >}}
-
 ## kubectl 구성 확인
 
 {{< include "included/verify-kubectl.md" >}}
 
-## 선택적 kubectl 구성
+## 선택적 kubectl 구성 및 플러그인
 
 ### 셸 자동 완성 활성화
 
@@ -169,6 +167,82 @@ kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
+
+### `kubectl convert` 플러그인 설치
+
+{{< include "included/kubectl-convert-overview.md" >}}
+
+1. 다음 명령으로 최신 릴리스를 다운로드한다.
+
+   {{< tabs name="download_convert_binary_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl-convert"
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl-convert"
+   {{< /tab >}}
+   {{< /tabs >}}
+
+1. 바이너리를 검증한다. (선택 사항)
+
+   kubectl-convert 체크섬(checksum) 파일을 다운로드한다.
+
+   {{< tabs name="download_convert_checksum_macos" >}}
+   {{< tab name="Intel" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl-convert.sha256"
+   {{< /tab >}}
+   {{< tab name="Apple Silicon" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl-convert.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
+
+   kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
+
+   ```bash
+   echo "$(<kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
+   ```
+
+   검증이 성공한다면, 출력은 다음과 같다.
+
+   ```console
+   kubectl-convert: OK
+   ```
+
+   검증이 실패한다면, `shasum`이 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
+
+   ```bash
+   kubectl-convert: FAILED
+   shasum: WARNING: 1 computed checksum did NOT match
+   ```
+
+   {{< note >}}
+   동일한 버전의 바이너리와 체크섬을 다운로드한다.
+   {{< /note >}}
+
+1. kubectl-convert 바이너리를 실행 가능하게 한다.
+
+   ```bash
+   chmod +x ./kubectl-convert
+   ```
+
+1. kubectl-convert 바이너리를 시스템 `PATH` 의 파일 위치로 옮긴다.
+
+   ```bash
+   sudo mv ./kubectl /usr/local/bin/kubectl-convert
+   sudo chown root: /usr/local/bin/kubectl-convert
+   ```
+
+   {{< note >}}
+   `PATH` 환경 변수 안에 `/usr/local/bin` 이 있는지 확인한다.
+   {{< /note >}}
+
+1. 플러그인이 정상적으로 설치되었는지 확인한다.
+
+   ```shell
+   kubectl convert --help
+   ```
+
+   에러가 출력되지 않는다면, 플러그인이 정상적으로 설치된 것이다.
 
 ## {{% heading "whatsnext" %}}
 

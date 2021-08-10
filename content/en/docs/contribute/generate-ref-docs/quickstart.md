@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-This page shows how to use the `update-imported-docs` script to generate
+This page shows how to use the `update-imported-docs.py` script to generate
 the Kubernetes reference documentation. The script automates
 the build setup and generates the reference documentation for a release.
 
@@ -18,8 +18,8 @@ the build setup and generates the reference documentation for a release.
 
 ## Getting the docs repository
 
-Make sure your `website` fork is up-to-date with the `kubernetes/website` master and clone
-your `website` fork.
+Make sure your `website` fork is up-to-date with the `kubernetes/website` remote on
+GitHub (`main` branch), and clone your `website` fork.
 
 ```shell
 mkdir github.com
@@ -39,7 +39,7 @@ see the [contributing upstream guide](/docs/contribute/generate-ref-docs/contrib
 
 ## Overview of update-imported-docs
 
-The `update-imported-docs` script is located in the `<web-base>/update-imported-docs/`
+The `update-imported-docs.py` script is located in the `<web-base>/update-imported-docs/`
 directory.
 
 The script builds the following references:
@@ -48,7 +48,7 @@ The script builds the following references:
 * The `kubectl` command reference
 * The Kubernetes API reference
 
-The `update-imported-docs` script generates the Kubernetes reference documentation
+The `update-imported-docs.py` script generates the Kubernetes reference documentation
 from the Kubernetes source code. The script creates a temporary directory
 under `/tmp` on your machine and clones the required repositories: `kubernetes/kubernetes` and
 `kubernetes-sigs/reference-docs` into this directory.
@@ -69,7 +69,7 @@ The `generate-command` field defines a series of build instructions
 from `kubernetes-sigs/reference-docs/Makefile`. The `K8S_RELEASE` variable
 determines the version of the release.
 
-The `update-imported-docs` script performs the following steps:
+The `update-imported-docs.py` script performs the following steps:
 
 1. Clones the related repositories specified in a configuration file. For the
    purpose of generating reference docs, the repository that is cloned by
@@ -152,17 +152,17 @@ For example:
 
 ## Running the update-imported-docs tool
 
-You can run the `update-imported-docs` tool as follows:
+You can run the `update-imported-docs.py` tool as follows:
 
 ```shell
 cd <web-base>/update-imported-docs
-./update-imported-docs <configuration-file.yml> <release-version>
+./update-imported-docs.py <configuration-file.yml> <release-version>
 ```
 
 For example:
 
 ```shell
-./update-imported-docs reference.yml 1.17
+./update-imported-docs.py reference.yml 1.17
 ```
 
 <!-- Revisit: is the release configuration used -->
@@ -171,7 +171,7 @@ For example:
 The `release.yml` configuration file contains instructions to fix relative links.
 To fix relative links within your imported files, set the`gen-absolute-links`
 property to `true`. You can find an example of this in
-[`release.yml`](https://github.com/kubernetes/website/blob/master/update-imported-docs/release.yml).
+[`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml).
 
 ## Adding and committing changes in kubernetes/website
 
@@ -253,5 +253,4 @@ running the build targets, see the following guides:
 * [Generating Reference Documentation for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
 * [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
-
 

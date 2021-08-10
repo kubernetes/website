@@ -24,7 +24,7 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/): Use program profiles to restrict the capabilities of individual programs.
 
-* [Seccomp](https://en.wikipedia.org/wiki/Seccomp): Filter a process's system calls.
+* [Seccomp](/docs/tutorials/clusters/seccomp/): Filter a process's system calls.
 
 * AllowPrivilegeEscalation: Controls whether a process can gain more privileges than its parent process. This bool directly controls whether the [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt) flag gets set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged OR 2) has `CAP_SYS_ADMIN`.
 
@@ -184,6 +184,25 @@ This field has no effect on ephemeral volume types such as
 and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
 {{< /note >}}
 
+## Delegating volume permission and ownership change to CSI driver
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+If you deploy a [Container Storage Interface (CSI)](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+driver which supports the `VOLUME_MOUNT_GROUP` `NodeServiceCapability`, the
+process of setting file ownership and permissions based on the
+`fsGroup` specified in the `securityContext` will be performed by the CSI driver
+instead of Kubernetes, provided that the `DelegateFSGroupToCSIDriver` Kubernetes
+feature gate is enabled. In this case, since Kubernetes doesn't perform any
+ownership and permission change, `fsGroupChangePolicy` does not take effect, and
+as specified by CSI, the driver is expected to mount the volume with the
+provided `fsGroup`, resulting in a volume that is readable/writable by the
+`fsGroup`.
+
+Please refer to the [KEP](https://github.com/gnufied/enhancements/blob/master/keps/sig-storage/2317-fsgroup-on-mount/README.md)
+and the description of the `VolumeCapability.MountVolume.volume_mount_group`
+field in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume)
+for more information.
 
 ## Set the security context for a Container
 

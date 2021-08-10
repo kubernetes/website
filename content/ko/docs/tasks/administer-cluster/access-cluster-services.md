@@ -19,9 +19,19 @@ content_type: task
 
 쿠버네티스에서, [노드](/ko/docs/concepts/architecture/nodes/),
 [파드](/ko/docs/concepts/workloads/pods/) 및 [서비스](/ko/docs/concepts/services-networking/service/)는 모두
+<<<<<<< HEAD
 고유한 IP를 가진다. 당신의 데스크탑 PC와 같은 클러스터 외부 장비에서는
 클러스터 상의 노드 IP, 파드 IP, 서비스 IP로 라우팅되지 않아서 
 접근할 수 없을 것이다.
+||||||| 6d252624b
+고유한 IP를 가진다. 대부분의 경우, 클러스터의 노드 IP, 파드 IP 및 일부 서비스 IP는 라우팅할 수
+없으므로, 데스크톱 시스템과 같은 클러스터 외부 시스템에서
+도달할 수 없다.
+=======
+고유한 IP를 가진다. 사용자의 데스크탑 PC와 같은 클러스터 외부 장비에서는
+클러스터 상의 노드 IP, 파드 IP, 서비스 IP로 라우팅되지 않아서 
+접근할 수 없을 것이다.
+>>>>>>> fork/dev-1.20-ko.8
 
 ### 연결하는 방법
 

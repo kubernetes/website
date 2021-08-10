@@ -52,7 +52,7 @@ Algumas das coisas que um operador pode ser usado para automatizar incluem:
   como esquemas de base de dados ou definições de configuração extra
 * publicar um *Service* para aplicações que não suportam a APIs do Kubernetes
   para as descobrir
-* simular una falha em todo ou parte do cluster de forma a testar a resiliência
+* simular uma falha em todo ou parte do cluster de forma a testar a resiliência
 * escolher um lider para uma aplicação distribuída sem um processo
   de eleição de membro interno
 

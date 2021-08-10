@@ -212,6 +212,10 @@ kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 
 # 파드 등에 대해 반환된 모든 키의 마침표로 구분된 트리를 생성한다.
 kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+
+# 모든 파드에 대해 ENV를 생성한다(각 파드에 기본 컨테이너가 있고, 기본 네임스페이스가 있고, `env` 명령어가 동작한다고 가정).
+# `env` 뿐만 아니라 다른 지원되는 명령어를 모든 파드에 실행할 때에도 참고할 수 있다.
+for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod env; done
 ```
 
 ## 리소스 업데이트
@@ -384,10 +388,19 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 # 클러스터에서 실행 중인 모든 이미지
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 
+<<<<<<< HEAD
 # `default` 네임스페이스의 모든 이미지를 파드별로 그룹지어 출력
 kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
  # "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
+||||||| 6d252624b
+ # "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
+=======
+# `default` 네임스페이스의 모든 이미지를 파드별로 그룹지어 출력
+kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
+
+# "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
+>>>>>>> fork/dev-1.20-ko.8
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
 
 # 이름에 관계없이 메타데이터 아래의 모든 필드

@@ -199,7 +199,7 @@ service PodResourcesLister {
 
 The `List` endpoint provides information on resources of running pods, with details such as the
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
-the NUMA node where these devices are allocated.
+the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the information about memory and hugepages reserved for a container.
 
 ```gRPC
 // ListPodResourcesResponse is the response returned by List function
@@ -219,6 +219,14 @@ message ContainerResources {
     string name = 1;
     repeated ContainerDevices devices = 2;
     repeated int64 cpu_ids = 3;
+    repeated ContainerMemory memory = 4;
+}
+
+// ContainerMemory contains information about memory and hugepages assigned to a container
+message ContainerMemory {
+    string memory_type = 1;
+    uint64 size = 2;
+    TopologyInfo topology = 3;
 }
 
 // Topology describes hardware topology of the resource
@@ -247,13 +255,14 @@ It provides more information than kubelet exports to APIServer.
 message AllocatableResourcesResponse {
     repeated ContainerDevices devices = 1;
     repeated int64 cpu_ids = 2;
+    repeated ContainerMemory memory = 3;
 }
 
 ```
 
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is affine.
 The NUMA cells are identified using a opaque integer ID, which value is consistent to what device
-plugins report [when they register themselves to the kubelet](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
+plugins report [when they register themselves to the kubelet](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
 
 
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.

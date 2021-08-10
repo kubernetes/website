@@ -26,39 +26,40 @@ each resource to score nodes based on the request to capacity ratio. This
 allows users to bin pack extended resources by using appropriate parameters
 and improves the utilization of scarce resources in large clusters. The
 behavior of the `RequestedToCapacityRatioResourceAllocation` priority function
-can be controlled by a configuration option called
-`requestedToCapacityRatioArguments`. This argument consists of two parameters
-`shape` and `resources`. The `shape` parameter allows the user to tune the
-function as least requested or most requested based on `utilization` and
-`score` values.  The `resources` parameter consists of `name` of the resource
-to be considered during scoring and `weight` specify the weight of each
-resource.
+can be controlled by a configuration option called `RequestedToCapacityRatioArgs`. 
+This argument consists of two parameters `shape` and `resources`. The `shape` 
+parameter allows the user to tune the function as least requested or most 
+requested based on `utilization` and `score` values.  The `resources` parameter 
+consists of `name` of the resource to be considered during scoring and `weight` 
+specify the weight of each resource.
 
 Below is an example configuration that sets
 `requestedToCapacityRatioArguments` to bin packing behavior for extended
 resources `intel.com/foo` and `intel.com/bar`.
 
 ```yaml
-apiVersion: v1
-kind: Policy
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+profiles:
 # ...
-priorities:
-  # ...
-  - name: RequestedToCapacityRatioPriority
-    weight: 2
-    argument:
-      requestedToCapacityRatioArguments:
-        shape:
-          - utilization: 0
-            score: 0
-          - utilization: 100
-            score: 10
-        resources:
-          - name: intel.com/foo
-            weight: 3
-          - name: intel.com/bar
-            weight: 5
+  pluginConfig:
+  - name: RequestedToCapacityRatio
+    args: 
+      shape:
+      - utilization: 0
+        score: 10
+      - utilization: 100
+        score: 0
+      resources:
+      - name: intel.com/foo
+        weight: 3
+      - name: intel.com/bar
+        weight: 5
 ```
+
+Referencing the `KubeSchedulerConfiguration` file with the kube-scheduler 
+flag `--config=/path/to/config/file` will pass the configuration to the 
+scheduler.
 
 **This feature is disabled by default**
 

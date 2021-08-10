@@ -56,7 +56,7 @@ You can also run the cloud controller manager as a Kubernetes
 of the control plane.
 -->
 {{< note >}}
-你也可以以 Kubernetes {{< glossary_tooltip text="插件" term_id="addons" >}} 
+你也可以用 Kubernetes {{< glossary_tooltip text="插件" term_id="addons" >}} 
 的形式而不是控制面中的一部分来运行云控制器管理器。
 {{< /note >}}
 

@@ -76,7 +76,7 @@ for provisioning PVs. This field must be specified.
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
-| NFS                  | -                   | -                                    |
+| NFS                  | -                   | [NFS](#nfs)       |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
 | VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
 | PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
@@ -189,7 +189,7 @@ and pre-created PVs, but you'll need to look at the documentation for a specific
 to see its supported topology keys and examples.
 
 {{< note >}}
-   If you choose to use `waitForFirstConsumer`, do not use `nodeName` in the Pod spec
+   If you choose to use `WaitForFirstConsumer`, do not use `nodeName` in the Pod spec
    to specify node affinity. If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
 
    Instead, you can use node selector for hostname in this case as shown below.
@@ -423,6 +423,29 @@ parameters:
     `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically
     deleted when the persistent volume claim is deleted.
 
+### NFS
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: example-nfs
+provisioner: example.com/external-nfs
+parameters:
+  server: nfs-server.example.com
+  path: /share
+  readOnly: false
+```
+
+* `server`: Server is the hostname or IP address of the NFS server.
+* `path`: Path that is exported by the NFS server.
+* `readOnly`: A flag indicating whether the storage will be mounted as read only (default false).
+
+Kubernetes doesn't include an internal NFS provisioner. You need to use an external provisioner to create a StorageClass for NFS.
+Here are some examples:
+* [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+* [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+
 ### OpenStack Cinder
 
 ```yaml
@@ -578,6 +601,12 @@ parameters:
 
 ### Quobyte
 
+{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
+
+The Quobyte in-tree storage plugin is deprecated, an 
+[example](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml)
+`StorageClass` for the out-of-tree Quobyte plugin can be found at the Quobyte CSI repository.
+
 ```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -658,11 +687,11 @@ metadata:
 provisioner: kubernetes.io/azure-disk
 parameters:
   storageaccounttype: Standard_LRS
-  kind: Shared
+  kind: managed
 ```
 
 * `storageaccounttype`: Azure storage account Sku tier. Default is empty.
-* `kind`: Possible values are `shared` (default), `dedicated`, and `managed`.
+* `kind`: Possible values are `shared`, `dedicated`, and `managed` (default).
   When `kind` is `shared`, all unmanaged disks are created in a few shared
   storage accounts in the same resource group as the cluster. When `kind` is
   `dedicated`, a new dedicated storage account will be created for the new

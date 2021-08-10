@@ -218,6 +218,7 @@ Events:       <none>
 {{< codenew file="service/networking/external-lb.yaml" >}}
 
 IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클래스에 대한
+<<<<<<< HEAD
 추가 구현 별 구성을 참조하는데 사용할 수 있다.
 
 #### 네임스페이스 범위의 파라미터
@@ -231,6 +232,11 @@ IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클
 설정하면 특정 네임스페이스의 파라미터 리소스를 참조한다.
 
 {{< codenew file="service/networking/namespaced-params.yaml" >}}
+||||||| 6d252624b
+추가 구성을 참조하는데 사용할 수 있다.
+=======
+추가 구성을 참조하는 데에 사용할 수 있다.
+>>>>>>> fork/dev-1.20-ko.8
 
 ### 사용중단(Deprecated) 어노테이션
 
@@ -269,8 +275,16 @@ IngressClass 리소스에는 선택적인 파라미터 필드가 있다. 이 클
 
 {{< codenew file="service/networking/test-ingress.yaml" >}}
 
+<<<<<<< HEAD
 만약 `kubectl apply -f` 를 사용해서 생성한다면 추가한 인그레스의
 상태를 볼 수 있어야 한다.
+||||||| 6d252624b
+만약 `kubectl apply -f` 를 사용해서 생성한다면 방금 추가한 인그레스의
+상태를 볼 수 있어야 한다.
+=======
+만약 `kubectl apply -f` 를 사용해서 생성했다면 생성한 인그레스의
+상태를 볼 수 있을 것이다.
+>>>>>>> fork/dev-1.20-ko.8
 
 ```bash
 kubectl get ingress test-ingress

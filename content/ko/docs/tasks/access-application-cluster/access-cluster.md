@@ -44,8 +44,16 @@ REST API에 직접 접근하려고 한다면 위치 파악과 인증을 하는 �
     - 앞으로는 클라이언트 측의 지능형 load balancing과 failover가 될 것이다.
   - 직접적으로 http 클라이언트에 위치정보와 인증정보를 제공.
     - 대안적인 접근 방식.
+<<<<<<< HEAD
     - proxy 사용과 혼동되는 몇 가지 타입의 클라이언트 코드와 같이 동작한다.
     - MITM로부터 보호를 위해 root 인증서를 당신의 브라우저로 임포트해야 한다.
+||||||| 6d252624b
+    - proxy 사용과 혼동되는 몇 가지 타입의 클라이언트 code들과 같이 동작한다.
+    - MITM로부터 보호를 위해 root 인증서를 당신의 브라우저로 import해야 한다.
+=======
+    - proxy 사용과 혼동되는 몇 가지 타입의 클라이언트 코드와 같이 동작한다.
+    - MITM로부터 보호를 위해 root 인증서를 당신의 브라우저에 저장해야 한다.
+>>>>>>> fork/dev-1.20-ko.8
 
 ### kubectl proxy 사용
 
@@ -215,12 +223,28 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
 ## 클러스터에서 실행되는 서비스로 접근
 
 이전 장은 쿠버네티스 API server 접속에 대한 내용을 다루었다. 이번 장은
+<<<<<<< HEAD
 쿠버네티스 클러스터 상에서 실행되는 다른 서비스로의 연결을 다룰 것이다. 
 
 쿠버네티스에서, [노드](/ko/docs/concepts/architecture/nodes/),
 [파드](/ko/docs/concepts/workloads/pods/) 및 [서비스](/ko/docs/concepts/services-networking/service/)는 모두
 고유한 IP를 가진다. 당신의 데스크탑 PC와 같은 클러스터 외부 장비에서는
 클러스터 상의 노드 IP, 파드 IP, 서비스 IP로 라우팅되지 않아서 접근을
+||||||| 6d252624b
+쿠버네티스 클러스터 상에서 실행되는 다른 서비스로의 연결을 다룰 것이다. 쿠버네티스에서
+[노드들](/ko/docs/concepts/architecture/nodes/),
+[파드들](/ko/docs/concepts/workloads/pods/),
+[서비스들](/ko/docs/concepts/services-networking/service/)은
+모두 자신의 IP들을 가진다. 당신의 데스크탑 PC와 같은 클러스터 외부 장비에서는
+클러스터 상의 노드 IP들, 파드 IP들, 서비스 IP들로 라우팅되지 않아서 접근을
+=======
+쿠버네티스 클러스터 상에서 실행되는 다른 서비스로의 연결을 다룰 것이다. 
+
+쿠버네티스에서, [노드](/ko/docs/concepts/architecture/nodes/),
+[파드](/ko/docs/concepts/workloads/pods/) 및 [서비스](/ko/docs/concepts/services-networking/service/)는 모두
+고유한 IP를 가진다. 사용자의 데스크탑 PC와 같은 클러스터 외부 장비에서는
+클러스터 상의 노드 IP, 파드 IP, 서비스 IP로 라우팅되지 않아서 접근을
+>>>>>>> fork/dev-1.20-ko.8
 할 수 없을 것이다.
 
 ### 통신을 위한 방식들
@@ -234,15 +258,33 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
     - 클러스터 환경에 따라, 서비스는 회사 네트워크에만 노출되기도 하며,
       인터넷에 노출되는 경우도 있다. 이 경우 노출되는 서비스의 보안 여부를 고려해야 한다.
       해당 서비스는 자체적으로 인증을 수행하는가?
+<<<<<<< HEAD
     - 파드는 서비스 뒤에 위치시킨다. 레플리카들의 집합에서 특정 파드 하나에 debugging 같은 목적으로 접근하려면
       해당 파드에 고유의 레이블을 붙이고 셀렉터에 해당 레이블을 선택하는 신규 서비스를 생성한다.
+||||||| 6d252624b
+    - 파드들은 서비스 뒤에 위치시킨다. 레플리카들의 집합에서 특정 파드 하나에 debugging 같은 목적으로 접근하려면
+      해당 파드에 고유의 레이블을 붙이고 셀렉터에 해당 레이블을 선택한 신규 서비스를 생성한다.
+=======
+    - 파드는 서비스 뒤에 위치시킨다. 레플리카들의 집합에서 특정 파드 하나에 디버깅 같은 목적으로 접근하려면
+      해당 파드에 고유의 레이블을 붙이고 셀렉터에 해당 레이블을 선택하는 신규 서비스를 생성한다.
+>>>>>>> fork/dev-1.20-ko.8
     - 대부분의 경우에는 애플리케이션 개발자가 노드 IP를 통해 직접 노드에
       접근할 필요는 없다.
   - Proxy Verb를 사용하여 서비스, 노드, 파드에 접근.
     - 원격 서비스에 접근하기에 앞서 apiserver의 인증과 인가를 받아야 한다.
+<<<<<<< HEAD
       서비스가 인터넷에 노출하기에 보안이 충분하지 않거나 노드 IP 상의 포트에
       접근을 하려고 하거나 debugging을 하려면 이를 사용한다.
     - 어떤 web 애플리케이션에서는 프록시가 문제를 일으킬 수 있다.
+||||||| 6d252624b
+      서비스가 인터넷에 노출하기에 보안이 충분하지 않거나 노드 IP 상의 port에
+      접근을 하려고 하거나 debugging을 하려면 이를 사용한다.
+    - 어떤 web 애플리케이션에서는 proxy가 문제를 일으킬 수 있다.
+=======
+      서비스가 인터넷에 노출하기에 보안이 충분하지 않거나 노드 IP 상의 포트에
+      접근을 하려고 하거나 디버깅을 하려면 이를 사용한다.
+    - 어떤 web 애플리케이션에서는 프록시가 문제를 일으킬 수 있다.
+>>>>>>> fork/dev-1.20-ko.8
     - HTTP/HTTPS에서만 동작한다.
     - [여기](#수작업으로-apiserver-proxy-url들을-구축)에서 설명하고 있다.
   - 클러스터 내 노드 또는 파드에서 접근.
@@ -278,10 +320,18 @@ heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/servi
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`를 통해 logging에 접근할 수도 있다.
 (인증을 통과하는 방법이나 kubectl proxy를 사용하는 것은 [쿠버네티스 API를 사용해서 클러스터에 접근하기](/ko/docs/tasks/administer-cluster/access-cluster-api/)을 참조한다.)
 
-#### 수작업으로 apiserver proxy URL을 구축
+#### 수작업으로 apiserver 프록시 URL을 구축
 
+<<<<<<< HEAD
 위에서 언급한 것처럼 서비스의 proxy URL을 검색하는 데 `kubectl cluster-info` 커맨드를 사용할 수 있다. 서비스 endpoint, 접미사, 매개변수를 포함하는 proxy URL을 생성하려면 해당 서비스에
 `http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy` 형식의 proxy URL을 덧붙인다.
+||||||| 6d252624b
+위에서 언급한 것처럼 서비스의 proxy URL을 검색하는데 `kubectl cluster-info` 커맨드를 사용할 수 있다. 서비스 endpoint, 접미사, 매개변수를 포함하는 proxy URL을 생성하려면 해당 서비스에
+`http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy` 형식의 proxy URL을 덧붙인다.
+=======
+위에서 언급한 것처럼 서비스의 프록시 URL을 검색하는 데 `kubectl cluster-info` 커맨드를 사용할 수 있다. 서비스 엔드포인트, 접미사, 파라미터를 포함하는 프록시 URL을 생성하려면 해당 서비스에
+`http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy` 형식의 프록시 URL을 덧붙인다.
+>>>>>>> fork/dev-1.20-ko.8
 
 당신이 포트에 이름을 지정하지 않았다면 URL에 *port_name* 을 지정할 필요는 없다. 이름이 있는 포트와 이름이 없는 포트 모두에 대하여, *port_name* 이 들어갈 자리에 포트 번호를 기재할 수도 있다.
 
@@ -290,10 +340,22 @@ heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/servi
 
 URL의 네임 부분에 지원되는 양식은 다음과 같다.
 
+<<<<<<< HEAD
 * `<service_name>` - http를 사용하여 기본값 또는 이름이 없는 포트로 프록시한다.
 * `<service_name>:<port_name>` - http를 사용하여 지정된 포트 이름 또는 포트 번호로 프록시한다.
 * `https:<service_name>:` - https를 사용하여 기본값 또는 이름이 없는 포트로 프록시한다. (마지막 콜론:에 주의)
 * `https:<service_name>:<port_name>` - https를 사용하여 지정된 포트 이름 또는 포트 번호로 프록시한다.
+||||||| 6d252624b
+* `<service_name>` - http를 사용하여 기본값 또는 이름이 없는 port로 proxy한다
+* `<service_name>:<port_name>` - http를 사용하여 지정된 port로 proxy한다
+* `https:<service_name>:` - https를 사용하여 기본값 또는 이름이 없는 port로 proxy한다(마지막 콜론:에 주의)
+* `https:<service_name>:<port_name>` - https를 사용하여 지정된 port로 proxy한다
+=======
+* `<service_name>` - http를 사용하여 기본값 또는 이름이 없는 포트로 프록시한다.
+* `<service_name>:<port_name>` - http를 사용하여 지정된 포트 이름 또는 포트 번호로 프록시한다.
+* `https:<service_name>:` - https를 사용하여 기본값 또는 이름이 없는 포트로 프록시한다. (마지막 콜론(:)에 주의)
+* `https:<service_name>:<port_name>` - https를 사용하여 지정된 포트 이름 또는 포트 번호로 프록시한다.
+>>>>>>> fork/dev-1.20-ko.8
 
 ##### 예제들
 

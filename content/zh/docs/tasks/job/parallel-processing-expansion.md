@@ -367,7 +367,7 @@ cat job.yaml.jinja2 | render_template | kubectl apply -f -
 <!--
 Kubernetes accepts and runs the Jobs you created.
 -->
-Kubernets 接收清单文件并执行你所创建的 Job。
+Kubernetes 接收清单文件并执行你所创建的 Job。
 
 <!--
 ### Clean up {#cleanup-2}

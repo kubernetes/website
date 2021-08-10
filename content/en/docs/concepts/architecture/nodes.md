@@ -14,7 +14,7 @@ A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 and contains the services necessary to run
-{{< glossary_tooltip text="Pods" term_id="pod" >}}
+{{< glossary_tooltip text="Pods" term_id="pod" >}}.
 
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
@@ -283,7 +283,7 @@ The node eviction behavior changes when a node in a given availability zone
 becomes unhealthy. The node controller checks what percentage of nodes in the zone
 are unhealthy (NodeReady condition is ConditionUnknown or ConditionFalse) at
 the same time:
-- If the fraction of unhealthy nodes is at least `--unhealthy-zone-threshold` 
+- If the fraction of unhealthy nodes is at least `--unhealthy-zone-threshold`
   (default 0.55), then the eviction rate is reduced.
 - If the cluster is small (i.e. has less than or equal to
   `--large-cluster-size-threshold` nodes - default 50), then evictions are stopped.
@@ -376,6 +376,64 @@ For example, if `ShutdownGracePeriod=30s`, and
 30 seconds. During the shutdown, the first 20 (30-10) seconds would be reserved
 for gracefully terminating normal pods, and the last 10 seconds would be
 reserved for terminating [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
+
+{{< note >}}
+When pods were evicted during the graceful node shutdown, they are marked as failed.
+Running `kubectl get pods` shows the status of the the evicted pods as `Shutdown`.
+And `kubectl describe pod` indicates that the pod was evicted because of node shutdown:
+
+```
+Status:         Failed
+Reason:         Shutdown
+Message:        Node is shutting, evicting pods
+```
+
+Failed pod objects will be preserved until explicitly deleted or [cleaned up by the GC](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+This is a change of behavior compared to abrupt node termination.
+{{< /note >}}
+
+## Swap memory management {#swap-memory}
+
+{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+
+Prior to Kubernetes 1.22, nodes did not support the use of swap memory, and a
+kubelet would by default fail to start if swap was detected on a node. In 1.22
+onwards, swap memory support can be enabled on a per-node basis.
+
+To enable swap on a node, the `NodeSwap` feature gate must be enabled on
+the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
+[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+must be set to false.
+
+A user can also optionally configure `memorySwap.swapBehavior` in order to
+specify how a node will use swap memory. For example,
+
+```yaml
+memorySwap:
+  swapBehavior: LimitedSwap
+```
+
+The available configuration options for `swapBehavior` are:
+
+- `LimitedSwap`: Kubernetes workloads are limited in how much swap they can
+  use. Workloads on the node not managed by Kubernetes can still swap.
+- `UnlimitedSwap`: Kubernetes workloads can use as much swap memory as they
+  request, up to the system limit.
+
+If configuration for `memorySwap` is not specified and the feature gate is
+enabled, by default the kubelet will apply the same behaviour as the
+`LimitedSwap` setting.
+
+The behaviour of the `LimitedSwap` setting depends if the node is running with
+v1 or v2 of control groups (also known as "cgroups"):
+
+- **cgroupsv1:** Kubernetes workloads can use any combination of memory and
+  swap, up to the pod's memory limit, if set.
+- **cgroupsv2:** Kubernetes workloads cannot use swap memory.
+
+For more information, and to assist with testing and provide feedback, please
+see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
+[design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 
 ## {{% heading "whatsnext" %}}
 

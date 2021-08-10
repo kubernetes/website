@@ -54,7 +54,7 @@ If you use a Docker credentials store, you won't see that `auth` entry but a `cr
 
 ## Create a Secret based on existing Docker credentials {#registry-secret-existing-credentials}
 
-A Kubernetes cluster uses the Secret of `docker-registry` type to authenticate with
+A Kubernetes cluster uses the Secret of `kubernetes.io/dockerconfigjson` type to authenticate with
 a container registry to pull a private image.
 
 If you already ran `docker login`, you can copy that credential into Kubernetes:

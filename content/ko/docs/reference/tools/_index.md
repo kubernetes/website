@@ -1,8 +1,10 @@
 ---
-
-
 title: 도구
+
+
 content_type: concept
+weight: 80
+no_list: true
 ---
 
 <!-- overview -->
@@ -10,13 +12,6 @@ content_type: concept
 
 
 <!-- body -->
-## Kubectl
-
-[`kubectl`](/ko/docs/tasks/tools/install-kubectl/)은 쿠버네티스를 위한 커맨드라인 툴이며, 쿠버네티스 클러스터 매니저을 제어한다.
-
-## Kubeadm
-
-[`kubeadm`](/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)은 물리적 환경, 클라우드 서버, 또는 가상머신 상에서 안전한 쿠버네티스를 쉽게 프로비저닝하기 위한 커맨드라인 툴이다(현재는 알파 상태).
 
 ## Minikube
 
@@ -31,8 +26,8 @@ content_type: concept
 
 ## Helm
 
-[`쿠버네티스 Helm`](https://github.com/kubernetes/helm)은 사전 구성된 쿠버네티스 리소스를 관리하기위한 도구이며
-또한 Helm의 쿠버네티스 차트라고도 한다.
+[Helm](https://helm.sh/)은 사전 구성된 쿠버네티스 리소스 패키지를 관리하기 위한 도구이다.
+이 패키지는 _Helm charts_ 라고 알려져 있다.
 
 Helm의 용도
 

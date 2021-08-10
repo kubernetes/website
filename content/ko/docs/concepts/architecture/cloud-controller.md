@@ -210,7 +210,7 @@ rules:
 
 자체 클라우드 컨트롤러 매니저를 구현하거나 기존 프로젝트를 확장하는 방법을 알고 싶은가?
 
-클라우드 컨트롤러 매니저는 Go 인터페이스를 사용해서 모든 클라우드 플러그인을 구현할 수 있다. 구체적으로, [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)의 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62)에 정의된 `CloudProvider` 인터페이스를 사용한다.
+클라우드 컨트롤러 매니저는 Go 인터페이스를 사용함으로써, 어떠한 클라우드에 대한 구현체(implementation)라도 플러그인 될 수 있도록 한다. 구체적으로는, [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)의 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)에 정의된 `CloudProvider` 인터페이스를 사용한다.
 
 이 문서(노드, 라우트와 서비스)에서 강조된 공유 컨트롤러의 구현과 공유 cloudprovider 인터페이스와 함께 일부 스캐폴딩(scaffolding)은 쿠버네티스 핵심의 일부이다. 클라우드 공급자 전용 구현은 쿠버네티스의 핵심 바깥에 있으며 `CloudProvider` 인터페이스를 구현한다.
 

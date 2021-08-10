@@ -134,7 +134,6 @@ Go to `<k8s-base>` and run these scripts:
 hack/update-generated-swagger-docs.sh
 hack/update-openapi-spec.sh
 hack/update-generated-protobuf.sh
-hack/update-api-reference-docs.sh
 ```
 
 Run `git status` to see what was generated.
@@ -143,8 +142,6 @@ Run `git status` to see what was generated.
 On branch master
 ...
     modified:   api/openapi-spec/swagger.json
-    modified:   api/swagger-spec/apps_v1.json
-    modified:   docs/api-reference/apps/v1/definitions.html
     modified:   staging/src/k8s.io/api/apps/v1/generated.proto
     modified:   staging/src/k8s.io/api/apps/v1/types.go
     modified:   staging/src/k8s.io/api/apps/v1/types_swagger_doc_generated.go

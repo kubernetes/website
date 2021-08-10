@@ -32,9 +32,11 @@ If a Pod's init container fails, the kubelet repeatedly restarts that init conta
 However, if the Pod has a `restartPolicy` of Never, and an init container fails during startup of that Pod, Kubernetes treats the overall Pod as failed.
 
 To specify an init container for a Pod, add the `initContainers` field into
-the Pod specification, as an array of objects of type
-[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core),
-alongside the app `containers` array.
+the [Pod specification](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec),
+as an array of `container` items (similar to the app `containers` field and its contents).
+See [Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container) in the
+API reference for more details.
+
 The status of the init containers is returned in `.status.initContainerStatuses`
 field as an array of the container statuses (similar to the `.status.containerStatuses`
 field).
@@ -291,7 +293,8 @@ Given the ordering and execution for init containers, the following rules
 for resource usage apply:
 
 * The highest of any particular resource request or limit defined on all init
-  containers is the *effective init request/limit*
+  containers is the *effective init request/limit*. If any resource has no
+  resource limit specified this is considered as the highest limit.
 * The Pod's *effective request/limit* for a resource is the higher of:
   * the sum of all app containers request/limit for a resource
   * the effective init request/limit for a resource

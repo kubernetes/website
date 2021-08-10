@@ -115,8 +115,16 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
 여기서 셀렉터는 레플리케이션컨트롤러(`kubectl describe` 의 출력에서 보인)의 셀렉터와 같고,
+<<<<<<< HEAD
 다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 은
 반환된 목록의 각 파드의 이름을 출력하도록 하는 옵션이다.
+||||||| 6d252624b
+다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 옵션은
+반환된 목록의 각 파드에서 이름을 가져오는 표현식을 지정한다.
+=======
+다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 는
+반환된 목록의 각 파드 이름을 출력하도록 하는 옵션이다.
+>>>>>>> fork/dev-1.20-ko.8
 
 
 ## 레플리케이션 컨트롤러의 Spec 작성
@@ -124,7 +132,13 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 다른 모든 쿠버네티스 컨피그와 마찬가지로 레플리케이션 컨트롤러는 `apiVersion`, `kind`, `metadata` 와 같은 필드가 필요하다.
 레플리케이션 컨트롤러 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
+<<<<<<< HEAD
 환경설정 파일의 동작에 관련된 일반적인 정보는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를 참고한다.
+||||||| 6d252624b
+컨피그 파일의 동작에 관련된 일반적인 정보는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를 참고한다.
+=======
+환경 설정 파일의 동작에 관련된 일반적인 정보는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를 참고한다.
+>>>>>>> fork/dev-1.20-ko.8
 
 레플리케이션 컨트롤러는 또한 [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.
 

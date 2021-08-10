@@ -169,7 +169,7 @@ kubeadm은 `kubelet` 또는 `kubectl` 을 설치하거나 관리하지 **않으�
 
 버전 차이에 대한 자세한 내용은 다음을 참고한다.
 
-* 쿠버네티스 [버전 및 버전-차이 정책](/docs/setup/release/version-skew-policy/)
+* 쿠버네티스 [버전 및 버전-차이 정책](/ko/releases/version-skew-policy/)
 * Kubeadm 관련 [버전 차이 정책](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
@@ -296,16 +296,74 @@ kubelet은 이제 kubeadm이 수행할 작업을 알려 줄 때까지 크래시�
 
 ## cgroup 드라이버 구성
 
+<<<<<<< HEAD
 컨테이너 런타임과 kubelet은 
 ["cgroup 드라이버"](/ko/docs/setup/production-environment/container-runtimes/)라는 속성을 갖고 있으며, 
 cgroup 드라이버는 리눅스 머신의 cgroup 관리 측면에 있어서 중요하다.
+||||||| 6d252624b
+도커를 사용할 때, kubeadm은 kubelet 용 cgroup 드라이버를 자동으로 감지하여
+런타임 중에 `/var/lib/kubelet/config.yaml` 파일에 설정한다.
 
+다른 CRI를 사용하는 경우, 다음과 같이 `cgroupDriver` 값을 `kubeadm init` 에 전달해야 한다.
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: <value>
+```
+
+자세한 내용은 [구성 파일과 함께 kubeadm init 사용](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)을 참고한다.
+
+`cgroupfs` 가 이미 kubelet의 기본값이기 때문에, 사용자의
+CRI cgroup 드라이버가 `cgroupfs` 가 아닌 **경우에만** 위와 같이 설정해야 한다.
+
+{{< note >}}
+`--cgroup-driver` 플래그가 kubelet에 의해 사용 중단되었으므로, `/var/lib/kubelet/kubeadm-flags.env`
+또는 `/etc/default/kubelet`(RPM에 대해서는 `/etc/sysconfig/kubelet`)에 있는 경우, 그것을 제거하고 대신 KubeletConfiguration을
+사용한다(기본적으로 `/var/lib/kubelet/config.yaml` 에 저장됨).
+{{< /note >}}
+
+CRI-O 및 containerd와 같은 다른 컨테이너 런타임에 대한 cgroup 드라이버의
+자동 감지에 대한 작업이 진행 중이다.
+=======
+도커를 사용할 때, kubeadm은 kubelet 용 cgroup 드라이버를 자동으로 감지하여
+런타임 중에 `/var/lib/kubelet/config.yaml` 파일에 설정한다.
+
+다른 CRI를 사용하는 경우, 다음과 같이 `cgroupDriver` 값을 `kubeadm init` 에 전달해야 한다.
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: <value>
+```
+
+자세한 내용은 [구성 파일과 함께 kubeadm init 사용](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)과
+[`KubeletConfiguration` 레퍼런스](/docs/reference/config-api/kubelet-config.v1beta1/)를 참고한다.
+
+`cgroupfs` 가 이미 kubelet의 기본값이기 때문에, 사용자의
+CRI cgroup 드라이버가 `cgroupfs` 가 아닌 **경우에만** 위와 같이 설정해야 한다.
+
+{{< note >}}
+`--cgroup-driver` 플래그가 kubelet에 의해 사용 중단되었으므로, `/var/lib/kubelet/kubeadm-flags.env`
+또는 `/etc/default/kubelet`(RPM에 대해서는 `/etc/sysconfig/kubelet`)에 있는 경우, 그것을 제거하고 대신 KubeletConfiguration을
+사용한다(기본적으로 `/var/lib/kubelet/config.yaml` 에 저장됨).
+{{< /note >}}
+
+CRI-O 및 containerd와 같은 다른 컨테이너 런타임에 대한 cgroup 드라이버의
+자동 감지에 대한 작업이 진행 중이다.
+>>>>>>> fork/dev-1.20-ko.8
+
+<<<<<<< HEAD
 {{< warning >}}
 컨테이너 런타임과 kubelet의 cgroup 드라이버를 일치시켜야 하며, 그렇지 않으면 kubelet 프로세스에 오류가 발생한다.
  
 더 자세한 사항은 [cgroup 드라이버 설정하기](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)를 참고한다.
 {{< /warning >}}
 
+||||||| 6d252624b
+
+=======
+>>>>>>> fork/dev-1.20-ko.8
 ## 문제 해결
 
 kubeadm에 문제가 있는 경우, [문제 해결 문서](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)를 참고한다.

@@ -29,7 +29,7 @@ kubeadm certs generate-csr [flags]
 
 ```
   # The following command will generate keys and CSRs for all control-plane certificates and kubeconfig files:
-  kubeadm alpha certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s/pki
+  kubeadm certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s/pki
 ```
 
 ### Options
