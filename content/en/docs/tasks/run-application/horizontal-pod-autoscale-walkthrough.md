@@ -397,7 +397,9 @@ section to your HorizontalPodAutoscaler manifest to specify that you need one wo
   external:
     metric:
       name: queue_messages_ready
-      selector: "queue=worker_tasks"
+      selector:
+        matchLabels:
+          queue: "worker_tasks"
     target:
       type: AverageValue
       averageValue: 30

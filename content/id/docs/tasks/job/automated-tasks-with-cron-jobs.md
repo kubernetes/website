@@ -162,8 +162,8 @@ Sebuah tanda tanya (`?`) dalam penjadwalan memiliki makna yang sama dengan tanda
 ### Templat Job
 
 `.spec.JobTemplate` adalah templat untuk sebuah Job, dan itu wajib.
-Templat Job memiliki skema yang sama dengan [Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/), kecuali jika bersarang dan tidak memiliki sebuah `apiVersion` atau `kind`.
-Untuk informasi lebih lanjut tentang menulis sebuah Job `.spec` lihat [Menulis spesifikasi Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
+Templat Job memiliki skema yang sama dengan [Job](/id/docs/concepts/workloads/controllers/job/), kecuali jika bersarang dan tidak memiliki sebuah `apiVersion` atau `kind`.
+Untuk informasi lebih lanjut tentang menulis sebuah Job `.spec` lihat [Menulis spesifikasi Job](/id/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
 
 ### _Starting Deadline_
 
