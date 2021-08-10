@@ -683,12 +683,13 @@ When used in a <b>RoleBinding</b>, it gives full control over every resource in 
 <td><b>admin</b></td>
 <td>None</td>
 <td>Allows admin access, intended to be granted within a namespace using a <b>RoleBinding</b>.
+
 If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
 including the ability to create roles and role bindings within the namespace.
 This role does not allow write access to resource quota or to the namespace itself.
 This role also does not allow write access to Endpoints in clusters created
-using Kubernetes v1.22+. More information is available in the ["Write Access for
-Endpoints" section](#write-access-for-endpoints).</td>
+using Kubernetes v1.22+. More information is available in the
+["Write Access for Endpoints" section](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>edit</b></td>
