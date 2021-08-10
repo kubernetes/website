@@ -30,7 +30,7 @@ Check the location and credentials that kubectl knows about with this command:
 kubectl config view
 ```
 
-Many of the [examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/) provide an introduction to using
+Many of the [examples](https://github.com/kubernetes/examples/tree/master/) provide an introduction to using
 kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/overview/).
 
 ### Directly accessing the REST API
