@@ -115,7 +115,7 @@ ejecutando el comando anterior se muestran los siguientes campos adicionales:
 
 * `CONTAINERS` muestra el/los nombre(s) del contenedor declarado en `.spec.template.spec.containers.[name]`.
 * `IMAGES` muestra el/los nombre(s) de las imagenes declarado en `.spec.template.spec.containers.[image]`.
-* `SELECTOR` muestra el label selector que se declaro en matchLabels o matchExpressions.
+* `SELECTOR` muestra el Label selector que se declaro en matchLabels o matchExpressions.
 
 
 Para ver el estado del Deployment, ejecuta el comando `kubectl rollout status deployment.v1.apps/nginx-deployment`. Este comando devuelve el siguiente resultado:
