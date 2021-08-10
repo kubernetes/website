@@ -113,7 +113,7 @@ nginx-deployment   3/3     3            3           10s   nginx        nginx:1.7
 
 ejecutando el comando anterior se muestran los siguientes campos adicionales:
 
-* `CONTAINERS` muestra el/los nombre(s) del contenedor declarado en `.spec.template.spec.containers.[name]`.
+* `CONTAINERS` muestra los nombres de los contenedores declarados en `.spec.template.spec.containers.[name]`.
 * `IMAGES` muestra el/los nombre(s) de las imagenes declarado en `.spec.template.spec.containers.[image]`.
 * `SELECTOR` muestra el Label selector que se declaro en matchLabels o matchExpressions.
 
