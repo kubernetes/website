@@ -111,7 +111,7 @@ NAME               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES   
 nginx-deployment   3/3     3            3           10s   nginx        nginx:1.7.9   app=nginx
 ```
 
-ejutando el comando anterior se muestran los siguientes campos acionales:
+ejecutando el comando anterior se muestran los siguientes campos adicionales:
 
 * `CONTAINERS` muestra el/los nombre(s) del contenedor declarado en `.spec.template.spec.containers.[name]`.
 * `IMAGES` muestra el/los nombre(s) de las imagenes declarado en `.spec.template.spec.containers.[image]`.
@@ -1119,4 +1119,3 @@ no generará nuevos despliegues mientras esté pausado. Un Deployment se pausa d
 [`kubectl rolling update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) actualiza los Pods y los ReplicationControllers
 de forma similar. Pero se recomienda el uso de Deployments porque se declaran del lado del servidor, y proporcionan características adicionales
 como la posibilidad de retroceder a revisiones anteriores incluso después de haber terminado una actualización continua.
-
