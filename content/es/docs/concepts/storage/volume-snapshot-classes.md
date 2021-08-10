@@ -14,8 +14,8 @@ weight: 30
 <!-- overview -->
 
 Este documento describe el concepto de VolumeSnapshotClass en Kubernetes. Se sugiere estar familiarizado 
-con [volume snapshots](/docs/concepts/storage/volume-snapshots/) y
-[storage classes](/docs/concepts/storage/storage-classes).
+con [Volume Snapshots](/docs/concepts/storage/volume-snapshots/) y
+[Storage Classes](/docs/concepts/storage/storage-classes).
 
 
 <!-- body -->
@@ -70,5 +70,4 @@ Si la deletionPolicy es `Delete`, la instantánea de almacenamiento subyacente s
 ## Parameters
 
 Las clases de instantáneas de volumen tienen parámetros que describen las instantáneas de volumen que pertenecen a la clase de instantáneas de volumen. Se pueden aceptar diferentes parámetros dependiendo del `driver`.
-
 
