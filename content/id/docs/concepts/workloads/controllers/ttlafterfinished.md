@@ -10,7 +10,7 @@ weight: 65
 
 Pengendali TTL menyediakan mekanisme TTL yang membatasi umur dari suatu
 objek sumber daya yang telah selesai digunakan. Pengendali TTL untuk saat ini hanya menangani
-[Jobs](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/),
+{{< glossary_tooltip text="Jobs" term_id="job" >}},
 dan nantinya bisa saja digunakan untuk sumber daya lain yang telah selesai digunakan
 misalnya saja Pod atau sumber daya khusus (_custom resource_) lainnya.
 
@@ -32,7 +32,7 @@ Pengendali TTL untuk saat ini hanya mendukung Job. Sebuah operator klaster
 dapat menggunakan fitur ini untuk membersihkan Job yang telah dieksekusi (baik
 `Complete` atau `Failed`) secara otomatis dengan menentukan _field_
 `.spec.ttlSecondsAfterFinished` pada Job, seperti yang tertera di
-[contoh](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically).
+[contoh](/id/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
 Pengendali TTL akan berasumsi bahwa sebuah sumber daya dapat dihapus apabila
 TTL dari sumber daya tersebut telah habis. Proses dihapusnya sumber daya ini
 dilakukan secara berantai, dimana sumber daya lain yang

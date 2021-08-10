@@ -75,9 +75,9 @@ precedence.
 ## Types of Secret {#secret-types}
 
 When creating a Secret, you can specify its type using the `type` field of
-the [`Secret`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-resource, or certain equivalent `kubectl` command line flags (if available).
-The Secret type is used to facilitate programmatic handling of the Secret data.
+a Secret resource, or certain equivalent `kubectl` command line flags (if available).
+The `type` of a Secret is used to facilitate programmatic handling of different
+kinds of confidential data.
 
 Kubernetes provides several builtin types for some common usage scenarios.
 These types vary in terms of the validations performed and the constraints
@@ -833,7 +833,10 @@ are obtained from the API server.
 This includes any Pods created using `kubectl`, or indirectly via a replication
 controller. It does not include Pods created as a result of the kubelet
 `--manifest-url` flag, its `--config` flag, or its REST API (these are
-not common ways to create Pods.)
+not common ways to create Pods). 
+The `spec` of a {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} cannot refer to a Secret
+or any other API objects.
+
 
 Secrets must be created before they are consumed in Pods as environment
 variables unless they are marked as optional. References to secrets that do
@@ -1252,3 +1255,4 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
 - Learn how to [manage Secret using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secret using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Read the [API reference](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/) for `Secret`
