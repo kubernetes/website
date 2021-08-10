@@ -254,7 +254,7 @@ La próxima vez que quieras actualizar estos Pods, sólo necesitas actualizar la
 El Deployment permite garantizar que sólo un número determinado de Pods puede eliminarse mientras se están actualizando.
 Por defecto, garantiza que al menos el 25% menos del número deseado de Pods se está ejecutando (máx. 25% no disponible).
 
-El Deployment tmabién permite garantizar que sólo un número determinado de Pods puede crearse por encima del número deseado de
+El Deployment también permite garantizar que sólo un número determinado de Pods puede crearse por encima del número deseado de
 Pods. Por defecto, garantiza que al menos el 25% más del número deseado de Pods se está ejecutando (máx. 25% de aumento).
 
 Por ejemplo, si miras detenidamente el Deployment de arriba, verás que primero creó un Pod,
