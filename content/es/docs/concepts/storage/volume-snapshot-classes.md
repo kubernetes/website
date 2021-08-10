@@ -31,7 +31,7 @@ forma de describir las “clases” de almacenamiento al aprovisionar un Snapsho
 Cada VolumeSnapshotClass contiene los campos `driver`, `deletionPolicy`, y `parameters`,
 que se utilizan cuando un VolumeSnapshot que pertenece a la clase, necesita aprovisionarse dinámicamente.
 
-El nombre de un objeto VolumeSnapshotClass es significativo y es la forma en que los usuarios pueden solicitar una clase en particular. Los administradores establecen el nombre y parámetros de una clase cuando crean por primera vez objetos VolumeSnapshotClass; una vez creados los objetos no pueden ser vez actualizados.
+El nombre de un objeto VolumeSnapshotClass es significativo y es la forma en que los usuarios pueden solicitar una clase en particular. Los administradores establecen el nombre y parámetros de una clase cuando crean por primera vez objetos VolumeSnapshotClass; una vez creados los objetos no pueden ser actualizados.
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1
@@ -43,7 +43,7 @@ deletionPolicy: Delete
 parameters:
 ```
 
-Los administradores pueden especificar un VolumeSnapshotClass predeterminado para VolumeSnapshots que no solicitan ninguna clase en particular para vincularse agregando la anotación: `snapshot.storage.kubernetes.io/is-default-class: "true"`.
+Los administradores pueden especificar un VolumeSnapshotClass predeterminado para VolumeSnapshots que no solicitan ninguna clase en particular. Para definir la clase predeterminada  agregue la anotación: `snapshot.storage.kubernetes.io/is-default-class: "true"`.
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1
