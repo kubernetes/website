@@ -104,7 +104,7 @@ Nótese cómo los valores de cada campo corresponden a los valores de la especif
 * El número de réplicas actualizadas es 0 de acuerdo con el campo `.status.updatedReplicas`.
 * El número de réplicas disponibles es 0 de acuerdo con el campo `.status.availableReplicas`.
 
-Si deseamos obtener mas información del deployment adicione el parámetro `-o wide`, ejecuta el comando `kubectl get deployments -o wide`. La salida debe ser parecida a la siguiente:
+Si deseamos obtener mas información del Deployment utlize el parámetro `-o wide`, ejecutando el comando `kubectl get deployments -o wide`. La salida sera parecida a la siguiente:
 
 ```shell
 NAME               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
@@ -1119,5 +1119,4 @@ no generará nuevos despliegues mientras esté pausado. Un Deployment se pausa d
 [`kubectl rolling update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) actualiza los Pods y los ReplicationControllers
 de forma similar. Pero se recomienda el uso de Deployments porque se declaran del lado del servidor, y proporcionan características adicionales
 como la posibilidad de retroceder a revisiones anteriores incluso después de haber terminado una actualización continua.
-
 
