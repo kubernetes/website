@@ -13,7 +13,15 @@ content_type: task
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
+
+<!--
+Caution: Dynamic Kubelet Configuration feature is deprecated and should not be used. Please switch to alternative means distributing configuration to the Nodes of your cluster.
+-->
+{{< caution >}}
+[动态 kubelet 配置](https://github.com/kubernetes/enhancements/issues/281)
+已经废弃不建议使用。请选择其他方法将配置分发到集群中的节点。
+{{< /caution >}}
 
 <!--
 [Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/issues/281)
@@ -21,8 +29,8 @@ allows you to change the configuration of each Kubelet in a live Kubernetes
 cluster by deploying a ConfigMap and configuring each Node to use it.
 -->
 [动态 kubelet 配置](https://github.com/kubernetes/enhancements/issues/281)
-允许你在一个运行的 Kubernetes 集群上通过部署 ConfigMap
-并配置每个节点来使用它来更改每个 kubelet 的配置，。
+允许你通过部署一个所有节点都会使用的 ConfigMap 
+达到在运行中的 Kubernetes 集群中更改 kubelet 配置的目的。
 
 <!--
 All kubelet configuration parameters can be changed dynamically,
@@ -30,15 +38,15 @@ but this is unsafe for some parameters. Before deciding to change a parameter
 dynamically, you need a strong understanding of how that change will affect your
 cluster's behavior. Always carefully test configuration changes on a small set
 of nodes before rolling them out cluster-wide. Advice on configuring specific
-fields is available in the inline `KubeletConfiguration`
-[type documentation](https://github.com/kubernetes/kubernetes/blob/release-1.11/pkg/kubelet/apis/kubeletconfig/v1beta1/types.go).
+fields is available in the inline
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
 {{< warning >}}
-所有 kubelet 配置参数都可以动态更改，但这对某些参数来说是不安全的。
-在决定动态更改参数之前，你需要深刻理解这种变化将如何影响你的集群的行为。
-在把一组变更推广到集群范围之前，需要在较小规模的节点集合上仔细地测试这些配置变化。
-与特定字段配置相关的建议可以在源码中 `KubeletConfiguration`
-[类型文档](https://github.com/kubernetes/kubernetes/blob/release-1.11/pkg/kubelet/apis/kubeletconfig/v1beta1/types.go)中找到。
+所有 kubelet 配置参数都可以被动态更改，但对某些参数来说这类更改是不安全的。
+在决定动态更改参数之前，你需要深刻理解这个改动将会如何影响集群的行为。
+在将变更扩散到整个集群之前，你需要先在小规模的节点集合上仔细地测试这些配置变动。
+特定字段相关的配置建议可以在文档
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)中找到。
 {{< /warning >}}
 
 ## {{% heading "prerequisites" %}}
@@ -54,10 +62,10 @@ or v1.17; other combinations
 [aren't supported](/docs/setup/release/version-skew-policy/#kubectl).
 -->
 你需要一个 Kubernetes 集群。
-你需要 v1.11 或更高版本的 kubectl，并以配置好与集群通信。
+你需要 v1.11 或更高版本的 kubectl，并配置好与集群的通信。
 {{< version-check >}}
-你的集群 API 服务器版本（如 v1.12）不能比你所用的 kubectl
-的版本差不止一个小版本号。
+你的集群 API 服务器版本（如 v1.12）不能和你的 kubectl
+版本相差超过一个小版本号。
 例如，如果你的集群在运行 v1.16，那么你可以使用 v1.15、v1.16、v1.17 的 kubectl，
 所有其他的组合都是
 [不支持的](/zh/docs/setup/release/version-skew-policy/#kubectl)。
@@ -70,10 +78,10 @@ because there are manual alternatives.
 For each node that you're reconfiguring, you must set the kubelet
 `-dynamic-config-dir` flag to a writable directory.
 -->
-某些例子中使用了命令行工具 [jq](https://stedolan.github.io/jq/)。
+在某些例子中使用了命令行工具 [jq](https://stedolan.github.io/jq/)。
 你并不一定需要 `jq` 才能完成这些任务，因为总是有一些手工替代的方式。
 
-针对你所重新配置的每个节点，你必须设置 kubelet 的参数
+针对你重新配置的每个节点，你必须设置 kubelet 的标志
 `-dynamic-config-dir`，使之指向一个可写的目录。
 
 <!-- steps -->
@@ -85,21 +93,21 @@ For each node that you're reconfiguring, you must set the kubelet
 -->
 ## 重配置 集群中运行节点上的 kubelet 
 
-### 基本工作流程概述
+### 基本工作流程概览
 
 <!--
 The basic workflow for configuring a Kubelet in a live cluster is as follows:
 
 1. Write a YAML or JSON configuration file containing the
-Kubelet's configuration.
+   kubelet's configuration.
 2. Wrap this file in a ConfigMap and save it to the Kubernetes control plane.
 3. Update the Kubelet's corresponding Node object to use this ConfigMap.
 -->
 在运行中的集群中配置 kubelet 的基本工作流程如下：
 
-1. 编写一个 YAML 或 JSON 的配置文件包含 kubelet 的配置。
+1. 编写一个包含 kubelet 配置的 YAML 或 JSON 文件。
 2. 将此文件包装在 ConfigMap 中并将其保存到 Kubernetes 控制平面。
-3. 更新 kubelet 的相应节点对象以使用此 ConfigMap。
+3. 更新 kubelet 所在节点对象以使用此 ConfigMap。
 
 <!--
 Each kubelet watches a configuration reference on its respective Node object.
@@ -109,10 +117,10 @@ For the feature to work correctly, you must be running an OS-level service
 manager (such as systemd), which will restart the Kubelet if it exits. When the
 Kubelet is restarted, it will begin using the new configuration.
 -->
-每个 kubelet 都会在其各自的节点对象上监测（Watch）配置引用。当引用更改时，kubelet 将下载新配置，
-更新本地引用以引用该文件，然后退出。
-要想使该功能正常地工作，你必须运行操作系统级别的服务管理器（如 systemd），
-在 kubelet 退出时将其重启。
+每个 kubelet 都会在其各自的节点对象上监测（Watch）配置引用。当引用更改时，kubelet 将下载新的配置文件，
+更新本地引用指向该文件，然后退出。
+为了使该功能正常地工作，你必须运行操作系统级别的服务管理器（如 systemd），
+它将会在 kubelet 退出后将其重启。
 kubelet 重新启动时，将开始使用新配置。
 
 <!--
@@ -121,7 +129,7 @@ and is overridden by command-line flags. Unspecified values in the new configura
 will receive default values appropriate to the configuration version
 (e.g. `kubelet.config.k8s.io/v1beta1`), unless overridden by flags.
 -->
-这个新配置完全地覆盖 `--config` 所提供的配置，并被命令行标志覆盖。
+新配置将会完全地覆盖 `--config` 所提供的配置，并被命令行标志覆盖。
 新配置中未指定的值将收到适合配置版本的默认值
 (e.g. `kubelet.config.k8s.io/v1beta1`)，除非被命令行标志覆盖。
 
@@ -132,16 +140,16 @@ ConfigMap, you can observe this status to confirm that the Node is using the
 intended configuration.
 -->
 节点 kubelet 配置状态可通过 `node.spec.status.config` 获取。
-一旦你已经改变了一个节点去使用新的 ConfigMap，
-就可以观察此状态以确认该节点正在使用的预期配置。
+一旦你更新了一个节点去使用新的 ConfigMap，
+就可以通过观察此状态来确认该节点是否正在使用预期配置。
 
 <!--
 This document describes editing Nodes using `kubectl edit`.
 There are other ways to modify a Node's spec, including `kubectl patch`, for
 example, which facilitate scripted workflows.
 -->
-本文用命令 `kubectl edit` 描述节点的编辑，还有一些其他的方式去修改节点的规约，
-包括更利于脚本化的工作流程的 `kubectl patch`。
+本文中使用命令 `kubectl edit` 来编辑节点，还有其他的方式可以修改节点的规约，
+比如更利于脚本化工作流程的 `kubectl patch`。
 
 <!--
 This document only describes a single Node consuming each ConfigMap. Keep in
@@ -158,8 +166,8 @@ as immutable by convention, aided by `kubectl`'s `-append-hash` option,
 and incrementally roll out updates to `Node.Spec.ConfigSource`.
 -->
 {{< warning >}}
-通过就地更新 ConfigMap 来更改配置是 *可能的*。
-尽管如此，这样做会导致所有配置为使用该 ConfigMap 的 kubelet 被同时更新。
+尽管通过就地更新 ConfigMap 来更改配置是 *可能的*。
+但是这样做会导致所有使用该 ConfigMap 配置的 kubelet 同时更新。
 更安全的做法是按惯例将 ConfigMap 视为不可变更的，借助于
 `kubectl` 的 `--append-hash` 选项逐步把更新推广到 `node.spec.configSource`。
 {{< /warning >}}
@@ -249,22 +257,22 @@ adapt the steps if you prefer to extract the `kubeletconfig` subobject manually.
 
 <!--
 1. Choose a Node to reconfigure. In this example, the name of this Node is
-    referred to as `NODE_NAME`.
+   referred to as `NODE_NAME`.
 2. Start the kubectl proxy in the background using the following command:
 -->
 1. 选择要重新配置的节点。在本例中，此节点的名称为 `NODE_NAME`。
 2. 使用以下命令在后台启动 kubectl 代理：
 
-   ```bash
+   ```shell
    kubectl proxy --port=8001 &
    ```
 <!--
 3. Run the following command to download and unpack the configuration from the
-    `configz` endpoint. The command is long, so be careful when copying and
-    pasting. **If you use zsh**, note that common zsh configurations add backslashes
-    to escape the opening and closing curly braces around the variable name in the URL.
-    For example: `${NODE_NAME}` will be rewritten as `$\{NODE_NAME\}` during the paste.
-    You must remove the backslashes before running the command, or the command will fail.
+   `configz` endpoint. The command is long, so be careful when copying and
+   pasting. **If you use zsh**, note that common zsh configurations add backslashes
+   to escape the opening and closing curly braces around the variable name in the URL.
+   For example: `${NODE_NAME}` will be rewritten as `$\{NODE_NAME\}` during the paste.
+   You must remove the backslashes before running the command, or the command will fail.
 -->
 3. 运行以下命令从 `configz` 端点中下载并解压配置。这个命令很长，因此在复制粘贴时要小心。
    **如果你使用 zsh**，请注意常见的 zsh 配置要添加反斜杠转义 URL 中变量名称周围的大括号。
@@ -477,12 +485,12 @@ by eye.
 <!--
 If an error occurs, the Kubelet reports it in the `Node.Status.Config.Error`
 structure. Possible errors are listed in
-[Understanding Node.Status.Config.Error messages](#understanding-node-status-config-error-messages).
+[Understanding Node.Status.Config.Error messages](#understanding-node-config-status-errors).
 You can search for the identical text in the Kubelet log for additional details
 and context about the error.
 -->
-如果发生错误，kubelet 会在 `node.status.config.error` 中显示出错误信息的结构体。
-可能的错误列在[了解节点配置错误信息](#understanding-node-config-status-errors)节。
+如果发生错误，kubelet 会在 `Node.Status.Config.Error` 中显示出错误信息的结构体。
+错误可能出现在列表[理解节点状态配置错误信息](#understanding-node-config-status-errors)中。
 你可以在 kubelet 日志中搜索相同的文本以获取更多详细信息和有关错误的上下文。
 
 <!--
@@ -609,13 +617,13 @@ metadata and checkpoints. The structure of the Kubelet's checkpointing directory
 ```
 
 <!-- 
-## Understanding Node.Status.Config.Error messages {#understanding-node-config-status-errors}
+## Understanding `Node.Status.Config.Error` messages {#understanding-node-config-status-errors}
 
 The following table describes error messages that can occur
 when using Dynamic Kubelet Config. You can search for the identical text
 in the Kubelet log for additional details and context about the error.
 -->
-## 了解节点配置错误信息 {#understanding-node-config-status-errors}
+## 理解 `Node.Status.Config.Error` 消息 {#understanding-node-config-status-errors}
 
 下表描述了使用动态 kubelet 配置时可能发生的错误消息。
 你可以在 kubelet 日志中搜索相同的文本来获取有关错误的其他详细信息和上下文。
@@ -646,11 +654,15 @@ internal failure, see Kubelet log for details | 在对配置进行同步的循�
 ## {{% heading "whatsnext" %}}
 
 <!--
- - For more information on configuring the kubelet via a configuration file, see
+- For more information on configuring the kubelet via a configuration file, see
 [Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file).
 - See the reference documentation for [`NodeConfigSource`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core)
+- Learn more about kubelet configuration by checking the
+  [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
+  reference.
 -->
 - 关于如何通过配置文件来配置 kubelet 的更多细节信息，可参阅
   [使用配置文件设置 kubelet 参数](/zh/docs/tasks/administer-cluster/kubelet-config-file).
 - 阅读 API 文档中 [`NodeConfigSource`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core) 说明
-
+- 查阅[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)文献进一步了解 kubelet 
+  配置信息。

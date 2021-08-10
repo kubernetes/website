@@ -15,7 +15,7 @@ Generate the certificate for etcd nodes to communicate with each other
 ### Synopsis
 
 
-Generate the certificate for etcd nodes to communicate with each other, and save them into etcd/peer.cert and etcd/peer.key files.
+Generate the certificate for etcd nodes to communicate with each other, and save them into etcd/peer.crt and etcd/peer.key files.
 
 Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1
 

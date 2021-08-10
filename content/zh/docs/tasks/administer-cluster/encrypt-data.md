@@ -253,11 +253,11 @@ program to retrieve the contents of your secret.
    ```
 
    <!--
-   should match `mykey: mydata`, mydata is encoded, check [decoding a secret](/docs/concepts/configuration/secret#decoding-a-secret) to
+   should match `mykey: mydata`, mydata is encoded, check [decoding a secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret) to
    completely decode the secret.
    -->
    其输出应该是 `mykey: bXlkYXRh`，`mydata` 数据是被加密过的，请参阅
-   [解密 Secret](/zh/docs/concepts/configuration/secret#decoding-a-secret)
+   [解密 Secret](/zh/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)
    了解如何完全解码 Secret 内容。
 
 <!--
