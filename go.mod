@@ -1,4 +1,4 @@
-module k8s.io/website
+module  k8s.io/website
 
 go 1.16
 
