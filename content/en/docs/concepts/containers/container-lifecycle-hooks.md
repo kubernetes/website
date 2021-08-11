@@ -26,7 +26,7 @@ and run code implemented in a handler when the corresponding lifecycle hook is e
 
 ## Container hooks
 
-There are two hooks that are exposed to Containers:
+Two hooks are exposed to Containers:
 
 `PostStart`
 
@@ -37,9 +37,9 @@ No parameters are passed to the handler.
 `PreStop`
 
 This hook is called immediately before a container is terminated due to an API request or management
-event such as a liveness/startup probe failure, preemption, resource contention and others. A call
+events such as a liveness/startup probe failure, preemption, resource contention, and others. A call
 to the `PreStop` hook fails if the container is already in a terminated or completed state and the
-hook must complete before the TERM signal to stop the container can be sent. The Pod's termination
+hook must be complete before the TERM signal to stop the container can be sent. The Pod's termination
 grace period countdown begins before the `PreStop` hook is executed, so regardless of the outcome of
 the handler, the container will eventually terminate within the Pod's termination grace period. No
 parameters are passed to the handler.
@@ -50,7 +50,7 @@ A more detailed description of the termination behavior can be found in
 ### Hook handler implementations
 
 Containers can access a hook by implementing and registering a handler for that hook.
-There are two types of hook handlers that can be implemented for Containers:
+Two types of hook handlers can be implemented for Containers:
 
 * Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
 Resources consumed by the command are counted against the Container.
@@ -59,7 +59,7 @@ Resources consumed by the command are counted against the Container.
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
-the Kubernetes management system execute the handler according to the hook action,
+the Kubernetes management system executes the handler according to the hook action,
 `httpGet` and `tcpSocket` are executed by the kubelet process, and `exec` is executed in the container.
 
 Hook handler calls are synchronous within the context of the Pod containing the Container.
@@ -75,14 +75,14 @@ execution, the Pod's phase will be `Terminating` and remain there until the Pod 
 both the `PreStop` hook to execute and for the Container to stop normally. If, for example,
 `terminationGracePeriodSeconds` is 60, and the hook takes 55 seconds to complete, and the Container
 takes 10 seconds to stop normally after receiving the signal, then the Container will be killed
-before it can stop normally, since `terminationGracePeriodSeconds` is less than the total time
+before it can stop normally since `terminationGracePeriodSeconds` is less than the total time
 (55+10) it takes for these two things to happen.
 
 If either a `PostStart` or `PreStop` hook fails,
 it kills the Container.
 
 Users should make their hook handlers as lightweight as possible.
-There are cases, however, when long running commands make sense,
+There are cases, however, when long-running commands make sense,
 such as when saving state prior to stopping a Container.
 
 ### Hook delivery guarantees
