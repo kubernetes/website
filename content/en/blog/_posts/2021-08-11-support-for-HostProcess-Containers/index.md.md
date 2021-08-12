@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Windows HostProcess Containers'
+title: 'Alpha in v1.22: Windows HostProcess Containers'
 date: 2021-08-16
 slug: Windows-HostProcess-Containers
 ---
