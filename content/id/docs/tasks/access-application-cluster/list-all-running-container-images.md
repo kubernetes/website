@@ -28,7 +28,7 @@ Container untuk masing-masing Pod.
 
 - Silakan ambil semua Pod dalam Namespace dengan menggunakan perintah `kubectl get pods --all-namespaces`
 - Silakan format keluarannya agar hanya menyertakan daftar nama _image_ dari Container
-  dengan menggunakan perintah `-o jsonpath={..image}`.  Perintah ini akan mem-_parsing field_
+  dengan menggunakan perintah `-o jsonpath={.items[*].spec.containers[*].image}`.  Perintah ini akan mem-_parsing field_
   `image` dari keluaran json yang dihasilkan.
   - Silakan lihat [referensi jsonpath](/docs/user-guide/jsonpath/)
     untuk informasi lebih lanjut tentang cara menggunakan `jsonpath`.
@@ -38,7 +38,7 @@ Container untuk masing-masing Pod.
   - Gunakan `uniq` untuk mengumpulkan jumlah _image_
 
 ```sh
-kubectl get pods --all-namespaces -o jsonpath="{..image}" |\
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
 tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
@@ -86,7 +86,7 @@ Untuk menargetkan hanya Pod yang cocok dengan label tertentu saja, gunakan tanda
 dibawah ini akan menghasilkan Pod dengan label yang cocok dengan `app=nginx`.
 
 ```sh
-kubectl get pods --all-namespaces -o=jsonpath="{..image}" -l app=nginx
+kubectl get pods --all-namespaces -o=jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
 ## Membuat daftar _image_ Container yang difilter berdasarkan Namespace Pod
@@ -95,7 +95,7 @@ Untuk hanya menargetkan Pod pada Namespace tertentu, gunakankan tanda Namespace.
 dibawah ini hanya menyaring Pod pada Namespace `kube-system`.
 
 ```sh
-kubectl get pods --namespace kube-system -o jsonpath="{..image}"
+kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers[*].image}"
 ```
 
 ## Membuat daftar _image_ Container dengan menggunakan go-template sebagai alternatif dari jsonpath
