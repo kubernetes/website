@@ -192,20 +192,23 @@ The following flags can be used:
 You can choose more than one authorization module. Modules are checked in order
 so an earlier module has higher priority to allow or deny a request.
 
-## Privilege escalation via pod creation
+## Privilege escalation via workload creation or edits
 
-Users who have the ability to create pods in a namespace can potentially
-escalate their privileges within that namespace.  They can create pods that
-access their privileges within that namespace. They can create pods that access
-secrets the user cannot themselves read, or that run under a service account
-with different/greater permissions.
+Users who have the ability to create or edit anything which creates pods in a
+namespace can potentially escalate their privileges within that namespace.  
+They can create pods that access other privileges within that namespace. They can
+create pods that access secrets the user cannot themselves read, or that run under 
+a service account with different/greater permissions. They can also create pods 
+that mount volumes meant for other workloads.
 
 {{< caution >}}
-System administrators, use care when granting access to pod creation. A user
-granted permission to create pods (or controllers that create pods) in the
+System administrators, use care when granting access to create or edit workloads. 
+A user granted permission to create pods (or controllers that create pods) in the
 namespace can: read all secrets in the namespace; read all config maps in the
-namespace; and impersonate any service account in the namespace and take any
-action the account could take. This applies regardless of authorization mode.
+namespace; mount all volumes in that namespace ;and impersonate any service account 
+in the namespace and take any action the account could take. This applies regardless 
+of authorization mode. This can also apply if the user can create or edit custom 
+resources that define workloads.
 {{< /caution >}}
 
 
