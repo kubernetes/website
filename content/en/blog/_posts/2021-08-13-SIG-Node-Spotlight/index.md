@@ -16,7 +16,7 @@ Are you interested in learning about what [SIG Node](https://github.com/kubernet
 
 ### Could you tell us a little about what SIG Node does?
 
-SK: SIG Node is a vertical SIG responsible for the components that support the controlled interactions between the pods and host resources. We manage the lifecycle of pods that are scheduled to a node. This SIGs focus is to enable a broad set of workload types, including workloads with hardware specific or performance sensitive requirements. All while maintaining isolation boundaries between pods on a node, as well as the pod and the host. SIG maintains quite a few components and has many external dependencies (like container runtimes or operating system features), which makes the complexity we deal with huge. We tame the complexity and aim to continuously improve node reliability.
+SK: SIG Node is a vertical SIG responsible for the components that support the controlled interactions between the pods and host resources. We manage the lifecycle of pods that are scheduled to a node. This SIG's focus is to enable a broad set of workload types, including workloads with hardware specific or performance sensitive requirements. All while maintaining isolation boundaries between pods on a node, as well as the pod and the host. This SIG maintains quite a few components and has many external dependencies (like container runtimes or operating system features), which makes the complexity we deal with huge. We tame the complexity and aim to continuously improve node reliability.
 
 
 
@@ -38,9 +38,9 @@ In June, we ran our first bug scrub event to work through the backlog of issues 
 
 ### Why should new and existing contributors consider joining SIG Node?
 
-SK: Being a SIG Node contributor gives you skills and recognition that are rewarding and useful. Understanding under the hood of a kubelet helps architecting better apps, tune and optimize those apps, and gives leg up in issues troubleshooting. If you are a new contributor, SIG Node gives you foundational knowledge that is key to understanding why other Kubernetes components are designed the way they are. Existing contributors may benefit as many features will require SIG Node changes one way or another. So being a SIG Node contributor helps building features in other SIGs faster.
+SK: Being a SIG Node contributor gives you skills and recognition that are rewarding and useful. Understanding under the hood of a kubelet helps architecting better apps, tune and optimize those apps, and gives leg up in issues troubleshooting. If you are a new contributor, SIG Node gives you the foundational knowledge that is key to understanding why other Kubernetes components are designed the way they are. Existing contributors may benefit as many features will require SIG Node changes one way or another. So being a SIG Node contributor helps building features in other SIGs faster.
 
-The benefits of SIG Node is also this SIG challenge. SIG maintains numerous components, many of which have dependency on external projects or OS features. This makes the onboarding process quite lengthy and demanding. But if you are up for a challenge, there is always a place for you, and a group of people to support. 
+SIG Node maintains numerous components, many of which have dependency on external projects or OS features. This makes the onboarding process quite lengthy and demanding. But if you are up for a challenge, there is always a place for you, and a group of people to support. 
 
 ### What do you do to help new contributors get started?
 
@@ -50,7 +50,7 @@ I always encourage new contributors to work on things that they have some invest
 
 To come up to speed on any open source code base, there are two strategies you can take: start by exploring a particular issue deeply, and follow that to expand the edges of your knowledge as needed, or briefly review as many issues and change requests as you possibly can to get a higher level picture of how the component works. Ultimately, you will need to do both if you want to become a Node reviewer or approver.
 
-[Davanum Srinivas](https://twitter.com/@dims) and I each ran a cohort of group mentoring to help teach new contributors the skills to become Node reviewers, and if there's interest we can work to find a mentor to run another session. I also encourage new contributors to attend our Node CI Subproject meeting: it's a smaller audience and we don't record the triage sessions, so it can be a less intimidating way to get started with the SIG. 
+[Davanum Srinivas](https://twitter.com/dims) and I each ran a cohort of group mentoring to help teach new contributors the skills to become Node reviewers, and if there's interest we can work to find a mentor to run another session. I also encourage new contributors to attend our Node CI Subproject meeting: it's a smaller audience and we don't record the triage sessions, so it can be a less intimidating way to get started with the SIG. 
 
 
 ### Are there any particular skills you’d like to recruit for? What skills are contributors to SIG Usability likely to learn?
