@@ -458,9 +458,7 @@ implementation in `kube-proxy`.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpoint-slices)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
-* 了解[启用 EndpointSlice](/zh/docs/tasks/administer-cluster/enabling-endpointslices)
 * 阅读[使用服务连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)
 
