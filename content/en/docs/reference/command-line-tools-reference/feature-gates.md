@@ -127,8 +127,6 @@ different Kubernetes components.
 | `InTreePluginGCEUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginOpenStackUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
-| `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
-| `IPv6DualStack` | `true` | Beta | 1.21 | |
 | `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.23 | |
@@ -331,6 +329,9 @@ different Kubernetes components.
 | `IngressClassNamespacedParams` | `true` | GA | 1.23 | - |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | - |
+| `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
+| `IPv6DualStack` | `true` | Beta | 1.21 | 1.22 |
+| `IPv6DualStack` | `true` | GA | 1.23 | - |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletConfigFile` | - | Deprecated | 1.10 | - |
 | `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
