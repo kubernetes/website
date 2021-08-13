@@ -277,15 +277,13 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 
 ### Netris
 
-The [Netris software controller](https://www.netris.ai/kubernetes/) allows NetOps/DevOps administrators to design and operate a physical network for their Kubernetes server infrastructure with a simple web interface or by using a modern REST API.  Netris provides automatic creation of network services based on Kubernetes CRDs:
+The [Netris software controller](https://www.netris.ai/kubernetes/) allows NetOps/DevOps engineers to design and operate a physical network with IaC (Infrastructure as Code), a simple web interface, or by using a modern REST API. Netris has native integration for Kubernetes with which provides automatic creation of network services using CRD based objects:
 
-* Automatically creating L4LB resources for [type: load-balancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer) services
-* [Physical network provisioning (BGP, VLAN/VXLAN, ACLs)](https://github.com/netrisai/netris-operator/tree/master/samples)
-* [Calico integration - automatic BGP peering with kubernetes nodes](https://github.com/netrisai/netris-operator/tree/master/samples#calico-integration)
+* Automatically creating L4LB resources for [services of type LoadBalancer](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)
+* [Physical network provisioning (BGP, VLAN/VXLAN, L4LB)](https://github.com/netrisai/netris-operator/tree/master/samples)
+* [Calico integration - automatic BGP peering with Kubernetes nodes](https://github.com/netrisai/netris-operator/tree/master/samples#calico-integration)
 
-Netris integrates with Kubernetes via installation of the Netris Operator:
-
-* [Github](https://github.com/netrisai/netris-operator/tree/master/deploy)
+Netris integrates with Kubernetes via installation of the [Netris Operator](https://github.com/netrisai/netris-operator/tree/master/deploy).
 
 ### NSX-T
 
