@@ -282,9 +282,7 @@ define readiness distinct from completion. This is enforced during validation.
 
 Use `activeDeadlineSeconds` on the Pod to prevent init containers from failing forever.
 The active deadline includes init containers.
-However it is NOT recommended to use `activeDeadlineSeconds` if the user deploys their application
-as a Job, because `activeDeadlineSeconds` has an effect even after init containers have finished.
-The Pod which is already running correctly would be killed by `activeDeadlineSeconds` if you set it.
+Do not use `activeDeadlineSeconds` if you deploy your application as a Job, because `activeDeadlineSeconds` has an effect even after init containers have finished. Setting `activeDeadlineSeconds` would terminate correctly  running Pods.
 
 The name of each app and init container in a Pod must be unique; a
 validation error is thrown for any container sharing a name with another.
