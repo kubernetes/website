@@ -66,7 +66,8 @@ The flag takes a comma-separated list of `key=value` policy options.
 The `none` policy explicitly enables the existing default CPU
 affinity scheme, providing no affinity beyond what the OS scheduler does
 automatically.  Limits on CPU usage for
-[Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/)
+[Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/) and
+[Burstable pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 are enforced using CFS quota.
 
 ### Static policy
