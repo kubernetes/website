@@ -9,52 +9,52 @@ content_type: concept
 <!-- overview -->
 
 प्रलेखन के इस खंड में ट्यूटोरियल हैं।
-ट्यूटोरियल दिखाता है कि किसी एकल कार्य से बड़े [लक्ष्य](/docs/tasks/) को कैसे पूरा किया जाए। 
+ट्यूटोरियल दिखाता है कि किसी एकल कार्य से बड़े [लक्ष्य](/hi/docs/tasks/) को कैसे पूरा किया जाए। 
 आमतौर पर एक ट्यूटोरियल में कई खंड होते हैं,
 जिनमें से प्रत्येक में चरणों के क्रम होते हैं।
 प्रत्येक ट्यूटोरियल से परिचित होने से पहले, हम आपको 
-[मानकीकृत शब्दावली](/docs/reference/glossary/) पृष्ट को बुकमार्क करने की सलाह देते हैं। 
+[मानकीकृत शब्दावली](/hi/docs/reference/glossary/) पृष्ट को बुकमार्क करने की सलाह देते हैं। 
 <!-- body -->
 
 ## मूलभूत
 
-* [मूलभूत कुबरनेट्स](/docs/tutorials/kubernetes-basics/) एक गहन इंटरैक्टिव ट्यूटोरियल है जो आपको कुबेरनेट्स प्रणाली को समझने और कुबेरनेट्स की कुछ बुनियादी सुविधाओं को आज़माने में मदद करता है।
+* [मूलभूत कुबरनेट्स](/hi/docs/tutorials/kubernetes-basics/) एक गहन इंटरैक्टिव ट्यूटोरियल है जो आपको कुबेरनेट्स प्रणाली को समझने और कुबेरनेट्स की कुछ बुनियादी सुविधाओं को आज़माने में मदद करता है।
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
-* [Hello Minikube](/docs/tutorials/hello-minikube/)
+* [Hello Minikube](/hi/docs/tutorials/hello-minikube/)
 
 ## विन्यास
 
-* [उदाहरण: Java माइक्रोसर्विस का विन्यास करना](/docs/tutorials/configuration/configure-java-microservice/)
+* [उदाहरण: Java माइक्रोसर्विस का विन्यास करना](/hi/docs/tutorials/configuration/configure-java-microservice/)
 
-* [कॉन्फिग मैप का उपयोग करके Redis का विन्यास करना](/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [कॉन्फिग मैप का उपयोग करके Redis का विन्यास करना](/hi/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## स्टेटलेस एप्लीकेशन
 
-* [किसी क्लस्टर में किसी एप्लिकेशन तक पहुंचने के लिए बाहरी आईपी पते को उजागर करना](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [किसी क्लस्टर में किसी एप्लिकेशन तक पहुंचने के लिए बाहरी आईपी पते को उजागर करना](/hi/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [उदाहरण: रेडिस के साथ PHP गेस्टबुक एप्लिकेशन को उपयोग करना](/docs/tutorials/stateless-application/guestbook/)
+* [उदाहरण: रेडिस के साथ PHP गेस्टबुक एप्लिकेशन को उपयोग करना](/hi/docs/tutorials/stateless-application/guestbook/)
 
 ## स्टेटफुल एप्लीकेशन
 
-* [स्टेटफुलसेट मूलभूत](/docs/tutorials/stateful-application/basic-stateful-set/)
+* [स्टेटफुलसेट मूलभूत](/hi/docs/tutorials/stateful-application/basic-stateful-set/)
 
-* [उदाहरण: दृढ़ वॉल्यूम के साथ वर्डप्रेस और MySQL](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [उदाहरण: दृढ़ वॉल्यूम के साथ वर्डप्रेस और MySQL](/hi/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
-* [उदाहरण: कैसेंड्रा को स्टेटफुल सेट के साथ उपयोग करना](/docs/tutorials/stateful-application/cassandra/)
+* [उदाहरण: कैसेंड्रा को स्टेटफुल सेट के साथ उपयोग करना](/hi/docs/tutorials/stateful-application/cassandra/)
 
-* [एक CP वितरित प्रणाली, ज़ूकीपर चलाना](/docs/tutorials/stateful-application/zookeeper/)
+* [एक CP वितरित प्रणाली, ज़ूकीपर चलाना](/hi/docs/tutorials/stateful-application/zookeeper/)
 
 ## क्लस्टर
 
-* [AppArmor](/docs/tutorials/clusters/apparmor/)
+* [AppArmor](/hi/docs/tutorials/clusters/apparmor/)
 
-* [seccomp](/docs/tutorials/clusters/seccomp/)
+* [seccomp](/hi/docs/tutorials/clusters/seccomp/)
 
 ## सर्विस
 
-* [सोर्स आईपी का उपयोग करना](/docs/tutorials/services/source-ip/)
+* [सोर्स आईपी का उपयोग करना](/hi/docs/tutorials/services/source-ip/)
 
 ## {{% heading "whatsnext" %}}
 
