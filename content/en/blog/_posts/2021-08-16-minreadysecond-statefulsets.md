@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: 'minReadySeconds for StatefulSets'
-date: 2021-08-27
+title: 'Minimum Ready Seconds for StatefulSets'
+date: 2021-08-16
 slug: minreadyseconds-statefulsets
 ---
 
@@ -11,7 +11,7 @@ This blog describes the notion of Availability for `StatefulSet` workloads, and 
 
 ## What problems does this solve?
 
-Today, once a `StatefulSet` `Pod` is in the `Ready` state it is considered `Available` to receive traffic. For some of the `StatefulSet` workloads, it may not be the case. For example, a workload like Prometheus with multiple instances of Alertmanager, it should be considered `Available` only when Alertmanager's state transfer is complete, not when the `Pod` is in `Ready` state. Since `minReadySeconds` adds buffer, the state transfer may be complete before the `Pod` becomes `Available`. While this is not a fool proof way of identifying if the state transfer is complete or not, it gives a way to the end user to express their intention of waiting for sometime before the `Pod` is considered `Available` and it is ready to serve requests. 
+Prior to Kubernetes 1.22 release, once a `StatefulSet` `Pod` is in the `Ready` state it is considered `Available` to receive traffic. For some of the `StatefulSet` workloads, it may not be the case. For example, a workload like Prometheus with multiple instances of Alertmanager, it should be considered `Available` only when Alertmanager's state transfer is complete, not when the `Pod` is in `Ready` state. Since `minReadySeconds` adds buffer, the state transfer may be complete before the `Pod` becomes `Available`. While this is not a fool proof way of identifying if the state transfer is complete or not, it gives a way to the end user to express their intention of waiting for sometime before the `Pod` is considered `Available` and it is ready to serve requests. 
 
 Another case, where `minReadySeconds` helps is when using `LoadBalancer` `Services` with cloud providers. Since `minReadySeconds` adds latency after a `Pod` is `Ready`, it provides buffer time to prevent killing pods in rotation before new pods show up. Imagine a load balancer in unhappy path taking 10-15s to propagate. If you have 2 replicas then, you'd kill the second replica only after the first one is up but in reality, first replica cannot be seen because it is not yet ready to serve requests.
 
@@ -20,9 +20,9 @@ So, in general, the notion of `Availability` is `StatefulSets` is pretty useful 
 
 ## How does it work?
 
-The `StatefulSet` controller watches for both `StatefulSets` and the `Pods` associated with them. When the feature gate associated with this feature is enabled, the `StatefulSet` controller identifies how long a particular `Pod` associated with a `StatefulSet` has been in the `Running` state.
+The statefulSet controller watches for both `StatefulSets` and the `Pods` associated with them. When the feature gate associated with this feature is enabled, the statefulSet controller identifies how long a particular `Pod` associated with a `StatefulSet` has been in the `Running` state.
 
-If this value is greater than or equal to the time specified by the end user in `.spec.minReadySeconds` field, the `StatefulSet` controller updates a field called `AvailableReplicas` in the `StatefulSet`'s status subresource to include this `Pod`. The `AvailableReplicas` in `StatefulSet`'s status is a int32 field which tracks the number of pods that are `Available`.
+If this value is greater than or equal to the time specified by the end user in `.spec.minReadySeconds` field, the statefulSet controller updates a field called `availableReplicas` in the `StatefulSet`'s status subresource to include this `Pod`. The `status.availableReplicas` in `StatefulSet`'s status is an integer field which tracks the number of pods that are `Available`.
 
 ## How do I use it?
 
@@ -38,11 +38,11 @@ Specify a value for `minReadySeconds` for any StatefulSet and you can check if `
 
 ## How can I learn more?
 
-KEP: https://github.com/kubernetes/enhancements/issues/2599
-API Changes: https://github.com/kubernetes/kubernetes/pull/100842
-Implementation PR: https://github.com/kubernetes/kubernetes/pull/101316
+- Read the KEP: [minReadySeconds for StatefulSets](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/2599-minreadyseconds-for-statefulsets#readme)
+- Read the documentation: [Minimum ready seconds](/docs/concepts/workloads/controllers/statefulset/#minimum-ready-seconds) for StatefulSet
+- Review the [API definition](/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/) for StatefulSet
 
 ## How do I get involved?
 
-Please reach out to us on [#sig-apps](https://kubernetes.slack.com/archives/C18NZM5K9) channel on slack, sig-apps mailing list-kubernetes-sig-apps@googlegroups.com
+Please reach out to us in the [#sig-apps](https://kubernetes.slack.com/archives/C18NZM5K9) channel on Slack (visit https://slack.k8s.io/ for an invitation if you need one), or on the SIG Apps mailing list: kubernetes-sig-apps@googlegroups.com
 
