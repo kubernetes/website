@@ -441,7 +441,7 @@ resources.
 将 `scope` 设置为 `Namespace` 并设置 `namespace` 字段就可以引用某特定
 名字空间中的参数资源。
 
-将 `scope` 设置为 `Namespace` 后不再需要为一个参数资源配置集群范围的 CustomResourceDefinition。
+有了名字空间域的参数，就不再需要为一个参数资源配置集群范围的 CustomResourceDefinition。
 除此之外，之前对访问集群范围的资源进行授权，需要用到 RBAC 相关的资源，现在也不再需要了。
 
 {{< codenew file="service/networking/namespaced-params.yaml" >}}

@@ -422,7 +422,7 @@ This ensures that even pods that aren't selected by any other NetworkPolicy will
 As a stable feature, this is enabled by default. To disable SCTP at a cluster level, you (or your cluster administrator) will need to disable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=false,…`.
 When the feature gate is enabled, you can set the `protocol` field of a NetworkPolicy to `SCTP`.
 -->
-作为一个 Stable 特性，SCTP 支持默认是被启用的。
+作为一个稳定特性，SCTP 支持默认是被启用的。
 要在集群层面禁用 SCTP，你（或你的集群管理员）需要为 API 服务器指定
 `--feature-gates=SCTPSupport=false,...`
 来禁用 `SCTPSupport` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
@@ -508,8 +508,8 @@ the policy will be applied only for the single `port` field.
 -->
 你的集群所使用的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件
 必须支持在 NetworkPolicy 规约中使用 `endPort` 字段。
-如果你的 [网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-不支持 `endPort` 字段的情况下，你指定一个有 `endPort` 字段的网络策略，
+如果你的[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+不支持 `endPort` 字段，而你指定了一个包含 `endPort` 字段的 NetworkPolicy，
 策略只对单个 `port` 字段生效。
 {{< /note >}}
 
