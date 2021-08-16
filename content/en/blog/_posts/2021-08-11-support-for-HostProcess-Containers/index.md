@@ -62,7 +62,7 @@ will enable you to run HostProcess containers.
 
 - Work through [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-container/)
 
-[Pod Security Standards](/docs/concepts/security/pod-security-standards)
+- Read about Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 
 - Read the enhancement proposal [Windows Privileged Containers and Host Networking Mode](https://github.com/kubernetes/enhancements/tree/master/keps/sig-windows/1981-windows-privileged-container-support) (KEP-1981)
 
