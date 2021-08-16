@@ -252,7 +252,7 @@ spec:
       endPort: 32768
 ```
 
-The above rule allows any Pod with label `db` on the namespace `default` to communicate 
+The above rule allows any Pod with label `role=db` on the namespace `default` to communicate 
 with any IP within the range `10.0.0.0/24` over TCP, provided that the target 
 port is between the range 32000 and 32768.
 
