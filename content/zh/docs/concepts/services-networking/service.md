@@ -325,7 +325,7 @@ the endpoints controller has truncated the number of endpoints to 1000.
 如果某个 Endpoints 资源中包含的端点个数超过 1000，则 Kubernetes v1.22 版本
 （及更新版本）的集群会将为该 Endpoints 添加注解
 `endpoints.kubernetes.io/over-capacity: truncated`。
-这一注解表明所影响到的 Endpoints 对象已经超出容量，此外 Endpoints Controller 还会将 Endpoints 对象数量截断到 1000。
+这一注解表明所影响到的 Endpoints 对象已经超出容量，此外 Endpoints 控制器还会将 Endpoints 对象数量截断到 1000。
 
 <!--
 ### EndpointSlices
@@ -664,12 +664,12 @@ server will return a 422 HTTP status code to indicate that there's a problem.
 <!--
 ## Traffic policies
 -->
-## 流量策略
+## 流量策略  {#traffic-policies}
 
 <!--
 ### External traffic policy
 -->
-### 外部流量策略
+### 外部流量策略    {#external-traffic-policy}
 
 <!--
 You can set the `spec.externalTrafficPolicy` field to control how traffic from external sources is routed.
@@ -680,7 +680,8 @@ endpoints, the kube-proxy does not forward any traffic for the relevant Service.
 
 你可以通过设置 `spec.externalTrafficPolicy` 字段来控制来自于外部的流量是如何路由的。
 可选值有 `Cluster` 和 `Local`。字段设为 `Cluster` 会将外部流量路由到所有就绪的端点，
-设为 `Local` 会只路由到当前节点上就绪的端点。如果流量策略设置为 `Local`，而且当前节点上没有就绪的端点，kube-proxy 不会转发请求相关服务的任何流量。
+设为 `Local` 会只路由到当前节点上就绪的端点。
+如果流量策略设置为 `Local`，而且当前节点上没有就绪的端点，kube-proxy 不会转发请求相关服务的任何流量。
 
 {{< note >}}
 {{< feature-state for_k8s_version="v1.22" state="alpha" >}}
@@ -692,7 +693,9 @@ If you enable the `ProxyTerminatingEndpoints`
 has local endpoints and whether or not all the local endpoints are marked as terminating.
 -->
 
-如果你启用了 kube-proxy 的 `ProxyTerminatingEndpoints` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，kube-proxy 会检查节点是否有本地的端点，以及是否所有的本地端点都被标记为终止中。
+如果你启用了 kube-proxy 的 `ProxyTerminatingEndpoints`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+kube-proxy 会检查节点是否有本地的端点，以及是否所有的本地端点都被标记为终止中。
 
 <!--
 If there are local endpoints and **all** of those are terminating, then the kube-proxy ignores
@@ -701,7 +704,9 @@ terminating, the kube-proxy forwards traffic for that Service to healthy endpoin
 as if the external traffic policy were set to `Cluster`.
 -->
 
-如果本地有端点，而且所有端点处于终止中的状态，那么 kube-proxy 会忽略任何设为 `Local` 的外部流量策略。在所有本地端点处于终止中的状态的同时，kube-proxy 将请求指定服务的流量转发到位于其它节点的状态健康的端点，如同外部流量策略设为 `Cluster`。
+如果本地有端点，而且所有端点处于终止中的状态，那么 kube-proxy 会忽略任何设为 `Local` 的外部流量策略。
+在所有本地端点处于终止中的状态的同时，kube-proxy 将请求指定服务的流量转发到位于其它节点的
+状态健康的端点，如同外部流量策略设为 `Cluster`。
 
 <!--
 This forwarding behavior for terminating endpoints exists to allow external load balancers to
@@ -709,15 +714,16 @@ gracefully drain connections that are backed by `NodePort` Services, even when t
 node port starts to fail. Otherwise, traffic can be lost between the time a node is still in the node pool of a load
 balancer and traffic is being dropped during the termination period of a pod.
 -->
-在端点都处于终止中的情况下，这个转发行为使得外部的负载均衡器可以优雅地排出由 `NodePort` 服务支持的连接，就算是健康检查节点端口开始失败也是如此。
-否则，在节点还在负载均衡器的节点池中，到一个 Pod 终止过程中正在丢弃流量之间，流量可能会丢失。
+针对处于正被终止状态的端点这一转发行为使得外部负载均衡器可以优雅地排出由
+`NodePort` 服务支持的连接，就算是健康检查节点端口开始失败也是如此。
+否则，当节点还在负载均衡器的节点池内，在 Pod 终止过程中的流量会被丢掉，这些流量可能会丢失。
 
 {{< /note >}}
 
 <!--
 ### Internal traffic policy
 -->
-### 内部流量策略
+### 内部流量策略    {#internal-traffic-policy}
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
@@ -1209,7 +1215,9 @@ the cloud provider) will ignore Services that have this field set.
 `spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
 Once set, it cannot be changed. 
 -->
-`spec.loadBalancerClass` 允许你不使用云提供商的默认负载均衡器实现，转而使用指定的负载均衡器实现。这个特性从 v1.21 版本开始可以使用，你在 v1.21 版本中使用这个字段必须启用 `ServiceLoadBalancerClass` 特性门控，这个特性门控从 v1.22 版本及以后默认打开。
+`spec.loadBalancerClass` 允许你不使用云提供商的默认负载均衡器实现，转而使用指定的负载均衡器实现。
+这个特性从 v1.21 版本开始可以使用，你在 v1.21 版本中使用这个字段必须启用 `ServiceLoadBalancerClass` 
+特性门控，这个特性门控从 v1.22 版本及以后默认打开。
 默认情况下，`.spec.loadBalancerClass` 的取值是 `nil`，如果集群使用 `--cloud-provider` 配置了云提供商，
 `LoadBalancer` 类型服务会使用云提供商的默认负载均衡器实现。
 如果设置了 `.spec.loadBalancerClass`，则假定存在某个与所指定的类相匹配的
