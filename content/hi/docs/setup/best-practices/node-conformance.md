@@ -35,47 +35,49 @@
 
 2. आदेश के साथ नोड अनुरूपता परीक्षण चलाएँ:
 
-`` `खोल
+```shell
 # $CONFIG_DIR आपके क्यूबलेट का पॉड मेनिफेस्ट पथ है।
 # $LOG_DIR परीक्षण आउटपुट पथ है।
-sudo docker रन -it --rm --विशेषाधिकार प्राप्त --net=host \
-   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-   k8s.gcr.io/node-test:0.2
+sudo docker run -it --rm --privileged --net=host \
+  -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+  k8s.gcr.io/node-test:0.2
 ```
 
 ## अन्य आर्किटेक्चर के लिए नोड अनुरूपता परीक्षण चलाना
-```
+
 कुबेरनेट्स अन्य के लिए नोड अनुरूपता परीक्षण डॉकर चित्र भी प्रदान करता है
 वास्तुकला:
 
- मेहराब  |       छवि     |
+  Arch  |       Image       |
 --------|:-----------------:|
  amd64  |  node-test-amd64  |
   arm   |    node-test-arm  |
  arm64  |  node-test-arm64  |
 
-   ## चयनित परीक्षण चल रहा है
+## चयनित परीक्षण चल रहा है
 
- विशिष्ट परीक्षण चलाने के लिए, पर्यावरण चर `FOCUS` को के साथ अधिलेखित करें
+विशिष्ट परीक्षण चलाने के लिए, पर्यावरण चर `FOCUS` को के साथ अधिलेखित करें
 उन परीक्षणों की नियमित अभिव्यक्ति जिन्हें आप चलाना चाहते हैं।
-`` `खोल
-sudo docker रन -it --rm --विशेषाधिकार प्राप्त --net=host \
-   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-   -ई फोकस = मिररपॉड \ # केवल मिररपॉड टेस्ट चलाएं
-   k8s.gcr.io/node-test:0.2
+
+
+```shell
+sudo docker run -it --rm --privileged --net=host \
+  -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+  -e FOCUS=MirrorPod \ # केवल मिररपॉड टेस्ट चलाएं
+  k8s.gcr.io/node-test:0.2
 ```
 
 विशिष्ट परीक्षणों को छोड़ने के लिए, पर्यावरण चर `SKIP` को के साथ अधिलेखित करें
 उन परीक्षणों की नियमित अभिव्यक्ति जिन्हें आप छोड़ना चाहते हैं।
 
-`` `खोल
-sudo docker रन -it --rm --विशेषाधिकार प्राप्त --net=host \
-   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+```shell
+sudo docker run -it --rm --privileged --net=host \
+  -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
    -e SKIP=MirrorPod \ # सभी अनुरूपता परीक्षण चलाएं लेकिन मिररपॉड परीक्षण को छोड़ दें
    k8s.gcr.io/node-test:0.2
 ```
 
-नोड अनुरूपता परीक्षण [नोड e2e परीक्षण] (https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md) का एक कंटेनरीकृत संस्करण है।
+नोड अनुरूपता परीक्षण [node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md) का एक कंटेनरीकृत संस्करण है।
 डिफ़ॉल्ट रूप से, यह सभी अनुरूपता परीक्षण चलाता है।
 
 सैद्धांतिक रूप से, आप किसी भी नोड e2e परीक्षण को चला सकते हैं यदि आप कंटेनर को कॉन्फ़िगर करते हैं और
