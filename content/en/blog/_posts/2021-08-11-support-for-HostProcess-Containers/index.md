@@ -5,7 +5,7 @@ date: 2021-08-16
 slug: windows-hostprocess-containers
 ---
 
-**Authors:** Brandon Smith
+**Authors:** Brandon Smith (Microsoft)
 
 {{<feature-state for_k8s_version="v1.22" state="alpha" >}}
 
