@@ -59,7 +59,7 @@ will enable you to run HostProcess containers.
 
 ## How can I learn more?
 
-[Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-container.md)
+- Work through [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-container/)
 
 [Pod Security Standards](/docs/concepts/security/pod-security-standards)
 
