@@ -32,7 +32,7 @@ model to deploy management logic to as many clusters as needed with ease.
 
 ## How does it work?
 
-Windows HostProcess containers are implemented with Job Objects, a break from the 
+Windows HostProcess containers are implemented with Windows _Job Objects_, a break from the
 previous container model using server silos. Job objects provide the ability to 
 manage a group of processes as a group, and assign resource constraints to the 
 processes in the job. Job objects have no process or file system isolation, 
