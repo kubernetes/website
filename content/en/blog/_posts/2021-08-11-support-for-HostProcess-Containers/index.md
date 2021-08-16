@@ -64,7 +64,7 @@ will enable you to run HostProcess containers.
 
 [Pod Security Standards](/docs/concepts/security/pod-security-standards)
 
-[Windows HostProcess KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-windows/1981-windows-privileged-container-support)
+- Read the enhancement proposal [Windows Privileged Containers and Host Networking Mode](https://github.com/kubernetes/enhancements/tree/master/keps/sig-windows/1981-windows-privileged-container-support) (KEP-1981)
 
 ## How do I get involved?
 
