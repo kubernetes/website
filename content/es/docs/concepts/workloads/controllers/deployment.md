@@ -104,7 +104,7 @@ Nótese cómo los valores de cada campo corresponden a los valores de la especif
 * El número de réplicas actualizadas es 0 de acuerdo con el campo `.status.updatedReplicas`.
 * El número de réplicas disponibles es 0 de acuerdo con el campo `.status.availableReplicas`.
 
-Si deseamos obtener mas información del Deployment utlize el parámetro `-o wide`, ejecutando el comando `kubectl get deployments -o wide`. La salida sera parecida a la siguiente:
+Si deseamos obtener más información del Deployment utilice el parámetro '-o wide', ejecutando el comando 'kubectl get deployments -o wide'. La salida será parecida a la siguiente:
 
 ```shell
 NAME               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
