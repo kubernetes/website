@@ -17,7 +17,7 @@ process. With HostProcess containers, users can package and distribute managemen
 operations and functionalities that require host access while retaining versioning 
 and deployment methods provided by containers. This allows Windows containers to 
 be used for a variety of device plugin, storage, and networking management scenarios 
-in Kubernetes. With this comes the enablement of host network mode--allowing 
+in Kubernetes. With this comes the enablement of host network mode—allowing
 HostProcess containers to be created within the host's network namespace instead of 
 their own. HostProcess containers can also be built on top of existing Windows server 
 2019 (or later) base images, managed through the Windows container runtime, and run 
