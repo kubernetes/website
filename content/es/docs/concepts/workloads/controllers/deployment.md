@@ -91,8 +91,7 @@ nginx-deployment   3/3     3            3           1s
 Cuando inspeccionas los Deployments de tu clúster, se muestran los siguientes campos:
 
 * `NAME` enumera los nombre de los Deployments del clúster.
-* `READY` muestra cuántas réplicas de la aplicación están disponibles para sus usuarios. Sigue el patrón listo/deseado.
-   cuando se crea el Deployment. Esto se conoce como el _estado deseado_.
+* `READY` muestra cuántas réplicas de la aplicación están disponibles para sus usuarios. Sigue el patrón número de réplicas `listas/deseadas`.
 * `UP-TO-DATE` muestra el número de réplicas que se ha actualizado para alcanzar el estado deseado.
 * `AVAILABLE` muestra cuántas réplicas de la aplicación están disponibles para los usuarios.
 * `AGE` muestra la cantidad de tiempo que la aplicación lleva ejecutándose.
