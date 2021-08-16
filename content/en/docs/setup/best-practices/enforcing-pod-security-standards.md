@@ -59,7 +59,7 @@ few different ways:
 - By setting `warn` to the same level as `enforce`, clients will receive warnings when attempting
   to create Pods (or resources that have Pod templates) that do not pass validation. This will help
   them update those resources to become compliant.
-- In Namespaces that pin `enforce` to a specific non-latest version, setting the `audit` and `audit`
+- In Namespaces that pin `enforce` to a specific non-latest version, setting the `audit` and `warn`
   modes to the same level as `enforce`, but to the `latest` version, gives visibility into settings
   that were allowed by previous versions but are not allowed per current best practices.
 
