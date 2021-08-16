@@ -432,17 +432,17 @@ the Node is not considered for preemption.
 {{< /note >}}
 
 <!-- 
-If a pending Pod has inter-pod affinity to one or more of the lower-priority
-Pods on the Node, the inter-Pod affinity rule cannot be satisfied in the absence
-of those lower-priority Pods. In this case, the scheduler does not preempt any
-Pods on the Node. Instead, it looks for another Node. The scheduler might find a
-suitable Node or it might not. There is no guarantee that the pending Pod can be
-scheduled.
+If a pending Pod has inter-pod {{< glossary_tooltip text="affinity" term_id="affinity" >}}
+to one or more of the lower-priority Pods on the Node, the inter-Pod affinity
+rule cannot be satisfied in the absence of those lower-priority Pods. In this case, 
+the scheduler does not preempt any Pods on the Node. Instead, it looks for another
+Node. The scheduler might find a suitable Node or it might not. There is no 
+guarantee that the pending Pod can be scheduled.
 
 Our recommended solution for this problem is to create inter-Pod affinity only
 towards equal or higher priority Pods.
 -->
-如果悬决 Pod 与节点上的一个或多个较低优先级 Pod 具有 Pod 间亲和性，
+如果悬决 Pod 与节点上的一个或多个较低优先级 Pod 具有 Pod 间{{< glossary_tooltip text="亲和性" term_id="affinity" >}}，
 则在没有这些较低优先级 Pod 的情况下，无法满足 Pod 间亲和性规则。
 在这种情况下，调度程序不会抢占节点上的任何 Pod。
 相反，它寻找另一个节点。调度程序可能会找到合适的节点，
@@ -620,7 +620,7 @@ Pod 优先级和 {{<glossary_tooltip text="QoS 类" term_id="qos-class" >}}
 或者最低优先级的 Pod 受 PodDisruptionBudget 保护时，才会考虑优先级较高的 Pod。
 
 <!-- 
-The kubelet uses Priority to determine pod order for [out-of-resource eviction](/docs/tasks/administer-cluster/out-of-resource/).
+The kubelet uses Priority to determine pod order for [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 You can use the QoS class to estimate the order in which pods are most likely
 to get evicted. The kubelet ranks pods for eviction based on the following factors:
 
@@ -628,25 +628,26 @@ to get evicted. The kubelet ranks pods for eviction based on the following facto
   1. Pod Priority
   1. Amount of resource usage relative to requests 
 
-See [evicting end-user pods](/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)
+See [evicting end-user pods](/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)
 for more details.
 
-kubelet out-of-resource eviction does not evict Pods when their
+kubelet node-pressure eviction does not evict Pods when their
 usage does not exceed their requests. If a Pod with lower priority is not
 exceeding its requests, it won't be evicted. Another Pod with higher priority
 that exceeds its requests may be evicted.
 -->
 kubelet 使用优先级来确定
-[资源不足时驱逐](/zh/docs/tasks/administer-cluster/out-of-resource/) Pod 的顺序。
+[节点压力驱逐](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/) Pod 的顺序。
 你可以使用 QoS 类来估计 Pod 最有可能被驱逐的顺序。kubelet 根据以下因素对 Pod 进行驱逐排名：
 
   1. 对紧俏资源的使用是否超过请求值
   1. Pod 优先级
   1. 相对于请求的资源使用量
 
-有关更多详细信息，请参阅[驱逐最终用户的 Pod](/zh/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)。
+有关更多详细信息，请参阅
+[kubelet 驱逐时 Pod 的选择](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)。
 
-当某 Pod 的资源用量未超过其请求时，kubelet 资源不足驱逐不会驱逐该 Pod。
+当某 Pod 的资源用量未超过其请求时，kubelet 节点压力驱逐不会驱逐该 Pod。
 如果优先级较低的 Pod 没有超过其请求，则不会被驱逐。
 另一个优先级高于其请求的 Pod 可能会被驱逐。
 

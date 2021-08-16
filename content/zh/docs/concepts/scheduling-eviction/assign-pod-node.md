@@ -579,7 +579,7 @@ must be satisfied for the pod to be scheduled onto a node.
 -->
 #### 名字空间选择算符
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 <!--
 Users can also select matching namespaces using `namespaceSelector`, which is a label query over the set of namespaces.
@@ -595,14 +595,14 @@ null `namespaceSelector` means "this pod's namespace".
 `namespaces` 列表以及 null 值 `namespaceSelector` 意味着“当前 Pod 的名字空间”。
 
 <!--
-This feature is alpha and disabled by default. You can enable it by setting the
+This feature is beta and enabled by default. You can disable it via the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
 -->
-此功能特性是 Alpha 版本的，默认是被禁用的。你可以通过针对 kube-apiserver 和
+此功能特性是 Beta 版本的，默认是被启用的。你可以通过针对 kube-apiserver 和
 kube-scheduler 设置
 [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` 来启用此特性。
+`PodAffinityNamespaceSelector` 来禁用此特性。
 
 <!--
 #### More Practical Use-cases
