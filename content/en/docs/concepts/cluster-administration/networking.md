@@ -277,9 +277,9 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 
 ### Netris
 
-The [Netris software controller](https://www.netris.ai/kubernetes/) allows NetOps/DevOps engineers to design and operate a physical network with IaC (Infrastructure as Code), a simple web interface, or by using a modern REST API. Netris has native integration for Kubernetes with which provides automatic creation of network services using CRD based objects:
+[Netris](https://www.netris.ai/) is an automatic netops platform that turns your physical network into a service. The Netris software controller allows NetOps/DevOps engineers to design and operate a physical network with IaC (Infrastructure as Code), a simple web interface, or by using REST API. Netris provides automatic creation of network services based on Kubernetes CRD objects:
 
-* Automatically creating L4LB resources for [services of type LoadBalancer](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)
+* Automatically creating Netris L4LB resources for [services of type LoadBalancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 * [Physical network provisioning (BGP, VLAN/VXLAN, L4LB)](https://github.com/netrisai/netris-operator/tree/master/samples)
 * [Calico integration - automatic BGP peering with Kubernetes nodes](https://github.com/netrisai/netris-operator/tree/master/samples#calico-integration)
 
