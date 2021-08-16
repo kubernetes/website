@@ -7,7 +7,8 @@ slug: windows-hostprocess-containers
 
 **Authors:** Brandon Smith (Microsoft)
 
-{{<feature-state for_k8s_version="v1.22" state="alpha" >}}
+Kubernetes v1.22 introduced a new alpha feature for clusters that
+include Windows nodes: HostProcess containers.
 
 HostProcess containers aim to extend the Windows container model to enable a wider 
 range of Kubernetes cluster management scenarios. HostProcess containers run 
