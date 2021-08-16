@@ -111,7 +111,7 @@ NAME               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES   
 nginx-deployment   3/3     3            3           10s   nginx        nginx:1.7.9   app=nginx
 ```
 
-ejecutando el comando anterior se muestran los siguientes campos adicionales:
+Ejecutando el comando anterior se muestran los siguientes campos adicionales:
 
 * `CONTAINERS` muestra los nombres de los contenedores declarados en `.spec.template.spec.containers.[name]`.
 * `IMAGES` muestra los nombres de las imágenes declaradas en `.spec.template.spec.containers.[image]`.
