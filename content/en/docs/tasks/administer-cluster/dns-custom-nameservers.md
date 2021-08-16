@@ -28,7 +28,7 @@ explains how to use `kubeadm` to migrate from `kube-dns`.
 
 DNS is a built-in Kubernetes service launched automatically
 using the _addon manager_
-[cluster add-on](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md).
+[cluster add-on](http://releases.k8s.io/master/cluster/addons/README.md).
 
 As of Kubernetes v1.12, CoreDNS is the recommended DNS Server, replacing kube-dns. If your cluster
 originally used kube-dns, you may still have `kube-dns` deployed rather than CoreDNS.
