@@ -246,7 +246,7 @@ you should note that, when running `kube-proxy`, kernel level rules may be
 modified (for example, iptables rules might get created), which won't get cleaned up, 
 in some cases until you reboot.  Thus, running kube-proxy is something that should
 only be done by an administrator which understands the consequences of having a
-low leve, priveliged network proxying service on a machine.  Although the `kube-proxy`
+low level, privileged network proxying service on a computer.  Although the `kube-proxy`
 executable supports a `cleanup` function, this function is not an official feature and
 thus is only available to use as-is.
 
