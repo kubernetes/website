@@ -95,7 +95,7 @@ the API server about this decision in a process called _binding_.
 kube-apiserver，这个过程叫做 _绑定_。
 
 <!--
-Factors that need taken into account for scheduling decisions include
+Factors that need to be taken into account for scheduling decisions include
 individual and collective resource requirements, hardware / software /
 policy constraints, affinity and anti-affinity specifications, data
 locality, inter-workload interference, and so on.
@@ -173,7 +173,7 @@ of the scheduler:
 * Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
-* Read the [kube-scheduler config (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) reference
+* Read the [kube-scheduler config (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) reference
 * Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * Learn about [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
@@ -181,7 +181,7 @@ of the scheduler:
 * 阅读关于 [调度器性能调优](/zh/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * 阅读关于 [Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * 阅读关于 kube-scheduler 的 [参考文档](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
-* 阅读 [kube-scheduler 配置参考 (v1beta1)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta1/)
+* 阅读 [kube-scheduler 配置参考 (v1beta1)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta2/)
 * 了解关于 [配置多个调度器](/zh/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) 的方式
 * 了解关于 [拓扑结构管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)
 * 了解关于 [Pod 额外开销](/zh/docs/concepts/scheduling-eviction/pod-overhead/)
