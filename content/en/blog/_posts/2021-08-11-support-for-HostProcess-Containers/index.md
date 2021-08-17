@@ -61,7 +61,8 @@ HostProcess containers can be run from within a
 With the feature enabled on Kubernetes version 1.22, a containerd container runtime of 
 1.5.4 or higher, and the latest version of hcsshim, deploying a pod spec with the 
 [correct HostProcess configuration](/docs/tasks/configure-pod-container/create-hostprocess-container.md#prerequisites) 
-will enable you to run HostProcess containers. 
+will enable you to run HostProcess containers. To get started with running 
+Windows containers see the general guidance for [Windows in Kubernetes](/docs/setup/production-environment/windows/)
 
 ## How can I learn more?
 
