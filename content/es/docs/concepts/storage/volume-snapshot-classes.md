@@ -1,11 +1,7 @@
 ---
 reviewers:
-- saad-ali
-- thockin
-- msau42
-- jingxu97
-- xing-yang
-- yuxiangqian
+- edithturn
+- raelga
 title: Volume Snapshot Classes
 content_type: concept
 weight: 30
