@@ -1,4 +1,4 @@
-# The Kubernetes documentation
+# The Kubernetes documentation            
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
@@ -9,7 +9,7 @@ This repository contains the assets required to build the [Kubernetes website an
 
 ## Using this repository
 
-You can run the website locally using Hugo (Extended version), or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
+You can run the website locally using Hugo (Extended version), or you might run it in a container runtime. However, we strongly recommend using the container runtime, as it gives deployment consistency with the live website.
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ git submodule update --init --recursive --depth 1
 
 ## Running the website using a container
 
-To build the site in a container, run the following to build the container image and run it:
+In order to build the site in a container, run the following to build the container image:
 
 ```bash
 make container-image
@@ -155,11 +155,11 @@ You can click the **Fork** button in the upper-right area of the screen to creat
 
 Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback. As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**
 
-Also, note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one initially assigned to provide you feedback.
+Note that more than one Kubernetes reviewer can provide you feedback. It is possible that you may end up getting feedback from a Kubernetes reviewer who is different from the one initially assigned to provide you feedback.
 
-Furthermore, in some cases, one of your reviewers might ask for a technical review from a Kubernetes tech reviewer when needed. Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
+Furthermore, in some cases, one of your reviewers might ask for a technical review from a Kubernetes tech reviewer if needed. Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
 
-For more information about contributing to the Kubernetes documentation, see:
+For more information about contributing to the Kubernetes documentation, refer:
 
 - [Contribute to Kubernetes docs](https://kubernetes.io/docs/contribute/)
 - [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
@@ -178,10 +178,10 @@ For more information about contributing to the Kubernetes documentation, see:
 | [Italian](README-it.md)    | [Ukrainian](README-uk.md)  |
 | [Japanese](README-ja.md)   | [Vietnamese](README-vi.md) |
 
-## Code of conduct
+## Code of Conduct
 
 Participation in the Kubernetes community is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md).
 
-## Thank you
+## Vote of Thanks
 
 Kubernetes thrives on community participation, and we appreciate your contributions to our website and our documentation!
