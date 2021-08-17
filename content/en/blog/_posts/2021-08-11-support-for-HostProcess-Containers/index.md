@@ -45,7 +45,12 @@ all the processes in the job will be signaled to exit, the job handle will be
 closed and the storage will be unmounted.
 
 HostProcess and Linux privileged containers enable similar scenarios but differ 
-greatly in their implementation, hence the naming difference. 
+greatly in their implementation (hence the naming difference). HostProcess containers 
+have their own pod security policies. Those used to configure Linux privileged 
+containers **do not** apply. Enabling privileged access to a Windows host is a 
+fundamentally different process than with Linux so the configuration and 
+capabilities of each differ significantly. Below is a diagram detailing the 
+overall architecture of Windows HostProcess containers:
 
 {{< figure src="hostprocess-architecture.png" alt="HostProcess Architecture" >}}
 
