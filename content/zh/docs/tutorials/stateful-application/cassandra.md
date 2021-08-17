@@ -87,14 +87,14 @@ To complete this tutorial, you should already have a basic familiarity with
 ### Additional Minikube setup instructions
 
 {{< caution >}}
-[Minikube](https://minikube.sigs.k8s.io/docs/) defaults to 1024MiB of memory and 1 CPU.
+[Minikube](https://minikube.sigs.k8s.io/docs/) defaults to 2048MB of memory and 2 CPU.
 Running Minikube with the default resource configuration results in insufficient resource
 errors during this tutorial. To avoid these errors, start Minikube with the following settings:
 -->
 ### 额外的 Minikube 设置说明
 
 {{< caution >}}
-[Minikube](https://minikube.sigs.k8s.io/docs/)默认为 1024MiB 内存和 1 个 CPU。
+[Minikube](https://minikube.sigs.k8s.io/docs/)默认为 2048MB 内存和 2 个 CPU。
 在本教程中，使用默认资源配置运行 Minikube 会导致资源不足的错误。为避免这些错误，请使用以下设置启动 Minikube：
 
 ```shell
