@@ -66,7 +66,7 @@ Windows containers see the general guidance for [Windows in Kubernetes](/docs/se
 
 ## How can I learn more?
 
-- Work through [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-container/)
+- Work through [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/)
 
 - Read about Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 
