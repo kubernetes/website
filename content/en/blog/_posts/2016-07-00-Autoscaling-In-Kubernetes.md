@@ -155,7 +155,7 @@ $ kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
 
 
 
-This defines a Horizontal Ppod Autoscaler that maintains between 1 and 10 replicas of the Pods controlled by the php-apache deployment we created in the first step of these instructions. Roughly speaking, the horizontal autoscaler will increase and decrease the number of replicas (via the deployment) so as to maintain an average CPU utilization across all Pods of 50% (since each pod requests 500 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/8caeec429ee1d2a9df7b7a41b21c626346b456fb/docs/user-guide/horizontal-pod-autoscaling/README.md#kubectl-run), this means average CPU usage of 250 milli-cores). See [here](https://github.com/kubernetes/kubernetes/blob/8caeec429ee1d2a9df7b7a41b21c626346b456fb/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
+This defines a Horizontal Pod Autoscaler that maintains between 1 and 10 replicas of the Pods controlled by the php-apache deployment we created in the first step of these instructions. Roughly speaking, the horizontal autoscaler will increase and decrease the number of replicas (via the deployment) so as to maintain an average CPU utilization across all Pods of 50% (since each pod requests 500 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/8caeec429ee1d2a9df7b7a41b21c626346b456fb/docs/user-guide/horizontal-pod-autoscaling/README.md#kubectl-run), this means average CPU usage of 250 milli-cores). See [here](https://github.com/kubernetes/kubernetes/blob/8caeec429ee1d2a9df7b7a41b21c626346b456fb/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
 
 
 
