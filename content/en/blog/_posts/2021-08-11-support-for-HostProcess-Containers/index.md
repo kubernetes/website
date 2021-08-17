@@ -35,7 +35,7 @@ model to deploy management logic to as many clusters as needed with ease.
 
 Windows HostProcess containers are implemented with Windows _Job Objects_, a break from the
 previous container model using server silos. Job objects are components of the Windows OS which offer the ability to 
-manage a group of processes as a group, and assign resource constraints to the 
+manage a group of processes as a group (a.k.a. _jobs_) and assign resource constraints to the 
 group as a whole. Job objects are specific to the Windows OS and are not associated with the Kubernetes [Job API](https://kubernetes.io/docs/concepts/workloads/controllers/job/). They have no process or file system isolation, 
 enabling the privileged payload to view and edit the host file system with the 
 correct permissions, among other host resources. The init process, and any processes 
