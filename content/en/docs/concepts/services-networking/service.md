@@ -241,7 +241,7 @@ There are a few reasons for using proxying for Services:
   on the DNS records could impose a high load on DNS that then becomes
   difficult to manage.
 
-Below we'll describe how various kube-proxy implementations work.  In general
+Later in this page you can read about various kube-proxy implementations work. Overall,
 you should note that, when running `kube-proxy`, kernel level rules may be
 modified (for example, iptables rules might get created), which won't get cleaned up, 
 in some cases until you reboot.  Thus, running kube-proxy is something that should
