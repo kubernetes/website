@@ -1412,7 +1412,7 @@ drain the node on which the `zk-0` Pod is scheduled.
 来隔离和腾空 `zk-0` Pod 调度所在的节点。
 
 ```shell
-kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 ```
@@ -1453,7 +1453,7 @@ Keep watching the `StatefulSet`'s Pods in the first terminal and drain the node 
 在第一个终端中持续观察 StatefulSet 的 Pods 并腾空 `zk-1` 调度所在的节点。
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force -delete-emptydir-data "kubernetes-node-ixsl" cordoned
 ```
 
 ```
@@ -1504,7 +1504,7 @@ Continue to watch the Pods of the stateful set, and drain the node on which
 继续观察 StatefulSet 中的 Pods 并腾空 `zk-2` 调度所在的节点。
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 ```
 node "kubernetes-node-i4c4" cordoned
@@ -1610,7 +1610,7 @@ Attempt to drain the node on which `zk-2` is scheduled.
 尝试腾空 `zk-2` 调度所在的节点。
 
 ```shell
-kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
 <!--
