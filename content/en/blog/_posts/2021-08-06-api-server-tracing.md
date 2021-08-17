@@ -48,7 +48,7 @@ Add `--experimental-enable-distributed-tracing`,  `--experimental-distributed-tr
 
 ### Example Trace: List Nodes
 
-I could've used any trace backend, but decided to use Jaeger, since it is one of the most popular open-source tracing projects.  I deployed the Jaeger All-in-one in my cluster, and an deployed OpenTelemetry collector on my control-plane node ([example](https://github.com/dashpole/dashpole_demos/tree/master/otel/controlplane)), and captured traces like this one:
+I could've used any trace backend, but decided to use Jaeger, since it is one of the most popular open-source tracing projects.  I deployed [the Jaeger All-in-one container](https://hub.docker.com/r/jaegertracing/all-in-one) in my cluster, deployed [the OpenTelemetry collector](https://github.com/open-telemetry/opentelemetry-collector) on my control-plane node ([example](https://github.com/dashpole/dashpole_demos/tree/master/otel/controlplane)), and captured traces like this one:
 
 ![APIServer_Etcd](https://user-images.githubusercontent.com/3262098/128613151-91cb925c-4886-4f05-a12a-771c6cbe9807.png)
 
