@@ -36,7 +36,7 @@ of Containers for each.
 
 - Fetch all Pods in all namespaces using `kubectl get pods --all-namespaces`
 - Format the output to include only the list of Container image names
-  using `-o jsonpath={..image}`.  This will recursively parse out the
+  using `-o jsonpath={.items[*].spec.containers[*].image}`.  This will recursively parse out the
   `image` field from the returned json.
   - See the [jsonpath reference](/docs/user-guide/jsonpath/)
     for further information on how to use jsonpath.
@@ -48,7 +48,7 @@ of Containers for each.
 ## 列出所有命名空间下的所有容器
 
 - 使用 `kubectl get pods --all-namespaces` 获取所有命名空间下的所有 Pod
-- 使用 `-o jsonpath={..image}` 来格式化输出，以仅包含容器镜像名称。
+- 使用 `-o jsonpath={.items[*].spec.containers[*].image}` 来格式化输出，以仅包含容器镜像名称。
   这将以递归方式从返回的 json 中解析出 `image` 字段。
   - 参阅 [jsonpath 说明](/zh/docs/reference/kubectl/jsonpath/)
     获取更多关于如何使用 jsonpath 的信息。
@@ -58,7 +58,7 @@ of Containers for each.
   - 使用 `uniq` 来聚合镜像计数
 
 ```shell
-kubectl get pods --all-namespaces -o jsonpath="{..image}" |\
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
 tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
@@ -132,7 +132,7 @@ following matches only Pods with labels matching `app=nginx`.
 要获取匹配特定标签的 Pod，请使用 -l 参数。以下匹配仅与标签 `app=nginx` 相符的 Pod。
 
 ```shell
-kubectl get pods --all-namespaces -o=jsonpath="{..image}" -l app=nginx
+kubectl get pods --all-namespaces -o=jsonpath="{.items[*].spec.containers[*].image}" -l app=nginx
 ```
 
 <!--
@@ -146,7 +146,7 @@ following matches only Pods in the `kube-system` namespace.
 要获取匹配特定命名空间的 Pod，请使用 namespace 参数。以下仅匹配 `kube-system` 命名空间下的 Pod。
 
 ```shell
-kubectl get pods --namespace kube-system -o jsonpath="{..image}"
+kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers[*].image}"
 ```
 
 <!--
