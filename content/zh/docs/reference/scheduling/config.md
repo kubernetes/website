@@ -22,7 +22,7 @@ file and passing its path as a command line argument.
 <!--
 A scheduling Profile allows you to configure the different stages of scheduling
 in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
-Each stage is exposed in a extension point. Plugins provide scheduling behaviors
+Each stage is exposed in an extension point. Plugins provide scheduling behaviors
 by implementing one or more of these extension points.
 -->
 调度模板（Profile）允许你配置 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
@@ -508,11 +508,13 @@ only has one pending pods queue.
 ## {{% heading "whatsnext" %}}
 
 <!--  
-* Read the [kube-scheduler reference](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
+* Read the [kube-scheduler reference](/docs/reference/command-line-tools-reference/kube-scheduler/)
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read the [kube-scheduler configuration (v1beta1)](/docs/reference/config-api/kube-scheduler-config.v1beta1/) reference
+* Read the [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) reference
 -->
 * 阅读 [kube-scheduler 参考](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 了解[调度](/zh/docs/concepts/scheduling-eviction/kube-scheduler/)
 * 阅读 [kube-scheduler 配置 (v1beta1)](/zh/docs/reference/config-api/kube-scheduler-config.v1beta1/) 参考
+* 阅读 [kube-scheduler 配置 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) 参考
 
