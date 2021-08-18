@@ -15,7 +15,7 @@ Prior to Kubernetes 1.22 release, once a `StatefulSet` `Pod` is in the `Ready` s
 
 Another case, where `minReadySeconds` helps is when using `LoadBalancer` `Services` with cloud providers. Since `minReadySeconds` adds latency after a `Pod` is `Ready`, it provides buffer time to prevent killing pods in rotation before new pods show up. Imagine a load balancer in unhappy path taking 10-15s to propagate. If you have 2 replicas then, you'd kill the second replica only after the first one is up but in reality, first replica cannot be seen because it is not yet ready to serve requests.
 
-So, in general, the notion of `Availability` is `StatefulSets` is pretty useful and this feature helps in solving the above problems. This is a feature that already exists for `Deployments` and `DaemonSets` and we now have them for `StatefulSets` too to give users consistent workload experience.
+So, in general, the notion of `Availability` in `StatefulSets` is pretty useful and this feature helps in solving the above problems. This is a feature that already exists for `Deployments` and `DaemonSets` and we now have them for `StatefulSets` too to give users consistent workload experience.
 
 
 ## How does it work?
