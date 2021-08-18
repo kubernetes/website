@@ -18,9 +18,9 @@ kubectl के नए संस्करण का उपयोग करने 
 
 macOS पर kubectl संस्थापित करने के लिए निम्नलिखित विधियाँ मौजूद हैं :
 
-- [macOS पर curl के माध्यम से kubectl बाइनरी इंस्टॉल करें](#install-kubectl-binary-with-curl-on-macos)
-- [Homebrew का उपयोग करते हुए macOS पर इंस्टॉल करे](#install-with-homebrew-on-macos)
-- [Macports का उपयोग करते हुए macOS पर इंस्टॉल करे](#install-with-macports-on-macos)
+- [macOS पर curl के माध्यम से kubectl बाइनरी इंस्टॉल करें](#macOS-पर-curl-के-माध्यम-से-kubectl-बाइनरी-इंस्टॉल-करें)
+- [Homebrew का उपयोग करते हुए macOS पर इंस्टॉल करे](#Homebrew-का-उपयोग-करते-हुए-macOS-पर-इंस्टॉल-करे)
+- [Macports का उपयोग करते हुए macOS पर इंस्टॉल करे](#Macports-का-उपयोग-करते-हुए-macOS-पर-इंस्टॉल-करे)
 
 ### macOS पर curl के माध्यम से kubectl बाइनरी इंस्टॉल करें
 
