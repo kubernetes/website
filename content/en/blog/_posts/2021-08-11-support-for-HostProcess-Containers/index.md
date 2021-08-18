@@ -57,7 +57,7 @@ overall architecture of Windows HostProcess containers:
 ## How do I use it?
 
 HostProcess containers can be run from within a 
-[HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-container.md). 
+[HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod). 
 With the feature enabled on Kubernetes version 1.22, a containerd container runtime of 
 1.5.4 or higher, and the latest version of hcsshim, deploying a pod spec with the 
 [correct HostProcess configuration](/docs/tasks/configure-pod-container/create-hostprocess-container.md#prerequisites) 
