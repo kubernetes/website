@@ -1,6 +1,6 @@
 ---
 
-title: macOS पर kubectl इंस्टॉल और सेट करें
+title: macOS पर kubectl इंस्टॉल और सेटअप करें
 content_type: task
 weight: 10
 card:
@@ -9,10 +9,10 @@ card:
   title: macOS पर kubectl इंस्टॉल करें
 ---
 
-## {{% heading "पूर्वाकांक्षित" %}}
+## {{% heading "आवश्यकताए" %}}
 
-आपको kubectl संस्करण का उपयोग करना चाहिए जो आपके क्लस्टर के एक मामूली संस्करण अंतर के भीतर हो. उदाहरण के लिए,  v{{< skew latestVersion >}} क्लाइंट निम्नलिखित के साथ संवाद कर सकते हैं v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, and v{{< skew nextMinorVersion >}} कण्ट्रोल प्लेन.
-kubectl के नवीनतम संस्करण का उपयोग करने से अप्रत्याशित मुद्दों से बचने में मदद मिलती है.
+आप kubectl संस्करण का उपयोग करे जो आपके क्लस्टर के एक माइनर संस्करण भीतर हो. उदाहरण के लिए, v{{< skew latestVersion >}} क्लाइंट v{{< skew prevMinorVersion >}} के साथ कम्युनिकेट कर सकते हैं, v{{< skew latestVersion >}}, और v{{< skew nextMinorVersion >}} कण्ट्रोल प्लेन.
+kubectl के नए संस्करण का उपयोग करने से समस्या से बचत हो सकती है.
 
 ## macOS पर kubectl इंस्टॉल करें
 
