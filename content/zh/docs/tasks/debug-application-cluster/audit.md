@@ -168,7 +168,7 @@ rules:
 
 <!--
 If you're crafting your own audit profile, you can use the audit profile for Google Container-Optimized OS as a starting point. You can check the
-[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
+[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
 script, which generates the audit policy file. You can see most of the audit policy file by looking directly at the script.
 
 You can also refer to the [`Policy` configuration reference](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
@@ -176,7 +176,7 @@ for details about the fields defined.
 -->
 如果你在打磨自己的审计配置文件，你可以使用为 Google Container-Optimized OS
 设计的审计配置作为出发点。你可以参考
-[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
+[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
 脚本，该脚本能够生成审计策略文件。你可以直接在脚本中看到审计策略的绝大部份内容。
 
 你也可以参考 [`Policy` 配置参考](/zh/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
