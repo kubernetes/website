@@ -1,5 +1,4 @@
 ---
-
 title: Linux पर kubectl इंस्टॉल और सेट करें
 content_type: task
 weight: 10
