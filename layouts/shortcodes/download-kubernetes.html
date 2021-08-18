@@ -1,0 +1,114 @@
+
+<!-- capture component from first argument in "download-kubernetes" -->
+{{- $component := .Get 0 -}}
+
+<!-- strip "v" from latest verison 
+{{- $latestVersion := site.Params.latest -}}
+{{- $latestVersion := (replace $latestVersion "v" "") -}}
+
+splits a string x.Xy into substrings separated by a "." delimiter  
+{{- $versionArray := split $latestVersion "." -}}
+
+ capture minorVersion ("Xy") in a variable
+{{- $minorVersion := int (index $versionArray 1) -}}
+
+increment latest 1 minor number for "nextMinorVerison" 
+{{- $nextMinorVersion := add $minorVersion 1 -}}
+
+subtract latest 1 minor number for "prevMinorVerison" 
+{{- $prevMinorVersion := sub $minorVersion 1 -}}
+
+ subtract latest 2 minor numbers for "oldestMinorVerison" 
+{{- $oldestMinorVersion := sub $minorVersion 2 -}}
+
+
+
+{{- $latestVersion := site.Params.latest }}
+{{- $latestReleaseNotes := print "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-" (replace $latestVersion "v" "") ".md" }}
+{{- $latestReleaseNotes }}
+
+ output nextMinorVersion based on captured arg -->
+
+{{- if eq $component "kubectl" -}}
+
+<h2>{{ $component }}</h2>
+
+<!-- for all the release data (as a map) -->
+{{ range $data := .Site.Data.releases.schedule.schedules }}
+
+<!-- give me the version from the release key in X.Y format -->
+{{- $dataVersion := printf "%.2f" $data.release  -}}
+
+<!-- if there's no previous patch releases, it must be ".0" 
+    NOTE: There's probably a better way to fix this...
+-->
+{{ if not $data.previousPatches }}
+
+<!-- give me the version in X.Y.0 format -->
+<b>{{ T "latest_release" }}</b> {{ printf "%s.0" $dataVersion }}
+{{ end }}
+
+
+<!-- bold translated text to head the section -->
+<b>{{ T "previous_patches" }}</b>
+
+    <!-- give me the previous patches keys/values (all as a map) -->
+    {{ range $previousPatchesList := $data.previousPatches }}
+
+        <!-- split into keys / values -->
+        {{range $previous_patches_key, $previous_patches_value := $previousPatchesList }}
+            <!-- dump all the "release" keys  -->
+            {{ if eq $previous_patches_key "release" }}<a href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md#v{{ replace $previous_patches_value `.` `` }}">{{ printf "%s" $previous_patches_value }}{{ T "inline_list_separator" }} </a>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+
+{{- end -}}
+
+<!--
+example shortcode use:
+- download-kubernetes kubectl
+- skew latestVersion
+- skew prevMinorVersion
+- skew oldestMinorVersion
+- skew latestVersionAddMinor -1 "-"
+-->
+
+
+
+{{ range $data := .Site.Data.releases.schedule.schedules }}
+{{- $dataVersion := printf "%.2f" $data.release  -}}
+<h2>{{ $dataVersion }}</h2>
+
+<br>
+
+{{ if not $data.previousPatches }}
+<b>{{ T "latest_release" }}</b> {{ printf "%s.0" $dataVersion }}
+<br>
+<b>{{ T "end_of_life" }}</b> {{ printf "%s" $data.endOfLifeDate }}
+<br>
+<b>{{ T "previous_patches" }}</b> n/a
+{{ end }}
+
+{{ if $data.previousPatches }}
+<b>{{ T "latest_release" }}</b> {{ index $data.previousPatches 0 "release" }} (released: {{ index $data.previousPatches 0 "targetDate" }})
+<br>
+<b>{{ T "end_of_life" }}</b> {{ printf "%s" $data.endOfLifeDate }}
+<br>
+<b>{{ T "previous_patches" }}</b>
+    {{ range $previousPatchesList := $data.previousPatches }}
+        {{range $previous_patches_key, $previous_patches_value := $previousPatchesList }}
+            {{ if eq $previous_patches_key "release" }}<a href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md#v{{ replace $previous_patches_value `.` `` }}">{{ printf "%s" $previous_patches_value }}{{ T "inline_list_separator" }} </a>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+
+<br>
+Complete {{ $dataVersion }} <a href="/releases/patch-releases/#{{ replace $dataVersion `.` `-` }}">Schedule</a> and <a href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md">Changelog</a>
+
+
+{{ end }}

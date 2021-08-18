@@ -4,11 +4,9 @@ type: docs
 ---
 ## Core Kubernetes components
 
-Find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
+Find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files. Alternately, use the helpful links below.
 
-Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture.
-
-## kubectl
+## Kubectl (latest)
 
 <!-- overview -->
 The Kubernetes command-line tool, [kubectl](/docs/reference/kubectl/kubectl/), allows
@@ -24,3 +22,53 @@ Find your preferred operating system below.
 - [Install kubectl on Linux](/docs/tasks/tools/install-kubectl-linux)
 - [Install kubectl on macOS](/docs/tasks/tools/install-kubectl-macos)
 - [Install kubectl on Windows](/docs/tasks/tools/install-kubectl-windows)
+
+<!-- TODO: update down to the minor patch in the header and add checksum -->
+| Architecture | {{< skew latestVersion >}} | {{< skew prevMinorVersion >}} | {{< skew oldestMinorVersion >}} |
+|----------|----------|----------|----------|
+| amd64   | download  | download    | download   |
+| arm  | download  | download  | download  |
+| arm64 | download  | download  | download  |
+| Windows  | download  | download  | download  |
+| s390x | download  | download  | download  |
+
+
+<!--
+{{< download-kubernetes test >}}
+{{< download-kubernetes kubectl >}}
+ -->
+
+Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture.
+
+## Linux
+
+| Binary | {{< skew latestVersion >}} | {{< skew prevMinorVersion >}} | {{< skew oldestMinorVersion >}} |
+|----------|----------|----------|----------|
+| apiextensions-apiserver   | download  | download    | download   |
+| kube-aggregator  | download  | download  | download  |
+| kube-apiserver | download  | download  | download  |
+| kube-controller-manager  | download  | download  | download  |
+| kube-proxy | download  | download  | download  |
+| kube-scheduler  | download  | download    | download   |
+| kubeadm  | download  | download  | download  |
+| download | download  | download  | download  |
+| download-convert  | download  | download  | download  |
+| kubelet | download  | download  | download  |
+| mounter | download  | download  | download  |
+
+
+## Windows
+
+| Binary | {{< skew latestVersion >}} | {{< skew prevMinorVersion >}} | {{< skew oldestMinorVersion >}} |
+|----------|----------|----------|----------|
+| apiextensions-apiserver   | download  | download    | download   |
+| kube-aggregator  | download  | download  | download  |
+| kube-apiserver | download  | download  | download  |
+| kube-controller-manager  | download  | download  | download  |
+| kube-proxy | download  | download  | download  |
+| kube-scheduler  | download  | download    | download   |
+| kubeadm  | download  | download  | download  |
+| download | download  | download  | download  |
+| download-convert  | download  | download  | download  |
+| kubelet | download  | download  | download  |
+| mounter | download  | download  | download  |
