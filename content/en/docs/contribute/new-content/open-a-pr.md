@@ -28,7 +28,40 @@ If your changes are large, read [Work from a local fork](#fork-the-repo) to lear
 ## Changes using GitHub
 
 If you're less experienced with git workflows, here's an easier method of
-opening a pull request.
+opening a pull request. The figure below outlines the steps and the details follow.
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+A([fa:fa-user New<br>Contributor]) --- id1[(K8s/Website<br>GitHub)]
+subgraph tasks[Changes using GitHub]
+direction TB
+    0[ ] -.-
+    1[1. Edit this page] --> 2[2. Use GitHub markdown<br>editor to make changes]
+    2 --> 3[3. fill in Propose file change]
+
+end
+subgraph tasks2[ ]
+direction TB
+4[4. select Propose file change] --> 5[5. select Create pull request] --> 6[6. fill in Open a pull request]
+6 --> 7[7. select Create pull request] 
+end
+
+id1 --> tasks --> tasks2
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:1px,color:#fff;
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class A,1,2,3,4,5,6,7 grey
+class 0 spacewhite
+class tasks,tasks2 white
+class id1 k8s
+{{</ mermaid >}}
+
+***Figure - Steps for opening a PR using GitHub***
 
 1.  On the page where you see the issue, select the pencil icon at the top right.
     You can also scroll to the bottom of the page and select **Edit this page**.
@@ -88,6 +121,37 @@ If you're more experienced with git, or if your changes are larger than a few li
 work from a local fork.
 
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed on your computer. You can also use a git UI application.
+
+The figure below shows the steps to follow when you work from a local fork. The details for each step follow.
+
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+1[Fork the K8s/website<br>repository] --> 2[Create local clone<br>and set upstream]
+subgraph changes[Your changes]
+direction TB
+S[ ] -.-
+3[Create a branch<br>example: my_new_branch] --> 3a[Make changes using<br>text editor] --> 4["Preview your changes<br>locally using Hugo<br>(localhost:1313)<br>or build container image"]
+end
+subgraph changes2[Commit / Push]
+direction TB
+T[ ] -.-
+5[Commit your changes] --> 6[Push commit to<br>origin/my_new_branch]
+end
+
+2 --> changes --> changes2
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+classDef k8s fill:#326ce5,stroke:#fff,stroke-width:1px,color:#fff;
+classDef spacewhite fill:#ffffff,stroke:#fff,stroke-width:0px,color:#000
+class 1,2,3,3a,4,5,6 grey
+class S,T spacewhite
+class changes,changes2 white
+{{</ mermaid >}}
+***Figure - Working from a local fork to make your changes***
 
 ### Fork the kubernetes/website repository
 
@@ -289,6 +353,34 @@ Alternately, install and use the `hugo` command on your computer:
 
 ### Open a pull request from your fork to kubernetes/website {#open-a-pr}
 
+The figure below shows the steps to open a PR from your fork to the K8s/website. The details follow.
+<!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
+<!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
+
+{{< mermaid >}}
+flowchart LR
+subgraph first[ ]
+direction TB
+1[1. Go to K8s/website repository] --> 2[2. Select New Pull Request]
+2 --> 3[3. Select compare across forks]
+3 --> 4[4. Select your fork from<br>head repository drop-down menu]
+end
+subgraph second [ ]
+direction TB
+5[5. Select your branch from<br>the compare drop-down menu] --> 6[6. Select Create Pull Request]
+6 --> 7[7. Add a description<br>to your PR]
+7 --> 8[8. Select Create pull request]
+end
+
+first --> second
+
+classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
+classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
+class 1,2,3,4,5,6,7,8 grey
+class first,second white
+{{</ mermaid >}}
+***Figure - Steps to open a PR from your fork to the K8s/website***
+
 1. In a web browser, go to the [`kubernetes/website`](https://github.com/kubernetes/website/) repository.
 2. Select **New Pull Request**.
 3. Select **compare across forks**.
@@ -303,7 +395,7 @@ Alternately, install and use the `hugo` command on your computer:
 
 8. Select the **Create pull request** button.
 
-  Congratulations! Your pull request is available in [Pull requests](https://github.com/kubernetes/website/pulls).
+Congratulations! Your pull request is available in [Pull requests](https://github.com/kubernetes/website/pulls).
 
 
 After opening a PR, GitHub runs automated tests and tries to deploy a preview using [Netlify](https://www.netlify.com/).
@@ -414,7 +506,6 @@ If another contributor commits changes to the same file in another PR, it can cr
 
     The pull request no longer shows any conflicts.
 
-
 ### Squashing commits
 
 {{< note >}}
@@ -500,11 +591,8 @@ Most repositories use issue and PR templates. Have a look through some open
 issues and PRs to get a feel for that team's processes. Make sure to fill out
 the templates with as much detail as possible when you file issues or PRs.
 
-
-
 ## {{% heading "whatsnext" %}}
 
 
 - Read [Reviewing](/docs/contribute/review/reviewing-prs) to learn more about the review process.
-
 
