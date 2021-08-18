@@ -1,6 +1,6 @@
 ---
 
-title: Linux पर kubectl इंस्टॉल और सेट करें
+title: लिनक्स पर kubectl इंस्टॉल और सेट करें
 content_type: कार्य
 weight: 10
 card:
