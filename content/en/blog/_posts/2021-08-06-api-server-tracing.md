@@ -2,18 +2,18 @@
 
 ---
 layout: blog
-title: 'API Server Tracing'
+title: 'Alpha in Kubernetes v1.22: API Server Tracing'
 date: 2021-08-23
 slug: api-server-tracing
 ---
 
 **Authors:** David Ashpole (Google)
 
-In distributed systems, it can be hard to figure out where problems are. You grep through one component's logs just to discover that the source of your problem is in another component.  You search there only to discover that you need to enable debug logs to figure out what really went wrong... And it goes on. The more complex the path your request takes, the harder it is to answer questions about where it went.  I've personally spent many hours doing this dance with a variety of Kubernetes components. Distributed tracing is a tool which is designed to help in these situations, and the Kubernetes API Server is, perhaps, the most important Kubernetes component to be able to debug. At Kubernetes' Sig-Instrumentation, our mission is to make it easier to understand what's going on in your cluster, and we are happy to announce that distributed tracing in the Kubernetes API Server reached alpha in 1.22.
+In distributed systems, it can be hard to figure out where problems are. You grep through one component's logs just to discover that the source of your problem is in another component.  You search there only to discover that you need to enable debug logs to figure out what really went wrong... And it goes on. The more complex the path your request takes, the harder it is to answer questions about where it went.  I've personally spent many hours doing this dance with a variety of Kubernetes components. Distributed tracing is a tool which is designed to help in these situations, and the Kubernetes API Server is, perhaps, the most important Kubernetes component to be able to debug. At Kubernetes' Sig Instrumentation, our mission is to make it easier to understand what's going on in your cluster, and we are happy to announce that distributed tracing in the Kubernetes API Server reached alpha in 1.22.
 
 ## What is Tracing?
 
-Distributed tracing links together a bunch of super-detailed information from multiple different sources, and structures that telemetry into a single tree for that request.  Unlike logging, which limits the quantity of data ingested by using log levels, tracing collects all of the details and uses sampling to collect only a small percentage of requests.  This means that once you have a trace which demonstrates an issue, you should have all the information you need to root-cause the problem--no grepping for object UID required! My favorite aspect, though, is how useful the visualizations of traces are.  Even if you don't understand the inner workings of the API Server, or don't have a clue what an Etcd "Transaction" is, I'd wager you (yes, you!) could tell me roughly what the order of events was, and which components were involved in the request.  If some step takes a long time, it is easy to tell where the problem is.
+Distributed tracing links together a bunch of super-detailed information from multiple different sources, and structures that telemetry into a single tree for that request.  Unlike logging, which limits the quantity of data ingested by using log levels, tracing collects all of the details and uses sampling to collect only a small percentage of requests.  This means that once you have a trace which demonstrates an issue, you should have all the information you need to root-cause the problem--no grepping for object UID required! My favorite aspect, though, is how useful the visualizations of traces are.  Even if you don't understand the inner workings of the API Server, or don't have a clue what an etcd "Transaction" is, I'd wager you (yes, you!) could tell me roughly what the order of events was, and which components were involved in the request.  If some step takes a long time, it is easy to tell where the problem is.
 
 ## Why OpenTelemetry?
 
