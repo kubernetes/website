@@ -103,8 +103,7 @@ other = "द्वारा"
 other = """कुबेरनेट्स लेखक | <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> के अंतर्गत वितरित दस्तावेज़"""
 
 [main_copyright_notice]
-other = """Linux फाउंडेशन &reg;। सभी अधिकार सुरक्षित। Linux फाउंडेशन ने ट्रेडमार्क पंजीकृत किया है और ट्रेडमार्क का उपयोग करता है। Linux फाउंडेशन के ट्रेडमार्क की सूची के लिए, कृपया हमारा <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">ट्रेडमार्क उपयोग पृष्ठ</a> देखें।"""
-
+other = """The Linux Foundation &reg;। सभी अधिकार सुरक्षित। The Linux Foundation ने ट्रेडमार्क पंजीकृत किया है और ट्रेडमार्क का उपयोग करता है। Linux Foundation के ट्रेडमार्क की सूची के लिए, कृपया हमारा <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">ट्रेडमार्क उपयोग पृष्ठ</a> देखें।"""
 # Labels for the docs portal home page.
 [docs_label_browse]
 other = "प्रलेखन ब्राउज़ करें"
@@ -134,7 +133,7 @@ other = "अपनी कहानी बतायें"
 # layouts > docs > glossary
 
 [layouts_docs_glossary_description]
-other = "इस शब्दावली का उद्देश्य कुबेरनेट्स शब्दावली की एक व्यापक, मानकीकृत सूची है। इसमें K8s के लिए विशिष्ट तकनीकी शब्द और उपयोगी संदर्भ प्रदान करने वाले सामान्य शब्द शामिल हैं।"
+other = "इस शब्दावली का उद्देश्य कुबेरनेट्स शब्दावली की एक व्यापक, मानकीकृत सूची है। इसमें कुबेरनेट्स के लिए विशिष्ट तकनीकी शब्द और उपयोगी संदर्भ प्रदान करने वाले सामान्य शब्द शामिल हैं।"
 
 [layouts_docs_glossary_filter]
 other = "शब्दों को उनके टैग के अनुसार फ़िल्टर करें"
