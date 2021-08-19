@@ -33,7 +33,7 @@ no_list: true
 काइंड [क्विक स्टार्ट](https://kind.sigs.k8s.io/docs/user/quick-start/) 
 पृष्ठ आपको दिखाता है कि काइंड चलाने के लिए आपको क्या करने की आवश्यकता है।
 
-<a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="View kind Quick Start Guide">काइंड क्विक स्टार्ट गाइड देखें</a>
+<a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="काइंड क्विक स्टार्ट गाइड देखें">काइंड क्विक स्टार्ट गाइड देखें</a>
 
 ## minikube
 
@@ -46,7 +46,7 @@ no_list: true
 [आरंभ करें!](https://minikube.sigs.k8s.io/docs/start/) 
 गाइड का अनुसरण कर सकते हैं।
 
-<a class="btn btn-primary" href="https://minikube.sigs.k8s.io/docs/start/" role="button" aria-label="View minikube Get Started! Guide">मिनीक्यूब क्विक स्टार्ट गाइड देखें</a>
+<a class="btn btn-primary" href="https://minikube.sigs.k8s.io/docs/start/" role="button" aria-label="मिनीक्यूब क्विक स्टार्ट गाइड देखें">मिनीक्यूब क्विक स्टार्ट गाइड देखें</a>
 
 एक बार जब आपके पास minikube काम कर रहा हो, 
 तो आप इसका उपयोग [नमूना एप्लिकेशन](/docs/tutorials/hello-minikube/) 
