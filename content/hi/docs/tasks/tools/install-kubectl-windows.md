@@ -1,5 +1,5 @@
 ---
-title: Windows पर kubectl इंस्टॉल और सेट करें
+title: Windows पर kubectl इंस्टॉल और सेटअप करें
 content_type: task
 weight: 10
 card:
@@ -8,7 +8,7 @@ card:
   title: Windows पर kubectl इंस्टॉल करें
 ---
 
-## {{% heading "prerequisites" %}}
+## {{% heading "आवश्यकताए" %}}
 
 आपको kubectl संस्करण का उपयोग करना चाहिए जो आपके क्लस्टर के एक मामूली संस्करण अंतर के भीतर हो. उदाहरण के लिए,  v{{< skew latestVersion >}} क्लाइंट निम्नलिखित के साथ संवाद कर सकते हैं v{{< skew prevMinorVersion >}}, v{{< skew latestVersion >}}, and v{{< skew nextMinorVersion >}} कण्ट्रोल प्लेन.
 kubectl के नवीनतम संस्करण का उपयोग करने से अप्रत्याशित मुद्दों से बचने में मदद मिलती है.
@@ -19,7 +19,6 @@ Windows पर kubectl संस्थापित करने के लिए
 
 - [Windows पर curl के माध्यम से kubectl बाइनरी इंस्टॉल करें](#Windows-पर-curl-के-माध्यम-से-kubectl-बाइनरी-इंस्टॉल-करें)
 - [Chocolatey या Scoop का उपयोग करके Windows पर इंस्टॉल करें](#Chocolatey-या-Scoop-का-उपयोग-करके-Windows-पर-इंस्टॉल-करें)
-
 
 ### Windows पर curl के माध्यम से kubectl बाइनरी इंस्टॉल करें
 
@@ -87,7 +86,6 @@ Windows पर kubectl संस्थापित करने के लिए
    ```
    {{% /tab %}}
    {{< /tabs >}}
-
 
 1. यह सुनिश्चित करने के लिए परीक्षण करें कि आपके द्वारा इंस्टॉल किया गया संस्करण अद्यतित है:
 
