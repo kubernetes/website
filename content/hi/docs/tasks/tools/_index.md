@@ -22,7 +22,7 @@ kubectl विभिन्न प्रकार के Linux प्लेटफ
 
 - [kubectl Linux पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-linux)
 - [kubectl macOS पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-macos)
-- [कुबेक्टल windows पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-windows)
+- [kubectl Windows पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-windows)
 
 ## kind
 
