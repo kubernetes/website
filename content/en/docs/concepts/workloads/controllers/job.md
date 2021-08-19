@@ -342,6 +342,16 @@ If the field is set to `0`, the Job will be eligible to be automatically deleted
 immediately after it finishes. If the field is unset, this Job won't be cleaned
 up by the TTL controller after it finishes.
 
+{{< note >}}
+It is recommended to set `ttlSecondsAfterFinished` field because unmanaged jobs
+(jobs not created via high level controllers like cronjobs) have a default deletion
+policy of `orphanDependents` causing pods created by this job to be left around.
+Even though podgc collector eventually deletes these lingering pods, sometimes these
+lingering pods may cause cluster performance degradation or in worst case cause the
+cluster to go down.
+{{< /note >}}
+
+
 ## Job patterns
 
 The Job object can be used to support reliable parallel execution of Pods.  The Job object is not
