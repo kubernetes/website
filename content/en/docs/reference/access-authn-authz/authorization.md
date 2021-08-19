@@ -192,7 +192,7 @@ The following flags can be used:
 You can choose more than one authorization module. Modules are checked in order
 so an earlier module has higher priority to allow or deny a request.
 
-## Privilege escalation via workload creation or edits {#privilege-escalation}
+## Privilege escalation via workload creation or edits {#privilege-escalation-via-pod-creation}
 
 Users who have the ability to create or edit anything which creates pods in a
 namespace can potentially escalate their privileges within that namespace.
