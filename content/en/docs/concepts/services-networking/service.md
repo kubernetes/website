@@ -250,6 +250,12 @@ low level, privileged network proxying service on a computer.  Although the `kub
 executable supports a `cleanup` function, this function is not an official feature and
 thus is only available to use as-is.
 
+### Configuration
+
+Note that the kube-proxy starts up in different modes, which are determined by its configuration.
+
+The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for kube-proxy effectively deprecates the behaviour for almost all of the flags for the kube-proxy.
+
 ### User space proxy mode {#proxy-mode-userspace}
 
 In this (legacy) mode, kube-proxy watches the Kubernetes control plane for the addition and
