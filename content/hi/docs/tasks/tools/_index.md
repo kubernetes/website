@@ -21,7 +21,7 @@ kubectl विभिन्न प्रकार के Linux प्लेटफ
 नीचे अपना उपयुक्त ऑपरेटिंग सिस्टम खोजें।
 
 - [kubectl Linux पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-linux)
-- [कुबेक्टल macOS पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-macos)
+- [kubectl macOS पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-macos)
 - [कुबेक्टल windows पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-windows)
 
 ## kind
