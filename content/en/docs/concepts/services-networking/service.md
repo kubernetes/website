@@ -253,8 +253,9 @@ thus is only available to use as-is.
 ### Configuration
 
 Note that the kube-proxy starts up in different modes, which are determined by its configuration.
-
-The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for kube-proxy effectively deprecates the behaviour for almost all of the flags for the kube-proxy.
+- The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for kube-proxy effectively deprecates the behaviour for almost all of the flags for the kube-proxy.
+- The ConfigMap for the kube-proxy does not support live reloading of configuration.
+- The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.  For example, if your operating system doesn't allow you to run iptables commands, the standard kernel kube-proxy implementation will not work.  Likewise, if you have an operating system which doesn't support `netsh`, it will not run in Windows userspace mode.
 
 ### User space proxy mode {#proxy-mode-userspace}
 
