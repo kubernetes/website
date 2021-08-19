@@ -211,7 +211,7 @@ The enhancement proposal,
 [Volume Populators](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1495-volume-populators), includes lots of detail about the history and technical implementation
 of this feature.
 
-[Volume populators and data sources] (in the documenation topic about persistent volumes)
+[Volume populators and data sources](/docs/concepts/storage/persistent-volumes/#volume-populators-and-data-sources), within the documentation topic about persistent volumes,
 explains how to use this feature in your cluster.
 
 Please get involved by joining the Kubernetes storage SIG to help us enhance this
