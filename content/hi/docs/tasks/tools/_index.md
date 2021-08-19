@@ -26,7 +26,7 @@ no_list: true
 
 ## kind
 
-[`kind`](https://kind.sigs.k8s.io/docs/) आपको अपने कंप्यूटर पर कुबेरनेट चलाने देता है।
+[`kind`](https://kind.sigs.k8s.io/docs/) आपको अपने कंप्यूटर पर कुबेरनेट्स चलाने देता है।
 इस उपकरण के लिए आवश्यक है कि आपके पास 
 [Docker](https://docs.docker.com/get-docker/) इंस्टॉल और कॉन्फ़िगर किया गया हो।
 
