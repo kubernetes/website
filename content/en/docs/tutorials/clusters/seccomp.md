@@ -46,6 +46,12 @@ make sure that your cluster is [configured
 correctly](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)
 for the version you are using.
 
+{{< note >}}
+It is not possible to apply a seccomp profile to a container running with
+`privileged: true` set in the container's `securityContext`. Privileged containers always
+run as `Unconfined`.
+{{< /note >}}
+
 <!-- steps -->
 
 ## Enable the use of `RuntimeDefault` as the default seccomp profile for all workloads
