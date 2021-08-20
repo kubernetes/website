@@ -20,9 +20,9 @@ kubectl संचालन की पूरी सूची सहित अध�
 kubectl विभिन्न प्रकार के Linux प्लेटफॉर्म, macOS और Windows पर इंस्टॉल करने योग्य है।
 नीचे अपना उपयुक्त ऑपरेटिंग सिस्टम खोजें।
 
-- [kubectl Linux पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-linux)
-- [kubectl macOS पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-macos)
-- [kubectl Windows पर इंस्टॉल करने](/docs/tasks/tools/install-kubectl-windows)
+- [kubectl Linux पर इंस्टॉल करने](/hi/docs/tasks/tools/install-kubectl-linux)
+- [kubectl macOS पर इंस्टॉल करने](/hi/docs/tasks/tools/install-kubectl-macos)
+- [kubectl Windows पर इंस्टॉल करने](/hi/docs/tasks/tools/install-kubectl-windows)
 
 ## kind
 
@@ -33,7 +33,7 @@ kubectl विभिन्न प्रकार के Linux प्लेटफ
 kind [क्विक स्टार्ट](https://kind.sigs.k8s.io/docs/user/quick-start/) 
 पृष्ठ आपको दिखाता है कि kind चलाने के लिए आपको क्या करने की आवश्यकता है।
 
-<a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="kind क्विक स्टार्ट गाइड देखें">Kind क्विक स्टार्ट गाइड देखें</a>
+<a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="kind क्विक स्टार्ट गाइड देखें">kind क्विक स्टार्ट गाइड देखें</a>
 
 ## minikube
 
