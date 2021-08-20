@@ -205,7 +205,7 @@ CPU is always requested as an absolute quantity, never as a relative quantity;
 CPU 资源的约束和请求以 *cpu* 为单位。
 
 Kubernetes 中的一个 cpu 等于云平台上的 **1 个 vCPU/核**和裸机 Intel
-处理器上的 **1 个超线程 **。
+处理器上的 **1 个超线程**。
 
 你也可以表达带小数 CPU 的请求。`spec.containers[].resources.requests.cpu` 为 0.5
 的 Container 肯定能够获得请求 1 CPU 的容器的一半 CPU 资源。表达式 `0.1` 等价于表达式 `100m`，
