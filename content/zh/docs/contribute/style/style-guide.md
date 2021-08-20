@@ -54,7 +54,7 @@ Kubernetes 文档使用带调整的 [Goldmark Markdown 解释器](https://github
 ## Language
 
 Kubernetes documentation has been translated into multiple languages
-(see [Localization READMEs](https://github.com/kubernetes/website/blob/master/README.md#localization-readmemds)).
+(see [Localization READMEs](https://github.com/kubernetes/website/blob/main/README.md#localization-readmemds)).
 
 The way of localizing the docs for a different language is described in [Localizing Kubernetes Documentation](/docs/contribute/localization/).
 
@@ -65,7 +65,7 @@ The English-language documentation uses U.S. English spelling and grammar.
 ## 语言 {#language}
 
 Kubernetes 文档已经被翻译为多个语种
-（参见 [本地化 READMEs](https://github.com/kubernetes/website/blob/master/README.md#localization-readmemds)）。
+（参见 [本地化 READMEs](https://github.com/kubernetes/website/blob/main/README.md#localization-readmemds)）。
 
 为文档提供一种新的语言翻译的途径可以在
 [本地化 Kubernetes 文档](/zh/docs/contribute/localization/)中找到。
@@ -1247,8 +1247,8 @@ Do | Don't
 :--| :-----
 Include one command in ... | Include just one command in ...
 Run the container ... | Simply run the container ...
-You can easily remove ... | You can remove ...
-These simple steps ... | These steps ...
+You can remove ... | You can easily remove ...
+These steps ... | These simple steps ...
 {{< /table >}}
 -->
 ### 避免使用隐含用户对某技术有一定理解的词汇
@@ -1261,8 +1261,8 @@ These simple steps ... | These steps ...
 :--| :-----
 在 ... 中包含一个命令 | 只需要在... 中包含一个命令
 运行容器 ... | 只需运行该容器...
-你可以很容易地移除... | 你可以移除...
-这些简单的步骤... | 这些步骤...
+你可以移除... | 你可以很容易地移除...
+这些步骤... | 这些简单的步骤...
 {{< /table >}}
 
 ## {{% heading "whatsnext" %}}

@@ -96,10 +96,10 @@ page content.
 
 除了包含工具提示外，你还可以重用页面内容中词汇表中的定义。
 <!--
-The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary), with a content file for each glossary term.
+The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary), with a content file for each glossary term.
 -->
 
-词汇术语的原始数据保存在 [https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary)，每个内容文件对应相应的术语解释。
+词汇术语的原始数据保存在 [https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/main/content/en/docs/reference/glossary)，每个内容文件对应相应的术语解释。
 
 <!--
 ### Glossary demo

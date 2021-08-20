@@ -133,15 +133,15 @@ The remaining steps refer to your base directory as `<rdocs-base>`. -->
 <!-- 
 In your local k8s.io/kubernetes repository, check out the branch of interest,
 and make sure it is up to date. For example, if you want to generate docs for
-Kubernetes 1.17, you could use these commands: 
+Kubernetes {{< skew prevMinorVersion >}}.0, you could use these commands: 
 -->
 在本地的 k8s.io/kubernetes 仓库中，检出感兴趣的分支并确保它是最新的。例如，
-如果你想要生成 Kubernetes 1.17 的文档，可以使用以下命令：
+如果你想要生成 Kubernetes {{< skew prevMinorVersion >}}.0 的文档，可以使用以下命令：
 
 ```shell
 cd <k8s-base>
-git checkout v1.17.0 
-git pull https://github.com/kubernetes/kubernetes v1.17.0
+git checkout v{{< skew prevMinorVersion >}}.0
+git pull https://github.com/kubernetes/kubernetes {{< skew prevMinorVersion >}}.0
 ```
 
 <!-- 
@@ -172,13 +172,13 @@ kubectl 源码中的一个或多个注释开始。在本地 kubernetes/kubernete
 is an example of a pull request that fixes a typo in the kubectl source code.
 
 Monitor your pull request, and respond to reviewer comments. Continue to monitor your
-pull request until it is merged into the master branch of the kubernetes/kubernetes repository.
+pull request until it is merged into the target branch of the kubernetes/kubernetes repository.
 -->
 
 [PR 56673](https://github.com/kubernetes/kubernetes/pull/56673/files) 是一个对 kubectl
 源码中的笔误进行修复的 PR 示例。
 
-跟踪你的 PR，并回应评审人的评论。继续跟踪你的 PR，直到它合入到 kubernetes/kubernetes 仓库的 master 分支中。
+跟踪你的 PR，并回应评审人的评论。继续跟踪你的 PR，直到它合入到 kubernetes/kubernetes 仓库的目标分支中。
 
 <!--
 ## Cherry picking your change into a release branch
@@ -195,15 +195,17 @@ cherry picked into the release branch.
 cherry-pick 方式合入已发布分支。
 
 <!--
-For example, suppose the master branch is being used to develop Kubernetes 1.10,
-and you want to backport your change to the release-1.15 branch. For instructions
+For example, suppose the master branch is being used to develop Kubernetes
+{{< skew currentVersion >}}
+and you want to backport your change to the release-{{< skew prevMinorVersion >}} branch. For instructions
 on how to do this, see
 [Propose a Cherry Pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md).
 
 Monitor your cherry-pick pull request until it is merged into the release branch.
 -->
 
-例如，假设 master 分支正用于开发 Kubernetes 1.16 版本，而你希望将修改合入到已发布的 1.15 版本分支。
+例如，假设 master 分支正用于开发 Kubernetes {{< skew currentVersion >}} 版本，
+而你希望将修改合入到 release-{{< skew prevMinorVersion >}} 版本分支。
 相关的操作指南，请参见
 [提议一个 cherry-pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md)。
 
@@ -233,21 +235,22 @@ Go to `<rdocs-base>`, and open the `Makefile` for editing:
 * Set `K8S_ROOT` to `<k8s-base>`.
 * Set `K8S_WEBROOT` to `<web-base>`.
 * Set `K8S_RELEASE` to the version of the docs you want to build.
-  For example, if you want to build docs for Kubernetes 1.17, set `K8S_RELEASE` to 1.17.
+  For example, if you want to build docs for Kubernetes {{< skew prevMinorVersion >}}, set `K8S_RELEASE` to {{< skew prevMinorVersion >}}.
 
 For example, update the following variables: 
 -->
 * 设置 `K8S_ROOT` 为 `<k8s-base>`。
 * 设置 `K8S_WEBROOT` 为 `<web-base>`。
 * 设置 `K8S_RELEASE` 为要构建文档的版本。
-  例如，如果您想为 Kubernetes 1.17 构建文档，请将 `K8S_RELEASE` 设置为 1.17。
+  例如，如果您想为 Kubernetes {{< skew prevMinorVersion >}} 构建文档，
+  请将 `K8S_RELEASE` 设置为 {{< skew prevMinorVersion >}}。
 
 例如：
 
 ```
 export K8S_WEBROOT=$(GOPATH)/src/github.com/<your-username>/website
 export K8S_ROOT=$(GOPATH)/src/k8s.io/kubernetes
-export K8S_RELEASE=1.17
+export K8S_RELEASE={{< skew prevMinorVersion >}}
 ```
 
 <!--
@@ -281,19 +284,20 @@ make createversiondirs
 
 In your local <k8s-base> repository, checkout the branch that has
 the version of Kubernetes that you want to document. For example, if you want
-to generate docs for Kubernetes 1.15, checkout the release-1.15 branch. Make sure
+to generate docs for Kubernetes {{< skew prevMinorVersion >}}.0, checkout the `v{{< skew prevMinorVersion >}}` tag. Make sure
 you local branch is up to date.
 -->
 ## 从 kubernetes/kubernetes 检出一个分支
 
 在本地 `<k8s-base>` 仓库中，检出你想要生成文档的、包含 Kubernetes 版本的分支。
-例如，如果希望为 Kubernetes 1.17 版本生成文档，请检出 `v1.17.0` 标记。
+例如，如果希望为 Kubernetes {{< skew prevMinorVersion >}}.0 版本生成文档，
+请检出 `v{{< skew prevMinorVersion >}}` 标记。
 确保本地分支是最新的。
 
 ```shell
 cd <k8s-base>
-git checkout v1.17.0 
-git pull https://github.com/kubernetes/kubernetes v1.17.0
+git checkout v{{< skew prevMinorVersion >}}.0
+git pull https://github.com/kubernetes/kubernetes v{{< skew prevMinorVersion >}}.0
 ```
 
 <!--
