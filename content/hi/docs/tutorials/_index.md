@@ -32,9 +32,10 @@ content_type: concept
 
 ## स्टेटलेस एप्लीकेशन
 
-* [किसी क्लस्टर में किसी एप्लिकेशन तक पहुंचने के लिए बाहरी आईपी पते को उजागर करना](/hi/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [उदाहरण: रेडिस के साथ PHP गेस्टबुक एप्लिकेशन को उपयोग करना](/hi/docs/tutorials/stateless-application/guestbook/)
+* [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/) (किसी क्लस्टर में किसी एप्लिकेशन तक पहुंचने के लिए बाहरी आईपी पते को उजागर करना)
+
+* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/) (उदाहरण: रेडिस के साथ PHP गेस्टबुक एप्लिकेशन को उपयोग करना)
 
 ## स्टेटफुल एप्लीकेशन
 
