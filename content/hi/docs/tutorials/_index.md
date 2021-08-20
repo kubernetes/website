@@ -26,9 +26,10 @@ content_type: concept
 
 ## विन्यास
 
-* [उदाहरण: Java माइक्रोसर्विस का विन्यास करना](/hi/docs/tutorials/configuration/configure-java-microservice/)
+* [Example: Configuring a Java Microservice
+](/docs/tutorials/configuration/configure-java-microservice/) (उदाहरण: Java माइक्रोसर्विस का विन्यास करना)
 
-* [कॉन्फिग मैप का उपयोग करके Redis का विन्यास करना](/hi/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/) (कॉन्फिग मैप का उपयोग करके Redis का विन्यास करना)
 
 ## स्टेटलेस एप्लीकेशन
 
