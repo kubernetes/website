@@ -1,5 +1,5 @@
 ---
-title: Guide for scheduling Windows containers in Kubernetes
+title: कुबेरनेट्स में Windows कंटेनरों को शेड्यूल करने के लिए गाइड
 content_type: concept
 weight: 75
 ---
