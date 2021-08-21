@@ -257,7 +257,7 @@ spec:
       containers:
       - name: app
         image: my-app
-        volumeMount:
+        volumeMounts:
         - name: config
           mountPath: /config
       volumes:
@@ -317,7 +317,7 @@ spec:
       containers:
       - image: my-app
         name: app
-        volumeMount:
+        volumeMounts:
         - mountPath: /config
           name: config
       volumes:
@@ -428,7 +428,7 @@ spec:
       containers:
       - name: app
         image: my-app
-        volumeMount:
+        volumeMounts:
         - name: password
           mountPath: /secrets
       volumes:
