@@ -194,7 +194,7 @@ Basic認証Secret型は、ユーザーの便宜のためにのみ提供されて
 
 ### SSH authentication secrets
 
-組み込みのタイプ`kubernetes.io/ssh-auth`は、SSH認証で使用されるデータを保存するために提供されています。このSecret型を使用する場合、使用するSSH認証として`data`（または`stringData`）フィールドに`ssh-privatekey`キーと値のペアを指定する必要があります。 
+組み込みのタイプ`kubernetes.io/ssh-auth`は、SSH認証で使用されるデータを保存するために提供されています。このSecret型を使用する場合、使用するSSH認証として`data`（または`stringData`）フィールドに`ssh-privatekey`キーと値のペアを指定する必要があります。
 
 次のYAMLはSSH authentication Secretの設定例です：
 
@@ -284,7 +284,7 @@ Bootstrap type Secretには、`data`で指定された次のキーがありま�
 - `usage-bootstrap-<usage>`：Bootstrap tokenの追加の使用法を示すブールフラグ。
 - `auth-extra-groups`：`system：bootstrappers`グループに加えて認証されるグループ名のコンマ区切りのリスト。
 
-上記のYAMLは、値がすべてbase64でエンコードされた文字列であるため、混乱しているように見える場合があります。実際、次のYAMLを使用して同一のSecretを作成できます。
+上記のYAMLは、値がすべてbase64でエンコードされた文字列であるため、分かりづらく見えるかもしれません。実際、次のYAMLを使用して同一のSecretを作成できます。
 
 ```yaml
 apiVersion: v1
