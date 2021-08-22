@@ -308,6 +308,12 @@ Localizing site strings lets you customize site-wide text and features: for exam
 
 Some language teams have their own language-specific style guide and glossary. For example, see the [Korean Localization Guide](/ko/docs/contribute/localization_ko/).
 
+### Language specific Zoom meetings
+
+If the localization project needs a separate meeting time, contact a SIG Docs Co-Chair or Tech Lead to create a new reoccurring Zoom meeting and calendar invite. This is only needed when the the team is large enough to sustain and require a separate meeting.
+
+Per CNCF policy, the localization teams must upload their meetings to the SIG Docs YouTube playlist. A SIG Docs Co-Chair or Tech Lead can help with the process until SIG Docs automates it.
+
 ## Branching strategy
 
 Because localization projects are highly collaborative efforts, we
