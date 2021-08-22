@@ -142,7 +142,11 @@ By default, the Kubernetes API server serves HTTP on 2 ports:
       - is intended for testing and bootstrap, and for other components of the master node
         (scheduler, controller-manager) to talk to the API
       - no TLS
+<<<<<<< HEAD
       - default is port 8080 (no longer support `--insecure-port` flag to change port)
+=======
+      - default is port 8080
+>>>>>>> f1689e206b4618d46ddd9766e962647265ed8713
       - default IP is localhost, change with `--insecure-bind-address` flag.
       - request **bypasses** authentication and authorization modules.
       - request handled by admission control module(s).
