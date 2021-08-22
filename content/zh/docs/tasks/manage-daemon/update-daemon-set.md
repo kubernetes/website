@@ -19,10 +19,7 @@ This page shows how to perform a rolling update on a DaemonSet.
 
 ## {{% heading "prerequisites" %}}
 
-<!--
-* The DaemonSet rolling update feature is only supported in Kubernetes version 1.6 or later.
--->
-* Kubernetes 1.6 或者更高版本中才支持 DaemonSet 滚动更新功能。
+{{< include "task-tutorial-prereqs.md" >}}
 
 <!-- steps -->
 
@@ -36,20 +33,20 @@ DaemonSet has two update strategy types:
 DaemonSet 有两种更新策略：
 
 <!--
-* OnDelete:  With `OnDelete` update strategy, after you update a DaemonSet template, new
+* `OnDelete`: With `OnDelete` update strategy, after you update a DaemonSet template, new
   DaemonSet pods will *only* be created when you manually delete old DaemonSet
   pods. This is the same behavior of DaemonSet in Kubernetes version 1.5 or
   before.
-* RollingUpdate: This is the default update strategy.  
+* `RollingUpdate`: This is the default update strategy.  
   With `RollingUpdate` update strategy, after you update a
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
   will be created automatically, in a controlled fashion.
   At most one pod of the DaemonSet will be running on each node during the whole update process.
 -->
 
-* OnDelete:  使用 `OnDelete` 更新策略时，在更新 DaemonSet 模板后，只有当你手动删除老的
+* `OnDelete`: 使用 `OnDelete` 更新策略时，在更新 DaemonSet 模板后，只有当你手动删除老的
   DaemonSet pods 之后，新的 DaemonSet Pod *才会*被自动创建。跟 Kubernetes 1.6 以前的版本类似。
-* RollingUpdate: 这是默认的更新策略。使用 `RollingUpdate` 更新策略时，在更新 DaemonSet 模板后，
+* `RollingUpdate`: 这是默认的更新策略。使用 `RollingUpdate` 更新策略时，在更新 DaemonSet 模板后，
   老的 DaemonSet pods 将被终止，并且将以受控方式自动创建新的 DaemonSet pods。
   更新期间，最多只能有 DaemonSet 的一个 Pod 运行于每个节点上。
 
@@ -64,12 +61,18 @@ To enable the rolling update feature of a DaemonSet, you must set its
 要启用 DaemonSet 的滚动更新功能，必须设置 `.spec.updateStrategy.type` 为 `RollingUpdate`。
 
 <!--
-You may want to set [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/controllers/deployment/#max-unavailable) (default
-to 1) and [`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (default to 0) as well.
+You may want to set 
+[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/controllers/deployment/#max-unavailable) 
+(default to 1),
+[`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) 
+(default to 0) and 
+[`.spec.maxSurge`](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#max-surge) 
+(a beta feature and defaults to 25%) as well.
 -->
 你可能想设置
-[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh/docs/concepts/workloads/controllers/deployment/#max-unavailable) (默认为 1) 和
-[`.spec.minReadySeconds`](/zh/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (默认为 0)。 
+[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh/docs/concepts/workloads/controllers/deployment/#max-unavailable) (默认为 1)，
+[`.spec.minReadySeconds`](/zh/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (默认为 0) 和
+[`.spec.maxSurge`](/zh/docs/concepts/workloads/controllers/deployment/#max-surge) (一种 Beta 阶段的特性，默认为 25%) 
 
 <!--
 ### Creating a DaemonSet with `RollingUpdate` update strategy
@@ -248,13 +251,13 @@ causes:
 <!--
 The rollout is stuck because new DaemonSet pods can't be scheduled on at least one
 node. This is possible when the node is
-[running out of resources](/docs/tasks/administer-cluster/out-of-resource/).
+[running out of resources](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 
 When this happens, find the nodes that don't have the DaemonSet pods scheduled on
 by comparing the output of `kubectl get nodes` and the output of:
 -->
 DaemonSet 滚动更新可能会卡住，其 Pod 至少在某个节点上无法调度运行。
-当节点上[可用资源耗尽](/zh/docs/tasks/administer-cluster/out-of-resource/)时，
+当节点上[可用资源耗尽](/zh/docs/concepts/scheduling-eviction/node-pressure-eviction/)时，
 这是可能的。
 
 发生这种情况时，通过对 `kubectl get nodes` 和下面命令行的输出作比较，
@@ -328,10 +331,9 @@ kubectl delete ds fluentd-elasticsearch -n kube-system
 ## {{% heading "whatsnext" %}}
 
 <!--
-* See [Task: Performing a rollback on a
-  DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
-* See [Concepts: Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
+* See [Performing a rollback on a DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
+* See [Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 -->
-* 查看[任务：在 DaemonSet 上执行回滚](/zh/docs/tasks/manage-daemon/rollback-daemon-set/)
-* 查看[概念：创建 DaemonSet 以收养现有 DaemonSet Pod](/zh/docs/concepts/workloads/controllers/daemonset/)
+* 查看[在 DaemonSet 上执行回滚](/zh/docs/tasks/manage-daemon/rollback-daemon-set/)
+* 查看[创建 DaemonSet 以收养现有 DaemonSet Pod](/zh/docs/concepts/workloads/controllers/daemonset/)
 
