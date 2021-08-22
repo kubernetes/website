@@ -45,16 +45,7 @@ Typically you would run one or two control plane instances per failure zone,
 scaling those instances vertically first and then scaling horizontally after reaching
 the point of falling returns to (vertical) scale.
 
-You should run at least one instance per failure zone to provide fault-tolerance. Kubernetes
-nodes do not automatically steer traffic towards control-plane endpoints that are in the
-same failure zone; however, your cloud provider might have its own mechanisms to do this.
-
-For example, using a managed load balancer, you configure the load balancer to send traffic
-that originates from the kubelet and Pods in failure zone _A_, and direct that traffic only
-to the control plane hosts that are also in zone _A_. If a single control-plane host or
-endpoint failure zone _A_ goes offline, that means that all the control-plane traffic for
-nodes in zone _A_ is now being sent between zones. Running multiple control plane hosts in
-each zone makes that outcome less likely.
+You should run at least one instance per failure zone to provide fault-tolerance.
 
 ### etcd storage
 
