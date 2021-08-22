@@ -92,9 +92,9 @@ shape:
 
 ``` yaml
 resources:
-  - name: CPU
+  - name: cpu
     weight: 1
-  - name: Memory
+  - name: memory
     weight: 1
 ```
 
@@ -104,9 +104,9 @@ It can be used to add extended resources as follows:
 resources:
   - name: intel.com/foo
     weight: 5
-  - name: CPU
+  - name: cpu
     weight: 3
-  - name: Memory
+  - name: memory
     weight: 1
 ```
 
@@ -123,16 +123,16 @@ Requested resources:
 
 ```
 intel.com/foo : 2
-Memory: 256MB
-CPU: 2
+memory: 256MB
+cpu: 2
 ```
 
 Resource weights:
 
 ```
 intel.com/foo : 5
-Memory: 1
-CPU: 3
+memory: 1
+cpu: 3
 ```
 
 FunctionShapePoint {{0, 0}, {100, 10}}
@@ -142,13 +142,13 @@ Node 1 spec:
 ```
 Available:
   intel.com/foo: 4
-  Memory: 1 GB
-  CPU: 8
+  memory: 1 GB
+  cpu: 8
 
 Used:
   intel.com/foo: 1
-  Memory: 256MB
-  CPU: 1
+  memory: 256MB
+  cpu: 1
 ```
 
 Node score:
@@ -161,13 +161,13 @@ intel.com/foo  = resourceScoringFunction((2+1),4)
                = rawScoringFunction(75) 
                = 7                        # floor(75/10) 
 
-Memory         = resourceScoringFunction((256+256),1024)
+memory         = resourceScoringFunction((256+256),1024)
                = (100 -((1024-512)*100/1024))
                = 50                       # requested + used = 50% * available
                = rawScoringFunction(50)
                = 5                        # floor(50/10)
 
-CPU            = resourceScoringFunction((2+1),8)
+cpu            = resourceScoringFunction((2+1),8)
                = (100 -((8-3)*100/8))
                = 37.5                     # requested + used = 37.5% * available
                = rawScoringFunction(37.5)
@@ -182,12 +182,12 @@ Node 2 spec:
 ```
 Available:
   intel.com/foo: 8
-  Memory: 1GB
-  CPU: 8
+  memory: 1GB
+  cpu: 8
 Used:
   intel.com/foo: 2
-  Memory: 512MB
-  CPU: 6
+  memory: 512MB
+  cpu: 6
 ```
 
 Node score:
@@ -200,13 +200,13 @@ intel.com/foo  = resourceScoringFunction((2+2),8)
                =  rawScoringFunction(50)
                = 5
 
-Memory         = resourceScoringFunction((256+512),1024)
+memory         = resourceScoringFunction((256+512),1024)
                = (100 -((1024-768)*100/1024))
                = 75
                = rawScoringFunction(75)
                = 7
 
-CPU            = resourceScoringFunction((2+6),8)
+cpu            = resourceScoringFunction((2+6),8)
                = (100 -((8-8)*100/8))
                = 100
                = rawScoringFunction(100)

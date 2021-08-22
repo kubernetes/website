@@ -368,7 +368,7 @@ beban kerja yang berperilaku buruk yang dapat membahayakan kesehatan dari sistem
 
 
 Untuk latar belakang informasi mengenai detail desain dari prioritas dan kesetaraan API, silahkan lihat
-[proposal pembaharuan](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
+[proposal pembaharuan](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
 Kamu juga dapat membuat saran dan permintaan akan fitur melalui [SIG API
 Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
 
