@@ -8,7 +8,7 @@ command = "git submodule update --init --recursive --depth 1 && make non-product
 
 [build.environment]
 NODE_VERSION = "10.20.0"
-HUGO_VERSION = "0.82.0"
+HUGO_VERSION = "0.87.0"
 RUBY_VERSION = "3.0.1"
 
 [context.production.environment]
