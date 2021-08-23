@@ -3,7 +3,9 @@ reviewers:
 - bryk
 - mikedanese
 - rf232
-title: Web UI (Dashboard)
+title: Deploy and Access the Kubernetes Dashboard
+description: >-
+  Deploy the web UI (Kubernetes Dashboard) and access it.
 content_type: concept
 weight: 10
 card:
