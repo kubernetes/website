@@ -74,7 +74,7 @@ When opening a pull request, you need to know in advance which branch to base yo
 
 Scenario | Branch
 :---------|:------------
-Existing or new English language content for the current release | `master`
+Existing or new English language content for the current release | `main`
 Content for a feature change release | The branch which corresponds to the major and minor version the feature change is in, using the pattern `dev-release-<version>`. For example, if a feature changes in the `{{< latest-version >}}` release, then add documentation changes to the ``dev-{{< release-branch >}}`` branch.
 Content in other languages (localizations) | Use the localization's convention. See the [Localization branching strategy](/docs/contribute/localization/#branching-strategy) for more information.
 
@@ -86,7 +86,7 @@ If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 
 场景      | 分支
 :---------|:------------
-针对当前发行版本的，对现有英文内容的修改或新的英文内容 | `master`
+针对当前发行版本的，对现有英文内容的修改或新的英文内容 | `main`
 针对功能特性变更的内容 | 功能特性所对应的版本所对应的分支，分支名字模式为 `dev-<version>`。例如，如果某功能特性在 `v{{< skew nextMinorVersion >}}` 版本发生变化，则对应的文档变化要添加到 ``dev-{{< skew nextMinorVersion >}}`` 分支。
 其他语言的内容（本地化）| 基于本地化团队的约定。参见[本地化分支策略](/zh/docs/contribute/localization/#branching-strategy)了解更多信息。
 
@@ -111,12 +111,12 @@ Limit pull requests to one language per PR. If you need to make an identical cha
 
 <!--
 ## Tools for contributors
-The [doc contributors tools](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools) directory in the `kubernetes/website` repository contains tools to help your contribution journey go more smoothly.
+The [doc contributors tools](https://github.com/kubernetes/website/tree/main/content/en/docs/doc-contributor-tools) directory in the `kubernetes/website` repository contains tools to help your contribution journey go more smoothly.
 -->
 
 ## 为贡献者提供的工具
 
 `kubernetes/website` 仓库的
-[文档贡献者工具](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools)
+[文档贡献者工具](https://github.com/kubernetes/website/tree/main/content/en/docs/doc-contributor-tools)
 目录中包含了一些工具，能够助你的贡献过程更为顺畅。
 
