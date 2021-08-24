@@ -1,5 +1,3 @@
-
-
 ---
 layout: blog
 title: 'Alpha in Kubernetes v1.22: API Server Tracing'
