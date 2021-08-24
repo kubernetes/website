@@ -56,7 +56,7 @@ The teal lines are from the API Server, and includes it serving a request to `/a
 
 I instrumented the [example webhook](https://github.com/kubernetes-sigs/controller-runtime/tree/master/examples/builtins) with OpenTelemetry (I had to [patch](https://github.com/dashpole/controller-runtime/commit/85fdda7ba03dd2c22ef62c1a3dbdf5aa651f90da) controller-runtime, but it makes a neat demo), and routed traces to Jaeger as well.  I collected traces like this one:
 
-<img width="1440" alt="APIServer_webhook_etcd" src="https://user-images.githubusercontent.com/3262098/128613167-e7a14cdf-5635-422f-9fd8-f32744ce639d.png">
+<img width="1440" alt="APIServer webhook etcd" src="https://user-images.githubusercontent.com/3262098/128613167-e7a14cdf-5635-422f-9fd8-f32744ce639d.png">
 
 Compared with the previous trace, there are two new spans: A teal span from the API Server making a request to the admission webhook, and a brown span from the admission webhook serving the request.  Even if you didn't instrument your webhook, you would still get the span from the API Server making the request to the webhook.
 
