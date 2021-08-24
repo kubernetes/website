@@ -1,0 +1,18 @@
+---
+title: Secret
+id: secret
+date: 2021-08-24
+full_link: /docs/concepts/configuration/secret/
+short_description: >
+  Armazena dados sensíveis, como senhas, tokens OAuth e chaves SSH.
+
+aka: 
+tags:
+- core-object
+- security
+---
+ Armazena dados sensíveis, como senhas, tokens OAuth e chaves SSH.
+
+<!--more--> 
+
+Permite mais controle com relação a como as informações sensíveis são armazenadas e reduz o risco de exposição acidental, incluindo [encriptação](/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted) em disco. Um {{< glossary_tooltip text="Pod" term_id="pod" >}} pode referenciar o Secret como um arquivo em um volume montado, ou o kubelet pode usar este dado quando baixa imagens para um pod. Secrets são úteis para dados confidenciais, enquanto [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/) são úteis para dados não-confidenciais.
