@@ -284,7 +284,7 @@ Bootstrap type Secretには、`data`で指定された次のキーがありま�
 - `usage-bootstrap-<usage>`：Bootstrap tokenの追加の使用法を示すブールフラグ。
 - `auth-extra-groups`：`system：bootstrappers`グループに加えて認証されるグループ名のコンマ区切りのリスト。
 
-上記のYAMLは、値がすべてbase64でエンコードされた文字列であるため、分かりづらく見えるかもしれません。実際、次のYAMLを使用して同一のSecretを作成できます。
+上記のYAMLは、値がすべてbase64でエンコードされた文字列であるため、分かりづらく見えるかもしれません。実際には、次のYAMLを使用して同一のSecretを作成できます。
 
 ```yaml
 apiVersion: v1
