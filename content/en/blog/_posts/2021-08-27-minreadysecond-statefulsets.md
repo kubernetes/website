@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Minimum Ready Seconds for StatefulSets'
-date: 2021-08-16
+date: 2021-08-27
 slug: minreadyseconds-statefulsets
 ---
 
