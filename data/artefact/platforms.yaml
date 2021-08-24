@@ -1,0 +1,20 @@
+---
+- name: Linux
+  code: linux
+  cpu_architectures:
+  - amd64
+  - arm
+  - arm64
+  - ppc64le
+  - s390x
+- name: macOS
+  code: darwin
+  cpu_architectures:
+  - amd64
+  - arm64
+- name: Windows
+  code: windows
+  suffix: ".exe"
+  cpu_architectures:
+  - amd64
+  - arm64

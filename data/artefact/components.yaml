@@ -1,0 +1,17 @@
+---
+# Components you can download
+control-plane:
+- apiextensions-apiserver
+- kube-aggregator
+- kube-apiserver
+- kube-controller-manager
+- kube-scheduler
+extra:
+- mounter
+node:
+- kubeadm
+- kubelet
+- kube-proxy
+tool:
+- kubectl
+- kubectl-convert
