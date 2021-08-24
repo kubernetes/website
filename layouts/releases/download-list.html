@@ -1,0 +1,55 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+{{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
+<div class="spacer"></div>
+<div class="download-list">
+  <h2>{{ T "download_list_available" }}</h2>
+{{- $fullversion := "1.22.0" -}} <!-- FIXME work this out -->
+{{- $platforms := .Site.Data.artefact.platforms -}}
+<div>
+<!-- FIXME move styles outside of layout -->
+<table id="downloads-by-platform" style="border-spacing: 0rem; border-collapse: collapse; border: 2px outset rgb(51, 113, 227);">
+{{- range $platform := $platforms -}}
+{{- $os := printf "%s" $platform.name  -}}
+{{- $components_all := .Site.Data.artefact.components -}}
+{{- $components := (slice "kubectl" "kubectl-convert") }} <!-- FIXME look this up based on platform -->
+{{- $components_first := first (div (len $components ) 2 ) $components }}
+{{- $components_rest := after (div (len $components ) 2 ) $components }}
+<tbody>
+  <tr>
+    <th style="border-top: 2px outset rgb(51, 113, 227);" id="downloads-for-{{$platform.code}}" colspan="{{ add ( len $components) 1 }}">{{ $os }}</th>
+  </tr>
+  <tr class="download-list-components download-list-first-half">
+      <th rowspan="{{ add 1 (len $platform.cpu_architectures) }}">{{T "download_list_by_arch" | safeHTML }}</th>
+    {{- range sort $components_first -}}<th><tt>{{ . }}</tt></th>{{- end -}}
+  </tr>
+  {{- range $cpu_architecture := $platform.cpu_architectures -}}
+  <tr class="download-list-first-half">
+     {{- range sort $components_first -}}
+     <td>
+          <a href="https://dl.k8s.io/v{{ $fullversion }}/bin/{{ $platform.code}}/{{ $cpu_architecture }}/{{ . }}{{ if $platform.suffix}}{{ $platform.suffix}}{{end}}">
+          <tt>{{ $cpu_architecture }}</tt>
+      </td>
+     {{- end -}}
+  </tr>
+  {{- end -}}
+  <tr class="download-list-components download-list-second-half">
+    <th rowspan="{{ add 1 (len $platform.cpu_architectures) }}">{{T "download_list_by_arch" | safeHTML }}</th>
+    {{- range sort $components_rest -}}<th><tt>{{ . }}</tt></th>{{- end -}}
+  </tr>
+  {{- range $cpu_architecture := $platform.cpu_architectures -}}
+  <tr class="download-list-second-half">
+    {{- range sort $components_rest -}}
+      <td>
+          <a href="https://dl.k8s.io/v{{ $fullversion }}/bin/{{ $platform.code}}/{{ $cpu_architecture }}/{{ . }}{{ if $platform.suffix}}{{ $platform.suffix}}{{end}}">
+          <tt>{{ $cpu_architecture }}</tt>
+      </td>
+    {{- end -}}
+  </tr>
+  {{- end -}}
+</tbody>
+{{- end -}}
+</table>
+</div>
+{{ partial "docs/content-page" (dict "ctx" . "page" .) }}
+{{ end }}

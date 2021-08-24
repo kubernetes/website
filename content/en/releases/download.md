@@ -1,12 +1,12 @@
 ---
+notitle: true
 title: Download Kubernetes
+type: releases
+content_type: custom
+layout: download-list
+description: >-
+  Download links for each Kubernetes component.
 ---
-## Core Kubernetes components
-
-Find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
-
-Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture.
-
 ## kubectl
 
 <!-- overview -->
@@ -23,3 +23,9 @@ Find your preferred operating system below.
 - [Install kubectl on Linux](/docs/tasks/tools/install-kubectl-linux)
 - [Install kubectl on macOS](/docs/tasks/tools/install-kubectl-macos)
 - [Install kubectl on Windows](/docs/tasks/tools/install-kubectl-windows)
+
+## Additional download options
+
+Find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
+
+Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture.

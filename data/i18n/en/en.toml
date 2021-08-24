@@ -57,6 +57,12 @@ other = "Latest version"
 [docs_version_other_heading]
 other = "Older versions"
 
+[download_list_available]
+other = "Available downloads"
+
+[download_list_by_arch]
+other = """By<br/>architecture"""
+
 [end_of_life]
 other = "End of Life:"
 

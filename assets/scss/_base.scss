@@ -859,7 +859,7 @@ section#cncf {
 
 /* DOCUMENTATION */
 
-body.td-documentation {
+body.td-documentation, body.td-release {
     header > .header-filler {
       height: $hero-padding-top;
       background-color: black;
