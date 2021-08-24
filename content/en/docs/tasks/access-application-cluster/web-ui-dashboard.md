@@ -222,7 +222,7 @@ Shows all applications running in the selected namespace.
 The view lists applications by workload kind (for example: Deployments, ReplicaSets, StatefulSets).
 and each workload kind can be viewed separately.
 The lists summarize actionable information about the workloads,
-such as the number of ready pods for a Replica et or current memory usage for a Pod.
+such as the number of ready pods for a ReplicaSet or current memory usage for a Pod.
 
 Detail views for workloads show status and specification information and
 surface relationships between objects.
