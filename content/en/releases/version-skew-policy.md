@@ -7,7 +7,6 @@ reviewers:
 - sig-node
 - sig-release
 title: Version Skew Policy
-type: docs
 description: >
   The maximum version skew supported between various Kubernetes components.
 ---

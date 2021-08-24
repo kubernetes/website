@@ -1,6 +1,5 @@
 ---
 title: Download Kubernetes
-type: docs
 ---
 ## Core Kubernetes components
 

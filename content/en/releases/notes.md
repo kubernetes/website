@@ -1,7 +1,6 @@
 ---
 linktitle: Release Notes
 title: Notes
-type: docs
 description: >
   Kubernetes release notes.
 sitemap:

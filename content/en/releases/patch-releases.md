@@ -1,6 +1,5 @@
 ---
 title: Patch Releases
-type: docs
 ---
 
 Schedule and team contact information for Kubernetes patch releases.

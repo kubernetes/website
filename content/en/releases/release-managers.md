@@ -1,6 +1,5 @@
 ---
 title: Release Managers
-type: docs
 ---
 
 "Release Managers" is an umbrella term that encompasses the set of Kubernetes

@@ -1,7 +1,6 @@
 ---
 linktitle: Release History
 title: Releases
-type: docs
 ---
 
 

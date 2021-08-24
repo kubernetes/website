@@ -5,7 +5,6 @@
 cat << EOF > content/en/releases/release.md
 ---
 title: Kubernetes Release Cycle
-type: docs
 auto_generated: true
 ---
 <!-- THIS CONTENT IS AUTO-GENERATED via ./scripts/releng/update-release-info.sh in k/website -->

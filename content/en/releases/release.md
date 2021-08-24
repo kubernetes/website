@@ -1,6 +1,5 @@
 ---
 title: Kubernetes Release Cycle
-type: docs
 auto_generated: true
 ---
 
