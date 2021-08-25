@@ -10,7 +10,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
+{{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
 A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repeating schedule.
 
