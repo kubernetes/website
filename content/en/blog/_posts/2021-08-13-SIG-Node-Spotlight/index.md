@@ -52,7 +52,6 @@ To come up to speed on any open source code base, there are two strategies you c
 
 [Davanum Srinivas](https://twitter.com/dims) and I each ran a cohort of group mentoring to help teach new contributors the skills to become Node reviewers, and if there's interest we can work to find a mentor to run another session. I also encourage new contributors to attend our Node CI Subproject meeting: it's a smaller audience and we don't record the triage sessions, so it can be a less intimidating way to get started with the SIG. 
 
-
 ### Are there any particular skills you’d like to recruit for? What skills are contributors to SIG Usability likely to learn?
 
 SK: SIG Node works on many workstreams in very different areas. All of these areas are on system level. For the typical code contributions you need to have a passion for building and utilizing low level APIs and writing performant and reliable components. Being a contributor you will learn how to debug and troubleshoot, profile, and monitor these components, as well as user workload that is run by these components. Often, with the limited to no access to Nodes, as they are running production workloads.
