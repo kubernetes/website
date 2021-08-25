@@ -103,7 +103,7 @@ applied to workload resources, only to the resulting pod objects.
 You can define _exemptions_ from pod security enforcement in order allow the creation of pods that
 would have otherwise been prohibited due to the policy associated with a given namespace.
 Exemptions can be statically configured in the
-[Admission Controller configuration](#configuring-the-admission-controller).
+[Admission Controller configuration](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller).
 
 Exemptions must be explicitly enumerated. Requests meeting exemption criteria are _ignored_ by the
 Admission Controller (all `enforce`, `audit` and `warn` behaviors are skipped). Exemption dimensions include:
