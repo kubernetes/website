@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Alpha in Kubernetes v1.22: API Server Tracing'
-date: 2021-08-23
+date: 2021-09-03
 slug: api-server-tracing
 ---
 
