@@ -48,7 +48,7 @@ Add `--experimental-enable-distributed-tracing`,  `--experimental-distributed-tr
 
 I could've used any trace backend, but decided to use Jaeger, since it is one of the most popular open-source tracing projects.  I deployed [the Jaeger All-in-one container](https://hub.docker.com/r/jaegertracing/all-in-one) in my cluster, deployed [the OpenTelemetry collector](https://github.com/open-telemetry/opentelemetry-collector) on my control-plane node ([example](https://github.com/dashpole/dashpole_demos/tree/master/otel/controlplane)), and captured traces like this one:
 
-![Jaeger screenshot showing API server and etcd trace](https://user-images.githubusercontent.com/3262098/128613151-91cb925c-4886-4f05-a12a-771c6cbe9807.png)
+![Jaeger screenshot showing API server and etcd trace](/images/blog/2021-09-03-api-server-tracing/example-trace-1.png "Jaeger screenshot showing API server and etcd trace")
 
 The teal lines are from the API Server, and includes it serving a request to `/api/v1/nodes`, and issuing a grpc `Range` RPC to ETCD.  The yellow-ish line is from ETCD handling the `Range` RPC.
 
@@ -56,7 +56,7 @@ The teal lines are from the API Server, and includes it serving a request to `/a
 
 I instrumented the [example webhook](https://github.com/kubernetes-sigs/controller-runtime/tree/master/examples/builtins) with OpenTelemetry (I had to [patch](https://github.com/dashpole/controller-runtime/commit/85fdda7ba03dd2c22ef62c1a3dbdf5aa651f90da) controller-runtime, but it makes a neat demo), and routed traces to Jaeger as well.  I collected traces like this one:
 
-<img width="1440" alt="Jaeger screenshot showing API server, admission webhook, and etcd trace" src="https://user-images.githubusercontent.com/3262098/128613167-e7a14cdf-5635-422f-9fd8-f32744ce639d.png">
+![Jaeger screenshot showing API server, admission webhook, and etcd trace](/images/blog/2021-09-03-api-server-tracing/example-trace-2.png "Jaeger screenshot showing API server, admission webhook, and etcd trace")
 
 Compared with the previous trace, there are two new spans: A teal span from the API Server making a request to the admission webhook, and a brown span from the admission webhook serving the request.  Even if you didn't instrument your webhook, you would still get the span from the API Server making the request to the webhook.
 
