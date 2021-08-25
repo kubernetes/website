@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Spotlight on SIG Node"
-date: 2021-08-13
+date: 2021-09-06
 slug: sig-node-spotlight-2021
 ---
 
