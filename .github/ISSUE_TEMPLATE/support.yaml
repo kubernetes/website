@@ -1,0 +1,15 @@
+name: Support request
+description: Get help with Kubernetes
+title: "Support"
+labels: [kind/support]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **STOP** -- **PLEASE READ!**
+        GitHub is not the right place for support requests.
+
+        You can instead post your question on the [Kubernetes Slack](http://slack.k8s.io/) or the [Discuss Kubernetes](https://discuss.kubernetes.io/) forum.
+        You can also check on [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes)
+
+        If the matter is security related, please disclose it privately via https://kubernetes.io/security/.
