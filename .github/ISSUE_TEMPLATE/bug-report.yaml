@@ -1,0 +1,55 @@
+name: Documentation Bug Report
+description: Report a bug in the Kubernetes documentation
+title: "<title>"
+labels: [kind/bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing an issue! Before submitting, please fill in the following information.
+        See https://kubernetes.io/docs/contribute/start/ for guidance on writing an actionable issue description.
+
+        You can use this form to report a bug in the Kubernetes documentation.
+        If you want to report a problem with Kubernetes itself, visit
+        the [k/kubernetes](https://github.com/kubernetes/kubernetes/issues/new/choose)
+        issue page instead.
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: URL of the page where you saw the bug
+      placeholder: https://kubernetes.io/...
+    validations:
+      required: false
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem did you encounter?
+      placeholder: Inaccurate information about existing feature X.
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of the documentation did you find the problem in?
+      multiple: true
+      options:
+        - "1.19"
+        - "1.20"
+        - "1.21"
+        - "1.22"
+    validations:
+      required: false
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional information
+      description: Please add any extra information you want to report.
+      render: Markdown
+      placeholder: |
+        Further details and / or Prow labels
+
+        /priority awaiting-more-evidence
+        /language en
