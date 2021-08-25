@@ -119,7 +119,7 @@ Operator.
   you implement yourself
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
-* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/)
+* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
 
 ## {{% heading "whatsnext" %}}
 
