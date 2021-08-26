@@ -131,5 +131,5 @@ etcd को कॉन्फ़िगर करने और उपयोग क�
 - [kubeadm](/docs/setup/production-environment/tools/kubeadm/), [kops](/docs/setup/production-environment/tools/kops/) या [kubespray](/docs/setup/production-environment/tools/kubespray/) डिप्लॉयमेंट विधियों में से चुनें।
 - अपना निर्धारित करके उपयोगकर्ता प्रबंधन को कॉन्फ़िगर करें
 [प्रमाणीकरण](/docs/reference/access-authn-authz/authentication/) और [प्राधिकरण](/docs/reference/access-authn-authz/authorization/) विधियां।
-- सेट अप करके एप्लिकेशन वर्कलोड की तैयारी करें
+- सेटअप करके एप्लिकेशन वर्कलोड की तैयारी करें
 [संसाधन सीमाएं](/docs/tasks/administer-cluster/manage-resources/), [DNS ऑटोस्केलिंग](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/) और [सेवा खाते](/docs/reference/access-authn-authz/service-accounts-admin/)।
