@@ -40,7 +40,7 @@ Windows 应用程序构成了许多组织中运行的服务和应用程序的很
 ## Before you begin
 
 * Create a Kubernetes cluster that includes a
-[master and a worker node running Windows Server](../user-guide-windows-nodes)
+control plane and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 * It is important to note that creating and deploying services and workloads on Kubernetes
 behaves in much the same way for Linux and Windows containers.
 [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical.
@@ -48,8 +48,8 @@ The example in the section below is provided to jumpstart your experience with W
 -->
 ## 在你开始之前
 
-* 创建一个 Kubernetes 集群，其中包括一个
-  [运行 Windows 服务器的主节点和工作节点](/zh/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+* 创建一个 Kubernetes 集群，其中包括一个控制平面和
+  [运行 Windows 服务器的工作节点](/zh/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 * 重要的是要注意，对于 Linux 和 Windows 容器，在 Kubernetes 
   上创建和部署服务和工作负载的行为几乎相同。
   与集群接口的 [kubectl 命令](/zh/docs/reference/kubectl/overview/)相同。
@@ -139,15 +139,15 @@ the container port 80 is exposed directly to the service.
 1. Check that the deployment succeeded. To verify:
 
     * Two containers per pod on the Windows node, use `docker ps` 
-    * Two pods listed from the Linux master, use `kubectl get pods` 
-    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master
+    * Two pods listed from the Linux control plane node, use `kubectl get pods` 
+    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane node 
       to check for a web server response
     * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node)
       using docker exec or kubectl exec
     * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`)
-      from the Linux master and from individual pods
+      from the Linux control plane node and from individual pods
     * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
-    * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
+    * Inbound connectivity, `curl` the NodePort from the Linux control plane node or machines outside of the cluster
     * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
 -->
 1. 检查所有节点是否健康：
@@ -168,15 +168,15 @@ the container port 80 is exposed directly to the service.
 1. 检查部署是否成功。验证：
 
    * Windows 节点上每个 Pod 有两个容器，使用  `docker ps` 
-   * Linux 主机列出两个 Pod，使用  `kubectl get pods` 
-   * 跨网络的节点到 Pod 通信，从 Linux 主服务器 `curl` 您的 pod IPs 的端口80，以检查 Web 服务器响应
+   * Linux 控制平面节点列出两个 Pod，使用  `kubectl get pods` 
+   * 跨网络的节点到 Pod 通信，从 Linux 控制平面节点 `curl` 您的 pod IPs 的端口80，以检查 Web 服务器响应
    * Pod 到 Pod 的通信，使用 docker exec 或 kubectl exec 在 Pod 之间
      （以及跨主机，如果你有多个 Windows 节点）进行 ping 操作
-   * 服务到 Pod 的通信，从 Linux 主服务器和各个 Pod 中 `curl` 虚拟服务 IP
+   * 服务到 Pod 的通信，从 Linux 控制平面节点和各个 Pod 中 `curl` 虚拟服务 IP
      （在 `kubectl get services` 下可见）
    * 服务发现，使用 Kubernetes `curl` 服务名称
      [默认 DNS 后缀](/zh/docs/concepts/services-networking/dns-pod-service/#services)
-   * 入站连接，从 Linux 主服务器或集群外部的计算机 `curl` NodePort
+   * 入站连接，从 Linux 控制平面节点或集群外部的计算机 `curl` NodePort
    * 出站连接，使用 kubectl exec 从 Pod 内部 curl 外部 IP
 
 <!--
@@ -324,11 +324,10 @@ For example:  `--register-with-taints='os=windows:NoSchedule'`
 <!--
 By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods).
 In order for a Windows Pod to be scheduled on a Windows node,
-it would need both the nodeSelector to choose Windows, and the appropriate matching toleration.
+it would need both the nodeSelector and the appropriate matching toleration to choose Windows.
 -->
 向所有 Windows 节点添加污点后，Kubernetes 将不会在它们上调度任何负载（包括现有的 Linux Pod）。
-为了使某 Windows Pod 调度到 Windows 节点上，该 Pod 既需要 nodeSelector 选择 Windows，
-也需要合适的匹配的容忍度设置。
+为了使某 Windows Pod 调度到 Windows 节点上，该 Pod 需要 nodeSelector 和合适的匹配的容忍度设置来选择 Windows，
 
 ```yaml
 nodeSelector:
