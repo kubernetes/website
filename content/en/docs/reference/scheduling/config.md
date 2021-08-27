@@ -15,7 +15,7 @@ file and passing its path as a command line argument.
 
 A scheduling Profile allows you to configure the different stages of scheduling
 in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
-Each stage is exposed in a extension point. Plugins provide scheduling behaviors
+Each stage is exposed in an extension point. Plugins provide scheduling behaviors
 by implementing one or more of these extension points.
 
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,

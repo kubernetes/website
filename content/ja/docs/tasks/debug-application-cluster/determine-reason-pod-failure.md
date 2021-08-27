@@ -33,7 +33,7 @@ content_type: task
 
         kubectl apply -f https://k8s.io/examples/debug/termination.yaml
 
-    YAMLファイルの`cmd`フィールドと`args`フィールドで、コンテナが10秒間スリープしてから`/dev/termination-log`ファイルに「Sleep expired」と書いているのがわかります。コンテナが「Sleep expired」メッセージを書き込んだ後、コンテナは終了します。
+    YAMLファイルの`command`フィールドと`args`フィールドで、コンテナが10秒間スリープしてから`/dev/termination-log`ファイルに「Sleep expired」と書いているのがわかります。コンテナが「Sleep expired」メッセージを書き込んだ後、コンテナは終了します。
 
 1. Podに関する情報を表示します:
 
