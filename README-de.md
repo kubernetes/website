@@ -1,7 +1,8 @@
 # Kubernetes Dokumentation
 
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
-[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest) [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/kubernetes/website/)
+
 
 Herzlich willkommen! Dieses Repository enthält alle Assets, die zur Erstellung der [Kubernetes-Website und Dokumentation](https://kubernetes.io/) erforderlich sind. Wir freuen uns sehr, dass Sie dazu beitragen wollen!
 

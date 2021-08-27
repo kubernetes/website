@@ -1,7 +1,7 @@
 # Tài liệu Kubernetes
 
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
-[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest) [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/kubernetes/website/)
 
 Chào mừng! Kho lưu trữ này chứa tất cả các tài nguyên cần thiết để xây dựng [trang web của Kubernetes và các tài liệu](https://kubernetes.io/). Chúng tôi rất vui vì bạn muốn đóng góp.
 

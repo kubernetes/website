@@ -1,0 +1,18 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: setup
+    init: npm ci
+    command: make serve
+
+ports:
+  - port: 1313
+    onOpen: open-preview
+
+github:
+  prebuilds:
+    # enable for all branches in this repo (defaults to false)
+    branches: true
+    # enable for pull requests coming from forks (defaults to false)
+    pullRequestsFromForks: true

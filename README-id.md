@@ -1,7 +1,8 @@
 # Dokumentasi Kubernetes
 
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
-[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest) [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/kubernetes/website/)
+
 
 Selamat datang! Repositori ini merupakan wadah bagi semua komponen yang dibutuhkan untuk membuat [dokumentasi Kubernetes](https://kubernetes.io/). Kami merasa sangat senang apabila kamu berminat untuk menjadi kontributor!
 
