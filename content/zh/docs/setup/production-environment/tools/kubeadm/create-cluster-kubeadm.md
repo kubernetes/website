@@ -743,7 +743,7 @@ Talking to the control-plane node with the appropriate credentials, run:
 使用适当的凭证与控制平面节点通信，运行：
 
 ```bash
-kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
+kubectl drain <node name> --delete-emptydir-data --force --ignore-daemonsets
 ```
 
 <!--
