@@ -1,0 +1,188 @@
+releases:
+- version: 1.23
+  timeline:
+    - what: Start of Release Cycle
+      who: Lead
+      when: Mon August 23, 2021
+      week: week 1
+      ciSignal: master-blocking
+      tldr: true
+    - what:  Start Enhancements Tracking
+      who: Enhancements Lead
+      when: Mon August 23, 2021
+      week: week 1
+      ciSignal:
+    - what: 1.23.0-alpha.1 released
+      who: Branch Manager
+      when: Wed August 25, 2021
+      week: week 1
+      ciSignal:
+    - what: Schedule finalized
+      who: Lead
+      when: Thu August 26, 2021
+      week: week 1
+      ciSignal:
+    - what: Team finalized
+      who: Lead
+      when: Fri August 27, 2021
+      week: week 1
+      ciSignal:
+    - what: Production Readiness Soft Freeze
+      who: Enhancements Lead
+      when: Thu September 2, 2021
+      week: week 2
+      ciSignal:
+      tldr: true
+    - what: Start Release Notes Draft
+      who: Release Notes Lead
+      when: Tue September 7, 2021
+      week: week 3
+      ciSignal:
+    - what: Begin Enhancements Freeze (23:59 PDT)
+      who: Enhancements Lead
+      when: Thu September 9, 2021
+      week: week 3
+      ciSignal: master-blocking, master-informing
+      tldr: true
+    - what: 1.23.0-alpha.2 released
+      who: Branch Manager
+      when: TBD
+      week: TBD
+      ciSignal:
+    - what: 1.23.0-alpha.3 released
+      who: Branch Manager
+      when: TBD
+      week: TBD
+      ciSignal:
+    - what: KubeCon NA + Co-located events
+      who:
+      when: October 11-15, 2021
+      week: week 8
+      ciSignal:
+    - what: 1.23.0-alpha.4 released
+      who: Branch Manager
+      when: TBD
+      week: TBD
+      ciSignal:
+    - what: Begin Burndown (MWF meetings)
+      who: Lead
+      when: Mon November 1, 2021
+      week: week 11
+      ciSignal: 1.23-blocking, master-blocking, master-informing
+    - what: Call for Exceptions
+      who: Lead
+      when: Mon November 1, 2021
+      week:  2021	week 11
+      ciSignal:
+    - what: Brace Yourself, Code Freeze is Coming
+      who: Comms / Bug Triage
+      when: Mon November 1, 2021
+      week: week 11
+      ciSignal:
+    - what: Begin Feature blog freeze (23:59 PDT)
+      who: Comms Lead
+      when: Tue November 2, 2021
+      week: week 11
+      ciSignal:
+    - what: Burndown Meetings daily
+      who: Lead
+      when: Mon November 15, 2021
+      week: week 13
+      ciSignal:
+    - what: Begin Code Freeze (18:00 PST)
+      who: Branch Manager
+      when: Tue November 16, 2021
+      week: week 13
+      ciSignal:
+      tldr: true
+    - what: 1.23.0-beta.0 released
+      who: Branch Manager
+      when: Tue November 16, 2021
+      week: week 13
+      ciSignal:
+    - what: Docs deadline - Open placeholder PRs
+      who: Docs Lead
+      when: Thu November 18, 2021
+      week: week 13
+      ciSignal:
+    - what: Test Freeze (18:00 PST)
+      who: Branch Manager
+      when: Tue November 23, 2021
+      week: week 14
+      ciSignal:
+      tldr: true
+    - what: Docs deadline - PRs ready for review
+      who: Docs Lead
+      when: Tue November 23, 2021
+      week: week 14
+      ciSignal:
+    - what: 1.23.0-rc.0 released
+      who: Branch Manager
+      when: Tue November 23, 2021
+      week: week 14
+      ciSignal:
+    - what: release-1.23 branch created
+      who: Branch Manager
+      when: Tue November 23, 2021
+      week: week 14
+      ciSignal:
+    - what: Start final draft of Release Notes
+      who: Release Notes Lead
+      when: Tue November 23, 2021
+      week: week 14
+      ciSignal:
+    - what: Release blog ready to review (23:59 PST)
+      who: Comms / Docs
+      when: Tue November 23, 2021
+      week: week 14
+      ciSignal:
+    - what: Docs complete - All PRs reviewed and ready to merge
+      who: Docs Lead
+      when: Tue November 30, 2021
+      week: week 15
+      ciSignal:
+      tldr: true
+    - what: Feature blogs ready to review (23:59 PST)
+      who: Enhancement Owner / SIG Leads
+      when: Tue November 30, 2021
+      week: week 15
+      ciSignal:
+    - what: Release Notes complete - reviewed & merged to k/sig-release (23:59 PST)
+      who: Release Notes Lead
+      when: Thu December 2, 2021
+      week: week 15
+      ciSignal:
+    - what: v1.23.0 released
+      who: Branch Manager
+      when: Tue December 7, 2021
+      week: week 16
+      ciSignal:
+      tldr: true
+    - what: Release blog published
+      who: Comms
+      when: Tue December 7, 2021
+      week: week 16
+      ciSignal:
+    - what: Thaw
+      who: Branch Manager
+      when: Tue December 7, 2021
+      week: week 16
+      ciSignal:
+    - what: Release retrospective part 1 (7:30am PST during the SIG Release meeting)
+      who: Community
+      when: Tue December 14, 2021
+      week: week 17
+      ciSignal:
+      tldr: true
+    - what: Release retrospective part 2 (10:00am PST)
+      who: Community
+      when: Wed December 15, 2021
+      week: week 17
+      ciSignal:
+      tldr: true
+    - what: Release retrospective part 3 (10:00am PST)
+      who: Community
+      when: Thu December 16, 2021
+      week: week 17
+      ciSignal:
+      tldr: true
