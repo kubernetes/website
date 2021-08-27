@@ -106,6 +106,64 @@ configuration, or reinstall it using automation.
 如果你有切实可行的自动化方案，使用其他已更新配置的节点来替换该节点，
 或者使用自动化方案来重新安装。
 
+<!--
+## Cgroup v2
+
+Cgroup v2 is the next version of the cgroup Linux API.  Differently than cgroup v1, there is a single
+hierarchy instead of a different one for each controller.
+-->
+## Cgroup v2
+Cgroup v2 是 cgroup Linux API 的下一个版本。与 cgroup v1 不同的是，
+Cgroup v2 只有一个层次结构，而不是每个控制器有一个不同的层次结构。
+
+<!--
+The new version offers several improvements over cgroup v1, some of these improvements are:
+
+- cleaner and easier to use API
+- safe sub-tree delegation to containers
+- newer features like Pressure Stall Information
+-->
+新版本对 cgroup v1 进行了多项改进，其中一些改进是：
+
+- 更简洁、更易于使用的 API
+- 可将安全子树委派给容器
+- 更新的功能，如压力失速信息（Pressure Stall Information）
+
+<!--
+Even if the kernel supports a hybrid configuration where some controllers are managed by cgroup v1
+and some others by cgroup v2, Kubernetes supports only the same cgroup version to manage all the
+controllers.
+
+If systemd doesn't use cgroup v2 by default, you can configure the system to use it by adding
+`systemd.unified_cgroup_hierarchy=1` to the kernel command line.
+-->
+尽管内核支持混合配置，即其中一些控制器由 cgroup v1 管理，另一些由 cgroup v2 管理，
+Kubernetes 仅支持使用同一 cgroup 版本来管理所有控制器。
+
+如果 systemd 默认不使用 cgroup v2，你可以通过在内核命令行中添加 
+`systemd.unified_cgroup_hierarchy=1` 来配置系统去使用它。
+
+```shell
+# dnf install -y grubby && \
+  sudo grubby \
+  --update-kernel=ALL \
+  --args=”systemd.unified_cgroup_hierarchy=1"
+```
+
+<!--
+To apply the configuration, it is necessary to reboot the node.
+
+There should not be any noticeable difference in the user experience when switching to cgroup v2, unless
+users are accessing the cgroup file system directly, either on the node or from within the containers.
+
+In order to use it, cgroup v2 must be supported by the CRI runtime as well.
+-->
+要应用配置，必须重新启动节点。
+
+切换到 cgroup v2 时，用户体验不应有任何明显差异，
+除非用户直接在节点上或在容器内访问 cgroup 文件系统。
+为了使用它，CRI 运行时也必须支持 cgroup v2。
+
 <!-- 
 ### Migrating to the `systemd` driver in kubeadm managed clusters
 -->
