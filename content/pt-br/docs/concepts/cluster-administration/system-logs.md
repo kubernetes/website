@@ -17,7 +17,7 @@ Logs de componentes do sistema armazenam eventos que acontecem no cluster, sendo
 
 [Klog](https://github.com/kubernetes/klog) é a biblioteca de logs do Kubernetes. Responsável por gerar as mensagens de log para os componentes do sistema. 
 
-Para mais informações acerca da sua configruação, veja a documentação da [ferramenta de linha de comando](https://kubernetes.io/docs/reference/command-line-tools-reference/) 
+Para mais informações acerca da sua configuração, veja a documentação da [ferramenta de linha de comando](https://kubernetes.io/docs/reference/command-line-tools-reference/) 
 
 Um exemplo do formato padrão dos logs da biblioteca:
 ```
@@ -34,9 +34,9 @@ A migração pro formato de logs estruturados é um processo em andamento. Nem t
 A formatação e serialização dos logs ainda estão sujeitas a alterações.
 {{< /warning>}}
 
-A estruturação dos logs trás uma estrutura uniforme para as mensagens de log, facilitando a extração programacional de informações. Logs estruturados podem ser armazenados e processados com menos esforço e custo. Esse formato é totalmente retrocompatível e é habilitado por padrão.
+A estruturação dos logs trás uma estrutura uniforme para as mensagens de log, permitindo a extração programática de informações. Logs estruturados podem ser armazenados e processados com menos esforço e custo. Esse formato é totalmente retrocompatível e é habilitado por padrão.
 
-Formato dos logs estruturados::
+Formato dos logs estruturados:
 
 ```ini
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
