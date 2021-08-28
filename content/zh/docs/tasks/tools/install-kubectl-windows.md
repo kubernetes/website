@@ -59,7 +59,7 @@ The following methods exist for installing kubectl on Windows:
    如果你已安装了 `curl`,也可以使用此命令：
 
    ```powershell
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
    ```
 
    <!-- 
@@ -79,7 +79,7 @@ The following methods exist for installing kubectl on Windows:
    下载 kubectl 校验和文件：
 
    ```powershell
-   curl -LO https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256
+   curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    <!-- 
