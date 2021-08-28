@@ -364,7 +364,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   存放在注解 `batch.kubernetes.io/job-completion-index` 中。
   当每个索引都对应一个完成完成的 Pod 时，Job 被认为是已完成的。
   关于如何使用这种模式的更多信息，可参阅
-  [用带索引的 Job 执行基于静态任务分配的并行处理](/zh/docs/tasks/job/indexed-parallel-processing-static/)。
+  [用带索引的 Job 执行基于静态任务分配的并行处理](/docs/tasks/job/indexed-parallel-processing-static/)。
   需要注意的是，对同一索引值可能被启动的 Pod 不止一个，尽管这种情况很少发生。
   这时，只有一个会被记入完成计数中。
 
@@ -689,7 +689,7 @@ The pattern names are also links to examples and more detailed description.
 | ----- |:-------------:|:-----------------------:|:---------------------:|
 | [每工作条目一 Pod 的队列](/zh/docs/tasks/job/coarse-parallel-processing-work-queue/) | ✓ | | 有时 |
 | [Pod 数量可变的队列](/zh/docs/tasks/job/fine-parallel-processing-work-queue/) | ✓ | ✓ |  |
-| [静态任务分派的带索引的 Job](/zh/docs/tasks/job/indexed-parallel-processing-static) | ✓ |  | ✓ |
+| [静态任务分派的带索引的 Job](/docs/tasks/job/indexed-parallel-processing-static) | ✓ |  | ✓ |
 | [Job 模版扩展](/zh/docs/tasks/job/parallel-processing-expansion/)  |  |  | ✓ |
 
 <!--
@@ -715,7 +715,7 @@ Here, `W` is the number of work items.
 | ----- |:-------------------:|:--------------------:|
 | [每工作条目一 Pod 的队列](/zh/docs/tasks/job/coarse-parallel-processing-work-queue/) | W | 任意值 |
 | [Pod 个数可变的队列](/zh/docs/tasks/job/fine-parallel-processing-work-queue/) | 1 | 任意值 |
-| [静态任务分派的带索引的 Job](/zh/docs/tasks/job/indexed-parallel-processing-static) | W |  | 任意值 |
+| [静态任务分派的带索引的 Job](/docs/tasks/job/indexed-parallel-processing-static) | W |  | 任意值 |
 | [Job 模版扩展](/zh/docs/tasks/job/parallel-processing-expansion/) | 1 | 应该为 1 |
 
 <!--
