@@ -89,18 +89,27 @@ CPU 管理器定期通过 CRI 写入资源更新，以保证内存中 CPU 分配
 如果不指定，默认与 `--node-status-update-frequency` 的周期相同。
 
 <!--
+The behavior of the static policy can be fine-tuned using the `--cpu-manager-policy-options` flag.
+The flag takes a comma-separated list of `key=value` policy options.
+-->
+Static 策略的行为可以使用 `--cpu-manager-policy-options` 参数来微调。
+该参数采用一个逗号分隔的 `key=value` 策略选项列表。
+
+<!--
 ### None policy
 
 The `none` policy explicitly enables the existing default CPU
 affinity scheme, providing no affinity beyond what the OS scheduler does
 automatically.  Limits on CPU usage for
-[Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/)
+[Guaranteed pods](/docs/tasks/configure-pod-container/quality-service-pod/) and
+[Burstable pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 are enforced using CFS quota.
 -->
 ### none 策略
 
 `none` 策略显式地启用现有的默认 CPU 亲和方案，不提供操作系统调度器默认行为之外的亲和性策略。
 通过 CFS 配额来实现 [Guaranteed pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
+和 [Burstable pods](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
 的 CPU 使用限制。
 
 <!--
@@ -310,3 +319,30 @@ equal to one. The `nginx` container is granted 2 exclusive CPUs.
 同时，容器对 CPU 资源的限制值是一个大于或等于 1 的整数值。
 所以，该 `nginx` 容器被赋予 2 个独占 CPU。
 
+<!--
+#### Static policy options
+
+If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
+You can enable this option by adding `full-pcups-only=true` to the CPUManager policy options.
+-->
+#### Static 策略选项
+
+如果使用 `full-pcpus-only` 策略选项，static 策略总是会分配完整的物理核心。
+你可以通过在 CPUManager 策略选项里加上 `full-pcups-only=true` 来启用该选项。
+<!--
+By default, without this option, the static policy allocates CPUs using a topology-aware best-fit allocation.
+On SMT enabled systems, the policy can allocate individual virtual cores, which correspond to hardware threads.
+This can lead to different containers sharing the same physical cores; this behaviour in turn contributes
+to the [noisy neighbours problem](https://en.wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors).
+-->
+默认情况下，如果不使用该选项，static 策略会使用拓扑感知最适合的分配方法来分配 CPU。
+在启用了 SMT 的系统上，此策略所分配是与硬件线程对应的、独立的虚拟核。
+这会导致不同的容器共享相同的物理核心，该行为进而会导致
+[吵闹的邻居问题](https://en.wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors)。
+<!--
+With the option enabled, the pod will be admitted by the kubelet only if the CPU request of all its containers
+can be fulfilled by allocating full physical cores.
+If the pod does not pass the admission, it will be put in Failed state with the message `SMTAlignmentError`.
+-->
+启用该选项之后，只有当一个 Pod 里所有容器的 CPU 请求都能够分配到完整的物理核心时，kubelet 才会接受该 Pod。
+如果 Pod 没有被准入，它会被置于 Failed 状态，错误消息是 `SMTAlignmentError`。
