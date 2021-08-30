@@ -95,18 +95,16 @@ For a list of the deprecated features, see [kubelet garbage collection deprecati
 You can specify custom eviction thresholds for the kubelet to use when it makes
 eviction decisions.
 
-Eviction thresholds have the form `[eviction-signal][operator][quantity]`, where:
+Eviction thresholds is formed as `map[string]string`, where:
 
-* `eviction-signal` is the [eviction signal](#eviction-signals) to use.
-* `operator` is the [relational operator](https://en.wikipedia.org/wiki/Relational_operator#Standard_relational_operators)
-  you want, such as `<` (less than).
-* `quantity` is the eviction threshold amount, such as `1Gi`. The value of `quantity`
+* key is the [eviction signal](#eviction-signals) to use.
+* value is the eviction threshold amount, such as `1Gi`. The value of `quantity`
   must match the quantity representation used by Kubernetes. You can use either
   literal values or percentages (`%`).
 
 For example, if a node has `10Gi` of total memory and you want trigger eviction if
 the available memory falls below `1Gi`, you can define the eviction threshold as
-either `memory.available<10%` or `memory.available<1Gi`. You cannot use both.
+either `{"memory.available": "10%"}` or `{"memory.available": "1Gi"}`. You cannot use both.
 
 You can configure soft and hard eviction thresholds.
 
@@ -126,7 +124,7 @@ graceful termination.
 
 You can use the following flags to configure soft eviction thresholds:
 
-* `eviction-soft`: A set of eviction thresholds like `memory.available<1.5Gi`
+* `eviction-soft`: A set of eviction thresholds like `{"memory.available": "1.5Gi"}`
   that can trigger pod eviction if held over the specified grace period.
 * `eviction-soft-grace-period`: A set of eviction grace periods like `memory.available=1m30s`
   that define how long a soft eviction threshold must hold before triggering a Pod eviction.
@@ -140,14 +138,14 @@ met, the kubelet kills pods immediately without graceful termination to reclaim
 the starved resource.
 
 You can use the `eviction-hard` flag to configure a set of hard eviction 
-thresholds like `memory.available<1Gi`. 
+thresholds like `{"memory.available": "1Gi"}`.
 
 The kubelet has the following default hard eviction thresholds:
 
-* `memory.available<100Mi`
-* `nodefs.available<10%`
-* `imagefs.available<15%`
-* `nodefs.inodesFree<5%` (Linux nodes)
+* `{"memory.available": "100Mi"}`
+* `{"nodefs.available": "10%"}`
+* `{"imagefs.available": "15%"}`
+* `{"nodefs.inodesFree": "5%"}` (Linux nodes)
 
 ### Eviction monitoring interval
 
@@ -347,7 +345,7 @@ Consider the following scenario:
 For this to work, the kubelet is launched as follows:
 
 ```
---eviction-hard=memory.available<500Mi
+--eviction-hard={"memory.available": "500Mi"}
 --system-reserved=memory=1.5Gi
 ```
 
