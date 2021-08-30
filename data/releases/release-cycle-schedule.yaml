@@ -1,3 +1,23 @@
+# usage:
+#
+# assuming you have cloned both website and release repositories, like
+#
+#.
+# +-- k8s.io
+#|   +-- release
+#|   +-- website
+#
+# then:
+# $ go get k8s.io/release/cmd/schedule-builder
+#
+# After this, enter:
+#
+# `schedule-builder --config-path ../website/data/releases/release-cycle-schedule.yaml --type release`
+#
+#Also can save the schedule in a file, to do that, you can set the --output-file flag together with the filename.
+#
+# `schedule-builder --config-path ../website/data/releases/release-cycle-schedule.yaml --type release --output-file my-schedule.md`
+
 releases:
 - version: 1.23
   timeline:
@@ -5,7 +25,7 @@ releases:
       who: Lead
       when: Mon August 23, 2021
       week: week 1
-      ciSignal: master-blocking
+      ciSignal: "[master-blocking]"
       tldr: true
     - what:  Start Enhancements Tracking
       who: Enhancements Lead
@@ -38,11 +58,11 @@ releases:
       when: Tue September 7, 2021
       week: week 3
       ciSignal:
-    - what: Begin Enhancements Freeze (23:59 PDT)
+    - what: "**Begin [Enhancements Freeze]** (23:59 PDT)"
       who: Enhancements Lead
       when: Thu September 9, 2021
       week: week 3
-      ciSignal: master-blocking, master-informing
+      ciSignal: "[master-blocking], [master-informing]"
       tldr: true
     - what: 1.23.0-alpha.2 released
       who: Branch Manager
@@ -64,12 +84,12 @@ releases:
       when: TBD
       week: TBD
       ciSignal:
-    - what: Begin Burndown (MWF meetings)
+    - what: "**Begin [Burndown]** (MWF meetings)"
       who: Lead
       when: Mon November 1, 2021
       week: week 11
-      ciSignal: 1.23-blocking, master-blocking, master-informing
-    - what: Call for Exceptions
+      ciSignal: "[1.23-blocking], [master-blocking], [master-informing]"
+    - what: "**Call for [Exceptions][Exception]**"
       who: Lead
       when: Mon November 1, 2021
       week:  2021	week 11
@@ -79,7 +99,7 @@ releases:
       when: Mon November 1, 2021
       week: week 11
       ciSignal:
-    - what: Begin Feature blog freeze (23:59 PDT)
+    - what: "**Begin Feature blog freeze (23:59 PDT)**"
       who: Comms Lead
       when: Tue November 2, 2021
       week: week 11
@@ -89,7 +109,7 @@ releases:
       when: Mon November 15, 2021
       week: week 13
       ciSignal:
-    - what: Begin Code Freeze (18:00 PST)
+    - what: "**Begin [Code Freeze]** (18:00 PST)"
       who: Branch Manager
       when: Tue November 16, 2021
       week: week 13
@@ -105,7 +125,7 @@ releases:
       when: Thu November 18, 2021
       week: week 13
       ciSignal:
-    - what: Test Freeze (18:00 PST)
+    - what: "**[Test Freeze]** (18:00 PST)"
       who: Branch Manager
       when: Tue November 23, 2021
       week: week 14
@@ -152,7 +172,7 @@ releases:
       when: Thu December 2, 2021
       week: week 15
       ciSignal:
-    - what: v1.23.0 released
+    - what: "**v1.23.0 released**"
       who: Branch Manager
       when: Tue December 7, 2021
       week: week 16
@@ -163,7 +183,7 @@ releases:
       when: Tue December 7, 2021
       week: week 16
       ciSignal:
-    - what: Thaw
+    - what: "**[Thaw]**"
       who: Branch Manager
       when: Tue December 7, 2021
       week: week 16

@@ -22,6 +22,6 @@ More information in the [version skew policy](/releases/version-skew-policy/) do
 
 ## Upcoming Release
 
-Check out the [schedule](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}}) for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
+Check out the [schedule](/release/upcoming-release-cycle-schedule.md) for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
 
 ## Helpful Resources
