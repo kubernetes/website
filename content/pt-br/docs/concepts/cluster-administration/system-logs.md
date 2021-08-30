@@ -1,7 +1,4 @@
 ---
-reviewers:
-- dims
-- 44past4
 title: Logs de Sistema
 content_type: concept
 weight: 60
@@ -9,7 +6,7 @@ weight: 60
 
 <!-- overview -->
 
-Logs de componentes do sistema armazenam eventos que acontecem no cluster, sendo muito úteis para depuração. Seus níveis de detalhe podem ser ajustados para mais ou para menos. Podendo se ater, por exemplo, a mostrar apenas os erros que ocorrem no componente, ou chegando a mostrar cada passo de um evento. (Como acessos HTTP, mudanças no estado dos pods, ações dos controllers, ou decisões do scheduler)
+Logs de componentes do sistema armazenam eventos que acontecem no cluster, sendo muito úteis para depuração. Seus níveis de detalhe podem ser ajustados para mais ou para menos. Podendo se ater, por exemplo, a mostrar apenas os erros que ocorrem no componente, ou chegando a mostrar cada passo de um evento. (Como acessos HTTP, mudanças no estado dos pods, ações dos controllers, ou decisões do scheduler).
 
 <!-- body -->
 
@@ -17,7 +14,7 @@ Logs de componentes do sistema armazenam eventos que acontecem no cluster, sendo
 
 [Klog](https://github.com/kubernetes/klog) é a biblioteca de logs do Kubernetes. Responsável por gerar as mensagens de log para os componentes do sistema. 
 
-Para mais informações acerca da sua configuração, veja a documentação da [ferramenta de linha de comando](https://kubernetes.io/docs/reference/command-line-tools-reference/) 
+Para mais informações acerca da sua configuração, veja a documentação da [ferramenta de linha de comando](https://kubernetes.io/docs/reference/command-line-tools-reference/). 
 
 Um exemplo do formato padrão dos logs da biblioteca:
 ```
@@ -29,7 +26,7 @@ I1025 00:15:15.525108       1 httplog.go:79] GET /api/v1/namespaces/kube-system/
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
 {{< warning >}}
-A migração pro formato de logs estruturados é um processo em andamento. Nem todos os logs estão dessa forma na versão atual. Sendo assim, para realizar o parsing de arquivos de log, você também precisa lidar com logs não estruturados.
+A migração pro formato de logs estruturados é um processo em andamento. Nem todos os logs estão dessa forma na versão atual. Sendo assim, para realizar o processamento de arquivos de log, você também precisa lidar com logs não estruturados.
 
 A formatação e serialização dos logs ainda estão sujeitas a alterações.
 {{< /warning>}}
@@ -54,9 +51,9 @@ I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod=
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
 {{<warning >}}
-Algumas opções da biblioteca klog ainda não funcionam com o os logs em formato JSON. Para ver uma lista completa de quais são estas, veja a documentação da [ferramenta de linha de comando](/docs/reference/command-line-tools-reference/).
+Algumas opções da biblioteca klog ainda não funcionam com os logs em formato JSON. Para ver uma lista completa de quais são estas, veja a documentação da [ferramenta de linha de comando](/docs/reference/command-line-tools-reference/).
 
-Nem todos os logs estarão garantidamente em formato JSON (como por exemplo durante o início de processos). Se você pretender realizar um parsing dos logs, seu código deverá saber tratar também linhas que não são JSON
+Nem todos os logs estarão garantidamente em formato JSON (como por exemplo durante o início de processos). Sendo assim, se você pretende realizar o processamento dos logs, seu código deverá saber tratar também linhas que não são JSON.
 
 O nome dos campos e a serialização JSON ainda estão sujeitos a mudanças.
 {{< /warning >}}
@@ -114,21 +111,21 @@ A opção `-v` controla o nível de detalhe dos logs. Um valor maior aumenta o n
 
 ### Localização dos Logs
 
-Existem dois tipos de componentes do sistema: aqueles que são executados em um container e aqueles que não são. Por exemplo:
+Existem dois tipos de componentes do sistema: aqueles que são executados em um contêiner e aqueles que não são. Por exemplo:
 
-* O [Kubernetes scheduler](https://kubernetes.io/pt-br/docs/concepts/overview/components/#kube-scheduler) e o [kube-proxy](https://kubernetes.io/pt-br/docs/concepts/overview/components/#kube-proxy) são executados em um container.
-* O [kubelet](https://kubernetes.io/pt-br/docs/concepts/overview/components/#kubelet) e o [container runtime](https://kubernetes.io/pt-br/docs/concepts/overview/components/#container-runtime), como o Docker por exemplo, não são executados em containers.
+* O [Kubernetes scheduler](https://kubernetes.io/pt-br/docs/concepts/overview/components/#kube-scheduler) e o [kube-proxy](https://kubernetes.io/pt-br/docs/concepts/overview/components/#kube-proxy) são executados em um contêiner.
+* O [kubelet](https://kubernetes.io/pt-br/docs/concepts/overview/components/#kubelet) e os [agentes de execução](https://kubernetes.io/pt-br/docs/concepts/overview/components/#container-runtime), como o Docker por exemplo, não são executados em contêineres.
 
-Em máquinas com systemd, o kubelet e o container runtime gravam os logs no journald. 
+Em máquinas com systemd, o kubelet e os agentes de execução gravam os logs no journald. 
 Em outros casos, eles escrevem os logs em arquivos `.log` no diretório `/var/log`.
-Já os componentes executados dentro de containers, sempre irão escrever os logs em arquivos `.log` 
+Já os componentes executados dentro de contêineres, sempre irão escrever os logs em arquivos `.log` 
 no diretório `/var/log`, ignorando o mecanismo padrão de log.
 
-De forma similar aos logs de container, os logs de componentes do sistema no diretório `/var/log` devem ser rotacionados.
+De forma similar aos logs de contêiner, os logs de componentes do sistema no diretório `/var/log` devem ser rotacionados.
 Nos clusters Kubernetes criados com o script `kube-up.sh`, a rotação dos logs é configurada pela ferramenta `logrotate`. Essa ferramenta rotaciona os logs diariamente 
 ou quando o tamanho do arquivo excede 100MB.
 
-## {{% heading "Próximos passos" %}}
+## {{% heading "whatsnext" %}}
 
 * Leia sobre [Arquitetura de Logs do Kubernetes](/pt-br/docs/concepts/cluster-administration/logging/)
 * Leia sobre [Logs Estruturados](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1602-structured-logging)
