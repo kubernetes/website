@@ -170,12 +170,10 @@ For a list of the deprecated features, see [kubelet garbage collection deprecati
 You can specify custom eviction thresholds for the kubelet to use when it makes
 eviction decisions.
 
-Eviction thresholds have the form `[eviction-signal][operator][quantity]`, where:
+Eviction thresholds is formed as `map[string]string`, where:
 
-* `eviction-signal` is the [eviction signal](#eviction-signals) to use.
-* `operator` is the [relational operator](https://en.wikipedia.org/wiki/Relational_operator#Standard_relational_operators)
-  you want, such as `<` (less than).
-* `quantity` is the eviction threshold amount, such as `1Gi`. The value of `quantity`
+* key is the [eviction signal](#eviction-signals) to use.
+* value is the eviction threshold amount, such as `1Gi`. The value of `quantity`
   must match the quantity representation used by Kubernetes. You can use either
   literal values or percentages (`%`).
 -->
@@ -183,24 +181,22 @@ Eviction thresholds have the form `[eviction-signal][operator][quantity]`, where
 
 你可以为 kubelet 指定自定义驱逐条件，以便在作出驱逐决定时使用。
 
-驱逐条件的形式为 `[eviction-signal][operator][quantity]`，其中：
+驱逐条件的格式为 `map[string]string`，其中：
 
-* `eviction-signal` 是要使用的[驱逐信号](#eviction-signals)。
-* `operator` 是你想要的[关系运算符](https://en.wikipedia.org/wiki/Relational_operator#Standard_relational_operators)，
-  比如 `<`（小于）。
-* `quantity` 是驱逐条件数量，例如 `1Gi`。
+* key 是要使用的[驱逐信号](#eviction-signals)。
+* value 是驱逐条件数量，例如 `1Gi`。
   `quantity` 的值必须与 Kubernetes 使用的数量表示相匹配。
   你可以使用文字值或百分比（`%`）。
 
 <!--
 For example, if a node has `10Gi` of total memory and you want trigger eviction if
 the available memory falls below `1Gi`, you can define the eviction threshold as
-either `memory.available<10%` or `memory.available<1Gi`. You cannot use both.
+either `{"memory.available": "10%"}` or `{"memory.available": "1Gi"}`. You cannot use both.
 
 You can configure soft and hard eviction thresholds.  
 -->
 例如，如果一个节点的总内存为 10Gi 并且你希望在可用内存低于 1Gi 时触发驱逐，
-则可以将驱逐条件定义为 `memory.available<10%` 或 `memory.available< 1G`。
+则可以将驱逐条件定义为 `{"memory.available": "10%"}` 或 `{"memory.available": "1Gi"}`。
 你不能同时使用二者。
 
 你可以配置软和硬驱逐条件。
@@ -234,7 +230,7 @@ graceful termination.
 <!--  
 You can use the following flags to configure soft eviction thresholds:
 
-* `eviction-soft`: A set of eviction thresholds like `memory.available<1.5Gi`
+* `eviction-soft`: A set of eviction thresholds like `{"memory.available": "1.5Gi"}`
   that can trigger pod eviction if held over the specified grace period.
 * `eviction-soft-grace-period`: A set of eviction grace periods like `memory.available=1m30s`
   that define how long a soft eviction threshold must hold before triggering a Pod eviction.
@@ -243,7 +239,7 @@ You can use the following flags to configure soft eviction thresholds:
 -->
 你可以使用以下标志来配置软驱逐条件：
 
-* `eviction-soft`：一组驱逐条件，如 `memory.available<1.5Gi`，
+* `eviction-soft`：一组驱逐条件，如 `{"memory.available": "1.5Gi"}`，
   如果驱逐条件持续时长超过指定的宽限期，可以触发 Pod 驱逐。
 * `eviction-soft-grace-period`：一组驱逐宽限期，
   如 `memory.available=1m30s`，定义软驱逐条件在触发 Pod 驱逐之前必须保持多长时间。
@@ -257,7 +253,7 @@ met, the kubelet kills pods immediately without graceful termination to reclaim
 the starved resource.
 
 You can use the `eviction-hard` flag to configure a set of hard eviction 
-thresholds like `memory.available<1Gi`. 
+thresholds like `{"memory.available": "1Gi"}`.
 -->
 #### 硬驱逐条件 {#hard-eviction-thresholds}
 
@@ -265,22 +261,22 @@ thresholds like `memory.available<1Gi`.
 kubelet 会立即杀死 pod，而不会正常终止以回收紧缺的资源。
 
 你可以使用 `eviction-hard` 标志来配置一组硬驱逐条件，
-例如 `memory.available<1Gi`。
+例如 `{"memory.available": "1Gi"}`。
 
 <!-- 
 The kubelet has the following default hard eviction thresholds:
 
-* `memory.available<100Mi`
-* `nodefs.available<10%`
-* `imagefs.available<15%`
-* `nodefs.inodesFree<5%` (Linux nodes)
+* `{"memory.available": "100Mi"}`
+* `{"nodefs.available": "10%"}`
+* `{"imagefs.available": "15%"}`
+* `{"nodefs.inodesFree": "5%"}` (Linux nodes)
 -->
 kubelet 具有以下默认硬驱逐条件：
 
-* `memory.available<100Mi`
-* `nodefs.available<10%`
-* `imagefs.available<15%`
-* `nodefs.inodesFree<5%`（Linux 节点）
+* `{"memory.available": "100Mi"}`
+* `{"nodefs.available": "10%"}`
+* `{"imagefs.available": "15%"}`
+* `{"nodefs.inodesFree": "5%"}`（Linux 节点）
 
 <!--  
 ### Eviction monitoring interval
@@ -656,7 +652,7 @@ For this to work, the kubelet is launched as follows:
 为此，kubelet 启动设置如下：
 
 ```
---eviction-hard=memory.available<500Mi
+--eviction-hard={"memory.available": "500Mi"}
 --system-reserved=memory=1.5Gi
 ```
 
