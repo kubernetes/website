@@ -124,9 +124,9 @@ Windows 容器仅能调度到 Windows 节点，Linux 容器则只能调度到 Li
 
 | Kubernetes 版本 | Windows Server LTSC 版本 | Windows Server SAC 版本 |
 | --- | --- | --- | --- |
-| *Kubernetes v1.19* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
 | *Kubernetes v1.20* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
 | *Kubernetes v1.21* | Windows Server 2019 | Windows Server ver 2004, Windows Server ver 20H2 |
+| *Kubernetes v1.22* | Windows Server 2019 | Windows Server ver 2004, Windows Server ver 20H2 |
 
 <!--
 Information on the different Windows Server servicing channels including their
@@ -184,13 +184,25 @@ limitation and compatibility rules will change.
 <!--
 #### Pause Image
 
-Microsoft maintains a Windows pause infrastructure container at
-`mcr.microsoft.com/oss/kubernetes/pause:3.4.1`.
+Kubernetes maintains a multi-architecture image that includes support for Windows.
+For Kubernetes v1.22 the recommended pause image is `k8s.gcr.io/pause:3.5`.
+The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
+is available on GitHub.
+
+Microsoft maintains a multi-architecture image with Linux and Windows amd64 support at `mcr.microsoft.com/oss/kubernetes/pause:3.5`.
+This image is built from the same source as the Kubernetes maintained image but all of the Windows binaries are [authenticode signed](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode) by Microsoft.
+The Microsoft maintained image is recommended for production environments when signed binaries are required.
 -->
 #### Pause 镜像   {#pause-image}
 
-Microsoft 在 `mcr.microsoft.com/oss/kubernetes/pause:3.4.1` 处维护
-一个 pause 基础设施容器镜像。
+Kubernetes 维护着一个多体系结构镜像，其中包括对 Windows 的支持。
+对于 Kubernetes v1.22，推荐的 pause 镜像是 `k8s.gcr.io/pause:3.5`。
+[源代码](https://github.com/kubernetes/kubernetes/tree/master/build/pause)可在 GitHub 上找到。
+
+Microsoft 维护了一个支持 Linux 和 Windows amd64 的多体系结构镜像： `mcr.microsoft.com/oss/kubernetes/pause:3.5`。
+此镜像与 Kubernetes 维护的镜像是从同一来源构建，但所有 Windows 二进制文件
+均由 Microsoft [签名](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/authenticode)。
+当生产环境需要被签名的二进制文件时，建议使用 Microsoft 维护的镜像。
 
 <!--
 #### Compute
@@ -418,7 +430,7 @@ FlexVolume 插件处理将卷挂接到 Kubernetes 节点或从其上解挂、将
 -->
 ##### CSI 插件   {#csi-plugins}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 <!--
 Code associated with {{< glossary_tooltip text="CSI" term_id="csi" >}} plugins
@@ -428,9 +440,7 @@ DaemonSets and StatefulSets. CSI plugins handle a wide range of volume
 management actions in Kubernetes: provisioning/de-provisioning/resizing of
 volumes, attaching/detaching of volumes to/from a Kubernetes node and
 mounting/dismounting a volume to/from individual containers in a pod,
-backup/restore of persistent data using snapshots and cloning. CSI plugins
-typically consist of node plugins (that run on each node as a DaemonSet) and
-controller plugins.
+backup/restore of persistent data using snapshots and cloning.
 -->
 与 {{< glossary_tooltip text="CSI" term_id="csi" >}} 插件相关联的代码作为
 树外脚本和可执行文件来发布且通常发布为容器镜像形式，并使用 DaemonSet 和
@@ -438,29 +448,25 @@ StatefulSet 这类标准的 Kubernetes 构造体来部署。
 CSI 插件处理 Kubernetes 中的很多卷管理操作：对卷的配备、去配和调整大小，
 将卷挂接到 Kubernetes 节点或从节点上解除挂接，将卷挂载到需要持久数据的 Pod
 中的某容器或从容器上卸载，使用快照和克隆来备份或恢复持久数据。
-CSI 插件通常包含节点插件（以 DaemonSet 形式运行于各节点上）和控制器插件。
 
 <!--
-CSI node plugins (especially those associated with persistent volumes exposed
-as either block devices or over a shared file-system) need to perform various
-privileged operations like scanning of disk devices, mounting of file systems,
-etc. These operations differ for each host operating system. For Linux worker
-nodes, containerized CSI node plugins are typically deployed as privileged
-containers. For Windows worker nodes, privileged operations for containerized
-CSI node plugins is supported using
-[csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
-stand-alone binary that needs to be pre-installed on each Windows node. Please
-refer to the deployment guide of the CSI plugin you wish to deploy for further
-details.
+CSI plugins communicate with a CSI node plugin which performs the local storage operations.
+On Windows nodes CSI node plugins typically call APIs exposed by the community-managed
+[csi-proxy](https://github.com/kubernetes-csi/csi-proxy) which handles the local storage operations.
+
+Please refer to the deployment guide of the environment where you wish to deploy a Windows CSI plugin
+for further details around installation.
+You may also refer to the following [installation steps](https://github.com/kubernetes-csi/csi-proxy#installation).
 -->
-CSI 节点插件（尤其是那些通过块设备或者共享文件系统形式来提供持久卷的插件）
-需要执行很多特权级操作，例如扫描磁盘设备、挂载文件系统等等。
-这些操作在不同的宿主操作系统上差别较大。对于 Linux 工作节点而言，容器化的
-CSI 节点插件通常部署为特权级的容器。对于 Windows 工作节点而言，容器化的
-CSI 节点插件的特权操作通过
-[csi-proxy](https://github.com/kubernetes-csi/csi-proxy)
 来支持；csi-proxy 是一个社区管理的、独立的可执行文件，需要预安装在每个
 Windows 节点之上。请参考你要部署的 CSI 插件的部署指南以进一步了解其细节。
+
+CSI 插件与执行本地存储操作的 CSI 节点插件通信。
+在 Windows 节点上，CSI 节点插件通常调用处理本地存储操作的 [csi-proxy](https://github.com/kubernetes-csi/csi-proxy) 
+公开的 API, csi-proxy 由社区管理。
+
+有关安装的更多详细信息，请参阅你要部署的 Windows CSI 插件的环境部署指南。
+你也可以参考以下[安装步骤](https://github.com/kubernetes-csi/csi-proxy#installation) 。
 
 <!--
 #### Networking
@@ -1875,10 +1881,8 @@ Kubernetes 中日志是故障排查的一个重要元素。确保你在尝试从
     注册 kubelet.exe：
 
     ```powershell
-    # Microsoft 在 mcr.microsoft.com/oss/kubernetes/pause:3.4.1
-    # 发布其基础设施容器镜像
     nssm install kubelet C:\k\kubelet.exe
-    nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/oss/kubernetes/pause:3.4.1 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
+    nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=k8s.gcr.io/pause:3.5 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
     nssm set kubelet AppDirectory C:\k
     nssm start kubelet
     ```
@@ -2177,11 +2181,11 @@ Kubernetes 中日志是故障排查的一个重要元素。确保你在尝试从
 <!--
 * `kubectl port-forward` fails with "unable to do port forwarding: wincat not found"
 
-  This was implemented in Kubernetes 1.15 by including wincat.exe in the pause
-  infrastructure container `mcr.microsoft.com/oss/kubernetes/pause:3.4.1`. Be
-  sure to use these versions or newer ones. If you would like to build your
-  own pause infrastructure container, be sure to include
-  [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
+  Port forwarding support for Windows requires wincat.exe to be available in the
+  [pause infrastructure container](#pause-image).
+  Ensure you are using a supported image that is compatable with your Windows OS version.
+  If you would like to build your own pause infrastructure container be sure to include
+  [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat).
 -->
 * `kubectl port-forward` 失败，错误信息为 "unable to do port forwarding: wincat not found"
 
@@ -2190,6 +2194,10 @@ Kubernetes 中日志是故障排查的一个重要元素。确保你在尝试从
   请确保你使用的是这些版本或者更新版本。
   如果你想要自行构造你自己的 pause 基础设施容器，要确保其中包含了
   [wincat](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat)
+  
+  Windows 的端口转发支持需要在 [pause 基础设施容器](#pause-image) 中提供 wincat.exe。
+  确保你使用的是与你的 Windows 操作系统版本兼容的受支持镜像。
+  如果你想构建自己的 pause 基础架构容器，请确保包含 [wincat](https://github.com/kubernetes/kubernetes/tree/master/build/pause/windows/wincat).。
 
 <!--
 * My Kubernetes installation is failing because my Windows Server node is
@@ -2216,10 +2224,8 @@ Kubernetes 中日志是故障排查的一个重要元素。确保你在尝试从
   to accommodate worker containers crashing or restarting without losing any of
   the networking configuration.
 
-  The "pause" (infrastructure) image is hosted on Microsoft Container Registry
-  (MCR). You can access it using `mcr.microsoft.com/oss/kubernetes/pause:3.4.1`.
-  For more details, see the
-  [DOCKERFILE](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat).
+  Refer to the [pause image](#pause-image) section to find the recommended version
+  of the pause image.
 -->
 * `pause` 容器是什么？
 
@@ -2228,10 +2234,7 @@ Kubernetes 中日志是故障排查的一个重要元素。确保你在尝试从
   网络名字空间和端点（相同的 IP 和端口空间）。我们需要 pause 容器来工作容器崩溃或
   重启的状况，以确保不会丢失任何网络配置。
 
-  "pause" （基础设施）镜像托管在 Microsoft Container Registry (MCR) 上。
-  你可以使用 `mcr.microsoft.com/oss/kubernetes/pause:3.4.1` 来访问它。
-  要了解进一步的细节，可参阅
-  [DOCKERFILE](https://github.com/kubernetes-sigs/sig-windows-tools/tree/master/cmd/wincat)。
+  请参阅 [pause 镜像](#pause-image) 部分以查找 pause 镜像的推荐版本。
 
 <!--
 ### Further investigation

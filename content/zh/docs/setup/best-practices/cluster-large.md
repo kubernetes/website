@@ -25,12 +25,12 @@ Kubernetes {{< param "version" >}} 支持的最大节点数为 5000。
 更具体地说，Kubernetes旨在适应满足以下*所有*标准的配置：
 
 <!--
-* No more than 100 pods per node
+* No more than 110 pods per node
 * No more than 5000 nodes
 * No more than 150000 total pods
 * No more than 300000 total containers
 -->
-* 每个节点的 Pod 数量不超过 100
+* 每个节点的 Pod 数量不超过 110
 * 节点数不超过 5000
 * Pod 总数不超过 150000
 * 容器总数不超过 300000
@@ -46,7 +46,7 @@ on how your cluster is deployed.
 
 To avoid running into cloud provider quota issues, when creating a cluster with many nodes,
 consider:
-* Request a quota increase for cloud resources such as:
+* Requesting a quota increase for cloud resources such as:
     * Computer instances
     * CPUs
     * Storage volumes
@@ -55,7 +55,7 @@ consider:
     * Number of load balancers
     * Network subnets
     * Log streams
-* Gate the cluster scaling actions to brings up new nodes in batches, with a pause
+* Gating the cluster scaling actions to brings up new nodes in batches, with a pause
   between batches, because some cloud providers rate limit the creation of new instances.
 -->
 ## 云供应商资源配额 {#quota-issues}
@@ -131,6 +131,15 @@ When creating a cluster, you can (using custom tooling):
 
 * 启动并配置额外的 etcd 实例
 * 配置 {{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}，将它用于存储事件
+
+<!--
+See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) and
+[Set up a High Availability etcd cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+for details on configuring and managing etcd for a large cluster.
+-->
+有关为大型集群配置和管理 etcd 的详细信息，请参阅
+[为 Kubernetes 运行 etcd 集群](/zh/docs/tasks/administer-cluster/configure-upgrade-etcd/)
+和使用 [kubeadm 创建一个高可用 etcd 集群](/zh/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
 
 <!--
 ### Addon Resources
@@ -227,3 +236,11 @@ nodes for the level of resource demand in your cluster.
 
 [集群自动扩缩器](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
 与许多云供应商集成在一起，帮助你在你的集群中，按照资源需求级别运行正确数量的节点。
+
+<!-- 
+The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
+helps you in resizing the addons automatically as your cluster's scale changes.
+-->
+
+[addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
+可帮助你在集群规模变化时自动调整插件的大小。
