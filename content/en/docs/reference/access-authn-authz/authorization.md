@@ -218,9 +218,9 @@ resources that define workloads and allow configuration of the service account, 
   - Can be used to access secrets meant for other workloads
   - Can be used to obtain a more privileged service account's service account token
 - Using arbitrary Service Accounts in that namespace
-  - Can perform kubernetes API actions as another workload (impersonation)
-  - Can perform more privileged actions if that
-- Mounting configmaps meant for other workloads  in that namespace
+  - Can perform Kubernetes API actions as another workload (impersonation)
+  - Can perform any privileged actions that Service Account has 
+- Mounting configmaps meant for other workloads in that namespace
   - Can be used to obtain information meant for other workloads, such as DB host names.
 - Mounting volumes meant for other workloads in that namespace
   - Can be used to obtain information meant for other workloads, and change it.
