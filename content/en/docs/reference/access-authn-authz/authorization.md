@@ -196,20 +196,36 @@ so an earlier module has higher priority to allow or deny a request.
 
 Users who have the ability to create or edit anything which creates pods in a
 namespace can potentially escalate their privileges within that namespace.
+
+
 They can create pods that access other privileges within that namespace. They can
 create pods that access secrets the user cannot themselves read, or that run under
 a service account with different/greater permissions. They can also create pods
-that mount volumes meant for other workloads.
+that mount volumes or configmaps meant for other workloads.
 
 {{< caution >}}
 System administrators, use care when granting access to create or edit workloads.
 A user granted permission to create pods (or controllers that create pods) in the
 namespace can: read all secrets in the namespace; read all config maps in the
-namespace; mount all volumes in that namespace ;and impersonate any service account
+namespace; mount all volumes in that namespace; and impersonate any service account
 in the namespace and take any action the account could take. This applies regardless
 of authorization mode. This can also apply if the user can create or edit custom
-resources that define workloads.
+resources that define workloads and allow configuration of the service account, secrets etc that are mounted by the workload.
 {{< /caution >}}
+
+### Nuances
+- Mounting arbitrary secrets in that namespace
+  - Can be used to access secrets meant for other workloads
+  - Can be used to obtain a more privileged service account's service account token
+- Using arbitrary Service Accounts in that namespace
+  - Can perform kubernetes API actions as another workload (impersonation)
+  - Can perform more privileged actions if that
+- Mounting configmaps meant for other workloads  in that namespace
+  - Can be used to obtain information meant for other workloads, such as DB host names.
+- Mounting volumes meant for other workloads in that namespace
+  - Can be used to obtain information meant for other workloads, and change it.
+
+If a CRD provides the ability to customise/control any of the above areas, then creation and mutation of that can be used for escalation in that environment.
 
 
 ## {{% heading "whatsnext" %}}
