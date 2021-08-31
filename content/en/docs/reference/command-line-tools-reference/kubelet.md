@@ -1130,7 +1130,8 @@ WindowsHostProcessContainers=true|false (ALPHA - default=false)<br/>
 <td colspan="2">--streaming-connection-idle-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>4h0m0s</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum time a streaming connection can be idle before the connection is automatically closed. <code>0</code> indicates no timeout. Example: <code>5m</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum time a streaming connection can be idle before the connection is automatically closed. <code>0</code> indicates no timeout. Example: <code>5m</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
+Note: In case of non idle connection also the backout read/write has a timeout of 4h. That means that requests which go through the kubelet server (logs, exec, attach, portforward, etc) have a maximum bound of 4 hours</td>
 </tr>
 
 <tr>
