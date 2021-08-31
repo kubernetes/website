@@ -1,5 +1,5 @@
 ---
-title: Администрирование клсатера
+title: Администрирование кластера
 reviewers:
 - davidopp
 - lavalamp
