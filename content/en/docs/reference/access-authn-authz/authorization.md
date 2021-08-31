@@ -213,7 +213,7 @@ of authorization mode. This can also apply if the user can create or edit custom
 resources that define workloads and allow configuration of the service account, secrets etc that are mounted by the workload.
 {{< /caution >}}
 
-### Nuances
+### Escalation paths
 - Mounting arbitrary secrets in that namespace
   - Can be used to access secrets meant for other workloads
   - Can be used to obtain a more privileged service account's service account token
