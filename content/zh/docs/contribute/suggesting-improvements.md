@@ -20,7 +20,7 @@ card:
 <!-- overview -->
 
 <!--
-If you notice an issue with Kubernetes documentation, or have an idea for new content, then open an issue. All you need is a [GitHub account](https://github.com/join) and a web browser.
+If you notice an issue with Kubernetes documentation or have an idea for new content, then open an issue. All you need is a [GitHub account](https://github.com/join) and a web browser.
 
 In most cases, new work on Kubernetes documentation begins with an issue in GitHub. Kubernetes contributors
 then review, categorize and tag issues as needed. Next, you or another member
@@ -40,7 +40,7 @@ Kubernetes 贡献者会审阅这些问题并根据需要对其分类、打标签
 <!--
 ## Opening an issue
 
-If you want to suggest improvements to existing content, or notice an error, then open an issue.
+If you want to suggest improvements to existing content or notice an error, then open an issue.
 
 1. Go to the bottom of the page and click the **Create an Issue** button. This redirects you
  to a GitHub issue page pre-populated with some headers.
