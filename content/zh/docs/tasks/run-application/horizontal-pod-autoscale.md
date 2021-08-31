@@ -367,27 +367,29 @@ The detailed documentation of `kubectl autoscale` can be found [here](/docs/refe
 <!--
 ## Autoscaling during rolling update
 
-Currently in Kubernetes, it is possible to perform a rolling update by using the deployment object, 
-which manages the underlying replica sets for you.
-Horizontal Pod Autoscaler only supports the latter approach: the Horizontal Pod Autoscaler is bound to the deployment object,
-it sets the size for the deployment object, and the deployment is responsible for setting sizes of underlying replica sets.
+Kubernetes lets you perform a rolling update on a Deployment. In that
+case, the Deployment manages the underlying ReplicaSets for you.
+When you configure autoscaling for a Deployment, you bind a
+HorizontalPodAutoscaler to a single Deployment. The HorizontalPodAutoscaler
+manages the `replicas` field of the Deployment. The deployment controller is responsible
+for setting the `replicas` of the underlying ReplicaSets so that they add up to a suitable
+number during the rollout and also afterwards.
 -->
 ## 滚动升级时扩缩   {#autoscaling-during-rolling-update}
 
-目前在 Kubernetes 中，可以针对 ReplicationController 或 Deployment 执行
-滚动更新，它们会为你管理底层副本数。
-Pod 水平扩缩只支持后一种：HPA 会被绑定到 Deployment 对象，
-HPA 设置副本数量时，Deployment 会设置底层副本数。
+Kubernetes 允许你在 Deployment 上执行滚动更新。在这种情况下，Deployment 为你管理下层的 ReplicaSet。
+当你为一个 Deployment 配置自动扩缩时，你要为每个 Deployment 绑定一个 HorizontalPodAutoscaler。
+HorizontalPodAutoscaler 管理 Deployment 的 `replicas` 字段。
+Deployment Controller 负责设置下层 ReplicaSet 的 `replicas` 字段，
+以便确保在上线及后续过程副本个数合适。
 
 <!--
-Horizontal Pod Autoscaler does not work with rolling update using direct manipulation of replication controllers,
-i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update.
-The reason this doesn't work is that when rolling update creates a new replication controller,
-the Horizontal Pod Autoscaler will not be bound to the new replication controller.
+If you perform a rolling update of a StatefulSet that has an autoscaled number of
+replicas, the StatefulSet directly manages its set of Pods (there is no intermediate resource
+similar to ReplicaSet).
 -->
-通过直接操控副本控制器执行滚动升级时，HPA 不能工作，
-也就是说你不能将 HPA 绑定到某个 RC 再执行滚动升级。
-HPA 不能工作的原因是它无法绑定到滚动更新时所新创建的副本控制器。
+如果你对一个副本个数被自动扩缩的 StatefulSet 执行滚动更新， 该 StatefulSet
+会直接管理它的 Pod 集合 （不存在类似 ReplicaSet 这样的中间资源）。
 
 <!--
 ## Support for cooldown/delay
