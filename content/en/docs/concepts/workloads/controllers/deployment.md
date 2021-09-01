@@ -488,7 +488,6 @@ Follow the steps given below to check the rollout history:
     `CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You can specify the`CHANGE-CAUSE` message by:
 
     * Annotating the Deployment with `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
-    * Append the `--record` flag to save the `kubectl` command that is making changes to the resource.
     * Manually editing the manifest of the resource.
 
 2. To see the details of each revision, run:
