@@ -12,7 +12,7 @@ The tools covered are:
 
 - [Nocalhost](https://nocalhost.dev)
 
-Nocalhost is a tool that enables developers to develop applications in Kubernetes Cluster. It can transfer the remote workload to development mode by using Nocalhost IDE (including VSCode and Jetbrains). When the developer writes code locally, any code changes will be automatically synchronized to the remote development container and initiate the application update immediately (depending on the hot load mechanism of the application or restart the application). The development container inherits all the declarative configurations (configmap, secret, volume, Env) from the original workload, which provides the basis for the application to run in the development container as source code.
+Nocalhost is a tool that allows developers to develop directly in a cluster. By using a Nocalhost IDE (for example, VSCode or Jetbrains), you can switch the remote workload into development mode, containers will become development containers. When code is updated on your local machine, code changes will automatically synchronized to the remote development containers. The code change then automatically triggers an update to the target application. Depending on the nature of the application, such an update could be a hot reload or a process restart. The development container where the updated application runs inherits all the configurations (e.g. ConfigMap, Secret, Volume, Env) from the original container.
 
 This is an tutorial of developing services in the container in Kubernetes environment using  `Nocalhost` .
 
