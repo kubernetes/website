@@ -300,7 +300,7 @@ The nodes are where your workloads (containers and Pods, etc) run. To add new no
 
 * SSH to the machine
 * Become root (e.g. `sudo su -`)
-* [Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)
+* [Install a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)
   if needed
 * Run the command that was output by `kubeadm init`. For example:
 
