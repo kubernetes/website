@@ -7,15 +7,14 @@ content_type: reference
 
 This page provides information on the different resource types you can request, built into Kubernetes.
 
-<!-- body -->
-
-There are several different resource types: `cpu`, `memory`, `storage`, `hugepages-*`, and `emphemeral-storage`.
-
+There are several different resource types: `cpu`, `memory`, `storage`, `hugepages-*`, and `ephemeral-storage`.
 
 Resource requests on Pods are an integral part of scheduling and 
 limiting and managing resource consumption in a Kubernetes 
 cluster. 
 See [Kubernetes Scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) and [Requests and Limits](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) for more details.
+
+<!-- body -->
 
 ## CPU 
 The `cpu` resource represents CPU in cores and can be specified as either a decimal (e.g. `1`, `0.5`) or as millicores (e.g. `500m`, `1000m`). `0.5` = `500m`.
@@ -54,16 +53,16 @@ You request huge pages with a combination of two binary
 suffixes. The first is part of the resource name in the request: 
 e.g. `hugepages-2Mi`. It specifies the size of the pages. The second part is the value of allocatable pages e.g. `80Mi`. 
 
-## Emphemeral storage
+## Ephemeral storage
 
-Emphemeral storage is storage provided to pods that has no 
-long-term gurantee of durablity. Empheral Storage is in beta. 
+Ephemeral storage is storage provided to pods that has no 
+long-term guarantee of durability. Empheral Storage is in beta.
 Empheral storage is represented in bytes and is specified with a 
 number and a binary suffix. e.g. `500Mi` = `500MiB` = `500 * 1024 * 1024`. 
 
 You can specify the `ephemeral-storage` resource in Pods and any object that embeds a Pod template.
 
-See [Local emphemeral storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) for more details.
+See [Local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) for more details.
 
 ## Examples
 ### CPU and memory
@@ -110,7 +109,7 @@ spec:
     hugepages-2Mi: 100Mi
 ```
 
-### Emphemeral Storage
+### Ephemeral Storage
 
 ```yaml
 apiVersion: v1
@@ -120,7 +119,7 @@ metadata:
 spec:
   ...
   requests:
-    emphemeral-storage: 100Mi
+    ephemeral-storage: 100Mi
   limits:
-    emphemeral-storage: 500Mi
+    ephemeral-storage: 500Mi
 ```
