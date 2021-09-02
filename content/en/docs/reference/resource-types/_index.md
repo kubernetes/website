@@ -64,6 +64,13 @@ You can specify the `ephemeral-storage` resource in Pods and any object that emb
 
 See [Local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) for more details.
 
+## Extended Resources
+
+Extended resources are fully-qualified resource names outside the kubernetes.io domain. 
+They allow cluster operators to advertise and users to consume the non-Kubernetes-built-in resources.
+
+See [Extended Resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources) for more information.
+
 ## Examples
 ### CPU and memory
 
