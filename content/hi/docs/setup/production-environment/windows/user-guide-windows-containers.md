@@ -216,7 +216,7 @@ tolerations:
 
 
 1. इस फाइल को `runtimeClasses.yml` में सेव करें। इसमें उपयुक्त `nodeSelector` शामिल है
-विंडोज ओएस, आर्किटेक्चर और वर्जन के लिए।
+Windows OS, आर्किटेक्चर और वर्जन के लिए।
 
 ```yaml
 apiVersion: node.k8s.io/v1
