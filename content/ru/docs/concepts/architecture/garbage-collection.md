@@ -5,8 +5,7 @@ weight: 50
 ---
 
 <!-- overview -->
-{{<glossary_definition term_id="garbage-collection" length="short">}} This
-allows the clean up of resources like the following:
+{{<glossary_definition term_id="garbage-collection" length="short">}} Это позволить очистить ресурсы, такие как:
 
   * [Неудачные pod-ы](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
   * [Завершенные задания](/docs/concepts/workloads/controllers/ttlafterfinished/)
