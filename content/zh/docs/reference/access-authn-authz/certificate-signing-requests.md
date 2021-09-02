@@ -276,7 +276,7 @@ Kubernetes提供了内置的签名者，每个签名者都有一个众所周知�
    1. 许可的 x509 扩展：允许 key usage、DNSName/IPAddress subjectAltName 等扩展，
       禁止  EmailAddress、URI subjectAltName 等扩展，并丢弃其他扩展。
       至少有一个 DNS 或 IP 的 SubjectAltName 存在。
-   1. 许可的密钥用途：必须是 `["key encipherment", "digital signature", "client auth"]`
+   1. 许可的密钥用途：必须是 `["key encipherment", "digital signature", "server auth"]`
    1. 过期日期/证书生命期：通过 kube-controller-manager 中签名者的实现所对应的标志
       `--cluster-signing-duration` 来设置。
    1. 允许/不允许 CA 位：不允许。
