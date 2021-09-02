@@ -183,7 +183,7 @@ rules:
 
 Хотите знать, как реализовать свой собственный диспетчер облачных контроллеров или расширить проект?
 
-Диспетчер облачных контроллеров использует интерфейсы Go, которые позволяют реализовать подключение из любого облака. В частности, он использует интерфейс `CloudProvider`, который определен в [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62) из [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
+Диспетчер облачных контроллеров использует интерфейсы Go, которые позволяют реализовать подключение из любого облака. В частности, он использует интерфейс `CloudProvider`, который определен в [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69) из [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
 
 Реализация общих контроллеров, описанных в этом документе (Node, Route, и Service), а также некоторые другие вспомогательные конструкции, вместе с общим интерфейсом облачного провайдера являются частью ядра Kubernetes. Особые реализации для облачных провайдеров находятся вне ядра Kubernetes и реализуют интерфейс `CloudProvider`.
 
