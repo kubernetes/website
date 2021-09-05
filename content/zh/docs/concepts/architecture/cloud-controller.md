@@ -326,11 +326,11 @@ Want to know how to implement your own cloud controller manager, or extend an ex
 想要了解如何实现自己的云控制器管理器，或者对现有项目进行扩展么？
 
 <!--
-The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the `CloudProvider` interface defined in [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62) from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
+The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the `CloudProvider` interface defined in [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69) from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
 -->
 云控制器管理器使用 Go 语言的接口，从而使得针对各种云平台的具体实现都可以接入。
 其中使用了在 [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)
-项目中 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62)
+项目中 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)
 文件所定义的 `CloudProvider` 接口。
 
 <!--
