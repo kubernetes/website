@@ -383,13 +383,7 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 <h1>Welcome to nginx!</h1>
 ```
 
-<<<<<<< HEAD
-이제 클라우드 로드 밸런서를 사용하도록 서비스를 재생성한다. `my-nginx` 서비스의 `Type` 을  `NodePort` 에서 `LoadBalancer` 로 변경한다.
-||||||| 6d252624b
 이제 클라우드 로드 밸런서를 사용하도록 서비스를 재생성하고, `my-nginx` 서비스의 `Type` 을  `NodePort` 에서 `LoadBalancer` 로 변경한다.
-=======
-이제 클라우드 로드 밸런서를 사용하도록 서비스를 재생성한다. `my-nginx` 서비스의 `Type` 을 `NodePort` 에서 `LoadBalancer` 로 변경한다.
->>>>>>> fork/dev-1.20-ko.8
 
 ```shell
 kubectl edit svc my-nginx

@@ -1,0 +1,89 @@
+---
+title: GolfNow Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/golfnow/banner1.jpg
+heading_title_logo: /images/golfnow_logo.png
+subheading: >
+  Saving Time and Money with Cloud Native Infrastructure
+case_study_details:
+  - Company: GolfNow
+  - Location: Orlando, Florida
+  - Industry: Golf Industry Technology and Services Provider
+---
+
+<h2>Challenge</h2>
+
+<p>A member of the <a href="http://www.nbcunicareers.com/our-businesses/nbc-sports-group">NBC Sports Group</a>, <a href="https://www.golfnow.com/">GolfNow</a> is the golf industry's technology and services leader, managing 10 different products, as well as the largest e-commerce tee time marketplace in the world. As its business began expanding rapidly and globally, GolfNow's monolithic application became problematic. "We kept growing our infrastructure vertically rather than horizontally, and the cost of doing business became problematic," says Sheriff Mohamed, GolfNow's Director, Architecture. "We wanted the ability to more easily expand globally."</p>
+
+<h2>Solution</h2>
+
+<p>Turning to microservices and containerization, GolfNow began moving its applications and databases from third-party services to its own clusters running on <a href="https://www.docker.com/">Docker</a> and <a href="http://kubernetes.io/">Kubernetes.</a></p>
+
+<h2>Impact</h2>
+
+<p>The results were immediate. While maintaining the same capacity—and beyond, during peak periods—GolfNow saw its infrastructure costs for the first application virtually cut in half.</p>
+
+{{< case-studies/quote author="SHERIFF MOHAMED, DIRECTOR, ARCHITECTURE AT GOLFNOW" >}}
+"With our growth we obviously needed to expand our infrastructure, and we kept growing vertically rather than horizontally. We were basically wasting money and doubling the cost of our infrastructure."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+It's not every day that you can say you've slashed an operating expense by half.
+{{< /case-studies/lead >}}
+
+<p>But Sheriff Mohamed and Josh Chandler did just that when they helped lead their company, <a href="https://www.golfnow.com/">GolfNow</a>, on a journey from a monolithic to a containerized, cloud native infrastructure managed by Kubernetes.</p>
+
+<p>A top-performing business within the NBC Sports Group, GolfNow is a technology and services company with the largest tee time marketplace in the world. GolfNow serves 5 million active golfers across 10 different products. In recent years, the business had grown so fast that the infrastructure supporting their giant monolithic application (written in C#.NET and backed by SQL Server database management system) could not keep up. "With our growth we obviously needed to expand our infrastructure, and we kept growing vertically rather than horizontally," says Sheriff, GolfNow's Director, Architecture. "Our costs were growing exponentially. And on top of that, we had to build a Disaster Recovery (DR) environment, which then meant we'd have to copy exactly what we had in our original data center to another data center that was just the standby. We were basically wasting money and doubling the cost of our infrastructure."</p>
+
+<p>In moving just the first of GolfNow's important applications—a booking engine for golf courses and B2B marketing platform—from third-party services to their own Kubernetes environment, "our bill went down drastically," says Sheriff.</p>
+
+<p>The path to those stellar results began in late 2014. In order to support GolfNow's global growth, the team decided that the company needed to have multiple data centers and the ability to quickly and easily re-route traffic as needed. "From there we knew that we needed to go in a direction of breaking things apart, microservices, and containerization," says Sheriff. "At the time we were trying to get away from <a href="https://www.microsoft.com/net">C#.NET</a> and <a href="https://www.microsoft.com/en-cy/sql-server/sql-server-2016">SQL Server</a> since it didn't run very well on Linux, where everything container was running smoothly."</p>
+
+<p>To that end, the team shifted to working with <a href="https://nodejs.org/">Node.js</a>, the open-source, cross-platform JavaScript runtime environment for developing tools and applications, and <a href="https://www.mongodb.com/">MongoDB</a>, the open-source database program. At the time, <a href="https://www.docker.com/">Docker</a>, the platform for deploying applications in containers, was still new. But once the team began experimenting with it, Sheriff says, "we realized that was the way we wanted to go, especially since that's the way the industry is heading."</p>
+
+{{< case-studies/quote image="/images/case-studies/golfnow/banner3.jpg" >}}
+"The team migrated the rest of the application into their Kubernetes cluster. And the impact was immediate: On top of cutting monthly costs by a large percentage, says Sheriff, 'Running at the same capacity and during our peak time, we were able to horizontally grow. Since we were using our VMs more efficiently with containers, we didn't have to pay extra money at all.'"
+{{< /case-studies/quote >}}
+
+<p>GolfNow's dev team ran an "internal, low-key" proof of concept and were won over. "We really liked how easy it was to be able to pass containers around to each other and have them up and running in no time, exactly the way it was running on my machine," says Sheriff. "Because that is always the biggest gripe that Ops has with developers, right? 'It worked on my machine!' But then we started getting to the point of, 'How do we make sure that these things stay up and running?'"</p>
+
+<p>That led the team on a quest to find the right orchestration system for the company's needs. Sheriff says the first few options they tried were either too heavy or "didn't feel quite right." In late summer 2015, they discovered the just-released <a href="http://kubernetes.io/">Kubernetes</a>, which Sheriff immediately liked for its ease of use. "We did another proof of concept," he says, "and Kubernetes won because of the fact that the community backing was there, built on top of what Google had already done."</p>
+
+<p>But before they could go with Kubernetes, <a href="http://www.nbc.com/">NBC</a>, GolfNow's parent company, also asked them to comparison shop with another company. Sheriff and his team liked the competing company's platform user interface, but didn't like that its platform would not allow containers to run natively on Docker. With no clear decision in sight, Sheriff's VP at GolfNow, Steve McElwee, set up a three-month trial during which a GolfNow team (consisting of Sheriff and Josh, who's now Lead Architect, Open Platforms) would build out a Kubernetes environment, and a large NBC team would build out one with the other company's platform.</p>
+
+<p>"We spun up the cluster and we tried to get everything to run the way we wanted it to run," Sheriff says. "The biggest thing that we took away from it is that not only did we want our applications to run within Kubernetes and Docker, we also wanted our databases to run there. We literally wanted our entire infrastructure to run within Kubernetes."</p>
+
+<p>At the time there was nothing in the community to help them get Kafka and MongoDB clusters running within a Kubernetes and Docker environment, so Sheriff and Josh figured it out on their own, taking a full month to get it right. "Everything started rolling from there," Sheriff says. "We were able to get all our applications connected, and we finished our side of the proof of concept a month in advance. My VP was like, 'Alright, it's over. Kubernetes wins.'"</p>
+
+<p>The next step, beginning in January 2016, was getting everything working in production. The team focused first on one application that was already written in Node.js and MongoDB. A booking engine for golf courses and B2B marketing platform, the application was already going in the microservice direction but wasn't quite finished yet. At the time, it was running in <a href="https://devcenter.heroku.com/articles/mongohq">Heroku Compose</a> and other third-party services—resulting in a large monthly bill.</p>
+
+{{< case-studies/quote image="/images/case-studies/golfnow/banner4.jpg" >}}
+"'The time I spent actually moving the applications was under 30 seconds! We can move data centers in just incredible amounts of time. If you haven't come from the Kubernetes world you wouldn't believe me.' Sheriff puts it in these terms: 'Before Kubernetes I wasn't sleeping at night, literally. I was woken up all the time, because things were down. After Kubernetes, I've been sleeping at night.'"
+{{< /case-studies/quote >}}
+
+<p>"The goal was to take all of that out and put it within this new platform we've created with Kubernetes on <a href="https://cloud.google.com/compute/">Google Compute Engine (GCE)</a>," says Sheriff. "So we ended up building piece by piece, in parallel, what was out in Heroku and Compose, in our Kubernetes cluster. Then, literally, just switched configs in the background. So in Heroku we had the app running hitting a Compose database. We'd take the config, change it and make it hit the database that was running in our cluster."</p>
+
+<p>Using this procedure, they were able to migrate piecemeal, without any downtime. The first migration was done during off hours, but to test the limits, the team migrated the second database in the middle of the day, when lots of users were running the application. "We did it," Sheriff says, "and again it was successful. Nobody noticed."</p>
+
+<p>After three weeks of monitoring to make sure everything was running stable, the team migrated the rest of the application into their Kubernetes cluster. And the impact was immediate: On top of cutting monthly costs by a large percentage, says Sheriff, "Running at the same capacity and during our peak time, we were able to horizontally grow. Since we were using our VMs more efficiently with containers, we didn't have to pay extra money at all."</p>
+
+<p>Not only were they saving money, but they were also saving time. "I had a meeting this morning about migrating some applications from one cluster to another," says Josh. "I spent about 2 hours explaining the process. The time I spent actually moving the applications was under 30 seconds! We can move data centers in just incredible amounts of time. If you haven't come from the Kubernetes world you wouldn't believe me." Sheriff puts it in these terms: "Before Kubernetes I wasn't sleeping at night, literally. I was woken up all the time, because things were down. After Kubernetes, I've been sleeping at night."</p>
+
+<p>A small percentage of the applications on GolfNow have been migrated over to the Kubernetes environment. "Our Core Team is rewriting a lot of the .NET applications into <a href="https://www.microsoft.com/net/core">.NET Core</a> [which is compatible with Linux and Docker] so that we can run them within containers," says Sheriff.</p>
+
+<p>Looking ahead, Sheriff and his team want to spend 2017 continuing to build a whole platform around Kubernetes with <a href="https://github.com/drone/drone">Drone</a>, an open-source continuous delivery platform, to make it more developer-centric. "Now they're able to manage configuration, they're able to manage their deployments and things like that, making all these subteams that are now creating all these microservices, be self sufficient," he says. "So it can pull us away from applications and allow us to just make sure the cluster is running and healthy, and then actually migrate that over to our Ops team."</p>
+
+{{< case-studies/quote >}}
+"Having gone from complete newbies to production-ready in three months, the GolfNow team is eager to encourage other companies to follow their lead. 'This is The Six Million Dollar Man of the cloud right now,' adds Josh. 'Just try it out, watch it happen. I feel like the proof is in the pudding when you look at these kinds of application stacks. They're faster, they're more resilient.'"
+{{< /case-studies/quote >}}
+
+<p>And long-term, Sheriff has an even bigger goal for getting more people into the Kubernetes fold. "We're actually trying to make this platform generic enough so that any of our sister companies can use it if they wish," he says. "Most definitely I think it can be used as a model. I think the way we migrated into it, the way we built it out, are all ways that I think other companies can learn from, and should not be afraid of."</p>
+
+<p>The GolfNow team is also giving back to the Kubernetes community by open-sourcing a bot framework that Josh built. "We noticed that the dashboard user interface is actually moving a lot faster than when we started," says Sheriff. "However we realized what we needed was something that's more of a bot that really helps us administer Kubernetes as a whole through Slack." Josh explains: "With the Kubernetes-Slack integration, you can essentially hook into a cluster and the issue commands and edit configurations. We've tried to simplify the security configuration as much as possible. We hope this will be our major thank you to Kubernetes, for everything you've given us."</p>
+
+<p>Having gone from complete newbies to production-ready in three months, the GolfNow team is eager to encourage other companies to follow their lead. The lessons they've learned: "You've got to have buy-in from your boss," says Sheriff. "Another big deal is having two to three people dedicated to this type of endeavor. You can't have people who are half in, half out." And if you don't have buy-in from the get go, proving it out will get you there.</p>
+
+<p>"This is The Six Million Dollar Man of the cloud right now," adds Josh. "Just try it out, watch it happen. I feel like the proof is in the pudding when you look at these kinds of application stacks. They're faster, they're more resilient."</p>

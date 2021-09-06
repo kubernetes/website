@@ -149,19 +149,8 @@ func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
 
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	podValidationOptions := validation.PodValidationOptions{
-		AllowDownwardAPIHugePages:       true,
-		AllowInvalidPodDeletionCost:     false,
-		AllowIndivisibleHugePagesValues: true,
-		AllowWindowsHostProcessField:    true,
-		AllowExpandedDNSConfig:          true,
-	}
-
-	quotaValidationOptions := validation.ResourceQuotaValidationOptions{
-		AllowPodAffinityNamespaceSelector: true,
-	}
-
-	pspValidationOptions := policy_validation.PodSecurityPolicyValidationOptions{
-		AllowEphemeralVolumeType: true,
+		AllowMultipleHugePageResources: true,
+		AllowDownwardAPIHugePages:      true,
 	}
 
 	// Enable CustomPodDNS for testing
@@ -185,23 +174,20 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	case *api.Namespace:
 		errors = validation.ValidateNamespace(t)
 	case *api.PersistentVolume:
-		opts := validation.PersistentVolumeSpecValidationOptions{
-			AllowReadWriteOncePod: true,
-		}
-		errors = validation.ValidatePersistentVolume(t, opts)
+		errors = validation.ValidatePersistentVolume(t)
 	case *api.PersistentVolumeClaim:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		opts := validation.PersistentVolumeClaimSpecValidationOptions{
-			AllowReadWriteOncePod: true,
-		}
-		errors = validation.ValidatePersistentVolumeClaim(t, opts)
+		errors = validation.ValidatePersistentVolumeClaim(t)
 	case *api.Pod:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidatePodCreate(t, podValidationOptions)
+		opts := validation.PodValidationOptions{
+			AllowMultipleHugePageResources: true,
+		}
+		errors = validation.ValidatePodCreate(t, opts)
 	case *api.PodList:
 		for i := range t.Items {
 			errors = append(errors, validateObject(&t.Items[i])...)
@@ -224,7 +210,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateResourceQuota(t, quotaValidationOptions)
+		errors = validation.ValidateResourceQuota(t)
 	case *api.Secret:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -252,7 +238,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = apps_validation.ValidateStatefulSet(t, podValidationOptions)
+		errors = apps_validation.ValidateStatefulSet(t)
 	case *autoscaling.HorizontalPodAutoscaler:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -301,7 +287,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		errors = networking_validation.ValidateIngressClass(t)
 
 	case *policy.PodSecurityPolicy:
-		errors = policy_validation.ValidatePodSecurityPolicy(t, pspValidationOptions)
+		errors = policy_validation.ValidatePodSecurityPolicy(t)
 	case *apps.ReplicaSet:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -476,12 +462,12 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
 		},
 		"application/guestbook": {
-			"frontend-deployment":       {&apps.Deployment{}},
-			"frontend-service":          {&api.Service{}},
-			"redis-follower-deployment": {&apps.Deployment{}},
-			"redis-follower-service":    {&api.Service{}},
-			"redis-leader-deployment":   {&apps.Deployment{}},
-			"redis-leader-service":      {&api.Service{}},
+			"frontend-deployment":     {&apps.Deployment{}},
+			"frontend-service":        {&api.Service{}},
+			"redis-master-deployment": {&apps.Deployment{}},
+			"redis-master-service":    {&api.Service{}},
+			"redis-slave-deployment":  {&apps.Deployment{}},
+			"redis-slave-service":     {&api.Service{}},
 		},
 		"application/hpa": {
 			"php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
@@ -491,10 +477,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-svc":        {&api.Service{}},
 		},
 		"application/job": {
-			"cronjob":         {&batch.CronJob{}},
-			"job-tmpl":        {&batch.Job{}},
-			"indexed-job":     {&batch.Job{}},
-			"indexed-job-vol": {&batch.Job{}},
+			"cronjob":  {&batch.CronJob{}},
+			"job-tmpl": {&batch.Job{}},
 		},
 		"application/job/rabbitmq": {
 			"job": {&batch.Job{}},
@@ -573,8 +557,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"two-container-pod":                   {&api.Pod{}},
 		},
 		"pods/config": {
-			"redis-pod":            {&api.Pod{}},
-			"example-redis-config": {&api.ConfigMap{}},
+			"redis-pod": {&api.Pod{}},
 		},
 		"pods/inject": {
 			"dapi-envars-container":            {&api.Pod{}},
@@ -627,11 +610,10 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis":     {&api.Pod{}},
 		},
 		"policy": {
-			"baseline-psp":                 {&policy.PodSecurityPolicy{}},
-			"example-psp":                  {&policy.PodSecurityPolicy{}},
-			"priority-class-resourcequota": {&api.ResourceQuota{}},
-			"privileged-psp":               {&policy.PodSecurityPolicy{}},
-			"restricted-psp":               {&policy.PodSecurityPolicy{}},
+			"baseline-psp":   {&policy.PodSecurityPolicy{}},
+			"example-psp":    {&policy.PodSecurityPolicy{}},
+			"privileged-psp": {&policy.PodSecurityPolicy{}},
+			"restricted-psp": {&policy.PodSecurityPolicy{}},
 			"zookeeper-pod-disruption-budget-maxunavailable": {&policy.PodDisruptionBudget{}},
 			"zookeeper-pod-disruption-budget-minavailable":   {&policy.PodDisruptionBudget{}},
 		},
@@ -663,7 +645,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"minimal-ingress":                         {&networking.Ingress{}},
 			"name-virtual-host-ingress":               {&networking.Ingress{}},
 			"name-virtual-host-ingress-no-third-host": {&networking.Ingress{}},
-			"namespaced-params":                       {&networking.IngressClass{}},
 			"network-policy-allow-all-egress":         {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-ingress":        {&networking.NetworkPolicy{}},
 			"network-policy-default-deny-egress":      {&networking.NetworkPolicy{}},

@@ -11,7 +11,7 @@ card:
 <!-- overview -->
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
-For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+For information how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
 
 
@@ -240,12 +240,11 @@ Install CNI plugins (required for most pod network):
 
 ```bash
 CNI_VERSION="v0.8.2"
-ARCH="amd64"
 sudo mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
 ```
 
-Define the directory to download command files
+Define the directory to download command files  
 
 {{< note >}}
 The `DOWNLOAD_DIR` variable must be set to a writable directory.
@@ -261,17 +260,15 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 
 ```bash
 CRICTL_VERSION="v1.17.0"
-ARCH="amd64"
-curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
+curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
 Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
-ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
 sudo chmod +x {kubeadm,kubelet,kubectl}
 
 RELEASE_VERSION="v0.4.0"
@@ -298,17 +295,33 @@ See the [Kubeadm Troubleshooting guide](/docs/setup/production-environment/tools
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 
-## Configuring a cgroup driver
+## Configure cgroup driver used by kubelet on control-plane node
 
-Both the container runtime and the kubelet have a property called
-["cgroup driver"](/docs/setup/production-environment/container-runtimes/), which is important
-for the management of cgroups on Linux machines.
+When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
+and set it in the `/var/lib/kubelet/config.yaml` file during runtime.
 
-{{< warning >}}
-Matching the container runtime and kubelet cgroup drivers is required or otherwise the kubelet process will fail.
+If you are using a different CRI, you must pass your `cgroupDriver` value to `kubeadm init`, like so:
 
-See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/) for more details.
-{{< /warning >}}
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: <value>
+```
+
+For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
+and the [`KubeletConfiguration` reference](/docs/reference/config-api/kubelet-config.v1beta1/)
+
+Please mind, that you **only** have to do that if the cgroup driver of your CRI
+is not `cgroupfs`, because that is the default value in the kubelet already.
+
+{{< note >}}
+Since `--cgroup-driver` flag has been deprecated by the kubelet, if you have that in `/var/lib/kubelet/kubeadm-flags.env`
+or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it and use the KubeletConfiguration instead
+(stored in `/var/lib/kubelet/config.yaml` by default).
+{{< /note >}}
+
+The automatic detection of cgroup driver for other container runtimes
+like CRI-O and containerd is work in progress.
 
 ## Troubleshooting
 
@@ -317,3 +330,4 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 ## {{% heading "whatsnext" %}}
 
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+

@@ -1,8 +1,4 @@
 ---
-title: Kubernetes API
+title: API 参考
 weight: 30
 ---
-
-<!-- overview -->
-
-{{< glossary_definition term_id="kubernetes-api" length="all" >}}

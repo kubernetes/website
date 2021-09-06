@@ -34,7 +34,3 @@ resources/
 package-lock.json
 functions/
 node_modules/
-
-# Generated files when building with make container-build
-.config/
-.npm/

@@ -20,8 +20,7 @@ You need to install a
 into each node in the cluster so that Pods can run there. This page outlines
 what is involved and describes related tasks for setting up nodes.
  -->
-你需要在集群内每个节点上安装一个
-{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
+你需要在集群内每个节点上安装一个{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
 以使 Pod 可以运行在上面。本文概述了所涉及的内容并描述了与节点设置相关的任务。
 
 <!-- body -->
@@ -60,8 +59,7 @@ systemd means that there will be two different cgroup managers.
 -->
 控制组用来约束分配给进程的资源。
 
-当某个 Linux 系统发行版使用 [systemd](https://www.freedesktop.org/wiki/Software/systemd/)
-作为其初始化系统时，初始化进程会生成并使用一个 root 控制组 (`cgroup`), 并充当 cgroup 管理器。
+当某个 Linux 系统发行版使用 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) 作为其初始化系统时，初始化进程会生成并使用一个 root 控制组 (`cgroup`), 并充当 cgroup 管理器。
 Systemd 与 cgroup 集成紧密，并将为每个 systemd 单元分配一个 cgroup。
 你也可以配置容器运行时和 kubelet 使用 `cgroupfs`。
 连同 systemd 一起使用 `cgroupfs` 意味着将有两个不同的 cgroup 管理器。
@@ -74,12 +72,9 @@ In the field, people have reported cases where nodes that are configured to use 
 for the kubelet and Docker, but `systemd` for the rest of the processes, become unstable under
 resource pressure.
 -->
-单个 cgroup 管理器将简化分配资源的视图，并且默认情况下将对可用资源和使用
-中的资源具有更一致的视图。
+单个 cgroup 管理器将简化分配资源的视图，并且默认情况下将对可用资源和使用中的资源具有更一致的视图。
 当有两个管理器共存于一个系统中时，最终将对这些资源产生两种视图。
-在此领域人们已经报告过一些案例，某些节点配置让 kubelet 和 docker 使用
-`cgroupfs`，而节点上运行的其余进程则使用 systemd; 这类节点在资源压力下
-会变得不稳定。
+在此领域人们已经报告过一些案例，某些节点配置让 kubelet 和 docker 使用 `cgroupfs`，而节点上运行的其余进程则使用 systemd; 这类节点在资源压力下会变得不稳定。
 
 <!--
 Changing the settings such that your container runtime and kubelet use `systemd` as the cgroup driver
@@ -90,7 +85,7 @@ stabilized the system. To configure this for Docker, set `native.cgroupdriver=sy
 
 <!--
 {{< caution >}}
-Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation. 
+Changing the cgroup driver of a Node that has joined a cluster is strongly *not* recommended.  
 If the kubelet has created Pods using the semantics of one cgroup driver, changing the container
 runtime to another cgroup driver can cause errors when trying to re-create the Pod sandbox
 for such existing Pods. Restarting the kubelet may not solve such errors.
@@ -99,82 +94,9 @@ If you have automation that makes it feasible, replace the node with another usi
 configuration, or reinstall it using automation.
 {{< /caution >}}
 -->
-注意：更改已加入集群的节点的 cgroup 驱动是一项敏感的操作。
-如果 kubelet 已经使用某 cgroup 驱动的语义创建了 pod，更改运行时以使用
-别的 cgroup 驱动，当为现有 Pods 重新创建 PodSandbox 时会产生错误。
-重启 kubelet 也可能无法解决此类问题。
-如果你有切实可行的自动化方案，使用其他已更新配置的节点来替换该节点，
-或者使用自动化方案来重新安装。
-
-<!--
-## Cgroup v2
-
-Cgroup v2 is the next version of the cgroup Linux API.  Differently than cgroup v1, there is a single
-hierarchy instead of a different one for each controller.
--->
-## Cgroup v2
-Cgroup v2 是 cgroup Linux API 的下一个版本。与 cgroup v1 不同的是，
-Cgroup v2 只有一个层次结构，而不是每个控制器有一个不同的层次结构。
-
-<!--
-The new version offers several improvements over cgroup v1, some of these improvements are:
-
-- cleaner and easier to use API
-- safe sub-tree delegation to containers
-- newer features like Pressure Stall Information
--->
-新版本对 cgroup v1 进行了多项改进，其中一些改进是：
-
-- 更简洁、更易于使用的 API
-- 可将安全子树委派给容器
-- 更新的功能，如压力失速信息（Pressure Stall Information）
-
-<!--
-Even if the kernel supports a hybrid configuration where some controllers are managed by cgroup v1
-and some others by cgroup v2, Kubernetes supports only the same cgroup version to manage all the
-controllers.
-
-If systemd doesn't use cgroup v2 by default, you can configure the system to use it by adding
-`systemd.unified_cgroup_hierarchy=1` to the kernel command line.
--->
-尽管内核支持混合配置，即其中一些控制器由 cgroup v1 管理，另一些由 cgroup v2 管理，
-Kubernetes 仅支持使用同一 cgroup 版本来管理所有控制器。
-
-如果 systemd 默认不使用 cgroup v2，你可以通过在内核命令行中添加 
-`systemd.unified_cgroup_hierarchy=1` 来配置系统去使用它。
-
-```shell
-# dnf install -y grubby && \
-  sudo grubby \
-  --update-kernel=ALL \
-  --args=”systemd.unified_cgroup_hierarchy=1"
-```
-
-<!--
-To apply the configuration, it is necessary to reboot the node.
-
-There should not be any noticeable difference in the user experience when switching to cgroup v2, unless
-users are accessing the cgroup file system directly, either on the node or from within the containers.
-
-In order to use it, cgroup v2 must be supported by the CRI runtime as well.
--->
-要应用配置，必须重新启动节点。
-
-切换到 cgroup v2 时，用户体验不应有任何明显差异，
-除非用户直接在节点上或在容器内访问 cgroup 文件系统。
-为了使用它，CRI 运行时也必须支持 cgroup v2。
-
-<!-- 
-### Migrating to the `systemd` driver in kubeadm managed clusters
--->
-### 将 kubeadm 托管的集群迁移到 `systemd` 驱动
-
-<!-- 
-Follow this [Migration guide](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
-if you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters.
--->
-如果你想迁移到现有 kubeadm 托管集群中的 `systemd` cgroup 驱动程序，
-遵循此[迁移指南](/zh/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)。
+注意：非常 *不* 建议更改已加入集群的节点的 cgroup 驱动。
+如果 kubelet 已经使用某 cgroup 驱动的语义创建了 pod，更改运行时以使用别的 cgroup 驱动，当为现有 Pods 重新创建 PodSandbox 时会产生错误。重启 kubelet 也可能无法解决此类问题。
+如果你有切实可行的自动化方案，使用其他已更新配置的节点来替换该节点，或者使用自动化方案来重新安装。
 
 <!-- 
 ## Container runtimes
@@ -191,10 +113,30 @@ This section contains the necessary steps to use containerd as CRI runtime.
 Use the following commands to install Containerd on your system:
 
 Install and configure prerequisites:
+
+```shell
+cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# Setup required sysctl params, these persist across reboots.
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+```
 -->
 本节包含使用 containerd 作为 CRI 运行时的必要步骤。
 
-使用以下命令在系统上安装 Containerd：
+使用以下命令在系统上安装容器：
 
 安装和配置的先决条件：
 
@@ -227,15 +169,9 @@ Install containerd:
 {{% tab name="Linux" %}}
 
 <!--
-1. Install the `containerd.io` package from the official Docker repositories.
-   Instructions for setting up the Docker repository for your respective Linux distribution and
-   installing the `containerd.io` package can be found at
-   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
+1. Install the `containerd.io` package from the official Docker repositories. Instructions for setting up the Docker repository for your respective Linux distribution and installing the `containerd.io` package can be found at [Install Docker Engine](https://docs.docker.com/engine/install/#server).
 -->
-1. 从官方Docker仓库安装 `containerd.io` 软件包。可以在
-   [安装 Docker 引擎](https://docs.docker.com/engine/install/#server)
-   中找到有关为各自的 Linux 发行版设置 Docker 存储库和安装 `containerd.io`
-   软件包的说明。
+1. 从官方Docker仓库安装 `containerd.io` 软件包。可以在 [安装 Docker 引擎](https://docs.docker.com/engine/install/#server) 中找到有关为各自的 Linux 发行版设置 Docker 存储库和安装 `containerd.io` 软件包的说明。
 
 <!--
 2. Configure containerd:
@@ -258,13 +194,10 @@ Install containerd:
 
 {{% /tab %}}
 {{% tab name="Windows (PowerShell)" %}}
-
 <!--
-Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`),
-and then run the following commands:
+Start a Powershell session, set `$Version` to the desired version (ex: `$Version=1.4.3`), and then run the following commands:
 -->
-启动 Powershell 会话，将 `$Version` 设置为所需的版本（例如：`$Version=1.4.3`），
-然后运行以下命令：
+启动 Powershell 会话，将 `$Version` 设置为所需的版本（例如：`$ Version=1.4.3`），然后运行以下命令：
 
 <!--
 1. Download containerd:
@@ -285,17 +218,18 @@ and then run the following commands:
    cd $Env:ProgramFiles\containerd\
    .\containerd.exe config default | Out-File config.toml -Encoding ascii
 
-   # 检查配置。根据你的配置，可能需要调整：
-   # - sandbox_image (Kubernetes pause 镜像)
-   # - cni bin_dir 和 conf_dir 位置
+   # Review the configuration. Depending on setup you may want to adjust:
+   # - the sandbox_image (Kubernetes pause image)
+   # - cni bin_dir and conf_dir locations
    Get-Content config.toml
 
-   # (可选 - 不过强烈建议) 禁止 Windows Defender 扫描 containerd
+   # (Optional - but highly recommended) Exclude containerd from Windows Defender Scans
    Add-MpPreference -ExclusionProcess "$Env:ProgramFiles\containerd\containerd.exe"
    ```
 <!--
 3. Start containerd:
 -->
+
 3. 启动 containerd:
 
    ```powershell
@@ -314,7 +248,15 @@ and then run the following commands:
 
 <!-- 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
+
+```
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  ...
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
+```
 -->
+
 结合 `runc` 使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置 
 
 ```
@@ -338,7 +280,7 @@ When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 -->
 当使用 kubeadm 时，请手动配置
-[kubelet 的 cgroup 驱动](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
+[kubelet 的 cgroup 驱动](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node).
 
 ### CRI-O
 
@@ -346,29 +288,17 @@ When using kubeadm, manually configure the
 This section contains the necessary steps to install CRI-O as a container runtime.
 
 Use the following commands to install CRI-O on your system:
--->
-本节包含安装 CRI-O 作为容器运行时的必要步骤。
-
-使用以下命令在系统中安装 CRI-O：
 
 {{< note >}}
-<!--
 The CRI-O major and minor versions must match the Kubernetes major and minor versions.
 For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o#compatibility-matrix-cri-o--kubernetes).
--->
-CRI-O 的主要以及次要版本必须与 Kubernetes 的主要和次要版本相匹配。
-更多信息请查阅
-[CRI-O 兼容性列表](https://github.com/cri-o/cri-o#compatibility-matrix-cri-o--kubernetes)。
 {{< /note >}}
 
-<!--
 Install and configure prerequisites:
--->
-安装并配置前置环境：
 
 ```shell
 
-# 创建 .conf 文件以在启动时加载模块
+# Create the .conf file to load the modules at bootup
 cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
 overlay
 br_netfilter
@@ -377,7 +307,37 @@ EOF
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
-# 配置 sysctl 参数，这些配置在重启之后仍然起作用
+# Set up required sysctl params, these persist across reboots.
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
+
+sudo sysctl --system
+```
+-->
+本节包含安装 CRI-O 作为容器运行时的必要步骤。
+
+使用以下命令在系统中安装 CRI-O：
+
+提示：CRI-O 的主要以及次要版本必须与 Kubernetes 的主要和次要版本相匹配。
+更多信息请查阅 [CRI-O 兼容性列表](https://github.com/cri-o/cri-o#compatibility-matrix-cri-o--kubernetes)。
+
+安装以及配置的先决条件：
+
+```shell
+
+# 创建 .conf 文件，以便在系统启动时加载内核模块
+cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# 设置必需的 sysctl 参数，这些参数在重新启动后仍然存在。
 cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
@@ -407,7 +367,7 @@ To install version 1.20.0, set `VERSION=1.20:1.20.0`.
 <br />
 
 Then run
--->
+ -->
 在下列操作系统上安装 CRI-O, 使用下表中合适的值设置环境变量 `OS`:
 
 | 操作系统          | `$OS`             |
@@ -423,7 +383,6 @@ Then run
 <br />
 
 然后执行
-
 ```shell
 cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /
@@ -444,8 +403,7 @@ sudo apt-get install cri-o cri-o-runc
 {{% tab name="Ubuntu" %}}
 
 <!-- 
-To install on the following operating systems, set the environment variable `OS`
-to the appropriate field in the following table:
+To install on the following operating systems, set the environment variable `OS` to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
 | ---------------- | ----------------- |
@@ -501,8 +459,7 @@ sudo apt-get install cri-o cri-o-runc
 {{% tab name="CentOS" %}}
 
 <!-- 
-To install on the following operating systems, set the environment variable `OS`
-to the appropriate field in the following table:
+To install on the following operating systems, set the environment variable `OS` to the appropriate field in the following table:
 
 | Operating system | `$OS`             |
 | ---------------- | ----------------- |
@@ -563,6 +520,10 @@ sudo dnf module list cri-o
 CRI-O does not support pinning to specific releases on Fedora.
 
 Then run
+```shell
+sudo dnf module enable cri-o:$VERSION
+sudo dnf install cri-o
+```
 -->
 将 `$VERSION` 设置为与你的 Kubernetes 相匹配的 CRI-O 版本。
 例如，如果要安装 CRI-O 1.20，请设置 `VERSION=1.20`。
@@ -571,11 +532,9 @@ Then run
 ```shell
 sudo dnf module list cri-o
 ```
-
 CRI-O 不支持在 Fedora 上固定到特定的版本。
 
 然后执行
-
 ```shell
 sudo dnf module enable cri-o:$VERSION
 sudo dnf install cri-o --now
@@ -586,32 +545,24 @@ sudo dnf install cri-o --now
 
 <!-- 
 Start CRI-O:
--->
-启动 CRI-O：
 
 ```shell
 sudo systemctl daemon-reload
-sudo systemctl enable crio --now
+sudo systemctl enable crio --no
 ```
 
-<!--
 Refer to the [CRI-O installation guide](https://github.com/cri-o/cri-o/blob/master/install.md)
 for more information.
  -->
-参阅[CRI-O 安装指南](https://github.com/cri-o/cri-o/blob/master/install.md)
-了解进一步的详细信息。
-
-<!--
 #### cgroup driver
-
+<!-- 
 CRI-O uses the systemd cgroup driver per default. To switch to the `cgroupfs`
 cgroup driver, either edit `/etc/crio/crio.conf` or place a drop-in
 configuration in `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example:
--->
-#### cgroup 驱动
-
-默认情况下，CRI-O 使用 systemd cgroup 驱动程序。要切换到 `cgroupfs`
-驱动程序，或者编辑 `/ etc / crio / crio.conf` 或放置一个插件
+ -->
+默认情况下，CRI-O 使用 systemd cgroup 驱动程序。切换到`
+`cgroupfs`
+cgroup 驱动程序，或者编辑 `/ etc / crio / crio.conf` 或放置一个插件
 在 `/etc/crio/crio.conf.d/02-cgroup-manager.conf` 中的配置，例如：
 
 ```toml
@@ -619,34 +570,27 @@ configuration in `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example:
 conmon_cgroup = "pod"
 cgroup_manager = "cgroupfs"
 ```
-
 <!-- 
 Please also note the changed `conmon_cgroup`, which has to be set to the value
 `pod` when using CRI-O with `cgroupfs`. It is generally necessary to keep the
 cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
 in sync.
  -->
-另请注意更改后的 `conmon_cgroup`，将 CRI-O 与 `cgroupfs` 一起使用时，
-必须将其设置为 `pod`。通常有必要保持 kubelet 的 cgroup 驱动程序配置
-（通常透过 kubeadm 完成）和 CRI-O 一致。
+另请注意更改后的 `conmon_cgroup` ，必须将其设置为
+`pod`将 CRI-O 与 `cgroupfs` 一起使用时。通常有必要保持
+kubelet 的 cgroup 驱动程序配置（通常透过 kubeadm 完成）和CRI-O 同步中。
 
 ### Docker
-
 <!--
-1. On each of your nodes, install the Docker for your Linux distribution as per
-   [Install Docker Engine](https://docs.docker.com/engine/install/#server).
-   You can find the latest validated version of Docker in this
-   [dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
+1. On each of your nodes, install the Docker for your Linux distribution as per [Install Docker Engine](https://docs.docker.com/engine/install/#server). You can find the latest validated version of Docker in this [dependencies](https://git.k8s.io/kubernetes/build/dependencies.yaml) file.
  -->
-1. 在每个节点上，根据[安装 Docker 引擎](https://docs.docker.com/engine/install/#server)
-   为你的 Linux 发行版安装 Docker。
-   你可以在此文件中找到最新的经过验证的 Docker 版本
-   [依赖关系](https://git.k8s.io/kubernetes/build/dependencies.yaml)。
+1. 在每个节点上，根据[安装 Docker 引擎](https://docs.docker.com/engine/install/#server) 为你的 Linux 发行版安装 Docker。
+   你可以在此文件中找到最新的经过验证的 Docker 版本[依赖关系](https://git.k8s.io/kubernetes/build/dependencies.yaml)。
 
 <!--
 2. Configure the Docker daemon, in particular to use systemd for the management of the container’s cgroups.
  -->
-2. 配置 Docker 守护程序，尤其是使用 systemd 来管理容器的 cgroup。
+2. 配置 Docker 守护程序，尤其是使用 systemd 来管理容器的cgroup。
 
    ```shell
    sudo mkdir /etc/docker
@@ -664,18 +608,15 @@ in sync.
 
    {{< note >}}
    <!--
-   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher,
-   or RHEL or CentOS using version 3.10.0-514 and above.
-   -->
-   对于运行 Linux 内核版本 4.0 或更高版本，或使用 3.10.0-51 及更高版本的 RHEL
-   或 CentOS 的系统，`overlay2`是首选的存储驱动程序。
+   `overlay2` is the preferred storage driver for systems running Linux kernel version 4.0 or higher, or RHEL or CentOS using version 3.10.0-514 and above.
+    -->
+   
+   对于运行 Linux 内核版本 4.0 或更高版本，或使用 3.10.0-51 及更高版本的 RHEL 或 CentOS 的系统，`overlay2`是首选的存储驱动程序。
    {{< /note >}}
-
 <!--
 3. Restart Docker and enable on boot:
 -->
 3. 重新启动 Docker 并在启动时启用：
-
    ```shell
    sudo systemctl enable docker
    sudo systemctl daemon-reload
@@ -688,9 +629,9 @@ For more information refer to
   - [Configure the Docker daemon](https://docs.docker.com/config/daemon/)
   - [Control Docker with systemd](https://docs.docker.com/config/daemon/systemd/)
 -->
-有关更多信息，请参阅
-
-- [配置 Docker 守护程序](https://docs.docker.com/config/daemon/)
-- [使用 systemd 控制 Docker](https://docs.docker.com/config/daemon/systemd/)
 {{< /note >}}
 
+
+有关更多信息，请参阅
+  - [配置 Docker 守护程序](https://docs.docker.com/config/daemon/)
+  - [使用 systemd 控制 Docker](https://docs.docker.com/config/daemon/systemd/)

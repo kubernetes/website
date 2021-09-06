@@ -167,8 +167,8 @@ The output is similar to this:
 Name:           build-robot-secret
 Namespace:      default
 Labels:         <none>
-Annotations:    kubernetes.io/service-account.name: build-robot
-                kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800da
+Annotations:    kubernetes.io/service-account.name=build-robot
+                kubernetes.io/service-account.uid=da68f9c6-9d26-11e7-b84e-002dc52800da
 
 Type:   kubernetes.io/service-account-token
 
@@ -323,10 +323,11 @@ The application is responsible for reloading the token when it rotates. Periodic
 
 ## Service Account Issuer Discovery
 
-{{< feature-state for_k8s_version="v1.21" state="stable" >}}
+{{< feature-state for_k8s_version="v1.20" state="beta" >}}
 
-The Service Account Issuer Discovery feature is enabled when the Service Account
-Token Projection feature is enabled, as described
+The Service Account Issuer Discovery feature is enabled by enabling the
+`ServiceAccountIssuerDiscovery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates)
+and then enabling the Service Account Token Projection feature as described
 [above](#service-account-token-volume-projection).
 
 {{< note >}}
@@ -348,12 +349,9 @@ Configuration document at `/.well-known/openid-configuration` and the associated
 JSON Web Key Set (JWKS) at `/openid/v1/jwks`. The OpenID Provider Configuration
 is sometimes referred to as the _discovery document_.
 
-Clusters include a default RBAC ClusterRole called
-`system:service-account-issuer-discovery`. A default RBAC ClusterRoleBinding
-assigns this role to the `system:serviceaccounts` group, which all service
-accounts implicitly belong to. This allows pods running on the cluster to access
-the service account discovery document via their mounted service account token.
-Administrators may, additionally, choose to bind the role to
+When enabled, the cluster is also configured with a default RBAC ClusterRole
+called `system:service-account-issuer-discovery`. No role bindings are provided
+by default. Administrators may, for example, choose whether to bind the role to
 `system:authenticated` or `system:unauthenticated` depending on their security
 requirements and which external systems they intend to federate with.
 
@@ -383,5 +381,5 @@ JWKS URI is required to use the `https` scheme.
 See also:
 
 - [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
-- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
+- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
 - [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)

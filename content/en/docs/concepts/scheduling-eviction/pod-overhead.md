@@ -5,7 +5,7 @@ reviewers:
 - tallclair
 title: Pod Overhead
 content_type: concept
-weight: 30
+weight: 50
 ---
 
 <!-- overview -->

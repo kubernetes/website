@@ -72,7 +72,7 @@ A Service in Kubernetes is a REST object, similar to a Pod.  Like all of the
 REST objects, you can `POST` a Service definition to the API server to create
 a new instance.
 The name of a Service object must be a valid
-[RFC 1035 label name](/docs/concepts/overview/working-with-objects/names#rfc-1035-label-names).
+[DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 For example, suppose you have a set of Pods where each listens on TCP port 9376
 and contains a label `app=MyApp`:
@@ -187,15 +187,9 @@ An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
-### Over Capacity Endpoints
-If an Endpoints resource has more than 1000 endpoints then a Kubernetes v1.22 (or later)
-cluster annotates that Endpoints with `endpoints.kubernetes.io/over-capacity: truncated`.
-This annotation indicates that the affected Endpoints object is over capacity and that
-the endpoints controller has truncated the number of endpoints to 1000.
-
 ### EndpointSlices
 
-{{< feature-state for_k8s_version="v1.21" state="stable" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 EndpointSlices are an API resource that can provide a more scalable alternative
 to Endpoints. Although conceptually quite similar to Endpoints, EndpointSlices
@@ -216,7 +210,7 @@ each Service port. The value of this field is mirrored by the corresponding
 Endpoints and EndpointSlice objects.
 
 This field follows standard Kubernetes label syntax. Values should either be
-[IANA standard service names](https://www.iana.org/assignments/service-names) or
+[IANA standard service names](http://www.iana.org/assignments/service-names) or
 domain prefixed names such as `mycompany.com/my-custom-protocol`.
 
 ## Virtual IPs and service proxies
@@ -385,40 +379,6 @@ The IP address that you choose must be a valid IPv4 or IPv6 address from within 
 If you try to create a Service with an invalid clusterIP address value, the API
 server will return a 422 HTTP status code to indicate that there's a problem.
 
-## Traffic policies
-
-### External traffic policy
-
-You can set the `spec.externalTrafficPolicy` field to control how traffic from external sources is routed.
-Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route external traffic to all ready endpoints
-and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are are no node-local
-endpoints, the kube-proxy does not forward any traffic for the relevant Service.
-
-{{< note >}}
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
-If you enable the `ProxyTerminatingEndpoints`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`ProxyTerminatingEndpoints` for the kube-proxy, the kube-proxy checks if the node
-has local endpoints and whether or not all the local endpoints are marked as terminating.
-If there are local endpoints and **all** of those are terminating, then the kube-proxy ignores
-any external traffic policy of `Local`. Instead, whilst the node-local endpoints remain as all
-terminating, the kube-proxy forwards traffic for that Service to healthy endpoints elsewhere,
-as if the external traffic policy were set to `Cluster`.
-This forwarding behavior for terminating endpoints exists to allow external load balancers to
-gracefully drain connections that are backed by `NodePort` Services, even when the health check
-node port starts to fail. Otherwise, traffic can be lost between the time a node is still in the node pool of a load
-balancer and traffic is being dropped during the termination period of a pod.
-{{< /note >}}
-
-### Internal traffic policy
-
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
-
-You can set the `spec.internalTrafficPolicy` field to control how traffic from internal sources is routed.
-Valid values are `Cluster` and `Local`. Set the field to `Cluster` to route internal traffic to all ready endpoints
-and `Local` to only route to ready node-local endpoints. If the traffic policy is `Local` and there are no node-local
-endpoints, traffic is dropped by kube-proxy.
-
 ## Discovering services
 
 Kubernetes supports 2 primary modes of finding a Service - environment
@@ -429,7 +389,7 @@ variables and DNS.
 When a Pod is run on a Node, the kubelet adds a set of environment variables
 for each active Service.  It supports both [Docker links
 compatible](https://docs.docker.com/userguide/dockerlinks/) variables (see
-[makeLinkVariables](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/kubelet/envvars/envvars.go#L49))
+[makeLinkVariables](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49))
 and simpler `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
 where the Service name is upper-cased and dashes are converted to underscores.
 
@@ -674,24 +634,6 @@ is `true` and type LoadBalancer Services will continue to allocate node ports. I
 is set to `false` on an existing Service with allocated node ports, those node ports will NOT be de-allocated automatically.
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
 You must enable the `ServiceLBNodePortControl` feature gate to use this field.
-
-#### Specifying class of load balancer implementation {#load-balancer-class}
-
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
-
-`spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default. This feature is available from v1.21, you must enable the `ServiceLoadBalancerClass` feature gate to use this field in v1.21, and the feature gate is enabled by default from v1.22 onwards.
-By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
-the cloud provider's default load balancer implementation if the cluster is configured with
-a cloud provider using the `--cloud-provider` component flag. 
-If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
-implementation that matches the specified class is watching for Services.
-Any default load balancer implementation (for example, the one provided by
-the cloud provider) will ignore Services that have this field set.
-`spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
-Once set, it cannot be changed. 
-The value of `spec.loadBalancerClass` must be a label-style identifier,
-with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
-Unprefixed names are reserved for end-users.
 
 #### Internal load balancer
 
@@ -970,18 +912,11 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # value. Defaults to 5, must be between 2 and 60
 
         service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
-        # A list of existing security groups to be configured on the ELB created. Unlike the annotation
-        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other security groups previously assigned to the ELB and also overrides the creation 
-        # of a uniquely generated security group for this ELB.
-        # The first security group ID on this list is used as a source to permit incoming traffic to target worker nodes (service traffic and health checks).
-        # If multiple ELBs are configured with the same security group ID, only a single permit line will be added to the worker node security groups, that means if you delete any
-        # of those ELBs it will remove the single permit line and block access for all ELBs that shared the same security group ID.
-        # This can cause a cross-service outage if not used properly
+        # A list of existing security groups to be added to ELB created. Unlike the annotation
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other security groups previously assigned to the ELB.
 
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-        #  A list of additional security groups to be added to the created ELB, this leaves the uniquely generated security group in place, this ensures that every ELB
-        # has a unique security group ID and a matching permit line to allow traffic to the target worker nodes (service traffic and health checks).
-        # Security groups defined here can be shared between services. 
+        # A list of additional security groups to be added to the ELB
 
         service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
         # A comma separated list of key-value pairs which are used
@@ -1030,6 +965,7 @@ groups are modified with the following IP rules:
 | Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
 |------|----------|---------|------------|---------------------|
 | Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+
 | Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
 | MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 

@@ -2,10 +2,8 @@
 reviewers:
 - zparnold
 title: Overview of Cloud Native Security
-description: >
-  A model for thinking about Kubernetes security in the context of Cloud Native security.
 content_type: concept
-weight: 1
+weight: 10
 ---
 
 <!-- overview -->

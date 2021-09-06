@@ -49,7 +49,7 @@ should range from highly restricted to highly flexible:
 
 - **_Privileged_** - Unrestricted policy, providing the widest possible level of permissions. This
   policy allows for known privilege escalations.
-- **_Baseline_** - Minimally restrictive policy while preventing known privilege
+- **_Baseline/Default_** - Minimally restrictive policy while preventing known privilege
   escalations. Allows the default (minimally specified) Pod configuration.
 - **_Restricted_** - Heavily restricted policy, following current Pod hardening best practices.
 -->
@@ -60,7 +60,7 @@ should range from highly restricted to highly flexible:
 
 - **_Privileged_** - 不受限制的策略，提供最大可能范围的权限许可。这些策略
   允许已知的特权提升。
-- **_Baseline_** - 限制性最弱的策略，禁止已知的策略提升。
+- **_Baseline/Default_** - 限制性最弱的策略，禁止已知的策略提升。
   允许使用默认的（规定最少）Pod 配置。
 - **_Restricted_** - 限制性非常强的策略，遵循当前的保护 Pod 的最佳实践。
 
@@ -90,15 +90,15 @@ Privileged 框架可能意味着不应用任何约束而不是实施某策略实
 与此不同，对于默认拒绝（Deny-by-default）实施机制（如 Pod 安全策略）而言，
 Privileged 策略应该默认允许所有控制（即，禁止所有限制）。
 
-### Baseline
+### Baseline/Default
 
 <!--
-The Baseline policy is aimed at ease of adoption for common containerized workloads while
+The Baseline/Default policy is aimed at ease of adoption for common containerized workloads while
 preventing known privilege escalations. This policy is targeted at application operators and
 developers of non-critical applications. The following listed controls should be
 enforced/disallowed:
 -->
-Baseline 策略的目标是便于常见的容器化应用采用，同时禁止已知的特权提升。
+Baseline/Default 策略的目标是便于常见的容器化应用采用，同时禁止已知的特权提升。
 此策略针对的是应用运维人员和非关键性应用的开发人员。
 下面列举的控制应该被实施（禁止）：
 
@@ -201,66 +201,39 @@ Baseline 策略的目标是便于常见的容器化应用采用，同时禁止�
 			</td>
 		</tr>
 		<tr>
-			<!-- <td>AppArmor <em>(optional)</em></td> -->
-			<td>AppArmor</td>
+			<!-- td>AppArmor <em>(optional)</em></td -->
+			<td>AppArmor <em>（可选）</em></td>
 			<!-- td>
-				On supported hosts, the 'runtime/default' AppArmor profile is applied by default.
-				The baseline policy should prevent overriding or disabling the default AppArmor
-				profile, or restrict overrides to an allowed set of profiles.<br>
+				On supported hosts, the 'runtime/default' AppArmor profile is applied by default. The default policy should prevent overriding or disabling the policy, or restrict overrides to an allowed set of profiles.<br>
 				<br><b>限制的字段：</b><br>
 				metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']<br>
 				<br><b>Allowed Values:</b> 'runtime/default', undefined<br>
 			</td -->
 			<td>
-				在被支持的主机上，默认使用 'runtime/default' AppArmor Profile。
-				基线策略应避免覆盖或者禁用默认策略，以及限制覆盖一些 profile 集合的权限。<br>
+				在受支持的宿主上，默认应用 'runtime/default' AppArmor Profile。默认策略应禁止重载或者禁用该策略，或将重载限定未所允许的 profile 集合。<br>
 				<br><b>限制的字段：</b><br>
 				metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']<br>
 				<br><b>允许的值：</b> 'runtime/default'、未定义<br>
 			</td>
 		</tr>
 		<tr>
-			<!-- <td>SELinux</td> -->
-			<td>SELinux</td>
+			<!-- td>SELinux <em>(optional)</em></td -->
+			<td>SELinux <em>（可选）</em></td>
 			<!-- td>
-				Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.<br>
+				Setting custom SELinux options should be disallowed.<br>
 				<br><b>Restricted Fields:</b><br>
-				spec.securityContext.seLinuxOptions.type<br>
-				spec.containers[*].securityContext.seLinuxOptions.type<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.type<br>
-				<br><b>Allowed Values:</b><br>
-				undefined/empty<br>
-				container_t<br>
-				container_init_t<br>
-				container_kvm_t<br>
-				<br><b>Restricted Fields:</b><br>
-				spec.securityContext.seLinuxOptions.user<br>
-				spec.containers[*].securityContext.seLinuxOptions.user<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.user<br>
-				spec.securityContext.seLinuxOptions.role<br>
-				spec.containers[*].securityContext.seLinuxOptions.role<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.role<br>
-				<br><b>Allowed Values:</b> undefined/empty<br>
+				spec.securityContext.seLinuxOptions<br>
+				spec.containers[*].securityContext.seLinuxOptions<br>
+				spec.initContainers[*].securityContext.seLinuxOptions<br>
+				<br><b>Allowed Values:</b> undefined/nil<br>
 			</td -->
 			<td>
-				设置 SELinux 类型的操作是被限制的，设置自定义的 SELinux 用户或角色选项是被禁止的。<br>
+				应禁止设置定制的 SELinux 选项。<br>
 				<br><b>限制的字段：</b><br>
-				spec.securityContext.seLinuxOptions.type<br>
-				spec.containers[*].securityContext.seLinuxOptions.type<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.type<br>
-				<br><b>允许的值：</b><br>
-				未定义/空<br>
-				container_t<br>
-				container_init_t<br>
-				container_kvm_t<br>
-				<br><b>被限制的字段：</b><br>
-				spec.securityContext.seLinuxOptions.user<br>
-				spec.containers[*].securityContext.seLinuxOptions.user<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.user<br>
-				spec.securityContext.seLinuxOptions.role<br>
-				spec.containers[*].securityContext.seLinuxOptions.role<br>
-				spec.initContainers[*].securityContext.seLinuxOptions.role<br>
-				<br><b>允许的值：</b> 未定义或空<br>
+				spec.securityContext.seLinuxOptions<br>
+				spec.containers[*].securityContext.seLinuxOptions<br>
+				spec.initContainers[*].securityContext.seLinuxOptions<br>
+				<br><b>允许的值：</b> undefined/nil<br>
 			</td>
 		</tr>
 		<tr>
@@ -333,8 +306,8 @@ Restricted 策略旨在实施当前保护 Pod 的最佳实践，尽管这样作�
 			<td><strong>策略（Policy）</strong></td>
 		</tr>
 		<tr>
-			<!-- <td colspan="2"><em>Everything from the baseline profile.</em></td> -->
-			<td colspan="2"><em>基线策略的所有要求。</em></td>
+			<!-- td colspan="2"><em>Everything from the default profile.</em></td -->
+			<td colspan="2"><em>Default 策略的所有要求。</em></td>
 		</tr>
 		<tr>
 			<!-- td>Volume Types</td -->
@@ -452,11 +425,11 @@ of individual policies are not defined here.
 <!--
 ## FAQ
 
-### Why isn't there a profile between privileged and baseline?
+### Why isn't there a profile between privileged and default?
 -->
 ## 常见问题    {#faq}
 
-### 为什么不存在介于 Privileged 和 Baseline 之间的策略类型
+### 为什么策略类型定义在 Privileged 和 Default 之间
 
 <!--
 The three profiles defined here have a clear linear progression from most secure (restricted) to least
@@ -544,3 +517,4 @@ sandboxing. As such, no single recommended policy is recommended for all sandbox
 
 此外，沙箱化负载的保护高度依赖于沙箱化的实现方法。
 因此，现在还没有针对所有沙箱化负载的建议策略。
+

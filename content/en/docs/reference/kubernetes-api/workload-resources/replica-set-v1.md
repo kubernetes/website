@@ -6,20 +6,8 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicaSet ensures that a specified number of pod replicas are running at any given time."
 title: "ReplicaSet"
-weight: 4
-auto_generated: true
+weight: 6
 ---
-
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
 
 `apiVersion: apps/v1`
 
@@ -581,8 +569,6 @@ PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}
 
 200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): Created
-
 401: Unauthorized
 
 
@@ -635,8 +621,6 @@ PATCH /apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status
 
 
 200 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): OK
-
-201 (<a href="{{< ref "../workload-resources/replica-set-v1#ReplicaSet" >}}">ReplicaSet</a>): Created
 
 401: Unauthorized
 

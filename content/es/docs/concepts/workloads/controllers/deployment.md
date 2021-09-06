@@ -84,14 +84,16 @@ Esto es útil para futuras introspecciones, por ejemplo para comprobar qué coma
 A continuación, ejecuta el comando `kubectl get deployments`. La salida debe ser parecida a la siguiente:
 
 ```shell
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE 
-nginx-deployment   3/3     3            3           1s  
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3         0         0            0           1s
 ```
 
 Cuando inspeccionas los Deployments de tu clúster, se muestran los siguientes campos:
 
 * `NAME` enumera los nombre de los Deployments del clúster.
-* `READY` muestra cuántas réplicas de la aplicación están disponibles para sus usuarios. Sigue el patrón número de réplicas `listas/deseadas`.
+* `DESIRED` muestra el número deseado de _réplicas_ de la aplicación, que se define
+   cuando se crea el Deployment. Esto se conoce como el _estado deseado_.
+* `CURRENT` muestra cuántas réplicas se están ejecutando actualment.
 * `UP-TO-DATE` muestra el número de réplicas que se ha actualizado para alcanzar el estado deseado.
 * `AVAILABLE` muestra cuántas réplicas de la aplicación están disponibles para los usuarios.
 * `AGE` muestra la cantidad de tiempo que la aplicación lleva ejecutándose.
@@ -103,20 +105,6 @@ Nótese cómo los valores de cada campo corresponden a los valores de la especif
 * El número de réplicas actualizadas es 0 de acuerdo con el campo `.status.updatedReplicas`.
 * El número de réplicas disponibles es 0 de acuerdo con el campo `.status.availableReplicas`.
 
-Si deseamos obtener más información del Deployment utilice el parámetro '-o wide', ejecutando el comando 'kubectl get deployments -o wide'. La salida será parecida a la siguiente:
-
-```shell
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
-nginx-deployment   3/3     3            3           10s   nginx        nginx:1.7.9   app=nginx
-```
-
-Ejecutando el comando anterior se muestran los siguientes campos adicionales:
-
-* `CONTAINERS` muestra los nombres de los contenedores declarados en `.spec.template.spec.containers.[name]`.
-* `IMAGES` muestra los nombres de las imágenes declaradas en `.spec.template.spec.containers.[image]`.
-* 'SELECTOR' muestra el Label selector que se declaró en matchLabels o matchExpressions.
-
-
 Para ver el estado del Deployment, ejecuta el comando `kubectl rollout status deployment.v1.apps/nginx-deployment`. Este comando devuelve el siguiente resultado:
 
 ```shell
@@ -127,8 +115,8 @@ deployment "nginx-deployment" successfully rolled out
 Ejecuta de nuevo el comando `kubectl get deployments` unos segundos más tarde:
 
 ```shell
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE 
-nginx-deployment   3/3     3            3           18s  
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3         3         3            3           18s
 ```
 
 Fíjate que el Deployment ha creado todas las tres réplicas, y que todas las réplicas están actualizadas (contienen
@@ -216,8 +204,8 @@ Cuando el despliegue funciona, puede que quieras `obtener` el Deployment:
 kubectl get deployments
 ```
 ```
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE 
-nginx-deployment   3/3     3            3           36s 
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3         3         3            3           36s
 ```
 
 El número de réplicas actualizadas indica que el Deployment ha actualizado las réplicas según la última configuración.
@@ -253,7 +241,7 @@ La próxima vez que quieras actualizar estos Pods, sólo necesitas actualizar la
 El Deployment permite garantizar que sólo un número determinado de Pods puede eliminarse mientras se están actualizando.
 Por defecto, garantiza que al menos el 25% menos del número deseado de Pods se está ejecutando (máx. 25% no disponible).
 
-El Deployment también permite garantizar que sólo un número determinado de Pods puede crearse por encima del número deseado de
+El Deployment tmabién permite garantizar que sólo un número determinado de Pods puede crearse por encima del número deseado de
 Pods. Por defecto, garantiza que al menos el 25% más del número deseado de Pods se está ejecutando (máx. 25% de aumento).
 
 Por ejemplo, si miras detenidamente el Deployment de arriba, verás que primero creó un Pod,
@@ -527,8 +515,8 @@ al retroceder a la revisión 2.
 kubectl get deployment nginx-deployment
 ```
 ```
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE 
-nginx-deployment   3/3     3            3           30m 
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3         3         3            3           30m
 ```
 
 ```shell
@@ -613,8 +601,8 @@ Por ejemplo, imagina que estás ejecutando un Deployment con 10 réplicas, donde
 kubectl get deploy
 ```
 ```
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE 
-nginx-deployment   10/10   10           10          50s 
+NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment     10        10        10           10          50s
 ```
 
 Si actualizas a una nueva imagen que no puede descargarse desde el clúster:
@@ -653,8 +641,8 @@ réplicas arranquen positivamente.
 kubectl get deploy
 ```
 ```
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE 
-nginx-deployment   18/15   7            8           7m 
+NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment     15        18        7            8           7m
 ```
 
 ```shell
@@ -677,8 +665,8 @@ Por ejemplo, con un Deployment que acaba de crearse:
 kubectl get deploy
 ```
 ```
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE 
-nginx-deployment   3/3     3            3           1m 
+NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx     3         3         3            3           1m
 ```
 ```shell
 kubectl get rs
@@ -1118,3 +1106,5 @@ no generará nuevos despliegues mientras esté pausado. Un Deployment se pausa d
 [`kubectl rolling update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) actualiza los Pods y los ReplicationControllers
 de forma similar. Pero se recomienda el uso de Deployments porque se declaran del lado del servidor, y proporcionan características adicionales
 como la posibilidad de retroceder a revisiones anteriores incluso después de haber terminado una actualización continua.
+
+

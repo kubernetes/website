@@ -8,7 +8,7 @@ no_list: true
 ---
 
 <!-- overview -->
-Kubernetes contains several built-in tools and external tools that are commonly used or relevant that may as well be seen as required for Kubernetes to function.
+Kubernetes contains several built-in tools to help you work with the Kubernetes system.
 
 
 <!-- body -->
@@ -26,8 +26,8 @@ to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resou
 
 ## Helm
 
-[Helm](https://helm.sh/) is a tool for managing packages of pre-configured
-Kubernetes resources. These packages are known as _Helm charts_.
+[`Kubernetes Helm`](https://github.com/kubernetes/helm) is a tool for managing packages of pre-configured
+Kubernetes resources, aka Kubernetes charts.
 
 Use Helm to:
 

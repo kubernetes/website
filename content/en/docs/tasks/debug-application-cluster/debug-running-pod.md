@@ -73,20 +73,22 @@ For more details, see [Get a Shell to a Running Container](
 
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.18" >}}
 
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
 are useful for interactive troubleshooting when `kubectl exec` is insufficient
 because a container has crashed or a container image doesn't include debugging
 utilities, such as with [distroless images](
-https://github.com/GoogleContainerTools/distroless).
+https://github.com/GoogleContainerTools/distroless). `kubectl` has an alpha
+command that can create ephemeral containers for debugging beginning with version
+`v1.18`.
 
 ### Example debugging using ephemeral containers {#ephemeral-container-example}
 
 {{< note >}}
 The examples in this section require the `EphemeralContainers` [feature gate](
 /docs/reference/command-line-tools-reference/feature-gates/) enabled in your
-cluster and `kubectl` version v1.22 or later.
+cluster and `kubectl` version v1.18 or later.
 {{< /note >}}
 
 You can use the `kubectl debug` command to add ephemeral containers to a
@@ -135,8 +137,7 @@ creates.
 The `--target` parameter must be supported by the {{< glossary_tooltip
 text="Container Runtime" term_id="container-runtime" >}}. When not supported,
 the Ephemeral Container may not be started, or it may be started with an
-isolated process namespace so that `ps` does not reveal processes in other
-containers.
+isolated process namespace.
 {{< /note >}}
 
 You can view the state of the newly created ephemeral container using `kubectl describe`:

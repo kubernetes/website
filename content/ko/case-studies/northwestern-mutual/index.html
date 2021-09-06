@@ -1,0 +1,69 @@
+---
+title: Northwestern Mutual Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/northwestern/banner1.jpg
+heading_title_logo: /images/northwestern_logo.png
+subheading: >
+  Cloud Native at Northwestern Mutual
+case_study_details:
+  - Company: Northwestern Mutual
+  - Location: Milwaukee, WI
+  - Industry: Insurance and Financial Services
+---
+
+<h2>Challenge</h2>
+
+<p>In the spring of 2015, Northwestern Mutual acquired a fintech startup, LearnVest, and decided to take "Northwestern Mutual's leading products and services and meld it with LearnVest's digital experience and innovative financial planning platform," says Brad Williams, Director of Engineering for Client Experience, Northwestern Mutual. The company's existing infrastructure had been optimized for batch workflows hosted on on-prem networks; deployments were very traditional, focused on following a process instead of providing deployment agility. "We had to build a platform that was elastically scalable, but also much more responsive, so we could quickly get data to the client website so our end-customers have the experience they expect," says Williams.</p>
+
+<h2>Solution</h2>
+
+<p>The platform team came up with a plan for using the public cloud (AWS), Docker containers, and Kubernetes for orchestration. "Kubernetes gave us that base framework so teams can be very autonomous in what they're building and deliver very quickly and frequently," says Northwestern Mutual Cloud Native Engineer Frank Greco Jr. The team also built and open-sourced <a href="https://github.com/northwesternmutual/kanali">Kanali</a>, a Kubernetes-native API management tool that uses OpenTracing, Jaeger, and gRPC.</p>
+
+<h2>Impact</h2>
+
+<p>Before, infrastructure deployments could take weeks; now, it is done in a matter of minutes. The number of deployments has increased dramatically, from about 24 a year to over 500 in just the first 10 months of 2017. Availability has also increased: There used to be a six-hour control window for commits every Sunday morning, as well as other periods of general maintenance, during which outages could happen. "Now we have eliminated the planned outage windows," says Bryan Pfremmer, App Platform Teams Manager, Northwestern Mutual. Kanali has had an impact on the bottom line. The vendor API management product that the company previously used required 23 servers, "dedicated, to only API management," says Pfremmer. "Now it's all integrated in the existing stack and running as another deployment on Kubernetes. And that's just one environment. Between the three that we had plus the test, that's hard dollar savings."</p>
+
+{{< case-studies/quote author="Frank Greco Jr., Cloud Native Engineer at Northwestern Mutual">}}
+"In a large enterprise, you're going to have people using Kubernetes, but then you're also going to have people using WAS and .NET. You may not be at a point where your whole stack can be cloud native. What if you can take your API management tool and make it cloud native, but still proxy to legacy systems? Using different pieces that are cloud native, open source and Kubernetes native, you can do pretty innovative stuff."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+For more than 160 years, Northwestern Mutual has maintained its industry leadership in part by keeping a strong focus on risk management.
+{{< /case-studies/lead >}}
+
+<p>For many years, the company took a similar approach to managing its technology and has recently undergone a digital transformation to advance the company's digital strategy - including making a lot of noise in the cloud-native world.</p>
+
+<p>In the spring of 2015, this insurance and financial services company acquired a fintech startup, LearnVest, and decided to take "Northwestern Mutual's leading products and services and meld it with LearnVest's digital experience and innovative financial planning platform," says Brad Williams, Director of Engineering for Client Experience, Northwestern Mutual. The company's existing infrastructure had been optimized for batch workflows hosted on an on-premise datacenter; deployments were very traditional and had to many manual steps that were error prone.</p>
+
+<p>In order to give the company's 4.5 million clients the digital experience they'd come to expect, says Williams, "We had to build a platform that was elastically scalable, but also much more responsive, so we could quickly get data to the client website. We essentially said, 'You build the system that you think is necessary to support a new, modern-facing one.' That's why we departed from anything legacy."</p>
+
+{{< case-studies/quote image="/images/case-studies/northwestern/banner3.jpg" >}}
+"Kubernetes has definitely been the right choice for us. It gave us that base framework so teams can be autonomous in what they're building and deliver very quickly and frequently."
+{{< /case-studies/quote >}}
+
+<p>Williams and the rest of the platform team decided that the first step would be to start moving from private data centers to AWS. With a new microservice architecture in mind—and the freedom to implement what was best for the organization—they began using Docker containers. After looking into the various container orchestration options, they went with Kubernetes, even though it was still in beta at the time. "There was some debate whether we should build something ourselves, or just leverage that product and evolve with it," says Northwestern Mutual Cloud Native Engineer Frank Greco Jr. "Kubernetes has definitely been the right choice for us. It gave us that base framework so teams can be autonomous in what they're building and deliver very quickly and frequently."</p>
+
+<p>As early adopters, the team had to do a lot of work with Ansible scripts to stand up the cluster. "We had a lot of hard security requirements given the nature of our business," explains Bryan Pfremmer, App Platform Teams Manager, Northwestern Mutual. "We found ourselves running a configuration that very few other people ever tried." The client experience group was the first to use the new platform; today, a few hundred of the company's 1,500 engineers are using it and more are eager to get on board.</p>
+
+<p>The results have been dramatic. Before, infrastructure deployments could take two weeks; now, it is done in a matter of minutes. Now with a focus on Infrastructure automation, and self-service, "You can take an app to production in that same day if you want to," says Pfremmer.</p>
+
+{{< case-studies/quote image="/images/case-studies/northwestern/banner4.jpg" >}}
+"Now, developers have autonomy, they can use this whenever they want, however they want. It becomes more valuable the more instrumentation downstream that happens, as we mature in it."
+{{< /case-studies/quote >}}
+
+<p>The process used to be so cumbersome that minor bug releases would be bundled with feature releases. With the new streamlined system enabled by Kubernetes, the number of deployments has increased from about 24 a year to more than 500 in just the first 10 months of 2017. Availability has also been improved: There used to be a six-hour control window for commits every early Sunday morning, as well as other periods of general maintenance, during which outages could happen. "Now there's no planned outage window," notes Pfremmer.</p>
+
+<p>Northwestern Mutual built that API management tool—called <a href="https://github.com/northwesternmutual/kanali">Kanali</a>—and open sourced it in the summer of 2017. The team took on the project because it was a key capability for what they were building and prior the solution worked in an "anti-cloud native way that was different than everything else we were doing," says Greco. Now API management is just another container deployed to Kubernetes along with a separate Jaeger deployment.</p>
+
+<p>Now the engineers using the Kubernetes deployment platform have the added benefit of visibility in production—and autonomy. Before, a centralized team and would have to run a trace. "Now, developers have autonomy, they can use this whenever they want, however they want. It becomes more valuable the more instrumentation downstream that happens, as we mature in it." says Greco.</p>
+
+{{< case-studies/quote >}}
+"We're trying to make what we're doing known so that we can find people who are like, 'Yeah, that's interesting. I want to come do it!'"
+{{< /case-studies/quote >}}
+
+<p>But the team didn't stop there. "In a large enterprise, you're going to have people using Kubernetes, but then you're also going to have people using WAS and .NET," says Greco. "You may not be at a point where your whole stack can be cloud native. What if you can take your API management tool and make it cloud native, but still proxy to legacy systems? Using different pieces that are cloud native, open source and Kubernetes native, you can do pretty innovative stuff."</p>
+
+<p>As the team continues to improve its stack and share its Kubernetes best practices, it feels that Northwestern Mutual's reputation as a technology-first company is evolving too. "No one would think a company that's 160-plus years old is foraying this deep into the cloud and infrastructure stack," says Pfremmer. And they're hoping that means they'll be able to attract new talent. "We're trying to make what we're doing known so that we can find people who are like, 'Yeah, that's interesting. I want to come do it!'"</p>

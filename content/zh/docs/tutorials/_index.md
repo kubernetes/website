@@ -51,13 +51,9 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 <!--
 ## Configuration
 
-* [Example: Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
-
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 -->
 ## 配置
-
-* [示例：配置 Java 微服务](/zh/docs/tutorials/configuration/configure-java-microservice/)
 
 * [使用一个 ConfigMap 配置 Redis](/zh/docs/tutorials/configuration/configure-redis-using-configmap/)
 
@@ -72,7 +68,7 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 
 * [公开外部 IP 地址访问集群中的应用程序](/zh/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [示例：使用 Redis 部署 PHP 留言板应用程序](/zh/docs/tutorials/stateless-application/guestbook/)
+* [示例：使用 MongoDB 部署 PHP 留言板应用程序](/zh/docs/tutorials/stateless-application/guestbook/)
 
 
 <!--
@@ -99,11 +95,11 @@ Kubernetes 文档的这一部分包含教程。每个教程展示了如何完成
 <!--
 ## Clusters
 
-* [seccomp](/docs/tutorials/clusters/seccomp/)
+* [AppArmor](/docs/tutorials/clusters/apparmor/)
 -->
 ## 集群
 
-* [seccomp](/zh/docs/tutorials/clusters/seccomp/)
+* [AppArmor](/zh/docs/tutorials/clusters/apparmor/)
 
 <!--
 ## Services

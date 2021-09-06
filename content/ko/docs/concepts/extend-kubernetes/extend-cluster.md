@@ -140,9 +140,9 @@ API를 추가해도 기존 API(예: 파드)의 동작에 직접 영향을 미치
 쿠버네티스는 몇 가지 빌트인 인증 방법과 필요에 맞지 않는 경우 [인증 웹훅](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) 방법을 제공한다.
 
 
-### 인가
+### 승인
 
-[인가](/docs/reference/access-authn-authz/webhook/)은 특정 사용자가 API 리소스에서 읽고, 쓰고, 다른 작업을 수행할 수 있는지를 결정한다. 전체 리소스 레벨에서 작동하며 임의의 오브젝트 필드를 기준으로 구별하지 않는다. 빌트인 인증 옵션이 사용자의 요구를 충족시키지 못하면 [인가 웹훅](/docs/reference/access-authn-authz/webhook/)을 통해 사용자가 제공한 코드를 호출하여 인증 결정을 내릴 수 있다.
+[승인](/docs/reference/access-authn-authz/webhook/)은 특정 사용자가 API 리소스에서 읽고, 쓰고, 다른 작업을 수행할 수 있는지를 결정한다. 전체 리소스 레벨에서 작동하며 임의의 오브젝트 필드를 기준으로 구별하지 않는다. 빌트인 인증 옵션이 사용자의 요구를 충족시키지 못하면 [인증 웹훅](/docs/reference/access-authn-authz/webhook/)을 통해 사용자가 제공한 코드를 호출하여 인증 결정을 내릴 수 있다.
 
 
 ### 동적 어드미션 컨트롤

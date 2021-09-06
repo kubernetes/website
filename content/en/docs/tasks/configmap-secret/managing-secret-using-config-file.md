@@ -1,5 +1,5 @@
 ---
-title: Managing Secrets using Configuration File
+title: Managing Secret using Configuration File
 content_type: task
 weight: 20
 description: Creating Secret objects using resource configuration file.
@@ -131,8 +131,6 @@ The output is similar to:
 
 ```yaml
 apiVersion: v1
-data:
-  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:40:59Z
@@ -141,6 +139,8 @@ metadata:
   resourceVersion: "7225"
   uid: c280ad2e-e916-11e8-98f2-025000000001
 type: Opaque
+data:
+  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 ```
 
 The commands `kubectl get` and `kubectl describe` avoid showing the contents of a `Secret` by
@@ -168,8 +168,6 @@ Results in the following Secret:
 
 ```yaml
 apiVersion: v1
-data:
-  username: YWRtaW5pc3RyYXRvcg==
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:46:46Z
@@ -178,6 +176,8 @@ metadata:
   resourceVersion: "7579"
   uid: 91460ecb-e917-11e8-98f2-025000000001
 type: Opaque
+data:
+  username: YWRtaW5pc3RyYXRvcg==
 ```
 
 Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
@@ -193,6 +193,6 @@ kubectl delete secret mysecret
 ## {{% heading "whatsnext" %}}
 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secrets with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- Learn how to [manage Secret with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 

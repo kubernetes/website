@@ -11,7 +11,7 @@ tags:
 - architecture
 - fundamental
 ---
- Control plane component that runs {{< glossary_tooltip text="controller" term_id="controller" >}} processes.
+ Control Plane component that runs {{< glossary_tooltip text="controller" term_id="controller" >}} processes.
 
 <!--more-->
 

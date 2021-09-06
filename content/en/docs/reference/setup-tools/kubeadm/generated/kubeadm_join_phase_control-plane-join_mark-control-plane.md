@@ -1,16 +1,3 @@
-<!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-
-Mark a node as a control-plane
 
 ### Synopsis
 
@@ -34,28 +21,28 @@ kubeadm join phase control-plane-join mark-control-plane [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to kubeadm config file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file.</td>
 </tr>
 
 <tr>
 <td colspan="2">--control-plane</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Create a new control plane instance on this node</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Create a new control plane instance on this node</td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for mark-control-plane</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">help for mark-control-plane</td>
 </tr>
 
 <tr>
 <td colspan="2">--node-name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Specify the node name.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Specify the node name.</td>
 </tr>
 
 </tbody>
@@ -76,7 +63,7 @@ kubeadm join phase control-plane-join mark-control-plane [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
 </tr>
 
 </tbody>

@@ -15,11 +15,11 @@ card:
 
 <!-- overview -->
 
-Tutorial ini menunjukkan bagaimana caranya menjalankan aplikasi sederhana Node.js Halo Dunia di Kubernetes, dengan [`minikube`](/docs/getting-started-guides/minikube) dan Katacoda.
+Tutorial ini menunjukkan bagaimana caranya menjalankan aplikasi sederhana Node.js Halo Dunia di Kubernetes, dengan [Minikube](/docs/getting-started-guides/minikube) dan Katacoda.
 Katacoda menyediakan <i>environment</i> Kubernetes secara gratis di dalam browser.
 
 {{< note >}}
-Kamupun bisa mengikuti tutorial ini kalau sudah instalasi minikube di lokal. Silakan lihat [memulai `minikube`](https://minikube.sigs.k8s.io/docs/start/) untuk instruksi instalasi.
+Kamupun bisa mengikuti tutorial ini kalau sudah instalasi [Minikube di lokal](/id/docs/tasks/tools/install-minikube/) kamu.
 {{< /note >}}
 
 
@@ -27,7 +27,7 @@ Kamupun bisa mengikuti tutorial ini kalau sudah instalasi minikube di lokal. Sil
 ## {{% heading "objectives" %}}
 
 
-* Deploy aplikasi halo dunia pada minikube.
+* Deploy aplikasi halo dunia pada Minikube.
 * Jalankan aplikasinya.
 * Melihat log aplikasi.
 
@@ -54,7 +54,7 @@ Untuk info lebih lanjut tentang perintah `docker build`, baca [dokumentasi Docke
 
     {{< kat-button >}}
 
-    {{< note >}}Kalau kamu memilih instalasi minikube secara lokal, jalankan `minikube start`.{{< /note >}}
+    {{< note >}}Kalau kamu memilih instalasi Minikube secara lokal,  jalankan `minikube start`.{{< /note >}}
 
 2. Buka dasbor Kubernetes di dalam browser:
 
@@ -147,7 +147,7 @@ Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes
     ```
 
     Untuk penyedia cloud yang memiliki <i>load balancer</i>, sebuah alamat IP eksternal akan disediakan untuk mengakses Servis tersebut.
-    Pada minikube, tipe `LoadBalancer` membuat Servis tersebut dapat diakses melalui perintah `minikube service`.
+    Pada Minikube, tipe `LoadBalancer` membuat Servis tersebut dapat diakses melalui perintah `minikube service`.
 
 3. Jalankan perintah berikut:
 
@@ -163,7 +163,7 @@ Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes
 
 ## Aktifkan addons
 
-Perangkat minikube meliputi sekumpulan {{< glossary_tooltip text="addons" term_id="addons" >}} bawaan yang bisa diaktifkan, dinonaktifkan, maupun dibuka di dalam <i>environment</i> Kubernetes lokal.
+Minikube punya beberapa <i>addons</i> yang bisa diaktifkan, dinon-aktifkan, maupun dibuka di dalam <i>environment</i> Kubernetes lokal.
 
 1. Daftar <i>addons</i> yang ada saat ini:
 
@@ -249,13 +249,13 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Kamu juga boleh mematikan mesin virtual atau _virtual machine_ (VM) untuk minikube:
+Kamu juga boleh mematikan mesin virtual (VM) untuk Minikube:
 
 ```shell
 minikube stop
 ```
 
-Kamu juga boleh menghapus minikube VM:
+Kamu juga boleh menghapus Minikube VM:
 
 ```shell
 minikube delete

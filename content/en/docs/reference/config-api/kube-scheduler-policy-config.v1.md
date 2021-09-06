@@ -89,7 +89,7 @@ of the predicates after it finds one predicate that failed.</td>
 
 **Appears in:**
 
-- [Extender](#kubescheduler-config-k8s-io-v1beta2-Extender)
+- [Extender](#kubescheduler-config-k8s-io-v1beta1-Extender)
 
 - [LegacyExtender](#kubescheduler-config-k8s-io-v1-LegacyExtender)
 
@@ -132,7 +132,7 @@ resource when applying predicates.</td>
 
 **Appears in:**
 
-- [Extender](#kubescheduler-config-k8s-io-v1beta2-Extender)
+- [Extender](#kubescheduler-config-k8s-io-v1beta1-Extender)
 
 - [LegacyExtender](#kubescheduler-config-k8s-io-v1-LegacyExtender)
 
