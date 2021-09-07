@@ -14,7 +14,7 @@ and kube-proxy you can use `KubeletConfiguration` and `KubeProxyConfiguration`, 
 
 All of these options are possible via the kubeadm configuration API.
 For more details on each field in the configuration you can navigate to our
-[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3).
+[API reference pages](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 {{< note >}}
 Customizing the CoreDNS deployment of kubeadm is currently not supported. You must manually
@@ -202,7 +202,7 @@ For more details see [Configuring each kubelet in your cluster using kubeadm](/d
 To customize kube-proxy you can pass a `KubeProxyConfiguration` next your `ClusterConfiguration` or
 `InitConfiguration` to `kubeadm init` separated by `---`.
 
-For more details you can navigate to our [API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3).
+For more details you can navigate to our [API reference pages](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 {{< note >}}
 kubeadm deploys kube-proxy as a {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}, which means

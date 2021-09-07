@@ -369,7 +369,7 @@ Kubernetes components like the kubelet and kube-controller-manager use the defau
 for the feature to work.
 
 To workaround this issue you can configure the flex-volume directory using the kubeadm
-[configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta3).
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 On the primary control-plane Node (created using `kubeadm init`) pass the following
 file using `--config`:
