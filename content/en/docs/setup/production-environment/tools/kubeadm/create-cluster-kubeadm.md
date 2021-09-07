@@ -8,14 +8,12 @@ weight: 30
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 Using `kubeadm`, you can create a minimum viable Kubernetes cluster that conforms to best practices.
 In fact, you can use `kubeadm` to set up a cluster that will pass the
-<a href="https://kubernetes.io/blog/2017/10/software-conformance-certification">Kubernetes Conformance tests</a>.
-
+[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).
 `kubeadm` also supports other cluster lifecycle functions, such as
-<a href="/docs/reference/access-authn-authz/bootstrap-tokens/">bootstrap tokens</a>
-and cluster upgrades.
+[bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and cluster upgrades.
 
 The `kubeadm` tool is good if you need:
 
