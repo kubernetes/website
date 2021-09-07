@@ -6,13 +6,15 @@ headless: true
 
 The kubectl completion script for powershell can be generated with the command `kubectl completion powershell`.
 
-To do so in all your shell sessions, add the following to your `$PROFILE` file:
+To do so in all your shell sessions, add the following line to your `$PROFILE` file:
 
 ```powershell
 kubectl completion powershell | Out-String | Invoke-Expression
 ```
 
-If you don't want to run kubectl every time, you can just add the generated script to your `$PROFILE` file:
+This command will regenerate the auto-completion script on every powershell start up. You can also add the generated script directly to your `$PROFILE` file.
+
+To add the generated script to your `$PROFILE` file, run the following line in your powershell prompt:
 
 ```powershell
 kubectl completion powershell >> $PROFILE
