@@ -57,7 +57,7 @@ El controlador de Snapshots maneja el enlace de un objeto `VolumeSnapshot` con u
 
 En el caso de un enlace aprovisionado previamente, el VolumeSnapshot permanecerá sin enlazar hasta que se cree el objeto VolumeSnapshotContent solicitado.
 
-### Persistent Volume Claim  como Protección de fuente de Snapshot
+### Persistent Volume Claim como Snapshot Source Protection
 
 El propósito de esta protección es garantizar que los objetos de la API
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
