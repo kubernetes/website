@@ -2,7 +2,7 @@
 reviewers:
 - edithturn
 - raelga
-title: Volume Snapshots
+title: Snapshots de Volúmenes
 content_type: concept
 weight: 20
 ---
