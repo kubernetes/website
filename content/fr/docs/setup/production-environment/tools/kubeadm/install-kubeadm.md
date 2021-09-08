@@ -10,7 +10,7 @@ card:
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Cette page vous apprend comment installer la boîte à outils `kubeadm`.
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">Cette page vous apprend comment installer la boîte à outils `kubeadm`.
 Pour plus d'informations sur la création d'un cluster avec kubeadm, une fois que vous avez effectué ce processus d'installation, voir la page: [Utiliser kubeadm pour créer un cluster](/fr/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
 

@@ -10,7 +10,7 @@ card:
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Laman ini menunjukkan cara untuk menginstal `kubeadm`.
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">Laman ini menunjukkan cara untuk menginstal `kubeadm`.
 Untuk informasi mengenai cara membuat sebuah klaster dengan kubeadm setelah kamu melakukan proses instalasi ini, lihat laman [Menggunakan kubeadm untuk Membuat Sebuah Klaster](/id/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
 
