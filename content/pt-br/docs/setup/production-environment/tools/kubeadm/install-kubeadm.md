@@ -51,7 +51,7 @@ EOF
 sudo sysctl --system
 ```
 
-Para mais detalhes veja a página [Requisitos do plugin de rede](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements).
+Para mais detalhes veja a página [Requisitos do plugin de rede](/pt-br/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements).
 
 ## Verificando as portas necessárias
 
@@ -105,14 +105,14 @@ Se tanto o Docker quanto o containerd forem detectados no sistema, o Docker ter�
 
 O kubelet se integra com o Docker através da implementação CRI `dockershim` já inclusa.
 
-Veja [agente de execução](/docs/setup/production-environment/container-runtimes/)
+Veja a página dos [agentes de execução](/docs/setup/production-environment/container-runtimes/)
 para mais detalhes.
 {{% /tab %}}
-{{% tab name="outros sistemas operacionais" %}}
+{{% tab name="Outros sistemas operacionais" %}}
 Por padrão, o kubeadm utiliza o {{< glossary_tooltip term_id="docker" >}} como agente de execução.
 O kubelet se integra com o Docker através da implementação CRI `dockershim` já inclusa.
 
-Veja [agente de execução](/docs/setup/production-environment/container-runtimes/)
+Veja a página dos [agentes de execução](/docs/setup/production-environment/container-runtimes/)
 para mais detalhes.
 {{% /tab %}}
 {{< /tabs >}}
