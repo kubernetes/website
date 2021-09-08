@@ -30,7 +30,7 @@ Los Snapshots de volumen brindan a los usuarios de Kubernetes una forma estandar
 
 Cuando utilicen esta función los usuarios deben tener en cuenta lo siguiente:
 
-* Los objetos de API `VolumeSnapshot`, `VolumeSnapshotContent`, y `VolumeSnapshotClass` son {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}, no parte de la API principal.
+* Los objetos de API `VolumeSnapshot`, `VolumeSnapshotContent`, y `VolumeSnapshotClass` son {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}, y no forman parte de la API principal.
 * La compatibilidad con `VolumeSnapshot` solo está disponible para controladores CSI.
 * Como parte del proceso de implementación de `VolumeSnapshot`,  el equipo de Kubernetes proporciona un controlador de Snapshot para implementar en el plano de control y un sidecar auxiliar llamado csi-snapshotter para implementar junto con el controlador CSI. El controlador de Snapshot observa los objetos `VolumeSnapshot` y `VolumeSnapshotContent` y es responsable de la creación y eliminación del objeto `VolumeSnapshotContent`.  El sidecar csi-snapshotter observa los objetos `VolumeSnapshotContent` y activa las operaciones `CreateSnapshot` y `DeleteSnapshot` en un punto final CSI.
 * También hay un servidor webhook de validación que proporciona una validación más estricta en los objetos Snapshot. Esto debe ser instalado por las distribuciones de Kubernetes junto con el controlador de Snapshots y los CRDs, no los controladores CSI. Debe instalarse en todos los clústeres de Kubernetes que tengan habilitada la función de Snapshot.
