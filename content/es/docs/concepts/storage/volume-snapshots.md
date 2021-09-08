@@ -28,7 +28,7 @@ Un `VolumeSnapshot` es una solicitud de Snapshot de un volumen por parte del usu
 
 Los Snapshots de volumen brindan a los usuarios de Kubernetes una forma estandarizada de copiar el contenido de un volumen en un momento determinado, sin crear uno completamente nuevo. Esta funcionalidad permite, por ejemplo, a los administradores de bases de datos realizar copias de seguridad de las bases de datos antes de realizar una edición o eliminar modificaciones.
 
-Los usuarios deben tener en cuenta lo siguiente cuando utilicen esta función:
+Cuando utilicen esta función los usuarios deben tener en cuenta lo siguiente:
 
 * Los objetos de API `VolumeSnapshot`, `VolumeSnapshotContent`, y `VolumeSnapshotClass` son {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}, no parte de la API principal.
 * La compatibilidad con `VolumeSnapshot` solo está disponible para controladores CSI.
