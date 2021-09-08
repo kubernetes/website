@@ -53,7 +53,7 @@ En lugar de utilizar un Snapshot preexistente, puede solicitar que se tome una S
 
 ### Vinculante
 
-El controlador de instantáneas maneja el enlace de un objeto `VolumeSnapshot` con un objeto `VolumeSnapshotContent` apropiado, tanto en escenarios de aprovisionamiento previo como de aprovisionamiento dinámico. El enlace es un mapeo uno a uno.
+El controlador de Snapshots maneja el enlace de un objeto `VolumeSnapshot` con un objeto `VolumeSnapshotContent` apropiado, tanto en escenarios de aprovisionamiento previo como de aprovisionamiento dinámico. El enlace es un mapeo uno a uno.
 
 En el caso de un enlace aprovisionado previamente, el VolumeSnapshot permanecerá sin enlazar hasta que se cree el objeto VolumeSnapshotContent solicitado.
 
