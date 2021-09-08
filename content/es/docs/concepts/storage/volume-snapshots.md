@@ -67,7 +67,7 @@ Mientras se toma un Snapshot de un PersistentVolumeClaim, ese PersistentVolumeCl
 
 ### Borrar
 
-La eliminación se activa al eliminar el objeto `VolumeSnapshot`, y se seguirá la `DeletionPolicy`. Sí `DeletionPolicy` es `Delete`, entonces el Snapshot de almacenamiento subyacente se eliminará junto con el objeto `VolumeSnapshotContent`. Sí `DeletionPolicy` es `Retain`, tanto la instantánea subyacente como `VolumeSnapshotContent` permanecen.
+La eliminación se activa al eliminar el objeto `VolumeSnapshot`, y se seguirá la `DeletionPolicy`. Sí `DeletionPolicy` es `Delete`, entonces el Snapshot de almacenamiento subyacente se eliminará junto con el objeto `VolumeSnapshotContent`. Sí `DeletionPolicy` es `Retain`, tanto el Snapshot subyacente como el `VolumeSnapshotContent` permanecen.
 
 ## VolumeSnapshots
 
